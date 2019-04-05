@@ -2,8 +2,8 @@
 
 namespace AlecRabbit\Tests\Tools;
 
-use AlecRabbit\Tools\Spinner\ClockSpinner;
-use AlecRabbit\Tools\Spinner\Contracts\SpinnerInterface;
+use AlecRabbit\Spinner\ClockSpinner;
+use AlecRabbit\Spinner\Contracts\SpinnerInterface;
 use PHPUnit\Framework\TestCase;
 
 /**

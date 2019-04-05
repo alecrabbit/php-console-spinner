@@ -2,13 +2,9 @@
 
 namespace AlecRabbit\Tests\Tools;
 
-use AlecRabbit\Tools\HRTimer;
-use AlecRabbit\Tools\Spinner\Contracts\SpinnerInterface;
-use AlecRabbit\Tools\Spinner\Core\AbstractSpinner;
-use AlecRabbit\Tools\Spinner\SnakeSpinner;
+use AlecRabbit\Spinner\Contracts\SpinnerInterface;
+use AlecRabbit\Spinner\SnakeSpinner;
 use PHPUnit\Framework\TestCase;
-use const AlecRabbit\Tools\HRTIMER_VALUE_COEFFICIENT;
-use const AlecRabbit\Traits\Constants\DEFAULT_NAME;
 
 /**
  * @group time-sensitive

@@ -2,9 +2,9 @@
 
 namespace AlecRabbit\Tests\Tools;
 
-use AlecRabbit\Tools\Spinner\Contracts\SpinnerInterface;
-use AlecRabbit\Tools\Spinner\MoonSpinner;
-use AlecRabbit\Tools\Spinner\TrigramSpinner;
+use AlecRabbit\Spinner\Contracts\SpinnerInterface;
+use AlecRabbit\Spinner\MoonSpinner;
+use AlecRabbit\Spinner\TrigramSpinner;
 use PHPUnit\Framework\TestCase;
 
 /**

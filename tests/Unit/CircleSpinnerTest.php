@@ -2,8 +2,8 @@
 
 namespace AlecRabbit\Tests\Tools;
 
-use AlecRabbit\Tools\Spinner\CircleSpinner;
-use AlecRabbit\Tools\Spinner\Contracts\SpinnerInterface;
+use AlecRabbit\Spinner\CircleSpinner;
+use AlecRabbit\Spinner\Contracts\SpinnerInterface;
 use PHPUnit\Framework\TestCase;
 
 /**
