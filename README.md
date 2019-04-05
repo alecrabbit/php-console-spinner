@@ -17,3 +17,7 @@ Spinner - your task is running
 
 
 ![example](https://raw.githubusercontent.com/alecrabbit/php-console-spinner/master/docs/images/Screenshot%20from%202019-04-05%2016-00-47.png)
+
+![example](https://raw.githubusercontent.com/alecrabbit/php-console-spinner/master/docs/images/Screenshot%20from%202019-04-05%2016-07-42.png)
+
+![example](https://raw.githubusercontent.com/alecrabbit/php-console-spinner/master/docs/images/Screenshot%20from%202019-04-05%2016-07-56.png)
