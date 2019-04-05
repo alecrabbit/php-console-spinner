@@ -13,7 +13,7 @@ require_once __DIR__ . '/__helper_functions.php';
  * It's a very basic example just to show the concept
  */
 
-const MILLISECONDS = 20;
+const MILLISECONDS = 80;
 $microseconds = MILLISECONDS * 1000;
 
 $theme = new Themes();
@@ -24,7 +24,7 @@ $theme = new Themes();
 // SimpleSpinner
 // SnakeSpinner
 // TrigramSpinner
-$s = new SimpleSpinner('Message');
+$s = new SnakeSpinner();
 $simulatedMessages = [
     0 => 'Initializing',
     10 => 'Starting',
