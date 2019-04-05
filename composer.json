@@ -1,14 +1,16 @@
 {
-  "name": "alecrabbit/php-package-template",
+  "name": "alecrabbit/php-console-spinner",
   "type": "library",
-  "description": "PHP package template",
+  "description": "Spinner - your task is running",
   "keywords": [
     "php",
-    "package",
-    "template",
+    "spinner",
+    "console",
     "scripts",
-    "test",
-    "automation"
+    "pretty",
+    "clock",
+    "moon",
+    "snake"
   ],
   "license": "MIT",
   "require": {
@@ -21,12 +23,12 @@
   },
   "autoload": {
     "psr-4": {
-      "AlecRabbit\\Package\\": "src"
+      "AlecRabbit\\Spinner\\": "src\\Spinner"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "AlecRabbit\\Tests\\Package\\": "tests/"
+      "AlecRabbit\\Tests\\Spinner\\": "tests/"
     }
   },
   "minimum-stability": "beta",
