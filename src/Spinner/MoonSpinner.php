@@ -7,6 +7,8 @@ use AlecRabbit\Spinner\Core\AbstractSpinner;
 
 class MoonSpinner extends AbstractSpinner
 {
+    protected const ERASING_SHIFT = 2;
+
     /** {@inheritDoc} */
     protected function getSymbols(): Circular
     {
@@ -19,6 +21,7 @@ class MoonSpinner extends AbstractSpinner
             '🌓',
             '🌒',
             '🌑',
+// Reversed
 //            '🌑',
 //            '🌒',
 //            '🌓',

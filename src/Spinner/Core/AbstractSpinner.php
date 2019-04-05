@@ -10,7 +10,7 @@ use AlecRabbit\Spinner\Contracts\SpinnerInterface;
 abstract class AbstractSpinner implements SpinnerInterface
 {
     protected const ESC = ConsoleColor::ESC_CHAR;
-    protected const PADDING_STR = ' ';
+    protected const ERASING_SHIFT = 1;
 
     /** @var Circular */
     protected $spinnerSymbols;
@@ -19,22 +19,26 @@ abstract class AbstractSpinner implements SpinnerInterface
     /** @var string */
     protected $message;
     /** @var string */
-    protected $resetStr;
+    protected $moveBackStr;
     /** @var \Closure */
     protected $style;
+    /** @var string */
+    protected $paddingStr;
+    /** @var string */
+    protected $eraseBySpacesStr;
 
 
     public function __construct(
-        string $message = SpinnerInterface::DEFAULT_MESSAGE,
-        string $prefix = SpinnerInterface::DEFAULT_PREFIX,
-        string $suffix = SpinnerInterface::DEFAULT_SUFFIX
+        ?string $message = null,
+        ?string $prefix = null,
+        ?string $suffix = null,
+        ?string $paddingStr = null
     ) {
         $this->spinnerSymbols = $this->getSymbols();
         $this->styles = $this->getStyles();
-
-        $this->message = $this->refineStr($message, $prefix, $suffix);
-        $strLen = strlen($this->message . static::PADDING_STR) + 2;
-        $this->resetStr = self::ESC . "[{$strLen}D";
+        $this->paddingStr = $paddingStr ?? SpinnerInterface::PADDING_NEXT_LINE;
+        $this->message = $this->refineMessage($message, $prefix, $suffix);
+        $this->setFields();
         $this->style = $this->getStyle();
     }
 
@@ -70,14 +74,17 @@ abstract class AbstractSpinner implements SpinnerInterface
     }
 
     /**
-     * @param string $str
-     * @param string $prefix
-     * @param string $suffix
+     * @param null|string $message
+     * @param null|string $prefix
+     * @param null|string $suffix
      * @return string
      */
-    protected function refineStr(string $str, string $prefix, string $suffix): string
+    protected function refineMessage(?string $message, ?string $prefix, ?string $suffix): string
     {
-        return $prefix . $str . $suffix;
+        $message = ucfirst($message ?? SpinnerInterface::DEFAULT_MESSAGE);
+        $prefix = $prefix ?? SpinnerInterface::DEFAULT_PREFIX;
+        $suffix = $suffix ?? (empty($message) ? '' : SpinnerInterface::DEFAULT_SUFFIX);
+        return $prefix . $message . $suffix;
     }
 
     /**
@@ -89,7 +96,7 @@ abstract class AbstractSpinner implements SpinnerInterface
             return
                 function (): string {
                     $value = (string)$this->spinnerSymbols->value();
-                    return static::PADDING_STR . $value;
+                    return $this->paddingStr . $value;
                 };
         }
         return
@@ -97,17 +104,25 @@ abstract class AbstractSpinner implements SpinnerInterface
                 $symbol = (string)$this->spinnerSymbols->value();
                 $style = $this->styles ? (string)$this->styles->value() : '';
                 return
-                    static::PADDING_STR .
+                    $this->paddingStr .
                     self::ESC .
                     "[{$style}m{$symbol}" .
                     self::ESC . '[0m';
             };
     }
 
+    public function inline(bool $inline): SpinnerInterface
+    {
+        $this->paddingStr = $inline ? SpinnerInterface::PADDING_INLINE : SpinnerInterface::PADDING_NEXT_LINE;
+        $this->setFields();
+
+        return $this;
+    }
+
     /** {@inheritDoc} */
     public function begin(): string
     {
-        return $this->work() . $this->resetStr;
+        return $this->work() . $this->moveBackStr;
     }
 
     protected function work(): string
@@ -118,12 +133,26 @@ abstract class AbstractSpinner implements SpinnerInterface
     /** {@inheritDoc} */
     public function spin(): string
     {
-        return $this->work() . $this->resetStr;
+        return $this->work() . $this->moveBackStr;
     }
 
     /** {@inheritDoc} */
     public function end(): string
     {
-        return $this->resetStr . self::ESC . '[K';
+        return self::ESC . '[K';
+//        return $this->moveBackStr . self::ESC . '[K';
+    }
+
+    /** {@inheritDoc} */
+    public function erase(): string
+    {
+        return $this->eraseBySpacesStr . $this->moveBackStr;
+    }
+
+    protected function setFields(): void
+    {
+        $strLen = strlen($this->message . $this->paddingStr) + static::ERASING_SHIFT;
+        $this->moveBackStr = self::ESC . "[{$strLen}D";
+        $this->eraseBySpacesStr = str_repeat(' ', $strLen);
     }
 }
