@@ -15,9 +15,13 @@ Spinner - your task is running
 [![Average time to resolve an issue](http://isitmaintained.com/badge/resolution/alecrabbit/php-console-spinner.svg)](http://isitmaintained.com/project/alecrabbit/php-console-spinner "Average time to resolve an issue")
 [![Percentage of issues still open](http://isitmaintained.com/badge/open/alecrabbit/php-console-spinner.svg)](http://isitmaintained.com/project/alecrabbit/php-console-spinner "Percentage of issues still open")
 
+### Usage
+See [examples](https://github.com/alecrabbit/php-console-spinner/tree/master/examples)
+
+> Note: `dc-ea` on screenshots is an alias for `docker-compose exec app`
 
 ![example](https://raw.githubusercontent.com/alecrabbit/php-console-spinner/master/docs/images/Screenshot%20from%202019-04-05%2016-00-47.png)
 
-![example](https://raw.githubusercontent.com/alecrabbit/php-console-spinner/master/docs/images/Screenshot%20from%202019-04-05%2016-07-42.png)
+![example](https://raw.githubusercontent.com/alecrabbit/php-console-spinner/master/docs/images/usage_example_1.png)
 
-![example](https://raw.githubusercontent.com/alecrabbit/php-console-spinner/master/docs/images/Screenshot%20from%202019-04-05%2016-07-56.png)
+![example](https://raw.githubusercontent.com/alecrabbit/php-console-spinner/master/docs/images/usage_example_2.png)
