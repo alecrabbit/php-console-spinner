@@ -1,0 +1,78 @@
+#!/usr/bin/env bash
+start_time=`date +%s`
+script_dir="$(dirname "$0")"
+cd ${script_dir}
+
+. imports.sh "$@"
+
+
+if [[ ${PROPAGATE} == 1 ]]
+then
+    error "Using --propagate option on this script may lead to unexpected results. "
+    comment "Exiting..."
+    exit 1
+fi
+
+# reassign variables for help message
+OPTION_ANALYZE=1
+OPTION_METRICS=1
+OPTION_MULTI_TEST=1
+OPTION_COVERAGE=1
+OPTION_PHPUNIT=1
+OPTION_ALL=1
+OPTION_NO_RESTART=1
+
+help_message
+
+header "Tests and coverage script"
+if [[ ${EXEC} == 0 ]]
+then
+    echo "No-Exec selected."
+fi
+options_enabled
+
+if [[ ${RESTART_CONTAINER} == 1 ]]
+then
+    ./restart-container.sh "$@"
+fi
+info "Processing..."
+if [[ ${PHPUNIT} == 1 ]]
+then
+  comment "PHP version:"
+  docker-compose -f ${DOCKER_COMPOSE_FILE} exec app php -v
+  ./phpunit "$@"
+fi
+if [[ ${METRICS} == 1 ]]
+then
+  ./phpmetrics "$@"
+fi
+if [[ ${MULTI_TEST} == 1 ]]
+then
+  ./multi "$@"
+fi
+if [[ ${ANALYZE} == 1 ]]
+then
+  ./phpstan "$@"
+
+  ./psalm "$@"
+fi
+if [[ -e "${TEST_REPORT_INDEX}" ]]
+then
+    info "Report file found: ${TEST_REPORT_INDEX}"
+else
+    comment "Generating report file: ${TEST_REPORT_INDEX}"
+    generate_report_file
+fi
+
+if [[ ${BEAUTY} == 1 ]]
+then
+  ./php-cs "$@"
+
+  ./php-cbf "$@"
+fi
+
+
+end_time=`date +%s`
+run_time=$((end_time-start_time))
+info "Executed in ${run_time}s\nBye!"
+exit 0

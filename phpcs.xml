@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<ruleset>
+    <file>./src</file>
+    <file>./tests</file>
+    <exclude-pattern>./vendor/*</exclude-pattern>
+    <exclude-pattern>./tests/tmp/*</exclude-pattern>
+    <rule ref="PSR2" />
+</ruleset>
