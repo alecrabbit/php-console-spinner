@@ -63,14 +63,12 @@ abstract class AbstractSpinner implements SpinnerInterface
                 '38;5;205',
             ]);
         }
-        // @codeCoverageIgnoreStart
         if ($terminal->supportsColor()) {
             return new Circular([
                 '96',
             ]);
         }
         return null;
-        // @codeCoverageIgnoreEnd
     }
 
     /**
