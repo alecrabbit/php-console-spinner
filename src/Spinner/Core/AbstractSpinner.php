@@ -122,7 +122,7 @@ abstract class AbstractSpinner implements SpinnerInterface
     /** {@inheritDoc} */
     public function begin(): string
     {
-        return $this->work() . $this->moveBackStr;
+        return $this->spin();
     }
 
     protected function work(): string
@@ -139,8 +139,8 @@ abstract class AbstractSpinner implements SpinnerInterface
     /** {@inheritDoc} */
     public function end(): string
     {
-        return self::ESC . '[K';
-//        return $this->moveBackStr . self::ESC . '[K';
+        return $this->erase();
+//        return self::ESC . '[K';
     }
 
     /** {@inheritDoc} */
