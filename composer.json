@@ -19,6 +19,7 @@
     "alecrabbit/php-console-colour": "^0.1"
   },
   "require-dev": {
+    "alecrabbit/php-helpers": "^0.5",
     "nunomaduro/collision": "^3.0",
     "phpunit/phpunit": "^8.0",
     "symfony/var-dumper": "^4.2"

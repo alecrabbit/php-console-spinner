@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7412895ca52b00a84f7929e3951056e1",
+    "content-hash": "2d016c926acce486d0af8b99f4fa5a55",
     "packages": [
         {
             "name": "alecrabbit/php-accessories",
@@ -104,16 +104,16 @@
         },
         {
             "name": "alecrabbit/php-helpers",
-            "version": "0.5.0",
+            "version": "0.5.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/alecrabbit/php-helpers.git",
-                "reference": "4c5280ac5c56edcd500eed8bec7e160bb326a793"
+                "reference": "6a60f648cf2b4322c32c6778c4613eddf6207396"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/alecrabbit/php-helpers/zipball/4c5280ac5c56edcd500eed8bec7e160bb326a793",
-                "reference": "4c5280ac5c56edcd500eed8bec7e160bb326a793",
+                "url": "https://api.github.com/repos/alecrabbit/php-helpers/zipball/6a60f648cf2b4322c32c6778c4613eddf6207396",
+                "reference": "6a60f648cf2b4322c32c6778c4613eddf6207396",
                 "shasum": ""
             },
             "require": {
@@ -125,13 +125,17 @@
             "require-dev": {
                 "ext-curl": "*",
                 "kylekatarnls/multi-tester": "^1.1",
-                "nunomaduro/collision": "^2.1",
-                "phpunit/phpunit": "^7.5",
+                "nunomaduro/collision": "^3.0",
+                "phpunit/phpunit": "^8.0",
                 "symfony/var-dumper": "^4.2"
             },
             "type": "library",
             "autoload": {
+                "psr-4": {
+                    "AlecRabbit\\": "src/"
+                },
                 "files": [
+                    "src/bootstrap.php",
                     "src/Helpers/Constants.php",
                     "src/Helpers/Strings/Constants.php",
                     "src/Helpers/functions.php",
@@ -150,13 +154,15 @@
                 "array",
                 "first",
                 "format",
+                "private",
+                "protected",
                 "string",
                 "trim",
                 "unset",
                 "wrap",
                 "zeros"
             ],
-            "time": "2019-03-03T18:38:18+00:00"
+            "time": "2019-04-06T07:09:53+00:00"
         },
         {
             "name": "alecrabbit/php-traits",
