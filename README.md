@@ -22,6 +22,4 @@ See [examples](https://github.com/alecrabbit/php-console-spinner/tree/master/exa
 
 ![example](https://raw.githubusercontent.com/alecrabbit/php-console-spinner/master/docs/images/Screenshot%20from%202019-04-05%2016-00-47.png)
 
-![example](https://raw.githubusercontent.com/alecrabbit/php-console-spinner/master/docs/images/usage_example_1.png)
-
 ![example](https://raw.githubusercontent.com/alecrabbit/php-console-spinner/master/docs/images/demo.gif)
