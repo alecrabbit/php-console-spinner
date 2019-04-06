@@ -1,6 +1,7 @@
 <?php declare(strict_types=1);
 
 use AlecRabbit\ConsoleColour\Themes;
+use AlecRabbit\Control\Cursor;
 use AlecRabbit\Spinner\ClockSpinner;
 use AlecRabbit\Spinner\MoonSpinner;
 use AlecRabbit\Spinner\SimpleSpinner;
@@ -40,7 +41,7 @@ $simulatedMessages = [
     170 => 'Almost there',
     190 => 'Be patient',
 ];
-echo hideCursorSequence();
+echo Cursor::hide();
 echo $theme->comment('Long running task example... (Inline Spinner)') . PHP_EOL;
 $s->inline(true);
 echo $s->begin();
@@ -74,4 +75,4 @@ echo $s->end();
 echo PHP_EOL;
 echo $theme->debug('Done!') . PHP_EOL;
 //echo "\007"; // Bell just for fun
-echo showCursorSequence();
+echo Cursor::show();

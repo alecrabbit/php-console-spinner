@@ -2,6 +2,7 @@
 
 use AlecRabbit\ConsoleColour\ConsoleColor;
 use AlecRabbit\ConsoleColour\Themes;
+use AlecRabbit\Control\Cursor;
 use AlecRabbit\Spinner\CircleSpinner;
 use AlecRabbit\Spinner\ClockSpinner;
 use AlecRabbit\Spinner\MoonSpinner;
@@ -19,7 +20,7 @@ const MILLISECONDS = 80;
 
 $theme = new Themes();
 $microseconds = MILLISECONDS * 1000;
-echo hideCursorSequence();
+echo Cursor::hide();
 echo $theme->comment('Spinners samples(with message"' . MESSAGE . '"):') . PHP_EOL;
 showSpinners(
     [
@@ -44,7 +45,7 @@ showSpinners(
     ], $theme,
     $microseconds
 );
-echo showCursorSequence();
+echo Cursor::show();
 
 // ************************ Functions ************************
 
