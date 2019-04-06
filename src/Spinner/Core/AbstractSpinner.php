@@ -51,17 +51,47 @@ abstract class AbstractSpinner implements SpinnerInterface
     {
         $terminal = new Terminal();
         if ($terminal->supports256Color()) {
-            return new Circular([
-                '38;5;197',
-                '38;5;198',
-                '38;5;199',
-                '38;5;200',
-                '38;5;201',
-                '38;5;202',
-                '38;5;203',
-                '38;5;204',
-                '38;5;205',
-            ]);
+            $a = [
+                '196',
+                '202',
+                '208',
+                '214',
+                '220',
+                '226',
+                '190',
+                '154',
+                '118',
+                '82',
+                '46',
+                '47',
+                '48',
+                '49',
+                '50',
+                '51',
+                '45',
+                '39',
+                '33',
+                '27',
+                '21',
+                '57',
+                '93',
+                '129',
+                '165',
+                '201',
+                '200',
+                '199',
+                '198',
+                '197',
+            ];
+            return
+                new Circular(
+                    array_map(
+                        static function ($value) {
+                            return '38;5;' . $value;
+                        },
+                        $a
+                    )
+                );
         }
         if ($terminal->supportsColor()) {
             return new Circular([
@@ -83,6 +113,13 @@ abstract class AbstractSpinner implements SpinnerInterface
         $prefix = $prefix ?? SpinnerInterface::DEFAULT_PREFIX;
         $suffix = $suffix ?? (empty($message) ? '' : SpinnerInterface::DEFAULT_SUFFIX);
         return $prefix . $message . $suffix;
+    }
+
+    protected function setFields(): void
+    {
+        $strLen = strlen($this->message . $this->paddingStr) + static::ERASING_SHIFT;
+        $this->moveBackStr = self::ESC . "[{$strLen}D";
+        $this->eraseBySpacesStr = str_repeat(' ', $strLen);
     }
 
     /**
@@ -123,15 +160,15 @@ abstract class AbstractSpinner implements SpinnerInterface
         return $this->spin();
     }
 
-    protected function work(): string
-    {
-        return ($this->style)() . $this->message;
-    }
-
     /** {@inheritDoc} */
     public function spin(): string
     {
         return $this->work() . $this->moveBackStr;
+    }
+
+    protected function work(): string
+    {
+        return ($this->style)() . $this->message;
     }
 
     /** {@inheritDoc} */
@@ -145,12 +182,5 @@ abstract class AbstractSpinner implements SpinnerInterface
     public function erase(): string
     {
         return $this->eraseBySpacesStr . $this->moveBackStr;
-    }
-
-    protected function setFields(): void
-    {
-        $strLen = strlen($this->message . $this->paddingStr) + static::ERASING_SHIFT;
-        $this->moveBackStr = self::ESC . "[{$strLen}D";
-        $this->eraseBySpacesStr = str_repeat(' ', $strLen);
     }
 }
