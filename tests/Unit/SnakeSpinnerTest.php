@@ -2,6 +2,7 @@
 
 namespace AlecRabbit\Tests\Tools;
 
+use function AlecRabbit\Helpers\getValue;
 use AlecRabbit\Spinner\Contracts\SpinnerInterface;
 use AlecRabbit\Spinner\SnakeSpinner;
 use PHPUnit\Framework\TestCase;
@@ -30,5 +31,15 @@ class SnakeSpinnerTest extends TestCase
         $this->assertStringContainsString(SpinnerInterface::DEFAULT_PREFIX, $spinner->spin());
         $this->assertStringContainsString(SpinnerInterface::DEFAULT_SUFFIX, $spinner->spin());
         $this->assertStringNotContainsString(self::PROCESSING, $spinner->end());
+    }
+    /**
+     * @test
+     */
+    public function symbols(): void
+    {
+        $spinner = new SnakeSpinner();
+        $circular = getValue($spinner, 'spinnerSymbols');
+        $rewindable = getValue($circular, 'data');
+        $this->assertEquals(['⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏'], iterator_to_array($rewindable));
     }
 }
