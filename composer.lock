@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2d016c926acce486d0af8b99f4fa5a55",
+    "content-hash": "0767550f3722ce80fd80982be94f49e7",
     "packages": [
         {
             "name": "alecrabbit/php-accessories",
@@ -57,16 +57,16 @@
         },
         {
             "name": "alecrabbit/php-console-colour",
-            "version": "0.1.9-BETA.1",
+            "version": "0.2.0-BETA.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/alecrabbit/php-console-colour.git",
-                "reference": "6feb141101b67c744b9235a8f944f309a7771520"
+                "reference": "945cf70caeaa5fa1f25515ad7ea534b36f3ef4ef"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/alecrabbit/php-console-colour/zipball/6feb141101b67c744b9235a8f944f309a7771520",
-                "reference": "6feb141101b67c744b9235a8f944f309a7771520",
+                "url": "https://api.github.com/repos/alecrabbit/php-console-colour/zipball/945cf70caeaa5fa1f25515ad7ea534b36f3ef4ef",
+                "reference": "945cf70caeaa5fa1f25515ad7ea534b36f3ef4ef",
                 "shasum": ""
             },
             "require": {
@@ -100,20 +100,20 @@
                 "terminal",
                 "width"
             ],
-            "time": "2019-04-04T15:49:02+00:00"
+            "time": "2019-04-06T07:57:22+00:00"
         },
         {
             "name": "alecrabbit/php-helpers",
-            "version": "0.5.1",
+            "version": "0.5.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/alecrabbit/php-helpers.git",
-                "reference": "6a60f648cf2b4322c32c6778c4613eddf6207396"
+                "reference": "e6a80d949ebabeb02e89b81c790acd1a12dff2ef"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/alecrabbit/php-helpers/zipball/6a60f648cf2b4322c32c6778c4613eddf6207396",
-                "reference": "6a60f648cf2b4322c32c6778c4613eddf6207396",
+                "url": "https://api.github.com/repos/alecrabbit/php-helpers/zipball/e6a80d949ebabeb02e89b81c790acd1a12dff2ef",
+                "reference": "e6a80d949ebabeb02e89b81c790acd1a12dff2ef",
                 "shasum": ""
             },
             "require": {
@@ -162,7 +162,7 @@
                 "wrap",
                 "zeros"
             ],
-            "time": "2019-04-06T07:09:53+00:00"
+            "time": "2019-04-06T07:49:11+00:00"
         },
         {
             "name": "alecrabbit/php-traits",

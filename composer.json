@@ -16,7 +16,7 @@
   "require": {
     "php": ">=7.2",
     "alecrabbit/php-accessories": "^0.5",
-    "alecrabbit/php-console-colour": "^0.1"
+    "alecrabbit/php-console-colour": "^0.2"
   },
   "require-dev": {
     "alecrabbit/php-helpers": "^0.5",
