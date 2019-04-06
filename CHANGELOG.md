@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [0.2.1] - 2019-04-...
+## [0.2.2] - 2019-04-...
 - First release
 
 [Unreleased]: https://github.com/alecrabbit/php-console-spinner/compare/0.2.1-ALPHA.1...HEAD
