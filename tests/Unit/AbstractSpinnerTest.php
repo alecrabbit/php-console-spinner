@@ -12,7 +12,7 @@ class AbstractSpinnerTest extends TestCase
 
     /**
      * @test
-     * @throws \Exception
+
      */
     public function instance(): void
     {

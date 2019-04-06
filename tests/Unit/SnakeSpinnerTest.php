@@ -15,7 +15,6 @@ class SnakeSpinnerTest extends TestCase
 
     /**
      * @test
-     * @throws \Exception
      */
     public function instance(): void
     {

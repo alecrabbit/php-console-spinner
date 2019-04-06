@@ -4,7 +4,6 @@ namespace AlecRabbit\Tests\Tools;
 
 use AlecRabbit\Spinner\Contracts\SpinnerInterface;
 use AlecRabbit\Spinner\SimpleSpinner;
-use AlecRabbit\Spinner\SnakeSpinner;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -16,7 +15,6 @@ class SimpleSpinnerTest extends TestCase
 
     /**
      * @test
-     * @throws \Exception
      */
     public function instance(): void
     {
