@@ -24,4 +24,4 @@ See [examples](https://github.com/alecrabbit/php-console-spinner/tree/master/exa
 
 ![example](https://raw.githubusercontent.com/alecrabbit/php-console-spinner/master/docs/images/usage_example_1.png)
 
-![example](https://raw.githubusercontent.com/alecrabbit/php-console-spinner/master/docs/images/usage_example_2.png)
+![example](https://raw.githubusercontent.com/alecrabbit/php-console-spinner/master/docs/images/demo.gif)
