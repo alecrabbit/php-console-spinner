@@ -17,9 +17,11 @@ Spinner - your task is running
 
 ### Usage
 See [examples](https://github.com/alecrabbit/php-console-spinner/tree/master/examples)
-
-> Note: `dc-ea` on screenshots is an alias for `docker-compose exec app`
-
+```bash
+# php examples/show_all_spinners.php
+```
 ![example](https://raw.githubusercontent.com/alecrabbit/php-console-spinner/master/docs/images/demo_000.gif)
-
+```bash
+# php examples/usage.php
+```
 ![example](https://raw.githubusercontent.com/alecrabbit/php-console-spinner/master/docs/images/demo.gif)
