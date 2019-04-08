@@ -23,8 +23,6 @@ abstract class AbstractSpinner implements SpinnerInterface
     protected $eraseBySpacesStr;
     /** @var Styling */
     protected $styled;
-    /** @var bool */
-    protected $inlineMode;
 
     public function __construct(
         ?string $message = null,
@@ -108,7 +106,6 @@ abstract class AbstractSpinner implements SpinnerInterface
 
     public function inline(bool $inline): SpinnerInterface
     {
-        $this->inlineMode = $inline;
         $this->paddingStr = $inline ? SpinnerInterface::PADDING_SPACE_SYMBOL : SpinnerInterface::PADDING_EMPTY;
         $this->setFields();
         return $this;
