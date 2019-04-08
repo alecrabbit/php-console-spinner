@@ -25,8 +25,6 @@ abstract class AbstractSpinner implements SpinnerInterface
     protected $styled;
     /** @var bool */
     protected $inlineMode;
-    /** @var string */
-    protected $auxPaddingStr;
 
     public function __construct(
         ?string $message = null,
@@ -50,17 +48,13 @@ abstract class AbstractSpinner implements SpinnerInterface
     {
         $message = ucfirst($message ?? SpinnerInterface::DEFAULT_MESSAGE);
         $prefix = $prefix ?? SpinnerInterface::DEFAULT_PREFIX;
+        $prefix = empty($message) ? '' : $prefix;
         $suffix = $suffix ?? (empty($message) ? '' : SpinnerInterface::DEFAULT_SUFFIX);
         return $prefix . $message . $suffix;
     }
 
     protected function setFields(): void
     {
-        dump($this->messageStr);
-        $this->auxPaddingStr =
-            empty($this->messageStr) || $this->messageStr === SpinnerInterface::DEFAULT_PREFIX ?
-                SpinnerInterface::PADDING_EMPTY :
-                SpinnerInterface::PADDING_SPACE_SYMBOL;
         $strLen = strlen($this->message()) + strlen($this->paddingStr) + static::ERASING_SHIFT;
         $this->moveBackSequenceStr = self::ESC . "[{$strLen}D";
         $this->eraseBySpacesStr = str_repeat(' ', $strLen);
@@ -71,7 +65,7 @@ abstract class AbstractSpinner implements SpinnerInterface
      */
     protected function message(): string
     {
-        return $this->messageStr . $this->auxPaddingStr . $this->percentStr;
+        return $this->messageStr . $this->percentStr;
     }
 
     /**
