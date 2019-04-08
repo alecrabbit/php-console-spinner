@@ -26,6 +26,8 @@ abstract class AbstractSpinner implements SpinnerInterface
     protected $paddingStr;
     /** @var string */
     protected $eraseBySpacesStr;
+    /** @var Styling */
+    protected $styled;
 
 
     public function __construct(
@@ -39,7 +41,8 @@ abstract class AbstractSpinner implements SpinnerInterface
         $this->paddingStr = $paddingStr ?? SpinnerInterface::PADDING_NEXT_LINE;
         $this->message = $this->refineMessage($message, $prefix, $suffix);
         $this->setFields();
-        $this->style = $this->getStyle();
+//        $this->style = $this->getStyle();
+        $this->styled = new Styling($this->getSymbols(), $this->message);
     }
 
     /**
@@ -157,7 +160,7 @@ abstract class AbstractSpinner implements SpinnerInterface
     /** {@inheritDoc} */
     public function spin(): string
     {
-        return ($this->style)() . $this->message . $this->moveBackStr;
+        return $this->paddingStr . $this->styled->spinner() . $this->styled->message() . $this->moveBackStr;
     }
 
     /** {@inheritDoc} */
