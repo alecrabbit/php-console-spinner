@@ -44,15 +44,18 @@ $simulatedMessages = [
 echo Cursor::hide();
 echo $theme->comment('Long running task example... (Inline Spinner)') . PHP_EOL;
 $s->inline(true);
-echo $s->begin();
+//echo $s->begin(); // Optional, begin() is just an alias for spin()
 for ($i = 0; $i < 200; $i++) {
     usleep($microseconds);
     if (\array_key_exists($i, $simulatedMessages)) {
-        echo $s->erase(); // It's your job to get erase sequence when needed
+        // It's your job to get and echo erase sequence when needed
+        echo $s->erase();
         echo PHP_EOL;
         echo $theme->debug($simulatedMessages[$i] . '...');
     }
-    echo $s->spin(); // It's your job to call spin() with approx. equal intervals of 80-100ms(comfortable animation)
+    // It's your job to echo spin() with approx. equal intervals of 80-100ms
+    // (for comfortable animation only)
+    echo $s->spin();
 }
 echo $s->end();
 echo PHP_EOL;
@@ -62,14 +65,16 @@ echo PHP_EOL;
 echo $theme->comment('Long running task example... (Spinner on the next line)') . PHP_EOL;
 $s->inline(false);
 echo PHP_EOL;
-echo $s->begin();
+//echo $s->begin(); // Optional
 for ($i = 0; $i < 200; $i++) {
     usleep($microseconds);
     if (\array_key_exists($i, $simulatedMessages)) {
         echo $theme->debug($simulatedMessages[$i] . '...');
         echo PHP_EOL;
     }
-    echo $s->spin(); // It's your job to call spin() with approx. equal intervals of 80-100ms(comfortable animation)
+    // It's your job to echo spin() with approx. equal intervals of 80-100ms
+    // (for comfortable animation only)
+    echo $s->spin();
 }
 echo $s->end();
 echo PHP_EOL;
