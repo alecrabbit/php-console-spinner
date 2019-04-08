@@ -8,9 +8,9 @@ use AlecRabbit\Spinner\Core\Styling;
 
 class ExtendAbstractSpinner extends AbstractSpinner
 {
-    protected function getSymbols(): Circular
+    protected function getSymbols(): array
     {
-        return new Circular(['1', '2', '3', '4',]);
+        return ['1', '2', '3', '4',];
     }
 
     protected function getStyles(): array

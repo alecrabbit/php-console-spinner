@@ -38,7 +38,8 @@ class SnakeSpinnerTest extends TestCase
     public function symbols(): void
     {
         $spinner = new SnakeSpinner();
-        $circular = getValue($spinner, 'spinnerSymbols');
+        $styling = getValue($spinner, 'styled');
+        $circular = getValue($styling, 'symbols');
         $rewindable = getValue($circular, 'data');
         $this->assertEquals(['⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏'], iterator_to_array($rewindable));
     }

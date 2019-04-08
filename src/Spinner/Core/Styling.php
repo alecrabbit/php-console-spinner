@@ -17,6 +17,8 @@ class Styling
     public const COLOR256_MESSAGE_STYLES = '256_color_message_styles';
     public const COLOR_MESSAGE_STYLES = 'color_message_styles';
 
+    public const MAX_SYMBOLS_COUNT = 50;
+
     /** @var Circular */
     protected $styles;
     /** @var string */
@@ -26,10 +28,18 @@ class Styling
 
     public function __construct(array $symbols, array $styles, string $message)
     {
-        $this->symbols = new Circular($symbols);
-        $this->message = $message;
+        $this->assertSymbols($symbols);
         $this->assertStyles($styles);
+        $this->symbols = new Circular($symbols);
         $this->styles = $this->makeStyles($styles);
+        $this->message = $message;
+    }
+
+    protected function assertSymbols(array $symbols): void
+    {
+        if (self::MAX_SYMBOLS_COUNT < count($symbols)) {
+            throw new \InvalidArgumentException('Symbols array is too big.');
+        }
     }
 
     protected function assertStyles(array $styles): void
@@ -48,7 +58,7 @@ class Styling
      */
     private function errorMsg(string $constant): string
     {
-        return 'Styles array does not have ' . static::class . '::' . $constant . 'key';
+        return 'Styles array does not have ' . static::class . '::' . $constant . 'key.';
     }
 
     /**

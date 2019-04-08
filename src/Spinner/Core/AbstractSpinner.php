@@ -11,8 +11,6 @@ abstract class AbstractSpinner implements SpinnerInterface
     protected const ESC = ConsoleColor::ESC_CHAR;
     protected const ERASING_SHIFT = 1;
 
-    /** @var Circular */
-    protected $spinnerSymbols;
     /** @var string */
     protected $message;
     /** @var string */
@@ -31,7 +29,6 @@ abstract class AbstractSpinner implements SpinnerInterface
         ?string $suffix = null,
         ?string $paddingStr = null
     ) {
-//        $this->spinnerSymbols = $this->getSymbols();
         $this->paddingStr = $paddingStr ?? SpinnerInterface::PADDING_NEXT_LINE;
         $this->message = $this->refineMessage($message, $prefix, $suffix);
         $this->setFields();
