@@ -4,6 +4,7 @@ namespace AlecRabbit\Tests\Spinner;
 
 use AlecRabbit\Accessories\Circular;
 use AlecRabbit\Spinner\Core\AbstractSpinner;
+use AlecRabbit\Spinner\Core\Styling;
 
 class ExtendAbstractSpinner extends AbstractSpinner
 {
@@ -12,8 +13,11 @@ class ExtendAbstractSpinner extends AbstractSpinner
         return new Circular(['1', '2', '3', '4',]);
     }
 
-    protected function getStyles(): ?Circular
+    protected function getStyles(): array
     {
-        return new Circular(['1', '2', '3', '4',]);
+        return [
+            Styling::COLOR256_STYLES => null,
+            Styling::COLOR_STYLES => [1, 2, 3, 4],
+        ];
     }
 }

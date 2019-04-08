@@ -25,7 +25,7 @@ $theme = new Themes();
 // SimpleSpinner
 // SnakeSpinner
 // TrigramSpinner
-$s = new SnakeSpinner();
+$s = new SnakeSpinner('message');
 $simulatedMessages = [
     0 => 'Initializing',
     10 => 'Starting',

@@ -4,6 +4,7 @@ namespace AlecRabbit\Spinner;
 
 use AlecRabbit\Accessories\Circular;
 use AlecRabbit\Spinner\Core\AbstractSpinner;
+use AlecRabbit\Spinner\Core\Styling;
 
 class ClockSpinner extends AbstractSpinner
 {
@@ -16,6 +17,7 @@ class ClockSpinner extends AbstractSpinner
     {
         return new Circular([
             // If you can't see clock symbols doesn't mean they're not there!
+            // They ARE!
             '🕐',
             '🕑',
             '🕒',
@@ -28,22 +30,27 @@ class ClockSpinner extends AbstractSpinner
             '🕙',
             '🕚',
             '🕛',
-//            '🕜',
-//            '🕝',
-//            '🕞',
-//            '🕟',
-//            '🕠',
-//            '🕡',
-//            '🕢',
-//            '🕣',
-//            '🕤',
-//            '🕥',
-//            '🕦',
+            // If you can't see clock symbols doesn't mean they're not there!
+            // They ARE!
+            // '🕜',
+            // '🕝',
+            // '🕞',
+            // '🕟',
+            // '🕠',
+            // '🕡',
+            // '🕢',
+            // '🕣',
+            // '🕤',
+            // '🕥',
+            // '🕦',
         ]);
     }
 
-    protected function getStyles(): ?Circular
+    protected function getStyles(): array
     {
-        return null;
+        return [
+            Styling::COLOR256_STYLES => null,
+            Styling::COLOR_STYLES => null,
+        ];
     }
 }

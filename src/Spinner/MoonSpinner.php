@@ -4,6 +4,7 @@ namespace AlecRabbit\Spinner;
 
 use AlecRabbit\Accessories\Circular;
 use AlecRabbit\Spinner\Core\AbstractSpinner;
+use AlecRabbit\Spinner\Core\Styling;
 
 class MoonSpinner extends AbstractSpinner
 {
@@ -34,8 +35,11 @@ class MoonSpinner extends AbstractSpinner
     }
 
     /** {@inheritDoc} */
-    protected function getStyles(): ?Circular
+    protected function getStyles(): array
     {
-        return null;
+        return [
+            Styling::COLOR256_STYLES => null,
+            Styling::COLOR_STYLES => null,
+        ];
     }
 }

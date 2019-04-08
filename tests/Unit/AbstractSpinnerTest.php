@@ -12,7 +12,6 @@ class AbstractSpinnerTest extends TestCase
 
     /**
      * @test
-
      */
     public function instance(): void
     {
@@ -39,13 +38,30 @@ class AbstractSpinnerTest extends TestCase
         $spinner = new ExtendAbstractSpinner(self::PROCESSING);
         $this->assertInstanceOf(AbstractSpinner::class, $spinner->inline(true));
         $this->assertInstanceOf(AbstractSpinner::class, $spinner->inline(false));
-        $this->assertEquals("\033[1m1\033[0m Processing...\033[15D", $spinner->begin());
+        $begin = $spinner->begin();
+
+        // DO NOT CHANGE ORDER!!!
+        $this->assertEquals(Helper::stripEscape("\033[1m1\033[0m Processing...\033[15D"),
+            Helper::stripEscape($begin));
+        $this->assertEquals("\033[1m1\033[0m Processing...\033[15D", $begin);
+
+        $this->assertEquals(Helper::stripEscape("\033[2m2\033[0m Processing...\033[15D"),
+            Helper::stripEscape($spinner->spin()));
+        $this->assertEquals(Helper::stripEscape("\033[3m3\033[0m Processing...\033[15D"),
+            Helper::stripEscape($spinner->spin()));
+        $this->assertEquals(Helper::stripEscape("\033[4m4\033[0m Processing...\033[15D"),
+            Helper::stripEscape($spinner->spin()));
+        $this->assertEquals(Helper::stripEscape("\033[1m1\033[0m Processing...\033[15D"),
+            Helper::stripEscape($spinner->spin()));
+
         $this->assertEquals("\033[2m2\033[0m Processing...\033[15D", $spinner->spin());
         $this->assertEquals("\033[3m3\033[0m Processing...\033[15D", $spinner->spin());
         $this->assertEquals("\033[4m4\033[0m Processing...\033[15D", $spinner->spin());
         $this->assertEquals("\033[1m1\033[0m Processing...\033[15D", $spinner->spin());
+
+        $this->assertEquals(Helper::stripEscape("               \033[15D"), Helper::stripEscape($spinner->erase()));
+        $this->assertEquals(Helper::stripEscape("               \033[15D"), Helper::stripEscape($spinner->end()));
         $this->assertEquals("               \033[15D", $spinner->erase());
         $this->assertEquals("               \033[15D", $spinner->end());
-//        $this->assertEquals('', Helper::stripEscape($spinner->end()));
     }
 }
