@@ -11,9 +11,9 @@ class MoonSpinner extends AbstractSpinner
     protected const ERASING_SHIFT = 2;
 
     /** {@inheritDoc} */
-    protected function getSymbols(): Circular
+    protected function getSymbols(): array
     {
-        return new Circular([
+        return [
             '🌘',
             '🌗',
             '🌖',
@@ -31,7 +31,7 @@ class MoonSpinner extends AbstractSpinner
 //            '🌖',
 //            '🌗',
 //            '🌘',
-        ]);
+        ];
     }
 
     /** {@inheritDoc} */

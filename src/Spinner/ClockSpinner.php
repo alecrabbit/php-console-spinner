@@ -10,12 +10,10 @@ class ClockSpinner extends AbstractSpinner
 {
     protected const ERASING_SHIFT = 2;
 
-    /**
-     * @return Circular
-     */
-    protected function getSymbols(): Circular
+    /** {@inheritDoc} */
+    protected function getSymbols(): array
     {
-        return new Circular([
+        return [
             // If you can't see clock symbols doesn't mean they're not there!
             // They ARE!
             '🕐',
@@ -43,7 +41,7 @@ class ClockSpinner extends AbstractSpinner
             // '🕤',
             // '🕥',
             // '🕦',
-        ]);
+        ];
     }
 
     protected function getStyles(): array

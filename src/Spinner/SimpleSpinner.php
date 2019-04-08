@@ -2,17 +2,13 @@
 
 namespace AlecRabbit\Spinner;
 
-use AlecRabbit\Accessories\Circular;
 use AlecRabbit\Spinner\Core\AbstractSpinner;
 
 class SimpleSpinner extends AbstractSpinner
 {
-    /**
-     * @return Circular
-     */
-    protected function getSymbols(): Circular
+    /** {@inheritDoc} */
+    protected function getSymbols(): array
     {
-        return new Circular(['/', '/', '|', '|', '\\', '\\', '─', '─',]);
-//        return new Circular(['/', '╱', '|', '│', '\\', '╲', '-', '─',]); // That's hysterical
+        return ['/', '/', '|', '|', '\\', '\\', '─', '─',];
     }
 }

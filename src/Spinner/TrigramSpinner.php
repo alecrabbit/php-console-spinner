@@ -7,21 +7,23 @@ use AlecRabbit\Spinner\Core\AbstractSpinner;
 
 class TrigramSpinner extends AbstractSpinner
 {
-    /**
-     * @return Circular
-     */
-    protected function getSymbols(): Circular
+    /** {@inheritDoc} */
+    protected function getSymbols(): array
     {
-        return new Circular([
+        return [
+
             '☰',
             '☱',
             '☲',
-//            '☳',
+            '☴',
+            '☰',
+            '☱',
+            '☳',
+            '☷',
+            '☶',
             '☴',
             '☰',
 //            '☵',
-//            '☶',
-//            '☷',
-        ]);
+        ];
     }
 }

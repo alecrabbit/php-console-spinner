@@ -4,7 +4,6 @@ namespace AlecRabbit\Spinner\Core;
 
 use AlecRabbit\Accessories\Circular;
 use AlecRabbit\ConsoleColour\ConsoleColor;
-use AlecRabbit\ConsoleColour\Terminal;
 use AlecRabbit\Spinner\Contracts\SpinnerInterface;
 
 abstract class AbstractSpinner implements SpinnerInterface
@@ -32,7 +31,7 @@ abstract class AbstractSpinner implements SpinnerInterface
         ?string $suffix = null,
         ?string $paddingStr = null
     ) {
-        $this->spinnerSymbols = $this->getSymbols();
+//        $this->spinnerSymbols = $this->getSymbols();
         $this->paddingStr = $paddingStr ?? SpinnerInterface::PADDING_NEXT_LINE;
         $this->message = $this->refineMessage($message, $prefix, $suffix);
         $this->setFields();
@@ -40,9 +39,30 @@ abstract class AbstractSpinner implements SpinnerInterface
     }
 
     /**
-     * @return Circular
+     * @return array
      */
-    abstract protected function getSymbols(): Circular;
+    abstract protected function getSymbols(): array;
+
+    /**
+     * @param null|string $message
+     * @param null|string $prefix
+     * @param null|string $suffix
+     * @return string
+     */
+    protected function refineMessage(?string $message, ?string $prefix, ?string $suffix): string
+    {
+        $message = ucfirst($message ?? SpinnerInterface::DEFAULT_MESSAGE);
+        $prefix = $prefix ?? SpinnerInterface::DEFAULT_PREFIX;
+        $suffix = $suffix ?? (empty($message) ? '' : SpinnerInterface::DEFAULT_SUFFIX);
+        return $prefix . $message . $suffix;
+    }
+
+    protected function setFields(): void
+    {
+        $strLen = strlen($this->message . $this->paddingStr) + static::ERASING_SHIFT;
+        $this->moveBackStr = self::ESC . "[{$strLen}D";
+        $this->eraseBySpacesStr = str_repeat(' ', $strLen);
+    }
 
     protected function getStyles(): array
     {
@@ -75,27 +95,6 @@ abstract class AbstractSpinner implements SpinnerInterface
             ],
             Styling::COLOR_SPINNER_STYLES => ['96'],
         ];
-    }
-
-    /**
-     * @param null|string $message
-     * @param null|string $prefix
-     * @param null|string $suffix
-     * @return string
-     */
-    protected function refineMessage(?string $message, ?string $prefix, ?string $suffix): string
-    {
-        $message = ucfirst($message ?? SpinnerInterface::DEFAULT_MESSAGE);
-        $prefix = $prefix ?? SpinnerInterface::DEFAULT_PREFIX;
-        $suffix = $suffix ?? (empty($message) ? '' : SpinnerInterface::DEFAULT_SUFFIX);
-        return $prefix . $message . $suffix;
-    }
-
-    protected function setFields(): void
-    {
-        $strLen = strlen($this->message . $this->paddingStr) + static::ERASING_SHIFT;
-        $this->moveBackStr = self::ESC . "[{$strLen}D";
-        $this->eraseBySpacesStr = str_repeat(' ', $strLen);
     }
 
     public function inline(bool $inline): SpinnerInterface

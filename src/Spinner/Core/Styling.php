@@ -24,9 +24,9 @@ class Styling
     /** @var Circular */
     private $symbols;
 
-    public function __construct(Circular $symbols, array $styles, string $message)
+    public function __construct(array $symbols, array $styles, string $message)
     {
-        $this->symbols = $symbols;
+        $this->symbols = new Circular($symbols);
         $this->message = $message;
         $this->assertStyles($styles);
         $this->styles = $this->makeStyles($styles);
