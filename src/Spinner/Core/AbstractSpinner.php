@@ -42,7 +42,7 @@ abstract class AbstractSpinner implements SpinnerInterface
         $this->message = $this->refineMessage($message, $prefix, $suffix);
         $this->setFields();
 //        $this->style = $this->getStyle();
-        $this->styled = new Styling($this->getSymbols(), $this->message);
+        $this->styled = new Styling($this->getSymbols(), $this->getStyles(), $this->message);
     }
 
     /**
@@ -50,11 +50,10 @@ abstract class AbstractSpinner implements SpinnerInterface
      */
     abstract protected function getSymbols(): Circular;
 
-    protected function getStyles(): ?Circular
+    protected function getStyles(): array
     {
-        $terminal = new Terminal();
-        if ($terminal->supports256Color()) {
-            $a = [
+        return [
+            Styling::COLOR256_STYLES => [
                 '203',
                 '209',
                 '215',
@@ -79,23 +78,9 @@ abstract class AbstractSpinner implements SpinnerInterface
                 '206',
                 '205',
                 '204',
-            ];
-            return
-                new Circular(
-                    array_map(
-                        static function ($value) {
-                            return '38;5;' . $value;
-                        },
-                        $a
-                    )
-                );
-        }
-        if ($terminal->supportsColor()) {
-            return new Circular([
-                '96',
-            ]);
-        }
-        return null;
+            ],
+            Styling::COLOR_STYLES => ['96'],
+        ];
     }
 
     /**
@@ -117,30 +102,6 @@ abstract class AbstractSpinner implements SpinnerInterface
         $strLen = strlen($this->message . $this->paddingStr) + static::ERASING_SHIFT;
         $this->moveBackStr = self::ESC . "[{$strLen}D";
         $this->eraseBySpacesStr = str_repeat(' ', $strLen);
-    }
-
-    /**
-     * @return \Closure
-     */
-    protected function getStyle(): \Closure
-    {
-        if (null === $this->styles) {
-            return
-                function (): string {
-                    $value = (string)$this->spinnerSymbols->value();
-                    return $this->paddingStr . $value;
-                };
-        }
-        return
-            function (): string {
-                $symbol = (string)$this->spinnerSymbols->value();
-                $style = $this->styles ? (string)$this->styles->value() : '';
-                return
-                    $this->paddingStr .
-                    self::ESC .
-                    "[{$style}m{$symbol}" .
-                    self::ESC . '[0m';
-            };
     }
 
     public function inline(bool $inline): SpinnerInterface
@@ -173,5 +134,29 @@ abstract class AbstractSpinner implements SpinnerInterface
     public function erase(): string
     {
         return $this->eraseBySpacesStr . $this->moveBackStr;
+    }
+
+    /**
+     * @return \Closure
+     */
+    protected function getStyle(): \Closure
+    {
+        if (null === $this->styles) {
+            return
+                function (): string {
+                    $value = (string)$this->spinnerSymbols->value();
+                    return $this->paddingStr . $value;
+                };
+        }
+        return
+            function (): string {
+                $symbol = (string)$this->spinnerSymbols->value();
+                $style = $this->styles ? (string)$this->styles->value() : '';
+                return
+                    $this->paddingStr .
+                    self::ESC .
+                    "[{$style}m{$symbol}" .
+                    self::ESC . '[0m';
+            };
     }
 }

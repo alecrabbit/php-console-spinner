@@ -1,3 +1,5 @@
+- [ ] remove `CircleSpinner::class`
+- [ ] remove `TrigrammSpinner::class`
 - [ ] solidify API
     - [ ] make class for styles
     - [ ] consider changeable message  
