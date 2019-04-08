@@ -1,6 +1,7 @@
-- [ ] remove `CircleSpinner::class`
-- [ ] remove `TrigrammSpinner::class`
-- [ ] solidify API
-    - [ ] make class for styles
-    - [ ] consider changeable message  
-        - [ ] consider no spinner only percentage  
+- [ ] remove `CircleSpinner::class`?
+- [ ] add styling to message
+
+- [x] remove `TrigrammSpinner::class`
+- [x] make class for styles
+- [x] consider changeable message  
+    - [x] consider no spinner only percentage  
