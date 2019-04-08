@@ -33,7 +33,7 @@ class Styling
         $this->assertStyles($styles);
         $this->symbols = new Circular($symbols);
         $this->symbolStyles = $this->symbolStyles($styles);
-//        $this->messageStyles = $this->messageStyles($styles);
+        $this->messageStyles = $this->messageStyles($styles);
     }
 
     protected function assertSymbols(array $symbols): void
@@ -131,9 +131,14 @@ class Styling
     {
         return
             sprintf(
-                ConsoleColor::ESC_CHAR . '[2m%s' . ConsoleColor::ESC_CHAR . '[0m',
+                (string)$this->messageStyles->value(),
                 $message
             );
+//        return
+//            sprintf(
+//                ConsoleColor::ESC_CHAR . '[2m%s' . ConsoleColor::ESC_CHAR . '[0m',
+//                $message
+//            );
     }
 
     /**
@@ -146,10 +151,11 @@ class Styling
             $styles[self::COLOR_MESSAGE_STYLES] = self::DEFAULT_MESSAGE_STYLES;
         }
         if ((new Terminal())->supportsColor()) {
-            if (null === $styles[self::COLOR_MESSAGE_STYLES]) {
+            $value = $styles[self::COLOR_MESSAGE_STYLES];
+            if (null === $value) {
                 return $this->circularNoColor();
             }
-            return $this->circular256Color($styles);
+            return $this->circularColor($value);
         }
         return $this->circularNoColor();
     }
