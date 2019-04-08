@@ -2,7 +2,6 @@
 
 namespace AlecRabbit\Spinner;
 
-use AlecRabbit\Accessories\Circular;
 use AlecRabbit\ConsoleColour\Contracts\Styles;
 use AlecRabbit\Spinner\Core\AbstractSpinner;
 use AlecRabbit\Spinner\Core\Styling;

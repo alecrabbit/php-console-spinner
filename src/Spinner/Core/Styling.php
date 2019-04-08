@@ -46,18 +46,26 @@ class Styling
     protected function assertStyles(array $styles): void
     {
         if (!\array_key_exists(self::COLOR256_SPINNER_STYLES, $styles)) {
-            throw new \InvalidArgumentException($this->errorMsg('Styles array does not have', 'COLOR256_STYLES'));
+            throw new \InvalidArgumentException(
+                $this->errorMsg('Styles array does not have', 'COLOR256_STYLES')
+            );
         }
         $value = $styles[self::COLOR256_SPINNER_STYLES];
         if (!\is_array($value) && null !== $value) {
-            throw new \InvalidArgumentException($this->errorMsg('Styles should be type of array or NULL in', 'COLOR256_STYLES'));
+            throw new \InvalidArgumentException(
+                $this->errorMsg('Styles should be type of array or NULL in', 'COLOR256_STYLES')
+            );
         }
         if (!\array_key_exists(self::COLOR_SPINNER_STYLES, $styles)) {
-            throw new \InvalidArgumentException($this->errorMsg('Styles array does not have', 'COLOR_STYLES'));
+            throw new \InvalidArgumentException(
+                $this->errorMsg('Styles array does not have', 'COLOR_STYLES')
+            );
         }
         $value = $styles[self::COLOR_SPINNER_STYLES];
         if (!is_array($value) && null !== $value) {
-            throw new \InvalidArgumentException($this->errorMsg('Styles should be type of array or NULL in', 'COLOR_SPINNER_STYLES'));
+            throw new \InvalidArgumentException(
+                $this->errorMsg('Styles should be type of array or NULL in', 'COLOR_SPINNER_STYLES')
+            );
         }
     }
 
