@@ -1,1 +1,4 @@
 - [ ] solidify API
+    - [ ] make class for styles
+    - [ ] consider changeable message  
+        - [ ] consider no spinner only percentage  
