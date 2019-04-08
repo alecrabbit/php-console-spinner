@@ -132,5 +132,4 @@ abstract class AbstractSpinner implements SpinnerInterface
     {
         return $this->eraseBySpacesStr . $this->moveBackStr;
     }
-
 }
