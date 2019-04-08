@@ -6,6 +6,7 @@
     "php",
     "spinner",
     "console",
+    "cli",
     "scripts",
     "pretty",
     "clock",
