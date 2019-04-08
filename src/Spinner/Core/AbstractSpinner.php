@@ -8,7 +8,6 @@ use AlecRabbit\Spinner\Contracts\SpinnerInterface;
 
 abstract class AbstractSpinner implements SpinnerInterface
 {
-    protected const ESC = ConsoleColor::ESC_CHAR;
     protected const ERASING_SHIFT = 1;
 
     /** @var string */
@@ -54,7 +53,7 @@ abstract class AbstractSpinner implements SpinnerInterface
     protected function setFields(): void
     {
         $strLen = strlen($this->message()) + strlen($this->paddingStr) + static::ERASING_SHIFT;
-        $this->moveBackSequenceStr = self::ESC . "[{$strLen}D";
+        $this->moveBackSequenceStr = ConsoleColor::ESC_CHAR . "[{$strLen}D";
         $this->eraseBySpacesStr = str_repeat(' ', $strLen);
     }
 
