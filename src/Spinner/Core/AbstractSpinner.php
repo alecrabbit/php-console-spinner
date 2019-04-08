@@ -51,7 +51,8 @@ abstract class AbstractSpinner implements SpinnerInterface
 
     protected function setFields(): void
     {
-        $strLen = strlen($this->message()) + strlen($this->paddingStr) + static::ERASING_SHIFT;
+        $strLen =
+            strlen($this->message()) + strlen($this->percent()) + strlen($this->paddingStr) + static::ERASING_SHIFT;
         $this->moveBackSequenceStr = ConsoleColor::ESC_CHAR . "[{$strLen}D";
         $this->eraseBySpacesStr = str_repeat(' ', $strLen);
     }
@@ -61,7 +62,15 @@ abstract class AbstractSpinner implements SpinnerInterface
      */
     protected function message(): string
     {
-        return $this->messageStr . $this->percentStr;
+        return $this->messageStr;
+    }
+
+    /**
+     * @return string
+     */
+    protected function percent(): string
+    {
+        return $this->percentStr;
     }
 
     /**
@@ -126,6 +135,9 @@ abstract class AbstractSpinner implements SpinnerInterface
             $this->styled->spinner() .
             $this->styled->message(
                 $this->message()
+            ) .
+            $this->styled->percent(
+                $this->percent()
             ) .
             $this->moveBackSequenceStr;
     }

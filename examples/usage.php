@@ -2,16 +2,19 @@
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
+use AlecRabbit\ConsoleColour\Contracts\Styles;
 use AlecRabbit\ConsoleColour\Themes;
 use AlecRabbit\Control\Cursor;
 use AlecRabbit\Spinner\Core\AbstractSpinner;
+use AlecRabbit\Spinner\Core\Styling;
+use AlecRabbit\Spinner\MoonSpinner;
 use AlecRabbit\Spinner\SnakeSpinner;
 
 /**
  * It's a very basic example just to show the concept
  */
 
-const ITERATIONS = 300; // Play with this value 100..500
+const ITERATIONS = 10; // Play with this value 100..500
 const MILLISECONDS = 80;
 const MICROSECONDS = MILLISECONDS * 1000;
 const SIMULATED_MESSAGES = [
@@ -36,8 +39,8 @@ const SIMULATED_MESSAGES = [
 // MoonSpinner::class
 // SimpleSpinner::class
 // SnakeSpinner::class
-// DON'T FORGET TO IMPORT!
-$spinnerClass = SnakeSpinner::class;
+
+$spinnerClass = SnakeSpinner::class; // DON'T FORGET TO IMPORT!
 
 $theme = new Themes(); // for colored output if supported
 
@@ -61,17 +64,52 @@ display(
 );
 
 display(
-    new $spinnerClass('processing'),
+    new $spinnerClass(),
     $theme,
     false,
     'Spinner on the next line(With custom message "processing"):' . PHP_EOL
 );
 
+display(
+    new class('computing') extends SnakeSpinner
+    {
+        protected function getStyles(): array
+        {
+            $styles = parent::getStyles();
+            $styles[Styling::COLOR_MESSAGE_STYLES] = [Styles::LIGHT_YELLOW];
+            $styles[Styling::COLOR_PERCENT_STYLES] = [Styles::RED];
+            return $styles;
+        }
+    },
+    $theme,
+    false,
+    'Custom SnakeSpinner on the next line(With custom styled percentage and custom styled message "computing"):' . PHP_EOL
+);
+
+running(
+    new $spinnerClass(),
+    $theme);
+
 echo Cursor::show();
 
-echo "\007Bell!" . PHP_EOL; // just for fun
+//echo "\007Bell!" . PHP_EOL; // just for fun
 
 // ************************ Functions ************************
+/**
+ * @param AbstractSpinner $s
+ * @param Themes $theme
+ */
+function running(AbstractSpinner $s, Themes $theme): void
+{
+    echo $theme->cyan('Example: Entering long running state... ') . PHP_EOL;
+    echo $theme->warning('Use Ctrl + C to exit.') . PHP_EOL;
+    echo PHP_EOL;
+    while (true) {
+        usleep(MICROSECONDS);
+        echo $s->spin();
+    }
+}
+
 /**
  * @param AbstractSpinner $s
  * @param Themes $theme

@@ -5,7 +5,6 @@ namespace AlecRabbit\Spinner\Core;
 use AlecRabbit\Accessories\Circular;
 use AlecRabbit\ConsoleColour\ConsoleColor;
 use AlecRabbit\ConsoleColour\Terminal;
-use function AlecRabbit\typeOf;
 
 /**
  * Class Styling
@@ -16,7 +15,10 @@ class Styling
     public const COLOR_SPINNER_STYLES = 'color_spinner_styles';
 
     public const COLOR_MESSAGE_STYLES = 'color_message_styles';
+    public const COLOR_PERCENT_STYLES = 'color_percent_styles';
+
     public const DEFAULT_MESSAGE_STYLES = [2];
+    public const DEFAULT_PERCENT_STYLES = [2];
 
     public const MAX_SYMBOLS_COUNT = 50;
 
@@ -25,7 +27,9 @@ class Styling
     /** @var Circular */
     protected $messageStyles;
     /** @var Circular */
-    private $symbols;
+    protected $percentStyles;
+    /** @var Circular */
+    protected $symbols;
 
     public function __construct(array $symbols, array $styles)
     {
@@ -34,6 +38,7 @@ class Styling
         $this->symbols = new Circular($symbols);
         $this->symbolStyles = $this->symbolStyles($styles);
         $this->messageStyles = $this->messageStyles($styles);
+        $this->percentStyles = $this->percentStyles($styles);
     }
 
     protected function assertSymbols(array $symbols): void
@@ -130,25 +135,6 @@ class Styling
         return new Circular(['%s',]);
     }
 
-    public function spinner(): string
-    {
-        return sprintf((string)$this->symbolStyles->value(), (string)$this->symbols->value());
-    }
-
-    public function message(string $message): string
-    {
-        return
-            sprintf(
-                (string)$this->messageStyles->value(),
-                $message
-            );
-//        return
-//            sprintf(
-//                ConsoleColor::ESC_CHAR . '[2m%s' . ConsoleColor::ESC_CHAR . '[0m',
-//                $message
-//            );
-    }
-
     /**
      * @param array $styles
      * @return Circular
@@ -166,5 +152,47 @@ class Styling
             return $this->circularColor($value);
         }
         return $this->circularNoColor();
+    }
+
+    /**
+     * @param array $styles
+     * @return Circular
+     */
+    protected function percentStyles(array $styles): Circular
+    {
+        if (!\array_key_exists(self::COLOR_PERCENT_STYLES, $styles)) {
+            $styles[self::COLOR_PERCENT_STYLES] = self::DEFAULT_PERCENT_STYLES;
+        }
+        if ((new Terminal())->supportsColor()) {
+            $value = $styles[self::COLOR_PERCENT_STYLES];
+            if (null === $value) {
+                return $this->circularNoColor();
+            }
+            return $this->circularColor($value);
+        }
+        return $this->circularNoColor();
+    }
+
+    public function spinner(): string
+    {
+        return sprintf((string)$this->symbolStyles->value(), (string)$this->symbols->value());
+    }
+
+    public function message(string $message): string
+    {
+        return
+            sprintf(
+                (string)$this->messageStyles->value(),
+                $message
+            );
+    }
+
+    public function percent(string $percent): string
+    {
+        return
+            sprintf(
+                (string)$this->percentStyles->value(),
+                $percent
+            );
     }
 }
