@@ -57,16 +57,16 @@
         },
         {
             "name": "alecrabbit/php-console-colour",
-            "version": "0.2.2",
+            "version": "0.2.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/alecrabbit/php-console-colour.git",
-                "reference": "19d3af4b3f737d62a2c397c6f035d1082be63229"
+                "reference": "962feef0002b199f0a55a484c3e3c2c2fa7e2155"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/alecrabbit/php-console-colour/zipball/19d3af4b3f737d62a2c397c6f035d1082be63229",
-                "reference": "19d3af4b3f737d62a2c397c6f035d1082be63229",
+                "url": "https://api.github.com/repos/alecrabbit/php-console-colour/zipball/962feef0002b199f0a55a484c3e3c2c2fa7e2155",
+                "reference": "962feef0002b199f0a55a484c3e3c2c2fa7e2155",
                 "shasum": ""
             },
             "require": {
@@ -100,7 +100,7 @@
                 "terminal",
                 "width"
             ],
-            "time": "2019-04-08T11:34:43+00:00"
+            "time": "2019-04-08T13:34:47+00:00"
         },
         {
             "name": "alecrabbit/php-helpers",
