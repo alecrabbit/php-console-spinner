@@ -2,7 +2,7 @@
 
 namespace AlecRabbit\Spinner\Core;
 
-use AlecRabbit\Accessories\Circular;
+use AlecRabbit\Accessories\Pretty;
 use AlecRabbit\ConsoleColour\ConsoleColor;
 use AlecRabbit\Spinner\Contracts\SpinnerInterface;
 
@@ -12,16 +12,21 @@ abstract class AbstractSpinner implements SpinnerInterface
     protected const ERASING_SHIFT = 1;
 
     /** @var string */
-    protected $message;
+    protected $messageStr;
     /** @var string */
-    protected $moveBackStr;
+    protected $percentStr = '';
+    /** @var string */
+    protected $moveBackSequenceStr;
     /** @var string */
     protected $paddingStr;
     /** @var string */
     protected $eraseBySpacesStr;
     /** @var Styling */
     protected $styled;
-
+    /** @var bool */
+    protected $inlineMode;
+    /** @var string */
+    protected $auxPaddingStr;
 
     public function __construct(
         ?string $message = null,
@@ -29,16 +34,11 @@ abstract class AbstractSpinner implements SpinnerInterface
         ?string $suffix = null,
         ?string $paddingStr = null
     ) {
-        $this->paddingStr = $paddingStr ?? SpinnerInterface::PADDING_NEXT_LINE;
-        $this->message = $this->refineMessage($message, $prefix, $suffix);
+        $this->paddingStr = $paddingStr ?? SpinnerInterface::PADDING_EMPTY;
+        $this->messageStr = $this->refineMessage($message, $prefix, $suffix);
         $this->setFields();
-        $this->styled = new Styling($this->getSymbols(), $this->getStyles(), $this->message);
+        $this->styled = new Styling($this->getSymbols(), $this->getStyles(), $this->messageStr);
     }
-
-    /**
-     * @return array
-     */
-    abstract protected function getSymbols(): array;
 
     /**
      * @param null|string $message
@@ -56,10 +56,28 @@ abstract class AbstractSpinner implements SpinnerInterface
 
     protected function setFields(): void
     {
-        $strLen = strlen($this->message . $this->paddingStr) + static::ERASING_SHIFT;
-        $this->moveBackStr = self::ESC . "[{$strLen}D";
+        dump($this->messageStr);
+        $this->auxPaddingStr =
+            empty($this->messageStr) || $this->messageStr === SpinnerInterface::DEFAULT_PREFIX ?
+                SpinnerInterface::PADDING_EMPTY :
+                SpinnerInterface::PADDING_SPACE_SYMBOL;
+        $strLen = strlen($this->message()) + strlen($this->paddingStr) + static::ERASING_SHIFT;
+        $this->moveBackSequenceStr = self::ESC . "[{$strLen}D";
         $this->eraseBySpacesStr = str_repeat(' ', $strLen);
     }
+
+    /**
+     * @return string
+     */
+    protected function message(): string
+    {
+        return $this->messageStr . $this->auxPaddingStr . $this->percentStr;
+    }
+
+    /**
+     * @return array
+     */
+    abstract protected function getSymbols(): array;
 
     protected function getStyles(): array
     {
@@ -96,9 +114,9 @@ abstract class AbstractSpinner implements SpinnerInterface
 
     public function inline(bool $inline): SpinnerInterface
     {
-        $this->paddingStr = $inline ? SpinnerInterface::PADDING_INLINE : SpinnerInterface::PADDING_NEXT_LINE;
+        $this->inlineMode = $inline;
+        $this->paddingStr = $inline ? SpinnerInterface::PADDING_SPACE_SYMBOL : SpinnerInterface::PADDING_EMPTY;
         $this->setFields();
-
         return $this;
     }
 
@@ -109,9 +127,29 @@ abstract class AbstractSpinner implements SpinnerInterface
     }
 
     /** {@inheritDoc} */
-    public function spin(): string
+    public function spin(?float $percent = null): string
     {
-        return $this->paddingStr . $this->styled->spinner() . $this->styled->message() . $this->moveBackStr;
+        if (null !== $percent) {
+            $this->updatePercent($percent);
+        }
+        return
+            $this->paddingStr .
+            $this->styled->spinner() .
+            $this->styled->message(
+                $this->message()
+            ) .
+            $this->moveBackSequenceStr;
+    }
+
+    /**
+     * @param float $percent
+     */
+    protected function updatePercent(float $percent): void
+    {
+        if (0 === (int)($percent * 1000) % 10) {
+            $this->percentStr = Pretty::percent($percent, 0, ' ');
+            $this->setFields();
+        }
     }
 
     /** {@inheritDoc} */
@@ -123,6 +161,6 @@ abstract class AbstractSpinner implements SpinnerInterface
     /** {@inheritDoc} */
     public function erase(): string
     {
-        return $this->eraseBySpacesStr . $this->moveBackStr;
+        return $this->eraseBySpacesStr . $this->moveBackSequenceStr;
     }
 }

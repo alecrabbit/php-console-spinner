@@ -16,10 +16,10 @@
   "require": {
     "php": ">=7.2",
     "alecrabbit/php-accessories": "^0.5",
-    "alecrabbit/php-console-colour": "^0.2"
+    "alecrabbit/php-console-colour": "^0.2",
+    "alecrabbit/php-helpers": "^0.5"
   },
   "require-dev": {
-    "alecrabbit/php-helpers": "^0.5",
     "nunomaduro/collision": "^3.0",
     "phpunit/phpunit": "^8.0",
     "symfony/var-dumper": "^4.2"
