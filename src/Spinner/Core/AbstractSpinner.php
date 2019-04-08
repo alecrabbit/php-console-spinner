@@ -14,8 +14,6 @@ abstract class AbstractSpinner implements SpinnerInterface
 
     /** @var Circular */
     protected $spinnerSymbols;
-    /** @var null|Circular */
-    protected $styles;
     /** @var string */
     protected $message;
     /** @var string */
@@ -37,7 +35,6 @@ abstract class AbstractSpinner implements SpinnerInterface
         ?string $paddingStr = null
     ) {
         $this->spinnerSymbols = $this->getSymbols();
-        $this->styles = $this->getStyles();
         $this->paddingStr = $paddingStr ?? SpinnerInterface::PADDING_NEXT_LINE;
         $this->message = $this->refineMessage($message, $prefix, $suffix);
         $this->setFields();
@@ -53,7 +50,7 @@ abstract class AbstractSpinner implements SpinnerInterface
     protected function getStyles(): array
     {
         return [
-            Styling::COLOR256_STYLES => [
+            Styling::COLOR256_SPINNER_STYLES => [
                 '203',
                 '209',
                 '215',
@@ -79,7 +76,7 @@ abstract class AbstractSpinner implements SpinnerInterface
                 '205',
                 '204',
             ],
-            Styling::COLOR_STYLES => ['96'],
+            Styling::COLOR_SPINNER_STYLES => ['96'],
         ];
     }
 
@@ -136,27 +133,4 @@ abstract class AbstractSpinner implements SpinnerInterface
         return $this->eraseBySpacesStr . $this->moveBackStr;
     }
 
-    /**
-     * @return \Closure
-     */
-    protected function getStyle(): \Closure
-    {
-        if (null === $this->styles) {
-            return
-                function (): string {
-                    $value = (string)$this->spinnerSymbols->value();
-                    return $this->paddingStr . $value;
-                };
-        }
-        return
-            function (): string {
-                $symbol = (string)$this->spinnerSymbols->value();
-                $style = $this->styles ? (string)$this->styles->value() : '';
-                return
-                    $this->paddingStr .
-                    self::ESC .
-                    "[{$style}m{$symbol}" .
-                    self::ESC . '[0m';
-            };
-    }
 }

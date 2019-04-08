@@ -11,8 +11,11 @@ use AlecRabbit\ConsoleColour\Terminal;
  */
 class Styling
 {
-    public const COLOR256_STYLES = '256_color_styles';
-    public const COLOR_STYLES = 'color_styles';
+    public const COLOR256_SPINNER_STYLES = '256_color_spinner_styles';
+    public const COLOR_SPINNER_STYLES = 'color_spinner_styles';
+
+    public const COLOR256_MESSAGE_STYLES = '256_color_message_styles';
+    public const COLOR_MESSAGE_STYLES = 'color_message_styles';
 
     /** @var Circular */
     protected $styles;
@@ -31,10 +34,10 @@ class Styling
 
     protected function assertStyles(array $styles): void
     {
-        if (!\array_key_exists(self::COLOR256_STYLES, $styles)) {
+        if (!\array_key_exists(self::COLOR256_SPINNER_STYLES, $styles)) {
             throw new \InvalidArgumentException($this->errorMsg('COLOR256_STYLES'));
         }
-        if (!\array_key_exists(self::COLOR_STYLES, $styles)) {
+        if (!\array_key_exists(self::COLOR_SPINNER_STYLES, $styles)) {
             throw new \InvalidArgumentException($this->errorMsg('COLOR_STYLES'));
         }
     }
@@ -54,8 +57,7 @@ class Styling
      */
     protected function makeStyles(array $styles): Circular
     {
-        $terminal = new Terminal();
-        if ($terminal->supports256Color()) {
+        if (($terminal = new Terminal())->supports256Color()) {
             return $this->circular256Color($styles);
         }
         if ($terminal->supportsColor()) {
@@ -66,7 +68,7 @@ class Styling
 
     protected function circular256Color(array $styles): Circular
     {
-        if (null === $value = $styles[self::COLOR256_STYLES]) {
+        if (null === $value = $styles[self::COLOR256_SPINNER_STYLES]) {
             return $this->circularColor($styles);
         }
         return
@@ -87,7 +89,7 @@ class Styling
 
     protected function circularColor(array $styles): Circular
     {
-        if (null === $value = $styles[self::COLOR_STYLES]) {
+        if (null === $value = $styles[self::COLOR_SPINNER_STYLES]) {
             return $this->circularNoColor();
         }
         return
@@ -110,5 +112,4 @@ class Styling
     {
         return $this->message;
     }
-
 }

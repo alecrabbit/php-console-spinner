@@ -49,8 +49,8 @@ class ClockSpinner extends AbstractSpinner
     protected function getStyles(): array
     {
         return [
-            Styling::COLOR256_STYLES => null,
-            Styling::COLOR_STYLES => null,
+            Styling::COLOR256_SPINNER_STYLES => null,
+            Styling::COLOR_SPINNER_STYLES => null,
         ];
     }
 }
