@@ -157,19 +157,13 @@ abstract class AbstractSpinner implements SpinnerInterface
     /** {@inheritDoc} */
     public function spin(): string
     {
-        return $this->work() . $this->moveBackStr;
-    }
-
-    protected function work(): string
-    {
-        return ($this->style)() . $this->message;
+        return ($this->style)() . $this->message . $this->moveBackStr;
     }
 
     /** {@inheritDoc} */
     public function end(): string
     {
         return $this->erase();
-//        return self::ESC . '[K';
     }
 
     /** {@inheritDoc} */
