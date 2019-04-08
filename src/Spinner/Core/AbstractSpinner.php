@@ -32,7 +32,7 @@ abstract class AbstractSpinner implements SpinnerInterface
         $this->paddingStr = $paddingStr ?? SpinnerInterface::PADDING_EMPTY;
         $this->messageStr = $this->refineMessage($message, $prefix, $suffix);
         $this->setFields();
-        $this->styled = new Styling($this->getSymbols(), $this->getStyles(), $this->messageStr);
+        $this->styled = new Styling($this->getSymbols(), $this->getStyles());
     }
 
     /**
