@@ -44,8 +44,7 @@ abstract class AbstractSpinner implements SpinnerInterface
     protected function refineMessage(?string $message, ?string $prefix, ?string $suffix): string
     {
         $message = ucfirst($message ?? SpinnerInterface::DEFAULT_MESSAGE);
-        $prefix = $prefix ?? SpinnerInterface::DEFAULT_PREFIX;
-        $prefix = empty($message) ? '' : $prefix;
+        $prefix = empty($message) ? '' : $prefix ?? SpinnerInterface::DEFAULT_PREFIX;
         $suffix = $suffix ?? (empty($message) ? '' : SpinnerInterface::DEFAULT_SUFFIX);
         return $prefix . $message . $suffix;
     }
