@@ -74,17 +74,12 @@ class Styling
         return
             new Circular(
                 array_map(
-                    static function ($value) {
+                    static function (string $value): string {
                         return ConsoleColor::ESC_CHAR . "[38;5;{$value}m%s" . ConsoleColor::ESC_CHAR . '[0m';
                     },
                     $value
                 )
             );
-    }
-
-    protected function circularNoColor(): Circular
-    {
-        return new Circular(['%s',]);
     }
 
     protected function circularColor(array $styles): Circular
@@ -95,12 +90,17 @@ class Styling
         return
             new Circular(
                 array_map(
-                    static function ($value) {
+                    static function (string $value): string {
                         return ConsoleColor::ESC_CHAR . "[{$value}m%s" . ConsoleColor::ESC_CHAR . '[0m';
                     },
                     $value
                 )
             );
+    }
+
+    protected function circularNoColor(): Circular
+    {
+        return new Circular(['%s',]);
     }
 
     public function spinner(): string

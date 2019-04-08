@@ -18,8 +18,6 @@ abstract class AbstractSpinner implements SpinnerInterface
     protected $message;
     /** @var string */
     protected $moveBackStr;
-    /** @var \Closure */
-    protected $style;
     /** @var string */
     protected $paddingStr;
     /** @var string */
@@ -38,7 +36,6 @@ abstract class AbstractSpinner implements SpinnerInterface
         $this->paddingStr = $paddingStr ?? SpinnerInterface::PADDING_NEXT_LINE;
         $this->message = $this->refineMessage($message, $prefix, $suffix);
         $this->setFields();
-//        $this->style = $this->getStyle();
         $this->styled = new Styling($this->getSymbols(), $this->getStyles(), $this->message);
     }
 
