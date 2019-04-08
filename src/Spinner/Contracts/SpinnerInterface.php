@@ -7,9 +7,8 @@ interface SpinnerInterface
     public const DEFAULT_PREFIX = ' ';
     public const DEFAULT_SUFFIX = '...';
     public const DEFAULT_MESSAGE = '';
-    public const DEFAULT_PADDING_STR = ' ';
-    public const PADDING_INLINE = ' ';
-    public const PADDING_NEXT_LINE = '';
+    public const PADDING_SPACE_SYMBOL = ' ';
+    public const PADDING_EMPTY = '';
 
     /**
      * @return string
@@ -23,9 +22,10 @@ interface SpinnerInterface
     public function inline(bool $inline): SpinnerInterface;
 
     /**
+     * @param null|float $percent
      * @return string
      */
-    public function spin(): string;
+    public function spin(?float $percent = null): string;
 
     /**
      * @return string

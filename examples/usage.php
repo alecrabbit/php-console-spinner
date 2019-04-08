@@ -73,7 +73,7 @@ for ($i = 0; $i < 200; $i++) {
     }
     // It's your job to echo spin() with approx. equal intervals of 80-100ms
     // (for comfortable animation only)
-    echo $s->spin();
+    echo $s->spin($i/200);
 }
 echo $s->end();
 echo PHP_EOL;

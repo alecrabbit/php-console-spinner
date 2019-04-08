@@ -118,8 +118,8 @@ class Styling
         return sprintf((string)$this->styles->value(), (string)$this->symbols->value());
     }
 
-    public function message(): string
+    public function message(string $message): string
     {
-        return $this->message;
+        return $message;
     }
 }
