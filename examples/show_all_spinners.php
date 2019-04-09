@@ -14,7 +14,7 @@ use function AlecRabbit\typeOf;
 require_once __DIR__ . '/../vendor/autoload.php';
 require_once __DIR__ . '/__helper_functions.php';
 
-const ITER = 200;
+const ITER = 30;
 const MESSAGE = 'Processing';
 
 $theme = new Themes();
