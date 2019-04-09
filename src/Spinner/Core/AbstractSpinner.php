@@ -9,6 +9,7 @@ use AlecRabbit\Spinner\Contracts\SpinnerInterface;
 abstract class AbstractSpinner implements SpinnerInterface
 {
     protected const ERASING_SHIFT = 1;
+    protected const INTERVAL = 0.1;
 
     /** @var string */
     protected $messageStr;
@@ -32,7 +33,7 @@ abstract class AbstractSpinner implements SpinnerInterface
         $this->paddingStr = $paddingStr ?? SpinnerInterface::PADDING_EMPTY;
         $this->messageStr = $this->refineMessage($message, $prefix, $suffix);
         $this->setFields();
-        $this->styled = new Styling($this->getSymbols(), $this->getStyles(), $this->messageStr);
+        $this->styled = new Styling($this->getSymbols(), $this->getStyles());
     }
 
     /**
@@ -51,7 +52,8 @@ abstract class AbstractSpinner implements SpinnerInterface
 
     protected function setFields(): void
     {
-        $strLen = strlen($this->message()) + strlen($this->paddingStr) + static::ERASING_SHIFT;
+        $strLen =
+            strlen($this->message()) + strlen($this->percent()) + strlen($this->paddingStr) + static::ERASING_SHIFT;
         $this->moveBackSequenceStr = ConsoleColor::ESC_CHAR . "[{$strLen}D";
         $this->eraseBySpacesStr = str_repeat(' ', $strLen);
     }
@@ -61,13 +63,26 @@ abstract class AbstractSpinner implements SpinnerInterface
      */
     protected function message(): string
     {
-        return $this->messageStr . $this->percentStr;
+        return $this->messageStr;
+    }
+
+    /**
+     * @return string
+     */
+    protected function percent(): string
+    {
+        return $this->percentStr;
     }
 
     /**
      * @return array
      */
     abstract protected function getSymbols(): array;
+
+    public function interval(): float
+    {
+        return static::INTERVAL;
+    }
 
     protected function getStyles(): array
     {
@@ -126,6 +141,9 @@ abstract class AbstractSpinner implements SpinnerInterface
             $this->styled->spinner() .
             $this->styled->message(
                 $this->message()
+            ) .
+            $this->styled->percent(
+                $this->percent()
             ) .
             $this->moveBackSequenceStr;
     }

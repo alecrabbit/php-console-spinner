@@ -6,9 +6,12 @@ use AlecRabbit\Spinner\Core\AbstractSpinner;
 
 class SimpleSpinner extends AbstractSpinner
 {
+    protected const INTERVAL = 0.16;
+
     /** {@inheritDoc} */
     protected function getSymbols(): array
     {
-        return ['/', '/', '|', '|', '\\', '\\', '─', '─',];
+        return ['/', '|', '\\', '─',];
+//        return ['/', '/', '|', '|', '\\', '\\', '─', '─',];
     }
 }

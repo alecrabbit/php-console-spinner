@@ -1,82 +1,169 @@
 <?php declare(strict_types=1);
 
+require_once __DIR__ . '/../vendor/autoload.php';
+
+use AlecRabbit\ConsoleColour\Contracts\Styles;
 use AlecRabbit\ConsoleColour\Themes;
 use AlecRabbit\Control\Cursor;
 use AlecRabbit\Spinner\ClockSpinner;
-use AlecRabbit\Spinner\MoonSpinner;
-use AlecRabbit\Spinner\SimpleSpinner;
+use AlecRabbit\Spinner\Core\AbstractSpinner;
+use AlecRabbit\Spinner\Core\Styling;
 use AlecRabbit\Spinner\SnakeSpinner;
-
-require_once __DIR__ . '/../vendor/autoload.php';
-require_once __DIR__ . '/__helper_functions.php';
 
 /**
  * It's a very basic example just to show the concept
  */
 
-const MILLISECONDS = 80;
-$microseconds = MILLISECONDS * 1000;
-
-$theme = new Themes();
-// Try other spinners(DON'TFORGET TO IMPORT :D):
-// CircleSpinner
-// ClockSpinner
-// MoonSpinner
-// SimpleSpinner
-// SnakeSpinner
-$s = new SnakeSpinner();
-$simulatedMessages = [
+const ITERATIONS = 100; // Play with this value 100..500
+const SIMULATED_MESSAGES = [
     0 => 'Initializing',
-    10 => 'Starting',
-    15 => 'Begin processing',
-    45 => 'Processing',
-    49 => 'Gathering data',
-    51 => 'Processing',
-    90 => 'Processing',
-    100 => 'Processing',
-    110 => 'Processing',
-    120 => 'Still processing',
-    150 => 'Still processing',
-    170 => 'Almost there',
-    190 => 'Be patient',
+    3 => 'Starting',
+    10 => 'Begin processing',
+    12 => 'Gathering data',
+    15 => 'Processing',
+    30 => 'Processing',
+    55 => 'Processing',
+    74 => 'Processing',
+    78 => 'Processing',
+    80 => 'Still processing',
+    88 => 'Still processing',
+    90 => 'Almost there',
+    95 => 'Be patient',
 ];
-echo Cursor::hide();
-echo $theme->comment('Long running task example... (Inline Spinner)') . PHP_EOL;
-$s->inline(true);
-//echo $s->begin(); // Optional, begin() is just an alias for spin()
-for ($i = 0; $i < 200; $i++) {
-    usleep($microseconds);
-    if (\array_key_exists($i, $simulatedMessages)) {
-        // It's your job to get and echo erase sequence when needed
-        echo $s->erase();
-        echo PHP_EOL;
-        echo $theme->debug($simulatedMessages[$i] . '...');
-    }
-    // It's your job to echo spin() with approx. equal intervals of 80-100ms
-    // (for comfortable animation only)
-    echo $s->spin();
-}
-echo $s->end();
-echo PHP_EOL;
-echo $theme->debug('Done!') . PHP_EOL;
 
-echo PHP_EOL;
-echo $theme->comment('Long running task example... (Spinner on the next line)') . PHP_EOL;
-$s->inline(false);
-echo PHP_EOL;
-//echo $s->begin(); // Optional
-for ($i = 0; $i < 200; $i++) {
-    usleep($microseconds);
-    if (\array_key_exists($i, $simulatedMessages)) {
-        echo $theme->debug($simulatedMessages[$i] . '...');
+//// Try different  spinners:
+// CircleSpinner::class
+// ClockSpinner::class
+// MoonSpinner::class
+// SimpleSpinner::class
+// SnakeSpinner::class
+
+$spinnerClass = ClockSpinner::class; // DON'T FORGET TO IMPORT!
+
+$theme = new Themes(); // for colored output if supported
+
+echo $theme->comment('Long running task example...') . PHP_EOL;
+echo $theme->dark('Using spinner: ') . $spinnerClass . PHP_EOL;
+
+echo Cursor::hide();
+
+display(
+    new $spinnerClass(),
+    $theme,
+    true,
+    'Inline Spinner(With percentage, No custom message):'
+);
+
+display(
+    new $spinnerClass(),
+    $theme,
+    false,
+    'Spinner on the next line(With percentage, No custom message):' . PHP_EOL
+);
+
+display(
+    new $spinnerClass('processing'),
+    $theme,
+    false,
+    'Spinner on the next line(With percentage, With custom message "processing"):' . PHP_EOL
+);
+
+display(
+    new class('computing') extends SnakeSpinner
+    {
+        protected const INTERVAL = 0.3;
+        protected function getStyles(): array
+        {
+            $styles = parent::getStyles();
+            $styles[Styling::COLOR_MESSAGE_STYLES] = [Styles::LIGHT_YELLOW];
+            $styles[Styling::COLOR_PERCENT_STYLES] = [Styles::RED];
+            return $styles;
+        }
+    },
+    $theme,
+    false,
+    'Custom slow SnakeSpinner on the next line(With custom styled percentage and custom styled message "computing"):' . PHP_EOL
+);
+
+running(
+    new $spinnerClass(),
+    $theme);
+
+echo Cursor::show();
+
+//echo "\007Bell!" . PHP_EOL; // just for fun
+
+// ************************ Functions ************************
+/**
+ * @param AbstractSpinner $s
+ * @param Themes $theme
+ */
+function running(AbstractSpinner $s, Themes $theme): void
+{
+    echo $theme->cyan('Example: Entering long running state... ') . PHP_EOL;
+    echo $theme->warning('Use Ctrl + C to exit.') . PHP_EOL;
+    echo PHP_EOL;
+    $microseconds = (int)($s->interval() * 1000000);
+    $run = true;
+    pcntl_signal(SIGINT, static function () use (&$run) {
+        $run = false;
+    });
+    while ($run) {
+        usleep($microseconds);
+        pcntl_signal_dispatch();
+        echo $s->spin();
+    }
+    echo $s->erase();
+    echo PHP_EOL;
+}
+
+/**
+ * @param AbstractSpinner $s
+ * @param Themes $theme
+ * @param bool $inline
+ * @param string $message
+ */
+function display(AbstractSpinner $s, Themes $theme, bool $inline, string $message): void
+{
+    echo $theme->lightCyan('Example: ' . $message) . PHP_EOL;
+    $simulatedMessages = getSimulatedMessages();
+
+    $s->inline($inline);
+    $microseconds = (int)($s->interval() * 1000000);
+    echo $s->begin(); // Optional, begin() is just an alias for spin()
+    for ($i = 0; $i < ITERATIONS; $i++) {
+        usleep($microseconds);
+        if (\array_key_exists($i, $simulatedMessages)) {
+            // It's your job to get and echo erase sequence when needed
+            echo $s->erase();
+            if ($inline) {
+                echo PHP_EOL; // for inline mode
+            }
+            echo $theme->none($simulatedMessages[$i] . '...');
+            if (!$inline) {
+                echo PHP_EOL;
+            }
+        }
+        // It's your job to echo spin() with approx. equal intervals of 80-100ms
+        // (for comfortable animation only)
+        echo $s->spin($i / ITERATIONS);  // You can pass percentage to spin() method (float from 0 to 1)
+    }
+    echo $s->end();
+    if ($inline) {
         echo PHP_EOL;
     }
-    // It's your job to echo spin() with approx. equal intervals of 80-100ms
-    // (for comfortable animation only)
-    echo $s->spin($i/200);
+    echo $theme->none('Done!') . PHP_EOL . PHP_EOL;
 }
-echo $s->end();
-echo PHP_EOL;
-echo $theme->debug('Done!') . PHP_EOL;
-//echo "\007"; // Bell just for fun
-echo Cursor::show();
+
+/**
+ * @return array
+ */
+function getSimulatedMessages(): array
+{
+    $c = ITERATIONS / 100;
+    $simulated = [];
+    foreach (SIMULATED_MESSAGES as $key => $message) {
+        $simulated[(int)$key * $c] = $message;
+    }
+    return $simulated;
+}

@@ -6,6 +6,7 @@
     "php",
     "spinner",
     "console",
+    "cli",
     "scripts",
     "pretty",
     "clock",
@@ -22,7 +23,8 @@
   "require-dev": {
     "nunomaduro/collision": "^3.0",
     "phpunit/phpunit": "^8.0",
-    "symfony/var-dumper": "^4.2"
+    "symfony/var-dumper": "^4.2",
+    "react/http": "^0.8.4"
   },
   "autoload": {
     "psr-4": {
