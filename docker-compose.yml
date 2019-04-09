@@ -14,4 +14,6 @@ services:
 #      - ./../../libraries:/var/packages # refers to libraries/packages
     environment:
       DOCKER_TERM: "$TERM"
+    ports:
+      - "${EXT_PORT}:${PORT}"
     command: keep-alive.sh

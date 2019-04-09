@@ -14,7 +14,7 @@ use function AlecRabbit\typeOf;
 require_once __DIR__ . '/../vendor/autoload.php';
 require_once __DIR__ . '/__helper_functions.php';
 
-const ITER = 30;
+const ITER = 200;
 const MESSAGE = 'Processing';
 const MILLISECONDS = 80;
 
@@ -29,7 +29,6 @@ showSpinners(
         new MoonSpinner(MESSAGE),
         new SimpleSpinner(MESSAGE),
         new SnakeSpinner(MESSAGE),
-        new TrigramSpinner(MESSAGE),
     ], $theme,
     $microseconds
 );
@@ -41,7 +40,6 @@ showSpinners(
         new MoonSpinner(),
         new SimpleSpinner(),
         new SnakeSpinner(),
-        new TrigramSpinner(),
     ], $theme,
     $microseconds
 );
@@ -58,11 +56,17 @@ function showSpinners(array $spinners, Themes $theme, $microseconds): void
 {
     foreach ($spinners as $s) {
         echo $theme->cyan('[' . typeOf($s) . ']:') . PHP_EOL;
-        echo $s->begin();
+        echo PHP_EOL;
+        echo Cursor::up();
+        echo $s->begin(); // Optional
         for ($i = 1; $i <= ITER; $i++) {
             echo $s->spin();
             usleep($microseconds);
         }
+        // Note: we're not erasing spinner here
+        // if you want to uncomment next line
+        //echo $s->end();
+        echo PHP_EOL;
         echo PHP_EOL;
     }
 }
