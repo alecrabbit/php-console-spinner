@@ -60,10 +60,10 @@ $loop->addSignal(SIGINT, static function ($signal) use ($loop, $t) {
 /**
  * Spinner part
  */
-$s = new SnakeSpinner();
+$s = new \AlecRabbit\Spinner\SnakeSpinner();
 
 // Add periodic timer to redraw our spinner
-$loop->addPeriodicTimer(0.08, static function () use ($s) {
+$loop->addPeriodicTimer($s->interval(), static function () use ($s) {
     echo $s->spin();
 });
 

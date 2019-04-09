@@ -7,7 +7,6 @@ use AlecRabbit\ConsoleColour\Themes;
 use AlecRabbit\Control\Cursor;
 use AlecRabbit\Spinner\Core\AbstractSpinner;
 use AlecRabbit\Spinner\Core\Styling;
-use AlecRabbit\Spinner\MoonSpinner;
 use AlecRabbit\Spinner\SnakeSpinner;
 
 /**
@@ -15,8 +14,6 @@ use AlecRabbit\Spinner\SnakeSpinner;
  */
 
 const ITERATIONS = 10; // Play with this value 100..500
-const MILLISECONDS = 80;
-const MICROSECONDS = MILLISECONDS * 1000;
 const SIMULATED_MESSAGES = [
     0 => 'Initializing',
     3 => 'Starting',
@@ -104,8 +101,9 @@ function running(AbstractSpinner $s, Themes $theme): void
     echo $theme->cyan('Example: Entering long running state... ') . PHP_EOL;
     echo $theme->warning('Use Ctrl + C to exit.') . PHP_EOL;
     echo PHP_EOL;
+    $microseconds = $s->interval() * 1000000;
     while (true) {
-        usleep(MICROSECONDS);
+        usleep($microseconds);
         echo $s->spin();
     }
 }
@@ -122,9 +120,10 @@ function display(AbstractSpinner $s, Themes $theme, bool $inline, string $messag
     $simulatedMessages = getSimulatedMessages();
 
     $s->inline($inline);
+    $microseconds = $s->interval() * 1000000;
     echo $s->begin(); // Optional, begin() is just an alias for spin()
     for ($i = 0; $i < ITERATIONS; $i++) {
-        usleep(MICROSECONDS);
+        usleep($microseconds);
         if (\array_key_exists($i, $simulatedMessages)) {
             // It's your job to get and echo erase sequence when needed
             echo $s->erase();
