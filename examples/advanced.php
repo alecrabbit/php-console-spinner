@@ -2,7 +2,8 @@
 /**
  * This example requires ext-pcntl
  */
-require __DIR__ . '/../vendor/autoload.php';
+//require __DIR__ . '/../vendor/autoload.php';
+require __DIR__ . '/../tests/bootstrap.php';
 
 use AlecRabbit\Accessories\MemoryUsage;
 use AlecRabbit\ConsoleColour\Themes;
@@ -28,6 +29,9 @@ $t = new Themes();
  */
 $loop = Factory::create();
 $server = new Server(static function (ServerRequestInterface $request) use ($loop) {
+    if ('/favicon.ico' === $request->getRequestTarget()) {
+        return new Response(404);
+    }
     return new Promise(static function ($resolve, $reject) use ($loop) {
         // Emulating slow server
         $loop->addTimer(0.6, static function () use ($resolve) {
