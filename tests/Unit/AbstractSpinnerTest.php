@@ -17,6 +17,7 @@ class AbstractSpinnerTest extends TestCase
     {
         $spinner = new ExtendAbstractSpinner(self::PROCESSING);
         $this->assertInstanceOf(AbstractSpinner::class, $spinner);
+        $this->assertSame(0.1, $spinner->interval());
         $this->assertIsString($spinner->begin());
         $this->assertIsString($spinner->spin());
         $this->assertIsString($spinner->end());
@@ -69,9 +70,22 @@ class AbstractSpinnerTest extends TestCase
         $this->assertEquals("\033[4m4\033[0m\033[2m Processing...\033[0m\033[2m\033[0m\033[15D", $spinner->spin());
         $this->assertEquals("\033[1m1\033[0m\033[2m Processing...\033[0m\033[2m\033[0m\033[15D", $spinner->spin());
 
-        $this->assertEquals(Helper::stripEscape("               \033[15D"), Helper::stripEscape($spinner->erase()));
-        $this->assertEquals(Helper::stripEscape("               \033[15D"), Helper::stripEscape($spinner->end()));
-        $this->assertEquals("               \033[15D", $spinner->erase());
-        $this->assertEquals("               \033[15D", $spinner->end());
+        $this->assertEquals(
+            Helper::stripEscape("\033[2m2\033[0m\033[2m Processing...\033[0m\033[2m 0%\033[0m\033[18D"),
+            Helper::stripEscape($spinner->spin(0.0))
+        );
+        $this->assertEquals(
+            Helper::stripEscape("\033[3m3\033[0m\033[2m Processing...\033[0m\033[2m 50%\033[0m\033[19D"),
+            Helper::stripEscape($spinner->spin(0.5))
+        );
+        $this->assertEquals(
+            Helper::stripEscape("\033[4m4\033[0m\033[2m Processing...\033[0m\033[2m 100%\033[0m\033[20D"),
+            Helper::stripEscape($spinner->spin(1.0))
+        );
+
+        $this->assertEquals(Helper::stripEscape("                    \033[20D"), Helper::stripEscape($spinner->erase()));
+        $this->assertEquals(Helper::stripEscape("                    \033[20D"), Helper::stripEscape($spinner->end()));
+        $this->assertEquals("                    \033[20D", $spinner->erase());
+        $this->assertEquals("                    \033[20D", $spinner->end());
     }
 }
