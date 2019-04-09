@@ -4,6 +4,8 @@
  */
 require __DIR__ . '/../vendor/autoload.php';
 
+use AlecRabbit\Accessories\MemoryUsage;
+use AlecRabbit\ConsoleColour\Themes;
 use AlecRabbit\Control\Cursor;
 use AlecRabbit\Spinner\SnakeSpinner;
 use Psr\Http\Message\ServerRequestInterface;
@@ -12,6 +14,9 @@ use React\Http\Response;
 use React\Http\Server;
 use React\Promise\Promise;
 use function AlecRabbit\now;
+
+// for colored output
+$t = new Themes();
 
 /**
  * This is an advanced example of using spinner.
@@ -27,20 +32,24 @@ $server = new Server(static function (ServerRequestInterface $request) use ($loo
         // Emulating slow server
         $loop->addTimer(0.6, static function () use ($resolve) {
             $response =
-                new Response(200, ['Content-Type' => 'text/plain',], now() . ' Hello world!');
+                new Response(
+                    200,
+                    [
+                        'Content-Type' => 'text/html',
+                        'charset' => 'utf-8',
+                    ], body());
             $resolve($response);
         });
     });
 });
 $socket = new \React\Socket\Server($argv[1] ?? '0.0.0.0:8080', $loop);
 $server->listen($socket);
-echo 'Listening on ' . str_replace('tcp:', 'http:', $socket->getAddress()) . PHP_EOL;
-echo 'Use CTRL+C to exit.' . PHP_EOL;
+echo $t->comment('Listening on ' . str_replace('tcp:', 'http:', $socket->getAddress())) . PHP_EOL;
+echo $t->dark('Use CTRL+C to exit.') . PHP_EOL;
 
 // Add SIGINT signal handler
-$loop->addSignal(SIGINT, static function ($signal) use ($loop) {
-    echo PHP_EOL;
-    echo 'Exiting... ', PHP_EOL;
+$loop->addSignal(SIGINT, static function ($signal) use ($loop, $t) {
+    echo PHP_EOL, $t->dark('Exiting... '), PHP_EOL;
     $loop->stop();
 });
 
@@ -54,10 +63,35 @@ $loop->addPeriodicTimer(0.08, static function () use ($s) {
     echo $s->spin();
 });
 
+// Add periodic timer to echo status message
+$loop->addPeriodicTimer(60, static function () use ($s, $t) {
+    echo $s->erase();
+    echo Cursor::up();
+    echo $t->dark(memory()) . PHP_EOL;
+});
+
 echo Cursor::hide();
+echo PHP_EOL;
+echo $t->dark(memory()) . PHP_EOL;
 
 // Starting the loop
 $loop->run();
 
 echo $s->erase(); // Cleaning up
 echo Cursor::show();
+
+
+// ********************** Functions ****************************
+
+function memory(): string
+{
+    $report = MemoryUsage::report();
+    return now() . ' Memory usage: ' . $report->getUsageString();
+}
+
+function body(): string
+{
+    return '<html lang="en-US"><title>react</title><body><h1>Hello world!</h1><br>' . memory() . '</body></html>';
+}
+
+
