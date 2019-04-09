@@ -48,8 +48,8 @@ $server = new Server(static function (ServerRequestInterface $request) use ($loo
 });
 $socket = new \React\Socket\Server($argv[1] ?? '0.0.0.0:8080', $loop);
 $server->listen($socket);
-echo $t->comment('Listening on ' . str_replace('tcp:', 'http:', $socket->getAddress())) . PHP_EOL;
-echo $t->dark('Use CTRL+C to exit.') . PHP_EOL;
+echo $t->comment('🚀 Listening on ' . str_replace('tcp:', 'http:', $socket->getAddress())) . PHP_EOL;
+echo PHP_EOL, $t->dark('Use CTRL+C to exit.'), PHP_EOL;
 
 // Add SIGINT signal handler
 $loop->addSignal(SIGINT, static function ($signal) use ($loop, $t) {
