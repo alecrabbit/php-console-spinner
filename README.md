@@ -20,7 +20,7 @@ See [examples](https://github.com/alecrabbit/php-console-spinner/tree/master/exa
 ```bash
 # php examples/show_all_spinners.php
 ```
-![example](https://raw.githubusercontent.com/alecrabbit/php-console-spinner/master/docs/images/usage.php.gif)
+![example](https://raw.githubusercontent.com/alecrabbit/php-console-spinner/master/docs/images/show_all_spinners.php.gif)
 ```bash
 # php examples/usage.php
 ```
