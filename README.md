@@ -24,7 +24,7 @@ See [examples](https://github.com/alecrabbit/php-console-spinner/tree/master/exa
 ```bash
 # php examples/usage.php
 ```
-![example](https://raw.githubusercontent.com/alecrabbit/php-console-spinner/master/docs/images/usage.php.webm)
+![example](https://raw.githubusercontent.com/alecrabbit/php-console-spinner/master/docs/images/usage.php.gif)
 ```bash
 # php examples/advanced.php
 ```
