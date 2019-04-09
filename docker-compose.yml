@@ -15,5 +15,5 @@ services:
     environment:
       DOCKER_TERM: "$TERM"
     ports:
-      - "${EXT_PORT}:${PORT}"
+      - "8080:8080"
     command: keep-alive.sh

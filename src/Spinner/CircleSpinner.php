@@ -28,5 +28,4 @@ class CircleSpinner extends AbstractSpinner
             Styling::COLOR_SPINNER_STYLES => [Styles::LIGHT_YELLOW],
         ];
     }
-
 }

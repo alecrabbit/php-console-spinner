@@ -81,7 +81,7 @@ abstract class AbstractSpinner implements SpinnerInterface
 
     public function interval(): float
     {
-       return static::INTERVAL;
+        return static::INTERVAL;
     }
 
     protected function getStyles(): array
