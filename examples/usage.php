@@ -1,4 +1,5 @@
-<?php declare(strict_types=1);
+<?php /** @noinspection PhpComposerExtensionStubsInspection */
+declare(strict_types=1);
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
@@ -8,6 +9,7 @@ use AlecRabbit\Control\Cursor;
 use AlecRabbit\Spinner\ClockSpinner;
 use AlecRabbit\Spinner\Core\AbstractSpinner;
 use AlecRabbit\Spinner\Core\Styling;
+use AlecRabbit\Spinner\MoonSpinner;
 use AlecRabbit\Spinner\SnakeSpinner;
 
 /**
@@ -38,7 +40,7 @@ const SIMULATED_MESSAGES = [
 // SimpleSpinner::class
 // SnakeSpinner::class
 
-$spinnerClass = ClockSpinner::class; // DON'T FORGET TO IMPORT!
+$spinnerClass = MoonSpinner::class; // DON'T FORGET TO IMPORT!
 
 $theme = new Themes(); // for colored output if supported
 
@@ -71,7 +73,6 @@ display(
 display(
     new class('computing') extends SnakeSpinner
     {
-        protected const INTERVAL = 0.3;
         protected function getStyles(): array
         {
             $styles = parent::getStyles();
@@ -82,7 +83,7 @@ display(
     },
     $theme,
     false,
-    'Custom slow SnakeSpinner on the next line(With custom styled percentage and custom styled message "computing"):' . PHP_EOL
+    'Custom SnakeSpinner on the next line(With custom styled percentage and custom styled message "computing"):' . PHP_EOL
 );
 
 running(
@@ -133,7 +134,7 @@ function display(AbstractSpinner $s, Themes $theme, bool $inline, string $messag
     echo $s->begin(); // Optional, begin() is just an alias for spin()
     for ($i = 0; $i < ITERATIONS; $i++) {
         usleep($microseconds);
-        if (\array_key_exists($i, $simulatedMessages)) {
+        if (array_key_exists($i, $simulatedMessages)) {
             // It's your job to get and echo erase sequence when needed
             echo $s->erase();
             if ($inline) {

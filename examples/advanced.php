@@ -30,7 +30,8 @@ $t = new Themes();
 $loop = Factory::create();
 $server = new Server(static function (ServerRequestInterface $request) use ($loop) {
     if ('/favicon.ico' === $request->getRequestTarget()) {
-        return new Response(404);
+        return
+            new Response(404);
     }
     return new Promise(static function ($resolve, $reject) use ($loop) {
         // Emulating slow server
@@ -60,7 +61,7 @@ $loop->addSignal(SIGINT, static function ($signal) use ($loop, $t) {
 /**
  * Spinner part
  */
-$s = new \AlecRabbit\Spinner\SnakeSpinner();
+$s = new SnakeSpinner();
 
 // Add periodic timer to redraw our spinner
 $loop->addPeriodicTimer($s->interval(), static function () use ($s) {
