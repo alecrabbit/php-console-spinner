@@ -4,7 +4,9 @@ namespace AlecRabbit\Spinner\Core;
 
 use AlecRabbit\Accessories\Pretty;
 use AlecRabbit\ConsoleColour\ConsoleColor;
+use AlecRabbit\Spinner\Contracts\SettingsInterface;
 use AlecRabbit\Spinner\Contracts\SpinnerInterface;
+use function AlecRabbit\typeOf;
 
 abstract class AbstractSpinner implements SpinnerInterface
 {
@@ -24,14 +26,16 @@ abstract class AbstractSpinner implements SpinnerInterface
     /** @var Styling */
     protected $styled;
 
+    /**
+     * AbstractSpinner constructor.
+     * @param mixed $settings
+     */
     public function __construct(
-        ?string $message = null,
-        ?string $prefix = null,
-        ?string $suffix = null,
-        ?string $paddingStr = null
+        $settings = null
     ) {
-        $this->paddingStr = $paddingStr ?? SpinnerInterface::PADDING_EMPTY;
-        $this->messageStr = $this->refineMessage($message, $prefix, $suffix);
+        $settings = $this->refineSettings($settings);
+        $this->paddingStr = $settings->getPaddingStr() ?? SpinnerInterface::PADDING_EMPTY;
+        $this->messageStr = $this->refineMessage($settings->getMessage(), $settings->getPrefix(), $settings->getSuffix());
         $this->setFields();
         $this->styled = new Styling($this->getSymbols(), $this->getStyles());
     }
@@ -169,5 +173,30 @@ abstract class AbstractSpinner implements SpinnerInterface
     public function erase(): string
     {
         return $this->eraseBySpacesStr . $this->moveBackSequenceStr;
+    }
+
+    /**
+     * @param mixed $settings
+     * @return Settings
+     */
+    protected function refineSettings($settings): Settings
+    {
+        $this->assertSettings($settings);
+        if (\is_string($settings)) {
+            return (new Settings())->setMessage($settings);
+        }
+        return $settings ?? new Settings();
+    }
+
+    /**
+     * @param mixed $settings
+     */
+    protected function assertSettings($settings): void
+    {
+        if (null !== $settings && !\is_string($settings) && !$settings instanceof SettingsInterface) {
+            throw new \InvalidArgumentException(
+                'String or instance of SettingsInterface expected ' . typeOf($settings). ' given.'
+            );
+        }
     }
 }
