@@ -14,7 +14,7 @@ use function AlecRabbit\typeOf;
 require_once __DIR__ . '/../vendor/autoload.php';
 require_once __DIR__ . '/__helper_functions.php';
 
-const ITER = 20;
+const ITER = 200;
 const MESSAGE = 'Processing';
 
 $theme = new Themes();
@@ -53,8 +53,8 @@ function showSpinners(array $spinners, Themes $theme): void
     foreach ($spinners as $s) {
         $microseconds = $s->interval() * 1000000;
         echo
-            $theme->cyan('[' . typeOf($s) . ']: ') .
-            $theme->dark('Recommended refresh interval: ' . Pretty::microseconds($microseconds)) .
+            $theme->cyan('[' . typeOf($s) . '] ') .
+            $theme->dark('(' . Pretty::microseconds($microseconds) . ')') . // Recommended refresh interval
             PHP_EOL;
         echo PHP_EOL;
         echo Cursor::up();

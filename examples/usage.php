@@ -5,6 +5,7 @@ require_once __DIR__ . '/../vendor/autoload.php';
 use AlecRabbit\ConsoleColour\Contracts\Styles;
 use AlecRabbit\ConsoleColour\Themes;
 use AlecRabbit\Control\Cursor;
+use AlecRabbit\Spinner\ClockSpinner;
 use AlecRabbit\Spinner\Core\AbstractSpinner;
 use AlecRabbit\Spinner\Core\Styling;
 use AlecRabbit\Spinner\SnakeSpinner;
@@ -13,7 +14,7 @@ use AlecRabbit\Spinner\SnakeSpinner;
  * It's a very basic example just to show the concept
  */
 
-const ITERATIONS = 10; // Play with this value 100..500
+const ITERATIONS = 100; // Play with this value 100..500
 const SIMULATED_MESSAGES = [
     0 => 'Initializing',
     3 => 'Starting',
@@ -37,7 +38,7 @@ const SIMULATED_MESSAGES = [
 // SimpleSpinner::class
 // SnakeSpinner::class
 
-$spinnerClass = SnakeSpinner::class; // DON'T FORGET TO IMPORT!
+$spinnerClass = ClockSpinner::class; // DON'T FORGET TO IMPORT!
 
 $theme = new Themes(); // for colored output if supported
 
@@ -50,26 +51,27 @@ display(
     new $spinnerClass(),
     $theme,
     true,
-    'Inline Spinner(No custom message):'
+    'Inline Spinner(With percentage, No custom message):'
 );
 
 display(
     new $spinnerClass(),
     $theme,
     false,
-    'Spinner on the next line(No custom message):' . PHP_EOL
+    'Spinner on the next line(With percentage, No custom message):' . PHP_EOL
 );
 
 display(
-    new $spinnerClass(),
+    new $spinnerClass('processing'),
     $theme,
     false,
-    'Spinner on the next line(With custom message "processing"):' . PHP_EOL
+    'Spinner on the next line(With percentage, With custom message "processing"):' . PHP_EOL
 );
 
 display(
     new class('computing') extends SnakeSpinner
     {
+        protected const INTERVAL = 0.3;
         protected function getStyles(): array
         {
             $styles = parent::getStyles();
@@ -80,7 +82,7 @@ display(
     },
     $theme,
     false,
-    'Custom SnakeSpinner on the next line(With custom styled percentage and custom styled message "computing"):' . PHP_EOL
+    'Custom slow SnakeSpinner on the next line(With custom styled percentage and custom styled message "computing"):' . PHP_EOL
 );
 
 running(
@@ -101,11 +103,18 @@ function running(AbstractSpinner $s, Themes $theme): void
     echo $theme->cyan('Example: Entering long running state... ') . PHP_EOL;
     echo $theme->warning('Use Ctrl + C to exit.') . PHP_EOL;
     echo PHP_EOL;
-    $microseconds = $s->interval() * 1000000;
-    while (true) {
+    $microseconds = (int)($s->interval() * 1000000);
+    $run = true;
+    pcntl_signal(SIGINT, static function () use (&$run) {
+        $run = false;
+    });
+    while ($run) {
         usleep($microseconds);
+        pcntl_signal_dispatch();
         echo $s->spin();
     }
+    echo $s->erase();
+    echo PHP_EOL;
 }
 
 /**
@@ -120,7 +129,7 @@ function display(AbstractSpinner $s, Themes $theme, bool $inline, string $messag
     $simulatedMessages = getSimulatedMessages();
 
     $s->inline($inline);
-    $microseconds = $s->interval() * 1000000;
+    $microseconds = (int)($s->interval() * 1000000);
     echo $s->begin(); // Optional, begin() is just an alias for spin()
     for ($i = 0; $i < ITERATIONS; $i++) {
         usleep($microseconds);
