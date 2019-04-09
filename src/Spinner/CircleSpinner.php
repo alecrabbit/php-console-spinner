@@ -8,17 +8,15 @@ use AlecRabbit\Spinner\Core\Styling;
 
 class CircleSpinner extends AbstractSpinner
 {
+    protected const INTERVAL = 0.17;
+
     /** {@inheritDoc} */
     protected function getSymbols(): array
     {
         return [
             '◐',
-            '◐',
-            '◓',
             '◓',
             '◑',
-            '◑',
-            '◒',
             '◒',
         ];
     }

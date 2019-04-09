@@ -9,6 +9,7 @@ use AlecRabbit\Spinner\Contracts\SpinnerInterface;
 abstract class AbstractSpinner implements SpinnerInterface
 {
     protected const ERASING_SHIFT = 1;
+    protected const INTERVAL = 0.1;
 
     /** @var string */
     protected $messageStr;
@@ -77,6 +78,11 @@ abstract class AbstractSpinner implements SpinnerInterface
      * @return array
      */
     abstract protected function getSymbols(): array;
+
+    public function interval(): float
+    {
+       return static::INTERVAL;
+    }
 
     protected function getStyles(): array
     {
