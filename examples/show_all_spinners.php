@@ -64,7 +64,7 @@ function showSpinners(array $spinners, Themes $theme): void
             usleep($microseconds);
         }
         // Note: we're not erasing spinner here
-        // if you want to uncomment next line
+        // uncomment next line if you want to
         //echo $s->end();
         echo PHP_EOL;
         echo PHP_EOL;
