@@ -18,6 +18,8 @@ abstract class AbstractSpinner implements SpinnerInterface
     /** @var string */
     protected $percentStr = '';
     /** @var string */
+    protected $percentPrefix;
+    /** @var string */
     protected $moveBackSequenceStr;
     /** @var string */
     protected $paddingStr;
@@ -35,8 +37,7 @@ abstract class AbstractSpinner implements SpinnerInterface
     ) {
         $settings = $this->refineSettings($settings);
         $this->paddingStr = $settings->getPaddingStr() ?? SpinnerInterface::PADDING_EMPTY;
-        $this->messageStr = $this->refineMessage($settings->getMessage(), $settings->getPrefix(),
-            $settings->getSuffix());
+        $this->messageStr = $this->refineMessage($settings);
         $this->setFields();
         $this->styled = new Styling($this->getSymbols(), $this->getStyles());
     }
@@ -67,29 +68,40 @@ abstract class AbstractSpinner implements SpinnerInterface
     }
 
     /**
-     * @param null|string $message
-     * @param null|string $prefix
-     * @param null|string $suffix
+     * @param Settings $settings
      * @return string
      */
-    protected function refineMessage(?string $message, ?string $prefix, ?string $suffix): string
+    protected function refineMessage(Settings $settings): string
     {
-        $message = ucfirst($message ?? SpinnerInterface::DEFAULT_MESSAGE);
-        $prefix = empty($message) ? '' : $prefix ?? SpinnerInterface::DEFAULT_PREFIX;
+        $message = ucfirst($settings->getMessage() ?? SpinnerInterface::ONE_SPACE_SYMBOL);
+        $prefix =
+            empty($message) ? SpinnerInterface::EMPTY : $settings->getPrefix() ?? SpinnerInterface::ONE_SPACE_SYMBOL;
         $suffix =
-            $suffix ??
-            (empty($message) || SpinnerInterface::DEFAULT_MESSAGE === $message ?
-                '' :
+            $settings->getSuffix() ??
+            (empty($message) || SpinnerInterface::ONE_SPACE_SYMBOL === $message ?
+                SpinnerInterface::EMPTY :
                 SpinnerInterface::DEFAULT_SUFFIX);
         return $prefix . $message . $suffix;
     }
 
     protected function setFields(): void
     {
+        $this->percentPrefix = $this->getPrefix();
         $strLen =
             strlen($this->message()) + strlen($this->percent()) + strlen($this->paddingStr) + static::ERASING_SHIFT;
         $this->moveBackSequenceStr = ConsoleColor::ESC_CHAR . "[{$strLen}D";
-        $this->eraseBySpacesStr = str_repeat(' ', $strLen);
+        $this->eraseBySpacesStr = str_repeat(SpinnerInterface::ONE_SPACE_SYMBOL, $strLen);
+    }
+
+    /**
+     * @return string
+     */
+    protected function getPrefix(): string
+    {
+        if ($this->messageStr !== str_repeat(SpinnerInterface::ONE_SPACE_SYMBOL, 2)) {
+            return SpinnerInterface::ONE_SPACE_SYMBOL;
+        }
+        return SpinnerInterface::EMPTY;
     }
 
     /**
@@ -188,7 +200,7 @@ abstract class AbstractSpinner implements SpinnerInterface
     protected function updatePercent(float $percent): void
     {
         if (0 === (int)($percent * 1000) % 10) {
-            $this->percentStr = Pretty::percent($percent, 0, ' ');
+            $this->percentStr = Pretty::percent($percent, 0, $this->percentPrefix);
             $this->setFields();
         }
     }

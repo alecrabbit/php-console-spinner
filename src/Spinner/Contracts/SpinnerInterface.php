@@ -4,6 +4,9 @@ namespace AlecRabbit\Spinner\Contracts;
 
 interface SpinnerInterface
 {
+    public const ONE_SPACE_SYMBOL = ' ';
+    public const EMPTY = '';
+
     public const DEFAULT_PREFIX = ' ';
     public const DEFAULT_SUFFIX = '...';
     public const DEFAULT_MESSAGE = ' ';
