@@ -15,13 +15,9 @@ Spinner - your task is running
 [![Average time to resolve an issue](http://isitmaintained.com/badge/resolution/alecrabbit/php-console-spinner.svg)](http://isitmaintained.com/project/alecrabbit/php-console-spinner "Average time to resolve an issue")
 [![Percentage of issues still open](http://isitmaintained.com/badge/open/alecrabbit/php-console-spinner.svg)](http://isitmaintained.com/project/alecrabbit/php-console-spinner "Percentage of issues still open")
 
+![demo](https://raw.githubusercontent.com/alecrabbit/php-console-spinner/master/docs/images/demo.php.gif)
+
 ### Usage
 See [examples](https://github.com/alecrabbit/php-console-spinner/tree/master/examples)
-```bash
-# php examples/show_all_spinners.php
-```
-![example](https://raw.githubusercontent.com/alecrabbit/php-console-spinner/master/docs/images/demo_000.gif)
-```bash
-# php examples/usage.php
-```
-![example](https://raw.githubusercontent.com/alecrabbit/php-console-spinner/master/docs/images/demo.gif)
+
+Examples [output](docs/examples_output.md)

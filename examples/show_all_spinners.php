@@ -14,7 +14,7 @@ use function AlecRabbit\typeOf;
 require_once __DIR__ . '/../vendor/autoload.php';
 require_once __DIR__ . '/__helper_functions.php';
 
-const ITER = 200;
+const ITER = 30;
 const MESSAGE = 'Processing';
 
 $theme = new Themes();
@@ -64,7 +64,7 @@ function showSpinners(array $spinners, Themes $theme): void
             usleep($microseconds);
         }
         // Note: we're not erasing spinner here
-        // if you want to uncomment next line
+        // uncomment next line if you want to
         //echo $s->end();
         echo PHP_EOL;
         echo PHP_EOL;

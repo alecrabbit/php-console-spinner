@@ -18,6 +18,8 @@ abstract class AbstractSpinner implements SpinnerInterface
     /** @var string */
     protected $percentStr = '';
     /** @var string */
+    protected $percentPrefix;
+    /** @var string */
     protected $moveBackSequenceStr;
     /** @var string */
     protected $paddingStr;
@@ -34,32 +36,72 @@ abstract class AbstractSpinner implements SpinnerInterface
         $settings = null
     ) {
         $settings = $this->refineSettings($settings);
-        $this->paddingStr = $settings->getPaddingStr() ?? SpinnerInterface::PADDING_EMPTY;
-        $this->messageStr = $this->refineMessage($settings->getMessage(), $settings->getPrefix(), $settings->getSuffix());
+        $this->paddingStr = $settings->getPaddingStr() ?? SettingsInterface::EMPTY;
+        $this->messageStr = $this->refineMessage($settings);
         $this->setFields();
         $this->styled = new Styling($this->getSymbols(), $this->getStyles());
     }
 
     /**
-     * @param null|string $message
-     * @param null|string $prefix
-     * @param null|string $suffix
+     * @param mixed $settings
+     * @return Settings
+     */
+    protected function refineSettings($settings): Settings
+    {
+        $this->assertSettings($settings);
+        if (\is_string($settings)) {
+            return (new Settings())->setMessage($settings);
+        }
+        return $settings ?? new Settings();
+    }
+
+    /**
+     * @param mixed $settings
+     */
+    protected function assertSettings($settings): void
+    {
+        if (null !== $settings && !\is_string($settings) && !$settings instanceof SettingsInterface) {
+            throw new \InvalidArgumentException(
+                'String or instance of SettingsInterface expected ' . typeOf($settings) . ' given.'
+            );
+        }
+    }
+
+    /**
+     * @param Settings $settings
      * @return string
      */
-    protected function refineMessage(?string $message, ?string $prefix, ?string $suffix): string
+    protected function refineMessage(Settings $settings): string
     {
-        $message = ucfirst($message ?? SpinnerInterface::DEFAULT_MESSAGE);
-        $prefix = empty($message) ? '' : $prefix ?? SpinnerInterface::DEFAULT_PREFIX;
-        $suffix = $suffix ?? (empty($message) ? '' : SpinnerInterface::DEFAULT_SUFFIX);
+        $message = ucfirst($settings->getMessage() ?? SettingsInterface::ONE_SPACE_SYMBOL);
+        $prefix =
+            empty($message) ? SettingsInterface::EMPTY : $settings->getPrefix() ?? SettingsInterface::ONE_SPACE_SYMBOL;
+        $suffix =
+            $settings->getSuffix() ??
+            (empty($message) || SettingsInterface::ONE_SPACE_SYMBOL === $message ?
+                SettingsInterface::EMPTY :
+                SettingsInterface::DEFAULT_SUFFIX);
         return $prefix . $message . $suffix;
     }
 
     protected function setFields(): void
     {
+        $this->percentPrefix = $this->getPrefix();
         $strLen =
             strlen($this->message()) + strlen($this->percent()) + strlen($this->paddingStr) + static::ERASING_SHIFT;
         $this->moveBackSequenceStr = ConsoleColor::ESC_CHAR . "[{$strLen}D";
-        $this->eraseBySpacesStr = str_repeat(' ', $strLen);
+        $this->eraseBySpacesStr = str_repeat(SettingsInterface::ONE_SPACE_SYMBOL, $strLen);
+    }
+
+    /**
+     * @return string
+     */
+    protected function getPrefix(): string
+    {
+        if ($this->messageStr !== str_repeat(SettingsInterface::ONE_SPACE_SYMBOL, 2)) {
+            return SettingsInterface::ONE_SPACE_SYMBOL;
+        }
+        return SettingsInterface::EMPTY;
     }
 
     /**
@@ -82,11 +124,6 @@ abstract class AbstractSpinner implements SpinnerInterface
      * @return array
      */
     abstract protected function getSymbols(): array;
-
-    public function interval(): float
-    {
-        return static::INTERVAL;
-    }
 
     protected function getStyles(): array
     {
@@ -121,9 +158,14 @@ abstract class AbstractSpinner implements SpinnerInterface
         ];
     }
 
+    public function interval(): float
+    {
+        return static::INTERVAL;
+    }
+
     public function inline(bool $inline): SpinnerInterface
     {
-        $this->paddingStr = $inline ? SpinnerInterface::PADDING_SPACE_SYMBOL : SpinnerInterface::PADDING_EMPTY;
+        $this->paddingStr = $inline ? SettingsInterface::ONE_SPACE_SYMBOL : SettingsInterface::EMPTY;
         $this->setFields();
         return $this;
     }
@@ -158,7 +200,7 @@ abstract class AbstractSpinner implements SpinnerInterface
     protected function updatePercent(float $percent): void
     {
         if (0 === (int)($percent * 1000) % 10) {
-            $this->percentStr = Pretty::percent($percent, 0, ' ');
+            $this->percentStr = Pretty::percent($percent, 0, $this->percentPrefix);
             $this->setFields();
         }
     }
@@ -173,30 +215,5 @@ abstract class AbstractSpinner implements SpinnerInterface
     public function erase(): string
     {
         return $this->eraseBySpacesStr . $this->moveBackSequenceStr;
-    }
-
-    /**
-     * @param mixed $settings
-     * @return Settings
-     */
-    protected function refineSettings($settings): Settings
-    {
-        $this->assertSettings($settings);
-        if (\is_string($settings)) {
-            return (new Settings())->setMessage($settings);
-        }
-        return $settings ?? new Settings();
-    }
-
-    /**
-     * @param mixed $settings
-     */
-    protected function assertSettings($settings): void
-    {
-        if (null !== $settings && !\is_string($settings) && !$settings instanceof SettingsInterface) {
-            throw new \InvalidArgumentException(
-                'String or instance of SettingsInterface expected ' . typeOf($settings). ' given.'
-            );
-        }
     }
 }
