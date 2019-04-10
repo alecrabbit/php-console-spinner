@@ -17,5 +17,4 @@ interface SpinnerSymbols
     // If you can't see clock symbols doesn't mean they're not there!
     // They ARE!
     public const CLOCK_VARIANT = ['🕜', '🕝', '🕞', '🕟', '🕠', '🕡', '🕢', '🕣', '🕤', '🕥', '🕦',];
-
 }
