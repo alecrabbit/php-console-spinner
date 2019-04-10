@@ -8,11 +8,11 @@ use AlecRabbit\Spinner\Contracts\SettingsInterface;
 use AlecRabbit\Spinner\Contracts\SpinnerInterface;
 use function AlecRabbit\typeOf;
 
-abstract class AbstractSpinner implements SpinnerInterface
+class Spinner implements SpinnerInterface
 {
     protected const ERASING_SHIFT = 1;
     protected const INTERVAL = 0.1;
-    protected const SYMBOLS = [];
+    protected const SYMBOLS = [''];
 
     /** @var string */
     protected $messageStr;
@@ -40,7 +40,7 @@ abstract class AbstractSpinner implements SpinnerInterface
         $this->paddingStr = $settings->getPaddingStr() ?? SettingsInterface::EMPTY;
         $this->messageStr = $this->refineMessage($settings);
         $this->setFields();
-        $this->styled = new Styling($this->getSymbols(), $this->getStyles());
+        $this->styled = new Styling(static::SYMBOLS, $this->getStyles());
     }
 
     /**
@@ -86,27 +86,10 @@ abstract class AbstractSpinner implements SpinnerInterface
                 SettingsInterface::DEFAULT_SUFFIX;
         return $prefix . $message . $suffix;
     }
-//    /**
-//     * @param Settings $settings
-//     * @return string
-//     */
-//    protected function refineMessage(Settings $settings): string
-//    {
-//        $message = ucfirst($settings->getMessage() ?? SettingsInterface::ONE_SPACE_SYMBOL);
-//        $prefix =
-//            empty($message) ? SettingsInterface::EMPTY : $settings->getPrefix() ?? SettingsInterface::ONE_SPACE_SYMBOL;
-//        $suffix =
-//            $settings->getSuffix() ??
-//            (empty($message) || SettingsInterface::ONE_SPACE_SYMBOL === $message ?
-//                SettingsInterface::EMPTY :
-//                SettingsInterface::DEFAULT_SUFFIX);
-//        return $prefix . $message . $suffix;
-//    }
 
     protected function setFields(): void
     {
         $this->percentPrefix = $this->getPrefix();
-//        dump($this->percentPrefix);
         $strLen =
             strlen($this->message()) + strlen($this->percent()) + strlen($this->paddingStr) + static::ERASING_SHIFT;
         $this->moveBackSequenceStr = ConsoleColor::ESC_CHAR . "[{$strLen}D";
@@ -122,10 +105,6 @@ abstract class AbstractSpinner implements SpinnerInterface
             return SettingsInterface::ONE_SPACE_SYMBOL;
         }
         return SettingsInterface::EMPTY;
-//        if ($this->messageStr !== str_repeat(SettingsInterface::ONE_SPACE_SYMBOL, 2)) {
-//            return SettingsInterface::ONE_SPACE_SYMBOL;
-//        }
-//        return SettingsInterface::EMPTY;
     }
 
     /**
@@ -143,11 +122,6 @@ abstract class AbstractSpinner implements SpinnerInterface
     {
         return $this->percentStr;
     }
-
-    /**
-     * @return array
-     */
-    abstract protected function getSymbols(): array;
 
     protected function getStyles(): array
     {

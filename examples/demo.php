@@ -5,6 +5,7 @@ use AlecRabbit\Control\Cursor;
 use AlecRabbit\Spinner\CircleSpinner;
 use AlecRabbit\Spinner\ClockSpinner;
 use AlecRabbit\Spinner\Contracts\SpinnerInterface;
+use AlecRabbit\Spinner\Core\Spinner;
 use AlecRabbit\Spinner\MoonSpinner;
 use AlecRabbit\Spinner\SimpleSpinner;
 use AlecRabbit\Spinner\SnakeSpinner;
@@ -20,6 +21,7 @@ $theme = new Themes();
 echo Cursor::hide();
 echo PHP_EOL;
 $spinners = [
+    Spinner::class,
     CircleSpinner::class,
     ClockSpinner::class,
     MoonSpinner::class,

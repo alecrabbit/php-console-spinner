@@ -7,7 +7,7 @@ use AlecRabbit\ConsoleColour\Contracts\Styles;
 use AlecRabbit\ConsoleColour\Themes;
 use AlecRabbit\Control\Cursor;
 use AlecRabbit\Spinner\ClockSpinner;
-use AlecRabbit\Spinner\Core\AbstractSpinner;
+use AlecRabbit\Spinner\Core\Spinner;
 use AlecRabbit\Spinner\Core\Styling;
 use AlecRabbit\Spinner\MoonSpinner;
 use AlecRabbit\Spinner\SnakeSpinner;
@@ -96,10 +96,10 @@ echo Cursor::show();
 
 // ************************ Functions ************************
 /**
- * @param AbstractSpinner $s
+ * @param Spinner $s
  * @param Themes $theme
  */
-function running(AbstractSpinner $s, Themes $theme): void
+function running(Spinner $s, Themes $theme): void
 {
     echo $theme->cyan('Example: Entering long running state... ') . PHP_EOL;
     echo $theme->warning('Use Ctrl + C to exit.') . PHP_EOL;
@@ -119,12 +119,12 @@ function running(AbstractSpinner $s, Themes $theme): void
 }
 
 /**
- * @param AbstractSpinner $s
+ * @param Spinner $s
  * @param Themes $theme
  * @param bool $inline
  * @param string $message
  */
-function display(AbstractSpinner $s, Themes $theme, bool $inline, string $message): void
+function display(Spinner $s, Themes $theme, bool $inline, string $message): void
 {
     echo $theme->lightCyan('Example: ' . $message) . PHP_EOL;
     $simulatedMessages = getSimulatedMessages();

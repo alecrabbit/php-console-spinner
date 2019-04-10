@@ -2,13 +2,10 @@
 
 namespace AlecRabbit\Spinner;
 
-use AlecRabbit\Spinner\Core\AbstractSpinner;
+use AlecRabbit\Spinner\Contracts\SpinnerSymbols;
+use AlecRabbit\Spinner\Core\Spinner;
 
-class SnakeSpinner extends AbstractSpinner
+class SnakeSpinner extends Spinner
 {
-    /** {@inheritDoc} */
-    protected function getSymbols(): array
-    {
-        return ['⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏'];
-    }
+    protected const SYMBOLS = SpinnerSymbols::SNAKE;
 }

@@ -3,7 +3,7 @@
 namespace AlecRabbit\Tests\Spinner;
 
 use AlecRabbit\Spinner\Contracts\SettingsInterface;
-use AlecRabbit\Spinner\Core\AbstractSpinner;
+use AlecRabbit\Spinner\Core\Spinner;
 use PHPUnit\Framework\TestCase;
 
 class AbstractSpinnerTest extends TestCase
@@ -15,8 +15,8 @@ class AbstractSpinnerTest extends TestCase
      */
     public function instance(): void
     {
-        $spinner = new ExtendAbstractSpinner(self::PROCESSING);
-        $this->assertInstanceOf(AbstractSpinner::class, $spinner);
+        $spinner = new ExtendSpinner(self::PROCESSING);
+        $this->assertInstanceOf(Spinner::class, $spinner);
         $this->assertSame(0.1, $spinner->interval());
         $this->assertIsString($spinner->begin());
         $this->assertIsString($spinner->spin());
@@ -36,9 +36,9 @@ class AbstractSpinnerTest extends TestCase
      */
     public function interface(): void
     {
-        $spinner = new ExtendAbstractSpinner(self::PROCESSING);
-        $this->assertInstanceOf(AbstractSpinner::class, $spinner->inline(true));
-        $this->assertInstanceOf(AbstractSpinner::class, $spinner->inline(false));
+        $spinner = new ExtendSpinner(self::PROCESSING);
+        $this->assertInstanceOf(Spinner::class, $spinner->inline(true));
+        $this->assertInstanceOf(Spinner::class, $spinner->inline(false));
         $begin = $spinner->begin();
 
         // DO NOT CHANGE ORDER!!!

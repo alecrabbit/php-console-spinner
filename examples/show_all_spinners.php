@@ -5,7 +5,7 @@ use AlecRabbit\ConsoleColour\Themes;
 use AlecRabbit\Control\Cursor;
 use AlecRabbit\Spinner\CircleSpinner;
 use AlecRabbit\Spinner\ClockSpinner;
-use AlecRabbit\Spinner\Core\AbstractSpinner;
+use AlecRabbit\Spinner\Core\Spinner;
 use AlecRabbit\Spinner\MoonSpinner;
 use AlecRabbit\Spinner\SimpleSpinner;
 use AlecRabbit\Spinner\SnakeSpinner;
@@ -49,7 +49,7 @@ echo Cursor::show();
  */
 function showSpinners(array $spinners, Themes $theme): void
 {
-    /** @var AbstractSpinner $s */
+    /** @var Spinner $s */
     foreach ($spinners as $s) {
         $microseconds = $s->interval() * 1000000;
         echo

@@ -4,36 +4,14 @@ namespace AlecRabbit\Spinner;
 
 use AlecRabbit\Accessories\Circular;
 use AlecRabbit\Spinner\Contracts\SpinnerStyles;
-use AlecRabbit\Spinner\Core\AbstractSpinner;
+use AlecRabbit\Spinner\Contracts\SpinnerSymbols;
+use AlecRabbit\Spinner\Core\Spinner;
 use AlecRabbit\Spinner\Core\Styling;
 
-class MoonSpinner extends AbstractSpinner
+class MoonSpinner extends Spinner
 {
     protected const ERASING_SHIFT = 2;
-
-    /** {@inheritDoc} */
-    protected function getSymbols(): array
-    {
-        return [
-            '🌘',
-            '🌗',
-            '🌖',
-            '🌕',
-            '🌔',
-            '🌓',
-            '🌒',
-            '🌑',
-// Reversed
-//            '🌑',
-//            '🌒',
-//            '🌓',
-//            '🌔',
-//            '🌕',
-//            '🌖',
-//            '🌗',
-//            '🌘',
-        ];
-    }
+    protected const SYMBOLS = SpinnerSymbols::MOON;
 
     /** {@inheritDoc} */
     protected function getStyles(): array

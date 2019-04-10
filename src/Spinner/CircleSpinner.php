@@ -4,24 +4,13 @@ namespace AlecRabbit\Spinner;
 
 use AlecRabbit\Spinner\Contracts\SpinnerStyles;
 use AlecRabbit\Spinner\Contracts\SpinnerSymbols;
-use AlecRabbit\Spinner\Core\AbstractSpinner;
+use AlecRabbit\Spinner\Core\Spinner;
 use AlecRabbit\Spinner\Core\Styling;
 
-class CircleSpinner extends AbstractSpinner
+class CircleSpinner extends Spinner
 {
     protected const INTERVAL = 0.17;
     protected const SYMBOLS = SpinnerSymbols::CIRCLES;
-
-    /** {@inheritDoc} */
-    protected function getSymbols(): array
-    {
-        return [
-            '◐',
-            '◓',
-            '◑',
-            '◒',
-        ];
-    }
 
     protected function getStyles(): array
     {

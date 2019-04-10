@@ -2,12 +2,13 @@
 
 namespace AlecRabbit\Tests\Spinner;
 
-use AlecRabbit\Accessories\Circular;
-use AlecRabbit\Spinner\Core\AbstractSpinner;
+use AlecRabbit\Spinner\Core\Spinner;
 use AlecRabbit\Spinner\Core\Styling;
 
-class ExtendAbstractSpinner extends AbstractSpinner
+class ExtendSpinner extends Spinner
 {
+    protected const SYMBOLS = ['1', '2', '3', '4',];
+
     protected function getSymbols(): array
     {
         return ['1', '2', '3', '4',];

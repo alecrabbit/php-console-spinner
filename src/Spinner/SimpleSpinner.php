@@ -2,15 +2,11 @@
 
 namespace AlecRabbit\Spinner;
 
-use AlecRabbit\Spinner\Core\AbstractSpinner;
+use AlecRabbit\Spinner\Contracts\SpinnerSymbols;
+use AlecRabbit\Spinner\Core\Spinner;
 
-class SimpleSpinner extends AbstractSpinner
+class SimpleSpinner extends Spinner
 {
     protected const INTERVAL = 0.16;
-
-    /** {@inheritDoc} */
-    protected function getSymbols(): array
-    {
-        return ['/', '|', '\\', '─',];
-    }
+    protected const SYMBOLS = SpinnerSymbols::SIMPLE;
 }
