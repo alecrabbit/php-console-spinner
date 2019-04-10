@@ -74,20 +74,39 @@ abstract class AbstractSpinner implements SpinnerInterface
      */
     protected function refineMessage(Settings $settings): string
     {
-        $message = ucfirst($settings->getMessage() ?? SettingsInterface::ONE_SPACE_SYMBOL);
+        $message = ucfirst($settings->getMessage() ?? SettingsInterface::EMPTY);
         $prefix =
-            empty($message) ? SettingsInterface::EMPTY : $settings->getPrefix() ?? SettingsInterface::ONE_SPACE_SYMBOL;
+            empty($message) ?
+                SettingsInterface::ONE_SPACE_SYMBOL :
+                $settings->getPrefix() ?? SettingsInterface::ONE_SPACE_SYMBOL;
         $suffix =
             $settings->getSuffix() ??
-            (empty($message) || SettingsInterface::ONE_SPACE_SYMBOL === $message ?
+            empty($message) ?
                 SettingsInterface::EMPTY :
-                SettingsInterface::DEFAULT_SUFFIX);
+                SettingsInterface::DEFAULT_SUFFIX;
         return $prefix . $message . $suffix;
     }
+//    /**
+//     * @param Settings $settings
+//     * @return string
+//     */
+//    protected function refineMessage(Settings $settings): string
+//    {
+//        $message = ucfirst($settings->getMessage() ?? SettingsInterface::ONE_SPACE_SYMBOL);
+//        $prefix =
+//            empty($message) ? SettingsInterface::EMPTY : $settings->getPrefix() ?? SettingsInterface::ONE_SPACE_SYMBOL;
+//        $suffix =
+//            $settings->getSuffix() ??
+//            (empty($message) || SettingsInterface::ONE_SPACE_SYMBOL === $message ?
+//                SettingsInterface::EMPTY :
+//                SettingsInterface::DEFAULT_SUFFIX);
+//        return $prefix . $message . $suffix;
+//    }
 
     protected function setFields(): void
     {
         $this->percentPrefix = $this->getPrefix();
+//        dump($this->percentPrefix);
         $strLen =
             strlen($this->message()) + strlen($this->percent()) + strlen($this->paddingStr) + static::ERASING_SHIFT;
         $this->moveBackSequenceStr = ConsoleColor::ESC_CHAR . "[{$strLen}D";
@@ -99,10 +118,14 @@ abstract class AbstractSpinner implements SpinnerInterface
      */
     protected function getPrefix(): string
     {
-        if ($this->messageStr !== str_repeat(SettingsInterface::ONE_SPACE_SYMBOL, 2)) {
+        if (strpos($this->messageStr, SettingsInterface::DEFAULT_SUFFIX)) {
             return SettingsInterface::ONE_SPACE_SYMBOL;
         }
         return SettingsInterface::EMPTY;
+//        if ($this->messageStr !== str_repeat(SettingsInterface::ONE_SPACE_SYMBOL, 2)) {
+//            return SettingsInterface::ONE_SPACE_SYMBOL;
+//        }
+//        return SettingsInterface::EMPTY;
     }
 
     /**
