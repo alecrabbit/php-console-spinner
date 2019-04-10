@@ -36,7 +36,7 @@ abstract class AbstractSpinner implements SpinnerInterface
         $settings = null
     ) {
         $settings = $this->refineSettings($settings);
-        $this->paddingStr = $settings->getPaddingStr() ?? SpinnerInterface::PADDING_EMPTY;
+        $this->paddingStr = $settings->getPaddingStr() ?? SpinnerInterface::EMPTY;
         $this->messageStr = $this->refineMessage($settings);
         $this->setFields();
         $this->styled = new Styling($this->getSymbols(), $this->getStyles());
@@ -165,7 +165,7 @@ abstract class AbstractSpinner implements SpinnerInterface
 
     public function inline(bool $inline): SpinnerInterface
     {
-        $this->paddingStr = $inline ? SpinnerInterface::PADDING_SPACE_SYMBOL : SpinnerInterface::PADDING_EMPTY;
+        $this->paddingStr = $inline ? SpinnerInterface::ONE_SPACE_SYMBOL : SpinnerInterface::EMPTY;
         $this->setFields();
         return $this;
     }

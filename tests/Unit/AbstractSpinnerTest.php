@@ -22,10 +22,10 @@ class AbstractSpinnerTest extends TestCase
         $this->assertIsString($spinner->spin());
         $this->assertIsString($spinner->end());
         $this->assertStringContainsString(self::PROCESSING, $spinner->begin());
-        $this->assertStringContainsString(SpinnerInterface::DEFAULT_PREFIX, $spinner->begin());
+        $this->assertStringContainsString(SpinnerInterface::ONE_SPACE_SYMBOL, $spinner->begin());
         $this->assertStringContainsString(SpinnerInterface::DEFAULT_SUFFIX, $spinner->begin());
         $this->assertStringContainsString(self::PROCESSING, $spinner->spin());
-        $this->assertStringContainsString(SpinnerInterface::DEFAULT_PREFIX, $spinner->spin());
+        $this->assertStringContainsString(SpinnerInterface::ONE_SPACE_SYMBOL, $spinner->spin());
         $this->assertStringContainsString(SpinnerInterface::DEFAULT_SUFFIX, $spinner->spin());
         $this->assertStringNotContainsString(self::PROCESSING, $spinner->end());
     }
