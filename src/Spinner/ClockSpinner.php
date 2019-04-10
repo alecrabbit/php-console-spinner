@@ -3,6 +3,7 @@
 namespace AlecRabbit\Spinner;
 
 use AlecRabbit\ConsoleColour\Contracts\Styles;
+use AlecRabbit\Spinner\Contracts\SpinnerStyles;
 use AlecRabbit\Spinner\Core\AbstractSpinner;
 use AlecRabbit\Spinner\Core\Styling;
 
@@ -47,8 +48,8 @@ class ClockSpinner extends AbstractSpinner
     protected function getStyles(): array
     {
         return [
-            Styling::COLOR256_SPINNER_STYLES => null,
-            Styling::COLOR_SPINNER_STYLES => null,
+            Styling::COLOR256_SPINNER_STYLES => SpinnerStyles::DISABLED,
+            Styling::COLOR_SPINNER_STYLES => SpinnerStyles::DISABLED,
         ];
     }
 }

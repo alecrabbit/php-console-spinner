@@ -12,6 +12,5 @@ class SimpleSpinner extends AbstractSpinner
     protected function getSymbols(): array
     {
         return ['/', '|', '\\', '─',];
-//        return ['/', '/', '|', '|', '\\', '\\', '─', '─',];
     }
 }

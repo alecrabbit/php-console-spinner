@@ -3,6 +3,7 @@
 namespace AlecRabbit\Spinner;
 
 use AlecRabbit\ConsoleColour\Contracts\Styles;
+use AlecRabbit\Spinner\Contracts\SpinnerStyles;
 use AlecRabbit\Spinner\Core\AbstractSpinner;
 use AlecRabbit\Spinner\Core\Styling;
 
@@ -24,8 +25,8 @@ class CircleSpinner extends AbstractSpinner
     protected function getStyles(): array
     {
         return [
-            Styling::COLOR256_SPINNER_STYLES => [226, 227, 228, 229, 230, 231, 230, 229, 228, 227, 226],
-            Styling::COLOR_SPINNER_STYLES => [Styles::LIGHT_YELLOW],
+            Styling::COLOR256_SPINNER_STYLES => SpinnerStyles::C256_YELLOW_WHITE,
+            Styling::COLOR_SPINNER_STYLES => SpinnerStyles::C_LIGHT_YELLOW,
         ];
     }
 }
