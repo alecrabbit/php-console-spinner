@@ -12,6 +12,7 @@ abstract class AbstractSpinner implements SpinnerInterface
 {
     protected const ERASING_SHIFT = 1;
     protected const INTERVAL = 0.1;
+    protected const SYMBOLS = [];
 
     /** @var string */
     protected $messageStr;
@@ -62,7 +63,7 @@ abstract class AbstractSpinner implements SpinnerInterface
     {
         if (null !== $settings && !\is_string($settings) && !$settings instanceof SettingsInterface) {
             throw new \InvalidArgumentException(
-                'String or instance of SettingsInterface expected ' . typeOf($settings) . ' given.'
+                'Instance of SettingsInterface or string expected ' . typeOf($settings) . ' given.'
             );
         }
     }
