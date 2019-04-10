@@ -6,7 +6,7 @@ interface SpinnerInterface
 {
     public const DEFAULT_PREFIX = ' ';
     public const DEFAULT_SUFFIX = '...';
-    public const DEFAULT_MESSAGE = '';
+    public const DEFAULT_MESSAGE = ' ';
     public const PADDING_SPACE_SYMBOL = ' ';
     public const PADDING_EMPTY = '';
 

@@ -35,9 +35,35 @@ abstract class AbstractSpinner implements SpinnerInterface
     ) {
         $settings = $this->refineSettings($settings);
         $this->paddingStr = $settings->getPaddingStr() ?? SpinnerInterface::PADDING_EMPTY;
-        $this->messageStr = $this->refineMessage($settings->getMessage(), $settings->getPrefix(), $settings->getSuffix());
+        $this->messageStr = $this->refineMessage($settings->getMessage(), $settings->getPrefix(),
+            $settings->getSuffix());
         $this->setFields();
         $this->styled = new Styling($this->getSymbols(), $this->getStyles());
+    }
+
+    /**
+     * @param mixed $settings
+     * @return Settings
+     */
+    protected function refineSettings($settings): Settings
+    {
+        $this->assertSettings($settings);
+        if (\is_string($settings)) {
+            return (new Settings())->setMessage($settings);
+        }
+        return $settings ?? new Settings();
+    }
+
+    /**
+     * @param mixed $settings
+     */
+    protected function assertSettings($settings): void
+    {
+        if (null !== $settings && !\is_string($settings) && !$settings instanceof SettingsInterface) {
+            throw new \InvalidArgumentException(
+                'String or instance of SettingsInterface expected ' . typeOf($settings) . ' given.'
+            );
+        }
     }
 
     /**
@@ -50,7 +76,11 @@ abstract class AbstractSpinner implements SpinnerInterface
     {
         $message = ucfirst($message ?? SpinnerInterface::DEFAULT_MESSAGE);
         $prefix = empty($message) ? '' : $prefix ?? SpinnerInterface::DEFAULT_PREFIX;
-        $suffix = $suffix ?? (empty($message) ? '' : SpinnerInterface::DEFAULT_SUFFIX);
+        $suffix =
+            $suffix ??
+            (empty($message) || SpinnerInterface::DEFAULT_MESSAGE === $message ?
+                '' :
+                SpinnerInterface::DEFAULT_SUFFIX);
         return $prefix . $message . $suffix;
     }
 
@@ -83,11 +113,6 @@ abstract class AbstractSpinner implements SpinnerInterface
      */
     abstract protected function getSymbols(): array;
 
-    public function interval(): float
-    {
-        return static::INTERVAL;
-    }
-
     protected function getStyles(): array
     {
         return [
@@ -119,6 +144,11 @@ abstract class AbstractSpinner implements SpinnerInterface
             ],
             Styling::COLOR_SPINNER_STYLES => ['96'],
         ];
+    }
+
+    public function interval(): float
+    {
+        return static::INTERVAL;
     }
 
     public function inline(bool $inline): SpinnerInterface
@@ -173,30 +203,5 @@ abstract class AbstractSpinner implements SpinnerInterface
     public function erase(): string
     {
         return $this->eraseBySpacesStr . $this->moveBackSequenceStr;
-    }
-
-    /**
-     * @param mixed $settings
-     * @return Settings
-     */
-    protected function refineSettings($settings): Settings
-    {
-        $this->assertSettings($settings);
-        if (\is_string($settings)) {
-            return (new Settings())->setMessage($settings);
-        }
-        return $settings ?? new Settings();
-    }
-
-    /**
-     * @param mixed $settings
-     */
-    protected function assertSettings($settings): void
-    {
-        if (null !== $settings && !\is_string($settings) && !$settings instanceof SettingsInterface) {
-            throw new \InvalidArgumentException(
-                'String or instance of SettingsInterface expected ' . typeOf($settings). ' given.'
-            );
-        }
     }
 }
