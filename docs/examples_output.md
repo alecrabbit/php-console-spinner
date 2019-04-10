@@ -10,6 +10,6 @@
 ```bash
 # php examples/advanced.php
 ```
-![example](https://raw.githubusercontent.com/alecrabbit/php-console-spinner/master/docs/images/advanced.gif)
+![example](https://raw.githubusercontent.com/alecrabbit/php-console-spinner/master/docs/images/advanced.php.gif)
 
 > Note: launch browser and check `http://localhost:8080/`
