@@ -36,7 +36,7 @@ abstract class AbstractSpinner implements SpinnerInterface
         $settings = null
     ) {
         $settings = $this->refineSettings($settings);
-        $this->paddingStr = $settings->getPaddingStr() ?? SpinnerInterface::EMPTY;
+        $this->paddingStr = $settings->getPaddingStr() ?? SettingsInterface::EMPTY;
         $this->messageStr = $this->refineMessage($settings);
         $this->setFields();
         $this->styled = new Styling($this->getSymbols(), $this->getStyles());
@@ -73,14 +73,14 @@ abstract class AbstractSpinner implements SpinnerInterface
      */
     protected function refineMessage(Settings $settings): string
     {
-        $message = ucfirst($settings->getMessage() ?? SpinnerInterface::ONE_SPACE_SYMBOL);
+        $message = ucfirst($settings->getMessage() ?? SettingsInterface::ONE_SPACE_SYMBOL);
         $prefix =
-            empty($message) ? SpinnerInterface::EMPTY : $settings->getPrefix() ?? SpinnerInterface::ONE_SPACE_SYMBOL;
+            empty($message) ? SettingsInterface::EMPTY : $settings->getPrefix() ?? SettingsInterface::ONE_SPACE_SYMBOL;
         $suffix =
             $settings->getSuffix() ??
-            (empty($message) || SpinnerInterface::ONE_SPACE_SYMBOL === $message ?
-                SpinnerInterface::EMPTY :
-                SpinnerInterface::DEFAULT_SUFFIX);
+            (empty($message) || SettingsInterface::ONE_SPACE_SYMBOL === $message ?
+                SettingsInterface::EMPTY :
+                SettingsInterface::DEFAULT_SUFFIX);
         return $prefix . $message . $suffix;
     }
 
@@ -90,7 +90,7 @@ abstract class AbstractSpinner implements SpinnerInterface
         $strLen =
             strlen($this->message()) + strlen($this->percent()) + strlen($this->paddingStr) + static::ERASING_SHIFT;
         $this->moveBackSequenceStr = ConsoleColor::ESC_CHAR . "[{$strLen}D";
-        $this->eraseBySpacesStr = str_repeat(SpinnerInterface::ONE_SPACE_SYMBOL, $strLen);
+        $this->eraseBySpacesStr = str_repeat(SettingsInterface::ONE_SPACE_SYMBOL, $strLen);
     }
 
     /**
@@ -98,10 +98,10 @@ abstract class AbstractSpinner implements SpinnerInterface
      */
     protected function getPrefix(): string
     {
-        if ($this->messageStr !== str_repeat(SpinnerInterface::ONE_SPACE_SYMBOL, 2)) {
-            return SpinnerInterface::ONE_SPACE_SYMBOL;
+        if ($this->messageStr !== str_repeat(SettingsInterface::ONE_SPACE_SYMBOL, 2)) {
+            return SettingsInterface::ONE_SPACE_SYMBOL;
         }
-        return SpinnerInterface::EMPTY;
+        return SettingsInterface::EMPTY;
     }
 
     /**
@@ -165,7 +165,7 @@ abstract class AbstractSpinner implements SpinnerInterface
 
     public function inline(bool $inline): SpinnerInterface
     {
-        $this->paddingStr = $inline ? SpinnerInterface::ONE_SPACE_SYMBOL : SpinnerInterface::EMPTY;
+        $this->paddingStr = $inline ? SettingsInterface::ONE_SPACE_SYMBOL : SettingsInterface::EMPTY;
         $this->setFields();
         return $this;
     }

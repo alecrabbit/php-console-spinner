@@ -2,7 +2,7 @@
 
 namespace AlecRabbit\Tests\Spinner;
 
-use AlecRabbit\Spinner\Contracts\SpinnerInterface;
+use AlecRabbit\Spinner\Contracts\SettingsInterface;
 use AlecRabbit\Spinner\Core\AbstractSpinner;
 use PHPUnit\Framework\TestCase;
 
@@ -22,11 +22,11 @@ class AbstractSpinnerTest extends TestCase
         $this->assertIsString($spinner->spin());
         $this->assertIsString($spinner->end());
         $this->assertStringContainsString(self::PROCESSING, $spinner->begin());
-        $this->assertStringContainsString(SpinnerInterface::ONE_SPACE_SYMBOL, $spinner->begin());
-        $this->assertStringContainsString(SpinnerInterface::DEFAULT_SUFFIX, $spinner->begin());
+        $this->assertStringContainsString(SettingsInterface::ONE_SPACE_SYMBOL, $spinner->begin());
+        $this->assertStringContainsString(SettingsInterface::DEFAULT_SUFFIX, $spinner->begin());
         $this->assertStringContainsString(self::PROCESSING, $spinner->spin());
-        $this->assertStringContainsString(SpinnerInterface::ONE_SPACE_SYMBOL, $spinner->spin());
-        $this->assertStringContainsString(SpinnerInterface::DEFAULT_SUFFIX, $spinner->spin());
+        $this->assertStringContainsString(SettingsInterface::ONE_SPACE_SYMBOL, $spinner->spin());
+        $this->assertStringContainsString(SettingsInterface::DEFAULT_SUFFIX, $spinner->spin());
         $this->assertStringNotContainsString(self::PROCESSING, $spinner->end());
     }
 
