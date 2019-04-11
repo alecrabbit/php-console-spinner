@@ -17,7 +17,9 @@ interface SpinnerSymbols
     public const MOON = ['🌘', '🌗', '🌖', '🌕', '🌔', '🌓', '🌒', '🌑',];
     public const MOON_REVERSED = ['🌑', '🌒', '🌓', '🌔', '🌕', '🌖', '🌗', '🌘',];
 
-    public const SIMPLE = ['/', '|', '\\', '─',];
+    public const BASE = ['/', '|', '\\', '─',];
+
+    public const SIMPLE = ['◴', '◷', '◶', '◵'];
 
     public const SNAKE = ['⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏'];
 }

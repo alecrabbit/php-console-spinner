@@ -8,13 +8,14 @@ use AlecRabbit\Control\Cursor;
 use AlecRabbit\Spinner\Contracts\SettingsInterface;
 use AlecRabbit\Spinner\Contracts\SpinnerInterface;
 use AlecRabbit\Spinner\Contracts\SpinnerStyles;
+use AlecRabbit\Spinner\Contracts\SpinnerSymbols;
 use function AlecRabbit\typeOf;
 
 class Spinner implements SpinnerInterface
 {
     protected const ERASING_SHIFT = 1;
-    protected const INTERVAL = 0.1;
-    protected const SYMBOLS = [''];
+    protected const INTERVAL = 0.2;
+    protected const SYMBOLS = SpinnerSymbols::BASE;
     protected const
         STYLES =
         [
@@ -47,7 +48,7 @@ class Spinner implements SpinnerInterface
         $this->paddingStr = $settings->getPaddingStr() ?? SettingsInterface::EMPTY;
         $this->messageStr = $this->refineMessage($settings);
         $this->setFields();
-        $this->styled = new Styling(static::SYMBOLS, $this->getStyles());
+        $this->styled = new Styling(static::SYMBOLS, static::STYLES);
     }
 
     /**
@@ -136,11 +137,6 @@ class Spinner implements SpinnerInterface
     protected function percent(): string
     {
         return $this->percentStr;
-    }
-
-    protected function getStyles(): array
-    {
-        return static::STYLES;
     }
 
     public function interval(): float

@@ -12,7 +12,7 @@ use AlecRabbit\Spinner\SnakeSpinner;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
-const ITER = 10;
+const ITER = 40;
 const MESSAGE = 'processing';
 const MESSAGE2 = 'computing';
 

@@ -8,17 +8,10 @@ use AlecRabbit\Spinner\Core\Styling;
 class ExtendedSpinner extends Spinner
 {
     protected const SYMBOLS = ['1', '2', '3', '4',];
-
-    protected function getSymbols(): array
-    {
-        return ['1', '2', '3', '4',];
-    }
-
-    protected function getStyles(): array
-    {
-        return [
+    protected const
+        STYLES =
+        [
             Styling::COLOR256_SPINNER_STYLES => null,
             Styling::COLOR_SPINNER_STYLES => [1, 2, 3, 4],
         ];
-    }
 }
