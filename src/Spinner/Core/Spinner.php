@@ -2,6 +2,7 @@
 
 namespace AlecRabbit\Spinner\Core;
 
+use AlecRabbit\Accessories\Circular;
 use AlecRabbit\Accessories\Pretty;
 use AlecRabbit\ConsoleColour\ConsoleColor;
 use AlecRabbit\Control\Cursor;
@@ -38,12 +39,14 @@ class Spinner implements SpinnerInterface
     protected $inlinePaddingStr;
     /** @var string */
     protected $eraseBySpacesStr;
-    /** @var Styling */
-    protected $styled;
+    /** @var Styles */
+    protected $styles;
     /** @var float */
     protected $interval;
     /** @var int */
     protected $erasingShift;
+    /** @var Circular */
+    protected $symbols;
 
     /**
      * AbstractSpinner constructor.
@@ -57,7 +60,8 @@ class Spinner implements SpinnerInterface
         $this->inlinePaddingStr = $settings->getInlinePaddingStr();
         $this->messageStr = $this->getMessageStr($settings);
         $this->setFields();
-        $this->styled = new Styling($settings->getSymbols(), $settings->getStyles());
+        $this->symbols = new Circular($settings->getSymbols());
+        $this->styles = new Styles($settings->getStyles());
     }
 
     /**
@@ -171,11 +175,11 @@ class Spinner implements SpinnerInterface
         }
         return
             $this->inlinePaddingStr .
-            $this->styled->spinner() .
-            $this->styled->message(
+            $this->styles->spinner((string)$this->symbols->value()) .
+            $this->styles->message(
                 $this->message()
             ) .
-            $this->styled->percent(
+            $this->styles->percent(
                 $this->percent()
             ) .
             $this->moveBackSequenceStr;
