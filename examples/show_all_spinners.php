@@ -6,7 +6,10 @@ use AlecRabbit\Control\Cursor;
 use AlecRabbit\Spinner\CircleSpinner;
 use AlecRabbit\Spinner\ClockSpinner;
 use AlecRabbit\Spinner\Core\Spinner;
+use AlecRabbit\Spinner\DiceSpinner;
 use AlecRabbit\Spinner\MoonSpinner;
+use AlecRabbit\Spinner\PercentSpinner;
+use AlecRabbit\Spinner\SectorsSpinner;
 use AlecRabbit\Spinner\SimpleSpinner;
 use AlecRabbit\Spinner\SnakeSpinner;
 use function AlecRabbit\typeOf;
@@ -21,7 +24,10 @@ echo Cursor::hide();
 echo $theme->comment('Spinners samples(with message"' . MESSAGE . '"):') . PHP_EOL;
 showSpinners(
     [
+        new Spinner(MESSAGE),
         new CircleSpinner(MESSAGE),
+        new DiceSpinner(MESSAGE),
+        new SectorsSpinner(MESSAGE),
         new ClockSpinner(MESSAGE),
         new MoonSpinner(MESSAGE),
         new SimpleSpinner(MESSAGE),
@@ -31,7 +37,10 @@ showSpinners(
 echo $theme->comment('Spinners samples(without message):') . PHP_EOL;
 showSpinners(
     [
+        new Spinner(),
         new CircleSpinner(),
+        new DiceSpinner(),
+        new SectorsSpinner(),
         new ClockSpinner(),
         new MoonSpinner(),
         new SimpleSpinner(),
