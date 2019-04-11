@@ -11,9 +11,8 @@ use AlecRabbit\Spinner\SimpleSpinner;
 use AlecRabbit\Spinner\SnakeSpinner;
 
 require_once __DIR__ . '/../vendor/autoload.php';
-require_once __DIR__ . '/__helper_functions.php';
 
-const ITER = 20;
+const ITER = 10;
 const MESSAGE = 'processing';
 const MESSAGE2 = 'computing';
 
