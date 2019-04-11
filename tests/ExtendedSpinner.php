@@ -2,8 +2,8 @@
 
 namespace AlecRabbit\Tests\Spinner;
 
+use AlecRabbit\Spinner\Contracts\StylesInterface;
 use AlecRabbit\Spinner\Core\Spinner;
-use AlecRabbit\Spinner\Core\Styling;
 
 class ExtendedSpinner extends Spinner
 {
@@ -12,7 +12,7 @@ class ExtendedSpinner extends Spinner
     protected const
         STYLES =
         [
-            Styling::COLOR256_SPINNER_STYLES => null,
-            Styling::COLOR_SPINNER_STYLES => [1, 2, 3, 4],
+            StylesInterface::COLOR256_SPINNER_STYLES => null,
+            StylesInterface::COLOR_SPINNER_STYLES => [1, 2, 3, 4],
         ];
 }

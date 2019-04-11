@@ -5,6 +5,7 @@ namespace AlecRabbit\Spinner\Core;
 use AlecRabbit\Accessories\Circular;
 use AlecRabbit\ConsoleColour\ConsoleColor;
 use AlecRabbit\ConsoleColour\Terminal;
+use AlecRabbit\Spinner\Contracts\StylesInterface;
 
 /**
  * Class Styling
@@ -13,15 +14,6 @@ use AlecRabbit\ConsoleColour\Terminal;
  */
 class Styling
 {
-    public const COLOR256_SPINNER_STYLES = '256_color_spinner_styles';
-    public const COLOR_SPINNER_STYLES = 'color_spinner_styles';
-
-    public const COLOR_MESSAGE_STYLES = 'color_message_styles';
-    public const COLOR_PERCENT_STYLES = 'color_percent_styles';
-
-    public const DEFAULT_MESSAGE_STYLES = [2];
-    public const DEFAULT_PERCENT_STYLES = [2];
-
     public const MAX_SYMBOLS_COUNT = 50;
 
     /** @var Circular */
@@ -52,23 +44,23 @@ class Styling
 
     protected function assertStyles(array $styles): void
     {
-        if (!\array_key_exists(self::COLOR256_SPINNER_STYLES, $styles)) {
+        if (!\array_key_exists(StylesInterface::COLOR256_SPINNER_STYLES, $styles)) {
             throw new \InvalidArgumentException(
                 $this->errorMsg('Styles array does not have', 'COLOR256_STYLES')
             );
         }
-        $value = $styles[self::COLOR256_SPINNER_STYLES];
+        $value = $styles[StylesInterface::COLOR256_SPINNER_STYLES];
         if (!\is_array($value) && null !== $value) {
             throw new \InvalidArgumentException(
                 $this->errorMsg('Styles should be type of array or NULL in', 'COLOR256_STYLES')
             );
         }
-        if (!\array_key_exists(self::COLOR_SPINNER_STYLES, $styles)) {
+        if (!\array_key_exists(StylesInterface::COLOR_SPINNER_STYLES, $styles)) {
             throw new \InvalidArgumentException(
                 $this->errorMsg('Styles array does not have', 'COLOR_STYLES')
             );
         }
-        $value = $styles[self::COLOR_SPINNER_STYLES];
+        $value = $styles[StylesInterface::COLOR_SPINNER_STYLES];
         if (!is_array($value) && null !== $value) {
             throw new \InvalidArgumentException(
                 $this->errorMsg('Styles should be type of array or NULL in', 'COLOR_SPINNER_STYLES')
@@ -92,13 +84,13 @@ class Styling
      */
     protected function symbolStyles(array $styles): Circular
     {
-        $value = $styles[self::COLOR256_SPINNER_STYLES];
+        $value = $styles[StylesInterface::COLOR256_SPINNER_STYLES];
         /** @noinspection NotOptimalIfConditionsInspection */
         if (($terminal = new Terminal())->supports256Color() && null !== $value) {
             return $this->circular256Color($value);
         }
 
-        $value = $styles[self::COLOR_SPINNER_STYLES];
+        $value = $styles[StylesInterface::COLOR_SPINNER_STYLES];
         /** @noinspection NotOptimalIfConditionsInspection */
         if ($terminal->supportsColor() && null !== $value) {
             return $this->circularColor($value);
@@ -143,11 +135,11 @@ class Styling
      */
     protected function messageStyles(array $styles): Circular
     {
-        if (!\array_key_exists(self::COLOR_MESSAGE_STYLES, $styles)) {
-            $styles[self::COLOR_MESSAGE_STYLES] = self::DEFAULT_MESSAGE_STYLES;
+        if (!\array_key_exists(StylesInterface::COLOR_MESSAGE_STYLES, $styles)) {
+            $styles[StylesInterface::COLOR_MESSAGE_STYLES] = StylesInterface::DEFAULT_MESSAGE_STYLES;
         }
         if ((new Terminal())->supportsColor()) {
-            $value = $styles[self::COLOR_MESSAGE_STYLES];
+            $value = $styles[StylesInterface::COLOR_MESSAGE_STYLES];
             if (null === $value) {
                 return $this->circularNoColor();
             }
@@ -162,11 +154,11 @@ class Styling
      */
     protected function percentStyles(array $styles): Circular
     {
-        if (!\array_key_exists(self::COLOR_PERCENT_STYLES, $styles)) {
-            $styles[self::COLOR_PERCENT_STYLES] = self::DEFAULT_PERCENT_STYLES;
+        if (!\array_key_exists(StylesInterface::COLOR_PERCENT_STYLES, $styles)) {
+            $styles[StylesInterface::COLOR_PERCENT_STYLES] = StylesInterface::DEFAULT_PERCENT_STYLES;
         }
         if ((new Terminal())->supportsColor()) {
-            $value = $styles[self::COLOR_PERCENT_STYLES];
+            $value = $styles[StylesInterface::COLOR_PERCENT_STYLES];
             if (null === $value) {
                 return $this->circularNoColor();
             }

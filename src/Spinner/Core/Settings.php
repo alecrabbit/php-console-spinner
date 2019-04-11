@@ -14,6 +14,18 @@ class Settings implements SettingsInterface
     protected $suffix;
     /** @var null|string */
     protected $paddingStr;
+//
+//    /** @var null|array */
+//    protected $symbols;
+//
+//    /** @var Styles */
+//    protected $styles;
+//
+//    public function __construct()
+//    {
+//        $this->styles = new Styles();
+//    }
+
 
     /**
      * @return null|string

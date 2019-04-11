@@ -9,6 +9,7 @@ use AlecRabbit\Spinner\Contracts\SettingsInterface;
 use AlecRabbit\Spinner\Contracts\SpinnerInterface;
 use AlecRabbit\Spinner\Contracts\SpinnerStyles;
 use AlecRabbit\Spinner\Contracts\SpinnerSymbols;
+use AlecRabbit\Spinner\Contracts\StylesInterface;
 use function AlecRabbit\typeOf;
 
 class Spinner implements SpinnerInterface
@@ -19,8 +20,8 @@ class Spinner implements SpinnerInterface
     protected const
         STYLES =
         [
-            Styling::COLOR256_SPINNER_STYLES => SpinnerStyles::DISABLED,
-            Styling::COLOR_SPINNER_STYLES => SpinnerStyles::DISABLED,
+            StylesInterface::COLOR256_SPINNER_STYLES => SpinnerStyles::DISABLED,
+            StylesInterface::COLOR_SPINNER_STYLES => SpinnerStyles::DISABLED,
         ];
 
     /** @var string */

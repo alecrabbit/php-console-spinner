@@ -6,9 +6,8 @@ require_once __DIR__ . '/../vendor/autoload.php';
 use AlecRabbit\ConsoleColour\Contracts\Styles;
 use AlecRabbit\ConsoleColour\Themes;
 use AlecRabbit\Control\Cursor;
-use AlecRabbit\Spinner\ClockSpinner;
+use AlecRabbit\Spinner\Contracts\StylesInterface;
 use AlecRabbit\Spinner\Core\Spinner;
-use AlecRabbit\Spinner\Core\Styling;
 use AlecRabbit\Spinner\MoonSpinner;
 use AlecRabbit\Spinner\SnakeSpinner;
 
@@ -76,8 +75,8 @@ display(
         protected function getStyles(): array
         {
             $styles = parent::getStyles();
-            $styles[Styling::COLOR_MESSAGE_STYLES] = [Styles::LIGHT_YELLOW];
-            $styles[Styling::COLOR_PERCENT_STYLES] = [Styles::RED];
+            $styles[StylesInterface::COLOR_MESSAGE_STYLES] = [Styles::LIGHT_YELLOW];
+            $styles[StylesInterface::COLOR_PERCENT_STYLES] = [Styles::RED];
             return $styles;
         }
     },

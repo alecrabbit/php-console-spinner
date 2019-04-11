@@ -2,11 +2,9 @@
 
 namespace AlecRabbit\Spinner;
 
-use AlecRabbit\Accessories\Circular;
 use AlecRabbit\Spinner\Contracts\SpinnerStyles;
 use AlecRabbit\Spinner\Contracts\SpinnerSymbols;
 use AlecRabbit\Spinner\Core\Spinner;
-use AlecRabbit\Spinner\Core\Styling;
 
 class MoonSpinner extends Spinner
 {
@@ -16,7 +14,7 @@ class MoonSpinner extends Spinner
     protected const
         STYLES =
         [
-            Styling::COLOR256_SPINNER_STYLES => SpinnerStyles::DISABLED,
-            Styling::COLOR_SPINNER_STYLES => SpinnerStyles::DISABLED,
+            Contracts\StylesInterface::COLOR256_SPINNER_STYLES => SpinnerStyles::DISABLED,
+            Contracts\StylesInterface::COLOR_SPINNER_STYLES => SpinnerStyles::DISABLED,
         ];
 }

@@ -3,6 +3,9 @@
 namespace AlecRabbit\Tests\Spinner;
 
 use AlecRabbit\Spinner\Contracts\SettingsInterface;
+use AlecRabbit\Spinner\Contracts\SpinnerStyles;
+use AlecRabbit\Spinner\Contracts\StylesInterface;
+use AlecRabbit\Spinner\Core\Settings;
 use AlecRabbit\Spinner\Core\Spinner;
 use PHPUnit\Framework\TestCase;
 
@@ -10,9 +13,7 @@ class SpinnerTest extends TestCase
 {
     protected const PROCESSING = 'Processing';
 
-    /**
-     * @test
-     */
+    /** @test */
     public function instance(): void
     {
         $spinner = new ExtendedSpinner(self::PROCESSING);
@@ -30,10 +31,50 @@ class SpinnerTest extends TestCase
         $this->assertStringNotContainsString(self::PROCESSING, $spinner->end());
     }
 
-    /**
-     * @test
-     * @throws \Exception
-     */
+    /** @test */
+    public function nullSpinner(): void
+    {
+        $settings = new Settings();
+        $settings->setPaddingStr('');
+        $settings->setMessage(self::PROCESSING);
+        $spinner = new class($settings) extends Spinner
+        {
+            protected const ERASING_SHIFT = 1;
+            protected const INTERVAL = 0.125;
+            protected const SYMBOLS = [];
+            protected const
+                STYLES =
+                [
+                    StylesInterface::COLOR256_SPINNER_STYLES => SpinnerStyles::DISABLED,
+                    StylesInterface::COLOR_SPINNER_STYLES => SpinnerStyles::DISABLED,
+                    StylesInterface::COLOR_MESSAGE_STYLES => SpinnerStyles::DISABLED,
+                    StylesInterface::COLOR_PERCENT_STYLES => SpinnerStyles::DISABLED,
+                ];
+        };
+        $begin = $spinner->begin();
+
+        // DO NOT CHANGE ORDER!!!
+        $this->assertEquals(
+            Helper::stripEscape("\033[?25l Processing...\033[15D"),
+            Helper::stripEscape($begin)
+        );
+        $this->assertEquals(
+            "\033[?25l Processing...\033[15D",
+            $begin
+        );
+        $this->assertEquals(
+            Helper::stripEscape(" Processing...\033[15D"),
+            Helper::stripEscape($spinner->spin())
+        );
+
+//        $this->assertEquals(
+//            "\033[?25l Processing...\033[15D",
+//
+//        );
+
+    }
+
+    /** @test */
     public function interface(): void
     {
         $spinner = new ExtendedSpinner(self::PROCESSING);

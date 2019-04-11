@@ -7,8 +7,8 @@ use AlecRabbit\Spinner\ClockSpinner;
 use AlecRabbit\Spinner\Contracts\SpinnerInterface;
 use AlecRabbit\Spinner\Contracts\SpinnerStyles;
 use AlecRabbit\Spinner\Contracts\SpinnerSymbols;
+use AlecRabbit\Spinner\Contracts\StylesInterface;
 use AlecRabbit\Spinner\Core\Spinner;
-use AlecRabbit\Spinner\Core\Styling;
 use AlecRabbit\Spinner\MoonSpinner;
 use AlecRabbit\Spinner\SimpleSpinner;
 use AlecRabbit\Spinner\SnakeSpinner;
@@ -39,8 +39,8 @@ showSpinners(new class('dice') extends Spinner{
     protected const
         STYLES =
         [
-            Styling::COLOR256_SPINNER_STYLES => SpinnerStyles::C256_RAINBOW,
-            Styling::COLOR_SPINNER_STYLES => SpinnerStyles::C_LIGHT_CYAN,
+            StylesInterface::COLOR256_SPINNER_STYLES => SpinnerStyles::C256_RAINBOW,
+            StylesInterface::COLOR_SPINNER_STYLES => SpinnerStyles::C_LIGHT_CYAN,
         ];
 
 }, true);
@@ -51,8 +51,8 @@ showSpinners(new class('zodiac') extends Spinner{
     protected const
         STYLES =
         [
-            Styling::COLOR256_SPINNER_STYLES => SpinnerStyles::C256_RAINBOW,
-            Styling::COLOR_SPINNER_STYLES => SpinnerStyles::C_LIGHT_CYAN,
+            StylesInterface::COLOR256_SPINNER_STYLES => SpinnerStyles::C256_RAINBOW,
+            StylesInterface::COLOR_SPINNER_STYLES => SpinnerStyles::C_LIGHT_CYAN,
         ];
 
 }, true);
