@@ -5,6 +5,7 @@ namespace AlecRabbit\Spinner\Core;
 use AlecRabbit\Accessories\Circular;
 use AlecRabbit\ConsoleColour\ConsoleColor;
 use AlecRabbit\ConsoleColour\Terminal;
+use AlecRabbit\Spinner\Contracts\SettingsInterface;
 use AlecRabbit\Spinner\Contracts\StylesInterface;
 
 /**
@@ -14,16 +15,12 @@ use AlecRabbit\Spinner\Contracts\StylesInterface;
  */
 class Styles
 {
-    public const MAX_SYMBOLS_COUNT = 50;
-
     /** @var Circular */
     protected $symbolStyles;
     /** @var Circular */
     protected $messageStyles;
     /** @var Circular */
     protected $percentStyles;
-    /** @var Circular */
-    protected $symbols;
 
     public function __construct(array $styles)
     {
@@ -35,38 +32,14 @@ class Styles
 
     protected function assertStyles(array $styles): void
     {
-        if (!\array_key_exists(StylesInterface::COLOR256_SPINNER_STYLES, $styles)) {
-            throw new \InvalidArgumentException(
-                $this->errorMsg('Styles array does not have', 'COLOR256_STYLES')
-            );
+        $keys = array_keys(SettingsInterface::DEFAULT_STYLES);
+        foreach ($keys as $key) {
+            if (!\array_key_exists($key, $styles)) {
+                throw new \InvalidArgumentException(
+                    'Styles array does not have ' . $key . ' key.'
+                );
+            }
         }
-        $value = $styles[StylesInterface::COLOR256_SPINNER_STYLES];
-        if (!\is_array($value) && null !== $value) {
-            throw new \InvalidArgumentException(
-                $this->errorMsg('Styles should be type of array or NULL in', 'COLOR256_STYLES')
-            );
-        }
-        if (!\array_key_exists(StylesInterface::COLOR_SPINNER_STYLES, $styles)) {
-            throw new \InvalidArgumentException(
-                $this->errorMsg('Styles array does not have', 'COLOR_STYLES')
-            );
-        }
-        $value = $styles[StylesInterface::COLOR_SPINNER_STYLES];
-        if (!is_array($value) && null !== $value) {
-            throw new \InvalidArgumentException(
-                $this->errorMsg('Styles should be type of array or NULL in', 'COLOR_SPINNER_STYLES')
-            );
-        }
-    }
-
-    /**
-     * @param string $str
-     * @param string $constant
-     * @return string
-     */
-    private function errorMsg(string $str, string $constant): string
-    {
-        return $str . ' ' . $constant . ' key.';
     }
 
     /**

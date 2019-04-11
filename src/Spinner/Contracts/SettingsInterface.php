@@ -4,6 +4,7 @@ namespace AlecRabbit\Spinner\Contracts;
 
 interface SettingsInterface
 {
+    public const MAX_SYMBOLS_COUNT = 50;
 
     public const DEFAULT_SUFFIX = '...';
     public const ONE_SPACE_SYMBOL = ' ';
