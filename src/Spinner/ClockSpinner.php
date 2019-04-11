@@ -10,6 +10,7 @@ use AlecRabbit\Spinner\Core\Styling;
 class ClockSpinner extends Spinner
 {
     protected const ERASING_SHIFT = 2;
+    protected const INTERVAL = 0.1;
     protected const SYMBOLS = SpinnerSymbols::CLOCK;
     protected const
         STYLES =

@@ -11,6 +11,7 @@ use AlecRabbit\Spinner\Core\Styling;
 class MoonSpinner extends Spinner
 {
     protected const ERASING_SHIFT = 2;
+    protected const INTERVAL = 0.1;
     protected const SYMBOLS = SpinnerSymbols::MOON;
     protected const
         STYLES =

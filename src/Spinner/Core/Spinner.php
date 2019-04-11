@@ -14,7 +14,7 @@ use function AlecRabbit\typeOf;
 class Spinner implements SpinnerInterface
 {
     protected const ERASING_SHIFT = 1;
-    protected const INTERVAL = 0.2;
+    protected const INTERVAL = 0.125;
     protected const SYMBOLS = SpinnerSymbols::BASE;
     protected const
         STYLES =

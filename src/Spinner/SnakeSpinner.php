@@ -9,6 +9,7 @@ use AlecRabbit\Spinner\Core\Styling;
 
 class SnakeSpinner extends Spinner
 {
+    protected const INTERVAL = 0.1;
     protected const SYMBOLS = SpinnerSymbols::SNAKE;
     protected const
         STYLES =

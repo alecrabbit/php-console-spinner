@@ -9,7 +9,7 @@ use AlecRabbit\Spinner\Core\Styling;
 
 class SimpleSpinner extends Spinner
 {
-    protected const INTERVAL = 0.16;
+    protected const INTERVAL = 0.17;
     protected const SYMBOLS = SpinnerSymbols::SIMPLE;
     protected const
         STYLES =

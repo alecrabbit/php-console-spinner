@@ -12,12 +12,12 @@ use AlecRabbit\Spinner\SnakeSpinner;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
-const ITER = 40;
+const ITER = 10;
 const MESSAGE = 'processing';
 const MESSAGE2 = 'computing';
 
 $theme = new Themes();
-//echo Cursor::hide();
+echo Cursor::hide(); //
 echo PHP_EOL;
 $spinners = [
     Spinner::class,
