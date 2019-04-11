@@ -6,10 +6,8 @@ require_once __DIR__ . '/../vendor/autoload.php';
 use AlecRabbit\ConsoleColour\Contracts\Styles;
 use AlecRabbit\ConsoleColour\Themes;
 use AlecRabbit\Control\Cursor;
-use AlecRabbit\Spinner\CircleSpinner;
 use AlecRabbit\Spinner\Contracts\StylesInterface;
 use AlecRabbit\Spinner\Core\Spinner;
-use AlecRabbit\Spinner\MoonSpinner;
 use AlecRabbit\Spinner\SnakeSpinner;
 
 /**
@@ -40,7 +38,7 @@ const SIMULATED_MESSAGES = [
 // SimpleSpinner::class
 // SnakeSpinner::class
 
-$spinnerClass = \AlecRabbit\Spinner\ZodiacSpinner::class; // DON'T FORGET TO IMPORT!
+$spinnerClass = SnakeSpinner::class; // DON'T FORGET TO IMPORT! :)
 
 $theme = new Themes(); // for colored output if supported
 
@@ -109,12 +107,13 @@ function running(Spinner $s, Themes $theme): void
     pcntl_signal(SIGINT, static function () use (&$run) {
         $run = false;
     });
+    echo $s->begin(); // Optional, begin() does same as spin() but also Cursor::hide(),
     while ($run) {
         usleep($microseconds);
         pcntl_signal_dispatch();
         echo $s->spin();
     }
-    echo $s->erase();
+    echo $s->end();
     echo PHP_EOL;
 }
 
@@ -131,7 +130,7 @@ function display(Spinner $s, Themes $theme, bool $inline, string $message): void
 
     $s->inline($inline);
     $microseconds = (int)($s->interval() * 1000000);
-    echo $s->begin(); // Optional, begin() is just an alias for spin()
+    echo $s->begin(); // Optional, begin() does same as spin() but also Cursor::hide(),
     for ($i = 0; $i < ITERATIONS; $i++) {
         usleep($microseconds);
         if (array_key_exists($i, $simulatedMessages)) {

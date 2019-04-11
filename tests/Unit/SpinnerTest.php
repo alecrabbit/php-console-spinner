@@ -35,7 +35,7 @@ class SpinnerTest extends TestCase
     public function nullSpinner(): void
     {
         $settings = new Settings();
-        $settings->setPaddingStr('');
+        $settings->setInlinePaddingStr('');
         $settings->setMessage(self::PROCESSING);
         $spinner = new class($settings) extends Spinner
         {

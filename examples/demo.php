@@ -5,8 +5,10 @@ use AlecRabbit\Control\Cursor;
 use AlecRabbit\Spinner\CircleSpinner;
 use AlecRabbit\Spinner\ClockSpinner;
 use AlecRabbit\Spinner\Contracts\SpinnerInterface;
+use AlecRabbit\Spinner\Core\Spinner;
 use AlecRabbit\Spinner\DiceSpinner;
 use AlecRabbit\Spinner\MoonSpinner;
+use AlecRabbit\Spinner\PercentSpinner;
 use AlecRabbit\Spinner\SectorsSpinner;
 use AlecRabbit\Spinner\SimpleSpinner;
 use AlecRabbit\Spinner\SnakeSpinner;
@@ -22,7 +24,8 @@ echo Cursor::hide(); //
 echo PHP_EOL;
 sleep(1);
 $spinners = [
-//    Spinner::class,
+    PercentSpinner::class,
+    Spinner::class,
     CircleSpinner::class,
     DiceSpinner::class,
     SectorsSpinner::class,
@@ -63,8 +66,10 @@ $spinners = [
 foreach ($spinners as $spinner) {
     showSpinners(new $spinner(MESSAGE), true);
     showSpinners(new $spinner(), true);
-    showSpinners(new $spinner(MESSAGE2));
-    showSpinners(new $spinner());
+    if ($spinner !== PercentSpinner::class) {
+        showSpinners(new $spinner(MESSAGE2));
+        showSpinners(new $spinner());
+    }
 }
 
 

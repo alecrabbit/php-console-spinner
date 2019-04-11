@@ -7,14 +7,24 @@ use AlecRabbit\ConsoleColour\ConsoleColor;
 use AlecRabbit\Control\Cursor;
 use AlecRabbit\Spinner\Contracts\SettingsInterface;
 use AlecRabbit\Spinner\Contracts\SpinnerInterface;
+use AlecRabbit\Spinner\Contracts\SpinnerStyles;
+use AlecRabbit\Spinner\Contracts\SpinnerSymbols;
+use AlecRabbit\Spinner\Contracts\StylesInterface;
 use function AlecRabbit\typeOf;
 
 class Spinner implements SpinnerInterface
 {
     protected const ERASING_SHIFT = 1;
     protected const INTERVAL = 0.125;
-    protected const SYMBOLS = null;
-    protected const STYLES = null;
+    protected const SYMBOLS = SpinnerSymbols::DIAMOND;
+    protected const
+        STYLES =
+        [
+            StylesInterface::COLOR256_SPINNER_STYLES => SpinnerStyles::C256_RAINBOW,
+            StylesInterface::COLOR_SPINNER_STYLES => SpinnerStyles::C_LIGHT_CYAN,
+            StylesInterface::COLOR_MESSAGE_STYLES => SpinnerStyles::C_DARK,
+            StylesInterface::COLOR_PERCENT_STYLES => SpinnerStyles::C_DARK,
+        ];
 
     /** @var string */
     protected $messageStr;
@@ -25,7 +35,7 @@ class Spinner implements SpinnerInterface
     /** @var string */
     protected $moveBackSequenceStr;
     /** @var string */
-    protected $paddingStr;
+    protected $inlinePaddingStr;
     /** @var string */
     protected $eraseBySpacesStr;
     /** @var Styling */
@@ -38,7 +48,7 @@ class Spinner implements SpinnerInterface
     public function __construct($settings = null)
     {
         $settings = $this->refineSettings($settings);
-        $this->paddingStr = $settings->getPaddingStr();
+        $this->inlinePaddingStr = $settings->getInlinePaddingStr();
         $this->messageStr = $this->getMessageStr($settings);
         $this->setFields();
         $this->styled = new Styling($settings->getSymbols(), $settings->getStyles());
@@ -97,7 +107,7 @@ class Spinner implements SpinnerInterface
     {
         $this->percentPrefix = $this->getPrefix();
         $strLen =
-            strlen($this->message()) + strlen($this->percent()) + strlen($this->paddingStr) + static::ERASING_SHIFT;
+            strlen($this->message()) + strlen($this->percent()) + strlen($this->inlinePaddingStr) + static::ERASING_SHIFT;
         $this->moveBackSequenceStr = ConsoleColor::ESC_CHAR . "[{$strLen}D";
         $this->eraseBySpacesStr = str_repeat(SettingsInterface::ONE_SPACE_SYMBOL, $strLen);
     }
@@ -136,15 +146,15 @@ class Spinner implements SpinnerInterface
 
     public function inline(bool $inline): SpinnerInterface
     {
-        $this->paddingStr = $inline ? SettingsInterface::ONE_SPACE_SYMBOL : SettingsInterface::EMPTY;
+        $this->inlinePaddingStr = $inline ? SettingsInterface::ONE_SPACE_SYMBOL : SettingsInterface::EMPTY;
         $this->setFields();
         return $this;
     }
 
     /** {@inheritDoc} */
-    public function begin(): string
+    public function begin(?float $percent = null): string
     {
-        return Cursor::hide() . $this->spin();
+        return Cursor::hide() . $this->spin($percent);
     }
 
     /** {@inheritDoc} */
@@ -154,7 +164,7 @@ class Spinner implements SpinnerInterface
             $this->updatePercent($percent);
         }
         return
-            $this->paddingStr .
+            $this->inlinePaddingStr .
             $this->styled->spinner() .
             $this->styled->message(
                 $this->message()

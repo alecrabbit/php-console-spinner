@@ -17,7 +17,7 @@ class Settings implements SettingsInterface
     /** @var null|string */
     protected $suffix;
     /** @var null|string */
-    protected $paddingStr;
+    protected $inlinePaddingStr;
 
     /** @var null|array */
     protected $symbols;
@@ -41,7 +41,7 @@ class Settings implements SettingsInterface
                 ->setPrefix(null)
                 ->setInterval(null)
                 ->setErasingShift(null)
-                ->setPaddingStr(null);
+                ->setInlinePaddingStr(null);
     }
 
     /**
@@ -142,18 +142,18 @@ class Settings implements SettingsInterface
     /**
      * @return string
      */
-    public function getPaddingStr(): string
+    public function getInlinePaddingStr(): string
     {
-        return $this->paddingStr;
+        return $this->inlinePaddingStr;
     }
 
     /**
-     * @param null|string $paddingStr
+     * @param null|string $inlinePaddingStr
      * @return Settings
      */
-    public function setPaddingStr(?string $paddingStr): Settings
+    public function setInlinePaddingStr(?string $inlinePaddingStr): Settings
     {
-        $this->paddingStr = $paddingStr ?? SettingsInterface::EMPTY;
+        $this->inlinePaddingStr = $inlinePaddingStr ?? SettingsInterface::EMPTY;
         return $this;
     }
 

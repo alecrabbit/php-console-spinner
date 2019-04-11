@@ -9,7 +9,9 @@ namespace AlecRabbit\Spinner\Contracts;
  */
 interface SpinnerSymbols
 {
-    public const BASE = [''];
+    public const BASE = [];
+
+    public const DIAMOND = ['♦'];
 
     public const SIMPLE = ['/', '|', '\\', '─',];
 

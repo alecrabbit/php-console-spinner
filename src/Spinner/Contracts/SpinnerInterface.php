@@ -5,9 +5,10 @@ namespace AlecRabbit\Spinner\Contracts;
 interface SpinnerInterface
 {
     /**
+     * @param null|float $percent
      * @return string
      */
-    public function begin(): string;
+    public function begin(?float $percent = null): string;
 
     /**
      * @return string
