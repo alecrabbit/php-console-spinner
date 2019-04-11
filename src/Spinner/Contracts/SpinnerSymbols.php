@@ -3,15 +3,15 @@
 
 namespace AlecRabbit\Spinner\Contracts;
 
+/**
+ * If you can't see any symbols doesn't mean they're not there!
+ * They ARE!
+ */
 interface SpinnerSymbols
 {
     public const CIRCLES = ['◐', '◓', '◑', '◒',];
 
-    // If you can't see clock symbols doesn't mean they're not there!
-    // They ARE!
     public const CLOCK = ['🕐', '🕑', '🕒', '🕓', '🕔', '🕕', '🕖', '🕗', '🕘', '🕙', '🕚', '🕛',];
-    // If you can't see clock symbols doesn't mean they're not there!
-    // They ARE!
     public const CLOCK_VARIANT = ['🕜', '🕝', '🕞', '🕟', '🕠', '🕡', '🕢', '🕣', '🕤', '🕥', '🕦',];
 
     public const MOON = ['🌘', '🌗', '🌖', '🌕', '🌔', '🌓', '🌒', '🌑',];
