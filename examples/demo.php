@@ -16,6 +16,7 @@ use AlecRabbit\Spinner\PercentSpinner;
 use AlecRabbit\Spinner\SectorsSpinner;
 use AlecRabbit\Spinner\SimpleSpinner;
 use AlecRabbit\Spinner\SnakeSpinner;
+use AlecRabbit\Spinner\ZodiacSpinner;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
@@ -29,13 +30,14 @@ echo PHP_EOL;
 sleep(1);
 $spinners = [
     PercentSpinner::class,
+    SimpleSpinner::class,
     Spinner::class,
     CircleSpinner::class,
     DiceSpinner::class,
     SectorsSpinner::class,
     ClockSpinner::class,
     MoonSpinner::class,
-    SimpleSpinner::class,
+    ZodiacSpinner::class,
     SnakeSpinner::class,
 ];
 

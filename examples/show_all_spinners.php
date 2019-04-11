@@ -12,6 +12,7 @@ use AlecRabbit\Spinner\PercentSpinner;
 use AlecRabbit\Spinner\SectorsSpinner;
 use AlecRabbit\Spinner\SimpleSpinner;
 use AlecRabbit\Spinner\SnakeSpinner;
+use AlecRabbit\Spinner\ZodiacSpinner;
 use function AlecRabbit\typeOf;
 
 require_once __DIR__ . '/../vendor/autoload.php';
@@ -22,14 +23,16 @@ const MESSAGE = 'Processing';
 $theme = new Themes();
 echo Cursor::hide();
 echo $theme->comment('Spinners samples(with message"' . MESSAGE . '"):') . PHP_EOL;
+
 showSpinners(
     [
         new Spinner(MESSAGE),
+        new ClockSpinner(MESSAGE),
+        new ZodiacSpinner(MESSAGE),
+        new MoonSpinner(MESSAGE),
         new CircleSpinner(MESSAGE),
         new DiceSpinner(MESSAGE),
         new SectorsSpinner(MESSAGE),
-        new ClockSpinner(MESSAGE),
-        new MoonSpinner(MESSAGE),
         new SimpleSpinner(MESSAGE),
         new SnakeSpinner(MESSAGE),
     ], $theme
@@ -38,11 +41,12 @@ echo $theme->comment('Spinners samples(without message):') . PHP_EOL;
 showSpinners(
     [
         new Spinner(),
+        new ClockSpinner(),
+        new ZodiacSpinner(),
+        new MoonSpinner(),
         new CircleSpinner(),
         new DiceSpinner(),
         new SectorsSpinner(),
-        new ClockSpinner(),
-        new MoonSpinner(),
         new SimpleSpinner(),
         new SnakeSpinner(),
     ], $theme
@@ -73,7 +77,7 @@ function showSpinners(array $spinners, Themes $theme): void
         }
         // Note: we're not erasing spinner here
         // uncomment next line if you want to
-        //echo $s->end();
+//        echo $s->end();
         echo PHP_EOL;
         echo PHP_EOL;
     }
