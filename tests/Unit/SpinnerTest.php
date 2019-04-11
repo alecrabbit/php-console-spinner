@@ -15,7 +15,7 @@ class SpinnerTest extends TestCase
      */
     public function instance(): void
     {
-        $spinner = new ExtendSpinner(self::PROCESSING);
+        $spinner = new ExtendedSpinner(self::PROCESSING);
         $this->assertInstanceOf(Spinner::class, $spinner);
         $this->assertSame(0.1, $spinner->interval());
         $this->assertIsString($spinner->begin());
@@ -36,7 +36,7 @@ class SpinnerTest extends TestCase
      */
     public function interface(): void
     {
-        $spinner = new ExtendSpinner(self::PROCESSING);
+        $spinner = new ExtendedSpinner(self::PROCESSING);
         $this->assertInstanceOf(Spinner::class, $spinner->inline(true));
         $this->assertInstanceOf(Spinner::class, $spinner->inline(false));
         $begin = $spinner->begin();

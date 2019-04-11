@@ -5,7 +5,7 @@ namespace AlecRabbit\Tests\Spinner;
 use AlecRabbit\Spinner\Core\Spinner;
 use AlecRabbit\Spinner\Core\Styling;
 
-class ExtendSpinner extends Spinner
+class ExtendedSpinner extends Spinner
 {
     protected const SYMBOLS = ['1', '2', '3', '4',];
 
