@@ -7,9 +7,6 @@ use AlecRabbit\Spinner\Contracts\SettingsInterface;
 use AlecRabbit\Tests\Spinner\Helper;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @group time-sensitive
- */
 class ClockSpinnerTest extends TestCase
 {
     protected const PROCESSING = 'Processing';

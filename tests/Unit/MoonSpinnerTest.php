@@ -6,9 +6,6 @@ use AlecRabbit\Spinner\Contracts\SettingsInterface;
 use AlecRabbit\Spinner\MoonSpinner;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @group time-sensitive
- */
 class MoonSpinnerTest extends TestCase
 {
     protected const PROCESSING = 'Processing';

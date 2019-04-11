@@ -8,16 +8,11 @@ use AlecRabbit\Spinner\SnakeSpinner;
 use PHPUnit\Framework\TestCase;
 use function AlecRabbit\Helpers\getValue;
 
-/**
- * @group time-sensitive
- */
 class SnakeSpinnerTest extends TestCase
 {
     protected const PROCESSING = 'Processing';
 
-    /**
-     * @test
-     */
+    /** @test */
     public function instance(): void
     {
         $spinner = new SnakeSpinner(self::PROCESSING);
@@ -33,9 +28,8 @@ class SnakeSpinnerTest extends TestCase
         $this->assertStringContainsString(SettingsInterface::DEFAULT_SUFFIX, $spinner->spin());
         $this->assertStringNotContainsString(self::PROCESSING, $spinner->end());
     }
-    /**
-     * @test
-     */
+
+    /** @test */
     public function symbols(): void
     {
         $spinner = new SnakeSpinner();

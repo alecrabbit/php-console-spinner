@@ -6,9 +6,6 @@ use AlecRabbit\Spinner\CircleSpinner;
 use AlecRabbit\Spinner\Contracts\SettingsInterface;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @group time-sensitive
- */
 class CircleSpinnerTest extends TestCase
 {
     protected const PROCESSING = 'Processing';
