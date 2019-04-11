@@ -32,7 +32,19 @@ $spinners = [
     SnakeSpinner::class,
 ];
 
-showSpinners(new class('Message') extends Spinner{
+showSpinners(new class('dice') extends Spinner{
+    protected const ERASING_SHIFT = 2;
+    protected const INTERVAL = 0.25;
+    protected const SYMBOLS = SpinnerSymbols::DICE;
+    protected const
+        STYLES =
+        [
+            Styling::COLOR256_SPINNER_STYLES => SpinnerStyles::C256_RAINBOW,
+            Styling::COLOR_SPINNER_STYLES => SpinnerStyles::C_LIGHT_CYAN,
+        ];
+
+}, true);
+showSpinners(new class('zodiac') extends Spinner{
     protected const ERASING_SHIFT = 2;
     protected const INTERVAL = 0.25;
     protected const SYMBOLS = SpinnerSymbols::ZODIAC;
