@@ -95,12 +95,12 @@ class Settings implements SettingsInterface
     }
 
     /**
-     * @param null|string $message
+     * @param null|string $string
      * @return Settings
      */
-    public function setMessage(?string $message): Settings
+    public function setMessage(?string $string): Settings
     {
-        $this->message = $message ?? SettingsInterface::EMPTY;
+        $this->message = $string ?? SettingsInterface::EMPTY;
         if (SettingsInterface::EMPTY === $this->message) {
             $this->setSuffix(SettingsInterface::EMPTY);
         } else {
