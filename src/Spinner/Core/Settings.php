@@ -4,33 +4,39 @@ namespace AlecRabbit\Spinner\Core;
 
 use AlecRabbit\Spinner\Contracts\SettingsInterface;
 
+/**
+ * Class Settings
+ *
+ * @psalm-suppress PropertyNotSetInConstructor
+ */
 class Settings implements SettingsInterface
 {
     /** @var float */
     protected $interval;
-    /** @var null|int */
+    /** @var int */
     protected $erasingShift;
-    /** @var null|string */
+    /** @var string */
     protected $message;
-    /** @var null|string */
+    /** @var string */
     protected $prefix;
-    /** @var null|string */
+    /** @var string */
     protected $suffix;
-    /** @var null|string */
+    /** @var string */
     protected $inlinePaddingStr;
-
-    /** @var null|array */
+    /** @var array */
     protected $symbols;
-
     /** @var array */
     protected $styles;
 
+    /**
+     * Settings constructor.
+     */
     public function __construct()
     {
         $this->defaults();
     }
 
-    public function defaults(): Settings
+    protected function defaults(): Settings
     {
         return
             $this
@@ -63,9 +69,9 @@ class Settings implements SettingsInterface
     }
 
     /**
-     * @return null|int
+     * @return int
      */
-    public function getErasingShift(): ?int
+    public function getErasingShift(): int
     {
         return $this->erasingShift;
     }
