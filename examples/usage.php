@@ -6,6 +6,7 @@ require_once __DIR__ . '/../vendor/autoload.php';
 use AlecRabbit\ConsoleColour\Contracts\Styles;
 use AlecRabbit\ConsoleColour\Themes;
 use AlecRabbit\Control\Cursor;
+use AlecRabbit\Spinner\CircleSpinner;
 use AlecRabbit\Spinner\Contracts\StylesInterface;
 use AlecRabbit\Spinner\Core\Spinner;
 use AlecRabbit\Spinner\MoonSpinner;
@@ -39,7 +40,7 @@ const SIMULATED_MESSAGES = [
 // SimpleSpinner::class
 // SnakeSpinner::class
 
-$spinnerClass = MoonSpinner::class; // DON'T FORGET TO IMPORT!
+$spinnerClass = \AlecRabbit\Spinner\ZodiacSpinner::class; // DON'T FORGET TO IMPORT!
 
 $theme = new Themes(); // for colored output if supported
 

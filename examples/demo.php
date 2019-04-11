@@ -5,11 +5,9 @@ use AlecRabbit\Control\Cursor;
 use AlecRabbit\Spinner\CircleSpinner;
 use AlecRabbit\Spinner\ClockSpinner;
 use AlecRabbit\Spinner\Contracts\SpinnerInterface;
-use AlecRabbit\Spinner\Contracts\SpinnerStyles;
-use AlecRabbit\Spinner\Contracts\SpinnerSymbols;
-use AlecRabbit\Spinner\Contracts\StylesInterface;
-use AlecRabbit\Spinner\Core\Spinner;
+use AlecRabbit\Spinner\DiceSpinner;
 use AlecRabbit\Spinner\MoonSpinner;
+use AlecRabbit\Spinner\SectorsSpinner;
 use AlecRabbit\Spinner\SimpleSpinner;
 use AlecRabbit\Spinner\SnakeSpinner;
 
@@ -24,8 +22,10 @@ echo Cursor::hide(); //
 echo PHP_EOL;
 sleep(1);
 $spinners = [
-    Spinner::class,
+//    Spinner::class,
     CircleSpinner::class,
+    DiceSpinner::class,
+    SectorsSpinner::class,
     ClockSpinner::class,
     MoonSpinner::class,
     SimpleSpinner::class,
@@ -41,6 +41,8 @@ $spinners = [
 //        [
 //            StylesInterface::COLOR256_SPINNER_STYLES => SpinnerStyles::C256_RAINBOW,
 //            StylesInterface::COLOR_SPINNER_STYLES => SpinnerStyles::C_LIGHT_CYAN,
+//            StylesInterface::COLOR_MESSAGE_STYLES => SpinnerStyles::C_DARK,
+//            StylesInterface::COLOR_PERCENT_STYLES => SpinnerStyles::C_DARK,
 //        ];
 //
 //}, true);
@@ -53,6 +55,8 @@ $spinners = [
 //        [
 //            StylesInterface::COLOR256_SPINNER_STYLES => SpinnerStyles::C256_RAINBOW,
 //            StylesInterface::COLOR_SPINNER_STYLES => SpinnerStyles::C_LIGHT_CYAN,
+//            StylesInterface::COLOR_MESSAGE_STYLES => SpinnerStyles::C_DARK,
+//            StylesInterface::COLOR_PERCENT_STYLES => SpinnerStyles::C_DARK,
 //        ];
 //
 //}, true);
@@ -62,7 +66,6 @@ foreach ($spinners as $spinner) {
     showSpinners(new $spinner(MESSAGE2));
     showSpinners(new $spinner());
 }
-
 
 
 echo PHP_EOL;
