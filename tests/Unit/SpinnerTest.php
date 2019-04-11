@@ -66,11 +66,10 @@ class SpinnerTest extends TestCase
             Helper::stripEscape(" Processing...\033[15D"),
             Helper::stripEscape($spinner->spin())
         );
-
-//        $this->assertEquals(
-//            "\033[?25l Processing...\033[15D",
-//
-//        );
+        $this->assertEquals(
+            Helper::stripEscape("               \033[15D\033[?25h\033[?0c"),
+            Helper::stripEscape($spinner->end())
+        );
     }
 
     /** @test */
