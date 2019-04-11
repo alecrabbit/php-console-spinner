@@ -9,17 +9,18 @@ namespace AlecRabbit\Spinner\Contracts;
  */
 interface SpinnerSymbols
 {
+    public const BASE = [''];
+
+    public const SIMPLE = ['/', '|', '\\', '─',];
+
     public const CIRCLES = ['◐', '◓', '◑', '◒',];
+    public const SECTORS = ['◴', '◷', '◶', '◵'];
 
     public const CLOCK = ['🕐', '🕑', '🕒', '🕓', '🕔', '🕕', '🕖', '🕗', '🕘', '🕙', '🕚', '🕛',];
     public const CLOCK_VARIANT = ['🕜', '🕝', '🕞', '🕟', '🕠', '🕡', '🕢', '🕣', '🕤', '🕥', '🕦',];
 
     public const MOON = ['🌘', '🌗', '🌖', '🌕', '🌔', '🌓', '🌒', '🌑',];
     public const MOON_REVERSED = ['🌑', '🌒', '🌓', '🌔', '🌕', '🌖', '🌗', '🌘',];
-
-    public const BASE = ['/', '|', '\\', '─',];
-
-    public const SIMPLE = ['◴', '◷', '◶', '◵'];
 
     public const SNAKE = ['⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏'];
 

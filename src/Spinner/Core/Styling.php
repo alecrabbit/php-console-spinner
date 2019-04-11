@@ -27,6 +27,7 @@ class Styling
 
     public function __construct(array $symbols, array $styles)
     {
+//        dump($symbols, $styles);
         $this->assertSymbols($symbols);
         $this->assertStyles($styles);
         $this->symbols = new Circular($symbols);
@@ -38,7 +39,9 @@ class Styling
     protected function assertSymbols(array $symbols): void
     {
         if (self::MAX_SYMBOLS_COUNT < count($symbols)) {
-            throw new \InvalidArgumentException('Symbols array is too big.');
+            throw new \InvalidArgumentException(
+                'Symbols array is too big [limit: ' . self::MAX_SYMBOLS_COUNT . '].'
+            );
         }
     }
 

@@ -32,30 +32,30 @@ $spinners = [
     SnakeSpinner::class,
 ];
 
-showSpinners(new class('dice') extends Spinner{
-    protected const ERASING_SHIFT = 2;
-    protected const INTERVAL = 0.25;
-    protected const SYMBOLS = SpinnerSymbols::ARROWS;
-    protected const
-        STYLES =
-        [
-            StylesInterface::COLOR256_SPINNER_STYLES => SpinnerStyles::C256_RAINBOW,
-            StylesInterface::COLOR_SPINNER_STYLES => SpinnerStyles::C_LIGHT_CYAN,
-        ];
-
-}, true);
-showSpinners(new class('zodiac') extends Spinner{
-    protected const ERASING_SHIFT = 2;
-    protected const INTERVAL = 0.25;
-    protected const SYMBOLS = SpinnerSymbols::FEATHERED_ARROWS;
-    protected const
-        STYLES =
-        [
-            StylesInterface::COLOR256_SPINNER_STYLES => SpinnerStyles::C256_RAINBOW,
-            StylesInterface::COLOR_SPINNER_STYLES => SpinnerStyles::C_LIGHT_CYAN,
-        ];
-
-}, true);
+//showSpinners(new class('dice') extends Spinner{
+//    protected const ERASING_SHIFT = 2;
+//    protected const INTERVAL = 0.25;
+//    protected const SYMBOLS = SpinnerSymbols::ARROWS;
+//    protected const
+//        STYLES =
+//        [
+//            StylesInterface::COLOR256_SPINNER_STYLES => SpinnerStyles::C256_RAINBOW,
+//            StylesInterface::COLOR_SPINNER_STYLES => SpinnerStyles::C_LIGHT_CYAN,
+//        ];
+//
+//}, true);
+//showSpinners(new class('zodiac') extends Spinner{
+//    protected const ERASING_SHIFT = 2;
+//    protected const INTERVAL = 0.25;
+//    protected const SYMBOLS = SpinnerSymbols::FEATHERED_ARROWS;
+//    protected const
+//        STYLES =
+//        [
+//            StylesInterface::COLOR256_SPINNER_STYLES => SpinnerStyles::C256_RAINBOW,
+//            StylesInterface::COLOR_SPINNER_STYLES => SpinnerStyles::C_LIGHT_CYAN,
+//        ];
+//
+//}, true);
 foreach ($spinners as $spinner) {
     showSpinners(new $spinner(MESSAGE), true);
     showSpinners(new $spinner(), true);

@@ -21,15 +21,17 @@ class CircleSpinnerTest extends TestCase
     {
         $spinner = new CircleSpinner(self::PROCESSING);
         $this->assertInstanceOf(CircleSpinner::class, $spinner);
-        $this->assertIsString($spinner->begin());
+        $begin = $spinner->begin();
+        $this->assertIsString($begin);
+        $this->assertStringContainsString(self::PROCESSING, $begin);
+        $this->assertStringContainsString(SettingsInterface::ONE_SPACE_SYMBOL, $begin);
+        $this->assertStringContainsString(SettingsInterface::DEFAULT_SUFFIX, $begin);
         $this->assertIsString($spinner->spin());
-        $this->assertIsString($spinner->end());
-        $this->assertStringContainsString(self::PROCESSING, $spinner->begin());
-        $this->assertStringContainsString(SettingsInterface::ONE_SPACE_SYMBOL, $spinner->begin());
-        $this->assertStringContainsString(SettingsInterface::DEFAULT_SUFFIX, $spinner->begin());
         $this->assertStringContainsString(self::PROCESSING, $spinner->spin());
         $this->assertStringContainsString(SettingsInterface::ONE_SPACE_SYMBOL, $spinner->spin());
         $this->assertStringContainsString(SettingsInterface::DEFAULT_SUFFIX, $spinner->spin());
-        $this->assertStringNotContainsString(self::PROCESSING, $spinner->end());
+        $end = $spinner->end();
+        $this->assertIsString($end);
+        $this->assertStringNotContainsString(self::PROCESSING, $end);
     }
 }

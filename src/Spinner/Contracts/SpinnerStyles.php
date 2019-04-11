@@ -20,4 +20,7 @@ interface SpinnerStyles
 
     public const C_LIGHT_CYAN =
         [Styles::LIGHT_CYAN];
+
+    public const C_DARK =
+        [Styles::DARK];
 }

@@ -7,10 +7,10 @@ use AlecRabbit\Spinner\Contracts\SpinnerSymbols;
 use AlecRabbit\Spinner\Contracts\StylesInterface;
 use AlecRabbit\Spinner\Core\Spinner;
 
-class SimpleSpinner extends Spinner
+class SectorsSpinner extends Spinner
 {
     protected const INTERVAL = 0.17;
-    protected const SYMBOLS = SpinnerSymbols::SIMPLE;
+    protected const SYMBOLS = SpinnerSymbols::SECTORS;
     protected const
         STYLES =
         [
