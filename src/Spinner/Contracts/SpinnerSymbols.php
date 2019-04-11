@@ -42,6 +42,22 @@ interface SpinnerSymbols
             '♓', // PISCES
         ];
 
+    public const ARROWS = ['➙', '➘', '➙', '➚',];
+
+    public const
+        FEATHERED_ARROWS =
+        [
+            '➵', // BLACK-FEATHERED RIGHTWARDS ARROW
+            '➴', // BLACK-FEATHERED SOUTH EAST ARROW
+            '➵', // BLACK-FEATHERED RIGHTWARDS ARROW
+            '➶', // BLACK-FEATHERED NORTH EAST ARROW
+            '➸', // HEAVY BLACK-FEATHERED RIGHTWARDS ARROW
+            '➷', // HEAVY BLACK-FEATHERED SOUTH EAST ARROW
+            '➸', // HEAVY BLACK-FEATHERED RIGHTWARDS ARROW
+            '➹', // HEAVY BLACK-FEATHERED NORTH EAST ARROW
+        ];
+
+    /* BRAILLE */
     // U+2800  '⠀'  BRAILLE PATTERN BLANK
     // U+2801  '⠁'  BRAILLE PATTERN DOTS-1
     // U+2802  '⠂'  BRAILLE PATTERN DOTS-2

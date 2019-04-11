@@ -35,7 +35,7 @@ $spinners = [
 showSpinners(new class('dice') extends Spinner{
     protected const ERASING_SHIFT = 2;
     protected const INTERVAL = 0.25;
-    protected const SYMBOLS = SpinnerSymbols::DICE;
+    protected const SYMBOLS = SpinnerSymbols::ARROWS;
     protected const
         STYLES =
         [
@@ -47,7 +47,7 @@ showSpinners(new class('dice') extends Spinner{
 showSpinners(new class('zodiac') extends Spinner{
     protected const ERASING_SHIFT = 2;
     protected const INTERVAL = 0.25;
-    protected const SYMBOLS = SpinnerSymbols::ZODIAC;
+    protected const SYMBOLS = SpinnerSymbols::FEATHERED_ARROWS;
     protected const
         STYLES =
         [
