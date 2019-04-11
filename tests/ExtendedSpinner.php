@@ -7,6 +7,7 @@ use AlecRabbit\Spinner\Core\Styling;
 
 class ExtendedSpinner extends Spinner
 {
+    protected const INTERVAL = 0.1;
     protected const SYMBOLS = ['1', '2', '3', '4',];
     protected const
         STYLES =
