@@ -71,7 +71,6 @@ class SpinnerTest extends TestCase
 //            "\033[?25l Processing...\033[15D",
 //
 //        );
-
     }
 
     /** @test */

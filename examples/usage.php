@@ -6,8 +6,10 @@ require_once __DIR__ . '/../vendor/autoload.php';
 use AlecRabbit\ConsoleColour\Contracts\Styles;
 use AlecRabbit\ConsoleColour\Themes;
 use AlecRabbit\Control\Cursor;
+use AlecRabbit\Spinner\Contracts\SpinnerStyles;
 use AlecRabbit\Spinner\Contracts\StylesInterface;
 use AlecRabbit\Spinner\Core\Spinner;
+use AlecRabbit\Spinner\MoonSpinner;
 use AlecRabbit\Spinner\SnakeSpinner;
 
 /**
@@ -38,7 +40,7 @@ const SIMULATED_MESSAGES = [
 // SimpleSpinner::class
 // SnakeSpinner::class
 
-$spinnerClass = SnakeSpinner::class; // DON'T FORGET TO IMPORT! :)
+$spinnerClass = MoonSpinner::class; // DON'T FORGET TO IMPORT! :)
 
 $theme = new Themes(); // for colored output if supported
 
@@ -46,6 +48,24 @@ echo $theme->comment('Long running task example...') . PHP_EOL;
 echo $theme->dark('Using spinner: ') . $spinnerClass . PHP_EOL;
 
 echo Cursor::hide();
+echo PHP_EOL;
+
+display(
+    new class('computing') extends SnakeSpinner
+    {
+        protected const
+            STYLES =
+            [
+                StylesInterface::COLOR256_SPINNER_STYLES => SpinnerStyles::C256_RAINBOW,
+                StylesInterface::COLOR_SPINNER_STYLES => SpinnerStyles::C_LIGHT_CYAN,
+                StylesInterface::COLOR_MESSAGE_STYLES => [Styles::LIGHT_YELLOW],
+                StylesInterface::COLOR_PERCENT_STYLES => [Styles::RED],
+            ];
+    },
+    $theme,
+    false,
+    'Custom SnakeSpinner on the next line(With custom styled percentage and custom styled message "computing"):' . PHP_EOL
+);
 
 display(
     new $spinnerClass(),
@@ -68,27 +88,10 @@ display(
     'Spinner on the next line(With percentage, With custom message "processing"):' . PHP_EOL
 );
 
-display(
-    new class('computing') extends SnakeSpinner
-    {
-        protected function getStyles(): array
-        {
-            $styles = parent::getStyles();
-            $styles[StylesInterface::COLOR_MESSAGE_STYLES] = [Styles::LIGHT_YELLOW];
-            $styles[StylesInterface::COLOR_PERCENT_STYLES] = [Styles::RED];
-            return $styles;
-        }
-    },
-    $theme,
-    false,
-    'Custom SnakeSpinner on the next line(With custom styled percentage and custom styled message "computing"):' . PHP_EOL
-);
 
 running(
     new $spinnerClass(),
     $theme);
-
-echo Cursor::show();
 
 //echo "\007Bell!" . PHP_EOL; // just for fun
 

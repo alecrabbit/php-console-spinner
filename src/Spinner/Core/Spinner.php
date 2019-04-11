@@ -40,6 +40,10 @@ class Spinner implements SpinnerInterface
     protected $eraseBySpacesStr;
     /** @var Styling */
     protected $styled;
+    /** @var float */
+    protected $interval;
+    /** @var int */
+    protected $erasingShift;
 
     /**
      * AbstractSpinner constructor.
@@ -48,6 +52,8 @@ class Spinner implements SpinnerInterface
     public function __construct($settings = null)
     {
         $settings = $this->refineSettings($settings);
+        $this->interval = $settings->getInterval();
+        $this->erasingShift = $settings->getErasingShift();
         $this->inlinePaddingStr = $settings->getInlinePaddingStr();
         $this->messageStr = $this->getMessageStr($settings);
         $this->setFields();
@@ -107,7 +113,7 @@ class Spinner implements SpinnerInterface
     {
         $this->percentPrefix = $this->getPrefix();
         $strLen =
-            strlen($this->message()) + strlen($this->percent()) + strlen($this->inlinePaddingStr) + static::ERASING_SHIFT;
+            strlen($this->message()) + strlen($this->percent()) + strlen($this->inlinePaddingStr) + $this->erasingShift;
         $this->moveBackSequenceStr = ConsoleColor::ESC_CHAR . "[{$strLen}D";
         $this->eraseBySpacesStr = str_repeat(SettingsInterface::ONE_SPACE_SYMBOL, $strLen);
     }
@@ -141,7 +147,7 @@ class Spinner implements SpinnerInterface
 
     public function interval(): float
     {
-        return static::INTERVAL;
+        return $this->interval;
     }
 
     public function inline(bool $inline): SpinnerInterface

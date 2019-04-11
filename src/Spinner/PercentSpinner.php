@@ -33,7 +33,7 @@ class PercentSpinner extends Spinner
 
     public function spin(?float $percent = null): string
     {
-        if(!\is_float($percent)) {
+        if (!\is_float($percent)) {
             throw new \RuntimeException('Float percentage value expected ' . typeOf($percent) . ' given.');
         }
         return parent::spin($percent);

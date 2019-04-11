@@ -5,6 +5,10 @@ use AlecRabbit\Control\Cursor;
 use AlecRabbit\Spinner\CircleSpinner;
 use AlecRabbit\Spinner\ClockSpinner;
 use AlecRabbit\Spinner\Contracts\SpinnerInterface;
+use AlecRabbit\Spinner\Contracts\SpinnerStyles;
+use AlecRabbit\Spinner\Contracts\SpinnerSymbols;
+use AlecRabbit\Spinner\Contracts\StylesInterface;
+use AlecRabbit\Spinner\Core\Settings;
 use AlecRabbit\Spinner\Core\Spinner;
 use AlecRabbit\Spinner\DiceSpinner;
 use AlecRabbit\Spinner\MoonSpinner;
@@ -35,34 +39,21 @@ $spinners = [
     SnakeSpinner::class,
 ];
 
-//showSpinners(new class('dice') extends Spinner{
-//    protected const ERASING_SHIFT = 2;
-//    protected const INTERVAL = 0.25;
-//    protected const SYMBOLS = SpinnerSymbols::ARROWS;
-//    protected const
-//        STYLES =
-//        [
-//            StylesInterface::COLOR256_SPINNER_STYLES => SpinnerStyles::C256_RAINBOW,
-//            StylesInterface::COLOR_SPINNER_STYLES => SpinnerStyles::C_LIGHT_CYAN,
-//            StylesInterface::COLOR_MESSAGE_STYLES => SpinnerStyles::C_DARK,
-//            StylesInterface::COLOR_PERCENT_STYLES => SpinnerStyles::C_DARK,
-//        ];
-//
-//}, true);
-//showSpinners(new class('zodiac') extends Spinner{
-//    protected const ERASING_SHIFT = 2;
-//    protected const INTERVAL = 0.25;
-//    protected const SYMBOLS = SpinnerSymbols::FEATHERED_ARROWS;
-//    protected const
-//        STYLES =
-//        [
-//            StylesInterface::COLOR256_SPINNER_STYLES => SpinnerStyles::C256_RAINBOW,
-//            StylesInterface::COLOR_SPINNER_STYLES => SpinnerStyles::C_LIGHT_CYAN,
-//            StylesInterface::COLOR_MESSAGE_STYLES => SpinnerStyles::C_DARK,
-//            StylesInterface::COLOR_PERCENT_STYLES => SpinnerStyles::C_DARK,
-//        ];
-//
-//}, true);
+showSpinners(
+    new Spinner(
+        (new Settings())
+            ->setInterval(0.25)
+            ->setSymbols(SpinnerSymbols::ARROWS)
+            ->setStyles([
+                StylesInterface::COLOR256_SPINNER_STYLES => SpinnerStyles::C256_RAINBOW,
+                StylesInterface::COLOR_SPINNER_STYLES => SpinnerStyles::C_LIGHT_CYAN,
+                StylesInterface::COLOR_MESSAGE_STYLES => SpinnerStyles::C_DARK,
+                StylesInterface::COLOR_PERCENT_STYLES => SpinnerStyles::C_DARK,
+            ])
+            ->setMessage('mes')
+            ->setSuffix(' ')
+    ), true);
+
 foreach ($spinners as $spinner) {
     showSpinners(new $spinner(MESSAGE), true);
     showSpinners(new $spinner(), true);
