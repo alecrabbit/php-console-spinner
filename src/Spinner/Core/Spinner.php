@@ -4,6 +4,7 @@ namespace AlecRabbit\Spinner\Core;
 
 use AlecRabbit\Accessories\Pretty;
 use AlecRabbit\ConsoleColour\ConsoleColor;
+use AlecRabbit\Control\Cursor;
 use AlecRabbit\Spinner\Contracts\SettingsInterface;
 use AlecRabbit\Spinner\Contracts\SpinnerInterface;
 use function AlecRabbit\typeOf;
@@ -171,7 +172,7 @@ class Spinner implements SpinnerInterface
     /** {@inheritDoc} */
     public function begin(): string
     {
-        return $this->spin();
+        return Cursor::hide() . $this->spin();
     }
 
     /** {@inheritDoc} */
@@ -206,7 +207,7 @@ class Spinner implements SpinnerInterface
     /** {@inheritDoc} */
     public function end(): string
     {
-        return $this->erase();
+        return $this->erase() . Cursor::show();
     }
 
     /** {@inheritDoc} */

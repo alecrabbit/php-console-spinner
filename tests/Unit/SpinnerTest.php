@@ -6,7 +6,7 @@ use AlecRabbit\Spinner\Contracts\SettingsInterface;
 use AlecRabbit\Spinner\Core\Spinner;
 use PHPUnit\Framework\TestCase;
 
-class AbstractSpinnerTest extends TestCase
+class SpinnerTest extends TestCase
 {
     protected const PROCESSING = 'Processing';
 
@@ -43,10 +43,13 @@ class AbstractSpinnerTest extends TestCase
 
         // DO NOT CHANGE ORDER!!!
         $this->assertEquals(
-            Helper::stripEscape("\033[1m1\033[0m\033[2m Processing...\033[0m\033[2m\033[0m\033[15D"),
+            Helper::stripEscape("\033[?25l\033[1m1\033[0m\033[2m Processing...\033[0m\033[2m\033[0m\033[15D"),
             Helper::stripEscape($begin)
         );
-        $this->assertEquals("\033[1m1\033[0m\033[2m Processing...\033[0m\033[2m\033[0m\033[15D", $begin);
+        $this->assertEquals(
+            "\033[?25l\033[1m1\033[0m\033[2m Processing...\033[0m\033[2m\033[0m\033[15D",
+            $begin
+        );
 
         $this->assertEquals(
             Helper::stripEscape("\033[2m2\033[0m\033[2m Processing...\033[0m\033[2m\033[0m\033[15D"),
@@ -99,8 +102,11 @@ class AbstractSpinnerTest extends TestCase
             Helper::stripEscape("                    \033[20D"),
             Helper::stripEscape($spinner->erase())
         );
-        $this->assertEquals(Helper::stripEscape("                    \033[20D"), Helper::stripEscape($spinner->end()));
+        $this->assertEquals(
+            Helper::stripEscape("                    \033[20D\033[?25h\033[?0c"),
+            Helper::stripEscape($spinner->end())
+        );
         $this->assertEquals("                    \033[20D", $spinner->erase());
-        $this->assertEquals("                    \033[20D", $spinner->end());
+        $this->assertEquals("                    \033[20D\033[?25h\033[?0c", $spinner->end());
     }
 }

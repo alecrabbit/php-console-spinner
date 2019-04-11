@@ -18,7 +18,7 @@ const MESSAGE = 'processing';
 const MESSAGE2 = 'computing';
 
 $theme = new Themes();
-echo Cursor::hide();
+//echo Cursor::hide();
 echo PHP_EOL;
 $spinners = [
     Spinner::class,
@@ -38,7 +38,7 @@ foreach ($spinners as $spinner) {
 echo PHP_EOL;
 echo PHP_EOL;
 
-echo Cursor::show();
+//echo Cursor::show();
 
 // ************************ Functions ************************
 
