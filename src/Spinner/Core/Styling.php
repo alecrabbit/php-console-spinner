@@ -8,6 +8,8 @@ use AlecRabbit\ConsoleColour\Terminal;
 
 /**
  * Class Styling
+ *
+ * @internal
  */
 class Styling
 {

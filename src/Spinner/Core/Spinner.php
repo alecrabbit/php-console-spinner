@@ -7,6 +7,7 @@ use AlecRabbit\ConsoleColour\ConsoleColor;
 use AlecRabbit\Control\Cursor;
 use AlecRabbit\Spinner\Contracts\SettingsInterface;
 use AlecRabbit\Spinner\Contracts\SpinnerInterface;
+use AlecRabbit\Spinner\Contracts\SpinnerStyles;
 use function AlecRabbit\typeOf;
 
 class Spinner implements SpinnerInterface
@@ -14,6 +15,12 @@ class Spinner implements SpinnerInterface
     protected const ERASING_SHIFT = 1;
     protected const INTERVAL = 0.1;
     protected const SYMBOLS = [''];
+    protected const
+        STYLES =
+        [
+            Styling::COLOR256_SPINNER_STYLES => SpinnerStyles::DISABLED,
+            Styling::COLOR_SPINNER_STYLES => SpinnerStyles::DISABLED,
+        ];
 
     /** @var string */
     protected $messageStr;
@@ -34,9 +41,8 @@ class Spinner implements SpinnerInterface
      * AbstractSpinner constructor.
      * @param mixed $settings
      */
-    public function __construct(
-        $settings = null
-    ) {
+    public function __construct($settings = null)
+    {
         $settings = $this->refineSettings($settings);
         $this->paddingStr = $settings->getPaddingStr() ?? SettingsInterface::EMPTY;
         $this->messageStr = $this->refineMessage($settings);
@@ -52,9 +58,9 @@ class Spinner implements SpinnerInterface
     {
         $this->assertSettings($settings);
         if (\is_string($settings)) {
-            return (new Settings())->setMessage($settings);
+            return $this->defaultSettings()->setMessage($settings);
         }
-        return $settings ?? new Settings();
+        return $settings ?? $this->defaultSettings();
     }
 
     /**
@@ -67,6 +73,14 @@ class Spinner implements SpinnerInterface
                 'Instance of SettingsInterface or string expected ' . typeOf($settings) . ' given.'
             );
         }
+    }
+
+    /**
+     * @return Settings
+     */
+    protected function defaultSettings(): Settings
+    {
+        return new Settings();
     }
 
     /**
@@ -126,35 +140,7 @@ class Spinner implements SpinnerInterface
 
     protected function getStyles(): array
     {
-        return [
-            Styling::COLOR256_SPINNER_STYLES => [
-                '203',
-                '209',
-                '215',
-                '221',
-                '227',
-                '191',
-                '155',
-                '119',
-                '83',
-                '84',
-                '85',
-                '86',
-                '87',
-                '81',
-                '75',
-                '69',
-                '63',
-                '99',
-                '135',
-                '171',
-                '207',
-                '206',
-                '205',
-                '204',
-            ],
-            Styling::COLOR_SPINNER_STYLES => ['96'],
-        ];
+        return static::STYLES;
     }
 
     public function interval(): float

@@ -11,12 +11,10 @@ class CircleSpinner extends Spinner
 {
     protected const INTERVAL = 0.17;
     protected const SYMBOLS = SpinnerSymbols::CIRCLES;
-
-    protected function getStyles(): array
-    {
-        return [
+    protected const
+        STYLES =
+        [
             Styling::COLOR256_SPINNER_STYLES => SpinnerStyles::C256_YELLOW_WHITE,
             Styling::COLOR_SPINNER_STYLES => SpinnerStyles::C_LIGHT_YELLOW,
         ];
-    }
 }

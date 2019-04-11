@@ -12,13 +12,10 @@ class MoonSpinner extends Spinner
 {
     protected const ERASING_SHIFT = 2;
     protected const SYMBOLS = SpinnerSymbols::MOON;
-
-    /** {@inheritDoc} */
-    protected function getStyles(): array
-    {
-        return [
+    protected const
+        STYLES =
+        [
             Styling::COLOR256_SPINNER_STYLES => SpinnerStyles::DISABLED,
             Styling::COLOR_SPINNER_STYLES => SpinnerStyles::DISABLED,
         ];
-    }
 }
