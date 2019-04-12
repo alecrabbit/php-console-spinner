@@ -152,4 +152,81 @@ class SpinnerTest extends TestCase
         $this->assertEquals("                    \033[20D", $spinner->erase());
         $this->assertEquals("                    \033[20D\033[?25h\033[?0c", $spinner->end());
     }
+
+    /** @test */
+    public function noColor(): void
+    {
+        $spinner = new ExtendedSpinner(self::PROCESSING, StylesInterface::NO_COLOR);
+        $this->assertInstanceOf(Spinner::class, $spinner->inline(true));
+        $this->assertInstanceOf(Spinner::class, $spinner->inline(false));
+        $begin = $spinner->begin();
+
+        // DO NOT CHANGE ORDER!!!
+        $this->assertEquals(
+            Helper::stripEscape("\033[?25l1 Processing...\033[15D"),
+            Helper::stripEscape($begin)
+        );
+        $this->assertEquals(
+            "\033[?25l1 Processing...\033[15D",
+            $begin
+        );
+
+        $this->assertEquals(
+            Helper::stripEscape("2 Processing...\033[15D"),
+            Helper::stripEscape($spinner->spin())
+        );
+        $this->assertEquals(
+            Helper::stripEscape("3 Processing...\033[15D"),
+            Helper::stripEscape($spinner->spin())
+        );
+        $this->assertEquals(
+            Helper::stripEscape("4 Processing...\033[15D"),
+            Helper::stripEscape($spinner->spin())
+        );
+        $this->assertEquals(
+            Helper::stripEscape("1 Processing...\033[15D"),
+            Helper::stripEscape($spinner->spin())
+        );
+
+        $this->assertEquals(
+            "2 Processing...\033[15D",
+            $spinner->spin()
+        );
+        $this->assertEquals(
+            "3 Processing...\033[15D",
+            $spinner->spin()
+        );
+        $this->assertEquals(
+            "4 Processing...\033[15D",
+            $spinner->spin()
+        );
+        $this->assertEquals(
+            "1 Processing...\033[15D",
+            $spinner->spin()
+        );
+
+        $this->assertEquals(
+            Helper::stripEscape("2 Processing... 0%\033[18D"),
+            Helper::stripEscape($spinner->spin(0.0))
+        );
+        $this->assertEquals(
+            Helper::stripEscape("3 Processing... 50%\033[19D"),
+            Helper::stripEscape($spinner->spin(0.5))
+        );
+        $this->assertEquals(
+            Helper::stripEscape("4 Processing... 100%\033[20D"),
+            Helper::stripEscape($spinner->spin(1.0))
+        );
+
+        $this->assertEquals(
+            Helper::stripEscape("                    \033[20D"),
+            Helper::stripEscape($spinner->erase())
+        );
+        $this->assertEquals(
+            Helper::stripEscape("                    \033[20D\033[?25h\033[?0c"),
+            Helper::stripEscape($spinner->end())
+        );
+        $this->assertEquals("                    \033[20D", $spinner->erase());
+        $this->assertEquals("                    \033[20D\033[?25h\033[?0c", $spinner->end());
+    }
 }
