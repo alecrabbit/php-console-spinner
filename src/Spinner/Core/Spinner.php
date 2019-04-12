@@ -25,7 +25,7 @@ class Spinner implements SpinnerInterface
             StylesInterface::COLOR_MESSAGE_STYLES => StylesInterface::C_DARK,
             StylesInterface::COLOR_PERCENT_STYLES => StylesInterface::C_DARK,
         ];
-    protected const NEW_STYLES = StylesInterface::DEFAULT_STYLES;
+    protected const NEW_STYLES = [];
 
     /** @var string */
     protected $messageStr;
@@ -101,7 +101,7 @@ class Spinner implements SpinnerInterface
                 ->setInterval(static::INTERVAL)
                 ->setErasingShift(static::ERASING_SHIFT)
                 ->setSymbols(static::SYMBOLS)
-                ->setStyles(static::STYLES);
+                ->setStyles(static::NEW_STYLES);
     }
 
     /**

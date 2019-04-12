@@ -21,4 +21,5 @@ interface SettingsInterface
             StylesInterface::COLOR_MESSAGE_STYLES => StylesInterface::DISABLED,
             StylesInterface::COLOR_PERCENT_STYLES => StylesInterface::DISABLED,
         ];
+    public const NEW_DEFAULT_STYLES = StylesInterface::DEFAULT_STYLES;
 }

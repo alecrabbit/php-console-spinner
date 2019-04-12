@@ -28,7 +28,7 @@ echo Cursor::hide(); //
 echo PHP_EOL;
 sleep(1);
 $spinners = [
-    PercentSpinner::class,
+//    PercentSpinner::class,
     SimpleSpinner::class,
     Spinner::class,
     CircleSpinner::class,
@@ -40,20 +40,20 @@ $spinners = [
     SnakeSpinner::class,
 ];
 
-showSpinners(
-    new Spinner(
-        (new Settings())
-            ->setInterval(0.25)
-            ->setSymbols(SpinnerSymbols::ARROWS)
-            ->setStyles([
-                StylesInterface::COLOR256_SPINNER_STYLES => StylesInterface::C256_RAINBOW,
-                StylesInterface::COLOR_SPINNER_STYLES => StylesInterface::C_LIGHT_CYAN,
-                StylesInterface::COLOR_MESSAGE_STYLES => StylesInterface::C_DARK,
-                StylesInterface::COLOR_PERCENT_STYLES => StylesInterface::C_DARK,
-            ])
-            ->setMessage('mes')
-            ->setSuffix(' ')
-    ), true);
+//showSpinners(
+//    new Spinner(
+//        (new Settings())
+//            ->setInterval(0.25)
+//            ->setSymbols(SpinnerSymbols::ARROWS)
+//            ->setStyles([
+//                StylesInterface::COLOR256_SPINNER_STYLES => StylesInterface::C256_RAINBOW,
+//                StylesInterface::COLOR_SPINNER_STYLES => StylesInterface::C_LIGHT_CYAN,
+//                StylesInterface::COLOR_MESSAGE_STYLES => StylesInterface::C_DARK,
+//                StylesInterface::COLOR_PERCENT_STYLES => StylesInterface::C_DARK,
+//            ])
+//            ->setMessage('mes')
+//            ->setSuffix(' ')
+//    ), true);
 
 foreach ($spinners as $spinner) {
     showSpinners(new $spinner(MESSAGE), true);
