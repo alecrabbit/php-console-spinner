@@ -56,7 +56,11 @@ class Spinner implements SpinnerInterface
         try {
             $this->styles = new Styles($settings->getStyles());
         } catch (\InvalidArgumentException $e) {
-            throw new \InvalidArgumentException('[' . static::class . '] ' . $e->getMessage(), $e->getCode(), $e);
+            throw new \InvalidArgumentException(
+                '[' . static::class . '] ' . $e->getMessage(),
+                (int)$e->getCode(),
+                $e
+            );
         }
     }
 

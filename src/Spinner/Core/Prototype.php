@@ -17,7 +17,7 @@ class Prototype
     protected $percentStyles;
     /** @var Terminal */
     protected $terminal;
-    /** @var int */
+    /** @var string */
     protected $color;
 
     /**
