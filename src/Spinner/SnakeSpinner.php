@@ -12,7 +12,7 @@ class SnakeSpinner extends Spinner
     protected const INTERVAL = 0.1;
     protected const SYMBOLS = SpinnerSymbols::SNAKE;
     protected const
-        NEW_STYLES =
+        STYLES =
         [
             StylesInterface::SPINNER_STYLES =>
                 [

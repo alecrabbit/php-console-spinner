@@ -12,7 +12,7 @@ class DiceSpinner extends Spinner
     protected const INTERVAL = 0.17;
     protected const SYMBOLS = SpinnerSymbols::DICE;
     protected const
-        NEW_STYLES =
+        STYLES =
         [
             StylesInterface::SPINNER_STYLES =>
                 [

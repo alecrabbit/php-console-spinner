@@ -31,6 +31,34 @@ class SpinnerTest extends TestCase
     }
 
     /** @test */
+    public function wrongArgument(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Instance of SettingsInterface or string expected integer given.');
+        new ExtendedSpinner(1);
+    }
+
+    /** @test */
+    public function wrongArgumentSettings(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage(
+            '[AlecRabbit\Tests\Spinner\ExtendedSpinner] array_map(): Argument #2 should be an array'
+        );
+        $settings = new Settings();
+        $settings->setStyles(
+            [
+                StylesInterface::SPINNER_STYLES =>
+                    [
+                        StylesInterface::COLOR256 => 1,
+                        StylesInterface::COLOR => 1,
+                    ],
+            ]
+        );
+        new ExtendedSpinner($settings);
+    }
+
+    /** @test */
     public function nullSpinner(): void
     {
         $styles = [

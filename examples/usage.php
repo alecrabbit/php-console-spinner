@@ -54,7 +54,7 @@ display(
     new class('computing') extends SnakeSpinner
     {
         protected const
-            NEW_STYLES =
+            STYLES =
             [
                 StylesInterface::MESSAGE_STYLES =>
                     [

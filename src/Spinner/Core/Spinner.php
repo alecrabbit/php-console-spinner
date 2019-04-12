@@ -17,7 +17,7 @@ class Spinner implements SpinnerInterface
     protected const ERASING_SHIFT = 1;
     protected const INTERVAL = 0.125;
     protected const SYMBOLS = SpinnerSymbols::DIAMOND;
-    protected const NEW_STYLES = [];
+    protected const STYLES = [];
 
     /** @var string */
     protected $messageStr;
@@ -56,7 +56,7 @@ class Spinner implements SpinnerInterface
         $this->symbols = new Circular($settings->getSymbols());
         try {
             $this->style = new Style($settings->getStyles(), $color);
-        } catch (\InvalidArgumentException $e) {
+        } catch (\Throwable $e) {
             throw new \InvalidArgumentException(
                 '[' . static::class . '] ' . $e->getMessage(),
                 (int)$e->getCode(),
@@ -102,7 +102,7 @@ class Spinner implements SpinnerInterface
                 ->setInterval(static::INTERVAL)
                 ->setErasingShift(static::ERASING_SHIFT)
                 ->setSymbols(static::SYMBOLS)
-                ->setStyles(static::NEW_STYLES);
+                ->setStyles(static::STYLES);
     }
 
     /**

@@ -10,7 +10,7 @@ class ExtendedSpinner extends Spinner
     protected const INTERVAL = 0.1;
     protected const SYMBOLS = ['1', '2', '3', '4',];
     protected const
-        NEW_STYLES =
+        STYLES =
         [
             StylesInterface::SPINNER_STYLES =>
                 [

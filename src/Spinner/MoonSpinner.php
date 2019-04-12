@@ -12,7 +12,7 @@ class MoonSpinner extends Spinner
     protected const INTERVAL = 0.1;
     protected const SYMBOLS = SpinnerSymbols::MOON;
     protected const
-        NEW_STYLES =
+        STYLES =
         [
             StylesInterface::SPINNER_STYLES =>
                 [
