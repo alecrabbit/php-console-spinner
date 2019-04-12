@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "469950593447edda69f1ed67421f664a",
+    "content-hash": "6cee65a2ac97758f74970e992c8e2d41",
     "packages": [
         {
             "name": "alecrabbit/php-accessories",
@@ -57,16 +57,16 @@
         },
         {
             "name": "alecrabbit/php-console-colour",
-            "version": "0.2.4",
+            "version": "0.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/alecrabbit/php-console-colour.git",
-                "reference": "8d9edc80e4b351c38abdef6eabc4b3403dc3bb99"
+                "reference": "5e1b045d85c42f9ba453be20dd7c33f3011b909d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/alecrabbit/php-console-colour/zipball/8d9edc80e4b351c38abdef6eabc4b3403dc3bb99",
-                "reference": "8d9edc80e4b351c38abdef6eabc4b3403dc3bb99",
+                "url": "https://api.github.com/repos/alecrabbit/php-console-colour/zipball/5e1b045d85c42f9ba453be20dd7c33f3011b909d",
+                "reference": "5e1b045d85c42f9ba453be20dd7c33f3011b909d",
                 "shasum": ""
             },
             "require": {
@@ -100,7 +100,7 @@
                 "terminal",
                 "width"
             ],
-            "time": "2019-04-09T10:14:47+00:00"
+            "time": "2019-04-11T07:05:48+00:00"
         },
         {
             "name": "alecrabbit/php-helpers",

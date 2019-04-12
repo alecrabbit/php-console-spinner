@@ -8,7 +8,6 @@ use AlecRabbit\ConsoleColour\ConsoleColor;
 use AlecRabbit\Control\Cursor;
 use AlecRabbit\Spinner\Contracts\SettingsInterface;
 use AlecRabbit\Spinner\Contracts\SpinnerInterface;
-use AlecRabbit\Spinner\Contracts\SpinnerStyles;
 use AlecRabbit\Spinner\Contracts\SpinnerSymbols;
 use AlecRabbit\Spinner\Contracts\StylesInterface;
 use function AlecRabbit\typeOf;
@@ -21,10 +20,10 @@ class Spinner implements SpinnerInterface
     protected const
         STYLES =
         [
-            StylesInterface::COLOR256_SPINNER_STYLES => SpinnerStyles::C256_RAINBOW,
-            StylesInterface::COLOR_SPINNER_STYLES => SpinnerStyles::C_LIGHT_CYAN,
-            StylesInterface::COLOR_MESSAGE_STYLES => SpinnerStyles::C_DARK,
-            StylesInterface::COLOR_PERCENT_STYLES => SpinnerStyles::C_DARK,
+            StylesInterface::COLOR256_SPINNER_STYLES => StylesInterface::C256_RAINBOW,
+            StylesInterface::COLOR_SPINNER_STYLES => StylesInterface::C_LIGHT_CYAN,
+            StylesInterface::COLOR_MESSAGE_STYLES => StylesInterface::C_DARK,
+            StylesInterface::COLOR_PERCENT_STYLES => StylesInterface::C_DARK,
         ];
 
     /** @var string */

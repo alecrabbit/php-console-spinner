@@ -6,7 +6,6 @@ require_once __DIR__ . '/../vendor/autoload.php';
 use AlecRabbit\ConsoleColour\Contracts\Styles;
 use AlecRabbit\ConsoleColour\Themes;
 use AlecRabbit\Control\Cursor;
-use AlecRabbit\Spinner\Contracts\SpinnerStyles;
 use AlecRabbit\Spinner\Contracts\StylesInterface;
 use AlecRabbit\Spinner\Core\Spinner;
 use AlecRabbit\Spinner\MoonSpinner;
@@ -56,8 +55,8 @@ display(
         protected const
             STYLES =
             [
-                StylesInterface::COLOR256_SPINNER_STYLES => SpinnerStyles::C256_RAINBOW,
-                StylesInterface::COLOR_SPINNER_STYLES => SpinnerStyles::C_LIGHT_CYAN,
+                StylesInterface::COLOR256_SPINNER_STYLES => StylesInterface::C256_RAINBOW,
+                StylesInterface::COLOR_SPINNER_STYLES => StylesInterface::C_LIGHT_CYAN,
                 StylesInterface::COLOR_MESSAGE_STYLES => [Styles::LIGHT_YELLOW],
                 StylesInterface::COLOR_PERCENT_STYLES => [Styles::RED],
             ];

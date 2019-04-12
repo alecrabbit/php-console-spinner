@@ -3,7 +3,6 @@
 namespace AlecRabbit\Spinner;
 
 use AlecRabbit\Spinner\Contracts\SettingsInterface;
-use AlecRabbit\Spinner\Contracts\SpinnerStyles;
 use AlecRabbit\Spinner\Contracts\StylesInterface;
 use AlecRabbit\Spinner\Core\Settings;
 use AlecRabbit\Spinner\Core\Spinner;
@@ -17,8 +16,8 @@ class PercentSpinner extends Spinner
     protected const
         STYLES =
         [
-            StylesInterface::COLOR_MESSAGE_STYLES => SpinnerStyles::C_DARK,
-            StylesInterface::COLOR_PERCENT_STYLES => SpinnerStyles::C_DARK,
+            StylesInterface::COLOR_MESSAGE_STYLES => StylesInterface::C_DARK,
+            StylesInterface::COLOR_PERCENT_STYLES => StylesInterface::C_DARK,
         ];
 
     /**

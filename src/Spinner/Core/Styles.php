@@ -24,22 +24,13 @@ class Styles
 
     public function __construct(array $styles)
     {
-        $this->assertStyles($styles);
-        $this->symbolStyles = $this->symbolStyles($styles);
-        $this->messageStyles = $this->messageStyles($styles);
-        $this->percentStyles = $this->percentStyles($styles);
-    }
-
-    protected function assertStyles(array $styles): void
-    {
-        $keys = array_keys(SettingsInterface::DEFAULT_STYLES);
-        foreach ($keys as $key) {
-            if (!\array_key_exists($key, $styles)) {
-                throw new \InvalidArgumentException(
-                    'Styles array does not have ' . $key . ' key.'
-                );
-            }
-        }
+        $prototype = new Prototype($styles);
+        $this->symbolStyles = $prototype->getSpinnerStyles();
+        $this->messageStyles = $prototype->getMessageStyles();
+        $this->percentStyles = $prototype->getPercentStyles();
+//        $this->symbolStyles = $this->symbolStyles($styles);
+//        $this->messageStyles = $this->messageStyles($styles);
+//        $this->percentStyles = $this->percentStyles($styles);
     }
 
     /**
@@ -99,9 +90,9 @@ class Styles
      */
     protected function messageStyles(array $styles): Circular
     {
-        if (!\array_key_exists(StylesInterface::COLOR_MESSAGE_STYLES, $styles)) {
-            $styles[StylesInterface::COLOR_MESSAGE_STYLES] = StylesInterface::DEFAULT_MESSAGE_STYLES;
-        }
+//        if (!\array_key_exists(StylesInterface::COLOR_MESSAGE_STYLES, $styles)) {
+//            $styles[StylesInterface::COLOR_MESSAGE_STYLES] = StylesInterface::DEFAULT_MESSAGE_STYLES;
+//        }
         if ((new Terminal())->supportsColor()) {
             $value = $styles[StylesInterface::COLOR_MESSAGE_STYLES];
             if (null === $value) {
@@ -118,9 +109,9 @@ class Styles
      */
     protected function percentStyles(array $styles): Circular
     {
-        if (!\array_key_exists(StylesInterface::COLOR_PERCENT_STYLES, $styles)) {
-            $styles[StylesInterface::COLOR_PERCENT_STYLES] = StylesInterface::DEFAULT_PERCENT_STYLES;
-        }
+//        if (!\array_key_exists(StylesInterface::COLOR_PERCENT_STYLES, $styles)) {
+//            $styles[StylesInterface::COLOR_PERCENT_STYLES] = StylesInterface::DEFAULT_PERCENT_STYLES;
+//        }
         if ((new Terminal())->supportsColor()) {
             $value = $styles[StylesInterface::COLOR_PERCENT_STYLES];
             if (null === $value) {

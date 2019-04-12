@@ -3,7 +3,6 @@
 namespace AlecRabbit\Tests\Spinner;
 
 use AlecRabbit\Spinner\Contracts\SettingsInterface;
-use AlecRabbit\Spinner\Contracts\SpinnerStyles;
 use AlecRabbit\Spinner\Contracts\StylesInterface;
 use AlecRabbit\Spinner\Core\Settings;
 use AlecRabbit\Spinner\Core\Spinner;
@@ -45,10 +44,10 @@ class SpinnerTest extends TestCase
             protected const
                 STYLES =
                 [
-                    StylesInterface::COLOR256_SPINNER_STYLES => SpinnerStyles::DISABLED,
-                    StylesInterface::COLOR_SPINNER_STYLES => SpinnerStyles::DISABLED,
-                    StylesInterface::COLOR_MESSAGE_STYLES => SpinnerStyles::DISABLED,
-                    StylesInterface::COLOR_PERCENT_STYLES => SpinnerStyles::DISABLED,
+                    StylesInterface::COLOR256_SPINNER_STYLES => StylesInterface::DISABLED,
+                    StylesInterface::COLOR_SPINNER_STYLES => StylesInterface::DISABLED,
+                    StylesInterface::COLOR_MESSAGE_STYLES => StylesInterface::DISABLED,
+                    StylesInterface::COLOR_PERCENT_STYLES => StylesInterface::DISABLED,
                 ];
         };
         $begin = $spinner->begin();

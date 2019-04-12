@@ -16,9 +16,9 @@ interface SettingsInterface
     public const
         DEFAULT_STYLES =
         [
-            StylesInterface::COLOR256_SPINNER_STYLES => SpinnerStyles::DISABLED,
-            StylesInterface::COLOR_SPINNER_STYLES => SpinnerStyles::DISABLED,
-            StylesInterface::COLOR_MESSAGE_STYLES => SpinnerStyles::DISABLED,
-            StylesInterface::COLOR_PERCENT_STYLES => SpinnerStyles::DISABLED,
+            StylesInterface::COLOR256_SPINNER_STYLES => StylesInterface::DISABLED,
+            StylesInterface::COLOR_SPINNER_STYLES => StylesInterface::DISABLED,
+            StylesInterface::COLOR_MESSAGE_STYLES => StylesInterface::DISABLED,
+            StylesInterface::COLOR_PERCENT_STYLES => StylesInterface::DISABLED,
         ];
 }
