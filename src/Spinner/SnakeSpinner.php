@@ -10,7 +10,7 @@ class SnakeSpinner extends Spinner
 {
     protected const ERASING_SHIFT =  1;
     protected const INTERVAL = 0.1;
-    protected const SYMBOLS = SpinnerSymbols::SNAKE;
+    protected const SYMBOLS = SpinnerSymbols::SNAKE_VARIANT_0;
     protected const
         STYLES =
         [
