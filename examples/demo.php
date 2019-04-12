@@ -17,7 +17,8 @@ use AlecRabbit\Spinner\SimpleSpinner;
 use AlecRabbit\Spinner\SnakeSpinner;
 use AlecRabbit\Spinner\ZodiacSpinner;
 
-require_once __DIR__ . '/../vendor/autoload.php';
+//require_once __DIR__ . '/../vendor/autoload.php';
+require_once __DIR__ . '/../tests/bootstrap.php';
 
 const ITER = 50;
 const MESSAGE = 'processing';
@@ -29,15 +30,15 @@ echo PHP_EOL;
 sleep(1);
 $spinners = [
 //    PercentSpinner::class,
-    SimpleSpinner::class,
-    Spinner::class,
+//    SimpleSpinner::class,
+//    Spinner::class,
     CircleSpinner::class,
+    ClockSpinner::class,
+    SnakeSpinner::class,
     DiceSpinner::class,
     SectorsSpinner::class,
-    ClockSpinner::class,
     MoonSpinner::class,
     ZodiacSpinner::class,
-    SnakeSpinner::class,
 ];
 
 //showSpinners(
