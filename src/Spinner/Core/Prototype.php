@@ -45,12 +45,20 @@ class Prototype
      */
     protected function assertStyles(array $styles): void
     {
+        dump($styles);
         foreach (SettingsInterface::NEW_DEFAULT_STYLES as $key => $defaults) {
-            // todo improve check
             if (!\array_key_exists($key, $styles)) {
                 throw new \InvalidArgumentException(
-                    'Styles array does not have ' . $key . ' key.'
+                    'Styles array does not have [' . $key . '] key.'
                 );
+            }
+            dump($defaults,  $styles[$key]);
+            foreach ($defaults as $k => $value) {
+                if (!\array_key_exists($k, $styles[$key])) {
+                    throw new \InvalidArgumentException(
+                        'Styles array does not have [' . $key . '][' . $k . '] key.'
+                    );
+                }
             }
         }
     }
@@ -76,22 +84,6 @@ class Prototype
                 $this->messageStyles = $this->circularNoColor();
                 $this->percentStyles = $this->circularNoColor();
                 break;
-//        switch ($this->color) {
-//            case StylesInterface::COLOR256:
-//                $this->spinnerStyles = $this->circular256Color($styles[StylesInterface::SPINNER_STYLES][StylesInterface::COLOR256]);
-//                $this->messageStyles = $this->circular256Color($styles[StylesInterface::MESSAGE_STYLES][StylesInterface::COLOR256]);
-//                $this->percentStyles = $this->circular256Color($styles[StylesInterface::PERCENT_STYLES][StylesInterface::COLOR256]);
-//                break;
-//            case StylesInterface::COLOR:
-//                $this->spinnerStyles = $this->circularColor($styles[StylesInterface::SPINNER_STYLES][StylesInterface::COLOR]);
-//                $this->messageStyles = $this->circularColor($styles[StylesInterface::MESSAGE_STYLES][StylesInterface::COLOR]);
-//                $this->percentStyles = $this->circularColor($styles[StylesInterface::PERCENT_STYLES][StylesInterface::COLOR]);
-//                break;
-//            case StylesInterface::NO_COLOR:
-//                $this->spinnerStyles = $this->circularNoColor();
-//                $this->messageStyles = $this->circularNoColor();
-//                $this->percentStyles = $this->circularNoColor();
-//                break;
         }
     }
 
@@ -115,22 +107,11 @@ class Prototype
     }
 
     /**
-     * @return Circular
-     */
-    protected function circularNoColor(): Circular
-    {
-        return new Circular(['%s',]);
-    }
-
-    /**
      * @param array $styles
      * @return Circular
      */
-    protected function circularColor(?array $styles): Circular
+    protected function circularColor(array $styles): Circular
     {
-        dump($styles);
-        dump($styles[StylesInterface::COLOR256]);
-        dump($styles[StylesInterface::COLOR]);
         return
             StylesInterface::DISABLED === $styles[StylesInterface::COLOR] ?
                 $this->circularNoColor() :
@@ -142,6 +123,14 @@ class Prototype
                         $styles[StylesInterface::COLOR]
                     )
                 );
+    }
+
+    /**
+     * @return Circular
+     */
+    protected function circularNoColor(): Circular
+    {
+        return new Circular(['%s',]);
     }
 
     /**

@@ -19,4 +19,12 @@ class DiceSpinner extends Spinner
             StylesInterface::COLOR_MESSAGE_STYLES => StylesInterface::C_DARK,
             StylesInterface::COLOR_PERCENT_STYLES => StylesInterface::C_DARK,
         ];
+    protected const
+        NEW_STYLES =
+        [
+            StylesInterface::SPINNER_STYLES =>
+                [
+                    StylesInterface::COLOR => StylesInterface::C_LIGHT_CYAN,
+                ],
+        ];
 }

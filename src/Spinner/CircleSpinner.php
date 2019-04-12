@@ -19,4 +19,14 @@ class CircleSpinner extends Spinner
             StylesInterface::COLOR_MESSAGE_STYLES => StylesInterface::C_DARK,
             StylesInterface::COLOR_PERCENT_STYLES => StylesInterface::C_DARK,
         ];
+    protected const
+        NEW_STYLES =
+        [
+            StylesInterface::SPINNER_STYLES =>
+                [
+                    StylesInterface::COLOR256 => StylesInterface::C256_YELLOW_WHITE,
+                    StylesInterface::COLOR => StylesInterface::C_LIGHT_YELLOW,
+                ],
+        ];
+
 }

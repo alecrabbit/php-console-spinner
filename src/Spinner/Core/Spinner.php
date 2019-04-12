@@ -61,7 +61,11 @@ class Spinner implements SpinnerInterface
         $this->messageStr = $this->getMessageStr($settings);
         $this->setFields();
         $this->symbols = new Circular($settings->getSymbols());
-        $this->styles = new Styles($settings->getStyles());
+        try {
+            $this->styles = new Styles($settings->getStyles());
+        } catch (\InvalidArgumentException $e) {
+            throw new \InvalidArgumentException('[' . static::class . '] ' . $e->getMessage(), $e->getCode(), $e);
+        }
     }
 
     /**

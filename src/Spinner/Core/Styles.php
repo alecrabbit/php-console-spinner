@@ -5,7 +5,6 @@ namespace AlecRabbit\Spinner\Core;
 use AlecRabbit\Accessories\Circular;
 use AlecRabbit\ConsoleColour\ConsoleColor;
 use AlecRabbit\ConsoleColour\Terminal;
-use AlecRabbit\Spinner\Contracts\SettingsInterface;
 use AlecRabbit\Spinner\Contracts\StylesInterface;
 
 /**
@@ -31,6 +30,30 @@ class Styles
 //        $this->symbolStyles = $this->symbolStyles($styles);
 //        $this->messageStyles = $this->messageStyles($styles);
 //        $this->percentStyles = $this->percentStyles($styles);
+    }
+
+    public function spinner(string $symbol): string
+    {
+        return sprintf((string)$this->symbolStyles->value(), $symbol);
+//        return sprintf((string)$this->symbolStyles->value(), (string)$this->symbols->value());
+    }
+
+    public function message(string $message): string
+    {
+        return
+            sprintf(
+                (string)$this->messageStyles->value(),
+                $message
+            );
+    }
+
+    public function percent(string $percent): string
+    {
+        return
+            sprintf(
+                (string)$this->percentStyles->value(),
+                $percent
+            );
     }
 
     /**
@@ -120,29 +143,5 @@ class Styles
             return $this->circularColor($value);
         }
         return $this->circularNoColor();
-    }
-
-    public function spinner(string $symbol): string
-    {
-        return sprintf((string)$this->symbolStyles->value(), $symbol);
-//        return sprintf((string)$this->symbolStyles->value(), (string)$this->symbols->value());
-    }
-
-    public function message(string $message): string
-    {
-        return
-            sprintf(
-                (string)$this->messageStyles->value(),
-                $message
-            );
-    }
-
-    public function percent(string $percent): string
-    {
-        return
-            sprintf(
-                (string)$this->percentStyles->value(),
-                $percent
-            );
     }
 }

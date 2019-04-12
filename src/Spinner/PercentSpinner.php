@@ -19,6 +19,15 @@ class PercentSpinner extends Spinner
             StylesInterface::COLOR_MESSAGE_STYLES => StylesInterface::C_DARK,
             StylesInterface::COLOR_PERCENT_STYLES => StylesInterface::C_DARK,
         ];
+    protected const
+        NEW_STYLES =
+        [
+            StylesInterface::SPINNER_STYLES =>
+                [
+                    StylesInterface::COLOR256 => StylesInterface::DISABLED,
+                    StylesInterface::COLOR => StylesInterface::DISABLED,
+                ],
+        ];
 
     /**
      * @return Settings
