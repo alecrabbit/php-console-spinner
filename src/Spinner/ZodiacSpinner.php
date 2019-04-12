@@ -12,14 +12,6 @@ class ZodiacSpinner extends Spinner
     protected const INTERVAL = 0.25;
     protected const SYMBOLS = SpinnerSymbols::ZODIAC;
     protected const
-        STYLES =
-        [
-            StylesInterface::COLOR256_SPINNER_STYLES => StylesInterface::DISABLED,
-            StylesInterface::COLOR_SPINNER_STYLES => StylesInterface::DISABLED,
-            StylesInterface::COLOR_MESSAGE_STYLES => StylesInterface::C_DARK,
-            StylesInterface::COLOR_PERCENT_STYLES => StylesInterface::C_DARK,
-        ];
-    protected const
         NEW_STYLES =
         [
             StylesInterface::SPINNER_STYLES =>

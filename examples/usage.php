@@ -1,7 +1,8 @@
 <?php /** @noinspection PhpComposerExtensionStubsInspection */
 declare(strict_types=1);
 
-require_once __DIR__ . '/../vendor/autoload.php';
+//require_once __DIR__ . '/../vendor/autoload.php';
+require_once __DIR__ . '/../tests/bootstrap.php';
 
 use AlecRabbit\ConsoleColour\Contracts\Styles;
 use AlecRabbit\ConsoleColour\Themes;
@@ -53,12 +54,18 @@ display(
     new class('computing') extends SnakeSpinner
     {
         protected const
-            STYLES =
+            NEW_STYLES =
             [
-                StylesInterface::COLOR256_SPINNER_STYLES => StylesInterface::C256_RAINBOW,
-                StylesInterface::COLOR_SPINNER_STYLES => StylesInterface::C_LIGHT_CYAN,
-                StylesInterface::COLOR_MESSAGE_STYLES => [Styles::LIGHT_YELLOW],
-                StylesInterface::COLOR_PERCENT_STYLES => [Styles::RED],
+                StylesInterface::MESSAGE_STYLES =>
+                    [
+                        StylesInterface::COLOR256 => StylesInterface::DISABLED,
+                        StylesInterface::COLOR => [Styles::LIGHT_YELLOW],
+                    ],
+                StylesInterface::PERCENT_STYLES =>
+                    [
+                        StylesInterface::COLOR256 => StylesInterface::DISABLED,
+                        StylesInterface::COLOR => [Styles::RED],
+                    ],
             ];
     },
     $theme,

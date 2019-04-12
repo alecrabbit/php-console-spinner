@@ -3,6 +3,7 @@
 namespace AlecRabbit\Tests\Spinner;
 
 use AlecRabbit\Spinner\Contracts\SettingsInterface;
+use AlecRabbit\Spinner\Contracts\StylesInterface;
 use AlecRabbit\Spinner\Core\Settings;
 use AlecRabbit\Spinner\Core\Spinner;
 use PHPUnit\Framework\TestCase;
@@ -29,36 +30,54 @@ class SpinnerTest extends TestCase
         $this->assertStringNotContainsString(self::PROCESSING, $spinner->end());
     }
 
-//    /** @test */
-//    public function nullSpinner(): void
-//    {
-//        $settings = new Settings();
-//        $settings->setInlinePaddingStr('');
-//        $settings->setMessage(self::PROCESSING);
-//        $spinner = new NullSpinner($settings);
-////        dump(getValue($spinner, 'styles'));
-//        dump($spinner);
-//        $begin = $spinner->begin();
-//
-//        // DO NOT CHANGE ORDER!!!
-//        $this->assertEquals(
-//            Helper::stripEscape("\033[?25l Processing...\033[15D"),
-//            Helper::stripEscape($begin)
-//        );
-//        $this->assertEquals(
-//            "\033[?25l Processing...\033[15D",
-//            $begin
-//        );
-//        $this->assertEquals(
-//            Helper::stripEscape(" Processing...\033[15D"),
-//            Helper::stripEscape($spinner->spin())
-//        );
-//        $this->assertEquals(
-//            Helper::stripEscape("               \033[15D\033[?25h\033[?0c"),
-//            Helper::stripEscape($spinner->end())
-//        );
-//    }
-//
+    /** @test */
+    public function nullSpinner(): void
+    {
+        $styles = [
+            StylesInterface::SPINNER_STYLES =>
+                [
+                    StylesInterface::COLOR256 => StylesInterface::DISABLED,
+                    StylesInterface::COLOR => StylesInterface::DISABLED,
+                ],
+            StylesInterface::MESSAGE_STYLES =>
+                [
+                    StylesInterface::COLOR256 => StylesInterface::DISABLED,
+                    StylesInterface::COLOR => StylesInterface::DISABLED,
+                ],
+            StylesInterface::PERCENT_STYLES =>
+                [
+                    StylesInterface::COLOR256 => StylesInterface::DISABLED,
+                    StylesInterface::COLOR => StylesInterface::DISABLED,
+                ],
+        ];
+        $settings = new Settings();
+        $settings->setInlinePaddingStr('');
+        $settings->setMessage(self::PROCESSING);
+        $settings->setStyles($styles);
+        $spinner = new NullSpinner($settings);
+//        dump(getValue($spinner, 'styles'));
+        dump($spinner);
+        $begin = $spinner->begin();
+
+        // DO NOT CHANGE ORDER!!!
+        $this->assertEquals(
+            Helper::stripEscape("\033[?25l Processing...\033[15D"),
+            Helper::stripEscape($begin)
+        );
+        $this->assertEquals(
+            "\033[?25l Processing...\033[15D",
+            $begin
+        );
+        $this->assertEquals(
+            Helper::stripEscape(" Processing...\033[15D"),
+            Helper::stripEscape($spinner->spin())
+        );
+        $this->assertEquals(
+            Helper::stripEscape("               \033[15D\033[?25h\033[?0c"),
+            Helper::stripEscape($spinner->end())
+        );
+    }
+
     /** @test */
     public function interface(): void
     {

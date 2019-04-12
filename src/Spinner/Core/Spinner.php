@@ -17,14 +17,6 @@ class Spinner implements SpinnerInterface
     protected const ERASING_SHIFT = 1;
     protected const INTERVAL = 0.125;
     protected const SYMBOLS = SpinnerSymbols::DIAMOND;
-    protected const
-        STYLES =
-        [
-            StylesInterface::COLOR256_SPINNER_STYLES => StylesInterface::C256_RAINBOW,
-            StylesInterface::COLOR_SPINNER_STYLES => StylesInterface::C_LIGHT_CYAN,
-            StylesInterface::COLOR_MESSAGE_STYLES => StylesInterface::C_DARK,
-            StylesInterface::COLOR_PERCENT_STYLES => StylesInterface::C_DARK,
-        ];
     protected const NEW_STYLES = [];
 
     /** @var string */

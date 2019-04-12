@@ -12,14 +12,6 @@ class CircleSpinner extends Spinner
     protected const INTERVAL = 0.17;
     protected const SYMBOLS = SpinnerSymbols::CIRCLES;
     protected const
-        STYLES =
-        [
-            StylesInterface::COLOR256_SPINNER_STYLES => StylesInterface::C256_YELLOW_WHITE,
-            StylesInterface::COLOR_SPINNER_STYLES => StylesInterface::C_LIGHT_YELLOW,
-            StylesInterface::COLOR_MESSAGE_STYLES => StylesInterface::C_DARK,
-            StylesInterface::COLOR_PERCENT_STYLES => StylesInterface::C_DARK,
-        ];
-    protected const
         NEW_STYLES =
         [
             StylesInterface::SPINNER_STYLES =>

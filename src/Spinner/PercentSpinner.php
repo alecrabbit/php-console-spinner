@@ -14,12 +14,6 @@ class PercentSpinner extends Spinner
     protected const INTERVAL = 0.1;
     protected const SYMBOLS = null;
     protected const
-        STYLES =
-        [
-            StylesInterface::COLOR_MESSAGE_STYLES => StylesInterface::C_DARK,
-            StylesInterface::COLOR_PERCENT_STYLES => StylesInterface::C_DARK,
-        ];
-    protected const
         NEW_STYLES =
         [
             StylesInterface::SPINNER_STYLES =>

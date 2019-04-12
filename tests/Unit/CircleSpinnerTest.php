@@ -30,5 +30,6 @@ class CircleSpinnerTest extends TestCase
         $end = $spinner->end();
         $this->assertIsString($end);
         $this->assertStringNotContainsString(self::PROCESSING, $end);
+        dump($spinner);
     }
 }

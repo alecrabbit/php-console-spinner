@@ -3,6 +3,7 @@
 namespace AlecRabbit\Spinner\Core;
 
 use AlecRabbit\Spinner\Contracts\SettingsInterface;
+use AlecRabbit\Spinner\Contracts\StylesInterface;
 
 /**
  * Class Settings
@@ -195,9 +196,9 @@ class Settings implements SettingsInterface
      */
     public function setStyles(?array $styles): Settings
     {
-        $this->styles = $this->mergeStyles(static::NEW_DEFAULT_STYLES, $styles ?? []);
+        $this->styles = $this->mergeStyles(StylesInterface::DEFAULT_STYLES, $styles ?? []);
         dump($styles);
-        dump($this->styles);
+//        dump($this->styles);
 //        $this->styles = array_replace_recursive(static::NEW_DEFAULT_STYLES, $styles ?? []);
         return $this;
     }

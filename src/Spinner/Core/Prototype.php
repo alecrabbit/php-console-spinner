@@ -46,7 +46,7 @@ class Prototype
     protected function assertStyles(array $styles): void
     {
 //        dump($styles);
-        foreach (SettingsInterface::NEW_DEFAULT_STYLES as $key => $defaults) {
+        foreach (StylesInterface::DEFAULT_STYLES as $key => $defaults) {
             if (!\array_key_exists($key, $styles)) {
                 throw new \InvalidArgumentException(
                     'Styles array does not have [' . $key . '] key.'

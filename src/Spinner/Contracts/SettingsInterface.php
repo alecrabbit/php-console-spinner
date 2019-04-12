@@ -13,13 +13,5 @@ interface SettingsInterface
     public const DEFAULT_INTERVAL = 0.1;
     public const DEFAULT_ERASING_SHIFT = 1;
     public const DEFAULT_SYMBOLS = SpinnerSymbols::BASE;
-    public const
-        DEFAULT_STYLES =
-        [
-            StylesInterface::COLOR256_SPINNER_STYLES => StylesInterface::DISABLED,
-            StylesInterface::COLOR_SPINNER_STYLES => StylesInterface::DISABLED,
-            StylesInterface::COLOR_MESSAGE_STYLES => StylesInterface::DISABLED,
-            StylesInterface::COLOR_PERCENT_STYLES => StylesInterface::DISABLED,
-        ];
-    public const NEW_DEFAULT_STYLES = StylesInterface::DEFAULT_STYLES;
+
 }
