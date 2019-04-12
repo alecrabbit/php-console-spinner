@@ -10,6 +10,7 @@ use AlecRabbit\Spinner\Contracts\StylesInterface;
 use AlecRabbit\Spinner\Core\Settings;
 use AlecRabbit\Spinner\Core\Spinner;
 use AlecRabbit\Spinner\DiceSpinner;
+use AlecRabbit\Spinner\DotSpinner;
 use AlecRabbit\Spinner\MoonSpinner;
 use AlecRabbit\Spinner\PercentSpinner;
 use AlecRabbit\Spinner\SectorsSpinner;
@@ -32,9 +33,10 @@ $spinners = [
 //    PercentSpinner::class,
 //    SimpleSpinner::class,
 //    Spinner::class,
+    SnakeSpinner::class,
+    DotSpinner::class,
     CircleSpinner::class,
     ClockSpinner::class,
-    SnakeSpinner::class,
     DiceSpinner::class,
     SectorsSpinner::class,
     MoonSpinner::class,
