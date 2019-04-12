@@ -15,28 +15,16 @@ class Prototype
     protected $messageStyles;
     /** @var Circular */
     protected $percentStyles;
-    /** @var Terminal */
-    protected $terminal;
-    /** @var string */
-    protected $color;
 
     /**
      * Prototype constructor.
      * @param array $styles
+     * @param mixed $color
      */
-    public function __construct(array $styles)
+    public function __construct(array $styles, $color = null)
     {
         $this->assertStyles($styles);
-        $this->terminal = new Terminal();
-        if ($this->terminal->supportsColor()) {
-            $this->color =
-                $this->terminal->supports256Color() ?
-                    StylesInterface::COLOR256 :
-                    StylesInterface::COLOR;
-        } else {
-            $this->color = StylesInterface::NO_COLOR;
-        }
-        $this->styles($styles);
+        $this->assignStyles($styles, $this->refineColor($color));
     }
 
     /**
@@ -61,11 +49,31 @@ class Prototype
     }
 
     /**
-     * @param array $styles
+     * @param null|string $color
+     * @return string
      */
-    protected function styles(array $styles): void
+    protected function refineColor(?string $color): string
     {
-        switch ($this->color) {
+        if (null === $color) {
+            $terminal = new Terminal();
+            if ($terminal->supportsColor()) {
+                return
+                    $terminal->supports256Color() ?
+                        StylesInterface::COLOR256 :
+                        StylesInterface::COLOR;
+            }
+            return StylesInterface::NO_COLOR;
+        }
+        return $color;
+    }
+
+    /**
+     * @param array $styles
+     * @param mixed $color
+     */
+    protected function assignStyles(array $styles, $color): void
+    {
+        switch ($color) {
             case StylesInterface::COLOR256:
                 $this->spinnerStyles = $this->circular256Color($styles[StylesInterface::SPINNER_STYLES]);
                 $this->messageStyles = $this->circular256Color($styles[StylesInterface::MESSAGE_STYLES]);
