@@ -5,13 +5,10 @@ I encountered an issue with the following code:
 // code
 ```
 Library version: **PUT HERE YOUR COMPOSER LIBRARY VERSION**
+> use the command `composer show alecrrabbit/<lib>`
+
 PHP version: **PUT HERE YOUR PHP VERSION**
-<!--
-Run the command `composer show alecrrabbit/<lib>`
-to get "versions"
-Use `echo phpversion();`
-to get PHP version.
--->
+> use the command `php -v` or code `echo phpversion();`
 
 I expected to get:
 ```
