@@ -4,6 +4,8 @@
 namespace AlecRabbit\Spinner\Contracts;
 
 /**
+ *      ***ATTENTION!***
+ *
  * If you can't see any symbols doesn't mean they're not there!
  * They ARE!
  */

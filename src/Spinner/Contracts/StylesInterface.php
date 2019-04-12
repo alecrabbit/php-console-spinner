@@ -29,13 +29,13 @@ interface StylesInterface
     /*
                     Definitions
     */
-    public const COLOR256 = 30;
-    public const COLOR = 20;
-    public const NO_COLOR = 10;
+    public const COLOR256 = 'color256';
+    public const COLOR =    'color';
+    public const NO_COLOR = 'no_color';
 
-    public const SPINNER_STYLES = 400;
-    public const MESSAGE_STYLES = 300;
-    public const PERCENT_STYLES = 200;
+    public const SPINNER_STYLES = 'spinner_styles';
+    public const MESSAGE_STYLES = 'message_styles';
+    public const PERCENT_STYLES = 'percent_styles';
 
     /*
                     Styles

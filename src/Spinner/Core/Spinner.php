@@ -25,6 +25,7 @@ class Spinner implements SpinnerInterface
             StylesInterface::COLOR_MESSAGE_STYLES => StylesInterface::C_DARK,
             StylesInterface::COLOR_PERCENT_STYLES => StylesInterface::C_DARK,
         ];
+    protected const NEW_STYLES = StylesInterface::DEFAULT_STYLES;
 
     /** @var string */
     protected $messageStr;
