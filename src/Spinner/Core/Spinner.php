@@ -31,8 +31,8 @@ class Spinner implements SpinnerInterface
     protected $inlinePaddingStr;
     /** @var string */
     protected $eraseBySpacesStr;
-    /** @var Styles */
-    protected $styles;
+    /** @var Style */
+    protected $style;
     /** @var float */
     protected $interval;
     /** @var int */
@@ -43,8 +43,9 @@ class Spinner implements SpinnerInterface
     /**
      * AbstractSpinner constructor.
      * @param mixed $settings
+     * @param mixed $color
      */
-    public function __construct($settings = null)
+    public function __construct($settings = null, $color = null)
     {
         $settings = $this->refineSettings($settings);
         $this->interval = $settings->getInterval();
@@ -54,7 +55,7 @@ class Spinner implements SpinnerInterface
         $this->setFields();
         $this->symbols = new Circular($settings->getSymbols());
         try {
-            $this->styles = new Styles($settings->getStyles());
+            $this->style = new Style($settings->getStyles(), $color);
         } catch (\InvalidArgumentException $e) {
             throw new \InvalidArgumentException(
                 '[' . static::class . '] ' . $e->getMessage(),
@@ -175,11 +176,11 @@ class Spinner implements SpinnerInterface
         }
         return
             $this->inlinePaddingStr .
-            $this->styles->spinner((string)$this->symbols->value()) .
-            $this->styles->message(
+            $this->style->spinner((string)$this->symbols->value()) .
+            $this->style->message(
                 $this->message()
             ) .
-            $this->styles->percent(
+            $this->style->percent(
                 $this->percent()
             ) .
             $this->moveBackSequenceStr;
