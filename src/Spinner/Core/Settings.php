@@ -197,9 +197,6 @@ class Settings implements SettingsInterface
     public function setStyles(?array $styles): Settings
     {
         $this->styles = $this->mergeStyles(StylesInterface::DEFAULT_STYLES, $styles ?? []);
-        dump($styles);
-//        dump($this->styles);
-//        $this->styles = array_replace_recursive(static::NEW_DEFAULT_STYLES, $styles ?? []);
         return $this;
     }
 

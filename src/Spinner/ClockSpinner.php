@@ -20,5 +20,4 @@ class ClockSpinner extends Spinner
                     StylesInterface::COLOR => StylesInterface::DISABLED,
                 ],
         ];
-
 }

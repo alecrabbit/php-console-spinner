@@ -20,5 +20,4 @@ class MoonSpinner extends Spinner
                     StylesInterface::COLOR => StylesInterface::DISABLED,
                 ],
         ];
-
 }

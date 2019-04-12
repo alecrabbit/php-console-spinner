@@ -5,7 +5,6 @@ namespace AlecRabbit\Spinner\Core;
 use AlecRabbit\Accessories\Circular;
 use AlecRabbit\ConsoleColour\ConsoleColor;
 use AlecRabbit\ConsoleColour\Terminal;
-use AlecRabbit\Spinner\Contracts\SettingsInterface;
 use AlecRabbit\Spinner\Contracts\StylesInterface;
 
 class Prototype
@@ -45,14 +44,12 @@ class Prototype
      */
     protected function assertStyles(array $styles): void
     {
-//        dump($styles);
         foreach (StylesInterface::DEFAULT_STYLES as $key => $defaults) {
             if (!\array_key_exists($key, $styles)) {
                 throw new \InvalidArgumentException(
                     'Styles array does not have [' . $key . '] key.'
                 );
             }
-//            dump($defaults,  $styles[$key]);
             foreach ($defaults as $k => $value) {
                 if (!\array_key_exists($k, $styles[$key])) {
                     throw new \InvalidArgumentException(
@@ -156,6 +153,4 @@ class Prototype
     {
         return $this->percentStyles;
     }
-
-
 }

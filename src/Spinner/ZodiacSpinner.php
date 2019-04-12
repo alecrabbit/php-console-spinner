@@ -20,5 +20,4 @@ class ZodiacSpinner extends Spinner
                     StylesInterface::COLOR => StylesInterface::DISABLED,
                 ],
         ];
-
 }

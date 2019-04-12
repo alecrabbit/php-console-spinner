@@ -55,8 +55,6 @@ class SpinnerTest extends TestCase
         $settings->setMessage(self::PROCESSING);
         $settings->setStyles($styles);
         $spinner = new NullSpinner($settings);
-//        dump(getValue($spinner, 'styles'));
-        dump($spinner);
         $begin = $spinner->begin();
 
         // DO NOT CHANGE ORDER!!!

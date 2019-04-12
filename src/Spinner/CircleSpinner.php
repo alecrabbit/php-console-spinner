@@ -20,5 +20,4 @@ class CircleSpinner extends Spinner
                     StylesInterface::COLOR => StylesInterface::C_LIGHT_YELLOW,
                 ],
         ];
-
 }
