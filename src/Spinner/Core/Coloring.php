@@ -4,7 +4,7 @@ namespace AlecRabbit\Spinner\Core;
 
 use AlecRabbit\Accessories\Circular;
 use AlecRabbit\ConsoleColour\ConsoleColor;
-use AlecRabbit\ConsoleColour\Terminal;
+use AlecRabbit\Control\Terminal;
 use AlecRabbit\Spinner\Core\Contracts\StylesInterface;
 
 class Coloring

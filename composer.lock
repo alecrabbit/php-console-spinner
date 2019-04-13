@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6cee65a2ac97758f74970e992c8e2d41",
+    "content-hash": "e70a99c1631e635a08e812813a4db6e6",
     "packages": [
         {
             "name": "alecrabbit/php-accessories",
-            "version": "0.6.2",
+            "version": "0.6.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/alecrabbit/php-accessories.git",
-                "reference": "be27af5617b5b085dcc1609a1b8a81ab6a21017c"
+                "reference": "4875c02e208cba1c7e168bca1d45663fa7fa30e3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/alecrabbit/php-accessories/zipball/be27af5617b5b085dcc1609a1b8a81ab6a21017c",
-                "reference": "be27af5617b5b085dcc1609a1b8a81ab6a21017c",
+                "url": "https://api.github.com/repos/alecrabbit/php-accessories/zipball/4875c02e208cba1c7e168bca1d45663fa7fa30e3",
+                "reference": "4875c02e208cba1c7e168bca1d45663fa7fa30e3",
                 "shasum": ""
             },
             "require": {
@@ -53,20 +53,20 @@
                 "rewindable",
                 "time"
             ],
-            "time": "2019-04-11T12:35:49+00:00"
+            "time": "2019-04-12T11:47:44+00:00"
         },
         {
             "name": "alecrabbit/php-console-colour",
-            "version": "0.3.0",
+            "version": "0.4.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/alecrabbit/php-console-colour.git",
-                "reference": "5e1b045d85c42f9ba453be20dd7c33f3011b909d"
+                "reference": "37294b044cecd1e6038f9547b3d60ec1f294ae67"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/alecrabbit/php-console-colour/zipball/5e1b045d85c42f9ba453be20dd7c33f3011b909d",
-                "reference": "5e1b045d85c42f9ba453be20dd7c33f3011b909d",
+                "url": "https://api.github.com/repos/alecrabbit/php-console-colour/zipball/37294b044cecd1e6038f9547b3d60ec1f294ae67",
+                "reference": "37294b044cecd1e6038f9547b3d60ec1f294ae67",
                 "shasum": ""
             },
             "require": {
@@ -100,7 +100,7 @@
                 "terminal",
                 "width"
             ],
-            "time": "2019-04-11T07:05:48+00:00"
+            "time": "2019-04-13T09:48:14+00:00"
         },
         {
             "name": "alecrabbit/php-helpers",
