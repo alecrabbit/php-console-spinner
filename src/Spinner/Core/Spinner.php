@@ -11,10 +11,10 @@ use AlecRabbit\Spinner\Core\Contracts\SpinnerInterface;
 use AlecRabbit\Spinner\Core\Contracts\SpinnerSymbols;
 use function AlecRabbit\typeOf;
 
-class Spinner implements SpinnerInterface
+abstract class Spinner implements SpinnerInterface
 {
-    protected const ERASING_SHIFT = 1;
-    protected const INTERVAL = 0.125;
+    protected const ERASING_SHIFT = SettingsInterface::DEFAULT_ERASING_SHIFT;
+    protected const INTERVAL = SettingsInterface::DEFAULT_INTERVAL;
     protected const SYMBOLS = SpinnerSymbols::DIAMOND;
     protected const STYLES = [];
 
