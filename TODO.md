@@ -1,4 +1,4 @@
-- [ ] rename styles  class `Prototype`
+- [ ] rename styles class `Prototype`
 
 ---
 
