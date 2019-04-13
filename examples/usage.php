@@ -1,5 +1,8 @@
 <?php /** @noinspection PhpComposerExtensionStubsInspection */
 declare(strict_types=1);
+/**
+ * This example requires ext-pcntl
+ */
 
 //require_once __DIR__ . '/../vendor/autoload.php';
 require_once __DIR__ . '/../tests/bootstrap.php';
@@ -7,7 +10,7 @@ require_once __DIR__ . '/../tests/bootstrap.php';
 use AlecRabbit\ConsoleColour\Contracts\Styles;
 use AlecRabbit\ConsoleColour\Themes;
 use AlecRabbit\Control\Cursor;
-use AlecRabbit\Spinner\Contracts\StylesInterface;
+use AlecRabbit\Spinner\Core\Contracts\StylesInterface;
 use AlecRabbit\Spinner\Core\Spinner;
 use AlecRabbit\Spinner\MoonSpinner;
 use AlecRabbit\Spinner\SnakeSpinner;
@@ -17,7 +20,7 @@ use AlecRabbit\Spinner\SnakeSpinner;
  */
 
 const ITERATIONS = 100; // Play with this value 100..500
-const SIMULATED_MESSAGES = [
+const MESSAGES = [
     0 => 'Initializing',
     3 => 'Starting',
     10 => 'Begin processing',
@@ -45,16 +48,16 @@ $spinnerClass = MoonSpinner::class; // DON'T FORGET TO IMPORT! :)
 $theme = new Themes(); // for colored output if supported
 
 echo $theme->comment('Long running task example...') . PHP_EOL;
-echo $theme->dark('Using spinner: ') . $spinnerClass . PHP_EOL;
 
 echo Cursor::hide();
 echo PHP_EOL;
 
+$message = 'computing';
 display(
-    new class('computing') extends SnakeSpinner
+    new class($message) extends SnakeSpinner
     {
         protected const
-            NEW_STYLES =
+            STYLES =
             [
                 StylesInterface::MESSAGE_STYLES =>
                     [
@@ -70,32 +73,40 @@ display(
     },
     $theme,
     false,
-    'Custom SnakeSpinner on the next line(With custom styled percentage and custom styled message "computing"):' . PHP_EOL
+    [
+        'Extended SnakeSpinner on the next line.',
+        '(With styled message "' . $message . '" and styled percentage)',
+        '',
+    ]
 );
+
+echo $theme->dark('Using spinner: ') . $spinnerClass . PHP_EOL;
+echo PHP_EOL;
 
 display(
     new $spinnerClass(),
     $theme,
     true,
-    'Inline Spinner(With percentage, No custom message):'
+    ['Inline Spinner','(With percentage, No message)']
 );
 
 display(
     new $spinnerClass(),
     $theme,
     false,
-    'Spinner on the next line(With percentage, No custom message):' . PHP_EOL
+    ['Spinner on the next line','(With percentage, No message)', '']
 );
 
+$message = 'processing';
 display(
-    new $spinnerClass('processing'),
+    new $spinnerClass($message),
     $theme,
     false,
-    'Spinner on the next line(With percentage, With custom message "processing"):' . PHP_EOL
+    ['Spinner on the next line','(With percentage and message "' . $message . '")', '']
 );
 
 
-running(
+longRun(
     new $spinnerClass(),
     $theme);
 
@@ -106,10 +117,10 @@ running(
  * @param Spinner $s
  * @param Themes $theme
  */
-function running(Spinner $s, Themes $theme): void
+function longRun(Spinner $s, Themes $theme): void
 {
     echo $theme->cyan('Example: Entering long running state... ') . PHP_EOL;
-    echo $theme->warning('Use Ctrl + C to exit.') . PHP_EOL;
+    echo $theme->dark('Use Ctrl + C to exit.') . PHP_EOL;
     echo PHP_EOL;
     $microseconds = (int)($s->interval() * 1000000);
     $run = true;
@@ -130,31 +141,35 @@ function running(Spinner $s, Themes $theme): void
  * @param Spinner $s
  * @param Themes $theme
  * @param bool $inline
- * @param string $message
+ * @param array $exampleMessages
  */
-function display(Spinner $s, Themes $theme, bool $inline, string $message): void
+function display(Spinner $s, Themes $theme, bool $inline, array $exampleMessages): void
 {
-    echo $theme->lightCyan('Example: ' . $message) . PHP_EOL;
-    $simulatedMessages = getSimulatedMessages();
-
     $s->inline($inline);
+    $emulatedMessages = scaleEmulatedMessages();
     $microseconds = (int)($s->interval() * 1000000);
-    echo $s->begin(); // Optional, begin() does same as spin() but also Cursor::hide(),
+
+    echo $theme->lightCyan('Example: ') . PHP_EOL;
+    foreach ($exampleMessages as $m) {
+        echo $theme->lightCyan($m) . PHP_EOL;
+    }
+
+    echo $s->begin(); // Hides cursor and makes first spin
     for ($i = 0; $i < ITERATIONS; $i++) {
-        usleep($microseconds);
-        if (array_key_exists($i, $simulatedMessages)) {
-            // It's your job to get and echo erase sequence when needed
+        usleep($microseconds); // Here you are doing your task
+        if (array_key_exists($i, $emulatedMessages)) {
+            // It's your job to echo erase sequence when needed
             echo $s->erase();
             if ($inline) {
                 echo PHP_EOL; // for inline mode
             }
-            echo $theme->none($simulatedMessages[$i] . '...');
+            echo $theme->none($emulatedMessages[$i] . '...');
             if (!$inline) {
                 echo PHP_EOL;
             }
         }
-        // It's your job to echo spin() with approx. equal intervals of 80-100ms
-        // (for comfortable animation only)
+        // It's your job to echo spin() with approx. equal intervals
+        // (each class has recommended interval for comfortable animation)
         echo $s->spin($i / ITERATIONS);  // You can pass percentage to spin() method (float from 0 to 1)
     }
     echo $s->end();
@@ -167,11 +182,11 @@ function display(Spinner $s, Themes $theme, bool $inline, string $message): void
 /**
  * @return array
  */
-function getSimulatedMessages(): array
+function scaleEmulatedMessages(): array
 {
     $c = ITERATIONS / 100;
     $simulated = [];
-    foreach (SIMULATED_MESSAGES as $key => $message) {
+    foreach (MESSAGES as $key => $message) {
         $simulated[(int)$key * $c] = $message;
     }
     return $simulated;

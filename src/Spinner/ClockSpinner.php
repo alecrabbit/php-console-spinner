@@ -2,8 +2,8 @@
 
 namespace AlecRabbit\Spinner;
 
-use AlecRabbit\Spinner\Contracts\SpinnerSymbols;
-use AlecRabbit\Spinner\Contracts\StylesInterface;
+use AlecRabbit\Spinner\Core\Contracts\SpinnerSymbols;
+use AlecRabbit\Spinner\Core\Contracts\StylesInterface;
 use AlecRabbit\Spinner\Core\Spinner;
 
 class ClockSpinner extends Spinner
@@ -12,7 +12,7 @@ class ClockSpinner extends Spinner
     protected const INTERVAL = 0.1;
     protected const SYMBOLS = SpinnerSymbols::CLOCK;
     protected const
-        NEW_STYLES =
+        STYLES =
         [
             StylesInterface::SPINNER_STYLES =>
                 [

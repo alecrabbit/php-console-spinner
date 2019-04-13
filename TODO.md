@@ -1,10 +1,11 @@
-- [ ] solidify API
-- [ ] remove `CircleSpinner::class`?
-- [ ] consider no spinner only percentage
-- [ ] make class for styles
+- [ ] rename styles class `Prototype`
 
 ---
 
+- [x] solidify API
+- [ ] ~~remove `CircleSpinner::class`?~~ 
+- [x] consider no spinner only percentage
+- [x] make class for styles
 - [x] add styling to message
 - [x] remove `TrigrammSpinner::class`
 - [x] make class for styling

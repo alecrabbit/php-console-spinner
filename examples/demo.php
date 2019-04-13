@@ -4,12 +4,10 @@ use AlecRabbit\ConsoleColour\Themes;
 use AlecRabbit\Control\Cursor;
 use AlecRabbit\Spinner\CircleSpinner;
 use AlecRabbit\Spinner\ClockSpinner;
-use AlecRabbit\Spinner\Contracts\SpinnerInterface;
-use AlecRabbit\Spinner\Contracts\SpinnerSymbols;
-use AlecRabbit\Spinner\Contracts\StylesInterface;
-use AlecRabbit\Spinner\Core\Settings;
+use AlecRabbit\Spinner\Core\Contracts\SpinnerInterface;
 use AlecRabbit\Spinner\Core\Spinner;
 use AlecRabbit\Spinner\DiceSpinner;
+use AlecRabbit\Spinner\DotSpinner;
 use AlecRabbit\Spinner\MoonSpinner;
 use AlecRabbit\Spinner\PercentSpinner;
 use AlecRabbit\Spinner\SectorsSpinner;
@@ -20,56 +18,49 @@ use AlecRabbit\Spinner\ZodiacSpinner;
 //require_once __DIR__ . '/../vendor/autoload.php';
 require_once __DIR__ . '/../tests/bootstrap.php';
 
-const ITER = 50;
-const MESSAGE = 'processing';
-const MESSAGE2 = 'computing';
+const ITER = 30;
+const MESSAGE = 'message';
 
 $theme = new Themes();
-echo Cursor::hide(); //
+echo Cursor::hide();
 echo PHP_EOL;
-sleep(1);
+echo PHP_EOL;
+//sleep(1);
 $spinners = [
-//    PercentSpinner::class,
-//    SimpleSpinner::class,
-//    Spinner::class,
+    PercentSpinner::class,
+    SimpleSpinner::class,
+    DotSpinner::class,
+    SnakeSpinner::class,
     CircleSpinner::class,
     ClockSpinner::class,
-    SnakeSpinner::class,
-    DiceSpinner::class,
-    SectorsSpinner::class,
     MoonSpinner::class,
     ZodiacSpinner::class,
+    DiceSpinner::class,
+    SectorsSpinner::class,
 ];
 
-//showSpinners(
-//    new Spinner(
-//        (new Settings())
-//            ->setInterval(0.25)
-//            ->setSymbols(SpinnerSymbols::ARROWS)
-//            ->setStyles([
-//                StylesInterface::COLOR256_SPINNER_STYLES => StylesInterface::C256_RAINBOW,
-//                StylesInterface::COLOR_SPINNER_STYLES => StylesInterface::C_LIGHT_CYAN,
-//                StylesInterface::COLOR_MESSAGE_STYLES => StylesInterface::C_DARK,
-//                StylesInterface::COLOR_PERCENT_STYLES => StylesInterface::C_DARK,
-//            ])
-//            ->setMessage('mes')
-//            ->setSuffix(' ')
-//    ), true);
+$arr = [
+    PercentSpinner::class,
+    SnakeSpinner::class,
+    ClockSpinner::class,
+    MoonSpinner::class,
+    ZodiacSpinner::class,
+    DiceSpinner::class,
+    SectorsSpinner::class,
+];
 
 foreach ($spinners as $spinner) {
-    showSpinners(new $spinner(MESSAGE), true);
-    showSpinners(new $spinner(), true);
+    if (in_array($spinner, $arr, true)) {
+        showSpinners(new $spinner(MESSAGE), true);
+        showSpinners(new $spinner(), true);
+    }
     if ($spinner !== PercentSpinner::class) {
-        showSpinners(new $spinner(MESSAGE2));
         showSpinners(new $spinner());
     }
 }
 
-
 echo PHP_EOL;
 echo PHP_EOL;
-
-//echo Cursor::show();
 
 // ************************ Functions ************************
 
@@ -87,10 +78,6 @@ function showSpinners(SpinnerInterface $s, bool $withPercent = false): void
         echo $s->spin($withPercent ? $i / ITER : null);
         usleep($microseconds);
     }
-    // Note: we're not erasing spinner here
-    // if you want to uncomment next line
     echo $s->end();
-//    echo PHP_EOL;
-//    echo PHP_EOL;
 }
 

@@ -2,8 +2,8 @@
 
 namespace AlecRabbit\Tests\Tools;
 
-use AlecRabbit\Spinner\Contracts\SettingsInterface;
-use AlecRabbit\Spinner\Contracts\SpinnerSymbols;
+use AlecRabbit\Spinner\Core\Contracts\SettingsInterface;
+use AlecRabbit\Spinner\Core\Contracts\SpinnerSymbols;
 use AlecRabbit\Spinner\SnakeSpinner;
 use PHPUnit\Framework\TestCase;
 use function AlecRabbit\Helpers\getValue;
@@ -35,6 +35,6 @@ class SnakeSpinnerTest extends TestCase
         $spinner = new SnakeSpinner();
         $circular = getValue($spinner, 'symbols');
         $rewindable = getValue($circular, 'data');
-        $this->assertEquals(SpinnerSymbols::SNAKE, iterator_to_array($rewindable));
+        $this->assertEquals(SpinnerSymbols::SNAKE_VARIANT_0, iterator_to_array($rewindable));
     }
 }

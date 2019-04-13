@@ -1,7 +1,7 @@
 <?php declare(strict_types=1);
 
 
-namespace AlecRabbit\Spinner\Contracts;
+namespace AlecRabbit\Spinner\Core\Contracts;
 
 use AlecRabbit\ConsoleColour\Contracts\Styles;
 

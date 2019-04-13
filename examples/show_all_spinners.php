@@ -26,7 +26,6 @@ echo $theme->comment('Spinners samples(with message"' . MESSAGE . '"):') . PHP_E
 
 showSpinners(
     [
-        new Spinner(MESSAGE),
         new ClockSpinner(MESSAGE),
         new ZodiacSpinner(MESSAGE),
         new MoonSpinner(MESSAGE),
@@ -40,7 +39,6 @@ showSpinners(
 echo $theme->comment('Spinners samples(without message):') . PHP_EOL;
 showSpinners(
     [
-        new Spinner(),
         new ClockSpinner(),
         new ZodiacSpinner(),
         new MoonSpinner(),

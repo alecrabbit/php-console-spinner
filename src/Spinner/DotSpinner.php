@@ -6,18 +6,17 @@ use AlecRabbit\Spinner\Core\Contracts\SpinnerSymbols;
 use AlecRabbit\Spinner\Core\Contracts\StylesInterface;
 use AlecRabbit\Spinner\Core\Spinner;
 
-class MoonSpinner extends Spinner
+class DotSpinner extends Spinner
 {
-    protected const ERASING_SHIFT = 2;
+    protected const ERASING_SHIFT =  1;
     protected const INTERVAL = 0.1;
-    protected const SYMBOLS = SpinnerSymbols::MOON;
+    protected const SYMBOLS = SpinnerSymbols::DOT;
     protected const
         STYLES =
         [
             StylesInterface::SPINNER_STYLES =>
                 [
-                    StylesInterface::COLOR256 => StylesInterface::DISABLED,
-                    StylesInterface::COLOR => StylesInterface::DISABLED,
+                    StylesInterface::COLOR => StylesInterface::C_LIGHT_CYAN,
                 ],
         ];
 }

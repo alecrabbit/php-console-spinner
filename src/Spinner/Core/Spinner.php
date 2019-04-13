@@ -6,18 +6,17 @@ use AlecRabbit\Accessories\Circular;
 use AlecRabbit\Accessories\Pretty;
 use AlecRabbit\ConsoleColour\ConsoleColor;
 use AlecRabbit\Control\Cursor;
-use AlecRabbit\Spinner\Contracts\SettingsInterface;
-use AlecRabbit\Spinner\Contracts\SpinnerInterface;
-use AlecRabbit\Spinner\Contracts\SpinnerSymbols;
-use AlecRabbit\Spinner\Contracts\StylesInterface;
+use AlecRabbit\Spinner\Core\Contracts\SettingsInterface;
+use AlecRabbit\Spinner\Core\Contracts\SpinnerInterface;
+use AlecRabbit\Spinner\Core\Contracts\SpinnerSymbols;
 use function AlecRabbit\typeOf;
 
-class Spinner implements SpinnerInterface
+abstract class Spinner implements SpinnerInterface
 {
-    protected const ERASING_SHIFT = 1;
-    protected const INTERVAL = 0.125;
+    protected const ERASING_SHIFT = SettingsInterface::DEFAULT_ERASING_SHIFT;
+    protected const INTERVAL = SettingsInterface::DEFAULT_INTERVAL;
     protected const SYMBOLS = SpinnerSymbols::DIAMOND;
-    protected const NEW_STYLES = [];
+    protected const STYLES = [];
 
     /** @var string */
     protected $messageStr;
@@ -31,8 +30,8 @@ class Spinner implements SpinnerInterface
     protected $inlinePaddingStr;
     /** @var string */
     protected $eraseBySpacesStr;
-    /** @var Styles */
-    protected $styles;
+    /** @var Style */
+    protected $style;
     /** @var float */
     protected $interval;
     /** @var int */
@@ -43,8 +42,9 @@ class Spinner implements SpinnerInterface
     /**
      * AbstractSpinner constructor.
      * @param mixed $settings
+     * @param mixed $color
      */
-    public function __construct($settings = null)
+    public function __construct($settings = null, $color = null)
     {
         $settings = $this->refineSettings($settings);
         $this->interval = $settings->getInterval();
@@ -54,8 +54,8 @@ class Spinner implements SpinnerInterface
         $this->setFields();
         $this->symbols = new Circular($settings->getSymbols());
         try {
-            $this->styles = new Styles($settings->getStyles());
-        } catch (\InvalidArgumentException $e) {
+            $this->style = new Style($settings->getStyles(), $color);
+        } catch (\Throwable $e) {
             throw new \InvalidArgumentException(
                 '[' . static::class . '] ' . $e->getMessage(),
                 (int)$e->getCode(),
@@ -101,7 +101,7 @@ class Spinner implements SpinnerInterface
                 ->setInterval(static::INTERVAL)
                 ->setErasingShift(static::ERASING_SHIFT)
                 ->setSymbols(static::SYMBOLS)
-                ->setStyles(static::NEW_STYLES);
+                ->setStyles(static::STYLES);
     }
 
     /**
@@ -175,11 +175,11 @@ class Spinner implements SpinnerInterface
         }
         return
             $this->inlinePaddingStr .
-            $this->styles->spinner((string)$this->symbols->value()) .
-            $this->styles->message(
+            $this->style->spinner((string)$this->symbols->value()) .
+            $this->style->message(
                 $this->message()
             ) .
-            $this->styles->percent(
+            $this->style->percent(
                 $this->percent()
             ) .
             $this->moveBackSequenceStr;

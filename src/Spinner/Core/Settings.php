@@ -2,8 +2,8 @@
 
 namespace AlecRabbit\Spinner\Core;
 
-use AlecRabbit\Spinner\Contracts\SettingsInterface;
-use AlecRabbit\Spinner\Contracts\StylesInterface;
+use AlecRabbit\Spinner\Core\Contracts\SettingsInterface;
+use AlecRabbit\Spinner\Core\Contracts\StylesInterface;
 
 /**
  * Class Settings
