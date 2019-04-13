@@ -5,14 +5,14 @@ namespace AlecRabbit\Spinner\Core;
 use AlecRabbit\Accessories\Circular;
 
 /**
- * Class Styling
+ * Class Styles
  *
  * @internal
  */
 class Style
 {
     /** @var Circular */
-    protected $symbolStyles;
+    protected $spinnerStyles;
     /** @var Circular */
     protected $messageStyles;
     /** @var Circular */
@@ -21,36 +21,31 @@ class Style
     /**
      * Styles constructor.
      * @param array $styles
-     * @param mixed $color
+     * @param mixed $colorSupport
      */
-    public function __construct(array $styles, $color = null)
+    public function __construct(array $styles, $colorSupport = null)
     {
-        $prototype = new Prototype($styles, $color);
-        $this->symbolStyles = $prototype->getSpinnerStyles();
-        $this->messageStyles = $prototype->getMessageStyles();
-        $this->percentStyles = $prototype->getPercentStyles();
+        $coloring = new Coloring($styles, $colorSupport);
+        $this->spinnerStyles = $coloring->getSpinnerStyles();
+        $this->messageStyles = $coloring->getMessageStyles();
+        $this->percentStyles = $coloring->getPercentStyles();
     }
 
     public function spinner(string $symbol): string
     {
-        return sprintf((string)$this->symbolStyles->value(), $symbol);
+        return
+            sprintf((string)$this->spinnerStyles->value(), $symbol);
     }
 
     public function message(string $message): string
     {
         return
-            sprintf(
-                (string)$this->messageStyles->value(),
-                $message
-            );
+            sprintf((string)$this->messageStyles->value(), $message);
     }
 
     public function percent(string $percent): string
     {
         return
-            sprintf(
-                (string)$this->percentStyles->value(),
-                $percent
-            );
+            sprintf((string)$this->percentStyles->value(), $percent);
     }
 }
