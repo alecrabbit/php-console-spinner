@@ -29,7 +29,6 @@ echo PHP_EOL;
 $spinners = [
     PercentSpinner::class,
     SimpleSpinner::class,
-    Spinner::class,
     DotSpinner::class,
     SnakeSpinner::class,
     CircleSpinner::class,
