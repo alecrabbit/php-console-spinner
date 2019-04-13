@@ -6,10 +6,9 @@ use AlecRabbit\Accessories\Circular;
 use AlecRabbit\Accessories\Pretty;
 use AlecRabbit\ConsoleColour\ConsoleColor;
 use AlecRabbit\Control\Cursor;
-use AlecRabbit\Spinner\Contracts\SettingsInterface;
-use AlecRabbit\Spinner\Contracts\SpinnerInterface;
-use AlecRabbit\Spinner\Contracts\SpinnerSymbols;
-use AlecRabbit\Spinner\Contracts\StylesInterface;
+use AlecRabbit\Spinner\Core\Contracts\SettingsInterface;
+use AlecRabbit\Spinner\Core\Contracts\SpinnerInterface;
+use AlecRabbit\Spinner\Core\Contracts\SpinnerSymbols;
 use function AlecRabbit\typeOf;
 
 class Spinner implements SpinnerInterface

@@ -3,7 +3,7 @@
 namespace AlecRabbit\Tests\Tools;
 
 use AlecRabbit\Spinner\ClockSpinner;
-use AlecRabbit\Spinner\Contracts\SettingsInterface;
+use AlecRabbit\Spinner\Core\Contracts\SettingsInterface;
 use AlecRabbit\Tests\Spinner\Helper;
 use PHPUnit\Framework\TestCase;
 

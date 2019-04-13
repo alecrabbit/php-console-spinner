@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace AlecRabbit\Spinner\Contracts;
+namespace AlecRabbit\Spinner\Core\Contracts;
 
 interface SpinnerInterface
 {

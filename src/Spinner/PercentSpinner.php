@@ -2,8 +2,8 @@
 
 namespace AlecRabbit\Spinner;
 
-use AlecRabbit\Spinner\Contracts\SettingsInterface;
-use AlecRabbit\Spinner\Contracts\StylesInterface;
+use AlecRabbit\Spinner\Core\Contracts\SettingsInterface;
+use AlecRabbit\Spinner\Core\Contracts\StylesInterface;
 use AlecRabbit\Spinner\Core\Settings;
 use AlecRabbit\Spinner\Core\Spinner;
 use function AlecRabbit\typeOf;

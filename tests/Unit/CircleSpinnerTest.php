@@ -3,7 +3,7 @@
 namespace AlecRabbit\Tests\Tools;
 
 use AlecRabbit\Spinner\CircleSpinner;
-use AlecRabbit\Spinner\Contracts\SettingsInterface;
+use AlecRabbit\Spinner\Core\Contracts\SettingsInterface;
 use PHPUnit\Framework\TestCase;
 
 class CircleSpinnerTest extends TestCase

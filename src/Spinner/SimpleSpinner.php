@@ -2,8 +2,8 @@
 
 namespace AlecRabbit\Spinner;
 
-use AlecRabbit\Spinner\Contracts\SpinnerSymbols;
-use AlecRabbit\Spinner\Contracts\StylesInterface;
+use AlecRabbit\Spinner\Core\Contracts\SpinnerSymbols;
+use AlecRabbit\Spinner\Core\Contracts\StylesInterface;
 use AlecRabbit\Spinner\Core\Spinner;
 
 class SimpleSpinner extends Spinner

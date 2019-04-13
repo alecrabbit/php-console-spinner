@@ -2,7 +2,6 @@
 
 namespace AlecRabbit\Tests\Spinner;
 
-use AlecRabbit\Spinner\Contracts\StylesInterface;
 use AlecRabbit\Spinner\Core\Spinner;
 
 class NullSpinner extends Spinner

@@ -2,10 +2,8 @@
 
 namespace AlecRabbit\Tests\Tools;
 
-use AlecRabbit\Spinner\Contracts\SettingsInterface;
-use AlecRabbit\Spinner\Contracts\SpinnerSymbols;
+use AlecRabbit\Spinner\Core\Contracts\SettingsInterface;
 use AlecRabbit\Spinner\PercentSpinner;
-use AlecRabbit\Spinner\SnakeSpinner;
 use PHPUnit\Framework\TestCase;
 use function AlecRabbit\Helpers\getValue;
 

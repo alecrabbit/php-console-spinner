@@ -5,7 +5,7 @@ namespace AlecRabbit\Spinner\Core;
 use AlecRabbit\Accessories\Circular;
 use AlecRabbit\ConsoleColour\ConsoleColor;
 use AlecRabbit\ConsoleColour\Terminal;
-use AlecRabbit\Spinner\Contracts\StylesInterface;
+use AlecRabbit\Spinner\Core\Contracts\StylesInterface;
 
 class Prototype
 {

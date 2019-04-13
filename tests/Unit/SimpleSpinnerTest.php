@@ -2,7 +2,7 @@
 
 namespace AlecRabbit\Tests\Tools;
 
-use AlecRabbit\Spinner\Contracts\SettingsInterface;
+use AlecRabbit\Spinner\Core\Contracts\SettingsInterface;
 use AlecRabbit\Spinner\SimpleSpinner;
 use PHPUnit\Framework\TestCase;
 
