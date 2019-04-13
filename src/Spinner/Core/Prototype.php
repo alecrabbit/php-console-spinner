@@ -24,6 +24,11 @@ class Prototype
     public function __construct(array $styles, $color = null)
     {
         $this->assertStyles($styles);
+        // Styles defaults - NO color
+        $this->spinnerStyles = $this->circularNoColor();
+        $this->messageStyles = $this->circularNoColor();
+        $this->percentStyles = $this->circularNoColor();
+        // Reassign styles
         $this->assignStyles($styles, $this->refineColor($color));
     }
 
@@ -83,11 +88,6 @@ class Prototype
                 $this->spinnerStyles = $this->circularColor($styles[StylesInterface::SPINNER_STYLES]);
                 $this->messageStyles = $this->circularColor($styles[StylesInterface::MESSAGE_STYLES]);
                 $this->percentStyles = $this->circularColor($styles[StylesInterface::PERCENT_STYLES]);
-                break;
-            case StylesInterface::NO_COLOR:
-                $this->spinnerStyles = $this->circularNoColor();
-                $this->messageStyles = $this->circularNoColor();
-                $this->percentStyles = $this->circularNoColor();
                 break;
         }
     }
