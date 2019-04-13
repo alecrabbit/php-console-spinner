@@ -7,7 +7,7 @@ use AlecRabbit\ConsoleColour\ConsoleColor;
 use AlecRabbit\ConsoleColour\Terminal;
 use AlecRabbit\Spinner\Core\Contracts\StylesInterface;
 
-class Prototype
+class Coloring
 {
     /** @var Circular */
     protected $spinnerStyles;
