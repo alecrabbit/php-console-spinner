@@ -1,7 +1,9 @@
-<?php declare(strict_types=1);
+<?php /** @noinspection PhpComposerExtensionStubsInspection */
+declare(strict_types=1);
 /**
  * This example requires ext-pcntl
  */
+
 //require_once __DIR__ . '/../vendor/autoload.php';
 require_once __DIR__ . '/../tests/bootstrap.php';
 
@@ -16,7 +18,7 @@ use React\Http\Server;
 use React\Promise\Promise;
 use function AlecRabbit\now;
 
-// for colored output
+// coloring output
 $t = new Themes();
 
 /**
@@ -34,15 +36,17 @@ $server = new Server(static function (ServerRequestInterface $request) use ($loo
             new Response(404);
     }
     return new Promise(static function ($resolve, $reject) use ($loop) {
-        // Emulating slow server
-        $loop->addTimer(0.6, static function () use ($resolve) {
+        // Emulating processing response
+        $loop->addTimer(0.2, static function () use ($resolve) {
             $response =
                 new Response(
                     200,
                     [
                         'Content-Type' => 'text/html',
                         'charset' => 'utf-8',
-                    ], body());
+                    ],
+                    body()
+                );
             $resolve($response);
         });
     });

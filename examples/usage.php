@@ -1,5 +1,8 @@
 <?php /** @noinspection PhpComposerExtensionStubsInspection */
 declare(strict_types=1);
+/**
+ * This example requires ext-pcntl
+ */
 
 //require_once __DIR__ . '/../vendor/autoload.php';
 require_once __DIR__ . '/../tests/bootstrap.php';
@@ -49,8 +52,9 @@ echo $theme->comment('Long running task example...') . PHP_EOL;
 echo Cursor::hide();
 echo PHP_EOL;
 
+$message = 'computing';
 display(
-    new class('computing') extends SnakeSpinner
+    new class($message) extends SnakeSpinner
     {
         protected const
             STYLES =
@@ -69,7 +73,11 @@ display(
     },
     $theme,
     false,
-    ['Custom SnakeSpinner on the next line.', 'With custom styled message "computing" and custom styled percentage.', '']
+    [
+        'Extended SnakeSpinner on the next line.',
+        '(With styled message "' . $message . '" and styled percentage)',
+        '',
+    ]
 );
 
 echo $theme->dark('Using spinner: ') . $spinnerClass . PHP_EOL;
@@ -79,21 +87,22 @@ display(
     new $spinnerClass(),
     $theme,
     true,
-    ['Inline Spinner(With percentage, No custom message).']
+    ['Inline Spinner','(With percentage, No message)']
 );
 
 display(
     new $spinnerClass(),
     $theme,
     false,
-    ['Spinner on the next line(With percentage, No custom message).', '' ]
+    ['Spinner on the next line','(With percentage, No message)', '']
 );
 
+$message = 'processing';
 display(
-    new $spinnerClass('processing'),
+    new $spinnerClass($message),
     $theme,
     false,
-    ['Spinner on the next line(With percentage, With custom message "processing").', '']
+    ['Spinner on the next line','(With percentage and message "' . $message . '")', '']
 );
 
 
@@ -111,7 +120,7 @@ longRun(
 function longRun(Spinner $s, Themes $theme): void
 {
     echo $theme->cyan('Example: Entering long running state... ') . PHP_EOL;
-    echo $theme->warning('Use Ctrl + C to exit.') . PHP_EOL;
+    echo $theme->dark('Use Ctrl + C to exit.') . PHP_EOL;
     echo PHP_EOL;
     $microseconds = (int)($s->interval() * 1000000);
     $run = true;
