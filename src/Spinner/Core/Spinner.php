@@ -4,8 +4,8 @@ namespace AlecRabbit\Spinner\Core;
 
 use AlecRabbit\Accessories\Circular;
 use AlecRabbit\Accessories\Pretty;
-use AlecRabbit\ConsoleColour\ConsoleColor;
-use AlecRabbit\Control\Cursor;
+use AlecRabbit\Cli\Tools\Cursor;
+use const AlecRabbit\ESC;
 use AlecRabbit\Spinner\Core\Contracts\SettingsInterface;
 use AlecRabbit\Spinner\Core\Contracts\SpinnerInterface;
 use AlecRabbit\Spinner\Core\Contracts\SpinnerSymbols;
@@ -118,7 +118,7 @@ abstract class Spinner implements SpinnerInterface
         $this->percentPrefix = $this->getPrefix();
         $strLen =
             strlen($this->message()) + strlen($this->percent()) + strlen($this->inlinePaddingStr) + $this->erasingShift;
-        $this->moveBackSequenceStr = ConsoleColor::ESC_CHAR . "[{$strLen}D";
+        $this->moveBackSequenceStr = ESC . "[{$strLen}D";
         $this->eraseBySpacesStr = str_repeat(SettingsInterface::ONE_SPACE_SYMBOL, $strLen);
     }
 

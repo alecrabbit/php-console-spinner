@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e70a99c1631e635a08e812813a4db6e6",
+    "content-hash": "678e90b8b369f2142a77e93e7fcb5def",
     "packages": [
         {
             "name": "alecrabbit/php-accessories",
@@ -56,25 +56,75 @@
             "time": "2019-04-12T11:47:44+00:00"
         },
         {
-            "name": "alecrabbit/php-console-colour",
-            "version": "0.4.2",
+            "name": "alecrabbit/php-cli-tools",
+            "version": "0.0.1",
             "source": {
                 "type": "git",
-                "url": "https://github.com/alecrabbit/php-console-colour.git",
-                "reference": "37294b044cecd1e6038f9547b3d60ec1f294ae67"
+                "url": "https://github.com/alecrabbit/php-cli-tools.git",
+                "reference": "ec7c8831baa3ce608f75d2ea1c2d13f5f20c33b3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/alecrabbit/php-console-colour/zipball/37294b044cecd1e6038f9547b3d60ec1f294ae67",
-                "reference": "37294b044cecd1e6038f9547b3d60ec1f294ae67",
+                "url": "https://api.github.com/repos/alecrabbit/php-cli-tools/zipball/ec7c8831baa3ce608f75d2ea1c2d13f5f20c33b3",
+                "reference": "ec7c8831baa3ce608f75d2ea1c2d13f5f20c33b3",
                 "shasum": ""
             },
             "require": {
+                "php": "^7.2"
+            },
+            "require-dev": {
+                "alecrabbit/php-helpers": "^0.5.2",
+                "nunomaduro/collision": "^3.0",
+                "phpunit/phpunit": "^8.0",
+                "symfony/var-dumper": "^4.2"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "AlecRabbit\\Cli\\Tools\\": "src\\Cli\\Tools"
+                },
+                "files": [
+                    "src/bootstrap.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "CLI tools for php.",
+            "keywords": [
+                "ansi",
+                "cli",
+                "console",
+                "control",
+                "height",
+                "terminal",
+                "title",
+                "width"
+            ],
+            "time": "2019-04-17T10:15:51+00:00"
+        },
+        {
+            "name": "alecrabbit/php-console-colour",
+            "version": "0.5.0-BETA.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/alecrabbit/php-console-colour.git",
+                "reference": "1936bc26163865df8569a3aec94468f42d30511f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/alecrabbit/php-console-colour/zipball/1936bc26163865df8569a3aec94468f42d30511f",
+                "reference": "1936bc26163865df8569a3aec94468f42d30511f",
+                "shasum": ""
+            },
+            "require": {
+                "alecrabbit/php-cli-tools": "^0.0.1",
                 "alecrabbit/php-traits": "^0.2",
                 "php": "^7.2"
             },
             "require-dev": {
-                "alecrabbit/php-helpers": "^0.5.1",
+                "alecrabbit/php-helpers": "^0.5",
                 "nunomaduro/collision": "^3.0",
                 "phpunit/phpunit": "^8.0",
                 "symfony/var-dumper": "^4.2"
@@ -100,20 +150,20 @@
                 "terminal",
                 "width"
             ],
-            "time": "2019-04-13T09:48:14+00:00"
+            "time": "2019-04-17T13:42:18+00:00"
         },
         {
             "name": "alecrabbit/php-helpers",
-            "version": "0.5.2",
+            "version": "0.5.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/alecrabbit/php-helpers.git",
-                "reference": "e6a80d949ebabeb02e89b81c790acd1a12dff2ef"
+                "reference": "d9f124559a40df56c6852c24e60bc40b77d6bd54"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/alecrabbit/php-helpers/zipball/e6a80d949ebabeb02e89b81c790acd1a12dff2ef",
-                "reference": "e6a80d949ebabeb02e89b81c790acd1a12dff2ef",
+                "url": "https://api.github.com/repos/alecrabbit/php-helpers/zipball/d9f124559a40df56c6852c24e60bc40b77d6bd54",
+                "reference": "d9f124559a40df56c6852c24e60bc40b77d6bd54",
                 "shasum": ""
             },
             "require": {
@@ -162,7 +212,7 @@
                 "wrap",
                 "zeros"
             ],
-            "time": "2019-04-06T07:49:11+00:00"
+            "time": "2019-04-17T12:46:58+00:00"
         },
         {
             "name": "alecrabbit/php-traits",
@@ -214,16 +264,16 @@
         },
         {
             "name": "krowinski/bcmath-extended",
-            "version": "4.2.0",
+            "version": "4.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/krowinski/bcmath-extended.git",
-                "reference": "9d435fdd89bd7cfc5b1366981da730e3fe597f67"
+                "reference": "d07e18ca3050b872f04bc1cf5a3b8a3b591c6309"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/krowinski/bcmath-extended/zipball/9d435fdd89bd7cfc5b1366981da730e3fe597f67",
-                "reference": "9d435fdd89bd7cfc5b1366981da730e3fe597f67",
+                "url": "https://api.github.com/repos/krowinski/bcmath-extended/zipball/d07e18ca3050b872f04bc1cf5a3b8a3b591c6309",
+                "reference": "d07e18ca3050b872f04bc1cf5a3b8a3b591c6309",
                 "shasum": ""
             },
             "require": {
@@ -267,7 +317,7 @@
                 "round",
                 "scientific-notation"
             ],
-            "time": "2018-12-11T11:04:34+00:00"
+            "time": "2019-04-15T09:15:39+00:00"
         },
         {
             "name": "nesbot/carbon",
@@ -516,16 +566,16 @@
         },
         {
             "name": "symfony/translation",
-            "version": "v4.2.5",
+            "version": "v4.2.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/translation.git",
-                "reference": "e46933cc31b68f51f7fc5470fb55550407520f56"
+                "reference": "46c0dede1f925383d13dc783857be2c41efd0b24"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/translation/zipball/e46933cc31b68f51f7fc5470fb55550407520f56",
-                "reference": "e46933cc31b68f51f7fc5470fb55550407520f56",
+                "url": "https://api.github.com/repos/symfony/translation/zipball/46c0dede1f925383d13dc783857be2c41efd0b24",
+                "reference": "46c0dede1f925383d13dc783857be2c41efd0b24",
                 "shasum": ""
             },
             "require": {
@@ -547,7 +597,9 @@
                 "symfony/console": "~3.4|~4.0",
                 "symfony/dependency-injection": "~3.4|~4.0",
                 "symfony/finder": "~2.8|~3.0|~4.0",
+                "symfony/http-kernel": "~3.4|~4.0",
                 "symfony/intl": "~3.4|~4.0",
+                "symfony/var-dumper": "~3.4|~4.0",
                 "symfony/yaml": "~3.4|~4.0"
             },
             "suggest": {
@@ -585,7 +637,7 @@
             ],
             "description": "Symfony Translation Component",
             "homepage": "https://symfony.com",
-            "time": "2019-04-01T14:13:08+00:00"
+            "time": "2019-04-10T16:20:36+00:00"
         }
     ],
     "packages-dev": [
@@ -2749,16 +2801,16 @@
         },
         {
             "name": "symfony/console",
-            "version": "v4.2.5",
+            "version": "v4.2.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/console.git",
-                "reference": "24206aff3efe6962593297e57ef697ebb220e384"
+                "reference": "e2840bb38bddad7a0feaf85931e38fdcffdb2f81"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/console/zipball/24206aff3efe6962593297e57ef697ebb220e384",
-                "reference": "24206aff3efe6962593297e57ef697ebb220e384",
+                "url": "https://api.github.com/repos/symfony/console/zipball/e2840bb38bddad7a0feaf85931e38fdcffdb2f81",
+                "reference": "e2840bb38bddad7a0feaf85931e38fdcffdb2f81",
                 "shasum": ""
             },
             "require": {
@@ -2817,7 +2869,7 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "https://symfony.com",
-            "time": "2019-04-01T07:32:59+00:00"
+            "time": "2019-04-08T14:23:48+00:00"
         },
         {
             "name": "symfony/polyfill-ctype",
@@ -2934,16 +2986,16 @@
         },
         {
             "name": "symfony/var-dumper",
-            "version": "v4.2.5",
+            "version": "v4.2.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/var-dumper.git",
-                "reference": "9f87189ac10b42edf7fb8edc846f1937c6d157cf"
+                "reference": "f42850fa32b8d7a35a75510810f6ef597674be74"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/var-dumper/zipball/9f87189ac10b42edf7fb8edc846f1937c6d157cf",
-                "reference": "9f87189ac10b42edf7fb8edc846f1937c6d157cf",
+                "url": "https://api.github.com/repos/symfony/var-dumper/zipball/f42850fa32b8d7a35a75510810f6ef597674be74",
+                "reference": "f42850fa32b8d7a35a75510810f6ef597674be74",
                 "shasum": ""
             },
             "require": {
@@ -3006,7 +3058,7 @@
                 "debug",
                 "dump"
             ],
-            "time": "2019-02-23T15:17:42+00:00"
+            "time": "2019-04-11T11:27:41+00:00"
         },
         {
             "name": "theseer/tokenizer",

@@ -9,7 +9,7 @@ require_once __DIR__ . '/../tests/bootstrap.php';
 
 use AlecRabbit\ConsoleColour\Contracts\Styles;
 use AlecRabbit\ConsoleColour\Themes;
-use AlecRabbit\Control\Cursor;
+use AlecRabbit\Cli\Tools\Cursor;
 use AlecRabbit\Spinner\Core\Contracts\StylesInterface;
 use AlecRabbit\Spinner\Core\Spinner;
 use AlecRabbit\Spinner\MoonSpinner;

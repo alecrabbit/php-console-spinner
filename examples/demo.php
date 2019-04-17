@@ -1,11 +1,10 @@
 <?php
 
+use AlecRabbit\Cli\Tools\Cursor;
 use AlecRabbit\ConsoleColour\Themes;
-use AlecRabbit\Control\Cursor;
 use AlecRabbit\Spinner\CircleSpinner;
 use AlecRabbit\Spinner\ClockSpinner;
 use AlecRabbit\Spinner\Core\Contracts\SpinnerInterface;
-use AlecRabbit\Spinner\Core\Spinner;
 use AlecRabbit\Spinner\DiceSpinner;
 use AlecRabbit\Spinner\DotSpinner;
 use AlecRabbit\Spinner\MoonSpinner;

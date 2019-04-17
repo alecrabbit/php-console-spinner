@@ -2,7 +2,7 @@
 
 namespace AlecRabbit\Tests\Spinner;
 
-use AlecRabbit\ConsoleColour\ConsoleColor;
+use const AlecRabbit\ESC;
 
 class Helper
 {
@@ -12,6 +12,6 @@ class Helper
      */
     public static function stripEscape(string $str)
     {
-        return str_replace(ConsoleColor::ESC_CHAR, '\033', $str);
+        return str_replace(ESC, '\033', $str);
     }
 }

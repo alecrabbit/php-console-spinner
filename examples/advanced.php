@@ -9,7 +9,7 @@ require_once __DIR__ . '/../tests/bootstrap.php';
 
 use AlecRabbit\Accessories\MemoryUsage;
 use AlecRabbit\ConsoleColour\Themes;
-use AlecRabbit\Control\Cursor;
+use AlecRabbit\Cli\Tools\Cursor;
 use AlecRabbit\Spinner\SnakeSpinner;
 use Psr\Http\Message\ServerRequestInterface;
 use React\EventLoop\Factory;

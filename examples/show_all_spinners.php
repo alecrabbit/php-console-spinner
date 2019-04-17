@@ -2,7 +2,7 @@
 
 use AlecRabbit\Accessories\Pretty;
 use AlecRabbit\ConsoleColour\Themes;
-use AlecRabbit\Control\Cursor;
+use AlecRabbit\Cli\Tools\Cursor;
 use AlecRabbit\Spinner\CircleSpinner;
 use AlecRabbit\Spinner\ClockSpinner;
 use AlecRabbit\Spinner\Core\Spinner;

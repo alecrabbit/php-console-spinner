@@ -3,8 +3,9 @@
 namespace AlecRabbit\Spinner\Core;
 
 use AlecRabbit\Accessories\Circular;
-use AlecRabbit\ConsoleColour\ConsoleColor;
-use AlecRabbit\Control\Terminal;
+use AlecRabbit\Cli\Tools\Core\TerminalStatic;
+use AlecRabbit\Cli\Tools\Terminal;
+use const AlecRabbit\ESC;
 use AlecRabbit\Spinner\Core\Contracts\StylesInterface;
 
 class Coloring
@@ -60,10 +61,9 @@ class Coloring
     protected function refineColor(?string $color): string
     {
         if (null === $color) {
-            $terminal = new Terminal();
-            if ($terminal->supportsColor()) {
+            if (TerminalStatic::supportsColor()) {
                 return
-                    $terminal->supports256Color() ?
+                    TerminalStatic::supports256Color() ?
                         StylesInterface::COLOR256 :
                         StylesInterface::COLOR;
             }
@@ -104,7 +104,7 @@ class Coloring
                 new Circular(
                     array_map(
                         static function (string $value): string {
-                            return ConsoleColor::ESC_CHAR . "[38;5;{$value}m%s" . ConsoleColor::ESC_CHAR . '[0m';
+                            return ESC . "[38;5;{$value}m%s" . ESC . '[0m';
                         },
                         $styles[StylesInterface::COLOR256]
                     )
@@ -123,7 +123,7 @@ class Coloring
                 new Circular(
                     array_map(
                         static function (string $value): string {
-                            return ConsoleColor::ESC_CHAR . "[{$value}m%s" . ConsoleColor::ESC_CHAR . '[0m';
+                            return ESC . "[{$value}m%s" . ESC . '[0m';
                         },
                         $styles[StylesInterface::COLOR]
                     )
