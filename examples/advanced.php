@@ -8,8 +8,8 @@ declare(strict_types=1);
 require_once __DIR__ . '/../tests/bootstrap.php';
 
 use AlecRabbit\Accessories\MemoryUsage;
-use AlecRabbit\ConsoleColour\Themes;
 use AlecRabbit\Cli\Tools\Cursor;
+use AlecRabbit\ConsoleColour\Themes;
 use AlecRabbit\Spinner\SnakeSpinner;
 use Psr\Http\Message\ServerRequestInterface;
 use React\EventLoop\Factory;
@@ -30,27 +30,30 @@ $t = new Themes();
  * @link https://github.com/reactphp/http/blob/v0.8.4/examples/06-sleep.php
  */
 $loop = Factory::create();
-$server = new Server(static function (ServerRequestInterface $request) use ($loop) {
-    if ('/favicon.ico' === $request->getRequestTarget()) {
-        return
-            new Response(404);
-    }
-    return new Promise(static function ($resolve, $reject) use ($loop) {
-        // Emulating processing response
-        $loop->addTimer(0.2, static function () use ($resolve) {
-            $response =
-                new Response(
-                    200,
-                    [
-                        'Content-Type' => 'text/html',
-                        'charset' => 'utf-8',
-                    ],
-                    body()
-                );
-            $resolve($response);
-        });
-    });
-});
+$server =
+    new Server(
+        static function (ServerRequestInterface $request) use ($loop) {
+            if ('/favicon.ico' === $request->getRequestTarget()) {
+                return
+                    new Response(404);
+            }
+            return new Promise(static function ($resolve, $reject) use ($loop) {
+                // Emulating processing response
+                $loop->addTimer(0.2, static function () use ($resolve) {
+                    $response =
+                        new Response(
+                            200,
+                            [
+                                'Content-Type' => 'text/html',
+                                'charset' => 'utf-8',
+                            ],
+                            body()
+                        );
+                    $resolve($response);
+                });
+            });
+        }
+    );
 $socket = new \React\Socket\Server($argv[1] ?? '0.0.0.0:8080', $loop);
 $server->listen($socket);
 echo PHP_EOL;
@@ -59,10 +62,14 @@ echo $t->comment('🚀 Listening on ' . str_replace('tcp:', 'http:', $socket->ge
 echo PHP_EOL, $t->dark('Use CTRL+C to exit.'), PHP_EOL;
 
 // Add SIGINT signal handler
-$loop->addSignal(SIGINT, static function ($signal) use ($loop, $t) {
-    echo PHP_EOL, $t->dark('Exiting... '), PHP_EOL;
-    $loop->stop();
-});
+$loop->addSignal(
+    SIGINT,
+    $func = static function ($signal) use ($loop, $t, &$func) {
+        echo PHP_EOL, $t->dark('Exiting... (CTRL+C to force)'), PHP_EOL;
+        $loop->removeSignal(SIGINT, $func);
+        $loop->stop();
+    }
+);
 
 /**
  * Spinner part

@@ -56,11 +56,12 @@ display(
     ['Inline Spinner', '(With percentage, No message)']
 );
 
+$output = new SymfonyOutputAdapter(new ConsoleOutput());
 display(
-    new $spinnerClass($message, null, $output),
+    new $spinnerClass($message, $output),
     $theme,
     false,
     ['Next Line Spinner', '(With percentage, With message)'],
-    new SymfonyOutputAdapter(new ConsoleOutput())
+    $output
 );
 
