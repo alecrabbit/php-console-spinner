@@ -189,7 +189,7 @@ class SpinnerTest extends TestCase
     /** @test */
     public function noColor(): void
     {
-        $spinner = new ExtendedSpinner(self::PROCESSING, StylesInterface::NO_COLOR);
+        $spinner = new ExtendedSpinner(self::PROCESSING, null, StylesInterface::NO_COLOR);
         $this->assertInstanceOf(Spinner::class, $spinner->inline(true));
         $this->assertInstanceOf(Spinner::class, $spinner->inline(false));
         $begin = $spinner->begin();
