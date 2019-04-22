@@ -3,7 +3,6 @@
 namespace AlecRabbit\Spinner\Core;
 
 use AlecRabbit\Spinner\Core\Contracts\SettingsInterface;
-use AlecRabbit\Spinner\Core\Contracts\SettingsInterfaceNew;
 use AlecRabbit\Spinner\Core\Contracts\StylesInterface;
 
 /**
