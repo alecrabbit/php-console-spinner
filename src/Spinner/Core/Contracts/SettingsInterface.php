@@ -2,8 +2,6 @@
 
 namespace AlecRabbit\Spinner\Core\Contracts;
 
-use AlecRabbit\Spinner\Core\Settings;
-
 interface SettingsInterface
 {
     public const MAX_SYMBOLS_COUNT = 50;
