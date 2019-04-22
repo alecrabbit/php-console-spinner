@@ -6,6 +6,8 @@ use AlecRabbit\Spinner\Core\Contracts\SpinnerOutputInterface;
 
 /**
  * Class EchoOutputAdapter
+ *
+ * @codeCoverageIgnore
  */
 class EchoOutputAdapter implements SpinnerOutputInterface
 {
