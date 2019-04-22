@@ -42,9 +42,6 @@ class SpinnerTest extends TestCase
     public function wrongArgumentSettings(): void
     {
         $this->expectException(\InvalidArgumentException::class);
-        //$this->expectExceptionMessage(
-        //    '[AlecRabbit\Tests\Spinner\ExtendedSpinner] array_map(): Argument #2 should be an array'
-        //);
         $settings = new Settings();
         $settings->setStyles(
             [
@@ -56,6 +53,14 @@ class SpinnerTest extends TestCase
             ]
         );
         new ExtendedSpinner($settings);
+    }
+
+    /** @test */
+    public function addingTooMuchSymbols(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('MAX_SYMBOLS_COUNT limit [50] exceeded.');
+        (new Settings())->setSymbols(array_fill(0, 56, '-'));
     }
 
     /** @test */

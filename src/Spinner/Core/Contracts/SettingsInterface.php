@@ -12,9 +12,11 @@ interface SettingsInterface
 
     public const DEFAULT_INTERVAL = 0.1;
     public const DEFAULT_ERASING_SHIFT = 1;
-    public const DEFAULT_SYMBOLS = SpinnerSymbols::BASE;    /**
- * @return float
- */
+    public const DEFAULT_SYMBOLS = SpinnerSymbols::BASE;
+
+    /**
+     * @return float
+     */
     public function getInterval(): float;
 
     /**

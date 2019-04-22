@@ -130,6 +130,11 @@ class Settings implements SettingsInterface
 
     public function setSymbols(?array $symbols): SettingsInterface
     {
+        if (null !== $symbols && count($symbols) > SettingsInterface::MAX_SYMBOLS_COUNT) {
+            throw new \InvalidArgumentException(
+                sprintf('MAX_SYMBOLS_COUNT limit [%s] exceeded.', SettingsInterface::MAX_SYMBOLS_COUNT)
+            );
+        }
         $this->symbols = $symbols ?? static::DEFAULT_SYMBOLS;
         return $this;
     }
