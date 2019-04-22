@@ -15,8 +15,9 @@ class EchoOutputAdapter implements SpinnerOutputInterface
         if (!is_iterable($messages)) {
             $messages = [$messages];
         }
+        $nl = $newline ? PHP_EOL : '';
         foreach ($messages as $message) {
-            echo $message . ($newline ? PHP_EOL : '');
+            echo $message . $nl;
         }
     }
 }
