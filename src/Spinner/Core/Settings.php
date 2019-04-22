@@ -3,6 +3,7 @@
 namespace AlecRabbit\Spinner\Core;
 
 use AlecRabbit\Spinner\Core\Contracts\SettingsInterface;
+use AlecRabbit\Spinner\Core\Contracts\SettingsInterfaceNew;
 use AlecRabbit\Spinner\Core\Contracts\StylesInterface;
 
 /**
@@ -37,7 +38,7 @@ class Settings implements SettingsInterface
         $this->defaults();
     }
 
-    protected function defaults(): Settings
+    protected function defaults(): SettingsInterface
     {
         return
             $this
@@ -51,55 +52,34 @@ class Settings implements SettingsInterface
                 ->setInlinePaddingStr(null);
     }
 
-    /**
-     * @return float
-     */
     public function getInterval(): float
     {
         return $this->interval;
     }
 
-    /**
-     * @param null|float $interval
-     * @return Settings
-     */
-    public function setInterval(?float $interval): Settings
+    public function setInterval(?float $interval): SettingsInterface
     {
         $this->interval = $interval ?? SettingsInterface::DEFAULT_INTERVAL;
         return $this;
     }
 
-    /**
-     * @return int
-     */
     public function getErasingShift(): int
     {
         return $this->erasingShift;
     }
 
-    /**
-     * @param null|int $erasingShift
-     * @return Settings
-     */
-    public function setErasingShift(?int $erasingShift): Settings
+    public function setErasingShift(?int $erasingShift): SettingsInterface
     {
         $this->erasingShift = $erasingShift ?? SettingsInterface::DEFAULT_ERASING_SHIFT;
         return $this;
     }
 
-    /**
-     * @return string
-     */
     public function getMessage(): string
     {
         return $this->message;
     }
 
-    /**
-     * @param null|string $string
-     * @return Settings
-     */
-    public function setMessage(?string $string): Settings
+    public function setMessage(?string $string): SettingsInterface
     {
         $this->message = $string ?? SettingsInterface::EMPTY;
         if (SettingsInterface::EMPTY === $this->message) {
@@ -110,91 +90,56 @@ class Settings implements SettingsInterface
         return $this;
     }
 
-    /**
-     * @return string
-     */
     public function getPrefix(): string
     {
         return $this->prefix;
     }
 
-    /**
-     * @param null|string $prefix
-     * @return Settings
-     */
-    public function setPrefix(?string $prefix): Settings
+    public function setPrefix(?string $prefix): SettingsInterface
     {
         $this->prefix = $prefix ?? SettingsInterface::ONE_SPACE_SYMBOL;
         return $this;
     }
 
-    /**
-     * @return string
-     */
     public function getSuffix(): string
     {
         return $this->suffix;
     }
 
-    /**
-     * @param null|string $suffix
-     * @return Settings
-     */
-    public function setSuffix(?string $suffix): Settings
+    public function setSuffix(?string $suffix): SettingsInterface
     {
         $this->suffix = $suffix ?? SettingsInterface::DEFAULT_SUFFIX;
         return $this;
     }
 
-    /**
-     * @return string
-     */
     public function getInlinePaddingStr(): string
     {
         return $this->inlinePaddingStr;
     }
 
-    /**
-     * @param null|string $inlinePaddingStr
-     * @return Settings
-     */
-    public function setInlinePaddingStr(?string $inlinePaddingStr): Settings
+    public function setInlinePaddingStr(?string $inlinePaddingStr): SettingsInterface
     {
         $this->inlinePaddingStr = $inlinePaddingStr ?? SettingsInterface::EMPTY;
         return $this;
     }
 
-    /**
-     * @return array
-     */
     public function getSymbols(): array
     {
         return $this->symbols;
     }
 
-    /**
-     * @param null|array $symbols
-     * @return Settings
-     */
-    public function setSymbols(?array $symbols): Settings
+    public function setSymbols(?array $symbols): SettingsInterface
     {
         $this->symbols = $symbols ?? static::DEFAULT_SYMBOLS;
         return $this;
     }
 
-    /**
-     * @return array
-     */
     public function getStyles(): array
     {
         return $this->styles;
     }
 
-    /**
-     * @param null|array $styles
-     * @return Settings
-     */
-    public function setStyles(?array $styles): Settings
+    public function setStyles(?array $styles): SettingsInterface
     {
         $this->styles = $this->mergeStyles(StylesInterface::DEFAULT_STYLES, $styles ?? []);
         return $this;

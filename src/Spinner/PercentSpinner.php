@@ -24,9 +24,9 @@ class PercentSpinner extends Spinner
         ];
 
     /**
-     * @return Settings
+     * @return SettingsInterface
      */
-    protected function defaultSettings(): Settings
+    protected function defaultSettings(): SettingsInterface
     {
         return
             parent::defaultSettings()

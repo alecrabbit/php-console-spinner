@@ -66,9 +66,9 @@ abstract class Spinner implements SpinnerInterface
 
     /**
      * @param mixed $settings
-     * @return Settings
+     * @return SettingsInterface
      */
-    protected function refineSettings($settings): Settings
+    protected function refineSettings($settings): SettingsInterface
     {
         $this->assertSettings($settings);
         if (\is_string($settings)) {
@@ -92,9 +92,9 @@ abstract class Spinner implements SpinnerInterface
     }
 
     /**
-     * @return Settings
+     * @return SettingsInterface
      */
-    protected function defaultSettings(): Settings
+    protected function defaultSettings(): SettingsInterface
     {
         return
             (new Settings())
@@ -105,10 +105,10 @@ abstract class Spinner implements SpinnerInterface
     }
 
     /**
-     * @param Settings $settings
+     * @param SettingsInterface $settings
      * @return string
      */
-    protected function getMessageStr(Settings $settings): string
+    protected function getMessageStr(SettingsInterface $settings): string
     {
         return $settings->getPrefix() . ucfirst($settings->getMessage()) . $settings->getSuffix();
     }
