@@ -1,7 +1,8 @@
-- [ ] rename styles class `Prototype`
+- [ ] add `$output` param to `Spinner::class` constructor
 
 ---
 
+- [x] rename styles class `Prototype`
 - [x] solidify API
 - [ ] ~~remove `CircleSpinner::class`?~~ 
 - [x] consider no spinner only percentage
