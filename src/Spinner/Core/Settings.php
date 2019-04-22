@@ -34,10 +34,10 @@ class Settings implements SettingsInterface
      */
     public function __construct()
     {
-        $this->defaults();
+        $this->initializeWithDefaults();
     }
 
-    protected function defaults(): SettingsInterface
+    protected function initializeWithDefaults(): SettingsInterface
     {
         return
             $this
