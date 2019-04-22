@@ -7,6 +7,7 @@ use AlecRabbit\Accessories\Pretty;
 use AlecRabbit\Cli\Tools\Cursor;
 use AlecRabbit\Spinner\Core\Contracts\SettingsInterface;
 use AlecRabbit\Spinner\Core\Contracts\SpinnerInterface;
+use AlecRabbit\Spinner\Core\Contracts\SpinnerOutputInterface;
 use AlecRabbit\Spinner\Core\Contracts\SpinnerSymbols;
 use function AlecRabbit\typeOf;
 use const AlecRabbit\ESC;
@@ -38,14 +39,18 @@ abstract class Spinner implements SpinnerInterface
     protected $erasingShift;
     /** @var Circular */
     protected $symbols;
+    /** @var null|SpinnerOutputInterface */
+    protected $output;
 
     /**
      * AbstractSpinner constructor.
      * @param mixed $settings
      * @param mixed $color
+     * @param null|SpinnerOutputInterface $output
      */
-    public function __construct($settings = null, $color = null)
+    public function __construct($settings = null, $color = null, SpinnerOutputInterface $output = null)
     {
+        $this->output = $output;
         $settings = $this->refineSettings($settings);
         $this->interval = $settings->getInterval();
         $this->erasingShift = $settings->getErasingShift();
@@ -164,6 +169,11 @@ abstract class Spinner implements SpinnerInterface
     /** {@inheritDoc} */
     public function begin(?float $percent = null): string
     {
+        if ($this->output) {
+            $this->output->write(Cursor::hide());
+            $this->spin($percent);
+            return '';
+        }
         return Cursor::hide() . $this->spin($percent);
     }
 
@@ -173,8 +183,7 @@ abstract class Spinner implements SpinnerInterface
         if (null !== $percent) {
             $this->updatePercent($percent);
         }
-        return
-            $this->inlinePaddingStr .
+        $str = $this->inlinePaddingStr .
             $this->style->spinner((string)$this->symbols->value()) .
             $this->style->message(
                 $this->message()
@@ -183,6 +192,12 @@ abstract class Spinner implements SpinnerInterface
                 $this->percent()
             ) .
             $this->moveBackSequenceStr;
+        if ($this->output) {
+            $this->output->write($str);
+            return '';
+        }
+        return
+            $str;
     }
 
     /**
@@ -199,12 +214,22 @@ abstract class Spinner implements SpinnerInterface
     /** {@inheritDoc} */
     public function end(): string
     {
+        if ($this->output) {
+            $this->erase();
+            $this->output->write(Cursor::show());
+            return '';
+        }
         return $this->erase() . Cursor::show();
     }
 
     /** {@inheritDoc} */
     public function erase(): string
     {
-        return $this->eraseBySpacesStr . $this->moveBackSequenceStr;
+        $str = $this->eraseBySpacesStr . $this->moveBackSequenceStr;
+        if ($this->output) {
+            $this->output->write($str);
+            return '';
+        }
+        return $str;
     }
 }
