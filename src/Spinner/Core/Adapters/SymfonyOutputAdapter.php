@@ -5,6 +5,11 @@ namespace AlecRabbit\Spinner\Core\Adapters;
 use AlecRabbit\Spinner\Core\Contracts\SpinnerOutputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
+/**
+ * Class SymfonyOutputAdapter
+ *
+ * @codeCoverageIgnore
+ */
 class SymfonyOutputAdapter implements SpinnerOutputInterface
 {
     /** @var OutputInterface */
@@ -15,6 +20,7 @@ class SymfonyOutputAdapter implements SpinnerOutputInterface
         $this->output = $output;
     }
 
+    /** {@inheritDoc} */
     public function write($messages, $newline = false, $options = 0): void
     {
         $this->output->write($messages, $newline, $options);

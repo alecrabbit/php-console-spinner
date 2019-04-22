@@ -2,6 +2,7 @@
 
 // ************************ Functions ************************
 use AlecRabbit\ConsoleColour\Themes;
+use AlecRabbit\Spinner\Core\Adapters\EchoOutputAdapter;
 use AlecRabbit\Spinner\Core\Contracts\SpinnerOutputInterface;
 use AlecRabbit\Spinner\Core\Spinner;
 
@@ -19,21 +20,7 @@ function display(
     array $exampleMessages,
     SpinnerOutputInterface $output = null
 ): void {
-    if (null === $output) {
-        $output = new class implements SpinnerOutputInterface
-        {
-
-            public function write($messages, $newline = false, $options = 0)
-            {
-                if (!is_iterable($messages)) {
-                    $messages = [$messages];
-                }
-                foreach ($messages as $message) {
-                    echo $message . ($newline ? PHP_EOL : '');
-                }
-            }
-        };
-    }
+    $output = $output ?? new EchoOutputAdapter();
     $s->inline($inline);
     $emulatedMessages = scaleEmulatedMessages();
     $microseconds = (int)($s->interval() * 1000000);
