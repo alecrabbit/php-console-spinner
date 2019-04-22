@@ -4,7 +4,6 @@ namespace AlecRabbit\Spinner;
 
 use AlecRabbit\Spinner\Core\Contracts\SettingsInterface;
 use AlecRabbit\Spinner\Core\Contracts\StylesInterface;
-use AlecRabbit\Spinner\Core\Settings;
 use AlecRabbit\Spinner\Core\Spinner;
 use function AlecRabbit\typeOf;
 
@@ -23,16 +22,6 @@ class PercentSpinner extends Spinner
                 ],
         ];
 
-    /**
-     * @return SettingsInterface
-     */
-    protected function defaultSettings(): SettingsInterface
-    {
-        return
-            parent::defaultSettings()
-                ->setPrefix(SettingsInterface::EMPTY);
-    }
-
     public function spin(?float $percent = null): string
     {
         if (!\is_float($percent)) {
@@ -44,5 +33,15 @@ class PercentSpinner extends Spinner
     public function begin(?float $percent = null): string
     {
         return parent::begin(0.0);
+    }
+
+    /**
+     * @return SettingsInterface
+     */
+    protected function defaultSettings(): SettingsInterface
+    {
+        return
+            parent::defaultSettings()
+                ->setPrefix(SettingsInterface::EMPTY);
     }
 }

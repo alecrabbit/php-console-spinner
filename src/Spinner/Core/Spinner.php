@@ -5,11 +5,11 @@ namespace AlecRabbit\Spinner\Core;
 use AlecRabbit\Accessories\Circular;
 use AlecRabbit\Accessories\Pretty;
 use AlecRabbit\Cli\Tools\Cursor;
-use const AlecRabbit\ESC;
 use AlecRabbit\Spinner\Core\Contracts\SettingsInterface;
 use AlecRabbit\Spinner\Core\Contracts\SpinnerInterface;
 use AlecRabbit\Spinner\Core\Contracts\SpinnerSymbols;
 use function AlecRabbit\typeOf;
+use const AlecRabbit\ESC;
 
 abstract class Spinner implements SpinnerInterface
 {

@@ -4,9 +4,8 @@ namespace AlecRabbit\Spinner\Core;
 
 use AlecRabbit\Accessories\Circular;
 use AlecRabbit\Cli\Tools\Core\TerminalStatic;
-use AlecRabbit\Cli\Tools\Terminal;
-use const AlecRabbit\ESC;
 use AlecRabbit\Spinner\Core\Contracts\StylesInterface;
+use const AlecRabbit\ESC;
 
 class Coloring
 {
@@ -55,21 +54,11 @@ class Coloring
     }
 
     /**
-     * @param null|string $color
-     * @return string
+     * @return Circular
      */
-    protected function refineColor(?string $color): string
+    protected function circularNoColor(): Circular
     {
-        if (null === $color) {
-            if (TerminalStatic::supportsColor()) {
-                return
-                    TerminalStatic::supports256Color() ?
-                        StylesInterface::COLOR256 :
-                        StylesInterface::COLOR;
-            }
-            return StylesInterface::NO_COLOR;
-        }
-        return $color;
+        return new Circular(['%s',]);
     }
 
     /**
@@ -131,11 +120,21 @@ class Coloring
     }
 
     /**
-     * @return Circular
+     * @param null|string $color
+     * @return string
      */
-    protected function circularNoColor(): Circular
+    protected function refineColor(?string $color): string
     {
-        return new Circular(['%s',]);
+        if (null === $color) {
+            if (TerminalStatic::supportsColor()) {
+                return
+                    TerminalStatic::supports256Color() ?
+                        StylesInterface::COLOR256 :
+                        StylesInterface::COLOR;
+            }
+            return StylesInterface::NO_COLOR;
+        }
+        return $color;
     }
 
     /**
