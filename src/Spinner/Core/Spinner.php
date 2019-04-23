@@ -70,6 +70,7 @@ abstract class Spinner implements SpinnerInterface
         }
     }
 
+    /** {@inheritDoc} */
     public function getOutput(): ?SpinnerOutputInterface
     {
         return $this->output;
