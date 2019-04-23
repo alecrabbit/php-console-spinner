@@ -5,6 +5,7 @@ namespace AlecRabbit\Spinner\Core;
 use AlecRabbit\Accessories\Circular;
 use AlecRabbit\Accessories\Pretty;
 use AlecRabbit\Cli\Tools\Cursor;
+use AlecRabbit\Spinner\Core\Adapters\EchoOutputAdapter;
 use AlecRabbit\Spinner\Core\Contracts\SettingsInterface;
 use AlecRabbit\Spinner\Core\Contracts\SpinnerInterface;
 use AlecRabbit\Spinner\Core\Contracts\SpinnerOutputInterface;
@@ -45,12 +46,12 @@ abstract class Spinner implements SpinnerInterface
     /**
      * AbstractSpinner constructor.
      * @param mixed $settings
-     * @param null|SpinnerOutputInterface $output
+     * @param null|bool|SpinnerOutputInterface $output
      * @param mixed $color
      */
-    public function __construct($settings = null, SpinnerOutputInterface $output = null, $color = null)
+    public function __construct($settings = null, $output = false, $color = null)
     {
-        $this->output = $output;
+        $this->output = $this->refineOutput($output);
         $settings = $this->refineSettings($settings);
         $this->interval = $settings->getInterval();
         $this->erasingShift = $settings->getErasingShift();
@@ -65,6 +66,32 @@ abstract class Spinner implements SpinnerInterface
                 '[' . static::class . '] ' . $e->getMessage(),
                 (int)$e->getCode(),
                 $e
+            );
+        }
+    }
+
+    /**
+     * @param null|bool|SpinnerOutputInterface $output
+     * @return null|SpinnerOutputInterface
+     */
+    protected function refineOutput($output): ?SpinnerOutputInterface
+    {
+        $this->assertOutput($output);
+        if (false === $output) {
+            return null;
+        }
+        return $output ?? new EchoOutputAdapter();
+    }
+
+    /**
+     * @param null|bool|SpinnerOutputInterface $output
+     */
+    protected function assertOutput($output): void
+    {
+        if (null !== $output && false !== $output && !$output instanceof SpinnerOutputInterface) {
+            dump($output);
+            throw new \InvalidArgumentException(
+                'Incorrect $output param null|false|SpinnerOutputInterface expected "' . typeOf($output) . '" given'
             );
         }
     }
