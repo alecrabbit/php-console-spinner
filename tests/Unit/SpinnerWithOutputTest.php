@@ -20,8 +20,9 @@ class SpinnerWithOutputTest extends TestCase
         $spinner = new ExtendedSpinner(self::PROCESSING, $output, StylesInterface::NO_COLOR);
         $this->assertInstanceOf(Spinner::class, $spinner);
         $this->assertSame(0.1, $spinner->interval());
-        $this->assertNotNull($spinner->getOutput());
-        $this->assertInstanceOf(SpinnerOutputInterface::class, $spinner->getOutput());
+        $spinnerOutput = $spinner->getOutput();
+        $this->assertNotNull($spinnerOutput);
+        $this->assertInstanceOf(SpinnerOutputInterface::class, $spinnerOutput);
         $this->assertIsString($spinner->begin());
         $this->assertIsString($spinner->spin());
         $this->assertIsString($spinner->end());
