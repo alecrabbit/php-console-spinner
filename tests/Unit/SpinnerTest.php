@@ -2,12 +2,12 @@
 
 namespace AlecRabbit\Tests\Spinner;
 
-use const AlecRabbit\NO_COLOR_TERMINAL;
 use AlecRabbit\Spinner\Core\Contracts\SettingsInterface;
 use AlecRabbit\Spinner\Core\Contracts\StylesInterface;
 use AlecRabbit\Spinner\Core\Settings;
 use AlecRabbit\Spinner\Core\Spinner;
 use PHPUnit\Framework\TestCase;
+use const AlecRabbit\NO_COLOR_TERMINAL;
 
 class SpinnerTest extends TestCase
 {
@@ -49,6 +49,7 @@ class SpinnerTest extends TestCase
         );
         new ExtendedSpinner(null, 1);
     }
+
     /** @test */
     public function wrongSecondArgumentTrue(): void
     {
