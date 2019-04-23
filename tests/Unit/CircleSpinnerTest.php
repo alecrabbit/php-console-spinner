@@ -16,7 +16,7 @@ class CircleSpinnerTest extends TestCase
      */
     public function instance(): void
     {
-        $spinner = new CircleSpinner(self::PROCESSING);
+        $spinner = new CircleSpinner(self::PROCESSING, false);
         $this->assertInstanceOf(CircleSpinner::class, $spinner);
         $begin = $spinner->begin();
         $this->assertIsString($begin);

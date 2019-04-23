@@ -14,7 +14,7 @@ class PercentSpinnerTest extends TestCase
     /** @test */
     public function instance(): void
     {
-        $spinner = new PercentSpinner(self::PROCESSING);
+        $spinner = new PercentSpinner(self::PROCESSING, false);
         $this->assertInstanceOf(PercentSpinner::class, $spinner);
         $begin = $spinner->begin(0.0);
         $this->assertIsString($begin);

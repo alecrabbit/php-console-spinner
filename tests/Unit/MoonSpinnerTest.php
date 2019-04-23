@@ -16,7 +16,7 @@ class MoonSpinnerTest extends TestCase
      */
     public function instance(): void
     {
-        $spinner = new MoonSpinner(self::PROCESSING);
+        $spinner = new MoonSpinner(self::PROCESSING, false);
         $this->assertInstanceOf(MoonSpinner::class, $spinner);
         $this->assertIsString($spinner->begin());
         $this->assertIsString($spinner->spin());

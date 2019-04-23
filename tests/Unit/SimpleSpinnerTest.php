@@ -15,7 +15,7 @@ class SimpleSpinnerTest extends TestCase
      */
     public function instance(): void
     {
-        $spinner = new SimpleSpinner(self::PROCESSING);
+        $spinner = new SimpleSpinner(self::PROCESSING, false);
         $this->assertInstanceOf(SimpleSpinner::class, $spinner);
         $this->assertIsString($spinner->begin());
         $this->assertIsString($spinner->spin());

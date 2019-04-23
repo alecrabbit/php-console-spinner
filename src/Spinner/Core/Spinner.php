@@ -49,7 +49,7 @@ abstract class Spinner implements SpinnerInterface
      * @param null|false|SpinnerOutputInterface $output
      * @param mixed $color
      */
-    public function __construct($settings = null, $output = false, $color = null)
+    public function __construct($settings = null, $output = null, $color = null)
     {
         $this->output = $this->refineOutput($output);
         $settings = $this->refineSettings($settings);

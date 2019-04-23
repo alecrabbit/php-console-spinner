@@ -17,7 +17,7 @@ class ClockSpinnerTest extends TestCase
      */
     public function instance(): void
     {
-        $spinner = new ClockSpinner(self::PROCESSING);
+        $spinner = new ClockSpinner(self::PROCESSING, false);
         $this->assertInstanceOf(ClockSpinner::class, $spinner);
         $this->assertIsString($spinner->begin());
         $this->assertIsString($spinner->spin());
@@ -37,7 +37,7 @@ class ClockSpinnerTest extends TestCase
      */
     public function interface(): void
     {
-        $spinner = new ClockSpinner(self::PROCESSING);
+        $spinner = new ClockSpinner(self::PROCESSING, false);
         $this->assertInstanceOf(ClockSpinner::class, $spinner->inline(true));
         $this->assertInstanceOf(ClockSpinner::class, $spinner->inline(false));
         $begin = $spinner->begin();

@@ -15,7 +15,7 @@ class SpinnerTest extends TestCase
     /** @test */
     public function instance(): void
     {
-        $spinner = new ExtendedSpinner(self::PROCESSING);
+        $spinner = new ExtendedSpinner(self::PROCESSING, false);
         $this->assertInstanceOf(Spinner::class, $spinner);
         $this->assertSame(0.1, $spinner->interval());
         $this->assertIsString($spinner->begin());
@@ -97,7 +97,7 @@ class SpinnerTest extends TestCase
         $settings->setInlinePaddingStr('');
         $settings->setMessage(self::PROCESSING);
         $settings->setStyles($styles);
-        $spinner = new NullSpinner($settings);
+        $spinner = new NullSpinner($settings, false);
         $begin = $spinner->begin();
 
         // DO NOT CHANGE ORDER!!!
@@ -122,7 +122,7 @@ class SpinnerTest extends TestCase
     /** @test */
     public function interface(): void
     {
-        $spinner = new ExtendedSpinner(self::PROCESSING);
+        $spinner = new ExtendedSpinner(self::PROCESSING, false);
         $this->assertInstanceOf(Spinner::class, $spinner->inline(true));
         $this->assertInstanceOf(Spinner::class, $spinner->inline(false));
         $begin = $spinner->begin();

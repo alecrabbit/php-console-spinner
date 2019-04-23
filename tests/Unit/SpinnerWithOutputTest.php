@@ -15,7 +15,7 @@ class SpinnerWithOutputTest extends TestCase
     /** @test */
     public function instance(): void
     {
-        $output = new OutputAdapter();
+        $output = new BufferOutputAdapter();
         $spinner = new ExtendedSpinner(self::PROCESSING, $output, StylesInterface::NO_COLOR);
         $this->assertInstanceOf(Spinner::class, $spinner);
         $this->assertSame(0.1, $spinner->interval());
@@ -51,7 +51,7 @@ class SpinnerWithOutputTest extends TestCase
                     StylesInterface::COLOR => StylesInterface::DISABLED,
                 ],
         ];
-        $output = new OutputAdapter();
+        $output = new BufferOutputAdapter();
         $settings = new Settings();
         $settings->setInlinePaddingStr('');
         $settings->setMessage(self::PROCESSING);
@@ -98,7 +98,7 @@ class SpinnerWithOutputTest extends TestCase
     /** @test */
     public function interface(): void
     {
-        $output = new OutputAdapter();
+        $output = new BufferOutputAdapter();
         $spinner = new ExtendedSpinner(self::PROCESSING, $output, null);
         $this->assertInstanceOf(Spinner::class, $spinner->inline(true));
         $this->assertInstanceOf(Spinner::class, $spinner->inline(false));

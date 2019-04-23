@@ -15,7 +15,7 @@ class SnakeSpinnerTest extends TestCase
     /** @test */
     public function instance(): void
     {
-        $spinner = new SnakeSpinner(self::PROCESSING);
+        $spinner = new SnakeSpinner(self::PROCESSING, false);
         $this->assertInstanceOf(SnakeSpinner::class, $spinner);
         $this->assertIsString($spinner->begin());
         $this->assertIsString($spinner->spin());
