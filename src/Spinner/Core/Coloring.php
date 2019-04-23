@@ -4,6 +4,9 @@ namespace AlecRabbit\Spinner\Core;
 
 use AlecRabbit\Accessories\Circular;
 use AlecRabbit\Cli\Tools\Core\TerminalStatic;
+use const AlecRabbit\COLOR256_TERMINAL;
+use const AlecRabbit\COLOR_TERMINAL;
+use const AlecRabbit\NO_COLOR_TERMINAL;
 use AlecRabbit\Spinner\Core\Contracts\StylesInterface;
 use const AlecRabbit\ESC;
 
@@ -68,12 +71,12 @@ class Coloring
     protected function assignStyles(array $styles, $color): void
     {
         switch ($color) {
-            case StylesInterface::COLOR256:
+            case COLOR256_TERMINAL:
                 $this->spinnerStyles = $this->circular256Color($styles[StylesInterface::SPINNER_STYLES]);
                 $this->messageStyles = $this->circular256Color($styles[StylesInterface::MESSAGE_STYLES]);
                 $this->percentStyles = $this->circular256Color($styles[StylesInterface::PERCENT_STYLES]);
                 break;
-            case StylesInterface::COLOR:
+            case COLOR_TERMINAL:
                 $this->spinnerStyles = $this->circularColor($styles[StylesInterface::SPINNER_STYLES]);
                 $this->messageStyles = $this->circularColor($styles[StylesInterface::MESSAGE_STYLES]);
                 $this->percentStyles = $this->circularColor($styles[StylesInterface::PERCENT_STYLES]);
@@ -120,19 +123,19 @@ class Coloring
     }
 
     /**
-     * @param null|string $color
-     * @return string
+     * @param null|int $color
+     * @return int
      */
-    protected function refineColor(?string $color): string
+    protected function refineColor(?int $color): int
     {
         if (null === $color) {
             if (TerminalStatic::supportsColor()) {
                 return
                     TerminalStatic::supports256Color() ?
-                        StylesInterface::COLOR256 :
-                        StylesInterface::COLOR;
+                        COLOR256_TERMINAL :
+                        COLOR_TERMINAL;
             }
-            return StylesInterface::NO_COLOR;
+            return NO_COLOR_TERMINAL;
         }
         return $color;
     }

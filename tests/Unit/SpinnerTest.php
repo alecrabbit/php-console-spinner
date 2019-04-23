@@ -2,6 +2,7 @@
 
 namespace AlecRabbit\Tests\Spinner;
 
+use const AlecRabbit\NO_COLOR_TERMINAL;
 use AlecRabbit\Spinner\Core\Contracts\SettingsInterface;
 use AlecRabbit\Spinner\Core\Contracts\StylesInterface;
 use AlecRabbit\Spinner\Core\Settings;
@@ -209,7 +210,7 @@ class SpinnerTest extends TestCase
     /** @test */
     public function noColor(): void
     {
-        $spinner = new ExtendedSpinner(self::PROCESSING, false, StylesInterface::NO_COLOR);
+        $spinner = new ExtendedSpinner(self::PROCESSING, false, NO_COLOR_TERMINAL);
         $this->assertInstanceOf(Spinner::class, $spinner->inline(true));
         $this->assertInstanceOf(Spinner::class, $spinner->inline(false));
         $begin = $spinner->begin();
