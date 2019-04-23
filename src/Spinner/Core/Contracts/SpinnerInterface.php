@@ -36,4 +36,9 @@ interface SpinnerInterface
      * @return string
      */
     public function spin(?float $percent = null): string;
+
+    /**
+     * @return null|SpinnerOutputInterface
+     */
+    public function getOutput(): ?SpinnerOutputInterface;
 }

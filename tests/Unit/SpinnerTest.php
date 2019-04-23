@@ -18,6 +18,7 @@ class SpinnerTest extends TestCase
         $spinner = new ExtendedSpinner(self::PROCESSING, false);
         $this->assertInstanceOf(Spinner::class, $spinner);
         $this->assertSame(0.1, $spinner->interval());
+        $this->assertNull($spinner->getOutput());
         $this->assertIsString($spinner->begin());
         $this->assertIsString($spinner->spin());
         $this->assertIsString($spinner->end());
