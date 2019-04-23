@@ -1,7 +1,7 @@
-- [ ] add `$output` param to `Spinner::class` constructor
 
 ---
 
+- [x] add `$output` param to `Spinner::class` constructor
 - [x] rename styles class `Prototype`
 - [x] solidify API
 - [ ] ~~remove `CircleSpinner::class`?~~ 

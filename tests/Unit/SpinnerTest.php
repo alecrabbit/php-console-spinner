@@ -18,6 +18,7 @@ class SpinnerTest extends TestCase
         $spinner = new ExtendedSpinner(self::PROCESSING, false);
         $this->assertInstanceOf(Spinner::class, $spinner);
         $this->assertSame(0.1, $spinner->interval());
+        $this->assertNull($spinner->getOutput());
         $this->assertIsString($spinner->begin());
         $this->assertIsString($spinner->spin());
         $this->assertIsString($spinner->end());
@@ -39,13 +40,22 @@ class SpinnerTest extends TestCase
     }
 
     /** @test */
-    public function wrongSecondArgument(): void
+    public function wrongSecondArgumentInteger(): void
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage(
             'Incorrect $output param [null|false|SpinnerOutputInterface] expected "integer" given.'
         );
         new ExtendedSpinner(null, 1);
+    }
+    /** @test */
+    public function wrongSecondArgumentTrue(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage(
+            'Incorrect $output param [null|false|SpinnerOutputInterface] expected "true" given.'
+        );
+        new ExtendedSpinner(null, true);
     }
 
     /** @test */

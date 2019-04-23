@@ -3,6 +3,7 @@
 namespace AlecRabbit\Tests\Spinner;
 
 use AlecRabbit\Spinner\Core\Contracts\SettingsInterface;
+use AlecRabbit\Spinner\Core\Contracts\SpinnerOutputInterface;
 use AlecRabbit\Spinner\Core\Contracts\StylesInterface;
 use AlecRabbit\Spinner\Core\Settings;
 use AlecRabbit\Spinner\Core\Spinner;
@@ -19,6 +20,9 @@ class SpinnerWithOutputTest extends TestCase
         $spinner = new ExtendedSpinner(self::PROCESSING, $output, StylesInterface::NO_COLOR);
         $this->assertInstanceOf(Spinner::class, $spinner);
         $this->assertSame(0.1, $spinner->interval());
+        $spinnerOutput = $spinner->getOutput();
+        $this->assertNotNull($spinnerOutput);
+        $this->assertInstanceOf(SpinnerOutputInterface::class, $spinnerOutput);
         $this->assertIsString($spinner->begin());
         $this->assertIsString($spinner->spin());
         $this->assertIsString($spinner->end());
