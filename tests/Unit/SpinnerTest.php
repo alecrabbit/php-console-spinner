@@ -131,6 +131,35 @@ class SpinnerTest extends TestCase
     }
 
     /** @test */
+    public function wrongStylesSettings(): void
+    {
+        $styles = [
+        ];
+        $settings = new Settings();
+        $settings->setStyles($styles);
+        $spinner = new NullSpinner($settings, false, NO_COLOR_TERMINAL);
+        $begin = $spinner->begin();
+
+        // DO NOT CHANGE ORDER!!!
+        $this->assertEquals(
+            Helper::stripEscape("\033[?25l \033[2D"),
+            Helper::stripEscape($begin)
+        );
+        $this->assertEquals(
+            "\033[?25l \033[2D",
+            $begin
+        );
+        $this->assertEquals(
+            Helper::stripEscape(" \033[2D"),
+            Helper::stripEscape($spinner->spin())
+        );
+        $this->assertEquals(
+            Helper::stripEscape("  \033[2D\033[?25h\033[?0c"),
+            Helper::stripEscape($spinner->end())
+        );
+    }
+
+    /** @test */
     public function interface(): void
     {
         $spinner = new ExtendedSpinner(self::PROCESSING, false);
