@@ -46,7 +46,7 @@ abstract class Spinner implements SpinnerInterface
     /**
      * AbstractSpinner constructor.
      * @param mixed $settings
-     * @param null|bool|SpinnerOutputInterface $output
+     * @param null|false|SpinnerOutputInterface $output
      * @param mixed $color
      */
     public function __construct($settings = null, $output = false, $color = null)
@@ -71,7 +71,7 @@ abstract class Spinner implements SpinnerInterface
     }
 
     /**
-     * @param null|bool|SpinnerOutputInterface $output
+     * @param null|false|SpinnerOutputInterface $output
      * @return null|SpinnerOutputInterface
      */
     protected function refineOutput($output): ?SpinnerOutputInterface
@@ -84,14 +84,13 @@ abstract class Spinner implements SpinnerInterface
     }
 
     /**
-     * @param null|bool|SpinnerOutputInterface $output
+     * @param mixed $output
      */
     protected function assertOutput($output): void
     {
         if (null !== $output && false !== $output && !$output instanceof SpinnerOutputInterface) {
-            dump($output);
             throw new \InvalidArgumentException(
-                'Incorrect $output param null|false|SpinnerOutputInterface expected "' . typeOf($output) . '" given'
+                'Incorrect $output param [null|false|SpinnerOutputInterface] expected "' . typeOf($output) . '" given.'
             );
         }
     }

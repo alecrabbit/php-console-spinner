@@ -31,11 +31,21 @@ class SpinnerTest extends TestCase
     }
 
     /** @test */
-    public function wrongArgument(): void
+    public function wrongFirstArgument(): void
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('Instance of SettingsInterface or string expected integer given.');
         new ExtendedSpinner(1);
+    }
+
+    /** @test */
+    public function wrongSecondArgument(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage(
+            'Incorrect $output param [null|false|SpinnerOutputInterface] expected "integer" given.'
+        );
+        new ExtendedSpinner(null, 1);
     }
 
     /** @test */
