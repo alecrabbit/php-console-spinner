@@ -1,13 +1,8 @@
-<?php /** @noinspection PhpComposerExtensionStubsInspection */
-declare(strict_types=1);
-/**
- * This example requires ext-pcntl
- */
+<?php declare(strict_types=1);
 
 //require_once __DIR__ . '/../vendor/autoload.php';
 require_once __DIR__ . '/../tests/bootstrap.php';
-
-// Please note usage of helpers
+// Please note helpers are used
 require_once __DIR__ . '/__helper_functions.php';
 
 use AlecRabbit\Cli\Tools\Cursor;
@@ -54,16 +49,16 @@ $message = 'computing';
 echo $theme->dark('Using spinner: ') . $spinnerClass . PHP_EOL;
 echo PHP_EOL;
 
-$output = new SymfonyOutputAdapter(new ConsoleOutput());
 display(
-    new $spinnerClass(null, null, $output),
+    new $spinnerClass(),
     $theme,
     true,
     ['Inline Spinner', '(With percentage, No message)']
 );
 
+$output = new SymfonyOutputAdapter(new ConsoleOutput());
 display(
-    new $spinnerClass($message, null, $output),
+    new $spinnerClass($message, $output),
     $theme,
     false,
     ['Next Line Spinner', '(With percentage, With message)'],

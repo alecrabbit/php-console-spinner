@@ -1,9 +1,36 @@
-<?php declare(strict_types=1);
+<?php /** @noinspection PhpComposerExtensionStubsInspection */
+declare(strict_types=1);
 
-// ************************ Functions ************************
 use AlecRabbit\ConsoleColour\Themes;
+use AlecRabbit\Spinner\Core\Adapters\EchoOutputAdapter;
 use AlecRabbit\Spinner\Core\Contracts\SpinnerOutputInterface;
 use AlecRabbit\Spinner\Core\Spinner;
+
+// ************************ Functions ************************
+/**
+ * @param Spinner $s
+ * @param Themes $theme
+ */
+function longRun(Spinner $s, Themes $theme): void
+{
+    echo $theme->cyan('Example: Entering long running state... ') . PHP_EOL;
+    echo $theme->dark('Use Ctrl + C to exit.') . PHP_EOL;
+    echo PHP_EOL;
+    $microseconds = (int)($s->interval() * 1000000);
+    $run = true;
+    pcntl_signal(SIGINT, static function () use (&$run) {
+        $run = false;
+    });
+    echo $s->begin(); // Optional, begin() does same as spin() but also Cursor::hide(),
+    while ($run) {
+        usleep($microseconds);
+        pcntl_signal_dispatch();
+        echo $s->spin();
+    }
+    echo $s->end();
+    echo PHP_EOL;
+}
+
 
 /**
  * @param Spinner $s
@@ -19,21 +46,9 @@ function display(
     array $exampleMessages,
     SpinnerOutputInterface $output = null
 ): void {
-    if (null === $output) {
-        $output = new class implements SpinnerOutputInterface
-        {
-
-            public function write($messages, $newline = false, $options = 0)
-            {
-                if (!is_iterable($messages)) {
-                    $messages = [$messages];
-                }
-                foreach ($messages as $message) {
-                    echo $message . ($newline ? PHP_EOL : '');
-                }
-            }
-        };
-    }
+    $outputIsNull = null === $output;
+    $output = $output ?? new EchoOutputAdapter();
+    $output->write('-------------------------', true);
     $s->inline($inline);
     $emulatedMessages = scaleEmulatedMessages();
     $microseconds = (int)($s->interval() * 1000000);
@@ -47,12 +62,20 @@ function display(
         $output->write('', true);
     }
 
-    $s->begin(); // Hides cursor and makes first spin
+    if ($outputIsNull) {
+        $output->write($s->begin());
+    } else {
+        $s->begin();
+    }
     for ($i = 0; $i < ITERATIONS; $i++) {
         usleep($microseconds); // Here you are doing your task
         if (array_key_exists($i, $emulatedMessages)) {
             // It's your job to echo erase sequence when needed
-            $s->erase();
+            if ($outputIsNull) {
+                $output->write($s->erase());
+            } else {
+                $s->erase();
+            }
             if ($inline) {
                 $output->write('', true);
             }
@@ -63,9 +86,18 @@ function display(
         }
         // It's your job to call spin() with approx. equal intervals
         // (each class has recommended interval for comfortable animation)
-        $s->spin($i / ITERATIONS);  // You can pass percentage to spin() method (float from 0 to 1)
+        $percent = $i / ITERATIONS;
+        if ($outputIsNull) {
+            $output->write($s->spin($percent));
+        } else {
+            $s->spin($percent);
+        }
     }
-    $s->end();
+    if ($outputIsNull) {
+        $output->write($s->end());
+    } else {
+        $s->end();
+    }
     if ($inline) {
         $output->write('', true);
     }

@@ -3,7 +3,6 @@
 namespace AlecRabbit\Spinner\Core;
 
 use AlecRabbit\Spinner\Core\Contracts\SettingsInterface;
-use AlecRabbit\Spinner\Core\Contracts\SettingsInterfaceNew;
 use AlecRabbit\Spinner\Core\Contracts\StylesInterface;
 
 /**
@@ -35,10 +34,10 @@ class Settings implements SettingsInterface
      */
     public function __construct()
     {
-        $this->defaults();
+        $this->initializeWithDefaults();
     }
 
-    protected function defaults(): SettingsInterface
+    protected function initializeWithDefaults(): SettingsInterface
     {
         return
             $this
