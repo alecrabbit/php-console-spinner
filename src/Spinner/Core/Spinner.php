@@ -147,7 +147,7 @@ abstract class Spinner implements SpinnerInterface
 
     protected function setFields(): void
     {
-        $this->percentPrefix = $this->getPrefix();
+        $this->percentPrefix = $this->getPercentPrefix();
         $strLen =
             strlen($this->message()) + strlen($this->percent()) + strlen($this->inlinePaddingStr) + $this->erasingShift;
         $this->moveBackSequenceStr = ESC . "[{$strLen}D";
@@ -157,7 +157,7 @@ abstract class Spinner implements SpinnerInterface
     /**
      * @return string
      */
-    protected function getPrefix(): string
+    protected function getPercentPrefix(): string
     {
         if (strpos($this->messageStr, SettingsInterface::DEFAULT_SUFFIX)) {
             return SettingsInterface::ONE_SPACE_SYMBOL;

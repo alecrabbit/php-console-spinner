@@ -74,29 +74,28 @@ $loop->addSignal(
 /**
  * Spinner part
  */
-$s = new SnakeSpinner();
+$s = new SnakeSpinner(null, null);
 
 // Add periodic timer to redraw our spinner
 $loop->addPeriodicTimer($s->interval(), static function () use ($s) {
-    echo $s->spin();
+    $s->spin();
 });
 
 // Add periodic timer to echo status message
 $loop->addPeriodicTimer(60, static function () use ($s, $t) {
-    echo $s->erase();
+    $s->erase();
     echo Cursor::up();
     echo $t->dark(memory()) . PHP_EOL;
 });
 
-echo Cursor::hide();
 echo PHP_EOL;
 echo $t->dark(memory()) . PHP_EOL;
+$s->begin();
 
 // Starting the loop
 $loop->run();
 
-echo $s->erase(); // Cleaning up
-echo Cursor::show();
+$s->end(); // Cleaning up
 
 
 // ********************** Functions ****************************
