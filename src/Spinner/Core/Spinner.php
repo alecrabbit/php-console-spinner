@@ -70,12 +70,6 @@ abstract class Spinner implements SpinnerInterface
         }
     }
 
-    /** {@inheritDoc} */
-    public function getOutput(): ?SpinnerOutputInterface
-    {
-        return $this->output;
-    }
-
     /**
      * @param null|false|SpinnerOutputInterface $output
      * @return null|SpinnerOutputInterface
@@ -95,7 +89,7 @@ abstract class Spinner implements SpinnerInterface
     protected function assertOutput($output): void
     {
         if (null !== $output && false !== $output && !$output instanceof SpinnerOutputInterface) {
-            $type = true === $output? 'true' : typeOf($output);
+            $type = true === $output ? 'true' : typeOf($output);
             throw new \InvalidArgumentException(
                 'Incorrect $output param [null|false|SpinnerOutputInterface] expected "' . $type . '" given.'
             );
@@ -185,6 +179,12 @@ abstract class Spinner implements SpinnerInterface
     protected function percent(): string
     {
         return $this->percentStr;
+    }
+
+    /** {@inheritDoc} */
+    public function getOutput(): ?SpinnerOutputInterface
+    {
+        return $this->output;
     }
 
     public function interval(): float
