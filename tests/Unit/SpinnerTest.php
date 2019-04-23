@@ -40,13 +40,22 @@ class SpinnerTest extends TestCase
     }
 
     /** @test */
-    public function wrongSecondArgument(): void
+    public function wrongSecondArgumentInteger(): void
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage(
             'Incorrect $output param [null|false|SpinnerOutputInterface] expected "integer" given.'
         );
         new ExtendedSpinner(null, 1);
+    }
+    /** @test */
+    public function wrongSecondArgumentTrue(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage(
+            'Incorrect $output param [null|false|SpinnerOutputInterface] expected "true" given.'
+        );
+        new ExtendedSpinner(null, true);
     }
 
     /** @test */
