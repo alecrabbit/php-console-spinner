@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "678e90b8b369f2142a77e93e7fcb5def",
+    "content-hash": "b6f7f814391d259eefa13835f7b9a8ba",
     "packages": [
         {
             "name": "alecrabbit/php-accessories",
-            "version": "0.6.4",
+            "version": "0.7.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/alecrabbit/php-accessories.git",
-                "reference": "4875c02e208cba1c7e168bca1d45663fa7fa30e3"
+                "reference": "a51e82f1f6fd988382391b2582f132cadef0f8c4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/alecrabbit/php-accessories/zipball/4875c02e208cba1c7e168bca1d45663fa7fa30e3",
-                "reference": "4875c02e208cba1c7e168bca1d45663fa7fa30e3",
+                "url": "https://api.github.com/repos/alecrabbit/php-accessories/zipball/a51e82f1f6fd988382391b2582f132cadef0f8c4",
+                "reference": "a51e82f1f6fd988382391b2582f132cadef0f8c4",
                 "shasum": ""
             },
             "require": {
@@ -53,7 +53,7 @@
                 "rewindable",
                 "time"
             ],
-            "time": "2019-04-12T11:47:44+00:00"
+            "time": "2019-04-24T12:14:03+00:00"
         },
         {
             "name": "alecrabbit/php-cli-tools",
@@ -153,16 +153,16 @@
         },
         {
             "name": "alecrabbit/php-helpers",
-            "version": "0.5.7",
+            "version": "0.5.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/alecrabbit/php-helpers.git",
-                "reference": "3d50c5c7944d44029212443f9ced61214e9f31f7"
+                "reference": "f0b52eb8fdbabc0149c4bd6f7fcbe63e9b6ee19f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/alecrabbit/php-helpers/zipball/3d50c5c7944d44029212443f9ced61214e9f31f7",
-                "reference": "3d50c5c7944d44029212443f9ced61214e9f31f7",
+                "url": "https://api.github.com/repos/alecrabbit/php-helpers/zipball/f0b52eb8fdbabc0149c4bd6f7fcbe63e9b6ee19f",
+                "reference": "f0b52eb8fdbabc0149c4bd6f7fcbe63e9b6ee19f",
                 "shasum": ""
             },
             "require": {
@@ -211,7 +211,7 @@
                 "wrap",
                 "zeros"
             ],
-            "time": "2019-04-19T11:49:04+00:00"
+            "time": "2019-04-24T10:41:02+00:00"
         },
         {
             "name": "krowinski/bcmath-extended",
