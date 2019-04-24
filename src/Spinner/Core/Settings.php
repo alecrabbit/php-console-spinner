@@ -51,33 +51,39 @@ class Settings implements SettingsInterface
                 ->setInlinePaddingStr(null);
     }
 
+    /** {@inheritDoc} */
     public function getInterval(): float
     {
         return $this->interval;
     }
 
+    /** {@inheritDoc} */
     public function setInterval(?float $interval): SettingsInterface
     {
         $this->interval = $interval ?? SettingsInterface::DEFAULT_INTERVAL;
         return $this;
     }
 
+    /** {@inheritDoc} */
     public function getErasingShift(): int
     {
         return $this->erasingShift;
     }
 
+    /** {@inheritDoc} */
     public function setErasingShift(?int $erasingShift): SettingsInterface
     {
         $this->erasingShift = $erasingShift ?? SettingsInterface::DEFAULT_ERASING_SHIFT;
         return $this;
     }
 
+    /** {@inheritDoc} */
     public function getMessage(): string
     {
         return $this->message;
     }
 
+    /** {@inheritDoc} */
     public function setMessage(?string $string): SettingsInterface
     {
         $this->message = $string ?? SettingsInterface::EMPTY;
@@ -89,44 +95,52 @@ class Settings implements SettingsInterface
         return $this;
     }
 
+    /** {@inheritDoc} */
     public function getPrefix(): string
     {
         return $this->prefix;
     }
 
+    /** {@inheritDoc} */
     public function setPrefix(?string $prefix): SettingsInterface
     {
         $this->prefix = $prefix ?? SettingsInterface::ONE_SPACE_SYMBOL;
         return $this;
     }
 
+    /** {@inheritDoc} */
     public function getSuffix(): string
     {
         return $this->suffix;
     }
 
+    /** {@inheritDoc} */
     public function setSuffix(?string $suffix): SettingsInterface
     {
         $this->suffix = $suffix ?? SettingsInterface::DEFAULT_SUFFIX;
         return $this;
     }
 
+    /** {@inheritDoc} */
     public function getInlinePaddingStr(): string
     {
         return $this->inlinePaddingStr;
     }
 
+    /** {@inheritDoc} */
     public function setInlinePaddingStr(?string $inlinePaddingStr): SettingsInterface
     {
         $this->inlinePaddingStr = $inlinePaddingStr ?? SettingsInterface::EMPTY;
         return $this;
     }
 
+    /** {@inheritDoc} */
     public function getSymbols(): array
     {
         return $this->symbols;
     }
 
+    /** {@inheritDoc} */
     public function setSymbols(?array $symbols): SettingsInterface
     {
         if (null !== $symbols && count($symbols) > SettingsInterface::MAX_SYMBOLS_COUNT) {
@@ -138,17 +152,25 @@ class Settings implements SettingsInterface
         return $this;
     }
 
+    /** {@inheritDoc} */
     public function getStyles(): array
     {
         return $this->styles;
     }
 
+    /** {@inheritDoc} */
     public function setStyles(?array $styles): SettingsInterface
     {
         $this->styles = $this->mergeStyles(StylesInterface::DEFAULT_STYLES, $styles ?? []);
         return $this;
     }
 
+    /**
+     * @param array $default_styles
+     * @param array $styles
+     * @return array
+     * todo move to another class?
+     */
     protected function mergeStyles(array $default_styles, array $styles): array
     {
         foreach ($default_styles as $key => $defaults) {
