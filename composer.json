@@ -16,7 +16,7 @@
   "license": "MIT",
   "require": {
     "php": ">=7.2",
-    "alecrabbit/php-accessories": "^0.6",
+    "alecrabbit/php-accessories": "^0.6 || ^0.7",
     "alecrabbit/php-console-colour": "^0.5",
     "alecrabbit/php-helpers": "^0.5"
   },
