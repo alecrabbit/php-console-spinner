@@ -1,11 +1,27 @@
 #!/usr/bin/env bash
 
+set_title () {
+    echo -e "\033]0;${1}\007"
+}
+
 header () {
-    printf "${LIGHT_GRAY}${1}${NC}\n"
+    printf "${CYAN}${1}${NC}\n"
+}
+
+dark () {
+    printf "${DARK}${1}${NC}\n"
 }
 
 info () {
     printf "\n${GREEN}${1}${NC}\n\n"
+}
+
+green () {
+    printf "${GREEN}${1}${NC}\n"
+}
+
+light_green () {
+    printf "${LIGHT_GREEN}${1}${NC}\n"
 }
 
 error () {
@@ -21,10 +37,10 @@ no-exec () {
 }
 
 enabled () {
-    echo " enabled."
+    light_green " enabled."
 }
 disabled () {
-    echo " disabled."
+    dark " disabled."
 }
 
 help_message () {
@@ -50,6 +66,14 @@ fi
 }
 
 options_enabled () {
+    printf "Container restart"
+    if [[ ${RESTART_CONTAINER} == 1 ]]
+    then
+        enabled
+    else
+        disabled
+    fi
+
     printf "Analysis"
     if [[ ${ANALYZE} == 1 ]]
     then
@@ -87,13 +111,6 @@ options_enabled () {
     fi
     printf "Beautifier"
     if [[ ${BEAUTY} == 1 ]]
-    then
-        enabled
-    else
-        disabled
-    fi
-    printf "Container restart"
-    if [[ ${RESTART_CONTAINER} == 1 ]]
     then
         enabled
     else

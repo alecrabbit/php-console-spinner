@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
+dir="$(basename "$(pwd)")"
 start_time=`date +%s`
 script_dir="$(dirname "$0")"
 cd ${script_dir}
 
 . imports.sh "$@"
-
 
 if [[ ${PROPAGATE} == 1 ]]
 then
@@ -24,7 +24,10 @@ OPTION_NO_RESTART=1
 
 help_message
 
-header "Tests and coverage script"
+header "Tests, coverage, analysis and metrics script"
+dark "Setting terminal title... \n'${dir}'"
+set_title "${dir}"
+
 if [[ ${EXEC} == 0 ]]
 then
     echo "No-Exec selected."
