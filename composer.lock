@@ -4,27 +4,30 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b6f7f814391d259eefa13835f7b9a8ba",
+    "content-hash": "e90c80ac358922644389d90b7e0e7506",
     "packages": [
         {
             "name": "alecrabbit/php-accessories",
-            "version": "0.7.0",
+            "version": "0.8.0-BETA.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/alecrabbit/php-accessories.git",
-                "reference": "a51e82f1f6fd988382391b2582f132cadef0f8c4"
+                "reference": "d07170ada19322c07fd2509a98876697b7d23ca1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/alecrabbit/php-accessories/zipball/a51e82f1f6fd988382391b2582f132cadef0f8c4",
-                "reference": "a51e82f1f6fd988382391b2582f132cadef0f8c4",
+                "url": "https://api.github.com/repos/alecrabbit/php-accessories/zipball/d07170ada19322c07fd2509a98876697b7d23ca1",
+                "reference": "d07170ada19322c07fd2509a98876697b7d23ca1",
                 "shasum": ""
             },
             "require": {
                 "alecrabbit/php-helpers": "^0.5",
+                "alecrabbit/php-reports": "^0.0.1",
+                "alecrabbit/php-traits": "^0.3",
                 "php": "^7.2"
             },
             "require-dev": {
+                "kylekatarnls/multi-tester": "^1.1",
                 "nunomaduro/collision": "^3.0",
                 "phpunit/phpunit": "^8.0",
                 "symfony/var-dumper": "^4.2"
@@ -47,13 +50,14 @@
                 "circular",
                 "generator",
                 "iterator",
+                "memory usage",
                 "percent",
                 "pretty",
                 "range",
                 "rewindable",
                 "time"
             ],
-            "time": "2019-04-24T12:14:03+00:00"
+            "time": "2019-04-28T07:27:30+00:00"
         },
         {
             "name": "alecrabbit/php-cli-tools",
@@ -214,6 +218,96 @@
             "time": "2019-04-24T10:41:02+00:00"
         },
         {
+            "name": "alecrabbit/php-reports",
+            "version": "0.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/alecrabbit/php-reports.git",
+                "reference": "3ee6f9a7e02f9c5ec7bfe6df98282084673e920d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/alecrabbit/php-reports/zipball/3ee6f9a7e02f9c5ec7bfe6df98282084673e920d",
+                "reference": "3ee6f9a7e02f9c5ec7bfe6df98282084673e920d",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.2"
+            },
+            "require-dev": {
+                "kylekatarnls/multi-tester": "^1.1",
+                "nunomaduro/collision": "^3.0",
+                "phpunit/phpunit": "^8.0",
+                "symfony/var-dumper": "^4.2"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "AlecRabbit\\Reports\\": "src\\Reports",
+                    "AlecRabbit\\Formatters\\": "src\\Formatters"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "PHP traits to use in every project :)",
+            "keywords": [
+                "formatters",
+                "php",
+                "reports"
+            ],
+            "time": "2019-04-28T07:24:02+00:00"
+        },
+        {
+            "name": "alecrabbit/php-traits",
+            "version": "0.3.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/alecrabbit/php-traits.git",
+                "reference": "e30e42adbb62e2062a20a910c1436a5eddc27490"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/alecrabbit/php-traits/zipball/e30e42adbb62e2062a20a910c1436a5eddc27490",
+                "reference": "e30e42adbb62e2062a20a910c1436a5eddc27490",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.2"
+            },
+            "require-dev": {
+                "kylekatarnls/multi-tester": "^1.1",
+                "nunomaduro/collision": "^3.0",
+                "phpunit/phpunit": "^8.0",
+                "symfony/var-dumper": "^4.2"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "AlecRabbit\\": "src"
+                },
+                "files": [
+                    "src/Traits/constants.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "PHP traits to use in every project :)",
+            "keywords": [
+                "name",
+                "php",
+                "private",
+                "start",
+                "stop",
+                "trait",
+                "traits"
+            ],
+            "time": "2019-04-28T07:34:05+00:00"
+        },
+        {
             "name": "krowinski/bcmath-extended",
             "version": "4.2.1",
             "source": {
@@ -272,16 +366,16 @@
         },
         {
             "name": "nesbot/carbon",
-            "version": "2.17.0",
+            "version": "2.17.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/briannesbitt/Carbon.git",
-                "reference": "9b49d637ad009e5e211142bc7492adcb19dbd645"
+                "reference": "96acbc0c03782e8115156dd4dd8b736267155066"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/9b49d637ad009e5e211142bc7492adcb19dbd645",
-                "reference": "9b49d637ad009e5e211142bc7492adcb19dbd645",
+                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/96acbc0c03782e8115156dd4dd8b736267155066",
+                "reference": "96acbc0c03782e8115156dd4dd8b736267155066",
                 "shasum": ""
             },
             "require": {
@@ -328,7 +422,7 @@
                 "datetime",
                 "time"
             ],
-            "time": "2019-04-17T08:51:36+00:00"
+            "time": "2019-04-27T18:04:27+00:00"
         },
         {
             "name": "symfony/contracts",
@@ -2348,16 +2442,16 @@
         },
         {
             "name": "sebastian/environment",
-            "version": "4.1.0",
+            "version": "4.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/environment.git",
-                "reference": "6fda8ce1974b62b14935adc02a9ed38252eca656"
+                "reference": "3095910f0f0fb155ac4021fc51a4a7a39ac04e8a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/environment/zipball/6fda8ce1974b62b14935adc02a9ed38252eca656",
-                "reference": "6fda8ce1974b62b14935adc02a9ed38252eca656",
+                "url": "https://api.github.com/repos/sebastianbergmann/environment/zipball/3095910f0f0fb155ac4021fc51a4a7a39ac04e8a",
+                "reference": "3095910f0f0fb155ac4021fc51a4a7a39ac04e8a",
                 "shasum": ""
             },
             "require": {
@@ -2372,7 +2466,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "4.1-dev"
+                    "dev-master": "4.2-dev"
                 }
             },
             "autoload": {
@@ -2397,7 +2491,7 @@
                 "environment",
                 "hhvm"
             ],
-            "time": "2019-02-01T05:27:49+00:00"
+            "time": "2019-04-25T07:55:20+00:00"
         },
         {
             "name": "sebastian/exporter",
@@ -3106,7 +3200,7 @@
     "aliases": [],
     "minimum-stability": "beta",
     "stability-flags": [],
-    "prefer-stable": true,
+    "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
         "php": ">=7.2"
