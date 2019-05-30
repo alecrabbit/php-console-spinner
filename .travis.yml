@@ -11,16 +11,11 @@ matrix:
     - php: 7.4snapshot
 #    - php: nightly
 
-addons:
-  apt:
-    packages:
-    - libevent-dev
-
 cache:
   bundler: true
 
 install:
-  - travis_retry ./bin/travis/travis-init.sh
+  - travis_retry ./.travis/travis-init.sh
   - travis_retry composer install --no-interaction --prefer-source
 
 script:

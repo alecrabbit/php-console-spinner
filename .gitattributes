@@ -17,6 +17,7 @@ phpcs.xml          export-ignore
 psalm.xml          export-ignore
 phpunit.xml        export-ignore
 CHANGELOG.md       export-ignore
+TERMINAL_TITLE     export-ignore
 TODO.md            export-ignore
 CONTRIBUTING.md    export-ignore
 README.md          export-ignore
