@@ -8,21 +8,21 @@
     "packages": [
         {
             "name": "alecrabbit/php-accessories",
-            "version": "0.8.0-BETA.1",
+            "version": "0.8.2-BETA.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/alecrabbit/php-accessories.git",
-                "reference": "d07170ada19322c07fd2509a98876697b7d23ca1"
+                "reference": "c8ae305be8c0a8adc2bd2e729d37ab62c7606199"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/alecrabbit/php-accessories/zipball/d07170ada19322c07fd2509a98876697b7d23ca1",
-                "reference": "d07170ada19322c07fd2509a98876697b7d23ca1",
+                "url": "https://api.github.com/repos/alecrabbit/php-accessories/zipball/c8ae305be8c0a8adc2bd2e729d37ab62c7606199",
+                "reference": "c8ae305be8c0a8adc2bd2e729d37ab62c7606199",
                 "shasum": ""
             },
             "require": {
                 "alecrabbit/php-helpers": "^0.5",
-                "alecrabbit/php-reports": "^0.0.1",
+                "alecrabbit/php-reports": "^0.1",
                 "alecrabbit/php-traits": "^0.3",
                 "php": "^7.2"
             },
@@ -57,7 +57,7 @@
                 "rewindable",
                 "time"
             ],
-            "time": "2019-04-28T07:27:30+00:00"
+            "time": "2019-04-29T13:17:07+00:00"
         },
         {
             "name": "alecrabbit/php-cli-tools",
@@ -219,16 +219,16 @@
         },
         {
             "name": "alecrabbit/php-reports",
-            "version": "0.0.1",
+            "version": "0.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/alecrabbit/php-reports.git",
-                "reference": "3ee6f9a7e02f9c5ec7bfe6df98282084673e920d"
+                "reference": "82bc16b5cb3862540a5906aae0e44c7d38e4463a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/alecrabbit/php-reports/zipball/3ee6f9a7e02f9c5ec7bfe6df98282084673e920d",
-                "reference": "3ee6f9a7e02f9c5ec7bfe6df98282084673e920d",
+                "url": "https://api.github.com/repos/alecrabbit/php-reports/zipball/82bc16b5cb3862540a5906aae0e44c7d38e4463a",
+                "reference": "82bc16b5cb3862540a5906aae0e44c7d38e4463a",
                 "shasum": ""
             },
             "require": {
@@ -257,7 +257,7 @@
                 "php",
                 "reports"
             ],
-            "time": "2019-04-28T07:24:02+00:00"
+            "time": "2019-04-29T13:13:45+00:00"
         },
         {
             "name": "alecrabbit/php-traits",
@@ -2961,7 +2961,7 @@
                 },
                 {
                     "name": "Gert de Pagter",
-                    "email": "backendtea@gmail.com"
+                    "email": "BackEndTea@gmail.com"
                 }
             ],
             "description": "Symfony polyfill for ctype functions",
@@ -3199,7 +3199,9 @@
     ],
     "aliases": [],
     "minimum-stability": "beta",
-    "stability-flags": [],
+    "stability-flags": {
+        "alecrabbit/php-accessories": 10
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
