@@ -1,8 +1,10 @@
 <?php /** @noinspection PhpComposerExtensionStubsInspection */
 declare(strict_types=1);
-/**
- * This example requires ext-pcntl
- */
+
+if (!extension_loaded('pcntl')) {
+    echo 'This example requires pcntl extension.' . PHP_EOL;
+    exit(1);
+}
 
 //require_once __DIR__ . '/../vendor/autoload.php';
 require_once __DIR__ . '/../tests/bootstrap.php';
@@ -102,7 +104,7 @@ $s->end(); // Cleaning up
 
 function memory(): string
 {
-    $report = MemoryUsage::report();
+    $report = MemoryUsage::getReport();
     return now() . ' Memory usage: ' . $report->getUsageString();
 }
 
