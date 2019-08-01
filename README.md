@@ -21,6 +21,10 @@ Spinner - your task is running
 
 ![demo](https://raw.githubusercontent.com/alecrabbit/php-console-spinner/master/docs/images/advanced.php.gif)
 
+### Installation
+```bash
+composer require alecrabbit/php-console-spinner
+ ```
 
 ### Usage
 See [examples](https://github.com/alecrabbit/php-console-spinner/tree/master/examples)
