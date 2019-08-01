@@ -110,7 +110,7 @@ function memory(): string
 
 function body(): string
 {
-    return '<html lang="en-US"><title>react</title><body><h1>Hello world!</h1><br>' . memory() . '</body></html>';
+    return '<html lang="en-US"><title>' . basename(__FILE__) . ' demo</title><body><h1>Hello world!</h1><br>' . memory() . '</body></html>';
 }
 
 
