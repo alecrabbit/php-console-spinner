@@ -20,7 +20,7 @@ class Coloring
     protected $percentStyles;
 
     /**
-     * Prototype constructor.
+     * Coloring constructor.
      * @param array $styles
      * @param mixed $color
      */
