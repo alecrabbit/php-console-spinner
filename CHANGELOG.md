@@ -1,6 +1,9 @@
 <a name="unreleased"></a>
 ## [Unreleased]
 
+
+<a name="0.14.7"></a>
+## [0.14.7] - 2019-08-01
 ### Update
 - `advanced.php` example
 
@@ -107,7 +110,8 @@
 <a name="0.2.1-ALPHA.1"></a>
 ## 0.2.1-ALPHA.1 - 2019-04-06
 
-[Unreleased]: https://github.com/alecrabbit/php-console-spinner/compare/0.14.6...HEAD
+[Unreleased]: https://github.com/alecrabbit/php-console-spinner/compare/0.14.7...HEAD
+[0.14.7]: https://github.com/alecrabbit/php-console-spinner/compare/0.14.6...0.14.7
 [0.14.6]: https://github.com/alecrabbit/php-console-spinner/compare/0.14.5...0.14.6
 [0.14.5]: https://github.com/alecrabbit/php-console-spinner/compare/0.14.4...0.14.5
 [0.14.4]: https://github.com/alecrabbit/php-console-spinner/compare/0.14.3...0.14.4
