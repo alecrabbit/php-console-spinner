@@ -1,6 +1,14 @@
 <a name="unreleased"></a>
 ## [Unreleased]
 
+### Add
+- `simple.php` example
+
+### Updated
+- `demo.php.gif`
+- documentation
+- `advanced.php` example
+
 
 <a name="0.14.7"></a>
 ## [0.14.7] - 2019-08-01
