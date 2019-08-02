@@ -21,6 +21,25 @@ Spinner - your task is running
 
 ![demo](https://raw.githubusercontent.com/alecrabbit/php-console-spinner/master/docs/images/advanced.php.gif)
 
+### Quickstart
+
+```php
+require_once __DIR__ . '/vendor/autoload.php';
+
+use AlecRabbit\Spinner\SnakeSpinner;
+
+const ITERATIONS = 50;
+
+$spinner = new SnakeSpinner();
+
+$spinner->begin();
+for ($i = 0; $i <= ITERATIONS; $i++) {
+    usleep(80000); // Simulating work
+    $spinner->spin();
+}
+$spinner->end();
+```
+
 ### Installation
 ```bash
 composer require alecrabbit/php-console-spinner
