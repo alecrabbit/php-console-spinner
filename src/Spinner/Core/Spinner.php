@@ -89,9 +89,9 @@ abstract class Spinner implements SpinnerInterface
     protected function assertOutput($output): void
     {
         if (null !== $output && false !== $output && !$output instanceof SpinnerOutputInterface) {
-            $type = true === $output ? 'true' : typeOf($output);
+            $typeOrValue = true === $output ? 'true' : typeOf($output);
             throw new \InvalidArgumentException(
-                'Incorrect $output param [null|false|SpinnerOutputInterface] expected "' . $type . '" given.'
+                'Incorrect $output param [null|false|SpinnerOutputInterface] expected "' . $typeOrValue . '" given.'
             );
         }
     }
