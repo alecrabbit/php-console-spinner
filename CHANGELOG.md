@@ -1,7 +1,7 @@
 <a name="unreleased"></a>
 ## [Unreleased]
 
-### Add
+### Added
 - `simple.php` example
 
 ### Updated
