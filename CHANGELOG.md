@@ -2,9 +2,11 @@
 ## [Unreleased]
 
 ### Added
+- `quickstart.php` example
 - `simple.php` example
 
 ### Updated
+- README.md
 - `demo.php.gif`
 - documentation
 - `advanced.php` example
