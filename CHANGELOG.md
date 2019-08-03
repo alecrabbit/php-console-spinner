@@ -2,6 +2,7 @@
 ## [Unreleased]
 
 ### Added
+- color finding tool as example
 - `quickstart.php` example
 - `simple.php` example
 
