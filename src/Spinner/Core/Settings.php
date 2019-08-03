@@ -166,19 +166,19 @@ class Settings implements SettingsInterface
     }
 
     /**
-     * @param array $default_styles
+     * @param array $defaultStyles
      * @param array $styles
      * @return array
      * todo move to another class?
      */
-    protected function mergeStyles(array $default_styles, array $styles): array
+    protected function mergeStyles(array $defaultStyles, array $styles): array
     {
-        foreach ($default_styles as $key => $defaults) {
+        foreach ($defaultStyles as $key => $defaults) {
             if (\array_key_exists($key, $styles)) {
                 /** @noinspection SlowArrayOperationsInLoopInspection */
-                $default_styles[$key] = array_merge($default_styles[$key], $styles[$key]);
+                $defaultStyles[$key] = array_merge($defaultStyles[$key], $styles[$key]);
             }
         }
-        return $default_styles;
+        return $defaultStyles;
     }
 }
