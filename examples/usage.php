@@ -1,7 +1,4 @@
 <?php declare(strict_types=1);
-/**
- * This example requires ext-pcntl
- */
 
 //require_once __DIR__ . '/../vendor/autoload.php';
 require_once __DIR__ . '/../tests/bootstrap.php';
@@ -14,10 +11,6 @@ use AlecRabbit\ConsoleColour\Themes;
 use AlecRabbit\Spinner\Core\Contracts\StylesInterface;
 use AlecRabbit\Spinner\MoonSpinner;
 use AlecRabbit\Spinner\SnakeSpinner;
-
-/**
- * It's a very basic example just to show the concept
- */
 
 const ITERATIONS = 100; // Play with this value 100..500
 const MESSAGES = [

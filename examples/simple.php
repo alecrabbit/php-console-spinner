@@ -3,7 +3,6 @@
 require_once __DIR__ . '/../vendor/autoload.php';
 //require_once __DIR__ . '/../tests/bootstrap.php';
 
-use AlecRabbit\Cli\Tools\Cursor;
 use AlecRabbit\Spinner\SnakeSpinner;
 
 /**
@@ -16,9 +15,6 @@ $spinner = new SnakeSpinner();
 // or
 //$spinner = new SnakeSpinner('Message');
 
-echo Cursor::hide();
-echo PHP_EOL;
-
 $spinner->begin();
 for ($i = 0; $i <= ITERATIONS; $i++) {
     usleep(80000); // Simulating work
@@ -27,6 +23,3 @@ for ($i = 0; $i <= ITERATIONS; $i++) {
     //$spinner->spin($i/ITERATIONS);
 }
 $spinner->end();
-
-echo Cursor::show();
-echo PHP_EOL;
