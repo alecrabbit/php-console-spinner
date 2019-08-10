@@ -1,14 +1,7 @@
 
----
 
-- [x] add `$output` param to `Spinner::class` constructor
-- [x] rename styles class `Prototype`
-- [x] solidify API
-- [ ] ~~remove `CircleSpinner::class`?~~ 
-- [x] consider no spinner only percentage
-- [x] make class for styles
-- [x] add styling to message
-- [x] remove `TrigrammSpinner::class`
-- [x] make class for styling
-- [x] consider changeable message  
-    - [x] add percentage
+- [ ] consider multisymbol spinner like `▸▹▹▹▹`
+- [ ] consider to store spinners settings in a json file will be somewhat compatible with Node.js [cli-spinners](https://github.com/sindresorhus/cli-spinners)
+- [ ] add `mb_str_len` to get rid of `ERASING_SHIFT`
+
+---
