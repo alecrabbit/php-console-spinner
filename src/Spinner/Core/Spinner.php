@@ -54,8 +54,8 @@ abstract class Spinner implements SpinnerInterface
         $this->output = $this->refineOutput($output);
         $settings = $this->refineSettings($settings);
         $this->interval = $settings->getInterval();
-        $this->erasingShift = $this->computeErasingShift($settings->getSymbols());
-//        $this->erasingShift = $settings->getErasingShift();
+//        $this->erasingShift = $this->computeErasingShift($settings->getSymbols());
+        $this->erasingShift = $settings->getErasingShift();
         $this->inlinePaddingStr = $settings->getInlinePaddingStr();
         $this->messageStr = $this->getMessageStr($settings);
         $this->setFields();
@@ -138,24 +138,24 @@ abstract class Spinner implements SpinnerInterface
                 ->setStyles(static::STYLES);
     }
 
-    /**
-     * @param array $symbols
-     * @return int
-     */
-    protected function computeErasingShift(array $symbols): int
-    {
-        if (!empty($symbols)) {
-            $symbol = $symbols[0];
-            $symbolLen = mb_strlen($symbol);
-            $oneCharLen = strlen($symbol) / $symbolLen;
-//            dump($oneCharLen, $symbol);
-            if (4 === $oneCharLen) {
-                return 2 * $symbolLen;
-            }
-            return 1 * $symbolLen;
-        }
-        return 0;
-    }
+//    /**
+//     * @param array $symbols
+//     * @return int
+//     */
+//    protected function computeErasingShift(array $symbols): int
+//    {
+//        if (!empty($symbols)) {
+//            $symbol = $symbols[0];
+//            $symbolLen = mb_strlen($symbol);
+//            $oneCharLen = strlen($symbol) / $symbolLen;
+////            dump($oneCharLen, $symbol);
+//            if (4 === $oneCharLen) {
+//                return 2 * $symbolLen;
+//            }
+//            return 1 * $symbolLen;
+//        }
+//        return 0;
+//    }
 
     /**
      * @param SettingsInterface $settings

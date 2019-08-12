@@ -28,6 +28,8 @@ class Settings implements SettingsInterface
     protected $symbols;
     /** @var array */
     protected $styles;
+    /** @var int */
+    protected $messageErasingLen;
 
     /**
      * Settings constructor.
@@ -64,12 +66,12 @@ class Settings implements SettingsInterface
         return $this;
     }
 //
-//    /** {@inheritDoc} */
-//    public function getErasingShift(): int
-//    {
-//        return $this->erasingShift;
-//    }
-//
+    /** {@inheritDoc} */
+    public function getErasingShift(): int
+    {
+        return $this->erasingShift;
+    }
+
 //    /** {@inheritDoc} */
 //    public function setErasingShift(?int $erasingShift): SettingsInterface
 //    {
@@ -87,12 +89,46 @@ class Settings implements SettingsInterface
     public function setMessage(?string $string, ?int $erasingLen = null): SettingsInterface
     {
         $this->message = $string ?? SettingsInterface::EMPTY;
+        $this->messageErasingLen = $this->refineErasingLen($string, $erasingLen);
         if (SettingsInterface::EMPTY === $this->message) {
             $this->setSuffix(SettingsInterface::EMPTY);
         } else {
             $this->setSuffix(SettingsInterface::DEFAULT_SUFFIX);
         }
         return $this;
+    }
+
+    /**
+     * @param null|string $string
+     * @param null|int $erasingLen
+     * @return int
+     */
+    protected function refineErasingLen(?string $string, ?int $erasingLen): int
+    {
+        if (null === $erasingLen) {
+            return $this->computeErasingLen([$string]);
+        }
+        return $erasingLen;
+    }
+
+    /**
+     * @param array $strings
+     * @return int
+     */
+    protected function computeErasingLen(array $strings): int
+    {
+        if (empty($strings)) {
+            return 0;
+        }
+        if (null === $symbol = $strings[0]) {
+            return 0;
+        }
+        $mbSymbolLen = mb_strlen($symbol);
+        $oneCharLen = strlen($symbol) / $mbSymbolLen;
+        if (4 === $oneCharLen) {
+            return 2 * $mbSymbolLen;
+        }
+        return 1 * $mbSymbolLen;
     }
 
     /** {@inheritDoc} */
@@ -149,6 +185,7 @@ class Settings implements SettingsInterface
             );
         }
         $this->symbols = $symbols ?? static::DEFAULT_SYMBOLS;
+        $this->erasingShift = $this->computeErasingLen($this->symbols);
         return $this;
     }
 
@@ -181,4 +218,6 @@ class Settings implements SettingsInterface
         }
         return $defaultStyles;
     }
+
+
 }
