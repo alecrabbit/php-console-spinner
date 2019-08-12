@@ -17,9 +17,9 @@ Spinner - your task is running
 
 ### Demo
 
-![demo2](https://raw.githubusercontent.com/alecrabbit/php-console-spinner/master/docs/images/demo.php.gif)
+![demo](docs/images/demo.svg)
 
-![demo](https://raw.githubusercontent.com/alecrabbit/php-console-spinner/master/docs/images/advanced.php.gif)
+![advanced](docs/images/advanced.svg)
 
 ### Quickstart
 
