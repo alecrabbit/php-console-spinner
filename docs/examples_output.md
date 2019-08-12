@@ -2,14 +2,15 @@
 ```bash
 # php examples/show_all_spinners.php
 ```
-![example](https://raw.githubusercontent.com/alecrabbit/php-console-spinner/master/docs/images/show_all_spinners.php.gif)
+![example](images/all.svg)
 ```bash
 # php examples/usage.php
 ```
-![example](https://raw.githubusercontent.com/alecrabbit/php-console-spinner/master/docs/images/usage.php.gif)
+![example](images/usage.svg)
+
 ```bash
 # php examples/advanced.php
 ```
-![example](https://raw.githubusercontent.com/alecrabbit/php-console-spinner/master/docs/images/advanced.php.gif)
+![example](images/advanced.svg)
 
 > Note: launch browser and check `http://localhost:8080/`
