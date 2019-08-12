@@ -114,19 +114,19 @@ class SpinnerTest extends TestCase
 
         // DO NOT CHANGE ORDER!!!
         $this->assertEquals(
-            Helper::stripEscape("\033[?25l Processing...\033[15D"),
+            Helper::stripEscape("\033[?25l Processing...\033[14D"),
             Helper::stripEscape($begin)
         );
         $this->assertEquals(
-            "\033[?25l Processing...\033[15D",
+            "\033[?25l Processing...\033[14D",
             $begin
         );
         $this->assertEquals(
-            Helper::stripEscape(" Processing...\033[15D"),
+            Helper::stripEscape(" Processing...\033[14D"),
             Helper::stripEscape($spinner->spin())
         );
         $this->assertEquals(
-            Helper::stripEscape("               \033[15D\033[?25h\033[?0c"),
+            Helper::stripEscape("              \033[14D\033[?25h\033[?0c"),
             Helper::stripEscape($spinner->end())
         );
     }
@@ -143,19 +143,19 @@ class SpinnerTest extends TestCase
 
         // DO NOT CHANGE ORDER!!!
         $this->assertEquals(
-            Helper::stripEscape("\033[?25l \033[2D"),
+            Helper::stripEscape("\033[?25l \033[1D"),
             Helper::stripEscape($begin)
         );
         $this->assertEquals(
-            "\033[?25l \033[2D",
+            "\033[?25l \033[1D",
             $begin
         );
         $this->assertEquals(
-            Helper::stripEscape(" \033[2D"),
+            Helper::stripEscape(" \033[1D"),
             Helper::stripEscape($spinner->spin())
         );
         $this->assertEquals(
-            Helper::stripEscape("  \033[2D\033[?25h\033[?0c"),
+            Helper::stripEscape(" \033[1D\033[?25h\033[?0c"),
             Helper::stripEscape($spinner->end())
         );
     }

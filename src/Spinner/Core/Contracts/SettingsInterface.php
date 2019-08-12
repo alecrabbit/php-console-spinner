@@ -25,17 +25,17 @@ interface SettingsInterface
      */
     public function setInterval(?float $interval): SettingsInterface;
 
-    /**
-     * @return int
-     */
-    public function getErasingShift(): int;
-
-    /**
-     * @param null|int $erasingShift
-     * @return SettingsInterface
-     */
-    public function setErasingShift(?int $erasingShift): SettingsInterface;
-
+//    /**
+//     * @return int
+//     */
+//    public function getErasingShift(): int;
+//
+//    /**
+//     * @param null|int $erasingShift
+//     * @return SettingsInterface
+//     */
+//    public function setErasingShift(?int $erasingShift): SettingsInterface;
+//
     /**
      * @return string
      */

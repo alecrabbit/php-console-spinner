@@ -6,7 +6,7 @@ use AlecRabbit\Spinner\Core\Spinner;
 
 class NullSpinner extends Spinner
 {
-    protected const ERASING_SHIFT = 1;
+    // protected const ERASING_SHIFT = 1;
     protected const INTERVAL = 0.125;
     protected const SYMBOLS = [];
 }

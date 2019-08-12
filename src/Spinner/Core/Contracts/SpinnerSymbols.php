@@ -29,6 +29,14 @@ interface SpinnerSymbols
     public const DOT = ['⢀', '⡀', '⠄', '⠂', '⠁', '⠈', '⠐', '⠠',];
     public const DOT_REVERSED = ['⠠', '⠐', '⠈', '⠁', '⠂', '⠄', '⡀', '⢀',];
 
+    public const ARROW_VARIANT_0 = [
+        '▹▹▹▹▹',
+        '▸▹▹▹▹',
+        '▹▸▹▹▹',
+        '▹▹▸▹▹',
+        '▹▹▹▸▹',
+        '▹▹▹▹▸'
+    ];
     public const SNAKE_VARIANT_0 = ['⠏', '⠛', '⠹', '⢸', '⣰', '⣤', '⣆', '⡇',];
     public const SNAKE_VARIANT_1 = ['⣇', '⡏', '⠟', '⠻', '⢹', '⣸', '⣴', '⣦',];
     public const SNAKE_VARIANT_2 = ['⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏'];

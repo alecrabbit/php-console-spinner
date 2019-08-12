@@ -8,7 +8,7 @@ use AlecRabbit\Spinner\Core\Spinner;
 
 class ClockSpinner extends Spinner
 {
-    protected const ERASING_SHIFT = 2;
+    // protected const ERASING_SHIFT = 2;
     protected const INTERVAL = 0.1;
     protected const SYMBOLS = SpinnerSymbols::CLOCK;
     protected const

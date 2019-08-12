@@ -15,7 +15,7 @@ use const AlecRabbit\ESC;
 
 abstract class Spinner implements SpinnerInterface
 {
-    protected const ERASING_SHIFT = SettingsInterface::DEFAULT_ERASING_SHIFT;
+//    protected const ERASING_SHIFT = SettingsInterface::DEFAULT_ERASING_SHIFT;
     protected const INTERVAL = SettingsInterface::DEFAULT_INTERVAL;
     protected const SYMBOLS = SpinnerSymbols::DIAMOND;
     protected const STYLES = [];
@@ -54,12 +54,12 @@ abstract class Spinner implements SpinnerInterface
         $this->output = $this->refineOutput($output);
         $settings = $this->refineSettings($settings);
         $this->interval = $settings->getInterval();
-        $this->erasingShift = $settings->getErasingShift();
+        $this->erasingShift = $this->computeErasingShift($settings->getSymbols());
+//        $this->erasingShift = $settings->getErasingShift();
         $this->inlinePaddingStr = $settings->getInlinePaddingStr();
         $this->messageStr = $this->getMessageStr($settings);
         $this->setFields();
         $this->symbols = new Circular($settings->getSymbols());
-        $this->erasingShift = $this->computeErasingShift($settings->getSymbols());
 
         try {
             $this->style = new Style($settings->getStyles(), $color);
@@ -133,9 +133,28 @@ abstract class Spinner implements SpinnerInterface
         return
             (new Settings())
                 ->setInterval(static::INTERVAL)
-                ->setErasingShift(static::ERASING_SHIFT)
+//                ->setErasingShift(static::ERASING_SHIFT)
                 ->setSymbols(static::SYMBOLS)
                 ->setStyles(static::STYLES);
+    }
+
+    /**
+     * @param array $symbols
+     * @return int
+     */
+    protected function computeErasingShift(array $symbols): int
+    {
+        if (!empty($symbols)) {
+            $symbol = $symbols[0];
+            $symbolLen = mb_strlen($symbol);
+            $oneCharLen = strlen($symbol) / $symbolLen;
+//            dump($oneCharLen, $symbol);
+            if (4 === $oneCharLen) {
+                return 2 * $symbolLen;
+            }
+            return 1 * $symbolLen;
+        }
+        return 0;
     }
 
     /**
@@ -266,20 +285,5 @@ abstract class Spinner implements SpinnerInterface
             return '';
         }
         return $str;
-    }
-
-    /**
-     * @param array $symbols
-     * @return int
-     */
-    protected function computeErasingShift(array $symbols): int
-    {
-        $max = 0;
-        foreach ($symbols as $symbol) {
-            if ($max < $str_len = strlen($symbol)) {
-                $max = $str_len;
-            }
-        }
-        return $max;
     }
 }

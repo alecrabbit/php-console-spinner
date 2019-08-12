@@ -47,7 +47,7 @@ class Settings implements SettingsInterface
                 ->setMessage(null)
                 ->setPrefix(null)
                 ->setInterval(null)
-                ->setErasingShift(null)
+//                ->setErasingShift(null)
                 ->setInlinePaddingStr(null);
     }
 
@@ -63,20 +63,20 @@ class Settings implements SettingsInterface
         $this->interval = $interval ?? SettingsInterface::DEFAULT_INTERVAL;
         return $this;
     }
-
-    /** {@inheritDoc} */
-    public function getErasingShift(): int
-    {
-        return $this->erasingShift;
-    }
-
-    /** {@inheritDoc} */
-    public function setErasingShift(?int $erasingShift): SettingsInterface
-    {
-        $this->erasingShift = $erasingShift ?? SettingsInterface::DEFAULT_ERASING_SHIFT;
-        return $this;
-    }
-
+//
+//    /** {@inheritDoc} */
+//    public function getErasingShift(): int
+//    {
+//        return $this->erasingShift;
+//    }
+//
+//    /** {@inheritDoc} */
+//    public function setErasingShift(?int $erasingShift): SettingsInterface
+//    {
+//        $this->erasingShift = $erasingShift ?? SettingsInterface::DEFAULT_ERASING_SHIFT;
+//        return $this;
+//    }
+//
     /** {@inheritDoc} */
     public function getMessage(): string
     {
