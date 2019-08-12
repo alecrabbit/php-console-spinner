@@ -13,5 +13,5 @@ interface SpinnerOutputInterface
      * @param int             $options  A bitmask of options (one of the OUTPUT or VERBOSITY constants),
      * 0 is considered the same as self::OUTPUT_NORMAL | self::VERBOSITY_NORMAL
      */
-    public function write($messages, $newline = false, $options = 0);
+    public function write($messages, $newline = false, $options = 0): void;
 }
