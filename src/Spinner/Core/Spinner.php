@@ -59,6 +59,8 @@ abstract class Spinner implements SpinnerInterface
         $this->messageStr = $this->getMessageStr($settings);
         $this->setFields();
         $this->symbols = new Circular($settings->getSymbols());
+        $this->erasingShift = $this->computeErasingShift();
+
         try {
             $this->style = new Style($settings->getStyles(), $color);
         } catch (\Throwable $e) {
@@ -264,5 +266,16 @@ abstract class Spinner implements SpinnerInterface
             return '';
         }
         return $str;
+    }
+
+    protected function computeErasingShift(): int
+    {
+        $max = 0;
+        foreach ($this->symbols as $symbol) {
+            if ($max < $str_len = strlen($symbol)) {
+                $max = $str_len;
+            }
+        }
+        return $max;
     }
 }
