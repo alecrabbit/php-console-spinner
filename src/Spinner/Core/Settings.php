@@ -84,7 +84,7 @@ class Settings implements SettingsInterface
     }
 
     /** {@inheritDoc} */
-    public function setMessage(?string $string): SettingsInterface
+    public function setMessage(?string $string, ?int $erasingLen = null): SettingsInterface
     {
         $this->message = $string ?? SettingsInterface::EMPTY;
         if (SettingsInterface::EMPTY === $this->message) {

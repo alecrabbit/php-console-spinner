@@ -43,9 +43,10 @@ interface SettingsInterface
 
     /**
      * @param null|string $string
+     * @param null|int $erasingLen
      * @return SettingsInterface
      */
-    public function setMessage(?string $string): SettingsInterface;
+    public function setMessage(?string $string, ?int $erasingLen = null): SettingsInterface;
 
     /**
      * @return string
