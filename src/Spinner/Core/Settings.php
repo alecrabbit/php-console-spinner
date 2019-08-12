@@ -218,6 +218,4 @@ class Settings implements SettingsInterface
         }
         return $defaultStyles;
     }
-
-
 }
