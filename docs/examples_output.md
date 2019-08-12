@@ -3,7 +3,9 @@
 # php examples/show_all_spinners.php
 ```
 <p align="center">
-<object data="images/all.svg"></object> 
+
+![example](images/all.svg)
+
 </p>
 
 ```bash
