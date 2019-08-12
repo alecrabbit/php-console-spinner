@@ -2,7 +2,10 @@
 ```bash
 # php examples/show_all_spinners.php
 ```
-![example](images/all.svg)
+<p align="center">
+<object data="images/all.svg"></object> 
+</p>
+
 ```bash
 # php examples/usage.php
 ```
