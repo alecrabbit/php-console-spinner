@@ -4,10 +4,9 @@ declare(strict_types=1);
 use AlecRabbit\ConsoleColour\Themes;
 use AlecRabbit\Spinner\Core\Spinner;
 
-if(!extension_loaded('pcdntl')) {
-    echo __FILE__ . ': ext-pcntl is required';
-    exit(1);
-}
+require_once __DIR__ . '/__ext_check.php';
+
+__check_for_extension('pdcntl', 'ext-pcntl is required', __FILE__);
 
 /**
  * @param Spinner $s
