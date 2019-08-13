@@ -1,6 +1,10 @@
 <a name="unreleased"></a>
 ## [Unreleased]
 
+### Feature
+- multibyte fixed message
+- changeable message
+
 ### Updated
 - tests
 
