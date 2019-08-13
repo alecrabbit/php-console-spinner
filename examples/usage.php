@@ -1,4 +1,8 @@
 <?php declare(strict_types=1);
+/**
+ * This example is intended to show how output of your app may look like
+ * and is NOT a code example. Although you can use it as such.
+ */
 
 //require_once __DIR__ . '/../vendor/autoload.php';
 require_once __DIR__ . '/../tests/bootstrap.php';
@@ -14,7 +18,7 @@ use AlecRabbit\Spinner\LineSpinner;
 use AlecRabbit\Spinner\MoonSpinner;
 use AlecRabbit\Spinner\SnakeSpinner;
 
-const ITERATIONS = 100; // Play with this value 100..500
+const ITERATIONS = 40; // Play with this value 100..500
 const MESSAGES = [
     0 => 'Initializing',
     3 => 'Starting',
@@ -47,33 +51,6 @@ echo $theme->comment('Long running task example...') . PHP_EOL;
 echo Cursor::hide();
 echo PHP_EOL;
 
-$message = 'computing';
-display(
-    new class($message) extends SnakeSpinner
-    {
-        protected const
-            STYLES =
-            [
-                StylesInterface::MESSAGE_STYLES =>
-                    [
-                        StylesInterface::COLOR256 => StylesInterface::DISABLED,
-                        StylesInterface::COLOR => [Styles::LIGHT_YELLOW],
-                    ],
-                StylesInterface::PERCENT_STYLES =>
-                    [
-                        StylesInterface::COLOR256 => StylesInterface::DISABLED,
-                        StylesInterface::COLOR => [Styles::RED],
-                    ],
-            ];
-    },
-    $theme,
-    false,
-    [
-        'Extended SnakeSpinner on the next line.',
-        '(With styled message "' . $message . '" and styled percentage)',
-        '',
-    ]
-);
 
 echo $theme->dark('Using spinner: ') . $spinnerClass . PHP_EOL;
 echo PHP_EOL;
@@ -100,6 +77,34 @@ display(
     ['Spinner on the next line', '(With percentage and message "' . $message . '")', '']
 );
 
+$message = 'computing';
+
+display(
+    new class($message) extends SnakeSpinner
+    {
+        protected const
+            STYLES =
+            [
+                StylesInterface::MESSAGE_STYLES =>
+                    [
+                        StylesInterface::COLOR256 => StylesInterface::DISABLED,
+                        StylesInterface::COLOR => [Styles::LIGHT_YELLOW],
+                    ],
+                StylesInterface::PERCENT_STYLES =>
+                    [
+                        StylesInterface::COLOR256 => StylesInterface::DISABLED,
+                        StylesInterface::COLOR => [Styles::RED],
+                    ],
+            ];
+    },
+    $theme,
+    false,
+    [
+        'Extended SnakeSpinner on the next line.',
+        '(With styled message "' . $message . '" and styled percentage)',
+        '',
+    ]
+);
 
 longRun(
     new $spinnerClass(),
