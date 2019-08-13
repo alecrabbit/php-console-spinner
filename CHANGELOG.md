@@ -1,6 +1,12 @@
 <a name="unreleased"></a>
 ## [Unreleased]
 
+### Updated
+- tests
+
+
+<a name="0.15.0-ALPHA.1"></a>
+## [0.15.0-ALPHA.1] - 2019-08-13
 ### Added
 - color finding tool as example
 - `quickstart.php` example
@@ -121,7 +127,8 @@
 <a name="0.2.1-ALPHA.1"></a>
 ## 0.2.1-ALPHA.1 - 2019-04-06
 
-[Unreleased]: https://github.com/alecrabbit/php-console-spinner/compare/0.14.7...HEAD
+[Unreleased]: https://github.com/alecrabbit/php-console-spinner/compare/0.15.0-ALPHA.1...HEAD
+[0.15.0-ALPHA.1]: https://github.com/alecrabbit/php-console-spinner/compare/0.14.7...0.15.0-ALPHA.1
 [0.14.7]: https://github.com/alecrabbit/php-console-spinner/compare/0.14.6...0.14.7
 [0.14.6]: https://github.com/alecrabbit/php-console-spinner/compare/0.14.5...0.14.6
 [0.14.5]: https://github.com/alecrabbit/php-console-spinner/compare/0.14.4...0.14.5
