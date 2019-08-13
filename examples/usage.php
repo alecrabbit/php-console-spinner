@@ -1,4 +1,5 @@
 <?php declare(strict_types=1);
+
 /**
  * This example is intended to show how output of your app may look like
  * and is NOT a code example. Although you can use it as such.
@@ -12,10 +13,8 @@ require_once __DIR__ . '/__include/__helper_functions.php';
 use AlecRabbit\Cli\Tools\Cursor;
 use AlecRabbit\ConsoleColour\Contracts\Styles;
 use AlecRabbit\ConsoleColour\Themes;
-use AlecRabbit\Spinner\BallSpinner;
 use AlecRabbit\Spinner\Core\Contracts\StylesInterface;
 use AlecRabbit\Spinner\LineSpinner;
-use AlecRabbit\Spinner\MoonSpinner;
 use AlecRabbit\Spinner\SnakeSpinner;
 
 const ITERATIONS = 40; // Play with this value 100..500
