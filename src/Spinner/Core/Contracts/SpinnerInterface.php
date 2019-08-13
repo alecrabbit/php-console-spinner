@@ -33,9 +33,10 @@ interface SpinnerInterface
 
     /**
      * @param null|float $percent
+     * @param null|string $message
      * @return string
      */
-    public function spin(?float $percent = null): string;
+    public function spin(?float $percent = null, ?string $message = null): string;
 
     /**
      * @return null|SpinnerOutputInterface

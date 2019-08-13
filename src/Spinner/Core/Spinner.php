@@ -54,11 +54,10 @@ abstract class Spinner implements SpinnerInterface
         $this->output = $this->refineOutput($output);
         $settings = $this->refineSettings($settings);
         $this->interval = $settings->getInterval();
-//        $this->erasingShift = $this->computeErasingShift($settings->getSymbols());
         $this->erasingShift = $settings->getErasingShift();
         $this->inlinePaddingStr = $settings->getInlinePaddingStr();
         $this->messageStr = $this->getMessageStr($settings);
-        $this->setFields();
+        $this->updateProperties();
         $this->symbols = new Circular($settings->getSymbols());
 
         try {
@@ -133,29 +132,9 @@ abstract class Spinner implements SpinnerInterface
         return
             (new Settings())
                 ->setInterval(static::INTERVAL)
-//                ->setErasingShift(static::ERASING_SHIFT)
                 ->setSymbols(static::SYMBOLS)
                 ->setStyles(static::STYLES);
     }
-
-//    /**
-//     * @param array $symbols
-//     * @return int
-//     */
-//    protected function computeErasingShift(array $symbols): int
-//    {
-//        if (!empty($symbols)) {
-//            $symbol = $symbols[0];
-//            $symbolLen = mb_strlen($symbol);
-//            $oneCharLen = strlen($symbol) / $symbolLen;
-////            dump($oneCharLen, $symbol);
-//            if (4 === $oneCharLen) {
-//                return 2 * $symbolLen;
-//            }
-//            return 1 * $symbolLen;
-//        }
-//        return 0;
-//    }
 
     /**
      * @param SettingsInterface $settings
@@ -166,7 +145,7 @@ abstract class Spinner implements SpinnerInterface
         return $settings->getPrefix() . ucfirst($settings->getMessage()) . $settings->getSuffix();
     }
 
-    protected function setFields(): void
+    protected function updateProperties(): void
     {
         $this->percentPrefix = $this->getPercentPrefix();
         $strLen =
@@ -216,7 +195,7 @@ abstract class Spinner implements SpinnerInterface
     public function inline(bool $inline): SpinnerInterface
     {
         $this->inlinePaddingStr = $inline ? SettingsInterface::ONE_SPACE_SYMBOL : SettingsInterface::EMPTY;
-        $this->setFields();
+        $this->updateProperties();
         return $this;
     }
 
@@ -232,10 +211,13 @@ abstract class Spinner implements SpinnerInterface
     }
 
     /** {@inheritDoc} */
-    public function spin(?float $percent = null): string
+    public function spin(?float $percent = null, ?string $message = null): string
     {
         if (null !== $percent) {
             $this->updatePercent($percent);
+        }
+        if (null !== $message) {
+            $this->updateMessage($message);
         }
         $str = $this->inlinePaddingStr .
             $this->style->spinner((string)$this->symbols->value()) .
@@ -261,7 +243,15 @@ abstract class Spinner implements SpinnerInterface
     {
         if (0 === (int)($percent * 1000) % 10) {
             $this->percentStr = Pretty::percent($percent, 0, $this->percentPrefix);
-            $this->setFields();
+            $this->updateProperties();
+        }
+    }
+
+    protected function updateMessage(string $message): void
+    {
+        if ($this->messageStr !== $message) {
+            $this->messageStr = $message;
+            $this->updateProperties();
         }
     }
 

@@ -38,13 +38,15 @@ function longRun(Spinner $s, Themes $theme): void
  * @param bool $inline
  * @param array $exampleMessages
  * @param SpinnerOutputInterface $output
+ * @param bool $updateMessages
  */
 function display(
     Spinner $s,
     Themes $theme,
     bool $inline,
     array $exampleMessages,
-    SpinnerOutputInterface $output = null
+    SpinnerOutputInterface $output = null,
+    bool $updateMessages = false
 ): void {
     $outputIsNull = null === $output;
     $output = $output ?? new EchoOutputAdapter();
@@ -67,6 +69,7 @@ function display(
     } else {
         $s->begin();
     }
+    $currentMessage = null;
     for ($i = 0; $i < ITERATIONS; $i++) {
         usleep($microseconds); // Here you are doing your task
         if (array_key_exists($i, $emulatedMessages)) {
@@ -79,6 +82,9 @@ function display(
             if ($inline) {
                 $output->write('', true);
             }
+            if(true === $updateMessages) {
+                $currentMessage = $emulatedMessages[$i];
+            }
             $output->write($theme->none($emulatedMessages[$i] . '...'));
             if (!$inline) {
                 $output->write('', true);
@@ -88,9 +94,9 @@ function display(
         // (each class has recommended interval for comfortable animation)
         $percent = $i / ITERATIONS;
         if ($outputIsNull) {
-            $output->write($s->spin($percent));
+            $output->write($s->spin($percent, $currentMessage));
         } else {
-            $s->spin($percent);
+            $s->spin($percent, $currentMessage);
         }
     }
     if ($outputIsNull) {

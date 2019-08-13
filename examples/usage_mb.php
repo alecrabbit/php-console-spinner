@@ -14,7 +14,7 @@ use AlecRabbit\Spinner\MoonSpinner;
 use AlecRabbit\Spinner\PercentSpinner;
 use AlecRabbit\Spinner\SnakeSpinner;
 
-const ITERATIONS = 50; // Play with this value 100..500
+const ITERATIONS = 200; // Play with this value 100..500
 const MESSAGES = [
     0 => 'Initializing',
     3 => 'Starting',
@@ -47,8 +47,9 @@ echo $theme->comment('Long running task example...') . PHP_EOL;
 echo Cursor::hide();
 echo PHP_EOL;
 
-$message = 'ᚹädm漢字';
-//$message = 'Processing';
+//$message = 'ᚹädm漢字';
+$message = 'Working';
+$settings = (new \AlecRabbit\Spinner\Core\Settings())->setSymbols(['漢', /*'ä',*/'ᚹ',])->setMessage($message);
 display(
     new class($message) extends ArrowSpinner
     {

@@ -8,7 +8,9 @@ require_once __DIR__ . '/__helper_functions.php';
 use AlecRabbit\Cli\Tools\Cursor;
 use AlecRabbit\ConsoleColour\Contracts\Styles;
 use AlecRabbit\ConsoleColour\Themes;
+use AlecRabbit\Spinner\BallSpinner;
 use AlecRabbit\Spinner\Core\Contracts\StylesInterface;
+use AlecRabbit\Spinner\LineSpinner;
 use AlecRabbit\Spinner\MoonSpinner;
 use AlecRabbit\Spinner\SnakeSpinner;
 
@@ -36,7 +38,7 @@ const MESSAGES = [
 // SimpleSpinner::class
 // SnakeSpinner::class
 
-$spinnerClass = MoonSpinner::class; // DON'T FORGET TO IMPORT! :)
+$spinnerClass = LineSpinner::class; // DON'T FORGET TO IMPORT! :)
 
 $theme = new Themes(); // for colored output if supported
 

@@ -120,15 +120,7 @@ class Settings implements SettingsInterface
         if (empty($strings)) {
             return 0;
         }
-        if (null === $symbol = $strings[0]) {
-            return 0;
-        }
-        $mbSymbolLen = mb_strlen($symbol);
-        $oneCharLen = strlen($symbol) / $mbSymbolLen;
-        if (4 === $oneCharLen) {
-            return 2 * $mbSymbolLen;
-        }
-        return 1 * $mbSymbolLen;
+        return $this->refineStrings($strings);
     }
 
     /** {@inheritDoc} */
@@ -217,5 +209,18 @@ class Settings implements SettingsInterface
             }
         }
         return $defaultStyles;
+    }
+
+    protected function refineStrings(array $strings): int
+    {
+        if (null === $symbol = $strings[0]) {
+            return 0;
+        }
+        $mbSymbolLen = mb_strlen($symbol);
+        $oneCharLen = strlen($symbol) / $mbSymbolLen;
+        if (4 === $oneCharLen) {
+            return 2 * $mbSymbolLen;
+        }
+        return 1 * $mbSymbolLen;
     }
 }
