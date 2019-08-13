@@ -19,9 +19,9 @@ class Settings implements SettingsInterface
     /** @var string */
     protected $message;
     /** @var string */
-    protected $prefix;
+    protected $messagePrefix;
     /** @var string */
-    protected $suffix;
+    protected $messageSuffix;
     /** @var string */
     protected $inlinePaddingStr;
     /** @var array */
@@ -43,11 +43,11 @@ class Settings implements SettingsInterface
     {
         return
             $this
-                ->setSuffix(null)
+                ->setMessageSuffix(null)
                 ->setSymbols(null)
                 ->setStyles(null)
                 ->setMessage(null)
-                ->setPrefix(null)
+                ->setMessagePrefix(null)
                 ->setInterval(null)
 //                ->setErasingShift(null)
                 ->setInlinePaddingStr(null);
@@ -91,9 +91,9 @@ class Settings implements SettingsInterface
         $this->message = $string ?? SettingsInterface::EMPTY;
         $this->messageErasingLen = $this->refineErasingLen($string, $erasingLen);
         if (SettingsInterface::EMPTY === $this->message) {
-            $this->setSuffix(SettingsInterface::EMPTY);
+            $this->setMessageSuffix(SettingsInterface::EMPTY);
         } else {
-            $this->setSuffix(SettingsInterface::DEFAULT_SUFFIX);
+            $this->setMessageSuffix(SettingsInterface::DEFAULT_SUFFIX);
         }
         return $this;
     }
@@ -124,28 +124,28 @@ class Settings implements SettingsInterface
     }
 
     /** {@inheritDoc} */
-    public function getPrefix(): string
+    public function getMessagePrefix(): string
     {
-        return $this->prefix;
+        return $this->messagePrefix;
     }
 
     /** {@inheritDoc} */
-    public function setPrefix(?string $prefix): SettingsInterface
+    public function setMessagePrefix(?string $messagePrefix): SettingsInterface
     {
-        $this->prefix = $prefix ?? SettingsInterface::ONE_SPACE_SYMBOL;
+        $this->messagePrefix = $messagePrefix ?? SettingsInterface::ONE_SPACE_SYMBOL;
         return $this;
     }
 
     /** {@inheritDoc} */
-    public function getSuffix(): string
+    public function getMessageSuffix(): string
     {
-        return $this->suffix;
+        return $this->messageSuffix;
     }
 
     /** {@inheritDoc} */
-    public function setSuffix(?string $suffix): SettingsInterface
+    public function setMessageSuffix(?string $messageSuffix): SettingsInterface
     {
-        $this->suffix = $suffix ?? SettingsInterface::DEFAULT_SUFFIX;
+        $this->messageSuffix = $messageSuffix ?? SettingsInterface::DEFAULT_SUFFIX;
         return $this;
     }
 

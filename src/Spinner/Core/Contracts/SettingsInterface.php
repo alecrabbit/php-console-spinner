@@ -51,24 +51,24 @@ interface SettingsInterface
     /**
      * @return string
      */
-    public function getPrefix(): string;
+    public function getMessagePrefix(): string;
 
     /**
      * @param null|string $prefix
      * @return SettingsInterface
      */
-    public function setPrefix(?string $prefix): SettingsInterface;
+    public function setMessagePrefix(?string $prefix): SettingsInterface;
 
     /**
      * @return string
      */
-    public function getSuffix(): string;
+    public function getMessageSuffix(): string;
 
     /**
      * @param null|string $suffix
      * @return SettingsInterface
      */
-    public function setSuffix(?string $suffix): SettingsInterface;
+    public function setMessageSuffix(?string $suffix): SettingsInterface;
 
     /**
      * @return string

@@ -15,13 +15,18 @@ use const AlecRabbit\ESC;
 
 abstract class Spinner implements SpinnerInterface
 {
-//    protected const ERASING_SHIFT = SettingsInterface::DEFAULT_ERASING_SHIFT;
     protected const INTERVAL = SettingsInterface::DEFAULT_INTERVAL;
     protected const SYMBOLS = SpinnerSymbols::DIAMOND;
     protected const STYLES = [];
 
     /** @var string */
     protected $messageStr;
+    /** @var string */
+    protected $currentMessage;
+    /** @var string */
+    protected $currentMessagePrefix;
+    /** @var string */
+    protected $currentMessageSuffix;
     /** @var string */
     protected $percentStr = '';
     /** @var string */
@@ -56,7 +61,10 @@ abstract class Spinner implements SpinnerInterface
         $this->interval = $settings->getInterval();
         $this->erasingShift = $settings->getErasingShift();
         $this->inlinePaddingStr = $settings->getInlinePaddingStr();
-        $this->messageStr = $this->getMessageStr($settings);
+        $this->currentMessage = $settings->getMessage();
+        $this->currentMessagePrefix = $settings->getMessagePrefix();
+        $this->currentMessageSuffix = $settings->getMessageSuffix();
+        $this->updateMessageStr();
         $this->updateProperties();
         $this->symbols = new Circular($settings->getSymbols());
 
@@ -136,18 +144,14 @@ abstract class Spinner implements SpinnerInterface
                 ->setStyles(static::STYLES);
     }
 
-    /**
-     * @param SettingsInterface $settings
-     * @return string
-     */
-    protected function getMessageStr(SettingsInterface $settings): string
+    protected function updateMessageStr(): void
     {
-        return $settings->getPrefix() . ucfirst($settings->getMessage()) . $settings->getSuffix();
+        $this->messageStr =  $this->currentMessagePrefix . ucfirst($this->currentMessage) . $this->currentMessageSuffix;
     }
 
     protected function updateProperties(): void
     {
-        $this->percentPrefix = $this->getPercentPrefix();
+        $this->percentPrefix = $this->getPercentPrefix(); // TODO move to other location - optimize performance
         $strLen =
             strlen($this->message()) + strlen($this->percent()) + strlen($this->inlinePaddingStr) + $this->erasingShift;
         $this->moveBackSequenceStr = ESC . "[{$strLen}D";
@@ -249,8 +253,9 @@ abstract class Spinner implements SpinnerInterface
 
     protected function updateMessage(string $message): void
     {
-        if ($this->messageStr !== $message) {
-            $this->messageStr = $message;
+        if ($this->currentMessage !== $message) {
+            $this->currentMessage = $message;
+            $this->updateMessageStr();
             $this->updateProperties();
         }
     }
