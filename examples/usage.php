@@ -7,7 +7,7 @@
 //require_once __DIR__ . '/../vendor/autoload.php';
 require_once __DIR__ . '/../tests/bootstrap.php';
 // Please note helpers are used
-require_once __DIR__ . '/__helper_functions.php';
+require_once __DIR__ . '/__include/__helper_functions.php';
 
 use AlecRabbit\Cli\Tools\Cursor;
 use AlecRabbit\ConsoleColour\Contracts\Styles;
