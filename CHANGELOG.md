@@ -1,6 +1,14 @@
 <a name="unreleased"></a>
 ## [Unreleased]
 
+
+<a name="0.15.1-ALPHA.2"></a>
+## [0.15.1-ALPHA.2] - 2019-08-13
+### Added
+- color finding tool as example
+- `quickstart.php` example
+- `simple.php` example
+
 ### Feature
 - multibyte fixed message
 - changeable message
@@ -8,16 +16,6 @@
 ### Updated
 - todo.md
 - tests
-
-
-<a name="0.15.0-ALPHA.1"></a>
-## [0.15.0-ALPHA.1] - 2019-08-13
-### Added
-- color finding tool as example
-- `quickstart.php` example
-- `simple.php` example
-
-### Updated
 - README.md
 - `demo.php.gif`
 - documentation
@@ -132,8 +130,8 @@
 <a name="0.2.1-ALPHA.1"></a>
 ## 0.2.1-ALPHA.1 - 2019-04-06
 
-[Unreleased]: https://github.com/alecrabbit/php-console-spinner/compare/0.15.0-ALPHA.1...HEAD
-[0.15.0-ALPHA.1]: https://github.com/alecrabbit/php-console-spinner/compare/0.14.7...0.15.0-ALPHA.1
+[Unreleased]: https://github.com/alecrabbit/php-console-spinner/compare/0.15.1-ALPHA.2...HEAD
+[0.15.1-ALPHA.2]: https://github.com/alecrabbit/php-console-spinner/compare/0.14.7...0.15.1-ALPHA.2
 [0.14.7]: https://github.com/alecrabbit/php-console-spinner/compare/0.14.6...0.14.7
 [0.14.6]: https://github.com/alecrabbit/php-console-spinner/compare/0.14.5...0.14.6
 [0.14.5]: https://github.com/alecrabbit/php-console-spinner/compare/0.14.4...0.14.5
