@@ -6,7 +6,7 @@ use AlecRabbit\Spinner\Core\Spinner;
 
 require_once __DIR__ . '/__ext_check.php';
 
-__check_for_extension('pdcntl', 'ext-pcntl is required', __FILE__);
+__check_for_extension('pcntl', 'ext-pcntl is required', __FILE__);
 
 /**
  * @param Spinner $s
