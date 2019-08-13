@@ -6,6 +6,11 @@ use AlecRabbit\Spinner\Core\Adapters\EchoOutputAdapter;
 use AlecRabbit\Spinner\Core\Contracts\SpinnerOutputInterface;
 use AlecRabbit\Spinner\Core\Spinner;
 
+if(!extension_loaded('pcntl')) {
+    echo __FILE__ . ': ext-pcntl is required';
+    exit(1);
+}
+
 // ************************ Functions ************************
 /**
  * @param Spinner $s
