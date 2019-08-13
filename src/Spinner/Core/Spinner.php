@@ -103,7 +103,9 @@ abstract class Spinner implements SpinnerInterface
         if (null !== $output && false !== $output && !$output instanceof SpinnerOutputInterface) {
             $typeOrValue = true === $output ? 'true' : typeOf($output);
             throw new \InvalidArgumentException(
-                'Incorrect $output param [null|false|SpinnerOutputInterface] expected "' . $typeOrValue . '" given.'
+                'Incorrect $output param' .
+                ' [null|false|SpinnerOutputInterface] expected'
+                . ' "' . $typeOrValue . '" given.'
             );
         }
     }
@@ -149,15 +151,20 @@ abstract class Spinner implements SpinnerInterface
 
     protected function updateMessageStr(): void
     {
-        $this->messageStr =  $this->currentMessagePrefix . ucfirst($this->currentMessage) . $this->currentMessageSuffix;
+        $this->messageStr = $this->currentMessagePrefix . ucfirst($this->currentMessage) . $this->currentMessageSuffix;
     }
 
     protected function updateProperties(): void
     {
         $this->percentPrefix = $this->getPercentPrefix(); // TODO move to other location - optimize performance
+        // TODO optimize performance add some vars to store len of elements
         $strLen =
-            strlen($this->currentMessagePrefix) + $this->messageErasingLen + strlen($this->currentMessageSuffix) + strlen($this->percent()) + strlen($this->inlinePaddingStr) + $this->erasingShift;
-//            strlen($this->message()) + strlen($this->percent()) + strlen($this->inlinePaddingStr) + $this->erasingShift;
+            strlen($this->currentMessagePrefix) +
+            $this->messageErasingLen +
+            strlen($this->currentMessageSuffix) +
+            strlen($this->percent()) +
+            strlen($this->inlinePaddingStr) +
+            $this->erasingShift;
         $this->moveBackSequenceStr = ESC . "[{$strLen}D";
         $this->eraseBySpacesStr = str_repeat(SettingsInterface::ONE_SPACE_SYMBOL, $strLen);
     }
@@ -171,14 +178,6 @@ abstract class Spinner implements SpinnerInterface
             return SettingsInterface::ONE_SPACE_SYMBOL;
         }
         return SettingsInterface::EMPTY;
-    }
-
-    /**
-     * @return string
-     */
-    protected function message(): string
-    {
-        return $this->messageStr;
     }
 
     /**
@@ -263,6 +262,14 @@ abstract class Spinner implements SpinnerInterface
             $this->updateMessageStr();
             $this->updateProperties();
         }
+    }
+
+    /**
+     * @return string
+     */
+    protected function message(): string
+    {
+        return $this->messageStr;
     }
 
     /** {@inheritDoc} */

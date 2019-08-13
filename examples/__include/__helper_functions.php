@@ -14,6 +14,7 @@ const MESSAGES = [
     10 => 'Begin processing',
     12 => 'Gathering data',
     14 => 'Processing',
+//    17 => 'mᚹä漢d字',
 //    17 => 'Копіювання',
 //    35 => 'Оброблення',
     59 => 'Processing',
