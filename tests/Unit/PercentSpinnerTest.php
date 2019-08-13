@@ -40,6 +40,15 @@ class PercentSpinnerTest extends TestCase
     }
 
     /** @test */
+    public function instanceWithExceptionByMessage(): void
+    {
+        $spinner = new PercentSpinner(self::PROCESSING);
+        $this->expectException(\RuntimeException::class);
+        $this->expectExceptionMessage('Null value expected string given.');
+        $spinner->spin(0.0, 'message');
+    }
+
+    /** @test */
     public function symbols(): void
     {
         $spinner = new PercentSpinner();

@@ -9,6 +9,7 @@ use AlecRabbit\Cli\Tools\Cursor;
 use AlecRabbit\ConsoleColour\Contracts\Styles;
 use AlecRabbit\ConsoleColour\Themes;
 use AlecRabbit\Spinner\ArrowSpinner;
+use AlecRabbit\Spinner\BallSpinner;
 use AlecRabbit\Spinner\Core\Contracts\StylesInterface;
 use AlecRabbit\Spinner\MoonSpinner;
 use AlecRabbit\Spinner\PercentSpinner;
@@ -32,92 +33,18 @@ echo $theme->comment('Long running task example...') . PHP_EOL;
 echo Cursor::hide();
 echo PHP_EOL;
 
-//$message = 'ᚹädm漢字';
-$message = 'Working';
-//$settings = (new \AlecRabbit\Spinner\Core\Settings())->setSymbols(['漢', /*'ä',*/'ᚹ',])->setMessage($message);
+$message = 'ᚹädm漢字';
+//$message = 'prcessing';
+$settings = (new \AlecRabbit\Spinner\Core\Settings())->setMessage($message, 3);
+
 display(
-    new class($message) extends ArrowSpinner
-    {
-        protected const
-            STYLES =
-            [
-                StylesInterface::MESSAGE_STYLES =>
-                    [
-                        StylesInterface::COLOR256 => StylesInterface::DISABLED,
-                        StylesInterface::COLOR => [Styles::LIGHT_YELLOW],
-                    ],
-                StylesInterface::PERCENT_STYLES =>
-                    [
-                        StylesInterface::COLOR256 => StylesInterface::DISABLED,
-                        StylesInterface::COLOR => [Styles::RED],
-                    ],
-            ];
-    },
+    new MoonSpinner($settings),
     $theme,
     true,
-    [
-        'Extended SnakeSpinner on the next line.',
-        '(With styled message "' . $message . '" and styled percentage)',
-        '',
-    ],
-    null,
-    true
-);
-display(
-    new class($message) extends ArrowSpinner
-    {
-        protected const
-            STYLES =
-            [
-                StylesInterface::MESSAGE_STYLES =>
-                    [
-                        StylesInterface::COLOR256 => StylesInterface::DISABLED,
-                        StylesInterface::COLOR => [Styles::LIGHT_YELLOW],
-                    ],
-                StylesInterface::PERCENT_STYLES =>
-                    [
-                        StylesInterface::COLOR256 => StylesInterface::DISABLED,
-                        StylesInterface::COLOR => [Styles::RED],
-                    ],
-            ];
-    },
-    $theme,
-    false,
     [
         'Extended SnakeSpinner on the next line.',
         '(With styled message "' . $message . '" and styled percentage)',
         '',
     ]
 );
-
-echo $theme->dark('Using spinner: ') . $spinnerClass . PHP_EOL;
-echo PHP_EOL;
-
-display(
-    new PercentSpinner(),
-    $theme,
-    true,
-    ['Inline Spinner', '(With percentage, No message)']
-);
-
-display(
-    new $spinnerClass(),
-    $theme,
-    false,
-    ['Spinner on the next line', '(With percentage, No message)', '']
-);
-
-$message = 'processing';
-display(
-    new $spinnerClass($message),
-    $theme,
-    false,
-    ['Spinner on the next line', '(With percentage and message "' . $message . '")', '']
-);
-
-
-longRun(
-    new $spinnerClass(),
-    $theme);
-
 //echo "\007Bell!" . PHP_EOL; // just for fun

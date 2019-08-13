@@ -12,6 +12,7 @@ use const AlecRabbit\NO_COLOR_TERMINAL;
 class SpinnerTest extends TestCase
 {
     protected const PROCESSING = 'Processing';
+    protected const COMPUTING = 'computing';
 
     /** @test */
     public function instance(): void
@@ -30,6 +31,30 @@ class SpinnerTest extends TestCase
         $this->assertStringContainsString(SettingsInterface::ONE_SPACE_SYMBOL, $spinner->spin());
         $this->assertStringContainsString(SettingsInterface::DEFAULT_SUFFIX, $spinner->spin());
         $this->assertStringNotContainsString(self::PROCESSING, $spinner->end());
+    }
+
+    /** @test */
+    public function instanceWithUpdatingMessage(): void
+    {
+        $messageComputing = ucfirst(self::COMPUTING);
+
+        $spinner = new ExtendedSpinner(self::PROCESSING, false);
+        $this->assertInstanceOf(Spinner::class, $spinner);
+        $this->assertSame(0.1, $spinner->interval());
+        $this->assertNull($spinner->getOutput());
+        $this->assertIsString($spinner->begin());
+        $this->assertIsString($spinner->spin(null, self::PROCESSING));
+        $this->assertIsString($spinner->end());
+        $this->assertStringContainsString(self::PROCESSING, $spinner->begin());
+        $this->assertStringContainsString(SettingsInterface::ONE_SPACE_SYMBOL, $spinner->begin());
+        $this->assertStringContainsString(SettingsInterface::DEFAULT_SUFFIX, $spinner->begin());
+        $this->assertStringContainsString(self::PROCESSING, $spinner->spin(null, self::PROCESSING));
+        $this->assertStringContainsString(SettingsInterface::ONE_SPACE_SYMBOL, $spinner->spin(null, self::PROCESSING));
+        $this->assertStringContainsString(SettingsInterface::DEFAULT_SUFFIX, $spinner->spin(null, self::PROCESSING));
+        $this->assertStringContainsString($messageComputing, $spinner->spin(null, self::COMPUTING));
+        $this->assertStringContainsString(SettingsInterface::ONE_SPACE_SYMBOL, $spinner->spin(null, self::COMPUTING));
+        $this->assertStringContainsString(SettingsInterface::DEFAULT_SUFFIX, $spinner->spin(null, self::COMPUTING));
+        $this->assertStringNotContainsString($messageComputing, $spinner->end());
     }
 
     /** @test */

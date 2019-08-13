@@ -223,4 +223,12 @@ class Settings implements SettingsInterface
         }
         return 1 * $mbSymbolLen;
     }
+
+    /**
+     * @return int
+     */
+    public function getMessageErasingLen(): int
+    {
+        return $this->messageErasingLen;
+    }
 }
