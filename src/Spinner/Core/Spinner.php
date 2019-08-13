@@ -47,6 +47,8 @@ abstract class Spinner implements SpinnerInterface
     protected $symbols;
     /** @var null|SpinnerOutputInterface */
     protected $output;
+    /** @var int */
+    protected $messageErasingLen;
 
     /**
      * AbstractSpinner constructor.
@@ -62,6 +64,7 @@ abstract class Spinner implements SpinnerInterface
         $this->erasingShift = $settings->getErasingShift();
         $this->inlinePaddingStr = $settings->getInlinePaddingStr();
         $this->currentMessage = $settings->getMessage();
+        $this->messageErasingLen = $settings->getMessageErasingLen();
         $this->currentMessagePrefix = $settings->getMessagePrefix();
         $this->currentMessageSuffix = $settings->getMessageSuffix();
         $this->updateMessageStr();
@@ -153,7 +156,8 @@ abstract class Spinner implements SpinnerInterface
     {
         $this->percentPrefix = $this->getPercentPrefix(); // TODO move to other location - optimize performance
         $strLen =
-            strlen($this->message()) + strlen($this->percent()) + strlen($this->inlinePaddingStr) + $this->erasingShift;
+            strlen($this->currentMessagePrefix) + $this->messageErasingLen + strlen($this->currentMessageSuffix) + strlen($this->percent()) + strlen($this->inlinePaddingStr) + $this->erasingShift;
+//            strlen($this->message()) + strlen($this->percent()) + strlen($this->inlinePaddingStr) + $this->erasingShift;
         $this->moveBackSequenceStr = ESC . "[{$strLen}D";
         $this->eraseBySpacesStr = str_repeat(SettingsInterface::ONE_SPACE_SYMBOL, $strLen);
     }
@@ -255,6 +259,7 @@ abstract class Spinner implements SpinnerInterface
     {
         if ($this->currentMessage !== $message) {
             $this->currentMessage = $message;
+            $this->messageErasingLen = strlen($message);
             $this->updateMessageStr();
             $this->updateProperties();
         }

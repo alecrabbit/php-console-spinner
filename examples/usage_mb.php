@@ -8,12 +8,9 @@ require_once __DIR__ . '/__include/__helper_functions.php';
 use AlecRabbit\Cli\Tools\Cursor;
 use AlecRabbit\ConsoleColour\Contracts\Styles;
 use AlecRabbit\ConsoleColour\Themes;
-use AlecRabbit\Spinner\ArrowSpinner;
-use AlecRabbit\Spinner\BallSpinner;
+use AlecRabbit\Spinner\Core\Contracts\SpinnerSymbols;
 use AlecRabbit\Spinner\Core\Contracts\StylesInterface;
 use AlecRabbit\Spinner\MoonSpinner;
-use AlecRabbit\Spinner\PercentSpinner;
-use AlecRabbit\Spinner\SnakeSpinner;
 
 const ITERATIONS = 200; // Play with this value 100..500
 
@@ -26,23 +23,36 @@ const ITERATIONS = 200; // Play with this value 100..500
 
 $spinnerClass = MoonSpinner::class; // DON'T FORGET TO IMPORT! :)
 
-$theme = new Themes(); // for colored output if supported
+$themes = new Themes(); // for colored output if supported
 
-echo $theme->comment('Long running task example...') . PHP_EOL;
+echo $themes->comment('Long running task example...') . PHP_EOL;
 
-echo Cursor::hide();
-echo PHP_EOL;
-
-$message = 'ᚹädm漢字';
-//$message = 'prcessing';
-$settings = (new \AlecRabbit\Spinner\Core\Settings())->setMessage($message, 3);
+$message = 'mᚹä漢d字'; // Random characters
+$settings =
+    (new \AlecRabbit\Spinner\Core\Settings())
+        ->setSymbols(SpinnerSymbols::BALL_VARIANT_0)
+        ->setStyles(
+            [
+                StylesInterface::MESSAGE_STYLES =>
+                    [
+                        StylesInterface::COLOR256 => StylesInterface::DISABLED,
+                        StylesInterface::COLOR => [Styles::LIGHT_YELLOW],
+                    ],
+                StylesInterface::PERCENT_STYLES =>
+                    [
+                        StylesInterface::COLOR256 => StylesInterface::C256_RAINBOW,
+                        StylesInterface::COLOR => [Styles::RED],
+                    ],
+            ]
+        )
+        ->setMessage($message, 8);
 
 display(
-    new MoonSpinner($settings),
-    $theme,
+    new MoonSpinner($settings), // MoonSpinner overridden by $settings
+    $themes,
     true,
     [
-        'Extended SnakeSpinner on the next line.',
+        'Overridden MoonSpinner on the next line.',
         '(With styled message "' . $message . '" and styled percentage)',
         '',
     ]

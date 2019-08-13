@@ -11,7 +11,7 @@ class SettingsTest extends TestCase
 {
     protected const PROCESSING = 'Processing';
     protected const COMPUTING = 'Computing';
-    protected const MB_STRING = 'ᚹädm漢字';
+    protected const MB_STRING_1 = 'ᚹädm漢字';
 
     /**
      * @test
@@ -34,8 +34,8 @@ class SettingsTest extends TestCase
         $settings->setMessage(self::COMPUTING, 9);
         $this->assertEquals($settings->getMessage(), self::COMPUTING);
         $this->assertEquals($settings->getMessageErasingLen(), 9);
-        $settings->setMessage(self::MB_STRING);
-        $this->assertEquals($settings->getMessage(), self::MB_STRING);
+        $settings->setMessage(self::MB_STRING_1);
+        $this->assertEquals($settings->getMessage(), self::MB_STRING_1);
         $this->assertEquals($settings->getMessageErasingLen(), 6);
     }
 }

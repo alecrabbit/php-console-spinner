@@ -42,11 +42,11 @@ interface SettingsInterface
     public function getMessage(): string;
 
     /**
-     * @param null|string $string
+     * @param null|string $message
      * @param null|int $erasingLen
      * @return SettingsInterface
      */
-    public function setMessage(?string $string, ?int $erasingLen = null): SettingsInterface;
+    public function setMessage(?string $message, ?int $erasingLen = null): SettingsInterface;
 
     /**
      * @return string
@@ -102,4 +102,9 @@ interface SettingsInterface
      * @return SettingsInterface
      */
     public function setStyles(?array $styles): SettingsInterface;
+
+    /**
+     * @return int
+     */
+    public function getMessageErasingLen(): int;
 }

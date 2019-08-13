@@ -23,7 +23,7 @@ const ITERATIONS = 200; // Play with this value 100..500
 // SimpleSpinner::class
 // SnakeSpinner::class
 
-$spinnerClass = MoonSpinner::class; // DON'T FORGET TO IMPORT! :)
+$spinnerClass = SnakeSpinner::class; // DON'T FORGET TO IMPORT! :)
 
 $theme = new Themes(); // for colored output if supported
 
@@ -32,9 +32,7 @@ echo $theme->comment('Long running task example...') . PHP_EOL;
 echo Cursor::hide();
 echo PHP_EOL;
 
-//$message = 'ᚹädm漢字';
 $message = 'Working';
-//$settings = (new \AlecRabbit\Spinner\Core\Settings())->setSymbols(['漢', /*'ä',*/'ᚹ',])->setMessage($message);
 display(
     new class($message) extends ArrowSpinner
     {
@@ -44,11 +42,11 @@ display(
                 StylesInterface::MESSAGE_STYLES =>
                     [
                         StylesInterface::COLOR256 => StylesInterface::DISABLED,
-                        StylesInterface::COLOR => [Styles::LIGHT_YELLOW],
+                        StylesInterface::COLOR => [Styles::LIGHT_BLUE],
                     ],
                 StylesInterface::PERCENT_STYLES =>
                     [
-                        StylesInterface::COLOR256 => StylesInterface::DISABLED,
+                        StylesInterface::COLOR256 => StylesInterface::C256_YELLOW_WHITE,
                         StylesInterface::COLOR => [Styles::RED],
                     ],
             ];
@@ -56,8 +54,8 @@ display(
     $theme,
     true,
     [
-        'Extended SnakeSpinner on the next line.',
-        '(With styled message "' . $message . '" and styled percentage)',
+        'Extended inline ArrowSpinner.',
+        '(With styled process messages and styled percentage)',
         '',
     ],
     null,
@@ -84,7 +82,7 @@ display(
     $theme,
     false,
     [
-        'Extended SnakeSpinner on the next line.',
+        'Extended ArrowSpinner on the next line.',
         '(With styled message "' . $message . '" and styled percentage)',
         '',
     ]

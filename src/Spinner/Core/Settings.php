@@ -66,6 +66,7 @@ class Settings implements SettingsInterface
         return $this;
     }
 //
+
     /** {@inheritDoc} */
     public function getErasingShift(): int
     {
@@ -86,10 +87,10 @@ class Settings implements SettingsInterface
     }
 
     /** {@inheritDoc} */
-    public function setMessage(?string $string, ?int $erasingLen = null): SettingsInterface
+    public function setMessage(?string $message, ?int $erasingLen = null): SettingsInterface
     {
-        $this->message = $string ?? SettingsInterface::EMPTY;
-        $this->messageErasingLen = $this->refineErasingLen($string, $erasingLen);
+        $this->message = $message ?? SettingsInterface::EMPTY;
+        $this->messageErasingLen = $this->refineErasingLen($message, $erasingLen);
         if (SettingsInterface::EMPTY === $this->message) {
             $this->setMessageSuffix(SettingsInterface::EMPTY);
         } else {
@@ -120,7 +121,22 @@ class Settings implements SettingsInterface
         if (empty($strings)) {
             return 0;
         }
-        return $this->refineStrings($strings);
+        return $this->compErasingLen($strings);
+    }
+
+    private function compErasingLen(array $strings): int
+    {
+        // TODO check if all elements have the same erasingLen
+
+        if (null === $symbol = $strings[0]) {
+            return 0;
+        }
+        $mbSymbolLen = mb_strlen($symbol);
+        $oneCharLen = strlen($symbol) / $mbSymbolLen;
+        if (4 === $oneCharLen) {
+            return 2 * $mbSymbolLen;
+        }
+        return 1 * $mbSymbolLen;
     }
 
     /** {@inheritDoc} */
@@ -209,19 +225,6 @@ class Settings implements SettingsInterface
             }
         }
         return $defaultStyles;
-    }
-
-    protected function refineStrings(array $strings): int
-    {
-        if (null === $symbol = $strings[0]) {
-            return 0;
-        }
-        $mbSymbolLen = mb_strlen($symbol);
-        $oneCharLen = strlen($symbol) / $mbSymbolLen;
-        if (4 === $oneCharLen) {
-            return 2 * $mbSymbolLen;
-        }
-        return 1 * $mbSymbolLen;
     }
 
     /**
