@@ -8,6 +8,22 @@ use AlecRabbit\Spinner\Core\Spinner;
 
 require_once __DIR__ . '/__long_run_function.php';
 
+const MESSAGES = [
+    0 => 'Initializing',
+    3 => 'Starting',
+    10 => 'Begin processing',
+    12 => 'Gathering data',
+    15 => 'Processing',
+    30 => 'Processing',
+    55 => 'Processing',
+    74 => 'Processing',
+    78 => 'Processing',
+    80 => 'Still processing',
+    88 => 'Still processing',
+    90 => 'Almost there',
+    95 => 'Be patient',
+];
+
 /**
  * @param Spinner $s
  * @param Themes $theme
@@ -55,14 +71,15 @@ function display(
             } else {
                 $s->erase();
             }
-            if ($inline) {
+            if (!$updateMessages && $inline) {
                 $output->write('', true);
             }
-            if(true === $updateMessages) {
+            if ($updateMessages) {
                 $currentMessage = $emulatedMessages[$i];
+            } else {
+                $output->write($theme->none($emulatedMessages[$i] . '...'));
             }
-            $output->write($theme->none($emulatedMessages[$i] . '...'));
-            if (!$inline) {
+            if (!$updateMessages && !$inline) {
                 $output->write('', true);
             }
         }

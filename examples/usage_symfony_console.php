@@ -12,21 +12,6 @@ use AlecRabbit\Spinner\SnakeSpinner;
 use Symfony\Component\Console\Output\ConsoleOutput;
 
 const ITERATIONS = 100; // Play with this value 100..500
-const MESSAGES = [
-    0 => 'Initializing',
-    3 => 'Starting',
-    10 => 'Begin processing',
-    12 => 'Gathering data',
-    15 => 'Processing',
-    30 => 'Processing',
-    55 => 'Processing',
-    74 => 'Processing',
-    78 => 'Processing',
-    80 => 'Still processing',
-    88 => 'Still processing',
-    90 => 'Almost there',
-    95 => 'Be patient',
-];
 
 //// Try different  spinners:
 // CircleSpinner::class

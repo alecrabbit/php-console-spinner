@@ -15,21 +15,6 @@ use AlecRabbit\Spinner\PercentSpinner;
 use AlecRabbit\Spinner\SnakeSpinner;
 
 const ITERATIONS = 200; // Play with this value 100..500
-const MESSAGES = [
-    0 => 'Initializing',
-    3 => 'Starting',
-    10 => 'Begin processing',
-    12 => 'Gathering data',
-    15 => 'Processing',
-    30 => 'Processing',
-    55 => 'Processing',
-    74 => 'Processing',
-    78 => 'Processing',
-    80 => 'Still processing',
-    88 => 'Still processing',
-    90 => 'Almost there',
-    95 => 'Be patient',
-];
 
 //// Try different  spinners:
 // CircleSpinner::class
@@ -49,7 +34,7 @@ echo PHP_EOL;
 
 //$message = 'ᚹädm漢字';
 $message = 'Working';
-$settings = (new \AlecRabbit\Spinner\Core\Settings())->setSymbols(['漢', /*'ä',*/'ᚹ',])->setMessage($message);
+//$settings = (new \AlecRabbit\Spinner\Core\Settings())->setSymbols(['漢', /*'ä',*/'ᚹ',])->setMessage($message);
 display(
     new class($message) extends ArrowSpinner
     {
@@ -74,7 +59,9 @@ display(
         'Extended SnakeSpinner on the next line.',
         '(With styled message "' . $message . '" and styled percentage)',
         '',
-    ]
+    ],
+    null,
+    true
 );
 display(
     new class($message) extends ArrowSpinner
