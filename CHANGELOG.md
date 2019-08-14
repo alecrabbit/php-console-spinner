@@ -1,7 +1,11 @@
 <a name="unreleased"></a>
 ## [Unreleased]
 
+### Add
+- async example
+
 ### Changed
+- `Symbols` a renamed to `Frames`
 - default frames set for `BlockSpinner`
 
 
