@@ -1,19 +1,11 @@
 <a name="unreleased"></a>
 ## [Unreleased]
 
+
+<a name="0.15.1-ALPHA.3"></a>
+## [0.15.1-ALPHA.3] - 2019-08-14
 ### Added
 - `advanced_plus.php` example
-
-### Renamed
-- `SpinnerSumbols` to `Symbols`
-
-### Updated
-- `usage_experiment.php` example
-
-
-<a name="0.15.1-ALPHA.2"></a>
-## [0.15.1-ALPHA.2] - 2019-08-13
-### Added
 - color finding tool as example
 - `quickstart.php` example
 - `simple.php` example
@@ -22,7 +14,11 @@
 - multibyte fixed message
 - changeable message
 
+### Renamed
+- `SpinnerSumbols` to `Symbols`
+
 ### Updated
+- `usage_experiment.php` example
 - todo.md
 - tests
 - README.md
@@ -139,8 +135,8 @@
 <a name="0.2.1-ALPHA.1"></a>
 ## 0.2.1-ALPHA.1 - 2019-04-06
 
-[Unreleased]: https://github.com/alecrabbit/php-console-spinner/compare/0.15.1-ALPHA.2...HEAD
-[0.15.1-ALPHA.2]: https://github.com/alecrabbit/php-console-spinner/compare/0.14.7...0.15.1-ALPHA.2
+[Unreleased]: https://github.com/alecrabbit/php-console-spinner/compare/0.15.1-ALPHA.3...HEAD
+[0.15.1-ALPHA.3]: https://github.com/alecrabbit/php-console-spinner/compare/0.14.7...0.15.1-ALPHA.3
 [0.14.7]: https://github.com/alecrabbit/php-console-spinner/compare/0.14.6...0.14.7
 [0.14.6]: https://github.com/alecrabbit/php-console-spinner/compare/0.14.5...0.14.6
 [0.14.5]: https://github.com/alecrabbit/php-console-spinner/compare/0.14.4...0.14.5
