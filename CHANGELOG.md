@@ -7,6 +7,9 @@
 ### Renamed
 - `SpinnerSumbols` to `Symbols`
 
+### Updated
+- `usage_experiment.php` example
+
 
 <a name="0.15.1-ALPHA.2"></a>
 ## [0.15.1-ALPHA.2] - 2019-08-13

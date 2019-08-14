@@ -51,5 +51,4 @@ interface StylesInterface
     public const C_LIGHT_YELLOW = [Styles::LIGHT_YELLOW];
     public const C_LIGHT_CYAN = [Styles::LIGHT_CYAN];
     public const C_DARK = [Styles::DARK];
-
 }
