@@ -10,7 +10,8 @@ use AlecRabbit\ConsoleColour\Contracts\Styles;
 use AlecRabbit\ConsoleColour\Themes;
 use AlecRabbit\Spinner\ArrowSpinner;
 use AlecRabbit\Spinner\Core\Contracts\StylesInterface;
-use AlecRabbit\Spinner\MoonSpinner;
+use AlecRabbit\Spinner\Core\Contracts\Symbols;
+use AlecRabbit\Spinner\Core\Settings;
 use AlecRabbit\Spinner\PercentSpinner;
 use AlecRabbit\Spinner\SnakeSpinner;
 
@@ -52,7 +53,7 @@ display(
             ];
     },
     $theme,
-    true,
+    false,
     [
         'Extended inline ArrowSpinner.',
         '(With styled process messages and styled percentage)',
@@ -61,23 +62,28 @@ display(
     null,
     true
 );
-display(
-    new class($message) extends ArrowSpinner
-    {
-        protected const
-            STYLES =
+$settings = new Settings();
+
+$settings
+    ->setSymbols(Symbols::BALL_VARIANT_0)
+    ->setMessage(' ')
+    ->setMessageSuffix(' ')
+    ->setStyles([
+        StylesInterface::MESSAGE_STYLES =>
             [
-                StylesInterface::MESSAGE_STYLES =>
-                    [
-                        StylesInterface::COLOR256 => StylesInterface::DISABLED,
-                        StylesInterface::COLOR => [Styles::LIGHT_YELLOW],
-                    ],
-                StylesInterface::PERCENT_STYLES =>
-                    [
-                        StylesInterface::COLOR256 => StylesInterface::DISABLED,
-                        StylesInterface::COLOR => [Styles::RED],
-                    ],
-            ];
+                StylesInterface::COLOR256 => StylesInterface::DISABLED,
+                StylesInterface::COLOR => [Styles::LIGHT_YELLOW],
+            ],
+        StylesInterface::PERCENT_STYLES =>
+            [
+                StylesInterface::COLOR256 => StylesInterface::DISABLED,
+                StylesInterface::COLOR => [Styles::RED],
+            ],
+    ]);
+
+display_new(
+    new class($settings) extends ArrowSpinner
+    {
     },
     $theme,
     false,

@@ -108,6 +108,82 @@ function display(
 }
 
 /**
+ * @param Spinner $s
+ * @param Themes $theme
+ * @param bool $inline
+ * @param array $exampleMessages
+ * @param SpinnerOutputInterface $output
+ */
+function display_new(
+    Spinner $s,
+    Themes $theme,
+    bool $inline,
+    array $exampleMessages,
+    SpinnerOutputInterface $output = null
+): void {
+    $outputIsNull = null === $output;
+    $output = $output ?? new EchoOutputAdapter();
+    $output->write('-------------------------', true);
+    $s->inline($inline);
+    $emulatedMessages = scaleEmulatedMessages();
+    $microseconds = (int)($s->interval() * 1000000);
+
+    $output->write($theme->lightCyan('Example: '), true);
+    foreach ($exampleMessages as $m) {
+        $output->write($theme->lightCyan($m), true);
+
+    }
+    if (!$inline) {
+        $output->write('', true);
+    }
+
+    if ($outputIsNull) {
+        $output->write($s->begin());
+    } else {
+        $s->begin();
+    }
+    $currentMessage = null;
+    for ($i = 0; $i < ITERATIONS; $i++) {
+        usleep($microseconds); // Here you are doing your task
+        if (array_key_exists($i, $emulatedMessages)) {
+            // It's your job to echo erase sequence when needed
+            if ($outputIsNull) {
+                $output->write($s->erase());
+            } else {
+                $s->erase();
+            }
+            if ($inline) {
+                $output->write('', true);
+            }
+            $output->write($theme->none($emulatedMessages[$i] . '...'));
+            if (!$inline) {
+                $output->write('', true);
+            }
+        }
+        $currentMessage = date('D Y-m-d H:i:s');
+        // It's your job to call spin() with approx. equal intervals
+        // (each class has recommended interval for comfortable animation)
+        $percent = $i / ITERATIONS;
+        if ($outputIsNull) {
+            $output->write($s->spin($percent, $currentMessage));
+        } else {
+            $s->spin($percent, $currentMessage);
+        }
+    }
+    if ($outputIsNull) {
+        $output->write($s->end());
+    } else {
+        $s->end();
+    }
+    if ($inline) {
+        $output->write('', true);
+    }
+    $output->write($theme->none('Done!') . PHP_EOL, true);
+
+    $output->write('', true);
+}
+
+/**
  * @return array
  */
 function scaleEmulatedMessages(): array
