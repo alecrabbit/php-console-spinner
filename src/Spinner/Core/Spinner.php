@@ -222,8 +222,7 @@ abstract class Spinner implements SpinnerInterface
     {
 //        $start = hrtime(true);
         if ((null !== $percent) && 0 === (int)($percent * 1000) % 10) {
-//            $this->percentStr = Pretty::percent($percent, 0, $this->percentPrefix);
-            $this->percentStr = $this->percentPrefix . number_format($percent * 100) . '%';
+            $this->percentStr = $this->percentPrefix . (int)($percent * 100) . '%';
         }
         if ((null !== $message) && $this->currentMessage !== $message) {
             $this->currentMessage = $message;
