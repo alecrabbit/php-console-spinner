@@ -224,6 +224,9 @@ abstract class Spinner implements SpinnerInterface
         if ((null !== $percent) && 0 === (int)($percent * 1000) % 10) {
             $this->percentStr = $this->percentPrefix . (int)($percent * 100) . '%';
         }
+//         if ((null !== $percent) && 0 === ($percentVal = (int)($percent * 1000)) % 10) {
+//            $this->percentStr = $this->percentPrefix . ($percentVal / 10) . '%';
+//        }
         if ((null !== $message) && $this->currentMessage !== $message) {
             $this->currentMessage = $message;
             $this->messageErasingLen = strlen($message);
