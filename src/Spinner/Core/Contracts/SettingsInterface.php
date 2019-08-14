@@ -11,7 +11,6 @@ interface SettingsInterface
     public const EMPTY = '';
 
     public const DEFAULT_INTERVAL = 0.1;
-    public const DEFAULT_ERASING_SHIFT = 1;
     public const DEFAULT_SYMBOLS = Symbols::BASE;
 
     /**
@@ -30,12 +29,6 @@ interface SettingsInterface
      */
     public function getErasingShift(): int;
 
-//    /**
-//     * @param null|int $erasingShift
-//     * @return SettingsInterface
-//     */
-//    public function setErasingShift(?int $erasingShift): SettingsInterface;
-//
     /**
      * @return string
      */
