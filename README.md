@@ -15,13 +15,14 @@ Spinner - your task is running
 [![Average time to resolve an issue](http://isitmaintained.com/badge/resolution/alecrabbit/php-console-spinner.svg)](http://isitmaintained.com/project/alecrabbit/php-console-spinner "Average time to resolve an issue")
 [![Percentage of issues still open](http://isitmaintained.com/badge/open/alecrabbit/php-console-spinner.svg)](http://isitmaintained.com/project/alecrabbit/php-console-spinner "Percentage of issues still open")
 
-### Demo
 
 ![demo](docs/images/demo.svg)
 
 ![advanced](docs/images/advanced.svg)
 
 ### Quickstart
+
+#### Simple
 
 ```php
 require_once __DIR__ . '/vendor/autoload.php';
@@ -38,6 +39,28 @@ for ($i = 0; $i <= ITERATIONS; $i++) {
     $spinner->spin();
 }
 $spinner->end();
+```
+#### Using ReactPHP(async)
+
+```php
+require_once __DIR__ . '/../vendor/autoload.php';
+
+use AlecRabbit\Spinner\BlockSpinner;
+use React\EventLoop\Factory;
+
+$s = new BlockSpinner();
+
+$loop = Factory::create();
+
+$loop->addPeriodicTimer($s->interval(), static function () use ($s) {
+    $s->spin();
+});
+
+$s->begin();
+
+$loop->run();
+
+$s->end();
 ```
 
 ### Installation
