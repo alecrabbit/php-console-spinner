@@ -7,6 +7,7 @@ namespace AlecRabbit\Spinner\Core\Contracts;
  * If you can't see any symbols doesn't mean they're not there! They ARE!
  *
  */
+
 interface Symbols
 {
     public const BASE = [];
@@ -33,9 +34,9 @@ interface Symbols
         '▹▸▹▹▹',
         '▹▹▸▹▹',
         '▹▹▹▸▹',
-        '▹▹▹▹▸'
+        '▹▹▹▹▸',
     ];
-    
+
     public const BALL_VARIANT_0 = [
         '  ●     ',
         '   ●    ',
@@ -46,12 +47,86 @@ interface Symbols
         '    ●   ',
         '   ●    ',
         '  ●     ',
-        ' ●      '
+        ' ●      ',
     ];
-    
+
     public const SNAKE_VARIANT_0 = ['⠏', '⠛', '⠹', '⢸', '⣰', '⣤', '⣆', '⡇',];
     public const SNAKE_VARIANT_1 = ['⣇', '⡏', '⠟', '⠻', '⢹', '⣸', '⣴', '⣦',];
     public const SNAKE_VARIANT_2 = ['⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏'];
+
+    public const BLOCK_VARIANT_0 =
+        [
+            '▁',
+            '▂',
+            '▃',
+            '▄',
+            '▅',
+            '▆',
+            '▇',
+            '█',
+            '▉',
+            '▊',
+            '▋',
+            '▌',
+            '▍',
+            '▎',
+            '▏',
+            '▏',
+            '▎',
+            '▍',
+            '▌',
+            '▋',
+            '▊',
+            '▉',
+            '█',
+            '▇',
+            '▆',
+            '▅',
+            '▄',
+            '▃',
+            '▂',
+            '▁',
+        ];
+
+    public const BLOCK_VARIANT_1 =
+        [
+            '▁',
+            '▂',
+            '▃',
+            '▄',
+            '▅',
+            '▆',
+            '▇',
+            '█',
+            '▇',
+            '▆',
+            '▅',
+            '▄',
+            '▃',
+            '▂',
+            '▁',
+        ];
+    public const BLOCK_VARIANT_2 =
+        [
+            '█',
+            '▉',
+            '▊',
+            '▋',
+            '▌',
+            '▍',
+            '▎',
+            '▏',
+            '▏',
+            '▎',
+            '▍',
+            '▌',
+            '▋',
+            '▊',
+            '▉',
+            '█',
+
+        ];
+
 
     public const DICE = ['⚀', '⚁', '⚂', '⚃', '⚄', '⚅',];
 
