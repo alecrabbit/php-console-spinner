@@ -1,6 +1,15 @@
 <a name="unreleased"></a>
 ## [Unreleased]
 
+### Changed
+- default frames set for `BlockSpinner`
+
+
+<a name="0.15.2-ALPHA.3"></a>
+## [0.15.2-ALPHA.3] - 2019-08-14
+### Added
+- `BlockSpinner` class
+
 
 <a name="0.15.1-ALPHA.3"></a>
 ## [0.15.1-ALPHA.3] - 2019-08-14
@@ -135,7 +144,8 @@
 <a name="0.2.1-ALPHA.1"></a>
 ## 0.2.1-ALPHA.1 - 2019-04-06
 
-[Unreleased]: https://github.com/alecrabbit/php-console-spinner/compare/0.15.1-ALPHA.3...HEAD
+[Unreleased]: https://github.com/alecrabbit/php-console-spinner/compare/0.15.2-ALPHA.3...HEAD
+[0.15.2-ALPHA.3]: https://github.com/alecrabbit/php-console-spinner/compare/0.15.1-ALPHA.3...0.15.2-ALPHA.3
 [0.15.1-ALPHA.3]: https://github.com/alecrabbit/php-console-spinner/compare/0.14.7...0.15.1-ALPHA.3
 [0.14.7]: https://github.com/alecrabbit/php-console-spinner/compare/0.14.6...0.14.7
 [0.14.6]: https://github.com/alecrabbit/php-console-spinner/compare/0.14.5...0.14.6
