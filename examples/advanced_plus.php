@@ -43,6 +43,7 @@ $server =
                 return
                     new Response(404);
             }
+            echo date('D Y-m-d H:i:s') . ' ' . $request->getHeader('user-agent')[0] . PHP_EOL;
             return new Promise(static function ($resolve, $reject) use ($loop) {
                 // Emulating processing response
                 $loop->addTimer(0.2, static function () use ($resolve) {
@@ -100,9 +101,7 @@ $loop->addPeriodicTimer($s->interval(), static function () use ($s) {
 });
 
 // Add periodic timer to echo status message
-$loop->addPeriodicTimer(60, static function () use ($s, $t) {
-    $s->erase();
-    echo Cursor::up();
+$loop->addPeriodicTimer(900, static function () use ($t) {
     echo $t->dark(memory()) . PHP_EOL;
 });
 
