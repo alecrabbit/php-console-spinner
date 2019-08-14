@@ -8,7 +8,7 @@ require_once __DIR__ . '/__include/__helper_functions.php';
 use AlecRabbit\Cli\Tools\Cursor;
 use AlecRabbit\ConsoleColour\Contracts\Styles;
 use AlecRabbit\ConsoleColour\Themes;
-use AlecRabbit\Spinner\Core\Contracts\Symbols;
+use AlecRabbit\Spinner\Core\Contracts\Frames;
 use AlecRabbit\Spinner\Core\Contracts\StylesInterface;
 use AlecRabbit\Spinner\MoonSpinner;
 
@@ -30,7 +30,7 @@ echo $themes->comment('Long running task example...') . PHP_EOL;
 $message = 'mᚹä漢d字'; // Random characters
 $settings =
     (new \AlecRabbit\Spinner\Core\Settings())
-        ->setSymbols(Symbols::BALL_VARIANT_0)
+        ->setSymbols(Frames::BALL_VARIANT_0)
         ->setStyles(
             [
                 StylesInterface::MESSAGE_STYLES =>

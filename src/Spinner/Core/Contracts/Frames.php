@@ -8,7 +8,7 @@ namespace AlecRabbit\Spinner\Core\Contracts;
  *
  */
 
-interface Symbols
+interface Frames
 {
     public const BASE = [];
 

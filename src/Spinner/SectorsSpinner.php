@@ -2,7 +2,7 @@
 
 namespace AlecRabbit\Spinner;
 
-use AlecRabbit\Spinner\Core\Contracts\Symbols;
+use AlecRabbit\Spinner\Core\Contracts\Frames;
 use AlecRabbit\Spinner\Core\Contracts\StylesInterface;
 use AlecRabbit\Spinner\Core\Spinner;
 
@@ -10,7 +10,7 @@ class SectorsSpinner extends Spinner
 {
     // protected const ERASING_SHIFT = 1;
     protected const INTERVAL = 0.17;
-    protected const SYMBOLS = Symbols::SECTORS;
+    protected const SYMBOLS = Frames::SECTORS;
     protected const
         STYLES =
         [

@@ -8,14 +8,14 @@ use AlecRabbit\Spinner\Core\Adapters\EchoOutputAdapter;
 use AlecRabbit\Spinner\Core\Contracts\SettingsInterface;
 use AlecRabbit\Spinner\Core\Contracts\SpinnerInterface;
 use AlecRabbit\Spinner\Core\Contracts\SpinnerOutputInterface;
-use AlecRabbit\Spinner\Core\Contracts\Symbols;
+use AlecRabbit\Spinner\Core\Contracts\Frames;
 use function AlecRabbit\typeOf;
 use const AlecRabbit\ESC;
 
 abstract class Spinner implements SpinnerInterface
 {
     protected const INTERVAL = SettingsInterface::DEFAULT_INTERVAL;
-    protected const SYMBOLS = Symbols::DIAMOND;
+    protected const SYMBOLS = Frames::DIAMOND;
     protected const STYLES = [];
 
     /** @var string */

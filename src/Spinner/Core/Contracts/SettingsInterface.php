@@ -11,7 +11,7 @@ interface SettingsInterface
     public const EMPTY = '';
 
     public const DEFAULT_INTERVAL = 0.1;
-    public const DEFAULT_SYMBOLS = Symbols::BASE;
+    public const DEFAULT_SYMBOLS = Frames::BASE;
 
     /**
      * @return float

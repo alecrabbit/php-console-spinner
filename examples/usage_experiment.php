@@ -10,7 +10,7 @@ use AlecRabbit\ConsoleColour\Contracts\Styles;
 use AlecRabbit\ConsoleColour\Themes;
 use AlecRabbit\Spinner\ArrowSpinner;
 use AlecRabbit\Spinner\Core\Contracts\StylesInterface;
-use AlecRabbit\Spinner\Core\Contracts\Symbols;
+use AlecRabbit\Spinner\Core\Contracts\Frames;
 use AlecRabbit\Spinner\Core\Settings;
 use AlecRabbit\Spinner\PercentSpinner;
 use AlecRabbit\Spinner\SnakeSpinner;
@@ -65,7 +65,7 @@ display(
 $settings = new Settings();
 
 $settings
-    ->setSymbols(Symbols::BALL_VARIANT_0)
+    ->setSymbols(Frames::BALL_VARIANT_0)
     ->setMessage(' ')
     ->setMessageSuffix(' ')
     ->setStyles([
