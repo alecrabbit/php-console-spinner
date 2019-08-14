@@ -13,7 +13,7 @@ use AlecRabbit\Accessories\MemoryUsage;
 use AlecRabbit\Cli\Tools\Cursor;
 use AlecRabbit\ConsoleColour\Contracts\Styles;
 use AlecRabbit\ConsoleColour\Themes;
-use AlecRabbit\Spinner\Core\Contracts\SpinnerSymbols;
+use AlecRabbit\Spinner\Core\Contracts\Symbols;
 use AlecRabbit\Spinner\Core\Contracts\StylesInterface;
 use AlecRabbit\Spinner\Core\Settings;
 use AlecRabbit\Spinner\SnakeSpinner;
@@ -83,7 +83,7 @@ $loop->addSignal(
  */
 $settings = new Settings();
 $settings
-    ->setSymbols(SpinnerSymbols::SNAKE_VARIANT_1)
+    ->setSymbols(Symbols::SNAKE_VARIANT_1)
     ->setStyles(
         [
             StylesInterface::MESSAGE_STYLES =>

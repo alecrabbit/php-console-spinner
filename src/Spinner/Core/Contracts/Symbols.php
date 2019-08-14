@@ -1,15 +1,13 @@
 <?php declare(strict_types=1);
 
-
 namespace AlecRabbit\Spinner\Core\Contracts;
 
-/**
- *      ***ATTENTION!***
+/*
+ *                          ***ATTENTION!***
+ * If you can't see any symbols doesn't mean they're not there! They ARE!
  *
- * If you can't see any symbols doesn't mean they're not there!
- * They ARE!
  */
-interface SpinnerSymbols
+interface Symbols
 {
     public const BASE = [];
 
