@@ -220,11 +220,17 @@ abstract class Spinner implements SpinnerInterface
     /** {@inheritDoc} */
     public function spin(?float $percent = null, ?string $message = null): string
     {
-        if (null !== $percent) {
-            $this->updatePercent($percent);
+//        $start = hrtime(true);
+        if ((null !== $percent) && 0 === (int)($percent * 1000) % 10) {
+            $this->percentStr = Pretty::percent($percent, 0, $this->percentPrefix);
         }
-        if (null !== $message) {
-            $this->updateMessage($message);
+        if ((null !== $message) && $this->currentMessage !== $message) {
+            $this->currentMessage = $message;
+            $this->messageErasingLen = strlen($message);
+            $this->updateMessageStr();
+        }
+        if (null !== $percent || null !== $message) {
+            $this->updateProperties();
         }
         $str = $this->inlinePaddingStr .
             $this->style->spinner((string)$this->symbols->value()) .
@@ -237,31 +243,11 @@ abstract class Spinner implements SpinnerInterface
             $this->moveBackSequenceStr;
         if ($this->output) {
             $this->output->write($str);
+//            dump((hrtime(true) - $start) / 1000);
             return '';
         }
         return
             $str;
-    }
-
-    /**
-     * @param float $percent
-     */
-    protected function updatePercent(float $percent): void
-    {
-        if (0 === (int)($percent * 1000) % 10) {
-            $this->percentStr = Pretty::percent($percent, 0, $this->percentPrefix);
-            $this->updateProperties();
-        }
-    }
-
-    protected function updateMessage(string $message): void
-    {
-        if ($this->currentMessage !== $message) {
-            $this->currentMessage = $message;
-            $this->messageErasingLen = strlen($message);
-            $this->updateMessageStr();
-            $this->updateProperties();
-        }
     }
 
     /**

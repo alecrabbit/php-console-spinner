@@ -21,6 +21,11 @@ interface SpinnerInterface
     public function end(): string;
 
     /**
+     * @return null|SpinnerOutputInterface
+     */
+    public function getOutput(): ?SpinnerOutputInterface;
+
+    /**
      * @param bool $inline
      * @return SpinnerInterface
      */
@@ -37,9 +42,4 @@ interface SpinnerInterface
      * @return string
      */
     public function spin(?float $percent = null, ?string $message = null): string;
-
-    /**
-     * @return null|SpinnerOutputInterface
-     */
-    public function getOutput(): ?SpinnerOutputInterface;
 }
