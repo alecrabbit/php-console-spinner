@@ -15,7 +15,7 @@ use const AlecRabbit\ESC;
 abstract class Spinner implements SpinnerInterface
 {
     protected const INTERVAL = SettingsInterface::DEFAULT_INTERVAL;
-    protected const SYMBOLS = Frames::DIAMOND;
+    protected const FRAMES = Frames::DIAMOND;
     protected const STYLES = [];
 
     /** @var string */
@@ -150,7 +150,7 @@ abstract class Spinner implements SpinnerInterface
         return
             (new Settings())
                 ->setInterval(static::INTERVAL)
-                ->setSymbols(static::SYMBOLS)
+                ->setSymbols(static::FRAMES)
                 ->setStyles(static::STYLES);
     }
 
