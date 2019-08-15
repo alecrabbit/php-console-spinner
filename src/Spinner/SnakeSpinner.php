@@ -8,7 +8,6 @@ use AlecRabbit\Spinner\Core\Spinner;
 
 class SnakeSpinner extends Spinner
 {
-    // protected const ERASING_SHIFT = 1;
     protected const INTERVAL = 0.1;
     protected const FRAMES = Frames::SNAKE_VARIANT_0;
     protected const

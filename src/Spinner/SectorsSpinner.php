@@ -8,7 +8,6 @@ use AlecRabbit\Spinner\Core\Spinner;
 
 class SectorsSpinner extends Spinner
 {
-    // protected const ERASING_SHIFT = 1;
     protected const INTERVAL = 0.17;
     protected const FRAMES = Frames::SECTORS;
     protected const
