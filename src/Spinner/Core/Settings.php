@@ -30,6 +30,8 @@ class Settings implements SettingsInterface
     protected $styles;
     /** @var int */
     protected $messageErasingLen;
+    /** @var string */
+    protected $spacer;
 
     /**
      * Settings constructor.
@@ -44,6 +46,7 @@ class Settings implements SettingsInterface
         return
             $this
                 ->setMessageSuffix(null)
+                ->setSpacer(null)
                 ->setSymbols(null)
                 ->setStyles(null)
                 ->setMessage(null)
@@ -233,5 +236,16 @@ class Settings implements SettingsInterface
     public function getMessageErasingLen(): int
     {
         return $this->messageErasingLen;
+    }
+
+    public function getSpacer(): string
+    {
+        return $this->spacer;
+    }
+
+    public function setSpacer(?string $spacer):SettingsInterface
+    {
+        $this->spacer = $spacer ?? SettingsInterface::EMPTY;
+        return $this;
     }
 }

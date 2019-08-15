@@ -5,10 +5,10 @@ namespace AlecRabbit\Spinner\Core;
 use AlecRabbit\Accessories\Circular;
 use AlecRabbit\Cli\Tools\Cursor;
 use AlecRabbit\Spinner\Core\Adapters\EchoOutputAdapter;
+use AlecRabbit\Spinner\Core\Contracts\Frames;
 use AlecRabbit\Spinner\Core\Contracts\SettingsInterface;
 use AlecRabbit\Spinner\Core\Contracts\SpinnerInterface;
 use AlecRabbit\Spinner\Core\Contracts\SpinnerOutputInterface;
-use AlecRabbit\Spinner\Core\Contracts\Frames;
 use function AlecRabbit\typeOf;
 use const AlecRabbit\ESC;
 
@@ -48,9 +48,14 @@ abstract class Spinner implements SpinnerInterface
     protected $output;
     /** @var int */
     protected $messageErasingLen;
+    /** @var string */
+    protected $spacer;
+    /** @var SettingsInterface */
+    private $settings;
 
     /**
      * AbstractSpinner constructor.
+     *
      * @param mixed $settings
      * @param null|false|SpinnerOutputInterface $output
      * @param mixed $color
@@ -58,20 +63,21 @@ abstract class Spinner implements SpinnerInterface
     public function __construct($settings = null, $output = null, $color = null)
     {
         $this->output = $this->refineOutput($output);
-        $settings = $this->refineSettings($settings);
-        $this->interval = $settings->getInterval();
-        $this->erasingShift = $settings->getErasingShift();
-        $this->inlinePaddingStr = $settings->getInlinePaddingStr();
-        $this->currentMessage = $settings->getMessage();
-        $this->messageErasingLen = $settings->getMessageErasingLen();
-        $this->currentMessagePrefix = $settings->getMessagePrefix();
-        $this->currentMessageSuffix = $settings->getMessageSuffix();
-        $this->updateMessageStr();
+        $this->settings = $this->refineSettings($settings);
+        $this->interval = $this->settings->getInterval();
+        $this->erasingShift = $this->settings->getErasingShift();
+        $this->inlinePaddingStr = $this->settings->getInlinePaddingStr();
+        $this->currentMessage = $this->settings->getMessage();
+        $this->messageErasingLen = $this->settings->getMessageErasingLen();
+        $this->currentMessagePrefix = $this->settings->getMessagePrefix();
+        $this->currentMessageSuffix = $this->settings->getMessageSuffix();
+        $this->spacer = $this->settings->getSpacer();
+        $this->messageStr = $this->prepareMessageStr();
+        $this->symbols = new Circular($this->settings->getSymbols());
         $this->updateProperties();
-        $this->symbols = new Circular($settings->getSymbols());
 
         try {
-            $this->style = new Style($settings->getStyles(), $color);
+            $this->style = new Style($this->settings->getStyles(), $color);
         } catch (\Throwable $e) {
             throw new \InvalidArgumentException(
                 '[' . static::class . '] ' . $e->getMessage(),
@@ -148,9 +154,9 @@ abstract class Spinner implements SpinnerInterface
                 ->setStyles(static::STYLES);
     }
 
-    protected function updateMessageStr(): void
+    protected function prepareMessageStr(): string
     {
-        $this->messageStr = $this->currentMessagePrefix . ucfirst($this->currentMessage) . $this->currentMessageSuffix;
+        return $this->spacer . $this->currentMessagePrefix . ucfirst($this->currentMessage) . $this->currentMessageSuffix;
     }
 
     protected function updateProperties(): void
@@ -219,17 +225,39 @@ abstract class Spinner implements SpinnerInterface
     /** {@inheritDoc} */
     public function spin(?float $percent = null, ?string $message = null): string
     {
+        $this->update($percent, $message);
+        if ($this->output) {
+            $this->output->write($this->prepareStr());
+            return '';
+        }
+        return
+            $this->prepareStr();
+    }
+
+    /**
+     * @param null|float $percent
+     * @param null|string $message
+     */
+    protected function update(?float $percent, ?string $message): void
+    {
         if ((null !== $percent) && 0 === ($percentVal = (int)($percent * 1000)) % 10) {
             $this->percentStr = $this->percentPrefix . ($percentVal / 10) . '%';
         }
         if ((null !== $message) && $this->currentMessage !== $message) {
             $this->currentMessage = $message;
             $this->messageErasingLen = strlen($message);
-            $this->updateMessageStr();
+            $this->messageStr = $this->prepareMessageStr();
         }
         if (null !== $percent || null !== $message) {
             $this->updateProperties();
         }
+    }
+
+    /**
+     * @return string
+     */
+    protected function prepareStr(): string
+    {
         $str = $this->inlinePaddingStr .
             $this->style->spinner((string)$this->symbols->value()) .
             $this->style->message(
@@ -239,13 +267,7 @@ abstract class Spinner implements SpinnerInterface
                 $this->percent()
             ) .
             $this->moveBackSequenceStr;
-        if ($this->output) {
-            $this->output->write($str);
-//            dump((hrtime(true) - $start) / 1000);
-            return '';
-        }
-        return
-            $str;
+        return $str;
     }
 
     /**

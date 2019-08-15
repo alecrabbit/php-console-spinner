@@ -10,7 +10,7 @@ class DotSpinner extends Spinner
 {
     // protected const ERASING_SHIFT = 1;
     protected const INTERVAL = 0.1;
-    protected const SYMBOLS = Frames::DOT;
+    protected const FRAMES = Frames::DOT;
     protected const
         STYLES =
         [

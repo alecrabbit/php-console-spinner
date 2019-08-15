@@ -100,4 +100,15 @@ interface SettingsInterface
      * @return int
      */
     public function getMessageErasingLen(): int;
+
+    /**
+     * @return string
+     */
+    public function getSpacer(): string;
+
+    /**
+     * @param null|string $spacer
+     * @return SettingsInterface
+     */
+    public function setSpacer(?string $spacer): SettingsInterface;
 }
