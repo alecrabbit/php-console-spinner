@@ -8,7 +8,7 @@ use AlecRabbit\Spinner\Core\Spinner;
 
 class DiceSpinner extends Spinner
 {
-protected const INTERVAL = 0.17;
+    protected const INTERVAL = 0.17;
     protected const FRAMES = Frames::DICE;
     protected const
         STYLES =
