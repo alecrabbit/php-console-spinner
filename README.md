@@ -22,6 +22,8 @@ Spinner - your task is running
 
 #### Simple
 
+> See [simple.php](examples/simple.php)
+
 ```php
 require_once __DIR__ . '/vendor/autoload.php';
 
@@ -38,7 +40,9 @@ for ($i = 0; $i <= ITERATIONS; $i++) {
 }
 $spinner->end();
 ```
-#### Using ReactPHP(async)
+#### Advanced ([ReactPHP](https://github.com/reactphp))
+
+> See [advanced.php](examples/advanced.php)
 
 ```php
 require_once __DIR__ . '/../vendor/autoload.php';

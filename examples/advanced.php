@@ -24,8 +24,7 @@ use function AlecRabbit\now;
 $t = new Themes();
 
 /**
- * This is an advanced example of using spinner.
- * Here we have a simple web server written with reactPHP.
+ * Here we have a simple web server written with ReactPHP.
  *
  * We're using SnakeSpinner.
  *

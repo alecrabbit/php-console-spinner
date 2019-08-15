@@ -18,8 +18,8 @@ $spinner = new SnakeSpinner();
 $spinner->begin();
 for ($i = 0; $i <= ITERATIONS; $i++) {
     usleep(80000); // Simulating work
-    $spinner->spin();
+    $spinner->spin($i/ITERATIONS);
     // or
-    //$spinner->spin($i/ITERATIONS);
+    //    $spinner->spin();
 }
 $spinner->end();
