@@ -10,7 +10,7 @@ class ClockSpinner extends Spinner
 {
     // protected const ERASING_SHIFT = 2;
     protected const INTERVAL = 0.1;
-    protected const SYMBOLS = Frames::CLOCK;
+    protected const FRAMES = Frames::CLOCK;
     protected const
         STYLES =
         [

@@ -10,7 +10,7 @@ class BallSpinner extends Spinner
 {
     // protected const ERASING_SHIFT = 1;
     protected const INTERVAL = 0.1;
-    protected const SYMBOLS = Frames::BALL_VARIANT_0;
+    protected const FRAMES = Frames::BALL_VARIANT_0;
     protected const
         STYLES =
         [

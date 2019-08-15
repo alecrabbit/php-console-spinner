@@ -9,7 +9,7 @@ use AlecRabbit\Spinner\Core\Spinner;
 class BlockSpinner extends Spinner
 {
     protected const INTERVAL = 0.1;
-    protected const SYMBOLS = Frames::BLOCK_VARIANT_1;
+    protected const FRAMES = Frames::BLOCK_VARIANT_1;
     protected const
         STYLES =
         [
