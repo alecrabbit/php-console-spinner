@@ -199,14 +199,6 @@ abstract class Spinner implements SpinnerInterface
         return SettingsInterface::EMPTY;
     }
 
-    /**
-     * @return string
-     */
-    protected function percent(): string
-    {
-        return $this->percentStr;
-    }
-
     /** {@inheritDoc} */
     public function getOutput(): ?SpinnerOutputInterface
     {
@@ -242,11 +234,11 @@ abstract class Spinner implements SpinnerInterface
     {
         $this->update($percent, $message);
         if ($this->output) {
-            $this->output->write($this->prepareStr());
+            $this->output->write($this->preparedStr());
             return '';
         }
         return
-            $this->prepareStr();
+            $this->preparedStr();
     }
 
     /**
@@ -272,9 +264,10 @@ abstract class Spinner implements SpinnerInterface
     /**
      * @return string
      */
-    protected function prepareStr(): string
+    protected function preparedStr(): string
     {
-        $str = $this->inlinePaddingStr .
+        return
+            $this->inlinePaddingStr .
             $this->style->spinner((string)$this->symbols->value()) .
             $this->style->message(
                 $this->message()
@@ -283,7 +276,6 @@ abstract class Spinner implements SpinnerInterface
                 $this->percent()
             ) .
             $this->moveBackSequenceStr;
-        return $str;
     }
 
     /**
@@ -292,6 +284,14 @@ abstract class Spinner implements SpinnerInterface
     protected function message(): string
     {
         return $this->messageStr;
+    }
+
+    /**
+     * @return string
+     */
+    protected function percent(): string
+    {
+        return $this->percentStr;
     }
 
     /** {@inheritDoc} */
