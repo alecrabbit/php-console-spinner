@@ -2,16 +2,13 @@
 ```bash
 # php examples/show_all_spinners.php
 ```
-<p align="center">
 
-![example](images/all.svg)
-
-</p>
+See [cast](https://asciinema.org/a/262622)
 
 ```bash
 # php examples/usage.php
 ```
-![example](images/usage.svg)
+[example](images/usage.svg)
 
 ```bash
 # php examples/advanced.php
