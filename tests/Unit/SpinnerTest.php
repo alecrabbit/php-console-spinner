@@ -263,6 +263,20 @@ class SpinnerTest extends TestCase
     }
 
     /** @test */
+    public function unimplemented(): void
+    {
+        $spinner = new ExtendedSpinner(self::PROCESSING, false, NO_COLOR_TERMINAL);
+        $this->assertInstanceOf(Spinner::class, $spinner);
+        $this->expectException(\RuntimeException::class);
+        $this->expectExceptionMessage(
+            'AlecRabbit\Tests\Spinner\ExtendedSpinner: ' .
+            'Call to unimplemented functionality '.
+            'AlecRabbit\Spinner\Core\Spinner::getSettings'
+        );
+        $spinner->getSettings();
+    }
+
+    /** @test */
     public function noColor(): void
     {
         $spinner = new ExtendedSpinner(self::PROCESSING, false, NO_COLOR_TERMINAL);
