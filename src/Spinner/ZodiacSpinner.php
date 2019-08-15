@@ -8,8 +8,7 @@ use AlecRabbit\Spinner\Core\Spinner;
 
 class ZodiacSpinner extends Spinner
 {
-    // protected const ERASING_SHIFT = 2;
-    protected const INTERVAL = 0.25;
+protected const INTERVAL = 0.25;
     protected const FRAMES = Frames::ZODIAC;
     protected const
         STYLES =
