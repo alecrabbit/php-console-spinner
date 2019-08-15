@@ -40,7 +40,7 @@ showSpinners(
 //        new SectorsSpinner(MESSAGE),
 //        new SimpleSpinner(MESSAGE),
 //        new SnakeSpinner(MESSAGE),
-        new TimeSpinner(MESSAGE),
+        (new TimeSpinner(MESSAGE))->setTimeFormat('T Y-m-d H:i:s'),
     ], $theme
 );
 echo $theme->comment('Spinners samples(without message):') . PHP_EOL;

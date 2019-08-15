@@ -4,14 +4,14 @@ namespace AlecRabbit\Spinner\Core\Contracts;
 
 interface SettingsInterface
 {
-    public const MAX_SYMBOLS_COUNT = 50;
+    public const MAX_FRAMES_COUNT = 50;
 
     public const DEFAULT_SUFFIX = '...';
     public const ONE_SPACE_SYMBOL = ' ';
     public const EMPTY = '';
 
     public const DEFAULT_INTERVAL = 0.1;
-    public const DEFAULT_SYMBOLS = Frames::BASE;
+    public const DEFAULT_FRAMES = Frames::BASE;
 
     /**
      * @return float

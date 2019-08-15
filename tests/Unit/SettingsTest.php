@@ -27,7 +27,7 @@ class SettingsTest extends TestCase
         $this->assertEquals($settings->getMessagePrefix(), SettingsInterface::ONE_SPACE_SYMBOL);
         $this->assertEquals($settings->getMessageSuffix(), '');
         $this->assertEquals($settings->getStyles(), StylesInterface::DEFAULT_STYLES);
-        $this->assertEquals($settings->getSymbols(), SettingsInterface::DEFAULT_SYMBOLS);
+        $this->assertEquals($settings->getSymbols(), SettingsInterface::DEFAULT_FRAMES);
         $settings->setMessage(self::PROCESSING);
         $this->assertEquals($settings->getMessage(), self::PROCESSING);
         $this->assertEquals($settings->getMessageErasingLen(), 10);

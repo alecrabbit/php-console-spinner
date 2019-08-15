@@ -190,12 +190,12 @@ class Settings implements SettingsInterface
     /** {@inheritDoc} */
     public function setSymbols(?array $symbols): SettingsInterface
     {
-        if (null !== $symbols && count($symbols) > SettingsInterface::MAX_SYMBOLS_COUNT) {
+        if (null !== $symbols && count($symbols) > SettingsInterface::MAX_FRAMES_COUNT) {
             throw new \InvalidArgumentException(
-                sprintf('MAX_SYMBOLS_COUNT limit [%s] exceeded.', SettingsInterface::MAX_SYMBOLS_COUNT)
+                sprintf('MAX_SYMBOLS_COUNT limit [%s] exceeded.', SettingsInterface::MAX_FRAMES_COUNT)
             );
         }
-        $this->symbols = $symbols ?? static::DEFAULT_SYMBOLS;
+        $this->symbols = $symbols ?? static::DEFAULT_FRAMES;
         $this->erasingShift = $this->computeErasingLen($this->symbols);
         return $this;
     }

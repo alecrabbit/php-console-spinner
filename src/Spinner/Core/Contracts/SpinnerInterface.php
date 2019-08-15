@@ -26,6 +26,11 @@ interface SpinnerInterface
     public function getOutput(): ?SpinnerOutputInterface;
 
     /**
+     * @return SettingsInterface
+     */
+    public function getSettings(): SettingsInterface;
+
+    /**
      * @param bool $inline
      * @return SpinnerInterface
      */
