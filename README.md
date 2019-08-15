@@ -16,9 +16,7 @@ Spinner - your task is running
 [![Percentage of issues still open](http://isitmaintained.com/badge/open/alecrabbit/php-console-spinner.svg)](http://isitmaintained.com/project/alecrabbit/php-console-spinner "Percentage of issues still open")
 
 
-![demo](docs/images/demo.svg)
-
-![advanced](docs/images/advanced.svg)
+![advanced](docs/images/fpdemo.svg)
 
 ### Quickstart
 
@@ -59,8 +57,6 @@ $loop->addPeriodicTimer($s->interval(), static function () use ($s) {
 $s->begin();
 
 $loop->run();
-
-$s->end();
 ```
 
 ### Installation

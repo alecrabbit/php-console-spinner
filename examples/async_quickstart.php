@@ -7,14 +7,6 @@ use React\EventLoop\Factory;
 
 $loop = Factory::create();
 
-//$loop->addSignal(
-//    SIGINT,
-//    $func = static function ($signal) use ($loop, &$func) {
-//        $loop->removeSignal(SIGINT, $func);
-//        $loop->stop();
-//    }
-//);
-
 $s = new BlockSpinner();
 
 $loop->addPeriodicTimer($s->interval(), static function () use ($s) {
@@ -25,4 +17,3 @@ $s->begin();
 
 $loop->run();
 
-$s->end();
