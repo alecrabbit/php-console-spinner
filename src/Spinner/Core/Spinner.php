@@ -28,6 +28,8 @@ abstract class Spinner implements SpinnerInterface
     protected $currentMessageSuffix;
     /** @var string */
     protected $percentStr = '';
+    /** @var int */
+    protected $percentStrLen = 0;
     /** @var string */
     protected $percentPrefix;
     /** @var string */
@@ -41,7 +43,7 @@ abstract class Spinner implements SpinnerInterface
     /** @var float */
     protected $interval;
     /** @var int */
-    protected $erasingShift;
+    protected $frameErasingShift;
     /** @var Circular */
     protected $symbols;
     /** @var null|SpinnerOutputInterface */
@@ -52,6 +54,10 @@ abstract class Spinner implements SpinnerInterface
     protected $spacer;
     /** @var SettingsInterface */
     private $settings;
+    /** @var int */
+    private $currentMessagePrefixLen;
+    /** @var int */
+    private $currentMessageSuffixLen;
 
     /**
      * AbstractSpinner constructor.
@@ -65,12 +71,14 @@ abstract class Spinner implements SpinnerInterface
         $this->output = $this->refineOutput($output);
         $this->settings = $this->refineSettings($settings);
         $this->interval = $this->settings->getInterval();
-        $this->erasingShift = $this->settings->getErasingShift();
+        $this->frameErasingShift = $this->settings->getErasingShift();
         $this->inlinePaddingStr = $this->settings->getInlinePaddingStr();
         $this->currentMessage = $this->settings->getMessage();
         $this->messageErasingLen = $this->settings->getMessageErasingLen();
         $this->currentMessagePrefix = $this->settings->getMessagePrefix();
+        $this->currentMessagePrefixLen = strlen($this->currentMessagePrefix);
         $this->currentMessageSuffix = $this->settings->getMessageSuffix();
+        $this->currentMessageSuffixLen = strlen($this->currentMessageSuffix);
         $this->spacer = $this->settings->getSpacer();
         $this->messageStr = $this->prepareMessageStr();
         $this->symbols = new Circular($this->settings->getSymbols());
@@ -164,12 +172,12 @@ abstract class Spinner implements SpinnerInterface
         $this->percentPrefix = $this->getPercentPrefix(); // TODO move to other location - optimize performance
         // TODO optimize performance add some vars to store len of elements
         $strLen =
-            strlen($this->currentMessagePrefix) +
+            $this->currentMessagePrefixLen +
             $this->messageErasingLen +
-            strlen($this->currentMessageSuffix) +
-            strlen($this->percent()) +
+            $this->currentMessageSuffixLen +
+            $this->percentStrLen +
             strlen($this->inlinePaddingStr) +
-            $this->erasingShift;
+            $this->frameErasingShift;
         $this->moveBackSequenceStr = ESC . "[{$strLen}D";
         $this->eraseBySpacesStr = str_repeat(SettingsInterface::ONE_SPACE_SYMBOL, $strLen);
     }
@@ -242,6 +250,7 @@ abstract class Spinner implements SpinnerInterface
     {
         if ((null !== $percent) && 0 === ($percentVal = (int)($percent * 1000)) % 10) {
             $this->percentStr = $this->percentPrefix . ($percentVal / 10) . '%';
+            $this->percentStrLen = strlen($this->percentStr);
         }
         if ((null !== $message) && $this->currentMessage !== $message) {
             $this->currentMessage = $message;
