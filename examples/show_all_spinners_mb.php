@@ -12,7 +12,6 @@ use AlecRabbit\Spinner\PercentSpinner;
 use AlecRabbit\Spinner\SectorsSpinner;
 use AlecRabbit\Spinner\SimpleSpinner;
 use AlecRabbit\Spinner\SnakeSpinner;
-use AlecRabbit\Spinner\ZodiacSpinner;
 use function AlecRabbit\typeOf;
 
 require_once __DIR__ . '/../vendor/autoload.php';
@@ -27,7 +26,6 @@ echo $theme->comment('Spinners samples(with message"' . MESSAGE . '"):') . PHP_E
 showSpinners(
     [
         new ClockSpinner(MESSAGE),
-        new ZodiacSpinner(MESSAGE),
         new MoonSpinner(MESSAGE),
         new CircleSpinner(MESSAGE),
         new DiceSpinner(MESSAGE),
@@ -40,7 +38,6 @@ echo $theme->comment('Spinners samples(without message):') . PHP_EOL;
 showSpinners(
     [
         new ClockSpinner(),
-        new ZodiacSpinner(),
         new MoonSpinner(),
         new CircleSpinner(),
         new DiceSpinner(),

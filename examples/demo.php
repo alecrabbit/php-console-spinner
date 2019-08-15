@@ -12,7 +12,6 @@ use AlecRabbit\Spinner\PercentSpinner;
 use AlecRabbit\Spinner\SectorsSpinner;
 use AlecRabbit\Spinner\SimpleSpinner;
 use AlecRabbit\Spinner\SnakeSpinner;
-use AlecRabbit\Spinner\ZodiacSpinner;
 
 //require_once __DIR__ . '/../vendor/autoload.php';
 require_once __DIR__ . '/../tests/bootstrap.php';
@@ -33,7 +32,6 @@ $spinners = [
     CircleSpinner::class,
     ClockSpinner::class,
     MoonSpinner::class,
-    ZodiacSpinner::class,
     DiceSpinner::class,
     SectorsSpinner::class,
 ];
@@ -43,7 +41,6 @@ $arr = [
     SnakeSpinner::class,
     ClockSpinner::class,
     MoonSpinner::class,
-    ZodiacSpinner::class,
     DiceSpinner::class,
     SectorsSpinner::class,
 ];

@@ -130,23 +130,6 @@ interface Frames
 
     public const DICE = ['⚀', '⚁', '⚂', '⚃', '⚄', '⚅',];
 
-    public const
-        ZODIAC =
-        [
-            '♈', // ARIES
-            '♉', // TAURUS
-            '♊', // GEMINI
-            '♋', // CANCER
-            '♌', // LEO
-            '♍', // VIRGO
-            '♎', // LIBRA
-            '♏', // SCORPIUS
-            '♐', // SAGITTARIUS
-            '♑', // CAPRICORN
-            '♒', // AQUARIUS
-            '♓', // PISCES
-        ];
-
     public const ARROWS = ['➙', '➘', '➙', '➚',];
 
     public const

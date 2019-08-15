@@ -1,18 +1,21 @@
 <?php
 
 use AlecRabbit\Accessories\Pretty;
-use AlecRabbit\ConsoleColour\Themes;
 use AlecRabbit\Cli\Tools\Cursor;
+use AlecRabbit\ConsoleColour\Themes;
+use AlecRabbit\Spinner\ArrowSpinner;
+use AlecRabbit\Spinner\BallSpinner;
 use AlecRabbit\Spinner\CircleSpinner;
 use AlecRabbit\Spinner\ClockSpinner;
 use AlecRabbit\Spinner\Core\Spinner;
 use AlecRabbit\Spinner\DiceSpinner;
+use AlecRabbit\Spinner\DotSpinner;
+use AlecRabbit\Spinner\LineSpinner;
 use AlecRabbit\Spinner\MoonSpinner;
-use AlecRabbit\Spinner\PercentSpinner;
 use AlecRabbit\Spinner\SectorsSpinner;
 use AlecRabbit\Spinner\SimpleSpinner;
 use AlecRabbit\Spinner\SnakeSpinner;
-use AlecRabbit\Spinner\ZodiacSpinner;
+use AlecRabbit\Spinner\TimeSpinner;
 use function AlecRabbit\typeOf;
 
 require_once __DIR__ . '/../vendor/autoload.php';
@@ -26,21 +29,25 @@ echo $theme->comment('Spinners samples(with message"' . MESSAGE . '"):') . PHP_E
 
 showSpinners(
     [
-        new ClockSpinner(MESSAGE),
-        new ZodiacSpinner(MESSAGE),
-        new MoonSpinner(MESSAGE),
-        new CircleSpinner(MESSAGE),
-        new DiceSpinner(MESSAGE),
-        new SectorsSpinner(MESSAGE),
-        new SimpleSpinner(MESSAGE),
-        new SnakeSpinner(MESSAGE),
+//        new ArrowSpinner(MESSAGE),
+//        new BallSpinner(MESSAGE),
+//        new CircleSpinner(MESSAGE),
+//        new ClockSpinner(MESSAGE),
+//        new DiceSpinner(MESSAGE),
+//        new DotSpinner(MESSAGE),
+//        new LineSpinner(MESSAGE),
+//        new MoonSpinner(MESSAGE),
+//        new SectorsSpinner(MESSAGE),
+//        new SimpleSpinner(MESSAGE),
+//        new SnakeSpinner(MESSAGE),
+        new TimeSpinner(MESSAGE),
     ], $theme
 );
 echo $theme->comment('Spinners samples(without message):') . PHP_EOL;
 showSpinners(
     [
+        new ArrowSpinner(),
         new ClockSpinner(),
-        new ZodiacSpinner(),
         new MoonSpinner(),
         new CircleSpinner(),
         new DiceSpinner(),
