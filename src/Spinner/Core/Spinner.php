@@ -53,13 +53,13 @@ abstract class Spinner implements SpinnerInterface
     /** @var string */
     protected $spacer;
     /** @var SettingsInterface */
-    private $settings;
+    protected $settings;
     /** @var int */
-    private $currentMessagePrefixLen;
+    protected $currentMessagePrefixLen;
     /** @var int */
-    private $currentMessageSuffixLen;
+    protected $currentMessageSuffixLen;
     /** @var int */
-    private $inlinePaddingStrLen;
+    protected $inlinePaddingStrLen;
 
     /**
      * AbstractSpinner constructor.
@@ -72,30 +72,7 @@ abstract class Spinner implements SpinnerInterface
     {
         $this->output = $this->refineOutput($output);
         $this->settings = $this->refineSettings($settings);
-        $this->interval = $this->settings->getInterval();
-        $this->frameErasingShift = $this->settings->getErasingShift();
-        $this->inlinePaddingStr = $this->settings->getInlinePaddingStr();
-        $this->inlinePaddingStrLen = strlen($this->inlinePaddingStr); // TODO fix code duplicate?
-        $this->currentMessage = $this->settings->getMessage();
-        $this->messageErasingLen = $this->settings->getMessageErasingLen();
-        $this->currentMessagePrefix = $this->settings->getMessagePrefix();
-        $this->currentMessagePrefixLen = strlen($this->currentMessagePrefix);
-        $this->currentMessageSuffix = $this->settings->getMessageSuffix();
-        $this->currentMessageSuffixLen = strlen($this->currentMessageSuffix);
-        $this->spacer = $this->settings->getSpacer();
-        $this->messageStr = $this->prepareMessageStr();
-        $this->symbols = new Circular($this->settings->getSymbols());
-        $this->updateProperties();
-
-        try {
-            $this->style = new Style($this->settings->getStyles(), $color);
-        } catch (\Throwable $e) {
-            throw new \InvalidArgumentException(
-                '[' . static::class . '] ' . $e->getMessage(),
-                (int)$e->getCode(),
-                $e
-            );
-        }
+        $this->loadSettings($color);
     }
 
     /**
@@ -163,6 +140,37 @@ abstract class Spinner implements SpinnerInterface
                 ->setInterval(static::INTERVAL)
                 ->setSymbols(static::FRAMES)
                 ->setStyles(static::STYLES);
+    }
+
+    /**
+     * @param mixed $color
+     */
+    protected function loadSettings($color): void
+    {
+        $this->interval = $this->settings->getInterval();
+        $this->frameErasingShift = $this->settings->getErasingShift();
+        $this->inlinePaddingStr = $this->settings->getInlinePaddingStr();
+        $this->currentMessage = $this->settings->getMessage();
+        $this->messageErasingLen = $this->settings->getMessageErasingLen();
+        $this->currentMessagePrefix = $this->settings->getMessagePrefix();
+        $this->currentMessageSuffix = $this->settings->getMessageSuffix();
+        $this->spacer = $this->settings->getSpacer();
+        $this->symbols = new Circular($this->settings->getSymbols());
+
+        try {
+            $this->style = new Style($this->settings->getStyles(), $color);
+        } catch (\Throwable $e) {
+            throw new \InvalidArgumentException(
+                '[' . static::class . '] ' . $e->getMessage(),
+                (int)$e->getCode(),
+                $e
+            );
+        }
+        $this->inlinePaddingStrLen = strlen($this->inlinePaddingStr); // TODO fix code duplicate?
+        $this->currentMessagePrefixLen = strlen($this->currentMessagePrefix);
+        $this->currentMessageSuffixLen = strlen($this->currentMessageSuffix);
+        $this->messageStr = $this->prepareMessageStr();
+        $this->updateProperties();
     }
 
     protected function prepareMessageStr(): string
@@ -314,5 +322,12 @@ abstract class Spinner implements SpinnerInterface
             return '';
         }
         return $str;
+    }
+
+    /** {@inheritDoc} */
+    public function getSettings(): SettingsInterface
+    {
+        throw new \RuntimeException(static::class . ': Call to unimplemented functionality ' . __METHOD__);
+        return $this->settings;
     }
 }
