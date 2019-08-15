@@ -31,7 +31,7 @@ abstract class Spinner implements SpinnerInterface
     /** @var int */
     protected $percentStrLen = 0;
     /** @var string */
-    protected $percentPrefix;
+    protected $percentSpacer;
     /** @var string */
     protected $moveBackSequenceStr;
     /** @var string */
@@ -176,8 +176,7 @@ abstract class Spinner implements SpinnerInterface
 
     protected function updateProperties(): void
     {
-        $this->percentPrefix = $this->getPercentPrefix(); // TODO move to other location - optimize performance
-        // TODO optimize performance add some vars to store len of elements
+        $this->percentSpacer = $this->getPercentSpacer(); // TODO move to other location - optimize performance
         $strLen =
             $this->currentMessagePrefixLen +
             $this->messageErasingLen +
@@ -192,7 +191,7 @@ abstract class Spinner implements SpinnerInterface
     /**
      * @return string
      */
-    protected function getPercentPrefix(): string
+    protected function getPercentSpacer(): string
     {
         if (strpos($this->messageStr, SettingsInterface::DEFAULT_SUFFIX)) {
             return SettingsInterface::ONE_SPACE_SYMBOL;
@@ -257,7 +256,7 @@ abstract class Spinner implements SpinnerInterface
     protected function update(?float $percent, ?string $message): void
     {
         if ((null !== $percent) && 0 === ($percentVal = (int)($percent * 1000)) % 10) {
-            $this->percentStr = $this->percentPrefix . ($percentVal / 10) . '%';
+            $this->percentStr = $this->percentSpacer . ($percentVal / 10) . '%';
             $this->percentStrLen = strlen($this->percentStr);
         }
         if ((null !== $message) && $this->currentMessage !== $message) {
