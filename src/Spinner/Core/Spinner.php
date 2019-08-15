@@ -58,6 +58,8 @@ abstract class Spinner implements SpinnerInterface
     private $currentMessagePrefixLen;
     /** @var int */
     private $currentMessageSuffixLen;
+    /** @var int */
+    private $inlinePaddingStrLen;
 
     /**
      * AbstractSpinner constructor.
@@ -73,6 +75,7 @@ abstract class Spinner implements SpinnerInterface
         $this->interval = $this->settings->getInterval();
         $this->frameErasingShift = $this->settings->getErasingShift();
         $this->inlinePaddingStr = $this->settings->getInlinePaddingStr();
+        $this->inlinePaddingStrLen = strlen($this->inlinePaddingStr); // TODO fix code duplicate?
         $this->currentMessage = $this->settings->getMessage();
         $this->messageErasingLen = $this->settings->getMessageErasingLen();
         $this->currentMessagePrefix = $this->settings->getMessagePrefix();
@@ -164,7 +167,11 @@ abstract class Spinner implements SpinnerInterface
 
     protected function prepareMessageStr(): string
     {
-        return $this->spacer . $this->currentMessagePrefix . ucfirst($this->currentMessage) . $this->currentMessageSuffix;
+        return
+            $this->spacer .
+            $this->currentMessagePrefix .
+            ucfirst($this->currentMessage) .
+            $this->currentMessageSuffix;
     }
 
     protected function updateProperties(): void
@@ -176,7 +183,7 @@ abstract class Spinner implements SpinnerInterface
             $this->messageErasingLen +
             $this->currentMessageSuffixLen +
             $this->percentStrLen +
-            strlen($this->inlinePaddingStr) +
+            $this->inlinePaddingStrLen +
             $this->frameErasingShift;
         $this->moveBackSequenceStr = ESC . "[{$strLen}D";
         $this->eraseBySpacesStr = str_repeat(SettingsInterface::ONE_SPACE_SYMBOL, $strLen);
@@ -215,6 +222,7 @@ abstract class Spinner implements SpinnerInterface
     public function inline(bool $inline): SpinnerInterface
     {
         $this->inlinePaddingStr = $inline ? SettingsInterface::ONE_SPACE_SYMBOL : SettingsInterface::EMPTY;
+        $this->inlinePaddingStrLen = strlen($this->inlinePaddingStr);
         $this->updateProperties();
         return $this;
     }
