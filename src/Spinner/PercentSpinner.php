@@ -21,6 +21,7 @@ class PercentSpinner extends Spinner
                 ],
         ];
 
+    /** {@inheritDoc} */
     public function spin(?float $percent = null, ?string $message = null): string
     {
         if (!\is_float($percent)) {
@@ -32,6 +33,7 @@ class PercentSpinner extends Spinner
         return parent::spin($percent);
     }
 
+    /** {@inheritDoc} */
     public function begin(?float $percent = null): string
     {
         return parent::begin(0.0);
