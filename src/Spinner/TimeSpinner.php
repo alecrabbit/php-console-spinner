@@ -20,8 +20,9 @@ class TimeSpinner extends Spinner
                     StylesInterface::COLOR => StylesInterface::DISABLED,
                 ],
         ];
+
     /** @var string */
-    protected $timeFormat = 'H:i:s';
+    protected $timeFormat = 'T Y-m-d H:i:s';
 
     /**
      * @param string $timeFormat
@@ -33,19 +34,19 @@ class TimeSpinner extends Spinner
         return $this;
     }
 
+    /** {@inheritDoc} */
     public function spin(?float $percent = null, ?string $message = null): string
     {
         return parent::spin(null, date($this->timeFormat) ?: '');
     }
 
+    /** {@inheritDoc} */
     public function begin(?float $percent = null): string
     {
         return parent::begin();
     }
 
-    /**
-     * @return SettingsInterface
-     */
+    /** {@inheritDoc} */
     protected function defaultSettings(): SettingsInterface
     {
         return
