@@ -1,12 +1,24 @@
 <a name="unreleased"></a>
 ## [Unreleased]
 
+
+<a name="0.16.0-ALPHA.2"></a>
+## [0.16.0-ALPHA.2] - 2019-08-15
+
+<a name="0.16.0-ALPHA.1"></a>
+## [0.16.0-ALPHA.1] - 2019-08-15
 ### Add
 - async example
+
+### Added
+- `TimeSpinner::class`
 
 ### Changed
 - `Symbols` a renamed to `Frames`
 - default frames set for `BlockSpinner`
+
+### Removed
+- `ZodiacSpinner`
 
 
 <a name="0.15.2-ALPHA.3"></a>
@@ -148,7 +160,9 @@
 <a name="0.2.1-ALPHA.1"></a>
 ## 0.2.1-ALPHA.1 - 2019-04-06
 
-[Unreleased]: https://github.com/alecrabbit/php-console-spinner/compare/0.15.2-ALPHA.3...HEAD
+[Unreleased]: https://github.com/alecrabbit/php-console-spinner/compare/0.16.0-ALPHA.2...HEAD
+[0.16.0-ALPHA.2]: https://github.com/alecrabbit/php-console-spinner/compare/0.16.0-ALPHA.1...0.16.0-ALPHA.2
+[0.16.0-ALPHA.1]: https://github.com/alecrabbit/php-console-spinner/compare/0.15.2-ALPHA.3...0.16.0-ALPHA.1
 [0.15.2-ALPHA.3]: https://github.com/alecrabbit/php-console-spinner/compare/0.15.1-ALPHA.3...0.15.2-ALPHA.3
 [0.15.1-ALPHA.3]: https://github.com/alecrabbit/php-console-spinner/compare/0.14.7...0.15.1-ALPHA.3
 [0.14.7]: https://github.com/alecrabbit/php-console-spinner/compare/0.14.6...0.14.7
