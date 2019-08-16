@@ -25,6 +25,36 @@ class ColoringTest extends TestCase
     {
         return [
             [[], 'Styles array does not have [' . StylesInterface::SPINNER_STYLES . '] key.'],
+            [
+                [
+                    StylesInterface::SPINNER_STYLES => [],
+                ],
+                'Styles array does not have [' .
+                StylesInterface::SPINNER_STYLES . '][' .
+                StylesInterface::COLOR256 . '] key.',
+            ],
+            [
+                [
+                    StylesInterface::SPINNER_STYLES =>
+                        [
+                            StylesInterface::COLOR256 => [],
+                        ],
+                ],
+                'Styles array does not have [' .
+                StylesInterface::SPINNER_STYLES . '][' .
+                StylesInterface::COLOR . '] key.',
+            ],
+            [
+                [
+                    StylesInterface::SPINNER_STYLES =>
+                        [
+                            StylesInterface::COLOR256 => [],
+                            StylesInterface::COLOR => [],
+                        ],
+                ],
+                'Styles array does not have [' .
+                StylesInterface::MESSAGE_STYLES . '] key.',
+            ],
         ];
     }
 }
