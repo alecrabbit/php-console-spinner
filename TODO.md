@@ -1,5 +1,6 @@
 
 
+- [ ] fix tests for appveyor
 - [ ] optimize performance
 - [ ] improve Coloring class
 - [ ] improve Settings class
