@@ -173,19 +173,19 @@ class SpinnerWithOutputTest extends TestCase
         $spin = $output->getBuffer();
 
         $this->assertEquals(
-            Helper::stripEscape("\033[2m2\033[0m\033[2m Processing...\033[0m\033[2m 0%\033[0m\033[18D"),
+            Helper::stripEscape("\033[2m2\033[0m\033[2m Processing...\033[0m\033[2m 0% \033[0m\033[19D"),
             Helper::stripEscape($spin)
         );
         $spinner->spin(0.5);
         $spin = $output->getBuffer();
         $this->assertEquals(
-            Helper::stripEscape("\033[3m3\033[0m\033[2m Processing...\033[0m\033[2m 50%\033[0m\033[19D"),
+            Helper::stripEscape("\033[3m3\033[0m\033[2m Processing...\033[0m\033[2m 50% \033[0m\033[20D"),
             Helper::stripEscape($spin)
         );
         $spinner->spin(1.0);
         $spin = $output->getBuffer();
         $this->assertEquals(
-            Helper::stripEscape("\033[4m4\033[0m\033[2m Processing...\033[0m\033[2m 100%\033[0m\033[20D"),
+            Helper::stripEscape("\033[4m4\033[0m\033[2m Processing...\033[0m\033[2m 100% \033[0m\033[21D"),
             Helper::stripEscape($spin)
         );
 
@@ -193,16 +193,16 @@ class SpinnerWithOutputTest extends TestCase
         $erase = $output->getBuffer();
 
         $this->assertEquals(
-            Helper::stripEscape("                    \033[20D"),
+            Helper::stripEscape("                     \033[21D"),
             Helper::stripEscape($erase)
         );
         $spinner->end();
         $end = $output->getBuffer();
         $this->assertEquals(
-            Helper::stripEscape("                    \033[20D\033[?25h\033[?0c"),
+            Helper::stripEscape("                     \033[21D\033[?25h\033[?0c"),
             Helper::stripEscape($end)
         );
-        $this->assertEquals("                    \033[20D", $erase);
-        $this->assertEquals("                    \033[20D\033[?25h\033[?0c", $end);
+        $this->assertEquals("                     \033[21D", $erase);
+        $this->assertEquals("                     \033[21D\033[?25h\033[?0c", $end);
     }
 }
