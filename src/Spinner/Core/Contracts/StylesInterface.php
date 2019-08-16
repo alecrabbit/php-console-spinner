@@ -30,7 +30,7 @@ interface StylesInterface
                     Definitions
     */
     public const COLOR256 = 'color256';
-    public const COLOR =    'color';
+    public const COLOR = 'color';
     public const NO_COLOR = 'no_color';
 
     public const SPINNER_STYLES = 'spinner_styles';
@@ -47,6 +47,21 @@ interface StylesInterface
 
     public const C256_YELLOW_WHITE =
         [226, 227, 228, 229, 230, 231, 230, 229, 228, 227, 226];
+
+    public const C256_BG_YELLOW_WHITE =
+        [
+            [232, 231,],
+            [232, 230,],
+            [232, 229,],
+            [232, 228,],
+            [232, 227,],
+            [232, 226,],
+            [232, 226,],
+            [232, 227,],
+            [232, 228,],
+            [232, 229,],
+            [232, 230,],
+        ];
 
     public const C_LIGHT_YELLOW = [Styles::LIGHT_YELLOW];
     public const C_LIGHT_CYAN = [Styles::LIGHT_CYAN];
