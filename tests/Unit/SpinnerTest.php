@@ -270,7 +270,7 @@ class SpinnerTest extends TestCase
         $this->expectException(\RuntimeException::class);
         $this->expectExceptionMessage(
             'AlecRabbit\Tests\Spinner\ExtendedSpinner: ' .
-            'Call to unimplemented functionality '.
+            'Call to unimplemented functionality ' .
             'AlecRabbit\Spinner\Core\Spinner::getSettings'
         );
         $spinner->getSettings();
