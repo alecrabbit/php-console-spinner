@@ -256,7 +256,7 @@ abstract class Spinner implements SpinnerInterface
     protected function update(?float $percent, ?string $message): void
     {
         if ((null !== $percent) && 0 === ($percentVal = (int)($percent * 1000)) % 10) {
-            $this->percentStr = $this->percentSpacer . ($percentVal / 10) . '%';
+            $this->percentStr = $this->percentSpacer . ($percentVal / 10) . '% ';
             $this->percentStrLen = strlen($this->percentStr);
         }
         if ((null !== $message) && $this->currentMessage !== $message) {

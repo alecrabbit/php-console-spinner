@@ -40,6 +40,11 @@ display(
         protected const
             STYLES =
             [
+                StylesInterface::SPINNER_STYLES =>
+                    [
+                        StylesInterface::COLOR256 => StylesInterface::C256_BG_RAINBOW,
+                        StylesInterface::COLOR => [Styles::LIGHT_BLUE],
+                    ],
                 StylesInterface::MESSAGE_STYLES =>
                     [
                         StylesInterface::COLOR256 => StylesInterface::DISABLED,
