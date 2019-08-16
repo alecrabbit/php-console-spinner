@@ -101,7 +101,7 @@ class SpinnerTest extends TestCase
                     ],
             ]
         );
-        new ExtendedSpinner($settings);
+        $spinner = new ExtendedSpinner($settings, null, COLOR256_TERMINAL);
     }
 
     /** @test */
