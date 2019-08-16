@@ -2,6 +2,7 @@
 
 namespace AlecRabbit\Tests\Spinner;
 
+use const AlecRabbit\COLOR256_TERMINAL;
 use const AlecRabbit\NO_COLOR_TERMINAL;
 use AlecRabbit\Spinner\Core\Contracts\SettingsInterface;
 use AlecRabbit\Spinner\Core\Contracts\SpinnerOutputInterface;
@@ -104,7 +105,7 @@ class SpinnerWithOutputTest extends TestCase
     public function interface(): void
     {
         $output = new BufferOutputAdapter();
-        $spinner = new ExtendedSpinner(self::PROCESSING, $output, null);
+        $spinner = new ExtendedSpinner(self::PROCESSING, $output, COLOR256_TERMINAL);
         $this->assertInstanceOf(Spinner::class, $spinner->inline(true));
         $this->assertInstanceOf(Spinner::class, $spinner->inline(false));
         $spinner->begin();

@@ -6,6 +6,7 @@ use AlecRabbit\Spinner\ClockSpinner;
 use AlecRabbit\Spinner\Core\Contracts\SettingsInterface;
 use AlecRabbit\Tests\Spinner\Helper;
 use PHPUnit\Framework\TestCase;
+use const AlecRabbit\COLOR_TERMINAL;
 
 class ClockSpinnerTest extends TestCase
 {
@@ -37,7 +38,7 @@ class ClockSpinnerTest extends TestCase
      */
     public function interface(): void
     {
-        $spinner = new ClockSpinner(self::PROCESSING, false);
+        $spinner = new ClockSpinner(self::PROCESSING, false,COLOR_TERMINAL);
         $this->assertInstanceOf(ClockSpinner::class, $spinner->inline(true));
         $this->assertInstanceOf(ClockSpinner::class, $spinner->inline(false));
         $begin = $spinner->begin();

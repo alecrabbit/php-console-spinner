@@ -268,7 +268,7 @@ class SpinnerTest extends TestCase
     /** @test */
     public function interfaceWithBg(): void
     {
-        $spinner = new ExtendedBgSpinner(self::PROCESSING, false,COLOR256_TERMINAL);
+        $spinner = new ExtendedBgSpinner(self::PROCESSING, false, COLOR256_TERMINAL);
         $this->assertInstanceOf(Spinner::class, $spinner->inline(true));
         $this->assertInstanceOf(Spinner::class, $spinner->inline(false));
 

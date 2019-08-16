@@ -5,6 +5,7 @@ namespace AlecRabbit\Tests\Tools;
 use AlecRabbit\Spinner\TimeSpinner;
 use AlecRabbit\Tests\Spinner\Helper;
 use PHPUnit\Framework\TestCase;
+use const AlecRabbit\COLOR256_TERMINAL;
 
 class TimeSpinnerTest extends TestCase
 {
@@ -13,7 +14,7 @@ class TimeSpinnerTest extends TestCase
     /** @test */
     public function instance(): void
     {
-        $spinner = new TimeSpinner(self::PROCESSING, false);
+        $spinner = new TimeSpinner(self::PROCESSING, false, COLOR256_TERMINAL);
         $timeFormat = 'Y-m-d';
         $spinner->setTimeFormat($timeFormat);
         $this->assertInstanceOf(TimeSpinner::class, $spinner);
