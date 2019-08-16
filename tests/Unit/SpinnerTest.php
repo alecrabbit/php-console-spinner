@@ -355,7 +355,9 @@ class SpinnerTest extends TestCase
 
             // DO NOT CHANGE ORDER!!!
             $this->assertEquals(
-                Helper::stripEscape("\033[?25l\033[38;5;1;48;5;1m1\033[0m\033[2m Processing...\033[0m\033[2m\033[0m\033[15D"),
+                Helper::stripEscape(
+                    "\033[?25l\033[38;5;1;48;5;1m1\033[0m\033[2m Processing...\033[0m\033[2m\033[0m\033[15D"
+                ),
                 Helper::stripEscape($begin)
             );
             $this->assertEquals(
@@ -398,15 +400,21 @@ class SpinnerTest extends TestCase
             );
 
             $this->assertEquals(
-                Helper::stripEscape("\033[38;5;2;48;5;2m2\033[0m\033[2m Processing...\033[0m\033[2m 0% \033[0m\033[19D"),
+                Helper::stripEscape(
+                    "\033[38;5;2;48;5;2m2\033[0m\033[2m Processing...\033[0m\033[2m 0% \033[0m\033[19D"
+                ),
                 Helper::stripEscape($spinner->spin(0.0))
             );
             $this->assertEquals(
-                Helper::stripEscape("\033[38;5;3;48;5;3m3\033[0m\033[2m Processing...\033[0m\033[2m 50% \033[0m\033[20D"),
+                Helper::stripEscape(
+                    "\033[38;5;3;48;5;3m3\033[0m\033[2m Processing...\033[0m\033[2m 50% \033[0m\033[20D"
+                ),
                 Helper::stripEscape($spinner->spin(0.5))
             );
             $this->assertEquals(
-                Helper::stripEscape("\033[38;5;4;48;5;4m4\033[0m\033[2m Processing...\033[0m\033[2m 100% \033[0m\033[21D"),
+                Helper::stripEscape(
+                    "\033[38;5;4;48;5;4m4\033[0m\033[2m Processing...\033[0m\033[2m 100% \033[0m\033[21D"
+                ),
                 Helper::stripEscape($spinner->spin(1.0))
             );
             $this->assertEquals(
