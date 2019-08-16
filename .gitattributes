@@ -12,6 +12,7 @@ phpunit.xml export-ignore
 psalm.xml export-ignore
 /tests export-ignore
 /vendor export-ignore
+.appveyor.yaml export-ignore
 /.chglog export-ignore
 .dockerignore export-ignore
 .env export-ignore
