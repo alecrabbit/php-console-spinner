@@ -1,6 +1,9 @@
 <a name="unreleased"></a>
 ## [Unreleased]
 
+
+<a name="0.16.1-ALPHA.3"></a>
+## [0.16.1-ALPHA.3] - 2019-08-16
 ### Added
 - new 256 color style `C256_BG_RAINBOW`
 - new 256 color style `C256_BG_YELLOW_WHITE`
@@ -170,7 +173,8 @@
 <a name="0.2.1-ALPHA.1"></a>
 ## 0.2.1-ALPHA.1 - 2019-04-06
 
-[Unreleased]: https://github.com/alecrabbit/php-console-spinner/compare/0.16.0-ALPHA.2...HEAD
+[Unreleased]: https://github.com/alecrabbit/php-console-spinner/compare/0.16.1-ALPHA.3...HEAD
+[0.16.1-ALPHA.3]: https://github.com/alecrabbit/php-console-spinner/compare/0.16.0-ALPHA.2...0.16.1-ALPHA.3
 [0.16.0-ALPHA.2]: https://github.com/alecrabbit/php-console-spinner/compare/0.16.0-ALPHA.1...0.16.0-ALPHA.2
 [0.16.0-ALPHA.1]: https://github.com/alecrabbit/php-console-spinner/compare/0.15.2-ALPHA.3...0.16.0-ALPHA.1
 [0.15.2-ALPHA.3]: https://github.com/alecrabbit/php-console-spinner/compare/0.15.1-ALPHA.3...0.15.2-ALPHA.3
