@@ -38,7 +38,7 @@ class ClockSpinnerTest extends TestCase
      */
     public function interface(): void
     {
-        $spinner = new ClockSpinner(self::PROCESSING, false,COLOR_TERMINAL);
+        $spinner = new ClockSpinner(self::PROCESSING, false, COLOR_TERMINAL);
         $this->assertInstanceOf(ClockSpinner::class, $spinner->inline(true));
         $this->assertInstanceOf(ClockSpinner::class, $spinner->inline(false));
         $begin = $spinner->begin();
