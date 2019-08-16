@@ -8,6 +8,9 @@
 ### Feature
 - 256Color styles now accept bg color
 
+### Fixed
+- tests
+
 
 <a name="0.16.0-ALPHA.2"></a>
 ## [0.16.0-ALPHA.2] - 2019-08-15
