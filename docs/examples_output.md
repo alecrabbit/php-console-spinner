@@ -1,4 +1,3 @@
-
 ```bash
 # php examples/show_all_spinners.php
 ```
@@ -8,7 +7,8 @@ See [cast](https://asciinema.org/a/262622)
 ```bash
 # php examples/usage.php
 ```
-[example](images/usage.svg)
+
+See [cast](https://asciinema.org/a/262768)
 
 ```bash
 # php examples/advanced.php
