@@ -2,6 +2,7 @@
 
 namespace AlecRabbit\Tests\Spinner;
 
+use AlecRabbit\Cli\Tools\Core\TerminalStatic;
 use AlecRabbit\Spinner\Core\Contracts\SettingsInterface;
 use AlecRabbit\Spinner\Core\Contracts\StylesInterface;
 use AlecRabbit\Spinner\Core\Settings;
@@ -350,62 +351,66 @@ class SpinnerTest extends TestCase
 
         $begin = $spinner->begin();
 
-        // DO NOT CHANGE ORDER!!!
-        $this->assertEquals(
-            Helper::stripEscape("\033[?25l\033[38;5;1;48;5;1m1\033[0m\033[2m Processing...\033[0m\033[2m\033[0m\033[15D"),
-            Helper::stripEscape($begin)
-        );
-        $this->assertEquals(
-            "\033[?25l\033[38;5;1;48;5;1m1\033[0m\033[2m Processing...\033[0m\033[2m\033[0m\033[15D",
-            $begin
-        );
+        if (TerminalStatic::supports256Color()) {
 
-        $this->assertEquals(
-            Helper::stripEscape("\033[38;5;2;48;5;2m2\033[0m\033[2m Processing...\033[0m\033[2m\033[0m\033[15D"),
-            Helper::stripEscape($spinner->spin())
-        );
-        $this->assertEquals(
-            Helper::stripEscape("\033[38;5;3;48;5;3m3\033[0m\033[2m Processing...\033[0m\033[2m\033[0m\033[15D"),
-            Helper::stripEscape($spinner->spin())
-        );
-        $this->assertEquals(
-            Helper::stripEscape("\033[38;5;4;48;5;4m4\033[0m\033[2m Processing...\033[0m\033[2m\033[0m\033[15D"),
-            Helper::stripEscape($spinner->spin())
-        );
-        $this->assertEquals(
-            Helper::stripEscape("\033[38;5;1;48;5;1m1\033[0m\033[2m Processing...\033[0m\033[2m\033[0m\033[15D"),
-            Helper::stripEscape($spinner->spin())
-        );
+            // DO NOT CHANGE ORDER!!!
+            $this->assertEquals(
+                Helper::stripEscape("\033[?25l\033[38;5;1;48;5;1m1\033[0m\033[2m Processing...\033[0m\033[2m\033[0m\033[15D"),
+                Helper::stripEscape($begin)
+            );
+            $this->assertEquals(
+                "\033[?25l\033[38;5;1;48;5;1m1\033[0m\033[2m Processing...\033[0m\033[2m\033[0m\033[15D",
+                $begin
+            );
 
-        $this->assertEquals(
-            "\033[38;5;2;48;5;2m2\033[0m\033[2m Processing...\033[0m\033[2m\033[0m\033[15D",
-            $spinner->spin()
-        );
-        $this->assertEquals(
-            "\033[38;5;3;48;5;3m3\033[0m\033[2m Processing...\033[0m\033[2m\033[0m\033[15D",
-            $spinner->spin()
-        );
-        $this->assertEquals(
-            "\033[38;5;4;48;5;4m4\033[0m\033[2m Processing...\033[0m\033[2m\033[0m\033[15D",
-            $spinner->spin()
-        );
-        $this->assertEquals(
-            "\033[38;5;1;48;5;1m1\033[0m\033[2m Processing...\033[0m\033[2m\033[0m\033[15D",
-            $spinner->spin()
-        );
+            $this->assertEquals(
+                Helper::stripEscape("\033[38;5;2;48;5;2m2\033[0m\033[2m Processing...\033[0m\033[2m\033[0m\033[15D"),
+                Helper::stripEscape($spinner->spin())
+            );
+            $this->assertEquals(
+                Helper::stripEscape("\033[38;5;3;48;5;3m3\033[0m\033[2m Processing...\033[0m\033[2m\033[0m\033[15D"),
+                Helper::stripEscape($spinner->spin())
+            );
+            $this->assertEquals(
+                Helper::stripEscape("\033[38;5;4;48;5;4m4\033[0m\033[2m Processing...\033[0m\033[2m\033[0m\033[15D"),
+                Helper::stripEscape($spinner->spin())
+            );
+            $this->assertEquals(
+                Helper::stripEscape("\033[38;5;1;48;5;1m1\033[0m\033[2m Processing...\033[0m\033[2m\033[0m\033[15D"),
+                Helper::stripEscape($spinner->spin())
+            );
 
-        $this->assertEquals(
-            Helper::stripEscape("\033[38;5;2;48;5;2m2\033[0m\033[2m Processing...\033[0m\033[2m 0% \033[0m\033[19D"),
-            Helper::stripEscape($spinner->spin(0.0))
-        );
-        $this->assertEquals(
-            Helper::stripEscape("\033[38;5;3;48;5;3m3\033[0m\033[2m Processing...\033[0m\033[2m 50% \033[0m\033[20D"),
-            Helper::stripEscape($spinner->spin(0.5))
-        );
-        $this->assertEquals(
-            Helper::stripEscape("\033[38;5;4;48;5;4m4\033[0m\033[2m Processing...\033[0m\033[2m 100% \033[0m\033[21D"),
-            Helper::stripEscape($spinner->spin(1.0))
-        );
+            $this->assertEquals(
+                "\033[38;5;2;48;5;2m2\033[0m\033[2m Processing...\033[0m\033[2m\033[0m\033[15D",
+                $spinner->spin()
+            );
+            $this->assertEquals(
+                "\033[38;5;3;48;5;3m3\033[0m\033[2m Processing...\033[0m\033[2m\033[0m\033[15D",
+                $spinner->spin()
+            );
+            $this->assertEquals(
+                "\033[38;5;4;48;5;4m4\033[0m\033[2m Processing...\033[0m\033[2m\033[0m\033[15D",
+                $spinner->spin()
+            );
+            $this->assertEquals(
+                "\033[38;5;1;48;5;1m1\033[0m\033[2m Processing...\033[0m\033[2m\033[0m\033[15D",
+                $spinner->spin()
+            );
+
+            $this->assertEquals(
+                Helper::stripEscape("\033[38;5;2;48;5;2m2\033[0m\033[2m Processing...\033[0m\033[2m 0% \033[0m\033[19D"),
+                Helper::stripEscape($spinner->spin(0.0))
+            );
+            $this->assertEquals(
+                Helper::stripEscape("\033[38;5;3;48;5;3m3\033[0m\033[2m Processing...\033[0m\033[2m 50% \033[0m\033[20D"),
+                Helper::stripEscape($spinner->spin(0.5))
+            );
+            $this->assertEquals(
+                Helper::stripEscape("\033[38;5;4;48;5;4m4\033[0m\033[2m Processing...\033[0m\033[2m 100% \033[0m\033[21D"),
+                Helper::stripEscape($spinner->spin(1.0))
+            );
+        }
+
 
         $this->assertEquals(
             Helper::stripEscape("                     \033[21D"),
