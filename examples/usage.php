@@ -11,6 +11,7 @@ require_once __DIR__ . '/../tests/bootstrap.php';
 require_once __DIR__ . '/__include/__helper_functions.php';
 
 use AlecRabbit\Cli\Tools\Cursor;
+use AlecRabbit\ConsoleColour\Contracts\BG;
 use AlecRabbit\ConsoleColour\Contracts\Styles;
 use AlecRabbit\ConsoleColour\Themes;
 use AlecRabbit\Spinner\ArrowSpinner;
@@ -18,7 +19,7 @@ use AlecRabbit\Spinner\Core\Contracts\StylesInterface;
 use AlecRabbit\Spinner\LineSpinner;
 use AlecRabbit\Spinner\SnakeSpinner;
 
-const ITERATIONS = 100; // Play with this value 100..500
+const ITERATIONS = 200; // Play with this value 100..500
 
 //// Try different  spinners:
 // CircleSpinner::class
@@ -67,19 +68,19 @@ display(
                 StylesInterface::MESSAGE_STYLES =>
                     [
                         StylesInterface::COLOR256 => StylesInterface::DISABLED,
-                        StylesInterface::COLOR => [Styles::LIGHT_YELLOW],
+                        StylesInterface::COLOR => [[Styles::MAGENTA, BG::BLACK]],
                     ],
                 StylesInterface::PERCENT_STYLES =>
                     [
                         StylesInterface::COLOR256 => StylesInterface::DISABLED,
-                        StylesInterface::COLOR => [Styles::RED],
+                        StylesInterface::COLOR => [[Styles::WHITE, BG::RED]],
                     ],
             ];
     },
     $themes,
     true,
     [
-        'Extended SnakeSpinner on the next line.',
+        'Extended ArrowSpinner on the next line.',
         '(With styled messages and styled percentage)',
         '',
     ],

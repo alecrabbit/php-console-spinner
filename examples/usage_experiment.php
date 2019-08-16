@@ -47,7 +47,7 @@ display(
                     ],
                 StylesInterface::PERCENT_STYLES =>
                     [
-                        StylesInterface::COLOR256 => StylesInterface::C256_YELLOW_WHITE,
+                        StylesInterface::COLOR256 => StylesInterface::C256_BG_YELLOW_WHITE,
                         StylesInterface::COLOR => [Styles::RED],
                     ],
             ];
