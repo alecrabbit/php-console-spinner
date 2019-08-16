@@ -349,9 +349,9 @@ class SpinnerTest extends TestCase
         $this->assertInstanceOf(Spinner::class, $spinner->inline(true));
         $this->assertInstanceOf(Spinner::class, $spinner->inline(false));
 
-        $begin = $spinner->begin();
 
         if (TerminalStatic::supports256Color()) {
+            $begin = $spinner->begin();
 
             // DO NOT CHANGE ORDER!!!
             $this->assertEquals(
@@ -409,19 +409,17 @@ class SpinnerTest extends TestCase
                 Helper::stripEscape("\033[38;5;4;48;5;4m4\033[0m\033[2m Processing...\033[0m\033[2m 100% \033[0m\033[21D"),
                 Helper::stripEscape($spinner->spin(1.0))
             );
+            $this->assertEquals(
+                Helper::stripEscape("                     \033[21D"),
+                Helper::stripEscape($spinner->erase())
+            );
+            $this->assertEquals(
+                Helper::stripEscape("                     \033[21D\033[?25h\033[?0c"),
+                Helper::stripEscape($spinner->end())
+            );
+            $this->assertEquals("                     \033[21D", $spinner->erase());
+            $this->assertEquals("                     \033[21D\033[?25h\033[?0c", $spinner->end());
         }
-
-
-        $this->assertEquals(
-            Helper::stripEscape("                     \033[21D"),
-            Helper::stripEscape($spinner->erase())
-        );
-        $this->assertEquals(
-            Helper::stripEscape("                     \033[21D\033[?25h\033[?0c"),
-            Helper::stripEscape($spinner->end())
-        );
-        $this->assertEquals("                     \033[21D", $spinner->erase());
-        $this->assertEquals("                     \033[21D\033[?25h\033[?0c", $spinner->end());
     }
 
     /** @test */
