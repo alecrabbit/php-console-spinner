@@ -1,4 +1,4 @@
-{"version": 2, "width": 131, "height": 66, "timestamp": 1565879113, "env": {"SHELL": "/bin/bash", "TERM": "xterm-256color"}}
+{"version": 2, "width": 131, "height": 40, "timestamp": 1565879113, "env": {"SHELL": "/bin/bash", "TERM": "xterm-256color"}}
 [0.25916, "o", "\r\r\n \u001b[36;1m2019-08-15 17:25:13 \u001b[0;31m⌚ \u001b[0;33m \u001b[0;35mpb450 \u001b[39min \u001b[0;32m~/projects/php/libraries/php-console-spinner\r\r\n\u001b[36;1m± \u001b[0;32m|master U:1 ?:1 \u001b[0;31m✗\u001b[0;32m| \u001b[0;32m→\u001b[39m "]
 [0.394759, "o", "dc-ea php examples/usage.php \r\n"]
 [1.163005, "o", "\u001b[33mLong running task example...\u001b[0m\r\n"]
@@ -456,5 +456,3 @@
 [46.815743, "o", "^C"]
 [46.816007, "o", "\u001b[38;5;84m|\u001b[0m\u001b[2m \u001b[0m\u001b[2m\u001b[0m\u001b[2D"]
 [46.816078, "o", "  \u001b[2D\u001b[?25h\u001b[?0c\r\n"]
-[46.978046, "o", "\r\r\n \u001b[36;1m2019-08-15 17:26:00 \u001b[0;31m⌚ \u001b[0;33m \u001b[0;35mpb450 \u001b[39min \u001b[0;32m~/projects/php/libraries/php-console-spinner\r\r\n\u001b[36;1m± \u001b[0;32m|master U:1 ?:1 \u001b[0;31m✗\u001b[0;32m| \u001b[0;32m→\u001b[39m "]
-[47.874867, "o", "exit\r\n"]
