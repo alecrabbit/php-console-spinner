@@ -4,11 +4,11 @@ namespace AlecRabbit\Spinner\Core;
 
 use AlecRabbit\Accessories\Circular;
 use AlecRabbit\Cli\Tools\Core\TerminalStatic;
+use AlecRabbit\Spinner\Core\Contracts\StylesInterface;
 use const AlecRabbit\COLOR256_TERMINAL;
 use const AlecRabbit\COLOR_TERMINAL;
-use const AlecRabbit\NO_COLOR_TERMINAL;
-use AlecRabbit\Spinner\Core\Contracts\StylesInterface;
 use const AlecRabbit\ESC;
+use const AlecRabbit\NO_COLOR_TERMINAL;
 
 class Coloring
 {
@@ -95,7 +95,15 @@ class Coloring
                 $this->circularColor($styles) :
                 new Circular(
                     array_map(
-                        static function (string $value): string {
+                        /**
+                         * @param string|array $value
+                         * @return string
+                         */
+                        static function ($value): string {
+                            if (\is_array($value)) {
+                                [$fg,  $bg] = $value;
+                                return ESC . "[38;5;{$fg};48;5;{$bg}m%s" . ESC . '[0m';
+                            }
                             return ESC . "[38;5;{$value}m%s" . ESC . '[0m';
                         },
                         $styles[StylesInterface::COLOR256]
@@ -114,7 +122,14 @@ class Coloring
                 $this->circularNoColor() :
                 new Circular(
                     array_map(
-                        static function (string $value): string {
+                        /**
+                         * @param string|array $value
+                         * @return string
+                         */
+                        static function ($value): string {
+                            if (\is_array($value)) {
+                                $value = implode(';', $value);
+                            }
                             return ESC . "[{$value}m%s" . ESC . '[0m';
                         },
                         $styles[StylesInterface::COLOR]
