@@ -10,7 +10,11 @@
     "scripts",
     "pretty",
     "clock",
+    "arrow",
     "moon",
+    "color",
+    "colorful",
+    "ansi",
     "snake"
   ],
   "license": "MIT",
