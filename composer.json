@@ -1,7 +1,7 @@
 {
   "name": "alecrabbit/php-console-spinner",
   "type": "library",
-  "description": "Spinner - your task is running",
+  "description": "Colorful spinner for php cli applications",
   "keywords": [
     "php",
     "spinner",
