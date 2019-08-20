@@ -64,14 +64,14 @@ abstract class Spinner implements SpinnerInterface
     /**
      * AbstractSpinner constructor.
      *
-     * @param mixed $settings
+     * @param null|string|SettingsInterface $messageOrSettings
      * @param null|false|SpinnerOutputInterface $output
      * @param mixed $color
      */
-    public function __construct($settings = null, $output = null, $color = null)
+    public function __construct($messageOrSettings = null, $output = null, $color = null)
     {
         $this->output = $this->refineOutput($output);
-        $this->settings = $this->refineSettings($settings);
+        $this->settings = $this->refineSettings($messageOrSettings);
         $this->loadSettings($color);
     }
 
@@ -104,7 +104,7 @@ abstract class Spinner implements SpinnerInterface
     }
 
     /**
-     * @param mixed $settings
+     * @param null|string|SettingsInterface $settings
      * @return SettingsInterface
      */
     protected function refineSettings($settings): SettingsInterface
