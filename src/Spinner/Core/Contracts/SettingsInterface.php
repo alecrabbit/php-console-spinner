@@ -77,13 +77,13 @@ interface SettingsInterface
     /**
      * @return array
      */
-    public function getSymbols(): array;
+    public function getFrames(): array;
 
     /**
      * @param null|array $symbols
      * @return SettingsInterface
      */
-    public function setSymbols(?array $symbols): SettingsInterface;
+    public function setFrames(?array $symbols): SettingsInterface;
 
     /**
      * @return array
@@ -111,4 +111,10 @@ interface SettingsInterface
      * @return SettingsInterface
      */
     public function setSpacer(?string $spacer): SettingsInterface;
+
+    /**
+     * @param null|SettingsInterface $settings
+     * @return SettingsInterface
+     */
+    public function merge(?SettingsInterface $settings): SettingsInterface;
 }

@@ -70,7 +70,7 @@ display(
 $settings = new Settings();
 
 $settings
-    ->setSymbols(Frames::BALL_VARIANT_0)
+    ->setFrames(Frames::BALL_VARIANT_0)
     ->setMessage(' ')
     ->setMessageSuffix(' ')
     ->setStyles([

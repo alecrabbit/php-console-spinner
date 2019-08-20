@@ -30,7 +30,7 @@ echo $themes->comment('Long running task example...') . PHP_EOL;
 $message = 'mᚹä漢d字'; // Random characters
 $settings =
     (new \AlecRabbit\Spinner\Core\Settings())
-        ->setSymbols(Frames::BALL_VARIANT_0)
+        ->setFrames(Frames::BALL_VARIANT_0)
         ->setStyles(
             [
                 StylesInterface::MESSAGE_STYLES =>

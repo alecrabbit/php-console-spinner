@@ -25,7 +25,7 @@ class Settings implements SettingsInterface
     /** @var string */
     protected $inlinePaddingStr;
     /** @var array */
-    protected $symbols;
+    protected $frames;
     /** @var array */
     protected $styles;
     /** @var int */
@@ -47,12 +47,11 @@ class Settings implements SettingsInterface
             $this
                 ->setMessageSuffix(null)
                 ->setSpacer(null)
-                ->setSymbols(null)
+                ->setFrames(null)
                 ->setStyles(null)
                 ->setMessage(null)
                 ->setMessagePrefix(null)
                 ->setInterval(null)
-//                ->setErasingShift(null)
                 ->setInlinePaddingStr(null);
     }
 
@@ -76,13 +75,6 @@ class Settings implements SettingsInterface
         return $this->erasingShift;
     }
 
-//    /** {@inheritDoc} */
-//    public function setErasingShift(?int $erasingShift): SettingsInterface
-//    {
-//        $this->erasingShift = $erasingShift ?? SettingsInterface::DEFAULT_ERASING_SHIFT;
-//        return $this;
-//    }
-//
     /** {@inheritDoc} */
     public function getMessage(): string
     {
@@ -182,21 +174,21 @@ class Settings implements SettingsInterface
     }
 
     /** {@inheritDoc} */
-    public function getSymbols(): array
+    public function getFrames(): array
     {
-        return $this->symbols;
+        return $this->frames;
     }
 
     /** {@inheritDoc} */
-    public function setSymbols(?array $symbols): SettingsInterface
+    public function setFrames(?array $symbols): SettingsInterface
     {
         if (null !== $symbols && count($symbols) > SettingsInterface::MAX_FRAMES_COUNT) {
             throw new \InvalidArgumentException(
                 sprintf('MAX_SYMBOLS_COUNT limit [%s] exceeded.', SettingsInterface::MAX_FRAMES_COUNT)
             );
         }
-        $this->symbols = $symbols ?? static::DEFAULT_FRAMES;
-        $this->erasingShift = $this->computeErasingLen($this->symbols);
+        $this->frames = $symbols ?? static::DEFAULT_FRAMES;
+        $this->erasingShift = $this->computeErasingLen($this->frames);
         return $this;
     }
 
@@ -230,6 +222,24 @@ class Settings implements SettingsInterface
         return $defaultStyles;
     }
 
+    public function merge(?SettingsInterface $settings): SettingsInterface
+    {
+        if ($settings instanceof SettingsInterface) {
+            $this->interval = $settings->getInterval();
+            $this->erasingShift = $settings->getErasingShift();
+            $this->message = $settings->getMessage();
+            $this->messagePrefix = $settings->getMessagePrefix();
+            $this->messageSuffix = $settings->getMessageSuffix();
+            $this->inlinePaddingStr = $settings->getInlinePaddingStr();
+            $this->frames = $settings->getFrames();
+            $this->styles = $settings->getStyles();
+            $this->messageErasingLen = $settings->getMessageErasingLen();
+            $this->spacer = $settings->getSpacer();
+        }
+
+        return $this;
+    }
+
     /**
      * @return int
      */
@@ -243,7 +253,7 @@ class Settings implements SettingsInterface
         return $this->spacer;
     }
 
-    public function setSpacer(?string $spacer):SettingsInterface
+    public function setSpacer(?string $spacer): SettingsInterface
     {
         $this->spacer = $spacer ?? SettingsInterface::EMPTY;
         return $this;

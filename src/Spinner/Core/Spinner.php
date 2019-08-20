@@ -114,8 +114,12 @@ abstract class Spinner implements SpinnerInterface
             return
                 $this->defaultSettings()->setMessage($settings);
         }
+        if($settings instanceof SettingsInterface) {
+            return $settings;
+//            return $this->defaultSettings()->merge($settings);
+        }
         return
-            $settings ?? $this->defaultSettings();
+            $this->defaultSettings();
     }
 
     /**
@@ -138,7 +142,7 @@ abstract class Spinner implements SpinnerInterface
         return
             (new Settings())
                 ->setInterval(static::INTERVAL)
-                ->setSymbols(static::FRAMES)
+                ->setFrames(static::FRAMES)
                 ->setStyles(static::STYLES);
     }
 
@@ -155,7 +159,7 @@ abstract class Spinner implements SpinnerInterface
         $this->currentMessagePrefix = $this->settings->getMessagePrefix();
         $this->currentMessageSuffix = $this->settings->getMessageSuffix();
         $this->spacer = $this->settings->getSpacer();
-        $this->symbols = new Circular($this->settings->getSymbols());
+        $this->symbols = new Circular($this->settings->getFrames());
 
         try {
             $this->style = new Style($this->settings->getStyles(), $color);

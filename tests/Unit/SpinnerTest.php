@@ -109,7 +109,7 @@ class SpinnerTest extends TestCase
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('MAX_SYMBOLS_COUNT limit [50] exceeded.');
-        (new Settings())->setSymbols(array_fill(0, 56, '-'));
+        (new Settings())->setFrames(array_fill(0, 56, '-'));
     }
 
     /** @test */

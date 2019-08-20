@@ -83,7 +83,7 @@ $loop->addSignal(
  */
 $settings = new Settings();
 $settings
-    ->setSymbols(Frames::SNAKE_VARIANT_1)
+    ->setFrames(Frames::SNAKE_VARIANT_1)
     ->setStyles(
         [
             StylesInterface::MESSAGE_STYLES =>
