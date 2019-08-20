@@ -2,6 +2,12 @@
 ## [Unreleased]
 
 
+<a name="0.16.3"></a>
+## [0.16.3] - 2019-08-19
+
+<a name="0.16.2"></a>
+## [0.16.2] - 2019-08-16
+
 <a name="0.16.1-ALPHA.4"></a>
 ## [0.16.1-ALPHA.4] - 2019-08-16
 
@@ -176,7 +182,9 @@
 <a name="0.2.1-ALPHA.1"></a>
 ## 0.2.1-ALPHA.1 - 2019-04-06
 
-[Unreleased]: https://github.com/alecrabbit/php-console-spinner/compare/0.16.1-ALPHA.4...HEAD
+[Unreleased]: https://github.com/alecrabbit/php-console-spinner/compare/0.16.3...HEAD
+[0.16.3]: https://github.com/alecrabbit/php-console-spinner/compare/0.16.2...0.16.3
+[0.16.2]: https://github.com/alecrabbit/php-console-spinner/compare/0.16.1-ALPHA.4...0.16.2
 [0.16.1-ALPHA.4]: https://github.com/alecrabbit/php-console-spinner/compare/0.16.1-ALPHA.3...0.16.1-ALPHA.4
 [0.16.1-ALPHA.3]: https://github.com/alecrabbit/php-console-spinner/compare/0.16.0-ALPHA.2...0.16.1-ALPHA.3
 [0.16.0-ALPHA.2]: https://github.com/alecrabbit/php-console-spinner/compare/0.16.0-ALPHA.1...0.16.0-ALPHA.2
