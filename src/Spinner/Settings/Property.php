@@ -43,4 +43,12 @@ class Property
     {
         return $this->isDefault;
     }
+
+    /**
+     * @return bool
+     */
+    public function isNotDefault(): bool
+    {
+        return !$this->isDefault;
+    }
 }

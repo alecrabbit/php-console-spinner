@@ -3,146 +3,219 @@
 namespace AlecRabbit\Spinner\Settings;
 
 use AlecRabbit\Spinner\Settings\Contracts\Defaults;
+use AlecRabbit\Spinner\Settings\Contracts\S;
 use AlecRabbit\Spinner\Settings\Contracts\SettingsInterface;
 
 class Settings implements SettingsInterface
 {
-    protected const INTERVAL = 'interval';
-    protected const ERASING_SHIFT = 'erasingShift';
-    protected const MESSAGE = 'message';
-    protected const MESSAGE_ERASING_LENGTH = 'messageErasingLen';
-    protected const MESSAGE_PREFIX = 'messagePrefix';
-    protected const MESSAGE_SUFFIX = 'messageSuffix';
-
     /** @var Property[] */
-    protected $properties =
-        [
-            self::INTERVAL => Defaults::DEFAULT_INTERVAL,
-            self::ERASING_SHIFT => null,
-            self::MESSAGE => null,
-            self::MESSAGE_ERASING_LENGTH => null,
-        ];
+    protected $properties;
 
     public function __construct()
     {
-        $this->initialize();
+        $this->properties = $this->initialize();
     }
 
-    private function initialize(): void
-    {
-        foreach ($this->properties as $name => $value) {
-            $this->properties[$name] = new Property($value);
-        }
-    }
-
+    /** {@inheritDoc} */
     public function getInterval(): float
     {
         return
-            $this->properties[self::INTERVAL]->getValue();
+            $this->properties[S::INTERVAL]->getValue();
     }
 
-    public function setInterval(float $interval): SettingsInterface
+    /** {@inheritDoc} */
+    public function setInterval(float $interval): self
     {
-        $this->properties[self::INTERVAL]->setValue($interval);
+        $this->properties[S::INTERVAL]->setValue($interval);
         return $this;
     }
 
+    /** {@inheritDoc} */
     public function getErasingShift(): int
     {
         return
-            $this->properties[self::ERASING_SHIFT]->getValue();
+            $this->properties[S::ERASING_SHIFT]->getValue();
     }
 
+    /** {@inheritDoc} */
     public function getMessage(): string
     {
         return
-            $this->properties[self::MESSAGE]->getValue();
+            $this->properties[S::MESSAGE]->getValue();
     }
 
-    public function setMessage(string $message, int $erasingLength = null): SettingsInterface
+    /** {@inheritDoc} */
+    public function setMessage(string $message, int $erasingLength = null): self
     {
-        $this->properties[self::MESSAGE]->setValue($message);
-        $this->properties[self::MESSAGE_ERASING_LENGTH]->setValue($erasingLength);
+        $this->properties[S::MESSAGE]->setValue($message);
+        $erasingLength = $this->refineErasingLen($message, $erasingLength);
+        if (\AlecRabbit\Spinner\Core\Contracts\SettingsInterface::EMPTY === $message) {
+            $this->setMessageSuffix(Defaults::EMPTY);
+        } else {
+            $this->setMessageSuffix(Defaults::DEFAULT_SUFFIX);
+        }
+
+        $this->properties[S::MESSAGE_ERASING_LENGTH]->setValue($erasingLength);
         return $this;
     }
 
+    /**
+     * @param string $string
+     * @param null|int $erasingLen
+     * @return int
+     */
+    protected function refineErasingLen(string $string, ?int $erasingLen): int
+    {
+        if (null === $erasingLen) {
+            return $this->computeErasingLen([$string]);
+        }
+        return $erasingLen;
+    }
+
+    /**
+     * @param array $strings
+     * @return int
+     */
+    protected function computeErasingLen(array $strings): int
+    {
+        if (empty($strings)) {
+            return 0;
+        }
+        return $this->compErasingLen($strings);
+    }
+
+    private function compErasingLen(array $strings): int
+    {
+        // TODO check if all elements have the same erasingLen
+
+        if (null === $symbol = $strings[0]) {
+            return 0;
+        }
+        $mbSymbolLen = mb_strlen($symbol);
+        $oneCharLen = strlen($symbol) / $mbSymbolLen;
+        if (4 === $oneCharLen) {
+            return 2 * $mbSymbolLen;
+        }
+        return 1 * $mbSymbolLen;
+    }
+
+    /** {@inheritDoc} */
+    public function setMessageSuffix(string $suffix): self
+    {
+        $this->properties[S::MESSAGE_SUFFIX]->setValue($suffix);
+        return $this;
+    }
+
+    /** {@inheritDoc} */
     public function getMessagePrefix(): string
     {
         return
-            $this->properties[self::MESSAGE_PREFIX]->getValue();
+            $this->properties[S::MESSAGE_PREFIX]->getValue();
     }
 
-    public function setMessagePrefix(string $prefix): SettingsInterface
+    /** {@inheritDoc} */
+    public function setMessagePrefix(string $prefix): self
     {
-        $this->properties[self::MESSAGE_PREFIX]->setValue($prefix);
+        $this->properties[S::MESSAGE_PREFIX]->setValue($prefix);
         return $this;
     }
 
+    /** {@inheritDoc} */
     public function getMessageSuffix(): string
     {
         return
-            $this->properties[self::MESSAGE_SUFFIX]->getValue();
+            $this->properties[S::MESSAGE_SUFFIX]->getValue();
     }
 
-    public function setMessageSuffix(string $suffix): SettingsInterface
-    {
-        $this->properties[self::MESSAGE_SUFFIX]->setValue($suffix);
-        return $this;
-    }
-
+    /** {@inheritDoc} */
     public function getInlinePaddingStr(): string
     {
-        // TODO: Implement getInlinePaddingStr() method.
+        return
+            $this->properties[S::INLINE_PADDING_STR]->getValue();
     }
 
-    public function setInlinePaddingStr(string $inlinePaddingStr): SettingsInterface
+    /** {@inheritDoc} */
+    public function setInlinePaddingStr(string $inlinePaddingStr): self
     {
-        // TODO: Implement setInlinePaddingStr() method.
+        $this->properties[S::INLINE_PADDING_STR]->setValue($inlinePaddingStr);
         return $this;
     }
 
+    /** {@inheritDoc} */
     public function getFrames(): array
     {
-        // TODO: Implement getFrames() method.
+        return
+            $this->properties[S::FRAMES]->getValue();
     }
 
-    public function setFrames(array $symbols): SettingsInterface
+    /** {@inheritDoc} */
+    public function setFrames(array $frames): self
     {
-        // TODO: Implement setFrames() method.
+        if (Defaults::MAX_FRAMES_COUNT < count($frames)) {
+            throw new \InvalidArgumentException(
+                sprintf('MAX_SYMBOLS_COUNT limit [%s] exceeded.', Defaults::MAX_FRAMES_COUNT)
+            );
+        }
+        $this->properties[S::FRAMES]->setValue($frames);
+        $this->properties[S::ERASING_SHIFT]->setValue($this->computeErasingLen($frames));
         return $this;
     }
 
+    /** {@inheritDoc} */
     public function getStyles(): array
     {
-        // TODO: Implement getStyles() method.
+        return
+            $this->properties[S::STYLES]->getValue();
     }
 
-    public function setStyles(array $styles): SettingsInterface
+    /** {@inheritDoc} */
+    public function setStyles(array $styles): self
     {
-        // TODO: Implement setStyles() method.
+        $this->properties[S::STYLES]->setValue($styles);
         return $this;
     }
 
+    /** {@inheritDoc} */
     public function getMessageErasingLen(): int
     {
-        // TODO: Implement getMessageErasingLen() method.
+        return
+            $this->properties[S::MESSAGE_ERASING_LENGTH]->getValue();
     }
 
+    /** {@inheritDoc} */
     public function getSpacer(): string
     {
-        // TODO: Implement getSpacer() method.
+        return
+            $this->properties[S::SPACER]->getValue();
     }
 
-    public function setSpacer(string $spacer): SettingsInterface
+    /** {@inheritDoc} */
+    public function setSpacer(string $spacer): self
     {
-        // TODO: Implement setSpacer() method.
+        $this->properties[S::SPACER]->setValue($spacer);
         return $this;
     }
 
-    public function merge(SettingsInterface $settings): SettingsInterface
+    /** {@inheritDoc} */
+    public function merge(self $settings): self
     {
-        // TODO: Implement merge() method.
+        foreach ($this->properties as $name => $value) {
+            if ($settings->properties[$name]->isNotDefault()) {
+                $this->properties[$name] = $settings->properties[$name];
+            }
+        }
         return $this;
     }
 
+    /**
+     * @return Property[]
+     */
+    private function initialize(): array
+    {
+        $properties = [];
+        foreach (Defaults::DEFAULT_SETTINGS as $name => $value) {
+            $properties[$name] = new Property($value);
+        }
+        return $properties;
+    }
 }

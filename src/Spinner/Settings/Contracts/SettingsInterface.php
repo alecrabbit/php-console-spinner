@@ -2,6 +2,8 @@
 
 namespace AlecRabbit\Spinner\Settings\Contracts;
 
+use AlecRabbit\Spinner\Settings\Settings;
+
 interface SettingsInterface
 {
     /**
@@ -10,10 +12,10 @@ interface SettingsInterface
     public function getInterval(): float;
 
     /**
-     * @param null|float $interval
-     * @return SettingsInterface
+     * @param float $interval
+     * @return Settings
      */
-    public function setInterval(float $interval): SettingsInterface;
+    public function setInterval(float $interval): Settings;
 
     /**
      * @return int
@@ -26,11 +28,11 @@ interface SettingsInterface
     public function getMessage(): string;
 
     /**
-     * @param null|string $message
+     * @param string $message
      * @param null|int $erasingLength
-     * @return SettingsInterface
+     * @return Settings
      */
-    public function setMessage(string $message, int $erasingLength = null): SettingsInterface;
+    public function setMessage(string $message, int $erasingLength = null): Settings;
 
     /**
      * @return string
@@ -38,10 +40,10 @@ interface SettingsInterface
     public function getMessagePrefix(): string;
 
     /**
-     * @param null|string $prefix
-     * @return SettingsInterface
+     * @param string $prefix
+     * @return Settings
      */
-    public function setMessagePrefix(string $prefix): SettingsInterface;
+    public function setMessagePrefix(string $prefix): Settings;
 
     /**
      * @return string
@@ -49,10 +51,10 @@ interface SettingsInterface
     public function getMessageSuffix(): string;
 
     /**
-     * @param null|string $suffix
-     * @return SettingsInterface
+     * @param string $suffix
+     * @return Settings
      */
-    public function setMessageSuffix(string $suffix): SettingsInterface;
+    public function setMessageSuffix(string $suffix): Settings;
 
     /**
      * @return string
@@ -60,10 +62,10 @@ interface SettingsInterface
     public function getInlinePaddingStr(): string;
 
     /**
-     * @param null|string $inlinePaddingStr
-     * @return SettingsInterface
+     * @param string $inlinePaddingStr
+     * @return Settings
      */
-    public function setInlinePaddingStr(string $inlinePaddingStr): SettingsInterface;
+    public function setInlinePaddingStr(string $inlinePaddingStr): Settings;
 
     /**
      * @return array
@@ -71,10 +73,10 @@ interface SettingsInterface
     public function getFrames(): array;
 
     /**
-     * @param null|array $symbols
-     * @return SettingsInterface
+     * @param array $frames
+     * @return Settings
      */
-    public function setFrames(array $symbols): SettingsInterface;
+    public function setFrames(array $frames): Settings;
 
     /**
      * @return array
@@ -82,10 +84,10 @@ interface SettingsInterface
     public function getStyles(): array;
 
     /**
-     * @param null|array $styles
-     * @return SettingsInterface
+     * @param array $styles
+     * @return Settings
      */
-    public function setStyles(array $styles): SettingsInterface;
+    public function setStyles(array $styles): Settings;
 
     /**
      * @return int
@@ -98,15 +100,15 @@ interface SettingsInterface
     public function getSpacer(): string;
 
     /**
-     * @param null|string $spacer
-     * @return SettingsInterface
+     * @param string $spacer
+     * @return Settings
      */
-    public function setSpacer(string $spacer): SettingsInterface;
+    public function setSpacer(string $spacer): Settings;
 
     /**
-     * @param null|SettingsInterface $settings
-     * @return SettingsInterface
+     * @param Settings $settings
+     * @return Settings
      */
-    public function merge(SettingsInterface $settings): SettingsInterface;
+    public function merge(Settings $settings): Settings;
 
 }
