@@ -11,11 +11,11 @@ class Property
 
     /**
      * SettingsValue constructor.
-     * @param mixed $value
+     * @param mixed $defaultValue
      */
-    public function __construct($value)
+    public function __construct($defaultValue = null)
     {
-        $this->value = $value;
+        $this->value = $defaultValue;
         $this->isDefault = true;
     }
 
