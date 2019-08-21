@@ -2,6 +2,18 @@
 ## [Unreleased]
 
 
+<a name="0.16.5"></a>
+## [0.16.5] - 2019-08-21
+### Added
+- tool to check color sets
+
+### Updated
+- color sets
+
+
+<a name="0.16.4"></a>
+## [0.16.4] - 2019-08-20
+
 <a name="0.16.3"></a>
 ## [0.16.3] - 2019-08-19
 
@@ -182,7 +194,9 @@
 <a name="0.2.1-ALPHA.1"></a>
 ## 0.2.1-ALPHA.1 - 2019-04-06
 
-[Unreleased]: https://github.com/alecrabbit/php-console-spinner/compare/0.16.3...HEAD
+[Unreleased]: https://github.com/alecrabbit/php-console-spinner/compare/0.16.5...HEAD
+[0.16.5]: https://github.com/alecrabbit/php-console-spinner/compare/0.16.4...0.16.5
+[0.16.4]: https://github.com/alecrabbit/php-console-spinner/compare/0.16.3...0.16.4
 [0.16.3]: https://github.com/alecrabbit/php-console-spinner/compare/0.16.2...0.16.3
 [0.16.2]: https://github.com/alecrabbit/php-console-spinner/compare/0.16.1-ALPHA.4...0.16.2
 [0.16.1-ALPHA.4]: https://github.com/alecrabbit/php-console-spinner/compare/0.16.1-ALPHA.3...0.16.1-ALPHA.4
