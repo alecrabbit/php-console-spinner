@@ -15,7 +15,7 @@ use AlecRabbit\ConsoleColour\Contracts\Styles;
 use AlecRabbit\ConsoleColour\Themes;
 use AlecRabbit\Spinner\Core\Contracts\Frames;
 use AlecRabbit\Spinner\Core\Contracts\StylesInterface;
-use AlecRabbit\Spinner\Core\Settings;
+use AlecRabbit\Spinner\Settings\Settings;
 use AlecRabbit\Spinner\SnakeSpinner;
 use Psr\Http\Message\ServerRequestInterface;
 use React\EventLoop\Factory;

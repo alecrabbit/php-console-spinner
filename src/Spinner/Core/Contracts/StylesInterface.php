@@ -25,6 +25,24 @@ interface StylesInterface
                     self::COLOR => self::C_DARK,
                 ],
         ];
+    public const STYLING_DISABLED =
+        [
+            self::SPINNER_STYLES =>
+                [
+                    self::COLOR256 => self::DISABLED,
+                    self::COLOR => self::DISABLED,
+                ],
+            self::MESSAGE_STYLES =>
+                [
+                    self::COLOR256 => self::DISABLED,
+                    self::COLOR => self::DISABLED,
+                ],
+            self::PERCENT_STYLES =>
+                [
+                    self::COLOR256 => self::DISABLED,
+                    self::COLOR => self::DISABLED,
+                ],
+        ];
 
     /*
                     Definitions

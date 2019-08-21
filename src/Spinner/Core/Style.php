@@ -3,6 +3,8 @@
 namespace AlecRabbit\Spinner\Core;
 
 use AlecRabbit\Accessories\Circular;
+use AlecRabbit\Spinner\Core\Contracts\StylesInterface;
+use AlecRabbit\Spinner\Settings\Contracts\Defaults;
 
 /**
  * Class Styles
@@ -25,10 +27,28 @@ class Style
      */
     public function __construct(array $styles, $colorSupport = null)
     {
+        dump('TO MERGE',$styles);
+        $styles = $this->mergeStyles($styles);
+        dump('************RESULT***********',$styles);
         $coloring = new Coloring($styles, $colorSupport);
         $this->spinnerStyles = $coloring->getSpinnerStyles();
         $this->messageStyles = $coloring->getMessageStyles();
         $this->percentStyles = $coloring->getPercentStyles();
+    }
+
+    /**
+     * @param array $styles
+     * @return array
+     */
+    protected function mergeStyles(array $styles): array
+    {
+        foreach (StylesInterface::DEFAULT_STYLES as $key => $defaults) {
+            if (\array_key_exists($key, $styles)) {
+                /** @noinspection SlowArrayOperationsInLoopInspection */
+                $defaultStyles[$key] = array_merge(StylesInterface::DEFAULT_STYLES[$key], $styles[$key]);
+            }
+        }
+        return StylesInterface::DEFAULT_STYLES;
     }
 
     public function spinner(string $symbol): string

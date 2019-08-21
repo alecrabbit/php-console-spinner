@@ -26,7 +26,7 @@ interface Defaults
             S::MESSAGE_SUFFIX => self::EMPTY,
             S::INLINE_PADDING_STR => self::EMPTY,
             S::FRAMES => self::DEFAULT_FRAMES,
-            S::STYLES => StylesInterface::DEFAULT_STYLES,
+            S::STYLES => StylesInterface::STYLING_DISABLED,
             S::SPACER => self::EMPTY,
         ];
 }

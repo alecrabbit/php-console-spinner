@@ -5,12 +5,13 @@ namespace AlecRabbit\Spinner;
 use AlecRabbit\Spinner\Core\Contracts\SettingsInterface;
 use AlecRabbit\Spinner\Core\Contracts\StylesInterface;
 use AlecRabbit\Spinner\Core\Spinner;
+use AlecRabbit\Spinner\Settings\Settings;
 use function AlecRabbit\typeOf;
 
 class TimeSpinner extends Spinner
 {
     protected const INTERVAL = 1;
-    protected const FRAMES = null;
+    protected const FRAMES = [];
     protected const
         STYLES =
         [
@@ -47,7 +48,7 @@ class TimeSpinner extends Spinner
     }
 
     /** {@inheritDoc} */
-    protected function defaultSettings(): SettingsInterface
+    protected function defaultSettings(): Settings
     {
         return
             parent::defaultSettings()

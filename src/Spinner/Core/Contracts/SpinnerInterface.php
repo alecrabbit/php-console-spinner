@@ -2,6 +2,8 @@
 
 namespace AlecRabbit\Spinner\Core\Contracts;
 
+use AlecRabbit\Spinner\Settings\Settings;
+
 interface SpinnerInterface
 {
     /**
@@ -26,9 +28,9 @@ interface SpinnerInterface
     public function getOutput(): ?SpinnerOutputInterface;
 
     /**
-     * @return SettingsInterface
+     * @return Settings
      */
-    public function getSettings(): SettingsInterface;
+    public function getSettings(): Settings;
 
     /**
      * @param bool $inline

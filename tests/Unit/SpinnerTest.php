@@ -5,8 +5,8 @@ namespace AlecRabbit\Tests\Spinner;
 use AlecRabbit\Cli\Tools\Core\TerminalStatic;
 use AlecRabbit\Spinner\Core\Contracts\SettingsInterface;
 use AlecRabbit\Spinner\Core\Contracts\StylesInterface;
-use AlecRabbit\Spinner\Core\Settings;
 use AlecRabbit\Spinner\Core\Spinner;
+use AlecRabbit\Spinner\Settings\Settings;
 use PHPUnit\Framework\TestCase;
 use const AlecRabbit\COLOR256_TERMINAL;
 use const AlecRabbit\NO_COLOR_TERMINAL;
@@ -63,7 +63,7 @@ class SpinnerTest extends TestCase
     public function wrongFirstArgument(): void
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage('Instance of SettingsInterface or string expected integer given.');
+        $this->expectExceptionMessage('Instance of [' . Settings::class . '] or string expected integer given.');
         new ExtendedSpinner(1);
     }
 
@@ -102,6 +102,7 @@ class SpinnerTest extends TestCase
             ]
         );
         $spinner = new ExtendedSpinner($settings, null, COLOR256_TERMINAL);
+        dump($spinner);
     }
 
     /** @test */

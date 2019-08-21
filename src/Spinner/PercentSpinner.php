@@ -5,12 +5,13 @@ namespace AlecRabbit\Spinner;
 use AlecRabbit\Spinner\Core\Contracts\SettingsInterface;
 use AlecRabbit\Spinner\Core\Contracts\StylesInterface;
 use AlecRabbit\Spinner\Core\Spinner;
+use AlecRabbit\Spinner\Settings\Settings;
 use function AlecRabbit\typeOf;
 
 class PercentSpinner extends Spinner
 {
     protected const INTERVAL = 0.1;
-    protected const FRAMES = null;
+    protected const FRAMES = [];
     protected const
         STYLES =
         [
@@ -40,9 +41,9 @@ class PercentSpinner extends Spinner
     }
 
     /**
-     * @return SettingsInterface
+     * @return Settings
      */
-    protected function defaultSettings(): SettingsInterface
+    protected function defaultSettings(): Settings
     {
         return
             parent::defaultSettings()

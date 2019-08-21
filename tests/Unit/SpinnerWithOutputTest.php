@@ -7,7 +7,7 @@ use const AlecRabbit\NO_COLOR_TERMINAL;
 use AlecRabbit\Spinner\Core\Contracts\SettingsInterface;
 use AlecRabbit\Spinner\Core\Contracts\SpinnerOutputInterface;
 use AlecRabbit\Spinner\Core\Contracts\StylesInterface;
-use AlecRabbit\Spinner\Core\Settings;
+use AlecRabbit\Spinner\Settings\Settings;
 use AlecRabbit\Spinner\Core\Spinner;
 use PHPUnit\Framework\TestCase;
 

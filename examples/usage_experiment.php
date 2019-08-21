@@ -11,7 +11,7 @@ use AlecRabbit\ConsoleColour\Themes;
 use AlecRabbit\Spinner\ArrowSpinner;
 use AlecRabbit\Spinner\Core\Contracts\StylesInterface;
 use AlecRabbit\Spinner\Core\Contracts\Frames;
-use AlecRabbit\Spinner\Core\Settings;
+use AlecRabbit\Spinner\Settings\Settings;
 use AlecRabbit\Spinner\PercentSpinner;
 use AlecRabbit\Spinner\SnakeSpinner;
 

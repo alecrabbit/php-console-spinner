@@ -5,7 +5,7 @@ namespace AlecRabbit\Tests\Tools;
 use AlecRabbit\Spinner\Core\Contracts\Frames;
 use AlecRabbit\Spinner\Core\Contracts\SettingsInterface;
 use AlecRabbit\Spinner\Core\Contracts\StylesInterface;
-use AlecRabbit\Spinner\Core\Settings;
+use AlecRabbit\Spinner\Settings\Settings;
 use PHPUnit\Framework\TestCase;
 
 class SettingsTest extends TestCase

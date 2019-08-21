@@ -9,6 +9,8 @@ use AlecRabbit\Spinner\Core\Contracts\Frames;
 use AlecRabbit\Spinner\Core\Contracts\SettingsInterface;
 use AlecRabbit\Spinner\Core\Contracts\SpinnerInterface;
 use AlecRabbit\Spinner\Core\Contracts\SpinnerOutputInterface;
+use AlecRabbit\Spinner\Core\Contracts\StylesInterface;
+use AlecRabbit\Spinner\Settings\Settings;
 use function AlecRabbit\typeOf;
 use const AlecRabbit\ESC;
 
@@ -16,7 +18,7 @@ abstract class Spinner implements SpinnerInterface
 {
     protected const INTERVAL = SettingsInterface::DEFAULT_INTERVAL;
     protected const FRAMES = Frames::DIAMOND;
-    protected const STYLES = [];
+    protected const STYLES = StylesInterface::DEFAULT_STYLES;
 
     /** @var string */
     protected $messageStr;
@@ -52,7 +54,7 @@ abstract class Spinner implements SpinnerInterface
     protected $messageErasingLen;
     /** @var string */
     protected $spacer;
-    /** @var SettingsInterface */
+    /** @var Settings */
     protected $settings;
     /** @var int */
     protected $currentMessagePrefixLen;
@@ -64,7 +66,7 @@ abstract class Spinner implements SpinnerInterface
     /**
      * AbstractSpinner constructor.
      *
-     * @param null|string|SettingsInterface $messageOrSettings
+     * @param null|string|Settings $messageOrSettings
      * @param null|false|SpinnerOutputInterface $output
      * @param mixed $color
      */
@@ -104,17 +106,17 @@ abstract class Spinner implements SpinnerInterface
     }
 
     /**
-     * @param null|string|SettingsInterface $settings
-     * @return SettingsInterface
+     * @param null|string|Settings $settings
+     * @return Settings
      */
-    protected function refineSettings($settings): SettingsInterface
+    protected function refineSettings($settings): Settings
     {
         $this->assertSettings($settings);
         if (\is_string($settings)) {
             return
                 $this->defaultSettings()->setMessage($settings);
         }
-        if ($settings instanceof SettingsInterface) {
+        if ($settings instanceof Settings) {
             return $settings;
 //            return $this->defaultSettings()->merge($settings);
         }
@@ -127,23 +129,23 @@ abstract class Spinner implements SpinnerInterface
      */
     protected function assertSettings($settings): void
     {
-        if (null !== $settings && !\is_string($settings) && !$settings instanceof SettingsInterface) {
+        if (null !== $settings && !\is_string($settings) && !$settings instanceof Settings) {
             throw new \InvalidArgumentException(
-                'Instance of SettingsInterface or string expected ' . typeOf($settings) . ' given.'
+                'Instance of [' . Settings::class . '] or string expected ' . typeOf($settings) . ' given.'
             );
         }
     }
 
     /**
-     * @return SettingsInterface
+     * @return Settings
      */
-    protected function defaultSettings(): SettingsInterface
+    protected function defaultSettings(): Settings
     {
         return
             (new Settings())
                 ->setInterval(static::INTERVAL)
                 ->setFrames(static::FRAMES)
-                ->setStyles(static::STYLES);
+                ->setStyles(self::STYLES);
     }
 
     /**
@@ -329,7 +331,7 @@ abstract class Spinner implements SpinnerInterface
     }
 
     /** {@inheritDoc} */
-    public function getSettings(): SettingsInterface
+    public function getSettings(): Settings
     {
         throw new \RuntimeException(static::class . ': Call to unimplemented functionality ' . __METHOD__);
         return $this->settings;
