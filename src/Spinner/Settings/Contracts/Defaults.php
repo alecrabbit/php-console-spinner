@@ -40,5 +40,4 @@ interface Defaults
             S::STYLES => StylesInterface::DEFAULT_STYLES,
             S::SPACER => self::EMPTY,
         ];
-
 }

@@ -110,5 +110,4 @@ interface SettingsInterface
      * @return Settings
      */
     public function merge(Settings $settings): Settings;
-
 }
