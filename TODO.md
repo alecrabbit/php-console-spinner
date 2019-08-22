@@ -1,12 +1,7 @@
 
-
-- [ ] fix tests for appveyor
-- [ ] optimize performance
-- [ ] improve Coloring class
-- [ ] improve Settings class
-
+- [ ] New Api   
+    - [ ] Split `Spinner::class` into three classes `Spinner`, `Message`, `Percent`
+    - [ ] methods `$s->spin()`, `$s->message('message')`, `$s->percent(0.2) // 20%`  
+ 
 ---
 
-- [x] get rid of `ERASING_SHIFT` const
-- [x] consider multisymbol spinner like `▸▹▹▹▹`
-- [ ] rejected: ~~consider to store spinners settings in a json file, will be somewhat compatible with Node.js~~ [cli-spinners](https://github.com/sindresorhus/cli-spinners)
