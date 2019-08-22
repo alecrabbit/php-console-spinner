@@ -30,6 +30,9 @@ class SettingsTest extends TestCase
         $this->assertEquals(Defaults::EMPTY, $settings->getSpacer());
         $this->assertEquals(0, $settings->getMessageErasingLen());
 
+        $settings->setMessage(Defaults::EMPTY);
+        $this->assertEquals(Defaults::EMPTY, $settings->getMessage());
+        $this->assertEquals(0, $settings->getMessageErasingLen());
         $settings->setMessage(self::PROCESSING);
         $this->assertEquals(self::PROCESSING, $settings->getMessage());
         $this->assertEquals(10, $settings->getMessageErasingLen());
@@ -57,6 +60,15 @@ class SettingsTest extends TestCase
         $this->assertEquals(Defaults::DEFAULT_FRAMES, $settings->getFrames());
         $this->assertEquals(Defaults::EMPTY, $settings->getSpacer());
         $this->assertEquals(0, $settings->getMessageErasingLen());
+    }
+
+    /** @test */
+    public function framesWithNull(): void
+    {
+        $newSettings = new Settings();
+        $frames = [null];
+        $newSettings->setFrames($frames);
+        $this->assertEquals($frames, $newSettings->getFrames());
     }
 
     /** @test */

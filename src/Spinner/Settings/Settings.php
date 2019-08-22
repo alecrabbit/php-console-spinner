@@ -60,10 +60,11 @@ class Settings implements SettingsInterface
     public function setMessage(string $message, int $erasingLength = null): self
     {
         $this->properties[S::MESSAGE]->setValue($message);
-        $erasingLength = $this->refineErasingLen($message, $erasingLength);
         if (Defaults::EMPTY === $message) {
+            $erasingLength = 0;
             $this->setMessageSuffix(Defaults::EMPTY);
         } else {
+            $erasingLength = $this->refineErasingLen($message, $erasingLength);
             $this->setMessageSuffix(Defaults::DEFAULT_SUFFIX);
         }
 
@@ -99,7 +100,6 @@ class Settings implements SettingsInterface
     private function compErasingLen(array $strings): int
     {
         // TODO check if all elements have the same erasingLen
-
         if (null === $symbol = $strings[0]) {
             return 0;
         }
