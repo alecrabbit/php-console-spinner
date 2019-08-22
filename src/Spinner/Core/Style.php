@@ -27,9 +27,7 @@ class Style
      */
     public function __construct(array $styles, $colorSupport = null)
     {
-        dump('TO MERGE',$styles);
         $styles = $this->mergeStyles($styles);
-        dump('************RESULT***********',$styles);
         $coloring = new Coloring($styles, $colorSupport);
         $this->spinnerStyles = $coloring->getSpinnerStyles();
         $this->messageStyles = $coloring->getMessageStyles();

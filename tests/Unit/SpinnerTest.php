@@ -6,6 +6,7 @@ use AlecRabbit\Cli\Tools\Core\TerminalStatic;
 use AlecRabbit\Spinner\Core\Contracts\SettingsInterface;
 use AlecRabbit\Spinner\Core\Contracts\StylesInterface;
 use AlecRabbit\Spinner\Core\Spinner;
+use AlecRabbit\Spinner\Settings\Contracts\Defaults;
 use AlecRabbit\Spinner\Settings\Settings;
 use PHPUnit\Framework\TestCase;
 use const AlecRabbit\COLOR256_TERMINAL;
@@ -109,8 +110,11 @@ class SpinnerTest extends TestCase
     public function addingTooMuchSymbols(): void
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage('MAX_SYMBOLS_COUNT limit [50] exceeded.');
-        (new Settings())->setFrames(array_fill(0, 56, '-'));
+        $count = 56;
+        $this->expectExceptionMessage(
+            'MAX_SYMBOLS_COUNT limit [' . Defaults::MAX_FRAMES_COUNT . '] exceeded: [' . $count . '].'
+        );
+        (new Settings())->setFrames(array_fill(0, $count, '-'));
     }
 
     /** @test */

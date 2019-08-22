@@ -25,7 +25,7 @@ class NewSettingsTest extends TestCase
         $this->assertEquals('', $settings->getInlinePaddingStr());
         $this->assertEquals(SettingsInterface::ONE_SPACE_SYMBOL, $settings->getMessagePrefix());
         $this->assertEquals('', $settings->getMessageSuffix());
-        $this->assertEquals(StylesInterface::DEFAULT_STYLES, $settings->getStyles());
+        $this->assertEquals(StylesInterface::STYLING_DISABLED, $settings->getStyles());
         $this->assertEquals(SettingsInterface::DEFAULT_FRAMES, $settings->getFrames());
         $this->assertEquals(SettingsInterface::EMPTY, $settings->getSpacer());
         $this->assertEquals(0, $settings->getMessageErasingLen());
@@ -53,7 +53,7 @@ class NewSettingsTest extends TestCase
         $this->assertEquals('', $settings->getInlinePaddingStr());
         $this->assertEquals(SettingsInterface::ONE_SPACE_SYMBOL, $settings->getMessagePrefix());
         $this->assertEquals('', $settings->getMessageSuffix());
-        $this->assertEquals(StylesInterface::DEFAULT_STYLES, $settings->getStyles());
+        $this->assertEquals(StylesInterface::STYLING_DISABLED, $settings->getStyles());
         $this->assertEquals(SettingsInterface::DEFAULT_FRAMES, $settings->getFrames());
         $this->assertEquals(SettingsInterface::EMPTY, $settings->getSpacer());
         $this->assertEquals(0, $settings->getMessageErasingLen());
