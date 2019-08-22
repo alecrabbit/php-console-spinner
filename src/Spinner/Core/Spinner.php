@@ -18,7 +18,7 @@ abstract class Spinner implements SpinnerInterface
 {
     protected const INTERVAL = SettingsInterface::DEFAULT_INTERVAL;
     protected const FRAMES = Frames::DIAMOND;
-    protected const STYLES = StylesInterface::DEFAULT_STYLES;
+    protected const STYLES = StylesInterface::STYLING_DISABLED;
 
     /** @var string */
     protected $messageStr;
@@ -145,7 +145,7 @@ abstract class Spinner implements SpinnerInterface
             (new Settings())
                 ->setInterval(static::INTERVAL)
                 ->setFrames(static::FRAMES)
-                ->setStyles(self::STYLES);
+                ->setStyles(static::STYLES);
     }
 
     /**

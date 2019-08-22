@@ -42,13 +42,14 @@ class Style
      */
     protected function mergeStyles(array $styles): array
     {
-        foreach (StylesInterface::DEFAULT_STYLES as $key => $defaults) {
+        $defaultStyles = StylesInterface::DEFAULT_STYLES;
+        foreach ($defaultStyles as $key => $defaults) {
             if (\array_key_exists($key, $styles)) {
                 /** @noinspection SlowArrayOperationsInLoopInspection */
                 $defaultStyles[$key] = array_merge(StylesInterface::DEFAULT_STYLES[$key], $styles[$key]);
             }
         }
-        return StylesInterface::DEFAULT_STYLES;
+        return $defaultStyles;
     }
 
     public function spinner(string $symbol): string

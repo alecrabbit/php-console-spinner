@@ -25,6 +25,7 @@ interface StylesInterface
                     self::COLOR => self::C_DARK,
                 ],
         ];
+
     public const STYLING_DISABLED =
         [
             self::SPINNER_STYLES =>
