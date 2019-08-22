@@ -117,8 +117,8 @@ abstract class Spinner implements SpinnerInterface
                 $this->defaultSettings()->setMessage($settings);
         }
         if ($settings instanceof Settings) {
-            return $settings;
-//            return $this->defaultSettings()->merge($settings);
+//            return $settings;
+            return $this->defaultSettings()->merge($settings);
         }
         return
             $this->defaultSettings();
