@@ -16,6 +16,18 @@ class Settings implements SettingsInterface
         $this->properties = $this->initialize();
     }
 
+    /**
+     * @return Property[]
+     */
+    private function initialize(): array
+    {
+        $properties = [];
+        foreach (Defaults::DEFAULT_SETTINGS as $name => $value) {
+            $properties[$name] = new Property($value);
+        }
+        return $properties;
+    }
+
     /** {@inheritDoc} */
     public function getInterval(): float
     {
@@ -49,7 +61,7 @@ class Settings implements SettingsInterface
     {
         $this->properties[S::MESSAGE]->setValue($message);
         $erasingLength = $this->refineErasingLen($message, $erasingLength);
-        if (\AlecRabbit\Spinner\Core\Contracts\SettingsInterface::EMPTY === $message) {
+        if (Defaults::EMPTY === $message) {
             $this->setMessageSuffix(Defaults::EMPTY);
         } else {
             $this->setMessageSuffix(Defaults::DEFAULT_SUFFIX);
@@ -151,9 +163,9 @@ class Settings implements SettingsInterface
     /** {@inheritDoc} */
     public function setFrames(array $frames): self
     {
-        if (Defaults::MAX_FRAMES_COUNT < count($frames)) {
+        if (Defaults::MAX_FRAMES_COUNT < ($count = count($frames))) {
             throw new \InvalidArgumentException(
-                sprintf('MAX_SYMBOLS_COUNT limit [%s] exceeded.', Defaults::MAX_FRAMES_COUNT)
+                sprintf('MAX_SYMBOLS_COUNT limit [%s] exceeded: [%s].', Defaults::MAX_FRAMES_COUNT, $count)
             );
         }
         $this->properties[S::FRAMES]->setValue($frames);
@@ -205,17 +217,5 @@ class Settings implements SettingsInterface
             }
         }
         return $this;
-    }
-
-    /**
-     * @return Property[]
-     */
-    private function initialize(): array
-    {
-        $properties = [];
-        foreach (Defaults::DEFAULT_SETTINGS as $name => $value) {
-            $properties[$name] = new Property($value);
-        }
-        return $properties;
     }
 }
