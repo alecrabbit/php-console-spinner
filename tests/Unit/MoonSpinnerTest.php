@@ -2,8 +2,8 @@
 
 namespace AlecRabbit\Tests\Tools;
 
-use AlecRabbit\Spinner\Core\Contracts\SettingsInterface;
 use AlecRabbit\Spinner\MoonSpinner;
+use AlecRabbit\Spinner\Settings\Contracts\Defaults;
 use PHPUnit\Framework\TestCase;
 
 class MoonSpinnerTest extends TestCase
@@ -22,11 +22,11 @@ class MoonSpinnerTest extends TestCase
         $this->assertIsString($spinner->spin());
         $this->assertIsString($spinner->end());
         $this->assertStringContainsString(self::PROCESSING, $spinner->begin());
-        $this->assertStringContainsString(SettingsInterface::ONE_SPACE_SYMBOL, $spinner->begin());
-        $this->assertStringContainsString(SettingsInterface::DEFAULT_SUFFIX, $spinner->begin());
+        $this->assertStringContainsString(Defaults::ONE_SPACE_SYMBOL, $spinner->begin());
+        $this->assertStringContainsString(Defaults::DEFAULT_SUFFIX, $spinner->begin());
         $this->assertStringContainsString(self::PROCESSING, $spinner->spin());
-        $this->assertStringContainsString(SettingsInterface::ONE_SPACE_SYMBOL, $spinner->spin());
-        $this->assertStringContainsString(SettingsInterface::DEFAULT_SUFFIX, $spinner->spin());
+        $this->assertStringContainsString(Defaults::ONE_SPACE_SYMBOL, $spinner->spin());
+        $this->assertStringContainsString(Defaults::DEFAULT_SUFFIX, $spinner->spin());
         $this->assertStringNotContainsString(self::PROCESSING, $spinner->end());
     }
 }

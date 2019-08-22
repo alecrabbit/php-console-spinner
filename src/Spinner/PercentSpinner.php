@@ -2,9 +2,9 @@
 
 namespace AlecRabbit\Spinner;
 
-use AlecRabbit\Spinner\Core\Contracts\SettingsInterface;
 use AlecRabbit\Spinner\Core\Contracts\StylesInterface;
 use AlecRabbit\Spinner\Core\Spinner;
+use AlecRabbit\Spinner\Settings\Contracts\Defaults;
 use AlecRabbit\Spinner\Settings\Settings;
 use function AlecRabbit\typeOf;
 
@@ -47,6 +47,6 @@ class PercentSpinner extends Spinner
     {
         return
             parent::defaultSettings()
-                ->setMessagePrefix(SettingsInterface::EMPTY);
+                ->setMessagePrefix(Defaults::EMPTY);
     }
 }

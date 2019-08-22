@@ -2,8 +2,8 @@
 
 namespace AlecRabbit\Tests\Tools;
 
-use AlecRabbit\Spinner\Core\Contracts\SettingsInterface;
 use AlecRabbit\Spinner\PercentSpinner;
+use AlecRabbit\Spinner\Settings\Contracts\Defaults;
 use PHPUnit\Framework\TestCase;
 use function AlecRabbit\Helpers\getValue;
 
@@ -22,11 +22,11 @@ class PercentSpinnerTest extends TestCase
         $this->assertIsString($spin_10percent);
         $this->assertIsString($spinner->end());
         $this->assertStringContainsString(self::PROCESSING, $begin);
-        $this->assertStringContainsString(SettingsInterface::ONE_SPACE_SYMBOL, $begin);
-        $this->assertStringContainsString(SettingsInterface::DEFAULT_SUFFIX, $begin);
+        $this->assertStringContainsString(Defaults::ONE_SPACE_SYMBOL, $begin);
+        $this->assertStringContainsString(Defaults::DEFAULT_SUFFIX, $begin);
         $this->assertStringContainsString(self::PROCESSING, $spin_10percent);
-        $this->assertStringContainsString(SettingsInterface::ONE_SPACE_SYMBOL, $spin_10percent);
-        $this->assertStringContainsString(SettingsInterface::DEFAULT_SUFFIX, $spin_10percent);
+        $this->assertStringContainsString(Defaults::ONE_SPACE_SYMBOL, $spin_10percent);
+        $this->assertStringContainsString(Defaults::DEFAULT_SUFFIX, $spin_10percent);
         $this->assertStringNotContainsString(self::PROCESSING, $spinner->end());
     }
 

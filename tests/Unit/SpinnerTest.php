@@ -3,7 +3,6 @@
 namespace AlecRabbit\Tests\Spinner;
 
 use AlecRabbit\Cli\Tools\Core\TerminalStatic;
-use AlecRabbit\Spinner\Core\Contracts\SettingsInterface;
 use AlecRabbit\Spinner\Core\Contracts\StylesInterface;
 use AlecRabbit\Spinner\Core\Spinner;
 use AlecRabbit\Spinner\Settings\Contracts\Defaults;
@@ -28,11 +27,11 @@ class SpinnerTest extends TestCase
         $this->assertIsString($spinner->spin());
         $this->assertIsString($spinner->end());
         $this->assertStringContainsString(self::PROCESSING, $spinner->begin());
-        $this->assertStringContainsString(SettingsInterface::ONE_SPACE_SYMBOL, $spinner->begin());
-        $this->assertStringContainsString(SettingsInterface::DEFAULT_SUFFIX, $spinner->begin());
+        $this->assertStringContainsString(Defaults::ONE_SPACE_SYMBOL, $spinner->begin());
+        $this->assertStringContainsString(Defaults::DEFAULT_SUFFIX, $spinner->begin());
         $this->assertStringContainsString(self::PROCESSING, $spinner->spin());
-        $this->assertStringContainsString(SettingsInterface::ONE_SPACE_SYMBOL, $spinner->spin());
-        $this->assertStringContainsString(SettingsInterface::DEFAULT_SUFFIX, $spinner->spin());
+        $this->assertStringContainsString(Defaults::ONE_SPACE_SYMBOL, $spinner->spin());
+        $this->assertStringContainsString(Defaults::DEFAULT_SUFFIX, $spinner->spin());
         $this->assertStringNotContainsString(self::PROCESSING, $spinner->end());
     }
 
@@ -49,14 +48,14 @@ class SpinnerTest extends TestCase
         $this->assertIsString($spinner->spin(null, self::PROCESSING));
         $this->assertIsString($spinner->end());
         $this->assertStringContainsString(self::PROCESSING, $spinner->begin());
-        $this->assertStringContainsString(SettingsInterface::ONE_SPACE_SYMBOL, $spinner->begin());
-        $this->assertStringContainsString(SettingsInterface::DEFAULT_SUFFIX, $spinner->begin());
+        $this->assertStringContainsString(Defaults::ONE_SPACE_SYMBOL, $spinner->begin());
+        $this->assertStringContainsString(Defaults::DEFAULT_SUFFIX, $spinner->begin());
         $this->assertStringContainsString(self::PROCESSING, $spinner->spin(null, self::PROCESSING));
-        $this->assertStringContainsString(SettingsInterface::ONE_SPACE_SYMBOL, $spinner->spin(null, self::PROCESSING));
-        $this->assertStringContainsString(SettingsInterface::DEFAULT_SUFFIX, $spinner->spin(null, self::PROCESSING));
+        $this->assertStringContainsString(Defaults::ONE_SPACE_SYMBOL, $spinner->spin(null, self::PROCESSING));
+        $this->assertStringContainsString(Defaults::DEFAULT_SUFFIX, $spinner->spin(null, self::PROCESSING));
         $this->assertStringContainsString($messageComputing, $spinner->spin(null, self::COMPUTING));
-        $this->assertStringContainsString(SettingsInterface::ONE_SPACE_SYMBOL, $spinner->spin(null, self::COMPUTING));
-        $this->assertStringContainsString(SettingsInterface::DEFAULT_SUFFIX, $spinner->spin(null, self::COMPUTING));
+        $this->assertStringContainsString(Defaults::ONE_SPACE_SYMBOL, $spinner->spin(null, self::COMPUTING));
+        $this->assertStringContainsString(Defaults::DEFAULT_SUFFIX, $spinner->spin(null, self::COMPUTING));
         $this->assertStringNotContainsString($messageComputing, $spinner->end());
     }
 

@@ -6,17 +6,17 @@ use AlecRabbit\Accessories\Circular;
 use AlecRabbit\Cli\Tools\Cursor;
 use AlecRabbit\Spinner\Core\Adapters\EchoOutputAdapter;
 use AlecRabbit\Spinner\Core\Contracts\Frames;
-use AlecRabbit\Spinner\Core\Contracts\SettingsInterface;
 use AlecRabbit\Spinner\Core\Contracts\SpinnerInterface;
 use AlecRabbit\Spinner\Core\Contracts\SpinnerOutputInterface;
 use AlecRabbit\Spinner\Core\Contracts\StylesInterface;
+use AlecRabbit\Spinner\Settings\Contracts\Defaults;
 use AlecRabbit\Spinner\Settings\Settings;
 use function AlecRabbit\typeOf;
 use const AlecRabbit\ESC;
 
 abstract class Spinner implements SpinnerInterface
 {
-    protected const INTERVAL = SettingsInterface::DEFAULT_INTERVAL;
+    protected const INTERVAL = Defaults::DEFAULT_INTERVAL;
     protected const FRAMES = Frames::DIAMOND;
     protected const STYLES = StylesInterface::STYLING_DISABLED;
 
@@ -199,7 +199,7 @@ abstract class Spinner implements SpinnerInterface
             $this->inlinePaddingStrLen +
             $this->frameErasingShift;
         $this->moveBackSequenceStr = ESC . "[{$strLen}D";
-        $this->eraseBySpacesStr = str_repeat(SettingsInterface::ONE_SPACE_SYMBOL, $strLen);
+        $this->eraseBySpacesStr = str_repeat(Defaults::ONE_SPACE_SYMBOL, $strLen);
     }
 
     /**
@@ -207,10 +207,10 @@ abstract class Spinner implements SpinnerInterface
      */
     protected function getPercentSpacer(): string
     {
-        if (strpos($this->messageStr, SettingsInterface::DEFAULT_SUFFIX)) {
-            return SettingsInterface::ONE_SPACE_SYMBOL;
+        if (strpos($this->messageStr, Defaults::DEFAULT_SUFFIX)) {
+            return Defaults::ONE_SPACE_SYMBOL;
         }
-        return SettingsInterface::EMPTY;
+        return Defaults::EMPTY;
     }
 
     /** {@inheritDoc} */
@@ -226,7 +226,7 @@ abstract class Spinner implements SpinnerInterface
 
     public function inline(bool $inline): SpinnerInterface
     {
-        $this->inlinePaddingStr = $inline ? SettingsInterface::ONE_SPACE_SYMBOL : SettingsInterface::EMPTY;
+        $this->inlinePaddingStr = $inline ? Defaults::ONE_SPACE_SYMBOL : Defaults::EMPTY;
         $this->inlinePaddingStrLen = strlen($this->inlinePaddingStr);
         $this->updateProperties();
         return $this;

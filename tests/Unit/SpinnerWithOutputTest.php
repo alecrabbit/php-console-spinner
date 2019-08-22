@@ -2,9 +2,9 @@
 
 namespace AlecRabbit\Tests\Spinner;
 
+use AlecRabbit\Spinner\Settings\Contracts\Defaults;
 use const AlecRabbit\COLOR256_TERMINAL;
 use const AlecRabbit\NO_COLOR_TERMINAL;
-use AlecRabbit\Spinner\Core\Contracts\SettingsInterface;
 use AlecRabbit\Spinner\Core\Contracts\SpinnerOutputInterface;
 use AlecRabbit\Spinner\Core\Contracts\StylesInterface;
 use AlecRabbit\Spinner\Settings\Settings;
@@ -29,11 +29,11 @@ class SpinnerWithOutputTest extends TestCase
         $this->assertIsString($spinner->spin());
         $this->assertIsString($spinner->end());
         $this->assertStringNotContainsString(self::PROCESSING, $spinner->begin());
-        $this->assertStringNotContainsString(SettingsInterface::ONE_SPACE_SYMBOL, $spinner->begin());
-        $this->assertStringNotContainsString(SettingsInterface::DEFAULT_SUFFIX, $spinner->begin());
+        $this->assertStringNotContainsString(Defaults::ONE_SPACE_SYMBOL, $spinner->begin());
+        $this->assertStringNotContainsString(Defaults::DEFAULT_SUFFIX, $spinner->begin());
         $this->assertStringNotContainsString(self::PROCESSING, $spinner->spin());
-        $this->assertStringNotContainsString(SettingsInterface::ONE_SPACE_SYMBOL, $spinner->spin());
-        $this->assertStringNotContainsString(SettingsInterface::DEFAULT_SUFFIX, $spinner->spin());
+        $this->assertStringNotContainsString(Defaults::ONE_SPACE_SYMBOL, $spinner->spin());
+        $this->assertStringNotContainsString(Defaults::DEFAULT_SUFFIX, $spinner->spin());
         $this->assertStringNotContainsString(self::PROCESSING, $spinner->end());
     }
 
