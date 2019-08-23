@@ -3,9 +3,9 @@
 namespace AlecRabbit\Tests\Spinner;
 
 use AlecRabbit\Spinner\Core\Contracts\StylesInterface;
-use AlecRabbit\Spinner\Core\Spinner;
+use AlecRabbit\Spinner\Core\AbstractSpinner;
 
-class ExtendedBgSpinner extends Spinner
+class ExtendedBgSpinner extends AbstractSpinner
 {
     protected const INTERVAL = 0.1;
     protected const FRAMES = ['1', '2', '3', '4',];

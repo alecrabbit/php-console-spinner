@@ -2,9 +2,9 @@
 
 namespace AlecRabbit\Tests\Spinner;
 
-use AlecRabbit\Spinner\Core\Spinner;
+use AlecRabbit\Spinner\Core\AbstractSpinner;
 
-class NullSpinner extends Spinner
+class NullSpinner extends AbstractSpinner
 {
     protected const INTERVAL = 0.125;
     protected const FRAMES = [];

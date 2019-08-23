@@ -8,7 +8,7 @@ use AlecRabbit\Spinner\BallSpinner;
 use AlecRabbit\Spinner\BlockSpinner;
 use AlecRabbit\Spinner\CircleSpinner;
 use AlecRabbit\Spinner\ClockSpinner;
-use AlecRabbit\Spinner\Core\Spinner;
+use AlecRabbit\Spinner\Core\AbstractSpinner;
 use AlecRabbit\Spinner\DiceSpinner;
 use AlecRabbit\Spinner\DotSpinner;
 use AlecRabbit\Spinner\LineSpinner;
@@ -74,7 +74,7 @@ echo Cursor::show();
  */
 function showSpinners(array $spinners, Themes $theme, int $iter = ITER): void
 {
-    /** @var Spinner $s */
+    /** @var AbstractSpinner $s */
     foreach ($spinners as $s) {
         $microseconds = $s->interval() * 1000000;
         echo

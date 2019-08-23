@@ -14,7 +14,7 @@ use AlecRabbit\Spinner\Settings\Settings;
 use function AlecRabbit\typeOf;
 use const AlecRabbit\ESC;
 
-abstract class Spinner implements SpinnerInterface
+abstract class AbstractSpinner implements SpinnerInterface
 {
     protected const INTERVAL = Defaults::DEFAULT_INTERVAL;
     protected const FRAMES = Frames::DIAMOND;

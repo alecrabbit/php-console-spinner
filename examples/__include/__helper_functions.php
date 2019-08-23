@@ -4,7 +4,7 @@ declare(strict_types=1);
 use AlecRabbit\ConsoleColour\Themes;
 use AlecRabbit\Spinner\Core\Adapters\EchoOutputAdapter;
 use AlecRabbit\Spinner\Core\Contracts\SpinnerOutputInterface;
-use AlecRabbit\Spinner\Core\Spinner;
+use AlecRabbit\Spinner\Core\AbstractSpinner;
 
 require_once __DIR__ . '/__long_run_function.php';
 
@@ -27,7 +27,7 @@ const MESSAGES = [
 ];
 
 /**
- * @param Spinner $s
+ * @param AbstractSpinner $s
  * @param Themes $theme
  * @param bool $inline
  * @param array $exampleMessages
@@ -35,7 +35,7 @@ const MESSAGES = [
  * @param bool $updateMessages
  */
 function display(
-    Spinner $s,
+    AbstractSpinner $s,
     Themes $theme,
     bool $inline,
     array $exampleMessages,
@@ -108,14 +108,14 @@ function display(
 }
 
 /**
- * @param Spinner $s
+ * @param AbstractSpinner $s
  * @param Themes $theme
  * @param bool $inline
  * @param array $exampleMessages
  * @param SpinnerOutputInterface $output
  */
 function display_new(
-    Spinner $s,
+    AbstractSpinner $s,
     Themes $theme,
     bool $inline,
     array $exampleMessages,
