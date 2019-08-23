@@ -12,6 +12,7 @@ $sets = [
     'C256_ROYAL_BLUE_INDIAN_RED' => StylesInterface::C256_ROYAL_BLUE_INDIAN_RED,
     'C256_RAINBOW' => StylesInterface::C256_RAINBOW,
     'C256_ROYAL_RAINBOW' => StylesInterface::C256_ROYAL_RAINBOW,
+    'C256_C_RAINBOW' => StylesInterface::C256_C_RAINBOW,
     'C256_YELLOW_WHITE' => StylesInterface::C256_YELLOW_WHITE,
 ];
 foreach ($sets as $name => $set) {
@@ -23,5 +24,5 @@ foreach ($sets as $name => $set) {
 
 function showColor(ConsoleColor $c, $item): void
 {
-    echo $c->apply('bg_color_' . $item, '    ') . PHP_EOL;
+    echo $c->apply('bg_color_' . $item, '    '). ' '. $item . PHP_EOL;
 }
