@@ -4,6 +4,7 @@ use AlecRabbit\ConsoleColour\ConsoleColor;
 use AlecRabbit\Spinner\Core\Contracts\StylesInterface;
 
 require_once __DIR__ . '/../../../vendor/autoload.php';
+require_once __DIR__ . '/../data.php';
 
 $c = new ConsoleColor();
 
@@ -18,11 +19,10 @@ $sets = [
 foreach ($sets as $name => $set) {
     echo $name . PHP_EOL;
     foreach ($set as $item) {
-        showColor($c, $item);
+        echo
+            $c->apply('bg_color_' . $item, '    ') .
+            ' ' . str_pad($item, 3, ' ', STR_PAD_LEFT) .
+            ' ' . $decoded[(int)$item]['name'] .
+            PHP_EOL;
     }
-}
-
-function showColor(ConsoleColor $c, $item): void
-{
-    echo $c->apply('bg_color_' . $item, '    '). ' '. $item . PHP_EOL;
 }

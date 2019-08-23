@@ -290,7 +290,7 @@ interface StylesInterface
             161,
             161,
         ];
-    
+
     public const C256_YELLOW_WHITE =
         [
             226,

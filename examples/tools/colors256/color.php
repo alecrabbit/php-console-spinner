@@ -8,6 +8,7 @@ require_once __DIR__ . '/../data.php';
 $c = new ConsoleColor();
 
 $arranged = arrange($decoded);
+//dump($decoded);
 //dump($arranged);
 foreach ($arranged as $key => $segment) {
     echo $key . PHP_EOL;
