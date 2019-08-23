@@ -2,7 +2,9 @@
 
 namespace AlecRabbit\Spinner\Core\Contracts;
 
-interface SpinnerInterface
+use AlecRabbit\Spinner\Settings\Settings;
+
+interface OldSpinnerInterface
 {
     /**
      * @param null|float $percent
@@ -26,8 +28,13 @@ interface SpinnerInterface
     public function getOutput(): ?SpinnerOutputInterface;
 
     /**
+     * @return Settings
+     */
+    public function getSettings(): Settings;
+
+    /**
      * @param bool $inline
-     * @return SpinnerInterface
+     * @return OldSpinnerInterface
      */
     public function inline(bool $inline): self;
 
@@ -37,18 +44,9 @@ interface SpinnerInterface
     public function interval(): float;
 
     /**
-     * @param string $message
-     */
-    public function message(string $message): void;
-
-    /**
-     * @param float $percent
-     */
-    public function progress(float $percent): void;
-
-    /**
      * @param null|float $percent
+     * @param null|string $message
      * @return string
      */
-    public function spin(?float $percent = null): string;
+    public function spin(?float $percent = null, ?string $message = null): string;
 }

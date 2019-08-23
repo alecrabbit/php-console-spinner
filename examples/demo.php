@@ -4,7 +4,7 @@ use AlecRabbit\Cli\Tools\Cursor;
 use AlecRabbit\ConsoleColour\Themes;
 use AlecRabbit\Spinner\CircleSpinner;
 use AlecRabbit\Spinner\ClockSpinner;
-use AlecRabbit\Spinner\Core\Contracts\SpinnerInterface;
+use AlecRabbit\Spinner\Core\Contracts\OldSpinnerInterface;
 use AlecRabbit\Spinner\DiceSpinner;
 use AlecRabbit\Spinner\DotSpinner;
 use AlecRabbit\Spinner\MoonSpinner;
@@ -61,10 +61,10 @@ echo PHP_EOL;
 // ************************ Functions ************************
 
 /**
- * @param SpinnerInterface $s
+ * @param OldSpinnerInterface $s
  * @param bool $withPercent
  */
-function showSpinners(SpinnerInterface $s, bool $withPercent = false): void
+function showSpinners(OldSpinnerInterface $s, bool $withPercent = false): void
 {
     $microseconds = $s->interval() * 1000000;
     echo PHP_EOL;

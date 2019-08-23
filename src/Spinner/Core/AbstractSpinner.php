@@ -6,7 +6,7 @@ use AlecRabbit\Accessories\Circular;
 use AlecRabbit\Cli\Tools\Cursor;
 use AlecRabbit\Spinner\Core\Adapters\EchoOutputAdapter;
 use AlecRabbit\Spinner\Core\Contracts\Frames;
-use AlecRabbit\Spinner\Core\Contracts\SpinnerInterface;
+use AlecRabbit\Spinner\Core\Contracts\OldSpinnerInterface;
 use AlecRabbit\Spinner\Core\Contracts\SpinnerOutputInterface;
 use AlecRabbit\Spinner\Core\Contracts\StylesInterface;
 use AlecRabbit\Spinner\Settings\Contracts\Defaults;
@@ -14,7 +14,7 @@ use AlecRabbit\Spinner\Settings\Settings;
 use function AlecRabbit\typeOf;
 use const AlecRabbit\ESC;
 
-abstract class AbstractSpinner implements SpinnerInterface
+abstract class AbstractSpinner implements OldSpinnerInterface
 {
     protected const INTERVAL = Defaults::DEFAULT_INTERVAL;
     protected const FRAMES = Frames::DIAMOND;
@@ -224,7 +224,7 @@ abstract class AbstractSpinner implements SpinnerInterface
         return $this->interval;
     }
 
-    public function inline(bool $inline): SpinnerInterface
+    public function inline(bool $inline): OldSpinnerInterface
     {
         $this->inlinePaddingStr = $inline ? Defaults::ONE_SPACE_SYMBOL : Defaults::EMPTY;
         $this->inlinePaddingStrLen = strlen($this->inlinePaddingStr);
