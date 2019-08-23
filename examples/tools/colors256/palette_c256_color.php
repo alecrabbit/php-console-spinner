@@ -13,9 +13,7 @@ echo PHP_EOL;
 
 foreach ($colorArray2 as $num => $row) {
     row($row, $c);
-
     row($row, $c, true);
-
     row($row, $c);
     if (0 === ($num + 1) % 6) {
         echo PHP_EOL;
@@ -24,9 +22,7 @@ foreach ($colorArray2 as $num => $row) {
 
 foreach ($greyScale2 as $num => $row) {
     row($row, $c, false, true);
-
     row($row, $c, true, true);
-
     row($row, $c, false, true);
 }
 
@@ -34,11 +30,11 @@ echo PHP_EOL;
 
 foreach ($xterm2 as $num => $row) {
     row($row, $c, false, true);
-
     row($row, $c, true, true);
-
     row($row, $c, false, true);
 }
+
+echo PHP_EOL;
 
 function row($row, ConsoleColor $c, $num = false, $bw = false)
 {
@@ -55,17 +51,20 @@ function row($row, ConsoleColor $c, $num = false, $bw = false)
 
 function textColor($bw, $color, $index): string
 {
+    $i = (int)$color;
     if ($bw) {
-        $i = (int)$color;
         if ($i > 243) {
             $textColor = 'color_238';
         } elseif ($i >= 7 && $i <= 15 && $i !== 8) {
             $textColor = 'color_234';
-        } else {
+        }  else {
             $textColor = 'color_252';
         }
     } else {
         $textColor = ($index >= 3 && $index <= 8) ? 'color_238' : 'color_252';
+        if ($i >= 160 && $i <= 231) {
+            $textColor = 'color_238';
+        }
     }
     return $textColor;
 }
