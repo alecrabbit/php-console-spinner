@@ -12,6 +12,7 @@ interface Defaults
     public const EMPTY = '';
 
     public const MAX_FRAMES_COUNT = 50;
+    public const MAX_FRAME_LENGTH = 10;
 
     public const DEFAULT_INTERVAL = 0.1;
     public const DEFAULT_FRAMES = [];

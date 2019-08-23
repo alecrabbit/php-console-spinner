@@ -15,11 +15,11 @@ use AlecRabbit\Spinner\Settings\Contracts\Defaults;
 use AlecRabbit\Spinner\Settings\Settings;
 use function AlecRabbit\typeOf;
 
-class Spinner implements SpinnerInterface
+abstract class Spinner implements SpinnerInterface
 {
 
     protected const INTERVAL = Defaults::DEFAULT_INTERVAL;
-    protected const FRAMES = Frames::DIAMOND;
+    protected const FRAMES = Frames::BASE;
     protected const STYLES = StylesInterface::STYLING_DISABLED;
 
     protected const EMPTY_STRING = '';
@@ -196,18 +196,24 @@ class Spinner implements SpinnerInterface
     /** {@inheritDoc} */
     public function begin(?float $percent = null): string
     {
+        if (null !== $percent) {
+            if ($this->progressJuggler instanceof ProgressJuggler) {
+                $this->progressJuggler->setProgress($percent);
+            } else {
+                $this->progressJuggler = new ProgressJuggler($percent);
+            }
+        }
         if ($this->output) {
             $this->output->write(Cursor::hide());
-            $this->spin($percent);
+            $this->spin();
             return self::EMPTY_STRING;
         }
-        return Cursor::hide() . $this->spin($percent);
+        return Cursor::hide() . $this->spin();
     }
 
     /** {@inheritDoc} */
-    public function spin(?float $percent = null): string
+    public function spin(): string
     {
-        $this->progressJuggler->setProgress($percent);
         if ($this->output) {
             $this->output->write($this->preparedStr());
             return self::EMPTY_STRING;
@@ -218,6 +224,14 @@ class Spinner implements SpinnerInterface
 
     protected function preparedStr(): string
     {
-        return '';
+        $str = '';
+        $erasingLength = 0;
+        if ($this->frameJuggler instanceof FrameJuggler) {
+            $str .= $this->frameJuggler->getFrame();
+            $erasingLength += $this->frameJuggler->getFrameErasingLength();
+        }
+
+
+            return $str;
     }
 }

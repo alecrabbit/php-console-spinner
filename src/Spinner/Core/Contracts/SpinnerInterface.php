@@ -47,8 +47,7 @@ interface SpinnerInterface
     public function progress(float $percent): void;
 
     /**
-     * @param null|float $percent
      * @return string
      */
-    public function spin(?float $percent = null): string;
+    public function spin(): string;
 }
