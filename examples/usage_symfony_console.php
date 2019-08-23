@@ -7,6 +7,7 @@ require_once __DIR__ . '/__include/__helper_functions.php';
 
 use AlecRabbit\Cli\Tools\Cursor;
 use AlecRabbit\ConsoleColour\Themes;
+use AlecRabbit\Spinner\ClockSpinner;
 use AlecRabbit\Spinner\Core\Adapters\SymfonyOutputAdapter;
 use AlecRabbit\Spinner\SnakeSpinner;
 use Symfony\Component\Console\Output\ConsoleOutput;
@@ -20,7 +21,7 @@ const ITERATIONS = 100; // Play with this value 100..500
 // SimpleSpinner::class
 // SnakeSpinner::class
 
-$spinnerClass = SnakeSpinner::class; // DON'T FORGET TO IMPORT! :)
+$spinnerClass = ClockSpinner::class; // DON'T FORGET TO IMPORT! :)
 
 $theme = new Themes(); // for colored output if supported
 
@@ -34,14 +35,16 @@ $message = 'computing';
 echo $theme->dark('Using spinner: ') . $spinnerClass . PHP_EOL;
 echo PHP_EOL;
 
+$output = new SymfonyOutputAdapter(new ConsoleOutput());
+
 display(
     new $spinnerClass(),
     $theme,
     true,
-    ['Inline Spinner', '(With percentage, No message)']
+    ['Inline Spinner', '(With percentage, No message)'],
+    $output
 );
 
-$output = new SymfonyOutputAdapter(new ConsoleOutput());
 display(
     new $spinnerClass($message, $output),
     $theme,
