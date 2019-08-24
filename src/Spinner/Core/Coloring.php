@@ -40,16 +40,16 @@ class Coloring
      */
     protected function assertStyles(array $styles): void
     {
-        foreach (StylesInterface::DEFAULT_STYLES as $key => $defaults) {
-            if (!\array_key_exists($key, $styles)) {
+        foreach (StylesInterface::DEFAULT_STYLES as $index => $defaults) {
+            if (!\array_key_exists($index, $styles)) {
                 throw new \InvalidArgumentException(
-                    'Styles array does not have [' . $key . '] key.'
+                    'Styles array does not have [' . $index . '] key.'
                 );
             }
             foreach ($defaults as $k => $value) {
-                if (!\array_key_exists($k, $styles[$key])) {
+                if (!\array_key_exists($k, $styles[$index])) {
                     throw new \InvalidArgumentException(
-                        'Styles array does not have [' . $key . '][' . $k . '] key.'
+                        'Styles array does not have [' . $index . '][' . $k . '] key.'
                     );
                 }
             }
