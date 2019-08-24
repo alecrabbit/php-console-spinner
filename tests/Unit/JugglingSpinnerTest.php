@@ -99,31 +99,31 @@ class JugglingSpinnerTest extends TestCase
         $this->assertEquals('1 100% \033[7D', Helper::stripEscape($s->spin()));
     }
 
-//    /** @test */
-//    public function withMessage(): void
-//    {
-//        $spinner = new ExtendedJugglingSpinner(self::PROCESSING, false, NO_COLOR_TERMINAL);
-//
-//        $this->assertInstanceOf(Spinner::class, $spinner);
-//        $frameJuggler = getValue($spinner, 'frameJuggler');
-//        $messageJuggler = getValue($spinner, 'messageJuggler');
-//        $progressJuggler = getValue($spinner, 'progressJuggler');
-//        $this->assertInstanceOf(FrameJuggler::class, $frameJuggler);
-//        $this->assertInstanceOf(MessageJuggler::class, $messageJuggler);
-//        $this->assertNull($progressJuggler);
-//        $begin = $spinner->begin(0.0);
-//        $progressJuggler = getValue($spinner, 'progressJuggler');
-//        $this->assertInstanceOf(ProgressJuggler::class, $progressJuggler);
-//        $this->assertIsString($begin);
-//        $this->assertEquals(
-//            '\033[?25l1 Processing... 0% \033[18D',
-//            Helper::stripEscape($begin)
-//        );
-//        $spin = $spinner->spin();
-//        $this->assertEquals(
-//            '\033[?25l2 Processing... 0%',
-//            Helper::stripEscape($begin)
-//        );
-//
-//    }
+    /** @test */
+    public function withMessage(): void
+    {
+        $spinner = new ExtendedJugglingSpinner(self::PROCESSING, false, NO_COLOR_TERMINAL);
+
+        $this->assertInstanceOf(Spinner::class, $spinner);
+        $frameJuggler = getValue($spinner, 'frameJuggler');
+        $messageJuggler = getValue($spinner, 'messageJuggler');
+        $progressJuggler = getValue($spinner, 'progressJuggler');
+        $this->assertInstanceOf(FrameJuggler::class, $frameJuggler);
+        $this->assertInstanceOf(MessageJuggler::class, $messageJuggler);
+        $this->assertNull($progressJuggler);
+        $begin = $spinner->begin(0.0);
+        $progressJuggler = getValue($spinner, 'progressJuggler');
+        $this->assertInstanceOf(ProgressJuggler::class, $progressJuggler);
+        $this->assertIsString($begin);
+        $this->assertEquals(
+            '\033[?25l1 Processing... 0% \033[19D',
+            Helper::stripEscape($begin)
+        );
+        $spin = $spinner->spin();
+        $this->assertEquals(
+            '2 Processing... 0% \033[19D',
+            Helper::stripEscape($spin)
+        );
+
+    }
 }

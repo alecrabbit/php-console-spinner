@@ -8,19 +8,43 @@ use AlecRabbit\Spinner\Settings\Contracts\Defaults;
 class MessageJuggler
 {
     /** @var string */
+    protected $spacer = Defaults::ONE_SPACE_SYMBOL;
+    /** @var string */
+    protected $messagePrefix = Defaults::EMPTY;
+    /** @var string */
     protected $message;
+    /** @var string */
+    protected $messageSuffix = Defaults::EMPTY;
     /** @var int */
     protected $erasingLength;
     /** @var string */
-    protected $messagePrefix;
-    /** @var string */
-    protected $messageSuffix;
-    /** @var string */
-    protected $spacer = Defaults::EMPTY;
+    protected $frameString;
+    /** @var int */
+    protected $frameStringErasingLength;
 
     public function __construct(string $message, int $erasingLength = null)
     {
         $this->updateMessage($message, $erasingLength);
+    }
+
+    /**
+     * @param string $message
+     * @param null|int $erasingLength
+     */
+    protected function updateMessage(string $message, ?int $erasingLength): void
+    {
+        $this->message = $message;
+        if (Defaults::EMPTY === $message) {
+            $this->erasingLength = 0;
+        } else {
+            $this->erasingLength = $this->refineErasingLen($message, $erasingLength);
+            $this->messageSuffix = Defaults::DEFAULT_SUFFIX;
+        }
+        $this->frameString =
+            $this->spacer . $this->messagePrefix . $this->message . $this->messageSuffix;
+
+        $this->frameStringErasingLength =
+            strlen($this->spacer . $this->messagePrefix . $this->messageSuffix) + $this->erasingLength;
     }
 
     /**
@@ -45,20 +69,13 @@ class MessageJuggler
         $this->updateMessage($message, $erasingLength);
     }
 
-    /**
-     * @param string $message
-     * @param null|int $erasingLength
-     */
-    protected function updateMessage(string $message, ?int $erasingLength): void
+    public function getFrame(): string
     {
-        $this->message = $message;
-        if (Defaults::EMPTY === $message) {
-            $this->erasingLength = 0;
-            $this->messageSuffix = Defaults::EMPTY;
-        } else {
-            $this->erasingLength = $this->refineErasingLen($message, $erasingLength);
-            $this->messageSuffix = Defaults::DEFAULT_SUFFIX;
-        }
+        return $this->frameString;
     }
 
+    public function getFrameErasingLength(): int
+    {
+        return $this->frameStringErasingLength;
+    }
 }
