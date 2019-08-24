@@ -14,6 +14,7 @@ use AlecRabbit\Spinner\Core\Jugglers\ProgressJuggler;
 use AlecRabbit\Spinner\Settings\Contracts\Defaults;
 use AlecRabbit\Spinner\Settings\Settings;
 use function AlecRabbit\typeOf;
+use const AlecRabbit\ESC;
 
 abstract class Spinner implements SpinnerInterface
 {
@@ -230,8 +231,17 @@ abstract class Spinner implements SpinnerInterface
             $str .= $this->frameJuggler->getFrame();
             $erasingLength += $this->frameJuggler->getFrameErasingLength();
         }
+        if ($this->messageJuggler instanceof MessageJuggler) {
+            $str .= $this->messageJuggler->getFrame();
+            $erasingLength += $this->messageJuggler->getFrameErasingLength();
+        }
+        if ($this->progressJuggler instanceof ProgressJuggler) {
+            $str .= $this->progressJuggler->getFrame();
+            $erasingLength += $this->progressJuggler->getFrameErasingLength();
+        }
 
 
-            return $str;
+            return $str . ESC . "[{$erasingLength}D";
+        ;
     }
 }
