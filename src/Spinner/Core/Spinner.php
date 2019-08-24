@@ -195,19 +195,41 @@ abstract class Spinner implements SpinnerInterface
         return $this->interval;
     }
 
-    public function message(string $message): void
+    public function message(?string $message = null): void
+    {
+        $this->setMessage($message);
+    }
+
+    /**
+     * @param null|string $message
+     */
+    protected function setMessage(?string $message): void
     {
         if ($this->messageJuggler instanceof MessageJuggler) {
             $this->messageJuggler->setMessage($message);
             $this->progressOrMessageUpdated = true;
+        } else {
+            $this->messageJuggler =
+                null === $message ? null : new MessageJuggler($message);
         }
     }
 
     public function progress(float $percent): void
     {
+        $this->setProgress($percent);
+    }
+
+    /**
+     * @param null|float $percent
+     */
+    protected function setProgress(?float $percent = null): void
+    {
         if ($this->progressJuggler instanceof ProgressJuggler) {
             $this->progressJuggler->setProgress($percent);
             $this->progressOrMessageUpdated = true;
+        } else {
+            $this->progressJuggler =
+                null === $percent ? null : new ProgressJuggler($percent);
         }
     }
 
@@ -217,12 +239,7 @@ abstract class Spinner implements SpinnerInterface
         if (null === $percent) {
             $this->progressJuggler = null;
         } else {
-            /** @noinspection NestedPositiveIfStatementsInspection */
-            if ($this->progressJuggler instanceof ProgressJuggler) {
-                $this->progressJuggler->setProgress($percent);
-            } else {
-                $this->progressJuggler = new ProgressJuggler($percent);
-            }
+            $this->setProgress($percent);
         }
         if ($this->output instanceof SpinnerOutputInterface) {
             $this->output->write(Cursor::hide());
@@ -245,6 +262,7 @@ abstract class Spinner implements SpinnerInterface
 
     protected function preparedStr(): string
     {
+        // TODO optimize performance
         $str = '';
         $erasingLength = 0;
         if ($this->frameJuggler instanceof FrameJuggler) {
