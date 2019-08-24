@@ -36,9 +36,10 @@ class TimeSpinner extends Spinner
     }
 
     /** {@inheritDoc} */
-    public function spin(?float $percent = null, ?string $message = null): string
+    public function spin(): string
     {
-        return parent::spin(null, date($this->timeFormat) ?: '');
+        $this->message(date($this->timeFormat) ?: null);
+        return parent::spin();
     }
 
     /** {@inheritDoc} */

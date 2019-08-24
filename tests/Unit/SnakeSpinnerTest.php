@@ -29,12 +29,12 @@ class SnakeSpinnerTest extends TestCase
         $this->assertStringNotContainsString(self::PROCESSING, $spinner->end());
     }
 
-    /** @test */
-    public function symbols(): void
-    {
-        $spinner = new SnakeSpinner();
-        $circular = getValue($spinner, 'symbols');
-        $rewindable = getValue($circular, 'data');
-        $this->assertEquals(Frames::SNAKE_VARIANT_0, iterator_to_array($rewindable));
-    }
+//    /** @test */
+//    public function symbols(): void
+//    {
+//        $spinner = new SnakeSpinner();
+//        $circular = getValue($spinner, 'symbols');
+//        $rewindable = getValue($circular, 'data');
+//        $this->assertEquals(Frames::SNAKE_VARIANT_0, iterator_to_array($rewindable));
+//    }
 }

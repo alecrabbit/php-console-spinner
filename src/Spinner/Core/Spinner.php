@@ -97,7 +97,7 @@ abstract class Spinner implements SpinnerInterface
                 true === $output ? 'true' : typeOf($output);
             throw new \InvalidArgumentException(
                 'Incorrect parameter: ' .
-                ' [null|false|' . SpinnerOutputInterface::class . '] expected'
+                '[null|false|' . SpinnerOutputInterface::class . '] expected'
                 . ' "' . $typeOrValue . '" given.'
             );
         }

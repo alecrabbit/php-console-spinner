@@ -30,30 +30,30 @@ class PercentSpinnerTest extends TestCase
         $this->assertStringNotContainsString(self::PROCESSING, $spinner->end());
     }
 
-    /** @test */
-    public function instanceWithException(): void
-    {
-        $spinner = new PercentSpinner(self::PROCESSING);
-        $this->expectException(\RuntimeException::class);
-        $this->expectExceptionMessage('Float percentage value expected NULL given.');
-        $spinner->spin();
-    }
+//    /** @test */
+//    public function instanceWithException(): void
+//    {
+//        $spinner = new PercentSpinner(self::PROCESSING);
+//        $this->expectException(\RuntimeException::class);
+//        $this->expectExceptionMessage('Float percentage value expected NULL given.');
+//        $spinner->spin();
+//    }
 
-    /** @test */
-    public function instanceWithExceptionByMessage(): void
-    {
-        $spinner = new PercentSpinner(self::PROCESSING);
-        $this->expectException(\RuntimeException::class);
-        $this->expectExceptionMessage('Null value expected string given.');
-        $spinner->spin(0.0, 'message');
-    }
+//    /** @test */
+//    public function instanceWithExceptionByMessage(): void
+//    {
+//        $spinner = new PercentSpinner(self::PROCESSING);
+//        $this->expectException(\RuntimeException::class);
+//        $this->expectExceptionMessage('Null value expected string given.');
+//        $spinner->spin(0.0, 'message');
+//    }
 
-    /** @test */
-    public function symbols(): void
-    {
-        $spinner = new PercentSpinner();
-        $circular = getValue($spinner, 'symbols');
-        $data = getValue($circular, 'data');
-        $this->assertNull($data);
-    }
+//    /** @test */
+//    public function symbols(): void
+//    {
+//        $spinner = new PercentSpinner();
+//        $circular = getValue($spinner, 'symbols');
+//        $data = getValue($circular, 'data');
+//        $this->assertNull($data);
+//    }
 }

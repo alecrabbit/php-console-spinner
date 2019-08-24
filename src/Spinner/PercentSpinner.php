@@ -23,15 +23,13 @@ class PercentSpinner extends Spinner
         ];
 
     /** {@inheritDoc} */
-    public function spin(?float $percent = null, ?string $message = null): string
+    public function spin(?float $percent = null): string
     {
-        if (!\is_float($percent)) {
-            throw new \RuntimeException('Float percentage value expected ' . typeOf($percent) . ' given.');
-        }
-        if (null !== $message) {
-            throw new \RuntimeException('Null value expected ' . typeOf($message) . ' given.');
-        }
-        return parent::spin($percent);
+//        if (!\is_float($percent)) {
+//            throw new \RuntimeException('Float percentage value expected ' . typeOf($percent) . ' given.');
+//        }
+        $percent && $this->progress($percent);
+        return parent::spin();
     }
 
     /** {@inheritDoc} */
