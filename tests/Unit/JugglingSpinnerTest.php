@@ -39,6 +39,60 @@ class JugglingSpinnerTest extends TestCase
         $this->assertEquals('4 0% \033[5D', Helper::stripEscape($s->spin()));
         $this->assertEquals('1 0% \033[5D', Helper::stripEscape($s->spin()));
         $this->assertEquals('2 0% \033[5D', Helper::stripEscape($s->spin()));
+        $s->progress(0.022);
+        $this->assertEquals('3 2% \033[5D', Helper::stripEscape($s->spin()));
+        $this->assertEquals('4 2% \033[5D', Helper::stripEscape($s->spin()));
+        $this->assertEquals('1 2% \033[5D', Helper::stripEscape($s->spin()));
+        $this->assertEquals('2 2% \033[5D', Helper::stripEscape($s->spin()));
+        $this->assertEquals('3 2% \033[5D', Helper::stripEscape($s->spin()));
+        $s->progress(0.556);
+        $this->assertEquals('4 55% \033[6D', Helper::stripEscape($s->spin()));
+        $this->assertEquals('1 55% \033[6D', Helper::stripEscape($s->spin()));
+        $this->assertEquals('2 55% \033[6D', Helper::stripEscape($s->spin()));
+        $this->assertEquals('3 55% \033[6D', Helper::stripEscape($s->spin()));
+        $this->assertEquals('4 55% \033[6D', Helper::stripEscape($s->spin()));
+        $s->progress(1);
+        $this->assertEquals('1 100% \033[7D', Helper::stripEscape($s->spin()));
+        $this->assertEquals('2 100% \033[7D', Helper::stripEscape($s->spin()));
+        $this->assertEquals('3 100% \033[7D', Helper::stripEscape($s->spin()));
+        $this->assertEquals('4 100% \033[7D', Helper::stripEscape($s->spin()));
+        $this->assertEquals('1 100% \033[7D', Helper::stripEscape($s->spin()));
+    }
+
+    /** @test */
+    public function progressOutOfBounds(): void
+    {
+        $s = new ExtendedJugglingSpinner(null, false, NO_COLOR_TERMINAL);
+        $begin = $s->begin(-0.1);
+        $this->assertIsString($begin);
+        $this->assertEquals(
+            '\033[?25l1 0% \033[5D',
+            Helper::stripEscape($begin)
+        );
+        $this->assertEquals('2 0% \033[5D', Helper::stripEscape($s->spin()));
+        $this->assertEquals('3 0% \033[5D', Helper::stripEscape($s->spin()));
+        $this->assertEquals('4 0% \033[5D', Helper::stripEscape($s->spin()));
+        $this->assertEquals('1 0% \033[5D', Helper::stripEscape($s->spin()));
+        $this->assertEquals('2 0% \033[5D', Helper::stripEscape($s->spin()));
+        $s->progress(0.022);
+        $this->assertEquals('3 2% \033[5D', Helper::stripEscape($s->spin()));
+        $this->assertEquals('4 2% \033[5D', Helper::stripEscape($s->spin()));
+        $this->assertEquals('1 2% \033[5D', Helper::stripEscape($s->spin()));
+        $this->assertEquals('2 2% \033[5D', Helper::stripEscape($s->spin()));
+        $this->assertEquals('3 2% \033[5D', Helper::stripEscape($s->spin()));
+        $s->progress(0.556);
+        $this->assertEquals('4 55% \033[6D', Helper::stripEscape($s->spin()));
+        $this->assertEquals('1 55% \033[6D', Helper::stripEscape($s->spin()));
+        $this->assertEquals('2 55% \033[6D', Helper::stripEscape($s->spin()));
+        $this->assertEquals('3 55% \033[6D', Helper::stripEscape($s->spin()));
+        $this->assertEquals('4 55% \033[6D', Helper::stripEscape($s->spin()));
+        $s->progress(1);
+        $this->assertEquals('1 100% \033[7D', Helper::stripEscape($s->spin()));
+        $this->assertEquals('2 100% \033[7D', Helper::stripEscape($s->spin()));
+        $this->assertEquals('3 100% \033[7D', Helper::stripEscape($s->spin()));
+        $this->assertEquals('4 100% \033[7D', Helper::stripEscape($s->spin()));
+        $this->assertEquals('1 100% \033[7D', Helper::stripEscape($s->spin()));
+
     }
 
 //    /** @test */

@@ -3,6 +3,7 @@
 namespace AlecRabbit\Spinner\Core\Jugglers;
 
 use AlecRabbit\Spinner\Settings\Contracts\Defaults;
+use function AlecRabbit\Helpers\bounds;
 
 class ProgressJuggler
 {
@@ -15,13 +16,13 @@ class ProgressJuggler
 
     public function __construct(float $percent)
     {
-        $this->progress = $percent;
-        $this->currentFrame = $this->percentSpacer . (int)($percent * 100) . '% ';
+        $this->update($percent);
     }
 
     public function setProgress(float $percent): void
     {
-        $this->progress = $percent;
+        $this->update($percent);
+
     }
 
     public function getFrame(): string {
@@ -31,5 +32,14 @@ class ProgressJuggler
     public function getFrameErasingLength(): int {
         return
             strlen($this->currentFrame);
+    }
+
+    /**
+     * @param float $percent
+     */
+    protected function update(float $percent): void
+    {
+        $this->progress = bounds($percent, 0, 1);
+        $this->currentFrame = $this->percentSpacer . (int)($this->progress * 100) . '% ';
     }
 }
