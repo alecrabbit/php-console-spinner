@@ -35,9 +35,8 @@ class Calculator
      * @param null|string $symbol
      * @return int
      */
-    protected static function erasingLen($symbol): int
+    protected static function erasingLen(?string $symbol): int
     {
-        self::assertNullOrString($symbol);
         if (null === $symbol || Defaults::EMPTY === $symbol) {
             return 0;
         }
@@ -47,16 +46,5 @@ class Calculator
             return 2 * $mbSymbolLen;
         }
         return 1 * $mbSymbolLen;
-
-    }
-
-    /**
-     * @param null|string $string
-     */
-    private static function assertNullOrString(?string $string): void
-    {
-        if (null !== $string && !\is_string($string)) {
-            throw new \InvalidArgumentException('Only null|string is accepted');
-        }
     }
 }

@@ -23,7 +23,7 @@ class FrameJuggler implements JugglerInterface
 
     protected function assertFrames(array $frames): void
     {
-        if ( Defaults::MAX_FRAMES_COUNT < $count = count($frames)) {
+        if (Defaults::MAX_FRAMES_COUNT < $count = count($frames)) {
             throw new \InvalidArgumentException(
                 sprintf('Frames count limit [%s] exceeded: [%s].', Defaults::MAX_FRAMES_COUNT, $count)
             );
@@ -52,6 +52,4 @@ class FrameJuggler implements JugglerInterface
     {
         return $this->erasingLength;
     }
-
-
 }

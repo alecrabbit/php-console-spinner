@@ -23,14 +23,15 @@ class ProgressJuggler implements JugglerInterface
     public function setProgress(float $percent): void
     {
         $this->update($percent);
-
     }
 
-    public function getFrame(): string {
+    public function getFrame(): string
+    {
         return $this->currentFrame;
     }
 
-    public function getFrameErasingLength(): int {
+    public function getFrameErasingLength(): int
+    {
         return
             strlen($this->currentFrame);
     }

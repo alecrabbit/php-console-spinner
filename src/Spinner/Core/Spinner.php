@@ -18,12 +18,11 @@ use const AlecRabbit\ESC;
 
 abstract class Spinner implements SpinnerInterface
 {
+    protected const EMPTY_STRING = Defaults::EMPTY;
 
     protected const INTERVAL = Defaults::DEFAULT_INTERVAL;
     protected const FRAMES = Frames::BASE;
     protected const STYLES = StylesInterface::STYLING_DISABLED;
-
-    protected const EMPTY_STRING = '';
 
     /** @var null|SpinnerOutputInterface */
     protected $output;
@@ -46,7 +45,7 @@ abstract class Spinner implements SpinnerInterface
     /** @var string */
     protected $eraseBySpacesSequence;
     /** @var string */
-    protected $spacer;
+    protected $spacer = Defaults::EMPTY;
 
     /**
      * Spinner constructor.
@@ -149,6 +148,24 @@ abstract class Spinner implements SpinnerInterface
         }
     }
 
+    /**
+     * @param null|string $message
+     */
+    protected function setMessage(?string $message): void
+    {
+        if ($this->messageJuggler instanceof MessageJuggler) {
+            if (null === $message) {
+                $this->messageJuggler = null;
+            } else {
+                $this->messageJuggler->setMessage($message);
+            }
+            $this->progressOrMessageUpdated = true;
+        } else {
+            $this->messageJuggler =
+                null === $message ? null : new MessageJuggler($message);
+        }
+    }
+
     /** {@inheritDoc} */
     public function end(): string
     {
@@ -194,20 +211,6 @@ abstract class Spinner implements SpinnerInterface
         $this->setMessage($message);
     }
 
-    /**
-     * @param null|string $message
-     */
-    protected function setMessage(?string $message): void
-    {
-        if ($this->messageJuggler instanceof MessageJuggler) {
-            $this->messageJuggler->setMessage($message);
-            $this->progressOrMessageUpdated = true;
-        } else {
-            $this->messageJuggler =
-                null === $message ? null : new MessageJuggler($message);
-        }
-    }
-
     public function progress(float $percent): void
     {
         $this->setProgress($percent);
@@ -219,7 +222,11 @@ abstract class Spinner implements SpinnerInterface
     protected function setProgress(?float $percent = null): void
     {
         if ($this->progressJuggler instanceof ProgressJuggler) {
-            $this->progressJuggler->setProgress($percent);
+            if (null === $percent) {
+                $this->progressJuggler = null;
+            } else {
+                $this->progressJuggler->setProgress($percent);
+            }
             $this->progressOrMessageUpdated = true;
         } else {
             $this->progressJuggler =

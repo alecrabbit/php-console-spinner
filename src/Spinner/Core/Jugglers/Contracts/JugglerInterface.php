@@ -8,5 +8,4 @@ interface JugglerInterface
     public function getFrame(): string;
 
     public function getFrameErasingLength(): int;
-
 }
