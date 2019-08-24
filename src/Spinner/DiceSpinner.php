@@ -4,9 +4,9 @@ namespace AlecRabbit\Spinner;
 
 use AlecRabbit\Spinner\Core\Contracts\Frames;
 use AlecRabbit\Spinner\Core\Contracts\StylesInterface;
-use AlecRabbit\Spinner\Core\AbstractSpinner;
+use AlecRabbit\Spinner\Core\Spinner;
 
-class DiceSpinner extends AbstractSpinner
+class DiceSpinner extends Spinner
 {
     protected const INTERVAL = 0.17;
     protected const FRAMES = Frames::DICE;

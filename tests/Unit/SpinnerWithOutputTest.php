@@ -8,7 +8,7 @@ use const AlecRabbit\NO_COLOR_TERMINAL;
 use AlecRabbit\Spinner\Core\Contracts\SpinnerOutputInterface;
 use AlecRabbit\Spinner\Core\Contracts\StylesInterface;
 use AlecRabbit\Spinner\Settings\Settings;
-use AlecRabbit\Spinner\Core\AbstractSpinner;
+use AlecRabbit\Spinner\Core\Spinner;
 use PHPUnit\Framework\TestCase;
 
 class SpinnerWithOutputTest extends TestCase
@@ -20,7 +20,7 @@ class SpinnerWithOutputTest extends TestCase
     {
         $output = new BufferOutputAdapter();
         $spinner = new ExtendedSpinner(self::PROCESSING, $output, NO_COLOR_TERMINAL);
-        $this->assertInstanceOf(AbstractSpinner::class, $spinner);
+        $this->assertInstanceOf(Spinner::class, $spinner);
         $this->assertSame(0.1, $spinner->interval());
         $spinnerOutput = $spinner->getOutput();
         $this->assertNotNull($spinnerOutput);
@@ -106,8 +106,8 @@ class SpinnerWithOutputTest extends TestCase
     {
         $output = new BufferOutputAdapter();
         $spinner = new ExtendedSpinner(self::PROCESSING, $output, COLOR256_TERMINAL);
-        $this->assertInstanceOf(AbstractSpinner::class, $spinner->inline(true));
-        $this->assertInstanceOf(AbstractSpinner::class, $spinner->inline(false));
+        $this->assertInstanceOf(Spinner::class, $spinner->inline(true));
+        $this->assertInstanceOf(Spinner::class, $spinner->inline(false));
         $spinner->begin();
         $begin = $output->getBuffer();
 

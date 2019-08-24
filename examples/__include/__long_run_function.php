@@ -2,17 +2,17 @@
 declare(strict_types=1);
 
 use AlecRabbit\ConsoleColour\Themes;
-use AlecRabbit\Spinner\Core\AbstractSpinner;
+use AlecRabbit\Spinner\Core\Spinner;
 
 require_once __DIR__ . '/__ext_check.php';
 
 __check_for_extension('pcntl', 'ext-pcntl is required', __FILE__);
 
 /**
- * @param AbstractSpinner $s
+ * @param Spinner $s
  * @param Themes $theme
  */
-function longRun(AbstractSpinner $s, Themes $theme): void
+function longRun(Spinner $s, Themes $theme): void
 {
     echo $theme->cyan('Example: Entering long running state... ') . PHP_EOL;
     echo $theme->dark('Use Ctrl + C to exit.') . PHP_EOL;

@@ -3,7 +3,7 @@
 namespace AlecRabbit\Tests\Spinner;
 
 use AlecRabbit\Spinner\Core\Contracts\StylesInterface;
-use AlecRabbit\Spinner\Core\AbstractSpinner;
+use AlecRabbit\Spinner\Core\Spinner;
 use AlecRabbit\Spinner\JugglingSpinner;
 
 class ExtendedJugglingSpinner extends JugglingSpinner

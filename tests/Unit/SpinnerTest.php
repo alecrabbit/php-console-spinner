@@ -4,7 +4,7 @@ namespace AlecRabbit\Tests\Spinner;
 
 use AlecRabbit\Cli\Tools\Core\TerminalStatic;
 use AlecRabbit\Spinner\Core\Contracts\StylesInterface;
-use AlecRabbit\Spinner\Core\AbstractSpinner;
+use AlecRabbit\Spinner\Core\Spinner;
 use AlecRabbit\Spinner\Settings\Contracts\Defaults;
 use AlecRabbit\Spinner\Settings\Settings;
 use PHPUnit\Framework\TestCase;
@@ -20,7 +20,7 @@ class SpinnerTest extends TestCase
     public function instance(): void
     {
         $spinner = new ExtendedSpinner(self::PROCESSING, false, NO_COLOR_TERMINAL);
-        $this->assertInstanceOf(AbstractSpinner::class, $spinner);
+        $this->assertInstanceOf(Spinner::class, $spinner);
         $this->assertSame(0.1, $spinner->interval());
         $this->assertNull($spinner->getOutput());
         $this->assertIsString($spinner->begin());
@@ -41,7 +41,7 @@ class SpinnerTest extends TestCase
         $messageComputing = ucfirst(self::COMPUTING);
 
         $spinner = new ExtendedSpinner(self::PROCESSING, false, NO_COLOR_TERMINAL);
-        $this->assertInstanceOf(AbstractSpinner::class, $spinner);
+        $this->assertInstanceOf(Spinner::class, $spinner);
         $this->assertSame(0.1, $spinner->interval());
         $this->assertNull($spinner->getOutput());
         $this->assertIsString($spinner->begin());
@@ -195,8 +195,8 @@ class SpinnerTest extends TestCase
     public function interface(): void
     {
         $spinner = new ExtendedSpinner(self::PROCESSING, false, COLOR256_TERMINAL);
-        $this->assertInstanceOf(AbstractSpinner::class, $spinner->inline(true));
-        $this->assertInstanceOf(AbstractSpinner::class, $spinner->inline(false));
+        $this->assertInstanceOf(Spinner::class, $spinner->inline(true));
+        $this->assertInstanceOf(Spinner::class, $spinner->inline(false));
 
         $begin = $spinner->begin();
 
@@ -273,8 +273,8 @@ class SpinnerTest extends TestCase
     public function interfaceWithBg(): void
     {
         $spinner = new ExtendedBgSpinner(self::PROCESSING, false, COLOR256_TERMINAL);
-        $this->assertInstanceOf(AbstractSpinner::class, $spinner->inline(true));
-        $this->assertInstanceOf(AbstractSpinner::class, $spinner->inline(false));
+        $this->assertInstanceOf(Spinner::class, $spinner->inline(true));
+        $this->assertInstanceOf(Spinner::class, $spinner->inline(false));
 
         $begin = $spinner->begin();
 
@@ -351,8 +351,8 @@ class SpinnerTest extends TestCase
     public function interfaceWith256Bg(): void
     {
         $spinner = new Extended256BgSpinner(self::PROCESSING, false, COLOR256_TERMINAL);
-        $this->assertInstanceOf(AbstractSpinner::class, $spinner->inline(true));
-        $this->assertInstanceOf(AbstractSpinner::class, $spinner->inline(false));
+        $this->assertInstanceOf(Spinner::class, $spinner->inline(true));
+        $this->assertInstanceOf(Spinner::class, $spinner->inline(false));
 
 
         if (TerminalStatic::supports256Color()) {
@@ -439,12 +439,12 @@ class SpinnerTest extends TestCase
     public function unimplemented(): void
     {
         $spinner = new ExtendedSpinner(self::PROCESSING, false, NO_COLOR_TERMINAL);
-        $this->assertInstanceOf(AbstractSpinner::class, $spinner);
+        $this->assertInstanceOf(Spinner::class, $spinner);
         $this->expectException(\RuntimeException::class);
         $this->expectExceptionMessage(
             'AlecRabbit\Tests\Spinner\ExtendedSpinner: ' .
             'Call to unimplemented functionality ' .
-            'AlecRabbit\Spinner\Core\AbstractSpinner::getSettings'
+            'AlecRabbit\Spinner\Core\Spinner::getSettings'
         );
         $spinner->getSettings();
     }
@@ -453,8 +453,8 @@ class SpinnerTest extends TestCase
     public function noColor(): void
     {
         $spinner = new ExtendedSpinner(self::PROCESSING, false, NO_COLOR_TERMINAL);
-        $this->assertInstanceOf(AbstractSpinner::class, $spinner->inline(true));
-        $this->assertInstanceOf(AbstractSpinner::class, $spinner->inline(false));
+        $this->assertInstanceOf(Spinner::class, $spinner->inline(true));
+        $this->assertInstanceOf(Spinner::class, $spinner->inline(false));
         $begin = $spinner->begin();
 
         // DO NOT CHANGE ORDER!!!
