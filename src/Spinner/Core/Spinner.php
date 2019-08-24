@@ -145,14 +145,8 @@ abstract class Spinner implements SpinnerInterface
         }
         $message = $this->settings->getMessage();
         if (Defaults::EMPTY !== $message) {
-            $this->progressOrMessageUpdated = true;
-            $this->messageJuggler =
-                new MessageJuggler(
-                    $message,
-                    $this->settings->getMessageErasingLen()
-                );
+            $this->setMessage($message);
         }
-//        $this->progressJuggler = new ProgressJuggler(0);
     }
 
     /** {@inheritDoc} */

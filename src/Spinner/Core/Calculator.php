@@ -2,6 +2,8 @@
 
 namespace AlecRabbit\Spinner\Core;
 
+use AlecRabbit\Spinner\Settings\Contracts\Defaults;
+
 class Calculator
 {
     public static function computeErasingLen(array $strings): int
@@ -13,10 +15,30 @@ class Calculator
         return self::compErasingLen($strings);
     }
 
+    /**
+     * @param array $strings
+     * @return int
+     */
     protected static function compErasingLen(array $strings): int
     {
-        // TODO check if all elements have the same erasingLen
-        if (null === $symbol = $strings[0]) {
+        $lengths = [];
+        foreach ($strings as $string) {
+            $lengths[] = self::erasingLen($string);
+        }
+        if (1 !== count(array_unique($lengths))) {
+            throw new \InvalidArgumentException('Strings have different erasing lengths');
+        }
+        return $lengths[0];
+    }
+
+    /**
+     * @param null|string $symbol
+     * @return int
+     */
+    protected static function erasingLen($symbol): int
+    {
+        self::assertNullOrString($symbol);
+        if (null === $symbol || Defaults::EMPTY === $symbol) {
             return 0;
         }
         $mbSymbolLen = mb_strlen($symbol);
@@ -25,5 +47,16 @@ class Calculator
             return 2 * $mbSymbolLen;
         }
         return 1 * $mbSymbolLen;
+
+    }
+
+    /**
+     * @param null|string $string
+     */
+    private static function assertNullOrString(?string $string): void
+    {
+        if (null !== $string && !\is_string($string)) {
+            throw new \InvalidArgumentException('Only null|string is accepted');
+        }
     }
 }
