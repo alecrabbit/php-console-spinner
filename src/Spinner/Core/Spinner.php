@@ -46,6 +46,8 @@ abstract class Spinner implements SpinnerInterface
     protected $eraseBySpacesSequence;
     /** @var string */
     protected $spacer = Defaults::EMPTY;
+    /** @var Style */
+    protected $style;
 
     /**
      * Spinner constructor.
@@ -60,6 +62,16 @@ abstract class Spinner implements SpinnerInterface
         $this->settings = $this->refineSettings($messageOrSettings);
         $this->interval = $this->settings->getInterval();
         $this->initJugglers();
+        try {
+            $this->style = new Style($this->settings->getStyles(), $color);
+        } catch (\Throwable $e) {
+            throw new \InvalidArgumentException(
+                '[' . static::class . '] ' . $e->getMessage(),
+                (int)$e->getCode(),
+                $e
+            );
+        }
+
     }
 
     /**
@@ -267,15 +279,15 @@ abstract class Spinner implements SpinnerInterface
         $str = '';
         $erasingLength = 0;
         if ($this->frameJuggler instanceof FrameJuggler) {
-            $str .= $this->frameJuggler->getFrame();
+            $str .= $this->style->spinner($this->frameJuggler->getFrame());
             $erasingLength += $this->frameJuggler->getFrameErasingLength();
         }
         if ($this->messageJuggler instanceof MessageJuggler) {
-            $str .= $this->messageJuggler->getFrame();
+            $str .= $this->style->message($this->messageJuggler->getFrame());
             $erasingLength += $this->messageJuggler->getFrameErasingLength();
         }
         if ($this->progressJuggler instanceof ProgressJuggler) {
-            $str .= $this->progressJuggler->getFrame();
+            $str .= $this->style->percent($this->progressJuggler->getFrame());
             $erasingLength += $this->progressJuggler->getFrameErasingLength();
         }
         $erasingLength += $this->inline ? 1 : 0;
