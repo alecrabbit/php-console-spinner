@@ -8,7 +8,7 @@ use AlecRabbit\Spinner\JugglingSpinner;
 
 class ExtendedJugglingSpinner extends JugglingSpinner
 {
-    protected const INTERVAL = 0.1;
+    protected const INTERVAL = 0.2;
     protected const FRAMES = ['1', '2', '3', '4',];
     protected const
         STYLES =

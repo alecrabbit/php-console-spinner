@@ -39,6 +39,10 @@ abstract class Spinner implements SpinnerInterface
     protected $frameJuggler;
     /** @var null|ProgressJuggler */
     protected $progressJuggler;
+    /** @var string */
+    protected $moveCursorBackSequence;
+    /** @var string */
+    protected $eraseBySpacesSequence;
 
     /**
      * Spinner constructor.
@@ -51,6 +55,7 @@ abstract class Spinner implements SpinnerInterface
     {
         $this->output = $this->refineOutput($output);
         $this->settings = $this->refineSettings($messageOrSettings);
+        $this->interval = $this->settings->getInterval();
         $this->initJugglers();
     }
 
@@ -159,7 +164,7 @@ abstract class Spinner implements SpinnerInterface
     /** {@inheritDoc} */
     public function erase(): string
     {
-        $str = $this->eraseBySpacesStr . $this->moveBackSequenceStr;
+        $str = $this->eraseBySpacesSequence . $this->moveCursorBackSequence;
         if ($this->output) {
             $this->output->write($str);
             return self::EMPTY_STRING;
@@ -239,9 +244,8 @@ abstract class Spinner implements SpinnerInterface
             $str .= $this->progressJuggler->getFrame();
             $erasingLength += $this->progressJuggler->getFrameErasingLength();
         }
-
-
-            return $str . ESC . "[{$erasingLength}D";
-        ;
+        $this->moveCursorBackSequence = ESC . "[{$erasingLength}D";
+        $this->eraseBySpacesSequence = str_repeat(Defaults::ONE_SPACE_SYMBOL, $erasingLength);
+        return $str . $this->moveCursorBackSequence;
     }
 }
