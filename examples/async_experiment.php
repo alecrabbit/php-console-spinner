@@ -32,7 +32,6 @@ $loop->addSignal(
 
 $progress = null;
 $index = 0;
-$message = '  ';
 $messages = [
     0 => 'Initializing',
     3 => 'Starting',
@@ -47,26 +46,27 @@ $messages = [
     95 => 'Be patient',
 
 ];
-$s = new SnakeSpinner($message);
+$s = new SnakeSpinner();
 
 // Add periodic timer to redraw our spinner
-$loop->addPeriodicTimer($s->interval(), static function () use ($s, &$progress, &$message) {
-    $s->spin($progress / 100, $message);
+$loop->addPeriodicTimer($s->interval(), static function () use ($s) {
+    $s->spin();
 });
 
 // Add periodic timer to increment $progress
-$loop->addPeriodicTimer(0.2, static function () use ($loop, $s, &$progress) {
+$loop->addPeriodicTimer(0.5, static function () use ($s, $loop, &$progress) {
     if (null === $progress) {
         $progress = 0;
     }
     if (++$progress > 100) {
         $loop->stop();
     }
+    $s->progress($progress / 100);
 });
 
-$loop->addPeriodicTimer(0.3, static function () use ($loop, $s, &$index, &$message, &$messages) {
+$loop->addPeriodicTimer(0.3, static function () use ($s, &$index, &$messages) {
     if (\array_key_exists($index, $messages)) {
-        $message = $messages[$index];
+        $s->message($messages[$index]);
     }
     $index++;
 });
