@@ -33,10 +33,12 @@ class FrameJuggler implements JugglerInterface
                 throw new \InvalidArgumentException('All frames should be of string type.');
             }
             if (mb_strlen($frame) > Defaults::MAX_FRAME_LENGTH) {
-                throw new \InvalidArgumentException(sprintf(
-                    'Frames should NOT exceed max length [%s].',
-                    Defaults::MAX_FRAME_LENGTH
-                ));
+                throw new \InvalidArgumentException(
+                    sprintf(
+                        'Single frame should NOT exceed max length [%s].',
+                        Defaults::MAX_FRAME_LENGTH
+                    )
+                );
             }
         }
     }
@@ -48,6 +50,7 @@ class FrameJuggler implements JugglerInterface
     {
         return $this->frames->value();
     }
+
     public function getFrameErasingLength(): int
     {
         return $this->erasingLength;
