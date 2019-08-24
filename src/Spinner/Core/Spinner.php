@@ -30,7 +30,7 @@ abstract class Spinner implements SpinnerInterface
     /** @var Settings */
     protected $settings;
     /** @var bool */
-    protected $inline;
+    protected $inline = false;
     /** @var bool */
     protected $progressOrMessageUpdated = false;
     /** @var float */
@@ -156,7 +156,7 @@ abstract class Spinner implements SpinnerInterface
     /** {@inheritDoc} */
     public function end(): string
     {
-        if ($this->output) {
+        if ($this->output instanceof SpinnerOutputInterface) {
             $this->erase();
             $this->output->write(Cursor::show());
             return self::EMPTY_STRING;
@@ -168,7 +168,7 @@ abstract class Spinner implements SpinnerInterface
     public function erase(): string
     {
         $str = $this->eraseBySpacesSequence . $this->moveCursorBackSequence;
-        if ($this->output) {
+        if ($this->output instanceof SpinnerOutputInterface) {
             $this->output->write($str);
             return self::EMPTY_STRING;
         }
@@ -194,27 +194,34 @@ abstract class Spinner implements SpinnerInterface
 
     public function message(string $message): void
     {
-        $this->messageJuggler->setMessage($message);
-        $this->progressOrMessageUpdated = true;
+        if ($this->messageJuggler instanceof MessageJuggler) {
+            $this->messageJuggler->setMessage($message);
+            $this->progressOrMessageUpdated = true;
+        }
     }
 
     public function progress(float $percent): void
     {
-        $this->progressJuggler->setProgress($percent);
-        $this->progressOrMessageUpdated = true;
+        if ($this->progressJuggler instanceof ProgressJuggler) {
+            $this->progressJuggler->setProgress($percent);
+            $this->progressOrMessageUpdated = true;
+        }
     }
 
     /** {@inheritDoc} */
     public function begin(?float $percent = null): string
     {
-        if (null !== $percent) {
+        if (null === $percent) {
+            $this->progressJuggler = null;
+        } else {
+            /** @noinspection NestedPositiveIfStatementsInspection */
             if ($this->progressJuggler instanceof ProgressJuggler) {
                 $this->progressJuggler->setProgress($percent);
             } else {
                 $this->progressJuggler = new ProgressJuggler($percent);
             }
         }
-        if ($this->output) {
+        if ($this->output instanceof SpinnerOutputInterface) {
             $this->output->write(Cursor::hide());
             $this->spin();
             return self::EMPTY_STRING;
@@ -225,7 +232,7 @@ abstract class Spinner implements SpinnerInterface
     /** {@inheritDoc} */
     public function spin(): string
     {
-        if ($this->output) {
+        if ($this->output instanceof SpinnerOutputInterface) {
             $this->output->write($this->preparedStr());
             return self::EMPTY_STRING;
         }

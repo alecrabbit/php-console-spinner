@@ -68,7 +68,7 @@ class JugglingSpinnerTest extends TestCase
     public function progressOutOfBounds(): void
     {
         $s = new ExtendedJugglingSpinner(null, false, NO_COLOR_TERMINAL);
-        $begin = $s->begin(-0.1);
+        $begin = $s->begin((float)-0.1); // inspection bug fix
         $this->assertIsString($begin);
         $this->assertEquals(
             '\033[?25l1 0% \033[5D',
