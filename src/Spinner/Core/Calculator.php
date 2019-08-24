@@ -6,21 +6,12 @@ use AlecRabbit\Spinner\Settings\Contracts\Defaults;
 
 class Calculator
 {
-    public static function computeErasingLen(array $strings): int
+    public static function computeErasingLength(array $strings): int
     {
         // TODO remove code duplicate from Settings::class
         if (empty($strings)) {
             return 0;
         }
-        return self::compErasingLen($strings);
-    }
-
-    /**
-     * @param array $strings
-     * @return int
-     */
-    protected static function compErasingLen(array $strings): int
-    {
         $lengths = [];
         foreach ($strings as $string) {
             $lengths[] = self::erasingLen($string);
@@ -30,6 +21,7 @@ class Calculator
         }
         return $lengths[0];
     }
+
 
     /**
      * @param null|string $symbol

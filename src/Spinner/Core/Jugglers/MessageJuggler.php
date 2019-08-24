@@ -56,7 +56,7 @@ class MessageJuggler implements JugglerInterface
     protected function refineErasingLen(string $message, ?int $erasingLength): int
     {
         if (null === $erasingLength) {
-            return Calculator::computeErasingLen([$message]);
+            return Calculator::computeErasingLength([$message]);
         }
         return $erasingLength;
     }

@@ -18,7 +18,7 @@ class FrameJuggler implements JugglerInterface
     {
         $this->assertFrames($frames);
         $this->frames = new Circular($frames);
-        $this->erasingLength = Calculator::computeErasingLen($frames);
+        $this->erasingLength = Calculator::computeErasingLength($frames);
     }
 
     protected function assertFrames(array $frames): void
