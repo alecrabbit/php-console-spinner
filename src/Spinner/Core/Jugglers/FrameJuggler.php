@@ -4,9 +4,10 @@ namespace AlecRabbit\Spinner\Core\Jugglers;
 
 use AlecRabbit\Accessories\Circular;
 use AlecRabbit\Spinner\Core\Calculator;
+use AlecRabbit\Spinner\Core\Jugglers\Contracts\JugglerInterface;
 use AlecRabbit\Spinner\Settings\Contracts\Defaults;
 
-class FrameJuggler
+class FrameJuggler implements JugglerInterface
 {
     /** @var Circular */
     protected $frames;

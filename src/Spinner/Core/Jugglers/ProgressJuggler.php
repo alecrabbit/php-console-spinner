@@ -2,10 +2,11 @@
 
 namespace AlecRabbit\Spinner\Core\Jugglers;
 
+use AlecRabbit\Spinner\Core\Jugglers\Contracts\JugglerInterface;
 use AlecRabbit\Spinner\Settings\Contracts\Defaults;
 use function AlecRabbit\Helpers\bounds;
 
-class ProgressJuggler
+class ProgressJuggler implements JugglerInterface
 {
     /** @var float */
     protected $progress;

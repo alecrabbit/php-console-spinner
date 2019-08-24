@@ -3,9 +3,10 @@
 namespace AlecRabbit\Spinner\Core\Jugglers;
 
 use AlecRabbit\Spinner\Core\Calculator;
+use AlecRabbit\Spinner\Core\Jugglers\Contracts\JugglerInterface;
 use AlecRabbit\Spinner\Settings\Contracts\Defaults;
 
-class MessageJuggler
+class MessageJuggler implements JugglerInterface
 {
     /** @var string */
     protected $spacer = Defaults::ONE_SPACE_SYMBOL;
