@@ -45,6 +45,7 @@ class TimeSpinner extends Spinner
     /** {@inheritDoc} */
     public function begin(?float $percent = null): string
     {
+        // $percent param is ignored
         return parent::begin();
     }
 
