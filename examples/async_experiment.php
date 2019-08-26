@@ -31,7 +31,6 @@ $loop->addSignal(
 
 
 $progress = null;
-$index = 0;
 $messages = [
     0 => 'Initializing',
     3 => 'Starting',
@@ -62,14 +61,18 @@ $loop->addPeriodicTimer(0.5, static function () use ($s, $loop, &$progress) {
     if (++$progress > 100) {
         $loop->stop();
     }
-    $s->progress($progress / 100);
+    if (70 <= $progress && $progress <= 79) {
+        $s->progress(null);
+    } else {
+        $s->progress($progress / 100);
+    }
 });
 
-$loop->addPeriodicTimer(0.3, static function () use ($s, &$index, &$messages) {
-    if (\array_key_exists($index, $messages)) {
-        $s->message($messages[$index]);
+$loop->addPeriodicTimer(0.3, static function () use ($s, &$progress, &$messages) {
+    $progress = $progress ?? 0;
+    if (null !== $progress && \array_key_exists($progress, $messages)) {
+        $s->message($messages[$progress]);
     }
-    $index++;
 });
 
 $s->begin(); // Hides cursor and write first frame to output
