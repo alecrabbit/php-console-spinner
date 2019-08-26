@@ -2,6 +2,8 @@
 
 namespace AlecRabbit\Spinner\Core\Contracts;
 
+use AlecRabbit\Spinner\Core\Spinner;
+
 interface SpinnerInterface
 {
     /**
@@ -37,14 +39,17 @@ interface SpinnerInterface
     public function interval(): float;
 
     /**
-     * @param string $message
+     * @param null|string $message
+     * @param null|int $erasingLength
+     * @return Spinner
      */
-    public function message(string $message): void;
+    public function message(?string $message = null, ?int $erasingLength = null): Spinner;
 
     /**
      * @param float $percent
+     * @return Spinner
      */
-    public function progress(float $percent): void;
+    public function progress(float $percent): Spinner;
 
     /**
      * @return string

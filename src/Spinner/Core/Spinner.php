@@ -156,7 +156,7 @@ abstract class Spinner implements SpinnerInterface
         }
         $message = $this->settings->getMessage();
         if (Defaults::EMPTY !== $message) {
-            $this->setMessage($message);
+            $this->setMessage($message, $this->settings->getMessageErasingLen());
         }
     }
 
@@ -166,6 +166,10 @@ abstract class Spinner implements SpinnerInterface
      */
     protected function setMessage(?string $message, ?int $erasingLength = null): void
     {
+        $firstInLine = true;
+        if ($this->frameJuggler instanceof FrameJuggler) {
+            $firstInLine = false;
+        }
         if ($this->messageJuggler instanceof MessageJuggler) {
             if (null === $message) {
                 $this->messageJuggler = null;
@@ -176,6 +180,9 @@ abstract class Spinner implements SpinnerInterface
         } else {
             $this->messageJuggler =
                 null === $message ? null : new MessageJuggler($message, $erasingLength);
+        }
+        if ($this->messageJuggler instanceof MessageJuggler) {
+            $this->messageJuggler->firstInLine($firstInLine);
         }
     }
 
@@ -219,14 +226,17 @@ abstract class Spinner implements SpinnerInterface
         return $this->interval;
     }
 
-    public function message(?string $message = null): void
+    /** {@inheritDoc} */
+    public function message(?string $message = null, ?int $erasingLength = null): self
     {
-        $this->setMessage($message);
+        $this->setMessage($message, $erasingLength);
+        return $this;
     }
 
-    public function progress(float $percent): void
+    public function progress(float $percent): self
     {
         $this->setProgress($percent);
+        return $this;
     }
 
     /**

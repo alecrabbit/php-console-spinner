@@ -88,10 +88,12 @@ function display(
         // It's your job to call spin() with approx. equal intervals
         // (each class has recommended interval for comfortable animation)
         $percent = $i / ITERATIONS;
+        $s->progress($percent);
+        $s->message($currentMessage);
         if ($outputIsNull) {
-            $output->write($s->spin($percent, $currentMessage));
+            $output->write($s->spin());
         } else {
-            $s->spin($percent, $currentMessage);
+            $s->spin();
         }
     }
     if ($outputIsNull) {

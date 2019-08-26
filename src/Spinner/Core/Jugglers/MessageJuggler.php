@@ -24,6 +24,8 @@ class MessageJuggler implements JugglerInterface
     protected $frameStringErasingLength;
     /** @var int */
     protected $erasingLengthDelta;
+    /** @var bool */
+    protected $firstInLine;
 
     public function __construct(string $message, int $erasingLength = null)
     {
@@ -41,14 +43,18 @@ class MessageJuggler implements JugglerInterface
             $this->erasingLengthDelta = $this->getMessageFullLength();
             $this->erasingLength = 0;
             $this->spacer = Defaults::EMPTY;
-            $this->messageSuffix = Defaults::EMPTY;
             $this->messagePrefix = Defaults::EMPTY;
+            $this->messageSuffix = Defaults::EMPTY;
         } else {
             $erasingLength = $this->refineErasingLen($message, $erasingLength);
             $this->erasingLengthDelta = $this->getMessageFullLength() - $erasingLength;
             $this->erasingLength = $erasingLength;
             $this->spacer = Defaults::ONE_SPACE_SYMBOL;
+            $this->messagePrefix = Defaults::EMPTY;
             $this->messageSuffix = Defaults::DEFAULT_SUFFIX;
+        }
+        if ($this->firstInLine) {
+            $this->spacer = Defaults::EMPTY;
         }
         $this->frameString =
             $this->spacer . $this->messagePrefix . $this->message . $this->messageSuffix;
@@ -57,6 +63,14 @@ class MessageJuggler implements JugglerInterface
             strlen($this->spacer . $this->messagePrefix . $this->messageSuffix) + $this->erasingLength;
 //        strlen($this->spacer) + $this->getMessageFullLength();
 
+    }
+
+    /**
+     * @return int
+     */
+    protected function getMessageFullLength(): int
+    {
+        return strlen($this->messagePrefix) + $this->erasingLength + strlen($this->messageSuffix);
     }
 
     /**
@@ -99,11 +113,9 @@ class MessageJuggler implements JugglerInterface
         return $this->erasingLengthDelta;
     }
 
-    /**
-     * @return int
-     */
-    protected function getMessageFullLength(): int
+    public function firstInLine(bool $firstInLine): void
     {
-        return strlen($this->messagePrefix) + $this->erasingLength + strlen($this->messageSuffix);
+        $this->firstInLine = $firstInLine;
     }
 }
+

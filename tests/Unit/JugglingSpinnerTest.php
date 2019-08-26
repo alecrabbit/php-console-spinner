@@ -6,6 +6,7 @@ use AlecRabbit\Spinner\Core\Jugglers\FrameJuggler;
 use AlecRabbit\Spinner\Core\Jugglers\MessageJuggler;
 use AlecRabbit\Spinner\Core\Jugglers\ProgressJuggler;
 use AlecRabbit\Spinner\Core\Spinner;
+use AlecRabbit\Spinner\Settings\Contracts\Defaults;
 use AlecRabbit\Tests\Spinner\ExtendedJugglingSpinner;
 use AlecRabbit\Tests\Spinner\Helper;
 use PHPUnit\Framework\TestCase;
@@ -99,17 +100,22 @@ class JugglingSpinnerTest extends TestCase
         $this->assertEquals('2 2% \033[5D', Helper::stripEscape($s->spin()));
         $this->assertEquals('3 2% \033[5D', Helper::stripEscape($s->spin()));
         $s->progress(0.556);
-        $this->assertEquals('4 55% \033[6D', Helper::stripEscape($s->spin()));
-        $this->assertEquals('1 55% \033[6D', Helper::stripEscape($s->spin()));
-        $this->assertEquals('2 55% \033[6D', Helper::stripEscape($s->spin()));
-        $this->assertEquals('3 55% \033[6D', Helper::stripEscape($s->spin()));
-        $this->assertEquals('4 55% \033[6D', Helper::stripEscape($s->spin()));
+        $s->message(self::PROCESSING);
+        $this->assertEquals(
+            '4 ' . self::PROCESSING . Defaults::DEFAULT_SUFFIX . ' 55% \033[20D',
+            Helper::stripEscape($s->spin())
+        );
+        $this->assertEquals('1 ' . self::PROCESSING . Defaults::DEFAULT_SUFFIX . ' 55% \033[20D', Helper::stripEscape($s->spin()));
+        $this->assertEquals('2 ' . self::PROCESSING . Defaults::DEFAULT_SUFFIX . ' 55% \033[20D', Helper::stripEscape($s->spin()));
+        $this->assertEquals('3 ' . self::PROCESSING . Defaults::DEFAULT_SUFFIX . ' 55% \033[20D', Helper::stripEscape($s->spin()));
+        $this->assertEquals('4 ' . self::PROCESSING . Defaults::DEFAULT_SUFFIX . ' 55% \033[20D', Helper::stripEscape($s->spin()));
         $s->progress(1);
-        $this->assertEquals('1 100% \033[7D', Helper::stripEscape($s->spin()));
-        $this->assertEquals('2 100% \033[7D', Helper::stripEscape($s->spin()));
-        $this->assertEquals('3 100% \033[7D', Helper::stripEscape($s->spin()));
-        $this->assertEquals('4 100% \033[7D', Helper::stripEscape($s->spin()));
-        $this->assertEquals('1 100% \033[7D', Helper::stripEscape($s->spin()));
+        $this->assertEquals('1 ' . self::PROCESSING . Defaults::DEFAULT_SUFFIX . ' 100% \033[21D', Helper::stripEscape($s->spin()));
+        $this->assertEquals('2 ' . self::PROCESSING . Defaults::DEFAULT_SUFFIX . ' 100% \033[21D', Helper::stripEscape($s->spin()));
+        $s->message(Defaults::EMPTY, 0);
+        $this->assertEquals('3 100%              \033[20D', Helper::stripEscape($s->spin()));
+//        $this->assertEquals('4 100% \033[7D', Helper::stripEscape($s->spin()));
+//        $this->assertEquals('1 100% \033[7D', Helper::stripEscape($s->spin()));
     }
 
     /** @test */
@@ -117,7 +123,7 @@ class JugglingSpinnerTest extends TestCase
     {
         $s = new ExtendedJugglingSpinner(null, false, NO_COLOR_TERMINAL);
         $s->inline(true);
-        $begin = $s->begin((float) - 0.1); // inspection bug fix
+        $begin = $s->begin((float)-0.1); // inspection bug fix
         $this->assertIsString($begin);
         $this->assertEquals(
             '\033[?25l 1 0% \033[6D',
