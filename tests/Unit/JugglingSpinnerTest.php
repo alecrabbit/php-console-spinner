@@ -105,13 +105,31 @@ class JugglingSpinnerTest extends TestCase
             '4 ' . self::PROCESSING . Defaults::DEFAULT_SUFFIX . ' 55% \033[20D',
             Helper::stripEscape($s->spin())
         );
-        $this->assertEquals('1 ' . self::PROCESSING . Defaults::DEFAULT_SUFFIX . ' 55% \033[20D', Helper::stripEscape($s->spin()));
-        $this->assertEquals('2 ' . self::PROCESSING . Defaults::DEFAULT_SUFFIX . ' 55% \033[20D', Helper::stripEscape($s->spin()));
-        $this->assertEquals('3 ' . self::PROCESSING . Defaults::DEFAULT_SUFFIX . ' 55% \033[20D', Helper::stripEscape($s->spin()));
-        $this->assertEquals('4 ' . self::PROCESSING . Defaults::DEFAULT_SUFFIX . ' 55% \033[20D', Helper::stripEscape($s->spin()));
+        $this->assertEquals(
+            '1 ' . self::PROCESSING . Defaults::DEFAULT_SUFFIX . ' 55% \033[20D',
+            Helper::stripEscape($s->spin())
+        );
+        $this->assertEquals(
+            '2 ' . self::PROCESSING . Defaults::DEFAULT_SUFFIX . ' 55% \033[20D',
+            Helper::stripEscape($s->spin())
+        );
+        $this->assertEquals(
+            '3 ' . self::PROCESSING . Defaults::DEFAULT_SUFFIX . ' 55% \033[20D',
+            Helper::stripEscape($s->spin())
+        );
+        $this->assertEquals(
+            '4 ' . self::PROCESSING . Defaults::DEFAULT_SUFFIX . ' 55% \033[20D',
+            Helper::stripEscape($s->spin())
+        );
         $s->progress(1);
-        $this->assertEquals('1 ' . self::PROCESSING . Defaults::DEFAULT_SUFFIX . ' 100% \033[21D', Helper::stripEscape($s->spin()));
-        $this->assertEquals('2 ' . self::PROCESSING . Defaults::DEFAULT_SUFFIX . ' 100% \033[21D', Helper::stripEscape($s->spin()));
+        $this->assertEquals(
+            '1 ' . self::PROCESSING . Defaults::DEFAULT_SUFFIX . ' 100% \033[21D',
+            Helper::stripEscape($s->spin())
+        );
+        $this->assertEquals(
+            '2 ' . self::PROCESSING . Defaults::DEFAULT_SUFFIX . ' 100% \033[21D',
+            Helper::stripEscape($s->spin())
+        );
         $s->message(Defaults::EMPTY, 0);
         $this->assertEquals('3 100%              \033[20D', Helper::stripEscape($s->spin()));
 //        $this->assertEquals('4 100% \033[7D', Helper::stripEscape($s->spin()));
