@@ -22,6 +22,8 @@ class MessageJuggler implements JugglerInterface
     protected $frameString;
     /** @var int */
     protected $frameStringErasingLength;
+    /** @var int */
+    protected $erasingLengthDelta;
 
     public function __construct(string $message, int $erasingLength = null)
     {
@@ -36,9 +38,16 @@ class MessageJuggler implements JugglerInterface
     {
         $this->message = $message;
         if (Defaults::EMPTY === $message) {
+            $this->erasingLengthDelta = $this->getMessageFullLength();
             $this->erasingLength = 0;
+            $this->spacer = Defaults::EMPTY;
+            $this->messageSuffix = Defaults::EMPTY;
+            $this->messagePrefix = Defaults::EMPTY;
         } else {
-            $this->erasingLength = $this->refineErasingLen($message, $erasingLength);
+            $erasingLength = $this->refineErasingLen($message, $erasingLength);
+            $this->erasingLengthDelta = $this->getMessageFullLength() - $erasingLength;
+            $this->erasingLength = $erasingLength;
+            $this->spacer = Defaults::ONE_SPACE_SYMBOL;
             $this->messageSuffix = Defaults::DEFAULT_SUFFIX;
         }
         $this->frameString =
@@ -46,6 +55,8 @@ class MessageJuggler implements JugglerInterface
 
         $this->frameStringErasingLength =
             strlen($this->spacer . $this->messagePrefix . $this->messageSuffix) + $this->erasingLength;
+//        strlen($this->spacer) + $this->getMessageFullLength();
+
     }
 
     /**
@@ -78,5 +89,21 @@ class MessageJuggler implements JugglerInterface
     public function getFrameErasingLength(): int
     {
         return $this->frameStringErasingLength;
+    }
+
+    /**
+     * @return int
+     */
+    public function getErasingLengthDelta(): int
+    {
+        return $this->erasingLengthDelta;
+    }
+
+    /**
+     * @return int
+     */
+    protected function getMessageFullLength(): int
+    {
+        return strlen($this->messagePrefix) + $this->erasingLength + strlen($this->messageSuffix);
     }
 }

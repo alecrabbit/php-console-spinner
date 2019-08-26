@@ -162,19 +162,20 @@ abstract class Spinner implements SpinnerInterface
 
     /**
      * @param null|string $message
+     * @param null|int $erasingLength
      */
-    protected function setMessage(?string $message): void
+    protected function setMessage(?string $message, ?int $erasingLength = null): void
     {
         if ($this->messageJuggler instanceof MessageJuggler) {
             if (null === $message) {
                 $this->messageJuggler = null;
             } else {
-                $this->messageJuggler->setMessage($message);
+                $this->messageJuggler->setMessage($message, $erasingLength);
             }
             $this->progressOrMessageUpdated = true;
         } else {
             $this->messageJuggler =
-                null === $message ? null : new MessageJuggler($message);
+                null === $message ? null : new MessageJuggler($message, $erasingLength);
         }
     }
 
@@ -278,6 +279,8 @@ abstract class Spinner implements SpinnerInterface
         // TODO optimize performance
         $str = '';
         $erasingLength = 0;
+        $erasingLengthDelta = 0;
+        $eraseMessageTailBySpacesSequence = '';
         if ($this->frameJuggler instanceof FrameJuggler) {
             $str .= $this->style->spinner($this->frameJuggler->getFrame());
             $erasingLength += $this->frameJuggler->getFrameErasingLength();
@@ -285,6 +288,12 @@ abstract class Spinner implements SpinnerInterface
         if ($this->messageJuggler instanceof MessageJuggler) {
             $str .= $this->style->message($this->messageJuggler->getFrame());
             $erasingLength += $this->messageJuggler->getFrameErasingLength();
+            $erasingLengthDelta = $this->messageJuggler->getErasingLengthDelta();
+            if ($erasingLengthDelta > 0) {
+                $erasingLength += $erasingLengthDelta;
+            } else {
+                $erasingLengthDelta = 0;
+            }
         }
         if ($this->progressJuggler instanceof ProgressJuggler) {
             $str .= $this->style->percent($this->progressJuggler->getFrame());
@@ -293,6 +302,9 @@ abstract class Spinner implements SpinnerInterface
         $erasingLength += $this->inline ? 1 : 0;
         $this->moveCursorBackSequence = ESC . "[{$erasingLength}D";
         $this->eraseBySpacesSequence = str_repeat(Defaults::ONE_SPACE_SYMBOL, $erasingLength);
-        return $this->spacer . $str . $this->moveCursorBackSequence;
+        if ($erasingLengthDelta > 0) {
+            $eraseMessageTailBySpacesSequence = str_repeat(Defaults::ONE_SPACE_SYMBOL, $erasingLengthDelta);
+        }
+        return $this->spacer . $str . $eraseMessageTailBySpacesSequence . $this->moveCursorBackSequence;
     }
 }
