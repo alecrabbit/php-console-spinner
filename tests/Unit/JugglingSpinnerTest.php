@@ -123,7 +123,7 @@ class JugglingSpinnerTest extends TestCase
     {
         $s = new ExtendedJugglingSpinner(null, false, NO_COLOR_TERMINAL);
         $s->inline(true);
-        $begin = $s->begin((float)-0.1); // inspection bug fix
+        $begin = $s->begin((float) - 0.1); // inspection bug fix
         $this->assertIsString($begin);
         $this->assertEquals(
             '\033[?25l 1 0% \033[6D',
@@ -152,6 +152,12 @@ class JugglingSpinnerTest extends TestCase
         $this->assertEquals(' 3 100% \033[8D', Helper::stripEscape($s->spin()));
         $this->assertEquals(' 4 100% \033[8D', Helper::stripEscape($s->spin()));
         $this->assertEquals(' 1 100% \033[8D', Helper::stripEscape($s->spin()));
+        $s->progress(null);
+        $this->assertEquals(' 2\033[2D', Helper::stripEscape($s->spin()));
+        $this->assertEquals(' 3\033[2D', Helper::stripEscape($s->spin()));
+        $this->assertEquals(' 4\033[2D', Helper::stripEscape($s->spin()));
+        $this->assertEquals(' 1\033[2D', Helper::stripEscape($s->spin()));
+        $this->assertEquals(' 2\033[2D', Helper::stripEscape($s->spin()));
     }
 
     /** @test */

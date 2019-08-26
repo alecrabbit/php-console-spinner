@@ -25,7 +25,7 @@ class MessageJuggler implements JugglerInterface
     /** @var int */
     protected $erasingLengthDelta;
     /** @var bool */
-    protected $firstInLine;
+    protected $firstInLine = false;
 
     public function __construct(string $message, int $erasingLength = null)
     {
@@ -62,7 +62,6 @@ class MessageJuggler implements JugglerInterface
         $this->frameStringErasingLength =
             strlen($this->spacer . $this->messagePrefix . $this->messageSuffix) + $this->erasingLength;
 //        strlen($this->spacer) + $this->getMessageFullLength();
-
     }
 
     /**
@@ -118,4 +117,3 @@ class MessageJuggler implements JugglerInterface
         $this->firstInLine = $firstInLine;
     }
 }
-

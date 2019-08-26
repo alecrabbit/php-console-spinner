@@ -28,7 +28,7 @@ class PercentSpinner extends Spinner
 //        if (!\is_float($percent)) {
 //            throw new \RuntimeException('Float percentage value expected ' . typeOf($percent) . ' given.');
 //        }
-        $percent && $this->progress($percent);
+        $percent and $this->progress($percent);
         return parent::spin();
     }
 

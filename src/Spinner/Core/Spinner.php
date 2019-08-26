@@ -41,9 +41,9 @@ abstract class Spinner implements SpinnerInterface
     /** @var null|ProgressJuggler */
     protected $progressJuggler;
     /** @var string */
-    protected $moveCursorBackSequence;
+    protected $moveCursorBackSequence = '';
     /** @var string */
-    protected $eraseBySpacesSequence;
+    protected $eraseBySpacesSequence = '';
     /** @var string */
     protected $spacer = Defaults::EMPTY;
     /** @var Style */
@@ -71,7 +71,6 @@ abstract class Spinner implements SpinnerInterface
                 $e
             );
         }
-
     }
 
     /**
@@ -233,7 +232,7 @@ abstract class Spinner implements SpinnerInterface
         return $this;
     }
 
-    public function progress(float $percent): self
+    public function progress(?float $percent): self
     {
         $this->setProgress($percent);
         return $this;

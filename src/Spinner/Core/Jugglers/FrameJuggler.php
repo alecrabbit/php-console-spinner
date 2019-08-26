@@ -32,11 +32,12 @@ class FrameJuggler implements JugglerInterface
             if (!\is_string($frame)) {
                 throw new \InvalidArgumentException('All frames should be of string type.');
             }
-            if (mb_strlen($frame) > Defaults::MAX_FRAME_LENGTH) {
+            if (Defaults::MAX_FRAME_LENGTH < $length = mb_strlen($frame)) {
                 throw new \InvalidArgumentException(
                     sprintf(
-                        'Single frame should NOT exceed max length [%s].',
-                        Defaults::MAX_FRAME_LENGTH
+                        'Single frame max length [%s] exceeded [%s]',
+                        Defaults::MAX_FRAME_LENGTH,
+                        $length
                     )
                 );
             }

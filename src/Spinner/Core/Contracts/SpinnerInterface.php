@@ -46,10 +46,10 @@ interface SpinnerInterface
     public function message(?string $message = null, ?int $erasingLength = null): Spinner;
 
     /**
-     * @param float $percent
+     * @param null|float $percent
      * @return Spinner
      */
-    public function progress(float $percent): Spinner;
+    public function progress(?float $percent): Spinner;
 
     /**
      * @return string
