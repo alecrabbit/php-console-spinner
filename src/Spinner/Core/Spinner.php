@@ -18,7 +18,7 @@ use const AlecRabbit\ESC;
 
 abstract class Spinner implements SpinnerInterface
 {
-    protected const EMPTY_STRING = Defaults::EMPTY;
+    protected const EMPTY_STRING = Defaults::EMPTY_STRING;
 
     protected const INTERVAL = Defaults::DEFAULT_INTERVAL;
     protected const FRAMES = Frames::BASE;
@@ -45,7 +45,7 @@ abstract class Spinner implements SpinnerInterface
     /** @var string */
     protected $eraseBySpacesSequence = '';
     /** @var string */
-    protected $spacer = Defaults::EMPTY;
+    protected $spacer = Defaults::EMPTY_STRING;
     /** @var Style */
     protected $style;
 
@@ -154,7 +154,7 @@ abstract class Spinner implements SpinnerInterface
                 );
         }
         $message = $this->settings->getMessage();
-        if (Defaults::EMPTY !== $message) {
+        if (Defaults::EMPTY_STRING !== $message) {
             $this->setMessage($message, $this->settings->getMessageErasingLen());
         }
     }
@@ -216,7 +216,7 @@ abstract class Spinner implements SpinnerInterface
     public function inline(bool $inline): SpinnerInterface
     {
         $this->inline = $inline;
-        $this->spacer = $this->inline ? Defaults::ONE_SPACE_SYMBOL : Defaults::EMPTY;
+        $this->spacer = $this->inline ? Defaults::ONE_SPACE_SYMBOL : Defaults::EMPTY_STRING;
         return $this;
     }
 

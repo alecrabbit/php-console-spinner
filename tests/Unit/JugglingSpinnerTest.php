@@ -130,7 +130,7 @@ class JugglingSpinnerTest extends TestCase
             '2 ' . self::PROCESSING . Defaults::DEFAULT_SUFFIX . ' 100% \033[21D',
             Helper::stripEscape($s->spin())
         );
-        $s->message(Defaults::EMPTY, 0);
+        $s->message(Defaults::EMPTY_STRING, 0);
         $this->assertEquals('3 100%              \033[20D', Helper::stripEscape($s->spin()));
 //        $this->assertEquals('4 100% \033[7D', Helper::stripEscape($s->spin()));
 //        $this->assertEquals('1 100% \033[7D', Helper::stripEscape($s->spin()));

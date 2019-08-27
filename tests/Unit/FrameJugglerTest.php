@@ -8,7 +8,8 @@ use PHPUnit\Framework\TestCase;
 
 class FrameJugglerTest extends TestCase
 {
-    /** @test
+    /**
+     * @test
      * @dataProvider valuesDataProvider
      * @param string $exceptionClass
      * @param string $exceptionMessage

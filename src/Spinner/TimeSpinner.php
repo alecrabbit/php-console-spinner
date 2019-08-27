@@ -54,7 +54,7 @@ class TimeSpinner extends Spinner
     {
         return
             parent::defaultSettings()
-                ->setMessagePrefix(Defaults::EMPTY)
-                ->setMessageSuffix(Defaults::EMPTY);
+                ->setMessagePrefix(Defaults::EMPTY_STRING)
+                ->setMessageSuffix(Defaults::EMPTY_STRING);
     }
 }

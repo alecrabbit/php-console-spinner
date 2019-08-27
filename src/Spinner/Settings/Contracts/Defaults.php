@@ -9,7 +9,7 @@ interface Defaults
 {
     public const DEFAULT_SUFFIX = '...';
     public const ONE_SPACE_SYMBOL = ' ';
-    public const EMPTY = '';
+    public const EMPTY_STRING = '';
 
     public const MAX_FRAMES_COUNT = 50;
     public const MAX_FRAME_LENGTH = 10;
@@ -21,13 +21,13 @@ interface Defaults
         [
             S::INTERVAL => self::DEFAULT_INTERVAL,
             S::ERASING_SHIFT => 0,
-            S::MESSAGE => self::EMPTY,
+            S::MESSAGE => self::EMPTY_STRING,
             S::MESSAGE_ERASING_LENGTH => 0,
             S::MESSAGE_PREFIX => self::ONE_SPACE_SYMBOL,
-            S::MESSAGE_SUFFIX => self::EMPTY,
-            S::INLINE_PADDING_STR => self::EMPTY,
+            S::MESSAGE_SUFFIX => self::EMPTY_STRING,
+            S::INLINE_PADDING_STR => self::EMPTY_STRING,
             S::FRAMES => self::DEFAULT_FRAMES,
             S::STYLES => StylesInterface::STYLING_DISABLED,
-            S::SPACER => self::EMPTY,
+            S::SPACER => self::EMPTY_STRING,
         ];
 }

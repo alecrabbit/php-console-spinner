@@ -19,7 +19,7 @@ class SettingsTest extends TestCase
     {
         $settings = new Settings();
         $this->assertInstanceOf(Settings::class, $settings);
-        $this->assertEquals(Defaults::EMPTY, $settings->getMessage());
+        $this->assertEquals(Defaults::EMPTY_STRING, $settings->getMessage());
         $this->assertEquals(0.1, $settings->getInterval());
         $this->assertEquals(0, $settings->getErasingShift());
         $this->assertEquals('', $settings->getInlinePaddingStr());
@@ -27,11 +27,11 @@ class SettingsTest extends TestCase
         $this->assertEquals('', $settings->getMessageSuffix());
         $this->assertEquals(StylesInterface::STYLING_DISABLED, $settings->getStyles());
         $this->assertEquals(Defaults::DEFAULT_FRAMES, $settings->getFrames());
-        $this->assertEquals(Defaults::EMPTY, $settings->getSpacer());
+        $this->assertEquals(Defaults::EMPTY_STRING, $settings->getSpacer());
         $this->assertEquals(0, $settings->getMessageErasingLen());
 
-        $settings->setMessage(Defaults::EMPTY);
-        $this->assertEquals(Defaults::EMPTY, $settings->getMessage());
+        $settings->setMessage(Defaults::EMPTY_STRING);
+        $this->assertEquals(Defaults::EMPTY_STRING, $settings->getMessage());
         $this->assertEquals(0, $settings->getMessageErasingLen());
         $settings->setMessage(self::PROCESSING);
         $this->assertEquals(self::PROCESSING, $settings->getMessage());
@@ -50,7 +50,7 @@ class SettingsTest extends TestCase
         $settings = new Settings();
         $newSettings = new Settings();
         $settings->merge($newSettings);
-        $this->assertEquals(Defaults::EMPTY, $settings->getMessage());
+        $this->assertEquals(Defaults::EMPTY_STRING, $settings->getMessage());
         $this->assertEquals(0.1, $settings->getInterval());
         $this->assertEquals(0, $settings->getErasingShift());
         $this->assertEquals('', $settings->getInlinePaddingStr());
@@ -58,7 +58,7 @@ class SettingsTest extends TestCase
         $this->assertEquals('', $settings->getMessageSuffix());
         $this->assertEquals(StylesInterface::STYLING_DISABLED, $settings->getStyles());
         $this->assertEquals(Defaults::DEFAULT_FRAMES, $settings->getFrames());
-        $this->assertEquals(Defaults::EMPTY, $settings->getSpacer());
+        $this->assertEquals(Defaults::EMPTY_STRING, $settings->getSpacer());
         $this->assertEquals(0, $settings->getMessageErasingLen());
     }
 

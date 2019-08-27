@@ -29,7 +29,7 @@ class Calculator
      */
     protected static function erasingLen(?string $symbol): int
     {
-        if (null === $symbol || Defaults::EMPTY === $symbol) {
+        if (null === $symbol || Defaults::EMPTY_STRING === $symbol) {
             return 0;
         }
         $mbSymbolLen = mb_strlen($symbol);

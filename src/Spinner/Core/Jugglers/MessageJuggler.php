@@ -11,11 +11,11 @@ class MessageJuggler implements JugglerInterface
     /** @var string */
     protected $spacer = Defaults::ONE_SPACE_SYMBOL;
     /** @var string */
-    protected $messagePrefix = Defaults::EMPTY;
+    protected $messagePrefix = Defaults::EMPTY_STRING;
     /** @var string */
     protected $message;
     /** @var string */
-    protected $messageSuffix = Defaults::EMPTY;
+    protected $messageSuffix = Defaults::EMPTY_STRING;
     /** @var int */
     protected $erasingLength;
     /** @var string */
@@ -39,22 +39,22 @@ class MessageJuggler implements JugglerInterface
     protected function updateMessage(string $message, ?int $erasingLength): void
     {
         $this->message = $message;
-        if (Defaults::EMPTY === $message) {
+        if (Defaults::EMPTY_STRING === $message) {
             $this->erasingLengthDelta = $this->getMessageFullLength();
             $this->erasingLength = 0;
-            $this->spacer = Defaults::EMPTY;
-            $this->messagePrefix = Defaults::EMPTY;
-            $this->messageSuffix = Defaults::EMPTY;
+            $this->spacer = Defaults::EMPTY_STRING;
+            $this->messagePrefix = Defaults::EMPTY_STRING;
+            $this->messageSuffix = Defaults::EMPTY_STRING;
         } else {
             $erasingLength = $this->refineErasingLen($message, $erasingLength);
             $this->erasingLengthDelta = $this->getMessageFullLength() - $erasingLength;
             $this->erasingLength = $erasingLength;
             $this->spacer = Defaults::ONE_SPACE_SYMBOL;
-            $this->messagePrefix = Defaults::EMPTY;
+            $this->messagePrefix = Defaults::EMPTY_STRING;
             $this->messageSuffix = Defaults::DEFAULT_SUFFIX;
         }
         if ($this->firstInLine) {
-            $this->spacer = Defaults::EMPTY;
+            $this->spacer = Defaults::EMPTY_STRING;
         }
         $this->frameString =
             $this->spacer . $this->messagePrefix . $this->message . $this->messageSuffix;

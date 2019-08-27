@@ -45,6 +45,6 @@ class PercentSpinner extends Spinner
     {
         return
             parent::defaultSettings()
-                ->setMessagePrefix(Defaults::EMPTY);
+                ->setMessagePrefix(Defaults::EMPTY_STRING);
     }
 }
