@@ -211,9 +211,9 @@ class Settings implements SettingsInterface
     /** {@inheritDoc} */
     public function merge(self $settings): self
     {
-        foreach ($this->properties as $name => $value) {
-            if ($settings->properties[$name]->isNotDefault()) {
-                $this->properties[$name] = $settings->properties[$name];
+        foreach (array_keys($this->properties) as $key) {
+            if ($settings->properties[$key]->isNotDefault()) {
+                $this->properties[$key] = $settings->properties[$key];
             }
         }
         return $this;
