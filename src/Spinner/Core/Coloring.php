@@ -46,7 +46,8 @@ class Coloring
                     'Styles array does not have [' . $index . '] key.'
                 );
             }
-            foreach (array_keys($defaults) as $k) {
+            $keys = array_keys($defaults);
+            foreach ($keys as $k) {
                 if (!\array_key_exists($k, $styles[$index])) {
                     throw new \InvalidArgumentException(
                         'Styles array does not have [' . $index . '][' . $k . '] key.'

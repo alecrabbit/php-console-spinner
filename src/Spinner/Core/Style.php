@@ -41,7 +41,8 @@ class Style
     protected function mergeStyles(array $styles): array
     {
         $defaultStyles = StylesInterface::DEFAULT_STYLES;
-        foreach (array_keys($defaultStyles) as $key) {
+        $keys = array_keys($defaultStyles);
+        foreach ($keys as $key) {
             if (\array_key_exists($key, $styles)) {
                 /** @noinspection SlowArrayOperationsInLoopInspection */
                 $defaultStyles[$key] = array_merge(StylesInterface::DEFAULT_STYLES[$key], $styles[$key]);
