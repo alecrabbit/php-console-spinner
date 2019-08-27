@@ -2,12 +2,14 @@ CHANGELOG.md export-ignore
 README.md export-ignore
 TERMINAL_TITLE export-ignore
 TODO.md export-ignore
+/build export-ignore
 composer.lock export-ignore
 docker-compose-debug.yml export-ignore
 docker-compose.yml export-ignore
 /docs export-ignore
 /examples export-ignore
 phpcs.xml export-ignore
+phpmd.xml export-ignore
 phpunit.xml export-ignore
 psalm.xml export-ignore
 /tests export-ignore
@@ -22,6 +24,7 @@ psalm.xml export-ignore
 /.github export-ignore
 .gitignore export-ignore
 /.idea export-ignore
+.php_cs.cache export-ignore
 .phpunit.result.cache export-ignore
 .scrutinizer.yml export-ignore
 /.travis export-ignore
