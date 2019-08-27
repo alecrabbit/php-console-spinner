@@ -49,7 +49,7 @@ class FrameJuggler implements JugglerInterface
      */
     public function getFrame(): string
     {
-        return $this->frames->value();
+        return (string)$this->frames->value();
     }
 
     public function getFrameErasingLength(): int
