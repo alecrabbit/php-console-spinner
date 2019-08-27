@@ -3,6 +3,7 @@
 /.eval/
 /tests/tmp/
 /tests/report.html
-/.phpunit.result.cache
+/*.cache
 /composer.lock
 /.env
+/build/
