@@ -11,29 +11,15 @@ class ProgressJuggler implements JugglerInterface
     /** @var float */
     protected $progress;
     /** @var string */
-    protected $percentSpacer = Defaults::ONE_SPACE_SYMBOL;
+    protected $spacer = Defaults::ONE_SPACE_SYMBOL;
     /** @var string */
     protected $currentFrame;
+    /** @var int */
+    protected $currentFrameErasingLength;
 
     public function __construct(float $percent)
     {
         $this->update($percent);
-    }
-
-    public function setProgress(float $percent): void
-    {
-        $this->update($percent);
-    }
-
-    public function getFrame(): string
-    {
-        return $this->currentFrame;
-    }
-
-    public function getFrameErasingLength(): int
-    {
-        return
-            strlen($this->currentFrame);
     }
 
     /**
@@ -42,6 +28,29 @@ class ProgressJuggler implements JugglerInterface
     protected function update(float $percent): void
     {
         $this->progress = bounds($percent, 0, 1);
-        $this->currentFrame = $this->percentSpacer . (int)($this->progress * 100) . '% ';
+        $this->currentFrame = (int)($this->progress * 100) . '%' . $this->spacer;
+        $this->currentFrameErasingLength = strlen($this->currentFrame);
+    }
+
+    /**
+     * @param float $percent
+     */
+    public function setProgress(float $percent): void
+    {
+        $this->update($percent);
+    }
+
+    /** {@inheritDoc} */
+    public function getFrame(): string
+    {
+        return $this->currentFrame;
+    }
+
+    /** {@inheritDoc} */
+    public function getFrameErasingLength(): int
+    {
+        return
+
+            $this->currentFrameErasingLength;
     }
 }

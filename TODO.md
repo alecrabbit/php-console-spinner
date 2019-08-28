@@ -1,5 +1,6 @@
 
 - [ ] move `spacer` to the end of the string in each juggler
+- [ ] move jugglers to array? to use `foreach`
 
 ---
 

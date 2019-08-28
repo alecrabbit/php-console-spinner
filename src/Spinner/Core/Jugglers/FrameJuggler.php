@@ -13,14 +13,20 @@ class FrameJuggler implements JugglerInterface
     protected $frames;
     /** @var int */
     protected $erasingLength;
+    /** @var string */
+//    protected $spacer = Defaults::EMPTY_STRING;
+    protected $spacer = Defaults::ONE_SPACE_SYMBOL;
 
     public function __construct(array $frames)
     {
         $this->assertFrames($frames);
         $this->frames = new Circular($frames);
-        $this->erasingLength = Calculator::computeErasingLength($frames);
+        $this->erasingLength = Calculator::computeErasingLength($frames) + strlen($this->spacer);
     }
 
+    /**
+     * @param array $frames
+     */
     protected function assertFrames(array $frames): void
     {
         if (Defaults::MAX_FRAMES_COUNT < $count = count($frames)) {
@@ -29,31 +35,38 @@ class FrameJuggler implements JugglerInterface
             );
         }
         foreach ($frames as $frame) {
-            if (!\is_string($frame)) {
-                throw new \InvalidArgumentException('All frames should be of string type.');
-            }
-            if (Defaults::MAX_FRAME_LENGTH < $length = mb_strlen($frame)) {
-                throw new \InvalidArgumentException(
-                    sprintf(
-                        'Single frame max length [%s] exceeded [%s]',
-                        Defaults::MAX_FRAME_LENGTH,
-                        $length
-                    )
-                );
-            }
+            $this->assertFrame($frame);
         }
     }
 
-    /**
-     * @return string
-     */
+    /** {@inheritDoc} */
     public function getFrame(): string
     {
-        return (string)$this->frames->value();
+        return (string)$this->frames->value() . $this->spacer;
     }
 
+    /** {@inheritDoc} */
     public function getFrameErasingLength(): int
     {
         return $this->erasingLength;
+    }
+
+    /**
+     * @param $frame
+     */
+    protected function assertFrame($frame): void
+    {
+        if (!\is_string($frame)) {
+            throw new \InvalidArgumentException('All frames should be of string type.');
+        }
+        if (Defaults::MAX_FRAME_LENGTH < $length = mb_strlen($frame)) {
+            throw new \InvalidArgumentException(
+                sprintf(
+                    'Single frame max length [%s] exceeded [%s]',
+                    Defaults::MAX_FRAME_LENGTH,
+                    $length
+                )
+            );
+        }
     }
 }

@@ -57,7 +57,7 @@ class MessageJuggler implements JugglerInterface
             $this->spacer = Defaults::EMPTY_STRING;
         }
         $this->frameString =
-            $this->spacer . $this->messagePrefix . $this->message . $this->messageSuffix;
+            $this->messagePrefix . $this->message . $this->messageSuffix  . $this->spacer;
 
         $this->frameStringErasingLength =
             strlen($this->spacer . $this->messagePrefix . $this->messageSuffix) + $this->erasingLength;

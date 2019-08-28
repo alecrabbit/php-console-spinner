@@ -165,10 +165,10 @@ abstract class Spinner implements SpinnerInterface
      */
     protected function setMessage(?string $message, ?int $erasingLength = null): void
     {
-        $firstInLine = true;
-        if ($this->frameJuggler instanceof FrameJuggler) {
-            $firstInLine = false;
-        }
+//        $firstInLine = true;
+//        if ($this->frameJuggler instanceof FrameJuggler) {
+//            $firstInLine = false;
+//        }
         if ($this->messageJuggler instanceof MessageJuggler) {
             if (null === $message) {
                 $this->messageJuggler = null;
@@ -180,9 +180,9 @@ abstract class Spinner implements SpinnerInterface
             $this->messageJuggler =
                 null === $message ? null : new MessageJuggler($message, $erasingLength);
         }
-        if ($this->messageJuggler instanceof MessageJuggler) {
-            $this->messageJuggler->firstInLine($firstInLine);
-        }
+//        if ($this->messageJuggler instanceof MessageJuggler) {
+//            $this->messageJuggler->firstInLine($firstInLine);
+//        }
     }
 
     /** {@inheritDoc} */
