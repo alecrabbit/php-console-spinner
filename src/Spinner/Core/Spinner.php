@@ -164,7 +164,6 @@ abstract class Spinner implements SpinnerInterface
         if (Defaults::EMPTY_STRING !== $message) {
             $this->setMessage($message, $this->settings->getMessageErasingLen());
         }
-
     }
 
     /**
