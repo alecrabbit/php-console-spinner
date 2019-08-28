@@ -8,6 +8,7 @@ use AlecRabbit\Spinner\Core\Contracts\Frames;
 use AlecRabbit\Spinner\Core\Contracts\SpinnerInterface;
 use AlecRabbit\Spinner\Core\Contracts\SpinnerOutputInterface;
 use AlecRabbit\Spinner\Core\Contracts\StylesInterface;
+use AlecRabbit\Spinner\Core\Jugglers\Contracts\JugglerInterface;
 use AlecRabbit\Spinner\Core\Jugglers\FrameJuggler;
 use AlecRabbit\Spinner\Core\Jugglers\MessageJuggler;
 use AlecRabbit\Spinner\Core\Jugglers\ProgressJuggler;
@@ -48,6 +49,8 @@ abstract class Spinner implements SpinnerInterface
     protected $spacer = Defaults::EMPTY_STRING;
     /** @var Style */
     protected $style;
+    /** @var JugglerInterface[] */
+    protected $jugglers;
 
     /**
      * Spinner constructor.
@@ -153,10 +156,14 @@ abstract class Spinner implements SpinnerInterface
                     $frames
                 );
         }
+        $this->jugglers[] = &$this->frameJuggler;
+
         $message = $this->settings->getMessage();
         if (Defaults::EMPTY_STRING !== $message) {
             $this->setMessage($message, $this->settings->getMessageErasingLen());
         }
+        $this->jugglers[] = &$this->messageJuggler;
+        $this->jugglers[] = &$this->progressJuggler;
     }
 
     /**
@@ -175,7 +182,7 @@ abstract class Spinner implements SpinnerInterface
             } else {
                 $this->messageJuggler->setMessage($message, $erasingLength);
             }
-            $this->progressOrMessageUpdated = true;
+//            $this->progressOrMessageUpdated = true;
         } else {
             $this->messageJuggler =
                 null === $message ? null : new MessageJuggler($message, $erasingLength);
@@ -235,6 +242,8 @@ abstract class Spinner implements SpinnerInterface
     public function progress(?float $percent): self
     {
         $this->setProgress($percent);
+        dump($this->jugglers);
+
         return $this;
     }
 
@@ -249,7 +258,7 @@ abstract class Spinner implements SpinnerInterface
             } else {
                 $this->progressJuggler->setProgress($percent);
             }
-            $this->progressOrMessageUpdated = true;
+//            $this->progressOrMessageUpdated = true;
         } else {
             $this->progressJuggler =
                 null === $percent ? null : new ProgressJuggler($percent);

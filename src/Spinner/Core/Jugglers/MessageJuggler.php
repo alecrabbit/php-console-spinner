@@ -24,8 +24,6 @@ class MessageJuggler implements JugglerInterface
     protected $frameStringErasingLength;
     /** @var int */
     protected $erasingLengthDelta;
-    /** @var bool */
-    protected $firstInLine = false;
 
     public function __construct(string $message, int $erasingLength = null)
     {
@@ -43,18 +41,15 @@ class MessageJuggler implements JugglerInterface
             $this->erasingLengthDelta = $this->getMessageFullLength();
             $this->erasingLength = 0;
             $this->spacer = Defaults::EMPTY_STRING;
-            $this->messagePrefix = Defaults::EMPTY_STRING;
+            $this->messagePrefix = Defaults::DEFAULT_PREFIX;
             $this->messageSuffix = Defaults::EMPTY_STRING;
         } else {
             $erasingLength = $this->refineErasingLen($message, $erasingLength);
             $this->erasingLengthDelta = $this->getMessageFullLength() - $erasingLength;
             $this->erasingLength = $erasingLength;
             $this->spacer = Defaults::ONE_SPACE_SYMBOL;
-            $this->messagePrefix = Defaults::EMPTY_STRING;
+            $this->messagePrefix = Defaults::DEFAULT_PREFIX;
             $this->messageSuffix = Defaults::DEFAULT_SUFFIX;
-        }
-        if ($this->firstInLine) {
-            $this->spacer = Defaults::EMPTY_STRING;
         }
         $this->frameString =
             $this->messagePrefix . $this->message . $this->messageSuffix  . $this->spacer;
@@ -111,10 +106,5 @@ class MessageJuggler implements JugglerInterface
     public function getErasingLengthDelta(): int
     {
         return $this->erasingLengthDelta;
-    }
-
-    public function firstInLine(bool $firstInLine): void
-    {
-        $this->firstInLine = $firstInLine;
     }
 }

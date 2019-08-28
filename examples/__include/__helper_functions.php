@@ -89,7 +89,7 @@ function display(
         // (each class has recommended interval for comfortable animation)
         $percent = $i / ITERATIONS;
         $s->progress($percent);
-        $s->message($currentMessage);
+//        $s->message($currentMessage);
         if ($outputIsNull) {
             $output->write($s->spin());
         } else {

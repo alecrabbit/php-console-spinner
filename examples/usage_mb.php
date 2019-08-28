@@ -11,6 +11,7 @@ use AlecRabbit\ConsoleColour\Themes;
 use AlecRabbit\Spinner\Core\Contracts\Frames;
 use AlecRabbit\Spinner\Core\Contracts\StylesInterface;
 use AlecRabbit\Spinner\MoonSpinner;
+use AlecRabbit\Spinner\Settings\Settings;
 
 const ITERATIONS = 200; // Play with this value 100..500
 
@@ -29,7 +30,7 @@ echo $themes->comment('Long running task example...') . PHP_EOL;
 
 $message = 'mᚹä漢d字'; // Random characters
 $settings =
-    (new \AlecRabbit\Spinner\Core\Settings())
+    (new Settings())
         ->setFrames(Frames::BALL_VARIANT_0)
         ->setStyles(
             [

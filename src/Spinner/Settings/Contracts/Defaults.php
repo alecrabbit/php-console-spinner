@@ -7,9 +7,10 @@ use AlecRabbit\Spinner\Core\Contracts\StylesInterface;
 
 interface Defaults
 {
-    public const DEFAULT_SUFFIX = '...';
     public const ONE_SPACE_SYMBOL = ' ';
     public const EMPTY_STRING = '';
+    public const DEFAULT_PREFIX = self::EMPTY_STRING;
+    public const DEFAULT_SUFFIX = '...';
 
     public const MAX_FRAMES_COUNT = 50;
     public const MAX_FRAME_LENGTH = 10;

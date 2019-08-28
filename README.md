@@ -19,6 +19,8 @@ Spinner - your task is running
 
 ![advanced](docs/images/fpdemo.svg)
 
+> Note: `master` branch is a WIP of new version. Current readme for v.0.17.x
+
 ### Quickstart
 
 #### Simple
