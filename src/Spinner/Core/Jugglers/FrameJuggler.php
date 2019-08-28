@@ -14,7 +14,6 @@ class FrameJuggler implements JugglerInterface
     /** @var int */
     protected $erasingLength;
     /** @var string */
-//    protected $spacer = Defaults::EMPTY_STRING;
     protected $spacer = Defaults::ONE_SPACE_SYMBOL;
 
     public function __construct(array $frames)
@@ -52,7 +51,7 @@ class FrameJuggler implements JugglerInterface
     }
 
     /**
-     * @param $frame
+     * @param mixed $frame
      */
     protected function assertFrame($frame): void
     {

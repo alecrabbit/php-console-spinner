@@ -39,7 +39,6 @@ class NewSpinnerTest extends TestCase implements TestMessages
             $this->assertSame($spin, Helper::stripEscape($spinner->spin()));
         }
         $this->assertSame($end, Helper::stripEscape($spinner->end()));
-
     }
 
     public function processDataProvider(): array

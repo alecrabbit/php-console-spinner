@@ -47,8 +47,8 @@ abstract class Spinner implements SpinnerInterface
     protected $spacer = Defaults::EMPTY_STRING;
     /** @var Style */
     protected $style;
-    /** @var JugglerInterface[] */
-    protected $jugglers;
+    /** @var null[]|JugglerInterface[] */
+    protected $jugglers = [];
 
     /**
      * Spinner constructor.
