@@ -14,6 +14,7 @@ use AlecRabbit\Spinner\Core\Jugglers\MessageJuggler;
 use AlecRabbit\Spinner\Core\Jugglers\ProgressJuggler;
 use AlecRabbit\Spinner\Settings\Contracts\Defaults;
 use AlecRabbit\Spinner\Settings\Settings;
+use AlecRabbit\Tests\Spinner\Helper;
 use function AlecRabbit\typeOf;
 use const AlecRabbit\ESC;
 
@@ -290,7 +291,7 @@ abstract class Spinner implements SpinnerInterface
         // TODO optimize for performance
         $str = '';
         $erasingLength = 0;
-        $erasingLengthDelta = 0;
+//        $erasingLengthDelta = 0;
         $eraseMessageTailBySpacesSequence = '';
         if ($this->frameJuggler instanceof FrameJuggler) {
             $str .= $this->style->spinner($this->frameJuggler->getFrame());
@@ -299,12 +300,6 @@ abstract class Spinner implements SpinnerInterface
         if ($this->messageJuggler instanceof MessageJuggler) {
             $str .= $this->style->message($this->messageJuggler->getFrame());
             $erasingLength += $this->messageJuggler->getFrameErasingLength();
-//            $erasingLengthDelta = $this->messageJuggler->getErasingLengthDelta();
-//            if ($erasingLengthDelta > 0) {
-//                $erasingLength += $erasingLengthDelta;
-//            } else {
-//                $erasingLengthDelta = 0;
-//            }
         }
         if ($this->progressJuggler instanceof ProgressJuggler) {
             $str .= $this->style->percent($this->progressJuggler->getFrame());
@@ -317,15 +312,23 @@ abstract class Spinner implements SpinnerInterface
 //            $eraseMessageTailBySpacesSequence = str_repeat(Defaults::ONE_SPACE_SYMBOL, $erasingLengthDelta);
 //        }
         $erasingLengthDelta = $this->previousErasingLength - $erasingLength;
+//        dump($erasingLengthDelta );
+        dump(
+            sprintf('%s %s %s' ,
+                $erasingLengthDelta,
+                $this->previousErasingLength,
+                $erasingLength
+            )
+        );
         if($erasingLengthDelta > 0) {
             $erasingLength += $erasingLengthDelta;
             $eraseMessageTailBySpacesSequence = str_repeat(Defaults::ONE_SPACE_SYMBOL, $erasingLengthDelta);
-            dump($erasingLengthDelta);
         }
         $this->moveCursorBackSequence = ESC . "[{$erasingLength}D";
         $this->eraseBySpacesSequence = str_repeat(Defaults::ONE_SPACE_SYMBOL, $erasingLength);
 
         $this->previousErasingLength = $erasingLength;
+//        return Helper::stripEscape($this->spacer . $str . $eraseMessageTailBySpacesSequence . $this->moveCursorBackSequence) . PHP_EOL;
         return $this->spacer . $str . $eraseMessageTailBySpacesSequence . $this->moveCursorBackSequence;
     }
 }
