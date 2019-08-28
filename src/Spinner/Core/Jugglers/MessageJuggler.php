@@ -91,6 +91,7 @@ class MessageJuggler implements JugglerInterface
      */
     public function setMessage(string $message, ?int $erasingLength = null): void
     {
+        $message = ucfirst($message);
         $this->updateMessage($message, $erasingLength);
     }
 

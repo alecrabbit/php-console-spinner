@@ -32,11 +32,8 @@ class ClockSpinnerTest extends TestCase
         $this->assertStringNotContainsString(self::PROCESSING, $spinner->end());
     }
 
-    /**
-     * @test
-     * @throws \Exception
-     */
-    public function interface(): void
+    /** @test */
+    public function secondary(): void
     {
         $spinner = new ClockSpinner(self::PROCESSING, false, COLOR_TERMINAL);
         $this->assertInstanceOf(ClockSpinner::class, $spinner->inline(true));
