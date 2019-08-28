@@ -68,29 +68,29 @@ class SpinnerWithOutputTest extends TestCase
 
         // DO NOT CHANGE ORDER!!!
         $this->assertEquals(
-            Helper::stripEscape("\033[?25l Processing...\033[14D"),
+            Helper::stripEscape("\033[?25lProcessing... \033[14D"),
             Helper::stripEscape($begin)
         );
         $this->assertEquals(
-            "\033[?25l Processing...\033[14D",
+            "\033[?25lProcessing... \033[14D",
             $begin
         );
         $spinner->spin();
         $spin = $output->getBuffer();
         $this->assertEquals(
-            Helper::stripEscape(" Processing...\033[14D"),
+            Helper::stripEscape("Processing... \033[14D"),
             Helper::stripEscape($spin)
         );
         $spinner->spin();
         $spin = $output->getBuffer();
         $this->assertEquals(
-            Helper::stripEscape(" Processing...\033[14D"),
+            Helper::stripEscape("Processing... \033[14D"),
             Helper::stripEscape($spin)
         );
         $spinner->spin();
         $spin = $output->getBuffer();
         $this->assertEquals(
-            Helper::stripEscape(" Processing...\033[14D"),
+            Helper::stripEscape("Processing... \033[14D"),
             Helper::stripEscape($spin)
         );
         $spinner->end();
@@ -113,61 +113,61 @@ class SpinnerWithOutputTest extends TestCase
 
         // DO NOT CHANGE ORDER!!!
         $this->assertEquals(
-            Helper::stripEscape("\033[?25l\033[1m1\033[0m\033[2m Processing...\033[0m\033[15D"),
+            Helper::stripEscape("\033[?25l\033[1m1 \033[0m\033[2mProcessing... \033[0m\033[16D"),
             Helper::stripEscape($begin)
         );
         $this->assertEquals(
-            "\033[?25l\033[1m1\033[0m\033[2m Processing...\033[0m\033[15D",
+            "\033[?25l\033[1m1 \033[0m\033[2mProcessing... \033[0m\033[16D",
             $begin
         );
 
         $spinner->spin();
         $spin = $output->getBuffer();
         $this->assertEquals(
-            Helper::stripEscape("\033[2m2\033[0m\033[2m Processing...\033[0m\033[15D"),
+            Helper::stripEscape("\033[2m2 \033[0m\033[2mProcessing... \033[0m\033[16D"),
             Helper::stripEscape($spin)
         );
         $spinner->spin();
         $spin = $output->getBuffer();
         $this->assertEquals(
-            Helper::stripEscape("\033[3m3\033[0m\033[2m Processing...\033[0m\033[15D"),
+            Helper::stripEscape("\033[3m3 \033[0m\033[2mProcessing... \033[0m\033[16D"),
             Helper::stripEscape($spin)
         );
         $spinner->spin();
         $spin = $output->getBuffer();
         $this->assertEquals(
-            Helper::stripEscape("\033[4m4\033[0m\033[2m Processing...\033[0m\033[15D"),
+            Helper::stripEscape("\033[4m4 \033[0m\033[2mProcessing... \033[0m\033[16D"),
             Helper::stripEscape($spin)
         );
         $spinner->spin();
         $spin = $output->getBuffer();
         $this->assertEquals(
-            Helper::stripEscape("\033[1m1\033[0m\033[2m Processing...\033[0m\033[15D"),
+            Helper::stripEscape("\033[1m1 \033[0m\033[2mProcessing... \033[0m\033[16D"),
             Helper::stripEscape($spin)
         );
 
         $spinner->spin();
         $spin = $output->getBuffer();
         $this->assertEquals(
-            "\033[2m2\033[0m\033[2m Processing...\033[0m\033[15D",
+            "\033[2m2 \033[0m\033[2mProcessing... \033[0m\033[16D",
             $spin
         );
         $spinner->spin();
         $spin = $output->getBuffer();
         $this->assertEquals(
-            "\033[3m3\033[0m\033[2m Processing...\033[0m\033[15D",
+            "\033[3m3 \033[0m\033[2mProcessing... \033[0m\033[16D",
             $spin
         );
         $spinner->spin();
         $spin = $output->getBuffer();
         $this->assertEquals(
-            "\033[4m4\033[0m\033[2m Processing...\033[0m\033[15D",
+            "\033[4m4 \033[0m\033[2mProcessing... \033[0m\033[16D",
             $spin
         );
         $spinner->spin();
         $spin = $output->getBuffer();
         $this->assertEquals(
-            "\033[1m1\033[0m\033[2m Processing...\033[0m\033[15D",
+            "\033[1m1 \033[0m\033[2mProcessing... \033[0m\033[16D",
             $spin
         );
         $spinner->progress(0);
@@ -175,21 +175,21 @@ class SpinnerWithOutputTest extends TestCase
         $spin = $output->getBuffer();
 
         $this->assertEquals(
-            Helper::stripEscape("\033[2m2\033[0m\033[2m Processing...\033[0m\033[2m 0% \033[0m\033[19D"),
+            Helper::stripEscape("\033[2m2 \033[0m\033[2mProcessing... \033[0m\033[2m0% \033[0m\033[19D"),
             Helper::stripEscape($spin)
         );
         $spinner->progress(0.5);
         $spinner->spin();
         $spin = $output->getBuffer();
         $this->assertEquals(
-            Helper::stripEscape("\033[3m3\033[0m\033[2m Processing...\033[0m\033[2m 50% \033[0m\033[20D"),
+            Helper::stripEscape("\033[3m3 \033[0m\033[2mProcessing... \033[0m\033[2m50% \033[0m\033[20D"),
             Helper::stripEscape($spin)
         );
         $spinner->progress(1);
         $spinner->spin();
         $spin = $output->getBuffer();
         $this->assertEquals(
-            Helper::stripEscape("\033[4m4\033[0m\033[2m Processing...\033[0m\033[2m 100% \033[0m\033[21D"),
+            Helper::stripEscape("\033[4m4 \033[0m\033[2mProcessing... \033[0m\033[2m100% \033[0m\033[21D"),
             Helper::stripEscape($spin)
         );
 
