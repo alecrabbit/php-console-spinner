@@ -25,9 +25,6 @@ class PercentSpinner extends Spinner
     /** {@inheritDoc} */
     public function spin(?float $percent = null): string
     {
-//        if (!\is_float($percent)) {
-//            throw new \RuntimeException('Float percentage value expected ' . typeOf($percent) . ' given.');
-//        }
         $percent and $this->progress($percent);
         return parent::spin();
     }
@@ -38,9 +35,19 @@ class PercentSpinner extends Spinner
         return parent::begin(0.0);
     }
 
-    /**
-     * @return Settings
-     */
+    /** {@inheritDoc} */
+    public function message(?string $message = null, ?int $erasingLength = null): Spinner
+    {
+        return $this;
+    }
+
+//    /** {@inheritDoc} */
+//    public function progress(?float $percent): Spinner
+//    {
+//        return $this;
+//    }
+
+    /** {@inheritDoc} */
     protected function defaultSettings(): Settings
     {
         return

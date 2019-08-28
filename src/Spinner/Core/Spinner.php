@@ -31,8 +31,6 @@ abstract class Spinner implements SpinnerInterface
     protected $settings;
     /** @var bool */
     protected $inline = false;
-    /** @var bool */
-    protected $progressOrMessageUpdated = false;
     /** @var float */
     protected $interval;
     /** @var null|MessageJuggler */
@@ -172,24 +170,16 @@ abstract class Spinner implements SpinnerInterface
      */
     protected function setMessage(?string $message, ?int $erasingLength = null): void
     {
-//        $firstInLine = true;
-//        if ($this->frameJuggler instanceof FrameJuggler) {
-//            $firstInLine = false;
-//        }
         if ($this->messageJuggler instanceof MessageJuggler) {
             if (null === $message) {
                 $this->messageJuggler = null;
             } else {
                 $this->messageJuggler->setMessage($message, $erasingLength);
             }
-//            $this->progressOrMessageUpdated = true;
         } else {
             $this->messageJuggler =
                 null === $message ? null : new MessageJuggler($message, $erasingLength);
         }
-//        if ($this->messageJuggler instanceof MessageJuggler) {
-//            $this->messageJuggler->firstInLine($firstInLine);
-//        }
     }
 
     /** {@inheritDoc} */
@@ -258,7 +248,6 @@ abstract class Spinner implements SpinnerInterface
             } else {
                 $this->progressJuggler->setProgress($percent);
             }
-//            $this->progressOrMessageUpdated = true;
         } else {
             $this->progressJuggler =
                 null === $percent ? null : new ProgressJuggler($percent);

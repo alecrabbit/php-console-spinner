@@ -4,15 +4,12 @@ namespace AlecRabbit\Tests\Spinner;
 
 use AlecRabbit\Spinner\Settings\Contracts\Defaults;
 use AlecRabbit\Spinner\Settings\Settings;
+use AlecRabbit\Tests\Spinner\Unit\Contracts\TestMessages;
 use PHPUnit\Framework\TestCase;
 use const AlecRabbit\NO_COLOR_TERMINAL;
 
-class NewSpinnerTest extends TestCase
+class NewSpinnerTest extends TestCase implements TestMessages
 {
-    protected const PROCESSING = 'Processing';
-    protected const COMPUTING = 'computing';
-    protected const MB_MESSAGE = 'mᚹä漢d字';
-
     /** @var ExtendedSpinner */
     private $spinner;
 
@@ -44,14 +41,6 @@ class NewSpinnerTest extends TestCase
         $this->assertSame($end, Helper::stripEscape($spinner->end()));
 
     }
-
-//    /** @test */
-//    public function withSettings(): void
-//    {
-//        $settings = new Settings();
-//        $settings->setMessage(self::MB_MESSAGE);
-//
-//    }
 
     public function processDataProvider(): array
     {

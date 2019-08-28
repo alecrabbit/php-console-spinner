@@ -4,13 +4,16 @@ namespace AlecRabbit\Tests\Tools;
 
 use AlecRabbit\Spinner\PercentSpinner;
 use AlecRabbit\Spinner\Settings\Contracts\Defaults;
+use AlecRabbit\Spinner\Settings\Settings;
+use AlecRabbit\Tests\Spinner\ExtendedSpinner;
+use AlecRabbit\Tests\Spinner\Helper;
+use AlecRabbit\Tests\Spinner\Unit\Contracts\TestMessages;
 use PHPUnit\Framework\TestCase;
 use function AlecRabbit\Helpers\getValue;
+use const AlecRabbit\NO_COLOR_TERMINAL;
 
-class PercentSpinnerTest extends TestCase
+class PercentSpinnerTest extends TestCase implements TestMessages
 {
-    protected const PROCESSING = 'Processing';
-
     /** @test */
     public function instance(): void
     {
@@ -30,30 +33,66 @@ class PercentSpinnerTest extends TestCase
         $this->assertStringNotContainsString(self::PROCESSING, $spinner->end());
     }
 
-//    /** @test */
-//    public function instanceWithException(): void
-//    {
-//        $spinner = new PercentSpinner(self::PROCESSING);
-//        $this->expectException(\RuntimeException::class);
-//        $this->expectExceptionMessage('Float percentage value expected NULL given.');
-//        $spinner->spin();
-//    }
+    /**
+     * @test
+     * @dataProvider processDataProvider
+     * @param array $params
+     * @param array $expected
+     * @param string $end
+     */
+    public function withDataProvider(array $params, array $expected, string $end): void
+    {
+        $spinner = new PercentSpinner(...$params);
+        $begin = array_shift($expected)[0];
+        $this->assertSame($begin, Helper::stripEscape($spinner->begin()));
+        foreach ($expected as $data) {
+            [$spin, $additional] = $data;
+            if (!empty($additional)) {
+                [$progress, $message] = $additional;
+                if (false !== $progress) {
+                    $spinner->progress($progress);
+                }
+                if (false !== $message) {
+                    $spinner->message($message);
+                }
+            }
+            $this->assertSame($spin, Helper::stripEscape($spinner->spin()));
+        }
+        $this->assertSame($end, Helper::stripEscape($spinner->end()));
 
-//    /** @test */
-//    public function instanceWithExceptionByMessage(): void
-//    {
-//        $spinner = new PercentSpinner(self::PROCESSING);
-//        $this->expectException(\RuntimeException::class);
-//        $this->expectExceptionMessage('Null value expected string given.');
-//        $spinner->spin(0.0, 'message');
-//    }
+    }
 
-//    /** @test */
-//    public function symbols(): void
-//    {
-//        $spinner = new PercentSpinner();
-//        $circular = getValue($spinner, 'symbols');
-//        $data = getValue($circular, 'data');
-//        $this->assertNull($data);
-//    }
+    public function processDataProvider(): array
+    {
+        return [
+            [
+                [
+                    null,
+                    false,
+                    NO_COLOR_TERMINAL,
+                ],
+                [
+                    ['\033[?25l0% \033[3D', []],
+                    ['0% \033[3D', []],
+                    ['0% \033[3D', []],
+                    ['0% \033[3D', []],
+                    ['0% \033[3D', []],
+                    ['0% \033[3D', []],
+                    ['0% \033[3D', [0, false]],
+                    ['2% \033[3D', [0.02, false]],
+                    ['100% \033[5D', [1, false]],
+                    [
+                        '2% \033[3D',
+                        [0.02, self::COMPUTING],
+                    ],
+                    [
+                        '3% \033[3D',
+                        [0.03, self::COMPUTING],
+                    ],
+                    ['3% \033[3D', []],
+                ],
+                '   \033[3D\033[?25h\033[?0c',
+            ],
+        ];
+    }
 }
