@@ -43,6 +43,8 @@ abstract class Spinner implements SpinnerInterface
     protected $moveCursorBackSequence = '';
     /** @var string */
     protected $eraseBySpacesSequence = '';
+    /** @var null|int */
+    protected $previousErasingLength = 0;
     /** @var string */
     protected $spacer = Defaults::EMPTY_STRING;
     /** @var Style */
@@ -234,7 +236,7 @@ abstract class Spinner implements SpinnerInterface
     public function progress(?float $percent): self
     {
         $this->setProgress($percent);
-        dump($this->jugglers);
+//        dump($this->jugglers);
 
         return $this;
     }
@@ -297,23 +299,33 @@ abstract class Spinner implements SpinnerInterface
         if ($this->messageJuggler instanceof MessageJuggler) {
             $str .= $this->style->message($this->messageJuggler->getFrame());
             $erasingLength += $this->messageJuggler->getFrameErasingLength();
-            $erasingLengthDelta = $this->messageJuggler->getErasingLengthDelta();
-            if ($erasingLengthDelta > 0) {
-                $erasingLength += $erasingLengthDelta;
-            } else {
-                $erasingLengthDelta = 0;
-            }
+//            $erasingLengthDelta = $this->messageJuggler->getErasingLengthDelta();
+//            if ($erasingLengthDelta > 0) {
+//                $erasingLength += $erasingLengthDelta;
+//            } else {
+//                $erasingLengthDelta = 0;
+//            }
         }
         if ($this->progressJuggler instanceof ProgressJuggler) {
             $str .= $this->style->percent($this->progressJuggler->getFrame());
             $erasingLength += $this->progressJuggler->getFrameErasingLength();
         }
         $erasingLength += $this->inline ? 1 : 0;
+//        $this->moveCursorBackSequence = ESC . "[{$erasingLength}D";
+//        $this->eraseBySpacesSequence = str_repeat(Defaults::ONE_SPACE_SYMBOL, $erasingLength);
+//        if ($erasingLengthDelta > 0) {
+//            $eraseMessageTailBySpacesSequence = str_repeat(Defaults::ONE_SPACE_SYMBOL, $erasingLengthDelta);
+//        }
+        $erasingLengthDelta = $this->previousErasingLength - $erasingLength;
+        if($erasingLengthDelta > 0) {
+            $erasingLength += $erasingLengthDelta;
+            $eraseMessageTailBySpacesSequence = str_repeat(Defaults::ONE_SPACE_SYMBOL, $erasingLengthDelta);
+            dump($erasingLengthDelta);
+        }
         $this->moveCursorBackSequence = ESC . "[{$erasingLength}D";
         $this->eraseBySpacesSequence = str_repeat(Defaults::ONE_SPACE_SYMBOL, $erasingLength);
-        if ($erasingLengthDelta > 0) {
-            $eraseMessageTailBySpacesSequence = str_repeat(Defaults::ONE_SPACE_SYMBOL, $erasingLengthDelta);
-        }
+
+        $this->previousErasingLength = $erasingLength;
         return $this->spacer . $str . $eraseMessageTailBySpacesSequence . $this->moveCursorBackSequence;
     }
 }

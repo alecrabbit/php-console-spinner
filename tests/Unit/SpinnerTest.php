@@ -104,7 +104,7 @@ class SpinnerTest extends TestCase
             ]
         );
         $spinner = new ExtendedSpinner($settings, null, COLOR256_TERMINAL);
-        dump($spinner);
+//        dump($spinner);
     }
 
     /** @test */
