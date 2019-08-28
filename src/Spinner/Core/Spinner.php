@@ -72,6 +72,11 @@ abstract class Spinner implements SpinnerInterface
                 $e
             );
         }
+        $this->jugglers = [
+            &$this->frameJuggler,
+            &$this->messageJuggler,
+            &$this->progressJuggler,
+        ];
     }
 
     /**
@@ -154,14 +159,12 @@ abstract class Spinner implements SpinnerInterface
                     $frames
                 );
         }
-        $this->jugglers[] = &$this->frameJuggler;
 
         $message = $this->settings->getMessage();
         if (Defaults::EMPTY_STRING !== $message) {
             $this->setMessage($message, $this->settings->getMessageErasingLen());
         }
-        $this->jugglers[] = &$this->messageJuggler;
-        $this->jugglers[] = &$this->progressJuggler;
+
     }
 
     /**
@@ -283,7 +286,7 @@ abstract class Spinner implements SpinnerInterface
 
     protected function preparedStr(): string
     {
-        // TODO optimize performance
+        // TODO optimize for performance
         $str = '';
         $erasingLength = 0;
         $erasingLengthDelta = 0;

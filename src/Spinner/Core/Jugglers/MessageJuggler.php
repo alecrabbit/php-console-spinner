@@ -9,13 +9,13 @@ use AlecRabbit\Spinner\Settings\Contracts\Defaults;
 class MessageJuggler implements JugglerInterface
 {
     /** @var string */
-    protected $spacer = Defaults::ONE_SPACE_SYMBOL;
-    /** @var string */
     protected $messagePrefix = Defaults::EMPTY_STRING;
     /** @var string */
     protected $message;
     /** @var string */
     protected $messageSuffix = Defaults::EMPTY_STRING;
+    /** @var string */
+    protected $spacer = Defaults::ONE_SPACE_SYMBOL;
     /** @var int */
     protected $erasingLength;
     /** @var string */
@@ -36,15 +36,15 @@ class MessageJuggler implements JugglerInterface
      */
     protected function updateMessage(string $message, ?int $erasingLength): void
     {
-        $this->message = $message;
-        if (Defaults::EMPTY_STRING === $message) {
+        $this->message = $this->refineMessage($message);
+        if (Defaults::EMPTY_STRING === $this->message) {
             $this->erasingLengthDelta = $this->getMessageFullLength();
             $this->erasingLength = 0;
             $this->spacer = Defaults::EMPTY_STRING;
             $this->messagePrefix = Defaults::DEFAULT_PREFIX;
             $this->messageSuffix = Defaults::EMPTY_STRING;
         } else {
-            $erasingLength = $this->refineErasingLen($message, $erasingLength);
+            $erasingLength = $this->refineErasingLen($this->message, $erasingLength);
             $this->erasingLengthDelta = $this->getMessageFullLength() - $erasingLength;
             $this->erasingLength = $erasingLength;
             $this->spacer = Defaults::ONE_SPACE_SYMBOL;
@@ -86,15 +86,16 @@ class MessageJuggler implements JugglerInterface
      */
     public function setMessage(string $message, ?int $erasingLength = null): void
     {
-        $message = ucfirst($message);
         $this->updateMessage($message, $erasingLength);
     }
 
+    /** {@inheritDoc} */
     public function getFrame(): string
     {
         return $this->frameString;
     }
 
+    /** {@inheritDoc} */
     public function getFrameErasingLength(): int
     {
         return $this->frameStringErasingLength;
@@ -106,5 +107,14 @@ class MessageJuggler implements JugglerInterface
     public function getErasingLengthDelta(): int
     {
         return $this->erasingLengthDelta;
+    }
+
+    /**
+     * @param string $message
+     * @return string
+     */
+    protected function refineMessage(string $message): string
+    {
+        return ucfirst($message);
     }
 }
