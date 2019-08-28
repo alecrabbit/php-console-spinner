@@ -32,10 +32,10 @@ class NewSpinnerTest extends TestCase
             [$spin, $additional] = $data;
             if (!empty($additional)) {
                 [$progress, $message] = $additional;
-                if (null !== $progress) {
+                if (false !== $progress) {
                     $spinner->progress($progress);
                 }
-                if (null !== $message) {
+                if (false !== $message) {
                     $spinner->message($message);
                 }
             }
@@ -69,8 +69,8 @@ class NewSpinnerTest extends TestCase
                     ['4 ' . self::PROCESSING . Defaults::DEFAULT_SUFFIX . ' \033[16D', []],
                     ['1 ' . self::PROCESSING . Defaults::DEFAULT_SUFFIX . ' \033[16D', []],
                     ['2 ' . self::PROCESSING . Defaults::DEFAULT_SUFFIX . ' \033[16D', []],
-                    ['3 ' . self::PROCESSING . Defaults::DEFAULT_SUFFIX . ' 0% \033[19D', [0, null]],
-                    ['4 ' . self::PROCESSING . Defaults::DEFAULT_SUFFIX . ' 2% \033[19D', [0.02, null]],
+                    ['3 ' . self::PROCESSING . Defaults::DEFAULT_SUFFIX . ' 0% \033[19D', [0, false]],
+                    ['4 ' . self::PROCESSING . Defaults::DEFAULT_SUFFIX . ' 2% \033[19D', [0.02, false]],
                     [
                         '1 ' . ucfirst(self::COMPUTING) . Defaults::DEFAULT_SUFFIX . ' 2%     \033[22D',
                         [0.02, self::COMPUTING],
@@ -96,8 +96,8 @@ class NewSpinnerTest extends TestCase
                     ['4 ' . self::MB_MESSAGE . Defaults::DEFAULT_SUFFIX . ' \033[14D', []],
                     ['1 ' . self::MB_MESSAGE . Defaults::DEFAULT_SUFFIX . ' \033[14D', []],
                     ['2 ' . self::MB_MESSAGE . Defaults::DEFAULT_SUFFIX . ' \033[14D', []],
-                    ['3 ' . self::MB_MESSAGE . Defaults::DEFAULT_SUFFIX . ' 0% \033[17D', [0, null]],
-                    ['4 ' . self::MB_MESSAGE . Defaults::DEFAULT_SUFFIX . ' 2% \033[17D', [0.02, null]],
+                    ['3 ' . self::MB_MESSAGE . Defaults::DEFAULT_SUFFIX . ' 0% \033[17D', [0, false]],
+                    ['4 ' . self::MB_MESSAGE . Defaults::DEFAULT_SUFFIX . ' 2% \033[17D', [0.02, false]],
                     [
                         '1 ' . ucfirst(self::COMPUTING) . Defaults::DEFAULT_SUFFIX . ' 2%   \033[20D',
                         [0.02, self::COMPUTING],
@@ -107,8 +107,9 @@ class NewSpinnerTest extends TestCase
                         [0.03, self::COMPUTING],
                     ],
                     ['3 ' . ucfirst(self::COMPUTING) . Defaults::DEFAULT_SUFFIX . ' 3%    \033[21D', []],
+                    ['4 10% \033[6D', [0.1, null]],
                 ],
-                '                     \033[21D\033[?25h\033[?0c',
+                '      \033[6D\033[?25h\033[?0c',
             ],
         ];
     }

@@ -8,8 +8,6 @@ use function AlecRabbit\Helpers\bounds;
 
 class ProgressJuggler implements JugglerInterface
 {
-    /** @var float */
-    protected $progress;
     /** @var string */
     protected $spacer = Defaults::ONE_SPACE_SYMBOL;
     /** @var string */
@@ -27,8 +25,8 @@ class ProgressJuggler implements JugglerInterface
      */
     protected function update(float $percent): void
     {
-        $this->progress = bounds($percent, 0, 1);
-        $this->currentFrame = (int)($this->progress * 100) . '%' . $this->spacer;
+        $progress = bounds($percent, 0, 1);
+        $this->currentFrame = (int)($progress * 100) . '%' . $this->spacer;
         $this->currentFrameErasingLength = strlen($this->currentFrame);
     }
 
