@@ -291,8 +291,7 @@ abstract class Spinner implements SpinnerInterface
         // TODO optimize for performance
         $str = '';
         $erasingLength = 0;
-//        $erasingLengthDelta = 0;
-        $eraseMessageTailBySpacesSequence = '';
+        $eraseTailBySpacesSequence = '';
         if ($this->frameJuggler instanceof FrameJuggler) {
             $str .= $this->style->spinner($this->frameJuggler->getFrame());
             $erasingLength += $this->frameJuggler->getFrameErasingLength();
@@ -306,29 +305,34 @@ abstract class Spinner implements SpinnerInterface
             $erasingLength += $this->progressJuggler->getFrameErasingLength();
         }
         $erasingLength += $this->inline ? 1 : 0;
-//        $this->moveCursorBackSequence = ESC . "[{$erasingLength}D";
-//        $this->eraseBySpacesSequence = str_repeat(Defaults::ONE_SPACE_SYMBOL, $erasingLength);
-//        if ($erasingLengthDelta > 0) {
-//            $eraseMessageTailBySpacesSequence = str_repeat(Defaults::ONE_SPACE_SYMBOL, $erasingLengthDelta);
-//        }
         $erasingLengthDelta = $this->previousErasingLength - $erasingLength;
-//        dump($erasingLengthDelta );
+////        dump($erasingLengthDelta );
         dump(
-            sprintf('%s %s %s' ,
+            sprintf('D:%s P:%s E:%s',
                 $erasingLengthDelta,
                 $this->previousErasingLength,
                 $erasingLength
             )
         );
-        if($erasingLengthDelta > 0) {
+        if ($erasingLengthDelta > 0) {
+
             $erasingLength += $erasingLengthDelta;
-            $eraseMessageTailBySpacesSequence = str_repeat(Defaults::ONE_SPACE_SYMBOL, $erasingLengthDelta);
+            $eraseTailBySpacesSequence = str_repeat(Defaults::ONE_SPACE_SYMBOL, $erasingLengthDelta);
         }
         $this->moveCursorBackSequence = ESC . "[{$erasingLength}D";
         $this->eraseBySpacesSequence = str_repeat(Defaults::ONE_SPACE_SYMBOL, $erasingLength);
 
         $this->previousErasingLength = $erasingLength;
-//        return Helper::stripEscape($this->spacer . $str . $eraseMessageTailBySpacesSequence . $this->moveCursorBackSequence) . PHP_EOL;
-        return $this->spacer . $str . $eraseMessageTailBySpacesSequence . $this->moveCursorBackSequence;
+        dump(
+            sprintf(
+                'D:%s P2:%s E:%s',
+                $erasingLengthDelta,
+                $this->previousErasingLength,
+                $erasingLength
+            )
+        );
+
+//        return Helper::stripEscape($this->spacer . $str . $eraseTailBySpacesSequence . $this->moveCursorBackSequence) . PHP_EOL;
+        return $this->spacer . $str . $eraseTailBySpacesSequence . $this->moveCursorBackSequence;
     }
 }
