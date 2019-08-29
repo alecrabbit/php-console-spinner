@@ -43,16 +43,20 @@ class Coloring
     {
         foreach (StylesInterface::DEFAULT_STYLES as $index => $defaults) {
             if (!\array_key_exists($index, $styles)) {
+                // @codeCoverageIgnoreStart
                 throw new \InvalidArgumentException(
                     'Styles array does not have [' . $index . '] key.'
                 );
+                // @codeCoverageIgnoreEnd
             }
             $keys = array_keys($defaults);
             foreach ($keys as $k) {
                 if (!\array_key_exists($k, $styles[$index])) {
+                    // @codeCoverageIgnoreStart
                     throw new \InvalidArgumentException(
                         'Styles array does not have [' . $index . '][' . $k . '] key.'
                     );
+                    // @codeCoverageIgnoreEnd
                 }
             }
         }
@@ -162,6 +166,7 @@ class Coloring
      */
     protected function refineColor(?int $color): int
     {
+        // @codeCoverageIgnoreStart
         if (null === $color) {
             if (TerminalStatic::supportsColor()) {
                 return
@@ -171,6 +176,7 @@ class Coloring
             }
             return NO_COLOR_TERMINAL;
         }
+        // @codeCoverageIgnoreEnd
         return $color;
     }
 
