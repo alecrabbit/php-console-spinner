@@ -8,7 +8,6 @@ class Calculator
 {
     public static function computeErasingLength(array $strings): int
     {
-        // TODO remove code duplicate from Settings::class
         if (empty($strings)) {
             return 0;
         }

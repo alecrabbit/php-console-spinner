@@ -2,6 +2,7 @@
 
 namespace AlecRabbit\Spinner\Settings;
 
+use AlecRabbit\Spinner\Core\Calculator;
 use AlecRabbit\Spinner\Settings\Contracts\Defaults;
 use AlecRabbit\Spinner\Settings\Contracts\S;
 use AlecRabbit\Spinner\Settings\Contracts\SettingsInterface;
@@ -80,35 +81,9 @@ class Settings implements SettingsInterface
     protected function refineErasingLen(string $string, ?int $erasingLen): int
     {
         if (null === $erasingLen) {
-            return $this->computeErasingLen([$string]);
+            return Calculator::computeErasingLength([$string]);
         }
         return $erasingLen;
-    }
-
-    /**
-     * @param array $strings
-     * @return int
-     */
-    protected function computeErasingLen(array $strings): int
-    {
-        if (empty($strings)) {
-            return 0;
-        }
-        return $this->compErasingLen($strings);
-    }
-
-    private function compErasingLen(array $strings): int
-    {
-        // TODO check if all elements have the same erasingLen
-        if (null === $symbol = $strings[0]) {
-            return 0;
-        }
-        $mbSymbolLen = mb_strlen($symbol);
-        $oneCharLen = strlen($symbol) / $mbSymbolLen;
-        if (4 === $oneCharLen) {
-            return 2 * $mbSymbolLen;
-        }
-        return 1 * $mbSymbolLen;
     }
 
     /** {@inheritDoc} */
@@ -169,7 +144,7 @@ class Settings implements SettingsInterface
             );
         }
         $this->properties[S::FRAMES]->setValue($frames);
-        $this->properties[S::ERASING_SHIFT]->setValue($this->computeErasingLen($frames));
+        $this->properties[S::ERASING_SHIFT]->setValue(Calculator::computeErasingLength($frames));
         return $this;
     }
 
