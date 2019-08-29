@@ -5,11 +5,11 @@ namespace AlecRabbit\Spinner\Core\Jugglers\Contracts;
 
 interface JugglerInterface
 {
-    /**
-     * @return string
-     */
-    public function getFrame(): string;
-
+//    /**
+//     * @return string
+//     */
+//    public function getFrame(): string;
+//
     /**
      * @return string
      */
