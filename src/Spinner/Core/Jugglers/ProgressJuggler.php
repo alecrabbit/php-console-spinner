@@ -42,12 +42,6 @@ class ProgressJuggler implements JugglerInterface
         $this->update($percent);
     }
 
-//    /** {@inheritDoc} */
-//    public function getFrame(): string
-//    {
-//        return $this->currentFrame;
-//    }
-//
     /** {@inheritDoc} */
     public function getStyledFrame(): string
     {

@@ -101,12 +101,6 @@ class MessageJuggler implements JugglerInterface
         $this->updateMessage($message, $erasingLength);
     }
 
-//    /** {@inheritDoc} */
-//    public function getFrame(): string
-//    {
-//        return $this->frameString;
-//    }
-//
     /** {@inheritDoc} */
     public function getStyledFrame(): string
     {

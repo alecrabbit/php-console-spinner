@@ -41,12 +41,6 @@ class FrameJuggler implements JugglerInterface
         }
     }
 
-//    /** {@inheritDoc} */
-//    public function getFrame(): string
-//    {
-//        return $this->frames->value() . $this->spacer;
-//    }
-//
     /** {@inheritDoc} */
     public function getStyledFrame(): string
     {
