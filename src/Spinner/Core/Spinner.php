@@ -14,7 +14,6 @@ use AlecRabbit\Spinner\Core\Jugglers\MessageJuggler;
 use AlecRabbit\Spinner\Core\Jugglers\ProgressJuggler;
 use AlecRabbit\Spinner\Settings\Contracts\Defaults;
 use AlecRabbit\Spinner\Settings\Settings;
-use AlecRabbit\Tests\Spinner\Helper;
 use function AlecRabbit\typeOf;
 use const AlecRabbit\ESC;
 
@@ -44,7 +43,7 @@ abstract class Spinner implements SpinnerInterface
     protected $moveCursorBackSequence = '';
     /** @var string */
     protected $eraseBySpacesSequence = '';
-    /** @var null|int */
+    /** @var int */
     protected $previousErasingLength = 0;
     /** @var string */
     protected $spacer = Defaults::EMPTY_STRING;
@@ -237,8 +236,6 @@ abstract class Spinner implements SpinnerInterface
     public function progress(?float $percent): self
     {
         $this->setProgress($percent);
-//        dump($this->jugglers);
-
         return $this;
     }
 
@@ -288,35 +285,42 @@ abstract class Spinner implements SpinnerInterface
 
     protected function preparedStr(): string
     {
-        // TODO optimize for performance
+//        $strJ= '';
+//        $erasingLengthJ = 0;
         $str = '';
         $erasingLength = 0;
         $eraseTailBySpacesSequence = '';
-        if ($this->frameJuggler instanceof FrameJuggler) {
-            $str .= $this->style->spinner($this->frameJuggler->getFrame());
-            $erasingLength += $this->frameJuggler->getFrameErasingLength();
+        foreach ($this->jugglers as $juggler) {
+            if($juggler instanceof JugglerInterface) {
+//                $str .= $juggler->getStyledFrame(); // add method to JugglerInterface
+                $str .= $juggler->getFrame();
+                $erasingLength += $juggler->getFrameErasingLength();
+            }
         }
-        if ($this->messageJuggler instanceof MessageJuggler) {
-            $str .= $this->style->message($this->messageJuggler->getFrame());
-            $erasingLength += $this->messageJuggler->getFrameErasingLength();
-        }
-        if ($this->progressJuggler instanceof ProgressJuggler) {
-            $str .= $this->style->percent($this->progressJuggler->getFrame());
-            $erasingLength += $this->progressJuggler->getFrameErasingLength();
-        }
+//        if ($this->frameJuggler instanceof FrameJuggler) {
+//            $str .= $this->style->spinner($this->frameJuggler->getFrame());
+//            $erasingLength += $this->frameJuggler->getFrameErasingLength();
+//        }
+//        if ($this->messageJuggler instanceof MessageJuggler) {
+//            $str .= $this->style->message($this->messageJuggler->getFrame());
+//            $erasingLength += $this->messageJuggler->getFrameErasingLength();
+//        }
+//        if ($this->progressJuggler instanceof ProgressJuggler) {
+//            $str .= $this->style->percent($this->progressJuggler->getFrame());
+//            $erasingLength += $this->progressJuggler->getFrameErasingLength();
+//        }
         $erasingLength += $this->inline ? 1 : 0;
         $erasingLengthDelta = $this->previousErasingLength - $erasingLength;
         $this->previousErasingLength = $erasingLength;
 
         if ($erasingLengthDelta > 0) {
-
             $erasingLength += $erasingLengthDelta;
             $eraseTailBySpacesSequence = str_repeat(Defaults::ONE_SPACE_SYMBOL, $erasingLengthDelta);
         }
         $this->moveCursorBackSequence = ESC . "[{$erasingLength}D";
         $this->eraseBySpacesSequence = str_repeat(Defaults::ONE_SPACE_SYMBOL, $erasingLength);
 
-        return
-            $this->spacer . $str . $eraseTailBySpacesSequence . $this->moveCursorBackSequence;
+        $str = $this->spacer . $str . $eraseTailBySpacesSequence . $this->moveCursorBackSequence;
+        return $str;
     }
 }

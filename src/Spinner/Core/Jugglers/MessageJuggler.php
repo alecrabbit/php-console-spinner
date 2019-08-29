@@ -52,11 +52,19 @@ class MessageJuggler implements JugglerInterface
             $this->messageSuffix = Defaults::DEFAULT_SUFFIX;
         }
         $this->frameString =
-            $this->messagePrefix . $this->message . $this->messageSuffix  . $this->spacer;
+            $this->messagePrefix . $this->message . $this->messageSuffix . $this->spacer;
 
         $this->frameStringErasingLength =
             strlen($this->spacer . $this->messagePrefix . $this->messageSuffix) + $this->erasingLength;
-//        strlen($this->spacer) + $this->getMessageFullLength();
+    }
+
+    /**
+     * @param string $message
+     * @return string
+     */
+    protected function refineMessage(string $message): string
+    {
+        return ucfirst($message);
     }
 
     /**
@@ -99,22 +107,5 @@ class MessageJuggler implements JugglerInterface
     public function getFrameErasingLength(): int
     {
         return $this->frameStringErasingLength;
-    }
-
-    /**
-     * @return int
-     */
-    public function getErasingLengthDelta(): int
-    {
-        return $this->erasingLengthDelta;
-    }
-
-    /**
-     * @param string $message
-     * @return string
-     */
-    protected function refineMessage(string $message): string
-    {
-        return ucfirst($message);
     }
 }
