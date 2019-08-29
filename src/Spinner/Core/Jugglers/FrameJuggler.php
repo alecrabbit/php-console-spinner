@@ -4,17 +4,12 @@ namespace AlecRabbit\Spinner\Core\Jugglers;
 
 use AlecRabbit\Accessories\Circular;
 use AlecRabbit\Spinner\Core\Calculator;
-use AlecRabbit\Spinner\Core\Jugglers\Contracts\JugglerInterface;
 use AlecRabbit\Spinner\Settings\Contracts\Defaults;
 
-class FrameJuggler implements JugglerInterface
+class FrameJuggler extends AbstractJuggler
 {
     /** @var Circular */
     protected $frames;
-    /** @var Circular */
-    protected $style;
-    /** @var int */
-    protected $erasingLength;
     /** @var string */
     protected $spacer = Defaults::ONE_SPACE_SYMBOL;
 
@@ -23,7 +18,7 @@ class FrameJuggler implements JugglerInterface
         $this->assertFrames($frames);
         $this->frames = new Circular($frames);
         $this->style = $style ?? new Circular(['%s',]);
-        $this->erasingLength = Calculator::computeErasingLength($frames) + strlen($this->spacer);
+        $this->currentFrameErasingLength = Calculator::computeErasingLength($frames) + strlen($this->spacer);
     }
 
     /**
@@ -39,19 +34,6 @@ class FrameJuggler implements JugglerInterface
         foreach ($frames as $frame) {
             $this->assertFrame($frame);
         }
-    }
-
-    /** {@inheritDoc} */
-    public function getStyledFrame(): string
-    {
-        return
-            sprintf((string)$this->style->value(), $this->frames->value() . $this->spacer);
-    }
-
-    /** {@inheritDoc} */
-    public function getFrameErasingLength(): int
-    {
-        return $this->erasingLength;
     }
 
     /**
@@ -71,5 +53,13 @@ class FrameJuggler implements JugglerInterface
                 )
             );
         }
+    }
+
+    /**
+     * @return string
+     */
+    protected function getCurrentFrame(): string
+    {
+        return $this->frames->value() . $this->spacer;
     }
 }

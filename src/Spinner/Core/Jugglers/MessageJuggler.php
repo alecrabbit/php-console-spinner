@@ -4,10 +4,9 @@ namespace AlecRabbit\Spinner\Core\Jugglers;
 
 use AlecRabbit\Accessories\Circular;
 use AlecRabbit\Spinner\Core\Calculator;
-use AlecRabbit\Spinner\Core\Jugglers\Contracts\JugglerInterface;
 use AlecRabbit\Spinner\Settings\Contracts\Defaults;
 
-class MessageJuggler implements JugglerInterface
+class MessageJuggler extends AbstractJuggler
 {
     /** @var string */
     protected $messagePrefix = Defaults::EMPTY_STRING;
@@ -21,12 +20,8 @@ class MessageJuggler implements JugglerInterface
     protected $erasingLength;
     /** @var string */
     protected $frameString;
-    /** @var int */
-    protected $frameStringErasingLength;
-    /** @var int */
-    protected $erasingLengthDelta;
-    /** @var Circular */
-    protected $style;
+//    /** @var int */
+//    protected $erasingLengthDelta;
 
     public function __construct(string $message, int $erasingLength = null, Circular $style = null)
     {
@@ -42,14 +37,14 @@ class MessageJuggler implements JugglerInterface
     {
         $this->message = $this->refineMessage($message);
         if (Defaults::EMPTY_STRING === $this->message) {
-            $this->erasingLengthDelta = $this->getMessageFullLength();
+//            $this->erasingLengthDelta = $this->getMessageFullLength();
             $this->erasingLength = 0;
             $this->spacer = Defaults::EMPTY_STRING;
             $this->messagePrefix = Defaults::DEFAULT_PREFIX;
             $this->messageSuffix = Defaults::EMPTY_STRING;
         } else {
             $erasingLength = $this->refineErasingLen($this->message, $erasingLength);
-            $this->erasingLengthDelta = $this->getMessageFullLength() - $erasingLength;
+//            $this->erasingLengthDelta = $this->getMessageFullLength() - $erasingLength;
             $this->erasingLength = $erasingLength;
             $this->spacer = Defaults::ONE_SPACE_SYMBOL;
             $this->messagePrefix = Defaults::DEFAULT_PREFIX;
@@ -58,7 +53,7 @@ class MessageJuggler implements JugglerInterface
         $this->frameString =
             $this->messagePrefix . $this->message . $this->messageSuffix . $this->spacer;
 
-        $this->frameStringErasingLength =
+        $this->currentFrameErasingLength =
             strlen($this->spacer . $this->messagePrefix . $this->messageSuffix) + $this->erasingLength;
     }
 
@@ -71,14 +66,14 @@ class MessageJuggler implements JugglerInterface
         return ucfirst($message);
     }
 
-    /**
-     * @return int
-     */
-    protected function getMessageFullLength(): int
-    {
-        return strlen($this->messagePrefix) + $this->erasingLength + strlen($this->messageSuffix);
-    }
-
+//    /**
+//     * @return int
+//     */
+//    protected function getMessageFullLength(): int
+//    {
+//        return strlen($this->messagePrefix) + $this->erasingLength + strlen($this->messageSuffix);
+//    }
+//
     /**
      * @param string $message
      * @param null|int $erasingLength
@@ -101,16 +96,11 @@ class MessageJuggler implements JugglerInterface
         $this->updateMessage($message, $erasingLength);
     }
 
-    /** {@inheritDoc} */
-    public function getStyledFrame(): string
+    /**
+     * @return string
+     */
+    protected function getCurrentFrame(): string
     {
-        return
-            sprintf((string)$this->style->value(), $this->frameString);
-    }
-
-    /** {@inheritDoc} */
-    public function getFrameErasingLength(): int
-    {
-        return $this->frameStringErasingLength;
+        return $this->frameString;
     }
 }
