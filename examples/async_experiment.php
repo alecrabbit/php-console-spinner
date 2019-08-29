@@ -56,10 +56,10 @@ $loop->addPeriodicTimer($s->interval(), static function () use ($s) {
 });
 
 // Add periodic timer to randomly echo timestamps - simulating messages from your app
-$loop->addPeriodicTimer(1, static function () use ($s) {
-    if (random_int(0, 1000) > 500) {
+$loop->addPeriodicTimer(1, static function () use ($s, $t) {
+    if (random_int(0, 1000) > 570) {
         $s->erase();
-        echo time() . PHP_EOL;
+        echo $t->dark(date('H:i:s')) . ' Simulated message.'. PHP_EOL;
         $s->spin(); // optional
     }
 });
