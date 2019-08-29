@@ -29,9 +29,9 @@ class Style
     {
         $styles = $this->mergeStyles($styles);
         $coloring = new Coloring($styles, $colorSupport);
-        $this->frameStyles = $coloring->getSpinnerStyles();
+        $this->frameStyles = $coloring->getFrameStyles();
         $this->messageStyles = $coloring->getMessageStyles();
-        $this->progressStyles = $coloring->getPercentStyles();
+        $this->progressStyles = $coloring->getProgressStyles();
     }
 
     /**

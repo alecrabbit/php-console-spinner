@@ -13,11 +13,11 @@ use const AlecRabbit\NO_COLOR_TERMINAL;
 class Coloring
 {
     /** @var Circular */
-    protected $spinnerStyles;
+    protected $frameStyles;
     /** @var Circular */
     protected $messageStyles;
     /** @var Circular */
-    protected $percentStyles;
+    protected $progressStyles;
 
     /**
      * Coloring constructor.
@@ -28,9 +28,9 @@ class Coloring
     {
         $this->assertStyles($styles);
         // Styles defaults - NO color
-        $this->spinnerStyles = $this->circularNoColor();
+        $this->frameStyles = $this->circularNoColor();
         $this->messageStyles = $this->circularNoColor();
-        $this->percentStyles = $this->circularNoColor();
+        $this->progressStyles = $this->circularNoColor();
         // Reassign styles
         $this->assignStyles($styles, $this->refineColor($color));
     }
@@ -73,14 +73,14 @@ class Coloring
     {
         switch ($color) {
             case COLOR256_TERMINAL:
-                $this->spinnerStyles = $this->circular256Color($styles[StylesInterface::SPINNER_STYLES]);
+                $this->frameStyles = $this->circular256Color($styles[StylesInterface::SPINNER_STYLES]);
                 $this->messageStyles = $this->circular256Color($styles[StylesInterface::MESSAGE_STYLES]);
-                $this->percentStyles = $this->circular256Color($styles[StylesInterface::PERCENT_STYLES]);
+                $this->progressStyles = $this->circular256Color($styles[StylesInterface::PERCENT_STYLES]);
                 break;
             case COLOR_TERMINAL:
-                $this->spinnerStyles = $this->circularColor($styles[StylesInterface::SPINNER_STYLES]);
+                $this->frameStyles = $this->circularColor($styles[StylesInterface::SPINNER_STYLES]);
                 $this->messageStyles = $this->circularColor($styles[StylesInterface::MESSAGE_STYLES]);
-                $this->percentStyles = $this->circularColor($styles[StylesInterface::PERCENT_STYLES]);
+                $this->progressStyles = $this->circularColor($styles[StylesInterface::PERCENT_STYLES]);
                 break;
         }
     }
@@ -159,9 +159,9 @@ class Coloring
     /**
      * @return Circular
      */
-    public function getSpinnerStyles(): Circular
+    public function getFrameStyles(): Circular
     {
-        return $this->spinnerStyles;
+        return $this->frameStyles;
     }
 
     /**
@@ -175,8 +175,8 @@ class Coloring
     /**
      * @return Circular
      */
-    public function getPercentStyles(): Circular
+    public function getProgressStyles(): Circular
     {
-        return $this->percentStyles;
+        return $this->progressStyles;
     }
 }
