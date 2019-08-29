@@ -4,6 +4,7 @@ namespace AlecRabbit\Spinner\Core\Jugglers;
 
 use AlecRabbit\Accessories\Circular;
 use AlecRabbit\Spinner\Core\Jugglers\Contracts\JugglerInterface;
+use AlecRabbit\Spinner\Settings\Contracts\Defaults;
 
 abstract class AbstractJuggler implements JugglerInterface
 {
@@ -11,6 +12,10 @@ abstract class AbstractJuggler implements JugglerInterface
     protected $currentFrameErasingLength;
     /** @var Circular */
     protected $style;
+    /** @var string */
+    protected $prefix = Defaults::EMPTY_STRING;
+    /** @var string */
+    protected $suffix = Defaults::EMPTY_STRING;
 
     /** {@inheritDoc} */
     public function getFrameErasingLength(): int

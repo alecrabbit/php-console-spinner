@@ -25,7 +25,7 @@ class ProgressJuggler extends AbstractJuggler
     protected function update(float $percent): void
     {
         $progress = bounds($percent, 0, 1);
-        $this->currentFrame = (int)($progress * 100) . '%' . $this->spacer;
+        $this->currentFrame = $this->prefix. (int)($progress * 100) . '%' . $this->suffix . $this->spacer;
         $this->currentFrameErasingLength = strlen($this->currentFrame);
     }
 

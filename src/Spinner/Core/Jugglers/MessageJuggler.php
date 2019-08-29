@@ -9,11 +9,7 @@ use AlecRabbit\Spinner\Settings\Contracts\Defaults;
 class MessageJuggler extends AbstractJuggler
 {
     /** @var string */
-    protected $messagePrefix = Defaults::EMPTY_STRING;
-    /** @var string */
     protected $message;
-    /** @var string */
-    protected $messageSuffix = Defaults::EMPTY_STRING;
     /** @var string */
     protected $spacer = Defaults::ONE_SPACE_SYMBOL;
     /** @var int */
@@ -37,20 +33,20 @@ class MessageJuggler extends AbstractJuggler
         if (Defaults::EMPTY_STRING === $this->message) {
             $this->erasingLength = 0;
             $this->spacer = Defaults::EMPTY_STRING;
-            $this->messagePrefix = Defaults::DEFAULT_PREFIX;
-            $this->messageSuffix = Defaults::EMPTY_STRING;
+            $this->prefix = Defaults::DEFAULT_PREFIX;
+            $this->suffix = Defaults::EMPTY_STRING;
         } else {
             $erasingLength = $this->refineErasingLen($this->message, $erasingLength);
             $this->erasingLength = $erasingLength;
             $this->spacer = Defaults::ONE_SPACE_SYMBOL;
-            $this->messagePrefix = Defaults::DEFAULT_PREFIX;
-            $this->messageSuffix = Defaults::DEFAULT_SUFFIX;
+            $this->prefix = Defaults::DEFAULT_PREFIX;
+            $this->suffix = Defaults::DEFAULT_SUFFIX;
         }
         $this->frameString =
-            $this->messagePrefix . $this->message . $this->messageSuffix . $this->spacer;
+            $this->prefix . $this->message . $this->suffix . $this->spacer;
 
         $this->currentFrameErasingLength =
-            strlen($this->spacer . $this->messagePrefix . $this->messageSuffix) + $this->erasingLength;
+            strlen($this->spacer . $this->prefix . $this->suffix) + $this->erasingLength;
     }
 
     /**
