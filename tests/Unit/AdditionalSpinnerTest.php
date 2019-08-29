@@ -7,22 +7,22 @@ use AlecRabbit\Spinner\Core\Jugglers\MessageJuggler;
 use AlecRabbit\Spinner\Core\Jugglers\ProgressJuggler;
 use AlecRabbit\Spinner\Core\Spinner;
 use AlecRabbit\Spinner\Settings\Contracts\Defaults;
-use AlecRabbit\Tests\Spinner\ExtendedJugglingSpinner;
+use AlecRabbit\Tests\Spinner\ExtendedSpinner;
 use AlecRabbit\Tests\Spinner\Helper;
 use PHPUnit\Framework\TestCase;
 use function AlecRabbit\Helpers\getValue;
 use const AlecRabbit\NO_COLOR_TERMINAL;
 
-class JugglingSpinnerTest extends TestCase
+class AdditionalSpinnerTest extends TestCase
 {
     protected const PROCESSING = 'Processing';
 
     /** @test */
     public function instance(): void
     {
-        $s = new ExtendedJugglingSpinner(null, false, NO_COLOR_TERMINAL);
+        $s = new ExtendedSpinner(null, false, NO_COLOR_TERMINAL);
         $this->assertInstanceOf(Spinner::class, $s);
-        $this->assertSame(0.2, $s->interval());
+        $this->assertSame(0.1, $s->interval());
         $frameJuggler = getValue($s, 'frameJuggler');
         $messageJuggler = getValue($s, 'messageJuggler');
         $progressJuggler = getValue($s, 'progressJuggler');
@@ -137,7 +137,7 @@ class JugglingSpinnerTest extends TestCase
     /** @test */
     public function progressOutOfBounds(): void
     {
-        $s = new ExtendedJugglingSpinner(null, false, NO_COLOR_TERMINAL);
+        $s = new ExtendedSpinner(null, false, NO_COLOR_TERMINAL);
         $s->inline(true);
         $begin = $s->begin((float) - 0.1); // inspection bug fix
         $this->assertIsString($begin);
@@ -179,7 +179,7 @@ class JugglingSpinnerTest extends TestCase
     /** @test */
     public function withMessage(): void
     {
-        $spinner = new ExtendedJugglingSpinner(self::PROCESSING, false, NO_COLOR_TERMINAL);
+        $spinner = new ExtendedSpinner(self::PROCESSING, false, NO_COLOR_TERMINAL);
 
         $this->assertInstanceOf(Spinner::class, $spinner);
         $frameJuggler = getValue($spinner, 'frameJuggler');

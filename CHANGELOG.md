@@ -1,6 +1,10 @@
 <a name="unreleased"></a>
 ## [Unreleased]
 
+### Added
+- `prefix` and `suffix` to all three jugglers`
+- `EarthSpinner::class`
+
 
 <a name="0.30.0-ALPHA2"></a>
 ## [0.30.0-ALPHA2] - 2019-08-29
