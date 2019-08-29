@@ -29,7 +29,6 @@ $loop->addSignal(
     }
 );
 
-
 $progress = null;
 $messages = [
     0 => 'Initializing',
