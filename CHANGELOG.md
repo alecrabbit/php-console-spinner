@@ -1,6 +1,12 @@
 <a name="unreleased"></a>
 ## [Unreleased]
 
+### Changed
+- `Spinner::class` API
+
+
+<a name="0.30.0-ALPHA1"></a>
+## [0.30.0-ALPHA1] - 2019-08-29
 
 <a name="0.17.1"></a>
 ## [0.17.1] - 2019-08-22
@@ -206,7 +212,8 @@
 <a name="0.2.1-ALPHA.1"></a>
 ## 0.2.1-ALPHA.1 - 2019-04-06
 
-[Unreleased]: https://github.com/alecrabbit/php-console-spinner/compare/0.17.1...HEAD
+[Unreleased]: https://github.com/alecrabbit/php-console-spinner/compare/0.30.0-ALPHA1...HEAD
+[0.30.0-ALPHA1]: https://github.com/alecrabbit/php-console-spinner/compare/0.17.1...0.30.0-ALPHA1
 [0.17.1]: https://github.com/alecrabbit/php-console-spinner/compare/0.17.0...0.17.1
 [0.17.0]: https://github.com/alecrabbit/php-console-spinner/compare/0.16.5...0.17.0
 [0.16.5]: https://github.com/alecrabbit/php-console-spinner/compare/0.16.4...0.16.5
