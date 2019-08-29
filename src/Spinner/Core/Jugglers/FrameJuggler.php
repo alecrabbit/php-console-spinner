@@ -41,7 +41,7 @@ class FrameJuggler implements JugglerInterface
     /** {@inheritDoc} */
     public function getFrame(): string
     {
-        return (string)$this->frames->value() . $this->spacer;
+        return $this->frames->value() . $this->spacer;
     }
 
     /** {@inheritDoc} */
