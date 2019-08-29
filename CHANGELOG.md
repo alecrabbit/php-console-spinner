@@ -4,6 +4,9 @@
 ### Changed
 - `Spinner::class` API
 
+### Removed
+- `Style::class`, functionality moved to `Coloring::class`
+
 
 <a name="0.30.0-ALPHA1"></a>
 ## [0.30.0-ALPHA1] - 2019-08-29

@@ -41,10 +41,10 @@ $messages = [
     25 => '',
     44 => 'Processing',
     78 => 'Processing',
-    88 => 'Still processing',
-    90 => 'Almost there',
-    95 => 'Be patient',
-    100 => 'Done',
+    82 => "\e[0m\e[91mStill processing",
+    90 => "\e[0m\e[93mBe patient",
+    95 => "\e[0m\e[33mAlmost there",
+    100 => "\e[0m\e[92mDone",
 ];
 
 $s = new SnakeSpinner();
@@ -53,6 +53,15 @@ $s = new SnakeSpinner();
 // Add periodic timer to redraw our spinner
 $loop->addPeriodicTimer($s->interval(), static function () use ($s) {
     $s->spin();
+});
+
+// Add periodic timer to randomly echo timestamps - simulating messages from your app
+$loop->addPeriodicTimer(1, static function () use ($s) {
+    if (random_int(0, 1000) > 500) {
+        $s->erase();
+        echo time() . PHP_EOL;
+        $s->spin(); // optional
+    }
 });
 
 // Add periodic timer to increment $progress
