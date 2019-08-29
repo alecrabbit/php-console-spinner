@@ -60,16 +60,16 @@ class NewSpinnerTest extends TestCase implements TestMessages
                     ['3 ' . self::PROCESSING . Defaults::DEFAULT_SUFFIX . ' 0% \033[19D', [0, false]],
                     ['4 ' . self::PROCESSING . Defaults::DEFAULT_SUFFIX . ' 2% \033[19D', [0.02, false]],
                     [
-                        '1 ' . ucfirst(self::COMPUTING) . Defaults::DEFAULT_SUFFIX . ' 2%     \033[22D',
+                        '1 ' . ucfirst(self::COMPUTING) . Defaults::DEFAULT_SUFFIX . ' 2%  \033[19D',
                         [0.02, self::COMPUTING],
                     ],
                     [
-                        '2 ' . ucfirst(self::COMPUTING) . Defaults::DEFAULT_SUFFIX . ' 3%    \033[21D',
+                        '2 ' . ucfirst(self::COMPUTING) . Defaults::DEFAULT_SUFFIX . ' 3% \033[18D',
                         [0.03, self::COMPUTING],
                     ],
-                    ['3 ' . ucfirst(self::COMPUTING) . Defaults::DEFAULT_SUFFIX . ' 3%    \033[21D', []],
+                    ['3 ' . ucfirst(self::COMPUTING) . Defaults::DEFAULT_SUFFIX . ' 3% \033[18D', []],
                 ],
-                '                     \033[21D\033[?25h\033[?0c',
+                '                  \033[18D\033[?25h\033[?0c',
             ],
             [
                 [
@@ -87,15 +87,16 @@ class NewSpinnerTest extends TestCase implements TestMessages
                     ['3 ' . ucfirst(self::MB_MESSAGE) . Defaults::DEFAULT_SUFFIX . ' 0% \033[17D', [0, false]],
                     ['4 ' . ucfirst(self::MB_MESSAGE) . Defaults::DEFAULT_SUFFIX . ' 2% \033[17D', [0.02, false]],
                     [
-                        '1 ' . ucfirst(self::COMPUTING) . Defaults::DEFAULT_SUFFIX . ' 2%   \033[20D',
+                        '1 ' . ucfirst(self::COMPUTING) . Defaults::DEFAULT_SUFFIX . ' 2% \033[18D',
                         [0.02, self::COMPUTING],
                     ],
                     [
-                        '2 ' . ucfirst(self::COMPUTING) . Defaults::DEFAULT_SUFFIX . ' 3%    \033[21D',
+                        '2 ' . ucfirst(self::COMPUTING) . Defaults::DEFAULT_SUFFIX . ' 3% \033[18D',
                         [0.03, self::COMPUTING],
                     ],
-                    ['3 ' . ucfirst(self::COMPUTING) . Defaults::DEFAULT_SUFFIX . ' 3%    \033[21D', []],
-                    ['4 10% \033[6D', [0.1, null]],
+                    ['3 ' . ucfirst(self::COMPUTING) . Defaults::DEFAULT_SUFFIX . ' 3% \033[18D', []],
+                    ['4 10%             \033[18D', [0.1, null]],
+                    ['1 10% \033[6D', [0.1, null]],
                 ],
                 '      \033[6D\033[?25h\033[?0c',
             ],

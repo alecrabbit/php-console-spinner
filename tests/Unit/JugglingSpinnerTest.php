@@ -65,7 +65,7 @@ class JugglingSpinnerTest extends TestCase
         $this->assertEquals('       \033[7D\033[?25h\033[?0c', Helper::stripEscape($s->end()));
 
         $this->assertEquals('\033[?25l2 0%   \033[7D', Helper::stripEscape($s->begin(0.0)));
-        $this->assertEquals('3 0%   \033[7D', Helper::stripEscape($s->spin()));
+        $this->assertEquals('3 0% \033[5D', Helper::stripEscape($s->spin()));
         $this->assertEquals('4 0% \033[5D', Helper::stripEscape($s->spin()));
         $this->assertEquals('1 0% \033[5D', Helper::stripEscape($s->spin()));
         $this->assertEquals('2 0% \033[5D', Helper::stripEscape($s->spin()));
@@ -88,7 +88,7 @@ class JugglingSpinnerTest extends TestCase
         $this->assertEquals('4 100% \033[7D', Helper::stripEscape($s->spin()));
         $this->assertEquals('1 100% \033[7D', Helper::stripEscape($s->spin()));
 
-        $this->assertEquals('\033[?25l2 \033[2D', Helper::stripEscape($s->begin()));
+        $this->assertEquals('\033[?25l2      \033[7D', Helper::stripEscape($s->begin()));
         $this->assertEquals('3 \033[2D', Helper::stripEscape($s->spin()));
         $this->assertEquals('4 \033[2D', Helper::stripEscape($s->spin()));
         $this->assertEquals('1 \033[2D', Helper::stripEscape($s->spin()));
@@ -131,9 +131,7 @@ class JugglingSpinnerTest extends TestCase
             Helper::stripEscape($s->spin())
         );
         $s->message(Defaults::EMPTY_STRING, 0);
-        $this->assertEquals('3 100%              \033[20D', Helper::stripEscape($s->spin()));
-//        $this->assertEquals('4 100% \033[7D', Helper::stripEscape($s->spin()));
-//        $this->assertEquals('1 100% \033[7D', Helper::stripEscape($s->spin()));
+        $this->assertEquals('3 100%               \033[21D', Helper::stripEscape($s->spin()));
     }
 
     /** @test */
@@ -171,7 +169,7 @@ class JugglingSpinnerTest extends TestCase
         $this->assertEquals(' 4 100% \033[8D', Helper::stripEscape($s->spin()));
         $this->assertEquals(' 1 100% \033[8D', Helper::stripEscape($s->spin()));
         $s->progress(null);
-        $this->assertEquals(' 2 \033[3D', Helper::stripEscape($s->spin()));
+        $this->assertEquals(' 2      \033[8D', Helper::stripEscape($s->spin()));
         $this->assertEquals(' 3 \033[3D', Helper::stripEscape($s->spin()));
         $this->assertEquals(' 4 \033[3D', Helper::stripEscape($s->spin()));
         $this->assertEquals(' 1 \033[3D', Helper::stripEscape($s->spin()));

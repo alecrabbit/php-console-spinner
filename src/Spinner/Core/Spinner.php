@@ -308,14 +308,6 @@ abstract class Spinner implements SpinnerInterface
         $erasingLengthDelta = $this->previousErasingLength - $erasingLength;
         $this->previousErasingLength = $erasingLength;
 
-////        dump($erasingLengthDelta );
-        dump(
-            sprintf('D:%s P:%s E:%s',
-                $erasingLengthDelta,
-                $this->previousErasingLength,
-                $erasingLength
-            )
-        );
         if ($erasingLengthDelta > 0) {
 
             $erasingLength += $erasingLengthDelta;
@@ -324,17 +316,7 @@ abstract class Spinner implements SpinnerInterface
         $this->moveCursorBackSequence = ESC . "[{$erasingLength}D";
         $this->eraseBySpacesSequence = str_repeat(Defaults::ONE_SPACE_SYMBOL, $erasingLength);
 
-//        $this->previousErasingLength = $erasingLength;
-//        dump(
-//            sprintf(
-//                'D:%s P2:%s E:%s',
-//                $erasingLengthDelta,
-//                $this->previousErasingLength,
-//                $erasingLength
-//            )
-//        );
-
-//        return Helper::stripEscape($this->spacer . $str . $eraseTailBySpacesSequence . $this->moveCursorBackSequence) . PHP_EOL;
-        return $this->spacer . $str . $eraseTailBySpacesSequence . $this->moveCursorBackSequence;
+        return
+            $this->spacer . $str . $eraseTailBySpacesSequence . $this->moveCursorBackSequence;
     }
 }
