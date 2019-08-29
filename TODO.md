@@ -1,6 +1,7 @@
 
-- [ ] Docs for new version `v.0.30.x`
-- [ ] Examples for new version `v.0.30.x`
+- [ ] Updated: Docs for new version `v.0.30.x`
+- [ ] Updated: Examples for new version `v.0.30.x`
+- [ ] Fixed: `Settings::class` (removed unnecessary methods)
 
 ---
 
