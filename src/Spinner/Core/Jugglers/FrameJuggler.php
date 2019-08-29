@@ -11,15 +11,18 @@ class FrameJuggler implements JugglerInterface
 {
     /** @var Circular */
     protected $frames;
+    /** @var Circular */
+    protected $style;
     /** @var int */
     protected $erasingLength;
     /** @var string */
     protected $spacer = Defaults::ONE_SPACE_SYMBOL;
 
-    public function __construct(array $frames)
+    public function __construct(array $frames, Circular $style = null)
     {
         $this->assertFrames($frames);
         $this->frames = new Circular($frames);
+        $this->style = $style ?? new Circular(['%s',]);
         $this->erasingLength = Calculator::computeErasingLength($frames) + strlen($this->spacer);
     }
 
@@ -42,6 +45,13 @@ class FrameJuggler implements JugglerInterface
     public function getFrame(): string
     {
         return $this->frames->value() . $this->spacer;
+    }
+
+    /** {@inheritDoc} */
+    public function getStyledFrame(): string
+    {
+        return
+            sprintf((string)$this->style->value(), $this->frames->value() . $this->spacer);
     }
 
     /** {@inheritDoc} */

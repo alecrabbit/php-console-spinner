@@ -285,30 +285,16 @@ abstract class Spinner implements SpinnerInterface
 
     protected function preparedStr(): string
     {
-//        $strJ= '';
-//        $erasingLengthJ = 0;
+//        $start = hrtime(true);
         $str = '';
         $erasingLength = 0;
         $eraseTailBySpacesSequence = '';
         foreach ($this->jugglers as $juggler) {
             if($juggler instanceof JugglerInterface) {
-//                $str .= $juggler->getStyledFrame(); // add method to JugglerInterface
-                $str .= $juggler->getFrame();
+                $str .= $juggler->getStyledFrame();
                 $erasingLength += $juggler->getFrameErasingLength();
             }
         }
-//        if ($this->frameJuggler instanceof FrameJuggler) {
-//            $str .= $this->style->spinner($this->frameJuggler->getFrame());
-//            $erasingLength += $this->frameJuggler->getFrameErasingLength();
-//        }
-//        if ($this->messageJuggler instanceof MessageJuggler) {
-//            $str .= $this->style->message($this->messageJuggler->getFrame());
-//            $erasingLength += $this->messageJuggler->getFrameErasingLength();
-//        }
-//        if ($this->progressJuggler instanceof ProgressJuggler) {
-//            $str .= $this->style->percent($this->progressJuggler->getFrame());
-//            $erasingLength += $this->progressJuggler->getFrameErasingLength();
-//        }
         $erasingLength += $this->inline ? 1 : 0;
         $erasingLengthDelta = $this->previousErasingLength - $erasingLength;
         $this->previousErasingLength = $erasingLength;
@@ -321,6 +307,7 @@ abstract class Spinner implements SpinnerInterface
         $this->eraseBySpacesSequence = str_repeat(Defaults::ONE_SPACE_SYMBOL, $erasingLength);
 
         $str = $this->spacer . $str . $eraseTailBySpacesSequence . $this->moveCursorBackSequence;
+//        dump(hrtime(true) - $start);
         return $str;
     }
 }

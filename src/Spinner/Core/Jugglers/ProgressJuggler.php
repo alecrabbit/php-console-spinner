@@ -2,6 +2,7 @@
 
 namespace AlecRabbit\Spinner\Core\Jugglers;
 
+use AlecRabbit\Accessories\Circular;
 use AlecRabbit\Spinner\Core\Jugglers\Contracts\JugglerInterface;
 use AlecRabbit\Spinner\Settings\Contracts\Defaults;
 use function AlecRabbit\Helpers\bounds;
@@ -14,9 +15,12 @@ class ProgressJuggler implements JugglerInterface
     protected $currentFrame;
     /** @var int */
     protected $currentFrameErasingLength;
+    /** @var Circular */
+    protected $style;
 
-    public function __construct(float $percent)
+    public function __construct(float $percent, Circular $style = null)
     {
+        $this->style = $style ?? new Circular(['%s',]);
         $this->update($percent);
     }
 
@@ -42,6 +46,13 @@ class ProgressJuggler implements JugglerInterface
     public function getFrame(): string
     {
         return $this->currentFrame;
+    }
+
+    /** {@inheritDoc} */
+    public function getStyledFrame(): string
+    {
+        return
+            sprintf((string)$this->style->value(), $this->currentFrame);
     }
 
     /** {@inheritDoc} */

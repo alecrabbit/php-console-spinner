@@ -2,6 +2,7 @@
 
 namespace AlecRabbit\Spinner\Core\Jugglers;
 
+use AlecRabbit\Accessories\Circular;
 use AlecRabbit\Spinner\Core\Calculator;
 use AlecRabbit\Spinner\Core\Jugglers\Contracts\JugglerInterface;
 use AlecRabbit\Spinner\Settings\Contracts\Defaults;
@@ -24,9 +25,12 @@ class MessageJuggler implements JugglerInterface
     protected $frameStringErasingLength;
     /** @var int */
     protected $erasingLengthDelta;
+    /** @var Circular */
+    protected $style;
 
-    public function __construct(string $message, int $erasingLength = null)
+    public function __construct(string $message, int $erasingLength = null, Circular $style = null)
     {
+        $this->style = $style ?? new Circular(['%s',]);
         $this->updateMessage($message, $erasingLength);
     }
 
@@ -101,6 +105,13 @@ class MessageJuggler implements JugglerInterface
     public function getFrame(): string
     {
         return $this->frameString;
+    }
+
+    /** {@inheritDoc} */
+    public function getStyledFrame(): string
+    {
+        return
+            sprintf((string)$this->style->value(), $this->frameString);
     }
 
     /** {@inheritDoc} */

@@ -11,6 +11,11 @@ interface JugglerInterface
     public function getFrame(): string;
 
     /**
+     * @return string
+     */
+    public function getStyledFrame(): string;
+
+    /**
      * @return int
      */
     public function getFrameErasingLength(): int;
