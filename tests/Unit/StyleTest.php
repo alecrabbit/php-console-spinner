@@ -17,9 +17,9 @@ class StyleTest extends TestCase
     protected const PROCESSING = 'Processing';
     protected const ONE_ELEMENT = 'oneElement';
     protected const DATA = 'data';
-    protected const PERCENT_STYLES = 'percentStyles';
+    protected const PERCENT_STYLES = 'progressStyles';
     protected const MESSAGE_STYLES = 'messageStyles';
-    protected const SPINNER_STYLES = 'spinnerStyles';
+    protected const SPINNER_STYLES = 'frameStyles';
     protected const S = '%s';
     protected const C = "\033[2m%s\033[0m";
 

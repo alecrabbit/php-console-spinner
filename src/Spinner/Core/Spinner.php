@@ -64,7 +64,6 @@ abstract class Spinner implements SpinnerInterface
         $this->output = $this->refineOutput($output);
         $this->settings = $this->refineSettings($messageOrSettings);
         $this->interval = $this->settings->getInterval();
-        $this->initJugglers();
         try {
             $this->style = new Style($this->settings->getStyles(), $color);
         } catch (\Throwable $e) {
@@ -74,6 +73,7 @@ abstract class Spinner implements SpinnerInterface
                 $e
             );
         }
+        $this->initJugglers();
         $this->jugglers = [
             &$this->frameJuggler,
             &$this->messageJuggler,
@@ -157,9 +157,7 @@ abstract class Spinner implements SpinnerInterface
         $frames = $this->settings->getFrames();
         if (!empty($frames)) {
             $this->frameJuggler =
-                new FrameJuggler(
-                    $frames
-                );
+                new FrameJuggler($frames, $this->style->getFrameStyles());
         }
 
         $message = $this->settings->getMessage();
@@ -182,7 +180,9 @@ abstract class Spinner implements SpinnerInterface
             }
         } else {
             $this->messageJuggler =
-                null === $message ? null : new MessageJuggler($message, $erasingLength);
+                null === $message ?
+                    null :
+                    new MessageJuggler($message, $erasingLength, $this->style->getMessageStyles());
         }
     }
 
@@ -252,7 +252,7 @@ abstract class Spinner implements SpinnerInterface
             }
         } else {
             $this->progressJuggler =
-                null === $percent ? null : new ProgressJuggler($percent);
+                null === $percent ? null : new ProgressJuggler($percent, $this->style->getProgressStyles());
         }
     }
 
@@ -290,7 +290,7 @@ abstract class Spinner implements SpinnerInterface
         $erasingLength = 0;
         $eraseTailBySpacesSequence = '';
         foreach ($this->jugglers as $juggler) {
-            if($juggler instanceof JugglerInterface) {
+            if ($juggler instanceof JugglerInterface) {
                 $str .= $juggler->getStyledFrame();
                 $erasingLength += $juggler->getFrameErasingLength();
             }

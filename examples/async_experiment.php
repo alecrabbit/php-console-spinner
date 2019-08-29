@@ -34,7 +34,7 @@ $progress = null;
 $messages = [
     0 => 'Initializing',
     3 => 'Starting',
-    4 => "\e[0mOverride message \e[93mcoloring\e[0m by \e[1mown styles\e[0m",
+    4 => "\e[0mOverride message \e[93mcoloring\e[0m by \e[1mown styles",
     10 => 'Begin processing ang this message continues further',
     14 => 'Gathering data',
     16 => 'Processing',
@@ -44,7 +44,7 @@ $messages = [
     88 => 'Still processing',
     90 => 'Almost there',
     95 => 'Be patient',
-
+    100 => 'Done',
 ];
 $s = new SnakeSpinner();
 

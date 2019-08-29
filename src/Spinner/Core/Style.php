@@ -14,11 +14,11 @@ use AlecRabbit\Spinner\Settings\Contracts\Defaults;
 class Style
 {
     /** @var Circular */
-    protected $spinnerStyles;
+    protected $frameStyles;
     /** @var Circular */
     protected $messageStyles;
     /** @var Circular */
-    protected $percentStyles;
+    protected $progressStyles;
 
     /**
      * Styles constructor.
@@ -29,9 +29,9 @@ class Style
     {
         $styles = $this->mergeStyles($styles);
         $coloring = new Coloring($styles, $colorSupport);
-        $this->spinnerStyles = $coloring->getSpinnerStyles();
+        $this->frameStyles = $coloring->getSpinnerStyles();
         $this->messageStyles = $coloring->getMessageStyles();
-        $this->percentStyles = $coloring->getPercentStyles();
+        $this->progressStyles = $coloring->getPercentStyles();
     }
 
     /**
@@ -51,21 +51,29 @@ class Style
         return $defaultStyles;
     }
 
-    public function spinner(string $symbol): string
+    /**
+     * @return Circular
+     */
+    public function getFrameStyles(): Circular
     {
-        return
-            sprintf((string)$this->spinnerStyles->value(), $symbol);
+        return $this->frameStyles;
     }
 
-    public function message(string $message): string
+    /**
+     * @return Circular
+     */
+    public function getMessageStyles(): Circular
     {
-        return
-            sprintf((string)$this->messageStyles->value(), $message);
+        return $this->messageStyles;
     }
 
-    public function percent(string $percent): string
+    /**
+     * @return Circular
+     */
+    public function getProgressStyles(): Circular
     {
-        return
-            sprintf((string)$this->percentStyles->value(), $percent);
+        return $this->progressStyles;
     }
+
+
 }
