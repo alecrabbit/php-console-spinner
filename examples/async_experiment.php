@@ -46,7 +46,9 @@ $messages = [
     95 => 'Be patient',
     100 => 'Done',
 ];
+
 $s = new SnakeSpinner();
+//$s = new LineSpinner((new Settings())->setInterval(1)); // Slow line spinner example
 
 // Add periodic timer to redraw our spinner
 $loop->addPeriodicTimer($s->interval(), static function () use ($s) {

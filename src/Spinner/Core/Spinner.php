@@ -47,8 +47,8 @@ abstract class Spinner implements SpinnerInterface
     protected $previousErasingLength = 0;
     /** @var string */
     protected $spacer = Defaults::EMPTY_STRING;
-    /** @var Style */
-    protected $style;
+    /** @var Coloring */
+    protected $coloring;
     /** @var null[]|JugglerInterface[] */
     protected $jugglers = [];
 
@@ -65,7 +65,7 @@ abstract class Spinner implements SpinnerInterface
         $this->settings = $this->refineSettings($messageOrSettings);
         $this->interval = $this->settings->getInterval();
         try {
-            $this->style = new Style($this->settings->getStyles(), $color);
+            $this->coloring = new Coloring($this->settings->getStyles(), $color);
         } catch (\Throwable $e) {
             throw new \InvalidArgumentException(
                 '[' . static::class . '] ' . $e->getMessage(),
@@ -157,7 +157,7 @@ abstract class Spinner implements SpinnerInterface
         $frames = $this->settings->getFrames();
         if (!empty($frames)) {
             $this->frameJuggler =
-                new FrameJuggler($frames, $this->style->getFrameStyles());
+                new FrameJuggler($frames, $this->coloring->getFrameStyles());
         }
 
         $message = $this->settings->getMessage();
@@ -182,7 +182,7 @@ abstract class Spinner implements SpinnerInterface
             $this->messageJuggler =
                 null === $message ?
                     null :
-                    new MessageJuggler($message, $erasingLength, $this->style->getMessageStyles());
+                    new MessageJuggler($message, $erasingLength, $this->coloring->getMessageStyles());
         }
     }
 
@@ -252,7 +252,7 @@ abstract class Spinner implements SpinnerInterface
             }
         } else {
             $this->progressJuggler =
-                null === $percent ? null : new ProgressJuggler($percent, $this->style->getProgressStyles());
+                null === $percent ? null : new ProgressJuggler($percent, $this->coloring->getProgressStyles());
         }
     }
 

@@ -26,6 +26,7 @@ class Coloring
      */
     public function __construct(array $styles, $color = null)
     {
+        $styles = $this->mergeStyles($styles);
         $this->assertStyles($styles);
         // Styles defaults - NO color
         $this->frameStyles = $this->circularNoColor();
@@ -110,6 +111,23 @@ class Coloring
                         $styles[StylesInterface::COLOR256]
                     )
                 );
+    }
+
+    /**
+     * @param array $styles
+     * @return array
+     */
+    protected function mergeStyles(array $styles): array
+    {
+        $defaultStyles = StylesInterface::DEFAULT_STYLES;
+        $keys = array_keys($defaultStyles);
+        foreach ($keys as $key) {
+            if (\array_key_exists($key, $styles)) {
+                /** @noinspection SlowArrayOperationsInLoopInspection */
+                $defaultStyles[$key] = array_merge(StylesInterface::DEFAULT_STYLES[$key], $styles[$key]);
+            }
+        }
+        return $defaultStyles;
     }
 
     /**
