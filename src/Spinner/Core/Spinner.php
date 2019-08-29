@@ -306,6 +306,8 @@ abstract class Spinner implements SpinnerInterface
         }
         $erasingLength += $this->inline ? 1 : 0;
         $erasingLengthDelta = $this->previousErasingLength - $erasingLength;
+        $this->previousErasingLength = $erasingLength;
+
 ////        dump($erasingLengthDelta );
         dump(
             sprintf('D:%s P:%s E:%s',
@@ -322,15 +324,15 @@ abstract class Spinner implements SpinnerInterface
         $this->moveCursorBackSequence = ESC . "[{$erasingLength}D";
         $this->eraseBySpacesSequence = str_repeat(Defaults::ONE_SPACE_SYMBOL, $erasingLength);
 
-        $this->previousErasingLength = $erasingLength;
-        dump(
-            sprintf(
-                'D:%s P2:%s E:%s',
-                $erasingLengthDelta,
-                $this->previousErasingLength,
-                $erasingLength
-            )
-        );
+//        $this->previousErasingLength = $erasingLength;
+//        dump(
+//            sprintf(
+//                'D:%s P2:%s E:%s',
+//                $erasingLengthDelta,
+//                $this->previousErasingLength,
+//                $erasingLength
+//            )
+//        );
 
 //        return Helper::stripEscape($this->spacer . $str . $eraseTailBySpacesSequence . $this->moveCursorBackSequence) . PHP_EOL;
         return $this->spacer . $str . $eraseTailBySpacesSequence . $this->moveCursorBackSequence;

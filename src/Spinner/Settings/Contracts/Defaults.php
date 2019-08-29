@@ -7,7 +7,7 @@ use AlecRabbit\Spinner\Core\Contracts\StylesInterface;
 
 interface Defaults
 {
-    public const ONE_SPACE_SYMBOL = '-';
+    public const ONE_SPACE_SYMBOL = ' ';
     public const EMPTY_STRING = '';
     public const DEFAULT_PREFIX = self::EMPTY_STRING;
     public const DEFAULT_SUFFIX = '...';
