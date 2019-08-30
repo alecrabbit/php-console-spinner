@@ -41,7 +41,7 @@ class SpinnerWithOutputTest extends TestCase
     public function nullSpinner(): void
     {
         $styles = [
-            StylesInterface::SPINNER_STYLES =>
+            StylesInterface::FRAMES_STYLES =>
                 [
                     StylesInterface::COLOR256 => StylesInterface::DISABLED,
                     StylesInterface::COLOR => StylesInterface::DISABLED,
@@ -51,7 +51,7 @@ class SpinnerWithOutputTest extends TestCase
                     StylesInterface::COLOR256 => StylesInterface::DISABLED,
                     StylesInterface::COLOR => StylesInterface::DISABLED,
                 ],
-            StylesInterface::PERCENT_STYLES =>
+            StylesInterface::PROGRESS_STYLES =>
                 [
                     StylesInterface::COLOR256 => StylesInterface::DISABLED,
                     StylesInterface::COLOR => StylesInterface::DISABLED,

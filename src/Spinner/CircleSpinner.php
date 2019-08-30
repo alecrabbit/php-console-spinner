@@ -13,7 +13,7 @@ class CircleSpinner extends Spinner
     protected const
         STYLES =
         [
-            StylesInterface::SPINNER_STYLES =>
+            StylesInterface::FRAMES_STYLES =>
                 [
                     StylesInterface::COLOR256 => StylesInterface::C256_YELLOW_WHITE,
                     StylesInterface::COLOR => StylesInterface::C_LIGHT_YELLOW,

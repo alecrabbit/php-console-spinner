@@ -12,7 +12,7 @@ class ExtendedSpinner extends Spinner
     protected const
         STYLES =
         [
-            StylesInterface::SPINNER_STYLES =>
+            StylesInterface::FRAMES_STYLES =>
                 [
                     StylesInterface::COLOR256 => StylesInterface::DISABLED,
                     StylesInterface::COLOR =>  [1, 2, 3, 4],

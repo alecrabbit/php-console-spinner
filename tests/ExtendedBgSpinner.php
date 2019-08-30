@@ -12,7 +12,7 @@ class ExtendedBgSpinner extends Spinner
     protected const
         STYLES =
         [
-            StylesInterface::SPINNER_STYLES =>
+            StylesInterface::FRAMES_STYLES =>
                 [
                     StylesInterface::COLOR256 => StylesInterface::DISABLED,
                     StylesInterface::COLOR =>

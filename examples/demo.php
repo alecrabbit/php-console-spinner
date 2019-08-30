@@ -5,8 +5,10 @@ use AlecRabbit\ConsoleColour\Themes;
 use AlecRabbit\Spinner\CircleSpinner;
 use AlecRabbit\Spinner\ClockSpinner;
 use AlecRabbit\Spinner\Core\Contracts\OldSpinnerInterface;
+use AlecRabbit\Spinner\Core\Contracts\SpinnerInterface;
 use AlecRabbit\Spinner\DiceSpinner;
 use AlecRabbit\Spinner\DotSpinner;
+use AlecRabbit\Spinner\EarthSpinner;
 use AlecRabbit\Spinner\MoonSpinner;
 use AlecRabbit\Spinner\PercentSpinner;
 use AlecRabbit\Spinner\SectorsSpinner;
@@ -25,6 +27,7 @@ echo PHP_EOL;
 echo PHP_EOL;
 //sleep(1);
 $spinners = [
+    EarthSpinner::class,
     PercentSpinner::class,
     SimpleSpinner::class,
     DotSpinner::class,
@@ -37,6 +40,7 @@ $spinners = [
 ];
 
 $arr = [
+    EarthSpinner::class,
     PercentSpinner::class,
     SnakeSpinner::class,
     ClockSpinner::class,
@@ -61,17 +65,20 @@ echo PHP_EOL;
 // ************************ Functions ************************
 
 /**
- * @param OldSpinnerInterface $s
+ * @param SpinnerInterface $s
  * @param bool $withPercent
  */
-function showSpinners(OldSpinnerInterface $s, bool $withPercent = false): void
+function showSpinners(SpinnerInterface $s, bool $withPercent = false): void
 {
     $microseconds = $s->interval() * 1000000;
     echo PHP_EOL;
     echo Cursor::up();
     echo $s->begin(); // Optional
     for ($i = 1; $i <= ITER; $i++) {
-        echo $s->spin($withPercent ? $i / ITER : null);
+        echo
+        $s
+            ->progress($withPercent ? $i / ITER : null)
+            ->spin();
         usleep($microseconds);
     }
     echo $s->end();

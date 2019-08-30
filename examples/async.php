@@ -9,9 +9,16 @@ if (!extension_loaded('pcntl')) {
 //require_once __DIR__ . '/../vendor/autoload.php';
 require_once __DIR__ . '/../tests/bootstrap.php';
 
+use AlecRabbit\ConsoleColour\Contracts\BG;
+use AlecRabbit\ConsoleColour\Contracts\Color;
+use AlecRabbit\ConsoleColour\Contracts\Effect;
+use AlecRabbit\ConsoleColour\Contracts\Styles;
 use AlecRabbit\ConsoleColour\Themes;
-use AlecRabbit\Spinner\SnakeSpinner;
+use AlecRabbit\Spinner\BlockSpinner;
+use AlecRabbit\Spinner\Core\Contracts\StylesInterface;
+use AlecRabbit\Spinner\Settings\Settings;
 use React\EventLoop\Factory;
+use const AlecRabbit\COLOR_TERMINAL;
 
 // coloring output
 $t = new Themes();
@@ -46,8 +53,30 @@ $messages = [
     100 => "\e[0m\e[92mDone",
 ];
 
-$s = new SnakeSpinner();
-//$s = new LineSpinner((new Settings())->setInterval(1)); // Slow line spinner example
+//$s = new BlockSpinner();
+//$s = new ClockSpinner((new Settings())->setInterval(1)); // Slow ClockSpinner example
+$s =
+    new BlockSpinner(       // Slow BlockSpinner with custom styles example
+        (new Settings())
+            ->setStyles(
+                [
+                    StylesInterface::FRAMES_STYLES =>
+                        [
+                            StylesInterface::COLOR =>  [[Color::WHITE, BG::RED, Effect::BOLD, Effect::ITALIC]],
+                        ],
+                    StylesInterface::MESSAGE_STYLES =>
+                        [
+                            StylesInterface::COLOR =>  [[Color::WHITE, BG::RED, Effect::BOLD, Effect::ITALIC]],
+                        ],
+                    StylesInterface::PROGRESS_STYLES =>
+                        [
+                            StylesInterface::COLOR =>  [[Color::WHITE, BG::RED, Effect::BOLD, Effect::ITALIC]],
+                        ],
+                ]
+            ),
+        null,
+        COLOR_TERMINAL
+    );
 
 // Add periodic timer to redraw our spinner
 $loop->addPeriodicTimer($s->interval(), static function () use ($s) {
@@ -58,7 +87,7 @@ $loop->addPeriodicTimer($s->interval(), static function () use ($s) {
 $loop->addPeriodicTimer(1, static function () use ($s, $t) {
     if (random_int(0, 1000) > 570) {
         $s->erase();
-        echo $t->dark(date('H:i:s')) . ' Simulated message.'. PHP_EOL;
+        echo $t->dark(date('H:i:s')) . ' Simulated message.' . PHP_EOL;
         $s->spin(); // optional
     }
 });

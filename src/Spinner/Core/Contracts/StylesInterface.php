@@ -9,7 +9,7 @@ interface StylesInterface
 {
     public const DEFAULT_STYLES =
         [
-            self::SPINNER_STYLES =>
+            self::FRAMES_STYLES =>
                 [
                     self::COLOR256 => self::C256_ROYAL_RAINBOW,
                     self::COLOR => self::C_DARK,
@@ -19,7 +19,7 @@ interface StylesInterface
                     self::COLOR256 => self::DISABLED,
                     self::COLOR => self::C_DARK,
                 ],
-            self::PERCENT_STYLES =>
+            self::PROGRESS_STYLES =>
                 [
                     self::COLOR256 => self::DISABLED,
                     self::COLOR => self::C_DARK,
@@ -28,7 +28,7 @@ interface StylesInterface
 
     public const STYLING_DISABLED =
         [
-            self::SPINNER_STYLES =>
+            self::FRAMES_STYLES =>
                 [
                     self::COLOR256 => self::DISABLED,
                     self::COLOR => self::DISABLED,
@@ -38,7 +38,7 @@ interface StylesInterface
                     self::COLOR256 => self::DISABLED,
                     self::COLOR => self::DISABLED,
                 ],
-            self::PERCENT_STYLES =>
+            self::PROGRESS_STYLES =>
                 [
                     self::COLOR256 => self::DISABLED,
                     self::COLOR => self::DISABLED,
@@ -52,9 +52,9 @@ interface StylesInterface
     public const COLOR = 'color';
     public const NO_COLOR = 'no_color';
 
-    public const SPINNER_STYLES = 'spinner_styles';
+    public const FRAMES_STYLES = 'spinner_styles';
     public const MESSAGE_STYLES = 'message_styles';
-    public const PERCENT_STYLES = 'percent_styles';
+    public const PROGRESS_STYLES = 'percent_styles';
 
     /*
                     Styles

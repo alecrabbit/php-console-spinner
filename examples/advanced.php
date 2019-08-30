@@ -1,17 +1,18 @@
-<?php /** @noinspection PhpComposerExtensionStubsInspection */
-declare(strict_types=1);
-
-if (!extension_loaded('pcntl')) {
-    echo 'This example requires pcntl extension.' . PHP_EOL;
-    exit(1);
-}
+<?php declare(strict_types=1);
 
 //require_once __DIR__ . '/../vendor/autoload.php';
 require_once __DIR__ . '/../tests/bootstrap.php';
+require_once __DIR__ . '/__include/__ext_check.php';
+
+__check_for_extension('pcntl', 'ext-pcntl is required', __FILE__);
 
 use AlecRabbit\Accessories\MemoryUsage;
 use AlecRabbit\Cli\Tools\Cursor;
+use AlecRabbit\ConsoleColour\Contracts\Styles;
 use AlecRabbit\ConsoleColour\Themes;
+use AlecRabbit\Spinner\Core\Contracts\Frames;
+use AlecRabbit\Spinner\Core\Contracts\StylesInterface;
+use AlecRabbit\Spinner\Settings\Settings;
 use AlecRabbit\Spinner\SnakeSpinner;
 use Psr\Http\Message\ServerRequestInterface;
 use React\EventLoop\Factory;
@@ -24,7 +25,8 @@ use function AlecRabbit\now;
 $t = new Themes();
 
 /**
- * Here we have a simple web server written with ReactPHP.
+ * This is an advanced example of using spinner.
+ * Here we have a simple web server written with reactPHP.
  *
  * We're using SnakeSpinner.
  *
@@ -38,6 +40,7 @@ $server =
                 return
                     new Response(404);
             }
+            echo date('D Y-m-d H:i:s') . ' ' . $request->getHeader('user-agent')[0] . PHP_EOL;
             return new Promise(static function ($resolve, $reject) use ($loop) {
                 // Emulating processing response
                 $loop->addTimer(0.2, static function () use ($resolve) {
@@ -75,17 +78,29 @@ $loop->addSignal(
 /**
  * Spinner part
  */
-$s = new SnakeSpinner(null, null);
+$settings = new Settings();
+$settings
+    ->setFrames(Frames::SNAKE_VARIANT_1)
+    ->setStyles(
+        [
+            StylesInterface::MESSAGE_STYLES =>
+                [
+                    StylesInterface::COLOR256 => StylesInterface::C256_YELLOW_WHITE,
+                    StylesInterface::COLOR => [Styles::WHITE],
+                ],
+        ]
+    );
+$s = new SnakeSpinner($settings, null);
 
 // Add periodic timer to redraw our spinner
 $loop->addPeriodicTimer($s->interval(), static function () use ($s) {
-    $s->spin();
+    $s
+        ->message(date('D Y-m-d H:i:s'))
+        ->spin();
 });
 
 // Add periodic timer to echo status message
-$loop->addPeriodicTimer(60, static function () use ($s, $t) {
-    $s->erase();
-    echo Cursor::up();
+$loop->addPeriodicTimer(900, static function () use ($t) {
     echo $t->dark(memory()) . PHP_EOL;
 });
 

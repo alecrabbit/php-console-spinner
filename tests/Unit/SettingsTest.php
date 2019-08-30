@@ -81,7 +81,7 @@ class SettingsTest extends TestCase
         $messagePrefix = '-';
         $messageSuffix = '';
         $styles = [
-            StylesInterface::SPINNER_STYLES =>
+            StylesInterface::FRAMES_STYLES =>
                 [
                     StylesInterface::COLOR256 => StylesInterface::C_DARK,
                     StylesInterface::COLOR => StylesInterface::DISABLED,
@@ -91,7 +91,7 @@ class SettingsTest extends TestCase
                     StylesInterface::COLOR256 => StylesInterface::C_DARK,
                     StylesInterface::COLOR => StylesInterface::DISABLED,
                 ],
-            StylesInterface::PERCENT_STYLES =>
+            StylesInterface::PROGRESS_STYLES =>
                 [
                     StylesInterface::COLOR256 => StylesInterface::C_DARK,
                     StylesInterface::COLOR => StylesInterface::DISABLED,

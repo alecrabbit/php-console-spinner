@@ -13,7 +13,7 @@ class SnakeSpinner extends Spinner
     protected const
         STYLES =
         [
-            StylesInterface::SPINNER_STYLES =>
+            StylesInterface::FRAMES_STYLES =>
                 [
                     StylesInterface::COLOR => StylesInterface::C_LIGHT_CYAN,
                 ],

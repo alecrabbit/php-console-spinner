@@ -96,7 +96,7 @@ class SpinnerTest extends TestCase
         $settings = new Settings();
         $settings->setStyles(
             [
-                StylesInterface::SPINNER_STYLES =>
+                StylesInterface::FRAMES_STYLES =>
                     [
                         StylesInterface::COLOR256 => 1,
                         StylesInterface::COLOR => 1,
@@ -122,7 +122,7 @@ class SpinnerTest extends TestCase
     public function nullSpinner(): void
     {
         $styles = [
-            StylesInterface::SPINNER_STYLES =>
+            StylesInterface::FRAMES_STYLES =>
                 [
                     StylesInterface::COLOR256 => StylesInterface::DISABLED,
                     StylesInterface::COLOR => StylesInterface::DISABLED,
@@ -132,7 +132,7 @@ class SpinnerTest extends TestCase
                     StylesInterface::COLOR256 => StylesInterface::DISABLED,
                     StylesInterface::COLOR => StylesInterface::DISABLED,
                 ],
-            StylesInterface::PERCENT_STYLES =>
+            StylesInterface::PROGRESS_STYLES =>
                 [
                     StylesInterface::COLOR256 => StylesInterface::DISABLED,
                     StylesInterface::COLOR => StylesInterface::DISABLED,
