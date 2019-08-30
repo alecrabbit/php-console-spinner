@@ -44,18 +44,18 @@ class SpinnerWithOutputTest extends TestCase
         $styles = [
             Juggler::FRAMES_STYLES =>
                 [
-                    StylesInterface::COLOR256 => StylesInterface::DISABLED,
-                    StylesInterface::COLOR => StylesInterface::DISABLED,
+                    Juggler::COLOR256 => StylesInterface::DISABLED,
+                    Juggler::COLOR => StylesInterface::DISABLED,
                 ],
             Juggler::MESSAGE_STYLES =>
                 [
-                    StylesInterface::COLOR256 => StylesInterface::DISABLED,
-                    StylesInterface::COLOR => StylesInterface::DISABLED,
+                    Juggler::COLOR256 => StylesInterface::DISABLED,
+                    Juggler::COLOR => StylesInterface::DISABLED,
                 ],
             Juggler::PROGRESS_STYLES =>
                 [
-                    StylesInterface::COLOR256 => StylesInterface::DISABLED,
-                    StylesInterface::COLOR => StylesInterface::DISABLED,
+                    Juggler::COLOR256 => StylesInterface::DISABLED,
+                    Juggler::COLOR => StylesInterface::DISABLED,
                 ],
         ];
         $output = new BufferOutputAdapter();

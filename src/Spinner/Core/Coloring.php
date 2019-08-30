@@ -98,7 +98,7 @@ class Coloring
     protected function circular256Color(array $styles): Circular
     {
         return
-            StylesInterface::DISABLED === $styles[StylesInterface::COLOR256] ?
+            StylesInterface::DISABLED === $styles[Juggler::COLOR256] ?
                 $this->circularColor($styles) :
                 new Circular(
                     array_map(
@@ -113,7 +113,7 @@ class Coloring
                             }
                             return ESC . "[38;5;{$value}m%s" . ESC . '[0m';
                         },
-                        $styles[StylesInterface::COLOR256]
+                        $styles[Juggler::COLOR256]
                     )
                 );
     }
@@ -142,7 +142,7 @@ class Coloring
     protected function circularColor(array $styles): Circular
     {
         return
-            StylesInterface::DISABLED === $styles[StylesInterface::COLOR] ?
+            StylesInterface::DISABLED === $styles[Juggler::COLOR] ?
                 $this->circularNoColor() :
                 new Circular(
                     array_map(
@@ -156,7 +156,7 @@ class Coloring
                             }
                             return ESC . "[{$value}m%s" . ESC . '[0m';
                         },
-                        $styles[StylesInterface::COLOR]
+                        $styles[Juggler::COLOR]
                     )
                 );
     }

@@ -99,8 +99,8 @@ class SpinnerTest extends TestCase
             [
                 Juggler::FRAMES_STYLES =>
                     [
-                        StylesInterface::COLOR256 => 1,
-                        StylesInterface::COLOR => 1,
+                        Juggler::COLOR256 => 1,
+                        Juggler::COLOR => 1,
                     ],
             ]
         );
@@ -125,18 +125,18 @@ class SpinnerTest extends TestCase
         $styles = [
             Juggler::FRAMES_STYLES =>
                 [
-                    StylesInterface::COLOR256 => StylesInterface::DISABLED,
-                    StylesInterface::COLOR => StylesInterface::DISABLED,
+                    Juggler::COLOR256 => StylesInterface::DISABLED,
+                    Juggler::COLOR => StylesInterface::DISABLED,
                 ],
             Juggler::MESSAGE_STYLES =>
                 [
-                    StylesInterface::COLOR256 => StylesInterface::DISABLED,
-                    StylesInterface::COLOR => StylesInterface::DISABLED,
+                    Juggler::COLOR256 => StylesInterface::DISABLED,
+                    Juggler::COLOR => StylesInterface::DISABLED,
                 ],
             Juggler::PROGRESS_STYLES =>
                 [
-                    StylesInterface::COLOR256 => StylesInterface::DISABLED,
-                    StylesInterface::COLOR => StylesInterface::DISABLED,
+                    Juggler::COLOR256 => StylesInterface::DISABLED,
+                    Juggler::COLOR => StylesInterface::DISABLED,
                 ],
         ];
         $settings = new Settings();

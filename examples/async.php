@@ -15,8 +15,10 @@ use AlecRabbit\ConsoleColour\Contracts\Effect;
 use AlecRabbit\ConsoleColour\Contracts\Styles;
 use AlecRabbit\ConsoleColour\Themes;
 use AlecRabbit\Spinner\BlockSpinner;
+use AlecRabbit\Spinner\Core\Contracts\Juggler;
 use AlecRabbit\Spinner\Core\Contracts\StylesInterface;
 use AlecRabbit\Spinner\Settings\Settings;
+use AlecRabbit\Spinner\SnakeSpinner;
 use React\EventLoop\Factory;
 use const AlecRabbit\COLOR_TERMINAL;
 
@@ -57,22 +59,22 @@ $messages = [
 //$s = new ClockSpinner((new Settings())->setInterval(1)); // Slow ClockSpinner example
 $customStyle = [[Color::WHITE, BG::RED, Effect::BOLD, Effect::ITALIC]];
 $s =
-    new BlockSpinner(       // Slow BlockSpinner with custom styles example
+    new SnakeSpinner(       // Slow BlockSpinner with custom styles example
         (new Settings())
             ->setStyles(
                 [
                     Juggler::FRAMES_STYLES =>
                         [
-                            StylesInterface::COLOR256 =>  StylesInterface::C256_BG_RAINBOW,
-                            StylesInterface::COLOR => $customStyle,
+                            Juggler::COLOR256 =>  StylesInterface::C256_BG_RAINBOW,
+                            Juggler::COLOR => [[Color::YELLOW, BG::RED, Effect::BOLD,]],
                         ],
                     Juggler::MESSAGE_STYLES =>
                         [
-                            StylesInterface::COLOR => $customStyle,
+                            Juggler::COLOR => $customStyle,
                         ],
                     Juggler::PROGRESS_STYLES =>
                         [
-                            StylesInterface::COLOR => $customStyle,
+                            Juggler::COLOR => $customStyle,
                         ],
                 ]
             ),

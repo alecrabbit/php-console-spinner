@@ -15,8 +15,8 @@ class ExtendedSpinner extends Spinner
         [
             Juggler::FRAMES_STYLES =>
                 [
-                    StylesInterface::COLOR256 => StylesInterface::DISABLED,
-                    StylesInterface::COLOR =>  [1, 2, 3, 4],
+                    Juggler::COLOR256 => StylesInterface::DISABLED,
+                    Juggler::COLOR =>  [1, 2, 3, 4],
                 ],
         ];
 }

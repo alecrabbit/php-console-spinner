@@ -84,18 +84,18 @@ class SettingsTest extends TestCase
         $styles = [
             Juggler::FRAMES_STYLES =>
                 [
-                    StylesInterface::COLOR256 => StylesInterface::C_DARK,
-                    StylesInterface::COLOR => StylesInterface::DISABLED,
+                    Juggler::COLOR256 => StylesInterface::C_DARK,
+                    Juggler::COLOR => StylesInterface::DISABLED,
                 ],
             Juggler::MESSAGE_STYLES =>
                 [
-                    StylesInterface::COLOR256 => StylesInterface::C_DARK,
-                    StylesInterface::COLOR => StylesInterface::DISABLED,
+                    Juggler::COLOR256 => StylesInterface::C_DARK,
+                    Juggler::COLOR => StylesInterface::DISABLED,
                 ],
             Juggler::PROGRESS_STYLES =>
                 [
-                    StylesInterface::COLOR256 => StylesInterface::C_DARK,
-                    StylesInterface::COLOR => StylesInterface::DISABLED,
+                    Juggler::COLOR256 => StylesInterface::C_DARK,
+                    Juggler::COLOR => StylesInterface::DISABLED,
                 ],
         ];
         $frames = Frames::DIAMOND;

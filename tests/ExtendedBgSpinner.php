@@ -15,8 +15,8 @@ class ExtendedBgSpinner extends Spinner
         [
             Juggler::FRAMES_STYLES =>
                 [
-                    StylesInterface::COLOR256 => StylesInterface::DISABLED,
-                    StylesInterface::COLOR =>
+                    Juggler::COLOR256 => StylesInterface::DISABLED,
+                    Juggler::COLOR =>
                         [
                             [1, 1,],
                             [2, 2,],

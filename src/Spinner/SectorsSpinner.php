@@ -16,7 +16,7 @@ class SectorsSpinner extends Spinner
         [
             Juggler::FRAMES_STYLES =>
                 [
-                    StylesInterface::COLOR => StylesInterface::C_LIGHT_CYAN,
+                    Juggler::COLOR => StylesInterface::C_LIGHT_CYAN,
                 ],
         ];
 }

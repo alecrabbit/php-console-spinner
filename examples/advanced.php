@@ -85,8 +85,8 @@ $settings
         [
             Juggler::MESSAGE_STYLES =>
                 [
-                    StylesInterface::COLOR256 => StylesInterface::C256_YELLOW_WHITE,
-                    StylesInterface::COLOR => [Styles::WHITE],
+                    Juggler::COLOR256 => StylesInterface::C256_YELLOW_WHITE,
+                    Juggler::COLOR => [Styles::WHITE],
                 ],
         ]
     );

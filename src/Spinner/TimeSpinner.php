@@ -17,8 +17,8 @@ class TimeSpinner extends Spinner
         [
             Juggler::FRAMES_STYLES =>
                 [
-                    StylesInterface::COLOR256 => StylesInterface::DISABLED,
-                    StylesInterface::COLOR => StylesInterface::DISABLED,
+                    Juggler::COLOR256 => StylesInterface::DISABLED,
+                    Juggler::COLOR => StylesInterface::DISABLED,
                 ],
         ];
 

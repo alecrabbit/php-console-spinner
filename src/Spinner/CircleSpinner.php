@@ -16,8 +16,8 @@ class CircleSpinner extends Spinner
         [
             Juggler::FRAMES_STYLES =>
                 [
-                    StylesInterface::COLOR256 => StylesInterface::C256_YELLOW_WHITE,
-                    StylesInterface::COLOR => StylesInterface::C_LIGHT_YELLOW,
+                    Juggler::COLOR256 => StylesInterface::C256_YELLOW_WHITE,
+                    Juggler::COLOR => StylesInterface::C_LIGHT_YELLOW,
                 ],
         ];
 }
