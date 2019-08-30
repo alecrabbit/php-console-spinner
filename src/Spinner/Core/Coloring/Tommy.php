@@ -18,7 +18,11 @@ class Tommy
     /** @var Scott */
     protected $progressStyles;
 
-    public function __construct(array $styles, $color = null)
+    /**
+     * @param array $styles
+     * @param int|null $color
+     */
+    public function __construct(array $styles, int $color = null)
     {
         $styles = $this->mergeStyles($styles);
         $this->assertStyles($styles);

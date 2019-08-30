@@ -78,10 +78,10 @@ class Scott
                 $this->circularColor($styles, $format) :
                 new Circular(
                     array_map(
-                    /**
-                     * @param string|array $value
-                     * @return string
-                     */
+                        /**
+                        * @param string|array $value
+                        * @return string
+                        */
                         static function ($value) use ($format): string {
                             if (\is_array($value)) {
                                 [$fg, $bg] = $value;
@@ -106,10 +106,10 @@ class Scott
                 $this->circularNoColor($format) :
                 new Circular(
                     array_map(
-                    /**
-                     * @param string|array $value
-                     * @return string
-                     */
+                        /**
+                        * @param string|array $value
+                        * @return string
+                        */
                         static function ($value) use ($format): string {
                             if (\is_array($value)) {
                                 $value = implode(';', $value);
@@ -158,5 +158,4 @@ class Scott
     {
         return $this->spacer;
     }
-
 }

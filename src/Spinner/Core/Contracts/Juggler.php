@@ -14,6 +14,4 @@ interface Juggler
     public const FRAMES_STYLES = 'spinner_styles';
     public const MESSAGE_STYLES = 'message_styles';
     public const PROGRESS_STYLES = 'percent_styles';
-
-
 }

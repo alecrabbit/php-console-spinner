@@ -123,10 +123,10 @@ class Coloring
                 $this->circularColor($styles) :
                 new Circular(
                     array_map(
-                    /**
-                     * @param string|array $value
-                     * @return string
-                     */
+                        /**
+                        * @param string|array $value
+                        * @return string
+                        */
                         static function ($value): string {
                             if (\is_array($value)) {
                                 [$fg, $bg] = $value;
@@ -150,10 +150,10 @@ class Coloring
                 $this->circularNoColor() :
                 new Circular(
                     array_map(
-                    /**
-                     * @param string|array $value
-                     * @return string
-                     */
+                        /**
+                        * @param string|array $value
+                        * @return string
+                        */
                         static function ($value): string {
                             if (\is_array($value)) {
                                 $value = implode(';', $value);
@@ -223,6 +223,5 @@ class Coloring
                 return new Style($this->circularNoColor());
                 break;
         }
-
     }
 }
