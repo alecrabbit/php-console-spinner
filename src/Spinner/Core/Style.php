@@ -6,4 +6,5 @@ use AlecRabbit\Spinner\Core\Contracts\StyleInterface;
 
 class Style implements StyleInterface
 {
+
 }

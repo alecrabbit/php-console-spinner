@@ -5,5 +5,4 @@ namespace AlecRabbit\Spinner\Core\Contracts;
 
 interface StyleInterface
 {
-
 }
