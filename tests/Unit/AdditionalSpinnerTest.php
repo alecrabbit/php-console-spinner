@@ -102,32 +102,32 @@ class AdditionalSpinnerTest extends TestCase
         $s->progress(0.556);
         $s->message(self::PROCESSING);
         $this->assertEquals(
-            '4 ' . self::PROCESSING . Defaults::DEFAULT_SUFFIX . ' 55% \033[20D',
+            '4 ' . self::PROCESSING . Defaults::DOTS_SUFFIX . ' 55% \033[20D',
             Helper::stripEscape($s->spin())
         );
         $this->assertEquals(
-            '1 ' . self::PROCESSING . Defaults::DEFAULT_SUFFIX . ' 55% \033[20D',
+            '1 ' . self::PROCESSING . Defaults::DOTS_SUFFIX . ' 55% \033[20D',
             Helper::stripEscape($s->spin())
         );
         $this->assertEquals(
-            '2 ' . self::PROCESSING . Defaults::DEFAULT_SUFFIX . ' 55% \033[20D',
+            '2 ' . self::PROCESSING . Defaults::DOTS_SUFFIX . ' 55% \033[20D',
             Helper::stripEscape($s->spin())
         );
         $this->assertEquals(
-            '3 ' . self::PROCESSING . Defaults::DEFAULT_SUFFIX . ' 55% \033[20D',
+            '3 ' . self::PROCESSING . Defaults::DOTS_SUFFIX . ' 55% \033[20D',
             Helper::stripEscape($s->spin())
         );
         $this->assertEquals(
-            '4 ' . self::PROCESSING . Defaults::DEFAULT_SUFFIX . ' 55% \033[20D',
+            '4 ' . self::PROCESSING . Defaults::DOTS_SUFFIX . ' 55% \033[20D',
             Helper::stripEscape($s->spin())
         );
         $s->progress(1.0);
         $this->assertEquals(
-            '1 ' . self::PROCESSING . Defaults::DEFAULT_SUFFIX . ' 100% \033[21D',
+            '1 ' . self::PROCESSING . Defaults::DOTS_SUFFIX . ' 100% \033[21D',
             Helper::stripEscape($s->spin())
         );
         $this->assertEquals(
-            '2 ' . self::PROCESSING . Defaults::DEFAULT_SUFFIX . ' 100% \033[21D',
+            '2 ' . self::PROCESSING . Defaults::DOTS_SUFFIX . ' 100% \033[21D',
             Helper::stripEscape($s->spin())
         );
         $s->message(Defaults::EMPTY_STRING, 0);

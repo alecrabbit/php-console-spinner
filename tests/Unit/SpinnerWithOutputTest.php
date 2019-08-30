@@ -30,10 +30,10 @@ class SpinnerWithOutputTest extends TestCase
         $this->assertIsString($spinner->end());
         $this->assertStringNotContainsString(self::PROCESSING, $spinner->begin());
         $this->assertStringNotContainsString(Defaults::ONE_SPACE_SYMBOL, $spinner->begin());
-        $this->assertStringNotContainsString(Defaults::DEFAULT_SUFFIX, $spinner->begin());
+        $this->assertStringNotContainsString(Defaults::DOTS_SUFFIX, $spinner->begin());
         $this->assertStringNotContainsString(self::PROCESSING, $spinner->spin());
         $this->assertStringNotContainsString(Defaults::ONE_SPACE_SYMBOL, $spinner->spin());
-        $this->assertStringNotContainsString(Defaults::DEFAULT_SUFFIX, $spinner->spin());
+        $this->assertStringNotContainsString(Defaults::DOTS_SUFFIX, $spinner->spin());
         $this->assertStringNotContainsString(self::PROCESSING, $spinner->end());
     }
 

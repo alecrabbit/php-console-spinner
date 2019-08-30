@@ -40,7 +40,7 @@ class MessageJuggler extends AbstractJuggler
             $this->erasingLength = $erasingLength;
             $this->spacer = Defaults::ONE_SPACE_SYMBOL;
             $this->prefix = Defaults::DEFAULT_PREFIX;
-            $this->suffix = Defaults::DEFAULT_SUFFIX;
+            $this->suffix = Defaults::DOTS_SUFFIX;
         }
         $this->frameString =
             $this->prefix . $this->message . $this->suffix . $this->spacer;
