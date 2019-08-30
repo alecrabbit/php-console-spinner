@@ -9,6 +9,9 @@ use AlecRabbit\Spinner\Settings\Contracts\Defaults;
 
 abstract class AbstractJuggler implements JugglerInterface
 {
+    /** @var string */
+    protected $spacer = Defaults::ONE_SPACE_SYMBOL;
+
     /** @var int */
     protected $currentFrameErasingLength;
     /** @var Circular */
@@ -26,7 +29,7 @@ abstract class AbstractJuggler implements JugglerInterface
     public function getStyledFrame(): string
     {
         return
-            sprintf((string)$this->style->value(), $this->getCurrentFrame());
+            sprintf((string)$this->style->value(), $this->getCurrentFrame()) . $this->spacer;
     }
 
 
@@ -46,6 +49,7 @@ abstract class AbstractJuggler implements JugglerInterface
     {
         $this->style = $style->getStyle();
         $this->formatErasingShift = $this->calcFormatErasingShift($style->getFormat());
+        $this->spacer = $style->getSpacer();
     }
 
     /**

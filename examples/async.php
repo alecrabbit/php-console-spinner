@@ -65,16 +65,21 @@ $s =
                     Juggler::FRAMES_STYLES =>
                         [
                             Juggler::COLOR256 => Styles::C256_BG_RAINBOW,
-                            Juggler::COLOR => [[Color::YELLOW, BG::RED, Effect::BOLD,]],
+                            Juggler::COLOR => $customStyle,
+                            Juggler::FORMAT => ' %s ',
+                            Juggler::SPACER => '',
                         ],
                     Juggler::MESSAGE_STYLES =>
                         [
-                            Juggler::COLOR => $customStyle,
+                            Juggler::COLOR => [[Color::YELLOW, BG::BLUE, Effect::BOLD,]],
+                            Juggler::FORMAT => '%s ',
+                            Juggler::SPACER => '',
                         ],
                     Juggler::PROGRESS_STYLES =>
                         [
                             Juggler::COLOR => $customStyle,
-                            Juggler::FORMAT => '[%s]',
+                            Juggler::FORMAT => '%s ',
+                            Juggler::SPACER => '',
                         ],
                 ]
             ),

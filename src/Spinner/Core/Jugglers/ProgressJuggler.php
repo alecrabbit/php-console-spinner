@@ -3,13 +3,10 @@
 namespace AlecRabbit\Spinner\Core\Jugglers;
 
 use AlecRabbit\Spinner\Core\Coloring\Scott;
-use AlecRabbit\Spinner\Settings\Contracts\Defaults;
 use function AlecRabbit\Helpers\bounds;
 
 class ProgressJuggler extends AbstractJuggler
 {
-    /** @var string */
-    protected $spacer = Defaults::ONE_SPACE_SYMBOL;
     /** @var string */
     protected $currentFrame;
 
@@ -25,8 +22,9 @@ class ProgressJuggler extends AbstractJuggler
     protected function update(float $percent): void
     {
         $progress = bounds($percent, 0, 1);
-        $this->currentFrame = (int)($progress * 100) . '%' . $this->spacer;
-        $this->currentFrameErasingLength = strlen($this->currentFrame) + $this->formatErasingShift;
+        $this->currentFrame = (int)($progress * 100) . '%';
+        $this->currentFrameErasingLength =
+            strlen($this->currentFrame) + strlen($this->spacer) + $this->formatErasingShift;
     }
 
     /**

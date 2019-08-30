@@ -5,22 +5,20 @@ namespace AlecRabbit\Spinner\Core\Jugglers;
 use AlecRabbit\Accessories\Circular;
 use AlecRabbit\Spinner\Core\Calculator;
 use AlecRabbit\Spinner\Core\Coloring\Scott;
-use AlecRabbit\Spinner\Core\Style;
 use AlecRabbit\Spinner\Settings\Contracts\Defaults;
 
 class FrameJuggler extends AbstractJuggler
 {
     /** @var Circular */
     protected $frames;
-    /** @var string */
-    protected $spacer = Defaults::ONE_SPACE_SYMBOL;
 
     public function __construct(array $frames, Scott $style)
     {
         $this->assertFrames($frames);
         $this->frames = new Circular($frames);
         $this->init($style);
-        $this->currentFrameErasingLength = Calculator::computeErasingLength($frames) + strlen($this->spacer);
+        $this->currentFrameErasingLength =
+            Calculator::computeErasingLength($frames) + strlen($this->spacer) + $this->formatErasingShift;
     }
 
     /**
@@ -62,6 +60,6 @@ class FrameJuggler extends AbstractJuggler
      */
     protected function getCurrentFrame(): string
     {
-        return $this->frames->value() . $this->spacer;
+        return $this->frames->value();
     }
 }

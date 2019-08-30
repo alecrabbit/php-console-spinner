@@ -11,8 +11,6 @@ class MessageJuggler extends AbstractJuggler
 {
     /** @var string */
     protected $message;
-    /** @var string */
-    protected $spacer = Defaults::ONE_SPACE_SYMBOL;
     /** @var int */
     protected $erasingLength;
     /** @var string */
@@ -35,19 +33,17 @@ class MessageJuggler extends AbstractJuggler
         $this->message = $this->refineMessage($message);
         if (Defaults::EMPTY_STRING === $this->message) {
             $this->erasingLength = 0;
-            $this->spacer = Defaults::EMPTY_STRING;
             $this->suffix = Defaults::EMPTY_STRING;
         } else {
             $erasingLength = $this->refineErasingLen($this->message, $erasingLength);
             $this->erasingLength = $erasingLength;
-            $this->spacer = Defaults::ONE_SPACE_SYMBOL;
             $this->suffix = Defaults::DOTS_SUFFIX;
         }
         $this->frameString =
-            $this->message . $this->suffix . $this->spacer;
+            $this->message . $this->suffix;
 
         $this->currentFrameErasingLength =
-            strlen($this->spacer . $this->suffix) + $this->erasingLength;
+            strlen($this->spacer . $this->suffix) + $this->erasingLength + $this->formatErasingShift;
     }
 
     /**
