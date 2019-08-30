@@ -62,6 +62,6 @@ class FrameJuggler extends AbstractJuggler
      */
     protected function getCurrentFrame(): string
     {
-        return $this->prefix . $this->frames->value() . $this->suffix . $this->spacer;
+        return $this->frames->value() . $this->spacer;
     }
 }

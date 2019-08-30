@@ -13,10 +13,6 @@ abstract class AbstractJuggler implements JugglerInterface
     protected $currentFrameErasingLength;
     /** @var Circular */
     protected $style;
-    /** @var string */
-    protected $prefix = Defaults::EMPTY_STRING;
-    /** @var string */
-    protected $suffix = Defaults::EMPTY_STRING;
     /** @var int */
     protected $formatErasingShift;
 

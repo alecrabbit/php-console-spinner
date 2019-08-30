@@ -2,7 +2,6 @@
 
 namespace AlecRabbit\Spinner\Core\Jugglers;
 
-use AlecRabbit\Accessories\Circular;
 use AlecRabbit\Spinner\Core\Calculator;
 use AlecRabbit\Spinner\Core\Coloring\Scott;
 use AlecRabbit\Spinner\Core\Style;
@@ -18,6 +17,8 @@ class MessageJuggler extends AbstractJuggler
     protected $erasingLength;
     /** @var string */
     protected $frameString;
+    /** @var string */
+    protected $suffix;
 
     public function __construct(string $message, ?int $erasingLength, Scott $style)
     {
@@ -35,20 +36,18 @@ class MessageJuggler extends AbstractJuggler
         if (Defaults::EMPTY_STRING === $this->message) {
             $this->erasingLength = 0;
             $this->spacer = Defaults::EMPTY_STRING;
-            $this->prefix = Defaults::DEFAULT_PREFIX;
             $this->suffix = Defaults::EMPTY_STRING;
         } else {
             $erasingLength = $this->refineErasingLen($this->message, $erasingLength);
             $this->erasingLength = $erasingLength;
             $this->spacer = Defaults::ONE_SPACE_SYMBOL;
-            $this->prefix = Defaults::DEFAULT_PREFIX;
             $this->suffix = Defaults::DOTS_SUFFIX;
         }
         $this->frameString =
-            $this->prefix . $this->message . $this->suffix . $this->spacer;
+            $this->message . $this->suffix . $this->spacer;
 
         $this->currentFrameErasingLength =
-            strlen($this->spacer . $this->prefix . $this->suffix) + $this->erasingLength;
+            strlen($this->spacer . $this->suffix) + $this->erasingLength;
     }
 
     /**
