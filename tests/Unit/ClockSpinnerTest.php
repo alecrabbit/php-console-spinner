@@ -42,22 +42,22 @@ class ClockSpinnerTest extends TestCase
 
         // DO NOT CHANGE ORDER!!!
         $this->assertEquals(
-            Helper::stripEscape("\033[?25l🕐 \033[2mProcessing... \033[0m\033[17D"),
+            Helper::stripEscape("\033[?25l🕐 \033[2mProcessing...\033[0m \033[17D"),
             Helper::stripEscape($begin)
         );
-        $this->assertEquals("🕑 \033[2mProcessing... \033[0m\033[17D", $spinner->spin());
-        $this->assertEquals("🕒 \033[2mProcessing... \033[0m\033[17D", $spinner->spin());
-        $this->assertEquals("🕓 \033[2mProcessing... \033[0m\033[17D", $spinner->spin());
-        $this->assertEquals("🕔 \033[2mProcessing... \033[0m\033[17D", $spinner->spin());
-        $this->assertEquals("🕕 \033[2mProcessing... \033[0m\033[17D", $spinner->spin());
-        $this->assertEquals("🕖 \033[2mProcessing... \033[0m\033[17D", $spinner->spin());
-        $this->assertEquals("🕗 \033[2mProcessing... \033[0m\033[17D", $spinner->spin());
-        $this->assertEquals("🕘 \033[2mProcessing... \033[0m\033[17D", $spinner->spin());
-        $this->assertEquals("🕙 \033[2mProcessing... \033[0m\033[17D", $spinner->spin());
-        $this->assertEquals("🕚 \033[2mProcessing... \033[0m\033[17D", $spinner->spin());
-        $this->assertEquals("🕛 \033[2mProcessing... \033[0m\033[17D", $spinner->spin());
-        $this->assertEquals("🕐 \033[2mProcessing... \033[0m\033[17D", $spinner->spin());
-        $this->assertEquals("🕑 \033[2mProcessing... \033[0m\033[17D", $spinner->spin());
+        $this->assertEquals("🕑 \033[2mProcessing...\033[0m \033[17D", $spinner->spin());
+        $this->assertEquals("🕒 \033[2mProcessing...\033[0m \033[17D", $spinner->spin());
+        $this->assertEquals("🕓 \033[2mProcessing...\033[0m \033[17D", $spinner->spin());
+        $this->assertEquals("🕔 \033[2mProcessing...\033[0m \033[17D", $spinner->spin());
+        $this->assertEquals("🕕 \033[2mProcessing...\033[0m \033[17D", $spinner->spin());
+        $this->assertEquals("🕖 \033[2mProcessing...\033[0m \033[17D", $spinner->spin());
+        $this->assertEquals("🕗 \033[2mProcessing...\033[0m \033[17D", $spinner->spin());
+        $this->assertEquals("🕘 \033[2mProcessing...\033[0m \033[17D", $spinner->spin());
+        $this->assertEquals("🕙 \033[2mProcessing...\033[0m \033[17D", $spinner->spin());
+        $this->assertEquals("🕚 \033[2mProcessing...\033[0m \033[17D", $spinner->spin());
+        $this->assertEquals("🕛 \033[2mProcessing...\033[0m \033[17D", $spinner->spin());
+        $this->assertEquals("🕐 \033[2mProcessing...\033[0m \033[17D", $spinner->spin());
+        $this->assertEquals("🕑 \033[2mProcessing...\033[0m \033[17D", $spinner->spin());
 
 
         $this->assertEquals(Helper::stripEscape("                 \033[17D"), Helper::stripEscape($spinner->erase()));

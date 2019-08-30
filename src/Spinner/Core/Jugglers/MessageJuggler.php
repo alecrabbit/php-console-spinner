@@ -43,7 +43,7 @@ class MessageJuggler extends AbstractJuggler
             $this->message . $this->suffix;
 
         $this->currentFrameErasingLength =
-            strlen($this->spacer . $this->suffix) + $this->erasingLength + $this->formatErasingShift;
+            strlen($this->suffix . $this->spacer) + $this->erasingLength + $this->formatErasingShift;
     }
 
     /**

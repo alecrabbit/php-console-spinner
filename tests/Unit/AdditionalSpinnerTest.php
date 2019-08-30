@@ -130,7 +130,7 @@ class AdditionalSpinnerTest extends TestCase
             '2 ' . self::PROCESSING . Defaults::DOTS_SUFFIX . ' 100% \033[21D',
             Helper::stripEscape($s->spin())
         );
-        $s->message(Defaults::EMPTY_STRING, 0);
+        $s->message(null, 0);
         $this->assertEquals('3 100%               \033[21D', Helper::stripEscape($s->spin()));
     }
 
