@@ -12,14 +12,11 @@ require_once __DIR__ . '/../tests/bootstrap.php';
 use AlecRabbit\ConsoleColour\Contracts\BG;
 use AlecRabbit\ConsoleColour\Contracts\Color;
 use AlecRabbit\ConsoleColour\Contracts\Effect;
-use AlecRabbit\ConsoleColour\Contracts\Styles;
 use AlecRabbit\ConsoleColour\Themes;
 use AlecRabbit\Spinner\ArrowSpinner;
-use AlecRabbit\Spinner\BlockSpinner;
 use AlecRabbit\Spinner\Core\Contracts\Juggler;
 use AlecRabbit\Spinner\Core\Contracts\StylesInterface;
 use AlecRabbit\Spinner\Settings\Settings;
-use AlecRabbit\Spinner\SnakeSpinner;
 use React\EventLoop\Factory;
 use const AlecRabbit\COLOR_TERMINAL;
 
@@ -59,14 +56,15 @@ $messages = [
 //$s = new BlockSpinner();
 //$s = new ClockSpinner((new Settings())->setInterval(1)); // Slow ClockSpinner example
 $customStyle = [[Color::WHITE, BG::RED, Effect::BOLD, Effect::ITALIC]];
+$settings = new Settings();
 $s =
     new ArrowSpinner(       // Slow BlockSpinner with custom styles example
-        (new Settings())
+        $settings
             ->setStyles(
                 [
                     Juggler::FRAMES_STYLES =>
                         [
-                            Juggler::COLOR256 =>  StylesInterface::C256_BG_RAINBOW,
+                            Juggler::COLOR256 => StylesInterface::C256_BG_RAINBOW,
                             Juggler::COLOR => [[Color::YELLOW, BG::RED, Effect::BOLD,]],
                         ],
                     Juggler::MESSAGE_STYLES =>
@@ -125,5 +123,3 @@ $s->begin(); // Hides cursor and write first frame to output
 $loop->run();
 
 $s->end(); // Cleaning up
-
-dump($s);

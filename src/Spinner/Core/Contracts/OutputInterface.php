@@ -3,7 +3,7 @@
 
 namespace AlecRabbit\Spinner\Core\Contracts;
 
-interface SpinnerOutputInterface
+interface OutputInterface
 {
     /**
      * Writes a message to the output.

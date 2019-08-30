@@ -2,9 +2,9 @@
 
 namespace AlecRabbit\Tests\Spinner;
 
-use AlecRabbit\Spinner\Core\Contracts\SpinnerOutputInterface;
+use AlecRabbit\Spinner\Core\Contracts\OutputInterface;
 
-class BufferOutputAdapter implements SpinnerOutputInterface
+class BufferOutputAdapter implements OutputInterface
 {
     /** @var string */
     protected $buffer;

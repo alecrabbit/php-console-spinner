@@ -2,20 +2,20 @@
 
 namespace AlecRabbit\Spinner\Core\Adapters;
 
-use AlecRabbit\Spinner\Core\Contracts\SpinnerOutputInterface;
-use Symfony\Component\Console\Output\OutputInterface;
+use AlecRabbit\Spinner\Core\Contracts\OutputInterface;
+use Symfony\Component\Console\Output\OutputInterface as SymfonyOutput;
 
 /**
  * Class SymfonyOutputAdapter
  *
  * @codeCoverageIgnore
  */
-class SymfonyOutputAdapter implements SpinnerOutputInterface
+class SymfonyOutputAdapter implements OutputInterface
 {
     /** @var OutputInterface */
     protected $output;
 
-    public function __construct(OutputInterface $output)
+    public function __construct(SymfonyOutput $output)
     {
         $this->output = $output;
     }

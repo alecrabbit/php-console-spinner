@@ -6,7 +6,7 @@ use AlecRabbit\Spinner\Core\Contracts\Juggler;
 use AlecRabbit\Spinner\Settings\Contracts\Defaults;
 use const AlecRabbit\COLOR256_TERMINAL;
 use const AlecRabbit\NO_COLOR_TERMINAL;
-use AlecRabbit\Spinner\Core\Contracts\SpinnerOutputInterface;
+use AlecRabbit\Spinner\Core\Contracts\OutputInterface;
 use AlecRabbit\Spinner\Core\Contracts\StylesInterface;
 use AlecRabbit\Spinner\Settings\Settings;
 use AlecRabbit\Spinner\Core\Spinner;
@@ -25,7 +25,7 @@ class SpinnerWithOutputTest extends TestCase
         $this->assertSame(0.1, $spinner->interval());
         $spinnerOutput = $spinner->getOutput();
         $this->assertNotNull($spinnerOutput);
-        $this->assertInstanceOf(SpinnerOutputInterface::class, $spinnerOutput);
+        $this->assertInstanceOf(OutputInterface::class, $spinnerOutput);
         $this->assertIsString($spinner->begin());
         $this->assertIsString($spinner->spin());
         $this->assertIsString($spinner->end());

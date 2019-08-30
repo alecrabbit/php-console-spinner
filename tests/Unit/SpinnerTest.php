@@ -4,7 +4,7 @@ namespace AlecRabbit\Tests\Spinner;
 
 use AlecRabbit\Cli\Tools\Core\TerminalStatic;
 use AlecRabbit\Spinner\Core\Contracts\Juggler;
-use AlecRabbit\Spinner\Core\Contracts\SpinnerOutputInterface;
+use AlecRabbit\Spinner\Core\Contracts\OutputInterface;
 use AlecRabbit\Spinner\Core\Contracts\StylesInterface;
 use AlecRabbit\Spinner\Core\Spinner;
 use AlecRabbit\Spinner\Settings\Contracts\Defaults;
@@ -75,7 +75,7 @@ class SpinnerTest extends TestCase
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage(
-            'Incorrect parameter: [null|false|' . SpinnerOutputInterface::class . '] expected "integer" given.'
+            'Incorrect parameter: [null|false|' . OutputInterface::class . '] expected "integer" given.'
         );
         new ExtendedSpinner(null, 1);
     }
@@ -85,7 +85,7 @@ class SpinnerTest extends TestCase
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage(
-            'Incorrect parameter: [null|false|' . SpinnerOutputInterface::class . '] expected "true" given.'
+            'Incorrect parameter: [null|false|' . OutputInterface::class . '] expected "true" given.'
         );
         new ExtendedSpinner(null, true);
     }

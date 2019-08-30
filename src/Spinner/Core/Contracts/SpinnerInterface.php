@@ -23,9 +23,9 @@ interface SpinnerInterface
     public function end(): string;
 
     /**
-     * @return null|SpinnerOutputInterface
+     * @return null|OutputInterface
      */
-    public function getOutput(): ?SpinnerOutputInterface;
+    public function getOutput(): ?OutputInterface;
 
     /**
      * @param bool $inline

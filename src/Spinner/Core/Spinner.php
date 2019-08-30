@@ -4,7 +4,7 @@ namespace AlecRabbit\Spinner\Core;
 
 use AlecRabbit\Cli\Tools\Cursor;
 use AlecRabbit\Spinner\Core\Contracts\SpinnerInterface;
-use AlecRabbit\Spinner\Core\Contracts\SpinnerOutputInterface;
+use AlecRabbit\Spinner\Core\Contracts\OutputInterface;
 use AlecRabbit\Spinner\Core\Jugglers\Contracts\JugglerInterface;
 use AlecRabbit\Spinner\Core\Jugglers\FrameJuggler;
 use AlecRabbit\Spinner\Core\Jugglers\MessageJuggler;
@@ -45,7 +45,7 @@ abstract class Spinner extends SpinnerCore
      * Spinner constructor.
      *
      * @param null|string|Settings $messageOrSettings
-     * @param null|false|SpinnerOutputInterface $output
+     * @param null|false|OutputInterface $output
      * @param null|int $color
      */
     public function __construct($messageOrSettings = null, $output = null, ?int $color = null)
@@ -150,7 +150,7 @@ abstract class Spinner extends SpinnerCore
     /** {@inheritDoc} */
     public function end(): string
     {
-        if ($this->output instanceof SpinnerOutputInterface) {
+        if ($this->output instanceof OutputInterface) {
             $this->erase();
             $this->output->write(Cursor::show());
             return self::EMPTY_STRING;
@@ -162,7 +162,7 @@ abstract class Spinner extends SpinnerCore
     public function erase(): string
     {
         $str = $this->eraseBySpacesSequence . $this->moveCursorBackSequence;
-        if ($this->output instanceof SpinnerOutputInterface) {
+        if ($this->output instanceof OutputInterface) {
             $this->output->write($str);
             return self::EMPTY_STRING;
         }
@@ -170,7 +170,7 @@ abstract class Spinner extends SpinnerCore
     }
 
     /** {@inheritDoc} */
-    public function getOutput(): ?SpinnerOutputInterface
+    public function getOutput(): ?OutputInterface
     {
         return $this->output;
     }
@@ -225,7 +225,7 @@ abstract class Spinner extends SpinnerCore
         } else {
             $this->setProgress($percent);
         }
-        if ($this->output instanceof SpinnerOutputInterface) {
+        if ($this->output instanceof OutputInterface) {
             $this->output->write(Cursor::hide());
             $this->spin();
             return self::EMPTY_STRING;
@@ -236,7 +236,7 @@ abstract class Spinner extends SpinnerCore
     /** {@inheritDoc} */
     public function spin(): string
     {
-        if ($this->output instanceof SpinnerOutputInterface) {
+        if ($this->output instanceof OutputInterface) {
             $this->output->write($this->preparedStr());
             return self::EMPTY_STRING;
         }

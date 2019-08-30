@@ -2,14 +2,14 @@
 
 namespace AlecRabbit\Spinner\Core\Adapters;
 
-use AlecRabbit\Spinner\Core\Contracts\SpinnerOutputInterface;
+use AlecRabbit\Spinner\Core\Contracts\OutputInterface;
 
 /**
  * Class EchoOutputAdapter
  *
  * @codeCoverageIgnore
  */
-class EchoOutputAdapter implements SpinnerOutputInterface
+class EchoOutputAdapter implements OutputInterface
 {
     /** {@inheritDoc} */
     public function write($messages, $newline = false, $options = 0): void
