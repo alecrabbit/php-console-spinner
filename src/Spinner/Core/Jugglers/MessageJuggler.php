@@ -21,7 +21,7 @@ class MessageJuggler extends AbstractJuggler
 
     public function __construct(string $message, ?int $erasingLength, Scott $style)
     {
-        $this->style = $style->getStyle();
+        $this->init($style);
         $this->updateMessage($message, $erasingLength);
     }
 

@@ -2,9 +2,7 @@
 
 namespace AlecRabbit\Spinner\Core\Jugglers;
 
-use AlecRabbit\Accessories\Circular;
 use AlecRabbit\Spinner\Core\Coloring\Scott;
-use AlecRabbit\Spinner\Core\Style;
 use AlecRabbit\Spinner\Settings\Contracts\Defaults;
 use function AlecRabbit\Helpers\bounds;
 
@@ -14,13 +12,10 @@ class ProgressJuggler extends AbstractJuggler
     protected $spacer = Defaults::ONE_SPACE_SYMBOL;
     /** @var string */
     protected $currentFrame;
-    /** @var int */
-    protected $formatErasingShift;
 
     public function __construct(float $percent, Scott $style)
     {
-        $this->style = $style->getStyle();
-        $this->formatErasingShift = strlen(sprintf($style->getFormat(),''));
+        $this->init($style);
         $this->update($percent);
     }
 
@@ -42,9 +37,7 @@ class ProgressJuggler extends AbstractJuggler
         $this->update($percent);
     }
 
-    /**
-     * @return string
-     */
+    /** {@inheritDoc} */
     protected function getCurrentFrame(): string
     {
         return $this->currentFrame;
