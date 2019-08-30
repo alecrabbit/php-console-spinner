@@ -6,7 +6,7 @@ use AlecRabbit\Spinner\Core\Adapters\EchoOutputAdapter;
 use AlecRabbit\Spinner\Core\Contracts\Frames;
 use AlecRabbit\Spinner\Core\Contracts\SpinnerInterface;
 use AlecRabbit\Spinner\Core\Contracts\OutputInterface;
-use AlecRabbit\Spinner\Core\Contracts\StylesInterface;
+use AlecRabbit\Spinner\Core\Contracts\Styles;
 use AlecRabbit\Spinner\Settings\Contracts\Defaults;
 use function AlecRabbit\typeOf;
 
@@ -16,7 +16,7 @@ abstract class SpinnerCore implements SpinnerInterface
 
     protected const INTERVAL = Defaults::DEFAULT_INTERVAL;
     protected const FRAMES = Frames::BASE;
-    protected const STYLES = StylesInterface::STYLING_DISABLED;
+    protected const STYLES = Styles::STYLING_DISABLED;
 
     /** @var null|OutputInterface */
     protected $output;

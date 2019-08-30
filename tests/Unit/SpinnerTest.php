@@ -5,7 +5,7 @@ namespace AlecRabbit\Tests\Spinner;
 use AlecRabbit\Cli\Tools\Core\TerminalStatic;
 use AlecRabbit\Spinner\Core\Contracts\Juggler;
 use AlecRabbit\Spinner\Core\Contracts\OutputInterface;
-use AlecRabbit\Spinner\Core\Contracts\StylesInterface;
+use AlecRabbit\Spinner\Core\Contracts\Styles;
 use AlecRabbit\Spinner\Core\Spinner;
 use AlecRabbit\Spinner\Settings\Contracts\Defaults;
 use AlecRabbit\Spinner\Settings\Settings;
@@ -125,18 +125,18 @@ class SpinnerTest extends TestCase
         $styles = [
             Juggler::FRAMES_STYLES =>
                 [
-                    Juggler::COLOR256 => StylesInterface::DISABLED,
-                    Juggler::COLOR => StylesInterface::DISABLED,
+                    Juggler::COLOR256 => Styles::DISABLED,
+                    Juggler::COLOR => Styles::DISABLED,
                 ],
             Juggler::MESSAGE_STYLES =>
                 [
-                    Juggler::COLOR256 => StylesInterface::DISABLED,
-                    Juggler::COLOR => StylesInterface::DISABLED,
+                    Juggler::COLOR256 => Styles::DISABLED,
+                    Juggler::COLOR => Styles::DISABLED,
                 ],
             Juggler::PROGRESS_STYLES =>
                 [
-                    Juggler::COLOR256 => StylesInterface::DISABLED,
-                    Juggler::COLOR => StylesInterface::DISABLED,
+                    Juggler::COLOR256 => Styles::DISABLED,
+                    Juggler::COLOR => Styles::DISABLED,
                 ],
         ];
         $settings = new Settings();

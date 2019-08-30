@@ -7,7 +7,7 @@ use AlecRabbit\Spinner\Settings\Contracts\Defaults;
 use const AlecRabbit\COLOR256_TERMINAL;
 use const AlecRabbit\NO_COLOR_TERMINAL;
 use AlecRabbit\Spinner\Core\Contracts\OutputInterface;
-use AlecRabbit\Spinner\Core\Contracts\StylesInterface;
+use AlecRabbit\Spinner\Core\Contracts\Styles;
 use AlecRabbit\Spinner\Settings\Settings;
 use AlecRabbit\Spinner\Core\Spinner;
 use PHPUnit\Framework\TestCase;
@@ -44,18 +44,18 @@ class SpinnerWithOutputTest extends TestCase
         $styles = [
             Juggler::FRAMES_STYLES =>
                 [
-                    Juggler::COLOR256 => StylesInterface::DISABLED,
-                    Juggler::COLOR => StylesInterface::DISABLED,
+                    Juggler::COLOR256 => Styles::DISABLED,
+                    Juggler::COLOR => Styles::DISABLED,
                 ],
             Juggler::MESSAGE_STYLES =>
                 [
-                    Juggler::COLOR256 => StylesInterface::DISABLED,
-                    Juggler::COLOR => StylesInterface::DISABLED,
+                    Juggler::COLOR256 => Styles::DISABLED,
+                    Juggler::COLOR => Styles::DISABLED,
                 ],
             Juggler::PROGRESS_STYLES =>
                 [
-                    Juggler::COLOR256 => StylesInterface::DISABLED,
-                    Juggler::COLOR => StylesInterface::DISABLED,
+                    Juggler::COLOR256 => Styles::DISABLED,
+                    Juggler::COLOR => Styles::DISABLED,
                 ],
         ];
         $output = new BufferOutputAdapter();

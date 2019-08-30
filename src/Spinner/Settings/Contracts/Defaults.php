@@ -3,7 +3,7 @@
 
 namespace AlecRabbit\Spinner\Settings\Contracts;
 
-use AlecRabbit\Spinner\Core\Contracts\StylesInterface;
+use AlecRabbit\Spinner\Core\Contracts\Styles;
 
 interface Defaults
 {
@@ -31,7 +31,7 @@ interface Defaults
             S::MESSAGE_SUFFIX => self::EMPTY_STRING, // Deprecated
             S::INLINE_PADDING_STR => self::EMPTY_STRING,
             S::FRAMES => self::DEFAULT_FRAMES,
-            S::STYLES => StylesInterface::STYLING_DISABLED,
+            S::STYLES => Styles::STYLING_DISABLED,
             S::SPACER => self::EMPTY_STRING, // Deprecated
         ];
 }

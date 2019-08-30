@@ -5,7 +5,7 @@ namespace AlecRabbit\Spinner\Core;
 use AlecRabbit\Accessories\Circular;
 use AlecRabbit\Cli\Tools\Core\TerminalStatic;
 use AlecRabbit\Spinner\Core\Contracts\Juggler;
-use AlecRabbit\Spinner\Core\Contracts\StylesInterface;
+use AlecRabbit\Spinner\Core\Contracts\Styles;
 use const AlecRabbit\COLOR256_TERMINAL;
 use const AlecRabbit\COLOR_TERMINAL;
 use const AlecRabbit\ESC;
@@ -46,7 +46,7 @@ class Coloring
      */
     protected function assertStyles(array $styles): void
     {
-        foreach (StylesInterface::DEFAULT_STYLES as $index => $defaults) {
+        foreach (Styles::DEFAULT_STYLES as $index => $defaults) {
             if (!\array_key_exists($index, $styles)) {
                 // @codeCoverageIgnoreStart
                 throw new \InvalidArgumentException(
@@ -102,7 +102,7 @@ class Coloring
     protected function circular256Color(array $styles): Circular
     {
         return
-            StylesInterface::DISABLED === $styles[Juggler::COLOR256] ?
+            Styles::DISABLED === $styles[Juggler::COLOR256] ?
                 $this->circularColor($styles) :
                 new Circular(
                     array_map(
@@ -128,12 +128,12 @@ class Coloring
      */
     protected function mergeStyles(array $styles): array
     {
-        $defaultStyles = StylesInterface::DEFAULT_STYLES;
+        $defaultStyles = Styles::DEFAULT_STYLES;
         $keys = array_keys($defaultStyles);
         foreach ($keys as $key) {
             if (\array_key_exists($key, $styles)) {
                 /** @noinspection SlowArrayOperationsInLoopInspection */
-                $defaultStyles[$key] = array_merge(StylesInterface::DEFAULT_STYLES[$key], $styles[$key]);
+                $defaultStyles[$key] = array_merge(Styles::DEFAULT_STYLES[$key], $styles[$key]);
             }
         }
         return $defaultStyles;
@@ -146,7 +146,7 @@ class Coloring
     protected function circularColor(array $styles): Circular
     {
         return
-            StylesInterface::DISABLED === $styles[Juggler::COLOR] ?
+            Styles::DISABLED === $styles[Juggler::COLOR] ?
                 $this->circularNoColor() :
                 new Circular(
                     array_map(

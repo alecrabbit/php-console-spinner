@@ -11,7 +11,7 @@ use AlecRabbit\Cli\Tools\Cursor;
 use AlecRabbit\ConsoleColour\Contracts\Styles;
 use AlecRabbit\ConsoleColour\Themes;
 use AlecRabbit\Spinner\Core\Contracts\Frames;
-use AlecRabbit\Spinner\Core\Contracts\StylesInterface;
+use AlecRabbit\Spinner\Core\Contracts\Styles;
 use AlecRabbit\Spinner\Settings\Settings;
 use AlecRabbit\Spinner\SnakeSpinner;
 use Psr\Http\Message\ServerRequestInterface;
@@ -85,7 +85,7 @@ $settings
         [
             Juggler::MESSAGE_STYLES =>
                 [
-                    Juggler::COLOR256 => StylesInterface::C256_YELLOW_WHITE,
+                    Juggler::COLOR256 => Styles::C256_YELLOW_WHITE,
                     Juggler::COLOR => [Styles::WHITE],
                 ],
         ]

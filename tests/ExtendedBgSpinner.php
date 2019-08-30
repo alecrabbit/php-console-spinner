@@ -3,7 +3,7 @@
 namespace AlecRabbit\Tests\Spinner;
 
 use AlecRabbit\Spinner\Core\Contracts\Juggler;
-use AlecRabbit\Spinner\Core\Contracts\StylesInterface;
+use AlecRabbit\Spinner\Core\Contracts\Styles;
 use AlecRabbit\Spinner\Core\Spinner;
 
 class ExtendedBgSpinner extends Spinner
@@ -15,7 +15,7 @@ class ExtendedBgSpinner extends Spinner
         [
             Juggler::FRAMES_STYLES =>
                 [
-                    Juggler::COLOR256 => StylesInterface::DISABLED,
+                    Juggler::COLOR256 => Styles::DISABLED,
                     Juggler::COLOR =>
                         [
                             [1, 1,],

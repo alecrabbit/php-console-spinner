@@ -4,7 +4,7 @@ namespace AlecRabbit\Tests\Tools;
 
 use AlecRabbit\Spinner\Core\Contracts\Frames;
 use AlecRabbit\Spinner\Core\Contracts\Juggler;
-use AlecRabbit\Spinner\Core\Contracts\StylesInterface;
+use AlecRabbit\Spinner\Core\Contracts\Styles;
 use AlecRabbit\Spinner\Settings\Contracts\Defaults;
 use AlecRabbit\Spinner\Settings\Settings;
 use PHPUnit\Framework\TestCase;
@@ -26,7 +26,7 @@ class SettingsTest extends TestCase
         $this->assertEquals('', $settings->getInlinePaddingStr());
         $this->assertEquals(Defaults::ONE_SPACE_SYMBOL, $settings->getMessagePrefix());
         $this->assertEquals('', $settings->getMessageSuffix());
-        $this->assertEquals(StylesInterface::STYLING_DISABLED, $settings->getStyles());
+        $this->assertEquals(Styles::STYLING_DISABLED, $settings->getStyles());
         $this->assertEquals(Defaults::DEFAULT_FRAMES, $settings->getFrames());
         $this->assertEquals(Defaults::EMPTY_STRING, $settings->getSpacer());
         $this->assertEquals(0, $settings->getMessageErasingLen());
@@ -57,7 +57,7 @@ class SettingsTest extends TestCase
         $this->assertEquals('', $settings->getInlinePaddingStr());
         $this->assertEquals(Defaults::ONE_SPACE_SYMBOL, $settings->getMessagePrefix());
         $this->assertEquals('', $settings->getMessageSuffix());
-        $this->assertEquals(StylesInterface::STYLING_DISABLED, $settings->getStyles());
+        $this->assertEquals(Styles::STYLING_DISABLED, $settings->getStyles());
         $this->assertEquals(Defaults::DEFAULT_FRAMES, $settings->getFrames());
         $this->assertEquals(Defaults::EMPTY_STRING, $settings->getSpacer());
         $this->assertEquals(0, $settings->getMessageErasingLen());
@@ -84,18 +84,18 @@ class SettingsTest extends TestCase
         $styles = [
             Juggler::FRAMES_STYLES =>
                 [
-                    Juggler::COLOR256 => StylesInterface::C_DARK,
-                    Juggler::COLOR => StylesInterface::DISABLED,
+                    Juggler::COLOR256 => Styles::C_DARK,
+                    Juggler::COLOR => Styles::DISABLED,
                 ],
             Juggler::MESSAGE_STYLES =>
                 [
-                    Juggler::COLOR256 => StylesInterface::C_DARK,
-                    Juggler::COLOR => StylesInterface::DISABLED,
+                    Juggler::COLOR256 => Styles::C_DARK,
+                    Juggler::COLOR => Styles::DISABLED,
                 ],
             Juggler::PROGRESS_STYLES =>
                 [
-                    Juggler::COLOR256 => StylesInterface::C_DARK,
-                    Juggler::COLOR => StylesInterface::DISABLED,
+                    Juggler::COLOR256 => Styles::C_DARK,
+                    Juggler::COLOR => Styles::DISABLED,
                 ],
         ];
         $frames = Frames::DIAMOND;

@@ -1,7 +1,7 @@
 <?php
 
 use AlecRabbit\ConsoleColour\ConsoleColor;
-use AlecRabbit\Spinner\Core\Contracts\StylesInterface;
+use AlecRabbit\Spinner\Core\Contracts\Styles;
 
 require_once __DIR__ . '/../../../vendor/autoload.php';
 require_once __DIR__ . '/../data.php';
@@ -9,12 +9,12 @@ require_once __DIR__ . '/../data.php';
 $c = new ConsoleColor();
 
 $sets = [
-    'C256_PURPLE_RED' => StylesInterface::C256_PURPLE_RED,
-    'C256_ROYAL_BLUE_INDIAN_RED' => StylesInterface::C256_ROYAL_BLUE_INDIAN_RED,
-    'C256_RAINBOW' => StylesInterface::C256_RAINBOW,
-    'C256_ROYAL_RAINBOW' => StylesInterface::C256_ROYAL_RAINBOW,
-    'C256_C_RAINBOW' => StylesInterface::C256_C_RAINBOW,
-    'C256_YELLOW_WHITE' => StylesInterface::C256_YELLOW_WHITE,
+    'C256_PURPLE_RED' => Styles::C256_PURPLE_RED,
+    'C256_ROYAL_BLUE_INDIAN_RED' => Styles::C256_ROYAL_BLUE_INDIAN_RED,
+    'C256_RAINBOW' => Styles::C256_RAINBOW,
+    'C256_ROYAL_RAINBOW' => Styles::C256_ROYAL_RAINBOW,
+    'C256_C_RAINBOW' => Styles::C256_C_RAINBOW,
+    'C256_YELLOW_WHITE' => Styles::C256_YELLOW_WHITE,
 ];
 foreach ($sets as $name => $set) {
     echo $name . PHP_EOL;

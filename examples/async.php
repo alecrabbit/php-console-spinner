@@ -15,7 +15,7 @@ use AlecRabbit\ConsoleColour\Contracts\Effect;
 use AlecRabbit\ConsoleColour\Themes;
 use AlecRabbit\Spinner\ArrowSpinner;
 use AlecRabbit\Spinner\Core\Contracts\Juggler;
-use AlecRabbit\Spinner\Core\Contracts\StylesInterface;
+use AlecRabbit\Spinner\Core\Contracts\Styles;
 use AlecRabbit\Spinner\Settings\Settings;
 use React\EventLoop\Factory;
 use const AlecRabbit\COLOR_TERMINAL;
@@ -64,7 +64,7 @@ $s =
                 [
                     Juggler::FRAMES_STYLES =>
                         [
-                            Juggler::COLOR256 => StylesInterface::C256_BG_RAINBOW,
+                            Juggler::COLOR256 => Styles::C256_BG_RAINBOW,
                             Juggler::COLOR => [[Color::YELLOW, BG::RED, Effect::BOLD,]],
                         ],
                     Juggler::MESSAGE_STYLES =>

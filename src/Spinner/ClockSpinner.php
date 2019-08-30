@@ -4,7 +4,7 @@ namespace AlecRabbit\Spinner;
 
 use AlecRabbit\Spinner\Core\Contracts\Frames;
 use AlecRabbit\Spinner\Core\Contracts\Juggler;
-use AlecRabbit\Spinner\Core\Contracts\StylesInterface;
+use AlecRabbit\Spinner\Core\Contracts\Styles;
 use AlecRabbit\Spinner\Core\Spinner;
 
 class ClockSpinner extends Spinner
@@ -16,8 +16,8 @@ class ClockSpinner extends Spinner
         [
             Juggler::FRAMES_STYLES =>
                 [
-                    Juggler::COLOR256 => StylesInterface::DISABLED,
-                    Juggler::COLOR => StylesInterface::DISABLED,
+                    Juggler::COLOR256 => Styles::DISABLED,
+                    Juggler::COLOR => Styles::DISABLED,
                 ],
         ];
 }

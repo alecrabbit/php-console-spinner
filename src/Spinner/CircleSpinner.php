@@ -4,7 +4,7 @@ namespace AlecRabbit\Spinner;
 
 use AlecRabbit\Spinner\Core\Contracts\Frames;
 use AlecRabbit\Spinner\Core\Contracts\Juggler;
-use AlecRabbit\Spinner\Core\Contracts\StylesInterface;
+use AlecRabbit\Spinner\Core\Contracts\Styles;
 use AlecRabbit\Spinner\Core\Spinner;
 
 class CircleSpinner extends Spinner
@@ -16,8 +16,8 @@ class CircleSpinner extends Spinner
         [
             Juggler::FRAMES_STYLES =>
                 [
-                    Juggler::COLOR256 => StylesInterface::C256_YELLOW_WHITE,
-                    Juggler::COLOR => StylesInterface::C_LIGHT_YELLOW,
+                    Juggler::COLOR256 => Styles::C256_YELLOW_WHITE,
+                    Juggler::COLOR => Styles::C_LIGHT_YELLOW,
                 ],
         ];
 }

@@ -2,10 +2,11 @@
 
 namespace AlecRabbit\Spinner\Core\Contracts;
 
-use AlecRabbit\ConsoleColour\Contracts\Styles;
+use AlecRabbit\ConsoleColour\Contracts\Color;
+use AlecRabbit\ConsoleColour\Contracts\Effect;
 use AlecRabbit\Spinner\Settings\Contracts\Defaults;
 
-interface StylesInterface extends Juggler
+interface Styles extends Juggler
 {
     public const DEFAULT_STYLES =
         [
@@ -360,7 +361,7 @@ interface StylesInterface extends Juggler
             [232, 230,],
         ];
 
-    public const C_LIGHT_YELLOW = [Styles::LIGHT_YELLOW];
-    public const C_LIGHT_CYAN = [Styles::LIGHT_CYAN];
-    public const C_DARK = [Styles::DARK];
+    public const C_LIGHT_YELLOW = [Color::LIGHT_YELLOW];
+    public const C_LIGHT_CYAN = [Color::LIGHT_CYAN];
+    public const C_DARK = [Effect::DARK];
 }
