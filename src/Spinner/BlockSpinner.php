@@ -3,6 +3,7 @@
 namespace AlecRabbit\Spinner;
 
 use AlecRabbit\Spinner\Core\Contracts\Frames;
+use AlecRabbit\Spinner\Core\Contracts\Juggler;
 use AlecRabbit\Spinner\Core\Contracts\StylesInterface;
 use AlecRabbit\Spinner\Core\Spinner;
 
@@ -13,7 +14,7 @@ class BlockSpinner extends Spinner
     protected const
         STYLES =
         [
-            StylesInterface::FRAMES_STYLES =>
+            Juggler::FRAMES_STYLES =>
                 [
                     StylesInterface::COLOR => StylesInterface::C_LIGHT_CYAN,
                 ],

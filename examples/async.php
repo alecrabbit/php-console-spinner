@@ -55,22 +55,24 @@ $messages = [
 
 //$s = new BlockSpinner();
 //$s = new ClockSpinner((new Settings())->setInterval(1)); // Slow ClockSpinner example
+$customStyle = [[Color::WHITE, BG::RED, Effect::BOLD, Effect::ITALIC]];
 $s =
     new BlockSpinner(       // Slow BlockSpinner with custom styles example
         (new Settings())
             ->setStyles(
                 [
-                    StylesInterface::FRAMES_STYLES =>
+                    Juggler::FRAMES_STYLES =>
                         [
-                            StylesInterface::COLOR =>  [[Color::WHITE, BG::RED, Effect::BOLD, Effect::ITALIC]],
+                            StylesInterface::COLOR256 =>  StylesInterface::C256_BG_RAINBOW,
+                            StylesInterface::COLOR => $customStyle,
                         ],
                     StylesInterface::MESSAGE_STYLES =>
                         [
-                            StylesInterface::COLOR =>  [[Color::WHITE, BG::RED, Effect::BOLD, Effect::ITALIC]],
+                            StylesInterface::COLOR => $customStyle,
                         ],
                     StylesInterface::PROGRESS_STYLES =>
                         [
-                            StylesInterface::COLOR =>  [[Color::WHITE, BG::RED, Effect::BOLD, Effect::ITALIC]],
+                            StylesInterface::COLOR => $customStyle,
                         ],
                 ]
             ),

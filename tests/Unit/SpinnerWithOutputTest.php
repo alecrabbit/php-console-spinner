@@ -2,6 +2,7 @@
 
 namespace AlecRabbit\Tests\Spinner;
 
+use AlecRabbit\Spinner\Core\Contracts\Juggler;
 use AlecRabbit\Spinner\Settings\Contracts\Defaults;
 use const AlecRabbit\COLOR256_TERMINAL;
 use const AlecRabbit\NO_COLOR_TERMINAL;
@@ -41,7 +42,7 @@ class SpinnerWithOutputTest extends TestCase
     public function nullSpinner(): void
     {
         $styles = [
-            StylesInterface::FRAMES_STYLES =>
+            Juggler::FRAMES_STYLES =>
                 [
                     StylesInterface::COLOR256 => StylesInterface::DISABLED,
                     StylesInterface::COLOR => StylesInterface::DISABLED,

@@ -3,6 +3,7 @@
 namespace AlecRabbit\Tests\Tools;
 
 use AlecRabbit\Spinner\Core\Contracts\Frames;
+use AlecRabbit\Spinner\Core\Contracts\Juggler;
 use AlecRabbit\Spinner\Core\Contracts\StylesInterface;
 use AlecRabbit\Spinner\Settings\Contracts\Defaults;
 use AlecRabbit\Spinner\Settings\Settings;
@@ -81,7 +82,7 @@ class SettingsTest extends TestCase
         $messagePrefix = '-';
         $messageSuffix = '';
         $styles = [
-            StylesInterface::FRAMES_STYLES =>
+            Juggler::FRAMES_STYLES =>
                 [
                     StylesInterface::COLOR256 => StylesInterface::C_DARK,
                     StylesInterface::COLOR => StylesInterface::DISABLED,

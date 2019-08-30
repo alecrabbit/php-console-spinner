@@ -2,6 +2,7 @@
 
 namespace AlecRabbit\Tests\Spinner;
 
+use AlecRabbit\Spinner\Core\Contracts\Juggler;
 use AlecRabbit\Spinner\Core\Contracts\StylesInterface;
 use AlecRabbit\Spinner\Core\Spinner;
 
@@ -12,7 +13,7 @@ class Extended256BgSpinner extends Spinner
     protected const
         STYLES =
         [
-            StylesInterface::FRAMES_STYLES =>
+            Juggler::FRAMES_STYLES =>
                 [
                     StylesInterface::COLOR256 =>
                         [

@@ -3,6 +3,7 @@
 namespace AlecRabbit\Tests\Spinner;
 
 use AlecRabbit\Cli\Tools\Core\TerminalStatic;
+use AlecRabbit\Spinner\Core\Contracts\Juggler;
 use AlecRabbit\Spinner\Core\Contracts\SpinnerOutputInterface;
 use AlecRabbit\Spinner\Core\Contracts\StylesInterface;
 use AlecRabbit\Spinner\Core\Spinner;
@@ -96,7 +97,7 @@ class SpinnerTest extends TestCase
         $settings = new Settings();
         $settings->setStyles(
             [
-                StylesInterface::FRAMES_STYLES =>
+                Juggler::FRAMES_STYLES =>
                     [
                         StylesInterface::COLOR256 => 1,
                         StylesInterface::COLOR => 1,
@@ -122,7 +123,7 @@ class SpinnerTest extends TestCase
     public function nullSpinner(): void
     {
         $styles = [
-            StylesInterface::FRAMES_STYLES =>
+            Juggler::FRAMES_STYLES =>
                 [
                     StylesInterface::COLOR256 => StylesInterface::DISABLED,
                     StylesInterface::COLOR => StylesInterface::DISABLED,
