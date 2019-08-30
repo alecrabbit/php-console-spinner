@@ -3,6 +3,7 @@
 namespace AlecRabbit\Spinner\Core\Contracts;
 
 use AlecRabbit\ConsoleColour\Contracts\Styles;
+use AlecRabbit\Spinner\Settings\Contracts\Defaults;
 
 interface StylesInterface extends Juggler
 {
@@ -12,19 +13,22 @@ interface StylesInterface extends Juggler
                 [
                     self::COLOR256 => self::C256_ROYAL_RAINBOW,
                     self::COLOR => self::C_DARK,
-                    self::FORMAT => self::DEFAULT_FORMAT,
+                    self::FORMAT => Defaults::DEFAULT_FORMAT,
+                    self::SPACER => Defaults::DEFAULT_SPACER,
                 ],
             self::MESSAGE_STYLES =>
                 [
                     self::COLOR256 => self::DISABLED,
                     self::COLOR => self::C_DARK,
-                    self::FORMAT => self::DEFAULT_FORMAT,
+                    self::FORMAT => Defaults::DEFAULT_FORMAT,
+                    self::SPACER => Defaults::DEFAULT_SPACER,
                 ],
             self::PROGRESS_STYLES =>
                 [
                     self::COLOR256 => self::DISABLED,
                     self::COLOR => self::C_DARK,
-                    self::FORMAT => self::DEFAULT_FORMAT,
+                    self::FORMAT => Defaults::DEFAULT_FORMAT,
+                    self::SPACER => Defaults::DEFAULT_SPACER,
                 ],
         ];
 
@@ -34,16 +38,22 @@ interface StylesInterface extends Juggler
                 [
                     self::COLOR256 => self::DISABLED,
                     self::COLOR => self::DISABLED,
+                    self::FORMAT => Defaults::DEFAULT_FORMAT,
+                    self::SPACER => Defaults::DEFAULT_SPACER,
                 ],
             self::MESSAGE_STYLES =>
                 [
                     self::COLOR256 => self::DISABLED,
                     self::COLOR => self::DISABLED,
+                    self::FORMAT => Defaults::DEFAULT_FORMAT,
+                    self::SPACER => Defaults::DEFAULT_SPACER,
                 ],
             self::PROGRESS_STYLES =>
                 [
                     self::COLOR256 => self::DISABLED,
                     self::COLOR => self::DISABLED,
+                    self::FORMAT => Defaults::DEFAULT_FORMAT,
+                    self::SPACER => Defaults::DEFAULT_SPACER,
                 ],
         ];
 
@@ -52,7 +62,6 @@ interface StylesInterface extends Juggler
     */
     public const DISABLED = null;
 
-    public const DEFAULT_FORMAT = '%s';
 
     public const C256_PURPLE_RED =
         [
