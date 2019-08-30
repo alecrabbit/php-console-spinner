@@ -35,27 +35,17 @@ interface Styles extends Juggler
 
     public const STYLING_DISABLED =
         [
-            self::FRAMES_STYLES =>
-                [
-                    self::COLOR256 => self::DISABLED,
-                    self::COLOR => self::DISABLED,
-                    self::FORMAT => Defaults::DEFAULT_FORMAT,
-                    self::SPACER => Defaults::DEFAULT_SPACER,
-                ],
-            self::MESSAGE_STYLES =>
-                [
-                    self::COLOR256 => self::DISABLED,
-                    self::COLOR => self::DISABLED,
-                    self::FORMAT => Defaults::DEFAULT_FORMAT,
-                    self::SPACER => Defaults::DEFAULT_SPACER,
-                ],
-            self::PROGRESS_STYLES =>
-                [
-                    self::COLOR256 => self::DISABLED,
-                    self::COLOR => self::DISABLED,
-                    self::FORMAT => Defaults::DEFAULT_FORMAT,
-                    self::SPACER => Defaults::DEFAULT_SPACER,
-                ],
+            self::FRAMES_STYLES => self::DEFAULT_STYLES_ELEMENT,
+            self::MESSAGE_STYLES => self::DEFAULT_STYLES_ELEMENT,
+            self::PROGRESS_STYLES => self::DEFAULT_STYLES_ELEMENT,
+        ];
+
+    public const DEFAULT_STYLES_ELEMENT =
+        [
+            self::COLOR256 => self::DISABLED,
+            self::COLOR => self::DISABLED,
+            self::FORMAT => Defaults::DEFAULT_FORMAT,
+            self::SPACER => Defaults::DEFAULT_SPACER,
         ];
 
     /*

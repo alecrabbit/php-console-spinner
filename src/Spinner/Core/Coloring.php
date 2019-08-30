@@ -43,6 +43,23 @@ class Coloring
 
     /**
      * @param array $styles
+     * @return array
+     */
+    protected function mergeStyles(array $styles): array
+    {
+        $defaultStyles = Styles::DEFAULT_STYLES;
+        $keys = array_keys($defaultStyles);
+        foreach ($keys as $key) {
+            if (\array_key_exists($key, $styles)) {
+                /** @noinspection SlowArrayOperationsInLoopInspection */
+                $defaultStyles[$key] = array_merge(Styles::DEFAULT_STYLES[$key], $styles[$key]);
+            }
+        }
+        return $defaultStyles;
+    }
+
+    /**
+     * @param array $styles
      */
     protected function assertStyles(array $styles): void
     {
@@ -77,9 +94,9 @@ class Coloring
 
     /**
      * @param array $styles
-     * @param mixed $color
+     * @param int $color
      */
-    protected function assignStyles(array $styles, $color): void
+    protected function assignStyles(array $styles, int $color): void
     {
         switch ($color) {
             case COLOR256_TERMINAL:
@@ -106,13 +123,13 @@ class Coloring
                 $this->circularColor($styles) :
                 new Circular(
                     array_map(
-                        /**
-                         * @param string|array $value
-                         * @return string
-                         */
+                    /**
+                     * @param string|array $value
+                     * @return string
+                     */
                         static function ($value): string {
                             if (\is_array($value)) {
-                                [$fg,  $bg] = $value;
+                                [$fg, $bg] = $value;
                                 return ESC . "[38;5;{$fg};48;5;{$bg}m%s" . ESC . '[0m';
                             }
                             return ESC . "[38;5;{$value}m%s" . ESC . '[0m';
@@ -120,23 +137,6 @@ class Coloring
                         $styles[Juggler::COLOR256]
                     )
                 );
-    }
-
-    /**
-     * @param array $styles
-     * @return array
-     */
-    protected function mergeStyles(array $styles): array
-    {
-        $defaultStyles = Styles::DEFAULT_STYLES;
-        $keys = array_keys($defaultStyles);
-        foreach ($keys as $key) {
-            if (\array_key_exists($key, $styles)) {
-                /** @noinspection SlowArrayOperationsInLoopInspection */
-                $defaultStyles[$key] = array_merge(Styles::DEFAULT_STYLES[$key], $styles[$key]);
-            }
-        }
-        return $defaultStyles;
     }
 
     /**
@@ -150,10 +150,10 @@ class Coloring
                 $this->circularNoColor() :
                 new Circular(
                     array_map(
-                        /**
-                         * @param string|array $value
-                         * @return string
-                         */
+                    /**
+                     * @param string|array $value
+                     * @return string
+                     */
                         static function ($value): string {
                             if (\is_array($value)) {
                                 $value = implode(';', $value);
@@ -207,5 +207,22 @@ class Coloring
     public function getProgressStyles(): Style
     {
         return new Style($this->progressStyles);
+    }
+
+    protected function styleFactory(array $styles, int $color): Style
+    {
+//        $styles1 = $styles[Juggler::FRAMES_STYLES];
+        switch ($color) {
+            case COLOR256_TERMINAL:
+                return new Style($this->circular256Color($styles));
+                break;
+            case COLOR_TERMINAL:
+                return new Style($this->circularColor($styles));
+                break;
+            default:
+                return new Style($this->circularNoColor());
+                break;
+        }
+
     }
 }
