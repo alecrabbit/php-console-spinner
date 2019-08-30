@@ -74,6 +74,7 @@ $s =
                     Juggler::PROGRESS_STYLES =>
                         [
                             Juggler::COLOR => $customStyle,
+                            Juggler::FORMAT => '[%s]',
                         ],
                 ]
             ),

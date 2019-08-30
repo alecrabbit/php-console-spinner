@@ -14,10 +14,13 @@ class ProgressJuggler extends AbstractJuggler
     protected $spacer = Defaults::ONE_SPACE_SYMBOL;
     /** @var string */
     protected $currentFrame;
+    /** @var int */
+    protected $formatErasingShift;
 
     public function __construct(float $percent, Scott $style)
     {
         $this->style = $style->getStyle();
+        $this->formatErasingShift = strlen(sprintf($style->getFormat(),''));
         $this->update($percent);
     }
 
@@ -28,7 +31,7 @@ class ProgressJuggler extends AbstractJuggler
     {
         $progress = bounds($percent, 0, 1);
         $this->currentFrame = $this->prefix . (int)($progress * 100) . '%' . $this->suffix . $this->spacer;
-        $this->currentFrameErasingLength = strlen($this->currentFrame);
+        $this->currentFrameErasingLength = strlen($this->currentFrame) + $this->formatErasingShift;
     }
 
     /**
