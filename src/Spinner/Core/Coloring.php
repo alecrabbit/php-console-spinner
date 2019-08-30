@@ -80,13 +80,13 @@ class Coloring
         switch ($color) {
             case COLOR256_TERMINAL:
                 $this->frameStyles = $this->circular256Color($styles[Juggler::FRAMES_STYLES]);
-                $this->messageStyles = $this->circular256Color($styles[StylesInterface::MESSAGE_STYLES]);
-                $this->progressStyles = $this->circular256Color($styles[StylesInterface::PROGRESS_STYLES]);
+                $this->messageStyles = $this->circular256Color($styles[Juggler::MESSAGE_STYLES]);
+                $this->progressStyles = $this->circular256Color($styles[Juggler::PROGRESS_STYLES]);
                 break;
             case COLOR_TERMINAL:
                 $this->frameStyles = $this->circularColor($styles[Juggler::FRAMES_STYLES]);
-                $this->messageStyles = $this->circularColor($styles[StylesInterface::MESSAGE_STYLES]);
-                $this->progressStyles = $this->circularColor($styles[StylesInterface::PROGRESS_STYLES]);
+                $this->messageStyles = $this->circularColor($styles[Juggler::MESSAGE_STYLES]);
+                $this->progressStyles = $this->circularColor($styles[Juggler::PROGRESS_STYLES]);
                 break;
         }
     }

@@ -66,11 +66,11 @@ $s =
                             StylesInterface::COLOR256 =>  StylesInterface::C256_BG_RAINBOW,
                             StylesInterface::COLOR => $customStyle,
                         ],
-                    StylesInterface::MESSAGE_STYLES =>
+                    Juggler::MESSAGE_STYLES =>
                         [
                             StylesInterface::COLOR => $customStyle,
                         ],
-                    StylesInterface::PROGRESS_STYLES =>
+                    Juggler::PROGRESS_STYLES =>
                         [
                             StylesInterface::COLOR => $customStyle,
                         ],

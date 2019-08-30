@@ -83,7 +83,7 @@ $settings
     ->setFrames(Frames::SNAKE_VARIANT_1)
     ->setStyles(
         [
-            StylesInterface::MESSAGE_STYLES =>
+            Juggler::MESSAGE_STYLES =>
                 [
                     StylesInterface::COLOR256 => StylesInterface::C256_YELLOW_WHITE,
                     StylesInterface::COLOR => [Styles::WHITE],

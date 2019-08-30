@@ -87,12 +87,12 @@ class SettingsTest extends TestCase
                     StylesInterface::COLOR256 => StylesInterface::C_DARK,
                     StylesInterface::COLOR => StylesInterface::DISABLED,
                 ],
-            StylesInterface::MESSAGE_STYLES =>
+            Juggler::MESSAGE_STYLES =>
                 [
                     StylesInterface::COLOR256 => StylesInterface::C_DARK,
                     StylesInterface::COLOR => StylesInterface::DISABLED,
                 ],
-            StylesInterface::PROGRESS_STYLES =>
+            Juggler::PROGRESS_STYLES =>
                 [
                     StylesInterface::COLOR256 => StylesInterface::C_DARK,
                     StylesInterface::COLOR => StylesInterface::DISABLED,
