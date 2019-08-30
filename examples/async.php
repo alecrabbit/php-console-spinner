@@ -70,7 +70,7 @@ $s =
                     Juggler::FRAMES_STYLES =>
                         [
                             Juggler::COLOR256 => Styles::C256_BG_RAINBOW,
-                            Juggler::COLOR => [[Color::WHITE, BG::RED, Effect::BOLD, Effect::ITALIC]],
+//                            Juggler::COLOR => [[Color::WHITE, BG::RED, Effect::BOLD, Effect::ITALIC]],
                             Juggler::FORMAT => ' %s ',
                             Juggler::SPACER => '',
                         ],
