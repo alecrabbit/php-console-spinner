@@ -12,16 +12,19 @@ interface StylesInterface extends Juggler
                 [
                     self::COLOR256 => self::C256_ROYAL_RAINBOW,
                     self::COLOR => self::C_DARK,
+                    self::FORMAT => self::DEFAULT_FORMAT,
                 ],
             self::MESSAGE_STYLES =>
                 [
                     self::COLOR256 => self::DISABLED,
                     self::COLOR => self::C_DARK,
+                    self::FORMAT => self::DEFAULT_FORMAT,
                 ],
             self::PROGRESS_STYLES =>
                 [
                     self::COLOR256 => self::DISABLED,
                     self::COLOR => self::C_DARK,
+                    self::FORMAT => self::DEFAULT_FORMAT,
                 ],
         ];
 
@@ -48,6 +51,8 @@ interface StylesInterface extends Juggler
                     Styles
     */
     public const DISABLED = null;
+
+    public const DEFAULT_FORMAT = '%s';
 
     public const C256_PURPLE_RED =
         [

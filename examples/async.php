@@ -14,6 +14,7 @@ use AlecRabbit\ConsoleColour\Contracts\Color;
 use AlecRabbit\ConsoleColour\Contracts\Effect;
 use AlecRabbit\ConsoleColour\Contracts\Styles;
 use AlecRabbit\ConsoleColour\Themes;
+use AlecRabbit\Spinner\ArrowSpinner;
 use AlecRabbit\Spinner\BlockSpinner;
 use AlecRabbit\Spinner\Core\Contracts\Juggler;
 use AlecRabbit\Spinner\Core\Contracts\StylesInterface;
@@ -59,7 +60,7 @@ $messages = [
 //$s = new ClockSpinner((new Settings())->setInterval(1)); // Slow ClockSpinner example
 $customStyle = [[Color::WHITE, BG::RED, Effect::BOLD, Effect::ITALIC]];
 $s =
-    new SnakeSpinner(       // Slow BlockSpinner with custom styles example
+    new ArrowSpinner(       // Slow BlockSpinner with custom styles example
         (new Settings())
             ->setStyles(
                 [

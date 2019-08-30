@@ -7,6 +7,7 @@ interface Juggler
 {
     public const COLOR256 = 'color256';
     public const COLOR = 'color';
+    public const FORMAT = 'format';
 //    public const NO_COLOR = 'no_color'; // Not used anywhere
 
     public const FRAMES_STYLES = 'spinner_styles';
