@@ -3,6 +3,7 @@
 namespace AlecRabbit\Spinner\Core\Jugglers;
 
 use AlecRabbit\Accessories\Circular;
+use AlecRabbit\Spinner\Core\Style;
 use AlecRabbit\Spinner\Settings\Contracts\Defaults;
 use function AlecRabbit\Helpers\bounds;
 
@@ -13,9 +14,9 @@ class ProgressJuggler extends AbstractJuggler
     /** @var string */
     protected $currentFrame;
 
-    public function __construct(float $percent, Circular $style = null)
+    public function __construct(float $percent, ?Style $style = null)
     {
-        $this->style = $style ?? new Circular(['%s',]);
+        $this->style = $this->refineStyle($style);
         $this->update($percent);
     }
 

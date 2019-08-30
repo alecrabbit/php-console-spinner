@@ -4,6 +4,7 @@ namespace AlecRabbit\Spinner\Core\Jugglers;
 
 use AlecRabbit\Accessories\Circular;
 use AlecRabbit\Spinner\Core\Calculator;
+use AlecRabbit\Spinner\Core\Style;
 use AlecRabbit\Spinner\Settings\Contracts\Defaults;
 
 class FrameJuggler extends AbstractJuggler
@@ -13,11 +14,11 @@ class FrameJuggler extends AbstractJuggler
     /** @var string */
     protected $spacer = Defaults::ONE_SPACE_SYMBOL;
 
-    public function __construct(array $frames, Circular $style = null)
+    public function __construct(array $frames, ?Style $style = null)
     {
         $this->assertFrames($frames);
         $this->frames = new Circular($frames);
-        $this->style = $style ?? new Circular(['%s',]);
+        $this->style = $this->refineStyle($style);
         $this->currentFrameErasingLength = Calculator::computeErasingLength($frames) + strlen($this->spacer);
     }
 

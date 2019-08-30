@@ -186,26 +186,26 @@ class Coloring
     }
 
     /**
-     * @return Circular
+     * @return Style
      */
-    public function getFrameStyles(): Circular
+    public function getFrameStyles(): Style
     {
-        return $this->frameStyles;
+        return new Style($this->frameStyles);
     }
 
     /**
-     * @return Circular
+     * @return Style
      */
-    public function getMessageStyles(): Circular
+    public function getMessageStyles(): Style
     {
-        return $this->messageStyles;
+        return new Style($this->messageStyles);
     }
 
     /**
-     * @return Circular
+     * @return Style
      */
-    public function getProgressStyles(): Circular
+    public function getProgressStyles(): Style
     {
-        return $this->progressStyles;
+        return new Style($this->progressStyles);
     }
 }

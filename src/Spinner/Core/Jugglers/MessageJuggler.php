@@ -4,6 +4,7 @@ namespace AlecRabbit\Spinner\Core\Jugglers;
 
 use AlecRabbit\Accessories\Circular;
 use AlecRabbit\Spinner\Core\Calculator;
+use AlecRabbit\Spinner\Core\Style;
 use AlecRabbit\Spinner\Settings\Contracts\Defaults;
 
 class MessageJuggler extends AbstractJuggler
@@ -17,9 +18,9 @@ class MessageJuggler extends AbstractJuggler
     /** @var string */
     protected $frameString;
 
-    public function __construct(string $message, int $erasingLength = null, Circular $style = null)
+    public function __construct(string $message, int $erasingLength = null, ?Style $style = null)
     {
-        $this->style = $style ?? new Circular(['%s',]);
+        $this->style = $this->refineStyle($style);
         $this->updateMessage($message, $erasingLength);
     }
 
