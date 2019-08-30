@@ -125,3 +125,5 @@ $s->begin(); // Hides cursor and write first frame to output
 $loop->run();
 
 $s->end(); // Cleaning up
+
+dump($s);
