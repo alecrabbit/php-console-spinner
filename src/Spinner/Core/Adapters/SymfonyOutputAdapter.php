@@ -12,7 +12,7 @@ use Symfony\Component\Console\Output\OutputInterface as SymfonyOutput;
  */
 class SymfonyOutputAdapter implements OutputInterface
 {
-    /** @var OutputInterface */
+    /** @var SymfonyOutput */
     protected $output;
 
     public function __construct(SymfonyOutput $output)
