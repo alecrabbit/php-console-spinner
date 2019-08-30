@@ -24,21 +24,21 @@ class TimeSpinnerTest extends TestCase
         $this->assertEquals(1, $spinner->interval());
         $this->assertEquals(
             '\033[?25l\033[2m' . $date . '...\033[0m \033[14D',
-            Helper::stripEscape($begin)
+            Helper::replaceEscape($begin)
         );
         $this->assertEquals(
             '\033[2m' . $date . '...\033[0m \033[14D',
-            Helper::stripEscape($spinner->spin())
+            Helper::replaceEscape($spinner->spin())
         );
         $spinner->inline(true);
         $begin = $spinner->begin();
         $this->assertEquals(
             '\033[?25l \033[2m' . $date . '...\033[0m \033[15D',
-            Helper::stripEscape($begin)
+            Helper::replaceEscape($begin)
         );
         $this->assertEquals(
             ' \033[2m' . $date . '...\033[0m \033[15D',
-            Helper::stripEscape($spinner->spin())
+            Helper::replaceEscape($spinner->spin())
         );
     }
 }

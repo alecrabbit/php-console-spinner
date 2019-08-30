@@ -44,7 +44,7 @@ class PercentSpinnerTest extends TestCase implements TestMessages
     {
         $spinner = new PercentSpinner(...$params);
         $begin = array_shift($expected)[0];
-        $this->assertSame($begin, Helper::stripEscape($spinner->begin()));
+        $this->assertSame($begin, Helper::replaceEscape($spinner->begin()));
         foreach ($expected as $data) {
             [$spin, $additional] = $data;
             if (!empty($additional)) {
@@ -56,9 +56,9 @@ class PercentSpinnerTest extends TestCase implements TestMessages
                     $spinner->message($message);
                 }
             }
-            $this->assertSame($spin, Helper::stripEscape($spinner->spin()));
+            $this->assertSame($spin, Helper::replaceEscape($spinner->spin()));
         }
-        $this->assertSame($end, Helper::stripEscape($spinner->end()));
+        $this->assertSame($end, Helper::replaceEscape($spinner->end()));
     }
 
     public function processDataProvider(): array

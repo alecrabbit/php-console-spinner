@@ -42,8 +42,8 @@ class ClockSpinnerTest extends TestCase
 
         // DO NOT CHANGE ORDER!!!
         $this->assertEquals(
-            Helper::stripEscape("\033[?25l🕐 \033[2mProcessing...\033[0m \033[17D"),
-            Helper::stripEscape($begin)
+            Helper::replaceEscape("\033[?25l🕐 \033[2mProcessing...\033[0m \033[17D"),
+            Helper::replaceEscape($begin)
         );
         $this->assertEquals("🕑 \033[2mProcessing...\033[0m \033[17D", $spinner->spin());
         $this->assertEquals("🕒 \033[2mProcessing...\033[0m \033[17D", $spinner->spin());
@@ -60,10 +60,10 @@ class ClockSpinnerTest extends TestCase
         $this->assertEquals("🕑 \033[2mProcessing...\033[0m \033[17D", $spinner->spin());
 
 
-        $this->assertEquals(Helper::stripEscape("                 \033[17D"), Helper::stripEscape($spinner->erase()));
+        $this->assertEquals(Helper::replaceEscape("                 \033[17D"), Helper::replaceEscape($spinner->erase()));
         $this->assertEquals(
-            Helper::stripEscape("                 \033[17D\033[?25h\033[?0c"),
-            Helper::stripEscape($spinner->end())
+            Helper::replaceEscape("                 \033[17D\033[?25h\033[?0c"),
+            Helper::replaceEscape($spinner->end())
         );
         $this->assertEquals("                 \033[17D", $spinner->erase());
         $this->assertEquals(

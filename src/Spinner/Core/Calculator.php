@@ -23,16 +23,17 @@ class Calculator
 
 
     /**
-     * @param null|string $symbol
+     * @param null|string $in
      * @return int
      */
-    protected static function erasingLen(?string $symbol): int
+    protected static function erasingLen(?string $in): int
     {
-        if (null === $symbol || Defaults::EMPTY_STRING === $symbol) {
+        if (null === $in || Defaults::EMPTY_STRING === $in) {
             return 0;
         }
-        $mbSymbolLen = mb_strlen($symbol);
-        $oneCharLen = strlen($symbol) / $mbSymbolLen;
+        $in = Strip::escCodes($in);
+        $mbSymbolLen = mb_strlen($in);
+        $oneCharLen = strlen($in) / $mbSymbolLen;
         if (4 === $oneCharLen) {
             return 2 * $mbSymbolLen;
         }
