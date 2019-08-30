@@ -40,22 +40,26 @@ $progress = null;
 $messages = [
     0 => 'Initializing',
     3 => 'Starting',
-    4 => "\e[0mOverride message \e[93mcoloring\e[0m by \e[1mown styles",
+//    4 => "\e[0mOverride message \e[93mcoloring\e[0m by \e[1mown styles",
+    4 => 'Override message coloring by own styles',
     10 => 'Begin processing ang this message continues further',
     14 => 'Gathering data',
     16 => 'Processing',
     25 => null,
     44 => 'Processing',
     78 => 'Processing',
-    82 => "\e[0m\e[91mStill processing",
-    90 => "\e[0m\e[93mBe patient",
-    95 => "\e[0m\e[33mAlmost there",
-    100 => "\e[0m\e[92mDone",
+//    82 => "\e[0m\e[91mStill processing",
+    82 => 'Still processing',
+//    90 => "\e[0m\e[93mBe patient",
+    90 => 'Be patient',
+//    95 => "\e[0m\e[33mAlmost there",
+    95 => 'Almost there',
+//    100 => "\e[0m\e[92mDone",
+    100 => 'Done',
 ];
 
 //$s = new BlockSpinner();
 //$s = new ClockSpinner((new Settings())->setInterval(1)); // Slow ClockSpinner example
-$customStyle = [[Color::WHITE, BG::RED, Effect::BOLD, Effect::ITALIC]];
 $settings = new Settings();
 $s =
     new ArrowSpinner(       // Slow BlockSpinner with custom styles example
@@ -65,20 +69,20 @@ $s =
                     Juggler::FRAMES_STYLES =>
                         [
                             Juggler::COLOR256 => Styles::C256_BG_RAINBOW,
-                            Juggler::COLOR => $customStyle,
+                            Juggler::COLOR => [[Color::WHITE, BG::RED, Effect::BOLD, Effect::ITALIC]],
                             Juggler::FORMAT => ' %s ',
                             Juggler::SPACER => '',
                         ],
                     Juggler::MESSAGE_STYLES =>
                         [
                             Juggler::COLOR => [[Color::YELLOW, BG::BLUE, Effect::BOLD,]],
-                            Juggler::FORMAT => '%s ',
+                            Juggler::FORMAT => '%s',
                             Juggler::SPACER => '',
                         ],
                     Juggler::PROGRESS_STYLES =>
                         [
-                            Juggler::COLOR => $customStyle,
-                            Juggler::FORMAT => '%s ',
+                            Juggler::COLOR => [[Color::WHITE, BG::RED, Effect::BOLD, Effect::ITALIC]],
+                            Juggler::FORMAT => ' %s ',
                             Juggler::SPACER => '',
                         ],
                 ]
@@ -96,7 +100,7 @@ $loop->addPeriodicTimer($s->interval(), static function () use ($s) {
 $loop->addPeriodicTimer(1, static function () use ($s, $t) {
     if (random_int(0, 1000) > 570) {
         $s->erase();
-        echo $t->dark(date('H:i:s')) . ' Simulated message.' . PHP_EOL;
+        echo PHP_EOL . $t->dark(date('H:i:s')) . ' Simulated message.';
         $s->spin(); // optional
     }
 });

@@ -17,7 +17,7 @@ abstract class AbstractJuggler implements JugglerInterface
     /** @var Circular */
     protected $style;
     /** @var int */
-    protected $formatErasingShift;
+    protected $formatErasingShift = 0;
 
     /** {@inheritDoc} */
     public function getFrameErasingLength(): int
