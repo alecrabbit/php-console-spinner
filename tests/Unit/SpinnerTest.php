@@ -90,23 +90,22 @@ class SpinnerTest extends TestCase
         new ExtendedSpinner(null, true);
     }
 
-    /** @test */
-    public function wrongArgumentSettings(): void
-    {
-        $this->expectException(\InvalidArgumentException::class);
-        $settings = new Settings();
-        $settings->setStyles(
-            [
-                Juggler::FRAMES_STYLES =>
-                    [
-                        Juggler::COLOR256 => 1,
-                        Juggler::COLOR => 1,
-                    ],
-            ]
-        );
-        $spinner = new ExtendedSpinner($settings, null, COLOR256_TERMINAL);
-//        dump($spinner);
-    }
+//    /** @test */
+//    public function wrongArgumentSettings(): void
+//    {
+//        $this->expectException(\InvalidArgumentException::class);
+//        $settings = new Settings();
+//        $settings->setStyles(
+//            [
+//                Juggler::FRAMES_STYLES =>
+//                    [
+//                        Juggler::COLOR256 => 1,
+//                        Juggler::COLOR => 1,
+//                    ],
+//            ]
+//        );
+//        $spinner = new ExtendedSpinner($settings, null, COLOR256_TERMINAL);
+//    }
 
     /** @test */
     public function addingTooMuchSymbols(): void

@@ -26,7 +26,6 @@ class Scott
         $this->format = $styles[Juggler::FORMAT];
         $this->spacer = $styles[Juggler::SPACER];
         $this->style = $this->makeStyle($styles, $color);
-
     }
 
     /**
@@ -53,15 +52,16 @@ class Scott
      */
     protected function makeStyle(array $styles, ?int $color): Circular
     {
+        $format = $this->makeFormat($this->format);
         switch ($color) {
             case COLOR256_TERMINAL:
-                return $this->circular256Color($styles, $this->format);
+                return $this->circular256Color($styles, $format);
                 break;
             case COLOR_TERMINAL:
-                return $this->circularColor($styles, $this->format);
+                return $this->circularColor($styles, $format);
                 break;
             default:
-                return $this->circularNoColor($this->format);
+                return $this->circularNoColor($format);
                 break;
         }
     }
@@ -85,9 +85,9 @@ class Scott
                         static function ($value) use ($format): string {
                             if (\is_array($value)) {
                                 [$fg, $bg] = $value;
-                                return ESC . "[38;5;{$fg};48;5;{$bg}m". $this->makeFormat($format) . ESC . '[0m';
+                                return ESC . "[38;5;{$fg};48;5;{$bg}m" . $format . ESC . '[0m';
                             }
-                            return ESC . "[38;5;{$value}m". $this->makeFormat($format) .ESC . '[0m';
+                            return ESC . "[38;5;{$value}m" . $format . ESC . '[0m';
                         },
                         $styles[Juggler::COLOR256]
                     )
@@ -114,7 +114,7 @@ class Scott
                             if (\is_array($value)) {
                                 $value = implode(';', $value);
                             }
-                            return ESC . "[{$value}m". $this->makeFormat($format) . ESC . '[0m';
+                            return ESC . "[{$value}m" . $format . ESC . '[0m';
                         },
                         $styles[Juggler::COLOR]
                     )
@@ -129,7 +129,7 @@ class Scott
     {
 
         return
-            new Circular([$this->makeFormat($format),]);
+            new Circular([$format,]);
     }
 
     /**
@@ -140,4 +140,23 @@ class Scott
     {
         return sprintf('%s', $format);
     }
+
+    /** {@inheritDoc} */
+    public function getStyle(): Circular
+    {
+        return $this->style;
+    }
+
+    /** {@inheritDoc} */
+    public function getFormat(): string
+    {
+        return $this->format;
+    }
+
+    /** {@inheritDoc} */
+    public function getSpacer(): string
+    {
+        return $this->spacer;
+    }
+
 }

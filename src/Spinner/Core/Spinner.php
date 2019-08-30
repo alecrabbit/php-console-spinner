@@ -3,6 +3,7 @@
 namespace AlecRabbit\Spinner\Core;
 
 use AlecRabbit\Cli\Tools\Cursor;
+use AlecRabbit\Spinner\Core\Coloring\Tommy;
 use AlecRabbit\Spinner\Core\Contracts\SpinnerInterface;
 use AlecRabbit\Spinner\Core\Contracts\OutputInterface;
 use AlecRabbit\Spinner\Core\Jugglers\Contracts\JugglerInterface;
@@ -36,7 +37,7 @@ abstract class Spinner extends SpinnerCore
     protected $previousErasingLength = 0;
     /** @var string */
     protected $spacer = Defaults::EMPTY_STRING;
-    /** @var Coloring */
+    /** @var Tommy */
     protected $coloring;
     /** @var null[]|JugglerInterface[] */
     protected $jugglers = [];
@@ -53,15 +54,15 @@ abstract class Spinner extends SpinnerCore
         $this->output = $this->refineOutput($output);
         $this->settings = $this->refineSettings($messageOrSettings);
         $this->interval = $this->settings->getInterval();
-        try {
-            $this->coloring = new Coloring($this->settings->getStyles(), $color);
-        } catch (\Throwable $e) {
-            throw new \InvalidArgumentException(
-                '[' . static::class . '] ' . $e->getMessage(),
-                (int)$e->getCode(),
-                $e
-            );
-        }
+//        try {
+            $this->coloring = new Tommy($this->settings->getStyles(), $color);
+//        } catch (\Throwable $e) {
+//            throw new \InvalidArgumentException(
+//                '[' . static::class . '] ' . $e->getMessage(),
+//                (int)$e->getCode(),
+//                $e
+//            );
+//        }
         $this->initJugglers();
         $this->jugglers = [
             &$this->frameJuggler,
