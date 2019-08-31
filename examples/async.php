@@ -16,7 +16,9 @@ use AlecRabbit\ConsoleColour\Themes;
 use AlecRabbit\Spinner\ArrowSpinner;
 use AlecRabbit\Spinner\Core\Contracts\Juggler;
 use AlecRabbit\Spinner\Core\Contracts\Styles;
+use AlecRabbit\Spinner\DiceSpinner;
 use AlecRabbit\Spinner\Settings\Settings;
+use AlecRabbit\Spinner\SnakeSpinner;
 use React\EventLoop\Factory;
 use const AlecRabbit\COLOR_TERMINAL;
 
@@ -63,15 +65,15 @@ $messages = [
 //$s = new ClockSpinner((new Settings())->setInterval(1)); // Slow ClockSpinner example
 $settings = new Settings();
 $s =
-    new ArrowSpinner(       // Slow BlockSpinner with custom styles example
+    new DiceSpinner(       // Slow BlockSpinner with custom styles example
         $settings
             ->setStyles(
                 [
                     Juggler::FRAMES_STYLES =>
                         [
                             Juggler::COLOR256 => Styles::C256_BG_RAINBOW,
-//                            Juggler::COLOR => [[Color::WHITE, BG::RED, Effect::BOLD, Effect::ITALIC]],
-                            Juggler::FORMAT => ' %s ',
+//                            Juggler::COLOR => [[Color::WHITE, BG::RED, Effect::BOLD,]],
+                            Juggler::FORMAT => ' %s  ',
                             Juggler::SPACER => '',
                         ],
                     Juggler::MESSAGE_STYLES =>
