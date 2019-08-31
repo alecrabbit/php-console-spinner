@@ -21,7 +21,7 @@ class TimeSpinnerTest extends TestCase
         $begin = $spinner->begin(0.0);
         $this->assertIsString($begin);
         $date = date($timeFormat);
-        $this->assertEquals(1, $spinner->interval());
+        $this->assertEquals(0.5, $spinner->interval());
         $this->assertEquals(
             '\033[?25l\033[2m' . $date . '\033[0m \033[11D',
             Helper::replaceEscape($begin)

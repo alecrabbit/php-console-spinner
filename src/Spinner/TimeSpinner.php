@@ -10,7 +10,7 @@ use AlecRabbit\Spinner\Settings\Settings;
 
 class TimeSpinner extends Spinner
 {
-    protected const INTERVAL = 1;
+    protected const INTERVAL = 0.5;
     protected const FRAMES = [];
     protected const
         STYLES =
