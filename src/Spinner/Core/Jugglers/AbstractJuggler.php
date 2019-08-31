@@ -11,16 +11,13 @@ abstract class AbstractJuggler implements JugglerInterface
 {
     /** @var string */
     protected $spacer = Defaults::ONE_SPACE_SYMBOL;
-
     /** @var int */
     protected $currentFrameErasingLength;
-
     /**
      * @var Circular
      * @psalm-suppress PropertyNotSetInConstructor
      */
     protected $style;
-
     /** @var int */
     protected $formatErasingShift = 0;
 

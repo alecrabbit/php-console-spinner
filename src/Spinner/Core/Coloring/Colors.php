@@ -73,26 +73,6 @@ class Colors
     }
 
     /**
-     * @param null|int $color
-     * @return int
-     */
-    protected function refineColor(?int $color): int
-    {
-        // @codeCoverageIgnoreStart
-        if (null === $color) {
-            if (TerminalStatic::supportsColor()) {
-                return
-                    TerminalStatic::supports256Color() ?
-                        COLOR256_TERMINAL :
-                        COLOR_TERMINAL;
-            }
-            return NO_COLOR_TERMINAL;
-        }
-        // @codeCoverageIgnoreEnd
-        return $color;
-    }
-
-    /**
      * @return Style
      */
     public function getFrameStyles(): Style
