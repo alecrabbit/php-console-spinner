@@ -1,6 +1,9 @@
 <a name="unreleased"></a>
 ## [Unreleased]
 
+### Changed
+- Reintroduced `Style::class`
+
 
 <a name="0.31.0-ALPHA1"></a>
 ## [0.31.0-ALPHA1] - 2019-08-31
