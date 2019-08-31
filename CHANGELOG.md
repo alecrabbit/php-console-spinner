@@ -1,6 +1,9 @@
 <a name="unreleased"></a>
 ## [Unreleased]
 
+### Added
+- `Colors::class`
+
 ### Changed
 - Reintroduced `Style::class`
 
