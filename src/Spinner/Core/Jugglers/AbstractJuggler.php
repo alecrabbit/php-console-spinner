@@ -12,7 +12,10 @@ abstract class AbstractJuggler implements JugglerInterface
 {
     /** @var string */
     protected $spacer = Defaults::ONE_SPACE_SYMBOL;
-    /** @var int */
+    /**
+     * @var int
+     * @psalm-suppress PropertyNotSetInConstructor
+     */
     protected $currentFrameErasingLength;
     /**
      * @var Circular
@@ -22,6 +25,10 @@ abstract class AbstractJuggler implements JugglerInterface
     /** @var int */
     protected $formatErasingShift = 0;
 
+    /**
+     * @param Settings $settings
+     * @param Style $style
+     */
     abstract public function __construct(Settings $settings, Style $style);
 
     /** {@inheritDoc} */
@@ -37,15 +44,10 @@ abstract class AbstractJuggler implements JugglerInterface
             sprintf((string)$this->style->value(), $this->getCurrentFrame()) . $this->spacer;
     }
 
-
     /**
-     * @param string $format
-     * @return int
+     * @return string
      */
-    protected function calcFormatErasingShift(string $format): int
-    {
-        return strlen(sprintf($format, ''));
-    }
+    abstract protected function getCurrentFrame(): string;
 
     /**
      * @param Style $style
@@ -58,7 +60,11 @@ abstract class AbstractJuggler implements JugglerInterface
     }
 
     /**
-     * @return string
+     * @param string $format
+     * @return int
      */
-    abstract protected function getCurrentFrame():string;
+    protected function calcFormatErasingShift(string $format): int
+    {
+        return strlen(sprintf($format, ''));
+    }
 }

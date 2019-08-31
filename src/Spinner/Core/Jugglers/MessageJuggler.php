@@ -18,6 +18,7 @@ class MessageJuggler extends AbstractJuggler
     /** @var string */
     protected $suffix;
 
+    /** {@inheritDoc} */
     public function __construct(Settings $settings, Style $style)
     {
         $this->init($style);
@@ -30,12 +31,13 @@ class MessageJuggler extends AbstractJuggler
      */
     protected function updateMessage(?string $message, ?int $erasingLength): void
     {
+        $message = $message ?? Defaults::EMPTY_STRING;
         $this->message = $this->refineMessage($message);
         if (Defaults::EMPTY_STRING === $this->message) {
             $this->erasingLength = 0;
             $this->suffix = Defaults::EMPTY_STRING;
         } else {
-            $erasingLength = $this->refineErasingLen($this->message, $erasingLength);
+            $erasingLength = Calculator::refineErasingLen($this->message, $erasingLength);
             $this->erasingLength = $erasingLength;
             $this->suffix = Defaults::DOTS_SUFFIX;
         }
@@ -50,24 +52,24 @@ class MessageJuggler extends AbstractJuggler
      * @param null|string $message
      * @return string
      */
-    protected function refineMessage(?string $message): string
+    protected function refineMessage(string $message): string
     {
-        return ucfirst($message ?? Defaults::EMPTY_STRING);
+        return ucfirst($message);
     }
 
-    /**
-     * @param string $message
-     * @param null|int $erasingLength
-     * @return int
-     */
-    protected function refineErasingLen(string $message, ?int $erasingLength): int
-    {
-        if (null === $erasingLength) {
-            return Calculator::computeErasingLength([$message]);
-        }
-        return $erasingLength;
-    }
-
+//    /**
+//     * @param string $message
+//     * @param null|int $erasingLength
+//     * @return int
+//     */
+//    protected function refineErasingLen(string $message, ?int $erasingLength): int
+//    {
+//        if (null === $erasingLength) {
+//            return Calculator::computeErasingLength([$message]);
+//        }
+//        return $erasingLength;
+//    }
+//
     /**
      * @param string $message
      * @param null|int $erasingLength
@@ -77,9 +79,7 @@ class MessageJuggler extends AbstractJuggler
         $this->updateMessage($message, $erasingLength);
     }
 
-    /**
-     * @return string
-     */
+    /** {@inheritDoc} */
     protected function getCurrentFrame(): string
     {
         return $this->frameString;

@@ -43,13 +43,6 @@ class Settings implements SettingsInterface
         return $this;
     }
 
-//    /** {@inheritDoc} */
-//    public function getErasingShift(): int
-//    {
-//        return
-//            $this->properties[S::ERASING_SHIFT]->getValue();
-//    }
-//
     /** {@inheritDoc} */
     public function getMessage(): ?string
     {
@@ -65,25 +58,12 @@ class Settings implements SettingsInterface
             $erasingLength = 0;
             $this->setMessageSuffix(Defaults::EMPTY_STRING);
         } else {
-            $erasingLength = $this->refineErasingLen($message, $erasingLength);
+            $erasingLength =  Calculator::refineErasingLen($message, $erasingLength);
             $this->setMessageSuffix(Defaults::DEFAULT_SUFFIX);
         }
 
         $this->properties[S::MESSAGE_ERASING_LENGTH]->setValue($erasingLength);
         return $this;
-    }
-
-    /**
-     * @param string $message
-     * @param null|int $erasingLength
-     * @return int
-     */
-    protected function refineErasingLen(string $message, ?int $erasingLength): int
-    {
-        if (null === $erasingLength) {
-            return Calculator::computeErasingLength([$message]);
-        }
-        return $erasingLength;
     }
 
     /** {@inheritDoc} */
@@ -92,21 +72,7 @@ class Settings implements SettingsInterface
         $this->properties[S::MESSAGE_SUFFIX]->setValue($suffix);
         return $this;
     }
-//
-//    /** {@inheritDoc} */
-//    public function getMessagePrefix(): string
-//    {
-//        return
-//            $this->properties[S::MESSAGE_PREFIX]->getValue();
-//    }
-//
-//    /** {@inheritDoc} */
-//    public function setMessagePrefix(string $prefix): self
-//    {
-//        $this->properties[S::MESSAGE_PREFIX]->setValue($prefix);
-//        return $this;
-//    }
-//
+
     /** {@inheritDoc} */
     public function getMessageSuffix(): string
     {

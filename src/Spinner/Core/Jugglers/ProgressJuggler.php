@@ -18,11 +18,11 @@ class ProgressJuggler extends AbstractJuggler
     }
 
     /**
-     * @param float $percent
+     * @param null|float $percent
      */
-    protected function update(float $percent): void
+    protected function update(?float $percent): void
     {
-        $progress = bounds($percent, 0, 1);
+        $progress = bounds($percent ?? 0.0, 0, 1);
         $this->currentFrame = (int)($progress * 100) . '%';
         $this->currentFrameErasingLength =
             strlen($this->currentFrame) + strlen($this->spacer) + $this->formatErasingShift;

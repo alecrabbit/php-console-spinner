@@ -39,4 +39,19 @@ class Calculator
         }
         return 1 * $mbSymbolLen;
     }
+
+    /**
+     * @param string $message
+     * @param null|int $erasingLength
+     * @return int
+     */
+    public static function refineErasingLen(string $message, ?int $erasingLength): int
+    {
+        if (null === $erasingLength) {
+            return self::computeErasingLength([$message]);
+        }
+        return $erasingLength;
+    }
+
+
 }
