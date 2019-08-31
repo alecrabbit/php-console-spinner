@@ -3,6 +3,7 @@
 namespace AlecRabbit\Spinner\Core\Coloring;
 
 use AlecRabbit\Cli\Tools\Core\TerminalStatic;
+use AlecRabbit\Cli\Tools\Terminal;
 use AlecRabbit\Spinner\Core\Contracts\Juggler;
 use AlecRabbit\Spinner\Core\Contracts\Styles;
 use const AlecRabbit\COLOR256_TERMINAL;
@@ -17,6 +18,8 @@ class Tommy
     protected $messageStyles;
     /** @var Scott */
     protected $progressStyles;
+    /** @var Terminal */
+    protected $terminal;
 
     /**
      * @param array $styles
@@ -25,8 +28,11 @@ class Tommy
     public function __construct(array $styles, int $color = null)
     {
         $styles = $this->mergeStyles($styles);
-        $this->assertStyles($styles);
-        $color = $this->refineColor($color);
+        $this->assertStyles($styles); // Left here for now
+        $this->terminal = new Terminal(null, null, $color);
+
+        $color = $this->terminal->color();
+
         $this->frameStyles = new Scott($styles[Juggler::FRAMES_STYLES], $color);
         $this->messageStyles = new Scott($styles[Juggler::MESSAGE_STYLES], $color);
         $this->progressStyles = new Scott($styles[Juggler::PROGRESS_STYLES], $color);

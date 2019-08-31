@@ -54,15 +54,7 @@ abstract class Spinner extends SpinnerCore
         $this->output = $this->refineOutput($output);
         $this->settings = $this->refineSettings($messageOrSettings);
         $this->interval = $this->settings->getInterval();
-//        try {
-            $this->coloring = new Tommy($this->settings->getStyles(), $color);
-//        } catch (\Throwable $e) {
-//            throw new \InvalidArgumentException(
-//                '[' . static::class . '] ' . $e->getMessage(),
-//                (int)$e->getCode(),
-//                $e
-//            );
-//        }
+        $this->coloring = new Tommy($this->settings->getStyles(), $color);
         $this->initJugglers();
         $this->jugglers = [
             &$this->frameJuggler,
