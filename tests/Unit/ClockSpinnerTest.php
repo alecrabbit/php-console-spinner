@@ -14,7 +14,6 @@ class ClockSpinnerTest extends TestCase
 
     /**
      * @test
-
      */
     public function instance(): void
     {
@@ -60,7 +59,10 @@ class ClockSpinnerTest extends TestCase
         $this->assertEquals("🕑 \033[2mProcessing...\033[0m \033[17D", $spinner->spin());
 
 
-        $this->assertEquals(Helper::replaceEscape("                 \033[17D"), Helper::replaceEscape($spinner->erase()));
+        $this->assertEquals(
+            Helper::replaceEscape("                 \033[17D"),
+            Helper::replaceEscape($spinner->erase())
+        );
         $this->assertEquals(
             Helper::replaceEscape("                 \033[17D\033[?25h\033[?0c"),
             Helper::replaceEscape($spinner->end())
