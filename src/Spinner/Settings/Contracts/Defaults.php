@@ -10,7 +10,7 @@ interface Defaults
     public const ONE_SPACE_SYMBOL = ' ';
     public const EMPTY_STRING = '';
     public const DEFAULT_PREFIX = self::EMPTY_STRING; // Deprecated
-    public const DEFAULT_SUFFIX = self::EMPTY_STRING; // Deprecated
+    public const DEFAULT_SUFFIX = self::DOTS_SUFFIX; // Deprecated
     public const DOTS_SUFFIX = '...';
 
     public const MAX_FRAMES_COUNT = 50;
@@ -29,7 +29,7 @@ interface Defaults
             S::ERASING_SHIFT => 0,
             S::MESSAGE => self::EMPTY_STRING,
             S::MESSAGE_ERASING_LENGTH => 0,
-            S::MESSAGE_SUFFIX => self::EMPTY_STRING,
+            S::MESSAGE_SUFFIX => self::DEFAULT_SUFFIX,
             S::STYLES => Styles::STYLING_DISABLED,
             S::SPACER => self::EMPTY_STRING,
             S::INITIAL_PERCENT => null,

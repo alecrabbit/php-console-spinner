@@ -56,12 +56,9 @@ class Settings implements SettingsInterface
         $this->properties[S::MESSAGE]->setValue($message);
         if (Defaults::EMPTY_STRING === $message || null === $message) {
             $erasingLength = 0;
-            $this->setMessageSuffix(Defaults::EMPTY_STRING);
         } else {
             $erasingLength =  Calculator::refineErasingLen($message, $erasingLength);
-            $this->setMessageSuffix(Defaults::DEFAULT_SUFFIX);
         }
-
         $this->properties[S::MESSAGE_ERASING_LENGTH]->setValue($erasingLength);
         return $this;
     }

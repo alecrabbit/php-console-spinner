@@ -8,6 +8,7 @@ if (!extension_loaded('pcntl')) {
 
 /*
  * This demo shows how your app may look like.
+ * You can print out your data and same time change spinner messages
  * Please ignore code quality :)
  */
 
@@ -24,6 +25,7 @@ use AlecRabbit\Spinner\DiceSpinner;
 use AlecRabbit\Spinner\Settings\Contracts\Defaults;
 use AlecRabbit\Spinner\Settings\Settings;
 use AlecRabbit\Spinner\SnakeSpinner;
+use AlecRabbit\Spinner\TimeSpinner;
 use React\EventLoop\Factory;
 use function AlecRabbit\Helpers\swap;
 use const AlecRabbit\COLOR_TERMINAL;
@@ -69,39 +71,39 @@ $messages = [
 //    100 => 'Done',
 ];
 
-//$s = new TimeSpinner();
+$s = new TimeSpinner();
 //$s = new ClockSpinner((new Settings())->setInterval(1)); // Slow ClockSpinner example
 $settings = new Settings();
-$s =
-    new SnakeSpinner(       // Slow BlockSpinner with custom styles example
+//$s =
+//    new SnakeSpinner(       // Slow BlockSpinner with custom styles example
 //        $settings
-//            ->setMessageSuffix(Defaults::DOTS_SUFFIX)
-//            ->setStyles(
-//                [
-//                    Juggler::FRAMES_STYLES =>
-//                        [
-//                            Juggler::COLOR256 => Styles::C256_BG_RAINBOW,
-//                            Juggler::COLOR => [[Color::WHITE, BG::RED, Effect::BOLD,]],
-//                            Juggler::FORMAT => ' %s  ',
-//                            Juggler::SPACER => '',
-//                        ],
-//                    Juggler::MESSAGE_STYLES =>
-//                        [
-//                            Juggler::COLOR => [[Color::YELLOW, BG::RED, Effect::BOLD,]],
-//                            Juggler::FORMAT => '%s ',
-//                            Juggler::SPACER => '',
-//                        ],
-//                    Juggler::PROGRESS_STYLES =>
-//                        [
-//                            Juggler::COLOR => [[Color::WHITE, BG::RED, Effect::BOLD, Effect::ITALIC]],
-//                            Juggler::FORMAT => '%s ',
-//                            Juggler::SPACER => '',
-//                        ],
-//                ]
-//            ),
-//        null,
-//        COLOR_TERMINAL
-    );
+////            ->setMessageSuffix(Defaults::DOTS_SUFFIX)
+////            ->setStyles(
+////                [
+////                    Juggler::FRAMES_STYLES =>
+////                        [
+////                            Juggler::COLOR256 => Styles::C256_BG_RAINBOW,
+////                            Juggler::COLOR => [[Color::WHITE, BG::RED, Effect::BOLD,]],
+////                            Juggler::FORMAT => ' %s  ',
+////                            Juggler::SPACER => '',
+////                        ],
+////                    Juggler::MESSAGE_STYLES =>
+////                        [
+////                            Juggler::COLOR => [[Color::YELLOW, BG::RED, Effect::BOLD,]],
+////                            Juggler::FORMAT => '%s ',
+////                            Juggler::SPACER => '',
+////                        ],
+////                    Juggler::PROGRESS_STYLES =>
+////                        [
+////                            Juggler::COLOR => [[Color::WHITE, BG::RED, Effect::BOLD, Effect::ITALIC]],
+////                            Juggler::FORMAT => '%s ',
+////                            Juggler::SPACER => '',
+////                        ],
+////                ]
+////            ),
+////        null,
+////        COLOR_TERMINAL
+//    );
 
 $inline = false;
 $s->inline($inline);
