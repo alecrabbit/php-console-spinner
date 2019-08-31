@@ -2,7 +2,7 @@
 
 namespace AlecRabbit\Tests\Tools;
 
-use AlecRabbit\Spinner\Core\Coloring\Scott;
+use AlecRabbit\Spinner\Core\Coloring\Style;
 use AlecRabbit\Spinner\Core\Contracts\Styles;
 use AlecRabbit\Spinner\Core\Jugglers\FrameJuggler;
 use AlecRabbit\Spinner\Settings\Contracts\Defaults;
@@ -22,7 +22,7 @@ class FrameJugglerTest extends TestCase
     {
         $this->expectException($exceptionClass);
         $this->expectExceptionMessage($exceptionMessage);
-        $fg = new FrameJuggler($frames, new Scott(Styles::DEFAULT_STYLES_ELEMENT, NO_COLOR_TERMINAL));
+        $fg = new FrameJuggler($frames, new Style(Styles::DEFAULT_STYLES_ELEMENT, NO_COLOR_TERMINAL));
     }
 
     public function valuesDataProvider(): array

@@ -10,13 +10,13 @@ use const AlecRabbit\COLOR256_TERMINAL;
 use const AlecRabbit\COLOR_TERMINAL;
 use const AlecRabbit\NO_COLOR_TERMINAL;
 
-class Tommy
+class Colors
 {
-    /** @var Scott */
+    /** @var Style */
     protected $frameStyles;
-    /** @var Scott */
+    /** @var Style */
     protected $messageStyles;
-    /** @var Scott */
+    /** @var Style */
     protected $progressStyles;
     /** @var Terminal */
     protected $terminal;
@@ -33,9 +33,9 @@ class Tommy
 
         $color = $this->terminal->color();
 
-        $this->frameStyles = new Scott($styles[Juggler::FRAMES_STYLES], $color);
-        $this->messageStyles = new Scott($styles[Juggler::MESSAGE_STYLES], $color);
-        $this->progressStyles = new Scott($styles[Juggler::PROGRESS_STYLES], $color);
+        $this->frameStyles = new Style($styles[Juggler::FRAMES_STYLES], $color);
+        $this->messageStyles = new Style($styles[Juggler::MESSAGE_STYLES], $color);
+        $this->progressStyles = new Style($styles[Juggler::PROGRESS_STYLES], $color);
     }
 
     /**
@@ -93,25 +93,25 @@ class Tommy
     }
 
     /**
-     * @return Scott
+     * @return Style
      */
-    public function getFrameStyles(): Scott
+    public function getFrameStyles(): Style
     {
         return $this->frameStyles;
     }
 
     /**
-     * @return Scott
+     * @return Style
      */
-    public function getMessageStyles(): Scott
+    public function getMessageStyles(): Style
     {
         return $this->messageStyles;
     }
 
     /**
-     * @return Scott
+     * @return Style
      */
-    public function getProgressStyles(): Scott
+    public function getProgressStyles(): Style
     {
         return $this->progressStyles;
     }

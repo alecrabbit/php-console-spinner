@@ -4,7 +4,7 @@ namespace AlecRabbit\Spinner\Core\Jugglers;
 
 use AlecRabbit\Accessories\Circular;
 use AlecRabbit\Spinner\Core\Calculator;
-use AlecRabbit\Spinner\Core\Coloring\Scott;
+use AlecRabbit\Spinner\Core\Coloring\Style;
 use AlecRabbit\Spinner\Settings\Contracts\Defaults;
 
 class FrameJuggler extends AbstractJuggler
@@ -12,7 +12,7 @@ class FrameJuggler extends AbstractJuggler
     /** @var Circular */
     protected $frames;
 
-    public function __construct(array $frames, Scott $style)
+    public function __construct(array $frames, Style $style)
     {
         $this->assertFrames($frames);
         $this->frames = new Circular($frames);

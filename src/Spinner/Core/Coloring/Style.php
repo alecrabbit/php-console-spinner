@@ -10,7 +10,7 @@ use const AlecRabbit\COLOR_TERMINAL;
 use const AlecRabbit\ESC;
 use const AlecRabbit\NO_COLOR_TERMINAL;
 
-class Scott
+class Style
 {
     /** @var string */
     protected $format;

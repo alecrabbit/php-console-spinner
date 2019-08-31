@@ -3,7 +3,7 @@
 namespace AlecRabbit\Spinner\Core\Jugglers;
 
 use AlecRabbit\Accessories\Circular;
-use AlecRabbit\Spinner\Core\Coloring\Scott;
+use AlecRabbit\Spinner\Core\Coloring\Style;
 use AlecRabbit\Spinner\Core\Jugglers\Contracts\JugglerInterface;
 use AlecRabbit\Spinner\Settings\Contracts\Defaults;
 
@@ -48,9 +48,9 @@ abstract class AbstractJuggler implements JugglerInterface
     }
 
     /**
-     * @param Scott $style
+     * @param Style $style
      */
-    protected function init(Scott $style): void
+    protected function init(Style $style): void
     {
         $this->style = $style->getStyle();
         $this->formatErasingShift = $this->calcFormatErasingShift($style->getFormat());

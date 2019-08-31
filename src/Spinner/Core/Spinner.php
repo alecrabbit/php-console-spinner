@@ -3,7 +3,7 @@
 namespace AlecRabbit\Spinner\Core;
 
 use AlecRabbit\Cli\Tools\Cursor;
-use AlecRabbit\Spinner\Core\Coloring\Tommy;
+use AlecRabbit\Spinner\Core\Coloring\Colors;
 use AlecRabbit\Spinner\Core\Contracts\SpinnerInterface;
 use AlecRabbit\Spinner\Core\Contracts\OutputInterface;
 use AlecRabbit\Spinner\Core\Jugglers\Contracts\JugglerInterface;
@@ -37,7 +37,7 @@ abstract class Spinner extends SpinnerCore
     protected $previousErasingLength = 0;
     /** @var string */
     protected $spacer = Defaults::EMPTY_STRING;
-    /** @var Tommy */
+    /** @var Colors */
     protected $coloring;
     /** @var null[]|JugglerInterface[] */
     protected $jugglers = [];
@@ -54,7 +54,7 @@ abstract class Spinner extends SpinnerCore
         $this->output = $this->refineOutput($output);
         $this->settings = $this->refineSettings($messageOrSettings);
         $this->interval = $this->settings->getInterval();
-        $this->coloring = new Tommy($this->settings->getStyles(), $color);
+        $this->coloring = new Colors($this->settings->getStyles(), $color);
         $this->initJugglers();
         $this->jugglers = [
             &$this->frameJuggler,

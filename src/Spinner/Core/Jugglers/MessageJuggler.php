@@ -3,7 +3,7 @@
 namespace AlecRabbit\Spinner\Core\Jugglers;
 
 use AlecRabbit\Spinner\Core\Calculator;
-use AlecRabbit\Spinner\Core\Coloring\Scott;
+use AlecRabbit\Spinner\Core\Coloring\Style;
 use AlecRabbit\Spinner\Settings\Contracts\Defaults;
 
 class MessageJuggler extends AbstractJuggler
@@ -17,7 +17,7 @@ class MessageJuggler extends AbstractJuggler
     /** @var string */
     protected $suffix;
 
-    public function __construct(string $message, ?int $erasingLength, Scott $style)
+    public function __construct(string $message, ?int $erasingLength, Style $style)
     {
         $this->init($style);
         $this->updateMessage($message, $erasingLength);
