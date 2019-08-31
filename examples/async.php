@@ -19,6 +19,7 @@ use AlecRabbit\Spinner\Core\Contracts\Styles;
 use AlecRabbit\Spinner\DiceSpinner;
 use AlecRabbit\Spinner\Settings\Settings;
 use AlecRabbit\Spinner\SnakeSpinner;
+use AlecRabbit\Spinner\TimeSpinner;
 use React\EventLoop\Factory;
 use const AlecRabbit\COLOR_TERMINAL;
 
@@ -61,38 +62,38 @@ $messages = [
 //    100 => 'Done',
 ];
 
-//$s = new BlockSpinner();
+$s = new TimeSpinner();
 //$s = new ClockSpinner((new Settings())->setInterval(1)); // Slow ClockSpinner example
 $settings = new Settings();
-$s =
-    new DiceSpinner(       // Slow BlockSpinner with custom styles example
-        $settings
-            ->setStyles(
-                [
-                    Juggler::FRAMES_STYLES =>
-                        [
-                            Juggler::COLOR256 => Styles::C256_BG_RAINBOW,
-                            Juggler::COLOR => [[Color::WHITE, BG::RED, Effect::BOLD,]],
-                            Juggler::FORMAT => ' %s  ',
-                            Juggler::SPACER => '',
-                        ],
-                    Juggler::MESSAGE_STYLES =>
-                        [
-                            Juggler::COLOR => [[Color::YELLOW, BG::RED, Effect::BOLD,]],
-                            Juggler::FORMAT => '%s ',
-                            Juggler::SPACER => '',
-                        ],
-                    Juggler::PROGRESS_STYLES =>
-                        [
-                            Juggler::COLOR => [[Color::WHITE, BG::RED, Effect::BOLD, Effect::ITALIC]],
-                            Juggler::FORMAT => '%s ',
-                            Juggler::SPACER => '',
-                        ],
-                ]
-            ),
-        null,
-        COLOR_TERMINAL
-    );
+//$s =
+//    new DiceSpinner(       // Slow BlockSpinner with custom styles example
+//        $settings
+//            ->setStyles(
+//                [
+//                    Juggler::FRAMES_STYLES =>
+//                        [
+//                            Juggler::COLOR256 => Styles::C256_BG_RAINBOW,
+//                            Juggler::COLOR => [[Color::WHITE, BG::RED, Effect::BOLD,]],
+//                            Juggler::FORMAT => ' %s  ',
+//                            Juggler::SPACER => '',
+//                        ],
+//                    Juggler::MESSAGE_STYLES =>
+//                        [
+//                            Juggler::COLOR => [[Color::YELLOW, BG::RED, Effect::BOLD,]],
+//                            Juggler::FORMAT => '%s ',
+//                            Juggler::SPACER => '',
+//                        ],
+//                    Juggler::PROGRESS_STYLES =>
+//                        [
+//                            Juggler::COLOR => [[Color::WHITE, BG::RED, Effect::BOLD, Effect::ITALIC]],
+//                            Juggler::FORMAT => '%s ',
+//                            Juggler::SPACER => '',
+//                        ],
+//                ]
+//            ),
+//        null,
+//        COLOR_TERMINAL
+//    );
 
 $s->inline(true);
 // Add periodic timer to redraw our spinner
