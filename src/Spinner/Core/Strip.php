@@ -8,6 +8,12 @@ class Strip
 
     public static function escCodes(string $in): string
     {
-        return preg_replace(self::REG_EXP, '', $in);
+        $str = preg_replace(self::REG_EXP, '', $in);
+        if (PREG_NO_ERROR !== $error = preg_last_error()) {
+            // @codeCoverageIgnoreStart
+            throw new \RuntimeException('Failed to apply regex. Code: ' . $error, $error);
+            // @codeCoverageIgnoreEnd
+        }
+        return (string)$str;
     }
 }

@@ -14,8 +14,13 @@ abstract class AbstractJuggler implements JugglerInterface
 
     /** @var int */
     protected $currentFrameErasingLength;
-    /** @var Circular */
+
+    /**
+     * @var Circular
+     * @psalm-suppress PropertyNotSetInConstructor
+     */
     protected $style;
+
     /** @var int */
     protected $formatErasingShift = 0;
 
