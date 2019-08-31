@@ -72,20 +72,20 @@ $s =
                     Juggler::FRAMES_STYLES =>
                         [
                             Juggler::COLOR256 => Styles::C256_BG_RAINBOW,
-//                            Juggler::COLOR => [[Color::WHITE, BG::RED, Effect::BOLD,]],
+                            Juggler::COLOR => [[Color::WHITE, BG::RED, Effect::BOLD,]],
                             Juggler::FORMAT => ' %s  ',
                             Juggler::SPACER => '',
                         ],
                     Juggler::MESSAGE_STYLES =>
                         [
-                            Juggler::COLOR => [[Color::YELLOW, BG::BLUE, Effect::BOLD,]],
-                            Juggler::FORMAT => '%s',
+                            Juggler::COLOR => [[Color::YELLOW, BG::RED, Effect::BOLD,]],
+                            Juggler::FORMAT => '%s ',
                             Juggler::SPACER => '',
                         ],
                     Juggler::PROGRESS_STYLES =>
                         [
                             Juggler::COLOR => [[Color::WHITE, BG::RED, Effect::BOLD, Effect::ITALIC]],
-                            Juggler::FORMAT => ' %s ',
+                            Juggler::FORMAT => '%s ',
                             Juggler::SPACER => '',
                         ],
                 ]
@@ -94,6 +94,7 @@ $s =
         COLOR_TERMINAL
     );
 
+$s->inline(true);
 // Add periodic timer to redraw our spinner
 $loop->addPeriodicTimer($s->interval(), static function () use ($s) {
     $s->spin();
