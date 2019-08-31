@@ -17,11 +17,11 @@ interface SettingsInterface
      */
     public function setInterval(float $interval): Settings;
 
-    /**
-     * @return int
-     */
-    public function getErasingShift(): int;
-
+//    /**
+//     * @return int
+//     */
+//    public function getErasingShift(): int;
+//
     /**
      * @return string
      */

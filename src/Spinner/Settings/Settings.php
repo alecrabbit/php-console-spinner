@@ -43,13 +43,13 @@ class Settings implements SettingsInterface
         return $this;
     }
 
-    /** {@inheritDoc} */
-    public function getErasingShift(): int
-    {
-        return
-            $this->properties[S::ERASING_SHIFT]->getValue();
-    }
-
+//    /** {@inheritDoc} */
+//    public function getErasingShift(): int
+//    {
+//        return
+//            $this->properties[S::ERASING_SHIFT]->getValue();
+//    }
+//
     /** {@inheritDoc} */
     public function getMessage(): string
     {

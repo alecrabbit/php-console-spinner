@@ -22,7 +22,7 @@ class SettingsTest extends TestCase
         $this->assertInstanceOf(Settings::class, $settings);
         $this->assertEquals(Defaults::EMPTY_STRING, $settings->getMessage());
         $this->assertEquals(0.1, $settings->getInterval());
-        $this->assertEquals(0, $settings->getErasingShift());
+//        $this->assertEquals(0, $settings->getErasingShift());
         $this->assertEquals('', $settings->getInlinePaddingStr());
 //        $this->assertEquals(Defaults::ONE_SPACE_SYMBOL, $settings->getMessagePrefix());
         $this->assertEquals('', $settings->getMessageSuffix());
@@ -53,7 +53,7 @@ class SettingsTest extends TestCase
         $settings->merge($newSettings);
         $this->assertEquals(Defaults::EMPTY_STRING, $settings->getMessage());
         $this->assertEquals(0.1, $settings->getInterval());
-        $this->assertEquals(0, $settings->getErasingShift());
+//        $this->assertEquals(0, $settings->getErasingShift());
         $this->assertEquals('', $settings->getInlinePaddingStr());
 //        $this->assertEquals(Defaults::ONE_SPACE_SYMBOL, $settings->getMessagePrefix());
         $this->assertEquals('', $settings->getMessageSuffix());
@@ -114,7 +114,7 @@ class SettingsTest extends TestCase
         $settings->merge($newSettings);
         $this->assertEquals($message, $settings->getMessage());
         $this->assertEquals($interval, $settings->getInterval());
-        $this->assertEquals(1, $settings->getErasingShift());
+//        $this->assertEquals(1, $settings->getErasingShift());
         $this->assertEquals($inlinePaddingStr, $settings->getInlinePaddingStr());
 //        $this->assertEquals($messagePrefix, $settings->getMessagePrefix());
         $this->assertEquals($messageSuffix, $settings->getMessageSuffix());
