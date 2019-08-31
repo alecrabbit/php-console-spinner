@@ -23,9 +23,9 @@ interface SettingsInterface
 //    public function getErasingShift(): int;
 //
     /**
-     * @return string
+     * @return null|string
      */
-    public function getMessage(): string;
+    public function getMessage(): ?string;
 
     /**
      * @param string $message
@@ -92,7 +92,7 @@ interface SettingsInterface
     /**
      * @return int
      */
-    public function getMessageErasingLen(): int;
+    public function getMessageErasingLength(): int;
 
     /**
      * @return string
@@ -104,6 +104,17 @@ interface SettingsInterface
      * @return Settings
      */
     public function setSpacer(string $spacer): Settings;
+
+    /**
+     * @return null|float
+     */
+    public function getInitialPercent(): ?float;
+
+    /**
+     * @param null|float $percent
+     * @return Settings
+     */
+    public function setInitialPercent(?float $percent): Settings;
 
     /**
      * @param Settings $settings

@@ -111,12 +111,12 @@ abstract class Spinner extends SpinnerCore
         $frames = $this->settings->getFrames();
         if (!empty($frames)) {
             $this->frameJuggler =
-                new FrameJuggler($frames, $this->coloring->getFrameStyles());
+                new FrameJuggler($this->settings, $this->coloring->getFrameStyles());
         }
 
         $message = $this->settings->getMessage();
         if (Defaults::EMPTY_STRING !== $message) {
-            $this->setMessage($message, $this->settings->getMessageErasingLen());
+            $this->setMessage($message, $this->settings->getMessageErasingLength());
         }
     }
 
@@ -126,6 +126,8 @@ abstract class Spinner extends SpinnerCore
      */
     protected function setMessage(?string $message, ?int $erasingLength = null): void
     {
+        $this->settings->setMessage($message, $erasingLength);
+
         if ($this->messageJuggler instanceof MessageJuggler) {
             if (null === $message) {
                 $this->messageJuggler = null;
@@ -136,7 +138,7 @@ abstract class Spinner extends SpinnerCore
             $this->messageJuggler =
                 null === $message ?
                     null :
-                    new MessageJuggler($message, $erasingLength, $this->coloring->getMessageStyles());
+                    new MessageJuggler($this->settings, $this->coloring->getMessageStyles());
         }
     }
 
@@ -198,6 +200,7 @@ abstract class Spinner extends SpinnerCore
      */
     protected function setProgress(?float $percent = null): void
     {
+        $this->settings->setInitialPercent($percent);
         if ($this->progressJuggler instanceof ProgressJuggler) {
             if (null === $percent) {
                 $this->progressJuggler = null;
@@ -206,7 +209,7 @@ abstract class Spinner extends SpinnerCore
             }
         } else {
             $this->progressJuggler =
-                null === $percent ? null : new ProgressJuggler($percent, $this->coloring->getProgressStyles());
+                null === $percent ? null : new ProgressJuggler($this->settings, $this->coloring->getProgressStyles());
         }
     }
 

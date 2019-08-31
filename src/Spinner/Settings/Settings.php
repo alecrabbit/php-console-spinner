@@ -51,17 +51,17 @@ class Settings implements SettingsInterface
 //    }
 //
     /** {@inheritDoc} */
-    public function getMessage(): string
+    public function getMessage(): ?string
     {
         return
             $this->properties[S::MESSAGE]->getValue();
     }
 
     /** {@inheritDoc} */
-    public function setMessage(string $message, int $erasingLength = null): self
+    public function setMessage(?string $message, ?int $erasingLength = null): self
     {
         $this->properties[S::MESSAGE]->setValue($message);
-        if (Defaults::EMPTY_STRING === $message) {
+        if (Defaults::EMPTY_STRING === $message || null === $message) {
             $erasingLength = 0;
             $this->setMessageSuffix(Defaults::EMPTY_STRING);
         } else {
@@ -74,16 +74,16 @@ class Settings implements SettingsInterface
     }
 
     /**
-     * @param string $string
-     * @param null|int $erasingLen
+     * @param string $message
+     * @param null|int $erasingLength
      * @return int
      */
-    protected function refineErasingLen(string $string, ?int $erasingLen): int
+    protected function refineErasingLen(string $message, ?int $erasingLength): int
     {
-        if (null === $erasingLen) {
-            return Calculator::computeErasingLength([$string]);
+        if (null === $erasingLength) {
+            return Calculator::computeErasingLength([$message]);
         }
-        return $erasingLen;
+        return $erasingLength;
     }
 
     /** {@inheritDoc} */
@@ -163,7 +163,7 @@ class Settings implements SettingsInterface
     }
 
     /** {@inheritDoc} */
-    public function getMessageErasingLen(): int
+    public function getMessageErasingLength(): int
     {
         return
             $this->properties[S::MESSAGE_ERASING_LENGTH]->getValue();
@@ -192,6 +192,19 @@ class Settings implements SettingsInterface
                 $this->properties[$key] = $settings->properties[$key];
             }
         }
+        return $this;
+    }
+
+    /** {@inheritDoc} */
+    public function getInitialPercent(): ?float
+    {
+        return $this->properties[S::INITIAL_PERCENT]->getValue();
+    }
+
+    /** {@inheritDoc} */
+    public function setInitialPercent(?float $percent): self
+    {
+        $this->properties[S::INITIAL_PERCENT]->setValue($percent);
         return $this;
     }
 }

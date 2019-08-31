@@ -5,6 +5,7 @@ namespace AlecRabbit\Spinner\Core\Jugglers;
 use AlecRabbit\Spinner\Core\Calculator;
 use AlecRabbit\Spinner\Core\Coloring\Style;
 use AlecRabbit\Spinner\Settings\Contracts\Defaults;
+use AlecRabbit\Spinner\Settings\Settings;
 
 class MessageJuggler extends AbstractJuggler
 {
@@ -17,17 +18,17 @@ class MessageJuggler extends AbstractJuggler
     /** @var string */
     protected $suffix;
 
-    public function __construct(string $message, ?int $erasingLength, Style $style)
+    public function __construct(Settings $settings, Style $style)
     {
         $this->init($style);
-        $this->updateMessage($message, $erasingLength);
+        $this->updateMessage($settings->getMessage(), $settings->getMessageErasingLength());
     }
 
     /**
-     * @param string $message
+     * @param null|string $message
      * @param null|int $erasingLength
      */
-    protected function updateMessage(string $message, ?int $erasingLength): void
+    protected function updateMessage(?string $message, ?int $erasingLength): void
     {
         $this->message = $this->refineMessage($message);
         if (Defaults::EMPTY_STRING === $this->message) {
@@ -46,12 +47,12 @@ class MessageJuggler extends AbstractJuggler
     }
 
     /**
-     * @param string $message
+     * @param null|string $message
      * @return string
      */
-    protected function refineMessage(string $message): string
+    protected function refineMessage(?string $message): string
     {
-        return ucfirst($message);
+        return ucfirst($message ?? Defaults::EMPTY_STRING);
     }
 
     /**

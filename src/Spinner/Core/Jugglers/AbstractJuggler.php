@@ -6,6 +6,7 @@ use AlecRabbit\Accessories\Circular;
 use AlecRabbit\Spinner\Core\Coloring\Style;
 use AlecRabbit\Spinner\Core\Jugglers\Contracts\JugglerInterface;
 use AlecRabbit\Spinner\Settings\Contracts\Defaults;
+use AlecRabbit\Spinner\Settings\Settings;
 
 abstract class AbstractJuggler implements JugglerInterface
 {
@@ -20,6 +21,8 @@ abstract class AbstractJuggler implements JugglerInterface
     protected $style;
     /** @var int */
     protected $formatErasingShift = 0;
+
+    abstract public function __construct(Settings $settings, Style $style);
 
     /** {@inheritDoc} */
     public function getFrameErasingLength(): int

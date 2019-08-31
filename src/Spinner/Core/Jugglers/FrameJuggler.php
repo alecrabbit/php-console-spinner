@@ -6,14 +6,16 @@ use AlecRabbit\Accessories\Circular;
 use AlecRabbit\Spinner\Core\Calculator;
 use AlecRabbit\Spinner\Core\Coloring\Style;
 use AlecRabbit\Spinner\Settings\Contracts\Defaults;
+use AlecRabbit\Spinner\Settings\Settings;
 
 class FrameJuggler extends AbstractJuggler
 {
     /** @var Circular */
     protected $frames;
 
-    public function __construct(array $frames, Style $style)
+    public function __construct(Settings $settings, Style $style)
     {
+        $frames = $settings->getFrames();
         $this->assertFrames($frames);
         $this->frames = new Circular($frames);
         $this->init($style);

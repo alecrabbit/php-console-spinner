@@ -23,15 +23,15 @@ interface Defaults
 
     public const DEFAULT_SETTINGS =
         [
+            S::INLINE_PADDING_STR => self::EMPTY_STRING,
             S::INTERVAL => self::DEFAULT_INTERVAL,
+            S::FRAMES => self::DEFAULT_FRAMES,
             S::ERASING_SHIFT => 0,
             S::MESSAGE => self::EMPTY_STRING,
             S::MESSAGE_ERASING_LENGTH => 0,
-            S::MESSAGE_PREFIX => self::ONE_SPACE_SYMBOL, // Deprecated
-            S::MESSAGE_SUFFIX => self::EMPTY_STRING, // Deprecated
-            S::INLINE_PADDING_STR => self::EMPTY_STRING,
-            S::FRAMES => self::DEFAULT_FRAMES,
+            S::MESSAGE_SUFFIX => self::EMPTY_STRING,
             S::STYLES => Styles::STYLING_DISABLED,
-            S::SPACER => self::EMPTY_STRING, // Deprecated
+            S::SPACER => self::EMPTY_STRING,
+            S::INITIAL_PERCENT => null,
         ];
 }

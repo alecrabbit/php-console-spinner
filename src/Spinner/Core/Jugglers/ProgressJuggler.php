@@ -3,6 +3,7 @@
 namespace AlecRabbit\Spinner\Core\Jugglers;
 
 use AlecRabbit\Spinner\Core\Coloring\Style;
+use AlecRabbit\Spinner\Settings\Settings;
 use function AlecRabbit\Helpers\bounds;
 
 class ProgressJuggler extends AbstractJuggler
@@ -10,10 +11,10 @@ class ProgressJuggler extends AbstractJuggler
     /** @var string */
     protected $currentFrame;
 
-    public function __construct(float $percent, Style $style)
+    public function __construct(Settings $settings, Style $style)
     {
         $this->init($style);
-        $this->update($percent);
+        $this->update($settings->getInitialPercent());
     }
 
     /**
