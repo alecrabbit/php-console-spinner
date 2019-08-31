@@ -16,15 +16,15 @@ class MessageJuggler extends AbstractJuggler
     /** @var string */
     protected $frameString;
     /** @var string */
-    protected $suffix;
+    protected $currentSuffix;
     /** @var string */
-    protected $defaultSuffix;
+    protected $suffixFromSettings;
 
     /** {@inheritDoc} */
     public function __construct(Settings $settings, Style $style)
     {
         $this->init($style);
-        $this->defaultSuffix = $settings->getMessageSuffix();
+        $this->suffixFromSettings = $settings->getMessageSuffix();
         $this->updateMessage(
             $settings->getMessage(),
             $settings->getMessageErasingLength()
@@ -41,21 +41,21 @@ class MessageJuggler extends AbstractJuggler
         $this->message = $this->refineMessage($message);
         if (Defaults::EMPTY_STRING === $this->message) {
             $this->erasingLength = 0;
-            $this->suffix = Defaults::EMPTY_STRING;
+            $this->currentSuffix = Defaults::EMPTY_STRING;
         } else {
             $erasingLength = Calculator::refineErasingLen($this->message, $erasingLength);
             $this->erasingLength = $erasingLength;
-            $this->suffix = $this->defaultSuffix;
+            $this->currentSuffix = $this->suffixFromSettings;
         }
         $this->frameString =
-            $this->message . $this->suffix;
+            $this->message . $this->currentSuffix;
 
         $this->currentFrameErasingLength =
-            strlen($this->suffix . $this->spacer) + $this->erasingLength + $this->formatErasingShift;
+            strlen($this->currentSuffix . $this->spacer) + $this->erasingLength + $this->formatErasingShift;
     }
 
     /**
-     * @param null|string $message
+     * @param string $message
      * @return string
      */
     protected function refineMessage(string $message): string
@@ -63,19 +63,6 @@ class MessageJuggler extends AbstractJuggler
         return ucfirst($message);
     }
 
-//    /**
-//     * @param string $message
-//     * @param null|int $erasingLength
-//     * @return int
-//     */
-//    protected function refineErasingLen(string $message, ?int $erasingLength): int
-//    {
-//        if (null === $erasingLength) {
-//            return Calculator::computeErasingLength([$message]);
-//        }
-//        return $erasingLength;
-//    }
-//
     /**
      * @param string $message
      * @param null|int $erasingLength

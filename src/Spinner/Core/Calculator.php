@@ -52,6 +52,4 @@ class Calculator
         }
         return $erasingLength;
     }
-
-
 }
