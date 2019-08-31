@@ -92,21 +92,21 @@ class Settings implements SettingsInterface
         $this->properties[S::MESSAGE_SUFFIX]->setValue($suffix);
         return $this;
     }
-
-    /** {@inheritDoc} */
-    public function getMessagePrefix(): string
-    {
-        return
-            $this->properties[S::MESSAGE_PREFIX]->getValue();
-    }
-
-    /** {@inheritDoc} */
-    public function setMessagePrefix(string $prefix): self
-    {
-        $this->properties[S::MESSAGE_PREFIX]->setValue($prefix);
-        return $this;
-    }
-
+//
+//    /** {@inheritDoc} */
+//    public function getMessagePrefix(): string
+//    {
+//        return
+//            $this->properties[S::MESSAGE_PREFIX]->getValue();
+//    }
+//
+//    /** {@inheritDoc} */
+//    public function setMessagePrefix(string $prefix): self
+//    {
+//        $this->properties[S::MESSAGE_PREFIX]->setValue($prefix);
+//        return $this;
+//    }
+//
     /** {@inheritDoc} */
     public function getMessageSuffix(): string
     {

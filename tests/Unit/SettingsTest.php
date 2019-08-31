@@ -24,7 +24,7 @@ class SettingsTest extends TestCase
         $this->assertEquals(0.1, $settings->getInterval());
         $this->assertEquals(0, $settings->getErasingShift());
         $this->assertEquals('', $settings->getInlinePaddingStr());
-        $this->assertEquals(Defaults::ONE_SPACE_SYMBOL, $settings->getMessagePrefix());
+//        $this->assertEquals(Defaults::ONE_SPACE_SYMBOL, $settings->getMessagePrefix());
         $this->assertEquals('', $settings->getMessageSuffix());
         $this->assertEquals(Styles::STYLING_DISABLED, $settings->getStyles());
         $this->assertEquals(Defaults::DEFAULT_FRAMES, $settings->getFrames());
@@ -55,7 +55,7 @@ class SettingsTest extends TestCase
         $this->assertEquals(0.1, $settings->getInterval());
         $this->assertEquals(0, $settings->getErasingShift());
         $this->assertEquals('', $settings->getInlinePaddingStr());
-        $this->assertEquals(Defaults::ONE_SPACE_SYMBOL, $settings->getMessagePrefix());
+//        $this->assertEquals(Defaults::ONE_SPACE_SYMBOL, $settings->getMessagePrefix());
         $this->assertEquals('', $settings->getMessageSuffix());
         $this->assertEquals(Styles::STYLING_DISABLED, $settings->getStyles());
         $this->assertEquals(Defaults::DEFAULT_FRAMES, $settings->getFrames());
@@ -106,7 +106,7 @@ class SettingsTest extends TestCase
                 ->setMessage($message)
                 ->setInterval($interval)
                 ->setInlinePaddingStr($inlinePaddingStr)
-                ->setMessagePrefix($messagePrefix)
+//                ->setMessagePrefix($messagePrefix)
                 ->setMessageSuffix($messageSuffix)
                 ->setFrames($frames)
                 ->setStyles($styles)
@@ -116,7 +116,7 @@ class SettingsTest extends TestCase
         $this->assertEquals($interval, $settings->getInterval());
         $this->assertEquals(1, $settings->getErasingShift());
         $this->assertEquals($inlinePaddingStr, $settings->getInlinePaddingStr());
-        $this->assertEquals($messagePrefix, $settings->getMessagePrefix());
+//        $this->assertEquals($messagePrefix, $settings->getMessagePrefix());
         $this->assertEquals($messageSuffix, $settings->getMessageSuffix());
 
         $this->assertEquals($frames, $settings->getFrames());

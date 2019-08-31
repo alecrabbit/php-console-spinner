@@ -48,11 +48,11 @@ class PercentSpinner extends Spinner
 //        return $this;
 //    }
 
-    /** {@inheritDoc} */
-    protected function defaultSettings(): Settings
-    {
-        return
-            parent::defaultSettings()
-                ->setMessagePrefix(Defaults::EMPTY_STRING);
-    }
+//    /** {@inheritDoc} */
+//    protected function defaultSettings(): Settings
+//    {
+//        return
+//            parent::defaultSettings()
+//                ->setMessagePrefix(Defaults::EMPTY_STRING);
+//    }
 }
