@@ -55,4 +55,9 @@ interface SpinnerInterface
      * @return string
      */
     public function spin(): string;
+
+    /**
+     * @return string
+     */
+    public function last(): string;
 }

@@ -41,6 +41,8 @@ abstract class Spinner extends SpinnerCore
     protected $coloring;
     /** @var null[]|JugglerInterface[] */
     protected $jugglers = [];
+    /** @var string */
+    protected $lastSpinnerString = '';
 
     /**
      * Spinner constructor.
@@ -232,12 +234,20 @@ abstract class Spinner extends SpinnerCore
     /** {@inheritDoc} */
     public function spin(): string
     {
+        $this->lastSpinnerString = $this->preparedStr();
+        return
+            $this->last();
+    }
+
+    /** {@inheritDoc} */
+    public function last(): string
+    {
         if ($this->output instanceof OutputInterface) {
-            $this->output->write($this->preparedStr());
+            $this->output->write($this->lastSpinnerString);
             return self::EMPTY_STRING;
         }
         return
-            $this->preparedStr();
+            $this->lastSpinnerString;
     }
 
     protected function preparedStr(): string

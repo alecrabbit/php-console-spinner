@@ -111,7 +111,7 @@ $loop->addPeriodicTimer(0.2, static function () use ($s, $t, $inline, $faker, &$
     if ((16 < $progress) && (random_int(0, 100) > 50)) {
         $s->erase();
         simulateMessage($inline, $t, $faker);
-        $s->spin(); // optional
+        $s->last(); // optional
     }
 });
 
