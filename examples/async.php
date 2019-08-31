@@ -52,58 +52,51 @@ $progress = null;
 $messages = [
     0 => 'Initializing',
     3 => 'Starting',
-//    4 => "\e[0mOverride message \e[93mcoloring\e[0m by \e[1mown styles",
-    4 => "\e[0mOverride message \e[38;5;211;48;5;237mcoloring\e[0m by \e[1mown styles",
-//    4 => 'Override message coloring by own styles',
-    10 => 'Begin processing ang this message continues further',
-    14 => 'Gathering data',
+    6 => 'Long message: this message continues further',
+    9 => 'Gathering data',
     16 => 'Processing',
     25 => null,
     44 => 'Processing',
-    78 => 'Processing',
+    79 => "\e[0mOverride \e[1mmessage coloring\e[0m by \e[38;5;211;48;5;237mown styles",
     82 => "\e[0m\e[91mStill processing",
-//    82 => 'Still processing',
     90 => "\e[0m\e[93mBe patient",
-//    90 => 'Be patient',
     95 => "\e[0m\e[33mAlmost there",
-//    95 => 'Almost there',
     100 => "\e[0m\e[92mDone",
-//    100 => 'Done',
 ];
 
-$s = new TimeSpinner();
+//$s = new TimeSpinner();
 //$s = new ClockSpinner((new Settings())->setInterval(1)); // Slow ClockSpinner example
 $settings = new Settings();
-//$s =
-//    new SnakeSpinner(       // Slow BlockSpinner with custom styles example
-//        $settings
-////            ->setMessageSuffix(Defaults::DOTS_SUFFIX)
-////            ->setStyles(
-////                [
-////                    Juggler::FRAMES_STYLES =>
-////                        [
-////                            Juggler::COLOR256 => Styles::C256_BG_RAINBOW,
-////                            Juggler::COLOR => [[Color::WHITE, BG::RED, Effect::BOLD,]],
-////                            Juggler::FORMAT => ' %s  ',
-////                            Juggler::SPACER => '',
-////                        ],
-////                    Juggler::MESSAGE_STYLES =>
-////                        [
-////                            Juggler::COLOR => [[Color::YELLOW, BG::RED, Effect::BOLD,]],
-////                            Juggler::FORMAT => '%s ',
-////                            Juggler::SPACER => '',
-////                        ],
-////                    Juggler::PROGRESS_STYLES =>
-////                        [
-////                            Juggler::COLOR => [[Color::WHITE, BG::RED, Effect::BOLD, Effect::ITALIC]],
-////                            Juggler::FORMAT => '%s ',
-////                            Juggler::SPACER => '',
-////                        ],
-////                ]
-////            ),
-////        null,
-////        COLOR_TERMINAL
-//    );
+$s =
+    new SnakeSpinner(       // Slow BlockSpinner with custom styles example
+        $settings
+//            ->setMessageSuffix(Defaults::DOTS_SUFFIX)
+//            ->setStyles(
+//                [
+//                    Juggler::FRAMES_STYLES =>
+//                        [
+//                            Juggler::COLOR256 => Styles::C256_BG_RAINBOW,
+//                            Juggler::COLOR => [[Color::WHITE, BG::RED, Effect::BOLD,]],
+//                            Juggler::FORMAT => ' %s  ',
+//                            Juggler::SPACER => '',
+//                        ],
+//                    Juggler::MESSAGE_STYLES =>
+//                        [
+//                            Juggler::COLOR => [[Color::YELLOW, BG::RED, Effect::BOLD,]],
+//                            Juggler::FORMAT => '%s ',
+//                            Juggler::SPACER => '',
+//                        ],
+//                    Juggler::PROGRESS_STYLES =>
+//                        [
+//                            Juggler::COLOR => [[Color::WHITE, BG::RED, Effect::BOLD, Effect::ITALIC]],
+//                            Juggler::FORMAT => '%s ',
+//                            Juggler::SPACER => '',
+//                        ],
+//                ]
+//            ),
+//        null,
+//        COLOR_TERMINAL
+    );
 
 $inline = false;
 $s->inline($inline);
@@ -169,10 +162,9 @@ function simulateMessage(bool $inline, Themes $t, $faker): void
     echo $header .
 //        $t->dark(date('H:i:s')) .
         ' ' .
-        $t->italic(str_pad($faker->name(), 35)) . ' ' .
+        $t->italic(str_pad($faker->company(), 35)) . ' ' .
         $t->bold(amount()) . ' ' .
-        str_pad($faker->iban(), 30) . ' ' .
-        $t->dark($faker->company()) .
+        $t->dark($faker->iban()). ' ' .
         $footer;
 }
 
