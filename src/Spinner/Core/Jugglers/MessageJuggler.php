@@ -17,12 +17,18 @@ class MessageJuggler extends AbstractJuggler
     protected $frameString;
     /** @var string */
     protected $suffix;
+    /** @var string */
+    protected $defaultSuffix;
 
     /** {@inheritDoc} */
     public function __construct(Settings $settings, Style $style)
     {
         $this->init($style);
-        $this->updateMessage($settings->getMessage(), $settings->getMessageErasingLength());
+        $this->defaultSuffix = $settings->getMessageSuffix();
+        $this->updateMessage(
+            $settings->getMessage(),
+            $settings->getMessageErasingLength()
+        );
     }
 
     /**
@@ -39,7 +45,7 @@ class MessageJuggler extends AbstractJuggler
         } else {
             $erasingLength = Calculator::refineErasingLen($this->message, $erasingLength);
             $this->erasingLength = $erasingLength;
-            $this->suffix = Defaults::DOTS_SUFFIX;
+            $this->suffix = $this->defaultSuffix;
         }
         $this->frameString =
             $this->message . $this->suffix;

@@ -6,6 +6,11 @@ if (!extension_loaded('pcntl')) {
     exit(1);
 }
 
+/*
+ * This demo shows how your app may look like.
+ * Please ignore code quality :)
+ */
+
 //require_once __DIR__ . '/../vendor/autoload.php';
 require_once __DIR__ . '/../tests/bootstrap.php';
 
@@ -13,18 +18,20 @@ use AlecRabbit\ConsoleColour\Contracts\BG;
 use AlecRabbit\ConsoleColour\Contracts\Color;
 use AlecRabbit\ConsoleColour\Contracts\Effect;
 use AlecRabbit\ConsoleColour\Themes;
-use AlecRabbit\Spinner\ArrowSpinner;
 use AlecRabbit\Spinner\Core\Contracts\Juggler;
 use AlecRabbit\Spinner\Core\Contracts\Styles;
 use AlecRabbit\Spinner\DiceSpinner;
+use AlecRabbit\Spinner\Settings\Contracts\Defaults;
 use AlecRabbit\Spinner\Settings\Settings;
 use AlecRabbit\Spinner\SnakeSpinner;
-use AlecRabbit\Spinner\TimeSpinner;
 use React\EventLoop\Factory;
+use function AlecRabbit\Helpers\swap;
 use const AlecRabbit\COLOR_TERMINAL;
 
 // coloring output
 $t = new Themes();
+// Emulating real messages
+$faker = Faker\Factory::create();
 echo $t->dark('Use CTRL+C to exit.'), PHP_EOL;
 
 $loop = Factory::create();
@@ -62,12 +69,13 @@ $messages = [
 //    100 => 'Done',
 ];
 
-$s = new TimeSpinner();
+//$s = new TimeSpinner();
 //$s = new ClockSpinner((new Settings())->setInterval(1)); // Slow ClockSpinner example
 $settings = new Settings();
-//$s =
-//    new DiceSpinner(       // Slow BlockSpinner with custom styles example
+$s =
+    new SnakeSpinner(       // Slow BlockSpinner with custom styles example
 //        $settings
+//            ->setMessageSuffix(Defaults::DOTS_SUFFIX)
 //            ->setStyles(
 //                [
 //                    Juggler::FRAMES_STYLES =>
@@ -93,19 +101,21 @@ $settings = new Settings();
 //            ),
 //        null,
 //        COLOR_TERMINAL
-//    );
+    );
 
-$s->inline(true);
+$inline = false;
+$s->inline($inline);
 // Add periodic timer to redraw our spinner
 $loop->addPeriodicTimer($s->interval(), static function () use ($s) {
     $s->spin();
 });
 
 // Add periodic timer to randomly echo timestamps - simulating messages from your app
-$loop->addPeriodicTimer(1, static function () use ($s, $t) {
-    if (random_int(0, 1000) > 570) {
+$loop->addPeriodicTimer(0.2, static function () use ($s, $t, $inline, $faker, &$progress) {
+
+    if ((16 < $progress) && (random_int(0, 100) > 50)) {
         $s->erase();
-        echo PHP_EOL . $t->dark(date('H:i:s')) . ' Simulated message.';
+        simulateMessage($inline, $t, $faker);
         $s->spin(); // optional
     }
 });
@@ -132,9 +142,49 @@ $loop->addPeriodicTimer(0.3, static function () use ($s, &$progress, &$messages)
     }
 });
 
+echo 'Searching for accepted payments...' . PHP_EOL;
+
 $s->begin(); // Hides cursor and write first frame to output
 
 // Starting the loop
 $loop->run();
 
 $s->end(); // Cleaning up
+
+/**
+ * @param bool $inline
+ * @param Themes $t
+ * @param $faker
+ * @throws Exception
+ */
+function simulateMessage(bool $inline, Themes $t, $faker): void
+{
+    $header = '';
+    $footer = PHP_EOL;
+    if ($inline) {
+        swap($header, $footer);
+    }
+    echo $header .
+//        $t->dark(date('H:i:s')) .
+        ' ' .
+        $t->italic(str_pad($faker->name(), 35)) . ' ' .
+        $t->bold(amount()) . ' ' .
+        str_pad($faker->iban(), 30) . ' ' .
+        $t->dark($faker->company()) .
+        $footer;
+}
+
+/**
+ * @return string
+ * @throws Exception
+ */
+function amount(): string
+{
+    return
+        str_pad(
+            number_format(random_int(1, 1000) * random_int(1, 1000) / 100, 2) . '$',
+            10,
+            Defaults::ONE_SPACE_SYMBOL,
+            STR_PAD_LEFT
+        );
+}

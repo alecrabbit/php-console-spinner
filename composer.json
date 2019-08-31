@@ -28,7 +28,8 @@
     "nunomaduro/collision": "^3.0",
     "phpunit/phpunit": "^8.0",
     "symfony/var-dumper": "^4.2",
-    "react/http": "^0.8"
+    "react/http": "^0.8",
+    "fzaninotto/faker": "^1.8"
   },
   "autoload": {
     "psr-4": {
