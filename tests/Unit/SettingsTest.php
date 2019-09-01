@@ -22,7 +22,7 @@ class SettingsTest extends TestCase
         $this->assertInstanceOf(Settings::class, $settings);
         $this->assertEquals(Defaults::EMPTY_STRING, $settings->getMessage());
         $this->assertEquals(0.1, $settings->getInterval());
-//        $this->assertEquals(0, $settings->getErasingShift());
+        $this->assertTrue($settings->isEnabled());
         $this->assertEquals('', $settings->getInlinePaddingStr());
 //        $this->assertEquals(Defaults::ONE_SPACE_SYMBOL, $settings->getMessagePrefix());
         $this->assertEquals(Defaults::DEFAULT_SUFFIX, $settings->getMessageSuffix());
@@ -43,6 +43,8 @@ class SettingsTest extends TestCase
         $settings->setMessage(self::MB_STRING_1);
         $this->assertEquals(self::MB_STRING_1, $settings->getMessage());
         $this->assertEquals(6, $settings->getMessageErasingLength());
+        $settings->setEnabled(false);
+        $this->assertFalse($settings->isEnabled());
     }
 
     /** @test */
@@ -66,8 +68,9 @@ class SettingsTest extends TestCase
     {
         $newSettings = new Settings();
         $frames = [null];
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('All frames should be of string type.');
         $newSettings->setFrames($frames);
-        $this->assertEquals($frames, $newSettings->getFrames());
     }
 
     /** @test */

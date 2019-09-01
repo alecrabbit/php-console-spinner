@@ -15,4 +15,5 @@ interface S
     public const STYLES = 'styles';
     public const SPACER = 'spacer';
     public const INITIAL_PERCENT = 'initial_percent';
+    public const ENABLED = 'enabled';
 }

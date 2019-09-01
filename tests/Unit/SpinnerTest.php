@@ -38,6 +38,36 @@ class SpinnerTest extends TestCase
     }
 
     /** @test */
+    public function instanceDisabled(): void
+    {
+        $spinner = new ExtendedSpinner(self::PROCESSING, false, NO_COLOR_TERMINAL);
+        $spinner->disable();
+        $this->assertInstanceOf(Spinner::class, $spinner);
+        $this->assertSame(0.1, $spinner->interval());
+        $this->assertNull($spinner->getOutput());
+        $this->assertIsString($spinner->begin());
+        $this->assertIsString($spinner->spin());
+        $this->assertIsString($spinner->end());
+        $this->assertEquals(Defaults::EMPTY_STRING, $spinner->begin());
+        $this->assertEquals(Defaults::EMPTY_STRING, $spinner->begin());
+        $this->assertEquals(Defaults::EMPTY_STRING, $spinner->begin());
+        $this->assertEquals(Defaults::EMPTY_STRING, $spinner->spin());
+        $this->assertEquals(Defaults::EMPTY_STRING, $spinner->spin());
+        $this->assertEquals(Defaults::EMPTY_STRING, $spinner->spin());
+        $this->assertEquals(Defaults::EMPTY_STRING, $spinner->erase());
+        $this->assertEquals(Defaults::EMPTY_STRING, $spinner->last());
+        $this->assertEquals(Defaults::EMPTY_STRING, $spinner->end());
+        $spinner->enable();
+        $this->assertStringContainsString(self::PROCESSING, $spinner->begin());
+        $this->assertStringContainsString(Defaults::ONE_SPACE_SYMBOL, $spinner->begin());
+        $this->assertStringContainsString(Defaults::DEFAULT_SUFFIX, $spinner->begin());
+        $this->assertStringContainsString(self::PROCESSING, $spinner->spin());
+        $this->assertStringContainsString(Defaults::ONE_SPACE_SYMBOL, $spinner->spin());
+        $this->assertStringContainsString(Defaults::DEFAULT_SUFFIX, $spinner->spin());
+        $this->assertStringNotContainsString(self::PROCESSING, $spinner->end());
+    }
+
+    /** @test */
     public function instanceWithUpdatingMessage(): void
     {
         $messageComputing = ucfirst(self::COMPUTING);

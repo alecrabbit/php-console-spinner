@@ -3,6 +3,7 @@
 namespace AlecRabbit\Spinner\Settings;
 
 use AlecRabbit\Spinner\Core\Calculator;
+use AlecRabbit\Spinner\Core\Sentinel;
 use AlecRabbit\Spinner\Settings\Contracts\Defaults;
 use AlecRabbit\Spinner\Settings\Contracts\S;
 use AlecRabbit\Spinner\Settings\Contracts\SettingsInterface;
@@ -44,6 +45,27 @@ class Settings implements SettingsInterface
     }
 
     /** {@inheritDoc} */
+    public function isEnabled(): bool
+    {
+        return
+            $this->properties[S::ENABLED]->getValue();
+    }
+
+    /** {@inheritDoc} */
+    public function setEnabled(bool $enabled = true): self
+    {
+        $this->properties[S::ENABLED]->setValue($enabled);
+        return $this;
+    }
+
+//    /** {@inheritDoc} */
+//    public function enable(): self
+//    {
+//        $this->properties[S::ENABLED]->setValue(true);
+//        return $this;
+//    }
+//
+    /** {@inheritDoc} */
     public function getMessage(): ?string
     {
         return
@@ -57,7 +79,7 @@ class Settings implements SettingsInterface
         if (Defaults::EMPTY_STRING === $message || null === $message) {
             $erasingLength = 0;
         } else {
-            $erasingLength =  Calculator::refineErasingLen($message, $erasingLength);
+            $erasingLength = Calculator::refineErasingLen($message, $erasingLength);
         }
         $this->properties[S::MESSAGE_ERASING_LENGTH]->setValue($erasingLength);
         return $this;
@@ -101,11 +123,7 @@ class Settings implements SettingsInterface
     /** {@inheritDoc} */
     public function setFrames(array $frames): self
     {
-        if (Defaults::MAX_FRAMES_COUNT < ($count = count($frames))) {
-            throw new \InvalidArgumentException(
-                sprintf('MAX_SYMBOLS_COUNT limit [%s] exceeded: [%s].', Defaults::MAX_FRAMES_COUNT, $count)
-            );
-        }
+        Sentinel::assertFrames($frames);
         $this->properties[S::FRAMES]->setValue($frames);
         $this->properties[S::ERASING_SHIFT]->setValue(Calculator::computeErasingLength($frames));
         return $this;
