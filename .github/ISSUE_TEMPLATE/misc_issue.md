@@ -1,4 +1,11 @@
-Hello,
+---
+name: Misc issue
+about: Regular issue
+title: ''
+labels: ''
+assignees: ''
+
+---
 
 I encountered an issue with the following code:
 ```php
@@ -6,7 +13,7 @@ I encountered an issue with the following code:
 ```
 Library version: **PUT HERE YOUR COMPOSER LIBRARY VERSION**
 <!--
-Run the command `composer show alecrrabbit/<lib>`
+Run the command `composer show <PACKAGE_OWNER>/<PACKAGE_NAME>`
 to get "versions".
 -->
 
