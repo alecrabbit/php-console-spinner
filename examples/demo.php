@@ -66,7 +66,7 @@ $arr = [
 $len = count(MESSAGES) - 1;
 foreach ($spinners as $spinner) {
     echo $t->bold(PHP_EOL . brackets($spinner) . ' ');
-    $m = MESSAGES[random_int(0, $len)];
+    $m = MESSAGES[rnd($len)];
     [$message, $erLen] = $m;
     if (in_array($spinner, $arr, true)) {
         $s = new Settings();
@@ -106,4 +106,18 @@ function showSpinners(SpinnerInterface $s, bool $withPercent = false): void
     }
     echo $s->end();
 }
+
+/**
+ * @param int $len
+ * @return int
+ */
+function rnd(int $len): int
+{
+    try {
+        return random_int(0, $len);
+    } catch (Exception $e) {
+        return 0;
+    }
+}
+
 
