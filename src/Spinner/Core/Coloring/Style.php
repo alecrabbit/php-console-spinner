@@ -5,6 +5,7 @@ namespace AlecRabbit\Spinner\Core\Coloring;
 use AlecRabbit\Accessories\Circular;
 use AlecRabbit\Spinner\Core\Contracts\Juggler;
 use AlecRabbit\Spinner\Core\Contracts\Styles;
+use AlecRabbit\Spinner\Core\Sentinel;
 use const AlecRabbit\COLOR256_TERMINAL;
 use const AlecRabbit\COLOR_TERMINAL;
 use const AlecRabbit\ESC;
@@ -21,28 +22,11 @@ class Style
 
     public function __construct(array $styles, ?int $color)
     {
-        $this->assertStyles($styles);
+        Sentinel::assertStyles($styles, Styles::DEFAULT_STYLES_ELEMENT);
         $color = $color ?? NO_COLOR_TERMINAL;
         $this->format = $styles[Juggler::FORMAT];
         $this->spacer = $styles[Juggler::SPACER];
         $this->style = $this->makeStyle($styles, $color);
-    }
-
-    /**
-     * @param array $styles
-     */
-    protected function assertStyles(array $styles): void
-    {
-        $keys = array_keys($styles);
-        foreach ($keys as $index) {
-            if (!\array_key_exists($index, $styles)) {
-                // @codeCoverageIgnoreStart
-                throw new \InvalidArgumentException(
-                    'Styles array does not have [' . $index . '] key.'
-                );
-                // @codeCoverageIgnoreEnd
-            }
-        }
     }
 
     /**

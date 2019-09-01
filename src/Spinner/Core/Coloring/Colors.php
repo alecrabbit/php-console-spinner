@@ -6,6 +6,7 @@ use AlecRabbit\Cli\Tools\Core\TerminalStatic;
 use AlecRabbit\Cli\Tools\Terminal;
 use AlecRabbit\Spinner\Core\Contracts\Juggler;
 use AlecRabbit\Spinner\Core\Contracts\Styles;
+use AlecRabbit\Spinner\Core\Sentinel;
 use const AlecRabbit\COLOR256_TERMINAL;
 use const AlecRabbit\COLOR_TERMINAL;
 use const AlecRabbit\NO_COLOR_TERMINAL;
@@ -28,7 +29,7 @@ class Colors
     public function __construct(array $styles, int $color = null)
     {
         $styles = $this->mergeStyles($styles);
-        $this->assertStyles($styles); // Left here for now
+        Sentinel::assertStyles($styles, Styles::DEFAULT_STYLES);
         $this->terminal = new Terminal(null, null, $color);
 
         $color = $this->terminal->color();
@@ -53,23 +54,6 @@ class Colors
             }
         }
         return $defaultStyles;
-    }
-
-    /**
-     * @param array $styles
-     */
-    protected function assertStyles(array $styles): void
-    {
-        $keys = array_keys(Styles::DEFAULT_STYLES);
-        foreach ($keys as $index) {
-            if (!\array_key_exists($index, $styles)) {
-                // @codeCoverageIgnoreStart
-                throw new \InvalidArgumentException(
-                    'Styles array does not have [' . $index . '] key.'
-                );
-                // @codeCoverageIgnoreEnd
-            }
-        }
     }
 
     /**

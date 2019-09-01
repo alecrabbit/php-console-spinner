@@ -43,4 +43,22 @@ class Sentinel
             );
         }
     }
+
+    /**
+     * @param array $styles
+     * @param array $against
+     */
+    public static function assertStyles(array $styles, array $against): void
+    {
+        $keys = array_keys($against);
+        foreach ($keys as $index) {
+            if (!\array_key_exists($index, $styles)) {
+                // @codeCoverageIgnoreStart
+                throw new \InvalidArgumentException(
+                    'Styles array does not have [' . $index . '] key.'
+                );
+                // @codeCoverageIgnoreEnd
+            }
+        }
+    }
 }
