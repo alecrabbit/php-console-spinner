@@ -39,10 +39,10 @@ $t = new Themes();
 echo $t->lightCyan('Async spinner demo.') . PHP_EOL;
 // Show initial memory usage
 memory($t);
+echo PHP_EOL;
 
-// Emulating real messages
+// For fake data
 $faker = Faker\Factory::create();
-echo $t->dark('Use CTRL+C to exit.'), PHP_EOL;
 
 $loop = Factory::create();
 
@@ -153,6 +153,8 @@ $loop->addPeriodicTimer(0.3, static function () use ($s, &$progress, &$messages)
         $s->message($messages[$progress]);
     }
 });
+
+echo $t->dark('Use CTRL+C to exit.') . PHP_EOL . PHP_EOL;
 
 echo 'Searching for accepted payments...' . PHP_EOL;
 
