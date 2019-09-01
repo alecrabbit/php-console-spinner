@@ -36,15 +36,7 @@ class Sentinel
         if (!\is_string($frame)) {
             throw new \InvalidArgumentException('All frames should be of string type.');
         }
-        if (Defaults::MAX_FRAME_LENGTH < $length = mb_strlen($frame)) {
-            throw new \InvalidArgumentException(
-                sprintf(
-                    'Single frame max length [%s] exceeded [%s]',
-                    Defaults::MAX_FRAME_LENGTH,
-                    $length
-                )
-            );
-        }
+        self::assertFrameLength($frame);
     }
 
     /**
@@ -89,6 +81,22 @@ class Sentinel
         if (null !== $settings && !\is_string($settings) && !$settings instanceof Settings) {
             throw new \InvalidArgumentException(
                 'Instance of [' . Settings::class . '] or string expected ' . typeOf($settings) . ' given.'
+            );
+        }
+    }
+
+    /**
+     * @param $frame
+     */
+    public static function assertFrameLength($frame): void
+    {
+        if (Defaults::MAX_FRAME_LENGTH < $length = mb_strlen($frame)) {
+            throw new \InvalidArgumentException(
+                sprintf(
+                    'Single frame max length [%s] exceeded [%s]',
+                    Defaults::MAX_FRAME_LENGTH,
+                    $length
+                )
             );
         }
     }
