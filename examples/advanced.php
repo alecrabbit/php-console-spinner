@@ -8,9 +8,11 @@ __check_for_extension('pcntl', 'ext-pcntl is required', __FILE__);
 
 use AlecRabbit\Accessories\MemoryUsage;
 use AlecRabbit\Cli\Tools\Cursor;
-use AlecRabbit\ConsoleColour\Contracts\Styles;
+use AlecRabbit\ConsoleColour\Contracts\Color;
 use AlecRabbit\ConsoleColour\Themes;
+use AlecRabbit\Spinner\Core\Coloring\Colors;
 use AlecRabbit\Spinner\Core\Contracts\Frames;
+use AlecRabbit\Spinner\Core\Contracts\Juggler;
 use AlecRabbit\Spinner\Core\Contracts\Styles;
 use AlecRabbit\Spinner\Settings\Settings;
 use AlecRabbit\Spinner\SnakeSpinner;
@@ -86,7 +88,7 @@ $settings
             Juggler::MESSAGE_STYLES =>
                 [
                     Juggler::COLOR256 => Styles::C256_YELLOW_WHITE,
-                    Juggler::COLOR => [Styles::WHITE],
+                    Juggler::COLOR => [Color::WHITE],
                 ],
         ]
     );
@@ -95,8 +97,14 @@ $s = new SnakeSpinner($settings, null);
 // Add periodic timer to redraw our spinner
 $loop->addPeriodicTimer($s->interval(), static function () use ($s) {
     $s
-        ->message(date('D Y-m-d H:i:s'))
+//        ->message(date('D Y-m-d H:i:s'))  // Note next periodic timer - we are changing message in a different "coroutine"
         ->spin();
+});
+
+// We are changing message in a different "coroutine" with it's own interval
+$loop->addPeriodicTimer(1, static function () use ($s) {
+    $s
+        ->message(date('D Y-m-d H:i:s'));
 });
 
 // Add periodic timer to echo status message

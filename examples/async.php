@@ -1,20 +1,22 @@
 <?php /** @noinspection PhpComposerExtensionStubsInspection */
 declare(strict_types=1);
 
-if (!extension_loaded('pcntl')) {
-    echo 'This example requires pcntl extension.' . PHP_EOL;
-    exit(1);
-}
-
 /*
  * This demo shows how your app may look like.
- * You can print out your data and same time change spinner messages
+ * It can print out your data and same time change spinner messages.
+ *
  * Please ignore code quality :)
  */
 
-//require_once __DIR__ . '/../vendor/autoload.php';
-require_once __DIR__ . '/../tests/bootstrap.php';
+//require_once __DIR__ . '/../vendor/autoload.php';         // Uncomment this if you didn't clone this repository
+require_once __DIR__ . '/../tests/bootstrap.php';           // and comment this one
 
+require_once __DIR__ . '/__include/__ext_check.php';
+
+__check_for_extension('pcntl', 'ext-pcntl is required', __FILE__);
+
+use AlecRabbit\Accessories\MemoryUsage;
+use AlecRabbit\Accessories\Pretty;
 use AlecRabbit\ConsoleColour\Contracts\BG;
 use AlecRabbit\ConsoleColour\Contracts\Color;
 use AlecRabbit\ConsoleColour\Contracts\Effect;
@@ -32,6 +34,12 @@ use const AlecRabbit\COLOR_TERMINAL;
 
 // coloring output
 $t = new Themes();
+
+// Welcoming message
+echo $t->lightCyan('Async spinner demo.') . PHP_EOL;
+// Show initial memory usage
+memory($t);
+
 // Emulating real messages
 $faker = Faker\Factory::create();
 echo $t->dark('Use CTRL+C to exit.'), PHP_EOL;
@@ -105,12 +113,21 @@ $loop->addPeriodicTimer($s->interval(), static function () use ($s) {
     $s->spin();
 });
 
-// Add periodic timer to randomly echo timestamps - simulating messages from your app
+// Add periodic timer to simulate messages from your app
 $loop->addPeriodicTimer(0.2, static function () use ($s, $t, $inline, $faker, &$progress) {
 
     if ((16 < $progress) && (random_int(0, 100) > 50)) {
         $s->erase();
         simulateMessage($inline, $t, $faker);
+        $s->last(); // optional, for smooth animation
+    }
+});
+
+// Add periodic timer to print out memory usage - examples of messages form other part of app
+$loop->addPeriodicTimer(8, static function () use ($s, $t, $inline, $faker, &$progress) {
+    if (16 < $progress) {
+        $s->erase();
+        memory($t);
         $s->last(); // optional
     }
 });
@@ -166,6 +183,14 @@ function simulateMessage(bool $inline, Themes $t, $faker): void
         $t->bold(amount()) . ' ' .
         $t->dark($faker->iban()). ' ' .
         $footer;
+}
+
+/**
+ * @param Themes $t
+ */
+function memory(Themes $t): void
+{
+    echo $t->dark((string)MemoryUsage::getReport()) . PHP_EOL;
 }
 
 /**

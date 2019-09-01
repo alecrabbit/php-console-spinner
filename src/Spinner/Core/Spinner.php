@@ -30,19 +30,21 @@ abstract class Spinner extends SpinnerCore
     /** @var null|ProgressJuggler */
     protected $progressJuggler;
     /** @var string */
-    protected $moveCursorBackSequence = '';
+    protected $moveCursorBackSequence = Defaults::EMPTY_STRING;
     /** @var string */
-    protected $eraseBySpacesSequence = '';
+    protected $eraseBySpacesSequence = Defaults::EMPTY_STRING;
     /** @var int */
     protected $previousErasingLength = 0;
-    /** @var string */
-    protected $spacer = Defaults::EMPTY_STRING;
+//    /** @var string */
+//    protected $spacer = Defaults::EMPTY_STRING;
     /** @var Colors */
     protected $coloring;
     /** @var null[]|JugglerInterface[] */
     protected $jugglers = [];
     /** @var string */
-    protected $lastSpinnerString = '';
+    protected $lastSpinnerString = Defaults::EMPTY_STRING;
+    /** @var string */
+    protected $inlinePaddingStr = Defaults::EMPTY_STRING;
 
     /**
      * Spinner constructor.
@@ -56,6 +58,7 @@ abstract class Spinner extends SpinnerCore
         $this->output = $this->refineOutput($output);
         $this->settings = $this->refineSettings($messageOrSettings);
         $this->interval = $this->settings->getInterval();
+        $this->inlinePaddingStr = $this->settings->getInlinePaddingStr();
         $this->coloring = new Colors($this->settings->getStyles(), $color);
         $this->initJugglers();
         $this->jugglers = [
@@ -175,7 +178,7 @@ abstract class Spinner extends SpinnerCore
     public function inline(bool $inline): SpinnerInterface
     {
         $this->inline = $inline;
-        $this->spacer = $this->inline ? Defaults::ONE_SPACE_SYMBOL : Defaults::EMPTY_STRING;
+        $this->inlinePaddingStr = $this->inline ? Defaults::ONE_SPACE_SYMBOL : Defaults::EMPTY_STRING;
         return $this;
     }
 
@@ -234,7 +237,7 @@ abstract class Spinner extends SpinnerCore
     /** {@inheritDoc} */
     public function spin(): string
     {
-        $this->lastSpinnerString = $this->preparedStr();
+        $this->lastSpinnerString = $this->prepareLastSpinnerString();
         return
             $this->last();
     }
@@ -250,7 +253,7 @@ abstract class Spinner extends SpinnerCore
             $this->lastSpinnerString;
     }
 
-    protected function preparedStr(): string
+    protected function prepareLastSpinnerString(): string
     {
 //        $start = hrtime(true);
         $str = '';
@@ -262,7 +265,7 @@ abstract class Spinner extends SpinnerCore
                 $erasingLength += $juggler->getFrameErasingLength();
             }
         }
-        $erasingLength += $this->inline ? 1 : 0;
+        $erasingLength += $this->inline ? strlen($this->inlinePaddingStr) : 0;
         $erasingLengthDelta = $this->previousErasingLength - $erasingLength;
         $this->previousErasingLength = $erasingLength;
 
@@ -273,7 +276,7 @@ abstract class Spinner extends SpinnerCore
         $this->moveCursorBackSequence = ESC . "[{$erasingLength}D";
         $this->eraseBySpacesSequence = str_repeat(Defaults::ONE_SPACE_SYMBOL, $erasingLength);
 
-        $str = $this->spacer . $str . $eraseTailBySpacesSequence . $this->moveCursorBackSequence;
+        $str = $this->inlinePaddingStr . $str . $eraseTailBySpacesSequence . $this->moveCursorBackSequence;
 //        dump(hrtime(true) - $start);
         return $str;
     }
