@@ -1,6 +1,9 @@
 <a name="unreleased"></a>
 ## [Unreleased]
 
+
+<a name="0.32.0-ALPHA1"></a>
+## [0.32.0-ALPHA1] - 2019-08-31
 ### Added
 - `Colors::class`
 
@@ -232,7 +235,8 @@
 <a name="0.2.1-ALPHA.1"></a>
 ## 0.2.1-ALPHA.1 - 2019-04-06
 
-[Unreleased]: https://github.com/alecrabbit/php-console-spinner/compare/0.31.0-ALPHA1...HEAD
+[Unreleased]: https://github.com/alecrabbit/php-console-spinner/compare/0.32.0-ALPHA1...HEAD
+[0.32.0-ALPHA1]: https://github.com/alecrabbit/php-console-spinner/compare/0.31.0-ALPHA1...0.32.0-ALPHA1
 [0.31.0-ALPHA1]: https://github.com/alecrabbit/php-console-spinner/compare/0.30.0-ALPHA2...0.31.0-ALPHA1
 [0.30.0-ALPHA2]: https://github.com/alecrabbit/php-console-spinner/compare/0.17.1...0.30.0-ALPHA2
 [0.17.1]: https://github.com/alecrabbit/php-console-spinner/compare/0.17.0...0.17.1

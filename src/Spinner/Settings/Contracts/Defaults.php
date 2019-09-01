@@ -33,5 +33,6 @@ interface Defaults
             S::STYLES => Styles::STYLING_DISABLED,
             S::SPACER => self::EMPTY_STRING,
             S::INITIAL_PERCENT => null,
+            S::ENABLED => true,
         ];
 }

@@ -4,8 +4,8 @@ namespace AlecRabbit\Spinner\Core;
 
 use AlecRabbit\Cli\Tools\Cursor;
 use AlecRabbit\Spinner\Core\Coloring\Colors;
-use AlecRabbit\Spinner\Core\Contracts\SpinnerInterface;
 use AlecRabbit\Spinner\Core\Contracts\OutputInterface;
+use AlecRabbit\Spinner\Core\Contracts\SpinnerInterface;
 use AlecRabbit\Spinner\Core\Jugglers\Contracts\JugglerInterface;
 use AlecRabbit\Spinner\Core\Jugglers\FrameJuggler;
 use AlecRabbit\Spinner\Core\Jugglers\MessageJuggler;
@@ -30,21 +30,19 @@ abstract class Spinner extends SpinnerCore
     /** @var null|ProgressJuggler */
     protected $progressJuggler;
     /** @var string */
-    protected $moveCursorBackSequence = Defaults::EMPTY_STRING;
+    protected $moveCursorBackSequence = self::EMPTY_STRING;
     /** @var string */
-    protected $eraseBySpacesSequence = Defaults::EMPTY_STRING;
+    protected $eraseBySpacesSequence = self::EMPTY_STRING;
     /** @var int */
     protected $previousErasingLength = 0;
-//    /** @var string */
-//    protected $spacer = Defaults::EMPTY_STRING;
     /** @var Colors */
     protected $coloring;
     /** @var null[]|JugglerInterface[] */
     protected $jugglers = [];
     /** @var string */
-    protected $lastSpinnerString = Defaults::EMPTY_STRING;
+    protected $lastSpinnerString = self::EMPTY_STRING;
     /** @var string */
-    protected $inlinePaddingStr = Defaults::EMPTY_STRING;
+    protected $inlinePaddingStr = self::EMPTY_STRING;
 
     /**
      * Spinner constructor.
@@ -58,6 +56,7 @@ abstract class Spinner extends SpinnerCore
         $this->output = $this->refineOutput($output);
         $this->settings = $this->refineSettings($messageOrSettings);
         $this->interval = $this->settings->getInterval();
+        $this->disabled = !$this->settings->isEnabled();
         $this->inlinePaddingStr = $this->settings->getInlinePaddingStr();
         $this->coloring = new Colors($this->settings->getStyles(), $color);
         $this->initJugglers();
@@ -75,7 +74,7 @@ abstract class Spinner extends SpinnerCore
      */
     protected function refineSettings($settings): Settings
     {
-        $this->assertSettings($settings);
+        Sentinel::assertSettings($settings);
         if (\is_string($settings)) {
             return
                 $this->defaultSettings()->setMessage($settings);
@@ -85,18 +84,6 @@ abstract class Spinner extends SpinnerCore
         }
         return
             $this->defaultSettings();
-    }
-
-    /**
-     * @param mixed $settings
-     */
-    protected function assertSettings($settings): void
-    {
-        if (null !== $settings && !\is_string($settings) && !$settings instanceof Settings) {
-            throw new \InvalidArgumentException(
-                'Instance of [' . Settings::class . '] or string expected ' . typeOf($settings) . ' given.'
-            );
-        }
     }
 
     /**
@@ -120,7 +107,7 @@ abstract class Spinner extends SpinnerCore
         }
 
         $message = $this->settings->getMessage();
-        if (Defaults::EMPTY_STRING !== $message) {
+        if (self::EMPTY_STRING !== $message) {
             $this->setMessage($message, $this->settings->getMessageErasingLength());
         }
     }
@@ -150,6 +137,9 @@ abstract class Spinner extends SpinnerCore
     /** {@inheritDoc} */
     public function end(): string
     {
+        if ($this->disabled) {
+            return self::EMPTY_STRING;
+        }
         if ($this->output instanceof OutputInterface) {
             $this->erase();
             $this->output->write(Cursor::show());
@@ -161,6 +151,9 @@ abstract class Spinner extends SpinnerCore
     /** {@inheritDoc} */
     public function erase(): string
     {
+        if ($this->disabled) {
+            return self::EMPTY_STRING;
+        }
         $str = $this->eraseBySpacesSequence . $this->moveCursorBackSequence;
         if ($this->output instanceof OutputInterface) {
             $this->output->write($str);
@@ -178,7 +171,7 @@ abstract class Spinner extends SpinnerCore
     public function inline(bool $inline): SpinnerInterface
     {
         $this->inline = $inline;
-        $this->inlinePaddingStr = $this->inline ? Defaults::ONE_SPACE_SYMBOL : Defaults::EMPTY_STRING;
+        $this->inlinePaddingStr = $this->inline ? Defaults::ONE_SPACE_SYMBOL : self::EMPTY_STRING;
         return $this;
     }
 
@@ -221,6 +214,9 @@ abstract class Spinner extends SpinnerCore
     /** {@inheritDoc} */
     public function begin(?float $percent = null): string
     {
+        if ($this->disabled) {
+            return self::EMPTY_STRING;
+        }
         if (null === $percent) {
             $this->progressJuggler = null;
         } else {
@@ -237,20 +233,12 @@ abstract class Spinner extends SpinnerCore
     /** {@inheritDoc} */
     public function spin(): string
     {
+        if ($this->disabled) {
+            return self::EMPTY_STRING;
+        }
         $this->lastSpinnerString = $this->prepareLastSpinnerString();
         return
             $this->last();
-    }
-
-    /** {@inheritDoc} */
-    public function last(): string
-    {
-        if ($this->output instanceof OutputInterface) {
-            $this->output->write($this->lastSpinnerString);
-            return self::EMPTY_STRING;
-        }
-        return
-            $this->lastSpinnerString;
     }
 
     protected function prepareLastSpinnerString(): string
@@ -279,5 +267,19 @@ abstract class Spinner extends SpinnerCore
         $str = $this->inlinePaddingStr . $str . $eraseTailBySpacesSequence . $this->moveCursorBackSequence;
 //        dump(hrtime(true) - $start);
         return $str;
+    }
+
+    /** {@inheritDoc} */
+    public function last(): string
+    {
+        if ($this->disabled) {
+            return self::EMPTY_STRING;
+        }
+        if ($this->output instanceof OutputInterface) {
+            $this->output->write($this->lastSpinnerString);
+            return self::EMPTY_STRING;
+        }
+        return
+            $this->lastSpinnerString;
     }
 }

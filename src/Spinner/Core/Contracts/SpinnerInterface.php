@@ -52,6 +52,16 @@ interface SpinnerInterface
     public function progress(?float $percent): Spinner;
 
     /**
+     * @return self
+     */
+    public function disable(): self;
+
+    /**
+     * @return self
+     */
+    public function enable(): self;
+
+    /**
      * @return string
      */
     public function spin(): string;

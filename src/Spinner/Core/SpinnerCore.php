@@ -20,6 +20,8 @@ abstract class SpinnerCore implements SpinnerInterface
 
     /** @var null|OutputInterface */
     protected $output;
+    /** @var bool */
+    protected $disabled;
 
     /**
      * @param null|false|OutputInterface $output
@@ -27,26 +29,24 @@ abstract class SpinnerCore implements SpinnerInterface
      */
     protected function refineOutput($output): ?OutputInterface
     {
-        $this->assertOutput($output);
+        Sentinel::assertOutput($output);
         if (false === $output) {
             return null;
         }
         return $output ?? new EchoOutputAdapter();
     }
 
-    /**
-     * @param mixed $output
-     */
-    protected function assertOutput($output): void
+    /** {@inheritDoc} */
+    public function disable(): SpinnerInterface
     {
-        if (null !== $output && false !== $output && !$output instanceof OutputInterface) {
-            $typeOrValue =
-                true === $output ? 'true' : typeOf($output);
-            throw new \InvalidArgumentException(
-                'Incorrect parameter: ' .
-                '[null|false|' . OutputInterface::class . '] expected'
-                . ' "' . $typeOrValue . '" given.'
-            );
-        }
+        $this->disabled = true;
+        return $this;
+    }
+
+    /** {@inheritDoc} */
+    public function enable(): SpinnerInterface
+    {
+        $this->disabled = false;
+        return $this;
     }
 }
