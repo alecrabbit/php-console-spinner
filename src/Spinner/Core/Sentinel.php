@@ -2,7 +2,10 @@
 
 namespace AlecRabbit\Spinner\Core;
 
+use AlecRabbit\Spinner\Core\Contracts\OutputInterface;
 use AlecRabbit\Spinner\Settings\Contracts\Defaults;
+use AlecRabbit\Spinner\Settings\Settings;
+use function AlecRabbit\typeOf;
 
 /**
  * Class Sentinel
@@ -59,6 +62,34 @@ class Sentinel
                 );
                 // @codeCoverageIgnoreEnd
             }
+        }
+    }
+
+    /**
+     * @param mixed $output
+     */
+    public static function assertOutput($output): void
+    {
+        if (null !== $output && false !== $output && !$output instanceof OutputInterface) {
+            $typeOrValue =
+                true === $output ? 'true' : typeOf($output);
+            throw new \InvalidArgumentException(
+                'Incorrect parameter: ' .
+                '[null|false|' . OutputInterface::class . '] expected'
+                . ' "' . $typeOrValue . '" given.'
+            );
+        }
+    }
+
+    /**
+     * @param mixed $settings
+     */
+    public static function assertSettings($settings): void
+    {
+        if (null !== $settings && !\is_string($settings) && !$settings instanceof Settings) {
+            throw new \InvalidArgumentException(
+                'Instance of [' . Settings::class . '] or string expected ' . typeOf($settings) . ' given.'
+            );
         }
     }
 }

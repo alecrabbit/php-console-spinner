@@ -35,8 +35,6 @@ abstract class Spinner extends SpinnerCore
     protected $eraseBySpacesSequence = self::EMPTY_STRING;
     /** @var int */
     protected $previousErasingLength = 0;
-//    /** @var string */
-//    protected $spacer = self::EMPTY_STRING;
     /** @var Colors */
     protected $coloring;
     /** @var null[]|JugglerInterface[] */
@@ -45,10 +43,6 @@ abstract class Spinner extends SpinnerCore
     protected $lastSpinnerString = self::EMPTY_STRING;
     /** @var string */
     protected $inlinePaddingStr = self::EMPTY_STRING;
-//    /** @var bool */
-//    protected $enabled;
-    /** @var bool */
-    protected $disabled;
 
     /**
      * Spinner constructor.
@@ -62,7 +56,6 @@ abstract class Spinner extends SpinnerCore
         $this->output = $this->refineOutput($output);
         $this->settings = $this->refineSettings($messageOrSettings);
         $this->interval = $this->settings->getInterval();
-//        $this->enabled = $this->settings->isEnabled();
         $this->disabled = !$this->settings->isEnabled();
         $this->inlinePaddingStr = $this->settings->getInlinePaddingStr();
         $this->coloring = new Colors($this->settings->getStyles(), $color);
@@ -81,7 +74,7 @@ abstract class Spinner extends SpinnerCore
      */
     protected function refineSettings($settings): Settings
     {
-        $this->assertSettings($settings);
+        Sentinel::assertSettings($settings);
         if (\is_string($settings)) {
             return
                 $this->defaultSettings()->setMessage($settings);
@@ -91,18 +84,6 @@ abstract class Spinner extends SpinnerCore
         }
         return
             $this->defaultSettings();
-    }
-
-    /**
-     * @param mixed $settings
-     */
-    protected function assertSettings($settings): void
-    {
-        if (null !== $settings && !\is_string($settings) && !$settings instanceof Settings) {
-            throw new \InvalidArgumentException(
-                'Instance of [' . Settings::class . '] or string expected ' . typeOf($settings) . ' given.'
-            );
-        }
     }
 
     /**
@@ -300,19 +281,5 @@ abstract class Spinner extends SpinnerCore
         }
         return
             $this->lastSpinnerString;
-    }
-
-    /** {@inheritDoc} */
-    public function disable(): self
-    {
-        $this->disabled = true;
-        return $this;
-    }
-
-    /** {@inheritDoc} */
-    public function enable(): self
-    {
-        $this->disabled = false;
-        return $this;
     }
 }
