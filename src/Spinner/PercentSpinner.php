@@ -41,18 +41,4 @@ class PercentSpinner extends Spinner
     {
         return $this;
     }
-
-//    /** {@inheritDoc} */
-//    public function progress(?float $percent): Spinner
-//    {
-//        return $this;
-//    }
-
-//    /** {@inheritDoc} */
-//    protected function defaultSettings(): Settings
-//    {
-//        return
-//            parent::defaultSettings()
-//                ->setMessagePrefix(Defaults::EMPTY_STRING);
-//    }
 }
