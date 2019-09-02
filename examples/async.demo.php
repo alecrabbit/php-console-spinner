@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 /*
  * This demo shows how your app may look like.
- * It can print out your data and same time change spinner messages.
+ * It can print out your data and change spinner messages.
  *
  * Please ignore code quality :)
  */
@@ -36,7 +36,9 @@ $variant = (int)($argv[1] ?? 0);
 $inline = (bool)($argv[2] ?? false);
 
 if ($inline) {
-    echo $t->warning('Inline spinner mode should only be used with short messages(or no messages)!') . PHP_EOL;
+    echo $t->warning(
+        'Inline spinner mode should only be used with short messages or no messages(to avoid artefacts)!'
+        ) . PHP_EOL;
 }
 echo PHP_EOL;
 
