@@ -21,8 +21,10 @@ use AlecRabbit\ConsoleColour\Contracts\BG;
 use AlecRabbit\ConsoleColour\Contracts\Color;
 use AlecRabbit\ConsoleColour\Contracts\Effect;
 use AlecRabbit\ConsoleColour\Themes;
+use AlecRabbit\Spinner\ClockSpinner;
 use AlecRabbit\Spinner\Core\Contracts\Juggler;
 use AlecRabbit\Spinner\Core\Contracts\Styles;
+use AlecRabbit\Spinner\Core\Spinner;
 use AlecRabbit\Spinner\DiceSpinner;
 use AlecRabbit\Spinner\Settings\Contracts\Defaults;
 use AlecRabbit\Spinner\Settings\Settings;
@@ -72,40 +74,40 @@ $messages = [
     100 => "\e[0m\e[92mDone",
 ];
 
+//$settings = new Settings();
 //$s = new TimeSpinner();
 //$s = new ClockSpinner((new Settings())->setInterval(1)); // Slow ClockSpinner example
-$settings = new Settings();
-$s =
-    new SnakeSpinner(       // Slow BlockSpinner with custom styles example
-        $settings
-//            ->setMessageSuffix(Defaults::DOTS_SUFFIX)
-//            ->setStyles(
-//                [
-//                    Juggler::FRAMES_STYLES =>
-//                        [
-//                            Juggler::COLOR256 => Styles::C256_BG_RAINBOW,
-//                            Juggler::COLOR => [[Color::WHITE, BG::RED, Effect::BOLD,]],
-//                            Juggler::FORMAT => ' %s  ',
-//                            Juggler::SPACER => '',
-//                        ],
-//                    Juggler::MESSAGE_STYLES =>
-//                        [
-//                            Juggler::COLOR => [[Color::YELLOW, BG::RED, Effect::BOLD,]],
-//                            Juggler::FORMAT => '%s ',
-//                            Juggler::SPACER => '',
-//                        ],
-//                    Juggler::PROGRESS_STYLES =>
-//                        [
-//                            Juggler::COLOR => [[Color::WHITE, BG::RED, Effect::BOLD, Effect::ITALIC]],
-//                            Juggler::FORMAT => '%s ',
-//                            Juggler::SPACER => '',
-//                        ],
-//                ]
-//            ),
-//        null,
-//        COLOR_TERMINAL
-    );
-
+//$s =
+//    new SnakeSpinner(       // Slow BlockSpinner with custom styles example
+//        $settings
+////            ->setMessageSuffix(Defaults::DOTS_SUFFIX)
+////            ->setStyles(
+////                [
+////                    Juggler::FRAMES_STYLES =>
+////                        [
+////                            Juggler::COLOR256 => Styles::C256_BG_RAINBOW,
+////                            Juggler::COLOR => [[Color::WHITE, BG::RED, Effect::BOLD,]],
+////                            Juggler::FORMAT => ' %s  ',
+////                            Juggler::SPACER => '',
+////                        ],
+////                    Juggler::MESSAGE_STYLES =>
+////                        [
+////                            Juggler::COLOR => [[Color::YELLOW, BG::RED, Effect::BOLD,]],
+////                            Juggler::FORMAT => '%s ',
+////                            Juggler::SPACER => '',
+////                        ],
+////                    Juggler::PROGRESS_STYLES =>
+////                        [
+////                            Juggler::COLOR => [[Color::WHITE, BG::RED, Effect::BOLD, Effect::ITALIC]],
+////                            Juggler::FORMAT => '%s ',
+////                            Juggler::SPACER => '',
+////                        ],
+////                ]
+////            ),
+////        null,
+////        COLOR_TERMINAL
+//    );
+$s = spinnerFactory(0);
 $inline = false;
 $s->inline($inline);
 // Add periodic timer to redraw our spinner
@@ -178,9 +180,7 @@ function simulateMessage(bool $inline, Themes $t, $faker): void
     if ($inline) {
         swap($header, $footer);
     }
-    echo $header .
-//        $t->dark(date('H:i:s')) .
-        ' ' .
+    echo $header .  ' ' .
         $t->italic(str_pad($faker->company(), 35)) . ' ' .
         $t->bold(amount()) . ' ' .
         $t->dark($faker->iban()). ' ' .
@@ -192,7 +192,7 @@ function simulateMessage(bool $inline, Themes $t, $faker): void
  */
 function memory(Themes $t): void
 {
-    echo $t->dark((string)MemoryUsage::getReport()) . PHP_EOL;
+    echo $t->dark(date('H:i:s ') . MemoryUsage::getReport()) . PHP_EOL;
 }
 
 /**
@@ -208,4 +208,58 @@ function amount(): string
             Defaults::ONE_SPACE_SYMBOL,
             STR_PAD_LEFT
         );
+}
+
+/**
+ * Creates and returns spinner
+ *
+ * @param int $v
+ * @return Spinner
+ */
+function spinnerFactory(int $v): Spinner {
+    $settings = new Settings();
+    switch ($v) {
+        case 0:
+            return new TimeSpinner();
+            break;
+        case 1:
+            return
+                new ClockSpinner($settings->setInterval(1)); // Slow ClockSpinner example
+            break;
+        case 2:
+            return
+                new SnakeSpinner(
+                    $settings
+                        ->setMessageSuffix(Defaults::DOTS_SUFFIX)
+                        ->setStyles(
+                            [
+                                Juggler::FRAMES_STYLES =>
+                                    [
+                                        Juggler::COLOR256 => Styles::C256_BG_RAINBOW,
+                                        Juggler::COLOR => [[Color::WHITE, BG::RED, Effect::BOLD,]],
+                                        Juggler::FORMAT => ' %s  ',
+                                        Juggler::SPACER => '',
+                                    ],
+                                Juggler::MESSAGE_STYLES =>
+                                    [
+                                        Juggler::COLOR => [[Color::YELLOW, BG::RED, Effect::BOLD,]],
+                                        Juggler::FORMAT => '%s ',
+                                        Juggler::SPACER => '',
+                                    ],
+                                Juggler::PROGRESS_STYLES =>
+                                    [
+                                        Juggler::COLOR => [[Color::WHITE, BG::RED, Effect::BOLD, Effect::ITALIC]],
+                                        Juggler::FORMAT => '%s ',
+                                        Juggler::SPACER => '',
+                                    ],
+                            ]
+                        ),
+                    null,
+                    COLOR_TERMINAL
+                );
+            break;
+        default:
+            return new SnakeSpinner();
+            break;
+    }
 }
