@@ -39,10 +39,17 @@ function simulateMessage(bool $inline, Themes $t, $faker): void
 
 /**
  * @param Themes $t
+ * @param bool $inline
  */
-function memory(Themes $t): void
+function memory(Themes $t, bool $inline): void
 {
-    echo $t->dark(date('H:i:s ') . MemoryUsage::getReport()) . PHP_EOL;
+    $header = '';
+    $footer = PHP_EOL;
+    if ($inline) {
+        swap($header, $footer);
+    }
+
+    echo $header . $t->dark(date('H:i:s ') . MemoryUsage::getReport()) . $footer;
 }
 
 /**

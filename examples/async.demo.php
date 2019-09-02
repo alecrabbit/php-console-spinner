@@ -23,7 +23,7 @@ __check_for_extension('pcntl', 'ext-pcntl is required', __FILE__);
 $t = new Themes();
 
 // Welcoming message
-echo $t->lightCyan('Async spinner demo.') . PHP_EOL . PHP_EOL;
+echo $t->lightCyan('Async spinner demo.') . PHP_EOL;
 
 // For faking data
 $faker = Faker\Factory::create();
@@ -31,9 +31,17 @@ $faker = Faker\Factory::create();
 // Initial progress value
 $progress = null;
 
+// Get spinner variant argument
+$variant = (int)($argv[1] ?? 0);
+$inline = (bool)($argv[2] ?? false);
+
+if ($inline) {
+    echo $t->warning('Inline spinner mode should only be used with short messages(or no messages)!') . PHP_EOL;
+}
+echo PHP_EOL;
+
 // Get spinner
-$s = spinnerFactory(0);
-$inline = false;
+$s = spinnerFactory($variant);
 $s->inline($inline); // set spinner inline mode
 
 // Get messages for spinner
@@ -67,10 +75,10 @@ $loop->addPeriodicTimer(0.2, static function () use ($s, $t, $inline, $faker, &$
 });
 
 // Add periodic timer to print out memory usage - examples of messages form other part of app
-$loop->addPeriodicTimer(8, static function () use ($s, $t, $inline, $faker, &$progress) {
+$loop->addPeriodicTimer(8, static function () use ($s, $t, $inline, &$progress) {
     if (16 < $progress) {
         $s->erase();
-        memory($t);
+        memory($t, $inline);
         $s->last(); // optional
     }
 });
@@ -108,4 +116,4 @@ $s->begin(); // Hides cursor and write first frame to output
 $loop->run();
 
 $s->end(); // Cleaning up
-
+echo PHP_EOL;
