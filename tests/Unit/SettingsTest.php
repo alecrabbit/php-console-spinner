@@ -40,7 +40,7 @@ class SettingsTest extends TestCase
         $settings->setMessage(self::PROCESSING);
         $this->assertEquals(self::PROCESSING, $settings->getMessage());
         $this->assertEquals(self::PROCESSING_LENGTH, $settings->getMessageErasingLength());
-        $settings->setMessage(self::COMPUTING, 9);
+        $settings->setMessage(self::COMPUTING);
         $this->assertEquals(self::COMPUTING, $settings->getMessage());
         $this->assertEquals(self::COMPUTING_LENGTH, $settings->getMessageErasingLength());
         $settings->setMessage(self::MB_STRING_1);

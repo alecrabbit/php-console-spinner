@@ -118,13 +118,13 @@ abstract class Spinner extends SpinnerCore
      */
     protected function setMessage(?string $message, ?int $erasingLength = null): void
     {
-        $this->settings->setMessage($message, $erasingLength);
+        $this->settings->setMessage($message);
 
         if ($this->messageJuggler instanceof MessageJuggler) {
             if (null === $message) {
                 $this->messageJuggler = null;
             } else {
-                $this->messageJuggler->setMessage($message, $erasingLength);
+                $this->messageJuggler->setMessage($message, null);
             }
         } else {
             $this->messageJuggler =

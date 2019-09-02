@@ -73,7 +73,7 @@ class NewSpinnerTest extends TestCase implements TestMessages
             ],
             [
                 [
-                    (new Settings())->setMessage(self::MB_MESSAGE, 8),
+                    (new Settings())->setMessage(self::MB_MESSAGE),
                     false,
                     NO_COLOR_TERMINAL,
                 ],

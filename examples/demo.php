@@ -70,7 +70,7 @@ foreach ($spinners as $spinner) {
     [$message, $erLen] = $m;
     if (in_array($spinner, $arr, true)) {
         $s = new Settings();
-        $s->setMessage($message, $erLen);
+        $s->setMessage($message);
         showSpinners(new $spinner($s), true);
         showSpinners(new $spinner(), true);
     }
