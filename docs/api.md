@@ -369,7 +369,7 @@
 | public | <strong>disable()</strong> : <em>\AlecRabbit\Spinner\Core\Contracts\self</em> |
 | public | <strong>enable()</strong> : <em>\AlecRabbit\Spinner\Core\Contracts\self</em> |
 | public | <strong>end()</strong> : <em>string</em> |
-| public | <strong>erase()</strong> : <em>string</em><br /><em>Returns or prints out erase sequence</em> |
+| public | <strong>erase()</strong> : <em>string</em> |
 | public | <strong>getOutput()</strong> : <em>null/[\AlecRabbit\Spinner\Core\Contracts\OutputInterface](#interface-alecrabbitspinnercorecontractsoutputinterface)</em> |
 | public | <strong>inline(</strong><em>\bool</em> <strong>$inline</strong>)</strong> : <em>[\AlecRabbit\Spinner\Core\Contracts\SpinnerInterface](#interface-alecrabbitspinnercorecontractsspinnerinterface)</em> |
 | public | <strong>interval()</strong> : <em>float</em> |
