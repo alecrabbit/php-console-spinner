@@ -73,13 +73,13 @@ class Settings implements SettingsInterface
     }
 
     /** {@inheritDoc} */
-    public function setMessage(?string $message, ?int $erasingLength = null): self
+    public function setMessage(?string $message): self
     {
         $this->properties[S::MESSAGE]->setValue($message);
         if (Defaults::EMPTY_STRING === $message || null === $message) {
             $erasingLength = 0;
         } else {
-            $erasingLength = Calculator::refineErasingLen($message, $erasingLength);
+            $erasingLength = Calculator::refineErasingLen($message, null);
         }
         $this->properties[S::MESSAGE_ERASING_LENGTH]->setValue($erasingLength);
         return $this;

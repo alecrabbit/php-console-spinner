@@ -16,7 +16,7 @@ class Calculator
             $lengths[] = self::erasingLen($string);
         }
         if (1 !== count(array_unique($lengths))) {
-            throw new \InvalidArgumentException('Strings have different erasing lengths');
+            throw new \InvalidArgumentException('Strings have different erasing lengths.');
         }
         return $lengths[0];
     }

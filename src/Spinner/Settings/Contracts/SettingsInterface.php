@@ -35,21 +35,9 @@ interface SettingsInterface
 
     /**
      * @param string $message
-     * @param null|int $erasingLength
      * @return Settings
      */
-    public function setMessage(string $message, int $erasingLength = null): Settings;
-//
-//    /**
-//     * @return string
-//     */
-//    public function getMessagePrefix(): string;
-//
-//    /**
-//     * @param string $prefix
-//     * @return Settings
-//     */
-//    public function setMessagePrefix(string $prefix): Settings;
+    public function setMessage(string $message): Settings;
 
     /**
      * @return string
