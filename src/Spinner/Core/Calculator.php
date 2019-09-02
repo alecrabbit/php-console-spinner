@@ -26,7 +26,7 @@ class Calculator
      * @param null|string $in
      * @return int
      */
-    protected static function erasingLen(?string $in): int
+    public static function erasingLen(?string $in): int
     {
         if (null === $in || Defaults::EMPTY_STRING === $in) {
             return 0;
@@ -37,7 +37,7 @@ class Calculator
         if (4 === $oneCharLen) {
             return 2 * $mbSymbolLen;
         }
-        return 1 * $mbSymbolLen;
+        return mb_strwidth($in);
     }
 
     /**

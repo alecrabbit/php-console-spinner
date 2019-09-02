@@ -90,7 +90,7 @@ class Sentinel
      */
     public static function assertFrameLength($frame): void
     {
-        if (Defaults::MAX_FRAME_LENGTH < $length = mb_strlen($frame)) {
+        if (Defaults::MAX_FRAME_LENGTH < $length = mb_strwidth($frame)) {
             throw new \InvalidArgumentException(
                 sprintf(
                     'Single frame max length [%s] exceeded [%s]',

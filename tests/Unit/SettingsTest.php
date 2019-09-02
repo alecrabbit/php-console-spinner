@@ -12,8 +12,11 @@ use PHPUnit\Framework\TestCase;
 class SettingsTest extends TestCase
 {
     protected const PROCESSING = 'Processing';
+    protected const PROCESSING_LENGTH = 10;
     protected const COMPUTING = 'Computing';
+    protected const COMPUTING_LENGTH = 9;
     protected const MB_STRING_1 = 'ᚹädm漢字';
+    protected const MB_STRING_1_LENGTH = 8;
 
     /** @test */
     public function instance(): void
@@ -36,13 +39,13 @@ class SettingsTest extends TestCase
         $this->assertEquals(0, $settings->getMessageErasingLength());
         $settings->setMessage(self::PROCESSING);
         $this->assertEquals(self::PROCESSING, $settings->getMessage());
-        $this->assertEquals(10, $settings->getMessageErasingLength());
+        $this->assertEquals(self::PROCESSING_LENGTH, $settings->getMessageErasingLength());
         $settings->setMessage(self::COMPUTING, 9);
         $this->assertEquals(self::COMPUTING, $settings->getMessage());
-        $this->assertEquals(9, $settings->getMessageErasingLength());
+        $this->assertEquals(self::COMPUTING_LENGTH, $settings->getMessageErasingLength());
         $settings->setMessage(self::MB_STRING_1);
         $this->assertEquals(self::MB_STRING_1, $settings->getMessage());
-        $this->assertEquals(6, $settings->getMessageErasingLength());
+        $this->assertEquals(self::MB_STRING_1_LENGTH, $settings->getMessageErasingLength());
         $settings->setEnabled(false);
         $this->assertFalse($settings->isEnabled());
     }

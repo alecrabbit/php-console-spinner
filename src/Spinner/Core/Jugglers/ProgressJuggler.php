@@ -25,7 +25,7 @@ class ProgressJuggler extends AbstractJuggler
         $progress = bounds($percent ?? 0.0, 0, 1);
         $this->currentFrame = (int)($progress * 100) . '%';
         $this->currentFrameErasingLength =
-            strlen($this->currentFrame) + strlen($this->spacer) + $this->formatErasingShift;
+            mb_strwidth($this->currentFrame . $this->spacer) + $this->formatErasingShift;
     }
 
     /**
