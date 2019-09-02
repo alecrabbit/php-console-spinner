@@ -1,4 +1,5 @@
-<?php declare(strict_types=1);
+<?php /** @noinspection PhpComposerExtensionStubsInspection */
+declare(strict_types=1);
 
 //require_once __DIR__ . '/../vendor/autoload.php';
 require_once __DIR__ . '/../tests/bootstrap.php';
@@ -7,13 +8,12 @@ require_once __DIR__ . '/__include/__ext_check.php';
 __check_for_extension('pcntl', 'ext-pcntl is required', __FILE__);
 
 use AlecRabbit\Accessories\MemoryUsage;
-use AlecRabbit\Cli\Tools\Cursor;
 use AlecRabbit\ConsoleColour\Contracts\Color;
 use AlecRabbit\ConsoleColour\Themes;
-use AlecRabbit\Spinner\Core\Coloring\Colors;
 use AlecRabbit\Spinner\Core\Contracts\Frames;
 use AlecRabbit\Spinner\Core\Contracts\Juggler;
 use AlecRabbit\Spinner\Core\Contracts\Styles;
+use AlecRabbit\Spinner\Settings\Contracts\Defaults;
 use AlecRabbit\Spinner\Settings\Settings;
 use AlecRabbit\Spinner\SnakeSpinner;
 use Psr\Http\Message\ServerRequestInterface;
@@ -82,6 +82,7 @@ $loop->addSignal(
  */
 $settings = new Settings();
 $settings
+    ->setMessageSuffix(Defaults::ELLIPSIS)
     ->setFrames(Frames::SNAKE_VARIANT_1)
     ->setStyles(
         [
@@ -92,19 +93,17 @@ $settings
                 ],
         ]
     );
-$s = new SnakeSpinner($settings, null);
+$s = new SnakeSpinner($settings);
 
 // Add periodic timer to redraw our spinner
 $loop->addPeriodicTimer($s->interval(), static function () use ($s) {
-    $s
-//        ->message(date('D Y-m-d H:i:s'))  // Note next periodic timer - we are changing message in a different "coroutine"
-        ->spin();
+    // Note next periodic timer - we are changing message in a different "coroutine"
+    $s->spin();
 });
 
-// We are changing message in a different "coroutine" with it's own interval
+// We are changing spinner message in a different "coroutine" with it's own interval
 $loop->addPeriodicTimer(1, static function () use ($s) {
-    $s
-        ->message(date('D Y-m-d H:i:s'));
+    $s->message(date('D Y-m-d H:i:s'));
 });
 
 // Add periodic timer to echo status message
@@ -132,7 +131,12 @@ function memory(): string
 
 function body(): string
 {
-    return '<html lang="en-US"><title>' . basename(__FILE__) . ' demo</title><body><h1>Hello world!</h1><br>' . memory() . '</body></html>';
+    return
+        '<html lang="en-US"><title>' .
+        basename(__FILE__) .
+        ' demo</title><body><h1>Hello world!</h1><br>' .
+        memory() .
+        '</body></html>';
 }
 
 

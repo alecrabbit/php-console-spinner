@@ -81,6 +81,7 @@ function spinnerFactory(int $variant = 0): Spinner
             return
                 new ClockSpinner(
                     $settings
+                        ->setMessageSuffix(Defaults::ELLIPSIS)
                         ->setInterval(1)
                 );
             break;
@@ -88,7 +89,6 @@ function spinnerFactory(int $variant = 0): Spinner
             return
                 new SnakeSpinner(
                     $settings
-                        ->setMessageSuffix('…')
                         ->setStyles(
                             [
                                 Juggler::FRAMES_STYLES =>
@@ -124,7 +124,7 @@ function spinnerFactory(int $variant = 0): Spinner
             return new TimeSpinner();
             break;
         default:
-            return new SnakeSpinner($settings->setMessageSuffix('…'));
+            return new SnakeSpinner($settings->setMessageSuffix(Defaults::ELLIPSIS));
             break;
     }
 }

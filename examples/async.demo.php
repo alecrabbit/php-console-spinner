@@ -37,7 +37,7 @@ $inline = (bool)($argv[2] ?? false);
 
 if ($inline) {
     echo $t->warning(
-        'Inline spinner mode should only be used with short messages or no messages(to avoid artefacts)!'
+        'Inline spinner mode should only be used with short spinner messages or no messages(to avoid artefacts)!'
         ) . PHP_EOL;
 }
 echo PHP_EOL;
