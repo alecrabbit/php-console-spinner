@@ -13,6 +13,7 @@ interface SpinnerInterface
     public function begin(?float $percent = null): string;
 
     /**
+     * Returns or prints out erase sequence
      * @return string
      */
     public function erase(): string;
