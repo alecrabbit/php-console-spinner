@@ -20,7 +20,7 @@ class FrameJuggler extends AbstractJuggler
         $this->frames = new Circular($frames);
         $this->init($style);
         $this->currentFrameErasingLength =
-            Calculator::computeErasingLength($frames) + mb_strwidth($this->spacer) + $this->formatErasingShift;
+            Calculator::computeErasingLengths($frames) + mb_strwidth($this->spacer) + $this->formatErasingShift;
     }
 
     /**

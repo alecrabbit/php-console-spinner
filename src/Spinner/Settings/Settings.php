@@ -79,7 +79,7 @@ class Settings implements SettingsInterface
         if (Defaults::EMPTY_STRING === $message || null === $message) {
             $erasingLength = 0;
         } else {
-            $erasingLength = Calculator::refineErasingLen($message);
+            $erasingLength = Calculator::computeErasingLength($message);
         }
         $this->properties[S::MESSAGE_ERASING_LENGTH]->setValue($erasingLength);
         return $this;
@@ -125,7 +125,7 @@ class Settings implements SettingsInterface
     {
         Sentinel::assertFrames($frames);
         $this->properties[S::FRAMES]->setValue($frames);
-        $this->properties[S::ERASING_SHIFT]->setValue(Calculator::computeErasingLength($frames));
+        $this->properties[S::ERASING_SHIFT]->setValue(Calculator::computeErasingLengths($frames));
         return $this;
     }
 

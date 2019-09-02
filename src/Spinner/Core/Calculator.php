@@ -6,23 +6,14 @@ use AlecRabbit\Spinner\Settings\Contracts\Defaults;
 
 class Calculator
 {
-    /**
-     * @param string $message
-     * @return int
-     */
-    public static function refineErasingLen(string $message): int
-    {
-        return self::computeErasingLength([$message]);
-    }
-
-    public static function computeErasingLength(array $strings): int
+    public static function computeErasingLengths(array $strings): int
     {
         if (empty($strings)) {
             return 0;
         }
         $lengths = [];
         foreach ($strings as $string) {
-            $lengths[] = self::erasingLen($string);
+            $lengths[] = self::computeErasingLength($string);
         }
         if (1 !== count(array_unique($lengths))) {
             throw new \InvalidArgumentException('Strings have different erasing lengths.');
@@ -34,7 +25,7 @@ class Calculator
      * @param null|string $in
      * @return int
      */
-    public static function erasingLen(?string $in): int
+    public static function computeErasingLength(?string $in): int
     {
         if (null === $in || Defaults::EMPTY_STRING === $in) {
             return 0;
