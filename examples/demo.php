@@ -14,6 +14,7 @@ use AlecRabbit\Spinner\EarthSpinner;
 use AlecRabbit\Spinner\MoonSpinner;
 use AlecRabbit\Spinner\PercentSpinner;
 use AlecRabbit\Spinner\SectorsSpinner;
+use AlecRabbit\Spinner\Settings\Contracts\Defaults;
 use AlecRabbit\Spinner\Settings\Settings;
 use AlecRabbit\Spinner\SimpleSpinner;
 use AlecRabbit\Spinner\SnakeSpinner;
@@ -70,6 +71,9 @@ foreach ($spinners as $spinner) {
     [$message, $erLen] = $m;
     if (in_array($spinner, $arr, true)) {
         $s = new Settings();
+        if(rnd(4)> 2) {
+            $s->setMessageSuffix(Defaults::ELLIPSIS);
+        }
         $s->setMessage($message);
         showSpinners(new $spinner($s), true);
         showSpinners(new $spinner(), true);
@@ -108,13 +112,13 @@ function showSpinners(SpinnerInterface $s, bool $withPercent = false): void
 }
 
 /**
- * @param int $len
+ * @param int $max
  * @return int
  */
-function rnd(int $len): int
+function rnd(int $max): int
 {
     try {
-        return random_int(0, $len);
+        return random_int(0, $max);
     } catch (Exception $e) {
         return 0;
     }
