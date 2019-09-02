@@ -6,6 +6,15 @@ use AlecRabbit\Spinner\Settings\Contracts\Defaults;
 
 class Calculator
 {
+    /**
+     * @param string $message
+     * @return int
+     */
+    public static function refineErasingLen(string $message): int
+    {
+        return self::computeErasingLength([$message]);
+    }
+
     public static function computeErasingLength(array $strings): int
     {
         if (empty($strings)) {
@@ -20,7 +29,6 @@ class Calculator
         }
         return $lengths[0];
     }
-
 
     /**
      * @param null|string $in
@@ -38,18 +46,5 @@ class Calculator
             return 2 * $mbSymbolLen;
         }
         return mb_strwidth($in);
-    }
-
-    /**
-     * @param string $message
-     * @param null|int $erasingLength
-     * @return int
-     */
-    public static function refineErasingLen(string $message, ?int $erasingLength): int
-    {
-        if (null === $erasingLength) {
-            return self::computeErasingLength([$message]);
-        }
-        return $erasingLength;
     }
 }

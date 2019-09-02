@@ -26,16 +26,14 @@ class MessageJuggler extends AbstractJuggler
         $this->init($style);
         $this->suffixFromSettings = $settings->getMessageSuffix();
         $this->updateMessage(
-            $settings->getMessage(),
-            $settings->getMessageErasingLength()
+            $settings->getMessage()
         );
     }
 
     /**
      * @param null|string $message
-     * @param null|int $erasingLength
      */
-    protected function updateMessage(?string $message, ?int $erasingLength): void
+    protected function updateMessage(?string $message): void
     {
         $message = $message ?? Defaults::EMPTY_STRING;
         $this->message = $this->refineMessage($message);
@@ -43,8 +41,7 @@ class MessageJuggler extends AbstractJuggler
             $this->erasingLength = 0;
             $this->currentSuffix = Defaults::EMPTY_STRING;
         } else {
-            $erasingLength = Calculator::refineErasingLen($this->message, $erasingLength);
-            $this->erasingLength = $erasingLength;
+            $this->erasingLength = Calculator::refineErasingLen($this->message);
             $this->currentSuffix = $this->suffixFromSettings;
         }
         $this->frameString =
@@ -65,11 +62,10 @@ class MessageJuggler extends AbstractJuggler
 
     /**
      * @param string $message
-     * @param null|int $erasingLength
      */
-    public function setMessage(string $message, ?int $erasingLength = null): void
+    public function setMessage(string $message): void
     {
-        $this->updateMessage($message, $erasingLength);
+        $this->updateMessage($message);
     }
 
     /** {@inheritDoc} */

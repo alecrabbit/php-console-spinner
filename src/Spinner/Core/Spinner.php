@@ -124,7 +124,7 @@ abstract class Spinner extends SpinnerCore
             if (null === $message) {
                 $this->messageJuggler = null;
             } else {
-                $this->messageJuggler->setMessage($message, null);
+                $this->messageJuggler->setMessage($message);
             }
         } else {
             $this->messageJuggler =
