@@ -108,15 +108,14 @@ abstract class Spinner extends SpinnerCore
 
         $message = $this->settings->getMessage();
         if (self::EMPTY_STRING !== $message) {
-            $this->setMessage($message, $this->settings->getMessageErasingLength());
+            $this->setMessage($message);
         }
     }
 
     /**
      * @param null|string $message
-     * @param null|int $erasingLength
      */
-    protected function setMessage(?string $message, ?int $erasingLength = null): void
+    protected function setMessage(?string $message): void
     {
         $this->settings->setMessage($message);
 
@@ -183,7 +182,7 @@ abstract class Spinner extends SpinnerCore
     /** {@inheritDoc} */
     public function message(?string $message = null, ?int $erasingLength = null): self
     {
-        $this->setMessage($message, $erasingLength);
+        $this->setMessage($message);
         return $this;
     }
 

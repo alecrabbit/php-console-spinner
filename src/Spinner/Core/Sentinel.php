@@ -86,9 +86,9 @@ class Sentinel
     }
 
     /**
-     * @param $frame
+     * @param string $frame
      */
-    public static function assertFrameLength($frame): void
+    public static function assertFrameLength(string $frame): void
     {
         if (Defaults::MAX_FRAME_LENGTH < $length = mb_strwidth($frame)) {
             throw new \InvalidArgumentException(
