@@ -213,7 +213,7 @@
 
 ### Class: \AlecRabbit\Spinner\Core\Sentinel
 
-> Class Sentinel Contains data asserts
+> Class Sentinel. Contains data asserts
 
 | Visibility | Function |
 |:-----------|:---------|

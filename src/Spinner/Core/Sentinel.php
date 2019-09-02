@@ -8,8 +8,9 @@ use AlecRabbit\Spinner\Settings\Settings;
 use function AlecRabbit\typeOf;
 
 /**
- * Class Sentinel
+ * Class Sentinel.
  * Contains data asserts
+ * @internal
  */
 class Sentinel
 {
