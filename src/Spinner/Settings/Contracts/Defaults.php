@@ -35,4 +35,5 @@ interface Defaults
             S::INITIAL_PERCENT => null,
             S::ENABLED => true,
         ];
+    public const ELLIPSIS = '…';
 }
