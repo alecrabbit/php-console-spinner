@@ -16,8 +16,9 @@ $spinner = new SnakeSpinner();
 //$spinner = new SnakeSpinner('Message');
 
 $spinner->begin();
+$interval = (int)($spinner->interval() * 1000000);
 for ($i = 0; $i <= ITERATIONS; $i++) {
-    usleep(80000); // Simulating work
+    usleep($interval); // Simulating work
     $spinner
         ->progress($i/ITERATIONS)
         ->spin();
