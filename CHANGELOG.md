@@ -2,6 +2,7 @@
 ## [Unreleased]
 
 ### Added
+- new frame sets
 - Weather frames set  `🌤 🌥 🌧 🌨 🌧 🌨 🌧 🌨 🌨 🌧 🌨 🌥 🌤`
 
 ### Fixed
