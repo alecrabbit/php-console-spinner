@@ -170,14 +170,14 @@ interface Frames
     public const DOTS_VARIANT_4 = ['⠁', '⠂', '⠄', '⡀', '⢀', '⠠', '⠐', '⠈'];
     public const DOTS_VARIANT_5 = ['   ', '.  ', '.. ', '...', ' ..', '  .', '   '];
     public const TRIGRAM = [
-        '☰',	 	// HEAVEN
-        '☱',	 	// LAKE
-        '☲',	 	// FIRE
-        '☴',	 	// WIND
-        '☵',	 	// WATER
-        '☶',	 	// MOUNTAIN
-        '☳',	 	// THUNDER
-        '☷',	 	// EARTH
+        '☰',        // HEAVEN
+        '☱',        // LAKE
+        '☲',        // FIRE
+        '☴',        // WIND
+        '☵',        // WATER
+        '☶',        // MOUNTAIN
+        '☳',        // THUNDER
+        '☷',        // EARTH
     ];
 
     public const BOUNCE = [
