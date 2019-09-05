@@ -1,6 +1,18 @@
 <a name="unreleased"></a>
 ## [Unreleased]
 
+### Added
+- Weather frames set  `🌤 🌥 🌧 🌨 🌧 🌨 🌧 🌨 🌨 🌧 🌨 🌥 🌤`
+
+### Fixed
+- examples
+
+
+<a name="0.34.0-BETA.3"></a>
+## [0.34.0-BETA.3] - 2019-09-02
+
+<a name="0.34.0-BETA.2"></a>
+## [0.34.0-BETA.2] - 2019-09-02
 
 <a name="0.34.0-BETA.1"></a>
 ## [0.34.0-BETA.1] - 2019-09-02
@@ -244,7 +256,9 @@
 <a name="0.2.1-ALPHA.1"></a>
 ## 0.2.1-ALPHA.1 - 2019-04-06
 
-[Unreleased]: https://github.com/alecrabbit/php-console-spinner/compare/0.34.0-BETA.1...HEAD
+[Unreleased]: https://github.com/alecrabbit/php-console-spinner/compare/0.34.0-BETA.3...HEAD
+[0.34.0-BETA.3]: https://github.com/alecrabbit/php-console-spinner/compare/0.34.0-BETA.2...0.34.0-BETA.3
+[0.34.0-BETA.2]: https://github.com/alecrabbit/php-console-spinner/compare/0.34.0-BETA.1...0.34.0-BETA.2
 [0.34.0-BETA.1]: https://github.com/alecrabbit/php-console-spinner/compare/0.33.0-ALPHA.1...0.34.0-BETA.1
 [0.33.0-ALPHA.1]: https://github.com/alecrabbit/php-console-spinner/compare/0.32.0-ALPHA1...0.33.0-ALPHA.1
 [0.32.0-ALPHA1]: https://github.com/alecrabbit/php-console-spinner/compare/0.31.0-ALPHA1...0.32.0-ALPHA1
