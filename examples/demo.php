@@ -52,9 +52,9 @@ $spinners = [
 //    PercentSpinner::class,
 //    SectorsSpinner::class,
 //    SimpleSpinner::class,
-//    SnakeSpinner::class,
+    SnakeSpinner::class,
 //    TimeSpinner::class,
-    WeatherSpinner::class,
+//    WeatherSpinner::class,
 ];
 
 $arr = [

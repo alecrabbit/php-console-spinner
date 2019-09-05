@@ -13,7 +13,7 @@ interface Defaults
     public const DEFAULT_SUFFIX = self::DOTS_SUFFIX; // Deprecated
     public const DOTS_SUFFIX = '...';
 
-    public const MAX_FRAMES_COUNT = 50;
+    public const MAX_FRAMES_COUNT = 60;
     public const MAX_FRAME_LENGTH = 10;
 
     public const DEFAULT_INTERVAL = 0.1;

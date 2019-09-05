@@ -128,33 +128,8 @@ function spinnerFactory(int $variant = 0): Spinner
             return
                 new SnakeSpinner(
                     $settings
-                        ->setFrames(Frames::WEATHER)
-//                        ->setStyles(
-//                            [
-//                                Juggler::FRAMES_STYLES =>
-//                                    [
-//                                        Juggler::COLOR256 => Styles::C256_BG_RAINBOW,
-//                                        Juggler::COLOR => [[Color::WHITE, BG::RED, Effect::BOLD,]],
-//                                        Juggler::FORMAT => ' %s  ',
-//                                        Juggler::SPACER => '',
-//                                    ],
-//                                Juggler::MESSAGE_STYLES =>
-//                                    [
-//                                        Juggler::COLOR => [[Color::YELLOW, BG::RED, Effect::BOLD,]],
-//                                        Juggler::FORMAT => '%s ',
-//                                        Juggler::SPACER => '',
-//                                    ],
-//                                Juggler::PROGRESS_STYLES =>
-//                                    [
-//                                        Juggler::COLOR => [[Color::WHITE, BG::RED, Effect::BOLD, Effect::ITALIC]],
-//                                        Juggler::FORMAT => '%s ',
-//                                        Juggler::SPACER => '',
-//                                    ],
-//                            ]
-//                        ),
-                    ,
-                    null,
-                    COLOR_TERMINAL
+                        ->setInterval(0.1)
+                        ->setFrames(Frames::BOUNCING_BAR_VARIANT_3)
                 );
             break;
         default:

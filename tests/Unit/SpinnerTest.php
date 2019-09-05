@@ -141,7 +141,7 @@ class SpinnerTest extends TestCase
     public function addingTooMuchSymbols(): void
     {
         $this->expectException(\InvalidArgumentException::class);
-        $count = 56;
+        $count = Defaults::MAX_FRAMES_COUNT + 10;
         $this->expectExceptionMessage(
             'MAX_SYMBOLS_COUNT limit [' . Defaults::MAX_FRAMES_COUNT . '] exceeded: [' . $count . '].'
         );
