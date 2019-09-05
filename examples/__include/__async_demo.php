@@ -128,8 +128,8 @@ function spinnerFactory(int $variant = 0): Spinner
             return
                 new SnakeSpinner(
                     $settings
-                        ->setInterval(0.1)
-                        ->setFrames(Frames::SQUARE)
+                        ->setInterval(0.12)
+                        ->setFrames(Frames::FEATHERED_ARROWS)
                 );
             break;
         default:

@@ -197,7 +197,7 @@ interface Frames
         '  ◼  ',
         ' ◼   ',
     ];
-    
+
     public const SQUARE_VARIANT_1 = [
         '▩',
         '▦',
