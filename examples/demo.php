@@ -107,7 +107,6 @@ echo PHP_EOL;
 echo Cursor::up();
 
 foreach ($spinners as $spinner) {
-//    echo Line::erase() . '---';
     echo Line::erase() . Cursor::absX() . $t->bold(brackets($spinner) . ' ');
     $message = MESSAGES[rnd($len)];
     if (in_array($spinner, $arr, true)) {
@@ -122,11 +121,8 @@ foreach ($spinners as $spinner) {
     if ($spinner !== PercentSpinner::class) {
         showSpinners(new $spinner(null, null, $color));
     }
-//    echo Cursor::up();
 }
-
 echo PHP_EOL;
-echo Line::erase();
 echo PHP_EOL;
 
 // ************************ Functions ************************
