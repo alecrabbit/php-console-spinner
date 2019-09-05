@@ -27,6 +27,7 @@ use function AlecRabbit\str_wrap;
 use const AlecRabbit\COLOR256_TERMINAL;
 use const AlecRabbit\COLOR_TERMINAL;
 use const AlecRabbit\NO_COLOR_TERMINAL;
+use const AlecRabbit\TERMINAL_COLOR_MODES;
 
 //require_once __DIR__ . '/../vendor/autoload.php';
 require_once __DIR__ . '/../tests/bootstrap.php';
@@ -80,15 +81,23 @@ $len = count(MESSAGES) - 1;
 
 $color = (int)($argv[1] ?? COLOR256_TERMINAL);
 if (!in_array($color, COLOR_SUPPORT_LEVELS, true)) {
-    echo $t->error(' ERROR ') . ' ' . $t->red('Unknown color support level: ' . $color) . PHP_EOL;
+    echo
+        $t->error('  ERROR  ') . ' ' .
+        $t->red(basename(__FILE__) . ': Unknown color support level ' . str_wrap($color,'[', ']')) .
+        PHP_EOL;
     echo $t->dark('Supported levels: ');
     foreach (COLOR_SUPPORT_LEVELS as $level) {
         echo $t->dark((string)$level) . ' ';
     }
     echo PHP_EOL;
-    echo $t->dark('Using default: autodetect') . PHP_EOL;
+    echo $t->dark('Will use autodetect') . PHP_EOL;
     $color = null;
 }
+if (null !== $color) {
+    echo $t->dark('Color mode: ') . strtolower(TERMINAL_COLOR_MODES[$color]) . PHP_EOL;
+}
+echo PHP_EOL;
+
 echo $t->dark('Messages(picked randomly):') . PHP_EOL;
 foreach (MESSAGES as $m) {
     echo $t->dark(str_wrap($m, '"')) . PHP_EOL;
