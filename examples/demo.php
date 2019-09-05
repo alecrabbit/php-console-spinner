@@ -28,7 +28,8 @@ use const AlecRabbit\NO_COLOR_TERMINAL;
 //require_once __DIR__ . '/../vendor/autoload.php';
 require_once __DIR__ . '/../tests/bootstrap.php';
 
-const ITER = 30;
+const COLOR_SUPPORT_LEVELS = [NO_COLOR_TERMINAL, COLOR_TERMINAL, COLOR256_TERMINAL];
+const ITER = 300;
 const MESSAGES = [
     ['mᚹä漢d字', 8],
     ['message', null],
@@ -39,44 +40,49 @@ $t = new Themes();
 echo Cursor::hide();
 
 $spinners = [
-    ArrowSpinner::class,
-    BallSpinner::class,
-    BlockSpinner::class,
-    CircleSpinner::class,
-    ClockSpinner::class,
-    DiceSpinner::class,
-    DotSpinner::class,
-    EarthSpinner::class,
-    MoonSpinner::class,
-    PercentSpinner::class,
-    SectorsSpinner::class,
-    SimpleSpinner::class,
-    SnakeSpinner::class,
-    TimeSpinner::class,
+//    ArrowSpinner::class,
+//    BallSpinner::class,
+//    BlockSpinner::class,
+//    CircleSpinner::class,
+//    ClockSpinner::class,
+//    DiceSpinner::class,
+//    DotSpinner::class,
+//    EarthSpinner::class,
+//    MoonSpinner::class,
+//    PercentSpinner::class,
+//    SectorsSpinner::class,
+//    SimpleSpinner::class,
+//    SnakeSpinner::class,
+//    TimeSpinner::class,
     WeatherSpinner::class,
 ];
 
 $arr = [
-    BlockSpinner::class,
     ArrowSpinner::class,
     BallSpinner::class,
-    EarthSpinner::class,
-    PercentSpinner::class,
-    SnakeSpinner::class,
+    BlockSpinner::class,
     ClockSpinner::class,
-    MoonSpinner::class,
     DiceSpinner::class,
+    EarthSpinner::class,
+    MoonSpinner::class,
+    PercentSpinner::class,
     SectorsSpinner::class,
+    SnakeSpinner::class,
+    WeatherSpinner::class,
 ];
 
 $len = count(MESSAGES) - 1;
 
 $color = (int)($argv[1] ?? COLOR256_TERMINAL);
-if (!in_array($color, [NO_COLOR_TERMINAL, COLOR_TERMINAL, COLOR256_TERMINAL], true)) {
+if (!in_array($color, COLOR_SUPPORT_LEVELS, true)) {
     echo $t->error(' ERROR ') . ' ' . $t->red('Unknown color support level: ' . $color ) . PHP_EOL ;
-    $color = NO_COLOR_TERMINAL;
-    echo $t->dark('Using default: ' . $color ) . PHP_EOL ;
-
+    echo $t->dark('Supported levels: ') ;
+    foreach (COLOR_SUPPORT_LEVELS as $level) {
+        echo $t->dark((string)$level) . ' ';
+    }
+    echo PHP_EOL ;
+    echo $t->dark('Using default: autodetect') . PHP_EOL ;
+    $color = null;
 }
 foreach ($spinners as $spinner) {
     echo $t->bold(PHP_EOL . brackets($spinner) . ' ');
