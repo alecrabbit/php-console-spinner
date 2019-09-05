@@ -129,7 +129,7 @@ function spinnerFactory(int $variant = 0): Spinner
                 new SnakeSpinner(
                     $settings
                         ->setInterval(0.1)
-                        ->setFrames(Frames::BOUNCING_BAR_VARIANT_3)
+                        ->setFrames(Frames::ARROW_VARIANT_2)
                 );
             break;
         default:

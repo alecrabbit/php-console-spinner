@@ -40,21 +40,21 @@ $t = new Themes();
 echo Cursor::hide();
 
 $spinners = [
-//    ArrowSpinner::class,
-//    BallSpinner::class,
-//    BlockSpinner::class,
-//    CircleSpinner::class,
-//    ClockSpinner::class,
-//    DiceSpinner::class,
-//    DotSpinner::class,
-//    EarthSpinner::class,
-//    MoonSpinner::class,
-//    PercentSpinner::class,
-//    SectorsSpinner::class,
-//    SimpleSpinner::class,
+    ArrowSpinner::class,
+    BallSpinner::class,
+    BlockSpinner::class,
+    CircleSpinner::class,
+    ClockSpinner::class,
+    DiceSpinner::class,
+    DotSpinner::class,
+    EarthSpinner::class,
+    MoonSpinner::class,
+    PercentSpinner::class,
+    SectorsSpinner::class,
+    SimpleSpinner::class,
     SnakeSpinner::class,
-//    TimeSpinner::class,
-//    WeatherSpinner::class,
+    TimeSpinner::class,
+    WeatherSpinner::class,
 ];
 
 $arr = [
