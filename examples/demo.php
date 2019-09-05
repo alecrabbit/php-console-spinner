@@ -19,7 +19,11 @@ use AlecRabbit\Spinner\Settings\Settings;
 use AlecRabbit\Spinner\SimpleSpinner;
 use AlecRabbit\Spinner\SnakeSpinner;
 use AlecRabbit\Spinner\TimeSpinner;
+use AlecRabbit\Spinner\WeatherSpinner;
 use function AlecRabbit\brackets;
+use const AlecRabbit\COLOR256_TERMINAL;
+use const AlecRabbit\COLOR_TERMINAL;
+use const AlecRabbit\NO_COLOR_TERMINAL;
 
 //require_once __DIR__ . '/../vendor/autoload.php';
 require_once __DIR__ . '/../tests/bootstrap.php';
@@ -49,6 +53,7 @@ $spinners = [
     SimpleSpinner::class,
     SnakeSpinner::class,
     TimeSpinner::class,
+    WeatherSpinner::class,
 ];
 
 $arr = [
@@ -65,21 +70,29 @@ $arr = [
 ];
 
 $len = count(MESSAGES) - 1;
+
+$color = (int)($argv[1] ?? COLOR256_TERMINAL);
+if (!in_array($color, [NO_COLOR_TERMINAL, COLOR_TERMINAL, COLOR256_TERMINAL], true)) {
+    echo $t->error(' ERROR ') . ' ' . $t->red('Unknown color support level: ' . $color ) . PHP_EOL ;
+    $color = NO_COLOR_TERMINAL;
+    echo $t->dark('Using default: ' . $color ) . PHP_EOL ;
+
+}
 foreach ($spinners as $spinner) {
     echo $t->bold(PHP_EOL . brackets($spinner) . ' ');
     $m = MESSAGES[rnd($len)];
     [$message, $erLen] = $m;
     if (in_array($spinner, $arr, true)) {
         $s = new Settings();
-        if(rnd(4)> 2) {
+        if (rnd(4) > 2) {
             $s->setMessageSuffix(Defaults::ELLIPSIS);
         }
         $s->setMessage($message);
-        showSpinners(new $spinner($s), true);
-        showSpinners(new $spinner(), true);
+        showSpinners(new $spinner($s, null, $color), true);
+        showSpinners(new $spinner(null, null, $color), true);
     }
     if ($spinner !== PercentSpinner::class) {
-        showSpinners(new $spinner());
+        showSpinners(new $spinner(null, null, $color));
     }
     echo Cursor::up();
 }
