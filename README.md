@@ -1,4 +1,4 @@
-# php-console-spinner
+# 🏵️  PHP Console Spinner
 Spinner - your task is running
 
 [![PHP Version](https://img.shields.io/packagist/php-v/alecrabbit/php-console-spinner.svg)](https://php.net/)
