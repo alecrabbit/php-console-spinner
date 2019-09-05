@@ -231,7 +231,7 @@
 
 | Visibility | Function |
 |:-----------|:---------|
-| public static | <strong>escCodes(</strong><em>\string</em> <strong>$in</strong>)</strong> : <em>void</em> |
+| public static | <strong>escCodes(</strong><em>\string</em> <strong>$in</strong>)</strong> : <em>string</em> |
 
 <hr />
 

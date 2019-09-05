@@ -6,6 +6,10 @@ class Strip
 {
     protected const REG_EXP = '#\\x1b[[][^A-Za-z]*[A-Za-z]#';
 
+    /**
+     * @param string $in
+     * @return string
+     */
     public static function escCodes(string $in): string
     {
         $str = preg_replace(self::REG_EXP, '', $in);
