@@ -187,6 +187,26 @@ interface Frames
         '⠂'
     ];
 
+    public const SQUARE = [
+        '◼    ',
+        ' ◼   ',
+        '  ◼  ',
+        '   ◼ ',
+        '    ◼',
+        '   ◼ ',
+        '  ◼  ',
+        ' ◼   ',
+    ];
+    
+    public const SQUARE_VARIANT_1 = [
+        '▩',
+        '▦',
+        '▤',
+        '▥',
+        '▧',
+        '▨',
+    ];
+
     public const BLOCK_VARIANT_0 =
         [
             '▁',
