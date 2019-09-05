@@ -7,6 +7,9 @@
 ### Fixed
 - examples
 
+### Updated
+- demos
+
 
 <a name="0.34.0-BETA.3"></a>
 ## [0.34.0-BETA.3] - 2019-09-02
