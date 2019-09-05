@@ -1,10 +1,12 @@
 <?php
 
 use AlecRabbit\Cli\Tools\Cursor;
+use AlecRabbit\Cli\Tools\Line;
 use AlecRabbit\ConsoleColour\Themes;
 use AlecRabbit\Spinner\ArrowSpinner;
 use AlecRabbit\Spinner\BallSpinner;
 use AlecRabbit\Spinner\BlockSpinner;
+use AlecRabbit\Spinner\BouncingBarSpinner;
 use AlecRabbit\Spinner\CircleSpinner;
 use AlecRabbit\Spinner\ClockSpinner;
 use AlecRabbit\Spinner\Core\Contracts\SpinnerInterface;
@@ -21,6 +23,7 @@ use AlecRabbit\Spinner\SnakeSpinner;
 use AlecRabbit\Spinner\TimeSpinner;
 use AlecRabbit\Spinner\WeatherSpinner;
 use function AlecRabbit\brackets;
+use function AlecRabbit\str_wrap;
 use const AlecRabbit\COLOR256_TERMINAL;
 use const AlecRabbit\COLOR_TERMINAL;
 use const AlecRabbit\NO_COLOR_TERMINAL;
@@ -29,11 +32,11 @@ use const AlecRabbit\NO_COLOR_TERMINAL;
 require_once __DIR__ . '/../tests/bootstrap.php';
 
 const COLOR_SUPPORT_LEVELS = [NO_COLOR_TERMINAL, COLOR_TERMINAL, COLOR256_TERMINAL];
-const ITER = 300;
+const ITER = 10;
 const MESSAGES = [
-    ['mᚹä漢d字', 8],
-    ['message', null],
-    ['computing', null],
+    'mᚹä漢d字',
+    'message',
+    'computing',
 ];
 
 $t = new Themes();
@@ -43,6 +46,7 @@ $spinners = [
     ArrowSpinner::class,
     BallSpinner::class,
     BlockSpinner::class,
+    BouncingBarSpinner::class,
     CircleSpinner::class,
     ClockSpinner::class,
     DiceSpinner::class,
@@ -61,6 +65,7 @@ $arr = [
     ArrowSpinner::class,
     BallSpinner::class,
     BlockSpinner::class,
+    BouncingBarSpinner::class,
     ClockSpinner::class,
     DiceSpinner::class,
     EarthSpinner::class,
@@ -75,19 +80,27 @@ $len = count(MESSAGES) - 1;
 
 $color = (int)($argv[1] ?? COLOR256_TERMINAL);
 if (!in_array($color, COLOR_SUPPORT_LEVELS, true)) {
-    echo $t->error(' ERROR ') . ' ' . $t->red('Unknown color support level: ' . $color ) . PHP_EOL ;
-    echo $t->dark('Supported levels: ') ;
+    echo $t->error(' ERROR ') . ' ' . $t->red('Unknown color support level: ' . $color) . PHP_EOL;
+    echo $t->dark('Supported levels: ');
     foreach (COLOR_SUPPORT_LEVELS as $level) {
         echo $t->dark((string)$level) . ' ';
     }
-    echo PHP_EOL ;
-    echo $t->dark('Using default: autodetect') . PHP_EOL ;
+    echo PHP_EOL;
+    echo $t->dark('Using default: autodetect') . PHP_EOL;
     $color = null;
 }
+echo $t->dark('Messages(picked randomly):') . PHP_EOL;
+foreach (MESSAGES as $m) {
+    echo $t->dark(str_wrap($m, '"')) . PHP_EOL;
+}
+echo PHP_EOL;
+echo PHP_EOL;
+echo Cursor::up();
+
 foreach ($spinners as $spinner) {
-    echo $t->bold(PHP_EOL . brackets($spinner) . ' ');
-    $m = MESSAGES[rnd($len)];
-    [$message, $erLen] = $m;
+//    echo Line::erase() . '---';
+    echo Line::erase() . Cursor::absX() . $t->bold(brackets($spinner) . ' ');
+    $message = MESSAGES[rnd($len)];
     if (in_array($spinner, $arr, true)) {
         $s = new Settings();
         if (rnd(4) > 2) {
@@ -100,11 +113,11 @@ foreach ($spinners as $spinner) {
     if ($spinner !== PercentSpinner::class) {
         showSpinners(new $spinner(null, null, $color));
     }
-    echo Cursor::up();
+//    echo Cursor::up();
 }
 
 echo PHP_EOL;
-echo Cursor::absX(0) . str_repeat(' ', 100);
+echo Line::erase();
 echo PHP_EOL;
 
 // ************************ Functions ************************
