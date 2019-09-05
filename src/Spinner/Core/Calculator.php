@@ -6,6 +6,10 @@ use AlecRabbit\Spinner\Settings\Contracts\Defaults;
 
 class Calculator
 {
+    /**
+     * @param array $strings
+     * @return int
+     */
     public static function computeErasingLengths(array $strings): int
     {
         if (empty($strings)) {

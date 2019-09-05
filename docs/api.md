@@ -1,44 +1,46 @@
 ## Table of contents
 
-- [\AlecRabbit\Spinner\SnakeSpinner](#class-alecrabbitspinnersnakespinner)
-- [\AlecRabbit\Spinner\PercentSpinner](#class-alecrabbitspinnerpercentspinner)
-- [\AlecRabbit\Spinner\ClockSpinner](#class-alecrabbitspinnerclockspinner)
-- [\AlecRabbit\Spinner\BlockSpinner](#class-alecrabbitspinnerblockspinner)
-- [\AlecRabbit\Spinner\DiceSpinner](#class-alecrabbitspinnerdicespinner)
-- [\AlecRabbit\Spinner\DotSpinner](#class-alecrabbitspinnerdotspinner)
-- [\AlecRabbit\Spinner\MoonSpinner](#class-alecrabbitspinnermoonspinner)
-- [\AlecRabbit\Spinner\BallSpinner](#class-alecrabbitspinnerballspinner)
-- [\AlecRabbit\Spinner\EarthSpinner](#class-alecrabbitspinnerearthspinner)
-- [\AlecRabbit\Spinner\SimpleSpinner](#class-alecrabbitspinnersimplespinner)
 - [\AlecRabbit\Spinner\ArrowSpinner](#class-alecrabbitspinnerarrowspinner)
-- [\AlecRabbit\Spinner\SectorsSpinner](#class-alecrabbitspinnersectorsspinner)
+- [\AlecRabbit\Spinner\BallSpinner](#class-alecrabbitspinnerballspinner)
+- [\AlecRabbit\Spinner\BlockSpinner](#class-alecrabbitspinnerblockspinner)
+- [\AlecRabbit\Spinner\BouncingBarSpinner](#class-alecrabbitspinnerbouncingbarspinner)
 - [\AlecRabbit\Spinner\CircleSpinner](#class-alecrabbitspinnercirclespinner)
-- [\AlecRabbit\Spinner\TimeSpinner](#class-alecrabbitspinnertimespinner)
-- [\AlecRabbit\Spinner\Core\Strip](#class-alecrabbitspinnercorestrip)
+- [\AlecRabbit\Spinner\ClockSpinner](#class-alecrabbitspinnerclockspinner)
+- [\AlecRabbit\Spinner\Core\Adapters\EchoOutputAdapter](#class-alecrabbitspinnercoreadaptersechooutputadapter)
+- [\AlecRabbit\Spinner\Core\Adapters\SymfonyOutputAdapter](#class-alecrabbitspinnercoreadapterssymfonyoutputadapter)
+- [\AlecRabbit\Spinner\Core\Calculator](#class-alecrabbitspinnercorecalculator)
+- [\AlecRabbit\Spinner\Core\Coloring\Colors](#class-alecrabbitspinnercorecoloringcolors)
+- [\AlecRabbit\Spinner\Core\Coloring\Style](#class-alecrabbitspinnercorecoloringstyle)
+- [\AlecRabbit\Spinner\Core\Contracts\Frames (interface)](#interface-alecrabbitspinnercorecontractsframes)
+- [\AlecRabbit\Spinner\Core\Contracts\Juggler (interface)](#interface-alecrabbitspinnercorecontractsjuggler)
+- [\AlecRabbit\Spinner\Core\Contracts\OutputInterface (interface)](#interface-alecrabbitspinnercorecontractsoutputinterface)
+- [\AlecRabbit\Spinner\Core\Contracts\SpinnerInterface (interface)](#interface-alecrabbitspinnercorecontractsspinnerinterface)
+- [\AlecRabbit\Spinner\Core\Contracts\StyleInterface (interface)](#interface-alecrabbitspinnercorecontractsstyleinterface)
+- [\AlecRabbit\Spinner\Core\Contracts\Styles (interface)](#interface-alecrabbitspinnercorecontractsstyles)
+- [\AlecRabbit\Spinner\Core\Jugglers\AbstractJuggler (abstract)](#class-alecrabbitspinnercorejugglersabstractjuggler-abstract)
+- [\AlecRabbit\Spinner\Core\Jugglers\Contracts\JugglerInterface (interface)](#interface-alecrabbitspinnercorejugglerscontractsjugglerinterface)
+- [\AlecRabbit\Spinner\Core\Jugglers\FrameJuggler](#class-alecrabbitspinnercorejugglersframejuggler)
+- [\AlecRabbit\Spinner\Core\Jugglers\MessageJuggler](#class-alecrabbitspinnercorejugglersmessagejuggler)
+- [\AlecRabbit\Spinner\Core\Jugglers\ProgressJuggler](#class-alecrabbitspinnercorejugglersprogressjuggler)
 - [\AlecRabbit\Spinner\Core\Sentinel](#class-alecrabbitspinnercoresentinel)
 - [\AlecRabbit\Spinner\Core\Spinner (abstract)](#class-alecrabbitspinnercorespinner-abstract)
 - [\AlecRabbit\Spinner\Core\SpinnerCore (abstract)](#class-alecrabbitspinnercorespinnercore-abstract)
-- [\AlecRabbit\Spinner\Core\Calculator](#class-alecrabbitspinnercorecalculator)
-- [\AlecRabbit\Spinner\Core\Adapters\SymfonyOutputAdapter](#class-alecrabbitspinnercoreadapterssymfonyoutputadapter)
-- [\AlecRabbit\Spinner\Core\Adapters\EchoOutputAdapter](#class-alecrabbitspinnercoreadaptersechooutputadapter)
-- [\AlecRabbit\Spinner\Core\Coloring\Style](#class-alecrabbitspinnercorecoloringstyle)
-- [\AlecRabbit\Spinner\Core\Coloring\Colors](#class-alecrabbitspinnercorecoloringcolors)
-- [\AlecRabbit\Spinner\Core\Contracts\Frames (interface)](#interface-alecrabbitspinnercorecontractsframes)
-- [\AlecRabbit\Spinner\Core\Contracts\Juggler (interface)](#interface-alecrabbitspinnercorecontractsjuggler)
-- [\AlecRabbit\Spinner\Core\Contracts\StyleInterface (interface)](#interface-alecrabbitspinnercorecontractsstyleinterface)
-- [\AlecRabbit\Spinner\Core\Contracts\Styles (interface)](#interface-alecrabbitspinnercorecontractsstyles)
-- [\AlecRabbit\Spinner\Core\Contracts\SpinnerInterface (interface)](#interface-alecrabbitspinnercorecontractsspinnerinterface)
-- [\AlecRabbit\Spinner\Core\Contracts\OutputInterface (interface)](#interface-alecrabbitspinnercorecontractsoutputinterface)
-- [\AlecRabbit\Spinner\Core\Jugglers\MessageJuggler](#class-alecrabbitspinnercorejugglersmessagejuggler)
-- [\AlecRabbit\Spinner\Core\Jugglers\FrameJuggler](#class-alecrabbitspinnercorejugglersframejuggler)
-- [\AlecRabbit\Spinner\Core\Jugglers\AbstractJuggler (abstract)](#class-alecrabbitspinnercorejugglersabstractjuggler-abstract)
-- [\AlecRabbit\Spinner\Core\Jugglers\ProgressJuggler](#class-alecrabbitspinnercorejugglersprogressjuggler)
-- [\AlecRabbit\Spinner\Core\Jugglers\Contracts\JugglerInterface (interface)](#interface-alecrabbitspinnercorejugglerscontractsjugglerinterface)
-- [\AlecRabbit\Spinner\Settings\Settings](#class-alecrabbitspinnersettingssettings)
-- [\AlecRabbit\Spinner\Settings\Property](#class-alecrabbitspinnersettingsproperty)
-- [\AlecRabbit\Spinner\Settings\Contracts\SettingsInterface (interface)](#interface-alecrabbitspinnersettingscontractssettingsinterface)
-- [\AlecRabbit\Spinner\Settings\Contracts\S (interface)](#interface-alecrabbitspinnersettingscontractss)
+- [\AlecRabbit\Spinner\Core\Strip](#class-alecrabbitspinnercorestrip)
+- [\AlecRabbit\Spinner\DiceSpinner](#class-alecrabbitspinnerdicespinner)
+- [\AlecRabbit\Spinner\DotSpinner](#class-alecrabbitspinnerdotspinner)
+- [\AlecRabbit\Spinner\EarthSpinner](#class-alecrabbitspinnerearthspinner)
+- [\AlecRabbit\Spinner\MoonSpinner](#class-alecrabbitspinnermoonspinner)
+- [\AlecRabbit\Spinner\PercentSpinner](#class-alecrabbitspinnerpercentspinner)
+- [\AlecRabbit\Spinner\SectorsSpinner](#class-alecrabbitspinnersectorsspinner)
 - [\AlecRabbit\Spinner\Settings\Contracts\Defaults (interface)](#interface-alecrabbitspinnersettingscontractsdefaults)
+- [\AlecRabbit\Spinner\Settings\Contracts\S (interface)](#interface-alecrabbitspinnersettingscontractss)
+- [\AlecRabbit\Spinner\Settings\Contracts\SettingsInterface (interface)](#interface-alecrabbitspinnersettingscontractssettingsinterface)
+- [\AlecRabbit\Spinner\Settings\Property](#class-alecrabbitspinnersettingsproperty)
+- [\AlecRabbit\Spinner\Settings\Settings](#class-alecrabbitspinnersettingssettings)
+- [\AlecRabbit\Spinner\SimpleSpinner](#class-alecrabbitspinnersimplespinner)
+- [\AlecRabbit\Spinner\SnakeSpinner](#class-alecrabbitspinnersnakespinner)
+- [\AlecRabbit\Spinner\TimeSpinner](#class-alecrabbitspinnertimespinner)
+- [\AlecRabbit\Spinner\WeatherSpinner](#class-alecrabbitspinnerweatherspinner)
 
 <hr />
 
@@ -90,6 +92,17 @@
 <hr />
 
 ### Class: \AlecRabbit\Spinner\DiceSpinner
+
+| Visibility | Function |
+|:-----------|:---------|
+
+*This class extends [\AlecRabbit\Spinner\Core\Spinner](#class-alecrabbitspinnercorespinner-abstract)*
+
+*This class implements [\AlecRabbit\Spinner\Core\Contracts\SpinnerInterface](#interface-alecrabbitspinnercorecontractsspinnerinterface)*
+
+<hr />
+
+### Class: \AlecRabbit\Spinner\WeatherSpinner
 
 | Visibility | Function |
 |:-----------|:---------|
@@ -188,6 +201,17 @@
 
 <hr />
 
+### Class: \AlecRabbit\Spinner\BouncingBarSpinner
+
+| Visibility | Function |
+|:-----------|:---------|
+
+*This class extends [\AlecRabbit\Spinner\Core\Spinner](#class-alecrabbitspinnercorespinner-abstract)*
+
+*This class implements [\AlecRabbit\Spinner\Core\Contracts\SpinnerInterface](#interface-alecrabbitspinnercorecontractsspinnerinterface)*
+
+<hr />
+
 ### Class: \AlecRabbit\Spinner\TimeSpinner
 
 | Visibility | Function |
@@ -271,7 +295,7 @@
 | Visibility | Function |
 |:-----------|:---------|
 | public static | <strong>computeErasingLength(</strong><em>null/string/\string</em> <strong>$in</strong>)</strong> : <em>int</em> |
-| public static | <strong>computeErasingLengths(</strong><em>array</em> <strong>$strings</strong>)</strong> : <em>void</em> |
+| public static | <strong>computeErasingLengths(</strong><em>array</em> <strong>$strings</strong>)</strong> : <em>int</em> |
 
 <hr />
 
