@@ -12,8 +12,10 @@ class Calculator
             return 0;
         }
         $lengths = [];
-        foreach ($strings as $string) {
-            $lengths[] = self::computeErasingLength($string);
+        foreach ($strings as $key => $string) {
+            $length = self::computeErasingLength($string);
+            $lengths[] = $length;
+            $strings[$key] = [$length, $string];
         }
         if (1 !== count(array_unique($lengths))) {
             throw new \InvalidArgumentException('Strings have different erasing lengths.');

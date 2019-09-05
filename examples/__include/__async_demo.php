@@ -6,6 +6,7 @@ use AlecRabbit\ConsoleColour\Contracts\Color;
 use AlecRabbit\ConsoleColour\Contracts\Effect;
 use AlecRabbit\ConsoleColour\Themes;
 use AlecRabbit\Spinner\ClockSpinner;
+use AlecRabbit\Spinner\Core\Contracts\Frames;
 use AlecRabbit\Spinner\Core\Contracts\Juggler;
 use AlecRabbit\Spinner\Core\Contracts\Styles;
 use AlecRabbit\Spinner\Core\Spinner;
@@ -122,6 +123,39 @@ function spinnerFactory(int $variant = 0): Spinner
             break;
         case 4:
             return new TimeSpinner();
+            break;
+        case 5:
+            return
+                new SnakeSpinner(
+                    $settings
+                        ->setFrames(Frames::WEATHER)
+//                        ->setStyles(
+//                            [
+//                                Juggler::FRAMES_STYLES =>
+//                                    [
+//                                        Juggler::COLOR256 => Styles::C256_BG_RAINBOW,
+//                                        Juggler::COLOR => [[Color::WHITE, BG::RED, Effect::BOLD,]],
+//                                        Juggler::FORMAT => ' %s  ',
+//                                        Juggler::SPACER => '',
+//                                    ],
+//                                Juggler::MESSAGE_STYLES =>
+//                                    [
+//                                        Juggler::COLOR => [[Color::YELLOW, BG::RED, Effect::BOLD,]],
+//                                        Juggler::FORMAT => '%s ',
+//                                        Juggler::SPACER => '',
+//                                    ],
+//                                Juggler::PROGRESS_STYLES =>
+//                                    [
+//                                        Juggler::COLOR => [[Color::WHITE, BG::RED, Effect::BOLD, Effect::ITALIC]],
+//                                        Juggler::FORMAT => '%s ',
+//                                        Juggler::SPACER => '',
+//                                    ],
+//                            ]
+//                        ),
+                    ,
+                    null,
+                    COLOR_TERMINAL
+                );
             break;
         default:
             return new SnakeSpinner($settings->setMessageSuffix(Defaults::ELLIPSIS));

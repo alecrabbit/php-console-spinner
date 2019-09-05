@@ -3,6 +3,7 @@
 namespace AlecRabbit\Tests\Tools;
 
 use AlecRabbit\Spinner\Core\Calculator;
+use AlecRabbit\Spinner\Core\Contracts\Frames;
 use PHPUnit\Framework\TestCase;
 
 class CalculatorTest extends TestCase
@@ -14,6 +15,17 @@ class CalculatorTest extends TestCase
      * @param array $given
      */
     public function values(int $expected, array $given): void
+    {
+        $this->assertEquals($expected, Calculator::computeErasingLengths($given));
+    }
+
+    /**
+     * @test
+     * @dataProvider stringsDataProvider
+     * @param int $expected
+     * @param array $given
+     */
+    public function strings(int $expected, array $given): void
     {
         $this->assertEquals($expected, Calculator::computeErasingLengths($given));
     }
@@ -33,6 +45,13 @@ class CalculatorTest extends TestCase
             [1, ['1', '1']],
             [0, ['', '']],
             [0, [null, null]],
+        ];
+    }
+
+    public function stringsDataProvider(): array
+    {
+        return [
+            [2, Frames::WEATHER],
         ];
     }
 }
