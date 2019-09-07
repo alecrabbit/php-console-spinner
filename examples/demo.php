@@ -33,7 +33,7 @@ use const AlecRabbit\TERMINAL_COLOR_MODES;
 require_once __DIR__ . '/../tests/bootstrap.php';
 
 const COLOR_SUPPORT_LEVELS = [NO_COLOR_TERMINAL, COLOR_TERMINAL, COLOR256_TERMINAL];
-const ITER = 10;
+const ITER = 50;
 const MESSAGES = [
     'mᚹä漢d字',
     'message',
