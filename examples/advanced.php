@@ -93,6 +93,7 @@ $settings
                 ],
         ]
     );
+// overriding defaults with $settings
 $s = new SnakeSpinner($settings);
 
 // Add periodic timer to redraw our spinner
