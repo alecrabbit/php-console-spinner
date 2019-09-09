@@ -7,6 +7,7 @@ You can create spinner instance without output setting `$output=false`
 ```php
 $s = new SnakeSpinner('message', false)
 ```
+
 In that case all functions will return spinner sequences strings and you have to print them out on your own
 
 ## Using Symfony console output
@@ -15,14 +16,14 @@ To use `Symfony Console Output` use `SymfonyOutputAdapter::class`
 ```php
 $output = new SymfonyOutputAdapter(new ConsoleOutput());
 $s = new SnakeSpinner(null, $output)
-
 ```
 
+## Interface reference
 ```php
 interface SpinnerInterface
 {
     /**
-     * Hides cursor and returns or prints out first spinner frame string
+     * Returns or prints out first spinner frame string (hides cursor)
      *
      * @param null|float $percent
      * @return string
@@ -30,14 +31,14 @@ interface SpinnerInterface
     public function begin(?float $percent = null): string;
 
     /**
-     * Erases spinner with spaces symbols
+     * Erases spinner with space symbols or returns erase sequence string
      *
      * @return string
      */
     public function erase(): string;
 
     /**
-     * Erases spinner and shows cursor
+     * Erases spinner and shows cursor or returns sequence string
      *
      * @return string
      */
@@ -109,5 +110,4 @@ interface SpinnerInterface
      */
     public function last(): string;
 }
-
 ```
