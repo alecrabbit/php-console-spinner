@@ -262,7 +262,7 @@
 | public | <strong>inline(</strong><em>\bool</em> <strong>$inline</strong>)</strong> : <em>void</em> |
 | public | <strong>interval()</strong> : <em>void</em> |
 | public | <strong>last()</strong> : <em>void</em> |
-| public | <strong>message(</strong><em>\string</em> <strong>$message=null</strong>, <em>\int</em> <strong>$erasingLength=null</strong>)</strong> : <em>void</em> |
+| public | <strong>message(</strong><em>\string</em> <strong>$message=null</strong>)</strong> : <em>void</em> |
 | public | <strong>progress(</strong><em>\float</em> <strong>$percent</strong>)</strong> : <em>void</em> |
 | public | <strong>spin()</strong> : <em>void</em> |
 | protected | <strong>defaultSettings()</strong> : <em>[\AlecRabbit\Spinner\Settings\Settings](#class-alecrabbitspinnersettingssettings)</em> |
@@ -389,18 +389,18 @@
 
 | Visibility | Function |
 |:-----------|:---------|
-| public | <strong>begin(</strong><em>\float</em> <strong>$percent=null</strong>)</strong> : <em>string</em> |
-| public | <strong>disable()</strong> : <em>\AlecRabbit\Spinner\Core\Contracts\self</em> |
-| public | <strong>enable()</strong> : <em>\AlecRabbit\Spinner\Core\Contracts\self</em> |
-| public | <strong>end()</strong> : <em>string</em> |
-| public | <strong>erase()</strong> : <em>string</em> |
-| public | <strong>getOutput()</strong> : <em>null/[\AlecRabbit\Spinner\Core\Contracts\OutputInterface](#interface-alecrabbitspinnercorecontractsoutputinterface)</em> |
-| public | <strong>inline(</strong><em>\bool</em> <strong>$inline</strong>)</strong> : <em>[\AlecRabbit\Spinner\Core\Contracts\SpinnerInterface](#interface-alecrabbitspinnercorecontractsspinnerinterface)</em> |
-| public | <strong>interval()</strong> : <em>float</em> |
-| public | <strong>last()</strong> : <em>string</em> |
-| public | <strong>message(</strong><em>\string</em> <strong>$message=null</strong>, <em>\int</em> <strong>$erasingLength=null</strong>)</strong> : <em>[\AlecRabbit\Spinner\Core\Spinner](#class-alecrabbitspinnercorespinner-abstract)</em> |
-| public | <strong>progress(</strong><em>null/float/\float</em> <strong>$percent</strong>)</strong> : <em>[\AlecRabbit\Spinner\Core\Spinner](#class-alecrabbitspinnercorespinner-abstract)</em> |
-| public | <strong>spin()</strong> : <em>string</em> |
+| public | <strong>begin(</strong><em>\float</em> <strong>$percent=null</strong>)</strong> : <em>string</em><br /><em>Hides cursor and returns or prints out first spinner frame</em> |
+| public | <strong>disable()</strong> : <em>\AlecRabbit\Spinner\Core\Contracts\self</em><br /><em>Disables spinner</em> |
+| public | <strong>enable()</strong> : <em>\AlecRabbit\Spinner\Core\Contracts\self</em><br /><em>Enables spinner</em> |
+| public | <strong>end()</strong> : <em>string</em><br /><em>Erases spinner and shows cursor</em> |
+| public | <strong>erase()</strong> : <em>string</em><br /><em>Erases spinner with spaces symbols</em> |
+| public | <strong>getOutput()</strong> : <em>null/[\AlecRabbit\Spinner\Core\Contracts\OutputInterface](#interface-alecrabbitspinnercorecontractsoutputinterface)</em><br /><em>Returns output</em> |
+| public | <strong>inline(</strong><em>\bool</em> <strong>$inline</strong>)</strong> : <em>[\AlecRabbit\Spinner\Core\Contracts\SpinnerInterface](#interface-alecrabbitspinnercorecontractsspinnerinterface)</em><br /><em>Enables inline mode</em> |
+| public | <strong>interval()</strong> : <em>float</em><br /><em>Returns spinner recommended refresh interval</em> |
+| public | <strong>last()</strong> : <em>string</em><br /><em>Returns or prints out last spinner string</em> |
+| public | <strong>message(</strong><em>\string</em> <strong>$message=null</strong>)</strong> : <em>[\AlecRabbit\Spinner\Core\Spinner](#class-alecrabbitspinnercorespinner-abstract)</em><br /><em>Sets current message for spinner</em> |
+| public | <strong>progress(</strong><em>null/float/\float</em> <strong>$percent</strong>)</strong> : <em>[\AlecRabbit\Spinner\Core\Spinner](#class-alecrabbitspinnercorespinner-abstract)</em><br /><em>Sets current progress value for spinner 0..1</em> |
+| public | <strong>spin()</strong> : <em>string</em><br /><em>Returns or prints out current spinner string</em> |
 
 <hr />
 
