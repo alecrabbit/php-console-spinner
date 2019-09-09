@@ -82,8 +82,11 @@ $loop->addSignal(
  */
 $settings = new Settings();
 $settings
-    ->setMessageSuffix(Defaults::ELLIPSIS)
+    ->setMessageSuffix(Defaults::EMPTY_STRING)
     ->setFrames(Frames::SNAKE_VARIANT_1)
+    // let's change jugglers order
+    // Note: Juggler::PROGRESS is not used in this example
+    ->setJugglersOrder([Juggler::PROGRESS, Juggler::MESSAGE, Juggler::FRAMES])
     ->setStyles(
         [
             Juggler::MESSAGE_STYLES =>

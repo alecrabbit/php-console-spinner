@@ -3,6 +3,7 @@
 
 namespace AlecRabbit\Spinner\Settings\Contracts;
 
+use AlecRabbit\Spinner\Core\Contracts\Juggler;
 use AlecRabbit\Spinner\Core\Contracts\Styles;
 
 interface Defaults
@@ -34,7 +35,14 @@ interface Defaults
             S::SPACER => self::EMPTY_STRING,
             S::INITIAL_PERCENT => null,
             S::ENABLED => true,
-            S::JUGGLERS_ORDER => [0, 1, 2],
+            S::JUGGLERS_ORDER => self::DEFAULT_ORDER_DIRECTIVES,
         ];
     public const ELLIPSIS = '…';
+    public const NUMBER_OF_ORDER_DIRECTIVES = 3;
+    public const DEFAULT_ORDER_DIRECTIVES = [Juggler::FRAMES, Juggler::MESSAGE, Juggler::PROGRESS];
+    public const DIRECTIVES_NAMES = [
+        Juggler::FRAMES => 'FRAMES',
+        Juggler::MESSAGE => 'MESSAGE',
+        Juggler::PROGRESS => 'PROGRESS',
+    ];
 }

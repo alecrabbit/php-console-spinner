@@ -198,6 +198,8 @@ class Settings implements SettingsInterface
     /** {@inheritDoc} */
     public function setJugglersOrder(array $order): self
     {
+        $order = array_unique($order);
+        Sentinel::assertJugglersOrder($order);
         $this->properties[S::JUGGLERS_ORDER]->setValue($order);
         return $this;
     }

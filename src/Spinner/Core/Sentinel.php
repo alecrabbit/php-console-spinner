@@ -41,6 +41,22 @@ class Sentinel
     }
 
     /**
+     * @param string $frame
+     */
+    public static function assertFrameLength(string $frame): void
+    {
+        if (Defaults::MAX_FRAME_LENGTH < $length = mb_strwidth($frame)) {
+            throw new \InvalidArgumentException(
+                sprintf(
+                    'Single frame max length [%s] exceeded [%s]',
+                    Defaults::MAX_FRAME_LENGTH,
+                    $length
+                )
+            );
+        }
+    }
+
+    /**
      * @param array $styles
      * @param array $against
      */
@@ -87,18 +103,28 @@ class Sentinel
     }
 
     /**
-     * @param string $frame
+     * @param array $order
      */
-    public static function assertFrameLength(string $frame): void
+    public static function assertJugglersOrder(array $order): void
     {
-        if (Defaults::MAX_FRAME_LENGTH < $length = mb_strwidth($frame)) {
+        if (Defaults::NUMBER_OF_ORDER_DIRECTIVES !== $count = count($order)) {
             throw new \InvalidArgumentException(
                 sprintf(
-                    'Single frame max length [%s] exceeded [%s]',
-                    Defaults::MAX_FRAME_LENGTH,
-                    $length
+                    'Too many order directives [%s] when exactly %s was expected',
+                    $count,
+                    Defaults::NUMBER_OF_ORDER_DIRECTIVES
                 )
             );
+        }
+        foreach (Defaults::DEFAULT_ORDER_DIRECTIVES as $directive) {
+            if (!in_array($directive, Defaults::DEFAULT_ORDER_DIRECTIVES, true)) {
+                throw new \InvalidArgumentException(
+                    sprintf(
+                        'Directive for %s position not found',
+                        Defaults::DIRECTIVES_NAMES[$directive]
+                    )
+                );
+            }
         }
     }
 }
