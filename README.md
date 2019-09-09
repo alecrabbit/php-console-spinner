@@ -43,7 +43,7 @@ $spinner->end();
 ```
 #### Advanced ([ReactPHP](https://github.com/reactphp))
 
-> See [advanced.php](examples/advanced.php)
+> See [advanced.php](examples/advanced.php) [async.demo.php](examples/async.demo.php)
 
 ```php
 require_once __DIR__ . '/../vendor/autoload.php';
