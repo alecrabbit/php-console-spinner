@@ -77,6 +77,37 @@ class SettingsTest extends TestCase
     }
 
     /** @test */
+    public function jugglersOrderNotFull(): void
+    {
+        $newSettings = new Settings();
+        $order = [Juggler::MESSAGE, Juggler::FRAMES];
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage(
+            sprintf(
+                'Incorrect count of order directives [%s] when exactly %s was expected',
+                count($order),
+                Defaults::NUMBER_OF_ORDER_DIRECTIVES
+            )
+        );
+        $newSettings->setJugglersOrder($order);
+    }
+
+    /** @test */
+    public function jugglersOrderFullButIncorrect(): void
+    {
+        $newSettings = new Settings();
+        $order = [10, Juggler::MESSAGE, Juggler::FRAMES];
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage(
+            sprintf(
+                'Directive for %s position not found',
+                Defaults::DIRECTIVES_NAMES[Juggler::PROGRESS]
+            )
+        );
+        $newSettings->setJugglersOrder($order);
+    }
+
+    /** @test */
     public function mergeNotEmpty(): void
     {
         $settings = new Settings();

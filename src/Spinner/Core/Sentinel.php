@@ -110,14 +110,14 @@ class Sentinel
         if (Defaults::NUMBER_OF_ORDER_DIRECTIVES !== $count = count($order)) {
             throw new \InvalidArgumentException(
                 sprintf(
-                    'Too many order directives [%s] when exactly %s was expected',
+                    'Incorrect count of order directives [%s] when exactly %s was expected',
                     $count,
                     Defaults::NUMBER_OF_ORDER_DIRECTIVES
                 )
             );
         }
         foreach (Defaults::DEFAULT_ORDER_DIRECTIVES as $directive) {
-            if (!in_array($directive, Defaults::DEFAULT_ORDER_DIRECTIVES, true)) {
+            if (!in_array($directive, $order, true)) {
                 throw new \InvalidArgumentException(
                     sprintf(
                         'Directive for %s position not found',
