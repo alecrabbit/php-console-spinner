@@ -1,6 +1,12 @@
 <a name="unreleased"></a>
 ## [Unreleased]
 
+### Feature
+- jugglers order can be changed
+
+
+<a name="0.34.0-BETA.4"></a>
+## [0.34.0-BETA.4] - 2019-09-05
 ### Added
 - new frame sets
 - Weather frames set  `🌤 🌥 🌧 🌨 🌧 🌨 🌧 🌨 🌨 🌧 🌨 🌥 🌤`
@@ -260,7 +266,8 @@
 <a name="0.2.1-ALPHA.1"></a>
 ## 0.2.1-ALPHA.1 - 2019-04-06
 
-[Unreleased]: https://github.com/alecrabbit/php-console-spinner/compare/0.34.0-BETA.3...HEAD
+[Unreleased]: https://github.com/alecrabbit/php-console-spinner/compare/0.34.0-BETA.4...HEAD
+[0.34.0-BETA.4]: https://github.com/alecrabbit/php-console-spinner/compare/0.34.0-BETA.3...0.34.0-BETA.4
 [0.34.0-BETA.3]: https://github.com/alecrabbit/php-console-spinner/compare/0.34.0-BETA.2...0.34.0-BETA.3
 [0.34.0-BETA.2]: https://github.com/alecrabbit/php-console-spinner/compare/0.34.0-BETA.1...0.34.0-BETA.2
 [0.34.0-BETA.1]: https://github.com/alecrabbit/php-console-spinner/compare/0.33.0-ALPHA.1...0.34.0-BETA.1
