@@ -23,6 +23,8 @@ use React\Http\Server;
 use React\Promise\Promise;
 use function AlecRabbit\now;
 
+const DATETIME_FORMAT = 'D Y-m-d H:i:s';
+
 // coloring output
 $t = new Themes();
 
@@ -42,7 +44,7 @@ $server =
                 return
                     new Response(404);
             }
-            echo date('D Y-m-d H:i:s') . ' ' . $request->getHeader('user-agent')[0] . PHP_EOL;
+            echo date(DATETIME_FORMAT) . ' ' . $request->getHeader('user-agent')[0] . PHP_EOL;
             return new Promise(static function ($resolve, $reject) use ($loop) {
                 // Emulating processing response
                 $loop->addTimer(0.2, static function () use ($resolve) {
@@ -107,7 +109,7 @@ $loop->addPeriodicTimer($s->interval(), static function () use ($s) {
 
 // We are changing spinner message in a different "coroutine" with it's own interval
 $loop->addPeriodicTimer(1, static function () use ($s) {
-    $s->message(date('D Y-m-d H:i:s'));
+    $s->message(date(DATETIME_FORMAT));
 });
 
 // Add periodic timer to echo status message
@@ -130,7 +132,7 @@ $s->end(); // Cleaning up
 function memory(): string
 {
     $report = MemoryUsage::getReport();
-    return now() . ' Memory usage: ' . $report->getUsageString();
+    return date(DATETIME_FORMAT) . ' Memory usage: ' . $report->getUsageString();
 }
 
 function body(): string
