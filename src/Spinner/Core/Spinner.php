@@ -12,7 +12,6 @@ use AlecRabbit\Spinner\Core\Jugglers\MessageJuggler;
 use AlecRabbit\Spinner\Core\Jugglers\ProgressJuggler;
 use AlecRabbit\Spinner\Settings\Contracts\Defaults;
 use AlecRabbit\Spinner\Settings\Settings;
-use function AlecRabbit\typeOf;
 use const AlecRabbit\ESC;
 
 abstract class Spinner extends SpinnerCore
@@ -59,14 +58,15 @@ abstract class Spinner extends SpinnerCore
         $this->disabled = !$this->settings->isEnabled();
         $this->inlinePaddingStr = $this->settings->getInlinePaddingStr();
         $this->coloring = new Colors($this->settings->getStyles(), $color);
-        $this->initJugglers();
+        $jugglerOrder = $this->settings->getJugglersOrder();
         $this->jugglers = [
-            &$this->frameJuggler,
-            &$this->messageJuggler,
-            &$this->progressJuggler,
+            $jugglerOrder[0] => &$this->frameJuggler,
+            $jugglerOrder[1] => &$this->messageJuggler,
+            $jugglerOrder[2] => &$this->progressJuggler,
         ];
+        ksort($this->jugglers);
+        $this->initJugglers();
     }
-
 
     /**
      * @param null|string|Settings $settings

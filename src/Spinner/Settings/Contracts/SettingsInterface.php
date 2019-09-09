@@ -115,4 +115,15 @@ interface SettingsInterface
      * @return Settings
      */
     public function merge(Settings $settings): Settings;
+
+    /**
+     * @return array
+     */
+    public function getJugglersOrder(): array;
+
+    /**
+     * @param array $order
+     * @return Settings
+     */
+    public function setJugglersOrder(array $order): Settings;
 }

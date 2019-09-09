@@ -188,4 +188,17 @@ class Settings implements SettingsInterface
         $this->properties[S::INITIAL_PERCENT]->setValue($percent);
         return $this;
     }
+
+    /** {@inheritDoc} */
+    public function getJugglersOrder(): array
+    {
+        return $this->properties[S::JUGGLERS_ORDER]->getValue();
+    }
+
+    /** {@inheritDoc} */
+    public function setJugglersOrder(array $order): self
+    {
+        $this->properties[S::JUGGLERS_ORDER]->setValue($order);
+        return $this;
+    }
 }

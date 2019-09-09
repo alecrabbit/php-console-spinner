@@ -34,6 +34,7 @@ interface Defaults
             S::SPACER => self::EMPTY_STRING,
             S::INITIAL_PERCENT => null,
             S::ENABLED => true,
+            S::JUGGLERS_ORDER => [0, 1, 2],
         ];
     public const ELLIPSIS = '…';
 }

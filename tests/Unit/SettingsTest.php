@@ -83,7 +83,6 @@ class SettingsTest extends TestCase
         $interval = 0.2;
         $message = 'message';
         $inlinePaddingStr = Defaults::ONE_SPACE_SYMBOL;
-        $messagePrefix = '-';
         $messageSuffix = '';
         $styles = [
             Juggler::FRAMES_STYLES =>
@@ -105,12 +104,13 @@ class SettingsTest extends TestCase
         $frames = Frames::DIAMOND;
         $spacer = Defaults::ONE_SPACE_SYMBOL;
 
+        $order = [1, 2, 0];
         $newSettings =
             (new Settings())
                 ->setMessage($message)
                 ->setInterval($interval)
                 ->setInlinePaddingStr($inlinePaddingStr)
-//                ->setMessagePrefix($messagePrefix)
+                ->setJugglersOrder($order)
                 ->setMessageSuffix($messageSuffix)
                 ->setFrames($frames)
                 ->setStyles($styles)
@@ -118,9 +118,8 @@ class SettingsTest extends TestCase
         $settings->merge($newSettings);
         $this->assertEquals($message, $settings->getMessage());
         $this->assertEquals($interval, $settings->getInterval());
-//        $this->assertEquals(1, $settings->getErasingShift());
         $this->assertEquals($inlinePaddingStr, $settings->getInlinePaddingStr());
-//        $this->assertEquals($messagePrefix, $settings->getMessagePrefix());
+        $this->assertEquals($order, $settings->getJugglersOrder());
         $this->assertEquals($messageSuffix, $settings->getMessageSuffix());
 
         $this->assertEquals($frames, $settings->getFrames());
