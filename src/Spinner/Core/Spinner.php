@@ -180,7 +180,7 @@ abstract class Spinner extends SpinnerCore
     }
 
     /** {@inheritDoc} */
-    public function message(?string $message = null, ?int $erasingLength = null): self
+    public function message(?string $message = null): self
     {
         $this->setMessage($message);
         return $this;
