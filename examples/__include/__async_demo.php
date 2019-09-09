@@ -77,6 +77,7 @@ function amount(): string
 function spinnerFactory(int $variant = 0): Spinner
 {
     $settings = new Settings();
+    $settings->setJugglersOrder([Juggler::FRAMES, Juggler::PROGRESS, Juggler::MESSAGE]);
     switch ($variant) {
         case 1:
             return
