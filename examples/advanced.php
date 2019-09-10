@@ -1,6 +1,12 @@
 <?php /** @noinspection PhpComposerExtensionStubsInspection */
 declare(strict_types=1);
 
+/*
+ * This demo is a simple web server.
+ *
+ * Please ignore code quality :)
+ */
+
 //require_once __DIR__ . '/../vendor/autoload.php';
 require_once __DIR__ . '/../tests/bootstrap.php';
 require_once __DIR__ . '/__include/__ext_check.php';
@@ -21,7 +27,6 @@ use React\EventLoop\Factory;
 use React\Http\Response;
 use React\Http\Server;
 use React\Promise\Promise;
-use function AlecRabbit\now;
 
 const DATETIME_FORMAT = 'D Y-m-d H:i:s';
 
@@ -39,27 +44,40 @@ $t = new Themes();
 $loop = Factory::create();
 $server =
     new Server(
-        static function (ServerRequestInterface $request) use ($loop) {
+        static function (ServerRequestInterface $request) use ($loop, $t) {
             if ('/favicon.ico' === $request->getRequestTarget()) {
                 return
                     new Response(404);
             }
-            echo date(DATETIME_FORMAT) . ' ' . $request->getHeader('user-agent')[0] . PHP_EOL;
-            return new Promise(static function ($resolve, $reject) use ($loop) {
-                // Emulating processing response
-                $loop->addTimer(0.2, static function () use ($resolve) {
-                    $response =
-                        new Response(
-                            200,
-                            [
-                                'Content-Type' => 'text/html',
-                                'charset' => 'utf-8',
-                            ],
-                            body()
-                        );
-                    $resolve($response);
-                });
-            });
+            // "log" request
+            $ip = $request->getServerParams()['REMOTE_ADDR'];
+            echo $t->dark(date(DATETIME_FORMAT)) . ' ' . $t->cyan($ip) . ' ' . $request->getHeader('user-agent')[0] . PHP_EOL;
+//            // return response after pause
+//            return new Promise(static function ($resolve, $reject) use ($loop) {
+//                // Emulating processing response
+//                $loop->addTimer(0.02, static function () use ($resolve) {
+//                    $response =
+//                        new Response(
+//                            200,
+//                            [
+//                                'Content-Type' => 'text/html',
+//                                'charset' => 'utf-8',
+//                            ],
+//                            body()
+//                        );
+//                    $resolve($response);
+//                });
+//            });
+            // return response immediately
+            return
+                new Response(
+                    200,
+                    [
+                        'Content-Type' => 'text/html',
+                        'charset' => 'utf-8',
+                    ],
+                    body()
+                );
         }
     );
 $socket = new \React\Socket\Server($argv[1] ?? '0.0.0.0:8080', $loop);
