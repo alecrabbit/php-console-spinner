@@ -13,7 +13,9 @@ require_once __DIR__ . '/../tests/bootstrap.php';           // and comment this 
 require_once __DIR__ . '/__include/__ext_check.php';
 require_once __DIR__ . '/__include/__async_demo.php';       // Functions for this demo
 
+use AlecRabbit\Cli\Tools\Cursor;
 use AlecRabbit\ConsoleColour\Themes;
+use AlecRabbit\Spinner\Core\Contracts\OutputInterface;
 use React\EventLoop\Factory;
 
 // This example requires pcntl extension
@@ -58,9 +60,9 @@ $loop = Factory::create();
 $loop->addSignal(
     SIGINT,
     $func = static function ($signal) use ($loop, $t, &$func, $s, &$finalMessage) {
+        $s->erase();
         echo PHP_EOL, $t->dark('Exiting... (CTRL+C to force)'), PHP_EOL;
         $loop->removeSignal(SIGINT, $func);
-        $s->erase();
         $finalMessage = $t->lightRed('Interrupted!') . PHP_EOL;
         $loop->stop();
     }

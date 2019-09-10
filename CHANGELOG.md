@@ -1,6 +1,9 @@
 <a name="unreleased"></a>
 ## [Unreleased]
 
+### Feature
+- final message `$spinner->end('final message')`
+
 
 <a name="0.35.0-BETA.0"></a>
 ## [0.35.0-BETA.0] - 2019-09-09
