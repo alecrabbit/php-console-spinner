@@ -134,17 +134,18 @@ abstract class Spinner extends SpinnerCore
     }
 
     /** {@inheritDoc} */
-    public function end(): string
+    public function end(?string $finalMessage = null): string
     {
         if ($this->disabled) {
             return self::EMPTY_STRING;
         }
+        $finalMessage = (string)$finalMessage;
         if ($this->output instanceof OutputInterface) {
             $this->erase();
-            $this->output->write(Cursor::show());
+            $this->output->write(Cursor::show() . $finalMessage);
             return self::EMPTY_STRING;
         }
-        return $this->erase() . Cursor::show();
+        return $this->erase() . Cursor::show() . $finalMessage;
     }
 
     /** {@inheritDoc} */

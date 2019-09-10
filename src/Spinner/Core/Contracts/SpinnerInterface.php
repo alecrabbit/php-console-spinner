@@ -24,9 +24,10 @@ interface SpinnerInterface
     /**
      * Erases spinner and shows cursor or returns sequence string
      *
+     * @param null|string $finalMessage
      * @return string
      */
-    public function end(): string;
+    public function end(?string $finalMessage = null): string;
 
     /**
      * Returns output

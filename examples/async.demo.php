@@ -37,7 +37,7 @@ $inline = (bool)($argv[2] ?? false);
 
 if ($inline) {
     echo $t->warning(
-        'Inline spinner mode should only be used with short spinner messages or no messages(to avoid artefacts)!'
+            'Inline spinner mode should only be used with short spinner messages or no messages(to avoid artefacts)!'
         ) . PHP_EOL;
 }
 echo PHP_EOL;
@@ -49,15 +49,19 @@ $s->inline($inline); // set spinner inline mode
 // Get messages for spinner
 $messages = messages();
 
+$finalMessage = $t->lightGreen('Finished!') . PHP_EOL;
+
 // Event loop
 $loop = Factory::create();
 
 // Add SIGINT signal handler
 $loop->addSignal(
     SIGINT,
-    $func = static function ($signal) use ($loop, $t, &$func) {
+    $func = static function ($signal) use ($loop, $t, &$func, $s, &$finalMessage) {
         echo PHP_EOL, $t->dark('Exiting... (CTRL+C to force)'), PHP_EOL;
         $loop->removeSignal(SIGINT, $func);
+        $s->erase();
+        $finalMessage = $t->lightRed('Interrupted!') . PHP_EOL;
         $loop->stop();
     }
 );
@@ -117,5 +121,5 @@ $s->begin(); // Hides cursor and write first frame to output
 // Starting the loop
 $loop->run();
 
-$s->end(); // Cleaning up
+$s->end($finalMessage); // Cleaning up
 echo PHP_EOL;
