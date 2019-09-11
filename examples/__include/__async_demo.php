@@ -6,7 +6,6 @@ use AlecRabbit\ConsoleColour\Contracts\Color;
 use AlecRabbit\ConsoleColour\Contracts\Effect;
 use AlecRabbit\ConsoleColour\Themes;
 use AlecRabbit\Spinner\ClockSpinner;
-use AlecRabbit\Spinner\Core\Adapters\SymfonyOutputAdapter;
 use AlecRabbit\Spinner\Core\Contracts\Frames;
 use AlecRabbit\Spinner\Core\Contracts\Juggler;
 use AlecRabbit\Spinner\Core\Contracts\OutputInterface;
@@ -17,7 +16,6 @@ use AlecRabbit\Spinner\Settings\Contracts\Defaults;
 use AlecRabbit\Spinner\Settings\Settings;
 use AlecRabbit\Spinner\SnakeSpinner;
 use AlecRabbit\Spinner\TimeSpinner;
-use Symfony\Component\Console\Output\ConsoleOutput;
 use function AlecRabbit\Helpers\swap;
 use const AlecRabbit\COLOR_TERMINAL;
 
@@ -54,7 +52,7 @@ function memory(Themes $t, bool $inline, $stream): void
         swap($header, $footer);
     }
 
-    $stream->write( $header . $t->dark(date('H:i:s ') . MemoryUsage::getReport()) . $footer);
+    $stream->write($header . $t->dark(date('H:i:s ') . MemoryUsage::getReport()) . $footer);
 }
 
 /**
@@ -137,7 +135,7 @@ function spinnerFactory(int $variant = 0, OutputInterface $output = null): Spinn
                     $settings
                         ->setInterval(0.12)
                         ->setFrames(Frames::FEATHERED_ARROWS),
-                     $output
+                    $output
                 );
             break;
         default:
@@ -147,10 +145,27 @@ function spinnerFactory(int $variant = 0, OutputInterface $output = null): Spinn
 }
 
 /**
+ * @param int $colorSupport
  * @return array
  */
-function messages(): array
+function messages(int $colorSupport): array
 {
+    if (0 < $colorSupport) {
+        return [
+            0 => 'Initializing',
+            3 => 'Starting',
+            6 => 'Long message: this message continues further',
+            9 => 'Gathering data',
+            16 => 'Processing',
+            25 => null,
+            44 => 'Processing',
+            79 => "\e[0mOverride \e[1mmessage coloring\e[0m by \e[38;5;211;48;5;237mown styles",
+            82 => "\e[0m\e[91mStill processing",
+            90 => "\e[0m\e[93mBe patient",
+            95 => "\e[0m\e[33mAlmost there",
+            100 => "\e[0m\e[92mDone",
+        ];
+    }
     return [
         0 => 'Initializing',
         3 => 'Starting',
@@ -159,11 +174,12 @@ function messages(): array
         16 => 'Processing',
         25 => null,
         44 => 'Processing',
-        79 => "\e[0mOverride \e[1mmessage coloring\e[0m by \e[38;5;211;48;5;237mown styles",
-        82 => "\e[0m\e[91mStill processing",
-        90 => "\e[0m\e[93mBe patient",
-        95 => "\e[0m\e[33mAlmost there",
-        100 => "\e[0m\e[92mDone",
+        79 => 'Override message coloring by own styles(but not now)',
+        82 => 'Still processing',
+        90 => 'Be patient',
+        95 => 'Almost there',
+        100 => 'Done',
     ];
+
 }
 

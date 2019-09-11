@@ -14,6 +14,7 @@ require_once __DIR__ . '/__include/__ext_check.php';
 require_once __DIR__ . '/__include/__async_demo.php';       // Functions for this demo
 require_once __DIR__ . '/__include/__functions.php';       // Functions for this demo
 
+use AlecRabbit\Cli\Tools\Core\TerminalStatic;
 use AlecRabbit\ConsoleColour\Themes;
 use AlecRabbit\Spinner\Core\Adapters\SymfonyOutputAdapter;
 use AlecRabbit\Tests\Spinner\Helper;
@@ -32,8 +33,11 @@ $stderr = $consoleOutput->getErrorOutput();
 // Coloring output
 $t = new Themes(true);
 
+$colorSupport = TerminalStatic::colorSupport();
+//$stderr->writeln((string)$colorSupport);
+
 // Welcoming message
-$stderr->writeln(Helper::replaceEscape($t->lightCyan('Async spinner demo.')));
+$stderr->writeln($t->lightCyan('Async spinner demo.'));
 
 // For faking data
 $faker = Faker\Factory::create();
@@ -61,7 +65,7 @@ $s->inline($inline); // set spinner inline mode
 $output = $s->getOutput();
 
 // Get messages for spinner
-$messages = messages();
+$messages = messages($colorSupport);
 
 $finalMessage = $t->lightGreen('Finished!') . PHP_EOL;
 
@@ -104,7 +108,7 @@ $loop->addPeriodicTimer(8, static function () use ($s, $t, $inline, &$progress, 
 });
 
 // Add periodic timer to increment $progress - simulating setting updating progress during execution
-$loop->addPeriodicTimer(0.1, static function () use ($s, $loop, &$progress) {
+$loop->addPeriodicTimer(0.5, static function () use ($s, $loop, &$progress) {
     if (null === $progress) {
         $progress = 0;
     }
