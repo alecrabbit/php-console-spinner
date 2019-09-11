@@ -94,4 +94,9 @@ interface SpinnerInterface
      * @return string
      */
     public function last(): string;
+
+    /**
+     * @return bool
+     */
+    public function isActive(): bool;
 }

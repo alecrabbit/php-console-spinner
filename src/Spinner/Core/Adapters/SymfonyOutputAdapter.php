@@ -4,6 +4,7 @@ namespace AlecRabbit\Spinner\Core\Adapters;
 
 use AlecRabbit\Spinner\Core\Contracts\OutputInterface;
 use Symfony\Component\Console\Output\ConsoleOutputInterface as SymfonyOutput;
+use Symfony\Component\Console\Output\OutputInterface as SymfonyOutputInterface;
 
 /**
  * Class SymfonyOutputAdapter
@@ -12,7 +13,7 @@ use Symfony\Component\Console\Output\ConsoleOutputInterface as SymfonyOutput;
  */
 class SymfonyOutputAdapter implements OutputInterface
 {
-    /** @var SymfonyOutput */
+    /** @var SymfonyOutputInterface */
     protected $output;
 
     public function __construct(SymfonyOutput $output)

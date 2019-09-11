@@ -55,7 +55,7 @@ abstract class Spinner extends SpinnerCore
         $this->output = $this->refineOutput($output);
         $this->settings = $this->refineSettings($messageOrSettings);
         $this->interval = $this->settings->getInterval();
-        $this->disabled = !$this->settings->isEnabled();
+        $this->enabled = $this->settings->isEnabled();
         $this->inlinePaddingStr = $this->settings->getInlinePaddingStr();
         $this->coloring = new Colors($this->settings->getStyles(), $color);
         $jugglerOrder = $this->settings->getJugglersOrder();
@@ -136,7 +136,7 @@ abstract class Spinner extends SpinnerCore
     /** {@inheritDoc} */
     public function end(?string $finalMessage = null): string
     {
-        if ($this->disabled) {
+        if (!$this->enabled) {
             return self::EMPTY_STRING;
         }
         $finalMessage = (string)$finalMessage;
@@ -151,7 +151,7 @@ abstract class Spinner extends SpinnerCore
     /** {@inheritDoc} */
     public function erase(): string
     {
-        if ($this->disabled) {
+        if (!$this->enabled) {
             return self::EMPTY_STRING;
         }
         $str = $this->eraseBySpacesSequence . $this->moveCursorBackSequence;
@@ -214,7 +214,7 @@ abstract class Spinner extends SpinnerCore
     /** {@inheritDoc} */
     public function begin(?float $percent = null): string
     {
-        if ($this->disabled) {
+        if (!$this->enabled) {
             return self::EMPTY_STRING;
         }
         if (null === $percent) {
@@ -233,7 +233,7 @@ abstract class Spinner extends SpinnerCore
     /** {@inheritDoc} */
     public function spin(): string
     {
-        if ($this->disabled) {
+        if (!$this->enabled) {
             return self::EMPTY_STRING;
         }
         $this->lastSpinnerString = $this->prepareLastSpinnerString();
@@ -272,7 +272,7 @@ abstract class Spinner extends SpinnerCore
     /** {@inheritDoc} */
     public function last(): string
     {
-        if ($this->disabled) {
+        if (!$this->enabled) {
             return self::EMPTY_STRING;
         }
         if ($this->output instanceof OutputInterface) {

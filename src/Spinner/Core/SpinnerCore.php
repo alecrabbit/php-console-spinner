@@ -21,7 +21,7 @@ abstract class SpinnerCore implements SpinnerInterface
     /** @var null|OutputInterface */
     protected $output;
     /** @var bool */
-    protected $disabled;
+    protected $enabled;
 
     /**
      * @param null|false|OutputInterface $output
@@ -39,14 +39,20 @@ abstract class SpinnerCore implements SpinnerInterface
     /** {@inheritDoc} */
     public function disable(): SpinnerInterface
     {
-        $this->disabled = true;
+        $this->enabled = false;
         return $this;
     }
 
     /** {@inheritDoc} */
     public function enable(): SpinnerInterface
     {
-        $this->disabled = false;
+        $this->enabled = true;
         return $this;
+    }
+
+    /** {@inheritDoc} */
+    public function isActive(): bool
+    {
+        return $this->enabled;
     }
 }
