@@ -16,6 +16,7 @@ require_once __DIR__ . '/__include/__functions.php';       // Functions for this
 
 use AlecRabbit\ConsoleColour\Themes;
 use AlecRabbit\Spinner\Core\Adapters\SymfonyOutputAdapter;
+use AlecRabbit\Tests\Spinner\Helper;
 use React\EventLoop\Factory;
 use Symfony\Component\Console\Output\ConsoleOutput;
 
@@ -25,14 +26,14 @@ __check_for_extension('pcntl', 'ext-pcntl is required', __FILE__);
 // Creating Symfony console output
 $consoleOutput = new ConsoleOutput();
 
-$stdout = $consoleOutput->getStream();
+//$stdout = $consoleOutput->getStream();
 $stderr = $consoleOutput->getErrorOutput();
 
 // Coloring output
-$t = new Themes();
+$t = new Themes(true);
 
 // Welcoming message
-$stderr->writeln($t->lightCyan('Async spinner demo.'));
+$stderr->writeln(Helper::replaceEscape($t->lightCyan('Async spinner demo.')));
 
 // For faking data
 $faker = Faker\Factory::create();
