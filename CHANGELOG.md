@@ -2,6 +2,7 @@
 ## [Unreleased]
 
 ### Feature
+- pipe and redirect
 - final message `$spinner->end('final message')`
 
 
