@@ -32,7 +32,6 @@ $stderr = $consoleOutput->getErrorOutput();
 // Coloring output
 $t = new Themes(true);
 
-
 // Welcoming message
 $stderr->writeln($t->lightCyan('Async spinner demo.'));
 
