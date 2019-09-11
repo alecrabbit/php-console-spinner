@@ -14,19 +14,25 @@ require_once __DIR__ . '/__include/__ext_check.php';
 require_once __DIR__ . '/__include/__async_demo.php';       // Functions for this demo
 require_once __DIR__ . '/__include/__functions.php';       // Functions for this demo
 
-use AlecRabbit\Cli\Tools\Cursor;
 use AlecRabbit\ConsoleColour\Themes;
-use AlecRabbit\Spinner\Core\Contracts\OutputInterface;
+use AlecRabbit\Spinner\Core\Adapters\SymfonyOutputAdapter;
 use React\EventLoop\Factory;
+use Symfony\Component\Console\Output\ConsoleOutput;
 
 // This example requires pcntl extension
 __check_for_extension('pcntl', 'ext-pcntl is required', __FILE__);
+
+// Creating Symfony console output
+$consoleOutput = new ConsoleOutput();
+
+$stdout = $consoleOutput->getStream();
+$stderr = $consoleOutput->getErrorOutput();
 
 // Coloring output
 $t = new Themes();
 
 // Welcoming message
-echo $t->lightCyan('Async spinner demo.') . PHP_EOL;
+$stderr->writeln($t->lightCyan('Async spinner demo.'));
 
 // For faking data
 $faker = Faker\Factory::create();
@@ -39,18 +45,19 @@ $variant = (int)($argv[1] ?? 0);
 $inline = (bool)($argv[2] ?? false);
 
 if ($inline) {
-    echo $t->warning(
-            'Inline spinner mode should only be used with short spinner messages or no messages(to avoid artefacts)!'
-        ) . PHP_EOL;
+    $stderr->writeln($t->warning(
+        'Inline spinner mode should only be used with short spinner messages or no messages(to avoid artefacts)!'
+    ));
 }
-echo PHP_EOL;
+$stderr->writeln('');
+
+$output = new SymfonyOutputAdapter($consoleOutput);
 
 // Get spinner
-$s = spinnerFactory($variant);
+$s = spinnerFactory($variant, $output);
 $s->inline($inline); // set spinner inline mode
 
 $output = $s->getOutput();
-dump($output);
 
 // Get messages for spinner
 $messages = messages();
@@ -63,9 +70,9 @@ $loop = Factory::create();
 // Add SIGINT signal handler
 $loop->addSignal(
     SIGINT,
-    $func = static function ($signal) use ($loop, $t, &$func, $s, &$finalMessage) {
+    $func = static function ($signal) use ($loop, $t, &$func, $s, &$finalMessage, $stderr) {
         $s->erase();
-        echo PHP_EOL, $t->dark('Exiting... (CTRL+C to force)'), PHP_EOL;
+        $stderr->writeln(['', $t->dark('Exiting... (CTRL+C to force)')]);
         $loop->removeSignal(SIGINT, $func);
         $finalMessage = $t->lightRed('Interrupted!') . PHP_EOL;
         $loop->stop();
@@ -87,16 +94,16 @@ $loop->addPeriodicTimer(0.2, static function () use ($s, $t, $inline, $faker, &$
 });
 
 // Add periodic timer to print out memory usage - examples of messages form other part of app
-$loop->addPeriodicTimer(8, static function () use ($s, $t, $inline, &$progress) {
+$loop->addPeriodicTimer(8, static function () use ($s, $t, $inline, &$progress, $stderr) {
     if (16 < $progress) {
         $s->erase();
-        memory($t, $inline);
+        memory($t, $inline, $stderr);
         $s->last(); // optional
     }
 });
 
 // Add periodic timer to increment $progress - simulating setting updating progress during execution
-$loop->addPeriodicTimer(0.5, static function () use ($s, $loop, &$progress) {
+$loop->addPeriodicTimer(0.1, static function () use ($s, $loop, &$progress) {
     if (null === $progress) {
         $progress = 0;
     }
@@ -118,9 +125,9 @@ $loop->addPeriodicTimer(0.3, static function () use ($s, &$progress, $messages) 
     }
 });
 
-echo $t->dark('Use CTRL+C to exit.') . PHP_EOL . PHP_EOL;
+$stderr->writeln($t->dark('Use CTRL+C to exit.') . PHP_EOL);
 
-echo 'Searching for accepted payments...' . PHP_EOL;
+$stderr->writeln('Searching for accepted payments...');
 
 $s->begin(); // Hides cursor and write first frame to output
 
@@ -128,4 +135,4 @@ $s->begin(); // Hides cursor and write first frame to output
 $loop->run();
 
 $s->end($finalMessage); // Cleaning up
-echo PHP_EOL;
+$stderr->writeln('');

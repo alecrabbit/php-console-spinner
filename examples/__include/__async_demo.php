@@ -9,6 +9,7 @@ use AlecRabbit\Spinner\ClockSpinner;
 use AlecRabbit\Spinner\Core\Adapters\SymfonyOutputAdapter;
 use AlecRabbit\Spinner\Core\Contracts\Frames;
 use AlecRabbit\Spinner\Core\Contracts\Juggler;
+use AlecRabbit\Spinner\Core\Contracts\OutputInterface;
 use AlecRabbit\Spinner\Core\Contracts\Styles;
 use AlecRabbit\Spinner\Core\Spinner;
 use AlecRabbit\Spinner\DiceSpinner;
@@ -43,8 +44,9 @@ function simulateMessage(bool $inline, Themes $t, $faker): void
 /**
  * @param Themes $t
  * @param bool $inline
+ * @param resource $stream
  */
-function memory(Themes $t, bool $inline): void
+function memory(Themes $t, bool $inline, $stream): void
 {
     $header = '';
     $footer = PHP_EOL;
@@ -52,7 +54,7 @@ function memory(Themes $t, bool $inline): void
         swap($header, $footer);
     }
 
-    echo $header . $t->dark(date('H:i:s ') . MemoryUsage::getReport()) . $footer;
+    $stream->write( $header . $t->dark(date('H:i:s ') . MemoryUsage::getReport()) . $footer);
 }
 
 /**
@@ -74,14 +76,13 @@ function amount(): string
  * Creates and returns spinner
  *
  * @param int $variant
+ * @param OutputInterface|null $output
  * @return Spinner
  */
-function spinnerFactory(int $variant = 0): Spinner
+function spinnerFactory(int $variant = 0, OutputInterface $output = null): Spinner
 {
     $settings = new Settings();
     $settings->setJugglersOrder([Juggler::FRAMES, Juggler::PROGRESS, Juggler::MESSAGE]);
-    $output = new SymfonyOutputAdapter(new ConsoleOutput());
-//    $output = rnd(1) ? null : new SymfonyOutputAdapter(new ConsoleOutput());
     switch ($variant) {
         case 1:
             return

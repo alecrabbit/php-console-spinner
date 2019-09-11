@@ -142,10 +142,10 @@ abstract class Spinner extends SpinnerCore
         $finalMessage = (string)$finalMessage;
         if ($this->output instanceof OutputInterface) {
             $this->erase();
-            $this->output->write(Cursor::show() . $finalMessage);
+            $this->output->write(Cursor::show() . $this->inlinePaddingStr . $finalMessage);
             return self::EMPTY_STRING;
         }
-        return $this->erase() . Cursor::show() . $finalMessage;
+        return $this->erase() . Cursor::show() . $this->inlinePaddingStr . $finalMessage;
     }
 
     /** {@inheritDoc} */
