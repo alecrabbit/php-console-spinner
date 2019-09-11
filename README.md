@@ -73,3 +73,9 @@ composer require alecrabbit/php-console-spinner
  - [Unix pipe and redirect](docs/stderr.md)
  - See [examples](https://github.com/alecrabbit/php-console-spinner/tree/master/examples)
  - Examples [output](docs/examples_output.md) casts
+
+
+### Operating Systems 
+
+> Windows support is NOT tested, but it should work in VT100 terminal.
+
