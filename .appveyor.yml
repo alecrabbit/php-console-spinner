@@ -58,4 +58,4 @@ install:
 test_script:
   - cd c:\phptools
   - vendor\bin\phpunit.bat --coverage-text
-  - php examples\async.demo.php
+  - php examples\demo.php
