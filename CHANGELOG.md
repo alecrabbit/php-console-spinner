@@ -1,6 +1,9 @@
 <a name="unreleased"></a>
 ## [Unreleased]
 
+### Added
+- new method `$spinner->isActive()`
+
 
 <a name="0.36.0-BETA.0"></a>
 ## [0.36.0-BETA.0] - 2019-09-11
