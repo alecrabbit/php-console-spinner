@@ -27,14 +27,12 @@ __check_for_extension('pcntl', 'ext-pcntl is required', __FILE__);
 // Creating Symfony console output
 $consoleOutput = new ConsoleOutput();
 
-//$stdout = $consoleOutput->getStream();
+// Separated stream for piping support
 $stderr = $consoleOutput->getErrorOutput();
 
 // Coloring output
 $t = new Themes(true);
 
-$colorSupport = TerminalStatic::colorSupport();
-//$stderr->writeln((string)$colorSupport);
 
 // Welcoming message
 $stderr->writeln($t->lightCyan('Async spinner demo.'));
@@ -64,6 +62,7 @@ $s->inline($inline); // set spinner inline mode
 
 $output = $s->getOutput();
 
+$colorSupport = TerminalStatic::colorSupport();
 // Get messages for spinner
 $messages = messages($colorSupport);
 

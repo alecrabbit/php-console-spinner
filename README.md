@@ -70,6 +70,6 @@ composer require alecrabbit/php-console-spinner
  ```
 
 ### Usage
-See [examples](https://github.com/alecrabbit/php-console-spinner/tree/master/examples)
-
-Examples [output](docs/examples_output.md)
+ - [Unix pipe and redirect](docs/stderr.md)
+ - See [examples](https://github.com/alecrabbit/php-console-spinner/tree/master/examples)
+ - Examples [output](docs/examples_output.md) casts
