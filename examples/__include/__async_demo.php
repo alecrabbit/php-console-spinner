@@ -6,6 +6,7 @@ use AlecRabbit\ConsoleColour\Contracts\Color;
 use AlecRabbit\ConsoleColour\Contracts\Effect;
 use AlecRabbit\ConsoleColour\Themes;
 use AlecRabbit\Spinner\ClockSpinner;
+use AlecRabbit\Spinner\Core\Adapters\SymfonyOutputAdapter;
 use AlecRabbit\Spinner\Core\Contracts\Frames;
 use AlecRabbit\Spinner\Core\Contracts\Juggler;
 use AlecRabbit\Spinner\Core\Contracts\Styles;
@@ -15,6 +16,7 @@ use AlecRabbit\Spinner\Settings\Contracts\Defaults;
 use AlecRabbit\Spinner\Settings\Settings;
 use AlecRabbit\Spinner\SnakeSpinner;
 use AlecRabbit\Spinner\TimeSpinner;
+use Symfony\Component\Console\Output\ConsoleOutput;
 use function AlecRabbit\Helpers\swap;
 use const AlecRabbit\COLOR_TERMINAL;
 
@@ -78,13 +80,16 @@ function spinnerFactory(int $variant = 0): Spinner
 {
     $settings = new Settings();
     $settings->setJugglersOrder([Juggler::FRAMES, Juggler::PROGRESS, Juggler::MESSAGE]);
+    $output = new SymfonyOutputAdapter(new ConsoleOutput());
+//    $output = rnd(1) ? null : new SymfonyOutputAdapter(new ConsoleOutput());
     switch ($variant) {
         case 1:
             return
                 new ClockSpinner(
                     $settings
                         ->setMessageSuffix(Defaults::ELLIPSIS)
-                        ->setInterval(1)
+                        ->setInterval(1),
+                    $output
                 );
             break;
         case 2:
@@ -114,27 +119,28 @@ function spinnerFactory(int $variant = 0): Spinner
                                     ],
                             ]
                         ),
-                    null,
+                    $output,
                     COLOR_TERMINAL
                 );
             break;
         case 3:
             return
-                new DiceSpinner();
+                new DiceSpinner(null, $output);
             break;
         case 4:
-            return new TimeSpinner();
+            return new TimeSpinner(null, $output);
             break;
         case 5:
             return
                 new SnakeSpinner(
                     $settings
                         ->setInterval(0.12)
-                        ->setFrames(Frames::FEATHERED_ARROWS)
+                        ->setFrames(Frames::FEATHERED_ARROWS),
+                     $output
                 );
             break;
         default:
-            return new SnakeSpinner($settings->setMessageSuffix(Defaults::ELLIPSIS));
+            return new SnakeSpinner($settings->setMessageSuffix(Defaults::ELLIPSIS), $output);
             break;
     }
 }

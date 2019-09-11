@@ -31,6 +31,8 @@ use const AlecRabbit\TERMINAL_COLOR_MODES;
 
 //require_once __DIR__ . '/../vendor/autoload.php';
 require_once __DIR__ . '/../tests/bootstrap.php';
+require_once __DIR__ . '/__include/__functions.php';
+require_once __DIR__ . '/__include/__demo.php';
 
 const COLOR_SUPPORT_LEVELS = [NO_COLOR_TERMINAL, COLOR_TERMINAL, COLOR256_TERMINAL];
 const ITER = 50;
@@ -77,7 +79,6 @@ $arr = [
     WeatherSpinner::class,
 ];
 
-$len = count(MESSAGES) - 1;
 
 $color = (int)($argv[1] ?? COLOR256_TERMINAL);
 if (!in_array($color, COLOR_SUPPORT_LEVELS, true)) {
@@ -106,6 +107,8 @@ echo PHP_EOL;
 echo PHP_EOL;
 echo Cursor::up();
 
+$len = count(MESSAGES) - 1;
+
 foreach ($spinners as $spinner) {
     echo Line::erase() . Cursor::absX() . $t->bold(brackets($spinner) . ' ');
     $message = MESSAGES[rnd($len)];
@@ -124,41 +127,4 @@ foreach ($spinners as $spinner) {
 }
 echo PHP_EOL;
 echo PHP_EOL;
-
-// ************************ Functions ************************
-
-/**
- * @param SpinnerInterface $s
- * @param bool $withPercent
- */
-function showSpinners(SpinnerInterface $s, bool $withPercent = false): void
-{
-    $microseconds = $s->interval() * 1000000;
-    echo $s->begin(); // Optional
-    for ($i = 1; $i <= ITER; $i++) {
-        if ($s instanceof PercentSpinner) {
-            $s->spin($withPercent ? $i / ITER : null);
-        } else {
-            $s
-                ->progress($withPercent ? $i / ITER : null)
-                ->spin();
-        }
-        usleep($microseconds);
-    }
-    echo $s->end();
-}
-
-/**
- * @param int $max
- * @return int
- */
-function rnd(int $max): int
-{
-    try {
-        return random_int(0, $max);
-    } catch (Exception $e) {
-        return 0;
-    }
-}
-
 

@@ -12,6 +12,7 @@ declare(strict_types=1);
 require_once __DIR__ . '/../tests/bootstrap.php';           // and comment this one
 require_once __DIR__ . '/__include/__ext_check.php';
 require_once __DIR__ . '/__include/__async_demo.php';       // Functions for this demo
+require_once __DIR__ . '/__include/__functions.php';       // Functions for this demo
 
 use AlecRabbit\Cli\Tools\Cursor;
 use AlecRabbit\ConsoleColour\Themes;
@@ -47,6 +48,9 @@ echo PHP_EOL;
 // Get spinner
 $s = spinnerFactory($variant);
 $s->inline($inline); // set spinner inline mode
+
+$output = $s->getOutput();
+dump($output);
 
 // Get messages for spinner
 $messages = messages();

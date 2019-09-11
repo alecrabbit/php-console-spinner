@@ -3,7 +3,7 @@
 namespace AlecRabbit\Spinner\Core\Adapters;
 
 use AlecRabbit\Spinner\Core\Contracts\OutputInterface;
-use Symfony\Component\Console\Output\OutputInterface as SymfonyOutput;
+use Symfony\Component\Console\Output\ConsoleOutputInterface as SymfonyOutput;
 
 /**
  * Class SymfonyOutputAdapter
@@ -17,7 +17,7 @@ class SymfonyOutputAdapter implements OutputInterface
 
     public function __construct(SymfonyOutput $output)
     {
-        $this->output = $output;
+        $this->output = $output->getErrorOutput();
     }
 
     /** {@inheritDoc} */
