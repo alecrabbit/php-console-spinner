@@ -17,7 +17,6 @@ require_once __DIR__ . '/__include/__functions.php';       // Functions for this
 use AlecRabbit\Cli\Tools\Core\TerminalStatic;
 use AlecRabbit\ConsoleColour\Themes;
 use AlecRabbit\Spinner\Core\Adapters\SymfonyOutputAdapter;
-use AlecRabbit\Tests\Spinner\Helper;
 use React\EventLoop\Factory;
 use Symfony\Component\Console\Output\ConsoleOutput;
 
@@ -102,6 +101,30 @@ $loop->addPeriodicTimer(8, static function () use ($s, $t, $inline, &$progress, 
     if (16 < $progress) {
         $s->erase();
         memory($t, $inline, $stderr);
+        $s->last(); // optional
+    }
+});
+
+// Add timer to disable spinner
+$loop->addTimer(18, static function () use ($s, &$progress, $stderr) {
+    if (16 < $progress) {
+        if ($s->isActive()) {
+            $s->disable();
+        }
+        $s->erase();
+        $stderr->writeln('*** Spinner disabled ***');
+//        $s->last(); // optional
+    }
+});
+
+// Add timer to disable spinner
+$loop->addTimer(28, static function () use ($s, &$progress, $stderr) {
+    if (16 < $progress) {
+        if (!$s->isActive()) {
+            $s->enable();
+        }
+        $s->erase();
+        $stderr->writeln('*** Spinner enabled ***');
         $s->last(); // optional
     }
 });
