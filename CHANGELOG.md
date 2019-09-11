@@ -1,6 +1,9 @@
 <a name="unreleased"></a>
 ## [Unreleased]
 
+
+<a name="0.36.0-BETA.0"></a>
+## [0.36.0-BETA.0] - 2019-09-11
 ### Feature
 - pipe and redirect
 - final message `$spinner->end('final message')`
@@ -273,7 +276,8 @@
 <a name="0.2.1-ALPHA.1"></a>
 ## 0.2.1-ALPHA.1 - 2019-04-06
 
-[Unreleased]: https://github.com/alecrabbit/php-console-spinner/compare/0.35.0-BETA.0...HEAD
+[Unreleased]: https://github.com/alecrabbit/php-console-spinner/compare/0.36.0-BETA.0...HEAD
+[0.36.0-BETA.0]: https://github.com/alecrabbit/php-console-spinner/compare/0.35.0-BETA.0...0.36.0-BETA.0
 [0.35.0-BETA.0]: https://github.com/alecrabbit/php-console-spinner/compare/0.34.0-BETA.4...0.35.0-BETA.0
 [0.34.0-BETA.4]: https://github.com/alecrabbit/php-console-spinner/compare/0.34.0-BETA.3...0.34.0-BETA.4
 [0.34.0-BETA.3]: https://github.com/alecrabbit/php-console-spinner/compare/0.34.0-BETA.2...0.34.0-BETA.3
