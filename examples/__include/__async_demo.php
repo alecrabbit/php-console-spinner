@@ -17,6 +17,7 @@ use AlecRabbit\Spinner\Settings\Settings;
 use AlecRabbit\Spinner\SnakeSpinner;
 use AlecRabbit\Spinner\TimeSpinner;
 use function AlecRabbit\Helpers\swap;
+use const AlecRabbit\COLOR256_TERMINAL;
 use const AlecRabbit\COLOR_TERMINAL;
 
 /**
@@ -81,6 +82,7 @@ function spinnerFactory(int $variant = 0, OutputInterface $output = null): Spinn
 {
     $settings = new Settings();
     $settings->setJugglersOrder([Juggler::FRAMES, Juggler::PROGRESS, Juggler::MESSAGE]);
+    $color = COLOR256_TERMINAL;
     switch ($variant) {
         case 1:
             return
@@ -88,7 +90,8 @@ function spinnerFactory(int $variant = 0, OutputInterface $output = null): Spinn
                     $settings
                         ->setMessageSuffix(Defaults::ELLIPSIS)
                         ->setInterval(1),
-                    $output
+                    $output,
+                    $color
                 );
             break;
         case 2:
@@ -124,10 +127,10 @@ function spinnerFactory(int $variant = 0, OutputInterface $output = null): Spinn
             break;
         case 3:
             return
-                new DiceSpinner(null, $output);
+                new DiceSpinner(null, $output, $color);
             break;
         case 4:
-            return new TimeSpinner(null, $output);
+            return new TimeSpinner(null, $output, $color);
             break;
         case 5:
             return
@@ -135,11 +138,12 @@ function spinnerFactory(int $variant = 0, OutputInterface $output = null): Spinn
                     $settings
                         ->setInterval(0.12)
                         ->setFrames(Frames::FEATHERED_ARROWS),
-                    $output
+                    $output,
+                    $color
                 );
             break;
         default:
-            return new SnakeSpinner($settings->setMessageSuffix(Defaults::ELLIPSIS), $output);
+            return new SnakeSpinner($settings->setMessageSuffix(Defaults::ELLIPSIS), $output, $color);
             break;
     }
 }

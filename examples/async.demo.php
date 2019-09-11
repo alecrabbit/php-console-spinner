@@ -19,6 +19,7 @@ use AlecRabbit\ConsoleColour\Themes;
 use AlecRabbit\Spinner\Core\Adapters\SymfonyOutputAdapter;
 use React\EventLoop\Factory;
 use Symfony\Component\Console\Output\ConsoleOutput;
+use function AlecRabbit\Helpers\getValue;
 
 // This example requires pcntl extension
 __check_for_extension('pcntl', 'ext-pcntl is required', __FILE__);
@@ -30,10 +31,11 @@ $consoleOutput = new ConsoleOutput();
 $stderr = $consoleOutput->getErrorOutput();
 
 // Coloring output
-$t = new Themes(true);
+$appThemes = new Themes(true, $stderr->getStream());
+$t = new Themes(true, $consoleOutput->getStream());
 
 // Welcoming message
-$stderr->writeln($t->lightCyan('Async spinner demo.'));
+$stderr->writeln($appThemes->lightCyan('Async spinner demo.'));
 
 // For faking data
 $faker = Faker\Factory::create();
@@ -46,7 +48,7 @@ $variant = (int)($argv[1] ?? 0);
 $inline = (bool)($argv[2] ?? false);
 
 if ($inline) {
-    $stderr->writeln($t->warning(
+    $stderr->writeln($appThemes->warning(
         'Inline spinner mode should only be used with short spinner messages or no messages(to avoid artefacts)!'
     ));
 }
@@ -64,7 +66,7 @@ $colorSupport = TerminalStatic::colorSupport();
 // Get messages for spinner
 $messages = messages($colorSupport);
 
-$finalMessage = $t->lightGreen('Finished!') . PHP_EOL;
+$finalMessage = $appThemes->lightGreen('Finished!') . PHP_EOL;
 
 // Event loop
 $loop = Factory::create();
@@ -72,11 +74,11 @@ $loop = Factory::create();
 // Add SIGINT signal handler
 $loop->addSignal(
     SIGINT,
-    $func = static function ($signal) use ($loop, $t, &$func, $s, &$finalMessage, $stderr) {
+    $func = static function ($signal) use ($loop, $appThemes, &$func, $s, &$finalMessage, $stderr) {
         $s->erase();
-        $stderr->writeln(['', $t->dark('Exiting... (CTRL+C to force)')]);
+        $stderr->writeln(['', $appThemes->dark('Exiting... (CTRL+C to force)')]);
         $loop->removeSignal(SIGINT, $func);
-        $finalMessage = $t->lightRed('Interrupted!') . PHP_EOL;
+        $finalMessage = $appThemes->lightRed('Interrupted!') . PHP_EOL;
         $loop->stop();
     }
 );
@@ -96,10 +98,10 @@ $loop->addPeriodicTimer(0.2, static function () use ($s, $t, $inline, $faker, &$
 });
 
 // Add periodic timer to print out memory usage - examples of messages form other part of app
-$loop->addPeriodicTimer(8, static function () use ($s, $t, $inline, &$progress, $stderr) {
+$loop->addPeriodicTimer(8, static function () use ($s, $appThemes, $inline, &$progress, $stderr) {
     if (16 < $progress) {
         $s->erase();
-        memory($t, $inline, $stderr);
+        memory($appThemes, $inline, $stderr);
         $s->last(); // optional
     }
 });
@@ -151,7 +153,7 @@ $loop->addPeriodicTimer(0.3, static function () use ($s, &$progress, $messages) 
     }
 });
 
-$stderr->writeln($t->dark('Use CTRL+C to exit.') . PHP_EOL);
+$stderr->writeln($appThemes->dark('Use CTRL+C to exit.') . PHP_EOL);
 
 $stderr->writeln('Searching for accepted payments...');
 

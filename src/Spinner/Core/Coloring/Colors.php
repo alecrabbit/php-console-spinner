@@ -26,10 +26,8 @@ class Colors
     {
         $styles = $this->mergeStyles($styles);
         Sentinel::assertStyles($styles, Styles::DEFAULT_STYLES);
-        $this->terminal = new Terminal(null, null, $color);
 
-        $color = $this->terminal->color();
-
+        $color = $color ?? 0;
         $this->frameStyles = new Style($styles[Juggler::FRAMES_STYLES], $color);
         $this->messageStyles = new Style($styles[Juggler::MESSAGE_STYLES], $color);
         $this->progressStyles = new Style($styles[Juggler::PROGRESS_STYLES], $color);
