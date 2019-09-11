@@ -44,6 +44,7 @@ class SpinnerTest extends TestCase
         $spinner->disable();
         $this->assertInstanceOf(Spinner::class, $spinner);
         $this->assertSame(0.1, $spinner->interval());
+        $this->assertFalse($spinner->isActive());
         $this->assertNull($spinner->getOutput());
         $this->assertIsString($spinner->begin());
         $this->assertIsString($spinner->spin());
@@ -58,6 +59,7 @@ class SpinnerTest extends TestCase
         $this->assertEquals(Defaults::EMPTY_STRING, $spinner->last());
         $this->assertEquals(Defaults::EMPTY_STRING, $spinner->end());
         $spinner->enable();
+        $this->assertTrue($spinner->isActive());
         $this->assertStringContainsString(self::PROCESSING, $spinner->begin());
         $this->assertStringContainsString(Defaults::ONE_SPACE_SYMBOL, $spinner->begin());
         $this->assertStringContainsString(Defaults::DEFAULT_SUFFIX, $spinner->begin());
