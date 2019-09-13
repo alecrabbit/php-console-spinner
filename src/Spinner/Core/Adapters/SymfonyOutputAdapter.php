@@ -3,8 +3,9 @@
 namespace AlecRabbit\Spinner\Core\Adapters;
 
 use AlecRabbit\Spinner\Core\Contracts\OutputInterface;
-use Symfony\Component\Console\Output\ConsoleOutputInterface as SymfonyOutput;
-use Symfony\Component\Console\Output\OutputInterface as SymfonyOutputInterface;
+use Symfony\Component\Console\Output\ConsoleOutput;
+use Symfony\Component\Console\Output\StreamOutput;
+use function AlecRabbit\typeOf;
 
 /**
  * Class SymfonyOutputAdapter
@@ -13,12 +14,24 @@ use Symfony\Component\Console\Output\OutputInterface as SymfonyOutputInterface;
  */
 class SymfonyOutputAdapter implements OutputInterface
 {
-    /** @var SymfonyOutputInterface */
+    /** @var StreamOutput */
     protected $output;
 
-    public function __construct(SymfonyOutput $output)
+    public function __construct(ConsoleOutput $output)
     {
-        $this->output = $output->getErrorOutput();
+        $streamOutput = $output->getErrorOutput();
+        if ($streamOutput instanceof StreamOutput) {
+            $this->output = $streamOutput;
+        } else {
+            // @codeCoverageIgnoreStart
+            throw new \RuntimeException(
+                'Should never happen. $streamOutput is of wrong type: [' .
+                StreamOutput::class . '] expected , ['
+                . typeOf($streamOutput) . '] given.'
+            );
+            // @codeCoverageIgnoreEnd
+        }
+
     }
 
     /** {@inheritDoc} */
