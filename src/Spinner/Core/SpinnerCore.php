@@ -3,6 +3,7 @@
 namespace AlecRabbit\Spinner\Core;
 
 use AlecRabbit\Spinner\Core\Adapters\EchoOutputAdapter;
+use AlecRabbit\Spinner\Core\Adapters\StdErrOutputAdapter;
 use AlecRabbit\Spinner\Core\Contracts\Frames;
 use AlecRabbit\Spinner\Core\Contracts\SpinnerInterface;
 use AlecRabbit\Spinner\Core\Contracts\OutputInterface;
@@ -33,7 +34,7 @@ abstract class SpinnerCore implements SpinnerInterface
         if (false === $output) {
             return null;
         }
-        return $output ?? new EchoOutputAdapter();
+        return $output ?? new StdErrOutputAdapter();
     }
 
     /** {@inheritDoc} */

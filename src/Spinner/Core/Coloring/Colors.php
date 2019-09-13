@@ -2,7 +2,7 @@
 
 namespace AlecRabbit\Spinner\Core\Coloring;
 
-use AlecRabbit\Cli\Tools\Terminal;
+//use AlecRabbit\Cli\Tools\Terminal;
 use AlecRabbit\Spinner\Core\Contracts\Juggler;
 use AlecRabbit\Spinner\Core\Contracts\Styles;
 use AlecRabbit\Spinner\Core\Sentinel;
@@ -15,8 +15,8 @@ class Colors
     protected $messageStyles;
     /** @var Style */
     protected $progressStyles;
-    /** @var Terminal */
-    protected $terminal;
+//    /** @var Terminal */
+//    protected $terminal;
 
     /**
      * @param array $styles

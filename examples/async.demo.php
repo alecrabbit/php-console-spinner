@@ -14,12 +14,13 @@ require_once __DIR__ . '/__include/__ext_check.php';
 require_once __DIR__ . '/__include/__async_demo.php';       // Functions for this demo
 require_once __DIR__ . '/__include/__functions.php';       // Functions for this demo
 
-use AlecRabbit\Cli\Tools\Core\TerminalStatic;
+use AlecRabbit\Cli\Tools\Core\Terminal;
 use AlecRabbit\ConsoleColour\Themes;
 use AlecRabbit\Spinner\Core\Adapters\SymfonyOutputAdapter;
 use React\EventLoop\Factory;
 use Symfony\Component\Console\Output\ConsoleOutput;
 use function AlecRabbit\Helpers\getValue;
+use const AlecRabbit\COLOR256_TERMINAL;
 
 // This example requires pcntl extension
 __check_for_extension('pcntl', 'ext-pcntl is required', __FILE__);
@@ -31,8 +32,8 @@ $consoleOutput = new ConsoleOutput();
 $stderr = $consoleOutput->getErrorOutput();
 
 // Coloring output
-$appThemes = new Themes(true, $stderr->getStream());
-$t = new Themes(true, $consoleOutput->getStream());
+$appThemes = new Themes($stderr->getStream());
+$t = new Themes($consoleOutput->getStream());
 
 // Welcoming message
 $stderr->writeln($appThemes->lightCyan('Async spinner demo.'));
@@ -63,7 +64,7 @@ $s->inline($inline); // set spinner inline mode
 $output = $s->getOutput();
 
 //$colorSupport = TerminalStatic::colorSupport($consoleOutput->getStream());
-$colorSupport = TerminalStatic::colorSupport($stderr->getStream());
+$colorSupport = Terminal::colorSupport($stderr->getStream());
 // Get messages for spinner
 $messages = messages($colorSupport);
 
