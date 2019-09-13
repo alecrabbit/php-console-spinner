@@ -2,6 +2,7 @@
 
 namespace AlecRabbit\Tests\Spinner;
 
+use AlecRabbit\Cli\Tools\Core\Terminal;
 use AlecRabbit\Cli\Tools\Core\TerminalStatic;
 use AlecRabbit\Spinner\Core\Contracts\Juggler;
 use AlecRabbit\Spinner\Core\Contracts\OutputInterface;
@@ -399,7 +400,7 @@ class SpinnerTest extends TestCase
         $this->assertInstanceOf(Spinner::class, $spinner->inline(false));
 
 
-        if (TerminalStatic::supports256Color()) {
+        if (COLOR256_TERMINAL <= Terminal::colorSupport()) {
             $begin = $spinner->begin();
 
             // DO NOT CHANGE ORDER!!!
