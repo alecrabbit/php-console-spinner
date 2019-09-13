@@ -3,6 +3,7 @@
 namespace AlecRabbit\Spinner\Core\Adapters;
 
 use AlecRabbit\Spinner\Core\Contracts\OutputInterface;
+use function AlecRabbit\typeOf;
 
 /**
  * Class StdErrOutputAdapter
@@ -16,12 +17,14 @@ class StdErrOutputAdapter implements OutputInterface
 
     /**
      * StdErrOutputAdapter constructor.
-     * @param bool|resource $stream
+     * @param mixed $stream
      */
     public function __construct($stream = STDERR)
     {
         if (!\is_resource($stream)) {
-            throw new \InvalidArgumentException('$stream is bool. It should never happen.');
+            throw new \InvalidArgumentException(
+                '$stream is not a resource [' . typeOf($stream) . ']. It should never happen.'
+            );
         }
         $this->stream = $stream;
     }
