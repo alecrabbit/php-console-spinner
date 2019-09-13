@@ -82,7 +82,7 @@ function spinnerFactory(int $variant = 0, OutputInterface $output = null): Spinn
 {
     $settings = new Settings();
     $settings->setJugglersOrder([Juggler::FRAMES, Juggler::PROGRESS, Juggler::MESSAGE]);
-    $color = COLOR256_TERMINAL;
+    $color = null;
     switch ($variant) {
         case 1:
             return

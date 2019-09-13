@@ -19,8 +19,6 @@ use AlecRabbit\ConsoleColour\Themes;
 use AlecRabbit\Spinner\Core\Adapters\SymfonyOutputAdapter;
 use React\EventLoop\Factory;
 use Symfony\Component\Console\Output\ConsoleOutput;
-use function AlecRabbit\Helpers\getValue;
-use const AlecRabbit\COLOR256_TERMINAL;
 
 // This example requires pcntl extension
 __check_for_extension('pcntl', 'ext-pcntl is required', __FILE__);
@@ -61,9 +59,10 @@ $output = new SymfonyOutputAdapter($consoleOutput);
 $s = spinnerFactory($variant, $output);
 $s->inline($inline); // set spinner inline mode
 
+dump($s);
 $output = $s->getOutput();
 
-//$colorSupport = TerminalStatic::colorSupport($consoleOutput->getStream());
+//$colorSupport = Terminal::colorSupport($consoleOutput->getStream());
 $colorSupport = Terminal::colorSupport($stderr->getStream());
 // Get messages for spinner
 $messages = messages($colorSupport);

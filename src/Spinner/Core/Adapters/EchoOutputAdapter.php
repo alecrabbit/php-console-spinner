@@ -22,4 +22,12 @@ class EchoOutputAdapter implements OutputInterface
             echo $message . $nl;
         }
     }
+
+    /**
+     * @return resource
+     */
+    public function getStream()
+    {
+        return STDOUT;
+    }
 }

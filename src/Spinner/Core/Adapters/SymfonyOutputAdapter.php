@@ -26,4 +26,12 @@ class SymfonyOutputAdapter implements OutputInterface
     {
         $this->output->write($messages, $newline, $options);
     }
+
+    /**
+     * @return resource
+     */
+    public function getStream()
+    {
+        return $this->output->getStream();
+    }
 }

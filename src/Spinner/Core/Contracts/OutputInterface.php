@@ -13,4 +13,9 @@ interface OutputInterface
      * 0 is considered the same as self::OUTPUT_NORMAL | self::VERBOSITY_NORMAL
      */
     public function write($messages, $newline = false, $options = 0): void;
+
+    /**
+     * @return resource
+     */
+    public function getStream();
 }

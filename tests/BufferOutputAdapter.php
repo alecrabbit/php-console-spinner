@@ -33,4 +33,12 @@ class BufferOutputAdapter implements OutputInterface
         $this->buffer = '';
         return $buffer;
     }
+
+    /**
+     * @return resource
+     */
+    public function getStream()
+    {
+        return STDERR;
+    }
 }

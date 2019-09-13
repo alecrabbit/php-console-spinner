@@ -14,6 +14,7 @@ require_once __DIR__ . '/__include/__ext_check.php';
 __check_for_extension('pcntl', 'ext-pcntl is required', __FILE__);
 
 use AlecRabbit\Accessories\MemoryUsage;
+use AlecRabbit\Cli\Tools\Core\Terminal;
 use AlecRabbit\ConsoleColour\Contracts\Color;
 use AlecRabbit\ConsoleColour\Themes;
 use AlecRabbit\Spinner\Core\Contracts\Frames;
@@ -26,7 +27,6 @@ use Psr\Http\Message\ServerRequestInterface;
 use React\EventLoop\Factory;
 use React\Http\Response;
 use React\Http\Server;
-use React\Promise\Promise;
 
 const DATETIME_FORMAT = 'D Y-m-d H:i:s';
 
@@ -118,7 +118,10 @@ $settings
     );
 // overriding defaults with $settings
 $s = new SnakeSpinner($settings);
+//dump($s);
 
+dump(Terminal::colorSupport(STDERR));
+//dump(Terminal::colorSupport(STDOUT));
 // Add periodic timer to redraw our spinner
 $loop->addPeriodicTimer($s->interval(), static function () use ($s) {
     // Note next periodic timer - we are changing message in a different "coroutine"
