@@ -31,7 +31,6 @@ class SymfonyOutputAdapter implements OutputInterface
             );
             // @codeCoverageIgnoreEnd
         }
-
     }
 
     /** {@inheritDoc} */

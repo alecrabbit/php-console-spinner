@@ -1,6 +1,24 @@
 <a name="unreleased"></a>
 ## [Unreleased]
 
+### Added
+- `StdErrOutputAdapter::class`
+
+### Changed
+- `php-console-colour` version
+
+### Removed
+- travis `php 7.2` build
+
+
+<a name="0.40.0-ALPHA.2"></a>
+## [0.40.0-ALPHA.2] - 2019-09-13
+
+<a name="0.40.0-ALPHA.1"></a>
+## [0.40.0-ALPHA.1] - 2019-09-11
+
+<a name="0.36.1-BETA.2"></a>
+## [0.36.1-BETA.2] - 2019-09-11
 
 <a name="0.36.1-BETA.1"></a>
 ## [0.36.1-BETA.1] - 2019-09-11
@@ -282,7 +300,10 @@
 <a name="0.2.1-ALPHA.1"></a>
 ## 0.2.1-ALPHA.1 - 2019-04-06
 
-[Unreleased]: https://github.com/alecrabbit/php-console-spinner/compare/0.36.1-BETA.1...HEAD
+[Unreleased]: https://github.com/alecrabbit/php-console-spinner/compare/0.40.0-ALPHA.2...HEAD
+[0.40.0-ALPHA.2]: https://github.com/alecrabbit/php-console-spinner/compare/0.40.0-ALPHA.1...0.40.0-ALPHA.2
+[0.40.0-ALPHA.1]: https://github.com/alecrabbit/php-console-spinner/compare/0.36.1-BETA.2...0.40.0-ALPHA.1
+[0.36.1-BETA.2]: https://github.com/alecrabbit/php-console-spinner/compare/0.36.1-BETA.1...0.36.1-BETA.2
 [0.36.1-BETA.1]: https://github.com/alecrabbit/php-console-spinner/compare/0.36.0-BETA.0...0.36.1-BETA.1
 [0.36.0-BETA.0]: https://github.com/alecrabbit/php-console-spinner/compare/0.35.0-BETA.0...0.36.0-BETA.0
 [0.35.0-BETA.0]: https://github.com/alecrabbit/php-console-spinner/compare/0.34.0-BETA.4...0.35.0-BETA.0
