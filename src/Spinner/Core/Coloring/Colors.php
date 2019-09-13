@@ -6,6 +6,7 @@ namespace AlecRabbit\Spinner\Core\Coloring;
 use AlecRabbit\Spinner\Core\Contracts\Juggler;
 use AlecRabbit\Spinner\Core\Contracts\Styles;
 use AlecRabbit\Spinner\Core\Sentinel;
+use const AlecRabbit\NO_COLOR_TERMINAL;
 
 class Colors
 {
@@ -20,14 +21,13 @@ class Colors
 
     /**
      * @param array $styles
-     * @param int|null $color
+     * @param int $color
      */
-    public function __construct(array $styles, int $color = null)
+    public function __construct(array $styles, int $color = NO_COLOR_TERMINAL)
     {
         $styles = $this->mergeStyles($styles);
         Sentinel::assertStyles($styles, Styles::DEFAULT_STYLES);
 
-        $color = $color ?? 0;
         $this->frameStyles = new Style($styles[Juggler::FRAMES_STYLES], $color);
         $this->messageStyles = new Style($styles[Juggler::MESSAGE_STYLES], $color);
         $this->progressStyles = new Style($styles[Juggler::PROGRESS_STYLES], $color);

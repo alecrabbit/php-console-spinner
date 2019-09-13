@@ -2,6 +2,7 @@
 
 namespace AlecRabbit\Spinner\Core;
 
+use AlecRabbit\Cli\Tools\Core\Terminal;
 use AlecRabbit\Cli\Tools\Cursor;
 use AlecRabbit\Spinner\Core\Coloring\Colors;
 use AlecRabbit\Spinner\Core\Contracts\OutputInterface;
@@ -13,6 +14,7 @@ use AlecRabbit\Spinner\Core\Jugglers\ProgressJuggler;
 use AlecRabbit\Spinner\Settings\Contracts\Defaults;
 use AlecRabbit\Spinner\Settings\Settings;
 use const AlecRabbit\ESC;
+use const AlecRabbit\NO_COLOR_TERMINAL;
 
 abstract class Spinner extends SpinnerCore
 {
@@ -57,7 +59,7 @@ abstract class Spinner extends SpinnerCore
         $this->interval = $this->settings->getInterval();
         $this->enabled = $this->settings->isEnabled();
         $this->inlinePaddingStr = $this->settings->getInlinePaddingStr();
-        $this->coloring = new Colors($this->settings->getStyles(), $color);
+        $this->coloring = new Colors($this->settings->getStyles(), $this->refineColor($color));
         $jugglerOrder = $this->settings->getJugglersOrder();
         $this->jugglers = [
             $jugglerOrder[0] => &$this->frameJuggler,
@@ -96,6 +98,18 @@ abstract class Spinner extends SpinnerCore
                 ->setInterval(static::INTERVAL)
                 ->setFrames(static::FRAMES)
                 ->setStyles(static::STYLES);
+    }
+
+    /**
+     * @param null|int $color
+     * @return int
+     */
+    protected function refineColor(?int $color): int
+    {
+        if (null === $color && $this->output instanceof OutputInterface) {
+            $color = Terminal::colorSupport($this->output->getStream());
+        }
+        return $color ?? NO_COLOR_TERMINAL;
     }
 
     protected function initJugglers(): void

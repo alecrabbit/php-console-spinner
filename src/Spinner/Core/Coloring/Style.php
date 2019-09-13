@@ -10,6 +10,7 @@ use const AlecRabbit\COLOR256_TERMINAL;
 use const AlecRabbit\COLOR_TERMINAL;
 use const AlecRabbit\ESC;
 use const AlecRabbit\NO_COLOR_TERMINAL;
+use const AlecRabbit\TRUECOLOR_TERMINAL;
 
 class Style
 {
@@ -20,10 +21,9 @@ class Style
     /** @var Circular */
     protected $style;
 
-    public function __construct(array $styles, ?int $color)
+    public function __construct(array $styles, int $color)
     {
         Sentinel::assertStyles($styles, Styles::DEFAULT_STYLES_ELEMENT);
-        $color = $color ?? NO_COLOR_TERMINAL;
         $this->format = $styles[Juggler::FORMAT];
         $this->spacer = $styles[Juggler::SPACER];
         $this->style = $this->makeStyle($styles, $color);
@@ -31,13 +31,14 @@ class Style
 
     /**
      * @param array $styles
-     * @param null|int $color
+     * @param int $color
      * @return Circular
      */
-    protected function makeStyle(array $styles, ?int $color): Circular
+    protected function makeStyle(array $styles, int $color): Circular
     {
         $format = $this->makeFormat($this->format);
         switch ($color) {
+            case TRUECOLOR_TERMINAL:
             case COLOR256_TERMINAL:
                 return $this->circular256Color($styles, $format);
                 break;
