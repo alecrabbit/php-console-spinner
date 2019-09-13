@@ -12,7 +12,8 @@ services:
       - /etc/group:/etc/group:ro
       - ./:/var/www
     environment:
-      DOCKER_TERM: "$TERM"
+      DOCKER_TERM: "${TERM:-}"      # pass host $TERM variable
+      COLORTERM: "${COLORTERM:-}"   # pass host $COLORTERM variable
     ports:
       - "8080:8080"
     command: keep-alive.sh

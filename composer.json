@@ -10,19 +10,24 @@
     "scripts",
     "pretty",
     "clock",
+    "shell",
+    "bash",
     "arrow",
     "moon",
     "color",
+    "256color",
+    "8bit",
     "colorful",
     "ansi",
     "snake"
   ],
   "license": "MIT",
   "require": {
-    "php": ">=7.2",
+    "php": ">=7.3",
     "alecrabbit/php-accessories": ">=0.6",
     "alecrabbit/php-console-colour": "^0.7",
-    "alecrabbit/php-helpers": "^0.5 || ^0.6"
+    "alecrabbit/php-helpers": "^0.5 || ^0.6",
+    "symfony/console": "^4.3"
   },
   "require-dev": {
     "nunomaduro/collision": "^3.0",

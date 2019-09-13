@@ -62,7 +62,8 @@ $s->inline($inline); // set spinner inline mode
 
 $output = $s->getOutput();
 
-$colorSupport = TerminalStatic::colorSupport();
+//$colorSupport = TerminalStatic::colorSupport($consoleOutput->getStream());
+$colorSupport = TerminalStatic::colorSupport($stderr->getStream());
 // Get messages for spinner
 $messages = messages($colorSupport);
 
