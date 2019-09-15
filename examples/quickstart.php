@@ -14,3 +14,11 @@ for ($i = 0; $i <= ITERATIONS; $i++) {
     $spinner->spin();
 }
 $spinner->end();
+echo PHP_EOL;
+// You can continue with your spinner
+$spinner->begin();
+for ($i = 0; $i <= ITERATIONS; $i++) {
+    usleep(80000); // Simulating work
+    $spinner->spin();
+}
+$spinner->end();
