@@ -3,6 +3,7 @@
 namespace AlecRabbit\Spinner\Core\Coloring;
 
 use AlecRabbit\Accessories\Circular;
+use AlecRabbit\Spinner\Core\Coloring\Contracts\StyleInterface;
 use AlecRabbit\Spinner\Core\Contracts\Juggler;
 use AlecRabbit\Spinner\Core\Contracts\Styles;
 use AlecRabbit\Spinner\Core\Sentinel;
@@ -12,7 +13,7 @@ use const AlecRabbit\ESC;
 use const AlecRabbit\NO_COLOR_TERMINAL;
 use const AlecRabbit\TRUECOLOR_TERMINAL;
 
-class Style
+class Style implements StyleInterface
 {
     /** @var string */
     protected $format;
