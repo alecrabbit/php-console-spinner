@@ -1,5 +1,31 @@
 # Unix pipe and redirect
 
+```bash
+$ php examples/async.demo.php | grep 10 > out.txt
+```
+As a result in `out.txt`, you'll only have lines containing `10`
+```text
+ Gulgowski-Schmitt                    6,110.46$ PL79175995375489523442187962 
+ Jones Ltd                            1,612.36$ SE7910009743360513473811 
+ Rolfson, Romaguera and Macejkovic    1,210.72$ GR800176321QCBHR18995PRKH4Q 
+
+...
+
+ Rau and Sons                           647.68$ EE043607851166100346 
+ Roberts, Lakin and Schimmel          1,221.30$ TR97078310435LF9RFN51665HM 
+ Rempel Group                         2,212.32$ SI96109599881828207 
+```
+
+## Default Output Adapter
+
+By default spinner is instantiated with `StdErrOutputAdaper`. It allows to write all spinner sequences to `stderr`. Your app have to write to `stdout`. For simple cases `echo` will do.
+
+And if you want anything to be written to `stderr` besides spinner sequences, e.g. status messages, you can use:
+```php
+$spinner->getOutput()->writeln('Status message');
+```
+> Note: it should be colored separately.
+ 
 ## Symfony Output Adapter
 
 Using `SymfonyOutputAdapter::class`

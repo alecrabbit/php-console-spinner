@@ -80,7 +80,7 @@ composer require alecrabbit/php-console-spinner
  ```
 
 ### Usage
- - [Unix pipe and redirect](docs/stderr.md)
+ - [Unix pipe and redirect](docs/pipe_redirect.md)
  - See [examples](https://github.com/alecrabbit/php-console-spinner/tree/master/examples)
  - Examples [output](docs/examples_output.md) casts
 
