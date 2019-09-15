@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 /*
  * This demo shows how your app may look like.
- * It can print out your data and change spinner messages.
+ * It can print out your data and change spinner messages. Supports redirect and piping.
  *
  * Please ignore code quality :)
  */
@@ -15,6 +15,7 @@ require_once __DIR__ . '/__include/__async_demo.php';       // Functions for thi
 require_once __DIR__ . '/__include/__functions.php';       // Functions for this demo
 
 use AlecRabbit\Cli\Tools\Core\Terminal;
+use AlecRabbit\ConsoleColour\Exception\InvalidStyleException;
 use AlecRabbit\ConsoleColour\Themes;
 use AlecRabbit\Spinner\Core\Adapters\SymfonyOutputAdapter;
 use React\EventLoop\Factory;
@@ -31,8 +32,12 @@ $consoleOutput = new ConsoleOutput();
 $stderr = $consoleOutput->getErrorOutput();
 
 // Coloring output
-$appThemes = new Themes($stderr->getStream());
-$t = new Themes($consoleOutput->getStream());
+try {
+    $appThemes = new Themes($stderr->getStream());
+    $t = new Themes($consoleOutput->getStream());
+} catch (InvalidStyleException $e) {
+    $stderr->write('Error: ' . $e->getMessage());
+}
 
 // Welcoming message
 $stderr->writeln($appThemes->lightCyan('Async spinner demo.'));
@@ -43,14 +48,15 @@ $faker = Faker\Factory::create();
 // Initial progress value
 $progress = null;
 
-// Get spinner variant argument
+// Get spinner variant arguments
 $variant = (int)($argv[1] ?? 0);
 $inline = (bool)($argv[2] ?? false);
 
 if ($inline) {
-    $stderr->writeln($appThemes->warning(
-        'Inline spinner mode should only be used with short spinner messages or no messages(to avoid artefacts)!'
-    ));
+    $stderr->writeln(
+        $appThemes->warning(
+            'Inline spinner mode should only be used with short spinner messages or no messages(to avoid artefacts)!'
+        ));
 }
 $stderr->writeln('');
 
@@ -120,7 +126,7 @@ $loop->addTimer(18, static function () use ($s, &$progress, $stderr) {
             $s->disable();
         }
         $s->erase();
-        $s->getOutput()->writeln('*** Spinner disabled ***');
+        $stderr->writeln('*** Spinner disabled ***');
 //        $s->last(); // optional
     }
 });
