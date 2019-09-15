@@ -48,13 +48,8 @@ $faker = Faker\Factory::create();
 // Initial progress value
 $progress = null;
 
-if (\in_array('-h', $argv, true) || \in_array('--help', $argv, true)) {
-    echo 'Usage:
-    ' . basename(__FILE__) . ' [type] [inline]' . PHP_EOL . '
-    type        spinner type int 0..5
-    inline      enable inline mode int 1' . PHP_EOL;
-    exit;
-}
+showHelpMessage(__FILE__, $argv);
+
 // Get spinner variant arguments
 $variant = (int)($argv[1] ?? 0);
 $inline = (bool)($argv[2] ?? false);

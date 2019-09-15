@@ -187,3 +187,15 @@ function messages(int $colorSupport): array
 
 }
 
+function showHelpMessage($file, $argv): void
+{
+    if (\in_array('-h', $argv, true) || \in_array('--help', $argv, true)) {
+        echo 'Usage:
+    ' . basename($file) . ' [type] [inline]' . PHP_EOL . '
+    type        spinner type int 0..5
+    inline      enable inline mode int 1' . PHP_EOL;
+        exit;
+    }
+}
+
+
