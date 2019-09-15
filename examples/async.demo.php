@@ -19,6 +19,7 @@ use AlecRabbit\ConsoleColour\Themes;
 use AlecRabbit\Spinner\Core\Adapters\SymfonyOutputAdapter;
 use React\EventLoop\Factory;
 use Symfony\Component\Console\Output\ConsoleOutput;
+use const AlecRabbit\TERMINAL_COLOR_MODES;
 
 // This example requires pcntl extension
 __check_for_extension('pcntl', 'ext-pcntl is required', __FILE__);
@@ -53,17 +54,22 @@ if ($inline) {
 }
 $stderr->writeln('');
 
-$output = new SymfonyOutputAdapter($consoleOutput);
-
 // Get spinner
-$s = spinnerFactory($variant, $output);
+$s = spinnerFactory($variant, new SymfonyOutputAdapter($consoleOutput));
 $s->inline($inline); // set spinner inline mode
 
-dump($s);
 $output = $s->getOutput();
 
-//$colorSupport = Terminal::colorSupport($consoleOutput->getStream());
+$output->writeln(
+    $appThemes->dark(
+        'STDOUT color support level: ' .
+        TERMINAL_COLOR_MODES[Terminal::colorSupport($consoleOutput->getStream())]
+    ));
 $colorSupport = Terminal::colorSupport($stderr->getStream());
+$output->writeln(
+    $appThemes->dark(
+        'STDERR color support level: ' . TERMINAL_COLOR_MODES[$colorSupport]
+    ));
 // Get messages for spinner
 $messages = messages($colorSupport);
 
@@ -114,7 +120,7 @@ $loop->addTimer(18, static function () use ($s, &$progress, $stderr) {
             $s->disable();
         }
         $s->erase();
-        $stderr->writeln('*** Spinner disabled ***');
+        $s->getOutput()->writeln('*** Spinner disabled ***');
 //        $s->last(); // optional
     }
 });

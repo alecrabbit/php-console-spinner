@@ -2,7 +2,6 @@
 
 namespace AlecRabbit\Spinner\Core\Adapters;
 
-use AlecRabbit\Spinner\Core\Contracts\OutputInterface;
 use function AlecRabbit\typeOf;
 
 /**
@@ -10,7 +9,7 @@ use function AlecRabbit\typeOf;
  *
  * @codeCoverageIgnore
  */
-class StdErrOutputAdapter implements OutputInterface
+class StdErrOutputAdapter extends AbstractOutputAdapter
 {
     /** @var resource */
     protected $stream;

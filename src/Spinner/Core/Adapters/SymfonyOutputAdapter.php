@@ -12,7 +12,7 @@ use function AlecRabbit\typeOf;
  *
  * @codeCoverageIgnore
  */
-class SymfonyOutputAdapter implements OutputInterface
+class SymfonyOutputAdapter extends AbstractOutputAdapter
 {
     /** @var StreamOutput */
     protected $output;
