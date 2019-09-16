@@ -90,7 +90,8 @@ echo PHP_EOL, $t->dark('Use CTRL+C to exit.'), PHP_EOL;
 // Add SIGINT signal handler
 $loop->addSignal(
     SIGINT,
-    $func = static function ($signal) use ($loop, $t, &$func) {
+    $func = static function ($signal) use ($loop, $t, &$func, &$s) {
+        $s->erase();
         echo PHP_EOL, $t->dark('Exiting... (CTRL+C to force)'), PHP_EOL;
         $loop->removeSignal(SIGINT, $func);
         $loop->stop();
