@@ -1,7 +1,17 @@
 <a name="unreleased"></a>
 ## [Unreleased]
 
+
+<a name="0.40.0-ALPHA.4"></a>
+## [0.40.0-ALPHA.4] - 2019-09-15
+### Removed
+- `EchoOutputAdapter`
+
+
+<a name="0.40.0-ALPHA.3"></a>
+## [0.40.0-ALPHA.3] - 2019-09-13
 ### Added
+- `php 7.2` build
 - `StdErrOutputAdapter::class`
 
 ### Changed
@@ -300,7 +310,9 @@
 <a name="0.2.1-ALPHA.1"></a>
 ## 0.2.1-ALPHA.1 - 2019-04-06
 
-[Unreleased]: https://github.com/alecrabbit/php-console-spinner/compare/0.40.0-ALPHA.2...HEAD
+[Unreleased]: https://github.com/alecrabbit/php-console-spinner/compare/0.40.0-ALPHA.4...HEAD
+[0.40.0-ALPHA.4]: https://github.com/alecrabbit/php-console-spinner/compare/0.40.0-ALPHA.3...0.40.0-ALPHA.4
+[0.40.0-ALPHA.3]: https://github.com/alecrabbit/php-console-spinner/compare/0.40.0-ALPHA.2...0.40.0-ALPHA.3
 [0.40.0-ALPHA.2]: https://github.com/alecrabbit/php-console-spinner/compare/0.40.0-ALPHA.1...0.40.0-ALPHA.2
 [0.40.0-ALPHA.1]: https://github.com/alecrabbit/php-console-spinner/compare/0.36.1-BETA.2...0.40.0-ALPHA.1
 [0.36.1-BETA.2]: https://github.com/alecrabbit/php-console-spinner/compare/0.36.1-BETA.1...0.36.1-BETA.2
