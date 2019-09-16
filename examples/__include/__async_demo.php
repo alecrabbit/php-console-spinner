@@ -151,8 +151,7 @@ function spinnerFactory(int $variant = 0, OutputInterface $output = null): Spinn
                             [
                                 Juggler::PROGRESS_STYLES =>
                                     [
-                                        Juggler::FORMAT => '[%4s] ',
-                                        Juggler::SPACER => '',
+                                        Juggler::FORMAT => '[%4s]',
                                     ],
                             ]
                         )
