@@ -58,13 +58,6 @@ class Settings implements SettingsInterface
         return $this;
     }
 
-//    /** {@inheritDoc} */
-//    public function enable(): self
-//    {
-//        $this->properties[S::ENABLED]->setValue(true);
-//        return $this;
-//    }
-//
     /** {@inheritDoc} */
     public function getMessage(): ?string
     {
