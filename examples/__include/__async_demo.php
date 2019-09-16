@@ -142,6 +142,25 @@ function spinnerFactory(int $variant = 0, OutputInterface $output = null): Spinn
                     $color
                 );
             break;
+        case 6:
+            return
+                new SnakeSpinner(
+                    $settings
+                        ->setInterval(0.12)
+                        ->setStyles(
+                            [
+                                Juggler::PROGRESS_STYLES =>
+                                    [
+                                        Juggler::FORMAT => '[%4s] ',
+                                        Juggler::SPACER => '',
+                                    ],
+                            ]
+                        )
+                        ->setFrames(Frames::DOTS_VARIANT_3),
+                    $output,
+                    $color
+                );
+            break;
         default:
             return new SnakeSpinner($settings->setMessageSuffix(Defaults::ELLIPSIS), $output, $color);
             break;
