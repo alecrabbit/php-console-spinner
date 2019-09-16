@@ -118,10 +118,7 @@ $settings
     );
 // overriding defaults with $settings
 $s = new SnakeSpinner($settings);
-//dump($s);
 
-dump(Terminal::colorSupport(STDERR));
-//dump(Terminal::colorSupport(STDOUT));
 // Add periodic timer to redraw our spinner
 $loop->addPeriodicTimer($s->interval(), static function () use ($s) {
     // Note next periodic timer - we are changing message in a different "coroutine"
