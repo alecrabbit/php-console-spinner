@@ -11,8 +11,9 @@ interface Defaults
     public const ONE_SPACE_SYMBOL = ' ';
     public const EMPTY_STRING = '';
     public const DEFAULT_PREFIX = self::EMPTY_STRING; // Deprecated
-    public const DEFAULT_SUFFIX = self::DOTS_SUFFIX; // Deprecated
+    public const DEFAULT_SUFFIX = self::DOTS_SUFFIX;
     public const DOTS_SUFFIX = '...';
+    public const ELLIPSIS = '…';
 
     public const MAX_FRAMES_COUNT = 60;
     public const MAX_FRAME_LENGTH = 10;
@@ -37,7 +38,6 @@ interface Defaults
             S::ENABLED => true,
             S::JUGGLERS_ORDER => self::DEFAULT_ORDER_DIRECTIVES,
         ];
-    public const ELLIPSIS = '…';
     public const NUMBER_OF_ORDER_DIRECTIVES = 3;
     public const DEFAULT_ORDER_DIRECTIVES = [Juggler::FRAMES, Juggler::MESSAGE, Juggler::PROGRESS];
     public const DIRECTIVES_NAMES = [
