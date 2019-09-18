@@ -1,7 +1,11 @@
 <a name="unreleased"></a>
 ## [Unreleased]
 
+
+<a name="0.40.3-BETA.2"></a>
+## [0.40.3-BETA.2] - 2019-09-18
 ### Added
+- tree frames set
 - new toggle frames set
 - monkey frames set
 - runner frames set
@@ -333,7 +337,8 @@
 <a name="0.2.1-ALPHA.1"></a>
 ## 0.2.1-ALPHA.1 - 2019-04-06
 
-[Unreleased]: https://github.com/alecrabbit/php-console-spinner/compare/0.40.2-BETA.2...HEAD
+[Unreleased]: https://github.com/alecrabbit/php-console-spinner/compare/0.40.3-BETA.2...HEAD
+[0.40.3-BETA.2]: https://github.com/alecrabbit/php-console-spinner/compare/0.40.2-BETA.2...0.40.3-BETA.2
 [0.40.2-BETA.2]: https://github.com/alecrabbit/php-console-spinner/compare/0.40.2-BETA.1...0.40.2-BETA.2
 [0.40.2-BETA.1]: https://github.com/alecrabbit/php-console-spinner/compare/0.40.1-BETA.1...0.40.2-BETA.1
 [0.40.1-BETA.1]: https://github.com/alecrabbit/php-console-spinner/compare/0.40.0-ALPHA.4...0.40.1-BETA.1
