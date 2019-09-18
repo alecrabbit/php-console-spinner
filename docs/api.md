@@ -22,9 +22,11 @@
 - [\AlecRabbit\Spinner\Core\SpinnerCore (abstract)](#class-alecrabbitspinnercorespinnercore-abstract)
 - [\AlecRabbit\Spinner\Core\Calculator](#class-alecrabbitspinnercorecalculator)
 - [\AlecRabbit\Spinner\Core\Adapters\SymfonyOutputAdapter](#class-alecrabbitspinnercoreadapterssymfonyoutputadapter)
-- [\AlecRabbit\Spinner\Core\Adapters\EchoOutputAdapter](#class-alecrabbitspinnercoreadaptersechooutputadapter)
+- [\AlecRabbit\Spinner\Core\Adapters\AbstractOutputAdapter (abstract)](#class-alecrabbitspinnercoreadaptersabstractoutputadapter-abstract)
+- [\AlecRabbit\Spinner\Core\Adapters\StdErrOutputAdapter](#class-alecrabbitspinnercoreadaptersstderroutputadapter)
 - [\AlecRabbit\Spinner\Core\Coloring\Style](#class-alecrabbitspinnercorecoloringstyle)
 - [\AlecRabbit\Spinner\Core\Coloring\Colors](#class-alecrabbitspinnercorecoloringcolors)
+- [\AlecRabbit\Spinner\Core\Coloring\Contracts\StyleInterface (interface)](#interface-alecrabbitspinnercorecoloringcontractsstyleinterface)
 - [\AlecRabbit\Spinner\Core\Contracts\Frames (interface)](#interface-alecrabbitspinnercorecontractsframes)
 - [\AlecRabbit\Spinner\Core\Contracts\Juggler (interface)](#interface-alecrabbitspinnercorecontractsjuggler)
 - [\AlecRabbit\Spinner\Core\Contracts\StyleInterface (interface)](#interface-alecrabbitspinnercorecontractsstyleinterface)
@@ -231,7 +233,7 @@
 
 | Visibility | Function |
 |:-----------|:---------|
-| public static | <strong>escCodes(</strong><em>\string</em> <strong>$in</strong>)</strong> : <em>string</em> |
+| public static | <strong>controlCodes(</strong><em>\string</em> <strong>$in</strong>)</strong> : <em>string</em> |
 
 <hr />
 
@@ -244,6 +246,7 @@
 | public static | <strong>assertFrame(</strong><em>mixed</em> <strong>$frame</strong>)</strong> : <em>void</em> |
 | public static | <strong>assertFrameLength(</strong><em>\string</em> <strong>$frame</strong>)</strong> : <em>void</em> |
 | public static | <strong>assertFrames(</strong><em>array</em> <strong>$frames</strong>)</strong> : <em>void</em> |
+| public static | <strong>assertJugglersOrder(</strong><em>array</em> <strong>$order</strong>)</strong> : <em>void</em> |
 | public static | <strong>assertOutput(</strong><em>mixed</em> <strong>$output</strong>)</strong> : <em>void</em> |
 | public static | <strong>assertSettings(</strong><em>mixed</em> <strong>$settings</strong>)</strong> : <em>void</em> |
 | public static | <strong>assertStyles(</strong><em>array</em> <strong>$styles</strong>, <em>array</em> <strong>$against</strong>)</strong> : <em>void</em> |
@@ -256,21 +259,21 @@
 |:-----------|:---------|
 | public | <strong>__construct(</strong><em>null/string/\AlecRabbit\Spinner\Core\Settings</em> <strong>$messageOrSettings=null</strong>, <em>null/false/\AlecRabbit\Spinner\Core\OutputInterface</em> <strong>$output=null</strong>, <em>\int</em> <strong>$color=null</strong>)</strong> : <em>void</em><br /><em>Spinner constructor.</em> |
 | public | <strong>begin(</strong><em>\float</em> <strong>$percent=null</strong>)</strong> : <em>void</em> |
-| public | <strong>end()</strong> : <em>void</em> |
+| public | <strong>end(</strong><em>\string</em> <strong>$finalMessage=null</strong>)</strong> : <em>void</em> |
 | public | <strong>erase()</strong> : <em>void</em> |
 | public | <strong>getOutput()</strong> : <em>mixed</em> |
 | public | <strong>inline(</strong><em>\bool</em> <strong>$inline</strong>)</strong> : <em>void</em> |
-| public | <strong>interval()</strong> : <em>void</em> |
 | public | <strong>last()</strong> : <em>void</em> |
-| public | <strong>message(</strong><em>\string</em> <strong>$message=null</strong>)</strong> : <em>void</em> |
+| public | <strong>message(</strong><em>\string</em> <strong>$message</strong>)</strong> : <em>void</em> |
 | public | <strong>progress(</strong><em>\float</em> <strong>$percent</strong>)</strong> : <em>void</em> |
 | public | <strong>spin()</strong> : <em>void</em> |
-| protected | <strong>defaultSettings()</strong> : <em>[\AlecRabbit\Spinner\Settings\Settings](#class-alecrabbitspinnersettingssettings)</em> |
+| protected | <strong>calcEraseSequence(</strong><em>\int</em> <strong>$erasingLength</strong>)</strong> : <em>string</em> |
 | protected | <strong>initJugglers()</strong> : <em>void</em> |
 | protected | <strong>prepareLastSpinnerString()</strong> : <em>void</em> |
-| protected | <strong>refineSettings(</strong><em>null/string/\AlecRabbit\Spinner\Core\Settings</em> <strong>$settings</strong>)</strong> : <em>[\AlecRabbit\Spinner\Settings\Settings](#class-alecrabbitspinnersettingssettings)</em> |
+| protected | <strong>refineColor(</strong><em>null/int/\int</em> <strong>$color</strong>)</strong> : <em>int</em> |
 | protected | <strong>setMessage(</strong><em>null/string/\string</em> <strong>$message</strong>)</strong> : <em>void</em> |
 | protected | <strong>setProgress(</strong><em>\float</em> <strong>$percent=null</strong>)</strong> : <em>void</em> |
+| protected | <strong>updateInlinePaddingStrProperties()</strong> : <em>void</em> |
 
 *This class extends [\AlecRabbit\Spinner\Core\SpinnerCore](#class-alecrabbitspinnercorespinnercore-abstract)*
 
@@ -284,7 +287,11 @@
 |:-----------|:---------|
 | public | <strong>disable()</strong> : <em>void</em> |
 | public | <strong>enable()</strong> : <em>void</em> |
+| public | <strong>interval()</strong> : <em>void</em> |
+| public | <strong>isActive()</strong> : <em>bool</em> |
+| protected | <strong>defaultSettings()</strong> : <em>[\AlecRabbit\Spinner\Settings\Settings](#class-alecrabbitspinnersettingssettings)</em> |
 | protected | <strong>refineOutput(</strong><em>null/false/\AlecRabbit\Spinner\Core\OutputInterface</em> <strong>$output</strong>)</strong> : <em>null/\AlecRabbit\Spinner\Core\OutputInterface</em> |
+| protected | <strong>refineSettings(</strong><em>null/string/\AlecRabbit\Spinner\Core\Settings</em> <strong>$settings</strong>)</strong> : <em>[\AlecRabbit\Spinner\Settings\Settings](#class-alecrabbitspinnersettingssettings)</em> |
 
 *This class implements [\AlecRabbit\Spinner\Core\Contracts\SpinnerInterface](#interface-alecrabbitspinnercorecontractsspinnerinterface)*
 
@@ -305,20 +312,38 @@
 
 | Visibility | Function |
 |:-----------|:---------|
-| public | <strong>__construct(</strong><em>\Symfony\Component\Console\Output\OutputInterface</em> <strong>$output</strong>)</strong> : <em>void</em> |
+| public | <strong>__construct(</strong><em>\Symfony\Component\Console\Output\ConsoleOutput</em> <strong>$output</strong>)</strong> : <em>void</em> |
+| public | <strong>getStream()</strong> : <em>\AlecRabbit\Spinner\Core\Adapters\resource</em> |
 | public | <strong>write(</strong><em>mixed</em> <strong>$messages</strong>, <em>bool</em> <strong>$newline=false</strong>, <em>mixed</em> <strong>$options</strong>)</strong> : <em>void</em> |
+
+*This class extends [\AlecRabbit\Spinner\Core\Adapters\AbstractOutputAdapter](#class-alecrabbitspinnercoreadaptersabstractoutputadapter-abstract)*
 
 *This class implements [\AlecRabbit\Spinner\Core\Contracts\OutputInterface](#interface-alecrabbitspinnercorecontractsoutputinterface)*
 
 <hr />
 
-### Class: \AlecRabbit\Spinner\Core\Adapters\EchoOutputAdapter
-
-> Class EchoOutputAdapter
+### Class: \AlecRabbit\Spinner\Core\Adapters\AbstractOutputAdapter (abstract)
 
 | Visibility | Function |
 |:-----------|:---------|
+| public | <strong>writeln(</strong><em>mixed</em> <strong>$messages</strong>, <em>mixed</em> <strong>$options</strong>)</strong> : <em>void</em> |
+
+*This class implements [\AlecRabbit\Spinner\Core\Contracts\OutputInterface](#interface-alecrabbitspinnercorecontractsoutputinterface)*
+
+<hr />
+
+### Class: \AlecRabbit\Spinner\Core\Adapters\StdErrOutputAdapter
+
+> Class StdErrOutputAdapter
+
+| Visibility | Function |
+|:-----------|:---------|
+| public | <strong>__construct(</strong><em>mixed</em> <strong>$stream=Resource id #3</strong>)</strong> : <em>void</em><br /><em>StdErrOutputAdapter constructor.</em> |
+| public | <strong>getStream()</strong> : <em>\AlecRabbit\Spinner\Core\Adapters\resource</em> |
 | public | <strong>write(</strong><em>mixed</em> <strong>$messages</strong>, <em>bool</em> <strong>$newline=false</strong>, <em>mixed</em> <strong>$options</strong>)</strong> : <em>void</em> |
+| protected | <strong>doWrite(</strong><em>\string</em> <strong>$message</strong>, <em>\bool</em> <strong>$newline</strong>)</strong> : <em>void</em><br /><em>Writes a message to STDERR.</em> |
+
+*This class extends [\AlecRabbit\Spinner\Core\Adapters\AbstractOutputAdapter](#class-alecrabbitspinnercoreadaptersabstractoutputadapter-abstract)*
 
 *This class implements [\AlecRabbit\Spinner\Core\Contracts\OutputInterface](#interface-alecrabbitspinnercorecontractsoutputinterface)*
 
@@ -336,7 +361,9 @@
 | protected | <strong>circularColor(</strong><em>array</em> <strong>$styles</strong>, <em>\string</em> <strong>$format</strong>)</strong> : <em>\AlecRabbit\Accessories\Circular</em> |
 | protected | <strong>circularNoColor(</strong><em>\string</em> <strong>$format</strong>)</strong> : <em>\AlecRabbit\Accessories\Circular</em> |
 | protected | <strong>makeFormat(</strong><em>\string</em> <strong>$format</strong>)</strong> : <em>string</em> |
-| protected | <strong>makeStyle(</strong><em>array</em> <strong>$styles</strong>, <em>null/int/\int</em> <strong>$color</strong>)</strong> : <em>\AlecRabbit\Accessories\Circular</em> |
+| protected | <strong>makeStyle(</strong><em>array</em> <strong>$styles</strong>, <em>\int</em> <strong>$color</strong>)</strong> : <em>\AlecRabbit\Accessories\Circular</em> |
+
+*This class implements [\AlecRabbit\Spinner\Core\Coloring\Contracts\StyleInterface](#interface-alecrabbitspinnercorecoloringcontractsstyleinterface)*
 
 <hr />
 
@@ -344,11 +371,21 @@
 
 | Visibility | Function |
 |:-----------|:---------|
-| public | <strong>__construct(</strong><em>array</em> <strong>$styles</strong>, <em>\int</em> <strong>$color=null</strong>)</strong> : <em>void</em> |
+| public | <strong>__construct(</strong><em>array</em> <strong>$styles</strong>, <em>\int</em> <strong>$color</strong>)</strong> : <em>void</em> |
 | public | <strong>getFrameStyles()</strong> : <em>[\AlecRabbit\Spinner\Core\Coloring\Style](#class-alecrabbitspinnercorecoloringstyle)</em> |
 | public | <strong>getMessageStyles()</strong> : <em>[\AlecRabbit\Spinner\Core\Coloring\Style](#class-alecrabbitspinnercorecoloringstyle)</em> |
 | public | <strong>getProgressStyles()</strong> : <em>[\AlecRabbit\Spinner\Core\Coloring\Style](#class-alecrabbitspinnercorecoloringstyle)</em> |
 | protected | <strong>mergeStyles(</strong><em>array</em> <strong>$styles</strong>)</strong> : <em>array</em> |
+
+<hr />
+
+### Interface: \AlecRabbit\Spinner\Core\Coloring\Contracts\StyleInterface
+
+| Visibility | Function |
+|:-----------|:---------|
+| public | <strong>getFormat()</strong> : <em>string</em> |
+| public | <strong>getSpacer()</strong> : <em>string</em> |
+| public | <strong>getStyle()</strong> : <em>\AlecRabbit\Accessories\Circular</em> |
 
 <hr />
 
@@ -389,16 +426,17 @@
 
 | Visibility | Function |
 |:-----------|:---------|
-| public | <strong>begin(</strong><em>\float</em> <strong>$percent=null</strong>)</strong> : <em>string</em><br /><em>Hides cursor and returns or prints out first spinner frame</em> |
+| public | <strong>begin(</strong><em>\float</em> <strong>$percent=null</strong>)</strong> : <em>string</em><br /><em>Returns or prints out first spinner frame string (hides cursor)</em> |
 | public | <strong>disable()</strong> : <em>\AlecRabbit\Spinner\Core\Contracts\self</em><br /><em>Disables spinner</em> |
 | public | <strong>enable()</strong> : <em>\AlecRabbit\Spinner\Core\Contracts\self</em><br /><em>Enables spinner</em> |
-| public | <strong>end()</strong> : <em>string</em><br /><em>Erases spinner and shows cursor</em> |
-| public | <strong>erase()</strong> : <em>string</em><br /><em>Erases spinner with spaces symbols</em> |
+| public | <strong>end(</strong><em>\string</em> <strong>$finalMessage=null</strong>)</strong> : <em>string</em><br /><em>Erases spinner and shows cursor or returns sequence string</em> |
+| public | <strong>erase()</strong> : <em>string</em><br /><em>Erases spinner with space symbols or returns erase sequence string</em> |
 | public | <strong>getOutput()</strong> : <em>null/[\AlecRabbit\Spinner\Core\Contracts\OutputInterface](#interface-alecrabbitspinnercorecontractsoutputinterface)</em><br /><em>Returns output</em> |
 | public | <strong>inline(</strong><em>\bool</em> <strong>$inline</strong>)</strong> : <em>[\AlecRabbit\Spinner\Core\Contracts\SpinnerInterface](#interface-alecrabbitspinnercorecontractsspinnerinterface)</em><br /><em>Enables inline mode</em> |
 | public | <strong>interval()</strong> : <em>float</em><br /><em>Returns spinner recommended refresh interval</em> |
+| public | <strong>isActive()</strong> : <em>bool</em> |
 | public | <strong>last()</strong> : <em>string</em><br /><em>Returns or prints out last spinner string</em> |
-| public | <strong>message(</strong><em>\string</em> <strong>$message=null</strong>)</strong> : <em>[\AlecRabbit\Spinner\Core\Spinner](#class-alecrabbitspinnercorespinner-abstract)</em><br /><em>Sets current message for spinner</em> |
+| public | <strong>message(</strong><em>null/string/\string</em> <strong>$message</strong>)</strong> : <em>[\AlecRabbit\Spinner\Core\Spinner](#class-alecrabbitspinnercorespinner-abstract)</em><br /><em>Sets current message for spinner</em> |
 | public | <strong>progress(</strong><em>null/float/\float</em> <strong>$percent</strong>)</strong> : <em>[\AlecRabbit\Spinner\Core\Spinner](#class-alecrabbitspinnercorespinner-abstract)</em><br /><em>Sets current progress value for spinner 0..1</em> |
 | public | <strong>spin()</strong> : <em>string</em><br /><em>Returns or prints out current spinner string</em> |
 
@@ -408,7 +446,9 @@
 
 | Visibility | Function |
 |:-----------|:---------|
+| public | <strong>getStream()</strong> : <em>\AlecRabbit\Spinner\Core\Contracts\resource</em> |
 | public | <strong>write(</strong><em>string/\AlecRabbit\Spinner\Core\Contracts\iterable</em> <strong>$messages</strong>, <em>bool</em> <strong>$newline=false</strong>, <em>int</em> <strong>$options</strong>)</strong> : <em>void</em><br /><em>Writes a message to the output. 0 is considered the same as self::OUTPUT_NORMAL | self::VERBOSITY_NORMAL</em> |
+| public | <strong>writeln(</strong><em>string/\AlecRabbit\Spinner\Core\Contracts\iterable</em> <strong>$messages</strong>, <em>int</em> <strong>$options</strong>)</strong> : <em>void</em><br /><em>Writes a message to the output and adds a newline at the end. 0 is considered the same as self::OUTPUT_NORMAL | self::VERBOSITY_NORMAL</em> |
 
 <hr />
 
@@ -489,18 +529,22 @@
 | public | <strong>getInitialPercent()</strong> : <em>mixed</em> |
 | public | <strong>getInlinePaddingStr()</strong> : <em>mixed</em> |
 | public | <strong>getInterval()</strong> : <em>mixed</em> |
+| public | <strong>getJugglersOrder()</strong> : <em>mixed</em> |
 | public | <strong>getMessage()</strong> : <em>mixed</em> |
 | public | <strong>getMessageErasingLength()</strong> : <em>mixed</em> |
 | public | <strong>getMessageSuffix()</strong> : <em>mixed</em> |
 | public | <strong>getSpacer()</strong> : <em>mixed</em> |
 | public | <strong>getStyles()</strong> : <em>mixed</em> |
 | public | <strong>isEnabled()</strong> : <em>bool</em> |
+| public | <strong>isHideCursor()</strong> : <em>bool</em> |
 | public | <strong>merge(</strong><em>\self</em> <strong>$settings</strong>)</strong> : <em>void</em> |
 | public | <strong>setEnabled(</strong><em>\bool</em> <strong>$enabled=true</strong>)</strong> : <em>void</em> |
 | public | <strong>setFrames(</strong><em>array</em> <strong>$frames</strong>)</strong> : <em>void</em> |
+| public | <strong>setHideCursor(</strong><em>bool</em> <strong>$value=true</strong>)</strong> : <em>void</em> |
 | public | <strong>setInitialPercent(</strong><em>\float</em> <strong>$percent</strong>)</strong> : <em>void</em> |
 | public | <strong>setInlinePaddingStr(</strong><em>\string</em> <strong>$inlinePaddingStr</strong>)</strong> : <em>void</em> |
 | public | <strong>setInterval(</strong><em>\float</em> <strong>$interval</strong>)</strong> : <em>void</em> |
+| public | <strong>setJugglersOrder(</strong><em>array</em> <strong>$order</strong>)</strong> : <em>void</em> |
 | public | <strong>setMessage(</strong><em>\string</em> <strong>$message</strong>)</strong> : <em>void</em> |
 | public | <strong>setMessageSuffix(</strong><em>\string</em> <strong>$suffix</strong>)</strong> : <em>void</em> |
 | public | <strong>setSpacer(</strong><em>\string</em> <strong>$spacer</strong>)</strong> : <em>void</em> |
@@ -530,18 +574,22 @@
 | public | <strong>getInitialPercent()</strong> : <em>null/float</em> |
 | public | <strong>getInlinePaddingStr()</strong> : <em>string</em> |
 | public | <strong>getInterval()</strong> : <em>float</em> |
+| public | <strong>getJugglersOrder()</strong> : <em>array</em> |
 | public | <strong>getMessage()</strong> : <em>null/string</em> |
 | public | <strong>getMessageErasingLength()</strong> : <em>int</em> |
 | public | <strong>getMessageSuffix()</strong> : <em>string</em> |
 | public | <strong>getSpacer()</strong> : <em>string</em> |
 | public | <strong>getStyles()</strong> : <em>array</em> |
 | public | <strong>isEnabled()</strong> : <em>bool</em> |
+| public | <strong>isHideCursor()</strong> : <em>bool</em> |
 | public | <strong>merge(</strong><em>[\AlecRabbit\Spinner\Settings\Settings](#class-alecrabbitspinnersettingssettings)</em> <strong>$settings</strong>)</strong> : <em>[\AlecRabbit\Spinner\Settings\Settings](#class-alecrabbitspinnersettingssettings)</em> |
 | public | <strong>setEnabled(</strong><em>\bool</em> <strong>$enabled=true</strong>)</strong> : <em>[\AlecRabbit\Spinner\Settings\Settings](#class-alecrabbitspinnersettingssettings)</em> |
 | public | <strong>setFrames(</strong><em>array</em> <strong>$frames</strong>)</strong> : <em>[\AlecRabbit\Spinner\Settings\Settings](#class-alecrabbitspinnersettingssettings)</em> |
+| public | <strong>setHideCursor(</strong><em>bool</em> <strong>$value=true</strong>)</strong> : <em>[\AlecRabbit\Spinner\Settings\Settings](#class-alecrabbitspinnersettingssettings)</em> |
 | public | <strong>setInitialPercent(</strong><em>null/float/\float</em> <strong>$percent</strong>)</strong> : <em>[\AlecRabbit\Spinner\Settings\Settings](#class-alecrabbitspinnersettingssettings)</em> |
 | public | <strong>setInlinePaddingStr(</strong><em>\string</em> <strong>$inlinePaddingStr</strong>)</strong> : <em>[\AlecRabbit\Spinner\Settings\Settings](#class-alecrabbitspinnersettingssettings)</em> |
 | public | <strong>setInterval(</strong><em>\float</em> <strong>$interval</strong>)</strong> : <em>[\AlecRabbit\Spinner\Settings\Settings](#class-alecrabbitspinnersettingssettings)</em> |
+| public | <strong>setJugglersOrder(</strong><em>array</em> <strong>$order</strong>)</strong> : <em>[\AlecRabbit\Spinner\Settings\Settings](#class-alecrabbitspinnersettingssettings)</em> |
 | public | <strong>setMessage(</strong><em>\string</em> <strong>$message</strong>)</strong> : <em>[\AlecRabbit\Spinner\Settings\Settings](#class-alecrabbitspinnersettingssettings)</em> |
 | public | <strong>setMessageSuffix(</strong><em>\string</em> <strong>$suffix</strong>)</strong> : <em>[\AlecRabbit\Spinner\Settings\Settings](#class-alecrabbitspinnersettingssettings)</em> |
 | public | <strong>setSpacer(</strong><em>\string</em> <strong>$spacer</strong>)</strong> : <em>[\AlecRabbit\Spinner\Settings\Settings](#class-alecrabbitspinnersettingssettings)</em> |
