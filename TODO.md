@@ -1,7 +1,6 @@
 
-- [ ] Updated: Docs for new version `v.0.30.x`
-- [ ] Updated: Examples for new version `v.0.30.x`
-- [ ] Fixed: `Settings::class` (removed unnecessary methods)
+- [ ] Use `php-wcwidth`
+- [ ] implement `doNotHideCursor()`
 
 ---
 
