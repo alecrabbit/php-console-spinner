@@ -177,6 +177,35 @@ function spinnerFactory(int $variant = 0, OutputInterface $output = null): Spinn
                     $color
                 );
             break;
+        case 10:
+            return
+                new SnakeSpinner(
+                    $settings
+                        ->setInterval(0.4)
+                        ->setFrames(Frames::MONKEY),
+                    $output,
+                    $color
+                );
+            break;
+        case 11:
+            return
+                new ClockSpinner(
+                    $settings
+                        ->setFrames(Frames::CLOCK_VARIANT_1),
+                    $output,
+                    $color
+                );
+            break;
+        case 12:
+            return
+                new SnakeSpinner(
+                    $settings
+                        ->setInterval(0.1)
+                        ->setFrames(Frames::TOGGLE_VARIANT_1),
+                    $output,
+                    $color
+                );
+            break;
         default:
             return new SnakeSpinner($settings->setMessageSuffix(Defaults::ELLIPSIS), $output, $color);
             break;
