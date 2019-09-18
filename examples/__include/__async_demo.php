@@ -200,8 +200,8 @@ function spinnerFactory(int $variant = 0, OutputInterface $output = null): Spinn
             return
                 new SnakeSpinner(
                     $settings
-                        ->setInterval(0.1)
-                        ->setFrames(Frames::TOGGLE_VARIANT_1),
+                        ->setInterval(0.4)
+                        ->setFrames(Frames::TREE),
                     $output,
                     $color
                 );
