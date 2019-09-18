@@ -23,6 +23,7 @@ class Calculator
             $strings[$key] = [$length, $string];
         }
         if (1 !== count(array_unique($lengths))) {
+            dump($strings);
             throw new \InvalidArgumentException('Strings have different erasing lengths.');
         }
         return $lengths[0];

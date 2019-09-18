@@ -16,6 +16,7 @@ use AlecRabbit\Spinner\Settings\Contracts\Defaults;
 use AlecRabbit\Spinner\Settings\Settings;
 use AlecRabbit\Spinner\SnakeSpinner;
 use AlecRabbit\Spinner\TimeSpinner;
+use AlecRabbit\Spinner\WeatherSpinner;
 use function AlecRabbit\Helpers\swap;
 use const AlecRabbit\COLOR256_TERMINAL;
 use const AlecRabbit\COLOR_TERMINAL;
@@ -162,6 +163,9 @@ function spinnerFactory(int $variant = 0, OutputInterface $output = null): Spinn
             break;
         case 7:
             return new ClockSpinner($settings->setDoNotHideCursor(), $output, $color);
+            break;
+        case 8:
+            return new WeatherSpinner(null, $output, $color);
             break;
         default:
             return new SnakeSpinner($settings->setMessageSuffix(Defaults::ELLIPSIS), $output, $color);
