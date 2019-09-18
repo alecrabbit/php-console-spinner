@@ -17,11 +17,41 @@ interface Frames
     public const SIMPLE = ['/', '|', '\\', '─',];
 
     public const CIRCLES = ['◐', '◓', '◑', '◒',];
+    public const RUNNER = ['🚶 ', '🏃 '];
+    public const MONKEY = ['🐵 ', '🙈 ', '🙉 ', '🙊 '];
+
     public const SECTORS = ['◴', '◷', '◶', '◵'];
 
     public const CLOCK = ['🕐', '🕑', '🕒', '🕓', '🕔', '🕕', '🕖', '🕗', '🕘', '🕙', '🕚', '🕛',];
     public const CLOCK_VARIANT = ['🕜', '🕝', '🕞', '🕟', '🕠', '🕡', '🕢', '🕣', '🕤', '🕥', '🕦',];
 
+    public const CLOCK_VARIANT_1 = [
+        '🕐',
+        '🕜',
+        '🕑',
+        '🕝',
+        '🕒',
+        '🕞',
+        '🕓',
+        '🕟',
+        '🕔',
+        '🕠',
+        '🕕',
+        '🕡',
+        '🕖',
+        '🕢',
+        '🕗',
+        '🕣',
+        '🕘',
+        '🕤',
+        '🕙',
+        '🕥',
+        '🕚',
+        '🕦',
+        '🕛',
+        '🕧',
+
+    ];
     public const EARTH = ['🌍', '🌎', '🌏',];
 
     public const MOON = ['🌘', '🌗', '🌖', '🌕', '🌔', '🌓', '🌒', '🌑',];
@@ -216,7 +246,7 @@ interface Frames
         '⠁',
         '⠂',
         '⠄',
-        '⠂'
+        '⠂',
     ];
 
     public const SQUARE = [
@@ -318,9 +348,14 @@ interface Frames
     public const ARROWS = ['➙', '➘', '➙', '➚',];
     public const TOGGLE = [
         '⊶',
-        '⊷'
+        '⊷',
     ];
-
+    public const TOGGLE_VARIANT_1 = [
+        '■',
+        '□',
+        '▪',
+        '▫',
+    ];
     public const BOUNCING_BAR = [
         '[    ]',
         '[=   ]',
@@ -336,7 +371,7 @@ interface Frames
         '[====]',
         '[=== ]',
         '[==  ]',
-        '[=   ]'
+        '[=   ]',
     ];
 
     public const BOUNCING_BAR_VARIANT_2 = [
