@@ -44,6 +44,8 @@ abstract class Spinner extends SpinnerCore
     protected $lastSpinnerString = self::EMPTY_STRING;
     /** @var string */
     protected $inlinePaddingStr = self::EMPTY_STRING;
+    /** @var bool */
+    protected $hideCursor;
 
     /**
      * Spinner constructor.
@@ -57,6 +59,7 @@ abstract class Spinner extends SpinnerCore
         $this->output = $this->refineOutput($output);
         $this->settings = $this->refineSettings($messageOrSettings);
         $this->interval = $this->settings->getInterval();
+        $this->hideCursor = $this->settings->getHideCursor();
         $this->enabled = $this->settings->isEnabled();
         $this->inlinePaddingStr = $this->settings->getInlinePaddingStr();
         $this->coloring = new Colors($this->settings->getStyles(), $this->refineColor($color));
@@ -154,12 +157,13 @@ abstract class Spinner extends SpinnerCore
             return self::EMPTY_STRING;
         }
         $finalMessage = (string)$finalMessage;
+        $showCursor = $this->hideCursor ? Cursor::show() : self::EMPTY_STRING;
         if ($this->output instanceof OutputInterface) {
             $this->erase();
-            $this->output->write(Cursor::show() . $this->inlinePaddingStr . $finalMessage);
+            $this->output->write($showCursor . $this->inlinePaddingStr . $finalMessage);
             return self::EMPTY_STRING;
         }
-        return $this->erase() . Cursor::show() . $this->inlinePaddingStr . $finalMessage;
+        return $this->erase() . $showCursor . $this->inlinePaddingStr . $finalMessage;
     }
 
     /** {@inheritDoc} */
@@ -236,12 +240,13 @@ abstract class Spinner extends SpinnerCore
         } else {
             $this->setProgress($percent);
         }
+        $hideCursor = $this->hideCursor ? Cursor::hide() : self::EMPTY_STRING;
         if ($this->output instanceof OutputInterface) {
-            $this->output->write(Cursor::hide());
+            $this->output->write($hideCursor);
             $this->spin();
             return self::EMPTY_STRING;
         }
-        return Cursor::hide() . $this->spin();
+        return $hideCursor . $this->spin();
     }
 
     /** {@inheritDoc} */

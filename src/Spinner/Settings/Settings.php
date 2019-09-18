@@ -7,7 +7,6 @@ use AlecRabbit\Spinner\Core\Sentinel;
 use AlecRabbit\Spinner\Settings\Contracts\Defaults;
 use AlecRabbit\Spinner\Settings\Contracts\S;
 use AlecRabbit\Spinner\Settings\Contracts\SettingsInterface;
-use function AlecRabbit\Helpers\wcswidth;
 
 class Settings implements SettingsInterface
 {
@@ -42,6 +41,20 @@ class Settings implements SettingsInterface
     public function setInterval(float $interval): self
     {
         $this->properties[S::INTERVAL]->setValue($interval);
+        return $this;
+    }
+
+    /** {@inheritDoc} */
+    public function getHideCursor(): bool
+    {
+        return
+            $this->properties[S::HIDE_CURSOR]->getValue();
+    }
+
+    /** {@inheritDoc} */
+    public function setDoNotHideCursor(): self
+    {
+        $this->properties[S::HIDE_CURSOR]->setValue(false);
         return $this;
     }
 
@@ -197,4 +210,5 @@ class Settings implements SettingsInterface
         $this->properties[S::JUGGLERS_ORDER]->setValue($order);
         return $this;
     }
+
 }

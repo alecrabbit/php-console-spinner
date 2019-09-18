@@ -161,7 +161,7 @@ function spinnerFactory(int $variant = 0, OutputInterface $output = null): Spinn
                 );
             break;
         case 7:
-            return new ClockSpinner(null, $output, $color);
+            return new ClockSpinner($settings->setDoNotHideCursor(), $output, $color);
             break;
         default:
             return new SnakeSpinner($settings->setMessageSuffix(Defaults::ELLIPSIS), $output, $color);

@@ -17,4 +17,5 @@ interface S
     public const INITIAL_PERCENT = 'initial_percent';
     public const ENABLED = 'enabled';
     public const JUGGLERS_ORDER = 'jugglers_order';
+    public const HIDE_CURSOR = 'hide_cursor';
 }

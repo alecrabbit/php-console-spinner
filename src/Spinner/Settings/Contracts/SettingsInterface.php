@@ -20,6 +20,16 @@ interface SettingsInterface
     /**
      * @return bool
      */
+    public function getHideCursor(): bool;
+
+    /**
+     * @return Settings
+     */
+    public function setDoNotHideCursor(): Settings;
+
+    /**
+     * @return bool
+     */
     public function isEnabled(): bool;
 
     /**

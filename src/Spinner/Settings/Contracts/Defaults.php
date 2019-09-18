@@ -36,6 +36,7 @@ interface Defaults
             S::SPACER => self::EMPTY_STRING,
             S::INITIAL_PERCENT => null,
             S::ENABLED => true,
+            S::HIDE_CURSOR => true,
             S::JUGGLERS_ORDER => self::DEFAULT_ORDER_DIRECTIVES,
         ];
     public const NUMBER_OF_ORDER_DIRECTIVES = 3;
