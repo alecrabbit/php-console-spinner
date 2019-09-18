@@ -40,7 +40,7 @@ class Calculator
         $in = Strip::escCodes($in);
         return wcswidth($in);
     }
-    
+
 //    /**
 //     * @param null|string $in
 //     * @return int
