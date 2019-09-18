@@ -233,24 +233,14 @@ abstract class Spinner extends SpinnerCore
 //        $start = hrtime(true);
         $str = '';
         $erasingLength = 0;
-        $eraseTailBySpacesSequence = '';
         foreach ($this->jugglers as $juggler) {
             if ($juggler instanceof JugglerInterface) {
                 $str .= $juggler->getStyledFrame();
                 $erasingLength += $juggler->getFrameErasingLength();
             }
         }
-//        $erasingLength += $this->inline ? strlen($this->inlinePaddingStr) : 0;
         $erasingLength += $this->inlinePaddingStrLength;
-        $erasingLengthDelta = $this->previousErasingLength - $erasingLength;
-        $this->previousErasingLength = $erasingLength;
-
-        if ($erasingLengthDelta > 0) {
-            $erasingLength += $erasingLengthDelta;
-            $eraseTailBySpacesSequence = str_repeat(Defaults::ONE_SPACE_SYMBOL, $erasingLengthDelta);
-        }
-        $this->moveCursorBackSequence = ESC . "[{$erasingLength}D";
-        $this->eraseBySpacesSequence = str_repeat(Defaults::ONE_SPACE_SYMBOL, $erasingLength);
+        $eraseTailBySpacesSequence = $this->calcEraseSequence($erasingLength);
 
         $str = $this->inlinePaddingStr . $str . $eraseTailBySpacesSequence . $this->moveCursorBackSequence;
 //        dump(hrtime(true) - $start);
@@ -275,5 +265,26 @@ abstract class Spinner extends SpinnerCore
     {
         $this->inlinePaddingStr = $this->inline ? $this->inlinePaddingStrValue : self::EMPTY_STRING;
         $this->inlinePaddingStrLength = $this->inline ? strlen($this->inlinePaddingStr) : 0;
+    }
+
+    /**
+     * @param int $erasingLength
+     * @return string
+     */
+    protected function calcEraseSequence(int $erasingLength): string
+    {
+        $eraseTailBySpacesSequence = '';
+
+        $erasingLengthDelta = $this->previousErasingLength - $erasingLength;
+        $this->previousErasingLength = $erasingLength;
+
+        if ($erasingLengthDelta > 0) {
+            $erasingLength += $erasingLengthDelta;
+            $eraseTailBySpacesSequence = str_repeat(Defaults::ONE_SPACE_SYMBOL, $erasingLengthDelta);
+        }
+        $this->eraseBySpacesSequence = str_repeat(Defaults::ONE_SPACE_SYMBOL, $erasingLength);
+        $this->moveCursorBackSequence = ESC . "[{$erasingLength}D";
+
+        return $eraseTailBySpacesSequence;
     }
 }

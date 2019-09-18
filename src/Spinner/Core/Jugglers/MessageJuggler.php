@@ -6,7 +6,6 @@ use AlecRabbit\Spinner\Core\Calculator;
 use AlecRabbit\Spinner\Core\Coloring\Style;
 use AlecRabbit\Spinner\Settings\Contracts\Defaults;
 use AlecRabbit\Spinner\Settings\Settings;
-use function AlecRabbit\Helpers\wcswidth;
 
 class MessageJuggler extends AbstractJuggler
 {
