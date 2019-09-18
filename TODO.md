@@ -1,6 +1,6 @@
 
-- [ ] Use `php-wcwidth`
-- [ ] implement `doNotHideCursor()`
+- [x] Use `php-wcwidth`
+- [x] implement `doNotHideCursor()`
 
 ---
 
