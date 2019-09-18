@@ -7,6 +7,7 @@ use AlecRabbit\Spinner\Core\Sentinel;
 use AlecRabbit\Spinner\Settings\Contracts\Defaults;
 use AlecRabbit\Spinner\Settings\Contracts\S;
 use AlecRabbit\Spinner\Settings\Contracts\SettingsInterface;
+use function AlecRabbit\Helpers\wcswidth;
 
 class Settings implements SettingsInterface
 {
@@ -72,7 +73,8 @@ class Settings implements SettingsInterface
         if (Defaults::EMPTY_STRING === $message || null === $message) {
             $erasingLength = 0;
         } else {
-            $erasingLength = Calculator::computeErasingLength($message);
+            $erasingLength =  wcswidth($message);
+//            $erasingLength = Calculator::computeErasingLength($message);
         }
         $this->properties[S::MESSAGE_ERASING_LENGTH]->setValue($erasingLength);
         return $this;

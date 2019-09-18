@@ -3,6 +3,7 @@
 namespace AlecRabbit\Spinner\Core;
 
 use AlecRabbit\Spinner\Settings\Contracts\Defaults;
+use function AlecRabbit\Helpers\wcswidth;
 
 class Calculator
 {
@@ -17,7 +18,8 @@ class Calculator
         }
         $lengths = [];
         foreach ($strings as $key => $string) {
-            $length = self::computeErasingLength($string);
+            $length = wcswidth($string);
+//            $length = self::computeErasingLength($string);
             $lengths[] = $length;
             $strings[$key] = [$length, $string];
         }
@@ -27,21 +29,21 @@ class Calculator
         return $lengths[0];
     }
 
-    /**
-     * @param null|string $in
-     * @return int
-     */
-    public static function computeErasingLength(?string $in): int
-    {
-        if (null === $in || Defaults::EMPTY_STRING === $in) {
-            return 0;
-        }
-        $in = Strip::escCodes($in);
-        $mbSymbolLen = mb_strlen($in);
-        $oneCharLen = strlen($in) / $mbSymbolLen;
-        if (4 === $oneCharLen) {
-            return 2 * $mbSymbolLen;
-        }
-        return mb_strwidth($in);
-    }
+//    /**
+//     * @param null|string $in
+//     * @return int
+//     */
+//    public static function computeErasingLength(?string $in): int
+//    {
+//        if (null === $in || Defaults::EMPTY_STRING === $in) {
+//            return 0;
+//        }
+//        $in = Strip::escCodes($in);
+//        $mbSymbolLen = mb_strlen($in);
+//        $oneCharLen = strlen($in) / $mbSymbolLen;
+//        if (4 === $oneCharLen) {
+//            return 2 * $mbSymbolLen;
+//        }
+//        return mb_strwidth($in);
+//    }
 }
