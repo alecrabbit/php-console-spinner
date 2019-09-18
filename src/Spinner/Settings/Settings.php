@@ -210,5 +210,4 @@ class Settings implements SettingsInterface
         $this->properties[S::JUGGLERS_ORDER]->setValue($order);
         return $this;
     }
-
 }
