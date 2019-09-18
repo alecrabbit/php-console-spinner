@@ -61,7 +61,7 @@ abstract class Spinner extends SpinnerCore
         $this->output = $this->refineOutput($output);
         $this->settings = $this->refineSettings($messageOrSettings);
         $this->interval = $this->settings->getInterval();
-        $this->hideCursor = $this->settings->getHideCursor();
+        $this->hideCursor = $this->settings->isHideCursor();
         $this->enabled = $this->settings->isEnabled();
         $this->inlinePaddingStrValue = $this->settings->getInlinePaddingStr();
         $this->updateInlinePaddingStrProperties();

@@ -20,12 +20,13 @@ interface SettingsInterface
     /**
      * @return bool
      */
-    public function getHideCursor(): bool;
+    public function isHideCursor(): bool;
 
     /**
+     * @param bool $value
      * @return Settings
      */
-    public function setDoNotHideCursor(): Settings;
+    public function setHideCursor($value = true): Settings;
 
     /**
      * @return bool
