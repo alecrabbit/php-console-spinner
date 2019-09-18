@@ -89,3 +89,6 @@ composer require alecrabbit/php-console-spinner
 
 > Windows support is NOT tested, but it should work in VT100 terminal.
 
+### Links
+
+ - Inspired by [sindresorhus/cli-spinners](https://github.com/sindresorhus/cli-spinners)
