@@ -1,6 +1,9 @@
 <a name="unreleased"></a>
 ## [Unreleased]
 
+### Changed
+- method `setDoNotHideCursor(false)` to `setHideCursor(true)`
+
 
 <a name="0.41.1-BETA.1"></a>
 ## [0.41.1-BETA.1] - 2019-09-18
