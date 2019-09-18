@@ -10,7 +10,7 @@ class Strip
      * @param string $in
      * @return string
      */
-    public static function escCodes(string $in): string
+    public static function controlCodes(string $in): string
     {
         $str = preg_replace(self::REG_EXP, '', $in);
         if (PREG_NO_ERROR !== $error = preg_last_error()) {

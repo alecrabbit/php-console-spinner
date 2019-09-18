@@ -16,7 +16,7 @@ class StripTest extends TestCase
      */
     public function values(string $expected, string $given): void
     {
-        $this->assertEquals($expected, Strip::escCodes($given));
+        $this->assertEquals($expected, Strip::controlCodes($given));
     }
 
     public function valuesDataProvider(): array
