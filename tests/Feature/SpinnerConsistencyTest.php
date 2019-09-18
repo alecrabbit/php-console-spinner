@@ -25,12 +25,27 @@ class SpinnerConsistencyTest extends TestCase
         $this->assertEquals('1 Processing... \033[16D', Helper::replaceEscape($spinner->spin()));
         $spinner->progress(0.1);
         $spinner->message('We have here a really long message');
-        $this->assertEquals('2 We have here a really long message... 10% \033[44D', Helper::replaceEscape($spinner->spin()));
-        $this->assertEquals('3 We have here a really long message... 10% \033[44D', Helper::replaceEscape($spinner->spin()));
-        $this->assertEquals('4 We have here a really long message... 10% \033[44D', Helper::replaceEscape($spinner->spin()));
-        $this->assertEquals('1 We have here a really long message... 10% \033[44D', Helper::replaceEscape($spinner->spin()));
+        $this->assertEquals(
+            '2 We have here a really long message... 10% \033[44D',
+            Helper::replaceEscape($spinner->spin())
+        );
+        $this->assertEquals(
+            '3 We have here a really long message... 10% \033[44D',
+            Helper::replaceEscape($spinner->spin())
+        );
+        $this->assertEquals(
+            '4 We have here a really long message... 10% \033[44D',
+            Helper::replaceEscape($spinner->spin())
+        );
+        $this->assertEquals(
+            '1 We have here a really long message... 10% \033[44D',
+            Helper::replaceEscape($spinner->spin())
+        );
         $spinner->message(null);
-        $this->assertEquals('2 10%                                       \033[44D', Helper::replaceEscape($spinner->spin()));
+        $this->assertEquals(
+            '2 10%                                       \033[44D',
+            Helper::replaceEscape($spinner->spin())
+        );
         $this->assertEquals('3 10% \033[6D', Helper::replaceEscape($spinner->spin()));
         $this->assertEquals('4 10% \033[6D', Helper::replaceEscape($spinner->spin()));
         $spinner->progress(null);
@@ -38,7 +53,9 @@ class SpinnerConsistencyTest extends TestCase
         $this->assertEquals('2 \033[2D', Helper::replaceEscape($spinner->spin()));
         $spinner->message(self::PROCESSING);
         $this->assertEquals('3 Processing... \033[16D', Helper::replaceEscape($spinner->spin()));
-        $this->assertEquals('                \033[16D\033[?25h\033[?0c', Helper::replaceEscape($spinner->end()));
+        $this->assertEquals(
+            '                \033[16D\033[?25h\033[?0c',
+            Helper::replaceEscape($spinner->end())
+        );
     }
-
 }
