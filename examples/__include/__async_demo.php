@@ -167,6 +167,16 @@ function spinnerFactory(int $variant = 0, OutputInterface $output = null): Spinn
         case 8:
             return new WeatherSpinner(null, $output, $color);
             break;
+        case 9:
+            return
+                new SnakeSpinner(
+                    $settings
+                        ->setInterval(0.08)
+                        ->setFrames(Frames::SNAKE_VARIANT_3),
+                    $output,
+                    $color
+                );
+            break;
         default:
             return new SnakeSpinner($settings->setMessageSuffix(Defaults::ELLIPSIS), $output, $color);
             break;
