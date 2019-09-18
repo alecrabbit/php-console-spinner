@@ -22,8 +22,6 @@ abstract class Spinner extends SpinnerCore
     protected $settings;
     /** @var bool */
     protected $inline = false;
-    /** @var float */
-    protected $interval;
     /** @var null|MessageJuggler */
     protected $messageJuggler;
     /** @var null|FrameJuggler */
@@ -71,36 +69,6 @@ abstract class Spinner extends SpinnerCore
         ];
         ksort($this->jugglers);
         $this->initJugglers();
-    }
-
-    /**
-     * @param null|string|Settings $settings
-     * @return Settings
-     */
-    protected function refineSettings($settings): Settings
-    {
-        Sentinel::assertSettings($settings);
-        if (\is_string($settings)) {
-            return
-                $this->defaultSettings()->setMessage($settings);
-        }
-        if ($settings instanceof Settings) {
-            return $this->defaultSettings()->merge($settings);
-        }
-        return
-            $this->defaultSettings();
-    }
-
-    /**
-     * @return Settings
-     */
-    protected function defaultSettings(): Settings
-    {
-        return
-            (new Settings())
-                ->setInterval(static::INTERVAL)
-                ->setFrames(static::FRAMES)
-                ->setStyles(static::STYLES);
     }
 
     /**
@@ -191,11 +159,6 @@ abstract class Spinner extends SpinnerCore
         $this->inline = $inline;
         $this->inlinePaddingStr = $this->inline ? Defaults::ONE_SPACE_SYMBOL : self::EMPTY_STRING;
         return $this;
-    }
-
-    public function interval(): float
-    {
-        return $this->interval;
     }
 
     /** {@inheritDoc} */
