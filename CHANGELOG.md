@@ -2,6 +2,7 @@
 ## [Unreleased]
 
 ### Changed
+- method `getHideCursor` to `isHideCursor`
 - method `setDoNotHideCursor(false)` to `setHideCursor(true)`
 
 
