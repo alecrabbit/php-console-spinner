@@ -81,7 +81,7 @@ $output->writeln(
 // Get messages for spinner
 $messages = messages($colorSupport);
 
-$finalMessage = $appThemes->lightGreen('Finished!') . PHP_EOL;
+$finalMessage = PHP_EOL . $appThemes->lightGreen('Finished!') . PHP_EOL;
 
 // Event loop
 $loop = Factory::create();
