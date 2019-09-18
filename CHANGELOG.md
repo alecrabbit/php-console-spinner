@@ -2,6 +2,7 @@
 ## [Unreleased]
 
 ### Added
+- new toggle frames set
 - monkey frames set
 - runner frames set
 
