@@ -57,7 +57,7 @@ interface SpinnerInterface
      * @param null|string $message
      * @return Spinner
      */
-    public function message(?string $message = null): Spinner;
+    public function message(?string $message): Spinner;
 
     /**
      * Sets current progress value for spinner 0..1

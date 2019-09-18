@@ -162,7 +162,7 @@ abstract class Spinner extends SpinnerCore
     }
 
     /** {@inheritDoc} */
-    public function message(?string $message = null): self
+    public function message(?string $message): self
     {
         $this->setMessage($message);
         return $this;
