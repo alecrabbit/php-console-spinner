@@ -48,8 +48,10 @@ class SettingsTest extends TestCase
         $this->assertEquals(self::MB_STRING_1_LENGTH, $settings->getMessageErasingLength());
         $settings->setEnabled(false);
         $this->assertFalse($settings->isEnabled());
-        $settings->setDoNotHideCursor();
-        $this->assertFalse($settings->getHideCursor());
+        $settings->setHideCursor(false);
+        $this->assertFalse($settings->isHideCursor());
+        $settings->setHideCursor();
+        $this->assertTrue($settings->isHideCursor());
     }
 
     /** @test */

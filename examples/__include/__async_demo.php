@@ -162,7 +162,7 @@ function spinnerFactory(int $variant = 0, OutputInterface $output = null): Spinn
                 );
             break;
         case 7:
-            return new ClockSpinner($settings->setDoNotHideCursor(), $output, $color);
+            return new ClockSpinner($settings->setHideCursor(), $output, $color);
             break;
         case 8:
             return new WeatherSpinner(null, $output, $color);

@@ -45,16 +45,16 @@ class Settings implements SettingsInterface
     }
 
     /** {@inheritDoc} */
-    public function getHideCursor(): bool
+    public function isHideCursor(): bool
     {
         return
             $this->properties[S::HIDE_CURSOR]->getValue();
     }
 
     /** {@inheritDoc} */
-    public function setDoNotHideCursor(): self
+    public function setHideCursor($value = true): self
     {
-        $this->properties[S::HIDE_CURSOR]->setValue(false);
+        $this->properties[S::HIDE_CURSOR]->setValue($value);
         return $this;
     }
 
