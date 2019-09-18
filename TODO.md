@@ -1,9 +1,10 @@
 
-- [x] Use `php-wcwidth`
-- [x] implement `doNotHideCursor()`
+- [ ] Optimize performance
 
 ---
 
+- [x] Use `php-wcwidth`
+- [x] implement `doNotHideCursor()`
 - [x] New Api   
     - [x] methods `$s->spin()`, `$s->message('message')`, `$s->percent(0.2) // 20%`  
 - [x] Strip escape codes in message string (styles overriding - strlen)
