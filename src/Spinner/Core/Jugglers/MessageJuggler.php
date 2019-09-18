@@ -42,8 +42,7 @@ class MessageJuggler extends AbstractJuggler
             $this->erasingLength = 0;
             $this->currentSuffix = Defaults::EMPTY_STRING;
         } else {
-            $this->erasingLength = wcswidth($this->message);
-//            $this->erasingLength = Calculator::computeErasingLength($this->message);
+            $this->erasingLength = Calculator::computeErasingLength($this->message);
             $this->currentSuffix = $this->suffixFromSettings;
         }
         $this->frameString =

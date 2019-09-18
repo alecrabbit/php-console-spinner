@@ -160,6 +160,9 @@ function spinnerFactory(int $variant = 0, OutputInterface $output = null): Spinn
                     $color
                 );
             break;
+        case 7:
+            return new ClockSpinner(null, $output, $color);
+            break;
         default:
             return new SnakeSpinner($settings->setMessageSuffix(Defaults::ELLIPSIS), $output, $color);
             break;
