@@ -20,7 +20,7 @@ Spinner - your task is running
 ![advanced](docs/images/fpdemo.svg)
 
 ### Features
-- progress indication during spin `$spinner->progress(0.5)` (50%)
+- progress indication during spin `$spinner->progress(0.5)` ➙ `50%`
 - messages during spin `$spinner->message('message')`
 - separated color settings for spinner, messages and progress indicator
 - has `disable()` and `enable()` methods 
