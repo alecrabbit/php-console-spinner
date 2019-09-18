@@ -44,6 +44,10 @@ abstract class Spinner extends SpinnerCore
     protected $inlinePaddingStr = self::EMPTY_STRING;
     /** @var bool */
     protected $hideCursor;
+    /** @var int */
+    protected $inlinePaddingStrLength;
+    /** @var string */
+    protected $inlinePaddingStrValue;
 
     /**
      * Spinner constructor.
@@ -59,7 +63,8 @@ abstract class Spinner extends SpinnerCore
         $this->interval = $this->settings->getInterval();
         $this->hideCursor = $this->settings->getHideCursor();
         $this->enabled = $this->settings->isEnabled();
-        $this->inlinePaddingStr = $this->settings->getInlinePaddingStr();
+        $this->inlinePaddingStrValue = $this->settings->getInlinePaddingStr();
+        $this->updateInlinePaddingStrProperties();
         $this->coloring = new Colors($this->settings->getStyles(), $this->refineColor($color));
         $jugglerOrder = $this->settings->getJugglersOrder();
         $this->jugglers = [
@@ -157,7 +162,7 @@ abstract class Spinner extends SpinnerCore
     public function inline(bool $inline): SpinnerInterface
     {
         $this->inline = $inline;
-        $this->inlinePaddingStr = $this->inline ? Defaults::ONE_SPACE_SYMBOL : self::EMPTY_STRING;
+        $this->updateInlinePaddingStrProperties();
         return $this;
     }
 
@@ -235,7 +240,8 @@ abstract class Spinner extends SpinnerCore
                 $erasingLength += $juggler->getFrameErasingLength();
             }
         }
-        $erasingLength += $this->inline ? strlen($this->inlinePaddingStr) : 0;
+//        $erasingLength += $this->inline ? strlen($this->inlinePaddingStr) : 0;
+        $erasingLength += $this->inlinePaddingStrLength;
         $erasingLengthDelta = $this->previousErasingLength - $erasingLength;
         $this->previousErasingLength = $erasingLength;
 
@@ -263,5 +269,11 @@ abstract class Spinner extends SpinnerCore
         }
         return
             $this->lastSpinnerString;
+    }
+
+    protected function updateInlinePaddingStrProperties(): void
+    {
+        $this->inlinePaddingStr = $this->inline ? $this->inlinePaddingStrValue : self::EMPTY_STRING;
+        $this->inlinePaddingStrLength = $this->inline ? strlen($this->inlinePaddingStr) : 0;
     }
 }

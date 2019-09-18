@@ -26,8 +26,8 @@ class SettingsTest extends TestCase
         $this->assertEquals(Defaults::EMPTY_STRING, $settings->getMessage());
         $this->assertEquals(0.1, $settings->getInterval());
         $this->assertTrue($settings->isEnabled());
-        $this->assertEquals('', $settings->getInlinePaddingStr());
-//        $this->assertEquals(Defaults::ONE_SPACE_SYMBOL, $settings->getMessagePrefix());
+        $this->assertEquals(Defaults::ONE_SPACE_SYMBOL, $settings->getInlinePaddingStr());
+
         $this->assertEquals(Defaults::DEFAULT_SUFFIX, $settings->getMessageSuffix());
         $this->assertEquals(Styles::STYLING_DISABLED, $settings->getStyles());
         $this->assertEquals(Defaults::DEFAULT_FRAMES, $settings->getFrames());
@@ -60,7 +60,7 @@ class SettingsTest extends TestCase
         $settings->merge($newSettings);
         $this->assertEquals(Defaults::EMPTY_STRING, $settings->getMessage());
         $this->assertEquals(0.1, $settings->getInterval());
-        $this->assertEquals('', $settings->getInlinePaddingStr());
+        $this->assertEquals(Defaults::ONE_SPACE_SYMBOL, $settings->getInlinePaddingStr());
         $this->assertEquals(Defaults::DEFAULT_SUFFIX, $settings->getMessageSuffix());
         $this->assertEquals(Styles::STYLING_DISABLED, $settings->getStyles());
         $this->assertEquals(Defaults::DEFAULT_FRAMES, $settings->getFrames());
