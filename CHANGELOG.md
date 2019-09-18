@@ -1,6 +1,9 @@
 <a name="unreleased"></a>
 ## [Unreleased]
 
+
+<a name="0.42.0-BETA.0"></a>
+## [0.42.0-BETA.0] - 2019-09-18
 ### Changed
 - method `getHideCursor` to `isHideCursor`
 - method `setDoNotHideCursor(false)` to `setHideCursor(true)`
@@ -347,7 +350,8 @@
 <a name="0.2.1-ALPHA.1"></a>
 ## 0.2.1-ALPHA.1 - 2019-04-06
 
-[Unreleased]: https://github.com/alecrabbit/php-console-spinner/compare/0.41.1-BETA.1...HEAD
+[Unreleased]: https://github.com/alecrabbit/php-console-spinner/compare/0.42.0-BETA.0...HEAD
+[0.42.0-BETA.0]: https://github.com/alecrabbit/php-console-spinner/compare/0.41.1-BETA.1...0.42.0-BETA.0
 [0.41.1-BETA.1]: https://github.com/alecrabbit/php-console-spinner/compare/0.41.0-BETA.1...0.41.1-BETA.1
 [0.41.0-BETA.1]: https://github.com/alecrabbit/php-console-spinner/compare/0.40.3-BETA.2...0.41.0-BETA.1
 [0.40.3-BETA.2]: https://github.com/alecrabbit/php-console-spinner/compare/0.40.2-BETA.2...0.40.3-BETA.2
