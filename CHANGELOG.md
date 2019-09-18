@@ -1,6 +1,15 @@
 <a name="unreleased"></a>
 ## [Unreleased]
 
+### Added
+- extended weather set
+
+
+<a name="0.40.1-BETA.1"></a>
+## [0.40.1-BETA.1] - 2019-09-18
+### Added
+- new `Settings::class` method `doNotHideCursor()`
+
 
 <a name="0.40.0-ALPHA.4"></a>
 ## [0.40.0-ALPHA.4] - 2019-09-15
@@ -310,7 +319,8 @@
 <a name="0.2.1-ALPHA.1"></a>
 ## 0.2.1-ALPHA.1 - 2019-04-06
 
-[Unreleased]: https://github.com/alecrabbit/php-console-spinner/compare/0.40.0-ALPHA.4...HEAD
+[Unreleased]: https://github.com/alecrabbit/php-console-spinner/compare/0.40.1-BETA.1...HEAD
+[0.40.1-BETA.1]: https://github.com/alecrabbit/php-console-spinner/compare/0.40.0-ALPHA.4...0.40.1-BETA.1
 [0.40.0-ALPHA.4]: https://github.com/alecrabbit/php-console-spinner/compare/0.40.0-ALPHA.3...0.40.0-ALPHA.4
 [0.40.0-ALPHA.3]: https://github.com/alecrabbit/php-console-spinner/compare/0.40.0-ALPHA.2...0.40.0-ALPHA.3
 [0.40.0-ALPHA.2]: https://github.com/alecrabbit/php-console-spinner/compare/0.40.0-ALPHA.1...0.40.0-ALPHA.2
