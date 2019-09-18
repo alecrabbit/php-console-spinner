@@ -44,7 +44,7 @@ $t = new Themes();
 $loop = Factory::create();
 $server =
     new Server(
-        static function (ServerRequestInterface $request) use ($loop, $t) {
+        static function (ServerRequestInterface $request) use ($loop, $t, &$s) {
             if ('/favicon.ico' === $request->getRequestTarget()) {
                 return
                     new Response(404);
@@ -52,6 +52,7 @@ $server =
             // "log" request
             $ip = $request->getServerParams()['REMOTE_ADDR'];
             echo $t->dark(date(DATETIME_FORMAT)) . ' ' . $t->cyan($ip) . ' ' . $request->getHeader('user-agent')[0] . PHP_EOL;
+            $s->spin();
 //            // return response after pause
 //            return new Promise(static function ($resolve, $reject) use ($loop) {
 //                // Emulating processing response
