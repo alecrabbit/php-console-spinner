@@ -34,7 +34,7 @@ class CalculatorTest extends TestCase
     public function withException(): void
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage('Strings have different erasing lengths');
+        $this->expectExceptionMessage('Strings have different erasing widths');
         $this->assertEquals(0, Calculator::computeErasingWidths(['1', '22']));
     }
 

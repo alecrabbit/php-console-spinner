@@ -24,7 +24,7 @@ class Calculator
         }
         if (1 !== count(array_unique($lengths))) {
             // dump($strings);
-            throw new \InvalidArgumentException('Strings have different erasing lengths.');
+            throw new \InvalidArgumentException('Strings have different erasing widths.');
         }
         return $lengths[0];
     }

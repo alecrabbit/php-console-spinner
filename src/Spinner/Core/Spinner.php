@@ -236,7 +236,7 @@ abstract class Spinner extends SpinnerCore
         foreach ($this->jugglers as $juggler) {
             if ($juggler instanceof JugglerInterface) {
                 $str .= $juggler->getStyledFrame();
-                $erasingLength += $juggler->getFrameErasingLength();
+                $erasingLength += $juggler->getFrameErasingWidth();
             }
         }
         $erasingLength += $this->inlinePaddingStrLength;

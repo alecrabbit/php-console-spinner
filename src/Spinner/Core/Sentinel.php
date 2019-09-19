@@ -38,20 +38,20 @@ class Sentinel
         if (!\is_string($frame)) {
             throw new \InvalidArgumentException('All frames should be of string type.');
         }
-        self::assertFrameLength($frame);
+        self::assertFrameWidth($frame);
     }
 
     /**
      * @param string $frame
      */
-    public static function assertFrameLength(string $frame): void
+    public static function assertFrameWidth(string $frame): void
     {
-        if (Defaults::MAX_FRAME_WIDTH < $length = wcswidth($frame)) {
+        if (Defaults::MAX_FRAME_WIDTH < $w = wcswidth($frame)) {
             throw new \InvalidArgumentException(
                 sprintf(
-                    'Single frame max length [%s] exceeded [%s]',
+                    'Single frame max width [%s] exceeded [%s]',
                     Defaults::MAX_FRAME_WIDTH,
-                    $length
+                    $w
                 )
             );
         }

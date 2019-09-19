@@ -33,7 +33,7 @@ abstract class AbstractJuggler implements JugglerInterface
     abstract public function __construct(Settings $settings, Style $style);
 
     /** {@inheritDoc} */
-    public function getFrameErasingLength(): int
+    public function getFrameErasingWidth(): int
     {
         return $this->currentFrameErasingWidth;
     }

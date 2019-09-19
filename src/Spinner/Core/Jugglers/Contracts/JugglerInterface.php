@@ -13,5 +13,5 @@ interface JugglerInterface
     /**
      * @return int
      */
-    public function getFrameErasingLength(): int;
+    public function getFrameErasingWidth(): int;
 }
