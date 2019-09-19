@@ -28,7 +28,7 @@
     "alecrabbit/php-console-colour": "^0.8",
     "alecrabbit/php-helpers": "^0.7 || ^0.8",
     "symfony/console": "^4.3",
-    "alecrabbit/php-wcwidth": "^0.0"
+    "alecrabbit/php-wcwidth": ">=0"
   },
   "require-dev": {
     "nunomaduro/collision": "^3.0",

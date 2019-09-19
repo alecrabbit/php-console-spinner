@@ -94,11 +94,11 @@ interface SettingsInterface
      */
     public function setStyles(array $styles): Settings;
 
-    /**
-     * @return int
-     */
-    public function getMessageErasingLength(): int;
-
+//    /**
+//     * @return int
+//     */
+//    public function getMessageErasingLength(): int;
+//
     /**
      * @return string
      */

@@ -83,12 +83,12 @@ class Settings implements SettingsInterface
     public function setMessage(?string $message): self
     {
         $this->properties[S::MESSAGE]->setValue($message);
-        if (Defaults::EMPTY_STRING === $message || null === $message) {
-            $erasingLength = 0;
-        } else {
-            $erasingLength = Calculator::computeErasingLength($message);
-        }
-        $this->properties[S::MESSAGE_ERASING_LENGTH]->setValue($erasingLength);
+//        if (Defaults::EMPTY_STRING === $message || null === $message) {
+//            $erasingLength = 0;
+//        } else {
+//            $erasingLength = Calculator::computeErasingLength($message);
+//        }
+//        $this->properties[S::MESSAGE_ERASING_LENGTH]->setValue($erasingLength);
         return $this;
     }
 
@@ -132,7 +132,7 @@ class Settings implements SettingsInterface
     {
         Sentinel::assertFrames($frames);
         $this->properties[S::FRAMES]->setValue($frames);
-        $this->properties[S::ERASING_SHIFT]->setValue(Calculator::computeErasingLengths($frames));
+//        $this->properties[S::ERASING_SHIFT]->setValue(Calculator::computeErasingLengths($frames));
         return $this;
     }
 
@@ -150,13 +150,13 @@ class Settings implements SettingsInterface
         return $this;
     }
 
-    /** {@inheritDoc} */
-    public function getMessageErasingLength(): int
-    {
-        return
-            $this->properties[S::MESSAGE_ERASING_LENGTH]->getValue();
-    }
-
+//    /** {@inheritDoc} */
+//    public function getMessageErasingLength(): int
+//    {
+//        return
+//            $this->properties[S::MESSAGE_ERASING_LENGTH]->getValue();
+//    }
+//
     /** {@inheritDoc} */
     public function getSpacer(): string
     {
