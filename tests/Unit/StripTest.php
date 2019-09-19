@@ -2,7 +2,6 @@
 
 namespace AlecRabbit\Tests\Tools;
 
-use AlecRabbit\Spinner\Core\Calculator;
 use AlecRabbit\Spinner\Core\Strip;
 use PHPUnit\Framework\TestCase;
 
@@ -49,6 +48,14 @@ class StripTest extends TestCase
             [
                 'Done',
                 "\e[0m\e[92mDone",
+            ],
+            [
+                'Done',
+                'Done',
+            ],
+            [
+                '1 Done ',
+                "\e[92m1 \e[0m\e[92mDone \e[0m\e[4D",
             ],
         ];
     }

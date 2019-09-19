@@ -531,7 +531,6 @@
 | public | <strong>getInterval()</strong> : <em>mixed</em> |
 | public | <strong>getJugglersOrder()</strong> : <em>mixed</em> |
 | public | <strong>getMessage()</strong> : <em>mixed</em> |
-| public | <strong>getMessageErasingLength()</strong> : <em>mixed</em> |
 | public | <strong>getMessageSuffix()</strong> : <em>mixed</em> |
 | public | <strong>getSpacer()</strong> : <em>mixed</em> |
 | public | <strong>getStyles()</strong> : <em>mixed</em> |
@@ -576,7 +575,6 @@
 | public | <strong>getInterval()</strong> : <em>float</em> |
 | public | <strong>getJugglersOrder()</strong> : <em>array</em> |
 | public | <strong>getMessage()</strong> : <em>null/string</em> |
-| public | <strong>getMessageErasingLength()</strong> : <em>int</em> |
 | public | <strong>getMessageSuffix()</strong> : <em>string</em> |
 | public | <strong>getSpacer()</strong> : <em>string</em> |
 | public | <strong>getStyles()</strong> : <em>array</em> |
