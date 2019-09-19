@@ -26,7 +26,7 @@ class SettingsTest extends TestCase
         $this->assertEquals(Defaults::EMPTY_STRING, $settings->getMessage());
         $this->assertEquals(0.1, $settings->getInterval());
         $this->assertTrue($settings->isEnabled());
-        $this->assertEquals(Defaults::ONE_SPACE_SYMBOL, $settings->getInlinePaddingStr());
+        $this->assertEquals(Defaults::ONE_SPACE_SYMBOL, $settings->getInlineSpacer());
 
         $this->assertEquals(Defaults::DEFAULT_SUFFIX, $settings->getMessageSuffix());
         $this->assertEquals(Styles::STYLING_DISABLED, $settings->getStyles());
@@ -62,7 +62,7 @@ class SettingsTest extends TestCase
         $settings->merge($newSettings);
         $this->assertEquals(Defaults::EMPTY_STRING, $settings->getMessage());
         $this->assertEquals(0.1, $settings->getInterval());
-        $this->assertEquals(Defaults::ONE_SPACE_SYMBOL, $settings->getInlinePaddingStr());
+        $this->assertEquals(Defaults::ONE_SPACE_SYMBOL, $settings->getInlineSpacer());
         $this->assertEquals(Defaults::DEFAULT_SUFFIX, $settings->getMessageSuffix());
         $this->assertEquals(Styles::STYLING_DISABLED, $settings->getStyles());
         $this->assertEquals(Defaults::DEFAULT_FRAMES, $settings->getFrames());
@@ -144,7 +144,7 @@ class SettingsTest extends TestCase
             (new Settings())
                 ->setMessage($message)
                 ->setInterval($interval)
-                ->setInlinePaddingStr($inlinePaddingStr)
+                ->setInlineSpacer($inlinePaddingStr)
                 ->setJugglersOrder($order)
                 ->setMessageSuffix($messageSuffix)
                 ->setFrames($frames)
@@ -153,7 +153,7 @@ class SettingsTest extends TestCase
         $settings->merge($newSettings);
         $this->assertEquals($message, $settings->getMessage());
         $this->assertEquals($interval, $settings->getInterval());
-        $this->assertEquals($inlinePaddingStr, $settings->getInlinePaddingStr());
+        $this->assertEquals($inlinePaddingStr, $settings->getInlineSpacer());
         $this->assertEquals($order, $settings->getJugglersOrder());
         $this->assertEquals($messageSuffix, $settings->getMessageSuffix());
 

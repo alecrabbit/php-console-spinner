@@ -64,13 +64,13 @@ interface SettingsInterface
     /**
      * @return string
      */
-    public function getInlinePaddingStr(): string;
+    public function getInlineSpacer(): string;
 
     /**
-     * @param string $inlinePaddingStr
+     * @param string $inlineSpacer
      * @return Settings
      */
-    public function setInlinePaddingStr(string $inlinePaddingStr): Settings;
+    public function setInlineSpacer(string $inlineSpacer): Settings;
 
     /**
      * @return array

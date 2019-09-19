@@ -60,7 +60,7 @@ class SpinnerWithOutputTest extends TestCase
         ];
         $output = new BufferOutputAdapter();
         $settings = new Settings();
-        $settings->setInlinePaddingStr('');
+        $settings->setInlineSpacer('');
         $settings->setMessage(self::PROCESSING);
         $settings->setStyles($styles);
         $spinner = new NullSpinner($settings, $output, null);

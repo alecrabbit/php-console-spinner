@@ -172,7 +172,7 @@ class SpinnerTest extends TestCase
                 ],
         ];
         $settings = new Settings();
-        $settings->setInlinePaddingStr('');
+        $settings->setInlineSpacer('');
         $settings->setMessage(self::PROCESSING);
         $settings->setStyles($styles);
         $spinner = new NullSpinner($settings, false, COLOR256_TERMINAL);

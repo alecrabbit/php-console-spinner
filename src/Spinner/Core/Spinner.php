@@ -13,6 +13,7 @@ use AlecRabbit\Spinner\Core\Jugglers\MessageJuggler;
 use AlecRabbit\Spinner\Core\Jugglers\ProgressJuggler;
 use AlecRabbit\Spinner\Settings\Contracts\Defaults;
 use AlecRabbit\Spinner\Settings\Settings;
+use function AlecRabbit\Helpers\wcswidth;
 use const AlecRabbit\ESC;
 use const AlecRabbit\NO_COLOR_TERMINAL;
 
@@ -41,13 +42,13 @@ abstract class Spinner extends SpinnerCore
     /** @var string */
     protected $lastSpinnerString = self::EMPTY_STRING;
     /** @var string */
-    protected $inlinePaddingStr = self::EMPTY_STRING;
+    protected $inlineSpacer = self::EMPTY_STRING;
     /** @var bool */
     protected $hideCursor;
     /** @var int */
-    protected $inlinePaddingStrWidth;
+    protected $inlineSpacerWidth;
     /** @var string */
-    protected $inlinePaddingStrValue;
+    protected $spacerValue;
 
     /**
      * Spinner constructor.
@@ -63,8 +64,8 @@ abstract class Spinner extends SpinnerCore
         $this->interval = $this->settings->getInterval();
         $this->hideCursor = $this->settings->isHideCursor();
         $this->enabled = $this->settings->isEnabled();
-        $this->inlinePaddingStrValue = $this->settings->getInlinePaddingStr();
-        $this->updateInlinePaddingStrProperties();
+        $this->spacerValue = $this->settings->getInlineSpacer();
+        $this->updateInlineSpacerProperties();
         $this->coloring = new Colors($this->settings->getStyles(), $this->refineColor($color));
         $jugglerOrder = $this->settings->getJugglersOrder();
         $this->jugglers = [
@@ -133,10 +134,10 @@ abstract class Spinner extends SpinnerCore
         $showCursor = $this->hideCursor ? Cursor::show() : self::EMPTY_STRING;
         if ($this->output instanceof OutputInterface) {
             $this->erase();
-            $this->output->write($showCursor . $this->inlinePaddingStr . $finalMessage);
+            $this->output->write($showCursor . $this->inlineSpacer . $finalMessage);
             return self::EMPTY_STRING;
         }
-        return $this->erase() . $showCursor . $this->inlinePaddingStr . $finalMessage;
+        return $this->erase() . $showCursor . $this->inlineSpacer . $finalMessage;
     }
 
     /** {@inheritDoc} */
@@ -162,7 +163,7 @@ abstract class Spinner extends SpinnerCore
     public function inline(bool $inline): SpinnerInterface
     {
         $this->inline = $inline;
-        $this->updateInlinePaddingStrProperties();
+        $this->updateInlineSpacerProperties();
         return $this;
     }
 
@@ -239,10 +240,10 @@ abstract class Spinner extends SpinnerCore
                 $erasingWidth += $juggler->getFrameErasingWidth();
             }
         }
-        $erasingWidth += $this->inlinePaddingStrWidth;
+        $erasingWidth += $this->inlineSpacerWidth;
         $eraseTailBySpacesSequence = $this->calcEraseSequence($erasingWidth);
 
-        $str = $this->inlinePaddingStr . $str . $eraseTailBySpacesSequence . $this->moveCursorBackSequence;
+        $str = $this->inlineSpacer . $str . $eraseTailBySpacesSequence . $this->moveCursorBackSequence;
 //        dump(hrtime(true) - $start);
         return $str;
     }
@@ -261,10 +262,10 @@ abstract class Spinner extends SpinnerCore
             $this->lastSpinnerString;
     }
 
-    protected function updateInlinePaddingStrProperties(): void
+    protected function updateInlineSpacerProperties(): void
     {
-        $this->inlinePaddingStr = $this->inline ? $this->inlinePaddingStrValue : self::EMPTY_STRING;
-        $this->inlinePaddingStrWidth = $this->inline ? strlen($this->inlinePaddingStr) : 0;
+        $this->inlineSpacer = $this->inline ? $this->spacerValue : self::EMPTY_STRING;
+        $this->inlineSpacerWidth = $this->inline ? wcswidth($this->inlineSpacer) : 0;
     }
 
     /**

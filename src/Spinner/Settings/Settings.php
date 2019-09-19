@@ -100,16 +100,16 @@ class Settings implements SettingsInterface
     }
 
     /** {@inheritDoc} */
-    public function getInlinePaddingStr(): string
+    public function getInlineSpacer(): string
     {
         return
-            $this->properties[S::INLINE_PADDING_STR]->getValue();
+            $this->properties[S::INLINE_SPACER]->getValue();
     }
 
     /** {@inheritDoc} */
-    public function setInlinePaddingStr(string $inlinePaddingStr): self
+    public function setInlineSpacer(string $inlineSpacer): self
     {
-        $this->properties[S::INLINE_PADDING_STR]->setValue($inlinePaddingStr);
+        $this->properties[S::INLINE_SPACER]->setValue($inlineSpacer);
         return $this;
     }
 

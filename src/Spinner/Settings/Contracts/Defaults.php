@@ -24,7 +24,7 @@ interface Defaults
 
     public const DEFAULT_SETTINGS =
         [
-            S::INLINE_PADDING_STR => self::ONE_SPACE_SYMBOL,
+            S::INLINE_SPACER => self::ONE_SPACE_SYMBOL,
             S::INTERVAL => self::DEFAULT_INTERVAL,
             S::FRAMES => self::DEFAULT_FRAMES,
             S::ERASING_SHIFT => 0,

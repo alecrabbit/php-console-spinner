@@ -10,7 +10,7 @@ interface S
     public const MESSAGE = 'message';
     public const MESSAGE_ERASING_LENGTH = 'messageErasingLen';
     public const MESSAGE_SUFFIX = 'messageSuffix';
-    public const INLINE_PADDING_STR = 'inline_padding_str';
+    public const INLINE_SPACER = 'inline_spacer';
     public const FRAMES = 'frames';
     public const STYLES = 'styles';
     public const SPACER = 'spacer';
