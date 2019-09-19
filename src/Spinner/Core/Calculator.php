@@ -20,10 +20,10 @@ class Calculator
         foreach ($strings as $key => $string) {
             $length = self::computeErasingWidth($string);
             $widths[] = $length;
-            $strings[$key] = [$length, $string];
+//            $strings[$key] = [$length, $string]; // debug line
         }
         if (1 !== count(array_unique($widths))) {
-            // dump($strings);
+//             dump($strings); // debug line
             throw new \InvalidArgumentException('Strings have different erasing widths.');
         }
         return $widths[0];
