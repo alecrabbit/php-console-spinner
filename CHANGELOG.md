@@ -7,6 +7,9 @@
 ### Enhanced
 - `Strip::controlCodes` test
 
+### Fixed
+- `ProgressSpinner` test
+
 ### Removed
 - unused parameter
 - deprecated internal constant
