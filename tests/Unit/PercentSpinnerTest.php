@@ -50,13 +50,13 @@ class PercentSpinnerTest extends TestCase implements TestMessages
             if (!empty($additional)) {
                 [$progress, $message] = $additional;
                 if (false !== $progress) {
-                    $spinner->progress($progress);
+                    $spinner->spin($progress);
                 }
                 if (false !== $message) {
                     $spinner->message($message);
                 }
             }
-            $this->assertSame($spin, Helper::replaceEscape($spinner->spin()));
+            $this->assertSame($spin, Helper::replaceEscape($spinner->last()));
         }
         $this->assertSame($end, Helper::replaceEscape($spinner->end()));
     }
@@ -83,6 +83,14 @@ class PercentSpinnerTest extends TestCase implements TestMessages
                     [
                         '2%   \033[5D',
                         [0.02, self::COMPUTING],
+                    ],
+                    [
+                        '2% \033[3D',
+                        [0.02, self::COMPUTING],
+                    ],
+                    [
+                        '2% \033[3D',
+                        [null, self::COMPUTING],
                     ],
                     [
                         '3% \033[3D',
