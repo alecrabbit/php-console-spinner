@@ -5,6 +5,7 @@ namespace AlecRabbit\Spinner\Core;
 use AlecRabbit\Spinner\Core\Contracts\OutputInterface;
 use AlecRabbit\Spinner\Settings\Contracts\Defaults;
 use AlecRabbit\Spinner\Settings\Settings;
+use function AlecRabbit\Helpers\wcswidth;
 use function AlecRabbit\typeOf;
 
 /**
@@ -45,11 +46,11 @@ class Sentinel
      */
     public static function assertFrameLength(string $frame): void
     {
-        if (Defaults::MAX_FRAME_LENGTH < $length = mb_strwidth($frame)) {
+        if (Defaults::MAX_FRAME_WIDTH < $length = wcswidth($frame)) {
             throw new \InvalidArgumentException(
                 sprintf(
                     'Single frame max length [%s] exceeded [%s]',
-                    Defaults::MAX_FRAME_LENGTH,
+                    Defaults::MAX_FRAME_WIDTH,
                     $length
                 )
             );

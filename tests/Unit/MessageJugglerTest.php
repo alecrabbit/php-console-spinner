@@ -57,10 +57,10 @@ class MessageJugglerTest extends TestCase
                 \InvalidArgumentException::class,
                 sprintf(
                     'Single frame max length [%s] exceeded [%s]',
-                    Defaults::MAX_FRAME_LENGTH,
-                    Defaults::MAX_FRAME_LENGTH + 2
+                    Defaults::MAX_FRAME_WIDTH,
+                    Defaults::MAX_FRAME_WIDTH + 2
                 ),
-                ['1', str_repeat(' ', Defaults::MAX_FRAME_LENGTH + 2)],
+                ['1', str_repeat(' ', Defaults::MAX_FRAME_WIDTH + 2)],
             ],
         ];
     }
