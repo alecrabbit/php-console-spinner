@@ -1,6 +1,9 @@
 <a name="unreleased"></a>
 ## [Unreleased]
 
+### Rename
+- `lastSpinnerString` ➙ `lastOutput`
+
 
 <a name="0.50.0-BETA.0"></a>
 ## [0.50.0-BETA.0] - 2019-09-19
