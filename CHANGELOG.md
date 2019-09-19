@@ -8,7 +8,11 @@
 - `Strip::controlCodes` test
 
 ### Removed
+- unused parameter
 - deprecated internal constant
+
+### Renamed
+- `Length` ➙ `Width`
 
 
 <a name="0.42.0-BETA.0"></a>
