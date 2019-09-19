@@ -1,6 +1,15 @@
 <a name="unreleased"></a>
 ## [Unreleased]
 
+### Changed
+- internal API
+
+### Enhanced
+- `Strip::controlCodes` test
+
+### Removed
+- deprecated internal constant
+
 
 <a name="0.42.0-BETA.0"></a>
 ## [0.42.0-BETA.0] - 2019-09-18
