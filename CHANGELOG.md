@@ -12,6 +12,7 @@
 - deprecated internal constant
 
 ### Renamed
+- `PaddingStr` ➙ `Spacer`
 - `Length` ➙ `Width`
 
 
