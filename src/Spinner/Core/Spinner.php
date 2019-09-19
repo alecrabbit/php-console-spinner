@@ -33,7 +33,7 @@ abstract class Spinner extends SpinnerCore
     /** @var string */
     protected $eraseBySpacesSequence = self::EMPTY_STRING;
     /** @var int */
-    protected $previousErasingLength = 0;
+    protected $previousErasingWidth = 0;
     /** @var Colors */
     protected $coloring;
     /** @var null[]|JugglerInterface[] */
@@ -45,7 +45,7 @@ abstract class Spinner extends SpinnerCore
     /** @var bool */
     protected $hideCursor;
     /** @var int */
-    protected $inlinePaddingStrLength;
+    protected $inlinePaddingStrWidth;
     /** @var string */
     protected $inlinePaddingStrValue;
 
@@ -232,15 +232,15 @@ abstract class Spinner extends SpinnerCore
     {
 //        $start = hrtime(true);
         $str = '';
-        $erasingLength = 0;
+        $erasingWidth = 0;
         foreach ($this->jugglers as $juggler) {
             if ($juggler instanceof JugglerInterface) {
                 $str .= $juggler->getStyledFrame();
-                $erasingLength += $juggler->getFrameErasingWidth();
+                $erasingWidth += $juggler->getFrameErasingWidth();
             }
         }
-        $erasingLength += $this->inlinePaddingStrLength;
-        $eraseTailBySpacesSequence = $this->calcEraseSequence($erasingLength);
+        $erasingWidth += $this->inlinePaddingStrWidth;
+        $eraseTailBySpacesSequence = $this->calcEraseSequence($erasingWidth);
 
         $str = $this->inlinePaddingStr . $str . $eraseTailBySpacesSequence . $this->moveCursorBackSequence;
 //        dump(hrtime(true) - $start);
@@ -264,26 +264,26 @@ abstract class Spinner extends SpinnerCore
     protected function updateInlinePaddingStrProperties(): void
     {
         $this->inlinePaddingStr = $this->inline ? $this->inlinePaddingStrValue : self::EMPTY_STRING;
-        $this->inlinePaddingStrLength = $this->inline ? strlen($this->inlinePaddingStr) : 0;
+        $this->inlinePaddingStrWidth = $this->inline ? strlen($this->inlinePaddingStr) : 0;
     }
 
     /**
-     * @param int $erasingLength
+     * @param int $erasingWidth
      * @return string
      */
-    protected function calcEraseSequence(int $erasingLength): string
+    protected function calcEraseSequence(int $erasingWidth): string
     {
         $eraseTailBySpacesSequence = '';
 
-        $erasingLengthDelta = $this->previousErasingLength - $erasingLength;
-        $this->previousErasingLength = $erasingLength;
+        $erasingWidthDelta = $this->previousErasingWidth - $erasingWidth;
+        $this->previousErasingWidth = $erasingWidth;
 
-        if ($erasingLengthDelta > 0) {
-            $erasingLength += $erasingLengthDelta;
-            $eraseTailBySpacesSequence = str_repeat(Defaults::ONE_SPACE_SYMBOL, $erasingLengthDelta);
+        if ($erasingWidthDelta > 0) {
+            $erasingWidth += $erasingWidthDelta;
+            $eraseTailBySpacesSequence = str_repeat(Defaults::ONE_SPACE_SYMBOL, $erasingWidthDelta);
         }
-        $this->eraseBySpacesSequence = str_repeat(Defaults::ONE_SPACE_SYMBOL, $erasingLength);
-        $this->moveCursorBackSequence = ESC . "[{$erasingLength}D";
+        $this->eraseBySpacesSequence = str_repeat(Defaults::ONE_SPACE_SYMBOL, $erasingWidth);
+        $this->moveCursorBackSequence = ESC . "[{$erasingWidth}D";
 
         return $eraseTailBySpacesSequence;
     }

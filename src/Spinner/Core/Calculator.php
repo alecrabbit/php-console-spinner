@@ -18,9 +18,9 @@ class Calculator
         }
         $widths = [];
         foreach ($strings as $key => $string) {
-            $length = self::computeErasingWidth($string);
-            $widths[] = $length;
-//            $strings[$key] = [$length, $string]; // debug line
+            $width = self::computeErasingWidth($string);
+            $widths[] = $width;
+//            $strings[$key] = [$width, $string]; // debug line
         }
         if (1 !== count(array_unique($widths))) {
 //             dump($strings); // debug line
