@@ -10,7 +10,6 @@ interface Defaults
 {
     public const ONE_SPACE_SYMBOL = ' ';
     public const EMPTY_STRING = '';
-    public const DEFAULT_PREFIX = self::EMPTY_STRING; // Deprecated
     public const DEFAULT_SUFFIX = self::DOTS_SUFFIX;
     public const DOTS_SUFFIX = '...';
     public const ELLIPSIS = '…';
