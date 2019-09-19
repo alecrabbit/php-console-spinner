@@ -7,6 +7,7 @@ use AlecRabbit\Spinner\Core\Coloring\Style;
 use AlecRabbit\Spinner\Core\Jugglers\Contracts\JugglerInterface;
 use AlecRabbit\Spinner\Settings\Contracts\Defaults;
 use AlecRabbit\Spinner\Settings\Settings;
+use function AlecRabbit\Helpers\wcswidth;
 
 abstract class AbstractJuggler implements JugglerInterface
 {
@@ -16,14 +17,14 @@ abstract class AbstractJuggler implements JugglerInterface
      * @var int
      * @psalm-suppress PropertyNotSetInConstructor
      */
-    protected $currentFrameErasingLength;
+    protected $currentFrameErasingWidth;
     /**
      * @var Circular
      * @psalm-suppress PropertyNotSetInConstructor
      */
     protected $style;
     /** @var int */
-    protected $formatErasingShift = 0;
+    protected $formatErasingWidthShift = 0;
 
     /**
      * @param Settings $settings
@@ -34,7 +35,7 @@ abstract class AbstractJuggler implements JugglerInterface
     /** {@inheritDoc} */
     public function getFrameErasingLength(): int
     {
-        return $this->currentFrameErasingLength;
+        return $this->currentFrameErasingWidth;
     }
 
     /** {@inheritDoc} */
@@ -55,7 +56,7 @@ abstract class AbstractJuggler implements JugglerInterface
     protected function init(Style $style): void
     {
         $this->style = $style->getStyle();
-        $this->formatErasingShift = $this->calcFormatErasingShift($style->getFormat());
+        $this->formatErasingWidthShift = $this->computeFormatErasingWidthShift($style->getFormat());
         $this->spacer = $style->getSpacer();
     }
 
@@ -63,8 +64,8 @@ abstract class AbstractJuggler implements JugglerInterface
      * @param string $format
      * @return int
      */
-    protected function calcFormatErasingShift(string $format): int
+    protected function computeFormatErasingWidthShift(string $format): int
     {
-        return strlen(sprintf($format, ''));
+        return wcswidth(sprintf($format, ''));
     }
 }

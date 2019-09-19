@@ -16,7 +16,7 @@ class CalculatorTest extends TestCase
      */
     public function values(int $expected, array $given): void
     {
-        $this->assertEquals($expected, Calculator::computeErasingLengths($given));
+        $this->assertEquals($expected, Calculator::computeErasingWidths($given));
     }
 
     /**
@@ -27,7 +27,7 @@ class CalculatorTest extends TestCase
      */
     public function strings(int $expected, array $given): void
     {
-        $this->assertEquals($expected, Calculator::computeErasingLengths($given));
+        $this->assertEquals($expected, Calculator::computeErasingWidths($given));
     }
 
     /** @test */
@@ -35,7 +35,7 @@ class CalculatorTest extends TestCase
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('Strings have different erasing lengths');
-        $this->assertEquals(0, Calculator::computeErasingLengths(['1', '22']));
+        $this->assertEquals(0, Calculator::computeErasingWidths(['1', '22']));
     }
 
     public function valuesDataProvider(): array

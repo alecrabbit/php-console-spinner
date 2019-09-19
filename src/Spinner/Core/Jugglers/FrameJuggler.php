@@ -19,8 +19,8 @@ class FrameJuggler extends AbstractJuggler
         Sentinel::assertFrames($frames);
         $this->frames = new Circular($frames);
         $this->init($style);
-        $this->currentFrameErasingLength =
-            Calculator::computeErasingLengths($frames) + mb_strwidth($this->spacer) + $this->formatErasingShift;
+        $this->currentFrameErasingWidth =
+            Calculator::computeErasingWidths($frames) + mb_strwidth($this->spacer) + $this->formatErasingWidthShift;
     }
 
     /**
