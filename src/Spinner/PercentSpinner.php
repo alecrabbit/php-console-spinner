@@ -37,7 +37,7 @@ class PercentSpinner extends Spinner
     }
 
     /** {@inheritDoc} */
-    public function message(?string $message = null, ?int $erasingLength = null): Spinner
+    public function message(?string $message = null): Spinner
     {
         return $this;
     }
