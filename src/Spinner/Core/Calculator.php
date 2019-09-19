@@ -16,17 +16,17 @@ class Calculator
         if (empty($strings)) {
             return 0;
         }
-        $lengths = [];
+        $widths = [];
         foreach ($strings as $key => $string) {
             $length = self::computeErasingWidth($string);
-            $lengths[] = $length;
+            $widths[] = $length;
             $strings[$key] = [$length, $string];
         }
-        if (1 !== count(array_unique($lengths))) {
+        if (1 !== count(array_unique($widths))) {
             // dump($strings);
             throw new \InvalidArgumentException('Strings have different erasing widths.');
         }
-        return $lengths[0];
+        return $widths[0];
     }
 
     /**
