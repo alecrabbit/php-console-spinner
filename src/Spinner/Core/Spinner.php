@@ -40,7 +40,7 @@ abstract class Spinner extends SpinnerCore
     /** @var null[]|JugglerInterface[] */
     protected $jugglers = [];
     /** @var string */
-    protected $lastSpinnerString = self::EMPTY_STRING;
+    protected $lastOutput = self::EMPTY_STRING;
     /** @var string */
     protected $inlineSpacer = self::EMPTY_STRING;
     /** @var bool */
@@ -224,12 +224,12 @@ abstract class Spinner extends SpinnerCore
         if (!$this->enabled) {
             return self::EMPTY_STRING;
         }
-        $this->lastSpinnerString = $this->prepareLastSpinnerString();
+        $this->lastOutput = $this->prepareLastOutput();
         return
             $this->last();
     }
 
-    protected function prepareLastSpinnerString(): string
+    protected function prepareLastOutput(): string
     {
 //        $start = hrtime(true);
         $str = '';
@@ -255,11 +255,11 @@ abstract class Spinner extends SpinnerCore
             return self::EMPTY_STRING;
         }
         if ($this->output instanceof OutputInterface) {
-            $this->output->write($this->lastSpinnerString);
+            $this->output->write($this->lastOutput);
             return self::EMPTY_STRING;
         }
         return
-            $this->lastSpinnerString;
+            $this->lastOutput;
     }
 
     protected function updateInlineSpacerProperties(): void
