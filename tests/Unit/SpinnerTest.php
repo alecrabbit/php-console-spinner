@@ -192,7 +192,7 @@ class SpinnerTest extends TestCase
             Helper::replaceEscape($spinner->spin())
         );
         $this->assertEquals(
-            Helper::replaceEscape("              \033[14D\033[?25h"),
+            Helper::replaceEscape("\033[14X\033[?25h"),
             Helper::replaceEscape($spinner->end())
         );
     }
@@ -221,7 +221,7 @@ class SpinnerTest extends TestCase
             Helper::replaceEscape($spinner->spin())
         );
         $this->assertEquals(
-            Helper::replaceEscape("\033[0D\033[?25h"),
+            Helper::replaceEscape("\033[0X\033[?25h"),
             Helper::replaceEscape($spinner->end())
         );
     }
@@ -296,15 +296,15 @@ class SpinnerTest extends TestCase
         );
 
         $this->assertEquals(
-            Helper::replaceEscape("                     \033[21D"),
+            Helper::replaceEscape("\033[21X"),
             Helper::replaceEscape($spinner->erase())
         );
         $this->assertEquals(
-            Helper::replaceEscape("                     \033[21D\033[?25h"),
+            Helper::replaceEscape("\033[21X\033[?25h"),
             Helper::replaceEscape($spinner->end())
         );
-        $this->assertEquals("                     \033[21D", $spinner->erase());
-        $this->assertEquals("                     \033[21D\033[?25h", $spinner->end());
+        $this->assertEquals("\033[21X", $spinner->erase());
+        $this->assertEquals("\033[21X\033[?25h", $spinner->end());
     }
 
     /** @test */
@@ -381,15 +381,15 @@ class SpinnerTest extends TestCase
         );
 
         $this->assertEquals(
-            Helper::replaceEscape("                     \033[21D"),
+            Helper::replaceEscape("\033[21X"),
             Helper::replaceEscape($spinner->erase())
         );
         $this->assertEquals(
-            Helper::replaceEscape("                     \033[21D\033[?25h"),
+            Helper::replaceEscape("\033[21X\033[?25h"),
             Helper::replaceEscape($spinner->end())
         );
-        $this->assertEquals("                     \033[21D", $spinner->erase());
-        $this->assertEquals("                     \033[21D\033[?25h", $spinner->end());
+        $this->assertEquals("\033[21X", $spinner->erase());
+        $this->assertEquals("\033[21X\033[?25h", $spinner->end());
     }
 
     /** @test */
@@ -472,15 +472,15 @@ class SpinnerTest extends TestCase
                 Helper::replaceEscape($spinner->spin())
             );
             $this->assertEquals(
-                Helper::replaceEscape("                     \033[21D"),
+                Helper::replaceEscape("\033[21X"),
                 Helper::replaceEscape($spinner->erase())
             );
             $this->assertEquals(
-                Helper::replaceEscape("                     \033[21D\033[?25h"),
+                Helper::replaceEscape("\033[21X\033[?25h"),
                 Helper::replaceEscape($spinner->end())
             );
-            $this->assertEquals("                     \033[21D", $spinner->erase());
-            $this->assertEquals("                     \033[21D\033[?25h", $spinner->end());
+            $this->assertEquals("\033[21X", $spinner->erase());
+            $this->assertEquals("\033[21X\033[?25h", $spinner->end());
         }
     }
 
@@ -552,14 +552,14 @@ class SpinnerTest extends TestCase
         );
 
         $this->assertEquals(
-            Helper::replaceEscape("                     \033[21D"),
+            Helper::replaceEscape("\033[21X"),
             Helper::replaceEscape($spinner->erase())
         );
         $this->assertEquals(
-            Helper::replaceEscape("                     \033[21D\033[?25h"),
+            Helper::replaceEscape("\033[21X\033[?25h"),
             Helper::replaceEscape($spinner->end())
         );
-        $this->assertEquals("                     \033[21D", $spinner->erase());
-        $this->assertEquals("                     \033[21D\033[?25h", $spinner->end());
+        $this->assertEquals("\033[21X", $spinner->erase());
+        $this->assertEquals("\033[21X\033[?25h", $spinner->end());
     }
 }
