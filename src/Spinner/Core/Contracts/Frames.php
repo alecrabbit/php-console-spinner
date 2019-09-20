@@ -346,6 +346,8 @@ interface Frames
     public const DICE = ['⚀', '⚁', '⚂', '⚃', '⚄', '⚅',];
 
     public const ARROWS = ['➙', '➘', '➙', '➚',];
+    public const ARROWS_VARIANT_4 = ['←', '↖', '↑', '↗', '→', '↘', '↓', '↙',];
+    public const ARROWS_VARIANT_5 = ['⇐', '⇖', '⇑', '⇗', '⇒', '⇘', '⇓', '⇙',];
     public const TREE = ['🌲', '🎄',];
 
 

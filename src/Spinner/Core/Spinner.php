@@ -11,7 +11,6 @@ use AlecRabbit\Spinner\Core\Jugglers\Contracts\JugglerInterface;
 use AlecRabbit\Spinner\Core\Jugglers\FrameJuggler;
 use AlecRabbit\Spinner\Core\Jugglers\MessageJuggler;
 use AlecRabbit\Spinner\Core\Jugglers\ProgressJuggler;
-use AlecRabbit\Spinner\Settings\Contracts\Defaults;
 use AlecRabbit\Spinner\Settings\Settings;
 use function AlecRabbit\Helpers\wcswidth;
 use const AlecRabbit\ESC;
@@ -75,6 +74,12 @@ abstract class Spinner extends SpinnerCore
         ];
         ksort($this->jugglers);
         $this->initJugglers();
+    }
+
+    protected function updateInlineSpacerProperties(): void
+    {
+        $this->inlineSpacer = $this->inline ? $this->spacerValue : self::EMPTY_STRING;
+        $this->inlineSpacerWidth = $this->inline ? wcswidth($this->inlineSpacer) : 0;
     }
 
     /**
@@ -250,26 +255,6 @@ abstract class Spinner extends SpinnerCore
         return $str;
     }
 
-    /** {@inheritDoc} */
-    public function last(): string
-    {
-        if (!$this->enabled) {
-            return self::EMPTY_STRING;
-        }
-        if ($this->output instanceof OutputInterface) {
-            $this->output->write($this->lastOutput);
-            return self::EMPTY_STRING;
-        }
-        return
-            $this->lastOutput;
-    }
-
-    protected function updateInlineSpacerProperties(): void
-    {
-        $this->inlineSpacer = $this->inline ? $this->spacerValue : self::EMPTY_STRING;
-        $this->inlineSpacerWidth = $this->inline ? wcswidth($this->inlineSpacer) : 0;
-    }
-
     /**
      * @param int $erasingWidth
      * @return string
@@ -292,5 +277,19 @@ abstract class Spinner extends SpinnerCore
         $this->moveCursorBackSequence = ESC . "[{$erasingWidth}D";
 
         return $eraseTailBySpacesSequence;
+    }
+
+    /** {@inheritDoc} */
+    public function last(): string
+    {
+        if (!$this->enabled) {
+            return self::EMPTY_STRING;
+        }
+        if ($this->output instanceof OutputInterface) {
+            $this->output->write($this->lastOutput);
+            return self::EMPTY_STRING;
+        }
+        return
+            $this->lastOutput;
     }
 }
