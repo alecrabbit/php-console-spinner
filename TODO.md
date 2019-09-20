@@ -1,4 +1,5 @@
 
+- [ ] Fix tests
 - [ ] Optimize performance
 <<<<<<< to_merge
 - [ ] Change color model
