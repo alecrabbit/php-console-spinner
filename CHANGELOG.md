@@ -13,6 +13,15 @@
 
 <a name="0.50.1-BETA.0"></a>
 ## [0.50.1-BETA.0] - 2019-09-19
+### Changed
+- erasing now done by `\e[<n>X` ANSI code
+
+### Todo
+- fix tests
+
+
+<a name="0.50.1-BETA.0"></a>
+## [0.50.1-BETA.0] - 2019-09-19
 ### Rename
 - `lastSpinnerString` ➙ `lastOutput`
 
