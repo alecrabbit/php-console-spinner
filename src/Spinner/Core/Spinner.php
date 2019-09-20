@@ -280,9 +280,12 @@ abstract class Spinner extends SpinnerCore
         $this->previousErasingWidth = $erasingWidth;
 
         if ($erasingWidthDelta > 0) {
-            $erasingWidth += $erasingWidthDelta;
-            $eraseTailBySpacesSequence = str_repeat(Defaults::ONE_SPACE_SYMBOL, $erasingWidthDelta);
+//            $erasingWidth += $erasingWidthDelta;
+            // symbols erased but cursor does not move so no need to increment $erasingWidth
+            $eraseTailBySpacesSequence = ESC . "[{$erasingWidthDelta}X";
+//            $eraseTailBySpacesSequence = str_repeat(Defaults::ONE_SPACE_SYMBOL, $erasingWidthDelta);
         }
+//        $this->eraseBySpacesSequence = ESC . "[{$erasingWidth}X";  // refactoring needed
         $this->eraseBySpacesSequence = str_repeat(Defaults::ONE_SPACE_SYMBOL, $erasingWidth);
         $this->moveCursorBackSequence = ESC . "[{$erasingWidth}D";
 
