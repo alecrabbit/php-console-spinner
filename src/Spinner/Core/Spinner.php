@@ -146,12 +146,14 @@ abstract class Spinner extends SpinnerCore
         if (!$this->enabled) {
             return self::EMPTY_STRING;
         }
-        $str = $this->eraseBySpacesSequence . $this->moveCursorBackSequence;
+//        $str = $this->eraseBySpacesSequence . $this->moveCursorBackSequence;
         if ($this->output instanceof OutputInterface) {
-            $this->output->write($str);
+            $this->output->write($this->eraseBySpacesSequence);
+//            $this->output->write($str);
             return self::EMPTY_STRING;
         }
-        return $str;
+        return $this->eraseBySpacesSequence;
+//        return $str;
     }
 
     /** {@inheritDoc} */
@@ -285,8 +287,8 @@ abstract class Spinner extends SpinnerCore
             $eraseTailBySpacesSequence = ESC . "[{$erasingWidthDelta}X";
 //            $eraseTailBySpacesSequence = str_repeat(Defaults::ONE_SPACE_SYMBOL, $erasingWidthDelta);
         }
-//        $this->eraseBySpacesSequence = ESC . "[{$erasingWidth}X";  // refactoring needed
-        $this->eraseBySpacesSequence = str_repeat(Defaults::ONE_SPACE_SYMBOL, $erasingWidth);
+        $this->eraseBySpacesSequence = ESC . "[{$erasingWidth}X";  // refactoring needed
+//        $this->eraseBySpacesSequence = str_repeat(Defaults::ONE_SPACE_SYMBOL, $erasingWidth);
         $this->moveCursorBackSequence = ESC . "[{$erasingWidth}D";
 
         return $eraseTailBySpacesSequence;
