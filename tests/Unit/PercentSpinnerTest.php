@@ -81,7 +81,7 @@ class PercentSpinnerTest extends TestCase implements TestMessages
                     ['2% \033[3D', [0.02, false]],
                     ['100% \033[5D', [1, false]],
                     [
-                        '2%   \033[5D',
+                        '2% \033[2X\033[3D',
                         [0.02, self::COMPUTING],
                     ],
                     [
@@ -98,7 +98,7 @@ class PercentSpinnerTest extends TestCase implements TestMessages
                     ],
                     ['3% \033[3D', []],
                 ],
-                '   \033[3D\033[?25h',
+                '\033[3X\033[?25h',
             ],
         ];
     }
