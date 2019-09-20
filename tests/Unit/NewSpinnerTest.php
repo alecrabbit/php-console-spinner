@@ -60,7 +60,7 @@ class NewSpinnerTest extends TestCase implements TestMessages
                     ['3 ' . self::PROCESSING . Defaults::DOTS_SUFFIX . ' 0% \033[19D', [0, false]],
                     ['4 ' . self::PROCESSING . Defaults::DOTS_SUFFIX . ' 2% \033[19D', [0.02, false]],
                     [
-                        '1 ' . ucfirst(self::COMPUTING) . Defaults::DOTS_SUFFIX . ' 2%  \033[19D',
+                        '1 ' . ucfirst(self::COMPUTING) . Defaults::DOTS_SUFFIX . ' 2% \033[1X\033[18D',
                         [0.02, self::COMPUTING],
                     ],
                     [
@@ -69,7 +69,7 @@ class NewSpinnerTest extends TestCase implements TestMessages
                     ],
                     ['3 ' . ucfirst(self::COMPUTING) . Defaults::DOTS_SUFFIX . ' 3% \033[18D', []],
                 ],
-                '                  \033[18D\033[?25h',
+                '\033[18X\033[?25h',
             ],
             [
                 [
@@ -95,10 +95,10 @@ class NewSpinnerTest extends TestCase implements TestMessages
                         [0.03, self::COMPUTING],
                     ],
                     ['3 ' . ucfirst(self::COMPUTING) . Defaults::DOTS_SUFFIX . ' 3% \033[18D', []],
-                    ['4 10%             \033[18D', [0.1, null]],
+                    ['4 10% \033[12X\033[6D', [0.1, null]],
                     ['1 10% \033[6D', [0.1, null]],
                 ],
-                '      \033[6D\033[?25h',
+                '\033[6X\033[?25h',
             ],
         ];
     }
