@@ -60,16 +60,16 @@ class ClockSpinnerTest extends TestCase
 
 
         $this->assertEquals(
-            Helper::replaceEscape("                 \033[17D"),
+            Helper::replaceEscape("\033[17X"),
             Helper::replaceEscape($spinner->erase())
         );
         $this->assertEquals(
-            Helper::replaceEscape("                 \033[17D\033[?25h"),
+            Helper::replaceEscape("\e[17X\033[?25h"),
             Helper::replaceEscape($spinner->end())
         );
-        $this->assertEquals("                 \033[17D", $spinner->erase());
+        $this->assertEquals("\e[17X", $spinner->erase());
         $this->assertEquals(
-            "                 \033[17D\033[?25h",
+            "\e[17X\033[?25h",
             $spinner->end()
         );
     }

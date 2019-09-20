@@ -43,18 +43,18 @@ class SpinnerConsistencyTest extends TestCase
         );
         $spinner->message(null);
         $this->assertEquals(
-            '2 10%                                       \033[44D',
+            '2 10% \033[38X\033[6D',
             Helper::replaceEscape($spinner->spin())
         );
         $this->assertEquals('3 10% \033[6D', Helper::replaceEscape($spinner->spin()));
         $this->assertEquals('4 10% \033[6D', Helper::replaceEscape($spinner->spin()));
         $spinner->progress(null);
-        $this->assertEquals('1     \033[6D', Helper::replaceEscape($spinner->spin()));
+        $this->assertEquals('1 \033[4X\033[2D', Helper::replaceEscape($spinner->spin()));
         $this->assertEquals('2 \033[2D', Helper::replaceEscape($spinner->spin()));
         $spinner->message(self::PROCESSING);
         $this->assertEquals('3 Processing... \033[16D', Helper::replaceEscape($spinner->spin()));
         $this->assertEquals(
-            '                \033[16D\033[?25h',
+            '\033[16X\033[?25h',
             Helper::replaceEscape($spinner->end())
         );
     }
