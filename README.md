@@ -89,7 +89,9 @@ composer require alecrabbit/php-console-spinner
 
 ### Operating Systems 
 
-> Windows support is NOT tested, but it should work in VT100 terminal.
+- Developed and tested on Ubuntu 18.04
+
+> Windows support is NOT tested, but it should work in any VT100 terminal, e.g. [minTTY](https://github.com/mintty/mintty).
 
 ### Links
 
