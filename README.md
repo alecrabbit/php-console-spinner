@@ -25,7 +25,7 @@ Spinner - your task is running
 - separated color settings for spinner, messages and progress indicator
 - has `disable()` and `enable()` methods 
 - hides cursor on `$spinner->begin()`, shows on `$spinner->end()`
-- cursor hide can be disabled `$settings->doNotHideCursor()` 
+- cursor hide can be disabled `$settings->setHideCursor(false)` 
 - has `erase()` method
 - final message `$spinner->end('final message')`
 - supports unix pipe `|` and redirect `>` output
