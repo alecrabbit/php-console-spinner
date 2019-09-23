@@ -62,7 +62,7 @@
 | Visibility | Function |
 |:-----------|:---------|
 | public | <strong>begin(</strong><em>\float</em> <strong>$percent=null</strong>)</strong> : <em>void</em> |
-| public | <strong>message(</strong><em>\string</em> <strong>$message=null</strong>, <em>\int</em> <strong>$erasingLength=null</strong>)</strong> : <em>void</em> |
+| public | <strong>message(</strong><em>\string</em> <strong>$message=null</strong>)</strong> : <em>void</em> |
 | public | <strong>spin(</strong><em>\float</em> <strong>$percent=null</strong>)</strong> : <em>void</em> |
 
 *This class extends [\AlecRabbit\Spinner\Core\Spinner](#class-alecrabbitspinnercorespinner-abstract)*
@@ -244,7 +244,7 @@
 | Visibility | Function |
 |:-----------|:---------|
 | public static | <strong>assertFrame(</strong><em>mixed</em> <strong>$frame</strong>)</strong> : <em>void</em> |
-| public static | <strong>assertFrameLength(</strong><em>\string</em> <strong>$frame</strong>)</strong> : <em>void</em> |
+| public static | <strong>assertFrameWidth(</strong><em>\string</em> <strong>$frame</strong>)</strong> : <em>void</em> |
 | public static | <strong>assertFrames(</strong><em>array</em> <strong>$frames</strong>)</strong> : <em>void</em> |
 | public static | <strong>assertJugglersOrder(</strong><em>array</em> <strong>$order</strong>)</strong> : <em>void</em> |
 | public static | <strong>assertOutput(</strong><em>mixed</em> <strong>$output</strong>)</strong> : <em>void</em> |
@@ -267,13 +267,13 @@
 | public | <strong>message(</strong><em>\string</em> <strong>$message</strong>)</strong> : <em>void</em> |
 | public | <strong>progress(</strong><em>\float</em> <strong>$percent</strong>)</strong> : <em>void</em> |
 | public | <strong>spin()</strong> : <em>void</em> |
-| protected | <strong>calcEraseSequence(</strong><em>\int</em> <strong>$erasingLength</strong>)</strong> : <em>string</em> |
+| protected | <strong>calcEraseSequence(</strong><em>\int</em> <strong>$erasingWidth</strong>)</strong> : <em>string</em> |
 | protected | <strong>initJugglers()</strong> : <em>void</em> |
-| protected | <strong>prepareLastSpinnerString()</strong> : <em>void</em> |
+| protected | <strong>prepareLastOutput()</strong> : <em>void</em> |
 | protected | <strong>refineColor(</strong><em>null/int/\int</em> <strong>$color</strong>)</strong> : <em>int</em> |
 | protected | <strong>setMessage(</strong><em>null/string/\string</em> <strong>$message</strong>)</strong> : <em>void</em> |
 | protected | <strong>setProgress(</strong><em>\float</em> <strong>$percent=null</strong>)</strong> : <em>void</em> |
-| protected | <strong>updateInlinePaddingStrProperties()</strong> : <em>void</em> |
+| protected | <strong>updateInlineSpacerProperties()</strong> : <em>void</em> |
 
 *This class extends [\AlecRabbit\Spinner\Core\SpinnerCore](#class-alecrabbitspinnercorespinnercore-abstract)*
 
@@ -301,8 +301,8 @@
 
 | Visibility | Function |
 |:-----------|:---------|
-| public static | <strong>computeErasingLength(</strong><em>null/string/\string</em> <strong>$in</strong>)</strong> : <em>int</em> |
-| public static | <strong>computeErasingLengths(</strong><em>array</em> <strong>$strings</strong>)</strong> : <em>int</em> |
+| public static | <strong>computeErasingWidth(</strong><em>null/string/\string</em> <strong>$in</strong>)</strong> : <em>int</em> |
+| public static | <strong>computeErasingWidths(</strong><em>array</em> <strong>$strings</strong>)</strong> : <em>int</em> |
 
 <hr />
 
@@ -486,9 +486,9 @@
 | Visibility | Function |
 |:-----------|:---------|
 | public | <strong>abstract __construct(</strong><em>[\AlecRabbit\Spinner\Settings\Settings](#class-alecrabbitspinnersettingssettings)</em> <strong>$settings</strong>, <em>[\AlecRabbit\Spinner\Core\Coloring\Style](#class-alecrabbitspinnercorecoloringstyle)</em> <strong>$style</strong>)</strong> : <em>void</em> |
-| public | <strong>getFrameErasingLength()</strong> : <em>mixed</em> |
+| public | <strong>getFrameErasingWidth()</strong> : <em>mixed</em> |
 | public | <strong>getStyledFrame()</strong> : <em>mixed</em> |
-| protected | <strong>calcFormatErasingShift(</strong><em>\string</em> <strong>$format</strong>)</strong> : <em>int</em> |
+| protected | <strong>computeFormatErasingWidthShift(</strong><em>\string</em> <strong>$format</strong>)</strong> : <em>int</em> |
 | protected | <strong>abstract getCurrentFrame()</strong> : <em>string</em> |
 | protected | <strong>init(</strong><em>[\AlecRabbit\Spinner\Core\Coloring\Style](#class-alecrabbitspinnercorecoloringstyle)</em> <strong>$style</strong>)</strong> : <em>void</em> |
 
@@ -515,7 +515,7 @@
 
 | Visibility | Function |
 |:-----------|:---------|
-| public | <strong>getFrameErasingLength()</strong> : <em>int</em> |
+| public | <strong>getFrameErasingWidth()</strong> : <em>int</em> |
 | public | <strong>getStyledFrame()</strong> : <em>string</em> |
 
 <hr />
@@ -527,7 +527,7 @@
 | public | <strong>__construct()</strong> : <em>void</em> |
 | public | <strong>getFrames()</strong> : <em>mixed</em> |
 | public | <strong>getInitialPercent()</strong> : <em>mixed</em> |
-| public | <strong>getInlinePaddingStr()</strong> : <em>mixed</em> |
+| public | <strong>getInlineSpacer()</strong> : <em>mixed</em> |
 | public | <strong>getInterval()</strong> : <em>mixed</em> |
 | public | <strong>getJugglersOrder()</strong> : <em>mixed</em> |
 | public | <strong>getMessage()</strong> : <em>mixed</em> |
@@ -541,7 +541,7 @@
 | public | <strong>setFrames(</strong><em>array</em> <strong>$frames</strong>)</strong> : <em>void</em> |
 | public | <strong>setHideCursor(</strong><em>bool</em> <strong>$value=true</strong>)</strong> : <em>void</em> |
 | public | <strong>setInitialPercent(</strong><em>\float</em> <strong>$percent</strong>)</strong> : <em>void</em> |
-| public | <strong>setInlinePaddingStr(</strong><em>\string</em> <strong>$inlinePaddingStr</strong>)</strong> : <em>void</em> |
+| public | <strong>setInlineSpacer(</strong><em>\string</em> <strong>$inlineSpacer</strong>)</strong> : <em>void</em> |
 | public | <strong>setInterval(</strong><em>\float</em> <strong>$interval</strong>)</strong> : <em>void</em> |
 | public | <strong>setJugglersOrder(</strong><em>array</em> <strong>$order</strong>)</strong> : <em>void</em> |
 | public | <strong>setMessage(</strong><em>\string</em> <strong>$message</strong>)</strong> : <em>void</em> |
@@ -571,7 +571,7 @@
 |:-----------|:---------|
 | public | <strong>getFrames()</strong> : <em>array</em> |
 | public | <strong>getInitialPercent()</strong> : <em>null/float</em> |
-| public | <strong>getInlinePaddingStr()</strong> : <em>string</em> |
+| public | <strong>getInlineSpacer()</strong> : <em>string</em> |
 | public | <strong>getInterval()</strong> : <em>float</em> |
 | public | <strong>getJugglersOrder()</strong> : <em>array</em> |
 | public | <strong>getMessage()</strong> : <em>null/string</em> |
@@ -585,7 +585,7 @@
 | public | <strong>setFrames(</strong><em>array</em> <strong>$frames</strong>)</strong> : <em>[\AlecRabbit\Spinner\Settings\Settings](#class-alecrabbitspinnersettingssettings)</em> |
 | public | <strong>setHideCursor(</strong><em>bool</em> <strong>$value=true</strong>)</strong> : <em>[\AlecRabbit\Spinner\Settings\Settings](#class-alecrabbitspinnersettingssettings)</em> |
 | public | <strong>setInitialPercent(</strong><em>null/float/\float</em> <strong>$percent</strong>)</strong> : <em>[\AlecRabbit\Spinner\Settings\Settings](#class-alecrabbitspinnersettingssettings)</em> |
-| public | <strong>setInlinePaddingStr(</strong><em>\string</em> <strong>$inlinePaddingStr</strong>)</strong> : <em>[\AlecRabbit\Spinner\Settings\Settings](#class-alecrabbitspinnersettingssettings)</em> |
+| public | <strong>setInlineSpacer(</strong><em>\string</em> <strong>$inlineSpacer</strong>)</strong> : <em>[\AlecRabbit\Spinner\Settings\Settings](#class-alecrabbitspinnersettingssettings)</em> |
 | public | <strong>setInterval(</strong><em>\float</em> <strong>$interval</strong>)</strong> : <em>[\AlecRabbit\Spinner\Settings\Settings](#class-alecrabbitspinnersettingssettings)</em> |
 | public | <strong>setJugglersOrder(</strong><em>array</em> <strong>$order</strong>)</strong> : <em>[\AlecRabbit\Spinner\Settings\Settings](#class-alecrabbitspinnersettingssettings)</em> |
 | public | <strong>setMessage(</strong><em>\string</em> <strong>$message</strong>)</strong> : <em>[\AlecRabbit\Spinner\Settings\Settings](#class-alecrabbitspinnersettingssettings)</em> |
