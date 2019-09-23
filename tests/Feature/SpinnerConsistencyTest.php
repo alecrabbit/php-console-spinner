@@ -54,7 +54,7 @@ class SpinnerConsistencyTest extends TestCase
         $spinner->message(self::PROCESSING);
         $this->assertEquals('3 Processing... \033[16D', Helper::replaceEscape($spinner->spin()));
         $this->assertEquals(
-            '                \033[16D\033[?25h\033[?0c',
+            '                \033[16D\033[?25h',
             Helper::replaceEscape($spinner->end())
         );
     }

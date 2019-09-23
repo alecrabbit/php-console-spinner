@@ -69,7 +69,7 @@ class NewSpinnerTest extends TestCase implements TestMessages
                     ],
                     ['3 ' . ucfirst(self::COMPUTING) . Defaults::DOTS_SUFFIX . ' 3% \033[18D', []],
                 ],
-                '                  \033[18D\033[?25h\033[?0c',
+                '                  \033[18D\033[?25h',
             ],
             [
                 [
@@ -98,7 +98,7 @@ class NewSpinnerTest extends TestCase implements TestMessages
                     ['4 10%             \033[18D', [0.1, null]],
                     ['1 10% \033[6D', [0.1, null]],
                 ],
-                '      \033[6D\033[?25h\033[?0c',
+                '      \033[6D\033[?25h',
             ],
         ];
     }

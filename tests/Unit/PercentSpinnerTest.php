@@ -98,7 +98,7 @@ class PercentSpinnerTest extends TestCase implements TestMessages
                     ],
                     ['3% \033[3D', []],
                 ],
-                '   \033[3D\033[?25h\033[?0c',
+                '   \033[3D\033[?25h',
             ],
         ];
     }

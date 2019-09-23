@@ -61,8 +61,8 @@ class AdditionalSpinnerTest extends TestCase
         $this->assertEquals('1 100% \033[7D', Helper::replaceEscape($s->spin()));
 
         $this->assertEquals('       \033[7D', Helper::replaceEscape($s->erase()));
-        $this->assertEquals('       \033[7D\033[?25h\033[?0c', Helper::replaceEscape($s->end()));
-        $this->assertEquals('       \033[7D\033[?25h\033[?0c', Helper::replaceEscape($s->end()));
+        $this->assertEquals('       \033[7D\033[?25h', Helper::replaceEscape($s->end()));
+        $this->assertEquals('       \033[7D\033[?25h', Helper::replaceEscape($s->end()));
 
         $this->assertEquals('\033[?25l2 0%   \033[7D', Helper::replaceEscape($s->begin(0.0)));
         $this->assertEquals('3 0% \033[5D', Helper::replaceEscape($s->spin()));
