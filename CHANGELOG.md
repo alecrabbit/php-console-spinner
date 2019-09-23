@@ -1,6 +1,9 @@
 <a name="unreleased"></a>
 ## [Unreleased]
 
+
+<a name="0.50.1-BETA.0"></a>
+## [0.50.1-BETA.0] - 2019-09-19
 ### Rename
 - `lastSpinnerString` ➙ `lastOutput`
 
@@ -373,7 +376,8 @@
 <a name="0.2.1-ALPHA.1"></a>
 ## 0.2.1-ALPHA.1 - 2019-04-06
 
-[Unreleased]: https://github.com/alecrabbit/php-console-spinner/compare/0.50.0-BETA.0...HEAD
+[Unreleased]: https://github.com/alecrabbit/php-console-spinner/compare/0.50.1-BETA.0...HEAD
+[0.50.1-BETA.0]: https://github.com/alecrabbit/php-console-spinner/compare/0.50.0-BETA.0...0.50.1-BETA.0
 [0.50.0-BETA.0]: https://github.com/alecrabbit/php-console-spinner/compare/0.42.0-BETA.0...0.50.0-BETA.0
 [0.42.0-BETA.0]: https://github.com/alecrabbit/php-console-spinner/compare/0.41.1-BETA.1...0.42.0-BETA.0
 [0.41.1-BETA.1]: https://github.com/alecrabbit/php-console-spinner/compare/0.41.0-BETA.1...0.41.1-BETA.1
