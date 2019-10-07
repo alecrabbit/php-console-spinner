@@ -2,6 +2,15 @@
 ## [Unreleased]
 
 
+<a name="0.51.1"></a>
+## [0.51.1] - 2019-09-23
+
+<a name="0.51.0"></a>
+## [0.51.0] - 2019-09-23
+
+<a name="0.51.0-BETA.0"></a>
+## [0.51.0-BETA.0] - 2019-09-23
+
 <a name="0.50.1-BETA.0"></a>
 ## [0.50.1-BETA.0] - 2019-09-19
 ### Rename
@@ -376,7 +385,10 @@
 <a name="0.2.1-ALPHA.1"></a>
 ## 0.2.1-ALPHA.1 - 2019-04-06
 
-[Unreleased]: https://github.com/alecrabbit/php-console-spinner/compare/0.50.1-BETA.0...HEAD
+[Unreleased]: https://github.com/alecrabbit/php-console-spinner/compare/0.51.1...HEAD
+[0.51.1]: https://github.com/alecrabbit/php-console-spinner/compare/0.51.0...0.51.1
+[0.51.0]: https://github.com/alecrabbit/php-console-spinner/compare/0.51.0-BETA.0...0.51.0
+[0.51.0-BETA.0]: https://github.com/alecrabbit/php-console-spinner/compare/0.50.1-BETA.0...0.51.0-BETA.0
 [0.50.1-BETA.0]: https://github.com/alecrabbit/php-console-spinner/compare/0.50.0-BETA.0...0.50.1-BETA.0
 [0.50.0-BETA.0]: https://github.com/alecrabbit/php-console-spinner/compare/0.42.0-BETA.0...0.50.0-BETA.0
 [0.42.0-BETA.0]: https://github.com/alecrabbit/php-console-spinner/compare/0.41.1-BETA.1...0.42.0-BETA.0
