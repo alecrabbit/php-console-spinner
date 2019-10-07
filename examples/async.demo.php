@@ -154,7 +154,7 @@ $loop->addPeriodicTimer(0.5, static function () use ($s, $loop, &$progress) {
         $loop->stop();
     }
     if (70 <= $progress && $progress <= 79) {
-        $s->progress(null);
+        $s->progress(null); // reset and hide progress indicator
     } else {
         $s->progress($progress / 100);
     }
