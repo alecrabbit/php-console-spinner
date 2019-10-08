@@ -1,6 +1,12 @@
 <a name="unreleased"></a>
 ## [Unreleased]
 
+### Changed
+- erasing now done by `\e[<n>X` ANSI code
+
+### Todo
+- fix tests
+
 
 <a name="0.51.1"></a>
 ## [0.51.1] - 2019-09-23
@@ -10,15 +16,6 @@
 
 <a name="0.51.0-BETA.0"></a>
 ## [0.51.0-BETA.0] - 2019-09-23
-
-<a name="0.50.1-BETA.0"></a>
-## [0.50.1-BETA.0] - 2019-09-19
-### Changed
-- erasing now done by `\e[<n>X` ANSI code
-
-### Todo
-- fix tests
-
 
 <a name="0.50.1-BETA.0"></a>
 ## [0.50.1-BETA.0] - 2019-09-19
