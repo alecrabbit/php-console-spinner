@@ -22,3 +22,8 @@ See [cast](https://asciinema.org/a/262768)
 ![example](images/advanced.svg)
 
 > Note: launch browser and check `http://localhost:8080/`
+
+```bash
+# php examples/demo.php
+```
+![example](images/gifs/demo.php.gif)
