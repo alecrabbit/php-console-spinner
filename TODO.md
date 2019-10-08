@@ -1,7 +1,5 @@
 
-- [ ] Fix tests
 - [ ] Optimize performance
-<<<<<<< to_merge
 - [ ] Change color model
 ```php 
 $colors = [
@@ -32,9 +30,6 @@ $colors = [
     ],
 ];
 ```
-=======
-    - [ ] use `CSI<n>X` to erase?
->>>>>>> todo
 ---
 
 - [x] Use `php-wcwidth`
