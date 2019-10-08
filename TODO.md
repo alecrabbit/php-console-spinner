@@ -1,4 +1,5 @@
 
+- [ ] Do terminal color support check explicitly(remove autodetect) 
 - [ ] Optimize performance
 - [ ] Change color model
 ```php 

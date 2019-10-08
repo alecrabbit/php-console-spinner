@@ -1,4 +1,10 @@
 ```bash
+# php examples/async.demo.php
+```
+
+See [cast](https://asciinema.org/a/273080)
+
+```bash
 # php examples/show_all_spinners.php
 ```
 
