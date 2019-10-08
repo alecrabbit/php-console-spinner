@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Spinner;
 
@@ -6,6 +8,7 @@ use AlecRabbit\Spinner\Settings\Contracts\Defaults;
 use AlecRabbit\Spinner\Settings\Settings;
 use AlecRabbit\Tests\Spinner\Unit\Contracts\TestMessages;
 use PHPUnit\Framework\TestCase;
+
 use const AlecRabbit\NO_COLOR_TERMINAL;
 
 class NewSpinnerTest extends TestCase implements TestMessages

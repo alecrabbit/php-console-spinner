@@ -1,10 +1,13 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Adapters;
 
 use AlecRabbit\Spinner\Core\Contracts\OutputInterface;
 use Symfony\Component\Console\Output\ConsoleOutput;
 use Symfony\Component\Console\Output\StreamOutput;
+
 use function AlecRabbit\typeOf;
 
 /**

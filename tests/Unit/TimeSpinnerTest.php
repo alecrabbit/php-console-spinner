@@ -1,10 +1,13 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Tools;
 
 use AlecRabbit\Spinner\TimeSpinner;
 use AlecRabbit\Tests\Spinner\Helper;
 use PHPUnit\Framework\TestCase;
+
 use const AlecRabbit\COLOR256_TERMINAL;
 
 class TimeSpinnerTest extends TestCase

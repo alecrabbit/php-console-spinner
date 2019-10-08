@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Tools;
 
@@ -6,6 +8,7 @@ use AlecRabbit\Spinner\ClockSpinner;
 use AlecRabbit\Spinner\Settings\Contracts\Defaults;
 use AlecRabbit\Tests\Spinner\Helper;
 use PHPUnit\Framework\TestCase;
+
 use const AlecRabbit\COLOR_TERMINAL;
 
 class ClockSpinnerTest extends TestCase

@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Coloring;
 
@@ -6,6 +8,7 @@ namespace AlecRabbit\Spinner\Core\Coloring;
 use AlecRabbit\Spinner\Core\Contracts\Juggler;
 use AlecRabbit\Spinner\Core\Contracts\Styles;
 use AlecRabbit\Spinner\Core\Sentinel;
+
 use const AlecRabbit\NO_COLOR_TERMINAL;
 
 class Colors

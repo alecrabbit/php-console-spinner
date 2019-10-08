@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Tools;
 
@@ -9,7 +11,9 @@ use AlecRabbit\Spinner\Core\Jugglers\MessageJuggler;
 use AlecRabbit\Spinner\Settings\Contracts\Defaults;
 use AlecRabbit\Spinner\Settings\Settings;
 use PHPUnit\Framework\TestCase;
+
 use function AlecRabbit\Helpers\getValue;
+
 use const AlecRabbit\NO_COLOR_TERMINAL;
 
 class MessageJugglerTest extends TestCase

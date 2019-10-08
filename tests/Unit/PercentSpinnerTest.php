@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Tools;
 
@@ -9,7 +11,9 @@ use AlecRabbit\Tests\Spinner\ExtendedSpinner;
 use AlecRabbit\Tests\Spinner\Helper;
 use AlecRabbit\Tests\Spinner\Unit\Contracts\TestMessages;
 use PHPUnit\Framework\TestCase;
+
 use function AlecRabbit\Helpers\getValue;
+
 use const AlecRabbit\NO_COLOR_TERMINAL;
 
 class PercentSpinnerTest extends TestCase implements TestMessages

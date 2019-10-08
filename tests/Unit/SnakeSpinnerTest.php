@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Tools;
 
@@ -6,6 +8,7 @@ use AlecRabbit\Spinner\Core\Contracts\Frames;
 use AlecRabbit\Spinner\Settings\Contracts\Defaults;
 use AlecRabbit\Spinner\SnakeSpinner;
 use PHPUnit\Framework\TestCase;
+
 use function AlecRabbit\Helpers\getValue;
 
 class SnakeSpinnerTest extends TestCase

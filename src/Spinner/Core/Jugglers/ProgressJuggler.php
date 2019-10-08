@@ -1,9 +1,12 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Jugglers;
 
 use AlecRabbit\Spinner\Core\Coloring\Style;
 use AlecRabbit\Spinner\Settings\Settings;
+
 use function AlecRabbit\Helpers\bounds;
 
 class ProgressJuggler extends AbstractJuggler

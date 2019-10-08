@@ -1,16 +1,19 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Spinner;
 
 use AlecRabbit\Spinner\Core\Contracts\Juggler;
-use AlecRabbit\Spinner\Settings\Contracts\Defaults;
-use const AlecRabbit\COLOR256_TERMINAL;
-use const AlecRabbit\NO_COLOR_TERMINAL;
 use AlecRabbit\Spinner\Core\Contracts\OutputInterface;
 use AlecRabbit\Spinner\Core\Contracts\Styles;
-use AlecRabbit\Spinner\Settings\Settings;
 use AlecRabbit\Spinner\Core\Spinner;
+use AlecRabbit\Spinner\Settings\Contracts\Defaults;
+use AlecRabbit\Spinner\Settings\Settings;
 use PHPUnit\Framework\TestCase;
+
+use const AlecRabbit\COLOR256_TERMINAL;
+use const AlecRabbit\NO_COLOR_TERMINAL;
 
 class SpinnerWithOutputTest extends TestCase
 {

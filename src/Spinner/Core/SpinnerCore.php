@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core;
 
@@ -10,6 +12,7 @@ use AlecRabbit\Spinner\Core\Contracts\OutputInterface;
 use AlecRabbit\Spinner\Core\Contracts\Styles;
 use AlecRabbit\Spinner\Settings\Contracts\Defaults;
 use AlecRabbit\Spinner\Settings\Settings;
+
 use function AlecRabbit\typeOf;
 
 abstract class SpinnerCore implements SpinnerInterface

@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core;
 
@@ -12,7 +14,9 @@ use AlecRabbit\Spinner\Core\Jugglers\FrameJuggler;
 use AlecRabbit\Spinner\Core\Jugglers\MessageJuggler;
 use AlecRabbit\Spinner\Core\Jugglers\ProgressJuggler;
 use AlecRabbit\Spinner\Settings\Settings;
+
 use function AlecRabbit\Helpers\wcswidth;
+
 use const AlecRabbit\ESC;
 use const AlecRabbit\NO_COLOR_TERMINAL;
 
