@@ -33,3 +33,4 @@ $colors = [
 ---
 
 - [x] Use `php-wcwidth`
+- [x] Erase with `CSI<n>X`
