@@ -24,7 +24,7 @@
   "license": "MIT",
   "require": {
     "php": ">=7.2",
-    "alecrabbit/php-accessories": ">=0.6",
+    "alecrabbit/php-accessories": ">=0.14",
     "alecrabbit/php-console-colour": "^0.9",
     "alecrabbit/php-helpers": "^0.7 || ^0.8",
     "symfony/console": "^4.3",
