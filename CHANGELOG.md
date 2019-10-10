@@ -2,6 +2,7 @@
 ## [Unreleased]
 
 ### Changed
+- bumped dependency version
 - erasing now done by `\e[<n>X` ANSI code
 
 ### Todo
