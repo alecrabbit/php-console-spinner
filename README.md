@@ -1,10 +1,14 @@
+
+
 <p align="center">
   <img width="100" height="100" src="https://github.com/alecrabbit/php-console-spinner/raw/master/docs/images/ro37AC_sm.png">
 </p>
+ 
+<p align="center">  
+Spinner - your task is running
+</p>
 
 #  🏵️  PHP Console Spinner
-
-Spinner - your task is running
 
 [![PHP Version](https://img.shields.io/packagist/php-v/alecrabbit/php-console-spinner.svg)](https://php.net/)
 [![Build Status](https://travis-ci.com/alecrabbit/php-console-spinner.svg?branch=master)](https://travis-ci.com/alecrabbit/php-console-spinner)
