@@ -1,7 +1,7 @@
 
 
 <p align="center">
-  <img width="100" height="100" src="https://github.com/alecrabbit/php-console-spinner/raw/master/docs/images/ro37AC_sm.png">
+  <img alt="Logo" width="100" height="100" src="https://github.com/alecrabbit/php-console-spinner/raw/master/docs/images/ro37AC_sm.png">
 </p>
  
 <p align="center">  
@@ -95,7 +95,10 @@ composer require alecrabbit/php-console-spinner
  - See [examples](https://github.com/alecrabbit/php-console-spinner/tree/master/examples)
  - Examples [output](docs/examples_output.md) casts
 
-
+### Spinners
+ 
+ [Here](docs/spinners.md) you can find a list of all spinners with demos 
+ 
 ### Operating Systems 
 
 - Developed and tested on Ubuntu 18.04 (xterm terminal)
