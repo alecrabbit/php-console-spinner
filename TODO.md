@@ -1,8 +1,9 @@
 
-- [ ] Minimize number of dependecies, `1.0.0` goal is minimum default dependencies 
+- [ ] Minimize number of dependencies
+    - [ ] `v1.0.0` goal is a minimum of indirect dependencies
     - [ ] move Symfony/Console adapter to separate package
     - [ ] move color constants to separate package, related to [alecrabbit/php-console-colour](https://github.com/alecrabbit/php-console-colour)
-- [ ] Do terminal color support check explicitly by lib user(`1.0.0` goal is remove autodetect) 
+- [ ] Do terminal color support check explicitly by lib user(`v1.0.0` goal is remove autodetect) 
 - [ ] Improve documentation
 - [ ] Optimize performance
 - [ ] Change color model, improves styles customization
