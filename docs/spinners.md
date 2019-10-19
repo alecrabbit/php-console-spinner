@@ -31,6 +31,9 @@
 ##### AlecRabbit\Spinner\SectorSpinner
 <img alt="Arrow spinner" src="./images/gifs/spinners/s_sector.gif">
 
+##### AlecRabbit\Spinner\PercentSpinner
+<img alt="Arrow spinner" src="./images/gifs/spinners/s_percent.gif">
+
 ##### AlecRabbit\Spinner\SimpleSpinner
 <img alt="Arrow spinner" src="./images/gifs/spinners/s_simple.gif">
 
