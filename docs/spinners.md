@@ -27,3 +27,6 @@
 
 ##### AlecRabbit\Spinner\MoonSpinner
 <img alt="Arrow spinner" src="./images/gifs/spinners/s_moon.gif">
+
+##### AlecRabbit\Spinner\WeatherSpinner
+<img alt="Arrow spinner" src="./images/gifs/spinners/s_weather.gif">
