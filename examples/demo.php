@@ -9,7 +9,6 @@ use AlecRabbit\Spinner\BlockSpinner;
 use AlecRabbit\Spinner\BouncingBarSpinner;
 use AlecRabbit\Spinner\CircleSpinner;
 use AlecRabbit\Spinner\ClockSpinner;
-use AlecRabbit\Spinner\Core\Contracts\SpinnerInterface;
 use AlecRabbit\Spinner\DiceSpinner;
 use AlecRabbit\Spinner\DotSpinner;
 use AlecRabbit\Spinner\EarthSpinner;
@@ -46,22 +45,22 @@ $t = new Themes();
 echo Cursor::hide();
 
 $spinners = [
-    ArrowSpinner::class,
-    BallSpinner::class,
-    BlockSpinner::class,
-    BouncingBarSpinner::class,
-    CircleSpinner::class,
-    ClockSpinner::class,
-    DiceSpinner::class,
-    DotSpinner::class,
-    EarthSpinner::class,
-    MoonSpinner::class,
-    PercentSpinner::class,
-    SectorsSpinner::class,
-    SimpleSpinner::class,
-    SnakeSpinner::class,
-    TimeSpinner::class,
-    WeatherSpinner::class,
+    0 => ArrowSpinner::class,
+    1 => BallSpinner::class,
+    2 => BlockSpinner::class,
+    3 => BouncingBarSpinner::class,
+    4 => CircleSpinner::class,
+    5 => ClockSpinner::class,
+    6 => DiceSpinner::class,
+    7 => DotSpinner::class,
+    8 => EarthSpinner::class,
+    9 => MoonSpinner::class,
+    10 => PercentSpinner::class,
+    11 => SectorsSpinner::class,
+    12 => SimpleSpinner::class,
+    13 => SnakeSpinner::class,
+    14 => TimeSpinner::class,
+    15 => WeatherSpinner::class,
 ];
 
 $arr = [
@@ -80,11 +79,12 @@ $arr = [
 ];
 
 
-$color = (int)($argv[1] ?? COLOR256_TERMINAL);
+$spinnerIdx = $argv[1] ?? null;
+$color = (int)($argv[2] ?? COLOR256_TERMINAL);
 if (!in_array($color, COLOR_SUPPORT_LEVELS, true)) {
     echo
         $t->error('  ERROR  ') . ' ' .
-        $t->red(basename(__FILE__) . ': Unknown color support level ' . str_wrap($color,'[', ']')) .
+        $t->red(basename(__FILE__) . ': Unknown color support level ' . str_wrap($color, '[', ']')) .
         PHP_EOL;
     echo $t->dark('Supported levels: ');
     foreach (COLOR_SUPPORT_LEVELS as $level) {
@@ -109,22 +109,43 @@ echo Cursor::up();
 
 $len = count(MESSAGES) - 1;
 
-foreach ($spinners as $spinner) {
-    echo Line::erase() . Cursor::absX() . $t->bold(brackets($spinner) . ' ');
+if (null === $spinnerIdx) {
+    foreach ($spinners as $spinner) {
+        doDemo($t, $spinner, $len, $arr, $color);
+    }
+} elseif(array_key_exists($spinnerIdx = (int)$spinnerIdx,$spinners)) {
+    doDemo($t, $spinners[$spinnerIdx], $len, $arr, $color);
+} else {
+    echo
+        $t->error('  ERROR  ') . ' ' .
+        $t->red(basename(__FILE__) . ': Unknown spinner index ' . str_wrap($spinnerIdx, '[', ']')) .
+        PHP_EOL;
+}
+echo PHP_EOL;
+echo PHP_EOL;
+
+/**
+ * @param Themes $t
+ * @param string $spinnerClass
+ * @param int $len
+ * @param array $arr
+ * @param null|int $color
+ */
+function doDemo(Themes $t, string $spinnerClass, int $len, array $arr, ?int $color): void
+{
+    echo Line::erase() . Cursor::absX() . $t->bold(brackets($spinnerClass) . ' ');
     $message = MESSAGES[rnd($len)];
-    if (in_array($spinner, $arr, true)) {
+    if (in_array($spinnerClass, $arr, true)) {
         $s = new Settings();
         if (rnd(4) > 2) {
             $s->setMessageSuffix(Defaults::ELLIPSIS);
         }
         $s->setMessage($message);
-        showSpinners(new $spinner($s, null, $color), true);
-        showSpinners(new $spinner(null, null, $color), true);
+        showSpinners(new $spinnerClass($s, null, $color), true);
+        showSpinners(new $spinnerClass(null, null, $color), true);
     }
-    if ($spinner !== PercentSpinner::class) {
-        showSpinners(new $spinner(null, null, $color));
+    if ($spinnerClass !== PercentSpinner::class) {
+        showSpinners(new $spinnerClass(null, null, $color));
     }
 }
-echo PHP_EOL;
-echo PHP_EOL;
 
