@@ -28,5 +28,12 @@
 ##### AlecRabbit\Spinner\MoonSpinner
 <img alt="Arrow spinner" src="./images/gifs/spinners/s_moon.gif">
 
+##### AlecRabbit\Spinner\SnakeSpinner
+<img alt="Arrow spinner" src="./images/gifs/spinners/s_snake.gif">
+
+
+##### AlecRabbit\Spinner\TimeSpinner
+<img alt="Arrow spinner" src="./images/gifs/spinners/s_time.gif">
+
 ##### AlecRabbit\Spinner\WeatherSpinner
 <img alt="Arrow spinner" src="./images/gifs/spinners/s_weather.gif">
