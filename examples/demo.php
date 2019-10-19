@@ -70,6 +70,7 @@ $arr = [
     BouncingBarSpinner::class,
     ClockSpinner::class,
     DiceSpinner::class,
+    DotSpinner::class,
     EarthSpinner::class,
     MoonSpinner::class,
     PercentSpinner::class,
