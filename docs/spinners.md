@@ -18,3 +18,9 @@
 
 ##### AlecRabbit\Spinner\DiceSpinner
 <img alt="Arrow spinner" src="./images/gifs/spinners/s_dice.gif">
+
+##### AlecRabbit\Spinner\DotSpinner
+<img alt="Arrow spinner" src="./images/gifs/spinners/s_dot.gif">
+
+##### AlecRabbit\Spinner\EarthSpinner
+<img alt="Arrow spinner" src="./images/gifs/spinners/s_earth.gif">
