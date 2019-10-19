@@ -28,9 +28,14 @@
 ##### AlecRabbit\Spinner\MoonSpinner
 <img alt="Arrow spinner" src="./images/gifs/spinners/s_moon.gif">
 
+##### AlecRabbit\Spinner\SectorSpinner
+<img alt="Arrow spinner" src="./images/gifs/spinners/s_sector.gif">
+
+##### AlecRabbit\Spinner\SimpleSpinner
+<img alt="Arrow spinner" src="./images/gifs/spinners/s_simple.gif">
+
 ##### AlecRabbit\Spinner\SnakeSpinner
 <img alt="Arrow spinner" src="./images/gifs/spinners/s_snake.gif">
-
 
 ##### AlecRabbit\Spinner\TimeSpinner
 <img alt="Arrow spinner" src="./images/gifs/spinners/s_time.gif">
