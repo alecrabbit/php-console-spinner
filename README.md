@@ -28,6 +28,10 @@ Spinner - your task is running
 
 ![advanced](docs/images/fpdemo.svg)
 
+### ⚠️ Compatibility issues
+
+This project is still in its development phase. It turn out that some of its indirect dependencies are causing compatibility issues. For now a solution you can use lightweight spinner from [alecrabbit/php-cli-snake]
+
 ### Features
 - progress indication during spin `$spinner->progress(0.5)` ➙ `50%`
 - messages during spin `$spinner->message('message')`
