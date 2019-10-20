@@ -32,6 +32,33 @@ Spinner - your task is running
 
 This project is still in its active development phase. It turned out that some of its indirect dependencies are causing compatibility issues. For now as solution you can use lightweight spinner [alecrabbit/php-cli-snake](https://github.com/alecrabbit/php-cli-snake)
 
+### Feature comparision
+
+| Feature       | [php-console-spinner](https://github.com/alecrabbit/php-console-spinner)    |  [php-cli-snake](https://github.com/alecrabbit/php-cli-snake) |
+| ------------- | :---:  | :---: |
+| Lightweight        |  ❌ ️ |  ✔️  |
+| Has zero dependencies      |  ❌ ️ |  ✔️  |
+| Highly  configurable        |  ✔️ ️ |  ❌  |
+| Contains various spinner classes        |  ✔️ ️ |  ❌  |
+| Progress indicator        |  ✔️ ️ |  ❌  |
+| Messages indicator        |  ✔️ ️ |  ❌  |
+| Color settings for spinner       |  ✔️ ️ |  ❌  |
+| Color settings for messages        |  ✔️ ️ |  ❌  |
+| Color settings for progress indicator        |  ✔️ ️ |  ❌  |
+| Has `disable()` method        |  ✔️ ️ |  ❌  |
+| Has `enable()` method        |  ✔️ ️ |  ❌  |
+| Can show final message      |  ✔️ ️ |  ❌  |
+| Cursor hide can be disabled      |  ✔️ ️ |  ❌  |
+| Can use optional custom output      |  ✔️ ️ |  ❌  |
+| Has `erase()` method        |  ✔️ ️ |  ✔️ ️ |
+| Hides cursor with `$spinner->begin()`  |  ✔️ ️ |  ✔️ ️ |
+| Shows cursor with `$spinner->end()`  |  ✔️ ️ |  ✔️ ️ |
+| Supports piping         |  ✔️ ️ |  ✔️ ️ |
+| Supports redirect        |  ✔️ ️ |  ✔️ ️ |
+| Supports `no color` mode        |  ✔️ ️ |  ✔️ ️ |
+| Supports `16 color` mode        |  ✔️ ️ |  ✔️ ️ |
+| Supports `256 color` mode        |  ✔️ ️ |  ✔️ ️ |
+
 ### Features
 - progress indication during spin `$spinner->progress(0.5)` ➙ `50%`
 - messages during spin `$spinner->message('message')`
