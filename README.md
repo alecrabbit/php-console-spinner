@@ -30,7 +30,7 @@ Spinner - your task is running
 
 ### ⚠️ Compatibility issues
 
-This project is still in its active development phase. It turn out that some of its indirect dependencies are causing compatibility issues. For now as solution you can use lightweight spinner from [alecrabbit/php-cli-snake]
+This project is still in its active development phase. It turned out that some of its indirect dependencies are causing compatibility issues. For now as solution you can use lightweight spinner [alecrabbit/php-cli-snake](https://github.com/alecrabbit/php-cli-snake)
 
 ### Features
 - progress indication during spin `$spinner->progress(0.5)` ➙ `50%`
