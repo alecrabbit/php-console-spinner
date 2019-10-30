@@ -8,8 +8,6 @@ use AlecRabbit\Spinner\Core\Contracts\OutputInterface;
 use Symfony\Component\Console\Output\ConsoleOutput;
 use Symfony\Component\Console\Output\StreamOutput;
 
-use function AlecRabbit\typeOf;
-
 /**
  * Class SymfonyOutputAdapter
  *
@@ -30,7 +28,7 @@ class SymfonyOutputAdapter extends AbstractOutputAdapter
             throw new \RuntimeException(
                 'Should never happen. $streamOutput is of wrong type: [' .
                 StreamOutput::class . '] expected , ['
-                . typeOf($streamOutput) . '] given.'
+                . get_class($streamOutput) . '] given.'
             );
             // @codeCoverageIgnoreEnd
         }
