@@ -13,7 +13,7 @@ use AlecRabbit\Spinner\Core\Sentinel;
 use const AlecRabbit\COLOR256_TERMINAL;
 use const AlecRabbit\COLOR_TERMINAL;
 use const AlecRabbit\ESC;
-use const AlecRabbit\NO_COLOR_TERMINAL;
+//use const AlecRabbit\NO_COLOR_TERMINAL;
 use const AlecRabbit\TRUECOLOR_TERMINAL;
 
 class Style implements StyleInterface
