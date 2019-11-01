@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Coloring\Contracts;
 
-use AlecRabbit\Accessories\Circular;
+use AlecRabbit\Spinner\Core\Circular;
 
 interface StyleInterface
 {

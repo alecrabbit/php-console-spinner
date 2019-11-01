@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-use AlecRabbit\Accessories\MemoryUsage;
+//use AlecRabbit\Accessories\MemoryUsage;
 use AlecRabbit\ConsoleColour\Contracts\BG;
 use AlecRabbit\ConsoleColour\Contracts\Color;
 use AlecRabbit\ConsoleColour\Contracts\Effect;
@@ -54,7 +54,8 @@ function memory(Themes $t, bool $inline, $stream): void
         swap($header, $footer);
     }
 
-    $stream->write($header . $t->dark(date('H:i:s ') . MemoryUsage::getReport()) . $footer);
+    $stream->write($header . $t->dark(date('H:i:s ') . 'Some status message') . $footer);
+//    $stream->write($header . $t->dark(date('H:i:s ') . MemoryUsage::getReport()) . $footer);
 }
 
 /**

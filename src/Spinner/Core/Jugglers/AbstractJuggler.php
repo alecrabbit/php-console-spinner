@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Jugglers;
 
-use AlecRabbit\Accessories\Circular;
+use AlecRabbit\Spinner\Core\Circular;
 use AlecRabbit\Spinner\Core\Coloring\Style;
 use AlecRabbit\Spinner\Core\Jugglers\Contracts\JugglerInterface;
 use AlecRabbit\Spinner\Settings\Contracts\Defaults;
