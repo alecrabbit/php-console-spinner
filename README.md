@@ -30,6 +30,8 @@ Spinner - your task is running
 
 ### ⚠️ Compatibility issues
 
+> Update: As of version `0.53` compatibility issues should be resolved, but it need to be tested.
+
 This project is still in its active development phase. It turned out that some of its indirect dependencies are causing compatibility issues. New release is expected to be ready in mid-november 2019. For now, as a solution, you can use lightweight spinner [alecrabbit/php-cli-snake](https://github.com/alecrabbit/php-cli-snake).
 
 ### Feature comparision
