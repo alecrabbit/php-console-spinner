@@ -25,15 +25,16 @@
   "require": {
     "php": ">=7.2",
     "alecrabbit/php-console-colour": "^0.9",
-    "symfony/console": "^4.3",
-    "alecrabbit/php-wcwidth": ">=0"
+    "alecrabbit/php-wcwidth": ">=0",
+    "symfony/console": "^4.3"
   },
   "require-dev": {
+    "alecrabbit/php-helpers": "^0.8.1",
+    "fzaninotto/faker": "^1.8",
     "nunomaduro/collision": "^3.0",
     "phpunit/phpunit": "^8.0",
-    "symfony/var-dumper": "^4.2",
     "react/http": "^0.8",
-    "fzaninotto/faker": "^1.8"
+    "symfony/var-dumper": "^4.2"
   },
   "autoload": {
     "psr-4": {
@@ -42,7 +43,6 @@
     "files": [
       "src/bootstrap.php"
     ]
-
   },
   "autoload-dev": {
     "psr-4": {

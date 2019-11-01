@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core;
 
@@ -11,14 +13,14 @@ class Circular
     protected $oneElement = false;
 
     /** @var int */
-    protected $idx = 0;
+    protected $idx = -1; // To pass tests written before
 
     /** @var int */
     protected $length = 0;
 
     /**
      * Circular constructor.
-     * @param array
+     * @param array $data
      */
     public function __construct(array $data)
     {
@@ -59,10 +61,9 @@ class Circular
         if ($this->oneElement) {
             return $this->data;
         }
-        if ($this->idx++ === $this->length) {
+        if (++$this->idx === $this->length) {
             $this->idx = 0;
         }
         return $this->data[$this->idx];
     }
-
 }
