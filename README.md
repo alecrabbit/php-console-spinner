@@ -47,7 +47,7 @@ This project is still in its active development phase. It turned out that some o
 | Color settings for spinner       |  ✔️ ️ |  ❌  |
 | Color settings for messages        |  ✔️ ️ |  ❌  |
 | Color settings for progress indicator        |  ✔️ ️ |  ❌  |
-| Has `disable()` method        |  ✔️ ️ |  ✔️  |
+| Has `disable()` method        |  ✔️ ️ |  ❌  |
 | Has `enable()` method        |  ✔️ ️ |  ❌  |
 | Can show final message      |  ✔️ ️ |  ❌  |
 | Cursor hide can be disabled      |  ✔️ ️ |  ❌  |
