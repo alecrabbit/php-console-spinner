@@ -1,4 +1,5 @@
 <?php
+
 // snippet
 if (!defined('APP_DEBUG')) {
     define('APP_DEBUG', true);

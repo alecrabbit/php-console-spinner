@@ -11,7 +11,7 @@ use function AlecRabbit\Helpers\wcswidth;
 class Calculator
 {
     /**
-     * @param array $strings
+     * @param array<string> $strings
      * @return int
      */
     public static function computeErasingWidths(array $strings): int

@@ -18,7 +18,7 @@ Spinner - your task is running
 [![Total Downloads](https://poser.pugx.org/alecrabbit/php-console-spinner/downloads)](https://packagist.org/packages/alecrabbit/php-console-spinner)
 
 [![Latest Stable Version](https://poser.pugx.org/alecrabbit/php-console-spinner/v/stable)](https://packagist.org/packages/alecrabbit/php-console-spinner)
-![Packagist Pre Release Version](https://img.shields.io/packagist/vpre/alecrabbit/php-console-spinner)
+[![Packagist Pre Release Version](https://img.shields.io/packagist/vpre/alecrabbit/php-console-spinner)](https://packagist.org/packages/alecrabbit/php-console-spinner)
 [![Latest Unstable Version](https://poser.pugx.org/alecrabbit/php-console-spinner/v/unstable)](https://packagist.org/packages/alecrabbit/php-console-spinner)
 
 [![License](https://poser.pugx.org/alecrabbit/php-console-spinner/license)](https://packagist.org/packages/alecrabbit/php-console-spinner)
@@ -29,6 +29,8 @@ Spinner - your task is running
 ![advanced](docs/images/fpdemo.svg)
 
 ### ⚠️ Compatibility issues
+
+> Update 2019-Nov-01: As of version `0.53` compatibility issues should be resolved, but it needs to be tested.
 
 This project is still in its active development phase. It turned out that some of its indirect dependencies are causing compatibility issues. New release is expected to be ready in mid-november 2019. For now, as a solution, you can use lightweight spinner [alecrabbit/php-cli-snake](https://github.com/alecrabbit/php-cli-snake).
 
