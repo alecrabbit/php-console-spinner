@@ -23,8 +23,8 @@ class Colors
 //    protected $terminal;
 
     /**
-     * @param array $styles
-     * @param int $color
+     * @param array<string> $styles
+     * @param int           $color
      */
     public function __construct(array $styles, int $color = NO_COLOR_TERMINAL)
     {
@@ -37,8 +37,8 @@ class Colors
     }
 
     /**
-     * @param array $styles
-     * @return array
+     * @param array<string> $styles
+     * @return array<array<string>>
      */
     protected function mergeStyles(array $styles): array
     {
@@ -46,7 +46,6 @@ class Colors
         $keys = array_keys($defaultStyles);
         foreach ($keys as $key) {
             if (\array_key_exists($key, $styles)) {
-                /** @noinspection SlowArrayOperationsInLoopInspection */
                 $defaultStyles[$key] = array_merge(Styles::DEFAULT_STYLES[$key], $styles[$key]);
             }
         }
