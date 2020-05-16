@@ -13,8 +13,6 @@ require_once __DIR__ . '/__include/__ext_check.php';
 
 __check_for_extension('pcntl', 'ext-pcntl is required', __FILE__);
 
-use AlecRabbit\Accessories\MemoryUsage;
-use AlecRabbit\Cli\Tools\Core\Terminal;
 use AlecRabbit\ConsoleColour\Contracts\Color;
 use AlecRabbit\ConsoleColour\Themes;
 use AlecRabbit\Spinner\Core\Contracts\Frames;
@@ -151,8 +149,7 @@ $s->end(); // Cleaning up
 
 function memory(): string
 {
-    $report = MemoryUsage::getReport();
-    return date(DATETIME_FORMAT) . ' Memory usage: ' . $report->getUsageString();
+    return date(DATETIME_FORMAT) . ' Memory usage: ' . memory_get_usage(true);
 }
 
 function body(): string
