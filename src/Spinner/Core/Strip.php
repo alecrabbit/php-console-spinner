@@ -15,15 +15,15 @@ class Strip
     public static function controlCodes(string $in): string
     {
         $str = preg_replace(self::REG_EXP, '', $in);
-        if (PREG_NO_ERROR !== $error = preg_last_error()) {
+        if (PREG_NO_ERROR !== $errorCode = preg_last_error()) {
             // @codeCoverageIgnoreStart
             throw new \RuntimeException(
                 sprintf(
                     'Failed to apply regex. Message: %s Code: %s',
                     preg_last_error_msg(),
-                    $error
+                    $errorCode
                 ),
-                $error
+                $errorCode
             );
             // @codeCoverageIgnoreEnd
         }
