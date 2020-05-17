@@ -20,7 +20,7 @@ class Circular
 
     /**
      * Circular constructor.
-     * @param array $data
+     * @param array<mixed> $data
      */
     public function __construct(array $data)
     {
@@ -28,7 +28,7 @@ class Circular
     }
 
     /**
-     * @param array $data
+     * @param array<mixed> $data
      * @return mixed
      */
     protected function refineData(array $data)
