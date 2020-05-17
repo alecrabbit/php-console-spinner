@@ -102,7 +102,7 @@ class SpinnerTest extends TestCase
     public function wrongFirstArgument(): void
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage('Instance of [' . Settings::class . '] or string expected integer given.');
+        $this->expectExceptionMessage('Instance of [' . Settings::class . '] or string expected "int" given.');
         new ExtendedSpinner(1);
     }
 
@@ -111,7 +111,7 @@ class SpinnerTest extends TestCase
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage(
-            'Incorrect parameter: [null|false|' . OutputInterface::class . '] expected "integer" given.'
+            'Incorrect parameter: [null|false|' . OutputInterface::class . '] expected "int" given.'
         );
         new ExtendedSpinner(null, 1);
     }
