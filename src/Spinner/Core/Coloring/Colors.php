@@ -38,7 +38,7 @@ class Colors
 
     /**
      * @param array<string> $styles
-     * @return array<array<string>>
+     * @return array<string, array<int|string,array<int, int>|string|null>>
      */
     protected function mergeStyles(array $styles): array
     {
