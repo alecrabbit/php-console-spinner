@@ -41,7 +41,9 @@ class Calculator
         if (null === $in || Defaults::EMPTY_STRING === $in) {
             return 0;
         }
-        $in = Strip::controlCodes($in);
-        return wcswidth($in);
+        return
+            wcswidth(
+                Strip::controlCodes($in)
+            );
     }
 }
