@@ -28,7 +28,7 @@ class SymfonyOutputAdapter extends AbstractOutputAdapter
             throw new \RuntimeException(
                 'Should never happen. $streamOutput is of wrong type: [' .
                 StreamOutput::class . '] expected , ['
-                . get_class($streamOutput) . '] given.'
+                . get_debug_type($streamOutput) . '] given.'
             );
             // @codeCoverageIgnoreEnd
         }

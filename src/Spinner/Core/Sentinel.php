@@ -9,7 +9,6 @@ use AlecRabbit\Spinner\Settings\Contracts\Defaults;
 use AlecRabbit\Spinner\Settings\Settings;
 
 use function AlecRabbit\Helpers\wcswidth;
-use function AlecRabbit\typeOf;
 
 /**
  * Class Sentinel.
@@ -85,7 +84,7 @@ class Sentinel
     {
         if (null !== $output && false !== $output && !$output instanceof OutputInterface) {
             $typeOrValue =
-                true === $output ? 'true' : typeOf($output);
+                true === $output ? 'true' : get_debug_type($output);
             throw new \InvalidArgumentException(
                 'Incorrect parameter: ' .
                 '[null|false|' . OutputInterface::class . '] expected'
@@ -101,7 +100,7 @@ class Sentinel
     {
         if (null !== $settings && !\is_string($settings) && !$settings instanceof Settings) {
             throw new \InvalidArgumentException(
-                'Instance of [' . Settings::class . '] or string expected ' . typeOf($settings) . ' given.'
+                'Instance of [' . Settings::class . '] or string expected "' . get_debug_type($settings) . '" given.'
             );
         }
     }

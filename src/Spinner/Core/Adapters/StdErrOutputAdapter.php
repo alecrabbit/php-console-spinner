@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Adapters;
 
-use function AlecRabbit\typeOf;
-
 /**
  * Class StdErrOutputAdapter
  *
@@ -24,7 +22,7 @@ class StdErrOutputAdapter extends AbstractOutputAdapter
     {
         if (!\is_resource($stream)) {
             throw new \InvalidArgumentException(
-                '$stream is not a resource [' . typeOf($stream) . ']. It should never happen.'
+                '$stream is not a resource [' . get_debug_type($stream) . ']. It should never happen.'
             );
         }
         $this->stream = $stream;
