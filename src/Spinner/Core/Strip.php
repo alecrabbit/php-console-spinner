@@ -17,7 +17,14 @@ class Strip
         $str = preg_replace(self::REG_EXP, '', $in);
         if (PREG_NO_ERROR !== $error = preg_last_error()) {
             // @codeCoverageIgnoreStart
-            throw new \RuntimeException('Failed to apply regex. Code: ' . $error, $error);
+            throw new \RuntimeException(
+                sprintf(
+                    'Failed to apply regex. Message: %s Code: %s',
+                    preg_last_error_msg(),
+                    $error
+                ),
+                $error
+            );
             // @codeCoverageIgnoreEnd
         }
         return (string)$str;
