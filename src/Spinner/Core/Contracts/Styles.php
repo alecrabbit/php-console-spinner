@@ -55,7 +55,6 @@ interface Styles extends Juggler
     */
     public const DISABLED = null;
 
-
     public const C256_PURPLE_RED =
         [
             56,
