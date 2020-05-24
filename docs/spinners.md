@@ -20,10 +20,10 @@
 <img alt="Dice spinner" src="./images/gifs/spinners/s_dice.gif">
 
 ##### AlecRabbit\Spinner\DotSpinner
-<img alt="Dot spinner" src="./images/gifs/spinners/s_dot8bit.gif">
+<img alt="Dot spinner" src="./images/gifs/spinners/s_dot.gif">
 
 ##### AlecRabbit\Spinner\Dot8BitSpinner
-<img alt="Dot8Bit spinner" src="./images/gifs/spinners/s_dot.gif">
+<img alt="Dot8Bit spinner" src="./images/gifs/spinners/s_dot8bit.gif">
 
 ##### AlecRabbit\Spinner\EarthSpinner
 <img alt="Earth spinner" src="./images/gifs/spinners/s_earth.gif">
