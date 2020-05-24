@@ -18,9 +18,9 @@ use AlecRabbit\ConsoleColour\Themes;
 use AlecRabbit\Spinner\Core\Contracts\Frames;
 use AlecRabbit\Spinner\Core\Contracts\Juggler;
 use AlecRabbit\Spinner\Core\Contracts\Styles;
+use AlecRabbit\Spinner\Dot8BitSpinner;
 use AlecRabbit\Spinner\Settings\Contracts\Defaults;
 use AlecRabbit\Spinner\Settings\Settings;
-use AlecRabbit\Spinner\SnakeSpinner;
 use Psr\Http\Message\ServerRequestInterface;
 use React\EventLoop\Factory;
 use React\Http\Response;
@@ -103,7 +103,7 @@ $loop->addSignal(
 $settings = new Settings();
 $settings
     ->setMessageSuffix(Defaults::EMPTY_STRING)
-    ->setFrames(Frames::SNAKE_VARIANT_1)
+//    ->setFrames(Frames::SNAKE_VARIANT_1) // override frames setting
     // let's change jugglers order
     // Note: Juggler::PROGRESS is not used in this example
     ->setJugglersOrder([Juggler::PROGRESS, Juggler::MESSAGE, Juggler::FRAMES])
@@ -117,7 +117,7 @@ $settings
         ]
     );
 // overriding defaults with $settings
-$s = new SnakeSpinner($settings);
+$s = new Dot8BitSpinner($settings);
 
 // Add periodic timer to redraw our spinner
 $loop->addPeriodicTimer($s->interval(), static function () use ($s) {

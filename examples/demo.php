@@ -10,6 +10,7 @@ use AlecRabbit\Spinner\BouncingBarSpinner;
 use AlecRabbit\Spinner\CircleSpinner;
 use AlecRabbit\Spinner\ClockSpinner;
 use AlecRabbit\Spinner\DiceSpinner;
+use AlecRabbit\Spinner\Dot8BitSpinner;
 use AlecRabbit\Spinner\DotSpinner;
 use AlecRabbit\Spinner\EarthSpinner;
 use AlecRabbit\Spinner\MoonSpinner;
@@ -21,8 +22,10 @@ use AlecRabbit\Spinner\SimpleSpinner;
 use AlecRabbit\Spinner\SnakeSpinner;
 use AlecRabbit\Spinner\TimeSpinner;
 use AlecRabbit\Spinner\WeatherSpinner;
+
 use function AlecRabbit\brackets;
 use function AlecRabbit\str_wrap;
+
 use const AlecRabbit\COLOR256_TERMINAL;
 use const AlecRabbit\COLOR_TERMINAL;
 use const AlecRabbit\NO_COLOR_TERMINAL;
@@ -52,15 +55,16 @@ $spinners = [
     4 => CircleSpinner::class,
     5 => ClockSpinner::class,
     6 => DiceSpinner::class,
-    7 => DotSpinner::class,
-    8 => EarthSpinner::class,
-    9 => MoonSpinner::class,
-    10 => PercentSpinner::class,
-    11 => SectorsSpinner::class,
-    12 => SimpleSpinner::class,
-    13 => SnakeSpinner::class,
-    14 => TimeSpinner::class,
-    15 => WeatherSpinner::class,
+    7 => Dot8BitSpinner::class,
+    8 => DotSpinner::class,
+    9 => EarthSpinner::class,
+    10 => MoonSpinner::class,
+    11 => PercentSpinner::class,
+    12 => SectorsSpinner::class,
+    13 => SimpleSpinner::class,
+    14 => SnakeSpinner::class,
+    15 => TimeSpinner::class,
+    16 => WeatherSpinner::class,
 ];
 
 $arr = [
@@ -114,7 +118,7 @@ if (null === $spinnerIdx) {
     foreach ($spinners as $spinner) {
         doDemo($t, $spinner, $len, $arr, $color);
     }
-} elseif(array_key_exists($spinnerIdx = (int)$spinnerIdx,$spinners)) {
+} elseif (array_key_exists($spinnerIdx = (int)$spinnerIdx, $spinners)) {
     doDemo($t, $spinners[$spinnerIdx], $len, $arr, $color);
 } else {
     echo
