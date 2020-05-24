@@ -2,6 +2,12 @@
 ## [Unreleased]
 
 
+<a name="0.54.0"></a>
+## [0.54.0] - 2020-05-24
+### Added
+- `Dot8BitSpinner::class`
+
+
 <a name="0.53.0"></a>
 ## [0.53.0] - 2019-11-01
 ### Updated
@@ -401,7 +407,8 @@
 <a name="0.2.1-ALPHA.1"></a>
 ## 0.2.1-ALPHA.1 - 2019-04-06
 
-[Unreleased]: https://github.com/alecrabbit/php-console-spinner/compare/0.53.0...HEAD
+[Unreleased]: https://github.com/alecrabbit/php-console-spinner/compare/0.54.0...HEAD
+[0.54.0]: https://github.com/alecrabbit/php-console-spinner/compare/0.53.0...0.54.0
 [0.53.0]: https://github.com/alecrabbit/php-console-spinner/compare/0.52.0...0.53.0
 [0.52.0]: https://github.com/alecrabbit/php-console-spinner/compare/0.51.1...0.52.0
 [0.51.1]: https://github.com/alecrabbit/php-console-spinner/compare/0.51.0...0.51.1
