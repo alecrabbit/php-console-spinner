@@ -6,7 +6,9 @@ namespace AlecRabbit\Spinner\Core;
 
 class Strip
 {
-    protected const REG_EXP = '#\\x1b[[][^A-Za-z]*[A-Za-z]#';
+    protected const ANSI_ESC = '#\\x1b[[][^A-Za-z]*[A-Za-z]#';
+    protected const EMPTY_STR = '';
+    protected const EXCEPTION_MESSAGE = 'Failed to apply regex. Message: %s Code: %s';
 
     /**
      * @param string $in
@@ -14,7 +16,7 @@ class Strip
      */
     public static function controlCodes(string $in): string
     {
-        $out = preg_replace(self::REG_EXP, '', $in);
+        $out = preg_replace(self::ANSI_ESC, self::EMPTY_STR, $in);
         self::assertNoError();
         return (string)$out;
     }
@@ -25,7 +27,7 @@ class Strip
             // @codeCoverageIgnoreStart
             throw new \RuntimeException(
                 sprintf(
-                    'Failed to apply regex. Message: %s Code: %s',
+                    self::EXCEPTION_MESSAGE,
                     preg_last_error_msg(),
                     $errorCode
                 ),
