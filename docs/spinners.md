@@ -22,6 +22,9 @@
 ##### AlecRabbit\Spinner\DotSpinner
 <img alt="Arrow spinner" src="./images/gifs/spinners/s_dot.gif">
 
+##### AlecRabbit\Spinner\Dot8BitSpinner
+> TODO: add gif
+
 ##### AlecRabbit\Spinner\EarthSpinner
 <img alt="Arrow spinner" src="./images/gifs/spinners/s_earth.gif">
 
