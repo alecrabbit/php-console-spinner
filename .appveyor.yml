@@ -12,10 +12,13 @@ environment:
 
   matrix:
     - PHP_VERSION: '7.2'
-      XDEBUG_VERSION: '2.6.1-7.2'
+      XDEBUG_VERSION: '2.9.2-7.2'
       DEPENDENCIES: ''
     - PHP_VERSION: '7.3'
-      XDEBUG_VERSION: '2.7.0-7.3'
+      XDEBUG_VERSION: '2.9.2-7.3'
+      DEPENDENCIES: ''
+    - PHP_VERSION: '7.4'
+      XDEBUG_VERSION: '2.9.2-7.4'
       DEPENDENCIES: ''
 
 matrix:
