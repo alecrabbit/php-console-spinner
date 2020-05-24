@@ -14,7 +14,13 @@ class Strip
      */
     public static function controlCodes(string $in): string
     {
-        $str = preg_replace(self::REG_EXP, '', $in);
+        $out = preg_replace(self::REG_EXP, '', $in);
+        self::assertNoError();
+        return (string)$out;
+    }
+
+    private static function assertNoError(): void
+    {
         if (PREG_NO_ERROR !== $errorCode = preg_last_error()) {
             // @codeCoverageIgnoreStart
             throw new \RuntimeException(
@@ -27,6 +33,5 @@ class Strip
             );
             // @codeCoverageIgnoreEnd
         }
-        return (string)$str;
     }
 }
