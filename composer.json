@@ -33,7 +33,7 @@
     "fzaninotto/faker": "^1.8",
     "nunomaduro/collision": "^3.0",
     "phpunit/phpunit": "^8.0",
-    "react/http": "^0.8",
+    "react/http": "^0.8 || ^1.0",
     "symfony/var-dumper": "^4.2"
   },
   "autoload": {
