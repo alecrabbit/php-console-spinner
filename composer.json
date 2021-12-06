@@ -35,7 +35,7 @@
   },
   "autoload": {
     "psr-4": {
-      "AlecRabbit\\Spinner\\": "src\\Spinner"
+      "AlecRabbit\\Spinner\\": "src\\Spinner\\"
     }
   },
   "autoload-dev": {
