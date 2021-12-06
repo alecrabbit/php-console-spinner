@@ -23,29 +23,25 @@
   ],
   "license": "MIT",
   "require": {
-    "php": ">=7.2",
-    "alecrabbit/php-console-colour": "^0.10",
-    "alecrabbit/php-wcwidth": ">=0",
-    "symfony/polyfill-php80": "*",
-    "symfony/console": "^5.0"
+    "php": ">=8.1"
   },
   "require-dev": {
-    "alecrabbit/php-helpers": "^0.8.1",
-    "fzaninotto/faker": "^1.9",
-    "nunomaduro/collision": "^4.2",
-    "phpunit/phpunit": "^8.5",
-    "react/http": "^0.8",
-    "symfony/var-dumper": "^5.0"
+    "symfony/console": "^5.4",
+    "fakerphp/faker": "^1",
+    "nunomaduro/collision": "^5",
+    "phpunit/phpunit": "^9",
+    "react/http": "^1",
+    "symfony/var-dumper": "^5.4"
   },
   "autoload": {
     "psr-4": {
-      "AlecRabbit\\SpinnerOld\\": "src\\SpinnerOld"
+      "AlecRabbit\\Spinner\\": "src\\Spinner"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "AlecRabbit\\Tests\\SpinnerOld\\": "tests/"
+      "AlecRabbit\\Tests\\Spinner\\": "tests/"
     }
   },
-  "minimum-stability": "alpha"
+  "minimum-stability": "stable"
 }
