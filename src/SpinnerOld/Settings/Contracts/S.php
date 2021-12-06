@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Spinner\Settings\Contracts;
+namespace AlecRabbit\SpinnerOld\Settings\Contracts;
 
 interface S
 {

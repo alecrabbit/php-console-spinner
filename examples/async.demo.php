@@ -17,7 +17,7 @@ require_once __DIR__ . '/__include/__functions.php';       // Functions for this
 use AlecRabbit\Cli\Tools\Core\Terminal;
 use AlecRabbit\ConsoleColour\Exception\InvalidStyleException;
 use AlecRabbit\ConsoleColour\Themes;
-use AlecRabbit\Spinner\Core\Adapters\SymfonyOutputAdapter;
+use AlecRabbit\SpinnerOld\Core\Adapters\SymfonyOutputAdapter;
 use React\EventLoop\Factory;
 use Symfony\Component\Console\Output\ConsoleOutput;
 use const AlecRabbit\TERMINAL_COLOR_MODES;

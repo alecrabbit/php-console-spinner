@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Spinner\Core;
+namespace AlecRabbit\SpinnerOld\Core;
 
-use AlecRabbit\Spinner\Settings\Contracts\Defaults;
+use AlecRabbit\SpinnerOld\Settings\Contracts\Defaults;
 
 use function AlecRabbit\Helpers\wcswidth;
 

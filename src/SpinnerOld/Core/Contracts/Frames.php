@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Spinner\Core\Contracts;
+namespace AlecRabbit\SpinnerOld\Core\Contracts;
 
 /*
  *                          ***ATTENTION!***
@@ -10,7 +10,7 @@ namespace AlecRabbit\Spinner\Core\Contracts;
  *
  */
 
-use AlecRabbit\Spinner\Core\Contracts\Frames\Dot8Bit;
+use AlecRabbit\SpinnerOld\Core\Contracts\Frames\Dot8Bit;
 
 interface Frames
 {

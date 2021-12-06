@@ -15,12 +15,12 @@ __check_for_extension('pcntl', 'ext-pcntl is required', __FILE__);
 
 use AlecRabbit\ConsoleColour\Contracts\Color;
 use AlecRabbit\ConsoleColour\Themes;
-use AlecRabbit\Spinner\Core\Contracts\Frames;
-use AlecRabbit\Spinner\Core\Contracts\Juggler;
-use AlecRabbit\Spinner\Core\Contracts\Styles;
-use AlecRabbit\Spinner\Dot8BitSpinner;
-use AlecRabbit\Spinner\Settings\Contracts\Defaults;
-use AlecRabbit\Spinner\Settings\Settings;
+use AlecRabbit\SpinnerOld\Core\Contracts\Frames;
+use AlecRabbit\SpinnerOld\Core\Contracts\Juggler;
+use AlecRabbit\SpinnerOld\Core\Contracts\Styles;
+use AlecRabbit\SpinnerOld\Dot8BitSpinner;
+use AlecRabbit\SpinnerOld\Settings\Contracts\Defaults;
+use AlecRabbit\SpinnerOld\Settings\Settings;
 use Psr\Http\Message\ServerRequestInterface;
 use React\EventLoop\Factory;
 use React\Http\Response;

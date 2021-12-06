@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Spinner\Core;
+namespace AlecRabbit\SpinnerOld\Core;
 
 use AlecRabbit\Cli\Tools\Core\Terminal;
 use AlecRabbit\Cli\Tools\Cursor;
-use AlecRabbit\Spinner\Core\Coloring\Colors;
-use AlecRabbit\Spinner\Core\Contracts\OutputInterface;
-use AlecRabbit\Spinner\Core\Contracts\SpinnerInterface;
-use AlecRabbit\Spinner\Core\Jugglers\Contracts\JugglerInterface;
-use AlecRabbit\Spinner\Core\Jugglers\FrameJuggler;
-use AlecRabbit\Spinner\Core\Jugglers\MessageJuggler;
-use AlecRabbit\Spinner\Core\Jugglers\ProgressJuggler;
-use AlecRabbit\Spinner\Settings\Settings;
+use AlecRabbit\SpinnerOld\Core\Coloring\Colors;
+use AlecRabbit\SpinnerOld\Core\Contracts\OutputInterface;
+use AlecRabbit\SpinnerOld\Core\Contracts\SpinnerInterface;
+use AlecRabbit\SpinnerOld\Core\Jugglers\Contracts\JugglerInterface;
+use AlecRabbit\SpinnerOld\Core\Jugglers\FrameJuggler;
+use AlecRabbit\SpinnerOld\Core\Jugglers\MessageJuggler;
+use AlecRabbit\SpinnerOld\Core\Jugglers\ProgressJuggler;
+use AlecRabbit\SpinnerOld\Settings\Settings;
 
 use function AlecRabbit\Helpers\wcswidth;
 

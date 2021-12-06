@@ -2,7 +2,7 @@
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
-use AlecRabbit\Spinner\SnakeSpinner;
+use AlecRabbit\SpinnerOld\SnakeSpinner;
 
 const ITERATIONS = 50;
 

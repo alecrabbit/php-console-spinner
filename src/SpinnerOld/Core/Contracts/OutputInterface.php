@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Spinner\Core\Contracts;
+namespace AlecRabbit\SpinnerOld\Core\Contracts;
 
 interface OutputInterface
 {

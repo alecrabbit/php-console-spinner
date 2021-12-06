@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Spinner\Core\Jugglers;
+namespace AlecRabbit\SpinnerOld\Core\Jugglers;
 
-use AlecRabbit\Spinner\Core\Circular;
-use AlecRabbit\Spinner\Core\Coloring\Style;
-use AlecRabbit\Spinner\Core\Jugglers\Contracts\JugglerInterface;
-use AlecRabbit\Spinner\Settings\Contracts\Defaults;
-use AlecRabbit\Spinner\Settings\Settings;
+use AlecRabbit\SpinnerOld\Core\Circular;
+use AlecRabbit\SpinnerOld\Core\Coloring\Style;
+use AlecRabbit\SpinnerOld\Core\Jugglers\Contracts\JugglerInterface;
+use AlecRabbit\SpinnerOld\Settings\Contracts\Defaults;
+use AlecRabbit\SpinnerOld\Settings\Settings;
 
 use function AlecRabbit\Helpers\wcswidth;
 

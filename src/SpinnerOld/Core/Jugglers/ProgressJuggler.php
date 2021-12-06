@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Spinner\Core\Jugglers;
+namespace AlecRabbit\SpinnerOld\Core\Jugglers;
 
-use AlecRabbit\Spinner\Core\Coloring\Style;
-use AlecRabbit\Spinner\Settings\Settings;
+use AlecRabbit\SpinnerOld\Core\Coloring\Style;
+use AlecRabbit\SpinnerOld\Settings\Settings;
 
 use function AlecRabbit\Helpers\bounds;
 

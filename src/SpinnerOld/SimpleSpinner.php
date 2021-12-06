@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Spinner;
+namespace AlecRabbit\SpinnerOld;
 
-use AlecRabbit\Spinner\Core\Contracts\Frames;
-use AlecRabbit\Spinner\Core\Contracts\Juggler;
-use AlecRabbit\Spinner\Core\Contracts\Styles;
-use AlecRabbit\Spinner\Core\Spinner;
+use AlecRabbit\SpinnerOld\Core\Contracts\Frames;
+use AlecRabbit\SpinnerOld\Core\Contracts\Juggler;
+use AlecRabbit\SpinnerOld\Core\Contracts\Styles;
+use AlecRabbit\SpinnerOld\Core\Spinner;
 
 class SimpleSpinner extends Spinner
 {

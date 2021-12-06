@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Spinner\Settings;
+namespace AlecRabbit\SpinnerOld\Settings;
 
-use AlecRabbit\Spinner\Core\Sentinel;
-use AlecRabbit\Spinner\Settings\Contracts\Defaults;
-use AlecRabbit\Spinner\Settings\Contracts\S;
-use AlecRabbit\Spinner\Settings\Contracts\SettingsInterface;
+use AlecRabbit\SpinnerOld\Core\Sentinel;
+use AlecRabbit\SpinnerOld\Settings\Contracts\Defaults;
+use AlecRabbit\SpinnerOld\Settings\Contracts\S;
+use AlecRabbit\SpinnerOld\Settings\Contracts\SettingsInterface;
 
 class Settings implements SettingsInterface
 {

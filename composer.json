@@ -39,12 +39,12 @@
   },
   "autoload": {
     "psr-4": {
-      "AlecRabbit\\Spinner\\": "src\\Spinner"
+      "AlecRabbit\\SpinnerOld\\": "src\\SpinnerOld"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "AlecRabbit\\Tests\\Spinner\\": "tests/"
+      "AlecRabbit\\Tests\\SpinnerOld\\": "tests/"
     }
   },
   "minimum-stability": "alpha"

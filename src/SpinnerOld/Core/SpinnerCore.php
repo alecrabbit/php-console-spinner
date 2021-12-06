@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Spinner\Core;
+namespace AlecRabbit\SpinnerOld\Core;
 
-use AlecRabbit\Spinner\Core\Adapters\StdErrOutputAdapter;
-use AlecRabbit\Spinner\Core\Contracts\Frames;
-use AlecRabbit\Spinner\Core\Contracts\SpinnerInterface;
-use AlecRabbit\Spinner\Core\Contracts\OutputInterface;
-use AlecRabbit\Spinner\Core\Contracts\Styles;
-use AlecRabbit\Spinner\Settings\Contracts\Defaults;
-use AlecRabbit\Spinner\Settings\Settings;
+use AlecRabbit\SpinnerOld\Core\Adapters\StdErrOutputAdapter;
+use AlecRabbit\SpinnerOld\Core\Contracts\Frames;
+use AlecRabbit\SpinnerOld\Core\Contracts\SpinnerInterface;
+use AlecRabbit\SpinnerOld\Core\Contracts\OutputInterface;
+use AlecRabbit\SpinnerOld\Core\Contracts\Styles;
+use AlecRabbit\SpinnerOld\Settings\Contracts\Defaults;
+use AlecRabbit\SpinnerOld\Settings\Settings;
 
 abstract class SpinnerCore implements SpinnerInterface
 {

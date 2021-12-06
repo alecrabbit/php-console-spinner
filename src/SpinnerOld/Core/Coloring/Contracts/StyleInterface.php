@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Spinner\Core\Coloring\Contracts;
+namespace AlecRabbit\SpinnerOld\Core\Coloring\Contracts;
 
-use AlecRabbit\Spinner\Core\Circular;
+use AlecRabbit\SpinnerOld\Core\Circular;
 
 interface StyleInterface
 {

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Spinner\Core\Adapters;
+namespace AlecRabbit\SpinnerOld\Core\Adapters;
 
-use AlecRabbit\Spinner\Core\Contracts\OutputInterface;
+use AlecRabbit\SpinnerOld\Core\Contracts\OutputInterface;
 use Symfony\Component\Console\Output\ConsoleOutput;
 use Symfony\Component\Console\Output\StreamOutput;
 

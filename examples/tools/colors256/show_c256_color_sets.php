@@ -1,7 +1,7 @@
 <?php
 
 use AlecRabbit\ConsoleColour\ConsoleColor;
-use AlecRabbit\Spinner\Core\Contracts\Styles;
+use AlecRabbit\SpinnerOld\Core\Contracts\Styles;
 
 require_once __DIR__ . '/../../../vendor/autoload.php';
 require_once __DIR__ . '/../data.php';

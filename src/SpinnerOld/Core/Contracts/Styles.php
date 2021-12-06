@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Spinner\Core\Contracts;
+namespace AlecRabbit\SpinnerOld\Core\Contracts;
 
 use AlecRabbit\ConsoleColour\Contracts\Color;
 use AlecRabbit\ConsoleColour\Contracts\Effect;
-use AlecRabbit\Spinner\Settings\Contracts\Defaults;
+use AlecRabbit\SpinnerOld\Settings\Contracts\Defaults;
 
 interface Styles extends Juggler
 {

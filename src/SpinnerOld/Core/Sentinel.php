@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Spinner\Core;
+namespace AlecRabbit\SpinnerOld\Core;
 
-use AlecRabbit\Spinner\Core\Contracts\OutputInterface;
-use AlecRabbit\Spinner\Settings\Contracts\Defaults;
-use AlecRabbit\Spinner\Settings\Settings;
+use AlecRabbit\SpinnerOld\Core\Contracts\OutputInterface;
+use AlecRabbit\SpinnerOld\Settings\Contracts\Defaults;
+use AlecRabbit\SpinnerOld\Settings\Settings;
 
 use function AlecRabbit\Helpers\wcswidth;
 

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Spinner\Core\Adapters;
+namespace AlecRabbit\SpinnerOld\Core\Adapters;
 
 /**
  * Class StdErrOutputAdapter

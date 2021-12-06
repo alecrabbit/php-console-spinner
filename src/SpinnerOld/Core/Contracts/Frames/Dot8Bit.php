@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Spinner\Core\Contracts\Frames;
+namespace AlecRabbit\SpinnerOld\Core\Contracts\Frames;
 
 final class Dot8Bit
 {

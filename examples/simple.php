@@ -4,7 +4,7 @@ require_once __DIR__ . '/../vendor/autoload.php';
 //require_once __DIR__ . '/../tests/bootstrap.php';
 require_once __DIR__ . '/__include/__functions.php';       // Functions for this demo
 
-use AlecRabbit\Spinner\SnakeSpinner;
+use AlecRabbit\SpinnerOld\SnakeSpinner;
 
 /**
  * It's a very basic example just to show the concept

@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Spinner;
+namespace AlecRabbit\SpinnerOld;
 
-use AlecRabbit\Spinner\Core\Contracts\Juggler;
-use AlecRabbit\Spinner\Core\Contracts\Styles;
-use AlecRabbit\Spinner\Core\Spinner;
-use AlecRabbit\Spinner\Settings\Contracts\Defaults;
-use AlecRabbit\Spinner\Settings\Settings;
+use AlecRabbit\SpinnerOld\Core\Contracts\Juggler;
+use AlecRabbit\SpinnerOld\Core\Contracts\Styles;
+use AlecRabbit\SpinnerOld\Core\Spinner;
+use AlecRabbit\SpinnerOld\Settings\Contracts\Defaults;
+use AlecRabbit\SpinnerOld\Settings\Settings;
 
 class TimeSpinner extends Spinner
 {

@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Spinner\Core\Jugglers;
+namespace AlecRabbit\SpinnerOld\Core\Jugglers;
 
-use AlecRabbit\Spinner\Core\Circular;
-use AlecRabbit\Spinner\Core\Calculator;
-use AlecRabbit\Spinner\Core\Coloring\Style;
-use AlecRabbit\Spinner\Core\Sentinel;
-use AlecRabbit\Spinner\Settings\Settings;
+use AlecRabbit\SpinnerOld\Core\Circular;
+use AlecRabbit\SpinnerOld\Core\Calculator;
+use AlecRabbit\SpinnerOld\Core\Coloring\Style;
+use AlecRabbit\SpinnerOld\Core\Sentinel;
+use AlecRabbit\SpinnerOld\Settings\Settings;
 
 class FrameJuggler extends AbstractJuggler
 {

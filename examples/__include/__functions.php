@@ -1,7 +1,7 @@
 <?php declare(strict_types=1);
 
-use AlecRabbit\Spinner\Core\Contracts\SpinnerInterface;
-use AlecRabbit\Spinner\PercentSpinner;
+use AlecRabbit\SpinnerOld\Core\Contracts\SpinnerInterface;
+use AlecRabbit\SpinnerOld\PercentSpinner;
 
 /**
  * @param int $max

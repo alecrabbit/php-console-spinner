@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Spinner\Core\Jugglers\Contracts;
+namespace AlecRabbit\SpinnerOld\Core\Jugglers\Contracts;
 
 interface JugglerInterface
 {

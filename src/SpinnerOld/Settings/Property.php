@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Spinner\Settings;
+namespace AlecRabbit\SpinnerOld\Settings;
 
 class Property
 {

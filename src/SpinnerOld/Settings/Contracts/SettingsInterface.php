@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Spinner\Settings\Contracts;
+namespace AlecRabbit\SpinnerOld\Settings\Contracts;
 
-use AlecRabbit\Spinner\Settings\Settings;
+use AlecRabbit\SpinnerOld\Settings\Settings;
 
 interface SettingsInterface
 {

@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Spinner\Core\Coloring;
+namespace AlecRabbit\SpinnerOld\Core\Coloring;
 
-use AlecRabbit\Spinner\Core\Circular;
-use AlecRabbit\Spinner\Core\Coloring\Contracts\StyleInterface;
-use AlecRabbit\Spinner\Core\Contracts\Juggler;
-use AlecRabbit\Spinner\Core\Contracts\Styles;
-use AlecRabbit\Spinner\Core\Sentinel;
+use AlecRabbit\SpinnerOld\Core\Circular;
+use AlecRabbit\SpinnerOld\Core\Coloring\Contracts\StyleInterface;
+use AlecRabbit\SpinnerOld\Core\Contracts\Juggler;
+use AlecRabbit\SpinnerOld\Core\Contracts\Styles;
+use AlecRabbit\SpinnerOld\Core\Sentinel;
 
 use const AlecRabbit\COLOR256_TERMINAL;
 use const AlecRabbit\COLOR_TERMINAL;

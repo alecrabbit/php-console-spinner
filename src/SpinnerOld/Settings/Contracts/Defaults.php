@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Spinner\Settings\Contracts;
+namespace AlecRabbit\SpinnerOld\Settings\Contracts;
 
-use AlecRabbit\Spinner\Core\Contracts\Juggler;
-use AlecRabbit\Spinner\Core\Contracts\Styles;
+use AlecRabbit\SpinnerOld\Core\Contracts\Juggler;
+use AlecRabbit\SpinnerOld\Core\Contracts\Styles;
 
 interface Defaults
 {

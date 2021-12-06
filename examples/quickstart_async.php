@@ -2,7 +2,7 @@
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
-use AlecRabbit\Spinner\BlockSpinner;
+use AlecRabbit\SpinnerOld\BlockSpinner;
 use React\EventLoop\Factory;
 
 $loop = Factory::create();
