@@ -2,4 +2,4 @@
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
-dump(__FILE__);
+dump('New begining :)');
