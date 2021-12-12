@@ -11,7 +11,7 @@ use AlecRabbit\Spinner\Contract\ISpinnerConfig;
 final class SpinnerConfig implements ISpinnerConfig
 {
     public function __construct(
-        private IOutput $output = new StdErrOutput(),
+        private IOutput $output,
         private ?ILoop $loop = null,
     ) {
     }

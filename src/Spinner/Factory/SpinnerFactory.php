@@ -32,7 +32,7 @@ final class SpinnerFactory implements Factory\Contract\ISpinnerFactory
         if ($config instanceof Contract\ISpinnerConfig) {
             return $config;
         }
-        return ConfigFactory::createDefault();
+        return ConfigFactory::create();
     }
 
     private static function attachToLoop(Contract\ISpinner $spinner, Contract\ISpinnerConfig $config): void
