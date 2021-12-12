@@ -16,20 +16,33 @@ final class ConfigFactory implements IConfigFactory
     public static function create(
         ?IOutput $output = null,
         ?ILoop $loop = null,
+        bool $async = true,
     ): ISpinnerConfig {
         return new SpinnerConfig(
             output: $output ?? self::getOutput(),
-            loop:   $loop ?? self::getLoop(),
+            loop:   self::refineLoop($loop, $async),
+            async:  $async,
         );
-    }
-
-    private static function getLoop(): ILoop
-    {
-        return LoopFactory::getLoop();
     }
 
     protected static function getOutput(): IOutput
     {
         return new StdErrOutput();
+    }
+
+    private static function refineLoop(?ILoop $loop, bool $async): ?ILoop
+    {
+        if ($loop instanceof ILoop) {
+            return $loop;
+        }
+        if ($async) {
+            return self::getLoop();
+        }
+        return null;
+    }
+
+    private static function getLoop(): ILoop
+    {
+        return LoopFactory::getLoop();
     }
 }
