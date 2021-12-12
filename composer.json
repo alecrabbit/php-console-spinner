@@ -28,7 +28,7 @@
   "require-dev": {
     "symfony/console": "^5.4",
     "fakerphp/faker": "^1",
-    "nunomaduro/collision": "^5",
+    "nunomaduro/collision": "^5.10",
     "phpunit/phpunit": "^9",
     "react/http": "^1.5",
     "symfony/var-dumper": "^5.4",
