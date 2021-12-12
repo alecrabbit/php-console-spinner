@@ -7,15 +7,16 @@ namespace AlecRabbit\Spinner;
 use AlecRabbit\Spinner\Contract\IOutput;
 use AlecRabbit\Spinner\Contract\ISpinner;
 use AlecRabbit\Spinner\Contract\ISpinnerConfig;
-use React\EventLoop\Loop;
 use React\EventLoop\LoopInterface;
 
-use const AlecRabbit\CSI;
+use const AlecRabbit\Cli\CSI;
 
 final class Spinner implements ISpinner
 {
+    private const FRAME_INTERVAL = 0.1;
     private readonly IOutput $output;
     private LoopInterface $loop;
+    private bool $odd = true;
 
     public function __construct(
         private ISpinnerConfig $config
@@ -28,7 +29,7 @@ final class Spinner implements ISpinner
 
     private function initialize(): void
     {
-        // set mup spinner to work automatically
+        // set up spinner to work automatically
         // Add periodic timer to redraw our spinner
         $this->loop->addPeriodicTimer(
             $this->interval(),
@@ -40,7 +41,7 @@ final class Spinner implements ISpinner
 
     private function interval(): float
     {
-        return 0.1;
+        return self::FRAME_INTERVAL;
     }
 
     public function spin(): void
@@ -51,6 +52,15 @@ final class Spinner implements ISpinner
 
     private function render(): string
     {
-        return '*'. CSI . '1D';
+        $moveBackSequence = CSI . '1D';
+
+        $symbol = match ($this->odd) {
+            true => '+',
+            false => '-',
+        };
+
+        $this->odd = !$this->odd;
+
+        return $symbol . $moveBackSequence;
     }
 }

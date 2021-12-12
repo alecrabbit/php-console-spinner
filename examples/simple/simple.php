@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 use AlecRabbit\Spinner\SpinnerFactory;
 
-require_once __DIR__ . '/bootstrap.php';
+require_once __DIR__ . '/../bootstrap.php';
 
 
 $server = new React\Http\HttpServer(
