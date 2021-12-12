@@ -16,10 +16,11 @@ final class Spinner implements ISpinner
 
     public function __construct(
         private ISpinnerConfig $configuration
-    )
-    {
+    ) {
         $this->output = new Output();
         $this->loop = Loop::get();
+
+        $this->initialize();
     }
 
     public function spin(): void
@@ -31,5 +32,22 @@ final class Spinner implements ISpinner
     private function render(): string
     {
         return '*';
+    }
+
+    private function initialize(): void
+    {
+        // set mup spinner to work automatically
+        // Add periodic timer to redraw our spinner
+        $this->loop->addPeriodicTimer(
+            $this->interval(),
+            function () {
+                $this->spin();
+            }
+        );
+    }
+
+    private function interval(): float
+    {
+        return 0.1;
     }
 }
