@@ -8,20 +8,26 @@ use AlecRabbit\Spinner\Contract\IOutput;
 use AlecRabbit\Spinner\Contract\ISpinner;
 use AlecRabbit\Spinner\Contract\ISpinnerConfig;
 
+use AlecRabbit\Spinner\Core\Driver;
+
 use const AlecRabbit\Cli\CSI;
 
 final class Spinner implements ISpinner
 {
-    private const FRAME_INTERVAL = 0.3;
-    private readonly IOutput $output;
+    private const FRAME_INTERVAL = 0.1;
     private bool $odd = true;
     private bool $async;
+    private Driver $driver;
+    private Core\Color $colors;
+    private Core\Frame $frames;
 
     public function __construct(
         private ISpinnerConfig $config
     ) {
-        $this->output = $config->getOutput();
         $this->async = $this->config->isAsync();
+        $this->driver = new Driver($config->getOutput());
+        $this->colors = $this->config->getColors();
+        $this->frames = $this->config->getFrames();
     }
 
     public function interval(): int|float
@@ -32,21 +38,14 @@ final class Spinner implements ISpinner
     public function spin(): void
     {
         // render and output frame
-        $this->output->write($this->render());
+        $this->driver->write($this->render());
     }
 
     private function render(): string
     {
         $moveBackSequence = CSI . '1D';
 
-        $symbol = match ($this->odd) {
-            true => '+',
-            false => '-',
-        };
-
-        $this->odd = !$this->odd;
-
-        return $symbol . $moveBackSequence;
+        return $this->driver->frameSequence( $this->colors->next(),  $this->frames->next()) . $moveBackSequence;
     }
 
     public function isAsync(): bool

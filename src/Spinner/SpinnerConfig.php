@@ -7,6 +7,8 @@ namespace AlecRabbit\Spinner;
 use AlecRabbit\Spinner\Contract\ILoop;
 use AlecRabbit\Spinner\Contract\IOutput;
 use AlecRabbit\Spinner\Contract\ISpinnerConfig;
+use AlecRabbit\Spinner\Core\Color;
+use AlecRabbit\Spinner\Core\Frame;
 use LogicException;
 use RuntimeException;
 
@@ -40,5 +42,15 @@ final class SpinnerConfig implements ISpinnerConfig
         }
         // FIXME (2021-12-12 21:6) [Alec Rabbit]: clarify message [92c57495-4d39-4092-a6b9-64e83c63862a]
         throw new RuntimeException('Spinner config for sync mode. No loop.');
+    }
+
+    public function getColors(): Color
+    {
+        return new Color();
+    }
+
+    public function getFrames(): Frame
+    {
+        return new Frame();
     }
 }

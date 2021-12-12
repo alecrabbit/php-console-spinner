@@ -69,4 +69,20 @@ final class Color
         197,
     ];
 
+    private int $currentColorIdx = 0;
+    private int $colorLen;
+
+    public function __construct()
+    {
+        $this->colorLen = count(self::COLORS);
+    }
+
+    public function next(): string
+    {
+        if (++$this->currentColorIdx === $this->colorLen) {
+            $this->currentColorIdx = 0;
+        }
+        return (string)self::COLORS[$this->currentColorIdx];
+    }
+
 }
