@@ -2,7 +2,10 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Spinner\Contract;
+namespace AlecRabbit\Spinner\Factory\Contract;
+
+use AlecRabbit\Spinner\Contract\ISpinner;
+use AlecRabbit\Spinner\Contract\ISpinnerConfig;
 
 interface ISpinnerFactory
 {

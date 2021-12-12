@@ -2,13 +2,14 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Spinner;
+namespace AlecRabbit\Spinner\Factory;
 
 use AlecRabbit\Spinner\Contract;
+use AlecRabbit\Spinner\Contract\ILoop;
 use React\EventLoop\Loop;
 use React\EventLoop\LoopInterface;
 
-final class SpinnerFactory implements Contract\ISpinnerFactory
+final class SpinnerFactory implements \AlecRabbit\Spinner\Factory\Contract\ISpinnerFactory
 {
     public static function create(string $class, ?Contract\ISpinnerConfig $config = null): Contract\ISpinner
     {
@@ -16,7 +17,7 @@ final class SpinnerFactory implements Contract\ISpinnerFactory
         $config = self::refineConfig($config);
         $spinner = new $class($config);
 
-        self::attachToLoop($spinner, Loop::get());
+        self::attachToLoop($spinner, $config->getLoop());
         return $spinner;
     }
 
@@ -31,10 +32,10 @@ final class SpinnerFactory implements Contract\ISpinnerFactory
         if ($config instanceof Contract\ISpinnerConfig) {
             return $config;
         }
-        return new SpinnerConfig();
+        return ConfigFactory::createDefault();
     }
 
-    private static function attachToLoop(Contract\ISpinner $spinner, LoopInterface $loop): void
+    private static function attachToLoop(Contract\ISpinner $spinner, ILoop $loop): void
     {
         $loop->addPeriodicTimer(
             $spinner->interval(),

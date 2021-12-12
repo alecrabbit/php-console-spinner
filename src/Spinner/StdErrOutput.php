@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner;
 
-final class Output implements Contract\IOutput
+final class StdErrOutput implements Contract\IOutput
 {
 
     public function write(iterable|string $messages): void

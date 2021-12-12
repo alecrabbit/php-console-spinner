@@ -6,5 +6,7 @@ namespace AlecRabbit\Spinner\Contract;
 
 interface ISpinnerConfig
 {
+    public function getOutput(): IOutput;
 
+    public function getLoop(): ILoop;
 }
