@@ -8,6 +8,10 @@ use AlecRabbit\Spinner\Contract;
 use AlecRabbit\Spinner\Factory;
 use AlecRabbit\Spinner\Spinner;
 
+use RuntimeException;
+
+use function function_exists;
+
 final class SpinnerFactory implements Factory\Contract\ISpinnerFactory
 {
     public static function create(?string $class = null, ?Contract\ISpinnerConfig $config = null): Contract\ISpinner
@@ -44,6 +48,16 @@ final class SpinnerFactory implements Factory\Contract\ISpinnerFactory
         return ConfigFactory::create();
     }
 
+    protected static function doCreate(string $class, Contract\ISpinnerConfig $config): Contract\ISpinner
+    {
+        if (is_subclass_of($class, Contract\ISpinner::class)) {
+            return new $class($config);
+        }
+        throw new RuntimeException(
+            sprintf('Unsupported class [%s]', $class)
+        );
+    }
+
     private static function attachSpinnerToLoop(Contract\ISpinner $spinner, Contract\ISpinnerConfig $config): void
     {
         $config->getLoop()
@@ -55,16 +69,6 @@ final class SpinnerFactory implements Factory\Contract\ISpinnerFactory
             );
     }
 
-    protected static function doCreate(string $class, Contract\ISpinnerConfig $config): Contract\ISpinner
-    {
-        if (is_subclass_of($class, Contract\ISpinner::class)) {
-            return new $class($config);
-        }
-        throw new \RuntimeException(
-            sprintf('Unsupported class [%s]', $class)
-        );
-    }
-
     private static function initialize(Contract\ISpinner $spinner, Contract\ISpinnerConfig $config): void
     {
         $spinner->begin();
@@ -72,7 +76,7 @@ final class SpinnerFactory implements Factory\Contract\ISpinnerFactory
 
     private static function attachSigIntListener(Contract\ISpinner $spinner, Contract\ISpinnerConfig $config): void
     {
-        if (\function_exists('pcntl_signal')) { // check for ext-pcntl
+        if (function_exists('pcntl_signal')) { // check for ext-pcntl
             $loop = $config->getLoop();
             /** @noinspection PhpComposerExtensionStubsInspection */
             $loop->addSignal(

@@ -37,6 +37,11 @@ final class Spinner implements ISpinner
         $this->start();
     }
 
+    private function start(): void
+    {
+        $this->running = true;
+    }
+
     public function end(): void
     {
         $this->erase();
@@ -49,6 +54,11 @@ final class Spinner implements ISpinner
         $this->driver->write(
             $this->driver->eraseSequence()
         );
+    }
+
+    private function stop(): void
+    {
+        $this->running = false;
     }
 
     public function spin(): void
@@ -71,15 +81,5 @@ final class Spinner implements ISpinner
     public function isAsync(): bool
     {
         return $this->async;
-    }
-
-    private function start(): void
-    {
-        $this->running = true;
-    }
-
-    private function stop(): void
-    {
-        $this->running = false;
     }
 }

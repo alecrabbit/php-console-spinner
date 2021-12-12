@@ -21,15 +21,11 @@ final class Driver
     ) {
     }
 
-    public function write(string ...$sequences): void
-    {
-        $this->output->write($sequences);
-    }
-
     public function frameSequence(string $fg, string $char): string
     {
         return CSI . "38;5;{$fg}m{$char}\033[0m";
     }
+
     public function moveBackSequence(): string
     {
         return CSI . "1D";
@@ -39,12 +35,16 @@ final class Driver
     {
         return CSI . "1X";
     }
-    
+
     public function hideCursor(): void
     {
         $this->write(self::HIDE_CURSOR_SEQ);
     }
 
+    public function write(string ...$sequences): void
+    {
+        $this->output->write($sequences);
+    }
 
     public function showCursor(): void
     {
