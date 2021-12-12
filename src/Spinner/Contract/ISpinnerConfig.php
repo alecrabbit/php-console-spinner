@@ -16,4 +16,8 @@ interface ISpinnerConfig
     public function getColors(): Color;
 
     public function getFrames(): Frame;
+
+    public function getShutdownDelay(): int|float;
+
+    public function getExitMessage(): string;
 }

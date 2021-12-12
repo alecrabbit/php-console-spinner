@@ -92,7 +92,7 @@ final class SpinnerFactory implements Factory\Contract\ISpinnerFactory
                     /** @noinspection PhpComposerExtensionStubsInspection */
                     $loop->removeSignal(SIGINT, $func);
                     $loop->addTimer(
-                        0.5, // TODO: magic number [1419467a-cd92-4f5b-a94a-00fcfc7bd943]
+                        $config->getShutdownDelay(),
                         static function () use ($loop) {
                             $loop->stop();
                         }
