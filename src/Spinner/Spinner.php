@@ -10,16 +10,18 @@ use AlecRabbit\Spinner\Contract\ISpinnerConfig;
 use React\EventLoop\Loop;
 use React\EventLoop\LoopInterface;
 
+use const AlecRabbit\CSI;
+
 final class Spinner implements ISpinner
 {
     private readonly IOutput $output;
     private LoopInterface $loop;
 
     public function __construct(
-        private ISpinnerConfig $configuration
+        private ISpinnerConfig $config
     ) {
-        $this->output = new Output();
-        $this->loop = Loop::get();
+        $this->output = $config->getOutput();
+        $this->loop = $config->getLoop();
 
         $this->initialize();
     }
@@ -49,6 +51,6 @@ final class Spinner implements ISpinner
 
     private function render(): string
     {
-        return '*';
+        return '*'. CSI . '1D';
     }
 }
