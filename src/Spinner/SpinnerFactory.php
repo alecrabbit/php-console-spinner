@@ -5,15 +5,19 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner;
 
 use AlecRabbit\Spinner\Contract;
+use React\EventLoop\Loop;
+use React\EventLoop\LoopInterface;
 
 final class SpinnerFactory implements Contract\ISpinnerFactory
 {
-
     public static function create(string $class, ?Contract\ISpinnerConfig $config = null): Contract\ISpinner
     {
         $class = self::refineClass($class);
         $config = self::refineConfig($config);
-        return new $class($config);
+        $spinner = new $class($config);
+
+        self::attachToLoop($spinner, Loop::get());
+        return $spinner;
     }
 
     private static function refineClass(string $class): string
@@ -28,5 +32,15 @@ final class SpinnerFactory implements Contract\ISpinnerFactory
             return $config;
         }
         return new SpinnerConfig();
+    }
+
+    private static function attachToLoop(Contract\ISpinner $spinner, LoopInterface $loop): void
+    {
+        $loop->addPeriodicTimer(
+            $spinner->interval(),
+            static function () use ($spinner) {
+                $spinner->spin();
+            }
+        );
     }
 }

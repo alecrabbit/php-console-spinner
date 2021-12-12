@@ -18,7 +18,6 @@ final class SpinnerConfig implements ISpinnerConfig
     {
         $this->output = new Output();
         $this->loop = Loop::get();
-
     }
 
     public function getOutput(): IOutput
