@@ -11,4 +11,10 @@ interface ISpinner
     public function isAsync(): bool;
 
     public function spin(): void;
+
+    public function begin(): void;
+
+    public function end(): void;
+
+    public function erase(): void;
 }

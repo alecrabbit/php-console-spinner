@@ -14,9 +14,18 @@ final class SpinnerFactory implements Factory\Contract\ISpinnerFactory
     {
         $class = self::refineClass($class);
         $config = self::refineConfig($config);
-        $spinner = new $class($config);
 
-        self::attachSpinnerToLoop($spinner, $config);
+        $spinner =
+            self::doCreate(
+                $class,
+                $config,
+            );
+
+        if ($spinner->isAsync()) {
+            self::attachSpinnerToLoop($spinner, $config);
+            self::initialize($spinner, $config);
+            self::attachSigIntListener($spinner, $config);
+        }
 
         return $spinner;
     }
@@ -37,14 +46,45 @@ final class SpinnerFactory implements Factory\Contract\ISpinnerFactory
 
     private static function attachSpinnerToLoop(Contract\ISpinner $spinner, Contract\ISpinnerConfig $config): void
     {
-        if ($spinner->isAsync()) {
-            $config->getLoop()
-                ->addPeriodicTimer(
-                    $spinner->interval(),
-                    static function () use ($spinner) {
-                        $spinner->spin();
-                    }
-                );
+        $config->getLoop()
+            ->addPeriodicTimer(
+                $spinner->interval(),
+                static function () use ($spinner) {
+                    $spinner->spin();
+                }
+            );
+    }
+
+    protected static function doCreate(string $class, Contract\ISpinnerConfig $config): Contract\ISpinner
+    {
+        if (is_subclass_of($class, Contract\ISpinner::class)) {
+            return new $class($config);
+        }
+        throw new \RuntimeException(
+            sprintf('Unsupported class [%s]', $class)
+        );
+    }
+
+    private static function initialize(Contract\ISpinner $spinner, Contract\ISpinnerConfig $config): void
+    {
+        $spinner->begin();
+    }
+
+    private static function attachSigIntListener(Contract\ISpinner $spinner, Contract\ISpinnerConfig $config): void
+    {
+        if (\function_exists('pcntl_signal')) { // check for ext-pcntl
+            $loop = $config->getLoop();
+            /** @noinspection PhpComposerExtensionStubsInspection */
+            $loop->addSignal(
+                SIGINT,
+                $func = static function () use ($loop, &$func, $spinner, $config) {
+                    $spinner->erase();
+                    $spinner->end();
+                    $config->getOutput()->write(PHP_EOL . 'Ctrl+C to exit...' . PHP_EOL);
+                    /** @noinspection PhpComposerExtensionStubsInspection */
+                    $loop->removeSignal(SIGINT, $func);
+                },
+            );
         }
     }
 }

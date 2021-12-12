@@ -47,6 +47,9 @@
       "AlecRabbit\\Tests\\Spinner\\": "tests/"
     }
   },
+  "suggest": {
+    "ext-pcntl": "For signal handling support"
+  },
   "replace": {
     "symfony/polyfill-ctype": "*",
     "symfony/polyfill-mbstring": "*",
