@@ -50,11 +50,5 @@
   "suggest": {
     "ext-pcntl": "For signal handling support"
   },
-  "replace": {
-    "symfony/polyfill-ctype": "*",
-    "symfony/polyfill-mbstring": "*",
-    "symfony/polyfill-php73": "*",
-    "symfony/polyfill-php80": "*"
-  },
   "minimum-stability": "stable"
 }
