@@ -30,8 +30,9 @@
     "fakerphp/faker": "^1",
     "nunomaduro/collision": "^5",
     "phpunit/phpunit": "^9",
-    "react/http": "^1",
-    "symfony/var-dumper": "^5.4"
+    "react/http": "^1.5",
+    "symfony/var-dumper": "^5.4",
+    "react/event-loop": "^1.2"
   },
   "autoload": {
     "psr-4": {
@@ -42,6 +43,12 @@
     "psr-4": {
       "AlecRabbit\\Tests\\Spinner\\": "tests/"
     }
+  },
+  "replace": {
+    "symfony/polyfill-ctype": "*",
+    "symfony/polyfill-mbstring": "*",
+    "symfony/polyfill-php73": "*",
+    "symfony/polyfill-php80": "*"
   },
   "minimum-stability": "stable"
 }
