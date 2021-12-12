@@ -22,9 +22,9 @@ final class SpinnerFactory implements Contract\ISpinnerFactory
         return $class;
     }
 
-    private static function refineConfig(?Contract\ISpinnerConfig $config):Contract\ISpinnerConfig
+    private static function refineConfig(?Contract\ISpinnerConfig $config): Contract\ISpinnerConfig
     {
-        if($config instanceof Contract\ISpinnerConfig) {
+        if ($config instanceof Contract\ISpinnerConfig) {
             return $config;
         }
         return new SpinnerConfig();

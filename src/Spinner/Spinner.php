@@ -8,11 +8,12 @@ use AlecRabbit\Spinner\Contract\IOutput;
 use AlecRabbit\Spinner\Contract\ISpinner;
 use AlecRabbit\Spinner\Contract\ISpinnerConfig;
 use React\EventLoop\Loop;
+use React\EventLoop\LoopInterface;
 
 final class Spinner implements ISpinner
 {
     private readonly IOutput $output;
-    private \React\EventLoop\LoopInterface $loop;
+    private LoopInterface $loop;
 
     public function __construct(
         private ISpinnerConfig $configuration
@@ -21,17 +22,6 @@ final class Spinner implements ISpinner
         $this->loop = Loop::get();
 
         $this->initialize();
-    }
-
-    public function spin(): void
-    {
-        // render and output frame
-        $this->output->write($this->render());
-    }
-
-    private function render(): string
-    {
-        return '*';
     }
 
     private function initialize(): void
@@ -49,5 +39,16 @@ final class Spinner implements ISpinner
     private function interval(): float
     {
         return 0.1;
+    }
+
+    public function spin(): void
+    {
+        // render and output frame
+        $this->output->write($this->render());
+    }
+
+    private function render(): string
+    {
+        return '*';
     }
 }
