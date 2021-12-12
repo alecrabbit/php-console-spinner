@@ -7,7 +7,6 @@ namespace AlecRabbit\Spinner\Factory;
 use AlecRabbit\Spinner\Contract;
 use AlecRabbit\Spinner\Factory;
 use AlecRabbit\Spinner\Spinner;
-use AlecRabbit\Spinner\SpinnerConfig;
 use RuntimeException;
 
 final class SpinnerFactory implements Factory\Contract\ISpinnerFactory
@@ -16,7 +15,7 @@ final class SpinnerFactory implements Factory\Contract\ISpinnerFactory
 
     public static function create(?string $class = null, ?Contract\ISpinnerConfig $config = null): Contract\ISpinner
     {
-        if(self::$spinner instanceof Contract\ISpinner) {
+        if (self::$spinner instanceof Contract\ISpinner) {
             // there can be only one
             return self::$spinner;
         }
