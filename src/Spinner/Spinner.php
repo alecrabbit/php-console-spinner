@@ -4,10 +4,8 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner;
 
-use AlecRabbit\Spinner\Contract\IOutput;
 use AlecRabbit\Spinner\Contract\ISpinner;
 use AlecRabbit\Spinner\Contract\ISpinnerConfig;
-
 use AlecRabbit\Spinner\Core\Driver;
 
 use const AlecRabbit\Cli\CSI;
@@ -45,7 +43,7 @@ final class Spinner implements ISpinner
     {
         $moveBackSequence = CSI . '1D';
 
-        return $this->driver->frameSequence( $this->colors->next(),  $this->frames->next()) . $moveBackSequence;
+        return $this->driver->frameSequence($this->colors->next(), $this->frames->next()) . $moveBackSequence;
     }
 
     public function isAsync(): bool
