@@ -8,5 +8,5 @@ interface ISpinnerConfig
 {
     public function getOutput(): IOutput;
 
-    public function getLoop(): ?ILoop;
+    public function getLoop(): ILoop;
 }

@@ -16,7 +16,7 @@ final class SpinnerFactory implements Factory\Contract\ISpinnerFactory
         $config = self::refineConfig($config);
         $spinner = new $class($config);
 
-        self::attachToLoop($spinner, $config);
+        self::attachSpinnerToLoop($spinner, $config);
 
         return $spinner;
     }
@@ -35,16 +35,16 @@ final class SpinnerFactory implements Factory\Contract\ISpinnerFactory
         return ConfigFactory::create();
     }
 
-    private static function attachToLoop(Contract\ISpinner $spinner, Contract\ISpinnerConfig $config): void
+    private static function attachSpinnerToLoop(Contract\ISpinner $spinner, Contract\ISpinnerConfig $config): void
     {
-        $loop = $config->getLoop();
-        if ($loop instanceof Contract\ILoop) {
-            $loop->addPeriodicTimer(
-                $spinner->interval(),
-                static function () use ($spinner) {
-                    $spinner->spin();
-                }
-            );
+        if ($spinner->isAsync()) {
+            $config->getLoop()
+                ->addPeriodicTimer(
+                    $spinner->interval(),
+                    static function () use ($spinner) {
+                        $spinner->spin();
+                    }
+                );
         }
     }
 }

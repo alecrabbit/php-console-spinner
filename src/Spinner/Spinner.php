@@ -15,14 +15,16 @@ final class Spinner implements ISpinner
     private const FRAME_INTERVAL = 0.3;
     private readonly IOutput $output;
     private bool $odd = true;
+    private bool $async;
 
     public function __construct(
         private ISpinnerConfig $config
     ) {
         $this->output = $config->getOutput();
+        $this->async = $this->config->isAsync();
     }
 
-    public function interval(): float
+    public function interval(): int|float
     {
         return self::FRAME_INTERVAL;
     }
@@ -45,5 +47,10 @@ final class Spinner implements ISpinner
         $this->odd = !$this->odd;
 
         return $symbol . $moveBackSequence;
+    }
+
+    public function isAsync(): bool
+    {
+        return $this->async;
     }
 }
