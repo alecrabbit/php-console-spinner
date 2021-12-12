@@ -5,13 +5,12 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Factory;
 
 use AlecRabbit\Spinner\Contract;
-use AlecRabbit\Spinner\Contract\ILoop;
-use React\EventLoop\Loop;
-use React\EventLoop\LoopInterface;
+use AlecRabbit\Spinner\Factory;
+use AlecRabbit\Spinner\Spinner;
 
-final class SpinnerFactory implements \AlecRabbit\Spinner\Factory\Contract\ISpinnerFactory
+final class SpinnerFactory implements Factory\Contract\ISpinnerFactory
 {
-    public static function create(string $class, ?Contract\ISpinnerConfig $config = null): Contract\ISpinner
+    public static function create(?string $class = null, ?Contract\ISpinnerConfig $config = null): Contract\ISpinner
     {
         $class = self::refineClass($class);
         $config = self::refineConfig($config);
@@ -21,10 +20,10 @@ final class SpinnerFactory implements \AlecRabbit\Spinner\Factory\Contract\ISpin
         return $spinner;
     }
 
-    private static function refineClass(string $class): string
+    private static function refineClass(?string $class): string
     {
         // TODO (2021-12-12 10:13) [Alec Rabbit]: implement refinement
-        return $class;
+        return $class ?? Spinner::class;
     }
 
     private static function refineConfig(?Contract\ISpinnerConfig $config): Contract\ISpinnerConfig
@@ -35,7 +34,7 @@ final class SpinnerFactory implements \AlecRabbit\Spinner\Factory\Contract\ISpin
         return ConfigFactory::createDefault();
     }
 
-    private static function attachToLoop(Contract\ISpinner $spinner, ILoop $loop): void
+    private static function attachToLoop(Contract\ISpinner $spinner, Contract\ILoop $loop): void
     {
         $loop->addPeriodicTimer(
             $spinner->interval(),

@@ -1,10 +1,11 @@
 <?php
+
 declare(strict_types=1);
 
 use AlecRabbit\Spinner\Factory\SpinnerFactory;
+use AlecRabbit\Spinner\Spinner;
 
 require_once __DIR__ . '/../bootstrap.php';
-
 
 $server = new React\Http\HttpServer(
     static function (Psr\Http\Message\ServerRequestInterface $request) {
@@ -21,8 +22,6 @@ $server = new React\Http\HttpServer(
 $socket = new React\Socket\SocketServer('0.0.0.0:8080');
 $server->listen($socket);
 
-
-$spinner = SpinnerFactory::create(\AlecRabbit\Spinner\Spinner::class);
-
+$spinner = SpinnerFactory::create();
 
 echo "Server running at http://0.0.0.0:8080" . PHP_EOL;
