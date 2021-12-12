@@ -19,6 +19,11 @@ final class ReactLoopAdapter implements ILoop
         $this->loop->addPeriodicTimer($interval, $callback);
     }
 
+    public function addTimer(int|float $interval, callable $callback): void
+    {
+        $this->loop->addTimer($interval, $callback);
+    }
+
     public function addSignal(int $signal, callable $callback): void
     {
         $this->loop->addSignal($signal, $callback);
@@ -27,5 +32,10 @@ final class ReactLoopAdapter implements ILoop
     public function removeSignal(int $signal, callable $callback): void
     {
         $this->loop->removeSignal($signal, $callback);
+    }
+
+    public function stop(): void
+    {
+        $this->loop->stop();
     }
 }

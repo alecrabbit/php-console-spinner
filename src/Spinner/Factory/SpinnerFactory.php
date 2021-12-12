@@ -7,15 +7,20 @@ namespace AlecRabbit\Spinner\Factory;
 use AlecRabbit\Spinner\Contract;
 use AlecRabbit\Spinner\Factory;
 use AlecRabbit\Spinner\Spinner;
-
+use AlecRabbit\Spinner\SpinnerConfig;
 use RuntimeException;
-
-use function function_exists;
 
 final class SpinnerFactory implements Factory\Contract\ISpinnerFactory
 {
+    private static ?Contract\ISpinner $spinner = null;
+
     public static function create(?string $class = null, ?Contract\ISpinnerConfig $config = null): Contract\ISpinner
     {
+        if(self::$spinner instanceof Contract\ISpinner) {
+            // there can be only one
+            return self::$spinner;
+        }
+
         $class = self::refineClass($class);
         $config = self::refineConfig($config);
 
@@ -76,7 +81,7 @@ final class SpinnerFactory implements Factory\Contract\ISpinnerFactory
 
     private static function attachSigIntListener(Contract\ISpinner $spinner, Contract\ISpinnerConfig $config): void
     {
-        if (function_exists('pcntl_signal')) { // check for ext-pcntl
+        if (defined('SIGINT')) { // check for ext-pcntl
             $loop = $config->getLoop();
             /** @noinspection PhpComposerExtensionStubsInspection */
             $loop->addSignal(
@@ -84,11 +89,18 @@ final class SpinnerFactory implements Factory\Contract\ISpinnerFactory
                 $func = static function () use ($loop, &$func, $spinner, $config) {
                     $spinner->erase();
                     $spinner->end();
-                    $config->getOutput()->write(PHP_EOL . 'Ctrl+C to exit...' . PHP_EOL);
+                    $config->getOutput()->write(PHP_EOL . $config->getExitMessage() . PHP_EOL);
                     /** @noinspection PhpComposerExtensionStubsInspection */
                     $loop->removeSignal(SIGINT, $func);
+                    $loop->addTimer(
+                        0.5, // TODO: magic number [1419467a-cd92-4f5b-a94a-00fcfc7bd943]
+                        static function () use ($loop) {
+                            $loop->stop();
+                        }
+                    );
                 },
             );
         }
     }
+
 }

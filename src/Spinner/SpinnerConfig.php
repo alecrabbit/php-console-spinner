@@ -14,10 +14,13 @@ use RuntimeException;
 
 final class SpinnerConfig implements ISpinnerConfig
 {
+    private const EXITING_CTRL_C_TO_FORCE = 'Exiting... (CTRL+C to force)';
+
     public function __construct(
         private IOutput $output,
         private ?ILoop $loop = null,
         private bool $async = true,
+        private string $exitMessage = self::EXITING_CTRL_C_TO_FORCE,
     ) {
         if (null === $this->loop && $this->isAsync()) {
             // FIXME (2021-12-12 21:6) [Alec Rabbit]: clarify message [bb4c9b75-14d1-4ea5-addf-9b655d7a54b8]
@@ -28,6 +31,11 @@ final class SpinnerConfig implements ISpinnerConfig
     public function isAsync(): bool
     {
         return $this->async;
+    }
+
+    public function getExitMessage(): string
+    {
+        return $this->exitMessage;
     }
 
     public function getOutput(): IOutput
