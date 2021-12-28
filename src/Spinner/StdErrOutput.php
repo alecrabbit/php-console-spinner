@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner;
 
-final class StdErrOutput implements Contract\IOutput
+final class StdErrOutput implements Core\Contract\IOutput
 {
     /**
      * @var resource

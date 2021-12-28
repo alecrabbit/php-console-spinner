@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core;
 
-use AlecRabbit\Spinner\Contract\IOutput;
+use AlecRabbit\Spinner\Core\Contract\IOutput;
 
 use const AlecRabbit\Cli\CSI;
 

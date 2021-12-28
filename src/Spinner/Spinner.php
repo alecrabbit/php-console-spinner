@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner;
 
-use AlecRabbit\Spinner\Contract\ISpinner;
-use AlecRabbit\Spinner\Contract\ISpinnerConfig;
+use AlecRabbit\Spinner\Core\Contract\ISpinner;
+use AlecRabbit\Spinner\Core\Contract\ISpinnerConfig;
 use AlecRabbit\Spinner\Core\Driver;
 
 final class Spinner implements ISpinner

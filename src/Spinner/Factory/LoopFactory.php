@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Factory;
 
 use AlecRabbit\Spinner\Adapter\Loop\ReactLoopAdapter;
-use AlecRabbit\Spinner\Contract\ILoop;
+use AlecRabbit\Spinner\Core\Contract\ILoop;
 use DomainException;
 use React\EventLoop\Loop;
 

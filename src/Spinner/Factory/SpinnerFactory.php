@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Factory;
 
-use AlecRabbit\Spinner\Builder\ConfigBuilder;
-use AlecRabbit\Spinner\Contract;
+use AlecRabbit\Spinner\Config\Builder\ConfigBuilder;
+use AlecRabbit\Spinner\Core\Contract;
 use AlecRabbit\Spinner\Factory;
 use AlecRabbit\Spinner\Spinner;
 use RuntimeException;
@@ -63,7 +63,8 @@ final class SpinnerFactory implements Factory\Contract\ISpinnerFactory
         );
     }
 
-    private static function attachSpinnerToLoop(Contract\ISpinner $spinner, Contract\ISpinnerConfig $config): void
+    private static function attachSpinnerToLoop(
+        Contract\ISpinner $spinner, Contract\ISpinnerConfig $config): void
     {
         $config->getLoop()
             ->addPeriodicTimer(
@@ -74,12 +75,14 @@ final class SpinnerFactory implements Factory\Contract\ISpinnerFactory
             );
     }
 
-    private static function initialize(Contract\ISpinner $spinner, Contract\ISpinnerConfig $config): void
+    private static function initialize(
+        Contract\ISpinner $spinner, Contract\ISpinnerConfig $config): void
     {
         $spinner->begin();
     }
 
-    private static function attachSigIntListener(Contract\ISpinner $spinner, Contract\ISpinnerConfig $config): void
+    private static function attachSigIntListener(
+        Contract\ISpinner $spinner, Contract\ISpinnerConfig $config): void
     {
         if (defined('SIGINT')) { // check for ext-pcntl
             $loop = $config->getLoop();

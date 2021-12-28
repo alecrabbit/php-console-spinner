@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Adapter\Loop;
 
-use AlecRabbit\Spinner\Contract\ILoop;
+use AlecRabbit\Spinner\Core\Contract\ILoop;
 use React\EventLoop\LoopInterface;
 
 final class ReactLoopAdapter implements ILoop

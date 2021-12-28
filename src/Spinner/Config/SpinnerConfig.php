@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Spinner;
+namespace AlecRabbit\Spinner\Config;
 
-use AlecRabbit\Spinner\Contract\ILoop;
-use AlecRabbit\Spinner\Contract\IOutput;
-use AlecRabbit\Spinner\Contract\ISpinnerConfig;
 use AlecRabbit\Spinner\Core\Color;
+use AlecRabbit\Spinner\Core\Contract\ILoop;
+use AlecRabbit\Spinner\Core\Contract\IOutput;
+use AlecRabbit\Spinner\Core\Contract\ISpinnerConfig;
 use AlecRabbit\Spinner\Core\Frame;
 use LogicException;
 use RuntimeException;

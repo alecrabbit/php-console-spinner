@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Spinner\Builder;
+namespace AlecRabbit\Spinner\Config\Builder;
 
-use AlecRabbit\Spinner\Contract\ILoop;
-use AlecRabbit\Spinner\Contract\IOutput;
-use AlecRabbit\Spinner\Contract\ISpinnerConfig;
+use AlecRabbit\Spinner\Config\SpinnerConfig;
+use AlecRabbit\Spinner\Core\Contract\ILoop;
+use AlecRabbit\Spinner\Core\Contract\IOutput;
+use AlecRabbit\Spinner\Core\Contract\ISpinnerConfig;
 use AlecRabbit\Spinner\Factory\LoopFactory;
-use AlecRabbit\Spinner\SpinnerConfig;
 use AlecRabbit\Spinner\StdErrOutput;
 
 final class ConfigBuilder
