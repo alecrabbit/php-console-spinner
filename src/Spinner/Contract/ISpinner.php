@@ -17,4 +17,12 @@ interface ISpinner
     public function end(): void;
 
     public function erase(): void;
+
+    public function disable(): void;
+
+    public function enable(): void;
+
+    public function message(?string $message): void;
+
+    public function progress(?float $percent): void;
 }
