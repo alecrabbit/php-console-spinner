@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Factory;
 
+use AlecRabbit\Spinner\Builder\ConfigBuilder;
 use AlecRabbit\Spinner\Contract;
 use AlecRabbit\Spinner\Factory;
 use AlecRabbit\Spinner\Spinner;
@@ -49,7 +50,7 @@ final class SpinnerFactory implements Factory\Contract\ISpinnerFactory
         if ($config instanceof Contract\ISpinnerConfig) {
             return $config;
         }
-        return ConfigFactory::create();
+        return (new ConfigBuilder())->build();
     }
 
     protected static function doCreate(string $class, Contract\ISpinnerConfig $config): Contract\ISpinner
