@@ -82,4 +82,24 @@ final class Spinner implements ISpinner
     {
         return $this->async;
     }
+
+    public function disable(): void
+    {
+        // TODO: Implement disable() method.
+    }
+
+    public function enable(): void
+    {
+        // TODO: Implement enable() method.
+    }
+
+    public function message(?string $message): void
+    {
+        // TODO: Implement message() method.
+    }
+
+    public function progress(?float $percent): void
+    {
+        // TODO: Implement progress() method.
+    }
 }
