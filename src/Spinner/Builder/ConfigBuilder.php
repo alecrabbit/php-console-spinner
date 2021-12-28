@@ -13,7 +13,7 @@ use AlecRabbit\Spinner\StdErrOutput;
 
 final class ConfigBuilder
 {
-    private const DEFAULT_EXIT_MESSAGE = 'Exiting... (CTRL+C to force)';
+    private const DEFAULT_SIGINT_HANDLER_MESSAGE = 'Exiting... (CTRL+C to force)';
     private const DEFAULT_SHUTDOWN_DELAY = 0.5;
 
     private IOutput $output;
