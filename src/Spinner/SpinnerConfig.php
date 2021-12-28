@@ -24,10 +24,7 @@ final class SpinnerConfig implements ISpinnerConfig
         private string $exitMessage = self::EXITING_CTRL_C_TO_FORCE,
         private int|float $shutdownDelay = self::SHUTDOWN_DELAY,
     ) {
-        if (null === $this->loop && $this->isAsync()) {
-            // FIXME (2021-12-12 21:6) [Alec Rabbit]: clarify message [bb4c9b75-14d1-4ea5-addf-9b655d7a54b8]
-            throw new LogicException('You have chosen async configuration. It requires loop to run.');
-        }
+        $this->assertOperationMode();
     }
 
     public function isAsync(): bool
@@ -67,5 +64,21 @@ final class SpinnerConfig implements ISpinnerConfig
     public function getShutdownDelay(): int|float
     {
         return $this->shutdownDelay;
+    }
+
+    private function assertOperationMode(): void
+    {
+        if (null === $this->loop && $this->isAsync()) {
+            // FIXME (2021-12-12 21:6) [Alec Rabbit]: clarify message [bb4c9b75-14d1-4ea5-addf-9b655d7a54b8]
+            throw new LogicException(
+                'You have chosen async configuration. It requires ILoop implementation to run.'
+            );
+        }
+        if ($this->loop instanceof ILoop && !$this->isAsync()) {
+            // FIXME (2021-12-12 21:6) [Alec Rabbit]: clarify message 4a656564-4cdd-47b6-8bbf-bd86d033b2e7]
+            throw new LogicException(
+                'You have chosen sync configuration. Do not pass Loop object.'
+            );
+        }
     }
 }
