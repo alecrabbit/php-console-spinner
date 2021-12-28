@@ -8,8 +8,8 @@ use AlecRabbit\Spinner\Config\SpinnerConfig;
 use AlecRabbit\Spinner\Core\Contract\ILoop;
 use AlecRabbit\Spinner\Core\Contract\IOutput;
 use AlecRabbit\Spinner\Core\Contract\ISpinnerConfig;
+use AlecRabbit\Spinner\Core\StdErrOutput;
 use AlecRabbit\Spinner\Factory\LoopFactory;
-use AlecRabbit\Spinner\StdErrOutput;
 
 final class ConfigBuilder
 {
