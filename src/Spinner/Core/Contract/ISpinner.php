@@ -10,7 +10,7 @@ interface ISpinner
 
     public function isSynchronous(): bool;
 
-    public function isSynchronous(): bool;
+    public function isAsynchronous(): bool;
 
     public function spin(): void;
 
