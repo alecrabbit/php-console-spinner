@@ -4,27 +4,27 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner;
 
+use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use AlecRabbit\Spinner\Core\Contract\ISpinnerConfig;
-use AlecRabbit\Spinner\Core\Driver;
 use AlecRabbit\Spinner\Core\Exception\MethodNotImplementedException;
 
 final class Spinner implements ISpinner
 {
     private const FRAME_INTERVAL = 0.1;
     private bool $synchronous;
-    private Driver $driver;
+    private IDriver $driver;
     private Core\Color $colors;
     private Core\Frame $frames;
-    private bool $running;
+    private bool $active;
 
     public function __construct(
-        private ISpinnerConfig $config
+        ISpinnerConfig $config
     ) {
-        $this->synchronous = $this->config->isSynchronous();
-        $this->driver = new Driver($config->getOutput());
-        $this->colors = $this->config->getColors();
-        $this->frames = $this->config->getFrames();
+        $this->synchronous = $config->isSynchronous();
+        $this->driver = $config->getDriver();
+        $this->colors = $config->getColors();
+        $this->frames = $config->getFrames();
     }
 
     public function interval(): int|float
@@ -40,7 +40,7 @@ final class Spinner implements ISpinner
 
     private function start(): void
     {
-        $this->running = true;
+        $this->active = true;
     }
 
     public function end(): void
@@ -59,12 +59,12 @@ final class Spinner implements ISpinner
 
     private function stop(): void
     {
-        $this->running = false;
+        $this->active = false;
     }
 
     public function spin(): void
     {
-        if ($this->running) {
+        if ($this->active) {
             $this->driver->write($this->render());
         }
     }
@@ -91,16 +91,12 @@ final class Spinner implements ISpinner
 
     public function disable(): void
     {
-        // TODO: Implement disable() method.
-        // FIXME (2022-01-20 20:52) [Alec Rabbit]: Implement this
-        throw new MethodNotImplementedException(__METHOD__);
+        $this->active = false;
     }
 
     public function enable(): void
     {
-        // TODO: Implement enable() method.
-        // FIXME (2022-01-20 20:52) [Alec Rabbit]: Implement this
-        throw new MethodNotImplementedException(__METHOD__);
+        $this->active = true;
     }
 
     public function message(?string $message): void

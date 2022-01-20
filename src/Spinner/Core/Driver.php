@@ -4,14 +4,12 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core;
 
+use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\IOutput;
 
 use const AlecRabbit\Cli\CSI;
 
-/**
- * @internal
- */
-final class Driver
+final class Driver implements IDriver
 {
     private const SEQ_HIDE_CURSOR = CSI . '?25l';
     private const SEQ_SHOW_CURSOR = CSI . '?25h';

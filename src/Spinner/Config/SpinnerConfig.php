@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Config;
 
 use AlecRabbit\Spinner\Core\Color;
+use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\ILoop;
 use AlecRabbit\Spinner\Core\Contract\IOutput;
 use AlecRabbit\Spinner\Core\Contract\ISpinnerConfig;
@@ -20,6 +21,7 @@ final class SpinnerConfig implements ISpinnerConfig
 
     public function __construct(
         private IOutput $output,
+        private IDriver $driver,
         private ?ILoop $loop = null,
         private bool $synchronous = false,
         private string $defaultClass = Spinner::class,
@@ -91,5 +93,10 @@ final class SpinnerConfig implements ISpinnerConfig
     public function getDefaultSpinnerClass(): string
     {
         return $this->defaultClass;
+    }
+
+    public function getDriver(): IDriver
+    {
+        return $this->driver;
     }
 }
