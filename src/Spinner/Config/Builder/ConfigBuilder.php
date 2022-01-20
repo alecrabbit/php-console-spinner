@@ -23,7 +23,7 @@ final class ConfigBuilder
     public function __construct()
     {
         $this->output = new StdErrOutput();
-        $this->synchronousMode = true;
+        $this->synchronousMode = false;
         $this->loop = self::getLoop();
     }
 
