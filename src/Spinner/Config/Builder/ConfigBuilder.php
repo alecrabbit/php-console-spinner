@@ -27,9 +27,9 @@ final class ConfigBuilder
         $this->loop = self::getLoop();
     }
 
-    private static function refineLoop(ILoop $loop, bool $asyncMode): ?ILoop
+    private static function refineLoop(ILoop $loop, bool $synchronousMode): ?ILoop
     {
-        if ($asyncMode) {
+        if (!$synchronousMode) {
             return $loop;
         }
         return null;
