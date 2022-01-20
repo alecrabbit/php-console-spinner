@@ -50,7 +50,7 @@ final class Spinner implements ISpinner
         $this->stop();
     }
 
-    public function erase(): void
+    private function erase(): void
     {
         $this->driver->write(
             $this->driver->eraseSequence()
@@ -91,6 +91,7 @@ final class Spinner implements ISpinner
 
     public function disable(): void
     {
+        $this->erase();
         $this->active = false;
     }
 

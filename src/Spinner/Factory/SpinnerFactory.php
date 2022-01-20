@@ -99,7 +99,6 @@ final class SpinnerFactory implements Factory\Contract\ISpinnerFactory
             $loop->addSignal(
                 SIGINT,
                 $func = static function () use ($loop, &$func, $spinner, $config) {
-                    $spinner->erase();
                     $spinner->end();
                     $config->getOutput()->write(PHP_EOL . $config->getExitMessage() . PHP_EOL);
                     /** @noinspection PhpComposerExtensionStubsInspection */
