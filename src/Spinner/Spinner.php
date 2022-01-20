@@ -7,6 +7,7 @@ namespace AlecRabbit\Spinner;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use AlecRabbit\Spinner\Core\Contract\ISpinnerConfig;
 use AlecRabbit\Spinner\Core\Driver;
+use AlecRabbit\Spinner\Core\Exception\MethodNotImplementedException;
 
 final class Spinner implements ISpinner
 {
@@ -91,20 +92,28 @@ final class Spinner implements ISpinner
     public function disable(): void
     {
         // TODO: Implement disable() method.
+        // FIXME (2022-01-20 20:52) [Alec Rabbit]: Implement this
+        throw new MethodNotImplementedException(__METHOD__);
     }
 
     public function enable(): void
     {
         // TODO: Implement enable() method.
+        // FIXME (2022-01-20 20:52) [Alec Rabbit]: Implement this
+        throw new MethodNotImplementedException(__METHOD__);
     }
 
     public function message(?string $message): void
     {
         // TODO: Implement message() method.
+        // FIXME (2022-01-20 20:52) [Alec Rabbit]: Implement this
+        throw new MethodNotImplementedException(__METHOD__);
     }
 
     public function progress(?float $percent): void
     {
         // TODO: Implement progress() method.
+        // FIXME (2022-01-20 20:52) [Alec Rabbit]: Implement this
+        throw new MethodNotImplementedException(__METHOD__);
     }
 }
