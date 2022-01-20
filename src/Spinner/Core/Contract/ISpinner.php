@@ -8,7 +8,9 @@ interface ISpinner
 {
     public function interval(): int|float;
 
-    public function isAsync(): bool;
+    public function isSynchronous(): bool;
+
+    public function isSynchronous(): bool;
 
     public function spin(): void;
 

@@ -14,15 +14,16 @@ final class SpinnerFactory implements Factory\Contract\ISpinnerFactory
 {
     private static ?Contract\ISpinner $spinner = null;
 
-    public static function create(?string $class = null, ?Contract\ISpinnerConfig $config = null): Contract\ISpinner
+    public static function create(string|Contract\ISpinnerConfig|null $classOrConfig = null): Contract\ISpinner
     {
         if (self::$spinner instanceof Contract\ISpinner) {
             // there can be only one
             return self::$spinner;
         }
 
-        $class = self::refineClass($class);
-        $config = self::refineConfig($config);
+
+        $class = self::refineClass($classOrConfig);
+        $config = self::refineConfig($classOrConfig);
 
         $spinner =
             self::doCreate(
@@ -30,7 +31,7 @@ final class SpinnerFactory implements Factory\Contract\ISpinnerFactory
                 $config,
             );
 
-        if ($spinner->isAsync()) {
+        if ($spinner->isAsynchronous()) {
             self::attachSpinnerToLoop($spinner, $config);
             self::initialize($spinner, $config);
             self::attachSigIntListener($spinner, $config);
@@ -39,13 +40,18 @@ final class SpinnerFactory implements Factory\Contract\ISpinnerFactory
         return $spinner;
     }
 
-    private static function refineClass(?string $class): string
+    private static function refineClass(string|Contract\ISpinnerConfig|null $classOrConfig): string
     {
-        // TODO (2021-12-12 10:13) [Alec Rabbit]: implement refinement
-        return $class ?? Spinner::class;
+        if (is_string($classOrConfig)) {
+            return $classOrConfig;
+        }
+        if($classOrConfig instanceof Contract\ISpinnerConfig) {
+            return $classOrConfig->getDefaultSpinnerClass();
+        }
+        return Spinner::class;
     }
 
-    private static function refineConfig(?Contract\ISpinnerConfig $config): Contract\ISpinnerConfig
+    private static function refineConfig(string|Contract\ISpinnerConfig|null $config): Contract\ISpinnerConfig
     {
         if ($config instanceof Contract\ISpinnerConfig) {
             return $config;
@@ -64,8 +70,9 @@ final class SpinnerFactory implements Factory\Contract\ISpinnerFactory
     }
 
     private static function attachSpinnerToLoop(
-        Contract\ISpinner $spinner, Contract\ISpinnerConfig $config): void
-    {
+        Contract\ISpinner $spinner,
+        Contract\ISpinnerConfig $config
+    ): void {
         $config->getLoop()
             ->addPeriodicTimer(
                 $spinner->interval(),
@@ -76,14 +83,16 @@ final class SpinnerFactory implements Factory\Contract\ISpinnerFactory
     }
 
     private static function initialize(
-        Contract\ISpinner $spinner, Contract\ISpinnerConfig $config): void
-    {
+        Contract\ISpinner $spinner,
+        Contract\ISpinnerConfig $config
+    ): void {
         $spinner->begin();
     }
 
     private static function attachSigIntListener(
-        Contract\ISpinner $spinner, Contract\ISpinnerConfig $config): void
-    {
+        Contract\ISpinner $spinner,
+        Contract\ISpinnerConfig $config
+    ): void {
         if (defined('SIGINT')) { // check for ext-pcntl
             $loop = $config->getLoop();
             /** @noinspection PhpComposerExtensionStubsInspection */

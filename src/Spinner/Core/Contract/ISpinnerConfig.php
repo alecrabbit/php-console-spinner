@@ -9,6 +9,10 @@ use AlecRabbit\Spinner\Core\Frame;
 
 interface ISpinnerConfig
 {
+    public function isAsynchronous(): bool;
+
+    public function isSynchronous(): bool;
+
     public function getOutput(): IOutput;
 
     public function getLoop(): ILoop;
@@ -20,4 +24,6 @@ interface ISpinnerConfig
     public function getShutdownDelay(): int|float;
 
     public function getExitMessage(): string;
+
+    public function getDefaultSpinnerClass(): string;
 }

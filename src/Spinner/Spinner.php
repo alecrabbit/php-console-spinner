@@ -11,7 +11,7 @@ use AlecRabbit\Spinner\Core\Driver;
 final class Spinner implements ISpinner
 {
     private const FRAME_INTERVAL = 0.1;
-    private bool $async;
+    private bool $synchronous;
     private Driver $driver;
     private Core\Color $colors;
     private Core\Frame $frames;
@@ -20,7 +20,7 @@ final class Spinner implements ISpinner
     public function __construct(
         private ISpinnerConfig $config
     ) {
-        $this->async = $this->config->isAsync();
+        $this->synchronous = $this->config->isSynchronous();
         $this->driver = new Driver($config->getOutput());
         $this->colors = $this->config->getColors();
         $this->frames = $this->config->getFrames();
@@ -78,9 +78,14 @@ final class Spinner implements ISpinner
             . $this->driver->moveBackSequence();
     }
 
-    public function isAsync(): bool
+    public function isSynchronous(): bool
     {
-        return $this->async;
+        return $this->synchronous;
+    }
+
+    public function isAsynchronous(): bool
+    {
+        return !$this->isSynchronous();
     }
 
     public function disable(): void

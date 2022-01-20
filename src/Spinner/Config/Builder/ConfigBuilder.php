@@ -18,12 +18,12 @@ final class ConfigBuilder
 
     private IOutput $output;
     private ILoop $loop;
-    private bool $asyncMode;
+    private bool $synchronousMode;
 
     public function __construct()
     {
         $this->output = new StdErrOutput();
-        $this->asyncMode = true;
+        $this->synchronousMode = true;
         $this->loop = self::getLoop();
     }
 
@@ -47,9 +47,9 @@ final class ConfigBuilder
         return $this;
     }
 
-    public function inSyncMode(): self
+    public function inSynchronousMode(): self
     {
-        $this->asyncMode = false;
+        $this->synchronousMode = false;
         return $this;
     }
 
@@ -57,8 +57,8 @@ final class ConfigBuilder
     {
         return new SpinnerConfig(
             output: $this->output,
-            loop:   self::refineLoop($this->loop, $this->asyncMode),
-            async:  $this->asyncMode,
+            loop:   self::refineLoop($this->loop, $this->synchronousMode),
+            synchronous:  $this->synchronousMode,
         );
     }
 
