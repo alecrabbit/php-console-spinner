@@ -46,7 +46,7 @@ final class SpinnerFactory implements Factory\Contract\ISpinnerFactory
             return $classOrConfig;
         }
         if($classOrConfig instanceof Contract\ISpinnerConfig) {
-            return $classOrConfig->getDefaultSpinnerClass();
+            return $classOrConfig->getSpinnerClass();
         }
         return Spinner::class;
     }

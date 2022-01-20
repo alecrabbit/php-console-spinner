@@ -25,7 +25,7 @@ interface ISpinnerConfig
 
     public function getExitMessage(): string;
 
-    public function getDefaultSpinnerClass(): string;
+    public function getSpinnerClass(): string;
 
     public function getDriver(): IDriver;
 }

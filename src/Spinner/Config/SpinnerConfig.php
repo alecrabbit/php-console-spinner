@@ -24,7 +24,7 @@ final class SpinnerConfig implements ISpinnerConfig
         private IDriver $driver,
         private ?ILoop $loop = null,
         private bool $synchronous = false,
-        private string $defaultClass = Spinner::class,
+        private string $spinnerClass = Spinner::class,
         private string $exitMessage = self::EXITING_CTRL_C_TO_FORCE,
         private int|float $shutdownDelay = self::SHUTDOWN_DELAY,
     ) {
@@ -90,9 +90,9 @@ final class SpinnerConfig implements ISpinnerConfig
         }
     }
 
-    public function getDefaultSpinnerClass(): string
+    public function getSpinnerClass(): string
     {
-        return $this->defaultClass;
+        return $this->spinnerClass;
     }
 
     public function getDriver(): IDriver
