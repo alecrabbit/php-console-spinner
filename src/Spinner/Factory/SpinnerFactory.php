@@ -17,7 +17,7 @@ final class SpinnerFactory implements Factory\Contract\ISpinnerFactory
     public static function create(string|Contract\ISpinnerConfig|null $classOrConfig = null): Contract\ISpinner
     {
         if (self::$spinner instanceof Contract\ISpinner) {
-            // there can be only one
+            // There Can Be Only One
             return self::$spinner;
         }
 
