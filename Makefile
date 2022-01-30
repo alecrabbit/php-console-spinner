@@ -41,8 +41,8 @@ _tools_install: _install_phploc
 
 _install_phploc:
 	@echo "\n$(_C_SELECT) $(PROJECT_NAME) $(_C_STOP) $(_C_INFO)PHPLOC install...$(_C_STOP)\n";
-	mkdir -p  ${PWD}/.tools
-	docker-compose exec $(CONTAINER_NAME) phive install phploc --trust-gpg-keys 0x4AA394086372C20A --target .tools
+	@mkdir -p  ${PWD}/.tools
+	@docker-compose exec $(CONTAINER_NAME) phive install phploc --trust-gpg-keys 0x4AA394086372C20A --target .tools
 
 _app_init:
 	@echo "$(_C_INFO)";
@@ -51,11 +51,11 @@ _app_init:
 
 clear_ready:
 	@echo "\n$(_C_SELECT) $(PROJECT_NAME) $(_C_STOP) $(_C_INFO)Clearing ready flag...$(_C_STOP)\n";
-	docker run --rm -v ${PWD}:/app --workdir=/app alpine rm -f .ready
+	@docker run --rm -v ${PWD}:/app --workdir=/app alpine rm -f .ready
 
 mark_ready:
 	@echo "\n$(_C_SELECT)  $(PROJECT_NAME)  $(_C_STOP) $(_C_INFO)Setting ready flag...$(_C_STOP)\n";
-	docker run --rm -v ${PWD}:/app --workdir=/app --user=$(shell id -u):$(shell id -g) alpine touch .ready
+	@docker run --rm -v ${PWD}:/app --workdir=/app --user=$(shell id -u):$(shell id -g) alpine touch .ready
 
 chown:
-	sudo chown -R $(shell id -un):$(shell id -gn) .
+	@sudo chown -R $(shell id -un):$(shell id -gn) .
