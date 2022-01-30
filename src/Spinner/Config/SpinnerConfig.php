@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Config;
 
 use AlecRabbit\Spinner\Core\Color;
+use AlecRabbit\Spinner\Core\Contract\Defaults;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\ILoop;
 use AlecRabbit\Spinner\Core\Contract\IOutput;
@@ -16,8 +17,8 @@ use RuntimeException;
 
 final class SpinnerConfig implements ISpinnerConfig
 {
-    private const MESSAGE_ON_EXIT = 'Exiting... (CTRL+C to force)';
-    private const SHUTDOWN_DELAY = 0.5;
+    private const MESSAGE_ON_EXIT = Defaults::MESSAGE_ON_EXIT;
+    private const SHUTDOWN_DELAY = Defaults::SHUTDOWN_DELAY;
 
     public function __construct(
         private IOutput $output,
