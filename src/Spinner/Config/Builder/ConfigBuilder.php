@@ -5,30 +5,32 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Config\Builder;
 
 use AlecRabbit\Spinner\Config\SpinnerConfig;
+use AlecRabbit\Spinner\Core\Contract\Defaults;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\ILoop;
-use AlecRabbit\Spinner\Core\Contract\IOutput;
 use AlecRabbit\Spinner\Core\Contract\ISpinnerConfig;
 use AlecRabbit\Spinner\Core\Driver;
 use AlecRabbit\Spinner\Core\StdErrOutput;
 use AlecRabbit\Spinner\Factory\LoopFactory;
-use RuntimeException;
 
 final class ConfigBuilder
 {
-    private const DEFAULT_SIGINT_HANDLER_MESSAGE = 'Exiting... (CTRL+C to force)';
-    private const DEFAULT_SHUTDOWN_DELAY = 0.5;
+    private const MESSAGE_ON_EXIT = Defaults::MESSAGE_ON_EXIT;
+    private const SHUTDOWN_DELAY = Defaults::SHUTDOWN_DELAY;
 
-    private IOutput $output;
     private ILoop $loop;
-    private string $driverClass;
+    private IDriver $driver;
     private bool $synchronousMode;
+    private float $shutdownDelaySeconds;
+    private string $exitMessage;
 
     public function __construct()
     {
-        $this->output = new StdErrOutput();
         $this->synchronousMode = false;
         $this->loop = self::getLoop();
+        $this->driver = self::createDriver();
+        $this->exitMessage = self::MESSAGE_ON_EXIT;
+        $this->shutdownDelaySeconds = self::SHUTDOWN_DELAY;
     }
 
     private static function getLoop(): ILoop
@@ -36,21 +38,27 @@ final class ConfigBuilder
         return LoopFactory::getLoop();
     }
 
-    public function withOutput(IOutput $output): self
+    private static function createDriver(): IDriver
     {
-        $this->output = $output;
+        return new Driver(new StdErrOutput());
+    }
+
+    public function withExitMessage(string $exitMessage): self
+    {
+        $this->exitMessage = $exitMessage;
         return $this;
     }
 
-    public function withDriverClass(string $driverCLass): self
+    public function withShutdownDelayMicroseconds(int $shutdownDelay): self
     {
-        if (is_subclass_of($driverCLass, IDriver::class)) {
-            $this->driverClass = $driverCLass;
-            return $this;
-        }
-        throw new RuntimeException(
-            sprintf('Unsupported driver class [%s]', $driverCLass)
-        );
+        $this->shutdownDelaySeconds = round($shutdownDelay / 1000, 3);
+        return $this;
+    }
+
+    public function withDriver(IDriver $driver): self
+    {
+        $this->driver = $driver;
+        return $this;
     }
 
     public function withLoop(ILoop $loop): self
@@ -67,17 +75,14 @@ final class ConfigBuilder
 
     public function build(): ISpinnerConfig
     {
-        return new SpinnerConfig(
-            output:      $this->output,
-            driver:      self::getDriver($this->output),
-            loop:        self::refineLoop($this->loop, $this->synchronousMode),
-            synchronous: $this->synchronousMode,
-        );
-    }
-
-    private static function getDriver(IOutput $output): IDriver
-    {
-        return new Driver($output);
+        return
+            new SpinnerConfig(
+                driver:        $this->driver,
+                shutdownDelay: $this->shutdownDelaySeconds,
+                exitMessage:   $this->exitMessage,
+                synchronous:   $this->synchronousMode,
+                loop:          self::refineLoop($this->loop, $this->synchronousMode),
+            );
     }
 
     private static function refineLoop(ILoop $loop, bool $synchronousMode): ?ILoop
@@ -87,5 +92,4 @@ final class ConfigBuilder
         }
         return null;
     }
-
 }

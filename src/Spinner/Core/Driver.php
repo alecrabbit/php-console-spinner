@@ -48,4 +48,9 @@ final class Driver implements IDriver
     {
         $this->write(self::SEQ_SHOW_CURSOR);
     }
+
+    public function getOutput(): IOutput
+    {
+        return $this->output;
+    }
 }

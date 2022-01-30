@@ -8,26 +8,24 @@ use AlecRabbit\Spinner\Core\Color;
 use AlecRabbit\Spinner\Core\Contract\Defaults;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\ILoop;
-use AlecRabbit\Spinner\Core\Contract\IOutput;
 use AlecRabbit\Spinner\Core\Contract\ISpinnerConfig;
 use AlecRabbit\Spinner\Core\Frame;
 use AlecRabbit\Spinner\Spinner;
+use InvalidArgumentException;
 use LogicException;
 use RuntimeException;
 
 final class SpinnerConfig implements ISpinnerConfig
 {
-    private const MESSAGE_ON_EXIT = Defaults::MESSAGE_ON_EXIT;
-    private const SHUTDOWN_DELAY = Defaults::SHUTDOWN_DELAY;
+    private const MAX_SHUTDOWN_DELAY = Defaults::MAX_SHUTDOWN_DELAY;
 
     public function __construct(
-        private IOutput $output,
         private IDriver $driver,
-        private ?ILoop $loop = null,
+        private int|float $shutdownDelay,
+        private string $exitMessage,
         private bool $synchronous = false,
+        private ?ILoop $loop = null,
         private string $spinnerClass = Spinner::class,
-        private string $exitMessage = self::MESSAGE_ON_EXIT,
-        private int|float $shutdownDelay = self::SHUTDOWN_DELAY,
     ) {
         $this->assertConfigIsCorrect();
     }
@@ -35,6 +33,7 @@ final class SpinnerConfig implements ISpinnerConfig
     private function assertConfigIsCorrect(): void
     {
         $this->assertRunMode();
+        $this->assertShutdownDelay();
     }
 
     private function assertRunMode(): void
@@ -63,14 +62,24 @@ final class SpinnerConfig implements ISpinnerConfig
         return $this->synchronous;
     }
 
+    private function assertShutdownDelay(): void
+    {
+        if (0 > $this->shutdownDelay) {
+            throw new  InvalidArgumentException('Shutdown delay can not be negative.');
+        }
+        if (0 === $this->shutdownDelay) {
+            throw new  InvalidArgumentException('Shutdown delay can not be equal to 0.');
+        }
+        if (self::MAX_SHUTDOWN_DELAY > $this->shutdownDelay) {
+            throw new InvalidArgumentException(
+                sprintf('Shutdown delay can not be greater than %s.', self::MAX_SHUTDOWN_DELAY)
+            );
+        }
+    }
+
     public function getExitMessage(): string
     {
         return $this->exitMessage;
-    }
-
-    public function getOutput(): IOutput
-    {
-        return $this->output;
     }
 
     public function getLoop(): ILoop

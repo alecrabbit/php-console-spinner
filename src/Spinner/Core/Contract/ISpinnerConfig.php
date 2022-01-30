@@ -13,8 +13,6 @@ interface ISpinnerConfig
 
     public function isSynchronous(): bool;
 
-    public function getOutput(): IOutput;
-
     public function getLoop(): ILoop;
 
     public function getColors(): Color;

@@ -21,4 +21,6 @@ interface IDriver
     public function write(string ...$sequences): void;
 
     public function showCursor(): void;
+
+    public function getOutput(): IOutput;
 }
