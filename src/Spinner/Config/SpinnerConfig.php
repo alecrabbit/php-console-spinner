@@ -16,7 +16,7 @@ use RuntimeException;
 
 final class SpinnerConfig implements ISpinnerConfig
 {
-    private const EXITING_CTRL_C_TO_FORCE = 'Exiting... (CTRL+C to force)';
+    private const MESSAGE_ON_EXIT = 'Exiting... (CTRL+C to force)';
     private const SHUTDOWN_DELAY = 0.5;
 
     public function __construct(
@@ -25,10 +25,10 @@ final class SpinnerConfig implements ISpinnerConfig
         private ?ILoop $loop = null,
         private bool $synchronous = false,
         private string $spinnerClass = Spinner::class,
-        private string $exitMessage = self::EXITING_CTRL_C_TO_FORCE,
+        private string $exitMessage = self::MESSAGE_ON_EXIT,
         private int|float $shutdownDelay = self::SHUTDOWN_DELAY,
     ) {
-        $this->assertRunMode();
+        $this->assertConfigIsCorrect();
     }
 
     public function isAsynchronous(): bool
@@ -85,7 +85,7 @@ final class SpinnerConfig implements ISpinnerConfig
         if ($this->loop instanceof ILoop && $this->isSynchronous()) {
             // FIXME (2021-12-12 21:6) [Alec Rabbit]: clarify message 4a656564-4cdd-47b6-8bbf-bd86d033b2e7]
             throw new LogicException(
-                'You have chosen sync configuration. Do not pass Loop object.'
+                'You have chosen sync configuration. Do not pass ILoop object.'
             );
         }
     }
@@ -98,5 +98,10 @@ final class SpinnerConfig implements ISpinnerConfig
     public function getDriver(): IDriver
     {
         return $this->driver;
+    }
+
+    private function assertConfigIsCorrect(): void
+    {
+        $this->assertRunMode();
     }
 }
