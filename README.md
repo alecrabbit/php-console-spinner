@@ -1,5 +1,3 @@
-
-
 <p align="center">
   <img alt="Logo" width="100" height="100" src="https://github.com/alecrabbit/php-console-spinner/raw/master/docs/images/ro37AC_sm.png">
 </p>
@@ -9,8 +7,6 @@ Spinner - your task is running
 </p>
 
 #  🏵️  PHP Console Spinner
-
-![advanced](docs/images/fpdemo.svg)
 
 ### New version 
 
