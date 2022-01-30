@@ -31,17 +31,9 @@ final class ConfigBuilder
         $this->loop = self::getLoop();
     }
 
-    private static function getDriver(IOutput $output): IDriver
+    private static function getLoop(): ILoop
     {
-        return new Driver($output);
-    }
-
-    private static function refineLoop(ILoop $loop, bool $synchronousMode): ?ILoop
-    {
-        if (!$synchronousMode) {
-            return $loop;
-        }
-        return null;
+        return LoopFactory::getLoop();
     }
 
     public function withOutput(IOutput $output): self
@@ -83,9 +75,17 @@ final class ConfigBuilder
         );
     }
 
-    private static function getLoop(): ILoop
+    private static function getDriver(IOutput $output): IDriver
     {
-        return LoopFactory::getLoop();
+        return new Driver($output);
+    }
+
+    private static function refineLoop(ILoop $loop, bool $synchronousMode): ?ILoop
+    {
+        if (!$synchronousMode) {
+            return $loop;
+        }
+        return null;
     }
 
 }

@@ -79,14 +79,14 @@ final class Spinner implements ISpinner
             . $this->driver->moveBackSequence();
     }
 
-    public function isSynchronous(): bool
-    {
-        return $this->synchronous;
-    }
-
     public function isAsynchronous(): bool
     {
         return !$this->isSynchronous();
+    }
+
+    public function isSynchronous(): bool
+    {
+        return $this->synchronous;
     }
 
     public function disable(): void

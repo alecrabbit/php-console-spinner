@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core;
 
+use RuntimeException;
+
 final class StdErrOutput implements Contract\IOutput
 {
     /**
@@ -15,11 +17,16 @@ final class StdErrOutput implements Contract\IOutput
         $stream = STDERR,
     ) {
         if (!is_resource($stream)) {
-            throw new \RuntimeException(
+            throw new RuntimeException(
                 sprintf('Stream expected to be a resource, [%s] given', get_debug_type($stream))
             );
         }
         $this->stream = $stream;
+    }
+
+    public function writeln(iterable|string $messages, int $options = 0): void
+    {
+        $this->write($messages, true, $options);
     }
 
     public function write(iterable|string $messages, bool $newline = false, int $options = 0): void
@@ -30,14 +37,9 @@ final class StdErrOutput implements Contract\IOutput
         foreach ($messages as $message) {
             if (false === @fwrite($this->stream, $message)) {
                 // should never happen
-                throw new \RuntimeException('Was unable to write to stream.');
+                throw new RuntimeException('Was unable to write to stream.');
             }
         }
         fflush($this->stream);
-    }
-
-    public function writeln(iterable|string $messages, int $options = 0): void
-    {
-        $this->write($messages, true, $options);
     }
 }

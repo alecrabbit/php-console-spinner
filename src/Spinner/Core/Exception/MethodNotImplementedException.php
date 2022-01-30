@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Exception;
 
-final class MethodNotImplementedException extends \RuntimeException
+use RuntimeException;
+
+final class MethodNotImplementedException extends RuntimeException
 {
 }

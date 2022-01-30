@@ -8,7 +8,8 @@ use AlecRabbit\Spinner\Config\Builder\ConfigBuilder;
 use AlecRabbit\Spinner\Core\Contract;
 use AlecRabbit\Spinner\Factory;
 use AlecRabbit\Spinner\Spinner;
-use RuntimeException;
+use DomainException;
+use InvalidArgumentException;
 
 final class SpinnerFactory implements Factory\Contract\ISpinnerFactory
 {
@@ -16,17 +17,24 @@ final class SpinnerFactory implements Factory\Contract\ISpinnerFactory
 
     public static function get(): Contract\ISpinner
     {
-        if (self::$spinner instanceof Contract\ISpinner) {
-            // There Can Be Only One
+        if (self::hasSpinnerInstance()) {
             return self::$spinner;
         }
         return self::create();
     }
 
+    private static function hasSpinnerInstance(): bool
+    {
+        return self::$spinner instanceof Contract\ISpinner;
+    }
+
     public static function create(string|Contract\ISpinnerConfig|null $classOrConfig = null): Contract\ISpinner
     {
-        if (self::$spinner instanceof Contract\ISpinner) {
-            throw new RuntimeException(sprintf('Spinner instance was already created: [%s]', self::$spinner::class));
+        if (self::hasSpinnerInstance()) {
+            // There Can Be Only One
+            throw new DomainException(
+                sprintf('Spinner instance was already created: [%s]', self::$spinner::class)
+            );
         }
 
         $class = self::refineClass($classOrConfig);
@@ -73,7 +81,7 @@ final class SpinnerFactory implements Factory\Contract\ISpinnerFactory
         if (is_subclass_of($class, Contract\ISpinner::class)) {
             return new $class($config);
         }
-        throw new RuntimeException(
+        throw new InvalidArgumentException(
         // TODO (2022-01-30 11:17) [Alec Rabbit]: clarify message [975f3695-a537-4745-a22b-12b9844e666f]
             sprintf('Unsupported class [%s]', $class)
         );
