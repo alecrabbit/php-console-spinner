@@ -1,7 +1,6 @@
 /.idea
 /vendor
 /.eval
-/.tools
 /.phive
 /.report/.build/*
 .ready
