@@ -70,9 +70,13 @@ final class SpinnerConfig implements ISpinnerConfig
         if (0 === $this->shutdownDelay) {
             throw new  InvalidArgumentException('Shutdown delay can not be equal to 0.');
         }
-        if (self::MAX_SHUTDOWN_DELAY > $this->shutdownDelay) {
+        if (self::MAX_SHUTDOWN_DELAY < $this->shutdownDelay) {
             throw new InvalidArgumentException(
-                sprintf('Shutdown delay can not be greater than %s.', self::MAX_SHUTDOWN_DELAY)
+                sprintf(
+                    'Shutdown delay [%s] can not be greater than %s.',
+                    $this->shutdownDelay,
+                    self::MAX_SHUTDOWN_DELAY
+                )
             );
         }
     }
