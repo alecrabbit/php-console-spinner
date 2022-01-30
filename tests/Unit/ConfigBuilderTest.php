@@ -13,5 +13,4 @@ final class ConfigBuilderTest extends TestCase
     {
         self::assertTrue(true);
     }
-
 }

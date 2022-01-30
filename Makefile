@@ -61,5 +61,7 @@ chown:
 	@sudo chown -R $(shell id -un):$(shell id -gn) .
 
 test:
-	@docker-compose exec -e XDEBUG_MODE=off $(CONTAINER_NAME) vendor/bin/phpunit
+	@-docker-compose exec -e XDEBUG_MODE=off $(CONTAINER_NAME) vendor/bin/phpunit
 
+test_coverage:
+	@-docker-compose exec -e XDEBUG_MODE=coverage $(CONTAINER_NAME) vendor/bin/phpunit --verbose --coverage-text

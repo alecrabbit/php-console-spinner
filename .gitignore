@@ -3,4 +3,5 @@
 /.eval
 /.tools
 /.phive
+/.build
 .ready
