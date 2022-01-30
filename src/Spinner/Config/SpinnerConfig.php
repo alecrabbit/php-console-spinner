@@ -32,8 +32,8 @@ final class SpinnerConfig implements ISpinnerConfig
 
     private function assertConfigIsCorrect(): void
     {
-        $this->assertRunMode();
         $this->assertShutdownDelay();
+        $this->assertRunMode();
     }
 
     private function assertRunMode(): void
