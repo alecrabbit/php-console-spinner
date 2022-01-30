@@ -113,5 +113,4 @@ final class SpinnerFactory implements Factory\Contract\ISpinnerFactory
             );
         }
     }
-
 }
