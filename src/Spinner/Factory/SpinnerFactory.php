@@ -14,11 +14,19 @@ final class SpinnerFactory implements Factory\Contract\ISpinnerFactory
 {
     private static ?Contract\ISpinner $spinner = null;
 
-    public static function create(string|Contract\ISpinnerConfig|null $classOrConfig = null): Contract\ISpinner
+    public static function get(): Contract\ISpinner
     {
         if (self::$spinner instanceof Contract\ISpinner) {
             // There Can Be Only One
             return self::$spinner;
+        }
+        return self::create();
+    }
+
+    public static function create(string|Contract\ISpinnerConfig|null $classOrConfig = null): Contract\ISpinner
+    {
+        if (self::$spinner instanceof Contract\ISpinner) {
+            throw new RuntimeException(sprintf('Spinner instance was already created: [%s]', self::$spinner::class));
         }
 
         $class = self::refineClass($classOrConfig);
@@ -36,6 +44,8 @@ final class SpinnerFactory implements Factory\Contract\ISpinnerFactory
             self::attachSigIntListener($spinner, $config);
         }
 
+        self::setSpinner($spinner);
+
         return $spinner;
     }
 
@@ -44,7 +54,7 @@ final class SpinnerFactory implements Factory\Contract\ISpinnerFactory
         if (is_string($classOrConfig)) {
             return $classOrConfig;
         }
-        if($classOrConfig instanceof Contract\ISpinnerConfig) {
+        if ($classOrConfig instanceof Contract\ISpinnerConfig) {
             return $classOrConfig->getSpinnerClass();
         }
         return Spinner::class;
@@ -112,5 +122,10 @@ final class SpinnerFactory implements Factory\Contract\ISpinnerFactory
                 },
             );
         }
+    }
+
+    private static function setSpinner(Contract\ISpinner $spinner): void
+    {
+        self::$spinner = $spinner;
     }
 }
