@@ -1,4 +1,5 @@
 /.idea
 /vendor
 /.eval
+/.tools
 .ready

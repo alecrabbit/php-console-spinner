@@ -6,15 +6,9 @@ services:
   &app-service app:
     image: dralec/php81-cli-dev
     hostname: *app-service
-    user: "${USER_ID:-1000}:${GROUP_ID:-1000}"
     volumes:
-      - /etc/passwd:/etc/passwd:ro
-      - /etc/group:/etc/group:ro
       - ./:/app
     tty: true
-    environment:
-      DOCKER_TERM: "${TERM:-}"      # pass host $TERM variable
-      COLORTERM: "${COLORTERM:-}"   # pass host $COLORTERM variable
     ports:
       - "8080:8080"
     working_dir: /app

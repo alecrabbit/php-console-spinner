@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phive xmlns="https://phar.io/phive">
+  <phar name="phploc" version="^7.0.2" installed="7.0.2" location="./.tools/phploc" copy="false"/>
+</phive>

@@ -22,7 +22,14 @@ _check_var_file:
 	@echo "and stop asking to check file contents and start init over again";
 	@echo "$(_C_STOP)";
 
-_full_init: docker_down_clear clear_ready docker_pull docker_build docker_up _app_init mark_ready _docker_ps
+_full_init: docker_down_clear clear_ready docker_pull docker_build docker_up _tools_install _app_init mark_ready _docker_ps
+
+_tools_install: _install_phploc
+
+_install_phploc:
+	@echo "\n$(_C_SELECT) $(PROJECT_NAME) $(_C_STOP) $(_C_INFO)PHPLOC install...$(_C_STOP)\n";
+	mkdir -p  ${PWD}/.tools
+	docker-compose exec $(CONTAINER_NAME) phive install phploc --trust-gpg-keys 0x4AA394086372C20A --target .tools
 
 _app_init:
 	@echo "$(_C_INFO)";
