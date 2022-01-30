@@ -21,7 +21,6 @@ final class SpinnerFactory implements Factory\Contract\ISpinnerFactory
             return self::$spinner;
         }
 
-
         $class = self::refineClass($classOrConfig);
         $config = self::refineConfig($classOrConfig);
 
