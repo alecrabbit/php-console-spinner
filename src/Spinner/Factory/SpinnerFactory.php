@@ -64,6 +64,7 @@ final class SpinnerFactory implements Factory\Contract\ISpinnerFactory
             return new $class($config);
         }
         throw new RuntimeException(
+        // TODO (2022-01-30 11:17) [Alec Rabbit]: clarify message [975f3695-a537-4745-a22b-12b9844e666f]
             sprintf('Unsupported class [%s]', $class)
         );
     }
