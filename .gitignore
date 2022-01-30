@@ -3,5 +3,5 @@
 /.eval
 /.tools
 /.phive
-/.build
+/.report/.build/*
 .ready

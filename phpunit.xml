@@ -17,8 +17,7 @@
             <directory suffix=".php">src</directory>
         </include>
         <report>
-            <html outputDirectory=".build/coverage"/>
-            <text outputFile=".build/coverage.txt"/>
+            <html outputDirectory=".report/.build/coverage"/>
         </report>
     </coverage>
 </phpunit>

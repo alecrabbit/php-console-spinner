@@ -30,9 +30,9 @@ _tools_run: _run_phploc
 
 _run_phploc:
 	@echo "\n$(_C_SELECT) $(PROJECT_NAME) $(_C_STOP) $(_C_INFO)PHPLOC tun...$(_C_STOP)\n";
-	@mkdir -p $(APP_DIR)/.phploc
-	@-docker-compose exec $(CONTAINER_NAME) /app/.tools/phploc src > $(APP_DIR)/.phploc/.phploc_baseline
-	@-cat $(APP_DIR)/.phploc/.phploc_baseline
+	@mkdir -p $(APP_DIR)/.report/.phploc
+	@-docker-compose exec $(CONTAINER_NAME) /app/.tools/phploc src > $(APP_DIR)/.report/.phploc/.phploc_baseline
+	@-cat $(APP_DIR)/.report/.phploc/.phploc_baseline
 	@echo "$(_C_STOP)\n";
 
 _docker_actions: docker_down_clear docker_pull docker_build docker_up _docker_ps
@@ -64,4 +64,4 @@ test:
 	@-docker-compose exec -e XDEBUG_MODE=off $(CONTAINER_NAME) vendor/bin/phpunit
 
 test_coverage:
-	@-docker-compose exec -e XDEBUG_MODE=coverage $(CONTAINER_NAME) vendor/bin/phpunit --verbose --coverage-text
+	@-docker-compose exec -e XDEBUG_MODE=coverage $(CONTAINER_NAME) vendor/bin/phpunit --coverage-text
