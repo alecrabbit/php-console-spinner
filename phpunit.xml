@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- https://phpunit.readthedocs.io/en/latest/configuration.html -->
+<!-- If you use phpunit-bridge directly, set -->
+<!-- xsi:noNamespaceSchemaLocation="bin/.phpunit/phpunit.xsd" -->
+<phpunit
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.5/phpunit.xsd"
+        backupGlobals="false" colors="true"
+        bootstrap="tests/bootstrap.php"
+        printerClass="NunoMaduro\Collision\Adapters\Phpunit\Printer"
+        executionOrder="random">
+    <coverage processUncoveredFiles="true">
+        <include>
+            <directory suffix=".php">src</directory>
+        </include>
+        <report>
+            <html outputDirectory="build/coverage"/>
+            <text outputFile="build/coverage.txt"/>
+        </report></coverage>
+    <testsuites>
+        <testsuite name="Project Test Suite">
+            <directory>tests</directory>
+        </testsuite>
+    </testsuites>
+</phpunit>

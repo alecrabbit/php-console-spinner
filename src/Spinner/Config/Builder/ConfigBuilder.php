@@ -45,32 +45,37 @@ final class ConfigBuilder
 
     public function withExitMessage(string $exitMessage): self
     {
+        $clone = clone $this;
         $this->exitMessage = $exitMessage;
-        return $this;
+        return $clone;
     }
 
     public function withShutdownDelayMicroseconds(int $shutdownDelay): self
     {
+        $clone = clone $this;
         $this->shutdownDelaySeconds = round($shutdownDelay / 1000, 3);
-        return $this;
+        return $clone;
     }
 
     public function withDriver(IDriver $driver): self
     {
+        $clone = clone $this;
         $this->driver = $driver;
-        return $this;
+        return $clone;
     }
 
     public function withLoop(ILoop $loop): self
     {
+        $clone = clone $this;
         $this->loop = $loop;
-        return $this;
+        return $clone;
     }
 
     public function inSynchronousMode(): self
     {
+        $clone = clone $this;
         $this->synchronousMode = false;
-        return $this;
+        return $clone;
     }
 
     public function build(): ISpinnerConfig

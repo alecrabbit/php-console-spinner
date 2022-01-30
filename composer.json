@@ -1,54 +1,55 @@
 {
-  "name": "alecrabbit/php-console-spinner",
-  "type": "library",
-  "description": "Colorful highly configurable spinner for php cli applications",
-  "keywords": [
-    "php",
-    "spinner",
-    "console",
-    "cli",
-    "scripts",
-    "pretty",
-    "clock",
-    "shell",
-    "bash",
-    "arrow",
-    "moon",
-    "color",
-    "256color",
-    "8bit",
-    "colorful",
-    "ansi",
-    "snake"
-  ],
-  "license": "MIT",
-  "require": {
-    "php": ">=8.1"
-  },
-  "require-dev": {
-    "symfony/console": "^6.0",
-    "fakerphp/faker": "^1",
-    "nunomaduro/collision": "^6.1",
-    "phpunit/phpunit": "^9.5",
-    "react/http": "^1.5",
-    "symfony/var-dumper": "^6.0",
-    "react/event-loop": "^1.2"
-  },
-  "autoload": {
-    "psr-4": {
-      "AlecRabbit\\Spinner\\": "src\\Spinner\\"
+    "name": "alecrabbit/php-console-spinner",
+    "type": "library",
+    "description": "Colorful highly configurable spinner for php cli applications",
+    "keywords": [
+        "php",
+        "spinner",
+        "console",
+        "cli",
+        "scripts",
+        "pretty",
+        "clock",
+        "shell",
+        "bash",
+        "arrow",
+        "moon",
+        "color",
+        "256color",
+        "8bit",
+        "colorful",
+        "ansi",
+        "snake"
+    ],
+    "license": "MIT",
+    "require": {
+        "php": ">=8.1"
     },
-    "files": [
-      "src/bootstrap.php"
-    ]
-  },
-  "autoload-dev": {
-    "psr-4": {
-      "AlecRabbit\\Tests\\Spinner\\": "tests/"
-    }
-  },
-  "suggest": {
-    "ext-pcntl": "For signal handling support"
-  },
-  "minimum-stability": "stable"
+    "require-dev": {
+        "symfony/console": "^6.0",
+        "fakerphp/faker": "^1",
+        "nunomaduro/collision": "^6.1",
+        "phpunit/phpunit": "^9.5",
+        "react/http": "^1.5",
+        "symfony/var-dumper": "^6.0",
+        "react/event-loop": "^1.2",
+        "phpunit/php-code-coverage": "^9.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "AlecRabbit\\Spinner\\": "src\\Spinner\\"
+        },
+        "files": [
+            "src/bootstrap.php"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "AlecRabbit\\Tests\\Spinner\\": "tests/"
+        }
+    },
+    "suggest": {
+        "ext-pcntl": "For signal handling support"
+    },
+    "minimum-stability": "stable"
 }

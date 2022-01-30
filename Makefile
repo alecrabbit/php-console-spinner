@@ -59,3 +59,7 @@ mark_ready:
 
 chown:
 	@sudo chown -R $(shell id -un):$(shell id -gn) .
+
+test:
+	@docker-compose exec -e XDEBUG_MODE=off $(CONTAINER_NAME) vendor/bin/phpunit
+
