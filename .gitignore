@@ -2,4 +2,5 @@
 /vendor
 /.eval
 /.tools
+/.phive
 .ready

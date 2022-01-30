@@ -22,7 +22,20 @@ _check_var_file:
 	@echo "and stop asking to check file contents and start init over again";
 	@echo "$(_C_STOP)";
 
-_full_init: docker_down_clear clear_ready docker_pull docker_build docker_up _tools_install _app_init mark_ready _docker_ps
+_full_init: clear_ready _docker_actions _app_init _tools mark_ready
+
+_tools: _tools_install _tools_run
+
+_tools_run: _run_phploc
+
+_run_phploc:
+	@echo "\n$(_C_SELECT) $(PROJECT_NAME) $(_C_STOP) $(_C_INFO)PHPLOC tun...$(_C_STOP)\n";
+	@mkdir -p $(APP_DIR)/.phploc
+	@-docker-compose exec $(CONTAINER_NAME) /app/.tools/phploc src > $(APP_DIR)/.phploc/.phploc_baseline
+	@-cat $(APP_DIR)/.phploc/.phploc_baseline
+	@echo "$(_C_STOP)\n";
+
+_docker_actions: docker_down_clear docker_pull docker_build docker_up _docker_ps
 
 _tools_install: _install_phploc
 
