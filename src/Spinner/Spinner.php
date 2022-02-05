@@ -14,8 +14,6 @@ final class Spinner implements ISpinner
 {
     private bool $synchronous;
     private IDriver $driver;
-    private Core\Color $colors;
-    private Core\FrameHolder $frames;
     private bool $active;
     private int|float $interval;
     private IRenderer $renderer;
@@ -25,8 +23,6 @@ final class Spinner implements ISpinner
     ) {
         $this->synchronous = $config->isSynchronous();
         $this->driver = $config->getDriver();
-        $this->colors = $config->getColors();
-        $this->frames = $config->getFrames();
         $this->interval = $config->getInterval();
         $this->renderer = $config->getRenderer();
     }
@@ -80,13 +76,6 @@ final class Spinner implements ISpinner
             $this->driver->frameSequence($frame->sequence),
             $this->driver->moveBackSequence($frame->sequenceWidth),
         );
-//        $this->driver->write(
-//            $this->driver->frameSequence(
-//                $this->colors->next(),
-//                $this->frames->next()
-//            ),
-//            $this->driver->moveBackSequence()
-//        );
     }
 
     public function isAsynchronous(): bool
