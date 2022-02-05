@@ -20,6 +20,6 @@ final class LoopFactory
                 ReactLoop::getLoop();
         }
         // FIXME (2021-12-12 21:6) [Alec Rabbit]: clarify message [e7431f81-01cc-46e8-b259-de9c63eb3e7d]
-        throw new DomainException('Supported loop is not found.');
+        throw new DomainException('Supported event loop object or interface is not found.');
     }
 }
