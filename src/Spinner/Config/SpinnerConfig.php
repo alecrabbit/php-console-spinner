@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Config;
 
-use AlecRabbit\Spinner\Core\Color;
 use AlecRabbit\Spinner\Core\Contract\Defaults;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\ILoop;
@@ -12,7 +11,6 @@ use AlecRabbit\Spinner\Core\Contract\IRenderer;
 use AlecRabbit\Spinner\Core\Contract\ISpinnerConfig;
 use AlecRabbit\Spinner\Core\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Core\Exception\LogicException;
-use AlecRabbit\Spinner\Core\FrameHolder;
 use AlecRabbit\Spinner\Spinner;
 
 final class SpinnerConfig implements ISpinnerConfig
@@ -108,16 +106,6 @@ final class SpinnerConfig implements ISpinnerConfig
             return $this->loop;
         }
         throw new LogicException('Configured for synchronous run mode. No loop object is available.');
-    }
-
-    public function getColors(): Color
-    {
-        return new Color();
-    }
-
-    public function getFrames(): FrameHolder
-    {
-        return new FrameHolder();
     }
 
     public function getShutdownDelay(): int|float
