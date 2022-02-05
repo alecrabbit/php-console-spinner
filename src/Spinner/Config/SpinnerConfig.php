@@ -105,7 +105,7 @@ final class SpinnerConfig implements ISpinnerConfig
         if ($this->isAsynchronous()) {
             return $this->loop;
         }
-        throw new LogicException('Spinner configured for synchronous run mode. No loop object is available.');
+        throw new LogicException('Configured for synchronous run mode. No loop object is available.');
     }
 
     public function getColors(): Color
