@@ -76,8 +76,8 @@ final class Spinner implements ISpinner
             $this->driver->frameSequence(
                 $this->colors->next(),
                 $this->frames->next()
-            )
-            . $this->driver->moveBackSequence()
+            ),
+            $this->driver->moveBackSequence()
         );
     }
 
