@@ -44,6 +44,28 @@ final class SpinnerConfig implements ISpinnerConfig
     }
 
     /**
+     * @throws InvalidArgumentException
+     */
+    private function assertShutdownDelay(): void
+    {
+        if (0 > $this->shutdownDelay) {
+            throw new  InvalidArgumentException('Shutdown delay can not be negative.');
+        }
+        if (0 === $this->shutdownDelay || 0.0 === $this->shutdownDelay) {
+            throw new  InvalidArgumentException('Shutdown delay can not be equal to 0.');
+        }
+        if (self::MAX_SHUTDOWN_DELAY < $this->shutdownDelay) {
+            throw new InvalidArgumentException(
+                sprintf(
+                    'Shutdown delay [%s] can not be greater than %s.',
+                    $this->shutdownDelay,
+                    self::MAX_SHUTDOWN_DELAY
+                )
+            );
+        }
+    }
+
+    /**
      * @throws LogicException
      */
     private function assertRunMode(): void
@@ -68,28 +90,6 @@ final class SpinnerConfig implements ISpinnerConfig
     public function isSynchronous(): bool
     {
         return $this->synchronous;
-    }
-
-    /**
-     * @throws InvalidArgumentException
-     */
-    private function assertShutdownDelay(): void
-    {
-        if (0 > $this->shutdownDelay) {
-            throw new  InvalidArgumentException('Shutdown delay can not be negative.');
-        }
-        if (0 === $this->shutdownDelay || 0.0 === $this->shutdownDelay) {
-            throw new  InvalidArgumentException('Shutdown delay can not be equal to 0.');
-        }
-        if (self::MAX_SHUTDOWN_DELAY < $this->shutdownDelay) {
-            throw new InvalidArgumentException(
-                sprintf(
-                    'Shutdown delay [%s] can not be greater than %s.',
-                    $this->shutdownDelay,
-                    self::MAX_SHUTDOWN_DELAY
-                )
-            );
-        }
     }
 
     public function getExitMessage(): string

@@ -6,15 +6,19 @@ namespace AlecRabbit\Spinner\Factory;
 
 use AlecRabbit\Spinner\Config\Builder\ConfigBuilder;
 use AlecRabbit\Spinner\Core\Contract;
+use AlecRabbit\Spinner\Core\Exception\DomainException;
+use AlecRabbit\Spinner\Core\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Factory;
 use AlecRabbit\Spinner\Spinner;
-use DomainException;
-use InvalidArgumentException;
 
 final class SpinnerFactory implements Factory\Contract\ISpinnerFactory
 {
     private static ?Contract\ISpinner $spinner = null;
 
+    /**
+     * @throws DomainException
+     * @throws InvalidArgumentException
+     */
     public static function get(): Contract\ISpinner
     {
         if (self::hasSpinnerInstance()) {
@@ -28,6 +32,10 @@ final class SpinnerFactory implements Factory\Contract\ISpinnerFactory
         return self::$spinner instanceof Contract\ISpinner;
     }
 
+    /**
+     * @throws DomainException
+     * @throws InvalidArgumentException
+     */
     public static function create(string|Contract\ISpinnerConfig|null $classOrConfig = null): Contract\ISpinner
     {
         if (self::hasSpinnerInstance()) {
@@ -76,6 +84,9 @@ final class SpinnerFactory implements Factory\Contract\ISpinnerFactory
         return (new ConfigBuilder())->build();
     }
 
+    /**
+     * @throws InvalidArgumentException
+     */
     protected static function doCreate(string $class, Contract\ISpinnerConfig $config): Contract\ISpinner
     {
         if (is_subclass_of($class, Contract\ISpinner::class)) {
@@ -113,22 +124,21 @@ final class SpinnerFactory implements Factory\Contract\ISpinnerFactory
     ): void {
         if (defined('SIGINT')) { // check for ext-pcntl
             $loop = $config->getLoop();
+
+            $func = static function () use ($loop, &$func, $spinner, $config) {
+                $spinner->end();
+                $config->getDriver()->getOutput()->write(PHP_EOL . $config->getExitMessage() . PHP_EOL);
+                /** @noinspection PhpComposerExtensionStubsInspection */
+                $loop->removeSignal(SIGINT, $func);
+                $loop->addTimer(
+                    $config->getShutdownDelay(),
+                    static function () use ($loop) {
+                        $loop->stop();
+                    }
+                );
+            };
             /** @noinspection PhpComposerExtensionStubsInspection */
-            $loop->addSignal(
-                SIGINT,
-                $func = static function () use ($loop, &$func, $spinner, $config) {
-                    $spinner->end();
-                    $config->getDriver()->getOutput()->write(PHP_EOL . $config->getExitMessage() . PHP_EOL);
-                    /** @noinspection PhpComposerExtensionStubsInspection */
-                    $loop->removeSignal(SIGINT, $func);
-                    $loop->addTimer(
-                        $config->getShutdownDelay(),
-                        static function () use ($loop) {
-                            $loop->stop();
-                        }
-                    );
-                },
-            );
+            $loop->addSignal(SIGINT, $func,);
         }
     }
 

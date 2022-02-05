@@ -18,9 +18,10 @@ $server = new React\Http\HttpServer(
     }
 );
 
-$socket = new React\Socket\SocketServer('0.0.0.0:8080');
+$uri = '0.0.0.0:8080';
+$socket = new React\Socket\SocketServer($uri);
 $server->listen($socket);
 
 $spinner = SpinnerFactory::create();
 
-echo "Server running at http://0.0.0.0:8080" . PHP_EOL;
+echo sprintf('Server running at http://%s', $uri) . PHP_EOL;

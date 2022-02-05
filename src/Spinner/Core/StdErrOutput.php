@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core;
 
-use RuntimeException;
+use AlecRabbit\Spinner\Core\Exception\RuntimeException;
 
 final class StdErrOutput implements Contract\IOutput
 {
@@ -13,6 +13,9 @@ final class StdErrOutput implements Contract\IOutput
      */
     private $stream;
 
+    /**
+     * @throws RuntimeException
+     */
     public function __construct(
         $stream = STDERR,
     ) {
@@ -24,11 +27,17 @@ final class StdErrOutput implements Contract\IOutput
         $this->stream = $stream;
     }
 
+    /**
+     * @throws RuntimeException
+     */
     public function writeln(iterable|string $messages, int $options = 0): void
     {
         $this->write($messages, true, $options);
     }
 
+    /**
+     * @throws RuntimeException
+     */
     public function write(iterable|string $messages, bool $newline = false, int $options = 0): void
     {
         if (!is_iterable($messages)) {

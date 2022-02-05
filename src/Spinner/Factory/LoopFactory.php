@@ -6,11 +6,14 @@ namespace AlecRabbit\Spinner\Factory;
 
 use AlecRabbit\Spinner\Adapter\Loop\ReactLoopAdapter;
 use AlecRabbit\Spinner\Core\Contract\ILoop;
-use DomainException;
+use AlecRabbit\Spinner\Core\Exception\DomainException;
 use React\EventLoop\Loop;
 
 final class LoopFactory
 {
+    /**
+     * @throws DomainException
+     */
     public static function getLoop(): ILoop
     {
         if (class_exists(Loop::class)) {
