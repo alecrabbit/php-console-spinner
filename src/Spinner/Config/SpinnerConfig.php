@@ -9,17 +9,19 @@ use AlecRabbit\Spinner\Core\Contract\Defaults;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\ILoop;
 use AlecRabbit\Spinner\Core\Contract\ISpinnerConfig;
+use AlecRabbit\Spinner\Core\Exception\InvalidArgumentException;
+use AlecRabbit\Spinner\Core\Exception\LogicException;
 use AlecRabbit\Spinner\Core\Frame;
 use AlecRabbit\Spinner\Spinner;
-use InvalidArgumentException;
-use LogicException;
-use RuntimeException;
 
 final class SpinnerConfig implements ISpinnerConfig
 {
     private const MAX_SHUTDOWN_DELAY = Defaults::MAX_SHUTDOWN_DELAY;
     private const INTERVAL = Defaults::SPINNER_FRAME_INTERVAL;
 
+    /**
+     * @throws LogicException|InvalidArgumentException
+     */
     public function __construct(
         private IDriver $driver,
         private int|float $shutdownDelay,
@@ -32,12 +34,18 @@ final class SpinnerConfig implements ISpinnerConfig
         $this->assertConfigIsCorrect();
     }
 
+    /**
+     * @throws LogicException|InvalidArgumentException
+     */
     private function assertConfigIsCorrect(): void
     {
         $this->assertShutdownDelay();
         $this->assertRunMode();
     }
 
+    /**
+     * @throws LogicException
+     */
     private function assertRunMode(): void
     {
         if (null === $this->loop && $this->isAsynchronous()) {
@@ -62,6 +70,9 @@ final class SpinnerConfig implements ISpinnerConfig
         return $this->synchronous;
     }
 
+    /**
+     * @throws InvalidArgumentException
+     */
     private function assertShutdownDelay(): void
     {
         if (0 > $this->shutdownDelay) {
@@ -86,12 +97,15 @@ final class SpinnerConfig implements ISpinnerConfig
         return $this->exitMessage;
     }
 
+    /**
+     * @throws LogicException
+     */
     public function getLoop(): ILoop
     {
         if ($this->isAsynchronous()) {
             return $this->loop;
         }
-        throw new RuntimeException('Spinner configured for synchronous run mode. No loop.');
+        throw new LogicException('Spinner configured for synchronous run mode. No loop object is available.');
     }
 
     public function getColors(): Color
