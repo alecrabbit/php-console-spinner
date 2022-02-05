@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Spinner\Config;
+namespace AlecRabbit\Spinner\Core\Config;
 
 use AlecRabbit\Spinner\Core\Contract\Defaults;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
@@ -23,12 +23,12 @@ final class SpinnerConfig implements ISpinnerConfig
      */
     public function __construct(
         private IDriver $driver,
+        private IRenderer $renderer,
         private int|float $shutdownDelay,
         private string $exitMessage,
-        private IRenderer $renderer,
-        private int|float $interval = self::INTERVAL,
-        private bool $synchronous = false,
         private ?ILoop $loop = null,
+        private bool $synchronous = false,
+        private int|float $interval = self::INTERVAL,
         private string $spinnerClass = Spinner::class,
     ) {
         $this->assertConfigIsCorrect();

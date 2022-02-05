@@ -2,13 +2,14 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Spinner\Factory;
+namespace AlecRabbit\Spinner\Core\Factory;
 
 use AlecRabbit\Spinner\Adapter\React\ReactLoop;
 use AlecRabbit\Spinner\Core\Contract\ILoop;
+use AlecRabbit\Spinner\Core\Contract\ILoopFactory;
 use AlecRabbit\Spinner\Core\Exception\DomainException;
 
-final class LoopFactory
+final class LoopFactory implements ILoopFactory
 {
     /**
      * @throws DomainException

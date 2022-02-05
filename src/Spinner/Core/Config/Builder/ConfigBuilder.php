@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Spinner\Config\Builder;
+namespace AlecRabbit\Spinner\Core\Config\Builder;
 
-use AlecRabbit\Spinner\Config\SpinnerConfig;
 use AlecRabbit\Spinner\Core\Color;
+use AlecRabbit\Spinner\Core\Config\SpinnerConfig;
 use AlecRabbit\Spinner\Core\Contract\Defaults;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\ILoop;
@@ -13,10 +13,10 @@ use AlecRabbit\Spinner\Core\Contract\IRenderer;
 use AlecRabbit\Spinner\Core\Contract\ISpinnerConfig;
 use AlecRabbit\Spinner\Core\Driver;
 use AlecRabbit\Spinner\Core\Exception\DomainException;
+use AlecRabbit\Spinner\Core\Factory\LoopFactory;
 use AlecRabbit\Spinner\Core\FrameHolder;
 use AlecRabbit\Spinner\Core\Renderer;
 use AlecRabbit\Spinner\Core\StdErrOutput;
-use AlecRabbit\Spinner\Factory\LoopFactory;
 
 final class ConfigBuilder
 {

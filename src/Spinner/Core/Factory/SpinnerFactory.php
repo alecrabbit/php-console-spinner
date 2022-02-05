@@ -2,24 +2,25 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Spinner\Factory;
+namespace AlecRabbit\Spinner\Core\Factory;
 
-use AlecRabbit\Spinner\Config\Builder\ConfigBuilder;
-use AlecRabbit\Spinner\Core\Contract;
+use AlecRabbit\Spinner\Core\Config\Builder\ConfigBuilder;
+use AlecRabbit\Spinner\Core\Contract\ISpinner;
+use AlecRabbit\Spinner\Core\Contract\ISpinnerConfig;
+use AlecRabbit\Spinner\Core\Contract\ISpinnerFactory;
 use AlecRabbit\Spinner\Core\Exception\DomainException;
 use AlecRabbit\Spinner\Core\Exception\InvalidArgumentException;
-use AlecRabbit\Spinner\Factory;
 use AlecRabbit\Spinner\Spinner;
 
-final class SpinnerFactory implements Factory\Contract\ISpinnerFactory
+final class SpinnerFactory implements ISpinnerFactory
 {
-    private static ?Contract\ISpinner $spinner = null;
+    private static ?ISpinner $spinner = null;
 
     /**
      * @throws DomainException
      * @throws InvalidArgumentException
      */
-    public static function get(): Contract\ISpinner
+    public static function get(): ISpinner
     {
         if (self::hasSpinnerInstance()) {
             return self::$spinner;
@@ -29,14 +30,14 @@ final class SpinnerFactory implements Factory\Contract\ISpinnerFactory
 
     private static function hasSpinnerInstance(): bool
     {
-        return self::$spinner instanceof Contract\ISpinner;
+        return self::$spinner instanceof ISpinner;
     }
 
     /**
      * @throws DomainException
      * @throws InvalidArgumentException
      */
-    public static function create(string|Contract\ISpinnerConfig|null $classOrConfig = null): Contract\ISpinner
+    public static function create(string|ISpinnerConfig|null $classOrConfig = null): ISpinner
     {
         if (self::hasSpinnerInstance()) {
             // There Can Be Only One
@@ -65,20 +66,20 @@ final class SpinnerFactory implements Factory\Contract\ISpinnerFactory
         return $spinner;
     }
 
-    private static function refineClass(string|Contract\ISpinnerConfig|null $classOrConfig): string
+    private static function refineClass(string|ISpinnerConfig|null $classOrConfig): string
     {
         if (is_string($classOrConfig)) {
             return $classOrConfig;
         }
-        if ($classOrConfig instanceof Contract\ISpinnerConfig) {
+        if ($classOrConfig instanceof ISpinnerConfig) {
             return $classOrConfig->getSpinnerClass();
         }
         return Spinner::class;
     }
 
-    private static function refineConfig(string|Contract\ISpinnerConfig|null $config): Contract\ISpinnerConfig
+    private static function refineConfig(string|ISpinnerConfig|null $config): ISpinnerConfig
     {
-        if ($config instanceof Contract\ISpinnerConfig) {
+        if ($config instanceof ISpinnerConfig) {
             return $config;
         }
         return (new ConfigBuilder())->build();
@@ -87,9 +88,9 @@ final class SpinnerFactory implements Factory\Contract\ISpinnerFactory
     /**
      * @throws InvalidArgumentException
      */
-    protected static function doCreate(string $class, Contract\ISpinnerConfig $config): Contract\ISpinner
+    protected static function doCreate(string $class, ISpinnerConfig $config): ISpinner
     {
-        if (is_subclass_of($class, Contract\ISpinner::class)) {
+        if (is_subclass_of($class, ISpinner::class)) {
             return new $class($config);
         }
         throw new InvalidArgumentException(
@@ -99,8 +100,8 @@ final class SpinnerFactory implements Factory\Contract\ISpinnerFactory
     }
 
     private static function attachSpinnerToLoop(
-        Contract\ISpinner $spinner,
-        Contract\ISpinnerConfig $config
+        ISpinner $spinner,
+        ISpinnerConfig $config
     ): void {
         $config->getLoop()
             ->addPeriodicTimer(
@@ -112,15 +113,15 @@ final class SpinnerFactory implements Factory\Contract\ISpinnerFactory
     }
 
     private static function initialize(
-        Contract\ISpinner $spinner,
-        Contract\ISpinnerConfig $config
+        ISpinner $spinner,
+        ISpinnerConfig $config
     ): void {
         $spinner->begin();
     }
 
     private static function attachSigIntListener(
-        Contract\ISpinner $spinner,
-        Contract\ISpinnerConfig $config
+        ISpinner $spinner,
+        ISpinnerConfig $config
     ): void {
         if (defined('SIGINT')) { // check for ext-pcntl
             $loop = $config->getLoop();
@@ -142,7 +143,7 @@ final class SpinnerFactory implements Factory\Contract\ISpinnerFactory
         }
     }
 
-    private static function setSpinner(Contract\ISpinner $spinner): void
+    private static function setSpinner(ISpinner $spinner): void
     {
         self::$spinner = $spinner;
     }
