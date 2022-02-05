@@ -13,14 +13,12 @@ use AlecRabbit\Spinner\Core\Contract\ISpinnerConfig;
 use AlecRabbit\Spinner\Core\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Core\Exception\LogicException;
 use AlecRabbit\Spinner\Core\FrameHolder;
-use AlecRabbit\Spinner\Core\Renderer;
 use AlecRabbit\Spinner\Spinner;
 
 final class SpinnerConfig implements ISpinnerConfig
 {
     private const MAX_SHUTDOWN_DELAY = Defaults::MAX_SHUTDOWN_DELAY;
     private const INTERVAL = Defaults::SPINNER_FRAME_INTERVAL;
-    private IRenderer $renderer;
 
     /**
      * @throws LogicException|InvalidArgumentException
@@ -29,25 +27,13 @@ final class SpinnerConfig implements ISpinnerConfig
         private IDriver $driver,
         private int|float $shutdownDelay,
         private string $exitMessage,
-        ?IRenderer $renderer = null,
+        private IRenderer $renderer,
         private int|float $interval = self::INTERVAL,
         private bool $synchronous = false,
         private ?ILoop $loop = null,
         private string $spinnerClass = Spinner::class,
     ) {
-        $this->renderer = $this->refineRenderer($renderer);
         $this->assertConfigIsCorrect();
-    }
-
-    private function refineRenderer(?IRenderer $renderer): IRenderer
-    {
-        return
-            $renderer
-            ??
-            new Renderer(
-                new Color(),
-                new FrameHolder(),
-            );
     }
 
     /**
