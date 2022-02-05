@@ -9,7 +9,6 @@ final class Frame
     public function __construct(
         public readonly string $sequence,
         public readonly int $sequenceWidth,
-    )
-    {
+    ) {
     }
 }
