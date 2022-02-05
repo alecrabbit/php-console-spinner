@@ -8,6 +8,7 @@ use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\IOutput;
 
 use const AlecRabbit\Cli\CSI;
+use const AlecRabbit\Cli\ESC;
 
 final class Driver implements IDriver
 {
@@ -19,9 +20,9 @@ final class Driver implements IDriver
     ) {
     }
 
-    public function frameSequence(string $fg, string $char): string
+    public function frameSequence(string $sequence): string
     {
-        return CSI . "38;5;{$fg}m{$char}\033[0m";
+        return CSI . $sequence . ESC . '[0m';
     }
 
     public function moveBackSequence(int $i = 1): string

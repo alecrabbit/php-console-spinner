@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Contract;
 
 use AlecRabbit\Spinner\Core\Color;
-use AlecRabbit\Spinner\Core\Frame;
+use AlecRabbit\Spinner\Core\FrameHolder;
 
 interface ISpinnerConfig
 {
@@ -17,7 +17,7 @@ interface ISpinnerConfig
 
     public function getColors(): Color;
 
-    public function getFrames(): Frame;
+    public function getFrames(): FrameHolder;
 
     public function getShutdownDelay(): int|float;
 
@@ -28,4 +28,6 @@ interface ISpinnerConfig
     public function getDriver(): IDriver;
 
     public function getInterval(): int|float;
+
+    public function getRenderer(): IRenderer;
 }

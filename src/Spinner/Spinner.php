@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner;
 
 use AlecRabbit\Spinner\Core\Contract\IDriver;
+use AlecRabbit\Spinner\Core\Contract\IRenderer;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use AlecRabbit\Spinner\Core\Contract\ISpinnerConfig;
 use AlecRabbit\Spinner\Core\Exception\MethodNotImplementedException;
@@ -14,9 +15,10 @@ final class Spinner implements ISpinner
     private bool $synchronous;
     private IDriver $driver;
     private Core\Color $colors;
-    private Core\Frame $frames;
+    private Core\FrameHolder $frames;
     private bool $active;
     private int|float $interval;
+    private IRenderer $renderer;
 
     public function __construct(
         ISpinnerConfig $config
@@ -26,6 +28,7 @@ final class Spinner implements ISpinner
         $this->colors = $config->getColors();
         $this->frames = $config->getFrames();
         $this->interval = $config->getInterval();
+        $this->renderer = $config->getRenderer();
     }
 
     public function refreshInterval(): int|float
@@ -72,13 +75,18 @@ final class Spinner implements ISpinner
 
     private function render(): void
     {
+        $frame = $this->renderer->createFrame($this->interval);
         $this->driver->write(
-            $this->driver->frameSequence(
-                $this->colors->next(),
-                $this->frames->next()
-            ),
-            $this->driver->moveBackSequence()
+            $this->driver->frameSequence($frame->sequence),
+            $this->driver->moveBackSequence($frame->sequenceWidth),
         );
+//        $this->driver->write(
+//            $this->driver->frameSequence(
+//                $this->colors->next(),
+//                $this->frames->next()
+//            ),
+//            $this->driver->moveBackSequence()
+//        );
     }
 
     public function isAsynchronous(): bool

@@ -8,16 +8,19 @@ use AlecRabbit\Spinner\Core\Color;
 use AlecRabbit\Spinner\Core\Contract\Defaults;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\ILoop;
+use AlecRabbit\Spinner\Core\Contract\IRenderer;
 use AlecRabbit\Spinner\Core\Contract\ISpinnerConfig;
 use AlecRabbit\Spinner\Core\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Core\Exception\LogicException;
-use AlecRabbit\Spinner\Core\Frame;
+use AlecRabbit\Spinner\Core\FrameHolder;
+use AlecRabbit\Spinner\Core\Renderer;
 use AlecRabbit\Spinner\Spinner;
 
 final class SpinnerConfig implements ISpinnerConfig
 {
     private const MAX_SHUTDOWN_DELAY = Defaults::MAX_SHUTDOWN_DELAY;
     private const INTERVAL = Defaults::SPINNER_FRAME_INTERVAL;
+    private IRenderer $renderer;
 
     /**
      * @throws LogicException|InvalidArgumentException
@@ -26,12 +29,23 @@ final class SpinnerConfig implements ISpinnerConfig
         private IDriver $driver,
         private int|float $shutdownDelay,
         private string $exitMessage,
+        ?IRenderer $renderer = null,
         private int|float $interval = self::INTERVAL,
         private bool $synchronous = false,
         private ?ILoop $loop = null,
         private string $spinnerClass = Spinner::class,
     ) {
+        $this->renderer = $this->refineRenderer($renderer);
         $this->assertConfigIsCorrect();
+    }
+
+    private function refineRenderer(?IRenderer $renderer): IRenderer
+    {
+        return
+            new Renderer(
+                new Color(),
+                new FrameHolder(),
+            );
     }
 
     /**
@@ -113,9 +127,9 @@ final class SpinnerConfig implements ISpinnerConfig
         return new Color();
     }
 
-    public function getFrames(): Frame
+    public function getFrames(): FrameHolder
     {
-        return new Frame();
+        return new FrameHolder();
     }
 
     public function getShutdownDelay(): int|float
@@ -136,5 +150,10 @@ final class SpinnerConfig implements ISpinnerConfig
     public function getInterval(): int|float
     {
         return $this->interval;
+    }
+
+    public function getRenderer(): IRenderer
+    {
+        return $this->renderer;
     }
 }

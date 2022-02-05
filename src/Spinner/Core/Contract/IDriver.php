@@ -10,7 +10,7 @@ namespace AlecRabbit\Spinner\Core\Contract;
  */
 interface IDriver
 {
-    public function frameSequence(string $fg, string $char): string;
+    public function frameSequence(string $sequence): string;
 
     public function moveBackSequence(int $i = 1): string;
 
