@@ -42,6 +42,8 @@ final class SpinnerConfig implements ISpinnerConfig
     private function refineRenderer(?IRenderer $renderer): IRenderer
     {
         return
+            $renderer
+            ??
             new Renderer(
                 new Color(),
                 new FrameHolder(),
