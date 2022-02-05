@@ -18,11 +18,13 @@ use RuntimeException;
 final class SpinnerConfig implements ISpinnerConfig
 {
     private const MAX_SHUTDOWN_DELAY = Defaults::MAX_SHUTDOWN_DELAY;
+    private const INTERVAL = Defaults::SPINNER_FRAME_INTERVAL;
 
     public function __construct(
         private IDriver $driver,
         private int|float $shutdownDelay,
         private string $exitMessage,
+        private int|float $interval = self::INTERVAL,
         private bool $synchronous = false,
         private ?ILoop $loop = null,
         private string $spinnerClass = Spinner::class,
@@ -115,5 +117,10 @@ final class SpinnerConfig implements ISpinnerConfig
     public function getDriver(): IDriver
     {
         return $this->driver;
+    }
+
+    public function getInterval(): int|float
+    {
+        return $this->interval;
     }
 }

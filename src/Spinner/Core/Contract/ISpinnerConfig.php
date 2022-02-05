@@ -26,4 +26,6 @@ interface ISpinnerConfig
     public function getSpinnerClass(): string;
 
     public function getDriver(): IDriver;
+
+    public function getInterval(): int|float;
 }

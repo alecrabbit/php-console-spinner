@@ -93,7 +93,7 @@ final class SpinnerFactory implements Factory\Contract\ISpinnerFactory
     ): void {
         $config->getLoop()
             ->addPeriodicTimer(
-                $spinner->interval(),
+                $spinner->refreshInterval(),
                 static function () use ($spinner) {
                     $spinner->spin();
                 }

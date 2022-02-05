@@ -6,7 +6,7 @@ namespace AlecRabbit\Spinner\Core\Contract;
 
 interface ISpinner
 {
-    public function interval(): int|float;
+    public function refreshInterval(): int|float;
 
     public function isSynchronous(): bool;
 

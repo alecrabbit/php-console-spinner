@@ -11,12 +11,12 @@ use AlecRabbit\Spinner\Core\Exception\MethodNotImplementedException;
 
 final class Spinner implements ISpinner
 {
-    private const FRAME_INTERVAL = 0.1;
     private bool $synchronous;
     private IDriver $driver;
     private Core\Color $colors;
     private Core\Frame $frames;
     private bool $active;
+    private int|float $interval;
 
     public function __construct(
         ISpinnerConfig $config
@@ -25,11 +25,12 @@ final class Spinner implements ISpinner
         $this->driver = $config->getDriver();
         $this->colors = $config->getColors();
         $this->frames = $config->getFrames();
+        $this->interval = $config->getInterval();
     }
 
-    public function interval(): int|float
+    public function refreshInterval(): int|float
     {
-        return self::FRAME_INTERVAL;
+        return $this->interval;
     }
 
     public function begin(): void
@@ -65,18 +66,19 @@ final class Spinner implements ISpinner
     public function spin(): void
     {
         if ($this->active) {
-            $this->driver->write($this->render());
+            $this->render();
         }
     }
 
-    private function render(): string
+    private function render(): void
     {
-        return
+        $this->driver->write(
             $this->driver->frameSequence(
                 $this->colors->next(),
                 $this->frames->next()
             )
-            . $this->driver->moveBackSequence();
+            . $this->driver->moveBackSequence()
+        );
     }
 
     public function isAsynchronous(): bool
