@@ -2,12 +2,14 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Spinner\Adapter\Loop;
+namespace AlecRabbit\Spinner\Adapter\React;
 
 use AlecRabbit\Spinner\Core\Contract\ILoop;
+use AlecRabbit\Spinner\Core\Contract\ILoopProbe;
+use React\EventLoop\Loop;
 use React\EventLoop\LoopInterface;
 
-final class ReactLoopAdapter implements ILoop
+final class ReactLoop implements ILoop, ILoopProbe
 {
     public function __construct(
         private LoopInterface $loop,
@@ -37,5 +39,15 @@ final class ReactLoopAdapter implements ILoop
     public function stop(): void
     {
         $this->loop->stop();
+    }
+
+    public static function isSupported(): bool
+    {
+        return class_exists(Loop::class);
+    }
+
+    public static function getLoop(): ILoop
+    {
+        return new self(Loop::get());
     }
 }
