@@ -24,14 +24,14 @@ final class Driver implements IDriver
         return CSI . "38;5;{$fg}m{$char}\033[0m";
     }
 
-    public function moveBackSequence(): string
+    public function moveBackSequence(int $i = 1): string
     {
-        return CSI . '1D';
+        return CSI . "{$i}D";
     }
 
-    public function eraseSequence(): string
+    public function eraseSequence(int $i = 1): string
     {
-        return CSI . '1X';
+        return CSI . "{$i}X";
     }
 
     public function hideCursor(): void
