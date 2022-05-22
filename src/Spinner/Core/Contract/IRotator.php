@@ -24,6 +24,8 @@ interface IRotator
 
     public function enable(): void;
 
+    public function spinner(null|ISpinner $spinner): void;
+
     public function message(null|string|IMessage $message): void;
 
     public function progress(null|float|IProgress $progress): void;
