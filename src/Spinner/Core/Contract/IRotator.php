@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Contract;
 
-interface ISpinner
+interface IRotator
 {
     public function __construct(ISpinnerConfig $config);
 
@@ -14,7 +14,7 @@ interface ISpinner
 
     public function isAsynchronous(): bool;
 
-    public function spin(): void;
+    public function rotate(): void;
 
     public function begin(): void;
 
@@ -24,7 +24,7 @@ interface ISpinner
 
     public function enable(): void;
 
-    public function message(?string $message): void;
+    public function message(null|string|IMessage $message): void;
 
-    public function progress(?float $percent): void;
+    public function progress(null|float|IProgress $progress): void;
 }

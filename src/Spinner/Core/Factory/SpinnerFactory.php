@@ -5,22 +5,22 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Factory;
 
 use AlecRabbit\Spinner\Core\Config\Builder\ConfigBuilder;
-use AlecRabbit\Spinner\Core\Contract\ISpinner;
+use AlecRabbit\Spinner\Core\Contract\IRotator;
 use AlecRabbit\Spinner\Core\Contract\ISpinnerConfig;
 use AlecRabbit\Spinner\Core\Contract\ISpinnerFactory;
 use AlecRabbit\Spinner\Core\Exception\DomainException;
 use AlecRabbit\Spinner\Core\Exception\InvalidArgumentException;
-use AlecRabbit\Spinner\Spinner;
+use AlecRabbit\Spinner\Rotator;
 
 final class SpinnerFactory implements ISpinnerFactory
 {
-    private static ?ISpinner $spinner = null;
+    private static ?IRotator $spinner = null;
 
     /**
      * @throws DomainException
      * @throws InvalidArgumentException
      */
-    public static function get(): ISpinner
+    public static function get(): IRotator
     {
         if (self::hasSpinnerInstance()) {
             return self::$spinner;
@@ -30,14 +30,14 @@ final class SpinnerFactory implements ISpinnerFactory
 
     private static function hasSpinnerInstance(): bool
     {
-        return self::$spinner instanceof ISpinner;
+        return self::$spinner instanceof IRotator;
     }
 
     /**
      * @throws DomainException
      * @throws InvalidArgumentException
      */
-    public static function create(string|ISpinnerConfig|null $classOrConfig = null): ISpinner
+    public static function create(string|ISpinnerConfig|null $classOrConfig = null): IRotator
     {
         if (self::hasSpinnerInstance()) {
             // There Can Be Only One
@@ -74,7 +74,7 @@ final class SpinnerFactory implements ISpinnerFactory
         if ($classOrConfig instanceof ISpinnerConfig) {
             return $classOrConfig->getSpinnerClass();
         }
-        return Spinner::class;
+        return Rotator::class;
     }
 
     private static function refineConfig(string|ISpinnerConfig|null $config): ISpinnerConfig
@@ -88,9 +88,9 @@ final class SpinnerFactory implements ISpinnerFactory
     /**
      * @throws InvalidArgumentException
      */
-    protected static function doCreate(string $class, ISpinnerConfig $config): ISpinner
+    protected static function doCreate(string $class, ISpinnerConfig $config): IRotator
     {
-        if (is_subclass_of($class, ISpinner::class)) {
+        if (is_subclass_of($class, IRotator::class)) {
             return new $class($config);
         }
         throw new InvalidArgumentException(
@@ -100,27 +100,27 @@ final class SpinnerFactory implements ISpinnerFactory
     }
 
     private static function attachSpinnerToLoop(
-        ISpinner $spinner,
+        IRotator $spinner,
         ISpinnerConfig $config
     ): void {
         $config->getLoop()
             ->addPeriodicTimer(
                 $spinner->refreshInterval(),
                 static function () use ($spinner) {
-                    $spinner->spin();
+                    $spinner->rotate();
                 }
             );
     }
 
     private static function initialize(
-        ISpinner $spinner,
+        IRotator $spinner,
         ISpinnerConfig $config
     ): void {
         $spinner->begin();
     }
 
     private static function attachSigIntListener(
-        ISpinner $spinner,
+        IRotator $spinner,
         ISpinnerConfig $config
     ): void {
         if (defined('SIGINT')) { // check for ext-pcntl
@@ -143,7 +143,7 @@ final class SpinnerFactory implements ISpinnerFactory
         }
     }
 
-    private static function setSpinner(ISpinner $spinner): void
+    private static function setSpinner(IRotator $spinner): void
     {
         self::$spinner = $spinner;
     }

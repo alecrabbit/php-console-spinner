@@ -11,7 +11,7 @@ use AlecRabbit\Spinner\Core\Contract\IRenderer;
 use AlecRabbit\Spinner\Core\Contract\ISpinnerConfig;
 use AlecRabbit\Spinner\Core\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Core\Exception\LogicException;
-use AlecRabbit\Spinner\Spinner;
+use AlecRabbit\Spinner\Rotator;
 
 final class SpinnerConfig implements ISpinnerConfig
 {
@@ -29,7 +29,7 @@ final class SpinnerConfig implements ISpinnerConfig
         private ?ILoop $loop = null,
         private bool $synchronous = false,
         private int|float $interval = self::INTERVAL,
-        private string $spinnerClass = Spinner::class,
+        private string $spinnerClass = Rotator::class,
     ) {
         $this->assertConfigIsCorrect();
     }

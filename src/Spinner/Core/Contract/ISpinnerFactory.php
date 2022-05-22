@@ -8,7 +8,7 @@ use AlecRabbit\Spinner\Core\Contract;
 
 interface ISpinnerFactory
 {
-    public static function create(string|Contract\ISpinnerConfig|null $classOrConfig = null): Contract\ISpinner;
+    public static function create(string|Contract\ISpinnerConfig|null $classOrConfig = null): Contract\IRotator;
 
-    public static function get(): Contract\ISpinner;
+    public static function get(): Contract\IRotator;
 }

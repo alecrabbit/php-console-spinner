@@ -8,6 +8,8 @@ Spinner - your task is running
 
 #  🏵️  PHP Console Spinner
 
++ [How does it work](doc/how_does_it_work.md)
+
 ### New version 
 
 > WIP

@@ -5,12 +5,14 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner;
 
 use AlecRabbit\Spinner\Core\Contract\IDriver;
+use AlecRabbit\Spinner\Core\Contract\IMessage;
+use AlecRabbit\Spinner\Core\Contract\IProgress;
 use AlecRabbit\Spinner\Core\Contract\IRenderer;
-use AlecRabbit\Spinner\Core\Contract\ISpinner;
+use AlecRabbit\Spinner\Core\Contract\IRotator;
 use AlecRabbit\Spinner\Core\Contract\ISpinnerConfig;
 use AlecRabbit\Spinner\Core\Exception\MethodNotImplementedException;
 
-final class Spinner implements ISpinner
+final class Rotator implements IRotator
 {
     private bool $synchronous;
     private IDriver $driver;
@@ -62,7 +64,7 @@ final class Spinner implements ISpinner
         $this->active = false;
     }
 
-    public function spin(): void
+    public function rotate(): void
     {
         if ($this->active) {
             $this->render();
@@ -99,14 +101,14 @@ final class Spinner implements ISpinner
         $this->active = true;
     }
 
-    public function message(?string $message): void
+    public function message(null|string|IMessage $message): void
     {
         // TODO: Implement message() method.
         // FIXME (2022-01-20 20:52) [Alec Rabbit]: Implement this
         throw new MethodNotImplementedException(__METHOD__);
     }
 
-    public function progress(?float $percent): void
+    public function progress(null|float|IProgress $progress): void
     {
         // TODO: Implement progress() method.
         // FIXME (2022-01-20 20:52) [Alec Rabbit]: Implement this
