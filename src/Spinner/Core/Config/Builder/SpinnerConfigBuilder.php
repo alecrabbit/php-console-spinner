@@ -25,8 +25,8 @@ use AlecRabbit\Spinner\Core\RainbowColorRotor;
 use AlecRabbit\Spinner\Core\Renderer;
 use AlecRabbit\Spinner\Core\Sequencer;
 use AlecRabbit\Spinner\Core\SnakeCharRotor;
-use AlecRabbit\Spinner\Core\StaticCharRotor;
-use AlecRabbit\Spinner\Core\StaticColorRotor;
+use AlecRabbit\Spinner\Core\FixedCharRotor;
+use AlecRabbit\Spinner\Core\FixedColorRotor;
 use AlecRabbit\Spinner\Core\Wiggler\MessageWiggler;
 use AlecRabbit\Spinner\Core\Wiggler\ProgressWiggler;
 use AlecRabbit\Spinner\Core\Wiggler\RevolveWiggler;
@@ -115,8 +115,8 @@ final class SpinnerConfigBuilder implements ISpinnerConfigBuilder
     {
         return
             new ProgressWiggler(
-                new StaticColorRotor(),
-                new StaticCharRotor(),
+                new FixedColorRotor(),
+                new FixedCharRotor(),
             );
     }
 
@@ -124,8 +124,8 @@ final class SpinnerConfigBuilder implements ISpinnerConfigBuilder
     {
         return
             new MessageWiggler(
-                new StaticColorRotor(),
-                new StaticCharRotor(),
+                new FixedColorRotor(),
+                new FixedCharRotor(),
             );
     }
 
