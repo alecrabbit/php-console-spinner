@@ -16,11 +16,7 @@ interface IDriver
 
     public function eraseSequence(int $i = 1): string;
 
-    public function hideCursor(): void;
+    public function hideCursorSequence(): string;
 
-    public function write(string ...$sequences): void;
-
-    public function showCursor(): void;
-
-    public function getOutput(): IOutput;
+    public function showCursorSequence(): string;
 }

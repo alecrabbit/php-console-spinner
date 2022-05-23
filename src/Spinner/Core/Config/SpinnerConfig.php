@@ -9,6 +9,7 @@ use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\ILoop;
 use AlecRabbit\Spinner\Core\Contract\IRenderer;
 use AlecRabbit\Spinner\Core\Contract\ISpinnerConfig;
+use AlecRabbit\Spinner\Core\Contract\IWriter;
 use AlecRabbit\Spinner\Core\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Core\Exception\LogicException;
 use AlecRabbit\Spinner\Rotator;
@@ -23,6 +24,7 @@ final class SpinnerConfig implements ISpinnerConfig
      */
     public function __construct(
         private IDriver $driver,
+        private IWriter $writer,
         private IRenderer $renderer,
         private int|float $shutdownDelay,
         private string $exitMessage,
@@ -121,6 +123,11 @@ final class SpinnerConfig implements ISpinnerConfig
     public function getDriver(): IDriver
     {
         return $this->driver;
+    }
+
+    public function getWriter(): IWriter
+    {
+        return $this->writer;
     }
 
     public function getInterval(): int|float

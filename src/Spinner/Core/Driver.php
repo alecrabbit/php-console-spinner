@@ -5,24 +5,19 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core;
 
 use AlecRabbit\Spinner\Core\Contract\IDriver;
-use AlecRabbit\Spinner\Core\Contract\IOutput;
 
 use const AlecRabbit\Cli\CSI;
 use const AlecRabbit\Cli\ESC;
 
 final class Driver implements IDriver
 {
-    private const SEQ_HIDE_CURSOR = CSI . '?25l';
-    private const SEQ_SHOW_CURSOR = CSI . '?25h';
-
-    public function __construct(
-        private IOutput $output
-    ) {
-    }
+    private const SEQ_HIDE_CURSOR = '?25l';
+    private const SEQ_SHOW_CURSOR = '?25h';
+    private const SEQ_RESET = ESC . '[0m';
 
     public function frameSequence(string $sequence): string
     {
-        return CSI . $sequence . ESC . '[0m';
+        return CSI . $sequence . self::SEQ_RESET;
     }
 
     public function moveBackSequence(int $i = 1): string
@@ -35,23 +30,13 @@ final class Driver implements IDriver
         return CSI . "{$i}X";
     }
 
-    public function hideCursor(): void
+    public function hideCursorSequence(): string
     {
-        $this->write(self::SEQ_HIDE_CURSOR);
+        return CSI . self::SEQ_HIDE_CURSOR;
     }
 
-    public function write(string ...$sequences): void
+    public function showCursorSequence(): string
     {
-        $this->output->write($sequences);
-    }
-
-    public function showCursor(): void
-    {
-        $this->write(self::SEQ_SHOW_CURSOR);
-    }
-
-    public function getOutput(): IOutput
-    {
-        return $this->output;
+        return CSI . self::SEQ_SHOW_CURSOR;
     }
 }

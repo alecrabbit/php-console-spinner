@@ -11,12 +11,14 @@ use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\ILoop;
 use AlecRabbit\Spinner\Core\Contract\IRenderer;
 use AlecRabbit\Spinner\Core\Contract\ISpinnerConfig;
+use AlecRabbit\Spinner\Core\Contract\IWriter;
 use AlecRabbit\Spinner\Core\Driver;
 use AlecRabbit\Spinner\Core\Exception\DomainException;
 use AlecRabbit\Spinner\Core\Factory\LoopFactory;
 use AlecRabbit\Spinner\Core\FrameHolder;
 use AlecRabbit\Spinner\Core\Renderer;
 use AlecRabbit\Spinner\Core\StdErrOutput;
+use AlecRabbit\Spinner\Core\Writer;
 
 final class ConfigBuilder
 {
@@ -25,6 +27,7 @@ final class ConfigBuilder
 
     private ILoop $loop;
     private IDriver $driver;
+    private IWriter $writer;
     private IRenderer $renderer;
     private bool $synchronousMode;
     private float $shutdownDelaySeconds;
@@ -38,6 +41,7 @@ final class ConfigBuilder
         $this->synchronousMode = false;
         $this->loop = self::getLoop();
         $this->driver = self::createDriver();
+        $this->writer = self::createWriter();
         $this->renderer = self::createRenderer();
         $this->exitMessage = self::MESSAGE_ON_EXIT;
         $this->shutdownDelaySeconds = self::SHUTDOWN_DELAY;
@@ -54,6 +58,11 @@ final class ConfigBuilder
     private static function createDriver(): IDriver
     {
         return new Driver(new StdErrOutput());
+    }
+
+    private static function createWriter(): IWriter
+    {
+        return new Writer(new StdErrOutput());
     }
 
     private static function createRenderer(): IRenderer
@@ -86,6 +95,13 @@ final class ConfigBuilder
         return $clone;
     }
 
+    public function withWriter(IWriter $writer): self
+    {
+        $clone = clone $this;
+        $this->writer = $writer;
+        return $clone;
+    }
+
     public function withRenderer(IRenderer $renderer): self
     {
         $clone = clone $this;
@@ -112,6 +128,7 @@ final class ConfigBuilder
         return
             new SpinnerConfig(
                 driver:        $this->driver,
+                writer:        $this->writer,
                 shutdownDelay: $this->shutdownDelaySeconds,
                 exitMessage:   $this->exitMessage,
                 renderer:      $this->renderer,

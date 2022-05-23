@@ -5,18 +5,21 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner;
 
 use AlecRabbit\Spinner\Core\Contract\IDriver;
+use AlecRabbit\Spinner\Core\Contract\IFrame;
 use AlecRabbit\Spinner\Core\Contract\IMessage;
 use AlecRabbit\Spinner\Core\Contract\IProgress;
 use AlecRabbit\Spinner\Core\Contract\IRenderer;
 use AlecRabbit\Spinner\Core\Contract\IRotator;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use AlecRabbit\Spinner\Core\Contract\ISpinnerConfig;
+use AlecRabbit\Spinner\Core\Contract\IWriter;
 use AlecRabbit\Spinner\Core\Exception\MethodNotImplementedException;
 
 final class Rotator implements IRotator
 {
     private bool $synchronous;
     private IDriver $driver;
+    private IWriter $writer;
     private bool $active;
     private int|float $interval;
     private IRenderer $renderer;
@@ -26,6 +29,7 @@ final class Rotator implements IRotator
     ) {
         $this->synchronous = $config->isSynchronous();
         $this->driver = $config->getDriver();
+        $this->writer = $config->getWriter();
         $this->interval = $config->getInterval();
         $this->renderer = $config->getRenderer();
     }
@@ -37,7 +41,7 @@ final class Rotator implements IRotator
 
     public function begin(): void
     {
-        $this->driver->hideCursor();
+        $this->hideCursor();
         $this->start();
     }
 
@@ -49,13 +53,13 @@ final class Rotator implements IRotator
     public function end(): void
     {
         $this->erase();
-        $this->driver->showCursor();
+        $this->showCursor();
         $this->stop();
     }
 
-    private function erase(): void
+    public function erase(): void
     {
-        $this->driver->write(
+        $this->writer->write(
             $this->driver->eraseSequence()
         );
     }
@@ -68,17 +72,13 @@ final class Rotator implements IRotator
     public function rotate(): void
     {
         if ($this->active) {
-            $this->render();
+            $this->show($this->render());
         }
     }
 
-    private function render(): void
+    private function render(): IFrame
     {
-        $frame = $this->renderer->createFrame($this->interval);
-        $this->driver->write(
-            $this->driver->frameSequence($frame->sequence),
-            $this->driver->moveBackSequence($frame->sequenceWidth),
-        );
+        return $this->renderer->createFrame($this->interval);
     }
 
     public function isAsynchronous(): bool
@@ -121,5 +121,27 @@ final class Rotator implements IRotator
         // TODO: Implement progress() method.
         // FIXME (2022-01-20 20:52) [Alec Rabbit]: Implement this method.
         throw new MethodNotImplementedException(__METHOD__);
+    }
+
+    private function show(IFrame $frame): void
+    {
+        $this->writer->write(
+            $this->driver->frameSequence($frame->sequence),
+            $this->driver->moveBackSequence($frame->sequenceWidth),
+        );
+    }
+
+    private function hideCursor(): void
+    {
+        $this->writer->write(
+            $this->driver->hideCursorSequence()
+        );
+    }
+
+    private function showCursor(): void
+    {
+        $this->writer->write(
+            $this->driver->showCursorSequence()
+        );
     }
 }

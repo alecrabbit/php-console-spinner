@@ -20,6 +20,8 @@ interface ISpinnerConfig
 
     public function getDriver(): IDriver;
 
+    public function getWriter(): IWriter;
+
     public function getInterval(): int|float;
 
     public function getRenderer(): IRenderer;

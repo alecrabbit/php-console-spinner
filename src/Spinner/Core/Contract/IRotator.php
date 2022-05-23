@@ -20,6 +20,8 @@ interface IRotator
 
     public function end(): void;
 
+    public function erase(): void;
+
     public function disable(): void;
 
     public function enable(): void;
