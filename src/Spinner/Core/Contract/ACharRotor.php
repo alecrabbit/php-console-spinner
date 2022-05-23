@@ -13,7 +13,7 @@ abstract class ACharRotor
 
     public function __construct()
     {
-        $this->frameCount = count(self::CHARS);
+        $this->frameCount = count(static::CHARS);
     }
 
     public function next(): string
@@ -25,12 +25,12 @@ abstract class ACharRotor
         if (++$this->currentCharIdx === $this->frameCount) {
             $this->currentCharIdx = 0;
         }
-        return (string)self::CHARS[$this->currentCharIdx];
+        return (string)static::CHARS[$this->currentCharIdx];
     }
 
     public function getWidth(): int
     {
-        return self::CHAR_WIDTH;
+        return static::CHAR_WIDTH;
     }
 
 }

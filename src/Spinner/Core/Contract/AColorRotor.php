@@ -13,7 +13,7 @@ abstract class AColorRotor
 
     public function __construct()
     {
-        $this->colorLen = count(self::COLORS);
+        $this->colorLen = count(static::COLORS);
     }
 
     public function next(): string
@@ -24,7 +24,7 @@ abstract class AColorRotor
         if (++$this->currentColorIdx === $this->colorLen) {
             $this->currentColorIdx = 0;
         }
-        return (string)self::COLORS[$this->currentColorIdx];
+        return (string)static::COLORS[$this->currentColorIdx];
     }
 
 }
