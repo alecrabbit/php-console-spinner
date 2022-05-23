@@ -10,13 +10,13 @@ use AlecRabbit\Spinner\Core\Contract\IWigglerContainer;
 
 final class Renderer implements Contract\IRenderer
 {
-    public function renderFrame(IWigglerContainer $container, null|float|int $interval = null): IFrame
+    public function renderFrame(IWigglerContainer $wigglers, null|float|int $interval = null): IFrame
     {
         $sequence = '';
         $width = 0;
 
         /** @var IWiggler $wiggler */
-        foreach ($container->getWigglers() as $wiggler) {
+        foreach ($wigglers as $wiggler) {
             $sequence .= $wiggler->getSequence($interval);
             $width += $wiggler->getWidth();
         }
