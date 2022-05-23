@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Contract;
 
-interface IProgress extends IWiggler
+interface IRevolveWiggler extends IWiggler
 {
 
 }

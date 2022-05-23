@@ -22,13 +22,13 @@ final class SpinnerFactory implements ISpinnerFactory
      */
     public static function get(): ISpinner
     {
-        if (self::hasTwisterRevolverInstance()) {
+        if (self::hasSpinnerInstance()) {
             return self::$spinner;
         }
         return self::create();
     }
 
-    private static function hasTwisterRevolverInstance(): bool
+    private static function hasSpinnerInstance(): bool
     {
         return self::$spinner instanceof ISpinner;
     }
@@ -39,7 +39,7 @@ final class SpinnerFactory implements ISpinnerFactory
      */
     public static function create(string|ISpinnerConfig|null $classOrConfig = null): ISpinner
     {
-        if (self::hasTwisterRevolverInstance()) {
+        if (self::hasSpinnerInstance()) {
             // There Can Be Only One
             throw new DomainException(
                 sprintf('Spinner instance was already created: [%s]', self::$spinner::class)
@@ -68,6 +68,7 @@ final class SpinnerFactory implements ISpinnerFactory
 
     private static function refineClass(string|ISpinnerConfig|null $classOrConfig): string
     {
+        // TODO (2022-05-23 14:10) [Alec Rabbit]: this method should return RevolverWiggler Frames class
         if (is_string($classOrConfig)) {
             return $classOrConfig;
         }

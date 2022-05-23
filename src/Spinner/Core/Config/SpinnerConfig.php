@@ -8,6 +8,7 @@ use AlecRabbit\Spinner\Core\Contract\Defaults;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\ILoop;
 use AlecRabbit\Spinner\Core\Contract\ISpinnerConfig;
+use AlecRabbit\Spinner\Core\Contract\IWigglerContainer;
 use AlecRabbit\Spinner\Core\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Core\Exception\LogicException;
 use AlecRabbit\Spinner\Spinner;
@@ -21,13 +22,14 @@ final class SpinnerConfig implements ISpinnerConfig
      * @throws LogicException|InvalidArgumentException
      */
     public function __construct(
-        private IDriver $driver,
-        private int|float $shutdownDelay,
-        private string $exitMessage,
-        private ?ILoop $loop = null,
-        private bool $synchronous = false,
-        private int|float $interval = self::INTERVAL,
-        private string $spinnerClass = Spinner::class,
+        private readonly IDriver $driver,
+        private readonly IWigglerContainer $wigglers,
+        private readonly int|float $shutdownDelay,
+        private readonly string $exitMessage,
+        private readonly ?ILoop $loop = null,
+        private readonly bool $synchronous = false,
+        private readonly int|float $interval = self::INTERVAL,
+        private readonly string $spinnerClass = Spinner::class,
     ) {
         $this->assertConfigIsCorrect();
     }
@@ -116,28 +118,18 @@ final class SpinnerConfig implements ISpinnerConfig
         return $this->spinnerClass;
     }
 
-//    public function getSequencer(): ISequencer
-//    {
-//        return $this->sequencer;
-//    }
-
-//    public function getWriter(): IWriter
-//    {
-//        return $this->writer;
-//    }
-
     public function getInterval(): int|float
     {
         return $this->interval;
     }
 
-//    public function getRenderer(): IRenderer
-//    {
-//        return $this->renderer;
-//    }
-
     public function getDriver(): IDriver
     {
         return $this->driver;
+    }
+
+    public function getWigglers(): IWigglerContainer
+    {
+        return $this->wigglers;
     }
 }

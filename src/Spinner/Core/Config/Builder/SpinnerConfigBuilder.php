@@ -5,13 +5,18 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Config\Builder;
 
 use AlecRabbit\Spinner\Core\Color;
+use AlecRabbit\Spinner\Core\Config\Builder\Contract\ISpinnerConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\SpinnerConfig;
 use AlecRabbit\Spinner\Core\Contract\Defaults;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\ILoop;
+use AlecRabbit\Spinner\Core\Contract\IMessageWiggler;
+use AlecRabbit\Spinner\Core\Contract\IProgressWiggler;
 use AlecRabbit\Spinner\Core\Contract\IRenderer;
+use AlecRabbit\Spinner\Core\Contract\IRevolveWiggler;
 use AlecRabbit\Spinner\Core\Contract\ISequencer;
 use AlecRabbit\Spinner\Core\Contract\ISpinnerConfig;
+use AlecRabbit\Spinner\Core\Contract\IWigglerContainer;
 use AlecRabbit\Spinner\Core\Contract\IWriter;
 use AlecRabbit\Spinner\Core\Driver;
 use AlecRabbit\Spinner\Core\Exception\DomainException;
@@ -20,16 +25,20 @@ use AlecRabbit\Spinner\Core\FrameHolder;
 use AlecRabbit\Spinner\Core\Renderer;
 use AlecRabbit\Spinner\Core\Sequencer;
 use AlecRabbit\Spinner\Core\StdErrOutput;
+use AlecRabbit\Spinner\Core\Wiggler\MessageWiggler;
+use AlecRabbit\Spinner\Core\Wiggler\ProgressWiggler;
+use AlecRabbit\Spinner\Core\Wiggler\RevolveWiggler;
+use AlecRabbit\Spinner\Core\WigglerContainer;
 use AlecRabbit\Spinner\Core\Writer;
 
-final class SpinnerConfigBuilder
+final class SpinnerConfigBuilder implements ISpinnerConfigBuilder
 {
     private const MESSAGE_ON_EXIT = Defaults::MESSAGE_ON_EXIT;
     private const SHUTDOWN_DELAY = Defaults::SHUTDOWN_DELAY;
 
     private ILoop $loop;
     private IDriver $driver;
-    private array $wigglers;
+    private IWigglerContainer $wigglers;
     private bool $synchronousMode;
     private float $shutdownDelaySeconds;
     private string $exitMessage;
@@ -42,6 +51,7 @@ final class SpinnerConfigBuilder
         $this->synchronousMode = false;
         $this->loop = self::getLoop();
         $this->driver = self::createDriver();
+        $this->wigglers = self::createWigglerContainer();
         $this->exitMessage = self::MESSAGE_ON_EXIT;
         $this->shutdownDelaySeconds = self::SHUTDOWN_DELAY;
     }
@@ -54,16 +64,6 @@ final class SpinnerConfigBuilder
         return LoopFactory::getLoop();
     }
 
-    private static function createSequencer(): ISequencer
-    {
-        return new Sequencer();
-    }
-
-    private static function createWriter(): IWriter
-    {
-        return new Writer(new StdErrOutput());
-    }
-
     private static function createDriver(): IDriver
     {
         return
@@ -74,6 +74,16 @@ final class SpinnerConfigBuilder
             );
     }
 
+    private static function createWriter(): IWriter
+    {
+        return new Writer(new StdErrOutput());
+    }
+
+    private static function createSequencer(): ISequencer
+    {
+        return new Sequencer();
+    }
+
     private static function createRenderer(): IRenderer
     {
         return
@@ -81,6 +91,35 @@ final class SpinnerConfigBuilder
                 new Color(),
                 new FrameHolder(),
             );
+    }
+
+    private static function createWigglerContainer(): IWigglerContainer
+    {
+        return
+            new WigglerContainer(
+                self::createRevolveWiggler(),
+                self::createProgressWiggler(),
+                self::createMessageWiggler(),
+            );
+    }
+
+    private static function createRevolveWiggler(): IRevolveWiggler
+    {
+        return
+            new RevolveWiggler(
+                new Color(),
+                new FrameHolder(),
+            );
+    }
+
+    private static function createProgressWiggler(): IProgressWiggler
+    {
+        return new ProgressWiggler();
+    }
+
+    private static function createMessageWiggler(): IMessageWiggler
+    {
+        return new MessageWiggler();
     }
 
     public function withExitMessage(string $exitMessage): self
@@ -137,6 +176,7 @@ final class SpinnerConfigBuilder
         return
             new SpinnerConfig(
                 driver: $this->driver,
+                wigglers: $this->wigglers,
                 shutdownDelay: $this->shutdownDelaySeconds,
                 exitMessage: $this->exitMessage,
                 loop: self::refineLoop($this->loop, $this->synchronousMode),

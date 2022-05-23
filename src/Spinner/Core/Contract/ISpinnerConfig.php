@@ -21,4 +21,6 @@ interface ISpinnerConfig
     public function getInterval(): int|float;
 
     public function getDriver(): IDriver;
+
+    public function getWigglers(): IWigglerContainer;
 }
