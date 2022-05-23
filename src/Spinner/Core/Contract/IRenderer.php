@@ -6,5 +6,5 @@ namespace AlecRabbit\Spinner\Core\Contract;
 
 interface IRenderer
 {
-    public function createFrame(null|float|int $interval = null): IFrame;
+    public function renderFrame(null|float|int $interval = null): IFrame;
 }

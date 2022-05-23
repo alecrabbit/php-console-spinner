@@ -7,16 +7,18 @@ namespace AlecRabbit\Spinner\Core\Config\Builder;
 use AlecRabbit\Spinner\Core\Color;
 use AlecRabbit\Spinner\Core\Config\SpinnerConfig;
 use AlecRabbit\Spinner\Core\Contract\Defaults;
-use AlecRabbit\Spinner\Core\Contract\ISequencer;
+use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\ILoop;
 use AlecRabbit\Spinner\Core\Contract\IRenderer;
+use AlecRabbit\Spinner\Core\Contract\ISequencer;
 use AlecRabbit\Spinner\Core\Contract\ISpinnerConfig;
 use AlecRabbit\Spinner\Core\Contract\IWriter;
-use AlecRabbit\Spinner\Core\Sequencer;
+use AlecRabbit\Spinner\Core\Driver;
 use AlecRabbit\Spinner\Core\Exception\DomainException;
 use AlecRabbit\Spinner\Core\Factory\LoopFactory;
 use AlecRabbit\Spinner\Core\FrameHolder;
 use AlecRabbit\Spinner\Core\Renderer;
+use AlecRabbit\Spinner\Core\Sequencer;
 use AlecRabbit\Spinner\Core\StdErrOutput;
 use AlecRabbit\Spinner\Core\Writer;
 
@@ -26,9 +28,10 @@ final class ConfigBuilder
     private const SHUTDOWN_DELAY = Defaults::SHUTDOWN_DELAY;
 
     private ILoop $loop;
-    private ISequencer $driver;
-    private IWriter $writer;
-    private IRenderer $renderer;
+//    private ISequencer $sequencer;
+//    private IWriter $writer;
+    private IDriver $driver;
+//    private IRenderer $renderer;
     private bool $synchronousMode;
     private float $shutdownDelaySeconds;
     private string $exitMessage;
@@ -40,9 +43,10 @@ final class ConfigBuilder
     {
         $this->synchronousMode = false;
         $this->loop = self::getLoop();
+//        $this->sequencer = self::createSequencer();
+//        $this->writer = self::createWriter();
         $this->driver = self::createDriver();
-        $this->writer = self::createWriter();
-        $this->renderer = self::createRenderer();
+//        $this->renderer = self::createRenderer();
         $this->exitMessage = self::MESSAGE_ON_EXIT;
         $this->shutdownDelaySeconds = self::SHUTDOWN_DELAY;
     }
@@ -55,14 +59,24 @@ final class ConfigBuilder
         return LoopFactory::getLoop();
     }
 
-    private static function createDriver(): ISequencer
+    private static function createSequencer(): ISequencer
     {
-        return new Sequencer(new StdErrOutput());
+        return new Sequencer();
     }
 
     private static function createWriter(): IWriter
     {
         return new Writer(new StdErrOutput());
+    }
+
+    private static function createDriver(): IDriver
+    {
+        return
+            new Driver(
+                self::createWriter(),
+                self::createSequencer(),
+                self::createRenderer(),
+            );
     }
 
     private static function createRenderer(): IRenderer
@@ -88,10 +102,10 @@ final class ConfigBuilder
         return $clone;
     }
 
-    public function withDriver(ISequencer $driver): self
+    public function withSequencer(ISequencer $sequencer): self
     {
         $clone = clone $this;
-        $this->driver = $driver;
+        $this->sequencer = $sequencer;
         return $clone;
     }
 
@@ -127,13 +141,14 @@ final class ConfigBuilder
     {
         return
             new SpinnerConfig(
-                driver:        $this->driver,
-                writer:        $this->writer,
+//                sequencer: $this->sequencer,
+//                writer: $this->writer,
+                driver: $this->driver,
+//                renderer: $this->renderer,
                 shutdownDelay: $this->shutdownDelaySeconds,
-                exitMessage:   $this->exitMessage,
-                renderer:      $this->renderer,
-                synchronous:   $this->synchronousMode,
-                loop:          self::refineLoop($this->loop, $this->synchronousMode),
+                exitMessage: $this->exitMessage,
+                loop: self::refineLoop($this->loop, $this->synchronousMode),
+                synchronous: $this->synchronousMode,
             );
     }
 

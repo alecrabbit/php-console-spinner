@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Config;
 
 use AlecRabbit\Spinner\Core\Contract\Defaults;
+use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\ISequencer;
 use AlecRabbit\Spinner\Core\Contract\ILoop;
 use AlecRabbit\Spinner\Core\Contract\IRenderer;
@@ -23,9 +24,10 @@ final class SpinnerConfig implements ISpinnerConfig
      * @throws LogicException|InvalidArgumentException
      */
     public function __construct(
-        private ISequencer $driver,
-        private IWriter $writer,
-        private IRenderer $renderer,
+//        private ISequencer $sequencer,
+//        private IWriter $writer,
+        private IDriver $driver,
+//        private IRenderer $renderer,
         private int|float $shutdownDelay,
         private string $exitMessage,
         private ?ILoop $loop = null,
@@ -120,23 +122,28 @@ final class SpinnerConfig implements ISpinnerConfig
         return $this->spinnerClass;
     }
 
-    public function getSequencer(): ISequencer
-    {
-        return $this->driver;
-    }
+//    public function getSequencer(): ISequencer
+//    {
+//        return $this->sequencer;
+//    }
 
-    public function getWriter(): IWriter
-    {
-        return $this->writer;
-    }
+//    public function getWriter(): IWriter
+//    {
+//        return $this->writer;
+//    }
 
     public function getInterval(): int|float
     {
         return $this->interval;
     }
 
-    public function getRenderer(): IRenderer
+//    public function getRenderer(): IRenderer
+//    {
+//        return $this->renderer;
+//    }
+
+    public function getDriver(): IDriver
     {
-        return $this->renderer;
+        return $this->driver;
     }
 }

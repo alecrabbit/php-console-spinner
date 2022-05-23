@@ -128,7 +128,7 @@ final class SpinnerFactory implements ISpinnerFactory
 
             $func = static function () use ($loop, &$func, $spinner, $config) {
                 $spinner->end();
-                $config->getWriter()->getOutput()->write(PHP_EOL . $config->getExitMessage() . PHP_EOL);
+                $config->getDriver()->getWriter()->getOutput()->write(PHP_EOL . $config->getExitMessage() . PHP_EOL);
                 /** @noinspection PhpComposerExtensionStubsInspection */
                 $loop->removeSignal(SIGINT, $func);
                 $loop->addTimer(
