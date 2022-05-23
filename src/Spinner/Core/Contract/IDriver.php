@@ -14,9 +14,9 @@ interface IDriver
 
     public function showCursor(): void;
 
-    public function showFrame(IFrame $frame): void;
+    public function render(null|float|int $interval = null): void;
 
-    public function eraseFrame(): void;
+    public function erase(): void;
 
     public function getWriter(): IWriter;
 

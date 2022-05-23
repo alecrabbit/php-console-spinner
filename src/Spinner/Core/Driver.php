@@ -33,7 +33,13 @@ final class Driver implements IDriver
         );
     }
 
-    public function showFrame(IFrame $frame): void
+    public function render(null|float|int $interval = null): void
+    {
+        $frame = $this->renderer->renderFrame($interval);
+        $this->writeFrame($frame);
+    }
+
+    private function writeFrame(IFrame $frame): void
     {
         $this->writer->write(
             $this->sequencer->frameSequence($frame->sequence),
@@ -41,7 +47,7 @@ final class Driver implements IDriver
         );
     }
 
-    public function eraseFrame(): void
+    public function erase(): void
     {
         $this->writer->write(
             $this->sequencer->eraseSequence()

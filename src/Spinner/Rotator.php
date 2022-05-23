@@ -5,10 +5,8 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner;
 
 use AlecRabbit\Spinner\Core\Contract\IDriver;
-use AlecRabbit\Spinner\Core\Contract\IFrame;
 use AlecRabbit\Spinner\Core\Contract\IMessage;
 use AlecRabbit\Spinner\Core\Contract\IProgress;
-use AlecRabbit\Spinner\Core\Contract\IRenderer;
 use AlecRabbit\Spinner\Core\Contract\IRotator;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use AlecRabbit\Spinner\Core\Contract\ISpinnerConfig;
@@ -20,6 +18,7 @@ final class Rotator implements IRotator
     private IDriver $driver;
     private bool $active;
     private int|float $interval;
+
 //    private IRenderer $renderer;
 
     public function __construct(
@@ -29,6 +28,11 @@ final class Rotator implements IRotator
         $this->driver = $config->getDriver();
         $this->interval = $config->getInterval();
 //        $this->renderer = $config->getRenderer();
+    }
+
+    public function isSynchronous(): bool
+    {
+        return $this->synchronous;
     }
 
     public function refreshInterval(): int|float
@@ -56,7 +60,7 @@ final class Rotator implements IRotator
 
     public function erase(): void
     {
-        $this->driver->eraseFrame();
+        $this->driver->erase();
     }
 
     private function stop(): void
@@ -67,23 +71,20 @@ final class Rotator implements IRotator
     public function rotate(): void
     {
         if ($this->active) {
-            $this->showFrame($this->render());
+            $this->render();
         }
     }
 
-    private function render(): IFrame
+    private function render(): void
     {
-        return $this->driver->getRenderer()->renderFrame($this->interval);
+        $this->driver->render(
+            $this->interval,
+        );
     }
 
     public function isAsynchronous(): bool
     {
         return !$this->isSynchronous();
-    }
-
-    public function isSynchronous(): bool
-    {
-        return $this->synchronous;
     }
 
     public function disable(): void
@@ -116,10 +117,5 @@ final class Rotator implements IRotator
         // TODO: Implement progress() method.
         // FIXME (2022-01-20 20:52) [Alec Rabbit]: Implement this method.
         throw new MethodNotImplementedException(__METHOD__);
-    }
-
-    private function showFrame(IFrame $frame): void
-    {
-        $this->driver->showFrame($frame);
     }
 }
