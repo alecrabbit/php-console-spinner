@@ -4,9 +4,12 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core;
 
-final class Color
+use AlecRabbit\Spinner\Core\Contract\AColorRotor;
+use AlecRabbit\Spinner\Core\Contract\IRotor;
+
+final class RainbowColorRotor extends AColorRotor implements IRotor
 {
-    private const COLORS = [
+    protected const COLORS = [
         196,
         196,
         202,
@@ -68,21 +71,4 @@ final class Color
         197,
         197,
     ];
-
-    private int $currentColorIdx = 0;
-    private int $colorLen;
-
-    public function __construct()
-    {
-        $this->colorLen = count(self::COLORS);
-    }
-
-    public function next(): string
-    {
-        if (++$this->currentColorIdx === $this->colorLen) {
-            $this->currentColorIdx = 0;
-        }
-        return (string)self::COLORS[$this->currentColorIdx];
-    }
-
 }

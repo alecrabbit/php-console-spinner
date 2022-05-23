@@ -9,5 +9,8 @@ use AlecRabbit\Spinner\Core\Wiggler\Contract\AWiggler;
 
 final class ProgressWiggler extends AWiggler implements IProgressWiggler
 {
-
+    protected function getSequence(float|int|null $interval = null): string
+    {
+        return '';
+    }
 }

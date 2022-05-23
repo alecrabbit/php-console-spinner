@@ -6,7 +6,5 @@ namespace AlecRabbit\Spinner\Core\Contract;
 
 interface IWiggler
 {
-    public function getSequence(float|int|null $interval = null): string;
-
-    public function getWidth(): int;
+    public function getFrame(float|int|null $interval = null): IFrame;
 }

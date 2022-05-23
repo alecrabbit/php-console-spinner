@@ -9,5 +9,8 @@ use AlecRabbit\Spinner\Core\Wiggler\Contract\AWiggler;
 
 final class MessageWiggler extends AWiggler implements IMessageWiggler
 {
-
+    protected function getSequence(float|int|null $interval = null): string
+    {
+        return '';
+    }
 }

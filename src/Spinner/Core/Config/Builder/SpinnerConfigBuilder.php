@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Config\Builder;
 
-use AlecRabbit\Spinner\Core\Color;
 use AlecRabbit\Spinner\Core\Config\Builder\Contract\ISpinnerConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\SpinnerConfig;
 use AlecRabbit\Spinner\Core\Contract\Defaults;
@@ -21,10 +20,13 @@ use AlecRabbit\Spinner\Core\Contract\IWriter;
 use AlecRabbit\Spinner\Core\Driver;
 use AlecRabbit\Spinner\Core\Exception\DomainException;
 use AlecRabbit\Spinner\Core\Factory\LoopFactory;
-use AlecRabbit\Spinner\Core\FrameHolder;
 use AlecRabbit\Spinner\Core\Output\StdErrOutput;
+use AlecRabbit\Spinner\Core\RainbowColorRotor;
 use AlecRabbit\Spinner\Core\Renderer;
 use AlecRabbit\Spinner\Core\Sequencer;
+use AlecRabbit\Spinner\Core\SnakeCharRotor;
+use AlecRabbit\Spinner\Core\StaticCharRotor;
+use AlecRabbit\Spinner\Core\StaticColorRotor;
 use AlecRabbit\Spinner\Core\Wiggler\MessageWiggler;
 use AlecRabbit\Spinner\Core\Wiggler\ProgressWiggler;
 use AlecRabbit\Spinner\Core\Wiggler\RevolveWiggler;
@@ -104,19 +106,27 @@ final class SpinnerConfigBuilder implements ISpinnerConfigBuilder
     {
         return
             new RevolveWiggler(
-                new Color(),
-                new FrameHolder(),
+                new RainbowColorRotor(),
+                new SnakeCharRotor(),
             );
     }
 
     private static function createProgressWiggler(): IProgressWiggler
     {
-        return new ProgressWiggler();
+        return
+            new ProgressWiggler(
+                new StaticColorRotor(),
+                new StaticCharRotor(),
+            );
     }
 
     private static function createMessageWiggler(): IMessageWiggler
     {
-        return new MessageWiggler();
+        return
+            new MessageWiggler(
+                new StaticColorRotor(),
+                new StaticCharRotor(),
+            );
     }
 
     public function withExitMessage(string $exitMessage): self
