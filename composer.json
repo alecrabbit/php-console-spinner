@@ -1,20 +1,15 @@
 {
     "name": "alecrabbit/php-console-spinner",
     "type": "library",
-    "description": "Colorful highly configurable spinner for php cli applications",
+    "description": "Colorful highly configurable spinner for [async] php cli applications",
     "keywords": [
         "php",
         "spinner",
         "console",
         "cli",
-        "scripts",
         "pretty",
-        "clock",
         "shell",
         "bash",
-        "arrow",
-        "moon",
-        "color",
         "256color",
         "8bit",
         "colorful",
@@ -45,7 +40,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "AlecRabbit\\Tests\\Spinner\\": "tests/"
+            "AlecRabbit\\Tests\\Spinner\\": "tests"
         }
     },
     "suggest": {
