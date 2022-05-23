@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Contract;
 
-interface IProgress extends IWiggler
+// Marker interface
+interface IWiggler
 {
 
 }

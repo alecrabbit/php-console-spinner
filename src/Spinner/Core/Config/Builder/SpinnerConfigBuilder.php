@@ -22,16 +22,14 @@ use AlecRabbit\Spinner\Core\Sequencer;
 use AlecRabbit\Spinner\Core\StdErrOutput;
 use AlecRabbit\Spinner\Core\Writer;
 
-final class ConfigBuilder
+final class SpinnerConfigBuilder
 {
     private const MESSAGE_ON_EXIT = Defaults::MESSAGE_ON_EXIT;
     private const SHUTDOWN_DELAY = Defaults::SHUTDOWN_DELAY;
 
     private ILoop $loop;
-//    private ISequencer $sequencer;
-//    private IWriter $writer;
     private IDriver $driver;
-//    private IRenderer $renderer;
+    private array $wigglers;
     private bool $synchronousMode;
     private float $shutdownDelaySeconds;
     private string $exitMessage;
@@ -43,10 +41,7 @@ final class ConfigBuilder
     {
         $this->synchronousMode = false;
         $this->loop = self::getLoop();
-//        $this->sequencer = self::createSequencer();
-//        $this->writer = self::createWriter();
         $this->driver = self::createDriver();
-//        $this->renderer = self::createRenderer();
         $this->exitMessage = self::MESSAGE_ON_EXIT;
         $this->shutdownDelaySeconds = self::SHUTDOWN_DELAY;
     }
@@ -141,10 +136,7 @@ final class ConfigBuilder
     {
         return
             new SpinnerConfig(
-//                sequencer: $this->sequencer,
-//                writer: $this->writer,
                 driver: $this->driver,
-//                renderer: $this->renderer,
                 shutdownDelay: $this->shutdownDelaySeconds,
                 exitMessage: $this->exitMessage,
                 loop: self::refineLoop($this->loop, $this->synchronousMode),

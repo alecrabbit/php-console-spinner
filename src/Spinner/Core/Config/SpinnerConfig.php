@@ -6,14 +6,11 @@ namespace AlecRabbit\Spinner\Core\Config;
 
 use AlecRabbit\Spinner\Core\Contract\Defaults;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
-use AlecRabbit\Spinner\Core\Contract\ISequencer;
 use AlecRabbit\Spinner\Core\Contract\ILoop;
-use AlecRabbit\Spinner\Core\Contract\IRenderer;
 use AlecRabbit\Spinner\Core\Contract\ISpinnerConfig;
-use AlecRabbit\Spinner\Core\Contract\IWriter;
 use AlecRabbit\Spinner\Core\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Core\Exception\LogicException;
-use AlecRabbit\Spinner\Rotator;
+use AlecRabbit\Spinner\Spinner;
 
 final class SpinnerConfig implements ISpinnerConfig
 {
@@ -24,16 +21,13 @@ final class SpinnerConfig implements ISpinnerConfig
      * @throws LogicException|InvalidArgumentException
      */
     public function __construct(
-//        private ISequencer $sequencer,
-//        private IWriter $writer,
         private IDriver $driver,
-//        private IRenderer $renderer,
         private int|float $shutdownDelay,
         private string $exitMessage,
         private ?ILoop $loop = null,
         private bool $synchronous = false,
         private int|float $interval = self::INTERVAL,
-        private string $spinnerClass = Rotator::class,
+        private string $spinnerClass = Spinner::class,
     ) {
         $this->assertConfigIsCorrect();
     }

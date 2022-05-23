@@ -4,42 +4,42 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Factory;
 
-use AlecRabbit\Spinner\Core\Config\Builder\ConfigBuilder;
-use AlecRabbit\Spinner\Core\Contract\IRotator;
+use AlecRabbit\Spinner\Core\Config\Builder\SpinnerConfigBuilder;
+use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use AlecRabbit\Spinner\Core\Contract\ISpinnerConfig;
 use AlecRabbit\Spinner\Core\Contract\ISpinnerFactory;
 use AlecRabbit\Spinner\Core\Exception\DomainException;
 use AlecRabbit\Spinner\Core\Exception\InvalidArgumentException;
-use AlecRabbit\Spinner\Rotator;
+use AlecRabbit\Spinner\Spinner;
 
 final class SpinnerFactory implements ISpinnerFactory
 {
-    private static ?IRotator $spinner = null;
+    private static ?ISpinner $spinner = null;
 
     /**
      * @throws DomainException
      * @throws InvalidArgumentException
      */
-    public static function get(): IRotator
+    public static function get(): ISpinner
     {
-        if (self::hasSpinnerInstance()) {
+        if (self::hasTwisterRevolverInstance()) {
             return self::$spinner;
         }
         return self::create();
     }
 
-    private static function hasSpinnerInstance(): bool
+    private static function hasTwisterRevolverInstance(): bool
     {
-        return self::$spinner instanceof IRotator;
+        return self::$spinner instanceof ISpinner;
     }
 
     /**
      * @throws DomainException
      * @throws InvalidArgumentException
      */
-    public static function create(string|ISpinnerConfig|null $classOrConfig = null): IRotator
+    public static function create(string|ISpinnerConfig|null $classOrConfig = null): ISpinner
     {
-        if (self::hasSpinnerInstance()) {
+        if (self::hasTwisterRevolverInstance()) {
             // There Can Be Only One
             throw new DomainException(
                 sprintf('Spinner instance was already created: [%s]', self::$spinner::class)
@@ -61,7 +61,7 @@ final class SpinnerFactory implements ISpinnerFactory
             self::attachSigIntListener($spinner, $config);
         }
 
-        self::setSpinner($spinner);
+        self::setTwisterRevolver($spinner);
 
         return $spinner;
     }
@@ -74,7 +74,7 @@ final class SpinnerFactory implements ISpinnerFactory
         if ($classOrConfig instanceof ISpinnerConfig) {
             return $classOrConfig->getSpinnerClass();
         }
-        return Rotator::class;
+        return Spinner::class;
     }
 
     private static function refineConfig(string|ISpinnerConfig|null $config): ISpinnerConfig
@@ -82,15 +82,15 @@ final class SpinnerFactory implements ISpinnerFactory
         if ($config instanceof ISpinnerConfig) {
             return $config;
         }
-        return (new ConfigBuilder())->build();
+        return (new SpinnerConfigBuilder())->build();
     }
 
     /**
      * @throws InvalidArgumentException
      */
-    protected static function doCreate(string $class, ISpinnerConfig $config): IRotator
+    protected static function doCreate(string $class, ISpinnerConfig $config): ISpinner
     {
-        if (is_subclass_of($class, IRotator::class)) {
+        if (is_subclass_of($class, ISpinner::class)) {
             return new $class($config);
         }
         throw new InvalidArgumentException(
@@ -99,29 +99,28 @@ final class SpinnerFactory implements ISpinnerFactory
         );
     }
 
-    private static function attachSpinnerToLoop(
-        IRotator $spinner,
-        ISpinnerConfig $config
-    ): void {
+    private static function attachSpinnerToLoop(ISpinner $spinner, ISpinnerConfig $config): void
+    {
         $config->getLoop()
             ->addPeriodicTimer(
                 $spinner->refreshInterval(),
                 static function () use ($spinner) {
                     $spinner->rotate();
                 }
-            );
+            )
+        ;
     }
 
     private static function initialize(
-        IRotator $spinner,
-        ISpinnerConfig $config
+        ISpinner $spinner,
+        ISpinnerConfig $config,
     ): void {
         $spinner->begin();
     }
 
     private static function attachSigIntListener(
-        IRotator $spinner,
-        ISpinnerConfig $config
+        ISpinner $spinner,
+        ISpinnerConfig $config,
     ): void {
         if (defined('SIGINT')) { // check for ext-pcntl
             $loop = $config->getLoop();
@@ -143,7 +142,7 @@ final class SpinnerFactory implements ISpinnerFactory
         }
     }
 
-    private static function setSpinner(IRotator $spinner): void
+    private static function setTwisterRevolver(ISpinner $spinner): void
     {
         self::$spinner = $spinner;
     }

@@ -7,19 +7,17 @@ namespace AlecRabbit\Spinner;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\IMessage;
 use AlecRabbit\Spinner\Core\Contract\IProgress;
-use AlecRabbit\Spinner\Core\Contract\IRotator;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
+use AlecRabbit\Spinner\Core\Contract\IRevolver;
 use AlecRabbit\Spinner\Core\Contract\ISpinnerConfig;
 use AlecRabbit\Spinner\Core\Exception\MethodNotImplementedException;
 
-final class Rotator implements IRotator
+final class Spinner implements ISpinner
 {
     private bool $synchronous;
     private IDriver $driver;
     private bool $active;
     private int|float $interval;
-
-//    private IRenderer $renderer;
 
     public function __construct(
         ISpinnerConfig $config
@@ -27,7 +25,6 @@ final class Rotator implements IRotator
         $this->synchronous = $config->isSynchronous();
         $this->driver = $config->getDriver();
         $this->interval = $config->getInterval();
-//        $this->renderer = $config->getRenderer();
     }
 
     public function isSynchronous(): bool
@@ -98,7 +95,7 @@ final class Rotator implements IRotator
         $this->active = true;
     }
 
-    public function spinner(?ISpinner $spinner): void
+    public function spinner(?IRevolver $spinner): void
     {
         // TODO: Implement spinner() method.
         // FIXME (2022-05-22 15:22) [Alec Rabbit]: Implement this method.
