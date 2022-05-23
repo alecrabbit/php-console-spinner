@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner;
 
-use AlecRabbit\Spinner\Core\Contract\IDriver;
+use AlecRabbit\Spinner\Core\Contract\ISequencer;
 use AlecRabbit\Spinner\Core\Contract\IFrame;
 use AlecRabbit\Spinner\Core\Contract\IMessage;
 use AlecRabbit\Spinner\Core\Contract\IProgress;
@@ -18,7 +18,7 @@ use AlecRabbit\Spinner\Core\Exception\MethodNotImplementedException;
 final class Rotator implements IRotator
 {
     private bool $synchronous;
-    private IDriver $driver;
+    private ISequencer $sequencer;
     private IWriter $writer;
     private bool $active;
     private int|float $interval;
@@ -28,7 +28,7 @@ final class Rotator implements IRotator
         ISpinnerConfig $config
     ) {
         $this->synchronous = $config->isSynchronous();
-        $this->driver = $config->getDriver();
+        $this->sequencer = $config->getSequencer();
         $this->writer = $config->getWriter();
         $this->interval = $config->getInterval();
         $this->renderer = $config->getRenderer();
@@ -60,7 +60,7 @@ final class Rotator implements IRotator
     public function erase(): void
     {
         $this->writer->write(
-            $this->driver->eraseSequence()
+            $this->sequencer->eraseSequence()
         );
     }
 
@@ -126,22 +126,22 @@ final class Rotator implements IRotator
     private function show(IFrame $frame): void
     {
         $this->writer->write(
-            $this->driver->frameSequence($frame->sequence),
-            $this->driver->moveBackSequence($frame->sequenceWidth),
+            $this->sequencer->frameSequence($frame->sequence),
+            $this->sequencer->moveBackSequence($frame->sequenceWidth),
         );
     }
 
     private function hideCursor(): void
     {
         $this->writer->write(
-            $this->driver->hideCursorSequence()
+            $this->sequencer->hideCursorSequence()
         );
     }
 
     private function showCursor(): void
     {
         $this->writer->write(
-            $this->driver->showCursorSequence()
+            $this->sequencer->showCursorSequence()
         );
     }
 }

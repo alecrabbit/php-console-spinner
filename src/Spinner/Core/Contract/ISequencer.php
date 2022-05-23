@@ -8,7 +8,7 @@ namespace AlecRabbit\Spinner\Core\Contract;
 /**
  * @internal
  */
-interface IDriver
+interface ISequencer
 {
     public function frameSequence(string $sequence): string;
 

@@ -18,7 +18,7 @@ interface ISpinnerConfig
 
     public function getSpinnerClass(): string;
 
-    public function getDriver(): IDriver;
+    public function getSequencer(): ISequencer;
 
     public function getWriter(): IWriter;
 

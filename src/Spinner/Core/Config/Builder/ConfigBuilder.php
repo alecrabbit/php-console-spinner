@@ -7,12 +7,12 @@ namespace AlecRabbit\Spinner\Core\Config\Builder;
 use AlecRabbit\Spinner\Core\Color;
 use AlecRabbit\Spinner\Core\Config\SpinnerConfig;
 use AlecRabbit\Spinner\Core\Contract\Defaults;
-use AlecRabbit\Spinner\Core\Contract\IDriver;
+use AlecRabbit\Spinner\Core\Contract\ISequencer;
 use AlecRabbit\Spinner\Core\Contract\ILoop;
 use AlecRabbit\Spinner\Core\Contract\IRenderer;
 use AlecRabbit\Spinner\Core\Contract\ISpinnerConfig;
 use AlecRabbit\Spinner\Core\Contract\IWriter;
-use AlecRabbit\Spinner\Core\Driver;
+use AlecRabbit\Spinner\Core\Sequencer;
 use AlecRabbit\Spinner\Core\Exception\DomainException;
 use AlecRabbit\Spinner\Core\Factory\LoopFactory;
 use AlecRabbit\Spinner\Core\FrameHolder;
@@ -26,7 +26,7 @@ final class ConfigBuilder
     private const SHUTDOWN_DELAY = Defaults::SHUTDOWN_DELAY;
 
     private ILoop $loop;
-    private IDriver $driver;
+    private ISequencer $driver;
     private IWriter $writer;
     private IRenderer $renderer;
     private bool $synchronousMode;
@@ -55,9 +55,9 @@ final class ConfigBuilder
         return LoopFactory::getLoop();
     }
 
-    private static function createDriver(): IDriver
+    private static function createDriver(): ISequencer
     {
-        return new Driver(new StdErrOutput());
+        return new Sequencer(new StdErrOutput());
     }
 
     private static function createWriter(): IWriter
@@ -88,7 +88,7 @@ final class ConfigBuilder
         return $clone;
     }
 
-    public function withDriver(IDriver $driver): self
+    public function withDriver(ISequencer $driver): self
     {
         $clone = clone $this;
         $this->driver = $driver;

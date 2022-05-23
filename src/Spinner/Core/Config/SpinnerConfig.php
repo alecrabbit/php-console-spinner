@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Config;
 
 use AlecRabbit\Spinner\Core\Contract\Defaults;
-use AlecRabbit\Spinner\Core\Contract\IDriver;
+use AlecRabbit\Spinner\Core\Contract\ISequencer;
 use AlecRabbit\Spinner\Core\Contract\ILoop;
 use AlecRabbit\Spinner\Core\Contract\IRenderer;
 use AlecRabbit\Spinner\Core\Contract\ISpinnerConfig;
@@ -23,7 +23,7 @@ final class SpinnerConfig implements ISpinnerConfig
      * @throws LogicException|InvalidArgumentException
      */
     public function __construct(
-        private IDriver $driver,
+        private ISequencer $driver,
         private IWriter $writer,
         private IRenderer $renderer,
         private int|float $shutdownDelay,
@@ -120,7 +120,7 @@ final class SpinnerConfig implements ISpinnerConfig
         return $this->spinnerClass;
     }
 
-    public function getDriver(): IDriver
+    public function getSequencer(): ISequencer
     {
         return $this->driver;
     }
