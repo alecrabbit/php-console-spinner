@@ -1,1 +1,1 @@
-{"version":1,"defects":{"Warning":6},"times":{"Warning":0.001,"AlecRabbit\\Tests\\Spinner\\Unit\\ConfigBuilderTest::emptyTest":0.003}}
+{"version":1,"defects":[],"times":{"AlecRabbit\\Tests\\Spinner\\Unit\\ConfigBuilderTest::emptyTest":0.001}}

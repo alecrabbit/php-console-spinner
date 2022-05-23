@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Spinner\Core;
+namespace AlecRabbit\Spinner\Core\Output;
 
 use AlecRabbit\Spinner\Core\Exception\RuntimeException;
 
@@ -44,9 +44,11 @@ final class StdErrOutput implements Contract\IOutput
             $messages = [$messages];
         }
         foreach ($messages as $message) {
-            if (false === @fwrite($this->stream, $message)) {
-                // should never happen
-                throw new RuntimeException('Was unable to write to stream.');
+            if (is_string($message)) {
+                if (false === @fwrite($this->stream, $message)) {
+                    // should never happen
+                    throw new RuntimeException('Was unable to write to stream.');
+                }
             }
         }
         fflush($this->stream);

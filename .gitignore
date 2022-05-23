@@ -8,3 +8,4 @@
 .start_time
 docker-stack.yml
 .phpunit.result.cache
+
