@@ -78,6 +78,7 @@ final class Spinner implements ISpinner
     private function render(): void
     {
         $this->driver->render(
+            $this->wigglers,
             $this->interval,
         );
     }

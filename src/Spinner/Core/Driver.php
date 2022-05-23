@@ -8,6 +8,7 @@ use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\IFrame;
 use AlecRabbit\Spinner\Core\Contract\IRenderer;
 use AlecRabbit\Spinner\Core\Contract\ISequencer;
+use AlecRabbit\Spinner\Core\Contract\IWigglerContainer;
 use AlecRabbit\Spinner\Core\Contract\IWriter;
 
 final class Driver implements IDriver
@@ -33,9 +34,9 @@ final class Driver implements IDriver
         );
     }
 
-    public function render(null|float|int $interval = null): void
+    public function render(IWigglerContainer $wigglers, null|float|int $interval = null): void
     {
-        $frame = $this->renderer->renderFrame($interval);
+        $frame = $this->renderer->renderFrame($wigglers, $interval);
         $this->writeFrame($frame);
     }
 

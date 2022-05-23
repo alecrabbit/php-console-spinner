@@ -12,7 +12,7 @@ use React\EventLoop\LoopInterface;
 final class ReactLoop implements ILoop, ILoopProbe
 {
     public function __construct(
-        private LoopInterface $loop,
+        private readonly LoopInterface $loop,
     ) {
     }
 

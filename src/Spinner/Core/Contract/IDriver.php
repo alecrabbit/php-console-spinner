@@ -14,7 +14,7 @@ interface IDriver
 
     public function showCursor(): void;
 
-    public function render(null|float|int $interval = null): void;
+    public function render(IWigglerContainer $wigglers, null|float|int $interval = null): void;
 
     public function erase(): void;
 

@@ -8,10 +8,21 @@ use AlecRabbit\Spinner\Core\Contract\IWiggler;
 
 final class WigglerContainer implements Contract\IWigglerContainer
 {
-    public function __construct(IWiggler ...$wigglers)
+    /**
+     * @var IWiggler[]
+     */
+    private iterable $wigglers;
+
+    public function __construct(IWiggler ...$wigglers
+    ) {
+        $this->wigglers = $wigglers;
+    }
+
+    /**
+     * @return IWiggler[]
+     */
+    public function getWigglers(): iterable
     {
-        foreach ($wigglers as $wiggler) {
-            dump($wiggler);
-        }
+        return $this->wigglers;
     }
 }
