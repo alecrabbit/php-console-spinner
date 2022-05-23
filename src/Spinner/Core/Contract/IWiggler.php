@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Contract;
 
-// Marker interface
 interface IWiggler
 {
+    public function getSequence(float|int|null $interval = null): string;
 
+    public function getWidth(): int;
 }

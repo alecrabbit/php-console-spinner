@@ -87,10 +87,7 @@ final class SpinnerConfigBuilder implements ISpinnerConfigBuilder
     private static function createRenderer(): IRenderer
     {
         return
-            new Renderer(
-                new Color(),
-                new FrameHolder(),
-            );
+            new Renderer();
     }
 
     private static function createWigglerContainer(): IWigglerContainer

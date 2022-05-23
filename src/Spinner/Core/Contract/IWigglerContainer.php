@@ -6,5 +6,5 @@ namespace AlecRabbit\Spinner\Core\Contract;
 
 interface IWigglerContainer
 {
-
+    public function getWigglers(): iterable;
 }

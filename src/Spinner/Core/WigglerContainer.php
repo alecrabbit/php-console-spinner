@@ -11,7 +11,7 @@ final class WigglerContainer implements Contract\IWigglerContainer
     /**
      * @var IWiggler[]
      */
-    private iterable $wigglers;
+    private array $wigglers;
 
     public function __construct(IWiggler ...$wigglers
     ) {
