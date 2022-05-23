@@ -1,67 +1,44 @@
-# TODO (2021-12-17 13:38) [Alec Rabbit]: if `./.make/include/var.Makefile` does not exist, include `./.make/dist/var.dist.Makefile`
-include ./.make/dist/var.dist.Makefile
-include ./.make/include/*
-include ./.make/env/*
-include .env
+include ./.make/.core/*
+include ./.make/project/project.Makefile
+include ./var.Makefile
 
-up: docker_up
-down: docker_down
-restart: docker_down docker_up
 
-init: _message_initialize _check_var_file _full_init
+## ————————————————————————————— #️⃣  root.Makefile #️⃣  ———————————————————————————
+##
+help: ## Outputs this help screen
+	@grep -h -E '(^[a-zA-Z0-9_-]+:.*?##.*$$)|(^##)' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}{printf "${_C_GREEN}%-30s${_C_STOP} %s\n", $$1, $$2}' | sed -e 's/\[32m##/[33m/'
 
-_message_initialize:
-	@echo "";
-	@echo "$(_C_INFO) Initialize... $(_C_STOP) $(_C_SELECT) $(PROJECT_NAME) $(_C_STOP)";
+##
+## —— Installation 🏗️  ——————————————————————————-———————————————————————————————
+install: _install_done ## Perform installation procedure
+uninstall: _docker_down _uninstall ## Run uninstall procedure
 
-_check_var_file:
-	@echo "$(_C_COMMENT)";
-	@echo "TODO: check for './.make/include/var.Makefile'...";
-	@echo "if it exists do nothing...";
-	@echo "if not, copy './.make/dist/var.dist.Makefile' to './.make/include/var.Makefile'";
-	@echo "and stop asking to check file contents and start init over again";
-	@echo "$(_C_STOP)";
+##
+## —— Docker 🐳 ————————————————————————————————————————————————————————————————
+up: _docker_up time_current ## Start the docker hub in detached mode
 
-_full_init: clear_ready _docker_actions _app_init _tools mark_ready
+down: _docker_down time_current ## Stop the docker hub
 
-_tools: _tools_install _tools_run
+reload: _docker_down _docker_generate_stack _docker_up _docker_ps time_current ## Recreate stack file, restart the docker hub and show the current status
 
-_tools_run: _run_phploc
+restart: _docker_down _docker_up time_current ## Restart the docker hub
 
-_run_phploc:
-	@echo "\n$(_C_SELECT) $(PROJECT_NAME) $(_C_STOP) $(_C_INFO)PHPLOC tun...$(_C_STOP)\n";
-	@mkdir -p $(APP_DIR)/.tools/.report/.phploc
-	@-docker-compose exec $(CONTAINER_NAME) /app/.tools/bin/phploc src > $(APP_DIR)/.tools/.report/.phploc/.phploc_baseline
-	@-cat $(APP_DIR)/.tools/.report/.phploc/.phploc_baseline
-	@echo "$(_C_STOP)\n";
+ps: _docker_ps time_current ## List all running containers
 
-_docker_actions: docker_down_clear docker_pull docker_build docker_up _docker_ps
+clear: _docker_down_clear time_current ## Stop the docker hub and remove volumes
 
-_tools_install: _install_phploc
+cfg: _docker_config time_current ## Display docker-compose config
 
-_install_phploc:
-	@echo "\n$(_C_SELECT) $(PROJECT_NAME) $(_C_STOP) $(_C_INFO)PHPLOC install...$(_C_STOP)\n";
-	@mkdir -p  ${PWD}/.tools
-	@docker-compose exec $(CONTAINER_NAME) phive install phploc --trust-gpg-keys 0x4AA394086372C20A --target .tools/bin
+logs: _docker_logs ## Show live logs
 
-_app_init:
-	@echo "$(_C_INFO)";
-	@echo "Initialize application here...";
-	@echo "$(_C_STOP)";
+stack: _docker_generate_stack time_current ## Create docker-compose stack file
 
-clear_ready:
-	@echo "\n$(_C_SELECT) $(PROJECT_NAME) $(_C_STOP) $(_C_INFO)Clearing ready flag...$(_C_STOP)\n";
-	@docker run --rm -v ${PWD}:/app --workdir=/app alpine rm -f .ready
+build: _docker_pull _docker_build time_current ## Build the docker images
 
-mark_ready:
-	@echo "\n$(_C_SELECT)  $(PROJECT_NAME)  $(_C_STOP) $(_C_INFO)Setting ready flag...$(_C_STOP)\n";
-	@docker run --rm -v ${PWD}:/app --workdir=/app --user=$(shell id -u):$(shell id -g) alpine touch .ready
+## —— Project 🚧 ———————————————————————————————————————————————————————————————
+init: _initialize ## Initialize project and start docker hub
 
-chown:
-	@sudo chown -R $(shell id -un):$(shell id -gn) .
+chown: ## Change the owner(user) of the project
+	sudo chown -R ${USER_ID}:${GROUP_ID} .
 
-test:
-	@-docker-compose exec -e XDEBUG_MODE=off $(CONTAINER_NAME) vendor/bin/phpunit
 
-test_coverage:
-	@-docker-compose exec -e XDEBUG_MODE=coverage $(CONTAINER_NAME) vendor/bin/phpunit --coverage-text

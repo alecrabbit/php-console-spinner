@@ -1,0 +1,25 @@
+#!/usr/bin/env sh
+WORK_DIR="${PWD}"
+_TERMINAL_TITLE_FILE=TERMINAL_TITLE
+
+core_get_title_from_file () {
+    if [ -e "${1}" ]; then
+        title="$(cat "${1}")"
+    else
+        title="${2:-Terminal}"
+    fi
+    echo "${title}"
+}
+
+if [ -z "${1}" ]
+then
+    TERM_TITLE="$(core_get_title_from_file "${WORK_DIR}/${_TERMINAL_TITLE_FILE}" "${WORK_DIR}")"
+else
+    TERM_TITLE="${1}"
+fi
+
+core_set_terminal_title () {
+    printf "\033]0;${1}\007"
+}
+
+core_set_terminal_title "${TERM_TITLE}"
