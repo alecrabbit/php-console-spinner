@@ -3,7 +3,7 @@
 bin/
 test*
 vendor/
-docs
+doc/
 docker-compose*
 *.md
 node_modules/
