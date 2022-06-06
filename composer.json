@@ -45,6 +45,7 @@
     },
     "suggest": {
         "ext-pcntl": "For signal handling support",
+        "ext-mbstring": "For mbstring support",
         "react/event-loop": "For event loop support"
     },
     "minimum-stability": "stable"

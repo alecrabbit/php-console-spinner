@@ -60,7 +60,7 @@ final class SpinnerFactory implements ISpinnerFactory
             self::attachSigIntListener($spinner, $config);
         }
 
-        self::setTwisterRevolver($spinner);
+        self::setSpinner($spinner);
 
         return $spinner;
     }
@@ -77,7 +77,7 @@ final class SpinnerFactory implements ISpinnerFactory
         return Spinner::class;
     }
 
-    private static function refineConfig(string|ISpinnerConfig|null $config): ISpinnerConfig
+    private static function refineConfig(null|string|ISpinnerConfig $config): ISpinnerConfig
     {
         if ($config instanceof ISpinnerConfig) {
             return $config;
@@ -142,7 +142,7 @@ final class SpinnerFactory implements ISpinnerFactory
         }
     }
 
-    private static function setTwisterRevolver(ISpinner $spinner): void
+    private static function setSpinner(ISpinner $spinner): void
     {
         self::$spinner = $spinner;
     }
