@@ -107,11 +107,9 @@ final class Spinner implements ISpinner
 
     public function message(null|string|IMessageWiggler $message): void
     {
-        foreach ($this->wigglers->getIterator() as $wiggler) {
-            if($wiggler instanceof IMessageWiggler) {
-                $wiggler = $wiggler->message($message);
-            }
-        }
+        // TODO: Implement spinner() method.
+        // FIXME (2022-05-22 15:22) [Alec Rabbit]: Implement this method.
+        throw new MethodNotImplementedException(__METHOD__);
     }
 
     public function progress(null|float|IProgressWiggler $progress): void
