@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 use AlecRabbit\Spinner\Core\Factory\SpinnerFactory;
@@ -24,13 +25,20 @@ $server->listen($socket);
 $spinner = SpinnerFactory::create();
 
 React\EventLoop\Loop::addPeriodicTimer(
-    2,
+    5,
+    static function () use ($spinner) {
+        $date = (new DateTimeImmutable())->format(DATE_ATOM);
+        echo "Message showing current datetime: {$date}".  PHP_EOL;
+    }
+);
+
+React\EventLoop\Loop::addPeriodicTimer(
+    20,
     static function () use ($spinner) {
         $memory = memory_get_usage() / 1024;
         $formatted = number_format($memory) . 'K';
-        $date = (new DateTimeImmutable())->format(DATE_ATOM);
-        echo "{$date} Current memory usage: {$formatted}" . PHP_EOL;
-        $spinner->message("{$date} Current memory usage: {$formatted}");
+        $str = " - - - - Current memory usage: {$formatted}";
+        $spinner->message($str);
     }
 );
 

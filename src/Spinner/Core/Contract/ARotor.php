@@ -59,6 +59,6 @@ abstract class ARotor implements IRotor
 
     protected function nextElement(float|int|null $interval = null): string
     {
-        return (string)static::DATA[$this->currentIndex];
+        return (string)$this->data[$this->currentIndex];
     }
 }

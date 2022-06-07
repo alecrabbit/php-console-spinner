@@ -6,16 +6,10 @@ namespace AlecRabbit\Spinner\Core;
 use AlecRabbit\Spinner\Core\Contract\ACharsRotor;
 use AlecRabbit\Spinner\Core\Contract\IRotor;
 
-final class NoCharsRotor extends ACharsRotor
+final class VariadicStringRotor extends ACharsRotor
 {
-    public function next(float|int|null $interval = null): string
+    public function __construct(string $string)
     {
-        return '';
-    }
-
-    public function __construct()
-    {
-        // initialize with defaults
-        parent::__construct();
+        parent::__construct([$string], strlen($string));
     }
 }

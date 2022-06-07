@@ -20,7 +20,6 @@ use AlecRabbit\Spinner\Core\Contract\IWriter;
 use AlecRabbit\Spinner\Core\Driver;
 use AlecRabbit\Spinner\Core\Exception\DomainException;
 use AlecRabbit\Spinner\Core\Factory\LoopFactory;
-use AlecRabbit\Spinner\Core\Frame;
 use AlecRabbit\Spinner\Core\NoCharsRotor;
 use AlecRabbit\Spinner\Core\NoStyleRotor;
 use AlecRabbit\Spinner\Core\Output\StdErrOutput;
@@ -78,14 +77,14 @@ final class SpinnerConfigBuilder implements ISpinnerConfigBuilder
             );
     }
 
-    private static function createWriter(): IWriter
-    {
-        return new Writer(new StdErrOutput());
-    }
-
     private static function createSequencer(): ISequencer
     {
         return new Sequencer();
+    }
+
+    private static function createWriter(): IWriter
+    {
+        return new Writer(new StdErrOutput());
     }
 
     private static function createRenderer(ISequencer $sequencer): IRenderer
@@ -127,7 +126,6 @@ final class SpinnerConfigBuilder implements ISpinnerConfigBuilder
         return
             new MessageWiggler(
                 new NoStyleRotor(),
-                new NoCharsRotor(),
             );
     }
 
