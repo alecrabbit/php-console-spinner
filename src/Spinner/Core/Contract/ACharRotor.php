@@ -15,7 +15,7 @@ abstract class ACharRotor
         $this->frameCount = count(static::CHARS);
     }
 
-    public function next(): string
+    public function next(float|int|null $interval = null): string
     {
         if (0 === $this->frameCount) {
             return '';

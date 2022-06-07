@@ -3,12 +3,12 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core;
 
-use AlecRabbit\Spinner\Core\Contract\AColorRotor;
+use AlecRabbit\Spinner\Core\Contract\AStyleRotor;
 use AlecRabbit\Spinner\Core\Contract\IRotor;
 
-final class RainbowColorRotor extends AColorRotor implements IRotor
+final class RainbowStyleRotor extends AStyleRotor implements IRotor
 {
-    protected const COLORS = [
+    protected const STYLES = [
         196,
         196,
         202,

@@ -5,5 +5,5 @@ namespace AlecRabbit\Spinner\Core\Contract;
 
 interface IRotor
 {
-    public function next(): string;
+    public function next(float|int|null $interval = null): string;
 }
