@@ -25,14 +25,6 @@ final class MessageWiggler extends AWiggler implements IMessageWiggler
         parent::__construct($styleRotor, $charRotor, $leadingSpacer, $trailingSpacer);
     }
 
-    private static function assertMessage(IWiggler|string|null $message): void
-    {
-        if(null === $message || is_string($message) || $message instanceof IMessageWiggler) {
-            return;
-        }
-        throw new RuntimeException('Message must be a string, null or an instance of IMessageWiggler');
-    }
-
     /**
      * @throws RuntimeException
      */
@@ -42,32 +34,42 @@ final class MessageWiggler extends AWiggler implements IMessageWiggler
         return
             $message instanceof IMessageWiggler
                 ? $message
-                : new self(
+                : self::create(
                 $this->styleRotor,
                 $this->charRotor,
                 $this->leadingSpacer,
                 $this->trailingSpacer,
                 $message ?? self::DEFAULT_MESSAGE,
             );
+    }
 
+    private static function assertMessage(IWiggler|string|null $message): void
+    {
+        if (null === $message || is_string($message) || $message instanceof IMessageWiggler) {
+            return;
+        }
+        throw new RuntimeException('Message must be a string, null or an instance of IMessageWiggler');
+    }
+
+    public static function create(
+        IStyleRotor $styleRotor,
+        ICharsRotor $charRotor,
+        string $leadingSpacer = '',
+        string $trailingSpacer = '',
+        string $message = self::DEFAULT_MESSAGE,
+    ): self {
+        return
+            new self(
+                $styleRotor,
+                $charRotor,
+                $leadingSpacer,
+                $trailingSpacer,
+                $message,
+            );
     }
 
     protected function getSequence(float|int|null $interval = null): string
     {
         return $this->message;
-    }
-
-    private function updateMessageWiggler(IWiggler|string|null $message): IWiggler
-    {
-        return
-            $message instanceof IMessageWiggler
-                ? $message
-                : new self(
-                $this->styleRotor,
-                $this->charRotor,
-                $this->leadingSpacer,
-                $this->trailingSpacer,
-                $message ?? self::DEFAULT_MESSAGE,
-            );
     }
 }
