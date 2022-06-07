@@ -8,7 +8,7 @@ use AlecRabbit\Spinner\Core\Contract\IRotor;
 
 final class RainbowStyleRotor extends AStyleRotor
 {
-    protected const STYLES = [
+    protected const DATA = [
         196,
         196,
         202,

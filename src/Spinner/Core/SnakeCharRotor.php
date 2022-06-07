@@ -8,6 +8,6 @@ use AlecRabbit\Spinner\Core\Contract\IRotor;
 
 final class SnakeCharRotor extends ACharRotor
 {
-    protected const CHARS = ['⠏', '⠛', '⠹', '⢸', '⣰', '⣤', '⣆', '⡇'];
-    protected const CHAR_WIDTH = 1;
+    protected const DATA = ['⠏', '⠛', '⠹', '⢸', '⣰', '⣤', '⣆', '⡇'];
+    protected const ELEMENT_WIDTH = 1;
 }
