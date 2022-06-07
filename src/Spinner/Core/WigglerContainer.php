@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core;
 
+use AlecRabbit\Spinner\Core\Contract\IFrame;
 use AlecRabbit\Spinner\Core\Contract\IWiggler;
 use Traversable;
 use WeakMap;
@@ -15,8 +16,11 @@ final class WigglerContainer implements Contract\IWigglerContainer
      */
     private iterable $wigglers;
 
-    public function __construct(IWiggler ...$wigglers)
-    {
+    public function __construct(
+        private readonly IFrame $leadingFrame,
+        private readonly IFrame $trailingFrame,
+        IWiggler ...$wigglers,
+    ) {
         $this->wigglers = new WeakMap();
         foreach ($wigglers as $wiggler) {
             $this->addWiggler($wiggler);
@@ -39,5 +43,15 @@ final class WigglerContainer implements Contract\IWigglerContainer
     public function getIterator(): Traversable
     {
         return $this->wigglers->getIterator();
+    }
+
+    public function getTrailingFrame(): IFrame
+    {
+        return $this->trailingFrame;
+    }
+
+    public function getLeadingFrame(): IFrame
+    {
+        return $this->leadingFrame;
     }
 }

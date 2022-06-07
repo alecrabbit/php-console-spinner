@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Config\Builder;
@@ -19,13 +20,14 @@ use AlecRabbit\Spinner\Core\Contract\IWriter;
 use AlecRabbit\Spinner\Core\Driver;
 use AlecRabbit\Spinner\Core\Exception\DomainException;
 use AlecRabbit\Spinner\Core\Factory\LoopFactory;
+use AlecRabbit\Spinner\Core\Frame;
+use AlecRabbit\Spinner\Core\NoCharRotor;
+use AlecRabbit\Spinner\Core\NoStyleRotor;
 use AlecRabbit\Spinner\Core\Output\StdErrOutput;
 use AlecRabbit\Spinner\Core\RainbowStyleRotor;
 use AlecRabbit\Spinner\Core\Renderer;
 use AlecRabbit\Spinner\Core\Sequencer;
 use AlecRabbit\Spinner\Core\SnakeCharRotor;
-use AlecRabbit\Spinner\Core\NoCharRotor;
-use AlecRabbit\Spinner\Core\NoStyleRotor;
 use AlecRabbit\Spinner\Core\Wiggler\MessageWiggler;
 use AlecRabbit\Spinner\Core\Wiggler\ProgressWiggler;
 use AlecRabbit\Spinner\Core\Wiggler\RevolveWiggler;
@@ -95,6 +97,8 @@ final class SpinnerConfigBuilder implements ISpinnerConfigBuilder
     {
         return
             new WigglerContainer(
+                new Frame('', 0),
+                new Frame('', 0),
                 self::createRevolveWiggler(),
                 self::createProgressWiggler(),
                 self::createMessageWiggler(),
