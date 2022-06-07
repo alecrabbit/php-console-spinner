@@ -9,11 +9,11 @@ use Traversable;
 
 interface IWigglerContainer extends IteratorAggregate
 {
-    public function getWigglers(): iterable;
-
     public function getIterator(): Traversable;
 
     public function addWiggler(IWiggler $wiggler): void;
 
-//    public function updateWiggler(IWiggler|string|null $wiggler): void;
+    public function getWigglerIndex(string|IWiggler $class): int;
+
+    public function updateWiggler(int $wigglerIndex, IMessageWiggler|string|null $message): void;
 }

@@ -25,7 +25,7 @@ interface ISpinner
 
     public function enable(): void;
 
-    public function spinner(null|IRevolveWiggler $spinner): void;
+    public function spinner(null|string|IRevolveWiggler $spinner): void;
 
     public function message(null|string|IMessageWiggler $message): void;
 

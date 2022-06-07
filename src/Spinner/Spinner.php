@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace AlecRabbit\Spinner;
@@ -98,7 +99,7 @@ final class Spinner implements ISpinner
         $this->active = true;
     }
 
-    public function spinner(?IRevolveWiggler $spinner): void
+    public function spinner(null|string|IRevolveWiggler $spinner): void
     {
         // TODO: Implement spinner() method.
         // FIXME (2022-05-22 15:22) [Alec Rabbit]: Implement this method.
@@ -107,9 +108,10 @@ final class Spinner implements ISpinner
 
     public function message(null|string|IMessageWiggler $message): void
     {
-        // TODO: Implement spinner() method.
-        // FIXME (2022-05-22 15:22) [Alec Rabbit]: Implement this method.
-        throw new MethodNotImplementedException(__METHOD__);
+        $this->wigglers->updateWiggler(
+            $this->wigglers->getWigglerIndex(IMessageWiggler::class),
+            $message,
+        );
     }
 
     public function progress(null|float|IProgressWiggler $progress): void
