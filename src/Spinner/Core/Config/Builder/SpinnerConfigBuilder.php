@@ -97,8 +97,6 @@ final class SpinnerConfigBuilder implements ISpinnerConfigBuilder
     {
         return
             new WigglerContainer(
-                new Frame('', 0),
-                new Frame('', 0),
                 self::createRevolveWiggler(),
                 self::createProgressWiggler(),
                 self::createMessageWiggler(),
