@@ -6,7 +6,7 @@ namespace AlecRabbit\Spinner\Core;
 use AlecRabbit\Spinner\Core\Contract\AStyleRotor;
 use AlecRabbit\Spinner\Core\Contract\IRotor;
 
-final class NoStyleRotor extends AStyleRotor implements IRotor
+final class NoStyleRotor extends AStyleRotor
 {
     public function next(float|int|null $interval = null): string
     {

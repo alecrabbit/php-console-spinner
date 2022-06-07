@@ -6,7 +6,7 @@ namespace AlecRabbit\Spinner\Core;
 use AlecRabbit\Spinner\Core\Contract\AStyleRotor;
 use AlecRabbit\Spinner\Core\Contract\IRotor;
 
-final class RainbowStyleRotor extends AStyleRotor implements IRotor
+final class RainbowStyleRotor extends AStyleRotor
 {
     protected const STYLES = [
         196,

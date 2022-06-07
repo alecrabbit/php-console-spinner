@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Contract;
 
-abstract class ACharRotor
+abstract class ACharRotor extends ARotor
 {
     protected const CHARS = [];
     protected const CHAR_WIDTH = 0;

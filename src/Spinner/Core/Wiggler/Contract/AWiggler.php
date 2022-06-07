@@ -16,7 +16,6 @@ abstract class AWiggler implements IWiggler
         protected readonly ACharRotor $charRotor,
         protected readonly string $leadingSpacer = '',
         protected readonly string $trailingSpacer = '',
-        protected readonly ?int $colorSupportLevel = null,
     ) {
     }
 
