@@ -24,13 +24,13 @@ $server->listen($socket);
 $spinner = SpinnerFactory::create();
 
 React\EventLoop\Loop::addPeriodicTimer(
-    30,
+    2,
     static function () use ($spinner) {
         $memory = memory_get_usage() / 1024;
         $formatted = number_format($memory) . 'K';
         $date = (new DateTimeImmutable())->format(DATE_ATOM);
         echo "{$date} Current memory usage: {$formatted}" . PHP_EOL;
-//        $spinner->message('hello');
+        $spinner->message("{$date} Current memory usage: {$formatted}");
     }
 );
 

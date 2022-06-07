@@ -1,4 +1,5 @@
 include ./.make/.core/*
+include ./.make/.include/*
 include ./.make/project/project.Makefile
 include ./var.Makefile
 
