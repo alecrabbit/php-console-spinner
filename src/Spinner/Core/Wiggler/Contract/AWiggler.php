@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Wiggler\Contract;
 
-use AlecRabbit\Spinner\Core\Contract\ICharRotor;
+use AlecRabbit\Spinner\Core\Contract\ICharsRotor;
 use AlecRabbit\Spinner\Core\Contract\IFrame;
 use AlecRabbit\Spinner\Core\Contract\IStyleRotor;
 use AlecRabbit\Spinner\Core\Contract\IWiggler;
@@ -14,7 +14,7 @@ abstract class AWiggler implements IWiggler
 {
     public function __construct(
         protected readonly IStyleRotor $styleRotor,
-        protected readonly ICharRotor $charRotor,
+        protected readonly ICharsRotor $charRotor,
         protected readonly string $leadingSpacer = '',
         protected readonly string $trailingSpacer = '',
     ) {
@@ -29,5 +29,12 @@ abstract class AWiggler implements IWiggler
             );
     }
 
-    abstract protected function getSequence(float|int|null $interval = null): string;
+    protected function getSequence(float|int|null $interval = null): string
+    {
+        return
+            $this->styleRotor->join(
+                chars: $this->charRotor->next($interval),
+                interval: $interval,
+            );
+    }
 }
