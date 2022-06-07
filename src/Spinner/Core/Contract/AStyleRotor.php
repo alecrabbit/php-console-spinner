@@ -10,7 +10,7 @@ abstract class AStyleRotor
     protected int $currentStyleIdx = 0;
     protected readonly int $stylesLength;
 
-    public function __construct()
+    public function __construct() // TODO: add parameters like terminal color support
     {
         $this->stylesLength = count(static::STYLES);
     }

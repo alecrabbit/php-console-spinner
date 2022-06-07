@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core;
@@ -35,8 +36,9 @@ final class Driver implements IDriver
 
     public function render(IWigglerContainer $wigglers, null|float|int $interval = null): void
     {
-        $frame = $this->renderer->renderFrame($wigglers, $interval);
-        $this->writeFrame($frame);
+        $this->writeFrame(
+            $this->prepareFrame($wigglers, $interval)
+        );
     }
 
     private function writeFrame(IFrame $frame): void
@@ -45,6 +47,11 @@ final class Driver implements IDriver
             $this->sequencer->frameSequence($frame->sequence),
             $this->sequencer->moveBackSequence($frame->sequenceWidth),
         );
+    }
+
+    private function prepareFrame(IWigglerContainer $wigglers, float|int|null $interval): IFrame
+    {
+        return $this->renderer->renderFrame($wigglers, $interval);
     }
 
     public function erase(): void
