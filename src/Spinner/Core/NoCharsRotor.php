@@ -12,4 +12,10 @@ final class NoCharsRotor extends ACharsRotor
     {
         return '';
     }
+
+    public function __construct()
+    {
+        // initialize with defaults
+        parent::__construct();
+    }
 }
