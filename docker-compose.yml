@@ -9,6 +9,8 @@ services:
     volumes:
       - ./:/app
     tty: true
+    env_file:
+      - .env
     ports:
       - "8080:8080"
     working_dir: /app
