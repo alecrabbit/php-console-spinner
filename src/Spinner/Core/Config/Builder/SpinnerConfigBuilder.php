@@ -69,11 +69,12 @@ final class SpinnerConfigBuilder implements ISpinnerConfigBuilder
 
     private static function createDriver(): IDriver
     {
+        $sequencer = self::createSequencer();
         return
             new Driver(
                 self::createWriter(),
-                self::createSequencer(),
-                self::createRenderer(),
+                $sequencer,
+                self::createRenderer($sequencer),
             );
     }
 
@@ -87,10 +88,10 @@ final class SpinnerConfigBuilder implements ISpinnerConfigBuilder
         return new Sequencer();
     }
 
-    private static function createRenderer(): IRenderer
+    private static function createRenderer(ISequencer $sequencer): IRenderer
     {
         return
-            new Renderer();
+            new Renderer($sequencer);
     }
 
     private static function createWigglerContainer(): IWigglerContainer

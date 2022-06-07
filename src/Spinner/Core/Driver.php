@@ -44,7 +44,7 @@ final class Driver implements IDriver
     private function writeFrame(IFrame $frame): void
     {
         $this->writer->write(
-            $this->sequencer->frameSequence($frame->sequence),
+            $frame->sequence,
             $this->sequencer->moveBackSequence($frame->sequenceWidth),
         );
     }
