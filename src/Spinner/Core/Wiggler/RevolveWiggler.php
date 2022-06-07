@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Wiggler;
@@ -10,8 +11,10 @@ final class RevolveWiggler extends AWiggler implements IRevolveWiggler
 {
     protected function getSequence(float|int|null $interval = null): string
     {
-        $fg = $this->colorRotor->next($interval);
-        $char = $this->charRotor->next($interval);
-        return "38;5;{$fg}m{$char}";
+        return
+            $this->styleRotor->join(
+                chars: $this->charRotor->next($interval),
+                interval: $interval,
+            );
     }
 }

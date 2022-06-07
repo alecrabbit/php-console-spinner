@@ -1,10 +1,10 @@
 <?php
+
 declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core;
 
 use AlecRabbit\Spinner\Core\Contract\AStyleRotor;
-use AlecRabbit\Spinner\Core\Contract\IRotor;
 
 final class RainbowStyleRotor extends AStyleRotor
 {
@@ -70,4 +70,11 @@ final class RainbowStyleRotor extends AStyleRotor
         197,
         197,
     ];
+
+    public function join(string $chars, float|int|null $interval = null): string
+    {
+        $style = $this->next($interval);
+        $chars = $this->addSpacers($chars);
+        return "38;5;{$style}m{$chars}";
+    }
 }
