@@ -1,6 +1,7 @@
 include .env # for environment variables
 
 CONTAINER_NAME=app
+DUMPER_CONTAINER=${CONTAINER_NAME}
 APP_DIR=.
 PROJECT_NAME=php-console-spinner
 
