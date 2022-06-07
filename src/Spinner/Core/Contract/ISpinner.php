@@ -13,7 +13,7 @@ interface ISpinner
 
     public function isAsynchronous(): bool;
 
-    public function rotate(): void;
+    public function spin(): void;
 
     public function begin(): void;
 

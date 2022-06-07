@@ -1,9 +1,9 @@
 ```php
-$spinner->rotate();
+$spinner->spin();
 
-$spinner->message(?string|IMessage $message);
+$spinner->message(null|string|IMessage $message);
 
-$spinner->rotate();
+$spinner->spin();
 
 
 ```

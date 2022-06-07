@@ -67,7 +67,7 @@ final class Spinner implements ISpinner
         $this->active = false;
     }
 
-    public function rotate(): void
+    public function spin(): void
     {
         if ($this->active) {
             $this->render();
