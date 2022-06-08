@@ -9,6 +9,7 @@ use AlecRabbit\Spinner\Core\Contract\IFrame;
 use AlecRabbit\Spinner\Core\Contract\IRenderer;
 use AlecRabbit\Spinner\Core\Contract\IWigglerContainer;
 use AlecRabbit\Spinner\Core\Contract\IWriter;
+use AlecRabbit\Spinner\Core\Rotor\Contract\IInterval;
 
 final class Driver implements IDriver
 {
@@ -32,7 +33,7 @@ final class Driver implements IDriver
         );
     }
 
-    public function render(IWigglerContainer $wigglers, null|float|int $interval = null): IFrame
+    public function render(IWigglerContainer $wigglers, ?IInterval $interval = null): IFrame
     {
         $frame = $this->prepareFrame($wigglers, $interval);
         $this->writeFrame(
@@ -41,7 +42,7 @@ final class Driver implements IDriver
         return $frame;
     }
 
-    public function prepareFrame(IWigglerContainer $wigglers, float|int|null $interval): IFrame
+    public function prepareFrame(IWigglerContainer $wigglers, ?IInterval $interval): IFrame
     {
         return $this->renderer->renderFrame($wigglers, $interval);
     }

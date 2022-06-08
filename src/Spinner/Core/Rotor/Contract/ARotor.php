@@ -43,7 +43,7 @@ abstract class ARotor implements IRotor
         }
     }
 
-    public function next(float|int|null $interval = null): string
+    public function next(?IInterval $interval = null): string
     {
         if (0 === $this->dataLength) {
             return '';
@@ -54,7 +54,7 @@ abstract class ARotor implements IRotor
         return $this->nextElement($interval);
     }
 
-    protected function nextElement(float|int|null $interval = null): string
+    protected function nextElement(?IInterval $interval = null): string
     {
         return (string)$this->data[$this->currentIndex];
     }

@@ -13,7 +13,7 @@ abstract class AStyleRotor extends ARotor implements IStyleRotor
         parent::__construct($data);
     }
 
-    public function join(string $chars, float|int|null $interval = null): string
+    public function join(string $chars, ?IInterval $interval = null): string
     {
         return $chars; // no styling
     }

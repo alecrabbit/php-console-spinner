@@ -8,6 +8,8 @@ use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use AlecRabbit\Spinner\Core\Contract\ISpinnerConfig;
 use AlecRabbit\Spinner\Core\Contract\IWigglerContainer;
+use AlecRabbit\Spinner\Core\Rotor\Contract\IInterval;
+use AlecRabbit\Spinner\Core\Rotor\Interval;
 use AlecRabbit\Spinner\Core\Wiggler\Contract\IMessageWiggler;
 use AlecRabbit\Spinner\Core\Wiggler\Contract\IProgressWiggler;
 use AlecRabbit\Spinner\Core\Wiggler\Contract\IRevolveWiggler;
@@ -19,7 +21,7 @@ final class Spinner implements ISpinner
     private IDriver $driver;
     private IWigglerContainer $wigglers;
     private bool $active;
-    private int|float $interval;
+    private IInterval $interval;
     private Core\Contract\IFrame $currentFrame;
 
     public function __construct(
@@ -28,7 +30,7 @@ final class Spinner implements ISpinner
         $this->synchronous = $config->isSynchronous();
         $this->driver = $config->getDriver();
         $this->wigglers = $config->getWigglers();
-        $this->interval = $config->getInterval();
+        $this->interval = new Interval($config->getInterval());
         $this->currentFrame = $this->driver->prepareFrame($this->wigglers, $this->interval);
     }
 
@@ -37,7 +39,7 @@ final class Spinner implements ISpinner
         return $this->synchronous;
     }
 
-    public function refreshInterval(): int|float
+    public function refreshInterval(): IInterval
     {
         return $this->interval;
     }

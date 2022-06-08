@@ -104,7 +104,7 @@ final class SpinnerFactory implements ISpinnerFactory
     {
         $config->getLoop()
             ->addPeriodicTimer(
-                $spinner->refreshInterval(),
+                $spinner->refreshInterval()->toFloat(),
                 static function () use ($spinner) {
                     $spinner->spin();
                 }

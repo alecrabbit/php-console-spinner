@@ -6,6 +6,7 @@ namespace AlecRabbit\Spinner\Core\Rotor;
 
 use AlecRabbit\Spinner\Core\Rotor\Contract\AStyleRotor;
 use AlecRabbit\Spinner\Core\Sequencer;
+use AlecRabbit\Spinner\Core\Rotor\Contract\IInterval;
 
 final class RainbowStyleRotor extends AStyleRotor
 {
@@ -72,7 +73,7 @@ final class RainbowStyleRotor extends AStyleRotor
         197,
     ];
 
-    public function join(string $chars, float|int|null $interval = null): string
+    public function join(string $chars, ?IInterval $interval = null): string
     {
         return
             Sequencer::colorSequence(

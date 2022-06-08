@@ -6,6 +6,7 @@ namespace AlecRabbit\Spinner\Core\Wiggler\Contract;
 
 use AlecRabbit\Spinner\Core\Contract\IFrame;
 use AlecRabbit\Spinner\Core\Frame;
+use AlecRabbit\Spinner\Core\Rotor\Contract\IInterval;
 use AlecRabbit\Spinner\Core\Rotor\Contract\IStringRotor;
 use AlecRabbit\Spinner\Core\Rotor\Contract\IStyleRotor;
 
@@ -24,7 +25,7 @@ abstract class AWiggler implements IWiggler
         return new static($styleRotor, $charRotor);
     }
 
-    public function createFrame(float|int|null $interval = null): IFrame
+    public function createFrame(?IInterval $interval = null): IFrame
     {
         return
             new Frame(
@@ -33,7 +34,7 @@ abstract class AWiggler implements IWiggler
             );
     }
 
-    protected function createSequence(float|int|null $interval = null): string
+    protected function createSequence(?IInterval $interval = null): string
     {
         return
             $this->styleRotor->join(

@@ -53,7 +53,7 @@ abstract class AStringRotor extends ARotor implements IStringRotor
         return $this->width;
     }
 
-    protected function nextElement(float|int|null $interval = null): string
+    protected function nextElement(?IInterval $interval = null): string
     {
         return
             $this->addSpacers(

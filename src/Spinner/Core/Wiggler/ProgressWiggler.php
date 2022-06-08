@@ -8,6 +8,7 @@ use AlecRabbit\Spinner\Core\Exception\RuntimeException;
 use AlecRabbit\Spinner\Core\Wiggler\Contract\AWiggler;
 use AlecRabbit\Spinner\Core\Wiggler\Contract\IProgressWiggler;
 use AlecRabbit\Spinner\Core\Wiggler\Contract\IWiggler;
+use AlecRabbit\Spinner\Core\Rotor\Contract\IInterval;
 
 final class ProgressWiggler extends AWiggler implements IProgressWiggler
 {
@@ -26,7 +27,7 @@ final class ProgressWiggler extends AWiggler implements IProgressWiggler
 //            );
     }
 
-    protected function createSequence(float|int|null $interval = null): string
+    protected function createSequence(?IInterval $interval = null): string
     {
         return '';
     }

@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Contract;
+use AlecRabbit\Spinner\Core\Rotor\Contract\IInterval;
 
 
 /**
@@ -14,9 +15,9 @@ interface IDriver
 
     public function showCursor(): void;
 
-    public function render(IWigglerContainer $wigglers, null|float|int $interval = null): IFrame;
+    public function render(IWigglerContainer $wigglers, ?IInterval $interval = null): IFrame;
 
-    public function prepareFrame(IWigglerContainer $wigglers, float|int|null $interval): IFrame;
+    public function prepareFrame(IWigglerContainer $wigglers, ?IInterval $interval): IFrame;
 
     public function erase(): void;
 
