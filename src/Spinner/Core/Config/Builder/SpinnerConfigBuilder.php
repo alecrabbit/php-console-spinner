@@ -88,8 +88,8 @@ final class SpinnerConfigBuilder implements ISpinnerConfigBuilder
         return
             new WigglerContainer(
                 self::createRevolveWiggler(),
-                self::createProgressWiggler(),
                 self::createMessageWiggler(),
+                self::createProgressWiggler(),
             );
     }
 
@@ -125,42 +125,28 @@ final class SpinnerConfigBuilder implements ISpinnerConfigBuilder
     public function withExitMessage(string $exitMessage): self
     {
         $clone = clone $this;
-        $this->exitMessage = $exitMessage;
+        $clone->exitMessage = $exitMessage;
         return $clone;
     }
 
     public function withShutdownDelayMicroseconds(int $shutdownDelay): self
     {
         $clone = clone $this;
-        $this->shutdownDelaySeconds = round($shutdownDelay / 1000, 3);
-        return $clone;
-    }
-
-    public function withWriter(IWriter $writer): self
-    {
-        $clone = clone $this;
-        $this->writer = $writer;
-        return $clone;
-    }
-
-    public function withRenderer(IRenderer $renderer): self
-    {
-        $clone = clone $this;
-        $this->renderer = $renderer;
+        $clone->shutdownDelaySeconds = round($shutdownDelay / 1000, 3);
         return $clone;
     }
 
     public function withLoop(ILoop $loop): self
     {
         $clone = clone $this;
-        $this->loop = $loop;
+        $clone->loop = $loop;
         return $clone;
     }
 
     public function inSynchronousMode(): self
     {
         $clone = clone $this;
-        $this->synchronousMode = false;
+        $clone->synchronousMode = true;
         return $clone;
     }
 
