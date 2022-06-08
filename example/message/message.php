@@ -22,10 +22,10 @@ $uri = '0.0.0.0:8080';
 $socket = new React\Socket\SocketServer($uri);
 $server->listen($socket);
 
-$spinner = SpinnerFactory::create();
+$spinner = SpinnerFactory::get();
 
 React\EventLoop\Loop::addPeriodicTimer(
-    1,
+    7,
     static function () use ($spinner) {
         $date = (new DateTimeImmutable())->format(DATE_ATOM);
         $spinner->erase();
@@ -39,7 +39,7 @@ React\EventLoop\Loop::addPeriodicTimer(
 );
 
 React\EventLoop\Loop::addPeriodicTimer(
-    2,
+    8,
     static function () use ($spinner) {
         $spinner->erase();
         echo PHP_EOL;
@@ -50,11 +50,18 @@ React\EventLoop\Loop::addPeriodicTimer(
 React\EventLoop\Loop::addPeriodicTimer(
     1,
     static function () use ($spinner) {
+        $rnd = random_int(10, 100000000);
+        if ($rnd < 30000000) {
+            $spinner->message(null);
+            return;
+        }
+
         $spinner->message(
             sprintf(
                 'Memory: %sK',
                 number_format(
-                    random_int(10, 100000000) / 1024)
+                    $rnd / 1024
+                )
             )
         );
     }
@@ -63,7 +70,12 @@ React\EventLoop\Loop::addPeriodicTimer(
 React\EventLoop\Loop::addPeriodicTimer(
     0.5,
     static function () use ($spinner) {
-        $spinner->progress(random_int(0, 100) / 100);
+        $rnd = random_int(0, 100);
+        if ($rnd < 30) {
+            $spinner->progress(null);
+            return;
+        }
+        $spinner->progress($rnd / 100);
     }
 );
 

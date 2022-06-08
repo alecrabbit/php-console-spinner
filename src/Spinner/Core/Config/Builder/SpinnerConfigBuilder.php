@@ -17,6 +17,7 @@ use AlecRabbit\Spinner\Core\Contract\IWriter;
 use AlecRabbit\Spinner\Core\Driver;
 use AlecRabbit\Spinner\Core\Exception\DomainException;
 use AlecRabbit\Spinner\Core\Exception\InvalidArgumentException;
+use AlecRabbit\Spinner\Core\Exception\LogicException;
 use AlecRabbit\Spinner\Core\Factory\LoopFactory;
 use AlecRabbit\Spinner\Core\Output\StdErrOutput;
 use AlecRabbit\Spinner\Core\Renderer;
@@ -164,6 +165,10 @@ final class SpinnerConfigBuilder implements ISpinnerConfigBuilder
         return $clone;
     }
 
+    /**
+     * @throws LogicException
+     * @throws InvalidArgumentException
+     */
     public function build(): ISpinnerConfig
     {
         return

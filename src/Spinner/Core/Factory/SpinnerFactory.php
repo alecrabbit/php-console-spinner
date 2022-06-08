@@ -10,6 +10,7 @@ use AlecRabbit\Spinner\Core\Contract\ISpinnerConfig;
 use AlecRabbit\Spinner\Core\Contract\ISpinnerFactory;
 use AlecRabbit\Spinner\Core\Exception\DomainException;
 use AlecRabbit\Spinner\Core\Exception\InvalidArgumentException;
+use AlecRabbit\Spinner\Core\Exception\LogicException;
 use AlecRabbit\Spinner\Spinner;
 
 final class SpinnerFactory implements ISpinnerFactory
@@ -19,6 +20,7 @@ final class SpinnerFactory implements ISpinnerFactory
     /**
      * @throws DomainException
      * @throws InvalidArgumentException
+     * @throws LogicException
      */
     public static function get(): ISpinner
     {
@@ -36,6 +38,7 @@ final class SpinnerFactory implements ISpinnerFactory
     /**
      * @throws DomainException
      * @throws InvalidArgumentException
+     * @throws LogicException
      */
     public static function create(string|ISpinnerConfig|null $classOrConfig = null): ISpinner
     {
@@ -78,6 +81,10 @@ final class SpinnerFactory implements ISpinnerFactory
         return Spinner::class;
     }
 
+    /**
+     * @throws LogicException
+     * @throws InvalidArgumentException
+     */
     private static function refineConfig(null|string|ISpinnerConfig $config): ISpinnerConfig
     {
         if ($config instanceof ISpinnerConfig) {
