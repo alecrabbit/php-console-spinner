@@ -28,16 +28,26 @@ React\EventLoop\Loop::addPeriodicTimer(
     5,
     static function () use ($spinner) {
         $date = (new DateTimeImmutable())->format(DATE_ATOM);
-        echo "Message showing current datetime: {$date}".  PHP_EOL;
+        echo "Message showing current datetime: {$date}";
+        $spinner->spin();
     }
 );
 
 React\EventLoop\Loop::addPeriodicTimer(
-    20,
+    6,
+    static function () use ($spinner) {
+        $spinner->erase();
+        echo PHP_EOL;
+        $spinner->spin();
+    }
+);
+
+React\EventLoop\Loop::addPeriodicTimer(
+    3.2,
     static function () use ($spinner) {
         $memory = memory_get_usage() / 1024;
         $formatted = number_format($memory) . 'K';
-        $str = " - - - - Current memory usage: {$formatted}";
+        $str = "Current memory usage: {$formatted}";
         $spinner->message($str);
     }
 );

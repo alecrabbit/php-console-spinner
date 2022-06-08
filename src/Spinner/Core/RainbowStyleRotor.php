@@ -74,10 +74,12 @@ final class RainbowStyleRotor extends AStyleRotor
     public function join(string $chars, float|int|null $interval = null): string
     {
         return
-            sprintf(
-                '38;5;%sm%s',
-                $this->next($interval),
-                $this->addSpacers($chars)
+            Sequencer::colorSequence(
+                sprintf(
+                    '38;5;%sm%s',
+                    $this->next($interval),
+                    $this->addSpacers($chars)
+                )
             );
     }
 }

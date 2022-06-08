@@ -5,14 +5,12 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core;
 
 use AlecRabbit\Spinner\Core\Contract\IFrame;
-use AlecRabbit\Spinner\Core\Contract\ISequencer;
 use AlecRabbit\Spinner\Core\Contract\IWiggler;
 use AlecRabbit\Spinner\Core\Contract\IWigglerContainer;
 
 final class Renderer implements Contract\IRenderer
 {
     public function __construct(
-        protected readonly ISequencer $sequencer
     ) {
     }
 
@@ -23,8 +21,8 @@ final class Renderer implements Contract\IRenderer
 
         /** @var IWiggler $wiggler */
         foreach ($wigglers as $wiggler) {
-            $frame = $wiggler->getFrame($interval);
-            $sequence .= $this->sequencer->frameSequence($frame->sequence);
+            $frame = $wiggler->createFrame($interval);
+            $sequence .= $frame->sequence;
             $width += $frame->sequenceWidth;
         }
 

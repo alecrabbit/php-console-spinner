@@ -7,7 +7,6 @@ namespace AlecRabbit\Spinner\Core;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\IFrame;
 use AlecRabbit\Spinner\Core\Contract\IRenderer;
-use AlecRabbit\Spinner\Core\Contract\ISequencer;
 use AlecRabbit\Spinner\Core\Contract\IWigglerContainer;
 use AlecRabbit\Spinner\Core\Contract\IWriter;
 
@@ -15,7 +14,6 @@ final class Driver implements IDriver
 {
     public function __construct(
         private readonly IWriter $writer,
-        private readonly ISequencer $sequencer,
         private readonly IRenderer $renderer,
     ) {
     }
@@ -23,14 +21,14 @@ final class Driver implements IDriver
     public function hideCursor(): void
     {
         $this->writer->write(
-            $this->sequencer->hideCursorSequence()
+            Sequencer::hideCursorSequence()
         );
     }
 
     public function showCursor(): void
     {
         $this->writer->write(
-            $this->sequencer->showCursorSequence()
+            Sequencer::showCursorSequence()
         );
     }
 
@@ -45,7 +43,7 @@ final class Driver implements IDriver
     {
         $this->writer->write(
             $frame->sequence,
-            $this->sequencer->moveBackSequence($frame->sequenceWidth),
+            Sequencer::moveBackSequence($frame->sequenceWidth),
         );
     }
 
@@ -57,7 +55,7 @@ final class Driver implements IDriver
     public function erase(): void
     {
         $this->writer->write(
-            $this->sequencer->eraseSequence()
+            Sequencer::eraseSequence()
         );
     }
 

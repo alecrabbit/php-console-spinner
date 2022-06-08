@@ -20,7 +20,7 @@ abstract class AWiggler implements IWiggler
     ) {
     }
 
-    public function getFrame(float|int|null $interval = null): IFrame
+    public function createFrame(float|int|null $interval = null): IFrame
     {
         return
             new Frame(

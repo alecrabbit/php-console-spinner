@@ -13,7 +13,6 @@ use AlecRabbit\Spinner\Core\Contract\IMessageWiggler;
 use AlecRabbit\Spinner\Core\Contract\IProgressWiggler;
 use AlecRabbit\Spinner\Core\Contract\IRenderer;
 use AlecRabbit\Spinner\Core\Contract\IRevolveWiggler;
-use AlecRabbit\Spinner\Core\Contract\ISequencer;
 use AlecRabbit\Spinner\Core\Contract\ISpinnerConfig;
 use AlecRabbit\Spinner\Core\Contract\IWigglerContainer;
 use AlecRabbit\Spinner\Core\Contract\IWriter;
@@ -25,7 +24,6 @@ use AlecRabbit\Spinner\Core\NoStyleRotor;
 use AlecRabbit\Spinner\Core\Output\StdErrOutput;
 use AlecRabbit\Spinner\Core\RainbowStyleRotor;
 use AlecRabbit\Spinner\Core\Renderer;
-use AlecRabbit\Spinner\Core\Sequencer;
 use AlecRabbit\Spinner\Core\SnakeCharsRotor;
 use AlecRabbit\Spinner\Core\Wiggler\MessageWiggler;
 use AlecRabbit\Spinner\Core\Wiggler\ProgressWiggler;
@@ -68,18 +66,11 @@ final class SpinnerConfigBuilder implements ISpinnerConfigBuilder
 
     private static function createDriver(): IDriver
     {
-        $sequencer = self::createSequencer();
         return
             new Driver(
                 self::createWriter(),
-                $sequencer,
-                self::createRenderer($sequencer),
+                self::createRenderer(),
             );
-    }
-
-    private static function createSequencer(): ISequencer
-    {
-        return new Sequencer();
     }
 
     private static function createWriter(): IWriter
@@ -87,10 +78,10 @@ final class SpinnerConfigBuilder implements ISpinnerConfigBuilder
         return new Writer(new StdErrOutput());
     }
 
-    private static function createRenderer(ISequencer $sequencer): IRenderer
+    private static function createRenderer(): IRenderer
     {
         return
-            new Renderer($sequencer);
+            new Renderer();
     }
 
     private static function createWigglerContainer(): IWigglerContainer
@@ -140,13 +131,6 @@ final class SpinnerConfigBuilder implements ISpinnerConfigBuilder
     {
         $clone = clone $this;
         $this->shutdownDelaySeconds = round($shutdownDelay / 1000, 3);
-        return $clone;
-    }
-
-    public function withSequencer(ISequencer $sequencer): self
-    {
-        $clone = clone $this;
-        $this->sequencer = $sequencer;
         return $clone;
     }
 

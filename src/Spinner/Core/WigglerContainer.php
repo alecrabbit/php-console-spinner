@@ -67,6 +67,6 @@ final class WigglerContainer implements Contract\IWigglerContainer
         $this->wigglers[$wigglerIndex] = $updatedWiggler;
         $this->wigglersIndexes[$updatedWiggler] = $wigglerIndex;
         unset($this->wigglersIndexes[$wiggler]);
-        dump($updatedWiggler);
+//        dump($updatedWiggler);
     }
 }

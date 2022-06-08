@@ -101,6 +101,7 @@ final class Spinner implements ISpinner
 
     public function spinner(null|string|IRevolveWiggler $spinner): void
     {
+        $this->erase();
         // TODO: Implement spinner() method.
         // FIXME (2022-05-22 15:22) [Alec Rabbit]: Implement this method.
         throw new MethodNotImplementedException(__METHOD__);
@@ -108,6 +109,7 @@ final class Spinner implements ISpinner
 
     public function message(null|string|IMessageWiggler $message): void
     {
+        $this->erase();
         $this->wigglers->updateWiggler(
             $this->wigglers->getWigglerIndex(IMessageWiggler::class),
             $message,
@@ -116,6 +118,7 @@ final class Spinner implements ISpinner
 
     public function progress(null|float|IProgressWiggler $progress): void
     {
+        $this->erase();
         // TODO: Implement progress() method.
         // FIXME (2022-01-20 20:52) [Alec Rabbit]: Implement this method.
         throw new MethodNotImplementedException(__METHOD__);

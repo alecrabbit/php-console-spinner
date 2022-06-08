@@ -13,27 +13,27 @@ final class Sequencer implements ISequencer
     private const SEQ_HIDE_CURSOR = '?25l';
     private const SEQ_SHOW_CURSOR = '?25h';
 
-    public function frameSequence(string $sequence): string
+    public static function colorSequence(string $sequence): string
     {
         return CSI . $sequence . RESET;
     }
 
-    public function moveBackSequence(int $i = 1): string
+    public static function moveBackSequence(int $i = 1): string
     {
         return CSI . "{$i}D";
     }
 
-    public function eraseSequence(int $i = 1): string
+    public static function eraseSequence(int $i = 1): string
     {
         return CSI . "{$i}X";
     }
 
-    public function hideCursorSequence(): string
+    public static function hideCursorSequence(): string
     {
         return CSI . self::SEQ_HIDE_CURSOR;
     }
 
-    public function showCursorSequence(): string
+    public static function showCursorSequence(): string
     {
         return CSI . self::SEQ_SHOW_CURSOR;
     }
