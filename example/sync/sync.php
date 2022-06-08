@@ -17,7 +17,7 @@ $spinner = SpinnerFactory::create($config);
 
 $spinner->begin();
 
-dump($config, $spinner);
+//dump($config, $spinner);
 
 for($i = 0; $i < 100; $i++) {
     echo '_';
@@ -35,4 +35,4 @@ for($i = 0; $i < 100; $i++) {
 }
 $spinner->end();
 
-dump($spinner);
+//dump($spinner);

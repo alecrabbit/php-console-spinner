@@ -21,7 +21,7 @@ final class Renderer implements Contract\IRenderer
         $width = 0;
 
         /** @var IWiggler $wiggler */
-        foreach ($wigglers as $wiggler) {
+        foreach ($wigglers->getIterator() as $wiggler) {
             $frame = $wiggler->createFrame($interval);
             $sequence .= $frame->sequence;
             $width += $frame->sequenceWidth;

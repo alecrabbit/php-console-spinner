@@ -60,11 +60,6 @@ final class ProgressWiggler extends AWiggler implements IProgressWiggler
         return new VariadicStringRotor($message);
     }
 
-    protected function createSequence(?IInterval $interval = null): string
-    {
-        return '';
-    }
-
     protected static function assertWiggler(IWiggler|string|null $wiggler): void
     {
         if (null === $wiggler || is_string($wiggler) || $wiggler instanceof IProgressWiggler) {

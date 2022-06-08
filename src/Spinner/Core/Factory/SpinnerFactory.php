@@ -135,7 +135,7 @@ final class SpinnerFactory implements ISpinnerFactory
                     $config->getShutdownDelay(),
                     static function () use ($loop, $spinner) {
                         $loop->stop();
-                        dump($spinner);
+                        //dump($spinner);
                     }
                 );
             };

@@ -25,17 +25,21 @@ $server->listen($socket);
 $spinner = SpinnerFactory::create();
 
 React\EventLoop\Loop::addPeriodicTimer(
-    5,
+    1,
     static function () use ($spinner) {
         $date = (new DateTimeImmutable())->format(DATE_ATOM);
         $spinner->erase();
-        echo "Message showing current datetime: {$date}";
+        echo sprintf(
+            '%s %s ',
+            $date,
+            '(Message to stdout)',
+        );
         $spinner->spin();
     }
 );
 
 React\EventLoop\Loop::addPeriodicTimer(
-    6,
+    2,
     static function () use ($spinner) {
         $spinner->erase();
         echo PHP_EOL;
@@ -44,19 +48,22 @@ React\EventLoop\Loop::addPeriodicTimer(
 );
 
 React\EventLoop\Loop::addPeriodicTimer(
-    3.2,
+    1,
     static function () use ($spinner) {
-        $memory = memory_get_usage() / 1024;
-        $formatted = number_format($memory) . 'K';
-        $str = "Current memory usage: {$formatted}";
-        $spinner->message($str);
+        $spinner->message(
+            sprintf(
+                'Memory: %sK',
+                number_format(
+                    random_int(10, 100000000) / 1024)
+            )
+        );
     }
 );
 
 React\EventLoop\Loop::addPeriodicTimer(
-    0.2,
+    0.5,
     static function () use ($spinner) {
-        $spinner->progress(0.33);
+        $spinner->progress(random_int(0, 100) / 100);
     }
 );
 

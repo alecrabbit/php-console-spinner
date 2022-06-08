@@ -44,6 +44,7 @@ final class SpinnerConfigBuilder implements ISpinnerConfigBuilder
 
     /**
      * @throws DomainException
+     * @throws InvalidArgumentException
      */
     public function __construct()
     {
@@ -83,13 +84,16 @@ final class SpinnerConfigBuilder implements ISpinnerConfigBuilder
             new Renderer();
     }
 
+    /**
+     * @throws InvalidArgumentException
+     */
     private static function createWigglerContainer(): IWigglerContainer
     {
         return
             new WigglerContainer(
                 self::createRevolveWiggler(),
-                self::createMessageWiggler(),
                 self::createProgressWiggler(),
+                self::createMessageWiggler(),
             );
     }
 
@@ -102,6 +106,9 @@ final class SpinnerConfigBuilder implements ISpinnerConfigBuilder
             );
     }
 
+    /**
+     * @throws InvalidArgumentException
+     */
     private static function createProgressWiggler(): IWiggler
     {
         return
