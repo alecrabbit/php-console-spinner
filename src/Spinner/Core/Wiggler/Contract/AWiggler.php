@@ -4,22 +4,22 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Wiggler\Contract;
 
-use AlecRabbit\Spinner\Core\Contract\ICharsRotor;
 use AlecRabbit\Spinner\Core\Contract\IFrame;
-use AlecRabbit\Spinner\Core\Contract\IStyleRotor;
 use AlecRabbit\Spinner\Core\Frame;
+use AlecRabbit\Spinner\Core\Rotor\Contract\IStringRotor;
+use AlecRabbit\Spinner\Core\Rotor\Contract\IStyleRotor;
 
 abstract class AWiggler implements IWiggler
 {
     protected function __construct(
         protected readonly IStyleRotor $styleRotor,
-        protected readonly ICharsRotor $charRotor,
+        protected readonly IStringRotor $charRotor,
     ) {
     }
 
     public static function create(
         IStyleRotor $styleRotor,
-        ICharsRotor $charRotor,
+        IStringRotor $charRotor,
     ): IWiggler {
         return new static($styleRotor, $charRotor);
     }

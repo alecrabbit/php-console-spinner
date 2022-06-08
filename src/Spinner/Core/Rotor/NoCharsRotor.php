@@ -2,11 +2,12 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Spinner\Core;
+namespace AlecRabbit\Spinner\Core\Rotor;
 
-use AlecRabbit\Spinner\Core\Contract\ACharsRotor;
+use AlecRabbit\Spinner\Core\Contract\Base\C;
+use AlecRabbit\Spinner\Core\Rotor\Contract\AStringRotor;
 
-final class NoCharsRotor extends ACharsRotor
+final class NoCharsRotor extends AStringRotor
 {
     public function __construct()
     {
@@ -16,6 +17,6 @@ final class NoCharsRotor extends ACharsRotor
 
     public function next(float|int|null $interval = null): string
     {
-        return '';
+        return C::EMPTY_STRING;
     }
 }

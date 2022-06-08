@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 // 07.06.22
-namespace AlecRabbit\Spinner\Core\Contract;
+namespace AlecRabbit\Spinner\Core\Rotor\Contract;
 
 use AlecRabbit\Spinner\Core\Exception\InvalidArgumentException;
 

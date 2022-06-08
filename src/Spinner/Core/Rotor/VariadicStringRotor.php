@@ -2,12 +2,13 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Spinner\Core;
+namespace AlecRabbit\Spinner\Core\Rotor;
 
-use AlecRabbit\Spinner\Core\Contract\ACharsRotor;
 use AlecRabbit\Spinner\Core\Contract\Base\C;
+use AlecRabbit\Spinner\Core\Rotor\Contract\AStringRotor;
+use AlecRabbit\Spinner\Core\WidthQualifier;
 
-final class VariadicStringRotor extends ACharsRotor
+final class VariadicStringRotor extends AStringRotor
 {
     public function __construct(string $string)
     {

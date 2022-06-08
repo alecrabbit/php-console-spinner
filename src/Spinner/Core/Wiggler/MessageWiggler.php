@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Wiggler;
 
 use AlecRabbit\Spinner\Core\Contract\Base\C;
-use AlecRabbit\Spinner\Core\Contract\ICharsRotor;
-use AlecRabbit\Spinner\Core\Contract\IStyleRotor;
 use AlecRabbit\Spinner\Core\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Core\Exception\RuntimeException;
-use AlecRabbit\Spinner\Core\NoCharsRotor;
-use AlecRabbit\Spinner\Core\VariadicStringRotor;
+use AlecRabbit\Spinner\Core\Rotor\Contract\IStringRotor;
+use AlecRabbit\Spinner\Core\Rotor\Contract\IStyleRotor;
+use AlecRabbit\Spinner\Core\Rotor\NoCharsRotor;
+use AlecRabbit\Spinner\Core\Rotor\VariadicStringRotor;
 use AlecRabbit\Spinner\Core\Wiggler\Contract\AWiggler;
 use AlecRabbit\Spinner\Core\Wiggler\Contract\IMessageWiggler;
 use AlecRabbit\Spinner\Core\Wiggler\Contract\IWiggler;
@@ -48,7 +48,7 @@ final class MessageWiggler extends AWiggler implements IMessageWiggler
      */
     public static function create(
         IStyleRotor $styleRotor,
-        ICharsRotor $charRotor = null,
+        IStringRotor $charRotor = null,
         string $message = C::DEFAULT_MESSAGE,
     ): self {
         $cr = self::createCharRotor($message);
@@ -71,7 +71,7 @@ final class MessageWiggler extends AWiggler implements IMessageWiggler
     /**
      * @throws InvalidArgumentException
      */
-    private static function createCharRotor(string $message): ICharsRotor
+    private static function createCharRotor(string $message): IStringRotor
     {
         if (C::DEFAULT_MESSAGE === $message) {
             return new NoCharsRotor();

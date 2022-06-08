@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Spinner\Core\Contract;
+namespace AlecRabbit\Spinner\Core\Rotor\Contract;
 
 use AlecRabbit\Spinner\Core\Contract\Base\C;
 use AlecRabbit\Spinner\Core\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Core\WidthQualifier;
 
-abstract class ACharsRotor extends ARotor implements ICharsRotor
+abstract class AStringRotor extends ARotor implements IStringRotor
 {
     protected const ELEMENT_WIDTH = 0;
     protected int $width;

@@ -2,9 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Spinner\Core\Contract;
-
-use AlecRabbit\Spinner\Core\Contract\Base\C;
+namespace AlecRabbit\Spinner\Core\Rotor\Contract;
 
 abstract class AStyleRotor extends ARotor implements IStyleRotor
 {
