@@ -6,6 +6,7 @@ namespace AlecRabbit\Spinner\Core\Config\Builder;
 
 use AlecRabbit\Spinner\Core\Config\Builder\Contract\ISpinnerConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\SpinnerConfig;
+use AlecRabbit\Spinner\Core\Contract\Base\C;
 use AlecRabbit\Spinner\Core\Contract\Base\Defaults;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\ILoop;
@@ -93,16 +94,22 @@ final class SpinnerConfigBuilder implements ISpinnerConfigBuilder
             new WigglerContainer(
                 self::createRevolveWiggler(),
                 self::createProgressWiggler(),
+                self::createRevolveWiggler(' '),
                 self::createMessageWiggler(),
             );
     }
 
-    private static function createRevolveWiggler(): IWiggler
+    /**
+     * @throws InvalidArgumentException
+     */
+    private static function createRevolveWiggler(string $leadingSpacer = C::EMPTY_STRING): IWiggler
     {
         return
             RevolveWiggler::create(
                 new RainbowStyleRotor(),
-                new SnakeCharsRotor(),
+                new SnakeCharsRotor(
+                    leadingSpacer: $leadingSpacer,
+                ),
             );
     }
 
