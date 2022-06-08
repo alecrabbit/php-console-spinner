@@ -10,5 +10,5 @@ interface IWiggler
 {
     public function createFrame(float|int|null $interval = null): IFrame;
 
-    public function update(IWiggler|string|null $wiggler): IWiggler;
+    public function update(IWiggler|string|float|null $wiggler): IWiggler;
 }

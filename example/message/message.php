@@ -53,4 +53,11 @@ React\EventLoop\Loop::addPeriodicTimer(
     }
 );
 
+//React\EventLoop\Loop::addPeriodicTimer(
+//    2.2,
+//    static function () use ($spinner) {
+//        $spinner->progress(random_int(0,100)/100);
+//    }
+//);
+
 echo sprintf('Server running at http://%s', $uri) . PHP_EOL;

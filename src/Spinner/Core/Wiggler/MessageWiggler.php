@@ -21,7 +21,7 @@ final class MessageWiggler extends AWiggler implements IMessageWiggler
     /**
      * @throws RuntimeException
      */
-    public function update(IWiggler|string|null $wiggler): IWiggler
+    public function update(IWiggler|string|float|null $wiggler): IWiggler
     {
         self::assertWiggler($wiggler);
         return
@@ -33,7 +33,7 @@ final class MessageWiggler extends AWiggler implements IMessageWiggler
             );
     }
 
-    protected static function assertWiggler(IWiggler|string|null $wiggler): void
+    protected static function assertWiggler(IWiggler|string|float|null $wiggler): void
     {
         if (null === $wiggler || is_string($wiggler) || $wiggler instanceof IMessageWiggler) {
             return;

@@ -93,7 +93,7 @@ final class Spinner implements ISpinner
         $this->updateWiggler(IRevolveWiggler::class, $spinner);
     }
 
-    private function updateWiggler(string $class, IWiggler|string|null $wiggler): void
+    private function updateWiggler(string $class, IWiggler|string|float|null $wiggler): void
     {
         $this->erase();
         $this->wigglers->updateWiggler(

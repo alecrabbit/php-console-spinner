@@ -59,7 +59,7 @@ final class WigglerContainer implements Contract\IWigglerContainer
         throw new RuntimeException('Wiggler not found');
     }
 
-    public function updateWiggler(int $wigglerIndex, IWiggler|string|null $wiggler): void
+    public function updateWiggler(int $wigglerIndex, IWiggler|string|float|null $wiggler): void
     {
         $currentWiggler = $this->wigglers[$wigglerIndex];
         $updatedWiggler = $currentWiggler->update($wiggler);
