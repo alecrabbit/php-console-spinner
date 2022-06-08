@@ -38,7 +38,7 @@ abstract class ARotor implements IRotor
      */
     private static function assertData(array $data): void
     {
-        if(!array_is_list($data)) {
+        if (!array_is_list($data)) {
             throw new InvalidArgumentException('Given data array is not a list');
         }
     }

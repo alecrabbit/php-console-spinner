@@ -10,8 +10,8 @@ use AlecRabbit\Spinner\Core\Wiggler\Contract\IWiggler;
 
 final class Renderer implements Contract\IRenderer
 {
-    public function __construct(
-    ) {
+    public function __construct()
+    {
     }
 
     public function renderFrame(IWigglerContainer $wigglers, null|float|int $interval = null): IFrame

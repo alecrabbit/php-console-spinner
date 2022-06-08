@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Contract;
 
 use AlecRabbit\Spinner\Core\Contract\Base\C;
-use AlecRabbit\Spinner\Core\Exception\InvalidArgumentException;
 
 abstract class AStyleRotor extends ARotor implements IStyleRotor
 {

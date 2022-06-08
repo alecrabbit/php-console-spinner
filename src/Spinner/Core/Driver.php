@@ -41,17 +41,17 @@ final class Driver implements IDriver
         return $frame;
     }
 
+    public function prepareFrame(IWigglerContainer $wigglers, float|int|null $interval): IFrame
+    {
+        return $this->renderer->renderFrame($wigglers, $interval);
+    }
+
     private function writeFrame(IFrame $frame): void
     {
         $this->writer->write(
             $frame->sequence,
             Sequencer::moveBackSequence($frame->sequenceWidth),
         );
-    }
-
-    public function prepareFrame(IWigglerContainer $wigglers, float|int|null $interval): IFrame
-    {
-        return $this->renderer->renderFrame($wigglers, $interval);
     }
 
     public function erase(int $i = 1): void

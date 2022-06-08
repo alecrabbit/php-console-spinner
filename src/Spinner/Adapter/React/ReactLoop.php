@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Adapter\React;
@@ -13,6 +14,16 @@ final class ReactLoop implements ILoop, ILoopProbe
     public function __construct(
         private readonly LoopInterface $loop,
     ) {
+    }
+
+    public static function isSupported(): bool
+    {
+        return class_exists(Loop::class);
+    }
+
+    public static function getLoop(): ILoop
+    {
+        return new self(Loop::get());
     }
 
     public function addPeriodicTimer(int|float $interval, callable $callback): void
@@ -38,15 +49,5 @@ final class ReactLoop implements ILoop, ILoopProbe
     public function stop(): void
     {
         $this->loop->stop();
-    }
-
-    public static function isSupported(): bool
-    {
-        return class_exists(Loop::class);
-    }
-
-    public static function getLoop(): ILoop
-    {
-        return new self(Loop::get());
     }
 }

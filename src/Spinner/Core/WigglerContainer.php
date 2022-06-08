@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core;
 
-use AlecRabbit\Spinner\Core\Contract\IMessageWiggler;
 use AlecRabbit\Spinner\Core\Exception\RuntimeException;
 use AlecRabbit\Spinner\Core\Wiggler\Contract\IWiggler;
 use ArrayIterator;
@@ -48,7 +47,7 @@ final class WigglerContainer implements Contract\IWigglerContainer
 
     public function getWigglerIndex(string|IWiggler $class): int
     {
-        if($class instanceof IWiggler) {
+        if ($class instanceof IWiggler) {
             return $this->wigglersIndexes[$class];
         }
         /** @var IWiggler $wiggler */

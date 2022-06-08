@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner;
 
-use AlecRabbit\Spinner\Core\Contract\Base\C;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\IMessageWiggler;
 use AlecRabbit\Spinner\Core\Contract\IProgressWiggler;
@@ -12,8 +11,6 @@ use AlecRabbit\Spinner\Core\Contract\IRevolveWiggler;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use AlecRabbit\Spinner\Core\Contract\ISpinnerConfig;
 use AlecRabbit\Spinner\Core\Contract\IWigglerContainer;
-use AlecRabbit\Spinner\Core\Exception\MethodNotImplementedException;
-use AlecRabbit\Spinner\Core\Frame;
 use AlecRabbit\Spinner\Core\Wiggler\Contract\IWiggler;
 
 final class Spinner implements ISpinner
@@ -96,9 +93,14 @@ final class Spinner implements ISpinner
         $this->updateWiggler(IRevolveWiggler::class, $spinner);
     }
 
-    public function message(IMessageWiggler|string|null $message): void
+    private function updateWiggler(string $class, IWiggler|string|null $wiggler): void
     {
-        $this->updateWiggler(IMessageWiggler::class, $message);
+        $this->erase();
+        $this->wigglers->updateWiggler(
+            $this->wigglers->getWigglerIndex($class),
+            $wiggler,
+        );
+        $this->spin();
     }
 
     public function spin(): void
@@ -117,18 +119,13 @@ final class Spinner implements ISpinner
             );
     }
 
+    public function message(IMessageWiggler|string|null $message): void
+    {
+        $this->updateWiggler(IMessageWiggler::class, $message);
+    }
+
     public function progress(IProgressWiggler|float|null $progress): void
     {
         $this->updateWiggler(IProgressWiggler::class, $progress);
-    }
-
-    private function updateWiggler(string $class, IWiggler|string|null $wiggler): void
-    {
-        $this->erase();
-        $this->wigglers->updateWiggler(
-            $this->wigglers->getWigglerIndex($class),
-            $wiggler,
-        );
-        $this->spin();
     }
 }
