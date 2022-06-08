@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner;
 
+use AlecRabbit\Spinner\Core\Contract\Base\C;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\IMessageWiggler;
 use AlecRabbit\Spinner\Core\Contract\IProgressWiggler;
@@ -12,6 +13,7 @@ use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use AlecRabbit\Spinner\Core\Contract\ISpinnerConfig;
 use AlecRabbit\Spinner\Core\Contract\IWigglerContainer;
 use AlecRabbit\Spinner\Core\Exception\MethodNotImplementedException;
+use AlecRabbit\Spinner\Core\Frame;
 
 final class Spinner implements ISpinner
 {
@@ -20,6 +22,7 @@ final class Spinner implements ISpinner
     private IWigglerContainer $wigglers;
     private bool $active;
     private int|float $interval;
+    private Core\Contract\IFrame $currentFrame;
 
     public function __construct(
         ISpinnerConfig $config
@@ -28,6 +31,7 @@ final class Spinner implements ISpinner
         $this->driver = $config->getDriver();
         $this->wigglers = $config->getWigglers();
         $this->interval = $config->getInterval();
+        $this->currentFrame = $this->driver->prepareFrame($this->wigglers, $this->interval);
     }
 
     public function isSynchronous(): bool
@@ -60,27 +64,14 @@ final class Spinner implements ISpinner
 
     public function erase(): void
     {
-        $this->driver->erase();
+        $this->driver->erase(
+            $this->currentFrame->sequenceWidth
+        );
     }
 
     private function stop(): void
     {
         $this->active = false;
-    }
-
-    public function spin(): void
-    {
-        if ($this->active) {
-            $this->render();
-        }
-    }
-
-    private function render(): void
-    {
-        $this->driver->render(
-            $this->wigglers,
-            $this->interval,
-        );
     }
 
     public function isAsynchronous(): bool
@@ -114,7 +105,23 @@ final class Spinner implements ISpinner
             $this->wigglers->getWigglerIndex(IMessageWiggler::class),
             $message,
         );
-//        $this->spin();
+        $this->spin();
+    }
+
+    public function spin(): void
+    {
+        if ($this->active) {
+            $this->render();
+        }
+    }
+
+    private function render(): void
+    {
+        $this->currentFrame =
+            $this->driver->render(
+                $this->wigglers,
+                $this->interval,
+            );
     }
 
     public function progress(null|float|IProgressWiggler $progress): void

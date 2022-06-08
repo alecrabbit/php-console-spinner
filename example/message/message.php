@@ -28,6 +28,7 @@ React\EventLoop\Loop::addPeriodicTimer(
     5,
     static function () use ($spinner) {
         $date = (new DateTimeImmutable())->format(DATE_ATOM);
+        $spinner->erase();
         echo "Message showing current datetime: {$date}";
         $spinner->spin();
     }

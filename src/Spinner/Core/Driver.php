@@ -32,11 +32,13 @@ final class Driver implements IDriver
         );
     }
 
-    public function render(IWigglerContainer $wigglers, null|float|int $interval = null): void
+    public function render(IWigglerContainer $wigglers, null|float|int $interval = null): IFrame
     {
+        $frame = $this->prepareFrame($wigglers, $interval);
         $this->writeFrame(
-            $this->prepareFrame($wigglers, $interval)
+            $frame
         );
+        return $frame;
     }
 
     private function writeFrame(IFrame $frame): void
@@ -47,15 +49,15 @@ final class Driver implements IDriver
         );
     }
 
-    private function prepareFrame(IWigglerContainer $wigglers, float|int|null $interval): IFrame
+    public function prepareFrame(IWigglerContainer $wigglers, float|int|null $interval): IFrame
     {
         return $this->renderer->renderFrame($wigglers, $interval);
     }
 
-    public function erase(): void
+    public function erase(int $i = 1): void
     {
         $this->writer->write(
-            Sequencer::eraseSequence()
+            Sequencer::eraseSequence($i)
         );
     }
 
