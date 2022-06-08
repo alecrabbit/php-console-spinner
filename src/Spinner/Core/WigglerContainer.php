@@ -60,13 +60,12 @@ final class WigglerContainer implements Contract\IWigglerContainer
         throw new RuntimeException('Wiggler not found');
     }
 
-    public function updateWiggler(int $wigglerIndex, IMessageWiggler|string|null $message): void
+    public function updateWiggler(int $wigglerIndex, IWiggler|string|null $wiggler): void
     {
-        $wiggler = $this->wigglers[$wigglerIndex];
-        $updatedWiggler = $wiggler->update($message);
+        $currentWiggler = $this->wigglers[$wigglerIndex];
+        $updatedWiggler = $currentWiggler->update($wiggler);
         $this->wigglers[$wigglerIndex] = $updatedWiggler;
         $this->wigglersIndexes[$updatedWiggler] = $wigglerIndex;
-        unset($this->wigglersIndexes[$wiggler]);
-//        dump($updatedWiggler);
+        unset($this->wigglersIndexes[$currentWiggler]);
     }
 }

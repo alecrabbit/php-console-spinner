@@ -21,21 +21,21 @@ final class MessageWiggler extends AWiggler implements IMessageWiggler
     /**
      * @throws RuntimeException
      */
-    public function update(IWiggler|string|null $message): IWiggler
+    public function update(IWiggler|string|null $wiggler): IWiggler
     {
-        self::assertMessage($message);
+        self::assertWiggler($wiggler);
         return
-            $message instanceof IMessageWiggler
-                ? $message
+            $wiggler instanceof IMessageWiggler
+                ? $wiggler
                 : self::create(
                 $this->styleRotor,
-                message: $message ?? C::DEFAULT_MESSAGE,
+                message: $wiggler ?? C::DEFAULT_MESSAGE,
             );
     }
 
-    private static function assertMessage(IWiggler|string|null $message): void
+    protected static function assertWiggler(IWiggler|string|null $wiggler): void
     {
-        if (null === $message || is_string($message) || $message instanceof IMessageWiggler) {
+        if (null === $wiggler || is_string($wiggler) || $wiggler instanceof IMessageWiggler) {
             return;
         }
         throw new RuntimeException(
@@ -53,10 +53,14 @@ final class MessageWiggler extends AWiggler implements IMessageWiggler
     ): self {
         $cr = self::createCharRotor($message);
 
-//        if(self::DEFAULT_MESSAGE !== $message) {
-//            $leadingSpacer = self::SPACE_CHAR;
+        // TODO (2022-06-08 14:11) [Alec Rabbit]: refactor
+//        if (C::DEFAULT_MESSAGE !== $message) {
+//            $styleRotor = $styleRotor->setLeadingSpacer(C::SPACE_CHAR);
 //        }
-//
+//        if (C::DEFAULT_MESSAGE === $message) {
+//            $styleRotor = $styleRotor->setLeadingSpacer(C::EMPTY_STRING);
+//        }
+
         return
             new self(
                 $styleRotor,

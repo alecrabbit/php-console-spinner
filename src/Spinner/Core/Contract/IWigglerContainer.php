@@ -16,5 +16,5 @@ interface IWigglerContainer extends IteratorAggregate
 
     public function getWigglerIndex(string|IWiggler $class): int;
 
-    public function updateWiggler(int $wigglerIndex, IMessageWiggler|string|null $message): void;
+    public function updateWiggler(int $wigglerIndex, IWiggler|string|null $wiggler): void;
 }

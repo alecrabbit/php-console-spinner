@@ -6,4 +6,6 @@ namespace AlecRabbit\Spinner\Core\Contract;
 interface IStyleRotor
 {
     public function join(string $chars, float|int|null $interval = null): string;
+
+//    public function setLeadingSpacer(string $leadingSpacer): static;
 }

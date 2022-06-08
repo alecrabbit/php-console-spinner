@@ -14,6 +14,7 @@ use AlecRabbit\Spinner\Core\Contract\ISpinnerConfig;
 use AlecRabbit\Spinner\Core\Contract\IWigglerContainer;
 use AlecRabbit\Spinner\Core\Exception\MethodNotImplementedException;
 use AlecRabbit\Spinner\Core\Frame;
+use AlecRabbit\Spinner\Core\Wiggler\Contract\IWiggler;
 
 final class Spinner implements ISpinner
 {
@@ -90,22 +91,14 @@ final class Spinner implements ISpinner
         $this->active = true;
     }
 
-    public function spinner(null|string|IRevolveWiggler $spinner): void
+    public function spinner(IRevolveWiggler|string|null $spinner): void
     {
-        $this->erase();
-        // TODO: Implement spinner() method.
-        // FIXME (2022-05-22 15:22) [Alec Rabbit]: Implement this method.
-        throw new MethodNotImplementedException(__METHOD__);
+        $this->updateWiggler(IRevolveWiggler::class, $spinner);
     }
 
-    public function message(null|string|IMessageWiggler $message): void
+    public function message(IMessageWiggler|string|null $message): void
     {
-        $this->erase();
-        $this->wigglers->updateWiggler(
-            $this->wigglers->getWigglerIndex(IMessageWiggler::class),
-            $message,
-        );
-        $this->spin();
+        $this->updateWiggler(IMessageWiggler::class, $message);
     }
 
     public function spin(): void
@@ -124,11 +117,18 @@ final class Spinner implements ISpinner
             );
     }
 
-    public function progress(null|float|IProgressWiggler $progress): void
+    public function progress(IProgressWiggler|float|null $progress): void
+    {
+        $this->updateWiggler(IProgressWiggler::class, $progress);
+    }
+
+    private function updateWiggler(string $class, IWiggler|string|null $wiggler): void
     {
         $this->erase();
-        // TODO: Implement progress() method.
-        // FIXME (2022-01-20 20:52) [Alec Rabbit]: Implement this method.
-        throw new MethodNotImplementedException(__METHOD__);
+        $this->wigglers->updateWiggler(
+            $this->wigglers->getWigglerIndex($class),
+            $wiggler,
+        );
+        $this->spin();
     }
 }

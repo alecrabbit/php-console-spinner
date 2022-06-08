@@ -9,5 +9,5 @@ interface IWiggler
 {
     public function createFrame(float|int|null $interval = null): IFrame;
 
-    public function update(IWiggler|string|null $message): IWiggler;
+    public function update(IWiggler|string|null $wiggler): IWiggler;
 }

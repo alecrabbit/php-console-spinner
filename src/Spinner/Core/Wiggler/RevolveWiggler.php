@@ -10,7 +10,7 @@ use AlecRabbit\Spinner\Core\Wiggler\Contract\IWiggler;
 
 final class RevolveWiggler extends AWiggler implements IRevolveWiggler
 {
-    public function update(IWiggler|string|null $message): IWiggler
+    public function update(IWiggler|string|null $wiggler): IWiggler
     {
         // TODO: Implement update() method.
     }

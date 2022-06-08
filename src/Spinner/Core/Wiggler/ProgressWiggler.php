@@ -14,7 +14,7 @@ final class ProgressWiggler extends AWiggler implements IProgressWiggler
         return '';
     }
 
-    public function update(IWiggler|string|null $message): IWiggler
+    public function update(IWiggler|string|null $wiggler): IWiggler
     {
         // TODO: Implement update() method.
     }
