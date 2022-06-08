@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace AlecRabbit\Spinner\Core\Contract;
+namespace AlecRabbit\Spinner\Core\Contract\Base;
 
 final class Defaults
 {

@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Config;
 
-use AlecRabbit\Spinner\Core\Contract\Defaults;
+use AlecRabbit\Spinner\Core\Contract\Base\Defaults;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\ILoop;
 use AlecRabbit\Spinner\Core\Contract\ISpinnerConfig;

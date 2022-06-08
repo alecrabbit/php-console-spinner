@@ -6,18 +6,16 @@ namespace AlecRabbit\Spinner\Core\Config\Builder;
 
 use AlecRabbit\Spinner\Core\Config\Builder\Contract\ISpinnerConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\SpinnerConfig;
-use AlecRabbit\Spinner\Core\Contract\Defaults;
+use AlecRabbit\Spinner\Core\Contract\Base\Defaults;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\ILoop;
-use AlecRabbit\Spinner\Core\Contract\IMessageWiggler;
-use AlecRabbit\Spinner\Core\Contract\IProgressWiggler;
 use AlecRabbit\Spinner\Core\Contract\IRenderer;
-use AlecRabbit\Spinner\Core\Contract\IRevolveWiggler;
 use AlecRabbit\Spinner\Core\Contract\ISpinnerConfig;
 use AlecRabbit\Spinner\Core\Contract\IWigglerContainer;
 use AlecRabbit\Spinner\Core\Contract\IWriter;
 use AlecRabbit\Spinner\Core\Driver;
 use AlecRabbit\Spinner\Core\Exception\DomainException;
+use AlecRabbit\Spinner\Core\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Core\Factory\LoopFactory;
 use AlecRabbit\Spinner\Core\NoCharsRotor;
 use AlecRabbit\Spinner\Core\NoStyleRotor;
@@ -25,6 +23,7 @@ use AlecRabbit\Spinner\Core\Output\StdErrOutput;
 use AlecRabbit\Spinner\Core\RainbowStyleRotor;
 use AlecRabbit\Spinner\Core\Renderer;
 use AlecRabbit\Spinner\Core\SnakeCharsRotor;
+use AlecRabbit\Spinner\Core\Wiggler\Contract\IWiggler;
 use AlecRabbit\Spinner\Core\Wiggler\MessageWiggler;
 use AlecRabbit\Spinner\Core\Wiggler\ProgressWiggler;
 use AlecRabbit\Spinner\Core\Wiggler\RevolveWiggler;
@@ -94,28 +93,31 @@ final class SpinnerConfigBuilder implements ISpinnerConfigBuilder
             );
     }
 
-    private static function createRevolveWiggler(): IRevolveWiggler
+    private static function createRevolveWiggler(): IWiggler
     {
         return
-            new RevolveWiggler(
+            RevolveWiggler::create(
                 new RainbowStyleRotor(),
                 new SnakeCharsRotor(),
             );
     }
 
-    private static function createProgressWiggler(): IProgressWiggler
+    private static function createProgressWiggler(): IWiggler
     {
         return
-            new ProgressWiggler(
+            ProgressWiggler::create(
                 new NoStyleRotor(),
                 new NoCharsRotor(),
             );
     }
 
-    private static function createMessageWiggler(): IMessageWiggler
+    /**
+     * @throws InvalidArgumentException
+     */
+    private static function createMessageWiggler(): IWiggler
     {
         return
-            new MessageWiggler(
+            MessageWiggler::create(
                 new NoStyleRotor(),
             );
     }

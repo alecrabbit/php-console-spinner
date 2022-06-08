@@ -19,8 +19,7 @@ abstract class ARotor implements IRotor
     public function __construct(
         ?array $data = null,
     ) {
-        $data = static::refineData($data);
-        $this->data = $data;
+        $this->data = static::refineData($data);
         $this->dataLength = count($this->data);
     }
 
@@ -29,20 +28,18 @@ abstract class ARotor implements IRotor
      */
     private static function refineData(?array $data): array
     {
+        $data = $data ?? static::DATA;
         static::assertData($data);
-        return $data ?? static::DATA;
+        return $data;
     }
 
     /**
      * @throws InvalidArgumentException
      */
-    private static function assertData(?array $data): void
+    private static function assertData(array $data): void
     {
-        if(null === $data) {
-            return;
-        }
         if(!array_is_list($data)) {
-            throw new InvalidArgumentException('Data must be a list array');
+            throw new InvalidArgumentException('Given data array is not a list');
         }
     }
 

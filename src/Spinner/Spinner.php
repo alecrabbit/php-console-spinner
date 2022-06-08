@@ -114,6 +114,7 @@ final class Spinner implements ISpinner
             $this->wigglers->getWigglerIndex(IMessageWiggler::class),
             $message,
         );
+//        $this->spin();
     }
 
     public function progress(null|float|IProgressWiggler $progress): void

@@ -9,8 +9,8 @@ abstract class AStyleRotor extends ARotor implements IStyleRotor
     public function __construct(
         ?array $data = null,
         protected readonly ?int $colorSupportLevel = null,
-        protected readonly string $leadingSpacer = '',
-        protected readonly string $trailingSpacer = '',
+        protected readonly string $leadingSpacer = Base\C::EMPTY_STRING,
+        protected readonly string $trailingSpacer = Base\C::EMPTY_STRING,
     ) {
         parent::__construct($data);
     }

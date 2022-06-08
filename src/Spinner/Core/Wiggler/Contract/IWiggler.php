@@ -1,7 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace AlecRabbit\Spinner\Core\Contract;
+namespace AlecRabbit\Spinner\Core\Wiggler\Contract;
+
+use AlecRabbit\Spinner\Core\Contract\IFrame;
 
 interface IWiggler
 {

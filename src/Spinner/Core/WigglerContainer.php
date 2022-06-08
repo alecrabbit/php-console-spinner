@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core;
 
 use AlecRabbit\Spinner\Core\Contract\IMessageWiggler;
-use AlecRabbit\Spinner\Core\Contract\IWiggler;
 use AlecRabbit\Spinner\Core\Exception\RuntimeException;
+use AlecRabbit\Spinner\Core\Wiggler\Contract\IWiggler;
 use ArrayIterator;
 use Traversable;
 use WeakMap;
