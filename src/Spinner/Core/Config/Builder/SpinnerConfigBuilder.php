@@ -95,7 +95,7 @@ final class SpinnerConfigBuilder implements ISpinnerConfigBuilder
             new WigglerContainer(
                 self::createRevolveWiggler(['⠏', '⠛', '⠹', '⢸', '⣰', '⣤', '⣆', '⡇',]),
                 self::createProgressWiggler(),
-                self::createRevolveWiggler(['⠛', '⠹', '⢸', '⣰', '⣤', '⣆', '⡇', '⠏',], ' '),
+                self::createRevolveWiggler(['🕐', '🕑', '🕒', '🕓', '🕔', '🕕', '🕖', '🕗', '🕘', '🕙', '🕚', '🕛',], 2, ' '),
                 self::createMessageWiggler(),
             );
     }
@@ -103,13 +103,14 @@ final class SpinnerConfigBuilder implements ISpinnerConfigBuilder
     /**
      * @throws InvalidArgumentException
      */
-    private static function createRevolveWiggler(array $data, string $leadingSpacer = C::EMPTY_STRING): IWiggler
+    private static function createRevolveWiggler(array $data, int $width = 1, string $leadingSpacer = C::EMPTY_STRING): IWiggler
     {
         return
             RevolveWiggler::create(
                 new RainbowStyleRotor(),
                 new SnakeCharsRotor(
                     data: $data,
+                    width: $width,
                     leadingSpacer: $leadingSpacer,
                 ),
             );

@@ -29,9 +29,16 @@ React\EventLoop\Loop::addPeriodicTimer(
     static function () use ($spinner) {
         $date = (new DateTimeImmutable())->format(DATE_ATOM);
         $spinner->erase();
+        $memory = sprintf(
+            'Real Usage: %sK',
+            number_format(
+                memory_get_usage(true) / 1024,
+            )
+        );
         echo sprintf(
-            '%s %s ',
+            '%s %s %s ',
             $date,
+            $memory,
             '(Message to stdout)',
         );
         $spinner->spin();
