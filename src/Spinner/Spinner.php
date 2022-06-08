@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner;
 
 use AlecRabbit\Spinner\Core\Contract\IDriver;
-use AlecRabbit\Spinner\Core\Contract\IMessageWiggler;
-use AlecRabbit\Spinner\Core\Contract\IProgressWiggler;
-use AlecRabbit\Spinner\Core\Contract\IRevolveWiggler;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use AlecRabbit\Spinner\Core\Contract\ISpinnerConfig;
 use AlecRabbit\Spinner\Core\Contract\IWigglerContainer;
+use AlecRabbit\Spinner\Core\Wiggler\Contract\IMessageWiggler;
+use AlecRabbit\Spinner\Core\Wiggler\Contract\IProgressWiggler;
+use AlecRabbit\Spinner\Core\Wiggler\Contract\IRevolveWiggler;
 use AlecRabbit\Spinner\Core\Wiggler\Contract\IWiggler;
 
 final class Spinner implements ISpinner

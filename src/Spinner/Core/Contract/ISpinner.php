@@ -4,6 +4,10 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Contract;
 
+use AlecRabbit\Spinner\Core\Wiggler\Contract\IMessageWiggler;
+use AlecRabbit\Spinner\Core\Wiggler\Contract\IProgressWiggler;
+use AlecRabbit\Spinner\Core\Wiggler\Contract\IRevolveWiggler;
+
 interface ISpinner
 {
     public function __construct(ISpinnerConfig $config);

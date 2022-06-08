@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Contract;
 
+use AlecRabbit\Spinner\Core\Contract\Base\C;
 use AlecRabbit\Spinner\Core\Exception\InvalidArgumentException;
+use AlecRabbit\Spinner\Core\WidthQualifier;
 
 abstract class ACharsRotor extends ARotor implements ICharsRotor
 {
@@ -14,18 +16,22 @@ abstract class ACharsRotor extends ARotor implements ICharsRotor
     public function __construct(
         ?array $data = null,
         ?int $width = null,
+        protected readonly string $leadingSpacer = C::EMPTY_STRING,
+        protected readonly string $trailingSpacer = C::EMPTY_STRING,
     ) {
         parent::__construct($data);
-        $this->width = static::refineWidth($width);
+        $this->width = static::refineWidth($width, $leadingSpacer, $trailingSpacer);
     }
 
     /**
+     * @param string $trailingSpacer
+     * @param string $leadingSpacer
      * @throws InvalidArgumentException
      */
-    private static function refineWidth(?int $width): int
+    private static function refineWidth(?int $width, string $leadingSpacer, string $trailingSpacer): int
     {
         static::assertWidth($width);
-        return $width ?? static::ELEMENT_WIDTH;
+        return WidthQualifier::qualify($width ?? static::ELEMENT_WIDTH, $leadingSpacer, $trailingSpacer);
     }
 
     /**
@@ -45,6 +51,19 @@ abstract class ACharsRotor extends ARotor implements ICharsRotor
     public function getWidth(): int
     {
         return $this->width;
+    }
+
+    protected function nextElement(float|int|null $interval = null): string
+    {
+        return
+            $this->addSpacers(
+                parent::nextElement($interval)
+            );
+    }
+
+    protected function addSpacers(string $chars): string
+    {
+        return $this->leadingSpacer . $chars . $this->trailingSpacer;
     }
 
 }

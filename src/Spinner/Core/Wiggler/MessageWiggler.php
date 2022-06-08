@@ -6,13 +6,13 @@ namespace AlecRabbit\Spinner\Core\Wiggler;
 
 use AlecRabbit\Spinner\Core\Contract\Base\C;
 use AlecRabbit\Spinner\Core\Contract\ICharsRotor;
-use AlecRabbit\Spinner\Core\Contract\IMessageWiggler;
 use AlecRabbit\Spinner\Core\Contract\IStyleRotor;
 use AlecRabbit\Spinner\Core\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Core\Exception\RuntimeException;
 use AlecRabbit\Spinner\Core\NoCharsRotor;
 use AlecRabbit\Spinner\Core\VariadicStringRotor;
 use AlecRabbit\Spinner\Core\Wiggler\Contract\AWiggler;
+use AlecRabbit\Spinner\Core\Wiggler\Contract\IMessageWiggler;
 use AlecRabbit\Spinner\Core\Wiggler\Contract\IWiggler;
 
 final class MessageWiggler extends AWiggler implements IMessageWiggler

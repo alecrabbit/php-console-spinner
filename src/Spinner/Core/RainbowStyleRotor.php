@@ -78,7 +78,7 @@ final class RainbowStyleRotor extends AStyleRotor
                 sprintf(
                     '38;5;%sm%s',
                     $this->next($interval),
-                    $this->addSpacers($chars)
+                    parent::join($chars, $interval),
                 )
             );
     }
