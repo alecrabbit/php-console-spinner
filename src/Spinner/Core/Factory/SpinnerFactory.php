@@ -133,8 +133,9 @@ final class SpinnerFactory implements ISpinnerFactory
                 $loop->removeSignal(SIGINT, $func);
                 $loop->addTimer(
                     $config->getShutdownDelay(),
-                    static function () use ($loop) {
+                    static function () use ($loop, $spinner) {
                         $loop->stop();
+                        dump($spinner);
                     }
                 );
             };

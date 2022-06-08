@@ -43,5 +43,5 @@ abstract class AWiggler implements IWiggler
             );
     }
 
-    abstract protected static function assertWiggler(IWiggler|string|float|null $wiggler): void;
+    abstract protected static function assertWiggler(IWiggler|string|null $wiggler): void;
 }

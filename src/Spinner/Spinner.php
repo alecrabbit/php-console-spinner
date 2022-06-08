@@ -95,7 +95,7 @@ final class Spinner implements ISpinner
         $this->updateWiggler(IRevolveWiggler::class, $spinner);
     }
 
-    private function updateWiggler(string $class, IWiggler|string|float|null $wiggler): void
+    private function updateWiggler(string $class, IWiggler|string|null $wiggler): void
     {
         $this->erase();
         $this->wigglers->updateWiggler(
@@ -128,6 +128,9 @@ final class Spinner implements ISpinner
 
     public function progress(IProgressWiggler|float|null $progress): void
     {
+        if (is_float($progress)) {
+            $progress = sprintf('%s%%', (int)($progress * 100));
+        }
         $this->updateWiggler(IProgressWiggler::class, $progress);
     }
 }

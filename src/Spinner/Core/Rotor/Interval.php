@@ -9,14 +9,14 @@ use AlecRabbit\Spinner\Core\Rotor\Contract\IInterval;
 final class Interval implements IInterval
 {
     public function __construct(
-        public readonly int|float $interval,
+        public readonly int|float $value,
     )
     {
     }
 
     public function toFloat(): float
     {
-        return (float)$this->interval;
+        return (float)$this->value;
     }
 }
 

@@ -21,7 +21,7 @@ final class MessageWiggler extends AWiggler implements IMessageWiggler
     /**
      * @throws RuntimeException
      */
-    public function update(IWiggler|string|float|null $wiggler): IWiggler
+    public function update(IWiggler|string|null $wiggler): IWiggler
     {
         self::assertWiggler($wiggler);
         return
@@ -33,7 +33,7 @@ final class MessageWiggler extends AWiggler implements IMessageWiggler
             );
     }
 
-    protected static function assertWiggler(IWiggler|string|float|null $wiggler): void
+    protected static function assertWiggler(IWiggler|string|null $wiggler): void
     {
         if (null === $wiggler || is_string($wiggler) || $wiggler instanceof IMessageWiggler) {
             return;
@@ -52,14 +52,6 @@ final class MessageWiggler extends AWiggler implements IMessageWiggler
         string $message = C::DEFAULT_MESSAGE,
     ): self {
         $cr = self::createCharRotor($message);
-
-        // TODO (2022-06-08 14:11) [Alec Rabbit]: refactor
-//        if (C::DEFAULT_MESSAGE !== $message) {
-//            $styleRotor = $styleRotor->setLeadingSpacer(C::SPACE_CHAR);
-//        }
-//        if (C::DEFAULT_MESSAGE === $message) {
-//            $styleRotor = $styleRotor->setLeadingSpacer(C::EMPTY_STRING);
-//        }
 
         return
             new self(

@@ -56,7 +56,7 @@ React\EventLoop\Loop::addPeriodicTimer(
 React\EventLoop\Loop::addPeriodicTimer(
     0.2,
     static function () use ($spinner) {
-        $spinner->progress(random_int(0,100)/100);
+        $spinner->progress(0.33);
     }
 );
 
