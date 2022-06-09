@@ -136,7 +136,8 @@ final class Sample
             '☀️ ',
             '☀️ ',
         ],
-        2
+        2,
+        150
     ];
 
 
@@ -179,7 +180,7 @@ final class Sample
         8
     ];
 
-    public const SNAKE_VARIANT_0 = [['⠏', '⠛', '⠹', '⢸', '⣰', '⣤', '⣆', '⡇',], 1];
+    public const SNAKE_VARIANT_0 = [['⠏', '⠛', '⠹', '⢸', '⣰', '⣤', '⣆', '⡇',], 1, 100];
     public const SNAKE_VARIANT_1 = [['⣇', '⡏', '⠟', '⠻', '⢹', '⣸', '⣴', '⣦',], 1];
     public const SNAKE_VARIANT_2 = [['⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏'], 1];
     public const SNAKE_VARIANT_3 = [

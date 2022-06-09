@@ -11,7 +11,7 @@ final class Defaults
     public const MESSAGE_ON_EXIT = 'Exiting... (CTRL+C to force)';
     public const SPINNER_FRAME_INTERVAL = 0.1;
     public const ERASE_WIDTH = 1;
-    public const FRAME_SEQUENCE = ['⠏', '⠛', '⠹', '⢸', '⣰', '⣤', '⣆', '⡇'];
+    public const FRAME_SEQUENCE = Sample::SNAKE_VARIANT_0;
     public const MAX_WIDTH = 100;
     public const MILLISECONDS_INTERVAL = 100;
     public const SECONDS_INTERVAL = 100 / 1000;

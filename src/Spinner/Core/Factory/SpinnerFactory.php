@@ -87,7 +87,6 @@ final class SpinnerFactory implements ISpinnerFactory
         if ($frames instanceof IFrameContainer) {
             $spinnerConfigBuilder =
                 $spinnerConfigBuilder
-                    ->withInterval($frames->getInterval())
                     ->withFrames($frames)
             ;
         }

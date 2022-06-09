@@ -2,9 +2,11 @@
 
 declare(strict_types=1);
 
+use AlecRabbit\Spinner\Core\Config\Builder\SpinnerConfigBuilder;
 use AlecRabbit\Spinner\Core\Contract\Base\Sample;
 use AlecRabbit\Spinner\Core\Factory\SpinnerFactory;
 use AlecRabbit\Spinner\Core\FrameContainer;
+use AlecRabbit\Spinner\Core\Rotor\Interval;
 
 require_once __DIR__ . '/../bootstrap.php';
 
@@ -24,8 +26,15 @@ $uri = '0.0.0.0:8080';
 $socket = new React\Socket\SocketServer($uri);
 $server->listen($socket);
 
-$spinner = SpinnerFactory::get();
-//$spinner = SpinnerFactory::get(FrameContainer::create(...Sample::WEATHER_VARIANT_0));
+//$config =
+//    (new SpinnerConfigBuilder())
+//        ->withInterval(new Interval(0.5))
+//        ->build()
+//;
+//
+//$spinner = SpinnerFactory::get($config);
+
+$spinner = SpinnerFactory::get(FrameContainer::create(...Sample::WEATHER_VARIANT_0));
 
 React\EventLoop\Loop::addPeriodicTimer(
     7,
@@ -60,15 +69,15 @@ React\EventLoop\Loop::addPeriodicTimer(
 React\EventLoop\Loop::addPeriodicTimer(
     2,
     static function () use ($spinner) {
-        $rnd = random_int(10, 100000000);
-        if ($rnd < 30000000) {
+        $rnd = random_int(10, 100000);
+        if ($rnd < 30000) {
             $spinner->message(null);
             return;
         }
 
         $spinner->message(
             sprintf(
-                'Memory: %sK',
+                'Memory: %sM',
                 number_format(
                     $rnd / 1024
                 )

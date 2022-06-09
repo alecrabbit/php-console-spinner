@@ -24,7 +24,6 @@ use AlecRabbit\Spinner\Core\FrameContainer;
 use AlecRabbit\Spinner\Core\Output\StdErrOutput;
 use AlecRabbit\Spinner\Core\Renderer;
 use AlecRabbit\Spinner\Core\Rotor\Contract\IInterval;
-use AlecRabbit\Spinner\Core\Rotor\Interval;
 use AlecRabbit\Spinner\Core\Writer;
 
 final class SpinnerConfigBuilder implements ISpinnerConfigBuilder
@@ -84,27 +83,11 @@ final class SpinnerConfigBuilder implements ISpinnerConfigBuilder
         return $clone;
     }
 
-    /**
-     * @throws InvalidArgumentException
-     */
-    public function withFrames(IFrameContainer $frames, ?int $elementWidth = null): self
+    public function withFrames(IFrameContainer $frames): self
     {
         $clone = clone $this;
-        $clone->frames = self::refineFrames($frames, $elementWidth);
+        $clone->frames = $frames;
         return $clone;
-    }
-
-    /**
-     * @throws InvalidArgumentException
-     */
-    private static function refineFrames(
-        ?IFrameContainer $frames = null,
-        ?int $elementWidth = null
-    ): IFrameContainer {
-        if ($frames instanceof IFrameContainer) {
-            return $frames;
-        }
-        return FrameContainer::create($frames ?? self::DEFAULT_FRAME_SEQUENCE, $elementWidth);
     }
 
     /**
@@ -118,7 +101,7 @@ final class SpinnerConfigBuilder implements ISpinnerConfigBuilder
         }
 
         if (null === $this->frames) {
-            $this->frames = self::refineFrames();
+            $this->frames = self::defaultFrames();
         }
 
         if (null === $this->wigglers) {
@@ -142,7 +125,7 @@ final class SpinnerConfigBuilder implements ISpinnerConfigBuilder
         }
 
         if (null === $this->interval) {
-            $this->interval = new Interval(Defaults::SECONDS_INTERVAL);
+            $this->interval = $this->frames->getInterval();
         }
 
         $this->loop = self::refineLoop($this->loop, $this->synchronousMode);
@@ -177,6 +160,14 @@ final class SpinnerConfigBuilder implements ISpinnerConfigBuilder
     {
         return
             new Renderer();
+    }
+
+    /**
+     * @throws InvalidArgumentException
+     */
+    private static function defaultFrames(): IFrameContainer
+    {
+        return FrameContainer::create(...self::DEFAULT_FRAME_SEQUENCE);
     }
 
     /**
