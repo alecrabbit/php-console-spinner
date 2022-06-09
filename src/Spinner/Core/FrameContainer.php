@@ -6,26 +6,31 @@ namespace AlecRabbit\Spinner\Core;
 
 use AlecRabbit\Spinner\Core\Contract\IFrame;
 use AlecRabbit\Spinner\Core\Contract\IFrameContainer;
+use AlecRabbit\Spinner\Core\Exception\InvalidArgumentException;
 use ArrayIterator;
-use IteratorAggregate;
 use Traversable;
 
-final class FrameContainer implements IFrameContainer, IteratorAggregate
+final class FrameContainer implements IFrameContainer
 {
     /** @var array<int, IFrame> */
     private array $frames = [];
     private int $count = 0;
 
+    /**
+     * @throws InvalidArgumentException
+     */
     public function __construct(iterable $frames)
     {
-        foreach ($frames as $frame) {
-            if ($frame instanceof IFrame) {
-                $this->add($frame);
+        foreach ($frames as $element) {
+            if ($element instanceof IFrame) {
+                $this->add($element);
+                continue;
             }
+            $this->add(Frame::create($element));
         }
     }
 
-    private function add(IFrame $frame): void
+    public function add(IFrame $frame): void
     {
         $this->frames[] = $frame;
         $this->count++;

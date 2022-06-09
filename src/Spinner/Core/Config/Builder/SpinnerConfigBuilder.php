@@ -9,6 +9,7 @@ use AlecRabbit\Spinner\Core\Config\Contract\ISpinnerConfig;
 use AlecRabbit\Spinner\Core\Config\SpinnerConfig;
 use AlecRabbit\Spinner\Core\Contract\Base\Defaults;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
+use AlecRabbit\Spinner\Core\Contract\IFrameContainer;
 use AlecRabbit\Spinner\Core\Contract\ILoop;
 use AlecRabbit\Spinner\Core\Contract\IRenderer;
 use AlecRabbit\Spinner\Core\Contract\IWigglerContainer;
@@ -19,6 +20,7 @@ use AlecRabbit\Spinner\Core\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Core\Exception\LogicException;
 use AlecRabbit\Spinner\Core\Factory\LoopFactory;
 use AlecRabbit\Spinner\Core\Factory\WigglerContainerFactory;
+use AlecRabbit\Spinner\Core\FrameContainer;
 use AlecRabbit\Spinner\Core\Output\StdErrOutput;
 use AlecRabbit\Spinner\Core\Renderer;
 use AlecRabbit\Spinner\Core\StrSplitter;
@@ -36,19 +38,7 @@ final class SpinnerConfigBuilder implements ISpinnerConfigBuilder
     private ?bool $synchronousMode = null;
     private ?float $shutdownDelaySeconds = null;
     private ?string $exitMessage = null;
-    private ?array $frames = null;
-
-    /**
-     * @throws DomainException
-     */
-    public function __construct()
-    {
-//        $this->synchronousMode = false;
-//        $this->loop = self::getLoop();
-//        $this->driver = self::createDriver();
-//        $this->exitMessage = self::MESSAGE_ON_EXIT;
-//        $this->shutdownDelaySeconds = self::SHUTDOWN_DELAY;
-    }
+    private ?IFrameContainer $frames = null;
 
     public function withExitMessage(string $exitMessage): self
     {
@@ -85,6 +75,9 @@ final class SpinnerConfigBuilder implements ISpinnerConfigBuilder
         return $clone;
     }
 
+    /**
+     * @throws InvalidArgumentException
+     */
     public function withFrames(iterable|string $frames): self
     {
         $clone = clone $this;
@@ -92,15 +85,15 @@ final class SpinnerConfigBuilder implements ISpinnerConfigBuilder
         return $clone;
     }
 
-    private static function refineFrames(iterable|string $frames): array
+    /**
+     * @throws InvalidArgumentException
+     */
+    private static function refineFrames(iterable|string $frames = self::DEFAULT_FRAME_SEQUENCE): IFrameContainer
     {
-        if (is_iterable($frames)) {
-            $frames = [...$frames];
-        }
         if (is_string($frames)) {
             $frames = StrSplitter::split($frames);
         }
-        return $frames;
+        return new FrameContainer($frames);
     }
 
     /**
@@ -114,7 +107,7 @@ final class SpinnerConfigBuilder implements ISpinnerConfigBuilder
         }
 
         if (null === $this->frames) {
-            $this->frames = self::DEFAULT_FRAME_SEQUENCE;
+            $this->frames = self::refineFrames();
         }
 
         if (null === $this->wigglers) {
@@ -153,7 +146,7 @@ final class SpinnerConfigBuilder implements ISpinnerConfigBuilder
     /**
      * @throws InvalidArgumentException
      */
-    private static function createWigglerContainer(array $frames): IWigglerContainer
+    private static function createWigglerContainer(IFrameContainer $frames): IWigglerContainer
     {
         return
             WigglerContainerFactory::create($frames);
