@@ -1,16 +1,29 @@
 <p align="center">
-  <img alt="Logo" width="100" height="100" src="https://github.com/alecrabbit/php-console-spinner/raw/master/docs/images/ro37AC_sm.png">
+  <img alt="Logo" width="100" height="100" src="https://github.com/alecrabbit/php-console-spinner/raw/master/doc/image/logo.png">
 </p>
  
 <p align="center">  
-Spinner - your task is running
+<b><i>Spinner - your task is running</i></b>
 </p>
 
 #  🏵️  PHP Console Spinner
 
-+ [How does it work](doc/how_does_it_work.md)
+### New version 1.0.0
 
-### New version 
+> WIP
+
+![advanced](doc/image/demo/fpdemo.svg)
+
++ [How does it work](doc/how_does_it_work.md)
++ [Installation](#installation)
++ [Quick start](#quickstart)
+
+### <a name="requirements"></a> Installation
+
+```bash
+composer require alecrabbit/php-console-spinner
+```
+### <a name="quickstart"></a> Quick start
 
 > WIP
 

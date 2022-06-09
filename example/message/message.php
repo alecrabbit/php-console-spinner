@@ -55,7 +55,7 @@ React\EventLoop\Loop::addPeriodicTimer(
 );
 
 React\EventLoop\Loop::addPeriodicTimer(
-    1,
+    2,
     static function () use ($spinner) {
         $rnd = random_int(10, 100000000);
         if ($rnd < 30000000) {
@@ -75,7 +75,7 @@ React\EventLoop\Loop::addPeriodicTimer(
 );
 
 React\EventLoop\Loop::addPeriodicTimer(
-    0.5,
+    1,
     static function () use ($spinner) {
         $rnd = random_int(0, 100);
         if ($rnd < 30) {
