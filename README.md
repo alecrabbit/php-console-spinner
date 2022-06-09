@@ -18,7 +18,7 @@
 + [Installation](#installation)
 + [Quick start](#quickstart)
 
-### <a name="requirements"></a> Installation
+### <a name="installation"></a> Installation
 
 ```bash
 composer require alecrabbit/php-console-spinner
