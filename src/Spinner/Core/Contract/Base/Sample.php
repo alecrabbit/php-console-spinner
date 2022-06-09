@@ -109,11 +109,8 @@ final class Sample
 
     public const WEATHER_VARIANT_0 = [
         [
-            // '☀️ ',
-            // '☀️ ',
-            // '☀️ ',
-            '🌤 ',
-            '🌤 ',
+            '☀️ ',
+            '☀️ ',
             '🌤 ',
             '🌤 ',
             '⛅️',
@@ -135,8 +132,9 @@ final class Sample
             '🌥 ',
             '⛅️',
             '🌤 ',
-            // '☀️ ',
-            // '☀️ ',
+            '🌤 ',
+            '☀️ ',
+            '☀️ ',
         ],
         2
     ];
@@ -339,121 +337,147 @@ final class Sample
 
     public const BLOCK_VARIANT_1 =
         [
-            '▁',
-            '▂',
-            '▃',
-            '▄',
-            '▅',
-            '▆',
-            '▇',
-            '█',
-            '▇',
-            '▆',
-            '▅',
-            '▄',
-            '▃',
-            '▂',
-            '▁',
+            [
+                '▁',
+                '▂',
+                '▃',
+                '▄',
+                '▅',
+                '▆',
+                '▇',
+                '█',
+                '▇',
+                '▆',
+                '▅',
+                '▄',
+                '▃',
+                '▂',
+                '▁',
+            ],
+            1
         ];
     public const BLOCK_VARIANT_2 =
         [
-            '█',
-            '▉',
-            '▊',
-            '▋',
-            '▌',
-            '▍',
-            '▎',
-            '▏',
-            '▏',
-            '▎',
-            '▍',
-            '▌',
-            '▋',
-            '▊',
-            '▉',
-            '█',
+            [
+                '█',
+                '▉',
+                '▊',
+                '▋',
+                '▌',
+                '▍',
+                '▎',
+                '▏',
+                '▏',
+                '▎',
+                '▍',
+                '▌',
+                '▋',
+                '▊',
+                '▉',
+                '█',
 
+            ],
+            1
         ];
 
 
-    public const DICE = ['⚀', '⚁', '⚂', '⚃', '⚄', '⚅',];
+    public const DICE = [['⚀', '⚁', '⚂', '⚃', '⚄', '⚅',], 1];
 
-    public const ARROWS = ['➙', '➘', '➙', '➚',];
-    public const ARROWS_VARIANT_4 = ['←', '↖', '↑', '↗', '→', '↘', '↓', '↙',];
-    public const ARROWS_VARIANT_5 = ['⇐', '⇖', '⇑', '⇗', '⇒', '⇘', '⇓', '⇙',];
-    public const TREE = ['🌲', '🎄',];
+    public const ARROWS = [['➙', '➘', '➙', '➚',], 1];
+    public const ARROWS_VARIANT_4 = [['←', '↖', '↑', '↗', '→', '↘', '↓', '↙',], 1];
+    public const ARROWS_VARIANT_5 = [['⇐', '⇖', '⇑', '⇗', '⇒', '⇘', '⇓', '⇙',], 1];
+    public const TREE = [['🌲', '🎄',], 2];
 
 
-    public const TOGGLE = [
-        '⊶',
-        '⊷',
+    public const TOGGLE_VARIANT_0 = [
+        [
+            '⊶',
+            '⊷',
+        ],
+        1
     ];
+
     public const TOGGLE_VARIANT_1 = [
-        '■',
-        '□',
-        '▪',
-        '▫',
+        [
+            '■',
+            '□',
+            '▪',
+            '▫',
+        ],
+        1
     ];
-    public const BOUNCING_BAR = [
-        '[    ]',
-        '[=   ]',
-        '[==  ]',
-        '[=== ]',
-        '[ ===]',
-        '[  ==]',
-        '[   =]',
-        '[    ]',
-        '[   =]',
-        '[  ==]',
-        '[ ===]',
-        '[====]',
-        '[=== ]',
-        '[==  ]',
-        '[=   ]',
+
+    public const BOUNCING_BAR_VARIANT_1 = [
+        [
+            '[    ]',
+            '[=   ]',
+            '[==  ]',
+            '[=== ]',
+            '[ ===]',
+            '[  ==]',
+            '[   =]',
+            '[    ]',
+            '[   =]',
+            '[  ==]',
+            '[ ===]',
+            '[====]',
+            '[=== ]',
+            '[==  ]',
+            '[=   ]',
+        ],
+        6
     ];
 
     public const BOUNCING_BAR_VARIANT_2 = [
-        '|    |',
-        '|∙   |',
-        '|∙∙  |',
-        '|∙∙∙ |',
-        '|∙∙∙∙|',
-        '| ∙∙∙|',
-        '|  ∙∙|',
-        '|   ∙|',
-        '|    |',
-        '|   ∙|',
-        '|  ∙∙|',
-        '| ∙∙∙|',
-        '|∙∙∙∙|',
-        '|∙∙∙ |',
-        '|∙∙  |',
-        '|∙   |',
+        [
+            '|    |',
+            '|∙   |',
+            '|∙∙  |',
+            '|∙∙∙ |',
+            '|∙∙∙∙|',
+            '| ∙∙∙|',
+            '|  ∙∙|',
+            '|   ∙|',
+            '|    |',
+            '|   ∙|',
+            '|  ∙∙|',
+            '| ∙∙∙|',
+            '|∙∙∙∙|',
+            '|∙∙∙ |',
+            '|∙∙  |',
+            '|∙   |',
+        ],
+        6
     ];
 
     public const BOUNCING_BAR_VARIANT_3 = [
-        '|   ',
-        ' |  ',
-        '  | ',
-        '   |',
-        '   |',
-        '  | ',
-        ' |  ',
-        '|   ',
+        [
+            '|   ',
+            ' |  ',
+            '  | ',
+            '   |',
+            '   |',
+            '  | ',
+            ' |  ',
+            '|   ',
+        ],
+        4
     ];
 
     public const
         FEATHERED_ARROWS =
         [
-            '➵', // BLACK-FEATHERED RIGHTWARDS ARROW
-            '➴', // BLACK-FEATHERED SOUTH EAST ARROW
-            '➵', // BLACK-FEATHERED RIGHTWARDS ARROW
-            '➶', // BLACK-FEATHERED NORTH EAST ARROW
-            '➸', // HEAVY BLACK-FEATHERED RIGHTWARDS ARROW
-            '➷', // HEAVY BLACK-FEATHERED SOUTH EAST ARROW
-            '➸', // HEAVY BLACK-FEATHERED RIGHTWARDS ARROW
-            '➹', // HEAVY BLACK-FEATHERED NORTH EAST ARROW
+            [
+                '➵', // BLACK-FEATHERED RIGHTWARDS ARROW
+                '➴', // BLACK-FEATHERED SOUTH EAST ARROW
+                '➵', // BLACK-FEATHERED RIGHTWARDS ARROW
+                '➶', // BLACK-FEATHERED NORTH EAST ARROW
+                '➸', // HEAVY BLACK-FEATHERED RIGHTWARDS ARROW
+                '➷', // HEAVY BLACK-FEATHERED SOUTH EAST ARROW
+                '➸', // HEAVY BLACK-FEATHERED RIGHTWARDS ARROW
+                '➹', // HEAVY BLACK-FEATHERED NORTH EAST ARROW
+            ],
+            1
         ];
 
     public const DOT_8_BIT = [
@@ -714,7 +738,8 @@ final class Sample
             "⣽",
             "⣾",
             "⣿"
-        ]
+        ],
+        1
     ];
 
     private function __construct()
