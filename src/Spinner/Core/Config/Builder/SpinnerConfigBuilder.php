@@ -21,6 +21,7 @@ use AlecRabbit\Spinner\Core\Factory\LoopFactory;
 use AlecRabbit\Spinner\Core\Factory\WigglerContainerFactory;
 use AlecRabbit\Spinner\Core\Output\StdErrOutput;
 use AlecRabbit\Spinner\Core\Renderer;
+use AlecRabbit\Spinner\Core\StrSplitter;
 use AlecRabbit\Spinner\Core\Writer;
 
 final class SpinnerConfigBuilder implements ISpinnerConfigBuilder
@@ -29,65 +30,25 @@ final class SpinnerConfigBuilder implements ISpinnerConfigBuilder
     private const SHUTDOWN_DELAY = Defaults::SHUTDOWN_DELAY;
     private const DEFAULT_FRAME_SEQUENCE = Defaults::FRAME_SEQUENCE;
 
-    private ILoop $loop;
-    private IDriver $driver;
+    private ?ILoop $loop = null;
+    private ?IDriver $driver = null;
     private ?IWigglerContainer $wigglers = null;
-    private bool $synchronousMode;
-    private float $shutdownDelaySeconds;
-    private string $exitMessage;
+    private ?bool $synchronousMode = null;
+    private ?float $shutdownDelaySeconds = null;
+    private ?string $exitMessage = null;
     private ?array $frames = null;
 
     /**
      * @throws DomainException
-     * @throws InvalidArgumentException
      */
     public function __construct()
     {
-        $this->synchronousMode = false;
-        $this->loop = self::getLoop();
-        $this->driver = self::createDriver();
-        $this->exitMessage = self::MESSAGE_ON_EXIT;
-        $this->shutdownDelaySeconds = self::SHUTDOWN_DELAY;
-//        $this->wigglers = self::createWigglerContainer($this->frames);
+//        $this->synchronousMode = false;
+//        $this->loop = self::getLoop();
+//        $this->driver = self::createDriver();
+//        $this->exitMessage = self::MESSAGE_ON_EXIT;
+//        $this->shutdownDelaySeconds = self::SHUTDOWN_DELAY;
     }
-
-    /**
-     * @throws DomainException
-     */
-    private static function getLoop(): ILoop
-    {
-        return LoopFactory::getLoop();
-    }
-
-    private static function createDriver(): IDriver
-    {
-        return
-            new Driver(
-                self::createWriter(),
-                self::createRenderer(),
-            );
-    }
-
-    private static function createWriter(): IWriter
-    {
-        return new Writer(new StdErrOutput());
-    }
-
-    private static function createRenderer(): IRenderer
-    {
-        return
-            new Renderer();
-    }
-
-    /**
-     * @throws InvalidArgumentException
-     */
-    private static function createWigglerContainer(array $frames): IWigglerContainer
-    {
-        return
-            WigglerContainerFactory::create($frames);
-    }
-
 
     public function withExitMessage(string $exitMessage): self
     {
@@ -137,7 +98,7 @@ final class SpinnerConfigBuilder implements ISpinnerConfigBuilder
             $frames = [...$frames];
         }
         if (is_string($frames)) {
-            $frames = mb_str_split($frames);
+            $frames = StrSplitter::split($frames);
         }
         return $frames;
     }
@@ -148,12 +109,32 @@ final class SpinnerConfigBuilder implements ISpinnerConfigBuilder
      */
     public function build(): ISpinnerConfig
     {
+        if (null === $this->driver) {
+            $this->driver = self::createDriver();
+        }
+
         if (null === $this->frames) {
             $this->frames = self::DEFAULT_FRAME_SEQUENCE;
         }
 
         if (null === $this->wigglers) {
             $this->wigglers = self::createWigglerContainer($this->frames);
+        }
+
+        if (null === $this->shutdownDelaySeconds) {
+            $this->shutdownDelaySeconds = self::SHUTDOWN_DELAY;
+        }
+
+        if (null === $this->exitMessage) {
+            $this->exitMessage = self::MESSAGE_ON_EXIT;
+        }
+
+        if (null === $this->synchronousMode) {
+            $this->synchronousMode = false;
+        }
+
+        if (null === $this->loop) {
+            $this->loop = self::getLoop();
         }
 
         $this->loop = self::refineLoop($this->loop, $this->synchronousMode);
@@ -164,9 +145,26 @@ final class SpinnerConfigBuilder implements ISpinnerConfigBuilder
                 wigglers: $this->wigglers,
                 shutdownDelay: $this->shutdownDelaySeconds,
                 exitMessage: $this->exitMessage,
-                loop: $this->loop,
                 synchronous: $this->synchronousMode,
+                loop: $this->loop,
             );
+    }
+
+    /**
+     * @throws InvalidArgumentException
+     */
+    private static function createWigglerContainer(array $frames): IWigglerContainer
+    {
+        return
+            WigglerContainerFactory::create($frames);
+    }
+
+    /**
+     * @throws DomainException
+     */
+    private static function getLoop(): ILoop
+    {
+        return LoopFactory::getLoop();
     }
 
     private static function refineLoop(ILoop $loop, bool $synchronous): ?ILoop
@@ -175,5 +173,25 @@ final class SpinnerConfigBuilder implements ISpinnerConfigBuilder
             return null;
         }
         return $loop;
+    }
+
+    private static function createDriver(): IDriver
+    {
+        return
+            new Driver(
+                self::createWriter(),
+                self::createRenderer(),
+            );
+    }
+
+    private static function createWriter(): IWriter
+    {
+        return new Writer(new StdErrOutput());
+    }
+
+    private static function createRenderer(): IRenderer
+    {
+        return
+            new Renderer();
     }
 }

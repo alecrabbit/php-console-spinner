@@ -26,8 +26,8 @@ final class SpinnerConfig implements ISpinnerConfig
         private readonly IWigglerContainer $wigglers,
         private readonly int|float $shutdownDelay,
         private readonly string $exitMessage,
-        private readonly ?ILoop $loop = null,
         private readonly bool $synchronous = false,
+        private readonly ?ILoop $loop = null,
         private readonly int|float $interval = self::INTERVAL,
         private readonly string $spinnerClass = Spinner::class,
     ) {
