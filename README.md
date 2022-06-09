@@ -8,6 +8,9 @@
 
 #  🏵️  PHP Console Spinner
 
+[![PHP Version](https://img.shields.io/packagist/php-v/alecrabbit/php-console-spinner.svg)](https://php.net/)
+[![License](https://poser.pugx.org/alecrabbit/php-console-spinner/license)](https://packagist.org/packages/alecrabbit/php-console-spinner)
+
 ### New version 1.0.0
 
 > WIP
