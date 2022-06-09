@@ -1,5 +1,5 @@
 <p align="center">
-  <img alt="Logo" width="100" height="100" src="https://github.com/alecrabbit/php-console-spinner/raw/master/doc/image/logo.png">
+  <img alt="Logo" width="100" height="100" src="https://github.com/alecrabbit/php-console-spinner/raw/master/doc/image/logo/logo.png">
 </p>
  
 <p align="center">  
