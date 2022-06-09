@@ -7,6 +7,7 @@ namespace AlecRabbit\Spinner\Core\Factory;
 use AlecRabbit\Spinner\Core\Config\Builder\SpinnerConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\ISpinnerConfig;
 use AlecRabbit\Spinner\Core\Contract\IFrameContainer;
+use AlecRabbit\Spinner\Core\Contract\ILoop;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use AlecRabbit\Spinner\Core\Exception\DomainException;
 use AlecRabbit\Spinner\Core\Exception\InvalidArgumentException;
@@ -65,8 +66,8 @@ final class SpinnerFactory implements ISpinnerFactory
      * @throws LogicException
      * @throws InvalidArgumentException
      */
-    private static function refineConfig(IFrameContainer|iterable|null|string|ISpinnerConfig $framesOrConfig): ISpinnerConfig
-    {
+    private static function refineConfig(IFrameContainer|iterable|null|string|ISpinnerConfig $framesOrConfig
+    ): ISpinnerConfig {
         if ($framesOrConfig instanceof ISpinnerConfig) {
             return $framesOrConfig;
         }
@@ -92,15 +93,15 @@ final class SpinnerFactory implements ISpinnerFactory
     private static function asyncOperations(Spinner $spinner, ISpinnerConfig $config): void
     {
         if ($spinner->isAsynchronous()) {
-            self::attachSpinnerToLoop($spinner, $config);
+            self::attachSpinnerToLoop($spinner, $config->getLoop());
             self::attachSigIntListener($spinner, $config);
             self::initialize($spinner);
         }
     }
 
-    private static function attachSpinnerToLoop(ISpinner $spinner, ISpinnerConfig $config): void
+    private static function attachSpinnerToLoop(ISpinner $spinner, ILoop $loop): void
     {
-        $config->getLoop()
+        $loop
             ->addPeriodicTimer(
                 $spinner->refreshInterval()->toFloat(),
                 static function () use ($spinner) {
@@ -108,11 +109,6 @@ final class SpinnerFactory implements ISpinnerFactory
                 }
             )
         ;
-    }
-
-    private static function initialize(ISpinner $spinner): void
-    {
-        $spinner->begin();
     }
 
     private static function attachSigIntListener(
@@ -129,15 +125,19 @@ final class SpinnerFactory implements ISpinnerFactory
                 $loop->removeSignal(SIGINT, $func);
                 $loop->addTimer(
                     $config->getShutdownDelay(),
-                    static function () use ($loop, $spinner) {
+                    static function () use ($loop) {
                         $loop->stop();
-                        //dump($spinner);
                     }
                 );
             };
             /** @noinspection PhpComposerExtensionStubsInspection */
             $loop->addSignal(SIGINT, $func,);
         }
+    }
+
+    private static function initialize(ISpinner $spinner): void
+    {
+        $spinner->begin();
     }
 
     private static function setSpinner(ISpinner $spinner): void
