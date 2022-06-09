@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use AlecRabbit\Spinner\Core\Factory\SpinnerFactory;
+use AlecRabbit\Spinner\Core\FrameContainer;
 
 require_once __DIR__ . '/../bootstrap.php';
 
@@ -22,7 +23,7 @@ $uri = '0.0.0.0:8080';
 $socket = new React\Socket\SocketServer($uri);
 $server->listen($socket);
 
-$spinner = SpinnerFactory::get(['⢀', '⡀', '⠄', '⠂', '⠁', '⠈', '⠐', '⠠',]);
+$spinner = SpinnerFactory::get(FrameContainer::create(['🌑', '🌒', '🌓', '🌔', '🌕', '🌖', '🌗', '🌘',], 2));
 
 React\EventLoop\Loop::addPeriodicTimer(
     7,

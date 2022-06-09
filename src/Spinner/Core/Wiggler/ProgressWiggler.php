@@ -7,6 +7,7 @@ namespace AlecRabbit\Spinner\Core\Wiggler;
 use AlecRabbit\Spinner\Core\Contract\Base\C;
 use AlecRabbit\Spinner\Core\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Core\Exception\RuntimeException;
+use AlecRabbit\Spinner\Core\Rotor\Contract\IRotor;
 use AlecRabbit\Spinner\Core\Rotor\Contract\IStringRotor;
 use AlecRabbit\Spinner\Core\Rotor\Contract\IStyleRotor;
 use AlecRabbit\Spinner\Core\Rotor\NoCharsRotor;
@@ -28,7 +29,7 @@ final class ProgressWiggler extends AWiggler implements IProgressWiggler
             $wiggler instanceof IProgressWiggler
                 ? $wiggler
                 : self::create(
-                $this->styleRotor,
+                $this->style,
                 message: $wiggler ?? C::DEFAULT_MESSAGE,
             );
     }
@@ -37,7 +38,7 @@ final class ProgressWiggler extends AWiggler implements IProgressWiggler
      */
     public static function create(
         IStyleRotor $styleRotor,
-        IStringRotor $charRotor = null,
+        IRotor $charRotor = null,
         string $message = C::DEFAULT_MESSAGE,
     ): self {
         $cr = self::createCharRotor($message);
@@ -52,7 +53,7 @@ final class ProgressWiggler extends AWiggler implements IProgressWiggler
     /**
      * @throws InvalidArgumentException
      */
-    private static function createCharRotor(string $message): IStringRotor
+    private static function createCharRotor(string $message): IRotor
     {
         if (C::DEFAULT_MESSAGE === $message) {
             return new NoCharsRotor();

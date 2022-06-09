@@ -4,16 +4,15 @@ declare(strict_types=1);
 // 09.06.22
 namespace AlecRabbit\Spinner\Core\Factory;
 
-use AlecRabbit\Spinner\Core\Contract\Base\C;
 use AlecRabbit\Spinner\Core\Contract\IFrameContainer;
 use AlecRabbit\Spinner\Core\Contract\IWigglerContainer;
 use AlecRabbit\Spinner\Core\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Core\Factory\Contract\IWigglerContainerFactory;
 use AlecRabbit\Spinner\Core\Frame;
+use AlecRabbit\Spinner\Core\Rotor\FrameRotor;
 use AlecRabbit\Spinner\Core\Rotor\NoCharsRotor;
 use AlecRabbit\Spinner\Core\Rotor\NoStyleRotor;
 use AlecRabbit\Spinner\Core\Rotor\RainbowStyleRotor;
-use AlecRabbit\Spinner\Core\Rotor\SnakeCharsRotor;
 use AlecRabbit\Spinner\Core\Wiggler\Contract\IWiggler;
 use AlecRabbit\Spinner\Core\Wiggler\MessageWiggler;
 use AlecRabbit\Spinner\Core\Wiggler\ProgressWiggler;
@@ -27,10 +26,9 @@ final class WigglerContainerFactory implements IWigglerContainerFactory
      */
     public static function create(IFrameContainer $frames): IWigglerContainer
     {
-        $f = self::convertFrames($frames);
         return
             new WigglerContainer(
-                self::createRevolveWiggler($f),
+                self::createRevolveWiggler($frames),
                 self::createMessageWiggler(),
                 self::createProgressWiggler(),
             );
@@ -52,34 +50,27 @@ final class WigglerContainerFactory implements IWigglerContainerFactory
 //            );
 //    }
 
-    /**
-     * @throws InvalidArgumentException
-     */
-    private static function createRevolveWiggler(
-        array $data,
-        int $width = 1,
-        string $leadingSpacer = C::EMPTY_STRING
-    ): IWiggler {
-        return
-            RevolveWiggler::create(
-                new RainbowStyleRotor(),
-                new SnakeCharsRotor(
-                    data: $data,
-                    width: $width,
-                    leadingSpacer: $leadingSpacer,
-                ),
-            );
-    }
+//    private static function convertFrames(IFrameContainer $frames): array
+//    {
+//        $a = [];
+//        /** @var Frame $frame */
+//        foreach ($frames->getIterator() as $frame) {
+//            $a[] = $frame->sequence;
+//        }
+//        return $a;
+//    }
 
     /**
      * @throws InvalidArgumentException
      */
-    private static function createProgressWiggler(): IWiggler
+    private static function createRevolveWiggler(IFrameContainer $frames): IWiggler
     {
         return
-            ProgressWiggler::create(
-                new NoStyleRotor(),
-                new NoCharsRotor(),
+            RevolveWiggler::create(
+                new RainbowStyleRotor(),
+                new FrameRotor(
+                    frames: $frames,
+                ),
             );
     }
 
@@ -94,14 +85,16 @@ final class WigglerContainerFactory implements IWigglerContainerFactory
             );
     }
 
-    private static function convertFrames(IFrameContainer $frames): array
+    /**
+     * @throws InvalidArgumentException
+     */
+    private static function createProgressWiggler(): IWiggler
     {
-        $a = [];
-        /** @var Frame $frame */
-        foreach ($frames->getIterator() as $frame) {
-            $a[] = $frame->sequence;
-        }
-        return $a;
+        return
+            ProgressWiggler::create(
+                new NoStyleRotor(),
+                new NoCharsRotor(),
+            );
     }
 
 }
