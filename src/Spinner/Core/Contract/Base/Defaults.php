@@ -13,6 +13,8 @@ final class Defaults
     public const ERASE_WIDTH = 1;
     public const FRAME_SEQUENCE = ['⠏', '⠛', '⠹', '⢸', '⣰', '⣤', '⣆', '⡇'];
     public const MAX_WIDTH = 100;
+    public const MILLISECONDS_INTERVAL = 100;
+    public const SECONDS_INTERVAL = 100 / 1000;
 
     private function __construct()
     {

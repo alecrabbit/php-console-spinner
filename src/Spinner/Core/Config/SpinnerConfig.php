@@ -11,6 +11,8 @@ use AlecRabbit\Spinner\Core\Contract\ILoop;
 use AlecRabbit\Spinner\Core\Contract\IWigglerContainer;
 use AlecRabbit\Spinner\Core\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Core\Exception\LogicException;
+use AlecRabbit\Spinner\Core\Rotor\Contract\IInterval;
+use AlecRabbit\Spinner\Core\Rotor\Interval;
 use AlecRabbit\Spinner\Spinner;
 
 final class SpinnerConfig implements ISpinnerConfig
@@ -26,9 +28,9 @@ final class SpinnerConfig implements ISpinnerConfig
         private readonly IWigglerContainer $wigglers,
         private readonly int|float $shutdownDelay,
         private readonly string $exitMessage,
-        private readonly bool $synchronous = false,
-        private readonly ?ILoop $loop = null,
-        private readonly int|float $interval = self::INTERVAL,
+        private readonly bool $synchronous,
+        private readonly ?ILoop $loop,
+        private readonly IInterval $interval,
         private readonly string $spinnerClass = Spinner::class,
     ) {
         $this->assertConfigIsCorrect();
@@ -118,7 +120,7 @@ final class SpinnerConfig implements ISpinnerConfig
         return $this->spinnerClass;
     }
 
-    public function getInterval(): int|float
+    public function getInterval(): IInterval
     {
         return $this->interval;
     }

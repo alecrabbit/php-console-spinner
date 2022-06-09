@@ -23,7 +23,8 @@ use AlecRabbit\Spinner\Core\Factory\WigglerContainerFactory;
 use AlecRabbit\Spinner\Core\FrameContainer;
 use AlecRabbit\Spinner\Core\Output\StdErrOutput;
 use AlecRabbit\Spinner\Core\Renderer;
-use AlecRabbit\Spinner\Core\StrSplitter;
+use AlecRabbit\Spinner\Core\Rotor\Contract\IInterval;
+use AlecRabbit\Spinner\Core\Rotor\Interval;
 use AlecRabbit\Spinner\Core\Writer;
 
 final class SpinnerConfigBuilder implements ISpinnerConfigBuilder
@@ -39,6 +40,7 @@ final class SpinnerConfigBuilder implements ISpinnerConfigBuilder
     private ?float $shutdownDelaySeconds = null;
     private ?string $exitMessage = null;
     private ?IFrameContainer $frames = null;
+    private ?IInterval $interval = null;
 
     public function withExitMessage(string $exitMessage): self
     {
@@ -75,10 +77,17 @@ final class SpinnerConfigBuilder implements ISpinnerConfigBuilder
         return $clone;
     }
 
+    public function withInterval(IInterval $interval): self
+    {
+        $clone = clone $this;
+        $clone->interval = $interval;
+        return $clone;
+    }
+
     /**
      * @throws InvalidArgumentException
      */
-    public function withFrames(IFrameContainer|iterable|string $frames, ?int $elementWidth = null): self
+    public function withFrames(IFrameContainer $frames, ?int $elementWidth = null): self
     {
         $clone = clone $this;
         $clone->frames = self::refineFrames($frames, $elementWidth);
@@ -89,13 +98,13 @@ final class SpinnerConfigBuilder implements ISpinnerConfigBuilder
      * @throws InvalidArgumentException
      */
     private static function refineFrames(
-        IFrameContainer|iterable|string $frames = self::DEFAULT_FRAME_SEQUENCE,
+        ?IFrameContainer $frames = null,
         ?int $elementWidth = null
     ): IFrameContainer {
         if ($frames instanceof IFrameContainer) {
             return $frames;
         }
-        return FrameContainer::create($frames, $elementWidth);
+        return FrameContainer::create($frames ?? self::DEFAULT_FRAME_SEQUENCE, $elementWidth);
     }
 
     /**
@@ -132,6 +141,10 @@ final class SpinnerConfigBuilder implements ISpinnerConfigBuilder
             $this->loop = self::getLoop();
         }
 
+        if (null === $this->interval) {
+            $this->interval = new Interval(Defaults::SECONDS_INTERVAL);
+        }
+
         $this->loop = self::refineLoop($this->loop, $this->synchronousMode);
 
         return
@@ -142,6 +155,7 @@ final class SpinnerConfigBuilder implements ISpinnerConfigBuilder
                 exitMessage: $this->exitMessage,
                 synchronous: $this->synchronousMode,
                 loop: $this->loop,
+                interval: $this->interval,
             );
     }
 

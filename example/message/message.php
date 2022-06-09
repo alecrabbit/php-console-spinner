@@ -24,7 +24,8 @@ $uri = '0.0.0.0:8080';
 $socket = new React\Socket\SocketServer($uri);
 $server->listen($socket);
 
-$spinner = SpinnerFactory::get(FrameContainer::create(...Sample::WEATHER_VARIANT_0));
+$spinner = SpinnerFactory::get();
+//$spinner = SpinnerFactory::get(FrameContainer::create(...Sample::WEATHER_VARIANT_0));
 
 React\EventLoop\Loop::addPeriodicTimer(
     7,

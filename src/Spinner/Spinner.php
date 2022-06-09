@@ -30,7 +30,7 @@ final class Spinner implements ISpinner
         $this->synchronous = $config->isSynchronous();
         $this->driver = $config->getDriver();
         $this->wigglers = $config->getWigglers();
-        $this->interval = new Interval($config->getInterval());
+        $this->interval = $config->getInterval();
     }
 
     public function isSynchronous(): bool
