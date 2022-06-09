@@ -34,7 +34,7 @@ $server->listen($socket);
 //
 //$spinner = SpinnerFactory::get($config);
 
-$spinner = SpinnerFactory::get(FrameContainer::create(...Sample::WEATHER_VARIANT_0));
+$spinner = SpinnerFactory::get(FrameContainer::create(...Sample::CIRCLES));
 
 React\EventLoop\Loop::addPeriodicTimer(
     7,

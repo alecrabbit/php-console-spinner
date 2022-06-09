@@ -6,13 +6,13 @@ namespace AlecRabbit\Spinner\Core\Contract\Base;
 
 final class Sample
 {
-    public const MOON = ['🌘🌗🌖🌕🌔🌓🌒🌑', 2];
-    public const MOON_REVERSED = ['🌑🌒🌓🌔🌕🌖🌗🌘', 2];
-    public const EARTH = ['🌍🌎🌏', 2];
+    public const MOON = ['🌘🌗🌖🌕🌔🌓🌒🌑', 2, 150];
+    public const MOON_REVERSED = ['🌑🌒🌓🌔🌕🌖🌗🌘', 2, 150];
+    public const EARTH = ['🌍🌎🌏', 2, 300];
     public const DIAMOND = ['♦', 1];
-    public const SIMPLE = [['/', '|', '\\', '─',], 1];
+    public const SIMPLE = [['/', '|', '\\', '─',], 1, 250];
 
-    public const CIRCLES = [['◐', '◓', '◑', '◒',]];
+    public const CIRCLES = [['◐', '◓', '◑', '◒',],1,250];
     public const RUNNER = [['🚶 ', '🏃 '], 3];
     public const MONKEY = [['🐵 ', '🙈 ', '🙉 ', '🙊 '], 3];
 
