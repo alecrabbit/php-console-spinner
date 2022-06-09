@@ -24,7 +24,7 @@ $uri = '0.0.0.0:8080';
 $socket = new React\Socket\SocketServer($uri);
 $server->listen($socket);
 
-$spinner = SpinnerFactory::get(FrameContainer::create(...Sample::DOT_8_BIT));
+$spinner = SpinnerFactory::get(FrameContainer::create(...Sample::DOT));
 
 React\EventLoop\Loop::addPeriodicTimer(
     7,
