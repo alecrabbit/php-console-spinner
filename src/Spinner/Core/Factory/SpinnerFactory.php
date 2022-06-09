@@ -23,7 +23,7 @@ final class SpinnerFactory implements ISpinnerFactory
      * @throws InvalidArgumentException
      * @throws LogicException
      */
-    public static function get(iterable|string|ISpinnerConfig|null $framesOrConfig = null): ISpinner
+    public static function get(IFrameContainer|iterable|string|ISpinnerConfig|null $framesOrConfig = null): ISpinner
     {
         if (self::hasSpinnerInstance()) {
             return self::$spinner;
@@ -41,7 +41,7 @@ final class SpinnerFactory implements ISpinnerFactory
      * @throws InvalidArgumentException
      * @throws LogicException
      */
-    public static function create(iterable|string|ISpinnerConfig|null $framesOrConfig = null): ISpinner
+    public static function create(IFrameContainer|iterable|string|ISpinnerConfig|null $framesOrConfig = null): ISpinner
     {
         if (self::hasSpinnerInstance()) {
             // There Can Be Only One
@@ -82,7 +82,7 @@ final class SpinnerFactory implements ISpinnerFactory
     {
         $spinnerConfigBuilder = new SpinnerConfigBuilder();
 
-        if (is_string($framesOrConfig) || is_iterable($framesOrConfig)) {
+        if (is_string($framesOrConfig) || is_iterable($framesOrConfig) || $framesOrConfig instanceof IFrameContainer) {
             $spinnerConfigBuilder = $spinnerConfigBuilder->withFrames($framesOrConfig);
         }
 
