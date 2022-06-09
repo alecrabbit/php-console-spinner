@@ -7,7 +7,6 @@ namespace AlecRabbit\Spinner\Core\Config\Builder;
 use AlecRabbit\Spinner\Core\Config\Builder\Contract\ISpinnerConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\ISpinnerConfig;
 use AlecRabbit\Spinner\Core\Config\SpinnerConfig;
-use AlecRabbit\Spinner\Core\Contract\Base\C;
 use AlecRabbit\Spinner\Core\Contract\Base\Defaults;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\ILoop;
@@ -19,30 +18,24 @@ use AlecRabbit\Spinner\Core\Exception\DomainException;
 use AlecRabbit\Spinner\Core\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Core\Exception\LogicException;
 use AlecRabbit\Spinner\Core\Factory\LoopFactory;
+use AlecRabbit\Spinner\Core\Factory\WigglerContainerFactory;
 use AlecRabbit\Spinner\Core\Output\StdErrOutput;
 use AlecRabbit\Spinner\Core\Renderer;
-use AlecRabbit\Spinner\Core\Rotor\NoCharsRotor;
-use AlecRabbit\Spinner\Core\Rotor\NoStyleRotor;
-use AlecRabbit\Spinner\Core\Rotor\RainbowStyleRotor;
-use AlecRabbit\Spinner\Core\Rotor\SnakeCharsRotor;
-use AlecRabbit\Spinner\Core\Wiggler\Contract\IWiggler;
-use AlecRabbit\Spinner\Core\Wiggler\MessageWiggler;
-use AlecRabbit\Spinner\Core\Wiggler\ProgressWiggler;
-use AlecRabbit\Spinner\Core\Wiggler\RevolveWiggler;
-use AlecRabbit\Spinner\Core\WigglerContainer;
 use AlecRabbit\Spinner\Core\Writer;
 
 final class SpinnerConfigBuilder implements ISpinnerConfigBuilder
 {
     private const MESSAGE_ON_EXIT = Defaults::MESSAGE_ON_EXIT;
     private const SHUTDOWN_DELAY = Defaults::SHUTDOWN_DELAY;
+    private const DEFAULT_FRAME_SEQUENCE = Defaults::FRAME_SEQUENCE;
 
     private ILoop $loop;
     private IDriver $driver;
-    private IWigglerContainer $wigglers;
+    private ?IWigglerContainer $wigglers = null;
     private bool $synchronousMode;
     private float $shutdownDelaySeconds;
     private string $exitMessage;
+    private ?array $frames = null;
 
     /**
      * @throws DomainException
@@ -53,9 +46,9 @@ final class SpinnerConfigBuilder implements ISpinnerConfigBuilder
         $this->synchronousMode = false;
         $this->loop = self::getLoop();
         $this->driver = self::createDriver();
-        $this->wigglers = self::createWigglerContainer();
         $this->exitMessage = self::MESSAGE_ON_EXIT;
         $this->shutdownDelaySeconds = self::SHUTDOWN_DELAY;
+//        $this->wigglers = self::createWigglerContainer($this->frames);
     }
 
     /**
@@ -89,56 +82,12 @@ final class SpinnerConfigBuilder implements ISpinnerConfigBuilder
     /**
      * @throws InvalidArgumentException
      */
-    private static function createWigglerContainer(): IWigglerContainer
+    private static function createWigglerContainer(array $frames): IWigglerContainer
     {
         return
-            new WigglerContainer(
-                self::createRevolveWiggler(['⠏', '⠛', '⠹', '⢸', '⣰', '⣤', '⣆', '⡇',]),
-                self::createProgressWiggler(),
-                self::createRevolveWiggler(['🕐', '🕑', '🕒', '🕓', '🕔', '🕕', '🕖', '🕗', '🕘', '🕙', '🕚', '🕛',], 2, ' '),
-                self::createMessageWiggler(),
-                self::createRevolveWiggler(['🌘', '🌗', '🌖', '🌕', '🌔', '🌓', '🌒', '🌑',], 2, ' '),
-            );
+            WigglerContainerFactory::create($frames);
     }
 
-    /**
-     * @throws InvalidArgumentException
-     */
-    private static function createRevolveWiggler(array $data, int $width = 1, string $leadingSpacer = C::EMPTY_STRING): IWiggler
-    {
-        return
-            RevolveWiggler::create(
-                new RainbowStyleRotor(),
-                new SnakeCharsRotor(
-                    data: $data,
-                    width: $width,
-                    leadingSpacer: $leadingSpacer,
-                ),
-            );
-    }
-
-    /**
-     * @throws InvalidArgumentException
-     */
-    private static function createProgressWiggler(): IWiggler
-    {
-        return
-            ProgressWiggler::create(
-                new NoStyleRotor(),
-                new NoCharsRotor(),
-            );
-    }
-
-    /**
-     * @throws InvalidArgumentException
-     */
-    private static function createMessageWiggler(): IWiggler
-    {
-        return
-            MessageWiggler::create(
-                new NoStyleRotor(),
-            );
-    }
 
     public function withExitMessage(string $exitMessage): self
     {
@@ -175,28 +124,56 @@ final class SpinnerConfigBuilder implements ISpinnerConfigBuilder
         return $clone;
     }
 
+    public function withFrames(iterable|string $frames): self
+    {
+        $clone = clone $this;
+        $clone->frames = self::refineFrames($frames);
+        return $clone;
+    }
+
+    private static function refineFrames(iterable|string $frames): array
+    {
+        if (is_iterable($frames)) {
+            $frames = [...$frames];
+        }
+        if (is_string($frames)) {
+            $frames = mb_str_split($frames);
+        }
+        return $frames;
+    }
+
     /**
      * @throws LogicException
      * @throws InvalidArgumentException
      */
     public function build(): ISpinnerConfig
     {
+        if (null === $this->frames) {
+            $this->frames = self::DEFAULT_FRAME_SEQUENCE;
+        }
+
+        if (null === $this->wigglers) {
+            $this->wigglers = self::createWigglerContainer($this->frames);
+        }
+
+        $this->loop = self::refineLoop($this->loop, $this->synchronousMode);
+
         return
             new SpinnerConfig(
                 driver: $this->driver,
                 wigglers: $this->wigglers,
                 shutdownDelay: $this->shutdownDelaySeconds,
                 exitMessage: $this->exitMessage,
-                loop: self::refineLoop($this->loop, $this->synchronousMode),
+                loop: $this->loop,
                 synchronous: $this->synchronousMode,
             );
     }
 
-    private static function refineLoop(ILoop $loop, bool $synchronousMode): ?ILoop
+    private static function refineLoop(ILoop $loop, bool $synchronous): ?ILoop
     {
-        if (!$synchronousMode) {
-            return $loop;
+        if ($synchronous) {
+            return null;
         }
-        return null;
+        return $loop;
     }
 }

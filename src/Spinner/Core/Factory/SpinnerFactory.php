@@ -22,12 +22,12 @@ final class SpinnerFactory implements ISpinnerFactory
      * @throws InvalidArgumentException
      * @throws LogicException
      */
-    public static function get(): ISpinner
+    public static function get(iterable|string|ISpinnerConfig|null $framesOrConfig = null): ISpinner
     {
         if (self::hasSpinnerInstance()) {
             return self::$spinner;
         }
-        return self::create();
+        return self::create($framesOrConfig);
     }
 
     private static function hasSpinnerInstance(): bool
@@ -40,7 +40,7 @@ final class SpinnerFactory implements ISpinnerFactory
      * @throws InvalidArgumentException
      * @throws LogicException
      */
-    public static function create(string|ISpinnerConfig|null $classOrConfig = null): ISpinner
+    public static function create(iterable|string|ISpinnerConfig|null $framesOrConfig = null): ISpinner
     {
         if (self::hasSpinnerInstance()) {
             // There Can Be Only One
@@ -49,62 +49,52 @@ final class SpinnerFactory implements ISpinnerFactory
             );
         }
 
-        $class = self::refineClass($classOrConfig);
-        $config = self::refineConfig($classOrConfig);
+        $config = self::refineConfig($framesOrConfig);
 
-        $spinner =
-            self::doCreate(
-                $class,
-                $config,
-            );
+        $spinner = new Spinner($config);
 
-        if ($spinner->isAsynchronous()) {
-            self::attachSpinnerToLoop($spinner, $config);
-            self::initialize($spinner, $config);
-            self::attachSigIntListener($spinner, $config);
-        }
+        self::asyncOperations($spinner, $config);
 
         self::setSpinner($spinner);
 
         return $spinner;
     }
 
-    private static function refineClass(string|ISpinnerConfig|null $classOrConfig): string
+    /**
+     * @throws LogicException
+     * @throws InvalidArgumentException
+     */
+    private static function refineConfig(iterable|null|string|ISpinnerConfig $framesOrConfig): ISpinnerConfig
     {
-        // TODO (2022-05-23 14:10) [Alec Rabbit]: this method should return RevolverWiggler Frames class
-        if (is_string($classOrConfig)) {
-            return $classOrConfig;
+        if ($framesOrConfig instanceof ISpinnerConfig) {
+            return $framesOrConfig;
         }
-        if ($classOrConfig instanceof ISpinnerConfig) {
-            return $classOrConfig->getSpinnerClass();
-        }
-        return Spinner::class;
+
+        return self::buildConfig($framesOrConfig);
     }
 
     /**
      * @throws LogicException
      * @throws InvalidArgumentException
      */
-    private static function refineConfig(null|string|ISpinnerConfig $config): ISpinnerConfig
+    private static function buildConfig(iterable|string|null $framesOrConfig): ISpinnerConfig
     {
-        if ($config instanceof ISpinnerConfig) {
-            return $config;
+        $spinnerConfigBuilder = new SpinnerConfigBuilder();
+
+        if (is_string($framesOrConfig) || is_iterable($framesOrConfig)) {
+            $spinnerConfigBuilder = $spinnerConfigBuilder->withFrames($framesOrConfig);
         }
-        return (new SpinnerConfigBuilder())->build();
+
+        return $spinnerConfigBuilder->build();
     }
 
-    /**
-     * @throws InvalidArgumentException
-     */
-    protected static function doCreate(string $class, ISpinnerConfig $config): ISpinner
+    private static function asyncOperations(Spinner $spinner, ISpinnerConfig $config): void
     {
-        if (is_subclass_of($class, ISpinner::class)) {
-            return new $class($config);
+        if ($spinner->isAsynchronous()) {
+            self::attachSpinnerToLoop($spinner, $config);
+            self::attachSigIntListener($spinner, $config);
+            self::initialize($spinner);
         }
-        throw new InvalidArgumentException(
-        // TODO (2022-01-30 11:17) [Alec Rabbit]: clarify message [975f3695-a537-4745-a22b-12b9844e666f]
-            sprintf('Unsupported class [%s]', $class)
-        );
     }
 
     private static function attachSpinnerToLoop(ISpinner $spinner, ISpinnerConfig $config): void
@@ -119,10 +109,8 @@ final class SpinnerFactory implements ISpinnerFactory
         ;
     }
 
-    private static function initialize(
-        ISpinner $spinner,
-        ISpinnerConfig $config,
-    ): void {
+    private static function initialize(ISpinner $spinner): void
+    {
         $spinner->begin();
     }
 

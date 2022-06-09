@@ -9,7 +9,7 @@ use AlecRabbit\Spinner\Core\Contract\ISpinner;
 
 interface ISpinnerFactory
 {
-    public static function create(string|null|ISpinnerConfig $classOrConfig = null): ISpinner;
+    public static function create(iterable|string|null|ISpinnerConfig $framesOrConfig = null): ISpinner;
 
-    public static function get(): ISpinner;
+    public static function get(iterable|string|null|ISpinnerConfig $framesOrConfig = null): ISpinner;
 }

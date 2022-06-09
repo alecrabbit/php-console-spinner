@@ -11,6 +11,7 @@ final class Defaults
     public const MESSAGE_ON_EXIT = 'Exiting... (CTRL+C to force)';
     public const SPINNER_FRAME_INTERVAL = 0.1;
     public const ERASE_WIDTH = 1;
+    public const FRAME_SEQUENCE = ['⠏', '⠛', '⠹', '⢸', '⣰', '⣤', '⣆', '⡇'];
 
     private function __construct()
     {

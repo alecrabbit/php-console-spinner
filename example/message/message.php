@@ -22,7 +22,7 @@ $uri = '0.0.0.0:8080';
 $socket = new React\Socket\SocketServer($uri);
 $server->listen($socket);
 
-$spinner = SpinnerFactory::get();
+$spinner = SpinnerFactory::get(['⢀', '⡀', '⠄', '⠂', '⠁', '⠈', '⠐', '⠠',]);
 
 React\EventLoop\Loop::addPeriodicTimer(
     7,
