@@ -6,8 +6,8 @@ namespace AlecRabbit\Spinner\Core\Factory;
 
 use AlecRabbit\Spinner\Adapter\React\ReactLoop;
 use AlecRabbit\Spinner\Core\Contract\ILoop;
-use AlecRabbit\Spinner\Core\Contract\ILoopFactory;
 use AlecRabbit\Spinner\Core\Exception\DomainException;
+use AlecRabbit\Spinner\Core\Factory\Contract\ILoopFactory;
 
 final class LoopFactory implements ILoopFactory
 {

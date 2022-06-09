@@ -2,7 +2,11 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Spinner\Core\Contract;
+namespace AlecRabbit\Spinner\Core\Config\Contract;
+
+use AlecRabbit\Spinner\Core\Contract\IDriver;
+use AlecRabbit\Spinner\Core\Contract\ILoop;
+use AlecRabbit\Spinner\Core\Contract\IWigglerContainer;
 
 interface ISpinnerConfig
 {

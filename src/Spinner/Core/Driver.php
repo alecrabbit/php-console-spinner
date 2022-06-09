@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core;
 
+use AlecRabbit\Spinner\Core\Contract\Base\Defaults;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\IFrame;
 use AlecRabbit\Spinner\Core\Contract\IRenderer;
@@ -55,10 +56,10 @@ final class Driver implements IDriver
         );
     }
 
-    public function erase(int $i = 1): void
+    public function erase(?int $i = null): void
     {
         $this->writer->write(
-            Sequencer::eraseSequence($i)
+            Sequencer::eraseSequence($i ?? Defaults::ERASE_WIDTH)
         );
     }
 

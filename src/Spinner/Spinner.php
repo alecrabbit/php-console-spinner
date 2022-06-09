@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner;
 
+use AlecRabbit\Spinner\Core\Config\Contract\ISpinnerConfig;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
-use AlecRabbit\Spinner\Core\Contract\ISpinnerConfig;
 use AlecRabbit\Spinner\Core\Contract\IWigglerContainer;
 use AlecRabbit\Spinner\Core\Rotor\Contract\IInterval;
 use AlecRabbit\Spinner\Core\Rotor\Interval;
@@ -22,7 +22,7 @@ final class Spinner implements ISpinner
     private IWigglerContainer $wigglers;
     private bool $active;
     private IInterval $interval;
-    private Core\Contract\IFrame $currentFrame;
+    private ?Core\Contract\IFrame $currentFrame = null;
 
     public function __construct(
         ISpinnerConfig $config
@@ -31,7 +31,6 @@ final class Spinner implements ISpinner
         $this->driver = $config->getDriver();
         $this->wigglers = $config->getWigglers();
         $this->interval = new Interval($config->getInterval());
-        $this->currentFrame = $this->driver->prepareFrame($this->wigglers, $this->interval);
     }
 
     public function isSynchronous(): bool
@@ -65,7 +64,7 @@ final class Spinner implements ISpinner
     public function erase(): void
     {
         $this->driver->erase(
-            $this->currentFrame->sequenceWidth
+            $this->currentFrame?->sequenceWidth
         );
     }
 

@@ -19,7 +19,7 @@ interface IDriver
 
     public function prepareFrame(IWigglerContainer $wigglers, ?IInterval $interval): IFrame;
 
-    public function erase(): void;
+    public function erase(?int $i = null): void;
 
     public function getWriter(): IWriter;
 

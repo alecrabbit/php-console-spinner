@@ -5,13 +5,13 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Config\Builder;
 
 use AlecRabbit\Spinner\Core\Config\Builder\Contract\ISpinnerConfigBuilder;
+use AlecRabbit\Spinner\Core\Config\Contract\ISpinnerConfig;
 use AlecRabbit\Spinner\Core\Config\SpinnerConfig;
 use AlecRabbit\Spinner\Core\Contract\Base\C;
 use AlecRabbit\Spinner\Core\Contract\Base\Defaults;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\ILoop;
 use AlecRabbit\Spinner\Core\Contract\IRenderer;
-use AlecRabbit\Spinner\Core\Contract\ISpinnerConfig;
 use AlecRabbit\Spinner\Core\Contract\IWigglerContainer;
 use AlecRabbit\Spinner\Core\Contract\IWriter;
 use AlecRabbit\Spinner\Core\Driver;
@@ -97,6 +97,7 @@ final class SpinnerConfigBuilder implements ISpinnerConfigBuilder
                 self::createProgressWiggler(),
                 self::createRevolveWiggler(['🕐', '🕑', '🕒', '🕓', '🕔', '🕕', '🕖', '🕗', '🕘', '🕙', '🕚', '🕛',], 2, ' '),
                 self::createMessageWiggler(),
+                self::createRevolveWiggler(['🌘', '🌗', '🌖', '🌕', '🌔', '🌓', '🌒', '🌑',], 2, ' '),
             );
     }
 
@@ -157,6 +158,13 @@ final class SpinnerConfigBuilder implements ISpinnerConfigBuilder
     {
         $clone = clone $this;
         $clone->loop = $loop;
+        return $clone;
+    }
+
+    public function withWigglers(IWigglerContainer $wigglers): self
+    {
+        $clone = clone $this;
+        $clone->wigglers = $wigglers;
         return $clone;
     }
 
