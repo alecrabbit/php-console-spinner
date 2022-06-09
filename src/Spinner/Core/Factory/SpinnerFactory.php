@@ -6,6 +6,7 @@ namespace AlecRabbit\Spinner\Core\Factory;
 
 use AlecRabbit\Spinner\Core\Config\Builder\SpinnerConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\ISpinnerConfig;
+use AlecRabbit\Spinner\Core\Contract\IFrameContainer;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use AlecRabbit\Spinner\Core\Exception\DomainException;
 use AlecRabbit\Spinner\Core\Exception\InvalidArgumentException;
@@ -77,7 +78,7 @@ final class SpinnerFactory implements ISpinnerFactory
      * @throws LogicException
      * @throws InvalidArgumentException
      */
-    private static function buildConfig(iterable|string|null $framesOrConfig): ISpinnerConfig
+    private static function buildConfig(IFrameContainer|iterable|string|null $framesOrConfig): ISpinnerConfig
     {
         $spinnerConfigBuilder = new SpinnerConfigBuilder();
 

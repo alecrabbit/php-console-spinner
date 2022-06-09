@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Rotor\Contract;
 
 use AlecRabbit\Spinner\Core\Contract\Base\C;
+use AlecRabbit\Spinner\Core\Contract\IFrame;
 use AlecRabbit\Spinner\Core\Contract\IFrameContainer;
-use AlecRabbit\Spinner\Core\Exception\InvalidArgumentException;
-use AlecRabbit\Spinner\Core\WidthQualifier;
+use AlecRabbit\Spinner\Core\WidthDefiner;
 
-abstract class AFrameRotor extends ARotor implements IStringRotor
+abstract class AFrameRotor extends ARotor implements IFrameRotor
 {
     private int $leadingSpacerWidth;
     private int $trailingSpacerWidth;
@@ -20,13 +20,13 @@ abstract class AFrameRotor extends ARotor implements IStringRotor
         protected readonly string $trailingSpacer = C::EMPTY_STRING,
     ) {
         parent::__construct($frames->toArray());
-        $this->leadingSpacerWidth = WidthQualifier::qualify($this->leadingSpacer);
-        $this->trailingSpacerWidth = WidthQualifier::qualify($this->trailingSpacer);
+        $this->leadingSpacerWidth = WidthDefiner::define($this->leadingSpacer);
+        $this->trailingSpacerWidth = WidthDefiner::define($this->trailingSpacer);
     }
 
     public function getWidth(): int
     {
-        return $this->leadingSpacerWidth + $this->data[$this->currentIndex]->getWidth() + $this->trailingSpacerWidth;
+        return $this->leadingSpacerWidth + $this->getCurrentFrame()->sequenceWidth + $this->trailingSpacerWidth;
     }
 
     protected function nextElement(?IInterval $interval = null): string
@@ -40,6 +40,11 @@ abstract class AFrameRotor extends ARotor implements IStringRotor
     protected function addSpacers(string $chars): string
     {
         return $this->leadingSpacer . $chars . $this->trailingSpacer;
+    }
+
+    private function getCurrentFrame(): IFrame
+    {
+        return $this->data[$this->currentIndex];
     }
 
 }

@@ -12,6 +12,7 @@ final class Defaults
     public const SPINNER_FRAME_INTERVAL = 0.1;
     public const ERASE_WIDTH = 1;
     public const FRAME_SEQUENCE = ['⠏', '⠛', '⠹', '⢸', '⣰', '⣤', '⣆', '⡇'];
+    public const MAX_WIDTH = 100;
 
     private function __construct()
     {

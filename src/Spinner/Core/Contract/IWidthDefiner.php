@@ -3,7 +3,7 @@ declare(strict_types=1);
 // 08.06.22
 namespace AlecRabbit\Spinner\Core\Contract;
 
-interface IWidthQualifier
+interface IWidthDefiner
 {
-    public static function qualify(string ...$elements): int;
+    public static function define(string ...$elements): int;
 }

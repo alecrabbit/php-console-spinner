@@ -30,6 +30,18 @@ composer require alecrabbit/php-console-spinner
 
 > WIP
 
+### Features
+
+| Feature               | [php-console-spinner](https://github.com/alecrabbit/php-console-spinner) | [php-cli-snake](https://github.com/alecrabbit/php-cli-snake) |
+|-----------------------|:------------------------------------------------------------------------:|:------------------------------------------------------------:|
+| Lightweight           |                                   ❌ ️                                    |                             🟢️                              |
+| Has zero dependencies |                                  🟢* ️                                   |                             🟢️                              |
+| Extremely flexible    |                                  🟢️ ️                                   |                              ❌                               |
+
+> - `❌` - Not supported
+> - `🟢️` - Supported
+> - `🟢️️*` - Supported with some limitations
+
 ### Links
 
  - Inspired by [sindresorhus/cli-spinners](https://github.com/sindresorhus/cli-spinners)

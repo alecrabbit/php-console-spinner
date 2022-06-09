@@ -4,12 +4,15 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core;
 
+use AlecRabbit\Spinner\Core\Contract\Base\Defaults;
 use AlecRabbit\Spinner\Core\Contract\IFrame;
 use AlecRabbit\Spinner\Core\Exception\InvalidArgumentException;
 use Stringable;
 
 final class Frame implements IFrame
 {
+    private const MAX_WIDTH = Defaults::MAX_WIDTH;
+
     /**
      * @throws InvalidArgumentException
      */
@@ -17,35 +20,37 @@ final class Frame implements IFrame
         public readonly string $sequence,
         public readonly int $sequenceWidth,
     ) {
-        self::assertSequence($sequence);
-        self::assertSequenceWidth($sequenceWidth);
+        self::assert($this);
     }
 
-    private static function assertSequence(string $sequence): void
-    {
-        // TODO (2022-06-09 16:12) [Alec Rabbit]: Implement if needed
-    }
 
     /**
      * @throws InvalidArgumentException
      */
-    private static function assertSequenceWidth(int $width): void
+    private static function assert(Frame $frame): void
     {
-        if (0 > $width) {
-            throw new InvalidArgumentException('Width must be a positive integer.');
+        if (0 > $frame->sequenceWidth) {
+            throw new InvalidArgumentException(
+                sprintf(
+                    'Width must be a positive integer. [%s]',
+                    $frame->sequenceWidth
+                )
+            );
         }
-        // TODO (2022-06-07 16:13) [Alec Rabbit]: check other conditions
-    }
-
-    public function __toString(): string
-    {
-        return $this->sequence;
+        if (self::MAX_WIDTH < WidthDefiner::define($frame->sequence)) {
+            throw new InvalidArgumentException(
+                sprintf(
+                    'Given sequence is too wide. [%s]',
+                    $frame->sequence
+                )
+            );
+        }
     }
 
     /**
      * @throws InvalidArgumentException
      */
-    public static function create(mixed $f): IFrame
+    public static function create(mixed $f, ?int $elementWidth): IFrame
     {
         if ($f instanceof IFrame) {
             return $f;
@@ -60,10 +65,10 @@ final class Frame implements IFrame
             $f = 'null';
         }
         if (is_string($f)) {
-            return new Frame($f, WidthQualifier::qualify($f));
+            return new Frame($f, $elementWidth ?? WidthDefiner::define($f));
         }
         if (is_iterable($f)) {
-            return self::createFromIterable($f);
+            return self::createFromIterable($f, $elementWidth);
         }
         throw new InvalidArgumentException(
             sprintf(
@@ -76,15 +81,18 @@ final class Frame implements IFrame
     /**
      * @throws InvalidArgumentException
      */
-    private static function createFromIterable(iterable $f): IFrame
+    private static function createFromIterable(iterable $f, ?int $elementWidth): IFrame
     {
         $a = [];
         $c = 0;
         foreach ($f as $e) {
             $a[$c++] = $e;
-            if(2 <= $c) {
+            if (2 <= $c) {
                 break;
             }
+        }
+        if (array_key_exists(0, $a) && null !== $elementWidth) {
+            return new Frame($f[0], $elementWidth);
         }
         if (array_key_exists(0, $a) && array_key_exists(1, $a)) {
             return new Frame($f[0], $f[1]);
@@ -95,5 +103,10 @@ final class Frame implements IFrame
                 get_debug_type($f)
             )
         );
+    }
+
+    public function __toString(): string
+    {
+        return $this->sequence;
     }
 }

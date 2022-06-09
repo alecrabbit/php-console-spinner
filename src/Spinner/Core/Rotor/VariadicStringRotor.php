@@ -6,12 +6,12 @@ namespace AlecRabbit\Spinner\Core\Rotor;
 
 use AlecRabbit\Spinner\Core\Contract\Base\C;
 use AlecRabbit\Spinner\Core\Rotor\Contract\AStringRotor;
-use AlecRabbit\Spinner\Core\WidthQualifier;
+use AlecRabbit\Spinner\Core\WidthDefiner;
 
 final class VariadicStringRotor extends AStringRotor
 {
     public function __construct(string $string)
     {
-        parent::__construct([$string], WidthQualifier::qualify($string), C::SPACE_CHAR);
+        parent::__construct([$string], WidthDefiner::define($string), C::SPACE_CHAR);
     }
 }

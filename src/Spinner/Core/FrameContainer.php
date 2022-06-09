@@ -19,7 +19,7 @@ final class FrameContainer implements IFrameContainer
     /**
      * @throws InvalidArgumentException
      */
-    public static function create(iterable $frames): self
+    public static function create(iterable $frames, ?int $elementWidth = null): self
     {
         $f = new self();
         foreach ($frames as $element) {
@@ -27,7 +27,7 @@ final class FrameContainer implements IFrameContainer
                 $f->add($element);
                 continue;
             }
-            $f->add(Frame::create($element));
+            $f->add(Frame::create($element, $elementWidth));
         }
         return $f;
     }

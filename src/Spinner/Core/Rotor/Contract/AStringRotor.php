@@ -6,7 +6,7 @@ namespace AlecRabbit\Spinner\Core\Rotor\Contract;
 
 use AlecRabbit\Spinner\Core\Contract\Base\C;
 use AlecRabbit\Spinner\Core\Exception\InvalidArgumentException;
-use AlecRabbit\Spinner\Core\WidthQualifier;
+use AlecRabbit\Spinner\Core\WidthDefiner;
 
 abstract class AStringRotor extends ARotor implements IStringRotor
 {
@@ -31,7 +31,7 @@ abstract class AStringRotor extends ARotor implements IStringRotor
     private static function refineWidth(?int $width, string $leadingSpacer, string $trailingSpacer): int
     {
         static::assertWidth($width);
-        return WidthQualifier::qualify($width ?? static::ELEMENT_WIDTH, $leadingSpacer, $trailingSpacer);
+        return WidthDefiner::define($width ?? static::ELEMENT_WIDTH, $leadingSpacer, $trailingSpacer);
     }
 
     /**

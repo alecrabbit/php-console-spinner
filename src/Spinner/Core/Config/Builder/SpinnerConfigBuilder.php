@@ -78,7 +78,7 @@ final class SpinnerConfigBuilder implements ISpinnerConfigBuilder
     /**
      * @throws InvalidArgumentException
      */
-    public function withFrames(iterable|string $frames): self
+    public function withFrames(IFrameContainer|iterable|string $frames): self
     {
         $clone = clone $this;
         $clone->frames = self::refineFrames($frames);
@@ -88,8 +88,12 @@ final class SpinnerConfigBuilder implements ISpinnerConfigBuilder
     /**
      * @throws InvalidArgumentException
      */
-    private static function refineFrames(iterable|string $frames = self::DEFAULT_FRAME_SEQUENCE): IFrameContainer
-    {
+    private static function refineFrames(
+        IFrameContainer|iterable|string $frames = self::DEFAULT_FRAME_SEQUENCE
+    ): IFrameContainer {
+        if ($frames instanceof IFrameContainer) {
+            return $frames;
+        }
         if (is_string($frames)) {
             $frames = StrSplitter::split($frames);
         }
@@ -143,6 +147,26 @@ final class SpinnerConfigBuilder implements ISpinnerConfigBuilder
             );
     }
 
+    private static function createDriver(): IDriver
+    {
+        return
+            new Driver(
+                self::createWriter(),
+                self::createRenderer(),
+            );
+    }
+
+    private static function createWriter(): IWriter
+    {
+        return new Writer(new StdErrOutput());
+    }
+
+    private static function createRenderer(): IRenderer
+    {
+        return
+            new Renderer();
+    }
+
     /**
      * @throws InvalidArgumentException
      */
@@ -166,25 +190,5 @@ final class SpinnerConfigBuilder implements ISpinnerConfigBuilder
             return null;
         }
         return $loop;
-    }
-
-    private static function createDriver(): IDriver
-    {
-        return
-            new Driver(
-                self::createWriter(),
-                self::createRenderer(),
-            );
-    }
-
-    private static function createWriter(): IWriter
-    {
-        return new Writer(new StdErrOutput());
-    }
-
-    private static function createRenderer(): IRenderer
-    {
-        return
-            new Renderer();
     }
 }
