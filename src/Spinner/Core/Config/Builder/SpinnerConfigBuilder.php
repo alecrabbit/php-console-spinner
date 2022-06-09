@@ -78,10 +78,10 @@ final class SpinnerConfigBuilder implements ISpinnerConfigBuilder
     /**
      * @throws InvalidArgumentException
      */
-    public function withFrames(IFrameContainer|iterable|string $frames): self
+    public function withFrames(IFrameContainer|iterable|string $frames, ?int $elementWidth = null): self
     {
         $clone = clone $this;
-        $clone->frames = self::refineFrames($frames);
+        $clone->frames = self::refineFrames($frames, $elementWidth);
         return $clone;
     }
 
@@ -89,15 +89,13 @@ final class SpinnerConfigBuilder implements ISpinnerConfigBuilder
      * @throws InvalidArgumentException
      */
     private static function refineFrames(
-        IFrameContainer|iterable|string $frames = self::DEFAULT_FRAME_SEQUENCE
+        IFrameContainer|iterable|string $frames = self::DEFAULT_FRAME_SEQUENCE,
+        ?int $elementWidth = null
     ): IFrameContainer {
         if ($frames instanceof IFrameContainer) {
             return $frames;
         }
-        if (is_string($frames)) {
-            $frames = StrSplitter::split($frames);
-        }
-        return FrameContainer::create($frames);
+        return FrameContainer::create($frames, $elementWidth);
     }
 
     /**

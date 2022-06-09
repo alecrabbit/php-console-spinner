@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use AlecRabbit\Spinner\Core\Contract\Base\Sample;
 use AlecRabbit\Spinner\Core\Factory\SpinnerFactory;
 use AlecRabbit\Spinner\Core\FrameContainer;
 
@@ -23,7 +24,7 @@ $uri = '0.0.0.0:8080';
 $socket = new React\Socket\SocketServer($uri);
 $server->listen($socket);
 
-$spinner = SpinnerFactory::get(FrameContainer::create(['🌑', '🌒', '🌓', '🌔', '🌕', '🌖', '🌗', '🌘',], 2));
+$spinner = SpinnerFactory::get(FrameContainer::create(...Sample::DOT_8_BIT));
 
 React\EventLoop\Loop::addPeriodicTimer(
     7,

@@ -65,7 +65,7 @@ final class SpinnerFactory implements ISpinnerFactory
      * @throws LogicException
      * @throws InvalidArgumentException
      */
-    private static function refineConfig(iterable|null|string|ISpinnerConfig $framesOrConfig): ISpinnerConfig
+    private static function refineConfig(IFrameContainer|iterable|null|string|ISpinnerConfig $framesOrConfig): ISpinnerConfig
     {
         if ($framesOrConfig instanceof ISpinnerConfig) {
             return $framesOrConfig;

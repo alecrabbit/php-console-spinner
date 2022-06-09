@@ -19,8 +19,12 @@ final class FrameContainer implements IFrameContainer
     /**
      * @throws InvalidArgumentException
      */
-    public static function create(iterable $frames, ?int $elementWidth = null): self
+    public static function create(iterable|string $frames, ?int $elementWidth = null): self
     {
+        if (is_string($frames)) {
+            $frames = StrSplitter::split($frames);
+        }
+
         $f = new self();
         foreach ($frames as $element) {
             if ($element instanceof IFrame) {
