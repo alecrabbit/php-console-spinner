@@ -93,7 +93,7 @@ final class SpinnerConfigBuilder implements ISpinnerConfigBuilder
         if (is_string($frames)) {
             $frames = StrSplitter::split($frames);
         }
-        return new FrameContainer($frames);
+        return FrameContainer::create($frames);
     }
 
     /**

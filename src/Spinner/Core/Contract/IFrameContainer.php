@@ -8,4 +8,6 @@ use IteratorAggregate;
 interface IFrameContainer extends IteratorAggregate
 {
     public function add(IFrame $frame): void;
+
+    public function toArray(): array;
 }

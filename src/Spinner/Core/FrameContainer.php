@@ -19,25 +19,32 @@ final class FrameContainer implements IFrameContainer
     /**
      * @throws InvalidArgumentException
      */
-    public function __construct(iterable $frames)
+    public static function create(iterable $frames): self
     {
+        $f = new self();
         foreach ($frames as $element) {
             if ($element instanceof IFrame) {
-                $this->add($element);
+                $f->add($element);
                 continue;
             }
-            $this->add(Frame::create($element));
+            $f->add(Frame::create($element));
         }
+        return $f;
     }
 
     public function add(IFrame $frame): void
     {
-        $this->frames[] = $frame;
         $this->count++;
+        $this->frames[] = $frame;
     }
 
     public function getIterator(): Traversable
     {
         return new ArrayIterator($this->frames);
+    }
+
+    public function toArray(): array
+    {
+        return $this->frames;
     }
 }

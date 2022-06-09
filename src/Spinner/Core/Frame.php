@@ -6,13 +6,40 @@ namespace AlecRabbit\Spinner\Core;
 
 use AlecRabbit\Spinner\Core\Contract\IFrame;
 use AlecRabbit\Spinner\Core\Exception\InvalidArgumentException;
+use Stringable;
 
 final class Frame implements IFrame
 {
+    /**
+     * @throws InvalidArgumentException
+     */
     public function __construct(
         public readonly string $sequence,
         public readonly int $sequenceWidth,
     ) {
+        self::assertSequence($sequence);
+        self::assertSequenceWidth($sequenceWidth);
+    }
+
+    private static function assertSequence(string $sequence): void
+    {
+        // TODO (2022-06-09 16:12) [Alec Rabbit]: Implement if needed
+    }
+
+    /**
+     * @throws InvalidArgumentException
+     */
+    private static function assertSequenceWidth(int $width): void
+    {
+        if (0 > $width) {
+            throw new InvalidArgumentException('Width must be a positive integer.');
+        }
+        // TODO (2022-06-07 16:13) [Alec Rabbit]: check other conditions
+    }
+
+    public function __toString(): string
+    {
+        return $this->sequence;
     }
 
     /**
@@ -23,7 +50,7 @@ final class Frame implements IFrame
         if ($f instanceof IFrame) {
             return $f;
         }
-        if (is_int($f) || is_float($f) || is_object($f)) {
+        if (is_int($f) || is_float($f) || $f instanceof Stringable) {
             $f = (string)$f;
         }
         if (is_bool($f)) {
