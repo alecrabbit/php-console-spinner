@@ -4,7 +4,7 @@ volumes:
 
 services:
   &app-service app:
-    image: php:8.1-alpine
+    image: php:8.1-cli-alpine
     hostname: *app-service
     volumes:
       - ./:/app
