@@ -9,7 +9,7 @@ use AlecRabbit\Spinner\Core\Exception\InvalidArgumentException;
 
 final class Style implements IStyle
 {
-    public function __construct(
+    protected function __construct(
         public readonly string $sequence,
     ) {
     }
@@ -19,8 +19,12 @@ final class Style implements IStyle
      */
     public static function create(mixed $s): IStyle
     {
+        dump($s);
         if ($s instanceof IStyle) {
             return $s;
+        }
+        if (is_array($s)) {
+            return new Style($s);
         }
         throw new InvalidArgumentException(
             sprintf(

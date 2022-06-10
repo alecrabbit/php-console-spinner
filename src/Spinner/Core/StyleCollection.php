@@ -15,7 +15,6 @@ final class StyleCollection implements Contract\IStyleCollection
 {
     /** @var array<int, IStyle> */
     private array $styles = [];
-    private int $count = 0;
     private IInterval $interval;
 
     protected function __construct(?int $interval = null)
@@ -27,20 +26,15 @@ final class StyleCollection implements Contract\IStyleCollection
     public static function create(iterable $styles, ?int $interval = null): Contract\IStyleCollection
     {
         $f = new self($interval);
-        foreach ($styles as $element) {
-            if ($element instanceof IStyle) {
-                $f->add($element);
-                continue;
-            }
-            $f->add(Style::create($element));
+        foreach ($styles as $level => $element) {
+            $f->add($level, $element);
         }
         return $f;
     }
 
-    public function add(IStyle $style): void
+    public function add(int $level, iterable $element): void
     {
-        $this->count++;
-        $this->styles[] = $style;
+        $this->styles[$level] = $element['sequence'];
     }
 
     public function getIterator(): Traversable
@@ -48,9 +42,12 @@ final class StyleCollection implements Contract\IStyleCollection
         return new ArrayIterator($this->styles);
     }
 
-    public function toArray(): array
+    /**
+     * @return array<int, IStyle>
+     */
+    public function toArray(int $colorSupportLevel): array
     {
-        return $this->styles;
+        return $this->styles[$colorSupportLevel];
     }
 
     public function getInterval(): IInterval

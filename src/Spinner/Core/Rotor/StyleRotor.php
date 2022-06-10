@@ -9,14 +9,4 @@ use AlecRabbit\Spinner\Core\Rotor\Contract\IInterval;
 
 final class StyleRotor extends AStyleRotor
 {
-    public function __construct(
-        IStyleCollection $styles,
-    ) {
-        parent::__construct($styles->toArray());
-    }
-
-    public function join(string $chars, ?IInterval $interval = null): string
-    {
-        // TODO: Implement join() method.
-    }
 }

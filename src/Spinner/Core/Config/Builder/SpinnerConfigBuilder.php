@@ -142,6 +142,10 @@ final class SpinnerConfigBuilder implements ISpinnerConfigBuilder
             $this->driver = self::createDriver();
         }
 
+        if (null === $this->colorSupportLevel) {
+            $this->colorSupportLevel = $this->driver->getColorSupportLevel();
+        }
+
         if (null === $this->frames) {
             $this->frames = self::defaultFrames();
         }
@@ -160,10 +164,6 @@ final class SpinnerConfigBuilder implements ISpinnerConfigBuilder
 
         if (null === $this->interval) {
             $this->interval = $this->frames->getInterval();
-        }
-
-        if (null === $this->colorSupportLevel) {
-            $this->colorSupportLevel = $this->getColorSupportLevel();
         }
 
         if (null === $this->shutdownDelaySeconds && !$this->synchronousMode) {
@@ -234,11 +234,5 @@ final class SpinnerConfigBuilder implements ISpinnerConfigBuilder
                 $e,
             );
         }
-    }
-
-    private function getColorSupportLevel(): int
-    {
-        return
-            $this->driver->getColorSupportLevel();
     }
 }

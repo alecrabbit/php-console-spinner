@@ -10,9 +10,9 @@ interface IStyleCollection extends IteratorAggregate
 {
     public static function create(iterable $styles, ?int $interval = null): self;
 
-    public function add(IStyle $style): void;
+    public function add(int $level, iterable $element): void;
 
     public function getInterval(): IInterval;
 
-    public function toArray(): array;
+    public function toArray(int $colorSupportLevel): array;
 }
