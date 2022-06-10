@@ -12,6 +12,8 @@ use AlecRabbit\Spinner\Core\Contract\IWigglerContainer;
 use AlecRabbit\Spinner\Core\Contract\IWriter;
 use AlecRabbit\Spinner\Core\Rotor\Contract\IInterval;
 
+use const AlecRabbit\Cli\TERM_256COLOR;
+
 final class Driver implements IDriver
 {
     public function __construct(
@@ -71,5 +73,11 @@ final class Driver implements IDriver
     public function getRenderer(): IRenderer
     {
         return $this->renderer;
+    }
+
+    public function getColorSupportLevel(): int
+    {
+        // FIXME (2022-06-10 17:37) [Alec Rabbit]: Implement color support level detection.
+        return TERM_256COLOR;
     }
 }

@@ -12,6 +12,7 @@ use AlecRabbit\Spinner\Core\Contract\IWigglerContainer;
 use AlecRabbit\Spinner\Core\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Core\Exception\LogicException;
 use AlecRabbit\Spinner\Core\Rotor\Contract\IInterval;
+use Throwable;
 
 final class SpinnerConfig implements ISpinnerConfig
 {
@@ -23,12 +24,12 @@ final class SpinnerConfig implements ISpinnerConfig
     public function __construct(
         private readonly IDriver $driver,
         private readonly IWigglerContainer $wigglers,
-        private readonly int|float $shutdownDelay,
-        private readonly string $exitMessage,
+        private readonly null|int|float $shutdownDelay,
+        private readonly ?string $exitMessage,
         private readonly bool $synchronous,
         private readonly ?ILoop $loop,
         private readonly IInterval $interval,
-        private readonly int $colorSupportLevel = 0,
+        private readonly int $colorSupportLevel,
     ) {
         $this->assertConfigIsCorrect();
     }
@@ -105,9 +106,15 @@ final class SpinnerConfig implements ISpinnerConfig
         }
     }
 
+    /**
+     * @throws LogicException
+     */
     public function getExitMessage(): string
     {
-        return $this->exitMessage;
+        if ($this->isAsynchronous()) {
+            return $this->exitMessage;
+        }
+        throw self::synchronousModeException('exit message');
     }
 
     /**
@@ -118,12 +125,18 @@ final class SpinnerConfig implements ISpinnerConfig
         if ($this->isAsynchronous()) {
             return $this->loop;
         }
-        throw new LogicException('Configured for synchronous run mode. No loop object is available.');
+        throw self::synchronousModeException('loop object');
     }
 
+    /**
+     * @throws LogicException
+     */
     public function getShutdownDelay(): int|float
     {
-        return $this->shutdownDelay;
+        if ($this->isAsynchronous()) {
+            return $this->shutdownDelay;
+        }
+        throw self::synchronousModeException('shutdown delay');
     }
 
     public function getInterval(): IInterval
@@ -144,5 +157,10 @@ final class SpinnerConfig implements ISpinnerConfig
     public function getColorSupportLevel(): int
     {
         return $this->colorSupportLevel;
+    }
+
+    private static function synchronousModeException(string $reason): LogicException
+    {
+        return new LogicException(sprintf('Configured for synchronous run mode. No %s is available.', $reason));
     }
 }

@@ -24,4 +24,6 @@ interface IDriver
     public function getWriter(): IWriter;
 
     public function getRenderer(): IRenderer;
+
+    public function getColorSupportLevel(): int;
 }

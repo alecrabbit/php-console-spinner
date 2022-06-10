@@ -5,17 +5,21 @@ declare(strict_types=1);
 use AlecRabbit\Spinner\Core\Config\Builder\SpinnerConfigBuilder;
 use AlecRabbit\Spinner\Core\Factory\SpinnerFactory;
 
+use const AlecRabbit\Cli\TERM_NOCOLOR;
+
 require_once __DIR__ . '/../bootstrap.php';
 
 $config =
     (new SpinnerConfigBuilder())
         ->inSynchronousMode()
+        ->withColorSupportLevel(TERM_NOCOLOR)
         ->build()
 ;
 
 $spinner = SpinnerFactory::create($config);
 
-dump($config, $spinner);
+//dump($config, $spinner);
+dump($config);
 
 $spinner->begin();
 

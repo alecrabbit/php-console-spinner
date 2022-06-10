@@ -40,6 +40,7 @@ final class SpinnerConfigBuilder implements ISpinnerConfigBuilder
     private ?string $exitMessage = null;
     private ?IFrameCollection $frames = null;
     private ?IInterval $interval = null;
+    private ?int $colorSupportLevel = null;
 
     public function withExitMessage(string $exitMessage): self
     {
@@ -59,6 +60,13 @@ final class SpinnerConfigBuilder implements ISpinnerConfigBuilder
     {
         $clone = clone $this;
         $clone->loop = $loop;
+        return $clone;
+    }
+
+    public function withColorSupportLevel(int $colorSupportLevel): self
+    {
+        $clone = clone $this;
+        $clone->colorSupportLevel = $colorSupportLevel;
         return $clone;
     }
 
@@ -108,14 +116,6 @@ final class SpinnerConfigBuilder implements ISpinnerConfigBuilder
             $this->wigglers = self::createWigglerContainer($this->frames);
         }
 
-        if (null === $this->shutdownDelaySeconds) {
-            $this->shutdownDelaySeconds = self::SHUTDOWN_DELAY;
-        }
-
-        if (null === $this->exitMessage) {
-            $this->exitMessage = self::MESSAGE_ON_EXIT;
-        }
-
         if (null === $this->synchronousMode) {
             $this->synchronousMode = false;
         }
@@ -128,7 +128,19 @@ final class SpinnerConfigBuilder implements ISpinnerConfigBuilder
             $this->interval = $this->frames->getInterval();
         }
 
+        if (null === $this->colorSupportLevel) {
+            $this->colorSupportLevel = $this->driver->getColorSupportLevel();
+        }
+
         $this->loop = self::refineLoop($this->loop, $this->synchronousMode);
+
+        if (null === $this->shutdownDelaySeconds && !$this->synchronousMode) {
+            $this->shutdownDelaySeconds = self::SHUTDOWN_DELAY;
+        }
+
+        if (null === $this->exitMessage && !$this->synchronousMode) {
+            $this->exitMessage = self::MESSAGE_ON_EXIT;
+        }
 
         return
             new SpinnerConfig(
@@ -139,6 +151,7 @@ final class SpinnerConfigBuilder implements ISpinnerConfigBuilder
                 synchronous: $this->synchronousMode,
                 loop: $this->loop,
                 interval: $this->interval,
+                colorSupportLevel: $this->colorSupportLevel,
             );
     }
 
