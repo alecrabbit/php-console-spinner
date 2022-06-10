@@ -12,25 +12,27 @@ use AlecRabbit\Spinner\Core\Factory\Contract\ILoopFactory;
 
 final class LoopFactory implements ILoopFactory
 {
-    private iterable $supportedPackages = [];
-
-    /** @var iterable<ILoopProbe> */
-    private iterable $loopProbes = [
+    private const DEFAULT_PROBES = [
         ReactLoop::class,
     ];
 
-    public function __construct(iterable $loopProbes = [])
+    private iterable $supportedPackages = [];
+
+    private iterable $loopProbes = [];
+
+    public function __construct(iterable $loopProbes = [ReactLoop::class,])
     {
+        $loopProbes = [...self::DEFAULT_PROBES, ...$loopProbes];
         foreach ($loopProbes as $loopProbe) {
             $this->addLoopProbe($loopProbe);
         }
     }
 
-    private function addLoopProbe(mixed $loopProbe): void
+    private function addLoopProbe(string $class): void
     {
-        if ($loopProbe instanceof ILoopProbe && !in_array($loopProbe, $this->loopProbes, true)) {
-            $this->loopProbes[] = $loopProbe;
-            $this->supportedPackages[] = $loopProbe::getPackageName();
+        if (is_a($class, ILoopProbe::class, true) && !in_array($class, $this->loopProbes, true)) {
+            $this->loopProbes[] = $class;
+            $this->supportedPackages[] = $class::getPackageName();
         }
     }
 

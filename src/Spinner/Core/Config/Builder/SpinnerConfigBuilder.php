@@ -44,14 +44,6 @@ final class SpinnerConfigBuilder implements ISpinnerConfigBuilder
     private ?int $colorSupportLevel = null;
     private ?ILoopFactory $loopFactory = null;
 
-    private static function refineLoop(ILoop $loop, bool $synchronous): ?ILoop
-    {
-        if ($synchronous) {
-            return null;
-        }
-        return $loop;
-    }
-
     public function withExitMessage(string $exitMessage): self
     {
         $clone = clone $this;
@@ -63,6 +55,13 @@ final class SpinnerConfigBuilder implements ISpinnerConfigBuilder
     {
         $clone = clone $this;
         $clone->shutdownDelaySeconds = round($shutdownDelay / 1000, 3);
+        return $clone;
+    }
+
+    public function withLoopFactory(ILoopFactory $loopFactory): self
+    {
+        $clone = clone $this;
+        $clone->loopFactory = $loopFactory;
         return $clone;
     }
 
@@ -145,8 +144,6 @@ final class SpinnerConfigBuilder implements ISpinnerConfigBuilder
         if (null === $this->colorSupportLevel) {
             $this->colorSupportLevel = $this->driver->getColorSupportLevel();
         }
-
-//        $this->loop = self::refineLoop($this->loop, $this->synchronousMode);
 
         if (null === $this->shutdownDelaySeconds && !$this->synchronousMode) {
             $this->shutdownDelaySeconds = self::SHUTDOWN_DELAY;
