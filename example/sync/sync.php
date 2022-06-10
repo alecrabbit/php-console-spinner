@@ -15,24 +15,26 @@ $config =
 
 $spinner = SpinnerFactory::create($config);
 
+dump($config, $spinner);
+
 $spinner->begin();
 
-//dump($config, $spinner);
-
-for($i = 0; $i < 100; $i++) {
-    echo '_';
+for ($i = 0; $i < 100; $i++) {
+    if ($i % 10 === 0) {
+        echo '_';
+    }
     $spinner->spin();
-    usleep(100000);
-    if($i === 30) {
+    if ($i === 30) {
         $spinner->message('0123456');
     }
-    if($i === 40) {
+    if ($i === 40) {
         $spinner->progress(0.33);
     }
-    if($i === 60) {
+    if ($i === 60) {
         $spinner->message('0123');
     }
+    usleep(100000);
 }
 $spinner->end();
 
-//dump($spinner);
+echo PHP_EOL;
