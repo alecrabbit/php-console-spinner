@@ -31,7 +31,7 @@ final class SpinnerConfigBuilder implements ISpinnerConfigBuilder
 {
     private const MESSAGE_ON_EXIT = Defaults::MESSAGE_ON_EXIT;
     private const SHUTDOWN_DELAY = Defaults::SHUTDOWN_DELAY;
-    private const DEFAULT_FRAME_SEQUENCE = Defaults::FRAME_SEQUENCE;
+    private const FRAME_SEQUENCE = Defaults::FRAME_SEQUENCE;
 
     private ?ILoop $loop = null;
     private ?IDriver $driver = null;
@@ -113,6 +113,27 @@ final class SpinnerConfigBuilder implements ISpinnerConfigBuilder
      */
     public function build(): ISpinnerConfig
     {
+        $this->processDefaults();
+
+        return
+            new SpinnerConfig(
+                driver: $this->driver,
+                wigglers: $this->wigglers,
+                shutdownDelay: $this->shutdownDelaySeconds,
+                exitMessage: $this->exitMessage,
+                synchronous: $this->synchronousMode,
+                loop: $this->loop,
+                interval: $this->interval,
+                colorSupportLevel: $this->colorSupportLevel,
+            );
+    }
+
+    /**
+     * @throws InvalidArgumentException
+     * @throws DomainException
+     */
+    private function processDefaults(): void
+    {
         if (null === $this->loopFactory) {
             $this->loopFactory = new LoopFactory();
         }
@@ -142,7 +163,7 @@ final class SpinnerConfigBuilder implements ISpinnerConfigBuilder
         }
 
         if (null === $this->colorSupportLevel) {
-            $this->colorSupportLevel = $this->driver->getColorSupportLevel();
+            $this->colorSupportLevel = $this->getColorSupportLevel();
         }
 
         if (null === $this->shutdownDelaySeconds && !$this->synchronousMode) {
@@ -152,18 +173,6 @@ final class SpinnerConfigBuilder implements ISpinnerConfigBuilder
         if (null === $this->exitMessage && !$this->synchronousMode) {
             $this->exitMessage = self::MESSAGE_ON_EXIT;
         }
-
-        return
-            new SpinnerConfig(
-                driver: $this->driver,
-                wigglers: $this->wigglers,
-                shutdownDelay: $this->shutdownDelaySeconds,
-                exitMessage: $this->exitMessage,
-                synchronous: $this->synchronousMode,
-                loop: $this->loop,
-                interval: $this->interval,
-                colorSupportLevel: $this->colorSupportLevel,
-            );
     }
 
     private static function createDriver(): IDriver
@@ -191,7 +200,7 @@ final class SpinnerConfigBuilder implements ISpinnerConfigBuilder
      */
     private static function defaultFrames(): IFrameCollection
     {
-        return FrameCollection::create(...self::DEFAULT_FRAME_SEQUENCE);
+        return FrameCollection::create(...self::FRAME_SEQUENCE);
     }
 
     /**
@@ -217,13 +226,19 @@ final class SpinnerConfigBuilder implements ISpinnerConfigBuilder
             // TODO (2022-06-10 18:21) [Alec Rabbit]: clarify message [248e8c9c-ca5d-47bb-92d2-267b25165425]
             throw new DomainException(
                 sprintf(
-                    'Running mode: [%s]. %s Or run in synchronous mode.',
-                    $synchronousMode ? 'synchronous' : 'asynchronous',
+                    'Running mode: [%s]. %s',
+                    'asynchronous',
                     $e->getMessage(),
                 ),
                 $e->getCode(),
                 $e,
             );
         }
+    }
+
+    private function getColorSupportLevel(): int
+    {
+        return
+            $this->driver->getColorSupportLevel();
     }
 }
