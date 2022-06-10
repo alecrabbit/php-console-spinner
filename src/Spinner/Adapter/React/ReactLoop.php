@@ -12,7 +12,7 @@ use React\EventLoop\LoopInterface;
 final class ReactLoop implements ILoop, ILoopProbe
 {
     // FIXME (2022-06-10 18:14) [Alec Rabbit]: Should it be singleton?
-    public function __construct(
+    protected function __construct(
         private readonly LoopInterface $loop,
     ) {
     }

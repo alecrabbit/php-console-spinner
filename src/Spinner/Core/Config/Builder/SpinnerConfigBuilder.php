@@ -18,6 +18,7 @@ use AlecRabbit\Spinner\Core\Driver;
 use AlecRabbit\Spinner\Core\Exception\DomainException;
 use AlecRabbit\Spinner\Core\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Core\Exception\LogicException;
+use AlecRabbit\Spinner\Core\Factory\Contract\ILoopFactory;
 use AlecRabbit\Spinner\Core\Factory\LoopFactory;
 use AlecRabbit\Spinner\Core\Factory\WigglerContainerFactory;
 use AlecRabbit\Spinner\Core\FrameCollection;
@@ -41,6 +42,7 @@ final class SpinnerConfigBuilder implements ISpinnerConfigBuilder
     private ?IFrameCollection $frames = null;
     private ?IInterval $interval = null;
     private ?int $colorSupportLevel = null;
+    private ?ILoopFactory $loopFactory = null;
 
     private static function refineLoop(ILoop $loop, bool $synchronous): ?ILoop
     {
@@ -112,6 +114,10 @@ final class SpinnerConfigBuilder implements ISpinnerConfigBuilder
      */
     public function build(): ISpinnerConfig
     {
+        if (null === $this->loopFactory) {
+            $this->loopFactory = new LoopFactory();
+        }
+
         if (null === $this->driver) {
             $this->driver = self::createDriver();
         }
@@ -129,7 +135,7 @@ final class SpinnerConfigBuilder implements ISpinnerConfigBuilder
         }
 
         if (null === $this->loop) {
-            $this->loop = self::getLoop($this->synchronousMode);
+            $this->loop = $this->getLoop($this->synchronousMode);
         }
 
         if (null === $this->interval) {
@@ -203,13 +209,13 @@ final class SpinnerConfigBuilder implements ISpinnerConfigBuilder
     /**
      * @throws DomainException
      */
-    private static function getLoop(bool $synchronousMode): ?ILoop
+    private function getLoop(bool $synchronousMode): ?ILoop
     {
         if ($synchronousMode) {
             return null;
         }
         try {
-            return LoopFactory::getLoop();
+            return $this->loopFactory->getLoop();
         } catch (DomainException $e) {
             // TODO (2022-06-10 18:21) [Alec Rabbit]: clarify message [248e8c9c-ca5d-47bb-92d2-267b25165425]
             throw new DomainException(
