@@ -1,11 +1,9 @@
 version: '3.7'
-volumes:
-  app:
 
 services:
-  &app-service app:
+  &service-app app:
     image: php:8.1-cli-alpine
-    hostname: *app-service
+    hostname: *service-app
     volumes:
       - ./:/app
     tty: true
