@@ -20,7 +20,26 @@ final class LoopFactory implements ILoopFactory
             return
                 ReactLoop::getLoop();
         }
-        // FIXME (2021-12-12 21:6) [Alec Rabbit]: clarify message [e7431f81-01cc-46e8-b259-de9c63eb3e7d]
-        throw new DomainException('Supported event loop object or interface is not found.');
+        throw self::getNoLoopException();
+    }
+
+    private static function getNoLoopException(): DomainException
+    {
+        // TODO (2022-06-10 18:21) [Alec Rabbit]: clarify message [248e8c9c-ca5d-47bb-92d2-267b25165425]
+        return new DomainException(
+            sprintf(
+                'Failed to retrieve event loop object. Please install: [%s].',
+                implode(', ', self::supported()),
+            )
+
+        );
+    }
+
+    public static function supported(): array
+    {
+        return
+            [
+                ReactLoop::getPackageName(),
+            ];
     }
 }

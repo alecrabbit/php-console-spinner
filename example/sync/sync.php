@@ -32,13 +32,17 @@ for ($i = 0; $i < 100; $i++) {
         $spinner->message('0123456');
     }
     if ($i === 40) {
-        $spinner->progress(0.33);
+        $spinner->progress(0.4);
     }
     if ($i === 60) {
         $spinner->message('0123');
     }
+    if ($i === 80) {
+        $spinner->progress(0.8);
+    }
     usleep(100000);
 }
 $spinner->end();
+
 
 echo PHP_EOL;

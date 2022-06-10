@@ -9,4 +9,6 @@ use AlecRabbit\Spinner\Core\Contract\ILoop;
 interface ILoopFactory
 {
     public static function getLoop(): ILoop;
+
+    public static function supported(): array;
 }

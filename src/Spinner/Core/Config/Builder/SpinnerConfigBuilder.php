@@ -42,6 +42,14 @@ final class SpinnerConfigBuilder implements ISpinnerConfigBuilder
     private ?IInterval $interval = null;
     private ?int $colorSupportLevel = null;
 
+    private static function refineLoop(ILoop $loop, bool $synchronous): ?ILoop
+    {
+        if ($synchronous) {
+            return null;
+        }
+        return $loop;
+    }
+
     public function withExitMessage(string $exitMessage): self
     {
         $clone = clone $this;
@@ -121,7 +129,7 @@ final class SpinnerConfigBuilder implements ISpinnerConfigBuilder
         }
 
         if (null === $this->loop) {
-            $this->loop = self::getLoop();
+            $this->loop = self::getLoop($this->synchronousMode);
         }
 
         if (null === $this->interval) {
@@ -132,7 +140,7 @@ final class SpinnerConfigBuilder implements ISpinnerConfigBuilder
             $this->colorSupportLevel = $this->driver->getColorSupportLevel();
         }
 
-        $this->loop = self::refineLoop($this->loop, $this->synchronousMode);
+//        $this->loop = self::refineLoop($this->loop, $this->synchronousMode);
 
         if (null === $this->shutdownDelaySeconds && !$this->synchronousMode) {
             $this->shutdownDelaySeconds = self::SHUTDOWN_DELAY;
@@ -195,16 +203,24 @@ final class SpinnerConfigBuilder implements ISpinnerConfigBuilder
     /**
      * @throws DomainException
      */
-    private static function getLoop(): ILoop
+    private static function getLoop(bool $synchronousMode): ?ILoop
     {
-        return LoopFactory::getLoop();
-    }
-
-    private static function refineLoop(ILoop $loop, bool $synchronous): ?ILoop
-    {
-        if ($synchronous) {
+        if ($synchronousMode) {
             return null;
         }
-        return $loop;
+        try {
+            return LoopFactory::getLoop();
+        } catch (DomainException $e) {
+            // TODO (2022-06-10 18:21) [Alec Rabbit]: clarify message [248e8c9c-ca5d-47bb-92d2-267b25165425]
+            throw new DomainException(
+                sprintf(
+                    'Running mode: [%s]. %s Or run in synchronous mode.',
+                    $synchronousMode ? 'synchronous' : 'asynchronous',
+                    $e->getMessage(),
+                ),
+                $e->getCode(),
+                $e,
+            );
+        }
     }
 }

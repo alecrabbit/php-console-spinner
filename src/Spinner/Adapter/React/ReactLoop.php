@@ -11,6 +11,7 @@ use React\EventLoop\LoopInterface;
 
 final class ReactLoop implements ILoop, ILoopProbe
 {
+    // FIXME (2022-06-10 18:14) [Alec Rabbit]: Should it be singleton?
     public function __construct(
         private readonly LoopInterface $loop,
     ) {
@@ -24,6 +25,11 @@ final class ReactLoop implements ILoop, ILoopProbe
     public static function getLoop(): ILoop
     {
         return new self(Loop::get());
+    }
+
+    public static function getPackageName(): string
+    {
+        return 'react/event-loop';
     }
 
     public function addPeriodicTimer(int|float $interval, callable $callback): void

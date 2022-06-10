@@ -45,6 +45,9 @@ final class WigglerContainer implements Contract\IWigglerContainer
         return new ArrayIterator($this->wigglers);
     }
 
+    /**
+     * @throws RuntimeException
+     */
     public function getWigglerIndex(string|IWiggler $class): int
     {
         if ($class instanceof IWiggler) {
