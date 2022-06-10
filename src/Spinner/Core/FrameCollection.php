@@ -6,14 +6,14 @@ namespace AlecRabbit\Spinner\Core;
 
 use AlecRabbit\Spinner\Core\Contract\Base\Defaults;
 use AlecRabbit\Spinner\Core\Contract\IFrame;
-use AlecRabbit\Spinner\Core\Contract\IFrameContainer;
+use AlecRabbit\Spinner\Core\Contract\IFrameCollection;
 use AlecRabbit\Spinner\Core\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Core\Rotor\Contract\IInterval;
 use AlecRabbit\Spinner\Core\Rotor\Interval;
 use ArrayIterator;
 use Traversable;
 
-final class FrameContainer implements IFrameContainer
+final class FrameCollection implements IFrameCollection
 {
     /** @var array<int, IFrame> */
     private array $frames = [];

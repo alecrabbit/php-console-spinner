@@ -6,7 +6,7 @@ namespace AlecRabbit\Spinner\Core\Contract;
 use AlecRabbit\Spinner\Core\Rotor\Contract\IInterval;
 use IteratorAggregate;
 
-interface IFrameContainer extends IteratorAggregate
+interface IFrameCollection extends IteratorAggregate
 {
     public static function create(iterable|string $frames, ?int $elementWidth = null, ?int $interval = null): self;
 

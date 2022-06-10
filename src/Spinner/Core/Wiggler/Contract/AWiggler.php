@@ -9,18 +9,18 @@ use AlecRabbit\Spinner\Core\Frame;
 use AlecRabbit\Spinner\Core\Rotor\Contract\IInterval;
 use AlecRabbit\Spinner\Core\Rotor\Contract\IRotor;
 use AlecRabbit\Spinner\Core\Rotor\Contract\IStringRotor;
-use AlecRabbit\Spinner\Core\Rotor\Contract\IStyleRotor;
+use AlecRabbit\Spinner\Core\Rotor\Contract\IWIPStyleRotor;
 
 abstract class AWiggler implements IWiggler
 {
     protected function __construct(
-        protected readonly IStyleRotor $style,
+        protected readonly IWIPStyleRotor $style,
         protected readonly IRotor $rotor,
     ) {
     }
 
     public static function create(
-        IStyleRotor $styleRotor,
+        IWIPStyleRotor $styleRotor,
         IRotor $charRotor,
     ): IWiggler {
         return new static($styleRotor, $charRotor);

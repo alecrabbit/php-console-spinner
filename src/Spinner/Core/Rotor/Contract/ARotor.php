@@ -18,6 +18,7 @@ abstract class ARotor implements IRotor
      */
     public function __construct(
         ?array $data = null,
+        protected ?IInterval $interval = null,
     ) {
         $this->data = static::refineData($data);
         $this->dataLength = count($this->data);

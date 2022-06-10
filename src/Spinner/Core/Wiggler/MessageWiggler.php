@@ -9,7 +9,7 @@ use AlecRabbit\Spinner\Core\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Core\Exception\RuntimeException;
 use AlecRabbit\Spinner\Core\Rotor\Contract\IRotor;
 use AlecRabbit\Spinner\Core\Rotor\Contract\IStringRotor;
-use AlecRabbit\Spinner\Core\Rotor\Contract\IStyleRotor;
+use AlecRabbit\Spinner\Core\Rotor\Contract\IWIPStyleRotor;
 use AlecRabbit\Spinner\Core\Rotor\NoCharsRotor;
 use AlecRabbit\Spinner\Core\Rotor\VariadicStringRotor;
 use AlecRabbit\Spinner\Core\Wiggler\Contract\AWiggler;
@@ -48,7 +48,7 @@ final class MessageWiggler extends AWiggler implements IMessageWiggler
      * @throws InvalidArgumentException
      */
     public static function create(
-        IStyleRotor $styleRotor,
+        IWIPStyleRotor $styleRotor,
         IRotor $charRotor = null,
         string $message = C::DEFAULT_MESSAGE,
     ): self {

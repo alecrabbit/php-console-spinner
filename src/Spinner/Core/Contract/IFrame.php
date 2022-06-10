@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Contract;
 
-interface IFrame
-{
+use Stringable;
 
+interface IFrame extends Stringable
+{
+    public static function create(mixed $f, ?int $elementWidth): IFrame;
 }

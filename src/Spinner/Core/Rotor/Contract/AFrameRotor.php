@@ -6,7 +6,7 @@ namespace AlecRabbit\Spinner\Core\Rotor\Contract;
 
 use AlecRabbit\Spinner\Core\Contract\Base\C;
 use AlecRabbit\Spinner\Core\Contract\IFrame;
-use AlecRabbit\Spinner\Core\Contract\IFrameContainer;
+use AlecRabbit\Spinner\Core\Contract\IFrameCollection;
 use AlecRabbit\Spinner\Core\WidthDefiner;
 
 abstract class AFrameRotor extends ARotor implements IFrameRotor
@@ -15,11 +15,11 @@ abstract class AFrameRotor extends ARotor implements IFrameRotor
     private int $trailingSpacerWidth;
 
     public function __construct(
-        protected readonly IFrameContainer $frames,
+        IFrameCollection $frames,
         protected readonly string $leadingSpacer = C::EMPTY_STRING,
         protected readonly string $trailingSpacer = C::EMPTY_STRING,
     ) {
-        parent::__construct($frames->toArray());
+        parent::__construct($frames->toArray(), $frames->getInterval());
         $this->leadingSpacerWidth = WidthDefiner::define($this->leadingSpacer);
         $this->trailingSpacerWidth = WidthDefiner::define($this->trailingSpacer);
     }

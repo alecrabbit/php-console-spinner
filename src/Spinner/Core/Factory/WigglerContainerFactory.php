@@ -4,7 +4,7 @@ declare(strict_types=1);
 // 09.06.22
 namespace AlecRabbit\Spinner\Core\Factory;
 
-use AlecRabbit\Spinner\Core\Contract\IFrameContainer;
+use AlecRabbit\Spinner\Core\Contract\IFrameCollection;
 use AlecRabbit\Spinner\Core\Contract\IWigglerContainer;
 use AlecRabbit\Spinner\Core\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Core\Factory\Contract\IWigglerContainerFactory;
@@ -24,7 +24,7 @@ final class WigglerContainerFactory implements IWigglerContainerFactory
     /**
      * @throws InvalidArgumentException
      */
-    public static function create(IFrameContainer $frames): IWigglerContainer
+    public static function create(IFrameCollection $frames): IWigglerContainer
     {
         return
             new WigglerContainer(
@@ -63,7 +63,7 @@ final class WigglerContainerFactory implements IWigglerContainerFactory
     /**
      * @throws InvalidArgumentException
      */
-    private static function createRevolveWiggler(IFrameContainer $frames): IWiggler
+    private static function createRevolveWiggler(IFrameCollection $frames): IWiggler
     {
         return
             RevolveWiggler::create(

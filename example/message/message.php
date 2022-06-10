@@ -5,7 +5,7 @@ declare(strict_types=1);
 use AlecRabbit\Spinner\Core\Config\Builder\SpinnerConfigBuilder;
 use AlecRabbit\Spinner\Core\Contract\Base\Sample;
 use AlecRabbit\Spinner\Core\Factory\SpinnerFactory;
-use AlecRabbit\Spinner\Core\FrameContainer;
+use AlecRabbit\Spinner\Core\FrameCollection;
 use AlecRabbit\Spinner\Core\Rotor\Interval;
 
 require_once __DIR__ . '/../bootstrap.php';
@@ -34,7 +34,7 @@ $server->listen($socket);
 //
 //$spinner = SpinnerFactory::get($config);
 
-$spinner = SpinnerFactory::get(FrameContainer::create(...Sample::CIRCLES));
+$spinner = SpinnerFactory::get(FrameCollection::create(...Sample::CIRCLES));
 
 React\EventLoop\Loop::addPeriodicTimer(
     7,

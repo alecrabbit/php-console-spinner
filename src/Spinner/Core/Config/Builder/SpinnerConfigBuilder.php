@@ -9,7 +9,7 @@ use AlecRabbit\Spinner\Core\Config\Contract\ISpinnerConfig;
 use AlecRabbit\Spinner\Core\Config\SpinnerConfig;
 use AlecRabbit\Spinner\Core\Contract\Base\Defaults;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
-use AlecRabbit\Spinner\Core\Contract\IFrameContainer;
+use AlecRabbit\Spinner\Core\Contract\IFrameCollection;
 use AlecRabbit\Spinner\Core\Contract\ILoop;
 use AlecRabbit\Spinner\Core\Contract\IRenderer;
 use AlecRabbit\Spinner\Core\Contract\IWigglerContainer;
@@ -20,7 +20,7 @@ use AlecRabbit\Spinner\Core\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Core\Exception\LogicException;
 use AlecRabbit\Spinner\Core\Factory\LoopFactory;
 use AlecRabbit\Spinner\Core\Factory\WigglerContainerFactory;
-use AlecRabbit\Spinner\Core\FrameContainer;
+use AlecRabbit\Spinner\Core\FrameCollection;
 use AlecRabbit\Spinner\Core\Output\StdErrOutput;
 use AlecRabbit\Spinner\Core\Renderer;
 use AlecRabbit\Spinner\Core\Rotor\Contract\IInterval;
@@ -38,7 +38,7 @@ final class SpinnerConfigBuilder implements ISpinnerConfigBuilder
     private ?bool $synchronousMode = null;
     private ?float $shutdownDelaySeconds = null;
     private ?string $exitMessage = null;
-    private ?IFrameContainer $frames = null;
+    private ?IFrameCollection $frames = null;
     private ?IInterval $interval = null;
 
     public function withExitMessage(string $exitMessage): self
@@ -83,7 +83,7 @@ final class SpinnerConfigBuilder implements ISpinnerConfigBuilder
         return $clone;
     }
 
-    public function withFrames(IFrameContainer $frames): self
+    public function withFrames(IFrameCollection $frames): self
     {
         $clone = clone $this;
         $clone->frames = $frames;
@@ -165,15 +165,15 @@ final class SpinnerConfigBuilder implements ISpinnerConfigBuilder
     /**
      * @throws InvalidArgumentException
      */
-    private static function defaultFrames(): IFrameContainer
+    private static function defaultFrames(): IFrameCollection
     {
-        return FrameContainer::create(...self::DEFAULT_FRAME_SEQUENCE);
+        return FrameCollection::create(...self::DEFAULT_FRAME_SEQUENCE);
     }
 
     /**
      * @throws InvalidArgumentException
      */
-    private static function createWigglerContainer(IFrameContainer $frames): IWigglerContainer
+    private static function createWigglerContainer(IFrameCollection $frames): IWigglerContainer
     {
         return
             WigglerContainerFactory::create($frames);
