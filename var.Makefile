@@ -14,8 +14,8 @@ _FILES = \
 
 # ------------------------------------------------------------------------------
 
-CONTAINER_NAME=app
-DUMPER_CONTAINER=${CONTAINER_NAME}
+APP_CONTAINER=app
+DUMPER_CONTAINER=${APP_CONTAINER}
 APP_DIR=.
 PROJECT_NAME=php-console-spinner
-
+APP_PROJECT_NAME=${PROJECT_NAME}
