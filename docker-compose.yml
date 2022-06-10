@@ -1,3 +1,5 @@
+x-bash-rc: &bash-rc ./docker/.cli/.bashrc:/root/.bashrc
+
 version: '3.7'
 volumes:
   app:
@@ -7,6 +9,7 @@ services:
     image: dralec/php81-cli-dev
     hostname: *app-service
     volumes:
+      - *bash-rc
       - ./:/app
     tty: true
     env_file:
