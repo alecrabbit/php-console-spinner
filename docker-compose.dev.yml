@@ -1,0 +1,9 @@
+x-bash-rc: &bash-rc ./docker/.cli/.bashrc:/root/.bashrc
+
+services:
+  app:
+    image: dralec/php81-cli-dev
+    volumes:
+      - *bash-rc
+    environment:
+      VAR_DUMPER_SERVER: 'app:9912'

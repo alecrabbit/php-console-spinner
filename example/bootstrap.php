@@ -15,7 +15,7 @@ use Symfony\Component\VarDumper\VarDumper;
 //$cloner = new VarCloner();
 //$fallbackDumper = \in_array(\PHP_SAPI, ['cli', 'phpdbg']) ? new CliDumper() : new HtmlDumper();
 //
-//$dumper = new ServerDumper(getAddress(getenv('COMMON_VAR_DUMPER_SERVER')), $fallbackDumper, [
+//$dumper = new ServerDumper(getAddress(getenv('VAR_DUMPER_SERVER')), $fallbackDumper, [
 //    'cli' => new CliContextProvider(),
 //    'source' => new SourceContextProvider(),
 //]);
