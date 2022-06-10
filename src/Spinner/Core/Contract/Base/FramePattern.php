@@ -4,15 +4,43 @@ declare(strict_types=1);
 // 09.06.22
 namespace AlecRabbit\Spinner\Core\Contract\Base;
 
-final class Sample
+final class FramePattern // Tentative name
 {
-    public const MOON = ['🌘🌗🌖🌕🌔🌓🌒🌑', 2, 150];
-    public const MOON_REVERSED = ['🌑🌒🌓🌔🌕🌖🌗🌘', 2, 150];
-    public const EARTH = ['🌍🌎🌏', 2, 300];
-    public const DIAMOND = ['♦', 1];
-    public const SIMPLE = [['/', '|', '\\', '─',], 1, 250];
+    public const MOON =
+        [
+            'frames' => '🌘🌗🌖🌕🌔🌓🌒🌑',
+            'elementWidth' => 2,
+            'interval' => 150
+        ];
 
-    public const CIRCLES = [['◐', '◓', '◑', '◒',],1,250];
+    public const MOON_REVERSED =
+        [
+            'frames' => '🌑🌒🌓🌔🌕🌖🌗🌘',
+            'elementWidth' => 2,
+            'interval' => 150
+        ];
+
+    public const EARTH =
+        [
+            'frames' => '🌍🌎🌏',
+            'elementWidth' => 2,
+            'interval' => 300
+        ];
+
+    public const DIAMOND =
+        [
+            'frames' => '♦',
+            'elementWidth' => 1,
+        ];
+
+    public const SIMPLE =
+        [
+            'frames' => ['/', '|', '\\', '─',],
+            'elementWidth' => 1,
+            'interval' => 250
+        ];
+
+    public const CIRCLES = [['◐', '◓', '◑', '◒',], 1, 250];
     public const RUNNER = [['🚶 ', '🏃 '], 3];
     public const MONKEY = [['🐵 ', '🙈 ', '🙉 ', '🙊 '], 3];
 

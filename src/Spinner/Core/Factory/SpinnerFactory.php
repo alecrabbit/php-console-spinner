@@ -24,7 +24,7 @@ final class SpinnerFactory implements ISpinnerFactory
      * @throws InvalidArgumentException
      * @throws LogicException
      */
-    public static function get(IFrameCollection|iterable|string|ISpinnerConfig|null $framesOrConfig = null): ISpinner
+    public static function get(null|IFrameCollection|ISpinnerConfig $framesOrConfig = null): ISpinner
     {
         if (self::hasSpinnerInstance()) {
             return self::$spinner;

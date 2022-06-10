@@ -21,11 +21,11 @@ interface ISpinnerConfig
 
     public function getExitMessage(): string;
 
-    public function getSpinnerClass(): string;
-
     public function getInterval(): IInterval;
 
     public function getDriver(): IDriver;
 
     public function getWigglers(): IWigglerContainer;
+
+    public function getColorSupportLevel(): int;
 }

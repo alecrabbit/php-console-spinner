@@ -69,7 +69,7 @@ final class WigglerContainerFactory implements IWigglerContainerFactory
             RevolveWiggler::create(
                 new RainbowStyleRotor(),
                 new FrameRotor(
-                    frames: $frames,
+                    styles: $frames,
                 ),
             );
     }

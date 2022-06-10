@@ -12,13 +12,10 @@ use AlecRabbit\Spinner\Core\Contract\IWigglerContainer;
 use AlecRabbit\Spinner\Core\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Core\Exception\LogicException;
 use AlecRabbit\Spinner\Core\Rotor\Contract\IInterval;
-use AlecRabbit\Spinner\Core\Rotor\Interval;
-use AlecRabbit\Spinner\Spinner;
 
 final class SpinnerConfig implements ISpinnerConfig
 {
     private const MAX_SHUTDOWN_DELAY = Defaults::MAX_SHUTDOWN_DELAY;
-    private const INTERVAL = Defaults::SPINNER_FRAME_INTERVAL;
 
     /**
      * @throws LogicException|InvalidArgumentException
@@ -31,7 +28,7 @@ final class SpinnerConfig implements ISpinnerConfig
         private readonly bool $synchronous,
         private readonly ?ILoop $loop,
         private readonly IInterval $interval,
-        private readonly string $spinnerClass = Spinner::class,
+        private readonly int $colorSupportLevel = 0,
     ) {
         $this->assertConfigIsCorrect();
     }
@@ -43,6 +40,7 @@ final class SpinnerConfig implements ISpinnerConfig
     {
         $this->assertShutdownDelay();
         $this->assertRunMode();
+        $this->assertColorSupportLevel();
     }
 
     /**
@@ -59,7 +57,7 @@ final class SpinnerConfig implements ISpinnerConfig
         if (self::MAX_SHUTDOWN_DELAY < $this->shutdownDelay) {
             throw new InvalidArgumentException(
                 sprintf(
-                    'Shutdown delay [%s] can not be greater than %s.',
+                    'Shutdown delay [%s] can not be greater than [%s].',
                     $this->shutdownDelay,
                     self::MAX_SHUTDOWN_DELAY
                 )
@@ -94,6 +92,19 @@ final class SpinnerConfig implements ISpinnerConfig
         return $this->synchronous;
     }
 
+    private function assertColorSupportLevel(): void
+    {
+        if(!in_array($this->colorSupportLevel, Defaults::COLOR_SUPPORT_LEVELS, true)) {
+            throw new InvalidArgumentException(
+                sprintf(
+                    'Color support level [%s] is not supported. Supported levels are: [%s].',
+                    $this->colorSupportLevel,
+                    implode(', ', Defaults::COLOR_SUPPORT_LEVELS)
+                )
+            );
+        }
+    }
+
     public function getExitMessage(): string
     {
         return $this->exitMessage;
@@ -115,11 +126,6 @@ final class SpinnerConfig implements ISpinnerConfig
         return $this->shutdownDelay;
     }
 
-    public function getSpinnerClass(): string
-    {
-        return $this->spinnerClass;
-    }
-
     public function getInterval(): IInterval
     {
         return $this->interval;
@@ -133,5 +139,10 @@ final class SpinnerConfig implements ISpinnerConfig
     public function getWigglers(): IWigglerContainer
     {
         return $this->wigglers;
+    }
+
+    public function getColorSupportLevel(): int
+    {
+        return $this->colorSupportLevel;
     }
 }
