@@ -37,4 +37,6 @@ interface ISpinner
     public function message(IMessageWiggler|string|null $message): void;
 
     public function progress(IProgressWiggler|float|null $progress): void;
+
+    public function wrap(callable $callback, ...$args): void;
 }

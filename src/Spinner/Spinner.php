@@ -132,4 +132,11 @@ final class Spinner implements ISpinner
         }
         $this->updateWiggler(IProgressWiggler::class, $progress);
     }
+
+    public function wrap(callable $callback, ...$args): void
+    {
+        $this->erase();
+        $callback(...$args);
+        $this->spin();
+    }
 }

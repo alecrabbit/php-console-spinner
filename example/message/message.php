@@ -2,67 +2,35 @@
 
 declare(strict_types=1);
 
-use AlecRabbit\Spinner\Core\Config\Builder\SpinnerConfigBuilder;
-use AlecRabbit\Spinner\Core\Contract\Base\FramePattern;
 use AlecRabbit\Spinner\Core\Factory\SpinnerFactory;
-use AlecRabbit\Spinner\Core\FrameCollection;
-use AlecRabbit\Spinner\Core\Rotor\Interval;
 
 require_once __DIR__ . '/../bootstrap.php';
 
-$server = new React\Http\HttpServer(
-    static function (Psr\Http\Message\ServerRequestInterface $request) {
-        return new React\Http\Message\Response(
-            200,
-            array(
-                'Content-Type' => 'text/plain'
-            ),
-            "Hello World!\n"
-        );
-    }
-);
+$spinner = SpinnerFactory::get();
 
-$uri = '0.0.0.0:8080';
-$socket = new React\Socket\SocketServer($uri);
-$server->listen($socket);
-
-//$config =
-//    (new SpinnerConfigBuilder())
-//        ->withInterval(new Interval(0.5))
-//        ->build()
-//;
-//
-//$spinner = SpinnerFactory::get($config);
-
-$spinner = SpinnerFactory::get(FrameCollection::create(...FramePattern::MOON));
+$echoMessageToStdOut =
+    static function (string $message) {
+        echo $message;
+    };
 
 React\EventLoop\Loop::addPeriodicTimer(
     7,
-    static function () use ($spinner) {
-        $date = (new DateTimeImmutable())->format(DATE_ATOM);
-        $spinner->erase();
-        $memory = sprintf(
-            'Real Usage: %sK',
-            number_format(
-                memory_get_usage(true) / 1024,
-            )
-        );
-        echo sprintf(
-            '%s %s %s ',
-            $date,
-            $memory,
-            '(Message to stdout)',
-        );
-        $spinner->spin();
+    static function () use ($spinner, $echoMessageToStdOut) {
+        $message =
+            sprintf(
+                '%s %s %s ',
+                (new DateTimeImmutable())->format(DATE_ATOM),
+                sprintf('Real Usage: %sK', number_format(memory_get_usage(true) / 1024,)),
+                '(Message to stdout)',
+            );
+        $spinner->wrap($echoMessageToStdOut, $message);
     }
 );
 
 React\EventLoop\Loop::addPeriodicTimer(
     8,
-    static function () use ($spinner) {
-        $spinner->erase();
-        echo PHP_EOL;
-        $spinner->spin();
+    static function () use ($spinner, $echoMessageToStdOut) {
+        $spinner->wrap($echoMessageToStdOut, PHP_EOL);
     }
 );
 
@@ -77,7 +45,7 @@ React\EventLoop\Loop::addPeriodicTimer(
 
         $spinner->message(
             sprintf(
-                'Memory: %sM',
+                'Used space: %sM',
                 number_format(
                     $rnd / 1024
                 )
@@ -98,4 +66,4 @@ React\EventLoop\Loop::addPeriodicTimer(
     }
 );
 
-echo sprintf('Server running at http://%s', $uri) . PHP_EOL;
+echo 'It spins...' . PHP_EOL;

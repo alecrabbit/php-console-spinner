@@ -7,10 +7,6 @@ use AlecRabbit\Spinner\Core\StyleCollection;
 
 require_once __DIR__ . '/../bootstrap.php';
 
-$sc = StyleCollection::create(...StylePattern::rainbow())    ;
-
-dump($sc);
-
 $spinner = SpinnerFactory::create();
 
 echo sprintf('Spinner starts now...',) . PHP_EOL;

@@ -41,7 +41,7 @@ final class SpinnerConfigBuilder implements ISpinnerConfigBuilder
     private ?IInterval $interval = null;
     private ?int $colorSupportLevel = null;
     private ?ILoopFactory $loopFactory = null;
-    private ?WigglerContainerFactory $wigglerContainerFactory;
+    private ?WigglerContainerFactory $wigglerContainerFactory = null;
 
     public function withWigglerContainerFactory(WigglerContainerFactory $wigglerContainerFactory): self
     {
@@ -49,7 +49,7 @@ final class SpinnerConfigBuilder implements ISpinnerConfigBuilder
         $clone->wigglerContainerFactory = $wigglerContainerFactory;
         return $clone;
     }
-    
+
     public function withExitMessage(string $exitMessage): self
     {
         $clone = clone $this;
