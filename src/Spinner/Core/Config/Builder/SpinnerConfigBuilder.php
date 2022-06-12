@@ -51,10 +51,10 @@ final class SpinnerConfigBuilder implements ISpinnerConfigBuilder
         return $clone;
     }
 
-    public function withShutdownDelayMicroseconds(int $shutdownDelay): self
+    public function withShutdownDelay(int $microseconds): self
     {
         $clone = clone $this;
-        $clone->shutdownDelaySeconds = round($shutdownDelay / 1000, 3);
+        $clone->shutdownDelaySeconds = round($microseconds / 1000, 3);
         return $clone;
     }
 

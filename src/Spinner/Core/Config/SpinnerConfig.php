@@ -12,7 +12,6 @@ use AlecRabbit\Spinner\Core\Contract\IWigglerContainer;
 use AlecRabbit\Spinner\Core\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Core\Exception\LogicException;
 use AlecRabbit\Spinner\Core\Rotor\Contract\IInterval;
-use Throwable;
 
 final class SpinnerConfig implements ISpinnerConfig
 {
@@ -41,6 +40,7 @@ final class SpinnerConfig implements ISpinnerConfig
     {
         $this->assertShutdownDelay();
         $this->assertRunMode();
+        $this->assertExitMessage();
         $this->assertColorSupportLevel();
     }
 
@@ -49,12 +49,15 @@ final class SpinnerConfig implements ISpinnerConfig
      */
     private function assertShutdownDelay(): void
     {
+        if (null === $this->shutdownDelay) {
+            return;
+        }
         if (0 > $this->shutdownDelay) {
             throw new  InvalidArgumentException('Shutdown delay can not be negative.');
         }
-        if (0 === $this->shutdownDelay || 0.0 === $this->shutdownDelay) {
-            throw new  InvalidArgumentException('Shutdown delay can not be equal to 0.');
-        }
+//        if (0 === $this->shutdownDelay || 0.0 === $this->shutdownDelay) {
+//            throw new  InvalidArgumentException('Shutdown delay can not be equal to 0.');
+//        }
         if (self::MAX_SHUTDOWN_DELAY < $this->shutdownDelay) {
             throw new InvalidArgumentException(
                 sprintf(
@@ -93,9 +96,14 @@ final class SpinnerConfig implements ISpinnerConfig
         return $this->synchronous;
     }
 
+    private function assertExitMessage(): void
+    {
+        // TODO (2022-06-12 19:22) [Alec Rabbit]: Add exit message validation.
+    }
+
     private function assertColorSupportLevel(): void
     {
-        if(!in_array($this->colorSupportLevel, Defaults::COLOR_SUPPORT_LEVELS, true)) {
+        if (!in_array($this->colorSupportLevel, Defaults::COLOR_SUPPORT_LEVELS, true)) {
             throw new InvalidArgumentException(
                 sprintf(
                     'Color support level [%s] is not supported. Supported levels are: [%s].',
@@ -115,6 +123,11 @@ final class SpinnerConfig implements ISpinnerConfig
             return $this->exitMessage;
         }
         throw self::synchronousModeException('exit message');
+    }
+
+    private static function synchronousModeException(string $reason): LogicException
+    {
+        return new LogicException(sprintf('Configured for synchronous run mode. No %s is available.', $reason));
     }
 
     /**
@@ -157,10 +170,5 @@ final class SpinnerConfig implements ISpinnerConfig
     public function getColorSupportLevel(): int
     {
         return $this->colorSupportLevel;
-    }
-
-    private static function synchronousModeException(string $reason): LogicException
-    {
-        return new LogicException(sprintf('Configured for synchronous run mode. No %s is available.', $reason));
     }
 }

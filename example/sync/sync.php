@@ -12,14 +12,10 @@ require_once __DIR__ . '/../bootstrap.php';
 $config =
     (new SpinnerConfigBuilder())
         ->inSynchronousMode()
-        ->withColorSupportLevel(TERM_NOCOLOR)
         ->build()
 ;
 
 $spinner = SpinnerFactory::create($config);
-
-//dump($config, $spinner);
-dump($config);
 
 $spinner->begin();
 

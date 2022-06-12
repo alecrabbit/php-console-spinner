@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core;
 
-use AlecRabbit\Spinner\Core\Contract\Base\Defaults;
 use AlecRabbit\Spinner\Core\Contract\IFrame;
 use AlecRabbit\Spinner\Core\Contract\IFrameCollection;
 use AlecRabbit\Spinner\Core\Exception\InvalidArgumentException;
@@ -18,12 +17,10 @@ final class FrameCollection implements IFrameCollection
     /** @var array<int, IFrame> */
     private array $frames = [];
     private int $count = 0;
-    private IInterval $interval;
 
-    protected function __construct(?int $interval = null)
-    {
-        $seconds = ($interval ?? Defaults::MILLISECONDS_INTERVAL) / 1000;
-        $this->interval = new Interval($seconds);
+    protected function __construct(
+        private readonly IInterval $interval
+    ) {
     }
 
     /**
@@ -35,7 +32,7 @@ final class FrameCollection implements IFrameCollection
             $frames = StrSplitter::split($frames);
         }
 
-        $f = new self($interval);
+        $f = new self(new Interval($interval));
         foreach ($frames as $element) {
             if ($element instanceof IFrame) {
                 $f->add($element);

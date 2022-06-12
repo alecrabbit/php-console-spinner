@@ -15,17 +15,15 @@ final class StyleCollection implements Contract\IStyleCollection
 {
     /** @var array<int, IStyle> */
     private array $styles = [];
-    private IInterval $interval;
 
-    protected function __construct(?int $interval = null)
-    {
-        $seconds = ($interval ?? Defaults::MILLISECONDS_INTERVAL) / 1000;
-        $this->interval = new Interval($seconds);
+    protected function __construct(
+        private readonly IInterval $interval
+    ) {
     }
 
     public static function create(iterable $styles, ?int $interval = null): Contract\IStyleCollection
     {
-        $f = new self($interval);
+        $f = new self(new Interval($interval));
         foreach ($styles as $level => $element) {
             $f->add($level, $element);
         }
