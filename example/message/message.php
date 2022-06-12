@@ -9,8 +9,8 @@ require_once __DIR__ . '/../bootstrap.php';
 $spinner = SpinnerFactory::get();
 
 $echoMessageToStdOut =
-    static function (string $message) {
-        echo $message;
+    static function (?string $message = null) {
+        echo $message ?? '';
     };
 
 React\EventLoop\Loop::addPeriodicTimer(
