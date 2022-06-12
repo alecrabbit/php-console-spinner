@@ -11,9 +11,7 @@ use AlecRabbit\Spinner\Core\Contract\Base\Defaults;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\IFrameCollection;
 use AlecRabbit\Spinner\Core\Contract\ILoop;
-use AlecRabbit\Spinner\Core\Contract\IRenderer;
 use AlecRabbit\Spinner\Core\Contract\IWigglerContainer;
-use AlecRabbit\Spinner\Core\Contract\IWriter;
 use AlecRabbit\Spinner\Core\Driver;
 use AlecRabbit\Spinner\Core\Exception\DomainException;
 use AlecRabbit\Spinner\Core\Exception\InvalidArgumentException;
@@ -43,7 +41,15 @@ final class SpinnerConfigBuilder implements ISpinnerConfigBuilder
     private ?IInterval $interval = null;
     private ?int $colorSupportLevel = null;
     private ?ILoopFactory $loopFactory = null;
+    private ?WigglerContainerFactory $wigglerContainerFactory;
 
+    public function withWigglerContainerFactory(WigglerContainerFactory $wigglerContainerFactory): self
+    {
+        $clone = clone $this;
+        $clone->wigglerContainerFactory = $wigglerContainerFactory;
+        return $clone;
+    }
+    
     public function withExitMessage(string $exitMessage): self
     {
         $clone = clone $this;
@@ -138,6 +144,10 @@ final class SpinnerConfigBuilder implements ISpinnerConfigBuilder
             $this->loopFactory = new LoopFactory();
         }
 
+        if (null === $this->wigglerContainerFactory) {
+            $this->wigglerContainerFactory = new WigglerContainerFactory();
+        }
+
         if (null === $this->driver) {
             $this->driver = self::createDriver();
         }
@@ -179,20 +189,11 @@ final class SpinnerConfigBuilder implements ISpinnerConfigBuilder
     {
         return
             new Driver(
-                self::createWriter(),
-                self::createRenderer(),
+                new Writer(
+                    new StdErrOutput()
+                ),
+                new Renderer(),
             );
-    }
-
-    private static function createWriter(): IWriter
-    {
-        return new Writer(new StdErrOutput());
-    }
-
-    private static function createRenderer(): IRenderer
-    {
-        return
-            new Renderer();
     }
 
     /**

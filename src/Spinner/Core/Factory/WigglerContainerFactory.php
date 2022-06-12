@@ -21,6 +21,11 @@ use AlecRabbit\Spinner\Core\WigglerContainer;
 
 final class WigglerContainerFactory implements IWigglerContainerFactory
 {
+    public function __construct()
+    {
+    }
+
+
     /**
      * @throws InvalidArgumentException
      */
@@ -33,32 +38,6 @@ final class WigglerContainerFactory implements IWigglerContainerFactory
                 self::createProgressWiggler(),
             );
     }
-//    /**
-//     * @throws InvalidArgumentException
-//     */
-//    public static function create(array $frames): IWigglerContainer
-//    {
-//        return
-//            new WigglerContainer(
-//                self::createRevolveWiggler($frames),
-//                self::createProgressWiggler(),
-//                self::createRevolveWiggler(['🕐', '🕑', '🕒', '🕓', '🕔', '🕕', '🕖', '🕗', '🕘', '🕙', '🕚', '🕛',],
-//                    2,
-//                    ' '),
-//                self::createMessageWiggler(),
-//                self::createRevolveWiggler(['🌘', '🌗', '🌖', '🌕', '🌔', '🌓', '🌒', '🌑',], 2, ' '),
-//            );
-//    }
-
-//    private static function convertFrames(IFrameContainer $frames): array
-//    {
-//        $a = [];
-//        /** @var Frame $frame */
-//        foreach ($frames->getIterator() as $frame) {
-//            $a[] = $frame->sequence;
-//        }
-//        return $a;
-//    }
 
     /**
      * @throws InvalidArgumentException
