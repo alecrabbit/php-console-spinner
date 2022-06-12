@@ -4,7 +4,10 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core;
 
+use AlecRabbit\Spinner\Core\Contract\IFrame;
+use AlecRabbit\Spinner\Core\Contract\IWigglerContainer;
 use AlecRabbit\Spinner\Core\Exception\RuntimeException;
+use AlecRabbit\Spinner\Core\Rotor\Contract\IInterval;
 use AlecRabbit\Spinner\Core\Wiggler\Contract\IWiggler;
 use ArrayIterator;
 use Traversable;
@@ -15,19 +18,18 @@ final class WigglerContainer implements Contract\IWigglerContainer
     /**
      * @var IWiggler[]
      */
-    private array $wigglers;
+    private array $wigglers = [];
     /**
      * @var int[]
      */
-    private iterable $wigglersIndexes;
-    private int $currentIndex;
+    private iterable $indexes;
+    private int $currentIndex = 0;
 
     public function __construct(
+        private readonly ?IInterval $interval,
         IWiggler ...$wigglers,
     ) {
-        $this->wigglers = [];
-        $this->wigglersIndexes = new WeakMap();
-        $this->currentIndex = 0;
+        $this->indexes = new WeakMap();
         foreach ($wigglers as $wiggler) {
             $this->addWiggler($wiggler);
         }
@@ -36,8 +38,26 @@ final class WigglerContainer implements Contract\IWigglerContainer
     public function addWiggler(IWiggler $wiggler): void
     {
         $this->wigglers[$this->currentIndex] = $wiggler;
-        $this->wigglersIndexes[$wiggler] = $this->currentIndex;
+        $this->indexes[$wiggler] = $this->currentIndex;
         $this->currentIndex++;
+    }
+
+    public function render(): IFrame
+    {
+        $sequence = '';
+        $width = 0;
+
+        foreach ($this->wigglers as $wiggler) {
+            $frame = $wiggler->createFrame($this->interval);
+            $sequence .= $frame->sequence;
+            $width += $frame->sequenceWidth;
+        }
+
+        return
+            new Frame(
+                $sequence,
+                $width
+            );
     }
 
     public function getIterator(): Traversable
@@ -48,15 +68,14 @@ final class WigglerContainer implements Contract\IWigglerContainer
     /**
      * @throws RuntimeException
      */
-    public function getWigglerIndex(string|IWiggler $class): int
+    public function getIndex(string|IWiggler $class): int
     {
         if ($class instanceof IWiggler) {
-            return $this->wigglersIndexes[$class];
+            return $this->indexes[$class];
         }
-        /** @var IWiggler $wiggler */
         foreach ($this->wigglers as $wiggler) {
             if (is_a($wiggler, $class)) {
-                return $this->wigglersIndexes[$wiggler];
+                return $this->indexes[$wiggler];
             }
         }
         throw new RuntimeException('Wiggler not found');
@@ -67,7 +86,7 @@ final class WigglerContainer implements Contract\IWigglerContainer
         $currentWiggler = $this->wigglers[$wigglerIndex];
         $updatedWiggler = $currentWiggler->update($wiggler);
         $this->wigglers[$wigglerIndex] = $updatedWiggler;
-        $this->wigglersIndexes[$updatedWiggler] = $wigglerIndex;
-        unset($this->wigglersIndexes[$currentWiggler]);
+        $this->indexes[$updatedWiggler] = $wigglerIndex;
+        unset($this->indexes[$currentWiggler]);
     }
 }

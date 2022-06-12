@@ -6,10 +6,10 @@ namespace AlecRabbit\Spinner;
 
 use AlecRabbit\Spinner\Core\Config\Contract\ISpinnerConfig;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
+use AlecRabbit\Spinner\Core\Contract\IFrame;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use AlecRabbit\Spinner\Core\Contract\IWigglerContainer;
 use AlecRabbit\Spinner\Core\Rotor\Contract\IInterval;
-use AlecRabbit\Spinner\Core\Rotor\Interval;
 use AlecRabbit\Spinner\Core\Wiggler\Contract\IMessageWiggler;
 use AlecRabbit\Spinner\Core\Wiggler\Contract\IProgressWiggler;
 use AlecRabbit\Spinner\Core\Wiggler\Contract\IRevolveWiggler;
@@ -98,7 +98,7 @@ final class Spinner implements ISpinner
     {
         $this->erase();
         $this->wigglers->updateWiggler(
-            $this->wigglers->getWigglerIndex($class),
+            $this->wigglers->getIndex($class),
             $wiggler,
         );
         $this->spin();
@@ -107,17 +107,15 @@ final class Spinner implements ISpinner
     public function spin(): void
     {
         if ($this->active) {
-            $this->render();
+            $this->driver->writeFrame(
+                $this->currentFrame = $this->render()
+            );
         }
     }
 
-    private function render(): void
+    private function render(): IFrame
     {
-        $this->currentFrame =
-            $this->driver->render(
-                $this->wigglers,
-                $this->interval,
-            );
+        return $this->wigglers->render();
     }
 
     public function message(IMessageWiggler|string|null $message): void

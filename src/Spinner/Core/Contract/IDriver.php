@@ -15,15 +15,9 @@ interface IDriver
 
     public function showCursor(): void;
 
-    public function render(IWigglerContainer $wigglers, ?IInterval $interval = null): IFrame;
-
-    public function prepareFrame(IWigglerContainer $wigglers, ?IInterval $interval): IFrame;
-
     public function erase(?int $i = null): void;
 
     public function getWriter(): IWriter;
 
-    public function getRenderer(): IRenderer;
-
-    public function getColorSupportLevel(): int;
+    public function getTerminalColorSupport(): int;
 }

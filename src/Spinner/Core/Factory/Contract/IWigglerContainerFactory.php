@@ -8,5 +8,5 @@ use AlecRabbit\Spinner\Core\Contract\IWigglerContainer;
 
 interface IWigglerContainerFactory
 {
-    public static function create(IFrameCollection $frames): IWigglerContainer;
+    public function create(IFrameCollection $frames): IWigglerContainer;
 }
