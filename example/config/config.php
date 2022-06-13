@@ -15,10 +15,10 @@ $config =
     (new SpinnerConfigBuilder())
         ->withColorSupportLevel(TERM_NOCOLOR)
         ->doNotHideCursor()
-        ->withFinalMessage('Done!')
-        ->withInterval(new Interval(100))
+        ->withFinalMessage('Final message: Done!')
+        ->withInterval(new Interval(500))
         ->withShutdownDelay(0)
-        ->withExitMessage('Bye!')
+        ->withExitMessage('Exit message: Bye!')
         ->build()
 ;
 

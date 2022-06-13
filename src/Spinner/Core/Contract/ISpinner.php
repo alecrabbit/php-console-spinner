@@ -14,7 +14,7 @@ interface ISpinner
 {
     public function __construct(ISpinnerConfig $config);
 
-    public function refreshInterval(): IInterval;
+    public function getInterval(): IInterval;
 
     public function isSynchronous(): bool;
 

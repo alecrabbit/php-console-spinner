@@ -1,12 +1,16 @@
 <?php
+
 declare(strict_types=1);
 // 09.06.22
 namespace AlecRabbit\Spinner\Core\Factory\Contract;
 
 use AlecRabbit\Spinner\Core\Contract\IFrameCollection;
 use AlecRabbit\Spinner\Core\Contract\IWigglerContainer;
+use AlecRabbit\Spinner\Core\Rotor\Contract\IInterval;
 
 interface IWigglerContainerFactory
 {
-    public function create(IFrameCollection $frames): IWigglerContainer;
+    public function __construct(IFrameCollection $frames, IInterval $interval,);
+
+    public function createContainer(): IWigglerContainer;
 }

@@ -17,6 +17,7 @@ use AlecRabbit\Spinner\Core\Exception\DomainException;
 use AlecRabbit\Spinner\Core\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Core\Exception\LogicException;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\IWigglerContainerFactory;
 use AlecRabbit\Spinner\Core\Factory\LoopFactory;
 use AlecRabbit\Spinner\Core\Factory\WigglerContainerFactory;
 use AlecRabbit\Spinner\Core\FrameCollection;
@@ -44,9 +45,9 @@ final class SpinnerConfigBuilder implements ISpinnerConfigBuilder
     private ?IInterval $interval = null;
     private ?int $terminalColorSupport = null;
     private ?ILoopFactory $loopFactory = null;
-    private ?WigglerContainerFactory $wigglerContainerFactory = null;
+    private ?IWigglerContainerFactory $wigglerContainerFactory = null;
 
-    public function withWigglerContainerFactory(WigglerContainerFactory $wigglerContainerFactory): self
+    public function withWigglerContainerFactory(IWigglerContainerFactory $wigglerContainerFactory): self
     {
         $clone = clone $this;
         $clone->wigglerContainerFactory = $wigglerContainerFactory;
@@ -148,7 +149,6 @@ final class SpinnerConfigBuilder implements ISpinnerConfigBuilder
                 finalMessage: $this->finalMessage,
                 synchronous: $this->synchronousMode,
                 loop: $this->loop,
-                interval: $this->interval,
                 colorSupportLevel: $this->terminalColorSupport,
             );
     }
@@ -166,12 +166,12 @@ final class SpinnerConfigBuilder implements ISpinnerConfigBuilder
             $this->frames = self::defaultFrames();
         }
 
-        if (null === $this->interval) {
-            $this->interval = $this->frames->getInterval();
+        if (null === $this->wigglerContainerFactory) {
+            $this->wigglerContainerFactory = new WigglerContainerFactory($this->frames, $this->interval);
         }
 
-        if (null === $this->wigglerContainerFactory) {
-            $this->wigglerContainerFactory = new WigglerContainerFactory($this->interval);
+        if (null === $this->wigglers) {
+            $this->wigglers = $this->wigglerContainerFactory->createContainer();
         }
 
         if (null === $this->driver) {
@@ -182,10 +182,6 @@ final class SpinnerConfigBuilder implements ISpinnerConfigBuilder
             $this->terminalColorSupport = $this->driver->getTerminalColorSupport();
         }
 
-        if (null === $this->wigglers) {
-            $this->wigglers = $this->createWigglerContainer($this->frames);
-        }
-
         if (null === $this->synchronousMode) {
             $this->synchronousMode = false;
         }
@@ -194,31 +190,23 @@ final class SpinnerConfigBuilder implements ISpinnerConfigBuilder
             $this->loop = $this->getLoop($this->synchronousMode);
         }
 
-        if (null === $this->shutdownDelaySeconds && !$this->synchronousMode) {
-            $this->shutdownDelaySeconds = self::SHUTDOWN_DELAY;
-        }
-
-        if (null === $this->exitMessage && !$this->synchronousMode) {
-            $this->exitMessage = self::MESSAGE_ON_EXIT;
-        }
-
-        if (null === $this->finalMessage && !$this->synchronousMode) {
-            $this->finalMessage = self::FINAL_MESSAGE;
-        }
-
         if (null === $this->hideCursor) {
             $this->hideCursor = self::HIDE_CURSOR;
         }
-    }
 
-    private static function createDriver(): IDriver
-    {
-        return
-            new Driver(
-                new Writer(
-                    new StdErrOutput()
-                ),
-            );
+        if (!$this->synchronousMode) {
+            if (null === $this->shutdownDelaySeconds) {
+                $this->shutdownDelaySeconds = self::SHUTDOWN_DELAY;
+            }
+
+            if (null === $this->exitMessage) {
+                $this->exitMessage = self::MESSAGE_ON_EXIT;
+            }
+
+            if (null === $this->finalMessage) {
+                $this->finalMessage = self::FINAL_MESSAGE;
+            }
+        }
     }
 
     /**
@@ -229,13 +217,14 @@ final class SpinnerConfigBuilder implements ISpinnerConfigBuilder
         return FrameCollection::create(...self::FRAME_SEQUENCE);
     }
 
-    /**
-     * @throws InvalidArgumentException
-     */
-    private function createWigglerContainer(IFrameCollection $frames): IWigglerContainer
+    private static function createDriver(): IDriver
     {
         return
-            $this->wigglerContainerFactory->create($frames);
+            new Driver(
+                new Writer(
+                    new StdErrOutput()
+                ),
+            );
     }
 
     /**

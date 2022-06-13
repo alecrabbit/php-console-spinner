@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Contract;
 
+use AlecRabbit\Spinner\Core\Rotor\Contract\IInterval;
 use AlecRabbit\Spinner\Core\Wiggler\Contract\IWiggler;
 use IteratorAggregate;
 use Traversable;
@@ -19,4 +20,6 @@ interface IWigglerContainer extends IteratorAggregate
     public function getIndex(string|IWiggler $class): int;
 
     public function updateWiggler(int $wigglerIndex, IWiggler|string|null $wiggler): void;
+
+    public function getInterval(): IInterval;
 }

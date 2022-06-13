@@ -25,7 +25,7 @@ final class WigglerContainer implements Contract\IWigglerContainer
     private int $currentIndex = 0;
 
     public function __construct(
-        private readonly ?IInterval $interval,
+        private readonly IInterval $interval,
         IWiggler ...$wigglers,
     ) {
         $this->indexes = new WeakMap();
@@ -87,5 +87,10 @@ final class WigglerContainer implements Contract\IWigglerContainer
         $this->wigglers[$wigglerIndex] = $updatedWiggler;
         $this->indexes[$updatedWiggler] = $wigglerIndex;
         unset($this->indexes[$currentWiggler]);
+    }
+
+    public function getInterval(): IInterval
+    {
+        return $this->interval;
     }
 }

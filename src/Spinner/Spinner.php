@@ -20,19 +20,17 @@ final class Spinner implements ISpinner
     private readonly bool $hideCursor;
     private readonly bool $synchronous;
     private readonly IDriver $driver;
+
     private IWigglerContainer $wigglers;
     private bool $active;
-    private IInterval $interval;
     private ?Core\Contract\IFrame $currentFrame = null;
 
-    public function __construct(
-        ISpinnerConfig $config
-    ) {
+    public function __construct(ISpinnerConfig $config)
+    {
         $this->hideCursor = $config->isHideCursor();
         $this->synchronous = $config->isSynchronous();
         $this->driver = $config->getDriver();
         $this->wigglers = $config->getWigglers();
-        $this->interval = $config->getInterval();
     }
 
     public function isSynchronous(): bool
@@ -40,9 +38,9 @@ final class Spinner implements ISpinner
         return $this->synchronous;
     }
 
-    public function refreshInterval(): IInterval
+    public function getInterval(): IInterval
     {
-        return $this->interval;
+        return $this->wigglers->getInterval();
     }
 
     public function begin(): void

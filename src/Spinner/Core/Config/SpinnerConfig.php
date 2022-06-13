@@ -29,7 +29,6 @@ final class SpinnerConfig implements ISpinnerConfig
         private readonly ?string $finalMessage,
         private readonly bool $synchronous,
         private readonly ?ILoop $loop,
-        private readonly IInterval $interval,
         private readonly int $colorSupportLevel,
     ) {
         $this->assertConfigIsCorrect();
@@ -163,11 +162,6 @@ final class SpinnerConfig implements ISpinnerConfig
             return $this->shutdownDelay;
         }
         throw self::synchronousModeException('shutdown delay');
-    }
-
-    public function getInterval(): IInterval
-    {
-        return $this->interval;
     }
 
     public function getDriver(): IDriver

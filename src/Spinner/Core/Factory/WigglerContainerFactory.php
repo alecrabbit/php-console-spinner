@@ -8,7 +8,6 @@ use AlecRabbit\Spinner\Core\Contract\IFrameCollection;
 use AlecRabbit\Spinner\Core\Contract\IWigglerContainer;
 use AlecRabbit\Spinner\Core\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Core\Factory\Contract\IWigglerContainerFactory;
-use AlecRabbit\Spinner\Core\Frame;
 use AlecRabbit\Spinner\Core\Rotor\Contract\IInterval;
 use AlecRabbit\Spinner\Core\Rotor\FrameRotor;
 use AlecRabbit\Spinner\Core\Rotor\NoCharsRotor;
@@ -23,21 +22,21 @@ use AlecRabbit\Spinner\Core\WigglerContainer;
 final class WigglerContainerFactory implements IWigglerContainerFactory
 {
     public function __construct(
-        private readonly IInterval $interval,
-    )
-    {
+        private readonly IFrameCollection $frames,
+        private readonly ?IInterval $interval = null,
+    ) {
     }
 
 
     /**
      * @throws InvalidArgumentException
      */
-    public function create(IFrameCollection $frames): IWigglerContainer
+    public function createContainer(): IWigglerContainer
     {
         return
             new WigglerContainer(
-                $this->interval,
-                self::createRevolveWiggler($frames),
+                $this->interval ?? $this->frames->getInterval(),
+                self::createRevolveWiggler($this->frames),
                 self::createMessageWiggler(),
                 self::createProgressWiggler(),
             );
