@@ -11,7 +11,7 @@ use AlecRabbit\Spinner\Core\Factory\Contract\IWigglerContainerFactory;
 use AlecRabbit\Spinner\Core\Rotor\Contract\IInterval;
 use AlecRabbit\Spinner\Core\Rotor\FrameRotor;
 use AlecRabbit\Spinner\Core\Rotor\NoCharsRotor;
-use AlecRabbit\Spinner\Core\Rotor\NoStyleRotor;
+use AlecRabbit\Spinner\Core\Rotor\WIPNoStyleRotor;
 use AlecRabbit\Spinner\Core\Rotor\RainbowStyleRotor;
 use AlecRabbit\Spinner\Core\Wiggler\Contract\IWiggler;
 use AlecRabbit\Spinner\Core\Wiggler\MessageWiggler;
@@ -51,7 +51,7 @@ final class WigglerContainerFactory implements IWigglerContainerFactory
             RevolveWiggler::create(
                 new RainbowStyleRotor(),
                 new FrameRotor(
-                    styles: $frames,
+                    frames: $frames,
                 ),
             );
     }
@@ -63,7 +63,7 @@ final class WigglerContainerFactory implements IWigglerContainerFactory
     {
         return
             MessageWiggler::create(
-                new NoStyleRotor(),
+                new WIPNoStyleRotor(),
             );
     }
 
@@ -74,7 +74,7 @@ final class WigglerContainerFactory implements IWigglerContainerFactory
     {
         return
             ProgressWiggler::create(
-                new NoStyleRotor(),
+                new WIPNoStyleRotor(),
                 new NoCharsRotor(),
             );
     }

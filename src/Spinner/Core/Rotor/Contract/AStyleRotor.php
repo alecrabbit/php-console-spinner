@@ -8,12 +8,12 @@ use AlecRabbit\Spinner\Core\Contract\IStyleCollection;
 
 abstract class AStyleRotor extends ARotor implements IStyleRotor
 {
-    public function __construct(
-        IStyleCollection $styles,
-        protected readonly int $colorSupportLevel,
-    ) {
-        parent::__construct($styles->toArray($colorSupportLevel), $styles->getInterval());
-    }
+//    public function __construct(
+//        IStyleCollection $styles,
+//        protected readonly int $colorSupportLevel,
+//    ) {
+//        parent::__construct($styles->toArray($colorSupportLevel), $styles->getInterval());
+//    }
 
     public function join(string $chars, ?IInterval $interval = null): string
     {

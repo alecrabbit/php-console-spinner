@@ -4,9 +4,11 @@ declare(strict_types=1);
 // 13.06.22
 namespace AlecRabbit\Spinner\Core\Widget\Contract;
 
+use AlecRabbit\Spinner\Core\Rotor\Contract\IInterval;
+
 interface IWidget
 {
-    public function render(): AWidgetFrame;
+    public function render(?IInterval $interval = null): AWidgetFrame;
 
     public function add(IWidget $widget): static;
 

@@ -15,11 +15,11 @@ abstract class AFrameRotor extends ARotor implements IFrameRotor
     private int $trailingSpacerWidth;
 
     public function __construct(
-        IFrameCollection $styles,
+        IFrameCollection $frames,
         protected readonly string $leadingSpacer = C::EMPTY_STRING,
         protected readonly string $trailingSpacer = C::EMPTY_STRING,
     ) {
-        parent::__construct($styles->toArray(), $styles->getInterval());
+        parent::__construct($frames->toArray(), $frames->getInterval());
         $this->leadingSpacerWidth = WidthDefiner::define($this->leadingSpacer);
         $this->trailingSpacerWidth = WidthDefiner::define($this->trailingSpacer);
     }
