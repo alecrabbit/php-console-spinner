@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner;
 
-use AlecRabbit\Spinner\Core\Config\Contract\ISpinnerConfig;
+use AlecRabbit\Spinner\Core\Config\Contract\IConfig;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\IFrame;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
@@ -19,7 +19,6 @@ use const PHP_EOL;
 
 final class Spinner implements ISpinner
 {
-    private readonly bool $hideCursor;
     private readonly IDriver $driver;
     private readonly string $finalMessage;
     private readonly string $interruptMessage;
@@ -29,9 +28,8 @@ final class Spinner implements ISpinner
     private bool $active;
     private ?Core\Contract\IFrame $currentFrame = null;
 
-    public function __construct(ISpinnerConfig $config)
+    public function __construct(IConfig $config)
     {
-        $this->hideCursor = $config->isHideCursor();
         $this->driver = $config->getDriver();
         $this->wigglers = $config->getWigglers();
         $this->finalMessage = $config->getFinalMessage();
@@ -45,9 +43,7 @@ final class Spinner implements ISpinner
 
     public function initialize(): void
     {
-        if ($this->hideCursor) {
-            $this->driver->hideCursor();
-        }
+        $this->driver->hideCursor();
         $this->start();
     }
 
@@ -127,22 +123,20 @@ final class Spinner implements ISpinner
     {
         $this->interrupted = true;
         $this->stop();
-        $this->driver->write(PHP_EOL . $this->interruptMessage);
+        $this->driver->message(PHP_EOL . $this->interruptMessage);
     }
 
     private function stop(): void
     {
         $this->disable();
-        if ($this->hideCursor) {
-            $this->driver->showCursor();
-        }
+        $this->driver->showCursor();
     }
 
     public function finalize(): void
     {
         if (!$this->interrupted) {
             $this->stop();
-            $this->driver->write($this->finalMessage);
+            $this->driver->message($this->finalMessage);
         }
     }
 }

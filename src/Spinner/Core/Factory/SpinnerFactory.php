@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Factory;
 
 use AlecRabbit\Spinner\Core\Config\Builder\SpinnerConfigBuilder;
-use AlecRabbit\Spinner\Core\Config\Contract\ISpinnerConfig;
+use AlecRabbit\Spinner\Core\Config\Contract\IConfig;
 use AlecRabbit\Spinner\Core\Contract\IFrameCollection;
 use AlecRabbit\Spinner\Core\Contract\ILoop;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
@@ -24,7 +24,7 @@ final class SpinnerFactory implements ISpinnerFactory
      * @throws InvalidArgumentException
      * @throws LogicException
      */
-    public static function get(null|IFrameCollection|ISpinnerConfig $framesOrConfig = null): ISpinner
+    public static function get(null|IFrameCollection|IConfig $framesOrConfig = null): ISpinner
     {
         if (self::hasSpinnerInstance()) {
             return self::$spinner;
@@ -42,7 +42,7 @@ final class SpinnerFactory implements ISpinnerFactory
      * @throws InvalidArgumentException
      * @throws LogicException
      */
-    public static function create(null|IFrameCollection|ISpinnerConfig $framesOrConfig = null): ISpinner
+    public static function create(null|IFrameCollection|IConfig $framesOrConfig = null): ISpinner
     {
         if (self::hasSpinnerInstance()) {
             // There Can Be Only One
@@ -67,9 +67,9 @@ final class SpinnerFactory implements ISpinnerFactory
      * @throws InvalidArgumentException
      */
     private static function refineConfig(
-        null|IFrameCollection|ISpinnerConfig $framesOrConfig
-    ): ISpinnerConfig {
-        if ($framesOrConfig instanceof ISpinnerConfig) {
+        null|IFrameCollection|IConfig $framesOrConfig
+    ): IConfig {
+        if ($framesOrConfig instanceof IConfig) {
             return $framesOrConfig;
         }
 
@@ -80,7 +80,7 @@ final class SpinnerFactory implements ISpinnerFactory
      * @throws LogicException
      * @throws InvalidArgumentException
      */
-    private static function buildConfig(IFrameCollection|null $frames): ISpinnerConfig
+    private static function buildConfig(IFrameCollection|null $frames): IConfig
     {
         $spinnerConfigBuilder = new SpinnerConfigBuilder();
 
@@ -94,7 +94,7 @@ final class SpinnerFactory implements ISpinnerFactory
         return $spinnerConfigBuilder->build();
     }
 
-    private static function asyncOperations(Spinner $spinner, ISpinnerConfig $config): void
+    private static function asyncOperations(Spinner $spinner, IConfig $config): void
     {
         if ($config->isAsynchronous()) {
             self::attachSpinnerToLoop($spinner, $config->getLoop());
@@ -115,7 +115,7 @@ final class SpinnerFactory implements ISpinnerFactory
         ;
     }
 
-    private static function attachSigIntHandler(ISpinner $spinner, ISpinnerConfig $config,): void
+    private static function attachSigIntHandler(ISpinner $spinner, IConfig $config,): void
     {
         if (defined('SIGINT')) { // check for ext-pcntl
             $loop = $config->getLoop();

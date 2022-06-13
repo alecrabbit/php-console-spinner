@@ -9,7 +9,7 @@ use AlecRabbit\Spinner\Core\Contract\ILoop;
 use AlecRabbit\Spinner\Core\Contract\IWigglerContainer;
 use AlecRabbit\Spinner\Core\Rotor\Contract\IInterval;
 
-interface ISpinnerConfig
+interface IConfig
 {
     public function isAsynchronous(): bool;
 

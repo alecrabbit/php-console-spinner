@@ -17,9 +17,7 @@ interface IDriver
 
     public function erase(?int $i = null): void;
 
-    public function getWriter(): IWriter;
-
     public function getTerminalColorSupport(): int;
 
-    public function write(string $message): void;
+    public function message(string $message): void;
 }

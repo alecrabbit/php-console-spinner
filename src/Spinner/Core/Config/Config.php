@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Config;
 
-use AlecRabbit\Spinner\Core\Config\Contract\ISpinnerConfig;
+use AlecRabbit\Spinner\Core\Config\Contract\IConfig;
 use AlecRabbit\Spinner\Core\Contract\Base\Defaults;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\ILoop;
@@ -12,7 +12,7 @@ use AlecRabbit\Spinner\Core\Contract\IWigglerContainer;
 use AlecRabbit\Spinner\Core\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Core\Exception\LogicException;
 
-final class SpinnerConfig implements ISpinnerConfig
+final class Config implements IConfig
 {
     private const MAX_SHUTDOWN_DELAY = Defaults::MAX_SHUTDOWN_DELAY;
 
@@ -20,7 +20,6 @@ final class SpinnerConfig implements ISpinnerConfig
      * @throws LogicException|InvalidArgumentException
      */
     public function __construct(
-        private readonly bool $hideCursor,
         private readonly IDriver $driver,
         private readonly IWigglerContainer $wigglers,
         private readonly null|int|float $shutdownDelay,
@@ -166,11 +165,6 @@ final class SpinnerConfig implements ISpinnerConfig
     public function getColorSupportLevel(): int
     {
         return $this->colorSupportLevel;
-    }
-
-    public function isHideCursor(): bool
-    {
-        return $this->hideCursor;
     }
 
     /**

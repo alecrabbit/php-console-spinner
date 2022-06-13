@@ -15,21 +15,31 @@ final class Driver implements IDriver
 {
     public function __construct(
         private readonly IWriter $writer,
+        private readonly bool $hideCursor,
     ) {
     }
 
     public function hideCursor(): void
     {
-        $this->writer->write(
-            Sequencer::hideCursorSequence()
-        );
+        if ($this->hideCursor) {
+            $this->writer->write(
+                Sequencer::hideCursorSequence()
+            );
+        }
+    }
+
+    public function message(string $message): void
+    {
+        $this->writer->write($message);
     }
 
     public function showCursor(): void
     {
-        $this->writer->write(
-            Sequencer::showCursorSequence()
-        );
+        if ($this->hideCursor) {
+            $this->writer->write(
+                Sequencer::showCursorSequence()
+            );
+        }
     }
 
     public function writeFrame(IFrame $frame): void
@@ -47,19 +57,9 @@ final class Driver implements IDriver
         );
     }
 
-    public function getWriter(): IWriter
-    {
-        return $this->writer;
-    }
-
     public function getTerminalColorSupport(): int
     {
         // FIXME (2022-06-10 17:37) [Alec Rabbit]: Implement color support level detection.
         return TERM_256COLOR;
-    }
-
-    public function write(string $message): void
-    {
-        $this->writer->write($message);
     }
 }
