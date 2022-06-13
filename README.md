@@ -38,9 +38,9 @@ composer require alecrabbit/php-console-spinner
 | Has zero dependencies |                                  🟢* ️                                   |                             🟢️                              |
 | Extremely flexible    |                                  🟢️ ️                                   |                              ❌                               |
 
-> - `❌` - Not supported
-> - `🟢️` - Supported
-> - `🟢️️*` - Supported with some limitations
+> - `❌` - No
+> - `🟢️` - Yes
+> - `🟢️️*` - Yes with some limitations
 
 ### Links
 
