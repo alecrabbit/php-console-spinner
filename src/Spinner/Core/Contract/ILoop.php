@@ -6,13 +6,13 @@ namespace AlecRabbit\Spinner\Core\Contract;
 
 interface ILoop
 {
-    public function addPeriodicTimer(int|float $interval, callable $callback): void;
+    public function periodic(int|float $interval, callable $callback): void;
 
-    public function addTimer(int|float $interval, callable $callback): void;
+    public function defer(int|float $interval, callable $callback): void;
 
-    public function addSignal(int $signal, callable $callback): void;
+    public function addHandler(int $signal, callable $callback): void;
 
-    public function removeSignal(int $signal, callable $callback);
+    public function removeHandler(int $signal, callable $callback);
 
     public function stop(): void;
 }

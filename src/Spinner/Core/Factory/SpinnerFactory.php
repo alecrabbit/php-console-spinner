@@ -106,7 +106,7 @@ final class SpinnerFactory implements ISpinnerFactory
     private static function attachSpinnerToLoop(ISpinner $spinner, ILoop $loop): void
     {
         $loop
-            ->addPeriodicTimer(
+            ->periodic(
                 $spinner->getInterval()->toSeconds(),
                 static function () use ($spinner) {
                     $spinner->spin();
@@ -123,8 +123,8 @@ final class SpinnerFactory implements ISpinnerFactory
             $func = static function () use ($spinner, $loop, $shutdownDelay, &$func) {
                 $spinner->interrupt();
                 /** @noinspection PhpComposerExtensionStubsInspection */
-                $loop->removeSignal(SIGINT, $func);
-                $loop->addTimer(
+                $loop->removeHandler(SIGINT, $func);
+                $loop->defer(
                     $shutdownDelay,
                     static function () use ($loop, $spinner) {
                         $loop->stop();
@@ -133,7 +133,7 @@ final class SpinnerFactory implements ISpinnerFactory
                 );
             };
             /** @noinspection PhpComposerExtensionStubsInspection */
-            $loop->addSignal(SIGINT, $func,);
+            $loop->addHandler(SIGINT, $func,);
         }
     }
 

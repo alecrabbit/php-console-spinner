@@ -27,7 +27,7 @@ $config =
 $spinner = SpinnerFactory::create($config);
 
 $loop = $config->getLoop();
-$loop->addTimer(
+$loop->defer(
     STOP_IN,
     function () use ($loop, $spinner) {
         $loop->stop();

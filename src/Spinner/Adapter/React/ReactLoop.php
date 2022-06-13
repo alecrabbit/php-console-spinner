@@ -11,8 +11,9 @@ use React\EventLoop\LoopInterface;
 
 final class ReactLoop implements ILoop, ILoopProbe
 {
-    // FIXME (2022-06-10 18:14) [Alec Rabbit]: Should it be singleton?
-    protected function __construct(
+    private static ?self $instance = null;
+
+    private function __construct(
         private readonly LoopInterface $loop,
     ) {
     }
@@ -24,7 +25,11 @@ final class ReactLoop implements ILoop, ILoopProbe
 
     public static function getLoop(): ILoop
     {
-        return new self(Loop::get());
+        if (self::$instance) {
+            return self::$instance;
+        }
+        return
+            self::$instance = new self(Loop::get());
     }
 
     public static function getPackageName(): string
@@ -32,22 +37,22 @@ final class ReactLoop implements ILoop, ILoopProbe
         return 'react/event-loop';
     }
 
-    public function addPeriodicTimer(int|float $interval, callable $callback): void
+    public function periodic(int|float $interval, callable $callback): void
     {
         $this->loop->addPeriodicTimer($interval, $callback);
     }
 
-    public function addTimer(int|float $interval, callable $callback): void
+    public function defer(int|float $interval, callable $callback): void
     {
         $this->loop->addTimer($interval, $callback);
     }
 
-    public function addSignal(int $signal, callable $callback): void
+    public function addHandler(int $signal, callable $callback): void
     {
         $this->loop->addSignal($signal, $callback);
     }
 
-    public function removeSignal(int $signal, callable $callback): void
+    public function removeHandler(int $signal, callable $callback): void
     {
         $this->loop->removeSignal($signal, $callback);
     }
