@@ -13,6 +13,4 @@ use AlecRabbit\Spinner\Core\Output\Contract\IOutput;
 interface IWriter
 {
     public function write(string ...$sequences): void;
-
-    public function getOutput(): IOutput;
 }

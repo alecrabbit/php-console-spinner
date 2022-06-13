@@ -15,6 +15,8 @@ use AlecRabbit\Spinner\Core\Wiggler\Contract\IProgressWiggler;
 use AlecRabbit\Spinner\Core\Wiggler\Contract\IRevolveWiggler;
 use AlecRabbit\Spinner\Core\Wiggler\Contract\IWiggler;
 
+use const PHP_EOL;
+
 final class Spinner implements ISpinner
 {
     private readonly bool $hideCursor;

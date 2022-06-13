@@ -21,9 +21,11 @@ use AlecRabbit\Spinner\Core\Factory\Contract\IWigglerContainerFactory;
 use AlecRabbit\Spinner\Core\Factory\LoopFactory;
 use AlecRabbit\Spinner\Core\Factory\WigglerContainerFactory;
 use AlecRabbit\Spinner\Core\FrameCollection;
-use AlecRabbit\Spinner\Core\Output\StdErrOutput;
+use AlecRabbit\Spinner\Core\Output\StreamOutput;
 use AlecRabbit\Spinner\Core\Rotor\Contract\IInterval;
 use AlecRabbit\Spinner\Core\Writer;
+
+use const STDERR;
 
 final class SpinnerConfigBuilder implements ISpinnerConfigBuilder
 {
@@ -221,7 +223,7 @@ final class SpinnerConfigBuilder implements ISpinnerConfigBuilder
         return
             new Driver(
                 new Writer(
-                    new StdErrOutput()
+                    new StreamOutput(STDERR)
                 ),
             );
     }

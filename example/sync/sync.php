@@ -4,13 +4,17 @@ declare(strict_types=1);
 
 use AlecRabbit\Spinner\Core\Config\Builder\SpinnerConfigBuilder;
 use AlecRabbit\Spinner\Core\Factory\SpinnerFactory;
+use AlecRabbit\Spinner\Core\Output\StreamOutput;
+use AlecRabbit\Spinner\Core\Writer;
 
 require_once __DIR__ . '/../bootstrap.php';
 
-$echoMessageToStdOut =
-    static function (?string $message = null) {
-        echo $message ?? '';
-    };
+$stdout = new Writer(new StreamOutput(STDOUT));
+
+$echoMessageToStdOut = $stdout->write(...);
+
+$echoMessageToStdOut('Started...', PHP_EOL);
+$echoMessageToStdOut('But may be interrupted...'. PHP_EOL);
 
 $config =
     (new SpinnerConfigBuilder())
@@ -21,23 +25,24 @@ $config =
 
 $spinner = SpinnerFactory::create($config);
 
-$cb = static function () use ($spinner) {
-    $spinner->spin();
-};
-
 $spinner->initialize();
 for ($i = 0; $i < 100; $i++) {
-    if (100 > random_int(0, 100000)) {
+    if (500 > random_int(0, 100000)) {
         $spinner->interrupt();
         break;
     }
-    if ($i === 30) {
+    if ($i === 20) {
         $spinner->message('0123456');
     }
-    if ($i === 40) {
-        $spinner->progress(0.4);
+    if ($i === 33) {
+        $spinner->progress(0.33);
+    }
+    if ($i === 50) {
+        $spinner->progress(0.5);
+        $spinner->wrap($echoMessageToStdOut, 'More than a half!' . PHP_EOL);
     }
     if ($i === 60) {
+        $spinner->progress(0.6);
         $spinner->message('0123');
     }
     if ($i === 80) {

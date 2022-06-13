@@ -7,6 +7,9 @@ namespace AlecRabbit\Spinner\Core;
 use AlecRabbit\Spinner\Core\Contract\IWriter;
 use AlecRabbit\Spinner\Core\Output\Contract\IOutput;
 
+/**
+ * @internal
+ */
 final class Writer implements IWriter
 {
     public function __construct(
@@ -17,10 +20,5 @@ final class Writer implements IWriter
     public function write(string ...$sequences): void
     {
         $this->output->write($sequences);
-    }
-
-    public function getOutput(): IOutput
-    {
-        return $this->output;
     }
 }

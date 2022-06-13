@@ -5,8 +5,20 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Output;
 
 use AlecRabbit\Spinner\Core\Exception\RuntimeException;
+use AlecRabbit\Spinner\Core\Output\Contract\IOutput;
 
-final class StdErrOutput implements Contract\IOutput
+use function fflush;
+use function fwrite;
+use function get_debug_type;
+use function get_resource_type;
+use function is_iterable;
+use function is_resource;
+use function is_string;
+use function sprintf;
+
+use const PHP_EOL;
+
+final class StreamOutput implements IOutput
 {
     /**
      * @var resource
@@ -16,15 +28,22 @@ final class StdErrOutput implements Contract\IOutput
     /**
      * @throws RuntimeException
      */
-    public function __construct(
-        $stream = STDERR,
-    ) {
-        if (!is_resource($stream)) {
+    public function __construct($stream)
+    {
+        self::assertStream($stream);
+        $this->stream = $stream;
+    }
+
+    /**
+     * @throws RuntimeException
+     */
+    private static function assertStream(mixed $stream): void
+    {
+        if (!is_resource($stream) || 'stream' !== get_resource_type($stream)) {
             throw new RuntimeException(
-                sprintf('Stream expected to be a resource, [%s] given', get_debug_type($stream))
+                sprintf('Argument 1 expected to be a stream, [%s] given', get_debug_type($stream))
             );
         }
-        $this->stream = $stream;
     }
 
     /**
@@ -45,6 +64,9 @@ final class StdErrOutput implements Contract\IOutput
         }
         foreach ($messages as $message) {
             if (is_string($message)) {
+                if ($newline) {
+                    $message .= PHP_EOL;
+                }
                 if (false === @fwrite($this->stream, $message)) {
                     // should never happen
                     throw new RuntimeException('Was unable to write to stream.');

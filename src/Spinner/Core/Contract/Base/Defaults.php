@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Contract\Base;
 
 use const AlecRabbit\Cli\ALLOWED_TERM_COLOR;
+use const PHP_EOL;
 
 final class Defaults
 {
