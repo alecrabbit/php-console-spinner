@@ -210,7 +210,7 @@ final class FramePattern // Tentative name
 
     public const SNAKE_VARIANT_0 = [['⠏', '⠛', '⠹', '⢸', '⣰', '⣤', '⣆', '⡇',], 1, 100];
     public const SNAKE_VARIANT_1 = [['⣇', '⡏', '⠟', '⠻', '⢹', '⣸', '⣴', '⣦',], 1];
-    public const SNAKE_VARIANT_2 = [['⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏'], 1];
+    public const SNAKE_VARIANT_2 = [['⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏'], 1, 100];
     public const SNAKE_VARIANT_3 = [
         [
             '⢀⠀',
@@ -270,13 +270,14 @@ final class FramePattern // Tentative name
             '⠀⢀',
             '⠀⡀',
         ],
-        2
+        2,
+        100
     ];
 
-    public const DOTS_VARIANT_2 = [['⢹', '⢺', '⢼', '⣸', '⣇', '⡧', '⡗', '⡏',], 1];
-    public const DOTS_VARIANT_3 = [['⢄', '⢂', '⢁', '⡁', '⡈', '⡐', '⡠'], 1];
-    public const DOTS_VARIANT_4 = [['⠁', '⠂', '⠄', '⡀', '⢀', '⠠', '⠐', '⠈'], 1];
-    public const DOTS_VARIANT_5 = [['   ', '.  ', '.. ', '...', ' ..', '  .', '   '], 3];
+    public const DOTS_VARIANT_2 = [['⢹', '⢺', '⢼', '⣸', '⣇', '⡧', '⡗', '⡏',], 1, 100];
+    public const DOTS_VARIANT_3 = [['⢄', '⢂', '⢁', '⡁', '⡈', '⡐', '⡠'], 1, 100];
+    public const DOTS_VARIANT_4 = [['⠁', '⠂', '⠄', '⡀', '⢀', '⠠', '⠐', '⠈'], 1, 100];
+    public const DOTS_VARIANT_5 = [['   ', '.  ', '.. ', '...', ' ..', '  .', '   '], 3, 100];
     public const TRIGRAM = [
         [
             '☰',        // HEAVEN
@@ -288,7 +289,8 @@ final class FramePattern // Tentative name
             '☳',        // THUNDER
             '☷',        // EARTH
         ],
-        1
+        1,
+        100
     ];
 
     public const BOUNCE = [
@@ -298,7 +300,8 @@ final class FramePattern // Tentative name
             '⠄',
             '⠂',
         ],
-        1
+        1,
+        100
     ];
 
     public const SQUARE_VARIANT_0 = [
@@ -312,7 +315,8 @@ final class FramePattern // Tentative name
             '  ◼  ',
             ' ◼   ',
         ],
-        5
+        5,
+        100
     ];
 
     public const SQUARE_VARIANT_1 = [
@@ -324,7 +328,8 @@ final class FramePattern // Tentative name
             '▧',
             '▨',
         ],
-        1
+        1,
+        100
     ];
 
     public const BLOCK_VARIANT_0 =
@@ -361,7 +366,8 @@ final class FramePattern // Tentative name
                 '▂',
                 '▁',
             ],
-            1
+            1,
+            100
         ];
 
     public const BLOCK_VARIANT_1 =
@@ -383,7 +389,8 @@ final class FramePattern // Tentative name
                 '▂',
                 '▁',
             ],
-            1
+            1,
+            100
         ];
     public const BLOCK_VARIANT_2 =
         [
@@ -406,16 +413,17 @@ final class FramePattern // Tentative name
                 '█',
 
             ],
-            1
+            1,
+            100
         ];
 
 
-    public const DICE = [['⚀', '⚁', '⚂', '⚃', '⚄', '⚅',], 1];
+    public const DICE = [['⚀', '⚁', '⚂', '⚃', '⚄', '⚅',], 1, 200];
 
-    public const ARROWS = [['➙', '➘', '➙', '➚',], 1];
-    public const ARROWS_VARIANT_4 = [['←', '↖', '↑', '↗', '→', '↘', '↓', '↙',], 1];
-    public const ARROWS_VARIANT_5 = [['⇐', '⇖', '⇑', '⇗', '⇒', '⇘', '⇓', '⇙',], 1];
-    public const TREE = [['🌲', '🎄',], 2];
+    public const ARROWS = [['➙', '➘', '➙', '➚',], 1, 150];
+    public const ARROWS_VARIANT_4 = [['←', '↖', '↑', '↗', '→', '↘', '↓', '↙',], 1, 150];
+    public const ARROWS_VARIANT_5 = [['⇐', '⇖', '⇑', '⇗', '⇒', '⇘', '⇓', '⇙',], 1, 150];
+    public const TREE = [['🌲', '🎄',], 2, 300];
 
 
     public const TOGGLE_VARIANT_0 = [
@@ -423,7 +431,8 @@ final class FramePattern // Tentative name
             '⊶',
             '⊷',
         ],
-        1
+        1,
+        300
     ];
 
     public const TOGGLE_VARIANT_1 = [
@@ -433,7 +442,8 @@ final class FramePattern // Tentative name
             '▪',
             '▫',
         ],
-        1
+        1,
+        300
     ];
 
     public const BOUNCING_BAR_VARIANT_1 = [
@@ -454,7 +464,8 @@ final class FramePattern // Tentative name
             '[==  ]',
             '[=   ]',
         ],
-        6
+        6,
+        100
     ];
 
     public const BOUNCING_BAR_VARIANT_2 = [
@@ -476,7 +487,8 @@ final class FramePattern // Tentative name
             '|∙∙  |',
             '|∙   |',
         ],
-        6
+        6,
+        100
     ];
 
     public const BOUNCING_BAR_VARIANT_3 = [
@@ -490,7 +502,8 @@ final class FramePattern // Tentative name
             ' |  ',
             '|   ',
         ],
-        4
+        4,
+        100
     ];
 
     public const
@@ -506,7 +519,8 @@ final class FramePattern // Tentative name
                 '➸', // HEAVY BLACK-FEATHERED RIGHTWARDS ARROW
                 '➹', // HEAVY BLACK-FEATHERED NORTH EAST ARROW
             ],
-            1
+            1,
+            150
         ];
 
     public const DOT_8_BIT = [
@@ -768,7 +782,8 @@ final class FramePattern // Tentative name
             "⣾",
             "⣿"
         ],
-        1
+        1,
+        1000
     ];
 
     private function __construct()
