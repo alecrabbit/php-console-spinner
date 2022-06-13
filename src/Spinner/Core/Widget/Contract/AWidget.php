@@ -26,18 +26,36 @@ abstract class AWidget implements IWidget
         string $trailingSpacer = C::EMPTY_STRING,
     ) {
         $this->children = new WeakMap();
-        $this->leadingSpacer = $this->refineLeadingSpacer($leadingSpacer);
-        $this->trailingSpacer = $this->refineTrailingSpacer($trailingSpacer);
+        $this->leadingSpacer = $this->refineLeadingSpacer(
+            new WidgetFrame($leadingSpacer, WidthDefiner::define($leadingSpacer))
+        );
+        $this->trailingSpacer = $this->refineTrailingSpacer(
+            new WidgetFrame($trailingSpacer, WidthDefiner::define($trailingSpacer))
+        );
     }
 
-    private function refineLeadingSpacer(string $leadingSpacer): AWidgetFrame
+    private function refineLeadingSpacer(AWidgetFrame $leadingSpacer): AWidgetFrame
     {
-        return new WidgetFrame($leadingSpacer, WidthDefiner::define($leadingSpacer));
+        $minWidth = $this->parent instanceof IWidget ? 1 : 0;
+//        if($this->style->leadingSpacerWidth > $minWidth) {
+//            $minWidth = $this->style->leadingSpacerWidth;
+//        }
+        if ($leadingSpacer->width < $minWidth) {
+            return new WidgetFrame(str_repeat(C::SPACE_CHAR, $minWidth), WidthDefiner::define($minWidth));
+        }
+        return $leadingSpacer;
     }
 
-    private function refineTrailingSpacer(string $trailingSpacer): AWidgetFrame
+    private function refineTrailingSpacer(AWidgetFrame $trailingSpacer): AWidgetFrame
     {
-        return new WidgetFrame($trailingSpacer, WidthDefiner::define($trailingSpacer));
+        $minWidth = 0;
+//        if($this->style->leadingSpacerWidth > $minWidth) {
+//            $minWidth = $this->style->leadingSpacerWidth;
+//        }
+        if ($trailingSpacer->width < $minWidth) {
+            return new WidgetFrame(str_repeat(C::SPACE_CHAR, $minWidth), WidthDefiner::define($minWidth));
+        }
+        return $trailingSpacer;
     }
 
     public function add(IWidget $widget): static
