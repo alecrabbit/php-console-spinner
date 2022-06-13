@@ -8,7 +8,7 @@ abstract class AWidgetFrame
 {
     public function __construct(
         public readonly string $sequence,
-        public readonly int $sequenceWidth,
+        public readonly int $width,
     ) {
     }
 }

@@ -4,22 +4,40 @@ declare(strict_types=1);
 // 13.06.22
 namespace AlecRabbit\Spinner\Core\Widget\Contract;
 
+use AlecRabbit\Spinner\Core\Contract\Base\C;
 use AlecRabbit\Spinner\Core\Rotor\Contract\IFrameRotor;
 use AlecRabbit\Spinner\Core\Rotor\Contract\IInterval;
 use AlecRabbit\Spinner\Core\Rotor\Contract\IStyleRotor;
 use AlecRabbit\Spinner\Core\Widget\WidgetFrame;
+use AlecRabbit\Spinner\Core\WidthDefiner;
 use WeakMap;
 
 abstract class AWidget implements IWidget
 {
     protected WeakMap $children;
     protected ?IWidget $parent = null;
+    protected readonly AWidgetFrame $leadingSpacer;
+    protected readonly AWidgetFrame $trailingSpacer;
 
     public function __construct(
         protected readonly IStyleRotor $style,
         protected readonly IFrameRotor $rotor,
+        string $leadingSpacer = C::EMPTY_STRING,
+        string $trailingSpacer = C::EMPTY_STRING,
     ) {
         $this->children = new WeakMap();
+        $this->leadingSpacer = $this->refineLeadingSpacer($leadingSpacer);
+        $this->trailingSpacer = $this->refineTrailingSpacer($trailingSpacer);
+    }
+
+    private function refineLeadingSpacer(string $leadingSpacer): AWidgetFrame
+    {
+        return new WidgetFrame($leadingSpacer, WidthDefiner::define($leadingSpacer));
+    }
+
+    private function refineTrailingSpacer(string $trailingSpacer): AWidgetFrame
+    {
+        return new WidgetFrame($trailingSpacer, WidthDefiner::define($trailingSpacer));
     }
 
     public function add(IWidget $widget): static
@@ -47,7 +65,10 @@ abstract class AWidget implements IWidget
         return
             new WidgetFrame(
                 $this->createSequence($interval) . $childrenFrame->sequence,
-                $this->rotor->getWidth() + $childrenFrame->sequenceWidth
+                $this->rotor->getWidth()
+                + $childrenFrame->width
+                + $this->leadingSpacer->width
+                + $this->trailingSpacer->width
             );
     }
 
@@ -59,7 +80,7 @@ abstract class AWidget implements IWidget
         foreach ($this->children as $child) {
             $frame = $child->render($interval);
             $sequence .= $frame->sequence;
-            $width += $frame->sequenceWidth;
+            $width += $frame->width;
         }
 
         return
@@ -69,18 +90,18 @@ abstract class AWidget implements IWidget
             );
     }
 
-    public function isComposite(): bool
-    {
-        return 0 < count($this->children);
-    }
-
     protected function createSequence(?IInterval $interval = null): string
     {
         return
             $this->style->join(
-                chars: $this->rotor->next($interval),
+                chars: $this->leadingSpacer->sequence . $this->rotor->next($interval) . $this->trailingSpacer->sequence,
                 interval: $interval,
             );
+    }
+
+    public function isComposite(): bool
+    {
+        return 0 < count($this->children);
     }
 
 }
