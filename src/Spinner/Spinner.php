@@ -17,8 +17,9 @@ use AlecRabbit\Spinner\Core\Wiggler\Contract\IWiggler;
 
 final class Spinner implements ISpinner
 {
-    private bool $synchronous;
-    private IDriver $driver;
+    private readonly bool $hideCursor;
+    private readonly bool $synchronous;
+    private readonly IDriver $driver;
     private IWigglerContainer $wigglers;
     private bool $active;
     private IInterval $interval;
@@ -27,6 +28,7 @@ final class Spinner implements ISpinner
     public function __construct(
         ISpinnerConfig $config
     ) {
+        $this->hideCursor = $config->isHideCursor();
         $this->synchronous = $config->isSynchronous();
         $this->driver = $config->getDriver();
         $this->wigglers = $config->getWigglers();
@@ -45,7 +47,9 @@ final class Spinner implements ISpinner
 
     public function begin(): void
     {
-        $this->driver->hideCursor();
+        if ($this->hideCursor) {
+            $this->driver->hideCursor();
+        }
         $this->start();
     }
 
@@ -57,7 +61,9 @@ final class Spinner implements ISpinner
     public function end(): void
     {
         $this->erase();
-        $this->driver->showCursor();
+        if ($this->hideCursor) {
+            $this->driver->showCursor();
+        }
         $this->stop();
     }
 

@@ -21,10 +21,12 @@ final class SpinnerConfig implements ISpinnerConfig
      * @throws LogicException|InvalidArgumentException
      */
     public function __construct(
+        private readonly bool $hideCursor,
         private readonly IDriver $driver,
         private readonly IWigglerContainer $wigglers,
         private readonly null|int|float $shutdownDelay,
         private readonly ?string $exitMessage,
+        private readonly ?string $finalMessage,
         private readonly bool $synchronous,
         private readonly ?ILoop $loop,
         private readonly IInterval $interval,
@@ -133,6 +135,17 @@ final class SpinnerConfig implements ISpinnerConfig
     /**
      * @throws LogicException
      */
+    public function getFinalMessage(): string
+    {
+        if ($this->isAsynchronous()) {
+            return $this->finalMessage;
+        }
+        throw self::synchronousModeException('final message');
+    }
+
+    /**
+     * @throws LogicException
+     */
     public function getLoop(): ILoop
     {
         if ($this->isAsynchronous()) {
@@ -170,5 +183,10 @@ final class SpinnerConfig implements ISpinnerConfig
     public function getColorSupportLevel(): int
     {
         return $this->colorSupportLevel;
+    }
+
+    public function isHideCursor(): bool
+    {
+        return $this->hideCursor;
     }
 }

@@ -28,4 +28,6 @@ interface ISpinnerConfig
     public function getWigglers(): IWigglerContainer;
 
     public function getColorSupportLevel(): int;
+
+    public function getFinalMessage(): string;
 }

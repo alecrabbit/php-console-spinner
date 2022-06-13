@@ -27,15 +27,19 @@ use AlecRabbit\Spinner\Core\Writer;
 final class SpinnerConfigBuilder implements ISpinnerConfigBuilder
 {
     private const MESSAGE_ON_EXIT = Defaults::MESSAGE_ON_EXIT;
+    private const FINAL_MESSAGE = Defaults::FINAL_MESSAGE;
     private const SHUTDOWN_DELAY = Defaults::SHUTDOWN_DELAY;
     private const FRAME_SEQUENCE = Defaults::FRAME_SEQUENCE;
+    private const HIDE_CURSOR = Defaults::HIDE_CURSOR;
 
     private ?ILoop $loop = null;
+    private ?bool $hideCursor = null;
     private ?IDriver $driver = null;
     private ?IWigglerContainer $wigglers = null;
     private ?bool $synchronousMode = null;
     private ?float $shutdownDelaySeconds = null;
     private ?string $exitMessage = null;
+    private ?string $finalMessage = null;
     private ?IFrameCollection $frames = null;
     private ?IInterval $interval = null;
     private ?int $terminalColorSupport = null;
@@ -53,6 +57,13 @@ final class SpinnerConfigBuilder implements ISpinnerConfigBuilder
     {
         $clone = clone $this;
         $clone->exitMessage = $exitMessage;
+        return $clone;
+    }
+
+    public function withFinalMessage(string $finalMessage): self
+    {
+        $clone = clone $this;
+        $clone->finalMessage = $finalMessage;
         return $clone;
     }
 
@@ -98,6 +109,13 @@ final class SpinnerConfigBuilder implements ISpinnerConfigBuilder
         return $clone;
     }
 
+    public function doNotHideCursor(): self
+    {
+        $clone = clone $this;
+        $clone->hideCursor = false;
+        return $clone;
+    }
+
     public function withInterval(IInterval $interval): self
     {
         $clone = clone $this;
@@ -122,10 +140,12 @@ final class SpinnerConfigBuilder implements ISpinnerConfigBuilder
 
         return
             new SpinnerConfig(
+                hideCursor: $this->hideCursor,
                 driver: $this->driver,
                 wigglers: $this->wigglers,
                 shutdownDelay: $this->shutdownDelaySeconds,
                 exitMessage: $this->exitMessage,
+                finalMessage: $this->finalMessage,
                 synchronous: $this->synchronousMode,
                 loop: $this->loop,
                 interval: $this->interval,
@@ -180,6 +200,14 @@ final class SpinnerConfigBuilder implements ISpinnerConfigBuilder
 
         if (null === $this->exitMessage && !$this->synchronousMode) {
             $this->exitMessage = self::MESSAGE_ON_EXIT;
+        }
+
+        if (null === $this->finalMessage && !$this->synchronousMode) {
+            $this->finalMessage = self::FINAL_MESSAGE;
+        }
+
+        if (null === $this->hideCursor) {
+            $this->hideCursor = self::HIDE_CURSOR;
         }
     }
 
