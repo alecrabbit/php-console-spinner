@@ -41,13 +41,13 @@ final class FramePattern // Tentative name
         ];
 
     public const CIRCLES = [['◐', '◓', '◑', '◒',], 1, 250];
-    public const RUNNER = [['🚶 ', '🏃 '], 3];
-    public const MONKEY = [['🐵 ', '🙈 ', '🙉 ', '🙊 '], 3];
+    public const RUNNER = [['🚶 ', '🏃 '], 3, 400];
+    public const MONKEY = [['🐵 ', '🙈 ', '🙉 ', '🙊 '], 3, 300];
 
-    public const SECTOR = [['◴ ', '◷ ', '◶ ', '◵ '], 2];
+    public const SECTOR = [['◴ ', '◷ ', '◶ ', '◵ '], 2, 250];
 
-    public const CLOCK_VARIANT_0 = [['🕐', '🕑', '🕒', '🕓', '🕔', '🕕', '🕖', '🕗', '🕘', '🕙', '🕚', '🕛',], 2];
-    public const CLOCK_VARIANT_1 = [['🕜', '🕝', '🕞', '🕟', '🕠', '🕡', '🕢', '🕣', '🕤', '🕥', '🕦',], 2];
+    public const CLOCK_VARIANT_0 = [['🕐', '🕑', '🕒', '🕓', '🕔', '🕕', '🕖', '🕗', '🕘', '🕙', '🕚', '🕛',], 2, 150];
+    public const CLOCK_VARIANT_1 = [['🕜', '🕝', '🕞', '🕟', '🕠', '🕡', '🕢', '🕣', '🕤', '🕥', '🕦',], 2, 150];
 
     public const CLOCK_VARIANT_2 = [
         [
@@ -77,7 +77,8 @@ final class FramePattern // Tentative name
             '🕧',
 
         ],
-        2
+        2,
+        150
     ];
 
     public const DOT = [['⢀', '⡀', '⠄', '⠂', '⠁', '⠈', '⠐', '⠠',], 1];
