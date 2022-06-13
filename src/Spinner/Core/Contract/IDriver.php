@@ -20,4 +20,6 @@ interface IDriver
     public function getWriter(): IWriter;
 
     public function getTerminalColorSupport(): int;
+
+    public function write(string $message): void;
 }

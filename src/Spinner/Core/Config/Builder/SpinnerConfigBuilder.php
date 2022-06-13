@@ -27,11 +27,13 @@ use AlecRabbit\Spinner\Core\Writer;
 
 final class SpinnerConfigBuilder implements ISpinnerConfigBuilder
 {
-    private const MESSAGE_ON_EXIT = Defaults::MESSAGE_ON_EXIT;
+    private const MESSAGE_ON_SIGINT = Defaults::MESSAGE_ON_EXIT;
+    private const MESSAGE_INTERRUPTED = Defaults::MESSAGE_INTERRUPTED;
     private const FINAL_MESSAGE = Defaults::FINAL_MESSAGE;
     private const SHUTDOWN_DELAY = Defaults::SHUTDOWN_DELAY;
     private const FRAME_SEQUENCE = Defaults::FRAME_SEQUENCE;
     private const HIDE_CURSOR = Defaults::HIDE_CURSOR;
+    private const SYNC_MODE_ENABLED = Defaults::SYNC_MODE_ENABLED;
 
     private ?ILoop $loop = null;
     private ?bool $hideCursor = null;
@@ -39,7 +41,7 @@ final class SpinnerConfigBuilder implements ISpinnerConfigBuilder
     private ?IWigglerContainer $wigglers = null;
     private ?bool $synchronousMode = null;
     private ?float $shutdownDelaySeconds = null;
-    private ?string $exitMessage = null;
+    private ?string $interruptMessage = null;
     private ?string $finalMessage = null;
     private ?IFrameCollection $frames = null;
     private ?IInterval $interval = null;
@@ -54,10 +56,10 @@ final class SpinnerConfigBuilder implements ISpinnerConfigBuilder
         return $clone;
     }
 
-    public function withExitMessage(string $exitMessage): self
+    public function withInterruptMessage(string $interruptMessage): self
     {
         $clone = clone $this;
-        $clone->exitMessage = $exitMessage;
+        $clone->interruptMessage = $interruptMessage;
         return $clone;
     }
 
@@ -145,7 +147,7 @@ final class SpinnerConfigBuilder implements ISpinnerConfigBuilder
                 driver: $this->driver,
                 wigglers: $this->wigglers,
                 shutdownDelay: $this->shutdownDelaySeconds,
-                exitMessage: $this->exitMessage,
+                interruptMessage: $this->interruptMessage,
                 finalMessage: $this->finalMessage,
                 synchronous: $this->synchronousMode,
                 loop: $this->loop,
@@ -159,9 +161,30 @@ final class SpinnerConfigBuilder implements ISpinnerConfigBuilder
      */
     private function processDefaults(): void
     {
+        if (null === $this->driver) {
+            $this->driver = self::createDriver();
+        }
+
+        if (null === $this->terminalColorSupport) {
+            $this->terminalColorSupport = $this->driver->getTerminalColorSupport();
+        }
+
+        if (null === $this->hideCursor) {
+            $this->hideCursor = self::HIDE_CURSOR;
+        }
+
+        if (null === $this->synchronousMode) {
+            $this->synchronousMode = self::SYNC_MODE_ENABLED;
+        }
+
         if (null === $this->loopFactory) {
             $this->loopFactory = new LoopFactory();
         }
+
+        if (null === $this->loop) {
+            $this->loop = $this->getLoop($this->synchronousMode);
+        }
+
         if (null === $this->frames) {
             $this->frames = self::defaultFrames();
         }
@@ -174,47 +197,23 @@ final class SpinnerConfigBuilder implements ISpinnerConfigBuilder
             $this->wigglers = $this->wigglerContainerFactory->createContainer();
         }
 
-        if (null === $this->driver) {
-            $this->driver = self::createDriver();
-        }
-
-        if (null === $this->terminalColorSupport) {
-            $this->terminalColorSupport = $this->driver->getTerminalColorSupport();
-        }
-
-        if (null === $this->synchronousMode) {
-            $this->synchronousMode = false;
-        }
-
-        if (null === $this->loop) {
-            $this->loop = $this->getLoop($this->synchronousMode);
-        }
-
-        if (null === $this->hideCursor) {
-            $this->hideCursor = self::HIDE_CURSOR;
+        if (null === $this->finalMessage) {
+            $this->finalMessage = self::FINAL_MESSAGE;
         }
 
         if (!$this->synchronousMode) {
             if (null === $this->shutdownDelaySeconds) {
                 $this->shutdownDelaySeconds = self::SHUTDOWN_DELAY;
             }
-
-            if (null === $this->exitMessage) {
-                $this->exitMessage = self::MESSAGE_ON_EXIT;
-            }
-
-            if (null === $this->finalMessage) {
-                $this->finalMessage = self::FINAL_MESSAGE;
+            if (null === $this->interruptMessage) {
+                $this->interruptMessage = self::MESSAGE_ON_SIGINT;
             }
         }
-    }
-
-    /**
-     * @throws InvalidArgumentException
-     */
-    private static function defaultFrames(): IFrameCollection
-    {
-        return FrameCollection::create(...self::FRAME_SEQUENCE);
+        if ($this->synchronousMode) {
+            if (null === $this->interruptMessage) {
+                $this->interruptMessage = self::MESSAGE_INTERRUPTED;
+            }
+        }
     }
 
     private static function createDriver(): IDriver
@@ -249,5 +248,13 @@ final class SpinnerConfigBuilder implements ISpinnerConfigBuilder
                 $e,
             );
         }
+    }
+
+    /**
+     * @throws InvalidArgumentException
+     */
+    private static function defaultFrames(): IFrameCollection
+    {
+        return FrameCollection::create(...self::FRAME_SEQUENCE);
     }
 }

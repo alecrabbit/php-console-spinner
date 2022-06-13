@@ -10,8 +10,9 @@ final class Defaults
 {
     public const SHUTDOWN_DELAY = 0.15;
     public const MAX_SHUTDOWN_DELAY = 10;
-    public const MESSAGE_ON_EXIT = 'Exiting... (CTRL+C to force)';
-    public const FINAL_MESSAGE = '';
+    public const MESSAGE_ON_EXIT = 'Exiting... (CTRL+C to force)' . PHP_EOL;
+    public const MESSAGE_INTERRUPTED = 'Interrupted!' . PHP_EOL;
+    public const FINAL_MESSAGE = PHP_EOL;
     public const SPINNER_FRAME_INTERVAL = 0.1;
     public const ERASE_WIDTH = 1;
     public const FRAME_SEQUENCE = FramePattern::SNAKE_VARIANT_0;
@@ -21,6 +22,7 @@ final class Defaults
     public const COLOR_SUPPORT_LEVELS = ALLOWED_TERM_COLOR;
     public const MILLISECONDS_MAX_INTERVAL = 1000000;
     public const HIDE_CURSOR = true;
+    public const SYNC_MODE_ENABLED = false;
 
     private function __construct()
     {

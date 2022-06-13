@@ -57,4 +57,9 @@ final class Driver implements IDriver
         // FIXME (2022-06-10 17:37) [Alec Rabbit]: Implement color support level detection.
         return TERM_256COLOR;
     }
+
+    public function write(string $message): void
+    {
+        $this->writer->write($message);
+    }
 }

@@ -19,7 +19,7 @@ interface ISpinnerConfig
 
     public function getShutdownDelay(): int|float;
 
-    public function getExitMessage(): string;
+    public function getInterruptMessage(): string;
 
     public function getDriver(): IDriver;
 

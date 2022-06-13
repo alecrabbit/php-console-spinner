@@ -16,15 +16,13 @@ interface ISpinner
 
     public function getInterval(): IInterval;
 
-    public function isSynchronous(): bool;
-
-    public function isAsynchronous(): bool;
-
     public function spin(): void;
 
-    public function begin(): void;
+    public function initialize(): void;
 
-    public function end(): void;
+    public function interrupt(): void;
+
+    public function finalize(): void;
 
     public function erase(): void;
 
@@ -32,11 +30,11 @@ interface ISpinner
 
     public function enable(): void;
 
+    public function wrap(callable $callback, ...$args): void;
+
     public function spinner(IRevolveWiggler|string|null $spinner): void;
 
     public function message(IMessageWiggler|string|null $message): void;
 
     public function progress(IProgressWiggler|float|null $progress): void;
-
-    public function wrap(callable $callback, ...$args): void;
 }

@@ -11,7 +11,6 @@ use AlecRabbit\Spinner\Core\Contract\ILoop;
 use AlecRabbit\Spinner\Core\Contract\IWigglerContainer;
 use AlecRabbit\Spinner\Core\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Core\Exception\LogicException;
-use AlecRabbit\Spinner\Core\Rotor\Contract\IInterval;
 
 final class SpinnerConfig implements ISpinnerConfig
 {
@@ -25,24 +24,26 @@ final class SpinnerConfig implements ISpinnerConfig
         private readonly IDriver $driver,
         private readonly IWigglerContainer $wigglers,
         private readonly null|int|float $shutdownDelay,
-        private readonly ?string $exitMessage,
-        private readonly ?string $finalMessage,
+        private readonly string $interruptMessage,
+        private readonly string $finalMessage,
         private readonly bool $synchronous,
         private readonly ?ILoop $loop,
         private readonly int $colorSupportLevel,
     ) {
-        $this->assertConfigIsCorrect();
+        $this->assert();
     }
 
     /**
-     * @throws LogicException|InvalidArgumentException
+     * @throws LogicException
+     * @throws InvalidArgumentException
      */
-    private function assertConfigIsCorrect(): void
+    private function assert(): void
     {
         $this->assertShutdownDelay();
         $this->assertRunMode();
         $this->assertExitMessage();
         $this->assertColorSupportLevel();
+        $this->assertInterruptMessage();
     }
 
     /**
@@ -115,15 +116,9 @@ final class SpinnerConfig implements ISpinnerConfig
         }
     }
 
-    /**
-     * @throws LogicException
-     */
-    public function getExitMessage(): string
+    public function getInterruptMessage(): string
     {
-        if ($this->isAsynchronous()) {
-            return $this->exitMessage;
-        }
-        throw self::synchronousModeException('exit message');
+        return $this->interruptMessage;
     }
 
     private static function synchronousModeException(string $reason): LogicException
@@ -131,15 +126,9 @@ final class SpinnerConfig implements ISpinnerConfig
         return new LogicException(sprintf('Configured for synchronous run mode. No %s is available.', $reason));
     }
 
-    /**
-     * @throws LogicException
-     */
     public function getFinalMessage(): string
     {
-        if ($this->isAsynchronous()) {
-            return $this->finalMessage;
-        }
-        throw self::synchronousModeException('final message');
+        return $this->finalMessage;
     }
 
     /**
@@ -182,5 +171,21 @@ final class SpinnerConfig implements ISpinnerConfig
     public function isHideCursor(): bool
     {
         return $this->hideCursor;
+    }
+
+    /**
+     * @throws LogicException
+     */
+    private function assertInterruptMessage(): void
+    {
+        if (null === $this->interruptMessage && $this->isSynchronous()) {
+            return;
+        }
+        if (null === $this->interruptMessage && $this->isAsynchronous()) {
+            throw new LogicException(
+                'You have chosen asynchronous mode configuration. It requires interrupt message.'
+            );
+        }
+        // TODO (2022-06-13 13:50) [Alec Rabbit]: Add interrupt message validation.
     }
 }

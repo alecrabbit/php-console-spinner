@@ -18,8 +18,10 @@ use AlecRabbit\Spinner\Core\Wiggler\Contract\IWiggler;
 final class Spinner implements ISpinner
 {
     private readonly bool $hideCursor;
-    private readonly bool $synchronous;
     private readonly IDriver $driver;
+    private readonly string $finalMessage;
+    private readonly string $interruptMessage;
+    private bool $interrupted = false;
 
     private IWigglerContainer $wigglers;
     private bool $active;
@@ -28,14 +30,10 @@ final class Spinner implements ISpinner
     public function __construct(ISpinnerConfig $config)
     {
         $this->hideCursor = $config->isHideCursor();
-        $this->synchronous = $config->isSynchronous();
         $this->driver = $config->getDriver();
         $this->wigglers = $config->getWigglers();
-    }
-
-    public function isSynchronous(): bool
-    {
-        return $this->synchronous;
+        $this->finalMessage = $config->getFinalMessage();
+        $this->interruptMessage = $config->getInterruptMessage();
     }
 
     public function getInterval(): IInterval
@@ -43,7 +41,7 @@ final class Spinner implements ISpinner
         return $this->wigglers->getInterval();
     }
 
-    public function begin(): void
+    public function initialize(): void
     {
         if ($this->hideCursor) {
             $this->driver->hideCursor();
@@ -56,13 +54,10 @@ final class Spinner implements ISpinner
         $this->active = true;
     }
 
-    public function end(): void
+    public function disable(): void
     {
         $this->erase();
-        if ($this->hideCursor) {
-            $this->driver->showCursor();
-        }
-        $this->stop();
+        $this->active = false;
     }
 
     public function erase(): void
@@ -70,22 +65,6 @@ final class Spinner implements ISpinner
         $this->driver->erase(
             $this->currentFrame?->sequenceWidth
         );
-    }
-
-    private function stop(): void
-    {
-        $this->active = false;
-    }
-
-    public function isAsynchronous(): bool
-    {
-        return !$this->isSynchronous();
-    }
-
-    public function disable(): void
-    {
-        $this->erase();
-        $this->active = false;
     }
 
     public function enable(): void
@@ -140,5 +119,28 @@ final class Spinner implements ISpinner
         $this->erase();
         $callback(...$args);
         $this->spin();
+    }
+
+    public function interrupt(): void
+    {
+        $this->interrupted = true;
+        $this->stop();
+        $this->driver->write(PHP_EOL . $this->interruptMessage);
+    }
+
+    private function stop(): void
+    {
+        $this->disable();
+        if ($this->hideCursor) {
+            $this->driver->showCursor();
+        }
+    }
+
+    public function finalize(): void
+    {
+        if (!$this->interrupted) {
+            $this->stop();
+            $this->driver->write($this->finalMessage);
+        }
     }
 }

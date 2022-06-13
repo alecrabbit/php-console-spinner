@@ -96,9 +96,9 @@ final class SpinnerFactory implements ISpinnerFactory
 
     private static function asyncOperations(Spinner $spinner, ISpinnerConfig $config): void
     {
-        if ($spinner->isAsynchronous()) {
+        if ($config->isAsynchronous()) {
             self::attachSpinnerToLoop($spinner, $config->getLoop());
-            self::attachSigIntListener($spinner, $config);
+            self::attachSigIntHandler($spinner, $config);
             self::initialize($spinner);
         }
     }
@@ -115,24 +115,20 @@ final class SpinnerFactory implements ISpinnerFactory
         ;
     }
 
-    private static function attachSigIntListener(
-        ISpinner $spinner,
-        ISpinnerConfig $config,
-    ): void {
+    private static function attachSigIntHandler(ISpinner $spinner, ISpinnerConfig $config,): void
+    {
         if (defined('SIGINT')) { // check for ext-pcntl
             $loop = $config->getLoop();
-
-            $func = static function () use ($loop, &$func, $spinner, $config) {
-                $spinner->end();
-                $output = $config->getDriver()->getWriter()->getOutput();
-                $output->write(PHP_EOL . $config->getExitMessage() . PHP_EOL);
+            $shutdownDelay = $config->getShutdownDelay();
+            $func = static function () use ($spinner, $loop, $shutdownDelay, &$func) {
+                $spinner->interrupt();
                 /** @noinspection PhpComposerExtensionStubsInspection */
                 $loop->removeSignal(SIGINT, $func);
                 $loop->addTimer(
-                    $config->getShutdownDelay(),
-                    static function () use ($loop, $config, $output) {
+                    $shutdownDelay,
+                    static function () use ($loop, $spinner) {
                         $loop->stop();
-                        $output->write($config->getFinalMessage() . PHP_EOL);
+                        $spinner->finalize();
                     }
                 );
             };
@@ -143,7 +139,7 @@ final class SpinnerFactory implements ISpinnerFactory
 
     private static function initialize(ISpinner $spinner): void
     {
-        $spinner->begin();
+        $spinner->initialize();
     }
 
     private static function setSpinner(ISpinner $spinner): void
