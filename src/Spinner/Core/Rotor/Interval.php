@@ -11,7 +11,7 @@ use AlecRabbit\Spinner\Core\Rotor\Contract\IInterval;
 final class Interval implements IInterval
 {
     private const MAX_INTERVAL = Defaults::MILLISECONDS_MAX_INTERVAL;
-    public readonly int|float $seconds;
+    private readonly int|float $seconds;
 
     /**
      * @throws InvalidArgumentException
@@ -35,11 +35,16 @@ final class Interval implements IInterval
             throw new InvalidArgumentException('Interval should be greater than 0.');
         }
         if (self::MAX_INTERVAL < $milliseconds) {
-            throw new InvalidArgumentException('Interval should be less than ' . self::MAX_INTERVAL . '.');
+            throw new InvalidArgumentException(
+                sprintf(
+                    'Interval should be less than %d.',
+                    self::MAX_INTERVAL
+                )
+            );
         }
     }
 
-    public function toFloat(): float
+    public function toSeconds(): float
     {
         return (float)$this->seconds;
     }

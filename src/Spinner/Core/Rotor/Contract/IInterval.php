@@ -5,5 +5,5 @@ namespace AlecRabbit\Spinner\Core\Rotor\Contract;
 
 interface IInterval
 {
-    public function toFloat(): float;
+    public function toSeconds(): float;
 }
