@@ -8,8 +8,8 @@ use AlecRabbit\Spinner\Core\Rotor\Interval;
 
 use const AlecRabbit\Cli\TERM_NOCOLOR;
 
-const MILLISECONDS = 250;
-const STOP_IN = 5.456353567; // seconds int|float
+const REFRESH_INTERVAL = 250; // milliseconds int
+const STOP_SCRIPT_IN = 5.4; // seconds int|float
 
 require_once __DIR__ . '/../bootstrap.php';
 
@@ -18,7 +18,7 @@ $config =
         ->withTerminalColor(TERM_NOCOLOR)
         ->withCursor()
         ->withFinalMessage('This is the final message.' . PHP_EOL)
-        ->withInterval(new Interval(MILLISECONDS))
+        ->withInterval(new Interval(REFRESH_INTERVAL))
         ->withShutdownDelay(0)
         ->withInterruptMessage('Interrupted!' . PHP_EOL)
         ->build()
@@ -28,7 +28,7 @@ $spinner = SpinnerFactory::create($config);
 
 $loop = $config->getLoop();
 $loop->defer(
-    STOP_IN,
+    STOP_SCRIPT_IN,
     function () use ($loop, $spinner) {
         $loop->stop();
         $spinner->finalize();
@@ -37,5 +37,5 @@ $loop->defer(
 );
 
 echo 'Starting...' . PHP_EOL;
-echo sprintf('Refresh interval: %s ms', MILLISECONDS) . PHP_EOL;
-echo sprintf('Will stop in %s seconds', number_format(STOP_IN, 2)) . PHP_EOL;
+echo sprintf('Refresh interval: %s ms', REFRESH_INTERVAL) . PHP_EOL;
+echo sprintf('Will stop in %s seconds', number_format(STOP_SCRIPT_IN, 2)) . PHP_EOL;

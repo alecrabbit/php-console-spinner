@@ -8,5 +8,5 @@ use AlecRabbit\Spinner\Core\Config\Contract\IConfig;
 
 interface IConfigBuilder
 {
-    public function build(): IConfig
+    public function build(): IConfig;
 }
