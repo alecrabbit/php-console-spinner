@@ -8,9 +8,7 @@ use AlecRabbit\Spinner\Core\Contract\IFrame;
 use AlecRabbit\Spinner\Core\Frame;
 use AlecRabbit\Spinner\Core\Rotor\Contract\IInterval;
 use AlecRabbit\Spinner\Core\Rotor\Contract\IRotor;
-use AlecRabbit\Spinner\Core\Rotor\Contract\IStringRotor;
 use AlecRabbit\Spinner\Core\Rotor\Contract\IStyleRotor;
-use AlecRabbit\Spinner\Core\Rotor\Contract\IWIPStyleRotor;
 
 abstract class AWiggler implements IWiggler
 {
@@ -20,12 +18,13 @@ abstract class AWiggler implements IWiggler
     ) {
     }
 
-    public static function create(
-        IStyleRotor $styleRotor,
-        IRotor $charRotor,
-    ): IWiggler {
-        return new static($styleRotor, $charRotor);
+    public static function create(IStyleRotor $style, IRotor $rotor,): IWiggler
+    {
+        return
+            new static($style, $rotor);
     }
+
+    abstract protected static function assertWiggler(IWiggler|string|null $wiggler): void;
 
     public function createFrame(?IInterval $interval = null): IFrame
     {
@@ -44,6 +43,4 @@ abstract class AWiggler implements IWiggler
                 interval: $interval,
             );
     }
-
-    abstract protected static function assertWiggler(IWiggler|string|null $wiggler): void;
 }

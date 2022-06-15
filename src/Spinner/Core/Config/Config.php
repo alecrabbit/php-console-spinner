@@ -115,14 +115,25 @@ final class Config implements IConfig
         }
     }
 
+    /**
+     * @throws LogicException
+     */
+    private function assertInterruptMessage(): void
+    {
+        if (null === $this->interruptMessage && $this->isSynchronous()) {
+            return;
+        }
+        if (null === $this->interruptMessage && $this->isAsynchronous()) {
+            throw new LogicException(
+                'You have chosen asynchronous mode configuration. It requires interrupt message.'
+            );
+        }
+        // TODO (2022-06-13 13:50) [Alec Rabbit]: Add interrupt message validation.
+    }
+
     public function getInterruptMessage(): string
     {
         return $this->interruptMessage;
-    }
-
-    private static function synchronousModeException(string $reason): LogicException
-    {
-        return new LogicException(sprintf('Configured for synchronous run mode. No %s is available.', $reason));
     }
 
     public function getFinalMessage(): string
@@ -139,6 +150,11 @@ final class Config implements IConfig
             return $this->loop;
         }
         throw self::synchronousModeException('loop object');
+    }
+
+    private static function synchronousModeException(string $reason): LogicException
+    {
+        return new LogicException(sprintf('Configured for synchronous run mode. No %s is available.', $reason));
     }
 
     /**
@@ -165,21 +181,5 @@ final class Config implements IConfig
     public function getColorSupportLevel(): int
     {
         return $this->colorSupportLevel;
-    }
-
-    /**
-     * @throws LogicException
-     */
-    private function assertInterruptMessage(): void
-    {
-        if (null === $this->interruptMessage && $this->isSynchronous()) {
-            return;
-        }
-        if (null === $this->interruptMessage && $this->isAsynchronous()) {
-            throw new LogicException(
-                'You have chosen asynchronous mode configuration. It requires interrupt message.'
-            );
-        }
-        // TODO (2022-06-13 13:50) [Alec Rabbit]: Add interrupt message validation.
     }
 }

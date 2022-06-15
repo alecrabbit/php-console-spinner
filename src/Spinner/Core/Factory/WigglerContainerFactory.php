@@ -17,8 +17,7 @@ use AlecRabbit\Spinner\Core\Rotor\Contract\IInterval;
 use AlecRabbit\Spinner\Core\Rotor\FrameRotor;
 use AlecRabbit\Spinner\Core\Rotor\NoCharsRotor;
 use AlecRabbit\Spinner\Core\Rotor\NoStyleRotor;
-use AlecRabbit\Spinner\Core\Rotor\RainbowStyleRotor;
-use AlecRabbit\Spinner\Core\Rotor\WIPNoStyleRotor;
+use AlecRabbit\Spinner\Core\Rotor\StyleRotor;
 use AlecRabbit\Spinner\Core\StyleCollection;
 use AlecRabbit\Spinner\Core\Wiggler\Contract\IWiggler;
 use AlecRabbit\Spinner\Core\Wiggler\MessageWiggler;
@@ -75,33 +74,10 @@ final class WigglerContainerFactory implements IWigglerContainerFactory
     {
         return
             RevolveWiggler::create(
-                new RainbowStyleRotor($this->defaultStyles()),
+                new StyleRotor($this->defaultStyles()),
                 new FrameRotor(
                     frames: $frames,
                 ),
-            );
-    }
-
-    /**
-     * @throws InvalidArgumentException
-     */
-    private static function createMessageWiggler(): IWiggler
-    {
-        return
-            MessageWiggler::create(
-                new NoStyleRotor(),
-            );
-    }
-
-    /**
-     * @throws InvalidArgumentException
-     */
-    private static function createProgressWiggler(): IWiggler
-    {
-        return
-            ProgressWiggler::create(
-                new NoStyleRotor(),
-                new NoCharsRotor(),
             );
     }
 
@@ -133,6 +109,29 @@ final class WigglerContainerFactory implements IWigglerContainerFactory
     private function assert(array $pattern): void
     {
         // TODO (2022-06-15 17:58) [Alec Rabbit]: Implement [0393ca28-1910-4562-a348-0677aa8b4d46].
+    }
+
+    /**
+     * @throws InvalidArgumentException
+     */
+    private static function createMessageWiggler(): IWiggler
+    {
+        return
+            MessageWiggler::create(
+                new NoStyleRotor(),
+            );
+    }
+
+    /**
+     * @throws InvalidArgumentException
+     */
+    private static function createProgressWiggler(): IWiggler
+    {
+        return
+            ProgressWiggler::create(
+                new NoStyleRotor(),
+                new NoCharsRotor(),
+            );
     }
 
 }

@@ -107,7 +107,7 @@ final class WigglerContainer implements Contract\IWigglerContainer
 
     public function progress(float|string|IProgressWiggler|null $wiggler): void
     {
-        if(is_float($wiggler)) {
+        if (is_float($wiggler)) {
             $wiggler = sprintf('%s%%', (int)($wiggler * 100)); // convert to string
         }
 

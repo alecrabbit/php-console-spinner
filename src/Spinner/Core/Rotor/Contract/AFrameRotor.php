@@ -29,6 +29,11 @@ abstract class AFrameRotor extends ARotor implements IFrameRotor
         return $this->leadingSpacerWidth + $this->getCurrentFrame()->sequenceWidth + $this->trailingSpacerWidth;
     }
 
+    private function getCurrentFrame(): IFrame
+    {
+        return $this->data[$this->currentIndex];
+    }
+
     protected function nextElement(?IInterval $interval = null): string
     {
         return
@@ -40,11 +45,6 @@ abstract class AFrameRotor extends ARotor implements IFrameRotor
     protected function addSpacers(string $chars): string
     {
         return $this->leadingSpacer . $chars . $this->trailingSpacer;
-    }
-
-    private function getCurrentFrame(): IFrame
-    {
-        return $this->data[$this->currentIndex];
     }
 
 }

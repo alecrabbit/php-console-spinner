@@ -24,8 +24,6 @@ abstract class AStringRotor extends ARotor implements IStringRotor
     }
 
     /**
-     * @param string $trailingSpacer
-     * @param string $leadingSpacer
      * @throws InvalidArgumentException
      */
     private static function refineWidth(?int $width, string $leadingSpacer, string $trailingSpacer): int

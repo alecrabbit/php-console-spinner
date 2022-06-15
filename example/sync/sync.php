@@ -24,6 +24,8 @@ $config =
 
 $spinner = SpinnerFactory::create($config);
 
+dump($spinner);
+
 $spinner->initialize();
 for ($i = 0; $i < 100; $i++) {
     if (500 > random_int(0, 100000)) {

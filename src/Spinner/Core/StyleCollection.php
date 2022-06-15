@@ -5,12 +5,13 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core;
 
 use AlecRabbit\Spinner\Core\Contract\IStyle;
+use AlecRabbit\Spinner\Core\Contract\IStyleCollection;
 use AlecRabbit\Spinner\Core\Rotor\Contract\IInterval;
 use AlecRabbit\Spinner\Core\Rotor\Interval;
 use ArrayIterator;
 use Traversable;
 
-final class StyleCollection implements Contract\IStyleCollection
+final class StyleCollection implements IStyleCollection
 {
     /** @var array<int, IStyle> */
     private array $elements = [];
@@ -21,7 +22,7 @@ final class StyleCollection implements Contract\IStyleCollection
     ) {
     }
 
-    public static function create(array $styles, ?int $interval = null): Contract\IStyleCollection
+    public static function create(array $styles = [], ?int $interval = null): IStyleCollection
     {
         self::assert($styles);
         $collection = new self(new Interval($interval));

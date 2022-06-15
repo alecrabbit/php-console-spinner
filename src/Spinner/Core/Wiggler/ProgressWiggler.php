@@ -8,15 +8,12 @@ use AlecRabbit\Spinner\Core\Contract\Base\C;
 use AlecRabbit\Spinner\Core\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Core\Exception\RuntimeException;
 use AlecRabbit\Spinner\Core\Rotor\Contract\IRotor;
-use AlecRabbit\Spinner\Core\Rotor\Contract\IStringRotor;
 use AlecRabbit\Spinner\Core\Rotor\Contract\IStyleRotor;
-use AlecRabbit\Spinner\Core\Rotor\Contract\IWIPStyleRotor;
 use AlecRabbit\Spinner\Core\Rotor\NoCharsRotor;
 use AlecRabbit\Spinner\Core\Rotor\VariadicStringRotor;
 use AlecRabbit\Spinner\Core\Wiggler\Contract\AWiggler;
 use AlecRabbit\Spinner\Core\Wiggler\Contract\IProgressWiggler;
 use AlecRabbit\Spinner\Core\Wiggler\Contract\IWiggler;
-use AlecRabbit\Spinner\Core\Rotor\Contract\IInterval;
 
 final class ProgressWiggler extends AWiggler implements IProgressWiggler
 {
@@ -34,19 +31,30 @@ final class ProgressWiggler extends AWiggler implements IProgressWiggler
                 message: $wiggler ?? C::DEFAULT_MESSAGE,
             );
     }
+
+    protected static function assertWiggler(IWiggler|string|null $wiggler): void
+    {
+        if (null === $wiggler || is_string($wiggler) || $wiggler instanceof IProgressWiggler) {
+            return;
+        }
+        throw new RuntimeException(
+            'Message variable must be a string, null or an instance of IProgressWiggler'
+        );
+    }
+
     /**
      * @throws InvalidArgumentException
      */
     public static function create(
-        IStyleRotor $styleRotor,
-        IRotor $charRotor = null,
+        IStyleRotor $style,
+        IRotor $rotor = null,
         string $message = C::DEFAULT_MESSAGE,
     ): self {
         $cr = self::createCharRotor($message);
 
         return
             new self(
-                $styleRotor,
+                $style,
                 $cr,
             );
     }
@@ -60,15 +68,5 @@ final class ProgressWiggler extends AWiggler implements IProgressWiggler
             return new NoCharsRotor();
         }
         return new VariadicStringRotor($message);
-    }
-
-    protected static function assertWiggler(IWiggler|string|null $wiggler): void
-    {
-        if (null === $wiggler || is_string($wiggler) || $wiggler instanceof IProgressWiggler) {
-            return;
-        }
-        throw new RuntimeException(
-            'Message variable must be a string, null or an instance of IProgressWiggler'
-        );
     }
 }

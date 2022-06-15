@@ -11,11 +11,6 @@ use AlecRabbit\Spinner\Core\Wiggler\Contract\IWiggler;
 
 final class RevolveWiggler extends AWiggler implements IRevolveWiggler
 {
-    public function update(IWiggler|string|null $wiggler): IWiggler
-    {
-        // TODO: Implement update() method.
-    }
-
     protected static function assertWiggler(IWiggler|string|null $wiggler): void
     {
         if (null === $wiggler || is_string($wiggler) || $wiggler instanceof IRevolveWiggler) {
@@ -24,5 +19,10 @@ final class RevolveWiggler extends AWiggler implements IRevolveWiggler
         throw new RuntimeException(
             'Message variable must be a string, null or an instance of IRevolveWiggler'
         );
+    }
+
+    public function update(IWiggler|string|null $wiggler): IWiggler
+    {
+        // TODO: Implement update() method.
     }
 }
