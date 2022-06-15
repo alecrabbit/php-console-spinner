@@ -10,7 +10,11 @@ use AlecRabbit\Spinner\Core\Rotor\Contract\IInterval;
 
 interface IWigglerContainerFactory
 {
-    public function __construct(IFrameCollection $frames, IInterval $interval,);
+    public function __construct(
+        ?IFrameCollection $frames = null,
+        ?int $terminalColorSupport = null,
+        ?IInterval $interval = null,
+    );
 
     public function createContainer(): IWigglerContainer;
 }

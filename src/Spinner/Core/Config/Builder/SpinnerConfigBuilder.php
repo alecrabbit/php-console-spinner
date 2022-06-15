@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Config\Builder;
 
 use AlecRabbit\Spinner\Core\Config\Builder\Contract\ISpinnerConfigBuilder;
-use AlecRabbit\Spinner\Core\Config\Contract\IConfig;
 use AlecRabbit\Spinner\Core\Config\Config;
+use AlecRabbit\Spinner\Core\Config\Contract\IConfig;
 use AlecRabbit\Spinner\Core\Contract\Base\Defaults;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\IFrameCollection;
@@ -93,10 +93,10 @@ final class SpinnerConfigBuilder implements ISpinnerConfigBuilder
         return $clone;
     }
 
-    public function withColorSupportLevel(int $colorSupportLevel): self
+    public function withTerminalColor(int $terminalColorSupport): self
     {
         $clone = clone $this;
-        $clone->terminalColorSupport = $colorSupportLevel;
+        $clone->terminalColorSupport = $terminalColorSupport;
         return $clone;
     }
 
@@ -210,7 +210,8 @@ final class SpinnerConfigBuilder implements ISpinnerConfigBuilder
         }
 
         if (null === $this->wigglerContainerFactory) {
-            $this->wigglerContainerFactory = new WigglerContainerFactory($this->frames, $this->interval);
+            $this->wigglerContainerFactory =
+                new WigglerContainerFactory($this->frames, $this->terminalColorSupport, $this->interval);
         }
 
         if (null === $this->wigglers) {

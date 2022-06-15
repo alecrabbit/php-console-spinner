@@ -15,7 +15,7 @@ require_once __DIR__ . '/../bootstrap.php';
 
 $config =
     (new SpinnerConfigBuilder())
-        ->withColorSupportLevel(TERM_NOCOLOR)
+        ->withTerminalColor(TERM_NOCOLOR)
         ->doNotHideCursor()
         ->withFinalMessage('This is the final message.' . PHP_EOL)
         ->withInterval(new Interval(MILLISECONDS))
