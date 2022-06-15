@@ -7,6 +7,9 @@ namespace AlecRabbit\Spinner\Core;
 use AlecRabbit\Spinner\Core\Contract\IFrame;
 use AlecRabbit\Spinner\Core\Exception\RuntimeException;
 use AlecRabbit\Spinner\Core\Rotor\Contract\IInterval;
+use AlecRabbit\Spinner\Core\Wiggler\Contract\IMessageWiggler;
+use AlecRabbit\Spinner\Core\Wiggler\Contract\IProgressWiggler;
+use AlecRabbit\Spinner\Core\Wiggler\Contract\IRevolveWiggler;
 use AlecRabbit\Spinner\Core\Wiggler\Contract\IWiggler;
 use ArrayIterator;
 use Traversable;
@@ -64,20 +67,17 @@ final class WigglerContainer implements Contract\IWigglerContainer
         return new ArrayIterator($this->wigglers);
     }
 
-    /**
-     * @throws RuntimeException
-     */
-    public function getIndex(string|IWiggler $class): int
+    public function getInterval(): IInterval
     {
-        if ($class instanceof IWiggler) {
-            return $this->indexes[$class];
-        }
-        foreach ($this->wigglers as $wiggler) {
-            if (is_a($wiggler, $class)) {
-                return $this->indexes[$wiggler];
-            }
-        }
-        throw new RuntimeException('Wiggler not found');
+        return $this->interval;
+    }
+
+    public function spinner(string|IRevolveWiggler|null $wiggler): void
+    {
+        $this->updateWiggler(
+            $this->getIndex(IRevolveWiggler::class),
+            $wiggler
+        );
     }
 
     public function updateWiggler(int $wigglerIndex, IWiggler|string|null $wiggler): void
@@ -89,8 +89,49 @@ final class WigglerContainer implements Contract\IWigglerContainer
         unset($this->indexes[$currentWiggler]);
     }
 
-    public function getInterval(): IInterval
+//    private function updateWiggler(string $class, IWiggler|string|null $wiggler): void
+//    {
+//        $this->erase();
+//        $this->wigglers->updateWiggler(
+//            $this->wigglers->getIndex($class),
+//            $wiggler,
+//        );
+//        $this->spin();
+//    }
+
+    /**
+     * @throws RuntimeException
+     */
+    public function getIndex(string|IWiggler $objectOrClass): int
     {
-        return $this->interval;
+        if ($objectOrClass instanceof IWiggler) {
+            return $this->indexes[$objectOrClass]; // object
+        }
+        foreach ($this->wigglers as $wiggler) {
+            if (is_a($wiggler, $objectOrClass)) { // class
+                return $this->indexes[$wiggler];
+            }
+        }
+        throw new RuntimeException('Wiggler not found');
+    }
+
+    public function progress(float|string|IProgressWiggler|null $wiggler): void
+    {
+        if(is_float($wiggler)) {
+            $wiggler = sprintf('%s%%', (int)($wiggler * 100)); // convert to string
+        }
+
+        $this->updateWiggler(
+            $this->getIndex(IProgressWiggler::class),
+            $wiggler
+        );
+    }
+
+    public function message(string|IMessageWiggler|null $wiggler): void
+    {
+        $this->updateWiggler(
+            $this->getIndex(IMessageWiggler::class),
+            $wiggler
+        );
     }
 }

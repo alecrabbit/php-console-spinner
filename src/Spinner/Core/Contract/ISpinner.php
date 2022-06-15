@@ -32,9 +32,9 @@ interface ISpinner
 
     public function wrap(callable $callback, ...$args): void;
 
-    public function spinner(IRevolveWiggler|string|null $spinner): void;
+    public function spinner(IRevolveWiggler|string|null $wiggler): void;
 
-    public function message(IMessageWiggler|string|null $message): void;
+    public function message(IMessageWiggler|string|null $wiggler): void;
 
-    public function progress(IProgressWiggler|float|null $progress): void;
+    public function progress(IProgressWiggler|float|null $wiggler): void;
 }

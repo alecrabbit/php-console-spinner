@@ -57,19 +57,12 @@ final class Spinner implements ISpinner
         $this->active = true;
     }
 
-    public function spinner(IRevolveWiggler|string|null $spinner): void
+    public function spinner(IRevolveWiggler|string|null $wiggler): void
     {
-        $this->updateWiggler(IRevolveWiggler::class, $spinner);
-    }
-
-    private function updateWiggler(string $class, IWiggler|string|null $wiggler): void
-    {
-        $this->erase();
-        $this->wigglers->updateWiggler(
-            $this->wigglers->getIndex($class),
-            $wiggler,
+        $this->wrap(
+            $this->wigglers->spinner(...),
+            $wiggler
         );
-        $this->spin();
     }
 
     public function erase(): void
@@ -92,12 +85,12 @@ final class Spinner implements ISpinner
         $this->currentFrame = $this->wigglers->render();
     }
 
-    public function progress(IProgressWiggler|float|null $progress): void
+    public function progress(string|IProgressWiggler|float|null $wiggler): void
     {
-        if (is_float($progress)) {
-            $progress = sprintf('%s%%', (int)($progress * 100));
-        }
-        $this->updateWiggler(IProgressWiggler::class, $progress);
+        $this->wrap(
+            $this->wigglers->progress(...),
+            $wiggler
+        );
     }
 
     public function wrap(callable $callback, ...$args): void
@@ -126,9 +119,12 @@ final class Spinner implements ISpinner
         $this->active = false;
     }
 
-    public function message(IMessageWiggler|string|null $message): void
+    public function message(string|IMessageWiggler|null $wiggler): void
     {
-        $this->updateWiggler(IMessageWiggler::class, $message);
+        $this->wrap(
+            $this->wigglers->message(...),
+            $wiggler
+        );
     }
 
     public function finalize(): void
