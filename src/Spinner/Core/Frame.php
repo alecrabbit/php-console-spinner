@@ -50,30 +50,30 @@ final class Frame implements IFrame
     /**
      * @throws InvalidArgumentException
      */
-    public static function create(mixed $f, ?int $elementWidth): IFrame
+    public static function create(mixed $element, ?int $elementWidth): IFrame
     {
-        if ($f instanceof IFrame) {
-            return $f;
+        if ($element instanceof IFrame) {
+            return $element;
         }
-        if (is_int($f) || is_float($f) || $f instanceof Stringable) {
-            $f = (string)$f;
+        if (is_int($element) || is_float($element) || $element instanceof Stringable) {
+            $element = (string)$element;
         }
-        if (is_bool($f)) {
-            $f = $f ? 'true' : 'false';
+        if (is_bool($element)) {
+            $element = $element ? 'true' : 'false';
         }
-        if (is_null($f)) {
-            $f = 'null';
+        if (is_null($element)) {
+            $element = 'null';
         }
-        if (is_string($f)) {
-            return new Frame($f, $elementWidth ?? WidthDefiner::define($f));
+        if (is_string($element)) {
+            return new Frame($element, $elementWidth ?? WidthDefiner::define($element));
         }
-        if (is_iterable($f)) {
-            return self::createFromIterable($f, $elementWidth);
+        if (is_iterable($element)) {
+            return self::createFromIterable($element, $elementWidth);
         }
         throw new InvalidArgumentException(
             sprintf(
                 'Unsupported frame element: [%s].',
-                get_debug_type($f)
+                get_debug_type($element)
             )
         );
     }

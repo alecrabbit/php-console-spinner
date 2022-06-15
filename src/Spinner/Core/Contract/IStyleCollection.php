@@ -8,11 +8,11 @@ use IteratorAggregate;
 
 interface IStyleCollection extends IteratorAggregate
 {
-    public static function create(iterable $styles, ?int $interval = null): self;
+    public static function create(array $styles, ?int $interval = null): self;
 
-    public function add(int $level, iterable $element): void;
+    public function add(IStyle $style): void;
 
     public function getInterval(): IInterval;
 
-    public function toArray(int $colorSupportLevel): array;
+    public function toArray(): array;
 }

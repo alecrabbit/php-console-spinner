@@ -15,7 +15,7 @@ use Traversable;
 final class FrameCollection implements IFrameCollection
 {
     /** @var array<int, IFrame> */
-    private array $frames = [];
+    private array $elements = [];
     private int $count = 0;
 
     protected function __construct(
@@ -32,31 +32,31 @@ final class FrameCollection implements IFrameCollection
             $frames = StrSplitter::split($frames);
         }
 
-        $f = new self(new Interval($interval));
+        $collection = new self(new Interval($interval));
         foreach ($frames as $element) {
             if ($element instanceof IFrame) {
-                $f->add($element);
+                $collection->add($element);
                 continue;
             }
-            $f->add(Frame::create($element, $elementWidth));
+            $collection->add(Frame::create($element, $elementWidth));
         }
-        return $f;
+        return $collection;
     }
 
     public function add(IFrame $frame): void
     {
         $this->count++;
-        $this->frames[] = $frame;
+        $this->elements[] = $frame;
     }
 
     public function getIterator(): Traversable
     {
-        return new ArrayIterator($this->frames);
+        return new ArrayIterator($this->elements);
     }
 
     public function toArray(): array
     {
-        return $this->frames;
+        return $this->elements;
     }
 
     public function getInterval(): IInterval

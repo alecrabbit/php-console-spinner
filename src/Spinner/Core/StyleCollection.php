@@ -4,7 +4,6 @@ declare(strict_types=1);
 // 10.06.22
 namespace AlecRabbit\Spinner\Core;
 
-use AlecRabbit\Spinner\Core\Contract\Base\Defaults;
 use AlecRabbit\Spinner\Core\Contract\IStyle;
 use AlecRabbit\Spinner\Core\Rotor\Contract\IInterval;
 use AlecRabbit\Spinner\Core\Rotor\Interval;
@@ -14,38 +13,50 @@ use Traversable;
 final class StyleCollection implements Contract\IStyleCollection
 {
     /** @var array<int, IStyle> */
-    private array $styles = [];
+    private array $elements = [];
+    private int $count = 0;
 
     protected function __construct(
         private readonly IInterval $interval
     ) {
     }
 
-    public static function create(iterable $styles, ?int $interval = null): Contract\IStyleCollection
+    public static function create(array $styles, ?int $interval = null): Contract\IStyleCollection
     {
-        $f = new self(new Interval($interval));
-        foreach ($styles as $level => $element) {
-            $f->add($level, $element);
+        self::assert($styles);
+        $collection = new self(new Interval($interval));
+        $sequence = $styles['sequence'] ?? [];
+        $format = $styles['format'] ?? null;
+
+        foreach ($sequence as $style) {
+            if ($style instanceof IStyle) {
+                $collection->add($style);
+                continue;
+            }
+            $collection->add(Style::create($style, $format));
         }
-        return $f;
+        return $collection;
     }
 
-    public function add(int $level, iterable $element): void
+    private static function assert(array $styles): void
     {
-        $this->styles[$level] = $element['sequence'];
+        // TODO (2022-06-15 17:37) [Alec Rabbit]: Implement.
+    }
+
+    public function add(IStyle $style): void
+    {
+        $this->count++;
+        $this->elements[] = $style;
     }
 
     public function getIterator(): Traversable
     {
-        return new ArrayIterator($this->styles);
+        return new ArrayIterator($this->elements);
     }
 
-    /**
-     * @return array<int, IStyle>
-     */
-    public function toArray(int $colorSupportLevel): array
+    public function toArray(): array
     {
-        return $this->styles[$colorSupportLevel];
+        return $this->elements;
     }
 
     public function getInterval(): IInterval
