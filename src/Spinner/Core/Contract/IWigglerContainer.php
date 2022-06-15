@@ -20,10 +20,6 @@ interface IWigglerContainer extends IteratorAggregate
 
     public function addWiggler(IWiggler $wiggler): void;
 
-//    public function getIndex(string|IWiggler $class): int;
-
-//    public function updateWiggler(int $wigglerIndex, string|IWiggler|null $wiggler): void;
-//
     public function getInterval(): IInterval;
 
     public function spinner(string|IRevolveWiggler|null $wiggler): void;

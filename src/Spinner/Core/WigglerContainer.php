@@ -89,16 +89,6 @@ final class WigglerContainer implements Contract\IWigglerContainer
         unset($this->indexes[$currentWiggler]);
     }
 
-//    private function updateWiggler(string $class, IWiggler|string|null $wiggler): void
-//    {
-//        $this->erase();
-//        $this->wigglers->updateWiggler(
-//            $this->wigglers->getIndex($class),
-//            $wiggler,
-//        );
-//        $this->spin();
-//    }
-
     /**
      * @throws RuntimeException
      */
