@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Config\Builder;
 
-use AlecRabbit\Spinner\Core\Config\Builder\Contract\ISpinnerConfigBuilder;
+use AlecRabbit\Spinner\Core\Config\Builder\Contract\IConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Config;
 use AlecRabbit\Spinner\Core\Config\Contract\IConfig;
 use AlecRabbit\Spinner\Core\Contract\Base\Defaults;
@@ -26,7 +26,7 @@ use AlecRabbit\Spinner\Core\Writer;
 
 use const STDERR;
 
-final class SpinnerConfigBuilder implements ISpinnerConfigBuilder
+final class ConfigBuilder implements IConfigBuilder
 {
     private const MESSAGE_ON_SIGINT = Defaults::MESSAGE_ON_EXIT;
     private const MESSAGE_INTERRUPTED = Defaults::MESSAGE_INTERRUPTED;
@@ -112,7 +112,7 @@ final class SpinnerConfigBuilder implements ISpinnerConfigBuilder
         return $clone;
     }
 
-    public function doNotHideCursor(): self
+    public function withCursor(): self
     {
         $clone = clone $this;
         $clone->hideCursor = false;

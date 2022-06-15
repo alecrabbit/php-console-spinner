@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Factory;
 
-use AlecRabbit\Spinner\Core\Config\Builder\SpinnerConfigBuilder;
+use AlecRabbit\Spinner\Core\Config\Builder\ConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\IConfig;
 use AlecRabbit\Spinner\Core\Contract\IFrameCollection;
 use AlecRabbit\Spinner\Core\Contract\ILoop;
@@ -82,7 +82,7 @@ final class SpinnerFactory implements ISpinnerFactory
      */
     private static function buildConfig(IFrameCollection|null $frames): IConfig
     {
-        $spinnerConfigBuilder = new SpinnerConfigBuilder();
+        $spinnerConfigBuilder = new ConfigBuilder();
 
         if ($frames instanceof IFrameCollection) {
             $spinnerConfigBuilder =

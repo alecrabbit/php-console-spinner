@@ -2,22 +2,21 @@
 
 declare(strict_types=1);
 
-use AlecRabbit\Spinner\Core\Config\Builder\SpinnerConfigBuilder;
+use AlecRabbit\Spinner\Core\Config\Builder\ConfigBuilder;
 use AlecRabbit\Spinner\Core\Factory\SpinnerFactory;
 use AlecRabbit\Spinner\Core\Output\StreamOutput;
-use AlecRabbit\Spinner\Core\Writer;
 
 require_once __DIR__ . '/../bootstrap.php';
 
-$stdout = new Writer(new StreamOutput(STDOUT));
+$stdout = new StreamOutput(STDOUT);
 
-$echoMessageToStdOut = $stdout->write(...);
+$echoMessageToStdOut = $stdout->writeln(...);
 
-$echoMessageToStdOut('Started...', PHP_EOL);
-$echoMessageToStdOut('But may be interrupted...'. PHP_EOL);
+$echoMessageToStdOut('Started...');
+$echoMessageToStdOut('But may be interrupted...');
 
 $config =
-    (new SpinnerConfigBuilder())
+    (new ConfigBuilder())
         ->inSynchronousMode()
         ->withFinalMessage('Done!' . PHP_EOL)
         ->build()
