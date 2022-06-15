@@ -7,6 +7,7 @@ namespace AlecRabbit\Spinner\Core;
 use AlecRabbit\Spinner\Core\Contract\IFrame;
 use AlecRabbit\Spinner\Core\Exception\RuntimeException;
 use AlecRabbit\Spinner\Core\Rotor\Contract\IInterval;
+use AlecRabbit\Spinner\Core\Rotor\Interval;
 use AlecRabbit\Spinner\Core\Wiggler\Contract\IMessageWiggler;
 use AlecRabbit\Spinner\Core\Wiggler\Contract\IProgressWiggler;
 use AlecRabbit\Spinner\Core\Wiggler\Contract\IRevolveWiggler;
@@ -26,11 +27,12 @@ final class WigglerContainer implements Contract\IWigglerContainer
      */
     private iterable $indexes;
     private int $currentIndex = 0;
+    private Interval $interval;
 
     public function __construct(
-        private readonly IInterval $interval,
         IWiggler ...$wigglers,
     ) {
+        $this->interval = new Interval(1000);
         $this->indexes = new WeakMap();
         foreach ($wigglers as $wiggler) {
             $this->addWiggler($wiggler);
@@ -39,6 +41,9 @@ final class WigglerContainer implements Contract\IWigglerContainer
 
     public function addWiggler(IWiggler $wiggler): void
     {
+        // TODO (2022-06-15 19:06) [Alec Rabbit]: if wiggler interval is smaller than current interval,
+        //  then change current interval to wiggler interval.
+
         $this->wigglers[$this->currentIndex] = $wiggler;
         $this->indexes[$wiggler] = $this->currentIndex;
         $this->currentIndex++;

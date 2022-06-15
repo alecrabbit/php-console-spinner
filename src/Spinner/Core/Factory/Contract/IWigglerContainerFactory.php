@@ -13,6 +13,7 @@ use const AlecRabbit\Cli\TERM_NOCOLOR;
 interface IWigglerContainerFactory
 {
     public function __construct(
+        ?IWigglerFactory $wigglerFactory = null,
         ?IFrameCollection $frames = null,
         int $terminalColorSupport = TERM_NOCOLOR,
         ?IInterval $interval = null,

@@ -18,6 +18,7 @@ use AlecRabbit\Spinner\Core\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Core\Exception\LogicException;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IWigglerContainerFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\IWigglerFactory;
 use AlecRabbit\Spinner\Core\Factory\LoopFactory;
 use AlecRabbit\Spinner\Core\Factory\WigglerContainerFactory;
 use AlecRabbit\Spinner\Core\Output\StreamOutput;
@@ -48,6 +49,7 @@ final class ConfigBuilder implements IConfigBuilder
     private ?int $terminalColorSupport = null;
     private ?ILoopFactory $loopFactory = null;
     private ?IWigglerContainerFactory $wigglerContainerFactory = null;
+    private ?IWigglerFactory $wigglerFactory = null;
 
     public function withWigglerContainerFactory(IWigglerContainerFactory $wigglerContainerFactory): self
     {
@@ -205,7 +207,12 @@ final class ConfigBuilder implements IConfigBuilder
 
         if (null === $this->wigglerContainerFactory) {
             $this->wigglerContainerFactory =
-                new WigglerContainerFactory($this->frames, $this->terminalColorSupport, $this->interval);
+                new WigglerContainerFactory(
+                    $this->wigglerFactory,
+                    $this->frames,
+                    $this->terminalColorSupport,
+                    $this->interval,
+                );
         }
 
         if (null === $this->wigglers) {

@@ -15,11 +15,6 @@ final class NoStyleRotor extends AStyleRotor
         parent::__construct(StyleCollection::create());
     }
 
-    public function next(?IInterval $interval = null): string
-    {
-        return '';
-    }
-
     public function join(string $chars, ?IInterval $interval = null): string
     {
         return $chars; // no styling

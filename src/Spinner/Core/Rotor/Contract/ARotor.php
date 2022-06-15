@@ -40,7 +40,7 @@ abstract class ARotor implements IRotor
     private static function assertData(array $data): void
     {
         if (!array_is_list($data)) {
-            throw new InvalidArgumentException('Given data array is not a list');
+            throw new InvalidArgumentException('Given data array is not a list.');
         }
     }
 
@@ -49,13 +49,16 @@ abstract class ARotor implements IRotor
         if (0 === $this->dataLength) {
             return '';
         }
+        if (1 === $this->dataLength) {
+            return $this->current($interval);
+        }
         if (++$this->currentIndex === $this->dataLength) {
             $this->currentIndex = 0;
         }
-        return $this->nextElement($interval);
+        return $this->current($interval);
     }
 
-    protected function nextElement(?IInterval $interval = null): string
+    protected function current(?IInterval $interval = null): string
     {
         return (string)$this->data[$this->currentIndex];
     }

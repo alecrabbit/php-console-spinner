@@ -28,7 +28,7 @@ $spinner = SpinnerFactory::create($config);
 
 $spinner->initialize();
 for ($i = 0; $i < 100; $i++) {
-    if (500 > random_int(0, 100000)) {
+    if (100 > random_int(0, 100000)) {
         $spinner->interrupt();
         break;
     }

@@ -34,11 +34,11 @@ abstract class AFrameRotor extends ARotor implements IFrameRotor
         return $this->data[$this->currentIndex];
     }
 
-    protected function nextElement(?IInterval $interval = null): string
+    protected function current(?IInterval $interval = null): string
     {
         return
             $this->addSpacers(
-                parent::nextElement($interval)
+                parent::current($interval)
             );
     }
 
