@@ -24,9 +24,9 @@ final class Spinner implements ISpinner
     private readonly string $interruptMessage;
     private bool $interrupted = false;
 
-    private IWigglerContainer $wigglers;
     private bool $active;
-    private ?Core\Contract\IFrame $currentFrame = null;
+    private IWigglerContainer $wigglers;
+    private ?IFrame $currentFrame = null;
 
     public function __construct(IConfig $config)
     {
@@ -52,20 +52,7 @@ final class Spinner implements ISpinner
         $this->active = true;
     }
 
-    public function disable(): void
-    {
-        $this->erase();
-        $this->active = false;
-    }
-
-    public function erase(): void
-    {
-        $this->driver->erase(
-            $this->currentFrame?->sequenceWidth
-        );
-    }
-
-    public function enable(): void
+    public function resume(): void
     {
         $this->active = true;
     }
@@ -85,23 +72,24 @@ final class Spinner implements ISpinner
         $this->spin();
     }
 
+    public function erase(): void
+    {
+        $this->driver->erase(
+            $this->currentFrame?->sequenceWidth
+        );
+    }
+
     public function spin(): void
     {
         if ($this->active) {
-            $this->driver->writeFrame(
-                $this->currentFrame = $this->render()
-            );
+            $this->render();
+            $this->driver->writeFrame($this->currentFrame);
         }
     }
 
-    private function render(): IFrame
+    private function render(): void
     {
-        return $this->wigglers->render();
-    }
-
-    public function message(IMessageWiggler|string|null $message): void
-    {
-        $this->updateWiggler(IMessageWiggler::class, $message);
+        $this->currentFrame = $this->wigglers->render();
     }
 
     public function progress(IProgressWiggler|float|null $progress): void
@@ -128,8 +116,19 @@ final class Spinner implements ISpinner
 
     private function stop(): void
     {
-        $this->disable();
+        $this->pause();
         $this->driver->showCursor();
+    }
+
+    public function pause(): void
+    {
+        $this->erase();
+        $this->active = false;
+    }
+
+    public function message(IMessageWiggler|string|null $message): void
+    {
+        $this->updateWiggler(IMessageWiggler::class, $message);
     }
 
     public function finalize(): void

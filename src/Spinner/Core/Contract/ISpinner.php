@@ -26,9 +26,9 @@ interface ISpinner
 
     public function erase(): void;
 
-    public function disable(): void;
+    public function pause(): void;
 
-    public function enable(): void;
+    public function resume(): void;
 
     public function wrap(callable $callback, ...$args): void;
 
