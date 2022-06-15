@@ -20,7 +20,6 @@ use AlecRabbit\Spinner\Core\Factory\Contract\ILoopFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IWigglerContainerFactory;
 use AlecRabbit\Spinner\Core\Factory\LoopFactory;
 use AlecRabbit\Spinner\Core\Factory\WigglerContainerFactory;
-use AlecRabbit\Spinner\Core\FrameCollection;
 use AlecRabbit\Spinner\Core\Output\StreamOutput;
 use AlecRabbit\Spinner\Core\Rotor\Contract\IInterval;
 use AlecRabbit\Spinner\Core\Writer;
@@ -33,7 +32,6 @@ final class SpinnerConfigBuilder implements ISpinnerConfigBuilder
     private const MESSAGE_INTERRUPTED = Defaults::MESSAGE_INTERRUPTED;
     private const FINAL_MESSAGE = Defaults::FINAL_MESSAGE;
     private const SHUTDOWN_DELAY = Defaults::SHUTDOWN_DELAY;
-    private const FRAME_SEQUENCE = Defaults::FRAME_SEQUENCE;
     private const HIDE_CURSOR = Defaults::HIDE_CURSOR;
     private const SYNC_MODE_ENABLED = Defaults::SYNC_MODE_ENABLED;
 
@@ -205,10 +203,6 @@ final class SpinnerConfigBuilder implements ISpinnerConfigBuilder
             $this->loop = $this->getLoop($this->synchronousMode);
         }
 
-        if (null === $this->frames) {
-            $this->frames = self::defaultFrames();
-        }
-
         if (null === $this->wigglerContainerFactory) {
             $this->wigglerContainerFactory =
                 new WigglerContainerFactory($this->frames, $this->terminalColorSupport, $this->interval);
@@ -252,13 +246,5 @@ final class SpinnerConfigBuilder implements ISpinnerConfigBuilder
                 $e,
             );
         }
-    }
-
-    /**
-     * @throws InvalidArgumentException
-     */
-    private static function defaultFrames(): IFrameCollection
-    {
-        return FrameCollection::create(...self::FRAME_SEQUENCE);
     }
 }

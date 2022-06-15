@@ -21,7 +21,7 @@ final class Config implements IConfig
      */
     public function __construct(
         private readonly IDriver $driver,
-        private readonly IWigglerContainer $wigglers,
+        private readonly ?IWigglerContainer $wigglers,
         private readonly null|int|float $shutdownDelay,
         private readonly string $interruptMessage,
         private readonly string $finalMessage,

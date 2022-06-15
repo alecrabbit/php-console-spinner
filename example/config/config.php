@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use AlecRabbit\Spinner\Core\Config\Builder\SpinnerConfigBuilder;
+use AlecRabbit\Spinner\Core\Config\Builder\ConfigBuilder;
 use AlecRabbit\Spinner\Core\Factory\SpinnerFactory;
 use AlecRabbit\Spinner\Core\Rotor\Interval;
 
@@ -14,9 +14,9 @@ const STOP_IN = 5.456353567; // seconds int|float
 require_once __DIR__ . '/../bootstrap.php';
 
 $config =
-    (new SpinnerConfigBuilder())
+    (new ConfigBuilder())
         ->withTerminalColor(TERM_NOCOLOR)
-        ->doNotHideCursor()
+        ->withCursor()
         ->withFinalMessage('This is the final message.' . PHP_EOL)
         ->withInterval(new Interval(MILLISECONDS))
         ->withShutdownDelay(0)
