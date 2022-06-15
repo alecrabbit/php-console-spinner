@@ -19,4 +19,9 @@ final class NoStyleRotor extends AStyleRotor
     {
         return '';
     }
+
+    public function join(string $chars, ?IInterval $interval = null): string
+    {
+        return $chars; // no styling
+    }
 }

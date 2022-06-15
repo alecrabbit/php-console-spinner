@@ -24,7 +24,7 @@ $config =
 
 $spinner = SpinnerFactory::create($config);
 
-dump($spinner);
+//dump($spinner);
 
 $spinner->initialize();
 for ($i = 0; $i < 100; $i++) {
@@ -56,5 +56,6 @@ for ($i = 0; $i < 100; $i++) {
     usleep(100000);
 }
 $spinner->finalize();
+dump($spinner);
 
 echo PHP_EOL;
