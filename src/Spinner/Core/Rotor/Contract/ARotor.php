@@ -62,4 +62,9 @@ abstract class ARotor implements IRotor
     {
         return (string)$this->data[$this->currentIndex];
     }
+
+    public function getInterval(): ?IInterval
+    {
+        return $this->interval;
+    }
 }

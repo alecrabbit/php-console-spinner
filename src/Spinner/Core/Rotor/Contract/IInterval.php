@@ -7,4 +7,6 @@ namespace AlecRabbit\Spinner\Core\Rotor\Contract;
 interface IInterval
 {
     public function toSeconds(): float;
+
+    public function smaller(?IInterval $other): IInterval;
 }

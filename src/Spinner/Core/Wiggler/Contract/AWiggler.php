@@ -43,4 +43,18 @@ abstract class AWiggler implements IWiggler
                 interval: $interval,
             );
     }
+
+    public function getInterval(): ?IInterval
+    {
+        $fInterval = $this->rotor->getInterval();
+        $sInterval = $this->style->getInterval();
+
+        if (null === $fInterval && null === $sInterval) {
+            return null;
+        }
+
+        $fInterval = $fInterval ?? $sInterval;
+
+        return $fInterval->smaller($sInterval);
+    }
 }

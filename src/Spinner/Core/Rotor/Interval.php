@@ -21,7 +21,7 @@ final class Interval implements IInterval
         null|int|float $milliseconds = null,
     ) {
         self::assert($milliseconds);
-        $this->seconds = ($milliseconds ?? Defaults::MILLISECONDS_INTERVAL) / 1000;
+        $this->seconds = (float)(($milliseconds ?? Defaults::MILLISECONDS_INTERVAL) / 1000);
     }
 
     /**
@@ -52,7 +52,18 @@ final class Interval implements IInterval
 
     public function toSeconds(): float
     {
-        return (float)$this->seconds;
+        return $this->seconds;
+    }
+
+    public function smaller(?IInterval $other): IInterval
+    {
+        if(null === $other) {
+            return $this;
+        }
+        if($this->seconds < $other->seconds) {
+            return $this;
+        }
+        return $other;
     }
 }
 

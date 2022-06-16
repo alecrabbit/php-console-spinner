@@ -8,6 +8,8 @@ require_once __DIR__ . '/../bootstrap.php';
 
 $spinner = SpinnerFactory::get();
 
+dump($spinner) ;
+
 $echoMessageToStdOut =
     static function (?string $message = null) {
         echo $message ?? '';

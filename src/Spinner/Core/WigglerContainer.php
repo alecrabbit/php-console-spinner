@@ -48,6 +48,7 @@ final class WigglerContainer implements IWigglerContainer
         $this->wigglers[$this->currentIndex] = $wiggler;
         $this->indexes[$wiggler] = $this->currentIndex;
         $this->currentIndex++;
+        $this->updateInterval($wiggler->getInterval());
     }
 
     public function render(): IFrame
@@ -129,5 +130,10 @@ final class WigglerContainer implements IWigglerContainer
             $this->getIndex(IMessageWiggler::class),
             $wiggler
         );
+    }
+
+    private function updateInterval(?IInterval $interval): void
+    {
+        $this->interval = $this->interval->smaller($interval);
     }
 }

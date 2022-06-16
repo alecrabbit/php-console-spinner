@@ -7,4 +7,6 @@ namespace AlecRabbit\Spinner\Core\Rotor\Contract;
 interface IStyleRotor
 {
     public function join(string $chars, ?IInterval $interval = null): string;
+
+    public function getInterval(): ?IInterval;
 }
