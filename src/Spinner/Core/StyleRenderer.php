@@ -26,11 +26,11 @@ final class StyleRenderer implements IStyleRenderer
         foreach ($extracted[C::STYLES][C::SEQUENCE] as $style) {
             $styles[] = Sequencer::colorSequence(sprintf($format, $style) . C::STR_PLACEHOLDER);
         }
-        return dump(
+        return
             [
                 C::STYLES => $styles,
                 C::INTERVAL => $interval,
-            ]);
+            ];
     }
 
     #[ArrayShape([C::STYLES => "array", C::INTERVAL => "null|int|float"])]
@@ -43,7 +43,6 @@ final class StyleRenderer implements IStyleRenderer
 
     private function assert(array $extracted): void
     {
-        dump($extracted);
         // TODO (2022-06-15 17:58) [Alec Rabbit]: Implement.
     }
 
