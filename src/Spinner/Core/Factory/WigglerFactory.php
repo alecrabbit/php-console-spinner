@@ -17,11 +17,12 @@ use AlecRabbit\Spinner\Core\Rotor\NoCharsRotor;
 use AlecRabbit\Spinner\Core\Rotor\NoStyleRotor;
 use AlecRabbit\Spinner\Core\Rotor\StyleRotor;
 use AlecRabbit\Spinner\Core\StyleCollection;
+use AlecRabbit\Spinner\Core\StylePatternExtractor;
+use AlecRabbit\Spinner\Core\StyleRenderer;
 use AlecRabbit\Spinner\Core\Wiggler\Contract\IWiggler;
 use AlecRabbit\Spinner\Core\Wiggler\MessageWiggler;
 use AlecRabbit\Spinner\Core\Wiggler\ProgressWiggler;
 use AlecRabbit\Spinner\Core\Wiggler\RevolveWiggler;
-use JetBrains\PhpStorm\ArrayShape;
 
 use const AlecRabbit\Cli\TERM_NOCOLOR;
 
@@ -29,6 +30,7 @@ final class WigglerFactory implements IWigglerFactory
 {
     private IFrameCollection $frames;
     private IStyleCollection $styles;
+    private StyleRenderer $renderer;
 
     /**
      * @throws InvalidArgumentException
@@ -38,6 +40,7 @@ final class WigglerFactory implements IWigglerFactory
         private readonly int $terminalColorSupport = TERM_NOCOLOR,
         private readonly ?IInterval $interval = null,
     ) {
+        $this->renderer = new StyleRenderer(new StylePatternExtractor($this->terminalColorSupport));
         $this->frames = $frames ?? self::defaultFrames();
         $this->styles = $this->defaultStyles();
     }
@@ -56,30 +59,8 @@ final class WigglerFactory implements IWigglerFactory
     {
         return
             StyleCollection::create(
-                ...$this->extract($this->terminalColorSupport, StylePattern::rainbow())
+                ...$this->renderer->render(StylePattern::rainbow())
             );
-    }
-
-    #[ArrayShape([0 => "array", C::INTERVAL => "int"])]
-    private function extract(int $terminalColorSupport, array $pattern): array
-    {
-        $this->assert($pattern);
-        return
-            [
-                [
-                    C::SEQUENCE =>
-                        $pattern[C::STYLES][$terminalColorSupport][C::SEQUENCE] ?? [],
-                    C::FORMAT =>
-                        $pattern[C::STYLES][$terminalColorSupport][C::FORMAT] ?? null,
-                ],
-                C::INTERVAL =>
-                    $pattern[C::INTERVAL],
-            ];
-    }
-
-    private function assert(array $pattern): void
-    {
-        // TODO (2022-06-15 17:58) [Alec Rabbit]: Implement [0393ca28-1910-4562-a348-0677aa8b4d46].
     }
 
     public function createRevolveWiggler(?IFrameCollection $frames = null): IWiggler

@@ -13,6 +13,9 @@ abstract class TestCase extends PHPUnitTestCase
     protected const EXCEPTION = 'exception';
     protected const _CLASS = 'class';
     protected const MESSAGE = 'message';
+    protected const ARGUMENTS = 'arguments';
+    protected const PATTERN = 'pattern';
+    protected const EXTRACTED = 'extracted';
 
     protected function checkForExceptionExpectance(array $expected): void
     {
