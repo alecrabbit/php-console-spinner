@@ -57,10 +57,10 @@ final class Interval implements IInterval
 
     public function smaller(?IInterval $other): IInterval
     {
-        if(null === $other) {
+        if (null === $other) {
             return $this;
         }
-        if($this->seconds < $other->seconds) {
+        if ($this->seconds < $other->seconds) {
             return $this;
         }
         return $other;

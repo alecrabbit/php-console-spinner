@@ -51,6 +51,16 @@ final class WigglerContainer implements IWigglerContainer
         $this->updateInterval($wiggler->getInterval());
     }
 
+    private function updateInterval(?IInterval $interval): void
+    {
+        $this->interval = $this->interval->smaller($interval);
+    }
+
+    public function getInterval(): IInterval
+    {
+        return $this->interval;
+    }
+
     public function render(): IFrame
     {
         $sequence = '';
@@ -72,11 +82,6 @@ final class WigglerContainer implements IWigglerContainer
     public function getIterator(): Traversable
     {
         return new ArrayIterator($this->wigglers);
-    }
-
-    public function getInterval(): IInterval
-    {
-        return $this->interval;
     }
 
     public function spinner(string|IRevolveWiggler|null $wiggler): void
@@ -130,10 +135,5 @@ final class WigglerContainer implements IWigglerContainer
             $this->getIndex(IMessageWiggler::class),
             $wiggler
         );
-    }
-
-    private function updateInterval(?IInterval $interval): void
-    {
-        $this->interval = $this->interval->smaller($interval);
     }
 }

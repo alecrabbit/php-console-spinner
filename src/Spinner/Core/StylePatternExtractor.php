@@ -8,7 +8,6 @@ use AlecRabbit\Spinner\Core\Contract\Base\C;
 use AlecRabbit\Spinner\Core\Contract\IStylePatternExtractor;
 use AlecRabbit\Spinner\Core\Exception\InvalidArgumentException;
 use JetBrains\PhpStorm\ArrayShape;
-
 use Throwable;
 
 use const AlecRabbit\Cli\TERM_NOCOLOR;
