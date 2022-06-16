@@ -18,7 +18,7 @@ final class Interval implements IInterval
      * @throws InvalidArgumentException
      */
     public function __construct(
-        null|int|float $milliseconds,
+        null|int|float $milliseconds = null,
     ) {
         self::assert($milliseconds);
         $this->seconds = ($milliseconds ?? Defaults::MILLISECONDS_INTERVAL) / 1000;

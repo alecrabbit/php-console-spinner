@@ -60,11 +60,10 @@ class StyleTest extends TestCase
      */
     public function create(array $expected, mixed $element): void
     {
-        if(array_key_exists(self::EXCEPTION, $expected)) {
-            $this->expectException($expected[self::EXCEPTION][self::_CLASS]);
-            $this->expectExceptionMessage($expected[self::EXCEPTION][self::MESSAGE]);
-        }
+        $this->checkForExceptionExpectance($expected);
+
         $style = Style::create($element);
+
         self::assertEquals($expected[self::SEQUENCE], $style->sequence);
         self::assertStringContainsString($expected[self::CONTAINS], $style->sequence);
     }

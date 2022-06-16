@@ -14,5 +14,13 @@ abstract class TestCase extends PHPUnitTestCase
     protected const _CLASS = 'class';
     protected const MESSAGE = 'message';
 
-
+    protected function checkForExceptionExpectance(array $expected): void
+    {
+        if (array_key_exists(self::EXCEPTION, $expected)) {
+            $this->expectException($expected[self::EXCEPTION][self::_CLASS]);
+            if (array_key_exists(self::MESSAGE, $expected[self::EXCEPTION])) {
+                $this->expectExceptionMessage($expected[self::EXCEPTION][self::MESSAGE]);
+            }
+        }
+    }
 }

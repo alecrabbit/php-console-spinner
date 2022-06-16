@@ -115,10 +115,7 @@ class StyleCollectionTest extends TestCase
      */
     public function create(array $expected, array $styles, ?int $interval = null): void
     {
-        if (array_key_exists(self::EXCEPTION, $expected)) {
-            $this->expectException($expected[self::EXCEPTION][self::_CLASS]);
-            $this->expectExceptionMessage($expected[self::EXCEPTION][self::MESSAGE]);
-        }
+        $this->checkForExceptionExpectance($expected);
 
         $styleCollection = StyleCollection::create($styles, $interval);
 
