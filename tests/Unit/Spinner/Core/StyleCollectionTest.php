@@ -126,5 +126,10 @@ class StyleCollectionTest extends TestCase
         foreach ($expected[self::CONTAINS] as $c) {
             self::assertContainsEquals($c, $styleCollection);
         }
+
+        $a = $styleCollection->toArray();
+        foreach ($expected[self::CONTAINS] as $c) {
+            self::assertContainsEquals($c, $a);
+        }
     }
 }

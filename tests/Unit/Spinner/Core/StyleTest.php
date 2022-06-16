@@ -29,6 +29,14 @@ class StyleTest extends TestCase
 
         yield [
             [
+                self::SEQUENCE => '%s',
+                self::CONTAINS => C::STR_PLACEHOLDER,
+            ],
+            '',
+        ];
+
+        yield [
+            [
                 self::SEQUENCE => '<style>%s</style>',
                 self::CONTAINS => C::STR_PLACEHOLDER,
             ],
@@ -64,6 +72,7 @@ class StyleTest extends TestCase
 
         $style = Style::create($element);
 
+        self::assertEquals($expected[self::SEQUENCE], (string)$style);
         self::assertEquals($expected[self::SEQUENCE], $style->sequence);
         self::assertStringContainsString($expected[self::CONTAINS], $style->sequence);
     }
