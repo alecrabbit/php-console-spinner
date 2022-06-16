@@ -25,7 +25,7 @@ final class StylePatternExtractor implements IStylePatternExtractor
     public function extract(array $pattern): array
     {
         $this->assert($pattern);
-        $terminalColorSupport = $this->terminalColorSupport;
+        $terminalColorSupport = $this->patternMaxColorSupport($pattern, $this->terminalColorSupport);
         return
             [
                 C::STYLES => [
@@ -47,4 +47,13 @@ final class StylePatternExtractor implements IStylePatternExtractor
         // TODO (2022-06-15 17:58) [Alec Rabbit]: Implement [0393ca28-1910-4562-a348-0677aa8b4d46].
     }
 
+    private function patternMaxColorSupport(array $pattern, int $terminalColorSupport): int
+    {
+//        dump($pattern, $terminalColorSupport);
+        $maxPatternColorSupport = max(array_keys($pattern[C::STYLES]));
+        if($terminalColorSupport > $maxPatternColorSupport) {
+            return $maxPatternColorSupport;
+        }
+        return $terminalColorSupport;
+    }
 }

@@ -23,7 +23,7 @@ use const AlecRabbit\Cli\TERM_TRUECOLOR;
 
 class StyleRendererTest extends TestCase
 {
-    #[ArrayShape([C::STYLES => "array[]", C::INTERVAL => "int"])]
+    #[ArrayShape([C::STYLES => "array[]"])]
     private static function patternToTest01(): array
     {
         return
@@ -35,7 +35,7 @@ class StyleRendererTest extends TestCase
         // [$expected, $incoming]
         yield [
             [
-                self::EXTRACTED => [
+                self::RENDERED => [
                     C::STYLES => [],
                     C::INTERVAL => null,
                 ],
@@ -48,7 +48,7 @@ class StyleRendererTest extends TestCase
 
         yield [
             [
-                self::EXTRACTED => [
+                self::RENDERED => [
                     C::STYLES => [
                         CSI . '96m%s' . RESET,
                     ],
@@ -58,6 +58,98 @@ class StyleRendererTest extends TestCase
             [
                 self::ARGUMENTS => [
                     TERM_16COLOR,
+                ],
+                self::PATTERN => self::patternToTest01(),
+            ],
+        ];
+
+        yield [
+            [
+                self::RENDERED => [
+                    C::STYLES => [
+                        CSI . '38;5;196m%s' . RESET,
+                        CSI . '38;5;202m%s' . RESET,
+                        CSI . '38;5;208m%s' . RESET,
+                        CSI . '38;5;214m%s' . RESET,
+                        CSI . '38;5;220m%s' . RESET,
+                        CSI . '38;5;226m%s' . RESET,
+                        CSI . '38;5;190m%s' . RESET,
+                        CSI . '38;5;154m%s' . RESET,
+                        CSI . '38;5;118m%s' . RESET,
+                        CSI . '38;5;82m%s' . RESET,
+                        CSI . '38;5;46m%s' . RESET,
+                        CSI . '38;5;47m%s' . RESET,
+                        CSI . '38;5;48m%s' . RESET,
+                        CSI . '38;5;49m%s' . RESET,
+                        CSI . '38;5;50m%s' . RESET,
+                        CSI . '38;5;51m%s' . RESET,
+                        CSI . '38;5;45m%s' . RESET,
+                        CSI . '38;5;39m%s' . RESET,
+                        CSI . '38;5;33m%s' . RESET,
+                        CSI . '38;5;27m%s' . RESET,
+                        CSI . '38;5;56m%s' . RESET,
+                        CSI . '38;5;57m%s' . RESET,
+                        CSI . '38;5;93m%s' . RESET,
+                        CSI . '38;5;129m%s' . RESET,
+                        CSI . '38;5;165m%s' . RESET,
+                        CSI . '38;5;201m%s' . RESET,
+                        CSI . '38;5;200m%s' . RESET,
+                        CSI . '38;5;199m%s' . RESET,
+                        CSI . '38;5;198m%s' . RESET,
+                        CSI . '38;5;197m%s' . RESET,
+                    ],
+                    C::INTERVAL => 200,
+                ],
+            ],
+            [
+                self::ARGUMENTS => [
+                    TERM_256COLOR,
+                ],
+                self::PATTERN => self::patternToTest01(),
+            ],
+        ];
+
+        yield [
+            [
+                self::RENDERED => [
+                    C::STYLES => [
+                        CSI . '38;5;196m%s' . RESET,
+                        CSI . '38;5;202m%s' . RESET,
+                        CSI . '38;5;208m%s' . RESET,
+                        CSI . '38;5;214m%s' . RESET,
+                        CSI . '38;5;220m%s' . RESET,
+                        CSI . '38;5;226m%s' . RESET,
+                        CSI . '38;5;190m%s' . RESET,
+                        CSI . '38;5;154m%s' . RESET,
+                        CSI . '38;5;118m%s' . RESET,
+                        CSI . '38;5;82m%s' . RESET,
+                        CSI . '38;5;46m%s' . RESET,
+                        CSI . '38;5;47m%s' . RESET,
+                        CSI . '38;5;48m%s' . RESET,
+                        CSI . '38;5;49m%s' . RESET,
+                        CSI . '38;5;50m%s' . RESET,
+                        CSI . '38;5;51m%s' . RESET,
+                        CSI . '38;5;45m%s' . RESET,
+                        CSI . '38;5;39m%s' . RESET,
+                        CSI . '38;5;33m%s' . RESET,
+                        CSI . '38;5;27m%s' . RESET,
+                        CSI . '38;5;56m%s' . RESET,
+                        CSI . '38;5;57m%s' . RESET,
+                        CSI . '38;5;93m%s' . RESET,
+                        CSI . '38;5;129m%s' . RESET,
+                        CSI . '38;5;165m%s' . RESET,
+                        CSI . '38;5;201m%s' . RESET,
+                        CSI . '38;5;200m%s' . RESET,
+                        CSI . '38;5;199m%s' . RESET,
+                        CSI . '38;5;198m%s' . RESET,
+                        CSI . '38;5;197m%s' . RESET,
+                    ],
+                    C::INTERVAL => 200,
+                ],
+            ],
+            [
+                self::ARGUMENTS => [
+                    TERM_TRUECOLOR,
                 ],
                 self::PATTERN => self::patternToTest01(),
             ],
@@ -88,7 +180,7 @@ class StyleRendererTest extends TestCase
 
         $renderer = self::getInstance($incoming[self::ARGUMENTS] ?? []);
 
-        self::assertEquals($expected[self::EXTRACTED], $renderer->render($incoming[self::PATTERN]));
+        self::assertEquals($expected[self::RENDERED], $renderer->render($incoming[self::PATTERN]));
     }
 
     public static function getInstance(array $args = []): IStyleRenderer
