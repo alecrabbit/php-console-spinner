@@ -43,7 +43,7 @@ for ($i = 0; $i < 100; $i++) {
     }
     if ($i === 50) {
         $spinner->progress(0.5);
-        $spinner->wrap($echoMessageToStdOut, 'More than a half!');
+        $spinner->wrap($echoMessageToStdOut, 'Yay! 50% done!');
     }
     if ($i === 60) {
         $spinner->progress(0.6);
@@ -59,6 +59,5 @@ for ($i = 0; $i < 100; $i++) {
     usleep(100000);
 }
 $spinner->finalize();
-dump($spinner);
 
 echo PHP_EOL;

@@ -11,6 +11,8 @@ use AlecRabbit\Spinner\Core\Contract\Base\Defaults;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\IFrameCollection;
 use AlecRabbit\Spinner\Core\Contract\ILoop;
+use AlecRabbit\Spinner\Core\Contract\IStylePatternExtractor;
+use AlecRabbit\Spinner\Core\Contract\IStyleRenderer;
 use AlecRabbit\Spinner\Core\Contract\IWigglerContainer;
 use AlecRabbit\Spinner\Core\Driver;
 use AlecRabbit\Spinner\Core\Exception\DomainException;
@@ -23,6 +25,8 @@ use AlecRabbit\Spinner\Core\Factory\LoopFactory;
 use AlecRabbit\Spinner\Core\Factory\WigglerContainerFactory;
 use AlecRabbit\Spinner\Core\Output\StreamOutput;
 use AlecRabbit\Spinner\Core\Rotor\Contract\IInterval;
+use AlecRabbit\Spinner\Core\StylePatternExtractor;
+use AlecRabbit\Spinner\Core\StyleRenderer;
 use AlecRabbit\Spinner\Core\Writer;
 
 use const STDERR;
@@ -50,11 +54,27 @@ final class ConfigBuilder implements IConfigBuilder
     private ?ILoopFactory $loopFactory = null;
     private ?IWigglerContainerFactory $wigglerContainerFactory = null;
     private ?IWigglerFactory $wigglerFactory = null;
+    private ?IStyleRenderer $styleRenderer = null;
+    private ?IStylePatternExtractor $stylePatternExtractor = null;
 
     public function withWigglerContainerFactory(IWigglerContainerFactory $wigglerContainerFactory): self
     {
         $clone = clone $this;
         $clone->wigglerContainerFactory = $wigglerContainerFactory;
+        return $clone;
+    }
+
+    public function withStylePatternExtractor(IStylePatternExtractor $stylePatternExtractor): self
+    {
+        $clone = clone $this;
+        $clone->stylePatternExtractor = $stylePatternExtractor;
+        return $clone;
+    }
+
+    public function withStyleRenderer(IStyleRenderer $styleRenderer): self
+    {
+        $clone = clone $this;
+        $clone->styleRenderer = $styleRenderer;
         return $clone;
     }
 
@@ -205,12 +225,20 @@ final class ConfigBuilder implements IConfigBuilder
             $this->loop = $this->getLoop($this->synchronousMode);
         }
 
+        if (null === $this->stylePatternExtractor) {
+            $this->stylePatternExtractor = new StylePatternExtractor($this->terminalColorSupport);
+        }
+
+        if (null === $this->styleRenderer) {
+            $this->styleRenderer = new StyleRenderer($this->stylePatternExtractor);
+        }
+
         if (null === $this->wigglerContainerFactory) {
             $this->wigglerContainerFactory =
                 new WigglerContainerFactory(
+                    $this->styleRenderer,
                     $this->wigglerFactory,
                     $this->frames,
-                    $this->terminalColorSupport,
                     $this->interval,
                 );
         }

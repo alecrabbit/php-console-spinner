@@ -8,6 +8,7 @@ use AlecRabbit\Spinner\Core\Contract\Base\Defaults;
 use AlecRabbit\Spinner\Core\Contract\Base\StylePattern;
 use AlecRabbit\Spinner\Core\Contract\IFrameCollection;
 use AlecRabbit\Spinner\Core\Contract\IStyleCollection;
+use AlecRabbit\Spinner\Core\Contract\IStyleRenderer;
 use AlecRabbit\Spinner\Core\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Core\Factory\Contract\IWigglerFactory;
 use AlecRabbit\Spinner\Core\FrameCollection;
@@ -36,11 +37,11 @@ final class WigglerFactory implements IWigglerFactory
      * @throws InvalidArgumentException
      */
     public function __construct(
+        IStyleRenderer $styleRenderer,
         ?IFrameCollection $frames = null,
-        private readonly int $terminalColorSupport = TERM_NOCOLOR,
         private readonly ?IInterval $interval = null,
     ) {
-        $this->styleRenderer = new StyleRenderer(new StylePatternExtractor($this->terminalColorSupport));
+        $this->styleRenderer = $styleRenderer;
         $this->frames = $frames ?? self::defaultFrames();
         $this->styles = $this->defaultStyles();
     }

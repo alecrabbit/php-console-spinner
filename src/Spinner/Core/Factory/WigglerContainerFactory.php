@@ -5,11 +5,15 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Factory;
 
 use AlecRabbit\Spinner\Core\Contract\IFrameCollection;
+use AlecRabbit\Spinner\Core\Contract\IStylePatternExtractor;
+use AlecRabbit\Spinner\Core\Contract\IStyleRenderer;
 use AlecRabbit\Spinner\Core\Contract\IWigglerContainer;
 use AlecRabbit\Spinner\Core\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Core\Factory\Contract\IWigglerContainerFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IWigglerFactory;
 use AlecRabbit\Spinner\Core\Rotor\Contract\IInterval;
+use AlecRabbit\Spinner\Core\StylePatternExtractor;
+use AlecRabbit\Spinner\Core\StyleRenderer;
 use AlecRabbit\Spinner\Core\WigglerContainer;
 
 use const AlecRabbit\Cli\TERM_NOCOLOR;
@@ -22,27 +26,15 @@ final class WigglerContainerFactory implements IWigglerContainerFactory
      * @throws InvalidArgumentException
      */
     public function __construct(
+        IStyleRenderer $styleRenderer,
         ?IWigglerFactory $wigglerFactory = null,
         ?IFrameCollection $frames = null,
-        int $terminalColorSupport = TERM_NOCOLOR,
         ?IInterval $interval = null,
     ) {
         $this->wigglerFactory =
-            $wigglerFactory ?? self::defaultWigglerFactory($frames, $terminalColorSupport, $interval);
-    }
-
-    /**
-     * @throws InvalidArgumentException
-     */
-    private static function defaultWigglerFactory(
-        ?IFrameCollection $frames,
-        int $terminalColorSupport,
-        ?IInterval $interval
-    ): IWigglerFactory {
-        return
-            new WigglerFactory(
+            $wigglerFactory ?? new WigglerFactory(
+                $styleRenderer,
                 $frames,
-                $terminalColorSupport,
                 $interval
             );
     }
