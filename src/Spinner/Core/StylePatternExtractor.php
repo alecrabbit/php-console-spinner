@@ -21,19 +21,20 @@ final class StylePatternExtractor implements IStylePatternExtractor
     /**
      * @throws InvalidArgumentException
      */
-    #[ArrayShape([C::STYLES => "array", C::INTERVAL => "null|int|float"])]
+    #[ArrayShape([C::STYLES => "array"])]
     public function extract(array $pattern): array
     {
         $this->assert($pattern);
+        $terminalColorSupport = $this->terminalColorSupport;
         return
             [
                 C::STYLES => [
                     C::SEQUENCE =>
-                        $pattern[C::STYLES][$this->terminalColorSupport][C::SEQUENCE] ?? [],
+                        $pattern[C::STYLES][$terminalColorSupport][C::SEQUENCE] ?? [],
                     C::FORMAT =>
-                        $pattern[C::STYLES][$this->terminalColorSupport][C::FORMAT] ?? null,
+                        $pattern[C::STYLES][$terminalColorSupport][C::FORMAT] ?? null,
                     C::INTERVAL =>
-                        $pattern[C::STYLES][$this->terminalColorSupport][C::INTERVAL] ?? null,
+                        $pattern[C::STYLES][$terminalColorSupport][C::INTERVAL] ?? null,
                 ],
             ];
     }

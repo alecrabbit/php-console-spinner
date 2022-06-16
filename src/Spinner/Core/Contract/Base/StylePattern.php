@@ -63,7 +63,6 @@ final class StylePattern
                                 C::INTERVAL => 200,
                             ],
                     ],
-                    C::INTERVAL => 200,
                 ],
                 self::defaults()
             );
@@ -84,7 +83,7 @@ final class StylePattern
         return $incoming;
     }
 
-    #[ArrayShape([C::STYLES => "\array[][]", C::INTERVAL => "int"])]
+    #[ArrayShape([C::STYLES => "array[][]", C::INTERVAL => "int"])]
     protected static function defaults(): array
     {
         return [
@@ -92,29 +91,28 @@ final class StylePattern
                 TERM_NOCOLOR =>
                     [
                         C::SEQUENCE => [],
-                        C::FORMAT => '',
+                        C::FORMAT => null,
                         C::INTERVAL => null,
                     ],
-                TERM_16COLOR =>
-                    [
-                        C::SEQUENCE => [],
-                        C::FORMAT => '',
-                        C::INTERVAL => null,
-                    ],
-                TERM_256COLOR =>
-                    [
-                        C::SEQUENCE => [],
-                        C::FORMAT => '',
-                        C::INTERVAL => null,
-                    ],
-                TERM_TRUECOLOR =>
-                    [
-                        C::SEQUENCE => [],
-                        C::FORMAT => '',
-                        C::INTERVAL => null,
-                    ],
+//                TERM_16COLOR =>
+//                    [
+//                        C::SEQUENCE => [],
+//                        C::FORMAT => '',
+//                        C::INTERVAL => null,
+//                    ],
+//                TERM_256COLOR =>
+//                    [
+//                        C::SEQUENCE => [],
+//                        C::FORMAT => '',
+//                        C::INTERVAL => null,
+//                    ],
+//                TERM_TRUECOLOR =>
+//                    [
+//                        C::SEQUENCE => [],
+//                        C::FORMAT => '',
+//                        C::INTERVAL => null,
+//                    ],
             ],
-            C::INTERVAL => null,
         ];
     }
 }

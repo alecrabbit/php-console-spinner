@@ -20,7 +20,7 @@ final class StyleRenderer implements IStyleRenderer
     public function render(array $pattern): array
     {
         $extracted = $this->extract($pattern);
-        $interval = $extracted[C::INTERVAL] ?? null;
+        $interval = $extracted[C::STYLES][C::INTERVAL] ?? null;
         $styles = [];
         $format = $extracted[C::STYLES][C::FORMAT];
         foreach ($extracted[C::STYLES][C::SEQUENCE] as $style) {
