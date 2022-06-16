@@ -3,7 +3,9 @@
 declare(strict_types=1);
 
 use AlecRabbit\Spinner\Core\Config\Builder\ConfigBuilder;
+use AlecRabbit\Spinner\Core\Contract\Base\FramePattern;
 use AlecRabbit\Spinner\Core\Factory\SpinnerFactory;
+use AlecRabbit\Spinner\Core\FrameCollection;
 use AlecRabbit\Spinner\Core\Output\StreamOutput;
 
 require_once __DIR__ . '/../bootstrap.php';
@@ -18,6 +20,7 @@ $echoMessageToStdOut('But may be interrupted...');
 $config =
     (new ConfigBuilder())
         ->inSynchronousMode()
+//        ->withFrames(FrameCollection::create(...FramePattern::DIAMOND))
         ->withFinalMessage('Done!' . PHP_EOL)
         ->build()
 ;

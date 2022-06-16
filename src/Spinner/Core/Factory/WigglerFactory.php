@@ -30,7 +30,7 @@ final class WigglerFactory implements IWigglerFactory
 {
     private IFrameCollection $frames;
     private IStyleCollection $styles;
-    private StyleRenderer $renderer;
+    private StyleRenderer $styleRenderer;
 
     /**
      * @throws InvalidArgumentException
@@ -40,7 +40,7 @@ final class WigglerFactory implements IWigglerFactory
         private readonly int $terminalColorSupport = TERM_NOCOLOR,
         private readonly ?IInterval $interval = null,
     ) {
-        $this->renderer = new StyleRenderer(new StylePatternExtractor($this->terminalColorSupport));
+        $this->styleRenderer = new StyleRenderer(new StylePatternExtractor($this->terminalColorSupport));
         $this->frames = $frames ?? self::defaultFrames();
         $this->styles = $this->defaultStyles();
     }
@@ -59,7 +59,7 @@ final class WigglerFactory implements IWigglerFactory
     {
         return
             StyleCollection::create(
-                ...$this->renderer->render(StylePattern::rainbow())
+                ...$this->styleRenderer->render(StylePattern::rainbow())
             );
     }
 
