@@ -41,6 +41,22 @@ class StylePatternExtractorTest extends TestCase
             [
                 self::EXTRACTED => [
                     C::STYLES => [
+                        C::SEQUENCE => [],
+                        C::FORMAT => null,
+                        C::INTERVAL => null,
+                    ],
+                ],
+            ],
+            [
+                self::ARGUMENTS => [],
+                self::PATTERN => self::patternToTest03(),
+            ],
+        ];
+
+        yield [
+            [
+                self::EXTRACTED => [
+                    C::STYLES => [
                         C::SEQUENCE => [96],
                         C::FORMAT => '%s',
                         C::INTERVAL => null,
@@ -88,6 +104,55 @@ class StylePatternExtractorTest extends TestCase
                     TERM_TRUECOLOR
                 ],
                 self::PATTERN => self::patternToTest01(),
+            ],
+        ];
+
+        yield [
+            [
+                self::EXTRACTED => [
+                    C::STYLES => [
+                        C::SEQUENCE => [
+                            196,
+                            202,
+                            208,
+                            214,
+                            220,
+                            226,
+                            190,
+                            154,
+                            118,
+                            82,
+                            46,
+                            47,
+                            48,
+                            49,
+                            50,
+                            51,
+                            45,
+                            39,
+                            33,
+                            27,
+                            56,
+                            57,
+                            93,
+                            129,
+                            165,
+                            201,
+                            200,
+                            199,
+                            198,
+                            197,
+                        ],
+                        C::FORMAT => '38;5;%sm',
+                        C::INTERVAL => 200,
+                    ],
+                ],
+            ],
+            [
+                self::ARGUMENTS => [
+                    TERM_256COLOR
+                ],
+                self::PATTERN => self::patternToTest02(),
             ],
         ];
 
@@ -195,6 +260,16 @@ class StylePatternExtractorTest extends TestCase
         return
             StylePattern::rainbow();
     }
+
+    #[ArrayShape([C::STYLES => "array[]"])]
+    private static function patternToTest03(): array
+    {
+        return
+            [
+                C::STYLES => [],
+            ];
+    }
+
 
     /**
      * @test

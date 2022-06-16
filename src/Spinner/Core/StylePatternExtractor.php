@@ -25,16 +25,18 @@ final class StylePatternExtractor implements IStylePatternExtractor
     public function extract(array $pattern): array
     {
         $this->assert($pattern);
-        $terminalColorSupport = $this->patternMaxColorSupport($pattern, $this->terminalColorSupport);
+        $i = $this->patternMaxColorSupport($pattern, $this->terminalColorSupport);
+
+        $sequence = $pattern[C::STYLES][$i][C::SEQUENCE] ?? [];
+        $format = $pattern[C::STYLES][$i][C::FORMAT] ?? null;
+        $interval = $pattern[C::STYLES][$i][C::INTERVAL] ?? null;
+
         return
             [
                 C::STYLES => [
-                    C::SEQUENCE =>
-                        $pattern[C::STYLES][$terminalColorSupport][C::SEQUENCE] ?? [],
-                    C::FORMAT =>
-                        $pattern[C::STYLES][$terminalColorSupport][C::FORMAT] ?? null,
-                    C::INTERVAL =>
-                        $pattern[C::STYLES][$terminalColorSupport][C::INTERVAL] ?? null,
+                    C::SEQUENCE => $sequence,
+                    C::FORMAT => $format,
+                    C::INTERVAL => $interval,
                 ],
             ];
     }
@@ -49,11 +51,16 @@ final class StylePatternExtractor implements IStylePatternExtractor
 
     private function patternMaxColorSupport(array $pattern, int $terminalColorSupport): int
     {
-//        dump($pattern, $terminalColorSupport);
-        $maxPatternColorSupport = max(array_keys($pattern[C::STYLES]));
-        if($terminalColorSupport > $maxPatternColorSupport) {
+        try {
+            $maxPatternColorSupport = max(array_keys($pattern[C::STYLES]));
+        } catch (\Throwable $_) {
+            return TERM_NOCOLOR;
+        }
+
+        if ($terminalColorSupport > $maxPatternColorSupport) {
             return $maxPatternColorSupport;
         }
+
         return $terminalColorSupport;
     }
 }
