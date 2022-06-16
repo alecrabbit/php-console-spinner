@@ -21,6 +21,7 @@ final class Defaults
     public const MILLISECONDS_INTERVAL = 100;
     public const SECONDS_INTERVAL = 100 / 1000;
     public const COLOR_SUPPORT_LEVELS = ALLOWED_TERM_COLOR;
+    public const MILLISECONDS_MIN_INTERVAL = 0;
     public const MILLISECONDS_MAX_INTERVAL = 1000000;
     public const HIDE_CURSOR = true;
     public const SYNCHRONOUS_MODE = false;

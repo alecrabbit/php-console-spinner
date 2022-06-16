@@ -26,18 +26,12 @@ final class StyleCollection implements IStyleCollection
     {
         self::assert($styles);
         $collection = new self(new Interval($interval));
-        $sequence = $styles['sequence'] ?? [];
-        $format = $styles['format'] ?? null;
 
-        foreach ($sequence as $style) {
-            if ($style instanceof IStyle) {
-                $collection->add($style);
-                continue;
-            }
-            $collection->add(Style::create($style, $format));
+        foreach ($styles as $style) {
+            $collection->add(Style::create($style));
         }
         if($collection->isEmpty()) {
-            $collection->add(Style::create('%s'));
+            $collection->add(Style::create());
         }
         return $collection;
     }
@@ -71,5 +65,10 @@ final class StyleCollection implements IStyleCollection
     protected function isEmpty(): bool
     {
         return 0 === $this->count;
+    }
+
+    public function count(): int
+    {
+        return $this->count;
     }
 }

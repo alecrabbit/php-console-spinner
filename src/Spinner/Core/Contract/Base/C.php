@@ -13,6 +13,7 @@ final class C
     public const SEQUENCE = 'sequence';
     public const INTERVAL = 'interval';
     public const STYLES = 'styles';
+    public const STR_PLACEHOLDER = '%s';
 
     private function __construct()
     {

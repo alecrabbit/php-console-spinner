@@ -6,8 +6,9 @@ namespace AlecRabbit\Spinner\Core\Contract;
 
 use AlecRabbit\Spinner\Core\Rotor\Contract\IInterval;
 use IteratorAggregate;
+use Countable;
 
-interface IStyleCollection extends IteratorAggregate
+interface IStyleCollection extends IteratorAggregate, Countable
 {
     public static function create(array $styles, ?int $interval = null): self;
 
