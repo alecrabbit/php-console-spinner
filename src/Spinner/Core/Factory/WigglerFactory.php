@@ -1,9 +1,9 @@
 <?php
+
 declare(strict_types=1);
 // 15.06.22
 namespace AlecRabbit\Spinner\Core\Factory;
 
-use AlecRabbit\Spinner\Core\Contract\Base\C;
 use AlecRabbit\Spinner\Core\Contract\Base\Defaults;
 use AlecRabbit\Spinner\Core\Contract\Base\StylePattern;
 use AlecRabbit\Spinner\Core\Contract\IFrameCollection;
@@ -18,17 +18,15 @@ use AlecRabbit\Spinner\Core\Rotor\NoCharsRotor;
 use AlecRabbit\Spinner\Core\Rotor\NoStyleRotor;
 use AlecRabbit\Spinner\Core\Rotor\StyleRotor;
 use AlecRabbit\Spinner\Core\StyleCollection;
-use AlecRabbit\Spinner\Core\StylePatternExtractor;
 use AlecRabbit\Spinner\Core\StyleRenderer;
 use AlecRabbit\Spinner\Core\Wiggler\Contract\IWiggler;
 use AlecRabbit\Spinner\Core\Wiggler\MessageWiggler;
 use AlecRabbit\Spinner\Core\Wiggler\ProgressWiggler;
 use AlecRabbit\Spinner\Core\Wiggler\RevolveWiggler;
 
-use const AlecRabbit\Cli\TERM_NOCOLOR;
-
 final class WigglerFactory implements IWigglerFactory
 {
+    private const FRAME_SEQUENCE = Defaults::FRAME_SEQUENCE;
     private IFrameCollection $frames;
     private IStyleCollection $styles;
     private StyleRenderer $styleRenderer;
@@ -45,8 +43,6 @@ final class WigglerFactory implements IWigglerFactory
         $this->frames = $frames ?? self::defaultFrames();
         $this->styles = $this->defaultStyles();
     }
-
-    private const FRAME_SEQUENCE = Defaults::FRAME_SEQUENCE;
 
     /**
      * @throws InvalidArgumentException

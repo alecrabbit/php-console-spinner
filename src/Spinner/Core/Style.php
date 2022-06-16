@@ -23,11 +23,11 @@ final class Style implements IStyle
         if ($element instanceof IStyle) {
             return $element;
         }
-        if(null === $element) {
+        if (null === $element) {
             $element = C::STR_PLACEHOLDER;
         }
         if (is_string($element)) {
-            if(C::EMPTY_STRING === $element) {
+            if (C::EMPTY_STRING === $element) {
                 $element = C::STR_PLACEHOLDER;
             }
             return new Style($element);

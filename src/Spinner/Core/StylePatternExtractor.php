@@ -9,6 +9,8 @@ use AlecRabbit\Spinner\Core\Contract\IStylePatternExtractor;
 use AlecRabbit\Spinner\Core\Exception\InvalidArgumentException;
 use JetBrains\PhpStorm\ArrayShape;
 
+use Throwable;
+
 use const AlecRabbit\Cli\TERM_NOCOLOR;
 
 final class StylePatternExtractor implements IStylePatternExtractor
@@ -53,7 +55,7 @@ final class StylePatternExtractor implements IStylePatternExtractor
     {
         try {
             $maxPatternColorSupport = max(array_keys($pattern[C::STYLES]));
-        } catch (\Throwable $_) {
+        } catch (Throwable $_) {
             return TERM_NOCOLOR;
         }
 

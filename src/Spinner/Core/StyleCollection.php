@@ -30,7 +30,7 @@ final class StyleCollection implements IStyleCollection
         foreach ($styles as $style) {
             $collection->add(Style::create($style));
         }
-        if($collection->isEmpty()) {
+        if ($collection->isEmpty()) {
             $collection->add(Style::create());
         }
         return $collection;
@@ -47,6 +47,11 @@ final class StyleCollection implements IStyleCollection
         $this->elements[] = $style;
     }
 
+    protected function isEmpty(): bool
+    {
+        return 0 === $this->count;
+    }
+
     public function getIterator(): Traversable
     {
         return new ArrayIterator($this->elements);
@@ -60,11 +65,6 @@ final class StyleCollection implements IStyleCollection
     public function getInterval(): IInterval
     {
         return $this->interval;
-    }
-
-    protected function isEmpty(): bool
-    {
-        return 0 === $this->count;
     }
 
     public function count(): int

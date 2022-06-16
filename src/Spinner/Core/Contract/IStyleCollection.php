@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Contract;
 
 use AlecRabbit\Spinner\Core\Rotor\Contract\IInterval;
-use IteratorAggregate;
 use Countable;
+use IteratorAggregate;
 
 interface IStyleCollection extends IteratorAggregate, Countable
 {

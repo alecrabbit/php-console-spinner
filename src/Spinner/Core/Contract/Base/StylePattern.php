@@ -9,7 +9,6 @@ use JetBrains\PhpStorm\ArrayShape;
 use const AlecRabbit\Cli\TERM_16COLOR;
 use const AlecRabbit\Cli\TERM_256COLOR;
 use const AlecRabbit\Cli\TERM_NOCOLOR;
-use const AlecRabbit\Cli\TERM_TRUECOLOR;
 
 final class StylePattern
 {
@@ -68,58 +67,6 @@ final class StylePattern
             );
     }
 
-    public static function rainbowBg(): array
-    {
-        return
-                [
-                    C::STYLES => [
-                        TERM_16COLOR =>
-                            [
-                                C::SEQUENCE => [96,],
-                                C::FORMAT => '%sm',
-                                C::INTERVAL => null,
-                            ],
-                        TERM_256COLOR =>
-                            [
-                                C::SEQUENCE => [
-                                    196,
-                                    202,
-                                    208,
-                                    214,
-                                    220,
-                                    226,
-                                    190,
-                                    154,
-                                    118,
-                                    82,
-                                    46,
-                                    47,
-                                    48,
-                                    49,
-                                    50,
-                                    51,
-                                    45,
-                                    39,
-                                    33,
-                                    27,
-                                    56,
-                                    57,
-                                    93,
-                                    129,
-                                    165,
-                                    201,
-                                    200,
-                                    199,
-                                    198,
-                                    197,
-                                ],
-                                C::FORMAT => '48;5;%sm',
-                                C::INTERVAL => 200,
-                            ],
-                    ],
-                ];
-    }
-
     protected static function fillWithDefaults(array $incoming, array $defaults): array
     {
         foreach ($defaults as $key => $value) {
@@ -166,5 +113,57 @@ final class StylePattern
 //                    ],
             ],
         ];
+    }
+
+    public static function rainbowBg(): array
+    {
+        return
+            [
+                C::STYLES => [
+                    TERM_16COLOR =>
+                        [
+                            C::SEQUENCE => [96,],
+                            C::FORMAT => '%sm',
+                            C::INTERVAL => null,
+                        ],
+                    TERM_256COLOR =>
+                        [
+                            C::SEQUENCE => [
+                                196,
+                                202,
+                                208,
+                                214,
+                                220,
+                                226,
+                                190,
+                                154,
+                                118,
+                                82,
+                                46,
+                                47,
+                                48,
+                                49,
+                                50,
+                                51,
+                                45,
+                                39,
+                                33,
+                                27,
+                                56,
+                                57,
+                                93,
+                                129,
+                                165,
+                                201,
+                                200,
+                                199,
+                                198,
+                                197,
+                            ],
+                            C::FORMAT => '48;5;%sm',
+                            C::INTERVAL => 200,
+                        ],
+                ],
+            ];
     }
 }
