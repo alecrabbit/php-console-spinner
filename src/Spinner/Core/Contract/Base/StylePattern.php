@@ -23,6 +23,7 @@ final class StylePattern
                             [
                                 C::SEQUENCE => [96,],
                                 C::FORMAT => '%sm',
+                                C::INTERVAL => null,
                             ],
                         TERM_256COLOR =>
                             [
@@ -59,6 +60,7 @@ final class StylePattern
                                     197,
                                 ],
                                 C::FORMAT => '38;5;%sm',
+                                C::INTERVAL => 200,
                             ],
                     ],
                     C::INTERVAL => 200,
@@ -91,24 +93,28 @@ final class StylePattern
                     [
                         C::SEQUENCE => [],
                         C::FORMAT => '',
+                        C::INTERVAL => null,
                     ],
                 TERM_16COLOR =>
                     [
                         C::SEQUENCE => [],
                         C::FORMAT => '',
+                        C::INTERVAL => null,
                     ],
                 TERM_256COLOR =>
                     [
                         C::SEQUENCE => [],
                         C::FORMAT => '',
+                        C::INTERVAL => null,
                     ],
                 TERM_TRUECOLOR =>
                     [
                         C::SEQUENCE => [],
                         C::FORMAT => '',
+                        C::INTERVAL => null,
                     ],
             ],
-            C::INTERVAL => 1000,
+            C::INTERVAL => null,
         ];
     }
 }

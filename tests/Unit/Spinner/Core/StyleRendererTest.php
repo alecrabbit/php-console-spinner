@@ -14,6 +14,8 @@ use AlecRabbit\Tests\Spinner\TestCase;
 
 use JetBrains\PhpStorm\ArrayShape;
 
+use const AlecRabbit\Cli\CSI;
+use const AlecRabbit\Cli\RESET;
 use const AlecRabbit\Cli\TERM_16COLOR;
 use const AlecRabbit\Cli\TERM_256COLOR;
 use const AlecRabbit\Cli\TERM_NOCOLOR;
@@ -34,15 +36,29 @@ class StyleRendererTest extends TestCase
         yield [
             [
                 self::EXTRACTED => [
-                    C::STYLES => [
-                        C::SEQUENCE => [],
-                        C::FORMAT => '',
-                    ],
-                    C::INTERVAL => 1000,
+                    C::STYLES => [],
+                    C::INTERVAL => null,
                 ],
             ],
             [
                 self::ARGUMENTS => [],
+                self::PATTERN => self::patternToTest01(),
+            ],
+        ];
+
+        yield [
+            [
+                self::EXTRACTED => [
+                    C::STYLES => [
+                        CSI . '96m%s' . RESET,
+                    ],
+                    C::INTERVAL => null,
+                ],
+            ],
+            [
+                self::ARGUMENTS => [
+                    TERM_16COLOR,
+                ],
                 self::PATTERN => self::patternToTest01(),
             ],
         ];
@@ -77,7 +93,7 @@ class StyleRendererTest extends TestCase
 
     public static function getInstance(array $args = []): IStyleRenderer
     {
-        return new StyleRenderer(self::getExtractorInstance(...$args));
+        return new StyleRenderer(self::getExtractorInstance($args));
     }
 
     public static function getExtractorInstance(array $args = []): IStylePatternExtractor

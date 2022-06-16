@@ -18,7 +18,7 @@ use const AlecRabbit\Cli\TERM_TRUECOLOR;
 
 class StylePatternExtractorTest extends TestCase
 {
-    #[ArrayShape([C::STYLES => "array[]", C::INTERVAL => "int"])]
+    #[ArrayShape([C::STYLES => "array[]"])]
     private static function patternToTest01(): array
     {
         return
@@ -28,24 +28,27 @@ class StylePatternExtractorTest extends TestCase
                         [
                             C::SEQUENCE => [],
                             C::FORMAT => '',
+                            C::INTERVAL => null,
                         ],
                     TERM_16COLOR =>
                         [
                             C::SEQUENCE => [96],
                             C::FORMAT => '%s',
+                            C::INTERVAL => null,
                         ],
                     TERM_256COLOR =>
                         [
                             C::SEQUENCE => [195, 196, 196, 196, 196, 196, 196, 196, 196],
                             C::FORMAT => '38;5;%s',
+                            C::INTERVAL => 1000,
                         ],
                     TERM_TRUECOLOR =>
                         [
                             C::SEQUENCE => [201, 201, 201, 201, 201, 201, 201, 201, 201],
                             C::FORMAT => '38;5;%s',
+                            C::INTERVAL => 1000,
                         ],
                 ],
-                C::INTERVAL => 1000,
             ];
     }
 
@@ -58,8 +61,8 @@ class StylePatternExtractorTest extends TestCase
                     C::STYLES => [
                         C::SEQUENCE => [],
                         C::FORMAT => '',
+                        C::INTERVAL => null,
                     ],
-                    C::INTERVAL => 1000,
                 ],
             ],
             [
@@ -74,8 +77,8 @@ class StylePatternExtractorTest extends TestCase
                     C::STYLES => [
                         C::SEQUENCE => [96],
                         C::FORMAT => '%s',
+                        C::INTERVAL => null,
                     ],
-                    C::INTERVAL => 1000,
                 ],
             ],
             [
@@ -92,8 +95,8 @@ class StylePatternExtractorTest extends TestCase
                     C::STYLES => [
                         C::SEQUENCE => [195, 196, 196, 196, 196, 196, 196, 196, 196],
                         C::FORMAT => '38;5;%s',
+                        C::INTERVAL => 1000,
                     ],
-                    C::INTERVAL => 1000,
                 ],
             ],
             [
@@ -110,8 +113,8 @@ class StylePatternExtractorTest extends TestCase
                     C::STYLES => [
                         C::SEQUENCE => [201, 201, 201, 201, 201, 201, 201, 201, 201],
                         C::FORMAT => '38;5;%s',
+                        C::INTERVAL => 1000,
                     ],
-                    C::INTERVAL => 1000,
                 ],
             ],
             [

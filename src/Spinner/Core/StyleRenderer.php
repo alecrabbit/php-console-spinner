@@ -16,25 +16,34 @@ final class StyleRenderer implements IStyleRenderer
     ) {
     }
 
-    #[ArrayShape([C::STYLES => "array", C::INTERVAL => "mixed"])]
-    public function render(array $extracted): array
+    #[ArrayShape([C::STYLES => "array", C::INTERVAL => "null|int|float"])]
+    public function render(array $pattern): array
     {
-        $this->assert($extracted);
-        return
+        $extracted = $this->extract($pattern);
+        $interval = $extracted[C::INTERVAL] ?? null;
+        $styles = [];
+        $format = $extracted[C::STYLES][C::FORMAT];
+        foreach ($extracted[C::STYLES][C::SEQUENCE] as $style) {
+            $styles[] = Sequencer::colorSequence(sprintf($format, $style) . C::STR_PLACEHOLDER);
+        }
+        return dump(
             [
-                C::STYLES => [
-                    C::SEQUENCE =>
-                        $extracted[C::STYLES][$this->extractor][C::SEQUENCE] ?? [],
-                    C::FORMAT =>
-                        $extracted[C::STYLES][$this->extractor][C::FORMAT] ?? null,
-                ],
-                C::INTERVAL =>
-                    $extracted[C::INTERVAL],
-            ];
+                C::STYLES => $styles,
+                C::INTERVAL => $interval,
+            ]);
+    }
+
+    #[ArrayShape([C::STYLES => "array", C::INTERVAL => "null|int|float"])]
+    private function extract(array $pattern): array
+    {
+        $extracted = $this->extractor->extract($pattern);
+        $this->assert($extracted);
+        return $extracted;
     }
 
     private function assert(array $extracted): void
     {
+        dump($extracted);
         // TODO (2022-06-15 17:58) [Alec Rabbit]: Implement.
     }
 

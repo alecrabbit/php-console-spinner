@@ -8,5 +8,5 @@ interface IStyleRenderer
 {
     public function __construct(IStylePatternExtractor $extractor);
 
-    public function render(array $extracted): array;
+    public function render(array $pattern): array;
 }
