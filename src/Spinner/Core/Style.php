@@ -27,7 +27,9 @@ final class Style implements IStyle
             $element = (string)$element;
         }
         if (is_string($element)) {
-            return new Style(sprintf($format ?? '%s', $element));
+            $sequence = Sequencer::colorSequence(sprintf($format ?? '%s', $element) . '%s');
+            dump($sequence);
+            return new Style($sequence);
         }
         throw new InvalidArgumentException(
             sprintf(

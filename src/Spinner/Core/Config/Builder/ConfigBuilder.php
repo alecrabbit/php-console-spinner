@@ -34,7 +34,7 @@ final class ConfigBuilder implements IConfigBuilder
     private const FINAL_MESSAGE = Defaults::FINAL_MESSAGE;
     private const SHUTDOWN_DELAY = Defaults::SHUTDOWN_DELAY;
     private const HIDE_CURSOR = Defaults::HIDE_CURSOR;
-    private const SYNC_MODE_ENABLED = Defaults::SYNC_MODE_ENABLED;
+    private const SYNCHRONOUS_MODE = Defaults::SYNCHRONOUS_MODE;
 
     private ?ILoop $loop = null;
     private ?bool $hideCursor = null;
@@ -171,7 +171,7 @@ final class ConfigBuilder implements IConfigBuilder
         }
 
         if (null === $this->synchronousMode) {
-            $this->synchronousMode = self::SYNC_MODE_ENABLED;
+            $this->synchronousMode = self::SYNCHRONOUS_MODE;
         }
 
         if (!$this->synchronousMode) {

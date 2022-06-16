@@ -25,6 +25,7 @@ $config =
 ;
 
 $spinner = SpinnerFactory::create($config);
+dump($spinner);
 
 $loop = $config->getLoop();
 $loop->defer(
@@ -33,9 +34,11 @@ $loop->defer(
         $loop->stop();
         $spinner->finalize();
         echo PHP_EOL;
+        dump($spinner);
     }
 );
 
 echo 'Starting...' . PHP_EOL;
 echo sprintf('Refresh interval: %s ms', REFRESH_INTERVAL) . PHP_EOL;
 echo sprintf('Will stop in %s seconds', number_format(STOP_SCRIPT_IN, 2)) . PHP_EOL;
+

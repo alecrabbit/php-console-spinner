@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core;
 
 use AlecRabbit\Spinner\Core\Contract\IFrame;
+use AlecRabbit\Spinner\Core\Contract\IWigglerContainer;
 use AlecRabbit\Spinner\Core\Exception\RuntimeException;
 use AlecRabbit\Spinner\Core\Rotor\Contract\IInterval;
 use AlecRabbit\Spinner\Core\Rotor\Interval;
@@ -16,7 +17,7 @@ use ArrayIterator;
 use Traversable;
 use WeakMap;
 
-final class WigglerContainer implements Contract\IWigglerContainer
+final class WigglerContainer implements IWigglerContainer
 {
     /**
      * @var IWiggler[]
@@ -97,7 +98,7 @@ final class WigglerContainer implements Contract\IWigglerContainer
     /**
      * @throws RuntimeException
      */
-    public function getIndex(string|IWiggler $objectOrClass): int
+    protected function getIndex(string|IWiggler $objectOrClass): int
     {
         if ($objectOrClass instanceof IWiggler) {
             return $this->indexes[$objectOrClass]; // object
@@ -107,7 +108,7 @@ final class WigglerContainer implements Contract\IWigglerContainer
                 return $this->indexes[$wiggler];
             }
         }
-        throw new RuntimeException('Wiggler not found');
+        throw new RuntimeException('Wiggler not found.');
     }
 
     public function progress(float|string|IProgressWiggler|null $wiggler): void

@@ -36,6 +36,9 @@ final class StyleCollection implements IStyleCollection
             }
             $collection->add(Style::create($style, $format));
         }
+        if($collection->isEmpty()) {
+            $collection->add(Style::create('%s'));
+        }
         return $collection;
     }
 
@@ -63,5 +66,10 @@ final class StyleCollection implements IStyleCollection
     public function getInterval(): IInterval
     {
         return $this->interval;
+    }
+
+    protected function isEmpty(): bool
+    {
+        return 0 === $this->count;
     }
 }

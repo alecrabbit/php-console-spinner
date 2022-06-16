@@ -23,7 +23,7 @@ final class Defaults
     public const COLOR_SUPPORT_LEVELS = ALLOWED_TERM_COLOR;
     public const MILLISECONDS_MAX_INTERVAL = 1000000;
     public const HIDE_CURSOR = true;
-    public const SYNC_MODE_ENABLED = false;
+    public const SYNCHRONOUS_MODE = false;
 
     private function __construct()
     {
