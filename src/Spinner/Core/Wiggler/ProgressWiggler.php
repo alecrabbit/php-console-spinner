@@ -19,6 +19,7 @@ final class ProgressWiggler extends AWiggler implements IProgressWiggler
 {
     /**
      * @throws RuntimeException
+     * @deprecated
      */
     public function update(IWiggler|string|null $wiggler): IWiggler
     {

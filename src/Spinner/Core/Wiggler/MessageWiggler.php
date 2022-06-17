@@ -20,6 +20,7 @@ final class MessageWiggler extends AWiggler implements IMessageWiggler
 
     /**
      * @throws RuntimeException
+     * @deprecated
      */
     public function update(IWiggler|string|null $wiggler): IWiggler
     {

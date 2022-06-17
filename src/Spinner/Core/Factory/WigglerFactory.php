@@ -12,7 +12,9 @@ use AlecRabbit\Spinner\Core\Contract\IStyleRenderer;
 use AlecRabbit\Spinner\Core\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Core\Factory\Contract\IWigglerFactory;
 use AlecRabbit\Spinner\Core\FrameCollection;
+use AlecRabbit\Spinner\Core\Rotor\Contract\IFrameRotor;
 use AlecRabbit\Spinner\Core\Rotor\Contract\IInterval;
+use AlecRabbit\Spinner\Core\Rotor\Contract\IStyleRotor;
 use AlecRabbit\Spinner\Core\Rotor\FrameRotor;
 use AlecRabbit\Spinner\Core\Rotor\NoCharsRotor;
 use AlecRabbit\Spinner\Core\Rotor\NoStyleRotor;
@@ -23,6 +25,7 @@ use AlecRabbit\Spinner\Core\Wiggler\Contract\IWiggler;
 use AlecRabbit\Spinner\Core\Wiggler\MessageWiggler;
 use AlecRabbit\Spinner\Core\Wiggler\ProgressWiggler;
 use AlecRabbit\Spinner\Core\Wiggler\RevolveWiggler;
+use AlecRabbit\Spinner\Core\Wiggler\Wiggler;
 
 final class WigglerFactory implements IWigglerFactory
 {
@@ -60,13 +63,13 @@ final class WigglerFactory implements IWigglerFactory
             );
     }
 
-    public function createRevolveWiggler(?IFrameCollection $frames = null): IWiggler
+    public function createRevolveWiggler(): IWiggler
     {
         return
             RevolveWiggler::create(
                 new StyleRotor($this->styles),
                 new FrameRotor(
-                    frames: $frames ?? $this->frames,
+                    frames: $this->frames,
                 ),
             );
     }
@@ -100,4 +103,15 @@ final class WigglerFactory implements IWigglerFactory
             );
     }
 
+    public function createWiggler(?IStyleRotor $styleRotor = null, ?IFrameRotor $frameRotor = null): IWiggler
+    {
+        if (null === $styleRotor && null === $frameRotor) {
+            return NullWiggler::create();
+        }
+        return
+            Wiggler::create(
+                $styleRotor ?? new NoStyleRotor(),
+                $frameRotor ?? new NoCharsRotor(),
+            );
+    }
 }

@@ -55,7 +55,7 @@ final class Interval implements IInterval
         return $this->seconds;
     }
 
-    public function smaller(?IInterval $other): IInterval
+    public function smallest(?IInterval $other): ?IInterval
     {
         if (null === $other) {
             return $this;

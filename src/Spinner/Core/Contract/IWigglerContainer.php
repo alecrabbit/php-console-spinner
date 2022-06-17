@@ -18,7 +18,7 @@ interface IWigglerContainer extends IteratorAggregate
 
     public function getIterator(): Traversable;
 
-    public function addWiggler(IWiggler $wiggler): void;
+    public function addWiggler(IWiggler $wiggler): IWigglerContainer;
 
     public function getInterval(): IInterval;
 

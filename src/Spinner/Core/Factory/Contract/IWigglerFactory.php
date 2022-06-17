@@ -9,5 +9,6 @@ use AlecRabbit\Spinner\Core\Wiggler\Contract\IWiggler;
 
 interface IWigglerFactory
 {
-    public function createRevolveWiggler(?IFrameCollection $frames = null): IWiggler;
+    public function createRevolveWiggler(): IWiggler;
+    public function createWiggler(): IWiggler;
 }

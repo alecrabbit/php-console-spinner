@@ -6,9 +6,10 @@ namespace AlecRabbit\Spinner\Core\Rotor;
 
 use AlecRabbit\Spinner\Core\Rotor\Contract\AStyleRotor;
 use AlecRabbit\Spinner\Core\Rotor\Contract\IInterval;
+use AlecRabbit\Spinner\Core\Rotor\Contract\IStyleRotor;
 use AlecRabbit\Spinner\Core\StyleCollection;
 
-final class NoStyleRotor extends AStyleRotor
+final class NoStyleRotor extends AStyleRotor implements IStyleRotor
 {
     public function __construct()
     {

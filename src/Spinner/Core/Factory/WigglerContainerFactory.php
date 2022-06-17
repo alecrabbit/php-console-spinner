@@ -24,7 +24,7 @@ final class WigglerContainerFactory implements IWigglerContainerFactory
         IStyleRenderer $styleRenderer,
         ?IWigglerFactory $wigglerFactory = null,
         ?IFrameCollection $frames = null,
-        ?IInterval $interval = null,
+        private readonly ?IInterval $interval = null,
     ) {
         $this->wigglerFactory =
             $wigglerFactory ?? new WigglerFactory(
@@ -39,11 +39,12 @@ final class WigglerContainerFactory implements IWigglerContainerFactory
      */
     public function createContainer(): IWigglerContainer
     {
+        $container = new WigglerContainer($this->interval);
         return
-            new WigglerContainer(
-                $this->wigglerFactory->createRevolveWiggler(),
-                $this->wigglerFactory->createMessageWiggler(),
-                $this->wigglerFactory->createProgressWiggler(),
-            );
+            $container
+                ->addWiggler($this->wigglerFactory->createRevolveWiggler())
+                ->addWiggler($this->wigglerFactory->createMessageWiggler())
+                ->addWiggler($this->wigglerFactory->createProgressWiggler())
+        ;
     }
 }

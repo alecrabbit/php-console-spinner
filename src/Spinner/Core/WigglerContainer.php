@@ -8,7 +8,6 @@ use AlecRabbit\Spinner\Core\Contract\IFrame;
 use AlecRabbit\Spinner\Core\Contract\IWigglerContainer;
 use AlecRabbit\Spinner\Core\Exception\RuntimeException;
 use AlecRabbit\Spinner\Core\Rotor\Contract\IInterval;
-use AlecRabbit\Spinner\Core\Rotor\Interval;
 use AlecRabbit\Spinner\Core\Wiggler\Contract\IMessageWiggler;
 use AlecRabbit\Spinner\Core\Wiggler\Contract\IProgressWiggler;
 use AlecRabbit\Spinner\Core\Wiggler\Contract\IRevolveWiggler;
@@ -28,19 +27,17 @@ final class WigglerContainer implements IWigglerContainer
      */
     private iterable $indexes;
     private int $currentIndex = 0;
-    private Interval $interval;
+    private ?IInterval $calculatedInterval = null;
+    private ?IInterval $preferredInterval;
 
     public function __construct(
-        IWiggler ...$wigglers,
+        ?IInterval $preferredInterval = null,
     ) {
-        $this->interval = new Interval(1000);
+        $this->preferredInterval = $preferredInterval;
         $this->indexes = new WeakMap();
-        foreach ($wigglers as $wiggler) {
-            $this->addWiggler($wiggler);
-        }
     }
 
-    public function addWiggler(IWiggler $wiggler): void
+    public function addWiggler(IWiggler $wiggler): IWigglerContainer
     {
         // TODO (2022-06-15 19:06) [Alec Rabbit]: if wiggler interval is smaller than current interval,
         //  then change current interval to wiggler interval.
@@ -49,16 +46,23 @@ final class WigglerContainer implements IWigglerContainer
         $this->indexes[$wiggler] = $this->currentIndex;
         $this->currentIndex++;
         $this->updateInterval($wiggler->getInterval());
+        return $this;
     }
 
     private function updateInterval(?IInterval $interval): void
     {
-        $this->interval = $this->interval->smaller($interval);
+        $this->calculatedInterval =
+            $this->calculatedInterval instanceof IInterval
+                ? $this->calculatedInterval->smallest($interval)
+                : $interval;
     }
 
     public function getInterval(): IInterval
     {
-        return $this->interval;
+        if (null === $this->preferredInterval) {
+            return $this->calculatedInterval;
+        }
+        return $this->preferredInterval;
     }
 
     public function render(): IFrame
@@ -67,7 +71,7 @@ final class WigglerContainer implements IWigglerContainer
         $width = 0;
 
         foreach ($this->wigglers as $wiggler) {
-            $frame = $wiggler->createFrame($this->interval);
+            $frame = $wiggler->render();
             $sequence .= $frame->sequence;
             $width += $frame->sequenceWidth;
         }

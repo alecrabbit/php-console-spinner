@@ -6,7 +6,7 @@ namespace AlecRabbit\Spinner\Core\Rotor\Contract;
 
 use AlecRabbit\Spinner\Core\Contract\IStyleCollection;
 
-abstract class AStyleRotor extends ARotor implements IStyleRotor
+abstract class AStyleRotor extends ARotor  implements IStyleRotor
 {
     public function __construct(
         IStyleCollection $styles,

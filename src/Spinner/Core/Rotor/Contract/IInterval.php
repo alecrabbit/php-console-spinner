@@ -8,5 +8,5 @@ interface IInterval
 {
     public function toSeconds(): float;
 
-    public function smaller(?IInterval $other): IInterval;
+    public function smallest(?IInterval $other): ?IInterval;
 }

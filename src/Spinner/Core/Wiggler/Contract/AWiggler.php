@@ -12,10 +12,32 @@ use AlecRabbit\Spinner\Core\Rotor\Contract\IStyleRotor;
 
 abstract class AWiggler implements IWiggler
 {
+    protected ?IInterval $interval = null;
+
     protected function __construct(
         protected readonly IStyleRotor $style,
         protected readonly IRotor $rotor,
     ) {
+        $this->interval = $this->extractSmallestInterval($this->style, $this->rotor);
+    }
+
+    private function extractSmallestInterval(IRotor $first, IRotor $second): ?IInterval
+    {
+        $fInterval = $first->getInterval();
+        $sInterval = $second->getInterval();
+
+        if (null === $fInterval && null === $sInterval) {
+            return null;
+        }
+
+        $fInterval = $fInterval ?? $sInterval;
+
+        return $fInterval->smallest($sInterval);
+    }
+
+    public function getInterval(): ?IInterval
+    {
+        return $this->interval;
     }
 
     public static function create(IStyleRotor $style, IRotor $rotor,): IWiggler
@@ -26,11 +48,11 @@ abstract class AWiggler implements IWiggler
 
     abstract protected static function assertWiggler(IWiggler|string|null $wiggler): void;
 
-    public function createFrame(?IInterval $interval = null): IFrame
+    public function render(): IFrame
     {
         return
             new Frame(
-                $this->createSequence($interval),
+                $this->createSequence(),
                 $this->rotor->getWidth(),
             );
     }
@@ -42,19 +64,5 @@ abstract class AWiggler implements IWiggler
                 chars: $this->rotor->next($interval),
                 interval: $interval,
             );
-    }
-
-    public function getInterval(): ?IInterval
-    {
-        $fInterval = $this->rotor->getInterval();
-        $sInterval = $this->style->getInterval();
-
-        if (null === $fInterval && null === $sInterval) {
-            return null;
-        }
-
-        $fInterval = $fInterval ?? $sInterval;
-
-        return $fInterval->smaller($sInterval);
     }
 }
