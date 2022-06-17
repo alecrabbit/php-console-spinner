@@ -14,8 +14,7 @@ use AlecRabbit\Spinner\Core\Wiggler\CycleCalculator;
 
 abstract class AWiggler implements IWiggler
 {
-    protected int $cycleNumber = 0;
-    protected Cycle $cycle;
+    protected ICycle $cycle;
     protected IFrame $currentFrame;
     protected ?IInterval $interval = null;
 
@@ -59,7 +58,7 @@ abstract class AWiggler implements IWiggler
 
     public function render(): IFrame
     {
-        if ($this->cycle->render()) {
+        if ($this->cycle->completed()) {
             return
                 $this->currentFrame =
                     new Frame(
