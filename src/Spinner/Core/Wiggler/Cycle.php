@@ -8,21 +8,21 @@ use AlecRabbit\Spinner\Core\Wiggler\Contract\ICycle;
 
 final class Cycle implements ICycle
 {
-    private readonly int $cycleNumber;
-    private int $currentCycle = 0;
+    private readonly int $num;
+    private int $current = 0;
 
-    public function __construct(int $cycles)
+    public function __construct(int $total)
     {
-        $this->cycleNumber = $cycles - 1;
+        $this->num = $total - 1;
     }
 
     public function completed(): bool
     {
-        if (0 === $this->currentCycle) {
-            $this->currentCycle = $this->cycleNumber;
+        if (0 === $this->current) {
+            $this->current = $this->num;
             return true;
         }
-        $this->currentCycle--;
+        $this->current--;
         return false;
     }
 
