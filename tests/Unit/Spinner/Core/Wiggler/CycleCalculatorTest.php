@@ -17,23 +17,6 @@ class CycleCalculatorTest extends TestCase
     {
         // [$expected, $arguments]
         yield from $this->convertDataSetForCalculate(self::dataSetForCalculate());
-
-    }
-
-    /**
-     * @test
-     * @dataProvider calculateDataProvider
-     */
-    public function calculate(array $expected, array $arguments): void
-    {
-        $this->checkForExceptionExpectance($expected);
-
-        $preferredInterval =
-            null === $arguments[self::PREFERRED_INTERVAL] ? null : new Interval($arguments[self::PREFERRED_INTERVAL]);
-        $interval =
-            null === $arguments[self::INTERVAL] ? null : new Interval($arguments[self::INTERVAL]);
-
-        self::assertSame($expected[self::RESULT], CycleCalculator::calculate($preferredInterval, $interval));
     }
 
     protected function convertDataSetForCalculate(iterable $dataSet): iterable
@@ -50,6 +33,7 @@ class CycleCalculatorTest extends TestCase
             ];
         }
     }
+
     protected static function dataSetForCalculate(): iterable
     {
         yield from [
@@ -66,6 +50,40 @@ class CycleCalculatorTest extends TestCase
             [0, 505, 1000],
             [1, 500, 1000],
             [2, 300, 1000],
+            [2, 300, null],
+            [0, 1000, 100],
+            [0, null, 100],
+            [9, 1000, 10000],
+            [9, null, 10000],
+            [0, 10000, 1000],
+            [0, 10000, null],
+            [0, 200000, 1000],
+            [0, 200000, null],
+            [199, null, 200000],
+            [199, 1000, 200000],
         ];
+    }
+
+    /**
+     * @test
+     * @dataProvider calculateDataProvider
+     */
+    public function calculate(array $expected, array $arguments): void
+    {
+        $this->checkForExceptionExpectance($expected);
+
+        $preferredInterval = $this->intervalOrNull($arguments[self::PREFERRED_INTERVAL]);
+
+        $interval = $this->intervalOrNull($arguments[self::INTERVAL]);
+
+        self::assertSame($expected[self::RESULT], CycleCalculator::calculate($preferredInterval, $interval));
+    }
+
+    private function intervalOrNull(null|int|float $milliseconds): ?Interval
+    {
+        return
+            null === $milliseconds
+                ? null
+                : new Interval($milliseconds);
     }
 }
