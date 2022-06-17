@@ -21,7 +21,7 @@ class IntervalTest extends TestCase
         // [$expected, $styles, $interval]
         yield [
             [
-                self::INTERVAL => Defaults::MILLISECONDS_INTERVAL / 1000,
+                self::INTERVAL => (float)Defaults::MILLISECONDS_INTERVAL / 1000,
             ],
             null
         ];

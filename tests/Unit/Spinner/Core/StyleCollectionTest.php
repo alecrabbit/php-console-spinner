@@ -23,7 +23,7 @@ class StyleCollectionTest extends TestCase
         yield [
             [
                 self::COUNT => 1,
-                self::INTERVAL => Defaults::MILLISECONDS_INTERVAL / 1000,
+                self::INTERVAL => (float)Defaults::MILLISECONDS_INTERVAL / 1000,
                 self::CONTAINS => [
                     Style::create('%s'),
                 ],
