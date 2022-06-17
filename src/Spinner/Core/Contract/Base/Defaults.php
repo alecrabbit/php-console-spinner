@@ -18,8 +18,7 @@ final class Defaults
     public const ERASE_WIDTH = 1;
     public const FRAME_SEQUENCE = FramePattern::SNAKE_VARIANT_0;
     public const MAX_WIDTH = 100;
-    public const MILLISECONDS_INTERVAL = 100;
-    public const SECONDS_INTERVAL = 100 / 1000;
+    public const MILLISECONDS_INTERVAL = 1000;
     public const COLOR_SUPPORT_LEVELS = ALLOWED_TERM_COLOR;
     public const MILLISECONDS_MIN_INTERVAL = 0;
     public const MILLISECONDS_MAX_INTERVAL = 1000000;
