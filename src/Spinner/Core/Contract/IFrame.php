@@ -8,5 +8,4 @@ use Stringable;
 
 interface IFrame extends Stringable
 {
-    public static function create(mixed $element, ?int $elementWidth): IFrame;
 }

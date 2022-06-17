@@ -8,7 +8,7 @@ use AlecRabbit\Spinner\Core\Contract\Base\C;
 use AlecRabbit\Spinner\Core\Rotor\Contract\IFrameRotor;
 use AlecRabbit\Spinner\Core\Rotor\Contract\IInterval;
 use AlecRabbit\Spinner\Core\Rotor\Contract\IStyleRotor;
-use AlecRabbit\Spinner\Core\Widget\WidgetFrame;
+use AlecRabbit\Spinner\Core\Widget\WigglerFrame;
 use AlecRabbit\Spinner\Core\WidthDefiner;
 use WeakMap;
 
@@ -16,8 +16,8 @@ abstract class AWidget implements IWidget
 {
     protected WeakMap $children;
     protected ?IWidget $parent = null;
-    protected readonly AWidgetFrame $leadingSpacer;
-    protected readonly AWidgetFrame $trailingSpacer;
+    protected readonly AWigglerFrame $leadingSpacer;
+    protected readonly AWigglerFrame $trailingSpacer;
 
     public function __construct(
         protected readonly IStyleRotor $style,
@@ -27,33 +27,33 @@ abstract class AWidget implements IWidget
     ) {
         $this->children = new WeakMap();
         $this->leadingSpacer = $this->refineLeadingSpacer(
-            new WidgetFrame($leadingSpacer, WidthDefiner::define($leadingSpacer))
+            new WigglerFrame($leadingSpacer, WidthDefiner::define($leadingSpacer))
         );
         $this->trailingSpacer = $this->refineTrailingSpacer(
-            new WidgetFrame($trailingSpacer, WidthDefiner::define($trailingSpacer))
+            new WigglerFrame($trailingSpacer, WidthDefiner::define($trailingSpacer))
         );
     }
 
-    private function refineLeadingSpacer(AWidgetFrame $leadingSpacer): AWidgetFrame
+    private function refineLeadingSpacer(AWigglerFrame $leadingSpacer): AWigglerFrame
     {
         $minWidth = $this->parent instanceof IWidget ? 1 : 0;
 //        if($this->style->leadingSpacerWidth > $minWidth) {
 //            $minWidth = $this->style->leadingSpacerWidth;
 //        }
         if ($leadingSpacer->width < $minWidth) {
-            return new WidgetFrame(str_repeat(C::SPACE_CHAR, $minWidth), WidthDefiner::define($minWidth));
+            return new WigglerFrame(str_repeat(C::SPACE_CHAR, $minWidth), WidthDefiner::define($minWidth));
         }
         return $leadingSpacer;
     }
 
-    private function refineTrailingSpacer(AWidgetFrame $trailingSpacer): AWidgetFrame
+    private function refineTrailingSpacer(AWigglerFrame $trailingSpacer): AWigglerFrame
     {
         $minWidth = 0;
 //        if($this->style->leadingSpacerWidth > $minWidth) {
 //            $minWidth = $this->style->leadingSpacerWidth;
 //        }
         if ($trailingSpacer->width < $minWidth) {
-            return new WidgetFrame(str_repeat(C::SPACE_CHAR, $minWidth), WidthDefiner::define($minWidth));
+            return new WigglerFrame(str_repeat(C::SPACE_CHAR, $minWidth), WidthDefiner::define($minWidth));
         }
         return $trailingSpacer;
     }
@@ -77,11 +77,11 @@ abstract class AWidget implements IWidget
         return $this;
     }
 
-    public function render(?IInterval $interval = null): AWidgetFrame
+    public function render(?IInterval $interval = null): AWigglerFrame
     {
         $childrenFrame = $this->renderChildren($interval);
         return
-            new WidgetFrame(
+            new WigglerFrame(
                 $this->createSequence($interval) . $childrenFrame->sequence,
                 $this->rotor->getWidth()
                 + $childrenFrame->width
@@ -90,7 +90,7 @@ abstract class AWidget implements IWidget
             );
     }
 
-    private function renderChildren(?IInterval $interval = null): AWidgetFrame
+    private function renderChildren(?IInterval $interval = null): AWigglerFrame
     {
         $sequence = '';
         $width = 0;
@@ -102,7 +102,7 @@ abstract class AWidget implements IWidget
         }
 
         return
-            new WidgetFrame(
+            new WigglerFrame(
                 $sequence,
                 $width
             );
@@ -113,7 +113,6 @@ abstract class AWidget implements IWidget
         return
             $this->style->join(
                 chars: $this->leadingSpacer->sequence . $this->rotor->next($interval) . $this->trailingSpacer->sequence,
-                interval: $interval,
             );
     }
 

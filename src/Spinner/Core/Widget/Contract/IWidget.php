@@ -8,7 +8,7 @@ use AlecRabbit\Spinner\Core\Rotor\Contract\IInterval;
 
 interface IWidget
 {
-    public function render(?IInterval $interval = null): AWidgetFrame;
+    public function render(?IInterval $interval = null): AWigglerFrame;
 
     public function add(IWidget $widget): static;
 

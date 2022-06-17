@@ -3,19 +3,14 @@
 declare(strict_types=1);
 
 use AlecRabbit\Spinner\Core\Config\Builder\ConfigBuilder;
-use AlecRabbit\Spinner\Core\Contract\Base\FramePattern;
 use AlecRabbit\Spinner\Core\Factory\SpinnerFactory;
-use AlecRabbit\Spinner\Core\FrameCollection;
 use AlecRabbit\Spinner\Core\Output\StreamOutput;
 
 require_once __DIR__ . '/../bootstrap.php';
 
 $stdout = new StreamOutput(STDOUT);
 
-$echoMessageToStdOut = $stdout->writeln(...);
-
-$echoMessageToStdOut('Started...');
-$echoMessageToStdOut('But may be interrupted...');
+$echo = $stdout->writeln(...);
 
 $config =
     (new ConfigBuilder())
@@ -28,6 +23,22 @@ $config =
 $spinner = SpinnerFactory::create($config);
 
 //dump($spinner);
+
+$echo('Started...');
+$echo('But may be interrupted...');
+
+if (defined('SIGINT')) { // check for ext-pcntl
+    pcntl_async_signals(true);
+    pcntl_signal(
+        SIGINT,
+        static function () use ($spinner): never {
+            $spinner->interrupt();
+            $spinner->finalize();
+            exit;
+        }
+    );
+    $echo('Ctrl+C to interrupt...');
+}
 
 $spinner->initialize();
 for ($i = 0; $i < 100; $i++) {
@@ -43,7 +54,7 @@ for ($i = 0; $i < 100; $i++) {
     }
     if ($i === 50) {
         $spinner->progress(0.5);
-        $spinner->wrap($echoMessageToStdOut, 'Yay! 50% done!');
+        $spinner->wrap($echo, 'Yay! 50% done!');
     }
     if ($i === 60) {
         $spinner->progress(0.6);
@@ -53,7 +64,7 @@ for ($i = 0; $i < 100; $i++) {
         $spinner->progress(0.8);
     }
     if ($i === 90) {
-        $spinner->wrap($echoMessageToStdOut, 'Almost done...');
+        $spinner->wrap($echo, 'Almost done...');
     }
     $spinner->spin();
     usleep(100000);
