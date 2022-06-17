@@ -6,7 +6,7 @@ namespace AlecRabbit\Spinner\Core\Rotor\Contract;
 
 interface IRotor
 {
-    public function next(?IInterval $interval = null): string;
+    public function next(): string;
 
     public function getInterval(): ?IInterval;
 }

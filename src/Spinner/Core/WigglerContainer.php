@@ -8,6 +8,7 @@ use AlecRabbit\Spinner\Core\Contract\IFrame;
 use AlecRabbit\Spinner\Core\Contract\IWigglerContainer;
 use AlecRabbit\Spinner\Core\Exception\RuntimeException;
 use AlecRabbit\Spinner\Core\Rotor\Contract\IInterval;
+use AlecRabbit\Spinner\Core\Rotor\Interval;
 use AlecRabbit\Spinner\Core\Wiggler\Contract\IMessageWiggler;
 use AlecRabbit\Spinner\Core\Wiggler\Contract\IProgressWiggler;
 use AlecRabbit\Spinner\Core\Wiggler\Contract\IRevolveWiggler;
@@ -59,10 +60,17 @@ final class WigglerContainer implements IWigglerContainer
 
     public function getInterval(): IInterval
     {
-        if (null === $this->preferredInterval) {
-            return $this->calculatedInterval;
-        }
-        return $this->preferredInterval;
+        $this->calculatedInterval = $this->calculateInterval($this->preferredInterval);
+
+        return
+            $this->preferredInterval ?? $this->calculatedInterval;
+    }
+
+    private function calculateInterval(?IInterval $preferredInterval): IInterval
+    {
+        $preferredInterval = $preferredInterval ?? new Interval(1000);
+
+        return $this->calculatedInterval;
     }
 
     public function render(): IFrame

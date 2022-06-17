@@ -44,21 +44,21 @@ abstract class ARotor implements IRotor
         }
     }
 
-    public function next(?IInterval $interval = null): string
+    public function next(): string
     {
         if (0 === $this->dataLength) {
             return '';
         }
         if (1 === $this->dataLength) {
-            return $this->current($interval);
+            return $this->current();
         }
         if (++$this->currentIndex === $this->dataLength) {
             $this->currentIndex = 0;
         }
-        return $this->current($interval);
+        return $this->current();
     }
 
-    protected function current(?IInterval $interval = null): string
+    protected function current(): string
     {
         return (string)$this->data[$this->currentIndex];
     }

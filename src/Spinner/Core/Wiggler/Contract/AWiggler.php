@@ -12,6 +12,9 @@ use AlecRabbit\Spinner\Core\Rotor\Contract\IStyleRotor;
 
 abstract class AWiggler implements IWiggler
 {
+    protected int $cycles = 0;
+    protected int $counter = 0;
+    protected IFrame $currentFrame;
     protected ?IInterval $interval = null;
 
     protected function __construct(
@@ -50,19 +53,36 @@ abstract class AWiggler implements IWiggler
 
     public function render(): IFrame
     {
+        if (0 === $this->counter) {
+            $this->currentFrame = $this->doRender();
+        }
+        $this->counter--;
+        return
+            $this->currentFrame;
+    }
+
+    private function doRender(): IFrame
+    {
+        $this->resetCounter();
         return
             new Frame(
-                $this->createSequence(),
+                $this->style->join(
+                    $this->rotor->next(),
+                ),
                 $this->rotor->getWidth(),
             );
+    }
+
+    private function resetCounter(): void
+    {
+        $this->counter = $this->cycles;
     }
 
     protected function createSequence(?IInterval $interval = null): string
     {
         return
             $this->style->join(
-                chars: $this->rotor->next($interval),
-                interval: $interval,
+                $this->rotor->next(),
             );
     }
 }

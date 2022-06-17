@@ -10,7 +10,7 @@ use AlecRabbit\Spinner\Core\Exception\RuntimeException;
 use AlecRabbit\Spinner\Core\Rotor\Contract\IRotor;
 use AlecRabbit\Spinner\Core\Rotor\Contract\IStyleRotor;
 use AlecRabbit\Spinner\Core\Rotor\NoCharsRotor;
-use AlecRabbit\Spinner\Core\Rotor\VariadicStringRotor;
+use AlecRabbit\Spinner\Core\Rotor\StringRotor;
 use AlecRabbit\Spinner\Core\Wiggler\Contract\AWiggler;
 use AlecRabbit\Spinner\Core\Wiggler\Contract\IMessageWiggler;
 use AlecRabbit\Spinner\Core\Wiggler\Contract\IWiggler;
@@ -69,6 +69,6 @@ final class MessageWiggler extends AWiggler implements IMessageWiggler
         if (C::DEFAULT_MESSAGE === $message) {
             return new NoCharsRotor();
         }
-        return new VariadicStringRotor($message);
+        return new StringRotor($message);
     }
 }

@@ -16,7 +16,7 @@ final class NoCharsRotor extends AStringRotor
         parent::__construct();
     }
 
-    public function next(?IInterval $interval = null): string
+    public function next(): string
     {
         return C::EMPTY_STRING;
     }

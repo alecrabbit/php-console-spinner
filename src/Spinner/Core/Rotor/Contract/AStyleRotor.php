@@ -6,7 +6,7 @@ namespace AlecRabbit\Spinner\Core\Rotor\Contract;
 
 use AlecRabbit\Spinner\Core\Contract\IStyleCollection;
 
-abstract class AStyleRotor extends ARotor  implements IStyleRotor
+abstract class AStyleRotor extends ARotor implements IStyleRotor
 {
     public function __construct(
         IStyleCollection $styles,
@@ -14,20 +14,13 @@ abstract class AStyleRotor extends ARotor  implements IStyleRotor
         parent::__construct($styles->toArray(), $styles->getInterval());
     }
 
-    public function join(string $chars, ?IInterval $interval = null): string
+    public function join(string $chars): string
     {
         return
             sprintf(
-                $this->next($interval),
+                $this->next(),
                 $chars,
             );
-//            Sequencer::colorSequence(
-//                sprintf(
-//                    '%s%s',
-//                    $this->next($interval),
-//                    $chars,
-//                )
-//            );
     }
 
 }

@@ -8,7 +8,7 @@ use AlecRabbit\Spinner\Core\Contract\Base\C;
 use AlecRabbit\Spinner\Core\Rotor\Contract\AStringRotor;
 use AlecRabbit\Spinner\Core\WidthDefiner;
 
-final class VariadicStringRotor extends AStringRotor
+final class StringRotor extends AStringRotor
 {
     public function __construct(string $string)
     {

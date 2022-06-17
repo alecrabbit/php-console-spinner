@@ -51,11 +51,11 @@ abstract class AStringRotor extends ARotor implements IStringRotor
         return $this->width;
     }
 
-    protected function current(?IInterval $interval = null): string
+    protected function current(): string
     {
         return
             $this->addSpacers(
-                parent::current($interval)
+                parent::current()
             );
     }
 
