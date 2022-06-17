@@ -10,9 +10,6 @@ use AlecRabbit\Tests\Spinner\TestCase;
 
 class CycleCalculatorTest extends TestCase
 {
-    protected const PREFERRED_INTERVAL = 'preferredInterval';
-    protected const INTERVAL = 'interval';
-
     public function calculateDataProvider(): iterable
     {
         // [$expected, $arguments]
@@ -38,29 +35,29 @@ class CycleCalculatorTest extends TestCase
     {
         yield from [
             [0, null, null],
-            [9, 100, null],
-            [1, 100, 200],
+            [10, 100, null],
+            [2, 100, 200],
             [0, 200, 100],
-            [1, 200, 400],
-            [4, 200, 1000],
+            [2, 200, 400],
+            [5, 200, 1000],
             [0, 1000, 200],
             [0, 1000, 345],
             [0, 1000, 645],
-            [0, 999, 1000],
-            [0, 505, 1000],
-            [1, 500, 1000],
-            [2, 300, 1000],
-            [2, 300, null],
+            [1, 999, 1000],
+            [1, 505, 1000],
+            [2, 500, 1000],
+            [3, 300, 1000],
+            [3, 300, null],
             [0, 1000, 100],
             [0, null, 100],
-            [9, 1000, 10000],
-            [9, null, 10000],
+            [10, 1000, 10000],
+            [10, null, 10000],
             [0, 10000, 1000],
             [0, 10000, null],
             [0, 200000, 1000],
             [0, 200000, null],
-            [199, null, 200000],
-            [199, 1000, 200000],
+            [200, null, 200000],
+            [200, 1000, 200000],
         ];
     }
 

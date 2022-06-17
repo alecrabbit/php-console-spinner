@@ -20,6 +20,7 @@ abstract class TestCase extends PHPUnitTestCase
     protected const PATTERN = 'pattern';
     protected const EXTRACTED = 'extracted';
     protected const RENDERED = 'rendered';
+    protected const PREFERRED_INTERVAL = 'preferredInterval';
 
     protected function checkForExceptionExpectance(mixed $expected): void
     {

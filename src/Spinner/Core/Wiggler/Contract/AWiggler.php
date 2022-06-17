@@ -9,12 +9,13 @@ use AlecRabbit\Spinner\Core\Frame;
 use AlecRabbit\Spinner\Core\Rotor\Contract\IInterval;
 use AlecRabbit\Spinner\Core\Rotor\Contract\IRotor;
 use AlecRabbit\Spinner\Core\Rotor\Contract\IStyleRotor;
+use AlecRabbit\Spinner\Core\Wiggler\Cycle;
 use AlecRabbit\Spinner\Core\Wiggler\CycleCalculator;
 
 abstract class AWiggler implements IWiggler
 {
     protected int $cycleNumber = 0;
-    protected int $currentCycle = 0;
+    protected Cycle $cycle;
     protected IFrame $currentFrame;
     protected ?IInterval $interval = null;
 
@@ -23,6 +24,7 @@ abstract class AWiggler implements IWiggler
         protected readonly IRotor $rotor,
     ) {
         $this->interval = $this->extractSmallestInterval($this->style, $this->rotor);
+        $this->cycle = new Cycle(1);
     }
 
     private function extractSmallestInterval(IRotor $first, IRotor $second): ?IInterval
@@ -57,8 +59,7 @@ abstract class AWiggler implements IWiggler
 
     public function render(): IFrame
     {
-        if (0 === $this->currentCycle) {
-            $this->currentCycle = $this->cycleNumber;
+        if ($this->cycle->render()) {
             return
                 $this->currentFrame =
                     new Frame(
@@ -68,15 +69,12 @@ abstract class AWiggler implements IWiggler
                         $this->rotor->getWidth(),
                     );
         }
-
-        $this->currentCycle--;
-
         return
             $this->currentFrame;
     }
 
     private function setCycles(IInterval $preferredInterval): void
     {
-        $this->cycleNumber = CycleCalculator::calculate($preferredInterval, $this->interval);
+        $this->cycle = new Cycle(CycleCalculator::calculate($preferredInterval, $this->interval));
     }
 }

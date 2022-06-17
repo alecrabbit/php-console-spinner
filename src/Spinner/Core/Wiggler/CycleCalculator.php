@@ -22,7 +22,7 @@ final class CycleCalculator
         if (null === $interval) {
             $interval = self::defaultInterval();
         }
-        $i = (int)floor($interval->toSeconds() / $preferredInterval->toSeconds()) - 1;
+        $i = (int)floor($interval->toSeconds() / $preferredInterval->toSeconds());
         if(0 > $i) {
             $i = 0;
         }
