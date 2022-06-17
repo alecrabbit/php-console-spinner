@@ -1,0 +1,3 @@
+- if preferred interval not set wigglers calculate minimal interval from patterns
+- if all patterns have null interval, interval 1000ms is used
+- 

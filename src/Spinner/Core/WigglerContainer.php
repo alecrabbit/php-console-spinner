@@ -69,6 +69,9 @@ final class WigglerContainer implements IWigglerContainer
     private function calculateInterval(?IInterval $preferredInterval): IInterval
     {
         $preferredInterval = $preferredInterval ?? new Interval(1000);
+//        foreach ($this->wigglers as $wiggler) {
+//            $wiggler->
+//        }
 
         return $this->calculatedInterval;
     }

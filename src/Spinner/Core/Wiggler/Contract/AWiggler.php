@@ -9,6 +9,7 @@ use AlecRabbit\Spinner\Core\Frame;
 use AlecRabbit\Spinner\Core\Rotor\Contract\IInterval;
 use AlecRabbit\Spinner\Core\Rotor\Contract\IRotor;
 use AlecRabbit\Spinner\Core\Rotor\Contract\IStyleRotor;
+use AlecRabbit\Spinner\Core\Wiggler\CycleCalculator;
 
 abstract class AWiggler implements IWiggler
 {
@@ -38,8 +39,11 @@ abstract class AWiggler implements IWiggler
         return $fInterval->smallest($sInterval);
     }
 
-    public function getInterval(): ?IInterval
+    public function getInterval(?IInterval $preferredInterval = null): ?IInterval
     {
+        if($preferredInterval instanceof IInterval) {
+            $this->setCycles($preferredInterval);
+        }
         return $this->interval;
     }
 
@@ -69,5 +73,10 @@ abstract class AWiggler implements IWiggler
 
         return
             $this->currentFrame;
+    }
+
+    private function setCycles(IInterval $preferredInterval): void
+    {
+        $this->cycleNumber = CycleCalculator::calculate($preferredInterval, $this->interval);
     }
 }

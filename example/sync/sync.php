@@ -22,8 +22,6 @@ $config =
 
 $spinner = SpinnerFactory::create($config);
 
-//dump($spinner);
-
 $echo('Started...');
 $echo('But may be interrupted...');
 
@@ -71,4 +69,7 @@ for ($i = 0; $i < 100; $i++) {
 }
 $spinner->finalize();
 
+dump($spinner);
+
 echo PHP_EOL;
+

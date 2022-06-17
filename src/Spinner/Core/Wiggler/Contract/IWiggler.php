@@ -16,5 +16,5 @@ interface IWiggler
      */
     public function update(IWiggler|string|null $wiggler): IWiggler;
 
-    public function getInterval(): ?IInterval;
+    public function getInterval(?IInterval $preferredInterval = null): ?IInterval;
 }
