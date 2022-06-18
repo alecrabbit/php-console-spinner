@@ -13,7 +13,8 @@
 
 ### New version 1.0.0
 
-> WIP
+> - WIP
+> - Until `1.0.0-BETA.0` API is subject to change
 
 ![advanced](doc/image/demo/fpdemo.svg)
 

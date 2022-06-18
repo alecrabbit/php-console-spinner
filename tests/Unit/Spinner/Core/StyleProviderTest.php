@@ -21,7 +21,7 @@ use const AlecRabbit\Cli\TERM_256COLOR;
 use const AlecRabbit\Cli\TERM_NOCOLOR;
 use const AlecRabbit\Cli\TERM_TRUECOLOR;
 
-class StyleRendererTest extends TestCase
+class StyleProviderTest extends TestCase
 {
     #[ArrayShape([C::STYLES => "array[]"])]
     private static function patternToTest01(): array
