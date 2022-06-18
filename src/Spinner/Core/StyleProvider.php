@@ -6,10 +6,10 @@ namespace AlecRabbit\Spinner\Core;
 
 use AlecRabbit\Spinner\Core\Contract\Base\C;
 use AlecRabbit\Spinner\Core\Contract\IStylePatternExtractor;
-use AlecRabbit\Spinner\Core\Contract\IStyleRenderer;
+use AlecRabbit\Spinner\Core\Contract\IStyleProvider;
 use JetBrains\PhpStorm\ArrayShape;
 
-final class StyleRenderer implements IStyleRenderer
+final class StyleProvider implements IStyleProvider
 {
     public function __construct(
         private readonly IStylePatternExtractor $extractor,
@@ -17,7 +17,7 @@ final class StyleRenderer implements IStyleRenderer
     }
 
     #[ArrayShape([C::STYLES => "array", C::INTERVAL => "null|int|float"])]
-    public function render(array $pattern): array
+    public function provide(array $pattern): array
     {
         $extracted = $this->extract($pattern);
         $interval = $extracted[C::STYLES][C::INTERVAL] ?? null;

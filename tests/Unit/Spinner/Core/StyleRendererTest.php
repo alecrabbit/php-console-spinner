@@ -7,9 +7,9 @@ namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Core;
 use AlecRabbit\Spinner\Core\Contract\Base\C;
 use AlecRabbit\Spinner\Core\Contract\Base\StylePattern;
 use AlecRabbit\Spinner\Core\Contract\IStylePatternExtractor;
-use AlecRabbit\Spinner\Core\Contract\IStyleRenderer;
+use AlecRabbit\Spinner\Core\Contract\IStyleProvider;
 use AlecRabbit\Spinner\Core\StylePatternExtractor;
-use AlecRabbit\Spinner\Core\StyleRenderer;
+use AlecRabbit\Spinner\Core\StyleProvider;
 use AlecRabbit\Tests\Spinner\TestCase;
 
 use JetBrains\PhpStorm\ArrayShape;
@@ -233,12 +233,12 @@ class StyleRendererTest extends TestCase
 
         $renderer = self::getInstance($incoming[self::ARGUMENTS] ?? []);
 
-        self::assertEquals($expected[self::RENDERED], $renderer->render($incoming[self::PATTERN]));
+        self::assertEquals($expected[self::RENDERED], $renderer->provide($incoming[self::PATTERN]));
     }
 
-    public static function getInstance(array $args = []): IStyleRenderer
+    public static function getInstance(array $args = []): IStyleProvider
     {
-        return new StyleRenderer(self::getExtractorInstance($args));
+        return new StyleProvider(self::getExtractorInstance($args));
     }
 
     public static function getExtractorInstance(array $args = []): IStylePatternExtractor

@@ -8,7 +8,7 @@ use AlecRabbit\Spinner\Core\Contract\Base\Defaults;
 use AlecRabbit\Spinner\Core\Contract\Base\StylePattern;
 use AlecRabbit\Spinner\Core\Contract\IFrameCollection;
 use AlecRabbit\Spinner\Core\Contract\IStyleCollection;
-use AlecRabbit\Spinner\Core\Contract\IStyleRenderer;
+use AlecRabbit\Spinner\Core\Contract\IStyleProvider;
 use AlecRabbit\Spinner\Core\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Core\Factory\Contract\IWigglerFactory;
 use AlecRabbit\Spinner\Core\FrameCollection;
@@ -20,7 +20,7 @@ use AlecRabbit\Spinner\Core\Rotor\NoCharsRotor;
 use AlecRabbit\Spinner\Core\Rotor\NoStyleRotor;
 use AlecRabbit\Spinner\Core\Rotor\StyleRotor;
 use AlecRabbit\Spinner\Core\StyleCollection;
-use AlecRabbit\Spinner\Core\StyleRenderer;
+use AlecRabbit\Spinner\Core\StyleProvider;
 use AlecRabbit\Spinner\Core\Wiggler\Contract\IWiggler;
 use AlecRabbit\Spinner\Core\Wiggler\MessageWiggler;
 use AlecRabbit\Spinner\Core\Wiggler\ProgressWiggler;
@@ -32,13 +32,13 @@ final class WigglerFactory implements IWigglerFactory
     private const FRAME_SEQUENCE = Defaults::FRAME_SEQUENCE;
     private IFrameCollection $frames;
     private IStyleCollection $styles;
-    private StyleRenderer $styleRenderer;
+    private StyleProvider $styleRenderer;
 
     /**
      * @throws InvalidArgumentException
      */
     public function __construct(
-        IStyleRenderer $styleRenderer,
+        IStyleProvider $styleRenderer,
         ?IFrameCollection $frames = null,
     ) {
         $this->styleRenderer = $styleRenderer;
@@ -58,7 +58,7 @@ final class WigglerFactory implements IWigglerFactory
     {
         return
             StyleCollection::create(
-                ...$this->styleRenderer->render(StylePattern::rainbow())
+                ...$this->styleRenderer->provide(StylePattern::rainbow())
             );
     }
 

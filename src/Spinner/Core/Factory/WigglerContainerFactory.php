@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Factory;
 
 use AlecRabbit\Spinner\Core\Contract\IFrameCollection;
-use AlecRabbit\Spinner\Core\Contract\IStyleRenderer;
+use AlecRabbit\Spinner\Core\Contract\IStyleProvider;
 use AlecRabbit\Spinner\Core\Contract\IWigglerContainer;
 use AlecRabbit\Spinner\Core\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Core\Factory\Contract\IWigglerContainerFactory;
@@ -21,7 +21,7 @@ final class WigglerContainerFactory implements IWigglerContainerFactory
      * @throws InvalidArgumentException
      */
     public function __construct(
-        IStyleRenderer $styleRenderer,
+        IStyleProvider $styleRenderer,
         ?IWigglerFactory $wigglerFactory = null,
         ?IFrameCollection $frames = null,
         private readonly ?IInterval $interval = null,
