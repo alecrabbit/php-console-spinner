@@ -40,7 +40,6 @@ final class WigglerFactory implements IWigglerFactory
     public function __construct(
         IStyleRenderer $styleRenderer,
         ?IFrameCollection $frames = null,
-        private readonly ?IInterval $interval = null,
     ) {
         $this->styleRenderer = $styleRenderer;
         $this->frames = $frames ?? self::defaultFrames();
@@ -68,15 +67,8 @@ final class WigglerFactory implements IWigglerFactory
         return
             RevolveWiggler::create(
                 new StyleRotor($this->styles),
-                new FrameRotor(
-                    frames: $this->frames,
-                ),
+                new FrameRotor($this->frames,),
             );
-    }
-
-    public function getInterval(): IInterval
-    {
-        return $this->interval ?? $this->frames->getInterval();
     }
 
     /**

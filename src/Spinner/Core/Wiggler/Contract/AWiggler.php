@@ -22,14 +22,23 @@ abstract class AWiggler implements IWiggler
         protected readonly IStyleRotor $style,
         protected readonly IRotor $rotor,
     ) {
-        $this->interval = $this->extractSmallestInterval($this->style, $this->rotor);
+        $this->setInterval();
         $this->cycle = new Cycle(1);
     }
 
-    private function extractSmallestInterval(IRotor $first, IRotor $second): ?IInterval
+    private function setInterval(?IInterval $preferredInterval = null): void
     {
-        $fInterval = $first->getInterval();
-        $sInterval = $second->getInterval();
+        $this->interval = $this->extractSmallestInterval($this->style, $this->rotor, $preferredInterval);
+    }
+
+    private function extractSmallestInterval(
+        IRotor $first,
+        IRotor $second,
+        ?IInterval $preferredInterval = null
+    ): ?IInterval {
+        dump(__METHOD__, $this );
+        $fInterval = $first->getInterval($preferredInterval);
+        $sInterval = $second->getInterval($preferredInterval);
 
         if (null === $fInterval && null === $sInterval) {
             return null;
@@ -42,10 +51,16 @@ abstract class AWiggler implements IWiggler
 
     public function getInterval(?IInterval $preferredInterval = null): ?IInterval
     {
-        if($preferredInterval instanceof IInterval) {
+        if ($preferredInterval instanceof IInterval) {
             $this->setCycles($preferredInterval);
         }
         return $this->interval;
+    }
+
+    private function setCycles(IInterval $preferredInterval): void
+    {
+        $this->setInterval($preferredInterval);
+        $this->cycle = new Cycle(CycleCalculator::calculate($preferredInterval, $this->interval));
     }
 
     public static function create(IStyleRotor $style, IRotor $rotor,): IWiggler
@@ -70,10 +85,5 @@ abstract class AWiggler implements IWiggler
         }
         return
             $this->currentFrame;
-    }
-
-    private function setCycles(IInterval $preferredInterval): void
-    {
-        $this->cycle = new Cycle(CycleCalculator::calculate($preferredInterval, $this->interval));
     }
 }

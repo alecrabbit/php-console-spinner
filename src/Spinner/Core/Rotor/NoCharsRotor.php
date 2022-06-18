@@ -6,7 +6,6 @@ namespace AlecRabbit\Spinner\Core\Rotor;
 
 use AlecRabbit\Spinner\Core\Contract\Base\C;
 use AlecRabbit\Spinner\Core\Rotor\Contract\AStringRotor;
-use AlecRabbit\Spinner\Core\Rotor\Contract\IInterval;
 
 final class NoCharsRotor extends AStringRotor
 {

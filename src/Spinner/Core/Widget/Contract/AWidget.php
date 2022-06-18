@@ -8,8 +8,9 @@ use AlecRabbit\Spinner\Core\Contract\Base\C;
 use AlecRabbit\Spinner\Core\Rotor\Contract\IFrameRotor;
 use AlecRabbit\Spinner\Core\Rotor\Contract\IInterval;
 use AlecRabbit\Spinner\Core\Rotor\Contract\IStyleRotor;
-use AlecRabbit\Spinner\Core\Widget\WigglerFrame;
 use AlecRabbit\Spinner\Core\WidthDefiner;
+use AlecRabbit\Spinner\Core\Wiggler\Contract\AWigglerFrame;
+use AlecRabbit\Spinner\Core\Wiggler\WigglerFrame;
 use WeakMap;
 
 abstract class AWidget implements IWidget

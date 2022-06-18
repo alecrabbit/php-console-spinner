@@ -4,13 +4,11 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Wiggler\Contract;
 
-use AlecRabbit\Spinner\Core\Contract\IFrame;
+use AlecRabbit\Spinner\Core\Contract\Renderable;
 use AlecRabbit\Spinner\Core\Rotor\Contract\IInterval;
 
-interface IWiggler
+interface IWiggler extends Renderable
 {
-    public function render(): IFrame;
-
     /**
      * @deprecated
      */

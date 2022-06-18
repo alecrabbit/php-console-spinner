@@ -1,12 +1,9 @@
 <?php
-
 declare(strict_types=1);
-
+// 18.06.22
 namespace AlecRabbit\Spinner\Core\Contract;
 
-use Stringable;
-
-interface IFrame extends Stringable
+interface Renderable
 {
-
+    public function render(): IFrame;
 }

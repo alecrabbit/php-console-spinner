@@ -30,7 +30,6 @@ final class WigglerContainerFactory implements IWigglerContainerFactory
             $wigglerFactory ?? new WigglerFactory(
                 $styleRenderer,
                 $frames,
-                $interval
             );
     }
 

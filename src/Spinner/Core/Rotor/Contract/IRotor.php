@@ -8,5 +8,5 @@ interface IRotor
 {
     public function next(): string;
 
-    public function getInterval(): ?IInterval;
+    public function getInterval(?IInterval $preferredInterval = null): ?IInterval;
 }
