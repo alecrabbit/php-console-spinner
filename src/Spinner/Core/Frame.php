@@ -109,4 +109,14 @@ final class Frame implements IFrame
     {
         return $this->sequence;
     }
+
+    public function getSequence(): string
+    {
+        return $this->sequence;
+    }
+
+    public function getWidth(): int
+    {
+        return $this->sequenceWidth;
+    }
 }

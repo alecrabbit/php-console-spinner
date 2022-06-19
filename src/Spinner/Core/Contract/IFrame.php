@@ -8,5 +8,7 @@ use Stringable;
 
 interface IFrame extends Stringable
 {
+    public function getSequence(): string;
 
+    public function getWidth(): int;
 }

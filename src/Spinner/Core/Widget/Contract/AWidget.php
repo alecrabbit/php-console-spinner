@@ -9,16 +9,16 @@ use AlecRabbit\Spinner\Core\Rotor\Contract\IFrameRotor;
 use AlecRabbit\Spinner\Core\Rotor\Contract\IInterval;
 use AlecRabbit\Spinner\Core\Rotor\Contract\IStyleRotor;
 use AlecRabbit\Spinner\Core\WidthDefiner;
-use AlecRabbit\Spinner\Core\Wiggler\Contract\AWigglerFrame;
-use AlecRabbit\Spinner\Core\Wiggler\WigglerFrame;
+use AlecRabbit\Spinner\Core\Wiggler\Contract\AFrame;
+use AlecRabbit\Spinner\Core\Wiggler\Frame;
 use WeakMap;
 
 abstract class AWidget implements IWidget
 {
     protected WeakMap $children;
     protected ?IWidget $parent = null;
-    protected readonly AWigglerFrame $leadingSpacer;
-    protected readonly AWigglerFrame $trailingSpacer;
+    protected readonly AFrame $leadingSpacer;
+    protected readonly AFrame $trailingSpacer;
 
     public function __construct(
         protected readonly IStyleRotor $style,
@@ -28,33 +28,33 @@ abstract class AWidget implements IWidget
     ) {
         $this->children = new WeakMap();
         $this->leadingSpacer = $this->refineLeadingSpacer(
-            new WigglerFrame($leadingSpacer, WidthDefiner::define($leadingSpacer))
+            new Frame($leadingSpacer, WidthDefiner::define($leadingSpacer))
         );
         $this->trailingSpacer = $this->refineTrailingSpacer(
-            new WigglerFrame($trailingSpacer, WidthDefiner::define($trailingSpacer))
+            new Frame($trailingSpacer, WidthDefiner::define($trailingSpacer))
         );
     }
 
-    private function refineLeadingSpacer(AWigglerFrame $leadingSpacer): AWigglerFrame
+    private function refineLeadingSpacer(AFrame $leadingSpacer): AFrame
     {
         $minWidth = $this->parent instanceof IWidget ? 1 : 0;
 //        if($this->style->leadingSpacerWidth > $minWidth) {
 //            $minWidth = $this->style->leadingSpacerWidth;
 //        }
-        if ($leadingSpacer->width < $minWidth) {
-            return new WigglerFrame(str_repeat(C::SPACE_CHAR, $minWidth), WidthDefiner::define($minWidth));
+        if ($leadingSpacer->getWidth() < $minWidth) {
+            return new Frame(str_repeat(C::SPACE_CHAR, $minWidth), WidthDefiner::define($minWidth));
         }
         return $leadingSpacer;
     }
 
-    private function refineTrailingSpacer(AWigglerFrame $trailingSpacer): AWigglerFrame
+    private function refineTrailingSpacer(AFrame $trailingSpacer): AFrame
     {
         $minWidth = 0;
 //        if($this->style->leadingSpacerWidth > $minWidth) {
 //            $minWidth = $this->style->leadingSpacerWidth;
 //        }
-        if ($trailingSpacer->width < $minWidth) {
-            return new WigglerFrame(str_repeat(C::SPACE_CHAR, $minWidth), WidthDefiner::define($minWidth));
+        if ($trailingSpacer->getWidth() < $minWidth) {
+            return new Frame(str_repeat(C::SPACE_CHAR, $minWidth), WidthDefiner::define($minWidth));
         }
         return $trailingSpacer;
     }
@@ -78,42 +78,42 @@ abstract class AWidget implements IWidget
         return $this;
     }
 
-    public function render(?IInterval $interval = null): AWigglerFrame
+    public function render(?IInterval $interval = null): AFrame
     {
         $childrenFrame = $this->renderChildren($interval);
         return
-            new WigglerFrame(
-                $this->createSequence($interval) . $childrenFrame->sequence,
+            new Frame(
+                $this->createSequence($interval) . $childrenFrame->getSequence(),
                 $this->rotor->getWidth()
-                + $childrenFrame->width
-                + $this->leadingSpacer->width
-                + $this->trailingSpacer->width
+                + $childrenFrame->getWidth()
+                + $this->leadingSpacer->getWidth()
+                + $this->trailingSpacer->getWidth()
             );
     }
 
-    private function renderChildren(?IInterval $interval = null): AWigglerFrame
+    private function renderChildren(?IInterval $interval = null): AFrame
     {
         $sequence = '';
         $width = 0;
 
         foreach ($this->children as $child) {
             $frame = $child->render($interval);
-            $sequence .= $frame->sequence;
-            $width += $frame->width;
+            $sequence .= $frame->getSequence();
+            $width += $frame->getWidth();
         }
 
         return
-            new WigglerFrame(
+            new Frame(
                 $sequence,
                 $width
             );
     }
 
-    protected function createSequence(?IInterval $interval = null): string
+    protected function createSequence(): string
     {
         return
             $this->style->join(
-                chars: $this->leadingSpacer->sequence . $this->rotor->next($interval) . $this->trailingSpacer->sequence,
+                chars: $this->leadingSpacer->getSequence() . $this->rotor->next() . $this->trailingSpacer->getSequence(),
             );
     }
 
