@@ -1,4 +1,5 @@
 @startuml
+skinparam linetype ortho
 
 abstract class AbstractList
 abstract AbstractCollection
@@ -13,22 +14,22 @@ AbstractCollection <|- AbstractList
 AbstractList <|-- ArrayList
 
 class ArrayList {
-  Object[] elementData
-  size()
+    Object[] elementData
+    size()
 }
 
 enum TimeUnit {
-  DAYS
-  HOURS
-  MINUTES
+    DAYS
+    HOURS
+    MINUTES
 }
 
 annotation SuppressWarnings
 
 annotation Annotation {
-  annotation with members
-  String foo()
-  String bar()
+    annotation with members
+    String foo()
+    String bar()
 }
 
 

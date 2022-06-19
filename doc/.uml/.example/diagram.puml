@@ -1,0 +1,106 @@
+@startuml
+
+top to bottom direction
+skinparam linetype ortho
+
+class ACharRotor
+class AColorRotor
+class AWiggler
+class Defaults
+class DomainException
+class Driver
+class Exception
+class FixedCharRotor
+class FixedColorRotor
+class Frame
+class ICharacterWidth
+class IDriver
+class IFrame
+class ILoop
+class ILoopFactory
+class ILoopProbe
+class IMessageWiggler
+class IOutput
+class IProgressWiggler
+class IRenderer
+interface IRevolveWiggler
+class IRotor
+class ISequencer
+class ISpinner
+class ISpinnerConfig
+class ISpinnerConfigBuilder
+class ISpinnerFactory
+class IStyler
+class ITerminal
+class IWiggler
+class IWigglerContainer
+class IWriter
+class InvalidArgumentException
+class IteratorAggregate
+class LogicException
+class LoopFactory
+class MessageWiggler
+class MethodNotImplementedException
+class ProgressWiggler
+class RainbowColorRotor
+class ReactLoop
+class Renderer
+class RevolveWiggler
+class RuntimeException
+class Sequencer
+class SnakeCharRotor
+class Spinner
+class SpinnerConfig
+class SpinnerConfigBuilder
+class SpinnerFactory
+class StdErrOutput
+class Stringable
+class Throwable
+class Traversable
+class WigglerContainer
+class Writer
+class iterable
+
+AWiggler                       -[#008200,dashed]-^  IWiggler                      
+DomainException                -[#000082,plain]-^  LogicException
+Driver                         -[#008200,dashed]-^  IDriver
+Exception                      -[#008200,dashed]-^  Throwable
+FixedCharRotor                 -[#000082,plain]-^  ACharRotor
+FixedCharRotor                 -[#008200,dashed]-^  IRotor
+FixedColorRotor                -[#000082,plain]-^  AColorRotor
+FixedColorRotor                -[#008200,dashed]-^  IRotor
+Frame                          -[#008200,dashed]-^  IFrame
+IMessageWiggler                -[#008200,plain]-^  IWiggler
+IProgressWiggler               -[#008200,plain]-^  IWiggler
+IRevolveWiggler                -[#008200,plain]-^  IWiggler
+IWigglerContainer              -[#008200,plain]-^  IteratorAggregate
+InvalidArgumentException       -[#000082,plain]-^  RuntimeException
+IteratorAggregate              -[#008200,plain]-^  Traversable
+LogicException                 -[#000082,plain]-^  Exception
+LoopFactory                    -[#008200,dashed]-^  ILoopFactory
+MessageWiggler                 -[#000082,plain]-^  AWiggler
+MessageWiggler                 -[#008200,dashed]-^  IMessageWiggler
+MethodNotImplementedException  -[#000082,plain]-^  RuntimeException
+ProgressWiggler                -[#000082,plain]-^  AWiggler
+ProgressWiggler                -[#008200,dashed]-^  IProgressWiggler
+RainbowColorRotor              -[#000082,plain]-^  AColorRotor
+RainbowColorRotor              -[#008200,dashed]-^  IRotor
+ReactLoop                      -[#008200,dashed]-^  ILoop
+ReactLoop                      -[#008200,dashed]-^  ILoopProbe
+Renderer                       -[#008200,dashed]-^  IRenderer
+RevolveWiggler                 -[#000082,plain]-^  AWiggler
+RevolveWiggler                 -[#008200,dashed]-^  IRevolveWiggler
+RuntimeException               -[#000082,plain]-^  Exception
+Sequencer                      -[#008200,dashed]-^  ISequencer
+SnakeCharRotor                 -[#000082,plain]-^  ACharRotor
+SnakeCharRotor                 -[#008200,dashed]-^  IRotor
+Spinner                        -[#008200,dashed]-^  ISpinner
+SpinnerConfig                  -[#008200,dashed]-^  ISpinnerConfig
+SpinnerConfigBuilder           -[#008200,dashed]-^  ISpinnerConfigBuilder
+SpinnerFactory                 -[#008200,dashed]-^  ISpinnerFactory
+StdErrOutput                   -[#008200,dashed]-^  IOutput
+Throwable                      -[#008200,plain]-^  Stringable
+Traversable                    -[#008200,plain]-^  iterable
+WigglerContainer               -[#008200,dashed]-^  IWigglerContainer
+Writer                         -[#008200,dashed]-^  IWriter
+@enduml

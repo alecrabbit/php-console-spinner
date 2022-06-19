@@ -7,7 +7,7 @@ namespace AlecRabbit\Spinner;
 use AlecRabbit\Spinner\Core\Config\Contract\IConfig;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\IFrame;
-use AlecRabbit\Spinner\Core\Contract\ISpinner;
+use AlecRabbit\Spinner\Core\Contract\ISimpleSpinner;
 use AlecRabbit\Spinner\Core\Contract\IWigglerContainer;
 use AlecRabbit\Spinner\Core\Rotor\Contract\IInterval;
 use AlecRabbit\Spinner\Core\Wiggler\Contract\IMessageWiggler;
@@ -16,7 +16,7 @@ use AlecRabbit\Spinner\Core\Wiggler\Contract\IRevolveWiggler;
 
 use const PHP_EOL;
 
-final class Spinner implements ISpinner
+final class SimpleSpinner implements ISimpleSpinner
 {
     private readonly IDriver $driver;
     private readonly string $finalMessage;

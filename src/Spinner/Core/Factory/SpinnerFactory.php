@@ -8,23 +8,23 @@ use AlecRabbit\Spinner\Core\Config\Builder\ConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\IConfig;
 use AlecRabbit\Spinner\Core\Contract\IFrameCollection;
 use AlecRabbit\Spinner\Core\Contract\ILoop;
-use AlecRabbit\Spinner\Core\Contract\ISpinner;
+use AlecRabbit\Spinner\Core\Contract\ISimpleSpinner;
 use AlecRabbit\Spinner\Core\Exception\DomainException;
 use AlecRabbit\Spinner\Core\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Core\Exception\LogicException;
 use AlecRabbit\Spinner\Core\Factory\Contract\ISpinnerFactory;
-use AlecRabbit\Spinner\Spinner;
+use AlecRabbit\Spinner\SimpleSpinner;
 
 final class SpinnerFactory implements ISpinnerFactory
 {
-    private static ?ISpinner $spinner = null;
+    private static ?ISimpleSpinner $spinner = null;
 
     /**
      * @throws DomainException
      * @throws InvalidArgumentException
      * @throws LogicException
      */
-    public static function get(null|IFrameCollection|IConfig $framesOrConfig = null): ISpinner
+    public static function get(null|IFrameCollection|IConfig $framesOrConfig = null): ISimpleSpinner
     {
         if (self::hasSpinnerInstance()) {
             return self::$spinner;
@@ -34,7 +34,7 @@ final class SpinnerFactory implements ISpinnerFactory
 
     private static function hasSpinnerInstance(): bool
     {
-        return self::$spinner instanceof ISpinner;
+        return self::$spinner instanceof ISimpleSpinner;
     }
 
     /**
@@ -42,7 +42,7 @@ final class SpinnerFactory implements ISpinnerFactory
      * @throws InvalidArgumentException
      * @throws LogicException
      */
-    public static function create(null|IFrameCollection|IConfig $framesOrConfig = null): ISpinner
+    public static function create(null|IFrameCollection|IConfig $framesOrConfig = null): ISimpleSpinner
     {
         if (self::hasSpinnerInstance()) {
             // There Can Be Only One
@@ -53,7 +53,7 @@ final class SpinnerFactory implements ISpinnerFactory
 
         $config = self::refineConfig($framesOrConfig);
 
-        $spinner = new Spinner($config);
+        $spinner = new SimpleSpinner($config);
 
         self::asyncOperations($spinner, $config);
 
@@ -94,7 +94,7 @@ final class SpinnerFactory implements ISpinnerFactory
         return $spinnerConfigBuilder->build();
     }
 
-    private static function asyncOperations(Spinner $spinner, IConfig $config): void
+    private static function asyncOperations(SimpleSpinner $spinner, IConfig $config): void
     {
         if ($config->isAsynchronous()) {
             self::attachSpinnerToLoop($spinner, $config->getLoop());
@@ -103,7 +103,7 @@ final class SpinnerFactory implements ISpinnerFactory
         }
     }
 
-    private static function attachSpinnerToLoop(ISpinner $spinner, ILoop $loop): void
+    private static function attachSpinnerToLoop(ISimpleSpinner $spinner, ILoop $loop): void
     {
         $loop
             ->periodic(
@@ -115,7 +115,7 @@ final class SpinnerFactory implements ISpinnerFactory
         ;
     }
 
-    private static function attachSigIntHandler(ISpinner $spinner, IConfig $config,): void
+    private static function attachSigIntHandler(ISimpleSpinner $spinner, IConfig $config,): void
     {
         if (defined('SIGINT')) { // check for ext-pcntl
             $loop = $config->getLoop();
@@ -137,12 +137,12 @@ final class SpinnerFactory implements ISpinnerFactory
         }
     }
 
-    private static function initialize(ISpinner $spinner): void
+    private static function initialize(ISimpleSpinner $spinner): void
     {
         $spinner->initialize();
     }
 
-    private static function setSpinner(ISpinner $spinner): void
+    private static function setSpinner(ISimpleSpinner $spinner): void
     {
         self::$spinner = $spinner;
     }
