@@ -4,8 +4,8 @@ declare(strict_types=1);
 // 13.06.22
 namespace AlecRabbit\Spinner\Core\Widget\Contract;
 
+use AlecRabbit\Spinner\Core\Contract\AFrame;
 use AlecRabbit\Spinner\Core\Rotor\Contract\IInterval;
-use AlecRabbit\Spinner\Core\Wiggler\Contract\AFrame;
 
 interface IWidget
 {

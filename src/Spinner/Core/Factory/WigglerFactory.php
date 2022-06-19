@@ -6,12 +6,12 @@ namespace AlecRabbit\Spinner\Core\Factory;
 
 use AlecRabbit\Spinner\Core\Contract\Base\Defaults;
 use AlecRabbit\Spinner\Core\Contract\Base\StylePattern;
-use AlecRabbit\Spinner\Core\Contract\IFrameCollection;
+use AlecRabbit\Spinner\Core\Contract\IWFrameCollection;
 use AlecRabbit\Spinner\Core\Contract\IStyleCollection;
 use AlecRabbit\Spinner\Core\Contract\IStyleProvider;
 use AlecRabbit\Spinner\Core\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Core\Factory\Contract\IWigglerFactory;
-use AlecRabbit\Spinner\Core\FrameCollection;
+use AlecRabbit\Spinner\Core\WFrameCollection;
 use AlecRabbit\Spinner\Core\Rotor\Contract\IFrameRotor;
 use AlecRabbit\Spinner\Core\Rotor\Contract\IInterval;
 use AlecRabbit\Spinner\Core\Rotor\Contract\IStyleRotor;
@@ -30,7 +30,7 @@ use AlecRabbit\Spinner\Core\Wiggler\Wiggler;
 final class WigglerFactory implements IWigglerFactory
 {
     private const FRAME_SEQUENCE = Defaults::FRAME_SEQUENCE;
-    private IFrameCollection $frames;
+    private IWFrameCollection $frames;
     private IStyleCollection $styles;
     private StyleProvider $styleRenderer;
 
@@ -39,7 +39,7 @@ final class WigglerFactory implements IWigglerFactory
      */
     public function __construct(
         IStyleProvider $styleRenderer,
-        ?IFrameCollection $frames = null,
+        ?IWFrameCollection $frames = null,
     ) {
         $this->styleRenderer = $styleRenderer;
         $this->frames = $frames ?? self::defaultFrames();
@@ -49,9 +49,9 @@ final class WigglerFactory implements IWigglerFactory
     /**
      * @throws InvalidArgumentException
      */
-    private static function defaultFrames(): IFrameCollection
+    private static function defaultFrames(): IWFrameCollection
     {
-        return FrameCollection::create(...self::FRAME_SEQUENCE);
+        return WFrameCollection::create(...self::FRAME_SEQUENCE);
     }
 
     private function defaultStyles(): IStyleCollection

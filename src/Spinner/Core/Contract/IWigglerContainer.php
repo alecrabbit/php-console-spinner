@@ -12,15 +12,11 @@ use AlecRabbit\Spinner\Core\Wiggler\Contract\IWiggler;
 use IteratorAggregate;
 use Traversable;
 
-interface IWigglerContainer extends IteratorAggregate
+interface IWigglerContainer extends IteratorAggregate,
+                                    Renderable,
+                                    HasInterval
 {
-    public function render(): IFrame;
-
-    public function getIterator(): Traversable;
-
     public function addWiggler(IWiggler $wiggler): IWigglerContainer;
-
-    public function getInterval(): IInterval;
 
     public function spinner(string|IRevolveWiggler|null $wiggler): void;
 

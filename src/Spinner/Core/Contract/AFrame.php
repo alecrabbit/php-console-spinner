@@ -2,9 +2,7 @@
 
 declare(strict_types=1);
 // 13.06.22
-namespace AlecRabbit\Spinner\Core\Wiggler\Contract;
-
-use AlecRabbit\Spinner\Core\Contract\IFrame;
+namespace AlecRabbit\Spinner\Core\Contract;
 
 abstract class AFrame implements IFrame
 {

@@ -6,8 +6,8 @@ namespace AlecRabbit\Spinner\Core\Contract;
 
 use IteratorAggregate;
 
-interface IFrameCollection extends IteratorAggregate,
-                                   HasInterval
+interface IWFrameCollection extends IteratorAggregate,
+                                    HasInterval
 {
     public static function create(iterable|string $frames, ?int $elementWidth = null, ?int $interval = null): self;
 

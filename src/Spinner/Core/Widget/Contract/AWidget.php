@@ -4,12 +4,12 @@ declare(strict_types=1);
 // 13.06.22
 namespace AlecRabbit\Spinner\Core\Widget\Contract;
 
+use AlecRabbit\Spinner\Core\Contract\AFrame;
 use AlecRabbit\Spinner\Core\Contract\Base\C;
 use AlecRabbit\Spinner\Core\Rotor\Contract\IFrameRotor;
 use AlecRabbit\Spinner\Core\Rotor\Contract\IInterval;
 use AlecRabbit\Spinner\Core\Rotor\Contract\IStyleRotor;
 use AlecRabbit\Spinner\Core\WidthDefiner;
-use AlecRabbit\Spinner\Core\Wiggler\Contract\AFrame;
 use AlecRabbit\Spinner\Core\Wiggler\Frame;
 use WeakMap;
 

@@ -9,7 +9,7 @@ use AlecRabbit\Spinner\Core\Config\Config;
 use AlecRabbit\Spinner\Core\Config\Contract\IConfig;
 use AlecRabbit\Spinner\Core\Contract\Base\Defaults;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
-use AlecRabbit\Spinner\Core\Contract\IFrameCollection;
+use AlecRabbit\Spinner\Core\Contract\IWFrameCollection;
 use AlecRabbit\Spinner\Core\Contract\ILoop;
 use AlecRabbit\Spinner\Core\Contract\IStylePatternExtractor;
 use AlecRabbit\Spinner\Core\Contract\IStyleProvider;
@@ -48,7 +48,7 @@ final class ConfigBuilder implements IConfigBuilder
     private ?float $shutdownDelaySeconds = null;
     private ?string $interruptMessage = null;
     private ?string $finalMessage = null;
-    private ?IFrameCollection $frames = null;
+    private ?IWFrameCollection $frames = null;
     private ?IInterval $interval = null;
     private ?int $terminalColorSupport = null;
     private ?ILoopFactory $loopFactory = null;
@@ -148,7 +148,7 @@ final class ConfigBuilder implements IConfigBuilder
         return $clone;
     }
 
-    public function withFrames(IFrameCollection $frames): self
+    public function withFrames(IWFrameCollection $frames): self
     {
         $clone = clone $this;
         $clone->frames = $frames;

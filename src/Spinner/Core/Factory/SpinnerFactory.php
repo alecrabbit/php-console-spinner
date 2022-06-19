@@ -6,7 +6,7 @@ namespace AlecRabbit\Spinner\Core\Factory;
 
 use AlecRabbit\Spinner\Core\Config\Builder\ConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\IConfig;
-use AlecRabbit\Spinner\Core\Contract\IFrameCollection;
+use AlecRabbit\Spinner\Core\Contract\IWFrameCollection;
 use AlecRabbit\Spinner\Core\Contract\ILoop;
 use AlecRabbit\Spinner\Core\Contract\ISimpleSpinner;
 use AlecRabbit\Spinner\Core\Exception\DomainException;
@@ -24,7 +24,7 @@ final class SpinnerFactory implements ISpinnerFactory
      * @throws InvalidArgumentException
      * @throws LogicException
      */
-    public static function get(null|IFrameCollection|IConfig $framesOrConfig = null): ISimpleSpinner
+    public static function get(null|IWFrameCollection|IConfig $framesOrConfig = null): ISimpleSpinner
     {
         if (self::hasSpinnerInstance()) {
             return self::$spinner;
@@ -42,7 +42,7 @@ final class SpinnerFactory implements ISpinnerFactory
      * @throws InvalidArgumentException
      * @throws LogicException
      */
-    public static function create(null|IFrameCollection|IConfig $framesOrConfig = null): ISimpleSpinner
+    public static function create(null|IWFrameCollection|IConfig $framesOrConfig = null): ISimpleSpinner
     {
         if (self::hasSpinnerInstance()) {
             // There Can Be Only One
@@ -67,7 +67,7 @@ final class SpinnerFactory implements ISpinnerFactory
      * @throws InvalidArgumentException
      */
     private static function refineConfig(
-        null|IFrameCollection|IConfig $framesOrConfig
+        null|IWFrameCollection|IConfig $framesOrConfig
     ): IConfig {
         if ($framesOrConfig instanceof IConfig) {
             return $framesOrConfig;
@@ -80,11 +80,11 @@ final class SpinnerFactory implements ISpinnerFactory
      * @throws LogicException
      * @throws InvalidArgumentException
      */
-    private static function buildConfig(IFrameCollection|null $frames): IConfig
+    private static function buildConfig(IWFrameCollection|null $frames): IConfig
     {
         $spinnerConfigBuilder = new ConfigBuilder();
 
-        if ($frames instanceof IFrameCollection) {
+        if ($frames instanceof IWFrameCollection) {
             $spinnerConfigBuilder =
                 $spinnerConfigBuilder
                     ->withFrames($frames)

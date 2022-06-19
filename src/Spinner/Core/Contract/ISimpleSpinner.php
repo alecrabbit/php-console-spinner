@@ -10,7 +10,7 @@ use AlecRabbit\Spinner\Core\Wiggler\Contract\IMessageWiggler;
 use AlecRabbit\Spinner\Core\Wiggler\Contract\IProgressWiggler;
 use AlecRabbit\Spinner\Core\Wiggler\Contract\IRevolveWiggler;
 
-interface ISimpleSpinner extends IBaseSpinner
+interface ISimpleSpinner
 {
     public function spinner(IRevolveWiggler|string|null $wiggler): void;
 
