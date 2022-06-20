@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Kernel;
 
 use AlecRabbit\Spinner\Core\Contract\C;
-use AlecRabbit\Spinner\Kernel\Contract\IStylePatternExtractor;
+use AlecRabbit\Spinner\Core\Contract\IStylePatternExtractor;
 use AlecRabbit\Spinner\Kernel\Contract\WIStyleProvider;
 use JetBrains\PhpStorm\ArrayShape;
 

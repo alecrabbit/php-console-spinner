@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Kernel\Config\Builder;
 
+use AlecRabbit\Spinner\Core\Contract\IStylePatternExtractor;
 use AlecRabbit\Spinner\Core\Defaults;
+use AlecRabbit\Spinner\Core\StylePatternExtractor;
 use AlecRabbit\Spinner\Exception\DomainException;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Exception\LogicException;
@@ -13,7 +15,6 @@ use AlecRabbit\Spinner\Kernel\Config\Config;
 use AlecRabbit\Spinner\Kernel\Config\Contract\IConfig;
 use AlecRabbit\Spinner\Kernel\Contract\IDriver;
 use AlecRabbit\Spinner\Kernel\Contract\ILoop;
-use AlecRabbit\Spinner\Kernel\Contract\IStylePatternExtractor;
 use AlecRabbit\Spinner\Kernel\Contract\IWFrameCollection;
 use AlecRabbit\Spinner\Kernel\Contract\IWigglerContainer;
 use AlecRabbit\Spinner\Kernel\Contract\WIStyleProvider;
@@ -25,7 +26,6 @@ use AlecRabbit\Spinner\Kernel\Factory\LoopFactory;
 use AlecRabbit\Spinner\Kernel\Factory\WigglerContainerFactory;
 use AlecRabbit\Spinner\Kernel\Output\StreamOutput;
 use AlecRabbit\Spinner\Kernel\Rotor\Contract\IWInterval;
-use AlecRabbit\Spinner\Kernel\StylePatternExtractor;
 use AlecRabbit\Spinner\Kernel\Writer;
 use AlecRabbit\Spinner\Kernel\WStyleProvider;
 

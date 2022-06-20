@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Kernel;
 
 use AlecRabbit\Spinner\Core\Contract\C;
+use AlecRabbit\Spinner\Core\Contract\IStylePatternExtractor;
+use AlecRabbit\Spinner\Core\StylePatternExtractor;
 use AlecRabbit\Spinner\Kernel\Contract\Base\StylePattern;
-use AlecRabbit\Spinner\Kernel\Contract\IStylePatternExtractor;
-use AlecRabbit\Spinner\Kernel\StylePatternExtractor;
 use AlecRabbit\Tests\Spinner\TestCase;
 use JetBrains\PhpStorm\ArrayShape;
 
