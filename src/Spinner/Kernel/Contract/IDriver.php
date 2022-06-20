@@ -19,4 +19,6 @@ interface IDriver
     public function getTerminalColorSupport(): int;
 
     public function message(string $message): void;
+
+    public function render($whatever): void;
 }

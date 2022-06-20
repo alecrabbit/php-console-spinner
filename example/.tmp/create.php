@@ -17,7 +17,7 @@ require_once __DIR__ . '/../bootstrap.php';
 
 //$stylePatternExtractor = new StylePatternExtractor();
 //
-$container = new TwirlerContainer();
+//$container = new TwirlerContainer();
 //
 //$twirlerFactory = new TwirlerFactory(
 //    new StyleRevolverFactory(
@@ -36,5 +36,12 @@ $container = new TwirlerContainer();
 
 $spinner = SpinnerFactory::create();
 
-dump($spinner);
+//dump($spinner);
 
+$spinner->initialize();
+
+$spinner->spin();
+
+$spinner->spin();
+
+$spinner->finalize();

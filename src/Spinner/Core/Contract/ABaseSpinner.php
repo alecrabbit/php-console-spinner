@@ -11,7 +11,7 @@ use AlecRabbit\Spinner\Kernel\Contract\IDriver;
 
 abstract class ABaseSpinner implements IBaseSpinner
 {
-    protected bool $active;
+    protected bool $active = false;
     protected ?ICharFrame $currentFrame = null;
     protected readonly IDriver $driver;
     protected bool $interrupted = false;
@@ -61,14 +61,8 @@ abstract class ABaseSpinner implements IBaseSpinner
     public function spin(): void
     {
         if ($this->active) {
-            $this->render();
-            $this->driver->writeFrame($this->currentFrame);
+            $this->driver->render($this->container->render());
         }
-    }
-
-    private function render(): void
-    {
-        $this->currentFrame = $this->container->render();
     }
 
     public function interrupt(): void

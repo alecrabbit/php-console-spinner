@@ -77,7 +77,7 @@ abstract class ARotor implements IRotor
 
     public function getInterval(?IWInterval $preferredInterval = null): ?IWInterval
     {
-        dump(__METHOD__);
+//        dump(__METHOD__);
         if ($preferredInterval instanceof IWInterval) {
             $this->setCycles($preferredInterval);
         }

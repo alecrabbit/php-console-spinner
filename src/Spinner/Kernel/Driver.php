@@ -62,4 +62,9 @@ final class Driver implements IDriver
         // FIXME (2022-06-10 17:37) [Alec Rabbit]: Implement color support level detection.
         return TERM_256COLOR;
     }
+
+    public function render($whatever): void
+    {
+        dump($whatever);
+    }
 }
