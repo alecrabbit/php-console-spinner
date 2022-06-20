@@ -6,9 +6,9 @@ namespace AlecRabbit\Spinner\Kernel\Wiggler\Contract;
 
 use AlecRabbit\Spinner\Core\Frame\Contract\ICharFrame;
 use AlecRabbit\Spinner\Kernel\CharFrame;
-use AlecRabbit\Spinner\Kernel\Rotor\Contract\IWInterval;
 use AlecRabbit\Spinner\Kernel\Rotor\Contract\IRotor;
 use AlecRabbit\Spinner\Kernel\Rotor\Contract\IStyleRotor;
+use AlecRabbit\Spinner\Kernel\Rotor\Contract\IWInterval;
 use AlecRabbit\Spinner\Kernel\Wiggler\Cycle;
 use AlecRabbit\Spinner\Kernel\Wiggler\CycleCalculator;
 

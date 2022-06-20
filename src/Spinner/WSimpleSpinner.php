@@ -6,8 +6,8 @@ namespace AlecRabbit\Spinner;
 
 use AlecRabbit\Spinner\Kernel\Config\Contract\IConfig;
 use AlecRabbit\Spinner\Kernel\Contract\AWBaseSpinner;
-use AlecRabbit\Spinner\Kernel\Contract\IWSimpleSpinner;
 use AlecRabbit\Spinner\Kernel\Contract\IWigglerContainer;
+use AlecRabbit\Spinner\Kernel\Contract\IWSimpleSpinner;
 use AlecRabbit\Spinner\Kernel\Rotor\Contract\IWInterval;
 use AlecRabbit\Spinner\Kernel\Wiggler\Contract\IMessageWiggler;
 use AlecRabbit\Spinner\Kernel\Wiggler\Contract\IProgressWiggler;

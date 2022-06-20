@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Kernel\Factory\Contract;
 
 use AlecRabbit\Spinner\Kernel\Contract\IWFrameCollection;
-use AlecRabbit\Spinner\Kernel\Contract\WIStyleProvider;
 use AlecRabbit\Spinner\Kernel\Contract\IWigglerContainer;
+use AlecRabbit\Spinner\Kernel\Contract\WIStyleProvider;
 use AlecRabbit\Spinner\Kernel\Rotor\Contract\IWInterval;
 
 interface IWigglerContainerFactory

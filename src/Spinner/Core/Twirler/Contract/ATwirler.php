@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 // 20.06.22
 namespace AlecRabbit\Spinner\Core\Twirler\Contract;
@@ -13,8 +14,7 @@ abstract class ATwirler implements ITwirler
     public function __construct(
         protected readonly IStyleRevolver $styleRevolver,
         protected readonly ICharRevolver $charRevolver,
-    )
-    {
+    ) {
     }
 
     public function render(): ITwirlerFrame

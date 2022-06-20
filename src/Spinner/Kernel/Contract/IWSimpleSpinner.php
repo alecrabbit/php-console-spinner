@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Kernel\Contract;
 
-use AlecRabbit\Spinner\Kernel\Config\Contract\IConfig;
-use AlecRabbit\Spinner\Kernel\Rotor\Contract\IWInterval;
 use AlecRabbit\Spinner\Kernel\Wiggler\Contract\IMessageWiggler;
 use AlecRabbit\Spinner\Kernel\Wiggler\Contract\IProgressWiggler;
 use AlecRabbit\Spinner\Kernel\Wiggler\Contract\IRevolveWiggler;
