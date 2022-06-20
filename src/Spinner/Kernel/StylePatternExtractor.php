@@ -14,8 +14,10 @@ use const AlecRabbit\Cli\TERM_NOCOLOR;
 
 final class StylePatternExtractor implements IStylePatternExtractor
 {
+    private const COLOR_SUPPORT = TERM_NOCOLOR;
+
     public function __construct(
-        private readonly int $terminalColorSupport = TERM_NOCOLOR,
+        private readonly int $terminalColorSupport = self::COLOR_SUPPORT,
     ) {
     }
 
@@ -23,14 +25,15 @@ final class StylePatternExtractor implements IStylePatternExtractor
      * @throws InvalidArgumentException
      */
     #[ArrayShape([C::STYLES => "array"])]
-    public function extract(array $pattern): array
+    public function extract(array $stylePattern): array
     {
-        $this->assert($pattern);
-        $i = $this->patternMaxColorSupport($pattern, $this->terminalColorSupport);
+        self::assert($stylePattern);
 
-        $sequence = $pattern[C::STYLES][$i][C::SEQUENCE] ?? [];
-        $format = $pattern[C::STYLES][$i][C::FORMAT] ?? null;
-        $interval = $pattern[C::STYLES][$i][C::INTERVAL] ?? null;
+        $colorSupport = $this->extractStylePatternMaxColorSupport($stylePattern);
+
+        $sequence = $stylePattern[C::STYLES][$colorSupport][C::SEQUENCE] ?? [];
+        $format = $stylePattern[C::STYLES][$colorSupport][C::FORMAT] ?? null;
+        $interval = $stylePattern[C::STYLES][$colorSupport][C::INTERVAL] ?? null;
 
         return
             [
@@ -45,23 +48,28 @@ final class StylePatternExtractor implements IStylePatternExtractor
     /**
      * @throws InvalidArgumentException
      */
-    private function assert(array $pattern): void
+    private static function assert(array $pattern): void
     {
-        // TODO (2022-06-15 17:58) [Alec Rabbit]: Implement [0393ca28-1910-4562-a348-0677aa8b4d46].
+        if (!array_key_exists(C::STYLES, $pattern)) {
+            throw new InvalidArgumentException(
+                sprintf('Style pattern must contain "%s" key.', C::STYLES)
+            );
+        }
+        // TODO (2022-06-20 13:54) [Alec Rabbit]: Add more checks.
     }
 
-    private function patternMaxColorSupport(array $pattern, int $terminalColorSupport): int
+    private function extractStylePatternMaxColorSupport(array $pattern): int
     {
         try {
-            $maxPatternColorSupport = max(array_keys($pattern[C::STYLES]));
+            $maxColorSupport = max(array_keys($pattern[C::STYLES]));
         } catch (Throwable $_) {
-            return TERM_NOCOLOR;
+            return self::COLOR_SUPPORT;
         }
 
-        if ($terminalColorSupport > $maxPatternColorSupport) {
-            return $maxPatternColorSupport;
+        if ($this->terminalColorSupport > $maxColorSupport) {
+            return $maxColorSupport;
         }
 
-        return $terminalColorSupport;
+        return $this->terminalColorSupport;
     }
 }
