@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Kernel;
 
+use AlecRabbit\Spinner\Core\Frame\Contract\ICharFrame;
 use AlecRabbit\Spinner\Kernel\Contract\Base\Defaults;
-use AlecRabbit\Spinner\Kernel\Contract\ICharFrame;
 use AlecRabbit\Spinner\Kernel\Exception\InvalidArgumentException;
 use Stringable;
 

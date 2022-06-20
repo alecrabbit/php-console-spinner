@@ -4,14 +4,14 @@ declare(strict_types=1);
 // 17.06.22
 namespace AlecRabbit\Spinner\Kernel\Wiggler;
 
-use AlecRabbit\Spinner\Kernel\Rotor\Contract\IInterval;
-use AlecRabbit\Spinner\Kernel\Rotor\Interval;
+use AlecRabbit\Spinner\Kernel\Rotor\Contract\WIInterval;
+use AlecRabbit\Spinner\Kernel\Rotor\WInterval;
 
 final class CycleCalculator
 {
     protected const MILLISECONDS = 1000;
 
-    public static function calculate(?IInterval $preferredInterval, ?IInterval $interval): int
+    public static function calculate(?WIInterval $preferredInterval, ?WIInterval $interval): int
     {
         if (null === $preferredInterval && null === $interval) {
             return 0;
@@ -29,8 +29,8 @@ final class CycleCalculator
         return $i;
     }
 
-    private static function defaultInterval(): Interval
+    private static function defaultInterval(): WInterval
     {
-        return new Interval(self::MILLISECONDS);
+        return new WInterval(self::MILLISECONDS);
     }
 }

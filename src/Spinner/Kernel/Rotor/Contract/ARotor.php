@@ -23,7 +23,7 @@ abstract class ARotor implements IRotor
      */
     public function __construct(
         ?array $data = null,
-        protected ?IInterval $interval = null,
+        protected ?WIInterval $interval = null,
     ) {
         $this->data = static::refineData($data);
         $this->dataLength = count($this->data);
@@ -75,16 +75,16 @@ abstract class ARotor implements IRotor
             $this->currentFrame;
     }
 
-    public function getInterval(?IInterval $preferredInterval = null): ?IInterval
+    public function getInterval(?WIInterval $preferredInterval = null): ?WIInterval
     {
         dump(__METHOD__);
-        if ($preferredInterval instanceof IInterval) {
+        if ($preferredInterval instanceof WIInterval) {
             $this->setCycles($preferredInterval);
         }
         return $this->interval;
     }
 
-    private function setCycles(IInterval $preferredInterval): void
+    private function setCycles(WIInterval $preferredInterval): void
     {
         $this->cycle = new Cycle(CycleCalculator::calculate($preferredInterval, $this->interval));
     }

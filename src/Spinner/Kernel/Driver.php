@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Kernel;
 
+use AlecRabbit\Spinner\Core\Frame\Contract\ICharFrame;
 use AlecRabbit\Spinner\Kernel\Contract\Base\Defaults;
 use AlecRabbit\Spinner\Kernel\Contract\IDriver;
-use AlecRabbit\Spinner\Kernel\Contract\ICharFrame;
 use AlecRabbit\Spinner\Kernel\Contract\IWriter;
 
 use const AlecRabbit\Cli\TERM_256COLOR;

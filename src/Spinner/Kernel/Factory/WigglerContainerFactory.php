@@ -10,7 +10,7 @@ use AlecRabbit\Spinner\Kernel\Contract\IWigglerContainer;
 use AlecRabbit\Spinner\Kernel\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Kernel\Factory\Contract\IWigglerContainerFactory;
 use AlecRabbit\Spinner\Kernel\Factory\Contract\IWigglerFactory;
-use AlecRabbit\Spinner\Kernel\Rotor\Contract\IInterval;
+use AlecRabbit\Spinner\Kernel\Rotor\Contract\WIInterval;
 use AlecRabbit\Spinner\Kernel\WigglerContainer;
 
 final class WigglerContainerFactory implements IWigglerContainerFactory
@@ -24,7 +24,7 @@ final class WigglerContainerFactory implements IWigglerContainerFactory
         IStyleProvider $styleRenderer,
         ?IWigglerFactory $wigglerFactory = null,
         ?IWFrameCollection $frames = null,
-        private readonly ?IInterval $interval = null,
+        private readonly ?WIInterval $interval = null,
     ) {
         $this->wigglerFactory =
             $wigglerFactory ?? new WigglerFactory(

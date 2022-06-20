@@ -6,7 +6,5 @@ namespace AlecRabbit\Spinner\Kernel\Contract;
 
 interface IStyleProvider
 {
-    public function __construct(IStylePatternExtractor $extractor);
-
     public function provide(array $pattern): array;
 }

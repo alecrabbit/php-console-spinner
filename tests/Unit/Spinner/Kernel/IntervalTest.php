@@ -6,7 +6,7 @@ namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Kernel;
 
 use AlecRabbit\Spinner\Kernel\Contract\Base\Defaults;
 use AlecRabbit\Spinner\Kernel\Exception\InvalidArgumentException;
-use AlecRabbit\Spinner\Kernel\Rotor\Interval;
+use AlecRabbit\Spinner\Kernel\Rotor\WInterval;
 use AlecRabbit\Tests\Spinner\TestCase;
 
 use const AlecRabbit\Cli\CSI;
@@ -14,8 +14,6 @@ use const AlecRabbit\Cli\RESET;
 
 class IntervalTest extends TestCase
 {
-    protected const STYLE = CSI . '01;38;5;45m%s' . RESET;
-
     public function createDataProvider(): iterable
     {
         // [$expected, $styles, $interval]
@@ -36,7 +34,7 @@ class IntervalTest extends TestCase
         yield [
             [
                 self::EXCEPTION => [
-                    self::_CLASS => InvalidArgumentException::class,
+                    self::CLASS_ => InvalidArgumentException::class,
                     self::MESSAGE =>
                         sprintf(
                             'Interval should be greater than %s.',
@@ -50,7 +48,7 @@ class IntervalTest extends TestCase
         yield [
             [
                 self::EXCEPTION => [
-                    self::_CLASS => InvalidArgumentException::class,
+                    self::CLASS_ => InvalidArgumentException::class,
                     self::MESSAGE =>
                         sprintf(
                             'Interval should be less than %s.',
@@ -68,9 +66,9 @@ class IntervalTest extends TestCase
      */
     public function create(array $expected, mixed $ms): void
     {
-        $this->checkForExceptionExpectance($expected);
+        $this->setExpectException($expected);
 
-        $interval = new Interval($ms);
+        $interval = new WInterval($ms);
 
         self::assertEquals($expected[self::INTERVAL], $interval->toSeconds());
         self::assertSame($expected[self::INTERVAL], $interval->toSeconds());
@@ -99,7 +97,7 @@ class IntervalTest extends TestCase
      * @test
      */
     public function canClone(): void {
-        $interval = new Interval(Defaults::MILLISECONDS_INTERVAL);
+        $interval = new WInterval(Defaults::MILLISECONDS_INTERVAL);
         $clone = clone $interval;
         self::assertEquals($interval->toSeconds(), $clone->toSeconds());
         self::assertEquals($clone, $interval);

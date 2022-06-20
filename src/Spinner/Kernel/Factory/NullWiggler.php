@@ -4,10 +4,10 @@ declare(strict_types=1);
 // 17.06.22
 namespace AlecRabbit\Spinner\Kernel\Factory;
 
-use AlecRabbit\Spinner\Kernel\Contract\Base\C;
-use AlecRabbit\Spinner\Kernel\Contract\ICharFrame;
-use AlecRabbit\Spinner\Kernel\Exception\MethodNotImplementedException;
+use AlecRabbit\Spinner\Core\Frame\Contract\ICharFrame;
 use AlecRabbit\Spinner\Kernel\CharFrame;
+use AlecRabbit\Spinner\Kernel\Contract\Base\C;
+use AlecRabbit\Spinner\Kernel\Exception\MethodNotImplementedException;
 use AlecRabbit\Spinner\Kernel\Rotor\Contract\IRotor;
 use AlecRabbit\Spinner\Kernel\Rotor\Contract\IStyleRotor;
 use AlecRabbit\Spinner\Kernel\Wiggler\Contract\AWiggler;

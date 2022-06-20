@@ -4,7 +4,7 @@ declare(strict_types=1);
 // 16.06.22
 namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Kernel\Wiggler;
 
-use AlecRabbit\Spinner\Kernel\Rotor\Interval;
+use AlecRabbit\Spinner\Kernel\Rotor\WInterval;
 use AlecRabbit\Spinner\Kernel\Wiggler\CycleCalculator;
 use AlecRabbit\Tests\Spinner\TestCase;
 
@@ -67,7 +67,7 @@ class CycleCalculatorTest extends TestCase
      */
     public function calculate(array $expected, array $arguments): void
     {
-        $this->checkForExceptionExpectance($expected);
+        $this->setExpectException($expected);
 
         $preferredInterval = $this->intervalOrNull($arguments[self::PREFERRED_INTERVAL]);
 
@@ -76,11 +76,11 @@ class CycleCalculatorTest extends TestCase
         self::assertSame($expected[self::RESULT], CycleCalculator::calculate($preferredInterval, $interval));
     }
 
-    private function intervalOrNull(null|int|float $milliseconds): ?Interval
+    private function intervalOrNull(null|int|float $milliseconds): ?WInterval
     {
         return
             null === $milliseconds
                 ? null
-                : new Interval($milliseconds);
+                : new WInterval($milliseconds);
     }
 }

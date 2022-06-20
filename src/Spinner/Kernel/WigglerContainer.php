@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Kernel;
 
-use AlecRabbit\Spinner\Kernel\Contract\ICharFrame;
+use AlecRabbit\Spinner\Core\Frame\Contract\ICharFrame;
 use AlecRabbit\Spinner\Kernel\Contract\IWigglerContainer;
 use AlecRabbit\Spinner\Kernel\Exception\RuntimeException;
-use AlecRabbit\Spinner\Kernel\Rotor\Contract\IInterval;
-use AlecRabbit\Spinner\Kernel\Rotor\Interval;
+use AlecRabbit\Spinner\Kernel\Rotor\Contract\WIInterval;
+use AlecRabbit\Spinner\Kernel\Rotor\WInterval;
 use AlecRabbit\Spinner\Kernel\Wiggler\Contract\IMessageWiggler;
 use AlecRabbit\Spinner\Kernel\Wiggler\Contract\IProgressWiggler;
 use AlecRabbit\Spinner\Kernel\Wiggler\Contract\IRevolveWiggler;
@@ -28,11 +28,11 @@ final class WigglerContainer implements IWigglerContainer
      */
     private iterable $indexes;
     private int $currentIndex = 0;
-    private ?IInterval $calculatedInterval = null;
-    private ?IInterval $preferredInterval;
+    private ?WIInterval $calculatedInterval = null;
+    private ?WIInterval $preferredInterval;
 
     public function __construct(
-        ?IInterval $preferredInterval = null,
+        ?WIInterval $preferredInterval = null,
     ) {
         $this->preferredInterval = $preferredInterval;
         $this->indexes = new WeakMap();
@@ -50,15 +50,15 @@ final class WigglerContainer implements IWigglerContainer
         return $this;
     }
 
-    private function updateInterval(?IInterval $interval): void
+    private function updateInterval(?WIInterval $interval): void
     {
         $this->calculatedInterval =
-            $this->calculatedInterval instanceof IInterval
+            $this->calculatedInterval instanceof WIInterval
                 ? $this->calculatedInterval->smallest($interval)
                 : $interval;
     }
 
-    public function getInterval(): IInterval
+    public function getInterval(): WIInterval
     {
         $this->calculatedInterval = $this->calculateInterval($this->preferredInterval);
 
@@ -66,9 +66,9 @@ final class WigglerContainer implements IWigglerContainer
             $this->preferredInterval ?? $this->calculatedInterval;
     }
 
-    private function calculateInterval(?IInterval $preferredInterval): IInterval
+    private function calculateInterval(?WIInterval $preferredInterval): WIInterval
     {
-        $preferredInterval = $preferredInterval ?? new Interval(1000);
+        $preferredInterval = $preferredInterval ?? new WInterval(1000);
 //        foreach ($this->wigglers as $wiggler) {
 //            $wiggler->
 //        }

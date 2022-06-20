@@ -6,8 +6,8 @@ namespace AlecRabbit\Spinner\Kernel;
 
 use AlecRabbit\Spinner\Kernel\Contract\IStyle;
 use AlecRabbit\Spinner\Kernel\Contract\IStyleCollection;
-use AlecRabbit\Spinner\Kernel\Rotor\Contract\IInterval;
-use AlecRabbit\Spinner\Kernel\Rotor\Interval;
+use AlecRabbit\Spinner\Kernel\Rotor\Contract\WIInterval;
+use AlecRabbit\Spinner\Kernel\Rotor\WInterval;
 use ArrayIterator;
 use Traversable;
 
@@ -18,14 +18,14 @@ final class StyleCollection implements IStyleCollection
     private int $count = 0;
 
     protected function __construct(
-        private readonly IInterval $interval
+        private readonly WIInterval $interval
     ) {
     }
 
     public static function create(array $styles = [], ?int $interval = null): IStyleCollection
     {
         self::assert($styles);
-        $collection = new self(new Interval($interval));
+        $collection = new self(new WInterval($interval));
 
         foreach ($styles as $style) {
             $collection->add(Style::create($style));
@@ -62,7 +62,7 @@ final class StyleCollection implements IStyleCollection
         return $this->elements;
     }
 
-    public function getInterval(): IInterval
+    public function getInterval(): WIInterval
     {
         return $this->interval;
     }

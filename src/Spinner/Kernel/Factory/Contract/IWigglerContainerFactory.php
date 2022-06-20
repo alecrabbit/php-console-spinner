@@ -7,7 +7,7 @@ namespace AlecRabbit\Spinner\Kernel\Factory\Contract;
 use AlecRabbit\Spinner\Kernel\Contract\IWFrameCollection;
 use AlecRabbit\Spinner\Kernel\Contract\IStyleProvider;
 use AlecRabbit\Spinner\Kernel\Contract\IWigglerContainer;
-use AlecRabbit\Spinner\Kernel\Rotor\Contract\IInterval;
+use AlecRabbit\Spinner\Kernel\Rotor\Contract\WIInterval;
 
 interface IWigglerContainerFactory
 {
@@ -15,7 +15,7 @@ interface IWigglerContainerFactory
         IStyleProvider $styleRenderer,
         ?IWigglerFactory $wigglerFactory = null,
         ?IWFrameCollection $frames = null,
-        ?IInterval $interval = null,
+        ?WIInterval $interval = null,
     );
 
     public function createContainer(): IWigglerContainer;

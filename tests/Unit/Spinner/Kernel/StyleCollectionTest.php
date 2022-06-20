@@ -81,7 +81,7 @@ class StyleCollectionTest extends TestCase
         yield [
             [
                 self::EXCEPTION => [
-                    self::_CLASS => InvalidArgumentException::class,
+                    self::CLASS_ => InvalidArgumentException::class,
                     self::MESSAGE =>
                         sprintf(
                             'Interval should be greater than %s.',
@@ -96,7 +96,7 @@ class StyleCollectionTest extends TestCase
         yield [
             [
                 self::EXCEPTION => [
-                    self::_CLASS => InvalidArgumentException::class,
+                    self::CLASS_ => InvalidArgumentException::class,
                     self::MESSAGE =>
                         sprintf(
                             'Interval should be less than %s.',
@@ -115,7 +115,7 @@ class StyleCollectionTest extends TestCase
      */
     public function create(array $expected, array $styles, ?int $interval = null): void
     {
-        $this->checkForExceptionExpectance($expected);
+        $this->setExpectException($expected);
 
         $styleCollection = StyleCollection::create($styles, $interval);
 

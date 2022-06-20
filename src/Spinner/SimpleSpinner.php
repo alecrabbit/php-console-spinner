@@ -6,16 +6,12 @@ namespace AlecRabbit\Spinner;
 
 use AlecRabbit\Spinner\Kernel\Config\Contract\IConfig;
 use AlecRabbit\Spinner\Kernel\Contract\ABaseSpinner;
-use AlecRabbit\Spinner\Kernel\Contract\IDriver;
-use AlecRabbit\Spinner\Kernel\Contract\ICharFrame;
 use AlecRabbit\Spinner\Kernel\Contract\ISimpleSpinner;
 use AlecRabbit\Spinner\Kernel\Contract\IWigglerContainer;
-use AlecRabbit\Spinner\Kernel\Rotor\Contract\IInterval;
+use AlecRabbit\Spinner\Kernel\Rotor\Contract\WIInterval;
 use AlecRabbit\Spinner\Kernel\Wiggler\Contract\IMessageWiggler;
 use AlecRabbit\Spinner\Kernel\Wiggler\Contract\IProgressWiggler;
 use AlecRabbit\Spinner\Kernel\Wiggler\Contract\IRevolveWiggler;
-
-use const PHP_EOL;
 
 final class SimpleSpinner extends ABaseSpinner implements ISimpleSpinner
 {
@@ -27,7 +23,7 @@ final class SimpleSpinner extends ABaseSpinner implements ISimpleSpinner
         $this->wigglers = $config->getWigglers();
     }
 
-    public function getInterval(): IInterval
+    public function getInterval(): WIInterval
     {
         return $this->wigglers->getInterval();
     }

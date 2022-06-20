@@ -277,7 +277,7 @@ class StylePatternExtractorTest extends TestCase
      */
     public function create(array $expected, array $incoming): void
     {
-        $this->checkForExceptionExpectance($expected);
+        $this->setExpectException($expected);
 
         $extractor = self::getInstance($incoming[self::ARGUMENTS] ?? []);
 

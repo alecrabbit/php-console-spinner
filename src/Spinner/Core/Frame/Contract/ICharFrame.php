@@ -2,9 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Spinner\Kernel\Contract;
-
-use Stringable;
+namespace AlecRabbit\Spinner\Core\Frame\Contract;
 
 interface ICharFrame
 {

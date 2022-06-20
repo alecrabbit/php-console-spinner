@@ -54,7 +54,7 @@ class StyleTest extends TestCase
         yield [
             [
                 self::EXCEPTION => [
-                    self::_CLASS => InvalidArgumentException::class,
+                    self::CLASS_ => InvalidArgumentException::class,
                     self::MESSAGE => 'Unsupported style element: [array].',
                 ],
             ],
@@ -68,7 +68,7 @@ class StyleTest extends TestCase
      */
     public function create(array $expected, mixed $element): void
     {
-        $this->checkForExceptionExpectance($expected);
+        $this->setExpectException($expected);
 
         $style = Style::create($element);
 

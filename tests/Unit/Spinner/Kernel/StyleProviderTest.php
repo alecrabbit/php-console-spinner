@@ -229,7 +229,7 @@ class StyleProviderTest extends TestCase
      */
     public function render(array $expected, array $incoming): void
     {
-        $this->checkForExceptionExpectance($expected);
+        $this->setExpectException($expected);
 
         $renderer = self::getInstance($incoming[self::ARGUMENTS] ?? []);
 

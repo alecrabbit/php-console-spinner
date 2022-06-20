@@ -24,7 +24,7 @@ use AlecRabbit\Spinner\Kernel\Factory\Contract\IWigglerFactory;
 use AlecRabbit\Spinner\Kernel\Factory\LoopFactory;
 use AlecRabbit\Spinner\Kernel\Factory\WigglerContainerFactory;
 use AlecRabbit\Spinner\Kernel\Output\StreamOutput;
-use AlecRabbit\Spinner\Kernel\Rotor\Contract\IInterval;
+use AlecRabbit\Spinner\Kernel\Rotor\Contract\WIInterval;
 use AlecRabbit\Spinner\Kernel\StylePatternExtractor;
 use AlecRabbit\Spinner\Kernel\StyleProvider;
 use AlecRabbit\Spinner\Kernel\Writer;
@@ -49,7 +49,7 @@ final class ConfigBuilder implements IConfigBuilder
     private ?string $interruptMessage = null;
     private ?string $finalMessage = null;
     private ?IWFrameCollection $frames = null;
-    private ?IInterval $interval = null;
+    private ?WIInterval $interval = null;
     private ?int $terminalColorSupport = null;
     private ?ILoopFactory $loopFactory = null;
     private ?IWigglerContainerFactory $wigglerContainerFactory = null;
@@ -141,7 +141,7 @@ final class ConfigBuilder implements IConfigBuilder
         return $clone;
     }
 
-    public function withInterval(IInterval $interval): self
+    public function withInterval(WIInterval $interval): self
     {
         $clone = clone $this;
         $clone->interval = $interval;
