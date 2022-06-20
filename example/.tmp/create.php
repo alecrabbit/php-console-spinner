@@ -59,7 +59,10 @@ $spinner
 $spinner->initialize();
 
 for ($i = 0; $i < 100; $i++) {
+//    $start = hrtime(true);
     $spinner->spin();
+//    $stop = hrtime(true);
+//    dump($stop - $start);
     usleep(100000);
 }
 

@@ -4,7 +4,6 @@ declare(strict_types=1);
 // 19.06.22
 namespace AlecRabbit\Spinner\Core\Contract;
 
-use AlecRabbit\Spinner\Core\Frame\Contract\ICharFrame;
 use AlecRabbit\Spinner\Core\Twirler\Contract\ITwirlerContainer;
 use AlecRabbit\Spinner\Kernel\Config\Contract\IConfig;
 use AlecRabbit\Spinner\Kernel\Contract\IDriver;
@@ -12,12 +11,12 @@ use AlecRabbit\Spinner\Kernel\Contract\IDriver;
 abstract class ABaseSpinner implements IBaseSpinner
 {
     protected bool $active = false;
-    protected ?ICharFrame $currentFrame = null;
     protected readonly IDriver $driver;
     protected bool $interrupted = false;
     protected readonly string $finalMessage;
     protected readonly string $interruptMessage;
     protected ITwirlerContainer $container; // TODO (2022-06-20 15:19) [Alec Rabbit]: refine type.
+    protected int $currentWidth = 0;
 
     public function __construct(IConfig $config)
     {
@@ -53,15 +52,13 @@ abstract class ABaseSpinner implements IBaseSpinner
 
     public function erase(): void
     {
-        $this->driver->erase(
-            $this->currentFrame?->getWidth()
-        );
+        $this->driver->erase($this->currentWidth);
     }
 
     public function spin(): void
     {
         if ($this->active) {
-            $this->driver->render($this->container->render());
+            $this->currentWidth = $this->driver->render($this->container->render());
         }
     }
 

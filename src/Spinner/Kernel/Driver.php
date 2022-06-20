@@ -67,8 +67,8 @@ final class Driver implements IDriver
         return TERM_256COLOR;
     }
 
-    public function render(iterable $sequence): void
+    public function render(iterable $sequence): int
     {
-        $this->renderer->render($sequence);
+        return $this->renderer->render($sequence);
     }
 }

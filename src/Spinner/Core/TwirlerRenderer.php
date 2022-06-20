@@ -15,7 +15,7 @@ final class TwirlerRenderer
     ) {
     }
 
-    public function render(iterable $twirlers): void
+    public function render(iterable $twirlers): int
     {
         $sequences = [];
         $width = 0;
@@ -27,7 +27,7 @@ final class TwirlerRenderer
             }
         }
         $sequences[] = Sequencer::moveBackSequence($width);
-
         $this->output->write($sequences);
+        return $width;
     }
 }
