@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core;
 
 use AlecRabbit\Spinner\Core\Contract\Base\Defaults;
-use AlecRabbit\Spinner\Core\Contract\IFrame;
+use AlecRabbit\Spinner\Core\Contract\ICharFrame;
 use AlecRabbit\Spinner\Core\Exception\InvalidArgumentException;
 use Stringable;
 
-final class Frame implements IFrame
+final class CharFrame implements ICharFrame
 {
     private const MAX_WIDTH = Defaults::MAX_WIDTH;
 
@@ -27,7 +27,7 @@ final class Frame implements IFrame
     /**
      * @throws InvalidArgumentException
      */
-    private static function assert(Frame $frame): void
+    private static function assert(CharFrame $frame): void
     {
         if (0 > $frame->sequenceWidth) {
             throw new InvalidArgumentException(
@@ -50,9 +50,9 @@ final class Frame implements IFrame
     /**
      * @throws InvalidArgumentException
      */
-    public static function create(mixed $element, ?int $elementWidth): IFrame
+    public static function create(mixed $element, ?int $elementWidth): ICharFrame
     {
-        if ($element instanceof IFrame) {
+        if ($element instanceof ICharFrame) {
             return $element;
         }
         if (is_int($element) || is_float($element) || $element instanceof Stringable) {
@@ -65,7 +65,7 @@ final class Frame implements IFrame
             $element = 'null';
         }
         if (is_string($element)) {
-            return new Frame($element, $elementWidth ?? WidthDefiner::define($element));
+            return new CharFrame($element, $elementWidth ?? WidthDefiner::define($element));
         }
         if (is_iterable($element)) {
             return self::createFromIterable($element, $elementWidth);
@@ -81,7 +81,7 @@ final class Frame implements IFrame
     /**
      * @throws InvalidArgumentException
      */
-    private static function createFromIterable(iterable $f, ?int $elementWidth): IFrame
+    private static function createFromIterable(iterable $f, ?int $elementWidth): ICharFrame
     {
         $a = [];
         $c = 0;
@@ -92,10 +92,10 @@ final class Frame implements IFrame
             }
         }
         if (array_key_exists(0, $a) && null !== $elementWidth) {
-            return new Frame($f[0], $elementWidth);
+            return new CharFrame($f[0], $elementWidth);
         }
         if (array_key_exists(0, $a) && array_key_exists(1, $a)) {
-            return new Frame($f[0], $f[1]);
+            return new CharFrame($f[0], $f[1]);
         }
         throw new InvalidArgumentException(
             sprintf(
@@ -110,7 +110,7 @@ final class Frame implements IFrame
         return $this->sequence;
     }
 
-    public function getSequence(): string
+    public function getChar(): string
     {
         return $this->sequence;
     }

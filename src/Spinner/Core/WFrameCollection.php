@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core;
 
-use AlecRabbit\Spinner\Core\Contract\IFrame;
+use AlecRabbit\Spinner\Core\Contract\ICharFrame;
 use AlecRabbit\Spinner\Core\Contract\IWFrameCollection;
 use AlecRabbit\Spinner\Core\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Core\Rotor\Contract\IInterval;
@@ -14,7 +14,7 @@ use Traversable;
 
 final class WFrameCollection implements IWFrameCollection
 {
-    /** @var array<int, IFrame> */
+    /** @var array<int, ICharFrame> */
     private array $elements = [];
     private int $count = 0;
 
@@ -34,16 +34,16 @@ final class WFrameCollection implements IWFrameCollection
 
         $collection = new self(new Interval($interval));
         foreach ($frames as $element) {
-            if ($element instanceof IFrame) {
+            if ($element instanceof ICharFrame) {
                 $collection->add($element);
                 continue;
             }
-            $collection->add(Frame::create($element, $elementWidth));
+            $collection->add(CharFrame::create($element, $elementWidth));
         }
         return $collection;
     }
 
-    public function add(IFrame $frame): void
+    public function add(ICharFrame $frame): void
     {
         $this->count++;
         $this->elements[] = $frame;

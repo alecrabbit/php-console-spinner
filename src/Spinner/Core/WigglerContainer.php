@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core;
 
-use AlecRabbit\Spinner\Core\Contract\IFrame;
+use AlecRabbit\Spinner\Core\Contract\ICharFrame;
 use AlecRabbit\Spinner\Core\Contract\IWigglerContainer;
 use AlecRabbit\Spinner\Core\Exception\RuntimeException;
 use AlecRabbit\Spinner\Core\Rotor\Contract\IInterval;
@@ -76,19 +76,19 @@ final class WigglerContainer implements IWigglerContainer
         return $this->calculatedInterval;
     }
 
-    public function render(): IFrame
+    public function render(): ICharFrame
     {
         $sequence = '';
         $width = 0;
 
         foreach ($this->wigglers as $wiggler) {
             $frame = $wiggler->render();
-            $sequence .= $frame->sequence;
+            $sequence .= $frame->char;
             $width += $frame->sequenceWidth;
         }
 
         return
-            new Frame(
+            new CharFrame(
                 $sequence,
                 $width
             );

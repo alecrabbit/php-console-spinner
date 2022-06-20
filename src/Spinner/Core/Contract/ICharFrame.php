@@ -6,9 +6,9 @@ namespace AlecRabbit\Spinner\Core\Contract;
 
 use Stringable;
 
-interface IFrame extends Stringable
+interface ICharFrame
 {
-    public function getSequence(): string;
+    public function getChar(): string;
 
     public function getWidth(): int;
 }

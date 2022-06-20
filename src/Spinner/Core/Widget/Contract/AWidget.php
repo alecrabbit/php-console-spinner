@@ -4,21 +4,21 @@ declare(strict_types=1);
 // 13.06.22
 namespace AlecRabbit\Spinner\Core\Widget\Contract;
 
-use AlecRabbit\Spinner\Core\Contract\AFrame;
+use AlecRabbit\Spinner\Core\Contract\ACharFrame;
 use AlecRabbit\Spinner\Core\Contract\Base\C;
 use AlecRabbit\Spinner\Core\Rotor\Contract\IFrameRotor;
 use AlecRabbit\Spinner\Core\Rotor\Contract\IInterval;
 use AlecRabbit\Spinner\Core\Rotor\Contract\IStyleRotor;
 use AlecRabbit\Spinner\Core\WidthDefiner;
-use AlecRabbit\Spinner\Core\Wiggler\Frame;
+use AlecRabbit\Spinner\Core\Wiggler\CharFrame;
 use WeakMap;
 
 abstract class AWidget implements IWidget
 {
     protected WeakMap $children;
     protected ?IWidget $parent = null;
-    protected readonly AFrame $leadingSpacer;
-    protected readonly AFrame $trailingSpacer;
+    protected readonly ACharFrame $leadingSpacer;
+    protected readonly ACharFrame $trailingSpacer;
 
     public function __construct(
         protected readonly IStyleRotor $style,
@@ -28,33 +28,33 @@ abstract class AWidget implements IWidget
     ) {
         $this->children = new WeakMap();
         $this->leadingSpacer = $this->refineLeadingSpacer(
-            new Frame($leadingSpacer, WidthDefiner::define($leadingSpacer))
+            new CharFrame($leadingSpacer, WidthDefiner::define($leadingSpacer))
         );
         $this->trailingSpacer = $this->refineTrailingSpacer(
-            new Frame($trailingSpacer, WidthDefiner::define($trailingSpacer))
+            new CharFrame($trailingSpacer, WidthDefiner::define($trailingSpacer))
         );
     }
 
-    private function refineLeadingSpacer(AFrame $leadingSpacer): AFrame
+    private function refineLeadingSpacer(ACharFrame $leadingSpacer): ACharFrame
     {
         $minWidth = $this->parent instanceof IWidget ? 1 : 0;
 //        if($this->style->leadingSpacerWidth > $minWidth) {
 //            $minWidth = $this->style->leadingSpacerWidth;
 //        }
         if ($leadingSpacer->getWidth() < $minWidth) {
-            return new Frame(str_repeat(C::SPACE_CHAR, $minWidth), WidthDefiner::define($minWidth));
+            return new CharFrame(str_repeat(C::SPACE_CHAR, $minWidth), WidthDefiner::define($minWidth));
         }
         return $leadingSpacer;
     }
 
-    private function refineTrailingSpacer(AFrame $trailingSpacer): AFrame
+    private function refineTrailingSpacer(ACharFrame $trailingSpacer): ACharFrame
     {
         $minWidth = 0;
 //        if($this->style->leadingSpacerWidth > $minWidth) {
 //            $minWidth = $this->style->leadingSpacerWidth;
 //        }
         if ($trailingSpacer->getWidth() < $minWidth) {
-            return new Frame(str_repeat(C::SPACE_CHAR, $minWidth), WidthDefiner::define($minWidth));
+            return new CharFrame(str_repeat(C::SPACE_CHAR, $minWidth), WidthDefiner::define($minWidth));
         }
         return $trailingSpacer;
     }
@@ -78,12 +78,12 @@ abstract class AWidget implements IWidget
         return $this;
     }
 
-    public function render(?IInterval $interval = null): AFrame
+    public function render(?IInterval $interval = null): ACharFrame
     {
         $childrenFrame = $this->renderChildren($interval);
         return
-            new Frame(
-                $this->createSequence($interval) . $childrenFrame->getSequence(),
+            new CharFrame(
+                $this->createSequence($interval) . $childrenFrame->getChar(),
                 $this->rotor->getWidth()
                 + $childrenFrame->getWidth()
                 + $this->leadingSpacer->getWidth()
@@ -91,7 +91,7 @@ abstract class AWidget implements IWidget
             );
     }
 
-    private function renderChildren(?IInterval $interval = null): AFrame
+    private function renderChildren(?IInterval $interval = null): ACharFrame
     {
         $sequence = '';
         $width = 0;
@@ -103,7 +103,7 @@ abstract class AWidget implements IWidget
         }
 
         return
-            new Frame(
+            new CharFrame(
                 $sequence,
                 $width
             );
@@ -113,7 +113,7 @@ abstract class AWidget implements IWidget
     {
         return
             $this->style->join(
-                chars: $this->leadingSpacer->getSequence() . $this->rotor->next() . $this->trailingSpacer->getSequence(),
+                chars: $this->leadingSpacer->getChar() . $this->rotor->next() . $this->trailingSpacer->getChar(),
             );
     }
 

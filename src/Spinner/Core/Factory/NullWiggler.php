@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Factory;
 
 use AlecRabbit\Spinner\Core\Contract\Base\C;
-use AlecRabbit\Spinner\Core\Contract\IFrame;
+use AlecRabbit\Spinner\Core\Contract\ICharFrame;
 use AlecRabbit\Spinner\Core\Exception\MethodNotImplementedException;
-use AlecRabbit\Spinner\Core\Frame;
+use AlecRabbit\Spinner\Core\CharFrame;
 use AlecRabbit\Spinner\Core\Rotor\Contract\IRotor;
 use AlecRabbit\Spinner\Core\Rotor\Contract\IStyleRotor;
 use AlecRabbit\Spinner\Core\Wiggler\Contract\AWiggler;
@@ -15,13 +15,13 @@ use AlecRabbit\Spinner\Core\Wiggler\Contract\IWiggler;
 
 final class NullWiggler extends AWiggler
 {
-    private IFrame $frame;
+    private ICharFrame $frame;
 
     /** @noinspection MagicMethodsValidityInspection */
     protected function __construct()
     {
         $this->frame =
-            new Frame(
+            new CharFrame(
                 C::EMPTY_STRING,
                 0,
             );
@@ -37,7 +37,7 @@ final class NullWiggler extends AWiggler
         // Intentionally left blank
     }
 
-    public function render(): IFrame
+    public function render(): ICharFrame
     {
         return $this->frame;
     }

@@ -6,7 +6,7 @@ namespace AlecRabbit\Spinner\Core;
 
 use AlecRabbit\Spinner\Core\Contract\Base\Defaults;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
-use AlecRabbit\Spinner\Core\Contract\IFrame;
+use AlecRabbit\Spinner\Core\Contract\ICharFrame;
 use AlecRabbit\Spinner\Core\Contract\IWriter;
 
 use const AlecRabbit\Cli\TERM_256COLOR;
@@ -42,10 +42,10 @@ final class Driver implements IDriver
         }
     }
 
-    public function writeFrame(IFrame $frame): void
+    public function writeFrame(ICharFrame $frame): void
     {
         $this->writer->write(
-            $frame->sequence,
+            $frame->char,
             Sequencer::moveBackSequence($frame->sequenceWidth),
         );
     }

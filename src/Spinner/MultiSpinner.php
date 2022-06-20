@@ -16,7 +16,7 @@ final class MultiSpinner extends ABaseSpinner implements IMultiSpinner
     public function __construct(IConfig $config)
     {
         parent::__construct($config);
-        $this->twirlerContainer = $config->getTwirlers();
+        $this->container = $config->getTwirlers();
     }
 
     public function addTwirler(ITwirler $twirler): CanAddTwirler

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Rotor\Contract;
 
 use AlecRabbit\Spinner\Core\Contract\Base\C;
-use AlecRabbit\Spinner\Core\Contract\IFrame;
+use AlecRabbit\Spinner\Core\Contract\ICharFrame;
 use AlecRabbit\Spinner\Core\Contract\IWFrameCollection;
 use AlecRabbit\Spinner\Core\WidthDefiner;
 
@@ -29,7 +29,7 @@ abstract class AFrameRotor extends ARotor implements IFrameRotor
         return $this->leadingSpacerWidth + $this->getCurrentFrame()->sequenceWidth + $this->trailingSpacerWidth;
     }
 
-    private function getCurrentFrame(): IFrame
+    private function getCurrentFrame(): ICharFrame
     {
         return $this->data[$this->currentIndex];
     }

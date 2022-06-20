@@ -11,7 +11,7 @@ interface IWFrameCollection extends IteratorAggregate,
 {
     public static function create(iterable|string $frames, ?int $elementWidth = null, ?int $interval = null): self;
 
-    public function add(IFrame $frame): void;
+    public function add(ICharFrame $frame): void;
 
     public function toArray(): array;
 }

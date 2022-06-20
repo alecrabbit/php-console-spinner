@@ -4,22 +4,25 @@ declare(strict_types=1);
 // 13.06.22
 namespace AlecRabbit\Spinner\Core\Contract;
 
-abstract class AFrame implements IFrame
+use Stringable;
+
+abstract class ACharFrame implements ICharFrame,
+                                     Stringable
 {
     public function __construct(
-        protected readonly string $sequence,
+        protected readonly string $char,
         protected readonly int $width,
     ) {
     }
 
     public function __toString(): string
     {
-        return $this->sequence;
+        return $this->char;
     }
 
-    public function getSequence(): string
+    public function getChar(): string
     {
-        return $this->sequence;
+        return $this->char;
     }
 
     public function getWidth(): int

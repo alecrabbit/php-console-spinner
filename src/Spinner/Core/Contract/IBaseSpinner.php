@@ -10,7 +10,7 @@ use AlecRabbit\Spinner\Core\Wiggler\Contract\IMessageWiggler;
 use AlecRabbit\Spinner\Core\Wiggler\Contract\IProgressWiggler;
 use AlecRabbit\Spinner\Core\Wiggler\Contract\IRevolveWiggler;
 
-interface IBaseSpinner extends HasInterval
+interface IBaseSpinner
 {
     public function spin(): void;
 

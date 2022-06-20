@@ -4,12 +4,12 @@ declare(strict_types=1);
 // 13.06.22
 namespace AlecRabbit\Spinner\Core\Widget\Contract;
 
-use AlecRabbit\Spinner\Core\Contract\AFrame;
+use AlecRabbit\Spinner\Core\Contract\ACharFrame;
 use AlecRabbit\Spinner\Core\Rotor\Contract\IInterval;
 
 interface IWidget
 {
-    public function render(?IInterval $interval = null): AFrame;
+    public function render(?IInterval $interval = null): ACharFrame;
 
     public function add(IWidget $widget): static;
 

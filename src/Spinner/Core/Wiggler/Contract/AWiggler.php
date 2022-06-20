@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Wiggler\Contract;
 
-use AlecRabbit\Spinner\Core\Contract\IFrame;
-use AlecRabbit\Spinner\Core\Frame;
+use AlecRabbit\Spinner\Core\Contract\ICharFrame;
+use AlecRabbit\Spinner\Core\CharFrame;
 use AlecRabbit\Spinner\Core\Rotor\Contract\IInterval;
 use AlecRabbit\Spinner\Core\Rotor\Contract\IRotor;
 use AlecRabbit\Spinner\Core\Rotor\Contract\IStyleRotor;
@@ -15,7 +15,7 @@ use AlecRabbit\Spinner\Core\Wiggler\CycleCalculator;
 abstract class AWiggler implements IWiggler
 {
     protected ICycle $cycle;
-    protected IFrame $currentFrame;
+    protected ICharFrame $currentFrame;
     protected ?IInterval $interval = null;
 
     protected function __construct(
@@ -71,12 +71,12 @@ abstract class AWiggler implements IWiggler
 
     abstract protected static function assertWiggler(IWiggler|string|null $wiggler): void;
 
-    public function render(): IFrame
+    public function render(): ICharFrame
     {
         if ($this->cycle->completed()) {
             return
                 $this->currentFrame =
-                    new Frame(
+                    new CharFrame(
                         $this->style->join(
                             $this->rotor->next(),
                         ),

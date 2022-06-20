@@ -5,5 +5,5 @@ namespace AlecRabbit\Spinner\Core\Contract;
 
 interface Renderable
 {
-    public function render(): IFrame;
+    public function render(): ICharFrame;
 }

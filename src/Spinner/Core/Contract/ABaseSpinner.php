@@ -7,10 +7,11 @@ namespace AlecRabbit\Spinner\Core\Contract;
 use AlecRabbit\Spinner\Core\Config\Contract\IConfig;
 use AlecRabbit\Spinner\Core\Rotor\Contract\IInterval;
 
-abstract class ABaseSpinner implements IBaseSpinner
+abstract class ABaseSpinner implements IBaseSpinner,
+                                       HasInterval
 {
     protected bool $active;
-    protected ?IFrame $currentFrame = null;
+    protected ?ICharFrame $currentFrame = null;
     protected readonly IDriver $driver;
     protected bool $interrupted = false;
     protected readonly string $finalMessage;
