@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Adapter\React;
 
-use AlecRabbit\Spinner\Core\Contract\ILoop;
-use AlecRabbit\Spinner\Core\Contract\ILoopProbe;
+use AlecRabbit\Spinner\Kernel\Contract\ILoop;
+use AlecRabbit\Spinner\Kernel\Contract\ILoopProbe;
 use React\EventLoop\Loop;
 use React\EventLoop\LoopInterface;
 

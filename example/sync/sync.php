@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-use AlecRabbit\Spinner\Core\Config\Builder\ConfigBuilder;
-use AlecRabbit\Spinner\Core\Factory\SpinnerFactory;
-use AlecRabbit\Spinner\Core\Output\StreamOutput;
+use AlecRabbit\Spinner\Kernel\Config\Builder\ConfigBuilder;
+use AlecRabbit\Spinner\Kernel\Factory\SpinnerFactory;
+use AlecRabbit\Spinner\Kernel\Output\StreamOutput;
 
 require_once __DIR__ . '/../bootstrap.php';
 

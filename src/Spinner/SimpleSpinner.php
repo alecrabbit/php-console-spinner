@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner;
 
-use AlecRabbit\Spinner\Core\Config\Contract\IConfig;
-use AlecRabbit\Spinner\Core\Contract\ABaseSpinner;
-use AlecRabbit\Spinner\Core\Contract\IDriver;
-use AlecRabbit\Spinner\Core\Contract\ICharFrame;
-use AlecRabbit\Spinner\Core\Contract\ISimpleSpinner;
-use AlecRabbit\Spinner\Core\Contract\IWigglerContainer;
-use AlecRabbit\Spinner\Core\Rotor\Contract\IInterval;
-use AlecRabbit\Spinner\Core\Wiggler\Contract\IMessageWiggler;
-use AlecRabbit\Spinner\Core\Wiggler\Contract\IProgressWiggler;
-use AlecRabbit\Spinner\Core\Wiggler\Contract\IRevolveWiggler;
+use AlecRabbit\Spinner\Kernel\Config\Contract\IConfig;
+use AlecRabbit\Spinner\Kernel\Contract\ABaseSpinner;
+use AlecRabbit\Spinner\Kernel\Contract\IDriver;
+use AlecRabbit\Spinner\Kernel\Contract\ICharFrame;
+use AlecRabbit\Spinner\Kernel\Contract\ISimpleSpinner;
+use AlecRabbit\Spinner\Kernel\Contract\IWigglerContainer;
+use AlecRabbit\Spinner\Kernel\Rotor\Contract\IInterval;
+use AlecRabbit\Spinner\Kernel\Wiggler\Contract\IMessageWiggler;
+use AlecRabbit\Spinner\Kernel\Wiggler\Contract\IProgressWiggler;
+use AlecRabbit\Spinner\Kernel\Wiggler\Contract\IRevolveWiggler;
 
 use const PHP_EOL;
 

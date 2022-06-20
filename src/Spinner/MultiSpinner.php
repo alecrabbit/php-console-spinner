@@ -3,13 +3,13 @@ declare(strict_types=1);
 // 19.06.22
 namespace AlecRabbit\Spinner;
 
-use AlecRabbit\Spinner\Core\Config\Contract\IConfig;
-use AlecRabbit\Spinner\Core\Contract\ABaseSpinner;
-use AlecRabbit\Spinner\Core\Contract\CanAddTwirler;
-use AlecRabbit\Spinner\Core\Contract\IMultiSpinner;
-use AlecRabbit\Spinner\Core\Contract\ITwirler;
-use AlecRabbit\Spinner\Core\Exception\MethodNotImplementedException;
-use AlecRabbit\Spinner\Core\Rotor\Contract\IInterval;
+use AlecRabbit\Spinner\Kernel\Config\Contract\IConfig;
+use AlecRabbit\Spinner\Kernel\Contract\ABaseSpinner;
+use AlecRabbit\Spinner\Kernel\Contract\CanAddTwirler;
+use AlecRabbit\Spinner\Kernel\Contract\IMultiSpinner;
+use AlecRabbit\Spinner\Kernel\Contract\ITwirler;
+use AlecRabbit\Spinner\Kernel\Exception\MethodNotImplementedException;
+use AlecRabbit\Spinner\Kernel\Rotor\Contract\IInterval;
 
 final class MultiSpinner extends ABaseSpinner implements IMultiSpinner
 {

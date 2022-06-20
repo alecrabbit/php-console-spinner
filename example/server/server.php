@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-use AlecRabbit\Spinner\Core\Factory\SpinnerFactory;
+use AlecRabbit\Spinner\Kernel\Factory\SpinnerFactory;
 
 require_once __DIR__ . '/../bootstrap.php';
 
