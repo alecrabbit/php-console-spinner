@@ -7,9 +7,9 @@ namespace AlecRabbit\Spinner\Kernel\Contract;
 use Countable;
 use IteratorAggregate;
 
-interface IStyleCollection extends Countable,
-                                   HasInterval,
-                                   IteratorAggregate
+interface IWStyleCollection extends Countable,
+                                    HasInterval,
+                                    IteratorAggregate
 {
     public static function create(array $styles, ?int $interval = null): self;
 

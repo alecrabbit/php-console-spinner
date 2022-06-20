@@ -6,7 +6,7 @@ namespace AlecRabbit\Spinner\Kernel\Wiggler\Contract;
 
 use AlecRabbit\Spinner\Core\Frame\Contract\ICharFrame;
 use AlecRabbit\Spinner\Kernel\CharFrame;
-use AlecRabbit\Spinner\Kernel\Rotor\Contract\WIInterval;
+use AlecRabbit\Spinner\Kernel\Rotor\Contract\IWInterval;
 use AlecRabbit\Spinner\Kernel\Rotor\Contract\IRotor;
 use AlecRabbit\Spinner\Kernel\Rotor\Contract\IStyleRotor;
 use AlecRabbit\Spinner\Kernel\Wiggler\Cycle;
@@ -16,7 +16,7 @@ abstract class AWiggler implements IWiggler
 {
     protected ICycle $cycle;
     protected ICharFrame $currentFrame;
-    protected ?WIInterval $interval = null;
+    protected ?IWInterval $interval = null;
 
     protected function __construct(
         protected readonly IStyleRotor $style,
@@ -26,7 +26,7 @@ abstract class AWiggler implements IWiggler
         $this->cycle = new Cycle(1);
     }
 
-    private function setInterval(?WIInterval $preferredInterval = null): void
+    private function setInterval(?IWInterval $preferredInterval = null): void
     {
         $this->interval = $this->extractSmallestInterval($this->style, $this->rotor, $preferredInterval);
     }
@@ -34,8 +34,8 @@ abstract class AWiggler implements IWiggler
     private function extractSmallestInterval(
         IRotor $first,
         IRotor $second,
-        ?WIInterval $preferredInterval = null
-    ): ?WIInterval {
+        ?IWInterval $preferredInterval = null
+    ): ?IWInterval {
         dump(__METHOD__, $this );
         $fInterval = $first->getInterval($preferredInterval);
         $sInterval = $second->getInterval($preferredInterval);
@@ -49,15 +49,15 @@ abstract class AWiggler implements IWiggler
         return $fInterval->smallest($sInterval);
     }
 
-    public function getInterval(?WIInterval $preferredInterval = null): ?WIInterval
+    public function getInterval(?IWInterval $preferredInterval = null): ?IWInterval
     {
-        if ($preferredInterval instanceof WIInterval) {
+        if ($preferredInterval instanceof IWInterval) {
             $this->setCycles($preferredInterval);
         }
         return $this->interval;
     }
 
-    private function setCycles(WIInterval $preferredInterval): void
+    private function setCycles(IWInterval $preferredInterval): void
     {
         $this->setInterval($preferredInterval);
         $this->cycle = new Cycle(CycleCalculator::calculate($preferredInterval, $this->interval));

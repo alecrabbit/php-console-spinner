@@ -7,7 +7,7 @@ namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Kernel;
 use AlecRabbit\Spinner\Kernel\Contract\Base\Defaults;
 use AlecRabbit\Spinner\Kernel\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Kernel\Style;
-use AlecRabbit\Spinner\Kernel\StyleCollection;
+use AlecRabbit\Spinner\Kernel\WStyleCollection;
 use AlecRabbit\Tests\Spinner\TestCase;
 
 use const AlecRabbit\Cli\CSI;
@@ -117,7 +117,7 @@ class StyleCollectionTest extends TestCase
     {
         $this->setExpectException($expected);
 
-        $styleCollection = StyleCollection::create($styles, $interval);
+        $styleCollection = WStyleCollection::create($styles, $interval);
 
         self::assertCount($expected[self::COUNT], $styleCollection);
         self::assertEquals($expected[self::INTERVAL], $styleCollection->getInterval()->toSeconds());

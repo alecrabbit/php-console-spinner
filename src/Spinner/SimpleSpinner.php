@@ -8,7 +8,7 @@ use AlecRabbit\Spinner\Kernel\Config\Contract\IConfig;
 use AlecRabbit\Spinner\Kernel\Contract\ABaseSpinner;
 use AlecRabbit\Spinner\Kernel\Contract\ISimpleSpinner;
 use AlecRabbit\Spinner\Kernel\Contract\IWigglerContainer;
-use AlecRabbit\Spinner\Kernel\Rotor\Contract\WIInterval;
+use AlecRabbit\Spinner\Kernel\Rotor\Contract\IWInterval;
 use AlecRabbit\Spinner\Kernel\Wiggler\Contract\IMessageWiggler;
 use AlecRabbit\Spinner\Kernel\Wiggler\Contract\IProgressWiggler;
 use AlecRabbit\Spinner\Kernel\Wiggler\Contract\IRevolveWiggler;
@@ -23,7 +23,7 @@ final class SimpleSpinner extends ABaseSpinner implements ISimpleSpinner
         $this->wigglers = $config->getWigglers();
     }
 
-    public function getInterval(): WIInterval
+    public function getInterval(): IWInterval
     {
         return $this->wigglers->getInterval();
     }

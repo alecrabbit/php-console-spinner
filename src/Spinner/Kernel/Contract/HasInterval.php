@@ -3,9 +3,9 @@ declare(strict_types=1);
 // 19.06.22
 namespace AlecRabbit\Spinner\Kernel\Contract;
 
-use AlecRabbit\Spinner\Kernel\Rotor\Contract\WIInterval;
+use AlecRabbit\Spinner\Kernel\Rotor\Contract\IWInterval;
 
 interface HasInterval
 {
-    public function getInterval(): WIInterval;
+    public function getInterval(): IWInterval;
 }

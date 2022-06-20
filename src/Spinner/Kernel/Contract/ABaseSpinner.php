@@ -6,7 +6,7 @@ namespace AlecRabbit\Spinner\Kernel\Contract;
 
 use AlecRabbit\Spinner\Core\Frame\Contract\ICharFrame;
 use AlecRabbit\Spinner\Kernel\Config\Contract\IConfig;
-use AlecRabbit\Spinner\Kernel\Rotor\Contract\WIInterval;
+use AlecRabbit\Spinner\Kernel\Rotor\Contract\IWInterval;
 
 abstract class ABaseSpinner implements IBaseSpinner,
                                        HasInterval
@@ -25,7 +25,7 @@ abstract class ABaseSpinner implements IBaseSpinner,
         $this->interruptMessage = $config->getInterruptMessage();
     }
 
-    abstract public function getInterval(): WIInterval;
+    abstract public function getInterval(): IWInterval;
 
     public function initialize(): void
     {

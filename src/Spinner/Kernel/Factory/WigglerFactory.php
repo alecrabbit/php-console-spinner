@@ -7,19 +7,19 @@ namespace AlecRabbit\Spinner\Kernel\Factory;
 use AlecRabbit\Spinner\Kernel\Contract\Base\Defaults;
 use AlecRabbit\Spinner\Kernel\Contract\Base\StylePattern;
 use AlecRabbit\Spinner\Kernel\Contract\IWFrameCollection;
-use AlecRabbit\Spinner\Kernel\Contract\IStyleCollection;
+use AlecRabbit\Spinner\Kernel\Contract\IWStyleCollection;
 use AlecRabbit\Spinner\Kernel\Contract\IStyleProvider;
 use AlecRabbit\Spinner\Kernel\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Kernel\Factory\Contract\IWigglerFactory;
 use AlecRabbit\Spinner\Kernel\WFrameCollection;
 use AlecRabbit\Spinner\Kernel\Rotor\Contract\IFrameRotor;
-use AlecRabbit\Spinner\Kernel\Rotor\Contract\WIInterval;
+use AlecRabbit\Spinner\Kernel\Rotor\Contract\IWInterval;
 use AlecRabbit\Spinner\Kernel\Rotor\Contract\IStyleRotor;
 use AlecRabbit\Spinner\Kernel\Rotor\FrameRotor;
 use AlecRabbit\Spinner\Kernel\Rotor\NoCharsRotor;
 use AlecRabbit\Spinner\Kernel\Rotor\NoStyleRotor;
 use AlecRabbit\Spinner\Kernel\Rotor\StyleRotor;
-use AlecRabbit\Spinner\Kernel\StyleCollection;
+use AlecRabbit\Spinner\Kernel\WStyleCollection;
 use AlecRabbit\Spinner\Kernel\StyleProvider;
 use AlecRabbit\Spinner\Kernel\Wiggler\Contract\IWiggler;
 use AlecRabbit\Spinner\Kernel\Wiggler\MessageWiggler;
@@ -31,7 +31,7 @@ final class WigglerFactory implements IWigglerFactory
 {
     private const FRAME_SEQUENCE = Defaults::FRAME_SEQUENCE;
     private IWFrameCollection $frames;
-    private IStyleCollection $styles;
+    private IWStyleCollection $styles;
     private IStyleProvider $styleProvider;
 
     /**
@@ -54,10 +54,10 @@ final class WigglerFactory implements IWigglerFactory
         return WFrameCollection::create(...self::FRAME_SEQUENCE);
     }
 
-    private function defaultStyles(): IStyleCollection
+    private function defaultStyles(): IWStyleCollection
     {
         return
-            StyleCollection::create(
+            WStyleCollection::create(
                 ...$this->styleProvider->provide(StylePattern::rainbow())
             );
     }

@@ -5,24 +5,24 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Kernel;
 
 use AlecRabbit\Spinner\Kernel\Contract\IStyle;
-use AlecRabbit\Spinner\Kernel\Contract\IStyleCollection;
-use AlecRabbit\Spinner\Kernel\Rotor\Contract\WIInterval;
+use AlecRabbit\Spinner\Kernel\Contract\IWStyleCollection;
+use AlecRabbit\Spinner\Kernel\Rotor\Contract\IWInterval;
 use AlecRabbit\Spinner\Kernel\Rotor\WInterval;
 use ArrayIterator;
 use Traversable;
 
-final class StyleCollection implements IStyleCollection
+final class WStyleCollection implements IWStyleCollection
 {
     /** @var array<int, IStyle> */
     private array $elements = [];
     private int $count = 0;
 
     protected function __construct(
-        private readonly WIInterval $interval
+        private readonly IWInterval $interval
     ) {
     }
 
-    public static function create(array $styles = [], ?int $interval = null): IStyleCollection
+    public static function create(array $styles = [], ?int $interval = null): IWStyleCollection
     {
         self::assert($styles);
         $collection = new self(new WInterval($interval));
@@ -62,7 +62,7 @@ final class StyleCollection implements IStyleCollection
         return $this->elements;
     }
 
-    public function getInterval(): WIInterval
+    public function getInterval(): IWInterval
     {
         return $this->interval;
     }

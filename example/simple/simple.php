@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 use AlecRabbit\Spinner\Kernel\Contract\Base\StylePattern;
 use AlecRabbit\Spinner\Kernel\Factory\SpinnerFactory;
-use AlecRabbit\Spinner\Kernel\StyleCollection;
+use AlecRabbit\Spinner\Kernel\WStyleCollection;
 
 require_once __DIR__ . '/../bootstrap.php';
 

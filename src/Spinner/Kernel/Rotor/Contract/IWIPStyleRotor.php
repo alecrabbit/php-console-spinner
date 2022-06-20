@@ -6,5 +6,5 @@ namespace AlecRabbit\Spinner\Kernel\Rotor\Contract;
 
 interface IWIPStyleRotor
 {
-    public function join(string $chars, ?WIInterval $interval = null): string;
+    public function join(string $chars, ?IWInterval $interval = null): string;
 }

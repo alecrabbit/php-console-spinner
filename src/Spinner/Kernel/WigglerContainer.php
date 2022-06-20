@@ -7,7 +7,7 @@ namespace AlecRabbit\Spinner\Kernel;
 use AlecRabbit\Spinner\Core\Frame\Contract\ICharFrame;
 use AlecRabbit\Spinner\Kernel\Contract\IWigglerContainer;
 use AlecRabbit\Spinner\Kernel\Exception\RuntimeException;
-use AlecRabbit\Spinner\Kernel\Rotor\Contract\WIInterval;
+use AlecRabbit\Spinner\Kernel\Rotor\Contract\IWInterval;
 use AlecRabbit\Spinner\Kernel\Rotor\WInterval;
 use AlecRabbit\Spinner\Kernel\Wiggler\Contract\IMessageWiggler;
 use AlecRabbit\Spinner\Kernel\Wiggler\Contract\IProgressWiggler;
@@ -28,11 +28,11 @@ final class WigglerContainer implements IWigglerContainer
      */
     private iterable $indexes;
     private int $currentIndex = 0;
-    private ?WIInterval $calculatedInterval = null;
-    private ?WIInterval $preferredInterval;
+    private ?IWInterval $calculatedInterval = null;
+    private ?IWInterval $preferredInterval;
 
     public function __construct(
-        ?WIInterval $preferredInterval = null,
+        ?IWInterval $preferredInterval = null,
     ) {
         $this->preferredInterval = $preferredInterval;
         $this->indexes = new WeakMap();
@@ -50,15 +50,15 @@ final class WigglerContainer implements IWigglerContainer
         return $this;
     }
 
-    private function updateInterval(?WIInterval $interval): void
+    private function updateInterval(?IWInterval $interval): void
     {
         $this->calculatedInterval =
-            $this->calculatedInterval instanceof WIInterval
+            $this->calculatedInterval instanceof IWInterval
                 ? $this->calculatedInterval->smallest($interval)
                 : $interval;
     }
 
-    public function getInterval(): WIInterval
+    public function getInterval(): IWInterval
     {
         $this->calculatedInterval = $this->calculateInterval($this->preferredInterval);
 
@@ -66,7 +66,7 @@ final class WigglerContainer implements IWigglerContainer
             $this->preferredInterval ?? $this->calculatedInterval;
     }
 
-    private function calculateInterval(?WIInterval $preferredInterval): WIInterval
+    private function calculateInterval(?IWInterval $preferredInterval): IWInterval
     {
         $preferredInterval = $preferredInterval ?? new WInterval(1000);
 //        foreach ($this->wigglers as $wiggler) {

@@ -7,7 +7,7 @@ namespace AlecRabbit\Spinner\Kernel;
 use AlecRabbit\Spinner\Core\Frame\Contract\ICharFrame;
 use AlecRabbit\Spinner\Kernel\Contract\IWFrameCollection;
 use AlecRabbit\Spinner\Kernel\Exception\InvalidArgumentException;
-use AlecRabbit\Spinner\Kernel\Rotor\Contract\WIInterval;
+use AlecRabbit\Spinner\Kernel\Rotor\Contract\IWInterval;
 use AlecRabbit\Spinner\Kernel\Rotor\WInterval;
 use ArrayIterator;
 use Traversable;
@@ -19,7 +19,7 @@ final class WFrameCollection implements IWFrameCollection
     private int $count = 0;
 
     protected function __construct(
-        private readonly WIInterval $interval
+        private readonly IWInterval $interval
     ) {
     }
 
@@ -59,7 +59,7 @@ final class WFrameCollection implements IWFrameCollection
         return $this->elements;
     }
 
-    public function getInterval(): WIInterval
+    public function getInterval(): IWInterval
     {
         return $this->interval;
     }

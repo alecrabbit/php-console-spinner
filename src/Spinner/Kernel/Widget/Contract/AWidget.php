@@ -8,7 +8,7 @@ use AlecRabbit\Spinner\Core\Frame\CharFrame;
 use AlecRabbit\Spinner\Core\Frame\Contract\ACharFrame;
 use AlecRabbit\Spinner\Kernel\Contract\Base\C;
 use AlecRabbit\Spinner\Kernel\Rotor\Contract\IFrameRotor;
-use AlecRabbit\Spinner\Kernel\Rotor\Contract\WIInterval;
+use AlecRabbit\Spinner\Kernel\Rotor\Contract\IWInterval;
 use AlecRabbit\Spinner\Kernel\Rotor\Contract\IStyleRotor;
 use AlecRabbit\Spinner\Kernel\WidthDefiner;
 use WeakMap;
@@ -78,7 +78,7 @@ abstract class AWidget implements IWidget
         return $this;
     }
 
-    public function render(?WIInterval $interval = null): ACharFrame
+    public function render(?IWInterval $interval = null): ACharFrame
     {
         $childrenFrame = $this->renderChildren($interval);
         return
@@ -91,7 +91,7 @@ abstract class AWidget implements IWidget
             );
     }
 
-    private function renderChildren(?WIInterval $interval = null): ACharFrame
+    private function renderChildren(?IWInterval $interval = null): ACharFrame
     {
         $sequence = '';
         $width = 0;

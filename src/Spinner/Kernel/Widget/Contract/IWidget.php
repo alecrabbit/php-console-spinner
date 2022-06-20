@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Kernel\Widget\Contract;
 
 use AlecRabbit\Spinner\Core\Frame\Contract\ACharFrame;
-use AlecRabbit\Spinner\Kernel\Rotor\Contract\WIInterval;
+use AlecRabbit\Spinner\Kernel\Rotor\Contract\IWInterval;
 
 interface IWidget
 {
-    public function render(?WIInterval $interval = null): ACharFrame;
+    public function render(?IWInterval $interval = null): ACharFrame;
 
     public function add(IWidget $widget): static;
 

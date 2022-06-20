@@ -6,9 +6,9 @@ namespace AlecRabbit\Spinner\Kernel\Rotor;
 
 use AlecRabbit\Spinner\Kernel\Contract\Base\Defaults;
 use AlecRabbit\Spinner\Kernel\Exception\InvalidArgumentException;
-use AlecRabbit\Spinner\Kernel\Rotor\Contract\WIInterval;
+use AlecRabbit\Spinner\Kernel\Rotor\Contract\IWInterval;
 
-final class WInterval implements WIInterval
+final class WInterval implements IWInterval
 {
     private const MAX_INTERVAL = Defaults::MILLISECONDS_MAX_INTERVAL;
     private const MIN_INTERVAL = Defaults::MILLISECONDS_MIN_INTERVAL;
@@ -55,7 +55,7 @@ final class WInterval implements WIInterval
         return $this->seconds;
     }
 
-    public function smallest(?WIInterval $other): ?WIInterval
+    public function smallest(?IWInterval $other): ?IWInterval
     {
         if (null === $other) {
             return $this;
