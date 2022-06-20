@@ -8,7 +8,7 @@ use Countable;
 use IteratorAggregate;
 
 interface IWStyleCollection extends Countable,
-                                    HasInterval,
+                                    WHasInterval,
                                     IteratorAggregate
 {
     public static function create(array $styles, ?int $interval = null): self;

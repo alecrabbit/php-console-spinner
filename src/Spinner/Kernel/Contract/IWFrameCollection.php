@@ -8,7 +8,7 @@ use AlecRabbit\Spinner\Core\Frame\Contract\ICharFrame;
 use IteratorAggregate;
 
 interface IWFrameCollection extends IteratorAggregate,
-                                    HasInterval
+                                    WHasInterval
 {
     public static function create(iterable|string $frames, ?int $elementWidth = null, ?int $interval = null): self;
 

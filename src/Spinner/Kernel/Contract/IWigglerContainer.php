@@ -14,7 +14,7 @@ use Traversable;
 
 interface IWigglerContainer extends IteratorAggregate,
                                     Renderable,
-                                    HasInterval
+                                    WHasInterval
 {
     public function addWiggler(IWiggler $wiggler): IWigglerContainer;
 

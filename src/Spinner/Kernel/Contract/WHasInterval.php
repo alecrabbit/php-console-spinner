@@ -5,7 +5,7 @@ namespace AlecRabbit\Spinner\Kernel\Contract;
 
 use AlecRabbit\Spinner\Kernel\Rotor\Contract\IWInterval;
 
-interface HasInterval
+interface WHasInterval
 {
     public function getInterval(): IWInterval;
 }

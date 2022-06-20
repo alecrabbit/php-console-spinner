@@ -4,12 +4,13 @@ declare(strict_types=1);
 // 19.06.22
 namespace AlecRabbit\Spinner\Kernel\Contract;
 
+use AlecRabbit\Spinner\Core\Contract\IBaseSpinner;
 use AlecRabbit\Spinner\Core\Frame\Contract\ICharFrame;
 use AlecRabbit\Spinner\Kernel\Config\Contract\IConfig;
 use AlecRabbit\Spinner\Kernel\Rotor\Contract\IWInterval;
 
-abstract class ABaseSpinner implements IBaseSpinner,
-                                       HasInterval
+abstract class AWBaseSpinner implements IBaseSpinner,
+                                        WHasInterval
 {
     protected bool $active;
     protected ?ICharFrame $currentFrame = null;

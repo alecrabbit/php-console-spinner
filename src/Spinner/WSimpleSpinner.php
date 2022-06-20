@@ -5,15 +5,15 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner;
 
 use AlecRabbit\Spinner\Kernel\Config\Contract\IConfig;
-use AlecRabbit\Spinner\Kernel\Contract\ABaseSpinner;
-use AlecRabbit\Spinner\Kernel\Contract\ISimpleSpinner;
+use AlecRabbit\Spinner\Kernel\Contract\AWBaseSpinner;
+use AlecRabbit\Spinner\Kernel\Contract\IWSimpleSpinner;
 use AlecRabbit\Spinner\Kernel\Contract\IWigglerContainer;
 use AlecRabbit\Spinner\Kernel\Rotor\Contract\IWInterval;
 use AlecRabbit\Spinner\Kernel\Wiggler\Contract\IMessageWiggler;
 use AlecRabbit\Spinner\Kernel\Wiggler\Contract\IProgressWiggler;
 use AlecRabbit\Spinner\Kernel\Wiggler\Contract\IRevolveWiggler;
 
-final class SimpleSpinner extends ABaseSpinner implements ISimpleSpinner
+final class WSimpleSpinner extends AWBaseSpinner implements IWSimpleSpinner
 {
     protected IWigglerContainer $wigglers;
 

@@ -10,21 +10,11 @@ use AlecRabbit\Spinner\Kernel\Wiggler\Contract\IMessageWiggler;
 use AlecRabbit\Spinner\Kernel\Wiggler\Contract\IProgressWiggler;
 use AlecRabbit\Spinner\Kernel\Wiggler\Contract\IRevolveWiggler;
 
-interface IBaseSpinner
+interface IWSimpleSpinner
 {
-    public function spin(): void;
+    public function spinner(IRevolveWiggler|string|null $wiggler): void;
 
-    public function initialize(): void;
+    public function message(IMessageWiggler|string|null $wiggler): void;
 
-    public function interrupt(): void;
-
-    public function finalize(): void;
-
-    public function erase(): void;
-
-    public function pause(): void;
-
-    public function resume(): void;
-
-    public function wrap(callable $callback, ...$args): void;
+    public function progress(IProgressWiggler|float|null $wiggler): void;
 }
