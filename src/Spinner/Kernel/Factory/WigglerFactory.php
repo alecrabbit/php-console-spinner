@@ -4,28 +4,26 @@ declare(strict_types=1);
 // 15.06.22
 namespace AlecRabbit\Spinner\Kernel\Factory;
 
-use AlecRabbit\Spinner\Kernel\Contract\Base\Defaults;
+use AlecRabbit\Spinner\Core\Defaults;
 use AlecRabbit\Spinner\Kernel\Contract\Base\StylePattern;
+use AlecRabbit\Spinner\Kernel\Contract\IStyleProvider;
 use AlecRabbit\Spinner\Kernel\Contract\IWFrameCollection;
 use AlecRabbit\Spinner\Kernel\Contract\IWStyleCollection;
-use AlecRabbit\Spinner\Kernel\Contract\IStyleProvider;
 use AlecRabbit\Spinner\Kernel\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Kernel\Factory\Contract\IWigglerFactory;
-use AlecRabbit\Spinner\Kernel\WFrameCollection;
 use AlecRabbit\Spinner\Kernel\Rotor\Contract\IFrameRotor;
-use AlecRabbit\Spinner\Kernel\Rotor\Contract\IWInterval;
 use AlecRabbit\Spinner\Kernel\Rotor\Contract\IStyleRotor;
 use AlecRabbit\Spinner\Kernel\Rotor\FrameRotor;
 use AlecRabbit\Spinner\Kernel\Rotor\NoCharsRotor;
 use AlecRabbit\Spinner\Kernel\Rotor\NoStyleRotor;
 use AlecRabbit\Spinner\Kernel\Rotor\StyleRotor;
-use AlecRabbit\Spinner\Kernel\WStyleCollection;
-use AlecRabbit\Spinner\Kernel\StyleProvider;
+use AlecRabbit\Spinner\Kernel\WFrameCollection;
 use AlecRabbit\Spinner\Kernel\Wiggler\Contract\IWiggler;
 use AlecRabbit\Spinner\Kernel\Wiggler\MessageWiggler;
 use AlecRabbit\Spinner\Kernel\Wiggler\ProgressWiggler;
 use AlecRabbit\Spinner\Kernel\Wiggler\RevolveWiggler;
 use AlecRabbit\Spinner\Kernel\Wiggler\Wiggler;
+use AlecRabbit\Spinner\Kernel\WStyleCollection;
 
 final class WigglerFactory implements IWigglerFactory
 {

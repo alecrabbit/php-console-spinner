@@ -2,7 +2,9 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Spinner\Kernel\Contract\Base;
+namespace AlecRabbit\Spinner\Core;
+
+use AlecRabbit\Spinner\Kernel\Contract\Base\FramePattern;
 
 use const AlecRabbit\Cli\ALLOWED_TERM_COLOR;
 use const PHP_EOL;

@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Kernel\Config\Builder;
 
+use AlecRabbit\Spinner\Core\Defaults;
 use AlecRabbit\Spinner\Kernel\Config\Builder\Contract\IConfigBuilder;
 use AlecRabbit\Spinner\Kernel\Config\Config;
 use AlecRabbit\Spinner\Kernel\Config\Contract\IConfig;
-use AlecRabbit\Spinner\Kernel\Contract\Base\Defaults;
 use AlecRabbit\Spinner\Kernel\Contract\IDriver;
-use AlecRabbit\Spinner\Kernel\Contract\IWFrameCollection;
 use AlecRabbit\Spinner\Kernel\Contract\ILoop;
 use AlecRabbit\Spinner\Kernel\Contract\IStylePatternExtractor;
 use AlecRabbit\Spinner\Kernel\Contract\IStyleProvider;
+use AlecRabbit\Spinner\Kernel\Contract\IWFrameCollection;
 use AlecRabbit\Spinner\Kernel\Contract\IWigglerContainer;
 use AlecRabbit\Spinner\Kernel\Driver;
 use AlecRabbit\Spinner\Kernel\Exception\DomainException;

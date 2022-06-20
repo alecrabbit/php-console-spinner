@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Kernel\Config;
 
+use AlecRabbit\Spinner\Core\Defaults;
 use AlecRabbit\Spinner\Kernel\Config\Contract\IConfig;
-use AlecRabbit\Spinner\Kernel\Contract\Base\Defaults;
 use AlecRabbit\Spinner\Kernel\Contract\IDriver;
 use AlecRabbit\Spinner\Kernel\Contract\ILoop;
 use AlecRabbit\Spinner\Kernel\Contract\IWigglerContainer;

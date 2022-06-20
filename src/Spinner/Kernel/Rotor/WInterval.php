@@ -4,7 +4,7 @@ declare(strict_types=1);
 // 08.06.22
 namespace AlecRabbit\Spinner\Kernel\Rotor;
 
-use AlecRabbit\Spinner\Kernel\Contract\Base\Defaults;
+use AlecRabbit\Spinner\Core\Defaults;
 use AlecRabbit\Spinner\Kernel\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Kernel\Rotor\Contract\IWInterval;
 

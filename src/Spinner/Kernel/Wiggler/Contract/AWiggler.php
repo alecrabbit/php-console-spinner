@@ -36,7 +36,7 @@ abstract class AWiggler implements IWiggler
         IRotor $second,
         ?IWInterval $preferredInterval = null
     ): ?IWInterval {
-        dump(__METHOD__, $this );
+//        dump(__METHOD__, $this );
         $fInterval = $first->getInterval($preferredInterval);
         $sInterval = $second->getInterval($preferredInterval);
 

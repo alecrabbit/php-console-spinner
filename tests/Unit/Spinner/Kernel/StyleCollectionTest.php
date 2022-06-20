@@ -4,7 +4,7 @@ declare(strict_types=1);
 // 16.06.22
 namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Kernel;
 
-use AlecRabbit\Spinner\Kernel\Contract\Base\Defaults;
+use AlecRabbit\Spinner\Core\Defaults;
 use AlecRabbit\Spinner\Kernel\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Kernel\Style;
 use AlecRabbit\Spinner\Kernel\WStyleCollection;
