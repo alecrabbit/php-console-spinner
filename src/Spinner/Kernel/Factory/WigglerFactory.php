@@ -7,7 +7,7 @@ namespace AlecRabbit\Spinner\Kernel\Factory;
 use AlecRabbit\Spinner\Core\Defaults;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Kernel\Contract\Base\StylePattern;
-use AlecRabbit\Spinner\Kernel\Contract\IStyleProvider;
+use AlecRabbit\Spinner\Kernel\Contract\WIStyleProvider;
 use AlecRabbit\Spinner\Kernel\Contract\IWFrameCollection;
 use AlecRabbit\Spinner\Kernel\Contract\IWStyleCollection;
 use AlecRabbit\Spinner\Kernel\Factory\Contract\IWigglerFactory;
@@ -30,13 +30,13 @@ final class WigglerFactory implements IWigglerFactory
     private const FRAME_SEQUENCE = Defaults::FRAME_SEQUENCE;
     private IWFrameCollection $frames;
     private IWStyleCollection $styles;
-    private IStyleProvider $styleProvider;
+    private WIStyleProvider $styleProvider;
 
     /**
      * @throws InvalidArgumentException
      */
     public function __construct(
-        IStyleProvider $styleProvider,
+        WIStyleProvider $styleProvider,
         ?IWFrameCollection $frames = null,
     ) {
         $this->styleProvider = $styleProvider;

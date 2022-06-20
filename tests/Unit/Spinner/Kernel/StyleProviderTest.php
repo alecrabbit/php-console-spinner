@@ -7,9 +7,9 @@ namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Kernel;
 use AlecRabbit\Spinner\Core\Contract\C;
 use AlecRabbit\Spinner\Kernel\Contract\Base\StylePattern;
 use AlecRabbit\Spinner\Kernel\Contract\IStylePatternExtractor;
-use AlecRabbit\Spinner\Kernel\Contract\IStyleProvider;
+use AlecRabbit\Spinner\Kernel\Contract\WIStyleProvider;
 use AlecRabbit\Spinner\Kernel\StylePatternExtractor;
-use AlecRabbit\Spinner\Kernel\StyleProvider;
+use AlecRabbit\Spinner\Kernel\WStyleProvider;
 use AlecRabbit\Tests\Spinner\TestCase;
 use JetBrains\PhpStorm\ArrayShape;
 
@@ -234,9 +234,9 @@ class StyleProviderTest extends TestCase
         self::assertEquals($expected[self::RENDERED], $renderer->provide($incoming[self::PATTERN]));
     }
 
-    public static function getInstance(array $args = []): IStyleProvider
+    public static function getInstance(array $args = []): WIStyleProvider
     {
-        return new StyleProvider(self::getExtractorInstance($args));
+        return new WStyleProvider(self::getExtractorInstance($args));
     }
 
     public static function getExtractorInstance(array $args = []): IStylePatternExtractor

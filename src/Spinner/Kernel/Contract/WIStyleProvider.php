@@ -4,7 +4,7 @@ declare(strict_types=1);
 // 16.06.22
 namespace AlecRabbit\Spinner\Kernel\Contract;
 
-interface IStyleProvider
+interface WIStyleProvider
 {
     public function provide(array $pattern): array;
 }

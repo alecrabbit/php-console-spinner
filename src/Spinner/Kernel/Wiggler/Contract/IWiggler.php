@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Kernel\Wiggler\Contract;
 
-use AlecRabbit\Spinner\Kernel\Contract\Renderable;
+use AlecRabbit\Spinner\Kernel\Contract\WRenderable;
 use AlecRabbit\Spinner\Kernel\Rotor\Contract\IWInterval;
 
-interface IWiggler extends Renderable
+interface IWiggler extends WRenderable
 {
     /**
      * @deprecated

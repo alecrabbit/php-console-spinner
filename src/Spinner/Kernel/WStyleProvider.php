@@ -6,10 +6,10 @@ namespace AlecRabbit\Spinner\Kernel;
 
 use AlecRabbit\Spinner\Core\Contract\C;
 use AlecRabbit\Spinner\Kernel\Contract\IStylePatternExtractor;
-use AlecRabbit\Spinner\Kernel\Contract\IStyleProvider;
+use AlecRabbit\Spinner\Kernel\Contract\WIStyleProvider;
 use JetBrains\PhpStorm\ArrayShape;
 
-final class StyleProvider implements IStyleProvider
+final class WStyleProvider implements WIStyleProvider
 {
     public function __construct(
         private readonly IStylePatternExtractor $extractor,

@@ -5,7 +5,7 @@ namespace AlecRabbit\Spinner\Kernel\Contract;
 
 use AlecRabbit\Spinner\Core\Frame\Contract\ICharFrame;
 
-interface Renderable
+interface WRenderable
 {
     public function render(): ICharFrame;
 }

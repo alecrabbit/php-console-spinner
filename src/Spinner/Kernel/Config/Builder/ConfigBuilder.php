@@ -14,7 +14,7 @@ use AlecRabbit\Spinner\Kernel\Config\Contract\IConfig;
 use AlecRabbit\Spinner\Kernel\Contract\IDriver;
 use AlecRabbit\Spinner\Kernel\Contract\ILoop;
 use AlecRabbit\Spinner\Kernel\Contract\IStylePatternExtractor;
-use AlecRabbit\Spinner\Kernel\Contract\IStyleProvider;
+use AlecRabbit\Spinner\Kernel\Contract\WIStyleProvider;
 use AlecRabbit\Spinner\Kernel\Contract\IWFrameCollection;
 use AlecRabbit\Spinner\Kernel\Contract\IWigglerContainer;
 use AlecRabbit\Spinner\Kernel\Driver;
@@ -26,7 +26,7 @@ use AlecRabbit\Spinner\Kernel\Factory\WigglerContainerFactory;
 use AlecRabbit\Spinner\Kernel\Output\StreamOutput;
 use AlecRabbit\Spinner\Kernel\Rotor\Contract\IWInterval;
 use AlecRabbit\Spinner\Kernel\StylePatternExtractor;
-use AlecRabbit\Spinner\Kernel\StyleProvider;
+use AlecRabbit\Spinner\Kernel\WStyleProvider;
 use AlecRabbit\Spinner\Kernel\Writer;
 
 use const STDERR;
@@ -54,7 +54,7 @@ final class ConfigBuilder implements IConfigBuilder
     private ?ILoopFactory $loopFactory = null;
     private ?IWigglerContainerFactory $wigglerContainerFactory = null;
     private ?IWigglerFactory $wigglerFactory = null;
-    private ?IStyleProvider $styleRenderer = null;
+    private ?WIStyleProvider $styleRenderer = null;
     private ?IStylePatternExtractor $stylePatternExtractor = null;
 
     public function withWigglerContainerFactory(IWigglerContainerFactory $wigglerContainerFactory): self
@@ -71,7 +71,7 @@ final class ConfigBuilder implements IConfigBuilder
         return $clone;
     }
 
-    public function withStyleRenderer(IStyleProvider $styleRenderer): self
+    public function withStyleRenderer(WIStyleProvider $styleRenderer): self
     {
         $clone = clone $this;
         $clone->styleRenderer = $styleRenderer;
@@ -230,7 +230,7 @@ final class ConfigBuilder implements IConfigBuilder
         }
 
         if (null === $this->styleRenderer) {
-            $this->styleRenderer = new StyleProvider($this->stylePatternExtractor);
+            $this->styleRenderer = new WStyleProvider($this->stylePatternExtractor);
         }
 
         if (null === $this->wigglerContainerFactory) {

@@ -13,7 +13,7 @@ use IteratorAggregate;
 use Traversable;
 
 interface IWigglerContainer extends IteratorAggregate,
-                                    Renderable,
+                                    WRenderable,
                                     WHasInterval
 {
     public function addWiggler(IWiggler $wiggler): IWigglerContainer;
