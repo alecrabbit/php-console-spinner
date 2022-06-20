@@ -6,6 +6,7 @@ namespace AlecRabbit\Spinner\Core\Twirler\Contract;
 
 use AlecRabbit\Spinner\Core\Revolver\Contract\ICharRevolver;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IStyleRevolver;
+use AlecRabbit\Spinner\Core\Twirler\TwirlerFrame;
 
 abstract class ATwirler implements ITwirler
 {
@@ -19,6 +20,9 @@ abstract class ATwirler implements ITwirler
 
     public function render(): ITwirlerFrame
     {
-        // TODO: Implement render() method.
+        return new TwirlerFrame(
+            $this->styleRevolver->next(),
+            $this->charRevolver->next(),
+        );
     }
 }

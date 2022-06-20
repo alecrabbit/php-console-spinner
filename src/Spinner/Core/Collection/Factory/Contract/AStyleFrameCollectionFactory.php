@@ -6,12 +6,20 @@ namespace AlecRabbit\Spinner\Core\Collection\Factory\Contract;
 
 use AlecRabbit\Spinner\Core\Collection\Contract\IStyleFrameCollection;
 use AlecRabbit\Spinner\Core\Collection\StyleFrameCollection;
+use AlecRabbit\Spinner\Core\Frame\Factory\Contract\IStyleFrameFactory;
 
 abstract class AStyleFrameCollectionFactory implements IStyleFrameCollectionFactory
 {
-    public function create(): IStyleFrameCollection
+    public function __construct(
+        protected readonly IStyleFrameFactory $frameFactory,
+    ) {
+    }
+
+    public function create(array $frames = []): IStyleFrameCollection
     {
-        $collection = new StyleFrameCollection();
-        return $collection;
+        if([] === $frames) {
+            return new StyleFrameCollection([$this->frameFactory->create()]);
+        }
+        return new StyleFrameCollection($frames);
     }
 }

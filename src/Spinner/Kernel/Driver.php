@@ -6,6 +6,7 @@ namespace AlecRabbit\Spinner\Kernel;
 
 use AlecRabbit\Spinner\Core\Defaults;
 use AlecRabbit\Spinner\Core\Frame\Contract\ICharFrame;
+use AlecRabbit\Spinner\Core\Twirler\Contract\ITwirler;
 use AlecRabbit\Spinner\Kernel\Contract\IDriver;
 use AlecRabbit\Spinner\Kernel\Contract\IWriter;
 
@@ -65,6 +66,9 @@ final class Driver implements IDriver
 
     public function render($whatever): void
     {
-        dump($whatever);
+        /** @var ITwirler $item */
+        foreach ($whatever as $item) {
+            dump($item->render()) ;
+        }
     }
 }

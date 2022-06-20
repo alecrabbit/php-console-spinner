@@ -6,12 +6,20 @@ namespace AlecRabbit\Spinner\Core\Collection\Factory\Contract;
 
 use AlecRabbit\Spinner\Core\Collection\CharFrameCollection;
 use AlecRabbit\Spinner\Core\Collection\Contract\ICharFrameCollection;
+use AlecRabbit\Spinner\Core\Frame\Factory\Contract\ICharFrameFactory;
 
 abstract class ACharFrameCollectionFactory implements ICharFrameCollectionFactory
 {
-    public function create(): ICharFrameCollection
+    public function __construct(
+        protected readonly ICharFrameFactory $frameFactory,
+    ) {
+    }
+
+    public function create(array $frames = []): ICharFrameCollection
     {
-        $collection = new CharFrameCollection();
-        return $collection;
+        if ([] === $frames) {
+            return new CharFrameCollection([$this->frameFactory->create('1', 1)]);
+        }
+        return new CharFrameCollection($frames);
     }
 }

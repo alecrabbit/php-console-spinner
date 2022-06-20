@@ -8,5 +8,5 @@ use AlecRabbit\Spinner\Core\Collection\Contract\IStyleFrameCollection;
 
 interface IStyleFrameCollectionFactory
 {
-    public function create(): IStyleFrameCollection;
+    public function create(array $frames = []): IStyleFrameCollection;
 }

@@ -9,5 +9,5 @@ use AlecRabbit\Spinner\Core\Collection\Contract\ICharFrameCollection;
 interface ICharFrameCollectionFactory
 {
 
-    public function create(): ICharFrameCollection;
+    public function create(array $frames = []): ICharFrameCollection;
 }
