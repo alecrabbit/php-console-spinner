@@ -20,5 +20,5 @@ interface IDriver
 
     public function message(string $message): void;
 
-    public function render($whatever): void;
+    public function render(iterable $sequence): void;
 }

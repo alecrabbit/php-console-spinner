@@ -18,7 +18,7 @@ abstract class ACharFrameCollectionFactory implements ICharFrameCollectionFactor
     public function create(array $frames = []): ICharFrameCollection
     {
         if ([] === $frames) {
-            return new CharFrameCollection([$this->frameFactory->create('1', 1)]);
+            return new CharFrameCollection([$this->frameFactory->create('0', 1)]);
         }
         return new CharFrameCollection($frames);
     }

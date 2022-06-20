@@ -5,16 +5,15 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Contract;
 
 use AlecRabbit\Spinner\Kernel\Config\Builder\ConfigBuilder;
+use AlecRabbit\Spinner\Kernel\Config\Contract\IConfig;
 use AlecRabbit\Spinner\Kernel\Contract\IWFrameCollection;
 use AlecRabbit\Spinner\MultiSpinner;
 
 abstract class ASpinnerFactory implements ISpinnerFactory
 {
-    public static function create(): IBaseSpinner
+    public static function create(?IConfig $config = null): IBaseSpinner
     {
-        $spinnerConfigBuilder = new ConfigBuilder();
-
-        $config = $spinnerConfigBuilder->build();
+        $config = $config ?? (new ConfigBuilder())->build();
 
         return new MultiSpinner($config);
     }

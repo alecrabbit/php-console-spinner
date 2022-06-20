@@ -7,6 +7,9 @@ namespace AlecRabbit\Spinner\Kernel\Output;
 use AlecRabbit\Spinner\Exception\RuntimeException;
 use AlecRabbit\Spinner\Kernel\Output\Contract\IOutput;
 
+use Stringable;
+use Stringable\Throwable;
+
 use function fflush;
 use function fwrite;
 use function get_debug_type;

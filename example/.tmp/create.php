@@ -14,6 +14,7 @@ use AlecRabbit\Spinner\Core\SpinnerFactory;
 use AlecRabbit\Spinner\Core\StylePatternExtractor;
 use AlecRabbit\Spinner\Core\Twirler\Factory\TwirlerFactory;
 use AlecRabbit\Spinner\Core\Twirler\TwirlerContainer;
+use AlecRabbit\Spinner\Kernel\Config\Builder\ConfigBuilder;
 
 require_once __DIR__ . '/../bootstrap.php';
 
@@ -34,22 +35,32 @@ $twirlerFactory = new TwirlerFactory(
     ),
 );
 
-$twirler = $twirlerFactory->create();
+$twirlerOne = $twirlerFactory->create();
+$twirlerTwo = $twirlerFactory->create();
 //
 //$container->addTwirler($twirler);
 //
 //dump($container);
 
-$spinner = SpinnerFactory::create();
+$config =
+    (new ConfigBuilder())
+        ->withCursor()
+        ->build()
+;
+$spinner = SpinnerFactory::create($config);
 
-$spinner->addTwirler($twirler);
+$spinner
+    ->addTwirler($twirlerOne)
+    ->addTwirler($twirlerTwo)
+;
 
 //dump($spinner);
 
 $spinner->initialize();
 
-$spinner->spin();
-
-$spinner->spin();
+for ($i = 0; $i < 100; $i++) {
+    $spinner->spin();
+    usleep(100000);
+}
 
 $spinner->finalize();

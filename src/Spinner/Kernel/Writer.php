@@ -13,12 +13,17 @@ use AlecRabbit\Spinner\Kernel\Output\Contract\IOutput;
 final class Writer implements IWriter
 {
     public function __construct(
-        private readonly IOutput $output
+        protected readonly IOutput $output
     ) {
     }
 
     public function write(string ...$sequences): void
     {
         $this->output->write($sequences);
+    }
+
+    public function getOutput(): IOutput
+    {
+        return $this->output;
     }
 }

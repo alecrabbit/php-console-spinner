@@ -15,4 +15,14 @@ abstract class ATwirlerFrame implements ITwirlerFrame
     ) {
     }
 
+    public function getStyleFrame(): IStyleFrame
+    {
+        return $this->styleFrame;
+    }
+
+    public function getCharFrame(): ICharFrame
+    {
+        return $this->charFrame;
+    }
+
 }
