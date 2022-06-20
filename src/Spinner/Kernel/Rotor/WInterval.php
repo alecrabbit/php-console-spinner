@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Kernel\Rotor;
 
 use AlecRabbit\Spinner\Core\Defaults;
-use AlecRabbit\Spinner\Kernel\Exception\InvalidArgumentException;
+use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Kernel\Rotor\Contract\IWInterval;
 
 final class WInterval implements IWInterval

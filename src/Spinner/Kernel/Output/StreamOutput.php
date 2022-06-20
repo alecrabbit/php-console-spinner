@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Kernel\Output;
 
-use AlecRabbit\Spinner\Kernel\Exception\RuntimeException;
+use AlecRabbit\Spinner\Exception\RuntimeException;
 use AlecRabbit\Spinner\Kernel\Output\Contract\IOutput;
 
 use function fflush;

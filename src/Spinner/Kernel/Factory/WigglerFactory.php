@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Kernel\Factory;
 
 use AlecRabbit\Spinner\Core\Defaults;
+use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Kernel\Contract\Base\StylePattern;
 use AlecRabbit\Spinner\Kernel\Contract\IStyleProvider;
 use AlecRabbit\Spinner\Kernel\Contract\IWFrameCollection;
 use AlecRabbit\Spinner\Kernel\Contract\IWStyleCollection;
-use AlecRabbit\Spinner\Kernel\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Kernel\Factory\Contract\IWigglerFactory;
 use AlecRabbit\Spinner\Kernel\Rotor\Contract\IFrameRotor;
 use AlecRabbit\Spinner\Kernel\Rotor\Contract\IStyleRotor;

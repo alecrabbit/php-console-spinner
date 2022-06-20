@@ -6,7 +6,7 @@ namespace AlecRabbit\Spinner\Kernel;
 
 use AlecRabbit\Spinner\Core\Defaults;
 use AlecRabbit\Spinner\Core\Frame\Contract\ICharFrame;
-use AlecRabbit\Spinner\Kernel\Exception\InvalidArgumentException;
+use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use Stringable;
 
 final class CharFrame implements ICharFrame

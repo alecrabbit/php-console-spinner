@@ -4,21 +4,19 @@ declare(strict_types=1);
 // 16.06.22
 namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Kernel;
 
-use AlecRabbit\Spinner\Kernel\Contract\Base\C;
+use AlecRabbit\Spinner\Core\Contract\C;
 use AlecRabbit\Spinner\Kernel\Contract\Base\StylePattern;
 use AlecRabbit\Spinner\Kernel\Contract\IStylePatternExtractor;
 use AlecRabbit\Spinner\Kernel\Contract\IStyleProvider;
 use AlecRabbit\Spinner\Kernel\StylePatternExtractor;
 use AlecRabbit\Spinner\Kernel\StyleProvider;
 use AlecRabbit\Tests\Spinner\TestCase;
-
 use JetBrains\PhpStorm\ArrayShape;
 
 use const AlecRabbit\Cli\CSI;
 use const AlecRabbit\Cli\RESET;
 use const AlecRabbit\Cli\TERM_16COLOR;
 use const AlecRabbit\Cli\TERM_256COLOR;
-use const AlecRabbit\Cli\TERM_NOCOLOR;
 use const AlecRabbit\Cli\TERM_TRUECOLOR;
 
 class StyleProviderTest extends TestCase

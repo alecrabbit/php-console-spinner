@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Kernel\Rotor;
 
-use AlecRabbit\Spinner\Kernel\Contract\Base\C;
+use AlecRabbit\Spinner\Core\Contract\C;
 use AlecRabbit\Spinner\Kernel\Rotor\Contract\AStringRotor;
 
 final class NoCharsRotor extends AStringRotor

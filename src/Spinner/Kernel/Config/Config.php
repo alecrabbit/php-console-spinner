@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Kernel\Config;
 
 use AlecRabbit\Spinner\Core\Defaults;
+use AlecRabbit\Spinner\Exception\InvalidArgumentException;
+use AlecRabbit\Spinner\Exception\LogicException;
 use AlecRabbit\Spinner\Kernel\Config\Contract\IConfig;
 use AlecRabbit\Spinner\Kernel\Contract\IDriver;
 use AlecRabbit\Spinner\Kernel\Contract\ILoop;
 use AlecRabbit\Spinner\Kernel\Contract\IWigglerContainer;
-use AlecRabbit\Spinner\Kernel\Exception\InvalidArgumentException;
-use AlecRabbit\Spinner\Kernel\Exception\LogicException;
 
 final class Config implements IConfig
 {

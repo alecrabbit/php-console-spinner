@@ -4,8 +4,8 @@ declare(strict_types=1);
 // 16.06.22
 namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Kernel;
 
-use AlecRabbit\Spinner\Kernel\Contract\Base\C;
-use AlecRabbit\Spinner\Kernel\Exception\InvalidArgumentException;
+use AlecRabbit\Spinner\Core\Contract\C;
+use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Kernel\Style;
 use AlecRabbit\Tests\Spinner\TestCase;
 

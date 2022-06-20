@@ -4,6 +4,7 @@ declare(strict_types=1);
 // 10.06.22
 namespace AlecRabbit\Spinner\Kernel\Contract\Base;
 
+use AlecRabbit\Spinner\Core\Contract\C;
 use JetBrains\PhpStorm\ArrayShape;
 
 use const AlecRabbit\Cli\TERM_16COLOR;
@@ -82,7 +83,7 @@ final class StylePattern
         return $incoming;
     }
 
-    #[ArrayShape([C::STYLES => "array[][]", C::INTERVAL => "int"])]
+    #[ArrayShape([C::STYLES => "array[]"])]
     protected static function defaults(): array
     {
         return [
@@ -93,28 +94,11 @@ final class StylePattern
                         C::FORMAT => null,
                         C::INTERVAL => null,
                     ],
-//                TERM_16COLOR =>
-//                    [
-//                        C::SEQUENCE => [],
-//                        C::FORMAT => '',
-//                        C::INTERVAL => null,
-//                    ],
-//                TERM_256COLOR =>
-//                    [
-//                        C::SEQUENCE => [],
-//                        C::FORMAT => '',
-//                        C::INTERVAL => null,
-//                    ],
-//                TERM_TRUECOLOR =>
-//                    [
-//                        C::SEQUENCE => [],
-//                        C::FORMAT => '',
-//                        C::INTERVAL => null,
-//                    ],
             ],
         ];
     }
 
+    #[ArrayShape([C::STYLES => "array[]"])]
     public static function rainbowBg(): array
     {
         return

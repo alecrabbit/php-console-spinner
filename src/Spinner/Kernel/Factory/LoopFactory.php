@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Kernel\Factory;
 
 use AlecRabbit\Spinner\Adapter\React\ReactLoop;
+use AlecRabbit\Spinner\Exception\DomainException;
 use AlecRabbit\Spinner\Kernel\Contract\ILoop;
 use AlecRabbit\Spinner\Kernel\Contract\ILoopProbe;
-use AlecRabbit\Spinner\Kernel\Exception\DomainException;
 use AlecRabbit\Spinner\Kernel\Factory\Contract\ILoopFactory;
 
 final class LoopFactory implements ILoopFactory

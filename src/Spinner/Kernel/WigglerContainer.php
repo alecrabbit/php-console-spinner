@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Kernel;
 
 use AlecRabbit\Spinner\Core\Frame\Contract\ICharFrame;
+use AlecRabbit\Spinner\Exception\RuntimeException;
 use AlecRabbit\Spinner\Kernel\Contract\IWigglerContainer;
-use AlecRabbit\Spinner\Kernel\Exception\RuntimeException;
 use AlecRabbit\Spinner\Kernel\Rotor\Contract\IWInterval;
 use AlecRabbit\Spinner\Kernel\Rotor\WInterval;
 use AlecRabbit\Spinner\Kernel\Wiggler\Contract\IMessageWiggler;

@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Kernel;
 
-use AlecRabbit\Spinner\Kernel\Contract\Base\C;
+use AlecRabbit\Spinner\Core\Contract\C;
+use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Kernel\Contract\IStyle;
-use AlecRabbit\Spinner\Kernel\Exception\InvalidArgumentException;
 
 final class Style implements IStyle
 {

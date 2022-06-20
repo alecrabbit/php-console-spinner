@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Kernel\Wiggler;
 
-use AlecRabbit\Spinner\Kernel\Contract\Base\C;
-use AlecRabbit\Spinner\Kernel\Exception\InvalidArgumentException;
-use AlecRabbit\Spinner\Kernel\Exception\RuntimeException;
+use AlecRabbit\Spinner\Core\Contract\C;
+use AlecRabbit\Spinner\Exception\InvalidArgumentException;
+use AlecRabbit\Spinner\Exception\RuntimeException;
 use AlecRabbit\Spinner\Kernel\Rotor\Contract\IRotor;
 use AlecRabbit\Spinner\Kernel\Rotor\Contract\IStyleRotor;
 use AlecRabbit\Spinner\Kernel\Rotor\NoCharsRotor;

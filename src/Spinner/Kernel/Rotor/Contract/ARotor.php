@@ -4,7 +4,7 @@ declare(strict_types=1);
 // 07.06.22
 namespace AlecRabbit\Spinner\Kernel\Rotor\Contract;
 
-use AlecRabbit\Spinner\Kernel\Exception\InvalidArgumentException;
+use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Kernel\Wiggler\Contract\ICycle;
 use AlecRabbit\Spinner\Kernel\Wiggler\Cycle;
 use AlecRabbit\Spinner\Kernel\Wiggler\CycleCalculator;

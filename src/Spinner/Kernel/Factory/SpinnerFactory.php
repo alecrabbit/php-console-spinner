@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Kernel\Factory;
 
+use AlecRabbit\Spinner\Exception\DomainException;
+use AlecRabbit\Spinner\Exception\InvalidArgumentException;
+use AlecRabbit\Spinner\Exception\LogicException;
 use AlecRabbit\Spinner\Kernel\Config\Builder\ConfigBuilder;
 use AlecRabbit\Spinner\Kernel\Config\Contract\IConfig;
-use AlecRabbit\Spinner\Kernel\Contract\IWFrameCollection;
 use AlecRabbit\Spinner\Kernel\Contract\ILoop;
+use AlecRabbit\Spinner\Kernel\Contract\IWFrameCollection;
 use AlecRabbit\Spinner\Kernel\Contract\IWSimpleSpinner;
-use AlecRabbit\Spinner\Kernel\Exception\DomainException;
-use AlecRabbit\Spinner\Kernel\Exception\InvalidArgumentException;
-use AlecRabbit\Spinner\Kernel\Exception\LogicException;
 use AlecRabbit\Spinner\Kernel\Factory\Contract\ISpinnerFactory;
 use AlecRabbit\Spinner\WSimpleSpinner;
 

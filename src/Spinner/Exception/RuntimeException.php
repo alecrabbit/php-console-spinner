@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Spinner\Kernel\Exception;
+namespace AlecRabbit\Spinner\Exception;
 
 use Exception;
 
