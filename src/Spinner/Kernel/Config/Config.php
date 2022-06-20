@@ -6,6 +6,7 @@ namespace AlecRabbit\Spinner\Kernel\Config;
 
 use AlecRabbit\Spinner\Core\Defaults;
 use AlecRabbit\Spinner\Core\Twirler\Contract\CanAddTwirler;
+use AlecRabbit\Spinner\Core\Twirler\Contract\ITwirlerContainer;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Exception\LogicException;
 use AlecRabbit\Spinner\Exception\MethodNotImplementedException;
@@ -23,6 +24,7 @@ final class Config implements IConfig
      */
     public function __construct(
         private readonly IDriver $driver,
+        private readonly ITwirlerContainer $container,
         private readonly ?IWigglerContainer $wigglers,
         private readonly null|int|float $shutdownDelay,
         private readonly string $interruptMessage,
@@ -185,9 +187,8 @@ final class Config implements IConfig
         return $this->colorSupportLevel;
     }
 
-    public function getContainer(): CanAddTwirler
+    public function getContainer(): ITwirlerContainer
     {
-        // FIXME (2022-06-20 15:21) [Alec Rabbit]: Implement this
-        throw new MethodNotImplementedException(__METHOD__);
+        return $this->container;
     }
 }

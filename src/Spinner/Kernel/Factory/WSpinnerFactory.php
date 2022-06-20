@@ -12,10 +12,10 @@ use AlecRabbit\Spinner\Kernel\Config\Contract\IConfig;
 use AlecRabbit\Spinner\Kernel\Contract\ILoop;
 use AlecRabbit\Spinner\Kernel\Contract\IWFrameCollection;
 use AlecRabbit\Spinner\Kernel\Contract\IWSimpleSpinner;
-use AlecRabbit\Spinner\Kernel\Factory\Contract\ISpinnerFactory;
+use AlecRabbit\Spinner\Kernel\Factory\Contract\IWSpinnerFactory;
 use AlecRabbit\Spinner\WSimpleSpinner;
 
-final class SpinnerFactory implements ISpinnerFactory
+final class WSpinnerFactory implements IWSpinnerFactory
 {
     private static ?IWSimpleSpinner $spinner = null;
 

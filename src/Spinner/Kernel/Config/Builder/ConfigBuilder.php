@@ -7,6 +7,8 @@ namespace AlecRabbit\Spinner\Kernel\Config\Builder;
 use AlecRabbit\Spinner\Core\Contract\IStylePatternExtractor;
 use AlecRabbit\Spinner\Core\Defaults;
 use AlecRabbit\Spinner\Core\StylePatternExtractor;
+use AlecRabbit\Spinner\Core\Twirler\Contract\ITwirlerContainer;
+use AlecRabbit\Spinner\Core\Twirler\TwirlerContainer;
 use AlecRabbit\Spinner\Exception\DomainException;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Exception\LogicException;
@@ -44,6 +46,7 @@ final class ConfigBuilder implements IConfigBuilder
     private ?bool $hideCursor = null;
     private ?IDriver $driver = null;
     private ?IWigglerContainer $wigglers = null;
+    private ?ITwirlerContainer $container = null;
     private ?bool $synchronousMode = null;
     private ?float $shutdownDelaySeconds = null;
     private ?string $interruptMessage = null;
@@ -166,6 +169,7 @@ final class ConfigBuilder implements IConfigBuilder
         return
             new Config(
                 driver: $this->driver,
+                container: $this->container,
                 wigglers: $this->wigglers,
                 shutdownDelay: $this->shutdownDelaySeconds,
                 interruptMessage: $this->interruptMessage,
@@ -245,6 +249,10 @@ final class ConfigBuilder implements IConfigBuilder
 
         if (null === $this->wigglers) {
             $this->wigglers = $this->wigglerContainerFactory->createContainer();
+        }
+
+        if (null === $this->container) {
+            $this->container = new TwirlerContainer();
         }
     }
 

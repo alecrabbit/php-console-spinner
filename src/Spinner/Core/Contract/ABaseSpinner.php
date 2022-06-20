@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Contract;
 
 use AlecRabbit\Spinner\Core\Frame\Contract\ICharFrame;
-use AlecRabbit\Spinner\Core\Twirler\Contract\CanAddTwirler;
+use AlecRabbit\Spinner\Core\Twirler\Contract\ITwirlerContainer;
 use AlecRabbit\Spinner\Kernel\Config\Contract\IConfig;
 use AlecRabbit\Spinner\Kernel\Contract\IDriver;
 
@@ -17,7 +17,7 @@ abstract class ABaseSpinner implements IBaseSpinner
     protected bool $interrupted = false;
     protected readonly string $finalMessage;
     protected readonly string $interruptMessage;
-    protected CanAddTwirler $container; // TODO (2022-06-20 15:19) [Alec Rabbit]: refine type.
+    protected ITwirlerContainer $container; // TODO (2022-06-20 15:19) [Alec Rabbit]: refine type.
 
     public function __construct(IConfig $config)
     {

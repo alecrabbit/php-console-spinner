@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-use AlecRabbit\Spinner\Kernel\Factory\SpinnerFactory;
+use AlecRabbit\Spinner\Kernel\Factory\WSpinnerFactory;
 
 require_once __DIR__ . '/../bootstrap.php';
 
-$spinner = SpinnerFactory::get();
+$spinner = WSpinnerFactory::get();
 
 dump($spinner) ;
 

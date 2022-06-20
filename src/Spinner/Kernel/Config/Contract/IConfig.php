@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Kernel\Config\Contract;
 
 use AlecRabbit\Spinner\Core\Twirler\Contract\CanAddTwirler;
+use AlecRabbit\Spinner\Core\Twirler\Contract\ITwirlerContainer;
 use AlecRabbit\Spinner\Kernel\Contract\IDriver;
 use AlecRabbit\Spinner\Kernel\Contract\ILoop;
 use AlecRabbit\Spinner\Kernel\Contract\IWigglerContainer;
@@ -29,5 +30,5 @@ interface IConfig
 
     public function getFinalMessage(): string;
 
-    public function getContainer(): CanAddTwirler;
+    public function getContainer(): ITwirlerContainer;
 }

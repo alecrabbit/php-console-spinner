@@ -1,12 +1,12 @@
 <?php
 declare(strict_types=1);
 
-use AlecRabbit\Spinner\Kernel\Factory\SpinnerFactory;
+use AlecRabbit\Spinner\Kernel\Factory\WSpinnerFactory;
 
 require_once __DIR__ . '/../bootstrap.php';
 
 // Create a new spinner instance with default settings.
-$spinner = SpinnerFactory::create();
+$spinner = WSpinnerFactory::create();
 
 // Server
 $server = new React\Http\HttpServer(

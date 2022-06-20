@@ -8,7 +8,7 @@ use AlecRabbit\Spinner\Kernel\Config\Contract\IConfig;
 use AlecRabbit\Spinner\Kernel\Contract\IWFrameCollection;
 use AlecRabbit\Spinner\Kernel\Contract\IWSimpleSpinner;
 
-interface ISpinnerFactory
+interface IWSpinnerFactory
 {
     public static function create(null|IWFrameCollection|IConfig $framesOrConfig = null): IWSimpleSpinner;
 

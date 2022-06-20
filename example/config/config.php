@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 use AlecRabbit\Spinner\Kernel\Config\Builder\ConfigBuilder;
-use AlecRabbit\Spinner\Kernel\Factory\SpinnerFactory;
+use AlecRabbit\Spinner\Kernel\Factory\WSpinnerFactory;
 use AlecRabbit\Spinner\Kernel\Rotor\WInterval;
 
 use const AlecRabbit\Cli\TERM_NOCOLOR;
@@ -24,7 +24,7 @@ $config =
         ->build()
 ;
 
-$spinner = SpinnerFactory::create($config);
+$spinner = WSpinnerFactory::create($config);
 dump($spinner);
 
 $loop = $config->getLoop();
