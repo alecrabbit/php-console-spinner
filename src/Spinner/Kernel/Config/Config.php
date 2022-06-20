@@ -5,8 +5,10 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Kernel\Config;
 
 use AlecRabbit\Spinner\Core\Defaults;
+use AlecRabbit\Spinner\Core\Twirler\Contract\CanAddTwirler;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Exception\LogicException;
+use AlecRabbit\Spinner\Exception\MethodNotImplementedException;
 use AlecRabbit\Spinner\Kernel\Config\Contract\IConfig;
 use AlecRabbit\Spinner\Kernel\Contract\IDriver;
 use AlecRabbit\Spinner\Kernel\Contract\ILoop;
@@ -181,5 +183,11 @@ final class Config implements IConfig
     public function getColorSupportLevel(): int
     {
         return $this->colorSupportLevel;
+    }
+
+    public function getContainer(): CanAddTwirler
+    {
+        // FIXME (2022-06-20 15:21) [Alec Rabbit]: Implement this
+        throw new MethodNotImplementedException(__METHOD__);
     }
 }

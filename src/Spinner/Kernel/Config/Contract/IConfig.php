@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Kernel\Config\Contract;
 
+use AlecRabbit\Spinner\Core\Twirler\Contract\CanAddTwirler;
 use AlecRabbit\Spinner\Kernel\Contract\IDriver;
 use AlecRabbit\Spinner\Kernel\Contract\ILoop;
 use AlecRabbit\Spinner\Kernel\Contract\IWigglerContainer;
@@ -27,4 +28,6 @@ interface IConfig
     public function getColorSupportLevel(): int;
 
     public function getFinalMessage(): string;
+
+    public function getContainer(): CanAddTwirler;
 }

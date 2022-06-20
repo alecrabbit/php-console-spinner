@@ -8,5 +8,4 @@ use AlecRabbit\Spinner\Core\Twirler\Factory\Contract\ATwirlerFactory;
 
 final class TwirlerFactory extends ATwirlerFactory
 {
-
 }
