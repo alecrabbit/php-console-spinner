@@ -11,12 +11,12 @@ use AlecRabbit\Spinner\Kernel\Contract\IDriver;
 abstract class ABaseSpinner implements IBaseSpinner
 {
     protected bool $active = false;
-    protected readonly IDriver $driver;
     protected bool $interrupted = false;
+    protected int $currentWidth = 0;
     protected readonly string $finalMessage;
     protected readonly string $interruptMessage;
-    protected ITwirlerContainer $container; // TODO (2022-06-20 15:19) [Alec Rabbit]: refine type.
-    protected int $currentWidth = 0;
+    protected readonly IDriver $driver;
+    protected readonly ITwirlerContainer $container; // TODO (2022-06-20 15:19) [Alec Rabbit]: refine type.
 
     public function __construct(IConfig $config)
     {
