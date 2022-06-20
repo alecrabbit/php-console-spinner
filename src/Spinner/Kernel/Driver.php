@@ -45,8 +45,8 @@ final class Driver implements IDriver
     public function writeFrame(ICharFrame $frame): void
     {
         $this->writer->write(
-            $frame->char,
-            Sequencer::moveBackSequence($frame->sequenceWidth),
+            $frame->getChar(),
+            Sequencer::moveBackSequence($frame->getWidth()),
         );
     }
 

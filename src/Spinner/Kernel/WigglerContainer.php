@@ -83,8 +83,8 @@ final class WigglerContainer implements IWigglerContainer
 
         foreach ($this->wigglers as $wiggler) {
             $frame = $wiggler->render();
-            $sequence .= $frame->char;
-            $width += $frame->sequenceWidth;
+            $sequence .= $frame->getChar();
+            $width += $frame->getWidth();
         }
 
         return
