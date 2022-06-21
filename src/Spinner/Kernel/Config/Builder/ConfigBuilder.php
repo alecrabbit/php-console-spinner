@@ -255,7 +255,7 @@ final class ConfigBuilder implements IConfigBuilder
         }
 
         if (null === $this->styleProvider) {
-            $this->styleProvider = new StyleProvider($this->stylePatternExtractor);
+            $this->styleProvider = new StyleProvider(new StyleFrameFactory(), $this->stylePatternExtractor);
         }
 
         if (null === $this->wigglerContainerFactory) {
@@ -273,7 +273,6 @@ final class ConfigBuilder implements IConfigBuilder
                 new TwirlerFactory(
                     new StyleRevolverFactory(
                         new StyleFrameCollectionFactory(
-                            new StyleFrameFactory(),
                             $this->styleProvider,
                         )
                     ),

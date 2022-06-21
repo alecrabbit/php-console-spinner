@@ -17,7 +17,6 @@ use AlecRabbit\Spinner\Exception\RuntimeException;
 abstract class AStyleFrameCollectionFactory implements IStyleFrameCollectionFactory
 {
     public function __construct(
-        protected readonly IStyleFrameFactory $frameFactory,
         protected readonly IStyleProvider $styleProvider,
     ) {
     }
@@ -31,7 +30,7 @@ abstract class AStyleFrameCollectionFactory implements IStyleFrameCollectionFact
         if([] === $frames) {
             return $this->defaultCollection();
         }
-        return StyleFrameCollection::create($frames, $interval ?? new Interval());
+        return StyleFrameCollection::create($frames, $interval ?? new Interval(null));
     }
 
     /**
@@ -40,7 +39,7 @@ abstract class AStyleFrameCollectionFactory implements IStyleFrameCollectionFact
      */
     private function defaultCollection(): IStyleFrameCollection
     {
-        [$frames, $interval] = $this->styleProvider->provide(Defaults::defaultStyle());
+        [$frames, $interval] = $this->styleProvider->provide(Defaults::getDefaultStyle());
 
         return StyleFrameCollection::create($frames, $interval);
     }

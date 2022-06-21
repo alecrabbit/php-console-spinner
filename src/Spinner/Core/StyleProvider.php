@@ -4,11 +4,13 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core;
 
 use AlecRabbit\Spinner\Core\Contract\IStylePatternExtractor;
+use AlecRabbit\Spinner\Core\Frame\Factory\Contract\IStyleFrameFactory;
 
 final class StyleProvider implements Contract\IStyleProvider
 {
     public function __construct(
-        private readonly IStylePatternExtractor $extractor,
+        protected readonly IStyleFrameFactory $frameFactory,
+        protected readonly IStylePatternExtractor $extractor,
     ) {
     }
 
