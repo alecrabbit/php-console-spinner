@@ -21,7 +21,7 @@ abstract class ACollection implements Countable, IteratorAggregate
      * @throws InvalidArgumentException
      * @throws RuntimeException
      */
-    public function __construct(iterable $elements)
+    protected function __construct(iterable $elements)
     {
         foreach ($elements as $element) {
             $this->addElement($element);

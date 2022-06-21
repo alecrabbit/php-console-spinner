@@ -6,7 +6,10 @@ namespace AlecRabbit\Spinner\Core\Collection\Factory\Contract;
 
 use AlecRabbit\Spinner\Core\Collection\Contract\IStyleFrameCollection;
 use AlecRabbit\Spinner\Core\Collection\StyleFrameCollection;
+use AlecRabbit\Spinner\Core\Contract\IStyleProvider;
+use AlecRabbit\Spinner\Core\Defaults;
 use AlecRabbit\Spinner\Core\Frame\Factory\Contract\IStyleFrameFactory;
+use AlecRabbit\Spinner\Core\Interval\Contract\IInterval;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Exception\RuntimeException;
 
@@ -14,6 +17,7 @@ abstract class AStyleFrameCollectionFactory implements IStyleFrameCollectionFact
 {
     public function __construct(
         protected readonly IStyleFrameFactory $frameFactory,
+        protected readonly IStyleProvider $styleProvider,
     ) {
     }
 
@@ -21,12 +25,12 @@ abstract class AStyleFrameCollectionFactory implements IStyleFrameCollectionFact
      * @throws InvalidArgumentException
      * @throws RuntimeException
      */
-    public function create(array $frames = null): IStyleFrameCollection
+    public function create(array $frames, IInterval $interval): IStyleFrameCollection
     {
-        if(null === $frames) {
+        if([] === $frames) {
             return $this->defaultCollection();
         }
-        return new StyleFrameCollection($frames);
+        return StyleFrameCollection::create($frames, $interval);
     }
 
     /**
@@ -35,6 +39,8 @@ abstract class AStyleFrameCollectionFactory implements IStyleFrameCollectionFact
      */
     private function defaultCollection(): IStyleFrameCollection
     {
-        return new StyleFrameCollection([$this->frameFactory->create()]);
+        [$frames, $interval] = $this->styleProvider->provide(Defaults::defaultStyle());
+
+        return StyleFrameCollection::create($frames, $interval);
     }
 }

@@ -12,7 +12,7 @@ final class StyleProvider implements Contract\IStyleProvider
     ) {
     }
 
-    public function provide(array $pattern): iterable
+    public function provide(array $pattern): array
     {
         // TODO: Implement provide() method.
     }
