@@ -7,7 +7,6 @@ namespace AlecRabbit\Spinner\Core\Collection\Factory\Contract;
 use AlecRabbit\Spinner\Core\Collection\Contract\IStyleFrameCollection;
 use AlecRabbit\Spinner\Core\Collection\StyleFrameCollection;
 use AlecRabbit\Spinner\Core\Contract\IStyleProvider;
-use AlecRabbit\Spinner\Core\Defaults;
 use AlecRabbit\Spinner\Core\Interval\Contract\IInterval;
 use AlecRabbit\Spinner\Core\Interval\Interval;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
@@ -40,7 +39,7 @@ abstract class AStyleFrameCollectionFactory implements IStyleFrameCollectionFact
     {
         return
             StyleFrameCollection::create(
-                ...$this->styleProvider->provide(Defaults::getDefaultStyle())
+                ...$this->styleProvider->provide()
             );
     }
 }

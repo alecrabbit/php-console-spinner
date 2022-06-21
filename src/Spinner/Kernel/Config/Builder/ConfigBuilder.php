@@ -4,8 +4,12 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Kernel\Config\Builder;
 
+use AlecRabbit\Spinner\Core\CharPatternExtractor;
 use AlecRabbit\Spinner\Core\Collection\Factory\CharFrameCollectionFactory;
 use AlecRabbit\Spinner\Core\Collection\Factory\StyleFrameCollectionFactory;
+use AlecRabbit\Spinner\Core\Contract\CharProvider;
+use AlecRabbit\Spinner\Core\Contract\ICharPatternExtractor;
+use AlecRabbit\Spinner\Core\Contract\ICharProvider;
 use AlecRabbit\Spinner\Core\Contract\IStylePatternExtractor;
 use AlecRabbit\Spinner\Core\Contract\IStyleProvider;
 use AlecRabbit\Spinner\Core\Defaults;
@@ -73,7 +77,9 @@ final class ConfigBuilder implements IConfigBuilder
     private ?IWigglerFactory $wigglerFactory = null;
     private ?WIStyleProvider $styleRenderer = null;
     private ?IStyleProvider $styleProvider = null;
+    private ?ICharProvider $charProvider = null;
     private ?IStylePatternExtractor $stylePatternExtractor = null;
+    private ?ICharPatternExtractor $charPatternExtractor = null;
     private ?ITwirlerContainerFactory $containerFactory = null;
 
     public function withWigglerContainerFactory(IWigglerContainerFactory $wigglerContainerFactory): self
@@ -250,12 +256,20 @@ final class ConfigBuilder implements IConfigBuilder
             $this->stylePatternExtractor = new StylePatternExtractor($this->terminalColorSupport);
         }
 
+        if (null === $this->charPatternExtractor) {
+            $this->charPatternExtractor = new CharPatternExtractor();
+        }
+
         if (null === $this->styleRenderer) {
             $this->styleRenderer = new WStyleProvider($this->stylePatternExtractor);
         }
 
         if (null === $this->styleProvider) {
             $this->styleProvider = new StyleProvider(new StyleFrameFactory(), $this->stylePatternExtractor);
+        }
+
+        if (null === $this->charProvider) {
+            $this->charProvider = new CharProvider(new CharFrameFactory(), $this->charPatternExtractor);
         }
 
         if (null === $this->wigglerContainerFactory) {
@@ -278,7 +292,7 @@ final class ConfigBuilder implements IConfigBuilder
                     ),
                     new CharRevolverFactory(
                         new CharFrameCollectionFactory(
-                            new CharFrameFactory()
+                            $this->charProvider,
                         )
                     ),
 

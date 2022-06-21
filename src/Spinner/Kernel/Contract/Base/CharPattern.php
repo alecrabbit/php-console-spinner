@@ -4,40 +4,42 @@ declare(strict_types=1);
 // 09.06.22
 namespace AlecRabbit\Spinner\Kernel\Contract\Base;
 
-final class FramePattern // Tentative name
+use AlecRabbit\Spinner\Core\Contract\C;
+
+final class CharPattern
 {
     public const MOON =
         [
-            'frames' => '🌘🌗🌖🌕🌔🌓🌒🌑',
-            'elementWidth' => 2,
-            'interval' => 150
+            C::FRAMES => '🌘🌗🌖🌕🌔🌓🌒🌑',
+            C::ELEMENT_WIDTH => 2,
+            C::INTERVAL => 150
         ];
 
     public const MOON_REVERSED =
         [
-            'frames' => '🌑🌒🌓🌔🌕🌖🌗🌘',
-            'elementWidth' => 2,
-            'interval' => 150
+            C::FRAMES => '🌑🌒🌓🌔🌕🌖🌗🌘',
+            C::ELEMENT_WIDTH => 2,
+            C::INTERVAL => 150
         ];
 
     public const EARTH =
         [
-            'frames' => '🌍🌎🌏',
-            'elementWidth' => 2,
-            'interval' => 300
+            C::FRAMES => '🌍🌎🌏',
+            C::ELEMENT_WIDTH => 2,
+            C::INTERVAL => 300
         ];
 
     public const DIAMOND =
         [
-            'frames' => '♦',
-            'elementWidth' => 1,
+            C::FRAMES => '♦',
+            C::ELEMENT_WIDTH => 1,
         ];
 
     public const SIMPLE =
         [
-            'frames' => ['/', '|', '\\', '─',],
-            'elementWidth' => 1,
-            'interval' => 250
+            C::FRAMES => ['/', '|', '\\', '─',],
+            C::ELEMENT_WIDTH => 1,
+            C::INTERVAL => 250
         ];
 
     public const CIRCLES = [['◐', '◓', '◑', '◒',], 1, 250];
@@ -786,6 +788,8 @@ final class FramePattern // Tentative name
         1,
         1000
     ];
+    const FRAMES = 'frames';
+    const ELEMENT_WIDTH = 'elementWidth';
 
     private function __construct()
     {

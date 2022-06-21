@@ -3,7 +3,7 @@ declare(strict_types=1);
 // 21.06.22
 namespace AlecRabbit\Spinner\Core\Contract;
 
-interface IStyleProvider
+interface ICharProvider
 {
-    public function provide(array $stylePattern = null): array;
+    public function provide(array $charPattern = null): array;
 }

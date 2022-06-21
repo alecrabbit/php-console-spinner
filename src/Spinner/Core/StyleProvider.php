@@ -23,9 +23,11 @@ final class StyleProvider implements Contract\IStyleProvider
      * @throws InvalidArgumentException
      */
     #[ArrayShape([C::FRAMES => "array", C::INTERVAL => Interval::class])]
-    public function provide(array $pattern): array
+    public function provide(array $stylePattern = null): array
     {
-        $extracted = $this->extractor->extract($pattern);
+        $stylePattern = $stylePattern ?? $this->getDefaultStylePattern();
+
+        $extracted = $this->extractor->extract($stylePattern);
         $interval = $extracted[C::STYLES][C::INTERVAL] ?? null;
         $styles = [];
         $format = $extracted[C::STYLES][C::FORMAT];
@@ -40,5 +42,10 @@ final class StyleProvider implements Contract\IStyleProvider
                 C::FRAMES => $styles,
                 C::INTERVAL => new Interval($interval),
             ];
+    }
+
+    private function getDefaultStylePattern(): array
+    {
+        return Defaults::getDefaultStyle();
     }
 }

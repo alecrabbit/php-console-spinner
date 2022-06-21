@@ -13,7 +13,10 @@ final class C
     public const SEQUENCE = 'sequence';
     public const INTERVAL = 'interval';
     public const STYLES = 'styles';
+    public const CHARS = 'chars';
     public const FRAMES = 'frames';
+    public const ELEMENT_WIDTH = 'elementWidth';
+    public const WIDTH = 'width';
     public const STR_PLACEHOLDER = '%s';
 
     private function __construct()
