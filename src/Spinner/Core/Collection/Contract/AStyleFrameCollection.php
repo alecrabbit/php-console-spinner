@@ -8,60 +8,24 @@ use AlecRabbit\Spinner\Core\Frame\Contract\IStyleFrame;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Exception\RuntimeException;
 
-abstract class AStyleFrameCollection implements IStyleFrameCollection
+abstract class AStyleFrameCollection extends ACollection implements IStyleFrameCollection
 {
-    /** @var array<IStyleFrame> */
-    protected array $frames = [];
-    protected int $count = 0;
-    protected int $index = 0;
-
+    protected const ELEMENT_CLASS = IStyleFrame::class;
     /**
+     * @param iterable<IStyleFrame> $frames
      * @throws InvalidArgumentException
+     * @throws RuntimeException
      */
-    public function __construct(array $frames)
+    public function __construct(iterable $frames)
     {
         foreach ($frames as $frame) {
-            if ($frame instanceof IStyleFrame) {
-                $this->frames[] = $frame;
-            }
-//            if (!$frame instanceof IStyleFrame) {
-//                throw new InvalidArgumentException(
-//                    sprintf('Frame must be instance of %s', IStyleFrame::class)
-//                );
-//            }
+            $this->addElement($frame);
         }
-        $this->count = count($this->frames);
-        if (0 === $this->count) {
-            throw new InvalidArgumentException(
-                'Collection is empty.'
-            );
-        }
+        $this->assertIsNotEmpty();
     }
 
     public function next(): IStyleFrame
     {
-        if (1 === $this->count) {
-            return $this->frames[0];
-        }
-        if (++$this->index === $this->count) {
-            $this->index = 0;
-        }
-        return $this->frames[$this->index];
+        return $this->nextElement();
     }
-
-//    private function refineFrames(array $frames): array
-//    {
-//        $f = [];
-//        foreach ($frames as $frame) {
-//            if ($frame instanceof IStyleFrame) {
-//                $this->frames[] = $frame;
-//            }
-////            if (!$frame instanceof IStyleFrame) {
-////                throw new InvalidArgumentException(
-////                    sprintf('Frame must be instance of %s', IStyleFrame::class)
-////                );
-////            }
-//        }
-//        return $f;
-//    }
 }

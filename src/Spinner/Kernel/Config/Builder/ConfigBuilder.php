@@ -8,6 +8,8 @@ use AlecRabbit\Spinner\Core\Contract\IStylePatternExtractor;
 use AlecRabbit\Spinner\Core\Defaults;
 use AlecRabbit\Spinner\Core\StylePatternExtractor;
 use AlecRabbit\Spinner\Core\Twirler\Contract\ITwirlerContainer;
+use AlecRabbit\Spinner\Core\Twirler\Factory\Contract\ITwirlerContainerFactory;
+use AlecRabbit\Spinner\Core\Twirler\Factory\TwirlerContainerFactory;
 use AlecRabbit\Spinner\Core\Twirler\TwirlerContainer;
 use AlecRabbit\Spinner\Core\TwirlerRenderer;
 use AlecRabbit\Spinner\Exception\DomainException;
@@ -60,6 +62,7 @@ final class ConfigBuilder implements IConfigBuilder
     private ?IWigglerFactory $wigglerFactory = null;
     private ?WIStyleProvider $styleRenderer = null;
     private ?IStylePatternExtractor $stylePatternExtractor = null;
+    private ?ITwirlerContainerFactory $containerFactory = null;
 
     public function withWigglerContainerFactory(IWigglerContainerFactory $wigglerContainerFactory): self
     {
@@ -248,12 +251,23 @@ final class ConfigBuilder implements IConfigBuilder
                 );
         }
 
+        if (null === $this->containerFactory) {
+            $this->containerFactory =
+                new TwirlerContainerFactory(
+                    $this->styleRenderer,
+                    $this->wigglerFactory,
+                    $this->frames,
+                    $this->interval,
+                );
+        }
+
         if (null === $this->wigglers) {
             $this->wigglers = $this->wigglerContainerFactory->createContainer();
         }
 
         if (null === $this->container) {
-            $this->container = new TwirlerContainer();
+            $this->container = $this->containerFactory->createContainer();
+            //new TwirlerContainer();
         }
     }
 

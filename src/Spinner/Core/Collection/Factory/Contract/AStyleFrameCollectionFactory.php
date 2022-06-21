@@ -7,6 +7,8 @@ namespace AlecRabbit\Spinner\Core\Collection\Factory\Contract;
 use AlecRabbit\Spinner\Core\Collection\Contract\IStyleFrameCollection;
 use AlecRabbit\Spinner\Core\Collection\StyleFrameCollection;
 use AlecRabbit\Spinner\Core\Frame\Factory\Contract\IStyleFrameFactory;
+use AlecRabbit\Spinner\Exception\InvalidArgumentException;
+use AlecRabbit\Spinner\Exception\RuntimeException;
 
 abstract class AStyleFrameCollectionFactory implements IStyleFrameCollectionFactory
 {
@@ -15,11 +17,24 @@ abstract class AStyleFrameCollectionFactory implements IStyleFrameCollectionFact
     ) {
     }
 
-    public function create(array $frames = []): IStyleFrameCollection
+    /**
+     * @throws InvalidArgumentException
+     * @throws RuntimeException
+     */
+    public function create(array $frames = null): IStyleFrameCollection
     {
-        if([] === $frames) {
-            return new StyleFrameCollection([$this->frameFactory->create()]);
+        if(null === $frames) {
+            return $this->defaultCollection();
         }
         return new StyleFrameCollection($frames);
+    }
+
+    /**
+     * @throws RuntimeException
+     * @throws InvalidArgumentException
+     */
+    private function defaultCollection(): IStyleFrameCollection
+    {
+        return new StyleFrameCollection([$this->frameFactory->create()]);
     }
 }

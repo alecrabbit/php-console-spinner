@@ -33,7 +33,6 @@ final class WStyleProvider implements WIStyleProvider
             ];
     }
 
-    #[ArrayShape([C::STYLES => "array", C::INTERVAL => "null|int|float"])]
     private function extract(array $pattern): array
     {
         $extracted = $this->extractor->extract($pattern);
