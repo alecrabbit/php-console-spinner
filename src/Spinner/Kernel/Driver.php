@@ -5,9 +5,8 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Kernel;
 
 use AlecRabbit\Spinner\Core\Contract\IRenderer;
-use AlecRabbit\Spinner\Core\Defaults;
 use AlecRabbit\Spinner\Core\Frame\Contract\ICharFrame;
-use AlecRabbit\Spinner\Core\TwirlerRenderer;
+use AlecRabbit\Spinner\Core\Sequencer;
 use AlecRabbit\Spinner\Kernel\Contract\IDriver;
 use AlecRabbit\Spinner\Kernel\Contract\IWriter;
 

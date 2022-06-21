@@ -1,10 +1,15 @@
 <?php
+
 declare(strict_types=1);
 // 21.06.22
 namespace AlecRabbit\Spinner\Core;
 
+use AlecRabbit\Spinner\Core\Contract\C;
 use AlecRabbit\Spinner\Core\Contract\IStylePatternExtractor;
 use AlecRabbit\Spinner\Core\Frame\Factory\Contract\IStyleFrameFactory;
+use AlecRabbit\Spinner\Core\Interval\Interval;
+use AlecRabbit\Spinner\Exception\InvalidArgumentException;
+use JetBrains\PhpStorm\ArrayShape;
 
 final class StyleProvider implements Contract\IStyleProvider
 {
@@ -14,8 +19,26 @@ final class StyleProvider implements Contract\IStyleProvider
     ) {
     }
 
+    /**
+     * @throws InvalidArgumentException
+     */
+    #[ArrayShape([C::FRAMES => "array", C::INTERVAL => Interval::class])]
     public function provide(array $pattern): array
     {
-        // TODO: Implement provide() method.
+        $extracted = $this->extractor->extract($pattern);
+        $interval = $extracted[C::STYLES][C::INTERVAL] ?? null;
+        $styles = [];
+        $format = $extracted[C::STYLES][C::FORMAT];
+        foreach ($extracted[C::STYLES][C::SEQUENCE] as $style) {
+            $styles[] = $this->frameFactory->create(
+                Sequencer::colorSequenceStart(sprintf($format, $style)),
+                Sequencer::colorSequenceEnd(),
+            );
+        }
+        return
+            [
+                C::FRAMES => $styles,
+                C::INTERVAL => new Interval($interval),
+            ];
     }
 }

@@ -2,8 +2,11 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Spinner\Kernel\Contract;
+namespace AlecRabbit\Spinner\Core\Contract;
 
+
+use const AlecRabbit\Cli\CSI;
+use const AlecRabbit\Cli\RESET;
 
 /**
  * @internal
@@ -11,6 +14,10 @@ namespace AlecRabbit\Spinner\Kernel\Contract;
 interface ISequencer
 {
     public static function colorSequence(string $sequence): string;
+
+    public static function colorSequenceStart(string $sequence): string;
+
+    public static function colorSequenceEnd(): string;
 
     public static function moveBackSequence(int $i = 1): string;
 

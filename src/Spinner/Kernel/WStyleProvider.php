@@ -6,6 +6,7 @@ namespace AlecRabbit\Spinner\Kernel;
 
 use AlecRabbit\Spinner\Core\Contract\C;
 use AlecRabbit\Spinner\Core\Contract\IStylePatternExtractor;
+use AlecRabbit\Spinner\Core\Sequencer;
 use AlecRabbit\Spinner\Kernel\Contract\WIStyleProvider;
 use JetBrains\PhpStorm\ArrayShape;
 

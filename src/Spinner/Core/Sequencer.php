@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Spinner\Kernel;
+namespace AlecRabbit\Spinner\Core;
 
-use AlecRabbit\Spinner\Kernel\Contract\ISequencer;
+use AlecRabbit\Spinner\Core\Contract\ISequencer;
 
 use const AlecRabbit\Cli\CSI;
 use const AlecRabbit\Cli\RESET;
@@ -17,6 +17,16 @@ final class Sequencer implements ISequencer
     public static function colorSequence(string $sequence): string
     {
         return CSI . $sequence . RESET;
+    }
+
+    public static function colorSequenceStart(string $sequence): string
+    {
+        return CSI . $sequence;
+    }
+
+    public static function colorSequenceEnd(): string
+    {
+        return RESET;
     }
 
     public static function moveBackSequence(int $i = 1): string

@@ -6,5 +6,7 @@ namespace AlecRabbit\Spinner\Core\Frame\Contract;
 
 interface IStyleFrame
 {
-    public function getSequence(): string;
+    public function getSequenceStart(): string;
+
+    public function getSequenceEnd(): string;
 }

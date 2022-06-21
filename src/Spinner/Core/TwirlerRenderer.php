@@ -7,7 +7,6 @@ namespace AlecRabbit\Spinner\Core;
 use AlecRabbit\Spinner\Core\Contract\IRenderer;
 use AlecRabbit\Spinner\Core\Twirler\Contract\ITwirler;
 use AlecRabbit\Spinner\Kernel\Output\Contract\IOutput;
-use AlecRabbit\Spinner\Kernel\Sequencer;
 
 final class TwirlerRenderer implements IRenderer
 {
@@ -26,7 +25,7 @@ final class TwirlerRenderer implements IRenderer
         foreach ($twirlers as $twirler) {
             if ($twirler instanceof ITwirler) {
                 $render = $twirler->render();
-                $sequences[] = sprintf($render->getStyleFrame()->getSequence(), $render->getCharFrame()->getChar());
+                $sequences[] = sprintf($render->getStyleFrame()->getSequenceStart(), $render->getCharFrame()->getChar());
                 $width += $render->getCharFrame()->getWidth();
             }
         }

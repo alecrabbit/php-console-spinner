@@ -24,6 +24,7 @@ abstract class AStyleFrameCollection extends ACollection implements IStyleFrameC
      */
     public static function create(array $frames, IInterval $interval): IStyleFrameCollection
     {
+        dump($frames, $interval);
         return new static($frames, $interval);
     }
 
