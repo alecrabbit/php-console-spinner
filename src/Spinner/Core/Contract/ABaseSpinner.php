@@ -58,7 +58,16 @@ abstract class ABaseSpinner implements IBaseSpinner
     public function spin(): void
     {
         if ($this->active) {
-            $this->currentWidth = $this->driver->render($this->container->render());
+            // FIXME (2022-06-21 12:29) [Alec Rabbit]: weak point.
+            $this->currentWidth =
+                $this->driver->display(
+                    $this->container->render()
+                );
+            // TODO (2022-06-21 12:31) [Alec Rabbit]:
+            //  should be something like:
+            //  $frame = $this->container->render()
+            //  $this->currentWidth = $frame->getWidth();
+            //  $this->driver->display($frame);
         }
     }
 

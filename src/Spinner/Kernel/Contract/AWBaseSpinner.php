@@ -55,7 +55,7 @@ abstract class AWBaseSpinner implements IBaseSpinner,
     public function erase(): void
     {
         $this->driver->erase(
-            $this->currentFrame?->getWidth()
+            $this->currentFrame?->getWidth() ?? 1
         );
     }
 

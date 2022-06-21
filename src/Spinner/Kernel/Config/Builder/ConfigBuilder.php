@@ -9,6 +9,7 @@ use AlecRabbit\Spinner\Core\Defaults;
 use AlecRabbit\Spinner\Core\StylePatternExtractor;
 use AlecRabbit\Spinner\Core\Twirler\Contract\ITwirlerContainer;
 use AlecRabbit\Spinner\Core\Twirler\TwirlerContainer;
+use AlecRabbit\Spinner\Core\TwirlerRenderer;
 use AlecRabbit\Spinner\Exception\DomainException;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Exception\LogicException;
@@ -258,12 +259,15 @@ final class ConfigBuilder implements IConfigBuilder
 
     private function createDriver(): IDriver
     {
+        $output = new StreamOutput(STDERR);
+
         return
             new Driver(
-                new Writer(
-                    new StreamOutput(STDERR)
-                ),
                 $this->hideCursor,
+                new Writer(
+                    $output
+                ),
+                new TwirlerRenderer($output),
             );
     }
 

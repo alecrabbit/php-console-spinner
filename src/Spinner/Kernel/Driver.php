@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Kernel;
 
+use AlecRabbit\Spinner\Core\Contract\IRenderer;
 use AlecRabbit\Spinner\Core\Defaults;
 use AlecRabbit\Spinner\Core\Frame\Contract\ICharFrame;
 use AlecRabbit\Spinner\Core\TwirlerRenderer;
@@ -14,13 +15,11 @@ use const AlecRabbit\Cli\TERM_256COLOR;
 
 final class Driver implements IDriver
 {
-    private TwirlerRenderer $renderer;
-
     public function __construct(
-        private readonly IWriter $writer,
         private readonly bool $hideCursor,
+        private readonly IWriter $writer,
+        private readonly IRenderer $renderer,
     ) {
-        $this->renderer = new TwirlerRenderer($this->writer->getOutput());
     }
 
     public function hideCursor(): void
@@ -54,10 +53,10 @@ final class Driver implements IDriver
         );
     }
 
-    public function erase(?int $i = null): void
+    public function erase(int $i): void
     {
         $this->writer->write(
-            Sequencer::eraseSequence($i ?? Defaults::ERASE_WIDTH)
+            Sequencer::eraseSequence($i)
         );
     }
 
@@ -67,8 +66,8 @@ final class Driver implements IDriver
         return TERM_256COLOR;
     }
 
-    public function render(iterable $sequence): int
+    public function display(iterable $sequence): int
     {
-        return $this->renderer->render($sequence);
+        return $this->renderer->display($sequence);
     }
 }

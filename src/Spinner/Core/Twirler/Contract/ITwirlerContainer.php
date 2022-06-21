@@ -6,5 +6,5 @@ namespace AlecRabbit\Spinner\Core\Twirler\Contract;
 
 interface ITwirlerContainer extends CanAddTwirler
 {
-
+    public function render(): iterable;
 }

@@ -21,7 +21,7 @@ abstract class ATwirlerContainer implements ITwirlerContainer
 
     public function addTwirler(ITwirler $twirler): CanAddTwirler
     {
-        $this->twirlers[] = $twirler;
+        $this->twirlers[$this->index] = $twirler;
         $this->twirlersMap[$twirler] = $this->index++;
         return $this;
     }

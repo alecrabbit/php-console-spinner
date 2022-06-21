@@ -14,11 +14,11 @@ interface IDriver
 
     public function showCursor(): void;
 
-    public function erase(?int $i = null): void;
+    public function erase(int $i): void;
 
     public function getTerminalColorSupport(): int;
 
     public function message(string $message): void;
 
-    public function render(iterable $sequence): int;
+    public function display(iterable $sequence): int;
 }
