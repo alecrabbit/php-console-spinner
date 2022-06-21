@@ -7,6 +7,7 @@ namespace AlecRabbit\Spinner\Kernel\Config;
 use AlecRabbit\Spinner\Core\Defaults;
 use AlecRabbit\Spinner\Core\Twirler\Contract\CanAddTwirler;
 use AlecRabbit\Spinner\Core\Twirler\Contract\ITwirlerContainer;
+use AlecRabbit\Spinner\Core\Twirler\Factory\Contract\ITwirlerFactory;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Exception\LogicException;
 use AlecRabbit\Spinner\Exception\MethodNotImplementedException;
@@ -25,6 +26,7 @@ final class Config implements IConfig
     public function __construct(
         private readonly IDriver $driver,
         private readonly ITwirlerContainer $container,
+        private readonly ITwirlerFactory $twirlerFactory,
         private readonly ?IWigglerContainer $wigglers,
         private readonly null|int|float $shutdownDelay,
         private readonly string $interruptMessage,
@@ -190,5 +192,10 @@ final class Config implements IConfig
     public function getContainer(): ITwirlerContainer
     {
         return $this->container;
+    }
+
+    public function getTwirlerFactory(): ITwirlerFactory
+    {
+        return $this->twirlerFactory;
     }
 }

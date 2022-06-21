@@ -20,9 +20,11 @@ abstract class ATwirler implements ITwirler
 
     public function render(): ITwirlerFrame
     {
-        return new TwirlerFrame(
-            $this->styleRevolver->next(),
-            $this->charRevolver->next(),
-        );
+        return
+            $this->currentFrame =
+                new TwirlerFrame(
+                    $this->styleRevolver->next(),
+                    $this->charRevolver->next(),
+                );
     }
 }

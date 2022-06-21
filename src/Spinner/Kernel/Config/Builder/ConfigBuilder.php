@@ -4,12 +4,22 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Kernel\Config\Builder;
 
+use AlecRabbit\Spinner\Core\Collection\Factory\CharFrameCollectionFactory;
+use AlecRabbit\Spinner\Core\Collection\Factory\StyleFrameCollectionFactory;
 use AlecRabbit\Spinner\Core\Contract\IStylePatternExtractor;
+use AlecRabbit\Spinner\Core\Contract\IStyleProvider;
 use AlecRabbit\Spinner\Core\Defaults;
+use AlecRabbit\Spinner\Core\Frame\Factory\CharFrameFactory;
+use AlecRabbit\Spinner\Core\Frame\Factory\StyleFrameFactory;
+use AlecRabbit\Spinner\Core\Revolver\Factory\CharRevolverFactory;
+use AlecRabbit\Spinner\Core\Revolver\Factory\StyleRevolverFactory;
 use AlecRabbit\Spinner\Core\StylePatternExtractor;
+use AlecRabbit\Spinner\Core\StyleProvider;
 use AlecRabbit\Spinner\Core\Twirler\Contract\ITwirlerContainer;
 use AlecRabbit\Spinner\Core\Twirler\Factory\Contract\ITwirlerContainerFactory;
+use AlecRabbit\Spinner\Core\Twirler\Factory\Contract\ITwirlerFactory;
 use AlecRabbit\Spinner\Core\Twirler\Factory\TwirlerContainerFactory;
+use AlecRabbit\Spinner\Core\Twirler\Factory\TwirlerFactory;
 use AlecRabbit\Spinner\Core\Twirler\TwirlerContainer;
 use AlecRabbit\Spinner\Core\TwirlerRenderer;
 use AlecRabbit\Spinner\Exception\DomainException;
@@ -50,6 +60,7 @@ final class ConfigBuilder implements IConfigBuilder
     private ?IDriver $driver = null;
     private ?IWigglerContainer $wigglers = null;
     private ?ITwirlerContainer $container = null;
+    private ?ITwirlerFactory $twirlerFactory = null;
     private ?bool $synchronousMode = null;
     private ?float $shutdownDelaySeconds = null;
     private ?string $interruptMessage = null;
@@ -61,6 +72,7 @@ final class ConfigBuilder implements IConfigBuilder
     private ?IWigglerContainerFactory $wigglerContainerFactory = null;
     private ?IWigglerFactory $wigglerFactory = null;
     private ?WIStyleProvider $styleRenderer = null;
+    private ?IStyleProvider $styleProvider = null;
     private ?IStylePatternExtractor $stylePatternExtractor = null;
     private ?ITwirlerContainerFactory $containerFactory = null;
 
@@ -174,6 +186,7 @@ final class ConfigBuilder implements IConfigBuilder
             new Config(
                 driver: $this->driver,
                 container: $this->container,
+                twirlerFactory: $this->twirlerFactory,
                 wigglers: $this->wigglers,
                 shutdownDelay: $this->shutdownDelaySeconds,
                 interruptMessage: $this->interruptMessage,
@@ -241,6 +254,10 @@ final class ConfigBuilder implements IConfigBuilder
             $this->styleRenderer = new WStyleProvider($this->stylePatternExtractor);
         }
 
+        if (null === $this->styleProvider) {
+            $this->styleProvider = new StyleProvider($this->stylePatternExtractor);
+        }
+
         if (null === $this->wigglerContainerFactory) {
             $this->wigglerContainerFactory =
                 new WigglerContainerFactory(
@@ -248,6 +265,24 @@ final class ConfigBuilder implements IConfigBuilder
                     $this->wigglerFactory,
                     $this->frames,
                     $this->interval,
+                );
+        }
+
+        if (null === $this->twirlerFactory) {
+            $this->twirlerFactory =
+                new TwirlerFactory(
+                    new StyleRevolverFactory(
+                        new StyleFrameCollectionFactory(
+                            new StyleFrameFactory(),
+                            $this->styleProvider,
+                        )
+                    ),
+                    new CharRevolverFactory(
+                        new CharFrameCollectionFactory(
+                            new CharFrameFactory()
+                        )
+                    ),
+
                 );
         }
 

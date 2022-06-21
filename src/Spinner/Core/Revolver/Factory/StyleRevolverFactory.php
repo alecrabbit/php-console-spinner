@@ -19,7 +19,7 @@ final class StyleRevolverFactory implements IStyleRevolverFactory
 
     public function create(?IStyleFrameCollection $styleCollection = null): IStyleRevolver
     {
-        $styleCollection = $styleCollection ?? $this->styleFrameCollectionFactory->create([]);
+        $styleCollection = $styleCollection ?? $this->styleFrameCollectionFactory->create([], null);
 
         return
             new StyleRevolver(

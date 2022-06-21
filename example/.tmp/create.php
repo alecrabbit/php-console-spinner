@@ -18,28 +18,28 @@ use AlecRabbit\Spinner\Kernel\Config\Builder\ConfigBuilder;
 
 require_once __DIR__ . '/../bootstrap.php';
 
-$stylePatternExtractor = new StylePatternExtractor();
+//$stylePatternExtractor = new StylePatternExtractor();
 //
 //$container = new TwirlerContainer();
 //
-$twirlerFactory = new TwirlerFactory(
-    new StyleRevolverFactory(
-        new StyleFrameCollectionFactory(
-            new StyleFrameFactory(),
-            new StyleProvider(
-                $stylePatternExtractor
-            )
-        ),
-    ),
-    new CharRevolverFactory(
-        new CharFrameCollectionFactory(
-            new CharFrameFactory()
-        ),
-    ),
-);
-
-$twirlerOne = $twirlerFactory->create();
-$twirlerTwo = $twirlerFactory->create();
+//$twirlerFactory = new TwirlerFactory(
+//    new StyleRevolverFactory(
+//        new StyleFrameCollectionFactory(
+//            new StyleFrameFactory(),
+//            new StyleProvider(
+//                $stylePatternExtractor
+//            )
+//        ),
+//    ),
+//    new CharRevolverFactory(
+//        new CharFrameCollectionFactory(
+//            new CharFrameFactory()
+//        ),
+//    ),
+//);
+//
+//$twirlerOne = $twirlerFactory->create();
+//$twirlerTwo = $twirlerFactory->create();
 //
 //$container->addTwirler($twirler);
 //
@@ -51,6 +51,11 @@ $config =
         ->build()
 ;
 $spinner = SpinnerFactory::create($config);
+
+$twirlerFactory = $config->getTwirlerFactory();
+
+$twirlerOne = $twirlerFactory->create();
+$twirlerTwo = $twirlerFactory->create();
 
 $spinner
     ->addTwirler($twirlerOne)

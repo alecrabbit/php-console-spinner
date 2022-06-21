@@ -10,6 +10,7 @@ use AlecRabbit\Spinner\Core\Contract\IStyleProvider;
 use AlecRabbit\Spinner\Core\Defaults;
 use AlecRabbit\Spinner\Core\Frame\Factory\Contract\IStyleFrameFactory;
 use AlecRabbit\Spinner\Core\Interval\Contract\IInterval;
+use AlecRabbit\Spinner\Core\Interval\Interval;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Exception\RuntimeException;
 
@@ -25,12 +26,12 @@ abstract class AStyleFrameCollectionFactory implements IStyleFrameCollectionFact
      * @throws InvalidArgumentException
      * @throws RuntimeException
      */
-    public function create(array $frames, IInterval $interval): IStyleFrameCollection
+    public function create(array $frames, ?IInterval $interval): IStyleFrameCollection
     {
         if([] === $frames) {
             return $this->defaultCollection();
         }
-        return StyleFrameCollection::create($frames, $interval);
+        return StyleFrameCollection::create($frames, $interval ?? new Interval());
     }
 
     /**
