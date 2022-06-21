@@ -6,7 +6,7 @@ namespace AlecRabbit\Spinner\Core\Collection\Contract;
 
 use AlecRabbit\Spinner\Core\Frame\Contract\ICharFrame;
 
-interface ICharFrameCollection
+interface ICharFrameCollection extends ICollection
 {
     public function next(): ICharFrame;
 }

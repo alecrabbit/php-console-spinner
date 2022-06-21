@@ -13,10 +13,21 @@ use Traversable;
 
 abstract class ACollection implements Countable, IteratorAggregate
 {
-    protected const ELEMENT_CLASS = self::class;
     protected iterable $elements = [];
     protected int $count = 0;
     protected int $index = 0;
+
+    /**
+     * @throws InvalidArgumentException
+     * @throws RuntimeException
+     */
+    public function __construct(iterable $elements)
+    {
+        foreach ($elements as $element) {
+            $this->addElement($element);
+        }
+        $this->assertIsNotEmpty();
+    }
 
     public function getIterator(): Traversable
     {
@@ -34,10 +45,12 @@ abstract class ACollection implements Countable, IteratorAggregate
      */
     protected function addElement(mixed $element): void
     {
-        self::assertElement($element, static::ELEMENT_CLASS);
+        self::assertElement($element, static::getElementClass());
         $this->elements[] = $element;
         $this->count++;
     }
+
+    abstract protected static function getElementClass(): string;
 
     /**
      * @throws InvalidArgumentException
@@ -62,7 +75,6 @@ abstract class ACollection implements Countable, IteratorAggregate
             );
         }
     }
-
 
     protected function nextElement(): mixed
     {
