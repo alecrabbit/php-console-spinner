@@ -12,6 +12,6 @@ interface ICharPatternExtractor
     /**
      * @throws InvalidArgumentException
      */
-    #[ArrayShape([C::FRAMES => "array"])]
+    #[ArrayShape([C::CHARS => "array"])]
     public function extract(array $charPattern): array;
 }

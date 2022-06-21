@@ -6,6 +6,7 @@ namespace AlecRabbit\Spinner\Kernel;
 
 use AlecRabbit\Spinner\Core\Defaults;
 use AlecRabbit\Spinner\Core\Frame\Contract\ICharFrame;
+use AlecRabbit\Spinner\Core\WidthDefiner;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use Stringable;
 

@@ -28,7 +28,7 @@ abstract class ACharFrameCollectionFactory implements ICharFrameCollectionFactor
         if ([] === $frames) {
             return $this->defaultCollection();
         }
-        return new CharFrameCollection($frames, $interval ?? new Interval(null));
+        return CharFrameCollection::create($frames, $interval ?? new Interval(null));
     }
 
     /**
@@ -38,7 +38,7 @@ abstract class ACharFrameCollectionFactory implements ICharFrameCollectionFactor
     private function defaultCollection(): ICharFrameCollection
     {
         return
-            new CharFrameCollection(
+            CharFrameCollection::create(
                 ...$this->charProvider->provide()
             );
     }

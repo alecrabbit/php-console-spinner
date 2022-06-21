@@ -46,6 +46,6 @@ final class StyleProvider implements Contract\IStyleProvider
 
     private function getDefaultStylePattern(): array
     {
-        return Defaults::getDefaultStyle();
+        return Defaults::getDefaultStylePattern();
     }
 }

@@ -42,17 +42,44 @@ final class CharPattern
             C::INTERVAL => 250
         ];
 
-    public const CIRCLES = [['◐', '◓', '◑', '◒',], 1, 250];
-    public const RUNNER = [['🚶 ', '🏃 '], 3, 400];
-    public const MONKEY = [['🐵 ', '🙈 ', '🙉 ', '🙊 '], 3, 300];
+    public const CIRCLES = [
+        C::FRAMES => ['◐', '◓', '◑', '◒',],
+        C::ELEMENT_WIDTH => 1,
+        C::INTERVAL => 250
+    ];
 
-    public const SECTOR = [['◴ ', '◷ ', '◶ ', '◵ '], 2, 250];
+    public const RUNNER = [
+        C::FRAMES => ['🚶 ', '🏃 '],
+        C::ELEMENT_WIDTH => 3,
+        C::INTERVAL => 400
+    ];
 
-    public const CLOCK_VARIANT_0 = [['🕐', '🕑', '🕒', '🕓', '🕔', '🕕', '🕖', '🕗', '🕘', '🕙', '🕚', '🕛',], 2, 150];
-    public const CLOCK_VARIANT_1 = [['🕜', '🕝', '🕞', '🕟', '🕠', '🕡', '🕢', '🕣', '🕤', '🕥', '🕦',], 2, 150];
+    public const MONKEY = [
+        C::FRAMES => ['🐵 ', '🙈 ', '🙉 ', '🙊 '],
+        C::ELEMENT_WIDTH => 3,
+        C::INTERVAL => 300
+    ];
+
+    public const SECTOR = [
+        C::FRAMES => ['◴ ', '◷ ', '◶ ', '◵ '],
+        C::ELEMENT_WIDTH => 2,
+        C::INTERVAL => 250
+    ];
+
+    public const CLOCK_VARIANT_0 = [
+        C::FRAMES => ['🕐', '🕑', '🕒', '🕓', '🕔', '🕕', '🕖', '🕗', '🕘', '🕙', '🕚', '🕛',],
+        C::ELEMENT_WIDTH => 2,
+        C::INTERVAL => 150
+    ];
+
+    public const CLOCK_VARIANT_1 = [
+        C::FRAMES => ['🕜', '🕝', '🕞', '🕟', '🕠', '🕡', '🕢', '🕣', '🕤', '🕥', '🕦',],
+        C::ELEMENT_WIDTH => 2,
+        C::INTERVAL => 150
+    ];
 
     public const CLOCK_VARIANT_2 = [
-        [
+        C::FRAMES => [
             '🕐',
             '🕜',
             '🕑',
@@ -79,15 +106,22 @@ final class CharPattern
             '🕧',
 
         ],
-        2,
-        150
+        C::ELEMENT_WIDTH => 2,
+        C::INTERVAL => 150
     ];
 
-    public const DOT = [['⢀', '⡀', '⠄', '⠂', '⠁', '⠈', '⠐', '⠠',], 1];
-    public const DOT_REVERSED = [['⠠', '⠐', '⠈', '⠁', '⠂', '⠄', '⡀', '⢀',], 1];
+    public const DOT = [
+        C::FRAMES => ['⢀', '⡀', '⠄', '⠂', '⠁', '⠈', '⠐', '⠠',],
+        C::ELEMENT_WIDTH => 1
+    ];
+
+    public const DOT_REVERSED = [
+        C::FRAMES => ['⠠', '⠐', '⠈', '⠁', '⠂', '⠄', '⡀', '⢀',],
+        C::ELEMENT_WIDTH => 1
+    ];
 
     public const ARROW_VARIANT_0 = [
-        [
+        C::FRAMES => [
             '▹▹▹▹▹',
             '▸▹▹▹▹',
             '▹▸▹▹▹',
@@ -95,22 +129,22 @@ final class CharPattern
             '▹▹▹▸▹',
             '▹▹▹▹▸',
         ],
-        5
+        C::ELEMENT_WIDTH => 5
     ];
 
     public const ARROW_VARIANT_1 = [
-        [
+        C::FRAMES => [
             '◁ ◁ ◁ ◁ ◀',
             '◁ ◁ ◁ ◀ ◁',
             '◁ ◁ ◀ ◁ ◁',
             '◁ ◀ ◁ ◁ ◁',
             '◀ ◁ ◁ ◁ ◁',
         ],
-        9
+        C::ELEMENT_WIDTH => 9
     ];
 
     public const ARROW_VARIANT_2 = [
-        [
+        C::FRAMES => [
             '◃◃◃◃◂',
             '◃◃◃◂◃',
             '◃◃◂◃◃',
@@ -123,11 +157,11 @@ final class CharPattern
             '▹▹▹▹▸',
 
         ],
-        5
+        C::ELEMENT_WIDTH => 5
     ];
 
     public const ARROW_VARIANT_3 = [
-        [
+        C::FRAMES => [
             '◃◃◃◃◃',
             '◃◃◃◃◂',
             '◃◃◃◂◃',
@@ -135,11 +169,11 @@ final class CharPattern
             '◃◂◃◃◃',
             '◂◃◃◃◃',
         ],
-        5
+        C::ELEMENT_WIDTH => 5
     ];
 
     public const WEATHER_VARIANT_0 = [
-        [
+        C::FRAMES => [
             '☀️ ',
             '☀️ ',
             '🌤 ',
@@ -167,13 +201,13 @@ final class CharPattern
             '☀️ ',
             '☀️ ',
         ],
-        2,
-        150
+        C::ELEMENT_WIDTH => 2,
+        C::INTERVAL => 150
     ];
 
 
     public const WEATHER_VARIANT_1 = [
-        [
+        C::FRAMES => [
             '🌤 ',
             '🌤 ',
             '🌤 ',
@@ -192,11 +226,11 @@ final class CharPattern
             '🌤 ',
             '🌤 ',
         ],
-        2
+        C::ELEMENT_WIDTH => 2
     ];
 
     public const BALL_VARIANT_0 = [
-        [
+        C::FRAMES => [
             '  ●     ',
             '   ●    ',
             '    ●   ',
@@ -208,14 +242,29 @@ final class CharPattern
             '  ●     ',
             ' ●      ',
         ],
-        8
+        C::ELEMENT_WIDTH => 8
     ];
 
-    public const SNAKE_VARIANT_0 = [['⠏', '⠛', '⠹', '⢸', '⣰', '⣤', '⣆', '⡇',], 1, 100];
-    public const SNAKE_VARIANT_1 = [['⣇', '⡏', '⠟', '⠻', '⢹', '⣸', '⣴', '⣦',], 1];
-    public const SNAKE_VARIANT_2 = [['⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏'], 1, 100];
+    public const SNAKE_VARIANT_0 = [
+        C::FRAMES => ['⠏', '⠛', '⠹', '⢸', '⣰', '⣤', '⣆', '⡇',],
+        C::ELEMENT_WIDTH => 1,
+        C::INTERVAL => 100
+    ];
+
+    public const SNAKE_VARIANT_1 = [
+        C::FRAMES => '⣇⡏⠟⠻⢹⣸⣴⣦',
+        C::ELEMENT_WIDTH => 1,
+        C::INTERVAL => 150
+    ];
+
+    public const SNAKE_VARIANT_2 = [
+        C::FRAMES => ['⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏'],
+        C::ELEMENT_WIDTH => 1,
+        C::INTERVAL => 100
+    ];
+
     public const SNAKE_VARIANT_3 = [
-        [
+        C::FRAMES => [
             '⢀⠀',
             '⡀⠀',
             '⠄⠀',
@@ -273,16 +322,35 @@ final class CharPattern
             '⠀⢀',
             '⠀⡀',
         ],
-        2,
-        100
+        C::ELEMENT_WIDTH => 2,
+        C::INTERVAL => 100
     ];
 
-    public const DOTS_VARIANT_2 = [['⢹', '⢺', '⢼', '⣸', '⣇', '⡧', '⡗', '⡏',], 1, 100];
-    public const DOTS_VARIANT_3 = [['⢄', '⢂', '⢁', '⡁', '⡈', '⡐', '⡠'], 1, 100];
-    public const DOTS_VARIANT_4 = [['⠁', '⠂', '⠄', '⡀', '⢀', '⠠', '⠐', '⠈'], 1, 100];
-    public const DOTS_VARIANT_5 = [['   ', '.  ', '.. ', '...', ' ..', '  .', '   '], 3, 100];
+    public const DOTS_VARIANT_2 = [
+        C::FRAMES => ['⢹', '⢺', '⢼', '⣸', '⣇', '⡧', '⡗', '⡏',],
+        C::ELEMENT_WIDTH => 1,
+        C::INTERVAL => 100
+    ];
+
+    public const DOTS_VARIANT_3 = [
+        C::FRAMES => ['⢄', '⢂', '⢁', '⡁', '⡈', '⡐', '⡠'],
+        C::ELEMENT_WIDTH => 1,
+        C::INTERVAL => 100
+    ];
+
+    public const DOTS_VARIANT_4 = [
+        C::FRAMES => ['⠁', '⠂', '⠄', '⡀', '⢀', '⠠', '⠐', '⠈'],
+        C::ELEMENT_WIDTH => 1,
+        C::INTERVAL => 100
+    ];
+
+    public const DOTS_VARIANT_5 = [
+        C::FRAMES => ['   ', '.  ', '.. ', '...', ' ..', '  .', '   '],
+        C::ELEMENT_WIDTH => 3,
+        C::INTERVAL => 100
+    ];
     public const TRIGRAM = [
-        [
+        C::FRAMES => [
             '☰',        // HEAVEN
             '☱',        // LAKE
             '☲',        // FIRE
@@ -292,23 +360,23 @@ final class CharPattern
             '☳',        // THUNDER
             '☷',        // EARTH
         ],
-        1,
-        100
+        C::ELEMENT_WIDTH => 1,
+        C::INTERVAL => 100
     ];
 
     public const BOUNCE = [
-        [
+        C::FRAMES => [
             '⠁',
             '⠂',
             '⠄',
             '⠂',
         ],
-        1,
-        100
+        C::ELEMENT_WIDTH => 1,
+        C::INTERVAL => 100
     ];
 
     public const SQUARE_VARIANT_0 = [
-        [
+        C::FRAMES => [
             '◼    ',
             ' ◼   ',
             '  ◼  ',
@@ -318,12 +386,12 @@ final class CharPattern
             '  ◼  ',
             ' ◼   ',
         ],
-        5,
-        100
+        C::ELEMENT_WIDTH => 5,
+        C::INTERVAL => 100
     ];
 
     public const SQUARE_VARIANT_1 = [
-        [
+        C::FRAMES => [
             '▩',
             '▦',
             '▤',
@@ -331,13 +399,13 @@ final class CharPattern
             '▧',
             '▨',
         ],
-        1,
-        100
+        C::ELEMENT_WIDTH => 1,
+        C::INTERVAL => 100
     ];
 
     public const BLOCK_VARIANT_0 =
         [
-            [
+            C::FRAMES => [
                 '▁',
                 '▂',
                 '▃',
@@ -369,13 +437,13 @@ final class CharPattern
                 '▂',
                 '▁',
             ],
-            1,
-            100
+            C::ELEMENT_WIDTH => 1,
+            C::INTERVAL => 100
         ];
 
     public const BLOCK_VARIANT_1 =
         [
-            [
+            C::FRAMES => [
                 '▁',
                 '▂',
                 '▃',
@@ -392,12 +460,13 @@ final class CharPattern
                 '▂',
                 '▁',
             ],
-            1,
-            100
+            C::ELEMENT_WIDTH => 1,
+            C::INTERVAL => 100
         ];
+
     public const BLOCK_VARIANT_2 =
         [
-            [
+            C::FRAMES => [
                 '█',
                 '▉',
                 '▊',
@@ -416,41 +485,64 @@ final class CharPattern
                 '█',
 
             ],
-            1,
-            100
+            C::ELEMENT_WIDTH => 1,
+            C::INTERVAL => 100
         ];
 
 
-    public const DICE = [['⚀', '⚁', '⚂', '⚃', '⚄', '⚅',], 1, 200];
+    public const DICE = [
+        C::FRAMES => ['⚀', '⚁', '⚂', '⚃', '⚄', '⚅',],
+        C::ELEMENT_WIDTH => 1,
+        C::INTERVAL => 200
+    ];
 
-    public const ARROWS = [['➙', '➘', '➙', '➚',], 1, 150];
-    public const ARROWS_VARIANT_4 = [['←', '↖', '↑', '↗', '→', '↘', '↓', '↙',], 1, 150];
-    public const ARROWS_VARIANT_5 = [['⇐', '⇖', '⇑', '⇗', '⇒', '⇘', '⇓', '⇙',], 1, 150];
-    public const TREE = [['🌲', '🎄',], 2, 300];
+    public const ARROWS = [
+        C::FRAMES => ['➙', '➘', '➙', '➚',],
+        C::ELEMENT_WIDTH => 1,
+        C::INTERVAL => 150
+    ];
+
+    public const ARROWS_VARIANT_4 = [
+        C::FRAMES => ['←', '↖', '↑', '↗', '→', '↘', '↓', '↙',],
+        C::ELEMENT_WIDTH => 1,
+        C::INTERVAL => 150
+    ];
+
+    public const ARROWS_VARIANT_5 = [
+        C::FRAMES => ['⇐', '⇖', '⇑', '⇗', '⇒', '⇘', '⇓', '⇙',],
+        C::ELEMENT_WIDTH => 1,
+        C::INTERVAL => 150
+    ];
+
+    public const TREE = [
+        C::FRAMES => ['🌲', '🎄',],
+        C::ELEMENT_WIDTH => 2,
+        C::INTERVAL => 300
+    ];
 
 
     public const TOGGLE_VARIANT_0 = [
-        [
+        C::FRAMES => [
             '⊶',
             '⊷',
         ],
-        1,
-        300
+        C::ELEMENT_WIDTH => 1,
+        C::INTERVAL => 300
     ];
 
     public const TOGGLE_VARIANT_1 = [
-        [
+        C::FRAMES => [
             '■',
             '□',
             '▪',
             '▫',
         ],
-        1,
-        300
+        C::ELEMENT_WIDTH => 1,
+        C::INTERVAL => 300
     ];
 
     public const BOUNCING_BAR_VARIANT_1 = [
-        [
+        C::FRAMES => [
             '[    ]',
             '[=   ]',
             '[==  ]',
@@ -467,12 +559,12 @@ final class CharPattern
             '[==  ]',
             '[=   ]',
         ],
-        6,
-        100
+        C::ELEMENT_WIDTH => 6,
+        C::INTERVAL => 100
     ];
 
     public const BOUNCING_BAR_VARIANT_2 = [
-        [
+        C::FRAMES => [
             '|    |',
             '|∙   |',
             '|∙∙  |',
@@ -490,12 +582,12 @@ final class CharPattern
             '|∙∙  |',
             '|∙   |',
         ],
-        6,
-        100
+        C::ELEMENT_WIDTH => 6,
+        C::INTERVAL => 100
     ];
 
     public const BOUNCING_BAR_VARIANT_3 = [
-        [
+        C::FRAMES => [
             '|   ',
             ' |  ',
             '  | ',
@@ -505,14 +597,14 @@ final class CharPattern
             ' |  ',
             '|   ',
         ],
-        4,
-        100
+        C::ELEMENT_WIDTH => 4,
+        C::INTERVAL => 100
     ];
 
     public const
         FEATHERED_ARROWS =
         [
-            [
+            C::FRAMES => [
                 '➵', // BLACK-FEATHERED RIGHTWARDS ARROW
                 '➴', // BLACK-FEATHERED SOUTH EAST ARROW
                 '➵', // BLACK-FEATHERED RIGHTWARDS ARROW
@@ -522,12 +614,12 @@ final class CharPattern
                 '➸', // HEAVY BLACK-FEATHERED RIGHTWARDS ARROW
                 '➹', // HEAVY BLACK-FEATHERED NORTH EAST ARROW
             ],
-            1,
-            150
+            C::ELEMENT_WIDTH => 1,
+            C::INTERVAL => 150
         ];
 
     public const DOT_8_BIT = [
-        [
+        C::FRAMES => [
             "⠀",
             "⠁",
             "⠂",
@@ -785,11 +877,9 @@ final class CharPattern
             "⣾",
             "⣿"
         ],
-        1,
-        1000
+        C::ELEMENT_WIDTH => 1,
+        C::INTERVAL => 1000
     ];
-    public const FRAMES = 'frames';
-    public const ELEMENT_WIDTH = 'elementWidth';
 
     private function __construct()
     {

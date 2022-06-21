@@ -6,8 +6,8 @@ namespace AlecRabbit\Spinner\Kernel\Rotor\Contract;
 
 use AlecRabbit\Spinner\Core\Contract\C;
 use AlecRabbit\Spinner\Core\Frame\Contract\ICharFrame;
+use AlecRabbit\Spinner\Core\WidthDefiner;
 use AlecRabbit\Spinner\Kernel\Contract\IWFrameCollection;
-use AlecRabbit\Spinner\Kernel\WidthDefiner;
 
 abstract class AFrameRotor extends ARotor implements IFrameRotor
 {

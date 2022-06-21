@@ -27,7 +27,7 @@ final class StylePatternExtractor implements IStylePatternExtractor
     #[ArrayShape([C::STYLES => "array"])]
     public function extract(array $stylePattern): array
     {
-        self::assert($stylePattern);
+        self::assertStylePattern($stylePattern);
 
         $colorSupport = $this->extractStylePatternMaxColorSupport($stylePattern);
 
@@ -48,7 +48,7 @@ final class StylePatternExtractor implements IStylePatternExtractor
     /**
      * @throws InvalidArgumentException
      */
-    private static function assert(array $pattern): void
+    private static function assertStylePattern(array $pattern): void
     {
         if (!array_key_exists(C::STYLES, $pattern)) {
             throw new InvalidArgumentException(

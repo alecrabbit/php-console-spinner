@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core;
 
 use AlecRabbit\Spinner\Core\Contract\ADefaults;
+use AlecRabbit\Spinner\Kernel\Contract\Base\CharPattern;
 use AlecRabbit\Spinner\Kernel\Contract\Base\StylePattern;
 
 final class Defaults extends ADefaults
@@ -13,24 +14,12 @@ final class Defaults extends ADefaults
     private static float|int $maxIntervalMilliseconds = self::MILLISECONDS_MAX_INTERVAL;
     private static bool $synchronousMode = self::SYNCHRONOUS_MODE;
     private static bool $hideCursor = self::HIDE_CURSOR;
-    private static ?array $defaultStyle = null;
+    private static ?array $defaultStylePattern = null;
+    private static ?array $defaultCharPattern = null;
 
     public static function shutdownDelay(): float|int
     {
         return self::$shutdownDelay;
-    }
-
-    public static function getDefaultStyle(): array
-    {
-        if (null === self::$defaultStyle) {
-            self::$defaultStyle = StylePattern::rainbow();
-        }
-        return self::$defaultStyle;
-    }
-
-    public static function setDefaultStyle(array $style): void
-    {
-        self::$defaultStyle = $style;
     }
 
     public static function getMaxIntervalMilliseconds(): int|float
@@ -71,5 +60,26 @@ final class Defaults extends ADefaults
     public static function setShutdownDelay(float|int $shutdownDelay): void
     {
         self::$shutdownDelay = $shutdownDelay;
+    }
+
+    public static function getDefaultCharPattern(): array
+    {
+        if (null === self::$defaultCharPattern) {
+            self::$defaultCharPattern = CharPattern::SNAKE_VARIANT_0;
+        }
+        return self::$defaultCharPattern;
+    }
+
+    public static function getDefaultStylePattern(): array
+    {
+        if (null === self::$defaultStylePattern) {
+            self::$defaultStylePattern = StylePattern::rainbow();
+        }
+        return self::$defaultStylePattern;
+    }
+
+    public static function setDefaultStylePattern(array $style): void
+    {
+        self::$defaultStylePattern = $style;
     }
 }

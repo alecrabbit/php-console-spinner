@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 // 08.06.22
-namespace AlecRabbit\Spinner\Kernel;
+namespace AlecRabbit\Spinner\Core;
 
-use AlecRabbit\Spinner\Kernel\Contract\IWidthDefiner;
+use AlecRabbit\Spinner\Core\Contract\IWidthDefiner;
 
 use function is_int;
 use function mb_strlen;

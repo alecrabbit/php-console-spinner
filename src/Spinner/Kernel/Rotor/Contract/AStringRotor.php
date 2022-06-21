@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Kernel\Rotor\Contract;
 
 use AlecRabbit\Spinner\Core\Contract\C;
+use AlecRabbit\Spinner\Core\WidthDefiner;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
-use AlecRabbit\Spinner\Kernel\WidthDefiner;
 
 abstract class AStringRotor extends ARotor implements IStringRotor
 {

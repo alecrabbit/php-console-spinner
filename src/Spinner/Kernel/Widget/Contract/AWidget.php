@@ -7,10 +7,10 @@ namespace AlecRabbit\Spinner\Kernel\Widget\Contract;
 use AlecRabbit\Spinner\Core\Contract\C;
 use AlecRabbit\Spinner\Core\Frame\CharFrame;
 use AlecRabbit\Spinner\Core\Frame\Contract\ACharFrame;
+use AlecRabbit\Spinner\Core\WidthDefiner;
 use AlecRabbit\Spinner\Kernel\Rotor\Contract\IFrameRotor;
 use AlecRabbit\Spinner\Kernel\Rotor\Contract\IStyleRotor;
 use AlecRabbit\Spinner\Kernel\Rotor\Contract\IWInterval;
-use AlecRabbit\Spinner\Kernel\WidthDefiner;
 use WeakMap;
 
 abstract class AWidget implements IWidget

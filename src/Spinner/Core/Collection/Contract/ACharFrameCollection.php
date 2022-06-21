@@ -11,7 +11,7 @@ use AlecRabbit\Spinner\Exception\RuntimeException;
 
 abstract class ACharFrameCollection extends ACollection implements ICharFrameCollection
 {
-    public function __construct(
+    protected function __construct(
         iterable $elements,
         public readonly IInterval $interval,
     ) {
