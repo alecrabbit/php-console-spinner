@@ -24,7 +24,6 @@ use AlecRabbit\Spinner\Core\Twirler\Factory\Contract\ITwirlerContainerFactory;
 use AlecRabbit\Spinner\Core\Twirler\Factory\Contract\ITwirlerFactory;
 use AlecRabbit\Spinner\Core\Twirler\Factory\TwirlerContainerFactory;
 use AlecRabbit\Spinner\Core\Twirler\Factory\TwirlerFactory;
-use AlecRabbit\Spinner\Core\Twirler\TwirlerContainer;
 use AlecRabbit\Spinner\Core\TwirlerRenderer;
 use AlecRabbit\Spinner\Exception\DomainException;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;

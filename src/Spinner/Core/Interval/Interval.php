@@ -15,6 +15,11 @@ final class Interval implements Contract\IInterval
         $this->milliseconds = $milliseconds ?? self::maxInterval();
     }
 
+    private static function maxInterval(): int|float
+    {
+        return Defaults::getMaxIntervalMilliseconds();
+    }
+
     public function toMilliseconds(): float|int
     {
         return $this->milliseconds;
@@ -23,11 +28,6 @@ final class Interval implements Contract\IInterval
     public function toSeconds(): float|int
     {
         return $this->milliseconds / 1000;
-    }
-
-    private static function maxInterval(): int|float
-    {
-        return Defaults::getMaxIntervalMilliseconds();
     }
 
 }

@@ -788,8 +788,8 @@ final class CharPattern
         1,
         1000
     ];
-    const FRAMES = 'frames';
-    const ELEMENT_WIDTH = 'elementWidth';
+    public const FRAMES = 'frames';
+    public const ELEMENT_WIDTH = 'elementWidth';
 
     private function __construct()
     {

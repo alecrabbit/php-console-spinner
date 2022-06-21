@@ -5,9 +5,6 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Contract;
 
 
-use const AlecRabbit\Cli\CSI;
-use const AlecRabbit\Cli\RESET;
-
 /**
  * @internal
  */

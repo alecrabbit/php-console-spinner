@@ -8,7 +8,7 @@ use WeakMap;
 
 abstract class ATwirlerContainer implements ITwirlerContainer
 {
-    /** @var ITwirler[]  */
+    /** @var ITwirler[] */
     protected array $twirlers = [];
     /** @var WeakMap<int,ITWirler> */
     protected WeakMap $twirlersMap;

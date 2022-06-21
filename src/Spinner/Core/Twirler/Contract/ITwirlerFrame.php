@@ -10,5 +10,6 @@ use AlecRabbit\Spinner\Core\Frame\Contract\IStyleFrame;
 interface ITwirlerFrame
 {
     public function getStyleFrame(): IStyleFrame;
+
     public function getCharFrame(): ICharFrame;
 }

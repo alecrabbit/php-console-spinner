@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Kernel\Config\Contract;
 
-use AlecRabbit\Spinner\Core\Twirler\Contract\CanAddTwirler;
 use AlecRabbit\Spinner\Core\Twirler\Contract\ITwirlerContainer;
 use AlecRabbit\Spinner\Core\Twirler\Factory\Contract\ITwirlerFactory;
 use AlecRabbit\Spinner\Kernel\Contract\IDriver;

@@ -29,17 +29,6 @@ abstract class ACollection implements Countable, IteratorAggregate
         $this->assertIsNotEmpty();
     }
 
-    public function getIterator(): Traversable
-    {
-        return
-            new ArrayIterator($this->elements);
-    }
-
-    public function count(): int
-    {
-        return $this->count;
-    }
-
     /**
      * @throws InvalidArgumentException
      */
@@ -49,8 +38,6 @@ abstract class ACollection implements Countable, IteratorAggregate
         $this->elements[] = $element;
         $this->count++;
     }
-
-    abstract protected static function getElementClass(): string;
 
     /**
      * @throws InvalidArgumentException
@@ -64,6 +51,8 @@ abstract class ACollection implements Countable, IteratorAggregate
         }
     }
 
+    abstract protected static function getElementClass(): string;
+
     /**
      * @throws RuntimeException
      */
@@ -74,6 +63,17 @@ abstract class ACollection implements Countable, IteratorAggregate
                 'Collection is empty.'
             );
         }
+    }
+
+    public function getIterator(): Traversable
+    {
+        return
+            new ArrayIterator($this->elements);
+    }
+
+    public function count(): int
+    {
+        return $this->count;
     }
 
     protected function nextElement(): mixed
