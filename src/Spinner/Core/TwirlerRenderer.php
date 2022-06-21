@@ -25,10 +25,9 @@ final class TwirlerRenderer implements IRenderer
         foreach ($twirlers as $twirler) {
             if ($twirler instanceof ITwirler) {
                 $render = $twirler->render();
-                $sequences[] = sprintf(
-                    $render->getStyleFrame()->getSequenceStart(),
-                    $render->getCharFrame()->getChar()
-                );
+                $sequences[] = $render->getStyleFrame()->getSequenceStart();
+                $sequences[] = $render->getCharFrame()->getChar();
+                $sequences[] = $render->getStyleFrame()->getSequenceEnd();
                 $width += $render->getCharFrame()->getWidth();
             }
         }

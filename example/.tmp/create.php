@@ -62,7 +62,7 @@ $spinner
     ->addTwirler($twirlerTwo)
 ;
 
-//dump($spinner);
+dump($spinner);
 
 $spinner->initialize();
 
