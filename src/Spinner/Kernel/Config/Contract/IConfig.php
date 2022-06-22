@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Kernel\Config\Contract;
 
+use AlecRabbit\Spinner\Core\Collection\Factory\Contract\ICharFrameCollectionFactory;
+use AlecRabbit\Spinner\Core\Collection\Factory\Contract\IStyleFrameCollectionFactory;
+use AlecRabbit\Spinner\Core\Twirler\Contract\ITwirlerBuilder;
 use AlecRabbit\Spinner\Core\Twirler\Contract\ITwirlerContainer;
 use AlecRabbit\Spinner\Core\Twirler\Factory\Contract\ITwirlerFactory;
 use AlecRabbit\Spinner\Kernel\Contract\IDriver;
@@ -33,4 +36,10 @@ interface IConfig
     public function getContainer(): ITwirlerContainer;
 
     public function getTwirlerFactory(): ITwirlerFactory;
+
+    public function getStyleFrameCollectionFactory(): IStyleFrameCollectionFactory;
+
+    public function getCharFrameCollectionFactory(): ICharFrameCollectionFactory;
+
+    public function getTwirlerBuilder(): ITwirlerBuilder;
 }

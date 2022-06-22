@@ -9,5 +9,5 @@ use AlecRabbit\Spinner\Core\Interval\Contract\IInterval;
 
 interface IStyleFrameCollectionFactory
 {
-    public function create(array $frames, ?IInterval $interval): IStyleFrameCollection;
+    public function create(?array $stylePattern = null): IStyleFrameCollection;
 }

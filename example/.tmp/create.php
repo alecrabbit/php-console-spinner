@@ -4,18 +4,11 @@ declare(strict_types=1);
 
 // 20.06.22
 
-use AlecRabbit\Spinner\Core\Collection\Factory\CharFrameCollectionFactory;
-use AlecRabbit\Spinner\Core\Collection\Factory\StyleFrameCollectionFactory;
-use AlecRabbit\Spinner\Core\Frame\Factory\CharFrameFactory;
-use AlecRabbit\Spinner\Core\Frame\Factory\StyleFrameFactory;
-use AlecRabbit\Spinner\Core\Revolver\Factory\CharRevolverFactory;
-use AlecRabbit\Spinner\Core\Revolver\Factory\StyleRevolverFactory;
 use AlecRabbit\Spinner\Core\SpinnerFactory;
-use AlecRabbit\Spinner\Core\StylePatternExtractor;
-use AlecRabbit\Spinner\Core\StyleProvider;
-use AlecRabbit\Spinner\Core\Twirler\Factory\TwirlerFactory;
 use AlecRabbit\Spinner\Core\Twirler\TwirlerBuilder;
 use AlecRabbit\Spinner\Kernel\Config\Builder\ConfigBuilder;
+use AlecRabbit\Spinner\Kernel\Contract\Base\CharPattern;
+use AlecRabbit\Spinner\Kernel\Contract\Base\StylePattern;
 
 require_once __DIR__ . '/../bootstrap.php';
 
@@ -51,13 +44,34 @@ $config =
         ->withCursor()
         ->build()
 ;
+
 $spinner = SpinnerFactory::create($config);
 
 $twirlerFactory = $config->getTwirlerFactory();
+$styleCollectionFactory = $config->getStyleFrameCollectionFactory();
+$charCollectionFactory = $config->getCharFrameCollectionFactory();
 
-$twirlerOne = $twirlerFactory->createTwirler();
-$twirlerTwo = $twirlerFactory->createTwirler();
-$twirlerThree = (new TwirlerBuilder())->build();
+$twirlerBuilder = $config->getTwirlerBuilder();
+
+$twirlerOne =
+    $twirlerBuilder
+        ->withCharCollection(
+            $charCollectionFactory->create(
+                CharPattern::DOTS_VARIANT_3
+            )
+        )
+        ->build()
+;
+$twirlerTwo =
+    $twirlerBuilder
+        ->withStyleCollection(
+            $styleCollectionFactory->create(
+                StylePattern::rainbow()
+            )
+        )
+        ->build()
+;
+$twirlerThree = $twirlerBuilder->build();
 
 
 $spinner

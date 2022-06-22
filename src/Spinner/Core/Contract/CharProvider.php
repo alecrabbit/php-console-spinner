@@ -22,7 +22,7 @@ final class CharProvider implements ICharProvider
      * @throws InvalidArgumentException
      */
     #[ArrayShape([C::FRAMES => "array", C::INTERVAL => Interval::class])]
-    public function provide(array $charPattern = null): array
+    public function provide(?array $charPattern = null): array
     {
         $charPattern = $charPattern ?? $this->getDefaultCharPattern();
 

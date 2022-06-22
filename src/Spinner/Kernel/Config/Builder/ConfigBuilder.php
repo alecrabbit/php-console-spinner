@@ -6,6 +6,8 @@ namespace AlecRabbit\Spinner\Kernel\Config\Builder;
 
 use AlecRabbit\Spinner\Core\CharPatternExtractor;
 use AlecRabbit\Spinner\Core\Collection\Factory\CharFrameCollectionFactory;
+use AlecRabbit\Spinner\Core\Collection\Factory\Contract\ICharFrameCollectionFactory;
+use AlecRabbit\Spinner\Core\Collection\Factory\Contract\IStyleFrameCollectionFactory;
 use AlecRabbit\Spinner\Core\Collection\Factory\StyleFrameCollectionFactory;
 use AlecRabbit\Spinner\Core\Contract\CharProvider;
 use AlecRabbit\Spinner\Core\Contract\ICharPatternExtractor;
@@ -19,11 +21,13 @@ use AlecRabbit\Spinner\Core\Revolver\Factory\CharRevolverFactory;
 use AlecRabbit\Spinner\Core\Revolver\Factory\StyleRevolverFactory;
 use AlecRabbit\Spinner\Core\StylePatternExtractor;
 use AlecRabbit\Spinner\Core\StyleProvider;
+use AlecRabbit\Spinner\Core\Twirler\Contract\ITwirlerBuilder;
 use AlecRabbit\Spinner\Core\Twirler\Contract\ITwirlerContainer;
 use AlecRabbit\Spinner\Core\Twirler\Factory\Contract\ITwirlerContainerFactory;
 use AlecRabbit\Spinner\Core\Twirler\Factory\Contract\ITwirlerFactory;
 use AlecRabbit\Spinner\Core\Twirler\Factory\TwirlerContainerFactory;
 use AlecRabbit\Spinner\Core\Twirler\Factory\TwirlerFactory;
+use AlecRabbit\Spinner\Core\Twirler\TwirlerBuilder;
 use AlecRabbit\Spinner\Core\TwirlerRenderer;
 use AlecRabbit\Spinner\Exception\DomainException;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
@@ -61,26 +65,31 @@ final class ConfigBuilder implements IConfigBuilder
     private ?ILoop $loop = null;
     private ?bool $hideCursor = null;
     private ?IDriver $driver = null;
-    private ?IWigglerContainer $wigglers = null;
     private ?ITwirlerContainer $container = null;
     private ?ITwirlerFactory $twirlerFactory = null;
+    private ?ITwirlerBuilder $twirlerBuilder = null;
+    private ?ITwirlerContainerFactory $containerFactory = null;
     private ?bool $synchronousMode = null;
     private ?float $shutdownDelaySeconds = null;
     private ?string $interruptMessage = null;
     private ?string $finalMessage = null;
-    private ?IWFrameCollection $frames = null;
-    private ?IWInterval $interval = null;
     private ?int $terminalColorSupport = null;
     private ?ILoopFactory $loopFactory = null;
-    private ?IWigglerContainerFactory $wigglerContainerFactory = null;
-    private ?IWigglerFactory $wigglerFactory = null;
-    private ?WIStyleProvider $styleRenderer = null;
     private ?IStyleProvider $styleProvider = null;
     private ?ICharProvider $charProvider = null;
     private ?IStylePatternExtractor $stylePatternExtractor = null;
     private ?ICharPatternExtractor $charPatternExtractor = null;
-    private ?ITwirlerContainerFactory $containerFactory = null;
+    private ?IStyleFrameCollectionFactory $styleFrameCollectionFactory = null;
+    private ?ICharFrameCollectionFactory $charFrameCollectionFactory = null;
 
+    private ?IWigglerContainer $wigglers = null;
+    private ?IWFrameCollection $frames = null;
+    private ?IWInterval $interval = null;
+    private ?IWigglerContainerFactory $wigglerContainerFactory = null;
+    private ?IWigglerFactory $wigglerFactory = null;
+    private ?WIStyleProvider $styleRenderer = null;
+
+    /** @deprecated */
     public function withWigglerContainerFactory(IWigglerContainerFactory $wigglerContainerFactory): self
     {
         $clone = clone $this;
@@ -88,13 +97,7 @@ final class ConfigBuilder implements IConfigBuilder
         return $clone;
     }
 
-    public function withStylePatternExtractor(IStylePatternExtractor $stylePatternExtractor): self
-    {
-        $clone = clone $this;
-        $clone->stylePatternExtractor = $stylePatternExtractor;
-        return $clone;
-    }
-
+    /** @deprecated */
     public function withStyleRenderer(WIStyleProvider $styleRenderer): self
     {
         $clone = clone $this;
@@ -144,6 +147,7 @@ final class ConfigBuilder implements IConfigBuilder
         return $clone;
     }
 
+    /** @deprecated */
     public function withWigglers(IWigglerContainer $wigglers): self
     {
         $clone = clone $this;
@@ -165,6 +169,7 @@ final class ConfigBuilder implements IConfigBuilder
         return $clone;
     }
 
+    /** @deprecated */
     public function withInterval(IWInterval $interval): self
     {
         $clone = clone $this;
@@ -172,10 +177,81 @@ final class ConfigBuilder implements IConfigBuilder
         return $clone;
     }
 
+    /** @deprecated */
     public function withFrames(IWFrameCollection $frames): self
     {
         $clone = clone $this;
         $clone->frames = $frames;
+        return $clone;
+    }
+
+    public function withDriver(IDriver $driver): self
+    {
+        $clone = clone $this;
+        $clone->driver = $driver;
+        return $clone;
+    }
+
+    public function withTwirlerFactory(ITwirlerFactory $twirlerFactory): self
+    {
+        $clone = clone $this;
+        $clone->twirlerFactory = $twirlerFactory;
+        return $clone;
+    }
+
+    public function withTwirlerBuilder(ITwirlerBuilder $twirlerBuilder): self
+    {
+        $clone = clone $this;
+        $clone->twirlerBuilder = $twirlerBuilder;
+        return $clone;
+    }
+
+    public function withContainerFactory(ITwirlerContainerFactory $containerFactory): self
+    {
+        $clone = clone $this;
+        $clone->containerFactory = $containerFactory;
+        return $clone;
+    }
+
+    public function withStyleProvider(IStyleProvider $styleProvider): self
+    {
+        $clone = clone $this;
+        $clone->styleProvider = $styleProvider;
+        return $clone;
+    }
+
+    public function withCharProvider(ICharProvider $charProvider): self
+    {
+        $clone = clone $this;
+        $clone->charProvider = $charProvider;
+        return $clone;
+    }
+
+    public function withStyleFrameCollectionFactory(IStyleFrameCollectionFactory $styleFrameCollectionFactory): self
+    {
+        $clone = clone $this;
+        $clone->styleFrameCollectionFactory = $styleFrameCollectionFactory;
+        return $clone;
+    }
+
+    public function withCharFrameCollectionFactory(ICharFrameCollectionFactory $charFrameCollectionFactory): self
+    {
+        $clone = clone $this;
+        $clone->charFrameCollectionFactory = $charFrameCollectionFactory;
+        return $clone;
+    }
+
+    public function withCharPatternExtractor(ICharPatternExtractor $charPatternExtractor): self
+    {
+        $clone = clone $this;
+        $clone->charPatternExtractor = $charPatternExtractor;
+        return $clone;
+    }
+
+    public function withStylePatternExtractor(IStylePatternExtractor $stylePatternExtractor): self
+    {
+        $clone = clone $this;
+        $clone->stylePatternExtractor = $stylePatternExtractor;
         return $clone;
     }
 
@@ -192,6 +268,9 @@ final class ConfigBuilder implements IConfigBuilder
                 driver: $this->driver,
                 container: $this->container,
                 twirlerFactory: $this->twirlerFactory,
+                twirlerBuilder: $this->twirlerBuilder,
+                styleFrameCollectionFactory: $this->styleFrameCollectionFactory,
+                charFrameCollectionFactory: $this->charFrameCollectionFactory,
                 wigglers: $this->wigglers,
                 shutdownDelay: $this->shutdownDelaySeconds,
                 interruptMessage: $this->interruptMessage,
@@ -281,19 +360,24 @@ final class ConfigBuilder implements IConfigBuilder
                 );
         }
 
+        if (null === $this->styleFrameCollectionFactory) {
+            $this->styleFrameCollectionFactory =
+                new StyleFrameCollectionFactory(
+                    $this->styleProvider,
+                );
+        }
+
+        if (null === $this->charFrameCollectionFactory) {
+            $this->charFrameCollectionFactory =
+                new CharFrameCollectionFactory(
+                    $this->charProvider,
+                );
+        }
         if (null === $this->twirlerFactory) {
             $this->twirlerFactory =
                 new TwirlerFactory(
-                    new StyleRevolverFactory(
-                        new StyleFrameCollectionFactory(
-                            $this->styleProvider,
-                        )
-                    ),
-                    new CharRevolverFactory(
-                        new CharFrameCollectionFactory(
-                            $this->charProvider,
-                        )
-                    ),
+                    new StyleRevolverFactory($this->styleFrameCollectionFactory),
+                    new CharRevolverFactory($this->charFrameCollectionFactory),
 
                 );
         }
@@ -308,13 +392,18 @@ final class ConfigBuilder implements IConfigBuilder
                 );
         }
 
-        if (null === $this->wigglers) {
-            $this->wigglers = $this->wigglerContainerFactory->createContainer();
+        if (null === $this->twirlerBuilder) {
+            $this->twirlerBuilder =
+                new TwirlerBuilder(
+                );
         }
 
         if (null === $this->container) {
             $this->container = $this->containerFactory->createContainer();
-            //new TwirlerContainer();
+        }
+
+        if (null === $this->wigglers) {
+            $this->wigglers = $this->wigglerContainerFactory->createContainer();
         }
     }
 

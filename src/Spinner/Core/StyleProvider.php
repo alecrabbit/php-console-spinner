@@ -23,7 +23,7 @@ final class StyleProvider implements Contract\IStyleProvider
      * @throws InvalidArgumentException
      */
     #[ArrayShape([C::FRAMES => "array", C::INTERVAL => Interval::class])]
-    public function provide(array $stylePattern = null): array
+    public function provide(?array $stylePattern = null): array
     {
         $stylePattern = $stylePattern ?? $this->getDefaultStylePattern();
 

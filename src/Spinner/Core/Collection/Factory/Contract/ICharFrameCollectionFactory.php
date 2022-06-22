@@ -10,5 +10,5 @@ use AlecRabbit\Spinner\Core\Interval\Contract\IInterval;
 interface ICharFrameCollectionFactory
 {
 
-    public function create(array $frames, IInterval $interval): ICharFrameCollection;
+    public function create(?array $charPattern = null): ICharFrameCollection;
 }

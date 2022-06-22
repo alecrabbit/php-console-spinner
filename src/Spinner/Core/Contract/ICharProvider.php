@@ -10,5 +10,5 @@ use JetBrains\PhpStorm\ArrayShape;
 interface ICharProvider
 {
     #[ArrayShape([C::FRAMES => "array", C::INTERVAL => Interval::class])]
-    public function provide(array $charPattern = null): array;
+    public function provide(?array $charPattern = null): array;
 }

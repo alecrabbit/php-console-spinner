@@ -19,7 +19,7 @@ final class CharRevolverFactory implements ICharRevolverFactory
 
     public function create(?ICharFrameCollection $frameCollection = null): ICharRevolver
     {
-        $frameCollection = $frameCollection ?? $this->charFrameCollectionFactory->create([], null);
+        $frameCollection = $frameCollection ?? $this->charFrameCollectionFactory->create();
 
         return
             new CharRevolver(

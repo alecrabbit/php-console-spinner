@@ -20,26 +20,13 @@ abstract class ACharFrameCollectionFactory implements ICharFrameCollectionFactor
     }
 
     /**
-     * @throws RuntimeException
      * @throws InvalidArgumentException
      */
-    public function create(array $frames, ?IInterval $interval): ICharFrameCollection
-    {
-        if ([] === $frames) {
-            return $this->defaultCollection();
-        }
-        return CharFrameCollection::create($frames, $interval ?? Interval::createDefault());
-    }
-
-    /**
-     * @throws RuntimeException
-     * @throws InvalidArgumentException
-     */
-    private function defaultCollection(): ICharFrameCollection
+    public function create(?array $charPattern = null): ICharFrameCollection
     {
         return
             CharFrameCollection::create(
-                ...$this->charProvider->provide()
+                ...$this->charProvider->provide($charPattern)
             );
     }
 }

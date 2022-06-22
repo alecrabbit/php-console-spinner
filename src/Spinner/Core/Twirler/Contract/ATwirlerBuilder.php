@@ -18,7 +18,7 @@ use AlecRabbit\Spinner\Core\Revolver\StyleRevolver;
 use AlecRabbit\Spinner\Core\Twirler\Twirler;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 
-abstract class ATwirlerBuilder implements ITwirlerBuilder
+abstract class ATwirlerBuilder
 {
     private ?IStyleRevolver $styleRevolver = null;
     private ?ICharRevolver $charRevolver = null;
@@ -52,7 +52,6 @@ abstract class ATwirlerBuilder implements ITwirlerBuilder
         $clone->charFrameCollection = $charCollection;
         return $clone;
     }
-
 
     /**
      * @throws InvalidArgumentException

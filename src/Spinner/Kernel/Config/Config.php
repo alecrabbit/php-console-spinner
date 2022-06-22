@@ -4,7 +4,10 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Kernel\Config;
 
+use AlecRabbit\Spinner\Core\Collection\Factory\Contract\ICharFrameCollectionFactory;
+use AlecRabbit\Spinner\Core\Collection\Factory\Contract\IStyleFrameCollectionFactory;
 use AlecRabbit\Spinner\Core\Defaults;
+use AlecRabbit\Spinner\Core\Twirler\Contract\ITwirlerBuilder;
 use AlecRabbit\Spinner\Core\Twirler\Contract\ITwirlerContainer;
 use AlecRabbit\Spinner\Core\Twirler\Factory\Contract\ITwirlerFactory;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
@@ -25,6 +28,9 @@ final class Config implements IConfig
         private readonly IDriver $driver,
         private readonly ITwirlerContainer $container,
         private readonly ITwirlerFactory $twirlerFactory,
+        private readonly ITwirlerBuilder $twirlerBuilder,
+        private readonly IStyleFrameCollectionFactory $styleFrameCollectionFactory,
+        private readonly ICharFrameCollectionFactory $charFrameCollectionFactory,
         private readonly ?IWigglerContainer $wigglers,
         private readonly null|int|float $shutdownDelay,
         private readonly string $interruptMessage,
@@ -195,5 +201,20 @@ final class Config implements IConfig
     public function getTwirlerFactory(): ITwirlerFactory
     {
         return $this->twirlerFactory;
+    }
+
+    public function getStyleFrameCollectionFactory(): IStyleFrameCollectionFactory
+    {
+        return $this->styleFrameCollectionFactory;
+    }
+
+    public function getCharFrameCollectionFactory(): ICharFrameCollectionFactory
+    {
+        return $this->charFrameCollectionFactory;
+    }
+
+    public function getTwirlerBuilder(): ITwirlerBuilder
+    {
+        return $this->twirlerBuilder;
     }
 }
