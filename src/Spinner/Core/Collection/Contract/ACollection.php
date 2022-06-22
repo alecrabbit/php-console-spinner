@@ -19,7 +19,6 @@ abstract class ACollection implements Countable, IteratorAggregate
 
     /**
      * @throws InvalidArgumentException
-     * @throws RuntimeException
      */
     protected function __construct(iterable $elements)
     {
@@ -54,12 +53,12 @@ abstract class ACollection implements Countable, IteratorAggregate
     abstract protected static function getElementClass(): string;
 
     /**
-     * @throws RuntimeException
+     * @throws InvalidArgumentException
      */
     protected function assertIsNotEmpty(): void
     {
         if (0 === $this->count) {
-            throw new RuntimeException(
+            throw new InvalidArgumentException(
                 'Collection is empty.'
             );
         }

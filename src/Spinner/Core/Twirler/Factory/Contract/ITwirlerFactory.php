@@ -10,5 +10,5 @@ use AlecRabbit\Spinner\Core\Twirler\Contract\ITwirler;
 
 interface ITwirlerFactory
 {
-    public function create(?IStyleRevolver $styleRevolver = null, ?ICharRevolver $charRevolver = null): ITwirler;
+    public function createTwirler(?IStyleRevolver $styleRevolver = null, ?ICharRevolver $charRevolver = null): ITwirler;
 }

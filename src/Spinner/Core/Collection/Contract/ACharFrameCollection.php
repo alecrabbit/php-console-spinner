@@ -19,7 +19,6 @@ abstract class ACharFrameCollection extends ACollection implements ICharFrameCol
     }
 
     /**
-     * @throws RuntimeException
      * @throws InvalidArgumentException
      */
     public static function create(array $frames, IInterval $interval): ICharFrameCollection

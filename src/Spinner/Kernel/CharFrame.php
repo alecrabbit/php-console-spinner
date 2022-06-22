@@ -120,4 +120,9 @@ final class CharFrame implements ICharFrame
     {
         return $this->sequenceWidth;
     }
+
+    public static function createEmpty(): static
+    {
+        // TODO: Implement createEmpty() method.
+    }
 }

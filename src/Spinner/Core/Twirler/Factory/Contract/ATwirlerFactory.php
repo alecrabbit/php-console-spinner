@@ -19,7 +19,7 @@ abstract class ATwirlerFactory implements ITwirlerFactory
     ) {
     }
 
-    public function create(?IStyleRevolver $styleRevolver = null, ?ICharRevolver $charRevolver = null): ITwirler
+    public function createTwirler(?IStyleRevolver $styleRevolver = null, ?ICharRevolver $charRevolver = null): ITwirler
     {
         $styleRevolver = $styleRevolver ?? $this->styleRevolverFactory->create();
         $charRevolver = $charRevolver ?? $this->charRevolverFactory->create();

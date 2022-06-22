@@ -28,7 +28,7 @@ abstract class AStyleFrameCollectionFactory implements IStyleFrameCollectionFact
         if ([] === $frames) {
             return $this->defaultCollection();
         }
-        return StyleFrameCollection::create($frames, $interval ?? new Interval(null));
+        return StyleFrameCollection::create($frames, $interval ?? Interval::createDefault());
     }
 
     /**

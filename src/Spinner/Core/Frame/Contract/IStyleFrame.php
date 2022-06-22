@@ -9,4 +9,6 @@ interface IStyleFrame
     public function getSequenceStart(): string;
 
     public function getSequenceEnd(): string;
+
+    public static function createEmpty(): static;
 }

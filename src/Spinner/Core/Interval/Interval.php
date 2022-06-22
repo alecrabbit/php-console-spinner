@@ -5,8 +5,9 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Interval;
 
 use AlecRabbit\Spinner\Core\Defaults;
+use AlecRabbit\Spinner\Core\Interval\Contract\IInterval;
 
-final class Interval implements Contract\IInterval
+final class Interval implements IInterval
 {
     private int|float $milliseconds;
 
@@ -30,4 +31,8 @@ final class Interval implements Contract\IInterval
         return $this->milliseconds / 1000;
     }
 
+    public static function createDefault(): IInterval
+    {
+        return new self(null);
+    }
 }

@@ -19,7 +19,6 @@ abstract class AStyleFrameCollection extends ACollection implements IStyleFrameC
     }
 
     /**
-     * @throws RuntimeException
      * @throws InvalidArgumentException
      */
     public static function create(array $frames, IInterval $interval): IStyleFrameCollection

@@ -21,4 +21,9 @@ abstract class AStyleFrame implements IStyleFrame
     {
         return $this->sequenceEnd;
     }
+
+    public static function createEmpty(): static
+    {
+        return new static('', '');
+    }
 }

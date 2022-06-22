@@ -9,4 +9,6 @@ interface ICharFrame
     public function getChar(): string;
 
     public function getWidth(): int;
+
+    public static function createEmpty(): static;
 }

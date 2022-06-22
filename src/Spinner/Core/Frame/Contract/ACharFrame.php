@@ -29,4 +29,9 @@ abstract class ACharFrame implements ICharFrame,
     {
         return $this->width;
     }
+
+    public static function createEmpty(): static
+    {
+        return new static('', 0);
+    }
 }
