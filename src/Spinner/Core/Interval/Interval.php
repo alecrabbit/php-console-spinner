@@ -51,7 +51,7 @@ final class Interval implements IInterval
                     self::maxInterval()
                 )
             ),
-            true => null,
+            default => null,
         };
     }
 

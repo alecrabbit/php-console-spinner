@@ -58,7 +58,7 @@ final class StylePatternExtractor implements IStylePatternExtractor
             throw new InvalidArgumentException(
                 sprintf('Style pattern must contain "%s" key.', C::STYLES)
             ),
-            true => null,
+            default => null,
         };
     }
 
