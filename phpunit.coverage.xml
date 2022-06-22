@@ -4,14 +4,12 @@
          bootstrap="tests/bootstrap.php"
          cacheResultFile=".tools/.phpunit.cache/test-results"
          executionOrder="random"
-         beStrictAboutCoversAnnotation="false"
          beStrictAboutOutputDuringTests="true"
          beStrictAboutTodoAnnotatedTests="true"
          convertDeprecationsToExceptions="true"
          failOnRisky="true"
          failOnWarning="true"
          colors="true"
-         printerClass="NunoMaduro\Collision\Adapters\Phpunit\Printer"
          verbose="true">
     <testsuites>
         <testsuite name="default">
