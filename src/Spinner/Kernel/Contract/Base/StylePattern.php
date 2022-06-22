@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Kernel\Contract\Base;
 
 use AlecRabbit\Spinner\Core\Contract\C;
+use AlecRabbit\Spinner\Core\Frame\StyleFrame;
 use JetBrains\PhpStorm\ArrayShape;
 
 use const AlecRabbit\Cli\TERM_16COLOR;
@@ -68,6 +69,18 @@ final class StylePattern
             );
     }
 
+    public static function none(): array
+    {
+        return
+            self::fillWithDefaults(
+                [
+                    C::STYLES => [
+                    ],
+                ],
+                self::defaults()
+            );
+    }
+
     protected static function fillWithDefaults(array $incoming, array $defaults): array
     {
         foreach ($defaults as $key => $value) {
@@ -90,7 +103,7 @@ final class StylePattern
             C::STYLES => [
                 TERM_NOCOLOR =>
                     [
-                        C::SEQUENCE => [],
+                        C::SEQUENCE => [StyleFrame::createEmpty()],
                         C::FORMAT => null,
                         C::INTERVAL => null,
                     ],

@@ -7,9 +7,10 @@ namespace AlecRabbit\Spinner\Core\Twirler\Contract;
 use AlecRabbit\Spinner\Core\Collection\CharFrameCollection;
 use AlecRabbit\Spinner\Core\Collection\Contract\ICharFrameCollection;
 use AlecRabbit\Spinner\Core\Collection\Contract\IStyleFrameCollection;
-use AlecRabbit\Spinner\Core\Collection\StyleFrameCollection;
+use AlecRabbit\Spinner\Core\Collection\Factory\Contract\ICharFrameCollectionFactory;
+use AlecRabbit\Spinner\Core\Collection\Factory\Contract\IStyleFrameCollectionFactory;
+use AlecRabbit\Spinner\Core\Defaults;
 use AlecRabbit\Spinner\Core\Frame\CharFrame;
-use AlecRabbit\Spinner\Core\Frame\StyleFrame;
 use AlecRabbit\Spinner\Core\Interval\Interval;
 use AlecRabbit\Spinner\Core\Revolver\CharRevolver;
 use AlecRabbit\Spinner\Core\Revolver\Contract\ICharRevolver;
@@ -24,6 +25,14 @@ abstract class ATwirlerBuilder
     private ?ICharRevolver $charRevolver = null;
     private ?IStyleFrameCollection $styleFrameCollection = null;
     private ?ICharFrameCollection $charFrameCollection = null;
+    private ?array $stylePattern = null;
+    private ?array $charPattern = null;
+
+    public function __construct(
+        private readonly IStyleFrameCollectionFactory $styleFrameCollectionFactory,
+        private readonly ICharFrameCollectionFactory $charFrameCollectionFactory,
+    ) {
+    }
 
     public function withStyleRevolver(IStyleRevolver $styleRevolver): ITwirlerBuilder
     {
@@ -72,19 +81,23 @@ abstract class ATwirlerBuilder
      */
     private function processDefaults(): void
     {
+        if (null === $this->stylePattern) {
+            $this->stylePattern = Defaults::getDefaultStylePattern();
+        }
+
+        if (null === $this->charPattern) {
+            $this->charPattern = Defaults::getDefaultCharPattern();
+        }
+
         if (null === $this->styleFrameCollection) {
-            $this->styleFrameCollection =
-                StyleFrameCollection::create(
-                    [StyleFrame::createEmpty()],
-                    Interval::createDefault()
-                );
+            $this->styleFrameCollection = $this->styleFrameCollectionFactory->create($this->stylePattern);
         }
         if (null === $this->charFrameCollection) {
-            $this->charFrameCollection =
-                CharFrameCollection::create(
-                    [CharFrame::createEmpty()],
-                    Interval::createDefault()
-                );
+            $this->charFrameCollection = $this->charFrameCollectionFactory->create($this->charPattern);
+//                CharFrameCollection::create(
+//                    [CharFrame::createEmpty()],
+//                    Interval::createDefault()
+//                );
         }
 
         if (null === $this->styleRevolver) {

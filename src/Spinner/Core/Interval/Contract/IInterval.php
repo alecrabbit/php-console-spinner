@@ -6,6 +6,8 @@ namespace AlecRabbit\Spinner\Core\Interval\Contract;
 
 interface IInterval
 {
+    public function toMicroseconds(): float;
+
     public function toMilliseconds(): float;
 
     public function toSeconds(): float;

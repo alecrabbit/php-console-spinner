@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Kernel\Contract\Base;
 
 use AlecRabbit\Spinner\Core\Contract\C;
+use AlecRabbit\Spinner\Core\Frame\CharFrame;
 
 final class CharPattern
 {
@@ -885,4 +886,12 @@ final class CharPattern
     {
     }
 
+    public static function none(): array
+    {
+        return [
+            C::FRAMES => [CharFrame::createEmpty()],
+            C::ELEMENT_WIDTH => 0,
+            C::INTERVAL => null
+        ];
+    }
 }

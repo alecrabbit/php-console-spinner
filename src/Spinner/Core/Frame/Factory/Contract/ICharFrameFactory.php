@@ -8,5 +8,5 @@ use AlecRabbit\Spinner\Core\Frame\Contract\ICharFrame;
 
 interface ICharFrameFactory
 {
-    public function create(string $char, ?int $width = null): ICharFrame;
+    public function create(string|ICharFrame $char, ?int $width = null): ICharFrame;
 }

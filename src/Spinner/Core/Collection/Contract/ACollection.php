@@ -59,7 +59,7 @@ abstract class ACollection implements Countable, IteratorAggregate
     {
         if (0 === $this->count) {
             throw new InvalidArgumentException(
-                'Collection is empty.'
+                sprintf ('%s: Collection is empty.', static::class)
             );
         }
     }

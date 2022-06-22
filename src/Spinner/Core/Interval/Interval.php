@@ -77,4 +77,9 @@ final class Interval implements IInterval
     {
         return (float)($this->milliseconds / 1000);
     }
+
+    public function toMicroseconds(): float
+    {
+        return (float)($this->milliseconds * 1000);
+    }
 }

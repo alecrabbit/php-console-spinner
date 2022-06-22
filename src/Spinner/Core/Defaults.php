@@ -72,7 +72,7 @@ final class Defaults extends ADefaults
     public static function getDefaultCharPattern(): array
     {
         if (null === self::$defaultCharPattern) {
-            self::$defaultCharPattern = CharPattern::SNAKE_VARIANT_0;
+            self::$defaultCharPattern = CharPattern::none();
         }
         return self::$defaultCharPattern;
     }
@@ -80,7 +80,7 @@ final class Defaults extends ADefaults
     public static function getDefaultStylePattern(): array
     {
         if (null === self::$defaultStylePattern) {
-            self::$defaultStylePattern = StylePattern::rainbow();
+            self::$defaultStylePattern = StylePattern::none();
         }
         return self::$defaultStylePattern;
     }

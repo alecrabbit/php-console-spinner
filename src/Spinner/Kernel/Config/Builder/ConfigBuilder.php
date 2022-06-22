@@ -395,6 +395,8 @@ final class ConfigBuilder implements IConfigBuilder
         if (null === $this->twirlerBuilder) {
             $this->twirlerBuilder =
                 new TwirlerBuilder(
+                    $this->styleFrameCollectionFactory,
+                    $this->charFrameCollectionFactory,
                 );
         }
 
