@@ -18,4 +18,9 @@ interface ITwirlerBuilder
     public function withStyleCollection(IStyleFrameCollection $styleCollection): ITwirlerBuilder;
 
     public function withCharCollection(ICharFrameCollection $charCollection): ITwirlerBuilder;
+
+    public function withStylePattern(?array $stylePattern = null): ITwirlerBuilder;
+
+    public function withCharPattern(?array $charPattern = null): ITwirlerBuilder;
+
 }

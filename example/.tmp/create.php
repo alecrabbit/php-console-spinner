@@ -37,31 +37,15 @@ $twirlerOne =
 ;
 $twirlerTwo =
     $twirlerBuilder
-        ->withStyleCollection(
-            $styleCollectionFactory->create(
-                StylePattern::rainbow()
-            )
-        )
-        ->withCharCollection(
-            $charCollectionFactory->create(
-                CharPattern::SNAKE_VARIANT_1
-            )
-        )
+        ->withStylePattern(StylePattern::rainbow())
+        ->withCharPattern(CharPattern::SNAKE_VARIANT_3)
         ->build()
 ;
 
 $twirlerFour =
     $twirlerBuilder
-        ->withStyleCollection(
-            $styleCollectionFactory->create(
-                StylePattern::rainbow()
-            )
-        )
-        ->withCharCollection(
-            $charCollectionFactory->create(
-                CharPattern::SNAKE_VARIANT_1
-            )
-        )
+        ->withStylePattern(StylePattern::rainbow())
+        ->withCharPattern(CharPattern::SNAKE_VARIANT_1)
         ->build()
 ;
 

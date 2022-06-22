@@ -62,9 +62,20 @@ abstract class ATwirlerBuilder
         return $clone;
     }
 
-    /**
-     * @throws InvalidArgumentException
-     */
+    public function withStylePattern(?array $stylePattern = null): ITwirlerBuilder
+    {
+        $clone = clone $this;
+        $clone->stylePattern = $stylePattern;
+        return $clone;
+    }
+
+    public function withCharPattern(?array $charPattern = null): ITwirlerBuilder
+    {
+        $clone = clone $this;
+        $clone->charPattern = $charPattern;
+        return $clone;
+    }
+
     public function build(): ITwirler
     {
         $this->processDefaults();
@@ -76,9 +87,6 @@ abstract class ATwirlerBuilder
             );
     }
 
-    /**
-     * @throws InvalidArgumentException
-     */
     private function processDefaults(): void
     {
         if (null === $this->stylePattern) {
@@ -94,10 +102,6 @@ abstract class ATwirlerBuilder
         }
         if (null === $this->charFrameCollection) {
             $this->charFrameCollection = $this->charFrameCollectionFactory->create($this->charPattern);
-//                CharFrameCollection::create(
-//                    [CharFrame::createEmpty()],
-//                    Interval::createDefault()
-//                );
         }
 
         if (null === $this->styleRevolver) {
