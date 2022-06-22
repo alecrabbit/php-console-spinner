@@ -8,5 +8,5 @@ use AlecRabbit\Spinner\Core\Frame\Contract\IStyleFrame;
 
 interface IStyleFrameFactory
 {
-    public function create(): IStyleFrame;
+    public function create(mixed $style, ?string $format): IStyleFrame;
 }

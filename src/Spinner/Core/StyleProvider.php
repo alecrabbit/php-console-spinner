@@ -32,10 +32,7 @@ final class StyleProvider implements Contract\IStyleProvider
         $styles = [];
         $format = $extracted[C::STYLES][C::FORMAT];
         foreach ($extracted[C::STYLES][C::SEQUENCE] as $style) {
-            $styles[] = $this->frameFactory->create(
-                Sequencer::colorSequenceStart(sprintf($format, $style)),
-                Sequencer::colorSequenceEnd(),
-            );
+            $styles[] = $this->frameFactory->create($style, $format);
         }
         return
             [

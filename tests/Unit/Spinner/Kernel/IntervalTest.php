@@ -85,30 +85,11 @@ class IntervalTest extends TestCase
         }
     }
 
-//    /**
-//     * @test
-//     * @dataProvider smallestDataProvider
-//     */
-//    public function smallest(?IInterval $expected, array $arguments): void  {
-//
-//    }
-//
-//    public function smallestDataProvider(): iterable
-//    {
-//        yield [
-//            null,
-//            [
-//                null,
-//                null
-//            ],
-//        ];
-//    }
-
     /**
      * @test
      */
     public function canClone(): void {
-        $interval = new Interval(Defaults::MILLISECONDS_INTERVAL);
+        $interval = new Interval(null);
         $clone = clone $interval;
         self::assertEquals($interval->toSeconds(), $clone->toSeconds());
         self::assertEquals($clone, $interval);

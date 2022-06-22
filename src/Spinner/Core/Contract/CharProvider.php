@@ -7,7 +7,6 @@ namespace AlecRabbit\Spinner\Core\Contract;
 use AlecRabbit\Spinner\Core\Defaults;
 use AlecRabbit\Spinner\Core\Frame\Factory\Contract\ICharFrameFactory;
 use AlecRabbit\Spinner\Core\Interval\Interval;
-use AlecRabbit\Spinner\Core\WidthDefiner;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use JetBrains\PhpStorm\ArrayShape;
 
@@ -36,8 +35,9 @@ final class CharProvider implements ICharProvider
         $chars = [];
         foreach ($frames as $char) {
             $chars[] =
-                $this->charFactory->create($char, $width ?? WidthDefiner::define($char));
+                $this->charFactory->create($char, $width);
         }
+
         return
             [
                 C::FRAMES => $chars,

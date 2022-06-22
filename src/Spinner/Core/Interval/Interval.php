@@ -14,6 +14,9 @@ final class Interval implements IInterval
     private static null|float|int $maxInterval = null;
     private int|float $milliseconds;
 
+    /**
+     * @throws InvalidArgumentException
+     */
     public function __construct(null|int|float $milliseconds)
     {
         $this->milliseconds = (float)($milliseconds ?? self::maxInterval());
