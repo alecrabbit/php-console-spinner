@@ -28,15 +28,18 @@ final class StyleProvider implements Contract\IStyleProvider
         $stylePattern = $stylePattern ?? $this->getDefaultStylePattern();
 
         $extracted = $this->extractor->extract($stylePattern);
-        $interval = $extracted[C::STYLES][C::INTERVAL] ?? null;
-        $styles = [];
-        $format = $extracted[C::STYLES][C::FORMAT];
-        foreach ($extracted[C::STYLES][C::SEQUENCE] as $style) {
-            $styles[] = $this->frameFactory->create($style, $format);
+        $styles = $extracted[C::STYLES];
+        $interval = $styles[C::INTERVAL] ?? null;
+        $format = $styles[C::FORMAT];
+        $sequence = $styles[C::SEQUENCE];
+
+        $frames = [];
+        foreach ($sequence as $item) {
+            $frames[] = $this->frameFactory->create($item, $format);
         }
         return
             [
-                C::FRAMES => $styles,
+                C::FRAMES => $frames,
                 C::INTERVAL => new Interval($interval),
             ];
     }

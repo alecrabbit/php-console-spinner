@@ -10,22 +10,19 @@ use AlecRabbit\Spinner\Core\Sequencer;
 
 abstract class AStyleFrameFactory implements IStyleFrameFactory
 {
-//    protected const SEQUENCE_START = C::EMPTY_STRING;
-//    protected const SEQUENCE_END = C::EMPTY_STRING;
-
-    public function create(mixed $style, ?string $format): IStyleFrame
+    public function create(mixed $item, ?string $format): IStyleFrame
     {
-        if($style instanceof IStyleFrame) {
-            return $style;
+        if($item instanceof IStyleFrame) {
+            return $item;
         }
 
-        if (is_scalar($style)) {
-            $style = [$style];
+        if (is_scalar($item)) {
+            $item = [$item];
         }
 
         return
             new StyleFrame(
-                Sequencer::colorSequenceStart(sprintf($format, ...$style)),
+                Sequencer::colorSequenceStart(sprintf($format, ...$item)),
                 Sequencer::colorSequenceEnd()
             );
     }
