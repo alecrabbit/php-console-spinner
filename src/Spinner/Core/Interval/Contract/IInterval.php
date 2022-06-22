@@ -6,11 +6,11 @@ namespace AlecRabbit\Spinner\Core\Interval\Contract;
 
 interface IInterval
 {
+    public static function createDefault(): IInterval;
+
     public function toMicroseconds(): float;
 
     public function toMilliseconds(): float;
 
     public function toSeconds(): float;
-
-    public static function createDefault(): IInterval;
 }

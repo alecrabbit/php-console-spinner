@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 // 20.06.22
 
+use AlecRabbit\Spinner\Core\Contract\StylePattern;
 use AlecRabbit\Spinner\Core\SpinnerFactory;
 use AlecRabbit\Spinner\Kernel\Config\Builder\ConfigBuilder;
 use AlecRabbit\Spinner\Kernel\Contract\Base\CharPattern;
-use AlecRabbit\Spinner\Kernel\Contract\Base\StylePattern;
 use AlecRabbit\Spinner\Kernel\Output\StreamOutput;
 
 require_once __DIR__ . '/../bootstrap.php';

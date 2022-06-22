@@ -2,9 +2,8 @@
 
 declare(strict_types=1);
 // 10.06.22
-namespace AlecRabbit\Spinner\Kernel\Contract\Base;
+namespace AlecRabbit\Spinner\Core\Contract;
 
-use AlecRabbit\Spinner\Core\Contract\C;
 use AlecRabbit\Spinner\Core\Frame\StyleFrame;
 use JetBrains\PhpStorm\ArrayShape;
 
@@ -69,18 +68,6 @@ final class StylePattern
             );
     }
 
-    public static function none(): array
-    {
-        return
-            self::fillWithDefaults(
-                [
-                    C::STYLES => [
-                    ],
-                ],
-                self::defaults()
-            );
-    }
-
     protected static function fillWithDefaults(array $incoming, array $defaults): array
     {
         foreach ($defaults as $key => $value) {
@@ -109,6 +96,18 @@ final class StylePattern
                     ],
             ],
         ];
+    }
+
+    public static function none(): array
+    {
+        return
+            self::fillWithDefaults(
+                [
+                    C::STYLES => [
+                    ],
+                ],
+                self::defaults()
+            );
     }
 
     #[ArrayShape([C::STYLES => "array[]"])]

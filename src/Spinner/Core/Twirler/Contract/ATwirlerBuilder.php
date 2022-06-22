@@ -4,20 +4,16 @@ declare(strict_types=1);
 // 22.06.22
 namespace AlecRabbit\Spinner\Core\Twirler\Contract;
 
-use AlecRabbit\Spinner\Core\Collection\CharFrameCollection;
 use AlecRabbit\Spinner\Core\Collection\Contract\ICharFrameCollection;
 use AlecRabbit\Spinner\Core\Collection\Contract\IStyleFrameCollection;
 use AlecRabbit\Spinner\Core\Collection\Factory\Contract\ICharFrameCollectionFactory;
 use AlecRabbit\Spinner\Core\Collection\Factory\Contract\IStyleFrameCollectionFactory;
 use AlecRabbit\Spinner\Core\Defaults;
-use AlecRabbit\Spinner\Core\Frame\CharFrame;
-use AlecRabbit\Spinner\Core\Interval\Interval;
 use AlecRabbit\Spinner\Core\Revolver\CharRevolver;
 use AlecRabbit\Spinner\Core\Revolver\Contract\ICharRevolver;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IStyleRevolver;
 use AlecRabbit\Spinner\Core\Revolver\StyleRevolver;
 use AlecRabbit\Spinner\Core\Twirler\Twirler;
-use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 
 abstract class ATwirlerBuilder
 {

@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Collection\Factory\Contract;
 
 use AlecRabbit\Spinner\Core\Collection\Contract\IStyleFrameCollection;
-use AlecRabbit\Spinner\Core\Interval\Contract\IInterval;
 
 interface IStyleFrameCollectionFactory
 {

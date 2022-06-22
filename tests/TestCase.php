@@ -19,6 +19,7 @@ abstract class TestCase extends PHPUnitTestCase
     final protected const PATTERN = 'pattern';
     final protected const PREFERRED_INTERVAL = 'preferredInterval';
     final protected const RENDERED = 'rendered';
+    final protected const PROVIDED = 'provided';
     final protected const RESULT = 'result';
     final protected const SEQUENCE = 'sequence';
 

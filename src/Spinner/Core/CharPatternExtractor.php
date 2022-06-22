@@ -10,11 +10,6 @@ use JetBrains\PhpStorm\ArrayShape;
 
 final class CharPatternExtractor implements Contract\ICharPatternExtractor
 {
-    private static function assertCharPattern(array $charPattern)
-    {
-        // TODO (2022-06-21 16:21) [Alec Rabbit]: Implement
-    }
-
     /**
      * @inheritDoc
      */
@@ -38,5 +33,10 @@ final class CharPatternExtractor implements Contract\ICharPatternExtractor
                 C::INTERVAL => $interval,
             ]
         ];
+    }
+
+    private static function assertCharPattern(array $charPattern)
+    {
+        // TODO (2022-06-21 16:21) [Alec Rabbit]: Implement
     }
 }

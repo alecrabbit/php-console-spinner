@@ -39,4 +39,4 @@ abstract class ACharFrameFactory implements ICharFrameFactory
 //                Sequencer::colorSequenceEnd()
 //            );
 //
-    }
+}

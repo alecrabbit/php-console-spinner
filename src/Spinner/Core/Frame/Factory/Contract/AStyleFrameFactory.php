@@ -12,7 +12,7 @@ abstract class AStyleFrameFactory implements IStyleFrameFactory
 {
     public function create(mixed $item, ?string $format): IStyleFrame
     {
-        if($item instanceof IStyleFrame) {
+        if ($item instanceof IStyleFrame) {
             return $item;
         }
 

@@ -7,7 +7,6 @@ namespace AlecRabbit\Spinner\Core\Collection\Contract;
 use AlecRabbit\Spinner\Core\Frame\Contract\IStyleFrame;
 use AlecRabbit\Spinner\Core\Interval\Contract\IInterval;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
-use AlecRabbit\Spinner\Exception\RuntimeException;
 
 abstract class AStyleFrameCollection extends ACollection implements IStyleFrameCollection
 {

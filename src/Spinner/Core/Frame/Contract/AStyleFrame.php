@@ -12,6 +12,11 @@ abstract class AStyleFrame implements IStyleFrame
     ) {
     }
 
+    public static function createEmpty(): static
+    {
+        return new static('', '');
+    }
+
     public function getSequenceStart(): string
     {
         return $this->sequenceStart;
@@ -20,10 +25,5 @@ abstract class AStyleFrame implements IStyleFrame
     public function getSequenceEnd(): string
     {
         return $this->sequenceEnd;
-    }
-
-    public static function createEmpty(): static
-    {
-        return new static('', '');
     }
 }

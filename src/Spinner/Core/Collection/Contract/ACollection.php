@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Collection\Contract;
 
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
-use AlecRabbit\Spinner\Exception\RuntimeException;
 use ArrayIterator;
 use Countable;
 use IteratorAggregate;
@@ -59,7 +58,7 @@ abstract class ACollection implements Countable, IteratorAggregate
     {
         if (0 === $this->count) {
             throw new InvalidArgumentException(
-                sprintf ('%s: Collection is empty.', static::class)
+                sprintf('%s: Collection is empty.', static::class)
             );
         }
     }

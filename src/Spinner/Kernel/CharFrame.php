@@ -106,6 +106,11 @@ final class CharFrame implements ICharFrame
         );
     }
 
+    public static function createEmpty(): static
+    {
+        // TODO: Implement createEmpty() method.
+    }
+
     public function __toString(): string
     {
         return $this->sequence;
@@ -119,10 +124,5 @@ final class CharFrame implements ICharFrame
     public function getWidth(): int
     {
         return $this->sequenceWidth;
-    }
-
-    public static function createEmpty(): static
-    {
-        // TODO: Implement createEmpty() method.
     }
 }

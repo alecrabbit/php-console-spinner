@@ -4,9 +4,9 @@ declare(strict_types=1);
 // 15.06.22
 namespace AlecRabbit\Spinner\Kernel\Factory;
 
+use AlecRabbit\Spinner\Core\Contract\StylePattern;
 use AlecRabbit\Spinner\Core\Defaults;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
-use AlecRabbit\Spinner\Kernel\Contract\Base\StylePattern;
 use AlecRabbit\Spinner\Kernel\Contract\IWFrameCollection;
 use AlecRabbit\Spinner\Kernel\Contract\IWStyleCollection;
 use AlecRabbit\Spinner\Kernel\Contract\WIStyleProvider;

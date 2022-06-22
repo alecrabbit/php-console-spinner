@@ -6,8 +6,8 @@ namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Kernel;
 
 use AlecRabbit\Spinner\Core\Contract\C;
 use AlecRabbit\Spinner\Core\Contract\IStylePatternExtractor;
+use AlecRabbit\Spinner\Core\Contract\StylePattern;
 use AlecRabbit\Spinner\Core\StylePatternExtractor;
-use AlecRabbit\Spinner\Kernel\Contract\Base\StylePattern;
 use AlecRabbit\Tests\Spinner\TestCase;
 use JetBrains\PhpStorm\ArrayShape;
 
