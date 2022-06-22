@@ -6,33 +6,72 @@ namespace AlecRabbit\Spinner\Core\Interval;
 
 use AlecRabbit\Spinner\Core\Defaults;
 use AlecRabbit\Spinner\Core\Interval\Contract\IInterval;
+use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 
 final class Interval implements IInterval
 {
+    private static null|float|int $minInterval = null;
+    private static null|float|int $maxInterval = null;
     private int|float $milliseconds;
 
     public function __construct(null|int|float $milliseconds)
     {
-        $this->milliseconds = $milliseconds ?? self::maxInterval();
+        $this->milliseconds = (float)($milliseconds ?? self::maxInterval());
+        self::assert($this);
     }
 
     private static function maxInterval(): int|float
     {
-        return Defaults::getMaxIntervalMilliseconds();
+        if (null === self::$maxInterval) {
+            self::$maxInterval = Defaults::getMaxIntervalMilliseconds();
+        }
+        return self::$maxInterval;
     }
 
-    public function toMilliseconds(): float|int
+    /**
+     * @throws InvalidArgumentException
+     */
+    private static function assert(Interval $interval): void
     {
-        return $this->milliseconds;
+        match (true) {
+            $interval->milliseconds < self::minInterval() =>
+            throw new InvalidArgumentException(
+                sprintf(
+                    'Interval should be greater than %s.',
+                    self::minInterval()
+                )
+            ),
+            $interval->milliseconds > self::maxInterval() =>
+            throw new InvalidArgumentException(
+                sprintf(
+                    'Interval should be less than %s.',
+                    self::maxInterval()
+                )
+            ),
+            true => null,
+        };
     }
 
-    public function toSeconds(): float|int
+    private static function minInterval(): float|int
     {
-        return $this->milliseconds / 1000;
+        if (null === self::$minInterval) {
+            self::$minInterval = Defaults::getMinIntervalMilliseconds();
+        }
+        return self::$minInterval;
     }
 
     public static function createDefault(): IInterval
     {
         return new self(null);
+    }
+
+    public function toMilliseconds(): float
+    {
+        return $this->milliseconds;
+    }
+
+    public function toSeconds(): float
+    {
+        return (float)($this->milliseconds / 1000);
     }
 }

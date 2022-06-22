@@ -12,6 +12,7 @@ final class Defaults extends ADefaults
 {
     private static float|int $shutdownDelay = self::SHUTDOWN_DELAY;
     private static float|int $maxIntervalMilliseconds = self::MILLISECONDS_MAX_INTERVAL;
+    private static float|int $minIntervalMilliseconds = self::MILLISECONDS_MIN_INTERVAL;
     private static bool $synchronousMode = self::SYNCHRONOUS_MODE;
     private static bool $hideCursor = self::HIDE_CURSOR;
     private static ?array $defaultStylePattern = null;
@@ -22,14 +23,20 @@ final class Defaults extends ADefaults
         return self::$shutdownDelay;
     }
 
-    public static function getMaxIntervalMilliseconds(): int|float
+    public static function getMinIntervalMilliseconds(): float|int
     {
-        return self::$maxIntervalMilliseconds;
+        return self::$minIntervalMilliseconds;
     }
 
-    public static function setMaxIntervalMilliseconds(float|int $maxIntervalMilliseconds): void
+    public static function setMinIntervalMilliseconds(float|int $minIntervalMilliseconds): void
     {
-        self::$maxIntervalMilliseconds = $maxIntervalMilliseconds;
+        self::$minIntervalMilliseconds = $minIntervalMilliseconds;
+    }
+
+
+    public static function getMaxIntervalMilliseconds(): float|int
+    {
+        return self::$maxIntervalMilliseconds;
     }
 
     public static function getSynchronousMode(): bool
