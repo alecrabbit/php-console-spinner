@@ -6,9 +6,9 @@ namespace AlecRabbit\Spinner\Kernel;
 
 use AlecRabbit\Spinner\Core\Contract\C;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
-use AlecRabbit\Spinner\Kernel\Contract\IStyle;
+use AlecRabbit\Spinner\Kernel\Contract\IWStyle;
 
-final class Style implements IStyle
+final class WStyle implements IWStyle
 {
     protected function __construct(
         public readonly string $sequence,
@@ -18,9 +18,9 @@ final class Style implements IStyle
     /**
      * @throws InvalidArgumentException
      */
-    public static function create(mixed $element = null): IStyle
+    public static function create(mixed $element = null): IWStyle
     {
-        if ($element instanceof IStyle) {
+        if ($element instanceof IWStyle) {
             return $element;
         }
         if (null === $element) {
@@ -30,7 +30,7 @@ final class Style implements IStyle
             if (C::EMPTY_STRING === $element) {
                 $element = C::STR_PLACEHOLDER;
             }
-            return new Style($element);
+            return new WStyle($element);
         }
         throw new InvalidArgumentException(
             sprintf(

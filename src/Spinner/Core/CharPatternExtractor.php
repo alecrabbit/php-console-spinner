@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core;
 
 use AlecRabbit\Spinner\Core\Contract\C;
-use AlecRabbit\Spinner\Kernel\StrSplitter;
 use JetBrains\PhpStorm\ArrayShape;
 
 final class CharPatternExtractor implements Contract\ICharPatternExtractor

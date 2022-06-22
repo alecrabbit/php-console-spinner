@@ -6,6 +6,6 @@ namespace AlecRabbit\Spinner\Kernel\Contract;
 
 use Stringable;
 
-interface IStyle extends Stringable
+interface IWStyle extends Stringable
 {
 }

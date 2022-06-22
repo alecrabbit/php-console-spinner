@@ -13,7 +13,7 @@ interface IWStyleCollection extends Countable,
 {
     public static function create(array $styles, ?int $interval = null): self;
 
-    public function add(IStyle $style): void;
+    public function add(IWStyle $style): void;
 
     public function toArray(): array;
 }

@@ -44,7 +44,7 @@ abstract class ACollection implements Countable, IteratorAggregate
     {
         if (!$element instanceof $class) {
             throw new InvalidArgumentException(
-                sprintf('Element must be instance of %s', $class)
+                sprintf('Element must be instance of "%s".', $class)
             );
         }
     }

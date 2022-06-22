@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core;
 
 use AlecRabbit\Spinner\Core\Contract\ADefaults;
+use AlecRabbit\Spinner\Core\Contract\CharPattern;
 use AlecRabbit\Spinner\Core\Contract\StylePattern;
-use AlecRabbit\Spinner\Kernel\Contract\Base\CharPattern;
 
 final class Defaults extends ADefaults
 {

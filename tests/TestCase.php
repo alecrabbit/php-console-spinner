@@ -22,6 +22,8 @@ abstract class TestCase extends PHPUnitTestCase
     final protected const PROVIDED = 'provided';
     final protected const RESULT = 'result';
     final protected const SEQUENCE = 'sequence';
+    final protected const SEQUENCE_START = 'sequenceStart';
+    final protected const SEQUENCE_END = 'sequenceEnd';
 
     protected function setExpectException(mixed $expected): void
     {

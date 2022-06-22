@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 // 16.06.22
-namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Kernel;
+namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Core;
 
 use AlecRabbit\Spinner\Core\Contract\C;
 use AlecRabbit\Spinner\Core\Contract\IStylePatternExtractor;

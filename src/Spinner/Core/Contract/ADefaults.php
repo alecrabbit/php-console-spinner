@@ -4,8 +4,6 @@ declare(strict_types=1);
 // 20.06.22
 namespace AlecRabbit\Spinner\Core\Contract;
 
-use AlecRabbit\Spinner\Kernel\Contract\Base\CharPattern;
-
 use const AlecRabbit\Cli\ALLOWED_TERM_COLOR;
 
 abstract class ADefaults

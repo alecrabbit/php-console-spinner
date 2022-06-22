@@ -4,7 +4,7 @@ declare(strict_types=1);
 // 10.06.22
 namespace AlecRabbit\Spinner\Kernel;
 
-use AlecRabbit\Spinner\Kernel\Contract\IStyle;
+use AlecRabbit\Spinner\Kernel\Contract\IWStyle;
 use AlecRabbit\Spinner\Kernel\Contract\IWStyleCollection;
 use AlecRabbit\Spinner\Kernel\Rotor\Contract\IWInterval;
 use AlecRabbit\Spinner\Kernel\Rotor\WInterval;
@@ -13,7 +13,7 @@ use Traversable;
 
 final class WStyleCollection implements IWStyleCollection
 {
-    /** @var array<int, IStyle> */
+    /** @var array<int, IWStyle> */
     private array $elements = [];
     private int $count = 0;
 
@@ -28,10 +28,10 @@ final class WStyleCollection implements IWStyleCollection
         $collection = new self(new WInterval($interval));
 
         foreach ($styles as $style) {
-            $collection->add(Style::create($style));
+            $collection->add(WStyle::create($style));
         }
         if ($collection->isEmpty()) {
-            $collection->add(Style::create());
+            $collection->add(WStyle::create());
         }
         return $collection;
     }
@@ -41,7 +41,7 @@ final class WStyleCollection implements IWStyleCollection
         // TODO (2022-06-15 17:37) [Alec Rabbit]: Implement.
     }
 
-    public function add(IStyle $style): void
+    public function add(IWStyle $style): void
     {
         $this->count++;
         $this->elements[] = $style;

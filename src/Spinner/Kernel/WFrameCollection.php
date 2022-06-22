@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Kernel;
 
 use AlecRabbit\Spinner\Core\Frame\Contract\ICharFrame;
+use AlecRabbit\Spinner\Core\StrSplitter;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Kernel\Contract\IWFrameCollection;
 use AlecRabbit\Spinner\Kernel\Rotor\Contract\IWInterval;

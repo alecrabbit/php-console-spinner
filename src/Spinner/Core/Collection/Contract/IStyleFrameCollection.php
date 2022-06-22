@@ -12,10 +12,11 @@ use AlecRabbit\Spinner\Exception\RuntimeException;
 interface IStyleFrameCollection extends ICollection
 {
     /**
-     * @throws RuntimeException
      * @throws InvalidArgumentException
      */
     public static function create(array $frames, IInterval $interval): IStyleFrameCollection;
 
     public function next(): IStyleFrame;
+
+    public function getInterval(): IInterval;
 }

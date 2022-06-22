@@ -2,9 +2,8 @@
 
 declare(strict_types=1);
 // 09.06.22
-namespace AlecRabbit\Spinner\Kernel\Contract\Base;
+namespace AlecRabbit\Spinner\Core\Contract;
 
-use AlecRabbit\Spinner\Core\Contract\C;
 use AlecRabbit\Spinner\Core\Frame\CharFrame;
 
 final class CharPattern

@@ -2,34 +2,38 @@
 
 declare(strict_types=1);
 // 16.06.22
-namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Kernel;
+namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Core;
 
+use AlecRabbit\Spinner\Core\Collection\StyleFrameCollection;
 use AlecRabbit\Spinner\Core\Defaults;
+use AlecRabbit\Spinner\Core\Frame\Contract\IStyleFrame;
+use AlecRabbit\Spinner\Core\Frame\StyleFrame;
+use AlecRabbit\Spinner\Core\Interval\Contract\IInterval;
+use AlecRabbit\Spinner\Core\Interval\Interval;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
-use AlecRabbit\Spinner\Kernel\Style;
-use AlecRabbit\Spinner\Kernel\WStyleCollection;
 use AlecRabbit\Tests\Spinner\TestCase;
 
 use const AlecRabbit\Cli\CSI;
 use const AlecRabbit\Cli\RESET;
 
-class StyleCollectionTest extends TestCase
+class StyleFrameCollectionTest extends TestCase
 {
     protected const STYLE = CSI . '01;38;5;45m%s' . RESET;
 
     public function createDataProvider(): iterable
     {
-        // [$expected, $styles, $interval]
+        $frame = StyleFrame::createEmpty();
+      // [$expected, $frames, $interval]
         yield [
             [
                 self::COUNT => 1,
-                self::INTERVAL => (float)Defaults::MILLISECONDS_INTERVAL / 1000,
+                self::INTERVAL => (float)Defaults::MILLISECONDS_MAX_INTERVAL / 1000,
                 self::CONTAINS => [
-                    Style::create('%s'),
+                    $frame
                 ],
             ],
-            [],
-            null
+            [$frame],
+            new Interval(null),
         ];
 
         yield [
@@ -37,11 +41,11 @@ class StyleCollectionTest extends TestCase
                 self::COUNT => 1,
                 self::INTERVAL => 1.0,
                 self::CONTAINS => [
-                    Style::create('%s'),
+                    $frame
                 ],
             ],
-            ['%s'],
-            1000
+            [$frame],
+            new Interval(1000)
         ];
 
         yield [
@@ -49,33 +53,15 @@ class StyleCollectionTest extends TestCase
                 self::COUNT => 2,
                 self::INTERVAL => 0.1,
                 self::CONTAINS => [
-                    Style::create('%s'),
-                    Style::create(self::STYLE),
+                    new StyleFrame('>','<'),
+                    $frame,
                 ],
             ],
             [
-                '%s',
-                self::STYLE,
+                new StyleFrame('>','<'),
+                $frame,
             ],
-            100
-        ];
-
-        yield [
-            [
-                self::COUNT => 3,
-                self::INTERVAL => 0.222,
-                self::CONTAINS => [
-                    Style::create('%s'),
-                    Style::create('>%s<'),
-                    Style::create(self::STYLE),
-                ],
-            ],
-            [
-                '%s',
-                '>%s<',
-                self::STYLE,
-            ],
-            222
+            new Interval( 100)
         ];
 
         yield [
@@ -84,13 +70,13 @@ class StyleCollectionTest extends TestCase
                     self::CLASS_ => InvalidArgumentException::class,
                     self::MESSAGE =>
                         sprintf(
-                            'Interval should be greater than %s.',
-                            Defaults::MILLISECONDS_MIN_INTERVAL
+                            '%s: Collection is empty.',
+                            StyleFrameCollection::class
                         ),
                 ],
             ],
-            ['%s'],
-            -1
+            [],
+            new Interval( 100)
         ];
 
         yield [
@@ -99,25 +85,40 @@ class StyleCollectionTest extends TestCase
                     self::CLASS_ => InvalidArgumentException::class,
                     self::MESSAGE =>
                         sprintf(
-                            'Interval should be less than %s.',
-                            Defaults::MILLISECONDS_MAX_INTERVAL
+                            'Element must be instance of "%s".',
+                            IStyleFrame::class
                         ),
                 ],
             ],
-            ['%s'],
-            Defaults::MILLISECONDS_MAX_INTERVAL + 1000
+            [1],
+            new Interval( 100)
         ];
+
+//        yield [
+//            [
+//                self::EXCEPTION => [
+//                    self::CLASS_ => InvalidArgumentException::class,
+//                    self::MESSAGE =>
+//                        sprintf(
+//                            'Interval should be less than %s.',
+//                            Defaults::MILLISECONDS_MAX_INTERVAL
+//                        ),
+//                ],
+//            ],
+//            ['%s'],
+//            Defaults::MILLISECONDS_MAX_INTERVAL + 1000
+//        ];
     }
 
     /**
      * @test
      * @dataProvider createDataProvider
      */
-    public function create(array $expected, array $styles, ?int $interval = null): void
+    public function create(array $expected, array $frames, IInterval $interval): void
     {
         $this->setExpectException($expected);
 
-        $styleCollection = WStyleCollection::create($styles, $interval);
+        $styleCollection = StyleFrameCollection::create($frames, $interval);
 
         self::assertCount($expected[self::COUNT], $styleCollection);
         self::assertEquals($expected[self::INTERVAL], $styleCollection->getInterval()->toSeconds());
@@ -127,7 +128,7 @@ class StyleCollectionTest extends TestCase
             self::assertContainsEquals($c, $styleCollection);
         }
 
-        $a = $styleCollection->toArray();
+        $a = iterator_to_array($styleCollection->getIterator());
         foreach ($expected[self::CONTAINS] as $c) {
             self::assertContainsEquals($c, $a);
         }

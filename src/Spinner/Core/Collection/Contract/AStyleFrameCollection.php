@@ -12,7 +12,7 @@ abstract class AStyleFrameCollection extends ACollection implements IStyleFrameC
 {
     protected function __construct(
         iterable $elements,
-        public readonly IInterval $interval,
+        protected readonly IInterval $interval,
     ) {
         parent::__construct($elements);
     }
@@ -33,5 +33,10 @@ abstract class AStyleFrameCollection extends ACollection implements IStyleFrameC
     public function next(): IStyleFrame
     {
         return $this->nextElement();
+    }
+
+    public function getInterval(): IInterval
+    {
+        return $this->interval;
     }
 }

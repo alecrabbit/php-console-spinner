@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 // 16.06.22
-namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Kernel;
+namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Core;
 
-use AlecRabbit\Spinner\Core\Contract\C;
-use AlecRabbit\Spinner\Core\Contract\ICharPatternExtractor;
 use AlecRabbit\Spinner\Core\CharPatternExtractor;
-use AlecRabbit\Spinner\Kernel\Contract\Base\CharPattern;
+use AlecRabbit\Spinner\Core\Contract\C;
+use AlecRabbit\Spinner\Core\Contract\CharPattern;
+use AlecRabbit\Spinner\Core\Contract\ICharPatternExtractor;
 use AlecRabbit\Tests\Spinner\TestCase;
 
 class CharPatternExtractorTest extends TestCase
