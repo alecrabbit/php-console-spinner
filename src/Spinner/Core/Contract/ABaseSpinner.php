@@ -4,12 +4,11 @@ declare(strict_types=1);
 // 19.06.22
 namespace AlecRabbit\Spinner\Core\Contract;
 
-use AlecRabbit\Spinner\Core\Interval\Contract\HasInterval;
 use AlecRabbit\Spinner\Core\Interval\Contract\IInterval;
 use AlecRabbit\Spinner\Core\Twirler\Contract\IContainer;
 use AlecRabbit\Spinner\Kernel\Config\Contract\IConfig;
 
-abstract class ABaseSpinner implements IBaseSpinner, HasInterval
+abstract class ABaseSpinner implements IBaseSpinner, IntervalComponent
 {
     protected bool $active = false;
     protected bool $interrupted = false;
@@ -30,6 +29,16 @@ abstract class ABaseSpinner implements IBaseSpinner, HasInterval
     public function getInterval(): IInterval
     {
         return $this->container->getInterval();
+    }
+
+    public function accept(IIntervalVisitor $visitor): void
+    {
+        $this->container->accept($visitor);
+    }
+
+    public function getIntervalComponents(): iterable
+    {
+        yield $this->container;
     }
 
     public function initialize(): void
