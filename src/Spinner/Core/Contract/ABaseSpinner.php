@@ -15,7 +15,7 @@ abstract class ABaseSpinner implements IBaseSpinner, IntervalComponent
     protected readonly string $finalMessage;
     protected readonly string $interruptMessage;
     protected readonly IDriver $driver;
-    protected readonly IContainer $container; // TODO (2022-06-20 15:19) [Alec Rabbit]: refine type.
+    protected readonly IContainer $container;
 
     public function __construct(IConfig $config)
     {
@@ -30,9 +30,9 @@ abstract class ABaseSpinner implements IBaseSpinner, IntervalComponent
         return $this->container->getInterval();
     }
 
-    public function updateIntervalWith(IIntervalVisitor $visitor): void
+    public function updateIntervalWith(IIntervalVisitor $intervalVisitor): void
     {
-        $this->container->updateIntervalWith($visitor);
+        $this->container->updateIntervalWith($intervalVisitor);
     }
 
     public function getIntervalComponents(): iterable

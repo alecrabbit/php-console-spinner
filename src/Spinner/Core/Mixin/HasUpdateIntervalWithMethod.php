@@ -8,8 +8,8 @@ use AlecRabbit\Spinner\Core\Contract\IIntervalVisitor;
 
 trait HasUpdateIntervalWithMethod
 {
-    public function updateIntervalWith(IIntervalVisitor $visitor): void
+    public function updateIntervalWith(IIntervalVisitor $intervalVisitor): void
     {
-        $this->interval = $this->interval->smallest($visitor->visit($this));
+        $this->interval = $this->interval->smallest($intervalVisitor->visit($this));
     }
 }

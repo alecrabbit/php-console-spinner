@@ -4,6 +4,8 @@ declare(strict_types=1);
 // 16.06.22
 namespace AlecRabbit\Tests\Spinner;
 
+use AlecRabbit\Spinner\Kernel\Config\Builder\ConfigBuilder;
+use AlecRabbit\Spinner\Kernel\Config\Contract\IConfig;
 use PHPUnit\Framework\TestCase as PHPUnitTestCase;
 
 abstract class TestCase extends PHPUnitTestCase
@@ -24,6 +26,25 @@ abstract class TestCase extends PHPUnitTestCase
     final protected const SEQUENCE = 'sequence';
     final protected const SEQUENCE_START = 'sequenceStart';
     final protected const SEQUENCE_END = 'sequenceEnd';
+
+    private static IConfig $config;
+
+    protected static function getDefaultConfig(): IConfig
+    {
+        if (null === self::$config) {
+            self::$config =
+                self::getConfigBuilder()
+                    ->build()
+            ;
+        }
+        return
+            self::$config;
+    }
+
+    protected static function getConfigBuilder(): ConfigBuilder
+    {
+        return new ConfigBuilder();
+    }
 
     protected function setExpectException(mixed $expected): void
     {
