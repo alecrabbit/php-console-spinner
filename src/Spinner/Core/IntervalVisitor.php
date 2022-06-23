@@ -15,7 +15,7 @@ final class IntervalVisitor implements IIntervalVisitor
         $interval = $container->getInterval();
         /** @var IntervalComponent $component */
         foreach ($container->getIntervalComponents() as $component) {
-            $component->updateIntervalWith($this);
+            $component->updateInterval($this);
             $interval = $interval->smallest($component->getInterval());
         }
         return $interval;

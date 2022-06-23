@@ -20,7 +20,7 @@ abstract class AIntervalCollection extends ACollection implements IntervalCompon
         parent::__construct($elements);
     }
 
-    public function updateIntervalWith(IIntervalVisitor $intervalVisitor): void
+    public function updateInterval(IIntervalVisitor $intervalVisitor): void
     {
         // Intentionally left blank
     }

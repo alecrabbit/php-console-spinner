@@ -66,7 +66,6 @@ $spinner
     ->addTwirler($twirlerFour)
 ;
 
-//dump($spinner);
 //dump($spinner->getInterval());
 
 $t = [];
@@ -74,6 +73,8 @@ $t = [];
 $interval = (int)$spinner->getInterval()->toMicroseconds();
 
 $spinner->initialize();
+
+dump($spinner);
 
 for ($i = 0; $i < 200; $i++) {
     $start = hrtime(true);
