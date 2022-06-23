@@ -76,7 +76,10 @@ for ($i = 0; $i < 200; $i++) {
     if ($i > 10 && $i % 20 === 0) {
         $spinner->wrap(
             $echo,
-            sprintf('Average cycle execution time: %sμs', number_format((array_sum($t) / count($t)) / 1000, 3))
+            sprintf(
+                'Average cycle execution time: %sμs',
+                number_format((array_sum($t) / count($t)) / 1000, 3)
+            )
         );
     }
 }

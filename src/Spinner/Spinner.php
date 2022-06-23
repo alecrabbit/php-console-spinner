@@ -5,42 +5,23 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner;
 
 use AlecRabbit\Spinner\Core\Contract\ABaseSpinner;
-use AlecRabbit\Spinner\Core\Twirler\Contract\ITwirlerContainer;
-use AlecRabbit\Spinner\Kernel\Config\Contract\IConfig;
-use AlecRabbit\Spinner\Kernel\Contract\IWigglerContainer;
-use AlecRabbit\Spinner\Kernel\Rotor\Contract\IWInterval;
-use AlecRabbit\Spinner\Kernel\Wiggler\Contract\IMessageWiggler;
-use AlecRabbit\Spinner\Kernel\Wiggler\Contract\IProgressWiggler;
-use AlecRabbit\Spinner\Kernel\Wiggler\Contract\IRevolveWiggler;
+use AlecRabbit\Spinner\Core\Contract\ISpinner;
+use AlecRabbit\Spinner\Core\Twirler\Contract\ITwirler;
 
-final class Spinner extends ABaseSpinner
+final class Spinner extends ABaseSpinner implements ISpinner
 {
-    public function getInterval(): IWInterval
+    public function spinner(ITwirler|string|null $twirler): void
     {
-        return $this->container->getInterval();
+        // TODO: Implement spinner() method.
     }
 
-    public function spinner(IRevolveWiggler|string|null $wiggler): void
+    public function progress(float|ITwirler|string|null $twirler): void
     {
-        $this->wrap(
-            $this->container->spinner(...),
-            $wiggler
-        );
+        // TODO: Implement progress() method.
     }
 
-    public function progress(string|IProgressWiggler|float|null $wiggler): void
+    public function message(ITwirler|string|null $twirler): void
     {
-        $this->wrap(
-            $this->container->progress(...),
-            $wiggler
-        );
-    }
-
-    public function message(string|IMessageWiggler|null $wiggler): void
-    {
-        $this->wrap(
-            $this->container->message(...),
-            $wiggler
-        );
+        // TODO: Implement message() method.
     }
 }
