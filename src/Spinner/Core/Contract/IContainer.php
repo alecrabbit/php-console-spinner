@@ -10,4 +10,6 @@ interface IContainer extends CanAddTwirler,
                              IntervalComponent
 {
     public function render(): iterable;
+
+    public function getIntervalVisitor(): IIntervalVisitor;
 }

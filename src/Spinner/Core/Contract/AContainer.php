@@ -49,4 +49,9 @@ abstract class AContainer implements IContainer
     {
         yield from $this->twirlers;
     }
+
+    public function getIntervalVisitor(): IIntervalVisitor
+    {
+        return $this->intervalVisitor;
+    }
 }
