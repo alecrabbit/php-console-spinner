@@ -4,14 +4,16 @@ declare(strict_types=1);
 // 20.06.22
 namespace AlecRabbit\Spinner\Core\Twirler\Contract;
 
+use AlecRabbit\Spinner\Core\Contract\IIntervalVisitor;
+use AlecRabbit\Spinner\Core\Contract\IntervalComponent;
 use AlecRabbit\Spinner\Core\Interval\Contract\IInterval;
 use WeakMap;
 
-abstract class ATwirlerContainer implements ITwirlerContainer
+abstract class AContainer implements IContainer
 {
     /** @var ITwirler[] */
     protected array $twirlers = [];
-    /** @var WeakMap<int,ITWirler> */
+    /** @var WeakMap<ITWirler,int> */
     protected WeakMap $twirlersMap;
     protected int $index = 0;
 
@@ -36,5 +38,18 @@ abstract class ATwirlerContainer implements ITwirlerContainer
     public function getInterval(): IInterval
     {
         return $this->interval;
+    }
+
+    public function accept(IIntervalVisitor $visitor): void
+    {
+        $this->interval = $this->interval->smallest($visitor->visit($this));
+    }
+
+    /**
+     * @return IntervalComponent[]
+     */
+    public function getIntervalComponents(): iterable
+    {
+        yield from $this->twirlers;
     }
 }

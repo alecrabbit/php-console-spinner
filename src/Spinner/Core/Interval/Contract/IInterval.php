@@ -13,4 +13,6 @@ interface IInterval
     public function toMilliseconds(): float;
 
     public function toSeconds(): float;
+
+    public function smallest(IInterval $other): IInterval;
 }

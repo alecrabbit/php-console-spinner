@@ -82,4 +82,13 @@ final class Interval implements IInterval
     {
         return (float)($this->milliseconds * 1000);
     }
+
+    public function smallest(IInterval $other): IInterval
+    {
+        if ($this->toMilliseconds() > $other->toMilliseconds()) {
+            return $other;
+        }
+        return $this;
+    }
+
 }

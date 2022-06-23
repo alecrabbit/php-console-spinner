@@ -9,7 +9,7 @@ use AlecRabbit\Spinner\Core\Collection\Factory\Contract\IStyleFrameCollectionFac
 use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Defaults;
 use AlecRabbit\Spinner\Core\Twirler\Contract\ITwirlerBuilder;
-use AlecRabbit\Spinner\Core\Twirler\Contract\ITwirlerContainer;
+use AlecRabbit\Spinner\Core\Twirler\Contract\IContainer;
 use AlecRabbit\Spinner\Core\Twirler\Factory\Contract\ITwirlerFactory;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Exception\LogicException;
@@ -26,7 +26,7 @@ final class Config implements IConfig
      */
     public function __construct(
         private readonly IDriver $driver,
-        private readonly ITwirlerContainer $container,
+        private readonly IContainer $container,
         private readonly ITwirlerFactory $twirlerFactory,
         private readonly ITwirlerBuilder $twirlerBuilder,
         private readonly IStyleFrameCollectionFactory $styleFrameCollectionFactory,
@@ -193,7 +193,7 @@ final class Config implements IConfig
         return $this->colorSupportLevel;
     }
 
-    public function getContainer(): ITwirlerContainer
+    public function getContainer(): IContainer
     {
         return $this->container;
     }

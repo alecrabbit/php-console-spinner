@@ -27,7 +27,7 @@ use AlecRabbit\Spinner\Core\Revolver\Factory\StyleRevolverFactory;
 use AlecRabbit\Spinner\Core\StylePatternExtractor;
 use AlecRabbit\Spinner\Core\StyleProvider;
 use AlecRabbit\Spinner\Core\Twirler\Contract\ITwirlerBuilder;
-use AlecRabbit\Spinner\Core\Twirler\Contract\ITwirlerContainer;
+use AlecRabbit\Spinner\Core\Twirler\Contract\IContainer;
 use AlecRabbit\Spinner\Core\Twirler\Factory\Contract\ITwirlerContainerFactory;
 use AlecRabbit\Spinner\Core\Twirler\Factory\Contract\ITwirlerFactory;
 use AlecRabbit\Spinner\Core\Twirler\Factory\TwirlerContainerFactory;
@@ -67,7 +67,7 @@ final class ConfigBuilder implements IConfigBuilder
     private ?ILoop $loop = null;
     private ?bool $hideCursor = null;
     private ?IDriver $driver = null;
-    private ?ITwirlerContainer $container = null;
+    private ?IContainer $container = null;
     private ?ITwirlerFactory $twirlerFactory = null;
     private ?ITwirlerBuilder $twirlerBuilder = null;
     private ?ITwirlerContainerFactory $containerFactory = null;

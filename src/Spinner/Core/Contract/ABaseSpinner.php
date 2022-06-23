@@ -6,7 +6,7 @@ namespace AlecRabbit\Spinner\Core\Contract;
 
 use AlecRabbit\Spinner\Core\Interval\Contract\HasInterval;
 use AlecRabbit\Spinner\Core\Interval\Contract\IInterval;
-use AlecRabbit\Spinner\Core\Twirler\Contract\ITwirlerContainer;
+use AlecRabbit\Spinner\Core\Twirler\Contract\IContainer;
 use AlecRabbit\Spinner\Kernel\Config\Contract\IConfig;
 
 abstract class ABaseSpinner implements IBaseSpinner, HasInterval
@@ -17,7 +17,7 @@ abstract class ABaseSpinner implements IBaseSpinner, HasInterval
     protected readonly string $finalMessage;
     protected readonly string $interruptMessage;
     protected readonly IDriver $driver;
-    protected readonly ITwirlerContainer $container; // TODO (2022-06-20 15:19) [Alec Rabbit]: refine type.
+    protected readonly IContainer $container; // TODO (2022-06-20 15:19) [Alec Rabbit]: refine type.
 
     public function __construct(IConfig $config)
     {

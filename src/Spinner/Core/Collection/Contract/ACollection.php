@@ -4,6 +4,7 @@ declare(strict_types=1);
 // 21.06.22
 namespace AlecRabbit\Spinner\Core\Collection\Contract;
 
+use AlecRabbit\Spinner\Core\Contract\IIntervalVisitor;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use ArrayIterator;
 use Countable;
@@ -83,5 +84,15 @@ abstract class ACollection implements Countable, IteratorAggregate
             $this->index = 0;
         }
         return $this->elements[$this->index];
+    }
+
+    public function accept(IIntervalVisitor $visitor): void
+    {
+        // Intentionally left blank
+    }
+
+    public function getIntervalComponents(): iterable
+    {
+        return [];
     }
 }

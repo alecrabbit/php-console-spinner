@@ -5,11 +5,12 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Collection\Contract;
 
 use AlecRabbit\Spinner\Core\Frame\Contract\IStyleFrame;
+use AlecRabbit\Spinner\Core\Interval\Contract\HasInterval;
 use AlecRabbit\Spinner\Core\Interval\Contract\IInterval;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Exception\RuntimeException;
 
-interface IStyleFrameCollection extends ICollection
+interface IStyleFrameCollection extends ICollection, HasInterval
 {
     /**
      * @throws InvalidArgumentException
@@ -17,6 +18,4 @@ interface IStyleFrameCollection extends ICollection
     public static function create(array $frames, IInterval $interval): IStyleFrameCollection;
 
     public function next(): IStyleFrame;
-
-    public function getInterval(): IInterval;
 }
