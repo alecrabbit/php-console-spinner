@@ -14,8 +14,9 @@ abstract class ARevolver implements IRevolver
     {
     }
 
-    public function updateInterval(IIntervalVisitor $visitor): void
+    public function updateIntervalWith(IIntervalVisitor $visitor): void
     {
+//        dump(static::class . '::' . __FUNCTION__);
         $this->interval = $this->interval->smallest($visitor->visit($this));
     }
 

@@ -33,7 +33,7 @@ abstract class ATwirler implements ITwirler
                 );
     }
 
-    public function updateInterval(IIntervalVisitor $visitor): void
+    public function updateIntervalWith(IIntervalVisitor $visitor): void
     {
         $this->interval = $this->interval->smallest($visitor->visit($this));
     }
@@ -45,6 +45,7 @@ abstract class ATwirler implements ITwirler
 
     public function getIntervalComponents(): iterable
     {
+//        dump(static::class . '::' . __FUNCTION__);
         yield $this->styleRevolver;
         yield $this->charRevolver;
     }

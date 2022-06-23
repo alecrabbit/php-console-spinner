@@ -7,7 +7,7 @@ use AlecRabbit\Spinner\Core\Interval\Contract\HasInterval;
 
 interface IntervalComponent extends HasInterval
 {
-    public function updateInterval(IIntervalVisitor $visitor): void;
+    public function updateIntervalWith(IIntervalVisitor $visitor): void;
 
     public function getIntervalComponents(): iterable;
 }

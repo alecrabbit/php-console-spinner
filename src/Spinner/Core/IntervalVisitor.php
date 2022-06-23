@@ -13,7 +13,7 @@ final class IntervalVisitor implements IIntervalVisitor
     {
         /** @var IntervalComponent $component */
         foreach ($container->getIntervalComponents() as $component) {
-            $component->updateInterval($this);
+            $component->updateIntervalWith($this);
         }
 //        dump(get_debug_type($container), $container->getInterval());
         return $container->getInterval();

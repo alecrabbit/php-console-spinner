@@ -28,7 +28,7 @@ abstract class AContainer implements IContainer
     {
         $this->twirlers[$this->index] = $twirler;
         $this->twirlersMap[$twirler] = $this->index++;
-        $this->updateInterval($this->intervalVisitor);
+        $this->updateIntervalWith($this->intervalVisitor);
         return $this;
     }
 
@@ -42,7 +42,7 @@ abstract class AContainer implements IContainer
         return $this->interval;
     }
 
-    public function updateInterval(IIntervalVisitor $visitor): void
+    public function updateIntervalWith(IIntervalVisitor $visitor): void
     {
         $this->interval = $this->interval->smallest($visitor->visit($this));
     }
