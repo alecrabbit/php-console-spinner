@@ -8,5 +8,9 @@ use AlecRabbit\Tests\Spinner\TestCase;
 
 class CycleTest extends TestCase
 {
-
+    /** @test */
+    public function canBeCreated(): void
+    {
+        self::assertTrue(true);
+    }
 }
