@@ -13,7 +13,7 @@ use AlecRabbit\Spinner\Kernel\Contract\ILoop;
 use AlecRabbit\Spinner\Kernel\Contract\IWFrameCollection;
 use AlecRabbit\Spinner\Kernel\Contract\IWSimpleSpinner;
 use AlecRabbit\Spinner\Kernel\Factory\Contract\IWSpinnerFactory;
-use AlecRabbit\Spinner\WSimpleSpinner;
+use AlecRabbit\Spinner\Spinner;
 
 final class WSpinnerFactory implements IWSpinnerFactory
 {
@@ -53,7 +53,7 @@ final class WSpinnerFactory implements IWSpinnerFactory
 
         $config = self::refineConfig($framesOrConfig);
 
-        $spinner = new WSimpleSpinner($config);
+        $spinner = new Spinner($config);
 
         self::asyncOperations($spinner, $config);
 
@@ -94,7 +94,7 @@ final class WSpinnerFactory implements IWSpinnerFactory
         return $spinnerConfigBuilder->build();
     }
 
-    private static function asyncOperations(WSimpleSpinner $spinner, IConfig $config): void
+    private static function asyncOperations(Spinner $spinner, IConfig $config): void
     {
         if ($config->isAsynchronous()) {
             self::attachSpinnerToLoop($spinner, $config->getLoop());

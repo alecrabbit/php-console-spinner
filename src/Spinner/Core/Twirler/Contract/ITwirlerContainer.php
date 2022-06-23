@@ -4,7 +4,9 @@ declare(strict_types=1);
 // 20.06.22
 namespace AlecRabbit\Spinner\Core\Twirler\Contract;
 
-interface ITwirlerContainer extends CanAddTwirler
+use AlecRabbit\Spinner\Core\Interval\Contract\HasInterval;
+
+interface ITwirlerContainer extends CanAddTwirler, HasInterval
 {
     public function render(): iterable;
 }

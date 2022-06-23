@@ -17,6 +17,8 @@ use AlecRabbit\Spinner\Core\Contract\IStyleProvider;
 use AlecRabbit\Spinner\Core\Defaults;
 use AlecRabbit\Spinner\Core\Frame\Factory\CharFrameFactory;
 use AlecRabbit\Spinner\Core\Frame\Factory\StyleFrameFactory;
+use AlecRabbit\Spinner\Core\Interval\Contract\IInterval;
+use AlecRabbit\Spinner\Core\Interval\Interval;
 use AlecRabbit\Spinner\Core\Revolver\Factory\CharRevolverFactory;
 use AlecRabbit\Spinner\Core\Revolver\Factory\StyleRevolverFactory;
 use AlecRabbit\Spinner\Core\StylePatternExtractor;
@@ -84,7 +86,8 @@ final class ConfigBuilder implements IConfigBuilder
 
     private ?IWigglerContainer $wigglers = null;
     private ?IWFrameCollection $frames = null;
-    private ?IWInterval $interval = null;
+    private ?IWInterval $wInterval = null;
+    private ?IInterval $interval = null;
     private ?IWigglerContainerFactory $wigglerContainerFactory = null;
     private ?IWigglerFactory $wigglerFactory = null;
     private ?WIStyleProvider $styleRenderer = null;
@@ -173,7 +176,7 @@ final class ConfigBuilder implements IConfigBuilder
     public function withInterval(IWInterval $interval): self
     {
         $clone = clone $this;
-        $clone->interval = $interval;
+        $clone->wInterval = $interval;
         return $clone;
     }
 
@@ -350,13 +353,17 @@ final class ConfigBuilder implements IConfigBuilder
             $this->charProvider = new CharProvider(new CharFrameFactory(), $this->charPatternExtractor);
         }
 
+        if (null === $this->interval) {
+            $this->interval = new Interval(null);
+        }
+
         if (null === $this->wigglerContainerFactory) {
             $this->wigglerContainerFactory =
                 new WigglerContainerFactory(
                     $this->styleRenderer,
                     $this->wigglerFactory,
                     $this->frames,
-                    $this->interval,
+                    $this->wInterval,
                 );
         }
 
@@ -385,9 +392,6 @@ final class ConfigBuilder implements IConfigBuilder
         if (null === $this->containerFactory) {
             $this->containerFactory =
                 new TwirlerContainerFactory(
-                    $this->styleRenderer,
-                    $this->wigglerFactory,
-                    $this->frames,
                     $this->interval,
                 );
         }

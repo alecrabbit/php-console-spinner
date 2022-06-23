@@ -5,9 +5,10 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core;
 
 use AlecRabbit\Spinner\Core\Contract\C;
+use AlecRabbit\Spinner\Core\Contract\ICharPatternExtractor;
 use JetBrains\PhpStorm\ArrayShape;
 
-final class CharPatternExtractor implements Contract\ICharPatternExtractor
+final class CharPatternExtractor implements ICharPatternExtractor
 {
     /**
      * @inheritDoc

@@ -4,6 +4,7 @@ declare(strict_types=1);
 // 20.06.22
 namespace AlecRabbit\Spinner\Core\Twirler\Contract;
 
+use AlecRabbit\Spinner\Core\Interval\Contract\IInterval;
 use WeakMap;
 
 abstract class ATwirlerContainer implements ITwirlerContainer
@@ -14,8 +15,9 @@ abstract class ATwirlerContainer implements ITwirlerContainer
     protected WeakMap $twirlersMap;
     protected int $index = 0;
 
-    public function __construct()
-    {
+    public function __construct(
+        protected IInterval $interval,
+    ) {
         $this->twirlersMap = new WeakMap();
     }
 
@@ -29,5 +31,10 @@ abstract class ATwirlerContainer implements ITwirlerContainer
     public function render(): iterable
     {
         yield from $this->twirlers;
+    }
+
+    public function getInterval(): IInterval
+    {
+        return $this->interval;
     }
 }

@@ -6,12 +6,13 @@ namespace AlecRabbit\Spinner\Core;
 
 use AlecRabbit\Spinner\Core\Contract\C;
 use AlecRabbit\Spinner\Core\Contract\IStylePatternExtractor;
+use AlecRabbit\Spinner\Core\Contract\IStyleProvider;
 use AlecRabbit\Spinner\Core\Frame\Factory\Contract\IStyleFrameFactory;
 use AlecRabbit\Spinner\Core\Interval\Interval;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use JetBrains\PhpStorm\ArrayShape;
 
-final class StyleProvider implements Contract\IStyleProvider
+final class StyleProvider implements IStyleProvider
 {
     public function __construct(
         protected readonly IStyleFrameFactory $frameFactory,
