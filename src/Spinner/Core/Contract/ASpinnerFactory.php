@@ -18,15 +18,15 @@ abstract class ASpinnerFactory implements ISpinnerFactory
         return new Spinner($config);
     }
 
+    private static function refineConfig(?IConfig $config): IConfig
+    {
+        return $config ?? (new ConfigBuilder())->build();
+    }
+
     public static function createMulti(IConfig $config = null): IMultiSpinner
     {
         $config = self::refineConfig($config);
 
         return new MultiSpinner($config);
-    }
-
-    private static function refineConfig(?IConfig $config): IConfig
-    {
-        return $config ?? (new ConfigBuilder())->build();
     }
 }

@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Twirler\Contract;
 
 use AlecRabbit\Spinner\Core\Contract\IntervalComponent;
-use AlecRabbit\Spinner\Core\Interval\Contract\HasInterval;
 
 interface ITwirler extends Renderable,
                            IntervalComponent

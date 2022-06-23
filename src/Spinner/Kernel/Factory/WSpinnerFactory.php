@@ -13,7 +13,6 @@ use AlecRabbit\Spinner\Kernel\Contract\ILoop;
 use AlecRabbit\Spinner\Kernel\Contract\IWFrameCollection;
 use AlecRabbit\Spinner\Kernel\Contract\IWSimpleSpinner;
 use AlecRabbit\Spinner\Kernel\Factory\Contract\IWSpinnerFactory;
-use AlecRabbit\Spinner\Spinner;
 use AlecRabbit\Spinner\WSimpleSpinner;
 
 final class WSpinnerFactory implements IWSpinnerFactory

@@ -6,7 +6,6 @@ namespace AlecRabbit\Spinner\Core\Revolver\Contract;
 
 use AlecRabbit\Spinner\Core\Collection\Contract\ICharFrameCollection;
 use AlecRabbit\Spinner\Core\Frame\Contract\ICharFrame;
-use AlecRabbit\Spinner\Core\Interval\Contract\IInterval;
 
 abstract class ACharRevolver extends ARevolver implements ICharRevolver
 {

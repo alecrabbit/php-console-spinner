@@ -68,11 +68,6 @@ final class Interval implements IInterval
         return new self(null);
     }
 
-    public function toMilliseconds(): float
-    {
-        return $this->milliseconds;
-    }
-
     public function toSeconds(): float
     {
         return (float)($this->milliseconds / 1000);
@@ -89,6 +84,11 @@ final class Interval implements IInterval
             return $other;
         }
         return $this;
+    }
+
+    public function toMilliseconds(): float
+    {
+        return $this->milliseconds;
     }
 
 }

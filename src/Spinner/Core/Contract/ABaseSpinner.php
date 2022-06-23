@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Contract;
 
 use AlecRabbit\Spinner\Core\Interval\Contract\IInterval;
-use AlecRabbit\Spinner\Core\Mixin\HasGetIntervalMethod;
 use AlecRabbit\Spinner\Kernel\Config\Contract\IConfig;
 
 abstract class ABaseSpinner implements IBaseSpinner, IntervalComponent

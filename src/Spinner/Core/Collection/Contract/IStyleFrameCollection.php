@@ -8,7 +8,6 @@ use AlecRabbit\Spinner\Core\Frame\Contract\IStyleFrame;
 use AlecRabbit\Spinner\Core\Interval\Contract\HasInterval;
 use AlecRabbit\Spinner\Core\Interval\Contract\IInterval;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
-use AlecRabbit\Spinner\Exception\RuntimeException;
 
 interface IStyleFrameCollection extends ICollection, HasInterval
 {
