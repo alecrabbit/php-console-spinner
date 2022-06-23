@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Contract;
 
 use AlecRabbit\Spinner\Core\Interval\Contract\IInterval;
-use AlecRabbit\Spinner\Core\Twirler\Contract\IContainer;
 use AlecRabbit\Spinner\Kernel\Config\Contract\IConfig;
 
 abstract class ABaseSpinner implements IBaseSpinner, IntervalComponent
@@ -31,9 +30,9 @@ abstract class ABaseSpinner implements IBaseSpinner, IntervalComponent
         return $this->container->getInterval();
     }
 
-    public function accept(IIntervalVisitor $visitor): void
+    public function updateInterval(IIntervalVisitor $visitor): void
     {
-        $this->container->accept($visitor);
+        $this->container->updateInterval($visitor);
     }
 
     public function getIntervalComponents(): iterable

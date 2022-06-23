@@ -12,7 +12,9 @@ use AlecRabbit\Spinner\Core\Collection\Factory\StyleFrameCollectionFactory;
 use AlecRabbit\Spinner\Core\Contract\CharProvider;
 use AlecRabbit\Spinner\Core\Contract\ICharPatternExtractor;
 use AlecRabbit\Spinner\Core\Contract\ICharProvider;
+use AlecRabbit\Spinner\Core\Contract\IContainer;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
+use AlecRabbit\Spinner\Core\Contract\IIntervalVisitor;
 use AlecRabbit\Spinner\Core\Contract\IStylePatternExtractor;
 use AlecRabbit\Spinner\Core\Contract\IStyleProvider;
 use AlecRabbit\Spinner\Core\Defaults;
@@ -21,13 +23,13 @@ use AlecRabbit\Spinner\Core\Frame\Factory\CharFrameFactory;
 use AlecRabbit\Spinner\Core\Frame\Factory\StyleFrameFactory;
 use AlecRabbit\Spinner\Core\Interval\Contract\IInterval;
 use AlecRabbit\Spinner\Core\Interval\Interval;
+use AlecRabbit\Spinner\Core\IntervalVisitor;
 use AlecRabbit\Spinner\Core\Output\StreamOutput;
 use AlecRabbit\Spinner\Core\Revolver\Factory\CharRevolverFactory;
 use AlecRabbit\Spinner\Core\Revolver\Factory\StyleRevolverFactory;
 use AlecRabbit\Spinner\Core\StylePatternExtractor;
 use AlecRabbit\Spinner\Core\StyleProvider;
 use AlecRabbit\Spinner\Core\Twirler\Contract\ITwirlerBuilder;
-use AlecRabbit\Spinner\Core\Twirler\Contract\IContainer;
 use AlecRabbit\Spinner\Core\Twirler\Factory\Contract\ITwirlerContainerFactory;
 use AlecRabbit\Spinner\Core\Twirler\Factory\Contract\ITwirlerFactory;
 use AlecRabbit\Spinner\Core\Twirler\Factory\TwirlerContainerFactory;
@@ -68,6 +70,7 @@ final class ConfigBuilder implements IConfigBuilder
     private ?bool $hideCursor = null;
     private ?IDriver $driver = null;
     private ?IContainer $container = null;
+    private ?IIntervalVisitor $intervalVisitor = null;
     private ?ITwirlerFactory $twirlerFactory = null;
     private ?ITwirlerBuilder $twirlerBuilder = null;
     private ?ITwirlerContainerFactory $containerFactory = null;
@@ -389,10 +392,15 @@ final class ConfigBuilder implements IConfigBuilder
                 );
         }
 
+        if (null === $this->intervalVisitor) {
+            $this->intervalVisitor = new IntervalVisitor();
+        }
+
         if (null === $this->containerFactory) {
             $this->containerFactory =
                 new TwirlerContainerFactory(
                     $this->interval,
+                    $this->intervalVisitor,
                 );
         }
 
