@@ -2,11 +2,10 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Spinner\Kernel\Output;
+namespace AlecRabbit\Spinner\Core\Output;
 
+use AlecRabbit\Spinner\Core\Output\Contract\IOutput;
 use AlecRabbit\Spinner\Exception\RuntimeException;
-use AlecRabbit\Spinner\Kernel\Output\Contract\IOutput;
-use Stringable\Throwable;
 
 use function fflush;
 use function fwrite;

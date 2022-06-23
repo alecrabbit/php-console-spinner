@@ -8,7 +8,6 @@ use AlecRabbit\Spinner\Core\Interval\Contract\HasInterval;
 use AlecRabbit\Spinner\Core\Interval\Contract\IInterval;
 use AlecRabbit\Spinner\Core\Twirler\Contract\ITwirlerContainer;
 use AlecRabbit\Spinner\Kernel\Config\Contract\IConfig;
-use AlecRabbit\Spinner\Kernel\Contract\IDriver;
 
 abstract class ABaseSpinner implements IBaseSpinner, HasInterval
 {
@@ -70,7 +69,7 @@ abstract class ABaseSpinner implements IBaseSpinner, HasInterval
                 $this->driver->display(
                     $this->container->render()
                 );
-            // TODO (2022-06-21 12:31) [Alec Rabbit]:
+            // TODO (2022-06-21 12:31) [Alec Rabbit]: [2a3f2116-ddf7-4147-ac73-fd0d0fc6823f]
             //  should be something like:
             //  $frame = $this->container->render()
             //  $this->currentWidth = $frame->getWidth();

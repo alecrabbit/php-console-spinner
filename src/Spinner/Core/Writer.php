@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Spinner\Kernel;
+namespace AlecRabbit\Spinner\Core;
 
-use AlecRabbit\Spinner\Kernel\Contract\IWriter;
-use AlecRabbit\Spinner\Kernel\Output\Contract\IOutput;
+use AlecRabbit\Spinner\Core\Contract\IWriter;
+use AlecRabbit\Spinner\Core\Output\Contract\IOutput;
 
 /**
  * @internal

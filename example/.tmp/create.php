@@ -4,11 +4,9 @@ declare(strict_types=1);
 
 // 20.06.22
 
-use AlecRabbit\Spinner\Core\Contract\CharPattern;
-use AlecRabbit\Spinner\Core\Contract\StylePattern;
+use AlecRabbit\Spinner\Core\Output\StreamOutput;
 use AlecRabbit\Spinner\Core\SpinnerFactory;
 use AlecRabbit\Spinner\Kernel\Config\Builder\ConfigBuilder;
-use AlecRabbit\Spinner\Kernel\Output\StreamOutput;
 
 require_once __DIR__ . '/../bootstrap.php';
 
@@ -21,53 +19,16 @@ $config =
         ->build()
 ;
 
-$styleCollectionFactory = $config->getStyleFrameCollectionFactory();
-$charCollectionFactory = $config->getCharFrameCollectionFactory();
-
-$twirlerBuilder = $config->getTwirlerBuilder();
-
-$twirlerOne =
-    $twirlerBuilder
-        ->withCharCollection(
-            $charCollectionFactory->create(
-                CharPattern::DOTS_VARIANT_3
-            )
-        )
-        ->build()
-;
-$twirlerTwo =
-    $twirlerBuilder
-        ->withStylePattern(StylePattern::rainbow())
-        ->withCharPattern(CharPattern::SNAKE_VARIANT_3)
-        ->build()
-;
-
-$twirlerFour =
-    $twirlerBuilder
-        ->withStylePattern(StylePattern::rainbow())
-        ->withCharPattern(CharPattern::SNAKE_VARIANT_1)
-        ->build()
-;
-
-$twirlerThree = $twirlerBuilder->build();
-
 $spinner = SpinnerFactory::create($config);
-
-$spinner
-    ->addTwirler($twirlerThree)
-    ->addTwirler($twirlerFour)
-    ->addTwirler($twirlerOne)
-    ->addTwirler($twirlerTwo)
-;
 
 dump($spinner);
 
-$spinner->initialize();
-
 $t = [];
 
-//$interval = $spinner->getInterval()->toMicroseconds();
-$interval = 100000;
+$interval = 100000; // $spinner->getInterval()->toMicroseconds();
+
+$spinner->initialize();
+
 for ($i = 0; $i < 200; $i++) {
     $start = hrtime(true);
     $spinner->spin();

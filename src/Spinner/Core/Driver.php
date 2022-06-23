@@ -2,13 +2,12 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Spinner\Kernel;
+namespace AlecRabbit\Spinner\Core;
 
+use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\IRenderer;
+use AlecRabbit\Spinner\Core\Contract\IWriter;
 use AlecRabbit\Spinner\Core\Frame\Contract\ICharFrame;
-use AlecRabbit\Spinner\Core\Sequencer;
-use AlecRabbit\Spinner\Kernel\Contract\IDriver;
-use AlecRabbit\Spinner\Kernel\Contract\IWriter;
 
 use const AlecRabbit\Cli\TERM_256COLOR;
 

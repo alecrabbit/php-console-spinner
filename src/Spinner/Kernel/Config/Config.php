@@ -6,6 +6,7 @@ namespace AlecRabbit\Spinner\Kernel\Config;
 
 use AlecRabbit\Spinner\Core\Collection\Factory\Contract\ICharFrameCollectionFactory;
 use AlecRabbit\Spinner\Core\Collection\Factory\Contract\IStyleFrameCollectionFactory;
+use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Defaults;
 use AlecRabbit\Spinner\Core\Twirler\Contract\ITwirlerBuilder;
 use AlecRabbit\Spinner\Core\Twirler\Contract\ITwirlerContainer;
@@ -13,7 +14,6 @@ use AlecRabbit\Spinner\Core\Twirler\Factory\Contract\ITwirlerFactory;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Exception\LogicException;
 use AlecRabbit\Spinner\Kernel\Config\Contract\IConfig;
-use AlecRabbit\Spinner\Kernel\Contract\IDriver;
 use AlecRabbit\Spinner\Kernel\Contract\ILoop;
 use AlecRabbit\Spinner\Kernel\Contract\IWigglerContainer;
 
