@@ -4,6 +4,8 @@ declare(strict_types=1);
 // 16.06.22
 namespace AlecRabbit\Tests\Spinner;
 
+use AlecRabbit\Spinner\Exception\InvalidArgumentException;
+use AlecRabbit\Spinner\Exception\LogicException;
 use AlecRabbit\Spinner\Kernel\Config\Builder\ConfigBuilder;
 use AlecRabbit\Spinner\Kernel\Config\Contract\IConfig;
 use AlecRabbit\Tests\Spinner\Helper\PickLock;
@@ -32,18 +34,48 @@ abstract class TestCase extends PHPUnitTestCase
     final protected const SEQUENCE_START = 'sequenceStart';
     final protected const SEQUENCE_END = 'sequenceEnd';
 
-    private static IConfig $config;
+    private static ?IConfig $config = null;
 
-    protected static function getDefaultConfig(): IConfig
+    /**
+     * @param bool $fresh Set to true to create a fresh config during one test.
+     *
+     * @return IConfig
+     * @throws InvalidArgumentException
+     * @throws LogicException
+     */
+    protected static function getDefaultConfig(bool $fresh = false): IConfig
     {
+        if ($fresh) {
+            return self::doBuildConfig();
+        }
+
         if (null === self::$config) {
-            self::$config =
-                self::getConfigBuilder()
-                    ->build()
-            ;
+            // creates a reusable config for one test
+            self::$config = self::doBuildConfig();
         }
         return
             self::$config;
+    }
+
+    /**
+     * @throws LogicException
+     * @throws InvalidArgumentException
+     */
+    private static function doBuildConfig(): IConfig
+    {
+        return
+            self::getConfigBuilder()
+                ->build()
+        ;
+    }
+
+    protected function setUp(): void
+    {
+    }
+
+    protected function tearDown(): void
+    {
+        self::$config = null; // Reset config after each test.
     }
 
     protected static function getConfigBuilder(): ConfigBuilder
