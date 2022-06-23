@@ -85,14 +85,4 @@ abstract class ACollection implements Countable, IteratorAggregate
         }
         return $this->elements[$this->index];
     }
-
-    public function accept(IIntervalVisitor $visitor): void
-    {
-        // Intentionally left blank
-    }
-
-    public function getIntervalComponents(): iterable
-    {
-        return [];
-    }
 }

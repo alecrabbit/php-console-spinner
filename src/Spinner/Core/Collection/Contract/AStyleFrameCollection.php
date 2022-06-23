@@ -8,15 +8,8 @@ use AlecRabbit\Spinner\Core\Frame\Contract\IStyleFrame;
 use AlecRabbit\Spinner\Core\Interval\Contract\IInterval;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 
-abstract class AStyleFrameCollection extends ACollection implements IStyleFrameCollection
+abstract class AStyleFrameCollection extends AIntervalCollection implements IStyleFrameCollection
 {
-    protected function __construct(
-        iterable $elements,
-        protected readonly IInterval $interval,
-    ) {
-        parent::__construct($elements);
-    }
-
     /**
      * @throws InvalidArgumentException
      */
@@ -33,10 +26,5 @@ abstract class AStyleFrameCollection extends ACollection implements IStyleFrameC
     public function next(): IStyleFrame
     {
         return $this->nextElement();
-    }
-
-    public function getInterval(): IInterval
-    {
-        return $this->interval;
     }
 }

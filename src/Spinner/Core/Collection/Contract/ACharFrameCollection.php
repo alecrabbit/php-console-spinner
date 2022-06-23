@@ -9,15 +9,8 @@ use AlecRabbit\Spinner\Core\Frame\Contract\ICharFrame;
 use AlecRabbit\Spinner\Core\Interval\Contract\IInterval;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 
-abstract class ACharFrameCollection extends ACollection implements ICharFrameCollection
+abstract class ACharFrameCollection extends AIntervalCollection implements ICharFrameCollection
 {
-    protected function __construct(
-        iterable $elements,
-        public readonly IInterval $interval,
-    ) {
-        parent::__construct($elements);
-    }
-
     /**
      * @throws InvalidArgumentException
      */
@@ -35,10 +28,4 @@ abstract class ACharFrameCollection extends ACollection implements ICharFrameCol
     {
         return $this->nextElement();
     }
-
-    public function getInterval(): IInterval
-    {
-        return $this->interval;
-    }
-
 }
