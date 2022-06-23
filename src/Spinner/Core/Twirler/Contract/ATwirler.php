@@ -7,12 +7,15 @@ namespace AlecRabbit\Spinner\Core\Twirler\Contract;
 use AlecRabbit\Spinner\Core\Contract\IIntervalVisitor;
 use AlecRabbit\Spinner\Core\Interval\Contract\IInterval;
 use AlecRabbit\Spinner\Core\Interval\Interval;
+use AlecRabbit\Spinner\Core\Mixin\HasUpdateIntervalWithMethod;
 use AlecRabbit\Spinner\Core\Revolver\Contract\ICharRevolver;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IStyleRevolver;
 use AlecRabbit\Spinner\Core\Twirler\TwirlerFrame;
 
 abstract class ATwirler implements ITwirler
 {
+    use HasUpdateIntervalWithMethod;
+
     protected ITwirlerFrame $currentFrame;
     protected IInterval $interval;
 
@@ -33,11 +36,6 @@ abstract class ATwirler implements ITwirler
                 );
     }
 
-    public function updateIntervalWith(IIntervalVisitor $visitor): void
-    {
-        $this->interval = $this->interval->smallest($visitor->visit($this));
-    }
-
     public function getInterval(): IInterval
     {
         return $this->interval;
@@ -45,9 +43,8 @@ abstract class ATwirler implements ITwirler
 
     public function getIntervalComponents(): iterable
     {
-//        dump(static::class . '::' . __FUNCTION__);
-        yield $this->styleRevolver;
         yield $this->charRevolver;
+        yield $this->styleRevolver;
     }
 
 }

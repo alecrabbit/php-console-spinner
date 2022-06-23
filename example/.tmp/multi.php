@@ -42,6 +42,13 @@ $twirlerTwo =
         ->build()
 ;
 
+$twirlerThree =
+    $twirlerBuilder
+        ->withStylePattern(StylePattern::none())
+        ->withCharPattern(CharPattern::SNAKE_VARIANT_0)
+        ->build()
+;
+
 $twirlerFour =
     $twirlerBuilder
         ->withStylePattern(StylePattern::rainbow())
@@ -49,16 +56,14 @@ $twirlerFour =
         ->build()
 ;
 
-$twirlerThree = $twirlerBuilder->build();
-
 $spinner = SpinnerFactory::createMulti($config);
 //dump($spinner->getInterval());
 
 $spinner
-    ->addTwirler($twirlerThree)
-    ->addTwirler($twirlerFour)
     ->addTwirler($twirlerOne)
     ->addTwirler($twirlerTwo)
+    ->addTwirler($twirlerThree)
+    ->addTwirler($twirlerFour)
 ;
 
 //dump($spinner);
@@ -66,8 +71,7 @@ $spinner
 
 $t = [];
 
-$interval = 100000; // $spinner->getInterval()->toMicroseconds();
-
+$interval = (int)$spinner->getInterval()->toMicroseconds();
 
 $spinner->initialize();
 

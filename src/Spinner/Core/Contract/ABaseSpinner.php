@@ -32,6 +32,7 @@ abstract class ABaseSpinner implements IBaseSpinner, IntervalComponent
 
     public function updateIntervalWith(IIntervalVisitor $visitor): void
     {
+        dump(static::class . '::' . __FUNCTION__, $this->interval);
         $this->container->updateIntervalWith($visitor);
     }
 

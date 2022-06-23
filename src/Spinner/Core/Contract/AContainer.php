@@ -5,12 +5,15 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Contract;
 
 use AlecRabbit\Spinner\Core\Interval\Contract\IInterval;
+use AlecRabbit\Spinner\Core\Mixin\HasUpdateIntervalWithMethod;
 use AlecRabbit\Spinner\Core\Twirler\Contract\CanAddTwirler;
 use AlecRabbit\Spinner\Core\Twirler\Contract\ITwirler;
 use WeakMap;
 
 abstract class AContainer implements IContainer
 {
+    use HasUpdateIntervalWithMethod;
+
     /** @var ITwirler[] */
     protected array $twirlers = [];
     /** @var WeakMap<ITWirler,int> */
@@ -32,6 +35,12 @@ abstract class AContainer implements IContainer
         return $this;
     }
 
+//    public function updateIntervalWith(IIntervalVisitor $visitor): void
+//    {
+//        $this->interval = $this->interval->smallest($visitor->visit($this));
+//        dump(static::class . '::' . __FUNCTION__, $this->interval);
+//    }
+
     public function render(): iterable
     {
         yield from $this->twirlers;
@@ -40,11 +49,6 @@ abstract class AContainer implements IContainer
     public function getInterval(): IInterval
     {
         return $this->interval;
-    }
-
-    public function updateIntervalWith(IIntervalVisitor $visitor): void
-    {
-        $this->interval = $this->interval->smallest($visitor->visit($this));
     }
 
     /**

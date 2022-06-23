@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 // 23.06.22
 namespace AlecRabbit\Spinner\Core;
@@ -11,11 +12,12 @@ final class IntervalVisitor implements IIntervalVisitor
 {
     public function visit(IntervalComponent $container): IInterval
     {
+        $interval = $container->getInterval();
         /** @var IntervalComponent $component */
         foreach ($container->getIntervalComponents() as $component) {
             $component->updateIntervalWith($this);
+            $interval = $interval->smallest($component->getInterval());
         }
-//        dump(get_debug_type($container), $container->getInterval());
-        return $container->getInterval();
+        return $interval;
     }
 }

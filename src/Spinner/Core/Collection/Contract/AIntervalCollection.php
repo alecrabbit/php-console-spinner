@@ -24,7 +24,6 @@ abstract class AIntervalCollection extends ACollection implements IntervalCompon
 
     public function updateIntervalWith(IIntervalVisitor $visitor): void
     {
-//        dump(static::class . '::' . __FUNCTION__);
         // Intentionally left blank
     }
 
