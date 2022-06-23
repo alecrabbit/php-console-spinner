@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Contract;
 
 use AlecRabbit\Spinner\Core\Interval\Contract\IInterval;
+use AlecRabbit\Spinner\Core\Mixin\HasGetIntervalMethod;
 use AlecRabbit\Spinner\Kernel\Config\Contract\IConfig;
 
 abstract class ABaseSpinner implements IBaseSpinner, IntervalComponent
@@ -32,7 +33,6 @@ abstract class ABaseSpinner implements IBaseSpinner, IntervalComponent
 
     public function updateIntervalWith(IIntervalVisitor $visitor): void
     {
-        dump(static::class . '::' . __FUNCTION__, $this->interval);
         $this->container->updateIntervalWith($visitor);
     }
 

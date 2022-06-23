@@ -85,7 +85,6 @@ final class Interval implements IInterval
 
     public function smallest(IInterval $other): IInterval
     {
-//        dump($this, $other);
         if ($this->toMilliseconds() > $other->toMilliseconds()) {
             return $other;
         }
