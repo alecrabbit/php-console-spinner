@@ -9,6 +9,8 @@ use AlecRabbit\Spinner\Core\Interval\Interval;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Tests\Spinner\TestCase;
 
+use function array_key_exists;
+
 class IntervalTest extends TestCase
 {
     public function createDataProvider(): iterable
@@ -79,7 +81,7 @@ class IntervalTest extends TestCase
 
         $interval = new Interval($ms);
 
-        if(\array_key_exists(self::INTERVAL, $expected)) {
+        if (array_key_exists(self::INTERVAL, $expected)) {
             self::assertEquals($expected[self::INTERVAL], $interval->toSeconds());
             self::assertSame($expected[self::INTERVAL], $interval->toSeconds());
         }
@@ -88,7 +90,8 @@ class IntervalTest extends TestCase
     /**
      * @test
      */
-    public function canClone(): void {
+    public function canClone(): void
+    {
         $interval = new Interval(null);
         $clone = clone $interval;
         self::assertEquals($interval->toSeconds(), $clone->toSeconds());

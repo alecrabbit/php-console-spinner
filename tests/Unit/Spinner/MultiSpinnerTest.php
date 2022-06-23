@@ -7,7 +7,6 @@ namespace AlecRabbit\Tests\Spinner\Unit\Spinner;
 use AlecRabbit\Spinner\Core\Twirler\Contract\ITwirler;
 use AlecRabbit\Spinner\Kernel\Config\Contract\IConfig;
 use AlecRabbit\Spinner\MultiSpinner;
-use AlecRabbit\Tests\Spinner\Helper\PickLock;
 use AlecRabbit\Tests\Spinner\TestCase;
 
 final class MultiSpinnerTest extends TestCase
@@ -17,8 +16,8 @@ final class MultiSpinnerTest extends TestCase
     {
         $config = self::getDefaultConfig();
         $spinner = new MultiSpinner($config);
-        $container = PickLock::getValue($spinner, 'container');
-        $twirlers = PickLock::getValue($container, 'twirlers');
+        $container = self::getValue('container', from: $spinner);
+        $twirlers = self::getValue('twirlers', from: $container);
         self::assertCount(0, $twirlers);
         self::assertEmpty($twirlers);
     }
@@ -30,8 +29,8 @@ final class MultiSpinnerTest extends TestCase
         $twirler = self::getDefaultTwirler($config);
         $spinner = new MultiSpinner($config);
         $spinner->addTwirler($twirler);
-        $container = PickLock::getValue($spinner, 'container');
-        $twirlers = PickLock::getValue($container, 'twirlers');
+        $container = self::getValue('container', from: $spinner);
+        $twirlers = self::getValue('twirlers', from: $container);
         self::assertCount(1, $twirlers);
         self::assertNotEmpty($twirlers);
         self::assertContains($twirler, $twirlers);

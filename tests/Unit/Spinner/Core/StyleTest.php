@@ -4,10 +4,10 @@ declare(strict_types=1);
 // 16.06.22
 namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Core;
 
-use AlecRabbit\Spinner\Core\Contract\C;
 use AlecRabbit\Spinner\Core\Frame\StyleFrame;
-use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Tests\Spinner\TestCase;
+
+use TypeError;
 
 use const AlecRabbit\Cli\CSI;
 use const AlecRabbit\Cli\RESET;
@@ -41,15 +41,15 @@ class StyleTest extends TestCase
             [
                 self::SEQUENCE_START => '<style>',
                 self::SEQUENCE_END => '</style>',
-                self::CONTAINS =>'style',
+                self::CONTAINS => 'style',
             ],
-            ['<style>','</style>'],
+            ['<style>', '</style>'],
         ];
 
         yield [
             [
                 self::EXCEPTION => [
-                    self::CLASS_ => \TypeError::class,
+                    self::CLASS_ => TypeError::class,
                 ],
             ],
             [[]],

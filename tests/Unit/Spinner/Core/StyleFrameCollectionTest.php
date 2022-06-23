@@ -23,7 +23,7 @@ class StyleFrameCollectionTest extends TestCase
     public function createDataProvider(): iterable
     {
         $frame = StyleFrame::createEmpty();
-      // [$expected, $frames, $interval]
+        // [$expected, $frames, $interval]
         yield [
             [
                 self::COUNT => 1,
@@ -53,15 +53,15 @@ class StyleFrameCollectionTest extends TestCase
                 self::COUNT => 2,
                 self::INTERVAL => 0.1,
                 self::CONTAINS => [
-                    new StyleFrame('>','<'),
+                    new StyleFrame('>', '<'),
                     $frame,
                 ],
             ],
             [
-                new StyleFrame('>','<'),
+                new StyleFrame('>', '<'),
                 $frame,
             ],
-            new Interval( 100)
+            new Interval(100)
         ];
 
         yield [
@@ -76,7 +76,7 @@ class StyleFrameCollectionTest extends TestCase
                 ],
             ],
             [],
-            new Interval( 100)
+            new Interval(100)
         ];
 
         yield [
@@ -91,7 +91,7 @@ class StyleFrameCollectionTest extends TestCase
                 ],
             ],
             [1],
-            new Interval( 100)
+            new Interval(100)
         ];
 
 //        yield [

@@ -255,13 +255,6 @@ class StylePatternExtractorTest extends TestCase
     }
 
     #[ArrayShape([C::STYLES => "array[]"])]
-    private static function patternToTest02(): array
-    {
-        return
-            StylePattern::rainbow();
-    }
-
-    #[ArrayShape([C::STYLES => "array[]"])]
     private static function patternToTest03(): array
     {
         return
@@ -270,6 +263,12 @@ class StylePatternExtractorTest extends TestCase
             ];
     }
 
+    #[ArrayShape([C::STYLES => "array[]"])]
+    private static function patternToTest02(): array
+    {
+        return
+            StylePattern::rainbow();
+    }
 
     /**
      * @test
