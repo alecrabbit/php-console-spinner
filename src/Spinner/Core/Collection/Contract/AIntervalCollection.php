@@ -7,7 +7,6 @@ namespace AlecRabbit\Spinner\Core\Collection\Contract;
 use AlecRabbit\Spinner\Core\Contract\IIntervalVisitor;
 use AlecRabbit\Spinner\Core\Contract\IntervalComponent;
 use AlecRabbit\Spinner\Core\Interval\Contract\IInterval;
-use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 
 abstract class AIntervalCollection extends ACollection implements IntervalComponent
 {

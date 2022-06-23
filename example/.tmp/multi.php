@@ -52,6 +52,7 @@ $twirlerFour =
 $twirlerThree = $twirlerBuilder->build();
 
 $spinner = SpinnerFactory::createMulti($config);
+//dump($spinner->getInterval());
 
 $spinner
     ->addTwirler($twirlerThree)
@@ -60,11 +61,13 @@ $spinner
     ->addTwirler($twirlerTwo)
 ;
 
-dump($spinner);
+//dump($spinner);
+//dump($spinner->getInterval());
 
 $t = [];
 
 $interval = 100000; // $spinner->getInterval()->toMicroseconds();
+
 
 $spinner->initialize();
 
