@@ -22,18 +22,14 @@ abstract class ATwirler implements ITwirler
 
     protected ITwirlerFrame $currentFrame;
     protected IInterval $interval;
-    protected readonly ICharFrame $leadingSpacer;
-    protected readonly ICharFrame $trailingSpacer;
 
     public function __construct(
         protected readonly IStyleRevolver $styleRevolver,
         protected readonly ICharRevolver $charRevolver,
-        ?ICharFrame $leadingSpacer = null,
-        ?ICharFrame $trailingSpacer = null,
+        protected readonly ICharFrame $leadingSpacer,
+        protected readonly ICharFrame $trailingSpacer,
     ) {
         $this->interval = new Interval(null);
-        $this->leadingSpacer = $leadingSpacer ?? CharFrame::createEmpty();
-        $this->trailingSpacer = $trailingSpacer ?? new CharFrame(C::SPACE_CHAR, 1);
     }
 
     public function render(): ITwirlerFrame

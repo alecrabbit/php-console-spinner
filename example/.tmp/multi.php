@@ -29,6 +29,8 @@ $twirlerBuilder = $config->getTwirlerBuilder();
 
 $twirlerOne =
     $twirlerBuilder
+        ->withLeadingSpacer(CharFrame::createSpace())
+        ->noTrailingSpacer()
         ->withCharCollection(
             $charCollectionFactory->create(
                 CharPattern::DOTS_VARIANT_3
@@ -36,20 +38,20 @@ $twirlerOne =
         )
         ->build()
 ;
+
 $twirlerTwo =
     $twirlerBuilder
         ->withStylePattern(StylePattern::rainbowBg())
         ->withCharPattern(CharPattern::SNAKE_VARIANT_3)
-        ->withLeadingSpacer(CharFrame::create( ' ', 1))
-        ->withTrailingSpacer(CharFrame::create( ' ', 1))
+        ->withLeadingSpacer(CharFrame::createSpace())
+        ->withTrailingSpacer(CharFrame::createSpace())
         ->build()
 ;
 
 $twirlerThree =
     $twirlerBuilder
-        ->withStylePattern(StylePattern::none())
-        ->withCharPattern(CharPattern::SNAKE_VARIANT_0)
-        ->noTrailingSpacer()
+//        ->withStylePattern(StylePattern::none())
+//        ->withCharPattern(CharPattern::SNAKE_VARIANT_0)
         ->build()
 ;
 
@@ -78,7 +80,7 @@ $interval = (int)$spinner->getInterval()->toMicroseconds();
 
 $spinner->initialize();
 
-dump($spinner);
+//dump($spinner);
 
 for ($i = 0; $i < 200; $i++) {
     $start = hrtime(true);

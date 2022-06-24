@@ -24,7 +24,7 @@ VarDumper::setHandler(static function ($var) use ($cloner, $dumper) {
     $dumper->dump($cloner->cloneVar($var));
 });
 
-(new \NunoMaduro\Collision\Provider())->register();
+//(new \NunoMaduro\Collision\Provider())->register();
 
 function getAddress(false|string $srv): string
 {

@@ -259,14 +259,15 @@ abstract class ATwirlerBuilder implements ITwirlerBuilder
 
     public function build(): ITwirler
     {
-        $this->processDefaults();
+        $clone = clone $this;
+        $clone->processDefaults();
 
         return
             new Twirler(
-                $this->styleRevolver,
-                $this->charRevolver,
-                $this->leadingSpacer,
-                $this->trailingSpacer,
+                $clone->styleRevolver,
+                $clone->charRevolver,
+                $clone->leadingSpacer,
+                $clone->trailingSpacer,
             );
     }
 
@@ -278,14 +279,6 @@ abstract class ATwirlerBuilder implements ITwirlerBuilder
 
         if (null === $this->charPattern) {
             $this->charPattern = Defaults::getDefaultCharPattern();
-        }
-
-        if (null === $this->styleFrameCollectionFactory) {
-            throw new DomainException('Style frame collection factory is not set.');
-        }
-
-        if (null === $this->charFrameCollectionFactory) {
-            throw new DomainException('Char frame collection factory is not set.');
         }
 
         if (null === $this->styleFrameCollection) {
@@ -301,6 +294,27 @@ abstract class ATwirlerBuilder implements ITwirlerBuilder
 
         if (null === $this->charRevolver) {
             $this->charRevolver = new CharRevolver($this->charFrameCollection);
+        }
+
+        if (null === $this->leadingSpacer) {
+            $this->leadingSpacer = CharFrame::createEmpty();
+        }
+
+        if (null === $this->trailingSpacer) {
+            $this->trailingSpacer = CharFrame::createSpace();
+        }
+
+        self::assertDefaults($this);
+    }
+
+    protected static function assertDefaults(ATwirlerBuilder $builder): void
+    {
+        if (null === $builder->styleFrameCollectionFactory) {
+            throw new DomainException('Style frame collection factory is not set.');
+        }
+
+        if (null === $builder->charFrameCollectionFactory) {
+            throw new DomainException('Char frame collection factory is not set.');
         }
     }
 }
