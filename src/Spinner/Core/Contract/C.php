@@ -13,6 +13,7 @@ final class C
     public const ELEMENT_WIDTH = 'elementWidth';
     public const EMPTY_STRING = '';
     public const INTERVAL = 'interval';
+    public const FACTORY = 'factory';
     public const FORMAT = 'format';
     public const FRAMES = 'frames';
     public const FRAME = 'frame';

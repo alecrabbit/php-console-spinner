@@ -20,7 +20,8 @@ use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 
 abstract class ATwirlerBuilder
 {
-    protected const FRAME_COLLECTION = C::FRAME . ' ' . C::COLLECTION;
+    protected const FRAME_COLLECTION = C::FRAME . C::SPACE_CHAR . C::COLLECTION;
+    protected const FRAME_COLLECTION_FACTORY = self::FRAME_COLLECTION . C::SPACE_CHAR . C::FACTORY;
     protected const PATTERN = C::PATTERN;
     protected const REVOLVER = C::REVOLVER;
     protected const STYLE = C::STYLE;
@@ -117,8 +118,8 @@ abstract class ATwirlerBuilder
     protected static function assertForStyleFrameCollectionFactory(ATwirlerBuilder $builder, string $methodName): void
     {
         match (true) {
-//            null !== $builder->styleFrameCollectionFactory =>
-//            throw new InvalidArgumentException('Style frame collection factory is already set.'),
+            null !== $builder->styleFrameCollectionFactory =>
+            throw self::getInvalidArgumentException($methodName, self::STYLE, self::FRAME_COLLECTION_FACTORY),
             null !== $builder->styleFrameCollection =>
             throw self::getInvalidArgumentException($methodName, self::STYLE, self::FRAME_COLLECTION),
             default => null,
@@ -195,7 +196,7 @@ abstract class ATwirlerBuilder
     {
         match (true) {
             null !== $builder->styleRevolver =>
-            throw self::getInvalidArgumentException($methodName, self::CHAR, self::REVOLVER),
+            throw self::getInvalidArgumentException($methodName, self::STYLE, self::REVOLVER),
             null !== $builder->styleFrameCollection =>
             throw self::getInvalidArgumentException($methodName, self::STYLE, self::FRAME_COLLECTION),
             default => null,
