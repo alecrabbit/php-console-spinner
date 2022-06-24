@@ -10,6 +10,7 @@ use AlecRabbit\Spinner\Core\Collection\Factory\Contract\ICharFrameCollectionFact
 use AlecRabbit\Spinner\Core\Collection\Factory\Contract\IStyleFrameCollectionFactory;
 use AlecRabbit\Spinner\Core\Contract\C;
 use AlecRabbit\Spinner\Core\Defaults;
+use AlecRabbit\Spinner\Core\Frame\CharFrame;
 use AlecRabbit\Spinner\Core\Frame\Contract\ICharFrame;
 use AlecRabbit\Spinner\Core\Revolver\CharRevolver;
 use AlecRabbit\Spinner\Core\Revolver\Contract\ICharRevolver;
@@ -239,6 +240,20 @@ abstract class ATwirlerBuilder implements ITwirlerBuilder
     {
         $clone = clone $this;
         $clone->leadingSpacer = $leadingSpacer;
+        return $clone;
+    }
+
+    public function noTrailingSpacer(): ITwirlerBuilder
+    {
+        $clone = clone $this;
+        $clone->trailingSpacer = CharFrame::createEmpty();
+        return $clone;
+    }
+
+    public function noLeadingSpacer(): ITwirlerBuilder
+    {
+        $clone = clone $this;
+        $clone->leadingSpacer = CharFrame::createEmpty();
         return $clone;
     }
 

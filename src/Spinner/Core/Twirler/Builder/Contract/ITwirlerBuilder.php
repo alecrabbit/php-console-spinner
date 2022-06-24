@@ -37,4 +37,8 @@ interface ITwirlerBuilder
     public function withLeadingSpacer(ICharFrame $leadingSpacer): ITwirlerBuilder;
 
     public function withTrailingSpacer(ICharFrame $trailingSpacer): ITwirlerBuilder;
+
+    public function noLeadingSpacer(): ITwirlerBuilder;
+
+    public function noTrailingSpacer(): ITwirlerBuilder;
 }

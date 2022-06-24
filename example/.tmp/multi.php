@@ -49,6 +49,7 @@ $twirlerThree =
     $twirlerBuilder
         ->withStylePattern(StylePattern::none())
         ->withCharPattern(CharPattern::SNAKE_VARIANT_0)
+        ->noTrailingSpacer()
         ->build()
 ;
 
