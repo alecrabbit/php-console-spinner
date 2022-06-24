@@ -18,6 +18,7 @@ use function is_array;
 abstract class TestCase extends PHPUnitTestCase
 {
     final protected const ARGUMENTS = 'arguments';
+    final protected const BUILDER = 'builder';
     final protected const CLASS_ = 'class';
     final protected const CONTAINS = 'contains';
     final protected const COUNT = 'count';
@@ -33,6 +34,7 @@ abstract class TestCase extends PHPUnitTestCase
     final protected const SEQUENCE = 'sequence';
     final protected const SEQUENCE_START = 'sequenceStart';
     final protected const SEQUENCE_END = 'sequenceEnd';
+    final protected const STYLE_PATTERN = 'stylePattern';
 
     private static ?IConfig $config = null;
 

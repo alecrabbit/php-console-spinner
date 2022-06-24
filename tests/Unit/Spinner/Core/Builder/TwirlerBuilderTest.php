@@ -14,13 +14,16 @@ use AlecRabbit\Spinner\Core\Revolver\StyleRevolver;
 use AlecRabbit\Spinner\Core\Twirler\Builder\Contract\ITwirlerBuilder;
 use AlecRabbit\Spinner\Core\Twirler\Builder\TwirlerBuilder;
 use AlecRabbit\Spinner\Core\Twirler\Contract\ITwirler;
+use AlecRabbit\Spinner\Core\Twirler\Twirler;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Tests\Spinner\TestCase;
 
 class TwirlerBuilderTest extends TestCase
 {
+
     public function builderDataProvider(): iterable
     {
+        $index = 0;
         // [$expected, $incoming]
         yield [
             [
@@ -31,8 +34,10 @@ class TwirlerBuilderTest extends TestCase
             ],
             [
                 self::ARGUMENTS => [
-                    'styleRevolver' => true,
-                    'styleRevolverTwo' => true,
+                    self::BUILDER => [
+                        self::getStyleRevolver(),
+                        self::getStyleRevolver(),
+                    ],
                 ],
             ],
         ];
@@ -46,55 +51,30 @@ class TwirlerBuilderTest extends TestCase
             ],
             [
                 self::ARGUMENTS => [
-                    'stylePattern' => true,
-                    'stylePatternTwo' => true,
+                    self::BUILDER => [
+                        self::STYLE_PATTERN . ++$index => StylePattern::none(),
+                        self::STYLE_PATTERN . ++$index => StylePattern::none(),
+                    ],
                 ],
             ],
         ];
-    }
 
-    /**
-     * @test
-     * @dataProvider builderDataProvider
-     */
-    public function canBuild(array $expected, array $incoming): void
-    {
-        $this->setExpectException($expected);
-
-        $args = $incoming[self::ARGUMENTS];
-
-        $builder = self::getBuilder($args);
-
-        $builder = $this->addToBuilder($builder, $args);
-
-        self::assertInstanceOf(ITwirler::class, $builder->build());
-    }
-
-    public static function getBuilder(array $args = []): ITwirlerBuilder
-    {
-        $config = self::getDefaultConfig();
-        return
-            new TwirlerBuilder(
-                $config->getStyleFrameCollectionFactory(),
-                $config->getCharFrameCollectionFactory(),
-            );
-    }
-
-    private function addToBuilder(ITwirlerBuilder $builder, mixed $args): ITwirlerBuilder
-    {
-        if ($args['styleRevolver'] ?? false) {
-            $builder = $builder->withStyleRevolver(self::getStyleRevolver($args));
-        }
-        if ($args['styleRevolverTwo'] ?? false) {
-            $builder = $builder->withStyleRevolver(self::getStyleRevolver($args));
-        }
-        if ($args['stylePattern'] ?? false) {
-            $builder = $builder->withStylePattern(StylePattern::none());
-        }
-        if ($args['stylePatternTwo'] ?? false) {
-            $builder = $builder->withStylePattern(StylePattern::none());
-        }
-        return $builder;
+        yield [
+            [
+                self::EXCEPTION => [
+                    self::CLASS_ => InvalidArgumentException::class,
+                    self::MESSAGE => 'Style revolver is already set.',
+                ],
+            ],
+            [
+                self::ARGUMENTS => [
+                    self::BUILDER => [
+                        self::getStyleRevolver(),
+                        self::STYLE_PATTERN . ++$index => StylePattern::none(),
+                    ],
+                ],
+            ],
+        ];
     }
 
     private static function getStyleRevolver(array $args = []): IStyleRevolver
@@ -111,6 +91,47 @@ class TwirlerBuilderTest extends TestCase
             StyleFrameCollection::create(
                 [StyleFrame::createEmpty()],
                 new Interval(null)
+            );
+    }
+
+    /**
+     * @test
+     * @dataProvider builderDataProvider
+     */
+    public function canBuild(array $expected, array $incoming): void
+    {
+        $this->setExpectException($expected);
+
+        $args = $incoming[self::ARGUMENTS];
+
+        $builder = $this->prepareBuilder($args);
+
+        self::assertInstanceOf(Twirler::class, $builder->build());
+    }
+
+    private function prepareBuilder(mixed $args): ITwirlerBuilder
+    {
+        $builder = self::getBuilder($args);
+
+        foreach ($args[self::BUILDER] ?? [] as $key => $item) {
+            if ($item instanceof IStyleRevolver) {
+                $builder = $builder->withStyleRevolver($item);
+            }
+            if (\is_string($key) && \str_contains($key, self::STYLE_PATTERN)) {
+                $builder = $builder->withStylePattern($item);
+            }
+        }
+
+        return $builder;
+    }
+
+    public static function getBuilder(array $args = []): ITwirlerBuilder
+    {
+        $config = self::getDefaultConfig();
+        return
+            new TwirlerBuilder(
+                $config->getStyleFrameCollectionFactory(),
+                $config->getCharFrameCollectionFactory(),
             );
     }
 }

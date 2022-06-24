@@ -49,6 +49,8 @@ abstract class ATwirlerBuilder
         match (true) {
             null !== $builder->stylePattern =>
             throw new InvalidArgumentException('Style pattern is already set.'),
+            null !== $builder->styleRevolver =>
+            throw new InvalidArgumentException('Style revolver is already set.'),
             null !== $builder->styleFrameCollection =>
             throw new InvalidArgumentException('Style frame collection is already set.'),
             default => null,
