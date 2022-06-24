@@ -27,7 +27,7 @@ abstract class ATwirlerBuilder
     protected const STYLE = C::STYLE;
     protected const CHAR = C::CHAR;
 
-    protected const ERROR_MESSAGE_FORMAT = '[%s::%s()]: %s %s is already set.';
+    protected const ERROR_MESSAGE_FORMAT = '[%s::%s()]: %s %s is already set.%s';
 
     protected ?array $stylePattern = null;
     protected ?array $charPattern = null;
@@ -60,29 +60,34 @@ abstract class ATwirlerBuilder
         $type = self::PATTERN;
         match (true) {
             null !== $builder->stylePattern =>
-            throw self::getInvalidArgumentException($methodName, self::STYLE, self::PATTERN),
+            throw self::getException($methodName, self::STYLE, self::PATTERN),
             null !== $builder->styleRevolver =>
-            throw self::getInvalidArgumentException($methodName, self::STYLE, self::REVOLVER),
+            throw self::getException($methodName, self::STYLE, self::REVOLVER),
             null !== $builder->styleFrameCollection =>
-            throw self::getInvalidArgumentException($methodName, self::STYLE, self::FRAME_COLLECTION),
+            throw self::getException($methodName, self::STYLE, self::FRAME_COLLECTION),
             default => null,
         };
     }
 
-    protected static function getInvalidArgumentException(
+    protected static function getException(
         string $methodName,
         string $kind,
-        string $type
-    ): InvalidArgumentException {
-        return new InvalidArgumentException(
-            sprintf(
-                self::ERROR_MESSAGE_FORMAT,
-                static::class,
-                $methodName,
-                \ucfirst($kind),
-                $type
-            )
-        );
+        string $type,
+        ?string $auxMessage = null
+    ): \Exception {
+        return
+            new InvalidArgumentException(
+                sprintf(
+                    self::ERROR_MESSAGE_FORMAT,
+                    static::class,
+                    $methodName,
+                    \ucfirst($kind),
+                    $type,
+                    $auxMessage
+                        ? C::SPACE_CHAR . $auxMessage
+                        : C::EMPTY_STRING
+                )
+            );
     }
 
     public function withCharPattern(array $charPattern): ITwirlerBuilder
@@ -97,11 +102,11 @@ abstract class ATwirlerBuilder
     {
         match (true) {
             null !== $builder->charPattern =>
-            throw self::getInvalidArgumentException($methodName, self::CHAR, self::PATTERN),
+            throw self::getException($methodName, self::CHAR, self::PATTERN),
             null !== $builder->charRevolver =>
-            throw self::getInvalidArgumentException($methodName, self::CHAR, self::REVOLVER),
+            throw self::getException($methodName, self::CHAR, self::REVOLVER),
             null !== $builder->charFrameCollection =>
-            throw self::getInvalidArgumentException($methodName, self::CHAR, self::FRAME_COLLECTION),
+            throw self::getException($methodName, self::CHAR, self::FRAME_COLLECTION),
             default => null,
         };
     }
@@ -119,9 +124,9 @@ abstract class ATwirlerBuilder
     {
         match (true) {
             null !== $builder->styleFrameCollectionFactory =>
-            throw self::getInvalidArgumentException($methodName, self::STYLE, self::FRAME_COLLECTION_FACTORY),
+            throw self::getException($methodName, self::STYLE, self::FRAME_COLLECTION_FACTORY),
             null !== $builder->styleFrameCollection =>
-            throw self::getInvalidArgumentException($methodName, self::STYLE, self::FRAME_COLLECTION),
+            throw self::getException($methodName, self::STYLE, self::FRAME_COLLECTION),
             default => null,
         };
     }
@@ -141,7 +146,7 @@ abstract class ATwirlerBuilder
 //            null !== $builder->charFrameCollectionFactory =>
 //            throw new InvalidArgumentException('Char frame collection factory is already set.'),
             null !== $builder->charFrameCollection =>
-            throw self::getInvalidArgumentException($methodName, self::CHAR, self::FRAME_COLLECTION),
+            throw self::getException($methodName, self::CHAR, self::FRAME_COLLECTION),
             default => null,
         };
     }
@@ -158,7 +163,7 @@ abstract class ATwirlerBuilder
     {
         match (true) {
             null !== $builder->styleFrameCollection =>
-            throw self::getInvalidArgumentException($methodName, self::STYLE, self::FRAME_COLLECTION),
+            throw self::getException($methodName, self::STYLE, self::FRAME_COLLECTION),
 //            null !== $builder->styleFrameCollectionFactory =>
 //            throw new InvalidArgumentException('Style frame collection factory is already set.'),
             default => null,
@@ -177,7 +182,7 @@ abstract class ATwirlerBuilder
     {
         match (true) {
             null !== $builder->charFrameCollection =>
-            throw self::getInvalidArgumentException($methodName, self::CHAR, self::FRAME_COLLECTION),
+            throw self::getException($methodName, self::CHAR, self::FRAME_COLLECTION),
 //            null !== $builder->charFrameCollectionFactory =>
 //            throw new InvalidArgumentException('Char frame collection factory is already set.'),
             default => null,
@@ -196,9 +201,9 @@ abstract class ATwirlerBuilder
     {
         match (true) {
             null !== $builder->styleRevolver =>
-            throw self::getInvalidArgumentException($methodName, self::STYLE, self::REVOLVER),
+            throw self::getException($methodName, self::STYLE, self::REVOLVER),
             null !== $builder->styleFrameCollection =>
-            throw self::getInvalidArgumentException($methodName, self::STYLE, self::FRAME_COLLECTION),
+            throw self::getException($methodName, self::STYLE, self::FRAME_COLLECTION),
             default => null,
         };
     }
@@ -215,9 +220,9 @@ abstract class ATwirlerBuilder
     {
         match (true) {
             null !== $builder->charRevolver =>
-            throw self::getInvalidArgumentException($methodName, self::CHAR, self::REVOLVER),
+            throw self::getException($methodName, self::CHAR, self::REVOLVER),
             null !== $builder->charFrameCollection =>
-            throw self::getInvalidArgumentException($methodName, self::CHAR, self::FRAME_COLLECTION),
+            throw self::getException($methodName, self::CHAR, self::FRAME_COLLECTION),
             default => null,
         };
     }
