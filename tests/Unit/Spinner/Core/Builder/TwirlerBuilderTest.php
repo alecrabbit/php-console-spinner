@@ -13,6 +13,7 @@ use AlecRabbit\Spinner\Core\Collection\StyleFrameCollection;
 use AlecRabbit\Spinner\Core\Contract\CharPattern;
 use AlecRabbit\Spinner\Core\Contract\StylePattern;
 use AlecRabbit\Spinner\Core\Frame\CharFrame;
+use AlecRabbit\Spinner\Core\Frame\Contract\ICharFrame;
 use AlecRabbit\Spinner\Core\Frame\StyleFrame;
 use AlecRabbit\Spinner\Core\Interval\Interval;
 use AlecRabbit\Spinner\Core\Revolver\CharRevolver;
@@ -27,6 +28,11 @@ use AlecRabbit\Tests\Spinner\TestCase;
 
 class TwirlerBuilderTest extends TestCase
 {
+    final protected const NO_LEADING_SPACER = 'noLeadingSpacer';
+    final protected const NO_TRAILING_SPACER = 'noTrailingSpacer';
+    final protected const LEADING_SPACER = 'leadingSpacer';
+    final protected const TRAILING_SPACER = 'trailingSpacer';
+
     public function builderDataProvider(): iterable
     {
         $index = 0;
@@ -320,6 +326,38 @@ class TwirlerBuilderTest extends TestCase
                 ],
             ],
         ];
+
+        yield [
+            [
+            ],
+            [
+                self::ARGUMENTS => [
+                    self::BUILDER => self::getBuilder(null),
+                    self::WITH => [
+                        self::getStyleFrameCollectionFactory(),
+                        self::getCharFrameCollectionFactory(),
+                        self::TRAILING_SPACER => CharFrame::createEmpty(),
+                        self::NO_TRAILING_SPACER => true,
+                    ],
+                ],
+            ],
+        ];
+
+        yield [
+            [
+            ],
+            [
+                self::ARGUMENTS => [
+                    self::BUILDER => self::getBuilder(null),
+                    self::WITH => [
+                        self::getStyleFrameCollectionFactory(),
+                        self::getCharFrameCollectionFactory(),
+                        self::LEADING_SPACER => CharFrame::createEmpty(),
+                        self::NO_LEADING_SPACER => true,
+                    ],
+                ],
+            ],
+        ];
     }
 
     private static function getStyleRevolver(array $args = []): IStyleRevolver
@@ -401,7 +439,7 @@ class TwirlerBuilderTest extends TestCase
 
     private function prepareBuilder(array $args = []): ITwirlerBuilder
     {
-        $builder = $args[self::BUILDER] ?? self::getBuilder($args);
+        $builder = self::extractBuilder($args);
 
         $with = $args[self::WITH] ?? [];
 
@@ -430,6 +468,23 @@ class TwirlerBuilderTest extends TestCase
             if (\is_string($key) && \str_contains($key, self::CHAR_PATTERN)) {
                 $builder = $builder->withCharPattern($item);
             }
+            /** @noinspection NotOptimalIfConditionsInspection */
+            if (\is_string($key) && \str_contains($key, self::NO_LEADING_SPACER) && $item === true) {
+                $builder = $builder->noLeadingSpacer();
+            }
+            /** @noinspection NotOptimalIfConditionsInspection */
+            if (\is_string($key) && \str_contains($key, self::NO_TRAILING_SPACER) && $item === true) {
+                $builder = $builder->noTrailingSpacer();
+            }
+
+            if ($item instanceof ICharFrame && \is_string($key) && \str_contains($key, self::LEADING_SPACER)) {
+                $builder = $builder->withLeadingSpacer($item);
+            }
+
+            if ($item instanceof ICharFrame && \is_string($key) && \str_contains($key, self::TRAILING_SPACER)) {
+                $builder = $builder->withTrailingSpacer($item);
+            }
+
         }
 
         return $builder;
@@ -447,5 +502,10 @@ class TwirlerBuilderTest extends TestCase
                 $config->getStyleFrameCollectionFactory(),
                 $config->getCharFrameCollectionFactory(),
             );
+    }
+
+    private static function extractBuilder(array $args): mixed
+    {
+        return $args[self::BUILDER] ?? self::getBuilder($args);
     }
 }
