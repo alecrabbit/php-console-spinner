@@ -6,7 +6,7 @@ namespace AlecRabbit\Spinner\Core\Contract;
 
 use AlecRabbit\Spinner\Core\Interval\Contract\HasInterval;
 
-interface IntervalComponent extends HasInterval
+interface IIntervalComponent extends HasInterval
 {
     public function accept(IIntervalVisitor $intervalVisitor): void;
 

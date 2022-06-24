@@ -273,6 +273,8 @@ abstract class ATwirlerBuilder implements ITwirlerBuilder
 
     private function processDefaults(): void
     {
+        self::assertPreDefaults($this);
+
         if (null === $this->stylePattern) {
             $this->stylePattern = Defaults::getDefaultStylePattern();
         }
@@ -303,11 +305,9 @@ abstract class ATwirlerBuilder implements ITwirlerBuilder
         if (null === $this->trailingSpacer) {
             $this->trailingSpacer = CharFrame::createSpace();
         }
-
-        self::assertDefaults($this);
     }
 
-    protected static function assertDefaults(ATwirlerBuilder $builder): void
+    protected static function assertPreDefaults(ATwirlerBuilder $builder): void
     {
         if (null === $builder->styleFrameCollectionFactory) {
             throw new DomainException('Style frame collection factory is not set.');

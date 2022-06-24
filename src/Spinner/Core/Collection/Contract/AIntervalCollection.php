@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Collection\Contract;
 
 use AlecRabbit\Spinner\Core\Contract\IIntervalVisitor;
-use AlecRabbit\Spinner\Core\Contract\IntervalComponent;
+use AlecRabbit\Spinner\Core\Contract\IIntervalComponent;
 use AlecRabbit\Spinner\Core\Interval\Contract\IInterval;
 use AlecRabbit\Spinner\Core\Mixin\HasMethodGetInterval;
 
-abstract class AIntervalCollection extends ACollection implements IntervalComponent
+abstract class AIntervalCollection extends ACollection implements IIntervalComponent
 {
     use HasMethodGetInterval;
 
@@ -27,7 +27,7 @@ abstract class AIntervalCollection extends ACollection implements IntervalCompon
 
     public function getIntervalComponents(): iterable
     {
-        return []; // empty
+        return []; // No components
     }
 
 }

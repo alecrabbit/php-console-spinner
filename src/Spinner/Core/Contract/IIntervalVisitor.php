@@ -8,5 +8,5 @@ use AlecRabbit\Spinner\Core\Interval\Contract\IInterval;
 
 interface IIntervalVisitor
 {
-    public function visit(IntervalComponent $container): IInterval;
+    public function visit(IIntervalComponent $container): IInterval;
 }

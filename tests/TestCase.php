@@ -36,6 +36,7 @@ abstract class TestCase extends PHPUnitTestCase
     final protected const SEQUENCE_START = 'sequenceStart';
     final protected const SEQUENCE_END = 'sequenceEnd';
     final protected const STYLE_PATTERN = 'stylePattern';
+    final protected const WITH = 'with';
 
     private static ?IConfig $config = null;
 
@@ -72,15 +73,6 @@ abstract class TestCase extends PHPUnitTestCase
         ;
     }
 
-    protected function setUp(): void
-    {
-    }
-
-    protected function tearDown(): void
-    {
-        self::$config = null; // Reset config after each test.
-    }
-
     protected static function getConfigBuilder(): ConfigBuilder
     {
         return new ConfigBuilder();
@@ -89,6 +81,15 @@ abstract class TestCase extends PHPUnitTestCase
     protected static function getValue(string $property, mixed $from): mixed
     {
         return PickLock::getValue($from, $property);
+    }
+
+    protected function setUp(): void
+    {
+    }
+
+    protected function tearDown(): void
+    {
+        self::$config = null; // Reset config after each test.
     }
 
     protected function setExpectException(mixed $expected): void

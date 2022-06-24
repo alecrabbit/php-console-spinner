@@ -43,7 +43,7 @@ abstract class AContainer implements IContainer
     }
 
     /**
-     * @return IntervalComponent[]
+     * @return IIntervalComponent[]
      */
     public function getIntervalComponents(): iterable
     {

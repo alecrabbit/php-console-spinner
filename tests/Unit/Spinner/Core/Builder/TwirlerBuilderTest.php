@@ -27,11 +27,11 @@ use AlecRabbit\Tests\Spinner\TestCase;
 
 class TwirlerBuilderTest extends TestCase
 {
-
     public function builderDataProvider(): iterable
     {
         $index = 0;
         // [$expected, $incoming]
+        // #0
         yield [
             [
                 self::EXCEPTION => [
@@ -41,7 +41,7 @@ class TwirlerBuilderTest extends TestCase
             ],
             [
                 self::ARGUMENTS => [
-                    self::BUILDER => [
+                    self::WITH => [
                         self::getStyleRevolver(),
                         self::getStyleRevolver(),
                     ],
@@ -49,6 +49,7 @@ class TwirlerBuilderTest extends TestCase
             ],
         ];
 
+        // #1
         yield [
             [
                 self::EXCEPTION => [
@@ -58,7 +59,7 @@ class TwirlerBuilderTest extends TestCase
             ],
             [
                 self::ARGUMENTS => [
-                    self::BUILDER => [
+                    self::WITH => [
                         self::getCharRevolver(),
                         self::getCharRevolver(),
                     ],
@@ -66,6 +67,7 @@ class TwirlerBuilderTest extends TestCase
             ],
         ];
 
+        // #2
         yield [
             [
                 self::EXCEPTION => [
@@ -75,7 +77,7 @@ class TwirlerBuilderTest extends TestCase
             ],
             [
                 self::ARGUMENTS => [
-                    self::BUILDER => [
+                    self::WITH => [
                         self::STYLE_PATTERN . ++$index => StylePattern::none(),
                         self::STYLE_PATTERN . ++$index => StylePattern::none(),
                     ],
@@ -83,6 +85,7 @@ class TwirlerBuilderTest extends TestCase
             ],
         ];
 
+        // #3
         yield [
             [
                 self::EXCEPTION => [
@@ -92,7 +95,7 @@ class TwirlerBuilderTest extends TestCase
             ],
             [
                 self::ARGUMENTS => [
-                    self::BUILDER => [
+                    self::WITH => [
                         self::CHAR_PATTERN . ++$index => CharPattern::none(),
                         self::CHAR_PATTERN . ++$index => CharPattern::none(),
                     ],
@@ -100,6 +103,7 @@ class TwirlerBuilderTest extends TestCase
             ],
         ];
 
+        // #4
         yield [
             [
                 self::EXCEPTION => [
@@ -109,7 +113,7 @@ class TwirlerBuilderTest extends TestCase
             ],
             [
                 self::ARGUMENTS => [
-                    self::BUILDER => [
+                    self::WITH => [
                         self::getStyleRevolver(),
                         self::STYLE_PATTERN . ++$index => StylePattern::none(),
                     ],
@@ -117,6 +121,7 @@ class TwirlerBuilderTest extends TestCase
             ],
         ];
 
+        // #5
         yield [
             [
                 self::EXCEPTION => [
@@ -126,7 +131,7 @@ class TwirlerBuilderTest extends TestCase
             ],
             [
                 self::ARGUMENTS => [
-                    self::BUILDER => [
+                    self::WITH => [
                         self::getCharRevolver(),
                         self::CHAR_PATTERN . ++$index => CharPattern::none(),
                     ],
@@ -134,6 +139,7 @@ class TwirlerBuilderTest extends TestCase
             ],
         ];
 
+        // #6
         yield [
             [
                 self::EXCEPTION => [
@@ -143,7 +149,7 @@ class TwirlerBuilderTest extends TestCase
             ],
             [
                 self::ARGUMENTS => [
-                    self::BUILDER => [
+                    self::WITH => [
                         self::getStyleFrameCollection(),
                         self::getStyleFrameCollectionFactory(),
                     ],
@@ -151,6 +157,7 @@ class TwirlerBuilderTest extends TestCase
             ],
         ];
 
+        // #7
         yield [
             [
                 self::EXCEPTION => [
@@ -160,9 +167,155 @@ class TwirlerBuilderTest extends TestCase
             ],
             [
                 self::ARGUMENTS => [
-                    self::BUILDER => [
+                    self::WITH => [
                         self::getCharFrameCollection(),
                         self::getCharFrameCollectionFactory(),
+                    ],
+                ],
+            ],
+        ];
+
+        // #8
+        yield [
+            [
+                self::EXCEPTION => [
+                    self::CLASS_ => DomainException::class,
+                    self::MESSAGE => 'Style frame collection is already set.',
+                ],
+            ],
+            [
+                self::ARGUMENTS => [
+                    self::WITH => [
+                        self::getStyleFrameCollection(),
+                        self::getStyleRevolver(),
+                    ],
+                ],
+            ],
+        ];
+
+        // #9
+        yield [
+            [
+                self::EXCEPTION => [
+                    self::CLASS_ => DomainException::class,
+                    self::MESSAGE => 'Char frame collection is already set.',
+                ],
+            ],
+            [
+                self::ARGUMENTS => [
+                    self::WITH => [
+                        self::getCharFrameCollection(),
+                        self::getCharRevolver(),
+                    ],
+                ],
+            ],
+        ];
+
+        // #10
+        yield [
+            [
+                self::EXCEPTION => [
+                    self::CLASS_ => DomainException::class,
+                    self::MESSAGE => 'Style frame collection factory is already set.',
+                ],
+            ],
+            [
+                self::ARGUMENTS => [
+                    self::WITH => [
+                        self::getStyleFrameCollectionFactory(),
+                    ],
+                ],
+            ],
+        ];
+
+        // #11
+        yield [
+            [
+                self::EXCEPTION => [
+                    self::CLASS_ => DomainException::class,
+                    self::MESSAGE => 'Char frame collection factory is already set.',
+                ],
+            ],
+            [
+                self::ARGUMENTS => [
+                    self::WITH => [
+                        self::getCharFrameCollectionFactory(),
+                    ],
+                ],
+            ],
+        ];
+
+        // #12
+        yield [
+            [
+                self::EXCEPTION => [
+                    self::CLASS_ => DomainException::class,
+                    self::MESSAGE => 'Style frame collection factory is already set.',
+                ],
+            ],
+            [
+                self::ARGUMENTS => [
+                    self::BUILDER => self::getBuilder(null),
+                    self::WITH => [
+                        self::getStyleFrameCollectionFactory(),
+                        self::getCharFrameCollectionFactory(),
+                        self::getStyleFrameCollectionFactory(),
+                    ],
+                ],
+            ],
+        ];
+
+        // #13
+        yield [
+            [
+                self::EXCEPTION => [
+                    self::CLASS_ => DomainException::class,
+                    self::MESSAGE => 'Char frame collection factory is already set.',
+                ],
+            ],
+            [
+                self::ARGUMENTS => [
+                    self::BUILDER => self::getBuilder(null),
+                    self::WITH => [
+                        self::getStyleFrameCollectionFactory(),
+                        self::getCharFrameCollectionFactory(),
+                        self::getCharFrameCollectionFactory(),
+                    ],
+                ],
+            ],
+        ];
+
+        // #14
+        yield [
+            [
+                self::EXCEPTION => [
+                    self::CLASS_ => DomainException::class,
+                    self::MESSAGE => 'Style frame collection factory is not set.',
+                ],
+            ],
+            [
+                self::ARGUMENTS => [
+                    self::BUILDER => self::getBuilder(null),
+                    self::WITH => [
+                        self::getCharFrameCollectionFactory(),
+                    ],
+                ],
+            ],
+        ];
+
+        // #15
+        yield [
+            [
+                self::EXCEPTION => [
+                    self::CLASS_ => DomainException::class,
+                    self::MESSAGE => 'Char frame collection factory is not set.',
+                ],
+            ],
+            [
+                self::ARGUMENTS => [
+                    self::BUILDER => self::getBuilder(null),
+                    self::WITH => [
+                        self::getStyleFrameCollectionFactory(),
                     ],
                 ],
             ],
@@ -241,16 +394,18 @@ class TwirlerBuilderTest extends TestCase
 
         $builder = $this->prepareBuilder($args);
 
-        self::assertInstanceOf(Twirler::class, $builder->build());
+        $twirler = $builder->build();
+
+        self::assertInstanceOf(Twirler::class, $twirler);
     }
 
     private function prepareBuilder(array $args = []): ITwirlerBuilder
     {
-        $builder = self::getBuilder($args);
+        $builder = $args[self::BUILDER] ?? self::getBuilder($args);
 
-        $argumentsList = $args[self::BUILDER] ?? [];
+        $with = $args[self::WITH] ?? [];
 
-        foreach ($argumentsList as $key => $item) {
+        foreach ($with as $key => $item) {
             if ($item instanceof IStyleRevolver) {
                 $builder = $builder->withStyleRevolver($item);
             }
@@ -280,8 +435,12 @@ class TwirlerBuilderTest extends TestCase
         return $builder;
     }
 
-    public static function getBuilder(array $args = []): ITwirlerBuilder
+    public static function getBuilder(?array $args = []): ITwirlerBuilder
     {
+        if (null === $args) {
+            return
+                new TwirlerBuilder();
+        }
         $config = self::getDefaultConfig();
         return
             new TwirlerBuilder(
