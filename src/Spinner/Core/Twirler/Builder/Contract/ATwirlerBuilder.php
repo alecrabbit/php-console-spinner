@@ -15,62 +15,179 @@ use AlecRabbit\Spinner\Core\Revolver\Contract\IStyleRevolver;
 use AlecRabbit\Spinner\Core\Revolver\StyleRevolver;
 use AlecRabbit\Spinner\Core\Twirler\Contract\ITwirler;
 use AlecRabbit\Spinner\Core\Twirler\Twirler;
+use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 
 abstract class ATwirlerBuilder
 {
-    private ?IStyleRevolver $styleRevolver = null;
-    private ?ICharRevolver $charRevolver = null;
-    private ?IStyleFrameCollection $styleFrameCollection = null;
-    private ?ICharFrameCollection $charFrameCollection = null;
-    private ?array $stylePattern = null;
-    private ?array $charPattern = null;
+    protected ?array $stylePattern = null;
+    protected ?array $charPattern = null;
+    protected ?IStyleFrameCollectionFactory $styleFrameCollectionFactory = null;
+    protected ?ICharFrameCollectionFactory $charFrameCollectionFactory = null;
+    protected ?IStyleFrameCollection $styleFrameCollection = null;
+    protected ?ICharFrameCollection $charFrameCollection = null;
+    protected ?IStyleRevolver $styleRevolver = null;
+    protected ?ICharRevolver $charRevolver = null;
 
     public function __construct(
-        private readonly IStyleFrameCollectionFactory $styleFrameCollectionFactory,
-        private readonly ICharFrameCollectionFactory $charFrameCollectionFactory,
+        ?IStyleFrameCollectionFactory $styleFrameCollectionFactory = null,
+        ?ICharFrameCollectionFactory $charFrameCollectionFactory = null,
     ) {
+        $this->styleFrameCollectionFactory = $styleFrameCollectionFactory;
+        $this->charFrameCollectionFactory = $charFrameCollectionFactory;
     }
 
-    public function withStyleRevolver(IStyleRevolver $styleRevolver): ITwirlerBuilder
+    public function withStylePattern(array $stylePattern): ITwirlerBuilder
     {
-        $clone = clone $this;
-        $clone->styleRevolver = $styleRevolver;
-        return $clone;
-    }
-
-    public function withCharRevolver(ICharRevolver $charRevolver): ITwirlerBuilder
-    {
-        $clone = clone $this;
-        $clone->charRevolver = $charRevolver;
-        return $clone;
-    }
-
-    public function withStyleCollection(IStyleFrameCollection $styleCollection): ITwirlerBuilder
-    {
-        $clone = clone $this;
-        $clone->styleFrameCollection = $styleCollection;
-        return $clone;
-    }
-
-    public function withCharCollection(ICharFrameCollection $charCollection): ITwirlerBuilder
-    {
-        $clone = clone $this;
-        $clone->charFrameCollection = $charCollection;
-        return $clone;
-    }
-
-    public function withStylePattern(?array $stylePattern = null): ITwirlerBuilder
-    {
+        self::assertForStylePattern($this);
         $clone = clone $this;
         $clone->stylePattern = $stylePattern;
         return $clone;
     }
 
-    public function withCharPattern(?array $charPattern = null): ITwirlerBuilder
+    private static function assertForStylePattern(ATwirlerBuilder $builder): void
     {
+        match (true) {
+            null !== $builder->stylePattern =>
+            throw new InvalidArgumentException('Style pattern is already set.'),
+            null !== $builder->styleFrameCollection =>
+            throw new InvalidArgumentException('Style frame collection is already set.'),
+            default => null,
+        };
+    }
+
+    public function withCharPattern(array $charPattern): ITwirlerBuilder
+    {
+        self::assertForCharPattern($this);
         $clone = clone $this;
         $clone->charPattern = $charPattern;
         return $clone;
+    }
+
+    private static function assertForCharPattern(ATwirlerBuilder $builder): void
+    {
+        match (true) {
+            null !== $builder->charPattern =>
+            throw new InvalidArgumentException('Char pattern is already set.'),
+            null !== $builder->charFrameCollection =>
+            throw new InvalidArgumentException('Char frame collection is already set.'),
+            default => null,
+        };
+    }
+
+    public function withStyleFrameCollectionFactory(
+        IStyleFrameCollectionFactory $styleFrameCollectionFactory
+    ): ITwirlerBuilder {
+        self::assertForStyleFrameCollectionFactory($this);
+        $clone = clone $this;
+        $clone->styleFrameCollectionFactory = $styleFrameCollectionFactory;
+        return $clone;
+    }
+
+    private static function assertForStyleFrameCollectionFactory(ATwirlerBuilder $builder): void
+    {
+        match (true) {
+//            null !== $builder->styleFrameCollectionFactory =>
+//            throw new InvalidArgumentException('Style frame collection factory is already set.'),
+            null !== $builder->styleFrameCollection =>
+            throw new InvalidArgumentException('Style frame collection is already set.'),
+            default => null,
+        };
+    }
+
+    public function withCharFrameCollectionFactory(
+        ICharFrameCollectionFactory $charFrameCollectionFactory
+    ): ITwirlerBuilder {
+        self::assertForCharFrameCollectionFactory($this);
+        $clone = clone $this;
+        $clone->charFrameCollectionFactory = $charFrameCollectionFactory;
+        return $clone;
+    }
+
+    private static function assertForCharFrameCollectionFactory(ATwirlerBuilder $builder): void
+    {
+        match (true) {
+//            null !== $builder->charFrameCollectionFactory =>
+//            throw new InvalidArgumentException('Char frame collection factory is already set.'),
+            null !== $builder->charFrameCollection =>
+            throw new InvalidArgumentException('Char frame collection is already set.'),
+            default => null,
+        };
+    }
+
+    public function withStyleCollection(IStyleFrameCollection $styleCollection): ITwirlerBuilder
+    {
+        self::assertForStyleCollection($this);
+        $clone = clone $this;
+        $clone->styleFrameCollection = $styleCollection;
+        return $clone;
+    }
+
+    private static function assertForStyleCollection(ATwirlerBuilder $builder): void
+    {
+        match (true) {
+            null !== $builder->styleFrameCollection =>
+            throw new InvalidArgumentException('Style frame collection is already set.'),
+//            null !== $builder->styleFrameCollectionFactory =>
+//            throw new InvalidArgumentException('Style frame collection factory is already set.'),
+            default => null,
+        };
+    }
+
+    public function withCharCollection(ICharFrameCollection $charCollection): ITwirlerBuilder
+    {
+        self::assertForCharCollection($this);
+        $clone = clone $this;
+        $clone->charFrameCollection = $charCollection;
+        return $clone;
+    }
+
+    private static function assertForCharCollection(ATwirlerBuilder $builder): void
+    {
+        match (true) {
+            null !== $builder->charFrameCollection =>
+            throw new InvalidArgumentException('Char frame collection is already set.'),
+//            null !== $builder->charFrameCollectionFactory =>
+//            throw new InvalidArgumentException('Char frame collection factory is already set.'),
+            default => null,
+        };
+    }
+
+    public function withStyleRevolver(IStyleRevolver $styleRevolver): ITwirlerBuilder
+    {
+        self::assertForStyleRevolver($this);
+        $clone = clone $this;
+        $clone->styleRevolver = $styleRevolver;
+        return $clone;
+    }
+
+    private static function assertForStyleRevolver(ATwirlerBuilder $builder): void
+    {
+        match (true) {
+            null !== $builder->styleRevolver =>
+            throw new InvalidArgumentException('Style revolver is already set.'),
+            null !== $builder->styleFrameCollection =>
+            throw new InvalidArgumentException('Style frame collection is already set.'),
+            default => null,
+        };
+    }
+
+    public function withCharRevolver(ICharRevolver $charRevolver): ITwirlerBuilder
+    {
+        self::assertForCharRevolver($this);
+        $clone = clone $this;
+        $clone->charRevolver = $charRevolver;
+        return $clone;
+    }
+
+    private static function assertForCharRevolver(ATwirlerBuilder $builder): void
+    {
+        match (true) {
+            null !== $builder->charRevolver =>
+            throw new InvalidArgumentException('Char revolver is already set.'),
+            null !== $builder->charFrameCollection =>
+            throw new InvalidArgumentException('Char frame collection is already set.'),
+            default => null,
+        };
     }
 
     public function build(): ITwirler
@@ -94,6 +211,16 @@ abstract class ATwirlerBuilder
             $this->charPattern = Defaults::getDefaultCharPattern();
         }
 
+//        if (null === $this->styleFrameCollectionFactory) {
+//            $this->styleFrameCollectionFactory =
+//                $this->config->getStyleFrameCollectionFactory();
+//        }
+//
+//        if (null === $this->charFrameCollectionFactory) {
+//            $this->charFrameCollectionFactory =
+//                $this->config->getCharFrameCollectionFactory();
+//        }
+//
         if (null === $this->styleFrameCollection) {
             $this->styleFrameCollection = $this->styleFrameCollectionFactory->create($this->stylePattern);
         }
