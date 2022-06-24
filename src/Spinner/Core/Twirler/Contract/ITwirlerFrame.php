@@ -12,4 +12,9 @@ interface ITwirlerFrame
     public function getStyleFrame(): IStyleFrame;
 
     public function getCharFrame(): ICharFrame;
+
+    public function getLeadingSpacer(): ICharFrame;
+
+    public function getTrailingSpacer(): ICharFrame;
+
 }

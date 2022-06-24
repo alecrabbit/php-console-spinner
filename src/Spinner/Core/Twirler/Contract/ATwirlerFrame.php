@@ -12,7 +12,19 @@ abstract class ATwirlerFrame implements ITwirlerFrame
     public function __construct(
         protected readonly IStyleFrame $styleFrame,
         protected readonly ICharFrame $charFrame,
+        protected readonly ICharFrame $leadingSpacer,
+        protected readonly ICharFrame $trailingSpacer,
     ) {
+    }
+
+    public function getLeadingSpacer(): ICharFrame
+    {
+        return $this->leadingSpacer;
+    }
+
+    public function getTrailingSpacer(): ICharFrame
+    {
+        return $this->trailingSpacer;
     }
 
     public function getStyleFrame(): IStyleFrame

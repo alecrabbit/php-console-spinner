@@ -24,16 +24,20 @@ final class TwirlerRenderer implements IRenderer
         // FIXME (2022-06-23 13:50) [Alec Rabbit]: refactor this method [2a3f2116-ddf7-4147-ac73-fd0d0fc6823f]
         $sequences = [];
         $width = 0;
-//        $spacer = new CharFrame(C::SPACE_CHAR, 1);
         foreach ($twirlers as $twirler) {
             if ($twirler instanceof ITwirler) {
-                $render = $twirler->render();
-                $sequences[] = $render->getStyleFrame()->getSequenceStart();
-                $sequences[] = $render->getCharFrame()->getChar();
-                $sequences[] = $render->getStyleFrame()->getSequenceEnd();
-                $width += $render->getCharFrame()->getWidth();
-//                $sequences[] = $spacer->getChar();
-//                $width += $spacer->getWidth();
+                $frame = $twirler->render();
+                $styleFrame = $frame->getStyleFrame();
+                $charFrame = $frame->getCharFrame();
+                $leadingSpacer = $frame->getLeadingSpacer();
+                $trailingSpacer = $frame->getTrailingSpacer();
+
+                $sequences[] = $styleFrame->getSequenceStart();
+                $sequences[] = $leadingSpacer->getChar();
+                $sequences[] = $charFrame->getChar();
+                $sequences[] = $trailingSpacer->getChar();
+                $sequences[] = $styleFrame->getSequenceEnd();
+                $width += $charFrame->getWidth() + $leadingSpacer->getWidth() + $trailingSpacer->getWidth();
             }
         }
         $sequences[] = Sequencer::moveBackSequence($width);

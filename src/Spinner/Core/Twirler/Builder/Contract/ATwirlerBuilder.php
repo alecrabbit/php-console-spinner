@@ -10,6 +10,7 @@ use AlecRabbit\Spinner\Core\Collection\Factory\Contract\ICharFrameCollectionFact
 use AlecRabbit\Spinner\Core\Collection\Factory\Contract\IStyleFrameCollectionFactory;
 use AlecRabbit\Spinner\Core\Contract\C;
 use AlecRabbit\Spinner\Core\Defaults;
+use AlecRabbit\Spinner\Core\Frame\Contract\ICharFrame;
 use AlecRabbit\Spinner\Core\Revolver\CharRevolver;
 use AlecRabbit\Spinner\Core\Revolver\Contract\ICharRevolver;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IStyleRevolver;
@@ -17,7 +18,6 @@ use AlecRabbit\Spinner\Core\Revolver\StyleRevolver;
 use AlecRabbit\Spinner\Core\Twirler\Contract\ITwirler;
 use AlecRabbit\Spinner\Core\Twirler\Twirler;
 use AlecRabbit\Spinner\Exception\DomainException;
-use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 
 abstract class ATwirlerBuilder
 {
@@ -38,6 +38,8 @@ abstract class ATwirlerBuilder
     protected ?ICharFrameCollection $charFrameCollection = null;
     protected ?IStyleRevolver $styleRevolver = null;
     protected ?ICharRevolver $charRevolver = null;
+    protected ?ICharFrame $leadingSpacer = null;
+    protected ?ICharFrame $trailingSpacer = null;
 
     public function __construct(
         ?IStyleFrameCollectionFactory $styleFrameCollectionFactory = null,
@@ -226,6 +228,13 @@ abstract class ATwirlerBuilder
         };
     }
 
+    public function withTrailingSpacer(ICharFrame $charFrame): ITwirlerBuilder
+    {
+        $clone = clone $this;
+        $clone->trailingSpacer = $charFrame;
+        return $clone;
+    }
+
     public function build(): ITwirler
     {
         $this->processDefaults();
@@ -233,7 +242,9 @@ abstract class ATwirlerBuilder
         return
             new Twirler(
                 $this->styleRevolver,
-                $this->charRevolver
+                $this->charRevolver,
+                $this->leadingSpacer,
+                $this->trailingSpacer,
             );
     }
 
