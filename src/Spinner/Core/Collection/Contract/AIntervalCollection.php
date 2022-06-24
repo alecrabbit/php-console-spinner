@@ -7,11 +7,11 @@ namespace AlecRabbit\Spinner\Core\Collection\Contract;
 use AlecRabbit\Spinner\Core\Contract\IIntervalVisitor;
 use AlecRabbit\Spinner\Core\Contract\IntervalComponent;
 use AlecRabbit\Spinner\Core\Interval\Contract\IInterval;
-use AlecRabbit\Spinner\Core\Mixin\HasGetIntervalMethod;
+use AlecRabbit\Spinner\Core\Mixin\HasMethodGetInterval;
 
 abstract class AIntervalCollection extends ACollection implements IntervalComponent
 {
-    use HasGetIntervalMethod;
+    use HasMethodGetInterval;
 
     protected function __construct(
         iterable $elements,
@@ -20,7 +20,7 @@ abstract class AIntervalCollection extends ACollection implements IntervalCompon
         parent::__construct($elements);
     }
 
-    public function updateInterval(IIntervalVisitor $intervalVisitor): void
+    public function accept(IIntervalVisitor $intervalVisitor): void
     {
         // Intentionally left blank
     }

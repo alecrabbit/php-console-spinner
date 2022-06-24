@@ -6,9 +6,9 @@ namespace AlecRabbit\Spinner\Core\Mixin;
 
 use AlecRabbit\Spinner\Core\Contract\IIntervalVisitor;
 
-trait HasUpdateIntervalWithMethod
+trait CanAcceptIntervalVisitor
 {
-    public function updateInterval(IIntervalVisitor $intervalVisitor): void
+    public function accept(IIntervalVisitor $intervalVisitor): void
     {
         $this->interval = $this->interval->smallest($intervalVisitor->visit($this));
     }

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 // 22.06.22
-namespace AlecRabbit\Spinner\Core\Twirler\Contract;
+namespace AlecRabbit\Spinner\Core\Twirler\Builder\Contract;
 
 use AlecRabbit\Spinner\Core\Collection\Contract\ICharFrameCollection;
 use AlecRabbit\Spinner\Core\Collection\Contract\IStyleFrameCollection;

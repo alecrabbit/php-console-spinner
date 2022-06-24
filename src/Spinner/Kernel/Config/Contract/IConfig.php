@@ -8,7 +8,7 @@ use AlecRabbit\Spinner\Core\Collection\Factory\Contract\ICharFrameCollectionFact
 use AlecRabbit\Spinner\Core\Collection\Factory\Contract\IStyleFrameCollectionFactory;
 use AlecRabbit\Spinner\Core\Contract\IContainer;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
-use AlecRabbit\Spinner\Core\Twirler\Contract\ITwirlerBuilder;
+use AlecRabbit\Spinner\Core\Twirler\Builder\Contract\ITwirlerBuilder;
 use AlecRabbit\Spinner\Core\Twirler\Factory\Contract\ITwirlerFactory;
 use AlecRabbit\Spinner\Kernel\Contract\ILoop;
 use AlecRabbit\Spinner\Kernel\Contract\IWigglerContainer;

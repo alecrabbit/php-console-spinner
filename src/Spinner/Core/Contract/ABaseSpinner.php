@@ -27,16 +27,16 @@ abstract class ABaseSpinner implements IBaseSpinner, IntervalComponent
 
     public function getInterval(): IInterval
     {
-        $this->updateInterval();
+        $this->accept();
         return
             $this->container->getInterval();
     }
 
-    public function updateInterval(?IIntervalVisitor $intervalVisitor = null): void
+    public function accept(?IIntervalVisitor $intervalVisitor = null): void
     {
         $intervalVisitor = $intervalVisitor ?? $this->container->getIntervalVisitor();
 
-        $this->container->updateInterval($intervalVisitor);
+        $this->container->accept($intervalVisitor);
     }
 
     public function getIntervalComponents(): iterable

@@ -5,13 +5,13 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Revolver\Contract;
 
 use AlecRabbit\Spinner\Core\Interval\Contract\IInterval;
-use AlecRabbit\Spinner\Core\Mixin\HasGetIntervalMethod;
-use AlecRabbit\Spinner\Core\Mixin\HasUpdateIntervalWithMethod;
+use AlecRabbit\Spinner\Core\Mixin\HasMethodGetInterval;
+use AlecRabbit\Spinner\Core\Mixin\CanAcceptIntervalVisitor;
 
 abstract class ARevolver implements IRevolver
 {
-    use HasUpdateIntervalWithMethod;
-    use HasGetIntervalMethod;
+    use CanAcceptIntervalVisitor;
+    use HasMethodGetInterval;
 
     public function __construct(
         protected IInterval $interval,

@@ -5,16 +5,16 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Contract;
 
 use AlecRabbit\Spinner\Core\Interval\Contract\IInterval;
-use AlecRabbit\Spinner\Core\Mixin\HasGetIntervalMethod;
-use AlecRabbit\Spinner\Core\Mixin\HasUpdateIntervalWithMethod;
+use AlecRabbit\Spinner\Core\Mixin\HasMethodGetInterval;
+use AlecRabbit\Spinner\Core\Mixin\CanAcceptIntervalVisitor;
 use AlecRabbit\Spinner\Core\Twirler\Contract\CanAddTwirler;
 use AlecRabbit\Spinner\Core\Twirler\Contract\ITwirler;
 use WeakMap;
 
 abstract class AContainer implements IContainer
 {
-    use HasUpdateIntervalWithMethod;
-    use HasGetIntervalMethod;
+    use CanAcceptIntervalVisitor;
+    use HasMethodGetInterval;
 
     /** @var ITwirler[] */
     protected array $twirlers = [];

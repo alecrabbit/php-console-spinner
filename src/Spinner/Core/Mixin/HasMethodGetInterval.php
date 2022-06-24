@@ -6,7 +6,7 @@ namespace AlecRabbit\Spinner\Core\Mixin;
 
 use AlecRabbit\Spinner\Core\Interval\Contract\IInterval;
 
-trait HasGetIntervalMethod
+trait HasMethodGetInterval
 {
     public function getInterval(): IInterval
     {
