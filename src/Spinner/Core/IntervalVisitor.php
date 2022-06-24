@@ -8,9 +8,9 @@ use AlecRabbit\Spinner\Core\Contract\IIntervalVisitor;
 use AlecRabbit\Spinner\Core\Contract\IntervalComponent;
 use AlecRabbit\Spinner\Core\Interval\Contract\IInterval;
 
-final class IntervalVisitor implements IIntervalVisitor
+final class IntervalVisitor implements IIntervalVisitor // Tentative class name
 {
-    public function visit(IntervalComponent $container): IInterval
+    public function visit(IntervalComponent $container): IInterval // Tentative method name
     {
         $interval = $container->getInterval();
         /** @var IntervalComponent $component */
