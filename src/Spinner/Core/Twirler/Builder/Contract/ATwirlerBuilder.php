@@ -19,7 +19,7 @@ use AlecRabbit\Spinner\Core\Twirler\Contract\ITwirler;
 use AlecRabbit\Spinner\Core\Twirler\Twirler;
 use AlecRabbit\Spinner\Exception\DomainException;
 
-abstract class ATwirlerBuilder
+abstract class ATwirlerBuilder implements ITwirlerBuilder
 {
     protected const FRAME_COLLECTION = C::FRAME . C::SPACE_CHAR . C::COLLECTION;
     protected const FRAME_COLLECTION_FACTORY = self::FRAME_COLLECTION . C::SPACE_CHAR . C::FACTORY;
@@ -228,10 +228,17 @@ abstract class ATwirlerBuilder
         };
     }
 
-    public function withTrailingSpacer(ICharFrame $charFrame): ITwirlerBuilder
+    public function withTrailingSpacer(ICharFrame $trailingSpacer): ITwirlerBuilder
     {
         $clone = clone $this;
-        $clone->trailingSpacer = $charFrame;
+        $clone->trailingSpacer = $trailingSpacer;
+        return $clone;
+    }
+
+    public function withLeadingSpacer(ICharFrame $leadingSpacer): ITwirlerBuilder
+    {
+        $clone = clone $this;
+        $clone->leadingSpacer = $leadingSpacer;
         return $clone;
     }
 

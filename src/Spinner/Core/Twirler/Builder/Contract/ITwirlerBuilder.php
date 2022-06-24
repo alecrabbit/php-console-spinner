@@ -8,6 +8,7 @@ use AlecRabbit\Spinner\Core\Collection\Contract\ICharFrameCollection;
 use AlecRabbit\Spinner\Core\Collection\Contract\IStyleFrameCollection;
 use AlecRabbit\Spinner\Core\Collection\Factory\Contract\ICharFrameCollectionFactory;
 use AlecRabbit\Spinner\Core\Collection\Factory\Contract\IStyleFrameCollectionFactory;
+use AlecRabbit\Spinner\Core\Frame\Contract\ICharFrame;
 use AlecRabbit\Spinner\Core\Revolver\Contract\ICharRevolver;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IStyleRevolver;
 
@@ -32,4 +33,8 @@ interface ITwirlerBuilder
     public function withCharFrameCollectionFactory(
         ICharFrameCollectionFactory $charFrameCollectionFactory
     ): ITwirlerBuilder;
+
+    public function withLeadingSpacer(ICharFrame $leadingSpacer): ITwirlerBuilder;
+
+    public function withTrailingSpacer(ICharFrame $trailingSpacer): ITwirlerBuilder;
 }

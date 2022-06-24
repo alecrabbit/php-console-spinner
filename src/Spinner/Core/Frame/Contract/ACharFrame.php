@@ -20,6 +20,11 @@ abstract class ACharFrame implements ICharFrame,
         return new static('', 0);
     }
 
+    public static function create(string $char, int $width): static
+    {
+        return new static($char, $width);
+    }
+
     public function __toString(): string
     {
         return $this->char;

@@ -6,6 +6,7 @@ declare(strict_types=1);
 
 use AlecRabbit\Spinner\Core\Contract\CharPattern;
 use AlecRabbit\Spinner\Core\Contract\StylePattern;
+use AlecRabbit\Spinner\Core\Frame\CharFrame;
 use AlecRabbit\Spinner\Core\Output\StreamOutput;
 use AlecRabbit\Spinner\Core\SpinnerFactory;
 use AlecRabbit\Spinner\Kernel\Config\Builder\ConfigBuilder;
@@ -37,8 +38,10 @@ $twirlerOne =
 ;
 $twirlerTwo =
     $twirlerBuilder
-        ->withStylePattern(StylePattern::rainbow())
+        ->withStylePattern(StylePattern::rainbowBg())
         ->withCharPattern(CharPattern::SNAKE_VARIANT_3)
+        ->withLeadingSpacer(CharFrame::create( ' ', 1))
+        ->withTrailingSpacer(CharFrame::create( ' ', 1))
         ->build()
 ;
 
