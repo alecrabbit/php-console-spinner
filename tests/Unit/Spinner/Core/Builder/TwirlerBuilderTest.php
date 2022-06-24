@@ -7,6 +7,8 @@ namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Core\Builder;
 use AlecRabbit\Spinner\Core\Collection\CharFrameCollection;
 use AlecRabbit\Spinner\Core\Collection\Contract\ICharFrameCollection;
 use AlecRabbit\Spinner\Core\Collection\Contract\IStyleFrameCollection;
+use AlecRabbit\Spinner\Core\Collection\Factory\Contract\ICharFrameCollectionFactory;
+use AlecRabbit\Spinner\Core\Collection\Factory\Contract\IStyleFrameCollectionFactory;
 use AlecRabbit\Spinner\Core\Collection\StyleFrameCollection;
 use AlecRabbit\Spinner\Core\Contract\CharPattern;
 use AlecRabbit\Spinner\Core\Contract\StylePattern;
@@ -20,7 +22,7 @@ use AlecRabbit\Spinner\Core\Revolver\StyleRevolver;
 use AlecRabbit\Spinner\Core\Twirler\Builder\Contract\ITwirlerBuilder;
 use AlecRabbit\Spinner\Core\Twirler\Builder\TwirlerBuilder;
 use AlecRabbit\Spinner\Core\Twirler\Twirler;
-use AlecRabbit\Spinner\Exception\InvalidArgumentException;
+use AlecRabbit\Spinner\Exception\DomainException;
 use AlecRabbit\Tests\Spinner\TestCase;
 
 class TwirlerBuilderTest extends TestCase
@@ -33,7 +35,7 @@ class TwirlerBuilderTest extends TestCase
         yield [
             [
                 self::EXCEPTION => [
-                    self::CLASS_ => InvalidArgumentException::class,
+                    self::CLASS_ => DomainException::class,
                     self::MESSAGE => 'Style revolver is already set.',
                 ],
             ],
@@ -50,7 +52,7 @@ class TwirlerBuilderTest extends TestCase
         yield [
             [
                 self::EXCEPTION => [
-                    self::CLASS_ => InvalidArgumentException::class,
+                    self::CLASS_ => DomainException::class,
                     self::MESSAGE => 'Char revolver is already set.',
                 ],
             ],
@@ -67,7 +69,7 @@ class TwirlerBuilderTest extends TestCase
         yield [
             [
                 self::EXCEPTION => [
-                    self::CLASS_ => InvalidArgumentException::class,
+                    self::CLASS_ => DomainException::class,
                     self::MESSAGE => 'Style pattern is already set.',
                 ],
             ],
@@ -84,7 +86,7 @@ class TwirlerBuilderTest extends TestCase
         yield [
             [
                 self::EXCEPTION => [
-                    self::CLASS_ => InvalidArgumentException::class,
+                    self::CLASS_ => DomainException::class,
                     self::MESSAGE => 'Char pattern is already set.',
                 ],
             ],
@@ -101,7 +103,7 @@ class TwirlerBuilderTest extends TestCase
         yield [
             [
                 self::EXCEPTION => [
-                    self::CLASS_ => InvalidArgumentException::class,
+                    self::CLASS_ => DomainException::class,
                     self::MESSAGE => 'Style revolver is already set.',
                 ],
             ],
@@ -118,7 +120,7 @@ class TwirlerBuilderTest extends TestCase
         yield [
             [
                 self::EXCEPTION => [
-                    self::CLASS_ => InvalidArgumentException::class,
+                    self::CLASS_ => DomainException::class,
                     self::MESSAGE => 'Char revolver is already set.',
                 ],
             ],
@@ -127,6 +129,40 @@ class TwirlerBuilderTest extends TestCase
                     self::BUILDER => [
                         self::getCharRevolver(),
                         self::CHAR_PATTERN . ++$index => CharPattern::none(),
+                    ],
+                ],
+            ],
+        ];
+
+        yield [
+            [
+                self::EXCEPTION => [
+                    self::CLASS_ => DomainException::class,
+                    self::MESSAGE => 'Style frame collection factory is already set.',
+                ],
+            ],
+            [
+                self::ARGUMENTS => [
+                    self::BUILDER => [
+                        self::getStyleFrameCollection(),
+                        self::getStyleFrameCollectionFactory(),
+                    ],
+                ],
+            ],
+        ];
+
+        yield [
+            [
+                self::EXCEPTION => [
+                    self::CLASS_ => DomainException::class,
+                    self::MESSAGE => 'Char frame collection factory is already set.',
+                ],
+            ],
+            [
+                self::ARGUMENTS => [
+                    self::BUILDER => [
+                        self::getCharFrameCollection(),
+                        self::getCharFrameCollectionFactory(),
                     ],
                 ],
             ],
@@ -158,13 +194,39 @@ class TwirlerBuilderTest extends TestCase
             );
     }
 
-    private static function getCharFrameCollection(array $args): ICharFrameCollection
+    private static function getCharFrameCollection(array $args = []): ICharFrameCollection
     {
         return
             CharFrameCollection::create(
                 [CharFrame::createEmpty()],
                 new Interval(null)
             );
+    }
+
+    protected static function getStyleFrameCollectionFactory(): IStyleFrameCollectionFactory
+    {
+        return new class implements IStyleFrameCollectionFactory {
+            public function create(?array $stylePattern = null): IStyleFrameCollection
+            {
+                return StyleFrameCollection::create(
+                    [StyleFrame::createEmpty()],
+                    new Interval(null),
+                );
+            }
+        };
+    }
+
+    protected static function getCharFrameCollectionFactory(): ICharFrameCollectionFactory
+    {
+        return new class implements ICharFrameCollectionFactory {
+            public function create(?array $charPattern = null): ICharFrameCollection
+            {
+                return CharFrameCollection::create(
+                    [CharFrame::createEmpty()],
+                    new Interval(null),
+                );
+            }
+        };
     }
 
     /**
@@ -194,6 +256,18 @@ class TwirlerBuilderTest extends TestCase
             }
             if ($item instanceof ICharRevolver) {
                 $builder = $builder->withCharRevolver($item);
+            }
+            if ($item instanceof IStyleFrameCollection) {
+                $builder = $builder->withStyleCollection($item);
+            }
+            if ($item instanceof ICharFrameCollection) {
+                $builder = $builder->withCharCollection($item);
+            }
+            if ($item instanceof IStyleFrameCollectionFactory) {
+                $builder = $builder->withStyleFrameCollectionFactory($item);
+            }
+            if ($item instanceof ICharFrameCollectionFactory) {
+                $builder = $builder->withCharFrameCollectionFactory($item);
             }
             if (\is_string($key) && \str_contains($key, self::STYLE_PATTERN)) {
                 $builder = $builder->withStylePattern($item);

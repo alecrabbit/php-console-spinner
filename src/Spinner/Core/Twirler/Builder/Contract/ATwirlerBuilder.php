@@ -16,6 +16,7 @@ use AlecRabbit\Spinner\Core\Revolver\Contract\IStyleRevolver;
 use AlecRabbit\Spinner\Core\Revolver\StyleRevolver;
 use AlecRabbit\Spinner\Core\Twirler\Contract\ITwirler;
 use AlecRabbit\Spinner\Core\Twirler\Twirler;
+use AlecRabbit\Spinner\Exception\DomainException;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 
 abstract class ATwirlerBuilder
@@ -56,8 +57,6 @@ abstract class ATwirlerBuilder
 
     protected static function assertForStylePattern(ATwirlerBuilder $builder, string $methodName): void
     {
-        $kind = 'Style';
-        $type = self::PATTERN;
         match (true) {
             null !== $builder->stylePattern =>
             throw self::getException($methodName, self::STYLE, self::PATTERN),
@@ -76,7 +75,7 @@ abstract class ATwirlerBuilder
         ?string $auxMessage = null
     ): \Exception {
         return
-            new InvalidArgumentException(
+            new DomainException(
                 sprintf(
                     self::ERROR_MESSAGE_FORMAT,
                     static::class,
@@ -143,8 +142,8 @@ abstract class ATwirlerBuilder
     protected static function assertForCharFrameCollectionFactory(ATwirlerBuilder $builder, string $methodName): void
     {
         match (true) {
-//            null !== $builder->charFrameCollectionFactory =>
-//            throw new InvalidArgumentException('Char frame collection factory is already set.'),
+            null !== $builder->charFrameCollectionFactory =>
+            throw self::getException($methodName, self::CHAR, self::FRAME_COLLECTION_FACTORY),
             null !== $builder->charFrameCollection =>
             throw self::getException($methodName, self::CHAR, self::FRAME_COLLECTION),
             default => null,
@@ -248,16 +247,14 @@ abstract class ATwirlerBuilder
             $this->charPattern = Defaults::getDefaultCharPattern();
         }
 
-//        if (null === $this->styleFrameCollectionFactory) {
-//            $this->styleFrameCollectionFactory =
-//                $this->config->getStyleFrameCollectionFactory();
-//        }
-//
-//        if (null === $this->charFrameCollectionFactory) {
-//            $this->charFrameCollectionFactory =
-//                $this->config->getCharFrameCollectionFactory();
-//        }
-//
+        if (null === $this->styleFrameCollectionFactory) {
+            throw new DomainException('Style frame collection factory is not set.');
+        }
+
+        if (null === $this->charFrameCollectionFactory) {
+            throw new DomainException('Char frame collection factory is not set.');
+        }
+
         if (null === $this->styleFrameCollection) {
             $this->styleFrameCollection = $this->styleFrameCollectionFactory->create($this->stylePattern);
         }
