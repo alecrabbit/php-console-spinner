@@ -6,18 +6,24 @@ namespace AlecRabbit\Spinner\Core\Contract;
 
 final class C
 {
-    public const EMPTY_STRING = '';
     public const DEFAULT_MESSAGE = self::EMPTY_STRING;
-    public const SPACE_CHAR = ' ';
-    public const FORMAT = 'format';
-    public const SEQUENCE = 'sequence';
-    public const INTERVAL = 'interval';
-    public const STYLES = 'styles';
     public const CHARS = 'chars';
-    public const FRAMES = 'frames';
+    public const CHAR = 'char';
+    public const COLLECTION = 'collection';
     public const ELEMENT_WIDTH = 'elementWidth';
-    public const WIDTH = 'width';
+    public const EMPTY_STRING = '';
+    public const INTERVAL = 'interval';
+    public const FORMAT = 'format';
+    public const FRAMES = 'frames';
+    public const FRAME = 'frame';
+    public const PATTERN = 'pattern';
+    public const REVOLVER = 'revolver';
+    public const SEQUENCE = 'sequence';
+    public const SPACE_CHAR = ' ';
+    public const STYLES = 'styles';
+    public const STYLE = 'style';
     public const STR_PLACEHOLDER = '%s';
+    public const WIDTH = 'width';
 
     private function __construct()
     {

@@ -19,6 +19,7 @@ abstract class TestCase extends PHPUnitTestCase
 {
     final protected const ARGUMENTS = 'arguments';
     final protected const BUILDER = 'builder';
+    final protected const CHAR_PATTERN = 'charPattern';
     final protected const CLASS_ = 'class';
     final protected const CONTAINS = 'contains';
     final protected const COUNT = 'count';
