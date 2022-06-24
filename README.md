@@ -8,19 +8,21 @@
 
 #  🏵️  PHP Console Spinner
 
-[![PHP Version](https://img.shields.io/packagist/php-v/alecrabbit/php-console-spinner.svg)](https://php.net/)
+[//]: # ([![PHP Version]&#40;https://img.shields.io/packagist/php-v/alecrabbit/php-console-spinner.svg&#41;]&#40;https://php.net/&#41;)
 [![License](https://poser.pugx.org/alecrabbit/php-console-spinner/license)](https://packagist.org/packages/alecrabbit/php-console-spinner)
 
 ### New version 1.0.0
 
+> - API is subject to change until `1.0.0-BETA.0`
 > - WIP
-> - Until `1.0.0-BETA.0` API is subject to change
 
-![advanced](doc/image/demo/fpdemo.svg)
+![demo](doc/image/demo/fpdemo.svg)
 
-+ [How does it work](doc/how_does_it_work.md)
++ [How does it work?](doc/how_does_it_work.md)
 + [Installation](#installation)
 + [Quick start](#quickstart)
++ [Features](#features)
++ [Links](#links)
 
 ### <a name="installation"></a> Installation
 
@@ -31,7 +33,7 @@ composer require alecrabbit/php-console-spinner
 
 > WIP
 
-### Features
+### <a name="features"></a> Features
 
 | Feature               | [php-console-spinner](https://github.com/alecrabbit/php-console-spinner) | [php-cli-snake](https://github.com/alecrabbit/php-cli-snake) |
 |-----------------------|:------------------------------------------------------------------------:|:------------------------------------------------------------:|
@@ -43,6 +45,6 @@ composer require alecrabbit/php-console-spinner
 > - `🟢️` - Yes
 > - `🟢️️*` - Yes with some limitations
 
-### Links
+### <a name="links"></a> Links
 
  - Inspired by [sindresorhus/cli-spinners](https://github.com/sindresorhus/cli-spinners)
