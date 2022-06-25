@@ -27,8 +27,6 @@ interface IConfig
 
     public function getDriver(): IDriver;
 
-    public function getWigglers(): IWigglerContainer;
-
     public function getColorSupportLevel(): int;
 
     public function getFinalMessage(): string;

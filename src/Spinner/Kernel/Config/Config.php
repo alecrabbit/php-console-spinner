@@ -31,7 +31,6 @@ final class Config implements IConfig
         private readonly ITwirlerBuilder $twirlerBuilder,
         private readonly IStyleFrameCollectionFactory $styleFrameCollectionFactory,
         private readonly ICharFrameCollectionFactory $charFrameCollectionFactory,
-        private readonly ?IWigglerContainer $wigglers,
         private readonly null|int|float $shutdownDelay,
         private readonly string $interruptMessage,
         private readonly string $finalMessage,
@@ -181,11 +180,6 @@ final class Config implements IConfig
     public function getDriver(): IDriver
     {
         return $this->driver;
-    }
-
-    public function getWigglers(): IWigglerContainer
-    {
-        return $this->wigglers;
     }
 
     public function getColorSupportLevel(): int

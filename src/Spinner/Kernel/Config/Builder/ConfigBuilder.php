@@ -87,29 +87,7 @@ final class ConfigBuilder implements IConfigBuilder
     private ?IStyleFrameCollectionFactory $styleFrameCollectionFactory = null;
     private ?ICharFrameCollectionFactory $charFrameCollectionFactory = null;
 
-    private ?IWigglerContainer $wigglers = null;
-    private ?IWFrameCollection $frames = null;
-    private ?IWInterval $wInterval = null;
     private ?IInterval $interval = null;
-    private ?IWigglerContainerFactory $wigglerContainerFactory = null;
-    private ?IWigglerFactory $wigglerFactory = null;
-    private ?WIStyleProvider $styleRenderer = null;
-
-    /** @deprecated */
-    public function withWigglerContainerFactory(IWigglerContainerFactory $wigglerContainerFactory): self
-    {
-        $clone = clone $this;
-        $clone->wigglerContainerFactory = $wigglerContainerFactory;
-        return $clone;
-    }
-
-    /** @deprecated */
-    public function withStyleRenderer(WIStyleProvider $styleRenderer): self
-    {
-        $clone = clone $this;
-        $clone->styleRenderer = $styleRenderer;
-        return $clone;
-    }
 
     public function withInterruptMessage(string $interruptMessage): self
     {
@@ -153,14 +131,6 @@ final class ConfigBuilder implements IConfigBuilder
         return $clone;
     }
 
-    /** @deprecated */
-    public function withWigglers(IWigglerContainer $wigglers): self
-    {
-        $clone = clone $this;
-        $clone->wigglers = $wigglers;
-        return $clone;
-    }
-
     public function inSynchronousMode(): self
     {
         $clone = clone $this;
@@ -172,22 +142,6 @@ final class ConfigBuilder implements IConfigBuilder
     {
         $clone = clone $this;
         $clone->hideCursor = false;
-        return $clone;
-    }
-
-    /** @deprecated */
-    public function withInterval(IWInterval $interval): self
-    {
-        $clone = clone $this;
-        $clone->wInterval = $interval;
-        return $clone;
-    }
-
-    /** @deprecated */
-    public function withFrames(IWFrameCollection $frames): self
-    {
-        $clone = clone $this;
-        $clone->frames = $frames;
         return $clone;
     }
 
@@ -277,7 +231,6 @@ final class ConfigBuilder implements IConfigBuilder
                 twirlerBuilder: $this->twirlerBuilder,
                 styleFrameCollectionFactory: $this->styleFrameCollectionFactory,
                 charFrameCollectionFactory: $this->charFrameCollectionFactory,
-                wigglers: $this->wigglers,
                 shutdownDelay: $this->shutdownDelaySeconds,
                 interruptMessage: $this->interruptMessage,
                 finalMessage: $this->finalMessage,
@@ -344,10 +297,6 @@ final class ConfigBuilder implements IConfigBuilder
             $this->charPatternExtractor = new CharPatternExtractor();
         }
 
-        if (null === $this->styleRenderer) {
-            $this->styleRenderer = new WStyleProvider($this->stylePatternExtractor);
-        }
-
         if (null === $this->styleProvider) {
             $this->styleProvider = new StyleProvider(new StyleFrameFactory(), $this->stylePatternExtractor);
         }
@@ -358,16 +307,6 @@ final class ConfigBuilder implements IConfigBuilder
 
         if (null === $this->interval) {
             $this->interval = new Interval(null);
-        }
-
-        if (null === $this->wigglerContainerFactory) {
-            $this->wigglerContainerFactory =
-                new WigglerContainerFactory(
-                    $this->styleRenderer,
-                    $this->wigglerFactory,
-                    $this->frames,
-                    $this->wInterval,
-                );
         }
 
         if (null === $this->styleFrameCollectionFactory) {
@@ -414,10 +353,6 @@ final class ConfigBuilder implements IConfigBuilder
 
         if (null === $this->container) {
             $this->container = $this->containerFactory->createContainer();
-        }
-
-        if (null === $this->wigglers) {
-            $this->wigglers = $this->wigglerContainerFactory->createContainer();
         }
     }
 
