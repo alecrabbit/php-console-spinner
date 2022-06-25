@@ -6,5 +6,5 @@ namespace AlecRabbit\Spinner\Core\Twirler\Contract;
 
 interface IContextAware
 {
-    public function setContext(IContext $context): void;
+    public function setContext(ITwirlerContext $context): void;
 }

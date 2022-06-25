@@ -22,6 +22,7 @@ $echo = $stdout->writeln(...);
 
 $config =
     (new ConfigBuilder())
+        ->inSynchronousMode()
         ->withCursor()
         ->build()
 ;
@@ -54,8 +55,6 @@ $twirlerTwo =
 
 $twirlerThree =
     $twirlerBuilder
-//        ->withStylePattern(StylePattern::none())
-//        ->withCharPattern(CharPattern::SNAKE_VARIANT_0)
         ->build()
 ;
 
@@ -67,7 +66,6 @@ $twirlerFour =
 ;
 
 $spinner = SpinnerFactory::createMulti($config);
-//dump($spinner->getInterval());
 
 $contextOne = $spinner->add($twirlerOne);
 $contextTwo = $spinner->add($twirlerTwo);
@@ -82,14 +80,13 @@ $interval = (int)$spinner->getInterval()->toMicroseconds();
 
 $spinner->initialize();
 
-dump($spinner);
-
 $max = 200;
 for ($i = 0; $i < $max; $i++) {
     $start = hrtime(true);
     $spinner->spin();
     $t[] = hrtime(true) - $start;
     usleep($interval);
+//    usleep(random_int(0, $interval * 4));
     if (40 === $i) {
         $spinner->pause();
     }

@@ -15,19 +15,20 @@ $echo = $stdout->writeln(...);
 
 $config =
     (new ConfigBuilder())
+        ->inSynchronousMode()
         ->withCursor()
         ->build()
 ;
 
 $spinner = SpinnerFactory::create($config);
 
-dump($spinner);
-
 $t = [];
 
-$interval = 100000; // $spinner->getInterval()->toMicroseconds();
+$interval = 100000; // (int)$spinner->getInterval()->toMicroseconds();
 
 $spinner->initialize();
+
+dump($interval);
 
 for ($i = 0; $i < 200; $i++) {
     $start = hrtime(true);

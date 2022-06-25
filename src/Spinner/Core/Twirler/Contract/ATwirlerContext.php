@@ -9,7 +9,7 @@ use AlecRabbit\Spinner\Core\Interval\Contract\IInterval;
 use AlecRabbit\Spinner\Core\Mixin\CanAcceptIntervalVisitor;
 use AlecRabbit\Spinner\Core\Mixin\HasMethodGetInterval;
 
-abstract class AContext implements IContext, IIntervalComponent
+abstract class ATwirlerContext implements ITwirlerContext, IIntervalComponent
 {
     use CanAcceptIntervalVisitor;
     use HasMethodGetInterval;

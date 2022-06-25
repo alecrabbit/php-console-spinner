@@ -7,9 +7,9 @@ namespace AlecRabbit\Spinner\Core\Contract;
 use AlecRabbit\Spinner\Core\Interval\Contract\IInterval;
 use AlecRabbit\Spinner\Core\Mixin\CanAcceptIntervalVisitor;
 use AlecRabbit\Spinner\Core\Mixin\HasMethodGetInterval;
-use AlecRabbit\Spinner\Core\Twirler\Context;
+use AlecRabbit\Spinner\Core\Twirler\TwirlerContext;
 use AlecRabbit\Spinner\Core\Twirler\Contract\CanAddTwirler;
-use AlecRabbit\Spinner\Core\Twirler\Contract\IContext;
+use AlecRabbit\Spinner\Core\Twirler\Contract\ITwirlerContext;
 use AlecRabbit\Spinner\Core\Twirler\Contract\ITwirler;
 use WeakMap;
 
@@ -18,7 +18,7 @@ abstract class AContainer implements IContainer
     use CanAcceptIntervalVisitor;
     use HasMethodGetInterval;
 
-    /** @var Context[] */
+    /** @var TwirlerContext[] */
     protected array $contexts = [];
 
     public function __construct(
@@ -27,9 +27,9 @@ abstract class AContainer implements IContainer
     ) {
     }
 
-    public function add(ITwirler $twirler): IContext
+    public function add(ITwirler $twirler): ITwirlerContext
     {
-        $context = new Context($twirler);
+        $context = new TwirlerContext($twirler);
         $this->contexts[] = $context;
         return $context;
     }
