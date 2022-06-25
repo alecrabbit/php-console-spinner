@@ -6,4 +6,6 @@ namespace AlecRabbit\Spinner\Core\Twirler\Contract;
 interface IContext extends Renderable
 {
     public function render(): ITwirlerFrame;
+
+    public function setTwirler(ITwirler $twirler): void;
 }

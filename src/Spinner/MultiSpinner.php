@@ -17,10 +17,4 @@ final class MultiSpinner extends ABaseSpinner implements IMultiSpinner
         return
             $this->container->add($twirler);
     }
-
-    public function addTwirler(ITwirler $twirler): CanAddTwirler
-    {
-        $this->container->addTwirler($twirler);
-        return $this;
-    }
 }

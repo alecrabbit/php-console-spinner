@@ -37,7 +37,7 @@ abstract class AContainer implements IContainer
     public function add(ITwirler $twirler): IContext {
         $context = new Context($twirler);
         $this->contexts[] = $context;
-        $this->addTwirler($twirler);
+//        $this->addTwirler($twirler);
         return $context;
     }
 
@@ -63,19 +63,6 @@ abstract class AContainer implements IContainer
         yield from $this->contexts;
     }
 
-//    public function render(): iterable
-//    {
-//        yield from $this->twirlers;
-//    }
-//
-//    /**
-//     * @return IIntervalComponent[]
-//     */
-//    public function getIntervalComponents(): iterable
-//    {
-//        yield from $this->twirlers;
-//    }
-//
     public function getIntervalVisitor(): IIntervalVisitor
     {
         return $this->intervalVisitor;

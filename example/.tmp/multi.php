@@ -65,27 +65,48 @@ $twirlerFour =
 $spinner = SpinnerFactory::createMulti($config);
 //dump($spinner->getInterval());
 
-
 $contextOne = $spinner->add($twirlerOne);
 $contextTwo = $spinner->add($twirlerTwo);
 $contextThree = $spinner->add($twirlerThree);
 $contextFour = $spinner->add($twirlerFour);
 
-dump($spinner);
-
 $t = [];
 
 $interval = (int)$spinner->getInterval()->toMicroseconds();
 
+//dump($spinner);
+
 $spinner->initialize();
 
-//dump($spinner);
+dump($spinner);
 
 for ($i = 0; $i < 200; $i++) {
     $start = hrtime(true);
     $spinner->spin();
     $t[] = hrtime(true) - $start;
     usleep($interval);
+    if ($i === 50) {
+        $contextOne
+            ->setTwirler(
+                $twirlerBuilder
+                    ->build()
+            )
+        ;
+        $contextThree
+            ->setTwirler(
+                $twirlerBuilder
+                    ->withLeadingSpacer(CharFrame::createSpace())
+                    ->withCharCollection(
+                        $charCollectionFactory->create(
+                            CharPattern::DOTS_VARIANT_3
+                        )
+                    )
+                    ->build()
+            )
+        ;
+        dump($spinner);
+    }
+
     if ($i > 10 && $i % 20 === 0) {
         $spinner->wrap(
             $echo,

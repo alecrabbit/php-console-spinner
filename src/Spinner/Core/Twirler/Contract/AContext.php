@@ -14,7 +14,7 @@ abstract class AContext implements IContext, IIntervalComponent
     use CanAcceptIntervalVisitor;
     use HasMethodGetInterval;
 
-    public readonly ITwirler $twirler;
+    public ITwirler $twirler;
     protected IInterval $interval;
 
     public function __construct(
@@ -25,9 +25,9 @@ abstract class AContext implements IContext, IIntervalComponent
 
     public function setTwirler(ITwirler $twirler): void
     {
-        $this->interval = $twirler->getInterval();
         $this->twirler = $twirler;
         $this->twirler->setContext($this);
+        $this->interval = $twirler->getInterval();
     }
 
     public function render(): ITwirlerFrame
