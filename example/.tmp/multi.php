@@ -4,11 +4,14 @@ declare(strict_types=1);
 
 // 20.06.22
 
+use AlecRabbit\Spinner\Core\Collection\CharFrameCollection;
 use AlecRabbit\Spinner\Core\Contract\CharPattern;
 use AlecRabbit\Spinner\Core\Contract\StylePattern;
 use AlecRabbit\Spinner\Core\Frame\CharFrame;
+use AlecRabbit\Spinner\Core\Interval\Interval;
 use AlecRabbit\Spinner\Core\Output\StreamOutput;
 use AlecRabbit\Spinner\Core\SpinnerFactory;
+use AlecRabbit\Spinner\Core\WidthDefiner;
 use AlecRabbit\Spinner\Kernel\Config\Builder\ConfigBuilder;
 
 require_once __DIR__ . '/../bootstrap.php';
@@ -80,15 +83,27 @@ $spinner->initialize();
 
 dump($spinner);
 
-for ($i = 0; $i < 200; $i++) {
+$max = 200;
+for ($i = 0; $i < $max; $i++) {
     $start = hrtime(true);
     $spinner->spin();
     $t[] = hrtime(true) - $start;
     usleep($interval);
-    if ($i === 50) {
+    if (0 === $i % 5 && $i > 80) {
         $contextOne
             ->setTwirler(
                 $twirlerBuilder
+                    ->withCharCollection(
+                        CharFrameCollection::create(
+                            [
+                                CharFrame::create(
+                                    $m = sprintf('%s%%', (int)(($i * 100) / $max)),
+                                    WidthDefiner::define($m)
+                                ),
+                            ],
+                            new Interval(null)
+                        )
+                    )
                     ->build()
             )
         ;
@@ -108,6 +123,15 @@ for ($i = 0; $i < 200; $i++) {
     }
 
     if ($i > 10 && $i % 20 === 0) {
+        $spinner->wrap(
+            $echo,
+            sprintf(
+                '%s %s %s ',
+                '(Message to stdout)',
+                (new DateTimeImmutable())->format(DATE_ATOM),
+                sprintf('Real Usage: %sK', number_format(memory_get_usage(true) / 1024,)),
+            )
+        );
         $spinner->wrap(
             $echo,
             sprintf(
