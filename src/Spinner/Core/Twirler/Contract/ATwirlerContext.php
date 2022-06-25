@@ -7,12 +7,14 @@ namespace AlecRabbit\Spinner\Core\Twirler\Contract;
 use AlecRabbit\Spinner\Core\Contract\IIntervalComponent;
 use AlecRabbit\Spinner\Core\Cycle;
 use AlecRabbit\Spinner\Core\Interval\Contract\IInterval;
+use AlecRabbit\Spinner\Core\Mixin\CanAcceptCycleVisitor;
 use AlecRabbit\Spinner\Core\Mixin\CanAcceptIntervalVisitor;
 use AlecRabbit\Spinner\Core\Mixin\HasMethodGetInterval;
 
 abstract class ATwirlerContext implements ITwirlerContext, IIntervalComponent
 {
     use CanAcceptIntervalVisitor;
+    use CanAcceptCycleVisitor;
     use HasMethodGetInterval;
 
     public ITwirler $twirler;

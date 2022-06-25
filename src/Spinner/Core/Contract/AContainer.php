@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Contract;
 
 use AlecRabbit\Spinner\Core\Cycle;
+use AlecRabbit\Spinner\Core\CycleVisitor;
 use AlecRabbit\Spinner\Core\Interval\Contract\IInterval;
+use AlecRabbit\Spinner\Core\Mixin\CanAcceptCycleVisitor;
 use AlecRabbit\Spinner\Core\Mixin\CanAcceptIntervalVisitor;
 use AlecRabbit\Spinner\Core\Mixin\HasMethodGetInterval;
 use AlecRabbit\Spinner\Core\Twirler\Contract\ITwirler;
@@ -15,6 +17,7 @@ use AlecRabbit\Spinner\Core\Twirler\TwirlerContext;
 abstract class AContainer implements IContainer
 {
     use CanAcceptIntervalVisitor;
+    use CanAcceptCycleVisitor;
     use HasMethodGetInterval;
 
     /** @var TwirlerContext[] */
@@ -53,5 +56,10 @@ abstract class AContainer implements IContainer
     public function getIntervalVisitor(): IIntervalVisitor
     {
         return $this->intervalVisitor;
+    }
+
+    public function getCycleVisitor(): ICycleVisitor
+    {
+        return new CycleVisitor($this->interval);
     }
 }

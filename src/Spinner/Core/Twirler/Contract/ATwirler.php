@@ -8,6 +8,7 @@ use AlecRabbit\Spinner\Core\Cycle;
 use AlecRabbit\Spinner\Core\Frame\Contract\ICharFrame;
 use AlecRabbit\Spinner\Core\Interval\Contract\IInterval;
 use AlecRabbit\Spinner\Core\Interval\Interval;
+use AlecRabbit\Spinner\Core\Mixin\CanAcceptCycleVisitor;
 use AlecRabbit\Spinner\Core\Mixin\CanAcceptIntervalVisitor;
 use AlecRabbit\Spinner\Core\Mixin\ContextAware;
 use AlecRabbit\Spinner\Core\Mixin\HasMethodGetInterval;
@@ -18,6 +19,7 @@ use AlecRabbit\Spinner\Core\Twirler\TwirlerFrame;
 abstract class ATwirler implements ITwirler
 {
     use CanAcceptIntervalVisitor;
+    use CanAcceptCycleVisitor;
     use HasMethodGetInterval;
     use ContextAware;
 

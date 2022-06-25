@@ -11,4 +11,6 @@ interface IContainer extends IIntervalComponent
     public function render(): iterable;
 
     public function getIntervalVisitor(): IIntervalVisitor;
+
+    public function getCycleVisitor(): ICycleVisitor;
 }

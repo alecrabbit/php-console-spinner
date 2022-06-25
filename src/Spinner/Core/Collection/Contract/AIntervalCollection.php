@@ -4,6 +4,8 @@ declare(strict_types=1);
 // 20.06.22
 namespace AlecRabbit\Spinner\Core\Collection\Contract;
 
+use AlecRabbit\Spinner\Core\Contract\ICycle;
+use AlecRabbit\Spinner\Core\Contract\ICycleVisitor;
 use AlecRabbit\Spinner\Core\Contract\IIntervalComponent;
 use AlecRabbit\Spinner\Core\Contract\IIntervalVisitor;
 use AlecRabbit\Spinner\Core\Cycle;
@@ -24,9 +26,20 @@ abstract class AIntervalCollection extends ACollection implements IIntervalCompo
         $this->cycle = new Cycle(1);
     }
 
-    public function accept(IIntervalVisitor $intervalVisitor): void
+    public function acceptIntervalVisitor(IIntervalVisitor $intervalVisitor): void
     {
         // Intentionally left blank
+    }
+
+    public function acceptCycleVisitor(ICycleVisitor $cycleVisitor): void
+    {
+        // Intentionally left blank
+    }
+
+    public function setCycle(ICycle $cycle): void
+    {
+        dump(static::class . '::' . __FUNCTION__, $cycle);
+        $this->cycle = $cycle;
     }
 
     public function getIntervalComponents(): iterable

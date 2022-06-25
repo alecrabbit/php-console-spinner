@@ -74,6 +74,8 @@ $contextFour = $spinner->add($twirlerFour);
 
 $t = [];
 
+dump($spinner);
+
 $interval = (int)$spinner->getInterval()->toMicroseconds();
 
 dump($spinner);
