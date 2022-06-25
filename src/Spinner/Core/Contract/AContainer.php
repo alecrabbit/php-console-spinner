@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Contract;
 
 use AlecRabbit\Spinner\Core\Interval\Contract\IInterval;
-use AlecRabbit\Spinner\Core\Mixin\HasMethodGetInterval;
 use AlecRabbit\Spinner\Core\Mixin\CanAcceptIntervalVisitor;
+use AlecRabbit\Spinner\Core\Mixin\HasMethodGetInterval;
 use AlecRabbit\Spinner\Core\Twirler\Context;
 use AlecRabbit\Spinner\Core\Twirler\Contract\CanAddTwirler;
 use AlecRabbit\Spinner\Core\Twirler\Contract\IContext;
@@ -34,7 +34,8 @@ abstract class AContainer implements IContainer
         $this->twirlersMap = new WeakMap();
     }
 
-    public function add(ITwirler $twirler): IContext {
+    public function add(ITwirler $twirler): IContext
+    {
         $context = new Context($twirler);
         $this->contexts[] = $context;
 //        $this->addTwirler($twirler);

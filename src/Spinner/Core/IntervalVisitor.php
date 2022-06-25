@@ -4,8 +4,8 @@ declare(strict_types=1);
 // 23.06.22
 namespace AlecRabbit\Spinner\Core;
 
-use AlecRabbit\Spinner\Core\Contract\IIntervalVisitor;
 use AlecRabbit\Spinner\Core\Contract\IIntervalComponent;
+use AlecRabbit\Spinner\Core\Contract\IIntervalVisitor;
 use AlecRabbit\Spinner\Core\Interval\Contract\IInterval;
 
 final class IntervalVisitor implements IIntervalVisitor // Tentative class name
