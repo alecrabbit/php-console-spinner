@@ -13,7 +13,7 @@ _FILES = \
 	-f docker-compose.dev.${_DC_EXTENSION} \
 
 # ------------------------------------------------------------------------------
-
+TEST_REPETITION=10
 APP_CONTAINER=app
 DUMPER_CONTAINER=${APP_CONTAINER}
 APP_DIR=.

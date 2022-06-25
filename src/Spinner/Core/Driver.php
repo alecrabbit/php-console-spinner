@@ -4,18 +4,19 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core;
 
-use AlecRabbit\Spinner\Core\Contract\Base\Defaults;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
-use AlecRabbit\Spinner\Core\Contract\IFrame;
+use AlecRabbit\Spinner\Core\Contract\IRenderer;
 use AlecRabbit\Spinner\Core\Contract\IWriter;
+use AlecRabbit\Spinner\Core\Frame\Contract\ICharFrame;
 
 use const AlecRabbit\Cli\TERM_256COLOR;
 
 final class Driver implements IDriver
 {
     public function __construct(
-        private readonly IWriter $writer,
         private readonly bool $hideCursor,
+        private readonly IWriter $writer,
+        private readonly IRenderer $renderer,
     ) {
     }
 
@@ -42,18 +43,18 @@ final class Driver implements IDriver
         }
     }
 
-    public function writeFrame(IFrame $frame): void
+    public function writeFrame(ICharFrame $frame): void
     {
         $this->writer->write(
-            $frame->sequence,
-            Sequencer::moveBackSequence($frame->sequenceWidth),
+            $frame->getChar(),
+            Sequencer::moveBackSequence($frame->getWidth()),
         );
     }
 
-    public function erase(?int $i = null): void
+    public function erase(int $i): void
     {
         $this->writer->write(
-            Sequencer::eraseSequence($i ?? Defaults::ERASE_WIDTH)
+            Sequencer::eraseSequence($i)
         );
     }
 
@@ -61,5 +62,10 @@ final class Driver implements IDriver
     {
         // FIXME (2022-06-10 17:37) [Alec Rabbit]: Implement color support level detection.
         return TERM_256COLOR;
+    }
+
+    public function display(iterable $sequence): int
+    {
+        return $this->renderer->display($sequence);
     }
 }

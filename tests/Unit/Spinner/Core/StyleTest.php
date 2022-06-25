@@ -4,10 +4,10 @@ declare(strict_types=1);
 // 16.06.22
 namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Core;
 
-use AlecRabbit\Spinner\Core\Contract\Base\C;
-use AlecRabbit\Spinner\Core\Exception\InvalidArgumentException;
-use AlecRabbit\Spinner\Core\Style;
+use AlecRabbit\Spinner\Core\Frame\StyleFrame;
 use AlecRabbit\Tests\Spinner\TestCase;
+
+use TypeError;
 
 use const AlecRabbit\Cli\CSI;
 use const AlecRabbit\Cli\RESET;
@@ -21,44 +21,38 @@ class StyleTest extends TestCase
         // [$expected, $element]
         yield [
             [
-                self::SEQUENCE => '%s',
-                self::CONTAINS => C::STR_PLACEHOLDER,
+                self::SEQUENCE_START => '',
+                self::SEQUENCE_END => '',
+                self::CONTAINS => '',
             ],
-            null,
+            ['', ''],
         ];
 
         yield [
             [
-                self::SEQUENCE => '%s',
-                self::CONTAINS => C::STR_PLACEHOLDER,
+                self::SEQUENCE_START => '>',
+                self::SEQUENCE_END => '<',
+                self::CONTAINS => '>',
             ],
-            '',
+            ['>', '<'],
         ];
 
         yield [
             [
-                self::SEQUENCE => '<style>%s</style>',
-                self::CONTAINS => C::STR_PLACEHOLDER,
+                self::SEQUENCE_START => '<style>',
+                self::SEQUENCE_END => '</style>',
+                self::CONTAINS => 'style',
             ],
-            '<style>%s</style>',
-        ];
-
-        yield [
-            [
-                self::SEQUENCE => ($style = Style::create(self::STYLE))->sequence,
-                self::CONTAINS => C::STR_PLACEHOLDER,
-            ],
-            $style,
+            ['<style>', '</style>'],
         ];
 
         yield [
             [
                 self::EXCEPTION => [
-                    self::_CLASS => InvalidArgumentException::class,
-                    self::MESSAGE => 'Unsupported style element: [array].',
+                    self::CLASS_ => TypeError::class,
                 ],
             ],
-            [],
+            [[]],
         ];
     }
 
@@ -68,12 +62,12 @@ class StyleTest extends TestCase
      */
     public function create(array $expected, mixed $element): void
     {
-        $this->checkForExceptionExpectance($expected);
+        $this->setExpectException($expected);
 
-        $style = Style::create($element);
+        $style = new StyleFrame(...$element);
 
-        self::assertEquals($expected[self::SEQUENCE], (string)$style);
-        self::assertEquals($expected[self::SEQUENCE], $style->sequence);
-        self::assertStringContainsString($expected[self::CONTAINS], $style->sequence);
+        self::assertEquals($expected[self::SEQUENCE_START], $style->getSequenceStart());
+        self::assertEquals($expected[self::SEQUENCE_END], $style->getSequenceEnd());
+        self::assertStringContainsString($expected[self::CONTAINS], $style->getSequenceStart());
     }
 }

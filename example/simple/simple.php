@@ -1,12 +1,10 @@
 <?php
 declare(strict_types=1);
 
-use AlecRabbit\Spinner\Core\Contract\Base\StylePattern;
-use AlecRabbit\Spinner\Core\Factory\SpinnerFactory;
-use AlecRabbit\Spinner\Core\StyleCollection;
+use AlecRabbit\Spinner\Kernel\Factory\WSpinnerFactory;
 
 require_once __DIR__ . '/../bootstrap.php';
 
-$spinner = SpinnerFactory::create();
+$spinner = WSpinnerFactory::create();
 
 echo sprintf('Spinner starts now...',) . PHP_EOL;

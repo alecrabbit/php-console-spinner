@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-use AlecRabbit\Spinner\Core\Config\Builder\ConfigBuilder;
-use AlecRabbit\Spinner\Core\Factory\SpinnerFactory;
-use AlecRabbit\Spinner\Core\Rotor\Interval;
+use AlecRabbit\Spinner\Kernel\Config\Builder\ConfigBuilder;
+use AlecRabbit\Spinner\Kernel\Factory\WSpinnerFactory;
+use AlecRabbit\Spinner\Kernel\Rotor\WInterval;
 
 use const AlecRabbit\Cli\TERM_NOCOLOR;
 
@@ -18,13 +18,13 @@ $config =
         ->withTerminalColor(TERM_NOCOLOR)
         ->withCursor()
         ->withFinalMessage('This is the final message.' . PHP_EOL)
-        ->withInterval(new Interval(REFRESH_INTERVAL))
+        ->withInterval(new WInterval(REFRESH_INTERVAL))
         ->withShutdownDelay(0)
         ->withInterruptMessage('Interrupted!' . PHP_EOL)
         ->build()
 ;
 
-$spinner = SpinnerFactory::create($config);
+$spinner = WSpinnerFactory::create($config);
 dump($spinner);
 
 $loop = $config->getLoop();

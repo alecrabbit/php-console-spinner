@@ -4,9 +4,9 @@ declare(strict_types=1);
 // 16.06.22
 namespace AlecRabbit\Spinner\Core;
 
-use AlecRabbit\Spinner\Core\Contract\Base\C;
+use AlecRabbit\Spinner\Core\Contract\C;
 use AlecRabbit\Spinner\Core\Contract\IStylePatternExtractor;
-use AlecRabbit\Spinner\Core\Exception\InvalidArgumentException;
+use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use JetBrains\PhpStorm\ArrayShape;
 use Throwable;
 
@@ -14,23 +14,28 @@ use const AlecRabbit\Cli\TERM_NOCOLOR;
 
 final class StylePatternExtractor implements IStylePatternExtractor
 {
+    private const DEFAULT_COLOR_SUPPORT = TERM_NOCOLOR;
+
     public function __construct(
-        private readonly int $terminalColorSupport = TERM_NOCOLOR,
+        private readonly int $terminalColorSupport = self::DEFAULT_COLOR_SUPPORT,
     ) {
     }
 
     /**
      * @throws InvalidArgumentException
      */
-    #[ArrayShape([C::STYLES => "array"])]
-    public function extract(array $pattern): array
+    #[ArrayShape([C::STYLES => [C::SEQUENCE => "array", C::FORMAT => "null|string", C::INTERVAL => "null|int|float"]])]
+    public function extract(array $stylePattern): array
     {
-        $this->assert($pattern);
-        $i = $this->patternMaxColorSupport($pattern, $this->terminalColorSupport);
+        self::assertStylePattern($stylePattern);
 
-        $sequence = $pattern[C::STYLES][$i][C::SEQUENCE] ?? [];
-        $format = $pattern[C::STYLES][$i][C::FORMAT] ?? null;
-        $interval = $pattern[C::STYLES][$i][C::INTERVAL] ?? null;
+        $colorSupport = $this->extractStylePatternMaxColorSupport($stylePattern);
+
+        $s = $stylePattern[C::STYLES];
+
+        $sequence = $s[$colorSupport][C::SEQUENCE] ?? [];
+        $format = $s[$colorSupport][C::FORMAT] ?? null;
+        $interval = $s[$colorSupport][C::INTERVAL] ?? null;
 
         return
             [
@@ -45,23 +50,30 @@ final class StylePatternExtractor implements IStylePatternExtractor
     /**
      * @throws InvalidArgumentException
      */
-    private function assert(array $pattern): void
+    private static function assertStylePattern(array $stylePattern): void
     {
-        // TODO (2022-06-15 17:58) [Alec Rabbit]: Implement [0393ca28-1910-4562-a348-0677aa8b4d46].
+        // TODO (2022-06-20 13:54) [Alec Rabbit]: Add more checks.
+        match (true) {
+            !array_key_exists(C::STYLES, $stylePattern) =>
+            throw new InvalidArgumentException(
+                sprintf('Style pattern must contain "%s" key.', C::STYLES)
+            ),
+            default => null,
+        };
     }
 
-    private function patternMaxColorSupport(array $pattern, int $terminalColorSupport): int
+    private function extractStylePatternMaxColorSupport(array $pattern): int
     {
         try {
-            $maxPatternColorSupport = max(array_keys($pattern[C::STYLES]));
+            $maxColorSupport = max(array_keys($pattern[C::STYLES]));
         } catch (Throwable $_) {
-            return TERM_NOCOLOR;
+            return self::DEFAULT_COLOR_SUPPORT;
         }
 
-        if ($terminalColorSupport > $maxPatternColorSupport) {
-            return $maxPatternColorSupport;
+        if ($this->terminalColorSupport > $maxColorSupport) {
+            return $maxColorSupport;
         }
 
-        return $terminalColorSupport;
+        return $this->terminalColorSupport;
     }
 }

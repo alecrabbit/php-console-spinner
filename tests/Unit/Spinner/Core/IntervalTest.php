@@ -4,24 +4,27 @@ declare(strict_types=1);
 // 16.06.22
 namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Core;
 
-use AlecRabbit\Spinner\Core\Contract\Base\Defaults;
-use AlecRabbit\Spinner\Core\Exception\InvalidArgumentException;
-use AlecRabbit\Spinner\Core\Rotor\Interval;
+use AlecRabbit\Spinner\Core\Defaults;
+use AlecRabbit\Spinner\Core\Interval\Interval;
+use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Tests\Spinner\TestCase;
 
-use const AlecRabbit\Cli\CSI;
-use const AlecRabbit\Cli\RESET;
+use function array_key_exists;
 
 class IntervalTest extends TestCase
 {
-    protected const STYLE = CSI . '01;38;5;45m%s' . RESET;
-
     public function createDataProvider(): iterable
     {
-        // [$expected, $styles, $interval]
+        yield from $this->createNormalData();
+        yield from $this->createExceptionData();
+    }
+
+    public function createNormalData(): iterable
+    {
+        // [$expected, $ms]
         yield [
             [
-                self::INTERVAL => (float)Defaults::MILLISECONDS_INTERVAL / 1000,
+                self::INTERVAL => (float)(Defaults::getMaxIntervalMilliseconds() / 1000),
             ],
             null
         ];
@@ -33,10 +36,16 @@ class IntervalTest extends TestCase
             212
         ];
 
+        yield from $this->createExceptionData();
+    }
+
+    public function createExceptionData(): iterable
+    {
+        // [$expected, $ms]
         yield [
             [
                 self::EXCEPTION => [
-                    self::_CLASS => InvalidArgumentException::class,
+                    self::CLASS_ => InvalidArgumentException::class,
                     self::MESSAGE =>
                         sprintf(
                             'Interval should be greater than %s.',
@@ -50,7 +59,7 @@ class IntervalTest extends TestCase
         yield [
             [
                 self::EXCEPTION => [
-                    self::_CLASS => InvalidArgumentException::class,
+                    self::CLASS_ => InvalidArgumentException::class,
                     self::MESSAGE =>
                         sprintf(
                             'Interval should be less than %s.',
@@ -68,38 +77,22 @@ class IntervalTest extends TestCase
      */
     public function create(array $expected, mixed $ms): void
     {
-        $this->checkForExceptionExpectance($expected);
+        $this->setExpectException($expected);
 
         $interval = new Interval($ms);
 
-        self::assertEquals($expected[self::INTERVAL], $interval->toSeconds());
-        self::assertSame($expected[self::INTERVAL], $interval->toSeconds());
+        if (array_key_exists(self::INTERVAL, $expected)) {
+            self::assertEquals($expected[self::INTERVAL], $interval->toSeconds());
+            self::assertSame($expected[self::INTERVAL], $interval->toSeconds());
+        }
     }
-
-//    /**
-//     * @test
-//     * @dataProvider smallestDataProvider
-//     */
-//    public function smallest(?IInterval $expected, array $arguments): void  {
-//
-//    }
-//
-//    public function smallestDataProvider(): iterable
-//    {
-//        yield [
-//            null,
-//            [
-//                null,
-//                null
-//            ],
-//        ];
-//    }
 
     /**
      * @test
      */
-    public function canClone(): void {
-        $interval = new Interval(Defaults::MILLISECONDS_INTERVAL);
+    public function canClone(): void
+    {
+        $interval = new Interval(null);
         $clone = clone $interval;
         self::assertEquals($interval->toSeconds(), $clone->toSeconds());
         self::assertEquals($clone, $interval);

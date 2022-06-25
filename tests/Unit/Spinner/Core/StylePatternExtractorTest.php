@@ -4,9 +4,9 @@ declare(strict_types=1);
 // 16.06.22
 namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Core;
 
-use AlecRabbit\Spinner\Core\Contract\Base\C;
-use AlecRabbit\Spinner\Core\Contract\Base\StylePattern;
+use AlecRabbit\Spinner\Core\Contract\C;
 use AlecRabbit\Spinner\Core\Contract\IStylePatternExtractor;
+use AlecRabbit\Spinner\Core\Contract\StylePattern;
 use AlecRabbit\Spinner\Core\StylePatternExtractor;
 use AlecRabbit\Tests\Spinner\TestCase;
 use JetBrains\PhpStorm\ArrayShape;
@@ -255,13 +255,6 @@ class StylePatternExtractorTest extends TestCase
     }
 
     #[ArrayShape([C::STYLES => "array[]"])]
-    private static function patternToTest02(): array
-    {
-        return
-            StylePattern::rainbow();
-    }
-
-    #[ArrayShape([C::STYLES => "array[]"])]
     private static function patternToTest03(): array
     {
         return
@@ -270,6 +263,12 @@ class StylePatternExtractorTest extends TestCase
             ];
     }
 
+    #[ArrayShape([C::STYLES => "array[]"])]
+    private static function patternToTest02(): array
+    {
+        return
+            StylePattern::rainbow();
+    }
 
     /**
      * @test
@@ -277,7 +276,7 @@ class StylePatternExtractorTest extends TestCase
      */
     public function create(array $expected, array $incoming): void
     {
-        $this->checkForExceptionExpectance($expected);
+        $this->setExpectException($expected);
 
         $extractor = self::getInstance($incoming[self::ARGUMENTS] ?? []);
 

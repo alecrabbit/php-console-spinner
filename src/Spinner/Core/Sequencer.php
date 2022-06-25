@@ -16,7 +16,17 @@ final class Sequencer implements ISequencer
 
     public static function colorSequence(string $sequence): string
     {
-        return CSI . $sequence . RESET;
+        return self::colorSequenceStart($sequence) . self::colorSequenceEnd();
+    }
+
+    public static function colorSequenceStart(string $sequence): string
+    {
+        return CSI . $sequence;
+    }
+
+    public static function colorSequenceEnd(): string
+    {
+        return RESET;
     }
 
     public static function moveBackSequence(int $i = 1): string

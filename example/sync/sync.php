@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-use AlecRabbit\Spinner\Core\Config\Builder\ConfigBuilder;
-use AlecRabbit\Spinner\Core\Factory\SpinnerFactory;
 use AlecRabbit\Spinner\Core\Output\StreamOutput;
+use AlecRabbit\Spinner\Kernel\Config\Builder\ConfigBuilder;
+use AlecRabbit\Spinner\Kernel\Factory\WSpinnerFactory;
 
 require_once __DIR__ . '/../bootstrap.php';
 
@@ -20,7 +20,7 @@ $config =
         ->build()
 ;
 
-$spinner = SpinnerFactory::create($config);
+$spinner = WSpinnerFactory::create($config);
 
 $echo('Started...');
 $echo('But may be interrupted...');
