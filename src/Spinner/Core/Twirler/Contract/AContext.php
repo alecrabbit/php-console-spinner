@@ -4,9 +4,18 @@ declare(strict_types=1);
 // 25.06.22
 namespace AlecRabbit\Spinner\Core\Twirler\Contract;
 
-abstract class AContext implements IContext
+use AlecRabbit\Spinner\Core\Contract\IIntervalComponent;
+use AlecRabbit\Spinner\Core\Interval\Contract\IInterval;
+use AlecRabbit\Spinner\Core\Mixin\CanAcceptIntervalVisitor;
+use AlecRabbit\Spinner\Core\Mixin\HasMethodGetInterval;
+
+abstract class AContext implements IContext, IIntervalComponent
 {
-    protected readonly ITwirler $twirler;
+    use CanAcceptIntervalVisitor;
+    use HasMethodGetInterval;
+
+    public readonly ITwirler $twirler;
+    protected IInterval $interval;
 
     public function __construct(
         ITwirler $twirler,
@@ -16,6 +25,7 @@ abstract class AContext implements IContext
 
     public function setTwirler(ITwirler $twirler): void
     {
+        $this->interval = $twirler->getInterval();
         $this->twirler = $twirler;
         $this->twirler->setContext($this);
     }
@@ -23,5 +33,10 @@ abstract class AContext implements IContext
     public function render(): ITwirlerFrame
     {
         return $this->twirler->render();
+    }
+
+    public function getIntervalComponents(): iterable
+    {
+        yield $this->twirler;
     }
 }

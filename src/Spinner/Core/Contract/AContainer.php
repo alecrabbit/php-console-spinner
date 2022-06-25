@@ -24,6 +24,9 @@ abstract class AContainer implements IContainer
     protected WeakMap $twirlersMap;
     protected int $index = 0;
 
+    /** @var Context[] */
+    protected array $contexts = [];
+
     public function __construct(
         protected IInterval $interval,
         protected readonly IIntervalVisitor $intervalVisitor,
@@ -33,6 +36,7 @@ abstract class AContainer implements IContainer
 
     public function add(ITwirler $twirler): IContext {
         $context = new Context($twirler);
+        $this->contexts[] = $context;
         $this->addTwirler($twirler);
         return $context;
     }
@@ -46,7 +50,9 @@ abstract class AContainer implements IContainer
 
     public function render(): iterable
     {
-        yield from $this->twirlers;
+        foreach ($this->contexts as $context) {
+            yield $context->twirler;
+        }
     }
 
     /**
@@ -54,9 +60,22 @@ abstract class AContainer implements IContainer
      */
     public function getIntervalComponents(): iterable
     {
-        yield from $this->twirlers;
+        yield from $this->contexts;
     }
 
+//    public function render(): iterable
+//    {
+//        yield from $this->twirlers;
+//    }
+//
+//    /**
+//     * @return IIntervalComponent[]
+//     */
+//    public function getIntervalComponents(): iterable
+//    {
+//        yield from $this->twirlers;
+//    }
+//
     public function getIntervalVisitor(): IIntervalVisitor
     {
         return $this->intervalVisitor;

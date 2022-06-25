@@ -66,12 +66,12 @@ $spinner = SpinnerFactory::createMulti($config);
 //dump($spinner->getInterval());
 
 
-$contextOne = $spinner->addTwirler($twirlerOne);
-$contextTwo = $spinner->addTwirler($twirlerTwo);
-$contextThree = $spinner->addTwirler($twirlerThree);
-$contextFour = $spinner->addTwirler($twirlerFour);
+$contextOne = $spinner->add($twirlerOne);
+$contextTwo = $spinner->add($twirlerTwo);
+$contextThree = $spinner->add($twirlerThree);
+$contextFour = $spinner->add($twirlerFour);
 
-//dump($spinner->getInterval());
+dump($spinner);
 
 $t = [];
 
