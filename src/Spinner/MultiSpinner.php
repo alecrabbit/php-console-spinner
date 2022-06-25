@@ -13,7 +13,10 @@ final class MultiSpinner extends ABaseSpinner implements IMultiSpinner
 {
     public function add(ITwirler $twirler): ITwirlerContext
     {
+        $context = $this->container->add($twirler);
+        $this->acceptIntervalVisitor();
+        $this->acceptCycleVisitor();
         return
-            $this->container->add($twirler);
+            $context;
     }
 }

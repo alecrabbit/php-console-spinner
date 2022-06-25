@@ -106,15 +106,15 @@ final class StylePattern
                     C::STYLES => [
                         TERM_16COLOR =>
                             [
-                                C::SEQUENCE => [31,],
+                                C::SEQUENCE => [31,32,],
                                 C::FORMAT => '%sm',
-                                C::INTERVAL => null,
+                                C::INTERVAL => 1000,
                             ],
                         TERM_256COLOR =>
                             [
-                                C::SEQUENCE => [1,],
+                                C::SEQUENCE => [1,2,],
                                 C::FORMAT => '38;5;%sm',
-                                C::INTERVAL => null,
+                                C::INTERVAL => 1000,
                             ],
                     ],
                 ],

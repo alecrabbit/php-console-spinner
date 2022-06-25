@@ -159,6 +159,9 @@ for ($i = 0; $i < $max; $i++) {
         $contextOne->setTwirler($contextFour->getTwirler());
     }
 
+    if ($i > 100 && $i % 100 === 0) {
+        dump($spinner);
+    }
     if ($i > 10 && $i % 20 === 0) {
         $spinner->wrap(
             $echo,

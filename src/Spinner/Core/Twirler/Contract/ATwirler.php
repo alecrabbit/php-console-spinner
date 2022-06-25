@@ -35,13 +35,12 @@ abstract class ATwirler implements ITwirler
     ) {
         $this->interval = new Interval(null);
         $this->cycle = new Cycle(1);
-//        $this->cycle = new Cycle(CycleCalculator::calculate($preferredInterval, $this->interval));
     }
 
     public function render(): ITwirlerFrame
     {
         // TODO (2022-06-21 12:31) [Alec Rabbit]: [2a3f2116-ddf7-4147-ac73-fd0d0fc6823f]
-        if ($this->cycle->completed()) {
+//        if ($this->cycle->completed()) {
             return
                 $this->currentFrame =
                     new TwirlerFrame(
@@ -50,9 +49,9 @@ abstract class ATwirler implements ITwirler
                         $this->leadingSpacer,
                         $this->trailingSpacer,
                     );
-        }
-        return
-            $this->currentFrame;
+//        }
+//        return
+//            $this->currentFrame;
     }
 
     public function getIntervalComponents(): iterable

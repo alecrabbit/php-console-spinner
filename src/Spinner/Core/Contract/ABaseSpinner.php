@@ -49,7 +49,6 @@ abstract class ABaseSpinner implements IBaseSpinner, IIntervalComponent
 
     public function setCycle(ICycle $cycle): void
     {
-        dump(static::class . '::' . __FUNCTION__, $cycle);
         $this->container->setCycle($cycle);
     }
 

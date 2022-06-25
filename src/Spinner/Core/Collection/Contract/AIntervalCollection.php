@@ -38,7 +38,6 @@ abstract class AIntervalCollection extends ACollection implements IIntervalCompo
 
     public function setCycle(ICycle $cycle): void
     {
-        dump(static::class . '::' . __FUNCTION__, $cycle);
         $this->cycle = $cycle;
     }
 
