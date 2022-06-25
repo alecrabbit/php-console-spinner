@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 // 17.06.22
-namespace AlecRabbit\Spinner\Kernel\Wiggler;
+namespace AlecRabbit\Spinner\Core;
 
 use AlecRabbit\Spinner\Core\Interval\Contract\IInterval;
 

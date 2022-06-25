@@ -6,8 +6,8 @@ namespace AlecRabbit\Spinner\Kernel\Rotor\Contract;
 
 use AlecRabbit\Spinner\Core\Contract\ICycle;
 use AlecRabbit\Spinner\Core\Cycle;
+use AlecRabbit\Spinner\Core\CycleCalculator;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
-use AlecRabbit\Spinner\Kernel\Wiggler\CycleCalculator;
 
 abstract class ARotor implements IRotor
 {

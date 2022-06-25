@@ -6,12 +6,12 @@ namespace AlecRabbit\Spinner\Kernel\Wiggler\Contract;
 
 use AlecRabbit\Spinner\Core\Contract\ICycle;
 use AlecRabbit\Spinner\Core\Cycle;
+use AlecRabbit\Spinner\Core\CycleCalculator;
 use AlecRabbit\Spinner\Core\Frame\Contract\ICharFrame;
 use AlecRabbit\Spinner\Kernel\CharFrame;
 use AlecRabbit\Spinner\Kernel\Rotor\Contract\IRotor;
 use AlecRabbit\Spinner\Kernel\Rotor\Contract\IStyleRotor;
 use AlecRabbit\Spinner\Kernel\Rotor\Contract\IWInterval;
-use AlecRabbit\Spinner\Kernel\Wiggler\CycleCalculator;
 
 abstract class AWiggler implements IWiggler
 {

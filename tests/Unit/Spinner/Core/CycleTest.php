@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 // 16.06.22
-namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Kernel\Wiggler;
+namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Core;
 
 use AlecRabbit\Tests\Spinner\TestCase;
 
