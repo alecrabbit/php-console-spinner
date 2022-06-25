@@ -17,9 +17,9 @@ final class MultiSpinnerTest extends TestCase
         $config = self::getDefaultConfig();
         $spinner = new MultiSpinner($config);
         $container = self::getValue('container', from: $spinner);
-        $twirlers = self::getValue('twirlers', from: $container);
-        self::assertCount(0, $twirlers);
-        self::assertEmpty($twirlers);
+        $contexts = self::getValue('contexts', from: $container);
+        self::assertCount(0, $contexts);
+        self::assertEmpty($contexts);
     }
 
     /** @test */
@@ -30,10 +30,10 @@ final class MultiSpinnerTest extends TestCase
         $spinner = new MultiSpinner($config);
         $spinner->add($twirler);
         $container = self::getValue('container', from: $spinner);
-        $twirlers = self::getValue('twirlers', from: $container);
-        self::assertCount(1, $twirlers);
-        self::assertNotEmpty($twirlers);
-        self::assertContains($twirler, $twirlers);
+        $contexts = self::getValue('contexts', from: $container);
+        self::assertCount(1, $contexts);
+        self::assertNotEmpty($contexts);
+        self::assertSame($twirler, $contexts[0]->twirler);
     }
 
     protected static function getDefaultTwirler(?IConfig $config = null): ITwirler
