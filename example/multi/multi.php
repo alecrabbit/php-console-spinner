@@ -80,7 +80,7 @@ dump($spinner);
 
 $spinner->initialize();
 
-$max = 200;
+$max = 2000;
 for ($i = 0; $i < $max; $i++) {
     $start = hrtime(true);
     $spinner->spin();
