@@ -13,7 +13,16 @@ final class Cycle implements ICycle
 
     public function __construct(int $total)
     {
-        $this->num = $total - 1;
+        $this->num = self::refine($total);
+    }
+
+    private static function refine(int $total): int
+    {
+        --$total;
+        if (0 > $total) {
+            return 0;
+        }
+        return $total;
     }
 
     public function completed(): bool
