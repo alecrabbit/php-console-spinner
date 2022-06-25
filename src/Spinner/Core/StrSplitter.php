@@ -10,8 +10,9 @@ use function mb_str_split;
 
 final class StrSplitter implements IStrSplitter
 {
-    public static function split(string $s): array
+    public static function split(string $s, ?int $length = null): array
     {
-        return mb_str_split($s);
+        $length = $length ?? 1;
+        return mb_str_split($s, $length);
     }
 }

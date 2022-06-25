@@ -19,6 +19,9 @@ use AlecRabbit\Spinner\Core\Revolver\StyleRevolver;
 use AlecRabbit\Spinner\Core\Twirler\Contract\ITwirler;
 use AlecRabbit\Spinner\Core\Twirler\Twirler;
 use AlecRabbit\Spinner\Exception\DomainException;
+use Exception;
+
+use function ucfirst;
 
 abstract class ATwirlerBuilder implements ITwirlerBuilder
 {
@@ -76,14 +79,14 @@ abstract class ATwirlerBuilder implements ITwirlerBuilder
         string $kind,
         string $type,
         ?string $auxMessage = null
-    ): \Exception {
+    ): Exception {
         return
             new DomainException(
                 sprintf(
                     self::ERROR_MESSAGE_FORMAT,
                     static::class,
                     $methodName,
-                    \ucfirst($kind),
+                    ucfirst($kind),
                     $type,
                     $auxMessage
                         ? C::SPACE_CHAR . $auxMessage

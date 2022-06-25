@@ -6,5 +6,5 @@ namespace AlecRabbit\Spinner\Kernel\Contract;
 
 interface IStrSplitter
 {
-    public static function split(string $s): array;
+    public static function split(string $s, ?int $length = null): array;
 }

@@ -20,10 +20,11 @@ final class CharPatternExtractor implements ICharPatternExtractor
 
         $frames = $charPattern[C::FRAMES] ?? [];
         $width = $charPattern[C::ELEMENT_WIDTH] ?? null;
+        $length = $charPattern[C::ELEMENT_LENGTH] ?? null;
         $interval = $charPattern[C::INTERVAL] ?? null;
 
         if (is_string($frames)) {
-            $frames = StrSplitter::split($frames);
+            $frames = StrSplitter::split($frames, $length);
         }
 
         return [

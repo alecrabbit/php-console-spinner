@@ -28,7 +28,7 @@ final class MultiSpinnerTest extends TestCase
         $config = self::getDefaultConfig();
         $twirler = self::getDefaultTwirler($config);
         $spinner = new MultiSpinner($config);
-        $spinner->addTwirler($twirler);
+        $spinner->add($twirler);
         $container = self::getValue('container', from: $spinner);
         $twirlers = self::getValue('twirlers', from: $container);
         self::assertCount(1, $twirlers);

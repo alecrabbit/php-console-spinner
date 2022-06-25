@@ -7,6 +7,7 @@ namespace AlecRabbit\Spinner\Core\Twirler\Contract;
 use AlecRabbit\Spinner\Core\Contract\IIntervalComponent;
 
 interface ITwirler extends Renderable,
+                           IContextAware,
                            IIntervalComponent
 {
     public function render(): ITwirlerFrame;
