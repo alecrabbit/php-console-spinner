@@ -76,7 +76,7 @@ $t = [];
 
 $interval = (int)$spinner->getInterval()->toMicroseconds();
 
-//dump($spinner);
+dump($spinner);
 
 $spinner->initialize();
 
@@ -154,7 +154,7 @@ for ($i = 0; $i < $max; $i++) {
         ;
     }
     if (80 === $i) {
-        $contextOne->setTwirler($contextFour->twirler);
+        $contextOne->setTwirler($contextFour->getTwirler());
     }
 
     if ($i > 10 && $i % 20 === 0) {

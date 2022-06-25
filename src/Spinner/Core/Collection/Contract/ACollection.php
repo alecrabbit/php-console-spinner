@@ -74,7 +74,7 @@ abstract class ACollection implements Countable, IteratorAggregate
         return $this->count;
     }
 
-    protected function nextElement(): mixed
+    protected function next(): mixed
     {
         if (1 === $this->count) {
             return $this->elements[0];

@@ -25,6 +25,6 @@ abstract class ACharFrameCollection extends AIntervalCollection implements IChar
 
     public function next(): ICharFrame
     {
-        return $this->nextElement();
+        return parent::next();
     }
 }

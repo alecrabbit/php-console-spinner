@@ -17,6 +17,6 @@ abstract class AStyleRevolver extends ARevolver implements IStyleRevolver
 
     public function next(): IStyleFrame
     {
-        return $this->collection->next();
+        return parent::next();
     }
 }

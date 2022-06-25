@@ -25,6 +25,6 @@ abstract class AStyleFrameCollection extends AIntervalCollection implements ISty
 
     public function next(): IStyleFrame
     {
-        return $this->nextElement();
+        return parent::next();
     }
 }

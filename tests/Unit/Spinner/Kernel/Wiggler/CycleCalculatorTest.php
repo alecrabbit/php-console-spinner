@@ -4,7 +4,7 @@ declare(strict_types=1);
 // 16.06.22
 namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Kernel\Wiggler;
 
-use AlecRabbit\Spinner\Kernel\Rotor\WInterval;
+use AlecRabbit\Spinner\Core\Interval\Interval;
 use AlecRabbit\Spinner\Kernel\Wiggler\CycleCalculator;
 use AlecRabbit\Tests\Spinner\TestCase;
 
@@ -34,8 +34,8 @@ class CycleCalculatorTest extends TestCase
     protected static function dataSetForCalculate(): iterable
     {
         yield from [
-            [0, null, null],
-            [10, 100, null],
+            [1, null, null],
+            [10000, 100, null],
             [2, 100, 200],
             [0, 200, 100],
             [2, 200, 400],
@@ -47,16 +47,16 @@ class CycleCalculatorTest extends TestCase
             [1, 505, 1000],
             [2, 500, 1000],
             [3, 300, 1000],
-            [3, 300, null],
+            [3333, 300, null],
             [0, 1000, 100],
             [0, null, 100],
             [10, 1000, 10000],
-            [10, null, 10000],
+            [0, null, 10000],
             [0, 10000, 1000],
-            [0, 10000, null],
+            [100, 10000, null],
             [0, 200000, 1000],
-            [0, 200000, null],
-            [200, null, 200000],
+            [5, 200000, null],
+            [0, null, 200000],
             [200, 1000, 200000],
         ];
     }
@@ -69,18 +69,12 @@ class CycleCalculatorTest extends TestCase
     {
         $this->setExpectException($expected);
 
-        $preferredInterval = $this->intervalOrNull($arguments[self::PREFERRED_INTERVAL]);
-
-        $interval = $this->intervalOrNull($arguments[self::INTERVAL]);
-
-        self::assertSame($expected[self::RESULT], CycleCalculator::calculate($preferredInterval, $interval));
-    }
-
-    private function intervalOrNull(null|int|float $milliseconds): ?WInterval
-    {
-        return
-            null === $milliseconds
-                ? null
-                : new WInterval($milliseconds);
+        self::assertSame(
+            $expected[self::RESULT],
+            CycleCalculator::calculate(
+                new Interval($arguments[self::PREFERRED_INTERVAL]),
+                new Interval($arguments[self::INTERVAL]),
+            )
+        );
     }
 }

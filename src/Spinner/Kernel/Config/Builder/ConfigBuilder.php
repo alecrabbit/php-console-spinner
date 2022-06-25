@@ -44,16 +44,8 @@ use AlecRabbit\Spinner\Kernel\Config\Builder\Contract\IConfigBuilder;
 use AlecRabbit\Spinner\Kernel\Config\Config;
 use AlecRabbit\Spinner\Kernel\Config\Contract\IConfig;
 use AlecRabbit\Spinner\Kernel\Contract\ILoop;
-use AlecRabbit\Spinner\Kernel\Contract\IWFrameCollection;
-use AlecRabbit\Spinner\Kernel\Contract\IWigglerContainer;
-use AlecRabbit\Spinner\Kernel\Contract\WIStyleProvider;
 use AlecRabbit\Spinner\Kernel\Factory\Contract\ILoopFactory;
-use AlecRabbit\Spinner\Kernel\Factory\Contract\IWigglerContainerFactory;
-use AlecRabbit\Spinner\Kernel\Factory\Contract\IWigglerFactory;
 use AlecRabbit\Spinner\Kernel\Factory\LoopFactory;
-use AlecRabbit\Spinner\Kernel\Factory\WigglerContainerFactory;
-use AlecRabbit\Spinner\Kernel\Rotor\Contract\IWInterval;
-use AlecRabbit\Spinner\Kernel\WStyleProvider;
 
 use const STDERR;
 
