@@ -5,6 +5,7 @@ declare(strict_types=1);
 // 20.06.22
 
 use AlecRabbit\Spinner\Core\Collection\CharFrameCollection;
+use AlecRabbit\Spinner\Core\Contract\C;
 use AlecRabbit\Spinner\Core\Contract\CharPattern;
 use AlecRabbit\Spinner\Core\Contract\StylePattern;
 use AlecRabbit\Spinner\Core\Frame\CharFrame;
@@ -89,6 +90,39 @@ for ($i = 0; $i < $max; $i++) {
     $spinner->spin();
     $t[] = hrtime(true) - $start;
     usleep($interval);
+    if (40 === $i) {
+        $spinner->pause();
+    }
+    if (50 === $i) {
+        $spinner->resume();
+    }
+    if (55 === $i) {
+        $spinner->add(
+            $twirlerBuilder
+                ->withCharCollection(
+                    CharFrameCollection::create(
+                        [
+                            CharFrame::create(
+                                $m = 'Message...',
+                                WidthDefiner::define($m)
+                            ),
+                        ],
+                        new Interval(null)
+                    )
+                )
+                ->build()
+        );
+        $spinner->add(
+            $twirlerBuilder
+                ->withCharPattern(
+                    [
+                        C::FRAMES => ['Message...'],
+                        C::ELEMENT_WIDTH => 10,
+                    ]
+                )
+                ->build()
+        );
+    }
     if (0 === $i % 5 && $i > 80) {
         $contextOne
             ->setTwirler(
@@ -119,7 +153,6 @@ for ($i = 0; $i < $max; $i++) {
                     ->build()
             )
         ;
-        dump($spinner);
     }
 
     if ($i > 10 && $i % 20 === 0) {
