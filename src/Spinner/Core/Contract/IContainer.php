@@ -6,8 +6,7 @@ namespace AlecRabbit\Spinner\Core\Contract;
 
 use AlecRabbit\Spinner\Core\Twirler\Contract\CanAddTwirler;
 
-interface IContainer extends CanAddTwirler,
-                             IIntervalComponent
+interface IContainer extends IIntervalComponent
 {
     public function render(): iterable;
 

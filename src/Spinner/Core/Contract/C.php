@@ -10,6 +10,7 @@ final class C
     public const CHARS = 'chars';
     public const CHAR = 'char';
     public const COLLECTION = 'collection';
+    public const ELEMENT_LENGTH = 'elementLength';
     public const ELEMENT_WIDTH = 'elementWidth';
     public const EMPTY_STRING = '';
     public const INTERVAL = 'interval';

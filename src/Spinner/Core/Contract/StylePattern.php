@@ -98,6 +98,30 @@ final class StylePattern
         ];
     }
 
+    public static function red(): array
+    {
+        return
+            self::fillWithDefaults(
+                [
+                    C::STYLES => [
+                        TERM_16COLOR =>
+                            [
+                                C::SEQUENCE => [31,],
+                                C::FORMAT => '%sm',
+                                C::INTERVAL => null,
+                            ],
+                        TERM_256COLOR =>
+                            [
+                                C::SEQUENCE => [1,],
+                                C::FORMAT => '38;5;%sm',
+                                C::INTERVAL => null,
+                            ],
+                    ],
+                ],
+                self::defaults()
+            );
+    }
+
     public static function none(): array
     {
         return

@@ -114,17 +114,17 @@ for ($i = 0; $i < $max; $i++) {
         );
         $spinner->add(
             $twirlerBuilder
+                ->withStylePattern(StylePattern::red())
                 ->withCharPattern(
                     [
-                        C::FRAMES => ['Message...'],
-                        C::ELEMENT_WIDTH => 10,
+                        C::FRAMES => ['Another message...'],
                     ]
                 )
                 ->build()
         );
     }
     if (0 === $i % 5 && $i > 80) {
-        $contextOne
+        $contextFour
             ->setTwirler(
                 $twirlerBuilder
                     ->withCharCollection(
@@ -141,6 +141,8 @@ for ($i = 0; $i < $max; $i++) {
                     ->build()
             )
         ;
+    }
+    if (50 === $i) {
         $contextThree
             ->setTwirler(
                 $twirlerBuilder
@@ -154,6 +156,9 @@ for ($i = 0; $i < $max; $i++) {
             )
         ;
     }
+    if (80 === $i) {
+        $contextOne->setTwirler($contextFour->twirler);
+    }
 
     if ($i > 10 && $i % 20 === 0) {
         $spinner->wrap(
@@ -162,14 +167,12 @@ for ($i = 0; $i < $max; $i++) {
                 '%s %s %s ',
                 '(Message to stdout)',
                 (new DateTimeImmutable())->format(DATE_ATOM),
-                sprintf('Real Usage: %sK', number_format(memory_get_usage(true) / 1024,)),
-            )
-        );
-        $spinner->wrap(
-            $echo,
-            sprintf(
-                'Average cycle execution time: %sμs',
-                number_format((array_sum($t) / count($t)) / 1000, 3)
+                sprintf(
+                    'Average: %sμs Real Usage: %sK Peak: %sK',
+                    number_format((array_sum($t) / count($t)) / 1000, 3),
+                    number_format(memory_get_usage(true) / 1024,),
+                    number_format(memory_get_peak_usage(true) / 1024,),
+                ),
             )
         );
     }

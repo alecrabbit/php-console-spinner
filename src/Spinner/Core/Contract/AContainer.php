@@ -18,12 +18,6 @@ abstract class AContainer implements IContainer
     use CanAcceptIntervalVisitor;
     use HasMethodGetInterval;
 
-    /** @var ITwirler[] */
-    protected array $twirlers = [];
-    /** @var WeakMap<ITWirler,int> */
-    protected WeakMap $twirlersMap;
-    protected int $index = 0;
-
     /** @var Context[] */
     protected array $contexts = [];
 
@@ -31,22 +25,13 @@ abstract class AContainer implements IContainer
         protected IInterval $interval,
         protected readonly IIntervalVisitor $intervalVisitor,
     ) {
-        $this->twirlersMap = new WeakMap();
     }
 
     public function add(ITwirler $twirler): IContext
     {
         $context = new Context($twirler);
         $this->contexts[] = $context;
-//        $this->addTwirler($twirler);
         return $context;
-    }
-
-    public function addTwirler(ITwirler $twirler): CanAddTwirler
-    {
-        $this->twirlers[$this->index] = $twirler;
-        $this->twirlersMap[$twirler] = $this->index++;
-        return $this;
     }
 
     public function render(): iterable
