@@ -13,6 +13,7 @@ use AlecRabbit\Spinner\Core\Mixin\HasMethodGetInterval;
 use AlecRabbit\Spinner\Core\Twirler\Contract\ITwirler;
 use AlecRabbit\Spinner\Core\Twirler\Contract\ITwirlerContext;
 use AlecRabbit\Spinner\Core\Twirler\TwirlerContext;
+use WeakMap;
 
 abstract class AContainer implements IContainer
 {
@@ -22,20 +23,30 @@ abstract class AContainer implements IContainer
 
     /** @var TwirlerContext[] */
     protected array $contexts = [];
+    protected WeakMap $contextsMap;
     protected Cycle $cycle;
+    protected int $index = 0;
 
     public function __construct(
         protected IInterval $interval,
         protected readonly IIntervalVisitor $intervalVisitor,
     ) {
         $this->cycle = new Cycle(1);
+        $this->contextsMap = new WeakMap();
     }
 
     public function add(ITwirler $twirler): ITwirlerContext
     {
         $context = new TwirlerContext($twirler);
-        $this->contexts[] = $context;
+        $this->contexts[$this->index] = $context;
+        $this->contextsMap[$context] = $this->index++;
         return $context;
+    }
+
+    public function remove(ITwirlerContext $context): void
+    {
+        $index = $this->contextsMap[$context];
+        unset($this->contexts[$index]);
     }
 
     public function render(): iterable

@@ -10,4 +10,6 @@ use AlecRabbit\Spinner\Core\Twirler\Contract\ITwirler;
 interface IMultiSpinner
 {
     public function add(ITwirler $twirler): ITwirlerContext;
+
+    public function remove(ITwirlerContext $context): void;
 }

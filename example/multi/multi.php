@@ -12,6 +12,7 @@ use AlecRabbit\Spinner\Core\Frame\CharFrame;
 use AlecRabbit\Spinner\Core\Interval\Interval;
 use AlecRabbit\Spinner\Core\Output\StreamOutput;
 use AlecRabbit\Spinner\Core\SpinnerFactory;
+use AlecRabbit\Spinner\Core\Twirler\Contract\ITwirlerContext;
 use AlecRabbit\Spinner\Core\WidthDefiner;
 use AlecRabbit\Spinner\Kernel\Config\Builder\ConfigBuilder;
 
@@ -83,6 +84,7 @@ dump($spinner);
 $spinner->initialize();
 
 $max = 2000;
+$contextToRemove = null;
 for ($i = 0; $i < $max; $i++) {
     $start = hrtime(true);
     $spinner->spin();
@@ -111,7 +113,7 @@ for ($i = 0; $i < $max; $i++) {
                 )
                 ->build()
         );
-        $spinner->add(
+        $contextToRemove = $spinner->add(
             $twirlerBuilder
                 ->withStylePattern(StylePattern::red())
                 ->withCharPattern(
@@ -121,6 +123,9 @@ for ($i = 0; $i < $max; $i++) {
                 )
                 ->build()
         );
+    }
+    if (100 === $i && $contextToRemove instanceof ITwirlerContext) {
+        $spinner->remove($contextToRemove);
     }
     if (0 === $i % 5 && $i > 80) {
         $contextFour
