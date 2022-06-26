@@ -15,7 +15,6 @@ use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Exception\LogicException;
 use AlecRabbit\Spinner\Kernel\Config\Contract\IConfig;
 use AlecRabbit\Spinner\Kernel\Contract\ILoop;
-use AlecRabbit\Spinner\Kernel\Contract\IWigglerContainer;
 
 final class Config implements IConfig
 {

@@ -11,7 +11,6 @@ use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Twirler\Builder\Contract\ITwirlerBuilder;
 use AlecRabbit\Spinner\Core\Twirler\Factory\Contract\ITwirlerFactory;
 use AlecRabbit\Spinner\Kernel\Contract\ILoop;
-use AlecRabbit\Spinner\Kernel\Contract\IWigglerContainer;
 
 interface IConfig
 {

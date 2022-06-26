@@ -41,14 +41,14 @@ abstract class ATwirler implements ITwirler
     {
         // TODO (2022-06-21 12:31) [Alec Rabbit]: [2a3f2116-ddf7-4147-ac73-fd0d0fc6823f]
 //        if ($this->cycle->completed()) {
-            return
-                $this->currentFrame =
-                    new TwirlerFrame(
-                        $this->styleRevolver->next(),
-                        $this->charRevolver->next(),
-                        $this->leadingSpacer,
-                        $this->trailingSpacer,
-                    );
+        return
+            $this->currentFrame =
+                new TwirlerFrame(
+                    $this->styleRevolver->next(),
+                    $this->charRevolver->next(),
+                    $this->leadingSpacer,
+                    $this->trailingSpacer,
+                );
 //        }
 //        return
 //            $this->currentFrame;

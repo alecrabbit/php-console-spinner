@@ -6,8 +6,8 @@ namespace AlecRabbit\Spinner;
 
 use AlecRabbit\Spinner\Core\Contract\ABaseSpinner;
 use AlecRabbit\Spinner\Core\Contract\IMultiSpinner;
-use AlecRabbit\Spinner\Core\Twirler\Contract\ITwirlerContext;
 use AlecRabbit\Spinner\Core\Twirler\Contract\ITwirler;
+use AlecRabbit\Spinner\Core\Twirler\Contract\ITwirlerContext;
 
 final class MultiSpinner extends ABaseSpinner implements IMultiSpinner
 {

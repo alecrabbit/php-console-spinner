@@ -18,12 +18,6 @@ abstract class ATwirlerContext implements ITwirlerContext, IIntervalComponent
     use HasMethodGetInterval;
 
     public ITwirler $twirler;
-
-    public function getTwirler(): ITwirler
-    {
-        return $this->twirler;
-    }
-
     protected IInterval $interval;
     protected Cycle $cycle;
 
@@ -32,6 +26,11 @@ abstract class ATwirlerContext implements ITwirlerContext, IIntervalComponent
     ) {
         $this->setTwirler($twirler);
         $this->cycle = new Cycle(1);
+    }
+
+    public function getTwirler(): ITwirler
+    {
+        return $this->twirler;
     }
 
     public function setTwirler(ITwirler $twirler): void
