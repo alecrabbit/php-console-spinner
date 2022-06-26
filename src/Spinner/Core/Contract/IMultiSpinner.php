@@ -11,5 +11,5 @@ interface IMultiSpinner
 {
     public function add(ITwirler $twirler): ITwirlerContext;
 
-    public function remove(ITwirlerContext $context): void;
+    public function remove(ITwirlerContext|ITwirler $element): void;
 }

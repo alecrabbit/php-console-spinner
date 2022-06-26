@@ -113,16 +113,16 @@ for ($i = 0; $i < $max; $i++) {
                 )
                 ->build()
         );
-        $contextToRemove = $spinner->add(
-            $twirlerBuilder
-                ->withStylePattern(StylePattern::red())
-                ->withCharPattern(
-                    [
-                        C::FRAMES => ['Another message...'],
-                    ]
-                )
-                ->build()
-        );
+        $tempTwirler = $twirlerBuilder
+            ->withStylePattern(StylePattern::red())
+            ->withCharPattern(
+                [
+                    C::FRAMES => ['Another message...'],
+                ]
+            )
+            ->build()
+        ;
+        $contextToRemove = $spinner->add($tempTwirler);
     }
     if (100 === $i && $contextToRemove instanceof ITwirlerContext) {
         $spinner->remove($contextToRemove);

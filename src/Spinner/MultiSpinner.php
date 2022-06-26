@@ -20,9 +20,9 @@ final class MultiSpinner extends ABaseSpinner implements IMultiSpinner
             $context;
     }
 
-    public function remove(ITwirlerContext $context): void
+    public function remove(ITwirlerContext|ITwirler $element): void
     {
-        $this->container->remove($context);
+        $this->container->remove($element);
         $this->acceptIntervalVisitor();
         $this->acceptCycleVisitor();
     }

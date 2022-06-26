@@ -43,10 +43,20 @@ abstract class AContainer implements IContainer
         return $context;
     }
 
-    public function remove(ITwirlerContext $context): void
+    public function remove(ITwirlerContext|ITwirler $element): void
     {
-        $index = $this->contextsMap[$context];
-        unset($this->contexts[$index]);
+        if ($element instanceof ITwirlerContext) {
+            $index = $this->contextsMap[$element];
+            unset($this->contexts[$index]);
+        }
+        if ($element instanceof ITwirler) {
+            foreach ($this->contexts as $index => $context) {
+                if ($context->getTwirler() === $element) {
+                    unset($this->contexts[$index]);
+                    break;
+                }
+            }
+        }
     }
 
     public function render(): iterable
