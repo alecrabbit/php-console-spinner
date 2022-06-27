@@ -51,13 +51,6 @@ use const STDERR;
 
 final class ConfigBuilder implements IConfigBuilder
 {
-    private const MESSAGE_ON_SIGINT = Defaults::MESSAGE_ON_EXIT;
-    private const MESSAGE_INTERRUPTED = Defaults::MESSAGE_INTERRUPTED;
-    private const FINAL_MESSAGE = Defaults::FINAL_MESSAGE;
-    private const SHUTDOWN_DELAY = Defaults::SHUTDOWN_DELAY;
-    private const HIDE_CURSOR = Defaults::HIDE_CURSOR;
-    private const SYNCHRONOUS_MODE = Defaults::SYNCHRONOUS_MODE;
-
     private ?ILoop $loop = null;
     private ?bool $hideCursor = null;
     private ?IDriver $driver = null;
@@ -233,35 +226,34 @@ final class ConfigBuilder implements IConfigBuilder
     }
 
     /**
-     * @throws InvalidArgumentException
      * @throws DomainException
      */
     private function processDefaults(): void
     {
         if (null === $this->hideCursor) {
-            $this->hideCursor = self::HIDE_CURSOR;
+            $this->hideCursor = Defaults::getHideCursor();
         }
 
         if (null === $this->finalMessage) {
-            $this->finalMessage = self::FINAL_MESSAGE;
+            $this->finalMessage = Defaults::getFinalMessage();
         }
 
         if (null === $this->synchronousMode) {
-            $this->synchronousMode = self::SYNCHRONOUS_MODE;
+            $this->synchronousMode = Defaults::getSynchronousMode();
         }
 
         if (!$this->synchronousMode) {
             if (null === $this->shutdownDelaySeconds) {
-                $this->shutdownDelaySeconds = self::SHUTDOWN_DELAY;
+                $this->shutdownDelaySeconds = Defaults::getShutdownDelay();
             }
             if (null === $this->interruptMessage) {
-                $this->interruptMessage = self::MESSAGE_ON_SIGINT;
+                $this->interruptMessage = Defaults::getMessageOnExit();
             }
         }
 
         if ($this->synchronousMode) {
             if (null === $this->interruptMessage) {
-                $this->interruptMessage = self::MESSAGE_INTERRUPTED;
+                $this->interruptMessage = Defaults::getInterruptMessage();
             }
         }
 

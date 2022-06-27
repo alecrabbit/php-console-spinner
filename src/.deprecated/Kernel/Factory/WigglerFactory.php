@@ -27,7 +27,7 @@ use AlecRabbit\Spinner\Kernel\WStyleCollection;
 
 final class WigglerFactory implements IWigglerFactory
 {
-    private const FRAME_SEQUENCE = Defaults::FRAME_SEQUENCE;
+    private const FRAME_SEQUENCE = CharPattern::SNAKE_VARIANT_0;
     private IWFrameCollection $frames;
     private IWStyleCollection $styles;
     private WIStyleProvider $styleProvider;

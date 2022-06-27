@@ -27,7 +27,7 @@ class StyleFrameCollectionTest extends TestCase
         yield [
             [
                 self::COUNT => 1,
-                self::INTERVAL => (float)Defaults::MILLISECONDS_MAX_INTERVAL / 1000,
+                self::INTERVAL => (float)Defaults::getMaxIntervalMilliseconds() / 1000,
                 self::CONTAINS => [
                     $frame
                 ],

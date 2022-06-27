@@ -49,11 +49,11 @@ class IntervalTest extends TestCase
                     self::MESSAGE =>
                         sprintf(
                             'Interval should be greater than %s.',
-                            Defaults::MILLISECONDS_MIN_INTERVAL
+                            Defaults::getMinIntervalMilliseconds()
                         ),
                 ],
             ],
-            Defaults::MILLISECONDS_MIN_INTERVAL - 10
+            Defaults::getMinIntervalMilliseconds() - 10
         ];
 
         yield [
@@ -63,11 +63,11 @@ class IntervalTest extends TestCase
                     self::MESSAGE =>
                         sprintf(
                             'Interval should be less than %s.',
-                            Defaults::MILLISECONDS_MAX_INTERVAL
+                            Defaults::getMaxIntervalMilliseconds()
                         ),
                 ],
             ],
-            Defaults::MILLISECONDS_MAX_INTERVAL + 1000
+            Defaults::getMaxIntervalMilliseconds() + 1000
         ];
     }
 

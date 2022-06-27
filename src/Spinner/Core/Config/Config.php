@@ -18,8 +18,6 @@ use AlecRabbit\Spinner\Exception\LogicException;
 
 final class Config implements IConfig
 {
-    private const MAX_SHUTDOWN_DELAY = Defaults::MAX_SHUTDOWN_DELAY;
-
     /**
      * @throws LogicException|InvalidArgumentException
      */
@@ -67,12 +65,12 @@ final class Config implements IConfig
 //        if (0 === $this->shutdownDelay || 0.0 === $this->shutdownDelay) {
 //            throw new  InvalidArgumentException('Shutdown delay can not be equal to 0.');
 //        }
-        if (self::MAX_SHUTDOWN_DELAY < $this->shutdownDelay) {
+        if (Defaults::getMaxShutdownDelay() < $this->shutdownDelay) {
             throw new InvalidArgumentException(
                 sprintf(
                     'Shutdown delay [%s] can not be greater than [%s].',
                     $this->shutdownDelay,
-                    self::MAX_SHUTDOWN_DELAY
+                    Defaults::getMaxShutdownDelay()
                 )
             );
         }
@@ -112,12 +110,12 @@ final class Config implements IConfig
 
     private function assertColorSupportLevel(): void
     {
-        if (!in_array($this->colorSupportLevel, Defaults::COLOR_SUPPORT_LEVELS, true)) {
+        if (!in_array($this->colorSupportLevel, Defaults::getColorSupportLevels(), true)) {
             throw new InvalidArgumentException(
                 sprintf(
                     'Color support level [%s] is not supported. Supported levels are: [%s].',
                     $this->colorSupportLevel,
-                    implode(', ', Defaults::COLOR_SUPPORT_LEVELS)
+                    implode(', ', Defaults::getColorSupportLevels())
                 )
             );
         }
