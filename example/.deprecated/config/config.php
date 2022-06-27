@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use AlecRabbit\Spinner\Kernel\Config\Builder\ConfigBuilder;
+use AlecRabbit\Spinner\Core\Config\Builder\ConfigBuilder;
 use AlecRabbit\Spinner\Kernel\Factory\WSpinnerFactory;
 use AlecRabbit\Spinner\Kernel\Rotor\WInterval;
 

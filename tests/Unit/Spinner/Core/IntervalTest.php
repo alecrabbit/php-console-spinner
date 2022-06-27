@@ -7,7 +7,7 @@ namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Core;
 use AlecRabbit\Spinner\Core\Defaults;
 use AlecRabbit\Spinner\Core\Interval\Interval;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
-use AlecRabbit\Tests\Spinner\TestCase;
+use AlecRabbit\Tests\Spinner\TestCase\TestCase;
 
 use function array_key_exists;
 

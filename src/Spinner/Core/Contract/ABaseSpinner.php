@@ -4,8 +4,8 @@ declare(strict_types=1);
 // 19.06.22
 namespace AlecRabbit\Spinner\Core\Contract;
 
+use AlecRabbit\Spinner\Core\Config\Contract\IConfig;
 use AlecRabbit\Spinner\Core\Interval\Contract\IInterval;
-use AlecRabbit\Spinner\Kernel\Config\Contract\IConfig;
 
 abstract class ABaseSpinner implements IBaseSpinner, IIntervalComponent
 {

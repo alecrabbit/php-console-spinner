@@ -6,7 +6,7 @@ namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Core;
 
 use AlecRabbit\Spinner\Core\CycleCalculator;
 use AlecRabbit\Spinner\Core\Interval\Interval;
-use AlecRabbit\Tests\Spinner\TestCase;
+use AlecRabbit\Tests\Spinner\TestCase\TestCase;
 
 class CycleCalculatorTest extends TestCase
 {

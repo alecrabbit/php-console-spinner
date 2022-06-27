@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Core\Builder;
 
 use AlecRabbit\Tests\Spinner\Helper\PickLock;
-use AlecRabbit\Tests\Spinner\TestCase;
+use AlecRabbit\Tests\Spinner\TestCase\TestCase;
 
 final class ConfigBuilderTest extends TestCase
 {

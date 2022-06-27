@@ -11,7 +11,7 @@ use AlecRabbit\Spinner\Core\Frame\StyleFrame;
 use AlecRabbit\Spinner\Core\Interval\Contract\IInterval;
 use AlecRabbit\Spinner\Core\Interval\Interval;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
-use AlecRabbit\Tests\Spinner\TestCase;
+use AlecRabbit\Tests\Spinner\TestCase\TestCase;
 
 use const AlecRabbit\Cli\CSI;
 use const AlecRabbit\Cli\RESET;

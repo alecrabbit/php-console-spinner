@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 // 20.06.22
 
+use AlecRabbit\Spinner\Core\Config\Builder\ConfigBuilder;
 use AlecRabbit\Spinner\Core\Output\StreamOutput;
 use AlecRabbit\Spinner\Core\SpinnerFactory;
-use AlecRabbit\Spinner\Kernel\Config\Builder\ConfigBuilder;
 
 require_once __DIR__ . '/../bootstrap.php';
 

@@ -2,8 +2,8 @@
 
 declare(strict_types=1);
 
+use AlecRabbit\Spinner\Core\Config\Builder\ConfigBuilder;
 use AlecRabbit\Spinner\Core\Output\StreamOutput;
-use AlecRabbit\Spinner\Kernel\Config\Builder\ConfigBuilder;
 use AlecRabbit\Spinner\Kernel\Factory\WSpinnerFactory;
 
 require_once __DIR__ . '/../bootstrap.php';

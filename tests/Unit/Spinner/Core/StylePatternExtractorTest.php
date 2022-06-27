@@ -8,7 +8,7 @@ use AlecRabbit\Spinner\Core\Contract\C;
 use AlecRabbit\Spinner\Core\Contract\IStylePatternExtractor;
 use AlecRabbit\Spinner\Core\Contract\StylePattern;
 use AlecRabbit\Spinner\Core\StylePatternExtractor;
-use AlecRabbit\Tests\Spinner\TestCase;
+use AlecRabbit\Tests\Spinner\TestCase\TestCase;
 use JetBrains\PhpStorm\ArrayShape;
 
 use const AlecRabbit\Cli\TERM_16COLOR;

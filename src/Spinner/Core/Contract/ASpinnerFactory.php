@@ -4,8 +4,8 @@ declare(strict_types=1);
 // 20.06.22
 namespace AlecRabbit\Spinner\Core\Contract;
 
-use AlecRabbit\Spinner\Kernel\Config\Builder\ConfigBuilder;
-use AlecRabbit\Spinner\Kernel\Config\Contract\IConfig;
+use AlecRabbit\Spinner\Core\Config\Builder\ConfigBuilder;
+use AlecRabbit\Spinner\Core\Config\Contract\IConfig;
 use AlecRabbit\Spinner\MultiSpinner;
 use AlecRabbit\Spinner\Spinner;
 
