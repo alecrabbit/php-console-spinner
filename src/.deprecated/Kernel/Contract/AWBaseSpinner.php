@@ -40,7 +40,7 @@ abstract class AWBaseSpinner implements IBaseSpinner,
         $this->active = true;
     }
 
-    public function resume(): void
+    public function activate(): void
     {
         $this->active = true;
     }
@@ -82,11 +82,11 @@ abstract class AWBaseSpinner implements IBaseSpinner,
 
     private function stop(): void
     {
-        $this->pause();
+        $this->deactivate();
         $this->driver->showCursor();
     }
 
-    public function pause(): void
+    public function deactivate(): void
     {
         $this->erase();
         $this->active = false;

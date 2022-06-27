@@ -16,9 +16,9 @@ interface IBaseSpinner
 
     public function erase(): void;
 
-    public function pause(): void;
+    public function deactivate(): void;
 
-    public function resume(): void;
+    public function activate(): void;
 
     public function wrap(callable $callback, ...$args): void;
 }

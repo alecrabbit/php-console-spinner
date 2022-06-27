@@ -91,11 +91,19 @@ for ($i = 0; $i < $max; $i++) {
     $t[] = hrtime(true) - $start;
     usleep($interval);
 //    usleep(random_int(0, $interval * 4));
-    if (40 === $i) {
-        $spinner->pause();
+    if (400 === $i) {
+        $spinner->wrap(
+            $echo,
+            'Pausing spinner...'
+        );
+        $spinner->deactivate();
     }
-    if (50 === $i) {
-        $spinner->resume();
+    if (500 === $i) {
+        $spinner->wrap(
+            $echo,
+            'Resuming spinner...'
+        );
+        $spinner->activate();
     }
     if (55 === $i) {
         $spinner->add(
