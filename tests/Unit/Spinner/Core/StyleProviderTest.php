@@ -24,7 +24,7 @@ use const AlecRabbit\Cli\TERM_TRUECOLOR;
 
 class StyleProviderTest extends TestCase
 {
-    public function renderDataProvider(): iterable
+    public function canProvideDataProvider(): iterable
     {
         // [$expected, $incoming]
         yield [
@@ -214,9 +214,9 @@ class StyleProviderTest extends TestCase
 
     /**
      * @test
-     * @dataProvider renderDataProvider
+     * @dataProvider canProvideDataProvider
      */
-    public function render(array $expected, array $incoming): void
+    public function canProvide(array $expected, array $incoming): void
     {
         $this->setExpectException($expected);
 
