@@ -4,8 +4,8 @@ declare(strict_types=1);
 // 19.06.22
 namespace AlecRabbit\Spinner\Core\Contract;
 
+use AlecRabbit\Spinner\Core\Config\Contract\IConfig;
 use AlecRabbit\Spinner\Core\Interval\Contract\IInterval;
-use AlecRabbit\Spinner\Kernel\Config\Contract\IConfig;
 
 abstract class ABaseSpinner implements IBaseSpinner, IIntervalComponent
 {
@@ -27,16 +27,34 @@ abstract class ABaseSpinner implements IBaseSpinner, IIntervalComponent
 
     public function getInterval(): IInterval
     {
-        $this->accept();
+        $this->recalculate();
         return
             $this->container->getInterval();
     }
 
-    public function accept(?IIntervalVisitor $intervalVisitor = null): void
+    protected function recalculate(): void // Tentative name
+    {
+        $this->acceptIntervalVisitor();
+        $this->acceptCycleVisitor();
+    }
+
+    public function acceptIntervalVisitor(?IIntervalVisitor $intervalVisitor = null): void
     {
         $intervalVisitor = $intervalVisitor ?? $this->container->getIntervalVisitor();
 
-        $this->container->accept($intervalVisitor);
+        $this->container->acceptIntervalVisitor($intervalVisitor);
+    }
+
+    public function acceptCycleVisitor(?ICycleVisitor $cycleVisitor = null): void
+    {
+        $cycleVisitor = $cycleVisitor ?? $this->container->getCycleVisitor();
+
+        $this->container->acceptCycleVisitor($cycleVisitor);
+    }
+
+    public function setCycle(ICycle $cycle): void
+    {
+        $this->container->setCycle($cycle);
     }
 
     public function getIntervalComponents(): iterable
@@ -47,19 +65,7 @@ abstract class ABaseSpinner implements IBaseSpinner, IIntervalComponent
     public function initialize(): void
     {
         $this->driver->hideCursor();
-        $this->start();
-    }
-
-    private function start(): void
-    {
-        $this->active = true;
-    }
-
-    public function resume(): void
-    {
-        $this->active = true;
-    }
-
+        $this->activate();    }
 
     public function wrap(callable $callback, ...$args): void
     {
@@ -98,14 +104,19 @@ abstract class ABaseSpinner implements IBaseSpinner, IIntervalComponent
 
     private function stop(): void
     {
-        $this->pause();
+        $this->deactivate();
         $this->driver->showCursor();
     }
 
-    public function pause(): void
+    public function deactivate(): void
     {
         $this->erase();
         $this->active = false;
+    }
+
+    public function activate(): void
+    {
+        $this->active = true;
     }
 
     public function finalize(): void

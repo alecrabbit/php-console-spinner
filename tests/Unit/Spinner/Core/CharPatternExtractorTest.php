@@ -8,7 +8,7 @@ use AlecRabbit\Spinner\Core\CharPatternExtractor;
 use AlecRabbit\Spinner\Core\Contract\C;
 use AlecRabbit\Spinner\Core\Contract\CharPattern;
 use AlecRabbit\Spinner\Core\Contract\ICharPatternExtractor;
-use AlecRabbit\Tests\Spinner\TestCase;
+use AlecRabbit\Tests\Spinner\TestCase\TestCase;
 
 class CharPatternExtractorTest extends TestCase
 {

@@ -11,7 +11,7 @@ use AlecRabbit\Spinner\Core\Frame\StyleFrame;
 use AlecRabbit\Spinner\Core\Interval\Contract\IInterval;
 use AlecRabbit\Spinner\Core\Interval\Interval;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
-use AlecRabbit\Tests\Spinner\TestCase;
+use AlecRabbit\Tests\Spinner\TestCase\TestCase;
 
 use const AlecRabbit\Cli\CSI;
 use const AlecRabbit\Cli\RESET;
@@ -27,13 +27,13 @@ class StyleFrameCollectionTest extends TestCase
         yield [
             [
                 self::COUNT => 1,
-                self::INTERVAL => (float)Defaults::MILLISECONDS_MAX_INTERVAL / 1000,
+                self::INTERVAL => (float)Defaults::getMaxIntervalMilliseconds() / 1000,
                 self::CONTAINS => [
                     $frame
                 ],
             ],
             [$frame],
-            new Interval(null),
+            Interval::createDefault(),
         ];
 
         yield [

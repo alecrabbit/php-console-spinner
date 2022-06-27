@@ -5,8 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Core;
 
 use AlecRabbit\Spinner\Core\Frame\StyleFrame;
-use AlecRabbit\Tests\Spinner\TestCase;
-
+use AlecRabbit\Tests\Spinner\TestCase\TestCase;
 use TypeError;
 
 use const AlecRabbit\Cli\CSI;

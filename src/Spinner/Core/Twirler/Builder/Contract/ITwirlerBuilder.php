@@ -11,6 +11,7 @@ use AlecRabbit\Spinner\Core\Collection\Factory\Contract\IStyleFrameCollectionFac
 use AlecRabbit\Spinner\Core\Frame\Contract\ICharFrame;
 use AlecRabbit\Spinner\Core\Revolver\Contract\ICharRevolver;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IStyleRevolver;
+use AlecRabbit\Spinner\Core\Twirler\Contract\ITwirler;
 
 interface ITwirlerBuilder
 {
@@ -41,4 +42,6 @@ interface ITwirlerBuilder
     public function noLeadingSpacer(): ITwirlerBuilder;
 
     public function noTrailingSpacer(): ITwirlerBuilder;
+
+    public function build(): ITwirler;
 }

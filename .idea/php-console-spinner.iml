@@ -60,6 +60,8 @@
       <excludeFolder url="file://$MODULE_DIR$/.build" />
       <excludeFolder url="file://$MODULE_DIR$/.report" />
       <excludeFolder url="file://$MODULE_DIR$/.eval" />
+      <excludeFolder url="file://$MODULE_DIR$/src/.deprecated" />
+      <excludeFolder url="file://$MODULE_DIR$/example/.deprecated" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

@@ -7,7 +7,7 @@ namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Core;
 use AlecRabbit\Spinner\Core\Defaults;
 use AlecRabbit\Spinner\Core\Interval\Interval;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
-use AlecRabbit\Tests\Spinner\TestCase;
+use AlecRabbit\Tests\Spinner\TestCase\TestCase;
 
 use function array_key_exists;
 
@@ -49,11 +49,11 @@ class IntervalTest extends TestCase
                     self::MESSAGE =>
                         sprintf(
                             'Interval should be greater than %s.',
-                            Defaults::MILLISECONDS_MIN_INTERVAL
+                            Defaults::getMinIntervalMilliseconds()
                         ),
                 ],
             ],
-            Defaults::MILLISECONDS_MIN_INTERVAL - 10
+            Defaults::getMinIntervalMilliseconds() - 10
         ];
 
         yield [
@@ -63,11 +63,11 @@ class IntervalTest extends TestCase
                     self::MESSAGE =>
                         sprintf(
                             'Interval should be less than %s.',
-                            Defaults::MILLISECONDS_MAX_INTERVAL
+                            Defaults::getMaxIntervalMilliseconds()
                         ),
                 ],
             ],
-            Defaults::MILLISECONDS_MAX_INTERVAL + 1000
+            Defaults::getMaxIntervalMilliseconds() + 1000
         ];
     }
 
@@ -92,7 +92,7 @@ class IntervalTest extends TestCase
      */
     public function canClone(): void
     {
-        $interval = new Interval(null);
+        $interval = Interval::createDefault();
         $clone = clone $interval;
         self::assertEquals($interval->toSeconds(), $clone->toSeconds());
         self::assertEquals($clone, $interval);

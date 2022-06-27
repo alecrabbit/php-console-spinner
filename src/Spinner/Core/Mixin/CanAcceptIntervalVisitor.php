@@ -8,7 +8,7 @@ use AlecRabbit\Spinner\Core\Contract\IIntervalVisitor;
 
 trait CanAcceptIntervalVisitor
 {
-    public function accept(IIntervalVisitor $intervalVisitor): void
+    public function acceptIntervalVisitor(IIntervalVisitor $intervalVisitor): void
     {
         $this->interval = $this->interval->smallest($intervalVisitor->visit($this));
     }

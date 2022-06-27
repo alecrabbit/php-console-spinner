@@ -24,7 +24,7 @@ use AlecRabbit\Spinner\Core\Twirler\Builder\Contract\ITwirlerBuilder;
 use AlecRabbit\Spinner\Core\Twirler\Builder\TwirlerBuilder;
 use AlecRabbit\Spinner\Core\Twirler\Twirler;
 use AlecRabbit\Spinner\Exception\DomainException;
-use AlecRabbit\Tests\Spinner\TestCase;
+use AlecRabbit\Tests\Spinner\TestCase\TestCase;
 
 class TwirlerBuilderTest extends TestCase
 {
@@ -373,7 +373,7 @@ class TwirlerBuilderTest extends TestCase
         return
             StyleFrameCollection::create(
                 [StyleFrame::createEmpty()],
-                new Interval(null)
+                Interval::createDefault()
             );
     }
 
@@ -390,7 +390,7 @@ class TwirlerBuilderTest extends TestCase
         return
             CharFrameCollection::create(
                 [CharFrame::createEmpty()],
-                new Interval(null)
+                Interval::createDefault()
             );
     }
 
@@ -401,7 +401,7 @@ class TwirlerBuilderTest extends TestCase
             {
                 return StyleFrameCollection::create(
                     [StyleFrame::createEmpty()],
-                    new Interval(null),
+                    Interval::createDefault(),
                 );
             }
         };
@@ -414,7 +414,7 @@ class TwirlerBuilderTest extends TestCase
             {
                 return CharFrameCollection::create(
                     [CharFrame::createEmpty()],
-                    new Interval(null),
+                    Interval::createDefault(),
                 );
             }
         };

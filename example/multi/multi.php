@@ -5,6 +5,7 @@ declare(strict_types=1);
 // 20.06.22
 
 use AlecRabbit\Spinner\Core\Collection\CharFrameCollection;
+use AlecRabbit\Spinner\Core\Config\Builder\ConfigBuilder;
 use AlecRabbit\Spinner\Core\Contract\C;
 use AlecRabbit\Spinner\Core\Contract\CharPattern;
 use AlecRabbit\Spinner\Core\Contract\StylePattern;
@@ -12,8 +13,8 @@ use AlecRabbit\Spinner\Core\Frame\CharFrame;
 use AlecRabbit\Spinner\Core\Interval\Interval;
 use AlecRabbit\Spinner\Core\Output\StreamOutput;
 use AlecRabbit\Spinner\Core\SpinnerFactory;
+use AlecRabbit\Spinner\Core\Twirler\Contract\ITwirlerContext;
 use AlecRabbit\Spinner\Core\WidthDefiner;
-use AlecRabbit\Spinner\Kernel\Config\Builder\ConfigBuilder;
 
 require_once __DIR__ . '/../bootstrap.php';
 
@@ -24,6 +25,7 @@ $config =
     (new ConfigBuilder())
         ->inSynchronousMode()
         ->withCursor()
+        ->withInterval(new Interval(10))
         ->build()
 ;
 
@@ -74,24 +76,35 @@ $contextFour = $spinner->add($twirlerFour);
 
 $t = [];
 
+dump($spinner);
+
 $interval = (int)$spinner->getInterval()->toMicroseconds();
 
-//dump($spinner);
+dump($spinner);
 
 $spinner->initialize();
 
-$max = 200;
+$max = 2000;
+$contextToRemove = null;
 for ($i = 0; $i < $max; $i++) {
     $start = hrtime(true);
     $spinner->spin();
     $t[] = hrtime(true) - $start;
     usleep($interval);
 //    usleep(random_int(0, $interval * 4));
-    if (40 === $i) {
-        $spinner->pause();
+    if (400 === $i) {
+        $spinner->wrap(
+            $echo,
+            'Pausing spinner...'
+        );
+        $spinner->deactivate();
     }
-    if (50 === $i) {
-        $spinner->resume();
+    if (500 === $i) {
+        $spinner->wrap(
+            $echo,
+            'Resuming spinner...'
+        );
+        $spinner->activate();
     }
     if (55 === $i) {
         $spinner->add(
@@ -104,21 +117,24 @@ for ($i = 0; $i < $max; $i++) {
                                 WidthDefiner::define($m)
                             ),
                         ],
-                        new Interval(null)
+                        Interval::createDefault()
                     )
                 )
                 ->build()
         );
-        $spinner->add(
-            $twirlerBuilder
-                ->withStylePattern(StylePattern::red())
-                ->withCharPattern(
-                    [
-                        C::FRAMES => ['Another message...'],
-                    ]
-                )
-                ->build()
-        );
+        $tempTwirler = $twirlerBuilder
+            ->withStylePattern(StylePattern::red())
+            ->withCharPattern(
+                [
+                    C::FRAMES => ['Another message...'],
+                ]
+            )
+            ->build()
+        ;
+        $contextToRemove = $spinner->add($tempTwirler);
+    }
+    if (100 === $i && $contextToRemove instanceof ITwirlerContext) {
+        $spinner->remove($contextToRemove);
     }
     if (0 === $i % 5 && $i > 80) {
         $contextFour
@@ -132,7 +148,7 @@ for ($i = 0; $i < $max; $i++) {
                                     WidthDefiner::define($m)
                                 ),
                             ],
-                            new Interval(null)
+                            Interval::createDefault()
                         )
                     )
                     ->build()
@@ -154,9 +170,12 @@ for ($i = 0; $i < $max; $i++) {
         ;
     }
     if (80 === $i) {
-        $contextOne->setTwirler($contextFour->twirler);
+        $contextOne->setTwirler($contextFour->getTwirler());
     }
 
+    if ($i > 100 && $i % 100 === 0) {
+        dump($spinner);
+    }
     if ($i > 10 && $i % 20 === 0) {
         $spinner->wrap(
             $echo,

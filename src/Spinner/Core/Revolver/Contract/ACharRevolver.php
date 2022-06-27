@@ -17,7 +17,6 @@ abstract class ACharRevolver extends ARevolver implements ICharRevolver
 
     public function next(): ICharFrame
     {
-        return $this->collection->next();
+        return parent::next();
     }
-
 }
