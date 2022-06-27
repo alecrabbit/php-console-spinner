@@ -93,16 +93,28 @@ abstract class AContainer implements IContainer
 
     public function spinner(ITwirler $twirler): void
     {
+        $this->assertIsNotMulti();
         $this->add($twirler);
     }
 
     public function progress(ITwirler $twirler): void
     {
+        $this->assertIsNotMulti();
         $this->add($twirler);
     }
 
     public function message(ITwirler $twirler): void
     {
+        $this->assertIsNotMulti();
         $this->add($twirler);
+    }
+
+    private function assertIsNotMulti(): void
+    {
+        if ($this->isMulti()) {
+            throw new \RuntimeException(
+                sprintf('%s is a multi-spinner', static::class),
+            );
+        }
     }
 }
