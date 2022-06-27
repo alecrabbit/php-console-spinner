@@ -335,25 +335,9 @@ final class ConfigBuilder implements IConfigBuilder
                     $this->charProvider,
                 );
         }
-        if (null === $this->twirlerFactory) {
-            $this->twirlerFactory =
-                new TwirlerFactory(
-                    new StyleRevolverFactory($this->styleFrameCollectionFactory),
-                    new CharRevolverFactory($this->charFrameCollectionFactory),
-
-                );
-        }
 
         if (null === $this->intervalVisitor) {
             $this->intervalVisitor = new IntervalVisitor();
-        }
-
-        if (null === $this->containerFactory) {
-            $this->containerFactory =
-                new TwirlerContainerFactory(
-                    $this->interval,
-                    $this->intervalVisitor,
-                );
         }
 
         if (null === $this->twirlerBuilder) {
@@ -364,8 +348,28 @@ final class ConfigBuilder implements IConfigBuilder
                 );
         }
 
+        if (null === $this->twirlerFactory) {
+            $this->twirlerFactory =
+                new TwirlerFactory(
+                    $this->twirlerBuilder,
+                );
+        }
+
+        if (null === $this->containerFactory) {
+            $this->containerFactory =
+                new TwirlerContainerFactory(
+                    $this->interval,
+                    $this->intervalVisitor,
+                    $this->twirlerFactory,
+                );
+        }
+
+        if (null === $this->asMultiSpinner) {
+            $this->asMultiSpinner = false;
+        }
+
         if (null === $this->container) {
-            $this->container = $this->containerFactory->createContainer();
+            $this->container = $this->containerFactory->createContainer($this->asMultiSpinner);
         }
     }
 

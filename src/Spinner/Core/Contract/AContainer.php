@@ -12,6 +12,7 @@ use AlecRabbit\Spinner\Core\Mixin\CanAcceptIntervalVisitor;
 use AlecRabbit\Spinner\Core\Mixin\HasMethodGetInterval;
 use AlecRabbit\Spinner\Core\Twirler\Contract\ITwirler;
 use AlecRabbit\Spinner\Core\Twirler\Contract\ITwirlerContext;
+use AlecRabbit\Spinner\Core\Twirler\Factory\Contract\ITwirlerFactory;
 use AlecRabbit\Spinner\Core\Twirler\TwirlerContext;
 use WeakMap;
 
@@ -30,6 +31,7 @@ abstract class AContainer implements IContainer
     public function __construct(
         protected IInterval $interval,
         protected readonly IIntervalVisitor $intervalVisitor,
+        protected readonly bool $isMulti,
     ) {
         $this->cycle = new Cycle(1);
         $this->contextsMap = new WeakMap();
@@ -82,5 +84,25 @@ abstract class AContainer implements IContainer
     public function getCycleVisitor(): ICycleVisitor
     {
         return new CycleVisitor($this->interval);
+    }
+
+    public function isMulti(): bool
+    {
+        return $this->isMulti;
+    }
+
+    public function spinner(ITwirler $twirler): void
+    {
+        $this->add($twirler);
+    }
+
+    public function progress(ITwirler $twirler): void
+    {
+        $this->add($twirler);
+    }
+
+    public function message(ITwirler $twirler): void
+    {
+        $this->add($twirler);
     }
 }
