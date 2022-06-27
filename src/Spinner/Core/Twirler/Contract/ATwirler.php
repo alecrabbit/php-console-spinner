@@ -33,7 +33,7 @@ abstract class ATwirler implements ITwirler
         protected readonly ICharFrame $leadingSpacer,
         protected readonly ICharFrame $trailingSpacer,
     ) {
-        $this->interval = new Interval(null);
+        $this->interval = Interval::createDefault();
         $this->cycle = new Cycle(1);
     }
 

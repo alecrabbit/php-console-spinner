@@ -53,6 +53,7 @@ final class ConfigBuilder implements IConfigBuilder
 {
     private ?ILoop $loop = null;
     private ?bool $hideCursor = null;
+    private ?bool $asMultiSpinner = null;
     private ?IDriver $driver = null;
     private ?IContainer $container = null;
     private ?IIntervalVisitor $intervalVisitor = null;
@@ -200,6 +201,34 @@ final class ConfigBuilder implements IConfigBuilder
         return $clone;
     }
 
+    public function withContainer(IContainer $container): self
+    {
+        $clone = clone $this;
+        $clone->container = $container;
+        return $clone;
+    }
+
+    public function withIntervalVisitor(IIntervalVisitor $intervalVisitor): self
+    {
+        $clone = clone $this;
+        $clone->intervalVisitor = $intervalVisitor;
+        return $clone;
+    }
+
+    public function withInterval(IInterval $interval): self
+    {
+        $clone = clone $this;
+        $clone->interval = $interval;
+        return $clone;
+    }
+
+    public function asMultiSpinner(): self
+    {
+        $clone = clone $this;
+        $clone->asMultiSpinner = true;
+        return $clone;
+    }
+
     /**
      * @throws LogicException
      * @throws InvalidArgumentException
@@ -290,7 +319,7 @@ final class ConfigBuilder implements IConfigBuilder
         }
 
         if (null === $this->interval) {
-            $this->interval = new Interval(null);
+            $this->interval = Interval::createDefault();
         }
 
         if (null === $this->styleFrameCollectionFactory) {

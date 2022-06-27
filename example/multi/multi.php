@@ -25,6 +25,7 @@ $config =
     (new ConfigBuilder())
         ->inSynchronousMode()
         ->withCursor()
+        ->withInterval(new Interval(10))
         ->build()
 ;
 
@@ -116,7 +117,7 @@ for ($i = 0; $i < $max; $i++) {
                                 WidthDefiner::define($m)
                             ),
                         ],
-                        new Interval(null)
+                        Interval::createDefault()
                     )
                 )
                 ->build()
@@ -147,7 +148,7 @@ for ($i = 0; $i < $max; $i++) {
                                     WidthDefiner::define($m)
                                 ),
                             ],
-                            new Interval(null)
+                            Interval::createDefault()
                         )
                     )
                     ->build()

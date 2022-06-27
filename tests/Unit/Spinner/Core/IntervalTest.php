@@ -92,7 +92,7 @@ class IntervalTest extends TestCase
      */
     public function canClone(): void
     {
-        $interval = new Interval(null);
+        $interval = Interval::createDefault();
         $clone = clone $interval;
         self::assertEquals($interval->toSeconds(), $clone->toSeconds());
         self::assertEquals($clone, $interval);

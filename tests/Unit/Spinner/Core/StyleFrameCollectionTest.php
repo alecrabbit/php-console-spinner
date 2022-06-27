@@ -33,7 +33,7 @@ class StyleFrameCollectionTest extends TestCase
                 ],
             ],
             [$frame],
-            new Interval(null),
+            Interval::createDefault(),
         ];
 
         yield [

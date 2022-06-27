@@ -33,7 +33,7 @@ class StyleProviderTest extends TestCase
                     C::FRAMES => [
                         StyleFrame::createEmpty(),
                     ],
-                    C::INTERVAL => new Interval(null),
+                    C::INTERVAL => Interval::createDefault(),
                 ],
             ],
             [
@@ -48,7 +48,7 @@ class StyleProviderTest extends TestCase
                     C::FRAMES => [
                         new StyleFrame(CSI . '96m', RESET),
                     ],
-                    C::INTERVAL => new Interval(null),
+                    C::INTERVAL => Interval::createDefault(),
                 ],
             ],
             [

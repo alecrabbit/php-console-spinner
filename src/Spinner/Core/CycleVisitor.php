@@ -12,7 +12,7 @@ use AlecRabbit\Spinner\Core\Interval\Interval;
 final class CycleVisitor implements ICycleVisitor // Tentative class name
 {
     public function __construct(
-        protected readonly IInterval $interval = new Interval(null),
+        protected readonly IInterval $interval = Interval::createDefault(),
     ) {
     }
 

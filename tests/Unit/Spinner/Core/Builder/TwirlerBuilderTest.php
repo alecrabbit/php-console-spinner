@@ -373,7 +373,7 @@ class TwirlerBuilderTest extends TestCase
         return
             StyleFrameCollection::create(
                 [StyleFrame::createEmpty()],
-                new Interval(null)
+                Interval::createDefault()
             );
     }
 
@@ -390,7 +390,7 @@ class TwirlerBuilderTest extends TestCase
         return
             CharFrameCollection::create(
                 [CharFrame::createEmpty()],
-                new Interval(null)
+                Interval::createDefault()
             );
     }
 
@@ -401,7 +401,7 @@ class TwirlerBuilderTest extends TestCase
             {
                 return StyleFrameCollection::create(
                     [StyleFrame::createEmpty()],
-                    new Interval(null),
+                    Interval::createDefault(),
                 );
             }
         };
@@ -414,7 +414,7 @@ class TwirlerBuilderTest extends TestCase
             {
                 return CharFrameCollection::create(
                     [CharFrame::createEmpty()],
-                    new Interval(null),
+                    Interval::createDefault(),
                 );
             }
         };
