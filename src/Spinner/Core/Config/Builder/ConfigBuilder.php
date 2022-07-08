@@ -31,8 +31,6 @@ use AlecRabbit\Spinner\Core\Interval\Interval;
 use AlecRabbit\Spinner\Core\IntervalVisitor;
 use AlecRabbit\Spinner\Core\LoopFactory;
 use AlecRabbit\Spinner\Core\Output\StreamOutput;
-use AlecRabbit\Spinner\Core\Revolver\Factory\CharRevolverFactory;
-use AlecRabbit\Spinner\Core\Revolver\Factory\StyleRevolverFactory;
 use AlecRabbit\Spinner\Core\StylePatternExtractor;
 use AlecRabbit\Spinner\Core\StyleProvider;
 use AlecRabbit\Spinner\Core\Twirler\Builder\Contract\ITwirlerBuilder;
@@ -46,7 +44,6 @@ use AlecRabbit\Spinner\Core\Writer;
 use AlecRabbit\Spinner\Exception\DomainException;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Exception\LogicException;
-
 use AlecRabbit\Spinner\MultiSpinner;
 use AlecRabbit\Spinner\Spinner;
 
