@@ -27,11 +27,4 @@ abstract class ASpinnerFactory implements ISpinnerFactory
         $config = self::refineConfig($config);
         return new MultiSpinner($config);
     }
-
-    private static function doCreate(?IConfig $config): IBaseSpinner
-    {
-        $config = self::refineConfig($config);
-        $type = $config->getType();
-        return new $type($config);
-    }
 }
