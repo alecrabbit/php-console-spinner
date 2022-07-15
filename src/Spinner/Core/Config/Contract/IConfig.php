@@ -18,8 +18,6 @@ interface IConfig
 
     public function isSynchronous(): bool;
 
-    public function getType(): string;
-
     public function getLoop(): ILoop;
 
     public function getShutdownDelay(): int|float;

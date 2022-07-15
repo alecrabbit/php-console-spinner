@@ -13,7 +13,8 @@ abstract class ASpinnerFactory implements ISpinnerFactory
 {
     public static function create(?IConfig $config = null): ISpinner
     {
-        return self::doCreate($config);
+        $config = self::refineConfig($config);
+        return new Spinner($config);
     }
 
     private static function refineConfig(?IConfig $config): IConfig
@@ -23,7 +24,8 @@ abstract class ASpinnerFactory implements ISpinnerFactory
 
     public static function createMulti(IConfig $config = null): IMultiSpinner
     {
-        return self::doCreate($config);
+        $config = self::refineConfig($config);
+        return new MultiSpinner($config);
     }
 
     private static function doCreate(?IConfig $config): IBaseSpinner

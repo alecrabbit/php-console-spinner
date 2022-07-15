@@ -24,7 +24,6 @@ final class Config implements IConfig
     public function __construct(
         private readonly IDriver $driver,
         private readonly IContainer $container,
-        private readonly string $type,
         private readonly ITwirlerFactory $twirlerFactory,
         private readonly ITwirlerBuilder $twirlerBuilder,
         private readonly IStyleFrameCollectionFactory $styleFrameCollectionFactory,
@@ -214,10 +213,5 @@ final class Config implements IConfig
     public function getTwirlerBuilder(): ITwirlerBuilder
     {
         return $this->twirlerBuilder;
-    }
-
-    public function getType(): string
-    {
-        return $this->type;
     }
 }

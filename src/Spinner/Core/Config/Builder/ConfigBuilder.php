@@ -54,7 +54,6 @@ final class ConfigBuilder implements IConfigBuilder
     private ?ILoop $loop = null;
     private ?bool $hideCursor = null;
     private ?bool $asMultiSpinner = null;
-    private ?string $type = Spinner::class;
     private ?IDriver $driver = null;
     private ?IContainer $container = null;
     private ?IIntervalVisitor $intervalVisitor = null;
@@ -223,13 +222,13 @@ final class ConfigBuilder implements IConfigBuilder
         return $clone;
     }
 
-    public function asMultiSpinner(): self
-    {
-        $clone = clone $this;
-        $clone->asMultiSpinner = true;
-        $clone->type = MultiSpinner::class;
-        return $clone;
-    }
+//    public function asMultiSpinner(): self
+//    {
+//        $clone = clone $this;
+//        $clone->asMultiSpinner = true;
+//        $clone->type = MultiSpinner::class;
+//        return $clone;
+//    }
 
     /**
      * @throws LogicException
@@ -243,7 +242,6 @@ final class ConfigBuilder implements IConfigBuilder
             new Config(
                 driver: $this->driver,
                 container: $this->container,
-                type: $this->type,
                 twirlerFactory: $this->twirlerFactory,
                 twirlerBuilder: $this->twirlerBuilder,
                 styleFrameCollectionFactory: $this->styleFrameCollectionFactory,
