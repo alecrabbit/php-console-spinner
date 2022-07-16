@@ -33,7 +33,7 @@ _docker_up_attached: _title
 	@${_ECHO} "\n${_C_INFO} Starting containers...${_C_STOP}\n";
 	@${_DC_STACK} up
 
-_docker_logs: c="📔 Logs"
+_docker_logs: c="${PROJECT_SHORT_TITLE} 📔 Logs"
 _docker_logs: _title
 	@-${_DC_STACK} logs --tail=0 --follow
 	@${_ECHO} "\n${_C_WARNING} Logs exited...${_C_STOP}\n";
@@ -44,6 +44,7 @@ _docker_ps:
 	@${_ECHO} "\n";
 
 _docker_config:
+	@${_ECHO} "\n${_C_INFO} Docker-compose config...${_C_STOP}\n";
 	@${_DOCKER_COMP} ${_FILES} config
 
 _docker_generate_stack:
