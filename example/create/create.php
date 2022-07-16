@@ -5,6 +5,7 @@ declare(strict_types=1);
 // 20.06.22
 
 use AlecRabbit\Spinner\Core\Config\Builder\ConfigBuilder;
+use AlecRabbit\Spinner\Core\Defaults;
 use AlecRabbit\Spinner\Core\Output\StreamOutput;
 use AlecRabbit\Spinner\Core\SpinnerFactory;
 
@@ -30,6 +31,8 @@ $spinner->initialize();
 
 dump($interval);
 
+Defaults::setProgressFormat('%0.3f %%');
+
 $max = 200;
 $spinner->progress(0);
 
@@ -47,11 +50,17 @@ for ($i = 0; $i < $max; $i++) {
             )
         );
     }
-    if ($i > 30 && $i % 25 === 0) {
+    if ($i > 10 && $i % 25 === 0) {
         $spinner->progress($i / $max);
 //        dump($spinner);
     }
 }
+$spinner->progress(1);
+$spinner->spin();
+sleep(1);
+$spinner->progress(null);
+$spinner->spin();
+sleep(1);
 
 $spinner->finalize();
 
