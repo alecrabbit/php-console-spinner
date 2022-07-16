@@ -24,7 +24,7 @@ $spinner = SpinnerFactory::create($config);
 
 $t = [];
 
-$interval = 100000; // (int)$spinner->getInterval()->toMicroseconds();
+$interval = (int)$spinner->getInterval()->toMicroseconds();
 
 $spinner->initialize();
 
@@ -46,6 +46,7 @@ for ($i = 0; $i < 200; $i++) {
     }
     if ($i > 30 && $i % 25 === 0) {
         $spinner->progress('99.9%');
+//        dump($spinner);
     }
 }
 

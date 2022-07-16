@@ -27,6 +27,8 @@ abstract class AContainer implements IContainer
     protected WeakMap $contextsMap;
     protected Cycle $cycle;
     protected int $index = 0;
+    protected ?ITwirlerContext $progressContext = null;
+    protected ?ITwirlerContext $messageContext = null ;
 
     public function __construct(
         protected IInterval $interval,
@@ -88,7 +90,7 @@ abstract class AContainer implements IContainer
     {
         if ($this->isMulti()) {
             throw new RuntimeException(
-                sprintf('%s is a multi-spinner', static::class),
+                sprintf('%s is a multi-spinner container', static::class),
             );
         }
     }
@@ -109,12 +111,24 @@ abstract class AContainer implements IContainer
     public function progress(ITwirler $twirler): void
     {
         $this->assertIsNotMulti();
-        $this->add($twirler);
+        dump($this->progressContext);
+        if ($this->progressContext === null) {
+            $this->progressContext = $this->add($twirler);
+            return;
+        }
+        dump($this->progressContext);
+        $this->progressContext->setTwirler($twirler);
     }
 
     public function message(ITwirler $twirler): void
     {
         $this->assertIsNotMulti();
-        $this->add($twirler);
+        dump($this->messageContext);
+        if ($this->messageContext === null) {
+            $this->messageContext = $this->add($twirler);
+            return;
+        }
+        dump($this->messageContext);
+        $this->messageContext->setTwirler($twirler);
     }
 }
