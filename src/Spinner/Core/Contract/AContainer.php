@@ -27,6 +27,7 @@ abstract class AContainer implements IContainer
     protected WeakMap $contextsMap;
     protected Cycle $cycle;
     protected int $index = 0;
+    protected ?ITwirlerContext $spinnerContext = null ;
     protected ?ITwirlerContext $progressContext = null;
     protected ?ITwirlerContext $messageContext = null ;
 
@@ -83,7 +84,11 @@ abstract class AContainer implements IContainer
     public function spinner(ITwirler $twirler): void
     {
         $this->assertIsNotMulti();
-        $this->add($twirler);
+        if ($this->spinnerContext === null) {
+            $this->spinnerContext = $this->add($twirler);
+            return;
+        }
+        $this->spinnerContext->setTwirler($twirler);
     }
 
     private function assertIsNotMulti(): void
@@ -111,24 +116,20 @@ abstract class AContainer implements IContainer
     public function progress(ITwirler $twirler): void
     {
         $this->assertIsNotMulti();
-        dump($this->progressContext);
         if ($this->progressContext === null) {
             $this->progressContext = $this->add($twirler);
             return;
         }
-        dump($this->progressContext);
         $this->progressContext->setTwirler($twirler);
     }
 
     public function message(ITwirler $twirler): void
     {
         $this->assertIsNotMulti();
-        dump($this->messageContext);
         if ($this->messageContext === null) {
             $this->messageContext = $this->add($twirler);
             return;
         }
-        dump($this->messageContext);
         $this->messageContext->setTwirler($twirler);
     }
 }
