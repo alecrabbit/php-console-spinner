@@ -12,8 +12,8 @@ use AlecRabbit\Spinner\Core\Mixin\CanAcceptIntervalVisitor;
 use AlecRabbit\Spinner\Core\Mixin\HasMethodGetInterval;
 use AlecRabbit\Spinner\Core\Twirler\Contract\ITwirler;
 use AlecRabbit\Spinner\Core\Twirler\Contract\ITwirlerContext;
-use AlecRabbit\Spinner\Core\Twirler\Factory\Contract\ITwirlerFactory;
 use AlecRabbit\Spinner\Core\Twirler\TwirlerContext;
+use RuntimeException;
 use WeakMap;
 
 abstract class AContainer implements IContainer
@@ -35,14 +35,6 @@ abstract class AContainer implements IContainer
     ) {
         $this->cycle = new Cycle(1);
         $this->contextsMap = new WeakMap();
-    }
-
-    public function add(ITwirler $twirler): ITwirlerContext
-    {
-        $context = new TwirlerContext($twirler);
-        $this->contexts[$this->index] = $context;
-        $this->contextsMap[$context] = $this->index++;
-        return $context;
     }
 
     public function remove(ITwirlerContext|ITwirler $element): void
@@ -86,15 +78,32 @@ abstract class AContainer implements IContainer
         return new CycleVisitor($this->interval);
     }
 
+    public function spinner(ITwirler $twirler): void
+    {
+        $this->assertIsNotMulti();
+        $this->add($twirler);
+    }
+
+    private function assertIsNotMulti(): void
+    {
+        if ($this->isMulti()) {
+            throw new RuntimeException(
+                sprintf('%s is a multi-spinner', static::class),
+            );
+        }
+    }
+
     public function isMulti(): bool
     {
         return $this->isMulti;
     }
 
-    public function spinner(ITwirler $twirler): void
+    public function add(ITwirler $twirler): ITwirlerContext
     {
-        $this->assertIsNotMulti();
-        $this->add($twirler);
+        $context = new TwirlerContext($twirler);
+        $this->contexts[$this->index] = $context;
+        $this->contextsMap[$context] = $this->index++;
+        return $context;
     }
 
     public function progress(ITwirler $twirler): void
@@ -107,14 +116,5 @@ abstract class AContainer implements IContainer
     {
         $this->assertIsNotMulti();
         $this->add($twirler);
-    }
-
-    private function assertIsNotMulti(): void
-    {
-        if ($this->isMulti()) {
-            throw new \RuntimeException(
-                sprintf('%s is a multi-spinner', static::class),
-            );
-        }
     }
 }

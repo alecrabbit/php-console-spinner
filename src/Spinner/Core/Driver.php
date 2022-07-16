@@ -7,7 +7,6 @@ namespace AlecRabbit\Spinner\Core;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\IRenderer;
 use AlecRabbit\Spinner\Core\Contract\IWriter;
-use AlecRabbit\Spinner\Core\Frame\Contract\ICharFrame;
 
 use const AlecRabbit\Cli\TERM_256COLOR;
 

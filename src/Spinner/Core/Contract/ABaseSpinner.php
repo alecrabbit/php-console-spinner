@@ -65,7 +65,13 @@ abstract class ABaseSpinner implements IBaseSpinner, IIntervalComponent
     public function initialize(): void
     {
         $this->driver->hideCursor();
-        $this->activate();    }
+        $this->activate();
+    }
+
+    public function activate(): void
+    {
+        $this->active = true;
+    }
 
     public function wrap(callable $callback, ...$args): void
     {
@@ -112,11 +118,6 @@ abstract class ABaseSpinner implements IBaseSpinner, IIntervalComponent
     {
         $this->erase();
         $this->active = false;
-    }
-
-    public function activate(): void
-    {
-        $this->active = true;
     }
 
     public function finalize(): void

@@ -7,7 +7,6 @@ namespace AlecRabbit\Spinner\Core;
 use AlecRabbit\Spinner\Core\Contract\ADefaults;
 use AlecRabbit\Spinner\Core\Contract\CharPattern;
 use AlecRabbit\Spinner\Core\Contract\StylePattern;
-
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 
 use const AlecRabbit\Cli\ALLOWED_TERM_COLOR;
@@ -81,6 +80,11 @@ final class Defaults extends ADefaults
         return self::$defaultCharPattern;
     }
 
+    public static function setDefaultCharPattern(array $char): void
+    {
+        self::$defaultCharPattern = $char;
+    }
+
     public static function getDefaultStylePattern(): array
     {
         if (null === self::$defaultStylePattern) {
@@ -92,11 +96,6 @@ final class Defaults extends ADefaults
     public static function setDefaultStylePattern(array $style): void
     {
         self::$defaultStylePattern = $style;
-    }
-
-    public static function setDefaultCharPattern(array $char): void
-    {
-        self::$defaultCharPattern = $char;
     }
 
     public static function getFinalMessage(): string

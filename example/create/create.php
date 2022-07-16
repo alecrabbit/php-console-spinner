@@ -44,6 +44,9 @@ for ($i = 0; $i < 200; $i++) {
             )
         );
     }
+    if ($i > 30 && $i % 25 === 0) {
+        $spinner->progress('99.9%');
+    }
 }
 
 $spinner->finalize();

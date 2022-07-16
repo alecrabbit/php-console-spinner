@@ -44,8 +44,6 @@ use AlecRabbit\Spinner\Core\Writer;
 use AlecRabbit\Spinner\Exception\DomainException;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Exception\LogicException;
-use AlecRabbit\Spinner\MultiSpinner;
-use AlecRabbit\Spinner\Spinner;
 
 use const STDERR;
 

@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 // 15.07.22
 namespace AlecRabbit\Spinner\Core\Contract;

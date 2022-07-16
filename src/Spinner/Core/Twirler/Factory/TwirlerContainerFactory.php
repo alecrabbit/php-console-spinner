@@ -40,10 +40,10 @@ final class TwirlerContainerFactory implements ITwirlerContainerFactory
             $this->twirlerFactory->spinner(),
         );
         $container->message(
-            $this->twirlerFactory->message(),
+            $this->twirlerFactory->message(null),
         );
         $container->progress(
-            $this->twirlerFactory->progress(),
+            $this->twirlerFactory->progress(null),
         );
     }
 }
