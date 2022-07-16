@@ -7,11 +7,13 @@ namespace AlecRabbit\Spinner\Core\Twirler\Factory\Contract;
 use AlecRabbit\Spinner\Core\Collection\CharFrameCollection;
 use AlecRabbit\Spinner\Core\Contract\CharPattern;
 use AlecRabbit\Spinner\Core\Contract\StylePattern;
+use AlecRabbit\Spinner\Core\Defaults;
 use AlecRabbit\Spinner\Core\Frame\CharFrame;
 use AlecRabbit\Spinner\Core\Interval\Interval;
 use AlecRabbit\Spinner\Core\Twirler\Builder\Contract\ITwirlerBuilder;
 use AlecRabbit\Spinner\Core\Twirler\Contract\ITwirler;
 use AlecRabbit\Spinner\Core\WidthDefiner;
+use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 
 abstract class ATwirlerFactory implements ITwirlerFactory
 {
@@ -51,10 +53,11 @@ abstract class ATwirlerFactory implements ITwirlerFactory
     public function progress(string|float|null $value): ITwirler
     {
         if (is_float($value)) {
-            $value = sprintf('%0.2f%%', $value);
+            self::assertValue($value);
+            $value = sprintf(Defaults::getProgressFormat(), $value * 100);
         }
 
-        if($value === null) {
+        if ($value === null) {
             $value = '';
         }
         $charFrame = CharFrame::create(
@@ -71,6 +74,15 @@ abstract class ATwirlerFactory implements ITwirlerFactory
                         Interval::createDefault()
                     )
                 )->build();
+    }
+
+    private static function assertValue(float $value): void
+    {
+        if ($value < 0 || $value > 1) {
+            throw new InvalidArgumentException(
+                'Progress value must be between 0 and 1, ' . $value . ' given.'
+            );
+        }
     }
 
 }

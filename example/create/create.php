@@ -30,7 +30,10 @@ $spinner->initialize();
 
 dump($interval);
 
-for ($i = 0; $i < 200; $i++) {
+$max = 200;
+$spinner->progress(0);
+
+for ($i = 0; $i < $max; $i++) {
     $start = hrtime(true);
     $spinner->spin();
     $t[] = hrtime(true) - $start;
@@ -45,7 +48,7 @@ for ($i = 0; $i < 200; $i++) {
         );
     }
     if ($i > 30 && $i % 25 === 0) {
-        $spinner->progress('99.9%');
+        $spinner->progress($i / $max);
 //        dump($spinner);
     }
 }

@@ -20,6 +20,7 @@ abstract class ADefaults
     final protected const MILLISECONDS_MAX_INTERVAL = 1000000;
     final protected const HIDE_CURSOR = true;
     final protected const SYNCHRONOUS_MODE = false;
+    final protected const PROGRESS_FORMAT = '%0.0f%%';
 
     protected function __construct()
     {
