@@ -12,6 +12,22 @@ use Symfony\Component\VarDumper\Dumper\HtmlDumper;
 use Symfony\Component\VarDumper\Dumper\ServerDumper;
 use Symfony\Component\VarDumper\VarDumper;
 
+$cloner = new VarCloner();
+
+$dumper = new ServerDumper(getHost(), getFallbackDumper(), [
+    'cli' => new CliContextProvider(),
+    'source' => new SourceContextProvider(),
+]);
+
+VarDumper::setHandler(static function ($var) use ($cloner, $dumper) {
+    $dumper->dump($cloner->cloneVar($var));
+});
+
+function getFallbackDumper(): HtmlDumper|CliDumper
+{
+    return \in_array(\PHP_SAPI, ['cli', 'phpdbg']) ? new CliDumper() : new HtmlDumper();
+}
+
 function getAddress(false|string $srv): string
 {
     return
@@ -20,14 +36,7 @@ function getAddress(false|string $srv): string
             : sprintf('tcp://%s', $srv);
 }
 
-$cloner = new VarCloner();
-$fallbackDumper = \in_array(\PHP_SAPI, ['cli', 'phpdbg']) ? new CliDumper() : new HtmlDumper();
-
-$dumper = new ServerDumper(getAddress(getenv('VAR_DUMPER_SERVER')), $fallbackDumper, [
-    'cli' => new CliContextProvider(),
-    'source' => new SourceContextProvider(),
-]);
-
-VarDumper::setHandler(static function ($var) use ($cloner, $dumper) {
-    $dumper->dump($cloner->cloneVar($var));
-});
+function getHost(): string
+{
+    return getAddress(getenv('VAR_DUMPER_SERVER'));
+}
