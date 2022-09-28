@@ -13,6 +13,7 @@ use AlecRabbit\Spinner\Core\Mixin\HasMethodGetInterval;
 use AlecRabbit\Spinner\Core\Twirler\Contract\ITwirler;
 use AlecRabbit\Spinner\Core\Twirler\Contract\ITwirlerContext;
 use AlecRabbit\Spinner\Core\Twirler\TwirlerContext;
+use RuntimeException;
 use WeakMap;
 
 abstract class AContainer implements IContainer
@@ -26,21 +27,17 @@ abstract class AContainer implements IContainer
     protected WeakMap $contextsMap;
     protected Cycle $cycle;
     protected int $index = 0;
+    protected ?ITwirlerContext $spinnerContext = null ;
+    protected ?ITwirlerContext $progressContext = null;
+    protected ?ITwirlerContext $messageContext = null ;
 
     public function __construct(
         protected IInterval $interval,
         protected readonly IIntervalVisitor $intervalVisitor,
+        protected readonly bool $isMulti,
     ) {
         $this->cycle = new Cycle(1);
         $this->contextsMap = new WeakMap();
-    }
-
-    public function add(ITwirler $twirler): ITwirlerContext
-    {
-        $context = new TwirlerContext($twirler);
-        $this->contexts[$this->index] = $context;
-        $this->contextsMap[$context] = $this->index++;
-        return $context;
     }
 
     public function remove(ITwirlerContext|ITwirler $element): void
@@ -82,5 +79,57 @@ abstract class AContainer implements IContainer
     public function getCycleVisitor(): ICycleVisitor
     {
         return new CycleVisitor($this->interval);
+    }
+
+    public function spinner(ITwirler $twirler): void
+    {
+        $this->assertIsNotMulti();
+        if ($this->spinnerContext === null) {
+            $this->spinnerContext = $this->add($twirler);
+            return;
+        }
+        $this->spinnerContext->setTwirler($twirler);
+    }
+
+    private function assertIsNotMulti(): void
+    {
+        if ($this->isMulti()) {
+            throw new RuntimeException(
+                sprintf('%s is a multi-spinner container', static::class),
+            );
+        }
+    }
+
+    public function isMulti(): bool
+    {
+        return $this->isMulti;
+    }
+
+    public function add(ITwirler $twirler): ITwirlerContext
+    {
+        $context = new TwirlerContext($twirler);
+        $this->contexts[$this->index] = $context;
+        $this->contextsMap[$context] = $this->index++;
+        return $context;
+    }
+
+    public function progress(ITwirler $twirler): void
+    {
+        $this->assertIsNotMulti();
+        if ($this->progressContext === null) {
+            $this->progressContext = $this->add($twirler);
+            return;
+        }
+        $this->progressContext->setTwirler($twirler);
+    }
+
+    public function message(ITwirler $twirler): void
+    {
+        $this->assertIsNotMulti();
+        if ($this->messageContext === null) {
+            $this->messageContext = $this->add($twirler);
+            return;
+        }
+        $this->messageContext->setTwirler($twirler);
     }
 }

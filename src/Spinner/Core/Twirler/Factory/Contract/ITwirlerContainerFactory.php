@@ -8,5 +8,5 @@ use AlecRabbit\Spinner\Core\Contract\IContainer;
 
 interface ITwirlerContainerFactory
 {
-    public function createContainer(): IContainer;
+    public function createContainer(bool $asMulti): IContainer;
 }

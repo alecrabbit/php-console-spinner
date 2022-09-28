@@ -7,7 +7,6 @@ namespace AlecRabbit\Spinner\Core;
 use AlecRabbit\Spinner\Core\Contract\ADefaults;
 use AlecRabbit\Spinner\Core\Contract\CharPattern;
 use AlecRabbit\Spinner\Core\Contract\StylePattern;
-
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 
 use const AlecRabbit\Cli\ALLOWED_TERM_COLOR;
@@ -23,6 +22,7 @@ final class Defaults extends ADefaults
     private static string $finalMessage = self::FINAL_MESSAGE;
     private static string $messageOnExit = self::MESSAGE_ON_EXIT;
     private static string $interruptMessage = self::MESSAGE_INTERRUPTED;
+    private static string $progressFormat = self::PROGRESS_FORMAT;
 
     private static array $colorSupportLevels = self::COLOR_SUPPORT_LEVELS;
     private static ?array $defaultStylePattern = null;
@@ -81,6 +81,11 @@ final class Defaults extends ADefaults
         return self::$defaultCharPattern;
     }
 
+    public static function setDefaultCharPattern(array $char): void
+    {
+        self::$defaultCharPattern = $char;
+    }
+
     public static function getDefaultStylePattern(): array
     {
         if (null === self::$defaultStylePattern) {
@@ -92,11 +97,6 @@ final class Defaults extends ADefaults
     public static function setDefaultStylePattern(array $style): void
     {
         self::$defaultStylePattern = $style;
-    }
-
-    public static function setDefaultCharPattern(array $char): void
-    {
-        self::$defaultCharPattern = $char;
     }
 
     public static function getFinalMessage(): string
@@ -154,5 +154,15 @@ final class Defaults extends ADefaults
             }
         }
         self::$colorSupportLevels = $colorSupportLevels;
+    }
+
+    public static function getProgressFormat(): string
+    {
+        return self::$progressFormat;
+    }
+
+    public static function setProgressFormat(string $progressFormat): void
+    {
+        self::$progressFormat = $progressFormat;
     }
 }

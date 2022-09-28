@@ -5,6 +5,7 @@ declare(strict_types=1);
 // 20.06.22
 
 use AlecRabbit\Spinner\Core\Config\Builder\ConfigBuilder;
+use AlecRabbit\Spinner\Core\Defaults;
 use AlecRabbit\Spinner\Core\Output\StreamOutput;
 use AlecRabbit\Spinner\Core\SpinnerFactory;
 
@@ -24,13 +25,18 @@ $spinner = SpinnerFactory::create($config);
 
 $t = [];
 
-$interval = 100000; // (int)$spinner->getInterval()->toMicroseconds();
+$interval = (int)$spinner->getInterval()->toMicroseconds();
 
 $spinner->initialize();
 
 dump($interval);
 
-for ($i = 0; $i < 200; $i++) {
+Defaults::setProgressFormat('%0.3f %%');
+
+$max = 200;
+$spinner->progress(0);
+
+for ($i = 0; $i < $max; $i++) {
     $start = hrtime(true);
     $spinner->spin();
     $t[] = hrtime(true) - $start;
@@ -44,7 +50,17 @@ for ($i = 0; $i < 200; $i++) {
             )
         );
     }
+    if ($i > 10 && $i % 25 === 0) {
+        $spinner->progress($i / $max);
+//        dump($spinner);
+    }
 }
+$spinner->progress(1);
+$spinner->spin();
+sleep(1);
+$spinner->progress(null);
+$spinner->spin();
+sleep(1);
 
 $spinner->finalize();
 

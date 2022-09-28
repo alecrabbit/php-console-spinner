@@ -18,4 +18,10 @@ interface IContainer extends IIntervalComponent
     public function add(ITwirler $twirler): ITwirlerContext;
 
     public function remove(ITwirlerContext|ITwirler $element): void;
+
+    public function spinner(ITwirler $twirler): void;
+
+    public function progress(ITwirler $twirler): void;
+
+    public function message(ITwirler $twirler): void;
 }
