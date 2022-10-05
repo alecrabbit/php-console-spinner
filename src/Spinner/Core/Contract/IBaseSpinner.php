@@ -20,5 +20,8 @@ interface IBaseSpinner
 
     public function activate(): void;
 
+    /**
+     * Wraps/decorates $callable with spinner erase() and spin() actions.
+     */
     public function wrap(callable $callback, ...$args): void;
 }
