@@ -369,6 +369,7 @@ final class ConfigBuilder implements IConfigBuilder
 
         if (null === $this->container) {
             $this->container = $this->containerFactory->createContainer($this->asMultiSpinner);
+            dump($this->container);
         }
     }
 

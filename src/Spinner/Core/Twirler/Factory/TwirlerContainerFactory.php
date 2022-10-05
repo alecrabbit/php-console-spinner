@@ -25,25 +25,24 @@ final class TwirlerContainerFactory implements ITwirlerContainerFactory
         $container = new Container(
             $this->interval,
             $this->intervalVisitor,
-            $asMulti,
         );
-        if (!$asMulti) {
-            $this->fillWithDefaults($container);
-        }
+//        if (!$asMulti) {
+//            $this->fillWithDefaults($container);
+//        }
         return
             $container;
     }
 
-    private function fillWithDefaults(Container $container): void
-    {
-        $container->spinner(
-            $this->twirlerFactory->spinner(),
-        );
-        $container->message(
-            $this->twirlerFactory->message(null),
-        );
-        $container->progress(
-            $this->twirlerFactory->progress(null),
-        );
-    }
+//    private function fillWithDefaults(Container $container): void
+//    {
+//        $container->spinner(
+//            $this->twirlerFactory->spinner(),
+//        );
+//        $container->message(
+//            $this->twirlerFactory->message(null),
+//        );
+//        $container->progress(
+//            $this->twirlerFactory->progress(null),
+//        );
+//    }
 }

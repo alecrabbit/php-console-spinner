@@ -16,6 +16,7 @@ final class MultiSpinnerTest extends TestCase
     {
         $config = self::getDefaultConfig();
         $spinner = new MultiSpinner($config);
+        dump($spinner);
         $container = self::getValue('container', from: $spinner);
         $contexts = self::getValue('contexts', from: $container);
         self::assertCount(0, $contexts);

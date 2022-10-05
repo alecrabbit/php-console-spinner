@@ -34,7 +34,7 @@ abstract class AContainer implements IContainer
     public function __construct(
         protected IInterval $interval,
         protected readonly IIntervalVisitor $intervalVisitor,
-        protected readonly bool $isMulti,
+        protected readonly bool $isMulti = false,
     ) {
         $this->cycle = new Cycle(1);
         $this->contextsMap = new WeakMap();
