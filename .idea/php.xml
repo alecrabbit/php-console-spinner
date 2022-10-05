@@ -58,6 +58,7 @@
       <path value="$PROJECT_DIR$/vendor/fig/http-message-util" />
       <path value="$PROJECT_DIR$/vendor/evenement/evenement" />
       <path value="$PROJECT_DIR$/vendor/ringcentral/psr7" />
+      <path value="$PROJECT_DIR$/vendor/nunomaduro/termwind" />
     </include_path>
   </component>
   <component name="PhpInterpreters">

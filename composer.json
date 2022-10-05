@@ -26,6 +26,7 @@
         "symfony/console": "^6.1",
         "fakerphp/faker": "^1",
         "nunomaduro/collision": "^6.2",
+        "nunomaduro/termwind": "^1.14",
         "phpunit/phpunit": "^9.5",
         "react/http": "*",
         "symfony/var-dumper": "^6.1",
