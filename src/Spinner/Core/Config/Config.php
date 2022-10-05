@@ -44,17 +44,11 @@ final class Config implements IConfig
      */
     private function assert(): void
     {
-        $this->assertType();
         $this->assertShutdownDelay();
         $this->assertRunMode();
         $this->assertExitMessage();
         $this->assertColorSupportLevel();
         $this->assertInterruptMessage();
-    }
-
-    private function assertType(): void
-    {
-        // TODO (2022-06-27 17:24) [Alec Rabbit]: assert type class exists.
     }
 
     /**
