@@ -73,6 +73,7 @@ abstract class ABaseSpinner implements IBaseSpinner, IIntervalComponent
         $this->active = true;
     }
 
+    /** @inheritDoc */
     public function wrap(callable $callback, ...$args): void
     {
         $this->erase();
