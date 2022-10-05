@@ -24,6 +24,7 @@ $echo = $stdout->writeln(...);
 $config =
     (new ConfigBuilder())
         ->inSynchronousMode()
+        ->createEmpty()
         ->withCursor()
         ->withInterval(new Interval(10))
         ->build()
@@ -67,7 +68,7 @@ $twirlerFour =
         ->build()
 ;
 
-$spinner = SpinnerFactory::createMulti($config);
+$spinner = SpinnerFactory::create($config);
 
 $contextOne = $spinner->add($twirlerOne);
 $contextTwo = $spinner->add($twirlerTwo);

@@ -34,7 +34,7 @@ abstract class AContainer implements IContainer
     public function __construct(
         protected IInterval $interval,
         protected readonly IIntervalVisitor $intervalVisitor,
-        protected readonly bool $isMulti = false,
+        protected readonly bool $wasCreatedEmpty = false,
     ) {
         $this->cycle = new Cycle(1);
         $this->contextsMap = new WeakMap();
@@ -93,16 +93,16 @@ abstract class AContainer implements IContainer
 
     private function assertIsNotMulti(): void
     {
-        if ($this->isMulti()) {
+        if ($this->wasCreatedEmpty()) {
             throw new RuntimeException(
                 sprintf('%s is a multi-spinner container', static::class),
             );
         }
     }
 
-    public function isMulti(): bool
+    public function wasCreatedEmpty(): bool
     {
-        return $this->isMulti;
+        return $this->wasCreatedEmpty;
     }
 
     public function add(ITwirler $twirler): ITwirlerContext

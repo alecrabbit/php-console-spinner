@@ -18,6 +18,8 @@ interface IConfig
 
     public function isSynchronous(): bool;
 
+    public function forMultiSpinner(): bool;
+
     public function getLoop(): ILoop;
 
     public function getShutdownDelay(): int|float;

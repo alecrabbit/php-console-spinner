@@ -51,7 +51,7 @@ final class ConfigBuilder implements IConfigBuilder
 {
     private ?ILoop $loop = null;
     private ?bool $hideCursor = null;
-    private ?bool $asMultiSpinner = null;
+    private ?bool $createEmpty = null;
     private ?IDriver $driver = null;
     private ?IContainer $container = null;
     private ?IIntervalVisitor $intervalVisitor = null;
@@ -199,6 +199,13 @@ final class ConfigBuilder implements IConfigBuilder
         return $clone;
     }
 
+    public function createEmpty(): self
+    {
+        $clone = clone $this;
+        $clone->createEmpty = true;
+        return $clone;
+    }
+
     public function withContainer(IContainer $container): self
     {
         $clone = clone $this;
@@ -220,13 +227,6 @@ final class ConfigBuilder implements IConfigBuilder
         return $clone;
     }
 
-//    public function asMultiSpinner(): self
-//    {
-//        $clone = clone $this;
-//        $clone->asMultiSpinner = true;
-//        $clone->type = MultiSpinner::class;
-//        return $clone;
-//    }
 
     /**
      * @throws LogicException
@@ -363,12 +363,12 @@ final class ConfigBuilder implements IConfigBuilder
                 );
         }
 
-        if (null === $this->asMultiSpinner) {
-            $this->asMultiSpinner = false;
+        if (null === $this->createEmpty) {
+            $this->createEmpty = false;
         }
 
         if (null === $this->container) {
-            $this->container = $this->containerFactory->createContainer($this->asMultiSpinner);
+            $this->container = $this->containerFactory->createContainer($this->createEmpty);
         }
     }
 

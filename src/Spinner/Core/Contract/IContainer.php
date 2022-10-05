@@ -24,4 +24,6 @@ interface IContainer extends IIntervalComponent
     public function progress(ITwirler $twirler): void;
 
     public function message(ITwirler $twirler): void;
+
+    public function wasCreatedEmpty(): bool;
 }

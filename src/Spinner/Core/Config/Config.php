@@ -214,4 +214,9 @@ final class Config implements IConfig
     {
         return $this->twirlerBuilder;
     }
+
+    public function forMultiSpinner(): bool
+    {
+        return $this->container->wasCreatedEmpty();
+    }
 }
