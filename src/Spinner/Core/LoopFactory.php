@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core;
 
-use AlecRabbit\Spinner\Adapter\React\ReactLoop;
+use AlecRabbit\Spinner\Adapter\React\ReactLoopAdapter;
 use AlecRabbit\Spinner\Core\Contract\ILoop;
 use AlecRabbit\Spinner\Core\Contract\ILoopFactory;
 use AlecRabbit\Spinner\Core\Contract\ILoopProbe;
@@ -13,14 +13,14 @@ use AlecRabbit\Spinner\Exception\DomainException;
 final class LoopFactory implements ILoopFactory
 {
     private const DEFAULT_PROBES = [
-        ReactLoop::class,
+        ReactLoopAdapter::class,
     ];
 
     private iterable $supportedPackages = [];
 
     private iterable $loopProbes = [];
 
-    public function __construct(iterable $loopProbes = [ReactLoop::class,])
+    public function __construct(iterable $loopProbes = [ReactLoopAdapter::class,])
     {
         $loopProbes = [...self::DEFAULT_PROBES, ...$loopProbes];
         foreach ($loopProbes as $loopProbe) {

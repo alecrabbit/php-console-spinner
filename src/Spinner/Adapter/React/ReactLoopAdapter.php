@@ -9,7 +9,7 @@ use AlecRabbit\Spinner\Core\Contract\ILoopProbe;
 use React\EventLoop\Loop;
 use React\EventLoop\LoopInterface;
 
-final class ReactLoop implements ILoop, ILoopProbe
+final class ReactLoopAdapter implements ILoop, ILoopProbe
 {
     private static ?self $instance = null;
 
