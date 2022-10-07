@@ -23,6 +23,9 @@ abstract class ABaseSpinner implements IBaseSpinner, IIntervalComponent
         $this->finalMessage = $config->getFinalMessage();
         $this->interruptMessage = $config->getInterruptMessage();
         $this->container = $config->getContainer();
+        if($config->createInitialized()) {
+            $this->initialize();
+        }
     }
 
     public function getInterval(): IInterval

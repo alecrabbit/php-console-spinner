@@ -52,6 +52,7 @@ final class ConfigBuilder implements IConfigBuilder
     private ?ILoop $loop = null;
     private ?bool $hideCursor = null;
     private ?bool $createEmpty = null;
+    private ?bool $createInitialized = null;
     private ?IDriver $driver = null;
     private ?IContainer $container = null;
     private ?IIntervalVisitor $intervalVisitor = null;
@@ -112,6 +113,13 @@ final class ConfigBuilder implements IConfigBuilder
     {
         $clone = clone $this;
         $clone->terminalColorSupport = $terminalColorSupport;
+        return $clone;
+    }
+
+    public function createInitialized(): self
+    {
+        $clone = clone $this;
+        $clone->createInitialized = true;
         return $clone;
     }
 
@@ -250,6 +258,7 @@ final class ConfigBuilder implements IConfigBuilder
                 synchronous: $this->synchronousMode,
                 loop: $this->loop,
                 colorSupportLevel: $this->terminalColorSupport,
+                createInitialized: $this->createInitialized,
             );
     }
 
@@ -365,6 +374,10 @@ final class ConfigBuilder implements IConfigBuilder
 
         if (null === $this->createEmpty) {
             $this->createEmpty = false;
+        }
+
+        if (null === $this->createInitialized) {
+            $this->createInitialized = false;
         }
 
         if (null === $this->container) {

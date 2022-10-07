@@ -41,4 +41,6 @@ interface IConfig
     public function getCharFrameCollectionFactory(): ICharFrameCollectionFactory;
 
     public function getTwirlerBuilder(): ITwirlerBuilder;
+
+    public function createInitialized(): bool;
 }

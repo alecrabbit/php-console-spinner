@@ -34,6 +34,7 @@ final class Config implements IConfig
         private readonly bool $synchronous,
         private readonly ?ILoop $loop,
         private readonly int $colorSupportLevel,
+        private readonly bool $createInitialized,
     ) {
         $this->assert();
     }
@@ -212,5 +213,10 @@ final class Config implements IConfig
     public function forMultiSpinner(): bool
     {
         return $this->container->wasCreatedEmpty();
+    }
+
+    public function createInitialized(): bool
+    {
+        return $this->createInitialized;
     }
 }
