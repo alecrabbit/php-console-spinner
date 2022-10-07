@@ -5,5 +5,7 @@ services:
     image: dralec/php81-cli-dev
     volumes:
       - *bash-rc
+    ports:
+        - 8080:8080
     environment:
       VAR_DUMPER_SERVER: 'app:9912'
