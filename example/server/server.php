@@ -12,13 +12,13 @@ require_once __DIR__ . '/../bootstrap.php';
 
 // Server
 $server = new React\Http\HttpServer(
-    static function (Psr\Http\Message\RequestInterface $request) {
+    static function (Psr\Http\Message\RequestInterface $_) {
         return new React\Http\Message\Response(
             200,
-            array(
-                'Content-Type' => 'text/plain'
-            ),
-            sprintf("Responded at %s\n", date('Y-m-d H:i:s'))
+            [
+                'Content-Type' => 'text/plain',
+            ],
+            sprintf("Responded at %s\n", (new DateTimeImmutable())->format('Y-m-d H:i:s.u')),
         );
     }
 );
