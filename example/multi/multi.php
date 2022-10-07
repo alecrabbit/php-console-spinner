@@ -24,7 +24,7 @@ $echo = $stdout->writeln(...);
 $config =
     (new ConfigBuilder())
         ->inSynchronousMode()
-        ->createEmpty()
+//        ->createEmpty()
         ->withCursor()
         ->withInterval(new Interval(10))
         ->build()

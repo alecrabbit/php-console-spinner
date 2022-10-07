@@ -11,24 +11,20 @@ use AlecRabbit\Spinner\Spinner;
 
 abstract class ASpinnerFactory implements ISpinnerFactory
 {
+    abstract public static function create(?IConfig $config = null): ISpinner|IMultiSpinner;
+
     protected static function createSpinner(IConfig $config): ISpinner
     {
         return new Spinner($config);
     }
 
-    public static function create(?IConfig $config = null): ISpinner | IMultiSpinner
-    {
-        $config = $config ?? (new ConfigBuilder())->build();
-
-        if ($config->forMultiSpinner()) {
-            return static::createMultiSpinner($config);
-        }
-
-        return static::createSpinner($config);
-    }
-
     protected static function createMultiSpinner(IConfig $config): IMultiSpinner
     {
         return new MultiSpinner($config);
+    }
+
+    protected static function refineConfig(?IConfig $config): IConfig
+    {
+        return $config ?? (new ConfigBuilder())->build();
     }
 }

@@ -6,14 +6,14 @@ namespace AlecRabbit\Spinner\Core;
 
 use AlecRabbit\Spinner\Core\Config\Contract\IConfig;
 use AlecRabbit\Spinner\Core\Contract\ASpinnerFactory;
-use AlecRabbit\Spinner\Core\Contract\ISpinner;
+use AlecRabbit\Spinner\Core\Contract\IMultiSpinner;
 
-final class SpinnerFactory extends ASpinnerFactory
+final class MultiSpinnerFactory extends ASpinnerFactory
 {
-    public static function create(?IConfig $config = null): ISpinner
+    public static function create(?IConfig $config = null): IMultiSpinner
     {
         return
-            self::createSpinner(
+            self::createMultiSpinner(
                 self::refineConfig($config)
             );
     }
