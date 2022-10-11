@@ -7,7 +7,7 @@ namespace AlecRabbit\Spinner\Core\Contract;
 use AlecRabbit\Spinner\Core\Config\Contract\IConfig;
 use AlecRabbit\Spinner\Core\Interval\Contract\IInterval;
 
-abstract class ABaseSpinner implements IBaseSpinner, IIntervalComponent
+abstract class ASpinner implements ISpinner, IIntervalComponent
 {
     protected bool $active = false;
     protected bool $interrupted = false;

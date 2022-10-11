@@ -8,9 +8,9 @@ use AlecRabbit\Spinner\Core\Twirler\Contract\ITwirler;
 
 interface ISimpleSpinner
 {
-    public function spinner(ITwirler|string|null $value): void;
+    public function spinner(ITwirler|null $value): void;
 
-    public function progress(ITwirler|string|float|null $value): void;
+    public function progress(ITwirler|IProgress $value): void;
 
-    public function message(ITwirler|string|null $value): void;
+    public function message(ITwirler|IMessage $value): void;
 }

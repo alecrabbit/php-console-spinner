@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Contract;
 
-interface IBaseSpinner
+interface ISpinner
 {
     public function spin(): void;
 

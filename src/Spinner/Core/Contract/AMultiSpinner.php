@@ -7,7 +7,7 @@ namespace AlecRabbit\Spinner\Core\Contract;
 use AlecRabbit\Spinner\Core\Twirler\Contract\ITwirler;
 use AlecRabbit\Spinner\Core\Twirler\Contract\ITwirlerContext;
 
-abstract class AMultiSpinner extends ABaseSpinner implements IMultiSpinner
+abstract class AMultiSpinner extends ASpinner implements IMultiSpinner
 {
     public function add(ITwirler $twirler): ITwirlerContext
     {

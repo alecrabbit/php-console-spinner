@@ -7,7 +7,7 @@ use AlecRabbit\Spinner\Core\Config\Contract\IConfig;
 use AlecRabbit\Spinner\Core\Twirler\Contract\ITwirler;
 use AlecRabbit\Spinner\Core\Twirler\Factory\Contract\ITwirlerFactory;
 
-abstract class ASimpleSpinner extends ABaseSpinner implements ISimpleSpinner
+abstract class ASimpleSpinner extends ASpinner implements ISimpleSpinner
 {
     protected ITwirlerFactory $twirlerFactory;
 
@@ -17,7 +17,7 @@ abstract class ASimpleSpinner extends ABaseSpinner implements ISimpleSpinner
         $this->twirlerFactory = $config->getTwirlerFactory();
     }
 
-    public function spinner(ITwirler|string|null $value): void
+    public function spinner(ITwirler|null $value): void
     {
         $isNullValue = $value === null;
         if ($isNullValue) {
@@ -32,7 +32,7 @@ abstract class ASimpleSpinner extends ABaseSpinner implements ISimpleSpinner
         }
     }
 
-    public function progress(float|ITwirler|string|null $value): void
+    public function progress(ITwirler|IProgress $value): void
     {
         $isNullValue = $value === null;
         if ($isNullValue) {
@@ -47,7 +47,7 @@ abstract class ASimpleSpinner extends ABaseSpinner implements ISimpleSpinner
         }
     }
 
-    public function message(ITwirler|string|null $value): void
+    public function message(ITwirler|IMessage $value): void
     {
         $isNullValue = $value === null;
         if ($isNullValue) {
