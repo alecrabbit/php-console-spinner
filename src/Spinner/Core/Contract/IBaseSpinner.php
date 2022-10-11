@@ -22,6 +22,7 @@ interface IBaseSpinner
 
     /**
      * Wraps/decorates $callable with spinner erase() and spin() actions.
+     * Note: Signature is subject to change.
      */
-    public function wrap(callable $callback, ...$args): void;
+    public function wrap(callable $callback, ...$args): void; // TODO (2022-10-11 11:52) [Alec Rabbit]: Signature is subject to change.
 }

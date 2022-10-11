@@ -1,18 +1,15 @@
 <?php
-
 declare(strict_types=1);
-
-namespace AlecRabbit\Spinner;
+// 11.10.22
+namespace AlecRabbit\Spinner\Core\Contract;
 
 use AlecRabbit\Spinner\Core\Config\Contract\IConfig;
-use AlecRabbit\Spinner\Core\Contract\AMultiSpinner;
-use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use AlecRabbit\Spinner\Core\Twirler\Contract\ITwirler;
 use AlecRabbit\Spinner\Core\Twirler\Factory\Contract\ITwirlerFactory;
 
-final class Spinner extends AMultiSpinner implements ISpinner
+abstract class ASimpleSpinner extends ABaseSpinner implements ISimpleSpinner
 {
-    private ITwirlerFactory $twirlerFactory;
+    protected ITwirlerFactory $twirlerFactory;
 
     public function __construct(IConfig $config)
     {

@@ -6,7 +6,7 @@ namespace AlecRabbit\Spinner\Core\Contract;
 
 use AlecRabbit\Spinner\Core\Twirler\Contract\ITwirler;
 
-interface ISpinner
+interface ISimpleSpinner
 {
     public function spinner(ITwirler|string|null $value): void;
 

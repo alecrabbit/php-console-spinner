@@ -11,8 +11,9 @@ use AlecRabbit\Spinner\Core\Contract\CharPattern;
 use AlecRabbit\Spinner\Core\Contract\StylePattern;
 use AlecRabbit\Spinner\Core\Frame\CharFrame;
 use AlecRabbit\Spinner\Core\Interval\Interval;
+use AlecRabbit\Spinner\Core\MultiSpinnerFactory;
 use AlecRabbit\Spinner\Core\Output\StreamOutput;
-use AlecRabbit\Spinner\Core\SpinnerFactory;
+use AlecRabbit\Spinner\Core\SimpleSpinnerFactory;
 use AlecRabbit\Spinner\Core\Twirler\Contract\ITwirlerContext;
 use AlecRabbit\Spinner\Core\WidthDefiner;
 
@@ -68,7 +69,7 @@ $twirlerFour =
         ->build()
 ;
 
-$spinner = SpinnerFactory::create($config);
+$spinner = MultiSpinnerFactory::create($config);
 
 $contextOne = $spinner->add($twirlerOne);
 $contextTwo = $spinner->add($twirlerTwo);

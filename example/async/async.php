@@ -7,7 +7,7 @@ declare(strict_types=1);
 use AlecRabbit\Spinner\Core\Config\Builder\ConfigBuilder;
 use AlecRabbit\Spinner\Core\Interval\Interval;
 use AlecRabbit\Spinner\Core\Output\StreamOutput;
-use AlecRabbit\Spinner\Core\SpinnerFactory;
+use AlecRabbit\Spinner\Core\SimpleSpinnerFactory;
 
 require_once __DIR__ . '/../bootstrap.php';
 
@@ -21,7 +21,7 @@ $config =
         ->build()
 ;
 
-$spinner = SpinnerFactory::create($config);
+$spinner = SimpleSpinnerFactory::create($config);
 
 $spinner->initialize();
 
