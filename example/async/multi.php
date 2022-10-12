@@ -4,17 +4,13 @@ declare(strict_types=1);
 
 // 20.06.22
 
-use AlecRabbit\Spinner\Core\Collection\CharFrameCollection;
 use AlecRabbit\Spinner\Core\Config\Builder\ConfigBuilder;
-use AlecRabbit\Spinner\Core\Contract\C;
 use AlecRabbit\Spinner\Core\Contract\CharPattern;
 use AlecRabbit\Spinner\Core\Contract\StylePattern;
 use AlecRabbit\Spinner\Core\Frame\CharFrame;
 use AlecRabbit\Spinner\Core\Interval\Interval;
+use AlecRabbit\Spinner\Core\MultiSpinnerFactory;
 use AlecRabbit\Spinner\Core\Output\StreamOutput;
-use AlecRabbit\Spinner\Core\SimpleSpinnerFactory;
-use AlecRabbit\Spinner\Core\Twirler\Contract\ITwirlerContext;
-use AlecRabbit\Spinner\Core\WidthDefiner;
 
 require_once __DIR__ . '/../bootstrap.php';
 
@@ -42,6 +38,7 @@ $twirlerOne =
                 CharPattern::DOTS_VARIANT_3
             )
         )
+        ->withTrailingSpacer(CharFrame::createSpace())
         ->build()
 ;
 
@@ -66,7 +63,7 @@ $twirlerFour =
         ->build()
 ;
 
-$spinner = SimpleSpinnerFactory::create($config);
+$spinner = MultiSpinnerFactory::create($config);
 
 $contextOne = $spinner->add($twirlerOne);
 $contextTwo = $spinner->add($twirlerTwo);
@@ -75,17 +72,18 @@ $contextFour = $spinner->add($twirlerFour);
 
 $spinner->initialize();
 
-$interval = $spinner->getInterval()->toSeconds();
-
 $echo('Starting...');
 
 $loop = $config->getLoop();
 
-$loop->periodic($interval, static function () use ($spinner) {
-    $spinner->spin();
-});
+$loop->periodic(
+    $spinner->getInterval()->toSeconds(),
+    static function () use ($spinner) {
+        $spinner->spin();
+    }
+);
 
-$loop->defer(2, static function () use ($echo, $spinner, $loop) {
+$loop->defer(10, static function () use ($echo, $spinner, $loop) {
     $echo('Stopping...');
     $spinner->finalize();
     $loop->stop();

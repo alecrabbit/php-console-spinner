@@ -22,19 +22,19 @@ final class Config implements IConfig
      * @throws LogicException|InvalidArgumentException
      */
     public function __construct(
-        private readonly IDriver $driver,
-        private readonly IContainer $container,
-        private readonly ITwirlerFactory $twirlerFactory,
-        private readonly ITwirlerBuilder $twirlerBuilder,
-        private readonly IStyleFrameCollectionFactory $styleFrameCollectionFactory,
-        private readonly ICharFrameCollectionFactory $charFrameCollectionFactory,
-        private readonly null|int|float $shutdownDelay,
-        private readonly string $interruptMessage,
-        private readonly string $finalMessage,
-        private readonly bool $synchronous,
-        private readonly ?ILoop $loop,
-        private readonly int $colorSupportLevel,
-        private readonly bool $createInitialized,
+        protected readonly IDriver $driver,
+        protected readonly IContainer $container,
+        protected readonly ITwirlerFactory $twirlerFactory,
+        protected readonly ITwirlerBuilder $twirlerBuilder,
+        protected readonly IStyleFrameCollectionFactory $styleFrameCollectionFactory,
+        protected readonly ICharFrameCollectionFactory $charFrameCollectionFactory,
+        protected readonly null|int|float $shutdownDelay,
+        protected readonly string $interruptMessage,
+        protected readonly string $finalMessage,
+        protected readonly bool $synchronous,
+        protected readonly ?ILoop $loop,
+        protected readonly int $colorSupportLevel,
+        protected readonly bool $createInitialized,
     ) {
         $this->assert();
     }
@@ -43,7 +43,7 @@ final class Config implements IConfig
      * @throws LogicException
      * @throws InvalidArgumentException
      */
-    private function assert(): void
+    protected function assert(): void
     {
         $this->assertShutdownDelay();
         $this->assertRunMode();
@@ -55,7 +55,7 @@ final class Config implements IConfig
     /**
      * @throws InvalidArgumentException
      */
-    private function assertShutdownDelay(): void
+    protected function assertShutdownDelay(): void
     {
         if (null === $this->shutdownDelay) {
             return;
@@ -80,7 +80,7 @@ final class Config implements IConfig
     /**
      * @throws LogicException
      */
-    private function assertRunMode(): void
+    protected function assertRunMode(): void
     {
         if (null === $this->loop && $this->isAsynchronous()) {
             throw new LogicException(
@@ -104,12 +104,12 @@ final class Config implements IConfig
         return $this->synchronous;
     }
 
-    private function assertExitMessage(): void
+    protected function assertExitMessage(): void
     {
         // TODO (2022-06-12 19:22) [Alec Rabbit]: Add exit message validation.
     }
 
-    private function assertColorSupportLevel(): void
+    protected function assertColorSupportLevel(): void
     {
         if (!in_array($this->colorSupportLevel, Defaults::getColorSupportLevels(), true)) {
             throw new InvalidArgumentException(
@@ -125,7 +125,7 @@ final class Config implements IConfig
     /**
      * @throws LogicException
      */
-    private function assertInterruptMessage(): void
+    protected function assertInterruptMessage(): void
     {
         if (null === $this->interruptMessage && $this->isSynchronous()) {
             return;
@@ -159,7 +159,7 @@ final class Config implements IConfig
         throw self::synchronousModeException('loop object');
     }
 
-    private static function synchronousModeException(string $reason): LogicException
+    protected static function synchronousModeException(string $reason): LogicException
     {
         return new LogicException(sprintf('Configured for synchronous run mode. No %s is available.', $reason));
     }

@@ -27,9 +27,9 @@ abstract class AContainer implements IContainer
     protected WeakMap $contextsMap;
     protected Cycle $cycle;
     protected int $index = 0;
-    protected ?ITwirlerContext $spinnerContext = null ;
+    protected ?ITwirlerContext $spinnerContext = null;
     protected ?ITwirlerContext $progressContext = null;
-    protected ?ITwirlerContext $messageContext = null ;
+    protected ?ITwirlerContext $messageContext = null;
 
     public function __construct(
         protected IInterval $interval,
@@ -109,7 +109,8 @@ abstract class AContainer implements IContainer
     {
         $context = new TwirlerContext($twirler);
         $this->contexts[$this->index] = $context;
-        $this->contextsMap[$context] = $this->index++;
+        $this->contextsMap[$context] = $this->index;
+        $this->index++;
         return $context;
     }
 
