@@ -13,7 +13,6 @@ use AlecRabbit\Spinner\Core\Frame\CharFrame;
 use AlecRabbit\Spinner\Core\Interval\Interval;
 use AlecRabbit\Spinner\Core\MultiSpinnerFactory;
 use AlecRabbit\Spinner\Core\Output\StreamOutput;
-use AlecRabbit\Spinner\Core\SimpleSpinnerFactory;
 use AlecRabbit\Spinner\Core\Twirler\Contract\ITwirlerContext;
 use AlecRabbit\Spinner\Core\WidthDefiner;
 
@@ -97,7 +96,7 @@ for ($i = 0; $i < $max; $i++) {
     if (400 === $i) {
         $spinner->wrap(
             $echo,
-            'Pausing spinner...'
+            'Pausing spinner...',
         );
         $spinner->deactivate();
     }
