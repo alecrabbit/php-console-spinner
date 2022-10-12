@@ -32,33 +32,29 @@ abstract class ASimpleSpinner extends ASpinner implements ISimpleSpinner
         }
     }
 
-    public function progress(ITwirler|IProgress $value): void
+    public function progress(ITwirler|IProgress $element): void
     {
-        $isNullValue = $value === null;
-        if ($isNullValue) {
-            $this->erase();
-        }
-        if (!$value instanceof ITwirler) {
-            $value = $this->twirlerFactory->progress($value);
-        }
-        $this->container->progress($value);
-        if ($isNullValue) {
-            $this->spin();
-        }
+        $this->wrap(
+            function (ITwirler|IProgress $value) {
+                if (!$value instanceof ITwirler) {
+                    $value = $this->twirlerFactory->progress($value);
+                }
+                $this->container->progress($value);
+            },
+            $element
+        );
     }
 
-    public function message(ITwirler|IMessage $value): void
+    public function message(ITwirler|IMessage $element): void
     {
-        $isNullValue = $value === null;
-        if ($isNullValue) {
-            $this->erase();
-        }
-        if (!$value instanceof ITwirler) {
-            $value = $this->twirlerFactory->message($value);
-        }
-        $this->container->message($value);
-        if ($isNullValue) {
-            $this->spin();
-        }
+        $this->wrap(
+            function (ITwirler|IMessage $value) {
+                if (!$value instanceof ITwirler) {
+                    $value = $this->twirlerFactory->message($value);
+                }
+                $this->container->message($value);
+            },
+            $element
+        );
     }
 }

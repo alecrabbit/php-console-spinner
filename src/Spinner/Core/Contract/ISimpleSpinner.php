@@ -10,7 +10,7 @@ interface ISimpleSpinner
 {
     public function spinner(ITwirler|null $value): void;
 
-    public function progress(ITwirler|IProgress $value): void;
+    public function progress(ITwirler|IProgress $element): void;
 
-    public function message(ITwirler|IMessage $value): void;
+    public function message(ITwirler|IMessage $element): void;
 }
