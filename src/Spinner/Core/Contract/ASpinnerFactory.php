@@ -34,7 +34,7 @@ abstract class ASpinnerFactory implements ISpinnerFactory
 
     protected static function initializeSpinner(ISpinner $spinner, IConfig $config): void
     {
-        if ($config->createInitialized()) {
+        if ($config->createInitialized() || $config->isAsynchronous()) {
             $spinner->initialize();
         }
         if ($config->isAsynchronous()) {

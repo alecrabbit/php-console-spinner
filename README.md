@@ -37,6 +37,11 @@ composer require alecrabbit/php-console-spinner
 ### <a name="quickstart"></a> Quick start
 > For more information see [Usage](doc/usage.md)
 
+```php
+$config = (new ConfigBuilder())->build();
+
+$spinner = SimpleSpinnerFactory::create($config);
+```
 > WIP
 
 ### <a name="features"></a> Features
