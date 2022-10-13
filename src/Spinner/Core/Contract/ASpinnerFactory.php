@@ -40,5 +40,6 @@ abstract class ASpinnerFactory implements ISpinnerFactory
         if ($config->isAsynchronous()) {
             // TODO (2022-10-13 12:52) [Alec Rabbit]: attach spinner to the event loop
         }
+        // TODO (2022-10-13 13:02) [Alec Rabbit]: attach signal handlers
     }
 }
