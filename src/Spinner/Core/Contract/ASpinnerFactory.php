@@ -15,16 +15,30 @@ abstract class ASpinnerFactory implements ISpinnerFactory
 
     protected static function createSpinner(IConfig $config): ISimpleSpinner
     {
-        return new SimpleSpinner($config);
+        $spinner = new SimpleSpinner($config);
+        self::initializeSpinner($spinner, $config);
+        return $spinner;
     }
 
     protected static function createMultiSpinner(IConfig $config): IMultiSpinner
     {
-        return new MultiSpinner($config);
+        $spinner = new MultiSpinner($config);
+        self::initializeSpinner($spinner, $config);
+        return $spinner;
     }
 
     protected static function refineConfig(?IConfig $config): IConfig
     {
         return $config ?? (new ConfigBuilder())->build();
+    }
+
+    protected static function initializeSpinner(ISpinner $spinner, IConfig $config): void
+    {
+        if ($config->createInitialized()) {
+            $spinner->initialize();
+        }
+        if ($config->isAsynchronous()) {
+            // TODO (2022-10-13 12:52) [Alec Rabbit]: attach spinner to the event loop
+        }
     }
 }

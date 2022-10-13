@@ -7,9 +7,9 @@ declare(strict_types=1);
 use AlecRabbit\Spinner\Core\Config\Builder\ConfigBuilder;
 use AlecRabbit\Spinner\Core\Contract\CharPattern;
 use AlecRabbit\Spinner\Core\Contract\StylePattern;
+use AlecRabbit\Spinner\Core\Factory\MultiSpinnerFactory;
 use AlecRabbit\Spinner\Core\Frame\CharFrame;
 use AlecRabbit\Spinner\Core\Interval\Interval;
-use AlecRabbit\Spinner\Core\MultiSpinnerFactory;
 use AlecRabbit\Spinner\Core\Output\StreamOutput;
 
 require_once __DIR__ . '/../bootstrap.php';

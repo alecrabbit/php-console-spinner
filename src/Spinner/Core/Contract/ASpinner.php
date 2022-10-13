@@ -23,9 +23,6 @@ abstract class ASpinner implements ISpinner, IIntervalComponent
         $this->finalMessage = $config->getFinalMessage();
         $this->interruptMessage = $config->getInterruptMessage();
         $this->container = $config->getContainer();
-        if($config->createInitialized()) {
-            $this->initialize();
-        }
     }
 
     public function getInterval(): IInterval

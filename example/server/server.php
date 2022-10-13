@@ -5,8 +5,8 @@ declare(strict_types=1);
 // 07.10.22
 
 use AlecRabbit\Spinner\Core\Config\Builder\ConfigBuilder;
+use AlecRabbit\Spinner\Core\Factory\SimpleSpinnerFactory;
 use AlecRabbit\Spinner\Core\Interval\Interval;
-use AlecRabbit\Spinner\Core\SimpleSpinnerFactory;
 
 require_once __DIR__ . '/../bootstrap.php';
 

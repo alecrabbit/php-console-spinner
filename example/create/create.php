@@ -6,8 +6,8 @@ declare(strict_types=1);
 
 use AlecRabbit\Spinner\Core\Config\Builder\ConfigBuilder;
 use AlecRabbit\Spinner\Core\Defaults;
+use AlecRabbit\Spinner\Core\Factory\SimpleSpinnerFactory;
 use AlecRabbit\Spinner\Core\Output\StreamOutput;
-use AlecRabbit\Spinner\Core\SimpleSpinnerFactory;
 
 require_once __DIR__ . '/../bootstrap.php';
 

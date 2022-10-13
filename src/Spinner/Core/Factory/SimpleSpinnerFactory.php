@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 // 20.06.22
-namespace AlecRabbit\Spinner\Core;
+namespace AlecRabbit\Spinner\Core\Factory;
 
 use AlecRabbit\Spinner\Core\Config\Contract\IConfig;
 use AlecRabbit\Spinner\Core\Contract\ASpinnerFactory;
