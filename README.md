@@ -25,6 +25,7 @@
 + [How does it work?](doc/how_does_it_work.md)
 + [Installation](#installation)
 + [Quick start](#quickstart)
++ [Usage](doc/usage.md)
 + [Features](#features)
 + [Links](#links)
 
@@ -34,6 +35,7 @@
 composer require alecrabbit/php-console-spinner
 ```
 ### <a name="quickstart"></a> Quick start
+> For more information see [Usage](doc/usage.md)
 
 > WIP
 
