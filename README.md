@@ -44,7 +44,7 @@ use AlecRabbit\Spinner\Core\Factory\SimpleSpinnerFactory;
 
 // do not forget to require `vendor/autoload.php` if needed
 
-$spinner = SimpleSpinnerFactory::create($config);
+$spinner = SimpleSpinnerFactory::create();
 ```
 
 ### <a name="features"></a> Features
