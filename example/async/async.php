@@ -25,8 +25,20 @@ $spinner = SimpleSpinnerFactory::create($config);
 
 $spinner->initialize();
 
+$loop = $config->getLoop();
+
+$loop->periodic(
+    $spinner->getInterval()->toSeconds(),
+    static function () use ($spinner) {
+        $spinner->spin();
+    }
+);
+
+$loop->defer(10, static function () use ($echo, $spinner, $loop) {
+    $echo('Stopping...');
+    $spinner->finalize();
+    $loop->stop();
+});
+
 $echo('Starting...');
 
-$config->getLoop()->defer(2, function () use ($echo) {
-    $echo('Stopping...');
-});

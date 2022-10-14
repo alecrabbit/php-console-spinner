@@ -36,8 +36,8 @@ abstract class ATwirlerBuilder implements ITwirlerBuilder
 
     protected ?array $stylePattern = null;
     protected ?array $charPattern = null;
-    protected ?IStyleFrameCollectionFactory $styleFrameCollectionFactory = null;
-    protected ?ICharFrameCollectionFactory $charFrameCollectionFactory = null;
+//    protected ?IStyleFrameCollectionFactory $styleFrameCollectionFactory = null;
+//    protected ?ICharFrameCollectionFactory $charFrameCollectionFactory = null;
     protected ?IStyleFrameCollection $styleFrameCollection = null;
     protected ?ICharFrameCollection $charFrameCollection = null;
     protected ?IStyleRevolver $styleRevolver = null;
@@ -46,11 +46,9 @@ abstract class ATwirlerBuilder implements ITwirlerBuilder
     protected ?ICharFrame $trailingSpacer = null;
 
     public function __construct(
-        ?IStyleFrameCollectionFactory $styleFrameCollectionFactory = null,
-        ?ICharFrameCollectionFactory $charFrameCollectionFactory = null,
+        protected ?IStyleFrameCollectionFactory $styleFrameCollectionFactory = null,
+        protected ?ICharFrameCollectionFactory $charFrameCollectionFactory = null,
     ) {
-        $this->styleFrameCollectionFactory = $styleFrameCollectionFactory;
-        $this->charFrameCollectionFactory = $charFrameCollectionFactory;
     }
 
     public function withStylePattern(array $stylePattern): ITwirlerBuilder
@@ -276,7 +274,7 @@ abstract class ATwirlerBuilder implements ITwirlerBuilder
 
     private function processDefaults(): void
     {
-        self::assertPreDefaults($this);
+        self::assertState($this);
 
         if (null === $this->stylePattern) {
             $this->stylePattern = Defaults::getDefaultStylePattern();
@@ -310,7 +308,10 @@ abstract class ATwirlerBuilder implements ITwirlerBuilder
         }
     }
 
-    protected static function assertPreDefaults(ATwirlerBuilder $builder): void
+    /**
+     * @throws DomainException
+     */
+    protected static function assertState(ATwirlerBuilder $builder): void
     {
         if (null === $builder->styleFrameCollectionFactory) {
             throw new DomainException('Style frame collection factory is not set.');
