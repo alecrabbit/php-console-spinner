@@ -9,6 +9,7 @@ use AlecRabbit\Spinner\Core\Collection\Factory\Contract\IStyleFrameCollectionFac
 use AlecRabbit\Spinner\Core\Contract\IContainer;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\ILoop;
+use AlecRabbit\Spinner\Core\Frame\Contract\ICharFrame;
 use AlecRabbit\Spinner\Core\Twirler\Builder\Contract\ITwirlerBuilder;
 use AlecRabbit\Spinner\Core\Twirler\Factory\Contract\ITwirlerFactory;
 
@@ -43,4 +44,10 @@ interface IConfig
     public function getTwirlerBuilder(): ITwirlerBuilder;
 
     public function createInitialized(): bool;
+
+    public function getSpinnerStylePattern(): array;
+
+    public function getSpinnerCharPattern(): array;
+
+    public function getSpinnerTrailingSpacer(): ICharFrame;
 }

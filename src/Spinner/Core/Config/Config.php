@@ -11,6 +11,8 @@ use AlecRabbit\Spinner\Core\Contract\IContainer;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\ILoop;
 use AlecRabbit\Spinner\Core\Defaults;
+use AlecRabbit\Spinner\Core\Frame\Contract\ACharFrame;
+use AlecRabbit\Spinner\Core\Frame\Contract\ICharFrame;
 use AlecRabbit\Spinner\Core\Twirler\Builder\Contract\ITwirlerBuilder;
 use AlecRabbit\Spinner\Core\Twirler\Factory\Contract\ITwirlerFactory;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
@@ -35,6 +37,9 @@ final class Config implements IConfig
         protected readonly ?ILoop $loop,
         protected readonly int $colorSupportLevel,
         protected readonly bool $createInitialized,
+        protected readonly array $spinnerStylePattern,
+        protected readonly array $spinnerCharPattern,
+        protected readonly ICharFrame $spinnerTrailingSpacer,
     ) {
         $this->assert();
     }
@@ -218,5 +223,20 @@ final class Config implements IConfig
     public function createInitialized(): bool
     {
         return $this->createInitialized;
+    }
+
+    public function getSpinnerStylePattern(): array
+    {
+        return $this->spinnerStylePattern;
+    }
+
+    public function getSpinnerCharPattern(): array
+    {
+        return $this->spinnerCharPattern;
+    }
+
+    public function getSpinnerTrailingSpacer(): ICharFrame
+    {
+        return $this->spinnerTrailingSpacer;
     }
 }

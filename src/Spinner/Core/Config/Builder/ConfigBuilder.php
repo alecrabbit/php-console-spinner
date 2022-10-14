@@ -24,6 +24,7 @@ use AlecRabbit\Spinner\Core\Contract\IStylePatternExtractor;
 use AlecRabbit\Spinner\Core\Contract\IStyleProvider;
 use AlecRabbit\Spinner\Core\Defaults;
 use AlecRabbit\Spinner\Core\Driver;
+use AlecRabbit\Spinner\Core\Frame\Contract\ICharFrame;
 use AlecRabbit\Spinner\Core\Frame\Factory\CharFrameFactory;
 use AlecRabbit\Spinner\Core\Frame\Factory\StyleFrameFactory;
 use AlecRabbit\Spinner\Core\Interval\Contract\IInterval;
@@ -71,6 +72,9 @@ final class ConfigBuilder implements IConfigBuilder
     private ?ICharPatternExtractor $charPatternExtractor = null;
     private ?IStyleFrameCollectionFactory $styleFrameCollectionFactory = null;
     private ?ICharFrameCollectionFactory $charFrameCollectionFactory = null;
+    private ?array $spinnerStylePattern = null;
+    private ?array $spinnerCharPattern = null;
+    private ?ICharFrame $spinnerTrailingSpacer = null;
 
     private ?IInterval $interval = null;
 
@@ -259,6 +263,9 @@ final class ConfigBuilder implements IConfigBuilder
                 loop: $this->loop,
                 colorSupportLevel: $this->terminalColorSupport,
                 createInitialized: $this->createInitialized,
+                spinnerStylePattern: $this->spinnerStylePattern,
+                spinnerCharPattern: $this->spinnerCharPattern,
+                spinnerTrailingSpacer: $this->spinnerTrailingSpacer,
             );
     }
 
@@ -308,6 +315,18 @@ final class ConfigBuilder implements IConfigBuilder
 
         if (null === $this->loop) {
             $this->loop = $this->getLoop($this->synchronousMode);
+        }
+
+        if(null === $this->spinnerStylePattern) {
+            $this->spinnerStylePattern = Defaults::getSpinnerStylePattern();
+        }
+
+        if(null === $this->spinnerCharPattern) {
+            $this->spinnerCharPattern = Defaults::getSpinnerCharPattern();
+        }
+
+        if(null === $this->spinnerTrailingSpacer) {
+            $this->spinnerTrailingSpacer = Defaults::getSpinnerTrailingSpacer();
         }
 
         if (null === $this->stylePatternExtractor) {

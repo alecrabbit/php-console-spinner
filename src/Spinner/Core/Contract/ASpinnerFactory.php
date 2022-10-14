@@ -17,16 +17,8 @@ abstract class ASpinnerFactory implements ISpinnerFactory
     protected static function createSpinner(IConfig $config): ISimpleSpinner
     {
         $spinner = new SimpleSpinner($config);
-        $twirlerBuilder = $config->getTwirlerBuilder();
-        $spinner->spinner(
-            $twirlerBuilder
-                ->withStylePattern(StylePattern::rainbow())
-                ->withCharPattern(CharPattern::SNAKE_VARIANT_3)
-                ->withTrailingSpacer(CharFrame::createSpace())
-                ->build()
-        );
+        self::fillSpinner($spinner, $config);
         self::initializeSpinner($spinner, $config);
-        dump($spinner);
         return $spinner;
     }
 
@@ -51,5 +43,20 @@ abstract class ASpinnerFactory implements ISpinnerFactory
     protected static function refineConfig(?IConfig $config): IConfig
     {
         return $config ?? (new ConfigBuilder())->build();
+    }
+
+    private static function fillSpinner(SimpleSpinner $spinner, IConfig $config): void
+    {
+        $twirlerBuilder = $config->getTwirlerBuilder();
+        $spinner->spinner(
+            $twirlerBuilder
+                ->withStylePattern($config->getSpinnerStylePattern())
+                ->withCharPattern($config->getSpinnerCharPattern())
+                ->withTrailingSpacer($config->getSpinnerTrailingSpacer())
+//                ->withStylePattern(StylePattern::rainbow())
+//                ->withCharPattern(CharPattern::SNAKE_VARIANT_0)
+//                ->withTrailingSpacer(CharFrame::createSpace())
+                ->build()
+        );
     }
 }

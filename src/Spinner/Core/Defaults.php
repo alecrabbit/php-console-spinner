@@ -7,6 +7,8 @@ namespace AlecRabbit\Spinner\Core;
 use AlecRabbit\Spinner\Core\Contract\ADefaults;
 use AlecRabbit\Spinner\Core\Contract\CharPattern;
 use AlecRabbit\Spinner\Core\Contract\StylePattern;
+use AlecRabbit\Spinner\Core\Frame\CharFrame;
+use AlecRabbit\Spinner\Core\Frame\Contract\ICharFrame;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 
 use const AlecRabbit\Cli\ALLOWED_TERM_COLOR;
@@ -27,6 +29,9 @@ final class Defaults extends ADefaults
     private static array $colorSupportLevels = self::COLOR_SUPPORT_LEVELS;
     private static ?array $defaultStylePattern = null;
     private static ?array $defaultCharPattern = null;
+    private static ?array $spinnerStylePattern = null;
+    private static ?array $spinnerCharPattern = null;
+    private static ?CharFrame $spinnerTrailingSpacer = null;
 
     public static function getMinIntervalMilliseconds(): float|int
     {
@@ -165,4 +170,44 @@ final class Defaults extends ADefaults
     {
         self::$progressFormat = $progressFormat;
     }
+
+    public static function getSpinnerStylePattern(): array
+    {
+        if (null === self::$spinnerStylePattern) {
+            self::$spinnerStylePattern = StylePattern::rainbow();
+        }
+        return self::$spinnerStylePattern;
+    }
+
+    public static function setSpinnerStylePattern(array $spinnerStylePattern): void
+    {
+        self::$spinnerStylePattern = $spinnerStylePattern;
+    }
+
+
+    public static function getSpinnerCharPattern(): array
+    {
+        if (null === self::$spinnerCharPattern) {
+            self::$spinnerCharPattern = CharPattern::SNAKE_VARIANT_0;
+        }
+        return self::$spinnerCharPattern;
+    }
+
+    public static function setSpinnerCharPattern(array $spinnerCharPattern): void
+    {
+        self::$spinnerCharPattern = $spinnerCharPattern;
+    }
+
+        public static function getSpinnerTrailingSpacer(): ICharFrame
+        {
+            if (null === self::$spinnerTrailingSpacer) {
+                self::$spinnerTrailingSpacer = CharFrame::createSpace();
+            }
+            return self::$spinnerTrailingSpacer;
+        }
+
+        public static function setSpinnerTrailingSpacer(ICharFrame $spinnerTrailingSpacer): void
+        {
+            self::$spinnerTrailingSpacer = $spinnerTrailingSpacer;
+        }
 }
