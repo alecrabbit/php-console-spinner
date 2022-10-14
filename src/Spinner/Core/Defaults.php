@@ -173,6 +173,7 @@ final class Defaults extends ADefaults
 
     public static function getSpinnerStylePattern(): array
     {
+        // TODO (2022-10-14 16:03) [Alec Rabbit]: change return type to ? [e68824d4-3908-49e4-9daf-73777963d37b]
         if (null === self::$spinnerStylePattern) {
             self::$spinnerStylePattern = StylePattern::rainbow();
         }
@@ -187,6 +188,7 @@ final class Defaults extends ADefaults
 
     public static function getSpinnerCharPattern(): array
     {
+        // TODO (2022-10-14 16:03) [Alec Rabbit]: change return type to ? [f96f5d87-f9f9-46dc-a45b-8eecc2aba711]
         if (null === self::$spinnerCharPattern) {
             self::$spinnerCharPattern = CharPattern::SNAKE_VARIANT_0;
         }

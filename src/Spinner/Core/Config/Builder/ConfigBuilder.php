@@ -72,8 +72,8 @@ final class ConfigBuilder implements IConfigBuilder
     private ?ICharPatternExtractor $charPatternExtractor = null;
     private ?IStyleFrameCollectionFactory $styleFrameCollectionFactory = null;
     private ?ICharFrameCollectionFactory $charFrameCollectionFactory = null;
-    private ?array $spinnerStylePattern = null;
-    private ?array $spinnerCharPattern = null;
+    private ?array $spinnerStylePattern = null; // TODO (2022-10-14 16:03) [Alec Rabbit]: change type to ? [e68824d4-3908-49e4-9daf-73777963d37b]
+    private ?array $spinnerCharPattern = null; // TODO (2022-10-14 16:03) [Alec Rabbit]: change type to ? [f96f5d87-f9f9-46dc-a45b-8eecc2aba711]
     private ?ICharFrame $spinnerTrailingSpacer = null;
 
     private ?IInterval $interval = null;
