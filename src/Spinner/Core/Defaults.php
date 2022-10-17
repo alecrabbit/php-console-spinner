@@ -48,6 +48,11 @@ final class Defaults extends ADefaults
         return self::$maxIntervalMilliseconds;
     }
 
+    public static function setMaxIntervalMilliseconds(float|int $maxIntervalMilliseconds): void
+    {
+        self::$maxIntervalMilliseconds = $maxIntervalMilliseconds;
+    }
+
     public static function isModeSynchronous(): bool
     {
         return self::$isModeSynchronous;
@@ -212,4 +217,24 @@ final class Defaults extends ADefaults
         {
             self::$spinnerTrailingSpacer = $spinnerTrailingSpacer;
         }
+
+    public static function reset(): void
+    {
+        self::$minIntervalMilliseconds = self::MILLISECONDS_MIN_INTERVAL;
+        self::$maxIntervalMilliseconds = self::MILLISECONDS_MAX_INTERVAL;
+        self::$isModeSynchronous = self::MODE_IS_SYNCHRONOUS;
+        self::$hideCursor = self::HIDE_CURSOR;
+        self::$shutdownDelay = self::SHUTDOWN_DELAY;
+        self::$finalMessage = self::FINAL_MESSAGE;
+        self::$messageOnExit = self::MESSAGE_ON_EXIT;
+        self::$interruptMessage = self::MESSAGE_INTERRUPTED;
+        self::$maxShutdownDelay = self::MAX_SHUTDOWN_DELAY;
+        self::$colorSupportLevels = self::COLOR_SUPPORT_LEVELS;
+        self::$progressFormat = self::PROGRESS_FORMAT;
+        self::$defaultStylePattern = null;
+        self::$defaultCharPattern = null;
+        self::$spinnerStylePattern = null;
+        self::$spinnerCharPattern = null;
+        self::$spinnerTrailingSpacer = null;
+    }
 }
