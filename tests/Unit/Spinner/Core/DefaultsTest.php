@@ -7,6 +7,7 @@ namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Core;
 use AlecRabbit\Spinner\Core\Contract\CharPattern;
 use AlecRabbit\Spinner\Core\Contract\StylePattern;
 use AlecRabbit\Spinner\Core\Defaults;
+use AlecRabbit\Spinner\Core\Frame\CharFrame;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Tests\Spinner\TestCase\TestCase;
 
@@ -253,6 +254,20 @@ class DefaultsTest extends TestCase
         $pattern = CharPattern::none();
         Defaults::setSpinnerCharPattern($pattern);
         self::assertEquals($pattern, Defaults::getSpinnerCharPattern());
+    }
+
+    /** @test */
+    public function canGetSpinnerTrailingSpacer(): void
+    {
+        self::assertEquals(CharFrame::createSpace(), Defaults::getSpinnerTrailingSpacer());
+    }
+
+    /** @test */
+    public function canSetSpinnerTrailingSpacer(): void
+    {
+        $spacer = CharFrame::createEmpty();
+        Defaults::setSpinnerTrailingSpacer($spacer);
+        self::assertEquals($spacer, Defaults::getSpinnerTrailingSpacer());
     }
 
     protected function setUp(): void
