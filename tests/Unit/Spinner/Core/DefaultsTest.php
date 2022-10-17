@@ -52,10 +52,12 @@ class DefaultsTest extends TestCase
         self::assertSame(self::MODE_IS_SYNCHRONOUS, Defaults::isModeSynchronous());
     }
     /** @test */
-    public function canSetIsModeSynchronous(): void
+    public function canSetModeAsSynchronous(): void
     {
-        Defaults::setModeAsSynchronous(true);
-        self::assertTrue(Defaults::isModeSynchronous());
+        Defaults::setModeAsSynchronous(!self::MODE_IS_SYNCHRONOUS);
+        self::assertSame(!self::MODE_IS_SYNCHRONOUS, Defaults::isModeSynchronous());
+        Defaults::setModeAsSynchronous(self::MODE_IS_SYNCHRONOUS);
+        self::assertSame(self::MODE_IS_SYNCHRONOUS, Defaults::isModeSynchronous());
     }
 
     /** @test */
