@@ -11,7 +11,7 @@ abstract class ADefaults
     final protected const SHUTDOWN_DELAY = 0.15;
     final protected const MAX_SHUTDOWN_DELAY = 10;
     final protected const MESSAGE_ON_EXIT = 'Exiting... (CTRL+C to force)' . PHP_EOL;
-    final protected const MESSAGE_INTERRUPTED = 'Interrupted!' . PHP_EOL;
+    final protected const INTERRUPT_MESSAGE = 'Interrupted!' . PHP_EOL;
     final protected const FINAL_MESSAGE = PHP_EOL;
     final protected const MAX_WIDTH = 100;
     final protected const MILLISECONDS_INTERVAL = 1000;

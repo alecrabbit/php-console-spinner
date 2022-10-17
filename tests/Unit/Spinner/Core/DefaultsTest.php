@@ -7,7 +7,10 @@ namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Core;
 use AlecRabbit\Spinner\Core\Contract\CharPattern;
 use AlecRabbit\Spinner\Core\Contract\StylePattern;
 use AlecRabbit\Spinner\Core\Defaults;
+use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Tests\Spinner\TestCase\TestCase;
+
+use const AlecRabbit\Cli\ALLOWED_TERM_COLOR;
 
 class DefaultsTest extends TestCase
 {
@@ -16,8 +19,11 @@ class DefaultsTest extends TestCase
     private const MODE_IS_SYNCHRONOUS = false;
     private const HIDE_CURSOR = true;
     private const SHUTDOWN_DELAY = 0.15;
+    private const MAX_SHUTDOWN_DELAY = 10;
     private const FINAL_MESSAGE = PHP_EOL;
     private const MESSAGE_ON_EXIT = 'Exiting... (CTRL+C to force)' . PHP_EOL;
+    private const INTERRUPT_MESSAGE = 'Interrupted!' . PHP_EOL;
+    private const PROGRESS_FORMAT = '%0.1f%%';
 
     /** @test */
     public function canGetMinIntervalMilliseconds(): void
@@ -104,7 +110,7 @@ class DefaultsTest extends TestCase
     }
 
     /** @test */
-    public function canDefaultStylePattern(): void
+    public function canGetDefaultStylePattern(): void
     {
         self::assertEquals(StylePattern::none(), Defaults::getDefaultStylePattern());
     }
@@ -118,7 +124,7 @@ class DefaultsTest extends TestCase
     }
 
     /** @test */
-    public function canFinalMessage(): void
+    public function canGetFinalMessage(): void
     {
         self::assertEquals(self::FINAL_MESSAGE, Defaults::getFinalMessage());
     }
@@ -132,7 +138,7 @@ class DefaultsTest extends TestCase
     }
 
     /** @test */
-    public function canMessageOnExit(): void
+    public function canGetMessageOnExit(): void
     {
         self::assertEquals(self::MESSAGE_ON_EXIT, Defaults::getMessageOnExit());
     }
@@ -143,6 +149,82 @@ class DefaultsTest extends TestCase
         $message = 'test';
         Defaults::setMessageOnExit($message);
         self::assertEquals($message, Defaults::getMessageOnExit());
+    }
+
+    /** @test */
+    public function canGetInterruptMessage(): void
+    {
+        self::assertEquals(self::INTERRUPT_MESSAGE, Defaults::getInterruptMessage());
+    }
+
+    /** @test */
+    public function canSetInterruptMessage(): void
+    {
+        $message = 'test';
+        Defaults::setInterruptMessage($message);
+        self::assertEquals($message, Defaults::getInterruptMessage());
+    }
+
+    /** @test */
+    public function canGetMaxShutdownDelay(): void
+    {
+        self::assertSame(self::MAX_SHUTDOWN_DELAY, Defaults::getMaxShutdownDelay());
+    }
+
+    /** @test */
+    public function canSetMaxShutdownDelay(): void
+    {
+        $shutdownDelay = 10;
+        Defaults::setMaxShutdownDelay($shutdownDelay);
+        self::assertSame($shutdownDelay, Defaults::getMaxShutdownDelay());
+    }
+
+    /** @test */
+    public function canGetColorSupportLevels(): void
+    {
+        self::assertEquals(ALLOWED_TERM_COLOR, Defaults::getColorSupportLevels());
+    }
+
+    /** @test */
+    public function canSetColorSupportLevels(): void
+    {
+        $levels = [0];
+        Defaults::setColorSupportLevels($levels);
+        self::assertEquals($levels, Defaults::getColorSupportLevels());
+    }
+
+    /** @test */
+    public function throwsOnEmptyColorSupportLevels(): void
+    {
+        $levels = [];
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Color support levels must not be empty.');
+        Defaults::setColorSupportLevels($levels);
+    }
+
+    /** @test */
+    public function throwsOnUnknownColorSupportLevels(): void
+    {
+        $levels = ['1'];
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage(
+            'Color support level "1" is not allowed. Allowed values are [0, 16, 255, 65535].'
+        );
+        Defaults::setColorSupportLevels($levels);
+    }
+
+    /** @test */
+    public function canGetProgressFormat(): void
+    {
+        self::assertEquals(self::PROGRESS_FORMAT, Defaults::getProgressFormat());
+    }
+
+    /** @test */
+    public function canSetProgressFormat(): void
+    {
+        $format = 'test';
+        Defaults::setProgressFormat($format);
+        self::assertEquals($format, Defaults::getProgressFormat());
     }
 
     protected function setUp(): void

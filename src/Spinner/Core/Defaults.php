@@ -23,7 +23,7 @@ final class Defaults extends ADefaults
     private static bool $hideCursor = self::HIDE_CURSOR;
     private static string $finalMessage = self::FINAL_MESSAGE;
     private static string $messageOnExit = self::MESSAGE_ON_EXIT;
-    private static string $interruptMessage = self::MESSAGE_INTERRUPTED;
+    private static string $interruptMessage = self::INTERRUPT_MESSAGE;
     private static string $progressFormat = self::PROGRESS_FORMAT;
 
     private static array $colorSupportLevels = self::COLOR_SUPPORT_LEVELS;
@@ -154,16 +154,34 @@ final class Defaults extends ADefaults
         return self::$colorSupportLevels;
     }
 
+    /**
+     * @throws InvalidArgumentException
+     */
     public static function setColorSupportLevels(array $colorSupportLevels): void
     {
+        self::assertColorSupportLevels($colorSupportLevels);
+        self::$colorSupportLevels = $colorSupportLevels;
+    }
+
+    /**
+     * @throws InvalidArgumentException
+     */
+    private static function assertColorSupportLevels(array $colorSupportLevels): void
+    {
+        if ($colorSupportLevels === []) {
+            throw new InvalidArgumentException('Color support levels must not be empty.');
+        }
         foreach ($colorSupportLevels as $level) {
             if (!in_array($level, ALLOWED_TERM_COLOR, true)) {
                 throw new InvalidArgumentException(
-                    sprintf('Color support level "%s" is not allowed.', $level)
+                    sprintf(
+                        'Color support level "%s" is not allowed. Allowed values are [%s].',
+                        $level,
+                        implode(', ', ALLOWED_TERM_COLOR)
+                    )
                 );
             }
         }
-        self::$colorSupportLevels = $colorSupportLevels;
     }
 
     public static function getProgressFormat(): string
@@ -190,7 +208,6 @@ final class Defaults extends ADefaults
         self::$spinnerStylePattern = $spinnerStylePattern;
     }
 
-
     public static function getSpinnerCharPattern(): array
     {
         // TODO (2022-10-14 16:03) [Alec Rabbit]: change return type to ? [f96f5d87-f9f9-46dc-a45b-8eecc2aba711]
@@ -205,18 +222,18 @@ final class Defaults extends ADefaults
         self::$spinnerCharPattern = $spinnerCharPattern;
     }
 
-        public static function getSpinnerTrailingSpacer(): ICharFrame
-        {
-            if (null === self::$spinnerTrailingSpacer) {
-                self::$spinnerTrailingSpacer = CharFrame::createSpace();
-            }
-            return self::$spinnerTrailingSpacer;
+    public static function getSpinnerTrailingSpacer(): ICharFrame
+    {
+        if (null === self::$spinnerTrailingSpacer) {
+            self::$spinnerTrailingSpacer = CharFrame::createSpace();
         }
+        return self::$spinnerTrailingSpacer;
+    }
 
-        public static function setSpinnerTrailingSpacer(ICharFrame $spinnerTrailingSpacer): void
-        {
-            self::$spinnerTrailingSpacer = $spinnerTrailingSpacer;
-        }
+    public static function setSpinnerTrailingSpacer(ICharFrame $spinnerTrailingSpacer): void
+    {
+        self::$spinnerTrailingSpacer = $spinnerTrailingSpacer;
+    }
 
     public static function reset(): void
     {
@@ -227,7 +244,7 @@ final class Defaults extends ADefaults
         self::$shutdownDelay = self::SHUTDOWN_DELAY;
         self::$finalMessage = self::FINAL_MESSAGE;
         self::$messageOnExit = self::MESSAGE_ON_EXIT;
-        self::$interruptMessage = self::MESSAGE_INTERRUPTED;
+        self::$interruptMessage = self::INTERRUPT_MESSAGE;
         self::$maxShutdownDelay = self::MAX_SHUTDOWN_DELAY;
         self::$colorSupportLevels = self::COLOR_SUPPORT_LEVELS;
         self::$progressFormat = self::PROGRESS_FORMAT;
