@@ -227,6 +227,34 @@ class DefaultsTest extends TestCase
         self::assertEquals($format, Defaults::getProgressFormat());
     }
 
+    /** @test */
+    public function canGetSpinnerStylePattern(): void
+    {
+        self::assertEquals(StylePattern::rainbow(), Defaults::getSpinnerStylePattern());
+    }
+
+    /** @test */
+    public function canSetSpinnerStylePattern(): void
+    {
+        $pattern = StylePattern::none();
+        Defaults::setSpinnerStylePattern($pattern);
+        self::assertEquals($pattern, Defaults::getSpinnerStylePattern());
+    }
+
+    /** @test */
+    public function canGetSpinnerCharPattern(): void
+    {
+        self::assertEquals(CharPattern::SNAKE_VARIANT_0, Defaults::getSpinnerCharPattern());
+    }
+
+    /** @test */
+    public function canSetSpinnerCharPattern(): void
+    {
+        $pattern = CharPattern::none();
+        Defaults::setSpinnerCharPattern($pattern);
+        self::assertEquals($pattern, Defaults::getSpinnerCharPattern());
+    }
+
     protected function setUp(): void
     {
         Defaults::reset();
