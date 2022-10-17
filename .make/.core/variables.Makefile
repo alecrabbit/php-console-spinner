@@ -31,9 +31,9 @@ _APP_DIR=${_PROJECT_DIR}/${_DN_APP}
 _TEST_DIR=${_CORE_DIR}/${_DN_TEST}
 _DIST_CP_DIR=${_DIST_DIR}/${_DN_CP}
 _INCLUDE_DIR=${_MAKE_ROOT}/${_DN_INCLUDE}
+_DEPRECATED_DIR=${_INCLUDE_DIR}/${_DN_DEPRECATED}
 _UNINSTALL_DIR=${_DEPRECATED_DIR}/uninstall.${NOW}
 _INITS_DIR=${_MAKE_ROOT}/${_DN_INITS}
-_DEPRECATED_DIR=${_INITS_DIR}/${_DN_DEPRECATED}
 _VAR_FILE_DIR=.
 
 # Executables (local)
@@ -78,6 +78,6 @@ _ENV_FILE=.env
 _ENV_DIST_FILE=.env.dist
 _ENV_FILE_COMMENT=\# Project-specific environment variables
 
-# Project variables overridable in other files
+# Project variables override in .env file
 PROJECT_NAME=project.name
 PROJECT_SHORT_TITLE=🚀
