@@ -19,7 +19,7 @@ final class Defaults extends ADefaults
     private static float|int $maxShutdownDelay = self::MAX_SHUTDOWN_DELAY;
     private static float|int $maxIntervalMilliseconds = self::MILLISECONDS_MAX_INTERVAL;
     private static float|int $minIntervalMilliseconds = self::MILLISECONDS_MIN_INTERVAL;
-    private static bool $synchronousMode = self::SYNCHRONOUS_MODE;
+    private static bool $isModeSynchronous = self::MODE_IS_SYNCHRONOUS;
     private static bool $hideCursor = self::HIDE_CURSOR;
     private static string $finalMessage = self::FINAL_MESSAGE;
     private static string $messageOnExit = self::MESSAGE_ON_EXIT;
@@ -48,14 +48,14 @@ final class Defaults extends ADefaults
         return self::$maxIntervalMilliseconds;
     }
 
-    public static function getSynchronousMode(): bool
+    public static function isModeSynchronous(): bool
     {
-        return self::$synchronousMode;
+        return self::$isModeSynchronous;
     }
 
-    public static function setSynchronousMode(bool $synchronousMode): void
+    public static function setModeAsSynchronous(bool $isModeSynchronous): void
     {
-        self::$synchronousMode = $synchronousMode;
+        self::$isModeSynchronous = $isModeSynchronous;
     }
 
     public static function getHideCursor(): bool

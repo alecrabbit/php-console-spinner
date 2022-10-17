@@ -211,7 +211,7 @@ final class ConfigBuilder implements IConfigBuilder
         return $clone;
     }
 
-    public function createEmpty(): self
+    public function createEmpty(): self // TODO (2022-10-17 13:11) [Alec Rabbit]: check method name
     {
         $clone = clone $this;
         $clone->createEmpty = true;
@@ -283,7 +283,7 @@ final class ConfigBuilder implements IConfigBuilder
         }
 
         if (null === $this->synchronousMode) {
-            $this->synchronousMode = Defaults::getSynchronousMode();
+            $this->synchronousMode = Defaults::isModeSynchronous();
         }
 
         if (!$this->synchronousMode) {
@@ -310,7 +310,7 @@ final class ConfigBuilder implements IConfigBuilder
         }
 
         if (null === $this->loopFactory) {
-            $this->loopFactory = new LoopFactory();
+            $this->loopFactory = $this->createLoopFactory();
         }
 
         if (null === $this->loop) {
@@ -440,5 +440,10 @@ final class ConfigBuilder implements IConfigBuilder
                 $e,
             );
         }
+    }
+
+    private function createLoopFactory(): LoopFactory
+    {
+        return new LoopFactory();
     }
 }
