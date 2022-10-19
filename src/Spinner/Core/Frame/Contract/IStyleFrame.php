@@ -8,7 +8,7 @@ interface IStyleFrame
 {
     public static function createEmpty(): static;
 
-    public function getSequenceStart(): string;
+    public function getStyleSequenceStart(): string;
 
-    public function getSequenceEnd(): string;
+    public function getStyleSequenceEnd(): string;
 }

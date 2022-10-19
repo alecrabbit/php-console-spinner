@@ -17,12 +17,12 @@ abstract class AStyleFrame implements IStyleFrame
         return new static('', '');
     }
 
-    public function getSequenceStart(): string
+    public function getStyleSequenceStart(): string
     {
         return $this->sequenceStart;
     }
 
-    public function getSequenceEnd(): string
+    public function getStyleSequenceEnd(): string
     {
         return $this->sequenceEnd;
     }

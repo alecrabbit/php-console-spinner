@@ -65,8 +65,8 @@ class StyleTest extends TestCase
 
         $style = new StyleFrame(...$element);
 
-        self::assertEquals($expected[self::SEQUENCE_START], $style->getSequenceStart());
-        self::assertEquals($expected[self::SEQUENCE_END], $style->getSequenceEnd());
-        self::assertStringContainsString($expected[self::CONTAINS], $style->getSequenceStart());
+        self::assertEquals($expected[self::SEQUENCE_START], $style->getStyleSequenceStart());
+        self::assertEquals($expected[self::SEQUENCE_END], $style->getStyleSequenceEnd());
+        self::assertStringContainsString($expected[self::CONTAINS], $style->getStyleSequenceStart());
     }
 }

@@ -32,11 +32,11 @@ final class TwirlerRenderer implements IRenderer
                 $leadingSpacer = $frame->getLeadingSpacer();
                 $trailingSpacer = $frame->getTrailingSpacer();
 
-                $sequences[] = $styleFrame->getSequenceStart();
-                $sequences[] = $leadingSpacer->getChar();
-                $sequences[] = $charFrame->getChar();
-                $sequences[] = $trailingSpacer->getChar();
-                $sequences[] = $styleFrame->getSequenceEnd();
+                $sequences[] = $styleFrame->getStyleSequenceStart();
+                $sequences[] = $leadingSpacer->getCharSequence();
+                $sequences[] = $charFrame->getCharSequence();
+                $sequences[] = $trailingSpacer->getCharSequence();
+                $sequences[] = $styleFrame->getStyleSequenceEnd();
                 $width += $charFrame->getWidth() + $leadingSpacer->getWidth() + $trailingSpacer->getWidth();
             }
         }

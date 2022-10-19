@@ -6,7 +6,7 @@ namespace AlecRabbit\Spinner\Core\Frame\Contract;
 
 interface ICharFrame
 {
-    public function getChar(): string;
+    public function getCharSequence(): string;
 
     public function getWidth(): int;
 }

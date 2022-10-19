@@ -10,7 +10,7 @@ abstract class ACharFrame implements ICharFrame,
                                      Stringable
 {
     public function __construct(
-        protected readonly string $char,
+        protected readonly string $charSequence,
         protected readonly int $width,
     ) {
     }
@@ -32,12 +32,12 @@ abstract class ACharFrame implements ICharFrame,
 
     public function __toString(): string
     {
-        return $this->char;
+        return $this->charSequence;
     }
 
-    public function getChar(): string
+    public function getCharSequence(): string
     {
-        return $this->char;
+        return $this->charSequence;
     }
 
     public function getWidth(): int
