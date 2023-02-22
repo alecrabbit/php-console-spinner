@@ -19,4 +19,5 @@ In zero dependencies "mode", the library has the following limitations:
 - Install `ext-pcntl` extension for signal handling feature.
 
 ### Windows support
-- To run spinner spiced applications on Windows you should have some *nix-like terminal emulator installed. 
+- To run spinner spiced applications on Windows you should have some *nix-like terminal emulator installed.
+  - VT100 terminal, e.g. [minTTY](https://github.com/mintty/mintty).  
