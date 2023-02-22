@@ -6,6 +6,7 @@ namespace AlecRabbit\Spinner\Core\Loop;
 
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use AlecRabbit\Spinner\Core\Loop\A\ALoopAdapter;
+use AlecRabbit\Spinner\Helper\Asserter;
 use Revolt\EventLoop;
 use Revolt\EventLoop\Driver\EvDriver;
 use Revolt\EventLoop\Driver\EventDriver;
@@ -73,7 +74,8 @@ final class RevoltLoopAdapter extends ALoopAdapter
             || $driver instanceof EventDriver) {
             return; // these drivers do not require pcntl extension
         }
-        parent::assertDependencies();
+
+        Asserter::assertExtensionLoaded('pcntl', 'Signal handling requires the pcntl extension.');
     }
 
     protected function onSignal(int $signal, callable $handler): void

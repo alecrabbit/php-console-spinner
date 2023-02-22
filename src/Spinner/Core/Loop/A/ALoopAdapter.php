@@ -44,10 +44,7 @@ abstract class ALoopAdapter extends ADefaultsAwareClass implements ILoop
     /**
      * @throws RuntimeException
      */
-    protected function assertDependencies(): void
-    {
-        Asserter::assertExtensionLoaded('pcntl', 'Signal handling requires the pcntl extension.');
-    }
+    abstract protected function assertDependencies(): void;
 
     abstract protected function doCreateHandlers(ISpinner $spinner): iterable;
 }

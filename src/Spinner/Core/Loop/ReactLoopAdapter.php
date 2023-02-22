@@ -6,6 +6,7 @@ namespace AlecRabbit\Spinner\Core\Loop;
 
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use AlecRabbit\Spinner\Core\Loop\A\ALoopAdapter;
+use AlecRabbit\Spinner\Helper\Asserter;
 use React\EventLoop\LoopInterface;
 use React\EventLoop\TimerInterface;
 
@@ -52,5 +53,10 @@ final class ReactLoopAdapter extends ALoopAdapter
     protected function onSignal(int $signal, mixed $handler): void
     {
         $this->loop->addSignal($signal, $handler);
+    }
+
+    protected function assertDependencies(): void
+    {
+        Asserter::assertExtensionLoaded('pcntl', 'Signal handling requires the pcntl extension.');
     }
 }

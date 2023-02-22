@@ -131,4 +131,9 @@ abstract class ASpinner implements ISpinner
     {
         return $this->widget->getInterval();
     }
+
+//    public function getDriver(): IDriver // [a1087a32-9943-4e3d-a98b-fc2cae929236]
+//    {
+//        return $this->driver;
+//    }
 }
