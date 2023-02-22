@@ -2,6 +2,7 @@
 # Features
 
 - [x] Extremely flexible 
+- [x] Zero dependencies (* see [limitations](limitations.md))
 - [x] Asynchronous mode (* see [limitations](limitations.md))
   - [x] Support of `react/event-loop` 
   - [x] Support of `revolt/event-loop`(`amphp/amp:^3.0`)
@@ -22,4 +23,3 @@ $ app.php | grep "something"
 $ app.php > output.txt
 ```
 - [x] Auto cursor hide/show (can be disabled)
-- [x] Zero dependencies (* see [limitations](limitations.md))
