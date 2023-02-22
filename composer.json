@@ -1,53 +1,57 @@
 {
-  "name": "alecrabbit/php-console-spinner",
-  "type": "library",
-  "description": "Colorful highly configurable spinner for php cli applications",
-  "keywords": [
-    "php",
-    "spinner",
-    "console",
-    "cli",
-    "scripts",
-    "pretty",
-    "clock",
-    "shell",
-    "bash",
-    "arrow",
-    "moon",
-    "color",
-    "256color",
-    "8bit",
-    "colorful",
-    "ansi",
-    "snake"
-  ],
-  "license": "MIT",
-  "require": {
-    "php": ">=7.2",
-    "alecrabbit/php-console-colour": "^0.10",
-    "alecrabbit/php-wcwidth": ">=0",
-    "symfony/console": "^4.3|^5.0"
-  },
-  "require-dev": {
-    "alecrabbit/php-helpers": "^0.8.1",
-    "fzaninotto/faker": "^1.8",
-    "nunomaduro/collision": "^3.0",
-    "phpunit/phpunit": "^8.0",
-    "react/http": "^0.8 || ^1.0",
-    "symfony/var-dumper": "^4.2|^5.0"
-  },
-  "autoload": {
-    "psr-4": {
-      "AlecRabbit\\Spinner\\": "src\\Spinner"
+    "name": "alecrabbit/php-console-spinner",
+    "type": "library",
+    "description": "Colorful extremely flexible spinner for [async] php cli applications",
+    "keywords": [
+        "php",
+        "terminal",
+        "spinner",
+        "console",
+        "cli",
+        "pretty",
+        "shell",
+        "bash",
+        "256color",
+        "8bit",
+        "colorful",
+        "ansi",
+        "async",
+        "snake"
+    ],
+    "license": "MIT",
+    "require": {
+        "php": ">=8.2"
     },
-    "files": [
-      "src/bootstrap.php"
-    ]
-  },
-  "autoload-dev": {
-    "psr-4": {
-      "AlecRabbit\\Tests\\Spinner\\": "tests/"
-    }
-  },
-  "minimum-stability": "alpha"
+    "require-dev": {
+        "symfony/console": "^6.1",
+        "fakerphp/faker": "*",
+        "nunomaduro/collision": "^6.2",
+        "nunomaduro/termwind": "^1.14",
+        "phpunit/phpunit": "^9.5",
+        "react/http": "*",
+        "symfony/var-dumper": "^6.1",
+        "react/event-loop": "*",
+        "phpunit/php-code-coverage": "*",
+        "revolt/event-loop": "^1.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "AlecRabbit\\Spinner\\": "src\\Spinner\\"
+        },
+        "files": [
+            "src/bootstrap.php"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "AlecRabbit\\Tests\\Spinner\\": "tests"
+        }
+    },
+    "suggest": {
+        "ext-pcntl": "For signal handling support.",
+        "ext-mbstring": "For multibyte Unicode string functionality.",
+        "react/event-loop": "For ReactPHP event-loop support.",
+        "revolt/event-loop": "For Revolt event-loop support."
+    },
+    "minimum-stability": "stable"
 }

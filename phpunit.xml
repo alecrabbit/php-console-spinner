@@ -1,36 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<phpunit backupGlobals="false"
-         backupStaticAttributes="false"
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.5/phpunit.xsd"
+         bootstrap="tests/bootstrap.php"
+         cacheResultFile=".tools/.phpunit.cache/test-results"
+         executionOrder="random"
+         beStrictAboutCoversAnnotation="false"
+         beStrictAboutOutputDuringTests="true"
+         beStrictAboutTodoAnnotatedTests="true"
+         convertDeprecationsToExceptions="true"
+         failOnRisky="true"
+         failOnWarning="true"
          colors="true"
-         convertErrorsToExceptions="true"
-         convertNoticesToExceptions="true"
-         convertWarningsToExceptions="true"
-         processIsolation="false"
-         stopOnFailure="false"
-         bootstrap="tests/bootstrap.php">
+         printerClass="NunoMaduro\Collision\Adapters\Phpunit\Printer"
+         verbose="true">
     <testsuites>
-        <testsuite name="Feature">
-            <directory suffix="Test.php">tests/Feature</directory>
-        </testsuite>
-
-        <testsuite name="Unit">
-            <directory suffix="Test.php">tests/Unit</directory>
-        </testsuite>
-
-        <testsuite name="Common">
-            <directory suffix="Test.php">tests</directory>
+        <testsuite name="default">
+            <directory>tests</directory>
         </testsuite>
     </testsuites>
-    <filter>
-        <whitelist processUncoveredFilesFromWhitelist="true">
+
+    <coverage cacheDirectory=".tools/.phpunit.cache/code-coverage"
+              processUncoveredFiles="true">
+        <include>
             <directory suffix=".php">src</directory>
-        </whitelist>
-    </filter>
-    <listeners>
-        <listener class="NunoMaduro\Collision\Adapters\Phpunit\Listener"/>
-    </listeners>
-    <logging>
-        <log type="testdox-html" target="./tests/tmp/testdox.html"/>
-        <log type="testdox-text" target="./tests/tmp/testdox.txt"/>
-    </logging>
+        </include>
+        <report>
+            <html outputDirectory=".tools/.report/.build/coverage"/>
+        </report>
+    </coverage>
 </phpunit>
