@@ -1,19 +1,24 @@
-version: '3.2'
-volumes:
-  app:
+version: '3.7'
 
 services:
-  &app-service app:
-    image: dralec/php73-cli-alpine
-    hostname: *app-service
-    user: "${USER_ID:-1000}:${GROUP_ID:-1000}"
+  &service-app app:
+    image: php:8.2-cli-alpine
+    hostname: *service-app
     volumes:
-      - /etc/passwd:/etc/passwd:ro
-      - /etc/group:/etc/group:ro
-      - ./:/var/www
-    environment:
-      DOCKER_TERM: "${TERM:-}"      # pass host $TERM variable
-      COLORTERM: "${COLORTERM:-}"   # pass host $COLORTERM variable
+      - ./:/app
+    tty: true
+    env_file:
+      - ./.env
     ports:
       - "8080:8080"
-    command: keep-alive.sh
+    working_dir: /app
+
+#  &service-composer composer:
+#    image: composer
+#    hostname: *service-composer
+#    volumes:
+#      - ./:/app
+#    command: tail -F /dev/null
+#    env_file:
+#      - ./.env
+#    working_dir: /app
