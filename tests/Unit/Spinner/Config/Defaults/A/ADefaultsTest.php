@@ -13,7 +13,7 @@ use AlecRabbit\Spinner\Core\Widget\WidgetRevolverBuilder;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Tests\Spinner\TestCase\TestCase;
 
-use const AlecRabbit\Cli\TERM_NOCOLOR;
+use const AlecRabbit\Spinner\TERM_NO_COLOR;
 
 final class ADefaultsTest extends TestCase
 {
@@ -211,7 +211,7 @@ final class ADefaultsTest extends TestCase
     public function canSetColorSupportLevels(): void
     {
         $defaults = self::getInstance();
-        $colorSupportLevels = [TERM_NOCOLOR];
+        $colorSupportLevels = [TERM_NO_COLOR];
         $defaults->setColorSupportLevels($colorSupportLevels);
         self::assertSame($colorSupportLevels, $defaults->getColorSupportLevels());
     }

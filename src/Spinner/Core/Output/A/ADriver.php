@@ -9,7 +9,7 @@ use AlecRabbit\Spinner\Core\Output\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Output\Contract\IOutput;
 use AlecRabbit\Spinner\Core\Sequencer;
 
-use const AlecRabbit\Cli\TERM_256COLOR;
+use const AlecRabbit\Spinner\TERM_256_COLOR;
 
 abstract readonly class ADriver implements IDriver
 {
@@ -70,6 +70,6 @@ abstract readonly class ADriver implements IDriver
     public function getTerminalColorSupport(): int
     {
         // FIXME (2022-06-10 17:37) [Alec Rabbit]: Implement color support level detection.
-        return TERM_256COLOR;
+        return TERM_256_COLOR;
     }
 }
