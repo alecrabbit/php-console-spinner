@@ -48,7 +48,7 @@
         }
     },
     "suggest": {
-        "pcntl": "For signal handling support.",
+        "ext-pcntl": "For signal handling support.",
         "ext-mbstring": "For multibyte Unicode string functionality.",
         "react/event-loop": "For ReactPHP event-loop support.",
         "revolt/event-loop": "For Revolt event-loop support."
