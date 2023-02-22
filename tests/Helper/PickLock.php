@@ -5,13 +5,11 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Spinner\Helper;
 
 use Error;
-use InvalidArgumentException;
 use ReflectionClass;
 use ReflectionException;
 use RuntimeException;
 
 use function get_class;
-use function is_object;
 use function is_string;
 use function method_exists;
 use function property_exists;

@@ -2,7 +2,7 @@ version: '3.7'
 
 services:
   &service-app app:
-    image: php:8.1-cli-alpine
+    image: php:8.2-cli-alpine
     hostname: *service-app
     volumes:
       - ./:/app
@@ -12,3 +12,13 @@ services:
     ports:
       - "8080:8080"
     working_dir: /app
+
+#  &service-composer composer:
+#    image: composer
+#    hostname: *service-composer
+#    volumes:
+#      - ./:/app
+#    command: tail -F /dev/null
+#    env_file:
+#      - ./.env
+#    working_dir: /app

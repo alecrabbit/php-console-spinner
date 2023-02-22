@@ -4,15 +4,18 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Contract;
 
-interface ISpinner
+use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
+use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContext;
+
+interface ISpinner extends IRenderable, IWrapper, HasInterval
 {
-    public function spin(): void;
+    public function spin(float $dt = null): void;
 
     public function initialize(): void;
 
-    public function interrupt(): void;
+    public function interrupt(string $interruptMessage = null): void;
 
-    public function finalize(): void;
+    public function finalize(string $finalMessage = null): void;
 
     public function erase(): void;
 
@@ -20,9 +23,7 @@ interface ISpinner
 
     public function activate(): void;
 
-    /**
-     * Wraps/decorates $callable with spinner erase() and spin() actions.
-     * Note: Signature is subject to change.
-     */
-    public function wrap(callable $callback, ...$args): void; // TODO (2022-10-11 11:52) [Alec Rabbit]: Signature is subject to change.
+    public function add(IWidgetComposite|IWidgetContext $element): IWidgetContext;
+
+    public function remove(IWidgetComposite|IWidgetContext $element): void;
 }

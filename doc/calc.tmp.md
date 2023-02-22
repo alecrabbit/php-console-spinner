@@ -1,3 +1,0 @@
-- if preferred interval not set twirlers calculate minimal interval from patterns
-- if all patterns have null interval, interval 1000ms is used
-- 

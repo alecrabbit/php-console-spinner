@@ -20,18 +20,19 @@
     ],
     "license": "MIT",
     "require": {
-        "php": ">=8.1"
+        "php": ">=8.2"
     },
     "require-dev": {
         "symfony/console": "^6.1",
-        "fakerphp/faker": "^1",
+        "fakerphp/faker": "*",
         "nunomaduro/collision": "^6.2",
         "nunomaduro/termwind": "^1.14",
         "phpunit/phpunit": "^9.5",
         "react/http": "*",
         "symfony/var-dumper": "^6.1",
         "react/event-loop": "*",
-        "phpunit/php-code-coverage": "*"
+        "phpunit/php-code-coverage": "*",
+        "revolt/event-loop": "^1.0"
     },
     "autoload": {
         "psr-4": {
@@ -47,9 +48,10 @@
         }
     },
     "suggest": {
-        "ext-pcntl": "For signal handling support",
-        "ext-mbstring": "For mbstring support",
-        "react/event-loop": "For event loop support"
+        "ext-pcntl": "For signal handling support.",
+        "ext-mbstring": "For multibyte Unicode string functionality.",
+        "react/event-loop": "For ReactPHP event-loop support.",
+        "revolt/event-loop": "For Revolt event-loop support."
     },
     "minimum-stability": "stable"
 }

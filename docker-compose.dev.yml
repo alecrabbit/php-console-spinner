@@ -2,7 +2,7 @@ x-bash-rc: &bash-rc ./docker/.cli/.bashrc:/root/.bashrc
 
 services:
   app:
-    image: dralec/php81-cli-dev
+    image: dralec/php82-cli-dev
     volumes:
       - *bash-rc
     ports:
