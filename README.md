@@ -15,8 +15,10 @@
 ### New version 1.0.0
 
 > - WIP
-> - ❗ API is subject to change until `1.0.0-BETA.0`
+> - ‼️ API is subject to change until `1.0.0-BETA.0`
 > - is intended to be used with event loop (see [limitations](doc/limitations.md))
+
+> Old version `0.55.0` is available in branch [0.55.x](https://github.com/alecrabbit/php-console-spinner/tree/0.55.x)
 
 ![demo](doc/image/demo/fpdemo.svg)
 
