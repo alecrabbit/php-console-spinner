@@ -18,3 +18,36 @@ DefaultsFactory
 SpinnerFactory (ConfigBuilder)
 
 WidgetFactory (WidgetBuilder, WidgetRevolverBuilder)
+
+### Arrows samples
+|    Type    |  Description  |
+|:----------:|:-------------:|
+| <&#124;--  |  Inheritance  |                         
+|    *--	    |  Composition  |
+|    o--	    |  Aggregation  |
+|    -->	    |  Association  |
+|    --	     | Link (Solid)  |
+|    ..>	    |  Dependency   |
+| ..&#124;>	 |  Realization  |
+|    ..	     | Link (Dashed) |
+
+```mermaid
+classDiagram
+direction LR
+%% Inheritance
+classA <|-- classB 
+%% Composition
+classC *-- classD
+%% Aggregation
+classE o-- classF
+%% Association
+classG <-- classH
+%% Link (Solid)
+classI -- classJ
+%% Dependency
+classK <.. classL
+%% Realization
+classM <|.. classN
+%% Link (Dashed)
+classO .. classP
+```
