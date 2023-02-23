@@ -4,7 +4,7 @@ declare(strict_types=1);
 // 14.02.23
 namespace AlecRabbit\Spinner\Config\Defaults\Mixin;
 
-use const AlecRabbit\Cli\ALLOWED_TERM_COLOR;
+use const AlecRabbit\Spinner\KNOWN_TERM_COLOR;
 
 trait DefaultConst
 {
@@ -14,7 +14,7 @@ trait DefaultConst
     final protected const MESSAGE_ON_INTERRUPT = PHP_EOL . 'Interrupted!' . PHP_EOL;
     final protected const MESSAGE_ON_FINALIZE = PHP_EOL;
     final protected const TERMINAL_DEFAULT_WIDTH = 100;
-    final protected const TERMINAL_COLOR_SUPPORT_LEVELS = ALLOWED_TERM_COLOR;
+    final protected const TERMINAL_COLOR_SUPPORT_LEVELS = KNOWN_TERM_COLOR;
     final protected const TERMINAL_HIDE_CURSOR = true;
     final protected const SPINNER_MODE_IS_SYNCHRONOUS = false;
     final protected const SPINNER_CREATE_INITIALIZED = false;

@@ -10,12 +10,12 @@ use AlecRabbit\Tests\Spinner\Unit\Spinner\Core\A\Override\FrameClass;
 
 final class AFrameTest extends TestCase
 {
-    public function createDataProvider(): iterable
+    public static function createDataProvider(): iterable
     {
-        yield from $this->createNormalData();
+        yield from self::createNormalData();
     }
 
-    public function createNormalData(): iterable
+    public static function createNormalData(): iterable
     {
         // [$expected, $incoming]
         yield [

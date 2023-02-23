@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Core\Collection\A;
+namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Core\Revolver\A;
 
 use AlecRabbit\Spinner\Core\Frame;
 use AlecRabbit\Spinner\Core\Interval;
@@ -12,7 +12,7 @@ use AlecRabbit\Spinner\Exception\LogicException;
 use AlecRabbit\Tests\Spinner\TestCase\TestCase;
 use TypeError;
 
-final class AFrameRevolverTest extends TestCase
+final class AFrameCollectionRevolverTest extends TestCase
 {
     /**
      * @test
@@ -148,7 +148,7 @@ final class AFrameRevolverTest extends TestCase
         self::assertSame($frame2, $instance->update());
     }
 
-    public function createDataProvider(): iterable
+    public static function createDataProvider(): iterable
     {
         // [$expected, $incoming]
         // #0
@@ -227,7 +227,7 @@ final class AFrameRevolverTest extends TestCase
         ];
     }
 
-    public function arrayAccessDataProvider(): iterable
+    public static function arrayAccessDataProvider(): iterable
     {
         // [$expected, $incoming]
         // #0

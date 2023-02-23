@@ -18,14 +18,9 @@ abstract class AFactory extends ADefaultsAwareClass implements IFactory
 
     public static function createSpinner(IConfig $config = null): ISpinner
     {
-        $config = self::refineConfig($config);
+        self::$config = self::refineConfig($config);
 
-        $spinner =
-            new Spinner(
-                $config->getDriver(),
-                $config->getTimer(),
-                $config->getMainWidget(),
-            );
+        $spinner = self::doCreateSpinner(self::$config);
 
         self::addWidgets($spinner);
 
@@ -35,16 +30,24 @@ abstract class AFactory extends ADefaultsAwareClass implements IFactory
 
     protected static function refineConfig(?IConfig $config): IConfig
     {
-        self::$config = $config ?? self::getConfigBuilder()->build();
-
         return
-            self::$config;
+            $config ?? self::getConfigBuilder()->build();
     }
 
     public static function getConfigBuilder(): IConfigBuilder
     {
         return
             new ConfigBuilder(self::getDefaults());
+    }
+
+    private static function doCreateSpinner(IConfig $config): Spinner
+    {
+        return
+            new Spinner(
+                $config->getDriver(),
+                $config->getTimer(),
+                $config->getMainWidget(),
+            );
     }
 
     protected static function addWidgets(Spinner $spinner): void
@@ -59,8 +62,8 @@ abstract class AFactory extends ADefaultsAwareClass implements IFactory
         if (self::$config->isAsynchronous()) {
             Loop::attach($spinner);
 
-            if (self::$config->shouldSetSignalHandlers()) {
-                Loop::setSignalHandlers($spinner);
+            if (self::$config->areSignalHandlersEnabled()) {
+                Loop::setSignalHandlers($spinner, self::$config->getSignalHandlers());
             }
 
             if (self::$config->isAutoStart()) {

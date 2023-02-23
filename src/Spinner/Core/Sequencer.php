@@ -6,8 +6,8 @@ namespace AlecRabbit\Spinner\Core;
 
 use AlecRabbit\Spinner\Core\Contract\ISequencer;
 
-use const AlecRabbit\Cli\CSI;
-use const AlecRabbit\Cli\RESET;
+use const AlecRabbit\Spinner\CSI;
+use const AlecRabbit\Spinner\RESET;
 
 final class Sequencer implements ISequencer
 {

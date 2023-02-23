@@ -11,13 +11,13 @@ use AlecRabbit\Tests\Spinner\TestCase\TestCase;
 
 final class AFractionValueTest extends TestCase
 {
-    public function createDataProvider(): iterable
+    public static function createDataProvider(): iterable
     {
-        yield from $this->createNormalData();
-        yield from $this->createExceptionData();
+        yield from self::createNormalData();
+        yield from self::createExceptionData();
     }
 
-    public function createNormalData(): iterable
+    public static function createNormalData(): iterable
     {
         // [$expected, $incoming]
         yield [
@@ -144,7 +144,7 @@ final class AFractionValueTest extends TestCase
         ];
     }
 
-    public function createExceptionData(): iterable
+    public static function createExceptionData(): iterable
     {
         // [$expected, $incoming]
         yield [

@@ -11,7 +11,6 @@ use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
 
 abstract readonly class AConfig implements IConfig
 {
-
     public function __construct(
         protected IDriver $driver,
         protected ITimer $timer,
@@ -62,8 +61,14 @@ abstract readonly class AConfig implements IConfig
         return $this->autoStart;
     }
 
-    public function shouldSetSignalHandlers(): bool
+    public function areSignalHandlersEnabled(): bool
     {
         return $this->attachSignalHandlers;
+    }
+
+    public function getSignalHandlers(): ?iterable
+    {
+        // TODO: Implement getSignalHandlers() method.
+        return null;
     }
 }

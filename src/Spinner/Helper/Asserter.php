@@ -9,7 +9,7 @@ use AlecRabbit\Spinner\Exception\RuntimeException;
 
 use function extension_loaded;
 
-use const AlecRabbit\Cli\ALLOWED_TERM_COLOR;
+use const AlecRabbit\Spinner\KNOWN_TERM_COLOR;
 
 final class Asserter
 {
@@ -53,12 +53,12 @@ final class Asserter
             throw new InvalidArgumentException('Color support levels must not be empty.');
         }
         foreach ($colorSupportLevels as $level) {
-            if (!in_array($level, ALLOWED_TERM_COLOR, true)) {
+            if (!in_array($level, KNOWN_TERM_COLOR, true)) {
                 throw new InvalidArgumentException(
                     sprintf(
                         'Color support level "%s" is not allowed. Allowed values are [%s].',
                         $level,
-                        implode(', ', ALLOWED_TERM_COLOR)
+                        implode(', ', KNOWN_TERM_COLOR)
                     )
                 );
             }

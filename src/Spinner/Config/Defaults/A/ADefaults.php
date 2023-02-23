@@ -15,8 +15,8 @@ use AlecRabbit\Spinner\Core\Loop\ReactLoopProbe;
 use AlecRabbit\Spinner\Core\Loop\RevoltLoopProbe;
 use AlecRabbit\Spinner\Helper\Asserter;
 
-use const AlecRabbit\Cli\CSI;
-use const AlecRabbit\Cli\RESET;
+use const AlecRabbit\Spinner\CSI;
+use const AlecRabbit\Spinner\RESET;
 
 abstract class ADefaults implements ISettableDefaults
 {

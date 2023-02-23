@@ -10,7 +10,7 @@ use AlecRabbit\Tests\Spinner\TestCase\TestCase;
 use stdClass;
 use Throwable;
 
-use const AlecRabbit\Cli\ALLOWED_TERM_COLOR;
+use const AlecRabbit\Spinner\KNOWN_TERM_COLOR;
 
 final class AsserterTest extends TestCase
 {
@@ -92,7 +92,7 @@ final class AsserterTest extends TestCase
             sprintf(
                 'Color support level "%s" is not allowed. Allowed values are [%s].',
                 $invalidLevel,
-                implode(', ', ALLOWED_TERM_COLOR),
+                implode(', ', KNOWN_TERM_COLOR),
             )
         );
 

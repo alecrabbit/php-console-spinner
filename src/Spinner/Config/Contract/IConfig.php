@@ -27,5 +27,7 @@ interface IConfig
 
     public function isAutoStart(): bool;
 
-    public function shouldSetSignalHandlers(): bool;
+    public function areSignalHandlersEnabled(): bool;
+
+    public function getSignalHandlers(): ?iterable;
 }
