@@ -27,7 +27,7 @@
         "fakerphp/faker": "*",
         "nunomaduro/collision": "^6.2",
         "nunomaduro/termwind": "^1.14",
-        "phpunit/phpunit": "^9.5",
+        "phpunit/phpunit": "^9.5 || ^10.0",
         "react/http": "*",
         "symfony/var-dumper": "^6.1",
         "react/event-loop": "*",
