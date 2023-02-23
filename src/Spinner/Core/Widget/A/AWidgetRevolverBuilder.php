@@ -22,10 +22,7 @@ abstract class AWidgetRevolverBuilder implements IWidgetRevolverBuilder
     ) {
     }
 
-
-    /**
-     * @inheritdoc
-     */
+    /** @inheritdoc */
     public function build(): IRevolver
     {
         $this->processDefaults();

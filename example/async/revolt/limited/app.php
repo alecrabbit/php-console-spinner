@@ -2,9 +2,11 @@
 
 declare(strict_types=1);
 
+use AlecRabbit\Spinner\Core\Frame;
 use AlecRabbit\Spinner\Core\Loop\RevoltLoopProbe;
 use AlecRabbit\Spinner\Factory;
 use AlecRabbit\Spinner\Factory\DefaultsFactory;
+use AlecRabbit\Spinner\Factory\WidgetFactory;
 use Revolt\EventLoop;
 
 require_once __DIR__ . '/../../bootstrap.php';
@@ -18,6 +20,16 @@ DefaultsFactory::create()
  * This example shows how to use Revolt event loop.
  */
 $spinner = Factory::createSpinner();
+
+$widget =
+    WidgetFactory::create(
+        new Frame('H', 1),
+        new Frame('W', 1),
+    );
+
+$spinner->add($widget);
+
+dump($widget);
 
 EventLoop::delay(3, static function () use ($spinner) {
     $spinner->finalize('Finished!' . PHP_EOL);

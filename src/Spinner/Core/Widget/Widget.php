@@ -11,12 +11,5 @@ use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
 
 final class Widget extends AWidgetComposite
 {
-    public static function createEmpty(): IWidgetComposite
-    {
-        return new self(
-            EmptyFrameRevolver::create(),
-            Frame::createEmpty(),
-            Frame::createEmpty(),
-        );
-    }
+
 }
