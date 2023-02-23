@@ -3,8 +3,8 @@ flowchart TD
     subgraph DefaultsFactory
     df1["::create()"]-->df2([IDefaults])
     end
-    subgraph SpinnerFactory
-    sf1["::create()"]-->sf2([ISpinner])
+    subgraph Factory
+    sf1["::createSpinner()"]-->sf2([ISpinner])
     sf3["::getConfigBuilder()"]-->sf4([IConfigBuilder])
     end
     subgraph WidgetFactory
@@ -15,7 +15,7 @@ flowchart TD
 
 DefaultsFactory
 
-SpinnerFactory (ConfigBuilder)
+Factory (ConfigBuilder)
 
 WidgetFactory (WidgetBuilder, WidgetRevolverBuilder)
 
