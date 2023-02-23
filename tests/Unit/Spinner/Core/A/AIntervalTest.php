@@ -11,13 +11,13 @@ use AlecRabbit\Tests\Spinner\TestCase\TestCase;
 
 final class AIntervalTest extends TestCase
 {
-    public function createDataProvider(): iterable
+    public static function createDataProvider(): iterable
     {
-        yield from $this->createNormalData();
-        yield from $this->createExceptionData();
+        yield from self::createNormalData();
+        yield from self::createExceptionData();
     }
 
-    public function createNormalData(): iterable
+    public static function createNormalData(): iterable
     {
         // [$expected, $incoming]
         yield [
@@ -85,7 +85,7 @@ final class AIntervalTest extends TestCase
         ];
     }
 
-    public function createExceptionData(): iterable
+    public static function createExceptionData(): iterable
     {
         // [$expected, $ms]
         yield [
@@ -173,7 +173,7 @@ final class AIntervalTest extends TestCase
         self::assertSame((float)$expected[self::INTERVAL], $interval->smallest($other)->toMilliseconds());
     }
 
-    public function smallestDataProvider(): iterable
+    public static function smallestDataProvider(): iterable
     {
         // [$expected, $incoming]
         yield [
