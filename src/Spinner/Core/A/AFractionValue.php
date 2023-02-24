@@ -78,11 +78,13 @@ abstract class AFractionValue implements IFractionValue
         return $this->max;
     }
 
+    /** @inheritdoc */
     public function advance(int $steps = 1): void
     {
         if ($this->finished) {
             return;
         }
+
         $this->value += $steps * $this->stepValue;
         $this->checkBounds();
         $this->autoFinish();

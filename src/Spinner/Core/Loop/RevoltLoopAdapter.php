@@ -6,13 +6,15 @@ namespace AlecRabbit\Spinner\Core\Loop;
 
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use AlecRabbit\Spinner\Core\Loop\A\ALoopAdapter;
-use AlecRabbit\Spinner\Helper\Asserter;
+use Closure;
+use React\EventLoop\LoopInterface;
 use Revolt\EventLoop;
+use Revolt\EventLoop\Driver;
 use Revolt\EventLoop\Driver\EvDriver;
 use Revolt\EventLoop\Driver\EventDriver;
 use Revolt\EventLoop\Driver\UvDriver;
 
-final class RevoltLoopAdapter extends ALoopAdapter
+class RevoltLoopAdapter extends ALoopAdapter
 {
     private static bool $stopped = false;
     private ?string $spinnerTimer = null;
@@ -31,6 +33,11 @@ final class RevoltLoopAdapter extends ALoopAdapter
         if ($this->spinnerTimer) {
             EventLoop::cancel($this->spinnerTimer);
         }
+    }
+
+    public function repeat(float $interval, Closure $closure): void
+    {
+        EventLoop::repeat($interval, $closure);
     }
 
     public function autoStart(): void
@@ -56,30 +63,30 @@ final class RevoltLoopAdapter extends ALoopAdapter
         // @codeCoverageIgnoreEnd
     }
 
-    protected function doCreateHandlers(ISpinner $spinner): iterable
+    public function delay(float $delay, Closure $closure): void
     {
-        yield from [
-            SIGINT => static function () use ($spinner): never {
-                $spinner->interrupt();
-                exit();
-            },
-        ];
+        EventLoop::delay($delay, $closure);
     }
 
-    protected function assertDependencies(): void
+    protected function assertExtPcntl(): void
     {
-        $driver = EventLoop::getDriver();
+        $driver = $this->getLoop();
         if ($driver instanceof UvDriver
             || $driver instanceof EvDriver
             || $driver instanceof EventDriver) {
             return; // these drivers do not require pcntl extension
         }
 
-        Asserter::assertExtensionLoaded('pcntl', 'Signal handling requires the pcntl extension.');
+        parent::assertExtPcntl();
     }
 
-    protected function onSignal(int $signal, callable $handler): void
+    public function getLoop(): LoopInterface|Driver
     {
-        EventLoop::onSignal($signal, $handler);
+        return EventLoop::getDriver();
+    }
+
+    protected function onSignal(int $signal, Closure $closure): void
+    {
+        EventLoop::onSignal($signal, $closure);
     }
 }

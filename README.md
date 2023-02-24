@@ -1,13 +1,13 @@
 <p align="center">
   <img alt="Logo" width="100" height="100" src="https://github.com/alecrabbit/php-console-spinner/raw/master/doc/image/logo/logo.png">
 </p>
- 
+
 <p align="center">  
 <b><i>Spinner - your task is running</i></b>
 <br>
 </p>
 
-# 🇺🇦 🏵️  PHP Console Spinner 
+# 🇺🇦 🏵️ PHP Console Spinner
 
 [![PHP Version](https://img.shields.io/packagist/php-v/alecrabbit/php-console-spinner.svg)](https://php.net)
 
@@ -36,7 +36,8 @@
 + [Known issues](doc/known_issues.md)
 + [Links](#links)
 
-###  <a name="why"></a>Why?
+### <a name="why"></a>Why?
+
 Main purpose of this library is to provide a simple way to show spinner in console applications.
 Spinner could be an indicator of running task.
 Also this library provides a way to show progress of running task and messages of some sort, like status messages.
@@ -47,6 +48,7 @@ For more information see [Features](doc/features.md) and [Examples](example).
 ```bash
 composer require alecrabbit/php-console-spinner
 ```
+
 ### <a name="quickstart"></a> Quick start (asynchronous)
 
 ```php
@@ -56,23 +58,26 @@ $spinner = Factory::createSpinner();
 
 // that's basically it :)
 ```
+
 > Examples can be found in [example](example) directory
 
 > For more information see [Usage](doc/usage.md)
 
 ### <a name="features"></a> Features
-> See [Features](doc/features.md) for more details
 
-| Feature               | [php-console-spinner](https://github.com/alecrabbit/php-console-spinner) | [php-cli-snake](https://github.com/alecrabbit/php-cli-snake) |
-|-----------------------|:------------------------------------------------------------------------:|:------------------------------------------------------------:|
-| Lightweight           |                                   ❌ ️                                    |                             🟢️                              |
-| Has zero dependencies |                                  🟢* ️                                   |                             🟢️                              |
-| Extremely flexible    |                                  🟢️ ️                                   |                              ❌                               |
+> See [Features](doc/features.md) and [limitations](doc/limitations.md) for more details
 
-> - `❌` - No
-> - `🟢️` - Yes
-> - `🟢️️*` - Yes, see [limitations](doc/limitations.md)
+| Feature                 |                             | 
+|-------------------------|:---------------------------:|
+| Extremely flexible      |            🟢️ ️            |  
+| Zero dependencies ️     | 🟢️ [*](doc/limitations.md) |
+| Asynchronous            |            🟢️ ️            |
+| Synchronous             |            🟢️ ️            |
+| AutoStart (async)       |            🟢️ ️            |
+| Signal handling (async) |            🟢️ ️            |
+| Cursor auto hide/show   |            🟢️ ️            |
+
 
 ### <a name="links"></a> Links
 
- - Inspired by [sindresorhus/cli-spinners](https://github.com/sindresorhus/cli-spinners)
+- Inspired by [sindresorhus/cli-spinners](https://github.com/sindresorhus/cli-spinners)

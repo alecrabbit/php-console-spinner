@@ -8,6 +8,7 @@ use AlecRabbit\Spinner\Config\ConfigBuilder;
 use AlecRabbit\Spinner\Config\Contract\IConfig;
 use AlecRabbit\Spinner\Config\Contract\IConfigBuilder;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
+use AlecRabbit\Spinner\Core\Loop\Contract\ILoop;
 use AlecRabbit\Spinner\Core\Loop\Loop;
 use AlecRabbit\Spinner\Factory\Contract\IFactory;
 use AlecRabbit\Spinner\Spinner;
@@ -75,5 +76,12 @@ abstract class AFactory extends ADefaultsAwareClass implements IFactory
             $spinner->initialize();
         }
         return $spinner;
+    }
+
+
+    public static function getLoop(): ILoop
+    {
+        return
+            Loop::get();
     }
 }

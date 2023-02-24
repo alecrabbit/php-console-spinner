@@ -46,21 +46,21 @@ abstract class AWidgetBuilder implements IWidgetBuilder
         $this->trailingSpacer ??= $this->defaults->getDefaultTrailingSpacer();
     }
 
-    public function withWidgetRevolver(IRevolver $revolver): static
+    public function withWidgetRevolver(?IRevolver $revolver): static
     {
         $clone = clone $this;
         $clone->revolver = $revolver;
         return $clone;
     }
 
-    public function withLeadingSpacer(IFrame $frame): static
+    public function withLeadingSpacer(?IFrame $frame): static
     {
         $clone = clone $this;
         $clone->leadingSpacer = $frame;
         return $clone;
     }
 
-    public function withTrailingSpacer(IFrame $frame): static
+    public function withTrailingSpacer(?IFrame $frame): static
     {
         $clone = clone $this;
         $clone->trailingSpacer = $frame;

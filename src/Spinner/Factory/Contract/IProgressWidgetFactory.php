@@ -1,0 +1,20 @@
+<?php
+
+declare(strict_types=1);
+// 24.02.23
+namespace AlecRabbit\Spinner\Factory\Contract;
+
+use AlecRabbit\Spinner\Core\Contract\IFractionValue;
+use AlecRabbit\Spinner\Core\Contract\IFrame;
+use AlecRabbit\Spinner\Core\Contract\IInterval;
+use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
+
+interface IProgressWidgetFactory
+{
+    public static function createSteps(
+        IFractionValue $progressValue,
+        ?IInterval $updateInterval = null,
+        ?IFrame $leadingSpacer = null,
+        ?IFrame $trailingSpacer = null
+    ): IWidgetComposite;
+}

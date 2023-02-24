@@ -3,8 +3,8 @@
 declare(strict_types=1);
 
 use AlecRabbit\Spinner\Core\FractionValue;
-use AlecRabbit\Spinner\Core\Widget\Widget;
 use AlecRabbit\Spinner\Factory;
+use AlecRabbit\Spinner\Factory\WidgetFactory;
 use Example\Kernel\App;
 use Example\Kernel\AppConfig;
 
@@ -17,7 +17,7 @@ $appConfig = new AppConfig(mainRunTime: 10);
 $configBuilder = Factory::getConfigBuilder();
 
 $config = $configBuilder
-    ->withMainWidget(Widget::createEmpty())
+    ->withMainWidget(WidgetFactory::createEmpty())
     ->build();
 
 $app = new App(

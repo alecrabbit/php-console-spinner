@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Contract;
 
+use AlecRabbit\Spinner\Exception\InvalidArgumentException;
+
 interface IFractionValue
 {
     public function getValue(): float;
@@ -16,6 +18,9 @@ interface IFractionValue
 
     public function setValue(float $value): void;
 
+    /**
+     * @throws InvalidArgumentException
+     */
     public function advance(int $steps): void;
 
     public function finish(): void;

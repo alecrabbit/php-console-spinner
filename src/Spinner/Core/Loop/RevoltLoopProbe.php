@@ -10,7 +10,7 @@ use Revolt\EventLoop;
 
 use function class_exists;
 
-final class RevoltLoopProbe extends ALoopProbe
+class RevoltLoopProbe extends ALoopProbe
 {
     public static function isSupported(): bool
     {

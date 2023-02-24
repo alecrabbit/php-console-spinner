@@ -14,11 +14,13 @@ use function mb_strlen;
 final class FractionValueProcedure extends AFractionProcedure
 {
     private const FORMAT = "%' 3.0f%%"; // "%' 5.1f%%";
+    private string $format;
 
     public function __construct(
         IFractionValue $fractionValue,
-        protected string $format = self::FORMAT,
+        string $format = null,
     ) {
+        $this->format = $format ?? self::FORMAT;
         parent::__construct($fractionValue);
     }
 

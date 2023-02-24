@@ -6,11 +6,11 @@ namespace AlecRabbit\Spinner\Core\Loop;
 
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use AlecRabbit\Spinner\Core\Loop\A\ALoopAdapter;
-use AlecRabbit\Spinner\Helper\Asserter;
+use Closure;
 use React\EventLoop\LoopInterface;
 use React\EventLoop\TimerInterface;
 
-final class ReactLoopAdapter extends ALoopAdapter
+class ReactLoopAdapter extends ALoopAdapter
 {
     private ?TimerInterface $spinnerTimer = null;
 
@@ -40,23 +40,23 @@ final class ReactLoopAdapter extends ALoopAdapter
         // ReactPHP event loop is started by library code.
     }
 
-    protected function doCreateHandlers(ISpinner $spinner): iterable
+    public function repeat(float $interval, Closure $closure): void
     {
-        yield from [
-            SIGINT => function () use ($spinner): void {
-                $spinner->interrupt();
-                $this->loop->stop();
-            },
-        ];
+        $this->loop->addPeriodicTimer($interval, $closure);
     }
 
-    protected function onSignal(int $signal, mixed $handler): void
+    public function getLoop(): LoopInterface
     {
-        $this->loop->addSignal($signal, $handler);
+        return $this->loop;
     }
 
-    protected function assertDependencies(): void
+    public function delay(float $delay, Closure $closure): void
     {
-        Asserter::assertExtensionLoaded('pcntl', 'Signal handling requires the pcntl extension.');
+        $this->loop->addTimer($delay, $closure);
+    }
+
+    protected function onSignal(int $signal, mixed $closure): void
+    {
+        $this->loop->addSignal($signal, $closure);
     }
 }

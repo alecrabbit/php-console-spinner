@@ -7,7 +7,7 @@ use AlecRabbit\Spinner\Factory;
 use AlecRabbit\Spinner\Factory\DefaultsFactory;
 use React\EventLoop\Loop;
 
-require_once __DIR__ . '/../../bootstrap.php';
+require_once __DIR__ . '/../../bootstrap.async.php';
 
 DefaultsFactory::create()
     ->setLoopProbes([ReactLoopProbe::class]); // probe only for ReactPHP event loop

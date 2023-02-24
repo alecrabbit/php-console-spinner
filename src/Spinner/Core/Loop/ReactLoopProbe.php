@@ -10,7 +10,7 @@ use React\EventLoop\Loop;
 
 use function class_exists;
 
-final class ReactLoopProbe extends ALoopProbe
+class ReactLoopProbe extends ALoopProbe
 {
     public static function isSupported(): bool
     {
