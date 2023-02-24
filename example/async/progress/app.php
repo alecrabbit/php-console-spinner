@@ -8,13 +8,13 @@ use AlecRabbit\Spinner\Core\Loop\ReactLoopProbe;
 use AlecRabbit\Spinner\Factory;
 use AlecRabbit\Spinner\Factory\DefaultsFactory;
 
-require_once __DIR__ . '/../bootstrap.php';
+require_once __DIR__ . '/../bootstrap.async.php';
 
 // Settings
 $runTime = 40;
-$steps = 20;
+$steps = 40;
 $advanceInterval = 0.2;
-$advanceSteps = 2;
+$advanceSteps = 6;
 
 // Application
 $defaults = DefaultsFactory::create();
@@ -32,12 +32,31 @@ $progress =
         autoFinish: true
     );
 
-$spinner->add(
-    Factory\ProgressWidgetFactory::createSteps(
+$interval =
+    new Interval(
+        $advanceInterval * 1000
+    );
+
+$composite = Factory\ProgressWidgetFactory::createSteps(
+    $progress,
+    updateInterval: $interval,
+);
+
+$composite->add(
+    Factory\ProgressWidgetFactory::createProgressBar(
         $progress,
-        updateInterval: new Interval($advanceInterval * 1000),
+        updateInterval: $interval
     )
 );
+
+$composite->add(
+    Factory\ProgressWidgetFactory::createProgressValue(
+        $progress,
+        updateInterval: $interval
+    )
+);
+
+$spinner->add($composite);
 
 $loop = Factory::getLoop();
 

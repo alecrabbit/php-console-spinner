@@ -34,12 +34,6 @@ final class StepsProcedure extends AFractionProcedure
             new Frame($v, mb_strlen($v));
     }
 
-//    private function createSteps(float $progress): string
-//    {
-//        $p = (int)($progress * $this->steps);
-//        return
-//            $this->frames[$p]; // TODO (2023-01-26 14:45) [Alec Rabbit]: return IFrame from IFramesCollection
-//    }
     private function createSteps(IFractionValue $fractionValue): string
     {
         return

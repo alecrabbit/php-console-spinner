@@ -9,7 +9,7 @@ use AlecRabbit\Spinner\Factory\DefaultsFactory;
 use AlecRabbit\Spinner\Factory\WidgetFactory;
 use Revolt\EventLoop;
 
-require_once __DIR__ . '/../../bootstrap.php';
+require_once __DIR__ . '/../../bootstrap.async.php';
 
 DefaultsFactory::create()
     ->setLoopProbes([RevoltLoopProbe::class]) // probe only for Revolt event loop

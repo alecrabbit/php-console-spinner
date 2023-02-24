@@ -54,11 +54,6 @@ abstract class AbstractApp
         $this->initialize($spinnerConfig);
     }
 
-    public static function prepareDefaults(): void {
-        DefaultsFactory::create()
-            ->setModeAsSynchronous(true);
-    }
-
     protected function assertSpinnerConfig(?IConfig $config): void
     {
         if (null === $config) {
@@ -119,6 +114,12 @@ abstract class AbstractApp
     protected function initializeAuxiliary(): void
     {
         // override if needed
+    }
+
+    public static function prepareDefaults(): void
+    {
+        DefaultsFactory::create()
+            ->setModeAsSynchronous(true);
     }
 
     public function run(): void
@@ -213,7 +214,7 @@ abstract class AbstractApp
         $this->spinner->finalize();
     }
 
-    public function addCallback(\Closure $closure, float $interval): void
+    public function addCallback(Closure $closure, float $interval): void
     {
         $this->callbacks[] = [
             self::CALLBACK => $closure,

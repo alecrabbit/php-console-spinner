@@ -3,7 +3,6 @@
 declare(strict_types=1);
 
 use AlecRabbit\Spinner\Core\FractionValue;
-use AlecRabbit\Spinner\Core\Widget\Widget;
 use AlecRabbit\Spinner\Factory;
 use AlecRabbit\Spinner\Factory\WidgetFactory;
 use Example\Kernel\App;
