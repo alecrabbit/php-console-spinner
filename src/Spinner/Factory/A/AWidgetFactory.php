@@ -7,6 +7,7 @@ namespace AlecRabbit\Spinner\Factory\A;
 use AlecRabbit\Spinner\Core\Contract\IFrame;
 use AlecRabbit\Spinner\Core\EmptyFrameRevolver;
 use AlecRabbit\Spinner\Core\Frame;
+use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetBuilder;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolverBuilder;
@@ -21,10 +22,23 @@ abstract class AWidgetFactory extends ADefaultsAwareClass implements IWidgetFact
     public static function createEmpty(): IWidgetComposite
     {
         return
+            static::create(
+                EmptyFrameRevolver::create(),
+                Frame::createEmpty(),
+                Frame::createEmpty(),
+            );
+    }
+
+    public static function create(
+        IRevolver $revolver,
+        ?IFrame $leadingSpacer = null,
+        ?IFrame $trailingSpacer = null,
+    ): IWidgetComposite {
+        return
             static::getWidgetBuilder()
-                ->withWidgetRevolver(EmptyFrameRevolver::create())
-                ->withLeadingSpacer(Frame::createEmpty())
-                ->withTrailingSpacer(Frame::createEmpty())
+                ->withWidgetRevolver($revolver)
+                ->withLeadingSpacer($leadingSpacer)
+                ->withTrailingSpacer($trailingSpacer)
                 ->build();
     }
 
@@ -63,16 +77,5 @@ abstract class AWidgetFactory extends ADefaultsAwareClass implements IWidgetFact
             new $widgetRevolverBuilderClass(
                 static::getDefaults(),
             );
-    }
-
-    public static function create(
-        ?IFrame $leadingSpacer = null,
-        ?IFrame $trailingSpacer = null,
-    ): IWidgetComposite {
-        return
-            static::getWidgetBuilder()
-                ->withLeadingSpacer($leadingSpacer)
-                ->withTrailingSpacer($trailingSpacer)
-                ->build();
     }
 }

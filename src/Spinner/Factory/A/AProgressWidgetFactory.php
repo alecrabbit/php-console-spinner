@@ -21,39 +21,26 @@ abstract class AProgressWidgetFactory extends AWidgetFactory implements IProgres
         ?IFrame $trailingSpacer = null,
         ?IInterval $updateInterval = null
     ): IWidgetComposite {
-        //        $widgetBuilder
-        //            ->withWidgetRevolver(
-        //                $widgetRevolverBuilder
-        //                    ->withCharRevolver(
-        //                        new ProceduralRevolver(
-        //                            new StepsProcedure(
-        //                                $progressValue,
-        //                            ),
-        //                            $progressUpdateInterval
-        //                        ),
-        //                    )
-        //                    ->build()
-        //            )
-        //            ->withLeadingSpacer(Frame::createSpace())
-        //            ->build();
         $updateInterval ??= static::getDefaultUpdateInterval();
-        return
-            static::getWidgetBuilder()
-                ->withWidgetRevolver(
-                    static::getWidgetRevolverBuilder()
-                        ->withCharRevolver(
-                            new ProceduralRevolver(
-                                new StepsProcedure(
-                                    $progressValue,
-                                ),
-                                $updateInterval
-                            )
-                        )
-                        ->build()
+
+        $revolver =
+            static::getWidgetRevolverBuilder()
+                ->withCharRevolver(
+                    new ProceduralRevolver(
+                        new StepsProcedure(
+                            $progressValue,
+                        ),
+                        $updateInterval
+                    )
                 )
-                ->withLeadingSpacer($leadingSpacer)
-                ->withTrailingSpacer($trailingSpacer)
                 ->build();
+
+        return
+            static::create(
+                $revolver,
+                $leadingSpacer,
+                $trailingSpacer
+            );
     }
 
     protected static function getDefaultUpdateInterval(): IInterval
