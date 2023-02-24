@@ -8,7 +8,7 @@ use AlecRabbit\Spinner\Core\Contract\IFractionValue;
 
 abstract class AFractionProcedure extends AProcedure
 {
-    private const FINISHED_DELAY = 100;
+    private const FINISHED_DELAY = 500;
 
     public function __construct(
         protected readonly IFractionValue $fractionValue,
