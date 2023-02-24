@@ -31,7 +31,7 @@ abstract class ALoopAdapter extends ADefaultsAwareClass implements ILoop
         }
     }
 
-    abstract protected function onSignal(int $signal, callable $handler): void;
+    abstract protected function onSignal(int $signal, \Closure $closure): void;
 
     /** @inheritdoc */
     public function createSignalHandlers(ISpinner $spinner): iterable
@@ -55,7 +55,7 @@ abstract class ALoopAdapter extends ADefaultsAwareClass implements ILoop
         ];
     }
 
-    abstract public function repeat(float $interval, callable $callback): void;
+    abstract public function repeat(float $interval, \Closure $closure): void;
 
     public function stop(): void
     {

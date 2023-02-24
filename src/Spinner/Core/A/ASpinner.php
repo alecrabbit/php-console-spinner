@@ -96,10 +96,10 @@ abstract class ASpinner implements ISpinner
         return $result;
     }
 
-    public function wrap(callable $callback, ...$args): void
+    public function wrap(\Closure $closure, ...$args): void
     {
         $this->erase();
-        $callback(...$args);
+        $closure(...$args);
         $this->spin();
     }
 

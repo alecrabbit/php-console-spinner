@@ -55,8 +55,8 @@ abstract class AbstractApp
     }
 
     public static function prepareDefaults(): void {
-//        DefaultsFactory::create()
-//            ->setModeAsSynchronous(true);
+        DefaultsFactory::create()
+            ->setModeAsSynchronous(true);
     }
 
     protected function assertSpinnerConfig(?IConfig $config): void
@@ -213,10 +213,10 @@ abstract class AbstractApp
         $this->spinner->finalize();
     }
 
-    public function addCallback(callable $callback, float $interval): void
+    public function addCallback(\Closure $closure, float $interval): void
     {
         $this->callbacks[] = [
-            self::CALLBACK => $callback,
+            self::CALLBACK => $closure,
             self::INTERVAL => (int)($interval * self::MICROSECONDS_COEFFICIENT),
         ];
     }

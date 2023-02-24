@@ -14,9 +14,9 @@ interface ILoop
 {
     public function attach(ISpinner $spinner): void;
 
-    public function repeat(float $interval, callable $callback): void;
+    public function repeat(float $interval, \Closure $closure): void;
 
-    public function delay(float $delay, callable $callback): void;
+    public function delay(float $delay, \Closure $closure): void;
 
     public function getUnderlyingLoop(): LoopInterface|Driver;
 

@@ -40,9 +40,9 @@ final class ReactLoopAdapter extends ALoopAdapter
         // ReactPHP event loop is started by library code.
     }
 
-    protected function onSignal(int $signal, mixed $handler): void
+    protected function onSignal(int $signal, mixed $closure): void
     {
-        $this->loop->addSignal($signal, $handler);
+        $this->loop->addSignal($signal, $closure);
     }
 
     protected function assertDependencies(): void
@@ -50,13 +50,18 @@ final class ReactLoopAdapter extends ALoopAdapter
         Asserter::assertExtensionLoaded('pcntl', 'Signal handling requires the pcntl extension.');
     }
 
-    public function repeat(float $interval, callable $callback): void
+    public function repeat(float $interval, \Closure $closure): void
     {
-        $this->loop->addPeriodicTimer($interval, $callback);
+        $this->loop->addPeriodicTimer($interval, $closure);
     }
 
     public function getUnderlyingLoop(): LoopInterface
     {
         return $this->loop;
+    }
+
+    public function delay(float $delay, \Closure $closure): void
+    {
+        $this->loop->addTimer($delay, $closure);
     }
 }

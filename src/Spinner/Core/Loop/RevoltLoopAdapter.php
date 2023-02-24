@@ -35,9 +35,9 @@ final class RevoltLoopAdapter extends ALoopAdapter
         }
     }
 
-    public function repeat(float $interval, callable $callback): void
+    public function repeat(float $interval, \Closure $closure): void
     {
-        EventLoop::repeat($interval, $callback);
+        EventLoop::repeat($interval, $closure);
     }
 
     public function autoStart(): void
@@ -63,9 +63,9 @@ final class RevoltLoopAdapter extends ALoopAdapter
         // @codeCoverageIgnoreEnd
     }
 
-    public function delay(float $delay, callable $callback): void
+    public function delay(float $delay, \Closure $closure): void
     {
-        $this->getUnderlyingLoop()->delay($delay, $callback);
+        $this->getUnderlyingLoop()->delay($delay, $closure);
     }
 
     protected function assertDependencies(): void
@@ -85,10 +85,8 @@ final class RevoltLoopAdapter extends ALoopAdapter
         return EventLoop::getDriver();
     }
 
-    protected function onSignal(int $signal, callable $handler): void
+    protected function onSignal(int $signal, \Closure $closure): void
     {
-        EventLoop::onSignal($signal, $handler);
+        EventLoop::onSignal($signal, $closure);
     }
-
-
 }
