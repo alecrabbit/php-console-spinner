@@ -30,7 +30,7 @@ final class Loop
 
     public static function setSignalHandlers(ISpinner $spinner, ?iterable $handlers = null): void
     {
-        $handlers ??= self::get()->createHandlers($spinner);
+        $handlers ??= self::get()->createSignalHandlers($spinner);
         self::get()->setSignalHandlers($handlers);
     }
 

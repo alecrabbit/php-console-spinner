@@ -7,7 +7,9 @@ namespace AlecRabbit\Spinner\Core\Loop;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use AlecRabbit\Spinner\Core\Loop\A\ALoopAdapter;
 use AlecRabbit\Spinner\Helper\Asserter;
+use React\EventLoop\LoopInterface;
 use Revolt\EventLoop;
+use Revolt\EventLoop\Driver;
 use Revolt\EventLoop\Driver\EvDriver;
 use Revolt\EventLoop\Driver\EventDriver;
 use Revolt\EventLoop\Driver\UvDriver;
@@ -33,6 +35,11 @@ final class RevoltLoopAdapter extends ALoopAdapter
         }
     }
 
+    public function repeat(float $interval, callable $callback): void
+    {
+        EventLoop::repeat($interval, $callback);
+    }
+
     public function autoStart(): void
     {
         // Automatically run loop at end of program, unless already started or stopped explicitly.
@@ -56,19 +63,14 @@ final class RevoltLoopAdapter extends ALoopAdapter
         // @codeCoverageIgnoreEnd
     }
 
-    protected function doCreateHandlers(ISpinner $spinner): iterable
+    public function delay(float $delay, callable $callback): void
     {
-        yield from [
-            SIGINT => static function () use ($spinner): never {
-                $spinner->interrupt();
-                exit();
-            },
-        ];
+        $this->getUnderlyingLoop()->delay($delay, $callback);
     }
 
     protected function assertDependencies(): void
     {
-        $driver = EventLoop::getDriver();
+        $driver = $this->getUnderlyingLoop();
         if ($driver instanceof UvDriver
             || $driver instanceof EvDriver
             || $driver instanceof EventDriver) {
@@ -78,8 +80,15 @@ final class RevoltLoopAdapter extends ALoopAdapter
         Asserter::assertExtensionLoaded('pcntl', 'Signal handling requires the pcntl extension.');
     }
 
+    public function getUnderlyingLoop(): LoopInterface|Driver
+    {
+        return EventLoop::getDriver();
+    }
+
     protected function onSignal(int $signal, callable $handler): void
     {
         EventLoop::onSignal($signal, $handler);
     }
+
+
 }

@@ -17,7 +17,7 @@ interface IWidgetRevolverBuilder
      */
     public function build(): IRevolver;
 
-    public function withStyleRevolver(IFrameCollectionRevolver $styleRevolver): static;
+    public function withStyleRevolver(?IFrameCollectionRevolver $styleRevolver): static;
 
     public function withCharRevolver(IFrameCollectionRevolver $charRevolver): static;
 }

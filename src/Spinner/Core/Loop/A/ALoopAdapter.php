@@ -34,7 +34,7 @@ abstract class ALoopAdapter extends ADefaultsAwareClass implements ILoop
     abstract protected function onSignal(int $signal, callable $handler): void;
 
     /** @inheritdoc */
-    public function createHandlers(ISpinner $spinner): iterable
+    public function createSignalHandlers(ISpinner $spinner): iterable
     {
         $this->assertDependencies();
         return $this->doCreateHandlers($spinner);
@@ -45,5 +45,20 @@ abstract class ALoopAdapter extends ADefaultsAwareClass implements ILoop
      */
     abstract protected function assertDependencies(): void;
 
-    abstract protected function doCreateHandlers(ISpinner $spinner): iterable;
+    protected function doCreateHandlers(ISpinner $spinner): iterable
+    {
+        yield from [
+            SIGINT => function () use ($spinner): void {
+                $spinner->interrupt();
+                $this->getUnderlyingLoop()->stop();
+            },
+        ];
+    }
+
+    abstract public function repeat(float $interval, callable $callback): void;
+
+    public function stop(): void
+    {
+        $this->getUnderlyingLoop()->stop();
+    }
 }

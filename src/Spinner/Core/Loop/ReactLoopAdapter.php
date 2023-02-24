@@ -40,16 +40,6 @@ final class ReactLoopAdapter extends ALoopAdapter
         // ReactPHP event loop is started by library code.
     }
 
-    protected function doCreateHandlers(ISpinner $spinner): iterable
-    {
-        yield from [
-            SIGINT => function () use ($spinner): void {
-                $spinner->interrupt();
-                $this->loop->stop();
-            },
-        ];
-    }
-
     protected function onSignal(int $signal, mixed $handler): void
     {
         $this->loop->addSignal($signal, $handler);
@@ -58,5 +48,15 @@ final class ReactLoopAdapter extends ALoopAdapter
     protected function assertDependencies(): void
     {
         Asserter::assertExtensionLoaded('pcntl', 'Signal handling requires the pcntl extension.');
+    }
+
+    public function repeat(float $interval, callable $callback): void
+    {
+        $this->loop->addPeriodicTimer($interval, $callback);
+    }
+
+    public function getUnderlyingLoop(): LoopInterface
+    {
+        return $this->loop;
     }
 }
