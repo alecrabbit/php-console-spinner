@@ -8,7 +8,6 @@ use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoop;
 use AlecRabbit\Spinner\Exception\RuntimeException;
 use AlecRabbit\Spinner\Factory\A\ADefaultsAwareClass;
-use AlecRabbit\Spinner\Helper\Asserter;
 
 abstract class ALoopAdapter extends ADefaultsAwareClass implements ILoop
 {
