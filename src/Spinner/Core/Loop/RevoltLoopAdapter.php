@@ -6,7 +6,7 @@ namespace AlecRabbit\Spinner\Core\Loop;
 
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use AlecRabbit\Spinner\Core\Loop\A\ALoopAdapter;
-use AlecRabbit\Spinner\Helper\Asserter;
+use Closure;
 use React\EventLoop\LoopInterface;
 use Revolt\EventLoop;
 use Revolt\EventLoop\Driver;
@@ -14,7 +14,7 @@ use Revolt\EventLoop\Driver\EvDriver;
 use Revolt\EventLoop\Driver\EventDriver;
 use Revolt\EventLoop\Driver\UvDriver;
 
-final class RevoltLoopAdapter extends ALoopAdapter
+class RevoltLoopAdapter extends ALoopAdapter
 {
     private static bool $stopped = false;
     private ?string $spinnerTimer = null;
@@ -35,7 +35,7 @@ final class RevoltLoopAdapter extends ALoopAdapter
         }
     }
 
-    public function repeat(float $interval, \Closure $closure): void
+    public function repeat(float $interval, Closure $closure): void
     {
         EventLoop::repeat($interval, $closure);
     }
@@ -63,29 +63,29 @@ final class RevoltLoopAdapter extends ALoopAdapter
         // @codeCoverageIgnoreEnd
     }
 
-    public function delay(float $delay, \Closure $closure): void
+    public function delay(float $delay, Closure $closure): void
     {
-        $this->getUnderlyingLoop()->delay($delay, $closure);
+        EventLoop::delay($delay, $closure);
     }
 
-    protected function assertDependencies(): void
+    protected function assertExtPcntl(): void
     {
-        $driver = $this->getUnderlyingLoop();
+        $driver = $this->getLoop();
         if ($driver instanceof UvDriver
             || $driver instanceof EvDriver
             || $driver instanceof EventDriver) {
             return; // these drivers do not require pcntl extension
         }
 
-        Asserter::assertExtensionLoaded('pcntl', 'Signal handling requires the pcntl extension.');
+        parent::assertExtPcntl();
     }
 
-    public function getUnderlyingLoop(): LoopInterface|Driver
+    public function getLoop(): LoopInterface|Driver
     {
         return EventLoop::getDriver();
     }
 
-    protected function onSignal(int $signal, \Closure $closure): void
+    protected function onSignal(int $signal, Closure $closure): void
     {
         EventLoop::onSignal($signal, $closure);
     }

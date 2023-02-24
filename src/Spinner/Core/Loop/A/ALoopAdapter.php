@@ -8,6 +8,8 @@ use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoop;
 use AlecRabbit\Spinner\Exception\RuntimeException;
 use AlecRabbit\Spinner\Factory\A\ADefaultsAwareClass;
+use AlecRabbit\Spinner\Helper\Asserter;
+use Closure;
 
 abstract class ALoopAdapter extends ADefaultsAwareClass implements ILoop
 {
@@ -31,34 +33,42 @@ abstract class ALoopAdapter extends ADefaultsAwareClass implements ILoop
         }
     }
 
-    abstract protected function onSignal(int $signal, \Closure $closure): void;
+    abstract protected function onSignal(int $signal, Closure $closure): void;
 
     /** @inheritdoc */
     public function createSignalHandlers(ISpinner $spinner): iterable
     {
-        $this->assertDependencies();
+        $this->assertExtPcntl();
         return $this->doCreateHandlers($spinner);
     }
 
     /**
      * @throws RuntimeException
      */
-    abstract protected function assertDependencies(): void;
+    protected function assertExtPcntl(): void
+    {
+        Asserter::assertExtensionLoaded('pcntl', 'Signal handling requires the pcntl extension.');
+    }
 
     protected function doCreateHandlers(ISpinner $spinner): iterable
     {
         yield from [
             SIGINT => function () use ($spinner): void {
                 $spinner->interrupt();
-                $this->getUnderlyingLoop()->stop();
+                $this->stop();
             },
         ];
     }
 
-    abstract public function repeat(float $interval, \Closure $closure): void;
-
     public function stop(): void
     {
-        $this->getUnderlyingLoop()->stop();
+        $this->getLoop()->stop();
+    }
+
+    abstract public function repeat(float $interval, Closure $closure): void;
+
+    public function run(): void
+    {
+        $this->getLoop()->run();
     }
 }

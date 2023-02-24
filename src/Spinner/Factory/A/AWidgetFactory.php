@@ -10,8 +10,6 @@ use AlecRabbit\Spinner\Core\Frame;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetBuilder;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolverBuilder;
-use AlecRabbit\Spinner\Exception\InvalidArgumentException;
-use AlecRabbit\Spinner\Exception\LogicException;
 use AlecRabbit\Spinner\Factory\Contract\IWidgetFactory;
 
 abstract class AWidgetFactory extends ADefaultsAwareClass implements IWidgetFactory

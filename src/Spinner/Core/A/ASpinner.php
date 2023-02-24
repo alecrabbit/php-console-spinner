@@ -12,6 +12,7 @@ use AlecRabbit\Spinner\Core\Frame;
 use AlecRabbit\Spinner\Core\Output\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContext;
+use Closure;
 
 abstract class ASpinner implements ISpinner
 {
@@ -96,7 +97,7 @@ abstract class ASpinner implements ISpinner
         return $result;
     }
 
-    public function wrap(\Closure $closure, ...$args): void
+    public function wrap(Closure $closure, ...$args): void
     {
         $this->erase();
         $closure(...$args);

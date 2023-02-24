@@ -16,7 +16,7 @@ abstract class ATimer implements ITimer
     protected Closure $timeFunction;
 
     public function __construct(
-        ?\Closure $timeFunction = null,
+        ?Closure $timeFunction = null,
         protected float $time = 0.0,
     ) {
         $this->timeFunction =
