@@ -11,7 +11,7 @@ use AlecRabbit\Spinner\Factory\DefaultsFactory;
 require_once __DIR__ . '/../bootstrap.async.php';
 
 // Settings
-$runTime = 40;
+$runTime = 20;
 $steps = 40;
 $advanceInterval = 0.2;
 $advanceSteps = 6;
@@ -21,7 +21,7 @@ $defaults = DefaultsFactory::create();
 $defaults
 //    ->setLoopProbes([RevoltLoopProbe::class]) // probe only for Revolt event loop
     ->setLoopProbes([ReactLoopProbe::class]) // probe only for ReactPHP event loop
-    ->setAttachSignalHandlers(false) // disable signal handling
+//    ->setAttachSignalHandlers(false) // disable signal handling
 ;
 
 $spinner = Factory::createSpinner();
