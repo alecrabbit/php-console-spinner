@@ -16,7 +16,9 @@
         "colorful",
         "ansi",
         "async",
-        "snake"
+        "snake",
+        "reactphp",
+        "revolt"
     ],
     "license": "MIT",
     "require": {
