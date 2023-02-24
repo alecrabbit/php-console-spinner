@@ -11,7 +11,6 @@ use AlecRabbit\Spinner\Core\Procedure\StepsProcedure;
 use AlecRabbit\Spinner\Core\Revolver\ProceduralRevolver;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
 use AlecRabbit\Spinner\Factory\Contract\IProgressWidgetFactory;
-use AlecRabbit\Spinner\Factory\IntervalFactory;
 
 abstract class AProgressWidgetFactory extends AWidgetFactory implements IProgressWidgetFactory
 {
@@ -41,10 +40,5 @@ abstract class AProgressWidgetFactory extends AWidgetFactory implements IProgres
                 $leadingSpacer,
                 $trailingSpacer
             );
-    }
-
-    protected static function getDefaultUpdateInterval(): IInterval
-    {
-        return IntervalFactory::createDefault();
     }
 }
