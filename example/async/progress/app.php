@@ -13,10 +13,12 @@ require_once __DIR__ . '/../bootstrap.async.php';
 // Settings
 $runTime = 20;
 $steps = 40;
-$advanceInterval = 0.2;
-$advanceSteps = 6;
+$advanceInterval = 0.1;
+
 
 // Application
+$faker = Faker\Factory::create();
+$count = 0;
 $defaults = DefaultsFactory::create();
 $defaults
 //    ->setLoopProbes([RevoltLoopProbe::class]) // probe only for Revolt event loop
@@ -60,8 +62,21 @@ $spinner->add($composite);
 
 $loop = Factory::getLoop();
 
-$loop->repeat($advanceInterval, static function () use ($progress, $advanceSteps) {
-    $progress->advance($advanceSteps);
+$loop->repeat($advanceInterval, static function () use ($spinner, $progress, $faker, &$count) {
+    if (!$progress->isFinished()) {
+        $spinner->wrap(
+            function (string $message) {
+                echo $message . PHP_EOL;
+            },
+            sprintf(
+                '%s %s %s',
+                str_pad(sprintf('%s.', ++$count), 4, pad_type: STR_PAD_LEFT),
+                str_pad($faker->iban(), 35),
+                str_pad($faker->ipv6(), 40),
+            ),
+        );
+        $progress->advance();
+    }
 });
 
 // Limits run time
