@@ -38,7 +38,11 @@ abstract class ALoopFactory extends ADefaultsAwareClass implements ILoopFactory
                 return $probe::create();
             }
         }
-        throw new DomainException('No supported event loop found.');
+        throw new DomainException(
+            'No supported event loop found.' .
+            ' Check you have installed one of the supported event loops.' .
+            ' Check your probes list if you have modified it.'
+        );
     }
 
     protected static function getLoopProbesClasses(): iterable
