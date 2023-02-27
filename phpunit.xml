@@ -9,6 +9,7 @@
          colors="true"
          cacheDirectory=".tools/.phpunit.cache"
          beStrictAboutCoverageMetadata="false"
+         testdox="true"
 >
     <testsuites>
         <testsuite name="default">
