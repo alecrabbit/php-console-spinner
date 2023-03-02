@@ -6,11 +6,16 @@ namespace AlecRabbit\Spinner\Core;
 
 use AlecRabbit\Spinner\Core\Contract\ISequencer;
 
+use AlecRabbit\Spinner\Mixin\NoInstanceTrait;
+
 use const AlecRabbit\Spinner\CSI;
 use const AlecRabbit\Spinner\RESET;
 
+/** @internal */
 final class Sequencer implements ISequencer
 {
+    use NoInstanceTrait;
+
     private const SEQ_HIDE_CURSOR = '?25l';
     private const SEQ_SHOW_CURSOR = '?25h';
 

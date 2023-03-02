@@ -15,6 +15,6 @@ interface IProgressWidgetFactory
         IFractionValue $progressValue,
         ?IInterval $updateInterval = null,
         ?IFrame $leadingSpacer = null,
-        ?IFrame $trailingSpacer = null
+        ?IFrame $trailingSpacer = null,
     ): IWidgetComposite;
 }
