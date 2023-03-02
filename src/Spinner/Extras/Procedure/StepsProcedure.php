@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Spinner\Core\Procedure;
+namespace AlecRabbit\Spinner\Extras\Procedure;
 
-use AlecRabbit\Spinner\Core\Contract\IFractionValue;
 use AlecRabbit\Spinner\Core\Contract\IFrame;
 use AlecRabbit\Spinner\Core\Frame;
-use AlecRabbit\Spinner\Core\Procedure\A\AFractionProcedure;
+use AlecRabbit\Spinner\Extras\Contract\IFractionValue;
+use AlecRabbit\Spinner\Extras\Procedure\A\AFractionProcedure;
 
 final class StepsProcedure extends AFractionProcedure
 {

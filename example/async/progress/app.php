@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-use AlecRabbit\Spinner\Core\FractionValue;
 use AlecRabbit\Spinner\Core\Interval;
 use AlecRabbit\Spinner\Core\Loop\RevoltLoopProbe;
+use AlecRabbit\Spinner\Extras\FractionValue;
 use AlecRabbit\Spinner\Factory;
 use AlecRabbit\Spinner\Factory\DefaultsFactory;
 
@@ -47,20 +47,20 @@ $interval =
         $advanceInterval * 1000
     );
 
-$composite = Factory\ProgressWidgetFactory::createSteps(
+$composite = \AlecRabbit\Spinner\Extras\ProgressWidgetFactory::createSteps(
     $progress,
     updateInterval: $interval,
 );
 
 $composite->add(
-    Factory\ProgressWidgetFactory::createProgressBar(
+    \AlecRabbit\Spinner\Extras\ProgressWidgetFactory::createProgressBar(
         $progress,
         updateInterval: $interval
     )
 );
 
 $composite->add(
-    Factory\ProgressWidgetFactory::createProgressValue(
+    \AlecRabbit\Spinner\Extras\ProgressWidgetFactory::createProgressValue(
         $progress,
         updateInterval: $interval
     )

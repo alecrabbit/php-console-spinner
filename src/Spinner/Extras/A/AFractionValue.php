@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Spinner\Core\A;
+namespace AlecRabbit\Spinner\Extras\A;
 
-use AlecRabbit\Spinner\Core\Contract\IFractionValue;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
+use AlecRabbit\Spinner\Extras\Contract\IFractionValue;
 
 abstract class AFractionValue implements IFractionValue
 {

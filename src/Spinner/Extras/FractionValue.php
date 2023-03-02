@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Spinner\Core;
+namespace AlecRabbit\Spinner\Extras;
 
-use AlecRabbit\Spinner\Core\A\AFractionValue;
+use AlecRabbit\Spinner\Extras\A\AFractionValue;
 
 final class FractionValue extends AFractionValue
 {

@@ -2,9 +2,10 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Spinner\Core\Procedure\A;
+namespace AlecRabbit\Spinner\Extras\Procedure\A;
 
-use AlecRabbit\Spinner\Core\Contract\IFractionValue;
+use AlecRabbit\Spinner\Core\Procedure\A\AProcedure;
+use AlecRabbit\Spinner\Extras\Contract\IFractionValue;
 
 abstract class AFractionProcedure extends AProcedure
 {
