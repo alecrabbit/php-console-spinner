@@ -9,8 +9,6 @@ use AlecRabbit\Spinner\Core\Contract\IFrame;
 use AlecRabbit\Spinner\Core\Frame;
 use AlecRabbit\Spinner\Core\Procedure\A\AFractionProcedure;
 
-use function mb_strlen;
-
 final class StepsProcedure extends AFractionProcedure
 {
     private float $stepValue;
@@ -31,7 +29,7 @@ final class StepsProcedure extends AFractionProcedure
         }
         $v = $this->createSteps($this->fractionValue);
         return
-            new Frame($v, mb_strlen($v));
+            new Frame($v);
     }
 
     private function createSteps(IFractionValue $fractionValue): string

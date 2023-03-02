@@ -9,8 +9,6 @@ use AlecRabbit\Spinner\Core\Contract\IFrame;
 use AlecRabbit\Spinner\Core\Frame;
 use AlecRabbit\Spinner\Core\Procedure\A\AFractionProcedure;
 
-use function mb_strlen;
-
 final class FractionValueProcedure extends AFractionProcedure
 {
     private const FORMAT = "%' 3.0f%%"; // "%' 5.1f%%";
@@ -37,6 +35,6 @@ final class FractionValueProcedure extends AFractionProcedure
             $this->fractionValue->getValue() * 100
         );
         return
-            new Frame($v, mb_strlen($v));
+            new Frame($v);
     }
 }

@@ -10,8 +10,6 @@ use AlecRabbit\Spinner\Core\Frame;
 use AlecRabbit\Spinner\Core\Procedure\A\AFractionProcedure;
 use AlecRabbit\Spinner\Core\Procedure\Contract\IFractionBarSprite;
 
-use function mb_strlen;
-
 final class FractionBarProcedure extends AFractionProcedure
 {
     protected const UNITS = 5;
@@ -63,7 +61,7 @@ final class FractionBarProcedure extends AFractionProcedure
         }
         $v = $this->createBar($this->fractionValue->getValue());
         return
-            new Frame($v, mb_strlen($v));
+            new Frame($v);
     }
 
     private function createBar(float $progress): string
