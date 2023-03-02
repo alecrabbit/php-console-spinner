@@ -33,7 +33,8 @@
         "react/event-loop": "*",
         "revolt/event-loop": "^1.0",
         "nunomaduro/collision": "^7.0",
-        "react/http": "*"
+        "react/http": "*",
+        "alecrabbit/php-wcwidth": "^1.0.0-ALPHA.0"
     },
     "autoload": {
         "psr-4": {
