@@ -8,6 +8,7 @@ use Closure;
 
 use function AlecRabbit\WCWidth\wcswidth;
 
+/** @internal */
 final class WidthDeterminer
 {
     private static ?Closure $determiner = null;
