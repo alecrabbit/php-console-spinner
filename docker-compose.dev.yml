@@ -6,4 +6,5 @@ services:
     volumes:
       - *bash-rc
     environment:
-      VAR_DUMPER_SERVER: 'app:9912'
+      USE_FFI: "${ENABLE_FFI:-0}"
+      VAR_DUMPER_SERVER: "app:9912"
