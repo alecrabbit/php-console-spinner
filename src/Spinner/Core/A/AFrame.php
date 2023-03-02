@@ -5,13 +5,17 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\A;
 
 use AlecRabbit\Spinner\Core\Contract\IFrame;
+use AlecRabbit\Spinner\Core\WidthDeterminer;
 
 abstract readonly class AFrame implements IFrame
 {
+    protected int $width;
+
     public function __construct(
         protected string $sequence,
-        protected int $width,
+        ?int $width = null,
     ) {
+        $this->width = $width ?? WidthDeterminer::determine($sequence);
     }
 
     public static function createEmpty(): static

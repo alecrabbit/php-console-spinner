@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Spinner\Core\Procedure\Contract;
+namespace AlecRabbit\Spinner\Extras\Contract;
 
 interface IFractionBarSprite
 {

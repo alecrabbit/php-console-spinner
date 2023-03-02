@@ -2,19 +2,20 @@
 
 declare(strict_types=1);
 // 24.02.23
-namespace AlecRabbit\Spinner\Factory\A;
+namespace AlecRabbit\Spinner\Extras\A;
 
-use AlecRabbit\Spinner\Core\Contract\IFractionValue;
 use AlecRabbit\Spinner\Core\Contract\IFrame;
 use AlecRabbit\Spinner\Core\Contract\IInterval;
-use AlecRabbit\Spinner\Core\Procedure\Contract\IFractionBarSprite;
-use AlecRabbit\Spinner\Core\Procedure\FractionBarProcedure;
-use AlecRabbit\Spinner\Core\Procedure\FractionBarSprite;
-use AlecRabbit\Spinner\Core\Procedure\FractionValueProcedure;
-use AlecRabbit\Spinner\Core\Procedure\StepsProcedure;
 use AlecRabbit\Spinner\Core\Revolver\ProceduralRevolver;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
-use AlecRabbit\Spinner\Factory\Contract\IProgressWidgetFactory;
+use AlecRabbit\Spinner\Extras\Contract\IFractionBarSprite;
+use AlecRabbit\Spinner\Extras\Contract\IFractionValue;
+use AlecRabbit\Spinner\Extras\Contract\IProgressWidgetFactory;
+use AlecRabbit\Spinner\Extras\FractionBarSprite;
+use AlecRabbit\Spinner\Extras\Procedure\FractionBarProcedure;
+use AlecRabbit\Spinner\Extras\Procedure\FractionValueProcedure;
+use AlecRabbit\Spinner\Extras\Procedure\StepsProcedure;
+use AlecRabbit\Spinner\Factory\A\AWidgetFactory;
 
 abstract class AProgressWidgetFactory extends AWidgetFactory implements IProgressWidgetFactory
 {
@@ -22,7 +23,7 @@ abstract class AProgressWidgetFactory extends AWidgetFactory implements IProgres
         IFractionValue $progressValue,
         ?IInterval $updateInterval = null,
         ?IFrame $leadingSpacer = null,
-        ?IFrame $trailingSpacer = null
+        ?IFrame $trailingSpacer = null,
     ): IWidgetComposite {
         $updateInterval ??= static::getDefaultUpdateInterval();
 

@@ -2,11 +2,13 @@
 
 declare(strict_types=1);
 
-use AlecRabbit\Spinner\Core\FractionValue;
 use AlecRabbit\Spinner\Core\Interval;
-use AlecRabbit\Spinner\Core\Loop\ReactLoopProbe;
+use AlecRabbit\Spinner\Core\Loop\RevoltLoopProbe;
+use AlecRabbit\Spinner\Extras\FractionValue;
 use AlecRabbit\Spinner\Factory;
 use AlecRabbit\Spinner\Factory\DefaultsFactory;
+
+//use AlecRabbit\Spinner\Core\Loop\ReactLoopProbe; // uncomment this line to use ReactPHP event loop
 
 require_once __DIR__ . '/../bootstrap.async.php';
 
@@ -16,15 +18,21 @@ $steps = 40;
 $advanceInterval = 0.1;
 
 
+// Tune Defaults
+$defaults = DefaultsFactory::create();
+// in dev environment we have both ReactPHP and Revolt event loops (see require-dev section in composer.json),
+// so we need to specify which one to use.
+$probes = [RevoltLoopProbe::class]; // probe only for Revolt event loop
+//$probes = [ReactLoopProbe::class]; // probe only for ReactPHP event loop
+
+$defaults
+    ->setLoopProbes($probes) // specify which event loop to use
+//    ->setAttachSignalHandlers(false) // disable signal handling
+;
+
 // Application
 $faker = Faker\Factory::create();
 $count = 0;
-$defaults = DefaultsFactory::create();
-$defaults
-//    ->setLoopProbes([RevoltLoopProbe::class]) // probe only for Revolt event loop
-    ->setLoopProbes([ReactLoopProbe::class]) // probe only for ReactPHP event loop
-//    ->setAttachSignalHandlers(false) // disable signal handling
-;
 
 $spinner = Factory::createSpinner();
 
@@ -39,20 +47,20 @@ $interval =
         $advanceInterval * 1000
     );
 
-$composite = Factory\ProgressWidgetFactory::createSteps(
+$composite = \AlecRabbit\Spinner\Extras\ProgressWidgetFactory::createSteps(
     $progress,
     updateInterval: $interval,
 );
 
 $composite->add(
-    Factory\ProgressWidgetFactory::createProgressBar(
+    \AlecRabbit\Spinner\Extras\ProgressWidgetFactory::createProgressBar(
         $progress,
         updateInterval: $interval
     )
 );
 
 $composite->add(
-    Factory\ProgressWidgetFactory::createProgressValue(
+    \AlecRabbit\Spinner\Extras\ProgressWidgetFactory::createProgressValue(
         $progress,
         updateInterval: $interval
     )

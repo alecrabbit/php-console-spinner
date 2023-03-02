@@ -10,6 +10,7 @@
 # 🇺🇦 🏵️ PHP Console Spinner
 
 [![PHP Version](https://img.shields.io/packagist/php-v/alecrabbit/php-console-spinner.svg)](https://php.net)
+[![Build Status](https://github.com/alecrabbit/php-console-spinner/workflows/build/badge.svg)](https://github.com/alecrabbit/php-console-spinner/actions)
 
 [![Latest Stable Version](https://poser.pugx.org/alecrabbit/php-console-spinner/v/stable)](https://packagist.org/packages/alecrabbit/php-console-spinner)
 [![Packagist Pre Release Version](https://img.shields.io/packagist/vpre/alecrabbit/php-console-spinner)](https://packagist.org/packages/alecrabbit/php-console-spinner)

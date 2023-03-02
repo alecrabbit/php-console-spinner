@@ -25,16 +25,16 @@
         "php": ">=8.2"
     },
     "require-dev": {
-        "symfony/console": "^6.1",
-        "fakerphp/faker": "*",
-        "nunomaduro/collision": "^7.0",
-        "nunomaduro/termwind": "^1.14",
         "phpunit/phpunit": "^10.0",
-        "react/http": "*",
-        "symfony/var-dumper": "^6.1",
-        "react/event-loop": "*",
         "phpunit/php-code-coverage": "*",
-        "revolt/event-loop": "^1.0"
+        "symfony/console": "^6.2",
+        "symfony/var-dumper": "*",
+        "fakerphp/faker": "*",
+        "react/event-loop": "*",
+        "revolt/event-loop": "^1.0",
+        "nunomaduro/collision": "^7.0",
+        "react/http": "*",
+        "alecrabbit/php-wcwidth": "^1.0.0-ALPHA.0"
     },
     "autoload": {
         "psr-4": {

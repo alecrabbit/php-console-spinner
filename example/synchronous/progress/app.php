@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use AlecRabbit\Spinner\Core\FractionValue;
+use AlecRabbit\Spinner\Extras\FractionValue;
 use Example\Kernel\App;
 use Example\Kernel\AppConfig;
 

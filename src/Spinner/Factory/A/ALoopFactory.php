@@ -8,19 +8,14 @@ use AlecRabbit\Spinner\Core\Loop\Contract\ILoop;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoopProbe;
 use AlecRabbit\Spinner\Factory\Contract\ILoopFactory;
 use AlecRabbit\Spinner\Factory\DefaultsFactory;
+use AlecRabbit\Spinner\Mixin\NoInstanceTrait;
 use DomainException;
 
 abstract class ALoopFactory extends ADefaultsAwareClass implements ILoopFactory
 {
+    use NoInstanceTrait;
+
     protected static ?ILoop $loop = null;
-
-    // @codeCoverageIgnoreStart
-    final private function __construct()
-    {
-        // no instances allowed
-    }
-
-    // @codeCoverageIgnoreEnd
 
     final public static function create(): ILoop
     {
@@ -38,7 +33,11 @@ abstract class ALoopFactory extends ADefaultsAwareClass implements ILoopFactory
                 return $probe::create();
             }
         }
-        throw new DomainException('No supported event loop found.');
+        throw new DomainException(
+            'No supported event loop found.' .
+            ' Check you have installed one of the supported event loops.' .
+            ' Check your probes list if you have modified it.'
+        );
     }
 
     protected static function getLoopProbesClasses(): iterable

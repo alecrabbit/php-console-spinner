@@ -10,17 +10,14 @@ use AlecRabbit\Spinner\Config\Defaults\Contract\ISettableDefaults;
 use AlecRabbit\Spinner\Exception\DomainException;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Helper\Asserter;
+use AlecRabbit\Spinner\Mixin\NoInstanceTrait;
 
 final class DefaultsFactory
 {
+    use NoInstanceTrait;
+
     /** @var null|class-string */
     private static ?string $className = null;
-
-    /** @codeCoverageIgnore */
-    private function __construct()
-    {
-        // no instances allowed
-    }
 
     public static function create(): ISettableDefaults
     {

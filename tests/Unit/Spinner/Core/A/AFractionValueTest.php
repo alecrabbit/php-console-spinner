@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Core\A;
 
-use AlecRabbit\Spinner\Core\A\AFractionValue;
-use AlecRabbit\Spinner\Core\Contract\IFractionValue;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
+use AlecRabbit\Spinner\Extras\A\AFractionValue;
+use AlecRabbit\Spinner\Extras\Contract\IFractionValue;
 use AlecRabbit\Tests\Spinner\TestCase\TestCase;
 
 final class AFractionValueTest extends TestCase

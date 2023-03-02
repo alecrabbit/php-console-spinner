@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Spinner\Core\Procedure\A;
+namespace AlecRabbit\Spinner\Extras\A;
 
-use AlecRabbit\Spinner\Core\Procedure\Contract\IFractionBarSprite;
+use AlecRabbit\Spinner\Extras\Contract\IFractionBarSprite;
 
 abstract readonly class AFractionBarSprite implements IFractionBarSprite
 {

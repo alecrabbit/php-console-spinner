@@ -4,6 +4,8 @@
 
 ### Limitations
 
+> Note: The package suggests to install `ext-mbstring` but it's implied that it is already installed or some polyfill is used.
+
 In zero dependencies "mode", the library has the following limitations:
 - ❗ **Only synchronous mode is available.**
 - Terminal color support can not be detected thus it is set to 256 colors by default. Can be overridden manually.
@@ -15,7 +17,7 @@ In zero dependencies "mode", the library has the following limitations:
 
 - For asynchronous mode install one of supported event loop libraries.
 - For extended terminal support install [terminal library]()
-- For frame width auto-detection install `alecrabbit/php-wcwidth` [🔗](https://github.com/alecrabbit/php-wcwidth)
+- For frame width auto-detection install [`alecrabbit/php-wcwidth` 🔗](https://github.com/alecrabbit/php-wcwidth)
 - Install `ext-pcntl` extension for signal handling feature.
 
 ### Windows support
