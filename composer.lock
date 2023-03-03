@@ -9,16 +9,16 @@
     "packages-dev": [
         {
             "name": "alecrabbit/php-wcwidth",
-            "version": "1.0.0-ALPHA.1",
+            "version": "1.0.0-ALPHA.2+BUILD.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/alecrabbit/php-wcwidth.git",
-                "reference": "c496879f8480153efc96e62d5c01d64ba091e52c"
+                "reference": "a3f35dcb0d77ead30e6d9cc3fe73fc2890659a95"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/alecrabbit/php-wcwidth/zipball/c496879f8480153efc96e62d5c01d64ba091e52c",
-                "reference": "c496879f8480153efc96e62d5c01d64ba091e52c",
+                "url": "https://api.github.com/repos/alecrabbit/php-wcwidth/zipball/a3f35dcb0d77ead30e6d9cc3fe73fc2890659a95",
+                "reference": "a3f35dcb0d77ead30e6d9cc3fe73fc2890659a95",
                 "shasum": ""
             },
             "require": {
@@ -66,9 +66,9 @@
             ],
             "support": {
                 "issues": "https://github.com/alecrabbit/php-wcwidth/issues",
-                "source": "https://github.com/alecrabbit/php-wcwidth/tree/1.0.0-ALPHA.1"
+                "source": "https://github.com/alecrabbit/php-wcwidth/tree/1.0.0-ALPHA.2+BUILD.0"
             },
-            "time": "2023-03-03T10:09:25+00:00"
+            "time": "2023-03-03T15:31:38+00:00"
         },
         {
             "name": "evenement/evenement",
@@ -243,16 +243,16 @@
         },
         {
             "name": "filp/whoops",
-            "version": "2.14.6",
+            "version": "2.15.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/filp/whoops.git",
-                "reference": "f7948baaa0330277c729714910336383286305da"
+                "reference": "3e8aebbca9f0ae6f618962c4ad514077fd365ab3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/filp/whoops/zipball/f7948baaa0330277c729714910336383286305da",
-                "reference": "f7948baaa0330277c729714910336383286305da",
+                "url": "https://api.github.com/repos/filp/whoops/zipball/3e8aebbca9f0ae6f618962c4ad514077fd365ab3",
+                "reference": "3e8aebbca9f0ae6f618962c4ad514077fd365ab3",
                 "shasum": ""
             },
             "require": {
@@ -302,7 +302,7 @@
             ],
             "support": {
                 "issues": "https://github.com/filp/whoops/issues",
-                "source": "https://github.com/filp/whoops/tree/2.14.6"
+                "source": "https://github.com/filp/whoops/tree/2.15.0"
             },
             "funding": [
                 {
@@ -310,7 +310,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2022-11-02T16:23:29+00:00"
+            "time": "2023-03-03T12:00:00+00:00"
         },
         {
             "name": "myclabs/deep-copy",
