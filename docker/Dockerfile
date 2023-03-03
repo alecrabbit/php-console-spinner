@@ -37,13 +37,13 @@ ARG RUN_DEPS="\
     gmp \
     icu-libs \
     libbz2 \
+    libevent \
     libffi \
     libintl \
     libjpeg-turbo \
     libpng \
     libpq \
     libuuid \
-    libuv \
     libwebp \
     libxml2 \
     libxpm \
@@ -70,11 +70,11 @@ ARG BUILD_DEPS="\
     gmp-dev \
     icu-dev \
     libc-dev \
+    libevent-dev \
     libffi-dev  \
     libjpeg-turbo-dev \
     libpng-dev  \
     libpq-dev \
-    libuv-dev \
     libwebp-dev \
     libxml2-dev \
     libxpm-dev \
@@ -135,6 +135,8 @@ RUN set -eux \
         mongodb \
         redis \
         uuid \
+    && pecl install -o -f event-${EXT_EVENT_VERSION} \
+    && docker-php-ext-enable --ini-name zz-event.ini event \
     && pecl clear-cache \
     && rm -rfv \
         /tmp/* \
