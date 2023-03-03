@@ -8,6 +8,7 @@ use AlecRabbit\Spinner\Mixin\NoInstanceTrait;
 use Closure;
 
 use function AlecRabbit\WCWidth\wcswidth;
+use function mb_strlen;
 
 /** @internal */
 final class WidthDeterminer
@@ -31,13 +32,8 @@ final class WidthDeterminer
                 return wcswidth($string);
             };
         }
-        if (function_exists('\mb_strlen')) {
-            return static function (string $string): int {
-                return mb_strlen($string);
-            };
-        }
         return static function (string $string): int {
-            return strlen($string);
+            return mb_strlen($string);
         };
     }
 }
