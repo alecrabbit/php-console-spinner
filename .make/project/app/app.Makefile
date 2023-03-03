@@ -19,3 +19,6 @@ test_coverage:
 	-${_DC_EXEC} -e XDEBUG_MODE=coverage ${APP_CONTAINER} vendor/bin/phpunit --configuration phpunit.coverage.xml --coverage-text
 
 test_full: test_coverage test
+
+# End of file
+##
