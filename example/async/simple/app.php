@@ -7,10 +7,10 @@ use AlecRabbit\Spinner\Factory\DefaultsFactory;
 
 require_once __DIR__ . '/../bootstrap.async.php';
 
-// Tune Defaults
-$defaults =
-    DefaultsFactory::create()
-        ->setAttachSignalHandlers(false); // disable signal handling
+//// Tune Defaults
+//$defaults =
+//    DefaultsFactory::create()
+//        ->setAttachSignalHandlers(false); // disable signal handling
 
 $spinner = Factory::createSpinner();
 
