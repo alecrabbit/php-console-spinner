@@ -15,5 +15,3 @@ filter:
 
   excluded_paths:
     - tests/
-    - bin/
-    - lib/
