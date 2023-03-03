@@ -1,11 +1,8 @@
 phpunit.xml export-ignore
-src/ export-ignore
 phpcs.xml export-ignore
 .github/ export-ignore
-LICENSE export-ignore
 .git/ export-ignore
 README.md export-ignore
-composer.json export-ignore
 vendor/ export-ignore
 .gitattributes export-ignore
 CONTRIBUTING.md export-ignore
@@ -27,6 +24,7 @@ tests/ export-ignore
 .dockerignore export-ignore
 phpunit.coverage.xml export-ignore
 .scrutinizer.yml export-ignore
+.gitattributes.keep export-ignore
 .tools/ export-ignore
 .make/ export-ignore
 docker/ export-ignore
