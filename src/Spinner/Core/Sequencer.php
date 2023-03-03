@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core;
 
 use AlecRabbit\Spinner\Core\Contract\ISequencer;
-
 use AlecRabbit\Spinner\Mixin\NoInstanceTrait;
 
 use const AlecRabbit\Spinner\CSI;

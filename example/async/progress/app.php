@@ -3,12 +3,12 @@
 declare(strict_types=1);
 
 use AlecRabbit\Spinner\Core\Interval;
-use AlecRabbit\Spinner\Core\Loop\RevoltLoopProbe;
+use AlecRabbit\Spinner\Core\Loop\ReactLoopProbe;
 use AlecRabbit\Spinner\Extras\FractionValue;
 use AlecRabbit\Spinner\Factory;
 use AlecRabbit\Spinner\Factory\DefaultsFactory;
 
-//use AlecRabbit\Spinner\Core\Loop\ReactLoopProbe; // uncomment this line to use ReactPHP event loop
+//use AlecRabbit\Spinner\Core\Loop\RevoltLoopProbe;
 
 require_once __DIR__ . '/../bootstrap.async.php';
 
@@ -22,8 +22,8 @@ $advanceInterval = 0.1;
 $defaults = DefaultsFactory::create();
 // in dev environment we have both ReactPHP and Revolt event loops (see require-dev section in composer.json),
 // so we need to specify which one to use.
-$probes = [RevoltLoopProbe::class]; // probe only for Revolt event loop
-//$probes = [ReactLoopProbe::class]; // probe only for ReactPHP event loop
+//$probes = [RevoltLoopProbe::class]; // probe only for Revolt event loop
+$probes = [ReactLoopProbe::class]; // probe only for ReactPHP event loop
 
 $defaults
     ->setLoopProbes($probes) // specify which event loop to use
