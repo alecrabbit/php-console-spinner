@@ -13,7 +13,7 @@ DefaultsFactory::create()
     ->setLoopProbes([ReactLoopProbe::class]); // probe only for ReactPHP event loop
 
 /*
- * This example shows how to use ReactPHP event loop.
+ * This example shows how you may use ReactPHP event loop.
  */
 $spinner = Factory::createSpinner();
 
