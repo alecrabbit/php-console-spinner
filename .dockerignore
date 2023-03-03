@@ -1,13 +1,6 @@
 .*
-.git/
-bin/
 test*
 vendor/
 doc/
 docker-compose*
 *.md
-node_modules/
-public/js/
-public/css/
-yarn-error.log
-mkdocs.yml

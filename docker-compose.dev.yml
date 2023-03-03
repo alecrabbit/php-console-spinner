@@ -2,7 +2,8 @@ x-bash-rc: &bash-rc ./docker/.cli/.bashrc:/root/.bashrc
 
 services:
   app:
-    image: dralec/php82-cli-dev
+    build:
+      context: ./docker
     volumes:
       - *bash-rc
     environment:
