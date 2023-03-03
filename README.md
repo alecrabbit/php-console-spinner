@@ -9,8 +9,12 @@
 
 # 🇺🇦 🏵️ PHP Console Spinner
 
-[![PHP Version](https://img.shields.io/packagist/php-v/alecrabbit/php-console-spinner.svg)](https://php.net)
+[![PHP Version](https://img.shields.io/packagist/php-v/alecrabbit/php-console-spinner/dev-master.svg)](https://php.net)
 [![Build Status](https://github.com/alecrabbit/php-console-spinner/workflows/build/badge.svg)](https://github.com/alecrabbit/php-console-spinner/actions)
+
+[![Build Status](https://scrutinizer-ci.com/g/alecrabbit/php-console-spinner/badges/build.png?b=master)](https://scrutinizer-ci.com/g/alecrabbit/php-console-spinner/build-status/master)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/alecrabbit/php-console-spinner/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/alecrabbit/php-console-spinner/?branch=master)
+[![Code Coverage](https://scrutinizer-ci.com/g/alecrabbit/php-console-spinner/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/alecrabbit/php-console-spinner/?branch=master)
 
 [![Latest Stable Version](https://poser.pugx.org/alecrabbit/php-console-spinner/v/stable)](https://packagist.org/packages/alecrabbit/php-console-spinner)
 [![Packagist Pre Release Version](https://img.shields.io/packagist/vpre/alecrabbit/php-console-spinner)](https://packagist.org/packages/alecrabbit/php-console-spinner)
