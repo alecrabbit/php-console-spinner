@@ -13,10 +13,10 @@ KEEP_FILE=".gitattributes.keep"
 IGNORE_FILE=".gitignore"
 
 # Get the list of files and directories to exclude
-EXCLUDES=$(awk '{print $1}' "$KEEP_FILE" | sed 's|^/||')
+EXCLUDES=$(awk '{print $1}' "$KEEP_FILE" | sed 's|^\.*/\{0,1\}||')
 
 # Get the list of files and directories to ignore
-IGNORES=$(awk '{print $1}' "$IGNORE_FILE" | sed 's|^/||')
+IGNORES=$(awk '{print $1}' "$IGNORE_FILE" | sed 's|^\.*/\{0,1\}||')
 
 # Get the contents of the directory and sort them alphabetically
 CONTENTS=$(find "$DIRECTORY" -mindepth 1 -maxdepth 1 -exec basename {} \; | sort)
