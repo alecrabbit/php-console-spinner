@@ -1,7 +1,5 @@
-/vendor
-/.eval
-/.phive
-/.report/.build/*
+vendor/
+.eval/
 .ready
 .last_init_time
 .start_time
