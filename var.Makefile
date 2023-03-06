@@ -1,7 +1,7 @@
-ifeq ($(wildcard .env),)
-    # .env file does not exist
+ifeq ($(wildcard $(_ENV_FILE)),)
+    # file does not exist
 else
-	include .env # to include environment variables
+    include $(_ENV_FILE) # to include environment variables
 endif
 
 # Git related variables
