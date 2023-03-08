@@ -69,6 +69,7 @@
       <path value="$PROJECT_DIR$/vendor/symfony/string" />
       <path value="$PROJECT_DIR$/vendor/theseer/tokenizer" />
       <path value="$PROJECT_DIR$/vendor/alecrabbit/php-wcwidth" />
+      <path value="$PROJECT_DIR$/vendor/alecrabbit/php-console-spinner-extras" />
     </include_path>
   </component>
   <component name="PhpInterpreters">
