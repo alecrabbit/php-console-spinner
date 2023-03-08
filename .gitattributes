@@ -9,7 +9,6 @@ docker-compose.yml export-ignore
 .dockerignore export-ignore
 .env.dist export-ignore
 example/ export-ignore
-.git/ export-ignore
 .gitattributes export-ignore
 .gitattributes.keep export-ignore
 .github/ export-ignore
@@ -25,4 +24,3 @@ README.md export-ignore
 TERMINAL_TITLE export-ignore
 tests/ export-ignore
 .tools/ export-ignore
-var.Makefile export-ignore

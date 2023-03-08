@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 use AlecRabbit\Spinner\Core\Interval;
 use AlecRabbit\Spinner\Core\Loop\ReactLoopProbe;
-//use AlecRabbit\Spinner\Extras\FractionValue;
+use AlecRabbit\Spinner\Extras\FractionValue;
 use AlecRabbit\Spinner\Factory;
 use AlecRabbit\Spinner\Factory\DefaultsFactory;
 

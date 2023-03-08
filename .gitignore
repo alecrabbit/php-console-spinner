@@ -5,5 +5,4 @@ vendor/
 .start_time
 docker-stack.yml
 .env
-/.tools/.dam/
-/.deprecated/
+
