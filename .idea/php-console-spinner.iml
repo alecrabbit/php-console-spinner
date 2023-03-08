@@ -5,7 +5,7 @@
       <sourceFolder url="file://$MODULE_DIR$/spec" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/src/Spinner" isTestSource="false" packagePrefix="AlecRabbit\Spinner\" />
       <sourceFolder url="file://$MODULE_DIR$/tests" isTestSource="true" packagePrefix="AlecRabbit\Tests\Spinner\" />
-      <excludeFolder url="file://$MODULE_DIR$/.make" />
+      <excludeFolder url="file://$MODULE_DIR$/.deprecated/.make" />
       <excludeFolder url="file://$MODULE_DIR$/.tools" />
       <excludeFolder url="file://$MODULE_DIR$/.phive" />
       <excludeFolder url="file://$MODULE_DIR$/build" />
@@ -15,6 +15,7 @@
       <excludeFolder url="file://$MODULE_DIR$/src/.deprecated" />
       <excludeFolder url="file://$MODULE_DIR$/example/.deprecated" />
       <excludeFolder url="file://$MODULE_DIR$/vendor" />
+      <excludeFolder url="file://$MODULE_DIR$/.deprecated" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
