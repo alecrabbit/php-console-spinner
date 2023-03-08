@@ -34,6 +34,7 @@
         "revolt/event-loop": "^1.0",
         "nunomaduro/collision": "^7.0",
         "react/http": "*",
+        "alecrabbit/php-console-spinner-extras": "dev-main",
         "alecrabbit/php-wcwidth": "^1.0.0-ALPHA.0"
     },
     "autoload": {
