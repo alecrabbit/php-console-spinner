@@ -4,21 +4,21 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "411f68a8fb721fb515ddef94fe69dbc6",
+    "content-hash": "5d1f0211e7c06c264daf5321c82344ac",
     "packages": [],
     "packages-dev": [
         {
             "name": "alecrabbit/php-console-spinner-extras",
-            "version": "1.0.0-ALPHA.1",
+            "version": "dev-main",
             "source": {
                 "type": "git",
                 "url": "https://github.com/alecrabbit/php-console-spinner-extras.git",
-                "reference": "752d519bca29be0677f29266e9964040d5c185cc"
+                "reference": "6b493079548de1a66578f8da6628505e61416300"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/alecrabbit/php-console-spinner-extras/zipball/752d519bca29be0677f29266e9964040d5c185cc",
-                "reference": "752d519bca29be0677f29266e9964040d5c185cc",
+                "url": "https://api.github.com/repos/alecrabbit/php-console-spinner-extras/zipball/6b493079548de1a66578f8da6628505e61416300",
+                "reference": "6b493079548de1a66578f8da6628505e61416300",
                 "shasum": ""
             },
             "require": {
@@ -36,6 +36,7 @@
             "suggest": {
                 "ext-mbstring": "For multibyte Unicode string functionality."
             },
+            "default-branch": true,
             "type": "library",
             "autoload": {
                 "psr-4": {
@@ -54,9 +55,9 @@
             ],
             "support": {
                 "issues": "https://github.com/alecrabbit/php-console-spinner-extras/issues",
-                "source": "https://github.com/alecrabbit/php-console-spinner-extras/tree/1.0.0-ALPHA.1"
+                "source": "https://github.com/alecrabbit/php-console-spinner-extras/tree/main"
             },
-            "time": "2023-03-08T13:40:00+00:00"
+            "time": "2023-03-08T13:44:29+00:00"
         },
         {
             "name": "alecrabbit/php-wcwidth",
@@ -3923,7 +3924,7 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "alecrabbit/php-console-spinner-extras": 15,
+        "alecrabbit/php-console-spinner-extras": 20,
         "alecrabbit/php-wcwidth": 15
     },
     "prefer-stable": false,
