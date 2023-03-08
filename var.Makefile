@@ -1,4 +1,8 @@
-include .env # for environment variables
+ifeq ($(wildcard $(_ENV_FILE)),)
+    # file does not exist
+else
+    include $(_ENV_FILE) # to include environment variables
+endif
 
 # Git related variables
 WORKING_BRANCH=dev

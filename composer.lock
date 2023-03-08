@@ -9,16 +9,16 @@
     "packages-dev": [
         {
             "name": "alecrabbit/php-wcwidth",
-            "version": "1.0.0-ALPHA.2+BUILD.0",
+            "version": "1.0.0-ALPHA.2+BUILD.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/alecrabbit/php-wcwidth.git",
-                "reference": "a3f35dcb0d77ead30e6d9cc3fe73fc2890659a95"
+                "reference": "c80fc2f9699a6262282d5c042c61f5094b74a841"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/alecrabbit/php-wcwidth/zipball/a3f35dcb0d77ead30e6d9cc3fe73fc2890659a95",
-                "reference": "a3f35dcb0d77ead30e6d9cc3fe73fc2890659a95",
+                "url": "https://api.github.com/repos/alecrabbit/php-wcwidth/zipball/c80fc2f9699a6262282d5c042c61f5094b74a841",
+                "reference": "c80fc2f9699a6262282d5c042c61f5094b74a841",
                 "shasum": ""
             },
             "require": {
@@ -66,9 +66,9 @@
             ],
             "support": {
                 "issues": "https://github.com/alecrabbit/php-wcwidth/issues",
-                "source": "https://github.com/alecrabbit/php-wcwidth/tree/1.0.0-ALPHA.2+BUILD.0"
+                "source": "https://github.com/alecrabbit/php-wcwidth/tree/1.0.0-ALPHA.2+BUILD.1"
             },
-            "time": "2023-03-03T15:31:38+00:00"
+            "time": "2023-03-06T09:23:32+00:00"
         },
         {
             "name": "evenement/evenement",
@@ -373,16 +373,16 @@
         },
         {
             "name": "nikic/php-parser",
-            "version": "v4.15.3",
+            "version": "v4.15.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nikic/PHP-Parser.git",
-                "reference": "570e980a201d8ed0236b0a62ddf2c9cbb2034039"
+                "reference": "6bb5176bc4af8bcb7d926f88718db9b96a2d4290"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/570e980a201d8ed0236b0a62ddf2c9cbb2034039",
-                "reference": "570e980a201d8ed0236b0a62ddf2c9cbb2034039",
+                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/6bb5176bc4af8bcb7d926f88718db9b96a2d4290",
+                "reference": "6bb5176bc4af8bcb7d926f88718db9b96a2d4290",
                 "shasum": ""
             },
             "require": {
@@ -423,9 +423,9 @@
             ],
             "support": {
                 "issues": "https://github.com/nikic/PHP-Parser/issues",
-                "source": "https://github.com/nikic/PHP-Parser/tree/v4.15.3"
+                "source": "https://github.com/nikic/PHP-Parser/tree/v4.15.4"
             },
-            "time": "2023-01-16T22:05:37+00:00"
+            "time": "2023-03-05T19:49:14+00:00"
         },
         {
             "name": "nunomaduro/collision",
