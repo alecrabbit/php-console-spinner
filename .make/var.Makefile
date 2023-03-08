@@ -4,21 +4,22 @@ else
     include $(_ENV_FILE) # to include environment variables
 endif
 
+GLOBAL_DEBUG=0
+
 # Git related variables
 WORKING_BRANCH=dev
-DEFAULT_COMMIT_MESSAGE=~wp
+COMMIT_MESSAGE=~wp
 
-# Docker compose files
-
-# _FILES = -f ${_DOCKER_COMPOSE_FILE} -f docker-compose.override.${_DC_EXTENSION}
+# Docker compose files (uncomment to use dev file)
 _FILES = \
 	-f ${_DOCKER_COMPOSE_FILE} \
 	-f docker-compose.dev.${_DC_EXTENSION} \
 
-# ------------------------------------------------------------------------------
 PROJECT_NAME=php-console-spinner
 PROJECT_SHORT_TITLE=🏵️
 
+# ------------------------------------------------------------------------------
+# Your variables here
 TEST_REPETITION=10
 APP_CONTAINER=app
 COMPOSER_CONTAINER=app
