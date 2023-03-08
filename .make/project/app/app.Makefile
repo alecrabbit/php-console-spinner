@@ -20,5 +20,3 @@ test_coverage:
 
 test_full: test_coverage test
 
-# End of file
-##
