@@ -50,4 +50,6 @@ interface IDefaults extends ISettableDefaults
     public function getTerminalProbeClasses(): iterable;
 
     public function getInterruptMessage(): string;
+
+    public function getTerminal(): ITerminal;
 }

@@ -452,4 +452,9 @@ abstract class ADefaults implements IDefaults
         self::$loopProbes = $loopProbes;
         return $this;
     }
+
+    public function getTerminal(): ITerminal
+    {
+        return self::$terminal;
+    }
 }
