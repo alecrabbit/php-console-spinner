@@ -3,12 +3,18 @@ declare(strict_types=1);
 // 09.03.23
 namespace AlecRabbit\Spinner\Pattern\Style;
 
-final class Rainbow
+use AlecRabbit\Spinner\Core\ColorMode;
+use AlecRabbit\Spinner\Pattern\Style\A\APatternStyle;
+
+final class Rainbow extends APatternStyle
 {
-    public function getPattern(): array
+    public function getMode(): ColorMode
+    {
+        return ColorMode::ANSI8;
+    }
+    public function getPattern(): iterable
     {
         return [
-            [
                 196,
                 202,
                 208,
@@ -39,7 +45,6 @@ final class Rainbow
                 199,
                 198,
                 197,
-            ]
         ];
     }
 }
