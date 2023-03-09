@@ -4,7 +4,7 @@
 - [x] Extremely flexible
 - [x] Extensible, see [alecrabbit/php-console-spinner-extras](https://github.com/alecrabbit/php-console-spinner-extras)
 - [x] Zero dependencies[*](#limitations) 
-- [x] Asynchronous mode* 
+- [x] Asynchronous mode[*](#limitations)
   - [x] Support of `react/event-loop` 
   - [x] Support of `revolt/event-loop`(`amphp/amp:^3.0`)
 - [x] Synchronous mode
