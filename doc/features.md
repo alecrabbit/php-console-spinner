@@ -1,7 +1,8 @@
 [⬅️ to README.md](../README.md)
 # Features
 
-- [x] Extremely flexible 
+- [x] Extremely flexible
+- [x] Extensible, see [alecrabbit/php-console-spinner-extras](https://github.com/alecrabbit/php-console-spinner-extras)
 - [x] Zero dependencies (* see [limitations](limitations.md))
 - [x] Asynchronous mode (* see [limitations](limitations.md))
   - [x] Support of `react/event-loop` 
