@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 // 09.03.23
-namespace AlecRabbit\Spinner\Pattern\Renderer;
+namespace AlecRabbit\Spinner\Core\Pattern\Style;
 
-final class PatternRenderer
+final class StylePatternRenderer
 {
 
 }

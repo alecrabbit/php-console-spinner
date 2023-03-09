@@ -16,6 +16,8 @@ use AlecRabbit\Spinner\Core\Interval;
 use AlecRabbit\Spinner\Core\Output\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Output\Contract\IOutput;
 use AlecRabbit\Spinner\Core\Output\StreamOutput;
+use AlecRabbit\Spinner\Core\Pattern\Style\A\AStylePattern;
+use AlecRabbit\Spinner\Core\Pattern\Style\Rainbow;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameCollectionRevolver;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
 use AlecRabbit\Spinner\Core\Revolver\FrameCollectionRevolver;
@@ -26,6 +28,9 @@ use AlecRabbit\Spinner\Core\Widget\WidgetRevolver;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Exception\LogicException;
 use AlecRabbit\Spinner\Factory\WidgetFactory;
+
+use const AlecRabbit\Spinner\CSI;
+use const AlecRabbit\Spinner\RESET;
 
 abstract class AConfigBuilder implements IConfigBuilder
 {
@@ -137,10 +142,12 @@ abstract class AConfigBuilder implements IConfigBuilder
 
         $this->terminalColorSupport ??= $this->driver->getTerminalColorSupport();
 
-        $this->spinnerStyleRevolver ??=
-            $this->createSpinnerStyleRevolver(
-                $this->defaults->getSpinnerStylePattern()
-            );
+        $this->spinnerStyleRevolver ??= $this->createSpinnerStyleRevolver(new Rainbow());
+        // remove
+        $this->createSpinnerStyleRevolverOld(
+            $this->defaults->getSpinnerStylePattern()
+        );
+
         $this->spinnerCharRevolver ??=
             $this->createSpinnerCharRevolver(
                 $this->defaults->getSpinnerCharPattern()
@@ -172,16 +179,18 @@ abstract class AConfigBuilder implements IConfigBuilder
     }
 
     /**
+     * @param AStylePattern $spinnerStylePattern
+     * @return IFrameCollectionRevolver
      * @throws InvalidArgumentException
      */
-    protected function createSpinnerStyleRevolver(array $spinnerStylePattern): IFrameCollectionRevolver
+    protected function createSpinnerStyleRevolver(AStylePattern $spinnerStylePattern): IFrameCollectionRevolver
     {
         $frames = [];
-        foreach ($spinnerStylePattern as $style) {
-            $frames[] = new Frame($style, 0);
+        foreach ($spinnerStylePattern->getPattern() as $style) {
+            $frames[] = new Frame(CSI . sprintf( '38;5;%sm', $style) . '%s'  . RESET, 0);
         }
         return
-            new FrameCollectionRevolver($frames, new Interval(360));
+            new FrameCollectionRevolver($frames, $spinnerStylePattern->getInterval());
     }
 
     /**
