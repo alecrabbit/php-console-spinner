@@ -43,11 +43,15 @@
 
 ### <a name="why"></a>Why?
 
-Main purpose of this library is to provide a simple way to show spinner in console applications.
-Spinner could be an indicator of running task. 
+Main purpose of this library is to provide a simple way to show spinner in console applications
+(mainly long-running ones). Spinner could be an indicator of running task. For more information 
+see [Features](doc/features.md) and [Examples](example).
 
-[alecrabbit/php-console-spinner-extras](https://github.com/alecrabbit/php-console-spinner-extras) library provides a way to show progress of running task and messages of some sort, like status messages.
-For more information see [Features](doc/features.md) and [Examples](example).
+[alecrabbit/php-console-spinner-extras](https://github.com/alecrabbit/php-console-spinner-extras) 
+library provides additional components to extend functionality:
+ - show progress of running task 
+ - messages of some sort, like status messages
+ - additional spinners
 
 ### <a name="installation"></a> Installation
 
