@@ -51,12 +51,11 @@ abstract class AClasses implements IClasses
     }
 
     /**
-     * @param class-string $widgetBuilderClass
-     * @throws InvalidArgumentException
+     * @inheritdoc
      */
     public function setWidgetBuilderClass(string $widgetBuilderClass): void
     {
-        Asserter::isSubClass($widgetBuilderClass, IWidgetBuilder::class);
+        Asserter::isSubClass($widgetBuilderClass, IWidgetBuilder::class, __METHOD__);
         self::$widgetBuilderClass = $widgetBuilderClass;
     }
 
@@ -69,12 +68,11 @@ abstract class AClasses implements IClasses
     }
 
     /**
-     * @param class-string $widgetRevolverBuilderClass
-     * @throws InvalidArgumentException
+     * @inheritdoc
      */
     public function setWidgetRevolverBuilderClass(string $widgetRevolverBuilderClass): void
     {
-        Asserter::isSubClass($widgetRevolverBuilderClass, IWidgetRevolverBuilder::class);
+        Asserter::isSubClass($widgetRevolverBuilderClass, IWidgetRevolverBuilder::class, __METHOD__);
         self::$widgetRevolverBuilderClass = $widgetRevolverBuilderClass;
     }
 }

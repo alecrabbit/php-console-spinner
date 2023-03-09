@@ -33,7 +33,7 @@ final class DefaultsFactory
      */
     public static function setDefaultsClass(string $class): void
     {
-        Asserter::isSubClass($class, IDefaults::class);
+        Asserter::isSubClass($class, IDefaults::class, __METHOD__);
 
         if (null !== self::$className) {
             throw new DomainException(

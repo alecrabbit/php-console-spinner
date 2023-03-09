@@ -28,7 +28,7 @@ final class AsserterTest extends TestCase
             )
         );
 
-        Asserter::isSubClass($invalidClass, $expectedClass);
+        Asserter::isSubClass($invalidClass, $expectedClass); // Note: no caller method
         self::fail(sprintf('[%s] Exception not thrown', __METHOD__));
     }
 
