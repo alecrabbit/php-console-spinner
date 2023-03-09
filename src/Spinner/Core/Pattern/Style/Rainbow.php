@@ -10,10 +10,11 @@ use AlecRabbit\Spinner\Core\Pattern\Style\A\AStylePattern;
 
 final class Rainbow extends AStylePattern
 {
-    public function getMode(): ColorMode
+    public function getColorMode(): ColorMode
     {
         return ColorMode::ANSI8;
     }
+
     public function getPattern(): iterable
     {
         return [

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Config\Defaults\Contract;
 
 use AlecRabbit\Spinner\Core\Contract\IFrame;
+use AlecRabbit\Spinner\Core\Pattern\Style\A\AStylePattern;
 
 interface IDefaults extends ISettableDefaults
 {
@@ -52,4 +53,6 @@ interface IDefaults extends ISettableDefaults
     public function getInterruptMessage(): string;
 
     public function getTerminal(): ITerminal;
+
+    public function getSpinnerStylePattern(): AStylePattern;
 }

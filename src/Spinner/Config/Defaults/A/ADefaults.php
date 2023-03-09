@@ -13,6 +13,10 @@ use AlecRabbit\Spinner\Core\Frame;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoopProbe;
 use AlecRabbit\Spinner\Core\Loop\ReactLoopProbe;
 use AlecRabbit\Spinner\Core\Loop\RevoltLoopProbe;
+use AlecRabbit\Spinner\Core\Pattern\Char\Snake;
+use AlecRabbit\Spinner\Core\Pattern\Contract\IPattern;
+use AlecRabbit\Spinner\Core\Pattern\Style\A\AStylePattern;
+use AlecRabbit\Spinner\Core\Pattern\Style\Rainbow;
 use AlecRabbit\Spinner\Core\Terminal\Contract\ITerminalProbe;
 use AlecRabbit\Spinner\Core\Terminal\SymfonyTerminalProbe;
 use AlecRabbit\Spinner\Helper\Asserter;
@@ -37,8 +41,8 @@ abstract class ADefaults implements IDefaults
     protected static array $colorSupportLevels;
     protected static ?array $defaultStylePattern = null;
     protected static ?array $defaultCharPattern = null;
-    protected static ?array $mainStylePattern = null;
-    protected static ?array $mainCharPattern = null;
+    protected static ?AStylePattern $mainStylePattern = null;
+    protected static ?IPattern $mainCharPattern = null;
     protected static ?IFrame $mainLeadingSpacer = null;
     protected static ?IFrame $mainTrailingSpacer = null;
     protected static ?IFrame $defaultLeadingSpacer = null;
@@ -295,62 +299,29 @@ abstract class ADefaults implements IDefaults
         return $this;
     }
 
-    public function getSpinnerStylePattern(): array
+    public function getSpinnerStylePattern(): AStylePattern
     {
-        // TODO (2022-10-14 16:03) [Alec Rabbit]: change return type to ? [e68824d4-3908-49e4-9daf-73777963d37b]
         if (null === self::$mainStylePattern) {
-            self::$mainStylePattern = [
-                CSI . '38;5;196m%s' . RESET,
-                CSI . '38;5;202m%s' . RESET,
-                CSI . '38;5;208m%s' . RESET,
-                CSI . '38;5;214m%s' . RESET,
-                CSI . '38;5;220m%s' . RESET,
-                CSI . '38;5;226m%s' . RESET,
-                CSI . '38;5;190m%s' . RESET,
-                CSI . '38;5;154m%s' . RESET,
-                CSI . '38;5;118m%s' . RESET,
-                CSI . '38;5;82m%s' . RESET,
-                CSI . '38;5;46m%s' . RESET,
-                CSI . '38;5;47m%s' . RESET,
-                CSI . '38;5;48m%s' . RESET,
-                CSI . '38;5;49m%s' . RESET,
-                CSI . '38;5;50m%s' . RESET,
-                CSI . '38;5;51m%s' . RESET,
-                CSI . '38;5;45m%s' . RESET,
-                CSI . '38;5;39m%s' . RESET,
-                CSI . '38;5;33m%s' . RESET,
-                CSI . '38;5;27m%s' . RESET,
-                CSI . '38;5;56m%s' . RESET,
-                CSI . '38;5;57m%s' . RESET,
-                CSI . '38;5;93m%s' . RESET,
-                CSI . '38;5;129m%s' . RESET,
-                CSI . '38;5;165m%s' . RESET,
-                CSI . '38;5;201m%s' . RESET,
-                CSI . '38;5;200m%s' . RESET,
-                CSI . '38;5;199m%s' . RESET,
-                CSI . '38;5;198m%s' . RESET,
-                CSI . '38;5;197m%s' . RESET,
-            ];
+            self::$mainStylePattern = new Rainbow();
         }
         return self::$mainStylePattern;
     }
 
-    public function setSpinnerStylePattern(array $spinnerStylePattern): static
+    public function setSpinnerStylePattern(AStylePattern $spinnerStylePattern): static
     {
         self::$mainStylePattern = $spinnerStylePattern;
         return $this;
     }
 
-    public function getSpinnerCharPattern(): array
+    public function getSpinnerCharPattern(): IPattern
     {
-        // TODO (2022-10-14 16:03) [Alec Rabbit]: change return type to ? [f96f5d87-f9f9-46dc-a45b-8eecc2aba711]
         if (null === self::$mainCharPattern) {
-            self::$mainCharPattern = ['⠏', '⠛', '⠹', '⢸', '⣰', '⣤', '⣆', '⡇'];
+            self::$mainCharPattern = new Snake();
         }
         return self::$mainCharPattern;
     }
 
-    public function setSpinnerCharPattern(array $spinnerCharPattern): static
+    public function setSpinnerCharPattern(IPattern $spinnerCharPattern): static
     {
         self::$mainCharPattern = $spinnerCharPattern;
         return $this;
