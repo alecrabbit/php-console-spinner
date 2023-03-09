@@ -1,12 +1,14 @@
 <?php
 declare(strict_types=1);
 // 09.03.23
-namespace AlecRabbit\Spinner\Pattern\Style;
+namespace AlecRabbit\Spinner\Core\Pattern\Style;
 
 use AlecRabbit\Spinner\Core\ColorMode;
-use AlecRabbit\Spinner\Pattern\Style\A\APatternStyle;
+use AlecRabbit\Spinner\Core\Contract\IInterval;
+use AlecRabbit\Spinner\Core\Interval;
+use AlecRabbit\Spinner\Core\Pattern\Style\A\AStylePattern;
 
-final class Rainbow extends APatternStyle
+final class Rainbow extends AStylePattern
 {
     public function getMode(): ColorMode
     {
@@ -46,5 +48,10 @@ final class Rainbow extends APatternStyle
                 198,
                 197,
         ];
+    }
+
+    public function getInterval(): IInterval
+    {
+        return new Interval(360);
     }
 }
