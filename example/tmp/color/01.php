@@ -3,7 +3,6 @@
 declare(strict_types=1);
 
 use Symfony\Component\Console\Output\AnsiColorMode;
-use Symfony\Component\Console\Terminal;
 
 use const AlecRabbit\Cli\CSI;
 use const AlecRabbit\Spinner\RESET;
@@ -269,6 +268,34 @@ const TABLE = [
     255 => '#eeeeee',
 ];
 
+const C256_C_RAINBOW =
+[
+    160,
+    166,
+    172,
+    178,
+    184,
+    148,
+    112,
+    76,
+    40,
+    41,
+    42,
+    43,
+    44,
+    38,
+    32,
+    26,
+//            20,
+    56,
+    92,
+    128,
+    164,
+    163,
+    162,
+    161,
+];
+
 $a = [
     196,
     202,
@@ -302,7 +329,7 @@ $a = [
     197,
 ];
 
-foreach ($a as $colorCode) {
+foreach (C256_C_RAINBOW as $colorCode) {
     $ansi4 = AnsiColorMode::Ansi4->convertFromHexToAnsiColorCode(TABLE[$colorCode]);
     $ansi8 = AnsiColorMode::Ansi8->convertFromHexToAnsiColorCode(TABLE[$colorCode]);
     $ansi24 = AnsiColorMode::Ansi24->convertFromHexToAnsiColorCode(TABLE[$colorCode]);
