@@ -4,9 +4,9 @@ declare(strict_types=1);
 // 17.02.23
 namespace AlecRabbit\Spinner\Core\Loop\Contract;
 
-interface ILoopProbe
-{
-    public static function isSupported(): bool;
+use AlecRabbit\Spinner\Core\Contract\IProbe;
 
-    public static function create(): ILoop;
+interface ILoopProbe extends IProbe
+{
+    public static function createLoop(): ILoop;
 }

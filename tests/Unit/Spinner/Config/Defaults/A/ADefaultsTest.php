@@ -77,7 +77,7 @@ final class ADefaultsTest extends TestCase
             RevoltLoopProbe::class,
             ReactLoopProbe::class,
         ];
-        $defaults->setLoopProbes(
+        $defaults->setLoopProbeClasses(
             $loopProbes
         );
         $loopProbesCount = 0;
@@ -217,7 +217,7 @@ final class ADefaultsTest extends TestCase
     }
 
     /** @test */
-    public function etColorSupportLevelsThrowsOnInvalidArgument(): void
+    public function setColorSupportLevelsThrowsOnInvalidArgument(): void
     {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('Color support levels must not be empty.');

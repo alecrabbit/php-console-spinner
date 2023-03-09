@@ -9,6 +9,9 @@ services:
     tty: true
     env_file:
       - ./.env
+    environment:
+      - COLORTERM=${COLORTERM}
+      - TERM=${TERM}
     working_dir: /app
 
 #  &service-composer composer:

@@ -13,7 +13,6 @@ trait DefaultConst
     final protected const MESSAGE_ON_EXIT = 'Exiting... (CTRL+C to force)' . PHP_EOL;
     final protected const MESSAGE_ON_INTERRUPT = PHP_EOL . 'Interrupted!' . PHP_EOL;
     final protected const MESSAGE_ON_FINALIZE = PHP_EOL;
-    final protected const TERMINAL_DEFAULT_WIDTH = 100;
     final protected const TERMINAL_COLOR_SUPPORT_LEVELS = KNOWN_TERM_COLOR;
     final protected const TERMINAL_HIDE_CURSOR = true;
     final protected const SPINNER_MODE_IS_SYNCHRONOUS = false;

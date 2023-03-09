@@ -17,7 +17,7 @@ class RevoltLoopProbe extends ALoopProbe
         return class_exists(EventLoop::class);
     }
 
-    public static function create(): ILoop
+    public static function createLoop(): ILoop
     {
         return new RevoltLoopAdapter();
     }
