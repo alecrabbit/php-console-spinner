@@ -6,7 +6,6 @@ namespace AlecRabbit\Spinner\Config\Defaults\A;
 
 use AlecRabbit\Spinner\Config\Defaults\Contract\IClasses;
 use AlecRabbit\Spinner\Config\Defaults\Contract\IDefaults;
-use AlecRabbit\Spinner\Config\Defaults\Contract\ISettableDefaults;
 use AlecRabbit\Spinner\Config\Defaults\Mixin\DefaultConst;
 use AlecRabbit\Spinner\Core\Contract\IFrame;
 use AlecRabbit\Spinner\Core\Frame;
@@ -18,7 +17,7 @@ use AlecRabbit\Spinner\Helper\Asserter;
 use const AlecRabbit\Spinner\CSI;
 use const AlecRabbit\Spinner\RESET;
 
-abstract class ADefaults implements ISettableDefaults
+abstract class ADefaults implements IDefaults
 {
     use DefaultConst;
 
@@ -132,7 +131,7 @@ abstract class ADefaults implements ISettableDefaults
     }
 
     /** @inheritdoc */
-    public function setOutputStream($stream): ISettableDefaults
+    public function setOutputStream($stream): static
     {
         Asserter::assertStream($stream);
         self::$outputStream = $stream;
@@ -144,7 +143,7 @@ abstract class ADefaults implements ISettableDefaults
         return self::$millisecondsInterval;
     }
 
-    public function setIntervalMilliseconds(int $defaultInterval): ISettableDefaults
+    public function setIntervalMilliseconds(int $defaultInterval): static
     {
         self::$millisecondsInterval = $defaultInterval;
         return $this;
@@ -155,7 +154,7 @@ abstract class ADefaults implements ISettableDefaults
         return self::$shutdownDelay;
     }
 
-    public function setShutdownDelay(float|int $shutdownDelay): ISettableDefaults
+    public function setShutdownDelay(float|int $shutdownDelay): static
     {
         self::$shutdownDelay = $shutdownDelay;
         return $this;
@@ -166,7 +165,7 @@ abstract class ADefaults implements ISettableDefaults
         return self::$isModeSynchronous;
     }
 
-    public function setModeAsSynchronous(bool $isModeSynchronous): ISettableDefaults
+    public function setModeAsSynchronous(bool $isModeSynchronous): static
     {
         self::$isModeSynchronous = $isModeSynchronous;
         return $this;
@@ -177,7 +176,7 @@ abstract class ADefaults implements ISettableDefaults
         return self::$hideCursor;
     }
 
-    public function setHideCursor(bool $hideCursor): ISettableDefaults
+    public function setHideCursor(bool $hideCursor): static
     {
         self::$hideCursor = $hideCursor;
         return $this;
@@ -188,7 +187,7 @@ abstract class ADefaults implements ISettableDefaults
         return self::$defaultCharPattern;
     }
 
-    public function setDefaultCharPattern(array $char): ISettableDefaults
+    public function setDefaultCharPattern(array $char): static
     {
         self::$defaultCharPattern = $char;
         return $this;
@@ -199,7 +198,7 @@ abstract class ADefaults implements ISettableDefaults
         return self::$defaultStylePattern;
     }
 
-    public function setDefaultStylePattern(array $style): ISettableDefaults
+    public function setDefaultStylePattern(array $style): static
     {
         self::$defaultStylePattern = $style;
         return $this;
@@ -210,7 +209,7 @@ abstract class ADefaults implements ISettableDefaults
         return self::$messageOnFinalize;
     }
 
-    public function setFinalMessage(string $finalMessage): ISettableDefaults
+    public function setFinalMessage(string $finalMessage): static
     {
         self::$messageOnFinalize = $finalMessage;
         return $this;
@@ -221,7 +220,7 @@ abstract class ADefaults implements ISettableDefaults
         return self::$messageOnExit;
     }
 
-    public function setMessageOnExit(string $messageOnExit): ISettableDefaults
+    public function setMessageOnExit(string $messageOnExit): static
     {
         self::$messageOnExit = $messageOnExit;
         return $this;
@@ -232,7 +231,7 @@ abstract class ADefaults implements ISettableDefaults
         return self::$messageOnInterrupt;
     }
 
-    public function setInterruptMessage(string $interruptMessage): ISettableDefaults
+    public function setInterruptMessage(string $interruptMessage): static
     {
         self::$messageOnInterrupt = $interruptMessage;
         return $this;
@@ -243,7 +242,7 @@ abstract class ADefaults implements ISettableDefaults
         return self::$shutdownMaxDelay;
     }
 
-    public function setMaxShutdownDelay(float|int $maxShutdownDelay): ISettableDefaults
+    public function setMaxShutdownDelay(float|int $maxShutdownDelay): static
     {
         self::$shutdownMaxDelay = $maxShutdownDelay;
         return $this;
@@ -255,7 +254,7 @@ abstract class ADefaults implements ISettableDefaults
     }
 
     /** @inheritdoc */
-    public function setColorSupportLevels(array $colorSupportLevels): ISettableDefaults
+    public function setColorSupportLevels(array $colorSupportLevels): static
     {
         Asserter::assertColorSupportLevels($colorSupportLevels);
         self::$colorSupportLevels = $colorSupportLevels;
@@ -268,7 +267,7 @@ abstract class ADefaults implements ISettableDefaults
         return self::$percentNumberFormat;
     }
 
-    public function setPercentNumberFormat(string $percentNumberFormat): ISettableDefaults
+    public function setPercentNumberFormat(string $percentNumberFormat): static
     {
         self::$percentNumberFormat = $percentNumberFormat;
         return $this;
@@ -314,7 +313,7 @@ abstract class ADefaults implements ISettableDefaults
         return self::$mainStylePattern;
     }
 
-    public function setSpinnerStylePattern(array $spinnerStylePattern): ISettableDefaults
+    public function setSpinnerStylePattern(array $spinnerStylePattern): static
     {
         self::$mainStylePattern = $spinnerStylePattern;
         return $this;
@@ -329,7 +328,7 @@ abstract class ADefaults implements ISettableDefaults
         return self::$mainCharPattern;
     }
 
-    public function setSpinnerCharPattern(array $spinnerCharPattern): ISettableDefaults
+    public function setSpinnerCharPattern(array $spinnerCharPattern): static
     {
         self::$mainCharPattern = $spinnerCharPattern;
         return $this;
@@ -341,7 +340,7 @@ abstract class ADefaults implements ISettableDefaults
             self::$mainLeadingSpacer ?? self::$defaultLeadingSpacer;
     }
 
-    public function setMainLeadingSpacer(IFrame $mainLeadingSpacer): ISettableDefaults
+    public function setMainLeadingSpacer(IFrame $mainLeadingSpacer): static
     {
         self::$mainLeadingSpacer = $mainLeadingSpacer;
         return $this;
@@ -353,7 +352,7 @@ abstract class ADefaults implements ISettableDefaults
             self::$mainTrailingSpacer ?? self::$defaultTrailingSpacer;
     }
 
-    public function setMainTrailingSpacer(IFrame $mainTrailingSpacer): ISettableDefaults
+    public function setMainTrailingSpacer(IFrame $mainTrailingSpacer): static
     {
         self::$mainTrailingSpacer = $mainTrailingSpacer;
         return $this;
@@ -364,7 +363,7 @@ abstract class ADefaults implements ISettableDefaults
         return self::$createInitialized;
     }
 
-    public function setCreateInitialized(bool $createInitialized): ISettableDefaults
+    public function setCreateInitialized(bool $createInitialized): static
     {
         self::$createInitialized = $createInitialized;
         return $this;
@@ -385,7 +384,7 @@ abstract class ADefaults implements ISettableDefaults
         return self::$autoStart;
     }
 
-    public function setAutoStart(bool $autoStart): ISettableDefaults
+    public function setAutoStart(bool $autoStart): static
     {
         self::$autoStart = $autoStart;
         return $this;
@@ -396,7 +395,7 @@ abstract class ADefaults implements ISettableDefaults
         return self::$attachSignalHandlers;
     }
 
-    public function setAttachSignalHandlers(bool $attachSignalHandlers): ISettableDefaults
+    public function setAttachSignalHandlers(bool $attachSignalHandlers): static
     {
         self::$attachSignalHandlers = $attachSignalHandlers;
         return $this;
@@ -408,7 +407,7 @@ abstract class ADefaults implements ISettableDefaults
     }
 
     /** @inheritdoc */
-    public function setLoopProbes(iterable $loopProbes): ISettableDefaults
+    public function setLoopProbes(iterable $loopProbes): static
     {
         foreach ($loopProbes as $probe) {
             Asserter::isSubClass($probe, ILoopProbe::class, __METHOD__);

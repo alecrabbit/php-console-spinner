@@ -6,7 +6,6 @@ namespace AlecRabbit\Spinner\Factory;
 
 use AlecRabbit\Spinner\Config\Defaults\A\ADefaults;
 use AlecRabbit\Spinner\Config\Defaults\Contract\IDefaults;
-use AlecRabbit\Spinner\Config\Defaults\Contract\ISettableDefaults;
 use AlecRabbit\Spinner\Exception\DomainException;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Helper\Asserter;
@@ -19,7 +18,7 @@ final class DefaultsFactory
     /** @var null|class-string */
     private static ?string $className = null;
 
-    public static function create(): ISettableDefaults
+    public static function create(): IDefaults
     {
         if (null === self::$className) {
             self::$className = ADefaults::class;
