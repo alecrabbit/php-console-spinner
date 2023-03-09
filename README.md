@@ -32,26 +32,14 @@
 
 ![demo](doc/image/demo/fpdemo.svg)
 
-+ [Why?](#why)
-+ [How does it work?](doc/how_does_it_work.md)
 + [Installation](#installation)
 + [Quick start](#quickstart)
++ [Why?](#why)
++ [How does it work?](doc/how_does_it_work.md)
 + [Usage](doc/usage.md)
 + [Features](#features)
 + [Known issues](doc/known_issues.md)
 + [Links](#links)
-
-### <a name="why"></a>Why?
-
-Main purpose of this library is to provide a simple way to show spinner in console applications
-(mainly long-running ones). Spinner could be an indicator of running task. For more information 
-see [Features](doc/features.md) and [Examples](example).
-
-[alecrabbit/php-console-spinner-extras](https://github.com/alecrabbit/php-console-spinner-extras) 
-library provides additional components to extend functionality:
- - show progress of running task 
- - messages of some sort, like status messages
- - additional spinners
 
 ### <a name="installation"></a> Installation
 
@@ -72,6 +60,18 @@ $spinner = Factory::createSpinner();
 > Examples can be found in [example](example) directory
 
 > For more information see [Usage](doc/usage.md)
+
+### <a name="why"></a>Why?
+
+Main purpose of this library is to provide a simple way to show spinner in console applications
+(mainly long-running ones). Spinner could be an indicator of running task. For more information 
+see [Features](doc/features.md) and [Examples](example).
+
+[alecrabbit/php-console-spinner-extras](https://github.com/alecrabbit/php-console-spinner-extras) 
+library provides additional components to extend functionality:
+ - show progress of running task 
+ - messages of some sort, like status messages
+ - additional spinners
 
 ### <a name="features"></a> Features
 
