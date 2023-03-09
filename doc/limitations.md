@@ -16,9 +16,11 @@ In zero dependencies "mode", the library has the following limitations:
 
 ### How to overcome limitations?
 
-- For asynchronous mode install one of supported event loop libraries.
+- For asynchronous mode install one of supported event loop libraries:
+  - [ReactPHP](https://github.com/reactphp/event-loop)
+  - [Revolt](https://github.com/revoltphp/event-loop)
 - For extended terminal support install [terminal library]()
-- For frame width auto-detection install [`alecrabbit/php-wcwidth` 🔗](https://github.com/alecrabbit/php-wcwidth)
+- For frame width auto-detection install [alecrabbit/php-wcwidth](https://github.com/alecrabbit/php-wcwidth)
 - Install `ext-pcntl` extension for signal handling feature.
 
 ### Windows support
