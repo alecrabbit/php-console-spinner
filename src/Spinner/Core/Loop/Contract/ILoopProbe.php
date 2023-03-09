@@ -8,5 +8,5 @@ interface ILoopProbe
 {
     public static function isSupported(): bool;
 
-    public static function create(): ILoop;
+    public static function createLoop(): ILoop;
 }

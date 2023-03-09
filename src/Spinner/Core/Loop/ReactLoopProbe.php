@@ -17,7 +17,7 @@ class ReactLoopProbe extends ALoopProbe
         return class_exists(Loop::class);
     }
 
-    public static function create(): ILoop
+    public static function createLoop(): ILoop
     {
         return new ReactLoopAdapter(Loop::get());
     }

@@ -30,7 +30,7 @@ abstract class ALoopFactory extends ADefaultsAwareClass implements ILoopFactory
         /** @var ILoopProbe $probe */
         foreach (static::getLoopProbesClasses() as $probe) {
             if ($probe::isSupported()) {
-                return $probe::create();
+                return $probe::createLoop();
             }
         }
         throw new DomainException(

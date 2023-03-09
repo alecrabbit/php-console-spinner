@@ -11,5 +11,5 @@ abstract class ALoopProbe implements ILoopProbe
 {
     abstract public static function isSupported(): bool;
 
-    abstract public static function create(): ILoop;
+    abstract public static function createLoop(): ILoop;
 }
