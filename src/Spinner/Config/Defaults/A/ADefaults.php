@@ -6,12 +6,15 @@ namespace AlecRabbit\Spinner\Config\Defaults\A;
 
 use AlecRabbit\Spinner\Config\Defaults\Contract\IClasses;
 use AlecRabbit\Spinner\Config\Defaults\Contract\IDefaults;
+use AlecRabbit\Spinner\Config\Defaults\Contract\ITerminal;
 use AlecRabbit\Spinner\Config\Defaults\Mixin\DefaultConst;
 use AlecRabbit\Spinner\Core\Contract\IFrame;
 use AlecRabbit\Spinner\Core\Frame;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoopProbe;
 use AlecRabbit\Spinner\Core\Loop\ReactLoopProbe;
 use AlecRabbit\Spinner\Core\Loop\RevoltLoopProbe;
+use AlecRabbit\Spinner\Core\Terminal\Contract\ITerminalProbe;
+use AlecRabbit\Spinner\Core\Terminal\SymfonyTerminalProbe;
 use AlecRabbit\Spinner\Helper\Asserter;
 
 use const AlecRabbit\Spinner\CSI;
@@ -41,14 +44,17 @@ abstract class ADefaults implements IDefaults
     protected static ?IFrame $defaultLeadingSpacer = null;
     protected static ?IFrame $defaultTrailingSpacer = null;
     protected static IClasses $classes;
+    protected static ITerminal $terminal;
     protected static bool $autoStart;
     protected static bool $attachSignalHandlers;
     /**
      * @var resource
      */
     protected static $outputStream;
-    protected static ?iterable $loopProbes = null;
+    protected static iterable $loopProbes;
+    protected static iterable $terminalProbes;
     private static ?IDefaults $instance = null; // private, singleton
+
 
     private function __construct()
     {
@@ -59,7 +65,9 @@ abstract class ADefaults implements IDefaults
     {
         self::$outputStream = self::defaultOutputStream();
         self::$loopProbes = self::defaultLoopProbes();
+        self::$terminalProbes = self::defaultTerminalProbes();
         self::$classes = self::getClassesInstance();
+        self::$terminal = self::getTerminalInstance();
 
         self::$shutdownDelay = self::SHUTDOWN_DELAY;
         self::$shutdownMaxDelay = self::SHUTDOWN_MAX_DELAY;
@@ -104,6 +112,15 @@ abstract class ADefaults implements IDefaults
         // @codeCoverageIgnoreEnd
     }
 
+    protected static function defaultTerminalProbes(): iterable
+    {
+        // @codeCoverageIgnoreStart
+        yield from [
+            SymfonyTerminalProbe::class,
+        ];
+        // @codeCoverageIgnoreEnd
+    }
+
     protected static function getClassesInstance(): AClasses
     {
         return AClasses::getInstance();
@@ -117,6 +134,11 @@ abstract class ADefaults implements IDefaults
                 };
         }
         return self::$instance;
+    }
+
+    protected static function getTerminalInstance(): ITerminal
+    {
+        return ATerminal::getInstance(self::$terminalProbes);
     }
 
     public function getClasses(): IClasses
@@ -406,8 +428,23 @@ abstract class ADefaults implements IDefaults
         return self::$loopProbes;
     }
 
+    public function getTerminalProbeClasses(): iterable
+    {
+        return self::$terminalProbes;
+    }
+
     /** @inheritdoc */
-    public function setLoopProbes(iterable $loopProbes): static
+    public function setTerminalProbeClasses(iterable $terminalProbes): static
+    {
+        foreach ($terminalProbes as $probe) {
+            Asserter::isSubClass($probe, ITerminalProbe::class, __METHOD__);
+        }
+        self::$terminalProbes = $terminalProbes;
+        return $this;
+    }
+
+    /** @inheritdoc */
+    public function setLoopProbeClasses(iterable $loopProbes): static
     {
         foreach ($loopProbes as $probe) {
             Asserter::isSubClass($probe, ILoopProbe::class, __METHOD__);

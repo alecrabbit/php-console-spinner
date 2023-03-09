@@ -8,6 +8,9 @@ use AlecRabbit\Spinner\Core\ColorMode;
 
 interface ITerminal
 {
+    final public const TERMINAL_DEFAULT_WIDTH = 100;
+    final public const TERMINAL_DEFAULT_COLOR_SUPPORT = ColorMode::ANSI8;
+
     public function getWidth(): int;
 
     public function setWidth(int $width): void;

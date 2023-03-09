@@ -47,5 +47,7 @@ interface IDefaults extends ISettableDefaults
 
     public function getLoopProbeClasses(): iterable;
 
+    public function getTerminalProbeClasses(): iterable;
+
     public function getInterruptMessage(): string;
 }

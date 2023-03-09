@@ -51,5 +51,10 @@ interface ISettableDefaults
     /**
      * @throws InvalidArgumentException
      */
-    public function setLoopProbes(iterable $loopProbes): static;
+    public function setTerminalProbeClasses(iterable $terminalProbes): static;
+
+    /**
+     * @throws InvalidArgumentException
+     */
+    public function setLoopProbeClasses(iterable $loopProbes): static;
 }

@@ -77,7 +77,7 @@ final class ADefaultsTest extends TestCase
             RevoltLoopProbe::class,
             ReactLoopProbe::class,
         ];
-        $defaults->setLoopProbes(
+        $defaults->setLoopProbeClasses(
             $loopProbes
         );
         $loopProbesCount = 0;
