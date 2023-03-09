@@ -6,7 +6,7 @@ namespace AlecRabbit\Spinner\Config\Defaults\Contract;
 
 use AlecRabbit\Spinner\Core\Contract\IFrame;
 
-interface IDefaults
+interface IDefaults extends ISettableDefaults
 {
     public static function getInstance(): self;
 
@@ -47,5 +47,9 @@ interface IDefaults
 
     public function getLoopProbeClasses(): iterable;
 
+    public function getTerminalProbeClasses(): iterable;
+
     public function getInterruptMessage(): string;
+
+    public function getTerminal(): ITerminal;
 }

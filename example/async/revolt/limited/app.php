@@ -12,7 +12,7 @@ use Revolt\EventLoop;
 require_once __DIR__ . '/../../bootstrap.async.php';
 
 DefaultsFactory::create()
-    ->setLoopProbes([RevoltLoopProbe::class]); // probe only for Revolt event loop
+    ->setLoopProbeClasses([RevoltLoopProbe::class]); // probe only for Revolt event loop
 
 /*
  * This example shows how you may use Revolt event loop.

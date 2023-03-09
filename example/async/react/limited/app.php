@@ -10,7 +10,7 @@ use React\EventLoop\Loop;
 require_once __DIR__ . '/../../bootstrap.async.php';
 
 DefaultsFactory::create()
-    ->setLoopProbes([ReactLoopProbe::class]); // probe only for ReactPHP event loop
+    ->setLoopProbeClasses([ReactLoopProbe::class]); // probe only for ReactPHP event loop
 
 /*
  * This example shows how you may use ReactPHP event loop.
