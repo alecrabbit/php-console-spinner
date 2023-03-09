@@ -54,7 +54,7 @@ library provides additional components to extend functionality:
  - additional spinners
 
 ### <a name="installation"></a> Installation
- 
+
 ```bash
 composer require alecrabbit/php-console-spinner
 ```
