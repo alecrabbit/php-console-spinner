@@ -4,9 +4,6 @@
 
 ### Limitations
 
-> **Note** 
-> The package suggests to install `ext-mbstring` but it's implied that it is already installed or some polyfill is used.
-
 In zero dependencies "mode", the library has the following limitations:
 - ❗ **Only synchronous mode is available.**
 - Terminal color support can not be detected thus it is set to 256 colors by default. Can be overridden manually.
