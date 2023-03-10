@@ -8,6 +8,7 @@ use AlecRabbit\Spinner\Core\Contract\IFrame;
 use AlecRabbit\Spinner\Core\Frame;
 use AlecRabbit\Spinner\Core\Revolver\A\ARevolver;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
+use AlecRabbit\Spinner\Factory\FrameFactory;
 
 abstract class AWidgetRevolver extends ARevolver
 {
@@ -40,7 +41,7 @@ abstract class AWidgetRevolver extends ARevolver
 
     protected function current(): IFrame
     {
-        return Frame::createEmpty(); // should never be called
+        return FrameFactory::createEmpty(); // should never be called
     }
 
 }

@@ -9,7 +9,6 @@ use AlecRabbit\Spinner\Config\Defaults\Contract\IDefaults;
 use AlecRabbit\Spinner\Config\Defaults\Contract\ITerminal;
 use AlecRabbit\Spinner\Config\Defaults\Mixin\DefaultConst;
 use AlecRabbit\Spinner\Core\Contract\IFrame;
-use AlecRabbit\Spinner\Core\Frame;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoopProbe;
 use AlecRabbit\Spinner\Core\Loop\ReactLoopProbe;
 use AlecRabbit\Spinner\Core\Loop\RevoltLoopProbe;
@@ -18,6 +17,7 @@ use AlecRabbit\Spinner\Core\Pattern\Contract\IPattern;
 use AlecRabbit\Spinner\Core\Pattern\Style\Rainbow;
 use AlecRabbit\Spinner\Core\Terminal\Contract\ITerminalProbe;
 use AlecRabbit\Spinner\Core\Terminal\SymfonyTerminalProbe;
+use AlecRabbit\Spinner\Factory\FrameFactory;
 use AlecRabbit\Spinner\Helper\Asserter;
 
 abstract class ADefaults implements IDefaults
@@ -90,8 +90,8 @@ abstract class ADefaults implements IDefaults
 
         self::$defaultStylePattern = [];
         self::$defaultCharPattern = [];
-        self::$defaultLeadingSpacer = Frame::createEmpty();
-        self::$defaultTrailingSpacer = Frame::createSpace();
+        self::$defaultLeadingSpacer = FrameFactory::createEmpty();
+        self::$defaultTrailingSpacer = FrameFactory::createSpace();
     }
 
     /**

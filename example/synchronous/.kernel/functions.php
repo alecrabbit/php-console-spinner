@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-use AlecRabbit\Spinner\Core\Frame;
 use AlecRabbit\Spinner\Core\Interval;
 use AlecRabbit\Spinner\Core\Revolver\ProceduralRevolver;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
@@ -12,6 +11,7 @@ use AlecRabbit\Spinner\Extras\Procedure\FractionBarProcedure;
 use AlecRabbit\Spinner\Extras\Procedure\FractionFrameProcedure;
 use AlecRabbit\Spinner\Extras\Procedure\FractionValueProcedure;
 use AlecRabbit\Spinner\Extras\Procedure\StepsProcedure;
+use AlecRabbit\Spinner\Factory\FrameFactory;
 use AlecRabbit\Spinner\Factory\WidgetFactory;
 
 function createProgressWidget(
@@ -38,7 +38,7 @@ function createProgressWidget(
                     )
                     ->build()
             )
-            ->withLeadingSpacer(Frame::createSpace())
+            ->withLeadingSpacer(FrameFactory::createSpace())
             ->build();
 
     $progressWidget->add(
@@ -55,7 +55,7 @@ function createProgressWidget(
                     )
                     ->build()
             )
-            ->withLeadingSpacer(Frame::createSpace())
+            ->withLeadingSpacer(FrameFactory::createSpace())
             ->build()
     );
 

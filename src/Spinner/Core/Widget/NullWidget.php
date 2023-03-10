@@ -6,12 +6,12 @@ namespace AlecRabbit\Spinner\Core\Widget;
 
 use AlecRabbit\Spinner\Core\Contract\IFrame;
 use AlecRabbit\Spinner\Core\Contract\IInterval;
-use AlecRabbit\Spinner\Core\Frame;
 use AlecRabbit\Spinner\Core\Interval;
 use AlecRabbit\Spinner\Core\Widget\A\AWidgetComposite;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContext;
 use AlecRabbit\Spinner\Exception\LogicException;
+use AlecRabbit\Spinner\Factory\FrameFactory;
 
 final class NullWidget extends AWidgetComposite
 {
@@ -24,7 +24,7 @@ final class NullWidget extends AWidgetComposite
      */
     public function __construct()
     {
-        $this->currentFrame = Frame::createEmpty();
+        $this->currentFrame = FrameFactory::createEmpty();
         $this->interval = new Interval();
         $this->context = new WidgetContext($this);
     }

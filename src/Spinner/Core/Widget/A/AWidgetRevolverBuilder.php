@@ -11,6 +11,7 @@ use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
 use AlecRabbit\Spinner\Core\Revolver\FrameCollectionRevolver;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolverBuilder;
 use AlecRabbit\Spinner\Core\Widget\WidgetRevolver;
+use AlecRabbit\Spinner\Factory\FrameFactory;
 
 abstract class AWidgetRevolverBuilder implements IWidgetRevolverBuilder
 {
@@ -56,7 +57,7 @@ abstract class AWidgetRevolverBuilder implements IWidgetRevolverBuilder
         return
             new FrameCollectionRevolver(
                 [
-                    Frame::createEmpty()
+                    FrameFactory::createEmpty()
                 ],
                 new Interval()
             );
