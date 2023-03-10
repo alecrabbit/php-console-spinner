@@ -39,20 +39,21 @@ $loop = Factory::getLoop();
 $loop->repeat(
     $cycleInterval,
     static function () use ($spinner, $progress, $faker, $threshold, &$count) {
-        if (!$progress->isFinished() && $threshold < random_int(0, 1000)) {
-            ++$count;
-            $spinner->wrap(
-                static function (string $message) {
-                    echo $message . PHP_EOL;
-                },
-                sprintf(
-                    '%s %s %s',
-                    str_pad(sprintf('%s.', $count), 4, pad_type: STR_PAD_LEFT),
-                    str_pad($faker->ipv6(), 40),
-                    str_pad($faker->iban(), 35),
-                ),
-            );
-            $progress->advance();
+        if (!$progress->isFinished()) {
+            if ($threshold < random_int(0, 1000)) {
+                $spinner->wrap(
+                    static function (string $message) {
+                        echo $message . PHP_EOL;
+                    },
+                    sprintf(
+                        '%s %s %s',
+                        str_pad(sprintf('%s.', ++$count), 4, pad_type: STR_PAD_LEFT),
+                        str_pad($faker->ipv6(), 40),
+                        str_pad($faker->iban(), 35),
+                    ),
+                );
+                $progress->advance();
+            }
         }
     }
 );
