@@ -47,7 +47,6 @@ abstract class AConfigBuilder implements IConfigBuilder
     protected ?IOutput $output = null;
     protected ?IRevolver $spinnerStyleRevolver = null;
     protected ?IRevolver $spinnerCharRevolver = null;
-    protected ?ColorMode $terminalColorMode = null;
     /** @var array<IWidgetComposite>|null */
     protected ?array $widgets = null;
     protected ?IWidgetBuilder $widgetBuilder = null;
@@ -138,23 +137,22 @@ abstract class AConfigBuilder implements IConfigBuilder
         $this->output ??= $this->createOutput();
         $this->driver ??= $this->createDriver();
 
-        $this->terminalColorMode ??= $this->defaults->getTerminal()->getColorMode();
-
         $this->spinnerStyleRevolver ??=
-            $this->createSpinnerStyleRevolver(
-                $this->defaults->getSpinnerStylePattern()
-            );
+            (new RevolverBuilder())
+                ->withPattern($this->defaults->getSpinnerStylePattern())
+                ->build();
 
         $this->spinnerCharRevolver ??=
-            $this->createSpinnerCharRevolver(
-                $this->defaults->getSpinnerCharPattern()
-            );
+            (new RevolverBuilder())
+                ->withPattern($this->defaults->getSpinnerCharPattern())
+                ->build();
 
         $this->widgetRevolver ??=
-            $this->createWidgetRevolver(
-                $this->spinnerStyleRevolver,
-                $this->spinnerCharRevolver
+            new WidgetRevolver(
+                style: $this->spinnerStyleRevolver,
+                character: $this->spinnerCharRevolver,
             );
+
         $this->leadingSpacer ??= $this->defaults->getDefaultLeadingSpacer();
         $this->trailingSpacer ??= $this->defaults->getDefaultTrailingSpacer();
 
@@ -196,18 +194,6 @@ abstract class AConfigBuilder implements IConfigBuilder
                 ->withPattern($spinnerStylePattern)
                 ->build();
     }
-//    /**
-//     * @throws InvalidArgumentException
-//     */
-//    protected function createSpinnerStyleRevolver(IStylePattern $spinnerStylePattern): IFrameCollectionRevolver
-//    {
-//        $frames = [];
-//        foreach ($spinnerStylePattern->getPattern() as $style) {
-//            $frames[] = new Frame(CSI . sprintf('38;5;%sm', $style) . '%s' . RESET, 0);
-//        }
-//        return
-//            new FrameCollectionRevolver($frames, $spinnerStylePattern->getInterval());
-//    }
 
     /**
      * @throws LogicException
@@ -220,18 +206,7 @@ abstract class AConfigBuilder implements IConfigBuilder
                 ->withPattern($spinnerCharPattern)
                 ->build();
     }
-//    /**
-//     * @throws InvalidArgumentException
-//     */
-//    protected function createSpinnerCharRevolver(IPattern $spinnerCharPattern): IFrameCollectionRevolver
-//    {
-//        $frames = [];
-//        foreach ($spinnerCharPattern->getPattern() as $char) {
-//            $frames[] = new Frame($char, 1);
-//        }
-//        return
-//            new FrameCollectionRevolver($frames, $spinnerCharPattern->getInterval());
-//    }
+
 
     protected function createWidgetRevolver(IRevolver $spinnerStyleRevolver, IRevolver $spinnerCharRevolver): IRevolver
     {
