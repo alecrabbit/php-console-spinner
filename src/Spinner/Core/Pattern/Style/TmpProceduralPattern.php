@@ -13,11 +13,11 @@ use AlecRabbit\Spinner\Core\Procedure\Contract\IProcedure;
 /**
  * TODO move(and rename) this class to Extras package
  */
-final class TmpProceduralStyle extends AStylePattern
+final class TmpProceduralPattern extends AStylePattern implements IProceduralPattern
 {
     protected const UPDATE_INTERVAL = 500;
 
-    public function getPattern(): iterable|IProcedure
+    public function getPattern(): IProcedure
     {
         return new class() extends AProcedure {
             public function update(float $dt = null): IFrame

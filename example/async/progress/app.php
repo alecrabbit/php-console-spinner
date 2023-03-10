@@ -23,7 +23,7 @@ $faker = Faker\Factory::create();
 $count = 0;
 
 $defaults = DefaultsFactory::create();
-$defaults->setSpinnerStylePattern(new \AlecRabbit\Spinner\Core\Pattern\Style\TmpProceduralStyle());
+$defaults->setSpinnerStylePattern(new \AlecRabbit\Spinner\Core\Pattern\Style\TmpProceduralPattern());
 $spinner = Factory::createSpinner();
 
 $progress = new FractionValue(steps: $steps, autoFinish: true);
