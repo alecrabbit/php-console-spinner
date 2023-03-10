@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Config\Defaults\Contract;
 
 use AlecRabbit\Spinner\Core\Contract\IFrame;
+use AlecRabbit\Spinner\Core\Pattern\Contract\IPattern;
 use AlecRabbit\Spinner\Core\Pattern\Style\A\AStylePattern;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 
@@ -59,7 +60,9 @@ interface ISettableDefaults
      */
     public function setLoopProbeClasses(iterable $loopProbes): static;
 
-    public function setSpinnerStylePattern(AStylePattern $spinnerStylePattern): static;
+    public function setSpinnerStylePattern(IPattern $spinnerStylePattern): static;
+
+    public function setSpinnerCharPattern(IPattern $spinnerCharPattern): static;
 
     public function setInterruptMessage(string $interruptMessage): static;
 }

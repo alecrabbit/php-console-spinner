@@ -5,10 +5,11 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Pattern\Contract;
 
 use AlecRabbit\Spinner\Core\Contract\IInterval;
+use AlecRabbit\Spinner\Core\Procedure\Contract\IProcedure;
 
 interface IPattern
 {
-    public function getPattern(): iterable;
+    public function getPattern(): iterable|IProcedure;
 
     public function getInterval(): IInterval;
 }

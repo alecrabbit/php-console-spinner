@@ -7,18 +7,19 @@ namespace AlecRabbit\Spinner\Core\Pattern\Style;
 use AlecRabbit\Spinner\Core\Contract\IInterval;
 use AlecRabbit\Spinner\Core\Interval;
 use AlecRabbit\Spinner\Core\Pattern\Style\A\AStylePattern;
+use AlecRabbit\Spinner\Core\Procedure\Contract\IProcedure;
 use AlecRabbit\Spinner\Core\Terminal\ColorMode;
 
-final class Rainbow extends AStylePattern
+final class ProceduralRainbow extends AStylePattern
 {
-    protected const UPDATE_INTERVAL = 80;
+    protected const UPDATE_INTERVAL = 500;
 
     public function getColorMode(): ColorMode
     {
         return ColorMode::ANSI8;
     }
 
-    public function getPattern(): iterable
+    public function getPattern(): iterable|IProcedure
     {
         return [
             196,

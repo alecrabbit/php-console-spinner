@@ -6,17 +6,16 @@ namespace AlecRabbit\Spinner\Core\Pattern\Char;
 
 use AlecRabbit\Spinner\Core\Contract\IInterval;
 use AlecRabbit\Spinner\Core\Interval;
+use AlecRabbit\Spinner\Core\Pattern\A\APattern;
 use AlecRabbit\Spinner\Core\Pattern\Contract\IPattern;
+use AlecRabbit\Spinner\Core\Procedure\Contract\IProcedure;
 
-final class Snake implements IPattern
+final class Snake extends APattern
 {
-    public function getPattern(): iterable
+    protected const UPDATE_INTERVAL = 80;
+
+    public function getPattern(): iterable|IProcedure
     {
         return ['⠏', '⠛', '⠹', '⢸', '⣰', '⣤', '⣆', '⡇'];
-    }
-
-    public function getInterval(): IInterval
-    {
-        return new Interval(80);
     }
 }

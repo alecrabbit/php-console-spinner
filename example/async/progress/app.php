@@ -22,8 +22,9 @@ $threshold = 900; // 90% [0..1000]
 $faker = Faker\Factory::create();
 $count = 0;
 
-$spinner = Factory::createSpinner();
 $defaults = DefaultsFactory::create();
+$defaults->setSpinnerStylePattern(new \AlecRabbit\Spinner\Core\Pattern\Style\Rainbow());
+$spinner = Factory::createSpinner();
 
 $progress = new FractionValue(steps: $steps, autoFinish: true);
 
