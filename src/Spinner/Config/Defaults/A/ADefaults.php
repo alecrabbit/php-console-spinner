@@ -25,68 +25,6 @@ abstract class ADefaults extends ASettableDefaults implements IDefaults
         $this->reset();
     }
 
-    public function reset(): void
-    {
-        self::$outputStream = self::defaultOutputStream();
-        self::$loopProbes = self::defaultLoopProbes();
-        self::$terminalProbes = self::defaultTerminalProbes();
-        self::$classes = self::getClassesInstance();
-        self::$terminal = self::getTerminalInstance();
-
-        self::$shutdownDelay = self::SHUTDOWN_DELAY;
-        self::$shutdownMaxDelay = self::SHUTDOWN_MAX_DELAY;
-        self::$messageOnFinalize = self::MESSAGE_ON_FINALIZE;
-        self::$messageOnExit = self::MESSAGE_ON_EXIT;
-        self::$messageOnInterrupt = self::MESSAGE_ON_INTERRUPT;
-        self::$hideCursor = self::TERMINAL_HIDE_CURSOR;
-        self::$colorSupportLevels = self::TERMINAL_COLOR_SUPPORT_LEVELS;
-        self::$isModeSynchronous = self::SPINNER_MODE_IS_SYNCHRONOUS;
-        self::$createInitialized = self::SPINNER_CREATE_INITIALIZED;
-        self::$percentNumberFormat = self::PERCENT_NUMBER_FORMAT;
-        self::$millisecondsInterval = self::INTERVAL_MS;
-        self::$autoStart = self::AUTO_START;
-        self::$attachSignalHandlers = self::ATTACH_SIGNAL_HANDLERS;
-
-        self::$mainStylePattern = null;
-        self::$mainCharPattern = null;
-        self::$mainLeadingSpacer = null;
-        self::$mainTrailingSpacer = null;
-
-        self::$defaultLeadingSpacer = FrameFactory::createEmpty();
-        self::$defaultTrailingSpacer = FrameFactory::createSpace();
-    }
-
-    /**
-     * @return resource
-     */
-    protected static function defaultOutputStream()
-    {
-        return STDERR;
-    }
-
-    protected static function defaultLoopProbes(): iterable
-    {
-        // @codeCoverageIgnoreStart
-        yield from [
-            RevoltLoopProbe::class,
-            ReactLoopProbe::class,
-        ];
-        // @codeCoverageIgnoreEnd
-    }
-
-    protected static function defaultTerminalProbes(): iterable
-    {
-        // @codeCoverageIgnoreStart
-        yield from [
-            SymfonyTerminalProbe::class,
-        ];
-        // @codeCoverageIgnoreEnd
-    }
-
-    protected static function getClassesInstance(): AClasses
-    {
-        return AClasses::getInstance();
-    }
 
     final public static function getInstance(): self
     {
@@ -98,10 +36,6 @@ abstract class ADefaults extends ASettableDefaults implements IDefaults
         return self::$instance;
     }
 
-    protected static function getTerminalInstance(): ITerminal
-    {
-        return ATerminal::getInstance(self::$terminalProbes);
-    }
 
     public function getClasses(): IClasses
     {
