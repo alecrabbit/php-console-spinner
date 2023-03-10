@@ -210,17 +210,28 @@ abstract class AConfigBuilder implements IConfigBuilder
 //    }
 
     /**
+     * @throws LogicException
      * @throws InvalidArgumentException
      */
-    protected function createSpinnerCharRevolver(IPattern $spinnerCharPattern): IFrameCollectionRevolver
+    protected function createSpinnerCharRevolver(IPattern $spinnerCharPattern): IRevolver
     {
-        $frames = [];
-        foreach ($spinnerCharPattern->getPattern() as $char) {
-            $frames[] = new Frame($char, 1);
-        }
         return
-            new FrameCollectionRevolver($frames, $spinnerCharPattern->getInterval());
+            (new RevolverBuilder())
+                ->withPattern($spinnerCharPattern)
+                ->build();
     }
+//    /**
+//     * @throws InvalidArgumentException
+//     */
+//    protected function createSpinnerCharRevolver(IPattern $spinnerCharPattern): IFrameCollectionRevolver
+//    {
+//        $frames = [];
+//        foreach ($spinnerCharPattern->getPattern() as $char) {
+//            $frames[] = new Frame($char, 1);
+//        }
+//        return
+//            new FrameCollectionRevolver($frames, $spinnerCharPattern->getInterval());
+//    }
 
     protected function createWidgetRevolver(IRevolver $spinnerStyleRevolver, IRevolver $spinnerCharRevolver): IRevolver
     {

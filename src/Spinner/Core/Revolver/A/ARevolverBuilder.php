@@ -39,6 +39,10 @@ abstract class ARevolverBuilder implements IRevolverBuilder
                     $this->pattern->getInterval()
                 );
         }
-        return new Revolver($this->pattern);
+        return
+            new FrameCollectionRevolver(
+            (new FramesRenderer($this->pattern))->render(),
+            $this->pattern->getInterval()
+        );
     }
 }
