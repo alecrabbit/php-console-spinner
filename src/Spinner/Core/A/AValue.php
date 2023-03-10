@@ -17,5 +17,8 @@ abstract class AValue implements IValue
         $this->value = $value;
     }
 
-
+    public function getValue(): mixed
+    {
+        return $this->value;
+    }
 }
