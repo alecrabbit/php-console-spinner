@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Core\Procedure\A;
+namespace AlecRabbit\Spinner\Core\Procedure\A;
 
 use AlecRabbit\Spinner\Core\Contract\IFloatValue;
 use AlecRabbit\Spinner\Core\Contract\IFrame;
