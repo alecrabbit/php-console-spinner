@@ -8,16 +8,13 @@ use AlecRabbit\Spinner\Config\Defaults\Contract\IClasses;
 use AlecRabbit\Spinner\Config\Defaults\Contract\IDefaults;
 use AlecRabbit\Spinner\Config\Defaults\Contract\ITerminal;
 use AlecRabbit\Spinner\Core\Contract\IFrame;
-use AlecRabbit\Spinner\Core\Loop\Contract\ILoopProbe;
 use AlecRabbit\Spinner\Core\Loop\ReactLoopProbe;
 use AlecRabbit\Spinner\Core\Loop\RevoltLoopProbe;
 use AlecRabbit\Spinner\Core\Pattern\Char\Snake;
 use AlecRabbit\Spinner\Core\Pattern\Contract\IPattern;
 use AlecRabbit\Spinner\Core\Pattern\Style\Rainbow;
-use AlecRabbit\Spinner\Core\Terminal\Contract\ITerminalProbe;
 use AlecRabbit\Spinner\Core\Terminal\SymfonyTerminalProbe;
 use AlecRabbit\Spinner\Factory\FrameFactory;
-use AlecRabbit\Spinner\Helper\Asserter;
 
 abstract class ADefaults extends ASettableDefaults implements IDefaults
 {

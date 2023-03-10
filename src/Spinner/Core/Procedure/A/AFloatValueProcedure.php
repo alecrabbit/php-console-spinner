@@ -7,7 +7,6 @@ namespace AlecRabbit\Spinner\Core\Procedure\A;
 use AlecRabbit\Spinner\Core\Contract\IFloatValue;
 use AlecRabbit\Spinner\Core\Contract\IFrame;
 use AlecRabbit\Spinner\Core\Frame;
-use AlecRabbit\Spinner\Core\Procedure\A\AProcedure;
 use AlecRabbit\Spinner\Core\WidthDeterminer;
 
 abstract class AFloatValueProcedure extends AProcedure

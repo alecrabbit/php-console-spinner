@@ -10,7 +10,10 @@ abstract class AValue implements IValue
 {
     protected $value;
 
-    abstract protected static function assertValue(mixed $value): void;
+    public function getValue(): mixed
+    {
+        return $this->value;
+    }
 
     public function setValue($value): void
     {
@@ -18,8 +21,5 @@ abstract class AValue implements IValue
         $this->value = $value;
     }
 
-    public function getValue(): mixed
-    {
-        return $this->value;
-    }
+    abstract protected static function assertValue(mixed $value): void;
 }

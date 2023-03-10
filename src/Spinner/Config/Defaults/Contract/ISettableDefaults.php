@@ -6,7 +6,6 @@ namespace AlecRabbit\Spinner\Config\Defaults\Contract;
 
 use AlecRabbit\Spinner\Core\Contract\IFrame;
 use AlecRabbit\Spinner\Core\Pattern\Contract\IPattern;
-use AlecRabbit\Spinner\Core\Pattern\Style\A\AStylePattern;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 
 interface ISettableDefaults

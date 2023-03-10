@@ -7,7 +7,6 @@ namespace AlecRabbit\Spinner\Core;
 use AlecRabbit\Spinner\Core\A\AFramesRenderer;
 use AlecRabbit\Spinner\Core\Contract\IFrame;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
-
 use AlecRabbit\Spinner\Factory\FrameFactory;
 
 use function is_array;

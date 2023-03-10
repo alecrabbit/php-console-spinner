@@ -7,6 +7,8 @@ namespace AlecRabbit\Spinner\Core\A;
 use AlecRabbit\Spinner\Core\Contract\IFloatValue;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 
+use function is_float;
+
 abstract class AFloatValue extends AValue implements IFloatValue
 {
     /**
@@ -19,6 +21,23 @@ abstract class AFloatValue extends AValue implements IFloatValue
     ) {
         $this->setValue($startValue);
         self::assert($this);
+    }
+
+    /** @inheritdoc */
+    public function setValue($value): void
+    {
+        parent::setValue($value);
+        $this->checkBounds();
+    }
+
+    protected function checkBounds(): void
+    {
+        if ($this->value > $this->max) {
+            $this->value = $this->max;
+        }
+        if ($this->value < $this->min) {
+            $this->value = $this->min;
+        }
     }
 
     /**
@@ -43,11 +62,16 @@ abstract class AFloatValue extends AValue implements IFloatValue
         };
     }
 
-    /** @inheritdoc */
-    public function setValue($value): void
+    protected static function assertValue(mixed $value): void
     {
-        parent::setValue($value);
-        $this->checkBounds();
+        if (!is_float($value)) {
+            throw new InvalidArgumentException(
+                sprintf(
+                    'Value should be float. Value: "%s".',
+                    $value,
+                )
+            );
+        }
     }
 
     public function getMin(): float
@@ -58,28 +82,6 @@ abstract class AFloatValue extends AValue implements IFloatValue
     public function getMax(): float
     {
         return $this->max;
-    }
-
-    protected function checkBounds(): void
-    {
-        if ($this->value > $this->max) {
-            $this->value = $this->max;
-        }
-        if ($this->value < $this->min) {
-            $this->value = $this->min;
-        }
-    }
-
-    protected static function assertValue(mixed $value): void
-    {
-        if(!\is_float($value)) {
-            throw new InvalidArgumentException(
-                sprintf(
-                    'Value should be float. Value: "%s".',
-                    $value,
-                )
-            );
-        }
     }
 
     public function getValue(): float
