@@ -9,13 +9,16 @@ use AlecRabbit\Spinner\Core\Pattern\Contract\IPattern;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Factory\A\ADefaultsAwareClass;
 
-abstract class AFramesRenderer extends ADefaultsAwareClass
+abstract class AFramesRenderer extends ADefaultsAwareClass implements IFrameRenderer
 {
     public function __construct(
         protected IPattern $pattern
     ) {
     }
 
+    /**
+     * @throws InvalidArgumentException
+     */
     public function render(): iterable
     {
         $frames = [];
