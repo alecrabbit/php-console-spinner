@@ -48,8 +48,8 @@ abstract class AConfigBuilder implements IConfigBuilder
     protected ?string $interruptMessage = null;
     protected ?string $finalMessage = null;
     protected ?IOutput $output = null;
-    protected ?IFrameCollectionRevolver $spinnerStyleRevolver = null;
-    protected ?IFrameCollectionRevolver $spinnerCharRevolver = null;
+    protected ?IRevolver $spinnerStyleRevolver = null;
+    protected ?IRevolver $spinnerCharRevolver = null;
     protected ?ColorMode $terminalColorMode = null;
     /** @var array<IWidgetComposite>|null */
     protected ?array $widgets = null;
