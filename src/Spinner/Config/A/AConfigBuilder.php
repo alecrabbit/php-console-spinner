@@ -18,7 +18,7 @@ use AlecRabbit\Spinner\Core\Output\Contract\IOutput;
 use AlecRabbit\Spinner\Core\Output\StreamOutput;
 use AlecRabbit\Spinner\Core\Pattern\Contract\IPattern;
 use AlecRabbit\Spinner\Core\Pattern\Contract\IStylePattern;
-use AlecRabbit\Spinner\Core\Pattern\Style\A\AStylePattern;
+use AlecRabbit\Spinner\Core\Pattern\Style\RevolverBuilder;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameCollectionRevolver;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
 use AlecRabbit\Spinner\Core\Revolver\FrameCollectionRevolver;
@@ -29,9 +29,6 @@ use AlecRabbit\Spinner\Core\Widget\WidgetRevolver;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Exception\LogicException;
 use AlecRabbit\Spinner\Factory\WidgetFactory;
-
-use const AlecRabbit\Spinner\CSI;
-use const AlecRabbit\Spinner\RESET;
 
 abstract class AConfigBuilder implements IConfigBuilder
 {
@@ -189,19 +186,28 @@ abstract class AConfigBuilder implements IConfigBuilder
     }
 
     /**
-     * @param AStylePattern $spinnerStylePattern
-     * @return IFrameCollectionRevolver
+     * @throws LogicException
      * @throws InvalidArgumentException
      */
-    protected function createSpinnerStyleRevolver(IStylePattern $spinnerStylePattern): IFrameCollectionRevolver
+    protected function createSpinnerStyleRevolver(IStylePattern $spinnerStylePattern): IRevolver
     {
-        $frames = [];
-        foreach ($spinnerStylePattern->getPattern() as $style) {
-            $frames[] = new Frame(CSI . sprintf('38;5;%sm', $style) . '%s' . RESET, 0);
-        }
         return
-            new FrameCollectionRevolver($frames, $spinnerStylePattern->getInterval());
+            (new RevolverBuilder())
+                ->withPattern($spinnerStylePattern)
+                ->build();
     }
+//    /**
+//     * @throws InvalidArgumentException
+//     */
+//    protected function createSpinnerStyleRevolver(IStylePattern $spinnerStylePattern): IFrameCollectionRevolver
+//    {
+//        $frames = [];
+//        foreach ($spinnerStylePattern->getPattern() as $style) {
+//            $frames[] = new Frame(CSI . sprintf('38;5;%sm', $style) . '%s' . RESET, 0);
+//        }
+//        return
+//            new FrameCollectionRevolver($frames, $spinnerStylePattern->getInterval());
+//    }
 
     /**
      * @throws InvalidArgumentException
