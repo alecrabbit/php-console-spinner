@@ -15,7 +15,6 @@ use AlecRabbit\Spinner\Core\Output\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Output\Contract\IOutput;
 use AlecRabbit\Spinner\Core\Output\StreamOutput;
 use AlecRabbit\Spinner\Core\Pattern\Contract\IPattern;
-use AlecRabbit\Spinner\Core\Pattern\Contract\IStylePattern;
 use AlecRabbit\Spinner\Core\Pattern\Style\RevolverBuilder;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
 use AlecRabbit\Spinner\Core\Timer;
@@ -96,6 +95,32 @@ abstract class AConfigBuilder implements IConfigBuilder
         return $clone;
     }
 
+    public function withStylePattern(IPattern $pattern): self
+    {
+        $clone = clone $this;
+        $clone->mainWidgetStylePattern = $pattern;
+        return $clone;
+    }
+
+    public function withCharPattern(IPattern $pattern): self
+    {
+        $clone = clone $this;
+        $clone->mainWidgetCharPattern = $pattern;
+        return $clone;
+    }
+
+    /**
+     * @throws LogicException
+     * @throws InvalidArgumentException
+     */
+    protected function createSpinnerCharRevolver(IPattern $spinnerCharPattern): IRevolver
+    {
+        return
+            (new RevolverBuilder())
+                ->withPattern($spinnerCharPattern)
+                ->build();
+    }
+
     /**
      * @throws LogicException
      * @throws InvalidArgumentException
@@ -115,20 +140,6 @@ abstract class AConfigBuilder implements IConfigBuilder
                 attachSignalHandlers: $this->signalHandlersEnabled,
                 widgets: $this->widgets,
             );
-    }
-
-    public function withStylePattern(IPattern $pattern): self
-    {
-        $clone = clone $this;
-        $clone->mainWidgetStylePattern = $pattern;
-        return $clone;
-    }
-
-    public function withCharPattern(IPattern $pattern): self
-    {
-        $clone = clone $this;
-        $clone->mainWidgetCharPattern = $pattern;
-        return $clone;
     }
 
     /**
@@ -200,19 +211,6 @@ abstract class AConfigBuilder implements IConfigBuilder
                 finalMessage: $this->finalMessage,
             );
     }
-
-    /**
-     * @throws LogicException
-     * @throws InvalidArgumentException
-     */
-    protected function createSpinnerCharRevolver(IPattern $spinnerCharPattern): IRevolver
-    {
-        return
-            (new RevolverBuilder())
-                ->withPattern($spinnerCharPattern)
-                ->build();
-    }
-
 
     protected function createWidgetRevolver(IRevolver $spinnerStyleRevolver, IRevolver $spinnerCharRevolver): IRevolver
     {

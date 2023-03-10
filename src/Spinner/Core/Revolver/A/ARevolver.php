@@ -46,7 +46,6 @@ abstract class ARevolver implements IRevolver
 
     protected function shouldUpdate(float $dt = null): bool
     {
-
         if (null === $dt || $this->intervalValue <= ($dt + $this->tolerance) || $this->differential <= 0) {
             $this->differential = $this->intervalValue;
             return true;

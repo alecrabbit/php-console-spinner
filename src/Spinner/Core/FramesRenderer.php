@@ -13,6 +13,26 @@ use function is_string;
 
 final class FramesRenderer extends AFramesRenderer
 {
+    /** @inheritdoc */
+    protected function createFrame(mixed $entry): IFrame
+    {
+        if (is_string($entry)) {
+            return
+                new Frame($entry, WidthDeterminer::determine($entry));
+        }
+        if (is_array($entry)) {
+            self::assertEntryArray($entry);
+            return
+                new Frame($entry[0], $entry[1]);
+        }
+        throw new InvalidArgumentException(
+            sprintf(
+                'Unknown frame entry type: %s',
+                get_debug_type($entry)
+            )
+        );
+    }
+
     /**
      * @throws InvalidArgumentException
      */
@@ -48,25 +68,5 @@ final class FramesRenderer extends AFramesRenderer
                 )
             );
         }
-    }
-
-    /** @inheritdoc */
-    protected function createFrame(mixed $entry): IFrame
-    {
-        if (is_string($entry)) {
-            return
-                new Frame($entry, WidthDeterminer::determine($entry));
-        }
-        if (is_array($entry)) {
-            self::assertEntryArray($entry);
-            return
-                new Frame($entry[0], $entry[1]);
-        }
-        throw new InvalidArgumentException(
-            sprintf(
-                'Unknown frame entry type: %s',
-                get_debug_type($entry)
-            )
-        );
     }
 }

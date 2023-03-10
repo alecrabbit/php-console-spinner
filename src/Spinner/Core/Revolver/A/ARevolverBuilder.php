@@ -43,8 +43,8 @@ abstract class ARevolverBuilder implements IRevolverBuilder
         }
         return
             new FrameCollectionRevolver(
-            (new FramesRenderer($this->pattern))->render(),
-            $this->pattern->getInterval()
-        );
+                (new FramesRenderer($this->pattern))->render(),
+                $this->pattern->getInterval()
+            );
     }
 }

@@ -60,4 +60,6 @@ interface ISettableDefaults
     public function setLoopProbeClasses(iterable $loopProbes): static;
 
     public function setSpinnerStylePattern(AStylePattern $spinnerStylePattern): static;
+
+    public function setInterruptMessage(string $interruptMessage): static;
 }
