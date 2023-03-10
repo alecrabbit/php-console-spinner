@@ -15,14 +15,16 @@ use AlecRabbit\Spinner\Core\Procedure\Contract\IProcedure;
  */
 final class TmpProceduralStylePattern extends AProceduralStylePattern
 {
-    protected const UPDATE_INTERVAL = 900000;
+    protected const UPDATE_INTERVAL = 1000;
 
     public function getPattern(): IProcedure
     {
         return new class() extends AProcedure {
             public function update(float $dt = null): IFrame
             {
-                return new Frame('>%s<', 2);
+                static $odd = true;
+                $odd = !$odd;
+                return new Frame($odd ? '>%s>' : '<%s<', 2);
             }
         };
     }
