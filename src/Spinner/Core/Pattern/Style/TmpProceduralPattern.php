@@ -6,16 +6,16 @@ namespace AlecRabbit\Spinner\Core\Pattern\Style;
 
 use AlecRabbit\Spinner\Core\Contract\IFrame;
 use AlecRabbit\Spinner\Core\Frame;
-use AlecRabbit\Spinner\Core\Pattern\Style\A\AStylePattern;
+use AlecRabbit\Spinner\Core\Pattern\Style\A\AProceduralStylePattern;
 use AlecRabbit\Spinner\Core\Procedure\A\AProcedure;
 use AlecRabbit\Spinner\Core\Procedure\Contract\IProcedure;
 
 /**
  * TODO move(and rename) this class to Extras package
  */
-final class TmpProceduralPattern extends AStylePattern implements IProceduralPattern
+final class TmpProceduralPattern extends AProceduralStylePattern
 {
-    protected const UPDATE_INTERVAL = 500;
+    protected const UPDATE_INTERVAL = 900000;
 
     public function getPattern(): IProcedure
     {

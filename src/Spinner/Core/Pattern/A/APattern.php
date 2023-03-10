@@ -13,8 +13,6 @@ abstract class APattern implements IPattern
 {
     protected const UPDATE_INTERVAL = 1000;
 
-    abstract public function getPattern(): iterable|IProcedure;
-
     public function getInterval(): IInterval {
         return
             new Interval(static::UPDATE_INTERVAL);

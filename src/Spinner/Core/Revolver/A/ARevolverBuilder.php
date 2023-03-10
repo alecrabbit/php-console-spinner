@@ -6,8 +6,8 @@ namespace AlecRabbit\Spinner\Core\Revolver\A;
 
 use AlecRabbit\Spinner\Core\FramesRenderer;
 use AlecRabbit\Spinner\Core\Pattern\Contract\IPattern;
+use AlecRabbit\Spinner\Core\Pattern\Contract\IProceduralPattern;
 use AlecRabbit\Spinner\Core\Pattern\Contract\IStylePattern;
-use AlecRabbit\Spinner\Core\Pattern\Style\IProceduralPattern;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolverBuilder;
 use AlecRabbit\Spinner\Core\Revolver\FrameCollectionRevolver;
