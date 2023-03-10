@@ -11,5 +11,10 @@ use AlecRabbit\Spinner\Core\Terminal\ColorMode;
 
 abstract class AStylePattern extends APattern implements IStylePattern
 {
-    abstract public function getColorMode(): ColorMode;
+    protected const COLOR_MODE = ColorMode::ANSI8;
+
+    public function getColorMode(): ColorMode
+    {
+        return static::COLOR_MODE;
+    }
 }

@@ -13,11 +13,6 @@ final class Rainbow extends AStylePattern
 {
     protected const UPDATE_INTERVAL = 80;
 
-    public function getColorMode(): ColorMode
-    {
-        return ColorMode::ANSI8;
-    }
-
     public function getPattern(): iterable
     {
         return [
