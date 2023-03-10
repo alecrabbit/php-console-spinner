@@ -8,7 +8,7 @@ use AlecRabbit\Spinner\Core\Contract\IValue;
 
 abstract class AValue implements IValue
 {
-    private mixed $value;
+    protected $value;
 
     abstract protected static function assertValue(mixed $value): void;
 
