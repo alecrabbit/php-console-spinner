@@ -80,10 +80,13 @@ $loop->repeat(
 );
 
 // Limits run time
-$loop->delay($runTime, static function () use ($spinner, $defaults, $loop) {
-    $spinner->finalize('Finished!' . PHP_EOL);
-    // Sets shutdown delay
-    $loop->delay($defaults->getShutdownDelay(), static function () use ($loop) {
-        $loop->stop();
-    });
-});
+$loop->delay(
+    $runTime,
+    static function () use ($spinner, $defaults, $loop) {
+        $spinner->finalize('Finished!' . PHP_EOL);
+        // Sets shutdown delay
+        $loop->delay($defaults->getShutdownDelay(), static function () use ($loop) {
+            $loop->stop();
+        });
+    }
+);
