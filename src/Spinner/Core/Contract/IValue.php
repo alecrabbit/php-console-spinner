@@ -6,4 +6,6 @@ namespace AlecRabbit\Spinner\Core\Contract;
 interface IValue
 {
     public function getValue(): mixed;
+
+    public function setValue($value): void;
 }
