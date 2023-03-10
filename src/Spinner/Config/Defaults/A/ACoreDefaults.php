@@ -48,7 +48,6 @@ abstract class ACoreDefaults implements IDefaults
     protected static iterable $loopProbes;
     protected static iterable $terminalProbes;
 
-
     public function reset(): void
     {
         static::$outputStream = static::defaultOutputStream();

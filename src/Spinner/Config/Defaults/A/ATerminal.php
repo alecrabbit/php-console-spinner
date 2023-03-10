@@ -11,6 +11,7 @@ use AlecRabbit\Spinner\Core\Terminal\Contract\ITerminalProbe;
 abstract class ATerminal implements ITerminal
 {
     private static ?ITerminal $instance = null;
+    private bool $hideCursor;
     private ColorMode $colorMode;
     private int $width;
 
@@ -26,6 +27,7 @@ abstract class ATerminal implements ITerminal
         }
         $this->colorMode = ITerminal::TERMINAL_DEFAULT_COLOR_SUPPORT;
         $this->width = ITerminal::TERMINAL_DEFAULT_WIDTH;
+        $this->hideCursor = ITerminal::TERMINAL_DEFAULT_HIDE_CURSOR;
     }
 
     public function getColorMode(): ColorMode
@@ -33,9 +35,10 @@ abstract class ATerminal implements ITerminal
         return $this->colorMode;
     }
 
-    public function setColorMode(ColorMode $colorMode): void
+    public function setColorMode(ColorMode $colorMode): static
     {
         $this->colorMode = $colorMode;
+        return $this;
     }
 
     public function getWidth(): int
@@ -43,9 +46,10 @@ abstract class ATerminal implements ITerminal
         return $this->width;
     }
 
-    public function setWidth(int $width): void
+    public function setWidth(int $width): static
     {
         $this->width = $width;
+        return $this;
     }
 
     final public static function getInstance(iterable $terminalProbes): self
@@ -56,5 +60,16 @@ abstract class ATerminal implements ITerminal
                 };
         }
         return self::$instance;
+    }
+
+    public function isHideCursor(): bool
+    {
+        return $this->hideCursor;
+    }
+
+    public function setHideCursor(bool $hideCursor): static
+    {
+        $this->hideCursor = $hideCursor;
+        return $this;
     }
 }

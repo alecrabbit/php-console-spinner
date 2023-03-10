@@ -1,5 +1,6 @@
-vendor/
-.eval/
+/vendor/
+/.eval/
+/.idea/
 .ready
 .last_init_time
 .start_time
