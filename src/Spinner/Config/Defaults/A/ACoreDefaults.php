@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 // 10.03.23
 namespace AlecRabbit\Spinner\Config\Defaults\A;
@@ -76,6 +77,7 @@ abstract class ACoreDefaults
         self::$defaultLeadingSpacer = FrameFactory::createEmpty();
         self::$defaultTrailingSpacer = FrameFactory::createSpace();
     }
+
     /**
      * @return resource
      */
