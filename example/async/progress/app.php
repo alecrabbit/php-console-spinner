@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 use AlecRabbit\Spinner\Core\Interval;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
-use AlecRabbit\Spinner\Extras\FractionValue;
+use AlecRabbit\Spinner\Extras\ProgressValue;
 use AlecRabbit\Spinner\Extras\ProgressWidgetFactory;
 use AlecRabbit\Spinner\Factory;
 use AlecRabbit\Spinner\Factory\DefaultsFactory;
@@ -30,7 +30,7 @@ $defaults = DefaultsFactory::create();
 
 $spinner = Factory::createSpinner();
 
-$progress = new FractionValue(steps: $steps, autoFinish: true);
+$progress = new ProgressValue(steps: $steps, autoFinish: true);
 
 $interval = new Interval($progressRefreshInterval);
 
@@ -79,7 +79,7 @@ $loop->delay(
 );
 
 function createProgressWidget(
-    FractionValue $progress,
+    ProgressValue $progress,
     Interval $interval
 ): IWidgetComposite {
     $composite = ProgressWidgetFactory::createSteps(
