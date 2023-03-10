@@ -3,10 +3,10 @@ declare(strict_types=1);
 // 09.03.23
 namespace AlecRabbit\Spinner\Core\Pattern\Style;
 
-use AlecRabbit\Spinner\Core\ColorMode;
 use AlecRabbit\Spinner\Core\Contract\IInterval;
 use AlecRabbit\Spinner\Core\Interval;
 use AlecRabbit\Spinner\Core\Pattern\Style\A\AStylePattern;
+use AlecRabbit\Spinner\Core\Terminal\ColorMode;
 
 final class Rainbow extends AStylePattern
 {

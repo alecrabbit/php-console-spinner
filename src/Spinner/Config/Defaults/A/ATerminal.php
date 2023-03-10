@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Config\Defaults\A;
 
 use AlecRabbit\Spinner\Config\Defaults\Contract\ITerminal;
-use AlecRabbit\Spinner\Core\ColorMode;
+use AlecRabbit\Spinner\Core\Terminal\ColorMode;
 use AlecRabbit\Spinner\Core\Terminal\Contract\ITerminalProbe;
 
 abstract class ATerminal implements ITerminal
