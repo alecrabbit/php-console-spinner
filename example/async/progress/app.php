@@ -10,18 +10,18 @@ use AlecRabbit\Spinner\Factory\DefaultsFactory;
 require_once __DIR__ . '/../bootstrap.async.php';
 
 // Settings
-$runTime = 20;
-$steps = 40;
-$advanceInterval = 0.3;
-
-
-$defaults = DefaultsFactory::create();
+$runTime = 30; // s
+$steps = 50;
+$cycleInterval = 0.05; // s
+$progressRefreshInterval = 800; // ms
+$threshold = 900; // 90% [0..1000]
 
 // Application
 $faker = Faker\Factory::create();
 $count = 0;
 
 $spinner = Factory::createSpinner();
+$defaults = DefaultsFactory::create();
 
 $progress =
     new FractionValue(
@@ -31,7 +31,7 @@ $progress =
 
 $interval =
     new Interval(
-        $advanceInterval * 1000
+        $progressRefreshInterval
     );
 
 $composite = \AlecRabbit\Spinner\Extras\ProgressWidgetFactory::createSteps(
@@ -57,22 +57,27 @@ $spinner->add($composite);
 
 $loop = Factory::getLoop();
 
-$loop->repeat($advanceInterval, static function () use ($spinner, $progress, $faker, &$count) {
-    if (!$progress->isFinished()) {
-        $spinner->wrap(
-            function (string $message) {
-                echo $message . PHP_EOL;
-            },
-            sprintf(
-                '%s %s %s',
-                str_pad(sprintf('%s.', ++$count), 4, pad_type: STR_PAD_LEFT),
-                str_pad($faker->iban(), 35),
-                str_pad($faker->ipv6(), 40),
-            ),
-        );
-        $progress->advance();
+// Progress
+$loop->repeat(
+    $cycleInterval,
+    static function () use ($spinner, $progress, $faker, $threshold, &$count) {
+        if (!$progress->isFinished() && $threshold < random_int(0, 1000)) {
+            ++$count;
+            $spinner->wrap(
+                static function (string $message) {
+                    echo $message . PHP_EOL;
+                },
+                sprintf(
+                    '%s %s %s',
+                    str_pad(sprintf('%s.', $count), 4, pad_type: STR_PAD_LEFT),
+                    str_pad($faker->ipv6(), 40),
+                    str_pad($faker->iban(), 35),
+                ),
+            );
+            $progress->advance();
+        }
     }
-});
+);
 
 // Limits run time
 $loop->delay($runTime, static function () use ($spinner, $defaults, $loop) {
