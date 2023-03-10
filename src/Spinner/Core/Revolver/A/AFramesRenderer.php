@@ -30,5 +30,5 @@ abstract class AFramesRenderer extends ADefaultsAwareClass
             $frames;
     }
 
-    abstract protected function createFrame($entry): Frame;
+    abstract protected function createFrame(mixed $entry): IFrame;
 }

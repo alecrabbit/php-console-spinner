@@ -4,6 +4,7 @@ declare(strict_types=1);
 // 10.03.23
 namespace AlecRabbit\Spinner\Core\Revolver\A;
 
+use AlecRabbit\Spinner\Core\Contract\IFrame;
 use AlecRabbit\Spinner\Core\Frame;
 use AlecRabbit\Spinner\Core\Pattern\Contract\IStylePattern;
 
@@ -18,7 +19,7 @@ final class StyleFramesRenderer extends AFramesRenderer
         parent::__construct($pattern);
     }
 
-    protected function createFrame($entry): Frame
+    protected function createFrame(mixed $entry): IFrame
     {
         $colorMode = self::getDefaults()->getTerminal()->getColorMode();
 
