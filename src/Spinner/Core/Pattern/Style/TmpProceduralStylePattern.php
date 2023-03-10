@@ -11,9 +11,9 @@ use AlecRabbit\Spinner\Core\Procedure\A\AProcedure;
 use AlecRabbit\Spinner\Core\Procedure\Contract\IProcedure;
 
 /**
- * TODO move(and rename) this class to Extras package
+ * TODO move(and rename) this class to Extras package?
  */
-final class TmpProceduralPattern extends AProceduralStylePattern
+final class TmpProceduralStylePattern extends AProceduralStylePattern
 {
     protected const UPDATE_INTERVAL = 900000;
 

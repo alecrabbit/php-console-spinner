@@ -10,6 +10,9 @@ use AlecRabbit\Spinner\Core\Pattern\A\AProceduralPattern;
 use AlecRabbit\Spinner\Core\Procedure\A\AProcedure;
 use AlecRabbit\Spinner\Core\Procedure\Contract\IProcedure;
 
+/**
+ * TODO move(and rename) this class to Extras package?
+ */
 final class TmpProceduralCharPattern extends AProceduralPattern
 {
     protected const UPDATE_INTERVAL = 500;
