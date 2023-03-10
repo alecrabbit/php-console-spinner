@@ -11,6 +11,7 @@ use AlecRabbit\Spinner\Core\Loop\RevoltLoopProbe;
 use AlecRabbit\Spinner\Core\Widget\WidgetBuilder;
 use AlecRabbit\Spinner\Core\Widget\WidgetRevolverBuilder;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
+use AlecRabbit\Spinner\Factory\FrameFactory;
 use AlecRabbit\Tests\Spinner\TestCase\TestCase;
 
 use const AlecRabbit\Spinner\TERM_NO_COLOR;
@@ -153,7 +154,7 @@ final class ADefaultsTest extends TestCase
     {
         $defaults = self::getInstance();
 
-        $spacer = new Frame('test', 4);
+        $spacer = FrameFactory::create('test', 4);
         $defaults->setMainLeadingSpacer($spacer);
         self::assertSame($spacer, $defaults->getMainLeadingSpacer());
     }
@@ -170,7 +171,7 @@ final class ADefaultsTest extends TestCase
     {
         $defaults = self::getInstance();
 
-        $spacer = new Frame('test', 4);
+        $spacer = FrameFactory::create('test', 4);
         $defaults->setMainTrailingSpacer($spacer);
         self::assertSame($spacer, $defaults->getMainTrailingSpacer());
     }
