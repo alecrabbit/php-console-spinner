@@ -15,6 +15,7 @@ use AlecRabbit\Spinner\Core\Pattern\Contract\IPattern;
 use AlecRabbit\Spinner\Core\Terminal\SymfonyTerminalProbe;
 use AlecRabbit\Spinner\Factory\FrameFactory;
 
+/** @internal */
 abstract class ACoreDefaults implements IDefaults
 {
     use DefaultConst;

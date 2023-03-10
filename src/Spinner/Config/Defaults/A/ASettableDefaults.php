@@ -10,6 +10,7 @@ use AlecRabbit\Spinner\Core\Pattern\Contract\IPattern;
 use AlecRabbit\Spinner\Core\Terminal\Contract\ITerminalProbe;
 use AlecRabbit\Spinner\Helper\Asserter;
 
+/** @internal */
 abstract class ASettableDefaults extends ACoreDefaults
 {
     /** @inheritdoc */
