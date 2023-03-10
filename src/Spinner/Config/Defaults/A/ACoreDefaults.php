@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Config\Defaults\A;
 
 use AlecRabbit\Spinner\Config\Defaults\Contract\IClasses;
+use AlecRabbit\Spinner\Config\Defaults\Contract\IDefaults;
 use AlecRabbit\Spinner\Config\Defaults\Contract\ITerminal;
 use AlecRabbit\Spinner\Config\Defaults\Mixin\DefaultConst;
 use AlecRabbit\Spinner\Core\Contract\IFrame;
@@ -14,7 +15,7 @@ use AlecRabbit\Spinner\Core\Pattern\Contract\IPattern;
 use AlecRabbit\Spinner\Core\Terminal\SymfonyTerminalProbe;
 use AlecRabbit\Spinner\Factory\FrameFactory;
 
-abstract class ACoreDefaults
+abstract class ACoreDefaults implements IDefaults
 {
     use DefaultConst;
 
@@ -49,33 +50,33 @@ abstract class ACoreDefaults
 
     public function reset(): void
     {
-        self::$outputStream = self::defaultOutputStream();
-        self::$loopProbes = self::defaultLoopProbes();
-        self::$terminalProbes = self::defaultTerminalProbes();
-        self::$classes = self::getClassesInstance();
-        self::$terminal = self::getTerminalInstance();
+        static::$outputStream = static::defaultOutputStream();
+        static::$loopProbes = static::defaultLoopProbes();
+        static::$terminalProbes = static::defaultTerminalProbes();
+        static::$classes = static::getClassesInstance();
+        static::$terminal = static::getTerminalInstance();
 
-        self::$shutdownDelay = self::SHUTDOWN_DELAY;
-        self::$shutdownMaxDelay = self::SHUTDOWN_MAX_DELAY;
-        self::$messageOnFinalize = self::MESSAGE_ON_FINALIZE;
-        self::$messageOnExit = self::MESSAGE_ON_EXIT;
-        self::$messageOnInterrupt = self::MESSAGE_ON_INTERRUPT;
-        self::$hideCursor = self::TERMINAL_HIDE_CURSOR;
-        self::$colorSupportLevels = self::TERMINAL_COLOR_SUPPORT_LEVELS;
-        self::$isModeSynchronous = self::SPINNER_MODE_IS_SYNCHRONOUS;
-        self::$createInitialized = self::SPINNER_CREATE_INITIALIZED;
-        self::$percentNumberFormat = self::PERCENT_NUMBER_FORMAT;
-        self::$millisecondsInterval = self::INTERVAL_MS;
-        self::$autoStart = self::AUTO_START;
-        self::$attachSignalHandlers = self::ATTACH_SIGNAL_HANDLERS;
+        static::$shutdownDelay = static::SHUTDOWN_DELAY;
+        static::$shutdownMaxDelay = static::SHUTDOWN_MAX_DELAY;
+        static::$messageOnFinalize = static::MESSAGE_ON_FINALIZE;
+        static::$messageOnExit = static::MESSAGE_ON_EXIT;
+        static::$messageOnInterrupt = static::MESSAGE_ON_INTERRUPT;
+        static::$hideCursor = static::TERMINAL_HIDE_CURSOR;
+        static::$colorSupportLevels = static::TERMINAL_COLOR_SUPPORT_LEVELS;
+        static::$isModeSynchronous = static::SPINNER_MODE_IS_SYNCHRONOUS;
+        static::$createInitialized = static::SPINNER_CREATE_INITIALIZED;
+        static::$percentNumberFormat = static::PERCENT_NUMBER_FORMAT;
+        static::$millisecondsInterval = static::INTERVAL_MS;
+        static::$autoStart = static::AUTO_START;
+        static::$attachSignalHandlers = static::ATTACH_SIGNAL_HANDLERS;
 
-        self::$mainStylePattern = null;
-        self::$mainCharPattern = null;
-        self::$mainLeadingSpacer = null;
-        self::$mainTrailingSpacer = null;
+        static::$mainStylePattern = null;
+        static::$mainCharPattern = null;
+        static::$mainLeadingSpacer = null;
+        static::$mainTrailingSpacer = null;
 
-        self::$defaultLeadingSpacer = FrameFactory::createEmpty();
-        self::$defaultTrailingSpacer = FrameFactory::createSpace();
+        static::$defaultLeadingSpacer = FrameFactory::createEmpty();
+        static::$defaultTrailingSpacer = FrameFactory::createSpace();
     }
 
     /**
@@ -112,6 +113,6 @@ abstract class ACoreDefaults
 
     protected static function getTerminalInstance(): ITerminal
     {
-        return ATerminal::getInstance(self::$terminalProbes);
+        return ATerminal::getInstance(static::$terminalProbes);
     }
 }

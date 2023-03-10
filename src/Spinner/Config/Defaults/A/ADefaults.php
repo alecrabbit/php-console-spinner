@@ -12,7 +12,7 @@ use AlecRabbit\Spinner\Core\Pattern\Char\Snake;
 use AlecRabbit\Spinner\Core\Pattern\Contract\IPattern;
 use AlecRabbit\Spinner\Core\Pattern\Style\Rainbow;
 
-abstract class ADefaults extends ASettableDefaults implements IDefaults
+abstract class ADefaults extends ASettableDefaults
 {
     private static ?IDefaults $instance = null; // private, singleton
 
@@ -31,140 +31,133 @@ abstract class ADefaults extends ASettableDefaults implements IDefaults
         return self::$instance;
     }
 
-
     public function getClasses(): IClasses
     {
-        return self::$classes;
+        return static::$classes;
     }
 
     /** @inheritdoc */
     public function getOutputStream()
     {
-        return self::$outputStream;
+        return static::$outputStream;
     }
 
     public function getIntervalMilliseconds(): int
     {
-        return self::$millisecondsInterval;
+        return static::$millisecondsInterval;
     }
 
     public function getShutdownDelay(): float|int
     {
-        return self::$shutdownDelay;
+        return static::$shutdownDelay;
     }
 
     public function isModeSynchronous(): bool
     {
-        return self::$isModeSynchronous;
+        return static::$isModeSynchronous;
     }
 
     public function isHideCursor(): bool
     {
-        return self::$hideCursor;
+        return static::$hideCursor;
     }
 
     public function getFinalMessage(): string
     {
-        return self::$messageOnFinalize;
+        return static::$messageOnFinalize;
     }
 
 
     public function getMessageOnExit(): string
     {
-        return self::$messageOnExit;
+        return static::$messageOnExit;
     }
 
     public function getInterruptMessage(): string
     {
-        return self::$messageOnInterrupt;
+        return static::$messageOnInterrupt;
     }
 
     public function getMaxShutdownDelay(): float|int
     {
-        return self::$shutdownMaxDelay;
-    }
-
-    public function setMaxShutdownDelay(float|int $maxShutdownDelay): static
-    {
-        self::$shutdownMaxDelay = $maxShutdownDelay;
-        return $this;
+        return static::$shutdownMaxDelay;
     }
 
     public function getColorSupportLevels(): array
     {
-        return self::$colorSupportLevels;
+        return static::$colorSupportLevels;
     }
 
     public function getPercentNumberFormat(): string
     {
-        return self::$percentNumberFormat;
+        return static::$percentNumberFormat;
     }
 
     public function getSpinnerStylePattern(): IPattern
     {
-        if (null === self::$mainStylePattern) {
-            self::$mainStylePattern = new Rainbow();
+        if (null === static::$mainStylePattern) {
+            static::$mainStylePattern = new Rainbow();
         }
-        return self::$mainStylePattern;
+        return static::$mainStylePattern;
     }
 
     public function getSpinnerCharPattern(): IPattern
     {
-        if (null === self::$mainCharPattern) {
-            self::$mainCharPattern = new Snake();
+        if (null === static::$mainCharPattern) {
+            static::$mainCharPattern = new Snake();
         }
-        return self::$mainCharPattern;
+        return static::$mainCharPattern;
     }
 
     public function getMainLeadingSpacer(): IFrame
     {
         return
-            self::$mainLeadingSpacer ?? self::$defaultLeadingSpacer;
+            static::$mainLeadingSpacer ?? static::$defaultLeadingSpacer;
     }
 
     public function getMainTrailingSpacer(): IFrame
     {
         return
-            self::$mainTrailingSpacer ?? self::$defaultTrailingSpacer;
+            static::$mainTrailingSpacer ?? static::$defaultTrailingSpacer;
     }
 
     public function isCreateInitialized(): bool
     {
-        return self::$createInitialized;
+        return static::$createInitialized;
     }
 
     public function getDefaultLeadingSpacer(): IFrame
     {
-        return self::$defaultLeadingSpacer;
+        return static::$defaultLeadingSpacer;
     }
 
     public function getDefaultTrailingSpacer(): IFrame
     {
-        return self::$defaultTrailingSpacer;
+        return static::$defaultTrailingSpacer;
     }
 
     public function isAutoStartEnabled(): bool
     {
-        return self::$autoStart;
+        return static::$autoStart;
     }
 
     public function areSignalHandlersEnabled(): bool
     {
-        return self::$attachSignalHandlers;
+        return static::$attachSignalHandlers;
     }
 
     public function getLoopProbeClasses(): iterable
     {
-        return self::$loopProbes;
+        return static::$loopProbes;
     }
 
     public function getTerminalProbeClasses(): iterable
     {
-        return self::$terminalProbes;
+        return static::$terminalProbes;
     }
 
     public function getTerminal(): ITerminal
     {
-        return self::$terminal;
+        return static::$terminal;
     }
 }
