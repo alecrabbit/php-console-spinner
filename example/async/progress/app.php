@@ -12,7 +12,7 @@ require_once __DIR__ . '/../bootstrap.async.php';
 // Settings
 $runTime = 20;
 $steps = 40;
-$advanceInterval = 0.1;
+$advanceInterval = 0.3;
 
 
 $defaults = DefaultsFactory::create();
