@@ -41,7 +41,7 @@ abstract class ADefaults implements IDefaults
     protected static array $colorSupportLevels;
     protected static ?array $defaultStylePattern = null;
     protected static ?array $defaultCharPattern = null;
-    protected static ?AStylePattern $mainStylePattern = null;
+    protected static ?IPattern $mainStylePattern = null;
     protected static ?IPattern $mainCharPattern = null;
     protected static ?IFrame $mainLeadingSpacer = null;
     protected static ?IFrame $mainTrailingSpacer = null;
@@ -299,7 +299,7 @@ abstract class ADefaults implements IDefaults
         return $this;
     }
 
-    public function getSpinnerStylePattern(): AStylePattern
+    public function getSpinnerStylePattern(): IPattern
     {
         if (null === self::$mainStylePattern) {
             self::$mainStylePattern = new Rainbow();
@@ -307,7 +307,7 @@ abstract class ADefaults implements IDefaults
         return self::$mainStylePattern;
     }
 
-    public function setSpinnerStylePattern(AStylePattern $spinnerStylePattern): static
+    public function setSpinnerStylePattern(IPattern $spinnerStylePattern): static
     {
         self::$mainStylePattern = $spinnerStylePattern;
         return $this;
