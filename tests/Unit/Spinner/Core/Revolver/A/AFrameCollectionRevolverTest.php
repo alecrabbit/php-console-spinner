@@ -9,6 +9,7 @@ use AlecRabbit\Spinner\Core\Interval;
 use AlecRabbit\Spinner\Core\Revolver\A\AFrameCollectionRevolver;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Exception\LogicException;
+use AlecRabbit\Spinner\Factory\FrameFactory;
 use AlecRabbit\Tests\Spinner\TestCase\TestCase;
 use TypeError;
 
@@ -63,9 +64,9 @@ final class AFrameCollectionRevolverTest extends TestCase
 
         $instance = self::getInstance([
             [
-                new Frame('fr0', 3),
-                new Frame('fr1', 3),
-                new Frame('fr2', 3),
+                FrameFactory::create('fr0', 3),
+                FrameFactory::create('fr1', 3),
+                FrameFactory::create('fr2', 3),
             ],
             new Interval(),
         ]);
@@ -89,14 +90,14 @@ final class AFrameCollectionRevolverTest extends TestCase
 
         $instance = self::getInstance([
             [
-                new Frame('fr0', 3),
-                new Frame('fr1', 3),
-                new Frame('fr2', 3),
+                FrameFactory::create('fr0', 3),
+                FrameFactory::create('fr1', 3),
+                FrameFactory::create('fr2', 3),
             ],
             new Interval(),
         ]);
 
-        $instance[4] = new Frame('fr4', 3);
+        $instance[4] = FrameFactory::create('fr4', 3);
 
         self::assertTrue(isset($instance[4]));
 
@@ -112,9 +113,9 @@ final class AFrameCollectionRevolverTest extends TestCase
 
         $instance = self::getInstance([
             [
-                new Frame('fr0', 3),
-                new Frame('fr1', 3),
-                new Frame('fr2', 3),
+                FrameFactory::create('fr0', 3),
+                FrameFactory::create('fr1', 3),
+                FrameFactory::create('fr2', 3),
             ],
             new Interval(),
         ]);
@@ -134,9 +135,9 @@ final class AFrameCollectionRevolverTest extends TestCase
 
         $instance = self::getInstance([
             [
-                $frame0 = new Frame('fr0', 3),
-                $frame1 = new Frame('fr1', 3),
-                $frame2 = new Frame('fr2', 3),
+                $frame0 = FrameFactory::create('fr0', 3),
+                $frame1 = FrameFactory::create('fr1', 3),
+                $frame2 = FrameFactory::create('fr2', 3),
             ],
             new Interval(),
         ]);
@@ -215,7 +216,7 @@ final class AFrameCollectionRevolverTest extends TestCase
         yield [
             [
                 self::RESULT => [
-                    $frame0 = new Frame('frame', 5),
+                    $frame0 = FrameFactory::create('frame', 5),
                 ],
             ],
             [
@@ -249,7 +250,7 @@ final class AFrameCollectionRevolverTest extends TestCase
         yield [
             [
                 self::RESULT => [
-                    $frame0 = new Frame('fr0', 3),
+                    $frame0 = FrameFactory::create('fr0', 3),
                 ],
                 self::INDEXES => [0],
             ],
@@ -264,9 +265,9 @@ final class AFrameCollectionRevolverTest extends TestCase
         yield [
             [
                 self::RESULT => [
-                    $frame0 = new Frame('fr0', 3),
-                    $frame1 = new Frame('fr1', 3),
-                    $frame2 = new Frame('fr2', 3),
+                    $frame0 = FrameFactory::create('fr0', 3),
+                    $frame1 = FrameFactory::create('fr1', 3),
+                    $frame2 = FrameFactory::create('fr2', 3),
                 ],
                 self::INDEXES => [2, 0, 1],
             ],
@@ -281,8 +282,8 @@ final class AFrameCollectionRevolverTest extends TestCase
         yield [
             [
                 self::RESULT => [
-                    $frame0 = new Frame('fr0', 3),
-                    $frame1 = new Frame('fr0', 3),
+                    $frame0 = FrameFactory::create('fr0', 3),
+                    $frame1 = FrameFactory::create('fr0', 3),
                 ],
                 self::EXCEPTION => [
                     self::CLASS_ => InvalidArgumentException::class,
@@ -301,9 +302,9 @@ final class AFrameCollectionRevolverTest extends TestCase
         yield [
             [
                 self::RESULT => [
-                    $frame0 = new Frame('fr0', 3),
-                    $frame1 = new Frame('fr1', 3),
-                    $frame2 = new Frame('fr2', 3),
+                    $frame0 = FrameFactory::create('fr0', 3),
+                    $frame1 = FrameFactory::create('fr1', 3),
+                    $frame2 = FrameFactory::create('fr2', 3),
                 ],
                 self::EXCEPTION => [
                     self::CLASS_ => InvalidArgumentException::class,

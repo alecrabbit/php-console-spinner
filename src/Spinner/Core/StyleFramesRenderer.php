@@ -7,6 +7,7 @@ namespace AlecRabbit\Spinner\Core;
 use AlecRabbit\Spinner\Core\A\AFramesRenderer;
 use AlecRabbit\Spinner\Core\Contract\IFrame;
 use AlecRabbit\Spinner\Core\Pattern\Contract\IStylePattern;
+use AlecRabbit\Spinner\Factory\FrameFactory;
 
 use const AlecRabbit\Spinner\CSI;
 use const AlecRabbit\Spinner\RESET;
@@ -24,6 +25,10 @@ final class StyleFramesRenderer extends AFramesRenderer
     {
         $colorMode = self::getDefaults()->getTerminal()->getColorMode();
 
-        return new Frame(CSI . sprintf('38;5;%sm', $entry) . '%s' . RESET, 0);
+        return
+            FrameFactory::create(
+                CSI . sprintf('38;5;%sm', $entry) . '%s' . RESET,
+                0
+            );
     }
 }

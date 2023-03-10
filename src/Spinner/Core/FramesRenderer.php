@@ -8,6 +8,8 @@ use AlecRabbit\Spinner\Core\A\AFramesRenderer;
 use AlecRabbit\Spinner\Core\Contract\IFrame;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 
+use AlecRabbit\Spinner\Factory\FrameFactory;
+
 use function is_array;
 use function is_string;
 
@@ -18,12 +20,12 @@ final class FramesRenderer extends AFramesRenderer
     {
         if (is_string($entry)) {
             return
-                new Frame($entry, WidthDeterminer::determine($entry));
+                FrameFactory::create($entry, WidthDeterminer::determine($entry));
         }
         if (is_array($entry)) {
             self::assertEntryArray($entry);
             return
-                new Frame($entry[0], $entry[1]);
+                FrameFactory::create($entry[0], $entry[1]);
         }
         throw new InvalidArgumentException(
             sprintf(
