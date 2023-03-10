@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 // 10.03.23
-namespace AlecRabbit\Spinner\Core\Revolver\A;
+namespace AlecRabbit\Spinner\Core;
 
+use AlecRabbit\Spinner\Core\A\AFramesRenderer;
 use AlecRabbit\Spinner\Core\Contract\IFrame;
-use AlecRabbit\Spinner\Core\Frame;
 use AlecRabbit\Spinner\Core\Pattern\Contract\IStylePattern;
 
 use const AlecRabbit\Spinner\CSI;
