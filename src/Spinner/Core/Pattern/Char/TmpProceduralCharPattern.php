@@ -26,7 +26,7 @@ final class TmpProceduralCharPattern extends AProceduralPattern
                     static $odd = true;
                     $odd = !$odd;
                     return
-                        new Frame($odd ? '⢸' : '⡇', 2);
+                        new Frame($odd ? '⢸' : '⡇', 1);
                 }
             };
     }
