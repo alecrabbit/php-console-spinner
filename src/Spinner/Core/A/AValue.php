@@ -14,7 +14,7 @@ abstract class AValue implements IValue
 
     public function setValue($value): void
     {
-        self::assertValue($value);
+        static::assertValue($value);
         $this->value = $value;
     }
 
