@@ -19,6 +19,7 @@ final class StyleFramesRenderer extends AFramesRenderer
         parent::__construct($pattern);
     }
 
+    /** @inheritdoc */
     protected function createFrame(mixed $entry): IFrame
     {
         $colorMode = self::getDefaults()->getTerminal()->getColorMode();
