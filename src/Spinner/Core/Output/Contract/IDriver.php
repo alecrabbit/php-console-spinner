@@ -19,6 +19,4 @@ interface IDriver
     public function interrupt(?string $interruptMessage = null): void;
 
     public function finalize(?string $finalMessage = null): void;
-
-    public function getTerminalColorSupport(): int;
 }

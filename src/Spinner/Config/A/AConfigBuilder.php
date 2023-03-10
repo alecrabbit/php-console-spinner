@@ -8,6 +8,7 @@ use AlecRabbit\Spinner\Config\Config;
 use AlecRabbit\Spinner\Config\Contract\IConfig;
 use AlecRabbit\Spinner\Config\Contract\IConfigBuilder;
 use AlecRabbit\Spinner\Config\Defaults\Contract\IDefaults;
+use AlecRabbit\Spinner\Core\ColorMode;
 use AlecRabbit\Spinner\Core\Contract\IFrame;
 use AlecRabbit\Spinner\Core\Contract\ITimer;
 use AlecRabbit\Spinner\Core\Driver;
@@ -49,7 +50,7 @@ abstract class AConfigBuilder implements IConfigBuilder
     protected ?IOutput $output = null;
     protected ?IFrameCollectionRevolver $spinnerStyleRevolver = null;
     protected ?IFrameCollectionRevolver $spinnerCharRevolver = null;
-    protected ?int $terminalColorSupport = null;
+    protected ?ColorMode $terminalColorMode = null;
     /** @var array<IWidgetComposite>|null */
     protected ?array $widgets = null;
     protected ?IWidgetBuilder $widgetBuilder = null;
@@ -140,7 +141,7 @@ abstract class AConfigBuilder implements IConfigBuilder
         $this->output ??= $this->createOutput();
         $this->driver ??= $this->createDriver();
 
-        $this->terminalColorSupport ??= $this->driver->getTerminalColorSupport();
+        $this->terminalColorMode ??= $this->defaults->getTerminal()->getColorMode();
 
         $this->spinnerStyleRevolver ??=
             $this->createSpinnerStyleRevolver(
@@ -152,10 +153,20 @@ abstract class AConfigBuilder implements IConfigBuilder
                 $this->defaults->getSpinnerCharPattern()
             );
 
-        $this->widgetRevolver ??= $this->createWidgetRevolver();
+        $this->widgetRevolver ??=
+            $this->createWidgetRevolver(
+                $this->spinnerStyleRevolver,
+                $this->spinnerCharRevolver
+            );
         $this->leadingSpacer ??= $this->defaults->getDefaultLeadingSpacer();
         $this->trailingSpacer ??= $this->defaults->getDefaultTrailingSpacer();
-        $this->mainWidget ??= $this->createMainWidget();
+
+        $this->mainWidget ??=
+            $this->widgetBuilder
+                ->withWidgetRevolver($this->widgetRevolver)
+                ->withLeadingSpacer($this->leadingSpacer)
+                ->withTrailingSpacer($this->trailingSpacer)
+                ->build();
 
         $this->widgets ??= [];
     }
@@ -205,22 +216,12 @@ abstract class AConfigBuilder implements IConfigBuilder
             new FrameCollectionRevolver($frames, $spinnerCharPattern->getInterval());
     }
 
-    protected function createWidgetRevolver(): IRevolver
+    protected function createWidgetRevolver(IRevolver $spinnerStyleRevolver, IRevolver $spinnerCharRevolver): IRevolver
     {
         return
             new WidgetRevolver(
-                style: $this->spinnerStyleRevolver,
-                character: $this->spinnerCharRevolver,
+                style: $spinnerStyleRevolver,
+                character: $spinnerCharRevolver,
             );
-    }
-
-    protected function createMainWidget(): IWidgetComposite
-    {
-        return
-            $this->widgetBuilder
-                ->withWidgetRevolver($this->widgetRevolver)
-                ->withLeadingSpacer($this->leadingSpacer)
-                ->withTrailingSpacer($this->trailingSpacer)
-                ->build();
     }
 }
