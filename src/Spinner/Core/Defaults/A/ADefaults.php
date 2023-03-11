@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Defaults\A;
 
 use AlecRabbit\Spinner\Core\Contract\IFrame;
-use AlecRabbit\Spinner\Core\Defaults\Contract\IClasses;
+use AlecRabbit\Spinner\Core\Defaults\Contract\IDefaultsClasses;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDefaults;
 use AlecRabbit\Spinner\Core\Pattern\Char\Snake;
 use AlecRabbit\Spinner\Core\Pattern\Contract\IPattern;
@@ -32,7 +32,7 @@ abstract class ADefaults extends ASettableDefaults
         return self::$instance;
     }
 
-    public function getClasses(): IClasses
+    public function getClasses(): IDefaultsClasses
     {
         return static::$classes;
     }

@@ -41,7 +41,7 @@ interface IDefaults extends ISettableDefaults
 
     public function isModeSynchronous(): bool;
 
-    public function getClasses(): IClasses;
+    public function getClasses(): IDefaultsClasses;
 
     public function isAutoStartEnabled(): bool;
 

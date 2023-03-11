@@ -6,7 +6,7 @@ namespace AlecRabbit\Spinner\Core\Defaults\Contract;
 
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 
-interface IClasses
+interface IDefaultsClasses
 {
     /**
      * @return  class-string

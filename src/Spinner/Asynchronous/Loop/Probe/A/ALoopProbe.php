@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Spinner\Asynchronous\Loop\A;
+namespace AlecRabbit\Spinner\Asynchronous\Loop\Probe\A;
 
-use AlecRabbit\Spinner\Asynchronous\Loop\Contract\ILoopProbe;
+use AlecRabbit\Spinner\Asynchronous\Loop\Probe\Contract\ILoopProbe;
 use AlecRabbit\Spinner\Core\Contract\ILoop;
 use AlecRabbit\Spinner\Mixin\NoInstanceTrait;
 

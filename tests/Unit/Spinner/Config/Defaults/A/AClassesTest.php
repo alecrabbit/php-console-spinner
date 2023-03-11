@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Config\Defaults\A;
 
-use AlecRabbit\Spinner\Core\Defaults\A\AClasses;
+use AlecRabbit\Spinner\Core\Defaults\A\ADefaultsClasses;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetBuilder;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolverBuilder;
 use AlecRabbit\Spinner\Core\Widget\WidgetBuilder;
@@ -26,9 +26,9 @@ final class AClassesTest extends TestCase
         }
     }
 
-    private static function getInstance(): AClasses
+    private static function getInstance(): ADefaultsClasses
     {
-        return AClasses::getInstance();
+        return ADefaultsClasses::getInstance();
     }
 
     /** @test */

@@ -6,7 +6,7 @@ namespace AlecRabbit\Spinner\Core\Defaults\Mixin;
 
 use const AlecRabbit\Spinner\KNOWN_TERM_COLOR;
 
-trait DefaultConst
+trait DefaultsConst
 {
     final protected const SHUTDOWN_DELAY = 0.15;
     final protected const SHUTDOWN_MAX_DELAY = 10;

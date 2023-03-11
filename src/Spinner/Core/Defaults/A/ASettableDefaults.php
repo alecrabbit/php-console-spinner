@@ -4,7 +4,7 @@ declare(strict_types=1);
 // 10.03.23
 namespace AlecRabbit\Spinner\Core\Defaults\A;
 
-use AlecRabbit\Spinner\Asynchronous\Loop\Contract\ILoopProbe;
+use AlecRabbit\Spinner\Asynchronous\Loop\Probe\Contract\ILoopProbe;
 use AlecRabbit\Spinner\Core\Contract\IFrame;
 use AlecRabbit\Spinner\Core\Pattern\Contract\IPattern;
 use AlecRabbit\Spinner\Core\Terminal\Contract\ITerminalProbe;

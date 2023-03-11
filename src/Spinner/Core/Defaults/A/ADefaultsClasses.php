@@ -4,21 +4,21 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Defaults\A;
 
-use AlecRabbit\Spinner\Core\Defaults\Contract\IClasses;
+use AlecRabbit\Spinner\Core\Defaults\Contract\IDefaultsClasses;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetBuilder;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolverBuilder;
 use AlecRabbit\Spinner\Core\Widget\WidgetBuilder;
 use AlecRabbit\Spinner\Core\Widget\WidgetRevolverBuilder;
 use AlecRabbit\Spinner\Helper\Asserter;
 
-abstract class AClasses implements IClasses
+abstract class ADefaultsClasses implements IDefaultsClasses
 {
     final protected const WIDGET_BUILDER_CLASS = WidgetBuilder::class;
     final protected const WIDGET_REVOLVER_BUILDER_CLASS = WidgetRevolverBuilder::class;
 
     protected static string $widgetBuilderClass;
     protected static string $widgetRevolverBuilderClass;
-    private static ?IClasses $instance = null;
+    private static ?IDefaultsClasses $instance = null;
 
     private function __construct()
     {
@@ -35,7 +35,7 @@ abstract class AClasses implements IClasses
     {
         if (null === self::$instance) {
             self::$instance =
-                new class() extends AClasses {
+                new class() extends ADefaultsClasses {
                 };
         }
         return self::$instance;

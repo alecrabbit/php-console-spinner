@@ -7,9 +7,9 @@ namespace AlecRabbit\Spinner\Core\Defaults\A;
 use AlecRabbit\Spinner\Asynchronous\Loop\Probe\ReactLoopProbe;
 use AlecRabbit\Spinner\Asynchronous\Loop\Probe\RevoltLoopProbe;
 use AlecRabbit\Spinner\Core\Contract\IFrame;
-use AlecRabbit\Spinner\Core\Defaults\Contract\IClasses;
+use AlecRabbit\Spinner\Core\Defaults\Contract\IDefaultsClasses;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDefaults;
-use AlecRabbit\Spinner\Core\Defaults\Mixin\DefaultConst;
+use AlecRabbit\Spinner\Core\Defaults\Mixin\DefaultsConst;
 use AlecRabbit\Spinner\Core\Pattern\Contract\IPattern;
 use AlecRabbit\Spinner\Core\Terminal\A\ATerminal;
 use AlecRabbit\Spinner\Core\Terminal\Contract\ITerminal;
@@ -19,7 +19,7 @@ use AlecRabbit\Spinner\Factory\FrameFactory;
 /** @internal */
 abstract class ACoreDefaults implements IDefaults
 {
-    use DefaultConst;
+    use DefaultsConst;
 
     protected static int $millisecondsInterval;
     protected static float|int $shutdownDelay;
@@ -38,7 +38,7 @@ abstract class ACoreDefaults implements IDefaults
     protected static ?IFrame $mainTrailingSpacer = null;
     protected static ?IFrame $defaultLeadingSpacer = null;
     protected static ?IFrame $defaultTrailingSpacer = null;
-    protected static IClasses $classes;
+    protected static IDefaultsClasses $classes;
     protected static ITerminal $terminal;
     protected static bool $autoStart;
     protected static bool $attachSignalHandlers;
@@ -107,9 +107,9 @@ abstract class ACoreDefaults implements IDefaults
         // @codeCoverageIgnoreEnd
     }
 
-    protected static function getClassesInstance(): AClasses
+    protected static function getClassesInstance(): ADefaultsClasses
     {
-        return AClasses::getInstance();
+        return ADefaultsClasses::getInstance();
     }
 
     protected static function getTerminalInstance(): ITerminal
