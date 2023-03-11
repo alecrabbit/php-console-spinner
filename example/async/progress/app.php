@@ -24,10 +24,9 @@ $count = 0;
 
 $defaults = DefaultsFactory::create();
 $defaults
-//    ->setSpinnerCharPattern(new \AlecRabbit\Spinner\Core\Pattern\Char\Monkey())
-    ->setSpinnerCharPattern(new \AlecRabbit\Spinner\Core\Pattern\Char\RainyWeather())
-//    ->setSpinnerStylePattern(new \AlecRabbit\Spinner\Extras\Procedure\TmpProceduralStylePattern())
 //    ->setSpinnerCharPattern(new \AlecRabbit\Spinner\Extras\Procedure\TmpProceduralCharPattern())
+    ->setSpinnerCharPattern(new \AlecRabbit\Spinner\Core\Pattern\Char\Snake(reversed: true))
+//    ->setSpinnerStylePattern(new \AlecRabbit\Spinner\Extras\Procedure\TmpProceduralStylePattern())
 ;
 
 $spinner = Factory::createSpinner();

@@ -6,12 +6,12 @@ namespace AlecRabbit\Spinner\Core\Pattern\Char;
 
 use AlecRabbit\Spinner\Core\Pattern\A\AReversiblePattern;
 
-final class Snake extends AReversiblePattern
+final class ClockHourly extends AReversiblePattern
 {
-    protected const UPDATE_INTERVAL = 80;
+    protected const UPDATE_INTERVAL = 300;
 
     protected function pattern(): iterable
     {
-        return ['⠏', '⠛', '⠹', '⢸', '⣰', '⣤', '⣆', '⡇'];
+        return ['🕐', '🕑', '🕒', '🕓', '🕔', '🕕', '🕖', '🕗', '🕘', '🕙', '🕚', '🕛',];
     }
 }

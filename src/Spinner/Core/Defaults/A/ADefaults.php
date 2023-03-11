@@ -7,6 +7,7 @@ namespace AlecRabbit\Spinner\Core\Defaults\A;
 use AlecRabbit\Spinner\Core\Contract\IFrame;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDefaultsClasses;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDefaults;
+use AlecRabbit\Spinner\Core\Pattern\Char\Ascii;
 use AlecRabbit\Spinner\Core\Pattern\Char\Snake;
 use AlecRabbit\Spinner\Core\Pattern\Contract\IPattern;
 use AlecRabbit\Spinner\Core\Pattern\Style\Rainbow;
@@ -106,7 +107,7 @@ abstract class ADefaults extends ASettableDefaults
     public function getSpinnerCharPattern(): IPattern
     {
         if (null === static::$mainCharPattern) {
-            static::$mainCharPattern = new Snake();
+            static::$mainCharPattern = new Ascii();
         }
         return static::$mainCharPattern;
     }

@@ -12,8 +12,8 @@ abstract class APattern implements IPattern
 {
     protected const UPDATE_INTERVAL = 1000;
 
-    final public function __construct(
-        protected ?int $interval = null
+    public function __construct(
+        protected ?int $interval = null,
     ) {
 
     }

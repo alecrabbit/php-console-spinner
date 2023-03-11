@@ -4,13 +4,13 @@ declare(strict_types=1);
 // 09.03.23
 namespace AlecRabbit\Spinner\Core\Pattern\Char;
 
-use AlecRabbit\Spinner\Core\Pattern\A\APattern;
+use AlecRabbit\Spinner\Core\Pattern\A\AReversiblePattern;
 
-final class Ascii extends APattern
+final class Ascii extends AReversiblePattern
 {
     protected const UPDATE_INTERVAL = 300;
 
-    public function getPattern(): iterable
+    protected function pattern(): iterable
     {
         return ['/', '|', '\\', '─',];
     }
