@@ -33,7 +33,6 @@ abstract class AProgressValue extends AFloatValue implements IProgressValue
      */
     private static function assert(AProgressValue $value): void
     {
-
         match (true) {
             0 > $value->steps || 0 === $value->steps =>
             throw new InvalidArgumentException(

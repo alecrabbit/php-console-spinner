@@ -4,10 +4,8 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Extras\Procedure\A;
 
-use AlecRabbit\Spinner\Core\Procedure\A\AFloatValueProcedure;
 use AlecRabbit\Spinner\Core\Contract\IFrame;
-use AlecRabbit\Spinner\Core\Frame;
-use AlecRabbit\Spinner\Core\WidthDeterminer;
+use AlecRabbit\Spinner\Core\Procedure\A\AFloatValueProcedure;
 use AlecRabbit\Spinner\Extras\Contract\IProgressValue;
 use AlecRabbit\Spinner\Factory\FrameFactory;
 
@@ -21,7 +19,6 @@ abstract class AProgressValueProcedure extends AFloatValueProcedure
         string $format = null,
         protected float $finishedDelay = self::FINISHED_DELAY,
     ) {
-
         parent::__construct($progressValue, $format);
     }
 

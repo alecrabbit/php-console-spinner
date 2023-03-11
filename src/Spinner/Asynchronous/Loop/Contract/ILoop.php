@@ -10,10 +10,15 @@ use Closure;
 use React\EventLoop\LoopInterface;
 use Revolt\EventLoop\Driver;
 
+/**
+ * TODO: Segregate interface for responsibilities of Loop class.
+ *  e.g.:
+ *   ILoopSpinnerAttach
+ *   ILoopGetter
+ *   ILoopSignalHandlers
+ */
 interface ILoop
 {
-    public function getLoop(): LoopInterface|Driver;
-
     public function run(): void;
 
     public function stop(): void;
@@ -22,7 +27,11 @@ interface ILoop
 
     public function delay(float $delay, Closure $closure): void;
 
+    public function autoStart(): void; // TODO: choose a better name
+
     public function attach(ISpinner $spinner): void;
+
+    public function getLoop(): LoopInterface|Driver;
 
     public function setSignalHandlers(iterable $handlers): void;
 
@@ -30,6 +39,4 @@ interface ILoop
      * @throws RuntimeException
      */
     public function createSignalHandlers(ISpinner $spinner): iterable;
-
-    public function autoStart(): void; // TODO: choose a better name
 }
