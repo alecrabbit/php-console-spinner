@@ -16,6 +16,8 @@ final class Asserter
     /**
      * @param object|class-string $c
      * @param class-string $i
+     * @param string|null $callerMethod
+     * @param bool $allowString
      * @throws InvalidArgumentException
      */
     public static function isSubClass(mixed $c, string $i, ?string $callerMethod = null, bool $allowString = true): void
@@ -68,12 +70,12 @@ final class Asserter
     /**
      * @throws RuntimeException
      */
-    public static function assertExtensionLoaded(string $extensionName, string $message): void
+    public static function assertExtensionLoaded(string $extensionName, ?string $message = null): void
     {
-        // @codeCoverageIgnoreStart
         if (!extension_loaded($extensionName)) {
-            throw new RuntimeException($message);
+            throw new RuntimeException(
+                $message ?? sprintf('Extension "%s" is not loaded.', $extensionName)
+            );
         }
-        // @codeCoverageIgnoreEnd
     }
 }

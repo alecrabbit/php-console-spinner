@@ -85,6 +85,10 @@ abstract class ADefaults extends ASettableDefaults
 
     public function getColorSupportLevels(): array
     {
+        trigger_error(
+            'getColorSupportLevels() is deprecated. No replacement.',
+            E_USER_DEPRECATED
+        );
         return static::$colorSupportLevels;
     }
 
