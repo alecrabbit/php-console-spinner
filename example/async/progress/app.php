@@ -25,7 +25,7 @@ $count = 0;
 $defaults = DefaultsFactory::create();
 $defaults
 //    ->setSpinnerCharPattern(new \AlecRabbit\Spinner\Core\Pattern\Char\Monkey())
-    ->setSpinnerCharPattern(new \AlecRabbit\Spinner\Core\Pattern\Char\StormyWeather())
+    ->setSpinnerCharPattern(new \AlecRabbit\Spinner\Core\Pattern\Char\RainyWeather())
 //    ->setSpinnerStylePattern(new \AlecRabbit\Spinner\Extras\Procedure\TmpProceduralStylePattern())
 //    ->setSpinnerCharPattern(new \AlecRabbit\Spinner\Extras\Procedure\TmpProceduralCharPattern())
 ;

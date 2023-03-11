@@ -6,7 +6,13 @@ All notable changes to this project will be documented in this file.
 <a name="unreleased"></a>
 ## [Unreleased]
 
-
+### Chores
+- some structural changes
+  
+  ### Features
+- added spinners Ascii, StromyWeather
+  
+  
 <a name="1.0.0-ALPHA.1+BUILD.1"></a>
 ## [1.0.0-ALPHA.1+BUILD.1] - 2023-03-03
 ### Pull Requests
