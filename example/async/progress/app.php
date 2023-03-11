@@ -13,7 +13,7 @@ require_once __DIR__ . '/../bootstrap.async.php';
 
 // Settings
 $runTime = 30; // s
-$steps = 30;
+$steps = 2;
 $cycleInterval = 0.05; // s
 $progressRefreshInterval = 800; // ms
 $threshold = 900; // 90% [0..1000]
@@ -24,7 +24,8 @@ $count = 0;
 
 $defaults = DefaultsFactory::create();
 $defaults
-    ->setSpinnerStylePattern(new \AlecRabbit\Spinner\Core\Pattern\Char\Monkey())
+//    ->setSpinnerCharPattern(new \AlecRabbit\Spinner\Core\Pattern\Char\Monkey())
+    ->setSpinnerCharPattern(new \AlecRabbit\Spinner\Core\Pattern\Char\StormyWeather())
 //    ->setSpinnerStylePattern(new \AlecRabbit\Spinner\Extras\Procedure\TmpProceduralStylePattern())
 //    ->setSpinnerCharPattern(new \AlecRabbit\Spinner\Extras\Procedure\TmpProceduralCharPattern())
 ;

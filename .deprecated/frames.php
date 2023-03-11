@@ -16,11 +16,8 @@ interface Frames
 
     public const DIAMOND = ['♦'];
 
-    public const SIMPLE = ['/', '|', '\\', '─',];
-
     public const CIRCLES = ['◐', '◓', '◑', '◒',];
     public const RUNNER = ['🚶 ', '🏃 '];
-    public const MONKEY = ['🐵 ', '🙈 ', '🙉 ', '🙊 '];
 
     public const SECTORS = ['◴', '◷', '◶', '◵'];
 
