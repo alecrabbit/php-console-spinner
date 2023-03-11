@@ -6,7 +6,7 @@ namespace AlecRabbit\Spinner\Extras\Procedure;
 
 use AlecRabbit\Spinner\Core\Contract\IFrame;
 use AlecRabbit\Spinner\Core\Frame;
-use AlecRabbit\Spinner\Core\Pattern\Style\A\AProceduralStylePattern;
+use AlecRabbit\Spinner\Extras\Procedure\A\AProceduralStylePattern;
 use AlecRabbit\Spinner\Extras\Procedure\A\AProcedure;
 use AlecRabbit\Spinner\Extras\Procedure\Contract\IProcedure;
 
