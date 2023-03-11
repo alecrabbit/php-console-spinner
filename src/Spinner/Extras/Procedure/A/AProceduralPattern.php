@@ -5,22 +5,10 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Extras\Procedure\A;
 
 use AlecRabbit\Spinner\Core\Pattern\A\APattern;
-use AlecRabbit\Spinner\Exception\DomainException;
 use AlecRabbit\Spinner\Extras\Procedure\Contract\IProceduralPattern;
+use AlecRabbit\Spinner\Extras\Procedure\Mixin\GetPatternNotAllowedTrait;
 
 abstract class AProceduralPattern extends APattern implements IProceduralPattern
 {
-    /**
-     * @throws DomainException
-     */
-    public function getPattern(): iterable
-    {
-        throw new DomainException(
-            sprintf(
-                '%s can not have %s method',
-                static::class,
-                __FUNCTION__
-            )
-        );
-    }
+    use GetPatternNotAllowedTrait;
 }
