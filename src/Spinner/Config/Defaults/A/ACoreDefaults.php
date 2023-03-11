@@ -4,13 +4,13 @@ declare(strict_types=1);
 // 10.03.23
 namespace AlecRabbit\Spinner\Config\Defaults\A;
 
+use AlecRabbit\Spinner\Asynchronous\Loop\Probe\ReactLoopProbe;
+use AlecRabbit\Spinner\Asynchronous\Loop\Probe\RevoltLoopProbe;
 use AlecRabbit\Spinner\Config\Defaults\Contract\IClasses;
 use AlecRabbit\Spinner\Config\Defaults\Contract\IDefaults;
 use AlecRabbit\Spinner\Config\Defaults\Contract\ITerminal;
 use AlecRabbit\Spinner\Config\Defaults\Mixin\DefaultConst;
 use AlecRabbit\Spinner\Core\Contract\IFrame;
-use AlecRabbit\Spinner\Core\Loop\ReactLoopProbe;
-use AlecRabbit\Spinner\Core\Loop\RevoltLoopProbe;
 use AlecRabbit\Spinner\Core\Pattern\Contract\IPattern;
 use AlecRabbit\Spinner\Core\Terminal\SymfonyTerminalProbe;
 use AlecRabbit\Spinner\Factory\FrameFactory;

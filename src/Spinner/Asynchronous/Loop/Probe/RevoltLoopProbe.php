@@ -2,10 +2,11 @@
 
 declare(strict_types=1);
 // 17.02.23
-namespace AlecRabbit\Spinner\Core\Loop;
+namespace AlecRabbit\Spinner\Asynchronous\Loop\Probe;
 
-use AlecRabbit\Spinner\Core\Loop\A\ALoopProbe;
-use AlecRabbit\Spinner\Core\Loop\Contract\ILoop;
+use AlecRabbit\Spinner\Asynchronous\Loop\A\ALoopProbe;
+use AlecRabbit\Spinner\Asynchronous\Loop\Adapter\RevoltLoopAdapter;
+use AlecRabbit\Spinner\Asynchronous\Loop\Contract\ILoop;
 use Revolt\EventLoop;
 
 use function class_exists;

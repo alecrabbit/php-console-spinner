@@ -2,11 +2,9 @@
 
 declare(strict_types=1);
 
-use AlecRabbit\Spinner\Core\Frame;
-use AlecRabbit\Spinner\Core\Loop\RevoltLoopProbe;
+use AlecRabbit\Spinner\Asynchronous\Loop\Probe\RevoltLoopProbe;
 use AlecRabbit\Spinner\Factory;
 use AlecRabbit\Spinner\Factory\DefaultsFactory;
-use AlecRabbit\Spinner\Factory\WidgetFactory;
 use Revolt\EventLoop;
 
 require_once __DIR__ . '/../../bootstrap.async.php';

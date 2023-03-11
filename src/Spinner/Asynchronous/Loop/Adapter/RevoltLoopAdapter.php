@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 // 17.02.23
-namespace AlecRabbit\Spinner\Core\Loop;
+namespace AlecRabbit\Spinner\Asynchronous\Loop\Adapter;
 
+use AlecRabbit\Spinner\Asynchronous\Loop\A\ALoopAdapter;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
-use AlecRabbit\Spinner\Core\Loop\A\ALoopAdapter;
 use Closure;
 use React\EventLoop\LoopInterface;
 use Revolt\EventLoop;
