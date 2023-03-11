@@ -12,9 +12,15 @@ abstract class APattern implements IPattern
 {
     protected const UPDATE_INTERVAL = 1000;
 
+    final public function __construct(
+        protected ?int $interval = null
+    ) {
+
+    }
+
     public function getInterval(): IInterval
     {
         return
-            new Interval(static::UPDATE_INTERVAL);
+            new Interval($this->interval ?? static::UPDATE_INTERVAL);
     }
 }
