@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Core\Procedure\A;
+namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Extras\Procedure\A;
 
 use AlecRabbit\Tests\Spinner\TestCase\TestCase;
-use AlecRabbit\Tests\Spinner\Unit\Spinner\Core\Procedure\A\Override\ProgressBarSprite;
+use AlecRabbit\Tests\Spinner\Unit\Spinner\Extras\Procedure\A\Override\ProgressBarSprite;
 
 final class AProgressBarSpriteTest extends TestCase
 {

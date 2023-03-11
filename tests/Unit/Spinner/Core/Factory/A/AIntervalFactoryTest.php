@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Factory\A;
+namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Core\Factory\A;
 
 use AlecRabbit\Spinner\Core\Factory\A\AIntervalFactory;
 use AlecRabbit\Spinner\Core\Factory\DefaultsFactory;

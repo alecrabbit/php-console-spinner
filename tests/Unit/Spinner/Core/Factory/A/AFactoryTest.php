@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Factory\A;
+namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Core\Factory\A;
 
 use AlecRabbit\Spinner\Core\Config\ConfigBuilder;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
