@@ -4,7 +4,7 @@ declare(strict_types=1);
 // 18.02.23
 namespace AlecRabbit\Spinner\Asynchronous\Loop\A;
 
-use AlecRabbit\Spinner\Asynchronous\Loop\Contract\ILoop;
+use AlecRabbit\Spinner\Core\Contract\ILoop;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use AlecRabbit\Spinner\Exception\RuntimeException;
 use AlecRabbit\Spinner\Factory\A\ADefaultsAwareClass;

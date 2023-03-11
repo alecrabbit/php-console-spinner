@@ -4,8 +4,8 @@ declare(strict_types=1);
 // 17.02.23
 namespace AlecRabbit\Spinner\Factory\A;
 
-use AlecRabbit\Spinner\Asynchronous\Loop\Contract\ILoop;
 use AlecRabbit\Spinner\Asynchronous\Loop\Contract\ILoopProbe;
+use AlecRabbit\Spinner\Core\Contract\ILoop;
 use AlecRabbit\Spinner\Factory\Contract\ILoopFactory;
 use AlecRabbit\Spinner\Factory\DefaultsFactory;
 use AlecRabbit\Spinner\Mixin\NoInstanceTrait;

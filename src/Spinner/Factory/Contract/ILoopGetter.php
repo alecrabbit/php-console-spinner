@@ -1,12 +1,12 @@
 <?php
 
 declare(strict_types=1);
-// 17.02.23
+
 namespace AlecRabbit\Spinner\Factory\Contract;
 
 use AlecRabbit\Spinner\Core\Contract\ILoop;
 
-interface ILoopFactory
+interface ILoopGetter
 {
-    public static function create(): ILoop;
+    public static function getLoop(): ILoop;
 }

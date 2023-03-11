@@ -4,16 +4,20 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Factory\A;
 
-use AlecRabbit\Spinner\Asynchronous\Loop\Contract\ILoop;
 use AlecRabbit\Spinner\Asynchronous\Loop\Loop;
 use AlecRabbit\Spinner\Core\Config\ConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\IConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IConfigBuilder;
+use AlecRabbit\Spinner\Core\Config\Contract\IConfigBuilderGetter;
+use AlecRabbit\Spinner\Core\Contract\ILoop;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
-use AlecRabbit\Spinner\Factory\Contract\IFactory;
+use AlecRabbit\Spinner\Factory\Contract\ILoopGetter;
+use AlecRabbit\Spinner\Factory\Contract\ISpinnerFactory;
 use AlecRabbit\Spinner\Spinner;
 
-abstract class AFactory extends ADefaultsAwareClass implements IFactory
+abstract class ASpinnerFactory extends ADefaultsAwareClass implements ISpinnerFactory,
+                                                                      IConfigBuilderGetter,
+                                                                      ILoopGetter
 {
     protected static IConfig $config;
 

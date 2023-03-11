@@ -7,7 +7,7 @@ namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Factory\A;
 use AlecRabbit\Spinner\Core\Config\ConfigBuilder;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use AlecRabbit\Spinner\Core\Widget\NullWidget;
-use AlecRabbit\Spinner\Factory\A\AFactory;
+use AlecRabbit\Spinner\Factory\A\ASpinnerFactory;
 use AlecRabbit\Spinner\Factory\DefaultsFactory;
 use AlecRabbit\Tests\Spinner\TestCase\TestCase;
 
@@ -16,7 +16,7 @@ final class AFactoryTest extends TestCase
     /** @test */
     public function canCreateDefaultSpinner(): void
     {
-        $spinner = AFactory::createSpinner();
+        $spinner = ASpinnerFactory::createSpinner();
 
         /** @noinspection UnnecessaryAssertionInspection */
         self::assertInstanceOf(ISpinner::class, $spinner);
@@ -29,7 +29,7 @@ final class AFactoryTest extends TestCase
             (new ConfigBuilder(DefaultsFactory::create()))
                 ->withWidgets([NullWidget::create()])
                 ->build();
-        $spinner = AFactory::createSpinner($config);
+        $spinner = ASpinnerFactory::createSpinner($config);
 
         self::assertEquals(1, self::getValue('childrenCount', self::getValue('widget', $spinner)));
     }

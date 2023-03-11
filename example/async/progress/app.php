@@ -23,10 +23,10 @@ $faker = Faker\Factory::create();
 $count = 0;
 
 $defaults = DefaultsFactory::create();
-$defaults
-    ->setSpinnerStylePattern(new \AlecRabbit\Spinner\Extras\Procedure\TmpProceduralStylePattern())
-    ->setSpinnerCharPattern(new \AlecRabbit\Spinner\Extras\Procedure\TmpProceduralCharPattern())
-;
+//$defaults
+//    ->setSpinnerStylePattern(new \AlecRabbit\Spinner\Extras\Procedure\TmpProceduralStylePattern())
+//    ->setSpinnerCharPattern(new \AlecRabbit\Spinner\Extras\Procedure\TmpProceduralCharPattern())
+//;
 
 $spinner = Factory::createSpinner();
 

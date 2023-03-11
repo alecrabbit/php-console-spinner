@@ -4,7 +4,7 @@ declare(strict_types=1);
 // 17.02.23
 namespace AlecRabbit\Spinner\Asynchronous\Loop;
 
-use AlecRabbit\Spinner\Asynchronous\Loop\Contract\ILoop;
+use AlecRabbit\Spinner\Core\Contract\ILoop;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use AlecRabbit\Spinner\Factory\LoopFactory;
 
