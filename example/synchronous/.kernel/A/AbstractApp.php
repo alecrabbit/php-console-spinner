@@ -6,9 +6,9 @@ namespace Example\Kernel\A;
 
 use AlecRabbit\Spinner\Core\Config\Contract\IConfig;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
+use AlecRabbit\Spinner\Core\Factory\DefaultsFactory;
 use AlecRabbit\Spinner\Core\Output\StreamOutput;
 use AlecRabbit\Spinner\Factory;
-use AlecRabbit\Spinner\Factory\DefaultsFactory;
 use Closure;
 use Example\Kernel\AppConfig;
 use Example\Kernel\Benchmark;

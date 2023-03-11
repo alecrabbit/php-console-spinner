@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
+use AlecRabbit\Spinner\Core\Factory\WidgetFactory;
 use AlecRabbit\Spinner\Extras\FractionValue;
 use AlecRabbit\Spinner\Factory;
-use AlecRabbit\Spinner\Factory\WidgetFactory;
 use Example\Kernel\App;
 use Example\Kernel\AppConfig;
 

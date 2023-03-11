@@ -6,8 +6,8 @@ namespace AlecRabbit\Spinner\Asynchronous\Loop\Adapter\A;
 
 use AlecRabbit\Spinner\Core\Contract\ILoop;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
+use AlecRabbit\Spinner\Core\Factory\A\ADefaultsAwareClass;
 use AlecRabbit\Spinner\Exception\RuntimeException;
-use AlecRabbit\Spinner\Factory\A\ADefaultsAwareClass;
 use AlecRabbit\Spinner\Helper\Asserter;
 use Closure;
 

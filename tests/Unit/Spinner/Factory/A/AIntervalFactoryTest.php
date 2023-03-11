@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Factory\A;
 
-use AlecRabbit\Spinner\Factory\A\AIntervalFactory;
-use AlecRabbit\Spinner\Factory\DefaultsFactory;
+use AlecRabbit\Spinner\Core\Factory\A\AIntervalFactory;
+use AlecRabbit\Spinner\Core\Factory\DefaultsFactory;
 use AlecRabbit\Tests\Spinner\TestCase\TestCase;
 
 final class AIntervalFactoryTest extends TestCase

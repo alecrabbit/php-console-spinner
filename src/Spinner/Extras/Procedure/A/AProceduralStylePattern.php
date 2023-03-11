@@ -6,9 +6,9 @@ namespace AlecRabbit\Spinner\Extras\Procedure\A;
 
 use AlecRabbit\Spinner\Core\Pattern\Style\A\AStylePattern;
 use AlecRabbit\Spinner\Extras\Procedure\Contract\IProceduralPattern;
-use AlecRabbit\Spinner\Extras\Procedure\Mixin\GetPatternNotAllowedTrait;
+use AlecRabbit\Spinner\Extras\Procedure\Mixin\GetPatternMethodNotAllowedTrait;
 
 abstract class AProceduralStylePattern extends AStylePattern implements IProceduralPattern
 {
-    use GetPatternNotAllowedTrait;
+    use GetPatternMethodNotAllowedTrait;
 }

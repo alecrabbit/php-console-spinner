@@ -6,8 +6,8 @@ namespace AlecRabbit\Spinner\Core;
 
 use AlecRabbit\Spinner\Core\A\AFramesRenderer;
 use AlecRabbit\Spinner\Core\Contract\IFrame;
+use AlecRabbit\Spinner\Core\Factory\FrameFactory;
 use AlecRabbit\Spinner\Core\Pattern\Contract\IStylePattern;
-use AlecRabbit\Spinner\Factory\FrameFactory;
 
 use const AlecRabbit\Spinner\CSI;
 use const AlecRabbit\Spinner\RESET;

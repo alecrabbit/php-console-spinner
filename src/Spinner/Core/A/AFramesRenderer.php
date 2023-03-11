@@ -6,9 +6,9 @@ namespace AlecRabbit\Spinner\Core\A;
 
 use AlecRabbit\Spinner\Core\Contract\IFrame;
 use AlecRabbit\Spinner\Core\Contract\IFrameRenderer;
+use AlecRabbit\Spinner\Core\Factory\A\ADefaultsAwareClass;
 use AlecRabbit\Spinner\Core\Pattern\Contract\IPattern;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
-use AlecRabbit\Spinner\Factory\A\ADefaultsAwareClass;
 
 abstract class AFramesRenderer extends ADefaultsAwareClass implements IFrameRenderer
 {

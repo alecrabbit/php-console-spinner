@@ -6,6 +6,7 @@ namespace AlecRabbit\Spinner\Extras\A;
 
 use AlecRabbit\Spinner\Core\Contract\IFrame;
 use AlecRabbit\Spinner\Core\Contract\IInterval;
+use AlecRabbit\Spinner\Core\Factory\A\AWidgetFactory;
 use AlecRabbit\Spinner\Core\Revolver\ProceduralRevolver;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
 use AlecRabbit\Spinner\Extras\Contract\IProgressBarSprite;
@@ -15,7 +16,6 @@ use AlecRabbit\Spinner\Extras\Procedure\ProgresBarProcedure;
 use AlecRabbit\Spinner\Extras\Procedure\ProgressStepsProcedure;
 use AlecRabbit\Spinner\Extras\Procedure\ProgressValueProcedure;
 use AlecRabbit\Spinner\Extras\ProgressBarSprite;
-use AlecRabbit\Spinner\Factory\A\AWidgetFactory;
 
 abstract class AProgressWidgetFactory extends AWidgetFactory implements IProgressWidgetFactory
 {

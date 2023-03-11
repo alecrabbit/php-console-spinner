@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Spinner\Factory\A;
+namespace AlecRabbit\Spinner\Core\Factory\A;
 
 use AlecRabbit\Spinner\Core\Contract\IInterval;
+use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalFactory;
 use AlecRabbit\Spinner\Core\Interval;
-use AlecRabbit\Spinner\Factory\Contract\IIntervalFactory;
 
 abstract class AIntervalFactory extends ADefaultsAwareClass implements IIntervalFactory
 {

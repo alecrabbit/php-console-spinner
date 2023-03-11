@@ -4,12 +4,11 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Core\Revolver\A;
 
-use AlecRabbit\Spinner\Core\Frame;
+use AlecRabbit\Spinner\Core\Factory\FrameFactory;
 use AlecRabbit\Spinner\Core\Interval;
 use AlecRabbit\Spinner\Core\Revolver\A\AFrameCollectionRevolver;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Exception\LogicException;
-use AlecRabbit\Spinner\Factory\FrameFactory;
 use AlecRabbit\Tests\Spinner\TestCase\TestCase;
 use TypeError;
 

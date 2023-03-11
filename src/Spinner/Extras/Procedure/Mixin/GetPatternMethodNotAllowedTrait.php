@@ -5,7 +5,7 @@ namespace AlecRabbit\Spinner\Extras\Procedure\Mixin;
 
 use AlecRabbit\Spinner\Exception\DomainException;
 
-trait GetPatternNotAllowedTrait
+trait GetPatternMethodNotAllowedTrait
 {
     /**
      * @throws DomainException
