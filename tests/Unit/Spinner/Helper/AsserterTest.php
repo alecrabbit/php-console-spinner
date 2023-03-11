@@ -117,19 +117,4 @@ final class AsserterTest extends TestCase
         Asserter::assertExtensionLoaded($extension);
         self::fail(sprintf('[%s] Exception not thrown', __METHOD__));
     }
-//{
-//        $invalidLevel = 1;
-//        $invalidColorSupportLevels = [$invalidLevel];
-//        $this->expectException(InvalidArgumentException::class);
-//        $this->expectExceptionMessage(
-//            sprintf(
-//                'Color support level "%s" is not allowed. Allowed values are [%s].',
-//                $invalidLevel,
-//                implode(', ', KNOWN_TERM_COLOR),
-//            )
-//        );
-
-//        Asserter::assertColorSupportLevels($invalidColorSupportLevels);
-//        self::fail(sprintf('[%s] Exception not thrown', __METHOD__));
-//    }
 }
