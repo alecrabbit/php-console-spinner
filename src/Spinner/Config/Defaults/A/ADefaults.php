@@ -11,6 +11,7 @@ use AlecRabbit\Spinner\Core\Contract\IFrame;
 use AlecRabbit\Spinner\Core\Pattern\Char\Snake;
 use AlecRabbit\Spinner\Core\Pattern\Contract\IPattern;
 use AlecRabbit\Spinner\Core\Pattern\Style\Rainbow;
+use AlecRabbit\Spinner\Helper\Deprecation;
 
 abstract class ADefaults extends ASettableDefaults
 {
@@ -85,10 +86,7 @@ abstract class ADefaults extends ASettableDefaults
 
     public function getColorSupportLevels(): array
     {
-        \trigger_error(
-            'getColorSupportLevels() is deprecated. No replacement.',
-            E_USER_DEPRECATED
-        );
+        Deprecation::method(__METHOD__);
         return static::$colorSupportLevels;
     }
 

@@ -14,11 +14,14 @@ final class Deprecation
 {
     use NoInstanceTrait;
 
-    public static function method(string $method): void
+    public static function method(string $method, ?string $message = null): void
     {
-        $c = new ClassImpl();
         trigger_error(
-            sprintf('Method "%s" is deprecated', $method),
+            sprintf(
+                'Method "%s" is deprecated%s.',
+                $method,
+                $message ?? sprintf(', %s', $message),
+            ),
             E_USER_DEPRECATED
         );
     }
