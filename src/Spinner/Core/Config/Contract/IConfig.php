@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Spinner\Config\Contract;
+namespace AlecRabbit\Spinner\Core\Config\Contract;
 
 use AlecRabbit\Spinner\Core\Contract\ITimer;
 use AlecRabbit\Spinner\Core\Output\Contract\IDriver;

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Spinner\Config\Defaults\Mixin;
+namespace AlecRabbit\Spinner\Core\Defaults\Mixin;
 
-use AlecRabbit\Spinner\Config\Defaults\Contract\IDefaults;
+use AlecRabbit\Spinner\Core\Defaults\Contract\IDefaults;
 use AlecRabbit\Spinner\Factory\DefaultsFactory;
 
 trait DefaultsAwareTrait

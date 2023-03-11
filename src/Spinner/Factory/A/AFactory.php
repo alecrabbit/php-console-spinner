@@ -6,9 +6,9 @@ namespace AlecRabbit\Spinner\Factory\A;
 
 use AlecRabbit\Spinner\Asynchronous\Loop\Contract\ILoop;
 use AlecRabbit\Spinner\Asynchronous\Loop\Loop;
-use AlecRabbit\Spinner\Config\ConfigBuilder;
-use AlecRabbit\Spinner\Config\Contract\IConfig;
-use AlecRabbit\Spinner\Config\Contract\IConfigBuilder;
+use AlecRabbit\Spinner\Core\Config\ConfigBuilder;
+use AlecRabbit\Spinner\Core\Config\Contract\IConfig;
+use AlecRabbit\Spinner\Core\Config\Contract\IConfigBuilder;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use AlecRabbit\Spinner\Factory\Contract\IFactory;
 use AlecRabbit\Spinner\Spinner;

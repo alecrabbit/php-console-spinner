@@ -6,7 +6,7 @@ namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Config\Defaults\A;
 
 use AlecRabbit\Spinner\Asynchronous\Loop\Probe\ReactLoopProbe;
 use AlecRabbit\Spinner\Asynchronous\Loop\Probe\RevoltLoopProbe;
-use AlecRabbit\Spinner\Config\Defaults\A\ADefaults;
+use AlecRabbit\Spinner\Core\Defaults\A\ADefaults;
 use AlecRabbit\Spinner\Core\Widget\WidgetBuilder;
 use AlecRabbit\Spinner\Core\Widget\WidgetRevolverBuilder;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;

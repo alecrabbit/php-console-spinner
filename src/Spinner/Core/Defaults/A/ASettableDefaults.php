@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 // 10.03.23
-namespace AlecRabbit\Spinner\Config\Defaults\A;
+namespace AlecRabbit\Spinner\Core\Defaults\A;
 
 use AlecRabbit\Spinner\Asynchronous\Loop\Contract\ILoopProbe;
 use AlecRabbit\Spinner\Core\Contract\IFrame;

@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 // 20.06.22
-namespace AlecRabbit\Spinner\Config\Defaults\A;
+namespace AlecRabbit\Spinner\Core\Defaults\A;
 
-use AlecRabbit\Spinner\Config\Defaults\Contract\IClasses;
-use AlecRabbit\Spinner\Config\Defaults\Contract\IDefaults;
-use AlecRabbit\Spinner\Config\Defaults\Contract\ITerminal;
 use AlecRabbit\Spinner\Core\Contract\IFrame;
+use AlecRabbit\Spinner\Core\Defaults\Contract\IClasses;
+use AlecRabbit\Spinner\Core\Defaults\Contract\IDefaults;
 use AlecRabbit\Spinner\Core\Pattern\Char\Snake;
 use AlecRabbit\Spinner\Core\Pattern\Contract\IPattern;
 use AlecRabbit\Spinner\Core\Pattern\Style\Rainbow;
+use AlecRabbit\Spinner\Core\Terminal\Contract\ITerminal;
 use AlecRabbit\Spinner\Helper\Deprecation;
 
 abstract class ADefaults extends ASettableDefaults

@@ -11,7 +11,7 @@ final class Snake extends APattern
 {
     protected const UPDATE_INTERVAL = 80;
 
-    public function getPattern(): iterable|IProcedure
+    public function getPattern(): iterable
     {
         return ['⠏', '⠛', '⠹', '⢸', '⣰', '⣤', '⣆', '⡇'];
     }

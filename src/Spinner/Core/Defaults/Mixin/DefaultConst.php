@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 // 14.02.23
-namespace AlecRabbit\Spinner\Config\Defaults\Mixin;
+namespace AlecRabbit\Spinner\Core\Defaults\Mixin;
 
 use const AlecRabbit\Spinner\KNOWN_TERM_COLOR;
 

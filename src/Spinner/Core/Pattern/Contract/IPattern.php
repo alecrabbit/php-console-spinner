@@ -9,7 +9,7 @@ use AlecRabbit\Spinner\Core\Procedure\Contract\IProcedure;
 
 interface IPattern
 {
-    public function getPattern(): iterable|IProcedure;
+    public function getPattern(): iterable;
 
     public function getInterval(): IInterval;
 }

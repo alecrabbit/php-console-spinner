@@ -2,8 +2,9 @@
 
 declare(strict_types=1);
 // 09.03.23
-namespace AlecRabbit\Spinner\Core\Terminal;
+namespace AlecRabbit\Spinner\Extras\Terminal;
 
+use AlecRabbit\Spinner\Core\ColorMode;
 use AlecRabbit\Spinner\Core\Terminal\A\ATerminalProbe;
 use Symfony\Component\Console\Output\AnsiColorMode;
 use Symfony\Component\Console\Terminal;

@@ -41,7 +41,7 @@ abstract class ARevolverBuilder implements IRevolverBuilder
     {
         if ($this->pattern instanceof IProceduralPattern) {
             $revolver = new ProceduralRevolver(
-                $this->pattern->getPattern(),
+                $this->pattern->getProcedure(),
                 $this->pattern->getInterval()
             );
             if ($this->pattern instanceof AProceduralStylePattern) {

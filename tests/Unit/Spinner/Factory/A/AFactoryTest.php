@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Factory\A;
 
-use AlecRabbit\Spinner\Config\ConfigBuilder;
+use AlecRabbit\Spinner\Core\Config\ConfigBuilder;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use AlecRabbit\Spinner\Core\Widget\NullWidget;
 use AlecRabbit\Spinner\Factory\A\AFactory;

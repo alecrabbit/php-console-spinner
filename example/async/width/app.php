@@ -2,8 +2,8 @@
 
 declare(strict_types=1);
 
+use AlecRabbit\Spinner\Core\ColorMode;
 use AlecRabbit\Spinner\Core\Output\StreamOutput;
-use AlecRabbit\Spinner\Core\Terminal\ColorMode;
 use AlecRabbit\Spinner\Factory;
 use AlecRabbit\Spinner\Factory\DefaultsFactory;
 

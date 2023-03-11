@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Config\Defaults\A;
 
-use AlecRabbit\Spinner\Config\Defaults\A\AClasses;
+use AlecRabbit\Spinner\Core\Defaults\A\AClasses;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetBuilder;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolverBuilder;
 use AlecRabbit\Spinner\Core\Widget\WidgetBuilder;

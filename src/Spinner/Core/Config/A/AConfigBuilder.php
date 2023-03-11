@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Spinner\Config\A;
+namespace AlecRabbit\Spinner\Core\Config\A;
 
-use AlecRabbit\Spinner\Config\Config;
-use AlecRabbit\Spinner\Config\Contract\IConfig;
-use AlecRabbit\Spinner\Config\Contract\IConfigBuilder;
-use AlecRabbit\Spinner\Config\Defaults\Contract\IDefaults;
+use AlecRabbit\Spinner\Core\Config\Config;
+use AlecRabbit\Spinner\Core\Config\Contract\IConfig;
+use AlecRabbit\Spinner\Core\Config\Contract\IConfigBuilder;
 use AlecRabbit\Spinner\Core\Contract\IFrame;
 use AlecRabbit\Spinner\Core\Contract\ITimer;
+use AlecRabbit\Spinner\Core\Defaults\Contract\IDefaults;
 use AlecRabbit\Spinner\Core\Driver;
 use AlecRabbit\Spinner\Core\Output\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Output\Contract\IOutput;

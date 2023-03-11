@@ -8,5 +8,5 @@ use AlecRabbit\Spinner\Core\Procedure\Contract\IProcedure;
 
 interface IProceduralPattern
 {
-    public function getPattern(): IProcedure;
+    public function getProcedure(): IProcedure;
 }

@@ -1,6 +1,6 @@
 <?php
 // 09.03.23
-namespace AlecRabbit\Spinner\Core\Terminal;
+namespace AlecRabbit\Spinner\Core;
 
 enum ColorMode
 {

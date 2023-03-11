@@ -4,8 +4,8 @@ declare(strict_types=1);
 // 14.02.23
 namespace AlecRabbit\Spinner\Factory;
 
-use AlecRabbit\Spinner\Config\Defaults\A\ADefaults;
-use AlecRabbit\Spinner\Config\Defaults\Contract\IDefaults;
+use AlecRabbit\Spinner\Core\Defaults\A\ADefaults;
+use AlecRabbit\Spinner\Core\Defaults\Contract\IDefaults;
 use AlecRabbit\Spinner\Exception\DomainException;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Helper\Asserter;

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Spinner\Config\A;
+namespace AlecRabbit\Spinner\Core\Config\A;
 
-use AlecRabbit\Spinner\Config\Contract\IConfig;
+use AlecRabbit\Spinner\Core\Config\Contract\IConfig;
 use AlecRabbit\Spinner\Core\Contract\ITimer;
 use AlecRabbit\Spinner\Core\Output\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;

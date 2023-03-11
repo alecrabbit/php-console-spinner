@@ -17,7 +17,7 @@ final class TmpProceduralCharPattern extends AProceduralPattern
 {
     protected const UPDATE_INTERVAL = 500;
 
-    public function getPattern(): IProcedure
+    public function getProcedure(): IProcedure
     {
         return
             new class() extends AProcedure {

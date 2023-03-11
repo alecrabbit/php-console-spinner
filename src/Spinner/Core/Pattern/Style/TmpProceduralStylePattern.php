@@ -17,7 +17,7 @@ final class TmpProceduralStylePattern extends AProceduralStylePattern
 {
     protected const UPDATE_INTERVAL = 1000;
 
-    public function getPattern(): IProcedure
+    public function getProcedure(): IProcedure
     {
         return new class() extends AProcedure {
             public function update(float $dt = null): IFrame

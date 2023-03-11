@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 // 09.03.23
-namespace AlecRabbit\Spinner\Config\Defaults\A;
+namespace AlecRabbit\Spinner\Core\Terminal\A;
 
-use AlecRabbit\Spinner\Config\Defaults\Contract\ITerminal;
-use AlecRabbit\Spinner\Core\Terminal\ColorMode;
+use AlecRabbit\Spinner\Core\ColorMode;
+use AlecRabbit\Spinner\Core\Terminal\Contract\ITerminal;
 use AlecRabbit\Spinner\Core\Terminal\Contract\ITerminalProbe;
 
 abstract class ATerminal implements ITerminal
