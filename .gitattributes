@@ -13,7 +13,6 @@ example/ export-ignore
 .gitattributes.keep export-ignore
 .github/ export-ignore
 .gitignore export-ignore
-.idea/ export-ignore
 .make/ export-ignore
 Makefile export-ignore
 phpcs.xml export-ignore
