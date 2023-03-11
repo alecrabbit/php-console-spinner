@@ -51,6 +51,11 @@ final class Asserter
      */
     public static function assertColorSupportLevels(array $colorSupportLevels): void
     {
+        \trigger_error(
+            sprintf('Method "%s" is deprecated', __METHOD__),
+            E_USER_DEPRECATED
+        );
+
         if ($colorSupportLevels === []) {
             throw new InvalidArgumentException('Color support levels must not be empty.');
         }

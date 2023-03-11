@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Spinner\Mixin;
+namespace AlecRabbit\Spinner\Config\Defaults\Mixin;
 
 use AlecRabbit\Spinner\Config\Defaults\Contract\IDefaults;
 use AlecRabbit\Spinner\Factory\DefaultsFactory;
