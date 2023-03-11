@@ -12,10 +12,10 @@ All notable changes to this project will be documented in this file.
 ### {{ .Title }}
 {{ range .Commits -}}
 - {{ if .Scope }}**{{ .Scope }}:** {{ end }}{{ .Subject }}
-  {{ end }}
-  {{ end -}}
-  {{ end -}}
-  {{ end -}}
+{{ end }}
+{{ end -}}
+{{ end -}}
+{{ end -}}
 
 {{ range .Versions }}
 <a name="{{ .Tag.Name }}"></a>
@@ -24,22 +24,22 @@ All notable changes to this project will be documented in this file.
 ### {{ .Title }}
 {{ range .Commits -}}
 - {{ if .Scope }}**{{ .Scope }}:** {{ end }}{{ .Subject }}
-  {{ end }}
-  {{ end -}}
+{{ end }}
+{{ end -}}
 
 {{- if .RevertCommits -}}
 ### Reverts
 {{ range .RevertCommits -}}
 - {{ .Revert.Header }}
-  {{ end }}
-  {{ end -}}
+{{ end }}
+{{ end -}}
 
 {{- if .MergeCommits -}}
 ### Pull Requests
 {{ range .MergeCommits -}}
 - {{ .Header }}
-  {{ end }}
-  {{ end -}}
+{{ end }}
+{{ end -}}
 
 {{- if .NoteGroups -}}
 {{ range .NoteGroups -}}
@@ -59,7 +59,7 @@ All notable changes to this project will be documented in this file.
 {{ end -}}
 {{ end -}}
 {{ end -}}
-
+ 
 ---
 
 - the format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
