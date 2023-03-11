@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 // 10.03.23
-namespace AlecRabbit\Spinner\Core\Procedure\A;
+namespace AlecRabbit\Spinner\Extras\Procedure\A;
 
 use AlecRabbit\Spinner\Core\Pattern\A\APattern;
-use AlecRabbit\Spinner\Core\Procedure\Contract\IProceduralPattern;
 use AlecRabbit\Spinner\Exception\DomainException;
+use AlecRabbit\Spinner\Extras\Procedure\Contract\IProceduralPattern;
 
 abstract class AProceduralPattern extends APattern implements IProceduralPattern
 {

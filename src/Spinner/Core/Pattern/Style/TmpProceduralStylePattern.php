@@ -7,8 +7,8 @@ namespace AlecRabbit\Spinner\Core\Pattern\Style;
 use AlecRabbit\Spinner\Core\Contract\IFrame;
 use AlecRabbit\Spinner\Core\Frame;
 use AlecRabbit\Spinner\Core\Pattern\Style\A\AProceduralStylePattern;
-use AlecRabbit\Spinner\Core\Procedure\A\AProcedure;
-use AlecRabbit\Spinner\Core\Procedure\Contract\IProcedure;
+use AlecRabbit\Spinner\Extras\Procedure\A\AProcedure;
+use AlecRabbit\Spinner\Extras\Procedure\Contract\IProcedure;
 
 /**
  * TODO move(and rename) this class to Extras package?

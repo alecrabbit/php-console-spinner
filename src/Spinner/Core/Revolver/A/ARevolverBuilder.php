@@ -8,13 +8,13 @@ use AlecRabbit\Spinner\Core\FramesRenderer;
 use AlecRabbit\Spinner\Core\Pattern\Contract\IPattern;
 use AlecRabbit\Spinner\Core\Pattern\Contract\IStylePattern;
 use AlecRabbit\Spinner\Core\Pattern\Style\A\AProceduralStylePattern;
-use AlecRabbit\Spinner\Core\Procedure\Contract\IProceduralPattern;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolverBuilder;
 use AlecRabbit\Spinner\Core\Revolver\FrameCollectionRevolver;
 use AlecRabbit\Spinner\Core\Revolver\ProceduralRevolver;
 use AlecRabbit\Spinner\Core\StyleFramesRenderer;
 use AlecRabbit\Spinner\Exception\DomainException;
+use AlecRabbit\Spinner\Extras\Procedure\Contract\IProceduralPattern;
 
 // TODO should this class be a factory?
 // FIXME class has a dependency on Procedural functionality

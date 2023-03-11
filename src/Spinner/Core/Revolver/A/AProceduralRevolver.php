@@ -6,7 +6,7 @@ namespace AlecRabbit\Spinner\Core\Revolver\A;
 
 use AlecRabbit\Spinner\Core\Contract\IFrame;
 use AlecRabbit\Spinner\Core\Contract\IInterval;
-use AlecRabbit\Spinner\Core\Procedure\Contract\IProcedure;
+use AlecRabbit\Spinner\Extras\Procedure\Contract\IProcedure;
 
 abstract class AProceduralRevolver extends ARevolver
 {

@@ -4,8 +4,8 @@ declare(strict_types=1);
 // 10.03.23
 namespace AlecRabbit\Spinner\Core\Pattern\Style\A;
 
-use AlecRabbit\Spinner\Core\Procedure\Contract\IProceduralPattern;
 use AlecRabbit\Spinner\Exception\DomainException;
+use AlecRabbit\Spinner\Extras\Procedure\Contract\IProceduralPattern;
 
 abstract class AProceduralStylePattern extends AStylePattern implements IProceduralPattern
 {
