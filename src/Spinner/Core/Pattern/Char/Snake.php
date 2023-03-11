@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Pattern\Char;
 
 use AlecRabbit\Spinner\Core\Pattern\A\APattern;
-use AlecRabbit\Spinner\Core\Procedure\Contract\IProcedure;
 
 final class Snake extends APattern
 {
