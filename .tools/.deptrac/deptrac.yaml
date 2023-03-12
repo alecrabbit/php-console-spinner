@@ -1,6 +1,6 @@
 deptrac:
   paths:
-    - ./src
+    - ../../src
   exclude_files:
     - '#.*test.*#'
   layers:

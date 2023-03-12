@@ -1,6 +1,7 @@
 include ${_APP_DIR}/app.init.Makefile
 
-_tools_run: _run_phploc
+_tools_run: _run_phploc _run_deptrac
+	@${_NO_OP};
 
 PHPLOC_DIR = /usr/local/bin
 
@@ -10,6 +11,9 @@ _run_phploc:
 	@-${_DC_EXEC} ${APP_CONTAINER} ${PHPLOC_DIR}/phploc src > ${APP_DIR}/.tools/.report/.phploc/.phploc_baseline
 	@-cat ${APP_DIR}/.tools/.report/.phploc/.phploc_baseline
 	@${_ECHO} "${_C_STOP}\n";
+
+_run_deptrac:
+	@-${_DC_EXEC} ${APP_CONTAINER} deptrac analyse --config-file=${APP_DIR}/.tools/.deptrac/deptrac.yaml
 
 test:
 	@$(eval c ?=)
