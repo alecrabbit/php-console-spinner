@@ -1,8 +1,8 @@
+# Add module files here
+imports:
+  - .common/paths.yaml
+
 deptrac:
-  paths:
-    - ../../src
-  exclude_files:
-    - '#.*test.*#'
   layers:
     - name: Controller
       collectors:

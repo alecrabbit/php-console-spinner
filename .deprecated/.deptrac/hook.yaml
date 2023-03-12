@@ -1,0 +1,61 @@
+###  Module - Hook
+parameters:
+  HookGatewayLayerDir: src/Gateway/Hook
+  HookGatewayContractLayerDir: src/Gateway/Hook/Contract
+  HookControllerContractLayerDir: src/Hook/Infrastructure/Controller/Contract
+  HookApiLayerDir: src/Hook/Api
+  HookInfrastructureLayerDir: src/Hook/Infrastructure
+
+  layers:
+    - name: LHookGateway
+      collectors:
+        - type: bool
+          must:
+            - type: directory
+              regex: '%HookGatewayLayerDir%'
+          must_not:
+            - type: directory
+              regex: '%HookGatewayContractLayerDir%'
+    - name: LHookGatewayContract
+      collectors:
+        - type: bool
+          must:
+            - type: directory
+              regex: '%HookGatewayContractLayerDir%'
+    - name: LHookControllerContract
+      collectors:
+        - type: bool
+          must:
+            - type: directory
+              regex: '%HookControllerContractLayerDir%'
+    - name: LHookApi
+      collectors:
+        - type: bool
+          must:
+            - type: directory
+              regex: '%HookApiLayerDir%'
+    - name: LHookInfrastructure
+      collectors:
+        - type: bool
+          must:
+            - type: directory
+              regex: '%HookInfrastructureLayerDir%'
+          must_not:
+            - type: directory
+              regex: '%HookControllerContractLayerDir%'
+            - type: className
+              regex: '.*Adapter\\Module.*'
+
+  ruleset:
+    LHookGateway:
+      - LHookApi
+      - +LHookGatewayContract
+    LHookGatewayContract:
+      - +LHookControllerContract
+    LHookControllerContract:
+      - LHookApi
+      - +LHookInfrastructure
+    LHookApi:
+      - +SharedDomainLayer
+    LHookInfrastructure:
+      - +SharedInfrastructureLayer

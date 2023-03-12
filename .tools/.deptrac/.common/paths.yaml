@@ -1,0 +1,5 @@
+deptrac:
+  paths:
+    - ../../src
+  exclude_files:
+    - '#.*test.*#'
