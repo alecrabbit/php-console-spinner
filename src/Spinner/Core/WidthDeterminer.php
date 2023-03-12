@@ -1,7 +1,7 @@
 <?php
 
 declare(strict_types=1);
-// 02.03.23
+
 namespace AlecRabbit\Spinner\Core;
 
 use AlecRabbit\Spinner\Mixin\NoInstanceTrait;
@@ -11,7 +11,6 @@ use function AlecRabbit\WCWidth\wcswidth;
 use function mb_strlen;
 use function strlen;
 
-/** @internal */
 final class WidthDeterminer
 {
     use NoInstanceTrait;
