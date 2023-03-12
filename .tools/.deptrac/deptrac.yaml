@@ -95,6 +95,7 @@ deptrac:
       - +ModuleException
       - +ModuleHelper
       - +ModuleMixin
+      - ILoop
     ModuleException: ~
     ModuleMixin: ~
     VendorSymfony: ~

@@ -12,10 +12,10 @@ use AlecRabbit\Spinner\Core\Factory\Contract\IWidgetFactory;
 use AlecRabbit\Spinner\Core\Factory\FrameFactory;
 use AlecRabbit\Spinner\Core\Factory\IntervalFactory;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
-use AlecRabbit\Spinner\Core\Revolver\ProceduralRevolver;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetBuilder;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolverBuilder;
+use AlecRabbit\Spinner\Extras\Revolver\ProceduralRevolver;
 
 abstract class AWidgetFactory extends ADefaultsAwareClass implements IWidgetFactory
 {

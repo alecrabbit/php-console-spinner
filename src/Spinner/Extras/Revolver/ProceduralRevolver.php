@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Spinner\Core\Revolver;
+namespace AlecRabbit\Spinner\Extras\Revolver;
 
 use AlecRabbit\Spinner\Extras\Revolver\A\AProceduralRevolver;
 
