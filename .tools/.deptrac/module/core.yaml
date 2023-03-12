@@ -1,4 +1,4 @@
-deptrac:
+parameters:
   CoreDirectory: src/Core
   layers:
     - name: ModuleCore

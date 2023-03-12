@@ -1,9 +1,9 @@
 /vendor/
 /.eval/
 /.idea/
+.deptrac.cache
 .ready
 .last_init_time
 .start_time
 docker-stack.yml
 .env
-

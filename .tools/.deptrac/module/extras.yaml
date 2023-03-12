@@ -1,5 +1,6 @@
-deptrac:
+parameters:
   ExtrasDirectory: src/Extras
+deptrac:
   layers:
     - name: ModuleExtras
       collectors:
