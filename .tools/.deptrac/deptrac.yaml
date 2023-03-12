@@ -1,24 +1,11 @@
 # Add module files here
 imports:
   - .common/paths.yaml
+  - module/core.yaml
+  - module/extras.yaml
 
 deptrac:
-  layers:
-    - name: Controller
-      collectors:
-        - type: className
-          value: .*Controller.*
-    - name: Repository
-      collectors:
-        - type: className
-          value: .*Repository.*
-    - name: Service
-      collectors:
-        - type: className
-          value: .*Service.*
   ruleset:
-    Controller:
-      - Service
-    Service:
-      - Repository
-    Repository:
+    ModuleExtras:
+      - ModuleCore
+    ModuleCore:

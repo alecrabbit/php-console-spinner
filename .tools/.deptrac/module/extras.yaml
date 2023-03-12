@@ -1,0 +1,9 @@
+deptrac:
+  ExtrasDirectory: src/Extras
+  layers:
+    - name: ModuleExtras
+      collectors:
+        - type: bool
+          must:
+            - type: directory
+              regex: '%ExtrasDirectory%'

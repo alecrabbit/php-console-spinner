@@ -1,0 +1,9 @@
+deptrac:
+  CoreDirectory: src/Core
+  layers:
+    - name: ModuleCore
+      collectors:
+        - type: bool
+          must:
+            - type: directory
+              regex: '%CoreDirectory%'
