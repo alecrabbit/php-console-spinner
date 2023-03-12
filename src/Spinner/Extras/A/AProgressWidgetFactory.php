@@ -6,7 +6,9 @@ namespace AlecRabbit\Spinner\Extras\A;
 
 use AlecRabbit\Spinner\Core\Contract\IFrame;
 use AlecRabbit\Spinner\Core\Contract\IInterval;
+use AlecRabbit\Spinner\Core\Contract\IProcedure;
 use AlecRabbit\Spinner\Core\Factory\A\AWidgetFactory;
+use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
 use AlecRabbit\Spinner\Extras\Contract\IProgressBarSprite;
 use AlecRabbit\Spinner\Extras\Contract\IProgressValue;
@@ -71,6 +73,34 @@ abstract class AProgressWidgetFactory extends AWidgetFactory implements IProgres
             );
     }
 
+    public static function createProcedureWidget(
+        IProcedure $procedure,
+        ?IInterval $updateInterval = null,
+        ?IFrame $leadingSpacer = null,
+        ?IFrame $trailingSpacer = null,
+        ?IRevolver $styleRevolver = null,
+    ): IWidgetComposite {
+        $updateInterval ??= static::getDefaultUpdateInterval();
+
+        $revolver =
+            static::getWidgetRevolverBuilder()
+                ->withStyleRevolver($styleRevolver)
+                ->withCharRevolver(
+                    new ProceduralRevolver(
+                        $procedure,
+                        $updateInterval
+                    )
+                )
+                ->build();
+
+        return
+            static::create(
+                $revolver,
+                $leadingSpacer,
+                $trailingSpacer
+            );
+    }
+
     public static function createProgressValue(
         IProgressValue $progressValue,
         ?string $format = null,
@@ -92,4 +122,5 @@ abstract class AProgressWidgetFactory extends AWidgetFactory implements IProgres
                 $trailingSpacer
             );
     }
+
 }

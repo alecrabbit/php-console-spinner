@@ -6,7 +6,6 @@ namespace AlecRabbit\Spinner\Core\Factory\A;
 
 use AlecRabbit\Spinner\Core\Contract\IFrame;
 use AlecRabbit\Spinner\Core\Contract\IInterval;
-use AlecRabbit\Spinner\Core\Contract\IProcedure;
 use AlecRabbit\Spinner\Core\EmptyFrameRevolver;
 use AlecRabbit\Spinner\Core\Factory\Contract\IWidgetFactory;
 use AlecRabbit\Spinner\Core\Factory\FrameFactory;
@@ -15,7 +14,6 @@ use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetBuilder;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolverBuilder;
-use AlecRabbit\Spinner\Extras\Revolver\ProceduralRevolver;
 
 abstract class AWidgetFactory extends ADefaultsAwareClass implements IWidgetFactory
 {
@@ -80,34 +78,6 @@ abstract class AWidgetFactory extends ADefaultsAwareClass implements IWidgetFact
         return
             new $widgetRevolverBuilderClass(
                 static::getDefaults(),
-            );
-    }
-
-    public static function createProcedureWidget(
-        IProcedure $procedure,
-        ?IInterval $updateInterval = null,
-        ?IFrame $leadingSpacer = null,
-        ?IFrame $trailingSpacer = null,
-        ?IRevolver $styleRevolver = null,
-    ): IWidgetComposite {
-        $updateInterval ??= static::getDefaultUpdateInterval();
-
-        $revolver =
-            static::getWidgetRevolverBuilder()
-                ->withStyleRevolver($styleRevolver)
-                ->withCharRevolver(
-                    new ProceduralRevolver(
-                        $procedure,
-                        $updateInterval
-                    )
-                )
-                ->build();
-
-        return
-            static::create(
-                $revolver,
-                $leadingSpacer,
-                $trailingSpacer
             );
     }
 

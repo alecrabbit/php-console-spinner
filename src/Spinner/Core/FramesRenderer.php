@@ -8,7 +8,6 @@ use AlecRabbit\Spinner\Core\A\AFramesRenderer;
 use AlecRabbit\Spinner\Core\Contract\IFrame;
 use AlecRabbit\Spinner\Core\Factory\FrameFactory;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
-
 use Stringable;
 
 use function is_array;
