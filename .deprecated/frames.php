@@ -95,17 +95,6 @@ interface Frames
         '⠂',
     ];
 
-    public const SQUARE = [
-        '◼    ',
-        ' ◼   ',
-        '  ◼  ',
-        '   ◼ ',
-        '    ◼',
-        '   ◼ ',
-        '  ◼  ',
-        ' ◼   ',
-    ];
-
     public const SQUARE_VARIANT_1 = [
         '▩',
         '▦',
@@ -189,24 +178,11 @@ interface Frames
         ];
 
 
-    public const DICE = ['⚀', '⚁', '⚂', '⚃', '⚄', '⚅',];
-
     public const ARROWS = ['➙', '➘', '➙', '➚',];
     public const ARROWS_VARIANT_4 = ['←', '↖', '↑', '↗', '→', '↘', '↓', '↙',];
     public const ARROWS_VARIANT_5 = ['⇐', '⇖', '⇑', '⇗', '⇒', '⇘', '⇓', '⇙',];
     public const TREE = ['🌲', '🎄',];
 
-
-    public const TOGGLE = [
-        '⊶',
-        '⊷',
-    ];
-    public const TOGGLE_VARIANT_1 = [
-        '■',
-        '□',
-        '▪',
-        '▫',
-    ];
     public const BOUNCING_BAR = [
         '[    ]',
         '[=   ]',
