@@ -6,7 +6,7 @@ namespace AlecRabbit\Spinner\Asynchronous\Loop\Probe;
 
 use AlecRabbit\Spinner\Asynchronous\Loop\Adapter\ReactLoopAdapter;
 use AlecRabbit\Spinner\Asynchronous\Loop\Probe\A\ALoopProbe;
-use AlecRabbit\Spinner\Extras\Contract\ILoop;
+use AlecRabbit\Spinner\Core\Contract\ILoop;
 use React\EventLoop\Loop;
 
 use function class_exists;

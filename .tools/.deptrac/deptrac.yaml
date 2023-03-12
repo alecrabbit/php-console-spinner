@@ -1,27 +1,79 @@
-## Add module files here
-#imports:
-#  - .common/paths.yaml
-#  - module/core.yaml
-#  - module/extras.yaml
-
-parameters:
-  CoreDirectory: src/Core
-
 deptrac:
   paths:
     - ../../src
+    - ../../vendor
   exclude_files:
     - '#.*test.*#'
 
-  layers:
-    - name: ModuleCore
-      collectors:
-        - type: bool
-          must:
-            - type: directory
-              regex: '%CoreDirectory%'
+#  layers:
+#    - name: ModuleCore
+#      collectors:
+#        - type: bool
+#          must:
+#            - type: directory
+#              regex: '%CoreDirectory%'
+#
+#  ruleset:
+#    ModuleExtras:
+#      - ModuleCore
+#    ModuleCore:
 
+  layers:
+    -
+      name: VendorSymfony
+      collectors:
+        -
+          type: className
+          value: .*Symfony\\.*
+    -
+      name: ModuleMixin
+      collectors:
+        -
+          type: className
+          value: .*AlecRabbit\\Spinner\\Mixin\\.*
+    -
+      name: ModuleException
+      collectors:
+        -
+          type: className
+          value: .*AlecRabbit\\Spinner\\Exception\\.*
+    -
+      name: ModuleHelper
+      collectors:
+        -
+          type: className
+          value: AlecRabbit\\Spinner\\Helper\\.*
+    -
+      name: ModuleCore
+      collectors:
+        -
+          type: className
+          value: AlecRabbit\\Spinner\\Core\\.*
+    -
+      name: ModuleExtras
+      collectors:
+        -
+          type: className
+          value: .*AlecRabbit\\Spinner\\Extras\\.*
+    -
+      name: ModuleAsynchronous
+      collectors:
+        -
+          type: className
+          value: AlecRabbit\\Spinner\\Asynchronous\\.*
   ruleset:
+    ModuleAsynchronous:
+      - +ModuleCore
+      - +ModuleException
+      - +ModuleHelper
     ModuleExtras:
-      - ModuleCore
+      - +ModuleCore
+      - +ModuleException
+    ModuleHelper:
+      - +ModuleException
+      - +ModuleMixin
     ModuleCore:
+      - +ModuleException
+      - +ModuleHelper
+    ModuleException: ~
+    ModuleMixin: ~

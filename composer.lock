@@ -4,61 +4,9 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7b156551ece17bfe6635fbc4401f5ea5",
+    "content-hash": "4a6b41f9cb798169d707a6c3f77b2d6e",
     "packages": [],
     "packages-dev": [
-        {
-            "name": "alecrabbit/php-console-spinner-extras",
-            "version": "dev-dev",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/alecrabbit/php-console-spinner-extras.git",
-                "reference": "1543c52e8a589fcfbe9b0005a457efab0ddbe1dd"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/alecrabbit/php-console-spinner-extras/zipball/1543c52e8a589fcfbe9b0005a457efab0ddbe1dd",
-                "reference": "1543c52e8a589fcfbe9b0005a457efab0ddbe1dd",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=8.2"
-            },
-            "require-dev": {
-                "alecrabbit/php-console-spinner": "dev-prepare-next",
-                "fakerphp/faker": "*",
-                "nunomaduro/collision": "^7.0",
-                "phpunit/php-code-coverage": "*",
-                "phpunit/phpunit": "^10.0",
-                "revolt/event-loop": "^1.0",
-                "symfony/console": "^6.2",
-                "symfony/var-dumper": "*"
-            },
-            "suggest": {
-                "ext-mbstring": "For multibyte Unicode string functionality."
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "AlecRabbit\\Spinner\\": "src\\Spinner\\"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "description": "Add-ons for php-console-spinner",
-            "keywords": [
-                "Extras",
-                "php",
-                "spinner"
-            ],
-            "support": {
-                "issues": "https://github.com/alecrabbit/php-console-spinner-extras/issues",
-                "source": "https://github.com/alecrabbit/php-console-spinner-extras/tree/dev"
-            },
-            "time": "2023-03-10T17:07:04+00:00"
-        },
         {
             "name": "alecrabbit/php-wcwidth",
             "version": "1.0.0-ALPHA.2+BUILD.1",
@@ -3924,7 +3872,6 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "alecrabbit/php-console-spinner-extras": 20,
         "alecrabbit/php-wcwidth": 15
     },
     "prefer-stable": false,

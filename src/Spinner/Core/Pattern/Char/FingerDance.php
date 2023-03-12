@@ -12,7 +12,7 @@ final class FingerDance extends APattern
 
     public function getPattern(): iterable
     {
-        return  [
+        return [
             "🤘 ",
             "🤟 ",
             "🖖 ",

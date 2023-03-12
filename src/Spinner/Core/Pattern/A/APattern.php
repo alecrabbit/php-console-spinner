@@ -15,7 +15,6 @@ abstract class APattern implements IPattern
     public function __construct(
         protected ?int $interval = null,
     ) {
-
     }
 
     public function getInterval(): IInterval
