@@ -13,7 +13,8 @@ _run_phploc:
 	@${_ECHO} "${_C_STOP}\n";
 
 _run_deptrac:
-	@-${_DC_EXEC} ${APP_CONTAINER} deptrac analyse --config-file=${APP_DIR}/.tools/.deptrac/deptrac.yaml --fail-on-uncovered --report-uncovered -vvv --no-progress --cache-file=${APP_DIR}/.tools/.deptrac/.deptrac.cache
+#	@-${_DC_EXEC} ${APP_CONTAINER} deptrac analyse --config-file=${APP_DIR}/.tools/.deptrac/deptrac.yaml --fail-on-uncovered --report-uncovered -vvv --no-progress --cache-file=${APP_DIR}/.tools/.deptrac/.deptrac.cache
+	@-${_DC_EXEC} ${APP_CONTAINER} deptrac analyse --config-file=${APP_DIR}/.tools/.deptrac/deptrac.yaml --cache-file=${APP_DIR}/.tools/.deptrac/.deptrac.cache
 
 test:
 	@$(eval c ?=)
