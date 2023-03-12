@@ -12,8 +12,6 @@ namespace AlecRabbit\Spinner\Core\Contracts;
 
 interface Frames
 {
-    public const RUNNER = ['🚶 ', '🏃 '];
-
     public const CLOCK_VARIANT = ['🕜', '🕝', '🕞', '🕟', '🕠', '🕡', '🕢', '🕣', '🕤', '🕥', '🕦',];
 
     public const ARROW_VARIANT_0 = [
