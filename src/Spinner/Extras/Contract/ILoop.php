@@ -2,8 +2,9 @@
 
 declare(strict_types=1);
 // 17.02.23
-namespace AlecRabbit\Spinner\Core\Contract;
+namespace AlecRabbit\Spinner\Extras\Contract;
 
+use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use AlecRabbit\Spinner\Exception\RuntimeException;
 use Closure;
 use React\EventLoop\LoopInterface;

@@ -1,10 +1,26 @@
-# Add module files here
-imports:
-  - .common/paths.yaml
-  - module/core.yaml
-  - module/extras.yaml
+## Add module files here
+#imports:
+#  - .common/paths.yaml
+#  - module/core.yaml
+#  - module/extras.yaml
+
+parameters:
+  CoreDirectory: src/Core
 
 deptrac:
+  paths:
+    - ../../src
+  exclude_files:
+    - '#.*test.*#'
+
+  layers:
+    - name: ModuleCore
+      collectors:
+        - type: bool
+          must:
+            - type: directory
+              regex: '%CoreDirectory%'
+
   ruleset:
     ModuleExtras:
       - ModuleCore

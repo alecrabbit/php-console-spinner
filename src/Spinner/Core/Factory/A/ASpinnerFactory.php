@@ -9,10 +9,10 @@ use AlecRabbit\Spinner\Core\Config\ConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\IConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\IConfigBuilderGetter;
-use AlecRabbit\Spinner\Core\Contract\ILoop;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopGetter;
 use AlecRabbit\Spinner\Core\Factory\Contract\ISpinnerFactory;
+use AlecRabbit\Spinner\Extras\Contract\ILoop;
 use AlecRabbit\Spinner\Spinner;
 
 abstract class ASpinnerFactory extends ADefaultsAwareClass implements ISpinnerFactory,
