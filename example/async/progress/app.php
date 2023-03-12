@@ -25,7 +25,8 @@ $count = 0;
 $defaults = DefaultsFactory::create();
 $defaults
 //    ->setSpinnerCharPattern(new \AlecRabbit\Spinner\Extras\Procedure\TmpProceduralCharPattern())
-    ->setSpinnerCharPattern(new \AlecRabbit\Spinner\Core\Pattern\Char\PulseBlue())
+    ->setSpinnerCharPattern(new \AlecRabbit\Spinner\Core\Pattern\Char\Custom([ true, false ], 100))
+//    ->setSpinnerCharPattern(new \AlecRabbit\Spinner\Core\Pattern\Char\Aesthetic(reversed: true))
 //    ->setSpinnerStylePattern(new \AlecRabbit\Spinner\Extras\Procedure\TmpProceduralStylePattern())
 ;
 

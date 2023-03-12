@@ -9,6 +9,8 @@ use AlecRabbit\Spinner\Core\Contract\IFrame;
 use AlecRabbit\Spinner\Core\Factory\FrameFactory;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 
+use Stringable;
+
 use function is_array;
 use function is_string;
 
@@ -17,6 +19,12 @@ final class FramesRenderer extends AFramesRenderer
     /** @inheritdoc */
     protected function createFrame(mixed $entry): IFrame
     {
+        if ($entry instanceof Stringable) {
+            $entry = (string)$entry;
+        }
+        if (is_int($entry)) {
+            $entry = (string)$entry;
+        }
         if (is_string($entry)) {
             return
                 FrameFactory::create($entry, WidthDeterminer::determine($entry));
@@ -28,8 +36,8 @@ final class FramesRenderer extends AFramesRenderer
         }
         throw new InvalidArgumentException(
             sprintf(
-                'Unknown frame entry type: %s',
-                get_debug_type($entry)
+                'Unsupported frame entry type: %s, allowed types: int, string, array, Stringable.',
+                get_debug_type($entry),
             )
         );
     }

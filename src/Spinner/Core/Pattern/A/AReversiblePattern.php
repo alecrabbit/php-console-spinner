@@ -6,8 +6,6 @@ namespace AlecRabbit\Spinner\Core\Pattern\A;
 
 abstract class AReversiblePattern extends APattern
 {
-    protected const UPDATE_INTERVAL = 1000;
-
     public function __construct(
         ?int $interval = null,
         protected bool $reversed = false
