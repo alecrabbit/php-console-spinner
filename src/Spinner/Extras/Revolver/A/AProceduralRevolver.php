@@ -2,10 +2,11 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Spinner\Core\Revolver\A;
+namespace AlecRabbit\Spinner\Extras\Revolver\A;
 
 use AlecRabbit\Spinner\Core\Contract\IFrame;
 use AlecRabbit\Spinner\Core\Contract\IInterval;
+use AlecRabbit\Spinner\Core\Revolver\A\ARevolver;
 use AlecRabbit\Spinner\Extras\Procedure\Contract\IProcedure;
 
 abstract class AProceduralRevolver extends ARevolver
