@@ -17,7 +17,6 @@ abstract class AReversiblePattern extends APattern
 
     public function getPattern(): iterable
     {
-        dump($this);
         return
             $this->reversed
                 ? array_reverse(iterator_to_array($this->pattern()))

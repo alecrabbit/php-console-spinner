@@ -28,6 +28,7 @@ ARG TOOLS="\
     git \
     gnupg \
     nano \
+    graphviz \
     "
 
 ARG RUN_DEPS="\

@@ -12,19 +12,10 @@ namespace AlecRabbit\Spinner\Core\Contracts;
 
 interface Frames
 {
-    public const BASE = [];
-
-    public const DIAMOND = ['♦'];
-
     public const CIRCLES = ['◐', '◓', '◑', '◒',];
     public const RUNNER = ['🚶 ', '🏃 '];
 
-    public const SECTORS = ['◴', '◷', '◶', '◵'];
-
     public const CLOCK_VARIANT = ['🕜', '🕝', '🕞', '🕟', '🕠', '🕡', '🕢', '🕣', '🕤', '🕥', '🕦',];
-
-    public const DOT = ['⢀', '⡀', '⠄', '⠂', '⠁', '⠈', '⠐', '⠠',];
-    public const DOT_REVERSED = ['⠠', '⠐', '⠈', '⠁', '⠂', '⠄', '⡀', '⢀',];
 
     public const ARROW_VARIANT_0 = [
         '▹▹▹▹▹',
