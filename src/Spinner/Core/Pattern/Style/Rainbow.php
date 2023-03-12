@@ -8,7 +8,7 @@ use AlecRabbit\Spinner\Core\Pattern\Style\A\AStylePattern;
 
 final class Rainbow extends AStylePattern
 {
-    protected const UPDATE_INTERVAL = 80;
+    protected const UPDATE_INTERVAL = 400;
 
     public function getPattern(): iterable
     {
