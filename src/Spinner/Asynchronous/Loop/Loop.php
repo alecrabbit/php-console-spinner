@@ -4,9 +4,9 @@ declare(strict_types=1);
 // 17.02.23
 namespace AlecRabbit\Spinner\Asynchronous\Loop;
 
+use AlecRabbit\Spinner\Asynchronous\Factory\LoopFactory;
 use AlecRabbit\Spinner\Core\Contract\ILoop;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
-use AlecRabbit\Spinner\Core\Factory\LoopFactory;
 
 final class Loop
 {

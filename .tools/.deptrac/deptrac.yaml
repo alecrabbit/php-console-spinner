@@ -5,22 +5,21 @@ deptrac:
   exclude_files:
     - '#.*test.*#'
 
-#  layers:
-#    - name: ModuleCore
-#      collectors:
-#        - type: bool
-#          must:
-#            - type: directory
-#              regex: '%CoreDirectory%'
-#
-#  ruleset:
-#    ModuleExtras:
-#      - ModuleCore
-#    ModuleCore:
+  #  layers:
+  #    - name: ModuleCore
+  #      collectors:
+  #        - type: bool
+  #          must:
+  #            - type: directory
+  #              regex: '%CoreDirectory%'
+  #
+  #  ruleset:
+  #    ModuleExtras:
+  #      - ModuleCore
+  #    ModuleCore:
 
   layers:
-    -
-      name: VendorSymfony
+    - name: VendorSymfony
       collectors:
         - type: bool
           must:
@@ -29,58 +28,53 @@ deptrac:
           must_not:
             - type: className
               value: .*Symfony\\.*\\Test\\.*
-    -
-      name: VendorRevolt
+    - name: VendorRevolt
       collectors:
         - type: bool
           must:
             - type: className
               value: .*Revolt\\EventLoop\\.*
-    -
-      name: VendorReact
+    - name: VendorReact
       collectors:
         - type: bool
           must:
             - type: className
               value: .*React\\EventLoop\\.*
-#          must_not:
-#            - type: className
-#              value: .*Symfony\\.*\\Test\\.*
-    -
-      name: ModuleMixin
+    #          must_not:
+    #            - type: className
+    #              value: .*Symfony\\.*\\Test\\.*
+    - name: ModuleMixin
       collectors:
-        -
-          type: className
+        - type: className
           value: .*AlecRabbit\\Spinner\\Mixin\\.*
-    -
-      name: ModuleException
+    - name: ModuleException
       collectors:
-        -
-          type: className
+        - type: className
           value: .*AlecRabbit\\Spinner\\Exception\\.*
-    -
-      name: ModuleHelper
+    - name: ModuleHelper
       collectors:
-        -
-          type: className
+        - type: className
           value: AlecRabbit\\Spinner\\Helper\\.*
-    -
-      name: ModuleCore
+    - name: ModuleCore
       collectors:
-        -
-          type: className
-          value: AlecRabbit\\Spinner\\Core\\.*
-    -
-      name: ModuleExtras
+        - type: bool
+          must:
+            - type: className
+              value: AlecRabbit\\Spinner\\Core\\.*
+          must_not:
+            - type: className
+              value: AlecRabbit\\Spinner\\Core\\.*\\ILoop
+    - name: ILoop
       collectors:
-        -
-          type: className
+        - type: className
+          value: AlecRabbit\\Spinner\\Core\\.*\\ILoop
+    - name: ModuleExtras
+      collectors:
+        - type: className
           value: .*AlecRabbit\\Spinner\\Extras\\.*
-    -
-      name: ModuleAsynchronous
+    - name: ModuleAsynchronous
       collectors:
-        -
-          type: className
+        - type: className
           value: AlecRabbit\\Spinner\\Asynchronous\\.*
   ruleset:
     ModuleAsynchronous:
@@ -89,6 +83,7 @@ deptrac:
       - +ModuleHelper
       - +VendorRevolt
       - +VendorReact
+      - ILoop
     ModuleExtras:
       - +ModuleCore
       - +ModuleException
@@ -103,5 +98,9 @@ deptrac:
     ModuleException: ~
     ModuleMixin: ~
     VendorSymfony: ~
-  skip_violations:
-    VendorReact: ~
+    ILoop:
+      - +VendorRevolt
+      - +VendorReact
+      - +ModuleCore
+#  skip_violations:
+#    VendorReact: ~

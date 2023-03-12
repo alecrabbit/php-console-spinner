@@ -6,6 +6,7 @@ namespace AlecRabbit\Spinner\Core\Factory\A;
 
 use AlecRabbit\Spinner\Core\Contract\IFrame;
 use AlecRabbit\Spinner\Core\Contract\IInterval;
+use AlecRabbit\Spinner\Core\Contract\IProcedure;
 use AlecRabbit\Spinner\Core\EmptyFrameRevolver;
 use AlecRabbit\Spinner\Core\Factory\Contract\IWidgetFactory;
 use AlecRabbit\Spinner\Core\Factory\FrameFactory;
@@ -15,7 +16,6 @@ use AlecRabbit\Spinner\Core\Revolver\ProceduralRevolver;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetBuilder;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolverBuilder;
-use AlecRabbit\Spinner\Extras\Procedure\Contract\IProcedure;
 
 abstract class AWidgetFactory extends ADefaultsAwareClass implements IWidgetFactory
 {

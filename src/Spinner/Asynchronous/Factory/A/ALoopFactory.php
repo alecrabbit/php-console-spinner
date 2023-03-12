@@ -2,10 +2,11 @@
 
 declare(strict_types=1);
 // 17.02.23
-namespace AlecRabbit\Spinner\Core\Factory\A;
+namespace AlecRabbit\Spinner\Asynchronous\Factory\A;
 
-use AlecRabbit\Spinner\Asynchronous\Loop\Probe\Contract\ILoopProbe;
 use AlecRabbit\Spinner\Core\Contract\ILoop;
+use AlecRabbit\Spinner\Core\Contract\ILoopProbe;
+use AlecRabbit\Spinner\Core\Factory\A\ADefaultsAwareClass;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopFactory;
 use AlecRabbit\Spinner\Core\Factory\DefaultsFactory;
 use AlecRabbit\Spinner\Mixin\NoInstanceTrait;

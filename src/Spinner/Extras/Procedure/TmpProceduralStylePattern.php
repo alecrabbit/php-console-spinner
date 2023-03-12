@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Extras\Procedure;
 
 use AlecRabbit\Spinner\Core\Contract\IFrame;
+use AlecRabbit\Spinner\Core\Contract\IProcedure;
 use AlecRabbit\Spinner\Core\Frame;
 use AlecRabbit\Spinner\Extras\Procedure\A\AProceduralStylePattern;
 use AlecRabbit\Spinner\Extras\Procedure\A\AProcedure;
-use AlecRabbit\Spinner\Extras\Procedure\Contract\IProcedure;
 
 /**
  * TODO move(and rename) this class to Extras package?

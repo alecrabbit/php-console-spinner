@@ -41,7 +41,8 @@
             "AlecRabbit\\Spinner\\": "src\\Spinner\\"
         },
         "files": [
-            "src/bootstrap.php"
+            "src/Spinner/Core/bootstrap.php",
+            "src/Spinner/Extras/bootstrap.php"
         ]
     },
     "autoload-dev": {

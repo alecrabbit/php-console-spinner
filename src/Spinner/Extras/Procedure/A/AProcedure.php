@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Extras\Procedure\A;
 
 use AlecRabbit\Spinner\Core\Contract\IFrame;
-use AlecRabbit\Spinner\Extras\Procedure\Contract\IProcedure;
+use AlecRabbit\Spinner\Core\Contract\IProcedure;
 
 abstract class AProcedure implements IProcedure
 {
