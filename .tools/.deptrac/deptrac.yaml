@@ -22,9 +22,19 @@ deptrac:
     -
       name: VendorSymfony
       collectors:
-        -
-          type: className
-          value: .*Symfony\\.*
+        - type: bool
+          must:
+            - type: className
+              value: .*Symfony\\.*
+          must_not:
+            - type: className
+              value: .*Symfony\\.*\\Test\\.*
+#    -
+#      name: VendorSymfony
+#      collectors:
+#        -
+#          type: className
+#          value: .*Symfony\\.*
     -
       name: ModuleMixin
       collectors:
@@ -69,6 +79,7 @@ deptrac:
     ModuleExtras:
       - +ModuleCore
       - +ModuleException
+      - +VendorSymfony
     ModuleHelper:
       - +ModuleException
       - +ModuleMixin
@@ -77,3 +88,4 @@ deptrac:
       - +ModuleHelper
     ModuleException: ~
     ModuleMixin: ~
+    VendorSymfony: ~
