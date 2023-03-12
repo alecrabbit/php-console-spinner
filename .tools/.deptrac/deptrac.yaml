@@ -99,6 +99,7 @@ deptrac:
     ModuleCore:
       - +ModuleException
       - +ModuleHelper
+      - +ModuleMixin
     ModuleException: ~
     ModuleMixin: ~
     VendorSymfony: ~
