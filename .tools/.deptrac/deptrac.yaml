@@ -90,7 +90,7 @@ deptrac:
       - +VendorRevolt
       - +VendorReact
     ModuleExtras:
-#      - +ModuleCore
+      - +ModuleCore
       - +ModuleException
       - +VendorSymfony
     ModuleHelper:
