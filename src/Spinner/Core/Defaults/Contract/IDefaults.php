@@ -12,9 +12,7 @@ interface IDefaults extends ISettableDefaults
 {
     public static function getInstance(): self;
 
-    public static function registerLoopProbeClass(string $class): void;
-
-    public static function registerTerminalProbeClass(string $class): void;
+    public static function registerProbe(string $class): void;
 
     /**
      * @return resource

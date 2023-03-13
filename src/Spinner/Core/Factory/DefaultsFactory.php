@@ -17,10 +17,10 @@ final class DefaultsFactory
 {
     use NoInstanceTrait;
 
-    private static iterable $registeredLoopProbes = [];
-    private static iterable $registeredTerminalProbes = [];
+    /** @var array<class-string<ILoopProbe|ITerminalProbe>> */
+    private static iterable $addedProbes = [];
 
-    /** @var null|class-string */
+    /** @var null|class-string<IDefaults> */
     private static ?string $className = null;
 
     public static function create(): IDefaults
@@ -35,62 +35,39 @@ final class DefaultsFactory
 
     private static function initDefaults(string $className): void
     {
-        foreach (self::$registeredLoopProbes as $probe) {
-            /** @noinspection PhpUndefinedMethodInspection */
-            $className::registerLoopProbeClass($probe);
+        /** @var IDefaults $c */
+        $c = $className;
+        foreach (self::$addedProbes as $probe) {
+            $c::registerProbe($probe);
         }
-        foreach (self::$registeredTerminalProbes as $probe) {
-            /** @noinspection PhpUndefinedMethodInspection */
-            $className::registerTerminalProbeClass($probe);
-        }
-    }
+     }
 
     /**
      * @throws InvalidArgumentException
      */
     public static function addProbe(string $className): void
     {
-        if (is_subclass_of($className, ILoopProbe::class)) {
-            self::addLoopProbeClass($className);
-            return;
-        }
-        if (is_subclass_of($className, ITerminalProbe::class)) {
-            self::addTerminalProbeClass($className);
-            return;
-        }
-        throw new InvalidArgumentException(
-            sprintf('Class "%s" is not a probe.', $className)
-        );
-    }
+        Asserter::classExists($className, __METHOD__);
 
-    /**
-     * @throws InvalidArgumentException
-     */
-    protected static function addLoopProbeClass(string $className): void
-    {
-        foreach (self::$registeredLoopProbes as $probe) {
+        foreach (self::$addedProbes as $probe) {
             if ($probe === $className) {
                 throw new InvalidArgumentException(
-                    sprintf('Loop probe class "%s" is already registered.', $className)
+                    sprintf('Probe class "%s" is already added.', $className)
                 );
             }
         }
-        self::$registeredLoopProbes[] = $className;
-    }
-
-    /**
-     * @throws InvalidArgumentException
-     */
-    protected static function addTerminalProbeClass(string $className): void
-    {
-        foreach (self::$registeredTerminalProbes as $probe) {
-            if ($probe === $className) {
-                throw new InvalidArgumentException(
-                    sprintf('Terminal probe class "%s" is already registered.', $className)
-                );
-            }
-        }
-        self::$registeredTerminalProbes[] = $className;
+        self::$addedProbes[] = $className;
+//        if (is_subclass_of($className, ILoopProbe::class)) {
+//            self::addLoopProbeClass($className);
+//            return;
+//        }
+//        if (is_subclass_of($className, ITerminalProbe::class)) {
+//            self::addTerminalProbeClass($className);
+//            return;
+//        }
+//        throw new InvalidArgumentException(
+//            sprintf('Class "%s" is not a probe.', $className)
+//        );
     }
 
     /**

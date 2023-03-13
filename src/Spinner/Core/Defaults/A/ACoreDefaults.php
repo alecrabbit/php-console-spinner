@@ -55,9 +55,38 @@ abstract class ACoreDefaults implements IDefaults
     /**
      * @throws InvalidArgumentException
      */
-    public static function registerLoopProbeClass(string $class): void
+    public static function registerProbe(string $class): void
     {
         Asserter::classExists($class, __METHOD__);
+
+        if (is_subclass_of($class, ILoopProbe::class)) {
+            self::registerLoopProbeClass($class);
+            return;
+        }
+        if (is_subclass_of($class, ITerminalProbe::class)) {
+            self::registerTerminalProbeClass($class);
+            return;
+        }
+        throw new InvalidArgumentException(
+            sprintf(
+                'Unsupported probe class: %s. Supported: [%s].',
+                $class,
+                implode(
+                    separator: ', ',
+                    array: [
+                        ILoopProbe::class,
+                        ITerminalProbe::class
+                    ],
+                ),
+            )
+        );
+    }
+
+    /**
+     * @throws InvalidArgumentException
+     */
+    protected static function registerLoopProbeClass(string $class): void
+    {
         Asserter::isSubClass($class, ILoopProbe::class, __METHOD__);
 
         if (!in_array($class, iterator_to_array(self::$registeredLoopProbes), true)) {
@@ -68,9 +97,9 @@ abstract class ACoreDefaults implements IDefaults
     /**
      * @throws InvalidArgumentException
      */
-    public static function registerTerminalProbeClass(string $class): void
+    protected static function registerTerminalProbeClass(string $class): void
     {
-        Asserter::classExists($class, __METHOD__);
+
         Asserter::isSubClass($class, ITerminalProbe::class, __METHOD__);
 
         if (!in_array($class, iterator_to_array(self::$registeredTerminalProbes), true)) {
