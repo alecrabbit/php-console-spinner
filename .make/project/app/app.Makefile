@@ -1,6 +1,6 @@
 include ${_APP_DIR}/app.init.Makefile
 
-_tools_run: _run_phploc _run_deptrac
+app_tools_run: _run_phploc _run_deptrac
 	@${_NO_OP};
 
 PHPLOC_DIR = /usr/local/bin
