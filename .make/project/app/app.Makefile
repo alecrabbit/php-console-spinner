@@ -16,9 +16,10 @@ app_deptrac_run:
 	@${_ECHO} "\n${_C_SELECT} ${PROJECT_NAME} ${_C_STOP} ${_C_INFO}Deptrac run...${_C_STOP}\n";
 	@mkdir -p ${APP_DIR}/.tools/.report/.deptrac
 	@-${_DC_EXEC} ${APP_CONTAINER} deptrac analyse --clear-cache --no-progress --config-file=${APP_DIR}/.tools/.deptrac/deptrac.yaml --cache-file=${APP_DIR}/.tools/.deptrac/.deptrac.cache > ${APP_DIR}/.tools/.report/.deptrac/.deptrac_baseline
+	@-${_DC_EXEC} ${APP_CONTAINER} deptrac analyse --no-progress --config-file=${APP_DIR}/.tools/.deptrac/deptrac.yaml --cache-file=${APP_DIR}/.tools/.deptrac/.deptrac.cache --formatter=graphviz-image --output=${APP_DIR}/.tools/.report/.deptrac/graph.png
+	@-${_DC_EXEC} ${APP_CONTAINER} deptrac analyse --no-progress --config-file=${APP_DIR}/.tools/.deptrac/deptrac.yaml --cache-file=${APP_DIR}/.tools/.deptrac/.deptrac.cache --formatter=baseline --output=${APP_DIR}/.tools/.report/.deptrac/baseline.formatter.output.yaml
 	@-${_DC_EXEC} ${APP_CONTAINER} deptrac analyse --config-file=${APP_DIR}/.tools/.deptrac/deptrac.yaml --cache-file=${APP_DIR}/.tools/.deptrac/.deptrac.cache
 	@#-${_DC_EXEC} ${APP_CONTAINER} deptrac analyse --fail-on-uncovered --report-uncovered -vvv --config-file=${APP_DIR}/.tools/.deptrac/deptrac.yaml --cache-file=${APP_DIR}/.tools/.deptrac/.deptrac.cache
-	@-${_DC_EXEC} ${APP_CONTAINER} deptrac analyse --no-progress --config-file=${APP_DIR}/.tools/.deptrac/deptrac.yaml --cache-file=${APP_DIR}/.tools/.deptrac/.deptrac.cache --formatter=graphviz-image --output=${APP_DIR}/.tools/.report/.deptrac/graph.png
 
 test:
 	@$(eval c ?=)
