@@ -26,6 +26,9 @@ abstract class ASpinnerFactory extends ADefaultsAwareClass implements ISpinnerFa
 
     protected static ?string $loopClassName = null;
 
+    /**
+     * @throws DomainException
+     */
     public static function createSpinner(IConfig $config = null): ISpinner
     {
         self::$config = self::refineConfig($config);
@@ -73,18 +76,18 @@ abstract class ASpinnerFactory extends ADefaultsAwareClass implements ISpinnerFa
      */
     protected static function initializeSpinner(ISpinner $spinner): ISpinner
     {
-        /** @var ILoopHelper $loopClass */
-        $loopClass = self::getLoopClass();
+        /** @var ILoopHelper $loopHelper */
+        $loopHelper = self::getLoopHelper();
 
         if (self::$config->isAsynchronous()) {
-            $loopClass::attach($spinner);
+            $loopHelper::attach($spinner);
 
             if (self::$config->areSignalHandlersEnabled()) {
-                $loopClass::setSignalHandlers($spinner, self::$config->getSignalHandlers());
+                $loopHelper::setSignalHandlers($spinner, self::$config->getSignalHandlers());
             }
 
             if (self::$config->isAutoStart()) {
-                $loopClass::autoStart();
+                $loopHelper::autoStart();
             }
         }
 
@@ -97,7 +100,7 @@ abstract class ASpinnerFactory extends ADefaultsAwareClass implements ISpinnerFa
     /**
      * @throws DomainException
      */
-    protected static function getLoopClass(): string
+    protected static function getLoopHelper(): string
     {
         if (null === self::$loopClassName) {
             throw new DomainException('Loop class is not registered');
@@ -110,8 +113,10 @@ abstract class ASpinnerFactory extends ADefaultsAwareClass implements ISpinnerFa
      */
     public static function getLoop(): ILoop
     {
+        /** @var ILoopHelper $loopHelper */
+        $loopHelper = self::getLoopHelper();
         return
-            self::getLoopClass()::get();
+            $loopHelper::get();
     }
 
     /**
