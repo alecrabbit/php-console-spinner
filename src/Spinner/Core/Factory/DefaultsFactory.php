@@ -27,20 +27,19 @@ final class DefaultsFactory
     {
         if (null === self::$className) {
             self::$className = ADefaults::class;
-            self::initDefaults(self::$className);
+            self::initDefaultsClass(self::$className);
         }
         /** @noinspection PhpUndefinedMethodInspection */
         return self::$className::getInstance();
     }
 
-    private static function initDefaults(string $className): void
+    private static function initDefaultsClass(string $className): void
     {
-        /** @var IDefaults $c */
-        $c = $className;
+        /** @var IDefaults $className */
         foreach (self::$addedProbes as $probe) {
-            $c::registerProbe($probe);
+            $className::registerProbe($probe);
         }
-     }
+    }
 
     /**
      * @throws InvalidArgumentException
@@ -57,17 +56,6 @@ final class DefaultsFactory
             }
         }
         self::$addedProbes[] = $className;
-//        if (is_subclass_of($className, ILoopProbe::class)) {
-//            self::addLoopProbeClass($className);
-//            return;
-//        }
-//        if (is_subclass_of($className, ITerminalProbe::class)) {
-//            self::addTerminalProbeClass($className);
-//            return;
-//        }
-//        throw new InvalidArgumentException(
-//            sprintf('Class "%s" is not a probe.', $className)
-//        );
     }
 
     /**
