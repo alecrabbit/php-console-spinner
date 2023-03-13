@@ -26,8 +26,8 @@ final class DefaultsFactory
     {
         if (null === self::$className) {
             self::$className = ADefaults::class;
+            self::initDefaults(self::$className);
         }
-        self::initDefaults(self::$className);
         /** @noinspection PhpUndefinedMethodInspection */
         return self::$className::getInstance();
     }
@@ -54,7 +54,6 @@ final class DefaultsFactory
      */
     public static function registerLoopProbeClass(string $class): void
     {
-        dump($class);
         self::$registeredLoopProbes[] = $class;
     }
 

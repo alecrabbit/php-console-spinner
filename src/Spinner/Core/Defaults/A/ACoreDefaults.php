@@ -132,9 +132,7 @@ abstract class ACoreDefaults implements IDefaults
     {
         Asserter::classExists($class, __METHOD__);
         Asserter::isSubClass($class, ILoopProbe::class, __METHOD__);
-        dump(self::$registeredLoopProbes);
         foreach (self::$registeredLoopProbes as $probe) {
-            dump($probe);
             if ($probe === $class) {
                 throw new InvalidArgumentException(
                     sprintf('Loop probe class "%s" is already registered.', $class)
