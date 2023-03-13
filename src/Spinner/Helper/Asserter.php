@@ -7,6 +7,7 @@ namespace AlecRabbit\Spinner\Helper;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Exception\RuntimeException;
 
+use function class_exists;
 use function extension_loaded;
 
 use const AlecRabbit\Spinner\KNOWN_TERM_COLOR;
@@ -28,7 +29,7 @@ final class Asserter
                     'Class "%s" must be a subclass of "%s"%s.',
                     $c,
                     $i,
-                    $callerMethod ? sprintf(', in "%s()"', $callerMethod) : '',
+                    $callerMethod ? sprintf(', see "%s()"', $callerMethod) : '',
                 )
             );
         }
@@ -77,6 +78,22 @@ final class Asserter
         if (!extension_loaded($extensionName)) {
             throw new RuntimeException(
                 $message ?? sprintf('Extension "%s" is not loaded.', $extensionName)
+            );
+        }
+    }
+
+    /**
+     * @throws InvalidArgumentException
+     */
+    public static function classExists(string $class, ?string $callerMethod = null): void
+    {
+        if (!class_exists($class)) {
+            throw new InvalidArgumentException(
+                sprintf(
+                    'Class "%s" does not exist%s.',
+                    $class,
+                    $callerMethod ? sprintf(', see "%s()"', $callerMethod) : ''
+                )
             );
         }
     }

@@ -7,6 +7,7 @@ namespace AlecRabbit\Spinner\Core\Defaults\A;
 use AlecRabbit\Spinner\Asynchronous\Loop\Probe\ReactLoopProbe;
 use AlecRabbit\Spinner\Asynchronous\Loop\Probe\RevoltLoopProbe;
 use AlecRabbit\Spinner\Core\Contract\IFrame;
+use AlecRabbit\Spinner\Core\Contract\ILoopProbe;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDefaults;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDefaultsClasses;
 use AlecRabbit\Spinner\Core\Defaults\Mixin\DefaultsConst;
@@ -14,7 +15,10 @@ use AlecRabbit\Spinner\Core\Factory\FrameFactory;
 use AlecRabbit\Spinner\Core\Pattern\Contract\IPattern;
 use AlecRabbit\Spinner\Core\Terminal\A\ATerminal;
 use AlecRabbit\Spinner\Core\Terminal\Contract\ITerminal;
+use AlecRabbit\Spinner\Core\Terminal\Contract\ITerminalProbe;
+use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Extras\Terminal\SymfonyTerminalProbe;
+use AlecRabbit\Spinner\Helper\Asserter;
 
 /** @internal */
 abstract class ACoreDefaults implements IDefaults
@@ -48,6 +52,8 @@ abstract class ACoreDefaults implements IDefaults
     protected static $outputStream;
     protected static iterable $loopProbes;
     protected static iterable $terminalProbes;
+    private static iterable $registeredLoopProbes = [];
+    private static iterable $registeredTerminalProbes = [];
 
     public function reset(): void
     {
@@ -91,19 +97,21 @@ abstract class ACoreDefaults implements IDefaults
     protected static function defaultLoopProbes(): iterable
     {
         // @codeCoverageIgnoreStart
-        yield from [
-            RevoltLoopProbe::class,
-            ReactLoopProbe::class,
-        ];
+//        static $loopProbes = [
+//            RevoltLoopProbe::class,
+//            ReactLoopProbe::class,
+//        ];
+        yield from self::$registeredLoopProbes;
         // @codeCoverageIgnoreEnd
     }
 
     protected static function defaultTerminalProbes(): iterable
     {
         // @codeCoverageIgnoreStart
-        yield from [
-            SymfonyTerminalProbe::class,
-        ];
+        yield from self::$registeredTerminalProbes;
+//        yield from [
+//            SymfonyTerminalProbe::class,
+//        ];
         // @codeCoverageIgnoreEnd
     }
 
@@ -115,5 +123,41 @@ abstract class ACoreDefaults implements IDefaults
     protected static function getTerminalInstance(): ITerminal
     {
         return ATerminal::getInstance(static::$terminalProbes);
+    }
+
+    /**
+     * @throws InvalidArgumentException
+     */
+    public static function registerLoopProbeClass(string $class): void
+    {
+        Asserter::classExists($class, __METHOD__);
+        Asserter::isSubClass($class, ILoopProbe::class, __METHOD__);
+        dump(self::$registeredLoopProbes);
+        foreach (self::$registeredLoopProbes as $probe) {
+            dump($probe);
+            if ($probe === $class) {
+                throw new InvalidArgumentException(
+                    sprintf('Loop probe class "%s" is already registered.', $class)
+                );
+            }
+        }
+        self::$registeredLoopProbes[] = $class;
+    }
+
+    /**
+     * @throws InvalidArgumentException
+     */
+    public static function registerTerminalProbeClass(string $class): void
+    {
+        Asserter::classExists($class, __METHOD__);
+        Asserter::isSubClass($class, ITerminalProbe::class, __METHOD__);
+        foreach (self::$registeredTerminalProbes as $probe) {
+            if ($probe === $class) {
+                throw new InvalidArgumentException(
+                    sprintf('Terminal probe class "%s" is already registered.', $class)
+                );
+            }
+        }
+        self::$registeredTerminalProbes[] = $class;
     }
 }

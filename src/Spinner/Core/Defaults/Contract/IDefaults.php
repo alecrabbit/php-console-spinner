@@ -58,4 +58,8 @@ interface IDefaults extends ISettableDefaults
     public function getSpinnerStylePattern(): IPattern;
 
     public function getSpinnerCharPattern(): IPattern;
+
+    public static function registerLoopProbeClass(string $class): void;
+
+    public static function registerTerminalProbeClass(string $class): void;
 }
