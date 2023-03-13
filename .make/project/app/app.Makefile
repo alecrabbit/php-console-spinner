@@ -1,18 +1,18 @@
 include ${_APP_DIR}/app.init.Makefile
 
-app_tools_run: _run_phploc _run_deptrac
+app_tools_run: app_phploc_run app_deptrac_run
 	@${_NO_OP};
 
 PHPLOC_DIR = /usr/local/bin
 
-_run_phploc:
+app_phploc_run:
 	@${_ECHO} "\n${_C_SELECT} ${PROJECT_NAME} ${_C_STOP} ${_C_INFO}PHPLOC run...${_C_STOP}\n";
 	@mkdir -p ${APP_DIR}/.tools/.report/.phploc
 	@-${_DC_EXEC} ${APP_CONTAINER} ${PHPLOC_DIR}/phploc src > ${APP_DIR}/.tools/.report/.phploc/.phploc_baseline
 	@-cat ${APP_DIR}/.tools/.report/.phploc/.phploc_baseline
 	@${_ECHO} "${_C_STOP}\n";
 
-_run_deptrac:
+app_deptrac_run:
 	@${_ECHO} "\n${_C_SELECT} ${PROJECT_NAME} ${_C_STOP} ${_C_INFO}Deptrac run...${_C_STOP}\n";
 	@mkdir -p ${APP_DIR}/.tools/.report/.deptrac
 	@-${_DC_EXEC} ${APP_CONTAINER} deptrac analyse --clear-cache --no-progress --config-file=${APP_DIR}/.tools/.deptrac/deptrac.yaml --cache-file=${APP_DIR}/.tools/.deptrac/.deptrac.cache > ${APP_DIR}/.tools/.report/.deptrac/.deptrac_baseline
