@@ -1,0 +1,6 @@
+deptrac:
+  layers:
+    - name: ModuleAsynchronous
+      collectors:
+        - type: className
+          value: AlecRabbit\\Spinner\\Asynchronous\\.*

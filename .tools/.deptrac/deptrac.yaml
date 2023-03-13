@@ -1,26 +1,18 @@
 # Add module files here
 imports:
   - .common/paths.yaml
+  - module/async.yaml
   - module/core.yaml
   - module/exception.yaml
   - module/extras.yaml
   - module/helper.yaml
+  - module/iloop.yaml
   - module/mixin.yaml
   - vendor/react.yaml
   - vendor/revolt.yaml
   - vendor/symfony.yaml
 
 deptrac:
-  layers:
-
-    - name: ILoop
-      collectors:
-        - type: className
-          value: AlecRabbit\\Spinner\\Core\\.*\\ILoop
-    - name: ModuleAsynchronous
-      collectors:
-        - type: className
-          value: AlecRabbit\\Spinner\\Asynchronous\\.*
   ruleset:
     ModuleAsynchronous:
       - +ModuleCore
