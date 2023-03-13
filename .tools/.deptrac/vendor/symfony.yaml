@@ -1,11 +1,11 @@
 deptrac:
   layers:
-    - name: ModuleCore
+    - name: VendorSymfony
       collectors:
         - type: bool
           must:
             - type: className
-              value: AlecRabbit\\Spinner\\Core\\.*
+              value: .*Symfony\\.*
           must_not:
             - type: className
-              value: AlecRabbit\\Spinner\\Core\\.*\\ILoop
+              value: .*Symfony\\.*\\Test\\.*

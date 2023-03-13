@@ -1,31 +1,14 @@
 # Add module files here
 imports:
   - .common/paths.yaml
-#  - shared.yaml
+  - module/core.yaml
+  - module/extras.yaml
+  - vendor/symfony.yaml
+  - vendor/react.yaml
+  - vendor/revolt.yaml
 
 deptrac:
   layers:
-    - name: VendorSymfony
-      collectors:
-        - type: bool
-          must:
-            - type: className
-              value: .*Symfony\\.*
-          must_not:
-            - type: className
-              value: .*Symfony\\.*\\Test\\.*
-    - name: VendorRevolt
-      collectors:
-        - type: bool
-          must:
-            - type: className
-              value: .*Revolt\\EventLoop\\.*
-    - name: VendorReact
-      collectors:
-        - type: bool
-          must:
-            - type: className
-              value: .*React\\EventLoop\\.*
     - name: ModuleMixin
       collectors:
         - type: className
@@ -38,23 +21,10 @@ deptrac:
       collectors:
         - type: className
           value: AlecRabbit\\Spinner\\Helper\\.*
-    - name: ModuleCore
-      collectors:
-        - type: bool
-          must:
-            - type: className
-              value: AlecRabbit\\Spinner\\Core\\.*
-          must_not:
-            - type: className
-              value: AlecRabbit\\Spinner\\Core\\.*\\ILoop
     - name: ILoop
       collectors:
         - type: className
           value: AlecRabbit\\Spinner\\Core\\.*\\ILoop
-    - name: ModuleExtras
-      collectors:
-        - type: className
-          value: .*AlecRabbit\\Spinner\\Extras\\.*
     - name: ModuleAsynchronous
       collectors:
         - type: className

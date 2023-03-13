@@ -1,10 +1,6 @@
-parameters:
-  ExtrasDirectory: src/Extras
 deptrac:
   layers:
     - name: ModuleExtras
       collectors:
-        - type: bool
-          must:
-            - type: directory
-              regex: '%ExtrasDirectory%'
+        - type: className
+          value: .*AlecRabbit\\Spinner\\Extras\\.*

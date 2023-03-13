@@ -1,0 +1,10 @@
+deptrac:
+  layers:
+    - name: VendorRevolt
+      collectors:
+        - type: className
+          value: .*Revolt\\EventLoop
+        - type: bool
+          must:
+            - type: className
+              value: .*Revolt\\EventLoop\\.*
