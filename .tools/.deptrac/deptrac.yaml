@@ -1,23 +1,9 @@
+# Add module files here
+imports:
+  - .common/paths.yaml
+#  - shared.yaml
+
 deptrac:
-  paths:
-    - ../../src
-    - ../../vendor
-  exclude_files:
-    - '#.*test.*#'
-
-  #  layers:
-  #    - name: ModuleCore
-  #      collectors:
-  #        - type: bool
-  #          must:
-  #            - type: directory
-  #              regex: '%CoreDirectory%'
-  #
-  #  ruleset:
-  #    ModuleExtras:
-  #      - ModuleCore
-  #    ModuleCore:
-
   layers:
     - name: VendorSymfony
       collectors:
