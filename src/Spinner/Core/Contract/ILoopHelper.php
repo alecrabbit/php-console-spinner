@@ -2,13 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Spinner\Asynchronous\Loop;
-
-use AlecRabbit\Spinner\Core\Contract\ILoop;
-use AlecRabbit\Spinner\Core\Contract\ILoopGetter;
-use AlecRabbit\Spinner\Core\Contract\ILoopSignalHandlers;
-use AlecRabbit\Spinner\Core\Contract\ILoopSpinnerAttach;
-use AlecRabbit\Spinner\Core\Contract\ISpinner;
+namespace AlecRabbit\Spinner\Core\Contract;
 
 interface ILoopHelper
 {

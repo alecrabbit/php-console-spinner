@@ -7,6 +7,7 @@ namespace AlecRabbit\Spinner\Asynchronous\Loop;
 use AlecRabbit\Spinner\Asynchronous\Factory\LoopFactory;
 use AlecRabbit\Spinner\Core\Contract\ILoop;
 use AlecRabbit\Spinner\Core\Contract\ILoopGetter;
+use AlecRabbit\Spinner\Core\Contract\ILoopHelper;
 use AlecRabbit\Spinner\Core\Contract\ILoopSignalHandlers;
 use AlecRabbit\Spinner\Core\Contract\ILoopSpinnerAttach;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
