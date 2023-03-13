@@ -17,6 +17,8 @@ use AlecRabbit\Spinner\Core\Terminal\Contract\ITerminalProbe;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Helper\Asserter;
 
+use function is_subclass_of;
+
 /** @internal */
 abstract class ACoreDefaults implements IDefaults
 {
@@ -99,7 +101,6 @@ abstract class ACoreDefaults implements IDefaults
      */
     protected static function registerTerminalProbeClass(string $class): void
     {
-
         Asserter::isSubClass($class, ITerminalProbe::class, __METHOD__);
 
         if (!in_array($class, iterator_to_array(self::$registeredTerminalProbes), true)) {
