@@ -104,4 +104,5 @@ deptrac:
       - +VendorReact
       - +ModuleCore
 #  skip_violations:
-#    VendorReact: ~
+#    NS\Class:
+#      - AnotherNS\Class
