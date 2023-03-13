@@ -21,7 +21,7 @@ app_phploc_run:
 #	@-${_DC_EXEC} ${APP_CONTAINER} deptrac analyse --config-file=${APP_DIR}/.tools/.deptrac/deptrac.yaml --cache-file=${APP_DIR}/.tools/.deptrac/.deptrac.cache
 #	@#-${_DC_EXEC} ${APP_CONTAINER} deptrac analyse --fail-on-uncovered --report-uncovered -vvv --config-file=${APP_DIR}/.tools/.deptrac/deptrac.yaml --cache-file=${APP_DIR}/.tools/.deptrac/.deptrac.cache
 
-app_deptrac_run: _deptrac_run_message _deptrac_run_baseline _deptrac_run_graph _deptrac_run_baseline_formatter _deptrac_run
+app_deptrac_run_full: _deptrac_run_message _deptrac_run_baseline _deptrac_run_graph _deptrac_run_baseline_formatter app_deptrac_run
 	@${_NO_OP};
 
 _deptrac_run_message:
@@ -37,10 +37,11 @@ _deptrac_run_graph:
 _deptrac_run_baseline_formatter:
 	@-${_DC_EXEC} ${APP_CONTAINER} deptrac analyse --no-progress --config-file=${APP_DIR}/.tools/.deptrac/deptrac.yaml --cache-file=${APP_DIR}/.tools/.deptrac/.deptrac.cache --formatter=baseline --output=${APP_DIR}/.tools/.report/.deptrac/baseline.formatter.output.yaml
 
-_deptrac_run:
+app_deptrac_run:
+	@${_ECHO};
 	@-${_DC_EXEC} ${APP_CONTAINER} deptrac analyse --config-file=${APP_DIR}/.tools/.deptrac/deptrac.yaml --cache-file=${APP_DIR}/.tools/.deptrac/.deptrac.cache
 
-app_deptrac_uncovered:
+app_deptrac_run_uncovered:
 	-${_DC_EXEC} ${APP_CONTAINER} deptrac analyse --fail-on-uncovered --report-uncovered --config-file=${APP_DIR}/.tools/.deptrac/deptrac.yaml --cache-file=${APP_DIR}/.tools/.deptrac/.deptrac.cache
 
 test:
