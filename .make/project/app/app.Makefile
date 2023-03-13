@@ -35,6 +35,13 @@ app_deptrac_run:
 	@${_ECHO};
 	@-${_DC_EXEC} ${APP_CONTAINER} deptrac analyse --config-file=${DPTR_CONFIG} --cache-file=${DPTR_CACHE}
 
+app_deptrac_debug_layer:
+	@$(eval c ?=)
+	-${_DC_EXEC} ${APP_CONTAINER} deptrac debug:layer $(c) --config-file=${DPTR_CONFIG}
+
+app_deptrac_debug_unassigned:
+	-${_DC_EXEC} ${APP_CONTAINER} deptrac debug:unassigned --config-file=${DPTR_CONFIG}
+
 app_deptrac_run_uncovered:
 	-${_DC_EXEC} ${APP_CONTAINER} deptrac analyse --fail-on-uncovered --report-uncovered --config-file=${DPTR_CONFIG} --cache-file=${DPTR_CACHE}
 

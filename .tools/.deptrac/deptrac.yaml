@@ -40,9 +40,6 @@ deptrac:
           must:
             - type: className
               value: .*React\\EventLoop\\.*
-    #          must_not:
-    #            - type: className
-    #              value: .*Symfony\\.*\\Test\\.*
     - name: ModuleMixin
       collectors:
         - type: className
@@ -81,8 +78,8 @@ deptrac:
       - +ModuleCore
       - +ModuleException
       - +ModuleHelper
-      - +VendorRevolt
       - +VendorReact
+      - +VendorRevolt
       - ILoop
     ModuleExtras:
       - +ModuleCore
