@@ -2,25 +2,17 @@
 imports:
   - .common/paths.yaml
   - module/core.yaml
+  - module/exception.yaml
   - module/extras.yaml
-  - vendor/symfony.yaml
+  - module/helper.yaml
+  - module/mixin.yaml
   - vendor/react.yaml
   - vendor/revolt.yaml
+  - vendor/symfony.yaml
 
 deptrac:
   layers:
-    - name: ModuleMixin
-      collectors:
-        - type: className
-          value: .*AlecRabbit\\Spinner\\Mixin\\.*
-    - name: ModuleException
-      collectors:
-        - type: className
-          value: .*AlecRabbit\\Spinner\\Exception\\.*
-    - name: ModuleHelper
-      collectors:
-        - type: className
-          value: AlecRabbit\\Spinner\\Helper\\.*
+
     - name: ILoop
       collectors:
         - type: className
