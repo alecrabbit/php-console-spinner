@@ -43,20 +43,14 @@ final class DefaultsFactory
         }
     }
 
-    /**
-     * @throws InvalidArgumentException
-     */
-    public static function registerLoopProbeClass(string $class): void
+    public static function registerLoopProbeClass(string $className): void
     {
-        self::$registeredLoopProbes[] = $class;
+        self::$registeredLoopProbes[] = $className;
     }
 
-    /**
-     * @throws InvalidArgumentException
-     */
-    public static function registerTerminalProbeClass(string $class): void
+    public static function registerTerminalProbeClass(string $className): void
     {
-        self::$registeredTerminalProbes[] = $class;
+        self::$registeredTerminalProbes[] = $className;
     }
 
     /**

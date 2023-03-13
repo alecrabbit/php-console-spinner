@@ -42,7 +42,7 @@ final class AsserterTest extends TestCase
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage(
             sprintf(
-                'Class "%s" must be a subclass of "%s", in "%s()"',
+                'Class "%s" must be a subclass of "%s", see "%s()"',
                 $invalidClass,
                 $expectedClass,
                 __METHOD__,

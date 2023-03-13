@@ -60,13 +60,14 @@ abstract class ACoreDefaults implements IDefaults
         Asserter::classExists($class, __METHOD__);
         Asserter::isSubClass($class, ILoopProbe::class, __METHOD__);
         foreach (self::$registeredLoopProbes as $probe) {
-            if ($probe === $class) {
-                throw new InvalidArgumentException(
-                    sprintf('Loop probe class "%s" is already registered.', $class)
-                );
+            if ($probe !== $class) {
+                self::$registeredLoopProbes[] = $class;
+//                throw new InvalidArgumentException(
+//                    sprintf('Loop probe class "%s" is already registered.', $class)
+//                );
             }
         }
-        self::$registeredLoopProbes[] = $class;
+
     }
 
     /**
@@ -77,13 +78,13 @@ abstract class ACoreDefaults implements IDefaults
         Asserter::classExists($class, __METHOD__);
         Asserter::isSubClass($class, ITerminalProbe::class, __METHOD__);
         foreach (self::$registeredTerminalProbes as $probe) {
-            if ($probe === $class) {
-                throw new InvalidArgumentException(
-                    sprintf('Terminal probe class "%s" is already registered.', $class)
-                );
+            if ($probe !== $class) {
+                self::$registeredTerminalProbes[] = $class;
+//                throw new InvalidArgumentException(
+//                    sprintf('Terminal probe class "%s" is already registered.', $class)
+//                );
             }
         }
-        self::$registeredTerminalProbes[] = $class;
     }
 
     public function reset(): void
@@ -127,23 +128,12 @@ abstract class ACoreDefaults implements IDefaults
 
     protected static function defaultLoopProbes(): iterable
     {
-        // @codeCoverageIgnoreStart
-//        static $loopProbes = [
-//            RevoltLoopProbe::class,
-//            ReactLoopProbe::class,
-//        ];
         yield from self::$registeredLoopProbes;
-        // @codeCoverageIgnoreEnd
     }
 
     protected static function defaultTerminalProbes(): iterable
     {
-        // @codeCoverageIgnoreStart
         yield from self::$registeredTerminalProbes;
-//        yield from [
-//            SymfonyTerminalProbe::class,
-//        ];
-        // @codeCoverageIgnoreEnd
     }
 
     protected static function getClassesInstance(): ADefaultsClasses
