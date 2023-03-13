@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Factory\A;
 
+use AlecRabbit\Spinner\Core\A\ASpinner;
 use AlecRabbit\Spinner\Core\Config\ConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\IConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IConfigBuilder;
@@ -16,7 +17,6 @@ use AlecRabbit\Spinner\Core\Factory\Contract\ISpinnerFactory;
 use AlecRabbit\Spinner\Exception\DomainException;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Helper\Asserter;
-use AlecRabbit\Spinner\Spinner;
 
 abstract class ASpinnerFactory extends ADefaultsAwareClass implements ISpinnerFactory,
                                                                       IConfigBuilderGetter,
@@ -50,17 +50,18 @@ abstract class ASpinnerFactory extends ADefaultsAwareClass implements ISpinnerFa
             new ConfigBuilder(self::getDefaults());
     }
 
-    private static function doCreateSpinner(IConfig $config): Spinner
+    private static function doCreateSpinner(IConfig $config): ISpinner
     {
         return
-            new Spinner(
+            new class(
                 $config->getDriver(),
                 $config->getTimer(),
                 $config->getMainWidget(),
-            );
+            ) extends ASpinner {
+            };
     }
 
-    protected static function addWidgets(Spinner $spinner): void
+    protected static function addWidgets(ISpinner $spinner): void
     {
         foreach (self::$config->getWidgets() as $widget) {
             $spinner->add($widget);
