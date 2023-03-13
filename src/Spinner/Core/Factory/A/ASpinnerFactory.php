@@ -68,17 +68,23 @@ abstract class ASpinnerFactory extends ADefaultsAwareClass implements ISpinnerFa
         }
     }
 
+    /**
+     * @throws DomainException
+     */
     protected static function initializeSpinner(ISpinner $spinner): ISpinner
     {
+        /** @var ILoopHelper $loopClass */
+        $loopClass = self::getLoopClass();
+
         if (self::$config->isAsynchronous()) {
-            self::getLoopClass()::attach($spinner);
+            $loopClass::attach($spinner);
 
             if (self::$config->areSignalHandlersEnabled()) {
-                self::getLoopClass()::setSignalHandlers($spinner, self::$config->getSignalHandlers());
+                $loopClass::setSignalHandlers($spinner, self::$config->getSignalHandlers());
             }
 
             if (self::$config->isAutoStart()) {
-                self::getLoopClass()::autoStart();
+                $loopClass::autoStart();
             }
         }
 

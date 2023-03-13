@@ -67,7 +67,6 @@ abstract class ACoreDefaults implements IDefaults
 //                );
             }
         }
-
     }
 
     /**
