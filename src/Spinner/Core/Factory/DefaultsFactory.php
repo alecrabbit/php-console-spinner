@@ -4,8 +4,10 @@ declare(strict_types=1);
 // 14.02.23
 namespace AlecRabbit\Spinner\Core\Factory;
 
+use AlecRabbit\Spinner\Core\Contract\ILoopProbe;
 use AlecRabbit\Spinner\Core\Defaults\A\ADefaults;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDefaults;
+use AlecRabbit\Spinner\Core\Terminal\Contract\ITerminalProbe;
 use AlecRabbit\Spinner\Exception\DomainException;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Helper\Asserter;
@@ -15,42 +17,45 @@ final class DefaultsFactory
 {
     use NoInstanceTrait;
 
-    private static iterable $registeredLoopProbes = [];
-    private static iterable $registeredTerminalProbes = [];
+    /** @var array<class-string<ILoopProbe|ITerminalProbe>> */
+    private static iterable $addedProbes = [];
 
-    /** @var null|class-string */
+    /** @var null|class-string<IDefaults> */
     private static ?string $className = null;
 
     public static function create(): IDefaults
     {
         if (null === self::$className) {
             self::$className = ADefaults::class;
-            self::initDefaults(self::$className);
+            self::initDefaultsClass(self::$className);
         }
         /** @noinspection PhpUndefinedMethodInspection */
         return self::$className::getInstance();
     }
 
-    private static function initDefaults(string $className): void
+    private static function initDefaultsClass(string $className): void
     {
-        foreach (self::$registeredLoopProbes as $probe) {
-            /** @noinspection PhpUndefinedMethodInspection */
-            $className::registerLoopProbeClass($probe);
-        }
-        foreach (self::$registeredTerminalProbes as $probe) {
-            /** @noinspection PhpUndefinedMethodInspection */
-            $className::registerTerminalProbeClass($probe);
+        /** @var IDefaults $className */
+        foreach (self::$addedProbes as $probe) {
+            $className::registerProbe($probe);
         }
     }
 
-    public static function registerLoopProbeClass(string $className): void
+    /**
+     * @throws InvalidArgumentException
+     */
+    public static function addProbe(string $className): void
     {
-        self::$registeredLoopProbes[] = $className;
-    }
+        Asserter::classExists($className, __METHOD__);
 
-    public static function registerTerminalProbeClass(string $className): void
-    {
-        self::$registeredTerminalProbes[] = $className;
+        foreach (self::$addedProbes as $probe) {
+            if ($probe === $className) {
+                throw new InvalidArgumentException(
+                    sprintf('Probe class "%s" is already added.', $className)
+                );
+            }
+        }
+        self::$addedProbes[] = $className;
     }
 
     /**

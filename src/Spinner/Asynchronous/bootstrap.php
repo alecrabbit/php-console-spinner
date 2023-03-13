@@ -8,7 +8,7 @@ use AlecRabbit\Spinner\Asynchronous\Loop\Probe\RevoltLoopProbe;
 use AlecRabbit\Spinner\Core\Factory\DefaultsFactory;
 use AlecRabbit\Spinner\Factory;
 
-DefaultsFactory::registerLoopProbeClass(ReactLoopProbe::class);
-DefaultsFactory::registerLoopProbeClass(RevoltLoopProbe::class);
+DefaultsFactory::addProbe(ReactLoopProbe::class);
+DefaultsFactory::addProbe(RevoltLoopProbe::class);
 
 Factory::registerLoopClass(Loop::class);
