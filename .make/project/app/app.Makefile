@@ -4,6 +4,9 @@ app_tools_run: app_phploc_run app_deptrac_run
 	@${_NO_OP};
 
 PHPLOC_DIR = /usr/local/bin
+DPTR_CONFIG = ${APP_DIR}/.tools/.deptrac/deptrac.yaml
+DPTR_CACHE = ${APP_DIR}/.tools/.deptrac/.deptrac.cache
+DPTR_OUT_DIR = ${APP_DIR}/.tools/.report/.deptrac
 
 app_phploc_run:
 	@${_ECHO} "\n${_C_SELECT} ${PROJECT_NAME} ${_C_STOP} ${_C_INFO}PHPLOC run...${_C_STOP}\n";
@@ -12,15 +15,6 @@ app_phploc_run:
 	@-cat ${APP_DIR}/.tools/.report/.phploc/.phploc_baseline
 	@${_ECHO} "${_C_STOP}\n";
 
-#app_deptrac_run:
-#	@${_ECHO} "\n${_C_SELECT} ${PROJECT_NAME} ${_C_STOP} ${_C_INFO}Deptrac run...${_C_STOP}\n";
-#	@mkdir -p ${APP_DIR}/.tools/.report/.deptrac
-#	@-${_DC_EXEC} ${APP_CONTAINER} deptrac analyse --clear-cache --no-progress --config-file=${APP_DIR}/.tools/.deptrac/deptrac.yaml --cache-file=${APP_DIR}/.tools/.deptrac/.deptrac.cache > ${APP_DIR}/.tools/.report/.deptrac/.deptrac_baseline
-#	@-${_DC_EXEC} ${APP_CONTAINER} deptrac analyse --no-progress --config-file=${APP_DIR}/.tools/.deptrac/deptrac.yaml --cache-file=${APP_DIR}/.tools/.deptrac/.deptrac.cache --formatter=graphviz-image --output=${APP_DIR}/.tools/.report/.deptrac/graph.png
-#	@-${_DC_EXEC} ${APP_CONTAINER} deptrac analyse --no-progress --config-file=${APP_DIR}/.tools/.deptrac/deptrac.yaml --cache-file=${APP_DIR}/.tools/.deptrac/.deptrac.cache --formatter=baseline --output=${APP_DIR}/.tools/.report/.deptrac/baseline.formatter.output.yaml
-#	@-${_DC_EXEC} ${APP_CONTAINER} deptrac analyse --config-file=${APP_DIR}/.tools/.deptrac/deptrac.yaml --cache-file=${APP_DIR}/.tools/.deptrac/.deptrac.cache
-#	@#-${_DC_EXEC} ${APP_CONTAINER} deptrac analyse --fail-on-uncovered --report-uncovered -vvv --config-file=${APP_DIR}/.tools/.deptrac/deptrac.yaml --cache-file=${APP_DIR}/.tools/.deptrac/.deptrac.cache
-
 app_deptrac_run_full: _deptrac_run_message _deptrac_run_baseline _deptrac_run_graph _deptrac_run_baseline_formatter app_deptrac_run
 	@${_NO_OP};
 
@@ -28,21 +22,21 @@ _deptrac_run_message:
 	@${_ECHO} "\n${_C_SELECT} ${PROJECT_NAME} ${_C_STOP} ${_C_INFO}Deptrac run...${_C_STOP}\n";
 
 _deptrac_run_baseline:
-	@mkdir -p ${APP_DIR}/.tools/.report/.deptrac
-	@-${_DC_EXEC} ${APP_CONTAINER} deptrac analyse --clear-cache --no-progress --config-file=${APP_DIR}/.tools/.deptrac/deptrac.yaml --cache-file=${APP_DIR}/.tools/.deptrac/.deptrac.cache > ${APP_DIR}/.tools/.report/.deptrac/.deptrac_baseline
+	@mkdir -p DPTR_OUT_DIR
+	@-${_DC_EXEC} ${APP_CONTAINER} deptrac analyse --clear-cache --no-progress --config-file=${DPTR_CONFIG} --cache-file=${DPTR_CACHE} > ${DPTR_OUT_DIR}/.deptrac_baseline
 
 _deptrac_run_graph:
-	@-${_DC_EXEC} ${APP_CONTAINER} deptrac analyse --no-progress --config-file=${APP_DIR}/.tools/.deptrac/deptrac.yaml --cache-file=${APP_DIR}/.tools/.deptrac/.deptrac.cache --formatter=graphviz-image --output=${APP_DIR}/.tools/.report/.deptrac/graph.png
+	@-${_DC_EXEC} ${APP_CONTAINER} deptrac analyse --no-progress --config-file=${DPTR_CONFIG} --cache-file=${DPTR_CACHE} --formatter=graphviz-image --output=${DPTR_OUT_DIR}/graph.png
 
 _deptrac_run_baseline_formatter:
-	@-${_DC_EXEC} ${APP_CONTAINER} deptrac analyse --no-progress --config-file=${APP_DIR}/.tools/.deptrac/deptrac.yaml --cache-file=${APP_DIR}/.tools/.deptrac/.deptrac.cache --formatter=baseline --output=${APP_DIR}/.tools/.report/.deptrac/baseline.formatter.output.yaml
+	@-${_DC_EXEC} ${APP_CONTAINER} deptrac analyse --no-progress --config-file=${DPTR_CONFIG} --cache-file=${DPTR_CACHE} --formatter=baseline --output=${DPTR_OUT_DIR}/baseline.formatter.output.yaml
 
 app_deptrac_run:
 	@${_ECHO};
-	@-${_DC_EXEC} ${APP_CONTAINER} deptrac analyse --config-file=${APP_DIR}/.tools/.deptrac/deptrac.yaml --cache-file=${APP_DIR}/.tools/.deptrac/.deptrac.cache
+	@-${_DC_EXEC} ${APP_CONTAINER} deptrac analyse --config-file=${DPTR_CONFIG} --cache-file=${DPTR_CACHE}
 
 app_deptrac_run_uncovered:
-	-${_DC_EXEC} ${APP_CONTAINER} deptrac analyse --fail-on-uncovered --report-uncovered --config-file=${APP_DIR}/.tools/.deptrac/deptrac.yaml --cache-file=${APP_DIR}/.tools/.deptrac/.deptrac.cache
+	-${_DC_EXEC} ${APP_CONTAINER} deptrac analyse --fail-on-uncovered --report-uncovered --config-file=${DPTR_CONFIG} --cache-file=${DPTR_CACHE}
 
 test:
 	@$(eval c ?=)
