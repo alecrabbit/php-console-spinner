@@ -4,19 +4,9 @@ declare(strict_types=1);
 // 17.02.23
 namespace AlecRabbit\Spinner\Core\Contract;
 
-use AlecRabbit\Spinner\Exception\RuntimeException;
 use Closure;
-use React\EventLoop\LoopInterface;
-use Revolt\EventLoop\Driver;
 
-/**
- * TODO: Segregate interface for responsibilities of Loop class.
- *  e.g.:
- *   ILoopSpinnerAttach
- *   ILoopGetter
- *   ILoopSignalHandlers
- */
-interface ILoop
+interface ILoop extends ILoopSpinnerAttach, ILoopSignalHandlers
 {
     public function run(): void;
 
@@ -27,15 +17,4 @@ interface ILoop
     public function delay(float $delay, Closure $closure): void;
 
     public function autoStart(): void; // TODO: choose a better name
-
-    public function attach(ISpinner $spinner): void;
-
-    public function getLoop(): LoopInterface|Driver;
-
-    public function setSignalHandlers(iterable $handlers): void;
-
-    /**
-     * @throws RuntimeException
-     */
-    public function createSignalHandlers(ISpinner $spinner): iterable;
 }

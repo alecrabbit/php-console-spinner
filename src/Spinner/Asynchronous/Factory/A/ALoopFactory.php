@@ -5,7 +5,10 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Asynchronous\Factory\A;
 
 use AlecRabbit\Spinner\Core\Contract\ILoop;
+use AlecRabbit\Spinner\Core\Contract\ILoopGetter;
 use AlecRabbit\Spinner\Core\Contract\ILoopProbe;
+use AlecRabbit\Spinner\Core\Contract\ILoopSignalHandlers;
+use AlecRabbit\Spinner\Core\Contract\ILoopSpinnerAttach;
 use AlecRabbit\Spinner\Core\Factory\A\ADefaultsAwareClass;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopFactory;
 use AlecRabbit\Spinner\Core\Factory\DefaultsFactory;
@@ -18,7 +21,7 @@ abstract class ALoopFactory extends ADefaultsAwareClass implements ILoopFactory
 
     protected static ?ILoop $loop = null;
 
-    final public static function create(): ILoop
+    final public static function create(): ILoop|ILoopGetter|ILoopSignalHandlers|ILoopSpinnerAttach
     {
         if (static::$loop instanceof ILoop) {
             return static::$loop;
@@ -26,7 +29,7 @@ abstract class ALoopFactory extends ADefaultsAwareClass implements ILoopFactory
         return static::createLoop();
     }
 
-    protected static function createLoop(): ILoop
+    protected static function createLoop(): ILoop|ILoopGetter|ILoopSignalHandlers|ILoopSpinnerAttach
     {
         /** @var ILoopProbe $probe */
         foreach (static::getLoopProbesClasses() as $probe) {

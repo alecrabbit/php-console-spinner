@@ -6,9 +6,12 @@ namespace AlecRabbit\Spinner\Asynchronous\Loop;
 
 use AlecRabbit\Spinner\Asynchronous\Factory\LoopFactory;
 use AlecRabbit\Spinner\Core\Contract\ILoop;
+use AlecRabbit\Spinner\Core\Contract\ILoopGetter;
+use AlecRabbit\Spinner\Core\Contract\ILoopSignalHandlers;
+use AlecRabbit\Spinner\Core\Contract\ILoopSpinnerAttach;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
 
-final class Loop
+final class Loop implements ILoopHelper
 {
     private static ?ILoop $loopInstance = null;
 
@@ -17,7 +20,7 @@ final class Loop
         self::get()->attach($spinner);
     }
 
-    public static function get(): ILoop
+    public static function get(): ILoop|ILoopGetter|ILoopSignalHandlers|ILoopSpinnerAttach
     {
         if (self::$loopInstance instanceof ILoop) {
             return self::$loopInstance;

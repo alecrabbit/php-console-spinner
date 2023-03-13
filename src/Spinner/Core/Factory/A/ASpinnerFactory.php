@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Factory\A;
 
-use AlecRabbit\Spinner\Asynchronous\Loop\Loop;
+use AlecRabbit\Spinner\Asynchronous\Loop\ILoopHelper;
 use AlecRabbit\Spinner\Core\Config\ConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\IConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IConfigBuilder;
@@ -13,6 +13,9 @@ use AlecRabbit\Spinner\Core\Contract\ILoop;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopGetter;
 use AlecRabbit\Spinner\Core\Factory\Contract\ISpinnerFactory;
+use AlecRabbit\Spinner\Exception\DomainException;
+use AlecRabbit\Spinner\Exception\InvalidArgumentException;
+use AlecRabbit\Spinner\Helper\Asserter;
 use AlecRabbit\Spinner\Spinner;
 
 abstract class ASpinnerFactory extends ADefaultsAwareClass implements ISpinnerFactory,
@@ -20,6 +23,8 @@ abstract class ASpinnerFactory extends ADefaultsAwareClass implements ISpinnerFa
                                                                       ILoopGetter
 {
     protected static IConfig $config;
+
+    protected static ?string $loopClassName = null;
 
     public static function createSpinner(IConfig $config = null): ISpinner
     {
@@ -65,14 +70,14 @@ abstract class ASpinnerFactory extends ADefaultsAwareClass implements ISpinnerFa
     protected static function initializeSpinner(ISpinner $spinner): ISpinner
     {
         if (self::$config->isAsynchronous()) {
-            Loop::attach($spinner);
+            self::getLoopClass()::attach($spinner);
 
             if (self::$config->areSignalHandlersEnabled()) {
-                Loop::setSignalHandlers($spinner, self::$config->getSignalHandlers());
+                self::getLoopClass()::setSignalHandlers($spinner, self::$config->getSignalHandlers());
             }
 
             if (self::$config->isAutoStart()) {
-                Loop::autoStart();
+                self::getLoopClass()::autoStart();
             }
         }
 
@@ -82,10 +87,33 @@ abstract class ASpinnerFactory extends ADefaultsAwareClass implements ISpinnerFa
         return $spinner;
     }
 
+    /**
+     * @throws DomainException
+     */
+    protected static function getLoopClass(): string
+    {
+        if (null === self::$loopClassName) {
+            throw new DomainException('Loop class is not registered');
+        }
+        return self::$loopClassName;
+    }
 
+    /**
+     * @throws DomainException
+     */
     public static function getLoop(): ILoop
     {
         return
-            Loop::get();
+            self::getLoopClass()::get();
+    }
+
+    /**
+     * @throws InvalidArgumentException
+     */
+    public static function registerLoopClass(string $class): void
+    {
+        Asserter::classExists($class);
+        Asserter::isSubClass($class, ILoopHelper::class);
+        self::$loopClassName = $class;
     }
 }

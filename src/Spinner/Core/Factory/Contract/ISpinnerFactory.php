@@ -10,4 +10,6 @@ use AlecRabbit\Spinner\Core\Contract\ISpinner;
 interface ISpinnerFactory
 {
     public static function createSpinner(IConfig $config = null): ISpinner;
+
+    public static function registerLoopClass(string $class): void;
 }
