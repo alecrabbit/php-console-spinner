@@ -4,8 +4,6 @@ declare(strict_types=1);
 // 10.03.23
 namespace AlecRabbit\Spinner\Core\Defaults\A;
 
-use AlecRabbit\Spinner\Asynchronous\Loop\Probe\ReactLoopProbe;
-use AlecRabbit\Spinner\Asynchronous\Loop\Probe\RevoltLoopProbe;
 use AlecRabbit\Spinner\Core\Contract\IFrame;
 use AlecRabbit\Spinner\Core\Contract\ILoopProbe;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDefaults;
@@ -17,7 +15,6 @@ use AlecRabbit\Spinner\Core\Terminal\A\ATerminal;
 use AlecRabbit\Spinner\Core\Terminal\Contract\ITerminal;
 use AlecRabbit\Spinner\Core\Terminal\Contract\ITerminalProbe;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
-use AlecRabbit\Spinner\Extras\Terminal\SymfonyTerminalProbe;
 use AlecRabbit\Spinner\Helper\Asserter;
 
 /** @internal */
@@ -54,6 +51,40 @@ abstract class ACoreDefaults implements IDefaults
     protected static iterable $terminalProbes;
     private static iterable $registeredLoopProbes = [];
     private static iterable $registeredTerminalProbes = [];
+
+    /**
+     * @throws InvalidArgumentException
+     */
+    public static function registerLoopProbeClass(string $class): void
+    {
+        Asserter::classExists($class, __METHOD__);
+        Asserter::isSubClass($class, ILoopProbe::class, __METHOD__);
+        foreach (self::$registeredLoopProbes as $probe) {
+            if ($probe === $class) {
+                throw new InvalidArgumentException(
+                    sprintf('Loop probe class "%s" is already registered.', $class)
+                );
+            }
+        }
+        self::$registeredLoopProbes[] = $class;
+    }
+
+    /**
+     * @throws InvalidArgumentException
+     */
+    public static function registerTerminalProbeClass(string $class): void
+    {
+        Asserter::classExists($class, __METHOD__);
+        Asserter::isSubClass($class, ITerminalProbe::class, __METHOD__);
+        foreach (self::$registeredTerminalProbes as $probe) {
+            if ($probe === $class) {
+                throw new InvalidArgumentException(
+                    sprintf('Terminal probe class "%s" is already registered.', $class)
+                );
+            }
+        }
+        self::$registeredTerminalProbes[] = $class;
+    }
 
     public function reset(): void
     {
@@ -123,39 +154,5 @@ abstract class ACoreDefaults implements IDefaults
     protected static function getTerminalInstance(): ITerminal
     {
         return ATerminal::getInstance(static::$terminalProbes);
-    }
-
-    /**
-     * @throws InvalidArgumentException
-     */
-    public static function registerLoopProbeClass(string $class): void
-    {
-        Asserter::classExists($class, __METHOD__);
-        Asserter::isSubClass($class, ILoopProbe::class, __METHOD__);
-        foreach (self::$registeredLoopProbes as $probe) {
-            if ($probe === $class) {
-                throw new InvalidArgumentException(
-                    sprintf('Loop probe class "%s" is already registered.', $class)
-                );
-            }
-        }
-        self::$registeredLoopProbes[] = $class;
-    }
-
-    /**
-     * @throws InvalidArgumentException
-     */
-    public static function registerTerminalProbeClass(string $class): void
-    {
-        Asserter::classExists($class, __METHOD__);
-        Asserter::isSubClass($class, ITerminalProbe::class, __METHOD__);
-        foreach (self::$registeredTerminalProbes as $probe) {
-            if ($probe === $class) {
-                throw new InvalidArgumentException(
-                    sprintf('Terminal probe class "%s" is already registered.', $class)
-                );
-            }
-        }
-        self::$registeredTerminalProbes[] = $class;
     }
 }

@@ -6,7 +6,6 @@ namespace AlecRabbit\Spinner\Core\Factory;
 
 use AlecRabbit\Spinner\Core\Defaults\A\ADefaults;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDefaults;
-use AlecRabbit\Spinner\Core\Terminal\Contract\ITerminalProbe;
 use AlecRabbit\Spinner\Exception\DomainException;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Helper\Asserter;
@@ -32,21 +31,16 @@ final class DefaultsFactory
         return self::$className::getInstance();
     }
 
-    /**
-     * @throws InvalidArgumentException
-     * @throws DomainException
-     */
-    public static function setDefaultsClass(string $class): void
+    private static function initDefaults(string $className): void
     {
-        Asserter::isSubClass($class, IDefaults::class, __METHOD__);
-
-        if (null !== self::$className) {
-            throw new DomainException(
-                'Defaults class can be set only once - before first defaults instance is created.'
-            );
+        foreach (self::$registeredLoopProbes as $probe) {
+            /** @noinspection PhpUndefinedMethodInspection */
+            $className::registerLoopProbeClass($probe);
         }
-
-        self::$className = $class;
+        foreach (self::$registeredTerminalProbes as $probe) {
+            /** @noinspection PhpUndefinedMethodInspection */
+            $className::registerTerminalProbeClass($probe);
+        }
     }
 
     /**
@@ -65,15 +59,20 @@ final class DefaultsFactory
         self::$registeredTerminalProbes[] = $class;
     }
 
-    private static function initDefaults(string $className): void
+    /**
+     * @throws InvalidArgumentException
+     * @throws DomainException
+     */
+    public static function setDefaultsClass(string $class): void
     {
-        foreach (self::$registeredLoopProbes as $probe) {
-            /** @noinspection PhpUndefinedMethodInspection */
-            $className::registerLoopProbeClass($probe);
+        Asserter::isSubClass($class, IDefaults::class, __METHOD__);
+
+        if (null !== self::$className) {
+            throw new DomainException(
+                'Defaults class can be set only once - before first defaults instance is created.'
+            );
         }
-        foreach (self::$registeredTerminalProbes as $probe) {
-            /** @noinspection PhpUndefinedMethodInspection */
-            $className::registerTerminalProbeClass($probe);
-        }
+
+        self::$className = $class;
     }
 }
