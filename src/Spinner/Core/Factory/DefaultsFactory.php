@@ -4,8 +4,10 @@ declare(strict_types=1);
 // 14.02.23
 namespace AlecRabbit\Spinner\Core\Factory;
 
+use AlecRabbit\Spinner\Core\Contract\ILoopProbe;
 use AlecRabbit\Spinner\Core\Defaults\A\ADefaults;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDefaults;
+use AlecRabbit\Spinner\Core\Terminal\Contract\ITerminalProbe;
 use AlecRabbit\Spinner\Exception\DomainException;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Helper\Asserter;
@@ -43,13 +45,51 @@ final class DefaultsFactory
         }
     }
 
-    public static function registerLoopProbeClass(string $className): void
+    /**
+     * @throws InvalidArgumentException
+     */
+    public static function addProbe(string $className): void
     {
+        if (is_subclass_of($className, ILoopProbe::class)) {
+            self::addLoopProbeClass($className);
+            return;
+        }
+        if (is_subclass_of($className, ITerminalProbe::class)) {
+            self::addTerminalProbeClass($className);
+            return;
+        }
+        throw new InvalidArgumentException(
+            sprintf('Class "%s" is not a probe.', $className)
+        );
+    }
+
+    /**
+     * @throws InvalidArgumentException
+     */
+    protected static function addLoopProbeClass(string $className): void
+    {
+        foreach (self::$registeredLoopProbes as $probe) {
+            if ($probe === $className) {
+                throw new InvalidArgumentException(
+                    sprintf('Loop probe class "%s" is already registered.', $className)
+                );
+            }
+        }
         self::$registeredLoopProbes[] = $className;
     }
 
-    public static function registerTerminalProbeClass(string $className): void
+    /**
+     * @throws InvalidArgumentException
+     */
+    protected static function addTerminalProbeClass(string $className): void
     {
+        foreach (self::$registeredTerminalProbes as $probe) {
+            if ($probe === $className) {
+                throw new InvalidArgumentException(
+                    sprintf('Terminal probe class "%s" is already registered.', $className)
+                );
+            }
+        }
         self::$registeredTerminalProbes[] = $className;
     }
 

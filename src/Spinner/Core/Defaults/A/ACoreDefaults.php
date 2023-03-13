@@ -59,13 +59,9 @@ abstract class ACoreDefaults implements IDefaults
     {
         Asserter::classExists($class, __METHOD__);
         Asserter::isSubClass($class, ILoopProbe::class, __METHOD__);
-        foreach (self::$registeredLoopProbes as $probe) {
-            if ($probe !== $class) {
-                self::$registeredLoopProbes[] = $class;
-//                throw new InvalidArgumentException(
-//                    sprintf('Loop probe class "%s" is already registered.', $class)
-//                );
-            }
+
+        if (!in_array($class, iterator_to_array(self::$registeredLoopProbes), true)) {
+            self::$registeredLoopProbes[] = $class;
         }
     }
 
@@ -76,13 +72,9 @@ abstract class ACoreDefaults implements IDefaults
     {
         Asserter::classExists($class, __METHOD__);
         Asserter::isSubClass($class, ITerminalProbe::class, __METHOD__);
-        foreach (self::$registeredTerminalProbes as $probe) {
-            if ($probe !== $class) {
-                self::$registeredTerminalProbes[] = $class;
-//                throw new InvalidArgumentException(
-//                    sprintf('Terminal probe class "%s" is already registered.', $class)
-//                );
-            }
+
+        if (!in_array($class, iterator_to_array(self::$registeredTerminalProbes), true)) {
+            self::$registeredTerminalProbes[] = $class;
         }
     }
 
