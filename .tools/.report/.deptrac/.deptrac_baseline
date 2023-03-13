@@ -1,80 +1,47 @@
- ----------- --------------------------------------------------------------------------------------------------------------------------------------------------------- 
-  Reason      ModuleCore                                                                                                                                               
- ----------- --------------------------------------------------------------------------------------------------------------------------------------------------------- 
-  Violation   AlecRabbit\Spinner\Core\Revolver\A\ARevolverBuilder must not depend on AlecRabbit\Spinner\Extras\Revolver\ProceduralRevolver (ModuleExtras)              
-              /app/src/Spinner/Core/Revolver/A/ARevolverBuilder.php:44                                                                                                 
-  Violation   AlecRabbit\Spinner\Core\Revolver\A\ARevolverBuilder must not depend on AlecRabbit\Spinner\Extras\Procedure\A\AProceduralStylePattern (ModuleExtras)      
-              /app/src/Spinner/Core/Revolver/A/ARevolverBuilder.php:48                                                                                                 
-  Violation   AlecRabbit\Spinner\Core\Revolver\A\ARevolverBuilder must not depend on AlecRabbit\Spinner\Extras\Procedure\A\AProceduralStylePattern (ModuleExtras)      
-              /app/src/Spinner/Core/Revolver/A/ARevolverBuilder.php:16                                                                                                 
-  Violation   AlecRabbit\Spinner\Core\Revolver\A\ARevolverBuilder must not depend on AlecRabbit\Spinner\Extras\Revolver\ProceduralRevolver (ModuleExtras)              
-              /app/src/Spinner/Core/Revolver/A/ARevolverBuilder.php:17                                                                                                 
-  Violation   AlecRabbit\Spinner\Core\Factory\A\ASpinnerFactory must not depend on AlecRabbit\Spinner\Asynchronous\Loop\Loop (ModuleAsynchronous)                      
-              /app/src/Spinner/Core/Factory/A/ASpinnerFactory.php:68                                                                                                   
-  Violation   AlecRabbit\Spinner\Core\Factory\A\ASpinnerFactory must not depend on AlecRabbit\Spinner\Asynchronous\Loop\Loop (ModuleAsynchronous)                      
-              /app/src/Spinner/Core/Factory/A/ASpinnerFactory.php:71                                                                                                   
-  Violation   AlecRabbit\Spinner\Core\Factory\A\ASpinnerFactory must not depend on AlecRabbit\Spinner\Asynchronous\Loop\Loop (ModuleAsynchronous)                      
-              /app/src/Spinner/Core/Factory/A/ASpinnerFactory.php:75                                                                                                   
-  Violation   AlecRabbit\Spinner\Core\Factory\A\ASpinnerFactory must not depend on AlecRabbit\Spinner\Asynchronous\Loop\Loop (ModuleAsynchronous)                      
-              /app/src/Spinner/Core/Factory/A/ASpinnerFactory.php:89                                                                                                   
-  Violation   AlecRabbit\Spinner\Core\Factory\A\ASpinnerFactory must not depend on AlecRabbit\Spinner\Asynchronous\Loop\Loop (ModuleAsynchronous)                      
-              /app/src/Spinner/Core/Factory/A/ASpinnerFactory.php:7                                                                                                    
-  Violation   AlecRabbit\Spinner\Core\Defaults\A\ACoreDefaults must not depend on AlecRabbit\Spinner\Asynchronous\Loop\Probe\ReactLoopProbe (ModuleAsynchronous)       
-              /app/src/Spinner/Core/Defaults/A/ACoreDefaults.php:7                                                                                                     
-  Violation   AlecRabbit\Spinner\Core\Defaults\A\ACoreDefaults must not depend on AlecRabbit\Spinner\Asynchronous\Loop\Probe\RevoltLoopProbe (ModuleAsynchronous)      
-              /app/src/Spinner/Core/Defaults/A/ACoreDefaults.php:8                                                                                                     
-  Violation   AlecRabbit\Spinner\Core\Defaults\A\ACoreDefaults must not depend on AlecRabbit\Spinner\Extras\Terminal\SymfonyTerminalProbe (ModuleExtras)               
-              /app/src/Spinner/Core/Defaults/A/ACoreDefaults.php:20                                                                                                    
-  Violation   AlecRabbit\Spinner\Core\Revolver\RevolverBuilder must not depend on AlecRabbit\Spinner\Extras\Revolver\ProceduralRevolver (ModuleExtras)                 
-              AlecRabbit\Spinner\Core\Revolver\A\ARevolverBuilder::9 ->                                                                                                
-              AlecRabbit\Spinner\Extras\Revolver\ProceduralRevolver::44                                                                                                
-              /app/src/Spinner/Core/Revolver/A/ARevolverBuilder.php:44                                                                                                 
-  Violation   AlecRabbit\Spinner\Core\Revolver\RevolverBuilder must not depend on AlecRabbit\Spinner\Extras\Procedure\A\AProceduralStylePattern (ModuleExtras)         
-              AlecRabbit\Spinner\Core\Revolver\A\ARevolverBuilder::9 ->                                                                                                
-              AlecRabbit\Spinner\Extras\Procedure\A\AProceduralStylePattern::48                                                                                        
-              /app/src/Spinner/Core/Revolver/A/ARevolverBuilder.php:48                                                                                                 
-  Violation   AlecRabbit\Spinner\Core\Revolver\RevolverBuilder must not depend on AlecRabbit\Spinner\Extras\Procedure\A\AProceduralStylePattern (ModuleExtras)         
-              AlecRabbit\Spinner\Core\Revolver\A\ARevolverBuilder::9 ->                                                                                                
-              AlecRabbit\Spinner\Extras\Procedure\A\AProceduralStylePattern::16                                                                                        
-              /app/src/Spinner/Core/Revolver/A/ARevolverBuilder.php:16                                                                                                 
-  Violation   AlecRabbit\Spinner\Core\Revolver\RevolverBuilder must not depend on AlecRabbit\Spinner\Extras\Revolver\ProceduralRevolver (ModuleExtras)                 
-              AlecRabbit\Spinner\Core\Revolver\A\ARevolverBuilder::9 ->                                                                                                
-              AlecRabbit\Spinner\Extras\Revolver\ProceduralRevolver::17                                                                                                
-              /app/src/Spinner/Core/Revolver/A/ARevolverBuilder.php:17                                                                                                 
-  Violation   AlecRabbit\Spinner\Core\Defaults\A\ASettableDefaults must not depend on AlecRabbit\Spinner\Asynchronous\Loop\Probe\ReactLoopProbe (ModuleAsynchronous)   
-              AlecRabbit\Spinner\Core\Defaults\A\ACoreDefaults::14 ->                                                                                                  
-              AlecRabbit\Spinner\Asynchronous\Loop\Probe\ReactLoopProbe::7                                                                                             
-              /app/src/Spinner/Core/Defaults/A/ACoreDefaults.php:7                                                                                                     
-  Violation   AlecRabbit\Spinner\Core\Defaults\A\ASettableDefaults must not depend on AlecRabbit\Spinner\Asynchronous\Loop\Probe\RevoltLoopProbe (ModuleAsynchronous)  
-              AlecRabbit\Spinner\Core\Defaults\A\ACoreDefaults::14 ->                                                                                                  
-              AlecRabbit\Spinner\Asynchronous\Loop\Probe\RevoltLoopProbe::8                                                                                            
-              /app/src/Spinner/Core/Defaults/A/ACoreDefaults.php:8                                                                                                     
-  Violation   AlecRabbit\Spinner\Core\Defaults\A\ASettableDefaults must not depend on AlecRabbit\Spinner\Extras\Terminal\SymfonyTerminalProbe (ModuleExtras)           
-              AlecRabbit\Spinner\Core\Defaults\A\ACoreDefaults::14 ->                                                                                                  
-              AlecRabbit\Spinner\Extras\Terminal\SymfonyTerminalProbe::20                                                                                              
-              /app/src/Spinner/Core/Defaults/A/ACoreDefaults.php:20                                                                                                    
-  Violation   AlecRabbit\Spinner\Core\Defaults\A\ADefaults must not depend on AlecRabbit\Spinner\Asynchronous\Loop\Probe\ReactLoopProbe (ModuleAsynchronous)           
-              AlecRabbit\Spinner\Core\Defaults\A\ASettableDefaults::16 ->                                                                                              
-              AlecRabbit\Spinner\Core\Defaults\A\ACoreDefaults::14 ->                                                                                                  
-              AlecRabbit\Spinner\Asynchronous\Loop\Probe\ReactLoopProbe::7                                                                                             
-              /app/src/Spinner/Core/Defaults/A/ACoreDefaults.php:7                                                                                                     
-  Violation   AlecRabbit\Spinner\Core\Defaults\A\ADefaults must not depend on AlecRabbit\Spinner\Asynchronous\Loop\Probe\RevoltLoopProbe (ModuleAsynchronous)          
-              AlecRabbit\Spinner\Core\Defaults\A\ASettableDefaults::16 ->                                                                                              
-              AlecRabbit\Spinner\Core\Defaults\A\ACoreDefaults::14 ->                                                                                                  
-              AlecRabbit\Spinner\Asynchronous\Loop\Probe\RevoltLoopProbe::8                                                                                            
-              /app/src/Spinner/Core/Defaults/A/ACoreDefaults.php:8                                                                                                     
-  Violation   AlecRabbit\Spinner\Core\Defaults\A\ADefaults must not depend on AlecRabbit\Spinner\Extras\Terminal\SymfonyTerminalProbe (ModuleExtras)                   
-              AlecRabbit\Spinner\Core\Defaults\A\ASettableDefaults::16 ->                                                                                              
-              AlecRabbit\Spinner\Core\Defaults\A\ACoreDefaults::14 ->                                                                                                  
-              AlecRabbit\Spinner\Extras\Terminal\SymfonyTerminalProbe::20                                                                                              
-              /app/src/Spinner/Core/Defaults/A/ACoreDefaults.php:20                                                                                                    
- ----------- --------------------------------------------------------------------------------------------------------------------------------------------------------- 
+ ----------- ----------------------------------------------------------------------------------------------------------------------------------------------------- 
+  Reason      ModuleCore                                                                                                                                           
+ ----------- ----------------------------------------------------------------------------------------------------------------------------------------------------- 
+  Violation   AlecRabbit\Spinner\Core\Revolver\A\ARevolverBuilder must not depend on AlecRabbit\Spinner\Extras\Revolver\ProceduralRevolver (ModuleExtras)          
+              /app/src/Spinner/Core/Revolver/A/ARevolverBuilder.php:44                                                                                             
+  Violation   AlecRabbit\Spinner\Core\Revolver\A\ARevolverBuilder must not depend on AlecRabbit\Spinner\Extras\Procedure\A\AProceduralStylePattern (ModuleExtras)  
+              /app/src/Spinner/Core/Revolver/A/ARevolverBuilder.php:48                                                                                             
+  Violation   AlecRabbit\Spinner\Core\Revolver\A\ARevolverBuilder must not depend on AlecRabbit\Spinner\Extras\Procedure\A\AProceduralStylePattern (ModuleExtras)  
+              /app/src/Spinner/Core/Revolver/A/ARevolverBuilder.php:16                                                                                             
+  Violation   AlecRabbit\Spinner\Core\Revolver\A\ARevolverBuilder must not depend on AlecRabbit\Spinner\Extras\Revolver\ProceduralRevolver (ModuleExtras)          
+              /app/src/Spinner/Core/Revolver/A/ARevolverBuilder.php:17                                                                                             
+  Violation   AlecRabbit\Spinner\Core\Factory\A\ASpinnerFactory must not depend on AlecRabbit\Spinner\Asynchronous\Loop\Loop (ModuleAsynchronous)                  
+              /app/src/Spinner/Core/Factory/A/ASpinnerFactory.php:68                                                                                               
+  Violation   AlecRabbit\Spinner\Core\Factory\A\ASpinnerFactory must not depend on AlecRabbit\Spinner\Asynchronous\Loop\Loop (ModuleAsynchronous)                  
+              /app/src/Spinner/Core/Factory/A/ASpinnerFactory.php:71                                                                                               
+  Violation   AlecRabbit\Spinner\Core\Factory\A\ASpinnerFactory must not depend on AlecRabbit\Spinner\Asynchronous\Loop\Loop (ModuleAsynchronous)                  
+              /app/src/Spinner/Core/Factory/A/ASpinnerFactory.php:75                                                                                               
+  Violation   AlecRabbit\Spinner\Core\Factory\A\ASpinnerFactory must not depend on AlecRabbit\Spinner\Asynchronous\Loop\Loop (ModuleAsynchronous)                  
+              /app/src/Spinner/Core/Factory/A/ASpinnerFactory.php:89                                                                                               
+  Violation   AlecRabbit\Spinner\Core\Factory\A\ASpinnerFactory must not depend on AlecRabbit\Spinner\Asynchronous\Loop\Loop (ModuleAsynchronous)                  
+              /app/src/Spinner/Core/Factory/A/ASpinnerFactory.php:7                                                                                                
+  Violation   AlecRabbit\Spinner\Core\Revolver\RevolverBuilder must not depend on AlecRabbit\Spinner\Extras\Revolver\ProceduralRevolver (ModuleExtras)             
+              AlecRabbit\Spinner\Core\Revolver\A\ARevolverBuilder::9 ->                                                                                            
+              AlecRabbit\Spinner\Extras\Revolver\ProceduralRevolver::44                                                                                            
+              /app/src/Spinner/Core/Revolver/A/ARevolverBuilder.php:44                                                                                             
+  Violation   AlecRabbit\Spinner\Core\Revolver\RevolverBuilder must not depend on AlecRabbit\Spinner\Extras\Procedure\A\AProceduralStylePattern (ModuleExtras)     
+              AlecRabbit\Spinner\Core\Revolver\A\ARevolverBuilder::9 ->                                                                                            
+              AlecRabbit\Spinner\Extras\Procedure\A\AProceduralStylePattern::48                                                                                    
+              /app/src/Spinner/Core/Revolver/A/ARevolverBuilder.php:48                                                                                             
+  Violation   AlecRabbit\Spinner\Core\Revolver\RevolverBuilder must not depend on AlecRabbit\Spinner\Extras\Procedure\A\AProceduralStylePattern (ModuleExtras)     
+              AlecRabbit\Spinner\Core\Revolver\A\ARevolverBuilder::9 ->                                                                                            
+              AlecRabbit\Spinner\Extras\Procedure\A\AProceduralStylePattern::16                                                                                    
+              /app/src/Spinner/Core/Revolver/A/ARevolverBuilder.php:16                                                                                             
+  Violation   AlecRabbit\Spinner\Core\Revolver\RevolverBuilder must not depend on AlecRabbit\Spinner\Extras\Revolver\ProceduralRevolver (ModuleExtras)             
+              AlecRabbit\Spinner\Core\Revolver\A\ARevolverBuilder::9 ->                                                                                            
+              AlecRabbit\Spinner\Extras\Revolver\ProceduralRevolver::17                                                                                            
+              /app/src/Spinner/Core/Revolver/A/ARevolverBuilder.php:17                                                                                             
+ ----------- ----------------------------------------------------------------------------------------------------------------------------------------------------- 
 
 
  -------------------- ------ 
   Report                     
  -------------------- ------ 
-  Violations           22    
+  Violations           13    
   Skipped violations   0     
   Uncovered            202   
   Allowed              1187  
