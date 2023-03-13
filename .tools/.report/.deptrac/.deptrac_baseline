@@ -9,16 +9,6 @@
               /app/src/Spinner/Core/Revolver/A/ARevolverBuilder.php:16                                                                                             
   Violation   AlecRabbit\Spinner\Core\Revolver\A\ARevolverBuilder must not depend on AlecRabbit\Spinner\Extras\Revolver\ProceduralRevolver (ModuleExtras)          
               /app/src/Spinner/Core/Revolver/A/ARevolverBuilder.php:17                                                                                             
-  Violation   AlecRabbit\Spinner\Core\Factory\A\ASpinnerFactory must not depend on AlecRabbit\Spinner\Asynchronous\Loop\Loop (ModuleAsynchronous)                  
-              /app/src/Spinner/Core/Factory/A/ASpinnerFactory.php:68                                                                                               
-  Violation   AlecRabbit\Spinner\Core\Factory\A\ASpinnerFactory must not depend on AlecRabbit\Spinner\Asynchronous\Loop\Loop (ModuleAsynchronous)                  
-              /app/src/Spinner/Core/Factory/A/ASpinnerFactory.php:71                                                                                               
-  Violation   AlecRabbit\Spinner\Core\Factory\A\ASpinnerFactory must not depend on AlecRabbit\Spinner\Asynchronous\Loop\Loop (ModuleAsynchronous)                  
-              /app/src/Spinner/Core/Factory/A/ASpinnerFactory.php:75                                                                                               
-  Violation   AlecRabbit\Spinner\Core\Factory\A\ASpinnerFactory must not depend on AlecRabbit\Spinner\Asynchronous\Loop\Loop (ModuleAsynchronous)                  
-              /app/src/Spinner/Core/Factory/A/ASpinnerFactory.php:89                                                                                               
-  Violation   AlecRabbit\Spinner\Core\Factory\A\ASpinnerFactory must not depend on AlecRabbit\Spinner\Asynchronous\Loop\Loop (ModuleAsynchronous)                  
-              /app/src/Spinner/Core/Factory/A/ASpinnerFactory.php:7                                                                                                
   Violation   AlecRabbit\Spinner\Core\Revolver\RevolverBuilder must not depend on AlecRabbit\Spinner\Extras\Revolver\ProceduralRevolver (ModuleExtras)             
               AlecRabbit\Spinner\Core\Revolver\A\ARevolverBuilder::9 ->                                                                                            
               AlecRabbit\Spinner\Extras\Revolver\ProceduralRevolver::44                                                                                            
@@ -41,10 +31,10 @@
  -------------------- ------ 
   Report                     
  -------------------- ------ 
-  Violations           13    
+  Violations           8     
   Skipped violations   0     
-  Uncovered            202   
-  Allowed              1187  
+  Uncovered            191   
+  Allowed              1275  
   Warnings             0     
   Errors               0     
  -------------------- ------ 
