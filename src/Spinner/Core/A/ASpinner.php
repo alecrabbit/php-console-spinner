@@ -8,7 +8,7 @@ use AlecRabbit\Spinner\Core\Contract\IFrame;
 use AlecRabbit\Spinner\Core\Contract\IInterval;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use AlecRabbit\Spinner\Core\Contract\ITimer;
-use AlecRabbit\Spinner\Core\Frame;
+use AlecRabbit\Spinner\Core\Factory\FrameFactory;
 use AlecRabbit\Spinner\Core\Output\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContext;
@@ -30,7 +30,7 @@ abstract class ASpinner implements ISpinner
 
     public function initialize(): void
     {
-        $this->currentFrame = Frame::createEmpty();
+        $this->currentFrame = FrameFactory::createEmpty();
         $this->driver->hideCursor();
         $this->activate();
         $this->update();

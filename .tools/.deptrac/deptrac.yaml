@@ -1,0 +1,45 @@
+# Add module files here
+imports:
+  - .common/paths.yaml
+  - module/async.yaml
+  - module/core.yaml
+  - module/exception.yaml
+  - module/extras.yaml
+  - module/helper.yaml
+  - module/iloop.yaml
+  - module/mixin.yaml
+  - vendor/react.yaml
+  - vendor/revolt.yaml
+  - vendor/symfony.yaml
+
+deptrac:
+  ruleset:
+    ModuleAsynchronous:
+      - +ModuleCore
+      - +ModuleException
+      - +ModuleHelper
+      - +VendorReact
+      - +VendorRevolt
+      - ILoop
+    ModuleExtras:
+      - +ModuleCore
+      - +ModuleException
+      - +VendorSymfony
+    ModuleHelper:
+      - +ModuleException
+      - +ModuleMixin
+    ModuleCore:
+      - +ModuleException
+      - +ModuleHelper
+      - +ModuleMixin
+      - ILoop
+    ModuleException: ~
+    ModuleMixin: ~
+    VendorSymfony: ~
+    ILoop:
+      - +VendorRevolt
+      - +VendorReact
+      - +ModuleCore
+#  skip_violations:
+#    NS\Class:
+#      - AnotherNS\Class

@@ -1,0 +1,6 @@
+deptrac:
+  layers:
+    - name: ModuleExtras
+      collectors:
+        - type: className
+          value: .*AlecRabbit\\Spinner\\Extras\\.*

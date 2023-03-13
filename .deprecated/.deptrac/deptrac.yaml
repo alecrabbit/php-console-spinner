@@ -1,0 +1,29 @@
+# Add module files here
+imports:
+  - .common/paths.yaml
+  - shared.yaml
+  - hook.yaml
+  - module/auth.yaml
+  - module/profile.yaml
+  - module/customization.yaml
+  - module/notify.yaml
+  - module/user.yaml
+
+### Module dependencies:
+parameters:
+  ruleset:
+    LHookApi:
+      - LAuthApi
+    LAuthModuleAdapters:
+      - LProfileApi
+      - LNotifyApi
+    LProfileModuleAdapters:
+      - LNotifyApi
+    LNotifyModuleAdapters:
+      - LProfileApi
+    LUserModuleAdapters:
+      - LProfileApi
+      - LAuthApi
+      - LCustomizationApi
+    SharedInfrastructureLayer:
+      - LNotifyApi

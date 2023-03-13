@@ -4,8 +4,8 @@ declare(strict_types=1);
 // 16.06.22
 namespace AlecRabbit\Tests\Spinner\TestCase;
 
-use AlecRabbit\Spinner\Config\Contract\IConfig;
-use AlecRabbit\Spinner\Config\Contract\IConfigBuilder;
+use AlecRabbit\Spinner\Core\Config\Contract\IConfig;
+use AlecRabbit\Spinner\Core\Config\Contract\IConfigBuilder;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Exception\LogicException;
 use AlecRabbit\Spinner\Factory;

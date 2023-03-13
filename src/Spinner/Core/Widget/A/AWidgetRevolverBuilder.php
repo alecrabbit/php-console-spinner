@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Widget\A;
 
-use AlecRabbit\Spinner\Config\Defaults\Contract\IDefaults;
+use AlecRabbit\Spinner\Core\Defaults\Contract\IDefaults;
+use AlecRabbit\Spinner\Core\Factory\FrameFactory;
 use AlecRabbit\Spinner\Core\Frame;
 use AlecRabbit\Spinner\Core\Interval;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
@@ -56,7 +57,7 @@ abstract class AWidgetRevolverBuilder implements IWidgetRevolverBuilder
         return
             new FrameCollectionRevolver(
                 [
-                    Frame::createEmpty()
+                    FrameFactory::createEmpty()
                 ],
                 new Interval()
             );

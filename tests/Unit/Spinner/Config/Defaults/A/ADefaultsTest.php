@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Config\Defaults\A;
 
-use AlecRabbit\Spinner\Config\Defaults\A\ADefaults;
-use AlecRabbit\Spinner\Core\Frame;
-use AlecRabbit\Spinner\Core\Loop\ReactLoopProbe;
-use AlecRabbit\Spinner\Core\Loop\RevoltLoopProbe;
+use AlecRabbit\Spinner\Asynchronous\Loop\Probe\ReactLoopProbe;
+use AlecRabbit\Spinner\Asynchronous\Loop\Probe\RevoltLoopProbe;
+use AlecRabbit\Spinner\Core\Defaults\A\ADefaults;
+use AlecRabbit\Spinner\Core\Factory\FrameFactory;
 use AlecRabbit\Spinner\Core\Widget\WidgetBuilder;
 use AlecRabbit\Spinner\Core\Widget\WidgetRevolverBuilder;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
@@ -153,7 +153,7 @@ final class ADefaultsTest extends TestCase
     {
         $defaults = self::getInstance();
 
-        $spacer = new Frame('test', 4);
+        $spacer = FrameFactory::create('test', 4);
         $defaults->setMainLeadingSpacer($spacer);
         self::assertSame($spacer, $defaults->getMainLeadingSpacer());
     }
@@ -170,7 +170,7 @@ final class ADefaultsTest extends TestCase
     {
         $defaults = self::getInstance();
 
-        $spacer = new Frame('test', 4);
+        $spacer = FrameFactory::create('test', 4);
         $defaults->setMainTrailingSpacer($spacer);
         self::assertSame($spacer, $defaults->getMainTrailingSpacer());
     }

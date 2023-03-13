@@ -1,0 +1,11 @@
+deptrac:
+  layers:
+    - name: ModuleCore
+      collectors:
+        - type: bool
+          must:
+            - type: className
+              value: AlecRabbit\\Spinner\\Core\\.*
+          must_not:
+            - type: className
+              value: AlecRabbit\\Spinner\\Core\\.*\\ILoop

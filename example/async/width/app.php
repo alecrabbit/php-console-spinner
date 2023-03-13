@@ -3,9 +3,9 @@
 declare(strict_types=1);
 
 use AlecRabbit\Spinner\Core\ColorMode;
+use AlecRabbit\Spinner\Core\Factory\DefaultsFactory;
 use AlecRabbit\Spinner\Core\Output\StreamOutput;
 use AlecRabbit\Spinner\Factory;
-use AlecRabbit\Spinner\Factory\DefaultsFactory;
 
 require_once __DIR__ . '/../bootstrap.async.php';
 

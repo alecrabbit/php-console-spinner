@@ -7,6 +7,7 @@ namespace AlecRabbit\Spinner\Helper;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Exception\RuntimeException;
 
+use function class_exists;
 use function extension_loaded;
 
 use const AlecRabbit\Spinner\KNOWN_TERM_COLOR;
@@ -16,6 +17,8 @@ final class Asserter
     /**
      * @param object|class-string $c
      * @param class-string $i
+     * @param string|null $callerMethod
+     * @param bool $allowString
      * @throws InvalidArgumentException
      */
     public static function isSubClass(mixed $c, string $i, ?string $callerMethod = null, bool $allowString = true): void
@@ -26,7 +29,7 @@ final class Asserter
                     'Class "%s" must be a subclass of "%s"%s.',
                     $c,
                     $i,
-                    $callerMethod ? sprintf(', in "%s()"', $callerMethod) : '',
+                    $callerMethod ? sprintf(', see "%s()"', $callerMethod) : '',
                 )
             );
         }
@@ -49,6 +52,8 @@ final class Asserter
      */
     public static function assertColorSupportLevels(array $colorSupportLevels): void
     {
+        Deprecation::method(__METHOD__);
+
         if ($colorSupportLevels === []) {
             throw new InvalidArgumentException('Color support levels must not be empty.');
         }
@@ -68,12 +73,28 @@ final class Asserter
     /**
      * @throws RuntimeException
      */
-    public static function assertExtensionLoaded(string $extensionName, string $message): void
+    public static function assertExtensionLoaded(string $extensionName, ?string $message = null): void
     {
-        // @codeCoverageIgnoreStart
         if (!extension_loaded($extensionName)) {
-            throw new RuntimeException($message);
+            throw new RuntimeException(
+                $message ?? sprintf('Extension "%s" is not loaded.', $extensionName)
+            );
         }
-        // @codeCoverageIgnoreEnd
+    }
+
+    /**
+     * @throws InvalidArgumentException
+     */
+    public static function classExists(string $class, ?string $callerMethod = null): void
+    {
+        if (!class_exists($class)) {
+            throw new InvalidArgumentException(
+                sprintf(
+                    'Class "%s" does not exist%s.',
+                    $class,
+                    $callerMethod ? sprintf(', see "%s()"', $callerMethod) : ''
+                )
+            );
+        }
     }
 }

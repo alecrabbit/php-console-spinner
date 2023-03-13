@@ -1,0 +1,57 @@
+parameters:
+  SharedDir: src/Shared
+  LCommonDir: src/Shared/Common
+  LDomainDir: src/Shared/Module/Domain
+  LApplicationDir: src/Shared/Module/Application
+  LInfrastructureDir: src/Shared/Module/Infrastructure
+
+  layers:
+  #  - name: Shared
+  #    collectors:
+  #      - type: bool
+  #        must:
+  #          - type: directory
+  #            regex: '%SharedDir%'
+  #        must_not:
+  #          - type: className
+  #            regex: SD\\Shared\\Common\\ACL\\Http.*
+    - name: SharedCommon
+      collectors:
+        - type: bool
+          must:
+            - type: directory
+              regex: '%LCommonDir%'
+            - type: className
+              regex: SD\\Shared\\Common\\.*
+    - name: SharedDomainLayer
+      collectors:
+        - type: bool
+          must:
+            - type: directory
+              regex: '%LDomainDir%'
+            - type: className
+              regex: SD\\Shared\\Module\\Domain\\.*
+    - name: SharedApplicationLayer
+      collectors:
+        - type: bool
+          must:
+            - type: directory
+              regex: '%LApplicationDir%'
+            - type: className
+              regex: SD\\Shared\\Module\\Application\\.*
+    - name: SharedInfrastructureLayer
+      collectors:
+        - type: bool
+          must:
+            - type: directory
+              regex: '%LInfrastructureDir%'
+            - type: className
+              regex: SD\\Shared\\Module\\Infrastructure\\.*
+
+  ruleset:
+    SharedDomainLayer:
+      - SharedCommon
+    SharedApplicationLayer:
+      - +SharedDomainLayer
+    SharedInfrastructureLayer:
+      - +SharedApplicationLayer

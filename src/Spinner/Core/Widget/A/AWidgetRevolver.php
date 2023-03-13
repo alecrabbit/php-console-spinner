@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Widget\A;
 
 use AlecRabbit\Spinner\Core\Contract\IFrame;
+use AlecRabbit\Spinner\Core\Factory\FrameFactory;
 use AlecRabbit\Spinner\Core\Frame;
 use AlecRabbit\Spinner\Core\Revolver\A\ARevolver;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
@@ -40,7 +41,7 @@ abstract class AWidgetRevolver extends ARevolver
 
     protected function current(): IFrame
     {
-        return Frame::createEmpty(); // should never be called
+        return FrameFactory::createEmpty(); // should never be called
     }
 
 }

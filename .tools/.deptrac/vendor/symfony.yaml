@@ -1,0 +1,11 @@
+deptrac:
+  layers:
+    - name: VendorSymfony
+      collectors:
+        - type: bool
+          must:
+            - type: className
+              value: .*Symfony\\.*
+          must_not:
+            - type: className
+              value: .*Symfony\\.*\\Test\\.*

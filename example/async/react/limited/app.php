@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-use AlecRabbit\Spinner\Core\Loop\ReactLoopProbe;
+use AlecRabbit\Spinner\Asynchronous\Loop\Probe\ReactLoopProbe;
+use AlecRabbit\Spinner\Core\Factory\DefaultsFactory;
 use AlecRabbit\Spinner\Factory;
-use AlecRabbit\Spinner\Factory\DefaultsFactory;
 use React\EventLoop\Loop;
 
 require_once __DIR__ . '/../../bootstrap.async.php';

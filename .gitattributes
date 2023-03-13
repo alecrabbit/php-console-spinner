@@ -2,6 +2,7 @@ CHANGELOG.md export-ignore
 .chglog/ export-ignore
 composer.lock export-ignore
 CONTRIBUTING.md export-ignore
+.deprecated/ export-ignore
 doc/ export-ignore
 docker/ export-ignore
 docker-compose.dev.yml export-ignore
@@ -13,7 +14,6 @@ example/ export-ignore
 .gitattributes.keep export-ignore
 .github/ export-ignore
 .gitignore export-ignore
-.idea/ export-ignore
 .make/ export-ignore
 Makefile export-ignore
 phpcs.xml export-ignore
