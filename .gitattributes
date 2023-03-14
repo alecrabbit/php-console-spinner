@@ -18,6 +18,7 @@ example/ export-ignore
 Makefile export-ignore
 phpcs.xml export-ignore
 phpunit.coverage.xml export-ignore
+phpunit.testdox.xml export-ignore
 phpunit.xml export-ignore
 README.md export-ignore
 .scrutinizer.yml export-ignore
