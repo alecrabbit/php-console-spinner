@@ -84,10 +84,9 @@ abstract class ADefaults extends ASettableDefaults
         return static::$shutdownMaxDelay;
     }
 
-    public function getColorSupportLevels(): array
+    public function getSupportedColorModes(): iterable
     {
-        Deprecation::method(__METHOD__);
-        return static::$colorSupportLevels;
+        return static::$supportedColorModes;
     }
 
     public function getPercentNumberFormat(): string

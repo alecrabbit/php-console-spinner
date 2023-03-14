@@ -9,6 +9,7 @@ use AlecRabbit\Spinner\Core\Contract\ILoopProbe;
 use AlecRabbit\Spinner\Core\Pattern\Contract\IPattern;
 use AlecRabbit\Spinner\Core\Terminal\Contract\ITerminalProbe;
 use AlecRabbit\Spinner\Helper\Asserter;
+use AlecRabbit\Spinner\Helper\Deprecation;
 
 /** @internal */
 abstract class ASettableDefaults extends ACoreDefaults
@@ -70,10 +71,10 @@ abstract class ASettableDefaults extends ACoreDefaults
     }
 
     /** @inheritdoc */
-    public function setColorSupportLevels(array $colorSupportLevels): static
+    public function setSupportedColorModes(iterable $supportedColorModes): static
     {
-        Asserter::assertColorSupportLevels($colorSupportLevels);
-        static::$colorSupportLevels = $colorSupportLevels;
+        Asserter::assertColorModes($supportedColorModes);
+        static::$supportedColorModes = $supportedColorModes;
         return $this;
     }
 

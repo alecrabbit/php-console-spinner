@@ -6,6 +6,7 @@ namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Config\Defaults\A;
 
 use AlecRabbit\Spinner\Asynchronous\Loop\Probe\ReactLoopProbe;
 use AlecRabbit\Spinner\Asynchronous\Loop\Probe\RevoltLoopProbe;
+use AlecRabbit\Spinner\Core\ColorMode;
 use AlecRabbit\Spinner\Core\Defaults\A\ADefaults;
 use AlecRabbit\Spinner\Core\Factory\FrameFactory;
 use AlecRabbit\Spinner\Core\Widget\WidgetBuilder;
@@ -211,20 +212,20 @@ final class ADefaultsTest extends TestCase
     public function canSetColorSupportLevels(): void
     {
         $defaults = self::getInstance();
-        $colorSupportLevels = [TERM_NO_COLOR];
-        $defaults->setColorSupportLevels($colorSupportLevels);
-        self::assertSame($colorSupportLevels, $defaults->getColorSupportLevels());
+        $colorSupportLevels = [ColorMode::ANSI24];
+        $defaults->setSupportedColorModes($colorSupportLevels);
+        self::assertSame($colorSupportLevels, $defaults->getSupportedColorModes());
     }
 
     /** @test */
     public function setColorSupportLevelsThrowsOnInvalidArgument(): void
     {
         $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('Color support levels must not be empty.');
+        $this->expectExceptionMessage('Color modes must not be empty.');
 
         $defaults = self::getInstance();
-        $defaults->setColorSupportLevels([]);
-        self::assertSame(10, $defaults->getColorSupportLevels());
+        $defaults->setSupportedColorModes([]);
+        self::assertSame(10, $defaults->getSupportedColorModes());
     }
 
     protected function setUp(): void

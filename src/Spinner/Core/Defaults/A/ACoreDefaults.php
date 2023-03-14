@@ -34,7 +34,7 @@ abstract class ACoreDefaults implements IDefaults
     protected static string $messageOnInterrupt;
     protected static string $percentNumberFormat;
     protected static bool $createInitialized;
-    protected static array $colorSupportLevels;
+    protected static iterable $supportedColorModes;
     protected static ?IPattern $mainStylePattern = null;
     protected static ?IPattern $mainCharPattern = null;
     protected static ?IFrame $mainLeadingSpacer = null;
@@ -122,7 +122,7 @@ abstract class ACoreDefaults implements IDefaults
         static::$messageOnExit = static::MESSAGE_ON_EXIT;
         static::$messageOnInterrupt = static::MESSAGE_ON_INTERRUPT;
         static::$hideCursor = static::TERMINAL_HIDE_CURSOR;
-        static::$colorSupportLevels = static::TERMINAL_COLOR_SUPPORT_LEVELS;
+        static::$supportedColorModes = static::TERMINAL_COLOR_SUPPORT_LEVELS;
         static::$isModeSynchronous = static::SPINNER_MODE_IS_SYNCHRONOUS;
         static::$createInitialized = static::SPINNER_CREATE_INITIALIZED;
         static::$percentNumberFormat = static::PERCENT_NUMBER_FORMAT;

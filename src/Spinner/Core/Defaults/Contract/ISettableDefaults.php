@@ -21,7 +21,7 @@ interface ISettableDefaults
     /**
      * @throws InvalidArgumentException
      */
-    public function setColorSupportLevels(array $colorSupportLevels): static;
+    public function setSupportedColorModes(array $supportedColorModes): static;
 
     public function setIntervalMilliseconds(int $defaultInterval): static;
 

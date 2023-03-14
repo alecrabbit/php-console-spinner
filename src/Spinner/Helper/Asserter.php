@@ -4,6 +4,7 @@ declare(strict_types=1);
 // 15.02.23
 namespace AlecRabbit\Spinner\Helper;
 
+use AlecRabbit\Spinner\Core\ColorMode;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Exception\RuntimeException;
 
@@ -50,24 +51,34 @@ final class Asserter
     /**
      * @throws InvalidArgumentException
      */
-    public static function assertColorSupportLevels(array $colorSupportLevels): void
+    public static function assertColorModes(iterable $colorModes): void
     {
-        Deprecation::method(__METHOD__);
-
-        if ($colorSupportLevels === []) {
-            throw new InvalidArgumentException('Color support levels must not be empty.');
+        if (0 === iterator_count($colorModes)) {
+            throw new InvalidArgumentException('Color modes must not be empty.');
         }
-        foreach ($colorSupportLevels as $level) {
-            if (!in_array($level, KNOWN_TERM_COLOR, true)) {
+        /** @var ColorMode $colorMode */
+        foreach ($colorModes as $colorMode) {
+            if(!$colorMode instanceof ColorMode) {
                 throw new InvalidArgumentException(
                     sprintf(
-                        'Color support level "%s" is not allowed. Allowed values are [%s].',
-                        $level,
-                        implode(', ', KNOWN_TERM_COLOR)
+                        'Unsupported color mode of type "%s".',
+                        get_debug_type($colorMode)
                     )
                 );
             }
         }
+
+//        foreach ($colorModes as $level) {
+//            if (!in_array($level, KNOWN_TERM_COLOR, true)) {
+//                throw new InvalidArgumentException(
+//                    sprintf(
+//                        'Color support mode "%s" is not allowed. Allowed values are [%s].',
+//                        $level,
+//                        implode(', ', KNOWN_TERM_COLOR)
+//                    )
+//                );
+//            }
+//        }
     }
 
     /**
