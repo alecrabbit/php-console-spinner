@@ -4,6 +4,7 @@ declare(strict_types=1);
 // 15.02.23
 namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Core;
 
+use AlecRabbit\Spinner\Core\Contract\IIntNormalizer;
 use AlecRabbit\Spinner\Core\IntNormalizer;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Tests\Spinner\TestCase\TestCase;
@@ -97,6 +98,11 @@ final class IntNormalizerTest extends TestCase
         IntNormalizer::setDivisor($divisor);
 
         self::assertSame($divisor, IntNormalizer::getDivisor());
+    }
+
+    protected function setUp(): void
+    {
+        IntNormalizer::setMin(IIntNormalizer::DEFAULT_MIN);
     }
 }
 
