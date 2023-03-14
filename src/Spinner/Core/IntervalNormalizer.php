@@ -37,7 +37,9 @@ final class IntervalNormalizer implements IIntervalNormalizer
             throw new InvalidArgumentException('Divisor should be greater than 0.');
         }
         if (self::MAX_DIVISOR < $divisor) {
-            throw new InvalidArgumentException('Divisor should be less than 1000.');
+            throw new InvalidArgumentException(
+                sprintf('Divisor should be less than %s.', self::MAX_DIVISOR)
+            );
         }
     }
 }

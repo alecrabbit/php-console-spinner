@@ -16,7 +16,7 @@ final class IntervalNormalizerTest extends TestCase
     public static function normalizeData(): iterable
     {
         // [$expected, $incoming]
-        foreach (self::simlifiedDataFeeder() as $item) {
+        foreach (self::simplifiedDataFeeder() as $item) {
             yield [
                 [
                     self::INTERVAL => $item[0],
@@ -46,7 +46,7 @@ final class IntervalNormalizerTest extends TestCase
             [
                 self::EXCEPTION => [
                     self::CLASS_ => InvalidArgumentException::class,
-                    self::MESSAGE => 'Divisor should be greater than 0.',
+                    self::MESSAGE => 'Divisor should be less than 1000.',
                 ],
             ],
             [
@@ -57,7 +57,7 @@ final class IntervalNormalizerTest extends TestCase
         ];
     }
 
-    public static function simlifiedDataFeeder(): iterable
+    public static function simplifiedDataFeeder(): iterable
     {
         yield from [
             // result, interval, divisor
