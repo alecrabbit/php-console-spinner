@@ -7,7 +7,7 @@ namespace AlecRabbit\Spinner\Core\Factory\A;
 use AlecRabbit\Spinner\Core\Contract\IInterval;
 use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalFactory;
 use AlecRabbit\Spinner\Core\Interval;
-use AlecRabbit\Spinner\Core\IntervalNormalizer;
+use AlecRabbit\Spinner\Core\IntNormalizer;
 
 abstract class AIntervalFactory extends ADefaultsAwareClass implements IIntervalFactory
 {
@@ -23,7 +23,7 @@ abstract class AIntervalFactory extends ADefaultsAwareClass implements IInterval
 
     protected static function normalize(int $i): int
     {
-        return IntervalNormalizer::normalize($i);
+        return IntNormalizer::normalize($i);
     }
 
     public static function createNormalized(int $interval): IInterval

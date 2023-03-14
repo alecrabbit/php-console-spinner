@@ -4,14 +4,14 @@ declare(strict_types=1);
 // 15.02.23
 namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Core;
 
-use AlecRabbit\Spinner\Core\IntervalNormalizer;
+use AlecRabbit\Spinner\Core\IntNormalizer;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Tests\Spinner\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 
 
-final class IntervalNormalizerTest extends TestCase
+final class IntNormalizerTest extends TestCase
 {
     public static function normalizeData(): iterable
     {
@@ -80,11 +80,11 @@ final class IntervalNormalizerTest extends TestCase
 
         $args = $incoming[self::ARGUMENTS];
 
-        IntervalNormalizer::setDivisor($args[self::DIVISOR]);
+        IntNormalizer::setDivisor($args[self::DIVISOR]);
 
         self::assertSame(
             $expected[self::INTERVAL],
-            IntervalNormalizer::normalize($args[self::INTERVAL])
+            IntNormalizer::normalize($args[self::INTERVAL])
         );
     }
 }

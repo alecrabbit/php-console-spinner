@@ -5,13 +5,11 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core;
 
 
-use AlecRabbit\Spinner\Core\Contract\IIntervalNormalizer;
+use AlecRabbit\Spinner\Core\Contract\IIntNormalizer;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 
-final class IntervalNormalizer implements IIntervalNormalizer
+final class IntNormalizer implements IIntNormalizer
 {
-    private const DEFAULT_DIVISOR = 50;
-    private const MAX_DIVISOR = 1000;
     private static int $divisor = self::DEFAULT_DIVISOR;
 
     public static function normalize(int $interval): int
@@ -41,5 +39,10 @@ final class IntervalNormalizer implements IIntervalNormalizer
                 sprintf('Divisor should be less than %s.', self::MAX_DIVISOR)
             );
         }
+    }
+
+    public static function getDivisor(): int
+    {
+        return self::$divisor;
     }
 }
