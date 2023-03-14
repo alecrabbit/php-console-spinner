@@ -22,7 +22,7 @@ _deptrac_run_message:
 	@${_ECHO} "\n${_C_SELECT} ${PROJECT_NAME} ${_C_STOP} ${_C_INFO}Deptrac run...${_C_STOP}\n";
 
 _deptrac_run_baseline:
-	@mkdir -p DPTR_OUT_DIR
+	@mkdir -p ${DPTR_OUT_DIR}
 	@-${_DC_EXEC} ${APP_CONTAINER} deptrac analyse --clear-cache --no-progress --config-file=${DPTR_CONFIG} --cache-file=${DPTR_CACHE} > ${DPTR_OUT_DIR}/.deptrac_baseline
 
 _deptrac_run_graph:
