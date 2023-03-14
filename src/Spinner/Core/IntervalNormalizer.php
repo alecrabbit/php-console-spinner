@@ -14,8 +14,7 @@ final class IntervalNormalizer implements IIntervalNormalizer
 
     public static function normalize(int $interval): int
     {
-        // TODO: Implement normalize() method.
-        return $interval;
+        return (int)round($interval / self::$divisor) * self::$divisor;
     }
 
     public static function setDivisor(int $divisor): void
