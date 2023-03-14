@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Core;
 
 use AlecRabbit\Spinner\Core\IntervalNormalizer;
+use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Tests\Spinner\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
@@ -15,16 +16,59 @@ final class IntervalNormalizerTest extends TestCase
     public static function normalizeData(): iterable
     {
         // [$expected, $incoming]
+        foreach (self::simlifiedDataFeeder() as $item) {
+            yield [
+                [
+                    self::INTERVAL => $item[0],
+                ],
+                [
+                    self::ARGUMENTS => [
+                        self::INTERVAL => $item[1],
+                        self::DIVISOR => $item[2],
+                    ],
+                ],
+            ];
+        }
         yield [
             [
-                self::INTERVAL => 100,
+                self::EXCEPTION => [
+                    self::CLASS_ => InvalidArgumentException::class,
+                    self::MESSAGE => 'Divisor should be greater than 0.',
+                ],
             ],
             [
                 self::ARGUMENTS => [
-                    self::DIVISOR => 50,
-                    self::INTERVAL => 100,
+                    self::DIVISOR => 0,
                 ],
             ],
+        ];
+        yield [
+            [
+                self::EXCEPTION => [
+                    self::CLASS_ => InvalidArgumentException::class,
+                    self::MESSAGE => 'Divisor should be greater than 0.',
+                ],
+            ],
+            [
+                self::ARGUMENTS => [
+                    self::DIVISOR => 1200,
+                ],
+            ],
+        ];
+    }
+
+    public static function simlifiedDataFeeder(): iterable
+    {
+        yield from [
+            // result, interval, divisor
+            [100, 100, 50],
+            [100, 100, 10],
+            [100, 100, 100],
+            [400, 400, 100],
+            [500, 490, 50],
+            [450, 450, 50],
+            [500, 475, 50],
+            [450, 474, 50],
         ];
     }
 
@@ -34,25 +78,15 @@ final class IntervalNormalizerTest extends TestCase
     {
         $this->setExpectException($expected);
 
-        $divisor = $incoming[self::ARGUMENTS][self::DIVISOR];
-        $interval = $incoming[self::ARGUMENTS][self::INTERVAL];
-        IntervalNormalizer::setDivisor($divisor);
-        $normalized = IntervalNormalizer::normalize($interval);
-        self::assertSame($expected[self::INTERVAL], $normalized);
-    }
+        $args = $incoming[self::ARGUMENTS];
 
-    //    /**
-    //     * @test
-    //     * @dataProvider createDataProvider
-    //     */
-    //    public function create(array $expected, array $incoming): void
-    //    {
-    //        $this->setExpectException($expected);
-    //
-    //        $frame = self::getInstance($incoming[self::ARGUMENTS] ?? []);
-    //
-    //        self::assertSame($expected[self::SEQUENCE], $frame->sequence());
-    //        self::assertSame($expected[self::WIDTH], $frame->width());
-    //    }
+        IntervalNormalizer::setDivisor($args[self::DIVISOR]);
+
+        self::assertSame(
+            $expected[self::INTERVAL],
+            IntervalNormalizer::normalize($args[self::INTERVAL])
+        );
+    }
 }
+
 

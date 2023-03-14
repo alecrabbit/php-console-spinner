@@ -9,7 +9,6 @@
          colors="true"
          cacheDirectory=".tools/.phpunit.cache"
          beStrictAboutCoverageMetadata="false"
-         testdox="true"
 >
     <testsuites>
         <testsuite name="default">
@@ -20,8 +19,5 @@
         <include>
             <directory suffix=".php">src</directory>
         </include>
-        <report>
-            <html outputDirectory=".tools/.report/.build/coverage"/>
-        </report>
     </coverage>
 </phpunit>

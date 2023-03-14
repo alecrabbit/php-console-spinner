@@ -6,18 +6,25 @@ namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Core\Factory\A;
 
 use AlecRabbit\Spinner\Core\Factory\A\AIntervalFactory;
 use AlecRabbit\Spinner\Core\Factory\DefaultsFactory;
+use AlecRabbit\Spinner\Core\IntervalNormalizer;
 use AlecRabbit\Tests\Spinner\TestCase\TestCase;
+use PHPUnit\Framework\Attributes\Test;
 
 final class AIntervalFactoryTest extends TestCase
 {
-    /** @test */
+    #[Test]
     public function canCreateDefaultInterval(): void
     {
         $defaults = DefaultsFactory::create();
 
-        $this->assertEquals(
+        self::assertEquals(
             $defaults->getIntervalMilliseconds(),
             AIntervalFactory::createDefault()->toMilliseconds()
         );
+    }
+
+    protected function setUp(): void
+    {
+        IntervalNormalizer::setDivisor(10);
     }
 }

@@ -56,5 +56,10 @@ test_coverage:
 	${_DC_EXEC} -e XDEBUG_MODE=coverage ${APP_CONTAINER} vendor/bin/phpunit --configuration phpunit.coverage.xml --coverage-text
 	@${_ECHO_BG_GREEN};
 
-test_full: test_coverage test
+test_dox:
+	@${_ECHO} "\n${_C_SELECT} ${PROJECT_NAME} ${_C_STOP} ${_C_INFO}Testdox tests...${_C_STOP}\n";
+	${_DC_EXEC} -e XDEBUG_MODE=off ${APP_CONTAINER} vendor/bin/phpunit --configuration phpunit.testdox.xml
+	@${_ECHO_BG_GREEN};
+
+test_full: test_coverage test test_dox
 	@${_NO_OP};
