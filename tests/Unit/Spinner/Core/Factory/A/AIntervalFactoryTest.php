@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Core\Factory\A;
 
+use AlecRabbit\Spinner\Core\Contract\IInterval;
 use AlecRabbit\Spinner\Core\Contract\IIntNormalizer;
 use AlecRabbit\Spinner\Core\Factory\A\AIntervalFactory;
 use AlecRabbit\Spinner\Core\Factory\DefaultsFactory;
@@ -27,7 +28,7 @@ final class AIntervalFactoryTest extends TestCase
             [50, 450, 450,],
             [50, 500, 475,],
             [50, 450, 474,],
-            [1000, 0, 474,],
+            [1000, 10, 474,],
             [1000, 1000, 500,],
         ];
     }
@@ -46,6 +47,19 @@ final class AIntervalFactoryTest extends TestCase
                 ],
             ],
         ];
+        foreach (self::simplifiedDataFeeder() as $item) {
+            yield [
+                [
+                    self::INTERVAL => $item[1], // result
+                ],
+                [
+                    self::ARGUMENTS => [
+                        self::INTERVAL => $item[2], // interval
+                        self::DIVISOR => $item[0], // divisor
+                    ],
+                ],
+            ];
+        }
 //        yield [
 //            [
 //                self::EXCEPTION => [
@@ -104,5 +118,6 @@ final class AIntervalFactoryTest extends TestCase
     protected function setUp(): void
     {
         IntNormalizer::setDivisor(IIntNormalizer::DEFAULT_DIVISOR);
+        IntNormalizer::setMin(IInterval::MIN_INTERVAL_MILLISECONDS);
     }
 }

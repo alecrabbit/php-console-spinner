@@ -11,10 +11,17 @@ use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 final class IntNormalizer implements IIntNormalizer
 {
     private static int $divisor = self::DEFAULT_DIVISOR;
+    private static int $min = self::DEFAULT_MIN;
 
     public static function normalize(int $interval): int
     {
-        return (int)round($interval / self::$divisor) * self::$divisor;
+        $result = (int)round($interval / self::$divisor) * self::$divisor;
+
+        if (self::$min > $result) {
+            $result = self::$min;
+        }
+
+        return $result;
     }
 
     /**
@@ -44,5 +51,24 @@ final class IntNormalizer implements IIntNormalizer
     public static function getDivisor(): int
     {
         return self::$divisor;
+    }
+
+    /**
+     * @throws InvalidArgumentException
+     */
+    public static function setMin(int $min): void
+    {
+        self::assertMin($min);
+        self::$min = $min;
+    }
+
+    /**
+     * @throws InvalidArgumentException
+     */
+    private static function assertMin(int $min): void
+    {
+        if (0 > $min) {
+            throw new InvalidArgumentException('Min should be greater than 0.');
+        }
     }
 }
