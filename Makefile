@@ -2,6 +2,7 @@
 # # ‼️            STOP           ‼️
 # # ‼️ DO **NOT** EDIT THIS FILE ‼️
 # # #
+# # https://github.com/alecrabbit/dev-app-makefile
 
 # Project: DAM tool
 SHELL=/bin/bash
@@ -19,9 +20,11 @@ ifneq ("$(wildcard $(__CORE_FILE))","")
   include $(__CORE_FILE)
 endif
 
-do_install_dam_tool:
+__DAM_URL="https://github.com/alecrabbit/dev-app-makefile"
+
+install_dam_tool:
 	@echo -e "Installing DAM tool...\n";
-	@wget -qO- "https://github.com/alecrabbit/dev-app-makefile/archive/refs/heads/dev.tar.gz" | tar -xz \
+	@wget -qO- "${__DAM_URL}/archive/refs/heads/dev.tar.gz" | tar -xz \
 	 && shopt -s dotglob && cp -r dev-app-makefile-dev/* . && shopt -u dotglob \
  	 && rm -r dev-app-makefile-dev && ./install && make upgrade c=dev
 
