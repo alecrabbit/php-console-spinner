@@ -1,3 +1,7 @@
+# Project: DAM tool
+SHELL=/bin/bash
+.DEFAULT_GOAL=do_help_dam_tool
+
 # Root directory
 _DN_TOOLS=.tools
 # DAM directory
@@ -16,6 +20,12 @@ endif
 
 do_install_dam_tool:
 	@echo "Installing DAM tool...\n";
-	@ wget -qO- "https://github.com/alecrabbit/dev-app-makefile/archive/refs/tags/0.0.19.tar.gz" \
-      | tar -xz && shopt -s dotglob && cp -rv dev-app-makefile-0.0.19/* . \
-      && shopt -u dotglob && rm -r dev-app-makefile-0.0.19 && ./install && make upgrade
+	@wget -qO- "https://github.com/alecrabbit/dev-app-makefile/archive/refs/tags/0.0.23.tar.gz" | tar -xz \
+	 && shopt -s dotglob && cp -rv dev-app-makefile-0.0.23/* . && shopt -u dotglob \
+ 	 && rm -r dev-app-makefile-0.0.23 && ./install && make upgrade
+
+do_help_dam_tool:
+	@echo "DAM tool help:\n";
+	@echo "  make do_install_dam_tool - install DAM tool";
+	@echo "  make do_dam_tool_help - show this help";
+	@echo "";
