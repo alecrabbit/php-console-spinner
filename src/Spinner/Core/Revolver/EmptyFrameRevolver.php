@@ -2,10 +2,11 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Spinner\Core;
+namespace AlecRabbit\Spinner\Core\Revolver;
 
 use AlecRabbit\Spinner\Core\Contract\IFrame;
 use AlecRabbit\Spinner\Core\Factory\FrameFactory;
+use AlecRabbit\Spinner\Core\Interval;
 use AlecRabbit\Spinner\Core\Revolver\A\ARevolver;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
 
