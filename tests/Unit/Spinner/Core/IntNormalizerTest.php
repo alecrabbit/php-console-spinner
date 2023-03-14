@@ -19,12 +19,12 @@ final class IntNormalizerTest extends TestCase
         foreach (self::simplifiedDataFeeder() as $item) {
             yield [
                 [
-                    self::INTERVAL => $item[0],
+                    self::INTERVAL => $item[1], // result
                 ],
                 [
                     self::ARGUMENTS => [
-                        self::INTERVAL => $item[1],
-                        self::DIVISOR => $item[2],
+                        self::INTERVAL => $item[2], // interval
+                        self::DIVISOR => $item[0], // divisor
                     ],
                 ],
             ];
@@ -60,15 +60,17 @@ final class IntNormalizerTest extends TestCase
     public static function simplifiedDataFeeder(): iterable
     {
         yield from [
-            // result, interval, divisor
-            [100, 100, 50],
-            [100, 100, 10],
-            [100, 100, 100],
-            [400, 400, 100],
-            [500, 490, 50],
-            [450, 450, 50],
-            [500, 475, 50],
-            [450, 474, 50],
+            // divisor, result, interval,
+            [50, 100, 100,],
+            [10, 100, 100,],
+            [100, 100, 100,],
+            [100, 400, 400,],
+            [50, 500, 490,],
+            [50, 450, 450,],
+            [50, 500, 475,],
+            [50, 450, 474,],
+            [1000, 0, 474,],
+            [1000, 1000, 500,],
         ];
     }
 
@@ -86,6 +88,15 @@ final class IntNormalizerTest extends TestCase
             $expected[self::INTERVAL],
             IntNormalizer::normalize($args[self::INTERVAL])
         );
+    }
+
+    #[Test]
+    #[DataProvider('simplifiedDataFeeder')]
+    public function canSetAndGetDivisor(int $divisor,): void
+    {
+        IntNormalizer::setDivisor($divisor);
+
+        self::assertSame($divisor, IntNormalizer::getDivisor());
     }
 }
 
