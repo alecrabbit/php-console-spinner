@@ -28,5 +28,4 @@ do_install_dam_tool:
 help_dam_tool:
 	@echo -e "DAM tool help:\n";
 	@echo "  make do_install_dam_tool - install DAM tool";
-	@echo "  make do_dam_tool_help - show this help";
 	@echo "";
