@@ -100,6 +100,16 @@ final class IntNormalizerTest extends TestCase
         self::assertSame($divisor, IntNormalizer::getDivisor());
     }
 
+    #[Test]
+    public function throwOnInvalidSetMin(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Min should be greater than 0.');
+
+        IntNormalizer::setMin(-1);
+        self::fail(sprintf('[%s] Exception not thrown', __METHOD__));
+    }
+
     protected function setUp(): void
     {
         IntNormalizer::setMin(IIntNormalizer::DEFAULT_MIN);
