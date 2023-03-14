@@ -60,32 +60,6 @@ final class AIntervalFactoryTest extends TestCase
                 ],
             ];
         }
-//        yield [
-//            [
-//                self::EXCEPTION => [
-//                    self::CLASS_ => InvalidArgumentException::class,
-//                    self::MESSAGE => 'Divisor should be greater than 0.',
-//                ],
-//            ],
-//            [
-//                self::ARGUMENTS => [
-//                    self::DIVISOR => 0,
-//                ],
-//            ],
-//        ];
-//        yield [
-//            [
-//                self::EXCEPTION => [
-//                    self::CLASS_ => InvalidArgumentException::class,
-//                    self::MESSAGE => 'Divisor should be less than 1000.',
-//                ],
-//            ],
-//            [
-//                self::ARGUMENTS => [
-//                    self::DIVISOR => 1200,
-//                ],
-//            ],
-//        ];
     }
 
     #[Test]
