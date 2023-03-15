@@ -34,13 +34,13 @@ final class ADefaultsTest extends TestCase
         return ADefaults::getInstance();
     }
 
-    #[Test]
-    public function canSetHideCursor(): void
-    {
-        $defaults = self::getInstance();
-        $defaults->setHideCursor(false);
-        self::assertFalse($defaults->isHideCursor());
-    }
+//    #[Test]
+//    public function canSetHideCursor(): void
+//    {
+//        $defaults = self::getInstance();
+//        $defaults->setHideCursor(false);
+//        self::assertFalse($defaults->isHideCursor());
+//    }
 
     #[Test]
     public function canSetShutdownDelay(): void

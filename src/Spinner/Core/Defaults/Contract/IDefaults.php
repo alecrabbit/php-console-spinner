@@ -55,6 +55,8 @@ interface IDefaults extends ISettableDefaults
 
     public function getTerminalSettings(): ITerminalSettings;
 
+    public function getDriverSettings(): IDriverSettings;
+
     public function getSpinnerStylePattern(): IPattern;
 
     public function getSpinnerCharPattern(): IPattern;
