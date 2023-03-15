@@ -87,20 +87,20 @@ abstract class ADefaults extends ASettableDefaults
         return static::$isModeSynchronous;
     }
 
-    public function getFinalMessage(): string
-    {
-        return static::$messageOnFinalize;
-    }
+//    public function getFinalMessage(): string
+//    {
+//        return static::$messageOnFinalize;
+//    }
 
-    public function getMessageOnExit(): string
-    {
-        return static::$messageOnExit;
-    }
+//    public function getMessageOnExit(): string
+//    {
+//        return static::$messageOnExit;
+//    }
 
-    public function getInterruptMessage(): string
-    {
-        return static::$messageOnInterrupt;
-    }
+//    public function getInterruptMessage(): string
+//    {
+//        return static::$messageOnInterrupt;
+//    }
 
     public function getMaxShutdownDelay(): float|int
     {

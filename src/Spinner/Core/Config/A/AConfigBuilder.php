@@ -156,8 +156,8 @@ abstract class AConfigBuilder implements IConfigBuilder
         $this->inSynchronousMode ??= $this->defaults->isModeSynchronous();
         $this->autoStartEnabled ??= $this->defaults->isAutoStartEnabled();
         $this->signalHandlersEnabled ??= $this->defaults->areSignalHandlersEnabled();
-        $this->interruptMessage ??= $this->defaults->getInterruptMessage();
-        $this->finalMessage ??= $this->defaults->getFinalMessage();
+        $this->interruptMessage ??= $this->defaults->getDriverSettings()->getInterruptMessage();
+        $this->finalMessage ??= $this->defaults->getDriverSettings()->getFinalMessage();
 
         $this->output ??= $this->createOutput();
         $this->driver ??= $this->createDriver();
