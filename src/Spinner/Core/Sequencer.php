@@ -7,14 +7,14 @@ namespace AlecRabbit\Spinner\Core;
 use AlecRabbit\Spinner\Contract\ISequencer;
 use AlecRabbit\Spinner\Mixin\NoInstanceTrait;
 
-use const AlecRabbit\Spinner\CSI;
-use const AlecRabbit\Spinner\RESET;
-
 /** @internal */
 final class Sequencer implements ISequencer
 {
     use NoInstanceTrait;
 
+    private const ESC = "\033";
+    private const CSI = self::ESC . '[';
+    private const RESET = self::CSI . '0m';
     private const SEQ_HIDE_CURSOR = '?25l';
     private const SEQ_SHOW_CURSOR = '?25h';
 
@@ -25,31 +25,31 @@ final class Sequencer implements ISequencer
 
     public static function colorSequenceStart(string $sequence): string
     {
-        return CSI . $sequence;
+        return self::CSI . $sequence;
     }
 
     public static function colorSequenceEnd(): string
     {
-        return RESET;
+        return self::RESET;
     }
 
     public static function moveBackSequence(int $i = 1): string
     {
-        return CSI . "{$i}D";
+        return self::CSI . "{$i}D";
     }
 
     public static function eraseSequence(int $i = 1): string
     {
-        return CSI . "{$i}X";
+        return self::CSI . "{$i}X";
     }
 
     public static function hideCursorSequence(): string
     {
-        return CSI . self::SEQ_HIDE_CURSOR;
+        return self::CSI . self::SEQ_HIDE_CURSOR;
     }
 
     public static function showCursorSequence(): string
     {
-        return CSI . self::SEQ_SHOW_CURSOR;
+        return self::CSI . self::SEQ_SHOW_CURSOR;
     }
 }

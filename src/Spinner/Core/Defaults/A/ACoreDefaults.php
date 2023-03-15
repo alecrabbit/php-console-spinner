@@ -72,7 +72,7 @@ abstract class ACoreDefaults implements IDefaults
         static::$messageOnExit = static::MESSAGE_ON_EXIT;
         static::$messageOnInterrupt = static::MESSAGE_ON_INTERRUPT;
         static::$hideCursor = static::TERMINAL_HIDE_CURSOR;
-        static::$supportedColorModes = static::TERMINAL_COLOR_SUPPORT_LEVELS;
+        static::$supportedColorModes = static::TERMINAL_COLOR_SUPPORT_MODES;
         static::$isModeSynchronous = static::SPINNER_MODE_IS_SYNCHRONOUS;
         static::$createInitialized = static::SPINNER_CREATE_INITIALIZED;
         static::$percentNumberFormat = static::PERCENT_NUMBER_FORMAT;
