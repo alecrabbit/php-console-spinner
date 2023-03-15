@@ -38,7 +38,7 @@ class ReactLoopAdapter extends ALoopAdapter
 
     public function autoStart(): void
     {
-        // ReactPHP event loop is started by library code.
+        // ReactPHP event loop is started by its library code.
     }
 
     public function repeat(float $interval, Closure $closure): void
