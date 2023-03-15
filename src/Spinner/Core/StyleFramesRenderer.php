@@ -11,10 +11,6 @@ use AlecRabbit\Spinner\Core\Pattern\Contract\IStylePattern;
 
 final class StyleFramesRenderer extends AFramesRenderer
 {
-    private const ESC = "\033";
-    private const CSI = self::ESC . '[';
-    private const RESET = self::CSI . '0m';
-
     public function __construct(
         IStylePattern $pattern
     ) {
@@ -28,7 +24,7 @@ final class StyleFramesRenderer extends AFramesRenderer
 
         return
             FrameFactory::create(
-                self::CSI . sprintf('38;5;%sm', $entry) . '%s' . self::RESET,
+                Sequencer::colorSequence(sprintf('38;5;%sm', $entry) . '%s'),
                 0
             );
     }
