@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Extras\Procedure\A;
 
-use AlecRabbit\Spinner\Core\Contract\IFloatValue;
-use AlecRabbit\Spinner\Core\Contract\IFrame;
+use AlecRabbit\Spinner\Contract\IFloatValue;
+use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Core\Frame;
 use AlecRabbit\Spinner\Core\WidthDeterminer;
 

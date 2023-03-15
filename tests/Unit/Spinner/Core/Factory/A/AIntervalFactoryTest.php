@@ -4,12 +4,11 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Core\Factory\A;
 
-use AlecRabbit\Spinner\Core\Contract\IInterval;
-use AlecRabbit\Spinner\Core\Contract\IIntNormalizer;
+use AlecRabbit\Spinner\Contract\IInterval;
+use AlecRabbit\Spinner\Contract\IIntNormalizer;
 use AlecRabbit\Spinner\Core\Factory\A\AIntervalFactory;
 use AlecRabbit\Spinner\Core\Factory\DefaultsFactory;
 use AlecRabbit\Spinner\Core\IntNormalizer;
-use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Tests\Spinner\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;

@@ -4,8 +4,8 @@ declare(strict_types=1);
 // 10.03.23
 namespace AlecRabbit\Spinner\Core;
 
+use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Core\A\AFramesRenderer;
-use AlecRabbit\Spinner\Core\Contract\IFrame;
 use AlecRabbit\Spinner\Core\Factory\FrameFactory;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use Stringable;

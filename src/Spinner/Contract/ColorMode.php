@@ -1,5 +1,7 @@
 <?php
-// 09.03.23
+
+declare(strict_types=1);
+
 namespace AlecRabbit\Spinner\Contract;
 
 enum ColorMode

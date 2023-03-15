@@ -4,10 +4,10 @@ declare(strict_types=1);
 // 17.02.23
 namespace AlecRabbit\Spinner\Core\Factory\Contract;
 
-use AlecRabbit\Spinner\Core\Contract\ILoop;
-use AlecRabbit\Spinner\Core\Contract\ILoopGetter;
-use AlecRabbit\Spinner\Core\Contract\ILoopSignalHandlers;
-use AlecRabbit\Spinner\Core\Contract\ILoopSpinnerAttach;
+use AlecRabbit\Spinner\Contract\ILoop;
+use AlecRabbit\Spinner\Contract\ILoopGetter;
+use AlecRabbit\Spinner\Contract\ILoopSignalHandlers;
+use AlecRabbit\Spinner\Contract\ILoopSpinnerAttach;
 
 interface ILoopFactory
 {

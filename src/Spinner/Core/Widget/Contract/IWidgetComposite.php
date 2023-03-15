@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Widget\Contract;
 
-use AlecRabbit\Spinner\Core\Contract\HasInterval;
-use AlecRabbit\Spinner\Core\Contract\IUpdatable;
+use AlecRabbit\Spinner\Contract\HasInterval;
+use AlecRabbit\Spinner\Contract\IUpdatable;
 
 interface IWidgetComposite extends HasInterval, IUpdatable
 {

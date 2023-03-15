@@ -4,8 +4,8 @@ declare(strict_types=1);
 // 10.03.23
 namespace AlecRabbit\Spinner\Core\Defaults\A;
 
-use AlecRabbit\Spinner\Core\Contract\IFrame;
-use AlecRabbit\Spinner\Core\Contract\ILoopProbe;
+use AlecRabbit\Spinner\Contract\IFrame;
+use AlecRabbit\Spinner\Contract\ILoopProbe;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDefaults;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDefaultsClasses;
 use AlecRabbit\Spinner\Core\Defaults\Mixin\DefaultsConst;

@@ -171,7 +171,7 @@ final class AFrameCollectionRevolverTest extends TestCase
             [
                 self::EXCEPTION => [
                     self::CLASS_ => TypeError::class,
-                    self::MESSAGE => 'addFrame(): Argument #1 ($frame) must be of type AlecRabbit\Spinner\Core\Contract\IFrame, null given',
+                    self::MESSAGE => 'addFrame(): Argument #1 ($frame) must be of type AlecRabbit\Spinner\Contract\IFrame, null given',
                 ],
             ],
             [
@@ -186,7 +186,7 @@ final class AFrameCollectionRevolverTest extends TestCase
             [
                 self::EXCEPTION => [
                     self::CLASS_ => TypeError::class,
-                    self::MESSAGE => 'addFrame(): Argument #1 ($frame) must be of type AlecRabbit\Spinner\Core\Contract\IFrame, string given',
+                    self::MESSAGE => 'addFrame(): Argument #1 ($frame) must be of type AlecRabbit\Spinner\Contract\IFrame, string given',
                 ],
             ],
             [
@@ -201,7 +201,7 @@ final class AFrameCollectionRevolverTest extends TestCase
             [
                 self::EXCEPTION => [
                     self::CLASS_ => TypeError::class,
-                    self::MESSAGE => 'addFrame(): Argument #1 ($frame) must be of type AlecRabbit\Spinner\Core\Contract\IFrame, int given',
+                    self::MESSAGE => 'addFrame(): Argument #1 ($frame) must be of type AlecRabbit\Spinner\Contract\IFrame, int given',
                 ],
             ],
             [

@@ -4,11 +4,9 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Core\Factory\A;
 
-use AlecRabbit\Spinner\Core\Config\ConfigBuilder;
-use AlecRabbit\Spinner\Core\Contract\ISpinner;
+use AlecRabbit\Spinner\Contract\ISpinner;
 use AlecRabbit\Spinner\Core\Factory\A\ASpinnerFactory;
 use AlecRabbit\Spinner\Core\Factory\DefaultsFactory;
-use AlecRabbit\Spinner\Core\Widget\NullWidget;
 use AlecRabbit\Tests\Spinner\TestCase\TestCase;
 
 final class AFactoryTest extends TestCase

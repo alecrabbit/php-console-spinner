@@ -17,8 +17,7 @@ deptrac:
   ruleset:
     ILoop:
       - +ModuleCore
-      - +VendorReact
-      - +VendorRevolt
+
     ModuleAsynchronous:
       - ILoop
       - +ModuleCore
@@ -26,7 +25,9 @@ deptrac:
       - +ModuleHelper
       - +VendorReact
       - +VendorRevolt
-    ModuleContract: ~
+    ModuleContract:
+      - +VendorReact
+      - +VendorRevolt
     ModuleCore:
       - ILoop
       - +ModuleException

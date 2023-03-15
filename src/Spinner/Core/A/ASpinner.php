@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\A;
 
-use AlecRabbit\Spinner\Core\Contract\IFrame;
-use AlecRabbit\Spinner\Core\Contract\IInterval;
-use AlecRabbit\Spinner\Core\Contract\ISpinner;
-use AlecRabbit\Spinner\Core\Contract\ITimer;
+use AlecRabbit\Spinner\Contract\IFrame;
+use AlecRabbit\Spinner\Contract\IInterval;
+use AlecRabbit\Spinner\Contract\ISpinner;
+use AlecRabbit\Spinner\Contract\ITimer;
 use AlecRabbit\Spinner\Core\Factory\FrameFactory;
 use AlecRabbit\Spinner\Core\Output\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;

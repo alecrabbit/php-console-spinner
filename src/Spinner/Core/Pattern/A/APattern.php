@@ -4,7 +4,7 @@ declare(strict_types=1);
 // 10.03.23
 namespace AlecRabbit\Spinner\Core\Pattern\A;
 
-use AlecRabbit\Spinner\Core\Contract\IInterval;
+use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Core\Interval;
 use AlecRabbit\Spinner\Core\Pattern\Contract\IPattern;
 
