@@ -52,4 +52,9 @@ abstract class TestCase extends PHPUnitTestCase
             }
         }
     }
+
+    protected static function exceptionNotThrown(string $exceptionClass): never
+    {
+        self::fail(sprintf('[%s] Exception is not thrown', $exceptionClass));
+    }
 }

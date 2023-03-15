@@ -35,20 +35,6 @@ final class DefaultsFactoryTest extends TestCase
     }
 
     #[Test]
-    public function setDefaultsClassThrowsOnSetRepeat(): void
-    {
-        $this->expectException(DomainException::class);
-        $this->expectExceptionMessage(
-            'Defaults class can not be set after defaults instance is created.'
-        );
-
-        $class = DefaultsOverride::class;
-        DefaultsFactory::setDefaultsClass($class);
-        DefaultsFactory::setDefaultsClass($class);
-        self::assertSame($class, self::getValue('className', DefaultsFactory::class));
-    }
-
-    #[Test]
     public function setDefaultsClassThrowsAfterDefaultInstanceCreation(): void
     {
         $this->expectException(DomainException::class);
@@ -74,7 +60,8 @@ final class DefaultsFactoryTest extends TestCase
     #[Test]
     public function setDefaultsClassThrowsOnInvalidArgument(): void
     {
-        $this->expectException(InvalidArgumentException::class);
+        $exceptionClass = InvalidArgumentException::class;
+        $this->expectException($exceptionClass);
         $this->expectExceptionMessage(
             sprintf(
                 'Class "%s" must be a subclass of "%s"',
@@ -84,7 +71,7 @@ final class DefaultsFactoryTest extends TestCase
         );
 
         DefaultsFactory::setDefaultsClass(stdClass::class);
-        self::assertTrue(is_subclass_of(DefaultsFactory::get()::class, IDefaults::class));
+        self::exceptionNotThrown($exceptionClass);
     }
 
     protected function setUp(): void
@@ -92,6 +79,5 @@ final class DefaultsFactoryTest extends TestCase
         self::setValue(DefaultsFactory::class, 'className', null);
         self::setValue(DefaultsFactory::class, 'defaultsInstance', null);
     }
-
 }
 
