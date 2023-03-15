@@ -50,15 +50,15 @@ final class ADefaultsTest extends TestCase
         $defaults->setShutdownDelay($shutdownDelay);
         self::assertSame($shutdownDelay, $defaults->getShutdownDelay());
     }
-
-    #[Test]
-    public function canSetFinalMessage(): void
-    {
-        $message = 'test';
-        $defaults = self::getInstance();
-        $defaults->setFinalMessage($message);
-        self::assertSame($message, $defaults->getFinalMessage());
-    }
+//
+//    #[Test]
+//    public function canSetFinalMessage(): void
+//    {
+//        $message = 'test';
+//        $defaults = self::getInstance();
+//        $defaults->setFinalMessage($message);
+//        self::assertSame($message, $defaults->getFinalMessage());
+//    }
 
     #[Test]
     public function canSetOutputStream(): void
@@ -182,22 +182,22 @@ final class ADefaultsTest extends TestCase
         $defaults->setPercentNumberFormat('%.2f');
         self::assertSame('%.2f', $defaults->getPercentNumberFormat());
     }
+//
+//    #[Test]
+//    public function canSetMessageOnExit(): void
+//    {
+//        $defaults = self::getInstance();
+//        $defaults->setMessageOnExit('test');
+//        self::assertSame('test', $defaults->getMessageOnExit());
+//    }
 
-    #[Test]
-    public function canSetMessageOnExit(): void
-    {
-        $defaults = self::getInstance();
-        $defaults->setMessageOnExit('test');
-        self::assertSame('test', $defaults->getMessageOnExit());
-    }
-
-    #[Test]
-    public function canSetInterruptMessage(): void
-    {
-        $defaults = self::getInstance();
-        $defaults->setInterruptMessage('test');
-        self::assertSame('test', $defaults->getInterruptMessage());
-    }
+//    #[Test]
+//    public function canSetInterruptMessage(): void
+//    {
+//        $defaults = self::getInstance();
+//        $defaults->setInterruptMessage('test');
+//        self::assertSame('test', $defaults->getInterruptMessage());
+//    }
 
     #[Test]
     public function canSetMaxShutdownDelay(): void

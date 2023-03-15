@@ -5,9 +5,15 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Defaults\A;
 
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDriverSettings;
+use AlecRabbit\Spinner\Core\Defaults\Mixin\DefaultsConst;
 
 abstract class ADriverSettings implements IDriverSettings
 {
+    use DefaultsConst;
+
+    protected static string $messageOnFinalize;
+    protected static string $messageOnExit;
+    protected static string $messageOnInterrupt;
 
     private static ?IDriverSettings $instance = null;
 
@@ -23,11 +29,18 @@ abstract class ADriverSettings implements IDriverSettings
 
     public function getInterruptMessage(): string
     {
-        // TODO: Implement getInterruptMessage() method.
+        return static::$messageOnInterrupt;
     }
 
     public function getFinalMessage(): string
     {
-        // TODO: Implement getFinalMessage() method.
+        return static::$messageOnFinalize;
+    }
+
+    protected function reset(): void
+    {
+        static::$messageOnFinalize = static::MESSAGE_ON_FINALIZE;
+        static::$messageOnExit = static::MESSAGE_ON_EXIT;
+        static::$messageOnInterrupt = static::MESSAGE_ON_INTERRUPT;
     }
 }
