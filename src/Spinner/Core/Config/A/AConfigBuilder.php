@@ -90,7 +90,7 @@ abstract class AConfigBuilder implements IConfigBuilder
         return $clone;
     }
 
-    public function withWidgets(iterable $widgets): self
+    public function withWidgets(iterable $widgets): static
     {
         $clone = clone $this;
         $clone->widgets = $widgets;

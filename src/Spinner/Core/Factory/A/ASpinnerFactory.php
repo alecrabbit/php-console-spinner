@@ -14,6 +14,7 @@ use AlecRabbit\Spinner\Core\Contract\ILoopHelper;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopGetter;
 use AlecRabbit\Spinner\Core\Factory\Contract\ISpinnerFactory;
+use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
 use AlecRabbit\Spinner\Exception\DomainException;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Helper\Asserter;
@@ -67,7 +68,9 @@ abstract class ASpinnerFactory extends ADefaultsAwareClass implements ISpinnerFa
     protected static function addWidgets(ISpinner $spinner): void
     {
         foreach (self::$config->getWidgets() as $widget) {
-            $spinner->add($widget);
+            if ($widget instanceof IWidgetComposite) {
+                $spinner->add($widget);
+            }
         }
     }
 
