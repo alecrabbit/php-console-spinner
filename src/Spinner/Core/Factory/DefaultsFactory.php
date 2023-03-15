@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Factory;
 
 use AlecRabbit\Spinner\Core\Contract\ILoopProbe;
+use AlecRabbit\Spinner\Core\Contract\IProbe;
 use AlecRabbit\Spinner\Core\Defaults\A\ADefaults;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDefaults;
 use AlecRabbit\Spinner\Core\Terminal\Contract\ITerminalProbe;
@@ -17,7 +18,7 @@ final class DefaultsFactory
 {
     use NoInstanceTrait;
 
-    /** @var array<class-string<ILoopProbe|ITerminalProbe>> */
+    /** @var array<class-string<IProbe>> */
     private static iterable $addedProbes = [];
 
     /** @var null|class-string<IDefaults> */
