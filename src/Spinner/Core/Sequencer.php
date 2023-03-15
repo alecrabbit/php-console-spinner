@@ -23,12 +23,12 @@ final class Sequencer implements ISequencer
         return self::colorSequenceStart($sequence) . self::colorSequenceEnd();
     }
 
-    public static function colorSequenceStart(string $sequence): string
+    private static function colorSequenceStart(string $sequence): string
     {
         return self::CSI . $sequence;
     }
 
-    public static function colorSequenceEnd(): string
+    private static function colorSequenceEnd(): string
     {
         return self::RESET;
     }
