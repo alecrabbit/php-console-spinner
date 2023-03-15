@@ -7,4 +7,8 @@ namespace AlecRabbit\Spinner\Core\Contract;
 interface IDriverSettings
 {
     public static function getInstance(): static;
+
+    public function getFinalMessage(): string;
+
+    public function getInterruptMessage(): string;
 }

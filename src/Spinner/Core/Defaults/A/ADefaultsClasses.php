@@ -20,12 +20,12 @@ abstract class ADefaultsClasses implements IDefaultsClasses
     protected static string $widgetRevolverBuilderClass;
     private static ?IDefaultsClasses $instance = null;
 
-    private function __construct()
+    final protected function __construct()
     {
         $this->reset();
     }
 
-    public function reset(): void
+    protected function reset(): void
     {
         self::$widgetBuilderClass = self::WIDGET_BUILDER_CLASS;
         self::$widgetRevolverBuilderClass = self::WIDGET_REVOLVER_BUILDER_CLASS;

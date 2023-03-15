@@ -89,8 +89,6 @@ final class AClassesTest extends TestCase
 
     protected function setUp(): void
     {
-        self::getInstance()->reset();
+        self::callMethod(self::getInstance(), 'reset');
     }
-    // 'Class "AlecRabbit\Spinner\Core\Widget\WidgetRevolverBuilder" must be a subclass of "AlecRabbit\Spinner\Core\Widget\Builder\Contract\IWidgetBuilder"'
-    // 'Class "AlecRabbit\Spinner\Core\Widget\WidgetRevolverBuilder" must be a subclass of "AlecRabbit\Spinner\Core\Widget\WidgetBuilder"'.
 }

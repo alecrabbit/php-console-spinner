@@ -19,4 +19,14 @@ abstract class ADriverSettings implements IDriverSettings
         }
         return self::$instance;
     }
+
+    public function getInterruptMessage(): string
+    {
+        // TODO: Implement getInterruptMessage() method.
+    }
+
+    public function getFinalMessage(): string
+    {
+        // TODO: Implement getFinalMessage() method.
+    }
 }
