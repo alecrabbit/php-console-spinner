@@ -109,7 +109,12 @@ abstract class ACoreDefaults implements IDefaults
         }
     }
 
-    public function reset(): void
+    final protected function __construct()
+    {
+        $this->reset();
+    }
+
+    protected function reset(): void
     {
         static::$outputStream = static::defaultOutputStream();
         static::$loopProbes = static::defaultLoopProbes();

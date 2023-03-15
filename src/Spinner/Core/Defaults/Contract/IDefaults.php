@@ -33,8 +33,6 @@ interface IDefaults extends ISettableDefaults
 
     public function getFinalMessage(): string;
 
-    public function reset(): void;
-
     public function getDefaultLeadingSpacer(): IFrame;
 
     public function getDefaultTrailingSpacer(): IFrame;

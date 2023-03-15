@@ -17,11 +17,6 @@ abstract class ADefaults extends ASettableDefaults
 {
     private static ?IDefaults $instance = null; // private, singleton
 
-    private function __construct()
-    {
-        $this->reset();
-    }
-
     final public static function getInstance(): self
     {
         if (null === self::$instance) {

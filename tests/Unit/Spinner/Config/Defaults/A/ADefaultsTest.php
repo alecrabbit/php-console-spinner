@@ -12,6 +12,7 @@ use AlecRabbit\Spinner\Core\Factory\FrameFactory;
 use AlecRabbit\Spinner\Core\Widget\WidgetBuilder;
 use AlecRabbit\Spinner\Core\Widget\WidgetRevolverBuilder;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
+use AlecRabbit\Tests\Spinner\Helper\PickLock;
 use AlecRabbit\Tests\Spinner\TestCase\TestCase;
 
 use const AlecRabbit\Spinner\TERM_NO_COLOR;
@@ -230,6 +231,7 @@ final class ADefaultsTest extends TestCase
 
     protected function setUp(): void
     {
-        self::getInstance()->reset();
+        PickLock::callMethod(self::getInstance(), 'reset');
+//        self::getInstance()->reset();
     }
 }
