@@ -47,7 +47,7 @@ interface IDefaults extends ISettableDefaults
 
     public function areSignalHandlersEnabled(): bool;
 
-    public function getLoopProbeClasses(): iterable;
+    public function getProbeClasses(): iterable;
 
 //    public function getTerminalProbeClasses(): iterable;
 

@@ -145,7 +145,7 @@ abstract class ADefaults extends ASettableDefaults
         return static::$attachSignalHandlers;
     }
 
-    public function getLoopProbeClasses(): iterable
+    public function getProbeClasses(): iterable
     {
         return static::$loopProbes;
     }

@@ -31,9 +31,8 @@ abstract class ALoopFactory extends ADefaultsAwareClass implements ILoopFactory
 
     protected static function createLoop(): ILoop|ILoopGetter|ILoopSignalHandlers|ILoopSpinnerAttach
     {
-        /** @var ILoopProbe $probe */
-        foreach (static::getLoopProbesClasses() as $probe) {
-            if ($probe::isSupported()) {
+        foreach (static::getProbesClasses() as $probe) {
+            if ($probe instanceof ILoopProbe && $probe::isSupported()) {
                 return $probe::createLoop();
             }
         }
@@ -44,9 +43,9 @@ abstract class ALoopFactory extends ADefaultsAwareClass implements ILoopFactory
         );
     }
 
-    protected static function getLoopProbesClasses(): iterable
+    protected static function getProbesClasses(): iterable
     {
         return
-            DefaultsFactory::create()->getLoopProbeClasses();
+            DefaultsFactory::create()->getProbeClasses();
     }
 }

@@ -85,7 +85,7 @@ final class ADefaultsTest extends TestCase
             $loopProbes
         );
         $loopProbesCount = 0;
-        foreach ($defaults->getLoopProbeClasses() as $loopProbe) {
+        foreach ($defaults->getProbeClasses() as $loopProbe) {
             self::assertContains($loopProbe, $loopProbes);
             $loopProbesCount++;
         }
