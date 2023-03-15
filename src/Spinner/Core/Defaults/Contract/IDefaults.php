@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Defaults\Contract;
 
 use AlecRabbit\Spinner\Contract\IFrame;
-use AlecRabbit\Spinner\Core\Contract\IDriverSettings;
 use AlecRabbit\Spinner\Core\Pattern\Contract\IPattern;
 use AlecRabbit\Spinner\Core\Terminal\Contract\ITerminalSettings;
 
@@ -20,7 +19,7 @@ interface IDefaults extends ISettableDefaults
      */
     public function getOutputStream();
 
-    public function isHideCursor(): bool;
+//    public function isHideCursor(): bool;
 
     public function getIntervalMilliseconds(): int;
 

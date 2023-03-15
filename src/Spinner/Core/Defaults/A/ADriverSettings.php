@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 // 15.03.23
-namespace AlecRabbit\Spinner\Core\A;
+namespace AlecRabbit\Spinner\Core\Defaults\A;
 
-use AlecRabbit\Spinner\Core\Contract\IDriverSettings;
+use AlecRabbit\Spinner\Core\Defaults\Contract\IDriverSettings;
 
 abstract class ADriverSettings implements IDriverSettings
 {

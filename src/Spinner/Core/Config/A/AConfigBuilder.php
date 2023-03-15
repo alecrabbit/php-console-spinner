@@ -111,17 +111,17 @@ abstract class AConfigBuilder implements IConfigBuilder
         return $clone;
     }
 
-    /**
-     * @throws LogicException
-     * @throws InvalidArgumentException
-     */
-    protected function createSpinnerCharRevolver(IPattern $spinnerCharPattern): IRevolver
-    {
-        return
-            (new RevolverBuilder())
-                ->withPattern($spinnerCharPattern)
-                ->build();
-    }
+//    /**
+//     * @throws LogicException
+//     * @throws InvalidArgumentException
+//     */
+//    protected function createSpinnerCharRevolver(IPattern $spinnerCharPattern): IRevolver
+//    {
+//        return
+//            (new RevolverBuilder())
+//                ->withPattern($spinnerCharPattern)
+//                ->build();
+//    }
 
     /**
      * @throws LogicException
@@ -151,7 +151,7 @@ abstract class AConfigBuilder implements IConfigBuilder
     protected function processDefaults(): void
     {
         $this->timer ??= new Timer();
-        $this->hideCursor ??= $this->defaults->isHideCursor();
+        $this->hideCursor ??= $this->defaults->getTerminalSettings()->isHideCursor();
         $this->createInitialized ??= $this->defaults->isCreateInitialized();
         $this->inSynchronousMode ??= $this->defaults->isModeSynchronous();
         $this->autoStartEnabled ??= $this->defaults->isAutoStartEnabled();
@@ -214,12 +214,12 @@ abstract class AConfigBuilder implements IConfigBuilder
             );
     }
 
-    protected function createWidgetRevolver(IRevolver $spinnerStyleRevolver, IRevolver $spinnerCharRevolver): IRevolver
-    {
-        return
-            new WidgetRevolver(
-                style: $spinnerStyleRevolver,
-                character: $spinnerCharRevolver,
-            );
-    }
+//    protected function createWidgetRevolver(IRevolver $spinnerStyleRevolver, IRevolver $spinnerCharRevolver): IRevolver
+//    {
+//        return
+//            new WidgetRevolver(
+//                style: $spinnerStyleRevolver,
+//                character: $spinnerCharRevolver,
+//            );
+//    }
 }
