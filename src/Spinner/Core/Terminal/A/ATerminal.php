@@ -7,32 +7,49 @@ namespace AlecRabbit\Spinner\Core\Terminal\A;
 use AlecRabbit\Spinner\Core\ColorMode;
 use AlecRabbit\Spinner\Core\Terminal\Contract\ITerminal;
 use AlecRabbit\Spinner\Core\Terminal\Contract\ITerminalProbe;
+use AlecRabbit\Spinner\Core\Terminal\NativeTerminalProbe;
 
 abstract class ATerminal implements ITerminal
 {
     private static ?ITerminal $instance = null;
-    private bool $hideCursor;
-    private ColorMode $colorMode;
-    private int $width;
 
-    private function __construct(iterable $terminalProbes)
+    private function __construct(
+        private ColorMode $colorMode,
+        private int $width,
+        private bool $hideCursor,
+    ) {
+    }
+
+    final public static function getInstance(iterable $terminalProbes): self
     {
-        /** @var ITerminalProbe $terminalProbe */
-        foreach ($terminalProbes as $terminalProbe) {
-            if ($terminalProbe::isSupported()) {
-                $this->colorMode = $terminalProbe::getColorMode();
-                $this->width = $terminalProbe::getWidth();
-                return;
+        if (null === self::$instance) {
+            $colorMode = NativeTerminalProbe::getColorMode();
+            $width = NativeTerminalProbe::getWidth();
+            $hideCursor = ITerminal::TERMINAL_DEFAULT_HIDE_CURSOR;
+
+            /** @var ITerminalProbe $terminalProbe */
+            foreach ($terminalProbes as $terminalProbe) {
+                if ($terminalProbe::isSupported()) {
+                    $colorMode = $terminalProbe::getColorMode();
+                    $width = $terminalProbe::getWidth();
+                }
             }
+
+            self::$instance =
+                new class($colorMode, $width, $hideCursor) extends ATerminal {
+                };
         }
-        $this->colorMode = ITerminal::TERMINAL_DEFAULT_COLOR_SUPPORT;
-        $this->width = ITerminal::TERMINAL_DEFAULT_WIDTH;
-        $this->hideCursor = ITerminal::TERMINAL_DEFAULT_HIDE_CURSOR;
+        return self::$instance;
     }
 
     public function getColorMode(): ColorMode
     {
         return $this->colorMode;
+    }
+
+    public function getWidth(): int
+    {
+        return $this->width;
     }
 
     public function setColorMode(ColorMode $colorMode): static
@@ -41,25 +58,10 @@ abstract class ATerminal implements ITerminal
         return $this;
     }
 
-    public function getWidth(): int
-    {
-        return $this->width;
-    }
-
     public function setWidth(int $width): static
     {
         $this->width = $width;
         return $this;
-    }
-
-    final public static function getInstance(iterable $terminalProbes): self
-    {
-        if (null === self::$instance) {
-            self::$instance =
-                new class($terminalProbes) extends ATerminal {
-                };
-        }
-        return self::$instance;
     }
 
     public function isHideCursor(): bool
