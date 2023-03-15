@@ -17,6 +17,11 @@ abstract class ADriverSettings implements IDriverSettings
 
     private static ?IDriverSettings $instance = null;
 
+    final protected function __construct()
+    {
+        $this->reset();
+    }
+
     final public static function getInstance(): static
     {
         if (null === self::$instance) {

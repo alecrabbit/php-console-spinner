@@ -31,7 +31,7 @@ interface IDefaults extends ISettableDefaults
 
     public function getMainTrailingSpacer(): IFrame;
 
-    public function getFinalMessage(): string;
+//    public function getFinalMessage(): string;
 
     public function getDefaultLeadingSpacer(): IFrame;
 
@@ -51,7 +51,7 @@ interface IDefaults extends ISettableDefaults
 
 //    public function getTerminalProbeClasses(): iterable;
 
-    public function getInterruptMessage(): string;
+//    public function getInterruptMessage(): string;
 
     public function getTerminalSettings(): ITerminalSettings;
 
