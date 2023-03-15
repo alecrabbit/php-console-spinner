@@ -12,7 +12,7 @@ App::prepareDefaults();
 
 $config =
     Factory::getConfigBuilder()
-        ->withMainWidget(NullWidget::create())
+        ->withRootWidget(NullWidget::create())
         ->build();
 
 $app = new App(

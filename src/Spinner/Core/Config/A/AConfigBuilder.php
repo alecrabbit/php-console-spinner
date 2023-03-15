@@ -42,8 +42,7 @@ abstract class AConfigBuilder implements IConfigBuilder
     protected ?IOutput $output = null;
     protected ?IRevolver $spinnerStyleRevolver = null;
     protected ?IRevolver $spinnerCharRevolver = null;
-    /** @var array<IWidgetComposite>|null */
-    protected ?array $widgets = null;
+    protected ?iterable $widgets = null;
     protected ?IWidgetBuilder $widgetBuilder = null;
     protected ?IWidgetComposite $mainWidget = null;
     protected ?IPattern $mainWidgetStylePattern = null;
@@ -52,15 +51,15 @@ abstract class AConfigBuilder implements IConfigBuilder
     public function __construct(
         protected IDefaults $defaults,
     ) {
-        $this->initializeBuildersAndFactories($this->defaults);
+        $this->initializeBuildersAndFactories();
     }
 
-    protected function initializeBuildersAndFactories(IDefaults $defaults): void
+    protected function initializeBuildersAndFactories(): void
     {
         $this->widgetBuilder = WidgetFactory::getWidgetBuilder();
     }
 
-    public function withMainWidget(IWidgetComposite $widget): self
+    public function withRootWidget(IWidgetComposite $widget): static
     {
         $clone = clone $this;
         $clone->mainWidget = $widget;
@@ -88,21 +87,21 @@ abstract class AConfigBuilder implements IConfigBuilder
         return $clone;
     }
 
-    public function withWidgets(array $widgets): self
+    public function withWidgets(iterable $widgets): self
     {
         $clone = clone $this;
         $clone->widgets = $widgets;
         return $clone;
     }
 
-    public function withStylePattern(IPattern $pattern): self
+    public function withStylePattern(IPattern $pattern): static
     {
         $clone = clone $this;
         $clone->mainWidgetStylePattern = $pattern;
         return $clone;
     }
 
-    public function withCharPattern(IPattern $pattern): self
+    public function withCharPattern(IPattern $pattern): static
     {
         $clone = clone $this;
         $clone->mainWidgetCharPattern = $pattern;
