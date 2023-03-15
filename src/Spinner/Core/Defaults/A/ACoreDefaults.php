@@ -11,10 +11,8 @@ use AlecRabbit\Spinner\Core\Defaults\Contract\IDefaultsClasses;
 use AlecRabbit\Spinner\Core\Defaults\Mixin\DefaultsConst;
 use AlecRabbit\Spinner\Core\Factory\FrameFactory;
 use AlecRabbit\Spinner\Core\Pattern\Contract\IPattern;
-use AlecRabbit\Spinner\Core\Terminal\A\ATerminalSettings;
-use AlecRabbit\Spinner\Core\Terminal\Contract\ITerminalSettings;
 use AlecRabbit\Spinner\Core\Terminal\Contract\ITerminalProbe;
-use AlecRabbit\Spinner\Core\Terminal\NativeTerminalProbe;
+use AlecRabbit\Spinner\Core\Terminal\Contract\ITerminalSettings;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Helper\Asserter;
 
@@ -54,60 +52,6 @@ abstract class ACoreDefaults implements IDefaults
     protected static iterable $terminalProbes;
     private static iterable $registeredLoopProbes = [];
     private static iterable $registeredTerminalProbes = [];
-
-    /**
-     * @throws InvalidArgumentException
-     */
-    public static function registerProbe(string $class): void
-    {
-        Asserter::classExists($class, __METHOD__);
-
-        if (is_subclass_of($class, ILoopProbe::class)) {
-            self::registerLoopProbeClass($class);
-            return;
-        }
-        if (is_subclass_of($class, ITerminalProbe::class)) {
-            self::registerTerminalProbeClass($class);
-            return;
-        }
-        throw new InvalidArgumentException(
-            sprintf(
-                'Unsupported probe class: %s. Supported: [%s].',
-                $class,
-                implode(
-                    separator: ', ',
-                    array: [
-                        ILoopProbe::class,
-                        ITerminalProbe::class
-                    ],
-                ),
-            )
-        );
-    }
-
-    /**
-     * @throws InvalidArgumentException
-     */
-    protected static function registerLoopProbeClass(string $class): void
-    {
-        Asserter::isSubClass($class, ILoopProbe::class, __METHOD__);
-
-        if (!in_array($class, iterator_to_array(self::$registeredLoopProbes), true)) {
-            self::$registeredLoopProbes[] = $class;
-        }
-    }
-
-    /**
-     * @throws InvalidArgumentException
-     */
-    protected static function registerTerminalProbeClass(string $class): void
-    {
-        Asserter::isSubClass($class, ITerminalProbe::class, __METHOD__);
-
-        if (!in_array($class, iterator_to_array(self::$registeredTerminalProbes), true)) {
-            self::$registeredTerminalProbes[] = $class;
-        }
-    }
 
     final protected function __construct()
     {
@@ -163,24 +107,61 @@ abstract class ACoreDefaults implements IDefaults
         yield from self::$registeredTerminalProbes;
     }
 
-    protected static function getClassesInstance(): ADefaultsClasses
+    abstract protected static function getClassesInstance(): ADefaultsClasses;
+
+    abstract protected static function getTerminalSettingsInstance(): ITerminalSettings;
+
+    /**
+     * @throws InvalidArgumentException
+     */
+    public static function registerProbe(string $class): void
     {
-        return ADefaultsClasses::getInstance();
+        Asserter::classExists($class, __METHOD__);
+
+        if (is_subclass_of($class, ILoopProbe::class)) {
+            self::registerLoopProbeClass($class);
+            return;
+        }
+        if (is_subclass_of($class, ITerminalProbe::class)) {
+            self::registerTerminalProbeClass($class);
+            return;
+        }
+        throw new InvalidArgumentException(
+            sprintf(
+                'Unsupported probe class: %s. Supported: [%s].',
+                $class,
+                implode(
+                    separator: ', ',
+                    array: [
+                        ILoopProbe::class,
+                        ITerminalProbe::class
+                    ],
+                ),
+            )
+        );
     }
 
-    protected static function getTerminalSettingsInstance(): ITerminalSettings
+    /**
+     * @throws InvalidArgumentException
+     */
+    protected static function registerLoopProbeClass(string $class): void
     {
-        $colorMode = NativeTerminalProbe::getColorMode();
-        $width = NativeTerminalProbe::getWidth();
-        $hideCursor = NativeTerminalProbe::isHideCursor();
+        Asserter::isSubClass($class, ILoopProbe::class, __METHOD__);
 
-        /** @var ITerminalProbe $terminalProbe */
-        foreach (static::$terminalProbes as $terminalProbe) {
-            if ($terminalProbe::isSupported()) {
-                $colorMode = $terminalProbe::getColorMode();
-                $width = $terminalProbe::getWidth();
-            }
+        if (!in_array($class, iterator_to_array(self::$registeredLoopProbes), true)) {
+            self::$registeredLoopProbes[] = $class;
         }
-        return ATerminalSettings::getInstance($colorMode, $width, $hideCursor);
+    }
+
+    /**
+     * @throws InvalidArgumentException
+     */
+    protected static function registerTerminalProbeClass(string $class): void
+    {
+        Asserter::isSubClass($class, ITerminalProbe::class, __METHOD__);
+
+        if (!in_array($class, iterator_to_array(self::$registeredTerminalProbes), true)) {
+            self::$registeredTerminalProbes[] = $class;
+        }
     }
 }

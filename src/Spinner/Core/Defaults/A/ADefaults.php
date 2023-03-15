@@ -10,7 +10,10 @@ use AlecRabbit\Spinner\Core\Defaults\Contract\IDefaultsClasses;
 use AlecRabbit\Spinner\Core\Pattern\Char\Ascii;
 use AlecRabbit\Spinner\Core\Pattern\Contract\IPattern;
 use AlecRabbit\Spinner\Core\Pattern\Style\Rainbow;
+use AlecRabbit\Spinner\Core\Terminal\A\ATerminalSettings;
+use AlecRabbit\Spinner\Core\Terminal\Contract\ITerminalProbe;
 use AlecRabbit\Spinner\Core\Terminal\Contract\ITerminalSettings;
+use AlecRabbit\Spinner\Core\Terminal\NativeTerminalProbe;
 use AlecRabbit\Spinner\Helper\Deprecation;
 
 abstract class ADefaults extends ASettableDefaults
@@ -155,5 +158,27 @@ abstract class ADefaults extends ASettableDefaults
     public function getTerminalSettings(): ITerminalSettings
     {
         return static::$terminalSettings;
+    }
+
+
+    protected static function getClassesInstance(): ADefaultsClasses
+    {
+        return ADefaultsClasses::getInstance();
+    }
+
+    protected static function getTerminalSettingsInstance(): ITerminalSettings
+    {
+        $colorMode = NativeTerminalProbe::getColorMode();
+        $width = NativeTerminalProbe::getWidth();
+        $hideCursor = NativeTerminalProbe::isHideCursor();
+
+        /** @var ITerminalProbe $terminalProbe */
+        foreach (static::$terminalProbes as $terminalProbe) {
+            if ($terminalProbe::isSupported()) {
+                $colorMode = $terminalProbe::getColorMode();
+                $width = $terminalProbe::getWidth();
+            }
+        }
+        return ATerminalSettings::getInstance($colorMode, $width, $hideCursor);
     }
 }
