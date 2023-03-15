@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Defaults\A;
 
 use AlecRabbit\Spinner\Contract\IFrame;
+use AlecRabbit\Spinner\Core\A\ADriverSettings;
+use AlecRabbit\Spinner\Core\Contract\IDriverSettings;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDefaults;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDefaultsClasses;
 use AlecRabbit\Spinner\Core\Pattern\Char\Ascii;
@@ -49,6 +51,12 @@ abstract class ADefaults extends ASettableDefaults
         }
         return ATerminalSettings::getInstance($colorMode, $width, $hideCursor);
     }
+
+    protected static function getDriverSettingsInstance(): IDriverSettings
+    {
+        return ADriverSettings::getInstance();
+    }
+
 
     public function isHideCursor(): bool
     {
@@ -177,5 +185,10 @@ abstract class ADefaults extends ASettableDefaults
     public function getTerminalSettings(): ITerminalSettings
     {
         return static::$terminalSettings;
+    }
+
+    public function getDriverSettings(): IDriverSettings
+    {
+        return static::$driverSettings;
     }
 }

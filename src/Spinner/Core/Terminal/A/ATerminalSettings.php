@@ -18,7 +18,7 @@ abstract class ATerminalSettings implements ITerminalSettings
     ) {
     }
 
-    final public static function getInstance(ColorMode $colorMode, int $width, bool $hideCursor,): self
+    final public static function getInstance(ColorMode $colorMode, int $width, bool $hideCursor,): static
     {
         if (null === self::$instance) {
             self::$instance =

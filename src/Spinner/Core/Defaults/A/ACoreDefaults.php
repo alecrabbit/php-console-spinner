@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Defaults\A;
 
 use AlecRabbit\Spinner\Contract\IFrame;
+use AlecRabbit\Spinner\Core\Contract\IDriverSettings;
 use AlecRabbit\Spinner\Core\Contract\ILoopProbe;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDefaults;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDefaultsClasses;
@@ -41,6 +42,7 @@ abstract class ACoreDefaults implements IDefaults
     protected static ?IFrame $defaultTrailingSpacer = null;
     protected static IDefaultsClasses $classes;
     protected static ITerminalSettings $terminalSettings;
+    protected static IDriverSettings $driverSettings;
     protected static bool $autoStart;
     protected static bool $attachSignalHandlers;
     /**
@@ -64,6 +66,7 @@ abstract class ACoreDefaults implements IDefaults
         static::$terminalProbes = static::defaultTerminalProbes();
         static::$classes = static::getClassesInstance();
         static::$terminalSettings = static::getTerminalSettingsInstance();
+        static::$driverSettings = static::getDriverSettingsInstance();
 
         static::$shutdownDelay = static::SHUTDOWN_DELAY;
         static::$shutdownMaxDelay = static::SHUTDOWN_MAX_DELAY;
@@ -109,6 +112,8 @@ abstract class ACoreDefaults implements IDefaults
     abstract protected static function getClassesInstance(): ADefaultsClasses;
 
     abstract protected static function getTerminalSettingsInstance(): ITerminalSettings;
+
+    abstract protected static function getDriverSettingsInstance(): IDriverSettings;
 
     /**
      * @throws InvalidArgumentException

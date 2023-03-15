@@ -5,9 +5,12 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Terminal\Contract;
 
 use AlecRabbit\Spinner\Contract\ColorMode;
+use AlecRabbit\Spinner\Core\Terminal\A\ATerminalSettings;
 
 interface ITerminalSettings
 {
+    public static function getInstance(ColorMode $colorMode, int $width, bool $hideCursor,): static;
+
     public function getWidth(): int;
 
     public function setWidth(int $width): static;

@@ -6,4 +6,5 @@ namespace AlecRabbit\Spinner\Core\Contract;
 
 interface IDriverSettings
 {
+    public static function getInstance(): static;
 }
