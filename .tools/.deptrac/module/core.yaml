@@ -6,6 +6,3 @@ deptrac:
           must:
             - type: className
               value: '%namespace%\\Core\\.*'
-          must_not:
-            - type: className
-              value: '%namespace%\\Contract\\.*'

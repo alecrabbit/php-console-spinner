@@ -1,5 +1,5 @@
 parameters:
-  namespace: AlecRabbit\\Spinner
+  namespace: 'AlecRabbit\\Spinner'
 
 # Add module files here
 imports:

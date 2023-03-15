@@ -3,4 +3,4 @@ deptrac:
     - name: ModuleHelper
       collectors:
         - type: className
-          value: .*AlecRabbit\\Spinner\\Helper\\.*
+          value: '%namespace%\\Helper\\.*'

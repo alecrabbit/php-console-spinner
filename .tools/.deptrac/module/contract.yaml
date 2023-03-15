@@ -5,4 +5,4 @@ deptrac:
         - type: bool
           must:
             - type: className
-              value: .*AlecRabbit\\Spinner\\Contract\\.*
+              value: '%namespace%\\Contract\\.*'
