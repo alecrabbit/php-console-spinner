@@ -4,14 +4,12 @@ declare(strict_types=1);
 // 15.02.23
 namespace AlecRabbit\Spinner\Helper;
 
-use AlecRabbit\Spinner\Core\ColorMode;
+use AlecRabbit\Spinner\Contract\ColorMode;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Exception\RuntimeException;
 
 use function class_exists;
 use function extension_loaded;
-
-use const AlecRabbit\Spinner\KNOWN_TERM_COLOR;
 
 final class Asserter
 {
@@ -58,7 +56,7 @@ final class Asserter
         }
         /** @var ColorMode $colorMode */
         foreach ($colorModes as $colorMode) {
-            if(!$colorMode instanceof ColorMode) {
+            if (!$colorMode instanceof ColorMode) {
                 throw new InvalidArgumentException(
                     sprintf(
                         'Unsupported color mode of type "%s".',

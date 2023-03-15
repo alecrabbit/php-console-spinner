@@ -24,6 +24,11 @@ abstract class TestCase extends PHPUnitTestCase
         return PickLock::getValue($from, $property);
     }
 
+    protected static function setValue(object|string $objectOrClass, string $propertyName, mixed $value): void
+    {
+        PickLock::setValue($objectOrClass, $propertyName,  $value);
+    }
+
     protected static function callMethod(mixed $objectOrClass, string $methodName, ...$args): mixed
     {
         return PickLock::callMethod($objectOrClass, $methodName, ...$args);

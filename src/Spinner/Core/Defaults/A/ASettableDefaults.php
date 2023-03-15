@@ -9,7 +9,6 @@ use AlecRabbit\Spinner\Core\Contract\ILoopProbe;
 use AlecRabbit\Spinner\Core\Pattern\Contract\IPattern;
 use AlecRabbit\Spinner\Core\Terminal\Contract\ITerminalProbe;
 use AlecRabbit\Spinner\Helper\Asserter;
-use AlecRabbit\Spinner\Helper\Deprecation;
 
 /** @internal */
 abstract class ASettableDefaults extends ACoreDefaults

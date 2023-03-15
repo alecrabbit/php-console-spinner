@@ -4,7 +4,7 @@ declare(strict_types=1);
 // 09.03.23
 namespace AlecRabbit\Spinner\Core\Terminal\A;
 
-use AlecRabbit\Spinner\Core\ColorMode;
+use AlecRabbit\Spinner\Contract\ColorMode;
 use AlecRabbit\Spinner\Core\Terminal\Contract\ITerminalSettings;
 
 abstract class ATerminalSettings implements ITerminalSettings

@@ -30,7 +30,6 @@ final class WidthDeterminer
      */
     private static function createDeterminer(): Closure
     {
-
         if (function_exists('\AlecRabbit\WCWidth\wcswidth')) {
             return static function (string $string): int {
                 return wcswidth($string);

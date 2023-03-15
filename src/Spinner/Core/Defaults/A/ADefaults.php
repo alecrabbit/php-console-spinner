@@ -14,11 +14,15 @@ use AlecRabbit\Spinner\Core\Terminal\A\ATerminalSettings;
 use AlecRabbit\Spinner\Core\Terminal\Contract\ITerminalProbe;
 use AlecRabbit\Spinner\Core\Terminal\Contract\ITerminalSettings;
 use AlecRabbit\Spinner\Core\Terminal\NativeTerminalProbe;
-use AlecRabbit\Spinner\Helper\Deprecation;
 
 abstract class ADefaults extends ASettableDefaults
 {
     private static ?IDefaults $instance = null; // private, singleton
+
+    protected static function getClassesInstance(): ADefaultsClasses
+    {
+        return ADefaultsClasses::getInstance();
+    }
 
     final public static function getInstance(): self
     {
@@ -28,6 +32,27 @@ abstract class ADefaults extends ASettableDefaults
                 };
         }
         return self::$instance;
+    }
+
+    protected static function getTerminalSettingsInstance(): ITerminalSettings
+    {
+        $colorMode = NativeTerminalProbe::getColorMode();
+        $width = NativeTerminalProbe::getWidth();
+        $hideCursor = NativeTerminalProbe::isHideCursor();
+
+        /** @var ITerminalProbe $terminalProbe */
+        foreach (static::$terminalProbes as $terminalProbe) {
+            if ($terminalProbe::isSupported()) {
+                $colorMode = $terminalProbe::getColorMode();
+                $width = $terminalProbe::getWidth();
+            }
+        }
+        return ATerminalSettings::getInstance($colorMode, $width, $hideCursor);
+    }
+
+    public function isHideCursor(): bool
+    {
+        return static::$hideCursor;
     }
 
     public function getClasses(): IDefaultsClasses
@@ -56,16 +81,10 @@ abstract class ADefaults extends ASettableDefaults
         return static::$isModeSynchronous;
     }
 
-    public function isHideCursor(): bool
-    {
-        return static::$hideCursor;
-    }
-
     public function getFinalMessage(): string
     {
         return static::$messageOnFinalize;
     }
-
 
     public function getMessageOnExit(): string
     {
@@ -140,6 +159,11 @@ abstract class ADefaults extends ASettableDefaults
         return static::$autoStart;
     }
 
+//    public function getTerminalProbeClasses(): iterable
+//    {
+//        return static::$terminalProbes;
+//    }
+
     public function areSignalHandlersEnabled(): bool
     {
         return static::$attachSignalHandlers;
@@ -150,35 +174,8 @@ abstract class ADefaults extends ASettableDefaults
         return static::$loopProbes;
     }
 
-//    public function getTerminalProbeClasses(): iterable
-//    {
-//        return static::$terminalProbes;
-//    }
-
     public function getTerminalSettings(): ITerminalSettings
     {
         return static::$terminalSettings;
-    }
-
-
-    protected static function getClassesInstance(): ADefaultsClasses
-    {
-        return ADefaultsClasses::getInstance();
-    }
-
-    protected static function getTerminalSettingsInstance(): ITerminalSettings
-    {
-        $colorMode = NativeTerminalProbe::getColorMode();
-        $width = NativeTerminalProbe::getWidth();
-        $hideCursor = NativeTerminalProbe::isHideCursor();
-
-        /** @var ITerminalProbe $terminalProbe */
-        foreach (static::$terminalProbes as $terminalProbe) {
-            if ($terminalProbe::isSupported()) {
-                $colorMode = $terminalProbe::getColorMode();
-                $width = $terminalProbe::getWidth();
-            }
-        }
-        return ATerminalSettings::getInstance($colorMode, $width, $hideCursor);
     }
 }

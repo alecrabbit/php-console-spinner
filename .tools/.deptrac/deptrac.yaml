@@ -2,6 +2,7 @@
 imports:
   - .common/paths.yaml
   - module/async.yaml
+  - module/contract.yaml
   - module/core.yaml
   - module/exception.yaml
   - module/extras.yaml
@@ -14,32 +15,37 @@ imports:
 
 deptrac:
   ruleset:
+    ILoop:
+      - +ModuleCore
+      - +VendorReact
+      - +VendorRevolt
     ModuleAsynchronous:
+      - ILoop
       - +ModuleCore
       - +ModuleException
       - +ModuleHelper
       - +VendorReact
       - +VendorRevolt
+    ModuleContract: ~
+    ModuleCore:
       - ILoop
+      - +ModuleException
+      - +ModuleHelper
+      - +ModuleMixin
+    ModuleException: ~
     ModuleExtras:
+      - +ModuleContract
       - +ModuleCore
       - +ModuleException
+      - +ModuleHelper
+      - +ModuleMixin
       - +VendorSymfony
     ModuleHelper:
+      - +ModuleContract
       - +ModuleException
       - +ModuleMixin
-    ModuleCore:
-      - +ModuleException
-      - +ModuleHelper
-      - +ModuleMixin
-      - ILoop
-    ModuleException: ~
     ModuleMixin: ~
     VendorSymfony: ~
-    ILoop:
-      - +VendorRevolt
-      - +VendorReact
-      - +ModuleCore
 #  skip_violations:
 #    NS\Class:
 #      - AnotherNS\Class

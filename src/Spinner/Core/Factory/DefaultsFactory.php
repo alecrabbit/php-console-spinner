@@ -4,11 +4,9 @@ declare(strict_types=1);
 // 14.02.23
 namespace AlecRabbit\Spinner\Core\Factory;
 
-use AlecRabbit\Spinner\Core\Contract\ILoopProbe;
 use AlecRabbit\Spinner\Core\Contract\IProbe;
 use AlecRabbit\Spinner\Core\Defaults\A\ADefaults;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDefaults;
-use AlecRabbit\Spinner\Core\Terminal\Contract\ITerminalProbe;
 use AlecRabbit\Spinner\Exception\DomainException;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Helper\Asserter;
@@ -25,7 +23,8 @@ final class DefaultsFactory
     private static ?string $className = null;
     private static ?IDefaults $defaultsInstance = null;
 
-    public static function get(): IDefaults {
+    public static function get(): IDefaults
+    {
         if (null === self::$defaultsInstance) {
             self::$defaultsInstance = self::create();
         }
@@ -75,9 +74,9 @@ final class DefaultsFactory
     {
         Asserter::isSubClass($class, IDefaults::class, __METHOD__);
 
-        if (null !== self::$className) {
+        if (null !== self::$defaultsInstance) {
             throw new DomainException(
-                'Defaults class can be set only once - before first defaults instance is created.'
+                'Defaults class can not be set after defaults instance is created.'
             );
         }
 

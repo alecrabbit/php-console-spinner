@@ -1,8 +1,13 @@
 deptrac:
   skip_violations:
+    AlecRabbit\Spinner\Asynchronous\Defaults\A\ALoopAwareDefaults:
+      - AlecRabbit\Spinner\Core\Defaults\A\ACoreDefaults
+      - AlecRabbit\Spinner\Core\Defaults\A\ASettableDefaults
     AlecRabbit\Spinner\Core\Revolver\A\ARevolverBuilder:
       - AlecRabbit\Spinner\Extras\Procedure\A\AProceduralStylePattern
       - AlecRabbit\Spinner\Extras\Revolver\ProceduralRevolver
     AlecRabbit\Spinner\Core\Revolver\RevolverBuilder:
       - AlecRabbit\Spinner\Extras\Procedure\A\AProceduralStylePattern
       - AlecRabbit\Spinner\Extras\Revolver\ProceduralRevolver
+    AlecRabbit\Spinner\Helper\Asserter:
+      - AlecRabbit\Spinner\Contract\ColorMode

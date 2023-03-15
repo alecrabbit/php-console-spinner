@@ -24,6 +24,11 @@ final class IntNormalizer implements IIntNormalizer
         return $result;
     }
 
+    public static function getDivisor(): int
+    {
+        return self::$divisor;
+    }
+
     /**
      * @throws InvalidArgumentException
      */
@@ -46,11 +51,6 @@ final class IntNormalizer implements IIntNormalizer
                 sprintf('Divisor should be less than %s.', self::MAX_DIVISOR)
             );
         }
-    }
-
-    public static function getDivisor(): int
-    {
-        return self::$divisor;
     }
 
     /**
