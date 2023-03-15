@@ -13,8 +13,11 @@ ARG EXT_XDEBUG_VERSION=3.2.0
 ARG WORKING_DIR=/app
 
 ARG COMPOSER_HOME=/tmp/composer
+
 ARG PHIVE_VERSION_KEY=0x6AF725270AB81E04D79442549D8A98B29B2D5D79
+
 ARG DEPTRAC_VERSION_KEY=0x41DDE07547459FAECFA17813B8F640134AB1782E
+ARG PHP_CS_FIXER_VERSION_KEY=0xBBAB5DF0A0D6672989CF1869E82B2FB314E9906E
 ARG PHPLOC_VERSION_KEY=0x4AA394086372C20A
 
 ARG COMPOSER_PACKAGES="\
@@ -167,6 +170,8 @@ RUN set -eux \
     && phive install phploc --trust-gpg-keys ${PHPLOC_VERSION_KEY} --target /usr/local/bin \
     ## // install deptrac \
     && phive install deptrac --trust-gpg-keys ${DEPTRAC_VERSION_KEY} --target /usr/local/bin \
+    ## // install php-cs-fixer \
+    && phive install php-cs-fixer --trust-gpg-keys ${PHP_CS_FIXER_VERSION_KEY} --target /usr/local/bin \
     ## // cleanup
     && apk del --no-cache .php-build-deps \
     && rm -rf ${COMPOSER_HOME}/.htaccess ${COMPOSER_HOME}/cache \
