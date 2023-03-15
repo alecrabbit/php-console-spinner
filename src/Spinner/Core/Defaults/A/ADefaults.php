@@ -52,15 +52,14 @@ abstract class ADefaults extends ASettableDefaults
         return ATerminalSettings::getInstance($colorMode, $width, $hideCursor);
     }
 
-    protected static function getDriverSettingsInstance(): IDriverSettings
-    {
-        return ADriverSettings::getInstance();
-    }
-
-
     public function isHideCursor(): bool
     {
         return static::$hideCursor;
+    }
+
+    protected static function getDriverSettingsInstance(): IDriverSettings
+    {
+        return ADriverSettings::getInstance();
     }
 
     public function getClasses(): IDefaultsClasses
