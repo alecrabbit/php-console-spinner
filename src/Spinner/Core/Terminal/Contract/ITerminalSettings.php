@@ -8,10 +8,9 @@ use AlecRabbit\Spinner\Core\ColorMode;
 
 interface ITerminalSettings
 {
-
     public function getWidth(): int;
 
-    public function setWidth(int $width): static; // TODO: choose better name
+    public function setWidth(int $width): static;
 
     public function getColorMode(): ColorMode;
 
