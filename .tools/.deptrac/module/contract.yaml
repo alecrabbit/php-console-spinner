@@ -1,6 +1,6 @@
 deptrac:
   layers:
-    - name: ModuleCore
+    - name: ModuleContract
       collectors:
         - type: bool
           must:

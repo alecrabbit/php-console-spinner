@@ -4,7 +4,7 @@ declare(strict_types=1);
 // 15.02.23
 namespace AlecRabbit\Spinner\Helper;
 
-use AlecRabbit\Spinner\I\ColorMode;
+use AlecRabbit\Spinner\Contract\ColorMode;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Exception\RuntimeException;
 

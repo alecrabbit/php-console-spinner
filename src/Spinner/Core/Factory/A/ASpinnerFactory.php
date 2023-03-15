@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Factory\A;
 
-use AlecRabbit\Spinner\I\ILoop;
-use AlecRabbit\Spinner\I\ILoopHelper;
-use AlecRabbit\Spinner\I\ISpinner;
+use AlecRabbit\Spinner\Contract\ILoop;
+use AlecRabbit\Spinner\Contract\ILoopHelper;
 use AlecRabbit\Spinner\Core\A\ASpinner;
 use AlecRabbit\Spinner\Core\Config\ConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\IConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\IConfigBuilderGetter;
+use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopGetter;
 use AlecRabbit\Spinner\Core\Factory\Contract\ISpinnerFactory;
 use AlecRabbit\Spinner\Exception\DomainException;

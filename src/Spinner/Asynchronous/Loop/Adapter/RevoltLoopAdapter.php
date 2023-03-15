@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Asynchronous\Loop\Adapter;
 
 use AlecRabbit\Spinner\Asynchronous\Loop\Adapter\A\ALoopAdapter;
-use AlecRabbit\Spinner\I\ISpinner;
+use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use Closure;
 use React\EventLoop\LoopInterface;
 use Revolt\EventLoop;

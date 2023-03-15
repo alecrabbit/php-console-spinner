@@ -2,7 +2,9 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Spinner\I;
+namespace AlecRabbit\Spinner\Contract;
+
+use AlecRabbit\Spinner\Core\Contract\ISpinner;
 
 interface ILoopHelper
 {

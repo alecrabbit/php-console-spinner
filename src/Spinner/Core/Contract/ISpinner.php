@@ -2,8 +2,11 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Spinner\I;
+namespace AlecRabbit\Spinner\Core\Contract;
 
+use AlecRabbit\Spinner\Contract\HasInterval;
+use AlecRabbit\Spinner\Contract\IRenderable;
+use AlecRabbit\Spinner\Contract\IWrapper;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContext;
 

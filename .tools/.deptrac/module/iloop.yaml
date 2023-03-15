@@ -1,6 +1,0 @@
-#deptrac:
-#  layers:
-#    - name: ILoop
-#      collectors:
-#        - type: className
-#          value: .*AlecRabbit\\Spinner\\Core\\.*\\ILoop

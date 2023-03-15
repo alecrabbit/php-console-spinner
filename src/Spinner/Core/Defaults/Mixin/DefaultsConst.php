@@ -4,7 +4,7 @@ declare(strict_types=1);
 // 14.02.23
 namespace AlecRabbit\Spinner\Core\Defaults\Mixin;
 
-use AlecRabbit\Spinner\I\ColorMode;
+use AlecRabbit\Spinner\Contract\ColorMode;
 
 trait DefaultsConst
 {

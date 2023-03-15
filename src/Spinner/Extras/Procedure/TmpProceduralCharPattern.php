@@ -4,8 +4,8 @@ declare(strict_types=1);
 // 09.03.23
 namespace AlecRabbit\Spinner\Extras\Procedure;
 
-use AlecRabbit\Spinner\I\IFrame;
-use AlecRabbit\Spinner\I\IProcedure;
+use AlecRabbit\Spinner\Contract\IFrame;
+use AlecRabbit\Spinner\Contract\IProcedure;
 use AlecRabbit\Spinner\Core\Frame;
 use AlecRabbit\Spinner\Extras\Procedure\A\AProceduralPattern;
 use AlecRabbit\Spinner\Extras\Procedure\A\AProcedure;

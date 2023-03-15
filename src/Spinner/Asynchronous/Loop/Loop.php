@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Asynchronous\Loop;
 
 use AlecRabbit\Spinner\Asynchronous\Factory\LoopFactory;
-use AlecRabbit\Spinner\I\ILoop;
-use AlecRabbit\Spinner\I\ILoopGetter;
-use AlecRabbit\Spinner\I\ILoopHelper;
-use AlecRabbit\Spinner\I\ILoopSignalHandlers;
-use AlecRabbit\Spinner\I\ILoopSpinnerAttach;
-use AlecRabbit\Spinner\I\ISpinner;
+use AlecRabbit\Spinner\Contract\ILoop;
+use AlecRabbit\Spinner\Contract\ILoopGetter;
+use AlecRabbit\Spinner\Contract\ILoopHelper;
+use AlecRabbit\Spinner\Contract\ILoopSignalHandlers;
+use AlecRabbit\Spinner\Contract\ILoopSpinnerAttach;
+use AlecRabbit\Spinner\Core\Contract\ISpinner;
 
 final class Loop implements ILoopHelper
 {

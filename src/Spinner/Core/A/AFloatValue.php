@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\A;
 
-use AlecRabbit\Spinner\I\IFloatValue;
+use AlecRabbit\Spinner\Contract\IFloatValue;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 
 use function is_float;

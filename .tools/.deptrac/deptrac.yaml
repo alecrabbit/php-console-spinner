@@ -10,7 +10,6 @@ imports:
   - module/exception.yaml
   - module/extras.yaml
   - module/helper.yaml
-  - module/iloop.yaml
   - module/mixin.yaml
   - vendor/react.yaml
   - vendor/revolt.yaml
@@ -18,11 +17,7 @@ imports:
 
 deptrac:
   ruleset:
-    ILoop:
-      - +ModuleCore
-
     ModuleAsynchronous:
-      - ILoop
       - +ModuleCore
       - +ModuleException
       - +ModuleHelper
@@ -31,8 +26,8 @@ deptrac:
     ModuleContract:
       - +VendorReact
       - +VendorRevolt
+      - +ModuleException
     ModuleCore:
-      - ILoop
       - +ModuleException
       - +ModuleHelper
       - +ModuleMixin

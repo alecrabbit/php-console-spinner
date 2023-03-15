@@ -4,7 +4,7 @@ declare(strict_types=1);
 // 10.03.23
 namespace AlecRabbit\Spinner\Core\Revolver\A;
 
-use AlecRabbit\Spinner\I\IProceduralPattern;
+use AlecRabbit\Spinner\Contract\IProceduralPattern;
 use AlecRabbit\Spinner\Core\FramesRenderer;
 use AlecRabbit\Spinner\Core\Pattern\Contract\IPattern;
 use AlecRabbit\Spinner\Core\Pattern\Contract\IStylePattern;
