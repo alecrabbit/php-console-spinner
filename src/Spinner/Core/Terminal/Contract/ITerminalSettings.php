@@ -6,7 +6,6 @@ namespace AlecRabbit\Spinner\Core\Terminal\Contract;
 
 use AlecRabbit\Spinner\Core\ColorMode;
 
-// TODO: rename to ITerminalSettings?
 interface ITerminalSettings
 {
 
