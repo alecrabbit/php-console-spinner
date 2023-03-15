@@ -4,7 +4,7 @@ declare(strict_types=1);
 // 18.02.23
 namespace AlecRabbit\Spinner\Asynchronous\Loop\Adapter\A;
 
-use AlecRabbit\Spinner\Core\Contract\ILoop;
+use AlecRabbit\Spinner\Core\Contract\ILoopAdapter;
 use AlecRabbit\Spinner\Core\Contract\ILoopGetter;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use AlecRabbit\Spinner\Core\Factory\A\ADefaultsAwareClass;
@@ -12,7 +12,7 @@ use AlecRabbit\Spinner\Exception\RuntimeException;
 use AlecRabbit\Spinner\Helper\Asserter;
 use Closure;
 
-abstract class ALoopAdapter extends ADefaultsAwareClass implements ILoop, ILoopGetter
+abstract class ALoopAdapter extends ADefaultsAwareClass implements ILoopAdapter, ILoopGetter
 {
     protected static function error(): bool
     {

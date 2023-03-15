@@ -9,7 +9,7 @@ use AlecRabbit\Spinner\Core\Config\ConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\IConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\IConfigBuilderGetter;
-use AlecRabbit\Spinner\Core\Contract\ILoop;
+use AlecRabbit\Spinner\Core\Contract\ILoopAdapter;
 use AlecRabbit\Spinner\Core\Contract\ILoopHelper;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopGetter;
@@ -59,7 +59,7 @@ abstract class ASpinnerFactory extends ADefaultsAwareClass implements ISpinnerFa
             new class(
                 $config->getDriver(),
                 $config->getTimer(),
-                $config->getMainWidget(),
+                $config->getRootWidget(),
             ) extends ASpinner {
             };
     }
@@ -111,7 +111,7 @@ abstract class ASpinnerFactory extends ADefaultsAwareClass implements ISpinnerFa
     /**
      * @throws DomainException
      */
-    public static function getLoop(): ILoop
+    public static function getLoop(): ILoopAdapter
     {
         /** @var ILoopHelper $loopHelper */
         $loopHelper = self::getLoopHelper();

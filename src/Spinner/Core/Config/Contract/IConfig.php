@@ -23,7 +23,7 @@ interface IConfig
      */
     public function getWidgets(): iterable;
 
-    public function getMainWidget(): IWidgetComposite;
+    public function getRootWidget(): IWidgetComposite;
 
     public function isAutoStart(): bool;
 

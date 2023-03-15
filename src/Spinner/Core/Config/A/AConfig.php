@@ -14,7 +14,7 @@ abstract readonly class AConfig implements IConfig
     public function __construct(
         protected IDriver $driver,
         protected ITimer $timer,
-        protected IWidgetComposite $mainWidget,
+        protected IWidgetComposite $rootWidget,
         protected bool $createInitialized,
         protected bool $synchronous,
         protected bool $autoStart,
@@ -51,9 +51,9 @@ abstract readonly class AConfig implements IConfig
         return $this->widgets;
     }
 
-    public function getMainWidget(): IWidgetComposite
+    public function getRootWidget(): IWidgetComposite
     {
-        return $this->mainWidget;
+        return $this->rootWidget;
     }
 
     public function isAutoStart(): bool

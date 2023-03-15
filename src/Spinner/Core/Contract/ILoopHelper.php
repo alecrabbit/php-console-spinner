@@ -8,7 +8,7 @@ interface ILoopHelper
 {
     public static function attach(ISpinner $spinner): void;
 
-    public static function get(): ILoop|ILoopGetter|ILoopSignalHandlers|ISpinnerAttacher;
+    public static function get(): ILoopAdapter|ILoopGetter|ILoopSignalHandlers|ISpinnerAttacher;
 
     public static function autoStart(): void;
 

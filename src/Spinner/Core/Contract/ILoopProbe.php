@@ -8,5 +8,5 @@ use AlecRabbit\Spinner\Contract\IProbe;
 
 interface ILoopProbe extends IProbe
 {
-    public static function createLoop(): ILoop;
+    public static function createLoop(): ILoopAdapter;
 }

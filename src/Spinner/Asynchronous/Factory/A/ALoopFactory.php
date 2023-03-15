@@ -4,7 +4,7 @@ declare(strict_types=1);
 // 17.02.23
 namespace AlecRabbit\Spinner\Asynchronous\Factory\A;
 
-use AlecRabbit\Spinner\Core\Contract\ILoop;
+use AlecRabbit\Spinner\Core\Contract\ILoopAdapter;
 use AlecRabbit\Spinner\Core\Contract\ILoopGetter;
 use AlecRabbit\Spinner\Core\Contract\ILoopProbe;
 use AlecRabbit\Spinner\Core\Contract\ILoopSignalHandlers;
@@ -19,17 +19,17 @@ abstract class ALoopFactory extends ADefaultsAwareClass implements ILoopFactory
 {
     use NoInstanceTrait;
 
-    protected static ?ILoop $loop = null;
+    protected static ?ILoopAdapter $loop = null;
 
-    final public static function create(): ILoop|ILoopGetter|ILoopSignalHandlers|ISpinnerAttacher
+    final public static function create(): ILoopAdapter|ILoopGetter|ILoopSignalHandlers|ISpinnerAttacher
     {
-        if (static::$loop instanceof ILoop) {
+        if (static::$loop instanceof ILoopAdapter) {
             return static::$loop;
         }
         return static::createLoop();
     }
 
-    protected static function createLoop(): ILoop|ILoopGetter|ILoopSignalHandlers|ISpinnerAttacher
+    protected static function createLoop(): ILoopAdapter|ILoopGetter|ILoopSignalHandlers|ISpinnerAttacher
     {
         foreach (static::getProbeClasses() as $probe) {
             if (is_subclass_of($probe, ILoopProbe::class) && $probe::isSupported()) {

@@ -40,13 +40,13 @@ abstract class AConfigBuilder implements IConfigBuilder
     protected ?string $interruptMessage = null;
     protected ?string $finalMessage = null;
     protected ?IOutput $output = null;
-    protected ?IRevolver $spinnerStyleRevolver = null;
-    protected ?IRevolver $spinnerCharRevolver = null;
+    protected ?IRevolver $rootWidgetStyleRevolver = null;
+    protected ?IRevolver $rootWidgetCharRevolver = null;
     protected ?iterable $widgets = null;
     protected ?IWidgetBuilder $widgetBuilder = null;
-    protected ?IWidgetComposite $mainWidget = null;
-    protected ?IPattern $mainWidgetStylePattern = null;
-    protected ?IPattern $mainWidgetCharPattern = null;
+    protected ?IWidgetComposite $rootWidget = null;
+    protected ?IPattern $rootWidgetStylePattern = null;
+    protected ?IPattern $rootWidgetCharPattern = null;
 
     public function __construct(
         protected IDefaults $defaults,
@@ -62,7 +62,7 @@ abstract class AConfigBuilder implements IConfigBuilder
     public function withRootWidget(IWidgetComposite $widget): static
     {
         $clone = clone $this;
-        $clone->mainWidget = $widget;
+        $clone->rootWidget = $widget;
         return $clone;
     }
 
@@ -97,14 +97,14 @@ abstract class AConfigBuilder implements IConfigBuilder
     public function withStylePattern(IPattern $pattern): static
     {
         $clone = clone $this;
-        $clone->mainWidgetStylePattern = $pattern;
+        $clone->rootWidgetStylePattern = $pattern;
         return $clone;
     }
 
     public function withCharPattern(IPattern $pattern): static
     {
         $clone = clone $this;
-        $clone->mainWidgetCharPattern = $pattern;
+        $clone->rootWidgetCharPattern = $pattern;
         return $clone;
     }
 
@@ -132,7 +132,7 @@ abstract class AConfigBuilder implements IConfigBuilder
             new Config(
                 driver: $this->driver,
                 timer: $this->timer,
-                mainWidget: $this->mainWidget,
+                rootWidget: $this->rootWidget,
                 createInitialized: $this->createInitialized,
                 synchronous: $this->inSynchronousMode,
                 autoStart: $this->autoStartEnabled,
@@ -159,32 +159,32 @@ abstract class AConfigBuilder implements IConfigBuilder
         $this->output ??= $this->createOutput();
         $this->driver ??= $this->createDriver();
 
-        $this->mainWidgetStylePattern ??=
+        $this->rootWidgetStylePattern ??=
             $this->defaults->getSpinnerStylePattern();
 
-        $this->mainWidgetCharPattern ??=
+        $this->rootWidgetCharPattern ??=
             $this->defaults->getSpinnerCharPattern();
 
-        $this->spinnerStyleRevolver ??=
+        $this->rootWidgetStyleRevolver ??=
             (new RevolverBuilder())
-                ->withPattern($this->mainWidgetStylePattern)
+                ->withPattern($this->rootWidgetStylePattern)
                 ->build();
 
-        $this->spinnerCharRevolver ??=
+        $this->rootWidgetCharRevolver ??=
             (new RevolverBuilder())
-                ->withPattern($this->mainWidgetCharPattern)
+                ->withPattern($this->rootWidgetCharPattern)
                 ->build();
 
         $this->widgetRevolver ??=
             new WidgetRevolver(
-                style: $this->spinnerStyleRevolver,
-                character: $this->spinnerCharRevolver,
+                style: $this->rootWidgetStyleRevolver,
+                character: $this->rootWidgetCharRevolver,
             );
 
         $this->leadingSpacer ??= $this->defaults->getDefaultLeadingSpacer();
         $this->trailingSpacer ??= $this->defaults->getDefaultTrailingSpacer();
 
-        $this->mainWidget ??=
+        $this->rootWidget ??=
             $this->widgetBuilder
                 ->withWidgetRevolver($this->widgetRevolver)
                 ->withLeadingSpacer($this->leadingSpacer)
