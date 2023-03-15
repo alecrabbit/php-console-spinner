@@ -231,7 +231,6 @@ final class ADefaultsTest extends TestCase
 
     protected function setUp(): void
     {
-        PickLock::callMethod(self::getInstance(), 'reset');
-//        self::getInstance()->reset();
+        self::callMethod(self::getInstance(), 'reset');
     }
 }
