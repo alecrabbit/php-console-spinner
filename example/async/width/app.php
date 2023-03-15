@@ -9,7 +9,7 @@ use AlecRabbit\Spinner\Factory;
 
 require_once __DIR__ . '/../bootstrap.async.php';
 
-$defaults = DefaultsFactory::create();
+$defaults = DefaultsFactory::get();
 
 $terminal = $defaults->getTerminalSettings();
 

@@ -9,7 +9,7 @@ use Revolt\EventLoop;
 
 require_once __DIR__ . '/../../bootstrap.async.php';
 
-DefaultsFactory::create()
+DefaultsFactory::get()
     ->setLoopProbeClasses([RevoltLoopProbe::class]); // probe only for Revolt event loop
 
 /*

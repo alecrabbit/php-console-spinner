@@ -65,7 +65,7 @@ final class AIntervalFactoryTest extends TestCase
     #[Test]
     public function canCreateDefaultInterval(): void
     {
-        $defaults = DefaultsFactory::create();
+        $defaults = DefaultsFactory::get();
 
         self::assertEquals(
             $defaults->getIntervalMilliseconds(),

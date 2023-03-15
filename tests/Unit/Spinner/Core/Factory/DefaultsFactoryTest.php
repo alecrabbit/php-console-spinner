@@ -34,7 +34,7 @@ final class DefaultsFactoryTest extends TestCase
 
     private static function getDefaultsInstance(): IDefaults
     {
-        return DefaultsFactory::create();
+        return DefaultsFactory::get();
     }
 
     /** @test */
@@ -87,7 +87,7 @@ final class DefaultsFactoryTest extends TestCase
         );
 
         DefaultsFactory::setDefaultsClass(stdClass::class);
-        self::assertTrue(is_subclass_of(DefaultsFactory::create()::class, IDefaults::class));
+        self::assertTrue(is_subclass_of(DefaultsFactory::get()::class, IDefaults::class));
     }
 
     protected function setUp(): void

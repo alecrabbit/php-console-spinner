@@ -23,18 +23,26 @@ final class DefaultsFactory
 
     /** @var null|class-string<IDefaults> */
     private static ?string $className = null;
+    private static ?IDefaults $defaultsInstance = null;
 
-    public static function create(): IDefaults
+    public static function get(): IDefaults {
+        if (null === self::$defaultsInstance) {
+            self::$defaultsInstance = self::create();
+        }
+        return self::$defaultsInstance;
+    }
+
+    private static function create(): IDefaults
     {
         if (null === self::$className) {
             self::$className = ADefaults::class;
-            self::initDefaultsClass(self::$className);
         }
+        self::initialize(self::$className);
         /** @noinspection PhpUndefinedMethodInspection */
         return self::$className::getInstance();
     }
 
-    private static function initDefaultsClass(string $className): void
+    private static function initialize(string $className): void
     {
         /** @var IDefaults $className */
         foreach (self::$addedProbes as $probe) {

@@ -36,7 +36,7 @@ final class AFactoryTest extends TestCase
 
     protected function setUp(): void
     {
-        DefaultsFactory::create()
+        DefaultsFactory::get()
             ->setModeAsSynchronous(true)
             ->setHideCursor(false)
             ->setAutoStart(false)

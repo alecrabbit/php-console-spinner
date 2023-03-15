@@ -119,11 +119,11 @@ abstract class ACoreDefaults implements IDefaults
         Asserter::classExists($class, __METHOD__);
 
         if (is_subclass_of($class, ILoopProbe::class)) {
-            self::registerLoopProbeClass($class);
+            static::registerLoopProbeClass($class);
             return;
         }
         if (is_subclass_of($class, ITerminalProbe::class)) {
-            self::registerTerminalProbeClass($class);
+            static::registerTerminalProbeClass($class);
             return;
         }
         throw new InvalidArgumentException(

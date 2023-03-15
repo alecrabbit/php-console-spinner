@@ -22,7 +22,7 @@ $threshold = 900; // 90% [0..1000]
 $faker = Faker\Factory::create();
 $count = 0;
 
-$defaults = DefaultsFactory::create();
+$defaults = DefaultsFactory::get();
 $defaults
 //    ->setSpinnerCharPattern(new \AlecRabbit\Spinner\Extras\Procedure\TmpProceduralCharPattern())
 //    ->setSpinnerCharPattern(new \AlecRabbit\Spinner\Core\Pattern\Char\Custom(['o', 'O' ], 100))

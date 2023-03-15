@@ -69,7 +69,7 @@ abstract class AbstractApp
 
     protected function tuneDefaults(): void
     {
-        $defaults = DefaultsFactory::create();
+        $defaults = DefaultsFactory::get();
         if (!$defaults->isModeSynchronous()) {
             $defaults->setModeAsSynchronous(true);
         }
@@ -118,7 +118,7 @@ abstract class AbstractApp
 
     public static function prepareDefaults(): void
     {
-        DefaultsFactory::create()
+        DefaultsFactory::get()
             ->setModeAsSynchronous(true);
     }
 
