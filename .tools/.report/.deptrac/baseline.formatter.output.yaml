@@ -9,5 +9,3 @@ deptrac:
     AlecRabbit\Spinner\Core\Revolver\RevolverBuilder:
       - AlecRabbit\Spinner\Extras\Procedure\A\AProceduralStylePattern
       - AlecRabbit\Spinner\Extras\Revolver\ProceduralRevolver
-    AlecRabbit\Spinner\Helper\Asserter:
-      - AlecRabbit\Spinner\Contract\ColorMode

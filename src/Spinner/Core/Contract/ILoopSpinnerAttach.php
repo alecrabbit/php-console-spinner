@@ -2,9 +2,7 @@
 
 declare(strict_types=1);
 // 17.02.23
-namespace AlecRabbit\Spinner\Contract;
-
-use AlecRabbit\Spinner\Core\Contract\ISpinner;
+namespace AlecRabbit\Spinner\Core\Contract;
 
 interface ILoopSpinnerAttach
 {

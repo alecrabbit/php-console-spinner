@@ -4,8 +4,8 @@ declare(strict_types=1);
 // 18.02.23
 namespace AlecRabbit\Spinner\Asynchronous\Loop\Adapter\A;
 
-use AlecRabbit\Spinner\Contract\ILoop;
-use AlecRabbit\Spinner\Contract\ILoopGetter;
+use AlecRabbit\Spinner\Core\Contract\ILoop;
+use AlecRabbit\Spinner\Core\Contract\ILoopGetter;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use AlecRabbit\Spinner\Core\Factory\A\ADefaultsAwareClass;
 use AlecRabbit\Spinner\Exception\RuntimeException;
