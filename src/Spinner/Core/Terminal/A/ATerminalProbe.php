@@ -17,4 +17,9 @@ abstract class ATerminalProbe implements ITerminalProbe
     abstract public static function getWidth(): int;
 
     abstract public static function getColorMode(): ColorMode;
+
+    public static function isHideCursor(): bool
+    {
+        return ITerminalProbe::TERMINAL_DEFAULT_HIDE_CURSOR;
+    }
 }

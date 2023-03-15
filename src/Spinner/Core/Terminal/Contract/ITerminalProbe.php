@@ -9,7 +9,13 @@ use AlecRabbit\Spinner\Core\Contract\IProbe;
 
 interface ITerminalProbe extends IProbe
 {
+    public final const TERMINAL_DEFAULT_HIDE_CURSOR = true;
+    public final const TERMINAL_DEFAULT_WIDTH = 100;
+    public final const TERMINAL_DEFAULT_COLOR_SUPPORT = ColorMode::ANSI8;
+
     public static function getWidth(): int;
 
     public static function getColorMode(): ColorMode;
+
+    public static function isHideCursor(): bool;
 }

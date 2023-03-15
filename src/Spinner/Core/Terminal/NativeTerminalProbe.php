@@ -6,11 +6,6 @@ namespace AlecRabbit\Spinner\Core\Terminal;
 
 use AlecRabbit\Spinner\Core\ColorMode;
 use AlecRabbit\Spinner\Core\Terminal\A\ATerminalProbe;
-use AlecRabbit\Spinner\Core\Terminal\Contract\ITerminal;
-use Symfony\Component\Console\Output\AnsiColorMode;
-use Symfony\Component\Console\Terminal;
-
-use function class_exists;
 
 final class NativeTerminalProbe extends ATerminalProbe
 {
@@ -21,12 +16,11 @@ final class NativeTerminalProbe extends ATerminalProbe
 
     public static function getWidth(): int
     {
-        return ITerminal::TERMINAL_DEFAULT_WIDTH;
+        return self::TERMINAL_DEFAULT_WIDTH;
     }
 
     public static function getColorMode(): ColorMode
     {
-        return
-            ITerminal::TERMINAL_DEFAULT_COLOR_SUPPORT;
+        return self::TERMINAL_DEFAULT_COLOR_SUPPORT;
     }
 }

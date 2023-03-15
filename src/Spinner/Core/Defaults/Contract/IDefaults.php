@@ -6,7 +6,7 @@ namespace AlecRabbit\Spinner\Core\Defaults\Contract;
 
 use AlecRabbit\Spinner\Core\Contract\IFrame;
 use AlecRabbit\Spinner\Core\Pattern\Contract\IPattern;
-use AlecRabbit\Spinner\Core\Terminal\Contract\ITerminal;
+use AlecRabbit\Spinner\Core\Terminal\Contract\ITerminalSettings;
 
 interface IDefaults extends ISettableDefaults
 {
@@ -51,11 +51,11 @@ interface IDefaults extends ISettableDefaults
 
     public function getLoopProbeClasses(): iterable;
 
-    public function getTerminalProbeClasses(): iterable;
+//    public function getTerminalProbeClasses(): iterable;
 
     public function getInterruptMessage(): string;
 
-    public function getTerminal(): ITerminal;
+    public function getTerminalSettings(): ITerminalSettings;
 
     public function getSpinnerStylePattern(): IPattern;
 

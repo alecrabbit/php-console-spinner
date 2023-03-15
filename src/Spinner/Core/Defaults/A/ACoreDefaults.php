@@ -11,9 +11,10 @@ use AlecRabbit\Spinner\Core\Defaults\Contract\IDefaultsClasses;
 use AlecRabbit\Spinner\Core\Defaults\Mixin\DefaultsConst;
 use AlecRabbit\Spinner\Core\Factory\FrameFactory;
 use AlecRabbit\Spinner\Core\Pattern\Contract\IPattern;
-use AlecRabbit\Spinner\Core\Terminal\A\ATerminal;
-use AlecRabbit\Spinner\Core\Terminal\Contract\ITerminal;
+use AlecRabbit\Spinner\Core\Terminal\A\ATerminalSettings;
+use AlecRabbit\Spinner\Core\Terminal\Contract\ITerminalSettings;
 use AlecRabbit\Spinner\Core\Terminal\Contract\ITerminalProbe;
+use AlecRabbit\Spinner\Core\Terminal\NativeTerminalProbe;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Helper\Asserter;
 
@@ -42,7 +43,7 @@ abstract class ACoreDefaults implements IDefaults
     protected static ?IFrame $defaultLeadingSpacer = null;
     protected static ?IFrame $defaultTrailingSpacer = null;
     protected static IDefaultsClasses $classes;
-    protected static ITerminal $terminal;
+    protected static ITerminalSettings $terminalSettings;
     protected static bool $autoStart;
     protected static bool $attachSignalHandlers;
     /**
@@ -114,7 +115,7 @@ abstract class ACoreDefaults implements IDefaults
         static::$loopProbes = static::defaultLoopProbes();
         static::$terminalProbes = static::defaultTerminalProbes();
         static::$classes = static::getClassesInstance();
-        static::$terminal = static::getTerminalInstance();
+        static::$terminalSettings = static::getTerminalSettingsInstance();
 
         static::$shutdownDelay = static::SHUTDOWN_DELAY;
         static::$shutdownMaxDelay = static::SHUTDOWN_MAX_DELAY;
@@ -162,8 +163,19 @@ abstract class ACoreDefaults implements IDefaults
         return ADefaultsClasses::getInstance();
     }
 
-    protected static function getTerminalInstance(): ITerminal
+    protected static function getTerminalSettingsInstance(): ITerminalSettings
     {
-        return ATerminal::getInstance(static::$terminalProbes);
+        $colorMode = NativeTerminalProbe::getColorMode();
+        $width = NativeTerminalProbe::getWidth();
+        $hideCursor = NativeTerminalProbe::isHideCursor();
+
+        /** @var ITerminalProbe $terminalProbe */
+        foreach (static::$terminalProbes as $terminalProbe) {
+            if ($terminalProbe::isSupported()) {
+                $colorMode = $terminalProbe::getColorMode();
+                $width = $terminalProbe::getWidth();
+            }
+        }
+        return ATerminalSettings::getInstance($colorMode, $width, $hideCursor);
     }
 }

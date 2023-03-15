@@ -23,7 +23,7 @@ final class StyleFramesRenderer extends AFramesRenderer
     /** @inheritdoc */
     protected function createFrame(mixed $entry): IFrame
     {
-        $colorMode = self::getDefaults()->getTerminal()->getColorMode();
+        $colorMode = self::getDefaults()->getTerminalSettings()->getColorMode();
 
         return
             FrameFactory::create(

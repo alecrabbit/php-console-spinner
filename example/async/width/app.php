@@ -11,7 +11,7 @@ require_once __DIR__ . '/../bootstrap.async.php';
 
 $defaults = DefaultsFactory::create();
 
-$terminal = $defaults->getTerminal();
+$terminal = $defaults->getTerminalSettings();
 
 $terminal->setColorMode(ColorMode::NONE);
 $terminal->setWidth(80);

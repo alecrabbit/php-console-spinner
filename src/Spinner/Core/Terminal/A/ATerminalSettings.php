@@ -5,13 +5,11 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Terminal\A;
 
 use AlecRabbit\Spinner\Core\ColorMode;
-use AlecRabbit\Spinner\Core\Terminal\Contract\ITerminal;
-use AlecRabbit\Spinner\Core\Terminal\Contract\ITerminalProbe;
-use AlecRabbit\Spinner\Core\Terminal\NativeTerminalProbe;
+use AlecRabbit\Spinner\Core\Terminal\Contract\ITerminalSettings;
 
-abstract class ATerminal implements ITerminal
+abstract class ATerminalSettings implements ITerminalSettings
 {
-    private static ?ITerminal $instance = null;
+    private static ?ITerminalSettings $instance = null;
 
     private function __construct(
         private ColorMode $colorMode,
@@ -20,23 +18,11 @@ abstract class ATerminal implements ITerminal
     ) {
     }
 
-    final public static function getInstance(iterable $terminalProbes): self
+    final public static function getInstance(ColorMode $colorMode, int $width, bool $hideCursor,): self
     {
         if (null === self::$instance) {
-            $colorMode = NativeTerminalProbe::getColorMode();
-            $width = NativeTerminalProbe::getWidth();
-            $hideCursor = ITerminal::TERMINAL_DEFAULT_HIDE_CURSOR;
-
-            /** @var ITerminalProbe $terminalProbe */
-            foreach ($terminalProbes as $terminalProbe) {
-                if ($terminalProbe::isSupported()) {
-                    $colorMode = $terminalProbe::getColorMode();
-                    $width = $terminalProbe::getWidth();
-                }
-            }
-
             self::$instance =
-                new class($colorMode, $width, $hideCursor) extends ATerminal {
+                new class($colorMode, $width, $hideCursor) extends ATerminalSettings {
                 };
         }
         return self::$instance;

@@ -10,7 +10,7 @@ use AlecRabbit\Spinner\Core\Defaults\Contract\IDefaultsClasses;
 use AlecRabbit\Spinner\Core\Pattern\Char\Ascii;
 use AlecRabbit\Spinner\Core\Pattern\Contract\IPattern;
 use AlecRabbit\Spinner\Core\Pattern\Style\Rainbow;
-use AlecRabbit\Spinner\Core\Terminal\Contract\ITerminal;
+use AlecRabbit\Spinner\Core\Terminal\Contract\ITerminalSettings;
 use AlecRabbit\Spinner\Helper\Deprecation;
 
 abstract class ADefaults extends ASettableDefaults
@@ -152,13 +152,13 @@ abstract class ADefaults extends ASettableDefaults
         return static::$loopProbes;
     }
 
-    public function getTerminalProbeClasses(): iterable
-    {
-        return static::$terminalProbes;
-    }
+//    public function getTerminalProbeClasses(): iterable
+//    {
+//        return static::$terminalProbes;
+//    }
 
-    public function getTerminal(): ITerminal
+    public function getTerminalSettings(): ITerminalSettings
     {
-        return static::$terminal;
+        return static::$terminalSettings;
     }
 }
