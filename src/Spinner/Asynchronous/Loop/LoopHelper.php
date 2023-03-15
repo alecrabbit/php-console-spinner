@@ -6,11 +6,8 @@ namespace AlecRabbit\Spinner\Asynchronous\Loop;
 
 use AlecRabbit\Spinner\Asynchronous\Factory\LoopFactory;
 use AlecRabbit\Spinner\Core\Contract\ILoopAdapter;
-use AlecRabbit\Spinner\Core\Contract\ILoopGetter;
 use AlecRabbit\Spinner\Core\Contract\ILoopHelper;
-use AlecRabbit\Spinner\Core\Contract\ILoopSignalHandlers;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
-use AlecRabbit\Spinner\Core\Contract\ISpinnerAttacher;
 
 final class LoopHelper implements ILoopHelper
 {
