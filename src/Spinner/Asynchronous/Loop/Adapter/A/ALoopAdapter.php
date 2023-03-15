@@ -12,7 +12,7 @@ use AlecRabbit\Spinner\Exception\RuntimeException;
 use AlecRabbit\Spinner\Helper\Asserter;
 use Closure;
 
-abstract class ALoopAdapter extends ADefaultsAwareClass implements ILoopAdapter, ILoopGetter
+abstract class ALoopAdapter extends ADefaultsAwareClass implements ILoopAdapter
 {
     protected static function error(): bool
     {

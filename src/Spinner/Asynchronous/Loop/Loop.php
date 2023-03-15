@@ -21,7 +21,7 @@ final class Loop implements ILoopHelper
         self::get()->attach($spinner);
     }
 
-    public static function get(): ILoopAdapter|ILoopGetter|ILoopSignalHandlers|ISpinnerAttacher
+    public static function get(): ILoopAdapter
     {
         if (self::$loopInstance instanceof ILoopAdapter) {
             return self::$loopInstance;
