@@ -4,7 +4,7 @@ declare(strict_types=1);
 // 15.02.23
 namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Core;
 
-use AlecRabbit\Spinner\Contract\IIntNormalizer;
+use AlecRabbit\Spinner\I\IIntNormalizer;
 use AlecRabbit\Spinner\Core\IntNormalizer;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Tests\Spinner\TestCase\TestCase;

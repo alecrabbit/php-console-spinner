@@ -4,7 +4,7 @@ declare(strict_types=1);
 // 10.03.23
 namespace AlecRabbit\Spinner\Core\A;
 
-use AlecRabbit\Spinner\Contract\IValue;
+use AlecRabbit\Spinner\I\IValue;
 
 abstract class AValue implements IValue
 {

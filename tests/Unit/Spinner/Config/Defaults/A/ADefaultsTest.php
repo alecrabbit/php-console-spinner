@@ -6,7 +6,7 @@ namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Config\Defaults\A;
 
 use AlecRabbit\Spinner\Asynchronous\Loop\Probe\ReactLoopProbe;
 use AlecRabbit\Spinner\Asynchronous\Loop\Probe\RevoltLoopProbe;
-use AlecRabbit\Spinner\Contract\ColorMode;
+use AlecRabbit\Spinner\I\ColorMode;
 use AlecRabbit\Spinner\Core\Defaults\A\ADefaults;
 use AlecRabbit\Spinner\Core\Factory\FrameFactory;
 use AlecRabbit\Spinner\Core\Widget\WidgetBuilder;

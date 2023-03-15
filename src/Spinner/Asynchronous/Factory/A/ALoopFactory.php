@@ -4,11 +4,11 @@ declare(strict_types=1);
 // 17.02.23
 namespace AlecRabbit\Spinner\Asynchronous\Factory\A;
 
-use AlecRabbit\Spinner\Contract\ILoop;
-use AlecRabbit\Spinner\Contract\ILoopGetter;
-use AlecRabbit\Spinner\Contract\ILoopProbe;
-use AlecRabbit\Spinner\Contract\ILoopSignalHandlers;
-use AlecRabbit\Spinner\Contract\ILoopSpinnerAttach;
+use AlecRabbit\Spinner\I\ILoop;
+use AlecRabbit\Spinner\I\ILoopGetter;
+use AlecRabbit\Spinner\I\ILoopProbe;
+use AlecRabbit\Spinner\I\ILoopSignalHandlers;
+use AlecRabbit\Spinner\I\ILoopSpinnerAttach;
 use AlecRabbit\Spinner\Core\Factory\A\ADefaultsAwareClass;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopFactory;
 use AlecRabbit\Spinner\Core\Factory\DefaultsFactory;

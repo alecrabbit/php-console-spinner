@@ -4,8 +4,8 @@ declare(strict_types=1);
 // 10.03.23
 namespace AlecRabbit\Spinner\Core\A;
 
-use AlecRabbit\Spinner\Contract\IFrame;
-use AlecRabbit\Spinner\Contract\IFrameRenderer;
+use AlecRabbit\Spinner\I\IFrame;
+use AlecRabbit\Spinner\I\IFrameRenderer;
 use AlecRabbit\Spinner\Core\Factory\A\ADefaultsAwareClass;
 use AlecRabbit\Spinner\Core\Pattern\Contract\IPattern;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;

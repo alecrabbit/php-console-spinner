@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Spinner\Contract;
+namespace AlecRabbit\Spinner\I;
 
 interface IUpdatable
 {

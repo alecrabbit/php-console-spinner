@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\A;
 
-use AlecRabbit\Spinner\Contract\IInterval;
+use AlecRabbit\Spinner\I\IInterval;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 
 abstract class AInterval implements IInterval

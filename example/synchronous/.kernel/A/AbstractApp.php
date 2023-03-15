@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Example\Kernel\A;
 
-use AlecRabbit\Spinner\Contract\ISpinner;
+use AlecRabbit\Spinner\I\ISpinner;
 use AlecRabbit\Spinner\Core\Config\Contract\IConfig;
 use AlecRabbit\Spinner\Core\Factory\DefaultsFactory;
 use AlecRabbit\Spinner\Core\Output\StreamOutput;

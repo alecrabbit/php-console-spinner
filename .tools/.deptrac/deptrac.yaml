@@ -1,3 +1,6 @@
+parameters:
+  namespace: AlecRabbit\\Spinner
+
 # Add module files here
 imports:
   - .common/paths.yaml

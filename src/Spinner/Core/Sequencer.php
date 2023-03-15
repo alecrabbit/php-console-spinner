@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core;
 
-use AlecRabbit\Spinner\Contract\ISequencer;
+use AlecRabbit\Spinner\I\ISequencer;
 use AlecRabbit\Spinner\Mixin\NoInstanceTrait;
 
 /** @internal */

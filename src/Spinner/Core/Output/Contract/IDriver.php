@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Output\Contract;
 
-use AlecRabbit\Spinner\Contract\IFrame;
+use AlecRabbit\Spinner\I\IFrame;
 
 interface IDriver
 {

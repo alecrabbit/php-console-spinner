@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Factory\Contract;
 
-use AlecRabbit\Spinner\Contract\ILoop;
+use AlecRabbit\Spinner\I\ILoop;
 
 interface ILoopGetter
 {

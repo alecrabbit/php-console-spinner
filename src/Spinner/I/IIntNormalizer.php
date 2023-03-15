@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 // 14.03.23
-namespace AlecRabbit\Spinner\Contract;
+namespace AlecRabbit\Spinner\I;
 
 interface IIntNormalizer
 {

@@ -4,7 +4,7 @@ declare(strict_types=1);
 // 14.02.23
 namespace AlecRabbit\Spinner\Core\Factory;
 
-use AlecRabbit\Spinner\Contract\IProbe;
+use AlecRabbit\Spinner\I\IProbe;
 use AlecRabbit\Spinner\Core\Defaults\A\ADefaults;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDefaults;
 use AlecRabbit\Spinner\Exception\DomainException;

@@ -4,7 +4,7 @@ declare(strict_types=1);
 // 09.03.23
 namespace AlecRabbit\Spinner\Core\Terminal;
 
-use AlecRabbit\Spinner\Contract\ColorMode;
+use AlecRabbit\Spinner\I\ColorMode;
 use AlecRabbit\Spinner\Core\Terminal\A\ATerminalProbe;
 
 final class NativeTerminalProbe extends ATerminalProbe

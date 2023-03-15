@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 // 17.02.23
-namespace AlecRabbit\Spinner\Contract;
+namespace AlecRabbit\Spinner\I;
 
 interface ILoopProbe extends IProbe
 {

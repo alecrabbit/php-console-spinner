@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Extras\Procedure\A;
 
-use AlecRabbit\Spinner\Contract\IValue;
+use AlecRabbit\Spinner\I\IValue;
 
 abstract class AValueDependentProcedure extends AProcedure
 {

@@ -4,7 +4,7 @@ declare(strict_types=1);
 // 20.06.22
 namespace AlecRabbit\Spinner\Core\Defaults\A;
 
-use AlecRabbit\Spinner\Contract\IFrame;
+use AlecRabbit\Spinner\I\IFrame;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDefaults;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDefaultsClasses;
 use AlecRabbit\Spinner\Core\Pattern\Char\Ascii;

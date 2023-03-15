@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Revolver\A;
 
-use AlecRabbit\Spinner\Contract\IFrame;
-use AlecRabbit\Spinner\Contract\IInterval;
+use AlecRabbit\Spinner\I\IFrame;
+use AlecRabbit\Spinner\I\IInterval;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameCollectionRevolver;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Exception\LogicException;

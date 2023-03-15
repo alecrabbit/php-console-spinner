@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Core\Factory\A;
 
-use AlecRabbit\Spinner\Contract\IInterval;
-use AlecRabbit\Spinner\Contract\IIntNormalizer;
+use AlecRabbit\Spinner\I\IInterval;
+use AlecRabbit\Spinner\I\IIntNormalizer;
 use AlecRabbit\Spinner\Core\Factory\A\AIntervalFactory;
 use AlecRabbit\Spinner\Core\Factory\DefaultsFactory;
 use AlecRabbit\Spinner\Core\IntNormalizer;
