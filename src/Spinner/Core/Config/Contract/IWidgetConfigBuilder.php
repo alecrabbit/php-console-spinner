@@ -10,6 +10,8 @@ use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
 
 interface IWidgetConfigBuilder
 {
+    public function build(): IWidgetConfig;
+
     public function withStyleRevolver(IRevolver $revolver): static;
 
     public function withCharRevolver(IRevolver $revolver): static;

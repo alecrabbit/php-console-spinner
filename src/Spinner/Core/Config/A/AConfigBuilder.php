@@ -21,6 +21,7 @@ use AlecRabbit\Spinner\Core\Revolver\RevolverBuilder;
 use AlecRabbit\Spinner\Core\Timer;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetBuilder;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
+use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolverBuilder;
 use AlecRabbit\Spinner\Core\Widget\WidgetRevolver;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Exception\LogicException;
@@ -44,6 +45,7 @@ abstract class AConfigBuilder implements IConfigBuilder
     protected ?IRevolver $rootWidgetCharRevolver = null;
     protected ?iterable $widgets = null;
     protected ?IWidgetBuilder $widgetBuilder = null;
+    protected ?IWidgetRevolverBuilder $widgetRevolverBuilder = null;
     protected ?IWidgetComposite $rootWidget = null;
     protected ?IPattern $rootWidgetStylePattern = null;
     protected ?IPattern $rootWidgetCharPattern = null;
@@ -57,6 +59,7 @@ abstract class AConfigBuilder implements IConfigBuilder
     protected function initializeBuildersAndFactories(): void
     {
         $this->widgetBuilder = WidgetFactory::getWidgetBuilder();
+        $this->widgetRevolverBuilder = WidgetFactory::getWidgetRevolverBuilder();
     }
 
     public function withRootWidget(IWidgetComposite $widget): static
