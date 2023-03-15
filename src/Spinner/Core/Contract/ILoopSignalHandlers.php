@@ -6,9 +6,9 @@ namespace AlecRabbit\Spinner\Core\Contract;
 
 use AlecRabbit\Spinner\Exception\RuntimeException;
 
+// TODO choose better name
 interface ILoopSignalHandlers
 {
-
     public function setSignalHandlers(iterable $handlers): void;
 
     /**

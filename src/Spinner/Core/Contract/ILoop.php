@@ -6,7 +6,7 @@ namespace AlecRabbit\Spinner\Core\Contract;
 
 use Closure;
 
-interface ILoop extends ILoopSpinnerAttach, ILoopSignalHandlers
+interface ILoop extends ISpinnerAttacher, ILoopSignalHandlers
 {
     public function run(): void;
 

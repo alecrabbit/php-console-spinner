@@ -18,7 +18,6 @@ use AlecRabbit\Spinner\Helper\Asserter;
 
 use function is_subclass_of;
 
-/** @internal */
 abstract class ACoreDefaults implements IDefaults
 {
     use DefaultsConst;

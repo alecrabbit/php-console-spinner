@@ -9,8 +9,8 @@ use AlecRabbit\Spinner\Core\Contract\ILoop;
 use AlecRabbit\Spinner\Core\Contract\ILoopGetter;
 use AlecRabbit\Spinner\Core\Contract\ILoopHelper;
 use AlecRabbit\Spinner\Core\Contract\ILoopSignalHandlers;
-use AlecRabbit\Spinner\Core\Contract\ILoopSpinnerAttach;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
+use AlecRabbit\Spinner\Core\Contract\ISpinnerAttacher;
 
 final class Loop implements ILoopHelper
 {
@@ -21,7 +21,7 @@ final class Loop implements ILoopHelper
         self::get()->attach($spinner);
     }
 
-    public static function get(): ILoop|ILoopGetter|ILoopSignalHandlers|ILoopSpinnerAttach
+    public static function get(): ILoop|ILoopGetter|ILoopSignalHandlers|ISpinnerAttacher
     {
         if (self::$loopInstance instanceof ILoop) {
             return self::$loopInstance;

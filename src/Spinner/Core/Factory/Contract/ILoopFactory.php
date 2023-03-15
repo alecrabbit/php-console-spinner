@@ -7,9 +7,9 @@ namespace AlecRabbit\Spinner\Core\Factory\Contract;
 use AlecRabbit\Spinner\Core\Contract\ILoop;
 use AlecRabbit\Spinner\Core\Contract\ILoopGetter;
 use AlecRabbit\Spinner\Core\Contract\ILoopSignalHandlers;
-use AlecRabbit\Spinner\Core\Contract\ILoopSpinnerAttach;
+use AlecRabbit\Spinner\Core\Contract\ISpinnerAttacher;
 
 interface ILoopFactory
 {
-    public static function create(): ILoop|ILoopGetter|ILoopSignalHandlers|ILoopSpinnerAttach;
+    public static function create(): ILoop|ILoopGetter|ILoopSignalHandlers|ISpinnerAttacher;
 }
