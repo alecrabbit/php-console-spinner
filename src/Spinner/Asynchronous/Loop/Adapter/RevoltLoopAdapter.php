@@ -21,14 +21,15 @@ class RevoltLoopAdapter extends ALoopAdapter
 
     public function attach(ISpinner $spinner): void
     {
-        $this->detachPrevious();
-        $this->spinnerTimer = EventLoop::repeat(
-            $spinner->getInterval()->toSeconds(),
-            static fn() => $spinner->spin()
-        );
+        $this->detachSpinner();
+        $this->spinnerTimer =
+            EventLoop::repeat(
+                $spinner->getInterval()->toSeconds(),
+                static fn() => $spinner->spin()
+            );
     }
 
-    private function detachPrevious(): void
+    protected function detachSpinner(): void
     {
         if ($this->spinnerTimer) {
             EventLoop::cancel($this->spinnerTimer);

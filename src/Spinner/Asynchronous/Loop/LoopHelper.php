@@ -12,7 +12,7 @@ use AlecRabbit\Spinner\Core\Contract\ILoopSignalHandlers;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use AlecRabbit\Spinner\Core\Contract\ISpinnerAttacher;
 
-final class Loop implements ILoopHelper
+final class LoopHelper implements ILoopHelper
 {
     private static ?ILoopAdapter $loopInstance = null;
 

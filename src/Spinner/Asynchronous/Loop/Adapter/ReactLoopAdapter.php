@@ -21,14 +21,15 @@ class ReactLoopAdapter extends ALoopAdapter
 
     public function attach(ISpinner $spinner): void
     {
-        $this->detachPrevious();
-        $this->spinnerTimer = $this->loop->addPeriodicTimer(
-            $spinner->getInterval()->toSeconds(),
-            static fn() => $spinner->spin()
-        );
+        $this->detachSpinner();
+        $this->spinnerTimer =
+            $this->loop->addPeriodicTimer(
+                $spinner->getInterval()->toSeconds(),
+                static fn() => $spinner->spin()
+            );
     }
 
-    private function detachPrevious(): void
+    protected function detachSpinner(): void
     {
         if ($this->spinnerTimer instanceof TimerInterface) {
             $this->loop->cancelTimer($this->spinnerTimer);

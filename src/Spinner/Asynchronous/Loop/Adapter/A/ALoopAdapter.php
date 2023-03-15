@@ -72,4 +72,6 @@ abstract class ALoopAdapter extends ADefaultsAwareClass implements ILoopAdapter
     {
         $this->getLoop()->run();
     }
+
+    abstract protected function detachSpinner(): void;
 }
