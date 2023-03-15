@@ -15,11 +15,13 @@ use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Tests\Spinner\Helper\PickLock;
 use AlecRabbit\Tests\Spinner\TestCase\TestCase;
 
+use PHPUnit\Framework\Attributes\Test;
+
 use const AlecRabbit\Spinner\TERM_NO_COLOR;
 
 final class ADefaultsTest extends TestCase
 {
-    /** @test */
+    #[Test]
     public function sameInstanceEverytime(): void
     {
         $iterations = self::REPEATS;
@@ -36,7 +38,7 @@ final class ADefaultsTest extends TestCase
         return ADefaults::getInstance();
     }
 
-    /** @test */
+    #[Test]
     public function canSetHideCursor(): void
     {
         $defaults = self::getInstance();
@@ -44,7 +46,7 @@ final class ADefaultsTest extends TestCase
         self::assertFalse($defaults->isHideCursor());
     }
 
-    /** @test */
+    #[Test]
     public function canSetShutdownDelay(): void
     {
         $shutdownDelay = 10;
@@ -53,7 +55,7 @@ final class ADefaultsTest extends TestCase
         self::assertSame($shutdownDelay, $defaults->getShutdownDelay());
     }
 
-    /** @test */
+    #[Test]
     public function canSetFinalMessage(): void
     {
         $message = 'test';
@@ -62,7 +64,7 @@ final class ADefaultsTest extends TestCase
         self::assertSame($message, $defaults->getFinalMessage());
     }
 
-    /** @test */
+    #[Test]
     public function canSetOutputStream(): void
     {
         $stream = STDOUT;
@@ -71,7 +73,7 @@ final class ADefaultsTest extends TestCase
         self::assertSame($stream, $defaults->getOutputStream());
     }
 
-    /** @test */
+    #[Test]
     public function canSetLoopProbes(): void
     {
         $defaults = self::getInstance();
@@ -90,7 +92,7 @@ final class ADefaultsTest extends TestCase
         self::assertEquals(count($loopProbes), $loopProbesCount);
     }
 
-    /** @test */
+    #[Test]
     public function canGetClasses(): void
     {
         $defaults = self::getInstance();
@@ -98,7 +100,7 @@ final class ADefaultsTest extends TestCase
         self::assertSame(WidgetRevolverBuilder::class, $defaults->getClasses()->getWidgetRevolverBuilderClass());
     }
 
-    /** @test */
+    #[Test]
     public function setOutputStreamThrowsOnInvalidArgument(): void
     {
         $this->expectException(InvalidArgumentException::class);
@@ -110,7 +112,7 @@ final class ADefaultsTest extends TestCase
         self::assertSame($stream, $defaults->getOutputStream());
     }
 
-    /** @test */
+    #[Test]
     public function canSetMillisecondsInterval(): void
     {
         $millisecondsInterval = 10;
@@ -119,7 +121,7 @@ final class ADefaultsTest extends TestCase
         self::assertSame($millisecondsInterval, $defaults->getIntervalMilliseconds());
     }
 
-    /** @test */
+    #[Test]
     public function canSetCreateInitialized(): void
     {
         $defaults = self::getInstance();
@@ -131,7 +133,7 @@ final class ADefaultsTest extends TestCase
         self::assertTrue($defaults->isCreateInitialized());
     }
 
-    /** @test */
+    #[Test]
     public function canSetModeAsSynchronous(): void
     {
         $defaults = self::getInstance();
@@ -143,14 +145,14 @@ final class ADefaultsTest extends TestCase
         self::assertTrue($defaults->isModeSynchronous());
     }
 
-    /** @test */
+    #[Test]
     public function defaultAndMainLeadingSpacersAreSame(): void
     {
         $defaults = self::getInstance();
         self::assertSame($defaults->getDefaultLeadingSpacer(), $defaults->getMainLeadingSpacer());
     }
 
-    /** @test */
+    #[Test]
     public function canSetMainLeadingSpacer(): void
     {
         $defaults = self::getInstance();
@@ -160,14 +162,14 @@ final class ADefaultsTest extends TestCase
         self::assertSame($spacer, $defaults->getMainLeadingSpacer());
     }
 
-    /** @test */
+    #[Test]
     public function defaultAndMainTrailingSpacersAreSame(): void
     {
         $defaults = self::getInstance();
         self::assertSame($defaults->getDefaultTrailingSpacer(), $defaults->getMainTrailingSpacer());
     }
 
-    /** @test */
+    #[Test]
     public function canSetMainTrailingSpacer(): void
     {
         $defaults = self::getInstance();
@@ -177,7 +179,7 @@ final class ADefaultsTest extends TestCase
         self::assertSame($spacer, $defaults->getMainTrailingSpacer());
     }
 
-    /** @test */
+    #[Test]
     public function canSetPercentNumberFormat(): void
     {
         $defaults = self::getInstance();
@@ -185,7 +187,7 @@ final class ADefaultsTest extends TestCase
         self::assertSame('%.2f', $defaults->getPercentNumberFormat());
     }
 
-    /** @test */
+    #[Test]
     public function canSetMessageOnExit(): void
     {
         $defaults = self::getInstance();
@@ -193,7 +195,7 @@ final class ADefaultsTest extends TestCase
         self::assertSame('test', $defaults->getMessageOnExit());
     }
 
-    /** @test */
+    #[Test]
     public function canSetInterruptMessage(): void
     {
         $defaults = self::getInstance();
@@ -201,7 +203,7 @@ final class ADefaultsTest extends TestCase
         self::assertSame('test', $defaults->getInterruptMessage());
     }
 
-    /** @test */
+    #[Test]
     public function canSetMaxShutdownDelay(): void
     {
         $defaults = self::getInstance();
@@ -209,8 +211,8 @@ final class ADefaultsTest extends TestCase
         self::assertSame(10, $defaults->getMaxShutdownDelay());
     }
 
-    /** @test */
-    public function canSetColorSupportLevels(): void
+    #[Test]
+    public function canSetSupportedColorModes(): void
     {
         $defaults = self::getInstance();
         $colorSupportLevels = [ColorMode::ANSI24];
@@ -218,8 +220,8 @@ final class ADefaultsTest extends TestCase
         self::assertSame($colorSupportLevels, $defaults->getSupportedColorModes());
     }
 
-    /** @test */
-    public function setColorSupportLevelsThrowsOnInvalidArgument(): void
+    #[Test]
+    public function setSupportedColorModesThrowsOnInvalidArgument(): void
     {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('Color modes must not be empty.');
