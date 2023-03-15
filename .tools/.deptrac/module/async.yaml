@@ -3,4 +3,4 @@ deptrac:
     - name: ModuleAsynchronous
       collectors:
         - type: className
-          value: AlecRabbit\\Spinner\\Asynchronous\\.*
+          value: .*AlecRabbit\\Spinner\\Asynchronous\\.*

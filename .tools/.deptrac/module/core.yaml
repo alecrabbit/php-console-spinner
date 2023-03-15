@@ -5,7 +5,7 @@ deptrac:
         - type: bool
           must:
             - type: className
-              value: AlecRabbit\\Spinner\\Core\\.*
+              value: .*AlecRabbit\\Spinner\\Core\\.*
           must_not:
             - type: className
-              value: AlecRabbit\\Spinner\\Core\\.*\\ILoop
+              value: .*AlecRabbit\\Spinner\\Contract\\.*

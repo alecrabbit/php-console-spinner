@@ -1,3 +1,5 @@
+
+Warning: unlink(/app/.tools/.deptrac/.deptrac.cache): No such file or directory in phar:///root/.phive/phars/deptrac-1.0.2.phar/src/Supportive/DependencyInjection/ServiceContainerBuilder.php on line 57
  ----------- ----------------------------------------------------------------------------------------------------------------------------------------------------- 
   Reason      ModuleCore                                                                                                                                           
  ----------- ----------------------------------------------------------------------------------------------------------------------------------------------------- 
@@ -65,7 +67,7 @@
   Violations           15    
   Skipped violations   0     
   Uncovered            187   
-  Allowed              1421  
+  Allowed              1393  
   Warnings             0     
   Errors               0     
  -------------------- ------ 
