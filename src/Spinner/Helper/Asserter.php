@@ -42,6 +42,7 @@ final class Asserter
      */
     public static function assertStream(mixed $stream): void
     {
+        /** @psalm-suppress DocblockTypeContradiction */
         if (!is_resource($stream) || 'stream' !== get_resource_type($stream)) {
             throw new InvalidArgumentException(
                 sprintf('Argument is expected to be a stream(resource), "%s" given.', get_debug_type($stream))

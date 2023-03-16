@@ -10,7 +10,7 @@ use AlecRabbit\Spinner\Extras\Contract\IProgressBarSprite;
 use AlecRabbit\Spinner\Extras\Contract\IProgressValue;
 use AlecRabbit\Spinner\Extras\Procedure\A\AProgressValueProcedure;
 
-final class ProgresBarProcedure extends AProgressValueProcedure
+final class ProgressBarProcedure extends AProgressValueProcedure
 {
     protected const UNITS = 5;
     protected string $open;
@@ -34,7 +34,7 @@ final class ProgresBarProcedure extends AProgressValueProcedure
 
     protected function init(): void
     {
-        $this->cursorThreshold = $this->floatValue->getMax();
+        $this->cursorThreshold = $this->progressValue->getMax();
         $this->units = $this->withCursor ? $this->units - 1 : $this->units;
         $this->open = $this->sprite ? $this->sprite->getOpen() : '[';
         $this->close = $this->sprite ? $this->sprite->getClose() : ']';
@@ -53,13 +53,13 @@ final class ProgresBarProcedure extends AProgressValueProcedure
 
     public function update(float $dt = null): IFrame
     {
-        if ($this->floatValue->isFinished()) {
+        if ($this->progressValue->isFinished()) {
             if ($this->finishedDelay < 0) {
                 return FrameFactory::createEmpty();
             }
             $this->finishedDelay -= $dt;
         }
-        $v = $this->createBar($this->floatValue->getValue());
+        $v = $this->createBar($this->progressValue->getValue());
         return
             FrameFactory::create($v);
     }

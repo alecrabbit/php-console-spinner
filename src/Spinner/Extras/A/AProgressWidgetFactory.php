@@ -14,7 +14,7 @@ use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
 use AlecRabbit\Spinner\Extras\Contract\IProgressBarSprite;
 use AlecRabbit\Spinner\Extras\Contract\IProgressValue;
 use AlecRabbit\Spinner\Extras\Contract\IProgressWidgetFactory;
-use AlecRabbit\Spinner\Extras\Procedure\ProgresBarProcedure;
+use AlecRabbit\Spinner\Extras\Procedure\ProgressBarProcedure;
 use AlecRabbit\Spinner\Extras\Procedure\ProgressStepsProcedure;
 use AlecRabbit\Spinner\Extras\Procedure\ProgressValueProcedure;
 use AlecRabbit\Spinner\Extras\ProgressBarSprite;
@@ -60,7 +60,7 @@ abstract class AProgressWidgetFactory extends AWidgetFactory implements IProgres
         $sprite ??= new ProgressBarSprite();
 
         $procedure =
-            new ProgresBarProcedure(
+            new ProgressBarProcedure(
                 $progressValue,
                 $sprite,
             );
