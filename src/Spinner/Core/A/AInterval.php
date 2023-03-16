@@ -71,7 +71,7 @@ abstract class AInterval implements IInterval
 
     public function smallest(mixed $other): IInterval
     {
-        if ($other instanceof IInterval && $this->milliseconds > $other->milliseconds) {
+        if ($other instanceof IInterval && $this->milliseconds > $other->toMilliseconds()) {
             return $other;
         }
         return $this;

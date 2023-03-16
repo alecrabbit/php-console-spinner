@@ -1,9 +1,6 @@
-/app/src/Spinner/Contract/IWrapper.php:14:47:warning - MissingParamType: Parameter $args has no provided type
 /app/src/Spinner/Core/A/AFloatValue.php:28:30:warning - MissingParamType: Parameter $value has no provided type
-/app/src/Spinner/Core/A/AInterval.php:74:66:warning - NoInterfaceProperties: Interfaces cannot have properties
 /app/src/Spinner/Core/A/ASpinner.php:21:22:warning - PropertyNotSetInConstructor: Property AlecRabbit\Spinner\Core\A\ASpinner::$currentFrame is not defined in constructor of AlecRabbit\Spinner\Core\A\ASpinner or in any methods called in the constructor
 /app/src/Spinner/Core/A/ASpinner.php:22:19:warning - PropertyNotSetInConstructor: Property AlecRabbit\Spinner\Core\A\ASpinner::$framesWidthDiff is not defined in constructor of AlecRabbit\Spinner\Core\A\ASpinner or in any methods called in the constructor
-/app/src/Spinner/Core/A/ASpinner.php:100:47:warning - MissingParamType: Parameter $args has no provided type
 /app/src/Spinner/Core/Config/A/AConfig.php:50:35:error - InvalidReturnType: The declared return type 'array<array-key, AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite>' for AlecRabbit\Spinner\Core\Config\A\AConfig::getWidgets is incorrect, got 'iterable<mixed, mixed>'
 /app/src/Spinner/Core/Config/A/AConfig.php:52:16:error - InvalidReturnStatement: The inferred type 'iterable<mixed, mixed>' does not match the declared return type 'array<array-key, AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite>' for AlecRabbit\Spinner\Core\Config\A\AConfig::getWidgets
 /app/src/Spinner/Core/Config/A/AConfigBuilder.php:94:25:warning - PossiblyNullArgument: Argument 1 of AlecRabbit\Spinner\Core\Config\Config::__construct cannot be null, possibly null value provided

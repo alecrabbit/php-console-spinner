@@ -11,5 +11,5 @@ interface IWrapper
     /**
      * Wraps/decorates $closure with spinner erase() and spin() actions.
      */
-    public function wrap(Closure $closure, ...$args): void;
+    public function wrap(Closure $closure, mixed ...$args): void;
 }
