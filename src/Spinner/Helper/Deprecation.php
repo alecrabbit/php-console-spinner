@@ -21,7 +21,7 @@ final class Deprecation
             sprintf(
                 'Method "%s" is deprecated%s.',
                 $method,
-                $message ?? sprintf(', %s', $message),
+                $message ?? sprintf(', %s', (string)$message),
             ),
             E_USER_DEPRECATED
         );

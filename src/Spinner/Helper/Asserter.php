@@ -21,13 +21,13 @@ final class Asserter
      * @param bool $allowString
      * @throws InvalidArgumentException
      */
-    public static function isSubClass(mixed $c, string $i, ?string $callerMethod = null, bool $allowString = true): void
+    public static function isSubClass(object|string $c, string $i, ?string $callerMethod = null, bool $allowString = true): void
     {
         if (!is_subclass_of($c, $i, $allowString)) {
             throw new InvalidArgumentException(
                 sprintf(
                     'Class "%s" must be a subclass of "%s"%s.',
-                    $c,
+                    is_object($c) ? get_class($c) : $c,
                     $i,
                     $callerMethod ? sprintf(', see "%s()"', $callerMethod) : '',
                 )
@@ -52,7 +52,7 @@ final class Asserter
      */
     public static function assertColorModes(iterable $colorModes): void
     {
-        if (0 === iterator_count($colorModes)) {
+        if (0 === count(iterator_to_array($colorModes))) {
             throw new InvalidArgumentException('Color modes must not be empty.');
         }
         /** @var ColorMode $colorMode */
