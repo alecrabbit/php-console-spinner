@@ -7,6 +7,7 @@ namespace AlecRabbit\Spinner\Core\Pattern\Char;
 
 use AlecRabbit\Spinner\Core\Pattern\A\AReversiblePattern;
 
+/** @psalm-suppress UnusedClass */
 final class HalfCircle extends AReversiblePattern
 {
     protected const UPDATE_INTERVAL = 160;

@@ -7,6 +7,7 @@ namespace AlecRabbit\Spinner\Core\Pattern\Char;
 
 use AlecRabbit\Spinner\Core\Pattern\A\APattern;
 
+/** @psalm-suppress UnusedClass */
 final class FingerDance extends APattern
 {
     protected const UPDATE_INTERVAL = 300;
