@@ -50,30 +50,6 @@ abstract class ASettableDefaults extends ACoreDefaults
         static::$isModeSynchronous = $isModeSynchronous;
         return $this;
     }
-//
-//    public function setHideCursor(bool $hideCursor): static
-//    {
-//        static::$hideCursor = $hideCursor;
-//        return $this;
-//    }
-//
-//    public function setFinalMessage(string $finalMessage): static
-//    {
-//        static::$messageOnFinalize = $finalMessage;
-//        return $this;
-//    }
-//
-//    public function setMessageOnExit(string $messageOnExit): static
-//    {
-//        static::$messageOnExit = $messageOnExit;
-//        return $this;
-//    }
-//
-//    public function setInterruptMessage(string $interruptMessage): static
-//    {
-//        static::$messageOnInterrupt = $interruptMessage;
-//        return $this;
-//    }
 
     /** @inheritdoc */
     public function setSupportedColorModes(iterable $supportedColorModes): static
@@ -121,7 +97,7 @@ abstract class ASettableDefaults extends ACoreDefaults
     }
 
     /** @inheritdoc */
-    public function setTerminalProbeClasses(iterable $terminalProbes): static
+    public function overrideTerminalProbeClasses(iterable $terminalProbes): static
     {
         foreach ($terminalProbes as $probe) {
             Asserter::isSubClass($probe, ITerminalProbe::class, __METHOD__);
@@ -131,7 +107,7 @@ abstract class ASettableDefaults extends ACoreDefaults
     }
 
     /** @inheritdoc */
-    public function setLoopProbeClasses(iterable $loopProbes): static
+    public function overrideLoopProbeClasses(iterable $loopProbes): static
     {
         foreach ($loopProbes as $probe) {
             Asserter::isSubClass($probe, ILoopProbe::class, __METHOD__);

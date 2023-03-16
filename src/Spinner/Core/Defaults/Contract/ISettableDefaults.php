@@ -29,17 +29,7 @@ interface ISettableDefaults
 
     public function setPercentNumberFormat(string $percentNumberFormat): static;
 
-//    public function setMainLeadingSpacer(IFrame $mainLeadingSpacer): static;
-//
-//    public function setMainTrailingSpacer(IFrame $mainTrailingSpacer): static;
-
-//    public function setDefaultLeadingSpacer(IFrame $defaultLeadingSpacer): static;
-//
-//    public function setDefaultTrailingSpacer(IFrame $defaultTrailingSpacer): static;
-
     public function setShutdownDelay(float|int $shutdownDelay): static;
-
-//    public function setModeSynchronous(bool $modeSynchronous): static;
 
     public function setAutoStart(bool $autoStart): static;
 
@@ -48,12 +38,12 @@ interface ISettableDefaults
     /**
      * @throws InvalidArgumentException
      */
-    public function setTerminalProbeClasses(iterable $terminalProbes): static;
+    public function overrideTerminalProbeClasses(iterable $terminalProbes): static;
 
     /**
      * @throws InvalidArgumentException
      */
-    public function setLoopProbeClasses(iterable $loopProbes): static;
+    public function overrideLoopProbeClasses(iterable $loopProbes): static;
 
     public function setStylePattern(IPattern $spinnerStylePattern): static;
 

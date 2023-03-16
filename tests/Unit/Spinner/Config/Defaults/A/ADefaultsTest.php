@@ -70,14 +70,14 @@ final class ADefaultsTest extends TestCase
     }
 
     #[Test]
-    public function canSetLoopProbes(): void
+    public function canOverrideLoopProbes(): void
     {
         $defaults = self::getInstance();
         $loopProbes = [
             RevoltLoopProbe::class,
             ReactLoopProbe::class,
         ];
-        $defaults->setLoopProbeClasses(
+        $defaults->overrideLoopProbeClasses(
             $loopProbes
         );
         $loopProbesCount = 0;
