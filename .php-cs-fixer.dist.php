@@ -1,13 +1,15 @@
 <?php
 
+const SRC = __DIR__ . '/src';
+
 $finder = PhpCsFixer\Finder::create()
-    ->in(__DIR__ . '/src')
+    ->in(SRC)
 ;
 
 $config = new PhpCsFixer\Config();
 return $config->setRules([
     '@PSR12' => true,
-//    'strict_param' => true,
+    'strict_param' => true,
     'array_syntax' => ['syntax' => 'short'],
 ])
     ->setFinder($finder)
