@@ -47,7 +47,7 @@ abstract class ASettableDefaults extends ACoreDefaults
 
     public function setModeAsSynchronous(bool $isModeSynchronous): static
     {
-        static::$isModeSynchronous = $isModeSynchronous;
+        static::$runMode = $isModeSynchronous ? RunMode::SYNCHRONOUS : RunMode::ASYNC;
         return $this;
     }
 

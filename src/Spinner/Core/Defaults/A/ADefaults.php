@@ -95,7 +95,7 @@ abstract class ADefaults extends ASettableDefaults
 
     public function isModeSynchronous(): bool
     {
-        return static::$isModeSynchronous;
+        return static::$runMode === RunMode::SYNCHRONOUS;
     }
 
     public function getRunMode(): RunMode

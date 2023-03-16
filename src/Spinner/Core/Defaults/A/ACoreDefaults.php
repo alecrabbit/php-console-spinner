@@ -33,7 +33,6 @@ abstract class ACoreDefaults implements IDefaults
     protected static ?IFrame $defaultTrailingSpacer = null;
     protected static IDriverSettings $driverSettings;
     protected static bool $hideCursor;
-    protected static bool $isModeSynchronous;
     protected static iterable $loopProbes;
     protected static ?IPattern $mainCharPattern = null;
     protected static ?IFrame $mainLeadingSpacer = null;
@@ -79,7 +78,6 @@ abstract class ACoreDefaults implements IDefaults
         static::$autoStartEnabled = static::AUTO_START;
         static::$createInitialized = static::SPINNER_CREATE_INITIALIZED;
         static::$hideCursor = static::TERMINAL_HIDE_CURSOR;
-        static::$isModeSynchronous = static::SPINNER_MODE_IS_SYNCHRONOUS;
         static::$messageOnExit = static::MESSAGE_ON_EXIT;
         static::$messageOnFinalize = static::MESSAGE_ON_FINALIZE;
         static::$messageOnInterrupt = static::MESSAGE_ON_INTERRUPT;
