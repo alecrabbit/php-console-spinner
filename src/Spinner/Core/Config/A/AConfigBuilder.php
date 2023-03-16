@@ -12,15 +12,12 @@ use AlecRabbit\Spinner\Core\Defaults\Contract\IDefaults;
 use AlecRabbit\Spinner\Core\Driver;
 use AlecRabbit\Spinner\Core\Factory\RevolverFactory;
 use AlecRabbit\Spinner\Core\Factory\WidgetFactory;
-use AlecRabbit\Spinner\Core\Output\Contract\IOutput;
 use AlecRabbit\Spinner\Core\Output\StreamOutput;
 use AlecRabbit\Spinner\Core\Pattern\Contract\IPattern;
 use AlecRabbit\Spinner\Core\Timer;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetBuilder;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolverBuilder;
-use AlecRabbit\Spinner\Exception\InvalidArgumentException;
-use AlecRabbit\Spinner\Exception\LogicException;
 
 abstract class AConfigBuilder implements IConfigBuilder
 {
