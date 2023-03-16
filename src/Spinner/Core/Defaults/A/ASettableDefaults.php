@@ -90,27 +90,15 @@ abstract class ASettableDefaults extends ACoreDefaults
     }
 
 
-    public function setSpinnerStylePattern(IPattern $spinnerStylePattern): static
+    public function setStylePattern(IPattern $spinnerStylePattern): static
     {
         static::$mainStylePattern = $spinnerStylePattern;
         return $this;
     }
 
-    public function setSpinnerCharPattern(IPattern $spinnerCharPattern): static
+    public function setCharPattern(IPattern $spinnerCharPattern): static
     {
         static::$mainCharPattern = $spinnerCharPattern;
-        return $this;
-    }
-
-    public function setMainLeadingSpacer(IFrame $mainLeadingSpacer): static
-    {
-        static::$mainLeadingSpacer = $mainLeadingSpacer;
-        return $this;
-    }
-
-    public function setMainTrailingSpacer(IFrame $mainTrailingSpacer): static
-    {
-        static::$mainTrailingSpacer = $mainTrailingSpacer;
         return $this;
     }
 
@@ -122,7 +110,7 @@ abstract class ASettableDefaults extends ACoreDefaults
 
     public function setAutoStart(bool $autoStart): static
     {
-        static::$autoStart = $autoStart;
+        static::$autoStartEnabled = $autoStart;
         return $this;
     }
 

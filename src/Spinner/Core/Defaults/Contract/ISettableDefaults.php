@@ -29,9 +29,9 @@ interface ISettableDefaults
 
     public function setPercentNumberFormat(string $percentNumberFormat): static;
 
-    public function setMainLeadingSpacer(IFrame $mainLeadingSpacer): static;
-
-    public function setMainTrailingSpacer(IFrame $mainTrailingSpacer): static;
+//    public function setMainLeadingSpacer(IFrame $mainLeadingSpacer): static;
+//
+//    public function setMainTrailingSpacer(IFrame $mainTrailingSpacer): static;
 
 //    public function setDefaultLeadingSpacer(IFrame $defaultLeadingSpacer): static;
 //
@@ -55,7 +55,7 @@ interface ISettableDefaults
      */
     public function setLoopProbeClasses(iterable $loopProbes): static;
 
-    public function setSpinnerStylePattern(IPattern $spinnerStylePattern): static;
+    public function setStylePattern(IPattern $spinnerStylePattern): static;
 
-    public function setSpinnerCharPattern(IPattern $spinnerCharPattern): static;
+    public function setCharPattern(IPattern $spinnerCharPattern): static;
     }

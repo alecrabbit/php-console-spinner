@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Defaults\Contract;
 
-use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Core\Pattern\Contract\IPattern;
 use AlecRabbit\Spinner\Core\RunMode;
 
@@ -31,23 +30,11 @@ interface IDefaults extends ISettableDefaults
      */
     public function getOutputStream();
 
-//    public function isHideCursor(): bool;
-
     public function getIntervalMilliseconds(): int;
 
     public function isCreateInitialized(): bool;
 
     public function getPercentNumberFormat(): string;
-
-//    public function getMainLeadingSpacer(): IFrame;
-//
-//    public function getMainTrailingSpacer(): IFrame;
-
-//    public function getFinalMessage(): string;
-
-//    public function getDefaultLeadingSpacer(): IFrame;
-//
-//    public function getDefaultTrailingSpacer(): IFrame;
 
     public function getShutdownDelay(): float|int;
 

@@ -26,7 +26,7 @@ $defaults = DefaultsFactory::get();
 $defaults
 //    ->setSpinnerCharPattern(new \AlecRabbit\Spinner\Extras\Procedure\TmpProceduralCharPattern())
 //    ->setSpinnerCharPattern(new \AlecRabbit\Spinner\Core\Pattern\Char\Custom(['o', 'O' ], 100))
-    ->setSpinnerCharPattern(new \AlecRabbit\Spinner\Core\Pattern\Char\Aesthetic(reversed: true))
+    ->setCharPattern(new \AlecRabbit\Spinner\Core\Pattern\Char\Aesthetic(reversed: true))
 //    ->setSpinnerStylePattern(new \AlecRabbit\Spinner\Extras\Procedure\TmpProceduralStylePattern())
 ;
 

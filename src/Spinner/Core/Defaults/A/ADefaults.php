@@ -163,7 +163,7 @@ abstract class ADefaults extends ASettableDefaults
 
     public function isAutoStartEnabled(): bool
     {
-        return static::$autoStart;
+        return static::$autoStartEnabled;
     }
 
     public function areSignalHandlersEnabled(): bool

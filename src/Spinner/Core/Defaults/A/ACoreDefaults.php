@@ -26,7 +26,7 @@ abstract class ACoreDefaults implements IDefaults
     use DefaultsConst;
 
     protected static bool $attachSignalHandlers;
-    protected static bool $autoStart;
+    protected static bool $autoStartEnabled;
     protected static IDefaultsClasses $classes;
     protected static bool $createInitialized;
     protected static ?IFrame $defaultLeadingSpacer = null;
@@ -76,7 +76,7 @@ abstract class ACoreDefaults implements IDefaults
         static::$widgetSettings = $this->createWidgetSettings();
 
         static::$attachSignalHandlers = static::ATTACH_SIGNAL_HANDLERS;
-        static::$autoStart = static::AUTO_START;
+        static::$autoStartEnabled = static::AUTO_START;
         static::$createInitialized = static::SPINNER_CREATE_INITIALIZED;
         static::$hideCursor = static::TERMINAL_HIDE_CURSOR;
         static::$isModeSynchronous = static::SPINNER_MODE_IS_SYNCHRONOUS;
