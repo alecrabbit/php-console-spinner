@@ -9,6 +9,7 @@ use AlecRabbit\Spinner\Core\Factory\FrameFactory;
 use AlecRabbit\Spinner\Extras\Contract\IProgressValue;
 use AlecRabbit\Spinner\Extras\Procedure\A\AProgressValueProcedure;
 
+/** @psalm-suppress UnusedClass */
 final class ProgressFrameProcedure extends AProgressValueProcedure
 {
     private const FRAMES = [

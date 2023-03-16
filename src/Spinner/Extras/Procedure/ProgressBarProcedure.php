@@ -10,6 +10,7 @@ use AlecRabbit\Spinner\Extras\Contract\IProgressBarSprite;
 use AlecRabbit\Spinner\Extras\Contract\IProgressValue;
 use AlecRabbit\Spinner\Extras\Procedure\A\AProgressValueProcedure;
 
+/** @psalm-suppress UnusedClass */
 final class ProgressBarProcedure extends AProgressValueProcedure
 {
     protected const UNITS = 5;

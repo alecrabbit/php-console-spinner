@@ -7,6 +7,7 @@ namespace AlecRabbit\Spinner\Extras;
 
 use AlecRabbit\Spinner\Extras\A\AProgressWidgetFactory;
 
+/** @psalm-suppress UnusedClass */
 final class ProgressWidgetFactory extends AProgressWidgetFactory
 {
 }
