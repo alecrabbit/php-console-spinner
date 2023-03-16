@@ -61,6 +61,7 @@ final class Facade extends ADefaultsAwareClass implements
     }
 
     /**
+     * @param class-string $class
      * @throws InvalidArgumentException
      */
     public static function registerLoopHelperClass(string $class): void

@@ -11,6 +11,11 @@ DPTR_OUT_DIR = ${APP_DIR}/.tools/.report/.deptrac
 app_save: app_php_cs_fixer_run app_deptrac_run
 	$(MAKE) save
 
+app_psalm_run:
+	@${_ECHO} "\n${_C_SELECT} ${PROJECT_NAME} ${_C_STOP} ${_C_INFO}Psalm run...${_C_STOP}\n";
+	@-${_DC_EXEC} ${APP_CONTAINER} psalm --config=${APP_DIR}/.tools/.psalm/psalm.xml
+	@#-${_DC_EXEC} ${APP_CONTAINER} psalm --config=${APP_DIR}/.tools/.psalm/psalm.xml --stats
+
 app_php_cs_fixer_run:
 	@${_ECHO} "\n${_C_SELECT} ${PROJECT_NAME} ${_C_STOP} ${_C_INFO}PHP-CS-Fixer run...${_C_STOP}\n";
 	@-${_DC_EXEC} ${APP_CONTAINER} php-cs-fixer -vvv fix --config=${APP_DIR}/.tools/.php-cs-fixer/.php-cs-fixer.dist.php --cache-file=${APP_DIR}/.tools/.php-cs-fixer/.php-cs-fixer.cache --allow-risky=yes
