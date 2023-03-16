@@ -133,10 +133,16 @@ abstract class AConfigBuilder implements IConfigBuilder
                 ->build();
 
         $this->widgetRevolver ??=
-            new WidgetRevolver(
-                style: $this->rootWidgetStyleRevolver,
-                character: $this->rootWidgetCharRevolver,
-            );
+            $this->widgetRevolverBuilder
+                ->withStyleRevolver($this->rootWidgetStyleRevolver)
+                ->withCharRevolver($this->rootWidgetCharRevolver)
+                ->build();
+
+//$this->widgetRevolver ??=
+//            new WidgetRevolver(
+//                style: $this->rootWidgetStyleRevolver,
+//                character: $this->rootWidgetCharRevolver,
+//            );
 
         $this->leadingSpacer ??= $this->defaults->getWidgetSettings()->getLeadingSpacer();
         $this->trailingSpacer ??= $this->defaults->getWidgetSettings()->getTrailingSpacer();
