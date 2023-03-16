@@ -42,8 +42,8 @@ abstract class AWidgetBuilder implements IWidgetBuilder
     protected function processDefaults(): void
     {
         $this->revolver ??= $this->widgetRevolverBuilder->build();
-        $this->leadingSpacer ??= $this->defaults->getDefaultLeadingSpacer();
-        $this->trailingSpacer ??= $this->defaults->getDefaultTrailingSpacer();
+        $this->leadingSpacer ??= $this->defaults->getWidgetSettings()->getLeadingSpacer();
+        $this->trailingSpacer ??= $this->defaults->getWidgetSettings()->getTrailingSpacer();
     }
 
     public function withWidgetRevolver(?IRevolver $revolver): static

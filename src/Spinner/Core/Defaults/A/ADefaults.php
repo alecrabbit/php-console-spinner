@@ -118,7 +118,7 @@ abstract class ADefaults extends ASettableDefaults
         return static::$percentNumberFormat;
     }
 
-    public function getSpinnerStylePattern(): IPattern
+    public function getStylePattern(): IPattern
     {
         if (null === static::$mainStylePattern) {
             static::$mainStylePattern = new Rainbow();
@@ -126,7 +126,7 @@ abstract class ADefaults extends ASettableDefaults
         return static::$mainStylePattern;
     }
 
-    public function getSpinnerCharPattern(): IPattern
+    public function getCharPattern(): IPattern
     {
         if (null === static::$mainCharPattern) {
             static::$mainCharPattern = new Ascii();
@@ -134,32 +134,32 @@ abstract class ADefaults extends ASettableDefaults
         return static::$mainCharPattern;
     }
 
-    public function getMainLeadingSpacer(): IFrame
-    {
-        return
-            static::$mainLeadingSpacer ?? static::$defaultLeadingSpacer;
-    }
-
-    public function getMainTrailingSpacer(): IFrame
-    {
-        return
-            static::$mainTrailingSpacer ?? static::$defaultTrailingSpacer;
-    }
+//    public function getMainLeadingSpacer(): IFrame
+//    {
+//        return
+//            static::$mainLeadingSpacer ?? static::$defaultLeadingSpacer;
+//    }
+//
+//    public function getMainTrailingSpacer(): IFrame
+//    {
+//        return
+//            static::$mainTrailingSpacer ?? static::$defaultTrailingSpacer;
+//    }
 
     public function isCreateInitialized(): bool
     {
         return static::$createInitialized;
     }
 
-    public function getDefaultLeadingSpacer(): IFrame
-    {
-        return static::$defaultLeadingSpacer;
-    }
-
-    public function getDefaultTrailingSpacer(): IFrame
-    {
-        return static::$defaultTrailingSpacer;
-    }
+//    public function getDefaultLeadingSpacer(): IFrame
+//    {
+//        return static::$defaultLeadingSpacer;
+//    }
+//
+//    public function getDefaultTrailingSpacer(): IFrame
+//    {
+//        return static::$defaultTrailingSpacer;
+//    }
 
     public function isAutoStartEnabled(): bool
     {

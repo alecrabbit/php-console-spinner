@@ -163,10 +163,10 @@ abstract class AConfigBuilder implements IConfigBuilder
         $this->driver ??= $this->createDriver();
 
         $this->rootWidgetStylePattern ??=
-            $this->defaults->getSpinnerStylePattern();
+            $this->defaults->getRootWidgetSettings()->getStylePattern() ?? $this->defaults->getStylePattern();
 
         $this->rootWidgetCharPattern ??=
-            $this->defaults->getSpinnerCharPattern();
+            $this->defaults->getRootWidgetSettings()->getCharPattern() ?? $this->defaults->getCharPattern();
 
         $this->rootWidgetStyleRevolver ??=
             (new RevolverBuilder())
@@ -184,8 +184,8 @@ abstract class AConfigBuilder implements IConfigBuilder
                 character: $this->rootWidgetCharRevolver,
             );
 
-        $this->leadingSpacer ??= $this->defaults->getDefaultLeadingSpacer();
-        $this->trailingSpacer ??= $this->defaults->getDefaultTrailingSpacer();
+        $this->leadingSpacer ??= $this->defaults->getWidgetSettings()->getLeadingSpacer();
+        $this->trailingSpacer ??= $this->defaults->getWidgetSettings()->getTrailingSpacer();
 
         $this->rootWidget ??=
             $this->widgetBuilder

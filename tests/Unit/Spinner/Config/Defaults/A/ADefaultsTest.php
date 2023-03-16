@@ -141,39 +141,39 @@ final class ADefaultsTest extends TestCase
         self::assertTrue($defaults->isModeSynchronous());
     }
 
-    #[Test]
-    public function defaultAndMainLeadingSpacersAreSame(): void
-    {
-        $defaults = self::getInstance();
-        self::assertSame($defaults->getDefaultLeadingSpacer(), $defaults->getMainLeadingSpacer());
-    }
+//    #[Test]
+//    public function defaultAndMainLeadingSpacersAreSame(): void
+//    {
+//        $defaults = self::getInstance();
+//        self::assertSame($defaults->getDefaultLeadingSpacer(), $defaults->getMainLeadingSpacer());
+//    }
+//
+//    #[Test]
+//    public function canSetMainLeadingSpacer(): void
+//    {
+//        $defaults = self::getInstance();
+//
+//        $spacer = FrameFactory::create('test', 4);
+//        $defaults->setMainLeadingSpacer($spacer);
+//        self::assertSame($spacer, $defaults->getMainLeadingSpacer());
+//    }
 
-    #[Test]
-    public function canSetMainLeadingSpacer(): void
-    {
-        $defaults = self::getInstance();
-
-        $spacer = FrameFactory::create('test', 4);
-        $defaults->setMainLeadingSpacer($spacer);
-        self::assertSame($spacer, $defaults->getMainLeadingSpacer());
-    }
-
-    #[Test]
-    public function defaultAndMainTrailingSpacersAreSame(): void
-    {
-        $defaults = self::getInstance();
-        self::assertSame($defaults->getDefaultTrailingSpacer(), $defaults->getMainTrailingSpacer());
-    }
-
-    #[Test]
-    public function canSetMainTrailingSpacer(): void
-    {
-        $defaults = self::getInstance();
-
-        $spacer = FrameFactory::create('test', 4);
-        $defaults->setMainTrailingSpacer($spacer);
-        self::assertSame($spacer, $defaults->getMainTrailingSpacer());
-    }
+//    #[Test]
+//    public function defaultAndMainTrailingSpacersAreSame(): void
+//    {
+//        $defaults = self::getInstance();
+//        self::assertSame($defaults->getDefaultTrailingSpacer(), $defaults->getMainTrailingSpacer());
+//    }
+//
+//    #[Test]
+//    public function canSetMainTrailingSpacer(): void
+//    {
+//        $defaults = self::getInstance();
+//
+//        $spacer = FrameFactory::create('test', 4);
+//        $defaults->setMainTrailingSpacer($spacer);
+//        self::assertSame($spacer, $defaults->getMainTrailingSpacer());
+//    }
 
     #[Test]
     public function canSetPercentNumberFormat(): void

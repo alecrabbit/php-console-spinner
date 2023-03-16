@@ -39,15 +39,15 @@ interface IDefaults extends ISettableDefaults
 
     public function getPercentNumberFormat(): string;
 
-    public function getMainLeadingSpacer(): IFrame;
-
-    public function getMainTrailingSpacer(): IFrame;
+//    public function getMainLeadingSpacer(): IFrame;
+//
+//    public function getMainTrailingSpacer(): IFrame;
 
 //    public function getFinalMessage(): string;
 
-    public function getDefaultLeadingSpacer(): IFrame;
-
-    public function getDefaultTrailingSpacer(): IFrame;
+//    public function getDefaultLeadingSpacer(): IFrame;
+//
+//    public function getDefaultTrailingSpacer(): IFrame;
 
     public function getShutdownDelay(): float|int;
 
@@ -57,7 +57,7 @@ interface IDefaults extends ISettableDefaults
 
     public function areSignalHandlersEnabled(): bool;
 
-    public function getSpinnerStylePattern(): IPattern;
+    public function getStylePattern(): IPattern;
 
-    public function getSpinnerCharPattern(): IPattern;
+    public function getCharPattern(): IPattern;
 }
