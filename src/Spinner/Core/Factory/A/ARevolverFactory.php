@@ -1,70 +1,49 @@
 <?php
 
 declare(strict_types=1);
-// 10.03.23
-
-namespace AlecRabbit\Spinner\Core\Revolver\A;
+// 16.03.23
+namespace AlecRabbit\Spinner\Core\Factory\A;
 
 use AlecRabbit\Spinner\Contract\IProceduralPattern;
+use AlecRabbit\Spinner\Core\Factory\Contract\IRevolverFactory;
 use AlecRabbit\Spinner\Core\FramesRenderer;
 use AlecRabbit\Spinner\Core\Pattern\Contract\IPattern;
 use AlecRabbit\Spinner\Core\Pattern\Contract\IStylePattern;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
-use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolverBuilder;
 use AlecRabbit\Spinner\Core\Revolver\FrameCollectionRevolver;
 use AlecRabbit\Spinner\Core\StyleFramesRenderer;
 use AlecRabbit\Spinner\Exception\DomainException;
 use AlecRabbit\Spinner\Extras\Procedure\A\AProceduralStylePattern;
 use AlecRabbit\Spinner\Extras\Revolver\ProceduralRevolver;
 
-// TODO should this class be a factory?
 // FIXME class has a dependency on Procedural functionality
-
-abstract class ARevolverBuilder implements IRevolverBuilder
+abstract class ARevolverFactory implements IRevolverFactory
 {
-    protected ?IPattern $pattern = null;
 
-    public function withPattern(IPattern $pattern): static
+    public static function createFrom(IPattern $pattern): IRevolver
     {
-        $clone = clone $this;
-        $clone->pattern = $pattern;
-        return $clone;
-    }
-
-    public function build(): IRevolver
-    {
-        if (!$this->pattern) {
-            throw new DomainException(sprintf('%s: Pattern is not set.', static::class));
-        }
-        return $this->buildRevolver();
-    }
-
-    protected function buildRevolver(): IRevolver
-    {
-        if ($this->pattern instanceof IProceduralPattern) {
+        if ($pattern instanceof IProceduralPattern) {
             $revolver = new ProceduralRevolver(
-                $this->pattern->getProcedure(),
-                $this->pattern->getInterval()
+                $pattern->getProcedure(),
+                $pattern->getInterval()
             );
-            if ($this->pattern instanceof AProceduralStylePattern) {
+            if ($pattern instanceof AProceduralStylePattern) {
                 self::assertIsStylePattern($revolver);
             }
             return
                 $revolver;
         }
-        if ($this->pattern instanceof IStylePattern) {
-            $revolver = new FrameCollectionRevolver(
-                (new StyleFramesRenderer($this->pattern))->render(),
-                $this->pattern->getInterval()
-            );
-            self::assertIsStylePattern($revolver);
+        if ($pattern instanceof IStylePattern) {
             return
-                $revolver;
+                new FrameCollectionRevolver(
+                    (new StyleFramesRenderer($pattern))->render(),
+                    $pattern->getInterval()
+                );
         }
         return
             new FrameCollectionRevolver(
-                (new FramesRenderer($this->pattern))->render(),
-                $this->pattern->getInterval()
+                (new FramesRenderer($pattern))->render(),
+                $pattern->getInterval()
             );
     }
 

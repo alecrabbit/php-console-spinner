@@ -5,24 +5,22 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Config\A;
 
 use AlecRabbit\Spinner\Contract\IDriver;
-use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Contract\ITimer;
 use AlecRabbit\Spinner\Core\Config\Config;
 use AlecRabbit\Spinner\Core\Config\Contract\IConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IConfigBuilder;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDefaults;
 use AlecRabbit\Spinner\Core\Driver;
+use AlecRabbit\Spinner\Core\Factory\RevolverFactory;
 use AlecRabbit\Spinner\Core\Factory\WidgetFactory;
 use AlecRabbit\Spinner\Core\Output\Contract\IOutput;
 use AlecRabbit\Spinner\Core\Output\StreamOutput;
 use AlecRabbit\Spinner\Core\Pattern\Contract\IPattern;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
-use AlecRabbit\Spinner\Core\Revolver\RevolverBuilder;
 use AlecRabbit\Spinner\Core\Timer;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetBuilder;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolverBuilder;
-use AlecRabbit\Spinner\Core\Widget\WidgetRevolver;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Exception\LogicException;
 
@@ -31,8 +29,6 @@ abstract class AConfigBuilder implements IConfigBuilder
     protected ?IDriver $driver = null;
     protected ?ITimer $timer = null;
     protected ?IRevolver $widgetRevolver = null;
-    protected ?IFrame $leadingSpacer = null;
-    protected ?IFrame $trailingSpacer = null;
     protected ?bool $autoStartEnabled = null;
     protected ?bool $signalHandlersEnabled = null;
     protected ?string $interruptMessage = null;
@@ -123,14 +119,10 @@ abstract class AConfigBuilder implements IConfigBuilder
             $this->defaults->getRootWidgetSettings()->getCharPattern() ?? $this->defaults->getCharPattern();
 
         $this->rootWidgetStyleRevolver ??=
-            (new RevolverBuilder())
-                ->withPattern($this->rootWidgetStylePattern)
-                ->build();
+            RevolverFactory::createFrom($this->rootWidgetStylePattern);
 
         $this->rootWidgetCharRevolver ??=
-            (new RevolverBuilder())
-                ->withPattern($this->rootWidgetCharPattern)
-                ->build();
+            RevolverFactory::createFrom($this->rootWidgetCharPattern);
 
         $this->widgetRevolver ??=
             $this->widgetRevolverBuilder
@@ -138,20 +130,11 @@ abstract class AConfigBuilder implements IConfigBuilder
                 ->withCharRevolver($this->rootWidgetCharRevolver)
                 ->build();
 
-//$this->widgetRevolver ??=
-//            new WidgetRevolver(
-//                style: $this->rootWidgetStyleRevolver,
-//                character: $this->rootWidgetCharRevolver,
-//            );
-
-        $this->leadingSpacer ??= $this->defaults->getWidgetSettings()->getLeadingSpacer();
-        $this->trailingSpacer ??= $this->defaults->getWidgetSettings()->getTrailingSpacer();
-
         $this->rootWidget ??=
             $this->widgetBuilder
                 ->withWidgetRevolver($this->widgetRevolver)
-                ->withLeadingSpacer($this->leadingSpacer)
-                ->withTrailingSpacer($this->trailingSpacer)
+                ->withLeadingSpacer($this->defaults->getWidgetSettings()->getLeadingSpacer())
+                ->withTrailingSpacer($this->defaults->getWidgetSettings()->getTrailingSpacer())
                 ->build();
 
         $this->widgets ??= [];
