@@ -24,29 +24,25 @@ use function is_subclass_of;
 abstract class ACoreDefaults implements IDefaults
 {
     use DefaultsConst;
+    protected static IDefaultsClasses $classes;
+    protected static IDriverSettings $driverSettings;
+    protected static ITerminalSettings $terminalSettings;
+    protected static IWidgetSettings $rootWidgetSettings;
+    protected static IWidgetSettings $widgetSettings;
 
     protected static bool $attachSignalHandlers;
     protected static bool $autoStartEnabled;
-    protected static IDefaultsClasses $classes;
     protected static bool $createInitialized;
-    protected static ?IFrame $defaultLeadingSpacer = null;
-    protected static ?IFrame $defaultTrailingSpacer = null;
-    protected static IDriverSettings $driverSettings;
-    protected static bool $hideCursor;
     protected static iterable $loopProbes;
-    protected static ?IPattern $mainCharPattern = null;
-    protected static ?IFrame $mainLeadingSpacer = null;
-    protected static ?IPattern $mainStylePattern = null;
-    protected static ?IFrame $mainTrailingSpacer = null;
+    protected static ?IPattern $charPattern = null;
+    protected static ?IPattern $stylePattern = null;
     protected static string $messageOnExit;
     protected static string $messageOnFinalize;
     protected static string $messageOnInterrupt;
     protected static int $millisecondsInterval;
     protected static string $percentNumberFormat;
     protected static RunMode $runMode;
-    protected static IWidgetSettings $rootWidgetSettings;
     protected static iterable $supportedColorModes;
-    protected static ITerminalSettings $terminalSettings;
     protected static float|int $shutdownDelay;
     protected static float|int $shutdownMaxDelay;
     /**
@@ -54,7 +50,6 @@ abstract class ACoreDefaults implements IDefaults
      */
     protected static $outputStream;
     protected static iterable $terminalProbes;
-    protected static IWidgetSettings $widgetSettings;
     private static iterable $registeredLoopProbes = [];
     private static iterable $registeredTerminalProbes = [];
 
@@ -77,7 +72,6 @@ abstract class ACoreDefaults implements IDefaults
         static::$attachSignalHandlers = static::ATTACH_SIGNAL_HANDLERS;
         static::$autoStartEnabled = static::AUTO_START;
         static::$createInitialized = static::SPINNER_CREATE_INITIALIZED;
-        static::$hideCursor = static::TERMINAL_HIDE_CURSOR;
         static::$messageOnExit = static::MESSAGE_ON_EXIT;
         static::$messageOnFinalize = static::MESSAGE_ON_FINALIZE;
         static::$messageOnInterrupt = static::MESSAGE_ON_INTERRUPT;
@@ -88,13 +82,8 @@ abstract class ACoreDefaults implements IDefaults
         static::$shutdownMaxDelay = static::SHUTDOWN_MAX_DELAY;
         static::$supportedColorModes = static::TERMINAL_COLOR_SUPPORT_MODES;
 
-        static::$mainStylePattern = null;
-        static::$mainCharPattern = null;
-        static::$mainLeadingSpacer = null;
-        static::$mainTrailingSpacer = null;
-
-        static::$defaultLeadingSpacer = FrameFactory::createEmpty();
-        static::$defaultTrailingSpacer = FrameFactory::createSpace();
+        static::$stylePattern = null;
+        static::$charPattern = null;
     }
 
     /**

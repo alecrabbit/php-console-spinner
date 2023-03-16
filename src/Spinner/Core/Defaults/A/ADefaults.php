@@ -120,18 +120,18 @@ abstract class ADefaults extends ASettableDefaults
 
     public function getStylePattern(): IPattern
     {
-        if (null === static::$mainStylePattern) {
-            static::$mainStylePattern = new Rainbow();
+        if (null === static::$stylePattern) {
+            static::$stylePattern = new Rainbow();
         }
-        return static::$mainStylePattern;
+        return static::$stylePattern;
     }
 
     public function getCharPattern(): IPattern
     {
-        if (null === static::$mainCharPattern) {
-            static::$mainCharPattern = new Ascii();
+        if (null === static::$charPattern) {
+            static::$charPattern = new Ascii();
         }
-        return static::$mainCharPattern;
+        return static::$charPattern;
     }
 
 //    public function getMainLeadingSpacer(): IFrame

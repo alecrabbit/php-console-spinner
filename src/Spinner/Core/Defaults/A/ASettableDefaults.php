@@ -68,13 +68,13 @@ abstract class ASettableDefaults extends ACoreDefaults
 
     public function setStylePattern(IPattern $spinnerStylePattern): static
     {
-        static::$mainStylePattern = $spinnerStylePattern;
+        static::$stylePattern = $spinnerStylePattern;
         return $this;
     }
 
     public function setCharPattern(IPattern $spinnerCharPattern): static
     {
-        static::$mainCharPattern = $spinnerCharPattern;
+        static::$charPattern = $spinnerCharPattern;
         return $this;
     }
 
