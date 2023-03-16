@@ -11,6 +11,7 @@ use AlecRabbit\Spinner\Core\Pattern\Contract\IPattern;
 
 abstract class APattern implements IPattern
 {
+    /** @var int */
     protected const UPDATE_INTERVAL = 1000;
 
     public function __construct(
