@@ -53,12 +53,6 @@ interface IDefaults extends ISettableDefaults
 
     public function areSignalHandlersEnabled(): bool;
 
-
-//    public function getTerminalProbeClasses(): iterable;
-
-//    public function getInterruptMessage(): string;
-
-
     public function getSpinnerStylePattern(): IPattern;
 
     public function getSpinnerCharPattern(): IPattern;
