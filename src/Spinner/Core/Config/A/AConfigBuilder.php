@@ -50,13 +50,8 @@ abstract class AConfigBuilder implements IConfigBuilder
     public function __construct(
         protected IDefaults $defaults,
     ) {
-        $this->initializeBuildersAndFactories();
-    }
-
-    protected function initializeBuildersAndFactories(): void
-    {
-        $this->widgetBuilder = WidgetFactory::getWidgetBuilder();
-        $this->widgetRevolverBuilder = WidgetFactory::getWidgetRevolverBuilder();
+        $this->widgetBuilder = WidgetFactory::getWidgetBuilder($this->defaults);
+        $this->widgetRevolverBuilder = WidgetFactory::getWidgetRevolverBuilder($this->defaults);
     }
 
     public function withRootWidget(IWidgetComposite $widget): static
