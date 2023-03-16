@@ -7,6 +7,7 @@ namespace AlecRabbit\Spinner\Core\Config\A;
 use AlecRabbit\Spinner\Contract\ITimer;
 use AlecRabbit\Spinner\Core\Config\Contract\IConfig;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
+use AlecRabbit\Spinner\Core\RunMode;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
 
 abstract readonly class AConfig implements IConfig
@@ -16,7 +17,7 @@ abstract readonly class AConfig implements IConfig
         protected ITimer $timer,
         protected IWidgetComposite $rootWidget,
         protected bool $createInitialized,
-        protected bool $synchronous,
+        protected RunMode $runMode,
         protected bool $autoStart,
         protected bool $attachSignalHandlers,
         protected iterable $widgets = [],
@@ -35,7 +36,7 @@ abstract readonly class AConfig implements IConfig
 
     public function isAsynchronous(): bool
     {
-        return !$this->synchronous;
+        return $this->runMode === RunMode::ASYNC;
     }
 
     public function createInitialized(): bool

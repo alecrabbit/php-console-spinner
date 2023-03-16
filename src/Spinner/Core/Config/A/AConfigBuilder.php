@@ -33,7 +33,6 @@ abstract class AConfigBuilder implements IConfigBuilder
     protected ?IRevolver $widgetRevolver = null;
     protected ?IFrame $leadingSpacer = null;
     protected ?IFrame $trailingSpacer = null;
-    protected ?bool $inSynchronousMode = null;
     protected ?bool $autoStartEnabled = null;
     protected ?bool $signalHandlersEnabled = null;
     protected ?string $interruptMessage = null;
@@ -96,7 +95,7 @@ abstract class AConfigBuilder implements IConfigBuilder
                 timer: $this->timer,
                 rootWidget: $this->rootWidget,
                 createInitialized: $this->defaults->isCreateInitialized(),
-                synchronous: $this->inSynchronousMode,
+                runMode: $this->defaults->getRunMode(),
                 autoStart: $this->autoStartEnabled,
                 attachSignalHandlers: $this->signalHandlersEnabled,
                 widgets: $this->widgets,
@@ -110,7 +109,6 @@ abstract class AConfigBuilder implements IConfigBuilder
     protected function processDefaults(): void
     {
         $this->timer ??= new Timer();
-        $this->inSynchronousMode ??= $this->defaults->isModeSynchronous();
         $this->autoStartEnabled ??= $this->defaults->isAutoStartEnabled();
         $this->signalHandlersEnabled ??= $this->defaults->areSignalHandlersEnabled();
         $this->interruptMessage ??= $this->defaults->getDriverSettings()->getInterruptMessage();
