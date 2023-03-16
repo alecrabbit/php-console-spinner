@@ -6,6 +6,8 @@ namespace AlecRabbit\Spinner\Core\Factory\A;
 
 use AlecRabbit\Spinner\Contract\IProceduralPattern;
 use AlecRabbit\Spinner\Core\Factory\Contract\IRevolverFactory;
+use AlecRabbit\Spinner\Core\Factory\FrameFactory;
+use AlecRabbit\Spinner\Core\Factory\IntervalFactory;
 use AlecRabbit\Spinner\Core\FramesRenderer;
 use AlecRabbit\Spinner\Core\Pattern\Contract\IPattern;
 use AlecRabbit\Spinner\Core\Pattern\Contract\IStylePattern;
@@ -62,5 +64,21 @@ abstract class ARevolverFactory implements IRevolverFactory
                 )
             );
         }
+    }
+
+    public static function defaultStyleRevolver(): IRevolver
+    {
+        return
+            new FrameCollectionRevolver(
+                [
+                    FrameFactory::create('%s', 0)
+                ],
+                IntervalFactory::createDefault()
+            );
+    }
+
+    public static function defaultCharRevolver(): IRevolver
+    {
+        // TODO: Implement defaultCharRevolver() method.
     }
 }
