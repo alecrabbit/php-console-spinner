@@ -13,7 +13,7 @@ app_save: app_php_cs_fixer_run app_deptrac_run
 
 app_psalm_run:
 	@${_ECHO} "\n${_C_SELECT} ${PROJECT_NAME} ${_C_STOP} ${_C_INFO}Psalm run...${_C_STOP}\n";
-	-${_DC_EXEC} ${APP_CONTAINER} psalm --config=${APP_DIR}/.tools/.psalm/psalm.xml --show-info=true
+	-${_DC_EXEC} ${APP_CONTAINER} psalm --config=${APP_DIR}/.tools/.psalm/psalm.xml
 
 app_php_cs_fixer_run:
 	@${_ECHO} "\n${_C_SELECT} ${PROJECT_NAME} ${_C_STOP} ${_C_INFO}PHP-CS-Fixer run...${_C_STOP}\n";
