@@ -19,9 +19,9 @@ interface IWidgetSettings extends IDefaultsChild
 
     public function setTrailingSpacer(IFrame $frame): static;
 
-    public function getStylePattern(): IPattern;
+    public function getStylePattern(): ?IPattern;
 
-    public function getCharPattern(): IPattern;
+    public function getCharPattern(): ?IPattern;
 
     public function setStylePattern(IPattern $pattern): static;
 

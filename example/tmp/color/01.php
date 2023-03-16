@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 use Symfony\Component\Console\Output\AnsiColorMode;
 
-use const AlecRabbit\Cli\CSI;
-use const AlecRabbit\Spinner\RESET;
+const ESC = "\033";
+const CSI = ESC . '[';
+const RESET = CSI . '0m';
 
 require_once __DIR__ . '/../../bootstrap.php';
 

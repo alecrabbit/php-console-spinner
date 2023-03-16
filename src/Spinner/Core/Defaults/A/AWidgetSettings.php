@@ -27,6 +27,9 @@ abstract class AWidgetSettings extends ADefaultsChild implements IWidgetSettings
     protected function reset(): void
     {
         static::$leadingSpacer = FrameFactory::createEmpty();
+        static::$trailingSpacer = FrameFactory::createSpace();
+        static::$charPattern = null;
+        static::$stylePattern = null;
     }
 
     final public static function getInstance(IDefaults $parent): static
@@ -61,12 +64,12 @@ abstract class AWidgetSettings extends ADefaultsChild implements IWidgetSettings
         return $this;
     }
 
-    public function getStylePattern(): IPattern
+    public function getStylePattern(): ?IPattern
     {
         return static::$stylePattern;
     }
 
-    public function getCharPattern(): IPattern
+    public function getCharPattern(): ?IPattern
     {
         return static::$charPattern;
     }
