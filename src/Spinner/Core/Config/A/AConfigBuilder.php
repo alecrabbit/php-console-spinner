@@ -26,16 +26,12 @@ use AlecRabbit\Spinner\Exception\LogicException;
 
 abstract class AConfigBuilder implements IConfigBuilder
 {
-    protected ?IDriver $driver = null;
-    protected ?ITimer $timer = null;
     protected ?IRevolver $widgetRevolver = null;
     protected ?bool $autoStartEnabled = null;
     protected ?bool $signalHandlersEnabled = null;
-    protected ?string $interruptMessage = null;
-    protected ?string $finalMessage = null;
     protected ?IRevolver $rootWidgetStyleRevolver = null;
     protected ?IRevolver $rootWidgetCharRevolver = null;
-    protected ?iterable $widgets = null;
+    protected iterable $widgets = [];
     protected IWidgetBuilder $widgetBuilder;
     protected IWidgetRevolverBuilder $widgetRevolverBuilder;
     protected ?IWidgetComposite $rootWidget = null;
@@ -87,8 +83,8 @@ abstract class AConfigBuilder implements IConfigBuilder
 
         return
             new Config(
-                driver: $this->driver,
-                timer: $this->timer,
+                driver: $this->createDriver($this->createOutput()),
+                timer: new Timer(),
                 rootWidget: $this->rootWidget,
                 createInitialized: $this->defaults->isCreateInitialized(),
                 runMode: $this->defaults->getRunMode(),
@@ -107,10 +103,6 @@ abstract class AConfigBuilder implements IConfigBuilder
         $this->timer ??= new Timer();
         $this->autoStartEnabled ??= $this->defaults->isAutoStartEnabled();
         $this->signalHandlersEnabled ??= $this->defaults->areSignalHandlersEnabled();
-        $this->interruptMessage ??= $this->defaults->getDriverSettings()->getInterruptMessage();
-        $this->finalMessage ??= $this->defaults->getDriverSettings()->getFinalMessage();
-
-        $this->driver ??= $this->createDriver($this->createOutput());
 
         $this->rootWidgetStylePattern ??=
             $this->defaults->getRootWidgetSettings()->getStylePattern() ?? $this->defaults->getStylePattern();
@@ -136,8 +128,6 @@ abstract class AConfigBuilder implements IConfigBuilder
                 ->withLeadingSpacer($this->defaults->getWidgetSettings()->getLeadingSpacer())
                 ->withTrailingSpacer($this->defaults->getWidgetSettings()->getTrailingSpacer())
                 ->build();
-
-        $this->widgets ??= [];
     }
 
     protected function createDriver(IOutput $output): IDriver
@@ -146,8 +136,8 @@ abstract class AConfigBuilder implements IConfigBuilder
             new Driver(
                 output: $output,
                 hideCursor: $this->defaults->getTerminalSettings()->isHideCursor(),
-                interruptMessage: $this->interruptMessage,
-                finalMessage: $this->finalMessage,
+                interruptMessage: $this->defaults->getDriverSettings()->getInterruptMessage(),
+                finalMessage: $this->defaults->getDriverSettings()->getFinalMessage(),
             );
     }
 
