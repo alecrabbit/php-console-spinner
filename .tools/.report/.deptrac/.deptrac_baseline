@@ -2,29 +2,29 @@
   Reason      ModuleCore                                                                                                                                           
  ----------- ----------------------------------------------------------------------------------------------------------------------------------------------------- 
   Violation   AlecRabbit\Spinner\Core\Revolver\A\ARevolverBuilder must not depend on AlecRabbit\Spinner\Extras\Revolver\ProceduralRevolver (ModuleExtras)          
-              /app/src/Spinner/Core/Revolver/A/ARevolverBuilder.php:44                                                                                             
+              /app/src/Spinner/Core/Revolver/A/ARevolverBuilder.php:45                                                                                             
   Violation   AlecRabbit\Spinner\Core\Revolver\A\ARevolverBuilder must not depend on AlecRabbit\Spinner\Extras\Procedure\A\AProceduralStylePattern (ModuleExtras)  
-              /app/src/Spinner/Core/Revolver/A/ARevolverBuilder.php:48                                                                                             
+              /app/src/Spinner/Core/Revolver/A/ARevolverBuilder.php:49                                                                                             
   Violation   AlecRabbit\Spinner\Core\Revolver\A\ARevolverBuilder must not depend on AlecRabbit\Spinner\Extras\Procedure\A\AProceduralStylePattern (ModuleExtras)  
-              /app/src/Spinner/Core/Revolver/A/ARevolverBuilder.php:16                                                                                             
+              /app/src/Spinner/Core/Revolver/A/ARevolverBuilder.php:17                                                                                             
   Violation   AlecRabbit\Spinner\Core\Revolver\A\ARevolverBuilder must not depend on AlecRabbit\Spinner\Extras\Revolver\ProceduralRevolver (ModuleExtras)          
+              /app/src/Spinner/Core/Revolver/A/ARevolverBuilder.php:18                                                                                             
+  Violation   AlecRabbit\Spinner\Core\Revolver\RevolverBuilder must not depend on AlecRabbit\Spinner\Extras\Revolver\ProceduralRevolver (ModuleExtras)             
+              AlecRabbit\Spinner\Core\Revolver\A\ARevolverBuilder::10 ->                                                                                           
+              AlecRabbit\Spinner\Extras\Revolver\ProceduralRevolver::45                                                                                            
+              /app/src/Spinner/Core/Revolver/A/ARevolverBuilder.php:45                                                                                             
+  Violation   AlecRabbit\Spinner\Core\Revolver\RevolverBuilder must not depend on AlecRabbit\Spinner\Extras\Procedure\A\AProceduralStylePattern (ModuleExtras)     
+              AlecRabbit\Spinner\Core\Revolver\A\ARevolverBuilder::10 ->                                                                                           
+              AlecRabbit\Spinner\Extras\Procedure\A\AProceduralStylePattern::49                                                                                    
+              /app/src/Spinner/Core/Revolver/A/ARevolverBuilder.php:49                                                                                             
+  Violation   AlecRabbit\Spinner\Core\Revolver\RevolverBuilder must not depend on AlecRabbit\Spinner\Extras\Procedure\A\AProceduralStylePattern (ModuleExtras)     
+              AlecRabbit\Spinner\Core\Revolver\A\ARevolverBuilder::10 ->                                                                                           
+              AlecRabbit\Spinner\Extras\Procedure\A\AProceduralStylePattern::17                                                                                    
               /app/src/Spinner/Core/Revolver/A/ARevolverBuilder.php:17                                                                                             
   Violation   AlecRabbit\Spinner\Core\Revolver\RevolverBuilder must not depend on AlecRabbit\Spinner\Extras\Revolver\ProceduralRevolver (ModuleExtras)             
-              AlecRabbit\Spinner\Core\Revolver\A\ARevolverBuilder::9 ->                                                                                            
-              AlecRabbit\Spinner\Extras\Revolver\ProceduralRevolver::44                                                                                            
-              /app/src/Spinner/Core/Revolver/A/ARevolverBuilder.php:44                                                                                             
-  Violation   AlecRabbit\Spinner\Core\Revolver\RevolverBuilder must not depend on AlecRabbit\Spinner\Extras\Procedure\A\AProceduralStylePattern (ModuleExtras)     
-              AlecRabbit\Spinner\Core\Revolver\A\ARevolverBuilder::9 ->                                                                                            
-              AlecRabbit\Spinner\Extras\Procedure\A\AProceduralStylePattern::48                                                                                    
-              /app/src/Spinner/Core/Revolver/A/ARevolverBuilder.php:48                                                                                             
-  Violation   AlecRabbit\Spinner\Core\Revolver\RevolverBuilder must not depend on AlecRabbit\Spinner\Extras\Procedure\A\AProceduralStylePattern (ModuleExtras)     
-              AlecRabbit\Spinner\Core\Revolver\A\ARevolverBuilder::9 ->                                                                                            
-              AlecRabbit\Spinner\Extras\Procedure\A\AProceduralStylePattern::16                                                                                    
-              /app/src/Spinner/Core/Revolver/A/ARevolverBuilder.php:16                                                                                             
-  Violation   AlecRabbit\Spinner\Core\Revolver\RevolverBuilder must not depend on AlecRabbit\Spinner\Extras\Revolver\ProceduralRevolver (ModuleExtras)             
-              AlecRabbit\Spinner\Core\Revolver\A\ARevolverBuilder::9 ->                                                                                            
-              AlecRabbit\Spinner\Extras\Revolver\ProceduralRevolver::17                                                                                            
-              /app/src/Spinner/Core/Revolver/A/ARevolverBuilder.php:17                                                                                             
+              AlecRabbit\Spinner\Core\Revolver\A\ARevolverBuilder::10 ->                                                                                           
+              AlecRabbit\Spinner\Extras\Revolver\ProceduralRevolver::18                                                                                            
+              /app/src/Spinner/Core/Revolver/A/ARevolverBuilder.php:18                                                                                             
  ----------- ----------------------------------------------------------------------------------------------------------------------------------------------------- 
 
 
@@ -34,7 +34,7 @@
   Violations           8     
   Skipped violations   0     
   Uncovered            187   
-  Allowed              2147  
+  Allowed              2122  
   Warnings             0     
   Errors               0     
  -------------------- ------ 
