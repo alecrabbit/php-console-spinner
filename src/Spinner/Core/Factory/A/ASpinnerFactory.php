@@ -9,16 +9,12 @@ use AlecRabbit\Spinner\Core\Config\ConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\IConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\IConfigBuilderGetter;
-use AlecRabbit\Spinner\Core\Contract\ILoopAdapter;
 use AlecRabbit\Spinner\Core\Contract\ILoopHelper;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
-use AlecRabbit\Spinner\Core\Factory\Contract\ILoopGetter;
 use AlecRabbit\Spinner\Core\Factory\Contract\ISpinnerFactory;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
 use AlecRabbit\Spinner\Exception\DomainException;
-use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Facade;
-use AlecRabbit\Spinner\Helper\Asserter;
 
 abstract class ASpinnerFactory extends ADefaultsAwareClass implements
     ISpinnerFactory,
@@ -79,7 +75,7 @@ abstract class ASpinnerFactory extends ADefaultsAwareClass implements
     protected static function initializeSpinner(ISpinner $spinner): ISpinner
     {
         /** @var ILoopHelper $loopHelper */
-        $loopHelper = Facade::getLoop();
+        $loopHelper = Facade::getLoopHelper();
 
         if (self::$config->isAsynchronous()) {
             $loopHelper::attach($spinner);

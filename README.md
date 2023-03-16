@@ -50,9 +50,9 @@ composer require alecrabbit/php-console-spinner
 ### <a name="quickstart"></a> Quick start (asynchronous)
 
 ```php
-use AlecRabbit\Spinner\Core\Factory\SpinnerFactory;
+use AlecRabbit\Spinner\Facade;
 
-$spinner = SpinnerFactory::createSpinner();
+$spinner = Facade::createSpinner();
 
 // that's basically it :)
 ```

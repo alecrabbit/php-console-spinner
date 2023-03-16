@@ -158,12 +158,6 @@ abstract class AConfigBuilder implements IConfigBuilder
         $this->widgets ??= [];
     }
 
-    protected function createOutput(): IOutput
-    {
-        return
-            new StreamOutput($this->defaults->getOutputStream());
-    }
-
     protected function createDriver(IOutput $output): IDriver
     {
         return
@@ -173,5 +167,11 @@ abstract class AConfigBuilder implements IConfigBuilder
                 interruptMessage: $this->interruptMessage,
                 finalMessage: $this->finalMessage,
             );
+    }
+
+    protected function createOutput(): IOutput
+    {
+        return
+            new StreamOutput($this->defaults->getOutputStream());
     }
 }

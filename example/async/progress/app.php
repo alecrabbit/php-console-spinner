@@ -3,11 +3,12 @@
 declare(strict_types=1);
 
 use AlecRabbit\Spinner\Core\Factory\DefaultsFactory;
-use AlecRabbit\Spinner\Core\Factory\SpinnerFactory;
 use AlecRabbit\Spinner\Core\Interval;
+use AlecRabbit\Spinner\Core\Pattern\Char\Aesthetic;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
 use AlecRabbit\Spinner\Extras\ProgressValue;
 use AlecRabbit\Spinner\Extras\ProgressWidgetFactory;
+use AlecRabbit\Spinner\Facade;
 
 require_once __DIR__ . '/../bootstrap.async.php';
 
@@ -26,11 +27,12 @@ $defaults = DefaultsFactory::get();
 $defaults
 //    ->setSpinnerCharPattern(new \AlecRabbit\Spinner\Extras\Procedure\TmpProceduralCharPattern())
 //    ->setSpinnerCharPattern(new \AlecRabbit\Spinner\Core\Pattern\Char\Custom(['o', 'O' ], 100))
-    ->setCharPattern(new \AlecRabbit\Spinner\Core\Pattern\Char\Aesthetic(reversed: true))
-//    ->setSpinnerStylePattern(new \AlecRabbit\Spinner\Extras\Procedure\TmpProceduralStylePattern())
+    ->setCharPattern(
+        new Aesthetic(reversed: true)
+    )//    ->setSpinnerStylePattern(new \AlecRabbit\Spinner\Extras\Procedure\TmpProceduralStylePattern())
 ;
 
-$spinner = SpinnerFactory::createSpinner();
+$spinner = Facade::createSpinner();
 
 $progress = new ProgressValue(steps: $steps, autoFinish: true);
 
@@ -40,7 +42,7 @@ $progressWidget = createProgressWidget($progress, $interval);
 
 $spinner->add($progressWidget);
 
-$loop = SpinnerFactory::getLoop();
+$loop = Facade::getLoop();
 
 // Progress
 $loop->repeat(

@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-use AlecRabbit\Spinner\Core\Factory\SpinnerFactory;
 use AlecRabbit\Spinner\Core\Widget\NullWidget;
 use AlecRabbit\Spinner\Facade;
 use Example\Kernel\App;

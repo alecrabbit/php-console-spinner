@@ -26,7 +26,7 @@ class RevoltLoopAdapter extends ALoopAdapter
         $this->spinnerTimer =
             EventLoop::repeat(
                 $spinner->getInterval()->toSeconds(),
-                static fn () => $spinner->spin()
+                static fn() => $spinner->spin()
             );
     }
 

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use AlecRabbit\Spinner\Core\Factory\SpinnerFactory;
+use AlecRabbit\Spinner\Facade;
 
 require_once __DIR__ . '/../bootstrap.async.php';
 
@@ -11,6 +11,6 @@ require_once __DIR__ . '/../bootstrap.async.php';
 //    \AlecRabbit\Spinner\Factory\DefaultsFactory::create()
 //        ->setAttachSignalHandlers(false); // disable signal handling
 
-$spinner = SpinnerFactory::createSpinner();
+$spinner = Facade::createSpinner();
 
 // that's it :)

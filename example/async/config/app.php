@@ -3,7 +3,6 @@
 declare(strict_types=1);
 
 use AlecRabbit\Spinner\Core\Factory\DefaultsFactory;
-use AlecRabbit\Spinner\Core\Factory\SpinnerFactory;
 use AlecRabbit\Spinner\Core\Pattern\Char\Snake;
 use AlecRabbit\Spinner\Facade;
 
@@ -21,11 +20,11 @@ $config =
         ->build();
 
 $spinner =
-    SpinnerFactory::createSpinner(
+    Facade::createSpinner(
         $config
     );
 
-$loop = SpinnerFactory::getLoop();
+$loop = Facade::getLoop();
 
 // Limits run time
 $loop->delay(

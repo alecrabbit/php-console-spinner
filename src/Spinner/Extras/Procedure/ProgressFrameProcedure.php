@@ -27,7 +27,8 @@ final class ProgressFrameProcedure extends AProgressValueProcedure
     public function __construct(
         IProgressValue $progressValue,
         protected array $frames = self::FRAMES, // TODO (2023-01-26 14:45) [Alec Rabbit]: remove array type -> use smth like "IFramesCollection"
-    ) {
+    )
+    {
         parent::__construct($progressValue);
         $this->steps = count($frames) - 1;
     }
