@@ -36,8 +36,9 @@ final class AFactoryTest extends TestCase
     {
         DefaultsFactory::get()
             ->setModeAsSynchronous(true)
-            ->setHideCursor(false)
             ->setAutoStart(false)
-            ->setAttachSignalHandlers(false);
+            ->setAttachSignalHandlers(false)
+            ->getTerminalSettings()
+            ->setHideCursor(false);
     }
 }

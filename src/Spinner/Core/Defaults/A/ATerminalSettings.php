@@ -2,27 +2,33 @@
 
 declare(strict_types=1);
 // 09.03.23
-namespace AlecRabbit\Spinner\Core\Terminal\A;
+namespace AlecRabbit\Spinner\Core\Defaults\A;
 
 use AlecRabbit\Spinner\Contract\ColorMode;
-use AlecRabbit\Spinner\Core\Terminal\Contract\ITerminalSettings;
+use AlecRabbit\Spinner\Core\Defaults\Contract\IDefaults;
+use AlecRabbit\Spinner\Core\Defaults\Contract\ITerminalSettings;
 
 abstract class ATerminalSettings implements ITerminalSettings
 {
     private static ?ITerminalSettings $instance = null;
 
-    private function __construct(
-        private ColorMode $colorMode,
-        private int $width,
-        private bool $hideCursor,
+    final protected function __construct(
+        protected IDefaults $parent,
+        protected ColorMode $colorMode,
+        protected int $width,
+        protected bool $hideCursor,
     ) {
     }
 
-    final public static function getInstance(ColorMode $colorMode, int $width, bool $hideCursor,): static
-    {
+    final public static function getInstance(
+        IDefaults $parent,
+        ColorMode $colorMode,
+        int $width,
+        bool $hideCursor,
+    ): static {
         if (null === self::$instance) {
             self::$instance =
-                new class($colorMode, $width, $hideCursor) extends ATerminalSettings {
+                new class($parent, $colorMode, $width, $hideCursor) extends ATerminalSettings {
                 };
         }
         return self::$instance;

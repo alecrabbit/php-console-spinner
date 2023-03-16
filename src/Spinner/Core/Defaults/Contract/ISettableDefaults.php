@@ -10,13 +10,13 @@ use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 
 interface ISettableDefaults
 {
+    public static function registerProbeClass(string $class): void;
+
     /**
      * @param resource $stream
      * @throws InvalidArgumentException
      */
     public function setOutputStream($stream): static;
-
-    public function setHideCursor(bool $hideCursor): static;
 
     /**
      * @throws InvalidArgumentException
@@ -33,7 +33,7 @@ interface ISettableDefaults
 
     public function setMainTrailingSpacer(IFrame $mainTrailingSpacer): static;
 
-    public function setFinalMessage(string $finalMessage): static;
+//    public function setFinalMessage(string $finalMessage): static;
 
 //    public function setDefaultLeadingSpacer(IFrame $defaultLeadingSpacer): static;
 //
@@ -63,5 +63,5 @@ interface ISettableDefaults
 
     public function setSpinnerCharPattern(IPattern $spinnerCharPattern): static;
 
-    public function setInterruptMessage(string $interruptMessage): static;
+//    public function setInterruptMessage(string $interruptMessage): static;
 }

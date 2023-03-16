@@ -6,13 +6,18 @@ namespace AlecRabbit\Spinner\Core\Defaults\Contract;
 
 use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Core\Pattern\Contract\IPattern;
-use AlecRabbit\Spinner\Core\Terminal\Contract\ITerminalSettings;
 
 interface IDefaults extends ISettableDefaults
 {
     public static function getInstance(): self;
 
-    public static function registerProbe(string $class): void;
+    public function getProbeClasses(): iterable;
+
+    public function getTerminalSettings(): ITerminalSettings;
+
+    public function getDriverSettings(): IDriverSettings;
+
+    public function getClasses(): IDefaultsClasses;
 
     /**
      * @return resource
@@ -41,21 +46,15 @@ interface IDefaults extends ISettableDefaults
 
     public function isModeSynchronous(): bool;
 
-    public function getClasses(): IDefaultsClasses;
-
     public function isAutoStartEnabled(): bool;
 
     public function areSignalHandlersEnabled(): bool;
 
-    public function getProbeClasses(): iterable;
 
 //    public function getTerminalProbeClasses(): iterable;
 
 //    public function getInterruptMessage(): string;
 
-    public function getTerminalSettings(): ITerminalSettings;
-
-    public function getDriverSettings(): IDriverSettings;
 
     public function getSpinnerStylePattern(): IPattern;
 

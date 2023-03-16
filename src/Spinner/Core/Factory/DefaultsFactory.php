@@ -45,7 +45,7 @@ final class DefaultsFactory
     {
         /** @var IDefaults $className */
         foreach (self::$addedProbes as $probe) {
-            $className::registerProbe($probe);
+            $className::registerProbeClass($probe);
         }
     }
 

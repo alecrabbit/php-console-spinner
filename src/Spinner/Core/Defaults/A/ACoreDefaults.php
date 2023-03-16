@@ -9,11 +9,11 @@ use AlecRabbit\Spinner\Core\Contract\ILoopProbe;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDefaults;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDefaultsClasses;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDriverSettings;
+use AlecRabbit\Spinner\Core\Defaults\Contract\ITerminalSettings;
 use AlecRabbit\Spinner\Core\Defaults\Mixin\DefaultsConst;
 use AlecRabbit\Spinner\Core\Factory\FrameFactory;
 use AlecRabbit\Spinner\Core\Pattern\Contract\IPattern;
 use AlecRabbit\Spinner\Core\Terminal\Contract\ITerminalProbe;
-use AlecRabbit\Spinner\Core\Terminal\Contract\ITerminalSettings;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Helper\Asserter;
 
@@ -64,9 +64,9 @@ abstract class ACoreDefaults implements IDefaults
         static::$outputStream = static::defaultOutputStream();
         static::$loopProbes = static::defaultLoopProbes();
         static::$terminalProbes = static::defaultTerminalProbes();
-        static::$classes = static::getClassesInstance();
-        static::$terminalSettings = static::getTerminalSettingsInstance();
-        static::$driverSettings = static::getDriverSettingsInstance();
+        static::$classes = $this->getClassesInstance();
+        static::$terminalSettings = $this->createTerminalSettings();
+        static::$driverSettings = $this->createDriverSettings();
 
         static::$shutdownDelay = static::SHUTDOWN_DELAY;
         static::$shutdownMaxDelay = static::SHUTDOWN_MAX_DELAY;
@@ -94,31 +94,31 @@ abstract class ACoreDefaults implements IDefaults
     /**
      * @return resource
      */
-    protected static function defaultOutputStream()
+    protected function defaultOutputStream()
     {
         return STDERR;
     }
 
-    protected static function defaultLoopProbes(): iterable
+    protected function defaultLoopProbes(): iterable
     {
         yield from self::$registeredLoopProbes;
     }
 
-    protected static function defaultTerminalProbes(): iterable
+    protected function defaultTerminalProbes(): iterable
     {
         yield from self::$registeredTerminalProbes;
     }
 
-    abstract protected static function getClassesInstance(): ADefaultsClasses;
+    abstract protected function getClassesInstance(): IDefaultsClasses;
 
-    abstract protected static function getTerminalSettingsInstance(): ITerminalSettings;
+    abstract protected function createTerminalSettings(): ITerminalSettings;
 
-    abstract protected static function getDriverSettingsInstance(): IDriverSettings;
+    abstract protected function createDriverSettings(): IDriverSettings;
 
     /**
      * @throws InvalidArgumentException
      */
-    public static function registerProbe(string $class): void
+    public static function registerProbeClass(string $class): void
     {
         Asserter::classExists($class, __METHOD__);
 

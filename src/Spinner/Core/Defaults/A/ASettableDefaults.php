@@ -43,30 +43,30 @@ abstract class ASettableDefaults extends ACoreDefaults
         static::$isModeSynchronous = $isModeSynchronous;
         return $this;
     }
-
-    public function setHideCursor(bool $hideCursor): static
-    {
-        static::$hideCursor = $hideCursor;
-        return $this;
-    }
-
-    public function setFinalMessage(string $finalMessage): static
-    {
-        static::$messageOnFinalize = $finalMessage;
-        return $this;
-    }
-
-    public function setMessageOnExit(string $messageOnExit): static
-    {
-        static::$messageOnExit = $messageOnExit;
-        return $this;
-    }
-
-    public function setInterruptMessage(string $interruptMessage): static
-    {
-        static::$messageOnInterrupt = $interruptMessage;
-        return $this;
-    }
+//
+//    public function setHideCursor(bool $hideCursor): static
+//    {
+//        static::$hideCursor = $hideCursor;
+//        return $this;
+//    }
+//
+//    public function setFinalMessage(string $finalMessage): static
+//    {
+//        static::$messageOnFinalize = $finalMessage;
+//        return $this;
+//    }
+//
+//    public function setMessageOnExit(string $messageOnExit): static
+//    {
+//        static::$messageOnExit = $messageOnExit;
+//        return $this;
+//    }
+//
+//    public function setInterruptMessage(string $interruptMessage): static
+//    {
+//        static::$messageOnInterrupt = $interruptMessage;
+//        return $this;
+//    }
 
     /** @inheritdoc */
     public function setSupportedColorModes(iterable $supportedColorModes): static

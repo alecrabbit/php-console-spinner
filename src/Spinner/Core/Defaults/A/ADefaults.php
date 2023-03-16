@@ -8,21 +8,20 @@ use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDefaults;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDefaultsClasses;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDriverSettings;
+use AlecRabbit\Spinner\Core\Defaults\Contract\ITerminalSettings;
 use AlecRabbit\Spinner\Core\Pattern\Char\Ascii;
 use AlecRabbit\Spinner\Core\Pattern\Contract\IPattern;
 use AlecRabbit\Spinner\Core\Pattern\Style\Rainbow;
-use AlecRabbit\Spinner\Core\Terminal\A\ATerminalSettings;
 use AlecRabbit\Spinner\Core\Terminal\Contract\ITerminalProbe;
-use AlecRabbit\Spinner\Core\Terminal\Contract\ITerminalSettings;
 use AlecRabbit\Spinner\Core\Terminal\NativeTerminalProbe;
 
 abstract class ADefaults extends ASettableDefaults
 {
     private static ?IDefaults $instance = null; // private, singleton
 
-    protected static function getClassesInstance(): ADefaultsClasses
+    protected function getClassesInstance(): IDefaultsClasses
     {
-        return ADefaultsClasses::getInstance();
+        return ADefaultsClasses::getInstance($this);
     }
 
     final public static function getInstance(): self
@@ -35,7 +34,7 @@ abstract class ADefaults extends ASettableDefaults
         return self::$instance;
     }
 
-    protected static function getTerminalSettingsInstance(): ITerminalSettings
+    protected function createTerminalSettings(): ITerminalSettings
     {
         $colorMode = NativeTerminalProbe::getColorMode();
         $width = NativeTerminalProbe::getWidth();
@@ -48,7 +47,7 @@ abstract class ADefaults extends ASettableDefaults
                 $width = $terminalProbe::getWidth();
             }
         }
-        return ATerminalSettings::getInstance($colorMode, $width, $hideCursor);
+        return ATerminalSettings::getInstance($this, $colorMode, $width, $hideCursor);
     }
 //
 //    public function isHideCursor(): bool
@@ -56,9 +55,9 @@ abstract class ADefaults extends ASettableDefaults
 //        return static::$hideCursor;
 //    }
 
-    protected static function getDriverSettingsInstance(): IDriverSettings
+    protected function createDriverSettings(): IDriverSettings
     {
-        return ADriverSettings::getInstance();
+        return ADriverSettings::getInstance($this);
     }
 
     public function getClasses(): IDefaultsClasses
