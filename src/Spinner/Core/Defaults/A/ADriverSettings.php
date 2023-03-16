@@ -25,6 +25,13 @@ abstract class ADriverSettings extends ADefaultsChild implements IDriverSettings
         $this->reset();
     }
 
+    protected function reset(): void
+    {
+        static::$messageOnFinalize = static::MESSAGE_ON_FINALIZE;
+        static::$messageOnExit = static::MESSAGE_ON_EXIT;
+        static::$messageOnInterrupt = static::MESSAGE_ON_INTERRUPT;
+    }
+
     final public static function getInstance(IDefaults $parent): static
     {
         if (null === self::$instance) {
@@ -43,13 +50,6 @@ abstract class ADriverSettings extends ADefaultsChild implements IDriverSettings
     public function getFinalMessage(): string
     {
         return static::$messageOnFinalize;
-    }
-
-    protected function reset(): void
-    {
-        static::$messageOnFinalize = static::MESSAGE_ON_FINALIZE;
-        static::$messageOnExit = static::MESSAGE_ON_EXIT;
-        static::$messageOnInterrupt = static::MESSAGE_ON_INTERRUPT;
     }
 
     public function setFinalMessage(string $finalMessage): static

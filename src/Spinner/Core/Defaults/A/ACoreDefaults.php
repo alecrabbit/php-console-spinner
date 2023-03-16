@@ -5,7 +5,6 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Defaults\A;
 
-use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Contract\IProbe;
 use AlecRabbit\Spinner\Core\Contract\ILoopProbe;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDefaults;
@@ -14,7 +13,6 @@ use AlecRabbit\Spinner\Core\Defaults\Contract\IDriverSettings;
 use AlecRabbit\Spinner\Core\Defaults\Contract\ITerminalSettings;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IWidgetSettings;
 use AlecRabbit\Spinner\Core\Defaults\Mixin\DefaultsConst;
-use AlecRabbit\Spinner\Core\Factory\FrameFactory;
 use AlecRabbit\Spinner\Core\Pattern\Contract\IPattern;
 use AlecRabbit\Spinner\Core\RunMode;
 use AlecRabbit\Spinner\Core\Terminal\Contract\ITerminalProbe;
@@ -26,6 +24,7 @@ use function is_subclass_of;
 abstract class ACoreDefaults implements IDefaults
 {
     use DefaultsConst;
+
     protected static IDefaultsClasses $classes;
     protected static IDriverSettings $driverSettings;
     protected static ITerminalSettings $terminalSettings;
@@ -88,6 +87,15 @@ abstract class ACoreDefaults implements IDefaults
         static::$charPattern = null;
     }
 
+    abstract protected function getClassesInstance(): IDefaultsClasses;
+
+    abstract protected function createDriverSettings(): IDriverSettings;
+
+    protected function defaultLoopProbes(): iterable
+    {
+        yield from self::$registeredLoopProbes;
+    }
+
     /**
      * @return resource
      */
@@ -96,21 +104,12 @@ abstract class ACoreDefaults implements IDefaults
         return STDERR;
     }
 
-    protected function defaultLoopProbes(): iterable
-    {
-        yield from self::$registeredLoopProbes;
-    }
-
     protected function defaultTerminalProbes(): iterable
     {
         yield from self::$registeredTerminalProbes;
     }
 
-    abstract protected function getClassesInstance(): IDefaultsClasses;
-
     abstract protected function createTerminalSettings(): ITerminalSettings;
-
-    abstract protected function createDriverSettings(): IDriverSettings;
 
     abstract protected function createWidgetSettings(): IWidgetSettings;
 
