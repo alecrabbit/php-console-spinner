@@ -89,10 +89,6 @@ abstract class AConfigBuilder implements IConfigBuilder
             );
     }
 
-    /**
-     * @throws LogicException
-     * @throws InvalidArgumentException
-     */
     protected function processDefaults(): void
     {
         $this->autoStartEnabled ??= $this->defaults->isAutoStartEnabled();

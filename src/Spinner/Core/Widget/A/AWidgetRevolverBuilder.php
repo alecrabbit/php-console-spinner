@@ -63,7 +63,7 @@ abstract class AWidgetRevolverBuilder implements IWidgetRevolverBuilder
             );
     }
 
-    public function withStyleRevolver(?IRevolver $styleRevolver): static
+    public function withStyleRevolver(IRevolver $styleRevolver): static
     {
         $clone = clone $this;
         $clone->styleRevolver = $styleRevolver;
