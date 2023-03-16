@@ -1,6 +1,6 @@
 include ${_APP_DIR}/app.init.Makefile
 
-app_tools_run: app_phploc_run app_deptrac_run_full
+app_tools_run: app_phploc_run app_php_cs_fixer_run app_deptrac_run_full
 	@${_NO_OP};
 
 PHPLOC_DIR = /usr/local/bin
@@ -8,12 +8,18 @@ DPTR_CONFIG = ${APP_DIR}/.tools/.deptrac/deptrac.yaml
 DPTR_CACHE = ${APP_DIR}/.tools/.deptrac/.deptrac.cache
 DPTR_OUT_DIR = ${APP_DIR}/.tools/.report/.deptrac
 
+app_php_cs_fixer_run:
+	@${_ECHO} "\n${_C_SELECT} ${PROJECT_NAME} ${_C_STOP} ${_C_INFO}PHP-CS-Fixer run...${_C_STOP}\n";
+	@-${_DC_EXEC} ${APP_CONTAINER} php-cs-fixer fix --allow-risky=yes
+	@#-${_DC_EXEC} ${APP_CONTAINER} php-cs-fixer fix --config=${APP_DIR}/.tools/.php-cs-fixer/.php_cs.dist --verbose --dry-run --diff --using-cache=no --allow-risky=yes --path-mode=intersection --show-progress=none --stop-on-violation --ansi
+	@${_ECHO};
+
 app_phploc_run:
 	@${_ECHO} "\n${_C_SELECT} ${PROJECT_NAME} ${_C_STOP} ${_C_INFO}PHPLOC run...${_C_STOP}\n";
 	@mkdir -p ${APP_DIR}/.tools/.report/.phploc
 	@-${_DC_EXEC} ${APP_CONTAINER} ${PHPLOC_DIR}/phploc src > ${APP_DIR}/.tools/.report/.phploc/.phploc_baseline
 	@-cat ${APP_DIR}/.tools/.report/.phploc/.phploc_baseline
-	@${_ECHO} "${_C_STOP}\n";
+	@${_ECHO};
 
 app_deptrac_run_full: _deptrac_run_message _deptrac_run_baseline _deptrac_run_graph _deptrac_run_baseline_formatter app_deptrac_run
 	@${_NO_OP};
