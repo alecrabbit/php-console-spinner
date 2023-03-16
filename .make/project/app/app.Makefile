@@ -51,7 +51,7 @@ _deptrac_run_baseline_formatter:
 
 app_deptrac_run:
 	@${_ECHO};
-	@${_DC_EXEC} ${APP_CONTAINER} deptrac analyse --config-file=${DPTR_CONFIG} --cache-file=${DPTR_CACHE}
+	@-${_DC_EXEC} ${APP_CONTAINER} deptrac analyse --config-file=${DPTR_CONFIG} --cache-file=${DPTR_CACHE}
 
 app_deptrac_debug_layer:
 	@$(eval c ?=)

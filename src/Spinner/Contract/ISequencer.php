@@ -2,11 +2,8 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Spinner\Core\Contract;
+namespace AlecRabbit\Spinner\Contract;
 
-/**
- * @internal
- */
 interface ISequencer
 {
     public static function colorSequence(string $sequence): string;
