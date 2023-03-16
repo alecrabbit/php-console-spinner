@@ -12,5 +12,6 @@ interface IRevolverFactory
     public static function createFrom(IPattern $pattern): IRevolver;
 
     public static function defaultStyleRevolver(): IRevolver;
+
     public static function defaultCharRevolver(): IRevolver;
 }

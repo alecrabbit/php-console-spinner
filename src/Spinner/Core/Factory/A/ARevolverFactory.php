@@ -79,6 +79,12 @@ abstract class ARevolverFactory implements IRevolverFactory
 
     public static function defaultCharRevolver(): IRevolver
     {
-        // TODO: Implement defaultCharRevolver() method.
+        return
+            new FrameCollectionRevolver(
+                [
+                    FrameFactory::createEmpty()
+                ],
+                IntervalFactory::createDefault()
+            );
     }
 }
