@@ -7,10 +7,10 @@
 /app/src/Spinner/Core/A/ASpinner.php:93:41:error - UnusedVariable: $result is never referenced or the value is not used
 /app/src/Spinner/Core/Config/A/AConfig.php:50:35:error - InvalidReturnType: The declared return type 'array<array-key, AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite>' for AlecRabbit\Spinner\Core\Config\A\AConfig::getWidgets is incorrect, got 'iterable<mixed, mixed>'
 /app/src/Spinner/Core/Config/A/AConfig.php:52:16:error - InvalidReturnStatement: The inferred type 'iterable<mixed, mixed>' does not match the declared return type 'array<array-key, AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite>' for AlecRabbit\Spinner\Core\Config\A\AConfig::getWidgets
-/app/src/Spinner/Core/Config/A/AConfigBuilder.php:87:28:warning - PossiblyNullArgument: Argument 7 of AlecRabbit\Spinner\Core\Config\Config::__construct cannot be null, possibly null value provided
-/app/src/Spinner/Core/Config/A/AConfigBuilder.php:88:39:warning - PossiblyNullArgument: Argument 8 of AlecRabbit\Spinner\Core\Config\Config::__construct cannot be null, possibly null value provided
-/app/src/Spinner/Core/Config/A/AConfigBuilder.php:131:53:warning - PossiblyNullArgument: Argument 1 of AlecRabbit\Spinner\Core\Factory\RevolverFactory::createFrom cannot be null, possibly null value provided
-/app/src/Spinner/Core/Config/A/AConfigBuilder.php:134:53:warning - PossiblyNullArgument: Argument 1 of AlecRabbit\Spinner\Core\Factory\RevolverFactory::createFrom cannot be null, possibly null value provided
+/app/src/Spinner/Core/Config/A/AConfigBuilder.php:83:28:warning - PossiblyNullArgument: Argument 7 of AlecRabbit\Spinner\Core\Config\Config::__construct cannot be null, possibly null value provided
+/app/src/Spinner/Core/Config/A/AConfigBuilder.php:84:39:warning - PossiblyNullArgument: Argument 8 of AlecRabbit\Spinner\Core\Config\Config::__construct cannot be null, possibly null value provided
+/app/src/Spinner/Core/Config/A/AConfigBuilder.php:117:53:warning - PossiblyNullArgument: Argument 1 of AlecRabbit\Spinner\Core\Factory\RevolverFactory::createFrom cannot be null, possibly null value provided
+/app/src/Spinner/Core/Config/A/AConfigBuilder.php:120:53:warning - PossiblyNullArgument: Argument 1 of AlecRabbit\Spinner\Core\Factory\RevolverFactory::createFrom cannot be null, possibly null value provided
 /app/src/Spinner/Core/Config/Contract/IConfigBuilder.php:20:21:error - PossiblyUnusedMethod: Cannot find any calls to method AlecRabbit\Spinner\Core\Config\Contract\IConfigBuilder::withStylePattern
 /app/src/Spinner/Core/Config/Contract/IConfigBuilder.php:22:21:error - PossiblyUnusedMethod: Cannot find any calls to method AlecRabbit\Spinner\Core\Config\Contract\IConfigBuilder::withCharPattern
 /app/src/Spinner/Core/Config/Contract/IConfigBuilder.php:24:21:error - PossiblyUnusedMethod: Cannot find any calls to method AlecRabbit\Spinner\Core\Config\Contract\IConfigBuilder::withRootWidget

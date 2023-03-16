@@ -68,17 +68,13 @@ abstract class AConfigBuilder implements IConfigBuilder
         return $clone;
     }
 
-    /**
-     * @throws LogicException
-     * @throws InvalidArgumentException
-     */
     public function build(): IConfig
     {
         $this->processDefaults();
 
         return
             new Config(
-                driver: $this->createDriver($this->createOutput()),
+                driver: $this->createDriver(),
                 timer: new Timer(),
                 rootWidget: $this->rootWidget ?? $this->createRootWidget(),
                 createInitialized: $this->defaults->isCreateInitialized(),
@@ -101,21 +97,15 @@ abstract class AConfigBuilder implements IConfigBuilder
             $this->defaults->getRootWidgetSettings()->getCharPattern() ?? $this->defaults->getCharPattern();
     }
 
-    protected function createDriver(IOutput $output): IDriver
+    protected function createDriver(): IDriver
     {
         return
             new Driver(
-                output: $output,
+                output: new StreamOutput($this->defaults->getOutputStream()),
                 hideCursor: $this->defaults->getTerminalSettings()->isHideCursor(),
                 interruptMessage: $this->defaults->getDriverSettings()->getInterruptMessage(),
                 finalMessage: $this->defaults->getDriverSettings()->getFinalMessage(),
             );
-    }
-
-    protected function createOutput(): IOutput
-    {
-        return
-            new StreamOutput($this->defaults->getOutputStream());
     }
 
     private function createRootWidget(): IWidgetComposite
