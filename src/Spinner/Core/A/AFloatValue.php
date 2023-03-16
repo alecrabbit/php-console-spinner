@@ -7,8 +7,6 @@ namespace AlecRabbit\Spinner\Core\A;
 use AlecRabbit\Spinner\Contract\IFloatValue;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 
-use function is_float;
-
 abstract class AFloatValue implements IFloatValue
 {
     protected float $value;
@@ -23,22 +21,6 @@ abstract class AFloatValue implements IFloatValue
     ) {
         $this->setValue($startValue);
         self::assert($this);
-    }
-
-    public function setValue($value): void
-    {
-        $this->value = $value;
-        $this->checkBounds();
-    }
-
-    protected function checkBounds(): void
-    {
-        if ($this->value > $this->max) {
-            $this->value = $this->max;
-        }
-        if ($this->value < $this->min) {
-            $this->value = $this->min;
-        }
     }
 
     /**
@@ -76,5 +58,21 @@ abstract class AFloatValue implements IFloatValue
     public function getValue(): float
     {
         return $this->value;
+    }
+
+    public function setValue($value): void
+    {
+        $this->value = $value;
+        $this->checkBounds();
+    }
+
+    protected function checkBounds(): void
+    {
+        if ($this->value > $this->max) {
+            $this->value = $this->max;
+        }
+        if ($this->value < $this->min) {
+            $this->value = $this->min;
+        }
     }
 }

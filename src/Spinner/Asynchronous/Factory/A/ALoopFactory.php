@@ -6,10 +6,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Asynchronous\Factory\A;
 
 use AlecRabbit\Spinner\Core\Contract\ILoopAdapter;
-use AlecRabbit\Spinner\Core\Contract\ILoopGetter;
 use AlecRabbit\Spinner\Core\Contract\ILoopProbe;
-use AlecRabbit\Spinner\Core\Contract\ILoopSignalHandlers;
-use AlecRabbit\Spinner\Core\Contract\ISpinnerAttacher;
 use AlecRabbit\Spinner\Core\Factory\A\ADefaultsAwareClass;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopFactory;
 use AlecRabbit\Spinner\Core\Factory\DefaultsFactory;
