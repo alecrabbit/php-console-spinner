@@ -63,21 +63,6 @@ abstract class AFloatValue implements IFloatValue
         };
     }
 
-    /**
-     * @throws InvalidArgumentException
-     */
-    protected static function assertValue(mixed $value): void
-    {
-        if (!is_float($value)) {
-            throw new InvalidArgumentException(
-                sprintf(
-                    'Value should be float. Value: "%s".',
-                    $value,
-                )
-            );
-        }
-    }
-
     public function getMin(): float
     {
         return $this->min;
