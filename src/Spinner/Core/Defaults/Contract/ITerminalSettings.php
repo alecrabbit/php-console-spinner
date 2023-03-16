@@ -6,7 +6,7 @@ namespace AlecRabbit\Spinner\Core\Defaults\Contract;
 
 use AlecRabbit\Spinner\Contract\ColorMode;
 
-interface ITerminalSettings
+interface ITerminalSettings extends IDefaultsChild
 {
     public static function getInstance(IDefaults $parent, ColorMode $colorMode, int $width, bool $hideCursor,): static;
 

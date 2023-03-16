@@ -61,9 +61,9 @@ abstract class ACoreDefaults implements IDefaults
 
     protected function reset(): void
     {
-        static::$outputStream = static::defaultOutputStream();
-        static::$loopProbes = static::defaultLoopProbes();
-        static::$terminalProbes = static::defaultTerminalProbes();
+        static::$outputStream = $this->defaultOutputStream();
+        static::$loopProbes = $this->defaultLoopProbes();
+        static::$terminalProbes = $this->defaultTerminalProbes();
         static::$classes = $this->getClassesInstance();
         static::$terminalSettings = $this->createTerminalSettings();
         static::$driverSettings = $this->createDriverSettings();

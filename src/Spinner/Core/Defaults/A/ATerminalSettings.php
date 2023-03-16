@@ -8,16 +8,17 @@ use AlecRabbit\Spinner\Contract\ColorMode;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDefaults;
 use AlecRabbit\Spinner\Core\Defaults\Contract\ITerminalSettings;
 
-abstract class ATerminalSettings implements ITerminalSettings
+abstract class ATerminalSettings extends ADefaultsChild implements ITerminalSettings
 {
     private static ?ITerminalSettings $instance = null;
 
     final protected function __construct(
-        protected IDefaults $parent,
+        IDefaults $parent,
         protected ColorMode $colorMode,
         protected int $width,
         protected bool $hideCursor,
     ) {
+        parent::__construct($parent);
     }
 
     final public static function getInstance(
@@ -65,5 +66,10 @@ abstract class ATerminalSettings implements ITerminalSettings
     {
         $this->hideCursor = $hideCursor;
         return $this;
+    }
+
+    public function toParent(): IDefaults
+    {
+        return $this->parent;
     }
 }

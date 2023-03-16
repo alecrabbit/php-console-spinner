@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Defaults\A;
 
+use AlecRabbit\Spinner\Core\Defaults\Contract\IDefaults;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDefaultsClasses;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetBuilder;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolverBuilder;
@@ -11,7 +12,7 @@ use AlecRabbit\Spinner\Core\Widget\WidgetBuilder;
 use AlecRabbit\Spinner\Core\Widget\WidgetRevolverBuilder;
 use AlecRabbit\Spinner\Helper\Asserter;
 
-abstract class ADefaultsClasses implements IDefaultsClasses
+abstract class ADefaultsClasses extends ADefaultsChild implements IDefaultsClasses
 {
     final protected const WIDGET_BUILDER_CLASS = WidgetBuilder::class;
     final protected const WIDGET_REVOLVER_BUILDER_CLASS = WidgetRevolverBuilder::class;
@@ -20,8 +21,9 @@ abstract class ADefaultsClasses implements IDefaultsClasses
     protected static string $widgetRevolverBuilderClass;
     private static ?IDefaultsClasses $instance = null;
 
-    final protected function __construct()
+    final protected function __construct(IDefaults $parent)
     {
+        parent::__construct($parent);
         $this->reset();
     }
 
@@ -31,11 +33,11 @@ abstract class ADefaultsClasses implements IDefaultsClasses
         self::$widgetRevolverBuilderClass = self::WIDGET_REVOLVER_BUILDER_CLASS;
     }
 
-    final public static function getInstance(): self
+    final public static function getInstance(IDefaults $parent): self
     {
         if (null === self::$instance) {
             self::$instance =
-                new class() extends ADefaultsClasses {
+                new class($parent) extends ADefaultsClasses {
                 };
         }
         return self::$instance;
