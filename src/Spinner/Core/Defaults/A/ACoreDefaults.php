@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Defaults\A;
 
 use AlecRabbit\Spinner\Contract\IFrame;
+use AlecRabbit\Spinner\Contract\IProbe;
 use AlecRabbit\Spinner\Core\Contract\ILoopProbe;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDefaults;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDefaultsClasses;
@@ -118,6 +119,7 @@ abstract class ACoreDefaults implements IDefaults
     public static function registerProbeClass(string $class): void
     {
         Asserter::classExists($class, __METHOD__);
+        Asserter::isSubClass($class, IProbe::class, __METHOD__);
 
         if (is_subclass_of($class, ILoopProbe::class)) {
             static::registerLoopProbeClass($class);
