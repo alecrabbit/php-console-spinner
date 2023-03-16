@@ -26,7 +26,7 @@ class ReactLoopAdapter extends ALoopAdapter
         $this->spinnerTimer =
             $this->loop->addPeriodicTimer(
                 $spinner->getInterval()->toSeconds(),
-                static fn() => $spinner->spin()
+                static fn () => $spinner->spin()
             );
     }
 

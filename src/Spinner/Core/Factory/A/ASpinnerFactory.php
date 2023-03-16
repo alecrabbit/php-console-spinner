@@ -94,6 +94,4 @@ abstract class ASpinnerFactory extends ADefaultsAwareClass implements
         }
         return $spinner;
     }
-
-
 }
