@@ -11,4 +11,8 @@ interface IDriverSettings extends IDefaultsChild
     public function getFinalMessage(): string;
 
     public function getInterruptMessage(): string;
+
+    public function setFinalMessage(string $finalMessage): static;
+
+    public function setInterruptMessage(string $interruptMessage): static;
 }

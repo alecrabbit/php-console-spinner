@@ -33,8 +33,6 @@ interface ISettableDefaults
 
     public function setMainTrailingSpacer(IFrame $mainTrailingSpacer): static;
 
-//    public function setFinalMessage(string $finalMessage): static;
-
 //    public function setDefaultLeadingSpacer(IFrame $defaultLeadingSpacer): static;
 //
 //    public function setDefaultTrailingSpacer(IFrame $defaultTrailingSpacer): static;
@@ -42,8 +40,6 @@ interface ISettableDefaults
     public function setShutdownDelay(float|int $shutdownDelay): static;
 
 //    public function setModeSynchronous(bool $modeSynchronous): static;
-
-//    public function setClasses(IClasses $classes): static;
 
     public function setAutoStart(bool $autoStart): static;
 
@@ -62,6 +58,4 @@ interface ISettableDefaults
     public function setSpinnerStylePattern(IPattern $spinnerStylePattern): static;
 
     public function setSpinnerCharPattern(IPattern $spinnerCharPattern): static;
-
-//    public function setInterruptMessage(string $interruptMessage): static;
-}
+    }

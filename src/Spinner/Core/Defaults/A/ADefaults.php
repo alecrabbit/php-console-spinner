@@ -12,6 +12,7 @@ use AlecRabbit\Spinner\Core\Defaults\Contract\ITerminalSettings;
 use AlecRabbit\Spinner\Core\Pattern\Char\Ascii;
 use AlecRabbit\Spinner\Core\Pattern\Contract\IPattern;
 use AlecRabbit\Spinner\Core\Pattern\Style\Rainbow;
+use AlecRabbit\Spinner\Core\RunMode;
 use AlecRabbit\Spinner\Core\Terminal\Contract\ITerminalProbe;
 use AlecRabbit\Spinner\Core\Terminal\NativeTerminalProbe;
 
@@ -49,11 +50,6 @@ abstract class ADefaults extends ASettableDefaults
         }
         return ATerminalSettings::getInstance($this, $colorMode, $width, $hideCursor);
     }
-//
-//    public function isHideCursor(): bool
-//    {
-//        return static::$hideCursor;
-//    }
 
     protected function createDriverSettings(): IDriverSettings
     {
@@ -86,20 +82,10 @@ abstract class ADefaults extends ASettableDefaults
         return static::$isModeSynchronous;
     }
 
-//    public function getFinalMessage(): string
-//    {
-//        return static::$messageOnFinalize;
-//    }
-
-//    public function getMessageOnExit(): string
-//    {
-//        return static::$messageOnExit;
-//    }
-
-//    public function getInterruptMessage(): string
-//    {
-//        return static::$messageOnInterrupt;
-//    }
+    public function getRunMode(): RunMode
+    {
+        return static::$runMode;
+    }
 
     public function getMaxShutdownDelay(): float|int
     {
@@ -163,11 +149,6 @@ abstract class ADefaults extends ASettableDefaults
     {
         return static::$autoStart;
     }
-
-//    public function getTerminalProbeClasses(): iterable
-//    {
-//        return static::$terminalProbes;
-//    }
 
     public function areSignalHandlersEnabled(): bool
     {

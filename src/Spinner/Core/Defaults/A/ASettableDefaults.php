@@ -7,6 +7,7 @@ namespace AlecRabbit\Spinner\Core\Defaults\A;
 use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Core\Contract\ILoopProbe;
 use AlecRabbit\Spinner\Core\Pattern\Contract\IPattern;
+use AlecRabbit\Spinner\Core\RunMode;
 use AlecRabbit\Spinner\Core\Terminal\Contract\ITerminalProbe;
 use AlecRabbit\Spinner\Helper\Asserter;
 
@@ -35,6 +36,12 @@ abstract class ASettableDefaults extends ACoreDefaults
     public function setMaxShutdownDelay(float|int $maxShutdownDelay): static
     {
         static::$shutdownMaxDelay = $maxShutdownDelay;
+        return $this;
+    }
+
+    public function setRunMode(RunMode $mode): static
+    {
+        static::$runMode = $mode;
         return $this;
     }
 

@@ -50,4 +50,16 @@ abstract class ADriverSettings extends ADefaultsChild implements IDriverSettings
         static::$messageOnExit = static::MESSAGE_ON_EXIT;
         static::$messageOnInterrupt = static::MESSAGE_ON_INTERRUPT;
     }
+
+    public function setFinalMessage(string $finalMessage): static
+    {
+        static::$messageOnFinalize = $finalMessage;
+        return $this;
+    }
+
+    public function setInterruptMessage(string $interruptMessage): static
+    {
+        static::$messageOnInterrupt = $interruptMessage;
+        return $this;
+    }
 }

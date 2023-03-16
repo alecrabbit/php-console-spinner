@@ -6,6 +6,7 @@ namespace AlecRabbit\Spinner\Core\Defaults\Contract;
 
 use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Core\Pattern\Contract\IPattern;
+use AlecRabbit\Spinner\Core\RunMode;
 
 interface IDefaults extends ISettableDefaults
 {
@@ -18,6 +19,8 @@ interface IDefaults extends ISettableDefaults
     public function getDriverSettings(): IDriverSettings;
 
     public function getClasses(): IDefaultsClasses;
+
+    public function getRunMode(): RunMode;
 
     /**
      * @return resource
