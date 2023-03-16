@@ -1,8 +1,8 @@
 deptrac:
   skip_violations:
-    AlecRabbit\Spinner\Core\Revolver\A\ARevolverBuilder:
+    AlecRabbit\Spinner\Core\Factory\A\ARevolverFactory:
       - AlecRabbit\Spinner\Extras\Procedure\A\AProceduralStylePattern
       - AlecRabbit\Spinner\Extras\Revolver\ProceduralRevolver
-    AlecRabbit\Spinner\Core\Revolver\RevolverBuilder:
+    AlecRabbit\Spinner\Core\Factory\RevolverFactory:
       - AlecRabbit\Spinner\Extras\Procedure\A\AProceduralStylePattern
       - AlecRabbit\Spinner\Extras\Revolver\ProceduralRevolver

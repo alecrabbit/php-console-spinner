@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Config\A;
 
 use AlecRabbit\Spinner\Contract\IDriver;
-use AlecRabbit\Spinner\Contract\ITimer;
 use AlecRabbit\Spinner\Core\Config\Config;
 use AlecRabbit\Spinner\Core\Config\Contract\IConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IConfigBuilder;
@@ -26,11 +25,8 @@ use AlecRabbit\Spinner\Exception\LogicException;
 
 abstract class AConfigBuilder implements IConfigBuilder
 {
-    protected ?IRevolver $widgetRevolver = null;
     protected ?bool $autoStartEnabled = null;
     protected ?bool $signalHandlersEnabled = null;
-    protected ?IRevolver $rootWidgetStyleRevolver = null;
-    protected ?IRevolver $rootWidgetCharRevolver = null;
     protected iterable $widgets = [];
     protected IWidgetBuilder $widgetBuilder;
     protected IWidgetRevolverBuilder $widgetRevolverBuilder;
@@ -85,7 +81,7 @@ abstract class AConfigBuilder implements IConfigBuilder
             new Config(
                 driver: $this->createDriver($this->createOutput()),
                 timer: new Timer(),
-                rootWidget: $this->rootWidget,
+                rootWidget: $this->rootWidget ?? $this->createRootWidget(),
                 createInitialized: $this->defaults->isCreateInitialized(),
                 runMode: $this->defaults->getRunMode(),
                 autoStart: $this->autoStartEnabled,
@@ -100,7 +96,6 @@ abstract class AConfigBuilder implements IConfigBuilder
      */
     protected function processDefaults(): void
     {
-        $this->timer ??= new Timer();
         $this->autoStartEnabled ??= $this->defaults->isAutoStartEnabled();
         $this->signalHandlersEnabled ??= $this->defaults->areSignalHandlersEnabled();
 
@@ -109,25 +104,6 @@ abstract class AConfigBuilder implements IConfigBuilder
 
         $this->rootWidgetCharPattern ??=
             $this->defaults->getRootWidgetSettings()->getCharPattern() ?? $this->defaults->getCharPattern();
-
-        $this->rootWidgetStyleRevolver ??=
-            RevolverFactory::createFrom($this->rootWidgetStylePattern);
-
-        $this->rootWidgetCharRevolver ??=
-            RevolverFactory::createFrom($this->rootWidgetCharPattern);
-
-        $this->widgetRevolver ??=
-            $this->widgetRevolverBuilder
-                ->withStyleRevolver($this->rootWidgetStyleRevolver)
-                ->withCharRevolver($this->rootWidgetCharRevolver)
-                ->build();
-
-        $this->rootWidget ??=
-            $this->widgetBuilder
-                ->withWidgetRevolver($this->widgetRevolver)
-                ->withLeadingSpacer($this->defaults->getWidgetSettings()->getLeadingSpacer())
-                ->withTrailingSpacer($this->defaults->getWidgetSettings()->getTrailingSpacer())
-                ->build();
     }
 
     protected function createDriver(IOutput $output): IDriver
@@ -145,5 +121,23 @@ abstract class AConfigBuilder implements IConfigBuilder
     {
         return
             new StreamOutput($this->defaults->getOutputStream());
+    }
+
+    private function createRootWidget(): IWidgetComposite
+    {
+        return $this->widgetBuilder
+            ->withWidgetRevolver(
+                $this->widgetRevolverBuilder
+                    ->withStyleRevolver(
+                        RevolverFactory::createFrom($this->rootWidgetStylePattern)
+                    )
+                    ->withCharRevolver(
+                        RevolverFactory::createFrom($this->rootWidgetCharPattern)
+                    )
+                    ->build()
+            )
+            ->withLeadingSpacer($this->defaults->getWidgetSettings()->getLeadingSpacer())
+            ->withTrailingSpacer($this->defaults->getWidgetSettings()->getTrailingSpacer())
+            ->build();
     }
 }

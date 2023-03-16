@@ -20,7 +20,7 @@ abstract readonly class AConfig implements IConfig
         protected RunMode $runMode,
         protected bool $autoStart,
         protected bool $attachSignalHandlers,
-        protected iterable $widgets = [],
+        protected iterable $widgets,
     ) {
     }
 
@@ -69,7 +69,7 @@ abstract readonly class AConfig implements IConfig
 
     public function getSignalHandlers(): ?iterable
     {
-        // TODO: Implement getSignalHandlers() method.
+        // TODO: Implement getSignalHandlers() method?
         return null;
     }
 }
