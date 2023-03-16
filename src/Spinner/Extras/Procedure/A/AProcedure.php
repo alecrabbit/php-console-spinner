@@ -9,8 +9,6 @@ use AlecRabbit\Spinner\Contract\IProcedure;
 
 abstract class AProcedure implements IProcedure
 {
-    /**
-     * @inheritdoc
-     */
+    /** @inheritdoc */
     abstract public function update(float $dt = null): IFrame;
 }

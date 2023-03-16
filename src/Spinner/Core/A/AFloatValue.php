@@ -9,8 +9,10 @@ use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 
 use function is_float;
 
-abstract class AFloatValue extends AValue implements IFloatValue
+abstract class AFloatValue implements IFloatValue
 {
+    protected float $value;
+
     /**
      * @throws InvalidArgumentException
      */
@@ -23,10 +25,9 @@ abstract class AFloatValue extends AValue implements IFloatValue
         self::assert($this);
     }
 
-    /** @inheritdoc */
     public function setValue($value): void
     {
-        parent::setValue($value);
+        $this->value = $value;
         $this->checkBounds();
     }
 
@@ -62,6 +63,9 @@ abstract class AFloatValue extends AValue implements IFloatValue
         };
     }
 
+    /**
+     * @throws InvalidArgumentException
+     */
     protected static function assertValue(mixed $value): void
     {
         if (!is_float($value)) {

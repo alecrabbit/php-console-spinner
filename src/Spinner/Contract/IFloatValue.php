@@ -4,14 +4,11 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Contract;
 
-interface IFloatValue extends IValue
+interface IFloatValue
 {
     public function getValue(): float;
 
-    /**
-     * @param float $value
-     */
-    public function setValue($value): void;
+    public function setValue(float $value): void;
 
     public function getMin(): float;
 
