@@ -14,6 +14,10 @@ interface IDefaults extends ISettableDefaults
 
     public function getProbeClasses(): iterable;
 
+    public function getRootWidgetSettings(): IWidgetSettings;
+
+    public function getWidgetSettings(): IWidgetSettings;
+
     public function getTerminalSettings(): ITerminalSettings;
 
     public function getDriverSettings(): IDriverSettings;

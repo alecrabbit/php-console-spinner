@@ -10,6 +10,7 @@ use AlecRabbit\Spinner\Core\Defaults\Contract\IDefaults;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDefaultsClasses;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDriverSettings;
 use AlecRabbit\Spinner\Core\Defaults\Contract\ITerminalSettings;
+use AlecRabbit\Spinner\Core\Defaults\Contract\IWidgetSettings;
 use AlecRabbit\Spinner\Core\Defaults\Mixin\DefaultsConst;
 use AlecRabbit\Spinner\Core\Factory\FrameFactory;
 use AlecRabbit\Spinner\Core\Pattern\Contract\IPattern;
@@ -44,6 +45,7 @@ abstract class ACoreDefaults implements IDefaults
     protected static int $millisecondsInterval;
     protected static string $percentNumberFormat;
     protected static RunMode $runMode;
+    protected static IWidgetSettings $rootWidgetSettings;
     protected static iterable $supportedColorModes;
     protected static ITerminalSettings $terminalSettings;
     protected static float|int $shutdownDelay;
@@ -53,6 +55,7 @@ abstract class ACoreDefaults implements IDefaults
      */
     protected static $outputStream;
     protected static iterable $terminalProbes;
+    protected static IWidgetSettings $widgetSettings;
     private static iterable $registeredLoopProbes = [];
     private static iterable $registeredTerminalProbes = [];
 
@@ -69,6 +72,8 @@ abstract class ACoreDefaults implements IDefaults
         static::$outputStream = $this->defaultOutputStream();
         static::$terminalProbes = $this->defaultTerminalProbes();
         static::$terminalSettings = $this->createTerminalSettings();
+        static::$rootWidgetSettings = $this->createWidgetSettings();
+        static::$widgetSettings = $this->createWidgetSettings();
 
         static::$attachSignalHandlers = static::ATTACH_SIGNAL_HANDLERS;
         static::$autoStart = static::AUTO_START;
@@ -117,6 +122,8 @@ abstract class ACoreDefaults implements IDefaults
     abstract protected function createTerminalSettings(): ITerminalSettings;
 
     abstract protected function createDriverSettings(): IDriverSettings;
+
+    abstract protected function createWidgetSettings(): IWidgetSettings;
 
     /**
      * @throws InvalidArgumentException
@@ -171,4 +178,5 @@ abstract class ACoreDefaults implements IDefaults
             self::$registeredTerminalProbes[] = $class;
         }
     }
+
 }

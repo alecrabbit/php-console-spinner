@@ -8,6 +8,7 @@ use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDefaults;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDefaultsClasses;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDriverSettings;
+use AlecRabbit\Spinner\Core\Defaults\Contract\IWidgetSettings;
 use AlecRabbit\Spinner\Core\Defaults\Contract\ITerminalSettings;
 use AlecRabbit\Spinner\Core\Pattern\Char\Ascii;
 use AlecRabbit\Spinner\Core\Pattern\Contract\IPattern;
@@ -54,6 +55,21 @@ abstract class ADefaults extends ASettableDefaults
     protected function createDriverSettings(): IDriverSettings
     {
         return ADriverSettings::getInstance($this);
+    }
+
+    protected function createWidgetSettings(): IWidgetSettings
+    {
+        return AWidgetSettings::getInstance($this);
+    }
+
+    public function getRootWidgetSettings(): IWidgetSettings
+    {
+        return static::$rootWidgetSettings;
+    }
+
+    public function getWidgetSettings(): IWidgetSettings
+    {
+        return static::$widgetSettings;
     }
 
     public function getClasses(): IDefaultsClasses
