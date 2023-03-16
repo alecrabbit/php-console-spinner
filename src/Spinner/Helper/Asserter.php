@@ -21,8 +21,12 @@ final class Asserter
      * @param bool $allowString
      * @throws InvalidArgumentException
      */
-    public static function isSubClass(object|string $c, string $i, ?string $callerMethod = null, bool $allowString = true): void
-    {
+    public static function isSubClass(
+        object|string $c,
+        string $i,
+        ?string $callerMethod = null,
+        bool $allowString = true
+    ): void {
         if (!is_subclass_of($c, $i, $allowString)) {
             throw new InvalidArgumentException(
                 sprintf(
@@ -36,9 +40,9 @@ final class Asserter
     }
 
     /**
+     * @param resource $stream
      * @throws InvalidArgumentException
      *
-     * @param resource $stream
      */
     public static function assertStream(mixed $stream): void
     {
