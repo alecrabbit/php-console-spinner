@@ -22,7 +22,7 @@ abstract class ALoopFactory extends ADefaultsAwareClass implements ILoopFactory
 
     protected static ?ILoopAdapter $loop = null;
 
-    final public static function create(): ILoopAdapter|ILoopGetter|ILoopSignalHandlers|ISpinnerAttacher
+    final public static function create(): ILoopAdapter
     {
         if (static::$loop instanceof ILoopAdapter) {
             return static::$loop;
@@ -30,7 +30,7 @@ abstract class ALoopFactory extends ADefaultsAwareClass implements ILoopFactory
         return static::createLoop();
     }
 
-    protected static function createLoop(): ILoopAdapter|ILoopGetter|ILoopSignalHandlers|ISpinnerAttacher
+    protected static function createLoop(): ILoopAdapter
     {
         foreach (static::getProbeClasses() as $probe) {
             if (is_subclass_of($probe, ILoopProbe::class) && $probe::isSupported()) {
