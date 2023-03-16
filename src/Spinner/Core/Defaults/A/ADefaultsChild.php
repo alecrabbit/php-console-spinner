@@ -9,7 +9,7 @@ use AlecRabbit\Spinner\Core\Defaults\Contract\IDefaultsChild;
 
 abstract class ADefaultsChild implements IDefaultsChild
 {
-    public function __construct(
+    protected function __construct(
         protected IDefaults $parent,
     ) {
     }

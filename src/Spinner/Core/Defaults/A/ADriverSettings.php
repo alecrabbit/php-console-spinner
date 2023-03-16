@@ -4,10 +4,11 @@ declare(strict_types=1);
 // 15.03.23
 namespace AlecRabbit\Spinner\Core\Defaults\A;
 
+use AlecRabbit\Spinner\Core\Defaults\Contract\IDefaults;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDriverSettings;
 use AlecRabbit\Spinner\Core\Defaults\Mixin\DefaultsConst;
 
-abstract class ADriverSettings implements IDriverSettings
+abstract class ADriverSettings extends ADefaultsChild implements IDriverSettings
 {
     use DefaultsConst;
 
@@ -17,16 +18,17 @@ abstract class ADriverSettings implements IDriverSettings
 
     private static ?IDriverSettings $instance = null;
 
-    final protected function __construct()
+    final protected function __construct(IDefaults $parent)
     {
+        parent::__construct($parent);
         $this->reset();
     }
 
-    final public static function getInstance(): static
+    final public static function getInstance(IDefaults $parent): static
     {
         if (null === self::$instance) {
             self::$instance =
-                new class() extends ADriverSettings {
+                new class($parent) extends ADriverSettings {
                 };
         }
         return self::$instance;

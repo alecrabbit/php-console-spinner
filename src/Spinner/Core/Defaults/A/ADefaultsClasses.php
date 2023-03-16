@@ -33,7 +33,7 @@ abstract class ADefaultsClasses extends ADefaultsChild implements IDefaultsClass
         self::$widgetRevolverBuilderClass = self::WIDGET_REVOLVER_BUILDER_CLASS;
     }
 
-    final public static function getInstance(IDefaults $parent): self
+    final public static function getInstance(IDefaults $parent): static
     {
         if (null === self::$instance) {
             self::$instance =
