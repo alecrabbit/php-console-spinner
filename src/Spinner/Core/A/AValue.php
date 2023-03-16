@@ -9,6 +9,7 @@ use AlecRabbit\Spinner\Contract\IValue;
 
 abstract class AValue implements IValue
 {
+    /** @psalm-suppress MissingPropertyType */
     protected $value;
 
     public function getValue(): mixed
