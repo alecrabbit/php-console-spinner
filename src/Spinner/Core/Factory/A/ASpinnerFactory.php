@@ -17,16 +17,14 @@ use AlecRabbit\Spinner\Core\Factory\Contract\ISpinnerFactory;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
 use AlecRabbit\Spinner\Exception\DomainException;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
+use AlecRabbit\Spinner\Facade;
 use AlecRabbit\Spinner\Helper\Asserter;
 
 abstract class ASpinnerFactory extends ADefaultsAwareClass implements
     ISpinnerFactory,
-    IConfigBuilderGetter,
-    ILoopGetter
+    IConfigBuilderGetter
 {
     protected static IConfig $config;
-
-    protected static ?string $loopHelperClass = null;
 
     /**
      * @throws DomainException
@@ -81,7 +79,7 @@ abstract class ASpinnerFactory extends ADefaultsAwareClass implements
     protected static function initializeSpinner(ISpinner $spinner): ISpinner
     {
         /** @var ILoopHelper $loopHelper */
-        $loopHelper = self::getLoopHelper();
+        $loopHelper = Facade::getLoop();
 
         if (self::$config->isAsynchronous()) {
             $loopHelper::attach($spinner);
@@ -101,35 +99,5 @@ abstract class ASpinnerFactory extends ADefaultsAwareClass implements
         return $spinner;
     }
 
-    /**
-     * @throws DomainException
-     */
-    protected static function getLoopHelper(): string
-    {
-        if (null === self::$loopHelperClass) {
-            throw new DomainException('LoopHelper class is not registered');
-        }
-        return self::$loopHelperClass;
-    }
 
-    /**
-     * @throws DomainException
-     */
-    public static function getLoop(): ILoopAdapter
-    {
-        /** @var ILoopHelper $loopHelper */
-        $loopHelper = self::getLoopHelper();
-        return
-            $loopHelper::get();
-    }
-
-    /**
-     * @throws InvalidArgumentException
-     */
-    public static function registerLoopClass(string $class): void
-    {
-        Asserter::classExists($class);
-        Asserter::isSubClass($class, ILoopHelper::class);
-        self::$loopHelperClass = $class;
-    }
 }

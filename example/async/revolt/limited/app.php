@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 use AlecRabbit\Spinner\Asynchronous\Loop\Probe\RevoltLoopProbe;
 use AlecRabbit\Spinner\Core\Factory\DefaultsFactory;
-use AlecRabbit\Spinner\Factory;
+use AlecRabbit\Spinner\Core\Factory\SpinnerFactory;
 use Revolt\EventLoop;
 
 require_once __DIR__ . '/../../bootstrap.async.php';
@@ -15,7 +15,7 @@ DefaultsFactory::get()
 /*
  * This example shows how you may use Revolt event loop.
  */
-$spinner = Factory::createSpinner();
+$spinner = SpinnerFactory::createSpinner();
 
 EventLoop::delay(3, static function () use ($spinner) {
     $spinner->finalize('Finished!' . PHP_EOL);

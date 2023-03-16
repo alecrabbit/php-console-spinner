@@ -7,8 +7,8 @@ namespace Example\Kernel\A;
 use AlecRabbit\Spinner\Core\Config\Contract\IConfig;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use AlecRabbit\Spinner\Core\Factory\DefaultsFactory;
+use AlecRabbit\Spinner\Core\Factory\SpinnerFactory;
 use AlecRabbit\Spinner\Core\Output\StreamOutput;
-use AlecRabbit\Spinner\Factory;
 use Closure;
 use Example\Kernel\AppConfig;
 use Example\Kernel\Benchmark;
@@ -79,7 +79,7 @@ abstract class AbstractApp
     {
         $this->calculateAppTimeVariables();
 
-        $this->spinner = Factory::createSpinner($config);
+        $this->spinner = SpinnerFactory::createSpinner($config);
 
         $stdout = new StreamOutput(STDOUT);
         $stderr = new StreamOutput(STDERR);

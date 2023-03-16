@@ -3,8 +3,9 @@
 declare(strict_types=1);
 
 use AlecRabbit\Spinner\Core\Factory\DefaultsFactory;
+use AlecRabbit\Spinner\Core\Factory\SpinnerFactory;
 use AlecRabbit\Spinner\Core\Pattern\Char\Snake;
-use AlecRabbit\Spinner\Factory;
+use AlecRabbit\Spinner\Facade;
 
 require_once __DIR__ . '/../bootstrap.async.php';
 
@@ -15,16 +16,16 @@ $runTime = 30; // s
 $defaults = DefaultsFactory::get();
 
 $config =
-    Factory::getConfigBuilder()
+    Facade::getConfigBuilder()
         ->withCharPattern(new Snake())
         ->build();
 
 $spinner =
-    Factory::createSpinner(
+    SpinnerFactory::createSpinner(
         $config
     );
 
-$loop = Factory::getLoop();
+$loop = SpinnerFactory::getLoop();
 
 // Limits run time
 $loop->delay(

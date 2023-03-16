@@ -7,10 +7,11 @@ use AlecRabbit\Spinner\Asynchronous\Loop\LoopHelper;
 use AlecRabbit\Spinner\Asynchronous\Loop\Probe\ReactLoopProbe;
 use AlecRabbit\Spinner\Asynchronous\Loop\Probe\RevoltLoopProbe;
 use AlecRabbit\Spinner\Core\Factory\DefaultsFactory;
-use AlecRabbit\Spinner\Factory;
+use AlecRabbit\Spinner\Core\Factory\SpinnerFactory;
+use AlecRabbit\Spinner\Facade;
 
 DefaultsFactory::addProbe(ReactLoopProbe::class);
 DefaultsFactory::addProbe(RevoltLoopProbe::class);
 DefaultsFactory::setDefaultsClass(ALoopAwareDefaults::class);
 
-Factory::registerLoopClass(LoopHelper::class);
+Facade::registerLoopHelperClass(LoopHelper::class);

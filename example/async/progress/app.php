@@ -3,11 +3,11 @@
 declare(strict_types=1);
 
 use AlecRabbit\Spinner\Core\Factory\DefaultsFactory;
+use AlecRabbit\Spinner\Core\Factory\SpinnerFactory;
 use AlecRabbit\Spinner\Core\Interval;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
 use AlecRabbit\Spinner\Extras\ProgressValue;
 use AlecRabbit\Spinner\Extras\ProgressWidgetFactory;
-use AlecRabbit\Spinner\Factory;
 
 require_once __DIR__ . '/../bootstrap.async.php';
 
@@ -30,7 +30,7 @@ $defaults
 //    ->setSpinnerStylePattern(new \AlecRabbit\Spinner\Extras\Procedure\TmpProceduralStylePattern())
 ;
 
-$spinner = Factory::createSpinner();
+$spinner = SpinnerFactory::createSpinner();
 
 $progress = new ProgressValue(steps: $steps, autoFinish: true);
 
@@ -40,7 +40,7 @@ $progressWidget = createProgressWidget($progress, $interval);
 
 $spinner->add($progressWidget);
 
-$loop = Factory::getLoop();
+$loop = SpinnerFactory::getLoop();
 
 // Progress
 $loop->repeat(

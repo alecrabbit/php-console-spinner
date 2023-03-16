@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 use AlecRabbit\Spinner\Contract\ColorMode;
 use AlecRabbit\Spinner\Core\Factory\DefaultsFactory;
+use AlecRabbit\Spinner\Core\Factory\SpinnerFactory;
 use AlecRabbit\Spinner\Core\Output\StreamOutput;
-use AlecRabbit\Spinner\Factory;
 
 require_once __DIR__ . '/../bootstrap.async.php';
 
@@ -18,7 +18,7 @@ $terminal->setWidth(80);
 
 $output = new StreamOutput(STDOUT);
 
-$loop = Factory::getLoop();
+$loop = SpinnerFactory::getLoop();
 
 $output->writeln(
     sprintf(
