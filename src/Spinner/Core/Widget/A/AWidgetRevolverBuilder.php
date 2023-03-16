@@ -12,8 +12,8 @@ use AlecRabbit\Spinner\Core\Widget\WidgetRevolver;
 
 abstract class AWidgetRevolverBuilder implements IWidgetRevolverBuilder
 {
-    protected ?IRevolver $styleRevolver;
-    protected ?IRevolver $charRevolver;
+    protected ?IRevolver $styleRevolver = null;
+    protected ?IRevolver $charRevolver = null;
 
     public function __construct(
         protected IDefaults $defaults,
