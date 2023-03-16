@@ -1,6 +1,6 @@
 <?php
 
-const SRC = __DIR__ . '/src';
+const SRC = '/app/src'; // Sources root
 
 $finder = PhpCsFixer\Finder::create()
     ->in(SRC)

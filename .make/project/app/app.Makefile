@@ -13,7 +13,7 @@ app_save: app_php_cs_fixer_run app_deptrac_run
 
 app_php_cs_fixer_run:
 	@${_ECHO} "\n${_C_SELECT} ${PROJECT_NAME} ${_C_STOP} ${_C_INFO}PHP-CS-Fixer run...${_C_STOP}\n";
-	@-${_DC_EXEC} ${APP_CONTAINER} php-cs-fixer fix --allow-risky=yes
+	@-${_DC_EXEC} ${APP_CONTAINER} php-cs-fixer fix --config=${APP_DIR}/.tools/.php-cs-fixer/.php-cs-fixer.dist.php --cache-file=${APP_DIR}/.tools/.php-cs-fixer/.php-cs-fixer.cache --allow-risky=yes -vvv
 	@#-${_DC_EXEC} ${APP_CONTAINER} php-cs-fixer fix --config=${APP_DIR}/.tools/.php-cs-fixer/.php_cs.dist --verbose --dry-run --diff --using-cache=no --allow-risky=yes --path-mode=intersection --show-progress=none --stop-on-violation --ansi
 	@${_ECHO};
 
