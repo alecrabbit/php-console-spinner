@@ -33,14 +33,11 @@ abstract class AConfigBuilder implements IConfigBuilder
     protected ?IRevolver $widgetRevolver = null;
     protected ?IFrame $leadingSpacer = null;
     protected ?IFrame $trailingSpacer = null;
-    protected ?bool $hideCursor = null;
-    protected ?bool $createInitialized = null;
     protected ?bool $inSynchronousMode = null;
     protected ?bool $autoStartEnabled = null;
     protected ?bool $signalHandlersEnabled = null;
     protected ?string $interruptMessage = null;
     protected ?string $finalMessage = null;
-    protected ?IOutput $output = null;
     protected ?IRevolver $rootWidgetStyleRevolver = null;
     protected ?IRevolver $rootWidgetCharRevolver = null;
     protected ?iterable $widgets = null;
@@ -69,27 +66,6 @@ abstract class AConfigBuilder implements IConfigBuilder
         return $clone;
     }
 
-    public function withInterruptMessage(string $interruptMessage): self
-    {
-        $clone = clone $this;
-        $clone->interruptMessage = $interruptMessage;
-        return $clone;
-    }
-
-    public function withFinalMessage(string $finalMessage): self
-    {
-        $clone = clone $this;
-        $clone->finalMessage = $finalMessage;
-        return $clone;
-    }
-
-    public function withCursor(): self
-    {
-        $clone = clone $this;
-        $clone->hideCursor = false;
-        return $clone;
-    }
-
     public function withWidgets(iterable $widgets): static
     {
         $clone = clone $this;
@@ -111,18 +87,6 @@ abstract class AConfigBuilder implements IConfigBuilder
         return $clone;
     }
 
-//    /**
-//     * @throws LogicException
-//     * @throws InvalidArgumentException
-//     */
-//    protected function createSpinnerCharRevolver(IPattern $spinnerCharPattern): IRevolver
-//    {
-//        return
-//            (new RevolverBuilder())
-//                ->withPattern($spinnerCharPattern)
-//                ->build();
-//    }
-
     /**
      * @throws LogicException
      * @throws InvalidArgumentException
@@ -136,7 +100,7 @@ abstract class AConfigBuilder implements IConfigBuilder
                 driver: $this->driver,
                 timer: $this->timer,
                 rootWidget: $this->rootWidget,
-                createInitialized: $this->createInitialized,
+                createInitialized: $this->defaults->isCreateInitialized(),
                 synchronous: $this->inSynchronousMode,
                 autoStart: $this->autoStartEnabled,
                 attachSignalHandlers: $this->signalHandlersEnabled,
@@ -151,16 +115,13 @@ abstract class AConfigBuilder implements IConfigBuilder
     protected function processDefaults(): void
     {
         $this->timer ??= new Timer();
-        $this->hideCursor ??= $this->defaults->getTerminalSettings()->isHideCursor();
-        $this->createInitialized ??= $this->defaults->isCreateInitialized();
         $this->inSynchronousMode ??= $this->defaults->isModeSynchronous();
         $this->autoStartEnabled ??= $this->defaults->isAutoStartEnabled();
         $this->signalHandlersEnabled ??= $this->defaults->areSignalHandlersEnabled();
         $this->interruptMessage ??= $this->defaults->getDriverSettings()->getInterruptMessage();
         $this->finalMessage ??= $this->defaults->getDriverSettings()->getFinalMessage();
 
-        $this->output ??= $this->createOutput();
-        $this->driver ??= $this->createDriver();
+        $this->driver ??= $this->createDriver($this->createOutput());
 
         $this->rootWidgetStylePattern ??=
             $this->defaults->getRootWidgetSettings()->getStylePattern() ?? $this->defaults->getStylePattern();
@@ -203,23 +164,14 @@ abstract class AConfigBuilder implements IConfigBuilder
             new StreamOutput($this->defaults->getOutputStream());
     }
 
-    protected function createDriver(): IDriver
+    protected function createDriver(IOutput $output): IDriver
     {
         return
             new Driver(
-                output: $this->output,
-                hideCursor: $this->hideCursor,
+                output: $output,
+                hideCursor: $this->defaults->getTerminalSettings()->isHideCursor(),
                 interruptMessage: $this->interruptMessage,
                 finalMessage: $this->finalMessage,
             );
     }
-
-//    protected function createWidgetRevolver(IRevolver $spinnerStyleRevolver, IRevolver $spinnerCharRevolver): IRevolver
-//    {
-//        return
-//            new WidgetRevolver(
-//                style: $spinnerStyleRevolver,
-//                character: $spinnerCharRevolver,
-//            );
-//    }
 }
