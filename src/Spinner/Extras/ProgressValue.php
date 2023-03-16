@@ -8,5 +8,4 @@ use AlecRabbit\Spinner\Extras\A\AProgressValue;
 
 final class ProgressValue extends AProgressValue
 {
-
 }

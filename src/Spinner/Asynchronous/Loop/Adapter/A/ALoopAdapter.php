@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 // 18.02.23
+
 namespace AlecRabbit\Spinner\Asynchronous\Loop\Adapter\A;
 
 use AlecRabbit\Spinner\Core\Contract\ILoopAdapter;

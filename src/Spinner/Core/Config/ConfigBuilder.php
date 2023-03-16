@@ -8,5 +8,4 @@ use AlecRabbit\Spinner\Core\Config\A\AConfigBuilder;
 
 final class ConfigBuilder extends AConfigBuilder
 {
-
 }

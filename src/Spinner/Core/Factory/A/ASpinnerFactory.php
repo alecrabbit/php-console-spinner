@@ -19,9 +19,10 @@ use AlecRabbit\Spinner\Exception\DomainException;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Helper\Asserter;
 
-abstract class ASpinnerFactory extends ADefaultsAwareClass implements ISpinnerFactory,
-                                                                      IConfigBuilderGetter,
-                                                                      ILoopGetter
+abstract class ASpinnerFactory extends ADefaultsAwareClass implements
+    ISpinnerFactory,
+    IConfigBuilderGetter,
+    ILoopGetter
 {
     protected static IConfig $config;
 
@@ -57,7 +58,7 @@ abstract class ASpinnerFactory extends ADefaultsAwareClass implements ISpinnerFa
     private static function doCreateSpinner(IConfig $config): ISpinner
     {
         return
-            new class(
+            new class (
                 $config->getDriver(),
                 $config->getTimer(),
                 $config->getRootWidget(),

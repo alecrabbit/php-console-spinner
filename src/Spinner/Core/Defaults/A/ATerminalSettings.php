@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 // 09.03.23
+
 namespace AlecRabbit\Spinner\Core\Defaults\A;
 
 use AlecRabbit\Spinner\Contract\ColorMode;
@@ -29,7 +30,7 @@ abstract class ATerminalSettings extends ADefaultsChild implements ITerminalSett
     ): static {
         if (null === self::$instance) {
             self::$instance =
-                new class($parent, $colorMode, $width, $hideCursor) extends ATerminalSettings {
+                new class ($parent, $colorMode, $width, $hideCursor) extends ATerminalSettings {
                 };
         }
         return self::$instance;

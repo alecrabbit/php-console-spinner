@@ -8,5 +8,4 @@ use AlecRabbit\Spinner\Core\Factory\A\ASpinnerFactory;
 
 final class Factory extends ASpinnerFactory
 {
-
 }

@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 // 11.03.23
+
 namespace AlecRabbit\Spinner\Extras\Procedure\Mixin;
 
 use AlecRabbit\Spinner\Exception\DomainException;

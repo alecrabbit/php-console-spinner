@@ -41,5 +41,4 @@ abstract readonly class AProgressBarSprite implements IProgressBarSprite
     {
         return $this->close;
     }
-
 }

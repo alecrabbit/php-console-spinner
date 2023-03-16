@@ -43,5 +43,4 @@ abstract class AWidgetRevolver extends ARevolver
     {
         return FrameFactory::createEmpty(); // should never be called
     }
-
 }

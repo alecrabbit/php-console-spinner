@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 // 15.03.23
+
 namespace AlecRabbit\Spinner\Core\Defaults\A;
 
 use AlecRabbit\Spinner\Contract\IFrame;
@@ -36,7 +37,7 @@ abstract class AWidgetSettings extends ADefaultsChild implements IWidgetSettings
     {
         if (null === self::$widgetSettings) {
             self::$widgetSettings =
-                new class($parent) extends AWidgetSettings {
+                new class ($parent) extends AWidgetSettings {
                 };
         }
         return self::$widgetSettings;

@@ -10,5 +10,4 @@ use AlecRabbit\Spinner\Core\Defaults\A\ADefaults;
 // TODO is it necessary?
 abstract class ALoopAwareDefaults extends ADefaults implements ILoopAwareDefaults
 {
-
 }

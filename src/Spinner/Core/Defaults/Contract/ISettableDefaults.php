@@ -48,4 +48,4 @@ interface ISettableDefaults
     public function setStylePattern(IPattern $spinnerStylePattern): static;
 
     public function setCharPattern(IPattern $spinnerCharPattern): static;
-    }
+}

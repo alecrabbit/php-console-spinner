@@ -37,7 +37,7 @@ abstract class ADefaultsClasses extends ADefaultsChild implements IDefaultsClass
     {
         if (null === self::$instance) {
             self::$instance =
-                new class($parent) extends ADefaultsClasses {
+                new class ($parent) extends ADefaultsClasses {
                 };
         }
         return self::$instance;

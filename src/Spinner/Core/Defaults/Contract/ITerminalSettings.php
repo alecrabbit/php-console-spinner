@@ -2,13 +2,14 @@
 
 declare(strict_types=1);
 // 09.03.23
+
 namespace AlecRabbit\Spinner\Core\Defaults\Contract;
 
 use AlecRabbit\Spinner\Contract\ColorMode;
 
 interface ITerminalSettings extends IDefaultsChild
 {
-    public static function getInstance(IDefaults $parent, ColorMode $colorMode, int $width, bool $hideCursor,): static;
+    public static function getInstance(IDefaults $parent, ColorMode $colorMode, int $width, bool $hideCursor): static;
 
     public function getWidth(): int;
 

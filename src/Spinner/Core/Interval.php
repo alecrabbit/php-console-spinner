@@ -8,5 +8,4 @@ use AlecRabbit\Spinner\Core\A\AInterval;
 
 final class Interval extends AInterval
 {
-
 }

@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 // 15.03.23
+
 namespace AlecRabbit\Spinner\Core\Defaults\A;
 
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDefaults;
@@ -28,7 +29,7 @@ abstract class ADriverSettings extends ADefaultsChild implements IDriverSettings
     {
         if (null === self::$instance) {
             self::$instance =
-                new class($parent) extends ADriverSettings {
+                new class ($parent) extends ADriverSettings {
                 };
         }
         return self::$instance;

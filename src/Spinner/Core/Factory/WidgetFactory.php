@@ -8,5 +8,4 @@ use AlecRabbit\Spinner\Core\Factory\A\AWidgetFactory;
 
 final class WidgetFactory extends AWidgetFactory
 {
-
 }

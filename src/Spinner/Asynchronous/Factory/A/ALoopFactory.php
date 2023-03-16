@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 // 17.02.23
+
 namespace AlecRabbit\Spinner\Asynchronous\Factory\A;
 
 use AlecRabbit\Spinner\Core\Contract\ILoopAdapter;

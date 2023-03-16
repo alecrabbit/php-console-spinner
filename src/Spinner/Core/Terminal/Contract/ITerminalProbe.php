@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 // 09.03.23
+
 namespace AlecRabbit\Spinner\Core\Terminal\Contract;
 
 use AlecRabbit\Spinner\Contract\ColorMode;
@@ -9,9 +10,9 @@ use AlecRabbit\Spinner\Contract\IProbe;
 
 interface ITerminalProbe extends IProbe
 {
-    public final const TERMINAL_DEFAULT_HIDE_CURSOR = true;
-    public final const TERMINAL_DEFAULT_WIDTH = 100;
-    public final const TERMINAL_DEFAULT_COLOR_SUPPORT = ColorMode::ANSI8;
+    final public const TERMINAL_DEFAULT_HIDE_CURSOR = true;
+    final public const TERMINAL_DEFAULT_WIDTH = 100;
+    final public const TERMINAL_DEFAULT_COLOR_SUPPORT = ColorMode::ANSI8;
 
     public static function getWidth(): int;
 

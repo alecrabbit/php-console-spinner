@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 // 17.02.23
+
 namespace AlecRabbit\Spinner\Asynchronous\Loop\Adapter;
 
 use AlecRabbit\Spinner\Asynchronous\Loop\Adapter\A\ALoopAdapter;
@@ -25,7 +26,7 @@ class ReactLoopAdapter extends ALoopAdapter
         $this->spinnerTimer =
             $this->loop->addPeriodicTimer(
                 $spinner->getInterval()->toSeconds(),
-                static fn() => $spinner->spin()
+                static fn () => $spinner->spin()
             );
     }
 

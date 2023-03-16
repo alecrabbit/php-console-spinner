@@ -16,5 +16,4 @@ interface IFloatValue extends IValue
     public function getMin(): float;
 
     public function getMax(): float;
-
 }

@@ -22,7 +22,7 @@ abstract class ATimer implements ITimer
         $this->timeFunction =
             $timeFunction
             ??
-            static fn() => hrtime(true) * self::COEFFICIENT; // returns milliseconds
+            static fn () => hrtime(true) * self::COEFFICIENT; // returns milliseconds
     }
 
     public function elapsed(): float

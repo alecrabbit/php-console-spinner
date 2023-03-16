@@ -8,5 +8,4 @@ use AlecRabbit\Spinner\Core\A\AFrame;
 
 final readonly class Frame extends AFrame
 {
-
 }

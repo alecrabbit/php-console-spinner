@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 // 24.02.23
+
 namespace AlecRabbit\Spinner\Extras\A;
 
 use AlecRabbit\Spinner\Contract\IFrame;
@@ -122,5 +123,4 @@ abstract class AProgressWidgetFactory extends AWidgetFactory implements IProgres
                 $trailingSpacer
             );
     }
-
 }

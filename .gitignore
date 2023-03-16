@@ -8,3 +8,4 @@
 docker-stack.yml
 .env
 .php-cs-fixer.php
+.php-cs-fixer.cache

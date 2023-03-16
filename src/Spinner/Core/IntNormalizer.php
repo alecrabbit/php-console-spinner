@@ -2,8 +2,8 @@
 
 declare(strict_types=1);
 // 14.03.23
-namespace AlecRabbit\Spinner\Core;
 
+namespace AlecRabbit\Spinner\Core;
 
 use AlecRabbit\Spinner\Contract\IIntNormalizer;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;

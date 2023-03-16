@@ -29,5 +29,4 @@ interface IWidgetFactory
         ?IFrame $leadingSpacer = null,
         ?IFrame $trailingSpacer = null,
     ): IWidgetComposite;
-
 }

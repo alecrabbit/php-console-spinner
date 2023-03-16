@@ -9,8 +9,6 @@ use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolverBuilder;
 
 interface IWidgetRevolverBuilder extends IRevolverBuilder
 {
-
-
     public function withStyleRevolver(?IFrameCollectionRevolver $styleRevolver): static;
 
     public function withCharRevolver(IFrameCollectionRevolver $charRevolver): static;

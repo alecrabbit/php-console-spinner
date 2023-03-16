@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 // 20.06.22
+
 namespace AlecRabbit\Spinner\Core\Defaults\A;
 
 use AlecRabbit\Spinner\Contract\IFrame;
@@ -30,7 +31,7 @@ abstract class ADefaults extends ASettableDefaults
     {
         if (null === self::$instance) {
             self::$instance =
-                new class() extends ADefaults {
+                new class () extends ADefaults {
                 };
         }
         return self::$instance;

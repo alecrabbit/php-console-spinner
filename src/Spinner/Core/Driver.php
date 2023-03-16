@@ -8,5 +8,4 @@ use AlecRabbit\Spinner\Core\A\ADriver;
 
 final readonly class Driver extends ADriver
 {
-
 }

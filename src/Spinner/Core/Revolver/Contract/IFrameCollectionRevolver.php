@@ -8,5 +8,4 @@ use ArrayAccess;
 
 interface IFrameCollectionRevolver extends IRevolver, ArrayAccess
 {
-
 }

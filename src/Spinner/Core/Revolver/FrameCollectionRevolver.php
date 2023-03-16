@@ -8,5 +8,4 @@ use AlecRabbit\Spinner\Core\Revolver\A\AFrameCollectionRevolver;
 
 final class FrameCollectionRevolver extends AFrameCollectionRevolver
 {
-
 }

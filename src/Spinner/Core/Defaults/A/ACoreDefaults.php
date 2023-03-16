@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 // 10.03.23
+
 namespace AlecRabbit\Spinner\Core\Defaults\A;
 
 use AlecRabbit\Spinner\Contract\IFrame;
@@ -167,5 +168,4 @@ abstract class ACoreDefaults implements IDefaults
             self::$registeredTerminalProbes[] = $class;
         }
     }
-
 }

@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 // 09.03.23
+
 namespace AlecRabbit\Spinner\Extras\Procedure;
 
 use AlecRabbit\Spinner\Contract\IFrame;
@@ -19,7 +20,7 @@ final class TmpProceduralStylePattern extends AProceduralStylePattern
 
     public function getProcedure(): IProcedure
     {
-        return new class() extends AProcedure {
+        return new class () extends AProcedure {
             public function update(float $dt = null): IFrame
             {
                 static $odd = true;
