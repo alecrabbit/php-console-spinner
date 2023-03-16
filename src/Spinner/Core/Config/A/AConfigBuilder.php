@@ -40,8 +40,8 @@ abstract class AConfigBuilder implements IConfigBuilder
     protected ?IRevolver $rootWidgetStyleRevolver = null;
     protected ?IRevolver $rootWidgetCharRevolver = null;
     protected ?iterable $widgets = null;
-    protected ?IWidgetBuilder $widgetBuilder = null;
-    protected ?IWidgetRevolverBuilder $widgetRevolverBuilder = null;
+    protected IWidgetBuilder $widgetBuilder;
+    protected IWidgetRevolverBuilder $widgetRevolverBuilder;
     protected ?IWidgetComposite $rootWidget = null;
     protected ?IPattern $rootWidgetStylePattern = null;
     protected ?IPattern $rootWidgetCharPattern = null;
