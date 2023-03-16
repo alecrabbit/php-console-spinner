@@ -174,7 +174,6 @@ RUN set -eux \
     ## // install php-cs-fixer \
     && phive install php-cs-fixer --trust-gpg-keys ${PHP_CS_FIXER_VERSION_KEY} --target /usr/local/bin \
     ## // install psalm \
-#    && phive install psalm --target /usr/local/bin \
     && phive install psalm --trust-gpg-keys ${PSALM_VERSION_KEY} --target /usr/local/bin \
     ## // cleanup
     && apk del --no-cache .php-build-deps \
