@@ -17,10 +17,10 @@ abstract readonly class AConfig implements IConfig
         protected ITimer $timer,
         protected IWidgetComposite $rootWidget,
         protected bool $createInitialized,
+        protected iterable $widgets,
         protected RunMode $runMode,
         protected bool $autoStart,
         protected bool $attachSignalHandlers,
-        protected iterable $widgets,
     ) {
     }
 

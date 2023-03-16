@@ -15,7 +15,6 @@ use AlecRabbit\Spinner\Core\Factory\WidgetFactory;
 use AlecRabbit\Spinner\Core\Output\Contract\IOutput;
 use AlecRabbit\Spinner\Core\Output\StreamOutput;
 use AlecRabbit\Spinner\Core\Pattern\Contract\IPattern;
-use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
 use AlecRabbit\Spinner\Core\Timer;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetBuilder;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
@@ -26,13 +25,13 @@ use AlecRabbit\Spinner\Exception\LogicException;
 abstract class AConfigBuilder implements IConfigBuilder
 {
     protected ?bool $autoStartEnabled = null;
+    protected ?IWidgetComposite $rootWidget = null;
+    protected ?IPattern $rootWidgetCharPattern = null;
+    protected ?IPattern $rootWidgetStylePattern = null;
     protected ?bool $signalHandlersEnabled = null;
-    protected iterable $widgets = [];
     protected IWidgetBuilder $widgetBuilder;
     protected IWidgetRevolverBuilder $widgetRevolverBuilder;
-    protected ?IWidgetComposite $rootWidget = null;
-    protected ?IPattern $rootWidgetStylePattern = null;
-    protected ?IPattern $rootWidgetCharPattern = null;
+    protected iterable $widgets = [];
 
     public function __construct(
         protected IDefaults $defaults,
@@ -83,10 +82,10 @@ abstract class AConfigBuilder implements IConfigBuilder
                 timer: new Timer(),
                 rootWidget: $this->rootWidget ?? $this->createRootWidget(),
                 createInitialized: $this->defaults->isCreateInitialized(),
+                widgets: $this->widgets,
                 runMode: $this->defaults->getRunMode(),
                 autoStart: $this->autoStartEnabled,
                 attachSignalHandlers: $this->signalHandlersEnabled,
-                widgets: $this->widgets,
             );
     }
 
