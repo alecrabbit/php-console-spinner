@@ -49,7 +49,9 @@ final class StreamOutput implements IOutput
         if (!is_iterable($messages)) {
             $messages = [$messages];
         }
+        /** @var string $message */
         foreach ($messages as $message) {
+            /** @psalm-suppress RedundantConditionGivenDocblockType */
             if (is_string($message)) {
                 if ($newline) {
                     $message .= PHP_EOL;
