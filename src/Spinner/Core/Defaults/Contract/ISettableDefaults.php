@@ -9,6 +9,10 @@ use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 
 interface ISettableDefaults
 {
+    /**
+     * @param class-string $class
+     * @throws InvalidArgumentException
+     */
     public static function registerProbeClass(string $class): void;
 
     /**

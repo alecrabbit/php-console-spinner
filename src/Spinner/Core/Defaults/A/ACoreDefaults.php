@@ -113,9 +113,7 @@ abstract class ACoreDefaults implements IDefaults
 
     abstract protected function createWidgetSettings(): IWidgetSettings;
 
-    /**
-     * @throws InvalidArgumentException
-     */
+    /** @inheritdoc */
     public static function registerProbeClass(string $class): void
     {
         Asserter::classExists($class, __METHOD__);
