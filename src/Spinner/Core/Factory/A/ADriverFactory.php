@@ -1,0 +1,41 @@
+<?php
+declare(strict_types=1);
+// 17.03.23
+namespace AlecRabbit\Spinner\Core\Factory\A;
+
+use AlecRabbit\Spinner\Core\Contract\IDriverBuilder;
+use AlecRabbit\Spinner\Core\Defaults\Contract\IDefaults;
+use AlecRabbit\Spinner\Core\Factory\Contract\IDriverFactory;
+
+abstract class ADriverFactory extends ADefaultsAwareClass implements IDriverFactory
+{
+    protected static ?IDriverBuilder $driverBuilder = null;
+
+    public static function getDriverBuilder(?IDefaults $defaults = null): IDriverBuilder
+    {
+        if (null === static::$driverBuilder) {
+            static::$driverBuilder = self::createWidgetBuilder($defaults);
+        }
+        return static::$driverBuilder;
+    }
+//    public static function getWidgetBuilder(?IDefaults $defaults = null): IWidgetBuilder
+//    {
+//        if (null === static::$widgetBuilder) {
+//            static::$widgetBuilder = self::createWidgetBuilder($defaults);
+//        }
+//        return static::$widgetBuilder;
+//    }
+//
+//    protected static function createWidgetBuilder(?IDefaults $defaults): IWidgetBuilder
+//    {
+//        $defaults ??= static::getDefaults();
+//
+//        $widgetBuilderClass = $defaults->getClasses()->getWidgetBuilderClass();
+//
+//        return
+//            new $widgetBuilderClass(
+//                static::getDefaults(),
+//                static::getWidgetRevolverBuilder($defaults),
+//            );
+//    }
+}
