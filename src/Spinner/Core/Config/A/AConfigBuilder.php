@@ -100,13 +100,20 @@ abstract class AConfigBuilder implements IConfigBuilder
     protected function createDriver(): IDriver
     {
         return
-            new Driver(
-                output: new StreamOutput($this->defaults->getOutputStream()),
-                timer: new Timer(),
-                hideCursor: $this->defaults->getTerminalSettings()->isHideCursor(),
-                interruptMessage: $this->defaults->getDriverSettings()->getInterruptMessage(),
-                finalMessage: $this->defaults->getDriverSettings()->getFinalMessage(),
-            );
+            $this->driverBuilder
+                ->withOutput(new StreamOutput($this->defaults->getOutputStream()))
+                ->withTimer(new Timer())
+                ->withTerminalSettings($this->defaults->getTerminalSettings())
+                ->withDriverSettings($this->defaults->getDriverSettings())
+                ->build();
+//        return
+//            new Driver(
+//                output: new StreamOutput($this->defaults->getOutputStream()),
+//                timer: new Timer(),
+//                hideCursor: $this->defaults->getTerminalSettings()->isHideCursor(),
+//                interruptMessage: $this->defaults->getDriverSettings()->getInterruptMessage(),
+//                finalMessage: $this->defaults->getDriverSettings()->getFinalMessage(),
+//            );
     }
 
     private function createRootWidget(): IWidgetComposite

@@ -19,19 +19,6 @@ abstract class ADriverFactory extends ADefaultsAwareClass implements IDriverFact
         return static::$driverBuilder;
     }
 
-//
-//    protected static function createWidgetBuilder(?IDefaults $defaults): IWidgetBuilder
-//    {
-//        $defaults ??= static::getDefaults();
-//
-//        $widgetBuilderClass = $defaults->getClasses()->getWidgetBuilderClass();
-//
-//        return
-//            new $widgetBuilderClass(
-//                static::getDefaults(),
-//                static::getWidgetRevolverBuilder($defaults),
-//            );
-//    }
     protected static function createDriverBuilder(?IDefaults $defaults): IDriverBuilder
     {
         $defaults ??= static::getDefaults();
