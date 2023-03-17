@@ -105,8 +105,8 @@ abstract class AFrameCollectionRevolver extends ARevolver implements IFrameColle
         $this->assertOffsetType($offset);
         /** @var ?IFrame $value */
         $value = $this->frames[$offset] ?? null;
-        return
-            $value;
+        /** @psalm-suppress InvalidReturnStatement */
+        return $value;
     }
 //    /**
 //     * @throws InvalidArgumentException

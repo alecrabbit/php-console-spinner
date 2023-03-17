@@ -1,4 +1,0 @@
-/app/src/Spinner/Core/Revolver/A/AFrameCollectionRevolver.php:109:13:error - InvalidReturnStatement: The inferred type 'AlecRabbit\Spinner\Contract\IFrame|null' does not match the declared return type '(T:AlecRabbit\Spinner\Core\Revolver\A\AFrameCollectionRevolver as AlecRabbit\Spinner\Contract\IFrame)|null' for AlecRabbit\Spinner\Core\Revolver\A\AFrameCollectionRevolver::offsetGet
-/app/src/Spinner/Core/StyleFramesRenderer.php:28:62:error - MixedArgument: Argument 2 of sprintf cannot be mixed, expecting float|int|string
-/app/src/Spinner/Extras/Procedure/ProgressFrameProcedure.php:50:53:error - MixedInferredReturnType: Could not verify return type 'string' for AlecRabbit\Spinner\Extras\Procedure\ProgressFrameProcedure::createColumn
-/app/src/Spinner/Extras/Procedure/ProgressFrameProcedure.php:54:13:error - MixedReturnStatement: Could not infer a return type

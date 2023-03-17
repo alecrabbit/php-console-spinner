@@ -12,6 +12,7 @@ use AlecRabbit\Spinner\Extras\Procedure\A\AProgressValueProcedure;
 /** @psalm-suppress UnusedClass */
 final class ProgressFrameProcedure extends AProgressValueProcedure
 {
+    /** @var string[] */
     private const FRAMES = [
         ' ',
         '▁',
@@ -27,7 +28,7 @@ final class ProgressFrameProcedure extends AProgressValueProcedure
 
     public function __construct(
         IProgressValue $progressValue,
-        protected array $frames = self::FRAMES, // TODO (2023-01-26 14:45) [Alec Rabbit]: remove array type -> use smth like "IFramesCollection"
+        protected array $frames = self::FRAMES // TODO (2023-01-26 14:45) [Alec Rabbit]: remove array type -> use smth like "IFramesCollection"
     )
     {
         parent::__construct($progressValue);
@@ -51,6 +52,6 @@ final class ProgressFrameProcedure extends AProgressValueProcedure
     {
         $p = (int)($progress * $this->steps);
         return
-            $this->frames[$p]; // TODO (2023-01-26 14:45) [Alec Rabbit]: return IFrame from "IFramesCollection"
+            (string)$this->frames[$p]; // TODO (2023-01-26 14:45) [Alec Rabbit]: return IFrame from "IFramesCollection"
     }
 }

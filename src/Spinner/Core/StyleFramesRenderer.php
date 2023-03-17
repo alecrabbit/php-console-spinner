@@ -25,7 +25,7 @@ final class StyleFramesRenderer extends AFramesRenderer
 
         return
             FrameFactory::create(
-                Sequencer::colorSequence(sprintf('38;5;%sm', $entry) . '%s'),
+                Sequencer::colorSequence(sprintf('38;5;%sm', (string)$entry) . '%s'),
                 0
             );
     }
