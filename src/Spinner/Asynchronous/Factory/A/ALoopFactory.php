@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Asynchronous\Factory\A;
 
+use AlecRabbit\Spinner\Contract\IProbe;
 use AlecRabbit\Spinner\Core\Contract\ILoopAdapter;
 use AlecRabbit\Spinner\Core\Contract\ILoopProbe;
 use AlecRabbit\Spinner\Core\Factory\A\ADefaultsAwareClass;
@@ -28,6 +29,7 @@ abstract class ALoopFactory extends ADefaultsAwareClass implements ILoopFactory
 
     protected static function createLoop(): ILoopAdapter
     {
+        /** @var class-string<IProbe> $probe */
         foreach (static::getProbeClasses() as $probe) {
             if (is_subclass_of($probe, ILoopProbe::class) && $probe::isSupported()) {
                 return $probe::createLoop();

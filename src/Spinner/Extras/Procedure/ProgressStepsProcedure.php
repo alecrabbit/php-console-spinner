@@ -26,7 +26,7 @@ final class ProgressStepsProcedure extends AProgressValueProcedure
             if ($this->finishedDelay < 0) {
                 return FrameFactory::createEmpty();
             }
-            $this->finishedDelay -= $dt;
+            $this->finishedDelay -= $dt ?? 0.0;
         }
         $v = $this->createSteps($this->progressValue);
         return

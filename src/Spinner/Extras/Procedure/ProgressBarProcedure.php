@@ -58,7 +58,7 @@ final class ProgressBarProcedure extends AProgressValueProcedure
             if ($this->finishedDelay < 0) {
                 return FrameFactory::createEmpty();
             }
-            $this->finishedDelay -= $dt;
+            $this->finishedDelay -= $dt ?? 0.0;
         }
         $v = $this->createBar($this->progressValue->getValue());
         return

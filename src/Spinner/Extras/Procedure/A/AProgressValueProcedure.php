@@ -27,7 +27,7 @@ abstract class AProgressValueProcedure extends AFloatValueProcedure
             if ($this->finishedDelay < 0) {
                 return FrameFactory::createEmpty();
             }
-            $this->finishedDelay -= $dt;
+            $this->finishedDelay -= $dt ?? 0.0;
         }
         $v = sprintf(
             $this->format,

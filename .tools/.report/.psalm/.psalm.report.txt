@@ -1,65 +1,57 @@
-/app/src/Spinner/Asynchronous/Factory/A/ALoopFactory.php:31:47:warning - MixedAssignment: Unable to determine the type that $probe is being assigned to
-/app/src/Spinner/Asynchronous/Factory/A/ALoopFactory.php:32:32:warning - MixedArgument: Argument 1 of is_subclass_of cannot be mixed, expecting object|string
-/app/src/Spinner/Asynchronous/Loop/Adapter/A/ALoopAdapter.php:32:31:warning - MixedAssignment: Unable to determine the type that $signal is being assigned to
-/app/src/Spinner/Asynchronous/Loop/Adapter/A/ALoopAdapter.php:32:42:warning - MixedAssignment: Unable to determine the type that $handler is being assigned to
-/app/src/Spinner/Asynchronous/Loop/Adapter/A/ALoopAdapter.php:33:29:warning - MixedArgument: Argument 1 of AlecRabbit\Spinner\Asynchronous\Loop\Adapter\A\ALoopAdapter::onSignal cannot be mixed, expecting int
-/app/src/Spinner/Asynchronous/Loop/Adapter/A/ALoopAdapter.php:33:38:warning - MixedArgument: Argument 2 of AlecRabbit\Spinner\Asynchronous\Loop\Adapter\A\ALoopAdapter::onSignal cannot be mixed, expecting Closure
-/app/src/Spinner/Asynchronous/Loop/Adapter/ReactLoopAdapter.php:62:41:warning - MixedArgument: Argument 2 of React\EventLoop\LoopInterface::addSignal cannot be mixed, expecting callable
-/app/src/Spinner/Asynchronous/Loop/Adapter/RevoltLoopAdapter.php:42:38:warning - MixedArgumentTypeCoercion: Argument 2 of Revolt\EventLoop::repeat expects Closure(string):void, but parent type Closure provided
-/app/src/Spinner/Asynchronous/Loop/Adapter/RevoltLoopAdapter.php:70:34:warning - MixedArgumentTypeCoercion: Argument 2 of Revolt\EventLoop::delay expects Closure(string):void, but parent type Closure provided
-/app/src/Spinner/Asynchronous/Loop/Adapter/RevoltLoopAdapter.php:92:38:warning - MixedArgumentTypeCoercion: Argument 2 of Revolt\EventLoop::onSignal expects Closure(string, int):void, but parent type Closure provided
-/app/src/Spinner/Core/A/AFramesRenderer.php:27:50:warning - MixedAssignment: Unable to determine the type that $entry is being assigned to
-/app/src/Spinner/Core/A/ASpinner.php:88:68:warning - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContext' for AlecRabbit\Spinner\Core\A\ASpinner::add
-/app/src/Spinner/Core/A/ASpinner.php:95:16:warning - MixedReturnStatement: Could not infer a return type
-/app/src/Spinner/Core/A/ATimer.php:28:32:warning - MixedInferredReturnType: Could not verify return type 'float' for AlecRabbit\Spinner\Core\A\ATimer::elapsed
-/app/src/Spinner/Core/A/ATimer.php:31:9:warning - MixedAssignment: Unable to determine the type that $this->time is being assigned to
-/app/src/Spinner/Core/A/ATimer.php:32:16:warning - MixedOperand: Left operand cannot be mixed
-/app/src/Spinner/Core/A/ATimer.php:32:16:warning - MixedReturnStatement: Could not infer a return type
-/app/src/Spinner/Core/Defaults/A/ACoreDefaults.php:73:9:warning - MixedAssignment: Unable to determine the type that AlecRabbit\Spinner\Core\Defaults\A\ACoreDefaults::$attachSignalHandlers is being assigned to
-/app/src/Spinner/Core/Defaults/A/ACoreDefaults.php:74:9:warning - MixedAssignment: Unable to determine the type that AlecRabbit\Spinner\Core\Defaults\A\ACoreDefaults::$autoStartEnabled is being assigned to
-/app/src/Spinner/Core/Defaults/A/ACoreDefaults.php:75:9:warning - MixedAssignment: Unable to determine the type that AlecRabbit\Spinner\Core\Defaults\A\ACoreDefaults::$createInitialized is being assigned to
-/app/src/Spinner/Core/Defaults/A/ACoreDefaults.php:76:9:warning - MixedAssignment: Unable to determine the type that AlecRabbit\Spinner\Core\Defaults\A\ACoreDefaults::$messageOnExit is being assigned to
-/app/src/Spinner/Core/Defaults/A/ACoreDefaults.php:77:9:warning - MixedAssignment: Unable to determine the type that AlecRabbit\Spinner\Core\Defaults\A\ACoreDefaults::$messageOnFinalize is being assigned to
-/app/src/Spinner/Core/Defaults/A/ACoreDefaults.php:78:9:warning - MixedAssignment: Unable to determine the type that AlecRabbit\Spinner\Core\Defaults\A\ACoreDefaults::$messageOnInterrupt is being assigned to
-/app/src/Spinner/Core/Defaults/A/ACoreDefaults.php:79:9:warning - MixedAssignment: Unable to determine the type that AlecRabbit\Spinner\Core\Defaults\A\ACoreDefaults::$millisecondsInterval is being assigned to
-/app/src/Spinner/Core/Defaults/A/ACoreDefaults.php:80:9:warning - MixedAssignment: Unable to determine the type that AlecRabbit\Spinner\Core\Defaults\A\ACoreDefaults::$percentNumberFormat is being assigned to
-/app/src/Spinner/Core/Defaults/A/ACoreDefaults.php:81:9:warning - MixedAssignment: Unable to determine the type that AlecRabbit\Spinner\Core\Defaults\A\ACoreDefaults::$runMode is being assigned to
-/app/src/Spinner/Core/Defaults/A/ACoreDefaults.php:82:9:warning - MixedAssignment: Unable to determine the type that AlecRabbit\Spinner\Core\Defaults\A\ACoreDefaults::$shutdownDelay is being assigned to
-/app/src/Spinner/Core/Defaults/A/ACoreDefaults.php:83:9:warning - MixedAssignment: Unable to determine the type that AlecRabbit\Spinner\Core\Defaults\A\ACoreDefaults::$shutdownMaxDelay is being assigned to
-/app/src/Spinner/Core/Defaults/A/ACoreDefaults.php:84:57:warning - MixedArgument: Argument 1 of ArrayObject::__construct cannot be mixed, expecting array<mixed, mixed>|null|object
-/app/src/Spinner/Core/Defaults/A/ADefaultsClasses.php:42:9:warning - MixedAssignment: Unable to determine the type that AlecRabbit\Spinner\Core\Defaults\A\ADefaultsClasses::$driverBuilderClass is being assigned to
-/app/src/Spinner/Core/Defaults/A/ADefaultsClasses.php:43:9:warning - MixedAssignment: Unable to determine the type that AlecRabbit\Spinner\Core\Defaults\A\ADefaultsClasses::$widgetBuilderClass is being assigned to
-/app/src/Spinner/Core/Defaults/A/ADefaultsClasses.php:44:9:warning - MixedAssignment: Unable to determine the type that AlecRabbit\Spinner\Core\Defaults\A\ADefaultsClasses::$widgetRevolverBuilderClass is being assigned to
-/app/src/Spinner/Core/Defaults/A/ADriverSettings.php:30:9:warning - MixedAssignment: Unable to determine the type that AlecRabbit\Spinner\Core\Defaults\A\ADriverSettings::$messageOnFinalize is being assigned to
-/app/src/Spinner/Core/Defaults/A/ADriverSettings.php:31:9:warning - MixedAssignment: Unable to determine the type that AlecRabbit\Spinner\Core\Defaults\A\ADriverSettings::$messageOnExit is being assigned to
-/app/src/Spinner/Core/Defaults/A/ADriverSettings.php:32:9:warning - MixedAssignment: Unable to determine the type that AlecRabbit\Spinner\Core\Defaults\A\ADriverSettings::$messageOnInterrupt is being assigned to
-/app/src/Spinner/Core/Defaults/A/ASettableDefaults.php:102:37:warning - MixedAssignment: Unable to determine the type that $probe is being assigned to
-/app/src/Spinner/Core/Defaults/A/ASettableDefaults.php:103:34:warning - MixedArgument: Argument 1 of AlecRabbit\Spinner\Helper\Asserter::isSubClass cannot be mixed, expecting class-string|object
-/app/src/Spinner/Core/Defaults/A/ASettableDefaults.php:112:33:warning - MixedAssignment: Unable to determine the type that $probe is being assigned to
-/app/src/Spinner/Core/Defaults/A/ASettableDefaults.php:113:34:warning - MixedArgument: Argument 1 of AlecRabbit\Spinner\Helper\Asserter::isSubClass cannot be mixed, expecting class-string|object
-/app/src/Spinner/Core/Factory/A/ASpinnerFactory.php:64:69:warning - MixedAssignment: Unable to determine the type that $widget is being assigned to
-/app/src/Spinner/Core/FramesRenderer.php:35:38:warning - MixedArgument: Argument 1 of AlecRabbit\Spinner\Core\Factory\FrameFactory::create cannot be mixed, expecting string
-/app/src/Spinner/Core/FramesRenderer.php:35:49:warning - MixedArgument: Argument 2 of AlecRabbit\Spinner\Core\Factory\FrameFactory::create cannot be mixed, expecting int|null
-/app/src/Spinner/Core/Output/StreamOutput.php:52:31:warning - MixedAssignment: Unable to determine the type that $message is being assigned to
-/app/src/Spinner/Core/Pattern/Style/A/AStylePattern.php:16:37:warning - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Contract\ColorMode' for AlecRabbit\Spinner\Core\Pattern\Style\A\AStylePattern::getColorMode
-/app/src/Spinner/Core/Pattern/Style/A/AStylePattern.php:18:16:warning - MixedReturnStatement: Could not infer a return type
-/app/src/Spinner/Core/Revolver/A/AFrameCollectionRevolver.php:32:29:warning - MixedAssignment: Unable to determine the type that $frame is being assigned to
-/app/src/Spinner/Core/Revolver/A/AFrameCollectionRevolver.php:33:29:warning - MixedArgument: Argument 1 of AlecRabbit\Spinner\Core\Revolver\A\AFrameCollectionRevolver::addFrame cannot be mixed, expecting AlecRabbit\Spinner\Contract\IFrame
-/app/src/Spinner/Core/Revolver/A/AFrameCollectionRevolver.php:102:47:warning - MixedInferredReturnType: Could not verify return type 'T|null' for AlecRabbit\Spinner\Core\Revolver\A\AFrameCollectionRevolver::offsetGet
-/app/src/Spinner/Core/Revolver/A/AFrameCollectionRevolver.php:106:13:warning - MixedReturnStatement: Could not infer a return type
-/app/src/Spinner/Core/Revolver/A/AFrameCollectionRevolver.php:132:35:warning - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Contract\IFrame' for AlecRabbit\Spinner\Core\Revolver\A\AFrameCollectionRevolver::current
-/app/src/Spinner/Core/Revolver/A/AFrameCollectionRevolver.php:134:16:warning - MixedReturnStatement: Could not infer a return type
-/app/src/Spinner/Core/Revolver/A/ARevolver.php:24:9:warning - MixedAssignment: Unable to determine the type that $this->tolerance is being assigned to
-/app/src/Spinner/Core/StyleFramesRenderer.php:28:62:warning - MixedArgument: Argument 2 of sprintf cannot be mixed, expecting float|int|string
-/app/src/Spinner/Core/Widget/A/AWidgetComposite.php:139:13:warning - MixedAssignment: Unable to determine the type that $index is being assigned to
-/app/src/Spinner/Core/Widget/A/AWidgetComposite.php:140:19:warning - MixedArrayOffset: Cannot access value on variable $this->children using mixed offset
-/app/src/Spinner/Core/WidthDeterminer.php:20:55:warning - MixedInferredReturnType: Could not verify return type 'int' for AlecRabbit\Spinner\Core\WidthDeterminer::determine
-/app/src/Spinner/Core/WidthDeterminer.php:25:16:warning - MixedReturnStatement: Could not infer a return type
-/app/src/Spinner/Extras/Procedure/A/AFloatValueProcedure.php:21:9:warning - MixedAssignment: Unable to determine the type that $this->format is being assigned to
-/app/src/Spinner/Extras/Procedure/A/AProgressValueProcedure.php:13:21:warning - InvalidClassConstantType: The type "'%' 3.0f%%'" for AlecRabbit\Spinner\Extras\Procedure\A\AProgressValueProcedure::FORMAT does not satisfy the type "'%s'" inherited from AlecRabbit\Spinner\Extras\Procedure\A\AFloatValueProcedure::FORMAT
-/app/src/Spinner/Extras/Procedure/A/AProgressValueProcedure.php:30:37:warning - PossiblyNullOperand: Right operand cannot be nullable, got float|null
-/app/src/Spinner/Extras/Procedure/ProgressBarProcedure.php:61:37:warning - PossiblyNullOperand: Right operand cannot be nullable, got float|null
-/app/src/Spinner/Extras/Procedure/ProgressFrameProcedure.php:43:37:warning - PossiblyNullOperand: Right operand cannot be nullable, got float|null
-/app/src/Spinner/Extras/Procedure/ProgressFrameProcedure.php:50:53:warning - MixedInferredReturnType: Could not verify return type 'string' for AlecRabbit\Spinner\Extras\Procedure\ProgressFrameProcedure::createColumn
-/app/src/Spinner/Extras/Procedure/ProgressFrameProcedure.php:54:13:warning - MixedReturnStatement: Could not infer a return type
-/app/src/Spinner/Extras/Procedure/ProgressStepsProcedure.php:29:37:warning - PossiblyNullOperand: Right operand cannot be nullable, got float|null
+/app/src/Spinner/Asynchronous/Loop/Adapter/A/ALoopAdapter.php:34:31:error - MixedAssignment: Unable to determine the type that $signal is being assigned to
+/app/src/Spinner/Asynchronous/Loop/Adapter/A/ALoopAdapter.php:35:29:error - MixedArgument: Argument 1 of AlecRabbit\Spinner\Asynchronous\Loop\Adapter\A\ALoopAdapter::onSignal cannot be mixed, expecting int
+/app/src/Spinner/Asynchronous/Loop/Adapter/ReactLoopAdapter.php:62:41:error - MixedArgument: Argument 2 of React\EventLoop\LoopInterface::addSignal cannot be mixed, expecting callable
+/app/src/Spinner/Asynchronous/Loop/Adapter/RevoltLoopAdapter.php:42:38:error - MixedArgumentTypeCoercion: Argument 2 of Revolt\EventLoop::repeat expects Closure(string):void, but parent type Closure provided
+/app/src/Spinner/Asynchronous/Loop/Adapter/RevoltLoopAdapter.php:70:34:error - MixedArgumentTypeCoercion: Argument 2 of Revolt\EventLoop::delay expects Closure(string):void, but parent type Closure provided
+/app/src/Spinner/Asynchronous/Loop/Adapter/RevoltLoopAdapter.php:92:38:error - MixedArgumentTypeCoercion: Argument 2 of Revolt\EventLoop::onSignal expects Closure(string, int):void, but parent type Closure provided
+/app/src/Spinner/Core/A/AFramesRenderer.php:27:50:error - MixedAssignment: Unable to determine the type that $entry is being assigned to
+/app/src/Spinner/Core/A/ASpinner.php:88:68:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContext' for AlecRabbit\Spinner\Core\A\ASpinner::add
+/app/src/Spinner/Core/A/ASpinner.php:95:16:error - MixedReturnStatement: Could not infer a return type
+/app/src/Spinner/Core/A/ATimer.php:28:32:error - MixedInferredReturnType: Could not verify return type 'float' for AlecRabbit\Spinner\Core\A\ATimer::elapsed
+/app/src/Spinner/Core/A/ATimer.php:31:9:error - MixedAssignment: Unable to determine the type that $this->time is being assigned to
+/app/src/Spinner/Core/A/ATimer.php:32:16:error - MixedOperand: Left operand cannot be mixed
+/app/src/Spinner/Core/A/ATimer.php:32:16:error - MixedReturnStatement: Could not infer a return type
+/app/src/Spinner/Core/Defaults/A/ACoreDefaults.php:73:9:error - MixedAssignment: Unable to determine the type that AlecRabbit\Spinner\Core\Defaults\A\ACoreDefaults::$attachSignalHandlers is being assigned to
+/app/src/Spinner/Core/Defaults/A/ACoreDefaults.php:74:9:error - MixedAssignment: Unable to determine the type that AlecRabbit\Spinner\Core\Defaults\A\ACoreDefaults::$autoStartEnabled is being assigned to
+/app/src/Spinner/Core/Defaults/A/ACoreDefaults.php:75:9:error - MixedAssignment: Unable to determine the type that AlecRabbit\Spinner\Core\Defaults\A\ACoreDefaults::$createInitialized is being assigned to
+/app/src/Spinner/Core/Defaults/A/ACoreDefaults.php:76:9:error - MixedAssignment: Unable to determine the type that AlecRabbit\Spinner\Core\Defaults\A\ACoreDefaults::$messageOnExit is being assigned to
+/app/src/Spinner/Core/Defaults/A/ACoreDefaults.php:77:9:error - MixedAssignment: Unable to determine the type that AlecRabbit\Spinner\Core\Defaults\A\ACoreDefaults::$messageOnFinalize is being assigned to
+/app/src/Spinner/Core/Defaults/A/ACoreDefaults.php:78:9:error - MixedAssignment: Unable to determine the type that AlecRabbit\Spinner\Core\Defaults\A\ACoreDefaults::$messageOnInterrupt is being assigned to
+/app/src/Spinner/Core/Defaults/A/ACoreDefaults.php:79:9:error - MixedAssignment: Unable to determine the type that AlecRabbit\Spinner\Core\Defaults\A\ACoreDefaults::$millisecondsInterval is being assigned to
+/app/src/Spinner/Core/Defaults/A/ACoreDefaults.php:80:9:error - MixedAssignment: Unable to determine the type that AlecRabbit\Spinner\Core\Defaults\A\ACoreDefaults::$percentNumberFormat is being assigned to
+/app/src/Spinner/Core/Defaults/A/ACoreDefaults.php:81:9:error - MixedAssignment: Unable to determine the type that AlecRabbit\Spinner\Core\Defaults\A\ACoreDefaults::$runMode is being assigned to
+/app/src/Spinner/Core/Defaults/A/ACoreDefaults.php:82:9:error - MixedAssignment: Unable to determine the type that AlecRabbit\Spinner\Core\Defaults\A\ACoreDefaults::$shutdownDelay is being assigned to
+/app/src/Spinner/Core/Defaults/A/ACoreDefaults.php:83:9:error - MixedAssignment: Unable to determine the type that AlecRabbit\Spinner\Core\Defaults\A\ACoreDefaults::$shutdownMaxDelay is being assigned to
+/app/src/Spinner/Core/Defaults/A/ACoreDefaults.php:84:57:error - MixedArgument: Argument 1 of ArrayObject::__construct cannot be mixed, expecting array<mixed, mixed>|null|object
+/app/src/Spinner/Core/Defaults/A/ADefaultsClasses.php:42:9:error - MixedAssignment: Unable to determine the type that AlecRabbit\Spinner\Core\Defaults\A\ADefaultsClasses::$driverBuilderClass is being assigned to
+/app/src/Spinner/Core/Defaults/A/ADefaultsClasses.php:43:9:error - MixedAssignment: Unable to determine the type that AlecRabbit\Spinner\Core\Defaults\A\ADefaultsClasses::$widgetBuilderClass is being assigned to
+/app/src/Spinner/Core/Defaults/A/ADefaultsClasses.php:44:9:error - MixedAssignment: Unable to determine the type that AlecRabbit\Spinner\Core\Defaults\A\ADefaultsClasses::$widgetRevolverBuilderClass is being assigned to
+/app/src/Spinner/Core/Defaults/A/ADriverSettings.php:30:9:error - MixedAssignment: Unable to determine the type that AlecRabbit\Spinner\Core\Defaults\A\ADriverSettings::$messageOnFinalize is being assigned to
+/app/src/Spinner/Core/Defaults/A/ADriverSettings.php:31:9:error - MixedAssignment: Unable to determine the type that AlecRabbit\Spinner\Core\Defaults\A\ADriverSettings::$messageOnExit is being assigned to
+/app/src/Spinner/Core/Defaults/A/ADriverSettings.php:32:9:error - MixedAssignment: Unable to determine the type that AlecRabbit\Spinner\Core\Defaults\A\ADriverSettings::$messageOnInterrupt is being assigned to
+/app/src/Spinner/Core/Defaults/A/ASettableDefaults.php:102:37:error - MixedAssignment: Unable to determine the type that $probe is being assigned to
+/app/src/Spinner/Core/Defaults/A/ASettableDefaults.php:103:34:error - MixedArgument: Argument 1 of AlecRabbit\Spinner\Helper\Asserter::isSubClass cannot be mixed, expecting class-string|object
+/app/src/Spinner/Core/Defaults/A/ASettableDefaults.php:112:33:error - MixedAssignment: Unable to determine the type that $probe is being assigned to
+/app/src/Spinner/Core/Defaults/A/ASettableDefaults.php:113:34:error - MixedArgument: Argument 1 of AlecRabbit\Spinner\Helper\Asserter::isSubClass cannot be mixed, expecting class-string|object
+/app/src/Spinner/Core/Factory/A/ASpinnerFactory.php:64:69:error - MixedAssignment: Unable to determine the type that $widget is being assigned to
+/app/src/Spinner/Core/FramesRenderer.php:35:38:error - MixedArgument: Argument 1 of AlecRabbit\Spinner\Core\Factory\FrameFactory::create cannot be mixed, expecting string
+/app/src/Spinner/Core/FramesRenderer.php:35:49:error - MixedArgument: Argument 2 of AlecRabbit\Spinner\Core\Factory\FrameFactory::create cannot be mixed, expecting int|null
+/app/src/Spinner/Core/Output/StreamOutput.php:52:31:error - MixedAssignment: Unable to determine the type that $message is being assigned to
+/app/src/Spinner/Core/Pattern/Style/A/AStylePattern.php:16:37:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Contract\ColorMode' for AlecRabbit\Spinner\Core\Pattern\Style\A\AStylePattern::getColorMode
+/app/src/Spinner/Core/Pattern/Style/A/AStylePattern.php:18:16:error - MixedReturnStatement: Could not infer a return type
+/app/src/Spinner/Core/Revolver/A/AFrameCollectionRevolver.php:32:29:error - MixedAssignment: Unable to determine the type that $frame is being assigned to
+/app/src/Spinner/Core/Revolver/A/AFrameCollectionRevolver.php:33:29:error - MixedArgument: Argument 1 of AlecRabbit\Spinner\Core\Revolver\A\AFrameCollectionRevolver::addFrame cannot be mixed, expecting AlecRabbit\Spinner\Contract\IFrame
+/app/src/Spinner/Core/Revolver/A/AFrameCollectionRevolver.php:102:47:error - MixedInferredReturnType: Could not verify return type 'T|null' for AlecRabbit\Spinner\Core\Revolver\A\AFrameCollectionRevolver::offsetGet
+/app/src/Spinner/Core/Revolver/A/AFrameCollectionRevolver.php:106:13:error - MixedReturnStatement: Could not infer a return type
+/app/src/Spinner/Core/Revolver/A/AFrameCollectionRevolver.php:132:35:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Contract\IFrame' for AlecRabbit\Spinner\Core\Revolver\A\AFrameCollectionRevolver::current
+/app/src/Spinner/Core/Revolver/A/AFrameCollectionRevolver.php:134:16:error - MixedReturnStatement: Could not infer a return type
+/app/src/Spinner/Core/Revolver/A/ARevolver.php:24:9:error - MixedAssignment: Unable to determine the type that $this->tolerance is being assigned to
+/app/src/Spinner/Core/StyleFramesRenderer.php:28:62:error - MixedArgument: Argument 2 of sprintf cannot be mixed, expecting float|int|string
+/app/src/Spinner/Core/Widget/A/AWidgetComposite.php:139:13:error - MixedAssignment: Unable to determine the type that $index is being assigned to
+/app/src/Spinner/Core/Widget/A/AWidgetComposite.php:140:19:error - MixedArrayOffset: Cannot access value on variable $this->children using mixed offset
+/app/src/Spinner/Core/WidthDeterminer.php:20:55:error - MixedInferredReturnType: Could not verify return type 'int' for AlecRabbit\Spinner\Core\WidthDeterminer::determine
+/app/src/Spinner/Core/WidthDeterminer.php:25:16:error - MixedReturnStatement: Could not infer a return type
+/app/src/Spinner/Extras/Procedure/A/AFloatValueProcedure.php:21:9:error - MixedAssignment: Unable to determine the type that $this->format is being assigned to
+/app/src/Spinner/Extras/Procedure/A/AProgressValueProcedure.php:13:21:error - InvalidClassConstantType: The type "'%' 3.0f%%'" for AlecRabbit\Spinner\Extras\Procedure\A\AProgressValueProcedure::FORMAT does not satisfy the type "'%s'" inherited from AlecRabbit\Spinner\Extras\Procedure\A\AFloatValueProcedure::FORMAT
+/app/src/Spinner/Extras/Procedure/ProgressFrameProcedure.php:50:53:error - MixedInferredReturnType: Could not verify return type 'string' for AlecRabbit\Spinner\Extras\Procedure\ProgressFrameProcedure::createColumn
+/app/src/Spinner/Extras/Procedure/ProgressFrameProcedure.php:54:13:error - MixedReturnStatement: Could not infer a return type
