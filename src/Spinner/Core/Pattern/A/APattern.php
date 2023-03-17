@@ -14,9 +14,17 @@ abstract class APattern implements IPattern
     /** @var int */
     protected const UPDATE_INTERVAL = 1000;
 
+    /** @var array */
+    protected const PATTERN = ['  ',' u', 'un', 'nd', 'de', 'ef', 'fi', 'in', 'ne', 'ed', 'd ',];
+
     public function __construct(
         protected ?int $interval = null,
     ) {
+    }
+
+    public function getPattern(): \Traversable
+    {
+        return new \ArrayObject(static::PATTERN);
     }
 
     public function getInterval(): IInterval

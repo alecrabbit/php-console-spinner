@@ -70,7 +70,7 @@ final class AsserterTest extends TestCase
     #[Test]
     public function canAssertColorSupportLevelsNotEmpty(): void
     {
-        $invalidColorSupportLevels = [];
+        $invalidColorSupportLevels = new \ArrayObject([]);
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage(
             sprintf(
@@ -86,7 +86,7 @@ final class AsserterTest extends TestCase
     public function canAssertColorSupportLevels(): void
     {
         $invalidMode = 1;
-        $invalidColorModes = [$invalidMode];
+        $invalidColorModes = new \ArrayObject([$invalidMode]);
 
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('Unsupported color mode of type "int".');

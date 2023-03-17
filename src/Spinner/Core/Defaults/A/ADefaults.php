@@ -67,7 +67,7 @@ abstract class ADefaults extends ASettableDefaults
         return static::$shutdownMaxDelay;
     }
 
-    public function getSupportedColorModes(): iterable
+    public function getSupportedColorModes(): \Traversable
     {
         return static::$supportedColorModes;
     }
@@ -108,7 +108,7 @@ abstract class ADefaults extends ASettableDefaults
         return static::$attachSignalHandlers;
     }
 
-    public function getProbeClasses(): iterable
+    public function getProbeClasses(): \Traversable
     {
         return static::$loopProbes;
     }

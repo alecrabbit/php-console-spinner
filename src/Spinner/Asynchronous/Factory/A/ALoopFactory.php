@@ -40,7 +40,7 @@ abstract class ALoopFactory extends ADefaultsAwareClass implements ILoopFactory
         );
     }
 
-    protected static function getProbeClasses(): iterable
+    protected static function getProbeClasses(): \Traversable
     {
         return
             DefaultsFactory::get()->getProbeClasses();

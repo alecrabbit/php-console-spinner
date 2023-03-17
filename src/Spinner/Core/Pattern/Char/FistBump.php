@@ -6,15 +6,14 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Pattern\Char;
 
 use AlecRabbit\Spinner\Core\Pattern\A\AReversiblePattern;
+use Traversable;
 
 /** @psalm-suppress UnusedClass */
 final class FistBump extends AReversiblePattern
 {
     protected const UPDATE_INTERVAL = 80;
 
-    protected function pattern(): iterable
-    {
-        return [
+    protected const PATTERN = [
             "🤜\u{3000}\u{3000}\u{3000}\u{3000}🤛\u{3000} ",
             "🤜\u{3000}\u{3000}\u{3000}\u{3000}🤛\u{3000} ",
             "🤜\u{3000}\u{3000}\u{3000}\u{3000}🤛\u{3000} ",
@@ -26,5 +25,4 @@ final class FistBump extends AReversiblePattern
             "🤜\u{3000}\u{3000}\u{3000}\u{3000}🤛\u{3000} ",
             "🤜\u{3000}\u{3000}\u{3000}\u{3000}🤛\u{3000} ",
         ];
-    }
 }

@@ -12,20 +12,18 @@ final class Aesthetic extends AReversiblePattern
 {
     protected const UPDATE_INTERVAL = 80;
 
-    protected function pattern(): iterable
-    {
-        return [
-            '▰▱▱▱▱▱▱',
-            '▰▰▱▱▱▱▱',
-            '▰▰▰▱▱▱▱',
-            '▰▰▰▰▱▱▱',
-            '▱▰▰▰▰▱▱',
-            '▱▱▰▰▰▰▱',
-            '▱▱▱▰▰▰▰',
-            '▱▱▱▱▰▰▰',
-            '▱▱▱▱▱▰▰',
-            '▱▱▱▱▱▱▰',
-            '▱▱▱▱▱▱▱',
-        ];
-    }
+    protected const PATTERN = [
+        '▰▱▱▱▱▱▱',
+        '▰▰▱▱▱▱▱',
+        '▰▰▰▱▱▱▱',
+        '▰▰▰▰▱▱▱',
+        '▱▰▰▰▰▱▱',
+        '▱▱▰▰▰▰▱',
+        '▱▱▱▰▰▰▰',
+        '▱▱▱▱▰▰▰',
+        '▱▱▱▱▱▰▰',
+        '▱▱▱▱▱▱▰',
+        '▱▱▱▱▱▱▱',
+    ];
+
 }
