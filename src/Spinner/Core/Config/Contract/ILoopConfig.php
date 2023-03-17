@@ -10,7 +10,7 @@ interface ILoopConfig
 {
     public function getRunMode(): RunMode;
 
-    public function isAutoStart(): bool;
+    public function isAutoStartEnabled(): bool;
 
     public function areSignalHandlersEnabled(): bool;
 

@@ -83,7 +83,7 @@ abstract class ASpinnerFactory extends ADefaultsAwareClass implements
                 $loopHelper::setSignalHandlers($spinner, self::$config->getLoopConfig()->getSignalHandlers());
             }
 
-            if (self::$config->getLoopConfig()->isAutoStart()) {
+            if (self::$config->getLoopConfig()->isAutoStartEnabled()) {
                 $loopHelper::autoStart();
             }
         }

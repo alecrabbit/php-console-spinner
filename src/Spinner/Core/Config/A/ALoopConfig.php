@@ -26,7 +26,7 @@ abstract class ALoopConfig implements ILoopConfig
         return $this->runMode;
     }
 
-    public function isAutoStart(): bool
+    public function isAutoStartEnabled(): bool
     {
         return $this->autoStart;
     }
