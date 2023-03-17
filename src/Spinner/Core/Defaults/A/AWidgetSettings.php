@@ -27,8 +27,6 @@ abstract class AWidgetSettings extends ADefaultsChild implements IWidgetSettings
 
     protected function reset(): void
     {
-        static::$leadingSpacer = FrameFactory::createEmpty();
-        static::$trailingSpacer = FrameFactory::createSpace();
         static::$charPattern = null;
         static::$stylePattern = null;
     }
@@ -43,13 +41,19 @@ abstract class AWidgetSettings extends ADefaultsChild implements IWidgetSettings
         return self::$widgetSettings;
     }
 
-    public function getLeadingSpacer(): ?IFrame
+    public function getLeadingSpacer(): IFrame
     {
+        if (null === static::$leadingSpacer) {
+            static::$leadingSpacer = FrameFactory::createEmpty();
+        }
         return static::$leadingSpacer;
     }
 
-    public function getTrailingSpacer(): ?IFrame
+    public function getTrailingSpacer(): IFrame
     {
+        if (null === static::$trailingSpacer) {
+            static::$trailingSpacer = FrameFactory::createEmpty();
+        }
         return static::$trailingSpacer;
     }
 

@@ -29,21 +29,12 @@ abstract class AWidgetBuilder implements IWidgetBuilder
      */
     public function build(): IWidgetComposite
     {
-        $this->processDefaults();
-
         return
             new Widget(
-                $this->revolver,
-                $this->leadingSpacer,
-                $this->trailingSpacer,
+                $this->revolver ?? $this->widgetRevolverBuilder->build(),
+                $this->leadingSpacer ?? $this->defaults->getWidgetSettings()->getLeadingSpacer(),
+                $this->trailingSpacer ?? $this->defaults->getWidgetSettings()->getTrailingSpacer(),
             );
-    }
-
-    protected function processDefaults(): void
-    {
-        $this->revolver ??= $this->widgetRevolverBuilder->build();
-        $this->leadingSpacer ??= $this->defaults->getWidgetSettings()->getLeadingSpacer();
-        $this->trailingSpacer ??= $this->defaults->getWidgetSettings()->getTrailingSpacer();
     }
 
     public function withWidgetRevolver(?IRevolver $revolver): static
