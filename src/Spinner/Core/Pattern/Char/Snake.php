@@ -11,5 +11,6 @@ use AlecRabbit\Spinner\Core\Pattern\A\AReversiblePattern;
 final class Snake extends AReversiblePattern
 {
     protected const UPDATE_INTERVAL = 80;
+
     protected const PATTERN = ['⠏', '⠛', '⠹', '⢸', '⣰', '⣤', '⣆', '⡇'];
 }
