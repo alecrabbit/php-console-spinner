@@ -51,6 +51,7 @@ final class DefaultsFactory
     }
 
     /**
+     * @param class-string<IProbe> $className
      * @throws InvalidArgumentException
      */
     public static function addProbe(string $className): void
@@ -68,6 +69,7 @@ final class DefaultsFactory
     }
 
     /**
+     * @param class-string<IDefaults> $class
      * @throws InvalidArgumentException
      * @throws DomainException
      */
