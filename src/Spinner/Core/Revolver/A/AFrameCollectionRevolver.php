@@ -29,6 +29,7 @@ abstract class AFrameCollectionRevolver extends ARevolver implements IFrameColle
         IInterval $interval,
     ) {
         parent::__construct($interval);
+        /** @var IFrame $frame */
         foreach ($frames as $frame) {
             $this->addFrame($frame);
         }
@@ -76,14 +77,14 @@ abstract class AFrameCollectionRevolver extends ARevolver implements IFrameColle
      */
     public function offsetExists(mixed $offset): bool
     {
-        $this->assertOffset($offset);
+        $this->assertOffsetType($offset);
         return isset($this->frames[$offset]);
     }
 
     /**
      * @throws InvalidArgumentException
      */
-    private function assertOffset(mixed $offset): void
+    private function assertOffsetType(mixed $offset): void
     {
         if (!is_int($offset)) {
             throw new InvalidArgumentException(
@@ -99,20 +100,31 @@ abstract class AFrameCollectionRevolver extends ARevolver implements IFrameColle
     /**
      * @throws InvalidArgumentException
      */
-    public function offsetGet(mixed $offset): IFrame
+    public function offsetGet(mixed $offset): ?IFrame
     {
-        $this->assertOffset($offset);
+        $this->assertOffsetType($offset);
+        /** @var ?IFrame $value */
+        $value = $this->frames[$offset] ?? null;
         return
-            $this->frames[$offset]
-            ??
-            throw new InvalidArgumentException(
-                sprintf(
-                    '%s: Undefined offset "%s".',
-                    static::class,
-                    $offset
-                )
-            );
+            $value;
     }
+//    /**
+//     * @throws InvalidArgumentException
+//     */
+//    public function offsetGet(mixed $offset): IFrame
+//    {
+//        $this->assertOffset($offset);
+//        return
+//            $this->frames[$offset]
+//            ??
+//            throw new InvalidArgumentException(
+//                sprintf(
+//                    '%s: Undefined offset "%s".',
+//                    static::class,
+//                    $offset
+//                )
+//            );
+//    }
 
     /**
      * @throws LogicException
@@ -129,8 +141,10 @@ abstract class AFrameCollectionRevolver extends ARevolver implements IFrameColle
         }
     }
 
+    /** @psalm-suppress MixedInferredReturnType */
     protected function current(): IFrame
     {
+        /** @psalm-suppress MixedReturnStatement */
         return $this->frames[$this->offset];
     }
 }
