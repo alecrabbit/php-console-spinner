@@ -12,9 +12,9 @@ interface IWidgetSettings extends IDefaultsChild
 {
     public static function getInstance(IDefaults $parent): static;
 
-    public function getLeadingSpacer(): IFrame;
+    public function getLeadingSpacer(): ?IFrame;
 
-    public function getTrailingSpacer(): IFrame;
+    public function getTrailingSpacer(): ?IFrame;
 
     public function setLeadingSpacer(IFrame $frame): static;
 

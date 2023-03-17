@@ -43,12 +43,12 @@ abstract class AWidgetSettings extends ADefaultsChild implements IWidgetSettings
         return self::$widgetSettings;
     }
 
-    public function getLeadingSpacer(): IFrame
+    public function getLeadingSpacer(): ?IFrame
     {
         return static::$leadingSpacer;
     }
 
-    public function getTrailingSpacer(): IFrame
+    public function getTrailingSpacer(): ?IFrame
     {
         return static::$trailingSpacer;
     }
