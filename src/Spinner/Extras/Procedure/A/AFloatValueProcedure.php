@@ -11,6 +11,7 @@ use AlecRabbit\Spinner\Core\WidthDeterminer;
 
 abstract class AFloatValueProcedure extends AProcedure
 {
+    /** @var string */
     protected const FORMAT = "%s";
     protected string $format;
 

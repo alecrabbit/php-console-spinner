@@ -1,10 +1,4 @@
 /app/src/Spinner/Core/Revolver/A/AFrameCollectionRevolver.php:109:13:error - InvalidReturnStatement: The inferred type 'AlecRabbit\Spinner\Contract\IFrame|null' does not match the declared return type '(T:AlecRabbit\Spinner\Core\Revolver\A\AFrameCollectionRevolver as AlecRabbit\Spinner\Contract\IFrame)|null' for AlecRabbit\Spinner\Core\Revolver\A\AFrameCollectionRevolver::offsetGet
 /app/src/Spinner/Core/StyleFramesRenderer.php:28:62:error - MixedArgument: Argument 2 of sprintf cannot be mixed, expecting float|int|string
-/app/src/Spinner/Core/Widget/A/AWidgetComposite.php:139:13:error - MixedAssignment: Unable to determine the type that $index is being assigned to
-/app/src/Spinner/Core/Widget/A/AWidgetComposite.php:140:19:error - MixedArrayOffset: Cannot access value on variable $this->children using mixed offset
-/app/src/Spinner/Core/WidthDeterminer.php:20:55:error - MixedInferredReturnType: Could not verify return type 'int' for AlecRabbit\Spinner\Core\WidthDeterminer::determine
-/app/src/Spinner/Core/WidthDeterminer.php:25:16:error - MixedReturnStatement: Could not infer a return type
-/app/src/Spinner/Extras/Procedure/A/AFloatValueProcedure.php:21:9:error - MixedAssignment: Unable to determine the type that $this->format is being assigned to
-/app/src/Spinner/Extras/Procedure/A/AProgressValueProcedure.php:13:21:error - InvalidClassConstantType: The type "'%' 3.0f%%'" for AlecRabbit\Spinner\Extras\Procedure\A\AProgressValueProcedure::FORMAT does not satisfy the type "'%s'" inherited from AlecRabbit\Spinner\Extras\Procedure\A\AFloatValueProcedure::FORMAT
 /app/src/Spinner/Extras/Procedure/ProgressFrameProcedure.php:50:53:error - MixedInferredReturnType: Could not verify return type 'string' for AlecRabbit\Spinner\Extras\Procedure\ProgressFrameProcedure::createColumn
 /app/src/Spinner/Extras/Procedure/ProgressFrameProcedure.php:54:13:error - MixedReturnStatement: Could not infer a return type

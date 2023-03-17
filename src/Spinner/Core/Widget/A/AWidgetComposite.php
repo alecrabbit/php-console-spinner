@@ -136,6 +136,7 @@ abstract class AWidgetComposite implements IWidgetComposite
         $widgetContext = $this->extractContext($element);
 
         if ($this->childrenContextMap->offsetExists($widgetContext)) {
+            /** @var int $index */
             $index = $this->childrenContextMap[$widgetContext];
             unset($this->children[$index]);
             $this->childrenContextMap->offsetUnset($widgetContext);

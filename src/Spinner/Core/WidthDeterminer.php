@@ -22,7 +22,7 @@ final class WidthDeterminer
         if (null === self::$determiner) {
             self::$determiner = self::createDeterminer();
         }
-        return (self::$determiner)($string);
+        return (int)(self::$determiner)($string);
     }
 
     /**
