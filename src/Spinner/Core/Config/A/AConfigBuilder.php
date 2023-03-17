@@ -10,7 +10,6 @@ use AlecRabbit\Spinner\Core\Config\Contract\IConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IConfigBuilder;
 use AlecRabbit\Spinner\Core\Contract\IDriverBuilder;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDefaults;
-use AlecRabbit\Spinner\Core\Driver;
 use AlecRabbit\Spinner\Core\Factory\DriverFactory;
 use AlecRabbit\Spinner\Core\Factory\RevolverFactory;
 use AlecRabbit\Spinner\Core\Factory\WidgetFactory;
