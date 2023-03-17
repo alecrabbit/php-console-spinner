@@ -4,9 +4,11 @@ app_tools_run: test_full app_phploc_run app_php_cs_fixer_run app_deptrac_run_ful
 	@${_NO_OP};
 
 PHPLOC_DIR = /usr/local/bin
-DPTR_CONFIG = ${APP_DIR}/.tools/.deptrac/deptrac.yaml
-DPTR_CACHE = ${APP_DIR}/.tools/.deptrac/.deptrac.cache
-DPTR_OUT_DIR = ${APP_DIR}/.tools/.report/.deptrac
+DPTR_DIR = ${WORKING_DIR}/.tools/.deptrac
+DPTR_CONFIG = ${DPTR_DIR}/deptrac.yaml
+DPTR_CACHE = ${DPTR_DIR}/.deptrac.cache
+DPTR_OUT_DIR_LOCAL = ${APP_DIR}/.tools/.report/.deptrac
+DPTR_OUT_DIR = ${WORKING_DIR}/.tools/.report/.deptrac
 
 app_save: app_php_cs_fixer_run app_deptrac_run
 	$(MAKE) save
@@ -18,18 +20,18 @@ app_psalm_run:
 
 app_php_cs_fixer_run:
 	@${_ECHO} "\n${_C_SELECT} ${PROJECT_NAME} ${_C_STOP} ${_C_INFO}PHP-CS-Fixer run...${_C_STOP}\n";
-	@-${_DC_EXEC} ${APP_CONTAINER} php-cs-fixer -vvv fix --config=${APP_DIR}/.tools/.php-cs-fixer/.php-cs-fixer.dist.php --cache-file=${APP_DIR}/.tools/.php-cs-fixer/.php-cs-fixer.cache --allow-risky=yes
+	@-${_DC_EXEC} ${APP_CONTAINER} php-cs-fixer -vvv fix --config=${WORKING_DIR}/.tools/.php-cs-fixer/.php-cs-fixer.dist.php --cache-file=${WORKING_DIR}/.tools/.php-cs-fixer/.php-cs-fixer.cache --allow-risky=yes
 	@${_ECHO};
 
 app_php_cs_fixer_dry:
 	@${_ECHO} "\n${_C_SELECT} ${PROJECT_NAME} ${_C_STOP} ${_C_INFO}PHP-CS-Fixer run...${_C_STOP}\n";
-	@-${_DC_EXEC} ${APP_CONTAINER} php-cs-fixer -vvv fix --config=${APP_DIR}/.tools/.php-cs-fixer/.php-cs-fixer.dist.php --cache-file=${APP_DIR}/.tools/.php-cs-fixer/.php-cs-fixer.cache --allow-risky=yes --diff --dry-run
+	@-${_DC_EXEC} ${APP_CONTAINER} php-cs-fixer -vvv fix --config=${WORKING_DIR}/.tools/.php-cs-fixer/.php-cs-fixer.dist.php --cache-file=${WORKING_DIR}/.tools/.php-cs-fixer/.php-cs-fixer.cache --allow-risky=yes --diff --dry-run
 	@${_ECHO};
 
 app_phploc_run:
 	@${_ECHO} "\n${_C_SELECT} ${PROJECT_NAME} ${_C_STOP} ${_C_INFO}PHPLOC run...${_C_STOP}\n";
 	@mkdir -p ${APP_DIR}/.tools/.report/.phploc
-	@-${_DC_EXEC} ${APP_CONTAINER} ${PHPLOC_DIR}/phploc src > ${APP_DIR}/.tools/.report/.phploc/.phploc_baseline
+	@-${_DC_EXEC} ${APP_CONTAINER} ${PHPLOC_DIR}/phploc src > ${WORKING_DIR}/.tools/.report/.phploc/.phploc_baseline
 	@-cat ${APP_DIR}/.tools/.report/.phploc/.phploc_baseline
 	@${_ECHO};
 
@@ -40,7 +42,7 @@ _deptrac_run_message:
 	@${_ECHO} "\n${_C_SELECT} ${PROJECT_NAME} ${_C_STOP} ${_C_INFO}Deptrac run...${_C_STOP}\n";
 
 _deptrac_run_baseline:
-	@mkdir -p ${DPTR_OUT_DIR}
+	@mkdir -p ${DPTR_OUT_DIR_LOCAL}
 	@-${_DC_EXEC} ${APP_CONTAINER} deptrac analyse --clear-cache --no-progress --config-file=${DPTR_CONFIG} --cache-file=${DPTR_CACHE} > ${DPTR_OUT_DIR}/.deptrac_baseline
 
 _deptrac_run_graph:
