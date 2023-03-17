@@ -52,7 +52,7 @@ abstract class AWidgetSettings extends ADefaultsChild implements IWidgetSettings
     public function getTrailingSpacer(): IFrame
     {
         if (null === static::$trailingSpacer) {
-            static::$trailingSpacer = FrameFactory::createEmpty();
+            static::$trailingSpacer = FrameFactory::createSpace();
         }
         return static::$trailingSpacer;
     }
