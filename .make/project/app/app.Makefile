@@ -11,6 +11,8 @@ _DN_DEPTRAC=.deptrac
 
 _DEPTRAC_CONFIG_FILE=deptrac.yaml
 _DEPTRAC_CACHE_FILE=.deptrac.cache
+_DEPTRAC_REPORT_FILE=.deptrac.report
+_DEPTRAC_GRAPH_FILE=.deptrac.graph.png
 
 DPTR_DIR = ${_W_TOOLS_DIR}/${_DN_DEPTRAC}
 DPTR_CONFIG = ${DPTR_DIR}/${_DEPTRAC_CONFIG_FILE}
@@ -50,11 +52,11 @@ _deptrac_run_message:
 	@${_ECHO} "\n${_C_SELECT} ${PROJECT_NAME} ${_C_STOP} ${_C_INFO}Deptrac run...${_C_STOP}\n";
 
 _deptrac_run_baseline:
-	@mkdir -p ${DPTR_OUT_DIR_LOCAL}
-	@-${_DC_EXEC} ${APP_CONTAINER} deptrac analyse --clear-cache --no-progress --config-file=${DPTR_CONFIG} --cache-file=${DPTR_CACHE} > ${DPTR_OUT_DIR}/.deptrac_baseline
+	@-mkdir -p ${DPTR_OUT_DIR_LOCAL}
+	@-${_DC_EXEC} ${APP_CONTAINER} deptrac analyse --clear-cache --no-progress --config-file=${DPTR_CONFIG} --cache-file=${DPTR_CACHE} > ${DPTR_OUT_DIR_LOCAL}/${_DEPTRAC_REPORT_FILE}
 
 _deptrac_run_graph:
-	@-${_DC_EXEC} ${APP_CONTAINER} deptrac analyse --no-progress --config-file=${DPTR_CONFIG} --cache-file=${DPTR_CACHE} --formatter=graphviz-image --output=${DPTR_OUT_DIR}/graph.png
+	@-${_DC_EXEC} ${APP_CONTAINER} deptrac analyse --no-progress --config-file=${DPTR_CONFIG} --cache-file=${DPTR_CACHE} --formatter=graphviz-image --output=${DPTR_OUT_DIR}/${_DEPTRAC_GRAPH_FILE}
 
 _deptrac_run_baseline_formatter:
 	@-${_DC_EXEC} ${APP_CONTAINER} deptrac analyse --no-progress --config-file=${DPTR_CONFIG} --cache-file=${DPTR_CACHE} --formatter=baseline --output=${DPTR_OUT_DIR}/baseline.formatter.output.yaml
