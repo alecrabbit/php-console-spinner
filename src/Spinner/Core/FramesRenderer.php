@@ -71,7 +71,7 @@ final class FramesRenderer extends AFramesRenderer
             );
         }
         // second element should be non-negative integer
-        $second = self::refineNullableInt($entry[1]);
+        $second = $entry[1] ?? null;
         if (null === $second) {
             return;
         }
