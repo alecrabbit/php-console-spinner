@@ -14,6 +14,9 @@ _DEPTRAC_CACHE_FILE=.deptrac.cache
 _DEPTRAC_REPORT_FILE=.deptrac.report
 _DEPTRAC_GRAPH_FILE=.deptrac.graph.png
 
+_PSALM_CONFIG_FILE=psalm.xml
+_PSALM_REPORT_FILE=.psalm.report.txt
+
 DPTR_DIR = ${_W_TOOLS_DIR}/${_DN_DEPTRAC}
 DPTR_CONFIG = ${DPTR_DIR}/${_DEPTRAC_CONFIG_FILE}
 DPTR_CACHE = ${DPTR_DIR}/${_DEPTRAC_CACHE_FILE}
@@ -26,7 +29,7 @@ app_save: app_php_cs_fixer_run app_deptrac_run
 app_psalm_run:
 	@${_ECHO} "\n${_C_SELECT} ${PROJECT_NAME} ${_C_STOP} ${_C_INFO}Psalm run...${_C_STOP}\n";
 	@${_DC_EXEC} ${APP_CONTAINER} mkdir -p ${WORKING_DIR}/.tools/.report/.psalm
-	-${_DC_EXEC} ${APP_CONTAINER} psalm --config=${WORKING_DIR}/.tools/.psalm/psalm.xml --report=${WORKING_DIR}/.tools/.report/.psalm/report.txt
+	-${_DC_EXEC} ${APP_CONTAINER} psalm --config=${WORKING_DIR}/.tools/.psalm/psalm.xml --report=${WORKING_DIR}/.tools/.report/.psalm/${_PSALM_REPORT_FILE}
 
 app_php_cs_fixer_run:
 	@${_ECHO} "\n${_C_SELECT} ${PROJECT_NAME} ${_C_STOP} ${_C_INFO}PHP-CS-Fixer run...${_C_STOP}\n";
