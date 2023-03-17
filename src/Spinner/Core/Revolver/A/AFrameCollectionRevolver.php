@@ -9,8 +9,13 @@ use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameCollectionRevolver;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Exception\LogicException;
+use ArrayAccess;
 
-abstract class AFrameCollectionRevolver extends ARevolver implements IFrameCollectionRevolver
+/**
+ * @template T of IFrame
+ * @template-implements ArrayAccess<int,T>
+ */
+abstract class AFrameCollectionRevolver extends ARevolver implements IFrameCollectionRevolver, ArrayAccess
 {
     protected iterable $frames = [];
     protected int $count = 0;

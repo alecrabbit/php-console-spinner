@@ -30,13 +30,12 @@
 /app/src/Spinner/Core/Factory/DefaultsFactory.php:84:28:warning - PropertyTypeCoercion: AlecRabbit\Spinner\Core\Factory\DefaultsFactory::$className expects 'class-string<AlecRabbit\Spinner\Core\Defaults\Contract\IDefaults>|null',  parent type 'string' provided
 /app/src/Spinner/Core/Output/Contract/IOutput.php:11:21:warning - MissingReturnType: Method AlecRabbit\Spinner\Core\Output\Contract\IOutput::writeln does not have a return type
 /app/src/Spinner/Core/Pattern/A/AReversiblePattern.php:21:51:error - InvalidArgument: Argument 1 of iterator_to_array expects Traversable, but iterable<mixed, mixed> provided
-/app/src/Spinner/Core/Revolver/A/AFrameCollectionRevolver.php:35:9:error - InvalidArrayAssignment: Cannot access array value on non-array variable $this->frames of type iterable<mixed, mixed>
-/app/src/Spinner/Core/Revolver/A/AFrameCollectionRevolver.php:75:22:error - InvalidArrayAccess: Cannot access array value on non-array variable $this->frames of type iterable<mixed, mixed>
-/app/src/Spinner/Core/Revolver/A/AFrameCollectionRevolver.php:101:13:error - InvalidArrayAccess: Cannot access array value on non-array variable $this->frames of type iterable<mixed, mixed>
-/app/src/Spinner/Core/Revolver/A/AFrameCollectionRevolver.php:129:16:error - InvalidArrayAccess: Cannot access array value on non-array variable $this->frames of type iterable<mixed, mixed>
+/app/src/Spinner/Core/Revolver/A/AFrameCollectionRevolver.php:40:9:error - InvalidArrayAssignment: Cannot access array value on non-array variable $this->frames of type iterable<mixed, mixed>
+/app/src/Spinner/Core/Revolver/A/AFrameCollectionRevolver.php:80:22:error - InvalidArrayAccess: Cannot access array value on non-array variable $this->frames of type iterable<mixed, mixed>
+/app/src/Spinner/Core/Revolver/A/AFrameCollectionRevolver.php:106:13:error - InvalidArrayAccess: Cannot access array value on non-array variable $this->frames of type iterable<mixed, mixed>
+/app/src/Spinner/Core/Revolver/A/AFrameCollectionRevolver.php:134:16:error - InvalidArrayAccess: Cannot access array value on non-array variable $this->frames of type iterable<mixed, mixed>
 /app/src/Spinner/Core/Revolver/A/ARevolver.php:34:47:warning - RedundantPropertyInitializationCheck: Property $this->interval with type AlecRabbit\Spinner\Contract\IInterval should already be set in the constructor
 /app/src/Spinner/Core/Revolver/A/ARevolver.php:34:66:warning - RedundantPropertyInitializationCheck: Property $this->interval with type AlecRabbit\Spinner\Contract\IInterval should already be set in the constructor
-/app/src/Spinner/Core/Revolver/Contract/IFrameCollectionRevolver.php:9:55:error - MissingTemplateParam: AlecRabbit\Spinner\Core\Revolver\Contract\IFrameCollectionRevolver has missing template params when extending ArrayAccess, expecting 2
 /app/src/Spinner/Core/Widget/A/AWidgetBuilder.php:36:17:warning - PossiblyNullArgument: Argument 1 of AlecRabbit\Spinner\Core\Widget\Widget::__construct cannot be null, possibly null value provided
 /app/src/Spinner/Core/Widget/A/AWidgetBuilder.php:37:17:warning - PossiblyNullArgument: Argument 2 of AlecRabbit\Spinner\Core\Widget\Widget::__construct cannot be null, possibly null value provided
 /app/src/Spinner/Core/Widget/A/AWidgetBuilder.php:38:17:warning - PossiblyNullArgument: Argument 3 of AlecRabbit\Spinner\Core\Widget\Widget::__construct cannot be null, possibly null value provided
@@ -52,4 +51,3 @@
 /app/src/Spinner/Extras/Procedure/ProgressStepsProcedure.php:29:37:warning - PossiblyNullOperand: Right operand cannot be nullable, got float|null
 /app/src/Spinner/Extras/Revolver/A/AProceduralRevolver.php:14:22:warning - PropertyNotSetInConstructor: Property AlecRabbit\Spinner\Extras\Revolver\A\AProceduralRevolver::$currentFrame is not defined in constructor of AlecRabbit\Spinner\Extras\Revolver\A\AProceduralRevolver or in any methods called in the constructor
 /app/src/Spinner/Extras/Revolver/ProceduralRevolver.php:9:13:warning - PropertyNotSetInConstructor: Property AlecRabbit\Spinner\Extras\Revolver\ProceduralRevolver::$currentFrame is not defined in constructor of AlecRabbit\Spinner\Extras\Revolver\ProceduralRevolver or in any methods called in the constructor
-/app/src/Spinner/Helper/Asserter.php:62:43:error - InvalidArgument: Argument 1 of iterator_to_array expects Traversable, but iterable<mixed, mixed> provided
