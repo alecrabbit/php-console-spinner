@@ -117,7 +117,7 @@ abstract class AWidgetComposite implements IWidgetComposite
         }
         $this->revolver->setInterval($interval);
         if ($this->hasParent()) {
-            $this->parent->updateInterval();
+            $this->parent?->updateInterval();
         }
     }
 

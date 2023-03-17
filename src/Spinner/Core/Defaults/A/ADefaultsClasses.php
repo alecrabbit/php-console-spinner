@@ -20,9 +20,15 @@ abstract class ADefaultsClasses extends ADefaultsChild implements IDefaultsClass
     final protected const WIDGET_BUILDER_CLASS = WidgetBuilder::class;
     final protected const WIDGET_REVOLVER_BUILDER_CLASS = WidgetRevolverBuilder::class;
 
+    /** @var class-string<IDriverBuilder> */
     protected static string $driverBuilderClass;
+
+    /** @var class-string<IWidgetBuilder> */
     protected static string $widgetBuilderClass;
+
+    /** @var class-string<IWidgetRevolverBuilder> */
     protected static string $widgetRevolverBuilderClass;
+    
     private static ?IDefaultsClasses $objectInstance = null;
 
     final protected function __construct(IDefaults $parent)
