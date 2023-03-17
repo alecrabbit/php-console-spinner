@@ -19,18 +19,18 @@ abstract class ASpinner implements ISpinner
     protected bool $active = false;
     protected bool $interrupted = false;
     protected IFrame $currentFrame;
-    protected int $framesWidthDiff;
+    protected int $framesWidthDiff = 0;
 
     public function __construct(
         protected readonly IDriver $driver,
         protected readonly ITimer $timer,
         protected IWidgetComposite $widget,
     ) {
+        $this->currentFrame = FrameFactory::createEmpty();
     }
 
     public function initialize(): void
     {
-        $this->currentFrame = FrameFactory::createEmpty();
         $this->driver->hideCursor();
         $this->activate();
         $this->update();
