@@ -11,7 +11,7 @@ interface IDefaults extends ISettableDefaults
 {
     public static function getInstance(): self;
 
-    public function getProbeClasses(): iterable;
+    public function getProbeClasses(): \Traversable;
 
     public function getRootWidgetSettings(): IWidgetSettings;
 

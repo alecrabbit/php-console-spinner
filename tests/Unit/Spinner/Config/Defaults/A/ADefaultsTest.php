@@ -78,7 +78,7 @@ final class ADefaultsTest extends TestCase
             ReactLoopProbe::class,
         ];
         $defaults->overrideLoopProbeClasses(
-            $loopProbes
+            new \ArrayObject($loopProbes)
         );
         $loopProbesCount = 0;
         foreach ($defaults->getProbeClasses() as $loopProbe) {
@@ -211,20 +211,22 @@ final class ADefaultsTest extends TestCase
     public function canSetSupportedColorModes(): void
     {
         $defaults = self::getInstance();
-        $colorSupportLevels = [ColorMode::ANSI24];
-        $defaults->setSupportedColorModes($colorSupportLevels);
+        $colorSupportLevels = new \ArrayObject([ColorMode::ANSI24]);
+        $defaults->overrideSupportedColorModes($colorSupportLevels);
         self::assertSame($colorSupportLevels, $defaults->getSupportedColorModes());
     }
 
     #[Test]
     public function setSupportedColorModesThrowsOnInvalidArgument(): void
     {
-        $this->expectException(InvalidArgumentException::class);
+        $exception = InvalidArgumentException::class;
+        $this->expectException($exception);
         $this->expectExceptionMessage('Color modes must not be empty.');
 
         $defaults = self::getInstance();
-        $defaults->setSupportedColorModes([]);
+        $defaults->overrideSupportedColorModes(new \ArrayObject([]));
         self::assertSame(10, $defaults->getSupportedColorModes());
+        self::exceptionNotThrown($exception);
     }
 
     protected function setUp(): void

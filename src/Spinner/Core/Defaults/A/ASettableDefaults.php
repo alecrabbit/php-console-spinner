@@ -52,7 +52,7 @@ abstract class ASettableDefaults extends ACoreDefaults
     }
 
     /** @inheritdoc */
-    public function setSupportedColorModes(iterable $supportedColorModes): static
+    public function overrideSupportedColorModes(\Traversable $supportedColorModes): static
     {
         Asserter::assertColorModes($supportedColorModes);
         static::$supportedColorModes = $supportedColorModes;
@@ -97,7 +97,7 @@ abstract class ASettableDefaults extends ACoreDefaults
     }
 
     /** @inheritdoc */
-    public function overrideTerminalProbeClasses(iterable $terminalProbes): static
+    public function overrideTerminalProbeClasses(\Traversable $terminalProbes): static
     {
         foreach ($terminalProbes as $probe) {
             Asserter::isSubClass($probe, ITerminalProbe::class, __METHOD__);
@@ -107,7 +107,7 @@ abstract class ASettableDefaults extends ACoreDefaults
     }
 
     /** @inheritdoc */
-    public function overrideLoopProbeClasses(iterable $loopProbes): static
+    public function overrideLoopProbeClasses(\Traversable $loopProbes): static
     {
         foreach ($loopProbes as $probe) {
             Asserter::isSubClass($probe, ILoopProbe::class, __METHOD__);

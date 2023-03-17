@@ -20,7 +20,7 @@ interface ISettableDefaults
     /**
      * @throws InvalidArgumentException
      */
-    public function setSupportedColorModes(array $supportedColorModes): static;
+    public function overrideSupportedColorModes(\Traversable $supportedColorModes): static;
 
     public function setIntervalMilliseconds(int $defaultInterval): static;
 
@@ -37,12 +37,12 @@ interface ISettableDefaults
     /**
      * @throws InvalidArgumentException
      */
-    public function overrideTerminalProbeClasses(iterable $terminalProbes): static;
+    public function overrideTerminalProbeClasses(\Traversable $terminalProbes): static;
 
     /**
      * @throws InvalidArgumentException
      */
-    public function overrideLoopProbeClasses(iterable $loopProbes): static;
+    public function overrideLoopProbeClasses(\Traversable $loopProbes): static;
 
     public function setStylePattern(IPattern $spinnerStylePattern): static;
 
