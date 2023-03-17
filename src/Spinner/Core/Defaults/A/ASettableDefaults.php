@@ -99,6 +99,7 @@ abstract class ASettableDefaults extends ACoreDefaults
     /** @inheritdoc */
     public function overrideTerminalProbeClasses(\Traversable $terminalProbes): static
     {
+        /** @var class-string<ITerminalProbe> $probe */
         foreach ($terminalProbes as $probe) {
             Asserter::isSubClass($probe, ITerminalProbe::class, __METHOD__);
         }
@@ -109,6 +110,7 @@ abstract class ASettableDefaults extends ACoreDefaults
     /** @inheritdoc */
     public function overrideLoopProbeClasses(\Traversable $loopProbes): static
     {
+        /** @var class-string<ILoopProbe> $probe */
         foreach ($loopProbes as $probe) {
             Asserter::isSubClass($probe, ILoopProbe::class, __METHOD__);
         }
