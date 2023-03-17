@@ -1,4 +1,3 @@
-/app/src/Spinner/Core/Factory/A/ASpinnerFactory.php:64:69:error - MixedAssignment: Unable to determine the type that $widget is being assigned to
 /app/src/Spinner/Core/FramesRenderer.php:35:38:error - MixedArgument: Argument 1 of AlecRabbit\Spinner\Core\Factory\FrameFactory::create cannot be mixed, expecting string
 /app/src/Spinner/Core/FramesRenderer.php:35:49:error - MixedArgument: Argument 2 of AlecRabbit\Spinner\Core\Factory\FrameFactory::create cannot be mixed, expecting int|null
 /app/src/Spinner/Core/Output/StreamOutput.php:52:31:error - MixedAssignment: Unable to determine the type that $message is being assigned to

@@ -61,6 +61,7 @@ abstract class ASpinnerFactory extends ADefaultsAwareClass implements
 
     protected static function addWidgets(ISpinner $spinner): void
     {
+        /** @var IWidgetComposite $widget */
         foreach (self::$config->getSpinnerConfig()->getWidgets() as $widget) {
             if ($widget instanceof IWidgetComposite) {
                 $spinner->add($widget);
