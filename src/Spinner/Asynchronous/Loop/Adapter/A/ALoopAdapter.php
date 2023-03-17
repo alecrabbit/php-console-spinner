@@ -29,8 +29,10 @@ abstract class ALoopAdapter extends ADefaultsAwareClass implements ILoopAdapter
 
     public function setSignalHandlers(iterable $handlers): void
     {
-        /** @var int $signal */
-        /** @var Closure $handler */
+        /**
+         * @var int $signal
+         * @var Closure $handler
+         */
         foreach ($handlers as $signal => $handler) {
             $this->onSignal($signal, $handler);
         }

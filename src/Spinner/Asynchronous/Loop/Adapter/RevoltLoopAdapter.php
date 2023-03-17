@@ -39,6 +39,7 @@ class RevoltLoopAdapter extends ALoopAdapter
 
     public function repeat(float $interval, Closure $closure): void
     {
+        /** @psalm-suppress MixedArgumentTypeCoercion */
         EventLoop::repeat($interval, $closure);
     }
 
@@ -67,6 +68,7 @@ class RevoltLoopAdapter extends ALoopAdapter
 
     public function delay(float $delay, Closure $closure): void
     {
+        /** @psalm-suppress MixedArgumentTypeCoercion */
         EventLoop::delay($delay, $closure);
     }
 
@@ -89,6 +91,7 @@ class RevoltLoopAdapter extends ALoopAdapter
 
     protected function onSignal(int $signal, Closure $closure): void
     {
+        /** @psalm-suppress MixedArgumentTypeCoercion */
         EventLoop::onSignal($signal, $closure);
     }
 }

@@ -57,7 +57,7 @@ class ReactLoopAdapter extends ALoopAdapter
         $this->loop->addTimer($delay, $closure);
     }
 
-    protected function onSignal(int $signal, mixed $closure): void
+    protected function onSignal(int $signal, Closure $closure): void
     {
         $this->loop->addSignal($signal, $closure);
     }

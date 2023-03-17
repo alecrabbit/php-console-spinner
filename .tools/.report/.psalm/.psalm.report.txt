@@ -1,9 +1,3 @@
-/app/src/Spinner/Asynchronous/Loop/Adapter/A/ALoopAdapter.php:34:31:error - MixedAssignment: Unable to determine the type that $signal is being assigned to
-/app/src/Spinner/Asynchronous/Loop/Adapter/A/ALoopAdapter.php:35:29:error - MixedArgument: Argument 1 of AlecRabbit\Spinner\Asynchronous\Loop\Adapter\A\ALoopAdapter::onSignal cannot be mixed, expecting int
-/app/src/Spinner/Asynchronous/Loop/Adapter/ReactLoopAdapter.php:62:41:error - MixedArgument: Argument 2 of React\EventLoop\LoopInterface::addSignal cannot be mixed, expecting callable
-/app/src/Spinner/Asynchronous/Loop/Adapter/RevoltLoopAdapter.php:42:38:error - MixedArgumentTypeCoercion: Argument 2 of Revolt\EventLoop::repeat expects Closure(string):void, but parent type Closure provided
-/app/src/Spinner/Asynchronous/Loop/Adapter/RevoltLoopAdapter.php:70:34:error - MixedArgumentTypeCoercion: Argument 2 of Revolt\EventLoop::delay expects Closure(string):void, but parent type Closure provided
-/app/src/Spinner/Asynchronous/Loop/Adapter/RevoltLoopAdapter.php:92:38:error - MixedArgumentTypeCoercion: Argument 2 of Revolt\EventLoop::onSignal expects Closure(string, int):void, but parent type Closure provided
 /app/src/Spinner/Core/A/AFramesRenderer.php:27:50:error - MixedAssignment: Unable to determine the type that $entry is being assigned to
 /app/src/Spinner/Core/A/ASpinner.php:88:68:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContext' for AlecRabbit\Spinner\Core\A\ASpinner::add
 /app/src/Spinner/Core/A/ASpinner.php:95:16:error - MixedReturnStatement: Could not infer a return type
