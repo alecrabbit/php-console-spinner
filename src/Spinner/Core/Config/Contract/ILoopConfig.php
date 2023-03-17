@@ -1,9 +1,9 @@
 <?php
+
 declare(strict_types=1);
 // 17.03.23
 namespace AlecRabbit\Spinner\Core\Config\Contract;
 
-use AlecRabbit\Spinner\Core\Config\A\ALoopConfig;
 use AlecRabbit\Spinner\Core\RunMode;
 
 interface ILoopConfig

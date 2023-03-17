@@ -108,15 +108,6 @@ abstract class AConfigBuilder implements IConfigBuilder
             $this->defaults->getRootWidgetSettings()->getCharPattern() ?? $this->defaults->getCharPattern();
     }
 
-    protected function createDriver(): IDriver
-    {
-        return
-            $this->driverBuilder
-                ->withOutput(new StreamOutput($this->defaults->getOutputStream()))
-                ->withTimer(new Timer())
-                ->build();
-    }
-
     protected function createRootWidget(): IWidgetComposite
     {
         return
@@ -133,6 +124,15 @@ abstract class AConfigBuilder implements IConfigBuilder
                 )
                 ->withLeadingSpacer($this->defaults->getRootWidgetSettings()->getLeadingSpacer())
                 ->withTrailingSpacer($this->defaults->getRootWidgetSettings()->getTrailingSpacer())
+                ->build();
+    }
+
+    protected function createDriver(): IDriver
+    {
+        return
+            $this->driverBuilder
+                ->withOutput(new StreamOutput($this->defaults->getOutputStream()))
+                ->withTimer(new Timer())
                 ->build();
     }
 }
