@@ -1,12 +1,15 @@
+parameters:
+  namespace: 'AlecRabbit\\Spinner'
+
 # Add module files here
 imports:
   - .common/paths.yaml
   - module/async.yaml
+  - module/contract.yaml
   - module/core.yaml
   - module/exception.yaml
   - module/extras.yaml
   - module/helper.yaml
-  - module/iloop.yaml
   - module/mixin.yaml
   - vendor/react.yaml
   - vendor/revolt.yaml
@@ -20,26 +23,28 @@ deptrac:
       - +ModuleHelper
       - +VendorReact
       - +VendorRevolt
-      - ILoop
-    ModuleExtras:
-      - +ModuleCore
+    ModuleContract:
+      - +VendorReact
+      - +VendorRevolt
       - +ModuleException
-      - +VendorSymfony
-    ModuleHelper:
-      - +ModuleException
-      - +ModuleMixin
     ModuleCore:
       - +ModuleException
       - +ModuleHelper
       - +ModuleMixin
-      - ILoop
     ModuleException: ~
+    ModuleExtras:
+      - +ModuleContract
+      - +ModuleCore
+      - +ModuleException
+      - +ModuleHelper
+      - +ModuleMixin
+      - +VendorSymfony
+    ModuleHelper:
+      - +ModuleContract
+      - +ModuleException
+      - +ModuleMixin
     ModuleMixin: ~
     VendorSymfony: ~
-    ILoop:
-      - +VendorRevolt
-      - +VendorReact
-      - +ModuleCore
 #  skip_violations:
 #    NS\Class:
 #      - AnotherNS\Class

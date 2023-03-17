@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 // 02.03.23
+
 namespace AlecRabbit\Spinner\Mixin;
 
 trait PrivateConstructorTrait

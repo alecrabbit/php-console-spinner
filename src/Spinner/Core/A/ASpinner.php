@@ -4,12 +4,11 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\A;
 
-use AlecRabbit\Spinner\Core\Contract\IFrame;
-use AlecRabbit\Spinner\Core\Contract\IInterval;
+use AlecRabbit\Spinner\Contract\IDriver;
+use AlecRabbit\Spinner\Contract\IFrame;
+use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
-use AlecRabbit\Spinner\Core\Contract\ITimer;
 use AlecRabbit\Spinner\Core\Factory\FrameFactory;
-use AlecRabbit\Spinner\Core\Output\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContext;
 use Closure;
@@ -19,18 +18,17 @@ abstract class ASpinner implements ISpinner
     protected bool $active = false;
     protected bool $interrupted = false;
     protected IFrame $currentFrame;
-    protected int $framesWidthDiff;
+    protected int $framesWidthDiff = 0;
 
     public function __construct(
         protected readonly IDriver $driver,
-        protected readonly ITimer $timer,
-        protected IWidgetComposite $widget,
+        protected IWidgetComposite $rootWidget,
     ) {
+        $this->currentFrame = FrameFactory::createEmpty();
     }
 
     public function initialize(): void
     {
-        $this->currentFrame = FrameFactory::createEmpty();
         $this->driver->hideCursor();
         $this->activate();
         $this->update();
@@ -44,7 +42,7 @@ abstract class ASpinner implements ISpinner
     protected function update(float $dt = null): void
     {
         $previousFrame = $this->currentFrame;
-        $this->currentFrame = $this->widget->update($dt);
+        $this->currentFrame = $this->rootWidget->update($dt);
         $this->framesWidthDiff =
             max(
                 $previousFrame->width() - $this->currentFrame->width(),
@@ -91,13 +89,14 @@ abstract class ASpinner implements ISpinner
     {
         $this->wrap(
             function () use ($element, &$result): void {
-                $result = $this->widget->add($element);
+                $result = $this->rootWidget->add($element);
             }
         );
+        /** @var IWidgetContext */
         return $result;
     }
 
-    public function wrap(Closure $closure, ...$args): void
+    public function wrap(Closure $closure, mixed ...$args): void
     {
         $this->erase();
         $closure(...$args);
@@ -106,9 +105,8 @@ abstract class ASpinner implements ISpinner
 
     public function spin(float $dt = null): void
     {
-        $this->render(
-            $dt ?? $this->timer->elapsed()
-        );
+        $dt ??= $this->driver->elapsedTime();
+        $this->render($dt);
     }
 
     public function render(float $dt = null): void
@@ -123,18 +121,13 @@ abstract class ASpinner implements ISpinner
     {
         $this->wrap(
             function () use ($element) {
-                $this->widget->remove($element);
+                $this->rootWidget->remove($element);
             }
         );
     }
 
     public function getInterval(): IInterval
     {
-        return $this->widget->getInterval();
+        return $this->rootWidget->getInterval();
     }
-
-//    public function getDriver(): IDriver // [a1087a32-9943-4e3d-a98b-fc2cae929236]
-//    {
-//        return $this->driver;
-//    }
 }

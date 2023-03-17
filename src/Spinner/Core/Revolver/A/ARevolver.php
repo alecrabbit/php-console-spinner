@@ -4,12 +4,13 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Revolver\A;
 
-use AlecRabbit\Spinner\Core\Contract\IFrame;
-use AlecRabbit\Spinner\Core\Contract\IInterval;
+use AlecRabbit\Spinner\Contract\IFrame;
+use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
 
 abstract class ARevolver implements IRevolver
 {
+    /** @var int */
     protected const TOLERANCE = 5; // ms
     protected float $intervalValue;
     protected float $differential;
@@ -31,6 +32,7 @@ abstract class ARevolver implements IRevolver
 
     public function setInterval(IInterval $interval): void
     {
+        /** @psalm-suppress RedundantPropertyInitializationCheck */
         $this->interval = $interval->smallest($this->interval ?? null);
         $this->intervalValue = $interval->toMilliseconds();
         $this->differential = $this->intervalValue;

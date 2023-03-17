@@ -3,4 +3,4 @@ deptrac:
     - name: ModuleException
       collectors:
         - type: className
-          value: .*AlecRabbit\\Spinner\\Exception\\.*
+          value: '%namespace%\\Exception\\.*'

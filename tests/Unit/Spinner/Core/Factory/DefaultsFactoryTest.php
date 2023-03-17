@@ -8,19 +8,16 @@ use AlecRabbit\Spinner\Core\Defaults\Contract\IDefaults;
 use AlecRabbit\Spinner\Core\Factory\DefaultsFactory;
 use AlecRabbit\Spinner\Exception\DomainException;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
-use AlecRabbit\Tests\Spinner\Helper\PickLock;
 use AlecRabbit\Tests\Spinner\TestCase\TestCase;
 use AlecRabbit\Tests\Spinner\Unit\Spinner\Config\Defaults\Override\DefaultsOverride;
+use PHPUnit\Framework\Attributes\Test;
 use stdClass;
 
 //use AlecRabbit\Spinner\Config\Defaults\Defaults;
 
 final class DefaultsFactoryTest extends TestCase
 {
-    private const DEFAULTS_CLASS_CAN_BE_SET_ONLY_ONCE =
-        'Defaults class can be set only once - before first defaults instance is created.';
-
-    /** @test */
+    #[Test]
     public function sameInstanceEverytime(): void
     {
         $iterations = self::REPEATS;
@@ -34,29 +31,15 @@ final class DefaultsFactoryTest extends TestCase
 
     private static function getDefaultsInstance(): IDefaults
     {
-        return DefaultsFactory::create();
+        return DefaultsFactory::get();
     }
 
-    /** @test */
-    public function setDefaultsClassThrowsOnSetRepeat(): void
-    {
-        $this->expectException(DomainException::class);
-        $this->expectExceptionMessage(
-            self::DEFAULTS_CLASS_CAN_BE_SET_ONLY_ONCE
-        );
-
-        $class = DefaultsOverride::class;
-        DefaultsFactory::setDefaultsClass($class);
-        DefaultsFactory::setDefaultsClass($class);
-        self::assertSame($class, self::getValue('className', DefaultsFactory::class));
-    }
-
-    /** @test */
+    #[Test]
     public function setDefaultsClassThrowsAfterDefaultInstanceCreation(): void
     {
         $this->expectException(DomainException::class);
         $this->expectExceptionMessage(
-            self::DEFAULTS_CLASS_CAN_BE_SET_ONLY_ONCE
+            'Defaults class can not be set after defaults instance is created.'
         );
 
         $defaults = self::getDefaultsInstance();
@@ -66,7 +49,7 @@ final class DefaultsFactoryTest extends TestCase
         self::assertSame($defaults, self::getDefaultsInstance());
     }
 
-    /** @test */
+    #[Test]
     public function defaultsClassCanBeSet(): void
     {
         $class = DefaultsOverride::class;
@@ -74,10 +57,11 @@ final class DefaultsFactoryTest extends TestCase
         self::assertSame($class, self::getValue('className', DefaultsFactory::class));
     }
 
-    /** @test */
+    #[Test]
     public function setDefaultsClassThrowsOnInvalidArgument(): void
     {
-        $this->expectException(InvalidArgumentException::class);
+        $exceptionClass = InvalidArgumentException::class;
+        $this->expectException($exceptionClass);
         $this->expectExceptionMessage(
             sprintf(
                 'Class "%s" must be a subclass of "%s"',
@@ -87,12 +71,13 @@ final class DefaultsFactoryTest extends TestCase
         );
 
         DefaultsFactory::setDefaultsClass(stdClass::class);
-        self::assertTrue(is_subclass_of(DefaultsFactory::create()::class, IDefaults::class));
+        self::exceptionNotThrown($exceptionClass);
     }
 
     protected function setUp(): void
     {
-        PickLock::setValue(DefaultsFactory::class, 'className', null);
+        self::setValue(DefaultsFactory::class, 'className', null);
+        self::setValue(DefaultsFactory::class, 'defaultsInstance', null);
     }
 }
 

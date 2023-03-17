@@ -8,5 +8,4 @@ use AlecRabbit\Spinner\Core\Widget\A\AWidgetRevolver;
 
 final class WidgetRevolver extends AWidgetRevolver
 {
-
 }

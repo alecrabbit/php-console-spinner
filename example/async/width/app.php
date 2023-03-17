@@ -2,23 +2,23 @@
 
 declare(strict_types=1);
 
-use AlecRabbit\Spinner\Core\ColorMode;
+use AlecRabbit\Spinner\Contract\ColorMode;
 use AlecRabbit\Spinner\Core\Factory\DefaultsFactory;
 use AlecRabbit\Spinner\Core\Output\StreamOutput;
-use AlecRabbit\Spinner\Factory;
+use AlecRabbit\Spinner\Facade;
 
 require_once __DIR__ . '/../bootstrap.async.php';
 
-$defaults = DefaultsFactory::create();
+$defaults = DefaultsFactory::get();
 
-$terminal = $defaults->getTerminal();
+$terminal = $defaults->getTerminalSettings();
 
 $terminal->setColorMode(ColorMode::NONE);
 $terminal->setWidth(80);
 
 $output = new StreamOutput(STDOUT);
 
-$loop = Factory::getLoop();
+$loop = Facade::getLoop();
 
 $output->writeln(
     sprintf(

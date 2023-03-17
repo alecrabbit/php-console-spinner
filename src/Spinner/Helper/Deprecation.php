@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 // 11.03.23
+
 namespace AlecRabbit\Spinner\Helper;
 
 use AlecRabbit\Spinner\Mixin\NoInstanceTrait;
@@ -20,7 +21,7 @@ final class Deprecation
             sprintf(
                 'Method "%s" is deprecated%s.',
                 $method,
-                $message ?? sprintf(', %s', $message),
+                $message ?? sprintf(', %s', (string)$message),
             ),
             E_USER_DEPRECATED
         );

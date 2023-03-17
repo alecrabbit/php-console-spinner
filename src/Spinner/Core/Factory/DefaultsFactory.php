@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 // 14.02.23
+
 namespace AlecRabbit\Spinner\Core\Factory;
 
-use AlecRabbit\Spinner\Core\Contract\ILoopProbe;
+use AlecRabbit\Spinner\Contract\IProbe;
 use AlecRabbit\Spinner\Core\Defaults\A\ADefaults;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDefaults;
-use AlecRabbit\Spinner\Core\Terminal\Contract\ITerminalProbe;
 use AlecRabbit\Spinner\Exception\DomainException;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Helper\Asserter;
@@ -17,31 +17,41 @@ final class DefaultsFactory
 {
     use NoInstanceTrait;
 
-    /** @var array<class-string<ILoopProbe|ITerminalProbe>> */
+    /** @var array<class-string<IProbe>> */
     private static iterable $addedProbes = [];
 
     /** @var null|class-string<IDefaults> */
     private static ?string $className = null;
+    private static ?IDefaults $defaultsInstance = null;
 
-    public static function create(): IDefaults
+    public static function get(): IDefaults
+    {
+        if (null === self::$defaultsInstance) {
+            self::$defaultsInstance = self::create();
+        }
+        return self::$defaultsInstance;
+    }
+
+    private static function create(): IDefaults
     {
         if (null === self::$className) {
             self::$className = ADefaults::class;
-            self::initDefaultsClass(self::$className);
         }
+        self::initialize(self::$className);
         /** @noinspection PhpUndefinedMethodInspection */
         return self::$className::getInstance();
     }
 
-    private static function initDefaultsClass(string $className): void
+    private static function initialize(string $className): void
     {
         /** @var IDefaults $className */
         foreach (self::$addedProbes as $probe) {
-            $className::registerProbe($probe);
+            $className::registerProbeClass($probe);
         }
     }
 
     /**
+     * @param class-string<IProbe> $className
      * @throws InvalidArgumentException
      */
     public static function addProbe(string $className): void
@@ -59,6 +69,7 @@ final class DefaultsFactory
     }
 
     /**
+     * @param class-string<IDefaults> $class
      * @throws InvalidArgumentException
      * @throws DomainException
      */
@@ -66,9 +77,9 @@ final class DefaultsFactory
     {
         Asserter::isSubClass($class, IDefaults::class, __METHOD__);
 
-        if (null !== self::$className) {
+        if (null !== self::$defaultsInstance) {
             throw new DomainException(
-                'Defaults class can be set only once - before first defaults instance is created.'
+                'Defaults class can not be set after defaults instance is created.'
             );
         }
 

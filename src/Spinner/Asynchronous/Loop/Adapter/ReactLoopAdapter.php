@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 // 17.02.23
+
 namespace AlecRabbit\Spinner\Asynchronous\Loop\Adapter;
 
 use AlecRabbit\Spinner\Asynchronous\Loop\Adapter\A\ALoopAdapter;
@@ -21,14 +22,15 @@ class ReactLoopAdapter extends ALoopAdapter
 
     public function attach(ISpinner $spinner): void
     {
-        $this->detachPrevious();
-        $this->spinnerTimer = $this->loop->addPeriodicTimer(
-            $spinner->getInterval()->toSeconds(),
-            static fn() => $spinner->spin()
-        );
+        $this->detachSpinner();
+        $this->spinnerTimer =
+            $this->loop->addPeriodicTimer(
+                $spinner->getInterval()->toSeconds(),
+                static fn() => $spinner->spin()
+            );
     }
 
-    private function detachPrevious(): void
+    protected function detachSpinner(): void
     {
         if ($this->spinnerTimer instanceof TimerInterface) {
             $this->loop->cancelTimer($this->spinnerTimer);
@@ -37,7 +39,7 @@ class ReactLoopAdapter extends ALoopAdapter
 
     public function autoStart(): void
     {
-        // ReactPHP event loop is started by library code.
+        // ReactPHP event loop is started by its library code.
     }
 
     public function repeat(float $interval, Closure $closure): void
@@ -55,7 +57,7 @@ class ReactLoopAdapter extends ALoopAdapter
         $this->loop->addTimer($delay, $closure);
     }
 
-    protected function onSignal(int $signal, mixed $closure): void
+    protected function onSignal(int $signal, Closure $closure): void
     {
         $this->loop->addSignal($signal, $closure);
     }

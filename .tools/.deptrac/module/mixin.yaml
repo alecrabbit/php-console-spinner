@@ -3,4 +3,4 @@ deptrac:
     - name: ModuleMixin
       collectors:
         - type: className
-          value: .*AlecRabbit\\Spinner\\Mixin\\.*
+          value: '%namespace%\\Mixin\\.*'

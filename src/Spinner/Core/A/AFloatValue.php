@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\A;
 
-use AlecRabbit\Spinner\Core\Contract\IFloatValue;
+use AlecRabbit\Spinner\Contract\IFloatValue;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 
-use function is_float;
-
-abstract class AFloatValue extends AValue implements IFloatValue
+abstract class AFloatValue implements IFloatValue
 {
+    protected float $value;
+
     /**
      * @throws InvalidArgumentException
      */
@@ -21,23 +21,6 @@ abstract class AFloatValue extends AValue implements IFloatValue
     ) {
         $this->setValue($startValue);
         self::assert($this);
-    }
-
-    /** @inheritdoc */
-    public function setValue($value): void
-    {
-        parent::setValue($value);
-        $this->checkBounds();
-    }
-
-    protected function checkBounds(): void
-    {
-        if ($this->value > $this->max) {
-            $this->value = $this->max;
-        }
-        if ($this->value < $this->min) {
-            $this->value = $this->min;
-        }
     }
 
     /**
@@ -62,18 +45,6 @@ abstract class AFloatValue extends AValue implements IFloatValue
         };
     }
 
-    protected static function assertValue(mixed $value): void
-    {
-        if (!is_float($value)) {
-            throw new InvalidArgumentException(
-                sprintf(
-                    'Value should be float. Value: "%s".',
-                    $value,
-                )
-            );
-        }
-    }
-
     public function getMin(): float
     {
         return $this->min;
@@ -87,5 +58,21 @@ abstract class AFloatValue extends AValue implements IFloatValue
     public function getValue(): float
     {
         return $this->value;
+    }
+
+    public function setValue(float $value): void
+    {
+        $this->value = $value;
+        $this->checkBounds();
+    }
+
+    protected function checkBounds(): void
+    {
+        if ($this->value > $this->max) {
+            $this->value = $this->max;
+        }
+        if ($this->value < $this->min) {
+            $this->value = $this->min;
+        }
     }
 }

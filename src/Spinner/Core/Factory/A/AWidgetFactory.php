@@ -4,13 +4,14 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Factory\A;
 
-use AlecRabbit\Spinner\Core\Contract\IFrame;
-use AlecRabbit\Spinner\Core\Contract\IInterval;
-use AlecRabbit\Spinner\Core\EmptyFrameRevolver;
+use AlecRabbit\Spinner\Contract\IFrame;
+use AlecRabbit\Spinner\Contract\IInterval;
+use AlecRabbit\Spinner\Core\Defaults\Contract\IDefaults;
 use AlecRabbit\Spinner\Core\Factory\Contract\IWidgetFactory;
 use AlecRabbit\Spinner\Core\Factory\FrameFactory;
 use AlecRabbit\Spinner\Core\Factory\IntervalFactory;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
+use AlecRabbit\Spinner\Core\Revolver\EmptyFrameRevolver;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetBuilder;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolverBuilder;
@@ -44,36 +45,40 @@ abstract class AWidgetFactory extends ADefaultsAwareClass implements IWidgetFact
                 ->build();
     }
 
-    public static function getWidgetBuilder(): IWidgetBuilder
+    public static function getWidgetBuilder(?IDefaults $defaults = null): IWidgetBuilder
     {
         if (null === static::$widgetBuilder) {
-            static::$widgetBuilder = self::createWidgetBuilder();
+            static::$widgetBuilder = self::createWidgetBuilder($defaults);
         }
         return static::$widgetBuilder;
     }
 
-    protected static function createWidgetBuilder(): IWidgetBuilder
+    protected static function createWidgetBuilder(?IDefaults $defaults): IWidgetBuilder
     {
-        $widgetBuilderClass = self::getDefaults()->getClasses()->getWidgetBuilderClass();
+        $defaults ??= static::getDefaults();
+
+        $widgetBuilderClass = $defaults->getClasses()->getWidgetBuilderClass();
 
         return
             new $widgetBuilderClass(
                 static::getDefaults(),
-                static::getWidgetRevolverBuilder(),
+                static::getWidgetRevolverBuilder($defaults),
             );
     }
 
-    public static function getWidgetRevolverBuilder(): IWidgetRevolverBuilder
+    public static function getWidgetRevolverBuilder(?IDefaults $defaults = null): IWidgetRevolverBuilder
     {
         if (null === static::$widgetRevolverBuilder) {
-            static::$widgetRevolverBuilder = static::createWidgetRevolverBuilder();
+            static::$widgetRevolverBuilder = static::createWidgetRevolverBuilder($defaults);
         }
         return static::$widgetRevolverBuilder;
     }
 
-    protected static function createWidgetRevolverBuilder(): IWidgetRevolverBuilder
+    protected static function createWidgetRevolverBuilder(?IDefaults $defaults): IWidgetRevolverBuilder
     {
-        $widgetRevolverBuilderClass = self::getDefaults()->getClasses()->getWidgetRevolverBuilderClass();
+        $defaults ??= static::getDefaults();
+
+        $widgetRevolverBuilderClass = $defaults->getClasses()->getWidgetRevolverBuilderClass();
 
         return
             new $widgetRevolverBuilderClass(

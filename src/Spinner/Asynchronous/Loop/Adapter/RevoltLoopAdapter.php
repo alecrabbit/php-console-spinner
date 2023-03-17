@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 // 17.02.23
+
 namespace AlecRabbit\Spinner\Asynchronous\Loop\Adapter;
 
 use AlecRabbit\Spinner\Asynchronous\Loop\Adapter\A\ALoopAdapter;
@@ -21,14 +22,15 @@ class RevoltLoopAdapter extends ALoopAdapter
 
     public function attach(ISpinner $spinner): void
     {
-        $this->detachPrevious();
-        $this->spinnerTimer = EventLoop::repeat(
-            $spinner->getInterval()->toSeconds(),
-            static fn() => $spinner->spin()
-        );
+        $this->detachSpinner();
+        $this->spinnerTimer =
+            EventLoop::repeat(
+                $spinner->getInterval()->toSeconds(),
+                static fn() => $spinner->spin()
+            );
     }
 
-    private function detachPrevious(): void
+    protected function detachSpinner(): void
     {
         if ($this->spinnerTimer) {
             EventLoop::cancel($this->spinnerTimer);
@@ -37,6 +39,7 @@ class RevoltLoopAdapter extends ALoopAdapter
 
     public function repeat(float $interval, Closure $closure): void
     {
+        /** @psalm-suppress MixedArgumentTypeCoercion */
         EventLoop::repeat($interval, $closure);
     }
 
@@ -65,6 +68,7 @@ class RevoltLoopAdapter extends ALoopAdapter
 
     public function delay(float $delay, Closure $closure): void
     {
+        /** @psalm-suppress MixedArgumentTypeCoercion */
         EventLoop::delay($delay, $closure);
     }
 
@@ -87,6 +91,7 @@ class RevoltLoopAdapter extends ALoopAdapter
 
     protected function onSignal(int $signal, Closure $closure): void
     {
+        /** @psalm-suppress MixedArgumentTypeCoercion */
         EventLoop::onSignal($signal, $closure);
     }
 }

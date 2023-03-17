@@ -4,11 +4,12 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Extras\Procedure;
 
-use AlecRabbit\Spinner\Core\Contract\IFrame;
+use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Core\Factory\FrameFactory;
 use AlecRabbit\Spinner\Extras\Contract\IProgressValue;
 use AlecRabbit\Spinner\Extras\Procedure\A\AProgressValueProcedure;
 
+/** @psalm-suppress UnusedClass */
 final class ProgressStepsProcedure extends AProgressValueProcedure
 {
     private float $stepValue;
@@ -25,7 +26,7 @@ final class ProgressStepsProcedure extends AProgressValueProcedure
             if ($this->finishedDelay < 0) {
                 return FrameFactory::createEmpty();
             }
-            $this->finishedDelay -= $dt;
+            $this->finishedDelay -= $dt ?? 0.0;
         }
         $v = $this->createSteps($this->progressValue);
         return

@@ -8,5 +8,4 @@ use AlecRabbit\Spinner\Core\A\ATimer;
 
 final class Timer extends ATimer
 {
-
 }

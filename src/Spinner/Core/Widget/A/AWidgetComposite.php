@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Widget\A;
 
-use AlecRabbit\Spinner\Core\Contract\IFrame;
-use AlecRabbit\Spinner\Core\Contract\IInterval;
+use AlecRabbit\Spinner\Contract\IFrame;
+use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Core\Frame;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
@@ -104,12 +104,12 @@ abstract class AWidgetComposite implements IWidgetComposite
         return $element->getWidget();
     }
 
-    protected function adoptBy(IWidgetComposite $widget): void
+    public function adoptBy(IWidgetComposite $widget): void
     {
         $this->parent = $widget;
     }
 
-    protected function updateInterval(): void
+    public function updateInterval(): void
     {
         $interval = $this->revolver->getInterval();
         foreach ($this->children as $child) {
@@ -117,7 +117,7 @@ abstract class AWidgetComposite implements IWidgetComposite
         }
         $this->revolver->setInterval($interval);
         if ($this->hasParent()) {
-            $this->parent->updateInterval();
+            $this->parent?->updateInterval();
         }
     }
 
@@ -136,6 +136,7 @@ abstract class AWidgetComposite implements IWidgetComposite
         $widgetContext = $this->extractContext($element);
 
         if ($this->childrenContextMap->offsetExists($widgetContext)) {
+            /** @var int $index */
             $index = $this->childrenContextMap[$widgetContext];
             unset($this->children[$index]);
             $this->childrenContextMap->offsetUnset($widgetContext);
@@ -146,7 +147,7 @@ abstract class AWidgetComposite implements IWidgetComposite
         }
     }
 
-    protected function makeOrphan(): void
+    public function makeOrphan(): void
     {
         $this->parent = null;
     }

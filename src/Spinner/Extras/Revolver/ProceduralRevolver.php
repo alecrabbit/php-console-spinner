@@ -8,5 +8,4 @@ use AlecRabbit\Spinner\Extras\Revolver\A\AProceduralRevolver;
 
 final class ProceduralRevolver extends AProceduralRevolver
 {
-
 }

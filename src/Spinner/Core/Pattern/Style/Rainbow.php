@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 // 09.03.23
+
 namespace AlecRabbit\Spinner\Core\Pattern\Style;
 
 use AlecRabbit\Spinner\Core\Pattern\Style\A\AStylePattern;
@@ -10,9 +11,7 @@ final class Rainbow extends AStylePattern
 {
     protected const UPDATE_INTERVAL = 400;
 
-    public function getPattern(): iterable
-    {
-        return [
+    protected const PATTERN = [
             196,
             202,
             208,
@@ -44,5 +43,4 @@ final class Rainbow extends AStylePattern
             198,
             197,
         ];
-    }
 }

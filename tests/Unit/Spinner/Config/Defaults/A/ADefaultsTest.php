@@ -6,18 +6,18 @@ namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Config\Defaults\A;
 
 use AlecRabbit\Spinner\Asynchronous\Loop\Probe\ReactLoopProbe;
 use AlecRabbit\Spinner\Asynchronous\Loop\Probe\RevoltLoopProbe;
+use AlecRabbit\Spinner\Contract\ColorMode;
 use AlecRabbit\Spinner\Core\Defaults\A\ADefaults;
 use AlecRabbit\Spinner\Core\Factory\FrameFactory;
 use AlecRabbit\Spinner\Core\Widget\WidgetBuilder;
 use AlecRabbit\Spinner\Core\Widget\WidgetRevolverBuilder;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Tests\Spinner\TestCase\TestCase;
-
-use const AlecRabbit\Spinner\TERM_NO_COLOR;
+use PHPUnit\Framework\Attributes\Test;
 
 final class ADefaultsTest extends TestCase
 {
-    /** @test */
+    #[Test]
     public function sameInstanceEverytime(): void
     {
         $iterations = self::REPEATS;
@@ -34,15 +34,15 @@ final class ADefaultsTest extends TestCase
         return ADefaults::getInstance();
     }
 
-    /** @test */
-    public function canSetHideCursor(): void
-    {
-        $defaults = self::getInstance();
-        $defaults->setHideCursor(false);
-        self::assertFalse($defaults->isHideCursor());
-    }
+//    #[Test]
+//    public function canSetHideCursor(): void
+//    {
+//        $defaults = self::getInstance();
+//        $defaults->setHideCursor(false);
+//        self::assertFalse($defaults->isHideCursor());
+//    }
 
-    /** @test */
+    #[Test]
     public function canSetShutdownDelay(): void
     {
         $shutdownDelay = 10;
@@ -50,17 +50,17 @@ final class ADefaultsTest extends TestCase
         $defaults->setShutdownDelay($shutdownDelay);
         self::assertSame($shutdownDelay, $defaults->getShutdownDelay());
     }
+//
+//    #[Test]
+//    public function canSetFinalMessage(): void
+//    {
+//        $message = 'test';
+//        $defaults = self::getInstance();
+//        $defaults->setFinalMessage($message);
+//        self::assertSame($message, $defaults->getFinalMessage());
+//    }
 
-    /** @test */
-    public function canSetFinalMessage(): void
-    {
-        $message = 'test';
-        $defaults = self::getInstance();
-        $defaults->setFinalMessage($message);
-        self::assertSame($message, $defaults->getFinalMessage());
-    }
-
-    /** @test */
+    #[Test]
     public function canSetOutputStream(): void
     {
         $stream = STDOUT;
@@ -69,26 +69,26 @@ final class ADefaultsTest extends TestCase
         self::assertSame($stream, $defaults->getOutputStream());
     }
 
-    /** @test */
-    public function canSetLoopProbes(): void
+    #[Test]
+    public function canOverrideLoopProbes(): void
     {
         $defaults = self::getInstance();
         $loopProbes = [
             RevoltLoopProbe::class,
             ReactLoopProbe::class,
         ];
-        $defaults->setLoopProbeClasses(
-            $loopProbes
+        $defaults->overrideLoopProbeClasses(
+            new \ArrayObject($loopProbes)
         );
         $loopProbesCount = 0;
-        foreach ($defaults->getLoopProbeClasses() as $loopProbe) {
+        foreach ($defaults->getProbeClasses() as $loopProbe) {
             self::assertContains($loopProbe, $loopProbes);
             $loopProbesCount++;
         }
         self::assertEquals(count($loopProbes), $loopProbesCount);
     }
 
-    /** @test */
+    #[Test]
     public function canGetClasses(): void
     {
         $defaults = self::getInstance();
@@ -96,7 +96,7 @@ final class ADefaultsTest extends TestCase
         self::assertSame(WidgetRevolverBuilder::class, $defaults->getClasses()->getWidgetRevolverBuilderClass());
     }
 
-    /** @test */
+    #[Test]
     public function setOutputStreamThrowsOnInvalidArgument(): void
     {
         $this->expectException(InvalidArgumentException::class);
@@ -108,7 +108,7 @@ final class ADefaultsTest extends TestCase
         self::assertSame($stream, $defaults->getOutputStream());
     }
 
-    /** @test */
+    #[Test]
     public function canSetMillisecondsInterval(): void
     {
         $millisecondsInterval = 10;
@@ -117,7 +117,7 @@ final class ADefaultsTest extends TestCase
         self::assertSame($millisecondsInterval, $defaults->getIntervalMilliseconds());
     }
 
-    /** @test */
+    #[Test]
     public function canSetCreateInitialized(): void
     {
         $defaults = self::getInstance();
@@ -129,7 +129,7 @@ final class ADefaultsTest extends TestCase
         self::assertTrue($defaults->isCreateInitialized());
     }
 
-    /** @test */
+    #[Test]
     public function canSetModeAsSynchronous(): void
     {
         $defaults = self::getInstance();
@@ -141,65 +141,65 @@ final class ADefaultsTest extends TestCase
         self::assertTrue($defaults->isModeSynchronous());
     }
 
-    /** @test */
-    public function defaultAndMainLeadingSpacersAreSame(): void
-    {
-        $defaults = self::getInstance();
-        self::assertSame($defaults->getDefaultLeadingSpacer(), $defaults->getMainLeadingSpacer());
-    }
+//    #[Test]
+//    public function defaultAndMainLeadingSpacersAreSame(): void
+//    {
+//        $defaults = self::getInstance();
+//        self::assertSame($defaults->getDefaultLeadingSpacer(), $defaults->getMainLeadingSpacer());
+//    }
+//
+//    #[Test]
+//    public function canSetMainLeadingSpacer(): void
+//    {
+//        $defaults = self::getInstance();
+//
+//        $spacer = FrameFactory::create('test', 4);
+//        $defaults->setMainLeadingSpacer($spacer);
+//        self::assertSame($spacer, $defaults->getMainLeadingSpacer());
+//    }
 
-    /** @test */
-    public function canSetMainLeadingSpacer(): void
-    {
-        $defaults = self::getInstance();
+//    #[Test]
+//    public function defaultAndMainTrailingSpacersAreSame(): void
+//    {
+//        $defaults = self::getInstance();
+//        self::assertSame($defaults->getDefaultTrailingSpacer(), $defaults->getMainTrailingSpacer());
+//    }
+//
+//    #[Test]
+//    public function canSetMainTrailingSpacer(): void
+//    {
+//        $defaults = self::getInstance();
+//
+//        $spacer = FrameFactory::create('test', 4);
+//        $defaults->setMainTrailingSpacer($spacer);
+//        self::assertSame($spacer, $defaults->getMainTrailingSpacer());
+//    }
 
-        $spacer = FrameFactory::create('test', 4);
-        $defaults->setMainLeadingSpacer($spacer);
-        self::assertSame($spacer, $defaults->getMainLeadingSpacer());
-    }
-
-    /** @test */
-    public function defaultAndMainTrailingSpacersAreSame(): void
-    {
-        $defaults = self::getInstance();
-        self::assertSame($defaults->getDefaultTrailingSpacer(), $defaults->getMainTrailingSpacer());
-    }
-
-    /** @test */
-    public function canSetMainTrailingSpacer(): void
-    {
-        $defaults = self::getInstance();
-
-        $spacer = FrameFactory::create('test', 4);
-        $defaults->setMainTrailingSpacer($spacer);
-        self::assertSame($spacer, $defaults->getMainTrailingSpacer());
-    }
-
-    /** @test */
+    #[Test]
     public function canSetPercentNumberFormat(): void
     {
         $defaults = self::getInstance();
         $defaults->setPercentNumberFormat('%.2f');
         self::assertSame('%.2f', $defaults->getPercentNumberFormat());
     }
+//
+//    #[Test]
+//    public function canSetMessageOnExit(): void
+//    {
+//        $defaults = self::getInstance();
+//        $defaults->setMessageOnExit('test');
+//        self::assertSame('test', $defaults->getMessageOnExit());
+//    }
 
-    /** @test */
-    public function canSetMessageOnExit(): void
-    {
-        $defaults = self::getInstance();
-        $defaults->setMessageOnExit('test');
-        self::assertSame('test', $defaults->getMessageOnExit());
-    }
+//    #[Test]
+//    public function canSetInterruptMessage(): void
+//    {
+//        $defaults = self::getInstance();
+//        $defaults->setInterruptMessage('test');
+//        self::assertSame('test', $defaults->getInterruptMessage());
+//    }
 
-    /** @test */
-    public function canSetInterruptMessage(): void
-    {
-        $defaults = self::getInstance();
-        $defaults->setInterruptMessage('test');
-        self::assertSame('test', $defaults->getInterruptMessage());
-    }
-
-    /** @test */
+    #[Test]
     public function canSetMaxShutdownDelay(): void
     {
         $defaults = self::getInstance();
@@ -207,28 +207,30 @@ final class ADefaultsTest extends TestCase
         self::assertSame(10, $defaults->getMaxShutdownDelay());
     }
 
-    /** @test */
-    public function canSetColorSupportLevels(): void
+    #[Test]
+    public function canSetSupportedColorModes(): void
     {
         $defaults = self::getInstance();
-        $colorSupportLevels = [TERM_NO_COLOR];
-        $defaults->setColorSupportLevels($colorSupportLevels);
-        self::assertSame($colorSupportLevels, $defaults->getColorSupportLevels());
+        $colorSupportLevels = new \ArrayObject([ColorMode::ANSI24]);
+        $defaults->overrideSupportedColorModes($colorSupportLevels);
+        self::assertSame($colorSupportLevels, $defaults->getSupportedColorModes());
     }
 
-    /** @test */
-    public function setColorSupportLevelsThrowsOnInvalidArgument(): void
+    #[Test]
+    public function setSupportedColorModesThrowsOnInvalidArgument(): void
     {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('Color support levels must not be empty.');
+        $exception = InvalidArgumentException::class;
+        $this->expectException($exception);
+        $this->expectExceptionMessage('Color modes must not be empty.');
 
         $defaults = self::getInstance();
-        $defaults->setColorSupportLevels([]);
-        self::assertSame(10, $defaults->getColorSupportLevels());
+        $defaults->overrideSupportedColorModes(new \ArrayObject([]));
+        self::assertSame(10, $defaults->getSupportedColorModes());
+        self::exceptionNotThrown($exception);
     }
 
     protected function setUp(): void
     {
-        self::getInstance()->reset();
+        self::callMethod(self::getInstance(), 'reset');
     }
 }

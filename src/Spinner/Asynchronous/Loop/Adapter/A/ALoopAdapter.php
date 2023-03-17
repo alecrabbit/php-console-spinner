@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 // 18.02.23
+
 namespace AlecRabbit\Spinner\Asynchronous\Loop\Adapter\A;
 
-use AlecRabbit\Spinner\Core\Contract\ILoop;
-use AlecRabbit\Spinner\Core\Contract\ILoopGetter;
+use AlecRabbit\Spinner\Core\Contract\ILoopAdapter;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use AlecRabbit\Spinner\Core\Factory\A\ADefaultsAwareClass;
 use AlecRabbit\Spinner\Exception\RuntimeException;
 use AlecRabbit\Spinner\Helper\Asserter;
 use Closure;
 
-abstract class ALoopAdapter extends ADefaultsAwareClass implements ILoop, ILoopGetter
+abstract class ALoopAdapter extends ADefaultsAwareClass implements ILoopAdapter
 {
     protected static function error(): bool
     {
@@ -29,6 +29,10 @@ abstract class ALoopAdapter extends ADefaultsAwareClass implements ILoop, ILoopG
 
     public function setSignalHandlers(iterable $handlers): void
     {
+        /**
+         * @var int $signal
+         * @var Closure $handler
+         */
         foreach ($handlers as $signal => $handler) {
             $this->onSignal($signal, $handler);
         }
@@ -72,4 +76,6 @@ abstract class ALoopAdapter extends ADefaultsAwareClass implements ILoop, ILoopG
     {
         $this->getLoop()->run();
     }
+
+    abstract protected function detachSpinner(): void;
 }

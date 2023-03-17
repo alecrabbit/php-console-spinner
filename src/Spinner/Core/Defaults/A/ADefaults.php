@@ -2,34 +2,33 @@
 
 declare(strict_types=1);
 // 20.06.22
+
 namespace AlecRabbit\Spinner\Core\Defaults\A;
 
-use AlecRabbit\Spinner\Core\Contract\IFrame;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDefaults;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDefaultsClasses;
+use AlecRabbit\Spinner\Core\Defaults\Contract\IDriverSettings;
+use AlecRabbit\Spinner\Core\Defaults\Contract\ITerminalSettings;
+use AlecRabbit\Spinner\Core\Defaults\Contract\IWidgetSettings;
 use AlecRabbit\Spinner\Core\Pattern\Char\Ascii;
 use AlecRabbit\Spinner\Core\Pattern\Contract\IPattern;
 use AlecRabbit\Spinner\Core\Pattern\Style\Rainbow;
-use AlecRabbit\Spinner\Core\Terminal\Contract\ITerminal;
-use AlecRabbit\Spinner\Helper\Deprecation;
+use AlecRabbit\Spinner\Core\RunMode;
+use AlecRabbit\Spinner\Core\Terminal\Contract\ITerminalProbe;
+use AlecRabbit\Spinner\Core\Terminal\NativeTerminalProbe;
 
 abstract class ADefaults extends ASettableDefaults
 {
     private static ?IDefaults $instance = null; // private, singleton
 
-    private function __construct()
+    public function getRootWidgetSettings(): IWidgetSettings
     {
-        $this->reset();
+        return static::$rootWidgetSettings;
     }
 
-    final public static function getInstance(): self
+    public function getWidgetSettings(): IWidgetSettings
     {
-        if (null === self::$instance) {
-            self::$instance =
-                new class() extends ADefaults {
-                };
-        }
-        return self::$instance;
+        return static::$widgetSettings;
     }
 
     public function getClasses(): IDefaultsClasses
@@ -55,28 +54,12 @@ abstract class ADefaults extends ASettableDefaults
 
     public function isModeSynchronous(): bool
     {
-        return static::$isModeSynchronous;
+        return static::$runMode === RunMode::SYNCHRONOUS;
     }
 
-    public function isHideCursor(): bool
+    public function getRunMode(): RunMode
     {
-        return static::$hideCursor;
-    }
-
-    public function getFinalMessage(): string
-    {
-        return static::$messageOnFinalize;
-    }
-
-
-    public function getMessageOnExit(): string
-    {
-        return static::$messageOnExit;
-    }
-
-    public function getInterruptMessage(): string
-    {
-        return static::$messageOnInterrupt;
+        return static::$runMode;
     }
 
     public function getMaxShutdownDelay(): float|int
@@ -84,10 +67,9 @@ abstract class ADefaults extends ASettableDefaults
         return static::$shutdownMaxDelay;
     }
 
-    public function getColorSupportLevels(): array
+    public function getSupportedColorModes(): \Traversable
     {
-        Deprecation::method(__METHOD__);
-        return static::$colorSupportLevels;
+        return static::$supportedColorModes;
     }
 
     public function getPercentNumberFormat(): string
@@ -95,32 +77,20 @@ abstract class ADefaults extends ASettableDefaults
         return static::$percentNumberFormat;
     }
 
-    public function getSpinnerStylePattern(): IPattern
+    public function getStylePattern(): IPattern
     {
-        if (null === static::$mainStylePattern) {
-            static::$mainStylePattern = new Rainbow();
+        if (null === static::$stylePattern) {
+            static::$stylePattern = new Rainbow();
         }
-        return static::$mainStylePattern;
+        return static::$stylePattern;
     }
 
-    public function getSpinnerCharPattern(): IPattern
+    public function getCharPattern(): IPattern
     {
-        if (null === static::$mainCharPattern) {
-            static::$mainCharPattern = new Ascii();
+        if (null === static::$charPattern) {
+            static::$charPattern = new Ascii();
         }
-        return static::$mainCharPattern;
-    }
-
-    public function getMainLeadingSpacer(): IFrame
-    {
-        return
-            static::$mainLeadingSpacer ?? static::$defaultLeadingSpacer;
-    }
-
-    public function getMainTrailingSpacer(): IFrame
-    {
-        return
-            static::$mainTrailingSpacer ?? static::$defaultTrailingSpacer;
+        return static::$charPattern;
     }
 
     public function isCreateInitialized(): bool
@@ -128,19 +98,9 @@ abstract class ADefaults extends ASettableDefaults
         return static::$createInitialized;
     }
 
-    public function getDefaultLeadingSpacer(): IFrame
-    {
-        return static::$defaultLeadingSpacer;
-    }
-
-    public function getDefaultTrailingSpacer(): IFrame
-    {
-        return static::$defaultTrailingSpacer;
-    }
-
     public function isAutoStartEnabled(): bool
     {
-        return static::$autoStart;
+        return static::$autoStartEnabled;
     }
 
     public function areSignalHandlersEnabled(): bool
@@ -148,18 +108,59 @@ abstract class ADefaults extends ASettableDefaults
         return static::$attachSignalHandlers;
     }
 
-    public function getLoopProbeClasses(): iterable
+    public function getProbeClasses(): \Traversable
     {
         return static::$loopProbes;
     }
 
-    public function getTerminalProbeClasses(): iterable
+    public function getTerminalSettings(): ITerminalSettings
     {
-        return static::$terminalProbes;
+        return static::$terminalSettings;
     }
 
-    public function getTerminal(): ITerminal
+    public function getDriverSettings(): IDriverSettings
     {
-        return static::$terminal;
+        return static::$driverSettings;
+    }
+
+    protected function getClassesInstance(): IDefaultsClasses
+    {
+        return ADefaultsClasses::getInstance($this);
+    }
+
+    final public static function getInstance(): IDefaults
+    {
+        if (null === self::$instance) {
+            self::$instance =
+                new class () extends ADefaults {
+                };
+        }
+        return self::$instance;
+    }
+
+    protected function createTerminalSettings(): ITerminalSettings
+    {
+        $colorMode = NativeTerminalProbe::getColorMode();
+        $width = NativeTerminalProbe::getWidth();
+        $hideCursor = NativeTerminalProbe::isHideCursor();
+
+        /** @var ITerminalProbe $terminalProbe */
+        foreach (static::$terminalProbes as $terminalProbe) {
+            if ($terminalProbe::isSupported()) {
+                $colorMode = $terminalProbe::getColorMode();
+                $width = $terminalProbe::getWidth();
+            }
+        }
+        return ATerminalSettings::getInstance($this, $colorMode, $width, $hideCursor);
+    }
+
+    protected function createDriverSettings(): IDriverSettings
+    {
+        return ADriverSettings::getInstance($this);
+    }
+
+    protected function createWidgetSettings(): IWidgetSettings
+    {
+        return AWidgetSettings::getInstance($this);
     }
 }

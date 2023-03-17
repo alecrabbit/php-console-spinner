@@ -8,5 +8,4 @@ use AlecRabbit\Spinner\Core\Factory\A\AIntervalFactory;
 
 final class IntervalFactory extends AIntervalFactory
 {
-
 }

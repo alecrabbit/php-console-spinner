@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\A;
 
-use AlecRabbit\Spinner\Core\Contract\IInterval;
+use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 
 abstract class AInterval implements IInterval
@@ -71,7 +71,7 @@ abstract class AInterval implements IInterval
 
     public function smallest(mixed $other): IInterval
     {
-        if ($other instanceof IInterval && $this->milliseconds > $other->milliseconds) {
+        if ($other instanceof IInterval && $this->milliseconds > $other->toMilliseconds()) {
             return $other;
         }
         return $this;

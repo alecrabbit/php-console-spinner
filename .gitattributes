@@ -1,3 +1,4 @@
+*.png binary
 CHANGELOG.md export-ignore
 .chglog/ export-ignore
 composer.lock export-ignore
@@ -11,6 +12,7 @@ docker-compose.yml export-ignore
 .env.dist export-ignore
 example/ export-ignore
 .gitattributes export-ignore
+.gitattributes.dist export-ignore
 .gitattributes.keep export-ignore
 .github/ export-ignore
 .gitignore export-ignore
@@ -18,6 +20,7 @@ example/ export-ignore
 Makefile export-ignore
 phpcs.xml export-ignore
 phpunit.coverage.xml export-ignore
+phpunit.testdox.xml export-ignore
 phpunit.xml export-ignore
 README.md export-ignore
 .scrutinizer.yml export-ignore

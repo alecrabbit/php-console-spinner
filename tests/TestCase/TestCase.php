@@ -24,6 +24,16 @@ abstract class TestCase extends PHPUnitTestCase
         return PickLock::getValue($from, $property);
     }
 
+    protected static function setValue(object|string $objectOrClass, string $propertyName, mixed $value): void
+    {
+        PickLock::setValue($objectOrClass, $propertyName,  $value);
+    }
+
+    protected static function callMethod(mixed $objectOrClass, string $methodName, ...$args): mixed
+    {
+        return PickLock::callMethod($objectOrClass, $methodName, ...$args);
+    }
+
     protected function setUp(): void
     {
     }
@@ -41,5 +51,10 @@ abstract class TestCase extends PHPUnitTestCase
                 $this->expectExceptionMessage($expected[self::EXCEPTION][self::MESSAGE]);
             }
         }
+    }
+
+    protected static function exceptionNotThrown(string $exceptionClass): never
+    {
+        self::fail(sprintf('[%s] Exception is not thrown', $exceptionClass));
     }
 }

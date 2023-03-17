@@ -2,10 +2,11 @@
 
 declare(strict_types=1);
 // 10.03.23
+
 namespace AlecRabbit\Spinner\Core;
 
+use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Core\A\AFramesRenderer;
-use AlecRabbit\Spinner\Core\Contract\IFrame;
 use AlecRabbit\Spinner\Core\Factory\FrameFactory;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use Stringable;
@@ -31,7 +32,10 @@ final class FramesRenderer extends AFramesRenderer
         if (is_array($entry)) {
             self::assertEntryArray($entry);
             return
-                FrameFactory::create($entry[0], $entry[1]);
+                FrameFactory::create(
+                    (string)$entry[0],
+                    self::refineNullableInt($entry[1])
+                );
         }
         throw new InvalidArgumentException(
             sprintf(
@@ -66,8 +70,11 @@ final class FramesRenderer extends AFramesRenderer
                 )
             );
         }
-        // second element should non-negative integer
-        $second = $entry[1];
+        // second element should be non-negative integer
+        $second = $entry[1] ?? null;
+        if (null === $second) {
+            return;
+        }
         if (!is_int($second) || $second < 0) {
             throw new InvalidArgumentException(
                 sprintf(
@@ -76,5 +83,13 @@ final class FramesRenderer extends AFramesRenderer
                 )
             );
         }
+    }
+
+    protected static function refineNullableInt(mixed $value): ?int
+    {
+        if (null === $value) {
+            return null;
+        }
+        return (int)$value;
     }
 }

@@ -59,7 +59,7 @@ abstract class AProgressValue extends AFloatValue implements IProgressValue
 
     protected function autoFinish(): void
     {
-        if ($this->autoFinish && $this->value === $this->max) {
+        if ($this->autoFinish && $this->value >= $this->max) {
             $this->finish();
         }
     }

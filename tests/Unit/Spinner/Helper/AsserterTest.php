@@ -12,8 +12,6 @@ use PHPUnit\Framework\Attributes\Test;
 use stdClass;
 use Throwable;
 
-use const AlecRabbit\Spinner\KNOWN_TERM_COLOR;
-
 final class AsserterTest extends TestCase
 {
     #[Test]
@@ -72,33 +70,28 @@ final class AsserterTest extends TestCase
     #[Test]
     public function canAssertColorSupportLevelsNotEmpty(): void
     {
-        $invalidColorSupportLevels = [];
+        $invalidColorSupportLevels = new \ArrayObject([]);
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage(
             sprintf(
-                'Color support levels must not be empty.',
+                'Color modes must not be empty.',
             )
         );
 
-        Asserter::assertColorSupportLevels($invalidColorSupportLevels);
+        Asserter::assertColorModes($invalidColorSupportLevels);
         self::fail(sprintf('[%s] Exception not thrown', __METHOD__));
     }
 
     #[Test]
     public function canAssertColorSupportLevels(): void
     {
-        $invalidLevel = 1;
-        $invalidColorSupportLevels = [$invalidLevel];
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage(
-            sprintf(
-                'Color support level "%s" is not allowed. Allowed values are [%s].',
-                $invalidLevel,
-                implode(', ', KNOWN_TERM_COLOR),
-            )
-        );
+        $invalidMode = 1;
+        $invalidColorModes = new \ArrayObject([$invalidMode]);
 
-        Asserter::assertColorSupportLevels($invalidColorSupportLevels);
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Unsupported color mode of type "int".');
+
+        Asserter::assertColorModes($invalidColorModes);
         self::fail(sprintf('[%s] Exception not thrown', __METHOD__));
     }
 

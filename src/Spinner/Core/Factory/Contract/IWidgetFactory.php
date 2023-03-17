@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Factory\Contract;
 
-use AlecRabbit\Spinner\Core\Contract\IFrame;
+use AlecRabbit\Spinner\Contract\IFrame;
+use AlecRabbit\Spinner\Core\Defaults\Contract\IDefaults;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetBuilder;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
@@ -20,14 +21,13 @@ interface IWidgetFactory
      */
     public static function createEmpty(): IWidgetComposite;
 
-    public static function getWidgetBuilder(): IWidgetBuilder;
+    public static function getWidgetBuilder(?IDefaults $defaults = null): IWidgetBuilder;
 
-    public static function getWidgetRevolverBuilder(): IWidgetRevolverBuilder;
+    public static function getWidgetRevolverBuilder(?IDefaults $defaults = null): IWidgetRevolverBuilder;
 
     public static function create(
         IRevolver $revolver,
         ?IFrame $leadingSpacer = null,
         ?IFrame $trailingSpacer = null,
     ): IWidgetComposite;
-
 }

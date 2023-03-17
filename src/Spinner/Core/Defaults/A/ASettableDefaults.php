@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 // 10.03.23
+
 namespace AlecRabbit\Spinner\Core\Defaults\A;
 
-use AlecRabbit\Spinner\Core\Contract\IFrame;
 use AlecRabbit\Spinner\Core\Contract\ILoopProbe;
 use AlecRabbit\Spinner\Core\Pattern\Contract\IPattern;
+use AlecRabbit\Spinner\Core\RunMode;
 use AlecRabbit\Spinner\Core\Terminal\Contract\ITerminalProbe;
 use AlecRabbit\Spinner\Helper\Asserter;
 
-/** @internal */
 abstract class ASettableDefaults extends ACoreDefaults
 {
     /** @inheritdoc */
@@ -39,41 +39,23 @@ abstract class ASettableDefaults extends ACoreDefaults
         return $this;
     }
 
+    public function setRunMode(RunMode $mode): static
+    {
+        static::$runMode = $mode;
+        return $this;
+    }
+
     public function setModeAsSynchronous(bool $isModeSynchronous): static
     {
-        static::$isModeSynchronous = $isModeSynchronous;
-        return $this;
-    }
-
-    public function setHideCursor(bool $hideCursor): static
-    {
-        static::$hideCursor = $hideCursor;
-        return $this;
-    }
-
-    public function setFinalMessage(string $finalMessage): static
-    {
-        static::$messageOnFinalize = $finalMessage;
-        return $this;
-    }
-
-    public function setMessageOnExit(string $messageOnExit): static
-    {
-        static::$messageOnExit = $messageOnExit;
-        return $this;
-    }
-
-    public function setInterruptMessage(string $interruptMessage): static
-    {
-        static::$messageOnInterrupt = $interruptMessage;
+        static::$runMode = $isModeSynchronous ? RunMode::SYNCHRONOUS : RunMode::ASYNC;
         return $this;
     }
 
     /** @inheritdoc */
-    public function setColorSupportLevels(array $colorSupportLevels): static
+    public function overrideSupportedColorModes(\Traversable $supportedColorModes): static
     {
-        Asserter::assertColorSupportLevels($colorSupportLevels);
-        static::$colorSupportLevels = $colorSupportLevels;
+        Asserter::assertColorModes($supportedColorModes);
+        static::$supportedColorModes = $supportedColorModes;
         return $this;
     }
 
@@ -84,27 +66,15 @@ abstract class ASettableDefaults extends ACoreDefaults
     }
 
 
-    public function setSpinnerStylePattern(IPattern $spinnerStylePattern): static
+    public function setStylePattern(IPattern $spinnerStylePattern): static
     {
-        static::$mainStylePattern = $spinnerStylePattern;
+        static::$stylePattern = $spinnerStylePattern;
         return $this;
     }
 
-    public function setSpinnerCharPattern(IPattern $spinnerCharPattern): static
+    public function setCharPattern(IPattern $spinnerCharPattern): static
     {
-        static::$mainCharPattern = $spinnerCharPattern;
-        return $this;
-    }
-
-    public function setMainLeadingSpacer(IFrame $mainLeadingSpacer): static
-    {
-        static::$mainLeadingSpacer = $mainLeadingSpacer;
-        return $this;
-    }
-
-    public function setMainTrailingSpacer(IFrame $mainTrailingSpacer): static
-    {
-        static::$mainTrailingSpacer = $mainTrailingSpacer;
+        static::$charPattern = $spinnerCharPattern;
         return $this;
     }
 
@@ -116,7 +86,7 @@ abstract class ASettableDefaults extends ACoreDefaults
 
     public function setAutoStart(bool $autoStart): static
     {
-        static::$autoStart = $autoStart;
+        static::$autoStartEnabled = $autoStart;
         return $this;
     }
 
@@ -127,8 +97,9 @@ abstract class ASettableDefaults extends ACoreDefaults
     }
 
     /** @inheritdoc */
-    public function setTerminalProbeClasses(iterable $terminalProbes): static
+    public function overrideTerminalProbeClasses(\Traversable $terminalProbes): static
     {
+        /** @var class-string<ITerminalProbe> $probe */
         foreach ($terminalProbes as $probe) {
             Asserter::isSubClass($probe, ITerminalProbe::class, __METHOD__);
         }
@@ -137,8 +108,9 @@ abstract class ASettableDefaults extends ACoreDefaults
     }
 
     /** @inheritdoc */
-    public function setLoopProbeClasses(iterable $loopProbes): static
+    public function overrideLoopProbeClasses(\Traversable $loopProbes): static
     {
+        /** @var class-string<ILoopProbe> $probe */
         foreach ($loopProbes as $probe) {
             Asserter::isSubClass($probe, ILoopProbe::class, __METHOD__);
         }

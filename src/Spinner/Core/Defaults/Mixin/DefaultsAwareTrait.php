@@ -11,6 +11,6 @@ trait DefaultsAwareTrait
 {
     protected static function getDefaults(): IDefaults
     {
-        return DefaultsFactory::create();
+        return DefaultsFactory::get();
     }
 }

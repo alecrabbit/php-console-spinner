@@ -2,18 +2,20 @@
 
 declare(strict_types=1);
 // 24.02.23
+
 namespace AlecRabbit\Spinner\Extras\A;
 
-use AlecRabbit\Spinner\Core\Contract\IFrame;
-use AlecRabbit\Spinner\Core\Contract\IInterval;
-use AlecRabbit\Spinner\Core\Contract\IProcedure;
+use AlecRabbit\Spinner\Contract\IFrame;
+use AlecRabbit\Spinner\Contract\IInterval;
+use AlecRabbit\Spinner\Contract\IProcedure;
 use AlecRabbit\Spinner\Core\Factory\A\AWidgetFactory;
+use AlecRabbit\Spinner\Core\Factory\RevolverFactory;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
 use AlecRabbit\Spinner\Extras\Contract\IProgressBarSprite;
 use AlecRabbit\Spinner\Extras\Contract\IProgressValue;
 use AlecRabbit\Spinner\Extras\Contract\IProgressWidgetFactory;
-use AlecRabbit\Spinner\Extras\Procedure\ProgresBarProcedure;
+use AlecRabbit\Spinner\Extras\Procedure\ProgressBarProcedure;
 use AlecRabbit\Spinner\Extras\Procedure\ProgressStepsProcedure;
 use AlecRabbit\Spinner\Extras\Procedure\ProgressValueProcedure;
 use AlecRabbit\Spinner\Extras\ProgressBarSprite;
@@ -59,7 +61,7 @@ abstract class AProgressWidgetFactory extends AWidgetFactory implements IProgres
         $sprite ??= new ProgressBarSprite();
 
         $procedure =
-            new ProgresBarProcedure(
+            new ProgressBarProcedure(
                 $progressValue,
                 $sprite,
             );
@@ -84,7 +86,9 @@ abstract class AProgressWidgetFactory extends AWidgetFactory implements IProgres
 
         $revolver =
             static::getWidgetRevolverBuilder()
-                ->withStyleRevolver($styleRevolver)
+                ->withStyleRevolver(
+                    $styleRevolver ?? RevolverFactory::defaultStyleRevolver()
+                )
                 ->withCharRevolver(
                     new ProceduralRevolver(
                         $procedure,
@@ -122,5 +126,4 @@ abstract class AProgressWidgetFactory extends AWidgetFactory implements IProgres
                 $trailingSpacer
             );
     }
-
 }
