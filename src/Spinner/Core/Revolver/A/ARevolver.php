@@ -31,6 +31,7 @@ abstract class ARevolver implements IRevolver
 
     public function setInterval(IInterval $interval): void
     {
+        /** @psalm-suppress RedundantPropertyInitializationCheck */
         $this->interval = $interval->smallest($this->interval ?? null);
         $this->intervalValue = $interval->toMilliseconds();
         $this->differential = $this->intervalValue;
