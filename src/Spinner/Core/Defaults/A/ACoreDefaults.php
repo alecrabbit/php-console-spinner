@@ -143,6 +143,7 @@ abstract class ACoreDefaults implements IDefaults
     }
 
     /**
+     * @param class-string $class
      * @throws InvalidArgumentException
      */
     protected static function registerLoopProbeClass(string $class): void
@@ -155,6 +156,7 @@ abstract class ACoreDefaults implements IDefaults
     }
 
     /**
+     * @param class-string $class
      * @throws InvalidArgumentException
      */
     protected static function registerTerminalProbeClass(string $class): void
