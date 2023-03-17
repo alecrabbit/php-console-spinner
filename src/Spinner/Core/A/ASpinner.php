@@ -92,6 +92,7 @@ abstract class ASpinner implements ISpinner
                 $result = $this->rootWidget->add($element);
             }
         );
+        /** @var IWidgetContext */
         return $result;
     }
 
