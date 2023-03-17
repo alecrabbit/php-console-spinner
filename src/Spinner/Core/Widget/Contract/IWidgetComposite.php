@@ -6,6 +6,7 @@ namespace AlecRabbit\Spinner\Core\Widget\Contract;
 
 use AlecRabbit\Spinner\Contract\HasInterval;
 use AlecRabbit\Spinner\Contract\IUpdatable;
+use AlecRabbit\Spinner\Core\Widget\A\AWidgetComposite;
 
 interface IWidgetComposite extends HasInterval, IUpdatable
 {
@@ -16,4 +17,10 @@ interface IWidgetComposite extends HasInterval, IUpdatable
     public function getContext(): IWidgetContext;
 
     public function setContext(IWidgetContext $widgetContext): void;
+
+    public function adoptBy(IWidgetComposite $widget): void;
+
+    public function makeOrphan(): void;
+
+    public function updateInterval(): void;
 }

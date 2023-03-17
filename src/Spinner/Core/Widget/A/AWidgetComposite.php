@@ -104,12 +104,12 @@ abstract class AWidgetComposite implements IWidgetComposite
         return $element->getWidget();
     }
 
-    protected function adoptBy(IWidgetComposite $widget): void
+    public function adoptBy(IWidgetComposite $widget): void
     {
         $this->parent = $widget;
     }
 
-    protected function updateInterval(): void
+    public function updateInterval(): void
     {
         $interval = $this->revolver->getInterval();
         foreach ($this->children as $child) {
@@ -146,7 +146,7 @@ abstract class AWidgetComposite implements IWidgetComposite
         }
     }
 
-    protected function makeOrphan(): void
+    public function makeOrphan(): void
     {
         $this->parent = null;
     }
