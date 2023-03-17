@@ -54,14 +54,14 @@ abstract class ASpinnerFactory extends ADefaultsAwareClass implements
         return
             new class (
                 $config->getDriver(),
-                $config->getRootWidget(),
+                $config->getSpinnerConfig()->getRootWidget(),
             ) extends ASpinner {
             };
     }
 
     protected static function addWidgets(ISpinner $spinner): void
     {
-        foreach (self::$config->getWidgets() as $widget) {
+        foreach (self::$config->getSpinnerConfig()->getWidgets() as $widget) {
             if ($widget instanceof IWidgetComposite) {
                 $spinner->add($widget);
             }
@@ -88,7 +88,7 @@ abstract class ASpinnerFactory extends ADefaultsAwareClass implements
             }
         }
 
-        if (self::$config->createInitialized() || self::$config->getLoopConfig()->isAsynchronous()) {
+        if (self::$config->getSpinnerConfig()->createInitialized() || self::$config->getLoopConfig()->isAsynchronous()) {
             $spinner->initialize();
         }
         return $spinner;
