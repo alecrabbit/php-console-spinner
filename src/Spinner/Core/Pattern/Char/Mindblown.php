@@ -13,9 +13,7 @@ final class Mindblown extends APattern
 {
     protected const UPDATE_INTERVAL = 200;
 
-    public function getPattern(): Traversable
-    {
-        return [
+    protected const PATTERN = [
             "😊 ",
             "🙂 ",
             "😐 ",
@@ -33,5 +31,4 @@ final class Mindblown extends APattern
             "\u{3000} ",
             "\u{3000} "
         ];
-    }
 }

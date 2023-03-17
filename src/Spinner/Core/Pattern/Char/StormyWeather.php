@@ -13,9 +13,7 @@ final class StormyWeather extends APattern
 {
     protected const UPDATE_INTERVAL = 80;
 
-    public function getPattern(): Traversable
-    {
-        return [
+    protected const PATTERN = [
             '☀️ ',
             '☀️ ',
             '☀️ ',
@@ -45,5 +43,4 @@ final class StormyWeather extends APattern
             '☀️ ',
             '☀️ ',
         ];
-    }
 }

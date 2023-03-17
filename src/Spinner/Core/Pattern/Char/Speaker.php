@@ -13,13 +13,10 @@ final class Speaker extends APattern
 {
     protected const UPDATE_INTERVAL = 300;
 
-    public function getPattern(): Traversable
-    {
-        return [
+    protected const PATTERN = [
             "🔈 ",
             "🔉 ",
             "🔊 ",
             "🔉 "
         ];
-    }
 }

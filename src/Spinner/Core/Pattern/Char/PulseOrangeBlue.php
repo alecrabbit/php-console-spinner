@@ -13,8 +13,5 @@ final class PulseOrangeBlue extends APattern
 {
     protected const UPDATE_INTERVAL = 100;
 
-    public function getPattern(): Traversable
-    {
-        return ['🔸', '🔶', '🟠', '🟠', '🔶', '🔸', '🔹', '🔷', '🔵', '🔵', '🔷', '🔹'];
-    }
+    protected const PATTERN = ['🔸', '🔶', '🟠', '🟠', '🔶', '🔸', '🔹', '🔷', '🔵', '🔵', '🔷', '🔹'];
 }
