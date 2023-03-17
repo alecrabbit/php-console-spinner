@@ -77,14 +77,15 @@ abstract class AFrameCollectionRevolver extends ARevolver implements IFrameColle
      */
     public function offsetExists(mixed $offset): bool
     {
-        $this->assertOffsetType($offset);
+        self::assertOffsetType($offset);
         return isset($this->frames[$offset]);
     }
 
     /**
+     * @param mixed $offset
      * @throws InvalidArgumentException
      */
-    private function assertOffsetType(mixed $offset): void
+    private static function assertOffsetType(mixed $offset): void
     {
         if (!is_int($offset)) {
             throw new InvalidArgumentException(
@@ -97,34 +98,38 @@ abstract class AFrameCollectionRevolver extends ARevolver implements IFrameColle
         }
     }
 
+//    /**
+//     * @throws InvalidArgumentException
+//     */
+//    public function offsetGet(mixed $offset): ?IFrame
+//    {
+//       self::assertOffsetType($offset);
+//        /** @var ?IFrame $value */
+//        $value = $this->frames[$offset] ?? null;
+//        /** @psalm-suppress InvalidReturnStatement */
+//        return $value;
+//    }
     /**
      * @throws InvalidArgumentException
      */
     public function offsetGet(mixed $offset): ?IFrame
     {
-        $this->assertOffsetType($offset);
-        /** @var ?IFrame $value */
-        $value = $this->frames[$offset] ?? null;
+        self::assertOffsetType($offset);
+        /** @var IFrame $value */
+        $value =
+            $this->frames[$offset]
+            ??
+            throw new InvalidArgumentException(
+                sprintf(
+                    '%s: Undefined offset "%s".',
+                    static::class,
+                    $offset
+                )
+            );
         /** @psalm-suppress InvalidReturnStatement */
-        return $value;
+        return
+            $value;
     }
-//    /**
-//     * @throws InvalidArgumentException
-//     */
-//    public function offsetGet(mixed $offset): IFrame
-//    {
-//        $this->assertOffset($offset);
-//        return
-//            $this->frames[$offset]
-//            ??
-//            throw new InvalidArgumentException(
-//                sprintf(
-//                    '%s: Undefined offset "%s".',
-//                    static::class,
-//                    $offset
-//                )
-//            );
-//    }
 
     /**
      * @throws LogicException
