@@ -4,11 +4,19 @@ app_tools_run: test_full app_phploc_run app_php_cs_fixer_run app_deptrac_run_ful
 	@${_NO_OP};
 
 PHPLOC_DIR = /usr/local/bin
-DPTR_DIR = ${WORKING_DIR}/.tools/.deptrac
-DPTR_CONFIG = ${DPTR_DIR}/deptrac.yaml
-DPTR_CACHE = ${DPTR_DIR}/.deptrac.cache
-DPTR_OUT_DIR_LOCAL = ${APP_DIR}/.tools/.report/.deptrac
-DPTR_OUT_DIR = ${WORKING_DIR}/.tools/.report/.deptrac
+
+_W_TOOLS_DIR=${WORKING_DIR}/${_DN_TOOLS}
+_DN_REPORT=.report
+_DN_DEPTRAC=.deptrac
+
+_DEPTRAC_CONFIG_FILE=deptrac.yaml
+_DEPTRAC_CACHE_FILE=.deptrac.cache
+
+DPTR_DIR = ${_W_TOOLS_DIR}/${_DN_DEPTRAC}
+DPTR_CONFIG = ${DPTR_DIR}/${_DEPTRAC_CONFIG_FILE}
+DPTR_CACHE = ${DPTR_DIR}/${_DEPTRAC_CACHE_FILE}
+DPTR_OUT_DIR_LOCAL = ${APP_DIR}/${_DN_TOOLS}/${_DN_REPORT}/${_DN_DEPTRAC}
+DPTR_OUT_DIR = ${_W_TOOLS_DIR}/${_DN_REPORT}/${_DN_DEPTRAC}
 
 app_save: app_php_cs_fixer_run app_deptrac_run
 	$(MAKE) save
