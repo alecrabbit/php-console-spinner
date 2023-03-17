@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Defaults\Contract;
 
+use AlecRabbit\Spinner\Core\Contract\IDriverBuilder;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetBuilder;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolverBuilder;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
@@ -33,4 +34,15 @@ interface IDefaultsClasses extends IDefaultsChild
      * @throws InvalidArgumentException
      */
     public function setWidgetRevolverBuilderClass(string $widgetRevolverBuilderClass): void;
+
+    /**
+     * @return  class-string<IDriverBuilder>
+     */
+    public function getDriverBuilderClass(): string;
+
+    /**
+     * @param class-string<IDriverBuilder> $driverBuilderClass
+     * @throws InvalidArgumentException
+     */
+    public function setDriverBuilderClass(string $driverBuilderClass): void;
 }
