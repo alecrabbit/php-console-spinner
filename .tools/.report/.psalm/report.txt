@@ -2,8 +2,8 @@
 /app/src/Spinner/Core/Config/A/AConfig.php:45:16:error - InvalidReturnStatement: The inferred type 'iterable<mixed, mixed>' does not match the declared return type 'array<array-key, AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite>' for AlecRabbit\Spinner\Core\Config\A\AConfig::getWidgets
 /app/src/Spinner/Core/Config/A/AConfigBuilder.php:82:28:warning - PossiblyNullArgument: Argument 6 of AlecRabbit\Spinner\Core\Config\Config::__construct cannot be null, possibly null value provided
 /app/src/Spinner/Core/Config/A/AConfigBuilder.php:83:39:warning - PossiblyNullArgument: Argument 7 of AlecRabbit\Spinner\Core\Config\Config::__construct cannot be null, possibly null value provided
-/app/src/Spinner/Core/Config/A/AConfigBuilder.php:125:57:warning - PossiblyNullArgument: Argument 1 of AlecRabbit\Spinner\Core\Factory\RevolverFactory::createFrom cannot be null, possibly null value provided
-/app/src/Spinner/Core/Config/A/AConfigBuilder.php:128:57:warning - PossiblyNullArgument: Argument 1 of AlecRabbit\Spinner\Core\Factory\RevolverFactory::createFrom cannot be null, possibly null value provided
+/app/src/Spinner/Core/Config/A/AConfigBuilder.php:115:57:warning - PossiblyNullArgument: Argument 1 of AlecRabbit\Spinner\Core\Factory\RevolverFactory::createFrom cannot be null, possibly null value provided
+/app/src/Spinner/Core/Config/A/AConfigBuilder.php:118:57:warning - PossiblyNullArgument: Argument 1 of AlecRabbit\Spinner\Core\Factory\RevolverFactory::createFrom cannot be null, possibly null value provided
 /app/src/Spinner/Core/Defaults/A/ACoreDefaults.php:122:30:warning - ArgumentTypeCoercion: Argument 1 of AlecRabbit\Spinner\Helper\Asserter::isSubClass expects class-string|object, but parent type string provided
 /app/src/Spinner/Core/Defaults/A/ACoreDefaults.php:152:30:warning - ArgumentTypeCoercion: Argument 1 of AlecRabbit\Spinner\Helper\Asserter::isSubClass expects class-string|object, but parent type string provided
 /app/src/Spinner/Core/Defaults/A/ACoreDefaults.php:154:49:error - InvalidArgument: Argument 1 of iterator_to_array expects Traversable, but iterable<mixed, mixed> provided
