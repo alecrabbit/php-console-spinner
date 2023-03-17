@@ -9,9 +9,9 @@ use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
 
 interface IConfig
 {
-    public function getDriver(): IDriver;
+    public function getLoopConfig(): ILoopConfig;
 
-    public function isAsynchronous(): bool;
+    public function getDriver(): IDriver;
 
     public function createInitialized(): bool;
 
@@ -22,9 +22,4 @@ interface IConfig
 
     public function getRootWidget(): IWidgetComposite;
 
-    public function isAutoStart(): bool;
-
-    public function areSignalHandlersEnabled(): bool;
-
-    public function getSignalHandlers(): ?iterable;
 }

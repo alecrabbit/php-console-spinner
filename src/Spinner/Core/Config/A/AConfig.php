@@ -6,7 +6,7 @@ namespace AlecRabbit\Spinner\Core\Config\A;
 
 use AlecRabbit\Spinner\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Config\Contract\IConfig;
-use AlecRabbit\Spinner\Core\RunMode;
+use AlecRabbit\Spinner\Core\Config\Contract\ILoopConfig;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
 
 abstract readonly class AConfig implements IConfig
@@ -16,10 +16,12 @@ abstract readonly class AConfig implements IConfig
         protected IWidgetComposite $rootWidget,
         protected bool $createInitialized,
         protected iterable $widgets,
-        protected RunMode $runMode,
-        protected bool $autoStart,
-        protected bool $attachSignalHandlers,
-    ) {
+        protected ILoopConfig $loopConfig,
+//        protected RunMode $runMode,
+//        protected bool $autoStart,
+//        protected bool $attachSignalHandlers,
+    )
+    {
     }
 
     public function getDriver(): IDriver
@@ -27,10 +29,6 @@ abstract readonly class AConfig implements IConfig
         return $this->driver;
     }
 
-    public function isAsynchronous(): bool
-    {
-        return $this->runMode === RunMode::ASYNC;
-    }
 
     public function createInitialized(): bool
     {
@@ -50,19 +48,8 @@ abstract readonly class AConfig implements IConfig
         return $this->rootWidget;
     }
 
-    public function isAutoStart(): bool
+    public function getLoopConfig(): ILoopConfig
     {
-        return $this->autoStart;
-    }
-
-    public function areSignalHandlersEnabled(): bool
-    {
-        return $this->attachSignalHandlers;
-    }
-
-    public function getSignalHandlers(): ?iterable
-    {
-        // TODO: Implement getSignalHandlers() method?
-        return null;
+        return $this->loopConfig;
     }
 }

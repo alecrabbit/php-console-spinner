@@ -105,7 +105,7 @@ abstract class AConfigBuilder implements IConfigBuilder
                 ->build();
     }
 
-    private function createRootWidget(): IWidgetComposite
+    protected function createRootWidget(): IWidgetComposite
     {
         return
             $this->widgetBuilder

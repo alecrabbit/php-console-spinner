@@ -76,19 +76,19 @@ abstract class ASpinnerFactory extends ADefaultsAwareClass implements
         /** @var ILoopHelper $loopHelper */
         $loopHelper = Facade::getLoopHelper();
 
-        if (self::$config->isAsynchronous()) {
+        if (self::$config->getLoopConfig()->isAsynchronous()) {
             $loopHelper::attach($spinner);
 
-            if (self::$config->areSignalHandlersEnabled()) {
-                $loopHelper::setSignalHandlers($spinner, self::$config->getSignalHandlers());
+            if (self::$config->getLoopConfig()->areSignalHandlersEnabled()) {
+                $loopHelper::setSignalHandlers($spinner, self::$config->getLoopConfig()->getSignalHandlers());
             }
 
-            if (self::$config->isAutoStart()) {
+            if (self::$config->getLoopConfig()->isAutoStart()) {
                 $loopHelper::autoStart();
             }
         }
 
-        if (self::$config->createInitialized() || self::$config->isAsynchronous()) {
+        if (self::$config->createInitialized() || self::$config->getLoopConfig()->isAsynchronous()) {
             $spinner->initialize();
         }
         return $spinner;
