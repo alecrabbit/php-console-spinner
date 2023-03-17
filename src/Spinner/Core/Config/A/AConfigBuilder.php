@@ -32,7 +32,7 @@ abstract class AConfigBuilder implements IConfigBuilder
     protected ?bool $signalHandlersEnabled = null;
     protected IWidgetBuilder $widgetBuilder;
     protected IWidgetRevolverBuilder $widgetRevolverBuilder;
-    protected iterable $widgets = [];
+    protected ?\Traversable $widgets = null;
 
     public function __construct(
         protected IDefaults $defaults,
@@ -49,7 +49,7 @@ abstract class AConfigBuilder implements IConfigBuilder
         return $clone;
     }
 
-    public function withWidgets(iterable $widgets): static
+    public function withWidgets(\Traversable $widgets): static
     {
         $clone = clone $this;
         $clone->widgets = $widgets;
@@ -85,7 +85,7 @@ abstract class AConfigBuilder implements IConfigBuilder
             new SpinnerConfig(
                 rootWidget: $this->rootWidget ?? $this->createRootWidget(),
                 createInitialized: $this->defaults->isCreateInitialized(),
-                widgets: $this->widgets,
+                widgets: $this->widgets ?? new \ArrayObject([]),
             );
 
         return

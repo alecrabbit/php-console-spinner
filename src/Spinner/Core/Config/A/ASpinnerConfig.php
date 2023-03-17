@@ -12,7 +12,7 @@ abstract class ASpinnerConfig implements ISpinnerConfig
     public function __construct(
         protected IWidgetComposite $rootWidget,
         protected bool $createInitialized,
-        protected iterable $widgets,
+        protected \Traversable $widgets,
     ) {
     }
 
@@ -21,10 +21,7 @@ abstract class ASpinnerConfig implements ISpinnerConfig
         return $this->createInitialized;
     }
 
-    /**
-     * @inheritDoc
-     */
-    public function getWidgets(): iterable
+    public function getWidgets(): \Traversable
     {
         return $this->widgets;
     }

@@ -10,10 +10,7 @@ interface ISpinnerConfig
 {
     public function createInitialized(): bool;
 
-    /**
-     * @return IWidgetComposite[]
-     */
-    public function getWidgets(): iterable;
+    public function getWidgets(): \Traversable;
 
     public function getRootWidget(): IWidgetComposite;
 }

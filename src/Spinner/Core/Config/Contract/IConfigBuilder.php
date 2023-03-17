@@ -23,5 +23,5 @@ interface IConfigBuilder
 
     public function withRootWidget(IWidgetComposite $widget): static;
 
-    public function withWidgets(iterable $widgets): static;
+    public function withWidgets(\Traversable $widgets): static;
 }
