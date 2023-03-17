@@ -8,6 +8,7 @@ use AlecRabbit\Spinner\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Config\Config;
 use AlecRabbit\Spinner\Core\Config\Contract\IConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IConfigBuilder;
+use AlecRabbit\Spinner\Core\Config\LoopConfig;
 use AlecRabbit\Spinner\Core\Contract\IDriverBuilder;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDefaults;
 use AlecRabbit\Spinner\Core\Factory\DriverFactory;
@@ -72,15 +73,20 @@ abstract class AConfigBuilder implements IConfigBuilder
     {
         $this->processDefaults();
 
+        $loopConfig =
+            new LoopConfig(
+                runMode: $this->defaults->getRunMode(),
+                autoStart: $this->autoStartEnabled,
+                attachSignalHandlers: $this->signalHandlersEnabled,
+            );
+
         return
             new Config(
                 driver: $this->createDriver(),
                 rootWidget: $this->rootWidget ?? $this->createRootWidget(),
                 createInitialized: $this->defaults->isCreateInitialized(),
                 widgets: $this->widgets,
-                runMode: $this->defaults->getRunMode(),
-                autoStart: $this->autoStartEnabled,
-                attachSignalHandlers: $this->signalHandlersEnabled,
+                loopConfig: $loopConfig,
             );
     }
 
