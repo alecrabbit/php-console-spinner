@@ -24,7 +24,7 @@ abstract class AFramesRenderer extends ADefaultsAwareClass implements IFrameRend
     public function render(): iterable
     {
         $frames = [];
-        /** @var IFrame|string|array<string,int> $entry */
+        /** @var IFrame|string|array<string,int|null> $entry */
         foreach ($this->pattern->getPattern() as $entry) {
             if ($entry instanceof IFrame) {
                 $frames[] = $entry;
