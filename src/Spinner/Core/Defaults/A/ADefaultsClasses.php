@@ -16,8 +16,13 @@ use AlecRabbit\Spinner\Helper\Asserter;
 
 abstract class ADefaultsClasses extends ADefaultsChild implements IDefaultsClasses
 {
+    /** @var class-string<IDriverBuilder> */
     final protected const DRIVER_BUILDER_CLASS = DriverBuilder::class;
+
+    /** @var class-string<IWidgetBuilder> */
     final protected const WIDGET_BUILDER_CLASS = WidgetBuilder::class;
+
+    /** @var class-string<IWidgetRevolverBuilder> */
     final protected const WIDGET_REVOLVER_BUILDER_CLASS = WidgetRevolverBuilder::class;
 
     /** @var class-string<IDriverBuilder> */
