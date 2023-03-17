@@ -23,7 +23,6 @@ abstract class ASpinner implements ISpinner
 
     public function __construct(
         protected readonly IDriver $driver,
-        protected readonly ITimer $timer,
         protected IWidgetComposite $widget,
     ) {
         $this->currentFrame = FrameFactory::createEmpty();
@@ -106,13 +105,8 @@ abstract class ASpinner implements ISpinner
 
     public function spin(float $dt = null): void
     {
-        $dt ??= $this->elapsedTime();
+        $dt ??= $this->driver->elapsedTime();
         $this->render($dt);
-    }
-
-    protected function elapsedTime(): float
-    {
-        return $this->timer->elapsed();
     }
 
     public function render(float $dt = null): void

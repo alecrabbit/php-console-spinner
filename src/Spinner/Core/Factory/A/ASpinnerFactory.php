@@ -54,7 +54,6 @@ abstract class ASpinnerFactory extends ADefaultsAwareClass implements
         return
             new class (
                 $config->getDriver(),
-                $config->getTimer(),
                 $config->getRootWidget(),
             ) extends ASpinner {
             };

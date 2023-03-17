@@ -6,6 +6,8 @@ namespace AlecRabbit\Spinner\Contract;
 
 interface IDriver
 {
+    public function elapsedTime(): float;
+
     public function erase(IFrame $frame): void;
 
     public function display(IFrame $frame, int $widthDiff = 0): void;

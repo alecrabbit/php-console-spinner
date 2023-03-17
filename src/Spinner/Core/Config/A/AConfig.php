@@ -14,7 +14,6 @@ abstract readonly class AConfig implements IConfig
 {
     public function __construct(
         protected IDriver $driver,
-        protected ITimer $timer,
         protected IWidgetComposite $rootWidget,
         protected bool $createInitialized,
         protected iterable $widgets,
@@ -27,11 +26,6 @@ abstract readonly class AConfig implements IConfig
     public function getDriver(): IDriver
     {
         return $this->driver;
-    }
-
-    public function getTimer(): ITimer
-    {
-        return $this->timer;
     }
 
     public function isAsynchronous(): bool

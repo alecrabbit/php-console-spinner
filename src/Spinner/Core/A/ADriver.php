@@ -6,6 +6,7 @@ namespace AlecRabbit\Spinner\Core\A;
 
 use AlecRabbit\Spinner\Contract\IDriver;
 use AlecRabbit\Spinner\Contract\IFrame;
+use AlecRabbit\Spinner\Contract\ITimer;
 use AlecRabbit\Spinner\Core\Output\Contract\IOutput;
 use AlecRabbit\Spinner\Core\Sequencer;
 
@@ -13,6 +14,7 @@ abstract readonly class ADriver implements IDriver
 {
     public function __construct(
         protected IOutput $output,
+        protected ITimer $timer,
         protected bool $hideCursor,
         protected string $interruptMessage,
         protected string $finalMessage,
@@ -63,5 +65,10 @@ abstract readonly class ADriver implements IDriver
     public function finalize(?string $finalMessage = null): void
     {
         $this->output->write($finalMessage ?? $this->finalMessage);
+    }
+
+    public function elapsedTime(): float
+    {
+        return $this->timer->elapsed();
     }
 }

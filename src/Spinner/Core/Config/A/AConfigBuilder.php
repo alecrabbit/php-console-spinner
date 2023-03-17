@@ -72,7 +72,6 @@ abstract class AConfigBuilder implements IConfigBuilder
         return
             new Config(
                 driver: $this->createDriver(),
-                timer: new Timer(),
                 rootWidget: $this->rootWidget ?? $this->createRootWidget(),
                 createInitialized: $this->defaults->isCreateInitialized(),
                 widgets: $this->widgets,
@@ -99,6 +98,7 @@ abstract class AConfigBuilder implements IConfigBuilder
         return
             new Driver(
                 output: new StreamOutput($this->defaults->getOutputStream()),
+                timer: new Timer(),
                 hideCursor: $this->defaults->getTerminalSettings()->isHideCursor(),
                 interruptMessage: $this->defaults->getDriverSettings()->getInterruptMessage(),
                 finalMessage: $this->defaults->getDriverSettings()->getFinalMessage(),

@@ -12,8 +12,6 @@ interface IConfig
 {
     public function getDriver(): IDriver;
 
-    public function getTimer(): ITimer;
-
     public function isAsynchronous(): bool;
 
     public function createInitialized(): bool;
