@@ -22,7 +22,7 @@ abstract class ASpinner implements ISpinner
 
     public function __construct(
         protected readonly IDriver $driver,
-        protected IWidgetComposite $widget,
+        protected IWidgetComposite $rootWidget,
     ) {
         $this->currentFrame = FrameFactory::createEmpty();
     }
@@ -42,7 +42,7 @@ abstract class ASpinner implements ISpinner
     protected function update(float $dt = null): void
     {
         $previousFrame = $this->currentFrame;
-        $this->currentFrame = $this->widget->update($dt);
+        $this->currentFrame = $this->rootWidget->update($dt);
         $this->framesWidthDiff =
             max(
                 $previousFrame->width() - $this->currentFrame->width(),
@@ -89,7 +89,7 @@ abstract class ASpinner implements ISpinner
     {
         $this->wrap(
             function () use ($element, &$result): void {
-                $result = $this->widget->add($element);
+                $result = $this->rootWidget->add($element);
             }
         );
         return $result;
@@ -120,13 +120,13 @@ abstract class ASpinner implements ISpinner
     {
         $this->wrap(
             function () use ($element) {
-                $this->widget->remove($element);
+                $this->rootWidget->remove($element);
             }
         );
     }
 
     public function getInterval(): IInterval
     {
-        return $this->widget->getInterval();
+        return $this->rootWidget->getInterval();
     }
 }
