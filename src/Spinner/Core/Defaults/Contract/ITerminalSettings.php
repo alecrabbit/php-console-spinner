@@ -9,7 +9,12 @@ use AlecRabbit\Spinner\Contract\ColorMode;
 
 interface ITerminalSettings extends IDefaultsChild
 {
-    public static function getInstance(IDefaults $parent, ColorMode $colorMode, int $width, bool $hideCursor): static;
+    public static function getInstance(
+        IDefaults $parent,
+        ColorMode $colorMode,
+        int $width,
+        bool $hideCursor
+    ): ITerminalSettings;
 
     public function getWidth(): int;
 

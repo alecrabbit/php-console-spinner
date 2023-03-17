@@ -32,7 +32,7 @@ abstract class ADriverSettings extends ADefaultsChild implements IDriverSettings
         static::$messageOnInterrupt = static::MESSAGE_ON_INTERRUPT;
     }
 
-    final public static function getInstance(IDefaults $parent): static
+    final public static function getInstance(IDefaults $parent): IDriverSettings
     {
         if (null === self::$instance) {
             self::$instance =

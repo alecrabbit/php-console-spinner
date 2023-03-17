@@ -27,7 +27,7 @@ abstract class ATerminalSettings extends ADefaultsChild implements ITerminalSett
         ColorMode $colorMode,
         int $width,
         bool $hideCursor,
-    ): static {
+    ): ITerminalSettings {
         if (null === self::$instance) {
             self::$instance =
                 new class ($parent, $colorMode, $width, $hideCursor) extends ATerminalSettings {

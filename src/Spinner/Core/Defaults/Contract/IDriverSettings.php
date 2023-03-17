@@ -7,7 +7,7 @@ namespace AlecRabbit\Spinner\Core\Defaults\Contract;
 
 interface IDriverSettings extends IDefaultsChild
 {
-    public static function getInstance(IDefaults $parent): static;
+    public static function getInstance(IDefaults $parent): IDriverSettings;
 
     public function getFinalMessage(): string;
 

@@ -11,7 +11,7 @@ use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 
 interface IDefaultsClasses extends IDefaultsChild
 {
-    public static function getInstance(IDefaults $parent): static;
+    public static function getInstance(IDefaults $parent): IDefaultsClasses;
 
     /**
      * @return class-string<IWidgetBuilder>
