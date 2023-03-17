@@ -98,17 +98,6 @@ abstract class AFrameCollectionRevolver extends ARevolver implements IFrameColle
         }
     }
 
-//    /**
-//     * @throws InvalidArgumentException
-//     */
-//    public function offsetGet(mixed $offset): ?IFrame
-//    {
-//       self::assertOffsetType($offset);
-//        /** @var ?IFrame $value */
-//        $value = $this->frames[$offset] ?? null;
-//        /** @psalm-suppress InvalidReturnStatement */
-//        return $value;
-//    }
     /**
      * @throws InvalidArgumentException
      */
