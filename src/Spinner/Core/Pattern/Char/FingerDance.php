@@ -6,13 +6,14 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Pattern\Char;
 
 use AlecRabbit\Spinner\Core\Pattern\A\APattern;
+use Traversable;
 
 /** @psalm-suppress UnusedClass */
 final class FingerDance extends APattern
 {
     protected const UPDATE_INTERVAL = 300;
 
-    public function getPattern(): iterable
+    public function getPattern(): Traversable
     {
         return [
             "🤘 ",
@@ -22,5 +23,4 @@ final class FingerDance extends APattern
             "🤚 ",
             "👆 "
         ];
-    }
-}
+}}

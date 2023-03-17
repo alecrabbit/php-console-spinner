@@ -12,8 +12,5 @@ final class Monkey extends AReversiblePattern
 {
     protected const UPDATE_INTERVAL = 300;
 
-    protected function pattern(): iterable
-    {
-        return ['🐵 ', '🙈 ', '🙉 ', '🙊 '];
-    }
+    protected const PATTERN = ['🐵 ', '🙈 ', '🙉 ', '🙊 '];
 }

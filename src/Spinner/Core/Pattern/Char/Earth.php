@@ -6,14 +6,12 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Pattern\Char;
 
 use AlecRabbit\Spinner\Core\Pattern\A\AReversiblePattern;
+use Traversable;
 
 /** @psalm-suppress UnusedClass */
 final class Earth extends AReversiblePattern
 {
     protected const UPDATE_INTERVAL = 300;
 
-    protected function pattern(): iterable
-    {
-        return ['🌍', '🌎', '🌏',];
-    }
+    protected const PATTERN = ['🌍', '🌎', '🌏',];
 }

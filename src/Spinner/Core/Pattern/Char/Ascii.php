@@ -11,9 +11,5 @@ use AlecRabbit\Spinner\Core\Pattern\A\AReversiblePattern;
 final class Ascii extends AReversiblePattern
 {
     protected const UPDATE_INTERVAL = 300;
-
-    protected function pattern(): iterable
-    {
-        return ['/', '|', '\\', '─',];
-    }
+    protected const PATTERN = ['/', '|', '\\', '─',];
 }

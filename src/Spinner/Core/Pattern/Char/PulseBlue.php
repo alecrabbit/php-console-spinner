@@ -6,13 +6,14 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Pattern\Char;
 
 use AlecRabbit\Spinner\Core\Pattern\A\APattern;
+use Traversable;
 
 /** @psalm-suppress UnusedClass */
 final class PulseBlue extends APattern
 {
     protected const UPDATE_INTERVAL = 100;
 
-    public function getPattern(): iterable
+    public function getPattern(): Traversable
     {
         return ['🔹', '🔷', '🔵', '🔵', '🔷'];
     }

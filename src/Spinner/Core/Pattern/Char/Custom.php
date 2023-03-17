@@ -6,6 +6,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Pattern\Char;
 
 use AlecRabbit\Spinner\Core\Pattern\A\AReversiblePattern;
+use Traversable;
 
 /** @psalm-suppress UnusedClass */
 final class Custom extends AReversiblePattern
@@ -18,9 +19,8 @@ final class Custom extends AReversiblePattern
         parent::__construct($interval, $reversed);
     }
 
-
-    protected function pattern(): iterable
+    protected function pattern(): Traversable
     {
         yield from $this->pattern;
-    }
+}
 }

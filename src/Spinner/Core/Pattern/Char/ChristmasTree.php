@@ -12,8 +12,5 @@ final class ChristmasTree extends APattern
 {
     protected const UPDATE_INTERVAL = 500;
 
-    public function getPattern(): iterable
-    {
-        return ['🌲', '🎄',];
-    }
+    protected const PATTERN = ['🌲', '🎄',];
 }

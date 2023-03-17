@@ -9,7 +9,7 @@ use AlecRabbit\Spinner\Contract\IInterval;
 
 interface IPattern
 {
-    public function getPattern(): iterable;
+    public function getPattern(): \Traversable;
 
     public function getInterval(): IInterval;
 }

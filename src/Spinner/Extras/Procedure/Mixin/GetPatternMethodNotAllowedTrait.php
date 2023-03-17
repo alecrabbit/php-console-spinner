@@ -12,7 +12,7 @@ trait GetPatternMethodNotAllowedTrait
     /**
      * @throws DomainException
      */
-    final public function getPattern(): iterable
+    final public function getPattern(): \Traversable
     {
         throw new DomainException(
             sprintf(
