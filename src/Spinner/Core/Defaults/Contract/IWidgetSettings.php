@@ -10,7 +10,7 @@ use AlecRabbit\Spinner\Core\Pattern\Contract\IPattern;
 
 interface IWidgetSettings extends IDefaultsChild
 {
-    public static function getInstance(IDefaults $parent): static;
+    public static function getInstance(IDefaults $parent): IWidgetSettings;
 
     public function getLeadingSpacer(): ?IFrame;
 

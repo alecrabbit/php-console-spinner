@@ -33,7 +33,7 @@ abstract class AWidgetSettings extends ADefaultsChild implements IWidgetSettings
         static::$stylePattern = null;
     }
 
-    final public static function getInstance(IDefaults $parent): static
+    final public static function getInstance(IDefaults $parent): IWidgetSettings
     {
         if (null === self::$widgetSettings) {
             self::$widgetSettings =
