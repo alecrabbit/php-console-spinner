@@ -9,16 +9,16 @@
     "packages-dev": [
         {
             "name": "alecrabbit/php-wcwidth",
-            "version": "1.0.0-ALPHA.2+BUILD.1",
+            "version": "1.0.0-ALPHA.2+BUILD.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/alecrabbit/php-wcwidth.git",
-                "reference": "c80fc2f9699a6262282d5c042c61f5094b74a841"
+                "reference": "180a72cb0085cb5b4c8e93806dbe28024b62e8a2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/alecrabbit/php-wcwidth/zipball/c80fc2f9699a6262282d5c042c61f5094b74a841",
-                "reference": "c80fc2f9699a6262282d5c042c61f5094b74a841",
+                "url": "https://api.github.com/repos/alecrabbit/php-wcwidth/zipball/180a72cb0085cb5b4c8e93806dbe28024b62e8a2",
+                "reference": "180a72cb0085cb5b4c8e93806dbe28024b62e8a2",
                 "shasum": ""
             },
             "require": {
@@ -66,9 +66,9 @@
             ],
             "support": {
                 "issues": "https://github.com/alecrabbit/php-wcwidth/issues",
-                "source": "https://github.com/alecrabbit/php-wcwidth/tree/1.0.0-ALPHA.2+BUILD.1"
+                "source": "https://github.com/alecrabbit/php-wcwidth/tree/1.0.0-ALPHA.2+BUILD.3"
             },
-            "time": "2023-03-06T09:23:32+00:00"
+            "time": "2023-03-17T16:04:20+00:00"
         },
         {
             "name": "evenement/evenement",
@@ -429,16 +429,16 @@
         },
         {
             "name": "nunomaduro/collision",
-            "version": "v7.1.1",
+            "version": "v7.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nunomaduro/collision.git",
-                "reference": "ec91efc82a40ca4224a53494e7e93775cebc39e5"
+                "reference": "f502ff3b2051124c89b4dd3a8a497ca65f3ce26c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nunomaduro/collision/zipball/ec91efc82a40ca4224a53494e7e93775cebc39e5",
-                "reference": "ec91efc82a40ca4224a53494e7e93775cebc39e5",
+                "url": "https://api.github.com/repos/nunomaduro/collision/zipball/f502ff3b2051124c89b4dd3a8a497ca65f3ce26c",
+                "reference": "f502ff3b2051124c89b4dd3a8a497ca65f3ce26c",
                 "shasum": ""
             },
             "require": {
@@ -521,7 +521,7 @@
                     "type": "patreon"
                 }
             ],
-            "time": "2023-03-13T17:02:54+00:00"
+            "time": "2023-03-14T14:34:49+00:00"
         },
         {
             "name": "nunomaduro/termwind",
