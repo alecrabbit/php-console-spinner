@@ -72,8 +72,6 @@ abstract class AConfigBuilder implements IConfigBuilder
 
     public function build(): IConfig
     {
-        $this->processDefaults();
-
         $loopConfig =
             new LoopConfig(
                 runMode: $this->defaults->getRunMode(),
@@ -96,15 +94,6 @@ abstract class AConfigBuilder implements IConfigBuilder
             );
     }
 
-    protected function processDefaults(): void
-    {
-        $this->rootWidgetStylePattern ??=
-            $this->defaults->getRootWidgetSettings()->getStylePattern() ?? $this->defaults->getStylePattern();
-
-        $this->rootWidgetCharPattern ??=
-            $this->defaults->getRootWidgetSettings()->getCharPattern() ?? $this->defaults->getCharPattern();
-    }
-
     protected function createRootWidget(): IWidgetComposite
     {
         return
@@ -112,10 +101,18 @@ abstract class AConfigBuilder implements IConfigBuilder
                 ->withWidgetRevolver(
                     $this->widgetRevolverBuilder
                         ->withStyleRevolver(
-                            RevolverFactory::createFrom($this->rootWidgetStylePattern)
+                            RevolverFactory::createFrom(
+                                $this->rootWidgetStylePattern
+                                ?? $this->defaults->getRootWidgetSettings()->getStylePattern()
+                                ?? $this->defaults->getStylePattern()
+                            )
                         )
                         ->withCharRevolver(
-                            RevolverFactory::createFrom($this->rootWidgetCharPattern)
+                            RevolverFactory::createFrom(
+                                $this->rootWidgetCharPattern
+                                ?? $this->defaults->getRootWidgetSettings()->getCharPattern()
+                                ?? $this->defaults->getCharPattern()
+                            )
                         )
                         ->build()
                 )
