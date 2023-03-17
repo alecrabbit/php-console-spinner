@@ -77,8 +77,8 @@ abstract class AConfigBuilder implements IConfigBuilder
         $loopConfig =
             new LoopConfig(
                 runMode: $this->defaults->getRunMode(),
-                autoStart: $this->autoStartEnabled,
-                attachSignalHandlers: $this->signalHandlersEnabled,
+                autoStart: $this->autoStartEnabled ?? $this->defaults->isAutoStartEnabled(),
+                attachSignalHandlers: $this->signalHandlersEnabled ?? $this->defaults->areSignalHandlersEnabled(),
             );
 
         $spinnerConfig =
@@ -98,9 +98,6 @@ abstract class AConfigBuilder implements IConfigBuilder
 
     protected function processDefaults(): void
     {
-        $this->autoStartEnabled ??= $this->defaults->isAutoStartEnabled();
-        $this->signalHandlersEnabled ??= $this->defaults->areSignalHandlersEnabled();
-
         $this->rootWidgetStylePattern ??=
             $this->defaults->getRootWidgetSettings()->getStylePattern() ?? $this->defaults->getStylePattern();
 
