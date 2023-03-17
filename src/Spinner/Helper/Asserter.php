@@ -40,9 +40,7 @@ final class Asserter
     }
 
     /**
-     * @param resource $stream
      * @throws InvalidArgumentException
-     *
      */
     public static function assertStream(mixed $stream): void
     {
@@ -57,7 +55,7 @@ final class Asserter
     /**
      * @throws InvalidArgumentException
      */
-    public static function assertColorModes(iterable $colorModes): void
+    public static function assertColorModes(\Traversable $colorModes): void
     {
         if (0 === count(iterator_to_array($colorModes))) {
             throw new InvalidArgumentException('Color modes must not be empty.');
@@ -73,18 +71,6 @@ final class Asserter
                 );
             }
         }
-
-//        foreach ($colorModes as $level) {
-//            if (!in_array($level, KNOWN_TERM_COLOR, true)) {
-//                throw new InvalidArgumentException(
-//                    sprintf(
-//                        'Color support mode "%s" is not allowed. Allowed values are [%s].',
-//                        $level,
-//                        implode(', ', KNOWN_TERM_COLOR)
-//                    )
-//                );
-//            }
-//        }
     }
 
     /**
