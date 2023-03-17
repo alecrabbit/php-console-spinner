@@ -9,7 +9,7 @@ use AlecRabbit\Spinner\Core\RunMode;
 
 interface IDefaults extends ISettableDefaults
 {
-    public static function getInstance(): self;
+    public static function getInstance(): IDefaults;
 
     public function getProbeClasses(): \Traversable;
 

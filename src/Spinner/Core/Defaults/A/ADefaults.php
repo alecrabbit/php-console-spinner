@@ -118,39 +118,17 @@ abstract class ADefaults extends ASettableDefaults
         return static::$terminalSettings;
     }
 
-//    public function getMainLeadingSpacer(): IFrame
-//    {
-//        return
-//            static::$mainLeadingSpacer ?? static::$defaultLeadingSpacer;
-//    }
-//
-//    public function getMainTrailingSpacer(): IFrame
-//    {
-//        return
-//            static::$mainTrailingSpacer ?? static::$defaultTrailingSpacer;
-//    }
-
     public function getDriverSettings(): IDriverSettings
     {
         return static::$driverSettings;
     }
-
-//    public function getDefaultLeadingSpacer(): IFrame
-//    {
-//        return static::$defaultLeadingSpacer;
-//    }
-//
-//    public function getDefaultTrailingSpacer(): IFrame
-//    {
-//        return static::$defaultTrailingSpacer;
-//    }
 
     protected function getClassesInstance(): IDefaultsClasses
     {
         return ADefaultsClasses::getInstance($this);
     }
 
-    final public static function getInstance(): self
+    final public static function getInstance(): IDefaults
     {
         if (null === self::$instance) {
             self::$instance =
