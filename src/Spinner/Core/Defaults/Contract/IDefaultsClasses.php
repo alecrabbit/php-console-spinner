@@ -14,7 +14,7 @@ interface IDefaultsClasses extends IDefaultsChild
     public static function getInstance(IDefaults $parent): static;
 
     /**
-     * @return  class-string<IWidgetBuilder>
+     * @return class-string<IWidgetBuilder>
      */
     public function getWidgetBuilderClass(): string;
 
@@ -25,7 +25,7 @@ interface IDefaultsClasses extends IDefaultsChild
     public function setWidgetBuilderClass(string $widgetBuilderClass): void;
 
     /**
-     * @return  class-string<IWidgetRevolverBuilder>
+     * @return class-string<IWidgetRevolverBuilder>
      */
     public function getWidgetRevolverBuilderClass(): string;
 
@@ -36,7 +36,7 @@ interface IDefaultsClasses extends IDefaultsChild
     public function setWidgetRevolverBuilderClass(string $widgetRevolverBuilderClass): void;
 
     /**
-     * @return  class-string<IDriverBuilder>
+     * @return class-string<IDriverBuilder>
      */
     public function getDriverBuilderClass(): string;
 
