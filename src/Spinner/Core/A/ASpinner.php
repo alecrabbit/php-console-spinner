@@ -106,9 +106,13 @@ abstract class ASpinner implements ISpinner
 
     public function spin(float $dt = null): void
     {
-        $this->render(
-            $dt ?? $this->elapsedTime()
-        );
+        $dt ??= $this->elapsedTime();
+        $this->render($dt);
+    }
+
+    protected function elapsedTime(): float
+    {
+        return $this->timer->elapsed();
     }
 
     public function render(float $dt = null): void
@@ -117,11 +121,6 @@ abstract class ASpinner implements ISpinner
             $this->update($dt);
             $this->driver->display($this->currentFrame, $this->framesWidthDiff);
         }
-    }
-
-    protected function elapsedTime(): float
-    {
-        return $this->timer->elapsed();
     }
 
     public function remove(IWidgetComposite|IWidgetContext $element): void
