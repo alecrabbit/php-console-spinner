@@ -4,61 +4,9 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5d1f0211e7c06c264daf5321c82344ac",
+    "content-hash": "4a6b41f9cb798169d707a6c3f77b2d6e",
     "packages": [],
     "packages-dev": [
-        {
-            "name": "alecrabbit/php-console-spinner-extras",
-            "version": "dev-main",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/alecrabbit/php-console-spinner-extras.git",
-                "reference": "1bb656d54fc2d425fa4f51772debd9674f3ec5a9"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/alecrabbit/php-console-spinner-extras/zipball/1bb656d54fc2d425fa4f51772debd9674f3ec5a9",
-                "reference": "1bb656d54fc2d425fa4f51772debd9674f3ec5a9",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=8.2"
-            },
-            "require-dev": {
-                "alecrabbit/php-console-spinner": "dev-master",
-                "fakerphp/faker": "*",
-                "nunomaduro/collision": "^7.0",
-                "phpunit/php-code-coverage": "*",
-                "phpunit/phpunit": "^10.0",
-                "symfony/console": "^6.2",
-                "symfony/var-dumper": "*"
-            },
-            "suggest": {
-                "ext-mbstring": "For multibyte Unicode string functionality."
-            },
-            "default-branch": true,
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "AlecRabbit\\Spinner\\": "src\\Spinner\\"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "description": "Add-ons for php-console-spinner",
-            "keywords": [
-                "Extras",
-                "php",
-                "spinner"
-            ],
-            "support": {
-                "issues": "https://github.com/alecrabbit/php-console-spinner-extras/issues",
-                "source": "https://github.com/alecrabbit/php-console-spinner-extras/tree/main"
-            },
-            "time": "2023-03-08T14:09:10+00:00"
-        },
         {
             "name": "alecrabbit/php-wcwidth",
             "version": "1.0.0-ALPHA.2+BUILD.1",
@@ -481,35 +429,38 @@
         },
         {
             "name": "nunomaduro/collision",
-            "version": "v7.1.0",
+            "version": "v7.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nunomaduro/collision.git",
-                "reference": "2b97fed4950cf0ff148c18b853975ec8ea135e90"
+                "reference": "ec91efc82a40ca4224a53494e7e93775cebc39e5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nunomaduro/collision/zipball/2b97fed4950cf0ff148c18b853975ec8ea135e90",
-                "reference": "2b97fed4950cf0ff148c18b853975ec8ea135e90",
+                "url": "https://api.github.com/repos/nunomaduro/collision/zipball/ec91efc82a40ca4224a53494e7e93775cebc39e5",
+                "reference": "ec91efc82a40ca4224a53494e7e93775cebc39e5",
                 "shasum": ""
             },
             "require": {
-                "filp/whoops": "^2.14.6",
+                "filp/whoops": "^2.15.1",
                 "nunomaduro/termwind": "^1.15.1",
                 "php": "^8.1.0",
                 "symfony/console": "^6.2.7"
             },
+            "conflict": {
+                "phpunit/phpunit": "<10.0.16"
+            },
             "require-dev": {
-                "brianium/paratest": "^7.1.0",
-                "laravel/framework": "^10.2.0",
+                "brianium/paratest": "^7.1.1",
+                "laravel/framework": "^10.3.3",
                 "laravel/pint": "^1.6.0",
-                "laravel/sail": "^1.21.1",
+                "laravel/sail": "^1.21.2",
                 "laravel/sanctum": "^3.2.1",
                 "laravel/tinker": "^2.8.1",
-                "nunomaduro/larastan": "^2.4.1",
-                "orchestra/testbench-core": "^8.0.3",
+                "nunomaduro/larastan": "^2.5.1",
+                "orchestra/testbench-core": "^8.0.5",
                 "pestphp/pest": "^2.0.0",
-                "phpunit/phpunit": "^10.0.14",
+                "phpunit/phpunit": "^10.0.16",
                 "sebastian/environment": "^6.0.0",
                 "spatie/laravel-ignition": "^2.0.0"
             },
@@ -570,7 +521,7 @@
                     "type": "patreon"
                 }
             ],
-            "time": "2023-03-03T10:00:22+00:00"
+            "time": "2023-03-13T17:02:54+00:00"
         },
         {
             "name": "nunomaduro/termwind",
@@ -1089,16 +1040,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "10.0.14",
+            "version": "10.0.16",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "7065dbebcb0f66cf16a45fc9cfc28c2351e06169"
+                "reference": "07d386a11ac7094032900f07cada1c8975d16607"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/7065dbebcb0f66cf16a45fc9cfc28c2351e06169",
-                "reference": "7065dbebcb0f66cf16a45fc9cfc28c2351e06169",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/07d386a11ac7094032900f07cada1c8975d16607",
+                "reference": "07d386a11ac7094032900f07cada1c8975d16607",
                 "shasum": ""
             },
             "require": {
@@ -1130,7 +1081,7 @@
                 "sebastian/version": "^4.0"
             },
             "suggest": {
-                "ext-soap": "*"
+                "ext-soap": "To be able to generate mocks based on WSDL files"
             },
             "bin": [
                 "phpunit"
@@ -1169,7 +1120,7 @@
             ],
             "support": {
                 "issues": "https://github.com/sebastianbergmann/phpunit/issues",
-                "source": "https://github.com/sebastianbergmann/phpunit/tree/10.0.14"
+                "source": "https://github.com/sebastianbergmann/phpunit/tree/10.0.16"
             },
             "funding": [
                 {
@@ -1185,7 +1136,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-03-01T05:37:49+00:00"
+            "time": "2023-03-13T09:02:40+00:00"
         },
         {
             "name": "psr/container",
@@ -3924,7 +3875,6 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "alecrabbit/php-console-spinner-extras": 20,
         "alecrabbit/php-wcwidth": 15
     },
     "prefer-stable": false,

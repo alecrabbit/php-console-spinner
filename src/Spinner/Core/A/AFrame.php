@@ -4,28 +4,14 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\A;
 
-use AlecRabbit\Spinner\Core\Contract\IFrame;
-use AlecRabbit\Spinner\Core\WidthDeterminer;
+use AlecRabbit\Spinner\Contract\IFrame;
 
 abstract readonly class AFrame implements IFrame
 {
-    protected int $width;
-
     public function __construct(
         protected string $sequence,
-        ?int $width = null,
+        protected int $width,
     ) {
-        $this->width = $width ?? WidthDeterminer::determine($sequence);
-    }
-
-    public static function createEmpty(): static
-    {
-        return new static('', 0);
-    }
-
-    public static function createSpace(): static
-    {
-        return new static(' ', 1);
     }
 
     public function sequence(): string

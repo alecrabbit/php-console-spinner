@@ -1,0 +1,6 @@
+parameters:
+  paths:
+    - ../src
+  exclude_files:
+    - '#.*test.*#'
+    - '#./src/Gateway/UI/Experimental/.*#'

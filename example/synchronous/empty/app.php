@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-use AlecRabbit\Spinner\Extras\FractionValue;
-use AlecRabbit\Spinner\Factory;
-use AlecRabbit\Spinner\Factory\WidgetFactory;
+use AlecRabbit\Spinner\Core\Factory\WidgetFactory;
+use AlecRabbit\Spinner\Extras\ProgressValue;
+use AlecRabbit\Spinner\Facade;
 use Example\Kernel\App;
 use Example\Kernel\AppConfig;
 
@@ -14,10 +14,10 @@ App::prepareDefaults();
 
 $appConfig = new AppConfig(mainRunTime: 10);
 
-$configBuilder = Factory::getConfigBuilder();
+$configBuilder = Facade::getConfigBuilder();
 
 $config = $configBuilder
-    ->withMainWidget(WidgetFactory::createEmpty())
+    ->withRootWidget(WidgetFactory::createEmpty())
     ->build();
 
 $app = new App(
@@ -26,7 +26,7 @@ $app = new App(
 );
 
 $progress =
-    new FractionValue(
+    new ProgressValue(
         autoFinish: true
     );
 

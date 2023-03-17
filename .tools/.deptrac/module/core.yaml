@@ -1,0 +1,8 @@
+deptrac:
+  layers:
+    - name: ModuleCore
+      collectors:
+        - type: bool
+          must:
+            - type: className
+              value: '%namespace%\\Core\\.*'

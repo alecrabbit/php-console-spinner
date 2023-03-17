@@ -4,11 +4,12 @@ declare(strict_types=1);
 // 16.06.22
 namespace AlecRabbit\Tests\Spinner\TestCase;
 
-use AlecRabbit\Spinner\Config\Contract\IConfig;
-use AlecRabbit\Spinner\Config\Contract\IConfigBuilder;
+use AlecRabbit\Spinner\Core\Config\Contract\IConfig;
+use AlecRabbit\Spinner\Core\Config\Contract\IConfigBuilder;
+use AlecRabbit\Spinner\Core\Factory\SpinnerFactory;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Exception\LogicException;
-use AlecRabbit\Spinner\Factory;
+use AlecRabbit\Spinner\Facade;
 
 abstract class ConfigTestCase extends TestCase
 {
@@ -48,7 +49,7 @@ abstract class ConfigTestCase extends TestCase
 
     protected static function getConfigBuilder(): IConfigBuilder
     {
-        return Factory::getConfigBuilder();
+        return Facade::getConfigBuilder();
     }
 
     protected function tearDown(): void

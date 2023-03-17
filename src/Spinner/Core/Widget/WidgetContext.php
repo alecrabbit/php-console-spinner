@@ -8,5 +8,4 @@ use AlecRabbit\Spinner\Core\Widget\A\AWidgetContext;
 
 final class WidgetContext extends AWidgetContext
 {
-
 }

@@ -4,11 +4,10 @@ declare(strict_types=1);
 
 namespace Example\Kernel\A;
 
-use AlecRabbit\Spinner\Config\Contract\IConfig;
+use AlecRabbit\Spinner\Core\Config\Contract\IConfig;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
+use AlecRabbit\Spinner\Core\Factory\DefaultsFactory;
 use AlecRabbit\Spinner\Core\Output\StreamOutput;
-use AlecRabbit\Spinner\Factory;
-use AlecRabbit\Spinner\Factory\DefaultsFactory;
 use Closure;
 use Example\Kernel\AppConfig;
 use Example\Kernel\Benchmark;
@@ -69,7 +68,7 @@ abstract class AbstractApp
 
     protected function tuneDefaults(): void
     {
-        $defaults = DefaultsFactory::create();
+        $defaults = DefaultsFactory::get();
         if (!$defaults->isModeSynchronous()) {
             $defaults->setModeAsSynchronous(true);
         }
@@ -79,7 +78,7 @@ abstract class AbstractApp
     {
         $this->calculateAppTimeVariables();
 
-        $this->spinner = Factory::createSpinner($config);
+        $this->spinner = Facade::createSpinner($config);
 
         $stdout = new StreamOutput(STDOUT);
         $stderr = new StreamOutput(STDERR);
@@ -118,7 +117,7 @@ abstract class AbstractApp
 
     public static function prepareDefaults(): void
     {
-        DefaultsFactory::create()
+        DefaultsFactory::get()
             ->setModeAsSynchronous(true);
     }
 

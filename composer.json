@@ -34,7 +34,6 @@
         "revolt/event-loop": "^1.0",
         "nunomaduro/collision": "^7.0",
         "react/http": "*",
-        "alecrabbit/php-console-spinner-extras": "dev-main",
         "alecrabbit/php-wcwidth": "^1.0.0-ALPHA.0"
     },
     "autoload": {
@@ -42,7 +41,9 @@
             "AlecRabbit\\Spinner\\": "src\\Spinner\\"
         },
         "files": [
-            "src/bootstrap.php"
+            "src/Spinner/Asynchronous/bootstrap.php",
+            "src/Spinner/Core/bootstrap.php",
+            "src/Spinner/Extras/bootstrap.php"
         ]
     },
     "autoload-dev": {

@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Core\A;
 
-use AlecRabbit\Spinner\Core\Contract\IFrame;
+use AlecRabbit\Spinner\Contract\IFrame;
+use AlecRabbit\Spinner\Core\Factory\FrameFactory;
 use AlecRabbit\Tests\Spinner\TestCase\TestCase;
 use AlecRabbit\Tests\Spinner\Unit\Spinner\Core\A\Override\FrameClass;
 
@@ -80,7 +81,7 @@ final class AFrameTest extends TestCase
      */
     public function createEmpty(): void
     {
-        $frame = FrameClass::createEmpty();
+        $frame = FrameFactory::createEmpty();
 
         self::assertSame('', $frame->sequence());
         self::assertSame(0, $frame->width());
@@ -91,7 +92,7 @@ final class AFrameTest extends TestCase
      */
     public function createSpace(): void
     {
-        $frame = FrameClass::createSpace();
+        $frame = FrameFactory::createSpace();
 
         self::assertSame(' ', $frame->sequence());
         self::assertSame(1, $frame->width());

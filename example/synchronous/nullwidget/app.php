@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 use AlecRabbit\Spinner\Core\Widget\NullWidget;
-use AlecRabbit\Spinner\Factory;
+use AlecRabbit\Spinner\Facade;
 use Example\Kernel\App;
 
 require_once __DIR__ . '/../bootstrap.php';
@@ -11,8 +11,8 @@ require_once __DIR__ . '/../bootstrap.php';
 App::prepareDefaults();
 
 $config =
-    Factory::getConfigBuilder()
-        ->withMainWidget(NullWidget::create())
+    Facade::getConfigBuilder()
+        ->withRootWidget(NullWidget::create())
         ->build();
 
 $app = new App(

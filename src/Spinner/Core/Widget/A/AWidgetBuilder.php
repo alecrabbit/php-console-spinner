@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Widget\A;
 
-use AlecRabbit\Spinner\Config\Defaults\Contract\IDefaults;
-use AlecRabbit\Spinner\Core\Contract\IFrame;
+use AlecRabbit\Spinner\Contract\IFrame;
+use AlecRabbit\Spinner\Core\Defaults\Contract\IDefaults;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetBuilder;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
@@ -29,21 +29,12 @@ abstract class AWidgetBuilder implements IWidgetBuilder
      */
     public function build(): IWidgetComposite
     {
-        $this->processDefaults();
-
         return
             new Widget(
-                $this->revolver,
-                $this->leadingSpacer,
-                $this->trailingSpacer,
+                $this->revolver ?? $this->widgetRevolverBuilder->build(),
+                $this->leadingSpacer ?? $this->defaults->getWidgetSettings()->getLeadingSpacer(),
+                $this->trailingSpacer ?? $this->defaults->getWidgetSettings()->getTrailingSpacer(),
             );
-    }
-
-    protected function processDefaults(): void
-    {
-        $this->revolver ??= $this->widgetRevolverBuilder->build();
-        $this->leadingSpacer ??= $this->defaults->getDefaultLeadingSpacer();
-        $this->trailingSpacer ??= $this->defaults->getDefaultTrailingSpacer();
     }
 
     public function withWidgetRevolver(?IRevolver $revolver): static

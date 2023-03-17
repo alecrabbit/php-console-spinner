@@ -1,0 +1,6 @@
+deptrac:
+  layers:
+    - name: ModuleHelper
+      collectors:
+        - type: className
+          value: '%namespace%\\Helper\\.*'

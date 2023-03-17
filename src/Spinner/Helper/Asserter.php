@@ -2,31 +2,38 @@
 
 declare(strict_types=1);
 // 15.02.23
+
 namespace AlecRabbit\Spinner\Helper;
 
+use AlecRabbit\Spinner\Contract\ColorMode;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Exception\RuntimeException;
 
+use function class_exists;
 use function extension_loaded;
-
-use const AlecRabbit\Spinner\KNOWN_TERM_COLOR;
 
 final class Asserter
 {
     /**
      * @param object|class-string $c
      * @param class-string $i
+     * @param string|null $callerMethod
+     * @param bool $allowString
      * @throws InvalidArgumentException
      */
-    public static function isSubClass(mixed $c, string $i, ?string $callerMethod = null, bool $allowString = true): void
-    {
+    public static function isSubClass(
+        object|string $c,
+        string $i,
+        ?string $callerMethod = null,
+        bool $allowString = true
+    ): void {
         if (!is_subclass_of($c, $i, $allowString)) {
             throw new InvalidArgumentException(
                 sprintf(
                     'Class "%s" must be a subclass of "%s"%s.',
-                    $c,
+                    is_object($c) ? get_class($c) : $c,
                     $i,
-                    $callerMethod ? sprintf(', in "%s()"', $callerMethod) : '',
+                    $callerMethod ? sprintf(', see "%s()"', $callerMethod) : '',
                 )
             );
         }
@@ -37,6 +44,7 @@ final class Asserter
      */
     public static function assertStream(mixed $stream): void
     {
+        /** @psalm-suppress DocblockTypeContradiction */
         if (!is_resource($stream) || 'stream' !== get_resource_type($stream)) {
             throw new InvalidArgumentException(
                 sprintf('Argument is expected to be a stream(resource), "%s" given.', get_debug_type($stream))
@@ -47,18 +55,18 @@ final class Asserter
     /**
      * @throws InvalidArgumentException
      */
-    public static function assertColorSupportLevels(array $colorSupportLevels): void
+    public static function assertColorModes(\Traversable $colorModes): void
     {
-        if ($colorSupportLevels === []) {
-            throw new InvalidArgumentException('Color support levels must not be empty.');
+        if (0 === count(iterator_to_array($colorModes))) {
+            throw new InvalidArgumentException('Color modes must not be empty.');
         }
-        foreach ($colorSupportLevels as $level) {
-            if (!in_array($level, KNOWN_TERM_COLOR, true)) {
+        /** @var ColorMode $colorMode */
+        foreach ($colorModes as $colorMode) {
+            if (!$colorMode instanceof ColorMode) {
                 throw new InvalidArgumentException(
                     sprintf(
-                        'Color support level "%s" is not allowed. Allowed values are [%s].',
-                        $level,
-                        implode(', ', KNOWN_TERM_COLOR)
+                        'Unsupported color mode of type "%s".',
+                        get_debug_type($colorMode)
                     )
                 );
             }
@@ -68,12 +76,28 @@ final class Asserter
     /**
      * @throws RuntimeException
      */
-    public static function assertExtensionLoaded(string $extensionName, string $message): void
+    public static function assertExtensionLoaded(string $extensionName, ?string $message = null): void
     {
-        // @codeCoverageIgnoreStart
         if (!extension_loaded($extensionName)) {
-            throw new RuntimeException($message);
+            throw new RuntimeException(
+                $message ?? sprintf('Extension "%s" is not loaded.', $extensionName)
+            );
         }
-        // @codeCoverageIgnoreEnd
+    }
+
+    /**
+     * @throws InvalidArgumentException
+     */
+    public static function classExists(string $class, ?string $callerMethod = null): void
+    {
+        if (!class_exists($class)) {
+            throw new InvalidArgumentException(
+                sprintf(
+                    'Class "%s" does not exist%s.',
+                    $class,
+                    $callerMethod ? sprintf(', see "%s()"', $callerMethod) : ''
+                )
+            );
+        }
     }
 }

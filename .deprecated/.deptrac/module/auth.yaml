@@ -1,0 +1,93 @@
+###  Module - Auth
+parameters:
+  AuthGatewayLayerDir: src/Gateway/UI/Auth
+  AuthGatewayContractLayerDir: src/Gateway/UI/Auth/Contract
+  AuthControllerContractLayerDir: src/Module/Auth/Infrastructure/Controller/Contract
+  AuthApiLayerDir: src/Module/Auth/Api
+  AuthDomainLayerDir: src/Module/Auth/Domain
+  AuthApplicationLayerDir: src/Module/Auth/Application
+  AuthInfrastructureLayerDir: src/Module/Auth/Infrastructure
+
+  layers:
+    - name: LAuthGateway
+      collectors:
+        - type: bool
+          must:
+            - type: directory
+              regex: '%AuthGatewayLayerDir%'
+          must_not:
+            - type: directory
+              regex: '%AuthGatewayContractLayerDir%'
+    - name: LAuthGatewayContract
+      collectors:
+        - type: bool
+          must:
+            - type: directory
+              regex: '%AuthGatewayContractLayerDir%'
+    - name: LAuthControllerContract
+      collectors:
+        - type: bool
+          must:
+            - type: directory
+              regex: '%AuthControllerContractLayerDir%'
+    - name: LAuthApi
+      collectors:
+        - type: bool
+          must:
+            - type: directory
+              regex: '%AuthApiLayerDir%'
+    - name: LAuthInfrastructure
+      collectors:
+        - type: bool
+          must:
+            - type: directory
+              regex: '%AuthInfrastructureLayerDir%'
+          must_not:
+            - type: directory
+              regex: '%AuthControllerContractLayerDir%'
+            - type: className
+              regex: '.*Adapter\\Module.*'
+    - name: LAuthApplication
+      collectors:
+        - type: bool
+          must:
+            - type: directory
+              regex: '%AuthApplicationLayerDir%'
+    - name: LAuthDomain
+      collectors:
+        - type: bool
+          must:
+            - type: directory
+              regex: '%AuthDomainLayerDir%'
+    - name: LAuthModuleAdapters
+      collectors:
+        - type: bool
+          must:
+            - type: directory
+              regex: '%AuthInfrastructureLayerDir%'
+            - type: className
+              regex: '.*Adapter\\Module.*'
+
+
+  ruleset:
+    LAuthGateway:
+      - LAuthApi
+      - +LAuthGatewayContract
+    LAuthGatewayContract:
+      - +LAuthControllerContract
+    LAuthControllerContract:
+      - LAuthApi
+      - +LAuthInfrastructure
+    LAuthApi:
+      - +SharedApplicationLayer
+      - LAuthApplication
+    LAuthInfrastructure:
+      - +SharedInfrastructureLayer
+      - +LAuthApplication
+    LAuthApplication:
+      - +SharedApplicationLayer
+      - LAuthDomain
+    LAuthDomain:
+      - +SharedDomainLayer
+    LAuthModuleAdapters:
+      - +LAuthInfrastructure

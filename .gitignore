@@ -1,8 +1,11 @@
-vendor/
-.eval/
+/vendor/
+/.eval/
+/.idea/
+.deptrac.cache
 .ready
 .last_init_time
 .start_time
 docker-stack.yml
 .env
-
+.php-cs-fixer.php
+.php-cs-fixer.cache

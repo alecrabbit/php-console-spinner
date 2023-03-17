@@ -1,0 +1,8 @@
+deptrac:
+  layers:
+    - name: VendorReact
+      collectors:
+        - type: bool
+          must:
+            - type: className
+              value: .*React\\EventLoop\\.*

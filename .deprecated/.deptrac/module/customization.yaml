@@ -1,0 +1,93 @@
+###  Module - Customization
+parameters:
+  CustomizationGatewayLayerDir: src/Gateway/UI/Customization
+  CustomizationGatewayContractLayerDir: src/Gateway/UI/Customization/Contract
+  CustomizationControllerContractLayerDir: src/Module/Customization/Infrastructure/Controller/Contract
+  CustomizationApiLayerDir: src/Module/Customization/Api
+  CustomizationDomainLayerDir: src/Module/Customization/Domain
+  CustomizationApplicationLayerDir: src/Module/Customization/Application
+  CustomizationInfrastructureLayerDir: src/Module/Customization/Infrastructure
+
+  layers:
+    - name: LCustomizationGateway
+      collectors:
+        - type: bool
+          must:
+            - type: directory
+              regex: '%CustomizationGatewayLayerDir%'
+          must_not:
+            - type: directory
+              regex: '%CustomizationGatewayContractLayerDir%'
+    - name: LCustomizationGatewayContract
+      collectors:
+        - type: bool
+          must:
+            - type: directory
+              regex: '%CustomizationGatewayContractLayerDir%'
+    - name: LCustomizationControllerContract
+      collectors:
+        - type: bool
+          must:
+            - type: directory
+              regex: '%CustomizationControllerContractLayerDir%'
+    - name: LCustomizationApi
+      collectors:
+        - type: bool
+          must:
+            - type: directory
+              regex: '%CustomizationApiLayerDir%'
+    - name: LCustomizationInfrastructure
+      collectors:
+        - type: bool
+          must:
+            - type: directory
+              regex: '%CustomizationInfrastructureLayerDir%'
+          must_not:
+            - type: directory
+              regex: '%CustomizationControllerContractLayerDir%'
+            - type: className
+              regex: '.*Adapter\\Module.*'
+    - name: LCustomizationApplication
+      collectors:
+        - type: bool
+          must:
+            - type: directory
+              regex: '%CustomizationApplicationLayerDir%'
+    - name: LCustomizationDomain
+      collectors:
+        - type: bool
+          must:
+            - type: directory
+              regex: '%CustomizationDomainLayerDir%'
+    - name: LCustomizationModuleAdapters
+      collectors:
+        - type: bool
+          must:
+            - type: directory
+              regex: '%CustomizationInfrastructureLayerDir%'
+            - type: className
+              regex: '.*Adapter\\Module.*'
+
+
+  ruleset:
+    LCustomizationGateway:
+      - LCustomizationApi
+      - +LCustomizationGatewayContract
+    LCustomizationGatewayContract:
+      - +LCustomizationControllerContract
+    LCustomizationControllerContract:
+      - LCustomizationApi
+      - +LCustomizationInfrastructure
+    LCustomizationApi:
+      - +SharedApplicationLayer
+      - LCustomizationApplication
+    LCustomizationInfrastructure:
+      - +SharedInfrastructureLayer
+      - +LCustomizationApplication
+    LCustomizationApplication:
+      - +SharedApplicationLayer
+      - LCustomizationDomain
+    LCustomizationDomain:
+      - +SharedDomainLayer
+    LCustomizationModuleAdapters:
+      - +LCustomizationInfrastructure

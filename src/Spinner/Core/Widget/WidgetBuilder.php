@@ -8,5 +8,4 @@ use AlecRabbit\Spinner\Core\Widget\A\AWidgetBuilder;
 
 final class WidgetBuilder extends AWidgetBuilder
 {
-
 }
