@@ -12,6 +12,7 @@ use AlecRabbit\Spinner\Core\Widget\A\AWidgetComposite;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContext;
 use AlecRabbit\Spinner\Exception\LogicException;
+use WeakMap;
 
 final class NullWidget extends AWidgetComposite
 {
@@ -27,6 +28,7 @@ final class NullWidget extends AWidgetComposite
         $this->currentFrame = FrameFactory::createEmpty();
         $this->interval = new Interval();
         $this->context = new WidgetContext($this);
+        $this->childrenContextMap = new WeakMap();
     }
 
     public static function create(): IWidgetComposite
