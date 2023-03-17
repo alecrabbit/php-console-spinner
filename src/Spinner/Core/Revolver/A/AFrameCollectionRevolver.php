@@ -17,7 +17,7 @@ use ArrayAccess;
  */
 abstract class AFrameCollectionRevolver extends ARevolver implements IFrameCollectionRevolver, ArrayAccess
 {
-    protected iterable $frames = [];
+    protected array $frames = [];
     protected int $count = 0;
     protected int $offset = 0;
 

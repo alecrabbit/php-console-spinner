@@ -14,6 +14,7 @@ abstract class APattern implements IPattern
     /** @var int */
     protected const UPDATE_INTERVAL = 1000;
 
+    /** @var array */
     protected const PATTERN = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '='];
 
     public function __construct(
