@@ -59,16 +59,22 @@ abstract readonly class ADriver implements IDriver
 
     public function interrupt(?string $interruptMessage = null): void
     {
-        $this->output->write($interruptMessage ?? $this->interruptMessage);
+        $this->finalize($interruptMessage ?? $this->interruptMessage);
     }
 
     public function finalize(?string $finalMessage = null): void
     {
+        $this->showCursor();
         $this->output->write($finalMessage ?? $this->finalMessage);
     }
 
     public function elapsedTime(): float
     {
         return $this->timer->elapsed();
+    }
+
+    public function initialize(): void
+    {
+        $this->hideCursor();
     }
 }

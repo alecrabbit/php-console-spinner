@@ -12,11 +12,9 @@ interface IDriver
 
     public function display(IFrame $frame, int $widthDiff = 0): void;
 
-    public function hideCursor(): void;
-
-    public function showCursor(): void;
-
     public function interrupt(?string $interruptMessage = null): void;
 
     public function finalize(?string $finalMessage = null): void;
+
+    public function initialize(): void;
 }
