@@ -10,7 +10,7 @@ interface IDriver
 
     public function erase(IFrame $frame): void;
 
-    public function display(IFrame $frame, int $widthDiff = 0): void;
+    public function display(IFrame $frame): void;
 
     public function interrupt(?string $interruptMessage = null): void;
 

@@ -18,7 +18,6 @@ abstract class ASpinner implements ISpinner
     protected bool $active = false;
     protected bool $interrupted = false;
     protected IFrame $currentFrame;
-    protected int $framesWidthDiff = 0;
 
     public function __construct(
         protected readonly IDriver $driver,
@@ -41,13 +40,7 @@ abstract class ASpinner implements ISpinner
 
     protected function update(float $dt = null): void
     {
-        $previousFrame = $this->currentFrame;
         $this->currentFrame = $this->rootWidget->update($dt);
-        $this->framesWidthDiff =
-            max(
-                $previousFrame->width() - $this->currentFrame->width(),
-                0
-            );
     }
 
     public function interrupt(string $interruptMessage = null): void
@@ -111,7 +104,7 @@ abstract class ASpinner implements ISpinner
     {
         if ($this->active) {
             $this->update($dt);
-            $this->driver->display($this->currentFrame, $this->framesWidthDiff);
+            $this->driver->display($this->currentFrame);
         }
     }
 
