@@ -33,6 +33,7 @@ abstract class ADriver implements IDriver
     public function display(IFrame $frame): void
     {
         $widthDiff = $this->calculateWidthDiff($frame);
+
         $this->output->write(
             [
                 $frame->sequence(),
@@ -42,14 +43,13 @@ abstract class ADriver implements IDriver
         );
     }
 
-    protected function calculateWidthDiff(IFrame $frame): int
+    private function calculateWidthDiff(IFrame $frame): mixed
     {
-        $this->previousFrameWidth =
-            max(
-                $this->previousFrameWidth - $frame->width(),
-                0
-            );
-        return $this->previousFrameWidth;
+        $diff = max($this->previousFrameWidth - $frame->width(), 0);
+
+        $this->previousFrameWidth = $frame->width();
+
+        return $diff;
     }
 
     public function interrupt(?string $interruptMessage = null): void
