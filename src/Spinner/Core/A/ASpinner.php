@@ -18,7 +18,6 @@ abstract class ASpinner implements ISpinner
     protected bool $active = false;
     protected bool $interrupted = false;
     protected IFrame $currentFrame;
-    protected int $framesWidthDiff = 0;
 
     public function __construct(
         protected readonly IDriver $driver,
@@ -29,7 +28,7 @@ abstract class ASpinner implements ISpinner
 
     public function initialize(): void
     {
-        $this->driver->hideCursor();
+        $this->driver->initialize();
         $this->activate();
         $this->update();
     }
@@ -41,13 +40,7 @@ abstract class ASpinner implements ISpinner
 
     protected function update(float $dt = null): void
     {
-        $previousFrame = $this->currentFrame;
         $this->currentFrame = $this->rootWidget->update($dt);
-        $this->framesWidthDiff =
-            max(
-                $previousFrame->width() - $this->currentFrame->width(),
-                0
-            );
     }
 
     public function interrupt(string $interruptMessage = null): void
@@ -60,7 +53,6 @@ abstract class ASpinner implements ISpinner
     protected function stop(): void
     {
         $this->deactivate();
-        $this->driver->showCursor();
     }
 
     public function deactivate(): void
@@ -105,16 +97,20 @@ abstract class ASpinner implements ISpinner
 
     public function spin(float $dt = null): void
     {
-        $dt ??= $this->driver->elapsedTime();
-        $this->render($dt);
+        $this->render($this->elapsed($dt));
     }
 
     public function render(float $dt = null): void
     {
         if ($this->active) {
             $this->update($dt);
-            $this->driver->display($this->currentFrame, $this->framesWidthDiff);
+            $this->driver->display($this->currentFrame);
         }
+    }
+
+    protected function elapsed(?float $dt): float
+    {
+        return $dt ?? $this->driver->elapsedTime() ;
     }
 
     public function remove(IWidgetComposite|IWidgetContext $element): void
