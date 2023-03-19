@@ -6,6 +6,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Defaults\A;
 
 use AlecRabbit\Spinner\Contract\ColorMode;
+use AlecRabbit\Spinner\Contract\Cursor;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDefaults;
 use AlecRabbit\Spinner\Core\Defaults\Contract\ITerminalSettings;
 use AlecRabbit\Spinner\Helper\Asserter;
@@ -20,21 +21,26 @@ abstract class ATerminalSettings extends ADefaultsChild implements ITerminalSett
         IDefaults $parent,
         protected ColorMode $colorMode,
         protected int $width,
-        protected bool $hideCursor,
+        protected Cursor $cursor,
     ) {
         parent::__construct($parent);
         static::$supportedColorModes = $this->defaultSupportedColorModes();
+    }
+
+    protected function defaultSupportedColorModes(): \ArrayObject
+    {
+        return new \ArrayObject(ColorMode::cases());
     }
 
     final public static function getInstance(
         IDefaults $parent,
         ColorMode $colorMode,
         int $width,
-        bool $hideCursor,
+        Cursor $cursor,
     ): ITerminalSettings {
         if (null === self::$instance) {
             self::$instance =
-                new class ($parent, $colorMode, $width, $hideCursor) extends ATerminalSettings {
+                new class ($parent, $colorMode, $width, $cursor) extends ATerminalSettings {
                 };
         }
         return self::$instance;
@@ -64,12 +70,12 @@ abstract class ATerminalSettings extends ADefaultsChild implements ITerminalSett
 
     public function isCursorDisabled(): bool
     {
-        return $this->hideCursor;
+        return $this->cursor === Cursor::DISABLED;
     }
 
-    public function setHideCursor(bool $hideCursor): static
+    public function overrideCursor(Cursor $cursor): static
     {
-        $this->hideCursor = $hideCursor;
+        $this->cursor = $cursor;
         return $this;
     }
 
@@ -84,10 +90,5 @@ abstract class ATerminalSettings extends ADefaultsChild implements ITerminalSett
         Asserter::assertColorModes($supportedColorModes);
         static::$supportedColorModes = $supportedColorModes;
         return $this;
-    }
-
-    protected function defaultSupportedColorModes(): \ArrayObject
-    {
-        return new \ArrayObject(ColorMode::cases());
     }
 }

@@ -137,7 +137,7 @@ abstract class ADefaults extends ASettableDefaults
     {
         $colorMode = NativeTerminalProbe::getColorMode();
         $width = NativeTerminalProbe::getWidth();
-        $hideCursor = NativeTerminalProbe::isHideCursor();
+        $cursor = NativeTerminalProbe::getCursorMode();
 
         /** @var ITerminalProbe $terminalProbe */
         foreach (static::$terminalProbes as $terminalProbe) {
@@ -146,7 +146,7 @@ abstract class ADefaults extends ASettableDefaults
                 $width = $terminalProbe::getWidth();
             }
         }
-        return ATerminalSettings::getInstance($this, $colorMode, $width, $hideCursor);
+        return ATerminalSettings::getInstance($this, $colorMode, $width, $cursor);
     }
 
     protected function createDriverSettings(): IDriverSettings

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Core\Factory\A;
 
+use AlecRabbit\Spinner\Contract\Cursor;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use AlecRabbit\Spinner\Core\Factory\A\ASpinnerFactory;
 use AlecRabbit\Spinner\Core\Factory\DefaultsFactory;
@@ -38,7 +39,6 @@ final class AFactoryTest extends TestCase
             ->setModeAsSynchronous(true)
             ->setAutoStart(false)
             ->setAttachSignalHandlers(false)
-            ->getTerminalSettings()
-            ->setHideCursor(false);
+            ->getTerminalSettings()->overrideCursor(Cursor::ENABLED)->toParent();
     }
 }
