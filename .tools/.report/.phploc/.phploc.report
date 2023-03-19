@@ -4,11 +4,11 @@ Directories                                         51
 Files                                              207
 
 Size
-  Lines of Code (LOC)                             7312
-  Comment Lines of Code (CLOC)                     594 (8.12%)
-  Non-Comment Lines of Code (NCLOC)               6718 (91.88%)
-  Logical Lines of Code (LLOC)                    1102 (15.07%)
-    Classes                                       1091 (99.00%)
+  Lines of Code (LOC)                             7326
+  Comment Lines of Code (CLOC)                     594 (8.11%)
+  Non-Comment Lines of Code (NCLOC)               6732 (91.89%)
+  Logical Lines of Code (LLOC)                    1105 (15.08%)
+    Classes                                       1094 (99.00%)
       Average Class Length                           5
         Minimum Class Length                         0
         Maximum Class Length                        65
@@ -24,10 +24,10 @@ Size
 
 Cyclomatic Complexity
   Average Complexity per LLOC                     0.23
-  Average Complexity per Class                    2.22
+  Average Complexity per Class                    2.23
     Minimum Class Complexity                      1.00
     Maximum Class Complexity                     16.00
-  Average Complexity per Method                   1.50
+  Average Complexity per Method                   1.49
     Minimum Method Complexity                     1.00
     Maximum Method Complexity                     7.00
 
@@ -36,30 +36,30 @@ Dependencies
     Global Constants                                 0 (0.00%)
     Global Variables                                 0 (0.00%)
     Super-Global Variables                           0 (0.00%)
-  Attribute Accesses                               475
-    Non-Static                                     313 (65.89%)
-    Static                                         162 (34.11%)
-  Method Calls                                     435
-    Non-Static                                     255 (58.62%)
-    Static                                         180 (41.38%)
+  Attribute Accesses                               471
+    Non-Static                                     309 (65.61%)
+    Static                                         162 (34.39%)
+  Method Calls                                     436
+    Non-Static                                     256 (58.72%)
+    Static                                         180 (41.28%)
 
 Structure
   Namespaces                                        51
   Interfaces                                        58
   Traits                                             5
   Classes                                          139
-    Abstract Classes                                47 (33.81%)
-    Concrete Classes                                92 (66.19%)
-      Final Classes                                 76 (82.61%)
-      Non-Final Classes                             16 (17.39%)
-  Methods                                          580
+    Abstract Classes                                48 (34.53%)
+    Concrete Classes                                91 (65.47%)
+      Final Classes                                 77 (84.62%)
+      Non-Final Classes                             14 (15.38%)
+  Methods                                          582
     Scope
-      Non-Static Methods                           433 (74.66%)
-      Static Methods                               147 (25.34%)
+      Non-Static Methods                           435 (74.74%)
+      Static Methods                               147 (25.26%)
     Visibility
-      Public Methods                               478 (82.41%)
-      Protected Methods                             83 (14.31%)
-      Private Methods                               19 (3.28%)
+      Public Methods                               478 (82.13%)
+      Protected Methods                             85 (14.60%)
+      Private Methods                               19 (3.26%)
   Functions                                          9
     Named Functions                                  0 (0.00%)
     Anonymous Functions                              9 (100.00%)
