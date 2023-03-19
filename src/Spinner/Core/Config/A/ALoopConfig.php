@@ -4,6 +4,7 @@ declare(strict_types=1);
 // 17.03.23
 namespace AlecRabbit\Spinner\Core\Config\A;
 
+use AlecRabbit\Spinner\Contract\AutoStart;
 use AlecRabbit\Spinner\Core\Config\Contract\ILoopConfig;
 use AlecRabbit\Spinner\Core\RunMode;
 
@@ -11,7 +12,7 @@ abstract class ALoopConfig implements ILoopConfig
 {
     public function __construct(
         protected RunMode $runMode,
-        protected bool $autoStart,
+        protected AutoStart $autoStart,
         protected bool $attachSignalHandlers,
     ) {
     }
@@ -28,7 +29,7 @@ abstract class ALoopConfig implements ILoopConfig
 
     public function isAutoStartEnabled(): bool
     {
-        return $this->autoStart;
+        return $this->autoStart === AutoStart::ENABLED;
     }
 
     public function areSignalHandlersEnabled(): bool

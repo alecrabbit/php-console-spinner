@@ -4,11 +4,11 @@ Directories                                         51
 Files                                              209
 
 Size
-  Lines of Code (LOC)                             7348
-  Comment Lines of Code (CLOC)                     595 (8.10%)
-  Non-Comment Lines of Code (NCLOC)               6753 (91.90%)
-  Logical Lines of Code (LLOC)                    1110 (15.11%)
-    Classes                                       1095 (98.65%)
+  Lines of Code (LOC)                             7352
+  Comment Lines of Code (CLOC)                     593 (8.07%)
+  Non-Comment Lines of Code (NCLOC)               6759 (91.93%)
+  Logical Lines of Code (LLOC)                    1108 (15.07%)
+    Classes                                       1093 (98.65%)
       Average Class Length                           5
         Minimum Class Length                         0
         Maximum Class Length                        63
@@ -63,8 +63,8 @@ Structure
   Functions                                          9
     Named Functions                                  0 (0.00%)
     Anonymous Functions                              9 (100.00%)
-  Constants                                        107
+  Constants                                        105
     Global Constants                                 0 (0.00%)
-    Class Constants                                107 (100.00%)
-      Public Constants                              10 (9.35%)
-      Non-Public Constants                          97 (90.65%)
+    Class Constants                                105 (100.00%)
+      Public Constants                              10 (9.52%)
+      Non-Public Constants                          95 (90.48%)

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Config\A;
 
+use AlecRabbit\Spinner\Contract\AutoStart;
 use AlecRabbit\Spinner\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Config\Config;
 use AlecRabbit\Spinner\Core\Config\Contract\IConfig;
@@ -24,7 +25,7 @@ use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolverBuilder;
 
 abstract class AConfigBuilder implements IConfigBuilder
 {
-    protected ?bool $autoStartEnabled = null;
+    protected ?AutoStart $autoStart = null;
     protected IDriverBuilder $driverBuilder;
     protected ?IWidgetComposite $rootWidget = null;
     protected ?IPattern $rootWidgetCharPattern = null;
@@ -75,7 +76,7 @@ abstract class AConfigBuilder implements IConfigBuilder
         $loopConfig =
             new LoopConfig(
                 runMode: $this->defaults->getRunMode(),
-                autoStart: $this->autoStartEnabled ?? $this->defaults->isAutoStartEnabled(),
+                autoStart: $this->autoStart ?? $this->defaults->getAutoStart(),
                 attachSignalHandlers: $this->signalHandlersEnabled ?? $this->defaults->areSignalHandlersEnabled(),
             );
 

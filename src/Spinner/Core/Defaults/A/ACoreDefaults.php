@@ -5,6 +5,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Defaults\A;
 
+use AlecRabbit\Spinner\Contract\AutoStart;
 use AlecRabbit\Spinner\Contract\ColorMode;
 use AlecRabbit\Spinner\Contract\IProbe;
 use AlecRabbit\Spinner\Core\Contract\ILoopProbe;
@@ -33,7 +34,7 @@ abstract class ACoreDefaults implements IDefaults
     protected static IWidgetSettings $widgetSettings;
 
     protected static bool $attachSignalHandlers;
-    protected static bool $autoStartEnabled;
+    protected static AutoStart $autoStartOption;
     protected static bool $createInitialized;
     protected static \Traversable $loopProbes;
     protected static ?IPattern $charPattern = null;
@@ -71,7 +72,7 @@ abstract class ACoreDefaults implements IDefaults
         static::$widgetSettings = $this->createWidgetSettings();
 
         static::$attachSignalHandlers = static::ATTACH_SIGNAL_HANDLERS;
-        static::$autoStartEnabled = static::AUTO_START;
+        static::$autoStartOption = static::AUTO_START;
         static::$createInitialized = static::SPINNER_CREATE_INITIALIZED;
         static::$messageOnExit = static::MESSAGE_ON_EXIT;
         static::$messageOnFinalize = static::MESSAGE_ON_FINALIZE;

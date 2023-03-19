@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Defaults\Contract;
 
+use AlecRabbit\Spinner\Contract\AutoStart;
 use AlecRabbit\Spinner\Core\Pattern\Contract\IPattern;
 use AlecRabbit\Spinner\Core\RunMode;
 
@@ -40,7 +41,7 @@ interface IDefaults extends ISettableDefaults
 
     public function isModeSynchronous(): bool;
 
-    public function isAutoStartEnabled(): bool;
+    public function getAutoStart(): AutoStart;
 
     public function areSignalHandlersEnabled(): bool;
 
