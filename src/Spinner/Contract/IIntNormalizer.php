@@ -9,7 +9,7 @@ use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 
 interface IIntNormalizer
 {
-    final public const DEFAULT_DIVISOR = 50;
+    final public const DEFAULT_DIVISOR = 50; // FIXME: IntervalFactory indirectly depends on this value
     final public const DEFAULT_MIN = 0;
     final public const MAX_DIVISOR = 1000000;
 

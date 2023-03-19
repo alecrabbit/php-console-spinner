@@ -18,7 +18,7 @@ final class IntNormalizer implements IIntNormalizer
         $result = (int)round($interval / self::$divisor) * self::$divisor;
 
         if (self::$min > $result) {
-            $result = self::$min;
+            return self::$min;
         }
 
         return $result;
