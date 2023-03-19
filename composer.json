@@ -1,7 +1,8 @@
 {
     "name": "alecrabbit/php-console-spinner",
-    "type": "library",
     "description": "Colorful extremely flexible spinner for [async] php cli applications",
+    "license": "MIT",
+    "type": "library",
     "keywords": [
         "php",
         "terminal",
@@ -20,22 +21,28 @@
         "reactphp",
         "revolt"
     ],
-    "license": "MIT",
     "require": {
         "php": ">=8.2"
     },
     "require-dev": {
-        "phpunit/phpunit": "^10.0",
-        "phpunit/php-code-coverage": "*",
-        "symfony/console": "^6.2",
-        "symfony/var-dumper": "*",
+        "alecrabbit/php-wcwidth": "^1.0.0-ALPHA.0",
         "fakerphp/faker": "*",
-        "react/event-loop": "*",
-        "revolt/event-loop": "^1.0",
         "nunomaduro/collision": "^7.0",
+        "phpunit/php-code-coverage": "*",
+        "phpunit/phpunit": "^10.0",
+        "react/event-loop": "*",
         "react/http": "*",
-        "alecrabbit/php-wcwidth": "^1.0.0-ALPHA.0"
+        "revolt/event-loop": "^1.0",
+        "symfony/console": "^6.2",
+        "symfony/var-dumper": "*"
     },
+    "suggest": {
+        "ext-mbstring": "For multibyte Unicode string functionality.",
+        "ext-pcntl": "For signal handling support.",
+        "react/event-loop": "For ReactPHP event-loop support.",
+        "revolt/event-loop": "For Revolt event-loop support."
+    },
+    "minimum-stability": "stable",
     "autoload": {
         "psr-4": {
             "AlecRabbit\\Spinner\\": "src\\Spinner\\"
@@ -50,12 +57,5 @@
         "psr-4": {
             "AlecRabbit\\Tests\\Spinner\\": "tests"
         }
-    },
-    "suggest": {
-        "ext-pcntl": "For signal handling support.",
-        "ext-mbstring": "For multibyte Unicode string functionality.",
-        "react/event-loop": "For ReactPHP event-loop support.",
-        "revolt/event-loop": "For Revolt event-loop support."
-    },
-    "minimum-stability": "stable"
+    }
 }
