@@ -6,6 +6,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Defaults\A;
 
 use AlecRabbit\Spinner\Contract\AutoStart;
+use AlecRabbit\Spinner\Contract\SignalHandlers;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDefaults;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDefaultsClasses;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDriverSettings;
@@ -94,14 +95,14 @@ abstract class ADefaults extends ASettableDefaults
         return static::$createInitialized;
     }
 
-    public function getAutoStart(): AutoStart
+    public function getAutoStartOption(): AutoStart
     {
         return static::$autoStartOption;
     }
 
-    public function areSignalHandlersEnabled(): bool
+    public function getSignalHandlersOption(): SignalHandlers
     {
-        return static::$attachSignalHandlers;
+        return static::$signalHandlersOption;
     }
 
     public function getProbeClasses(): \Traversable

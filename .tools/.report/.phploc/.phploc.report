@@ -1,14 +1,14 @@
 phploc 7.0.2 by Sebastian Bergmann.
 
 Directories                                         51
-Files                                              209
+Files                                              210
 
 Size
-  Lines of Code (LOC)                             7352
-  Comment Lines of Code (CLOC)                     593 (8.07%)
-  Non-Comment Lines of Code (NCLOC)               6759 (91.93%)
-  Logical Lines of Code (LLOC)                    1108 (15.07%)
-    Classes                                       1093 (98.65%)
+  Lines of Code (LOC)                             7367
+  Comment Lines of Code (CLOC)                     594 (8.06%)
+  Non-Comment Lines of Code (NCLOC)               6773 (91.94%)
+  Logical Lines of Code (LLOC)                    1110 (15.07%)
+    Classes                                       1093 (98.47%)
       Average Class Length                           5
         Minimum Class Length                         0
         Maximum Class Length                        63
@@ -20,7 +20,7 @@ Size
         Maximum Methods Per Class                   23
     Functions                                        0 (0.00%)
       Average Function Length                        0
-    Not in classes or functions                     15 (1.35%)
+    Not in classes or functions                     17 (1.53%)
 
 Cyclomatic Complexity
   Average Complexity per LLOC                     0.23

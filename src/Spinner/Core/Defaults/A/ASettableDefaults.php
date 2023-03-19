@@ -6,6 +6,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Defaults\A;
 
 use AlecRabbit\Spinner\Contract\AutoStart;
+use AlecRabbit\Spinner\Contract\SignalHandlers;
 use AlecRabbit\Spinner\Core\Contract\ILoopProbe;
 use AlecRabbit\Spinner\Core\Pattern\Contract\IPattern;
 use AlecRabbit\Spinner\Core\RunMode;
@@ -77,15 +78,15 @@ abstract class ASettableDefaults extends ACoreDefaults
         return $this;
     }
 
-    public function setAutoStart(AutoStart $autoStart): static
+    public function overrideAutoStartOption(AutoStart $autoStart): static
     {
         static::$autoStartOption = $autoStart;
         return $this;
     }
 
-    public function setAttachSignalHandlers(bool $attachSignalHandlers): static
+    public function overrideSignalHandlersOption(SignalHandlers $signalHandlers): static
     {
-        static::$attachSignalHandlers = $attachSignalHandlers;
+        static::$signalHandlersOption = $signalHandlers;
         return $this;
     }
 

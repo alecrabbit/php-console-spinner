@@ -6,6 +6,7 @@ namespace AlecRabbit\Spinner\Core\Config\A;
 
 use AlecRabbit\Spinner\Contract\AutoStart;
 use AlecRabbit\Spinner\Contract\IDriver;
+use AlecRabbit\Spinner\Contract\SignalHandlers;
 use AlecRabbit\Spinner\Core\Config\Config;
 use AlecRabbit\Spinner\Core\Config\Contract\IConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IConfigBuilder;
@@ -30,7 +31,7 @@ abstract class AConfigBuilder implements IConfigBuilder
     protected ?IWidgetComposite $rootWidget = null;
     protected ?IPattern $rootWidgetCharPattern = null;
     protected ?IPattern $rootWidgetStylePattern = null;
-    protected ?bool $signalHandlersEnabled = null;
+    protected ?SignalHandlers $signalHandlers = null;
     protected IWidgetBuilder $widgetBuilder;
     protected IWidgetRevolverBuilder $widgetRevolverBuilder;
     protected ?\Traversable $widgets = null;
@@ -76,8 +77,8 @@ abstract class AConfigBuilder implements IConfigBuilder
         $loopConfig =
             new LoopConfig(
                 runMode: $this->defaults->getRunMode(),
-                autoStart: $this->autoStart ?? $this->defaults->getAutoStart(),
-                attachSignalHandlers: $this->signalHandlersEnabled ?? $this->defaults->areSignalHandlersEnabled(),
+                autoStart: $this->autoStart ?? $this->defaults->getAutoStartOption(),
+                signalHandlersOption: $this->signalHandlers ?? $this->defaults->getSignalHandlersOption(),
             );
 
         $spinnerConfig =

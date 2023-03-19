@@ -6,15 +6,15 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Defaults\Mixin;
 
 use AlecRabbit\Spinner\Contract\AutoStart;
-use AlecRabbit\Spinner\Contract\ColorMode;
+use AlecRabbit\Spinner\Contract\SignalHandlers;
 use AlecRabbit\Spinner\Core\RunMode;
 
 trait DefaultsConst
 {
-    /** @var bool */
-    final protected const ATTACH_SIGNAL_HANDLERS = true;
+    /** @var SignalHandlers */
+    final protected const SIGNAL_HANDLERS_OPTION = SignalHandlers::ENABLED;
     /** @var AutoStart */
-    final protected const AUTO_START = AutoStart::ENABLED;
+    final protected const AUTO_START_OPTION = AutoStart::ENABLED;
     /** @var int */
     final protected const INTERVAL_MS = 1000;
     /** @var string */
