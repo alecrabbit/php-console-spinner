@@ -6,6 +6,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Defaults\A;
 
 use AlecRabbit\Spinner\Contract\AutoStart;
+use AlecRabbit\Spinner\Contract\Initialization;
 use AlecRabbit\Spinner\Contract\SignalHandlers;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDefaults;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDefaultsClasses;
@@ -91,9 +92,9 @@ abstract class ADefaults extends ASettableDefaults
         return static::$charPattern;
     }
 
-    public function isCreateInitialized(): bool
+    public function initializationOption(): Initialization
     {
-        return static::$createInitialized;
+        return static::$initialization;
     }
 
     public function getAutoStartOption(): AutoStart

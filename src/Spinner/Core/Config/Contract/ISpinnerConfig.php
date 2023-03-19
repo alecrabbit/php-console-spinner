@@ -9,7 +9,7 @@ use Traversable;
 
 interface ISpinnerConfig
 {
-    public function createInitialized(): bool;
+    public function isInitializationEnabled(): bool;
 
     public function getWidgets(): Traversable;
 

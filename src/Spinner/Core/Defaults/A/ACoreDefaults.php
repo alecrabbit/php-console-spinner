@@ -6,6 +6,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Defaults\A;
 
 use AlecRabbit\Spinner\Contract\AutoStart;
+use AlecRabbit\Spinner\Contract\Initialization;
 use AlecRabbit\Spinner\Contract\IProbe;
 use AlecRabbit\Spinner\Contract\SignalHandlers;
 use AlecRabbit\Spinner\Core\Contract\ILoopProbe;
@@ -37,7 +38,7 @@ abstract class ACoreDefaults implements IDefaults
 
     protected static SignalHandlers $signalHandlersOption;
     protected static AutoStart $autoStartOption;
-    protected static bool $createInitialized;
+    protected static Initialization $initialization;
     protected static Traversable $loopProbes;
     protected static ?IPattern $charPattern = null;
     protected static ?IPattern $stylePattern = null;
@@ -75,7 +76,7 @@ abstract class ACoreDefaults implements IDefaults
 
         static::$signalHandlersOption = static::SIGNAL_HANDLERS_OPTION;
         static::$autoStartOption = static::AUTO_START_OPTION;
-        static::$createInitialized = static::SPINNER_CREATE_INITIALIZED;
+        static::$initialization = static::INITIALIZATION_OPTION;
         static::$messageOnExit = static::MESSAGE_ON_EXIT;
         static::$messageOnFinalize = static::MESSAGE_ON_FINALIZE;
         static::$messageOnInterrupt = static::MESSAGE_ON_INTERRUPT;

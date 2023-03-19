@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Defaults\Contract;
 
 use AlecRabbit\Spinner\Contract\AutoStart;
+use AlecRabbit\Spinner\Contract\Initialization;
 use AlecRabbit\Spinner\Contract\SignalHandlers;
 use AlecRabbit\Spinner\Core\Pattern\Contract\IPattern;
 use AlecRabbit\Spinner\Core\RunMode;
@@ -35,7 +36,7 @@ interface IDefaults extends ISettableDefaults
 
     public function getIntervalMilliseconds(): int;
 
-    public function isCreateInitialized(): bool;
+    public function initializationOption(): Initialization;
 
     public function getPercentNumberFormat(): string;
 

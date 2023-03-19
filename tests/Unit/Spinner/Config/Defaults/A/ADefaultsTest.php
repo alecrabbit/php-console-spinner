@@ -6,9 +6,8 @@ namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Config\Defaults\A;
 
 use AlecRabbit\Spinner\Asynchronous\Loop\Probe\ReactLoopProbe;
 use AlecRabbit\Spinner\Asynchronous\Loop\Probe\RevoltLoopProbe;
-use AlecRabbit\Spinner\Contract\ColorMode;
+use AlecRabbit\Spinner\Contract\Initialization;
 use AlecRabbit\Spinner\Core\Defaults\A\ADefaults;
-use AlecRabbit\Spinner\Core\Factory\FrameFactory;
 use AlecRabbit\Spinner\Core\Widget\WidgetBuilder;
 use AlecRabbit\Spinner\Core\Widget\WidgetRevolverBuilder;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
@@ -121,12 +120,12 @@ final class ADefaultsTest extends TestCase
     public function canSetCreateInitialized(): void
     {
         $defaults = self::getInstance();
-        $defaults->setCreateInitialized(true);
-        self::assertTrue($defaults->isCreateInitialized());
-        $defaults->setCreateInitialized(false);
-        self::assertFalse($defaults->isCreateInitialized());
-        $defaults->setCreateInitialized(true);
-        self::assertTrue($defaults->isCreateInitialized());
+        $defaults->overrideInitializationOption(Initialization::ENABLED);
+        self::assertSame(Initialization::ENABLED, $defaults->initializationOption());
+        $defaults->overrideInitializationOption(Initialization::DISABLED);
+        self::assertSame(Initialization::DISABLED, $defaults->initializationOption());
+        $defaults->overrideInitializationOption(Initialization::ENABLED);
+        self::assertSame(Initialization::ENABLED, $defaults->initializationOption());
     }
 
     #[Test]

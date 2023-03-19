@@ -6,6 +6,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Defaults\A;
 
 use AlecRabbit\Spinner\Contract\AutoStart;
+use AlecRabbit\Spinner\Contract\Initialization;
 use AlecRabbit\Spinner\Contract\SignalHandlers;
 use AlecRabbit\Spinner\Core\Contract\ILoopProbe;
 use AlecRabbit\Spinner\Core\Pattern\Contract\IPattern;
@@ -73,9 +74,9 @@ abstract class ASettableDefaults extends ACoreDefaults
         return $this;
     }
 
-    public function setCreateInitialized(bool $createInitialized): static
+    public function overrideInitializationOption(Initialization $initialization): static
     {
-        static::$createInitialized = $createInitialized;
+        static::$initialization = $initialization;
         return $this;
     }
 

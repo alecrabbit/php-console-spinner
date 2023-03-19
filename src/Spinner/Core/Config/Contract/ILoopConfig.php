@@ -8,8 +8,6 @@ use AlecRabbit\Spinner\Core\RunMode;
 
 interface ILoopConfig
 {
-    public function getRunMode(): RunMode;
-
     public function isAutoStartEnabled(): bool;
 
     public function areSignalHandlersEnabled(): bool;

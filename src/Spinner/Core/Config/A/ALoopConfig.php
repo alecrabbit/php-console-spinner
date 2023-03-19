@@ -23,11 +23,6 @@ abstract class ALoopConfig implements ILoopConfig
         return $this->runMode === RunMode::ASYNC;
     }
 
-    public function getRunMode(): RunMode
-    {
-        return $this->runMode;
-    }
-
     public function isAutoStartEnabled(): bool
     {
         return $this->autoStart === AutoStart::ENABLED;

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Defaults\Contract;
 
 use AlecRabbit\Spinner\Contract\AutoStart;
+use AlecRabbit\Spinner\Contract\Initialization;
 use AlecRabbit\Spinner\Contract\SignalHandlers;
 use AlecRabbit\Spinner\Core\Pattern\Contract\IPattern;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
@@ -26,7 +27,7 @@ interface ISettableDefaults
 
     public function setIntervalMilliseconds(int $defaultInterval): static;
 
-    public function setCreateInitialized(bool $createInitialized): static;
+    public function overrideInitializationOption(Initialization $initialization): static;
 
     public function setPercentNumberFormat(string $percentNumberFormat): static;
 

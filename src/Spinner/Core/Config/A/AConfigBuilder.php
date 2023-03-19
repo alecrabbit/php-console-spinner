@@ -86,7 +86,7 @@ abstract class AConfigBuilder implements IConfigBuilder
         $spinnerConfig =
             new SpinnerConfig(
                 rootWidget: $this->rootWidget ?? $this->createRootWidget(),
-                createInitialized: $this->defaults->isCreateInitialized(),
+                initialization: $this->defaults->initializationOption(),
                 widgets: $this->widgets ?? new ArrayObject([]),
             );
 
