@@ -67,11 +67,6 @@ abstract class ADefaults extends ASettableDefaults
         return static::$shutdownMaxDelay;
     }
 
-    public function getSupportedColorModes(): \Traversable
-    {
-        return static::$supportedColorModes;
-    }
-
     public function getPercentNumberFormat(): string
     {
         return static::$percentNumberFormat;

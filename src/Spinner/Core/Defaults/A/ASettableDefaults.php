@@ -51,14 +51,6 @@ abstract class ASettableDefaults extends ACoreDefaults
         return $this;
     }
 
-    /** @inheritdoc */
-    public function overrideSupportedColorModes(\Traversable $supportedColorModes): static
-    {
-        Asserter::assertColorModes($supportedColorModes);
-        static::$supportedColorModes = $supportedColorModes;
-        return $this;
-    }
-
     public function setPercentNumberFormat(string $percentNumberFormat): static
     {
         static::$percentNumberFormat = $percentNumberFormat;

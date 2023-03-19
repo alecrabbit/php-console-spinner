@@ -5,6 +5,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Defaults\A;
 
+use AlecRabbit\Spinner\Contract\ColorMode;
 use AlecRabbit\Spinner\Contract\IProbe;
 use AlecRabbit\Spinner\Core\Contract\ILoopProbe;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDefaults;
@@ -43,7 +44,6 @@ abstract class ACoreDefaults implements IDefaults
     protected static int $millisecondsInterval;
     protected static string $percentNumberFormat;
     protected static RunMode $runMode;
-    protected static \Traversable $supportedColorModes;
     protected static float|int $shutdownDelay;
     protected static float|int $shutdownMaxDelay;
     /**
@@ -81,7 +81,6 @@ abstract class ACoreDefaults implements IDefaults
         static::$runMode = static::RUN_MODE;
         static::$shutdownDelay = static::SHUTDOWN_DELAY;
         static::$shutdownMaxDelay = static::SHUTDOWN_MAX_DELAY;
-        static::$supportedColorModes = new \ArrayObject(static::TERMINAL_COLOR_SUPPORT_MODES);
 
         static::$stylePattern = null;
         static::$charPattern = null;

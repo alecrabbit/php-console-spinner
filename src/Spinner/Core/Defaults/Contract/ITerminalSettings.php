@@ -6,6 +6,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Defaults\Contract;
 
 use AlecRabbit\Spinner\Contract\ColorMode;
+use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 
 interface ITerminalSettings extends IDefaultsChild
 {
@@ -24,5 +25,12 @@ interface ITerminalSettings extends IDefaultsChild
 
     public function setColorMode(ColorMode $colorMode): static;
 
-    public function isHideCursor(): bool;
+    public function isCursorDisabled(): bool;
+
+    /**
+     * @throws InvalidArgumentException
+     */
+    public function overrideSupportedColorModes(\Traversable $supportedColorModes): static;
+
+    public function getSupportedColorModes(): \Traversable;
 }

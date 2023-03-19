@@ -21,11 +21,6 @@ interface ISettableDefaults
      */
     public function setOutputStream($stream): static;
 
-    /**
-     * @throws InvalidArgumentException
-     */
-    public function overrideSupportedColorModes(\Traversable $supportedColorModes): static;
-
     public function setIntervalMilliseconds(int $defaultInterval): static;
 
     public function setCreateInitialized(bool $createInitialized): static;

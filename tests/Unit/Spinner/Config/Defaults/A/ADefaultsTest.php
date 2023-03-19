@@ -206,28 +206,28 @@ final class ADefaultsTest extends TestCase
         $defaults->setMaxShutdownDelay(10);
         self::assertSame(10, $defaults->getMaxShutdownDelay());
     }
-
-    #[Test]
-    public function canSetSupportedColorModes(): void
-    {
-        $defaults = self::getInstance();
-        $colorSupportLevels = new \ArrayObject([ColorMode::ANSI24]);
-        $defaults->overrideSupportedColorModes($colorSupportLevels);
-        self::assertSame($colorSupportLevels, $defaults->getSupportedColorModes());
-    }
-
-    #[Test]
-    public function setSupportedColorModesThrowsOnInvalidArgument(): void
-    {
-        $exception = InvalidArgumentException::class;
-        $this->expectException($exception);
-        $this->expectExceptionMessage('Color modes must not be empty.');
-
-        $defaults = self::getInstance();
-        $defaults->overrideSupportedColorModes(new \ArrayObject([]));
-        self::assertSame(10, $defaults->getSupportedColorModes());
-        self::exceptionNotThrown($exception);
-    }
+//
+//    #[Test]
+//    public function canSetSupportedColorModes(): void
+//    {
+//        $defaults = self::getInstance();
+//        $colorSupportLevels = new \ArrayObject([ColorMode::ANSI24]);
+//        $defaults->overrideSupportedColorModes($colorSupportLevels);
+//        self::assertSame($colorSupportLevels, $defaults->getSupportedColorModes());
+//    }
+//
+//    #[Test]
+//    public function setSupportedColorModesThrowsOnInvalidArgument(): void
+//    {
+//        $exception = InvalidArgumentException::class;
+//        $this->expectException($exception);
+//        $this->expectExceptionMessage('Color modes must not be empty.');
+//
+//        $defaults = self::getInstance();
+//        $defaults->overrideSupportedColorModes(new \ArrayObject([]));
+//        self::assertSame(10, $defaults->getSupportedColorModes());
+//        self::exceptionNotThrown($exception);
+//    }
 
     protected function setUp(): void
     {
