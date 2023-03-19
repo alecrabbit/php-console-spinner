@@ -76,11 +76,11 @@ final class AIntervalFactoryTest extends TestCase
     #[DataProvider('createNormalizedIntervalData')]
     public function canCreateNormalizedInterval(array $expected, array $incoming): void
     {
-        $this->setExpectException($expected);
+        $this->expectsException($expected);
 
         $args = $incoming[self::ARGUMENTS];
 
-        IntNormalizer::setDivisor($args[self::DIVISOR]);
+        IntNormalizer::overrideDivisor($args[self::DIVISOR]);
 
         self::assertEquals(
             $expected[self::INTERVAL],
@@ -90,7 +90,7 @@ final class AIntervalFactoryTest extends TestCase
 
     protected function setUp(): void
     {
-        IntNormalizer::setDivisor(IIntNormalizer::DEFAULT_DIVISOR);
-        IntNormalizer::setMin(IInterval::MIN_INTERVAL_MILLISECONDS);
+        IntNormalizer::overrideDivisor(IIntNormalizer::DEFAULT_DIVISOR);
+        IntNormalizer::overrideMin(IInterval::MIN_INTERVAL_MILLISECONDS);
     }
 }

@@ -131,7 +131,7 @@ final class AIntervalTest extends TestCase
      */
     public function create(array $expected, array $incoming): void
     {
-        $this->setExpectException($expected);
+        $this->expectsException($expected);
 
         $interval = self::getInstance($incoming[self::ARGUMENTS] ?? []);
 

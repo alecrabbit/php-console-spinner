@@ -5,18 +5,25 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Contract;
 
+use AlecRabbit\Spinner\Exception\InvalidArgumentException;
+
 interface IIntNormalizer
 {
     final public const DEFAULT_DIVISOR = 50;
     final public const DEFAULT_MIN = 0;
-    final public const MAX_DIVISOR = 1000;
-
+    final public const MAX_DIVISOR = 1000000;
 
     public static function normalize(int $interval): int;
 
-    public static function setDivisor(int $divisor): void;
+    /**
+     * @throws InvalidArgumentException
+     */
+    public static function overrideDivisor(int $divisor): void;
 
     public static function getDivisor(): int;
 
-    public static function setMin(int $min): void;
+    /**
+     * @throws InvalidArgumentException
+     */
+    public static function overrideMin(int $min): void;
 }

@@ -39,6 +39,7 @@ final class IntNormalizerTest extends TestCase
             ],
             [
                 self::ARGUMENTS => [
+                    self::INTERVAL => 100,
                     self::DIVISOR => 0,
                 ],
             ],
@@ -47,12 +48,13 @@ final class IntNormalizerTest extends TestCase
             [
                 self::EXCEPTION => [
                     self::CLASS_ => InvalidArgumentException::class,
-                    self::MESSAGE => 'Divisor should be less than 1000.',
+                    self::MESSAGE => 'Divisor should be less than 1000000.',
                 ],
             ],
             [
                 self::ARGUMENTS => [
-                    self::DIVISOR => 1200,
+                    self::INTERVAL => 100,
+                    self::DIVISOR => 1200000,
                 ],
             ],
         ];
@@ -79,11 +81,15 @@ final class IntNormalizerTest extends TestCase
     #[DataProvider('normalizeData')]
     public function canNormalize(array $expected, array $incoming): void
     {
-        $this->setExpectException($expected);
+        $expectedException = $this->expectsException($expected);
 
         $args = $incoming[self::ARGUMENTS];
 
-        IntNormalizer::setDivisor($args[self::DIVISOR]);
+        IntNormalizer::overrideDivisor($args[self::DIVISOR]);
+
+        if ($expectedException) {
+            self::exceptionNotThrown($expectedException);
+        }
 
         self::assertSame(
             $expected[self::INTERVAL],
@@ -95,7 +101,7 @@ final class IntNormalizerTest extends TestCase
     #[DataProvider('simplifiedDataFeeder')]
     public function canSetAndGetDivisor(int $divisor,): void
     {
-        IntNormalizer::setDivisor($divisor);
+        IntNormalizer::overrideDivisor($divisor);
 
         self::assertSame($divisor, IntNormalizer::getDivisor());
     }
@@ -106,13 +112,13 @@ final class IntNormalizerTest extends TestCase
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('Min should be greater than 0.');
 
-        IntNormalizer::setMin(-1);
+        IntNormalizer::overrideMin(-1);
         self::fail(sprintf('[%s] Exception not thrown', __METHOD__));
     }
 
     protected function setUp(): void
     {
-        IntNormalizer::setMin(IIntNormalizer::DEFAULT_MIN);
+        IntNormalizer::overrideMin(IIntNormalizer::DEFAULT_MIN);
     }
 }
 

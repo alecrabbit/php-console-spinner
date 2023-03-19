@@ -9,6 +9,8 @@ use AlecRabbit\Tests\Spinner\Mixin\AppRelatedConstantsTrait;
 use ArrayAccess;
 use PHPUnit\Framework\TestCase as PHPUnitTestCase;
 
+use Throwable;
+
 use function array_key_exists;
 use function is_array;
 
@@ -42,15 +44,22 @@ abstract class TestCase extends PHPUnitTestCase
     {
     }
 
-    protected function setExpectException(mixed $expected): void
+    /**
+     * @param mixed $expected
+     * @return null|class-string<Throwable>
+     */
+    protected function expectsException(mixed $expected): ?string
     {
         if ((is_array($expected) || $expected instanceof ArrayAccess)
             && array_key_exists(self::EXCEPTION, $expected)) {
-            $this->expectException($expected[self::EXCEPTION][self::CLASS_]);
+            $exceptionClass = $expected[self::EXCEPTION][self::CLASS_];
+            $this->expectException($exceptionClass);
             if (array_key_exists(self::MESSAGE, $expected[self::EXCEPTION])) {
                 $this->expectExceptionMessage($expected[self::EXCEPTION][self::MESSAGE]);
             }
+            return $exceptionClass;
         }
+        return null;
     }
 
     protected static function exceptionNotThrown(string $exceptionClass): never
