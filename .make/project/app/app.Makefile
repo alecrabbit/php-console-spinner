@@ -1,6 +1,9 @@
 include ${_APP_DIR}/app.init.Makefile
 
-app_tools_run: test_full app_phploc_run app_php_cs_fixer_run app_deptrac_run_full app_psalm_run
+app_tools_run: test_full app_phploc_run app_php_cs_fixer_run app_deptrac_run_full app_psalm_run app_utils_run
+	@${_NO_OP};
+
+app_utils_run: _app_composer_normalize
 	@${_NO_OP};
 
 PHPLOC_DIR = /usr/local/bin
