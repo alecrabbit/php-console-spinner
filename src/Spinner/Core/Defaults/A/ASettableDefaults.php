@@ -12,6 +12,7 @@ use AlecRabbit\Spinner\Core\Pattern\Contract\IPattern;
 use AlecRabbit\Spinner\Core\RunMode;
 use AlecRabbit\Spinner\Core\Terminal\Contract\ITerminalProbe;
 use AlecRabbit\Spinner\Helper\Asserter;
+use Traversable;
 
 abstract class ASettableDefaults extends ACoreDefaults
 {
@@ -91,7 +92,7 @@ abstract class ASettableDefaults extends ACoreDefaults
     }
 
     /** @inheritdoc */
-    public function overrideTerminalProbeClasses(\Traversable $terminalProbes): static
+    public function overrideTerminalProbeClasses(Traversable $terminalProbes): static
     {
         /** @var class-string<ITerminalProbe> $probe */
         foreach ($terminalProbes as $probe) {
@@ -102,7 +103,7 @@ abstract class ASettableDefaults extends ACoreDefaults
     }
 
     /** @inheritdoc */
-    public function overrideLoopProbeClasses(\Traversable $loopProbes): static
+    public function overrideLoopProbeClasses(Traversable $loopProbes): static
     {
         /** @var class-string<ILoopProbe> $probe */
         foreach ($loopProbes as $probe) {

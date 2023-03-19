@@ -8,12 +8,13 @@ use AlecRabbit\Spinner\Contract\AutoStart;
 use AlecRabbit\Spinner\Contract\SignalHandlers;
 use AlecRabbit\Spinner\Core\Pattern\Contract\IPattern;
 use AlecRabbit\Spinner\Core\RunMode;
+use Traversable;
 
 interface IDefaults extends ISettableDefaults
 {
     public static function getInstance(): IDefaults;
 
-    public function getProbeClasses(): \Traversable;
+    public function getProbeClasses(): Traversable;
 
     public function getRootWidgetSettings(): IWidgetSettings;
 

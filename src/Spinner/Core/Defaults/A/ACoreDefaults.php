@@ -6,7 +6,6 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Defaults\A;
 
 use AlecRabbit\Spinner\Contract\AutoStart;
-use AlecRabbit\Spinner\Contract\ColorMode;
 use AlecRabbit\Spinner\Contract\IProbe;
 use AlecRabbit\Spinner\Contract\SignalHandlers;
 use AlecRabbit\Spinner\Core\Contract\ILoopProbe;
@@ -21,6 +20,8 @@ use AlecRabbit\Spinner\Core\RunMode;
 use AlecRabbit\Spinner\Core\Terminal\Contract\ITerminalProbe;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Helper\Asserter;
+
+use Traversable;
 
 use function is_subclass_of;
 
@@ -37,7 +38,7 @@ abstract class ACoreDefaults implements IDefaults
     protected static SignalHandlers $signalHandlersOption;
     protected static AutoStart $autoStartOption;
     protected static bool $createInitialized;
-    protected static \Traversable $loopProbes;
+    protected static Traversable $loopProbes;
     protected static ?IPattern $charPattern = null;
     protected static ?IPattern $stylePattern = null;
     protected static string $messageOnExit;
@@ -52,7 +53,7 @@ abstract class ACoreDefaults implements IDefaults
      * @var resource
      */
     protected static $outputStream;
-    protected static \Traversable $terminalProbes;
+    protected static Traversable $terminalProbes;
     private static array $registeredLoopProbes = [];
     private static array $registeredTerminalProbes = [];
 
@@ -92,7 +93,7 @@ abstract class ACoreDefaults implements IDefaults
 
     abstract protected function createDriverSettings(): IDriverSettings;
 
-    protected function defaultLoopProbes(): \Traversable
+    protected function defaultLoopProbes(): Traversable
     {
         yield from self::$registeredLoopProbes;
     }
@@ -105,7 +106,7 @@ abstract class ACoreDefaults implements IDefaults
         return STDERR;
     }
 
-    protected function defaultTerminalProbes(): \Traversable
+    protected function defaultTerminalProbes(): Traversable
     {
         yield from self::$registeredTerminalProbes;
     }

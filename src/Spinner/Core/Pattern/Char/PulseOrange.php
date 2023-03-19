@@ -6,7 +6,6 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Pattern\Char;
 
 use AlecRabbit\Spinner\Core\Pattern\A\APattern;
-use Traversable;
 
 /** @psalm-suppress UnusedClass */
 final class PulseOrange extends APattern

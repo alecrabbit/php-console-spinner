@@ -5,6 +5,9 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Pattern\A;
 
+use ArrayObject;
+use Traversable;
+
 abstract class AReversiblePattern extends APattern
 {
     public function __construct(
@@ -14,7 +17,7 @@ abstract class AReversiblePattern extends APattern
         parent::__construct($interval);
     }
 
-    public function getPattern(): \Traversable
+    public function getPattern(): Traversable
     {
         return
             $this->reversed
@@ -22,18 +25,18 @@ abstract class AReversiblePattern extends APattern
                 : $this->pattern();
     }
 
-    protected function reversedPattern(): \Traversable
+    protected function reversedPattern(): Traversable
     {
         return
-            new \ArrayObject(
+            new ArrayObject(
                 array_reverse(
                     iterator_to_array($this->pattern())
                 )
             );
     }
 
-    protected function pattern(): \Traversable
+    protected function pattern(): Traversable
     {
-        return new \ArrayObject(static::PATTERN);
+        return new ArrayObject(static::PATTERN);
     }
 }

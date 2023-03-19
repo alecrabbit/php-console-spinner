@@ -7,8 +7,8 @@ namespace AlecRabbit\Spinner\Core\Defaults\Contract;
 
 use AlecRabbit\Spinner\Contract\ColorMode;
 use AlecRabbit\Spinner\Contract\Cursor;
-use AlecRabbit\Spinner\Core\Defaults\A\ATerminalSettings;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
+use Traversable;
 
 interface ITerminalSettings extends IDefaultsChild
 {
@@ -32,9 +32,9 @@ interface ITerminalSettings extends IDefaultsChild
     /**
      * @throws InvalidArgumentException
      */
-    public function overrideSupportedColorModes(\Traversable $supportedColorModes): static;
+    public function overrideSupportedColorModes(Traversable $supportedColorModes): static;
 
-    public function getSupportedColorModes(): \Traversable;
+    public function getSupportedColorModes(): Traversable;
 
     public function overrideCursor(Cursor $cursor): static;
 }

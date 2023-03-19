@@ -110,7 +110,7 @@ abstract class ASpinner implements ISpinner
 
     protected function elapsed(?float $dt): float
     {
-        return $dt ?? $this->driver->elapsedTime() ;
+        return $dt ?? $this->driver->elapsedTime();
     }
 
     public function remove(IWidgetComposite|IWidgetContext $element): void

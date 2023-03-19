@@ -23,6 +23,8 @@ use AlecRabbit\Spinner\Core\Timer;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetBuilder;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolverBuilder;
+use ArrayObject;
+use Traversable;
 
 abstract class AConfigBuilder implements IConfigBuilder
 {
@@ -34,7 +36,7 @@ abstract class AConfigBuilder implements IConfigBuilder
     protected ?SignalHandlers $signalHandlers = null;
     protected IWidgetBuilder $widgetBuilder;
     protected IWidgetRevolverBuilder $widgetRevolverBuilder;
-    protected ?\Traversable $widgets = null;
+    protected ?Traversable $widgets = null;
 
     public function __construct(
         protected IDefaults $defaults,
@@ -51,7 +53,7 @@ abstract class AConfigBuilder implements IConfigBuilder
         return $clone;
     }
 
-    public function withWidgets(\Traversable $widgets): static
+    public function withWidgets(Traversable $widgets): static
     {
         $clone = clone $this;
         $clone->widgets = $widgets;
@@ -85,7 +87,7 @@ abstract class AConfigBuilder implements IConfigBuilder
             new SpinnerConfig(
                 rootWidget: $this->rootWidget ?? $this->createRootWidget(),
                 createInitialized: $this->defaults->isCreateInitialized(),
-                widgets: $this->widgets ?? new \ArrayObject([]),
+                widgets: $this->widgets ?? new ArrayObject([]),
             );
 
         return

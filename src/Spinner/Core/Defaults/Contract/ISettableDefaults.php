@@ -8,6 +8,7 @@ use AlecRabbit\Spinner\Contract\AutoStart;
 use AlecRabbit\Spinner\Contract\SignalHandlers;
 use AlecRabbit\Spinner\Core\Pattern\Contract\IPattern;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
+use Traversable;
 
 interface ISettableDefaults
 {
@@ -38,12 +39,12 @@ interface ISettableDefaults
     /**
      * @throws InvalidArgumentException
      */
-    public function overrideTerminalProbeClasses(\Traversable $terminalProbes): static;
+    public function overrideTerminalProbeClasses(Traversable $terminalProbes): static;
 
     /**
      * @throws InvalidArgumentException
      */
-    public function overrideLoopProbeClasses(\Traversable $loopProbes): static;
+    public function overrideLoopProbeClasses(Traversable $loopProbes): static;
 
     public function setStylePattern(IPattern $spinnerStylePattern): static;
 

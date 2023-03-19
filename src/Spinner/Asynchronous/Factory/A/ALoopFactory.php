@@ -12,6 +12,7 @@ use AlecRabbit\Spinner\Core\Factory\Contract\ILoopFactory;
 use AlecRabbit\Spinner\Core\Factory\DefaultsFactory;
 use AlecRabbit\Spinner\Mixin\NoInstanceTrait;
 use DomainException;
+use Traversable;
 
 abstract class ALoopFactory extends ADefaultsAwareClass implements ILoopFactory
 {
@@ -42,7 +43,7 @@ abstract class ALoopFactory extends ADefaultsAwareClass implements ILoopFactory
         );
     }
 
-    protected static function getProbeClasses(): \Traversable
+    protected static function getProbeClasses(): Traversable
     {
         return
             DefaultsFactory::get()->getProbeClasses();

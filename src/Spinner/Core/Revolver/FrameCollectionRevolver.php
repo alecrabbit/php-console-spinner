@@ -6,7 +6,6 @@ namespace AlecRabbit\Spinner\Core\Revolver;
 
 use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Core\Revolver\A\AFrameCollectionRevolver;
-use ArrayAccess;
 
 /**
  * @template T of IFrame

@@ -33,7 +33,7 @@ abstract class ADefaultsClasses extends ADefaultsChild implements IDefaultsClass
 
     /** @var class-string<IWidgetRevolverBuilder> */
     protected static string $widgetRevolverBuilderClass;
-    
+
     private static ?IDefaultsClasses $objectInstance = null;
 
     final protected function __construct(IDefaults $parent)

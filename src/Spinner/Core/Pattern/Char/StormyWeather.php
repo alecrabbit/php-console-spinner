@@ -6,7 +6,6 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Pattern\Char;
 
 use AlecRabbit\Spinner\Core\Pattern\A\APattern;
-use Traversable;
 
 /** @psalm-suppress UnusedClass */
 final class StormyWeather extends APattern
@@ -14,33 +13,33 @@ final class StormyWeather extends APattern
     protected const UPDATE_INTERVAL = 80;
 
     protected const PATTERN = [
-            '☀️ ',
-            '☀️ ',
-            '☀️ ',
-            '🌤 ',
-            '🌤 ',
-            '🌤 ',
-            '🌤 ',
-            '⛅️',
-            '🌥 ',
-            '☁️ ',
-            '🌧 ',
-            '🌨 ',
-            '🌧 ',
-            '🌨 ',
-            '🌧 ',
-            '🌨 ',
-            '⛈ ',
-            '⛈ ',
-            '🌨 ',
-            '⛈ ',
-            '🌧 ',
-            '🌨 ',
-            '☁️ ',
-            '🌥 ',
-            '⛅️',
-            '🌤 ',
-            '☀️ ',
-            '☀️ ',
-        ];
+        '☀️ ',
+        '☀️ ',
+        '☀️ ',
+        '🌤 ',
+        '🌤 ',
+        '🌤 ',
+        '🌤 ',
+        '⛅️',
+        '🌥 ',
+        '☁️ ',
+        '🌧 ',
+        '🌨 ',
+        '🌧 ',
+        '🌨 ',
+        '🌧 ',
+        '🌨 ',
+        '⛈ ',
+        '⛈ ',
+        '🌨 ',
+        '⛈ ',
+        '🌧 ',
+        '🌨 ',
+        '☁️ ',
+        '🌥 ',
+        '⛅️',
+        '🌤 ',
+        '☀️ ',
+        '☀️ ',
+    ];
 }

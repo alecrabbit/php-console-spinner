@@ -10,10 +10,12 @@ use AlecRabbit\Spinner\Contract\Cursor;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDefaults;
 use AlecRabbit\Spinner\Core\Defaults\Contract\ITerminalSettings;
 use AlecRabbit\Spinner\Helper\Asserter;
+use ArrayObject;
+use Traversable;
 
 abstract class ATerminalSettings extends ADefaultsChild implements ITerminalSettings
 {
-    protected static \Traversable $supportedColorModes;
+    protected static Traversable $supportedColorModes;
 
     private static ?ITerminalSettings $instance = null;
 
@@ -27,9 +29,9 @@ abstract class ATerminalSettings extends ADefaultsChild implements ITerminalSett
         static::$supportedColorModes = $this->defaultSupportedColorModes();
     }
 
-    protected function defaultSupportedColorModes(): \ArrayObject
+    protected function defaultSupportedColorModes(): ArrayObject
     {
-        return new \ArrayObject(ColorMode::cases());
+        return new ArrayObject(ColorMode::cases());
     }
 
     final public static function getInstance(
@@ -79,13 +81,13 @@ abstract class ATerminalSettings extends ADefaultsChild implements ITerminalSett
         return $this;
     }
 
-    public function getSupportedColorModes(): \Traversable
+    public function getSupportedColorModes(): Traversable
     {
         return static::$supportedColorModes;
     }
 
     /** @inheritdoc */
-    public function overrideSupportedColorModes(\Traversable $supportedColorModes): static
+    public function overrideSupportedColorModes(Traversable $supportedColorModes): static
     {
         Asserter::assertColorModes($supportedColorModes);
         static::$supportedColorModes = $supportedColorModes;

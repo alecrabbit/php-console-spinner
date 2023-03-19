@@ -6,13 +6,14 @@ namespace AlecRabbit\Spinner\Core\Config\A;
 
 use AlecRabbit\Spinner\Core\Config\Contract\ISpinnerConfig;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
+use Traversable;
 
 abstract class ASpinnerConfig implements ISpinnerConfig
 {
     public function __construct(
         protected IWidgetComposite $rootWidget,
         protected bool $createInitialized,
-        protected \Traversable $widgets,
+        protected Traversable $widgets,
     ) {
     }
 
@@ -21,7 +22,7 @@ abstract class ASpinnerConfig implements ISpinnerConfig
         return $this->createInitialized;
     }
 
-    public function getWidgets(): \Traversable
+    public function getWidgets(): Traversable
     {
         return $this->widgets;
     }

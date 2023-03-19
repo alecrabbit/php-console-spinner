@@ -18,6 +18,7 @@ use AlecRabbit\Spinner\Core\Pattern\Style\Rainbow;
 use AlecRabbit\Spinner\Core\RunMode;
 use AlecRabbit\Spinner\Core\Terminal\Contract\ITerminalProbe;
 use AlecRabbit\Spinner\Core\Terminal\NativeTerminalProbe;
+use Traversable;
 
 abstract class ADefaults extends ASettableDefaults
 {
@@ -105,7 +106,7 @@ abstract class ADefaults extends ASettableDefaults
         return static::$signalHandlersOption;
     }
 
-    public function getProbeClasses(): \Traversable
+    public function getProbeClasses(): Traversable
     {
         return static::$loopProbes;
     }
