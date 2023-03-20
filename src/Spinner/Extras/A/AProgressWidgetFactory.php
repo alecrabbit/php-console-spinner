@@ -10,7 +10,9 @@ use AlecRabbit\Spinner\Contract\IFrameCollection;
 use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Contract\IProcedure;
 use AlecRabbit\Spinner\Core\Factory\A\AWidgetFactory;
+use AlecRabbit\Spinner\Core\Factory\FrameFactory;
 use AlecRabbit\Spinner\Core\Factory\RevolverFactory;
+use AlecRabbit\Spinner\Core\FrameCollection;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
 use AlecRabbit\Spinner\Extras\Contract\IProgressBarSprite;
@@ -22,6 +24,7 @@ use AlecRabbit\Spinner\Extras\Procedure\ProgressStepsProcedure;
 use AlecRabbit\Spinner\Extras\Procedure\ProgressValueProcedure;
 use AlecRabbit\Spinner\Extras\ProgressBarSprite;
 use AlecRabbit\Spinner\Extras\Revolver\ProceduralRevolver;
+use ArrayObject;
 
 abstract class AProgressWidgetFactory extends AWidgetFactory implements IProgressWidgetFactory
 {
@@ -76,30 +79,6 @@ abstract class AProgressWidgetFactory extends AWidgetFactory implements IProgres
                 $trailingSpacer
             );
     }
-    public static function createProgressFrame(
-        IProgressValue $progressValue,
-        ?IFrameCollection $frames = null,
-        ?IInterval $updateInterval = null,
-        ?IFrame $leadingSpacer = null,
-        ?IFrame $trailingSpacer = null,
-    ): IWidgetComposite {
-
-        $frames ??= self::defaultFrames();
-
-        $procedure =
-            new ProgressFrameProcedure(
-                $progressValue,
-                $frames,
-            );
-
-        return
-            static::createProcedureWidget(
-                $procedure,
-                $updateInterval,
-                $leadingSpacer,
-                $trailingSpacer
-            );
-    }
 
     public static function createProcedureWidget(
         IProcedure $procedure,
@@ -131,6 +110,49 @@ abstract class AProgressWidgetFactory extends AWidgetFactory implements IProgres
             );
     }
 
+    public static function createProgressFrame(
+        IProgressValue $progressValue,
+        ?IFrameCollection $frames = null,
+        ?IInterval $updateInterval = null,
+        ?IFrame $leadingSpacer = null,
+        ?IFrame $trailingSpacer = null,
+    ): IWidgetComposite {
+        $frames ??= self::defaultFrames();
+
+        $procedure =
+            new ProgressFrameProcedure(
+                $progressValue,
+                $frames,
+            );
+
+        return
+            static::createProcedureWidget(
+                $procedure,
+                $updateInterval,
+                $leadingSpacer,
+                $trailingSpacer
+            );
+    }
+
+    private static function defaultFrames(): IFrameCollection
+    {
+        return
+            new FrameCollection(
+                new ArrayObject([
+                        FrameFactory::create(' ', 1),
+                        FrameFactory::create('▁', 1),
+                        FrameFactory::create('▂', 1),
+                        FrameFactory::create('▃', 1),
+                        FrameFactory::create('▄', 1),
+                        FrameFactory::create('▅', 1),
+                        FrameFactory::create('▆', 1),
+                        FrameFactory::create('▇', 1),
+                        FrameFactory::create('█', 1),
+                    ]
+                )
+            );
+    }
+
     public static function createProgressValue(
         IProgressValue $progressValue,
         ?string $format = null,
@@ -151,10 +173,5 @@ abstract class AProgressWidgetFactory extends AWidgetFactory implements IProgres
                 $leadingSpacer,
                 $trailingSpacer
             );
-    }
-
-    private static function defaultFrames(): IFrameCollection
-    {
-        return
     }
 }

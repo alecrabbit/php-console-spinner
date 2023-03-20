@@ -6,21 +6,48 @@ namespace AlecRabbit\Spinner\Core;
 
 use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Contract\IFrameCollection;
-use ArrayAccess;
+use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use ArrayObject;
 use Traversable;
 
-/**
- * @template T of IFrame
- * @template-implements ArrayAccess<int,T>
- */
 final class FrameCollection extends ArrayObject implements IFrameCollection
 {
+    /**
+     * @throws InvalidArgumentException
+     */
     public function __construct(Traversable $frames)
     {
-        parent::__construct(
-            iterator_to_array($frames)
-        );
+        parent::__construct();
+        $this->initialize($frames);
+    }
+
+    /**
+     * @throws InvalidArgumentException
+     */
+    private function initialize(Traversable $frames): void
+    {
+        dump($frames);
+        foreach ($frames as $frame) {
+            self::assertFrame($frame);
+            $this->append($frame);
+        }
+    }
+
+    /**
+     * @throws InvalidArgumentException
+     */
+    private static function assertFrame($frame): void
+    {
+        dump($frame);
+        if (!$frame instanceof IFrame) {
+            throw new InvalidArgumentException(
+                sprintf(
+                    'Frame must be instance of %s. %s given.',
+                    IFrame::class,
+                    get_debug_type($frame)
+                )
+            );
+        }
     }
 
     public function lastIndex(): ?int

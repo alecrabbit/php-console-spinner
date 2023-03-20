@@ -8,6 +8,7 @@ use AlecRabbit\Spinner\Contract\IProceduralPattern;
 use AlecRabbit\Spinner\Core\Factory\Contract\IRevolverFactory;
 use AlecRabbit\Spinner\Core\Factory\FrameFactory;
 use AlecRabbit\Spinner\Core\Factory\IntervalFactory;
+use AlecRabbit\Spinner\Core\FrameCollection;
 use AlecRabbit\Spinner\Core\FrameRenderer;
 use AlecRabbit\Spinner\Core\Pattern\Contract\IPattern;
 use AlecRabbit\Spinner\Core\Pattern\Contract\IStylePattern;
@@ -17,6 +18,7 @@ use AlecRabbit\Spinner\Core\StyleFrameRenderer;
 use AlecRabbit\Spinner\Exception\DomainException;
 use AlecRabbit\Spinner\Extras\Procedure\A\AProceduralStylePattern;
 use AlecRabbit\Spinner\Extras\Revolver\ProceduralRevolver;
+use ArrayObject;
 
 // FIXME class has a dependency on Procedural functionality
 abstract class ARevolverFactory implements IRevolverFactory
@@ -38,13 +40,21 @@ abstract class ARevolverFactory implements IRevolverFactory
         if ($pattern instanceof IStylePattern) {
             return
                 new FrameCollectionRevolver(
-                    (new StyleFrameRenderer($pattern))->render(),
+                    new FrameCollection(
+                        new \ArrayObject(
+                            (new StyleFrameRenderer($pattern))->render(),
+                        )
+                    ),
                     $pattern->getInterval()
                 );
         }
         return
             new FrameCollectionRevolver(
-                (new FrameRenderer($pattern))->render(),
+                new FrameCollection(
+                    new \ArrayObject(
+                        (new FrameRenderer($pattern))->render(),
+                    )
+                ),
                 $pattern->getInterval()
             );
     }
@@ -70,9 +80,11 @@ abstract class ARevolverFactory implements IRevolverFactory
     {
         return
             new FrameCollectionRevolver(
-                [
-                    FrameFactory::create('%s', 0)
-                ],
+                new FrameCollection(
+                    new ArrayObject([
+                        FrameFactory::create('%s', 0),
+                    ])
+                ),
                 IntervalFactory::createDefault()
             );
     }
@@ -81,9 +93,11 @@ abstract class ARevolverFactory implements IRevolverFactory
     {
         return
             new FrameCollectionRevolver(
-                [
-                    FrameFactory::createEmpty()
-                ],
+                new FrameCollection(
+                    new ArrayObject([
+                        FrameFactory::createEmpty(),
+                    ])
+                ),
                 IntervalFactory::createDefault()
             );
     }
