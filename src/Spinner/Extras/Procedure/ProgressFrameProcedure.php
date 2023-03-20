@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Extras\Procedure;
 
 use AlecRabbit\Spinner\Contract\IFrame;
+use AlecRabbit\Spinner\Contract\IFrameCollection;
 use AlecRabbit\Spinner\Core\Factory\FrameFactory;
 use AlecRabbit\Spinner\Extras\Contract\IProgressValue;
 use AlecRabbit\Spinner\Extras\Procedure\A\AProgressValueProcedure;
@@ -28,7 +29,7 @@ final class ProgressFrameProcedure extends AProgressValueProcedure
 
     public function __construct(
         IProgressValue $progressValue,
-        protected array $frames = self::FRAMES // TODO (2023-01-26 14:45) [Alec Rabbit]: remove array type -> use smth like "IFramesCollection"
+        protected IFrameCollection $frames,
     )
     {
         parent::__construct($progressValue);
@@ -43,9 +44,11 @@ final class ProgressFrameProcedure extends AProgressValueProcedure
             }
             $this->finishedDelay -= $dt ?? 0.0;
         }
-        $v = $this->createColumn($this->floatValue->getValue());
         return
-            FrameFactory::create($v);
+            $this->getFrame($this->floatValue->getValue());
+//        $v = $this->createColumn($this->floatValue->getValue());
+//        return
+//            FrameFactory::create($v);
     }
 
     private function createColumn(float $progress): string
@@ -53,5 +56,12 @@ final class ProgressFrameProcedure extends AProgressValueProcedure
         $p = (int)($progress * $this->steps);
         return
             (string)$this->frames[$p]; // TODO (2023-01-26 14:45) [Alec Rabbit]: return IFrame from "IFramesCollection"
+    }
+
+    private function getFrame(float $progress): IFrame
+    {
+        $index = (int)($progress * $this->steps);
+        return
+            $this->frames[$index];
     }
 }

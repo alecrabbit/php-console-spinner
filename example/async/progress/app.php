@@ -86,7 +86,7 @@ function createProgressWidget(
     ProgressValue $progress,
     Interval $interval
 ): IWidgetComposite {
-    $composite = ProgressWidgetFactory::createSteps(
+    $composite = ProgressWidgetFactory::createProgressSteps(
         $progress,
         updateInterval: $interval,
     );
@@ -100,6 +100,13 @@ function createProgressWidget(
 
     $composite->add(
         ProgressWidgetFactory::createProgressValue(
+            $progress,
+            updateInterval: $interval
+        )
+    );
+    
+    $composite->add(
+        ProgressWidgetFactory::createProgressFrame(
             $progress,
             updateInterval: $interval
         )

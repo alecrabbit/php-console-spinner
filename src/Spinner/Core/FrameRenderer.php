@@ -6,7 +6,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core;
 
 use AlecRabbit\Spinner\Contract\IFrame;
-use AlecRabbit\Spinner\Core\A\AFramesRenderer;
+use AlecRabbit\Spinner\Core\A\AFrameRenderer;
 use AlecRabbit\Spinner\Core\Factory\FrameFactory;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use Stringable;
@@ -14,7 +14,7 @@ use Stringable;
 use function is_array;
 use function is_string;
 
-final class FramesRenderer extends AFramesRenderer
+final class FrameRenderer extends AFrameRenderer
 {
     /** @inheritdoc */
     protected function createFrame(mixed $entry): IFrame

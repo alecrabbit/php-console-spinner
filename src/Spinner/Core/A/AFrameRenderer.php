@@ -11,7 +11,7 @@ use AlecRabbit\Spinner\Core\Factory\A\ADefaultsAwareClass;
 use AlecRabbit\Spinner\Core\Pattern\Contract\IPattern;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 
-abstract class AFramesRenderer extends ADefaultsAwareClass implements IFrameRenderer
+abstract class AFrameRenderer extends ADefaultsAwareClass implements IFrameRenderer
 {
     public function __construct(
         protected IPattern $pattern

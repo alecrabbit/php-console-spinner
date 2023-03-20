@@ -6,11 +6,11 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core;
 
 use AlecRabbit\Spinner\Contract\IFrame;
-use AlecRabbit\Spinner\Core\A\AFramesRenderer;
+use AlecRabbit\Spinner\Core\A\AFrameRenderer;
 use AlecRabbit\Spinner\Core\Factory\FrameFactory;
 use AlecRabbit\Spinner\Core\Pattern\Contract\IStylePattern;
 
-final class StyleFramesRenderer extends AFramesRenderer
+final class StyleFrameRenderer extends AFrameRenderer
 {
     public function __construct(
         IStylePattern $pattern

@@ -3,7 +3,10 @@ declare(strict_types=1);
 // 20.03.23
 namespace AlecRabbit\Spinner\Contract;
 
-interface IFrameCollection
+use Countable;
+use IteratorAggregate;
+
+interface IFrameCollection extends IteratorAggregate, Countable
 {
 
 }
