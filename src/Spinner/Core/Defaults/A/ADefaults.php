@@ -163,9 +163,4 @@ abstract class ADefaults extends ASettableDefaults
     {
         return ASpinnerSettings::getInstance($this);
     }
-
-    public function getRevolverFactory(): IRevolverFactory
-    {
-        return static::$revolverFactory;
-    }
 }

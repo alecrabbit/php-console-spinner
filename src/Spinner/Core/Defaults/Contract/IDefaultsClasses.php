@@ -57,5 +57,5 @@ interface IDefaultsClasses extends IDefaultsChild
      * @param class-string<IFrameRevolverBuilder> $frameRevolverBuilderClass
      * @throws InvalidArgumentException
      */
-    public function setFrameRevolverBuilderClass(string $frameRevolverBuilderClass): void;
+    public static function overrideFrameRevolverBuilderClass(string $frameRevolverBuilderClass): void;
 }
