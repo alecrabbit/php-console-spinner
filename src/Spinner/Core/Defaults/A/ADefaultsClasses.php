@@ -89,6 +89,13 @@ abstract class ADefaultsClasses extends ADefaultsChild implements IDefaultsClass
     }
 
     /** @inheritDoc */
+    public static function overrideFrameRevolverBuilderClass(string $frameRevolverBuilderClass): void
+    {
+        Asserter::isSubClass($frameRevolverBuilderClass, IFrameRevolverBuilder::class, __METHOD__);
+        self::$frameRevolverBuilderClassOverride = $frameRevolverBuilderClass;
+    }
+
+    /** @inheritDoc */
     public function getWidgetBuilderClass(): string
     {
         return self::$widgetBuilderClass;
@@ -131,12 +138,5 @@ abstract class ADefaultsClasses extends ADefaultsChild implements IDefaultsClass
     public function getFrameRevolverBuilderClass(): string
     {
         return self::$frameRevolverBuilderClass;
-    }
-
-    /** @inheritDoc */
-    public static function overrideFrameRevolverBuilderClass(string $frameRevolverBuilderClass): void
-    {
-        Asserter::isSubClass($frameRevolverBuilderClass, IFrameRevolverBuilder::class, __METHOD__);
-        self::$frameRevolverBuilderClassOverride = $frameRevolverBuilderClass;
     }
 }

@@ -5,7 +5,6 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Revolver\Contract;
 
-use AlecRabbit\Spinner\Core\A\AFrameRevolverBuilder;
 use AlecRabbit\Spinner\Core\Pattern\Contract\IPattern;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Exception\LogicException;

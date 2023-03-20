@@ -6,7 +6,6 @@ namespace AlecRabbit\Spinner\Core\Defaults\Contract;
 
 use AlecRabbit\Spinner\Core\Contract\IDriverBuilder;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolverBuilder;
-use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolverBuilder;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetBuilder;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolverBuilder;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
@@ -14,6 +13,12 @@ use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 interface IDefaultsClasses extends IDefaultsChild
 {
     public static function getInstance(IDefaults $parent): IDefaultsClasses;
+
+    /**
+     * @param class-string<IFrameRevolverBuilder> $frameRevolverBuilderClass
+     * @throws InvalidArgumentException
+     */
+    public static function overrideFrameRevolverBuilderClass(string $frameRevolverBuilderClass): void;
 
     /**
      * @return class-string<IWidgetBuilder>
@@ -52,10 +57,4 @@ interface IDefaultsClasses extends IDefaultsChild
      * @return class-string<IFrameRevolverBuilder>
      */
     public function getFrameRevolverBuilderClass(): string;
-
-    /**
-     * @param class-string<IFrameRevolverBuilder> $frameRevolverBuilderClass
-     * @throws InvalidArgumentException
-     */
-    public static function overrideFrameRevolverBuilderClass(string $frameRevolverBuilderClass): void;
 }
