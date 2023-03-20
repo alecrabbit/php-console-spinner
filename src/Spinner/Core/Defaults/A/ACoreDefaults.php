@@ -5,10 +5,8 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Defaults\A;
 
-use AlecRabbit\Spinner\Contract\AutoStart;
 use AlecRabbit\Spinner\Contract\Initialization;
 use AlecRabbit\Spinner\Contract\IProbe;
-use AlecRabbit\Spinner\Contract\SignalHandlers;
 use AlecRabbit\Spinner\Core\Contract\ILoopProbe;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDefaults;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDefaultsClasses;
@@ -22,7 +20,6 @@ use AlecRabbit\Spinner\Core\RunMode;
 use AlecRabbit\Spinner\Core\Terminal\Contract\ITerminalProbe;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Helper\Asserter;
-
 use Traversable;
 
 use function is_subclass_of;
@@ -93,16 +90,12 @@ abstract class ACoreDefaults implements IDefaults
 
     abstract protected function createDriverSettings(): IDriverSettings;
 
-    abstract protected function createLoopSettings(): ILoopSettings;
-
-    abstract protected function createTerminalSettings(): ITerminalSettings;
-
-    abstract protected function createWidgetSettings(): IWidgetSettings;
-
     protected function defaultLoopProbes(): Traversable
     {
         yield from self::$registeredLoopProbes;
     }
+
+    abstract protected function createLoopSettings(): ILoopSettings;
 
     /**
      * @return resource
@@ -116,6 +109,10 @@ abstract class ACoreDefaults implements IDefaults
     {
         yield from self::$registeredTerminalProbes;
     }
+
+    abstract protected function createTerminalSettings(): ITerminalSettings;
+
+    abstract protected function createWidgetSettings(): IWidgetSettings;
 
     /** @inheritdoc */
     public static function registerProbeClass(string $class): void

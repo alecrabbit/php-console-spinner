@@ -30,7 +30,7 @@ final class IntNormalizer implements IIntNormalizer
     }
 
 
-    /** @inheritdoc  */
+    /** @inheritdoc */
     public static function overrideDivisor(int $divisor): void
     {
         self::assertDivisor($divisor);
@@ -51,7 +51,7 @@ final class IntNormalizer implements IIntNormalizer
         };
     }
 
-    /** @inheritdoc  */
+    /** @inheritdoc */
 
     public static function overrideMin(int $min): void
     {

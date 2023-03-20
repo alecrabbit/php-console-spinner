@@ -25,16 +25,6 @@ final class WidthDeterminer
         return (int)(self::$determiner)($string);
     }
 
-    public static function overrideDeterminer(Closure $determiner): void
-    {
-        self::$determiner = $determiner;
-    }
-
-    public static function reset(): void
-    {
-        self::$determiner = null;
-    }
-
     /**
      * @codeCoverageIgnore
      */
@@ -53,5 +43,15 @@ final class WidthDeterminer
         return static function (string $string): int {
             return strlen($string);
         };
+    }
+
+    public static function overrideDeterminer(Closure $determiner): void
+    {
+        self::$determiner = $determiner;
+    }
+
+    public static function reset(): void
+    {
+        self::$determiner = null;
     }
 }

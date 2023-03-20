@@ -8,7 +8,6 @@ namespace AlecRabbit\Spinner\Helper;
 use AlecRabbit\Spinner\Contract\ColorMode;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Exception\RuntimeException;
-
 use Traversable;
 
 use function class_exists;

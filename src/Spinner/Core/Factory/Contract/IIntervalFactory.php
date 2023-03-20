@@ -6,8 +6,6 @@ namespace AlecRabbit\Spinner\Core\Factory\Contract;
 
 use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Contract\NormalizerMode;
-use AlecRabbit\Spinner\Core\Factory\A\AIntervalFactory;
-use AlecRabbit\Spinner\Core\Interval;
 
 interface IIntervalFactory
 {

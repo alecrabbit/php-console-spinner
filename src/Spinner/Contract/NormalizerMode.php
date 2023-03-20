@@ -14,10 +14,10 @@ enum NormalizerMode
     {
         return match ($this) {
             self::SMOOTH => 20,
-            self::BALANCED  => 50,
-            self::PERFORMANCE  => 100,
-            self::SLOW  => 1000,
-            self::STATIC  => 900000,
+            self::BALANCED => 50,
+            self::PERFORMANCE => 100,
+            self::SLOW => 1000,
+            self::STATIC => 900000,
         };
     }
 }
