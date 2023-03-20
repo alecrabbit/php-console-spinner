@@ -67,7 +67,7 @@ final class AIntervalFactoryTest extends TestCase
         $defaults = DefaultsFactory::get();
 
         self::assertEquals(
-            $defaults->getIntervalMilliseconds(),
+            $defaults->getSpinnerSettings()->getInterval()->toMilliseconds(),
             AIntervalFactory::createDefault()->toMilliseconds()
         );
     }

@@ -16,17 +16,26 @@ abstract class AIntervalFactory extends ADefaultsAwareClass implements IInterval
 
     public static function createDefault(): IInterval
     {
-        return
-            new Interval(
-                self::normalize(
-                    self::getDefaults()->getIntervalMilliseconds()
-                )
+        /** @var null|int $normalized */
+        static $normalized = null;
+
+        if (null === $normalized) {
+            $normalized = self::normalize(
+                self::getDefaults()->getSpinnerSettings()->getInterval()
             );
+        }
+
+        return
+            new Interval($normalized);
     }
 
-    protected static function normalize(int $i): int
+    protected static function normalize(int|IInterval $interval): int
     {
-        return IntNormalizer::normalize($i);
+        if ($interval instanceof IInterval) {
+            $interval = (int)$interval->toMilliseconds();
+        }
+
+        return IntNormalizer::normalize($interval);
     }
 
     public static function createNormalized(int $interval): IInterval

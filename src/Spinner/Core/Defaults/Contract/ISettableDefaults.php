@@ -24,10 +24,6 @@ interface ISettableDefaults
      */
     public function setOutputStream($stream): static;
 
-    public function setIntervalMilliseconds(int $defaultInterval): static;
-
-    public function overrideInitializationOption(Initialization $initialization): static;
-
     public function setPercentNumberFormat(string $percentNumberFormat): static;
 
     public function setShutdownDelay(float|int $shutdownDelay): static;

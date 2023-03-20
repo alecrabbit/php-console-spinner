@@ -32,10 +32,6 @@ interface IDefaults extends ISettableDefaults
      */
     public function getOutputStream();
 
-    public function getIntervalMilliseconds(): int;
-
-    public function initializationOption(): Initialization;
-
     public function getPercentNumberFormat(): string;
 
     public function getShutdownDelay(): float|int;
@@ -48,4 +44,5 @@ interface IDefaults extends ISettableDefaults
 
     public function getLoopSettings(): ILoopSettings;
 
+    public function getSpinnerSettings(): ISpinnerSettings;
 }

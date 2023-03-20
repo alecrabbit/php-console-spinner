@@ -5,13 +5,13 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Defaults\A;
 
-use AlecRabbit\Spinner\Contract\Initialization;
 use AlecRabbit\Spinner\Contract\IProbe;
 use AlecRabbit\Spinner\Core\Contract\ILoopProbe;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDefaults;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDefaultsClasses;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDriverSettings;
 use AlecRabbit\Spinner\Core\Defaults\Contract\ILoopSettings;
+use AlecRabbit\Spinner\Core\Defaults\Contract\ISpinnerSettings;
 use AlecRabbit\Spinner\Core\Defaults\Contract\ITerminalSettings;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IWidgetSettings;
 use AlecRabbit\Spinner\Core\Defaults\Mixin\DefaultsConst;
@@ -31,17 +31,13 @@ abstract class ACoreDefaults implements IDefaults
     protected static IDefaultsClasses $classes;
     protected static IDriverSettings $driverSettings;
     protected static ILoopSettings $loopSettings;
+    protected static ISpinnerSettings $spinnerSettings;
     protected static ITerminalSettings $terminalSettings;
     protected static IWidgetSettings $rootWidgetSettings;
     protected static IWidgetSettings $widgetSettings;
-
-    protected static Initialization $initialization;
     protected static Traversable $loopProbes;
     protected static ?IPattern $charPattern = null;
     protected static ?IPattern $stylePattern = null;
-    protected static string $messageOnExit;
-    protected static string $messageOnFinalize;
-    protected static string $messageOnInterrupt;
     protected static int $millisecondsInterval;
     protected static string $percentNumberFormat;
     protected static RunMode $runMode;
@@ -66,16 +62,13 @@ abstract class ACoreDefaults implements IDefaults
         static::$driverSettings = $this->createDriverSettings();
         static::$loopProbes = $this->defaultLoopProbes();
         static::$loopSettings = $this->createLoopSettings();
+        static::$spinnerSettings = $this->createSpinnerSettings();
         static::$outputStream = $this->defaultOutputStream();
         static::$terminalProbes = $this->defaultTerminalProbes();
         static::$terminalSettings = $this->createTerminalSettings();
         static::$rootWidgetSettings = $this->createWidgetSettings();
         static::$widgetSettings = $this->createWidgetSettings();
 
-        static::$initialization = static::INITIALIZATION_OPTION;
-        static::$messageOnExit = static::MESSAGE_ON_EXIT;
-        static::$messageOnFinalize = static::MESSAGE_ON_FINALIZE;
-        static::$messageOnInterrupt = static::MESSAGE_ON_INTERRUPT;
         static::$millisecondsInterval = static::INTERVAL_MS;
         static::$percentNumberFormat = static::PERCENT_NUMBER_FORMAT;
         static::$runMode = static::RUN_MODE;
@@ -96,6 +89,8 @@ abstract class ACoreDefaults implements IDefaults
     }
 
     abstract protected function createLoopSettings(): ILoopSettings;
+
+    abstract protected function createSpinnerSettings(): ISpinnerSettings;
 
     /**
      * @return resource

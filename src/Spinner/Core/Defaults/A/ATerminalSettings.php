@@ -17,7 +17,7 @@ abstract class ATerminalSettings extends ADefaultsChild implements ITerminalSett
 {
     protected static Traversable $supportedColorModes;
 
-    private static ?ITerminalSettings $instance = null;
+    private static ?ITerminalSettings $objInstance = null; // private, singleton
 
     final protected function __construct(
         IDefaults $parent,
@@ -40,12 +40,12 @@ abstract class ATerminalSettings extends ADefaultsChild implements ITerminalSett
         int $width,
         Cursor $cursor,
     ): ITerminalSettings {
-        if (null === self::$instance) {
-            self::$instance =
+        if (null === self::$objInstance) {
+            self::$objInstance =
                 new class ($parent, $colorMode, $width, $cursor) extends ATerminalSettings {
                 };
         }
-        return self::$instance;
+        return self::$objInstance;
     }
 
     public function getColorMode(): ColorMode

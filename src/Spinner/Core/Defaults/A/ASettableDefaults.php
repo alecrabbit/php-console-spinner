@@ -5,7 +5,6 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Defaults\A;
 
-use AlecRabbit\Spinner\Contract\Initialization;
 use AlecRabbit\Spinner\Core\Contract\ILoopProbe;
 use AlecRabbit\Spinner\Core\Pattern\Contract\IPattern;
 use AlecRabbit\Spinner\Core\RunMode;
@@ -65,24 +64,6 @@ abstract class ASettableDefaults extends ACoreDefaults
         static::$charPattern = $spinnerCharPattern;
         return $this;
     }
-
-    public function overrideInitializationOption(Initialization $initialization): static
-    {
-        static::$initialization = $initialization;
-        return $this;
-    }
-
-//    public function overrideAutoStartOption(AutoStart $autoStart): static
-//    {
-//        static::$autoStartOption = $autoStart;
-//        return $this;
-//    }
-//
-//    public function overrideSignalHandlersOption(SignalHandlers $signalHandlers): static
-//    {
-//        static::$signalHandlersOption = $signalHandlers;
-//        return $this;
-//    }
 
     /** @inheritdoc */
     public function overrideTerminalProbeClasses(Traversable $terminalProbes): static

@@ -14,9 +14,10 @@ abstract class ALoopSettings extends ADefaultsChild implements ILoopSettings
 {
     use DefaultsConst;
 
-    private static ?ILoopSettings $instance = null;
-    private static SignalHandlers $signalHandlersOption;
-    private static AutoStart $autoStartOption;
+    protected static AutoStart $autoStartOption;
+    protected static SignalHandlers $signalHandlersOption;
+
+    private static ?ILoopSettings $objInstance = null;
 
     final protected function __construct(IDefaults $parent)
     {
@@ -32,12 +33,12 @@ abstract class ALoopSettings extends ADefaultsChild implements ILoopSettings
 
     final public static function getInstance(IDefaults $parent): ILoopSettings
     {
-        if (null === self::$instance) {
-            self::$instance =
+        if (null === self::$objInstance) {
+            self::$objInstance =
                 new class ($parent) extends ALoopSettings {
                 };
         }
-        return self::$instance;
+        return self::$objInstance;
     }
 
     public function getAutoStartOption(): AutoStart

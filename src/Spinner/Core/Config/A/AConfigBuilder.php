@@ -77,7 +77,7 @@ abstract class AConfigBuilder implements IConfigBuilder
                 driver: $this->createDriver(),
                 spinnerConfig: new SpinnerConfig(
                     rootWidget: $this->rootWidget ?? $this->createRootWidget(),
-                    initialization: $this->defaults->initializationOption(),
+                    initialization: $this->defaults->getSpinnerSettings()->getInitializationOption(),
                     widgets: $this->widgets ?? new ArrayObject([]),
                 ),
                 loopConfig: new LoopConfig(

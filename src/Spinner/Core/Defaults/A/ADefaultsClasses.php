@@ -34,7 +34,7 @@ abstract class ADefaultsClasses extends ADefaultsChild implements IDefaultsClass
     /** @var class-string<IWidgetRevolverBuilder> */
     protected static string $widgetRevolverBuilderClass;
 
-    private static ?IDefaultsClasses $objectInstance = null;
+    private static ?IDefaultsClasses $objInstance = null; // private, singleton
 
     final protected function __construct(IDefaults $parent)
     {
@@ -51,12 +51,12 @@ abstract class ADefaultsClasses extends ADefaultsChild implements IDefaultsClass
 
     final public static function getInstance(IDefaults $parent): IDefaultsClasses
     {
-        if (null === self::$objectInstance) {
-            self::$objectInstance =
+        if (null === self::$objInstance) {
+            self::$objInstance =
                 new class ($parent) extends ADefaultsClasses {
                 };
         }
-        return self::$objectInstance;
+        return self::$objInstance;
     }
 
     /**
