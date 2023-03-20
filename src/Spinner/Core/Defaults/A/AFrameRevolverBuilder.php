@@ -7,13 +7,14 @@ namespace AlecRabbit\Spinner\Core\Defaults\A;
 use AlecRabbit\Spinner\Core\FrameRenderer;
 use AlecRabbit\Spinner\Core\Pattern\Contract\IPattern;
 use AlecRabbit\Spinner\Core\Pattern\Contract\IStylePattern;
-use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
+use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolver;
+use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolverBuilder;
 use AlecRabbit\Spinner\Core\Revolver\FrameCollectionRevolver;
 use AlecRabbit\Spinner\Core\StyleFrameRenderer;
 use AlecRabbit\Spinner\Core\Widget\A\ARevolverBuilder;
 use AlecRabbit\Spinner\Exception\DomainException;
 
-class RevolverBuilder extends ARevolverBuilder
+abstract class AFrameRevolverBuilder extends ARevolverBuilder implements IFrameRevolverBuilder
 {
     protected ?IPattern $pattern = null;
 
@@ -24,7 +25,7 @@ class RevolverBuilder extends ARevolverBuilder
         return $clone;
     }
 
-    public function build(): IRevolver
+    public function build(): IFrameRevolver
     {
         self::assertPattern($this->pattern);
         if ($this->pattern instanceof IStylePattern) {

@@ -8,6 +8,7 @@ use AlecRabbit\Spinner\Core\Contract\IDriverBuilder;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDefaults;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDefaultsClasses;
 use AlecRabbit\Spinner\Core\DriverBuilder;
+use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolverBuilder;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolverBuilder;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetBuilder;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolverBuilder;
@@ -26,8 +27,8 @@ abstract class ADefaultsClasses extends ADefaultsChild implements IDefaultsClass
     /** @var class-string<IWidgetRevolverBuilder> */
     final protected const WIDGET_REVOLVER_BUILDER_CLASS = WidgetRevolverBuilder::class;
 
-    /** @var class-string<IRevolverBuilder> */
-    final protected const REVOLVER_BUILDER_CLASS = RevolverBuilder::class;
+    /** @var class-string<IFrameRevolverBuilder> */
+    final protected const REVOLVER_BUILDER_CLASS = FrameRevolverBuilder::class;
 
     /** @var class-string<IDriverBuilder> */
     protected static string $driverBuilderClass;
@@ -39,7 +40,7 @@ abstract class ADefaultsClasses extends ADefaultsChild implements IDefaultsClass
     protected static string $widgetRevolverBuilderClass;
 
     /** @var class-string<IRevolverBuilder> */
-    protected static string $revolverBuilderClass;
+    protected static string $frameRevolverBuilderClass;
 
     private static ?IDefaultsClasses $objInstance = null; // private, singleton
 
@@ -54,7 +55,7 @@ abstract class ADefaultsClasses extends ADefaultsChild implements IDefaultsClass
         static::$driverBuilderClass = static::DRIVER_BUILDER_CLASS;
         static::$widgetBuilderClass = static::WIDGET_BUILDER_CLASS;
         static::$widgetRevolverBuilderClass = static::WIDGET_REVOLVER_BUILDER_CLASS;
-        static::$revolverBuilderClass = static::REVOLVER_BUILDER_CLASS;
+        static::$frameRevolverBuilderClass = static::REVOLVER_BUILDER_CLASS;
     }
 
     final public static function getInstance(IDefaults $parent): IDefaultsClasses
@@ -107,17 +108,17 @@ abstract class ADefaultsClasses extends ADefaultsChild implements IDefaultsClass
     }
 
     /** @inheritDoc */
-    public function getRevolverBuilderClass(): string
+    public function getFrameRevolverBuilderClass(): string
     {
-        return self::$revolverBuilderClass;
+        return self::$frameRevolverBuilderClass;
     }
 
     /**
      * @inheritDoc
      */
-    public function setRevolverBuilderClass(string $revolverBuilderClass): void
+    public function setFrameRevolverBuilderClass(string $frameRevolverBuilderClass): void
     {
-        Asserter::isSubClass($revolverBuilderClass, IRevolverBuilder::class, __METHOD__);
-        self::$revolverBuilderClass = $revolverBuilderClass;
+        Asserter::isSubClass($frameRevolverBuilderClass, IFrameRevolverBuilder::class, __METHOD__);
+        self::$frameRevolverBuilderClass = $frameRevolverBuilderClass;
     }
 }

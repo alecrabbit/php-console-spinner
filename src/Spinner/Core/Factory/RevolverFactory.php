@@ -16,28 +16,4 @@ use AlecRabbit\Spinner\Core\StyleFrameRenderer;
 
 final class RevolverFactory extends ARevolverFactory
 {
-
-
-    protected static function create(IPattern $pattern, IInterval $interval): IRevolver
-    {
-        if ($pattern instanceof IStylePattern) {
-            return
-                new FrameCollectionRevolver(
-                    (new StyleFrameRenderer($pattern))->render(),
-                    $pattern->getInterval()
-                );
-        }
-        return
-            new FrameCollectionRevolver(
-                (new FrameRenderer($pattern))->render(),
-                $pattern->getInterval()
-            );
-    }
-
-    protected static function revolverFactories(): iterable
-    {
-        yield from [
-            IPattern::class => self::class,
-        ];
-    }
 }

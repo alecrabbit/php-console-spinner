@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Defaults\Contract;
 
 use AlecRabbit\Spinner\Core\Contract\IDriverBuilder;
+use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolverBuilder;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolverBuilder;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetBuilder;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolverBuilder;
@@ -48,13 +49,13 @@ interface IDefaultsClasses extends IDefaultsChild
     public function setDriverBuilderClass(string $driverBuilderClass): void;
 
     /**
-     * @return class-string<IRevolverBuilder>
+     * @return class-string<IFrameRevolverBuilder>
      */
-    public function getRevolverBuilderClass(): string;
+    public function getFrameRevolverBuilderClass(): string;
 
     /**
-     * @param class-string<IRevolverBuilder> $revolverBuilderClass
+     * @param class-string<IFrameRevolverBuilder> $frameRevolverBuilderClass
      * @throws InvalidArgumentException
      */
-    public function setRevolverBuilderClass(string $revolverBuilderClass): void;
+    public function setFrameRevolverBuilderClass(string $frameRevolverBuilderClass): void;
 }
