@@ -10,6 +10,7 @@ use AlecRabbit\Spinner\Contract\SignalHandlers;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use AlecRabbit\Spinner\Core\Factory\A\ASpinnerFactory;
 use AlecRabbit\Spinner\Core\Factory\DefaultsFactory;
+use AlecRabbit\Spinner\Core\RunMode;
 use AlecRabbit\Tests\Spinner\TestCase\TestCase;
 
 final class AFactoryTest extends TestCase
@@ -38,9 +39,13 @@ final class AFactoryTest extends TestCase
     protected function setUp(): void
     {
         DefaultsFactory::get()
-            ->setModeAsSynchronous(true)
+            ->overrideRunMode(RunMode::SYNCHRONOUS)
+            ->getLoopSettings()
             ->overrideAutoStartOption(AutoStart::DISABLED)
             ->overrideSignalHandlersOption(SignalHandlers::DISABLED)
-            ->getTerminalSettings()->overrideCursor(Cursor::ENABLED)->toParent();
+            ->toParent()
+            ->getTerminalSettings()
+            ->overrideCursor(Cursor::ENABLED)
+            ->toParent();
     }
 }

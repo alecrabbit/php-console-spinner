@@ -79,8 +79,8 @@ abstract class AConfigBuilder implements IConfigBuilder
         $loopConfig =
             new LoopConfig(
                 runMode: $this->defaults->getRunMode(),
-                autoStart: $this->autoStart ?? $this->defaults->getAutoStartOption(),
-                signalHandlersOption: $this->signalHandlers ?? $this->defaults->getSignalHandlersOption(),
+                autoStart: $this->defaults->getLoopSettings()->getAutoStartOption(),
+                signalHandlersOption: $this->defaults->getLoopSettings()->getSignalHandlersOption(),
             );
 
         $spinnerConfig =

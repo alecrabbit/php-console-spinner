@@ -50,13 +50,13 @@ abstract class ALoopSettings extends ADefaultsChild implements ILoopSettings
         return static::$signalHandlersOption;
     }
 
-    public function setAutoStartOption(AutoStart $autoStartOption): ILoopSettings
+    public function overrideAutoStartOption(AutoStart $autoStartOption): ILoopSettings
     {
         static::$autoStartOption = $autoStartOption;
         return $this;
     }
 
-    public function setSignalHandlersOption(SignalHandlers $signalHandlersOption): ILoopSettings
+    public function overrideSignalHandlersOption(SignalHandlers $signalHandlersOption): ILoopSettings
     {
         static::$signalHandlersOption = $signalHandlersOption;
         return $this;

@@ -7,6 +7,7 @@ namespace AlecRabbit\Spinner\Core\Defaults\Contract;
 use AlecRabbit\Spinner\Contract\AutoStart;
 use AlecRabbit\Spinner\Contract\Initialization;
 use AlecRabbit\Spinner\Contract\SignalHandlers;
+use AlecRabbit\Spinner\Core\Defaults\A\ASettableDefaults;
 use AlecRabbit\Spinner\Core\Pattern\Contract\IPattern;
 use AlecRabbit\Spinner\Core\RunMode;
 use Traversable;
@@ -44,11 +45,10 @@ interface IDefaults extends ISettableDefaults
 
     public function isModeSynchronous(): bool;
 
-    public function getAutoStartOption(): AutoStart;
-
-    public function getSignalHandlersOption(): SignalHandlers;
-
     public function getStylePattern(): IPattern;
 
     public function getCharPattern(): IPattern;
+
+    public function getLoopSettings(): ILoopSettings;
+
 }

@@ -43,15 +43,9 @@ abstract class ASettableDefaults extends ACoreDefaults
         return $this;
     }
 
-    public function setRunMode(RunMode $mode): static
+    public function overrideRunMode(RunMode $runMode): static
     {
-        static::$runMode = $mode;
-        return $this;
-    }
-
-    public function setModeAsSynchronous(bool $isModeSynchronous): static
-    {
-        static::$runMode = $isModeSynchronous ? RunMode::SYNCHRONOUS : RunMode::ASYNC;
+        static::$runMode = $runMode;
         return $this;
     }
 
@@ -80,17 +74,17 @@ abstract class ASettableDefaults extends ACoreDefaults
         return $this;
     }
 
-    public function overrideAutoStartOption(AutoStart $autoStart): static
-    {
-        static::$autoStartOption = $autoStart;
-        return $this;
-    }
-
-    public function overrideSignalHandlersOption(SignalHandlers $signalHandlers): static
-    {
-        static::$signalHandlersOption = $signalHandlers;
-        return $this;
-    }
+//    public function overrideAutoStartOption(AutoStart $autoStart): static
+//    {
+//        static::$autoStartOption = $autoStart;
+//        return $this;
+//    }
+//
+//    public function overrideSignalHandlersOption(SignalHandlers $signalHandlers): static
+//    {
+//        static::$signalHandlersOption = $signalHandlers;
+//        return $this;
+//    }
 
     /** @inheritdoc */
     public function overrideTerminalProbeClasses(Traversable $terminalProbes): static

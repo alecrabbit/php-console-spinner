@@ -4,10 +4,9 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Defaults\Contract;
 
-use AlecRabbit\Spinner\Contract\AutoStart;
 use AlecRabbit\Spinner\Contract\Initialization;
-use AlecRabbit\Spinner\Contract\SignalHandlers;
 use AlecRabbit\Spinner\Core\Pattern\Contract\IPattern;
+use AlecRabbit\Spinner\Core\RunMode;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use Traversable;
 
@@ -33,10 +32,6 @@ interface ISettableDefaults
 
     public function setShutdownDelay(float|int $shutdownDelay): static;
 
-    public function overrideAutoStartOption(AutoStart $autoStart): static;
-
-    public function overrideSignalHandlersOption(SignalHandlers $signalHandlers): static;
-
     /**
      * @throws InvalidArgumentException
      */
@@ -50,4 +45,6 @@ interface ISettableDefaults
     public function setStylePattern(IPattern $spinnerStylePattern): static;
 
     public function setCharPattern(IPattern $spinnerCharPattern): static;
+
+    public function overrideRunMode(RunMode $runMode): static;
 }

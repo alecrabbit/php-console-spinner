@@ -11,6 +11,7 @@ use AlecRabbit\Spinner\Contract\SignalHandlers;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDefaults;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDefaultsClasses;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDriverSettings;
+use AlecRabbit\Spinner\Core\Defaults\Contract\ILoopSettings;
 use AlecRabbit\Spinner\Core\Defaults\Contract\ITerminalSettings;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IWidgetSettings;
 use AlecRabbit\Spinner\Core\Pattern\Char\Ascii;
@@ -97,15 +98,15 @@ abstract class ADefaults extends ASettableDefaults
         return static::$initialization;
     }
 
-    public function getAutoStartOption(): AutoStart
-    {
-        return static::$autoStartOption;
-    }
-
-    public function getSignalHandlersOption(): SignalHandlers
-    {
-        return static::$signalHandlersOption;
-    }
+//    public function getAutoStartOption(): AutoStart
+//    {
+//        return static::$autoStartOption;
+//    }
+//
+//    public function getSignalHandlersOption(): SignalHandlers
+//    {
+//        return static::$signalHandlersOption;
+//    }
 
     public function getProbeClasses(): Traversable
     {
@@ -122,7 +123,12 @@ abstract class ADefaults extends ASettableDefaults
         return static::$driverSettings;
     }
 
-    protected function getClassesInstance(): IDefaultsClasses
+    public function getLoopSettings(): ILoopSettings
+    {
+        return static::$loopSettings;
+    }
+
+    protected function createDefaultsClasses(): IDefaultsClasses
     {
         return ADefaultsClasses::getInstance($this);
     }
@@ -161,5 +167,10 @@ abstract class ADefaults extends ASettableDefaults
     protected function createWidgetSettings(): IWidgetSettings
     {
         return AWidgetSettings::getInstance($this);
+    }
+
+    protected function createLoopSettings(): ILoopSettings
+    {
+        return ALoopSettings::getInstance($this);
     }
 }

@@ -18,7 +18,7 @@ interface ILoopSettings extends IDefaultsChild
 
     public function getSignalHandlersOption(): SignalHandlers;
 
-    public function setSignalHandlersOption(SignalHandlers $signalHandlersOption): ILoopSettings;
+    public function overrideSignalHandlersOption(SignalHandlers $signalHandlersOption): ILoopSettings;
 
-    public function setAutoStartOption(AutoStart $autoStartOption): ILoopSettings;
+    public function overrideAutoStartOption(AutoStart $autoStartOption): ILoopSettings;
 }

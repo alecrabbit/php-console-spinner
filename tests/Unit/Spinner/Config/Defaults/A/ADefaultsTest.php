@@ -8,6 +8,7 @@ use AlecRabbit\Spinner\Asynchronous\Loop\Probe\ReactLoopProbe;
 use AlecRabbit\Spinner\Asynchronous\Loop\Probe\RevoltLoopProbe;
 use AlecRabbit\Spinner\Contract\Initialization;
 use AlecRabbit\Spinner\Core\Defaults\A\ADefaults;
+use AlecRabbit\Spinner\Core\RunMode;
 use AlecRabbit\Spinner\Core\Widget\WidgetBuilder;
 use AlecRabbit\Spinner\Core\Widget\WidgetRevolverBuilder;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
@@ -129,14 +130,14 @@ final class ADefaultsTest extends TestCase
     }
 
     #[Test]
-    public function canSetModeAsSynchronous(): void
+    public function canOverrideRunMode(): void
     {
         $defaults = self::getInstance();
-        $defaults->setModeAsSynchronous(true);
+        $defaults->overrideRunMode(RunMode::SYNCHRONOUS);
         self::assertTrue($defaults->isModeSynchronous());
-        $defaults->setModeAsSynchronous(false);
+        $defaults->overrideRunMode(RunMode::ASYNC);
         self::assertFalse($defaults->isModeSynchronous());
-        $defaults->setModeAsSynchronous(true);
+        $defaults->overrideRunMode(RunMode::SYNCHRONOUS);
         self::assertTrue($defaults->isModeSynchronous());
     }
 

@@ -8,6 +8,8 @@ use AlecRabbit\Spinner\Core\Config\Contract\IConfig;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use AlecRabbit\Spinner\Core\Factory\DefaultsFactory;
 use AlecRabbit\Spinner\Core\Output\StreamOutput;
+use AlecRabbit\Spinner\Core\RunMode;
+use AlecRabbit\Spinner\Facade;
 use Closure;
 use Example\Kernel\AppConfig;
 use Example\Kernel\Benchmark;
@@ -70,7 +72,7 @@ abstract class AbstractApp
     {
         $defaults = DefaultsFactory::get();
         if (!$defaults->isModeSynchronous()) {
-            $defaults->setModeAsSynchronous(true);
+            $defaults->overrideRunMode(RunMode::SYNCHRONOUS);
         }
     }
 
@@ -118,7 +120,7 @@ abstract class AbstractApp
     public static function prepareDefaults(): void
     {
         DefaultsFactory::get()
-            ->setModeAsSynchronous(true);
+            ->overrideRunMode(RunMode::SYNCHRONOUS);
     }
 
     public function run(): void

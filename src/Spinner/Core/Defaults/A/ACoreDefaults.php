@@ -13,6 +13,7 @@ use AlecRabbit\Spinner\Core\Contract\ILoopProbe;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDefaults;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDefaultsClasses;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDriverSettings;
+use AlecRabbit\Spinner\Core\Defaults\Contract\ILoopSettings;
 use AlecRabbit\Spinner\Core\Defaults\Contract\ITerminalSettings;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IWidgetSettings;
 use AlecRabbit\Spinner\Core\Defaults\Mixin\DefaultsConst;
@@ -32,12 +33,11 @@ abstract class ACoreDefaults implements IDefaults
 
     protected static IDefaultsClasses $classes;
     protected static IDriverSettings $driverSettings;
+    protected static ILoopSettings $loopSettings;
     protected static ITerminalSettings $terminalSettings;
     protected static IWidgetSettings $rootWidgetSettings;
     protected static IWidgetSettings $widgetSettings;
 
-    protected static SignalHandlers $signalHandlersOption;
-    protected static AutoStart $autoStartOption;
     protected static Initialization $initialization;
     protected static Traversable $loopProbes;
     protected static ?IPattern $charPattern = null;
@@ -65,17 +65,16 @@ abstract class ACoreDefaults implements IDefaults
 
     protected function reset(): void
     {
-        static::$classes = $this->getClassesInstance();
+        static::$classes = $this->createDefaultsClasses();
         static::$driverSettings = $this->createDriverSettings();
         static::$loopProbes = $this->defaultLoopProbes();
+        static::$loopSettings = $this->createLoopSettings();
         static::$outputStream = $this->defaultOutputStream();
         static::$terminalProbes = $this->defaultTerminalProbes();
         static::$terminalSettings = $this->createTerminalSettings();
         static::$rootWidgetSettings = $this->createWidgetSettings();
         static::$widgetSettings = $this->createWidgetSettings();
 
-        static::$signalHandlersOption = static::SIGNAL_HANDLERS_OPTION;
-        static::$autoStartOption = static::AUTO_START_OPTION;
         static::$initialization = static::INITIALIZATION_OPTION;
         static::$messageOnExit = static::MESSAGE_ON_EXIT;
         static::$messageOnFinalize = static::MESSAGE_ON_FINALIZE;
@@ -90,9 +89,15 @@ abstract class ACoreDefaults implements IDefaults
         static::$charPattern = null;
     }
 
-    abstract protected function getClassesInstance(): IDefaultsClasses;
+    abstract protected function createDefaultsClasses(): IDefaultsClasses;
 
     abstract protected function createDriverSettings(): IDriverSettings;
+
+    abstract protected function createLoopSettings(): ILoopSettings;
+
+    abstract protected function createTerminalSettings(): ITerminalSettings;
+
+    abstract protected function createWidgetSettings(): IWidgetSettings;
 
     protected function defaultLoopProbes(): Traversable
     {
@@ -111,10 +116,6 @@ abstract class ACoreDefaults implements IDefaults
     {
         yield from self::$registeredTerminalProbes;
     }
-
-    abstract protected function createTerminalSettings(): ITerminalSettings;
-
-    abstract protected function createWidgetSettings(): IWidgetSettings;
 
     /** @inheritdoc */
     public static function registerProbeClass(string $class): void
