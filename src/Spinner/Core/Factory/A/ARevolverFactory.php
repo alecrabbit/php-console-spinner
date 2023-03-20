@@ -15,8 +15,6 @@ use AlecRabbit\Spinner\Core\Pattern\Contract\IStylePattern;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
 use AlecRabbit\Spinner\Core\Revolver\FrameCollectionRevolver;
 use AlecRabbit\Spinner\Core\StyleFrameRenderer;
-use AlecRabbit\Spinner\Exception\DomainException;
-use AlecRabbit\Spinner\Extras\Procedure\A\AProceduralStylePattern;
 use AlecRabbit\Spinner\Extras\Revolver\ProceduralRevolver;
 use ArrayObject;
 
@@ -31,9 +29,9 @@ abstract class ARevolverFactory implements IRevolverFactory
                 $pattern->getProcedure(),
                 $pattern->getInterval()
             );
-            if ($pattern instanceof AProceduralStylePattern) {
-                self::assertIsStylePattern($revolver);
-            }
+//            if ($pattern instanceof AProceduralStylePattern) {
+//                self::assertIsStylePattern($revolver);
+//            }
             return
                 $revolver;
         }
@@ -51,23 +49,6 @@ abstract class ARevolverFactory implements IRevolverFactory
             );
     }
 
-    /**
-     * @throws DomainException
-     */
-    protected static function assertIsStylePattern(IRevolver $revolver): void
-    {
-        // assert that revolver output has '%s' placeholder in Frame sequence of first frame
-        $frame = $revolver->update();
-        if (!str_contains($frame->sequence(), '%s')) {
-            throw new DomainException(
-                sprintf(
-                    '%s: Revolver output has no \'%%s\' placeholder in Frame sequence.',
-                    static::class
-                )
-            );
-        }
-    }
-
     public static function defaultStyleRevolver(): IRevolver
     {
         return
@@ -81,6 +62,23 @@ abstract class ARevolverFactory implements IRevolverFactory
             );
     }
 
+//    /**
+//     * @throws DomainException
+//     */
+//    protected static function assertIsStylePattern(IRevolver $revolver): void
+//    {
+//        // assert that revolver output has '%s' placeholder in Frame sequence of first frame
+//        $frame = $revolver->update();
+//        if (!str_contains($frame->sequence(), '%s')) {
+//            throw new DomainException(
+//                sprintf(
+//                    '%s: Revolver output has no \'%%s\' placeholder in Frame sequence.',
+//                    static::class
+//                )
+//            );
+//        }
+//    }
+
     public static function defaultCharRevolver(): IRevolver
     {
         return
@@ -92,5 +90,13 @@ abstract class ARevolverFactory implements IRevolverFactory
                 ),
                 IntervalFactory::createStill()
             );
+    }
+
+    protected function revolverClasses(): array
+    {
+        return [
+            IPattern::class => FrameCollectionRevolver::class,
+            IProceduralPattern::class => ProceduralRevolver::class,
+        ];
     }
 }

@@ -25,11 +25,10 @@ $count = 0;
 
 $defaults = DefaultsFactory::get();
 $defaults
-//    ->setSpinnerCharPattern(new \AlecRabbit\Spinner\Extras\Procedure\TmpProceduralCharPattern())
+    ->setCharPattern(new \AlecRabbit\Spinner\Extras\Procedure\TmpProceduralCharPattern())
 //    ->setSpinnerCharPattern(new \AlecRabbit\Spinner\Core\Pattern\Char\Custom(['o', 'O' ], 100))
-    ->setCharPattern(
-        new Aesthetic(reversed: true)
-    )//    ->setSpinnerStylePattern(new \AlecRabbit\Spinner\Extras\Procedure\TmpProceduralStylePattern())
+//    ->setCharPattern(        new Aesthetic(reversed: true)    )
+    //    ->setSpinnerStylePattern(new \AlecRabbit\Spinner\Extras\Procedure\TmpProceduralStylePattern())
 ;
 
 $spinner = Facade::createSpinner();

@@ -5,11 +5,8 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Defaults\Contract;
 
-use AlecRabbit\Spinner\Contract\AutoStart;
 use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Contract\Initialization;
-use AlecRabbit\Spinner\Contract\SignalHandlers;
-use AlecRabbit\Spinner\Core\Defaults\A\ASpinnerSettings;
 
 interface ISpinnerSettings extends IDefaultsChild
 {

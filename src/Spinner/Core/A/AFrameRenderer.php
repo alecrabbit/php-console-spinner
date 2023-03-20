@@ -32,15 +32,15 @@ abstract class AFrameRenderer extends ADefaultsAwareClass implements IFrameRende
              * @throws InvalidArgumentException
              */
             function (): Generator {
-            /** @var IFrame|string|array<string,int|null> $entry */
-            foreach ($this->pattern->getPattern() as $entry) {
-                if ($entry instanceof IFrame) {
-                    yield $entry;
-                    continue;
+                /** @var IFrame|string|array<string,int|null> $entry */
+                foreach ($this->pattern->getPattern() as $entry) {
+                    if ($entry instanceof IFrame) {
+                        yield $entry;
+                        continue;
+                    }
+                    yield $this->createFrame($entry);
                 }
-                yield $this->createFrame($entry);
-            }
-        };
+            };
 
         return
             new FrameCollection($cb());

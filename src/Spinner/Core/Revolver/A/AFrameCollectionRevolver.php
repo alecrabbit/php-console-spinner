@@ -9,8 +9,6 @@ use AlecRabbit\Spinner\Contract\IFrameCollection;
 use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameCollectionRevolver;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
-use AlecRabbit\Spinner\Exception\LogicException;
-use ArrayAccess;
 
 abstract class AFrameCollectionRevolver extends ARevolver implements IFrameCollectionRevolver
 {
@@ -40,6 +38,7 @@ abstract class AFrameCollectionRevolver extends ARevolver implements IFrameColle
             );
         }
     }
+
     protected function next(float $dt = null): void
     {
         if (1 === $this->count || ++$this->offset === $this->count) {

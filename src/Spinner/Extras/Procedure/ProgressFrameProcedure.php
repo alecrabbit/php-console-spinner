@@ -18,8 +18,7 @@ final class ProgressFrameProcedure extends AProgressValueProcedure
     public function __construct(
         IProgressValue $progressValue,
         protected IFrameCollection $frames,
-    )
-    {
+    ) {
         parent::__construct($progressValue);
         $this->steps = $frames->lastIndex();
     }
