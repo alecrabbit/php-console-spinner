@@ -72,26 +72,29 @@ abstract class AConfigBuilder implements IConfigBuilder
 
     public function build(): IConfig
     {
-        $loopConfig =
-            new LoopConfig(
-                runMode: $this->defaults->getRunMode(),
-                autoStart: $this->defaults->getLoopSettings()->getAutoStartOption(),
-                signalHandlersOption: $this->defaults->getLoopSettings()->getSignalHandlersOption(),
-            );
-
-        $spinnerConfig =
-            new SpinnerConfig(
-                rootWidget: $this->rootWidget ?? $this->createRootWidget(),
-                initialization: $this->defaults->initializationOption(),
-                widgets: $this->widgets ?? new ArrayObject([]),
-            );
-
         return
             new Config(
                 driver: $this->createDriver(),
-                spinnerConfig: $spinnerConfig,
-                loopConfig: $loopConfig,
+                spinnerConfig: new SpinnerConfig(
+                    rootWidget: $this->rootWidget ?? $this->createRootWidget(),
+                    initialization: $this->defaults->initializationOption(),
+                    widgets: $this->widgets ?? new ArrayObject([]),
+                ),
+                loopConfig: new LoopConfig(
+                    runMode: $this->defaults->getRunMode(),
+                    autoStart: $this->defaults->getLoopSettings()->getAutoStartOption(),
+                    signalHandlersOption: $this->defaults->getLoopSettings()->getSignalHandlersOption(),
+                ),
             );
+    }
+
+    protected function createDriver(): IDriver
+    {
+        return
+            $this->driverBuilder
+                ->withOutput(new StreamOutput($this->defaults->getOutputStream()))
+                ->withTimer(new Timer())
+                ->build();
     }
 
     protected function createRootWidget(): IWidgetComposite
@@ -118,15 +121,6 @@ abstract class AConfigBuilder implements IConfigBuilder
                 )
                 ->withLeadingSpacer($this->defaults->getRootWidgetSettings()->getLeadingSpacer())
                 ->withTrailingSpacer($this->defaults->getRootWidgetSettings()->getTrailingSpacer())
-                ->build();
-    }
-
-    protected function createDriver(): IDriver
-    {
-        return
-            $this->driverBuilder
-                ->withOutput(new StreamOutput($this->defaults->getOutputStream()))
-                ->withTimer(new Timer())
                 ->build();
     }
 }
