@@ -29,6 +29,11 @@ abstract class AIntervalFactory extends ADefaultsAwareClass implements IInterval
             new Interval($normalized);
     }
 
+    public static function createStill(): IInterval
+    {
+        return new Interval();
+    }
+
     protected static function normalize(int|IInterval $interval): int
     {
         if ($interval instanceof IInterval) {

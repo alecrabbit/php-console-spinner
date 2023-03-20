@@ -14,7 +14,7 @@ require_once __DIR__ . '/../bootstrap.async.php';
 
 // Settings
 $runTime = 30; // s
-$steps = 2;
+$steps = 20;
 $cycleInterval = 0.05; // s
 $progressRefreshInterval = 800; // ms
 $threshold = 900; // 90% [0..1000]
@@ -86,7 +86,7 @@ function createProgressWidget(
     ProgressValue $progress,
     Interval $interval
 ): IWidgetComposite {
-    $composite = ProgressWidgetFactory::createSteps(
+    $composite = ProgressWidgetFactory::createProgressSteps(
         $progress,
         updateInterval: $interval,
     );
@@ -100,6 +100,13 @@ function createProgressWidget(
 
     $composite->add(
         ProgressWidgetFactory::createProgressValue(
+            $progress,
+            updateInterval: $interval
+        )
+    );
+    
+    $composite->add(
+        ProgressWidgetFactory::createProgressFrame(
             $progress,
             updateInterval: $interval
         )

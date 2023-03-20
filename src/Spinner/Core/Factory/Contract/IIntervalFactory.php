@@ -6,6 +6,7 @@ namespace AlecRabbit\Spinner\Core\Factory\Contract;
 
 use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Contract\NormalizerMode;
+use AlecRabbit\Spinner\Core\Interval;
 
 interface IIntervalFactory
 {
@@ -16,4 +17,6 @@ interface IIntervalFactory
     public static function createNormalized(int $interval): IInterval;
 
     public static function overrideNormalizerMode(NormalizerMode $mode): void;
+
+    public static function createStill(): IInterval;
 }
