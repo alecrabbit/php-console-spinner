@@ -32,7 +32,7 @@ final class FrameCollection extends ArrayObject implements IFrameCollection
      */
     private function initialize(Traversable $frames): void
     {
-        /** @var IFrame $frame */
+        /** @var T $frame */
         foreach ($frames as $frame) {
             self::assertFrame($frame);
             $this->append($frame);
@@ -64,10 +64,8 @@ final class FrameCollection extends ArrayObject implements IFrameCollection
             throw new DomainException('Empty collection.');
     }
 
-    /** @psalm-suppress MixedInferredReturnType */
     public function get(int $index): IFrame
     {
-        /** @psalm-suppress MixedReturnStatement */
         return $this->offsetGet($index);
     }
 }

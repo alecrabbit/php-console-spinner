@@ -14,6 +14,9 @@ use Countable;
  */
 interface IFrameCollection extends Countable, ArrayAccess
 {
+    /**
+     * @return T
+     */
     public function get(int $index): IFrame;
 
     /**
