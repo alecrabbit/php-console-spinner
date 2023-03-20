@@ -26,7 +26,6 @@ final class FrameCollection extends ArrayObject implements IFrameCollection
      */
     private function initialize(Traversable $frames): void
     {
-        dump($frames);
         foreach ($frames as $frame) {
             self::assertFrame($frame);
             $this->append($frame);
@@ -38,7 +37,6 @@ final class FrameCollection extends ArrayObject implements IFrameCollection
      */
     private static function assertFrame($frame): void
     {
-        dump($frame);
         if (!$frame instanceof IFrame) {
             throw new InvalidArgumentException(
                 sprintf(

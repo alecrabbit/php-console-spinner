@@ -77,7 +77,7 @@ abstract class ARevolverFactory implements IRevolverFactory
                         FrameFactory::create('%s', 0),
                     ])
                 ),
-                IntervalFactory::createDefault()
+                IntervalFactory::createStill()
             );
     }
 
@@ -90,7 +90,7 @@ abstract class ARevolverFactory implements IRevolverFactory
                         FrameFactory::createEmpty(),
                     ])
                 ),
-                IntervalFactory::createDefault()
+                IntervalFactory::createStill()
             );
     }
 }

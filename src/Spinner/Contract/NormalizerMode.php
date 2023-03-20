@@ -8,7 +8,7 @@ enum NormalizerMode
     case BALANCED;
     case PERFORMANCE;
     case SLOW;
-    case STATIC;
+    case STILL;
 
     public function getDivisor(): int
     {
@@ -17,7 +17,7 @@ enum NormalizerMode
             self::BALANCED => 50,
             self::PERFORMANCE => 100,
             self::SLOW => 1000,
-            self::STATIC => 900000,
+            self::STILL => 900000,
         };
     }
 }
