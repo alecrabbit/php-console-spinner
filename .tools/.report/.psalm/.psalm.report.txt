@@ -1,1 +1,1 @@
-/app/src/Spinner/Core/FrameCollection.php:38:29:error - InvalidArgument: Argument 1 of AlecRabbit\Spinner\Core\FrameCollection::addFrame expects T:AlecRabbit\Spinner\Core\FrameCollection as AlecRabbit\Spinner\Contract\IFrame, but AlecRabbit\Spinner\Contract\IFrame provided
+/app/src/Spinner/Core/FrameCollection.php:38:27:error - InvalidArgument: Argument 1 of AlecRabbit\Spinner\Core\FrameCollection::append expects T:AlecRabbit\Spinner\Core\FrameCollection as AlecRabbit\Spinner\Contract\IFrame, but AlecRabbit\Spinner\Contract\IFrame provided

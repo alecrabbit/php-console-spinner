@@ -10,7 +10,7 @@ use Countable;
 
 /**
  * @template T of IFrame
- * @template-extends ArrayAccess<int,T>
+ * @extends ArrayAccess<int,T>
  */
 interface IFrameCollection extends Countable, ArrayAccess
 {

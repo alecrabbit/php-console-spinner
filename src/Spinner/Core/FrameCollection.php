@@ -13,8 +13,8 @@ use Traversable;
 
 /**
  * @template T of IFrame
- * @template-extends ArrayObject<int,T>
- * @template-implements IFrameCollection<T>
+ * @extends ArrayObject<int,T>
+ * @implements IFrameCollection<T>
  */
 final class FrameCollection extends ArrayObject implements IFrameCollection
 {
@@ -35,18 +35,8 @@ final class FrameCollection extends ArrayObject implements IFrameCollection
         /** @var IFrame $frame */
         foreach ($frames as $frame) {
             self::assertFrame($frame);
-            $this->addFrame($frame);
+            $this->append($frame);
         }
-    }
-
-    /**
-     * Adds a frame to the collection.
-     *
-     * @param T $frame
-     */
-    public function addFrame(IFrame $frame): void
-    {
-        $this->append($frame);
     }
 
     /**
@@ -70,8 +60,8 @@ final class FrameCollection extends ArrayObject implements IFrameCollection
     {
         return
             array_key_last($this->getArrayCopy())
-                ??
-                throw new DomainException('Empty collection.');
+            ??
+            throw new DomainException('Empty collection.');
     }
 
     /** @psalm-suppress MixedInferredReturnType */
