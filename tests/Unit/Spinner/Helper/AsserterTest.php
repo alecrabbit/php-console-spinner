@@ -8,6 +8,7 @@ use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Exception\RuntimeException;
 use AlecRabbit\Spinner\Helper\Asserter;
 use AlecRabbit\Tests\Spinner\TestCase\TestCase;
+use ArrayObject;
 use PHPUnit\Framework\Attributes\Test;
 use stdClass;
 use Throwable;
@@ -70,13 +71,9 @@ final class AsserterTest extends TestCase
     #[Test]
     public function canAssertColorSupportLevelsNotEmpty(): void
     {
-        $invalidColorSupportLevels = new \ArrayObject([]);
+        $invalidColorSupportLevels = new ArrayObject([]);
         $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage(
-            sprintf(
-                'Color modes must not be empty.',
-            )
-        );
+        $this->expectExceptionMessage('Color modes must not be empty.');
 
         Asserter::assertColorModes($invalidColorSupportLevels);
         self::fail(sprintf('[%s] Exception not thrown', __METHOD__));
@@ -86,7 +83,7 @@ final class AsserterTest extends TestCase
     public function canAssertColorSupportLevels(): void
     {
         $invalidMode = 1;
-        $invalidColorModes = new \ArrayObject([$invalidMode]);
+        $invalidColorModes = new ArrayObject([$invalidMode]);
 
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('Unsupported color mode of type "int".');
