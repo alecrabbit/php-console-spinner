@@ -3,26 +3,14 @@ declare(strict_types=1);
 // 20.03.23
 namespace AlecRabbit\Spinner\Core;
 
-use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Contract\IFrameCollection;
-use ArrayIterator;
+use ArrayObject;
+use Traversable;
 
-final class FrameCollection implements IFrameCollection
+final class FrameCollection extends ArrayObject implements IFrameCollection
 {
-    private array $frames;
-
-    public function __construct(IFrame ...$frames)
+    public function __construct(Traversable $frames)
     {
-        $this->frames = $frames;
-    }
-
-    public function getIterator(): ArrayIterator
-    {
-        return new ArrayIterator($this->frames);
-    }
-
-    public function count(): int
-    {
-        return count($this->frames);
+        parent::__construct($frames);
     }
 }
