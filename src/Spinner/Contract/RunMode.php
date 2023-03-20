@@ -6,7 +6,7 @@ namespace AlecRabbit\Spinner\Contract;
 
 enum RunMode
 {
-    case SYNCHRONOUS; // intentionally long name for readability
+    case SYNCHRONOUS; // long value name for readability
 
     case ASYNC;
 }
