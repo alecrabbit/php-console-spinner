@@ -13,18 +13,6 @@ use AlecRabbit\Spinner\Extras\Procedure\A\AProgressValueProcedure;
 /** @psalm-suppress UnusedClass */
 final class ProgressFrameProcedure extends AProgressValueProcedure
 {
-    /** @var string[] */
-    private const FRAMES = [
-        ' ',
-        '▁',
-        '▂',
-        '▃',
-        '▄',
-        '▅',
-        '▆',
-        '▇',
-        '█',
-    ];
     private int $steps;
 
     public function __construct(
@@ -33,7 +21,7 @@ final class ProgressFrameProcedure extends AProgressValueProcedure
     )
     {
         parent::__construct($progressValue);
-        $this->steps = count($frames) - 1;
+        $this->steps = $frames->lastIndex();
     }
 
     public function update(float $dt = null): IFrame
@@ -46,22 +34,12 @@ final class ProgressFrameProcedure extends AProgressValueProcedure
         }
         return
             $this->getFrame($this->floatValue->getValue());
-//        $v = $this->createColumn($this->floatValue->getValue());
-//        return
-//            FrameFactory::create($v);
-    }
-
-    private function createColumn(float $progress): string
-    {
-        $p = (int)($progress * $this->steps);
-        return
-            (string)$this->frames[$p]; // TODO (2023-01-26 14:45) [Alec Rabbit]: return IFrame from "IFramesCollection"
     }
 
     private function getFrame(float $progress): IFrame
     {
         $index = (int)($progress * $this->steps);
         return
-            $this->frames[$index];
+            $this->frames->get($index);
     }
 }

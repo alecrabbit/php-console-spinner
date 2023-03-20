@@ -21,6 +21,7 @@ trait AppRelatedConstantsTrait
     final protected const FRAMES = 'frames';
     final protected const INDEXES = 'indexes';
     final protected const INTERVAL = 'interval';
+    final protected const LAST_INDEX = 'lastIndex';
     final protected const MAX = 'max';
     final protected const MESSAGE = 'message';
     final protected const MIN = 'min';

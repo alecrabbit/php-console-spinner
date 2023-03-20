@@ -9,5 +9,7 @@ use Countable;
 
 interface IFrameCollection extends Countable, ArrayAccess
 {
+    public function get(int $index): IFrame;
 
+    public function lastIndex(): ?int;
 }
