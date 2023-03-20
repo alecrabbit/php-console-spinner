@@ -33,11 +33,21 @@ abstract class ADefaultsClasses extends ADefaultsChild implements IDefaultsClass
     /** @var class-string<IDriverBuilder> */
     protected static string $driverBuilderClass;
 
+    /** @var null|class-string<IDriverBuilder> */
+    protected static ?string $driverBuilderClassOverride = null;
+
     /** @var class-string<IWidgetBuilder> */
     protected static string $widgetBuilderClass;
 
+    /** @var null|class-string<IWidgetBuilder> */
+    protected static ?string $widgetBuilderClassOverride = null;
+
     /** @var class-string<IWidgetRevolverBuilder> */
     protected static string $widgetRevolverBuilderClass;
+
+
+    /** @var null|class-string<IWidgetRevolverBuilder> */
+    protected static ?string $widgetRevolverBuilderClassOverride = null;
 
     /** @var class-string<IFrameRevolverBuilder> */
     protected static string $frameRevolverBuilderClass;
@@ -55,11 +65,14 @@ abstract class ADefaultsClasses extends ADefaultsChild implements IDefaultsClass
 
     protected function reset(): void
     {
-        static::$driverBuilderClass = static::DRIVER_BUILDER_CLASS;
+        static::$driverBuilderClass =
+            static::$driverBuilderClassOverride ?? static::DRIVER_BUILDER_CLASS;
 
-        static::$widgetBuilderClass = static::WIDGET_BUILDER_CLASS;
+        static::$widgetBuilderClass =
+            static::$widgetBuilderClassOverride ?? static::WIDGET_BUILDER_CLASS;
 
-        static::$widgetRevolverBuilderClass = static::WIDGET_REVOLVER_BUILDER_CLASS;
+        static::$widgetRevolverBuilderClass =
+            static::$widgetRevolverBuilderClassOverride ?? static::WIDGET_REVOLVER_BUILDER_CLASS;
 
         static::$frameRevolverBuilderClass =
             static::$frameRevolverBuilderClassOverride ?? static::FRAME_REVOLVER_BUILDER_CLASS;
@@ -82,7 +95,7 @@ abstract class ADefaultsClasses extends ADefaultsChild implements IDefaultsClass
     }
 
     /** @inheritDoc */
-    public function setWidgetBuilderClass(string $widgetBuilderClass): void
+    public function overrideWidgetBuilderClass(string $widgetBuilderClass): void
     {
         Asserter::isSubClass($widgetBuilderClass, IWidgetBuilder::class, __METHOD__);
         self::$widgetBuilderClass = $widgetBuilderClass;
@@ -95,7 +108,7 @@ abstract class ADefaultsClasses extends ADefaultsChild implements IDefaultsClass
     }
 
     /** @inheritDoc */
-    public function setWidgetRevolverBuilderClass(string $widgetRevolverBuilderClass): void
+    public function overrideWidgetRevolverBuilderClass(string $widgetRevolverBuilderClass): void
     {
         Asserter::isSubClass($widgetRevolverBuilderClass, IWidgetRevolverBuilder::class, __METHOD__);
         self::$widgetRevolverBuilderClass = $widgetRevolverBuilderClass;
@@ -108,7 +121,7 @@ abstract class ADefaultsClasses extends ADefaultsChild implements IDefaultsClass
     }
 
     /** @inheritDoc */
-    public function setDriverBuilderClass(string $driverBuilderClass): void
+    public function overrideDriverBuilderClass(string $driverBuilderClass): void
     {
         Asserter::isSubClass($driverBuilderClass, IDriverBuilder::class, __METHOD__);
         self::$driverBuilderClass = $driverBuilderClass;

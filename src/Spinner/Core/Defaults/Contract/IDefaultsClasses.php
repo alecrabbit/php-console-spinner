@@ -24,7 +24,7 @@ interface IDefaultsClasses extends IDefaultsChild
      * @param class-string<IWidgetBuilder> $widgetBuilderClass
      * @throws InvalidArgumentException
      */
-    public function setWidgetBuilderClass(string $widgetBuilderClass): void;
+    public function overrideWidgetBuilderClass(string $widgetBuilderClass): void;
 
     /**
      * @return class-string<IWidgetRevolverBuilder>
@@ -35,7 +35,7 @@ interface IDefaultsClasses extends IDefaultsChild
      * @param class-string<IWidgetRevolverBuilder> $widgetRevolverBuilderClass
      * @throws InvalidArgumentException
      */
-    public function setWidgetRevolverBuilderClass(string $widgetRevolverBuilderClass): void;
+    public function overrideWidgetRevolverBuilderClass(string $widgetRevolverBuilderClass): void;
 
     /**
      * @return class-string<IDriverBuilder>
@@ -46,7 +46,7 @@ interface IDefaultsClasses extends IDefaultsChild
      * @param class-string<IDriverBuilder> $driverBuilderClass
      * @throws InvalidArgumentException
      */
-    public function setDriverBuilderClass(string $driverBuilderClass): void;
+    public function overrideDriverBuilderClass(string $driverBuilderClass): void;
 
     /**
      * @return class-string<IFrameRevolverBuilder>
