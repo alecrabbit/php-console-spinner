@@ -120,9 +120,7 @@ abstract class ADefaultsClasses extends ADefaultsChild implements IDefaultsClass
         return self::$frameRevolverBuilderClass;
     }
 
-    /**
-     * @inheritDoc
-     */
+    /** @inheritDoc */
     public static function overrideFrameRevolverBuilderClass(string $frameRevolverBuilderClass): void
     {
         Asserter::isSubClass($frameRevolverBuilderClass, IFrameRevolverBuilder::class, __METHOD__);
