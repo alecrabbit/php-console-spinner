@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Spinner\Core;
+namespace AlecRabbit\Spinner\Contract;
 
 enum RunMode
 {

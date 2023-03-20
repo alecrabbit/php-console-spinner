@@ -7,8 +7,8 @@ namespace AlecRabbit\Spinner\Core\Defaults\Mixin;
 
 use AlecRabbit\Spinner\Contract\AutoStart;
 use AlecRabbit\Spinner\Contract\Initialization;
+use AlecRabbit\Spinner\Contract\RunMode;
 use AlecRabbit\Spinner\Contract\SignalHandlers;
-use AlecRabbit\Spinner\Core\RunMode;
 
 trait DefaultsConst
 {

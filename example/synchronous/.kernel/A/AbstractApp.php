@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Example\Kernel\A;
 
+use AlecRabbit\Spinner\Contract\RunMode;
 use AlecRabbit\Spinner\Core\Config\Contract\IConfig;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use AlecRabbit\Spinner\Core\Factory\DefaultsFactory;
 use AlecRabbit\Spinner\Core\Output\StreamOutput;
-use AlecRabbit\Spinner\Core\RunMode;
 use AlecRabbit\Spinner\Facade;
 use Closure;
 use Example\Kernel\AppConfig;
