@@ -14,7 +14,7 @@ require_once __DIR__ . '/../bootstrap.async.php';
 
 // Settings
 $runTime = 30; // s
-$steps = 2;
+$steps = 20;
 $cycleInterval = 0.05; // s
 $progressRefreshInterval = 800; // ms
 $threshold = 900; // 90% [0..1000]

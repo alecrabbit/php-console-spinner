@@ -40,21 +40,13 @@ abstract class ARevolverFactory implements IRevolverFactory
         if ($pattern instanceof IStylePattern) {
             return
                 new FrameCollectionRevolver(
-                    new FrameCollection(
-                        new \ArrayObject(
-                            (new StyleFrameRenderer($pattern))->render(),
-                        )
-                    ),
+                    (new StyleFrameRenderer($pattern))->render(),
                     $pattern->getInterval()
                 );
         }
         return
             new FrameCollectionRevolver(
-                new FrameCollection(
-                    new \ArrayObject(
-                        (new FrameRenderer($pattern))->render(),
-                    )
-                ),
+                (new FrameRenderer($pattern))->render(),
                 $pattern->getInterval()
             );
     }

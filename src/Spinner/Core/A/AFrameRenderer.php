@@ -6,8 +6,10 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\A;
 
 use AlecRabbit\Spinner\Contract\IFrame;
+use AlecRabbit\Spinner\Contract\IFrameCollection;
 use AlecRabbit\Spinner\Contract\IFrameRenderer;
 use AlecRabbit\Spinner\Core\Factory\A\ADefaultsAwareClass;
+use AlecRabbit\Spinner\Core\FrameCollection;
 use AlecRabbit\Spinner\Core\Pattern\Contract\IPattern;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 
@@ -21,19 +23,21 @@ abstract class AFrameRenderer extends ADefaultsAwareClass implements IFrameRende
     /**
      * @throws InvalidArgumentException
      */
-    public function render(): iterable
+    public function render(): IFrameCollection
     {
-        $frames = [];
-        /** @var IFrame|string|array<string,int|null> $entry */
-        foreach ($this->pattern->getPattern() as $entry) {
-            if ($entry instanceof IFrame) {
-                $frames[] = $entry;
-                continue;
+        $cb = function () {
+            /** @var IFrame|string|array<string,int|null> $entry */
+            foreach ($this->pattern->getPattern() as $entry) {
+                if ($entry instanceof IFrame) {
+                    yield $entry;
+                    continue;
+                }
+                yield $this->createFrame($entry);
             }
-            $frames[] = $this->createFrame($entry);
-        }
+        };
+
         return
-            $frames;
+            new FrameCollection($cb());
     }
 
     /**
