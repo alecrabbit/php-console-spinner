@@ -6,10 +6,16 @@ namespace AlecRabbit\Spinner\Core;
 
 use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Contract\IFrameCollection;
+use AlecRabbit\Spinner\Exception\DomainException;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use ArrayObject;
 use Traversable;
 
+/**
+ * @template T of IFrame
+ * @template-extends ArrayObject<int,T>
+ * @template-implements IFrameCollection<T>
+ */
 final class FrameCollection extends ArrayObject implements IFrameCollection
 {
     /**
@@ -26,21 +32,32 @@ final class FrameCollection extends ArrayObject implements IFrameCollection
      */
     private function initialize(Traversable $frames): void
     {
+        /** @var IFrame $frame */
         foreach ($frames as $frame) {
             self::assertFrame($frame);
-            $this->append($frame);
+            $this->addFrame($frame);
         }
+    }
+
+    /**
+     * Adds a frame to the collection.
+     *
+     * @param T $frame
+     */
+    public function addFrame(IFrame $frame): void
+    {
+        $this->append($frame);
     }
 
     /**
      * @throws InvalidArgumentException
      */
-    private static function assertFrame($frame): void
+    private static function assertFrame(mixed $frame): void
     {
         if (!$frame instanceof IFrame) {
             throw new InvalidArgumentException(
                 sprintf(
-                    'Frame must be instance of %s. %s given.',
+                    'Frame must be instance of %s. %s given.', // TODO: clarify message
                     IFrame::class,
                     get_debug_type($frame)
                 )
@@ -48,13 +65,19 @@ final class FrameCollection extends ArrayObject implements IFrameCollection
         }
     }
 
-    public function lastIndex(): ?int
+    /** @inheritdoc */
+    public function lastIndex(): int
     {
-        return array_key_last($this->getArrayCopy());
+        return
+            array_key_last($this->getArrayCopy())
+                ??
+                throw new DomainException('Empty collection.');
     }
 
+    /** @psalm-suppress MixedInferredReturnType */
     public function get(int $index): IFrame
     {
+        /** @psalm-suppress MixedReturnStatement */
         return $this->offsetGet($index);
     }
 }

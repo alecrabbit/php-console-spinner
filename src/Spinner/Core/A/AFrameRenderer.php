@@ -12,6 +12,7 @@ use AlecRabbit\Spinner\Core\Factory\A\ADefaultsAwareClass;
 use AlecRabbit\Spinner\Core\FrameCollection;
 use AlecRabbit\Spinner\Core\Pattern\Contract\IPattern;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
+use Generator;
 
 abstract class AFrameRenderer extends ADefaultsAwareClass implements IFrameRenderer
 {
@@ -25,7 +26,12 @@ abstract class AFrameRenderer extends ADefaultsAwareClass implements IFrameRende
      */
     public function render(): IFrameCollection
     {
-        $cb = function () {
+        $cb =
+            /**
+             * @return Generator<IFrame>
+             * @throws InvalidArgumentException
+             */
+            function (): Generator {
             /** @var IFrame|string|array<string,int|null> $entry */
             foreach ($this->pattern->getPattern() as $entry) {
                 if ($entry instanceof IFrame) {

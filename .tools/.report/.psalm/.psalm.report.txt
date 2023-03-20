@@ -1,12 +1,1 @@
-/app/src/Spinner/Contract/IFrameCollection.php:10:47:error - MissingTemplateParam: AlecRabbit\Spinner\Contract\IFrameCollection has missing template params when extending ArrayAccess, expecting 2
-/app/src/Spinner/Core/FrameCollection.php:18:1:error - InvalidDocblock: @template-implements must include the name of an implemented class, got ArrayAccess<int, T:AlecRabbit\Spinner\Core\FrameCollection as AlecRabbit\Spinner\Contract\IFrame>
-/app/src/Spinner/Core/FrameCollection.php:18:13:error - MissingTemplateParam: AlecRabbit\Spinner\Core\FrameCollection has missing template params when extending ArrayObject, expecting 2
-/app/src/Spinner/Core/FrameCollection.php:29:34:error - MixedReturnTypeCoercion: The declared return type 'int|null' for AlecRabbit\Spinner\Core\FrameCollection::lastIndex is more specific than the inferred return type 'array-key|null'
-/app/src/Spinner/Core/FrameCollection.php:31:16:error - MixedReturnTypeCoercion: The type 'array-key|null' is more general than the declared return type 'int|null' for AlecRabbit\Spinner\Core\FrameCollection::lastIndex
-/app/src/Spinner/Core/FrameCollection.php:34:38:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Contract\IFrame' for AlecRabbit\Spinner\Core\FrameCollection::get
-/app/src/Spinner/Core/FrameCollection.php:36:16:error - MixedReturnStatement: Could not infer a return type
-/app/src/Spinner/Core/FrameCollection.php:42:41:error - MissingParamType: Parameter $frame has no provided type
-/app/src/Spinner/Extras/A/AProgressWidgetFactory.php:156:46:error - InvalidReturnType: The declared return type 'AlecRabbit\Spinner\Contract\IFrameCollection' for AlecRabbit\Spinner\Extras\A\AProgressWidgetFactory::defaultFrames is incorrect, got 'void'
-/app/src/Spinner/Extras/A/AProgressWidgetFactory.php:158:9:error - InvalidReturnStatement: Empty return statement is not expected in AlecRabbit\Spinner\Extras\A\AProgressWidgetFactory::defaultFrames
-/app/src/Spinner/Extras/A/AProgressWidgetFactory.php:159:5:error - ParseError: Syntax error, unexpected '}', expecting ';' on line 159
-/app/src/Spinner/Extras/Procedure/ProgressFrameProcedure.php:24:24:error - PossiblyNullPropertyAssignmentValue: $this->steps with non-nullable declared type 'int' cannot be assigned nullable type 'int|null'
+/app/src/Spinner/Core/FrameCollection.php:38:29:error - InvalidArgument: Argument 1 of AlecRabbit\Spinner\Core\FrameCollection::addFrame expects T:AlecRabbit\Spinner\Core\FrameCollection as AlecRabbit\Spinner\Contract\IFrame, but AlecRabbit\Spinner\Contract\IFrame provided

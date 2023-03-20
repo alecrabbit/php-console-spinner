@@ -6,6 +6,7 @@ namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Core;
 
 use AlecRabbit\Spinner\Core\Factory\FrameFactory;
 use AlecRabbit\Spinner\Core\FrameCollection;
+use AlecRabbit\Spinner\Exception\DomainException;
 use AlecRabbit\Tests\Spinner\TestCase\TestCase;
 use ArrayObject;
 use PHPUnit\Framework\Attributes\DataProvider;
@@ -19,27 +20,29 @@ final class FrameCollectionTest extends TestCase
         // [$expected, $incoming]
         yield [
             [
-                self::COUNT => 0,
-                self::FRAMES => $frames = [],
-                self::LAST_INDEX => null,
+                self::EXCEPTION => [
+                    self::CLASS_ => DomainException::class,
+                    self::MESSAGE => 'Empty collection.',
+                ],
             ],
             [
                 self::ARGUMENTS => [
-                    self::FRAMES => new ArrayObject($frames),
+                    self::FRAMES => new ArrayObject([]),
                 ],
             ],
         ];
         yield [
             [
-                self::COUNT => 0,
-                self::FRAMES => $frames,
-                self::LAST_INDEX => null,
+                self::EXCEPTION => [
+                    self::CLASS_ => DomainException::class,
+                    self::MESSAGE => 'Empty collection.',
+                ],
             ],
             [
                 self::ARGUMENTS => [
                     self::FRAMES =>
-                        (static function () use ($frames) {
-                            yield from $frames;
+                        (static function (){
+                            yield from [];
                         })(),
 
                 ],
@@ -66,34 +69,6 @@ final class FrameCollectionTest extends TestCase
                 ],
             ],
         ];
-//        yield [
-//            [
-//                self::EXCEPTION => [
-//                    self::CLASS_ => InvalidArgumentException::class,
-//                    self::MESSAGE => 'Divisor should be greater than 0.',
-//                ],
-//            ],
-//            [
-//                self::ARGUMENTS => [
-//                    self::INTERVAL => 100,
-//                    self::DIVISOR => 0,
-//                ],
-//            ],
-//        ];
-//        yield [
-//            [
-//                self::EXCEPTION => [
-//                    self::CLASS_ => InvalidArgumentException::class,
-//                    self::MESSAGE => 'Divisor should be less than 1000000.',
-//                ],
-//            ],
-//            [
-//                self::ARGUMENTS => [
-//                    self::INTERVAL => 100,
-//                    self::DIVISOR => 1200000,
-//                ],
-//            ],
-//        ];
     }
 
     #[Test]
@@ -106,13 +81,14 @@ final class FrameCollectionTest extends TestCase
 
         $collection = new FrameCollection($args[self::FRAMES]);
 
+        self::assertSame($expected[self::LAST_INDEX] ?? null, $collection->lastIndex());
+        self::assertSame($expected[self::COUNT] ?? null, $collection->count());
+        self::assertSame($expected[self::FRAMES] ?? null, $collection->getArrayCopy());
+
         if ($expectedException) {
             self::exceptionNotThrown($expectedException);
         }
 
-        self::assertSame($expected[self::COUNT], $collection->count());
-        self::assertSame($expected[self::FRAMES], $collection->getArrayCopy());
-        self::assertSame($expected[self::LAST_INDEX], $collection->lastIndex());
     }
 }
 
