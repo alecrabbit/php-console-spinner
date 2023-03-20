@@ -12,7 +12,8 @@ use AlecRabbit\Spinner\Contract\IProcedure;
 use AlecRabbit\Spinner\Core\Factory\A\AWidgetFactory;
 use AlecRabbit\Spinner\Core\Factory\FrameFactory;
 use AlecRabbit\Spinner\Core\Factory\RevolverFactory;
-use AlecRabbit\Spinner\Core\FrameCollection;
+use AlecRabbit\Spinner\Core\FrameRenderer;
+use AlecRabbit\Spinner\Core\Pattern\Char\Custom;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
 use AlecRabbit\Spinner\Extras\Contract\IProgressBarSprite;
@@ -24,7 +25,6 @@ use AlecRabbit\Spinner\Extras\Procedure\ProgressStepsProcedure;
 use AlecRabbit\Spinner\Extras\Procedure\ProgressValueProcedure;
 use AlecRabbit\Spinner\Extras\ProgressBarSprite;
 use AlecRabbit\Spinner\Extras\Revolver\ProceduralRevolver;
-use ArrayObject;
 
 abstract class AProgressWidgetFactory extends AWidgetFactory implements IProgressWidgetFactory
 {
@@ -136,21 +136,21 @@ abstract class AProgressWidgetFactory extends AWidgetFactory implements IProgres
 
     private static function defaultFrames(): IFrameCollection
     {
+        $pattern =
+            new Custom([
+                FrameFactory::create(' ', 1),
+                FrameFactory::create('▁', 1),
+                FrameFactory::create('▂', 1),
+                FrameFactory::create('▃', 1),
+                FrameFactory::create('▄', 1),
+                FrameFactory::create('▅', 1),
+                FrameFactory::create('▆', 1),
+                FrameFactory::create('▇', 1),
+                FrameFactory::create('█', 1),
+            ]);
+
         return
-            new FrameCollection(
-                new ArrayObject([
-                        FrameFactory::create(' ', 1),
-                        FrameFactory::create('▁', 1),
-                        FrameFactory::create('▂', 1),
-                        FrameFactory::create('▃', 1),
-                        FrameFactory::create('▄', 1),
-                        FrameFactory::create('▅', 1),
-                        FrameFactory::create('▆', 1),
-                        FrameFactory::create('▇', 1),
-                        FrameFactory::create('█', 1),
-                    ]
-                )
-            );
+            (new FrameRenderer($pattern))->render();
     }
 
     public static function createProgressValue(
