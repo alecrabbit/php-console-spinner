@@ -8,6 +8,8 @@ use AlecRabbit\Spinner\Core\Contract\IDriverBuilder;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDefaults;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDefaultsClasses;
 use AlecRabbit\Spinner\Core\DriverBuilder;
+use AlecRabbit\Spinner\Core\FrameRevolverBuilder;
+use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolverBuilder;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetBuilder;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolverBuilder;
 use AlecRabbit\Spinner\Core\Widget\WidgetBuilder;
@@ -25,6 +27,9 @@ abstract class ADefaultsClasses extends ADefaultsChild implements IDefaultsClass
     /** @var class-string<IWidgetRevolverBuilder> */
     final protected const WIDGET_REVOLVER_BUILDER_CLASS = WidgetRevolverBuilder::class;
 
+    /** @var class-string<IFrameRevolverBuilder> */
+    final protected const FRAME_REVOLVER_BUILDER_CLASS = FrameRevolverBuilder::class;
+
     /** @var class-string<IDriverBuilder> */
     protected static string $driverBuilderClass;
 
@@ -33,6 +38,12 @@ abstract class ADefaultsClasses extends ADefaultsChild implements IDefaultsClass
 
     /** @var class-string<IWidgetRevolverBuilder> */
     protected static string $widgetRevolverBuilderClass;
+
+    /** @var class-string<IFrameRevolverBuilder> */
+    protected static string $frameRevolverBuilderClass;
+
+    /** @var null|class-string<IFrameRevolverBuilder> */
+    protected static ?string $frameRevolverBuilderClassOverride = null;
 
     private static ?IDefaultsClasses $objInstance = null; // private, singleton
 
@@ -45,8 +56,13 @@ abstract class ADefaultsClasses extends ADefaultsChild implements IDefaultsClass
     protected function reset(): void
     {
         static::$driverBuilderClass = static::DRIVER_BUILDER_CLASS;
+
         static::$widgetBuilderClass = static::WIDGET_BUILDER_CLASS;
+
         static::$widgetRevolverBuilderClass = static::WIDGET_REVOLVER_BUILDER_CLASS;
+
+        static::$frameRevolverBuilderClass =
+            static::$frameRevolverBuilderClassOverride ?? static::FRAME_REVOLVER_BUILDER_CLASS;
     }
 
     final public static function getInstance(IDefaults $parent): IDefaultsClasses
@@ -59,54 +75,57 @@ abstract class ADefaultsClasses extends ADefaultsChild implements IDefaultsClass
         return self::$objInstance;
     }
 
-    /**
-     * @inheritdoc
-     */
+    /** @inheritDoc */
     public function getWidgetBuilderClass(): string
     {
         return self::$widgetBuilderClass;
     }
 
-    /**
-     * @inheritdoc
-     */
+    /** @inheritDoc */
     public function setWidgetBuilderClass(string $widgetBuilderClass): void
     {
         Asserter::isSubClass($widgetBuilderClass, IWidgetBuilder::class, __METHOD__);
         self::$widgetBuilderClass = $widgetBuilderClass;
     }
 
-    /**
-     * @inheritdoc
-     */
+    /** @inheritDoc */
     public function getWidgetRevolverBuilderClass(): string
     {
         return self::$widgetRevolverBuilderClass;
     }
 
-    /**
-     * @inheritdoc
-     */
+    /** @inheritDoc */
     public function setWidgetRevolverBuilderClass(string $widgetRevolverBuilderClass): void
     {
         Asserter::isSubClass($widgetRevolverBuilderClass, IWidgetRevolverBuilder::class, __METHOD__);
         self::$widgetRevolverBuilderClass = $widgetRevolverBuilderClass;
     }
 
-    /**
-     * @inheritDoc
-     */
+    /** @inheritDoc */
     public function getDriverBuilderClass(): string
     {
         return self::$driverBuilderClass;
     }
 
-    /**
-     * @inheritDoc
-     */
+    /** @inheritDoc */
     public function setDriverBuilderClass(string $driverBuilderClass): void
     {
         Asserter::isSubClass($driverBuilderClass, IDriverBuilder::class, __METHOD__);
         self::$driverBuilderClass = $driverBuilderClass;
+    }
+
+    /** @inheritDoc */
+    public function getFrameRevolverBuilderClass(): string
+    {
+        return self::$frameRevolverBuilderClass;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public static function overrideFrameRevolverBuilderClass(string $frameRevolverBuilderClass): void
+    {
+        Asserter::isSubClass($frameRevolverBuilderClass, IFrameRevolverBuilder::class, __METHOD__);
+        self::$frameRevolverBuilderClassOverride = $frameRevolverBuilderClass;
     }
 }

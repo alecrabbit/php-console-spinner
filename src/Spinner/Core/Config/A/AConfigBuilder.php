@@ -17,6 +17,8 @@ use AlecRabbit\Spinner\Core\Factory\RevolverFactory;
 use AlecRabbit\Spinner\Core\Factory\WidgetFactory;
 use AlecRabbit\Spinner\Core\Output\StreamOutput;
 use AlecRabbit\Spinner\Core\Pattern\Contract\IPattern;
+use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolverBuilder;
+use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolverBuilder;
 use AlecRabbit\Spinner\Core\Timer;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetBuilder;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
@@ -30,6 +32,7 @@ abstract class AConfigBuilder implements IConfigBuilder
     protected ?IWidgetComposite $rootWidget = null;
     protected ?IPattern $rootWidgetCharPattern = null;
     protected ?IPattern $rootWidgetStylePattern = null;
+    protected IFrameRevolverBuilder $frameRevolverBuilder;
     protected IWidgetBuilder $widgetBuilder;
     protected IWidgetRevolverBuilder $widgetRevolverBuilder;
     protected ?Traversable $widgets = null;
@@ -40,6 +43,7 @@ abstract class AConfigBuilder implements IConfigBuilder
         $this->widgetBuilder = WidgetFactory::getWidgetBuilder($this->defaults);
         $this->widgetRevolverBuilder = WidgetFactory::getWidgetRevolverBuilder($this->defaults);
         $this->driverBuilder = DriverFactory::getDriverBuilder($this->defaults);
+        $this->frameRevolverBuilder = RevolverFactory::getRevolverBuilder($this->defaults);
     }
 
     public function withRootWidget(IWidgetComposite $widget): static
@@ -104,23 +108,50 @@ abstract class AConfigBuilder implements IConfigBuilder
                 ->withWidgetRevolver(
                     $this->widgetRevolverBuilder
                         ->withStyleRevolver(
-                            RevolverFactory::createFrom(
-                                $this->rootWidgetStylePattern
-                                ?? $this->defaults->getRootWidgetSettings()->getStylePattern()
-                                ?? $this->defaults->getStylePattern()
-                            )
+                            $this->frameRevolverBuilder
+                                ->withPattern(
+                                    $this->rootWidgetStylePattern
+                                    ?? $this->defaults->getRootWidgetSettings()->getStylePattern()
+                                    ?? $this->defaults->getStylePattern()
+                                )
+                                ->build()
                         )
                         ->withCharRevolver(
-                            RevolverFactory::createFrom(
-                                $this->rootWidgetCharPattern
-                                ?? $this->defaults->getRootWidgetSettings()->getCharPattern()
-                                ?? $this->defaults->getCharPattern()
-                            )
+                            $this->frameRevolverBuilder
+                                ->withPattern(
+                                    $this->rootWidgetCharPattern
+                                    ?? $this->defaults->getRootWidgetSettings()->getCharPattern()
+                                    ?? $this->defaults->getCharPattern()
+                                )
+                                ->build()
                         )
                         ->build()
                 )
                 ->withLeadingSpacer($this->defaults->getRootWidgetSettings()->getLeadingSpacer())
                 ->withTrailingSpacer($this->defaults->getRootWidgetSettings()->getTrailingSpacer())
                 ->build();
+//     return
+//            $this->widgetBuilder
+//                ->withWidgetRevolver(
+//                    $this->widgetRevolverBuilder
+//                        ->withStyleRevolver(
+//                            RevolverFactory::createFrom(
+//                                $this->rootWidgetStylePattern
+//                                ?? $this->defaults->getRootWidgetSettings()->getStylePattern()
+//                                ?? $this->defaults->getStylePattern()
+//                            )
+//                        )
+//                        ->withCharRevolver(
+//                            RevolverFactory::createFrom(
+//                                $this->rootWidgetCharPattern
+//                                ?? $this->defaults->getRootWidgetSettings()->getCharPattern()
+//                                ?? $this->defaults->getCharPattern()
+//                            )
+//                        )
+//                        ->build()
+//                )
+//                ->withLeadingSpacer($this->defaults->getRootWidgetSettings()->getLeadingSpacer())
+//                ->withTrailingSpacer($this->defaults->getRootWidgetSettings()->getTrailingSpacer())
+//                ->build();
     }
 }
