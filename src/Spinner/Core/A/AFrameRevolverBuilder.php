@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 // 20.03.23
-namespace AlecRabbit\Spinner\Core\Defaults\A;
+namespace AlecRabbit\Spinner\Core\A;
 
 use AlecRabbit\Spinner\Core\FrameRenderer;
 use AlecRabbit\Spinner\Core\Pattern\Contract\IPattern;

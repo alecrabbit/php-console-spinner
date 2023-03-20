@@ -2,9 +2,10 @@
 
 declare(strict_types=1);
 // 20.03.23
-namespace AlecRabbit\Spinner\Core\Defaults\A;
+namespace AlecRabbit\Spinner\Extras;
 
 use AlecRabbit\Spinner\Contract\IProceduralPattern;
+use AlecRabbit\Spinner\Core\A\AFrameRevolverBuilder;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolver;
 use AlecRabbit\Spinner\Extras\Revolver\ProceduralRevolver;
 

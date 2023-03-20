@@ -8,8 +8,8 @@ use AlecRabbit\Spinner\Core\Contract\IDriverBuilder;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDefaults;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDefaultsClasses;
 use AlecRabbit\Spinner\Core\DriverBuilder;
+use AlecRabbit\Spinner\Core\FrameRevolverBuilder;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolverBuilder;
-use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolverBuilder;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetBuilder;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolverBuilder;
 use AlecRabbit\Spinner\Core\Widget\WidgetBuilder;
@@ -39,10 +39,10 @@ abstract class ADefaultsClasses extends ADefaultsChild implements IDefaultsClass
     /** @var class-string<IWidgetRevolverBuilder> */
     protected static string $widgetRevolverBuilderClass;
 
-    /** @var class-string<IRevolverBuilder> */
+    /** @var class-string<IFrameRevolverBuilder> */
     protected static string $frameRevolverBuilderClass;
 
-    /** @var null|class-string<IRevolverBuilder> */
+    /** @var null|class-string<IFrameRevolverBuilder> */
     protected static ?string $frameRevolverBuilderClassOverride = null;
 
     private static ?IDefaultsClasses $objInstance = null; // private, singleton
