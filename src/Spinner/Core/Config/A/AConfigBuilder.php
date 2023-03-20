@@ -28,12 +28,10 @@ use Traversable;
 
 abstract class AConfigBuilder implements IConfigBuilder
 {
-    protected ?AutoStart $autoStart = null;
     protected IDriverBuilder $driverBuilder;
     protected ?IWidgetComposite $rootWidget = null;
     protected ?IPattern $rootWidgetCharPattern = null;
     protected ?IPattern $rootWidgetStylePattern = null;
-    protected ?SignalHandlers $signalHandlers = null;
     protected IWidgetBuilder $widgetBuilder;
     protected IWidgetRevolverBuilder $widgetRevolverBuilder;
     protected ?Traversable $widgets = null;
