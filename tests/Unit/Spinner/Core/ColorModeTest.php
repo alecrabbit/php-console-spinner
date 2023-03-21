@@ -71,7 +71,7 @@ final class ColorModeTest extends TestCase
                 self::EXCEPTION => [
                     self::CLASS_ => LogicException::class,
                     self::MESSAGE => sprintf(
-                        '%s::NONE: Unable to convert 1 to ansi code.',
+                        '%s::NONE: Unable to convert "1" to ansi code.',
                         ColorMode::class,
                     ),
                 ],
@@ -125,15 +125,57 @@ final class ColorModeTest extends TestCase
                 ],
             ],
         ];
-        #5
+        #6
         yield [
             [
-                self::RESULT => '8;5;196',
+                self::RESULT => '8;5;226',
             ],
             [
                 self::ARGUMENTS => [
                     self::MODE => ColorMode::ANSI8,
                     self::COLOR => '#ffee12',
+                ],
+            ],
+        ];
+        #6
+        yield [
+            [
+                self::RESULT => '8;2;255;238;18',
+            ],
+            [
+                self::ARGUMENTS => [
+                    self::MODE => ColorMode::ANSI24,
+                    self::COLOR => '#ffee12',
+                ],
+            ],
+        ];
+        #7
+        yield [
+            [
+                self::RESULT => '3',
+            ],
+            [
+                self::ARGUMENTS => [
+                    self::MODE => ColorMode::ANSI4,
+                    self::COLOR => '#ffee12',
+                ],
+            ],
+        ];
+        #3
+        yield [
+            [
+                self::EXCEPTION => [
+                    self::CLASS_ => LogicException::class,
+                    self::MESSAGE => sprintf(
+                        '%s::NONE: Unable to convert "#ffee12" to ansi code.',
+                        ColorMode::class,
+                    ),
+                ],
+            ],
+            [
+                self::ARGUMENTS => [
+                    self::MODE => ColorMode::NONE,
+                    self::COLOR =>'#ffee12',
                 ],
             ],
         ];
