@@ -161,7 +161,7 @@ final class ColorModeTest extends TestCase
                 ],
             ],
         ];
-        #3
+        #8
         yield [
             [
                 self::EXCEPTION => [
@@ -175,12 +175,64 @@ final class ColorModeTest extends TestCase
             [
                 self::ARGUMENTS => [
                     self::MODE => ColorMode::NONE,
-                    self::COLOR =>'#ffee12',
+                    self::COLOR => '#ffee12',
                 ],
             ],
         ];
-
-
+        #9
+        yield [
+            [
+                self::EXCEPTION => [
+                    self::CLASS_ => InvalidArgumentException::class,
+                    self::MESSAGE => 'Value should be a valid hex color code("#rgb", "#rrggbb"), "ffee12" given.',
+                ],
+            ],
+            [
+                self::ARGUMENTS => [
+                    self::MODE => ColorMode::NONE,
+                    self::COLOR => 'ffee12',
+                ],
+            ],
+        ];
+        #10
+        yield [
+            [
+                self::EXCEPTION => [
+                    self::CLASS_ => InvalidArgumentException::class,
+                    self::MESSAGE => 'Value should be a valid hex color code("#rgb", "#rrggbb"), "#ffe12" given.',
+                ],
+            ],
+            [
+                self::ARGUMENTS => [
+                    self::MODE => ColorMode::NONE,
+                    self::COLOR => '#ffe12',
+                ],
+            ],
+        ];
+        #11
+        yield [
+            [
+                self::RESULT => '7',
+            ],
+            [
+                self::ARGUMENTS => [
+                    self::MODE => ColorMode::ANSI4,
+                    self::COLOR => '#fff',
+                ],
+            ],
+        ];
+        #12
+        yield [
+            [
+                self::RESULT => '8;5;231',
+            ],
+            [
+                self::ARGUMENTS => [
+                    self::MODE => ColorMode::ANSI8,
+                    self::COLOR => '#fff',
+                ],
+            ],
+        ];
     }
 
     #[Test]
