@@ -125,6 +125,18 @@ final class ColorModeTest extends TestCase
                 ],
             ],
         ];
+        #5
+        yield [
+            [
+                self::RESULT => '8;5;196',
+            ],
+            [
+                self::ARGUMENTS => [
+                    self::MODE => ColorMode::ANSI8,
+                    self::COLOR => '#ffee12',
+                ],
+            ],
+        ];
 
 
     }
