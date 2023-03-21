@@ -86,13 +86,13 @@ final class StyleFrameRenderer extends AFrameRenderer
     /**
      * @throws InvalidArgumentException
      */
-    protected function createFromString(string $entry): IFrame
+    protected function createFromString(string $entry, bool $bg = false): IFrame
     {
         $this->assertEntryString($entry);
 
         return
             FrameFactory::create(
-                Sequencer::colorSequence(sprintf('38;5;%sm', $entry) . '%s'),
+                Sequencer::colorSequence(($bg ? '4' : '3') . sprintf('8;5;%sm', $entry) . '%s'),
                 0
             );
     }
@@ -103,7 +103,6 @@ final class StyleFrameRenderer extends AFrameRenderer
     private function assertEntryString(string $entry): void
     {
         $strlen = strlen($entry);
-        dump($entry, !str_starts_with($entry, '#'), 4 !== $strlen, 7 !== $strlen);
         match (true) {
             0 === $strlen => throw new InvalidArgumentException(
                 'Value should not be empty string.'
