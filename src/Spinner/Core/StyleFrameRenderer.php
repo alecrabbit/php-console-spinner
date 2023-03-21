@@ -24,17 +24,6 @@ final class StyleFrameRenderer extends AFrameRenderer
         parent::__construct($pattern);
     }
 
-//    /** @inheritdoc */
-//    protected function createFrame(Stringable|string|int|array $entry): IFrame
-//    {
-//        $colorMode = self::getDefaults()->getTerminalSettings()->getColorMode();
-//
-//        return
-//            FrameFactory::create(
-//                Sequencer::colorSequence(sprintf('38;5;%sm', (string)$entry) . '%s'),
-//                0
-//            );
-//    }
     /**
      * @throws InvalidArgumentException
      * @throws LogicException

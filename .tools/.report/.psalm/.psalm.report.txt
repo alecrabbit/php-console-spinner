@@ -1,0 +1,2 @@
+/app/src/Spinner/Core/A/AFrameRenderer.php:69:13:error - RedundantConditionGivenDocblockType: Docblock-defined type array<array-key, mixed> for $entry is always array<array-key, mixed>
+/app/src/Spinner/Core/StyleFrameRenderer.php:116:55:error - InvalidReturnType: Not all code paths of AlecRabbit\Spinner\Core\StyleFrameRenderer::createFromArray end in a return statement, return type AlecRabbit\Spinner\Contract\IFrame expected

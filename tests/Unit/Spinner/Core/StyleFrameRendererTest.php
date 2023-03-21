@@ -111,42 +111,35 @@ final class StyleFrameRendererTest extends TestCase
                 ],
             ],
         ];
-
+        #6
+        yield [
+            [
+                self::COUNT => 2,
+                self::LAST_INDEX => 1,
+                self::FRAMES => [
+                    FrameFactory::create("\e[38;5;196m%s\e[0m", 0),
+                    FrameFactory::create("\e[38;5;197m%s\e[0m", 0),
+                ],
+            ],
+            [
+                self::ARGUMENTS => [
+                    self::PATTERN => new CustomStyle([196, 197], colorMode: ColorMode::ANSI8),
+                ],
+            ],
+        ];
+//        #7
 //        yield [
 //            [
-//                self::EXCEPTION => [
-//                    self::CLASS_ => DomainException::class,
-//                    self::MESSAGE => 'Empty collection.',
+//                self::COUNT => 2,
+//                self::LAST_INDEX => 1,
+//                self::FRAMES => [
+//                    FrameFactory::create("\e[38;5;196m%s\e[0m", 0),
+//                    FrameFactory::create("\e[38;5;197m%s\e[0m", 0),
 //                ],
 //            ],
 //            [
 //                self::ARGUMENTS => [
-//                    self::FRAMES =>
-//                        (static function (){
-//                            yield from [];
-//                        })(),
-//
-//                ],
-//            ],
-//        ];
-//        yield [
-//            [
-//                self::COUNT => 3,
-//                self::FRAMES =>
-//                    $frames = [
-//                        FrameFactory::create('a', 1),
-//                        FrameFactory::create('b', 1),
-//                        FrameFactory::create('c', 1)
-//                    ],
-//                self::LAST_INDEX => 2,
-//            ],
-//            [
-//                self::ARGUMENTS => [
-//                    self::FRAMES =>
-//                        (static function () use ($frames) {
-//                            yield from $frames;
-//                        })(),
-//
+//                    self::PATTERN => new CustomStyle([196,], colorMode: ColorMode::ANSI8),
 //                ],
 //            ],
 //        ];
@@ -162,10 +155,9 @@ final class StyleFrameRendererTest extends TestCase
 
         $collection = (new StyleFrameRenderer($args[self::PATTERN]))->render();
 
-//        self::assertSame($expected[self::LAST_INDEX] ?? null, $collection->lastIndex());
-
         self::assertSame($expected[self::COUNT] ?? 1, $collection->count());
         self::assertEquals($expected[self::FRAMES] ?? null, $collection->getArrayCopy());
+        self::assertSame($expected[self::LAST_INDEX] ?? 0, $collection->lastIndex());
 
         if ($expectedException) {
             self::exceptionNotThrown($expectedException);
