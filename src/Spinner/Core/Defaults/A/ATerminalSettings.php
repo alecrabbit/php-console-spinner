@@ -58,13 +58,13 @@ abstract class ATerminalSettings extends ADefaultsChild implements ITerminalSett
         return $this->width;
     }
 
-    public function setColorMode(ColorMode $colorMode): static
+    public function overrideColorMode(ColorMode $colorMode): static
     {
         $this->colorMode = $colorMode;
         return $this;
     }
 
-    public function setWidth(int $width): static
+    public function overrideWidth(int $width): static
     {
         $this->width = $width;
         return $this;

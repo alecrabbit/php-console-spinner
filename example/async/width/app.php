@@ -13,8 +13,8 @@ $defaults = DefaultsFactory::get();
 
 $terminal = $defaults->getTerminalSettings();
 
-$terminal->setColorMode(ColorMode::NONE);
-$terminal->setWidth(80);
+$terminal->overrideColorMode(ColorMode::NONE);
+$terminal->overrideWidth(80);
 
 $output = new StreamOutput(STDOUT);
 

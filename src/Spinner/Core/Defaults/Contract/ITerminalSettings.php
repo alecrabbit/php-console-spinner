@@ -21,11 +21,11 @@ interface ITerminalSettings extends IDefaultsChild
 
     public function getWidth(): int;
 
-    public function setWidth(int $width): static;
+    public function overrideWidth(int $width): static;
 
     public function getColorMode(): ColorMode;
 
-    public function setColorMode(ColorMode $colorMode): static;
+    public function overrideColorMode(ColorMode $colorMode): static;
 
     public function isCursorDisabled(): bool;
 
