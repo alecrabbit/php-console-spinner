@@ -15,12 +15,14 @@ use AlecRabbit\Spinner\Exception\LogicException;
 
 final class StyleFrameRenderer extends AFrameRenderer
 {
-    private ColorMode $colorMode;
+    private ColorMode $patternColorMode;
+    private ColorMode $terminalColorMode;
 
     public function __construct(
         IStylePattern $pattern
     ) {
-        $this->colorMode = $pattern->getColorMode();
+        $this->patternColorMode = $pattern->getColorMode();
+        $this->terminalColorMode = self::getDefaults()->getTerminalSettings()->getColorMode();
         parent::__construct($pattern);
     }
 
@@ -32,14 +34,14 @@ final class StyleFrameRenderer extends AFrameRenderer
     {
         $this->assertEntryInt($entry);
         return
-            match ($this->colorMode) {
+            match ($this->patternColorMode) {
                 ColorMode::ANSI4 => throw new LogicException('Not implemented yet.'),
                 ColorMode::ANSI8 => FrameFactory::create(
                     Sequencer::colorSequence(sprintf('38;5;%sm', (string)$entry) . '%s'),
                     0
                 ),
                 default => throw new LogicException(
-                    sprintf('Unsupported color mode %s.', $this->colorMode->name)
+                    sprintf('Unsupported color mode %s.', $this->patternColorMode->name)
                 ),
             };
     }
@@ -56,14 +58,14 @@ final class StyleFrameRenderer extends AFrameRenderer
                     $entry
                 )
             ),
-            $this->colorMode === ColorMode::ANSI24 => throw new InvalidArgumentException(
+            $this->patternColorMode === ColorMode::ANSI24 => throw new InvalidArgumentException(
                 sprintf(
                     'For %s::%s color mode rendering from int is not allowed.',
                     ColorMode::class,
                     ColorMode::ANSI24->name
                 )
             ),
-            $this->colorMode === ColorMode::ANSI8 && 255 < $entry => throw new InvalidArgumentException(
+            $this->patternColorMode === ColorMode::ANSI8 && 255 < $entry => throw new InvalidArgumentException(
                 sprintf(
                     'For %s::%s color mode value should be in range 0..255, %d given.',
                     ColorMode::class,
@@ -71,9 +73,9 @@ final class StyleFrameRenderer extends AFrameRenderer
                     $entry
                 )
             ),
-            $this->colorMode === ColorMode::ANSI4 && 17 < $entry => throw new InvalidArgumentException(
+            $this->patternColorMode === ColorMode::ANSI4 && 17 < $entry => throw new InvalidArgumentException(
                 sprintf(
-                    'For %s::%s color mode value should be in range 0..16, %d given.',
+                    'For %s::%s color mode value should be in range 0..15, %d given.',
                     ColorMode::class,
                     ColorMode::ANSI4->name,
                     $entry
@@ -85,14 +87,22 @@ final class StyleFrameRenderer extends AFrameRenderer
 
     /**
      * @throws InvalidArgumentException
+     * @throws LogicException
      */
     protected function createFromString(string $entry, bool $bg = false): IFrame
     {
         $this->assertEntryString($entry);
 
+        if ($this->terminalColorMode === ColorMode::NONE) {
+            return FrameFactory::create('%s', 0);
+        }
+
+        $color = $this->terminalColorMode->ansiCode($entry);
+//        $color = sprintf('8;5;%sm', $entry);
+
         return
             FrameFactory::create(
-                Sequencer::colorSequence(($bg ? '4' : '3') . sprintf('8;5;%sm', $entry) . '%s'),
+                Sequencer::colorSequence(($bg ? '4' : '3') . $color . 'm%s'),
                 0
             );
     }

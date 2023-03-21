@@ -87,7 +87,7 @@ final class StyleFrameRendererTest extends TestCase
                 self::EXCEPTION => [
                     self::CLASS_ => InvalidArgumentException::class,
                     self::MESSAGE => sprintf(
-                        'For %s::ANSI4 color mode value should be in range 0..16, 256 given.',
+                        'For %s::ANSI4 color mode value should be in range 0..15, 256 given.',
                         ColorMode::class,
                     ),
                 ],

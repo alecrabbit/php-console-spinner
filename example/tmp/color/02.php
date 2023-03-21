@@ -332,7 +332,7 @@ $a = [
 
 foreach (C256_C_RAINBOW as $colorCode) {
     $ansi4 =  AnsiColorMode::Ansi4->convertFromHexToAnsiColorCode(TABLE[$colorCode]);
-    $ansi8 = AnsiColorMode::Ansi8->convertFromHexToAnsiColorCode(TABLE[$colorCode]);
+    $ansi8 = dump(AnsiColorMode::Ansi8->convertFromHexToAnsiColorCode(TABLE[$colorCode]));
     $ansi24 = AnsiColorMode::Ansi24->convertFromHexToAnsiColorCode(TABLE[$colorCode]);
 
     $ansi8stripped = (int)str_replace('8;5;', '', $ansi8);
