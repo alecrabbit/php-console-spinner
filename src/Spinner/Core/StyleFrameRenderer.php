@@ -102,9 +102,24 @@ final class StyleFrameRenderer extends AFrameRenderer
      */
     private function assertEntryString(string $entry): void
     {
+        $strlen = strlen($entry);
+        dump($entry, !str_starts_with($entry, '#'), 4 !== $strlen, 7 !== $strlen);
         match (true) {
-            $entry === '' => throw new InvalidArgumentException(
+            0 === $strlen => throw new InvalidArgumentException(
                 'Value should not be empty string.'
+            ),
+            !str_starts_with($entry, '#') => throw new InvalidArgumentException(
+                sprintf(
+                    'Value should be a valid hex color code("#rgb", "#rrggbb"), "%s" given. No "#" found.',
+                    $entry
+                )
+            ),
+            4 !== $strlen && 7 !== $strlen => throw new InvalidArgumentException(
+                sprintf(
+                    'Value should be a valid hex color code("#rgb", "#rrggbb"), "%s" given. Length: %d.',
+                    $entry,
+                    $strlen
+                )
             ),
             default => null,
         };

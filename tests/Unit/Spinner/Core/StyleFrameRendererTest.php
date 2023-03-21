@@ -127,22 +127,49 @@ final class StyleFrameRendererTest extends TestCase
                 ],
             ],
         ];
-//        #7
-//        yield [
-//            [
-//                self::COUNT => 2,
-//                self::LAST_INDEX => 1,
-//                self::FRAMES => [
-//                    FrameFactory::create("\e[38;5;196m%s\e[0m", 0),
-//                    FrameFactory::create("\e[38;5;197m%s\e[0m", 0),
-//                ],
-//            ],
-//            [
-//                self::ARGUMENTS => [
-//                    self::PATTERN => new CustomStyle([196,], colorMode: ColorMode::ANSI8),
-//                ],
-//            ],
-//        ];
+        #7
+        yield [
+            [
+                self::EXCEPTION => [
+                    self::CLASS_ => InvalidArgumentException::class,
+                    self::MESSAGE => 'Value should be a valid hex color code("#rgb", "#rrggbb"), "ff0000" given.',
+                ],
+            ],
+            [
+                self::ARGUMENTS => [
+                    self::PATTERN => new CustomStyle(['ff0000',], colorMode: ColorMode::ANSI8),
+                ],
+            ],
+        ];
+        #8
+        yield [
+            [
+                self::EXCEPTION => [
+                    self::CLASS_ => InvalidArgumentException::class,
+                    self::MESSAGE => 'Value should be a valid hex color code("#rgb", "#rrggbb"), "#ff000" given.',
+                ],
+            ],
+            [
+                self::ARGUMENTS => [
+                    self::PATTERN => new CustomStyle(['#ff000',], colorMode: ColorMode::ANSI8),
+                ],
+            ],
+        ];
+        #9
+        yield [
+            [
+                self::COUNT => 1,
+                self::LAST_INDEX => 0,
+                self::FRAMES => [
+                    FrameFactory::create("\e[38;5;196m%s\e[0m", 0),
+                ],
+            ],
+            [
+                self::ARGUMENTS => [
+                    self::PATTERN => new CustomStyle(['#ff0000',], colorMode: ColorMode::ANSI8),
+                ],
+            ],
+        ];
     }
 
     #[Test]
@@ -155,12 +182,12 @@ final class StyleFrameRendererTest extends TestCase
 
         $collection = (new StyleFrameRenderer($args[self::PATTERN]))->render();
 
-        self::assertSame($expected[self::COUNT] ?? 1, $collection->count());
-        self::assertEquals($expected[self::FRAMES] ?? null, $collection->getArrayCopy());
-        self::assertSame($expected[self::LAST_INDEX] ?? 0, $collection->lastIndex());
-
         if ($expectedException) {
             self::exceptionNotThrown($expectedException);
         }
+
+        self::assertSame($expected[self::COUNT] ?? 1, $collection->count());
+        self::assertEquals($expected[self::FRAMES] ?? null, $collection->getArrayCopy());
+        self::assertSame($expected[self::LAST_INDEX] ?? 0, $collection->lastIndex());
     }
 }
