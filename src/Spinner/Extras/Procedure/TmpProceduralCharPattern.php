@@ -12,7 +12,7 @@ use AlecRabbit\Spinner\Extras\Procedure\A\AProceduralPattern;
 use AlecRabbit\Spinner\Extras\Procedure\A\AProcedure;
 
 /**
- * TODO move(and rename) this class to Extras package?
+ * TODO Needed for development purposes only.
  */
 final class TmpProceduralCharPattern extends AProceduralPattern
 {

@@ -17,7 +17,7 @@ trait GetPatternMethodNotAllowedTrait
     {
         throw new DomainException(
             sprintf(
-                '%s can not have %s method by design.',
+                '%s can not have %s() method by design.',
                 static::class,
                 __FUNCTION__
             )

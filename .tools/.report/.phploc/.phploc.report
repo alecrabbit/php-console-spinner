@@ -4,11 +4,11 @@ Directories                                         51
 Files                                              224
 
 Size
-  Lines of Code (LOC)                             7806
-  Comment Lines of Code (CLOC)                     643 (8.24%)
-  Non-Comment Lines of Code (NCLOC)               7163 (91.76%)
-  Logical Lines of Code (LLOC)                    1176 (15.07%)
-    Classes                                       1150 (97.79%)
+  Lines of Code (LOC)                             7811
+  Comment Lines of Code (CLOC)                     643 (8.23%)
+  Non-Comment Lines of Code (NCLOC)               7168 (91.77%)
+  Logical Lines of Code (LLOC)                    1178 (15.08%)
+    Classes                                       1152 (97.79%)
       Average Class Length                           5
         Minimum Class Length                         0
         Maximum Class Length                        57
@@ -18,9 +18,9 @@ Size
       Average Methods Per Class                      2
         Minimum Methods Per Class                    0
         Maximum Methods Per Class                   23
-    Functions                                        1 (0.09%)
+    Functions                                        1 (0.08%)
       Average Function Length                        0
-    Not in classes or functions                     25 (2.13%)
+    Not in classes or functions                     25 (2.12%)
 
 Cyclomatic Complexity
   Average Complexity per LLOC                     0.24
@@ -36,12 +36,12 @@ Dependencies
     Global Constants                                 0 (0.00%)
     Global Variables                                 0 (0.00%)
     Super-Global Variables                           0 (0.00%)
-  Attribute Accesses                               501
-    Non-Static                                     318 (63.47%)
-    Static                                         183 (36.53%)
-  Method Calls                                     484
-    Non-Static                                     280 (57.85%)
-    Static                                         204 (42.15%)
+  Attribute Accesses                               502
+    Non-Static                                     319 (63.55%)
+    Static                                         183 (36.45%)
+  Method Calls                                     485
+    Non-Static                                     281 (57.94%)
+    Static                                         204 (42.06%)
 
 Structure
   Namespaces                                        51

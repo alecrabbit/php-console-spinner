@@ -13,6 +13,7 @@ use AlecRabbit\Spinner\Core\FrameCollection;
 use AlecRabbit\Spinner\Core\Pattern\Contract\IPattern;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use Generator;
+use Stringable;
 
 abstract class AFrameRenderer extends ADefaultsAwareClass implements IFrameRenderer
 {
@@ -32,7 +33,7 @@ abstract class AFrameRenderer extends ADefaultsAwareClass implements IFrameRende
              * @throws InvalidArgumentException
              */
             function (): Generator {
-                /** @var IFrame|string|array<string,int|null> $entry */
+                /** @var IFrame|Stringable|string|int|array<string,int|null> $entry */
                 foreach ($this->pattern->getPattern() as $entry) {
                     if ($entry instanceof IFrame) {
                         yield $entry;
@@ -49,5 +50,39 @@ abstract class AFrameRenderer extends ADefaultsAwareClass implements IFrameRende
     /**
      * @throws InvalidArgumentException
      */
-    abstract protected function createFrame(mixed $entry): IFrame;
+    protected function createFrame(Stringable|string|int|array $entry): IFrame
+    {
+        if (is_int($entry)) {
+            return
+                $this->createFromInt($entry);
+        }
+
+        if ($entry instanceof Stringable) {
+            $entry = (string)$entry;
+        }
+
+        if (is_string($entry)) {
+            return
+                $this->createFromString($entry);
+        }
+
+        if (is_array($entry)) {
+            return $this->createFromArray($entry);
+        }
+
+        throw new InvalidArgumentException(
+            sprintf(
+                'Unsupported frame entry type: %s%s',
+                get_debug_type($entry),
+                ', allowed types: int, string, array<Stringable, int|null>, Stringable.',
+            )
+        );
+    }
+
+    abstract protected function createFromInt(int $entry): IFrame;
+
+
+    abstract protected function createFromString(string $entry): IFrame;
+
+    abstract protected function createFromArray(array $entry): IFrame;
 }
