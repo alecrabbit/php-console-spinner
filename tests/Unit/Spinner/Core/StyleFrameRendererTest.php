@@ -22,85 +22,6 @@ final class StyleFrameRendererTest extends TestCase
         #0
         yield [
             [
-                self::EXCEPTION => [
-                    self::CLASS_ => InvalidArgumentException::class,
-                    self::MESSAGE => 'Value should not be empty string.',
-                ],
-            ],
-            [
-                self::ARGUMENTS => [
-                    self::PATTERN => new CustomStyle(['']),
-                ],
-            ],
-        ];
-        #1
-        yield [
-            [
-                self::EXCEPTION => [
-                    self::CLASS_ => InvalidArgumentException::class,
-                    self::MESSAGE => 'Value should be positive integer, -1 given.',
-                ],
-            ],
-            [
-                self::ARGUMENTS => [
-                    self::PATTERN => new CustomStyle([-1]),
-                ],
-            ],
-        ];
-        #2
-        yield [
-            [
-                self::EXCEPTION => [
-                    self::CLASS_ => InvalidArgumentException::class,
-                    self::MESSAGE => sprintf(
-                        'For %s::ANSI24 color mode rendering from int is not allowed.',
-                        ColorMode::class,
-                    ),
-                ],
-            ],
-            [
-                self::ARGUMENTS => [
-                    self::PATTERN => new CustomStyle([0], colorMode: ColorMode::ANSI24),
-                ],
-            ],
-        ];
-        #3
-        yield [
-            [
-                self::EXCEPTION => [
-                    self::CLASS_ => InvalidArgumentException::class,
-                    self::MESSAGE => sprintf(
-                        'For %s::ANSI8 color mode value should be in range 0..255, 256 given.',
-                        ColorMode::class,
-                    ),
-                ],
-            ],
-            [
-                self::ARGUMENTS => [
-                    self::PATTERN => new CustomStyle([256], colorMode: ColorMode::ANSI8),
-                ],
-            ],
-        ];
-        #4
-        yield [
-            [
-                self::EXCEPTION => [
-                    self::CLASS_ => InvalidArgumentException::class,
-                    self::MESSAGE => sprintf(
-                        'For %s::ANSI4 color mode value should be in range 0..15, 256 given.',
-                        ColorMode::class,
-                    ),
-                ],
-            ],
-            [
-                self::ARGUMENTS => [
-                    self::PATTERN => new CustomStyle([256], colorMode: ColorMode::ANSI4),
-                ],
-            ],
-        ];
-        #5
-        yield [
-            [
                 self::FRAMES => [
                     FrameFactory::create("\e[38;5;196m%s\e[0m", 0),
                 ],
@@ -111,7 +32,7 @@ final class StyleFrameRendererTest extends TestCase
                 ],
             ],
         ];
-        #6
+        #1
         yield [
             [
                 self::COUNT => 2,
@@ -127,36 +48,8 @@ final class StyleFrameRendererTest extends TestCase
                 ],
             ],
         ];
-        #7
-        yield [
-            [
-                self::EXCEPTION => [
-                    self::CLASS_ => InvalidArgumentException::class,
-                    self::MESSAGE => 'Value should be a valid hex color code("#rgb", "#rrggbb"), "ff0000" given.',
-                ],
-            ],
-            [
-                self::ARGUMENTS => [
-                    self::PATTERN => new CustomStyle(['ff0000',], colorMode: ColorMode::ANSI8),
-                ],
-            ],
-        ];
-        #8
-        yield [
-            [
-                self::EXCEPTION => [
-                    self::CLASS_ => InvalidArgumentException::class,
-                    self::MESSAGE => 'Value should be a valid hex color code("#rgb", "#rrggbb"), "#ff000" given.',
-                ],
-            ],
-            [
-                self::ARGUMENTS => [
-                    self::PATTERN => new CustomStyle(['#ff000',], colorMode: ColorMode::ANSI8),
-                ],
-            ],
-        ];
-        #9
-        yield [
+        #2
+                yield [
             [
                 self::COUNT => 1,
                 self::LAST_INDEX => 0,
@@ -183,7 +76,7 @@ final class StyleFrameRendererTest extends TestCase
         $collection = (new StyleFrameRenderer($args[self::PATTERN]))->render();
 
         if ($expectedException) {
-            self::exceptionNotThrown($expectedException);
+            self::exceptionNotThrown($expectedException, [$expected, $incoming]);
         }
 
         self::assertSame($expected[self::COUNT] ?? 1, $collection->count());

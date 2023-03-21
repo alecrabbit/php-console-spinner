@@ -25,7 +25,7 @@ final class StyleFrameRenderer extends AFrameRenderer
         parent::__construct($pattern);
     }
 
-    protected function createFromStringInt(int|string $entry, bool $bg = false): IFrame
+    protected function createFrame(int|string $entry, bool $bg = false): IFrame
     {
         if ($this->terminalColorMode === ColorMode::NONE) {
             return FrameFactory::create('%s', 0);

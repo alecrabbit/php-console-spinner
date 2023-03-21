@@ -39,7 +39,7 @@ abstract class AFrameRenderer extends ADefaultsAwareClass implements IFrameRende
                         yield $entry;
                         continue;
                     }
-                    yield $this->createFrame($entry);
+                    yield $this->create($entry);
                 }
             };
 
@@ -50,7 +50,7 @@ abstract class AFrameRenderer extends ADefaultsAwareClass implements IFrameRende
     /**
      * @throws InvalidArgumentException
      */
-    protected function createFrame(Stringable|string|int|array $entry): IFrame
+    protected function create(Stringable|string|int|array $entry): IFrame
     {
         if ($entry instanceof Stringable) {
             $entry = (string)$entry;
@@ -58,7 +58,7 @@ abstract class AFrameRenderer extends ADefaultsAwareClass implements IFrameRende
 
         if (is_string($entry) || is_int($entry)) {
             return
-                $this->createFromStringInt($entry);
+                $this->createFrame($entry);
         }
 
         if (is_array($entry)) {
@@ -76,5 +76,5 @@ abstract class AFrameRenderer extends ADefaultsAwareClass implements IFrameRende
 
     abstract protected function createFromArray(array $entry): IFrame;
 
-    abstract protected function createFromStringInt(int|string $entry): IFrame;
+    abstract protected function createFrame(int|string $entry): IFrame;
 }
