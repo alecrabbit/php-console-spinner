@@ -6,7 +6,6 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Pattern\Style;
 
 use AlecRabbit\Spinner\Contract\ColorMode;
-use AlecRabbit\Spinner\Core\Pattern\A\AReversiblePattern;
 use AlecRabbit\Spinner\Core\Pattern\Style\A\AStylePattern;
 use Traversable;
 
@@ -21,13 +20,13 @@ final class CustomStyle extends AStylePattern
         parent::__construct($interval);
     }
 
-    protected function pattern(): Traversable
-    {
-        yield from $this->pattern;
-    }
-
     public function getColorMode(): ColorMode
     {
         return $this->colorMode;
+    }
+
+    protected function pattern(): Traversable
+    {
+        yield from $this->pattern;
     }
 }

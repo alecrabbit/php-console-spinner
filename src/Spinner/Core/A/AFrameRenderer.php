@@ -74,7 +74,7 @@ abstract class AFrameRenderer extends ADefaultsAwareClass implements IFrameRende
         );
     }
 
-    abstract protected function createFromArray(array $entry): IFrame;
-
     abstract protected function createFrame(int|string $entry): IFrame;
+
+    abstract protected function createFromArray(array $entry): IFrame;
 }

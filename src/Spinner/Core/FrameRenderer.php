@@ -40,11 +40,6 @@ final class FrameRenderer extends AFrameRenderer
             );
     }
 
-    protected function createFrame(int|string $entry): IFrame
-    {
-        return FrameFactory::create((string)$entry, WidthDeterminer::determine($entry));
-    }
-
     /**
      * @throws InvalidArgumentException
      */
@@ -91,5 +86,10 @@ final class FrameRenderer extends AFrameRenderer
             return null;
         }
         return (int)$value;
+    }
+
+    protected function createFrame(int|string $entry): IFrame
+    {
+        return FrameFactory::create((string)$entry, WidthDeterminer::determine($entry));
     }
 }

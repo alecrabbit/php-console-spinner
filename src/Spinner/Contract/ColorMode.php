@@ -7,6 +7,8 @@ namespace AlecRabbit\Spinner\Contract;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Exception\LogicException;
 
+use function strlen;
+
 enum ColorMode: int
 {
     protected const COLOR_TABLE = [
@@ -388,11 +390,11 @@ enum ColorMode: int
     {
         $hexColor = str_replace('#', '', $hexColor);
 
-        if (3 === \strlen($hexColor)) {
+        if (3 === strlen($hexColor)) {
             $hexColor = $hexColor[0] . $hexColor[0] . $hexColor[1] . $hexColor[1] . $hexColor[2] . $hexColor[2];
         }
 
-        if (6 !== \strlen($hexColor)) {
+        if (6 !== strlen($hexColor)) {
             throw new InvalidArgumentException(sprintf('Invalid "#%s" color.', $hexColor));
         }
 
@@ -420,6 +422,7 @@ enum ColorMode: int
 
     private function degradeHexColorToAnsi4(int $r, int $g, int $b): int
     {
+        /** @psalm-suppress TypeDoesNotContainType */
         if (0 === round($this->getSaturation($r, $g, $b) / 50)) {
             return 0;
         }
