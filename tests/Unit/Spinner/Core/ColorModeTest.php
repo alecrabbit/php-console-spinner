@@ -236,7 +236,7 @@ final class ColorModeTest extends TestCase
         #13
         yield [
             [
-                self::RESULT => '8;5;231',
+                self::RESULT => '8;2;255;255;255',
             ],
             [
                 self::ARGUMENTS => [
