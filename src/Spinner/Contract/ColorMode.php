@@ -7,7 +7,7 @@ namespace AlecRabbit\Spinner\Contract;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Exception\LogicException;
 
-enum ColorMode
+enum ColorMode: int
 {
     protected const COLOR_TABLE = [
         0 => '#000000',
@@ -268,10 +268,10 @@ enum ColorMode
         255 => '#eeeeee',
     ];
 
-    case NONE;
-    case ANSI4;
-    case ANSI8;
-    case ANSI24;
+    case NONE = 0;
+    case ANSI4 = 16;
+    case ANSI8 = 256;
+    case ANSI24 = 65535;
 
     /**
      * @throws LogicException
@@ -484,5 +484,13 @@ enum ColorMode
     protected function convert24(string $color): string
     {
         return $this->convertFromHexToAnsiColorCode($color);
+    }
+
+    public function simplest(self $other): self
+    {
+        if ($this->value <= $other->value) {
+            return $this;
+        }
+        return $other;
     }
 }
