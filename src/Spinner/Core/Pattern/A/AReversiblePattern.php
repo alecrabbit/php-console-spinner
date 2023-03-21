@@ -34,9 +34,4 @@ abstract class AReversiblePattern extends APattern
                 )
             );
     }
-
-    protected function pattern(): Traversable
-    {
-        return new ArrayObject(static::PATTERN);
-    }
 }
