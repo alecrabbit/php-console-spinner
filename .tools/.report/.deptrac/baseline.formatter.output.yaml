@@ -1,4 +1,2 @@
 deptrac:
-  skip_violations:
-    AlecRabbit\Spinner\Contract\IFrameCollectionRenderer:
-      - AlecRabbit\Spinner\Core\Pattern\Contract\IPattern
+  skip_violations: {  }

@@ -1,20 +1,11 @@
- ----------- ---------------------------------------------------------------------------------------------------------------------------------------- 
-  Reason      ModuleContract                                                                                                                          
- ----------- ---------------------------------------------------------------------------------------------------------------------------------------- 
-  Violation   AlecRabbit\Spinner\Contract\IFrameCollectionRenderer must not depend on AlecRabbit\Spinner\Core\Pattern\Contract\IPattern (ModuleCore)  
-              /app/src/Spinner/Contract/IFrameCollectionRenderer.php:16                                                                               
-  Violation   AlecRabbit\Spinner\Contract\IFrameCollectionRenderer must not depend on AlecRabbit\Spinner\Core\Pattern\Contract\IPattern (ModuleCore)  
-              /app/src/Spinner/Contract/IFrameCollectionRenderer.php:8                                                                                
- ----------- ---------------------------------------------------------------------------------------------------------------------------------------- 
-
 
  -------------------- ------ 
   Report                     
  -------------------- ------ 
-  Violations           2     
+  Violations           0     
   Skipped violations   0     
   Uncovered            191   
-  Allowed              2570  
+  Allowed              2794  
   Warnings             0     
   Errors               0     
  -------------------- ------ 

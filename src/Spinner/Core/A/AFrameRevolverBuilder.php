@@ -4,13 +4,13 @@ declare(strict_types=1);
 // 20.03.23
 namespace AlecRabbit\Spinner\Core\A;
 
+use AlecRabbit\Spinner\Contract\IPattern;
 use AlecRabbit\Spinner\Core\CharFrameCollectionRenderer;
-use AlecRabbit\Spinner\Core\Pattern\Contract\IPattern;
+use AlecRabbit\Spinner\Core\OldStyleFrameCollectionRenderer;
 use AlecRabbit\Spinner\Core\Pattern\Contract\IStylePattern;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolver;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolverBuilder;
 use AlecRabbit\Spinner\Core\Revolver\FrameCollectionRevolver;
-use AlecRabbit\Spinner\Core\OldStyleFrameCollectionRenderer;
 use AlecRabbit\Spinner\Core\Widget\A\ARevolverBuilder;
 use AlecRabbit\Spinner\Exception\DomainException;
 
