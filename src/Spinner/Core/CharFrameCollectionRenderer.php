@@ -6,27 +6,15 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core;
 
 use AlecRabbit\Spinner\Contract\IFrame;
-use AlecRabbit\Spinner\Core\A\AFrameRenderer;
+use AlecRabbit\Spinner\Core\A\AFrameCollectionRenderer;
 use AlecRabbit\Spinner\Core\Factory\FrameFactory;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use Stringable;
 
 use function is_string;
 
-final class FrameRenderer extends AFrameRenderer
+final class CharFrameCollectionRenderer extends AFrameCollectionRenderer
 {
-
-    protected function createFromInt(int $entry): IFrame
-    {
-        return
-            $this->createFromString((string)$entry);
-    }
-
-    protected function createFromString(string $entry): IFrame
-    {
-        return FrameFactory::create($entry, WidthDeterminer::determine($entry));
-    }
-
     /**
      * @throws InvalidArgumentException
      */
