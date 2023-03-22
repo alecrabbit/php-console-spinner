@@ -225,7 +225,7 @@ final class StyleFrameRendererTest extends TestCase
         }
 
         self::assertSame($expected[self::COUNT] ?? 1, $collection->count());
-        self::assertEquals($expected[self::FRAMES] ?? null, dump($collection->getArrayCopy()));
+        self::assertEquals($expected[self::FRAMES] ?? null, $collection->getArrayCopy());
         self::assertSame($expected[self::LAST_INDEX] ?? 0, $collection->lastIndex());
     }
 }
