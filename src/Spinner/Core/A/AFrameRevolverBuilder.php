@@ -31,13 +31,13 @@ abstract class AFrameRevolverBuilder extends ARevolverBuilder implements IFrameR
         if ($this->pattern instanceof IStylePattern) {
             return
                 new FrameCollectionRevolver(
-                    (new OldStyleFrameCollectionRenderer($this->pattern))->render(),
+                    (new OldStyleFrameCollectionRenderer())->pattern($this->pattern)->render(),
                     $this->pattern->getInterval()
                 );
         }
         return
             new FrameCollectionRevolver(
-                (new CharFrameCollectionRenderer($this->pattern))->render(),
+                (new CharFrameCollectionRenderer())->pattern($this->pattern)->render(),
                 $this->pattern->getInterval()
             );
     }

@@ -17,14 +17,17 @@ use Stringable;
 
 abstract class AFrameCollectionRenderer extends ADefaultsAwareClass implements IFrameCollectionRenderer
 {
-    public function __construct(
-        protected IPattern $pattern
-    ) {
+    protected IPattern $pattern;
+
+    /** @inheritdoc */
+    public function pattern(IPattern $pattern): IFrameCollectionRenderer
+    {
+        $clone = clone $this;
+        $clone->pattern = $pattern;
+        return $clone;
     }
 
-    /**
-     * @throws InvalidArgumentException
-     */
+    /** @inheritdoc */
     public function render(): IFrameCollection
     {
         $cb =

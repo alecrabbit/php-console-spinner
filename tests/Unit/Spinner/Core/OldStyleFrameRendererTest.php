@@ -6,8 +6,8 @@ namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Core;
 
 use AlecRabbit\Spinner\Contract\ColorMode;
 use AlecRabbit\Spinner\Core\Factory\FrameFactory;
-use AlecRabbit\Spinner\Core\Pattern\Style\CustomStyle;
 use AlecRabbit\Spinner\Core\OldStyleFrameCollectionRenderer;
+use AlecRabbit\Spinner\Core\Pattern\Style\CustomStyle;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Tests\Spinner\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
@@ -181,6 +181,7 @@ final class OldStyleFrameRendererTest extends TestCase
             ],
             [
                 self::ARGUMENTS => [
+                    self::COLOR_MODE => ColorMode::ANSI24,
                     self::PATTERN =>
                         new CustomStyle(
                             [['fg' => '#fff', 'bg' => '#f00'],],
@@ -218,14 +219,17 @@ final class OldStyleFrameRendererTest extends TestCase
 
         $args = $incoming[self::ARGUMENTS];
 
-        $collection = (new OldStyleFrameCollectionRenderer($args[self::PATTERN]))->render();
+        $collection =
+            (new OldStyleFrameCollectionRenderer($args[self::COLOR_MODE] ?? null))
+                ->pattern($args[self::PATTERN])
+                ->render();
 
         if ($expectedException) {
             self::exceptionNotThrown($expectedException, dataSet: [$expected, $incoming]);
         }
 
         self::assertSame($expected[self::COUNT] ?? 1, $collection->count());
-        self::assertEquals($expected[self::FRAMES] ?? null, dump($collection->getArrayCopy()));
+        self::assertEquals($expected[self::FRAMES] ?? null, $collection->getArrayCopy());
         self::assertSame($expected[self::LAST_INDEX] ?? 0, $collection->lastIndex());
     }
 }
