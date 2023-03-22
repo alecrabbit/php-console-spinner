@@ -14,6 +14,10 @@ use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 
 final class StyleFrameRenderer extends AFrameRenderer
 {
+    private const FG = 'fg';
+    private const BG = 'bg';
+    private const COLOR_ARRAY_SIZE = 2;
+
     private ColorMode $patternColorMode;
     private ColorMode $terminalColorMode;
 
@@ -53,8 +57,26 @@ final class StyleFrameRenderer extends AFrameRenderer
      */
     private function assertEntryArray(array $entry): void
     {
-        throw new InvalidArgumentException(
-            'Tmp.'
-        );
+        $size = count($entry);
+        $expectedSize = 2;
+        if (self::COLOR_ARRAY_SIZE !== $size) {
+            throw new InvalidArgumentException(
+                sprintf(
+                    'Array should contain %d elements, %d given.',
+                    $expectedSize,
+                    $size
+                )
+            );
+        }
+        if (!array_key_exists(self::FG, $entry) || !array_key_exists(self::BG, $entry)) {
+            throw new InvalidArgumentException(
+                sprintf(
+                    'Array should contain keys "%s" and "%s", "%s" given.',
+                    self::FG,
+                    self::BG,
+                    implode('", "', array_keys($entry))
+                )
+            );
+        }
     }
 }

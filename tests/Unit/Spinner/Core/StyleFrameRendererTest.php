@@ -49,7 +49,7 @@ final class StyleFrameRendererTest extends TestCase
             ],
         ];
         #2
-                yield [
+        yield [
             [
                 self::COUNT => 1,
                 self::LAST_INDEX => 0,
@@ -60,6 +60,57 @@ final class StyleFrameRendererTest extends TestCase
             [
                 self::ARGUMENTS => [
                     self::PATTERN => new CustomStyle(['#ff0000',], colorMode: ColorMode::ANSI8),
+                ],
+            ],
+        ];
+        #3
+        yield [
+            [
+                self::COUNT => 1,
+                self::LAST_INDEX => 0,
+                self::FRAMES => [
+                    FrameFactory::create("\e[38;5;196m%s\e[0m", 0),
+                ],
+            ],
+            [
+                self::ARGUMENTS => [
+                    self::PATTERN => new CustomStyle(['#ff0000',], colorMode: ColorMode::ANSI8),
+                ],
+            ],
+        ];
+        #4
+        yield [
+            [
+                self::EXCEPTION => [
+                    self::CLASS_ => InvalidArgumentException::class,
+                    self::MESSAGE => 'Array should contain 2 elements, 0 given.',
+                ],
+            ],
+            [
+                self::ARGUMENTS => [
+                    self::PATTERN =>
+                        new CustomStyle(
+                            [[],],
+                            colorMode: ColorMode::ANSI8
+                        ),
+                ],
+            ],
+        ];
+        #5
+        yield [
+            [
+                self::EXCEPTION => [
+                    self::CLASS_ => InvalidArgumentException::class,
+                    self::MESSAGE => 'Array should contain keys "fg" and "bg", "0", "1" given.',
+                ],
+            ],
+            [
+                self::ARGUMENTS => [
+                    self::PATTERN =>
+                        new CustomStyle(
+                            [[0,1],],
+                            colorMode: ColorMode::ANSI8
+                        ),
                 ],
             ],
         ];
