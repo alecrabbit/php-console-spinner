@@ -101,14 +101,14 @@ final class StyleFrameRendererTest extends TestCase
             [
                 self::EXCEPTION => [
                     self::CLASS_ => InvalidArgumentException::class,
-                    self::MESSAGE => 'Array should contain keys "fg" and "bg", ["0", "1"] given.',
+                    self::MESSAGE => 'Array should contain keys "fg" and "bg", keys ["0", "1"] given.',
                 ],
             ],
             [
                 self::ARGUMENTS => [
                     self::PATTERN =>
                         new CustomStyle(
-                            [[0,1],],
+                            [[0, 1],],
                             colorMode: ColorMode::ANSI8
                         ),
                 ],
@@ -119,14 +119,33 @@ final class StyleFrameRendererTest extends TestCase
             [
                 self::EXCEPTION => [
                     self::CLASS_ => InvalidArgumentException::class,
-                    self::MESSAGE => 'Array should contain keys "fg" and "bg", ["fg"] given.',
+                    self::MESSAGE => 'Array should contain keys "fg" and "bg", keys ["fg", "bq"] given.',
                 ],
             ],
             [
                 self::ARGUMENTS => [
                     self::PATTERN =>
                         new CustomStyle(
-                            [['fg' => ''],],
+                            [['fg' => '', 'bq' => ''],],
+                            colorMode: ColorMode::ANSI8
+                        ),
+                ],
+            ],
+        ];
+        #7
+        yield [
+            [
+                self::COUNT => 1,
+                self::LAST_INDEX => 0,
+                self::FRAMES => [
+                    FrameFactory::create("\e[38;5;196;48;5;231m%s\e[0m", 0),
+                ],
+            ],
+            [
+                self::ARGUMENTS => [
+                    self::PATTERN =>
+                        new CustomStyle(
+                            [['fg' => '#ff0000', 'bg' => '#ffffff'],],
                             colorMode: ColorMode::ANSI8
                         ),
                 ],

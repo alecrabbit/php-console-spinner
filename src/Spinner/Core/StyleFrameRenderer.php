@@ -71,7 +71,7 @@ final class StyleFrameRenderer extends AFrameRenderer
         if (!array_key_exists(self::FG, $entry) || !array_key_exists(self::BG, $entry)) {
             throw new InvalidArgumentException(
                 sprintf(
-                    'Array should contain keys "%s" and "%s", "%s" given.',
+                    'Array should contain keys "%s" and "%s", keys ["%s"] given.',
                     self::FG,
                     self::BG,
                     implode('", "', array_keys($entry))
