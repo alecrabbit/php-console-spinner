@@ -1,13 +1,13 @@
 build:
   environment:
-    php: 8.2.3
+    php: 8.2
 
   nodes:
     analysis:
       tests:
         override:
           - php-scrutinizer-run
-          - phpcs-run
+
 
 filter:
   paths:
