@@ -6,7 +6,7 @@ namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Core;
 
 use AlecRabbit\Spinner\Contract\ColorMode;
 use AlecRabbit\Spinner\Core\Factory\FrameFactory;
-use AlecRabbit\Spinner\Core\OldStyleFrameCollectionRenderer;
+use AlecRabbit\Spinner\Core\StyleFrameCollectionRenderer;
 use AlecRabbit\Spinner\Core\Pattern\Style\CustomStyle;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Tests\Spinner\TestCase\TestCase;
@@ -14,7 +14,7 @@ use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 
 
-final class OldStyleFrameRendererTest extends TestCase
+final class StyleFrameRendererTest extends TestCase
 {
     public static function collectionData(): iterable
     {
@@ -220,7 +220,7 @@ final class OldStyleFrameRendererTest extends TestCase
         $args = $incoming[self::ARGUMENTS];
 
         $collection =
-            (new OldStyleFrameCollectionRenderer($args[self::COLOR_MODE] ?? null))
+            (new StyleFrameCollectionRenderer($args[self::COLOR_MODE] ?? null))
                 ->pattern($args[self::PATTERN])
                 ->render();
 
