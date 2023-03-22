@@ -221,7 +221,7 @@ final class StyleFrameRendererTest extends TestCase
         $collection = (new StyleFrameRenderer($args[self::PATTERN]))->render();
 
         if ($expectedException) {
-            self::exceptionNotThrown($expectedException, [$expected, $incoming]);
+            self::exceptionNotThrown($expectedException, dataSet: [$expected, $incoming]);
         }
 
         self::assertSame($expected[self::COUNT] ?? 1, $collection->count());

@@ -112,7 +112,7 @@ abstract class ACoreDefaults implements IDefaults
     /** @inheritdoc */
     public static function registerProbeClass(string $class): void
     {
-        Asserter::classExists($class, __METHOD__);
+        Asserter::assertClassExists($class, __METHOD__);
         Asserter::isSubClass($class, IProbe::class, __METHOD__);
 
         if (is_subclass_of($class, ILoopProbe::class)) {

@@ -89,7 +89,7 @@ final class Asserter
     /**
      * @throws InvalidArgumentException
      */
-    public static function classExists(string $class, ?string $callerMethod = null): void
+    public static function assertClassExists(string $class, ?string $callerMethod = null): void
     {
         if (!class_exists($class)) {
             throw new InvalidArgumentException(

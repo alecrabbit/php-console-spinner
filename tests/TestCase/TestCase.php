@@ -8,7 +8,6 @@ use AlecRabbit\Tests\Spinner\Helper\PickLock;
 use AlecRabbit\Tests\Spinner\Mixin\AppRelatedConstantsTrait;
 use ArrayAccess;
 use PHPUnit\Framework\TestCase as PHPUnitTestCase;
-
 use Throwable;
 
 use function array_key_exists;
@@ -28,12 +27,33 @@ abstract class TestCase extends PHPUnitTestCase
 
     protected static function setValue(object|string $objectOrClass, string $propertyName, mixed $value): void
     {
-        PickLock::setValue($objectOrClass, $propertyName,  $value);
+        PickLock::setValue($objectOrClass, $propertyName, $value);
     }
 
     protected static function callMethod(mixed $objectOrClass, string $methodName, ...$args): mixed
     {
         return PickLock::callMethod($objectOrClass, $methodName, ...$args);
+    }
+
+    protected static function exceptionNotThrown(
+        string $exceptionClass,
+        ?string $exceptionMessage = null,
+        ?array $dataSet = null
+    ): never {
+
+        $exceptionMessage = null === $exceptionMessage ? '' : sprintf(' with message [%s]', $exceptionMessage);
+
+        $message = sprintf(
+            'Exception [%s]%s is not thrown.',
+            $exceptionClass,
+            $exceptionMessage
+        );
+
+        if (null !== $dataSet) {
+            dump($dataSet);
+        }
+
+        self::fail($message);
     }
 
     protected function setUp(): void
@@ -60,14 +80,5 @@ abstract class TestCase extends PHPUnitTestCase
             return $exceptionClass;
         }
         return null;
-    }
-
-    protected static function exceptionNotThrown(string $exceptionClass, ?array $dataSet = null): never
-    {
-        if(null !== $dataSet)
-        {
-            dump($dataSet);
-        }
-        self::fail(sprintf('[%s] Exception is not thrown', $exceptionClass));
     }
 }

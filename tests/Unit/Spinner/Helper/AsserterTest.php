@@ -38,7 +38,8 @@ final class AsserterTest extends TestCase
     {
         $invalidClass = stdClass::class;
         $expectedClass = Throwable::class;
-        $this->expectException(InvalidArgumentException::class);
+        $exceptionClass = InvalidArgumentException::class;
+        $this->expectException($exceptionClass);
         $this->expectExceptionMessage(
             sprintf(
                 'Class "%s" must be a subclass of "%s", see "%s()"',
@@ -49,7 +50,7 @@ final class AsserterTest extends TestCase
         );
 
         Asserter::isSubClass($invalidClass, $expectedClass, __METHOD__);
-        self::fail(sprintf('[%s] Exception not thrown', __METHOD__));
+        self::exceptionNotThrown($exceptionClass);
     }
 
     #[Test]
@@ -105,6 +106,22 @@ final class AsserterTest extends TestCase
         );
 
         Asserter::assertExtensionLoaded($extension);
+        self::fail(sprintf('[%s] Exception not thrown', __METHOD__));
+    }
+
+    #[Test]
+    public function canAssertClassNotExists(): void
+    {
+        $nonExistentClass = 'invalid_class';
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage(
+            sprintf(
+                'Class "%s" does not exist.',
+                $nonExistentClass,
+            )
+        );
+
+        Asserter::assertClassExists($nonExistentClass);
         self::fail(sprintf('[%s] Exception not thrown', __METHOD__));
     }
 }

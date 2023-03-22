@@ -5,5 +5,4 @@ namespace AlecRabbit\Spinner\Contract;
 
 interface IColorConverter
 {
-
 }
