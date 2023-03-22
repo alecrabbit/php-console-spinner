@@ -12,7 +12,7 @@ use AlecRabbit\Spinner\Extras\Procedure\A\AProceduralStylePattern;
 use AlecRabbit\Spinner\Extras\Procedure\A\AProcedure;
 
 /**
- * TODO move(and rename) this class to Extras package?
+ * TODO Needed for development purposes only.
  */
 final class TmpProceduralStylePattern extends AProceduralStylePattern
 {
@@ -20,13 +20,14 @@ final class TmpProceduralStylePattern extends AProceduralStylePattern
 
     public function getProcedure(): IProcedure
     {
-        return new class () extends AProcedure {
-            public function update(float $dt = null): IFrame
-            {
-                static $odd = true;
-                $odd = !$odd;
-                return new Frame($odd ? '>%s>' : '<%s<', 2);
-            }
-        };
+        return
+            new class () extends AProcedure {
+                public function update(float $dt = null): IFrame
+                {
+                    static $odd = true;
+                    $odd = !$odd;
+                    return new Frame($odd ? '>%s>' : '<%s<', 2);
+                }
+            };
     }
 }

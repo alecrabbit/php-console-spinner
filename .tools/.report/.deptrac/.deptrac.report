@@ -1,40 +1,11 @@
- ----------- ---------------------------------------------------------------------------------------------------------------------------------------------------- 
-  Reason      ModuleCore                                                                                                                                          
- ----------- ---------------------------------------------------------------------------------------------------------------------------------------------------- 
-  Violation   AlecRabbit\Spinner\Core\Factory\A\ARevolverFactory must not depend on AlecRabbit\Spinner\Extras\Revolver\ProceduralRevolver (ModuleExtras)          
-              /app/src/Spinner/Core/Factory/A/ARevolverFactory.php:28                                                                                             
-  Violation   AlecRabbit\Spinner\Core\Factory\A\ARevolverFactory must not depend on AlecRabbit\Spinner\Extras\Procedure\A\AProceduralStylePattern (ModuleExtras)  
-              /app/src/Spinner/Core/Factory/A/ARevolverFactory.php:32                                                                                             
-  Violation   AlecRabbit\Spinner\Core\Factory\A\ARevolverFactory must not depend on AlecRabbit\Spinner\Extras\Procedure\A\AProceduralStylePattern (ModuleExtras)  
-              /app/src/Spinner/Core/Factory/A/ARevolverFactory.php:18                                                                                             
-  Violation   AlecRabbit\Spinner\Core\Factory\A\ARevolverFactory must not depend on AlecRabbit\Spinner\Extras\Revolver\ProceduralRevolver (ModuleExtras)          
-              /app/src/Spinner/Core/Factory/A/ARevolverFactory.php:19                                                                                             
-  Violation   AlecRabbit\Spinner\Core\Factory\RevolverFactory must not depend on AlecRabbit\Spinner\Extras\Revolver\ProceduralRevolver (ModuleExtras)             
-              AlecRabbit\Spinner\Core\Factory\A\ARevolverFactory::9 ->                                                                                            
-              AlecRabbit\Spinner\Extras\Revolver\ProceduralRevolver::28                                                                                           
-              /app/src/Spinner/Core/Factory/A/ARevolverFactory.php:28                                                                                             
-  Violation   AlecRabbit\Spinner\Core\Factory\RevolverFactory must not depend on AlecRabbit\Spinner\Extras\Procedure\A\AProceduralStylePattern (ModuleExtras)     
-              AlecRabbit\Spinner\Core\Factory\A\ARevolverFactory::9 ->                                                                                            
-              AlecRabbit\Spinner\Extras\Procedure\A\AProceduralStylePattern::32                                                                                   
-              /app/src/Spinner/Core/Factory/A/ARevolverFactory.php:32                                                                                             
-  Violation   AlecRabbit\Spinner\Core\Factory\RevolverFactory must not depend on AlecRabbit\Spinner\Extras\Procedure\A\AProceduralStylePattern (ModuleExtras)     
-              AlecRabbit\Spinner\Core\Factory\A\ARevolverFactory::9 ->                                                                                            
-              AlecRabbit\Spinner\Extras\Procedure\A\AProceduralStylePattern::18                                                                                   
-              /app/src/Spinner/Core/Factory/A/ARevolverFactory.php:18                                                                                             
-  Violation   AlecRabbit\Spinner\Core\Factory\RevolverFactory must not depend on AlecRabbit\Spinner\Extras\Revolver\ProceduralRevolver (ModuleExtras)             
-              AlecRabbit\Spinner\Core\Factory\A\ARevolverFactory::9 ->                                                                                            
-              AlecRabbit\Spinner\Extras\Revolver\ProceduralRevolver::19                                                                                           
-              /app/src/Spinner/Core/Factory/A/ARevolverFactory.php:19                                                                                             
- ----------- ---------------------------------------------------------------------------------------------------------------------------------------------------- 
-
 
  -------------------- ------ 
   Report                     
  -------------------- ------ 
-  Violations           8     
+  Violations           0     
   Skipped violations   0     
   Uncovered            191   
-  Allowed              2080  
+  Allowed              2561  
   Warnings             0     
   Errors               0     
  -------------------- ------ 

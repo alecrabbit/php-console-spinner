@@ -6,6 +6,9 @@ namespace AlecRabbit\Spinner\Core\A;
 
 use AlecRabbit\Spinner\Contract\ITimer;
 use Closure;
+use InvalidArgumentException;
+use ReflectionException;
+use ReflectionFunction;
 
 /**
  * @codeCoverageIgnore
@@ -32,16 +35,16 @@ abstract class ATimer implements ITimer
             return;
         }
         try {
-            $reflection = new \ReflectionFunction($timeFunction);
+            $reflection = new ReflectionFunction($timeFunction);
             if (1 !== $reflection->getNumberOfParameters()) {
-                throw new \InvalidArgumentException('Time function must have no parameters');
+                throw new InvalidArgumentException('Time function must have no parameters');
             }
             /** @psalm-suppress UndefinedMethod */
             if ('float' !== $reflection->getReturnType()?->getName()) {
-                throw new \InvalidArgumentException('Time function must return float');
+                throw new InvalidArgumentException('Time function must return float');
             }
-        } catch (\ReflectionException $e) {
-            throw new \InvalidArgumentException('Time function has invalid signature: ' . $e->getMessage());
+        } catch (ReflectionException $e) {
+            throw new InvalidArgumentException('Time function has invalid signature: ' . $e->getMessage());
         }
     }
 

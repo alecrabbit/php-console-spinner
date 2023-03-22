@@ -11,7 +11,7 @@ use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
 abstract class ARevolver implements IRevolver
 {
     /** @var int */
-    protected const TOLERANCE = 5; // ms
+    protected const TOLERANCE = 5; // ms // FIXME: make configurable - move to ...(?)
     protected float $intervalValue;
     protected float $differential;
 

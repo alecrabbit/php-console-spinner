@@ -56,7 +56,7 @@ final class DefaultsFactory
      */
     public static function addProbe(string $className): void
     {
-        Asserter::classExists($className, __METHOD__);
+        Asserter::assertClassExists($className, __METHOD__);
 
         foreach (self::$addedProbes as $probe) {
             if ($probe === $className) {

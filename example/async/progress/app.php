@@ -14,7 +14,7 @@ require_once __DIR__ . '/../bootstrap.async.php';
 
 // Settings
 $runTime = 30; // s
-$steps = 2;
+$steps = 20;
 $cycleInterval = 0.05; // s
 $progressRefreshInterval = 800; // ms
 $threshold = 900; // 90% [0..1000]
@@ -25,11 +25,10 @@ $count = 0;
 
 $defaults = DefaultsFactory::get();
 $defaults
-//    ->setSpinnerCharPattern(new \AlecRabbit\Spinner\Extras\Procedure\TmpProceduralCharPattern())
+    ->setCharPattern(new \AlecRabbit\Spinner\Extras\Procedure\TmpProceduralCharPattern())
 //    ->setSpinnerCharPattern(new \AlecRabbit\Spinner\Core\Pattern\Char\Custom(['o', 'O' ], 100))
-    ->setCharPattern(
-        new Aesthetic(reversed: true)
-    )//    ->setSpinnerStylePattern(new \AlecRabbit\Spinner\Extras\Procedure\TmpProceduralStylePattern())
+//    ->setCharPattern(        new Aesthetic(reversed: true)    )
+    //    ->setSpinnerStylePattern(new \AlecRabbit\Spinner\Extras\Procedure\TmpProceduralStylePattern())
 ;
 
 $spinner = Facade::createSpinner();
@@ -86,7 +85,7 @@ function createProgressWidget(
     ProgressValue $progress,
     Interval $interval
 ): IWidgetComposite {
-    $composite = ProgressWidgetFactory::createSteps(
+    $composite = ProgressWidgetFactory::createProgressSteps(
         $progress,
         updateInterval: $interval,
     );
@@ -100,6 +99,13 @@ function createProgressWidget(
 
     $composite->add(
         ProgressWidgetFactory::createProgressValue(
+            $progress,
+            updateInterval: $interval
+        )
+    );
+    
+    $composite->add(
+        ProgressWidgetFactory::createProgressFrame(
             $progress,
             updateInterval: $interval
         )

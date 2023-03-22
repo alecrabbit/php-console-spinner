@@ -6,18 +6,21 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Defaults\A;
 
 use AlecRabbit\Spinner\Contract\IProbe;
+use AlecRabbit\Spinner\Contract\RunMode;
 use AlecRabbit\Spinner\Core\Contract\ILoopProbe;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDefaults;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDefaultsClasses;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDriverSettings;
+use AlecRabbit\Spinner\Core\Defaults\Contract\ILoopSettings;
+use AlecRabbit\Spinner\Core\Defaults\Contract\ISpinnerSettings;
 use AlecRabbit\Spinner\Core\Defaults\Contract\ITerminalSettings;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IWidgetSettings;
 use AlecRabbit\Spinner\Core\Defaults\Mixin\DefaultsConst;
 use AlecRabbit\Spinner\Core\Pattern\Contract\IPattern;
-use AlecRabbit\Spinner\Core\RunMode;
 use AlecRabbit\Spinner\Core\Terminal\Contract\ITerminalProbe;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Helper\Asserter;
+use Traversable;
 
 use function is_subclass_of;
 
@@ -27,30 +30,24 @@ abstract class ACoreDefaults implements IDefaults
 
     protected static IDefaultsClasses $classes;
     protected static IDriverSettings $driverSettings;
+    protected static ILoopSettings $loopSettings;
+    protected static ISpinnerSettings $spinnerSettings;
     protected static ITerminalSettings $terminalSettings;
     protected static IWidgetSettings $rootWidgetSettings;
     protected static IWidgetSettings $widgetSettings;
-
-    protected static bool $attachSignalHandlers;
-    protected static bool $autoStartEnabled;
-    protected static bool $createInitialized;
-    protected static \Traversable $loopProbes;
+    protected static Traversable $loopProbes;
     protected static ?IPattern $charPattern = null;
     protected static ?IPattern $stylePattern = null;
-    protected static string $messageOnExit;
-    protected static string $messageOnFinalize;
-    protected static string $messageOnInterrupt;
     protected static int $millisecondsInterval;
     protected static string $percentNumberFormat;
     protected static RunMode $runMode;
-    protected static \Traversable $supportedColorModes;
     protected static float|int $shutdownDelay;
     protected static float|int $shutdownMaxDelay;
     /**
      * @var resource
      */
     protected static $outputStream;
-    protected static \Traversable $terminalProbes;
+    protected static Traversable $terminalProbes;
     private static array $registeredLoopProbes = [];
     private static array $registeredTerminalProbes = [];
 
@@ -61,40 +58,39 @@ abstract class ACoreDefaults implements IDefaults
 
     protected function reset(): void
     {
-        static::$classes = $this->getClassesInstance();
+        static::$classes = $this->createDefaultsClasses();
         static::$driverSettings = $this->createDriverSettings();
         static::$loopProbes = $this->defaultLoopProbes();
+        static::$loopSettings = $this->createLoopSettings();
+        static::$spinnerSettings = $this->createSpinnerSettings();
         static::$outputStream = $this->defaultOutputStream();
         static::$terminalProbes = $this->defaultTerminalProbes();
         static::$terminalSettings = $this->createTerminalSettings();
         static::$rootWidgetSettings = $this->createWidgetSettings();
         static::$widgetSettings = $this->createWidgetSettings();
 
-        static::$attachSignalHandlers = static::ATTACH_SIGNAL_HANDLERS;
-        static::$autoStartEnabled = static::AUTO_START;
-        static::$createInitialized = static::SPINNER_CREATE_INITIALIZED;
-        static::$messageOnExit = static::MESSAGE_ON_EXIT;
-        static::$messageOnFinalize = static::MESSAGE_ON_FINALIZE;
-        static::$messageOnInterrupt = static::MESSAGE_ON_INTERRUPT;
         static::$millisecondsInterval = static::INTERVAL_MS;
         static::$percentNumberFormat = static::PERCENT_NUMBER_FORMAT;
         static::$runMode = static::RUN_MODE;
         static::$shutdownDelay = static::SHUTDOWN_DELAY;
         static::$shutdownMaxDelay = static::SHUTDOWN_MAX_DELAY;
-        static::$supportedColorModes = new \ArrayObject(static::TERMINAL_COLOR_SUPPORT_MODES);
 
         static::$stylePattern = null;
         static::$charPattern = null;
     }
 
-    abstract protected function getClassesInstance(): IDefaultsClasses;
+    abstract protected function createDefaultsClasses(): IDefaultsClasses;
 
     abstract protected function createDriverSettings(): IDriverSettings;
 
-    protected function defaultLoopProbes(): \Traversable
+    protected function defaultLoopProbes(): Traversable
     {
         yield from self::$registeredLoopProbes;
     }
+
+    abstract protected function createLoopSettings(): ILoopSettings;
+
+    abstract protected function createSpinnerSettings(): ISpinnerSettings;
 
     /**
      * @return resource
@@ -104,7 +100,7 @@ abstract class ACoreDefaults implements IDefaults
         return STDERR;
     }
 
-    protected function defaultTerminalProbes(): \Traversable
+    protected function defaultTerminalProbes(): Traversable
     {
         yield from self::$registeredTerminalProbes;
     }
@@ -116,7 +112,7 @@ abstract class ACoreDefaults implements IDefaults
     /** @inheritdoc */
     public static function registerProbeClass(string $class): void
     {
-        Asserter::classExists($class, __METHOD__);
+        Asserter::assertClassExists($class, __METHOD__);
         Asserter::isSubClass($class, IProbe::class, __METHOD__);
 
         if (is_subclass_of($class, ILoopProbe::class)) {

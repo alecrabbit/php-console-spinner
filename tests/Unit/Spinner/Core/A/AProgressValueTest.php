@@ -223,7 +223,7 @@ final class AProgressValueTest extends TestCase
      */
     public function create(array $expected, array $incoming): void
     {
-        $this->setExpectException($expected);
+        $this->expectsException($expected);
 
         $fractionValue = self::getInstance($incoming[self::ARGUMENTS] ?? []);
 
@@ -265,7 +265,7 @@ final class AProgressValueTest extends TestCase
      */
     public function canBeFinished(array $expected, array $incoming): void
     {
-        $this->setExpectException($expected);
+        $this->expectsException($expected);
 
         $fractionValue = self::getInstance($incoming[self::ARGUMENTS] ?? []);
 

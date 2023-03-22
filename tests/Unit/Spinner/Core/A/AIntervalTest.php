@@ -125,54 +125,6 @@ final class AIntervalTest extends TestCase
         ];
     }
 
-    /**
-     * @test
-     * @dataProvider createDataProvider
-     */
-    public function create(array $expected, array $incoming): void
-    {
-        $this->setExpectException($expected);
-
-        $interval = self::getInstance($incoming[self::ARGUMENTS] ?? []);
-
-        if (array_key_exists(self::INTERVAL, $expected)) {
-            self::assertEquals($expected[self::INTERVAL], $interval->toSeconds());
-            self::assertSame($expected[self::INTERVAL], $interval->toSeconds());
-        }
-    }
-
-    public static function getInstance(array $args = []): IInterval
-    {
-        return new class(...$args) extends AInterval {
-        };
-    }
-
-    /**
-     * @test
-     */
-    public function canClone(): void
-    {
-        $interval = self::getInstance();
-        $clone = clone $interval;
-        self::assertEquals($interval->toSeconds(), $clone->toSeconds());
-        self::assertEquals($interval->toMicroseconds(), $clone->toMicroseconds());
-        self::assertEquals($interval->toMilliseconds(), $clone->toMilliseconds());
-        self::assertEquals($clone, $interval);
-        self::assertNotSame($clone, $interval);
-    }
-
-    /**
-     * @test
-     * @dataProvider smallestDataProvider
-     */
-    public function canCalculateSmallest(array $expected, array $incoming): void
-    {
-        $interval = self::getInstance($incoming[self::FIRST] ?? []);
-        $other = self::getInstance($incoming[self::SECOND] ?? []);
-        self::assertEquals($expected[self::INTERVAL], $interval->smallest($other)->toMilliseconds());
-        self::assertSame((float)$expected[self::INTERVAL], $interval->smallest($other)->toMilliseconds());
-    }
-
     public static function smallestDataProvider(): iterable
     {
         // [$expected, $incoming]
@@ -217,5 +169,53 @@ final class AIntervalTest extends TestCase
                 ],
             ],
         ];
+    }
+
+    /**
+     * @test
+     * @dataProvider createDataProvider
+     */
+    public function create(array $expected, array $incoming): void
+    {
+        $this->expectsException($expected);
+
+        $interval = self::getInstance($incoming[self::ARGUMENTS] ?? []);
+
+        if (array_key_exists(self::INTERVAL, $expected)) {
+            self::assertEquals($expected[self::INTERVAL], $interval->toSeconds());
+            self::assertSame($expected[self::INTERVAL], $interval->toSeconds());
+        }
+    }
+
+    public static function getInstance(array $args = []): IInterval
+    {
+        return new class(...$args) extends AInterval {
+        };
+    }
+
+    /**
+     * @test
+     */
+    public function canClone(): void
+    {
+        $interval = self::getInstance();
+        $clone = clone $interval;
+        self::assertEquals($interval->toSeconds(), $clone->toSeconds());
+        self::assertEquals($interval->toMicroseconds(), $clone->toMicroseconds());
+        self::assertEquals($interval->toMilliseconds(), $clone->toMilliseconds());
+        self::assertEquals($clone, $interval);
+        self::assertNotSame($clone, $interval);
+    }
+
+    /**
+     * @test
+     * @dataProvider smallestDataProvider
+     */
+    public function canCalculateSmallest(array $expected, array $incoming): void
+    {
+        $interval = self::getInstance($incoming[self::FIRST] ?? []);
+        $other = self::getInstance($incoming[self::SECOND] ?? []);
+        self::assertEquals($expected[self::INTERVAL], $interval->smallest($other)->toMilliseconds());
+        self::assertSame((float)$expected[self::INTERVAL], $interval->smallest($other)->toMilliseconds());
     }
 }

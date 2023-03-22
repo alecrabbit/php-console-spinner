@@ -17,7 +17,7 @@ abstract class ADriverSettings extends ADefaultsChild implements IDriverSettings
     protected static string $messageOnExit;
     protected static string $messageOnInterrupt;
 
-    private static ?IDriverSettings $instance = null;
+    private static ?IDriverSettings $objInstance = null;
 
     final protected function __construct(IDefaults $parent)
     {
@@ -34,12 +34,12 @@ abstract class ADriverSettings extends ADefaultsChild implements IDriverSettings
 
     final public static function getInstance(IDefaults $parent): IDriverSettings
     {
-        if (null === self::$instance) {
-            self::$instance =
+        if (null === self::$objInstance) {
+            self::$objInstance =
                 new class ($parent) extends ADriverSettings {
                 };
         }
-        return self::$instance;
+        return self::$objInstance;
     }
 
     public function getInterruptMessage(): string

@@ -41,7 +41,7 @@ abstract class ADriverBuilder implements IDriverBuilder
             new Driver(
                 output: $this->output,
                 timer: $this->timer,
-                hideCursor: $this->terminalSettings->isHideCursor(),
+                hideCursor: $this->terminalSettings->isCursorDisabled(),
                 interruptMessage: $this->driverSettings->getInterruptMessage(),
                 finalMessage: $this->driverSettings->getFinalMessage(),
             );

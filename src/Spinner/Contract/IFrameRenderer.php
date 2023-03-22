@@ -5,6 +5,12 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Contract;
 
+use AlecRabbit\Spinner\Exception\InvalidArgumentException;
+
 interface IFrameRenderer
 {
+    /**
+     * @throws InvalidArgumentException
+     */
+    public function render(): IFrameCollection;
 }

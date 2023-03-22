@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Defaults\Contract;
 
 use AlecRabbit\Spinner\Core\Contract\IDriverBuilder;
+use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolverBuilder;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetBuilder;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolverBuilder;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
@@ -12,6 +13,12 @@ use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 interface IDefaultsClasses extends IDefaultsChild
 {
     public static function getInstance(IDefaults $parent): IDefaultsClasses;
+
+    /**
+     * @param class-string<IFrameRevolverBuilder> $frameRevolverBuilderClass
+     * @throws InvalidArgumentException
+     */
+    public static function overrideFrameRevolverBuilderClass(string $frameRevolverBuilderClass): void;
 
     /**
      * @return class-string<IWidgetBuilder>
@@ -22,7 +29,7 @@ interface IDefaultsClasses extends IDefaultsChild
      * @param class-string<IWidgetBuilder> $widgetBuilderClass
      * @throws InvalidArgumentException
      */
-    public function setWidgetBuilderClass(string $widgetBuilderClass): void;
+    public function overrideWidgetBuilderClass(string $widgetBuilderClass): void;
 
     /**
      * @return class-string<IWidgetRevolverBuilder>
@@ -33,7 +40,7 @@ interface IDefaultsClasses extends IDefaultsChild
      * @param class-string<IWidgetRevolverBuilder> $widgetRevolverBuilderClass
      * @throws InvalidArgumentException
      */
-    public function setWidgetRevolverBuilderClass(string $widgetRevolverBuilderClass): void;
+    public function overrideWidgetRevolverBuilderClass(string $widgetRevolverBuilderClass): void;
 
     /**
      * @return class-string<IDriverBuilder>
@@ -44,5 +51,10 @@ interface IDefaultsClasses extends IDefaultsChild
      * @param class-string<IDriverBuilder> $driverBuilderClass
      * @throws InvalidArgumentException
      */
-    public function setDriverBuilderClass(string $driverBuilderClass): void;
+    public function overrideDriverBuilderClass(string $driverBuilderClass): void;
+
+    /**
+     * @return class-string<IFrameRevolverBuilder>
+     */
+    public function getFrameRevolverBuilderClass(): string;
 }

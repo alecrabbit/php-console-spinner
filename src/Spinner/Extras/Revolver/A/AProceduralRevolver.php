@@ -9,8 +9,9 @@ use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Contract\IProcedure;
 use AlecRabbit\Spinner\Core\Factory\FrameFactory;
 use AlecRabbit\Spinner\Core\Revolver\A\ARevolver;
+use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolver;
 
-abstract class AProceduralRevolver extends ARevolver
+abstract class AProceduralRevolver extends ARevolver implements IFrameRevolver
 {
     protected IFrame $currentFrame;
 

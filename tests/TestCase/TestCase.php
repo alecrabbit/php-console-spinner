@@ -8,6 +8,7 @@ use AlecRabbit\Tests\Spinner\Helper\PickLock;
 use AlecRabbit\Tests\Spinner\Mixin\AppRelatedConstantsTrait;
 use ArrayAccess;
 use PHPUnit\Framework\TestCase as PHPUnitTestCase;
+use Throwable;
 
 use function array_key_exists;
 use function is_array;
@@ -26,12 +27,32 @@ abstract class TestCase extends PHPUnitTestCase
 
     protected static function setValue(object|string $objectOrClass, string $propertyName, mixed $value): void
     {
-        PickLock::setValue($objectOrClass, $propertyName,  $value);
+        PickLock::setValue($objectOrClass, $propertyName, $value);
     }
 
     protected static function callMethod(mixed $objectOrClass, string $methodName, ...$args): mixed
     {
         return PickLock::callMethod($objectOrClass, $methodName, ...$args);
+    }
+
+    protected static function exceptionNotThrown(
+        string $exceptionClass,
+        ?string $exceptionMessage = null,
+        ?array $dataSet = null
+    ): never {
+        $exceptionMessage = null === $exceptionMessage ? '' : sprintf(' with message [%s]', $exceptionMessage);
+
+        $message = sprintf(
+            'Exception [%s]%s is not thrown.',
+            $exceptionClass,
+            $exceptionMessage
+        );
+
+        if (null !== $dataSet) {
+            dump($dataSet);
+        }
+
+        self::fail($message);
     }
 
     protected function setUp(): void
@@ -42,19 +63,21 @@ abstract class TestCase extends PHPUnitTestCase
     {
     }
 
-    protected function setExpectException(mixed $expected): void
+    /**
+     * @param mixed $expected
+     * @return null|class-string<Throwable>
+     */
+    protected function expectsException(mixed $expected): ?string
     {
         if ((is_array($expected) || $expected instanceof ArrayAccess)
             && array_key_exists(self::EXCEPTION, $expected)) {
-            $this->expectException($expected[self::EXCEPTION][self::CLASS_]);
+            $exceptionClass = $expected[self::EXCEPTION][self::CLASS_];
+            $this->expectException($exceptionClass);
             if (array_key_exists(self::MESSAGE, $expected[self::EXCEPTION])) {
                 $this->expectExceptionMessage($expected[self::EXCEPTION][self::MESSAGE]);
             }
+            return $exceptionClass;
         }
-    }
-
-    protected static function exceptionNotThrown(string $exceptionClass): never
-    {
-        self::fail(sprintf('[%s] Exception is not thrown', $exceptionClass));
+        return null;
     }
 }

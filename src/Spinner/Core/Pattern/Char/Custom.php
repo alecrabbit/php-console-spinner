@@ -22,5 +22,5 @@ final class Custom extends AReversiblePattern
     protected function pattern(): Traversable
     {
         yield from $this->pattern;
-}
+    }
 }

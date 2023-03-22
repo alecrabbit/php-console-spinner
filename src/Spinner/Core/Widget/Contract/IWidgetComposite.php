@@ -6,7 +6,6 @@ namespace AlecRabbit\Spinner\Core\Widget\Contract;
 
 use AlecRabbit\Spinner\Contract\HasInterval;
 use AlecRabbit\Spinner\Contract\IUpdatable;
-use AlecRabbit\Spinner\Core\Widget\A\AWidgetComposite;
 
 interface IWidgetComposite extends HasInterval, IUpdatable
 {

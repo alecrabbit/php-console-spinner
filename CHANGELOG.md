@@ -6,12 +6,25 @@ All notable changes to this project will be documented in this file.
 <a name="unreleased"></a>
 ## [Unreleased]
 
+
+<a name="1.0.0-ALPHA.2+BUILD.1"></a>
+## [1.0.0-ALPHA.2+BUILD.1] - 2023-03-17
+### Pull Requests
+- Merge pull request [#31](https://github.com/alecrabbit/php-console-spinner/issues/31) from alecrabbit/dependabot/composer/nunomaduro/collision-7.1.2
+
+
+<a name="1.0.0-ALPHA.2+BUILD.0"></a>
+## [1.0.0-ALPHA.2+BUILD.0] - 2023-03-17
 ### Chores
 - some structural changes
 
 ### Features
 - added spinner RainyWeather
 - added spinners Ascii, StromyWeather
+
+### Pull Requests
+- Merge pull request [#30](https://github.com/alecrabbit/php-console-spinner/issues/30) from alecrabbit/develop
+- Merge pull request [#29](https://github.com/alecrabbit/php-console-spinner/issues/29) from alecrabbit/prepare-next
 
 
 <a name="1.0.0-ALPHA.1+BUILD.1"></a>
@@ -30,7 +43,9 @@ All notable changes to this project will be documented in this file.
 - Merge pull request [#7](https://github.com/alecrabbit/php-console-spinner/issues/7) from alecrabbit/dependabot/composer/alecrabbit/php-console-colour-tw-0.5or-tw-0.6
 
 
-[Unreleased]: https://github.com/alecrabbit/php-console-spinner/compare/1.0.0-ALPHA.1+BUILD.1...HEAD
+[Unreleased]: https://github.com/alecrabbit/php-console-spinner/compare/1.0.0-ALPHA.2+BUILD.1...HEAD
+[1.0.0-ALPHA.2+BUILD.1]: https://github.com/alecrabbit/php-console-spinner/compare/1.0.0-ALPHA.2+BUILD.0...1.0.0-ALPHA.2+BUILD.1
+[1.0.0-ALPHA.2+BUILD.0]: https://github.com/alecrabbit/php-console-spinner/compare/1.0.0-ALPHA.1+BUILD.1...1.0.0-ALPHA.2+BUILD.0
 [1.0.0-ALPHA.1+BUILD.1]: https://github.com/alecrabbit/php-console-spinner/compare/0.55.0...1.0.0-ALPHA.1+BUILD.1
 <br>
 

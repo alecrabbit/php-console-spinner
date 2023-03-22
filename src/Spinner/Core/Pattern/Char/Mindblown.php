@@ -6,7 +6,6 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Pattern\Char;
 
 use AlecRabbit\Spinner\Core\Pattern\A\APattern;
-use Traversable;
 
 /** @psalm-suppress UnusedClass */
 final class Mindblown extends APattern
@@ -14,21 +13,21 @@ final class Mindblown extends APattern
     protected const UPDATE_INTERVAL = 200;
 
     protected const PATTERN = [
-            "😊 ",
-            "🙂 ",
-            "😐 ",
-            "😐 ",
-            "😮 ",
-            "😮 ",
-            "😦 ",
-            "😦 ",
-            "😧 ",
-            "😧 ",
-            "🤯 ",
-            "💥 ",
-            "✨ ",
-            "\u{3000} ",
-            "\u{3000} ",
-            "\u{3000} "
-        ];
+        "😊 ",
+        "🙂 ",
+        "😐 ",
+        "😐 ",
+        "😮 ",
+        "😮 ",
+        "😦 ",
+        "😦 ",
+        "😧 ",
+        "😧 ",
+        "🤯 ",
+        "💥 ",
+        "✨ ",
+        "\u{3000} ",
+        "\u{3000} ",
+        "\u{3000} "
+    ];
 }

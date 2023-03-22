@@ -4,21 +4,16 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Widget\A;
 
-use AlecRabbit\Spinner\Core\Defaults\Contract\IDefaults;
 use AlecRabbit\Spinner\Core\Factory\RevolverFactory;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolverBuilder;
 use AlecRabbit\Spinner\Core\Widget\WidgetRevolver;
 
-abstract class AWidgetRevolverBuilder implements IWidgetRevolverBuilder
+abstract class AWidgetRevolverBuilder extends ARevolverBuilder implements IWidgetRevolverBuilder
 {
     protected ?IRevolver $styleRevolver = null;
     protected ?IRevolver $charRevolver = null;
 
-    public function __construct(
-        protected IDefaults $defaults,
-    ) {
-    }
 
     /** @inheritdoc */
     public function build(): IRevolver

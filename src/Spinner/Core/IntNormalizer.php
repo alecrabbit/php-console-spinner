@@ -18,7 +18,7 @@ final class IntNormalizer implements IIntNormalizer
         $result = (int)round($interval / self::$divisor) * self::$divisor;
 
         if (self::$min > $result) {
-            $result = self::$min;
+            return self::$min;
         }
 
         return $result;
@@ -29,10 +29,9 @@ final class IntNormalizer implements IIntNormalizer
         return self::$divisor;
     }
 
-    /**
-     * @throws InvalidArgumentException
-     */
-    public static function setDivisor(int $divisor): void
+
+    /** @inheritdoc */
+    public static function overrideDivisor(int $divisor): void
     {
         self::assertDivisor($divisor);
         self::$divisor = $divisor;
@@ -43,20 +42,18 @@ final class IntNormalizer implements IIntNormalizer
      */
     private static function assertDivisor(int $divisor): void
     {
-        if (0 >= $divisor) {
-            throw new InvalidArgumentException('Divisor should be greater than 0.');
-        }
-        if (self::MAX_DIVISOR < $divisor) {
-            throw new InvalidArgumentException(
+        match (true) {
+            0 >= $divisor => throw new InvalidArgumentException('Divisor should be greater than 0.'),
+            $divisor > self::MAX_DIVISOR => throw new InvalidArgumentException(
                 sprintf('Divisor should be less than %s.', self::MAX_DIVISOR)
-            );
-        }
+            ),
+            default => null,
+        };
     }
 
-    /**
-     * @throws InvalidArgumentException
-     */
-    public static function setMin(int $min): void
+    /** @inheritdoc */
+
+    public static function overrideMin(int $min): void
     {
         self::assertMin($min);
         self::$min = $min;
