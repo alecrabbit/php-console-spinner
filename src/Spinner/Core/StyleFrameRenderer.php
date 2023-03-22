@@ -11,6 +11,7 @@ use AlecRabbit\Spinner\Core\A\AFrameRenderer;
 use AlecRabbit\Spinner\Core\Factory\FrameFactory;
 use AlecRabbit\Spinner\Core\Pattern\Contract\IStylePattern;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
+use AlecRabbit\Spinner\Exception\LogicException;
 
 final class StyleFrameRenderer extends AFrameRenderer
 {
@@ -29,6 +30,10 @@ final class StyleFrameRenderer extends AFrameRenderer
         parent::__construct($pattern);
     }
 
+    /**
+     * @throws LogicException
+     * @throws InvalidArgumentException
+     */
     protected function createFrame(int|string $entry, bool $bg = false): IFrame
     {
         if ($this->terminalColorMode === ColorMode::NONE) {
@@ -46,11 +51,25 @@ final class StyleFrameRenderer extends AFrameRenderer
 
     /**
      * @throws InvalidArgumentException
+     * @throws LogicException
      */
     protected function createFromArray(array $entry): IFrame
     {
         $this->assertEntryArray($entry);
-    }
+
+        if ($this->terminalColorMode === ColorMode::NONE) {
+            return FrameFactory::create('%s', 0);
+        }
+
+        $fgColor = $this->patternColorMode->simplest($this->terminalColorMode)->ansiCode($entry[self::FG]);
+        $bgColor = $this->patternColorMode->simplest($this->terminalColorMode)->ansiCode($entry[self::BG]);
+
+        return
+            FrameFactory::create(
+                Sequencer::colorSequence('3' . $fgColor . ';4' . $bgColor . 'm%s'),
+                0
+            );
+        }
 
     /**
      * @throws InvalidArgumentException

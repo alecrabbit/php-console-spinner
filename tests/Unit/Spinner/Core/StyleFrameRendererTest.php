@@ -151,6 +151,63 @@ final class StyleFrameRendererTest extends TestCase
                 ],
             ],
         ];
+        #8
+        yield [
+            [
+                self::COUNT => 1,
+                self::LAST_INDEX => 0,
+                self::FRAMES => [
+                    FrameFactory::create("\e[38;5;231;48;5;196m%s\e[0m", 0),
+                ],
+            ],
+            [
+                self::ARGUMENTS => [
+                    self::PATTERN =>
+                        new CustomStyle(
+                            [['fg' => '#fff', 'bg' => '#f00'],],
+                            colorMode: ColorMode::ANSI8
+                        ),
+                ],
+            ],
+        ];
+        #9
+        yield [
+            [
+                self::COUNT => 1,
+                self::LAST_INDEX => 0,
+                self::FRAMES => [
+                    FrameFactory::create("\e[38;2;255;255;255;48;2;255;0;0m%s\e[0m", 0),
+                ],
+            ],
+            [
+                self::ARGUMENTS => [
+                    self::PATTERN =>
+                        new CustomStyle(
+                            [['fg' => '#fff', 'bg' => '#f00'],],
+                            colorMode: ColorMode::ANSI24
+                        ),
+                ],
+            ],
+        ];
+        #9
+        yield [
+            [
+                self::COUNT => 1,
+                self::LAST_INDEX => 0,
+                self::FRAMES => [
+                    FrameFactory::create("\e[37;41m%s\e[0m", 0),
+                ],
+            ],
+            [
+                self::ARGUMENTS => [
+                    self::PATTERN =>
+                        new CustomStyle(
+                            [['fg' => '#fff', 'bg' => '#f00'],],
+                            colorMode: ColorMode::ANSI4
+                        ),
+                ],
+            ],
+        ];
     }
 
     #[Test]
@@ -168,7 +225,7 @@ final class StyleFrameRendererTest extends TestCase
         }
 
         self::assertSame($expected[self::COUNT] ?? 1, $collection->count());
-        self::assertEquals($expected[self::FRAMES] ?? null, $collection->getArrayCopy());
+        self::assertEquals($expected[self::FRAMES] ?? null, dump($collection->getArrayCopy()));
         self::assertSame($expected[self::LAST_INDEX] ?? 0, $collection->lastIndex());
     }
 }
