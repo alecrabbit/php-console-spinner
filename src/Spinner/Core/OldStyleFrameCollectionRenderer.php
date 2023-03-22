@@ -7,7 +7,7 @@ namespace AlecRabbit\Spinner\Core;
 
 use AlecRabbit\Spinner\Contract\ColorMode;
 use AlecRabbit\Spinner\Contract\IFrame;
-use AlecRabbit\Spinner\Core\A\AFrameRenderer;
+use AlecRabbit\Spinner\Core\A\AFrameCollectionRenderer;
 use AlecRabbit\Spinner\Core\Factory\FrameFactory;
 use AlecRabbit\Spinner\Core\Pattern\Contract\IStylePattern;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
@@ -16,7 +16,7 @@ use AlecRabbit\Spinner\Exception\LogicException;
 /**
  * @deprecated
  */
-final class OldStyleFrameRenderer extends AFrameRenderer
+final class OldStyleFrameCollectionRenderer extends AFrameCollectionRenderer
 {
     private const FG = 'fg';
     private const BG = 'bg';

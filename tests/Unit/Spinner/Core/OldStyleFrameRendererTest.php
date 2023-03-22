@@ -7,7 +7,7 @@ namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Core;
 use AlecRabbit\Spinner\Contract\ColorMode;
 use AlecRabbit\Spinner\Core\Factory\FrameFactory;
 use AlecRabbit\Spinner\Core\Pattern\Style\CustomStyle;
-use AlecRabbit\Spinner\Core\OldStyleFrameRenderer;
+use AlecRabbit\Spinner\Core\OldStyleFrameCollectionRenderer;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Tests\Spinner\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
@@ -218,7 +218,7 @@ final class OldStyleFrameRendererTest extends TestCase
 
         $args = $incoming[self::ARGUMENTS];
 
-        $collection = (new OldStyleFrameRenderer($args[self::PATTERN]))->render();
+        $collection = (new OldStyleFrameCollectionRenderer($args[self::PATTERN]))->render();
 
         if ($expectedException) {
             self::exceptionNotThrown($expectedException, dataSet: [$expected, $incoming]);

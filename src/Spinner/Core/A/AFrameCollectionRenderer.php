@@ -7,7 +7,7 @@ namespace AlecRabbit\Spinner\Core\A;
 
 use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Contract\IFrameCollection;
-use AlecRabbit\Spinner\Contract\IFrameRenderer;
+use AlecRabbit\Spinner\Contract\IFrameCollectionRenderer;
 use AlecRabbit\Spinner\Core\Factory\A\ADefaultsAwareClass;
 use AlecRabbit\Spinner\Core\FrameCollection;
 use AlecRabbit\Spinner\Core\Pattern\Contract\IPattern;
@@ -15,7 +15,7 @@ use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use Generator;
 use Stringable;
 
-abstract class AFrameRenderer extends ADefaultsAwareClass implements IFrameRenderer
+abstract class AFrameCollectionRenderer extends ADefaultsAwareClass implements IFrameCollectionRenderer
 {
     public function __construct(
         protected IPattern $pattern

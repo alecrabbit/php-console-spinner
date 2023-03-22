@@ -12,7 +12,7 @@ use AlecRabbit\Spinner\Contract\IProcedure;
 use AlecRabbit\Spinner\Core\Factory\A\AWidgetFactory;
 use AlecRabbit\Spinner\Core\Factory\FrameFactory;
 use AlecRabbit\Spinner\Core\Factory\RevolverFactory;
-use AlecRabbit\Spinner\Core\FrameRenderer;
+use AlecRabbit\Spinner\Core\CharFrameCollectionRenderer;
 use AlecRabbit\Spinner\Core\Pattern\Char\Custom;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
@@ -150,7 +150,7 @@ abstract class AProgressWidgetFactory extends AWidgetFactory implements IProgres
             ]);
 
         return
-            (new FrameRenderer($pattern))->render();
+            (new CharFrameCollectionRenderer($pattern))->render();
     }
 
     public static function createProgressValue(

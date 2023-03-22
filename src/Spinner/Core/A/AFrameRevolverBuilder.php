@@ -4,13 +4,13 @@ declare(strict_types=1);
 // 20.03.23
 namespace AlecRabbit\Spinner\Core\A;
 
-use AlecRabbit\Spinner\Core\FrameRenderer;
+use AlecRabbit\Spinner\Core\CharFrameCollectionRenderer;
 use AlecRabbit\Spinner\Core\Pattern\Contract\IPattern;
 use AlecRabbit\Spinner\Core\Pattern\Contract\IStylePattern;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolver;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolverBuilder;
 use AlecRabbit\Spinner\Core\Revolver\FrameCollectionRevolver;
-use AlecRabbit\Spinner\Core\OldStyleFrameRenderer;
+use AlecRabbit\Spinner\Core\OldStyleFrameCollectionRenderer;
 use AlecRabbit\Spinner\Core\Widget\A\ARevolverBuilder;
 use AlecRabbit\Spinner\Exception\DomainException;
 
@@ -31,13 +31,13 @@ abstract class AFrameRevolverBuilder extends ARevolverBuilder implements IFrameR
         if ($this->pattern instanceof IStylePattern) {
             return
                 new FrameCollectionRevolver(
-                    (new OldStyleFrameRenderer($this->pattern))->render(),
+                    (new OldStyleFrameCollectionRenderer($this->pattern))->render(),
                     $this->pattern->getInterval()
                 );
         }
         return
             new FrameCollectionRevolver(
-                (new FrameRenderer($this->pattern))->render(),
+                (new CharFrameCollectionRenderer($this->pattern))->render(),
                 $this->pattern->getInterval()
             );
     }
