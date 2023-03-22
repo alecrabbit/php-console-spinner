@@ -69,7 +69,7 @@ final class StyleFrameRenderer extends AFrameRenderer
                 Sequencer::colorSequence('3' . $fgColor . ';4' . $bgColor . 'm%s'),
                 0
             );
-        }
+    }
 
     /**
      * @throws InvalidArgumentException
