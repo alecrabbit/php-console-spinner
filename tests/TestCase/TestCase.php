@@ -40,7 +40,6 @@ abstract class TestCase extends PHPUnitTestCase
         ?string $exceptionMessage = null,
         ?array $dataSet = null
     ): never {
-
         $exceptionMessage = null === $exceptionMessage ? '' : sprintf(' with message [%s]', $exceptionMessage);
 
         $message = sprintf(

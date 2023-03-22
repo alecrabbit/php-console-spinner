@@ -125,6 +125,52 @@ final class AIntervalTest extends TestCase
         ];
     }
 
+    public static function smallestDataProvider(): iterable
+    {
+        // [$expected, $incoming]
+        yield [
+            [
+                self::INTERVAL => 100,
+            ],
+            [
+                self::FIRST => [
+                    100,
+                ],
+                self::SECOND => [
+                    200
+                ],
+            ],
+        ];
+
+        yield [
+            [
+                self::INTERVAL => 50,
+            ],
+            [
+                self::FIRST => [
+                    100,
+                ],
+                self::SECOND => [
+                    50
+                ],
+            ],
+        ];
+
+        yield [
+            [
+                self::INTERVAL => 35,
+            ],
+            [
+                self::FIRST => [
+                    1000,
+                ],
+                self::SECOND => [
+                    35
+                ],
+            ],
+        ];
+    }
+
     /**
      * @test
      * @dataProvider createDataProvider
@@ -171,51 +217,5 @@ final class AIntervalTest extends TestCase
         $other = self::getInstance($incoming[self::SECOND] ?? []);
         self::assertEquals($expected[self::INTERVAL], $interval->smallest($other)->toMilliseconds());
         self::assertSame((float)$expected[self::INTERVAL], $interval->smallest($other)->toMilliseconds());
-    }
-
-    public static function smallestDataProvider(): iterable
-    {
-        // [$expected, $incoming]
-        yield [
-            [
-                self::INTERVAL => 100,
-            ],
-            [
-                self::FIRST => [
-                    100,
-                ],
-                self::SECOND => [
-                    200
-                ],
-            ],
-        ];
-
-        yield [
-            [
-                self::INTERVAL => 50,
-            ],
-            [
-                self::FIRST => [
-                    100,
-                ],
-                self::SECOND => [
-                    50
-                ],
-            ],
-        ];
-
-        yield [
-            [
-                self::INTERVAL => 35,
-            ],
-            [
-                self::FIRST => [
-                    1000,
-                ],
-                self::SECOND => [
-                    35
-                ],
-            ],
-        ];
     }
 }

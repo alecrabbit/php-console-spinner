@@ -12,6 +12,7 @@ use AlecRabbit\Spinner\Core\Widget\WidgetBuilder;
 use AlecRabbit\Spinner\Core\Widget\WidgetRevolverBuilder;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Tests\Spinner\TestCase\TestCase;
+use ArrayObject;
 use PHPUnit\Framework\Attributes\Test;
 
 final class ADefaultsTest extends TestCase
@@ -77,7 +78,7 @@ final class ADefaultsTest extends TestCase
             ReactLoopProbe::class,
         ];
         $defaults->overrideLoopProbeClasses(
-            new \ArrayObject($loopProbes)
+            new ArrayObject($loopProbes)
         );
         $loopProbesCount = 0;
         foreach ($defaults->getProbeClasses() as $loopProbe) {

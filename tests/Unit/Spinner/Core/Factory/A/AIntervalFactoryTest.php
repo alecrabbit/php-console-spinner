@@ -15,23 +15,6 @@ use PHPUnit\Framework\Attributes\Test;
 
 final class AIntervalFactoryTest extends TestCase
 {
-    public static function simplifiedDataFeeder(): iterable
-    {
-        yield from [
-            // divisor, result, interval,
-            [50, 100, 100,],
-            [10, 100, 100,],
-            [100, 100, 100,],
-            [100, 400, 400,],
-            [50, 500, 490,],
-            [50, 450, 450,],
-            [50, 500, 475,],
-            [50, 450, 474,],
-            [1000, 10, 474,],
-            [1000, 1000, 500,],
-        ];
-    }
-
     public static function createNormalizedIntervalData(): iterable
     {
         // [$expected, $incoming]
@@ -59,6 +42,23 @@ final class AIntervalFactoryTest extends TestCase
                 ],
             ];
         }
+    }
+
+    public static function simplifiedDataFeeder(): iterable
+    {
+        yield from [
+            // divisor, result, interval,
+            [50, 100, 100,],
+            [10, 100, 100,],
+            [100, 100, 100,],
+            [100, 400, 400,],
+            [50, 500, 490,],
+            [50, 450, 450,],
+            [50, 500, 475,],
+            [50, 450, 474,],
+            [1000, 10, 474,],
+            [1000, 1000, 500,],
+        ];
     }
 
     #[Test]

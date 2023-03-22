@@ -41,7 +41,7 @@ final class FrameCollectionTest extends TestCase
             [
                 self::ARGUMENTS => [
                     self::FRAMES =>
-                        (static function (){
+                        (static function () {
                             yield from [];
                         })(),
 
@@ -88,7 +88,6 @@ final class FrameCollectionTest extends TestCase
         if ($expectedException) {
             self::exceptionNotThrown($expectedException);
         }
-
     }
 }
 
