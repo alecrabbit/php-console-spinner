@@ -481,19 +481,32 @@ enum ColorMode: int
      */
     protected function convert8(int|string $color): string
     {
-        if (is_string($color)) {
-            $result =
-                // non-optimal code, but it's not a bottleneck
-                array_search(
-                    $color,
-                    array_slice(self::COLOR_TABLE, 16, preserve_keys: true),
-                    true
-                );
+        if (is_int($color)) {
+            return '8;5;' . $color;
         }
-        if (false === ($result ?? null)) {
+
+        /** @var null|array<int, string> $colors8 */
+        static $colors8 = null;
+
+        if (null === $colors8) {
+            $colors8 = array_slice(self::COLOR_TABLE, 16, preserve_keys: true);
+        }
+
+        /** @var int|false $result */
+        $result =
+            // non-optimal code, but it's not a bottleneck
+            array_search(
+                $color,
+                $colors8,
+                true
+            );
+
+
+        if (false === $result) {
             return $this->convertFromHexToAnsiColorCode($color);
         }
-        return '8;5;' . ($result ?? (string)$color);
+
+        return '8;5;' . (string)$result;
     }
 
     /**

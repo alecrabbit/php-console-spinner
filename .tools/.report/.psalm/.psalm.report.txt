@@ -1,2 +1,0 @@
-/app/src/Spinner/Contract/ColorMode.php:494:57:error - PossiblyInvalidArgument: Argument 1 of AlecRabbit\Spinner\Contract\ColorMode::convertFromHexToAnsiColorCode expects string, but possibly different type int|string provided
-/app/src/Spinner/Contract/ColorMode.php:496:26:error - MixedOperand: Right operand cannot be mixed
