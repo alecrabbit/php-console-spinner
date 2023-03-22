@@ -101,7 +101,7 @@ final class StyleFrameRendererTest extends TestCase
             [
                 self::EXCEPTION => [
                     self::CLASS_ => InvalidArgumentException::class,
-                    self::MESSAGE => 'Array should contain keys "fg" and "bg", "0", "1" given.',
+                    self::MESSAGE => 'Array should contain keys "fg" and "bg", ["0", "1"] given.',
                 ],
             ],
             [
@@ -109,6 +109,24 @@ final class StyleFrameRendererTest extends TestCase
                     self::PATTERN =>
                         new CustomStyle(
                             [[0,1],],
+                            colorMode: ColorMode::ANSI8
+                        ),
+                ],
+            ],
+        ];
+        #6
+        yield [
+            [
+                self::EXCEPTION => [
+                    self::CLASS_ => InvalidArgumentException::class,
+                    self::MESSAGE => 'Array should contain keys "fg" and "bg", ["fg"] given.',
+                ],
+            ],
+            [
+                self::ARGUMENTS => [
+                    self::PATTERN =>
+                        new CustomStyle(
+                            [['fg' => ''],],
                             colorMode: ColorMode::ANSI8
                         ),
                 ],
