@@ -1,0 +1,2 @@
+/app/src/Spinner/Core/A/AFrameRevolverBuilder.php:34:22:error - DeprecatedClass: AlecRabbit\Spinner\Core\OldStyleFrameRenderer is marked deprecated
+/app/src/Spinner/Core/OldStyleFrameRenderer.php:32:9:error - MixedAssignment: Unable to determine the type that $this->terminalColorMode is being assigned to

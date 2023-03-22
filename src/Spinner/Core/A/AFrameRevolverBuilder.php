@@ -10,7 +10,7 @@ use AlecRabbit\Spinner\Core\Pattern\Contract\IStylePattern;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolver;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolverBuilder;
 use AlecRabbit\Spinner\Core\Revolver\FrameCollectionRevolver;
-use AlecRabbit\Spinner\Core\StyleFrameRenderer;
+use AlecRabbit\Spinner\Core\OldStyleFrameRenderer;
 use AlecRabbit\Spinner\Core\Widget\A\ARevolverBuilder;
 use AlecRabbit\Spinner\Exception\DomainException;
 
@@ -31,7 +31,7 @@ abstract class AFrameRevolverBuilder extends ARevolverBuilder implements IFrameR
         if ($this->pattern instanceof IStylePattern) {
             return
                 new FrameCollectionRevolver(
-                    (new StyleFrameRenderer($this->pattern))->render(),
+                    (new OldStyleFrameRenderer($this->pattern))->render(),
                     $this->pattern->getInterval()
                 );
         }

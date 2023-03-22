@@ -7,14 +7,14 @@ namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Core;
 use AlecRabbit\Spinner\Contract\ColorMode;
 use AlecRabbit\Spinner\Core\Factory\FrameFactory;
 use AlecRabbit\Spinner\Core\Pattern\Style\CustomStyle;
-use AlecRabbit\Spinner\Core\StyleFrameRenderer;
+use AlecRabbit\Spinner\Core\OldStyleFrameRenderer;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Tests\Spinner\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 
 
-final class StyleFrameRendererTest extends TestCase
+final class OldStyleFrameRendererTest extends TestCase
 {
     public static function collectionData(): iterable
     {
@@ -189,7 +189,7 @@ final class StyleFrameRendererTest extends TestCase
                 ],
             ],
         ];
-        #9
+        #10
         yield [
             [
                 self::COUNT => 1,
@@ -218,14 +218,14 @@ final class StyleFrameRendererTest extends TestCase
 
         $args = $incoming[self::ARGUMENTS];
 
-        $collection = (new StyleFrameRenderer($args[self::PATTERN]))->render();
+        $collection = (new OldStyleFrameRenderer($args[self::PATTERN]))->render();
 
         if ($expectedException) {
             self::exceptionNotThrown($expectedException, dataSet: [$expected, $incoming]);
         }
 
         self::assertSame($expected[self::COUNT] ?? 1, $collection->count());
-        self::assertEquals($expected[self::FRAMES] ?? null, $collection->getArrayCopy());
+        self::assertEquals($expected[self::FRAMES] ?? null, dump($collection->getArrayCopy()));
         self::assertSame($expected[self::LAST_INDEX] ?? 0, $collection->lastIndex());
     }
 }

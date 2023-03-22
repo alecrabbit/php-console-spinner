@@ -13,7 +13,10 @@ use AlecRabbit\Spinner\Core\Pattern\Contract\IStylePattern;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Exception\LogicException;
 
-final class StyleFrameRenderer extends AFrameRenderer
+/**
+ * @deprecated
+ */
+final class OldStyleFrameRenderer extends AFrameRenderer
 {
     private const FG = 'fg';
     private const BG = 'bg';
