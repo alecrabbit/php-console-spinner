@@ -6,15 +6,15 @@ namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Core;
 
 use AlecRabbit\Spinner\Contract\ColorMode;
 use AlecRabbit\Spinner\Core\Factory\FrameFactory;
+use AlecRabbit\Spinner\Core\OldStyleFrameCollectionRenderer;
 use AlecRabbit\Spinner\Core\Pattern\Style\CustomStyle;
-use AlecRabbit\Spinner\Core\StyleFrameRenderer;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Tests\Spinner\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 
 
-final class StyleFrameRendererTest extends TestCase
+final class OldStyleFrameRendererTest extends TestCase
 {
     public static function collectionData(): iterable
     {
@@ -181,6 +181,7 @@ final class StyleFrameRendererTest extends TestCase
             ],
             [
                 self::ARGUMENTS => [
+                    self::COLOR_MODE => ColorMode::ANSI24,
                     self::PATTERN =>
                         new CustomStyle(
                             [['fg' => '#fff', 'bg' => '#f00'],],
@@ -189,7 +190,7 @@ final class StyleFrameRendererTest extends TestCase
                 ],
             ],
         ];
-        #9
+        #10
         yield [
             [
                 self::COUNT => 1,
@@ -218,7 +219,10 @@ final class StyleFrameRendererTest extends TestCase
 
         $args = $incoming[self::ARGUMENTS];
 
-        $collection = (new StyleFrameRenderer($args[self::PATTERN]))->render();
+        $collection =
+            (new OldStyleFrameCollectionRenderer($args[self::COLOR_MODE] ?? null))
+                ->pattern($args[self::PATTERN])
+                ->render();
 
         if ($expectedException) {
             self::exceptionNotThrown($expectedException, dataSet: [$expected, $incoming]);

@@ -7,8 +7,13 @@ namespace AlecRabbit\Spinner\Contract;
 
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 
-interface IFrameRenderer
+interface IFrameCollectionRenderer
 {
+    /**
+     * @throws InvalidArgumentException
+     */
+    public function pattern(IPattern $pattern): IFrameCollectionRenderer;
+
     /**
      * @throws InvalidArgumentException
      */

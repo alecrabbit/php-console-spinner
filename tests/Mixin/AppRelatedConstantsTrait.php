@@ -12,6 +12,7 @@ trait AppRelatedConstantsTrait
     final protected const BUILDER = 'builder';
     final protected const CLASS_ = 'class';
     final protected const COLOR = 'color';
+    final protected const COLOR_MODE = 'colorMode';
     final protected const CONTAINS = 'contains';
     final protected const COUNT = 'count';
     final protected const DIVISOR = 'divisor';

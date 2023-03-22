@@ -32,6 +32,9 @@ final class Facade extends ADefaultsAwareClass implements
             ASpinnerFactory::getConfigBuilder();
     }
 
+    /**
+     * @throws DomainException
+     */
     public static function createSpinner(IConfig $config = null): ISpinner
     {
         return

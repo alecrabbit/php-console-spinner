@@ -7,28 +7,47 @@ namespace AlecRabbit\Spinner\Core;
 
 use AlecRabbit\Spinner\Contract\ColorMode;
 use AlecRabbit\Spinner\Contract\IFrame;
-use AlecRabbit\Spinner\Core\A\AFrameRenderer;
+use AlecRabbit\Spinner\Contract\IFrameCollectionRenderer;
+use AlecRabbit\Spinner\Contract\IPattern;
+use AlecRabbit\Spinner\Core\A\AFrameCollectionRenderer;
 use AlecRabbit\Spinner\Core\Factory\FrameFactory;
 use AlecRabbit\Spinner\Core\Pattern\Contract\IStylePattern;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Exception\LogicException;
 
-final class StyleFrameRenderer extends AFrameRenderer
+final class OldStyleFrameCollectionRenderer extends AFrameCollectionRenderer
 {
     private const FG = 'fg';
     private const BG = 'bg';
     private const COLOR_ARRAY_SIZE = 2;
 
-    private ColorMode $patternColorMode;
+    private ColorMode $patternColorMode = ColorMode::NONE;
     private ColorMode $terminalColorMode;
 
-    public function __construct(
-        IStylePattern $pattern
-    ) {
-        $this->patternColorMode = $pattern->getColorMode();
-        $this->terminalColorMode = self::getDefaults()->getTerminalSettings()->getColorMode();
-        parent::__construct($pattern);
+    public function __construct(?ColorMode $terminalColorMode = null) {
+        $this->terminalColorMode = $terminalColorMode ?? self::getDefaults()->getTerminalSettings()->getColorMode();
     }
+
+
+    /** @inheritdoc */
+    public function pattern(IPattern $pattern): IFrameCollectionRenderer
+    {
+        if (!$pattern instanceof IStylePattern) {
+            throw new InvalidArgumentException(
+                sprintf(
+                    'Pattern should be instance of %s, %s given.',
+                    IStylePattern::class,
+                    get_debug_type($pattern)
+                )
+            );
+        }
+
+        $clone = clone $this;
+        $clone->pattern = $pattern;
+        $clone->patternColorMode = $pattern->getColorMode();
+        return $clone;
+    }
+
 
     /**
      * @throws LogicException

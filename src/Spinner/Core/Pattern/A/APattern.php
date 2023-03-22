@@ -6,8 +6,8 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Pattern\A;
 
 use AlecRabbit\Spinner\Contract\IInterval;
+use AlecRabbit\Spinner\Contract\IPattern;
 use AlecRabbit\Spinner\Core\Interval;
-use AlecRabbit\Spinner\Core\Pattern\Contract\IPattern;
 use ArrayObject;
 use Traversable;
 
