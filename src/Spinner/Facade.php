@@ -66,7 +66,7 @@ final class Facade extends ADefaultsAwareClass implements
      */
     public static function registerLoopHelperClass(string $class): void
     {
-        Asserter::classExists($class);
+        Asserter::assertClassExists($class);
         Asserter::isSubClass($class, ILoopHelper::class);
         self::$loopHelperClass = $class;
     }

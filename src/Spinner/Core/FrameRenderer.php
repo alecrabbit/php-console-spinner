@@ -6,49 +6,44 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core;
 
 use AlecRabbit\Spinner\Contract\IFrame;
-use AlecRabbit\Spinner\Core\A\AFramesRenderer;
+use AlecRabbit\Spinner\Core\A\AFrameRenderer;
 use AlecRabbit\Spinner\Core\Factory\FrameFactory;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use Stringable;
 
-use function is_array;
 use function is_string;
 
-final class FramesRenderer extends AFramesRenderer
+final class FrameRenderer extends AFrameRenderer
 {
-    /** @inheritdoc */
-    protected function createFrame(mixed $entry): IFrame
+
+    protected function createFromInt(int $entry): IFrame
     {
-        if ($entry instanceof Stringable) {
-            $entry = (string)$entry;
-        }
-        if (is_int($entry)) {
-            $entry = (string)$entry;
-        }
-        if (is_string($entry)) {
-            return
-                FrameFactory::create($entry, WidthDeterminer::determine($entry));
-        }
-        if (is_array($entry)) {
-            self::assertEntryArray($entry);
-            return
-                FrameFactory::create(
-                    (string)$entry[0],
-                    self::refineNullableInt($entry[1])
-                );
-        }
-        throw new InvalidArgumentException(
-            sprintf(
-                'Unsupported frame entry type: %s, allowed types: int, string, array, Stringable.',
-                get_debug_type($entry),
-            )
-        );
+        return
+            $this->createFromString((string)$entry);
+    }
+
+    protected function createFromString(string $entry): IFrame
+    {
+        return FrameFactory::create($entry, WidthDeterminer::determine($entry));
     }
 
     /**
      * @throws InvalidArgumentException
      */
-    private static function assertEntryArray(array $entry): void
+    protected function createFromArray(array $entry): IFrame
+    {
+        self::assertEntryArray($entry);
+        return
+            FrameFactory::create(
+                (string)$entry[0],
+                self::refineNullableInt($entry[1])
+            );
+    }
+
+    /**
+     * @throws InvalidArgumentException
+     */
+    protected static function assertEntryArray(array $entry): void
     {
         // array size should be 2
         $size = count($entry);
@@ -62,10 +57,10 @@ final class FramesRenderer extends AFramesRenderer
         }
         // first element should be string
         $first = $entry[0];
-        if (!is_string($first)) {
+        if (!is_string($first) && !($first instanceof Stringable)) {
             throw new InvalidArgumentException(
                 sprintf(
-                    'First element of entry array should be string, %s given',
+                    'First element of entry array should be string|Stringable, %s given.',
                     get_debug_type($first)
                 )
             );
@@ -91,5 +86,10 @@ final class FramesRenderer extends AFramesRenderer
             return null;
         }
         return (int)$value;
+    }
+
+    protected function createFrame(int|string $entry): IFrame
+    {
+        return FrameFactory::create((string)$entry, WidthDeterminer::determine((string)$entry));
     }
 }

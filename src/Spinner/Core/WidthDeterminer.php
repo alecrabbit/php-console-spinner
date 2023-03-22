@@ -44,4 +44,14 @@ final class WidthDeterminer
             return strlen($string);
         };
     }
+
+    public static function overrideDeterminer(Closure $determiner): void
+    {
+        self::$determiner = $determiner;
+    }
+
+    public static function reset(): void
+    {
+        self::$determiner = null;
+    }
 }

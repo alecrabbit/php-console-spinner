@@ -20,7 +20,7 @@ final class AFrameCollectionRevolverTest extends TestCase
      */
     public function create(array $expected, array $incoming): void
     {
-        $this->setExpectException($expected);
+        $this->expectsException($expected);
 
         $instance = self::getInstance($incoming[self::ARGUMENTS] ?? []);
 
@@ -39,7 +39,7 @@ final class AFrameCollectionRevolverTest extends TestCase
      */
     public function arrayAccess(array $expected, array $incoming): void
     {
-        $this->setExpectException($expected);
+        $this->expectsException($expected);
 
         $instance = self::getInstance($incoming[self::ARGUMENTS] ?? []);
 
@@ -54,7 +54,7 @@ final class AFrameCollectionRevolverTest extends TestCase
      */
     public function shouldThrowOnOffsetUnset(): void
     {
-        $this->setExpectException([
+        $this->expectsException([
             self::EXCEPTION => [
                 self::CLASS_ => LogicException::class,
                 self::MESSAGE => 'Collection is immutable.',
@@ -80,7 +80,7 @@ final class AFrameCollectionRevolverTest extends TestCase
      */
     public function shouldThrowOnOffsetSet(): void
     {
-        $this->setExpectException([
+        $this->expectsException([
             self::EXCEPTION => [
                 self::CLASS_ => LogicException::class,
                 self::MESSAGE => 'Collection is immutable.',
@@ -108,7 +108,7 @@ final class AFrameCollectionRevolverTest extends TestCase
      */
     public function arrayAccessOffsetExists(): void
     {
-        $this->setExpectException([]);
+        $this->expectsException([]);
 
         $instance = self::getInstance([
             [
@@ -130,7 +130,7 @@ final class AFrameCollectionRevolverTest extends TestCase
      */
     public function cycle(): void
     {
-        $this->setExpectException([]);
+        $this->expectsException([]);
 
         $instance = self::getInstance([
             [

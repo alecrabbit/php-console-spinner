@@ -99,7 +99,7 @@ final class AFloatValueTest extends TestCase
     #[DataProvider('createDataProvider')]
     public function create(array $expected, array $incoming): void
     {
-        $this->setExpectException($expected);
+        $this->expectsException($expected);
 
         $floatValue = self::getInstance($incoming[self::ARGUMENTS] ?? []);
 

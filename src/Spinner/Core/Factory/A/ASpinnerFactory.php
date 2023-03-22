@@ -89,7 +89,7 @@ abstract class ASpinnerFactory extends ADefaultsAwareClass implements
             }
         }
 
-        if (self::$config->getSpinnerConfig()->createInitialized()
+        if (self::$config->getSpinnerConfig()->isInitializationEnabled()
             || self::$config->getLoopConfig()->isAsynchronous()) {
             $spinner->initialize();
         }

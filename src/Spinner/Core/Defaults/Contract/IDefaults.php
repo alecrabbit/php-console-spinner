@@ -4,14 +4,15 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Defaults\Contract;
 
+use AlecRabbit\Spinner\Contract\RunMode;
 use AlecRabbit\Spinner\Core\Pattern\Contract\IPattern;
-use AlecRabbit\Spinner\Core\RunMode;
+use Traversable;
 
 interface IDefaults extends ISettableDefaults
 {
     public static function getInstance(): IDefaults;
 
-    public function getProbeClasses(): \Traversable;
+    public function getProbeClasses(): Traversable;
 
     public function getRootWidgetSettings(): IWidgetSettings;
 
@@ -30,21 +31,17 @@ interface IDefaults extends ISettableDefaults
      */
     public function getOutputStream();
 
-    public function getIntervalMilliseconds(): int;
-
-    public function isCreateInitialized(): bool;
-
     public function getPercentNumberFormat(): string;
 
     public function getShutdownDelay(): float|int;
 
     public function isModeSynchronous(): bool;
 
-    public function isAutoStartEnabled(): bool;
-
-    public function areSignalHandlersEnabled(): bool;
-
     public function getStylePattern(): IPattern;
 
     public function getCharPattern(): IPattern;
+
+    public function getLoopSettings(): ILoopSettings;
+
+    public function getSpinnerSettings(): ISpinnerSettings;
 }

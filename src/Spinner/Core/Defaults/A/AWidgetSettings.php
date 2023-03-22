@@ -17,7 +17,7 @@ abstract class AWidgetSettings extends ADefaultsChild implements IWidgetSettings
     protected static ?IFrame $trailingSpacer = null;
     protected static ?IPattern $charPattern = null;
     protected static ?IPattern $stylePattern = null;
-    private static ?IWidgetSettings $widgetSettings = null;
+    private static ?IWidgetSettings $objSettings = null; // private, singleton
 
     final protected function __construct(IDefaults $parent)
     {
@@ -33,12 +33,12 @@ abstract class AWidgetSettings extends ADefaultsChild implements IWidgetSettings
 
     final public static function getInstance(IDefaults $parent): IWidgetSettings
     {
-        if (null === self::$widgetSettings) {
-            self::$widgetSettings =
+        if (null === self::$objSettings) {
+            self::$objSettings =
                 new class ($parent) extends AWidgetSettings {
                 };
         }
-        return self::$widgetSettings;
+        return self::$objSettings;
     }
 
     public function getLeadingSpacer(): IFrame

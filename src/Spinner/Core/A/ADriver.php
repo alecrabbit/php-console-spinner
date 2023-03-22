@@ -10,14 +10,16 @@ use AlecRabbit\Spinner\Contract\ITimer;
 use AlecRabbit\Spinner\Core\Output\Contract\IOutput;
 use AlecRabbit\Spinner\Core\Sequencer;
 
-abstract readonly class ADriver implements IDriver
+abstract class ADriver implements IDriver
 {
+    protected int $previousFrameWidth = 0;
+
     public function __construct(
-        protected IOutput $output,
-        protected ITimer $timer,
-        protected bool $hideCursor,
-        protected string $interruptMessage,
-        protected string $finalMessage,
+        protected readonly IOutput $output,
+        protected readonly ITimer $timer,
+        protected readonly bool $hideCursor,
+        protected readonly string $interruptMessage,
+        protected readonly string $finalMessage,
     ) {
     }
 
@@ -28,24 +30,38 @@ abstract readonly class ADriver implements IDriver
         );
     }
 
-    public function display(IFrame $frame, int $widthDiff = 0): void
+    public function display(IFrame $frame): void
     {
+        $width = $frame->width();
+        $widthDiff = $this->calculateWidthDiff($width);
+
         $this->output->write(
             [
                 $frame->sequence(),
                 $widthDiff > 0 ? Sequencer::eraseSequence($widthDiff) : '',
-                Sequencer::moveBackSequence($frame->width()),
+                Sequencer::moveBackSequence($width),
             ]
         );
     }
 
-    public function hideCursor(): void
+    protected function calculateWidthDiff(int $currentWidth): int
     {
-        if ($this->hideCursor) {
-            $this->output->write(
-                Sequencer::hideCursorSequence()
-            );
-        }
+        $diff = max($this->previousFrameWidth - $currentWidth, 0);
+
+        $this->previousFrameWidth = $currentWidth;
+
+        return $diff;
+    }
+
+    public function interrupt(?string $interruptMessage = null): void
+    {
+        $this->finalize($interruptMessage ?? $this->interruptMessage);
+    }
+
+    public function finalize(?string $finalMessage = null): void
+    {
+        $this->showCursor();
+        $this->output->write($finalMessage ?? $this->finalMessage);
     }
 
     public function showCursor(): void
@@ -57,18 +73,22 @@ abstract readonly class ADriver implements IDriver
         }
     }
 
-    public function interrupt(?string $interruptMessage = null): void
-    {
-        $this->output->write($interruptMessage ?? $this->interruptMessage);
-    }
-
-    public function finalize(?string $finalMessage = null): void
-    {
-        $this->output->write($finalMessage ?? $this->finalMessage);
-    }
-
     public function elapsedTime(): float
     {
         return $this->timer->elapsed();
+    }
+
+    public function initialize(): void
+    {
+        $this->hideCursor();
+    }
+
+    public function hideCursor(): void
+    {
+        if ($this->hideCursor) {
+            $this->output->write(
+                Sequencer::hideCursorSequence()
+            );
+        }
     }
 }

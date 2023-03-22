@@ -63,7 +63,7 @@ final class AFrameTest extends TestCase
      */
     public function create(array $expected, array $incoming): void
     {
-        $this->setExpectException($expected);
+        $this->expectsException($expected);
 
         $frame = self::getInstance($incoming[self::ARGUMENTS] ?? []);
 

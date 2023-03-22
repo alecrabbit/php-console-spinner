@@ -39,7 +39,7 @@ final class AClassesTest extends TestCase
     {
         $class = WidgetBuilder::class;
         $classes = self::getInstance();
-        $classes->setWidgetBuilderClass($class);
+        $classes->overrideWidgetBuilderClass($class);
         self::assertSame($class, $classes->getWidgetBuilderClass());
     }
 
@@ -48,7 +48,7 @@ final class AClassesTest extends TestCase
     {
         $class = WidgetRevolverBuilder::class;
         $classes = self::getInstance();
-        $classes->setWidgetRevolverBuilderClass($class);
+        $classes->overrideWidgetRevolverBuilderClass($class);
         self::assertSame($class, $classes->getWidgetRevolverBuilderClass());
     }
 
@@ -66,7 +66,7 @@ final class AClassesTest extends TestCase
         );
 
         $classes = self::getInstance();
-        $classes->setWidgetBuilderClass($invalidClass);
+        $classes->overrideWidgetBuilderClass($invalidClass);
         self::fail('Exception expected');
     }
 
@@ -84,7 +84,7 @@ final class AClassesTest extends TestCase
         );
 
         $classes = self::getInstance();
-        $classes->setWidgetRevolverBuilderClass($invalidClass);
+        $classes->overrideWidgetRevolverBuilderClass($invalidClass);
         self::fail('Exception expected');
     }
 

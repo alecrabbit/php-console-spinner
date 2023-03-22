@@ -8,6 +8,7 @@ use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Exception\RuntimeException;
 use AlecRabbit\Spinner\Helper\Asserter;
 use AlecRabbit\Tests\Spinner\TestCase\TestCase;
+use ArrayObject;
 use PHPUnit\Framework\Attributes\Test;
 use stdClass;
 use Throwable;
@@ -37,7 +38,8 @@ final class AsserterTest extends TestCase
     {
         $invalidClass = stdClass::class;
         $expectedClass = Throwable::class;
-        $this->expectException(InvalidArgumentException::class);
+        $exceptionClass = InvalidArgumentException::class;
+        $this->expectException($exceptionClass);
         $this->expectExceptionMessage(
             sprintf(
                 'Class "%s" must be a subclass of "%s", see "%s()"',
@@ -48,7 +50,7 @@ final class AsserterTest extends TestCase
         );
 
         Asserter::isSubClass($invalidClass, $expectedClass, __METHOD__);
-        self::fail(sprintf('[%s] Exception not thrown', __METHOD__));
+        self::exceptionNotThrown($exceptionClass);
     }
 
     #[Test]
@@ -70,13 +72,9 @@ final class AsserterTest extends TestCase
     #[Test]
     public function canAssertColorSupportLevelsNotEmpty(): void
     {
-        $invalidColorSupportLevels = new \ArrayObject([]);
+        $invalidColorSupportLevels = new ArrayObject([]);
         $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage(
-            sprintf(
-                'Color modes must not be empty.',
-            )
-        );
+        $this->expectExceptionMessage('Color modes must not be empty.');
 
         Asserter::assertColorModes($invalidColorSupportLevels);
         self::fail(sprintf('[%s] Exception not thrown', __METHOD__));
@@ -86,7 +84,7 @@ final class AsserterTest extends TestCase
     public function canAssertColorSupportLevels(): void
     {
         $invalidMode = 1;
-        $invalidColorModes = new \ArrayObject([$invalidMode]);
+        $invalidColorModes = new ArrayObject([$invalidMode]);
 
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('Unsupported color mode of type "int".');
@@ -108,6 +106,22 @@ final class AsserterTest extends TestCase
         );
 
         Asserter::assertExtensionLoaded($extension);
+        self::fail(sprintf('[%s] Exception not thrown', __METHOD__));
+    }
+
+    #[Test]
+    public function canAssertClassNotExists(): void
+    {
+        $nonExistentClass = 'invalid_class';
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage(
+            sprintf(
+                'Class "%s" does not exist.',
+                $nonExistentClass,
+            )
+        );
+
+        Asserter::assertClassExists($nonExistentClass);
         self::fail(sprintf('[%s] Exception not thrown', __METHOD__));
     }
 }

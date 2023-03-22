@@ -5,11 +5,12 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Defaults\A;
 
+use AlecRabbit\Spinner\Contract\RunMode;
 use AlecRabbit\Spinner\Core\Contract\ILoopProbe;
 use AlecRabbit\Spinner\Core\Pattern\Contract\IPattern;
-use AlecRabbit\Spinner\Core\RunMode;
 use AlecRabbit\Spinner\Core\Terminal\Contract\ITerminalProbe;
 use AlecRabbit\Spinner\Helper\Asserter;
+use Traversable;
 
 abstract class ASettableDefaults extends ACoreDefaults
 {
@@ -39,23 +40,9 @@ abstract class ASettableDefaults extends ACoreDefaults
         return $this;
     }
 
-    public function setRunMode(RunMode $mode): static
+    public function overrideRunMode(RunMode $runMode): static
     {
-        static::$runMode = $mode;
-        return $this;
-    }
-
-    public function setModeAsSynchronous(bool $isModeSynchronous): static
-    {
-        static::$runMode = $isModeSynchronous ? RunMode::SYNCHRONOUS : RunMode::ASYNC;
-        return $this;
-    }
-
-    /** @inheritdoc */
-    public function overrideSupportedColorModes(\Traversable $supportedColorModes): static
-    {
-        Asserter::assertColorModes($supportedColorModes);
-        static::$supportedColorModes = $supportedColorModes;
+        static::$runMode = $runMode;
         return $this;
     }
 
@@ -78,26 +65,8 @@ abstract class ASettableDefaults extends ACoreDefaults
         return $this;
     }
 
-    public function setCreateInitialized(bool $createInitialized): static
-    {
-        static::$createInitialized = $createInitialized;
-        return $this;
-    }
-
-    public function setAutoStart(bool $autoStart): static
-    {
-        static::$autoStartEnabled = $autoStart;
-        return $this;
-    }
-
-    public function setAttachSignalHandlers(bool $attachSignalHandlers): static
-    {
-        static::$attachSignalHandlers = $attachSignalHandlers;
-        return $this;
-    }
-
     /** @inheritdoc */
-    public function overrideTerminalProbeClasses(\Traversable $terminalProbes): static
+    public function overrideTerminalProbeClasses(Traversable $terminalProbes): static
     {
         /** @var class-string<ITerminalProbe> $probe */
         foreach ($terminalProbes as $probe) {
@@ -108,7 +77,7 @@ abstract class ASettableDefaults extends ACoreDefaults
     }
 
     /** @inheritdoc */
-    public function overrideLoopProbeClasses(\Traversable $loopProbes): static
+    public function overrideLoopProbeClasses(Traversable $loopProbes): static
     {
         /** @var class-string<ILoopProbe> $probe */
         foreach ($loopProbes as $probe) {

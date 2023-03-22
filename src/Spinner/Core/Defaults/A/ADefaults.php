@@ -5,21 +5,25 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Defaults\A;
 
+use AlecRabbit\Spinner\Contract\RunMode;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDefaults;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDefaultsClasses;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDriverSettings;
+use AlecRabbit\Spinner\Core\Defaults\Contract\ILoopSettings;
+use AlecRabbit\Spinner\Core\Defaults\Contract\ISpinnerSettings;
 use AlecRabbit\Spinner\Core\Defaults\Contract\ITerminalSettings;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IWidgetSettings;
 use AlecRabbit\Spinner\Core\Pattern\Char\Ascii;
 use AlecRabbit\Spinner\Core\Pattern\Contract\IPattern;
 use AlecRabbit\Spinner\Core\Pattern\Style\Rainbow;
-use AlecRabbit\Spinner\Core\RunMode;
 use AlecRabbit\Spinner\Core\Terminal\Contract\ITerminalProbe;
 use AlecRabbit\Spinner\Core\Terminal\NativeTerminalProbe;
+use Traversable;
 
 abstract class ADefaults extends ASettableDefaults
 {
-    private static ?IDefaults $instance = null; // private, singleton
+    private static ?IDefaults $objInstance = null; // private, singleton
+
 
     public function getRootWidgetSettings(): IWidgetSettings
     {
@@ -42,11 +46,6 @@ abstract class ADefaults extends ASettableDefaults
         return static::$outputStream;
     }
 
-    public function getIntervalMilliseconds(): int
-    {
-        return static::$millisecondsInterval;
-    }
-
     public function getShutdownDelay(): float|int
     {
         return static::$shutdownDelay;
@@ -65,11 +64,6 @@ abstract class ADefaults extends ASettableDefaults
     public function getMaxShutdownDelay(): float|int
     {
         return static::$shutdownMaxDelay;
-    }
-
-    public function getSupportedColorModes(): \Traversable
-    {
-        return static::$supportedColorModes;
     }
 
     public function getPercentNumberFormat(): string
@@ -93,22 +87,7 @@ abstract class ADefaults extends ASettableDefaults
         return static::$charPattern;
     }
 
-    public function isCreateInitialized(): bool
-    {
-        return static::$createInitialized;
-    }
-
-    public function isAutoStartEnabled(): bool
-    {
-        return static::$autoStartEnabled;
-    }
-
-    public function areSignalHandlersEnabled(): bool
-    {
-        return static::$attachSignalHandlers;
-    }
-
-    public function getProbeClasses(): \Traversable
+    public function getProbeClasses(): Traversable
     {
         return static::$loopProbes;
     }
@@ -123,26 +102,36 @@ abstract class ADefaults extends ASettableDefaults
         return static::$driverSettings;
     }
 
-    protected function getClassesInstance(): IDefaultsClasses
+    public function getLoopSettings(): ILoopSettings
+    {
+        return static::$loopSettings;
+    }
+
+    public function getSpinnerSettings(): ISpinnerSettings
+    {
+        return static::$spinnerSettings;
+    }
+
+    protected function createDefaultsClasses(): IDefaultsClasses
     {
         return ADefaultsClasses::getInstance($this);
     }
 
     final public static function getInstance(): IDefaults
     {
-        if (null === self::$instance) {
-            self::$instance =
+        if (null === self::$objInstance) {
+            self::$objInstance =
                 new class () extends ADefaults {
                 };
         }
-        return self::$instance;
+        return self::$objInstance;
     }
 
     protected function createTerminalSettings(): ITerminalSettings
     {
         $colorMode = NativeTerminalProbe::getColorMode();
         $width = NativeTerminalProbe::getWidth();
-        $hideCursor = NativeTerminalProbe::isHideCursor();
+        $cursor = NativeTerminalProbe::getCursorMode();
 
         /** @var ITerminalProbe $terminalProbe */
         foreach (static::$terminalProbes as $terminalProbe) {
@@ -151,7 +140,7 @@ abstract class ADefaults extends ASettableDefaults
                 $width = $terminalProbe::getWidth();
             }
         }
-        return ATerminalSettings::getInstance($this, $colorMode, $width, $hideCursor);
+        return ATerminalSettings::getInstance($this, $colorMode, $width, $cursor);
     }
 
     protected function createDriverSettings(): IDriverSettings
@@ -162,5 +151,15 @@ abstract class ADefaults extends ASettableDefaults
     protected function createWidgetSettings(): IWidgetSettings
     {
         return AWidgetSettings::getInstance($this);
+    }
+
+    protected function createLoopSettings(): ILoopSettings
+    {
+        return ALoopSettings::getInstance($this);
+    }
+
+    protected function createSpinnerSettings(): ISpinnerSettings
+    {
+        return ASpinnerSettings::getInstance($this);
     }
 }

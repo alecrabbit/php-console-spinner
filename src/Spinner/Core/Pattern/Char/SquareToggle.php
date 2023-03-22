@@ -6,7 +6,6 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Pattern\Char;
 
 use AlecRabbit\Spinner\Core\Pattern\A\AReversiblePattern;
-use Traversable;
 
 /** @psalm-suppress UnusedClass */
 final class SquareToggle extends AReversiblePattern
@@ -14,9 +13,9 @@ final class SquareToggle extends AReversiblePattern
     protected const UPDATE_INTERVAL = 200;
 
     protected const PATTERN = [
-            '■',
-            '□',
-            '▪',
-            '▫',
-        ];
+        '■',
+        '□',
+        '▪',
+        '▫',
+    ];
 }

@@ -8,5 +8,4 @@ use AlecRabbit\Spinner\Core\Factory\A\ARevolverFactory;
 
 final class RevolverFactory extends ARevolverFactory
 {
-
 }

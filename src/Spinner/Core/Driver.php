@@ -6,6 +6,6 @@ namespace AlecRabbit\Spinner\Core;
 
 use AlecRabbit\Spinner\Core\A\ADriver;
 
-final readonly class Driver extends ADriver
+final class Driver extends ADriver
 {
 }

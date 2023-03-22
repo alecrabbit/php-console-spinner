@@ -6,13 +6,13 @@ namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Config\Defaults\A;
 
 use AlecRabbit\Spinner\Asynchronous\Loop\Probe\ReactLoopProbe;
 use AlecRabbit\Spinner\Asynchronous\Loop\Probe\RevoltLoopProbe;
-use AlecRabbit\Spinner\Contract\ColorMode;
+use AlecRabbit\Spinner\Contract\RunMode;
 use AlecRabbit\Spinner\Core\Defaults\A\ADefaults;
-use AlecRabbit\Spinner\Core\Factory\FrameFactory;
 use AlecRabbit\Spinner\Core\Widget\WidgetBuilder;
 use AlecRabbit\Spinner\Core\Widget\WidgetRevolverBuilder;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Tests\Spinner\TestCase\TestCase;
+use ArrayObject;
 use PHPUnit\Framework\Attributes\Test;
 
 final class ADefaultsTest extends TestCase
@@ -78,7 +78,7 @@ final class ADefaultsTest extends TestCase
             ReactLoopProbe::class,
         ];
         $defaults->overrideLoopProbeClasses(
-            new \ArrayObject($loopProbes)
+            new ArrayObject($loopProbes)
         );
         $loopProbesCount = 0;
         foreach ($defaults->getProbeClasses() as $loopProbe) {
@@ -108,36 +108,36 @@ final class ADefaultsTest extends TestCase
         self::assertSame($stream, $defaults->getOutputStream());
     }
 
-    #[Test]
-    public function canSetMillisecondsInterval(): void
-    {
-        $millisecondsInterval = 10;
-        $defaults = self::getInstance();
-        $defaults->setIntervalMilliseconds($millisecondsInterval);
-        self::assertSame($millisecondsInterval, $defaults->getIntervalMilliseconds());
-    }
+//    #[Test]
+//    public function canSetMillisecondsInterval(): void
+//    {
+//        $millisecondsInterval = 10;
+//        $defaults = self::getInstance();
+//        $defaults->setIntervalMilliseconds($millisecondsInterval);
+//        self::assertSame($millisecondsInterval, $defaults->getIntervalMilliseconds());
+//    }
+
+//    #[Test]
+//    public function canSetCreateInitialized(): void
+//    {
+//        $defaults = self::getInstance();
+//        $defaults->overrideInitializationOption(Initialization::ENABLED);
+//        self::assertSame(Initialization::ENABLED, $defaults->getInitializationOption());
+//        $defaults->overrideInitializationOption(Initialization::DISABLED);
+//        self::assertSame(Initialization::DISABLED, $defaults->getInitializationOption());
+//        $defaults->overrideInitializationOption(Initialization::ENABLED);
+//        self::assertSame(Initialization::ENABLED, $defaults->getInitializationOption());
+//    }
 
     #[Test]
-    public function canSetCreateInitialized(): void
+    public function canOverrideRunMode(): void
     {
         $defaults = self::getInstance();
-        $defaults->setCreateInitialized(true);
-        self::assertTrue($defaults->isCreateInitialized());
-        $defaults->setCreateInitialized(false);
-        self::assertFalse($defaults->isCreateInitialized());
-        $defaults->setCreateInitialized(true);
-        self::assertTrue($defaults->isCreateInitialized());
-    }
-
-    #[Test]
-    public function canSetModeAsSynchronous(): void
-    {
-        $defaults = self::getInstance();
-        $defaults->setModeAsSynchronous(true);
+        $defaults->overrideRunMode(RunMode::SYNCHRONOUS);
         self::assertTrue($defaults->isModeSynchronous());
-        $defaults->setModeAsSynchronous(false);
+        $defaults->overrideRunMode(RunMode::ASYNC);
         self::assertFalse($defaults->isModeSynchronous());
-        $defaults->setModeAsSynchronous(true);
+        $defaults->overrideRunMode(RunMode::SYNCHRONOUS);
         self::assertTrue($defaults->isModeSynchronous());
     }
 
@@ -206,28 +206,28 @@ final class ADefaultsTest extends TestCase
         $defaults->setMaxShutdownDelay(10);
         self::assertSame(10, $defaults->getMaxShutdownDelay());
     }
-
-    #[Test]
-    public function canSetSupportedColorModes(): void
-    {
-        $defaults = self::getInstance();
-        $colorSupportLevels = new \ArrayObject([ColorMode::ANSI24]);
-        $defaults->overrideSupportedColorModes($colorSupportLevels);
-        self::assertSame($colorSupportLevels, $defaults->getSupportedColorModes());
-    }
-
-    #[Test]
-    public function setSupportedColorModesThrowsOnInvalidArgument(): void
-    {
-        $exception = InvalidArgumentException::class;
-        $this->expectException($exception);
-        $this->expectExceptionMessage('Color modes must not be empty.');
-
-        $defaults = self::getInstance();
-        $defaults->overrideSupportedColorModes(new \ArrayObject([]));
-        self::assertSame(10, $defaults->getSupportedColorModes());
-        self::exceptionNotThrown($exception);
-    }
+//
+//    #[Test]
+//    public function canSetSupportedColorModes(): void
+//    {
+//        $defaults = self::getInstance();
+//        $colorSupportLevels = new \ArrayObject([ColorMode::ANSI24]);
+//        $defaults->overrideSupportedColorModes($colorSupportLevels);
+//        self::assertSame($colorSupportLevels, $defaults->getSupportedColorModes());
+//    }
+//
+//    #[Test]
+//    public function setSupportedColorModesThrowsOnInvalidArgument(): void
+//    {
+//        $exception = InvalidArgumentException::class;
+//        $this->expectException($exception);
+//        $this->expectExceptionMessage('Color modes must not be empty.');
+//
+//        $defaults = self::getInstance();
+//        $defaults->overrideSupportedColorModes(new \ArrayObject([]));
+//        self::assertSame(10, $defaults->getSupportedColorModes());
+//        self::exceptionNotThrown($exception);
+//    }
 
     protected function setUp(): void
     {

@@ -8,6 +8,7 @@ use AlecRabbit\Spinner\Core\Pattern\Contract\IPattern;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Exception\LogicException;
+use Traversable;
 
 interface IConfigBuilder
 {
@@ -23,5 +24,5 @@ interface IConfigBuilder
 
     public function withRootWidget(IWidgetComposite $widget): static;
 
-    public function withWidgets(\Traversable $widgets): static;
+    public function withWidgets(Traversable $widgets): static;
 }

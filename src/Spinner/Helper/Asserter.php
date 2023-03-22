@@ -8,6 +8,7 @@ namespace AlecRabbit\Spinner\Helper;
 use AlecRabbit\Spinner\Contract\ColorMode;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Exception\RuntimeException;
+use Traversable;
 
 use function class_exists;
 use function extension_loaded;
@@ -55,7 +56,7 @@ final class Asserter
     /**
      * @throws InvalidArgumentException
      */
-    public static function assertColorModes(\Traversable $colorModes): void
+    public static function assertColorModes(Traversable $colorModes): void
     {
         if (0 === count(iterator_to_array($colorModes))) {
             throw new InvalidArgumentException('Color modes must not be empty.');
@@ -88,7 +89,7 @@ final class Asserter
     /**
      * @throws InvalidArgumentException
      */
-    public static function classExists(string $class, ?string $callerMethod = null): void
+    public static function assertClassExists(string $class, ?string $callerMethod = null): void
     {
         if (!class_exists($class)) {
             throw new InvalidArgumentException(

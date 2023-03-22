@@ -6,34 +6,46 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Defaults\A;
 
 use AlecRabbit\Spinner\Contract\ColorMode;
+use AlecRabbit\Spinner\Contract\Cursor;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDefaults;
 use AlecRabbit\Spinner\Core\Defaults\Contract\ITerminalSettings;
+use AlecRabbit\Spinner\Helper\Asserter;
+use ArrayObject;
+use Traversable;
 
 abstract class ATerminalSettings extends ADefaultsChild implements ITerminalSettings
 {
-    private static ?ITerminalSettings $instance = null;
+    protected static Traversable $supportedColorModes;
+
+    private static ?ITerminalSettings $objInstance = null; // private, singleton
 
     final protected function __construct(
         IDefaults $parent,
         protected ColorMode $colorMode,
         protected int $width,
-        protected bool $hideCursor,
+        protected Cursor $cursor,
     ) {
         parent::__construct($parent);
+        static::$supportedColorModes = $this->defaultSupportedColorModes();
+    }
+
+    protected function defaultSupportedColorModes(): ArrayObject
+    {
+        return new ArrayObject(ColorMode::cases());
     }
 
     final public static function getInstance(
         IDefaults $parent,
         ColorMode $colorMode,
         int $width,
-        bool $hideCursor,
+        Cursor $cursor,
     ): ITerminalSettings {
-        if (null === self::$instance) {
-            self::$instance =
-                new class ($parent, $colorMode, $width, $hideCursor) extends ATerminalSettings {
+        if (null === self::$objInstance) {
+            self::$objInstance =
+                new class ($parent, $colorMode, $width, $cursor) extends ATerminalSettings {
                 };
         }
-        return self::$instance;
+        return self::$objInstance;
     }
 
     public function getColorMode(): ColorMode
@@ -46,31 +58,39 @@ abstract class ATerminalSettings extends ADefaultsChild implements ITerminalSett
         return $this->width;
     }
 
-    public function setColorMode(ColorMode $colorMode): static
+    public function overrideColorMode(ColorMode $colorMode): static
     {
         $this->colorMode = $colorMode;
         return $this;
     }
 
-    public function setWidth(int $width): static
+    public function overrideWidth(int $width): static
     {
         $this->width = $width;
         return $this;
     }
 
-    public function isHideCursor(): bool
+    public function isCursorDisabled(): bool
     {
-        return $this->hideCursor;
+        return $this->cursor === Cursor::DISABLED;
     }
 
-    public function setHideCursor(bool $hideCursor): static
+    public function overrideCursor(Cursor $cursor): static
     {
-        $this->hideCursor = $hideCursor;
+        $this->cursor = $cursor;
         return $this;
     }
 
-    public function toParent(): IDefaults
+    public function getSupportedColorModes(): Traversable
     {
-        return $this->parent;
+        return static::$supportedColorModes;
+    }
+
+    /** @inheritdoc */
+    public function overrideSupportedColorModes(Traversable $supportedColorModes): static
+    {
+        Asserter::assertColorModes($supportedColorModes);
+        static::$supportedColorModes = $supportedColorModes;
+        return $this;
     }
 }
