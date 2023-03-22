@@ -1,9 +1,2 @@
-/app/src/Spinner/Contract/ColorMode.php:289:46:error - PossiblyInvalidArgument: Argument 1 of AlecRabbit\Spinner\Contract\ColorMode::convert24 expects string, but possibly different type int|string provided
-/app/src/Spinner/Contract/ColorMode.php:309:24:error - TypeDoesNotContainType: Type string for $color is always !string
-/app/src/Spinner/Contract/ColorMode.php:407:23:error - UnhandledMatchCondition: This match expression is not exhaustive - consider values enum(AlecRabbit\Spinner\Contract\ColorMode::NONE)
-/app/src/Spinner/Contract/ColorMode.php:482:57:error - PossiblyInvalidArgument: Argument 1 of AlecRabbit\Spinner\Contract\ColorMode::convertFromHexToAnsiColorCode expects string, but possibly different type int|string provided
-/app/src/Spinner/Contract/ColorMode.php:484:26:error - MixedOperand: Right operand cannot be mixed
-/app/src/Spinner/Core/A/AFrameRenderer.php:64:13:error - RedundantConditionGivenDocblockType: Docblock-defined type array<array-key, mixed> for $entry is always array<array-key, mixed>
-/app/src/Spinner/Core/FrameRenderer.php:93:80:error - PossiblyInvalidArgument: Argument 1 of AlecRabbit\Spinner\Core\WidthDeterminer::determine expects string, but possibly different type int|string provided
-/app/src/Spinner/Core/StyleFrameRenderer.php:64:90:error - MixedArgument: Argument 1 of AlecRabbit\Spinner\Contract\ColorMode::ansiCode cannot be mixed, expecting int|string
-/app/src/Spinner/Core/StyleFrameRenderer.php:65:90:error - MixedArgument: Argument 1 of AlecRabbit\Spinner\Contract\ColorMode::ansiCode cannot be mixed, expecting int|string
+/app/src/Spinner/Contract/ColorMode.php:494:57:error - PossiblyInvalidArgument: Argument 1 of AlecRabbit\Spinner\Contract\ColorMode::convertFromHexToAnsiColorCode expects string, but possibly different type int|string provided
+/app/src/Spinner/Contract/ColorMode.php:496:26:error - MixedOperand: Right operand cannot be mixed

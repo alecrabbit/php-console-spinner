@@ -61,8 +61,8 @@ final class StyleFrameRenderer extends AFrameRenderer
             return FrameFactory::create('%s', 0);
         }
 
-        $fgColor = $this->patternColorMode->simplest($this->terminalColorMode)->ansiCode($entry[self::FG]);
-        $bgColor = $this->patternColorMode->simplest($this->terminalColorMode)->ansiCode($entry[self::BG]);
+        $fgColor = $this->patternColorMode->simplest($this->terminalColorMode)->ansiCode((string)$entry[self::FG]);
+        $bgColor = $this->patternColorMode->simplest($this->terminalColorMode)->ansiCode((string)$entry[self::BG]);
 
         return
             FrameFactory::create(

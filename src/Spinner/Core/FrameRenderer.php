@@ -90,6 +90,6 @@ final class FrameRenderer extends AFrameRenderer
 
     protected function createFrame(int|string $entry): IFrame
     {
-        return FrameFactory::create((string)$entry, WidthDeterminer::determine($entry));
+        return FrameFactory::create((string)$entry, WidthDeterminer::determine((string)$entry));
     }
 }

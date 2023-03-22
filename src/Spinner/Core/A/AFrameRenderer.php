@@ -61,20 +61,16 @@ abstract class AFrameRenderer extends ADefaultsAwareClass implements IFrameRende
                 $this->createFrame($entry);
         }
 
-        if (is_array($entry)) {
-            return $this->createFromArray($entry);
-        }
-
-        throw new InvalidArgumentException(
-            sprintf(
-                'Unsupported frame entry type: %s%s',
-                get_debug_type($entry),
-                ', allowed types: int, string, array<Stringable, int|null>, Stringable.',
-            )
-        );
+        return $this->createFromArray($entry);
     }
 
+    /**
+     * @throws InvalidArgumentException
+     */
     abstract protected function createFrame(int|string $entry): IFrame;
 
+    /**
+     * @throws InvalidArgumentException
+     */
     abstract protected function createFromArray(array $entry): IFrame;
 }

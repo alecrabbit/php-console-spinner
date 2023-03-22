@@ -283,10 +283,12 @@ enum ColorMode: int
     {
         $this->assertColor($color);
 
+        $color24 = (string)$color;
+
         return match ($this) {
             self::ANSI4 => $this->convert4($color),
             self::ANSI8 => $this->convert8($color),
-            self::ANSI24 => $this->convert24($color),
+            self::ANSI24 => $this->convert24($color24),
             default => throw new LogicException(
                 sprintf(
                     '%s::%s: Unable to convert "%s" to ansi code.',
@@ -306,9 +308,6 @@ enum ColorMode: int
         match (true) {
             is_int($color) => $this->assertIntColor($color),
             is_string($color) => $this->assertStringColor($color),
-            default => throw new InvalidArgumentException(
-                sprintf('Value should be int or string, %s given.', get_debug_type($color))
-            ),
         };
     }
 
@@ -378,6 +377,9 @@ enum ColorMode: int
         };
     }
 
+    /**
+     * @throws InvalidArgumentException
+     */
     protected function convert4(int|string $color): string
     {
         if (is_int($color)) {
@@ -386,6 +388,9 @@ enum ColorMode: int
         return $this->convertFromHexToAnsiColorCode($color);
     }
 
+    /**
+     * @throws InvalidArgumentException
+     */
     private function convertFromHexToAnsiColorCode(string $hexColor): string
     {
         $hexColor = str_replace('#', '', $hexColor);
@@ -407,10 +412,14 @@ enum ColorMode: int
         return match ($this) {
             self::ANSI4 => (string)$this->convertFromRGB($r, $g, $b),
             self::ANSI8 => '8;5;' . ((string)$this->convertFromRGB($r, $g, $b)),
-            self::ANSI24 => sprintf('8;2;%d;%d;%d', $r, $g, $b)
+            self::ANSI24 => sprintf('8;2;%d;%d;%d', $r, $g, $b),
+            self::NONE => throw new InvalidArgumentException('Hex color cannot be converted to NONE.'),
         };
     }
 
+    /**
+     * @throws InvalidArgumentException
+     */
     private function convertFromRGB(int $r, int $g, int $b): int
     {
         return match ($this) {
@@ -467,6 +476,9 @@ enum ColorMode: int
         }
     }
 
+    /**
+     * @throws InvalidArgumentException
+     */
     protected function convert8(int|string $color): string
     {
         if (is_string($color)) {
@@ -481,9 +493,12 @@ enum ColorMode: int
         if (false === ($result ?? null)) {
             return $this->convertFromHexToAnsiColorCode($color);
         }
-        return '8;5;' . ($result ?? $color);
+        return '8;5;' . ($result ?? (string)$color);
     }
 
+    /**
+     * @throws InvalidArgumentException
+     */
     protected function convert24(string $color): string
     {
         return $this->convertFromHexToAnsiColorCode($color);
