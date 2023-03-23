@@ -36,16 +36,17 @@ abstract class TestCase extends PHPUnitTestCase
     }
 
     protected static function exceptionNotThrown(
-        string $exceptionClass,
+        string|\Throwable $e,
         ?string $exceptionMessage = null,
         ?array $dataSet = null
     ): never {
-        $exceptionMessage = null === $exceptionMessage ? '' : sprintf(' with message [%s]', $exceptionMessage);
-
+        if (is_string($e)) {
+            $e = new $e($exceptionMessage ?? '');
+        }
         $message = sprintf(
             'Exception [%s]%s is not thrown.',
-            $exceptionClass,
-            $exceptionMessage
+            $e::class,
+            $e->getMessage() === '' ? '' : ' with message: "' . $e->getMessage() . '"'
         );
 
         if (null !== $dataSet) {
@@ -65,18 +66,20 @@ abstract class TestCase extends PHPUnitTestCase
 
     /**
      * @param mixed $expected
-     * @return null|class-string<Throwable>
+     * @return null|\Throwable
      */
-    protected function expectsException(mixed $expected): ?string
+    protected function expectsException(mixed $expected): ?\Throwable
     {
         if ((is_array($expected) || $expected instanceof ArrayAccess)
             && array_key_exists(self::EXCEPTION, $expected)) {
             $exceptionClass = $expected[self::EXCEPTION][self::CLASS_];
+            $exceptionMessage = '';
             $this->expectException($exceptionClass);
             if (array_key_exists(self::MESSAGE, $expected[self::EXCEPTION])) {
-                $this->expectExceptionMessage($expected[self::EXCEPTION][self::MESSAGE]);
+                $exceptionMessage = $expected[self::EXCEPTION][self::MESSAGE];
+                $this->expectExceptionMessage($exceptionMessage);
             }
-            return $exceptionClass;
+            return new $exceptionClass($exceptionMessage);
         }
         return null;
     }
