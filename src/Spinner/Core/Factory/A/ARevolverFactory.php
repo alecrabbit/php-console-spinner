@@ -34,9 +34,9 @@ abstract class ARevolverFactory extends ADefaultsAwareClass implements IRevolver
             );
     }
 
-    public static function create(IPattern $pattern): IRevolver
+    public static function create(IPattern $pattern, ?IDefaults $defaults = null): IRevolver
     {
-        return self::getRevolverBuilder()->withPattern($pattern)->build();
+        return self::getRevolverBuilder($defaults)->withPattern($pattern)->build();
     }
 
     public static function getRevolverBuilder(?IDefaults $defaults = null): IFrameRevolverBuilder

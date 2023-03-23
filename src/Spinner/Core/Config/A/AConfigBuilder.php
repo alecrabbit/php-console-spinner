@@ -129,28 +129,5 @@ abstract class AConfigBuilder implements IConfigBuilder
                 ->withLeadingSpacer($this->defaults->getRootWidgetSettings()->getLeadingSpacer())
                 ->withTrailingSpacer($this->defaults->getRootWidgetSettings()->getTrailingSpacer())
                 ->build();
-//     return
-//            $this->widgetBuilder
-//                ->withWidgetRevolver(
-//                    $this->widgetRevolverBuilder
-//                        ->withStyleRevolver(
-//                            RevolverFactory::createFrom(
-//                                $this->rootWidgetStylePattern
-//                                ?? $this->defaults->getRootWidgetSettings()->getStylePattern()
-//                                ?? $this->defaults->getStylePattern()
-//                            )
-//                        )
-//                        ->withCharRevolver(
-//                            RevolverFactory::createFrom(
-//                                $this->rootWidgetCharPattern
-//                                ?? $this->defaults->getRootWidgetSettings()->getCharPattern()
-//                                ?? $this->defaults->getCharPattern()
-//                            )
-//                        )
-//                        ->build()
-//                )
-//                ->withLeadingSpacer($this->defaults->getRootWidgetSettings()->getLeadingSpacer())
-//                ->withTrailingSpacer($this->defaults->getRootWidgetSettings()->getTrailingSpacer())
-//                ->build();
     }
 }
