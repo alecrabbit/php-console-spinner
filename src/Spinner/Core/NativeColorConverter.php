@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core;
 
 use AlecRabbit\Spinner\Contract\ColorMode;
+use AlecRabbit\Spinner\Contract\IAnsiColorConverter;
 use AlecRabbit\Spinner\Contract\IColorConverter;
 use AlecRabbit\Spinner\Contract\IStyle;
 use AlecRabbit\Spinner\Exception\DomainException;
@@ -365,7 +366,7 @@ final class NativeColorConverter implements IColorConverter
         static $colors8 = null;
 
         if (null === $colors8) {
-            $colors8 = array_slice(self::COLOR_TABLE, 16, preserve_keys: true);
+            $colors8 = array_slice(IAnsiColorConverter::COLOR_TABLE, 16, preserve_keys: true);
         }
 
         /** @var int|false $result */
