@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Core;
 
 use AlecRabbit\Spinner\Contract\ColorMode;
+use AlecRabbit\Spinner\Core\AnsiColorConverter;
 use AlecRabbit\Spinner\Core\Factory\FrameFactory;
 use AlecRabbit\Spinner\Core\NativeColorConverter;
 use AlecRabbit\Spinner\Core\Pattern\Style\CustomStyle;
@@ -229,7 +230,7 @@ final class StyleFrameCollectionRendererTest extends TestCase
 
         $renderer =
             new StyleFrameCollectionRenderer(
-                new NativeColorConverter(),
+                new AnsiColorConverter(),
                 $args[self::COLOR_MODE],
             );
 

@@ -4,6 +4,7 @@ declare(strict_types=1);
 // 20.03.23
 namespace AlecRabbit\Spinner\Core\A;
 
+use AlecRabbit\Spinner\Contract\IAnsiColorConverter;
 use AlecRabbit\Spinner\Contract\IColorConverter;
 use AlecRabbit\Spinner\Contract\IPattern;
 use AlecRabbit\Spinner\Core\CharFrameCollectionRenderer;
@@ -22,7 +23,7 @@ abstract class AFrameRevolverBuilder extends ARevolverBuilder implements IFrameR
 
     public function __construct(
         IDefaults $defaults,
-        protected IColorConverter $colorConverter,
+        protected IAnsiColorConverter $colorConverter,
     ) {
         parent::__construct($defaults);
     }

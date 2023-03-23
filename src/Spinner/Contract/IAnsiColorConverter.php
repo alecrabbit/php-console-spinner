@@ -4,9 +4,12 @@ declare(strict_types=1);
 // 23.03.23
 namespace AlecRabbit\Spinner\Contract;
 
+use AlecRabbit\Spinner\Exception\DomainException;
+use AlecRabbit\Spinner\Exception\InvalidArgumentException;
+use AlecRabbit\Spinner\Exception\LogicException;
+
 interface IAnsiColorConverter
 {
-
     public const COLOR_TABLE = [
         0 => '#000000',
         1 => '#800000',
@@ -265,4 +268,11 @@ interface IAnsiColorConverter
         254 => '#e4e4e4',
         255 => '#eeeeee',
     ];
+
+    /**
+     * @throws InvalidArgumentException
+     * @throws LogicException
+     * @throws DomainException
+     */
+    public function ansiCode(IStyle|int|string $color, ColorMode $colorMode): string;
 }

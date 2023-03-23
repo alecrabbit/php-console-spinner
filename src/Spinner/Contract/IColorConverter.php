@@ -22,10 +22,4 @@ interface IColorConverter
      */
     public function gradients(Traversable $colors, int $steps = 10, ?string $fromColor = null): Generator;
 
-    /**
-     * @throws InvalidArgumentException
-     * @throws LogicException
-     * @throws DomainException
-     */
-    public function ansiCode(IStyle|int|string $color, ColorMode $colorMode): string;
 }

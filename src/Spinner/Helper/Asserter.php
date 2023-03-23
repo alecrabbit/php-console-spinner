@@ -101,4 +101,70 @@ final class Asserter
             );
         }
     }
+
+    /**
+     * @throws InvalidArgumentException
+     */
+    public static function assertHexColor(string $entry): void
+    {
+        $strlen = strlen($entry);
+        match (true) {
+            0 === $strlen => throw new InvalidArgumentException(
+                'Value should not be empty string.'
+            ),
+            !str_starts_with($entry, '#') => throw new InvalidArgumentException(
+                sprintf(
+                    'Value should be a valid hex color code("#rgb", "#rrggbb"), "%s" given. No "#" found.',
+                    $entry
+                )
+            ),
+            4 !== $strlen && 7 !== $strlen => throw new InvalidArgumentException(
+                sprintf(
+                    'Value should be a valid hex color code("#rgb", "#rrggbb"), "%s" given. Length: %d.',
+                    $entry,
+                    $strlen
+                )
+            ),
+            default => null,
+        };
+    }
+
+    /**
+     * @throws InvalidArgumentException
+     */
+    public static function assertIntColor(int $color, ColorMode $colorMode): void
+    {
+        match (true) {
+            0 > $color => throw new InvalidArgumentException(
+                sprintf(
+                    'Value should be positive integer, %d given.',
+                    $color
+                )
+            ),
+            ColorMode::ANSI24->name === $colorMode->name => throw new InvalidArgumentException(
+                sprintf(
+                    'For %s::%s color mode rendering from int is not allowed.',
+                    ColorMode::class,
+                    ColorMode::ANSI24->name
+                )
+            ),
+            ColorMode::ANSI8->name === $colorMode->name && 255 < $color => throw new InvalidArgumentException(
+                sprintf(
+                    'For %s::%s color mode value should be in range 0..255, %d given.',
+                    ColorMode::class,
+                    ColorMode::ANSI8->name,
+                    $color
+                )
+            ),
+            ColorMode::ANSI4->name === $colorMode->name && 16 < $color => throw new InvalidArgumentException(
+                sprintf(
+                    'For %s::%s color mode value should be in range 0..15, %d given.',
+                    ColorMode::class,
+                    ColorMode::ANSI4->name,
+                    $color
+                )
+            ),
+            default => null,
+        };
+    }
 }
