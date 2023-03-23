@@ -14,7 +14,7 @@ $runTime = 30; // s
 
 $defaults = DefaultsFactory::get();
 
-//$defaults->getTerminalSettings()->setColorMode(ColorMode::NONE);
+$defaults->getTerminalSettings()->overrideColorMode(ColorMode::NONE);
 
 $config =
     Facade::getConfigBuilder()
