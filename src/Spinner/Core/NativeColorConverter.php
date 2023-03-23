@@ -105,6 +105,33 @@ final class NativeColorConverter implements IColorConverter
     }
 
     /**
+     * @throws InvalidArgumentException
+     */
+    protected function assertStringColor(string $entry): void
+    {
+        $strlen = strlen($entry);
+        match (true) {
+            0 === $strlen => throw new InvalidArgumentException(
+                'Value should not be empty string.'
+            ),
+            !str_starts_with($entry, '#') => throw new InvalidArgumentException(
+                sprintf(
+                    'Value should be a valid hex color code("#rgb", "#rrggbb"), "%s" given. No "#" found.',
+                    $entry
+                )
+            ),
+            4 !== $strlen && 7 !== $strlen => throw new InvalidArgumentException(
+                sprintf(
+                    'Value should be a valid hex color code("#rgb", "#rrggbb"), "%s" given. Length: %d.',
+                    $entry,
+                    $strlen
+                )
+            ),
+            default => null,
+        };
+    }
+
+    /**
      * @param Traversable $colors Colors to generate gradients between
      * @param int $steps Steps per gradient
      * @throws InvalidArgumentException
@@ -220,33 +247,6 @@ final class NativeColorConverter implements IColorConverter
                     ColorMode::class,
                     ColorMode::ANSI4->name,
                     $color
-                )
-            ),
-            default => null,
-        };
-    }
-
-    /**
-     * @throws InvalidArgumentException
-     */
-    protected function assertStringColor(string $entry): void
-    {
-        $strlen = strlen($entry);
-        match (true) {
-            0 === $strlen => throw new InvalidArgumentException(
-                'Value should not be empty string.'
-            ),
-            !str_starts_with($entry, '#') => throw new InvalidArgumentException(
-                sprintf(
-                    'Value should be a valid hex color code("#rgb", "#rrggbb"), "%s" given. No "#" found.',
-                    $entry
-                )
-            ),
-            4 !== $strlen && 7 !== $strlen => throw new InvalidArgumentException(
-                sprintf(
-                    'Value should be a valid hex color code("#rgb", "#rrggbb"), "%s" given. Length: %d.',
-                    $entry,
-                    $strlen
                 )
             ),
             default => null,

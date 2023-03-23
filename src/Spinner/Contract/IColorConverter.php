@@ -7,6 +7,8 @@ namespace AlecRabbit\Spinner\Contract;
 use AlecRabbit\Spinner\Exception\DomainException;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Exception\LogicException;
+use Generator;
+use Traversable;
 
 interface IColorConverter
 {
@@ -274,10 +276,10 @@ interface IColorConverter
     public function rgbToHsl(string $color): array;
 
     /**
-     * @param \Traversable $colors Colors to generate gradients between
+     * @param Traversable $colors Colors to generate gradients between
      * @param int $steps Steps per gradient
      */
-    public function gradients(\Traversable $colors, int $steps = 10, ?string $fromColor = null): \Generator;
+    public function gradients(Traversable $colors, int $steps = 10, ?string $fromColor = null): Generator;
 
     /**
      * @throws InvalidArgumentException
