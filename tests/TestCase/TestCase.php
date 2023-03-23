@@ -49,7 +49,7 @@ abstract class TestCase extends PHPUnitTestCase
         );
 
         if (null !== $dataSet) {
-            dump($dataSet);
+            dump($dataSet); // intentional dump
         }
 
         self::fail($message);
