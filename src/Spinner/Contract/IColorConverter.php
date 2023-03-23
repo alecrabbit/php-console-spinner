@@ -1,9 +1,10 @@
 <?php
+
 declare(strict_types=1);
 // 22.03.23
 namespace AlecRabbit\Spinner\Contract;
 
-use AlecRabbit\Spinner\Core\NativeColorConverter;
+use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 
 interface IColorConverter
 {
@@ -275,4 +276,9 @@ interface IColorConverter
      * @param int $steps Steps per gradient
      */
     public function gradients(\Traversable $colors, int $steps = 10, ?string $fromColor = null): \Generator;
+
+    /**
+     * @throws InvalidArgumentException
+     */
+    public function ansiCode(IStyle|int|string $color, ColorMode $colorMode): string;
 }
