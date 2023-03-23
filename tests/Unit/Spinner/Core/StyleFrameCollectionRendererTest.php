@@ -129,7 +129,7 @@ final class StyleFrameCollectionRendererTest extends TestCase
             ],
             [
                 self::ARGUMENTS => [
-                    self::COLOR_MODE => ColorMode::NONE,
+                    self::COLOR_MODE => ColorMode::ANSI4,
                     self::PATTERN =>
                         new CustomStyle(
                             [['fg' => '', 'bq' => ''],],

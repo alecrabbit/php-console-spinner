@@ -63,12 +63,12 @@ final class StyleFrameCollectionRenderer extends AFrameCollectionRenderer
      */
     protected function createFrame(int|string|array $entry, bool $bg = false): IFrame
     {
-        if (is_array($entry)) {
-            return $this->createFromArray($entry);
-        }
-
         if ($this->terminalColorMode === ColorMode::NONE) {
             return FrameFactory::create('%s', 0);
+        }
+
+        if (is_array($entry)) {
+            return $this->createFromArray($entry);
         }
 
         $color = $this->colorMode->ansiCode($entry);
@@ -87,10 +87,6 @@ final class StyleFrameCollectionRenderer extends AFrameCollectionRenderer
     protected function createFromArray(array $entry): IFrame
     {
         $this->assertEntryArray($entry);
-
-        if ($this->terminalColorMode === ColorMode::NONE) {
-            return FrameFactory::create('%s', 0);
-        }
 
         $fgColor = $this->colorMode->ansiCode((string)$entry[self::FG]);
         $bgColor = $this->colorMode->ansiCode((string)$entry[self::BG]);
