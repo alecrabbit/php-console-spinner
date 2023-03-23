@@ -44,7 +44,7 @@ abstract class AFrameRevolverBuilder extends ARevolverBuilder implements IFrameR
         if ($this->pattern instanceof IStylePattern) {
             return
                 new FrameCollectionRevolver(
-                    (new StyleFrameCollectionRenderer($this->colorConverter, $colorMode))
+                    (new StyleFrameCollectionRenderer($this->colorConverter))
                         ->pattern($this->pattern)
                         ->render(),
                     $this->pattern->getInterval()

@@ -8,6 +8,7 @@ namespace AlecRabbit\Spinner\Core;
 use AlecRabbit\Spinner\Contract\ColorMode;
 use AlecRabbit\Spinner\Contract\IAnsiColorConverter;
 use AlecRabbit\Spinner\Contract\IFrame;
+use AlecRabbit\Spinner\Contract\IFrameCollection;
 use AlecRabbit\Spinner\Contract\IFrameCollectionRenderer;
 use AlecRabbit\Spinner\Contract\IPattern;
 use AlecRabbit\Spinner\Core\A\AFrameCollectionRenderer;
@@ -15,6 +16,7 @@ use AlecRabbit\Spinner\Core\Factory\FrameFactory;
 use AlecRabbit\Spinner\Core\Pattern\Contract\IStylePattern;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Exception\LogicException;
+use ArrayObject;
 
 final class StyleFrameCollectionRenderer extends AFrameCollectionRenderer
 {
@@ -48,16 +50,26 @@ final class StyleFrameCollectionRenderer extends AFrameCollectionRenderer
         return $clone;
     }
 
+    /** @inheritdoc */
+    public function render(): IFrameCollection
+    {
+        if ($this->converter->getColorMode() === ColorMode::NONE) {
+            return
+                new FrameCollection(
+                    new ArrayObject(
+                        [FrameFactory::create('%s', 0)]
+                    )
+                );
+        }
+        return parent::render();
+    }
+
     /**
      * @throws LogicException
      * @throws InvalidArgumentException
      */
     protected function createFrame(int|string|array $entry, bool $bg = false): IFrame
     {
-        if ($this->converter->getColorMode() === ColorMode::NONE) {
-            return FrameFactory::create('%s', 0);
-        }
-
         if (is_array($entry)) {
             return $this->createFromArray($entry);
         }
