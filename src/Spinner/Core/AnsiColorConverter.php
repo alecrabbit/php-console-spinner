@@ -48,7 +48,7 @@ final class AnsiColorConverter implements IAnsiColorConverter
     {
         match (true) {
             is_int($color) => Asserter::assertIntColor($color, $colorMode),
-            is_string($color) => Asserter::assertHexColor($color),
+            is_string($color) => Asserter::assertHexStringColor($color),
         };
     }
 

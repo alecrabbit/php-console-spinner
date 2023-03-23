@@ -89,7 +89,7 @@ final class NativeColorConverter implements IColorConverter
      */
     protected function hexToRgb(string $hex): array
     {
-        Asserter::assertHexColor($hex);
+        Asserter::assertHexStringColor($hex);
 
         $hex = str_replace('#', '', $hex);
         $length = strlen($hex);

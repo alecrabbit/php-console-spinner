@@ -105,9 +105,10 @@ final class Asserter
     /**
      * @throws InvalidArgumentException
      */
-    public static function assertHexColor(string $entry): void
+    public static function assertHexStringColor(string $entry): void
     {
         $strlen = strlen($entry);
+        $entry = strtolower($entry);
         match (true) {
             0 === $strlen => throw new InvalidArgumentException(
                 'Value should not be empty string.'
