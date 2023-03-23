@@ -71,13 +71,10 @@ final class StyleFrameCollectionRenderer extends AFrameCollectionRenderer
             return $this->createFromArray($entry);
         }
 
-        $color = $this->colorMode->ansiCode($entry);
+        $color = ($bg ? '4' : '3') . $this->colorMode->ansiCode($entry) . 'm%s';
 
         return
-            FrameFactory::create(
-                Sequencer::colorSequence(($bg ? '4' : '3') . $color . 'm%s'),
-                0
-            );
+            FrameFactory::create(Sequencer::colorSequence($color), 0);
     }
 
     /**
