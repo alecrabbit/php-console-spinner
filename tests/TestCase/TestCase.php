@@ -8,7 +8,6 @@ use AlecRabbit\Tests\Spinner\Helper\PickLock;
 use AlecRabbit\Tests\Spinner\Mixin\AppRelatedConstantsTrait;
 use ArrayAccess;
 use PHPUnit\Framework\TestCase as PHPUnitTestCase;
-
 use Throwable;
 
 use function array_key_exists;
