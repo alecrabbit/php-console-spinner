@@ -6,8 +6,9 @@ namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Core;
 
 use AlecRabbit\Spinner\Contract\ColorMode;
 use AlecRabbit\Spinner\Core\Factory\FrameFactory;
-use AlecRabbit\Spinner\Core\StyleFrameCollectionRenderer;
+use AlecRabbit\Spinner\Core\NativeColorConverter;
 use AlecRabbit\Spinner\Core\Pattern\Style\CustomStyle;
+use AlecRabbit\Spinner\Core\StyleFrameCollectionRenderer;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Tests\Spinner\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
@@ -92,6 +93,7 @@ final class StyleFrameCollectionRendererTest extends TestCase
             ],
             [
                 self::ARGUMENTS => [
+                    self::COLOR_MODE => ColorMode::ANSI8,
                     self::PATTERN =>
                         new CustomStyle(
                             [[],],
@@ -109,6 +111,7 @@ final class StyleFrameCollectionRendererTest extends TestCase
             ],
             [
                 self::ARGUMENTS => [
+                    self::COLOR_MODE => ColorMode::ANSI4,
                     self::PATTERN =>
                         new CustomStyle(
                             [[0, 1],],
@@ -126,6 +129,7 @@ final class StyleFrameCollectionRendererTest extends TestCase
             ],
             [
                 self::ARGUMENTS => [
+                    self::COLOR_MODE => ColorMode::NONE,
                     self::PATTERN =>
                         new CustomStyle(
                             [['fg' => '', 'bq' => ''],],
@@ -224,7 +228,10 @@ final class StyleFrameCollectionRendererTest extends TestCase
         $args = $incoming[self::ARGUMENTS];
 
         $collection =
-            (new StyleFrameCollectionRenderer($args[self::COLOR_MODE] ?? null))
+            (new StyleFrameCollectionRenderer(
+                new NativeColorConverter(),
+                $args[self::COLOR_MODE],
+            ))
                 ->pattern($args[self::PATTERN])
                 ->render();
 
