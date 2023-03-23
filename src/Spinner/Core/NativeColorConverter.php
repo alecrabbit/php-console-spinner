@@ -42,6 +42,9 @@ final class NativeColorConverter implements IColorConverter
         return sprintf('#%02x%02x%02x', $r, $g, $b);
     }
 
+    /**
+     * @throws InvalidArgumentException
+     */
     public function rgbToHsl(string $color): array
     {
         $rgb = $this->hexToRgb($color);
@@ -104,6 +107,7 @@ final class NativeColorConverter implements IColorConverter
     /**
      * @param Traversable $colors Colors to generate gradients between
      * @param int $steps Steps per gradient
+     * @throws InvalidArgumentException
      */
     public function gradients(Traversable $colors, int $steps = 10, ?string $fromColor = null): Generator
     {
@@ -297,7 +301,7 @@ final class NativeColorConverter implements IColorConverter
         return match ($colorMode) {
             ColorMode::ANSI4 => $this->degradeHexColorToAnsi4($r, $g, $b),
             ColorMode::ANSI8 => $this->degradeHexColorToAnsi8($r, $g, $b),
-            default => throw new InvalidArgumentException("RGB cannot be converted to {$colorMode->name}.")
+            default => throw new InvalidArgumentException("RGB cannot be converted to $colorMode->name.")
         };
     }
 
@@ -340,12 +344,12 @@ final class NativeColorConverter implements IColorConverter
             }
 
             return (int)round(($r - 8) / 247 * 24) + 232;
-        } else {
-            return 16 +
-                (36 * (int)round($r / 255 * 5)) +
-                (6 * (int)round($g / 255 * 5)) +
-                (int)round($b / 255 * 5);
         }
+
+        return 16 +
+            (36 * (int)round($r / 255 * 5)) +
+            (6 * (int)round($g / 255 * 5)) +
+            (int)round($b / 255 * 5);
     }
 
     /**
