@@ -15,7 +15,7 @@ use AlecRabbit\Spinner\Core\Pattern\Contract\IStylePattern;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Exception\LogicException;
 
-final class OldStyleFrameCollectionRenderer extends AFrameCollectionRenderer
+final class StyleFrameCollectionRenderer extends AFrameCollectionRenderer
 {
     private const FG = 'fg';
     private const BG = 'bg';
