@@ -7,6 +7,7 @@ namespace AlecRabbit\Spinner\Core\Factory\A;
 use AlecRabbit\Spinner\Contract\IPattern;
 use AlecRabbit\Spinner\Core\AnsiColorConverter;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDefaults;
+use AlecRabbit\Spinner\Core\Factory\AnsiColorConverterFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IRevolverFactory;
 use AlecRabbit\Spinner\Core\Factory\FrameFactory;
 use AlecRabbit\Spinner\Core\Factory\IntervalFactory;
@@ -53,7 +54,7 @@ abstract class ARevolverFactory extends ADefaultsAwareClass implements IRevolver
         $revolverBuilderClass = $defaults->getClasses()->getFrameRevolverBuilderClass();
 
         return
-            new $revolverBuilderClass(static::getDefaults(), new AnsiColorConverter());
+            new $revolverBuilderClass(static::getDefaults(), self::getColorConverter($defaults));
     }
 
     public static function defaultCharRevolver(): IRevolver
@@ -67,5 +68,10 @@ abstract class ARevolverFactory extends ADefaultsAwareClass implements IRevolver
                 ),
                 IntervalFactory::createStill()
             );
+    }
+
+    protected static function getColorConverter(?IDefaults $defaults): AnsiColorConverter
+    {
+        return AnsiColorConverterFactory::getGetAnsiColorConverter($defaults);
     }
 }
