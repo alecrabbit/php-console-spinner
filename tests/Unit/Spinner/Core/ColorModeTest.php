@@ -267,7 +267,6 @@ final class ColorModeTest extends TestCase
 
         $args = $incoming[self::ARGUMENTS];
 
-//        $collection = (new StyleFrameRenderer($args[self::PATTERN]))->render();
         $code = $args[self::MODE]->ansiCode($args[self::COLOR]);
 
         if ($expectedException) {
