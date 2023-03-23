@@ -551,4 +551,38 @@ enum ColorMode: int
 
         return sprintf('#%02x%02x%02x', $r, $g, $b);
     }
+
+    protected function gradient(string $from, string $to, int $steps = 100): \Generator
+    {
+        $f = $this->hexToRgb($from);
+        $t = $this->hexToRgb($to);
+
+        $rStep = ($t['r'] - $f['r']) / $steps;
+        $gStep = ($t['g'] - $f['g']) / $steps;
+        $bStep = ($t['b'] - $f['b']) / $steps;
+
+        for ($i = 0; $i < $steps; $i++) {
+            $r = (int)round($f['r'] + $rStep * $i);
+            $g = (int)round($f['g'] + $gStep * $i);
+            $b = (int)round($f['b'] + $bStep * $i);
+
+            yield $this->rgbToHex($r, $g, $b);
+        }
+    }
+
+    protected function hexToRgb(string $hex): array
+    {
+        $hex = str_replace('#', '', $hex);
+        $length = strlen($hex);
+        return [
+            'r' => hexdec(substr($hex, 0, $length / 3)),
+            'g' => hexdec(substr($hex, $length / 3, $length / 3)),
+            'b' => hexdec(substr($hex, $length / 3 * 2, $length / 3)),
+        ];
+    }
+
+    protected function rgbToHex(int $r, int $g, int $b): string
+    {
+        return sprintf('#%02x%02x%02x', $r, $g, $b);
+    }
 }
