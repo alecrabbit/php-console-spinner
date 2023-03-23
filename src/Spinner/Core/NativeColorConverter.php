@@ -142,9 +142,9 @@ final class NativeColorConverter implements IColorConverter
         $color24 = (string)$color;
 
         return match ($colorMode) {
-            ColorMode::ANSI4 => $this->convert4($color),
-            ColorMode::ANSI8 => $this->convert8($color),
-            ColorMode::ANSI24 => $this->convert24($color24),
+            ColorMode::ANSI4 => $this->convert4($color, $colorMode),
+            ColorMode::ANSI8 => $this->convert8($color, $colorMode),
+            ColorMode::ANSI24 => $this->convert24($color24, $colorMode),
             default => throw new LogicException(
                 sprintf(
                     '%s::%s: Unable to convert "%s" to ansi code.',
@@ -159,17 +159,17 @@ final class NativeColorConverter implements IColorConverter
     /**
      * @throws InvalidArgumentException
      */
-    protected function convert4(int|string $color): string
+    protected function convert4(int|string $color, ColorMode $colorMode): string
     {
         if (is_int($color)) {
             return (string)$color;
         }
-        return $this->convertFromHexToAnsiColorCode($color);
+        return $this->convertFromHexToAnsiColorCode($color, $colorMode);
     }
     /**
      * @throws InvalidArgumentException
      */
-    protected function convert8(int|string $color): string
+    protected function convert8(int|string $color, ColorMode $colorMode): string
     {
         if (is_int($color)) {
             return '8;5;' . $color;
@@ -193,7 +193,7 @@ final class NativeColorConverter implements IColorConverter
 
 
         if (false === $result) {
-            return $this->convertFromHexToAnsiColorCode($color);
+            return $this->convertFromHexToAnsiColorCode($color, $colorMode);
         }
 
         return '8;5;' . (string)$result;
@@ -202,14 +202,14 @@ final class NativeColorConverter implements IColorConverter
     /**
      * @throws InvalidArgumentException
      */
-    protected function convert24(string $color): string
+    protected function convert24(string $color, ColorMode $colorMode): string
     {
-        return $this->convertFromHexToAnsiColorCode($color);
+        return $this->convertFromHexToAnsiColorCode($color, $colorMode);
     }
     /**
      * @throws InvalidArgumentException
      */
-    private function convertFromHexToAnsiColorCode(string $hexColor): string
+    private function convertFromHexToAnsiColorCode(string $hexColor, ColorMode $colorMode): string
     {
         $hexColor = str_replace('#', '', $hexColor);
 
@@ -227,23 +227,23 @@ final class NativeColorConverter implements IColorConverter
         $g = ($color >> 8) & 255;
         $b = $color & 255;
 
-        return match ($this) {
-            self::ANSI4 => (string)$this->convertFromRGB($r, $g, $b),
-            self::ANSI8 => '8;5;' . ((string)$this->convertFromRGB($r, $g, $b)),
-            self::ANSI24 => sprintf('8;2;%d;%d;%d', $r, $g, $b),
-            self::NONE => throw new InvalidArgumentException('Hex color cannot be converted to NONE.'),
+        return match ($colorMode) {
+            ColorMode::ANSI4 => (string)$this->convertFromRGB($r, $g, $b, $colorMode),
+            ColorMode::ANSI8 => '8;5;' . ((string)$this->convertFromRGB($r, $g, $b, $colorMode)),
+            ColorMode::ANSI24 => sprintf('8;2;%d;%d;%d', $r, $g, $b),
+            ColorMode::NONE => throw new InvalidArgumentException('Hex color cannot be converted to NONE.'),
         };
     }
 
     /**
      * @throws InvalidArgumentException
      */
-    private function convertFromRGB(int $r, int $g, int $b): int
+    private function convertFromRGB(int $r, int $g, int $b, ColorMode $colorMode): int
     {
-        return match ($this) {
-            self::ANSI4 => $this->degradeHexColorToAnsi4($r, $g, $b),
-            self::ANSI8 => $this->degradeHexColorToAnsi8($r, $g, $b),
-            default => throw new InvalidArgumentException("RGB cannot be converted to {$this->name}.")
+        return match ($colorMode) {
+            ColorMode::ANSI4 => $this->degradeHexColorToAnsi4($r, $g, $b),
+            ColorMode::ANSI8 => $this->degradeHexColorToAnsi8($r, $g, $b),
+            default => throw new InvalidArgumentException("RGB cannot be converted to {$colorMode->name}.")
         };
     }
 

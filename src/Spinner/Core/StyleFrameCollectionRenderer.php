@@ -87,8 +87,8 @@ final class StyleFrameCollectionRenderer extends AFrameCollectionRenderer
     {
         $this->assertEntryArray($entry);
 
-        $fgColor = $this->colorMode->ansiCode((string)$entry[self::FG]);
-        $bgColor = $this->colorMode->ansiCode((string)$entry[self::BG]);
+        $fgColor = $this->converter->ansiCode((string)$entry[self::FG], $this->colorMode);
+        $bgColor = $this->converter->ansiCode((string)$entry[self::BG], $this->colorMode);
 
         return
             FrameFactory::create(
@@ -125,22 +125,22 @@ final class StyleFrameCollectionRenderer extends AFrameCollectionRenderer
         }
     }
 
-    /**
-     * @throws LogicException
-     * @throws InvalidArgumentException
-     */
-    protected function doCreate(int|string|array $entry, bool $bg = false): IFrame
-    {
-        if ($this->terminalColorMode === ColorMode::NONE) {
-            return FrameFactory::create('%s', 0);
-        }
-
-        $color = $this->colorMode->ansiCode($entry);
-
-        return
-            FrameFactory::create(
-                Sequencer::colorSequence(($bg ? '4' : '3') . $color . 'm%s'),
-                0
-            );
-    }
+//    /**
+//     * @throws LogicException
+//     * @throws InvalidArgumentException
+//     */
+//    protected function doCreate(int|string|array $entry, bool $bg = false): IFrame
+//    {
+//        if ($this->terminalColorMode === ColorMode::NONE) {
+//            return FrameFactory::create('%s', 0);
+//        }
+//
+//        $color = $this->converter->ansiCode($entry, $this->colorMode);
+//
+//        return
+//            FrameFactory::create(
+//                Sequencer::colorSequence(($bg ? '4' : '3') . $color . 'm%s'),
+//                0
+//            );
+//    }
 }
