@@ -12,7 +12,6 @@ abstract class AAnsiColorConverterFactory extends ADefaultsAwareClass implements
 {
     private static ?IAnsiColorConverter $colorConverter = null;
 
-
     public static function getGetAnsiColorConverter(?IDefaults $defaults = null): IAnsiColorConverter
     {
         if (null === static::$colorConverter) {

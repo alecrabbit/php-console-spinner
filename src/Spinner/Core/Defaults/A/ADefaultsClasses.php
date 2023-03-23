@@ -157,7 +157,7 @@ abstract class ADefaultsClasses extends ADefaultsChild implements IDefaultsClass
     /** @inheritDoc */
     public function getAnsiColorConverterClass(): string
     {
-        return  self::$ansiColorConverterClass;
+        return self::$ansiColorConverterClass;
     }
 
     /** @inheritDoc */
