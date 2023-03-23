@@ -83,11 +83,17 @@ final class NativeColorConverter implements IColorConverter
         ];
     }
 
+    /**
+     * @return array<string, int>
+     * @throws InvalidArgumentException
+     */
     protected function hexToRgb(string $hex): array
     {
+        $this->assertStringColor($hex);
+
         $hex = str_replace('#', '', $hex);
         $length = strlen($hex);
-        $cLength = $length / 3;
+        $cLength = (int)($length / 3);
         return [
             'r' => hexdec(substr($hex, 0, $cLength)),
             'g' => hexdec(substr($hex, $cLength, $cLength)),
@@ -101,6 +107,7 @@ final class NativeColorConverter implements IColorConverter
      */
     public function gradients(Traversable $colors, int $steps = 10, ?string $fromColor = null): Generator
     {
+        /** @var string $color */
         foreach ($colors as $color) {
             if (null === $fromColor) {
                 $fromColor = $color;
@@ -137,6 +144,12 @@ final class NativeColorConverter implements IColorConverter
     /** @inheritdoc */
     public function ansiCode(IStyle|int|string $color, ColorMode $colorMode): string
     {
+        if ($color instanceof IStyle) {
+            throw new DomainException(
+                sprintf('%s is not supported by this color converter', IStyle::class)
+            );
+        }
+
         $this->assertColor($color, $colorMode);
 
         $color24 = (string)$color;
@@ -159,6 +172,83 @@ final class NativeColorConverter implements IColorConverter
     /**
      * @throws InvalidArgumentException
      */
+    protected function assertColor(IStyle|int|string $color, ColorMode $colorMode): void
+    {
+        match (true) {
+            is_int($color) => $this->assertIntColor($color, $colorMode),
+            is_string($color) => $this->assertStringColor($color),
+        };
+    }
+
+    /**
+     * @throws InvalidArgumentException
+     */
+    protected function assertIntColor(int $color, ColorMode $colorMode): void
+    {
+        match (true) {
+            0 > $color => throw new InvalidArgumentException(
+                sprintf(
+                    'Value should be positive integer, %d given.',
+                    $color
+                )
+            ),
+            ColorMode::ANSI24->name === $colorMode->name => throw new InvalidArgumentException(
+                sprintf(
+                    'For %s::%s color mode rendering from int is not allowed.',
+                    ColorMode::class,
+                    ColorMode::ANSI24->name
+                )
+            ),
+            ColorMode::ANSI8->name === $colorMode->name && 255 < $color => throw new InvalidArgumentException(
+                sprintf(
+                    'For %s::%s color mode value should be in range 0..255, %d given.',
+                    ColorMode::class,
+                    ColorMode::ANSI8->name,
+                    $color
+                )
+            ),
+            ColorMode::ANSI4->name === $colorMode->name && 16 < $color => throw new InvalidArgumentException(
+                sprintf(
+                    'For %s::%s color mode value should be in range 0..15, %d given.',
+                    ColorMode::class,
+                    ColorMode::ANSI4->name,
+                    $color
+                )
+            ),
+            default => null,
+        };
+    }
+
+    /**
+     * @throws InvalidArgumentException
+     */
+    protected function assertStringColor(string $entry): void
+    {
+        $strlen = strlen($entry);
+        match (true) {
+            0 === $strlen => throw new InvalidArgumentException(
+                'Value should not be empty string.'
+            ),
+            !str_starts_with($entry, '#') => throw new InvalidArgumentException(
+                sprintf(
+                    'Value should be a valid hex color code("#rgb", "#rrggbb"), "%s" given. No "#" found.',
+                    $entry
+                )
+            ),
+            4 !== $strlen && 7 !== $strlen => throw new InvalidArgumentException(
+                sprintf(
+                    'Value should be a valid hex color code("#rgb", "#rrggbb"), "%s" given. Length: %d.',
+                    $entry,
+                    $strlen
+                )
+            ),
+            default => null,
+        };
+    }
+
+    /**
+     * @throws InvalidArgumentException
+     */
     protected function convert4(int|string $color, ColorMode $colorMode): string
     {
         if (is_int($color)) {
@@ -166,46 +256,7 @@ final class NativeColorConverter implements IColorConverter
         }
         return $this->convertFromHexToAnsiColorCode($color, $colorMode);
     }
-    /**
-     * @throws InvalidArgumentException
-     */
-    protected function convert8(int|string $color, ColorMode $colorMode): string
-    {
-        if (is_int($color)) {
-            return '8;5;' . $color;
-        }
 
-        /** @var null|array<int, string> $colors8 */
-        static $colors8 = null;
-
-        if (null === $colors8) {
-            $colors8 = array_slice(self::COLOR_TABLE, 16, preserve_keys: true);
-        }
-
-        /** @var int|false $result */
-        $result =
-            // non-optimal code, but it's not a bottleneck
-            array_search(
-                $color,
-                $colors8,
-                true
-            );
-
-
-        if (false === $result) {
-            return $this->convertFromHexToAnsiColorCode($color, $colorMode);
-        }
-
-        return '8;5;' . (string)$result;
-    }
-
-    /**
-     * @throws InvalidArgumentException
-     */
-    protected function convert24(string $color, ColorMode $colorMode): string
-    {
-        return $this->convertFromHexToAnsiColorCode($color, $colorMode);
-    }
     /**
      * @throws InvalidArgumentException
      */
@@ -296,85 +347,43 @@ final class NativeColorConverter implements IColorConverter
 
     /**
      * @throws InvalidArgumentException
-     * @throws DomainException
      */
-    protected function assertColor(IStyle|int|string $color, ColorMode $colorMode): void
+    protected function convert8(int|string $color, ColorMode $colorMode): string
     {
-        if ($color instanceof IStyle) {
-            throw new DomainException('IStyle is not supported by this color converter');
+        if (is_int($color)) {
+            return '8;5;' . $color;
         }
 
-        match (true) {
-            is_int($color) => $this->assertIntColor($color, $colorMode),
-            is_string($color) => $this->assertStringColor($color, $colorMode),
-        };
+        /** @var null|array<int, string> $colors8 */
+        static $colors8 = null;
+
+        if (null === $colors8) {
+            $colors8 = array_slice(self::COLOR_TABLE, 16, preserve_keys: true);
+        }
+
+        /** @var int|false $result */
+        $result =
+            // non-optimal code, but it's not a bottleneck
+            array_search(
+                $color,
+                $colors8,
+                true
+            );
+
+
+        if (false === $result) {
+            return $this->convertFromHexToAnsiColorCode($color, $colorMode);
+        }
+
+        return '8;5;' . (string)$result;
     }
 
     /**
      * @throws InvalidArgumentException
      */
-    protected function assertIntColor(int $color, ColorMode $colorMode): void
+    protected function convert24(string $color, ColorMode $colorMode): string
     {
-
-        match (true) {
-            0 > $color => throw new InvalidArgumentException(
-                sprintf(
-                    'Value should be positive integer, %d given.',
-                    $color
-                )
-            ),
-            ColorMode::ANSI24->name === $colorMode->name => throw new InvalidArgumentException(
-                sprintf(
-                    'For %s::%s color mode rendering from int is not allowed.',
-                    ColorMode::class,
-                    ColorMode::ANSI24->name
-                )
-            ),
-            ColorMode::ANSI8->name === $colorMode->name && 255 < $color => throw new InvalidArgumentException(
-                sprintf(
-                    'For %s::%s color mode value should be in range 0..255, %d given.',
-                    ColorMode::class,
-                    ColorMode::ANSI8->name,
-                    $color
-                )
-            ),
-            ColorMode::ANSI4->name === $colorMode->name && 16 < $color => throw new InvalidArgumentException(
-                sprintf(
-                    'For %s::%s color mode value should be in range 0..15, %d given.',
-                    ColorMode::class,
-                    ColorMode::ANSI4->name,
-                    $color
-                )
-            ),
-            default => null,
-        };
-    }
-
-    /**
-     * @throws InvalidArgumentException
-     */
-    protected function assertStringColor(string $entry): void
-    {
-        $strlen = strlen($entry);
-        match (true) {
-            0 === $strlen => throw new InvalidArgumentException(
-                'Value should not be empty string.'
-            ),
-            !str_starts_with($entry, '#') => throw new InvalidArgumentException(
-                sprintf(
-                    'Value should be a valid hex color code("#rgb", "#rrggbb"), "%s" given. No "#" found.',
-                    $entry
-                )
-            ),
-            4 !== $strlen && 7 !== $strlen => throw new InvalidArgumentException(
-                sprintf(
-                    'Value should be a valid hex color code("#rgb", "#rrggbb"), "%s" given. Length: %d.',
-                    $entry,
-                    $strlen
-                )
-            ),
-            default => null,
-        };
+        return $this->convertFromHexToAnsiColorCode($color, $colorMode);
     }
 
     /**
@@ -386,7 +395,7 @@ final class NativeColorConverter implements IColorConverter
         $count = count($colors);
         $steps = (int)floor($steps / ($count - 1));
         for ($i = 0; $i < $count - 1; $i++) {
-            yield from $this->gradient($colors[$i], $colors[$i + 1], $steps);
+            yield from $this->gradient((string)$colors[$i], (string)$colors[$i + 1], $steps);
         }
     }
 }

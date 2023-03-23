@@ -4,7 +4,9 @@ declare(strict_types=1);
 // 22.03.23
 namespace AlecRabbit\Spinner\Contract;
 
+use AlecRabbit\Spinner\Exception\DomainException;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
+use AlecRabbit\Spinner\Exception\LogicException;
 
 interface IColorConverter
 {
@@ -279,6 +281,8 @@ interface IColorConverter
 
     /**
      * @throws InvalidArgumentException
+     * @throws LogicException
+     * @throws DomainException
      */
     public function ansiCode(IStyle|int|string $color, ColorMode $colorMode): string;
 }
