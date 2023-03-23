@@ -536,25 +536,14 @@ enum ColorMode: int
         $g = 0;
         $b = 0;
 
-        if ($h < 1 / 6) {
-            $r = $c;
-            $g = $x;
-        } elseif ($h < 2 / 6) {
-            $r = $x;
-            $g = $c;
-        } elseif ($h < 3 / 6) {
-            $g = $c;
-            $b = $x;
-        } elseif ($h < 4 / 6) {
-            $g = $x;
-            $b = $c;
-        } elseif ($h < 5 / 6) {
-            $r = $x;
-            $b = $c;
-        } else {
-            $r = $c;
-            $b = $x;
-        }
+        match (true) {
+            $h < 1 / 6 => [$r, $g] = [$c, $x],
+            $h < 2 / 6 => [$r, $g] = [$x, $c],
+            $h < 3 / 6 => [$g, $b] = [$c, $x],
+            $h < 4 / 6 => [$g, $b] = [$x, $c],
+            $h < 5 / 6 => [$r, $b] = [$x, $c],
+            default => [$r, $b] = [$c, $x],
+        };
 
         $r = ($r + $m) * 255;
         $g = ($g + $m) * 255;
