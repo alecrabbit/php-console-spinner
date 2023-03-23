@@ -552,6 +552,76 @@ enum ColorMode: int
         return sprintf('#%02x%02x%02x', $r, $g, $b);
     }
 
+    public function rgbToHsl(string $color): array
+    {
+        $rgb = $this->hexToRgb($color);
+
+        $r = $rgb['r'] / 255;
+        $g = $rgb['g'] / 255;
+        $b = $rgb['b'] / 255;
+
+        $max = max($r, $g, $b);
+        $min = min($r, $g, $b);
+
+        $h = 0;
+        $s = 0;
+        $l = ($max + $min) / 2;
+
+        if ($max !== $min) {
+            $d = $max - $min;
+            $s = $l > 0.5 ? $d / (2 - $max - $min) : $d / ($max + $min);
+
+            switch ($max) {
+                case $r:
+                    $h = ($g - $b) / $d + ($g < $b ? 6 : 0);
+                    break;
+                case $g:
+                    $h = ($b - $r) / $d + 2;
+                    break;
+                case $b:
+                    $h = ($r - $g) / $d + 4;
+                    break;
+            }
+
+            $h /= 6;
+        }
+
+        return [
+            'h' => (int)round($h * 360),
+            's' => (int)round($s * 100),
+            'l' => (int)round($l * 100),
+        ];
+    }
+
+    /**
+     * @param \Traversable $colors Colors to generate gradients between
+     * @param int $steps Steps per gradient
+     */
+    public function gradients(\Traversable $colors, int $steps = 10, ?string $fromColor = null): \Generator
+    {
+        foreach ($colors as $color) {
+            if (null === $fromColor) {
+                $fromColor = $color;
+                continue;
+            }
+            yield from $this->gradient($fromColor, $color, $steps);
+            $fromColor = $color;
+        }
+    }
+
+    /**
+     * @param array $colors Colors to generate gradients between
+     * @param int $steps Steps between first and last color
+     */
+    public function arrayGradients(array $colors, int $steps = 100): \Generator
+    {
+        $count = count($colors);
+        $steps = (int)floor($steps / ($count - 1));
+        for ($i = 0; $i < $count - 1; $i++) {
+            yield from $this->gradient($colors[$i], $colors[$i + 1], $steps);
+        }
+    }
+
     protected function gradient(string $from, string $to, int $steps = 100): \Generator
     {
         $f = $this->hexToRgb($from);
@@ -574,10 +644,11 @@ enum ColorMode: int
     {
         $hex = str_replace('#', '', $hex);
         $length = strlen($hex);
+        $cLength = $length / 3;
         return [
-            'r' => hexdec(substr($hex, 0, $length / 3)),
-            'g' => hexdec(substr($hex, $length / 3, $length / 3)),
-            'b' => hexdec(substr($hex, $length / 3 * 2, $length / 3)),
+            'r' => hexdec(substr($hex, 0, $cLength)),
+            'g' => hexdec(substr($hex, $cLength, $cLength)),
+            'b' => hexdec(substr($hex, $cLength * 2, $cLength)),
         ];
     }
 
