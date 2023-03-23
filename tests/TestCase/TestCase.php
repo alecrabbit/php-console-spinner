@@ -8,6 +8,7 @@ use AlecRabbit\Tests\Spinner\Helper\PickLock;
 use AlecRabbit\Tests\Spinner\Mixin\AppRelatedConstantsTrait;
 use ArrayAccess;
 use PHPUnit\Framework\TestCase as PHPUnitTestCase;
+
 use Throwable;
 
 use function array_key_exists;
@@ -36,7 +37,7 @@ abstract class TestCase extends PHPUnitTestCase
     }
 
     protected static function exceptionNotThrown(
-        string|\Throwable $e,
+        string|Throwable $e,
         ?string $exceptionMessage = null,
         ?array $dataSet = null
     ): never {
@@ -66,9 +67,9 @@ abstract class TestCase extends PHPUnitTestCase
 
     /**
      * @param mixed $expected
-     * @return null|\Throwable
+     * @return null|Throwable
      */
-    protected function expectsException(mixed $expected): ?\Throwable
+    protected function expectsException(mixed $expected): ?Throwable
     {
         if ((is_array($expected) || $expected instanceof ArrayAccess)
             && array_key_exists(self::EXCEPTION, $expected)) {

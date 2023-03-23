@@ -4,9 +4,6 @@ declare(strict_types=1);
 // 22.03.23
 namespace AlecRabbit\Spinner\Contract;
 
-use AlecRabbit\Spinner\Exception\DomainException;
-use AlecRabbit\Spinner\Exception\InvalidArgumentException;
-use AlecRabbit\Spinner\Exception\LogicException;
 use Generator;
 use Traversable;
 
