@@ -6,7 +6,7 @@ namespace AlecRabbit\Spinner\Core\A;
 
 use AlecRabbit\Spinner\Contract\IPattern;
 use AlecRabbit\Spinner\Core\CharFrameCollectionRenderer;
-use AlecRabbit\Spinner\Core\OldStyleFrameCollectionRenderer;
+use AlecRabbit\Spinner\Core\StyleFrameCollectionRenderer;
 use AlecRabbit\Spinner\Core\Pattern\Contract\IStylePattern;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolver;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolverBuilder;
@@ -31,7 +31,7 @@ abstract class AFrameRevolverBuilder extends ARevolverBuilder implements IFrameR
         if ($this->pattern instanceof IStylePattern) {
             return
                 new FrameCollectionRevolver(
-                    (new OldStyleFrameCollectionRenderer())->pattern($this->pattern)->render(),
+                    (new StyleFrameCollectionRenderer())->pattern($this->pattern)->render(),
                     $this->pattern->getInterval()
                 );
         }

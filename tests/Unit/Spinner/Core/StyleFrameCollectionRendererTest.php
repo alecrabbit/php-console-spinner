@@ -6,7 +6,7 @@ namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Core;
 
 use AlecRabbit\Spinner\Contract\ColorMode;
 use AlecRabbit\Spinner\Core\Factory\FrameFactory;
-use AlecRabbit\Spinner\Core\OldStyleFrameCollectionRenderer;
+use AlecRabbit\Spinner\Core\StyleFrameCollectionRenderer;
 use AlecRabbit\Spinner\Core\Pattern\Style\CustomStyle;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Tests\Spinner\TestCase\TestCase;
@@ -14,7 +14,7 @@ use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 
 
-final class OldStyleFrameRendererTest extends TestCase
+final class StyleFrameCollectionRendererTest extends TestCase
 {
     public static function collectionData(): iterable
     {
@@ -28,6 +28,7 @@ final class OldStyleFrameRendererTest extends TestCase
             ],
             [
                 self::ARGUMENTS => [
+                    self::COLOR_MODE => ColorMode::ANSI24,
                     self::PATTERN => new CustomStyle([196], colorMode: ColorMode::ANSI8),
                 ],
             ],
@@ -44,6 +45,7 @@ final class OldStyleFrameRendererTest extends TestCase
             ],
             [
                 self::ARGUMENTS => [
+                    self::COLOR_MODE => ColorMode::ANSI8,
                     self::PATTERN => new CustomStyle([196, 197], colorMode: ColorMode::ANSI8),
                 ],
             ],
@@ -59,6 +61,7 @@ final class OldStyleFrameRendererTest extends TestCase
             ],
             [
                 self::ARGUMENTS => [
+                    self::COLOR_MODE => ColorMode::ANSI24,
                     self::PATTERN => new CustomStyle(['#ff0000',], colorMode: ColorMode::ANSI8),
                 ],
             ],
@@ -74,6 +77,7 @@ final class OldStyleFrameRendererTest extends TestCase
             ],
             [
                 self::ARGUMENTS => [
+                    self::COLOR_MODE => ColorMode::ANSI24,
                     self::PATTERN => new CustomStyle(['#ff0000',], colorMode: ColorMode::ANSI8),
                 ],
             ],
@@ -91,7 +95,6 @@ final class OldStyleFrameRendererTest extends TestCase
                     self::PATTERN =>
                         new CustomStyle(
                             [[],],
-                            colorMode: ColorMode::ANSI8
                         ),
                 ],
             ],
@@ -109,7 +112,6 @@ final class OldStyleFrameRendererTest extends TestCase
                     self::PATTERN =>
                         new CustomStyle(
                             [[0, 1],],
-                            colorMode: ColorMode::ANSI8
                         ),
                 ],
             ],
@@ -127,7 +129,6 @@ final class OldStyleFrameRendererTest extends TestCase
                     self::PATTERN =>
                         new CustomStyle(
                             [['fg' => '', 'bq' => ''],],
-                            colorMode: ColorMode::ANSI8
                         ),
                 ],
             ],
@@ -143,6 +144,7 @@ final class OldStyleFrameRendererTest extends TestCase
             ],
             [
                 self::ARGUMENTS => [
+                    self::COLOR_MODE => ColorMode::ANSI24,
                     self::PATTERN =>
                         new CustomStyle(
                             [['fg' => '#ff0000', 'bg' => '#ffffff'],],
@@ -162,6 +164,7 @@ final class OldStyleFrameRendererTest extends TestCase
             ],
             [
                 self::ARGUMENTS => [
+                    self::COLOR_MODE => ColorMode::ANSI24,
                     self::PATTERN =>
                         new CustomStyle(
                             [['fg' => '#fff', 'bg' => '#f00'],],
@@ -201,6 +204,7 @@ final class OldStyleFrameRendererTest extends TestCase
             ],
             [
                 self::ARGUMENTS => [
+                    self::COLOR_MODE => ColorMode::ANSI24,
                     self::PATTERN =>
                         new CustomStyle(
                             [['fg' => '#fff', 'bg' => '#f00'],],
@@ -220,7 +224,7 @@ final class OldStyleFrameRendererTest extends TestCase
         $args = $incoming[self::ARGUMENTS];
 
         $collection =
-            (new OldStyleFrameCollectionRenderer($args[self::COLOR_MODE] ?? null))
+            (new StyleFrameCollectionRenderer($args[self::COLOR_MODE] ?? null))
                 ->pattern($args[self::PATTERN])
                 ->render();
 
