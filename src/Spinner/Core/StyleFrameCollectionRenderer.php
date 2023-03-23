@@ -6,6 +6,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core;
 
 use AlecRabbit\Spinner\Contract\ColorMode;
+use AlecRabbit\Spinner\Contract\IColorConverter;
 use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Contract\IFrameCollectionRenderer;
 use AlecRabbit\Spinner\Contract\IPattern;
@@ -22,10 +23,11 @@ final class StyleFrameCollectionRenderer extends AFrameCollectionRenderer
     private const COLOR_ARRAY_SIZE = 2;
 
     private ColorMode $patternColorMode = ColorMode::NONE;
-    private ColorMode $terminalColorMode;
 
-    public function __construct(?ColorMode $terminalColorMode = null) {
-        $this->terminalColorMode = $terminalColorMode ?? self::getDefaults()->getTerminalSettings()->getColorMode();
+    public function __construct(
+        protected IColorConverter $converter,
+        protected ColorMode $terminalColorMode,
+    ) {
     }
 
 

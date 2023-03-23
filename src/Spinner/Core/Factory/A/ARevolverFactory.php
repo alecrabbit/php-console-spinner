@@ -10,6 +10,7 @@ use AlecRabbit\Spinner\Core\Factory\Contract\IRevolverFactory;
 use AlecRabbit\Spinner\Core\Factory\FrameFactory;
 use AlecRabbit\Spinner\Core\Factory\IntervalFactory;
 use AlecRabbit\Spinner\Core\FrameCollection;
+use AlecRabbit\Spinner\Core\NativeColorConverter;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolverBuilder;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
 use AlecRabbit\Spinner\Core\Revolver\FrameCollectionRevolver;
@@ -52,7 +53,7 @@ abstract class ARevolverFactory extends ADefaultsAwareClass implements IRevolver
         $revolverBuilderClass = $defaults->getClasses()->getFrameRevolverBuilderClass();
 
         return
-            new $revolverBuilderClass(static::getDefaults());
+            new $revolverBuilderClass(static::getDefaults(), new NativeColorConverter());
     }
 
     public static function defaultCharRevolver(): IRevolver
