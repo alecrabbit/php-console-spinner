@@ -59,7 +59,7 @@ final class StyleFrameCollectionRenderer extends AFrameCollectionRenderer
             return FrameFactory::create('%s', 0);
         }
 
-        $color = $this->patternColorMode->simplest($this->terminalColorMode)->ansiCode($entry);
+        $color = $this->patternColorMode->lowest($this->terminalColorMode)->ansiCode($entry);
 
         return
             FrameFactory::create(
@@ -80,8 +80,8 @@ final class StyleFrameCollectionRenderer extends AFrameCollectionRenderer
             return FrameFactory::create('%s', 0);
         }
 
-        $fgColor = $this->patternColorMode->simplest($this->terminalColorMode)->ansiCode((string)$entry[self::FG]);
-        $bgColor = $this->patternColorMode->simplest($this->terminalColorMode)->ansiCode((string)$entry[self::BG]);
+        $fgColor = $this->patternColorMode->lowest($this->terminalColorMode)->ansiCode((string)$entry[self::FG]);
+        $bgColor = $this->patternColorMode->lowest($this->terminalColorMode)->ansiCode((string)$entry[self::BG]);
 
         return
             FrameFactory::create(

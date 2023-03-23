@@ -517,11 +517,49 @@ enum ColorMode: int
         return $this->convertFromHexToAnsiColorCode($color);
     }
 
-    public function simplest(self $other): self
+    public function lowest(self $other): self
     {
         if ($this->value <= $other->value) {
             return $this;
         }
         return $other;
+    }
+
+    protected function hslToRgb(int $hue, float $s = 1.0, float $l = 0.5): string
+    {
+        $h = $hue / 360;
+        $c = (1 - abs(2 * $l - 1)) * $s;
+        $x = $c * (1 - abs(fmod($h * 6, 2) - 1));
+        $m = $l - $c / 2;
+
+        $r = 0;
+        $g = 0;
+        $b = 0;
+
+        if ($h < 1 / 6) {
+            $r = $c;
+            $g = $x;
+        } elseif ($h < 2 / 6) {
+            $r = $x;
+            $g = $c;
+        } elseif ($h < 3 / 6) {
+            $g = $c;
+            $b = $x;
+        } elseif ($h < 4 / 6) {
+            $g = $x;
+            $b = $c;
+        } elseif ($h < 5 / 6) {
+            $r = $x;
+            $b = $c;
+        } else {
+            $r = $c;
+            $b = $x;
+        }
+
+        $r = ($r + $m) * 255;
+        $g = ($g + $m) * 255;
+        $b = ($b + $m) * 255;
+
+        return sprintf('#%02x%02x%02x', $r, $g, $b);
     }
 }
