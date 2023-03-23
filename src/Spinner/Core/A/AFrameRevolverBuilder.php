@@ -35,13 +35,6 @@ abstract class AFrameRevolverBuilder extends ARevolverBuilder implements IFrameR
         return $clone;
     }
 
-    public function withColorConverter(IColorConverter $colorConverter): static
-    {
-        $clone = clone $this;
-        $clone->colorConverter = $colorConverter;
-        return $clone;
-    }
-
     public function build(): IFrameRevolver
     {
         self::assertPattern($this->pattern);
