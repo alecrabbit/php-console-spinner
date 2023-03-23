@@ -304,14 +304,14 @@ final class NativeColorConverter implements IColorConverter
     private function degradeHexColorToAnsi4(int $r, int $g, int $b): int
     {
         /** @psalm-suppress TypeDoesNotContainType */
-        if (0 === round($this->getSaturation($r, $g, $b) / 50)) {
+        if (0 === round($this->getSaturation($r, $g, $b) / 50)) { // 0 === round(... - it is a hack
             return 0;
         }
 
         return (int)((round($b / 255) << 2) | (round($g / 255) << 1) | round($r / 255));
     }
 
-    private function getSaturation(int $r, int $g, int $b): int
+    protected function getSaturation(int $r, int $g, int $b): int
     {
         $rf = $r / 255;
         $gf = $g / 255;
@@ -322,7 +322,7 @@ final class NativeColorConverter implements IColorConverter
             return 0;
         }
 
-        return (int)((int)$diff * 100 / $v);
+        return (int)($diff * 100 / $v);
     }
 
     /**

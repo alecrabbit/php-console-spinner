@@ -4,10 +4,10 @@ Directories                                         51
 Files                                              228
 
 Size
-  Lines of Code (LOC)                             8944
-  Comment Lines of Code (CLOC)                     984 (11.00%)
-  Non-Comment Lines of Code (NCLOC)               7960 (89.00%)
-  Logical Lines of Code (LLOC)                    1312 (14.67%)
+  Lines of Code (LOC)                             8948
+  Comment Lines of Code (CLOC)                     989 (11.05%)
+  Non-Comment Lines of Code (NCLOC)               7959 (88.95%)
+  Logical Lines of Code (LLOC)                    1312 (14.66%)
     Classes                                       1284 (97.87%)
       Average Class Length                           5
         Minimum Class Length                         0
@@ -58,8 +58,8 @@ Structure
       Static Methods                               165 (25.15%)
     Visibility
       Public Methods                               520 (79.27%)
-      Protected Methods                            110 (16.77%)
-      Private Methods                               26 (3.96%)
+      Protected Methods                            111 (16.92%)
+      Private Methods                               25 (3.81%)
   Functions                                         12
     Named Functions                                  2 (16.67%)
     Anonymous Functions                             10 (83.33%)
