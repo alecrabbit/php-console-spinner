@@ -118,6 +118,9 @@ final class NativeColorConverter implements IColorConverter
         }
     }
 
+    /**
+     * @throws InvalidArgumentException
+     */
     protected function gradient(string $from, string $to, int $steps = 100): Generator
     {
         $f = $this->hexToRgb($from);
@@ -310,12 +313,12 @@ final class NativeColorConverter implements IColorConverter
 
     private function getSaturation(int $r, int $g, int $b): int
     {
-        $r = $r / 255;
-        $g = $g / 255;
-        $b = $b / 255;
-        $v = max($r, $g, $b);
+        $rf = $r / 255;
+        $gf = $g / 255;
+        $bf = $b / 255;
+        $v = max($rf, $gf, $bf);
 
-        if (0 === $diff = $v - min($r, $g, $b)) {
+        if (0 === $diff = $v - min($rf, $gf, $bf)) {
             return 0;
         }
 
@@ -389,6 +392,7 @@ final class NativeColorConverter implements IColorConverter
     /**
      * @param array $colors Colors to generate gradients between
      * @param int $steps Steps between first and last color
+     * @throws InvalidArgumentException
      */
     protected function arrayGradients(array $colors, int $steps = 100): Generator
     {
