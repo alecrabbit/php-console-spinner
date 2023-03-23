@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 // 22.03.23
-namespace AlecRabbit\Spinner\Contract;
+namespace AlecRabbit\Spinner\Extras\Contract;
 
 use Generator;
 use Traversable;

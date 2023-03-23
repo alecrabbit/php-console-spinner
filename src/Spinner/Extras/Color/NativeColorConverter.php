@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 // 23.03.23
-namespace AlecRabbit\Spinner\Core;
+namespace AlecRabbit\Spinner\Extras\Color;
 
-use AlecRabbit\Spinner\Contract\IColorConverter;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
+use AlecRabbit\Spinner\Extras\Contract\IColorConverter;
 use AlecRabbit\Spinner\Helper\Asserter;
 use Generator;
 use Traversable;
