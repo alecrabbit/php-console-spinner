@@ -200,8 +200,8 @@ abstract class AAnsiColorConverter implements IAnsiColorConverter
         return $this->convertFromHexToAnsiColorCode($color, $colorMode);
     }
 
-    public function getColorMode(): ColorMode
+    public function isEnabled(): bool
     {
-        return $this->colorMode;
+        return $this->colorMode->isColorEnabled();
     }
 }

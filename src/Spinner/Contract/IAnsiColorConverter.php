@@ -276,5 +276,5 @@ interface IAnsiColorConverter
      */
     public function ansiCode(IStyle|int|string $color, ColorMode $colorMode): string;
 
-    public function getColorMode(): ColorMode;
+    public function isEnabled(): bool;
 }

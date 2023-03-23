@@ -24,7 +24,7 @@ final class StyleFrameCollectionRenderer extends AFrameCollectionRenderer
     private const BG = 'bg';
     private const COLOR_ARRAY_SIZE = 2;
 
-    private ColorMode $patternColorMode = ColorMode::NONE;
+    private ColorMode $colorMode = ColorMode::NONE;
 
     public function __construct(
         protected IAnsiColorConverter $converter,
@@ -46,14 +46,14 @@ final class StyleFrameCollectionRenderer extends AFrameCollectionRenderer
 
         $clone = clone $this;
         $clone->pattern = $pattern;
-        $clone->patternColorMode = $pattern->getColorMode();
+        $clone->colorMode = $pattern->getColorMode();
         return $clone;
     }
 
     /** @inheritdoc */
     public function render(): IFrameCollection
     {
-        if ($this->converter->getColorMode() === ColorMode::NONE) {
+        if (!$this->converter->isEnabled()) {
             return
                 new FrameCollection(
                     new ArrayObject(
@@ -74,7 +74,7 @@ final class StyleFrameCollectionRenderer extends AFrameCollectionRenderer
             return $this->createFromArray($entry);
         }
 
-        $ansiCode = $this->converter->ansiCode($entry, $this->patternColorMode);
+        $ansiCode = $this->converter->ansiCode($entry, $this->colorMode);
 
         $color = ($bg ? '4' : '3') . $ansiCode . 'm%s';
 
@@ -90,8 +90,8 @@ final class StyleFrameCollectionRenderer extends AFrameCollectionRenderer
     {
         $this->assertEntryArray($entry);
 
-        $fgColor = $this->converter->ansiCode((string)$entry[self::FG], $this->patternColorMode);
-        $bgColor = $this->converter->ansiCode((string)$entry[self::BG], $this->patternColorMode);
+        $fgColor = $this->converter->ansiCode((string)$entry[self::FG], $this->colorMode);
+        $bgColor = $this->converter->ansiCode((string)$entry[self::BG], $this->colorMode);
 
         return
             FrameFactory::create(

@@ -18,4 +18,9 @@ enum ColorMode: int
         }
         return $other;
     }
+
+    public function isColorEnabled(): bool
+    {
+        return $this->value > 0;
+    }
 }
