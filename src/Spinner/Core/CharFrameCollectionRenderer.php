@@ -15,6 +15,14 @@ use function is_string;
 
 final class CharFrameCollectionRenderer extends AFrameCollectionRenderer
 {
+    protected function createFrame(int|string|array $entry): IFrame
+    {
+        if (is_array($entry)) {
+            return $this->createFromArray($entry);
+        }
+        return FrameFactory::create((string)$entry, WidthDeterminer::determine((string)$entry));
+    }
+
     /**
      * @throws InvalidArgumentException
      */
@@ -74,10 +82,5 @@ final class CharFrameCollectionRenderer extends AFrameCollectionRenderer
             return null;
         }
         return (int)$value;
-    }
-
-    protected function createFrame(int|string $entry): IFrame
-    {
-        return FrameFactory::create((string)$entry, WidthDeterminer::determine((string)$entry));
     }
 }

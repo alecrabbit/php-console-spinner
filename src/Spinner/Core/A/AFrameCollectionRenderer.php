@@ -62,21 +62,12 @@ abstract class AFrameCollectionRenderer extends ADefaultsAwareClass implements I
             $entry = (string)$entry;
         }
 
-        if (is_string($entry) || is_int($entry)) {
-            return
-                $this->createFrame($entry);
-        }
-
-        return $this->createFromArray($entry);
+        return
+            $this->createFrame($entry);
     }
 
     /**
      * @throws InvalidArgumentException
      */
-    abstract protected function createFrame(int|string $entry): IFrame;
-
-    /**
-     * @throws InvalidArgumentException
-     */
-    abstract protected function createFromArray(array $entry): IFrame;
+    abstract protected function createFrame(int|string|array $entry): IFrame;
 }

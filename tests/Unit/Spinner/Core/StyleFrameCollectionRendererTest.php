@@ -227,13 +227,15 @@ final class StyleFrameCollectionRendererTest extends TestCase
 
         $args = $incoming[self::ARGUMENTS];
 
-        $collection =
-            (new StyleFrameCollectionRenderer(
+        $renderer =
+            new StyleFrameCollectionRenderer(
                 new NativeColorConverter(),
                 $args[self::COLOR_MODE],
-            ))
-                ->pattern($args[self::PATTERN])
-                ->render();
+            );
+
+        $rendererWithPattern = $renderer->pattern($args[self::PATTERN]);
+
+        $collection = $rendererWithPattern->render();
 
         if ($expectedException) {
             self::exceptionNotThrown($expectedException, dataSet: [$expected, $incoming]);
