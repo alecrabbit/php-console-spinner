@@ -14,6 +14,11 @@ use AlecRabbit\Spinner\Helper\Asserter;
 
 abstract class AAnsiColorConverter implements IAnsiColorConverter
 {
+    public function __construct(
+        protected ColorMode $colorMode,
+    ) {
+    }
+
     /** @inheritdoc */
     public function ansiCode(IStyle|int|string $color, ColorMode $colorMode): string
     {
@@ -22,6 +27,8 @@ abstract class AAnsiColorConverter implements IAnsiColorConverter
                 sprintf('%s is not supported by this color converter', IStyle::class)
             );
         }
+
+        $colorMode = $colorMode->lowest($this->colorMode);
 
         $this->assertColor($color, $colorMode);
 
@@ -191,5 +198,10 @@ abstract class AAnsiColorConverter implements IAnsiColorConverter
     protected function convert24(string $color, ColorMode $colorMode): string
     {
         return $this->convertFromHexToAnsiColorCode($color, $colorMode);
+    }
+
+    public function getColorMode(): ColorMode
+    {
+        return $this->colorMode;
     }
 }

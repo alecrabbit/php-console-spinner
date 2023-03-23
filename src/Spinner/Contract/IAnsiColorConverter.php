@@ -275,4 +275,6 @@ interface IAnsiColorConverter
      * @throws DomainException
      */
     public function ansiCode(IStyle|int|string $color, ColorMode $colorMode): string;
+
+    public function getColorMode(): ColorMode;
 }

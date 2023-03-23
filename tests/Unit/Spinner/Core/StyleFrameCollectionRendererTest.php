@@ -229,8 +229,7 @@ final class StyleFrameCollectionRendererTest extends TestCase
 
         $renderer =
             new StyleFrameCollectionRenderer(
-                new AnsiColorConverter(),
-                $args[self::COLOR_MODE],
+                new AnsiColorConverter($args[self::COLOR_MODE]),
             );
 
         $rendererWithPattern = $renderer->pattern($args[self::PATTERN]);
