@@ -47,6 +47,11 @@ abstract class AFrameCollectionRenderer extends ADefaultsAwareClass implements I
                         yield $entry;
                         continue;
                     }
+
+                    if ($entry instanceof Stringable) {
+                        $entry = (string)$entry;
+                    }
+
                     yield $this->create($entry);
                 }
             };
@@ -58,20 +63,7 @@ abstract class AFrameCollectionRenderer extends ADefaultsAwareClass implements I
     /**
      * @throws InvalidArgumentException
      */
-    protected function create(Stringable|string|IStyle $entry): IFrame
-    {
-        if ($entry instanceof Stringable) {
-            $entry = (string)$entry;
-        }
-
-        return
-            $this->createFrame($entry);
-    }
-
-    /**
-     * @throws InvalidArgumentException
-     */
-    abstract protected function createFrame(string|IStyle $entry): IFrame;
+    abstract protected function create(string|IStyle $entry): IFrame;
 
     /**
      * @throws InvalidArgumentException

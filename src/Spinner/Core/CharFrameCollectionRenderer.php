@@ -10,22 +10,21 @@ use AlecRabbit\Spinner\Contract\IStyle;
 use AlecRabbit\Spinner\Core\A\AFrameCollectionRenderer;
 use AlecRabbit\Spinner\Core\Factory\FrameFactory;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
-use Stringable;
 
 use function is_string;
 
 final class CharFrameCollectionRenderer extends AFrameCollectionRenderer
 {
-    protected function createFrame(string|IStyle $entry): IFrame
+    protected function create(string|IStyle $entry): IFrame
     {
-        if ($entry instanceof IStyle) {
+        if (!is_string($entry)) {
             throw new InvalidArgumentException(
                 sprintf(
-                    'Entry should be string|Stringable, %s given.',
+                    'Entry should be type of "string", "%s" given.',
                     get_debug_type($entry)
                 )
             );
         }
-        return FrameFactory::create((string)$entry, WidthDeterminer::determine((string)$entry));
+        return FrameFactory::create($entry, WidthDeterminer::determine($entry));
     }
 }

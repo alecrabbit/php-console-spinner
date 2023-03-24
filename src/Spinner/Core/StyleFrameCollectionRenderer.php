@@ -21,10 +21,6 @@ use ArrayObject;
 
 final class StyleFrameCollectionRenderer extends AFrameCollectionRenderer
 {
-    private const FG = 'fg';
-    private const BG = 'bg';
-    private const COLOR_ARRAY_SIZE = 2;
-
     private ColorMode $colorMode = ColorMode::NONE;
 
     public function __construct(
@@ -38,7 +34,7 @@ final class StyleFrameCollectionRenderer extends AFrameCollectionRenderer
         if (!$pattern instanceof IStylePattern) {
             throw new InvalidArgumentException(
                 sprintf(
-                    'Pattern should be instance of %s, %s given.',
+                    'Pattern should be instance of "%s", "%s" given.',
                     IStylePattern::class,
                     get_debug_type($pattern)
                 )
@@ -69,14 +65,14 @@ final class StyleFrameCollectionRenderer extends AFrameCollectionRenderer
      * @throws LogicException
      * @throws InvalidArgumentException
      */
-    protected function createFrame(string|IStyle $entry, bool $bg = false): IFrame
+    protected function create(string|IStyle $entry): IFrame
     {
         if ($entry instanceof IStyle) {
             return $this->createFromStyle($entry);
         }
         $ansiCode = $this->converter->ansiCode($entry, $this->colorMode);
 
-        $color = ($bg ? '4' : '3') . $ansiCode . 'm%s';
+        $color = '3' . $ansiCode . 'm' . '%s';
 
         return
             FrameFactory::create(Sequencer::colorSequence($color), 0);
@@ -97,51 +93,4 @@ final class StyleFrameCollectionRenderer extends AFrameCollectionRenderer
         return
             FrameFactory::create(Sequencer::colorSequence($color), $entry->getWidth());
     }
-
-//    /**
-//     * @throws InvalidArgumentException
-//     * @throws LogicException
-//     */
-//    protected function createFromArray(array $entry): IFrame
-//    {
-//        $this->assertEntryArray($entry);
-//
-//        $fgColor = $this->converter->ansiCode((string)$entry[self::FG], $this->colorMode);
-//        $bgColor = $this->converter->ansiCode((string)$entry[self::BG], $this->colorMode);
-//
-//        return
-//            FrameFactory::create(
-//                Sequencer::colorSequence('3' . $fgColor . ';4' . $bgColor . 'm%s'),
-//                0
-//            );
-//    }
-//
-//    /**
-//     * @throws InvalidArgumentException
-//     */
-//    private function assertEntryArray(array $entry): void
-//    {
-//        $size = count($entry);
-//        $expectedSize = 2;
-//        if (self::COLOR_ARRAY_SIZE !== $size) {
-//            throw new InvalidArgumentException(
-//                sprintf(
-//                    'Array should contain %d elements, %d given.',
-//                    $expectedSize,
-//                    $size
-//                )
-//            );
-//        }
-//        if (!array_key_exists(self::FG, $entry) || !array_key_exists(self::BG, $entry)) {
-//            throw new InvalidArgumentException(
-//                sprintf(
-//                    'Array should contain keys "%s" and "%s", keys ["%s"] given.',
-//                    self::FG,
-//                    self::BG,
-//                    implode('", "', array_keys($entry))
-//                )
-//            );
-//        }
-//    }
-
 }
