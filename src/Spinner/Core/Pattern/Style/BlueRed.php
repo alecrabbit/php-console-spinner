@@ -11,5 +11,20 @@ final class BlueRed extends AStylePattern
 {
     protected const UPDATE_INTERVAL = 800;
 
-    protected const PATTERN = [63, 99, 135, 171, 207, 206, 205, 204, 205, 206, 207, 171, 135, 99,];
+    protected const PATTERN = [
+        '#5f5fff', // 63
+        '#875fff', // 99
+        '#af5fff', // 135
+        '#d75fff', // 171
+        '#ff5fff', // 207
+        '#ff5fd7', // 206
+        '#ff5faf', // 205
+        '#ff5f87', // 204
+        '#ff5faf', // 205
+        '#ff5fd7', // 206
+        '#ff5fff', // 207
+        '#d75fff', // 171
+        '#af5fff', // 135
+        '#875fff', // 99
+    ];
 }

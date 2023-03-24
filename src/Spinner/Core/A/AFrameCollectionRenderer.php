@@ -8,6 +8,7 @@ namespace AlecRabbit\Spinner\Core\A;
 use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Contract\IFrameCollection;
 use AlecRabbit\Spinner\Contract\IFrameCollectionRenderer;
+use AlecRabbit\Spinner\Contract\IFrameRenderer;
 use AlecRabbit\Spinner\Contract\IPattern;
 use AlecRabbit\Spinner\Contract\IStyle;
 use AlecRabbit\Spinner\Core\Factory\A\ADefaultsAwareClass;
@@ -20,6 +21,12 @@ use Traversable;
 abstract class AFrameCollectionRenderer extends ADefaultsAwareClass implements IFrameCollectionRenderer
 {
     protected ?IPattern $pattern = null;
+
+    public function __construct(
+        protected IFrameRenderer $frameRenderer,
+    ) {
+    }
+
 
     /** @inheritdoc */
     public function pattern(IPattern $pattern): IFrameCollectionRenderer
@@ -52,7 +59,7 @@ abstract class AFrameCollectionRenderer extends ADefaultsAwareClass implements I
                         $entry = (string)$entry;
                     }
 
-                    yield $this->create($entry);
+                    yield $this->createFrame($entry);
                 }
             };
 
@@ -63,7 +70,7 @@ abstract class AFrameCollectionRenderer extends ADefaultsAwareClass implements I
     /**
      * @throws InvalidArgumentException
      */
-    abstract protected function create(string|IStyle $entry): IFrame;
+    abstract protected function createFrame(string|IStyle $entry): IFrame;
 
     /**
      * @throws InvalidArgumentException

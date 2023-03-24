@@ -1,11 +1,18 @@
+ ----------- -------------------------------------------------------------------------------------------------------- 
+  Reason      ModuleContract                                                                                          
+ ----------- -------------------------------------------------------------------------------------------------------- 
+  Violation   AlecRabbit\Spinner\Contract\IStyle must not depend on AlecRabbit\Spinner\Core\Color\Style (ModuleCore)  
+              /app/src/Spinner/Contract/IStyle.php:7                                                                  
+ ----------- -------------------------------------------------------------------------------------------------------- 
+
 
  -------------------- ------ 
   Report                     
  -------------------- ------ 
-  Violations           0     
+  Violations           1     
   Skipped violations   0     
   Uncovered            191   
-  Allowed              2986  
+  Allowed              2997  
   Warnings             0     
   Errors               0     
  -------------------- ------ 

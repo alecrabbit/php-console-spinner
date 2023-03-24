@@ -5,13 +5,14 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core;
 
-use AlecRabbit\Spinner\Contract\ColorMode;
-use AlecRabbit\Spinner\Contract\IAnsiColorConverter;
+use AlecRabbit\Spinner\Contract\StyleMode;
+use AlecRabbit\Spinner\Contract\IAnsiStyleConverter;
 use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Contract\IFrameCollection;
 use AlecRabbit\Spinner\Contract\IFrameCollectionRenderer;
 use AlecRabbit\Spinner\Contract\IPattern;
 use AlecRabbit\Spinner\Contract\IStyle;
+use AlecRabbit\Spinner\Contract\IStyleFrameRenderer;
 use AlecRabbit\Spinner\Core\A\AFrameCollectionRenderer;
 use AlecRabbit\Spinner\Core\Factory\FrameFactory;
 use AlecRabbit\Spinner\Core\Pattern\Contract\IStylePattern;
@@ -21,11 +22,12 @@ use ArrayObject;
 
 final class StyleFrameCollectionRenderer extends AFrameCollectionRenderer
 {
-    private ColorMode $colorMode = ColorMode::NONE;
+    private StyleMode $styleMode = StyleMode::NONE;
 
     public function __construct(
-        protected IAnsiColorConverter $converter,
+        IStyleFrameRenderer $frameRenderer,
     ) {
+        parent::__construct($frameRenderer);
     }
 
     /** @inheritdoc */
@@ -43,14 +45,14 @@ final class StyleFrameCollectionRenderer extends AFrameCollectionRenderer
 
         $clone = clone $this;
         $clone->pattern = $pattern;
-        $clone->colorMode = $pattern->getColorMode();
+        $clone->styleMode = $pattern->getColorMode();
         return $clone;
     }
 
     /** @inheritdoc */
     public function render(): IFrameCollection
     {
-        if (!$this->converter->isEnabled()) {
+        if (!$this->frameRenderer->isStyleEnabled()) {
             return
                 $this->createCollection(
                     new ArrayObject(
@@ -65,32 +67,8 @@ final class StyleFrameCollectionRenderer extends AFrameCollectionRenderer
      * @throws LogicException
      * @throws InvalidArgumentException
      */
-    protected function create(string|IStyle $entry): IFrame
+    protected function createFrame(string|IStyle $entry): IFrame
     {
-        if ($entry instanceof IStyle) {
-            return $this->createFromStyle($entry);
-        }
-        $ansiCode = $this->converter->ansiCode($entry, $this->colorMode);
-
-        $color = '3' . $ansiCode . 'm' . '%s';
-
-        return
-            FrameFactory::create(Sequencer::colorSequence($color), 0);
-    }
-
-    private function createFromStyle(IStyle $entry): IFrame
-    {
-        $fgColor = $entry->getFgColor();
-        $bgColor = $entry->getBgColor();
-        $color = '';
-        if (null !== $fgColor) {
-            $color .= '3' . $this->converter->ansiCode($fgColor, $this->colorMode);
-        }
-        if (null !== $bgColor) {
-            $color .= ';4' . $this->converter->ansiCode($bgColor, $this->colorMode);
-        }
-        $color .= 'm%s';
-        return
-            FrameFactory::create(Sequencer::colorSequence($color), $entry->getWidth());
+        return $this->frameRenderer->render($entry, $this->styleMode);
     }
 }

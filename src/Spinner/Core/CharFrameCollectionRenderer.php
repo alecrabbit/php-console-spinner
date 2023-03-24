@@ -15,7 +15,7 @@ use function is_string;
 
 final class CharFrameCollectionRenderer extends AFrameCollectionRenderer
 {
-    protected function create(string|IStyle $entry): IFrame
+    protected function createFrame(string|IStyle $entry): IFrame
     {
         if (!is_string($entry)) {
             throw new InvalidArgumentException(

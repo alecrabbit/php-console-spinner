@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Defaults\Contract;
 
-use AlecRabbit\Spinner\Contract\IAnsiColorConverter;
+use AlecRabbit\Spinner\Contract\IAnsiStyleConverter;
 use AlecRabbit\Spinner\Core\Contract\IDriverBuilder;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolverBuilder;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetBuilder;
@@ -60,13 +60,13 @@ interface IDefaultsClasses extends IDefaultsChild
     public function getFrameRevolverBuilderClass(): string;
 
     /**
-     * @return class-string<IAnsiColorConverter>
+     * @return class-string<IAnsiStyleConverter>
      */
-    public function getAnsiColorConverterClass(): string;
+    public function getAnsiStyleConverterClass(): string;
 
     /**
-     * @param class-string<IAnsiColorConverter> $ansiColorConverterClass
+     * @param class-string<IAnsiStyleConverter> $ansiColorConverterClass
      * @throws InvalidArgumentException
      */
-    public function overrideAnsiColorConverterClass(string $ansiColorConverterClass): void;
+    public function overrideAnsiStyleConverterClass(string $ansiColorConverterClass): void;
 }

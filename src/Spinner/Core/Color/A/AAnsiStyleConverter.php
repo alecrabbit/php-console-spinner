@@ -4,24 +4,24 @@ declare(strict_types=1);
 // 23.03.23
 namespace AlecRabbit\Spinner\Core\Color\A;
 
-use AlecRabbit\Spinner\Contract\ColorMode;
-use AlecRabbit\Spinner\Contract\IAnsiColorConverter;
+use AlecRabbit\Spinner\Contract\StyleMode;
+use AlecRabbit\Spinner\Contract\IAnsiStyleConverter;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Exception\LogicException;
 use AlecRabbit\Spinner\Helper\Asserter;
 use AlecRabbit\Spinner\Mixin\AnsiColorTableTrait;
 
-abstract class AAnsiColorConverter implements IAnsiColorConverter
+abstract class AAnsiStyleConverter implements IAnsiStyleConverter
 {
     use AnsiColorTableTrait;
 
     public function __construct(
-        protected ColorMode $colorMode,
+        protected StyleMode $colorMode,
     ) {
     }
 
     /** @inheritdoc */
-    public function ansiCode(int|string $color, ColorMode $colorMode): string
+    public function ansiCode(int|string $color, StyleMode $colorMode): string
     {
         $colorMode = $colorMode->lowest($this->colorMode);
 
@@ -30,13 +30,13 @@ abstract class AAnsiColorConverter implements IAnsiColorConverter
         $color24 = (string)$color;
 
         return match ($colorMode) {
-            ColorMode::ANSI4 => $this->convert4($color, $colorMode),
-            ColorMode::ANSI8 => $this->convert8($color, $colorMode),
-            ColorMode::ANSI24 => $this->convert24($color24, $colorMode),
+            StyleMode::ANSI4 => $this->convert4($color, $colorMode),
+            StyleMode::ANSI8 => $this->convert8($color, $colorMode),
+            StyleMode::ANSI24 => $this->convert24($color24, $colorMode),
             default => throw new LogicException(
                 sprintf(
                     '%s::%s: Unable to convert "%s" to ansi code.',
-                    ColorMode::class,
+                    StyleMode::class,
                     $colorMode->name,
                     $color
                 )
@@ -47,7 +47,7 @@ abstract class AAnsiColorConverter implements IAnsiColorConverter
     /**
      * @throws InvalidArgumentException
      */
-    protected function assertColor(int|string $color, ColorMode $colorMode): void
+    protected function assertColor(int|string $color, StyleMode $colorMode): void
     {
         match (true) {
             is_int($color) => Asserter::assertIntColor($color, $colorMode),
@@ -58,7 +58,7 @@ abstract class AAnsiColorConverter implements IAnsiColorConverter
     /**
      * @throws InvalidArgumentException
      */
-    protected function convert4(int|string $color, ColorMode $colorMode): string
+    protected function convert4(int|string $color, StyleMode $colorMode): string
     {
         if (is_int($color)) {
             return (string)$color;
@@ -69,7 +69,7 @@ abstract class AAnsiColorConverter implements IAnsiColorConverter
     /**
      * @throws InvalidArgumentException
      */
-    protected function convertFromHexToAnsiColorCode(string $hexColor, ColorMode $colorMode): string
+    protected function convertFromHexToAnsiColorCode(string $hexColor, StyleMode $colorMode): string
     {
         $hexColor = str_replace('#', '', $hexColor);
 
@@ -88,10 +88,10 @@ abstract class AAnsiColorConverter implements IAnsiColorConverter
         $b = $color & 255;
 
         return match ($colorMode) {
-            ColorMode::ANSI4 => (string)$this->convertFromRGB($r, $g, $b, $colorMode),
-            ColorMode::ANSI8 => '8;5;' . ((string)$this->convertFromRGB($r, $g, $b, $colorMode)),
-            ColorMode::ANSI24 => sprintf('8;2;%d;%d;%d', $r, $g, $b),
-            ColorMode::NONE => throw new InvalidArgumentException(
+            StyleMode::ANSI4 => (string)$this->convertFromRGB($r, $g, $b, $colorMode),
+            StyleMode::ANSI8 => '8;5;' . ((string)$this->convertFromRGB($r, $g, $b, $colorMode)),
+            StyleMode::ANSI24 => sprintf('8;2;%d;%d;%d', $r, $g, $b),
+            StyleMode::NONE => throw new InvalidArgumentException(
                 sprintf(
                     'Hex color cannot be converted to %s.',
                     $colorMode->name
@@ -103,11 +103,11 @@ abstract class AAnsiColorConverter implements IAnsiColorConverter
     /**
      * @throws InvalidArgumentException
      */
-    protected function convertFromRGB(int $r, int $g, int $b, ColorMode $colorMode): int
+    protected function convertFromRGB(int $r, int $g, int $b, StyleMode $colorMode): int
     {
         return match ($colorMode) {
-            ColorMode::ANSI4 => $this->degradeHexColorToAnsi4($r, $g, $b),
-            ColorMode::ANSI8 => $this->degradeHexColorToAnsi8($r, $g, $b),
+            StyleMode::ANSI4 => $this->degradeHexColorToAnsi4($r, $g, $b),
+            StyleMode::ANSI8 => $this->degradeHexColorToAnsi8($r, $g, $b),
             default => throw new InvalidArgumentException(
                 sprintf(
                     'RGB cannot be converted to %s.',
@@ -167,7 +167,7 @@ abstract class AAnsiColorConverter implements IAnsiColorConverter
     /**
      * @throws InvalidArgumentException
      */
-    protected function convert8(int|string $color, ColorMode $colorMode): string
+    protected function convert8(int|string $color, StyleMode $colorMode): string
     {
         if (is_int($color)) {
             return '8;5;' . $color;
@@ -200,7 +200,7 @@ abstract class AAnsiColorConverter implements IAnsiColorConverter
     /**
      * @throws InvalidArgumentException
      */
-    protected function convert24(string $color, ColorMode $colorMode): string
+    protected function convert24(string $color, StyleMode $colorMode): string
     {
         return $this->convertFromHexToAnsiColorCode($color, $colorMode);
     }

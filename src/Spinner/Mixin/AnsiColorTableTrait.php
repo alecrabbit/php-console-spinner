@@ -5,6 +5,7 @@ namespace AlecRabbit\Spinner\Mixin;
 
 trait AnsiColorTableTrait
 {
+    /** @var array<int,string>  */
     protected const COLOR_TABLE = [
         0 => '#000000',
         1 => '#800000',

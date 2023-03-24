@@ -5,7 +5,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Defaults\A;
 
-use AlecRabbit\Spinner\Contract\ColorMode;
+use AlecRabbit\Spinner\Contract\StyleMode;
 use AlecRabbit\Spinner\Contract\Cursor;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDefaults;
 use AlecRabbit\Spinner\Core\Defaults\Contract\ITerminalSettings;
@@ -21,7 +21,7 @@ abstract class ATerminalSettings extends ADefaultsChild implements ITerminalSett
 
     final protected function __construct(
         IDefaults $parent,
-        protected ColorMode $colorMode,
+        protected StyleMode $colorMode,
         protected int $width,
         protected Cursor $cursor,
     ) {
@@ -31,12 +31,12 @@ abstract class ATerminalSettings extends ADefaultsChild implements ITerminalSett
 
     protected function defaultSupportedColorModes(): ArrayObject
     {
-        return new ArrayObject(ColorMode::cases());
+        return new ArrayObject(StyleMode::cases());
     }
 
     final public static function getInstance(
         IDefaults $parent,
-        ColorMode $colorMode,
+        StyleMode $colorMode,
         int $width,
         Cursor $cursor,
     ): ITerminalSettings {
@@ -48,7 +48,7 @@ abstract class ATerminalSettings extends ADefaultsChild implements ITerminalSett
         return self::$objInstance;
     }
 
-    public function getColorMode(): ColorMode
+    public function getColorMode(): StyleMode
     {
         return $this->colorMode;
     }
@@ -58,7 +58,7 @@ abstract class ATerminalSettings extends ADefaultsChild implements ITerminalSett
         return $this->width;
     }
 
-    public function overrideColorMode(ColorMode $colorMode): static
+    public function overrideColorMode(StyleMode $colorMode): static
     {
         $this->colorMode = $colorMode;
         return $this;

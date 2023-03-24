@@ -8,14 +8,14 @@ use AlecRabbit\Spinner\Exception\DomainException;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Exception\LogicException;
 
-interface IAnsiColorConverter
+interface IAnsiStyleConverter
 {
     /**
      * @throws InvalidArgumentException
      * @throws LogicException
      * @throws DomainException
      */
-    public function ansiCode(int|string $color, ColorMode $colorMode): string;
+    public function ansiCode(int|string $color, StyleMode $colorMode): string;
 
     public function isEnabled(): bool;
 }

@@ -4,12 +4,16 @@ declare(strict_types=1);
 // 21.03.23
 namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Core;
 
-use AlecRabbit\Spinner\Contract\ColorMode;
-use AlecRabbit\Spinner\Core\Color\AnsiColorConverter;
+use AlecRabbit\Spinner\Contract\StyleMode;
+use AlecRabbit\Spinner\Core\Color\AnsiStyleConverter;
 use AlecRabbit\Spinner\Core\Color\Style;
 use AlecRabbit\Spinner\Core\Factory\FrameFactory;
+use AlecRabbit\Spinner\Core\Pattern\Char\CustomPattern;
+use AlecRabbit\Spinner\Core\Pattern\Contract\IStylePattern;
 use AlecRabbit\Spinner\Core\Pattern\Style\CustomStylePattern;
 use AlecRabbit\Spinner\Core\StyleFrameCollectionRenderer;
+use AlecRabbit\Spinner\Core\StyleFrameRenderer;
+use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Tests\Spinner\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
@@ -30,106 +34,173 @@ final class StyleFrameCollectionRendererTest extends TestCase
             ],
             [
                 self::ARGUMENTS => [
-                    self::COLOR_MODE => ColorMode::NONE,
+                    self::COLOR_MODE => StyleMode::NONE,
                     self::PATTERN =>
                         new CustomStylePattern(
                             [new Style('#ff0000')],
-                            colorMode: ColorMode::ANSI8
+                            colorMode: StyleMode::NONE
                         ),
                 ],
             ],
         ];
-//        yield [
-//            [
-//                self::FRAMES => [
-//                    FrameFactory::create("\e[38;5;196m%s\e[0m", 0),
-//                ],
-//            ],
-//            [
-//                self::ARGUMENTS => [
-//                    self::COLOR_MODE => ColorMode::ANSI24,
-//                    self::PATTERN =>
-//                        new CustomStylePattern(
-//                            [new Style('#ff0000')],
-//                            colorMode: ColorMode::ANSI8
-//                        ),
-//                ],
-//            ],
-//        ];
-//        #1
-//        yield [
-//            [
-//                self::COUNT => 2,
-//                self::LAST_INDEX => 1,
-//                self::FRAMES => [
-//                    FrameFactory::create("\e[38;5;196m%s\e[0m", 0),
-//                    FrameFactory::create("\e[38;5;197m%s\e[0m", 0),
-//                ],
-//            ],
-//            [
-//                self::ARGUMENTS => [
-//                    self::COLOR_MODE => ColorMode::ANSI8,
-//                    self::PATTERN =>
-//                        new CustomStylePattern(
-//                            [
-//                                new Style('#ff0000'),
-//                                new Style('#ff005f')
-//                            ],
-//                            colorMode: ColorMode::ANSI8
-//                        ),
-//                ],
-//            ],
-//        ];
-//        #2
-//        yield [
-//            [
-//                self::COUNT => 1,
-//                self::LAST_INDEX => 0,
-//                self::FRAMES => [
-//                    FrameFactory::create("\e[38;5;196m%s\e[0m", 0),
-//                ],
-//            ],
-//            [
-//                self::ARGUMENTS => [
-//                    self::COLOR_MODE => ColorMode::ANSI24,
-//                    self::PATTERN => new CustomStylePattern(['#ff0000',], colorMode: ColorMode::ANSI8),
-//                ],
-//            ],
-//        ];
-//        #3
-//        yield [
-//            [
-//                self::COUNT => 1,
-//                self::LAST_INDEX => 0,
-//                self::FRAMES => [
-//                    FrameFactory::create("\e[38;5;196m%s\e[0m", 0),
-//                ],
-//            ],
-//            [
-//                self::ARGUMENTS => [
-//                    self::COLOR_MODE => ColorMode::ANSI24,
-//                    self::PATTERN => new CustomStylePattern(['#ff0000',], colorMode: ColorMode::ANSI8),
-//                ],
-//            ],
-//        ];
-//        #4
-//        yield [
-//            [
-//                self::EXCEPTION => [
-//                    self::CLASS_ => InvalidArgumentException::class,
-//                    self::MESSAGE => 'Array should contain 2 elements, 0 given.',
-//                ],
-//            ],
-//            [
-//                self::ARGUMENTS => [
-//                    self::COLOR_MODE => ColorMode::ANSI8,
-//                    self::PATTERN =>
-//                        new CustomStylePattern(
-//                            [[],],
-//                        ),
-//                ],
-//            ],
-//        ];
+        #1
+        yield [
+            [
+                self::FRAMES => [
+                    FrameFactory::create('%s', 0),
+                ],
+                self::COUNT => 1,
+            ],
+            [
+                self::ARGUMENTS => [
+                    self::COLOR_MODE => StyleMode::NONE,
+                    self::PATTERN =>
+                        new CustomStylePattern(
+                            [new Style('#ff0000')],
+                            colorMode: StyleMode::ANSI4
+                        ),
+                ],
+            ],
+        ];
+        #2
+        yield [
+            [
+                self::FRAMES => [
+                    FrameFactory::create('%s', 0),
+                ],
+                self::COUNT => 1,
+            ],
+            [
+                self::ARGUMENTS => [
+                    self::COLOR_MODE => StyleMode::NONE,
+                    self::PATTERN =>
+                        new CustomStylePattern(
+                            [new Style('#ff0000')],
+                            colorMode: StyleMode::ANSI8
+                        ),
+                ],
+            ],
+        ];
+        #3
+        yield [
+            [
+                self::FRAMES => [
+                    FrameFactory::create('%s', 0),
+                ],
+                self::COUNT => 1,
+            ],
+            [
+                self::ARGUMENTS => [
+                    self::COLOR_MODE => StyleMode::NONE,
+                    self::PATTERN =>
+                        new CustomStylePattern(
+                            [new Style('#ff0000')],
+                            colorMode: StyleMode::ANSI24
+                        ),
+                ],
+            ],
+        ];
+        #4
+        yield [
+            [
+                // self::FRAMES => [
+                //     FrameFactory::create("\e[38;2;255;0;0m%s\e[0m", 0),
+                // ],
+                self::COUNT => 1,
+            ],
+            [
+                self::ARGUMENTS => [
+                    self::COLOR_MODE => StyleMode::ANSI24,
+                    self::PATTERN =>
+                        new CustomStylePattern(
+                            [new Style('#ff0000')],
+                            colorMode: StyleMode::ANSI24
+                        ),
+                ],
+            ],
+        ];
+        #5
+        yield [
+            [
+                // self::FRAMES => [
+                //     FrameFactory::create("\e[38;5;196m%s\e[0m", 0),
+                // ],
+                self::COUNT => 1,
+            ],
+            [
+                self::ARGUMENTS => [
+                    self::COLOR_MODE => StyleMode::ANSI8,
+                    self::PATTERN =>
+                        new CustomStylePattern(
+                            [new Style('#ff0000')],
+                            colorMode: StyleMode::ANSI8
+                        ),
+                ],
+            ],
+        ];
+        #6
+        yield [
+            [
+                self::COUNT => 2,
+                self::LAST_INDEX => 1,
+                // self::FRAMES => [
+                //     FrameFactory::create("\e[38;5;196;48;5;16m%s\e[0m", 0),
+                //     FrameFactory::create("\e[38;5;197m%s\e[0m", 0),
+                // ],
+            ],
+            [
+                self::ARGUMENTS => [
+                    self::COLOR_MODE => StyleMode::ANSI8,
+                    self::PATTERN =>
+                        new CustomStylePattern(
+                            [
+                                new Style('#ff0000', '#000000'),
+                                new Style('#ff005f')
+                            ],
+                            colorMode: StyleMode::ANSI8
+                        ),
+                ],
+            ],
+        ];
+        #7
+        $pattern = new CustomPattern(['1'],);
+        yield [
+            [
+                self::EXCEPTION => [
+                    self::CLASS_ => InvalidArgumentException::class,
+                    self::MESSAGE => sprintf(
+                        'Pattern should be instance of "%s", "%s" given.',
+                        IStylePattern::class,
+                        get_debug_type($pattern)
+                    ),
+                ],
+            ],
+            [
+                self::ARGUMENTS => [
+                    self::COLOR_MODE => StyleMode::ANSI8,
+                    self::PATTERN => $pattern,
+                ],
+            ],
+        ];
+        #8
+        yield [
+            [
+                // self::FRAMES => [
+                //     FrameFactory::create("\e[38;5;196m%s\e[0m", 0),
+                // ],
+                self::COUNT => 1,
+            ],
+            [
+                self::ARGUMENTS => [
+                    self::COLOR_MODE => StyleMode::ANSI8,
+                    self::PATTERN =>
+                        new CustomStylePattern(
+                            ['#ff0000'],
+                            colorMode: StyleMode::ANSI8
+                        ),
+                ],
+            ],
+        ];
 //        #5
 //        yield [
 //            [
@@ -278,7 +349,7 @@ final class StyleFrameCollectionRendererTest extends TestCase
 
         $renderer =
             new StyleFrameCollectionRenderer(
-                new AnsiColorConverter($args[self::COLOR_MODE]),
+                new StyleFrameRenderer($args[self::COLOR_MODE]),
             );
 
         $rendererWithPattern = $renderer->pattern($args[self::PATTERN]);
@@ -290,7 +361,10 @@ final class StyleFrameCollectionRendererTest extends TestCase
         }
 
         self::assertSame($expected[self::COUNT] ?? 1, $collection->count());
-        self::assertEquals($expected[self::FRAMES] ?? null, $collection->getArrayCopy());
+        $frames = $expected[self::FRAMES] ?? null;
+        if ($frames) {
+            self::assertEquals($frames, dump($collection->getArrayCopy()));
+        }
         self::assertSame($expected[self::LAST_INDEX] ?? 0, $collection->lastIndex());
     }
 }

@@ -4,15 +4,15 @@ declare(strict_types=1);
 // 16.03.23
 namespace AlecRabbit\Spinner\Core\Factory\A;
 
-use AlecRabbit\Spinner\Contract\IAnsiColorConverter;
+use AlecRabbit\Spinner\Contract\IAnsiStyleConverter;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDefaults;
 use AlecRabbit\Spinner\Core\Factory\Contract\IAnsiColorConverterFactory;
 
 abstract class AAnsiColorConverterFactory extends ADefaultsAwareClass implements IAnsiColorConverterFactory
 {
-    private static ?IAnsiColorConverter $colorConverter = null;
+    private static ?IAnsiStyleConverter $colorConverter = null;
 
-    public static function getGetAnsiColorConverter(?IDefaults $defaults = null): IAnsiColorConverter
+    public static function getGetAnsiColorConverter(?IDefaults $defaults = null): IAnsiStyleConverter
     {
         if (null === static::$colorConverter) {
             static::$colorConverter = self::createAnsiColorConverter($defaults);
@@ -20,15 +20,15 @@ abstract class AAnsiColorConverterFactory extends ADefaultsAwareClass implements
         return static::$colorConverter;
     }
 
-    protected static function createAnsiColorConverter(?IDefaults $defaults): IAnsiColorConverter
+    protected static function createAnsiColorConverter(?IDefaults $defaults): IAnsiStyleConverter
     {
         $defaults ??= static::getDefaults();
 
-        $ansiColorConverterClass = $defaults->getClasses()->getAnsiColorConverterClass();
+        $ansiStyleConverterClass = $defaults->getClasses()->getAnsiStyleConverterClass();
 
         $colorMode = $defaults->getTerminalSettings()->getColorMode();
 
         return
-            new $ansiColorConverterClass($colorMode);
+            new $ansiStyleConverterClass($colorMode);
     }
 }
