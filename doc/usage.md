@@ -54,7 +54,7 @@ $config =
     Facade::getConfigBuilder()
         ->withCharPattern(
             new Custom(
-                pattern: ['1', '2', '3'], // takes iterable of string|IFrame
+                pattern: ['1', '2', '3'], // takes iterable of Stringable|string|IFrame
                 interval: 100, 
                 reversed: true
             )
