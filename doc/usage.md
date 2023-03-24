@@ -53,7 +53,7 @@ For that purpose you can use `\AlecRabbit\Spinner\Core\Pattern\Char\CustomPatter
 $config =
     Facade::getConfigBuilder()
         ->withCharPattern(
-            new Custom(
+            new CustomPattern(
                 pattern: ['1', '2', '3'], // takes iterable of Stringable|string|IFrame
                 interval: 100, 
                 reversed: true
@@ -62,6 +62,7 @@ $config =
         ->build();
 // ...
 ```
+> **Note** IFrame is a raw representation of a frame. 
 
 ### Style patterns
 
@@ -76,8 +77,8 @@ For that purpose you can use `\AlecRabbit\Spinner\Core\Pattern\Style\CustomStyle
 $config =
     Facade::getConfigBuilder()
         ->withStylePattern(
-            new Custom(
-                pattern: ['1', '2', '3'], // takes iterable of Stringable|string|IFrame
+            new CustomStylePattern(
+                pattern: ['1', '2', '3'], // takes iterable of IStyle|IFrame 
                 interval: 100, 
                 reversed: true
             )
@@ -85,3 +86,10 @@ $config =
         ->build();
 // ...
 ```
+> **Note** IFrame is a raw representation of a frame.
+
+> **Note** AnsiColorConverter supplied with this package is capable of converting IStyle to ANSI escape codes using only foreground color, in `int` format or using `#rrggbb` format(only colors in a table). 
+
+> **Note** IStyle|IFrame limitation is not implemented yet.
+
+
