@@ -4,7 +4,7 @@ declare(strict_types=1);
 // 16.03.23
 namespace AlecRabbit\Spinner\Core\Factory\A;
 
-use AlecRabbit\Spinner\Contract\IAnsiColorConverter;
+use AlecRabbit\Spinner\Contract\IAnsiStyleConverter;
 use AlecRabbit\Spinner\Contract\IPattern;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDefaults;
 use AlecRabbit\Spinner\Core\Factory\AnsiColorConverterFactory;
@@ -57,7 +57,7 @@ abstract class ARevolverFactory extends ADefaultsAwareClass implements IRevolver
             new $revolverBuilderClass(static::getDefaults(), self::getColorConverter($defaults));
     }
 
-    protected static function getColorConverter(?IDefaults $defaults): IAnsiColorConverter
+    protected static function getColorConverter(?IDefaults $defaults): IAnsiStyleConverter
     {
         return AnsiColorConverterFactory::getGetAnsiColorConverter($defaults);
     }

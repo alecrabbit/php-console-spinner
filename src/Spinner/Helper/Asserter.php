@@ -5,7 +5,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Helper;
 
-use AlecRabbit\Spinner\Contract\ColorMode;
+use AlecRabbit\Spinner\Contract\StyleMode;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Exception\RuntimeException;
 use Traversable;
@@ -61,9 +61,9 @@ final class Asserter
         if (0 === count(iterator_to_array($colorModes))) {
             throw new InvalidArgumentException('Color modes must not be empty.');
         }
-        /** @var ColorMode $colorMode */
+        /** @var StyleMode $colorMode */
         foreach ($colorModes as $colorMode) {
-            if (!$colorMode instanceof ColorMode) {
+            if (!$colorMode instanceof StyleMode) {
                 throw new InvalidArgumentException(
                     sprintf(
                         'Unsupported color mode of type "%s".',
@@ -133,7 +133,7 @@ final class Asserter
     /**
      * @throws InvalidArgumentException
      */
-    public static function assertIntColor(int $color, ColorMode $colorMode): void
+    public static function assertIntColor(int $color, StyleMode $colorMode): void
     {
         match (true) {
             0 > $color => throw new InvalidArgumentException(
@@ -142,26 +142,26 @@ final class Asserter
                     $color
                 )
             ),
-            ColorMode::ANSI24->name === $colorMode->name => throw new InvalidArgumentException(
+            StyleMode::ANSI24->name === $colorMode->name => throw new InvalidArgumentException(
                 sprintf(
                     'For %s::%s color mode rendering from int is not allowed.',
-                    ColorMode::class,
-                    ColorMode::ANSI24->name
+                    StyleMode::class,
+                    StyleMode::ANSI24->name
                 )
             ),
-            ColorMode::ANSI8->name === $colorMode->name && 255 < $color => throw new InvalidArgumentException(
+            StyleMode::ANSI8->name === $colorMode->name && 255 < $color => throw new InvalidArgumentException(
                 sprintf(
                     'For %s::%s color mode value should be in range 0..255, %d given.',
-                    ColorMode::class,
-                    ColorMode::ANSI8->name,
+                    StyleMode::class,
+                    StyleMode::ANSI8->name,
                     $color
                 )
             ),
-            ColorMode::ANSI4->name === $colorMode->name && 16 < $color => throw new InvalidArgumentException(
+            StyleMode::ANSI4->name === $colorMode->name && 16 < $color => throw new InvalidArgumentException(
                 sprintf(
                     'For %s::%s color mode value should be in range 0..15, %d given.',
-                    ColorMode::class,
-                    ColorMode::ANSI4->name,
+                    StyleMode::class,
+                    StyleMode::ANSI4->name,
                     $color
                 )
             ),

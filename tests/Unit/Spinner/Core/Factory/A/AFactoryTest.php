@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Core\Factory\A;
 
 use AlecRabbit\Spinner\Contract\AutoStart;
-use AlecRabbit\Spinner\Contract\ColorMode;
+use AlecRabbit\Spinner\Contract\StyleMode;
 use AlecRabbit\Spinner\Contract\Cursor;
 use AlecRabbit\Spinner\Contract\RunMode;
 use AlecRabbit\Spinner\Contract\SignalHandlers;
@@ -46,7 +46,7 @@ final class AFactoryTest extends TestCase
             ->overrideSignalHandlersOption(SignalHandlers::DISABLED)
             ->toParent()
             ->getTerminalSettings()
-            ->overrideColorMode(ColorMode::NONE)
+            ->overrideColorMode(StyleMode::NONE)
             ->overrideCursor(Cursor::ENABLED)
             ->toParent();
     }

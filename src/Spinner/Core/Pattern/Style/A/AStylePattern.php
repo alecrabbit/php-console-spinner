@@ -5,16 +5,16 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Pattern\Style\A;
 
-use AlecRabbit\Spinner\Contract\ColorMode;
-use AlecRabbit\Spinner\Core\Pattern\A\APattern;
+use AlecRabbit\Spinner\Contract\StyleMode;
+use AlecRabbit\Spinner\Core\Pattern\A\AReversiblePattern;
 use AlecRabbit\Spinner\Core\Pattern\Contract\IStylePattern;
 
-abstract class AStylePattern extends APattern implements IStylePattern
+abstract class AStylePattern extends AReversiblePattern implements IStylePattern
 {
-    /** @var ColorMode */
-    protected const COLOR_MODE = ColorMode::ANSI8;
+    /** @var StyleMode */
+    protected const COLOR_MODE = StyleMode::ANSI8;
 
-    public function getColorMode(): ColorMode
+    public function getColorMode(): StyleMode
     {
         return static::COLOR_MODE;
     }
