@@ -55,7 +55,7 @@ final class StyleFrameCollectionRenderer extends AFrameCollectionRenderer
     {
         if (!$this->converter->isEnabled()) {
             return
-                new FrameCollection(
+                $this->createCollection(
                     new ArrayObject(
                         [FrameFactory::create('%s', 0)]
                     )

@@ -14,6 +14,7 @@ use AlecRabbit\Spinner\Core\FrameCollection;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use Generator;
 use Stringable;
+use Traversable;
 
 abstract class AFrameCollectionRenderer extends ADefaultsAwareClass implements IFrameCollectionRenderer
 {
@@ -50,7 +51,7 @@ abstract class AFrameCollectionRenderer extends ADefaultsAwareClass implements I
             };
 
         return
-            new FrameCollection($cb());
+            $this->createCollection($cb());
     }
 
     /**
@@ -70,4 +71,12 @@ abstract class AFrameCollectionRenderer extends ADefaultsAwareClass implements I
      * @throws InvalidArgumentException
      */
     abstract protected function createFrame(int|string|array $entry): IFrame;
+
+    /**
+     * @throws InvalidArgumentException
+     */
+    protected function createCollection(Traversable $frames): FrameCollection
+    {
+        return new FrameCollection($frames);
+    }
 }
