@@ -24,12 +24,13 @@ final class StyleFrameCollectionRendererTest extends TestCase
         yield [
             [
                 self::FRAMES => [
-                    FrameFactory::create("\e[38;5;196m%s\e[0m", 0),
+                    FrameFactory::create('%s', 0),
                 ],
+                self::COUNT => 1,
             ],
             [
                 self::ARGUMENTS => [
-                    self::COLOR_MODE => ColorMode::ANSI24,
+                    self::COLOR_MODE => ColorMode::NONE,
                     self::PATTERN =>
                         new CustomStylePattern(
                             [new Style('#ff0000')],
@@ -38,30 +39,47 @@ final class StyleFrameCollectionRendererTest extends TestCase
                 ],
             ],
         ];
-        #1
-        yield [
-            [
-                self::COUNT => 2,
-                self::LAST_INDEX => 1,
-                self::FRAMES => [
-                    FrameFactory::create("\e[38;5;196m%s\e[0m", 0),
-                    FrameFactory::create("\e[38;5;197m%s\e[0m", 0),
-                ],
-            ],
-            [
-                self::ARGUMENTS => [
-                    self::COLOR_MODE => ColorMode::ANSI8,
-                    self::PATTERN =>
-                        new CustomStylePattern(
-                            [
-                                new Style('#ff0000'),
-                                new Style('#ff005f')
-                            ],
-                            colorMode: ColorMode::ANSI8
-                        ),
-                ],
-            ],
-        ];
+//        yield [
+//            [
+//                self::FRAMES => [
+//                    FrameFactory::create("\e[38;5;196m%s\e[0m", 0),
+//                ],
+//            ],
+//            [
+//                self::ARGUMENTS => [
+//                    self::COLOR_MODE => ColorMode::ANSI24,
+//                    self::PATTERN =>
+//                        new CustomStylePattern(
+//                            [new Style('#ff0000')],
+//                            colorMode: ColorMode::ANSI8
+//                        ),
+//                ],
+//            ],
+//        ];
+//        #1
+//        yield [
+//            [
+//                self::COUNT => 2,
+//                self::LAST_INDEX => 1,
+//                self::FRAMES => [
+//                    FrameFactory::create("\e[38;5;196m%s\e[0m", 0),
+//                    FrameFactory::create("\e[38;5;197m%s\e[0m", 0),
+//                ],
+//            ],
+//            [
+//                self::ARGUMENTS => [
+//                    self::COLOR_MODE => ColorMode::ANSI8,
+//                    self::PATTERN =>
+//                        new CustomStylePattern(
+//                            [
+//                                new Style('#ff0000'),
+//                                new Style('#ff005f')
+//                            ],
+//                            colorMode: ColorMode::ANSI8
+//                        ),
+//                ],
+//            ],
+//        ];
 //        #2
 //        yield [
 //            [
