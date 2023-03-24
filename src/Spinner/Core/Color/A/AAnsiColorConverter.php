@@ -6,28 +6,23 @@ namespace AlecRabbit\Spinner\Core\Color\A;
 
 use AlecRabbit\Spinner\Contract\ColorMode;
 use AlecRabbit\Spinner\Contract\IAnsiColorConverter;
-use AlecRabbit\Spinner\Contract\IStyle;
-use AlecRabbit\Spinner\Exception\DomainException;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Exception\LogicException;
 use AlecRabbit\Spinner\Helper\Asserter;
+use AlecRabbit\Spinner\Mixin\AnsiColorTableTrait;
 
 abstract class AAnsiColorConverter implements IAnsiColorConverter
 {
+    use AnsiColorTableTrait;
+
     public function __construct(
         protected ColorMode $colorMode,
     ) {
     }
 
     /** @inheritdoc */
-    public function ansiCode(IStyle|int|string $color, ColorMode $colorMode): string
+    public function ansiCode(int|string $color, ColorMode $colorMode): string
     {
-        if ($color instanceof IStyle) {
-            throw new DomainException(
-                sprintf('%s is not supported by this color converter', IStyle::class)
-            );
-        }
-
         $colorMode = $colorMode->lowest($this->colorMode);
 
         $this->assertColor($color, $colorMode);
@@ -52,7 +47,7 @@ abstract class AAnsiColorConverter implements IAnsiColorConverter
     /**
      * @throws InvalidArgumentException
      */
-    protected function assertColor(IStyle|int|string $color, ColorMode $colorMode): void
+    protected function assertColor(int|string $color, ColorMode $colorMode): void
     {
         match (true) {
             is_int($color) => Asserter::assertIntColor($color, $colorMode),
@@ -182,7 +177,7 @@ abstract class AAnsiColorConverter implements IAnsiColorConverter
         static $colors8 = null;
 
         if (null === $colors8) {
-            $colors8 = array_slice(IAnsiColorConverter::COLOR_TABLE, 16, preserve_keys: true);
+            $colors8 = array_slice(static::COLOR_TABLE, 16, preserve_keys: true);
         }
 
         /** @var int|false $result */
