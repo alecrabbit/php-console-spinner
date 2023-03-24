@@ -6,7 +6,6 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Pattern\Style\A;
 
 use AlecRabbit\Spinner\Contract\StyleMode;
-use AlecRabbit\Spinner\Core\Pattern\A\APattern;
 use AlecRabbit\Spinner\Core\Pattern\A\AReversiblePattern;
 use AlecRabbit\Spinner\Core\Pattern\Contract\IStylePattern;
 

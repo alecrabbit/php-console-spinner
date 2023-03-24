@@ -5,8 +5,8 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Defaults\A;
 
-use AlecRabbit\Spinner\Contract\StyleMode;
 use AlecRabbit\Spinner\Contract\Cursor;
+use AlecRabbit\Spinner\Contract\StyleMode;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDefaults;
 use AlecRabbit\Spinner\Core\Defaults\Contract\ITerminalSettings;
 use AlecRabbit\Spinner\Helper\Asserter;

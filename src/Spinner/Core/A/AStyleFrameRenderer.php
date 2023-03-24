@@ -34,11 +34,6 @@ abstract class AStyleFrameRenderer extends AFrameRenderer implements IStyleFrame
         return $this->createFrame($entry, $styleMode);
     }
 
-    public function isStyleEnabled(): bool
-    {
-        return $this->converter->isEnabled();
-    }
-
     /**
      * @throws LogicException
      * @throws InvalidArgumentException
@@ -70,5 +65,10 @@ abstract class AStyleFrameRenderer extends AFrameRenderer implements IStyleFrame
         $color .= 'm%s';
         return
             FrameFactory::create(Sequencer::colorSequence($color), $entry->getWidth());
+    }
+
+    public function isStyleEnabled(): bool
+    {
+        return $this->converter->isEnabled();
     }
 }

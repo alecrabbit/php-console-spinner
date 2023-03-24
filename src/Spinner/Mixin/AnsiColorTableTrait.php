@@ -1,11 +1,12 @@
 <?php
+
 declare(strict_types=1);
 // 24.03.23
 namespace AlecRabbit\Spinner\Mixin;
 
 trait AnsiColorTableTrait
 {
-    /** @var array<int,string>  */
+    /** @var array<int,string> */
     protected const COLOR_TABLE = [
         0 => '#000000',
         1 => '#800000',

@@ -5,14 +5,13 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core;
 
-use AlecRabbit\Spinner\Contract\StyleMode;
-use AlecRabbit\Spinner\Contract\IAnsiStyleConverter;
 use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Contract\IFrameCollection;
 use AlecRabbit\Spinner\Contract\IFrameCollectionRenderer;
 use AlecRabbit\Spinner\Contract\IPattern;
 use AlecRabbit\Spinner\Contract\IStyle;
 use AlecRabbit\Spinner\Contract\IStyleFrameRenderer;
+use AlecRabbit\Spinner\Contract\StyleMode;
 use AlecRabbit\Spinner\Core\A\AFrameCollectionRenderer;
 use AlecRabbit\Spinner\Core\Factory\FrameFactory;
 use AlecRabbit\Spinner\Core\Pattern\Contract\IStylePattern;
@@ -49,6 +48,16 @@ final class StyleFrameCollectionRenderer extends AFrameCollectionRenderer
         return $clone;
     }
 
+    /**
+     * @throws LogicException
+     * @throws InvalidArgumentException
+     */
+    protected function createFrame(string|IStyle $entry): IFrame
+    {
+        /** @var IStyleFrameRenderer $this->frameRenderer */
+        return $this->frameRenderer->render($entry, $this->styleMode);
+    }
+
     /** @inheritdoc */
     public function render(): IFrameCollection
     {
@@ -61,15 +70,5 @@ final class StyleFrameCollectionRenderer extends AFrameCollectionRenderer
                 );
         }
         return parent::render();
-    }
-
-    /**
-     * @throws LogicException
-     * @throws InvalidArgumentException
-     */
-    protected function createFrame(string|IStyle $entry): IFrame
-    {
-        /** @var IStyleFrameRenderer $this->frameRenderer */
-        return $this->frameRenderer->render($entry, $this->styleMode);
     }
 }

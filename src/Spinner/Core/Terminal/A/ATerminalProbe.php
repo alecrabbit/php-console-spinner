@@ -5,8 +5,8 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Terminal\A;
 
-use AlecRabbit\Spinner\Contract\StyleMode;
 use AlecRabbit\Spinner\Contract\Cursor;
+use AlecRabbit\Spinner\Contract\StyleMode;
 use AlecRabbit\Spinner\Core\Terminal\Contract\ITerminalProbe;
 use AlecRabbit\Spinner\Mixin\NoInstanceTrait;
 
