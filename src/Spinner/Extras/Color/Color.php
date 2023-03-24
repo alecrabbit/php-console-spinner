@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Extras\Color;
 
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
+use AlecRabbit\Spinner\Extras\Color\A\AColor;
+use AlecRabbit\Spinner\Extras\Color\Contract\IColor;
 use AlecRabbit\Spinner\Helper\Asserter;
 
 final class Color extends AColor
@@ -70,7 +72,7 @@ final class Color extends AColor
         $length = strlen($hex);
         $cLength = (int)($length / 3);
         return
-            new self(
+            self::fromRGB(
                 hexdec(substr($hex, 0, $cLength)),
                 hexdec(substr($hex, $cLength, $cLength)),
                 hexdec(substr($hex, $cLength * 2, $cLength)),
@@ -107,7 +109,7 @@ final class Color extends AColor
         $b = ($b + $m) * 255;
 
         return
-            new self((int)$r, (int)$g, (int)$b);
+            self::fromRGB((int)$r, (int)$g, (int)$b);
     }
 
     public function getRed(): int
