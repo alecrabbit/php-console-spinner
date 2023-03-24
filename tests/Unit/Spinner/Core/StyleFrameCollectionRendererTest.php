@@ -17,7 +17,7 @@ use PHPUnit\Framework\Attributes\Test;
 
 final class StyleFrameCollectionRendererTest extends TestCase
 {
-    public static function collectionData(): iterable
+    public static function collectionDataProvider(): iterable
     {
         // [$expected, $incoming]
         #0
@@ -217,10 +217,30 @@ final class StyleFrameCollectionRendererTest extends TestCase
                 ],
             ],
         ];
+        #11
+        yield [
+            [
+                self::COUNT => 1,
+                self::LAST_INDEX => 0,
+                self::FRAMES => [
+                    FrameFactory::create("\e[37;41m%s\e[0m", 0),
+                ],
+            ],
+            [
+                self::ARGUMENTS => [
+                    self::COLOR_MODE => ColorMode::ANSI24,
+                    self::PATTERN =>
+                        new CustomStylePattern(
+                            [['fg' => '#fff', 'bg' => '#f00'],],
+                            colorMode: ColorMode::ANSI4
+                        ),
+                ],
+            ],
+        ];
     }
 
     #[Test]
-    #[DataProvider('collectionData')]
+    #[DataProvider('collectionDataProvider')]
     public function canBeCreated(array $expected, array $incoming): void
     {
         $expectedException = $this->expectsException($expected);
