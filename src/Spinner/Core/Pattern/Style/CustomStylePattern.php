@@ -3,20 +3,27 @@
 declare(strict_types=1);
 // 09.03.23
 
-namespace AlecRabbit\Spinner\Core\Pattern\Char;
+namespace AlecRabbit\Spinner\Core\Pattern\Style;
 
-use AlecRabbit\Spinner\Core\Pattern\A\AReversiblePattern;
+use AlecRabbit\Spinner\Contract\ColorMode;
+use AlecRabbit\Spinner\Core\Pattern\Style\A\AStylePattern;
 use Traversable;
 
 /** @psalm-suppress UnusedClass */
-final class Custom extends AReversiblePattern
+final class CustomStylePattern extends AStylePattern
 {
     public function __construct(
         protected iterable $pattern,
+        protected ColorMode $colorMode = self::COLOR_MODE,
         ?int $interval = null,
         bool $reversed = false
     ) {
         parent::__construct($interval, $reversed);
+    }
+
+    public function getColorMode(): ColorMode
+    {
+        return $this->colorMode;
     }
 
     protected function pattern(): Traversable

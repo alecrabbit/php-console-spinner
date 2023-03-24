@@ -7,7 +7,7 @@ namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Core;
 use AlecRabbit\Spinner\Contract\ColorMode;
 use AlecRabbit\Spinner\Core\Color\AnsiColorConverter;
 use AlecRabbit\Spinner\Core\Factory\FrameFactory;
-use AlecRabbit\Spinner\Core\Pattern\Style\CustomStyle;
+use AlecRabbit\Spinner\Core\Pattern\Style\CustomStylePattern;
 use AlecRabbit\Spinner\Core\StyleFrameCollectionRenderer;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Tests\Spinner\TestCase\TestCase;
@@ -30,7 +30,7 @@ final class StyleFrameCollectionRendererTest extends TestCase
             [
                 self::ARGUMENTS => [
                     self::COLOR_MODE => ColorMode::ANSI24,
-                    self::PATTERN => new CustomStyle([196], colorMode: ColorMode::ANSI8),
+                    self::PATTERN => new CustomStylePattern([196], colorMode: ColorMode::ANSI8),
                 ],
             ],
         ];
@@ -47,7 +47,7 @@ final class StyleFrameCollectionRendererTest extends TestCase
             [
                 self::ARGUMENTS => [
                     self::COLOR_MODE => ColorMode::ANSI8,
-                    self::PATTERN => new CustomStyle([196, 197], colorMode: ColorMode::ANSI8),
+                    self::PATTERN => new CustomStylePattern([196, 197], colorMode: ColorMode::ANSI8),
                 ],
             ],
         ];
@@ -63,7 +63,7 @@ final class StyleFrameCollectionRendererTest extends TestCase
             [
                 self::ARGUMENTS => [
                     self::COLOR_MODE => ColorMode::ANSI24,
-                    self::PATTERN => new CustomStyle(['#ff0000',], colorMode: ColorMode::ANSI8),
+                    self::PATTERN => new CustomStylePattern(['#ff0000',], colorMode: ColorMode::ANSI8),
                 ],
             ],
         ];
@@ -79,7 +79,7 @@ final class StyleFrameCollectionRendererTest extends TestCase
             [
                 self::ARGUMENTS => [
                     self::COLOR_MODE => ColorMode::ANSI24,
-                    self::PATTERN => new CustomStyle(['#ff0000',], colorMode: ColorMode::ANSI8),
+                    self::PATTERN => new CustomStylePattern(['#ff0000',], colorMode: ColorMode::ANSI8),
                 ],
             ],
         ];
@@ -95,7 +95,7 @@ final class StyleFrameCollectionRendererTest extends TestCase
                 self::ARGUMENTS => [
                     self::COLOR_MODE => ColorMode::ANSI8,
                     self::PATTERN =>
-                        new CustomStyle(
+                        new CustomStylePattern(
                             [[],],
                         ),
                 ],
@@ -113,7 +113,7 @@ final class StyleFrameCollectionRendererTest extends TestCase
                 self::ARGUMENTS => [
                     self::COLOR_MODE => ColorMode::ANSI4,
                     self::PATTERN =>
-                        new CustomStyle(
+                        new CustomStylePattern(
                             [[0, 1],],
                         ),
                 ],
@@ -131,7 +131,7 @@ final class StyleFrameCollectionRendererTest extends TestCase
                 self::ARGUMENTS => [
                     self::COLOR_MODE => ColorMode::ANSI4,
                     self::PATTERN =>
-                        new CustomStyle(
+                        new CustomStylePattern(
                             [['fg' => '', 'bq' => ''],],
                         ),
                 ],
@@ -150,7 +150,7 @@ final class StyleFrameCollectionRendererTest extends TestCase
                 self::ARGUMENTS => [
                     self::COLOR_MODE => ColorMode::ANSI24,
                     self::PATTERN =>
-                        new CustomStyle(
+                        new CustomStylePattern(
                             [['fg' => '#ff0000', 'bg' => '#ffffff'],],
                             colorMode: ColorMode::ANSI8
                         ),
@@ -170,7 +170,7 @@ final class StyleFrameCollectionRendererTest extends TestCase
                 self::ARGUMENTS => [
                     self::COLOR_MODE => ColorMode::ANSI24,
                     self::PATTERN =>
-                        new CustomStyle(
+                        new CustomStylePattern(
                             [['fg' => '#fff', 'bg' => '#f00'],],
                             colorMode: ColorMode::ANSI8
                         ),
@@ -190,7 +190,7 @@ final class StyleFrameCollectionRendererTest extends TestCase
                 self::ARGUMENTS => [
                     self::COLOR_MODE => ColorMode::ANSI24,
                     self::PATTERN =>
-                        new CustomStyle(
+                        new CustomStylePattern(
                             [['fg' => '#fff', 'bg' => '#f00'],],
                             colorMode: ColorMode::ANSI24
                         ),
@@ -210,7 +210,7 @@ final class StyleFrameCollectionRendererTest extends TestCase
                 self::ARGUMENTS => [
                     self::COLOR_MODE => ColorMode::ANSI24,
                     self::PATTERN =>
-                        new CustomStyle(
+                        new CustomStylePattern(
                             [['fg' => '#fff', 'bg' => '#f00'],],
                             colorMode: ColorMode::ANSI4
                         ),

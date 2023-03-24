@@ -46,7 +46,7 @@ List of supplied character patterns you will find [here]().
 
 #### How to create your own character pattern
 
-For that purpose you can use `\AlecRabbit\Spinner\Core\Pattern\Char\Custom::class`.
+For that purpose you can use `\AlecRabbit\Spinner\Core\Pattern\Char\CustomPattern::class`.
 
 ```php
 // ...
@@ -64,3 +64,24 @@ $config =
 ```
 
 ### Style patterns
+
+List of supplied style patterns you will find [here]().
+
+#### How to create your own character pattern
+
+For that purpose you can use `\AlecRabbit\Spinner\Core\Pattern\Style\CustomStylePattern::class`.
+
+```php
+// ...
+$config =
+    Facade::getConfigBuilder()
+        ->withStylePattern(
+            new Custom(
+                pattern: ['1', '2', '3'], // takes iterable of Stringable|string|IFrame
+                interval: 100, 
+                reversed: true
+            )
+        )
+        ->build();
+// ...
+```
