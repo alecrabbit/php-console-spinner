@@ -92,5 +92,3 @@ $config =
 > **Note** AnsiColorConverter supplied with this package is capable of converting IStyle to ANSI escape codes using only foreground color, in `int` format or using `#rrggbb` format(only colors in a table). 
 
 > **Note** IStyle|IFrame limitation is not implemented yet.
-
-
