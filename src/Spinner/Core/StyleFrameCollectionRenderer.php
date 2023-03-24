@@ -69,6 +69,7 @@ final class StyleFrameCollectionRenderer extends AFrameCollectionRenderer
      */
     protected function createFrame(string|IStyle $entry): IFrame
     {
+        /** @var IStyleFrameRenderer $this->frameRenderer */
         return $this->frameRenderer->render($entry, $this->styleMode);
     }
 }

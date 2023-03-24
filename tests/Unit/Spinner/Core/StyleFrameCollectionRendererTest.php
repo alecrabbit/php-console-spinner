@@ -349,7 +349,9 @@ final class StyleFrameCollectionRendererTest extends TestCase
 
         $renderer =
             new StyleFrameCollectionRenderer(
-                new StyleFrameRenderer($args[self::COLOR_MODE]),
+                new StyleFrameRenderer(
+                    new AnsiStyleConverter($args[self::COLOR_MODE])
+                ),
             );
 
         $rendererWithPattern = $renderer->pattern($args[self::PATTERN]);
@@ -363,7 +365,7 @@ final class StyleFrameCollectionRendererTest extends TestCase
         self::assertSame($expected[self::COUNT] ?? 1, $collection->count());
         $frames = $expected[self::FRAMES] ?? null;
         if ($frames) {
-            self::assertEquals($frames, dump($collection->getArrayCopy()));
+            self::assertEquals($frames, $collection->getArrayCopy());
         }
         self::assertSame($expected[self::LAST_INDEX] ?? 0, $collection->lastIndex());
     }
