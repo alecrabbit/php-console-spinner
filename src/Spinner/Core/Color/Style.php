@@ -4,7 +4,7 @@ declare(strict_types=1);
 // 24.03.23
 namespace AlecRabbit\Spinner\Core\Color;
 
-use AlecRabbit\Spinner\Contract\IColorMarker;
+use AlecRabbit\Spinner\Contract\Color\IColorMarker;
 use AlecRabbit\Spinner\Contract\IOptions;
 use AlecRabbit\Spinner\Contract\IStyle;
 

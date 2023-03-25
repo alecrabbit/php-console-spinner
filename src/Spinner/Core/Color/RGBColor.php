@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Color;
 
 use AlecRabbit\Spinner\Contract\Color\IColor;
-use AlecRabbit\Spinner\Contract\IColorMarker;
+use AlecRabbit\Spinner\Contract\Color\IColorMarker;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Helper\Asserter;
 
