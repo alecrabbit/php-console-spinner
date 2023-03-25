@@ -1,20 +1,11 @@
- ----------- -------------------------------------------------------------------------------------------------------------------- 
-  Reason      ModuleContract                                                                                                      
- ----------- -------------------------------------------------------------------------------------------------------------------- 
-  Violation   AlecRabbit\Spinner\Contract\Color\RGBColorDTO must not depend on AlecRabbit\Spinner\Helper\Asserter (ModuleHelper)  
-              /app/src/Spinner/Contract/Color/RGBColorDTO.php:71                                                                  
-  Violation   AlecRabbit\Spinner\Contract\Color\RGBColorDTO must not depend on AlecRabbit\Spinner\Helper\Asserter (ModuleHelper)  
-              /app/src/Spinner/Contract/Color/RGBColorDTO.php:9                                                                   
- ----------- -------------------------------------------------------------------------------------------------------------------- 
-
 
  -------------------- ------ 
   Report                     
  -------------------- ------ 
-  Violations           2     
+  Violations           0     
   Skipped violations   0     
   Uncovered            191   
-  Allowed              3145  
+  Allowed              3154  
   Warnings             0     
   Errors               0     
  -------------------- ------ 

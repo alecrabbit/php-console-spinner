@@ -1,4 +1,2 @@
 deptrac:
-  skip_violations:
-    AlecRabbit\Spinner\Contract\Color\RGBColorDTO:
-      - AlecRabbit\Spinner\Helper\Asserter
+  skip_violations: {  }

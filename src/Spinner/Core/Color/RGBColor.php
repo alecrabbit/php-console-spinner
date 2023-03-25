@@ -4,11 +4,11 @@ declare(strict_types=1);
 // 25.03.23
 namespace AlecRabbit\Spinner\Core\Color;
 
-use AlecRabbit\Spinner\Contract\Color\IColor;
+use AlecRabbit\Spinner\Contract\Color\IStringableColor;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Helper\Asserter;
 
-final readonly class RGBColor implements \Stringable, IColor
+final readonly class RGBColor implements IStringableColor
 {
     private const HEX_FORMAT = '#%02x%02x%02x';
     public int $red;
