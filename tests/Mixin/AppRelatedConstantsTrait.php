@@ -30,6 +30,9 @@ trait AppRelatedConstantsTrait
     final protected const MESSAGE = 'message';
     final protected const MIN = 'min';
     final protected const MODE = 'mode';
+    final protected const MODE_ONE = 'modeOne';
+    final protected const MODE_TWO = 'modeTwo';
+
     final protected const PATTERN = 'pattern';
     final protected const RESULT = 'result';
     final protected const SECOND = 'second';
