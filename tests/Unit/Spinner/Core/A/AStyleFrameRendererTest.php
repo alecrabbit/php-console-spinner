@@ -9,6 +9,7 @@ use AlecRabbit\Spinner\Contract\IStyleFrameRenderer;
 use AlecRabbit\Spinner\Contract\StyleMode;
 use AlecRabbit\Spinner\Core\A\AStyleFrameRenderer;
 use AlecRabbit\Spinner\Core\Color\Ansi8Color;
+use AlecRabbit\Spinner\Core\Factory\FrameFactory;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Exception\LogicException;
 use AlecRabbit\Tests\Spinner\TestCase\TestCase;
@@ -39,10 +40,7 @@ final class AStyleFrameRendererTest extends TestCase
         // #1
         yield [
             [
-                self::EXCEPTION => [
-                    self::CLASS_ => LogicException::class,
-                    self::MESSAGE => 'Styling is disabled.',
-                ],
+                self::RESULT => FrameFactory::create("\e[3-m%s\e[0m", 0),
             ],
             [
                 self::ARGUMENTS => [
