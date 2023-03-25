@@ -12,7 +12,6 @@ final class Rainbow extends AStylePattern
     protected const UPDATE_INTERVAL = 400;
 
     protected const PATTERN = [
-        196, // 196
         '#ff0000', // 196
         '#ff8700', // 208
         '#ffaf00', // 214
