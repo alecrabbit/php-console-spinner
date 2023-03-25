@@ -5,11 +5,10 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Color;
 
 use AlecRabbit\Spinner\Contract\Color\IColor;
-use AlecRabbit\Spinner\Contract\Color\IColorMarker;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Helper\Asserter;
 
-final readonly class RGBColor implements IColorMarker, IColor
+final readonly class RGBColor implements \Stringable, IColor
 {
     private const HEX_FORMAT = '#%02x%02x%02x';
     public int $red;

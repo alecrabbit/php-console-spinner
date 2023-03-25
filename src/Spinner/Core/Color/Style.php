@@ -4,15 +4,15 @@ declare(strict_types=1);
 // 24.03.23
 namespace AlecRabbit\Spinner\Core\Color;
 
-use AlecRabbit\Spinner\Contract\Color\IColorMarker;
+use AlecRabbit\Spinner\Contract\Color\IColor;
 use AlecRabbit\Spinner\Contract\IOptions;
 use AlecRabbit\Spinner\Contract\IStyle;
 
 final readonly class Style implements IStyle
 {
     public function __construct(
-        protected null|string|IColorMarker $fgColor = null,
-        protected null|string|IColorMarker $bgColor = null,
+        protected null|string|IColor $fgColor = null,
+        protected null|string|IColor $bgColor = null,
         protected ?IOptions $options = null,
         protected string $format = '%s',
         protected int $width = 0,
@@ -24,12 +24,12 @@ final readonly class Style implements IStyle
         return null === $this->fgColor && null === $this->bgColor && null === $this->options;
     }
 
-    public function getFgColor(): IColorMarker|string|null
+    public function getFgColor(): IColor|string|null
     {
         return $this->fgColor;
     }
 
-    public function getBgColor(): IColorMarker|string|null
+    public function getBgColor(): IColor|string|null
     {
         return $this->bgColor;
     }

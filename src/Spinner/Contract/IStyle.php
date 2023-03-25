@@ -4,7 +4,7 @@ declare(strict_types=1);
 // 23.03.23
 namespace AlecRabbit\Spinner\Contract;
 
-use AlecRabbit\Spinner\Contract\Color\IColorMarker;
+use AlecRabbit\Spinner\Contract\Color\IColor;
 
 interface IStyle
 {
@@ -13,9 +13,9 @@ interface IStyle
 
     public function isEmpty(): bool;
 
-    public function getFgColor(): IColorMarker|string|null;
+    public function getFgColor(): IColor|string|null;
 
-    public function getBgColor(): IColorMarker|string|null;
+    public function getBgColor(): IColor|string|null;
 
     public function getFormat(): string;
 
