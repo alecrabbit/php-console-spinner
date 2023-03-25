@@ -2,9 +2,11 @@
 
 declare(strict_types=1);
 // 25.03.23
-namespace AlecRabbit\Spinner\Contract\Color;
+namespace AlecRabbit\Spinner\Core\Color;
 
-final class HSLColorDTO implements IColorDTO
+use AlecRabbit\Spinner\Contract\Color\IColor;
+
+final class HSLColor implements IColor
 {
     public int $hue;
     public float $saturation;

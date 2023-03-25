@@ -1,1 +1,0 @@
-/app/src/Spinner/Extras/Color/A/AColor.php:83:16:error - UnsafeInstantiation: Cannot safely instantiate class AlecRabbit\Spinner\Extras\Color\A\AColor with "new static" as its constructor might change in child classes

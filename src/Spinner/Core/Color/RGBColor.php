@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 // 25.03.23
-namespace AlecRabbit\Spinner\Contract\Color;
+namespace AlecRabbit\Spinner\Core\Color;
 
-use AlecRabbit\Spinner\Contract\IColor;
+use AlecRabbit\Spinner\Contract\Color\IColor;
+use AlecRabbit\Spinner\Contract\IColorMarker;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Helper\Asserter;
-use Stringable;
 
-final readonly class RGBColorDTO implements IColor, IColorDTO
+final readonly class RGBColor implements IColorMarker, IColor
 {
     private const HEX_FORMAT = '#%02x%02x%02x';
     public int $red;

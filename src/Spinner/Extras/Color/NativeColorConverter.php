@@ -4,9 +4,9 @@ declare(strict_types=1);
 // 23.03.23
 namespace AlecRabbit\Spinner\Extras\Color;
 
-use AlecRabbit\Spinner\Contract\Color\HSLColorDTO;
-use AlecRabbit\Spinner\Contract\Color\IColorDTO;
-use AlecRabbit\Spinner\Contract\Color\RGBColorDTO;
+use AlecRabbit\Spinner\Contract\Color\IColor;
+use AlecRabbit\Spinner\Core\Color\HSLColor;
+use AlecRabbit\Spinner\Core\Color\RGBColor;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Extras\Contract\IColorConverter;
 use AlecRabbit\Spinner\Helper\Asserter;
@@ -28,9 +28,9 @@ final class NativeColorConverter implements IColorConverter
     /**
      * @throws InvalidArgumentException
      */
-    public function toHSL(string|IColorDTO $color): HSLColorDTO
+    public function toHSL(string|IColor $color): HSLColor
     {
-        if ($color instanceof HSLColorDTO) {
+        if ($color instanceof HSLColor) {
             return $color;
         }
 
@@ -66,37 +66,37 @@ final class NativeColorConverter implements IColorConverter
             $h /= 6;
         }
 
-        return new HSLColorDTO((int)round($h * 360), $s, $l, $rgb->alpha);
+        return new HSLColor((int)round($h * 360), $s, $l, $rgb->alpha);
     }
 
     /**
      * @throws InvalidArgumentException
      */
-    protected function refineRGB(string|IColorDTO $color): RGBColorDTO
+    protected function refineRGB(string|IColor $color): RGBColor
     {
-        if ($color instanceof RGBColorDTO) {
+        if ($color instanceof RGBColor) {
             return $color;
         }
 
-        if ($color instanceof HSLColorDTO) {
+        if ($color instanceof HSLColor) {
             return $this->toRGB($color);
         }
         /** @var string $color */
-        return RGBColorDTO::fromHex($color);
+        return RGBColor::fromHex($color);
     }
 
     /**
      * @throws InvalidArgumentException
      */
-    public function toRGB(string|IColorDTO $color): RGBColorDTO
+    public function toRGB(string|IColor $color): RGBColor
     {
-        if ($color instanceof RGBColorDTO) {
+        if ($color instanceof RGBColor) {
             return $color;
         }
         if (is_string($color)) {
-            return RGBColorDTO::fromHex($color);
+            return RGBColor::fromHex($color);
         }
-        /** @var HSLColorDTO $color */
+        /** @var HSLColor $color */
         $hue = $color->hue;
         $saturation = $color->saturation;
         $lightness = $color->lightness;
@@ -120,7 +120,7 @@ final class NativeColorConverter implements IColorConverter
         };
 
         return
-            new RGBColorDTO(
+            new RGBColor(
                 (int)($r + $m) * 255,
                 (int)($g + $m) * 255,
                 (int)($b + $m) * 255,
@@ -133,9 +133,9 @@ final class NativeColorConverter implements IColorConverter
      * @param int $steps Steps per gradient
      * @throws InvalidArgumentException
      */
-    public function gradients(Traversable $colors, int $steps = 10, null|string|IColorDTO $fromColor = null): Generator
+    public function gradients(Traversable $colors, int $steps = 10, null|string|IColor $fromColor = null): Generator
     {
-        /** @var string|IColorDTO $color */
+        /** @var string|IColor $color */
         foreach ($colors as $color) {
             self::assertColor($color);
             if (null === $fromColor) {
@@ -158,7 +158,7 @@ final class NativeColorConverter implements IColorConverter
         }
 
         if (is_object($color)) {
-            Asserter::isSubClass($color, IColorDTO::class);
+            Asserter::isSubClass($color, IColor::class);
             return;
         }
 
@@ -170,7 +170,7 @@ final class NativeColorConverter implements IColorConverter
     /**
      * @throws InvalidArgumentException
      */
-    protected function gradient(string|IColorDTO $from, string|IColorDTO $to, int $steps = 100): Generator
+    protected function gradient(string|IColor $from, string|IColor $to, int $steps = 100): Generator
     {
         $from = $this->refineRGB($from);
         $to = $this->refineRGB($to);
@@ -181,7 +181,7 @@ final class NativeColorConverter implements IColorConverter
 
         for ($i = 0; $i < $steps; $i++) {
             $dto =
-                new RGBColorDTO(
+                new RGBColor(
                     (int)round($from->red + $rStep * $i),
                     (int)round($from->green + $gStep * $i),
                     (int)round($from->blue + $bStep * $i),

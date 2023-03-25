@@ -7,7 +7,7 @@ namespace AlecRabbit\Spinner\Contract\Color;
 /**
  * Marker interface for Color DTOs
  */
-interface IColorDTO
+interface IColor
 {
 
 }

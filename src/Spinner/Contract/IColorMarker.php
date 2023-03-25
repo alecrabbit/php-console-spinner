@@ -6,7 +6,7 @@ namespace AlecRabbit\Spinner\Contract;
 
 use Stringable;
 
-interface IColor extends Stringable
+interface IColorMarker extends Stringable
 {
 
 }

@@ -4,7 +4,7 @@ declare(strict_types=1);
 // 15.02.23
 namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Contract\Color;
 
-use AlecRabbit\Spinner\Contract\Color\HSLColorDTO;
+use AlecRabbit\Spinner\Core\Color\HSLColor;
 use AlecRabbit\Tests\Spinner\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
@@ -37,10 +37,10 @@ final class HSLColorDTOTest extends TestCase
         // #0..
         yield from [
             // result, h, s, l, a // first element - #0..
-            [new HSLColorDTO(0, 0, 0, 1.0), 0, 0, 0, 1.0],
-            [new HSLColorDTO(0, 0, 0, 1.0), -1, 0, 0, 1.0],
-            [new HSLColorDTO(0, 1, 0, 1.0), -1, 2, 0, 1.0],
-            [new HSLColorDTO(14, 0, 1, 0), 14, 0, 2, -1],
+            [new HSLColor(0, 0, 0, 1.0), 0, 0, 0, 1.0],
+            [new HSLColor(0, 0, 0, 1.0), -1, 0, 0, 1.0],
+            [new HSLColor(0, 1, 0, 1.0), -1, 2, 0, 1.0],
+            [new HSLColor(14, 0, 1, 0), 14, 0, 2, -1],
         ];
     }
 
@@ -54,7 +54,7 @@ final class HSLColorDTOTest extends TestCase
         $args = $incoming[self::ARGUMENTS];
 
         $result =
-            new HSLColorDTO(
+            new HSLColor(
                 $args[self::HUE],
                 $args[self::SATURATION],
                 $args[self::LIGHTNESS],

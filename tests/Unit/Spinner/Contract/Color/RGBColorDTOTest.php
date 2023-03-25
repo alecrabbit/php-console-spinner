@@ -4,7 +4,7 @@ declare(strict_types=1);
 // 15.02.23
 namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Contract\Color;
 
-use AlecRabbit\Spinner\Contract\Color\RGBColorDTO;
+use AlecRabbit\Spinner\Core\Color\RGBColor;
 use AlecRabbit\Tests\Spinner\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
@@ -37,10 +37,10 @@ final class RGBColorDTOTest extends TestCase
         // #0..
         yield from [
             // result, r, g, b, a // first element - #0..
-            [new RGBColorDTO(0, 0, 0, 1.0), 0, 0, 0, 1.0],
-            [new RGBColorDTO(0, 0, 255, 1.0), -1, -1, 300, 3.0],
-            [new RGBColorDTO(0, 241, 255, 1.0), -1, 241, 300, 3.0],
-            [new RGBColorDTO(0, 0, 255, 0.0), -1, -1, 300, -2.0],
+            [new RGBColor(0, 0, 0, 1.0), 0, 0, 0, 1.0],
+            [new RGBColor(0, 0, 255, 1.0), -1, -1, 300, 3.0],
+            [new RGBColor(0, 241, 255, 1.0), -1, 241, 300, 3.0],
+            [new RGBColor(0, 0, 255, 0.0), -1, -1, 300, -2.0],
         ];
     }
 
@@ -54,7 +54,7 @@ final class RGBColorDTOTest extends TestCase
         $args = $incoming[self::ARGUMENTS];
 
         $result =
-            new RGBColorDTO(
+            new RGBColor(
                 $args[self::RED],
                 $args[self::GREEN],
                 $args[self::BLUE],
