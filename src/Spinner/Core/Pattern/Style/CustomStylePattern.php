@@ -14,14 +14,14 @@ final class CustomStylePattern extends AStylePattern
 {
     public function __construct(
         protected iterable $pattern,
-        protected StyleMode $colorMode = self::COLOR_MODE,
+        protected StyleMode $colorMode = self::STYLE_MODE,
         ?int $interval = null,
         bool $reversed = false
     ) {
         parent::__construct($interval, $reversed);
     }
 
-    public function getColorMode(): StyleMode
+    public function getStyleMode(): StyleMode
     {
         return $this->colorMode;
     }

@@ -42,7 +42,7 @@ final class StyleFrameCollectionRenderer extends AFrameCollectionRenderer
 
         $clone = clone $this;
         $clone->pattern = $pattern;
-        $clone->styleMode = $pattern->getColorMode();
+        $clone->styleMode = $pattern->getStyleMode();
         return $clone;
     }
 

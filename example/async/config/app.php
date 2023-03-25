@@ -18,7 +18,7 @@ $defaults = DefaultsFactory::get();
 
 $config =
     Facade::getConfigBuilder()
-        ->withStylePattern(new WhiteYellow())
+//        ->withStylePattern(new WhiteYellow())
         ->withCharPattern(new Snake())
         ->build();
 

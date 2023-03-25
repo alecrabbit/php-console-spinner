@@ -12,10 +12,10 @@ use AlecRabbit\Spinner\Core\Pattern\Contract\IStylePattern;
 abstract class AStylePattern extends AReversiblePattern implements IStylePattern
 {
     /** @var StyleMode */
-    protected const COLOR_MODE = StyleMode::ANSI8;
+    protected const STYLE_MODE = StyleMode::ANSI8;
 
-    public function getColorMode(): StyleMode
+    public function getStyleMode(): StyleMode
     {
-        return static::COLOR_MODE;
+        return static::STYLE_MODE;
     }
 }

@@ -121,9 +121,9 @@ final class NativeColorConverter implements IColorConverter
 
         return
             new RGBColor(
-                (int)($r + $m) * 255,
-                (int)($g + $m) * 255,
-                (int)($b + $m) * 255,
+                (int)(($r + $m) * 255),
+                (int)(($g + $m) * 255),
+                (int)(($b + $m) * 255),
                 $color->alpha
             );
     }

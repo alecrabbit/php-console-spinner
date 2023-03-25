@@ -26,7 +26,7 @@ abstract class AAnsiColorConverterFactory extends ADefaultsAwareClass implements
 
         $ansiStyleConverterClass = $defaults->getClasses()->getAnsiStyleConverterClass();
 
-        $colorMode = $defaults->getTerminalSettings()->getColorMode();
+        $colorMode = $defaults->getTerminalSettings()->getStyleMode();
 
         return
             new $ansiStyleConverterClass($colorMode);

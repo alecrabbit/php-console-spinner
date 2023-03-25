@@ -42,7 +42,7 @@ abstract class AFrameRevolverBuilder extends ARevolverBuilder implements IFrameR
     {
         self::assertPattern($this->pattern);
 
-        $colorMode = $this->defaults->getTerminalSettings()->getColorMode();
+        $colorMode = $this->defaults->getTerminalSettings()->getStyleMode();
 
         if ($this->pattern instanceof IStylePattern) {
             return
