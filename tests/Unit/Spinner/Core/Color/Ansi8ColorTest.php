@@ -106,15 +106,18 @@ final class Ansi8ColorTest extends TestCase
         $index = $args[self::INDEX] ?? null;
         $hex = $args[self::HEX] ?? null;
 
-        $this->assertIncomingArguments($index, $hex);
-
-        if (null !== $index && null === $hex) {
-            $result = Ansi8Color::getHexColor($index);
+        if (null === $index && null === $hex) {
+            self::fail('Both index and hex arguments are null.');
         }
 
-        if (null !== $hex && null === $index) {
-            $result = Ansi8Color::getIndex($hex);
+        if (null !== $index && null !== $hex) {
+            self::fail('Both index and hex arguments are not null.');
         }
+
+        $result =
+            null === $index
+                ? Ansi8Color::getIndex($hex)
+                : Ansi8Color::getHexColor($index);
 
         if ($expectedException) {
             self::exceptionNotThrown($expectedException);
@@ -123,18 +126,6 @@ final class Ansi8ColorTest extends TestCase
         self::assertSame($expected[self::RESULT], $result);
     }
 
-    /**
-     * @throws InvalidArgumentException
-     */
-    private function assertIncomingArguments(mixed $index, mixed $hex): void
-    {
-        if (null === $index && null === $hex) {
-            self::fail('Both index and hex arguments are null.');
-        }
-        if (null !== $index && null !== $hex) {
-            self::fail('Both index and hex arguments are not null.');
-        }
-    }
 }
 
 
