@@ -82,6 +82,19 @@ final class AStyleFrameRendererTest extends TestCase
                 ],
             ],
         ];
+        // #4
+        yield [
+            [
+                self::RESULT => FrameFactory::create('4-m%s', 0),
+            ],
+            [
+                self::ARGUMENTS => [
+                    self::ENABLED => true,
+                    self::STYLE => new Style(bgColor: 'red'),
+                    self::STYLE_MODE => StyleMode::ANSI24,
+                ],
+            ],
+        ];
 
     }
 

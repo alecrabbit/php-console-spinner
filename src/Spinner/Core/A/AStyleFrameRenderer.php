@@ -80,6 +80,20 @@ abstract class AStyleFrameRenderer implements IStyleFrameRenderer
             return FrameFactory::create('%s', $entry->getWidth());
         }
 
+        $color = $this->flattenStyle($entry, $colorMode);
+
+        return
+            FrameFactory::create($this->sequencer::colorSequence($color), $entry->getWidth());
+    }
+
+    /**
+     * // FIXME: method has non-optimal implementation
+     * @throws DomainException
+     * @throws InvalidArgumentException
+     * @throws LogicException
+     */
+    protected function flattenStyle(IStyle $entry, StyleMode $colorMode): string
+    {
         $fgColor = $entry->getFgColor();
         $bgColor = $entry->getBgColor();
         $color = '';
@@ -87,10 +101,10 @@ abstract class AStyleFrameRenderer implements IStyleFrameRenderer
             $color .= '3' . $this->converter->ansiCode((string)$fgColor, $colorMode);
         }
         if (null !== $bgColor) {
-            $color .= ';4' . $this->converter->ansiCode((string)$bgColor, $colorMode);
+            $separator = null !== $fgColor ? ';' : '';
+            $color .= $separator . '4' . $this->converter->ansiCode((string)$bgColor, $colorMode);
         }
         $color .= 'm%s';
-        return
-            FrameFactory::create($this->sequencer::colorSequence($color), $entry->getWidth());
+        return $color;
     }
 }
