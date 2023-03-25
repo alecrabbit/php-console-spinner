@@ -48,4 +48,14 @@ final readonly class Style implements IStyle
     {
         return $this->width;
     }
+
+    public function hasOptions(): bool
+    {
+        return null !== $this->options;
+    }
+
+    public function isOptionsOnly(): bool
+    {
+        return $this->hasOptions() && null === $this->fgColor && null === $this->bgColor;
+    }
 }

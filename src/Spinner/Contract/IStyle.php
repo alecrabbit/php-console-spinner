@@ -18,4 +18,8 @@ interface IStyle
     public function getFormat(): string;
 
     public function getWidth(): int;
+
+    public function hasOptions(): bool;
+
+    public function isOptionsOnly(): bool;
 }
