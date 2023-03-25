@@ -4,8 +4,11 @@ declare(strict_types=1);
 // 25.03.23
 namespace AlecRabbit\Spinner\Contract\Color;
 
-final readonly class RGBColorDTO
+use Stringable;
+
+final readonly class RGBColorDTO implements Stringable, IColorDTO
 {
+    private const HEX_FORMAT = '#%02x%02x%02x';
     public int $red;
     public int $green;
     public int $blue;
@@ -25,11 +28,16 @@ final readonly class RGBColorDTO
 
     private static function refineColor(int $value): int
     {
-        return (int)max(0, min(255, $value));
+        return max(0, min(255, $value));
     }
 
     private static function refineAlpha(float $value): float
     {
-        return (float)max(0.0, min(1.0, $value));
+        return max(0.0, min(1.0, $value));
+    }
+
+    public function __toString(): string
+    {
+        return sprintf(self::HEX_FORMAT, $this->red, $this->green, $this->blue);
     }
 }

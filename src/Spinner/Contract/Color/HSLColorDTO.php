@@ -6,7 +6,7 @@ namespace AlecRabbit\Spinner\Contract\Color;
 
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 
-final class HSLColorDTO
+final class HSLColorDTO implements IColorDTO
 {
     public int $hue;
     public float $saturation;
@@ -27,21 +27,21 @@ final class HSLColorDTO
 
     private static function refineHue(int $value): int
     {
-        return (int)max(0, min(360, $value));
+        return max(0, min(360, $value));
     }
 
     private static function refineSaturation(float $value): float
     {
-        return (float)max(0.0, min(1.0, $value));
+        return max(0.0, min(1.0, $value));
     }
 
     private static function refineLightness(float $value): float
     {
-        return (float)max(0.0, min(1.0, $value));
+        return max(0.0, min(1.0, $value));
     }
 
     private static function refineAlpha(float $value): float
     {
-        return (float)max(0.0, min(1.0, $value));
+        return max(0.0, min(1.0, $value));
     }
 }

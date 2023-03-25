@@ -4,6 +4,9 @@ declare(strict_types=1);
 // 23.03.23
 namespace AlecRabbit\Spinner\Extras\Color;
 
+use AlecRabbit\Spinner\Contract\Color\HSLColorDTO;
+use AlecRabbit\Spinner\Contract\Color\IColorDTO;
+use AlecRabbit\Spinner\Contract\Color\RGBColorDTO;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Extras\Contract\IColorConverter;
 use AlecRabbit\Spinner\Helper\Asserter;
@@ -12,7 +15,7 @@ use Traversable;
 
 final class NativeColorConverter implements IColorConverter
 {
-    public function hslToRgb(int $hue, float $s = 1.0, float $l = 0.5): string
+    public function hslToRgb(int $hue, float $s = 1.0, float $l = 0.5): RGBColorDTO
     {
         $h = $hue / 360;
         $c = (1 - abs(2 * $l - 1)) * $s;
@@ -36,19 +39,19 @@ final class NativeColorConverter implements IColorConverter
         $g = ($g + $m) * 255;
         $b = ($b + $m) * 255;
 
-        return sprintf('#%02x%02x%02x', $r, $g, $b);
+        return new RGBColorDTO((int)$r, (int)$g, (int)$b);
     }
 
     /**
      * @throws InvalidArgumentException
      */
-    public function rgbToHsl(string $color): array
+    public function rgbToHsl(string $color): HSLColorDTO
     {
         $rgb = $this->hexToRgb($color);
 
-        $r = $rgb['r'] / 255;
-        $g = $rgb['g'] / 255;
-        $b = $rgb['b'] / 255;
+        $r = $rgb->red / 255;
+        $g = $rgb->green / 255;
+        $b = $rgb->blue / 255;
 
         $max = max($r, $g, $b);
         $min = min($r, $g, $b);
@@ -76,29 +79,25 @@ final class NativeColorConverter implements IColorConverter
             $h /= 6;
         }
 
-        return [
-            'h' => (int)round($h * 360),
-            's' => (int)round($s * 100),
-            'l' => (int)round($l * 100),
-        ];
+        return new HSLColorDTO((int)round($h * 360), $s, $l);
     }
 
     /**
-     * @return array<string, int>
      * @throws InvalidArgumentException
      */
-    protected function hexToRgb(string $hex): array
+    protected function hexToRgb(string $hex): RGBColorDTO
     {
         Asserter::assertHexStringColor($hex);
 
         $hex = str_replace('#', '', $hex);
         $length = strlen($hex);
         $cLength = (int)($length / 3);
-        return [
-            'r' => hexdec(substr($hex, 0, $cLength)),
-            'g' => hexdec(substr($hex, $cLength, $cLength)),
-            'b' => hexdec(substr($hex, $cLength * 2, $cLength)),
-        ];
+        return
+            new RGBColorDTO(
+                hexdec(substr($hex, 0, $cLength)),
+                hexdec(substr($hex, $cLength, $cLength)),
+                hexdec(substr($hex, $cLength * 2, $cLength)),
+            );
     }
 
     /**
@@ -122,29 +121,23 @@ final class NativeColorConverter implements IColorConverter
     /**
      * @throws InvalidArgumentException
      */
-    protected function gradient(string $from, string $to, int $steps = 100): Generator
+    protected function gradient(string|IColorDTO $from, string|IColorDTO $to, int $steps = 100): Generator
     {
-        $f = $this->hexToRgb($from);
-        $t = $this->hexToRgb($to);
+        $f = $this->refineRGB($from);
+        $t = $this->refineRGB($to);
 
-        $rStep = ($t['r'] - $f['r']) / $steps;
-        $gStep = ($t['g'] - $f['g']) / $steps;
-        $bStep = ($t['b'] - $f['b']) / $steps;
+        $rStep = ($t->red - $f->red) / $steps;
+        $gStep = ($t->green - $f->green) / $steps;
+        $bStep = ($t->blue - $f->blue) / $steps;
 
         for ($i = 0; $i < $steps; $i++) {
-            $r = (int)round($f['r'] + $rStep * $i);
-            $g = (int)round($f['g'] + $gStep * $i);
-            $b = (int)round($f['b'] + $bStep * $i);
+            $r = (int)round($f->red + $rStep * $i);
+            $g = (int)round($f->green + $gStep * $i);
+            $b = (int)round($f->blue + $bStep * $i);
 
-            yield $this->rgbToHex($r, $g, $b);
+            yield (new RGBColorDTO($r, $g, $b))->__toString();
         }
     }
-
-    protected function rgbToHex(int $r, int $g, int $b): string
-    {
-        return sprintf('#%02x%02x%02x', $r, $g, $b);
-    }
-
 
     /**
      * @param array $colors Colors to generate gradients between
@@ -158,5 +151,21 @@ final class NativeColorConverter implements IColorConverter
         for ($i = 0; $i < $count - 1; $i++) {
             yield from $this->gradient((string)$colors[$i], (string)$colors[$i + 1], $steps);
         }
+    }
+
+    /**
+     * @throws InvalidArgumentException
+     */
+    protected function refineRGB(IColorDTO|string $from): RGBColorDTO
+    {
+        if ($from instanceof RGBColorDTO) {
+            return $from;
+        }
+
+        if ($from instanceof HSLColorDTO) {
+            return $this->hslToRgb($from->hue, $from->saturation, $from->lightness);
+        }
+
+        return $this->hexToRgb($from);
     }
 }

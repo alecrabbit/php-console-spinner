@@ -4,14 +4,16 @@ declare(strict_types=1);
 // 22.03.23
 namespace AlecRabbit\Spinner\Extras\Contract;
 
+use AlecRabbit\Spinner\Contract\Color\HSLColorDTO;
+use AlecRabbit\Spinner\Contract\Color\RGBColorDTO;
 use Generator;
 use Traversable;
 
 interface IColorConverter
 {
-    public function hslToRgb(int $hue, float $s = 1.0, float $l = 0.5): string;
+    public function hslToRgb(int $hue, float $s = 1.0, float $l = 0.5): RGBColorDTO;
 
-    public function rgbToHsl(string $color): array;
+    public function rgbToHsl(string $color): HSLColorDTO;
 
     /**
      * @param Traversable $colors Colors to generate gradients between

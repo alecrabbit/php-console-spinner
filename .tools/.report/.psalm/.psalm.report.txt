@@ -1,7 +1,2 @@
-/app/src/Spinner/Contract/Color/HSLColorDTO.php:30:16:error - RedundantCast: Redundant cast to int<0, 360>
-/app/src/Spinner/Contract/Color/HSLColorDTO.php:35:16:error - RedundantCast: Redundant cast to float
-/app/src/Spinner/Contract/Color/HSLColorDTO.php:40:16:error - RedundantCast: Redundant cast to float
-/app/src/Spinner/Contract/Color/HSLColorDTO.php:45:16:error - RedundantCast: Redundant cast to float
-/app/src/Spinner/Contract/Color/RGBColorDTO.php:28:16:error - RedundantCast: Redundant cast to int<0, 255>
-/app/src/Spinner/Contract/Color/RGBColorDTO.php:33:16:error - RedundantCast: Redundant cast to float
 /app/src/Spinner/Extras/Color/A/AColor.php:83:16:error - UnsafeInstantiation: Cannot safely instantiate class AlecRabbit\Spinner\Extras\Color\A\AColor with "new static" as its constructor might change in child classes
+/app/src/Spinner/Extras/Color/NativeColorConverter.php:169:32:error - PossiblyInvalidArgument: Argument 1 of AlecRabbit\Spinner\Extras\Color\NativeColorConverter::hexToRgb expects string, but possibly different type AlecRabbit\Spinner\Contract\Color\IColorDTO|string provided
