@@ -1,4 +1,5 @@
 *.png binary
+*.jpg binary
 CHANGELOG.md export-ignore
 .chglog/ export-ignore
 composer.lock export-ignore
