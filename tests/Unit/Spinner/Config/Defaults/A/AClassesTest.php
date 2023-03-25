@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Config\Defaults\A;
 
 use AlecRabbit\Spinner\Core\Defaults\A\ADefaultsClasses;
+use AlecRabbit\Spinner\Core\Defaults\Contract\IDefaultsClasses;
 use AlecRabbit\Spinner\Core\Factory\DefaultsFactory;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetBuilder;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolverBuilder;
@@ -20,14 +21,14 @@ final class AClassesTest extends TestCase
     {
         $iterations = self::REPEATS;
 
-        $defaults = self::getInstance();
+        $defaults = self::getTesteeInstance();
 
         for ($i = 0; $i < $iterations; $i++) {
-            self::assertSame($defaults, self::getInstance());
+            self::assertSame($defaults, self::getTesteeInstance());
         }
     }
 
-    private static function getInstance(): ADefaultsClasses
+    private static function getTesteeInstance(): IDefaultsClasses
     {
         return ADefaultsClasses::getInstance(DefaultsFactory::get());
     }
@@ -38,7 +39,7 @@ final class AClassesTest extends TestCase
     public function canSetWidgetBuilderClass(): void
     {
         $class = WidgetBuilder::class;
-        $classes = self::getInstance();
+        $classes = self::getTesteeInstance();
         $classes->overrideWidgetBuilderClass($class);
         self::assertSame($class, $classes->getWidgetBuilderClass());
     }
@@ -47,7 +48,7 @@ final class AClassesTest extends TestCase
     public function canSetWidgetRevolverBuilderClass(): void
     {
         $class = WidgetRevolverBuilder::class;
-        $classes = self::getInstance();
+        $classes = self::getTesteeInstance();
         $classes->overrideWidgetRevolverBuilderClass($class);
         self::assertSame($class, $classes->getWidgetRevolverBuilderClass());
     }
@@ -65,7 +66,7 @@ final class AClassesTest extends TestCase
             )
         );
 
-        $classes = self::getInstance();
+        $classes = self::getTesteeInstance();
         $classes->overrideWidgetBuilderClass($invalidClass);
         self::fail('Exception expected');
     }
@@ -83,13 +84,13 @@ final class AClassesTest extends TestCase
             )
         );
 
-        $classes = self::getInstance();
+        $classes = self::getTesteeInstance();
         $classes->overrideWidgetRevolverBuilderClass($invalidClass);
         self::fail('Exception expected');
     }
 
     protected function setUp(): void
     {
-        self::callMethod(self::getInstance(), 'reset');
+        self::callMethod(self::getTesteeInstance(), 'reset');
     }
 }

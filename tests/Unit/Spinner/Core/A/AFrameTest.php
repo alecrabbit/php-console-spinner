@@ -65,13 +65,13 @@ final class AFrameTest extends TestCase
     {
         $this->expectsException($expected);
 
-        $frame = self::getInstance($incoming[self::ARGUMENTS] ?? []);
+        $frame = self::getTesteeInstance($incoming[self::ARGUMENTS] ?? []);
 
         self::assertSame($expected[self::SEQUENCE], $frame->sequence());
         self::assertSame($expected[self::WIDTH], $frame->width());
     }
 
-    public static function getInstance(array $args = []): IFrame
+    public static function getTesteeInstance(array $args = []): IFrame
     {
         return new FrameClass(...$args);
     }

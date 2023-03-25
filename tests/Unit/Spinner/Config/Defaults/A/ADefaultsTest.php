@@ -8,6 +8,7 @@ use AlecRabbit\Spinner\Asynchronous\Loop\Probe\ReactLoopProbe;
 use AlecRabbit\Spinner\Asynchronous\Loop\Probe\RevoltLoopProbe;
 use AlecRabbit\Spinner\Contract\RunMode;
 use AlecRabbit\Spinner\Core\Defaults\A\ADefaults;
+use AlecRabbit\Spinner\Core\Defaults\Contract\IDefaults;
 use AlecRabbit\Spinner\Core\Widget\WidgetBuilder;
 use AlecRabbit\Spinner\Core\Widget\WidgetRevolverBuilder;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
@@ -22,14 +23,14 @@ final class ADefaultsTest extends TestCase
     {
         $iterations = self::REPEATS;
 
-        $defaults = self::getInstance();
+        $defaults = self::getTesteeInstance();
 
         for ($i = 0; $i < $iterations; $i++) {
-            self::assertSame($defaults, self::getInstance());
+            self::assertSame($defaults, self::getTesteeInstance());
         }
     }
 
-    private static function getInstance(): ADefaults
+    private static function getTesteeInstance(): IDefaults
     {
         return ADefaults::getInstance();
     }
@@ -37,7 +38,7 @@ final class ADefaultsTest extends TestCase
 //    #[Test]
 //    public function canSetHideCursor(): void
 //    {
-//        $defaults = self::getInstance();
+//        $defaults = self::getTesteeInstance();
 //        $defaults->setHideCursor(false);
 //        self::assertFalse($defaults->isHideCursor());
 //    }
@@ -46,7 +47,7 @@ final class ADefaultsTest extends TestCase
     public function canSetShutdownDelay(): void
     {
         $shutdownDelay = 10;
-        $defaults = self::getInstance();
+        $defaults = self::getTesteeInstance();
         $defaults->setShutdownDelay($shutdownDelay);
         self::assertSame($shutdownDelay, $defaults->getShutdownDelay());
     }
@@ -55,7 +56,7 @@ final class ADefaultsTest extends TestCase
 //    public function canSetFinalMessage(): void
 //    {
 //        $message = 'test';
-//        $defaults = self::getInstance();
+//        $defaults = self::getTesteeInstance();
 //        $defaults->setFinalMessage($message);
 //        self::assertSame($message, $defaults->getFinalMessage());
 //    }
@@ -64,7 +65,7 @@ final class ADefaultsTest extends TestCase
     public function canSetOutputStream(): void
     {
         $stream = STDOUT;
-        $defaults = self::getInstance();
+        $defaults = self::getTesteeInstance();
         $defaults->setOutputStream($stream);
         self::assertSame($stream, $defaults->getOutputStream());
     }
@@ -72,7 +73,7 @@ final class ADefaultsTest extends TestCase
     #[Test]
     public function canOverrideLoopProbes(): void
     {
-        $defaults = self::getInstance();
+        $defaults = self::getTesteeInstance();
         $loopProbes = [
             RevoltLoopProbe::class,
             ReactLoopProbe::class,
@@ -91,7 +92,7 @@ final class ADefaultsTest extends TestCase
     #[Test]
     public function canGetClasses(): void
     {
-        $defaults = self::getInstance();
+        $defaults = self::getTesteeInstance();
         self::assertSame(WidgetBuilder::class, $defaults->getClasses()->getWidgetBuilderClass());
         self::assertSame(WidgetRevolverBuilder::class, $defaults->getClasses()->getWidgetRevolverBuilderClass());
     }
@@ -103,7 +104,7 @@ final class ADefaultsTest extends TestCase
         $this->expectExceptionMessage('Argument is expected to be a stream(resource), "string" given.');
 
         $stream = 'string';
-        $defaults = self::getInstance();
+        $defaults = self::getTesteeInstance();
         $defaults->setOutputStream($stream);
         self::assertSame($stream, $defaults->getOutputStream());
     }
@@ -112,7 +113,7 @@ final class ADefaultsTest extends TestCase
 //    public function canSetMillisecondsInterval(): void
 //    {
 //        $millisecondsInterval = 10;
-//        $defaults = self::getInstance();
+//        $defaults = self::getTesteeInstance();
 //        $defaults->setIntervalMilliseconds($millisecondsInterval);
 //        self::assertSame($millisecondsInterval, $defaults->getIntervalMilliseconds());
 //    }
@@ -120,7 +121,7 @@ final class ADefaultsTest extends TestCase
 //    #[Test]
 //    public function canSetCreateInitialized(): void
 //    {
-//        $defaults = self::getInstance();
+//        $defaults = self::getTesteeInstance();
 //        $defaults->overrideInitializationOption(Initialization::ENABLED);
 //        self::assertSame(Initialization::ENABLED, $defaults->getInitializationOption());
 //        $defaults->overrideInitializationOption(Initialization::DISABLED);
@@ -132,7 +133,7 @@ final class ADefaultsTest extends TestCase
     #[Test]
     public function canOverrideRunMode(): void
     {
-        $defaults = self::getInstance();
+        $defaults = self::getTesteeInstance();
         $defaults->overrideRunMode(RunMode::SYNCHRONOUS);
         self::assertTrue($defaults->isModeSynchronous());
         $defaults->overrideRunMode(RunMode::ASYNC);
@@ -144,14 +145,14 @@ final class ADefaultsTest extends TestCase
 //    #[Test]
 //    public function defaultAndMainLeadingSpacersAreSame(): void
 //    {
-//        $defaults = self::getInstance();
+//        $defaults = self::getTesteeInstance();
 //        self::assertSame($defaults->getDefaultLeadingSpacer(), $defaults->getMainLeadingSpacer());
 //    }
 //
 //    #[Test]
 //    public function canSetMainLeadingSpacer(): void
 //    {
-//        $defaults = self::getInstance();
+//        $defaults = self::getTesteeInstance();
 //
 //        $spacer = FrameFactory::create('test', 4);
 //        $defaults->setMainLeadingSpacer($spacer);
@@ -161,14 +162,14 @@ final class ADefaultsTest extends TestCase
 //    #[Test]
 //    public function defaultAndMainTrailingSpacersAreSame(): void
 //    {
-//        $defaults = self::getInstance();
+//        $defaults = self::getTesteeInstance();
 //        self::assertSame($defaults->getDefaultTrailingSpacer(), $defaults->getMainTrailingSpacer());
 //    }
 //
 //    #[Test]
 //    public function canSetMainTrailingSpacer(): void
 //    {
-//        $defaults = self::getInstance();
+//        $defaults = self::getTesteeInstance();
 //
 //        $spacer = FrameFactory::create('test', 4);
 //        $defaults->setMainTrailingSpacer($spacer);
@@ -178,7 +179,7 @@ final class ADefaultsTest extends TestCase
     #[Test]
     public function canSetPercentNumberFormat(): void
     {
-        $defaults = self::getInstance();
+        $defaults = self::getTesteeInstance();
         $defaults->setPercentNumberFormat('%.2f');
         self::assertSame('%.2f', $defaults->getPercentNumberFormat());
     }
@@ -186,7 +187,7 @@ final class ADefaultsTest extends TestCase
 //    #[Test]
 //    public function canSetMessageOnExit(): void
 //    {
-//        $defaults = self::getInstance();
+//        $defaults = self::getTesteeInstance();
 //        $defaults->setMessageOnExit('test');
 //        self::assertSame('test', $defaults->getMessageOnExit());
 //    }
@@ -194,7 +195,7 @@ final class ADefaultsTest extends TestCase
 //    #[Test]
 //    public function canSetInterruptMessage(): void
 //    {
-//        $defaults = self::getInstance();
+//        $defaults = self::getTesteeInstance();
 //        $defaults->setInterruptMessage('test');
 //        self::assertSame('test', $defaults->getInterruptMessage());
 //    }
@@ -202,7 +203,7 @@ final class ADefaultsTest extends TestCase
     #[Test]
     public function canSetMaxShutdownDelay(): void
     {
-        $defaults = self::getInstance();
+        $defaults = self::getTesteeInstance();
         $defaults->setMaxShutdownDelay(10);
         self::assertSame(10, $defaults->getMaxShutdownDelay());
     }
@@ -210,7 +211,7 @@ final class ADefaultsTest extends TestCase
 //    #[Test]
 //    public function canSetSupportedColorModes(): void
 //    {
-//        $defaults = self::getInstance();
+//        $defaults = self::getTesteeInstance();
 //        $colorSupportLevels = new \ArrayObject([ColorMode::ANSI24]);
 //        $defaults->overrideSupportedColorModes($colorSupportLevels);
 //        self::assertSame($colorSupportLevels, $defaults->getSupportedColorModes());
@@ -223,7 +224,7 @@ final class ADefaultsTest extends TestCase
 //        $this->expectException($exception);
 //        $this->expectExceptionMessage('Color modes must not be empty.');
 //
-//        $defaults = self::getInstance();
+//        $defaults = self::getTesteeInstance();
 //        $defaults->overrideSupportedColorModes(new \ArrayObject([]));
 //        self::assertSame(10, $defaults->getSupportedColorModes());
 //        self::exceptionNotThrown($exception);
@@ -231,6 +232,6 @@ final class ADefaultsTest extends TestCase
 
     protected function setUp(): void
     {
-        self::callMethod(self::getInstance(), 'reset');
+        self::callMethod(self::getTesteeInstance(), 'reset');
     }
 }

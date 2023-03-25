@@ -225,7 +225,7 @@ final class AProgressValueTest extends TestCase
     {
         $this->expectsException($expected);
 
-        $fractionValue = self::getInstance($incoming[self::ARGUMENTS] ?? []);
+        $fractionValue = self::getTesteeInstance($incoming[self::ARGUMENTS] ?? []);
 
         if (isset($incoming[self::STEPS])) {
             $steps = abs($incoming[self::STEPS]);
@@ -247,7 +247,7 @@ final class AProgressValueTest extends TestCase
         self::assertSame($expected[self::STEPS], $fractionValue->getSteps());
     }
 
-    public static function getInstance(array $args = []): IProgressValue
+    public static function getTesteeInstance(array $args = []): IProgressValue
     {
         return new class(
             startValue: $args[self::START] ?? 0.0,
@@ -267,7 +267,7 @@ final class AProgressValueTest extends TestCase
     {
         $this->expectsException($expected);
 
-        $fractionValue = self::getInstance($incoming[self::ARGUMENTS] ?? []);
+        $fractionValue = self::getTesteeInstance($incoming[self::ARGUMENTS] ?? []);
 
         if (isset($incoming[self::STEPS])) {
             $steps = abs($incoming[self::STEPS]);
