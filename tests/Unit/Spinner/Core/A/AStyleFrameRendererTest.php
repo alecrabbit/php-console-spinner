@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Core\A;
 
 use AlecRabbit\Spinner\Contract\IAnsiStyleConverter;
+use AlecRabbit\Spinner\Contract\IOptions;
 use AlecRabbit\Spinner\Contract\ISequencer;
 use AlecRabbit\Spinner\Contract\IStyleFrameRenderer;
 use AlecRabbit\Spinner\Contract\StyleMode;
@@ -23,6 +24,8 @@ final class AStyleFrameRendererTest extends TestCase
 {
     public static function DataProvider(): iterable
     {
+        $options = new class() implements IOptions {
+        };
         // [$expected, $incoming]
         // #0
         yield [
@@ -66,7 +69,7 @@ final class AStyleFrameRendererTest extends TestCase
                 ],
             ],
         ];
-        // #2
+        // #3
         yield [
             [
                 self::RESULT => FrameFactory::create('%s', 0),
@@ -74,7 +77,7 @@ final class AStyleFrameRendererTest extends TestCase
             [
                 self::ARGUMENTS => [
                     self::ENABLED => true,
-                    self::STYLE => 196,
+                    self::STYLE => new Style(options: $options),
                     self::STYLE_MODE => StyleMode::ANSI24,
                 ],
             ],
