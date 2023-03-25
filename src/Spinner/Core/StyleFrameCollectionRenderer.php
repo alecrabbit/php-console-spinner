@@ -54,7 +54,7 @@ final class StyleFrameCollectionRenderer extends AFrameCollectionRenderer
      */
     protected function createFrame(string|IStyle $entry): IFrame
     {
-        /** @var IStyleFrameRenderer $this->frameRenderer */
+        /** @var IStyleFrameRenderer $this->frameRenderer */ // FIXME: fix to remove this line [68a233da-988c-4474-b34b-6e0fb75792cc]
         return $this->frameRenderer->render($entry, $this->styleMode);
     }
 

@@ -18,6 +18,7 @@ abstract class AStyleFrameRenderer extends AFrameRenderer implements IStyleFrame
 {
     public function __construct(
         protected IAnsiStyleConverter $converter,
+        // TODO: should it be composed with FrameRenderer? [68a233da-988c-4474-b34b-6e0fb75792cc]
     ) {
     }
 
