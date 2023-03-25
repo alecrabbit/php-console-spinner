@@ -16,6 +16,7 @@ final class Ansi8Color
 
     public static function getIndex(string $hex): ?int
     {
+        self::assertHexStringColor($hex);
         return self::getFlipped()[$hex] ?? null;
     }
 
@@ -42,5 +43,13 @@ final class Ansi8Color
     private static function assertIndex(int $index): void
     {
         Asserter::assertIntColor($index, StyleMode::ANSI8);
+    }
+
+    /**
+     * @throws InvalidArgumentException
+     */
+    private static function assertHexStringColor(string $hex): void
+    {
+        Asserter::assertHexStringColor($hex);
     }
 }
