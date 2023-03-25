@@ -36,7 +36,7 @@ final class RGBColorDTOTest extends TestCase
     {
         // #0..
         yield from [
-            // result, r, g, b // first element - #0..
+            // result, r, g, b, a // first element - #0..
             [new RGBColorDTO(0, 0, 0, 1.0), 0, 0, 0, 1.0],
             [new RGBColorDTO(0, 0, 255, 1.0), -1, -1, 300, 3.0],
             [new RGBColorDTO(0, 241, 255, 1.0), -1, 241, 300, 3.0],
@@ -53,12 +53,13 @@ final class RGBColorDTOTest extends TestCase
 
         $args = $incoming[self::ARGUMENTS];
 
-        $result = new RGBColorDTO(
-            $args[self::RED],
-            $args[self::GREEN],
-            $args[self::BLUE],
-            $args[self::ALPHA],
-        );
+        $result =
+            new RGBColorDTO(
+                $args[self::RED],
+                $args[self::GREEN],
+                $args[self::BLUE],
+                $args[self::ALPHA],
+            );
 
         if ($expectedException) {
             self::exceptionNotThrown($expectedException);

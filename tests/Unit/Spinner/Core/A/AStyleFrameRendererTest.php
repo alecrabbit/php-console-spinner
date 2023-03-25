@@ -6,14 +6,11 @@ namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Core\A;
 
 use AlecRabbit\Spinner\Contract\IAnsiStyleConverter;
 use AlecRabbit\Spinner\Contract\IOptions;
-use AlecRabbit\Spinner\Contract\ISequencer;
 use AlecRabbit\Spinner\Contract\IStyleFrameRenderer;
 use AlecRabbit\Spinner\Contract\StyleMode;
 use AlecRabbit\Spinner\Core\A\AStyleFrameRenderer;
-use AlecRabbit\Spinner\Core\Color\Ansi8Color;
 use AlecRabbit\Spinner\Core\Color\Style;
 use AlecRabbit\Spinner\Core\Factory\FrameFactory;
-use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Exception\LogicException;
 use AlecRabbit\Tests\Spinner\TestCase\TestCase;
 use AlecRabbit\Tests\Spinner\Unit\Spinner\Core\A\Override\SequencerOverride;
@@ -95,7 +92,6 @@ final class AStyleFrameRendererTest extends TestCase
                 ],
             ],
         ];
-
     }
 
     #[Test]
