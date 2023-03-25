@@ -5,8 +5,8 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Defaults\Contract;
 
-use AlecRabbit\Spinner\Contract\ColorMode;
 use AlecRabbit\Spinner\Contract\Cursor;
+use AlecRabbit\Spinner\Contract\StyleMode;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use Traversable;
 
@@ -14,7 +14,7 @@ interface ITerminalSettings extends IDefaultsChild
 {
     public static function getInstance(
         IDefaults $parent,
-        ColorMode $colorMode,
+        StyleMode $colorMode,
         int $width,
         Cursor $cursor,
     ): ITerminalSettings;
@@ -23,9 +23,9 @@ interface ITerminalSettings extends IDefaultsChild
 
     public function overrideWidth(int $width): static;
 
-    public function getColorMode(): ColorMode;
+    public function getColorMode(): StyleMode;
 
-    public function overrideColorMode(ColorMode $colorMode): static;
+    public function overrideColorMode(StyleMode $colorMode): static;
 
     public function isCursorDisabled(): bool;
 

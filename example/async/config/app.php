@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-use AlecRabbit\Spinner\Contract\ColorMode;
 use AlecRabbit\Spinner\Core\Factory\DefaultsFactory;
 use AlecRabbit\Spinner\Core\Pattern\Char\Snake;
+use AlecRabbit\Spinner\Core\Pattern\Style\WhiteYellow;
 use AlecRabbit\Spinner\Facade;
 
 require_once __DIR__ . '/../bootstrap.async.php';
@@ -14,10 +14,11 @@ $runTime = 30; // s
 
 $defaults = DefaultsFactory::get();
 
-//$defaults->getTerminalSettings()->setColorMode(ColorMode::NONE);
+//$defaults->getTerminalSettings()->overrideColorMode(ColorMode::NONE);
 
 $config =
     Facade::getConfigBuilder()
+        ->withStylePattern(new WhiteYellow())
         ->withCharPattern(new Snake())
         ->build();
 

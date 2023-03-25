@@ -21,6 +21,8 @@ trait AppRelatedConstantsTrait
     final protected const FINISHED = 'finished';
     final protected const FIRST = 'first';
     final protected const FRAMES = 'frames';
+    final protected const HEX = 'hex';
+    final protected const INDEX = 'index';
     final protected const INDEXES = 'indexes';
     final protected const INTERVAL = 'interval';
     final protected const LAST_INDEX = 'lastIndex';
@@ -28,6 +30,9 @@ trait AppRelatedConstantsTrait
     final protected const MESSAGE = 'message';
     final protected const MIN = 'min';
     final protected const MODE = 'mode';
+    final protected const MODE_ONE = 'modeOne';
+    final protected const MODE_TWO = 'modeTwo';
+
     final protected const PATTERN = 'pattern';
     final protected const RESULT = 'result';
     final protected const SECOND = 'second';

@@ -5,7 +5,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Helper;
 
-use AlecRabbit\Spinner\Contract\ColorMode;
+use AlecRabbit\Spinner\Contract\StyleMode;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Exception\RuntimeException;
 use Traversable;
@@ -34,10 +34,18 @@ final class Asserter
                     'Class "%s" must be a subclass of "%s"%s.',
                     is_object($c) ? get_class($c) : $c,
                     $i,
-                    $callerMethod ? sprintf(', see "%s()"', $callerMethod) : '',
+                    self::getSeeMethodStr($callerMethod),
                 )
             );
         }
+    }
+
+    private static function getSeeMethodStr(?string $callerMethod): string
+    {
+        return
+            $callerMethod
+                ? sprintf(', see "%s()"', $callerMethod)
+                : '';
     }
 
     /**
@@ -61,9 +69,9 @@ final class Asserter
         if (0 === count(iterator_to_array($colorModes))) {
             throw new InvalidArgumentException('Color modes must not be empty.');
         }
-        /** @var ColorMode $colorMode */
+        /** @var StyleMode $colorMode */
         foreach ($colorModes as $colorMode) {
-            if (!$colorMode instanceof ColorMode) {
+            if (!$colorMode instanceof StyleMode) {
                 throw new InvalidArgumentException(
                     sprintf(
                         'Unsupported color mode of type "%s".',
@@ -96,9 +104,99 @@ final class Asserter
                 sprintf(
                     'Class "%s" does not exist%s.',
                     $class,
-                    $callerMethod ? sprintf(', see "%s()"', $callerMethod) : ''
+                    self::getSeeMethodStr($callerMethod)
                 )
             );
         }
+    }
+
+    /**
+     * @throws InvalidArgumentException
+     */
+    public static function assertHexStringColor(string $entry): void
+    {
+        $strlen = strlen($entry);
+        $entry = strtolower($entry);
+        match (true) {
+            0 === $strlen => throw new InvalidArgumentException(
+                'Value should not be empty string.'
+            ),
+            !str_starts_with($entry, '#') => throw new InvalidArgumentException(
+                sprintf(
+                    'Value should be a valid hex color code("#rgb", "#rrggbb"), "%s" given. No "#" found.',
+                    $entry
+                )
+            ),
+            4 !== $strlen && 7 !== $strlen => throw new InvalidArgumentException(
+                sprintf(
+                    'Value should be a valid hex color code("#rgb", "#rrggbb"), "%s" given. Length: %d.',
+                    $entry,
+                    $strlen
+                )
+            ),
+            default => null,
+        };
+    }
+
+    /**
+     * @throws InvalidArgumentException
+     */
+    public static function assertIntInRange(int $value, int $min, int $max, ?string $callerMethod = null): void
+    {
+        match (true) {
+            $min > $value || $max < $value => throw new InvalidArgumentException(
+                sprintf(
+                    'Value should be in range %d..%d, int(%d) given%s.',
+                    $min,
+                    $max,
+                    $value,
+                    self::getSeeMethodStr($callerMethod)
+                )
+            ),
+            default => null,
+        };
+    }
+
+    /**
+     * @throws InvalidArgumentException
+     */
+    public static function assertIntColor(int $color, StyleMode $styleMode, ?string $callerMethod = null): void
+    {
+        match (true) {
+            0 > $color => throw new InvalidArgumentException(
+                sprintf(
+                    'Value should be positive integer, %d given%s.',
+                    $color,
+                    self::getSeeMethodStr($callerMethod)
+                )
+            ),
+            StyleMode::ANSI24->name === $styleMode->name => throw new InvalidArgumentException(
+                sprintf(
+                    'For %s::%s style mode rendering from int is not allowed%s.',
+                    StyleMode::class,
+                    StyleMode::ANSI24->name,
+                    self::getSeeMethodStr($callerMethod)
+                )
+            ),
+            StyleMode::ANSI8->name === $styleMode->name && 255 < $color => throw new InvalidArgumentException(
+                sprintf(
+                    'For %s::%s style mode value should be in range 0..255, %d given%s.',
+                    StyleMode::class,
+                    StyleMode::ANSI8->name,
+                    $color,
+                    self::getSeeMethodStr($callerMethod)
+                )
+            ),
+            StyleMode::ANSI4->name === $styleMode->name && 16 < $color => throw new InvalidArgumentException(
+                sprintf(
+                    'For %s::%s style mode value should be in range 0..15, %d given%s.',
+                    StyleMode::class,
+                    StyleMode::ANSI4->name,
+                    $color,
+                    self::getSeeMethodStr($callerMethod)
+                )
+            ),
+            default => null,
+        };
     }
 }

@@ -5,7 +5,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Terminal;
 
-use AlecRabbit\Spinner\Contract\ColorMode;
+use AlecRabbit\Spinner\Contract\StyleMode;
 use AlecRabbit\Spinner\Core\Terminal\A\ATerminalProbe;
 
 final class NativeTerminalProbe extends ATerminalProbe
@@ -20,7 +20,7 @@ final class NativeTerminalProbe extends ATerminalProbe
         return self::TERMINAL_DEFAULT_WIDTH;
     }
 
-    public static function getColorMode(): ColorMode
+    public static function getColorMode(): StyleMode
     {
         return self::TERMINAL_DEFAULT_COLOR_SUPPORT;
     }

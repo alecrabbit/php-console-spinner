@@ -20,7 +20,7 @@ $dumper = new ServerDumper(getHost(), getFallbackDumper(), [
 ]);
 
 VarDumper::setHandler(static function ($var) use ($cloner, $dumper) {
-    $dumper->dump($cloner->cloneVar($var));
+    $dumper->dump($cloner->cloneVar($var)); // intentional dump
 });
 
 function getFallbackDumper(): HtmlDumper|CliDumper

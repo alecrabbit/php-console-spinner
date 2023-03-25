@@ -9,15 +9,12 @@
          colors="true"
          cacheDirectory=".tools/.phpunit.cache"
          beStrictAboutCoverageMetadata="false"
+         stopOnError="false"
+         stopOnFailure="false"
 >
     <testsuites>
         <testsuite name="default">
             <directory>tests</directory>
         </testsuite>
     </testsuites>
-    <coverage>
-        <include>
-            <directory suffix=".php">src</directory>
-        </include>
-    </coverage>
 </phpunit>
