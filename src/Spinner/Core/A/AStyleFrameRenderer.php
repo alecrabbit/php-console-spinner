@@ -11,6 +11,7 @@ use AlecRabbit\Spinner\Contract\IStyleFrameRenderer;
 use AlecRabbit\Spinner\Contract\StyleMode;
 use AlecRabbit\Spinner\Core\Factory\FrameFactory;
 use AlecRabbit\Spinner\Core\Sequencer;
+use AlecRabbit\Spinner\Exception\DomainException;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Exception\LogicException;
 
@@ -18,8 +19,7 @@ abstract class AStyleFrameRenderer implements IStyleFrameRenderer
 {
     public function __construct(
         protected IAnsiStyleConverter $converter,
-    )
-    {
+    ) {
     }
 
     /**
@@ -56,6 +56,11 @@ abstract class AStyleFrameRenderer implements IStyleFrameRenderer
             FrameFactory::create(Sequencer::colorSequence($color), 0);
     }
 
+    /**
+     * @throws DomainException
+     * @throws InvalidArgumentException
+     * @throws LogicException
+     */
     protected function createFromStyle(IStyle $entry, StyleMode $colorMode): IFrame
     {
         $fgColor = $entry->getFgColor();
