@@ -16,25 +16,21 @@ use Traversable;
 
 use function abs;
 use function fmod;
-use function hexdec;
 use function is_object;
 use function is_string;
 use function max;
 use function min;
 use function round;
 use function sprintf;
-use function str_replace;
-use function strlen;
-use function substr;
 
 final class NativeColorConverter implements IColorConverter
 {
     /**
      * @throws InvalidArgumentException
      */
-    public function rgbToHsl(string $color): HSLColorDTO
+    public function rgbToHsl(string|IColorDTO $color): HSLColorDTO
     {
-        $rgb = $this->hexToRgb($color);
+        $rgb = $this->refineRGB($color);
 
         $r = $rgb->red / 255;
         $g = $rgb->green / 255;
@@ -66,31 +62,7 @@ final class NativeColorConverter implements IColorConverter
             $h /= 6;
         }
 
-        return new HSLColorDTO((int)round($h * 360), $s, $l);
-    }
-
-    /**
-     * @throws InvalidArgumentException
-     */
-    protected function hexToRgb(string $hex): RGBColorDTO
-    {
-        Asserter::assertHexStringColor($hex);
-
-        $hex = str_replace('#', '', $hex);
-
-        $length = strlen($hex);
-        if (3 === $length) {
-            $hex = $hex[0] . $hex[0] . $hex[1] . $hex[1] . $hex[2] . $hex[2];
-            $length = strlen($hex);
-        }
-
-        $cLength = (int)($length / 3);
-        return
-            new RGBColorDTO(
-                hexdec(substr($hex, 0, $cLength)),
-                hexdec(substr($hex, $cLength, $cLength)),
-                hexdec(substr($hex, $cLength * 2, $cLength)),
-            );
+        return new HSLColorDTO((int)round($h * 360), $s, $l, $rgb->alpha);
     }
 
     /**
@@ -128,10 +100,7 @@ final class NativeColorConverter implements IColorConverter
         }
 
         throw new InvalidArgumentException(
-            sprintf(
-                'Invalid color type: %s.',
-                Value::stringify($color),
-            )
+            sprintf('Invalid color type: %s.', Value::stringify($color))
         );
     }
 
@@ -140,39 +109,42 @@ final class NativeColorConverter implements IColorConverter
      */
     protected function gradient(string|IColorDTO $from, string|IColorDTO $to, int $steps = 100): Generator
     {
-        $f = $this->refineRGB($from);
-        $t = $this->refineRGB($to);
+        $from = $this->refineRGB($from);
+        $to = $this->refineRGB($to);
 
-        $rStep = ($t->red - $f->red) / $steps;
-        $gStep = ($t->green - $f->green) / $steps;
-        $bStep = ($t->blue - $f->blue) / $steps;
+        $rStep = ($to->red - $from->red) / $steps;
+        $gStep = ($to->green - $from->green) / $steps;
+        $bStep = ($to->blue - $from->blue) / $steps;
 
         for ($i = 0; $i < $steps; $i++) {
-            $r = (int)round($f->red + $rStep * $i);
-            $g = (int)round($f->green + $gStep * $i);
-            $b = (int)round($f->blue + $bStep * $i);
+            $dto =
+                new RGBColorDTO(
+                    (int)round($from->red + $rStep * $i),
+                    (int)round($from->green + $gStep * $i),
+                    (int)round($from->blue + $bStep * $i),
+                );
 
-            yield (new RGBColorDTO($r, $g, $b))->__toString();
+            yield $dto->__toString();
         }
     }
 
     /**
      * @throws InvalidArgumentException
      */
-    protected function refineRGB(IColorDTO|string $from): RGBColorDTO
+    protected function refineRGB(string|IColorDTO $color): RGBColorDTO
     {
-        if ($from instanceof RGBColorDTO) {
-            return $from;
+        if ($color instanceof RGBColorDTO) {
+            return $color;
         }
 
-        if ($from instanceof HSLColorDTO) {
-            return $this->hslToRgb($from->hue, $from->saturation, $from->lightness);
+        if ($color instanceof HSLColorDTO) {
+            return $this->hslToRgb($color->hue, $color->saturation, $color->lightness);
         }
 
-        return $this->hexToRgb($from);
+        return RGBColorDTO::fromHex($color);
     }
 
-    public function hslToRgb(int $hue, float $s = 1.0, float $l = 0.5): RGBColorDTO
+    public function hslToRgb(int $hue, float $s = 1.0, float $l = 0.5, float $alpha = 1.0): RGBColorDTO
     {
         $h = $hue / 360;
         $c = (1 - abs(2 * $l - 1)) * $s;
@@ -196,6 +168,7 @@ final class NativeColorConverter implements IColorConverter
         $g = ($g + $m) * 255;
         $b = ($b + $m) * 255;
 
-        return new RGBColorDTO((int)$r, (int)$g, (int)$b);
+        return
+            new RGBColorDTO((int)$r, (int)$g, (int)$b, $alpha);
     }
 }

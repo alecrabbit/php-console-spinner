@@ -38,17 +38,12 @@ final readonly class RGBColorDTO implements Stringable, IColorDTO
         return max(0.0, min(1.0, $value));
     }
 
-    public function __toString(): string
-    {
-        return sprintf(self::HEX_FORMAT, $this->red, $this->green, $this->blue);
-    }
-
     /**
      * @throws InvalidArgumentException
      */
-    protected static function formHexString(string $hex): self
+    public static function fromHex(string $hex): self
     {
-        Asserter::assertHexStringColor($hex);
+        self::assertHex($hex);
 
         $hex = str_replace('#', '', $hex);
 
@@ -65,6 +60,19 @@ final readonly class RGBColorDTO implements Stringable, IColorDTO
                 hexdec(substr($hex, $cLength, $cLength)),
                 hexdec(substr($hex, $cLength * 2, $cLength)),
             );
+    }
+
+    /**
+     * @throws InvalidArgumentException
+     */
+    protected static function assertHex(string $hex): void
+    {
+        Asserter::assertHexStringColor($hex);
+    }
+
+    public function __toString(): string
+    {
+        return sprintf(self::HEX_FORMAT, $this->red, $this->green, $this->blue);
     }
 
 }
