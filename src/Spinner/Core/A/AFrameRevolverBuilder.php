@@ -83,8 +83,6 @@ abstract class AFrameRevolverBuilder extends ARevolverBuilder implements IFrameR
     private function getCharFrameCollectionRenderer(): CharFrameCollectionRenderer
     {
         return
-            new CharFrameCollectionRenderer(
-                new FrameRenderer(),
-            );
+            new CharFrameCollectionRenderer();
     }
 }

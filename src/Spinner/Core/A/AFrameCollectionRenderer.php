@@ -22,12 +22,6 @@ abstract class AFrameCollectionRenderer extends ADefaultsAwareClass implements I
 {
     protected ?IPattern $pattern = null;
 
-    public function __construct(
-        protected IFrameRenderer $frameRenderer,
-    ) {
-    }
-
-
     /** @inheritdoc */
     public function pattern(IPattern $pattern): IFrameCollectionRenderer
     {

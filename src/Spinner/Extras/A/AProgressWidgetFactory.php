@@ -151,7 +151,7 @@ abstract class AProgressWidgetFactory extends AWidgetFactory implements IProgres
             ]);
 
         return
-            (new CharFrameCollectionRenderer(new FrameRenderer()))->pattern($pattern)->render();
+            (new CharFrameCollectionRenderer())->pattern($pattern)->render();
     }
 
     public static function createProgressValue(

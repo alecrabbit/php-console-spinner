@@ -14,12 +14,13 @@ use AlecRabbit\Spinner\Core\Sequencer;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Exception\LogicException;
 
-abstract class AStyleFrameRenderer extends AFrameRenderer implements IStyleFrameRenderer
+abstract class AStyleFrameRenderer implements IStyleFrameRenderer
 {
     public function __construct(
         protected IAnsiStyleConverter $converter,
         // TODO: should it be composed with FrameRenderer? [68a233da-988c-4474-b34b-6e0fb75792cc]
-    ) {
+    )
+    {
     }
 
     /**

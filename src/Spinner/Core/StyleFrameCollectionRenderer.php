@@ -16,7 +16,6 @@ use AlecRabbit\Spinner\Core\A\AFrameCollectionRenderer;
 use AlecRabbit\Spinner\Core\Factory\FrameFactory;
 use AlecRabbit\Spinner\Core\Pattern\Contract\IStylePattern;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
-use AlecRabbit\Spinner\Exception\LogicException;
 use ArrayObject;
 
 final class StyleFrameCollectionRenderer extends AFrameCollectionRenderer
@@ -24,9 +23,8 @@ final class StyleFrameCollectionRenderer extends AFrameCollectionRenderer
     private StyleMode $styleMode = StyleMode::NONE;
 
     public function __construct(
-        IStyleFrameRenderer $frameRenderer,
+        protected IStyleFrameRenderer $frameRenderer,
     ) {
-        parent::__construct($frameRenderer);
     }
 
     /** @inheritdoc */
@@ -49,12 +47,10 @@ final class StyleFrameCollectionRenderer extends AFrameCollectionRenderer
     }
 
     /**
-     * @throws LogicException
      * @throws InvalidArgumentException
      */
     protected function createFrame(string|IStyle $entry): IFrame
     {
-        /** @var IStyleFrameRenderer $this->frameRenderer */ // FIXME: fix to remove this line [68a233da-988c-4474-b34b-6e0fb75792cc]
         return $this->frameRenderer->render($entry, $this->styleMode);
     }
 
