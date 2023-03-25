@@ -4,6 +4,8 @@ declare(strict_types=1);
 // 25.03.23
 namespace AlecRabbit\Spinner\Contract\Color;
 
+use AlecRabbit\Spinner\Exception\InvalidArgumentException;
+use AlecRabbit\Spinner\Helper\Asserter;
 use Stringable;
 
 final readonly class RGBColorDTO implements Stringable, IColorDTO
@@ -40,4 +42,29 @@ final readonly class RGBColorDTO implements Stringable, IColorDTO
     {
         return sprintf(self::HEX_FORMAT, $this->red, $this->green, $this->blue);
     }
+
+    /**
+     * @throws InvalidArgumentException
+     */
+    protected static function formHexString(string $hex): self
+    {
+        Asserter::assertHexStringColor($hex);
+
+        $hex = str_replace('#', '', $hex);
+
+        $length = strlen($hex);
+        if (3 === $length) {
+            $hex = $hex[0] . $hex[0] . $hex[1] . $hex[1] . $hex[2] . $hex[2];
+            $length = strlen($hex);
+        }
+
+        $cLength = (int)($length / 3);
+        return
+            new self(
+                hexdec(substr($hex, 0, $cLength)),
+                hexdec(substr($hex, $cLength, $cLength)),
+                hexdec(substr($hex, $cLength * 2, $cLength)),
+            );
+    }
+
 }

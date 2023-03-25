@@ -22,7 +22,7 @@ final class CharFrameCollectionRenderer extends AFrameCollectionRenderer
                 sprintf(
                     'Entry should be type of "string", "%s" given%s.',
                     get_debug_type($entry),
-                    sprintf(', see "%s()"',__METHOD__),
+                    sprintf(', see "%s()"', __METHOD__),
                 )
             );
         }
