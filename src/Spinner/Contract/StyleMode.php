@@ -19,7 +19,7 @@ enum StyleMode: int
         return $other;
     }
 
-    public function isColorEnabled(): bool
+    public function isStylingEnabled(): bool
     {
         return $this->value > 0;
     }

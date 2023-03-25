@@ -193,6 +193,6 @@ abstract class AAnsiStyleConverter implements IAnsiStyleConverter
 
     public function isEnabled(): bool
     {
-        return $this->colorMode->isColorEnabled();
+        return $this->colorMode->isStylingEnabled();
     }
 }
