@@ -12,18 +12,19 @@ final class Ansi8Color
 {
     use AnsiColorTableTrait;
 
-    private static ?array $reversed = null;
+    private static ?array $flipped = null;
+
     public static function getIndex(string $hex): ?int
     {
-        return array_search($hex, self::getReversed(), true) ?: null;
+        return self::getFlipped()[$hex] ?? null;
     }
 
-    private static function getReversed(): array
+    private static function getFlipped(): array
     {
-        if (null === self::$reversed) {
-            self::$reversed = array_flip(self::COLORS);
+        if (null === self::$flipped) {
+            self::$flipped = array_flip(self::COLORS);
         }
-        return self::$reversed;
+        return self::$flipped;
     }
 
     /**

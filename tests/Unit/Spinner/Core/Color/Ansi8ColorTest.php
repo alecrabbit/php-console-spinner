@@ -77,10 +77,8 @@ final class Ansi8ColorTest extends TestCase
 
         $args = $incoming[self::ARGUMENTS];
 
-        $result = null; // failsafe
-
-        $index = $args[self::INDEX] ?? null;
-        $hex = $args[self::HEX] ?? null;
+        $index = $args[self::INDEX];
+        $hex = $args[self::HEX];
 
         if (null !== $index && null === $hex) {
             $result = Ansi8Color::getHexColor($index);
@@ -89,6 +87,8 @@ final class Ansi8ColorTest extends TestCase
         if (null !== $hex && null === $index) {
             $result = Ansi8Color::getIndex($hex);
         }
+
+        dump($result, $index, $hex);
 
         if ($expectedException) {
             self::exceptionNotThrown($expectedException);
