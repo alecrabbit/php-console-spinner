@@ -20,8 +20,9 @@ final class CharFrameCollectionRenderer extends AFrameCollectionRenderer
         if (!is_string($entry)) {
             throw new InvalidArgumentException(
                 sprintf(
-                    'Entry should be type of "string", "%s" given.',
-                    get_debug_type($entry)
+                    'Entry should be type of "string", "%s" given%s.',
+                    get_debug_type($entry),
+                    sprintf(', see "%s()"',__METHOD__),
                 )
             );
         }
