@@ -12,8 +12,9 @@ use Traversable;
 
 final class Rainbow extends AStylePattern
 {
-    protected const UPDATE_INTERVAL = 80;
+    protected const UPDATE_INTERVAL = 400;
 
+    /** @var array<int, array<int, string>> */
     protected const PATTERN = [
         StyleMode::ANSI4->value =>
             [
