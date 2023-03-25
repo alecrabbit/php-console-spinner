@@ -29,23 +29,6 @@ final class StyleModeTest extends TestCase
             ];
         }
     }
-    public static function isStylingEnabledDataProvider(): iterable
-    {
-        // [$expected, $incoming]
-        // #0..
-        foreach (self::simplifiedIsStylingEnabledDataFeeder() as $item) {
-            yield [
-                [
-                    self::RESULT => $item[0], // result
-                ],
-                [
-                    self::ARGUMENTS => [
-                        self::MODE => $item[1],
-                    ],
-                ],
-            ];
-        }
-    }
 
     public static function simplifiedLowestDataFeeder(): iterable
     {
@@ -66,6 +49,25 @@ final class StyleModeTest extends TestCase
             [StyleMode::NONE, StyleMode::NONE, StyleMode::ANSI24],
         ];
     }
+
+    public static function isStylingEnabledDataProvider(): iterable
+    {
+        // [$expected, $incoming]
+        // #0..
+        foreach (self::simplifiedIsStylingEnabledDataFeeder() as $item) {
+            yield [
+                [
+                    self::RESULT => $item[0], // result
+                ],
+                [
+                    self::ARGUMENTS => [
+                        self::MODE => $item[1],
+                    ],
+                ],
+            ];
+        }
+    }
+
     public static function simplifiedIsStylingEnabledDataFeeder(): iterable
     {
         // #0..

@@ -177,7 +177,7 @@ abstract class AAnsiStyleConverter implements IAnsiStyleConverter
         $index = Ansi8Color::getIndex($color);
 
         if ($index) {
-            return '8;5;'. $index ;
+            return '8;5;' . $index;
         }
 
         return $this->convertFromHexToAnsiColorCode($color, $colorMode);
