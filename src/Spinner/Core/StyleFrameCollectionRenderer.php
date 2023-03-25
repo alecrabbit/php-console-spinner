@@ -57,14 +57,25 @@ final class StyleFrameCollectionRenderer extends AFrameCollectionRenderer
     /** @inheritdoc */
     public function render(): IFrameCollection
     {
-        if (!$this->frameRenderer->isStyleEnabled()) {
+        if ($this->frameRenderer->isStylingDisabled()) {
             return
-                $this->createCollection(
-                    new ArrayObject(
-                        [FrameFactory::create('%s', 0)]
-                    )
-                );
+                $this->createCollectionWithOneStyle();
         }
         return parent::render();
+    }
+
+    /**
+     * @throws InvalidArgumentException
+     */
+    private function createCollectionWithOneStyle(): FrameCollection
+    {
+        return
+            $this->createCollection(
+                new ArrayObject(
+                    [
+                        FrameFactory::create('%s', 0), // no styling
+                    ]
+                )
+            );
     }
 }

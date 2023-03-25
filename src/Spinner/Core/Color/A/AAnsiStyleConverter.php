@@ -191,6 +191,11 @@ abstract class AAnsiStyleConverter implements IAnsiStyleConverter
         return $this->convertFromHexToAnsiColorCode($color, $colorMode);
     }
 
+    public function isDisabled(): bool
+    {
+        return !$this->isEnabled();
+    }
+
     public function isEnabled(): bool
     {
         return $this->colorMode->isStylingEnabled();

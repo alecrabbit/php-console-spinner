@@ -18,7 +18,6 @@ abstract class AStyleFrameRenderer implements IStyleFrameRenderer
 {
     public function __construct(
         protected IAnsiStyleConverter $converter,
-        // TODO: should it be composed with FrameRenderer? [68a233da-988c-4474-b34b-6e0fb75792cc]
     )
     {
     }
@@ -27,13 +26,17 @@ abstract class AStyleFrameRenderer implements IStyleFrameRenderer
      * @throws LogicException
      * @throws InvalidArgumentException
      */
-    public function render(string|IStyle $entry, StyleMode $styleMode = StyleMode::NONE): IFrame
+    public function render(int|string|IStyle $entry, StyleMode $styleMode = StyleMode::NONE): IFrame
     {
-        if (!$this->converter->isEnabled()) {
-            return
-                FrameFactory::create('%s', 0);
+        if ($this->isStylingDisabled()) {
+            throw new LogicException('Styling is disabled.'); // should never happen
         }
         return $this->createFrame($entry, $styleMode);
+    }
+
+    public function isStylingDisabled(): bool
+    {
+        return $this->converter->isDisabled();
     }
 
     /**
@@ -67,10 +70,5 @@ abstract class AStyleFrameRenderer implements IStyleFrameRenderer
         $color .= 'm%s';
         return
             FrameFactory::create(Sequencer::colorSequence($color), $entry->getWidth());
-    }
-
-    public function isStyleEnabled(): bool
-    {
-        return $this->converter->isEnabled();
     }
 }

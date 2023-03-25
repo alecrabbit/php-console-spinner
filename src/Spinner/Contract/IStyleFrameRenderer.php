@@ -4,6 +4,7 @@ declare(strict_types=1);
 // 24.03.23
 namespace AlecRabbit\Spinner\Contract;
 
+use AlecRabbit\Spinner\Core\A\AStyleFrameRenderer;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 
 interface IStyleFrameRenderer
@@ -11,7 +12,7 @@ interface IStyleFrameRenderer
     /**
      * @throws InvalidArgumentException
      */
-    public function render(string|IStyle $entry, StyleMode $styleMode = StyleMode::NONE): IFrame;
+    public function render(int|string|IStyle $entry, StyleMode $styleMode = StyleMode::NONE): IFrame;
 
-    public function isStyleEnabled(): bool;
+    public function isStylingDisabled(): bool;
 }

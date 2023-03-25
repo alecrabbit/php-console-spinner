@@ -18,4 +18,6 @@ interface IAnsiStyleConverter
     public function ansiCode(int|string $color, StyleMode $colorMode): string;
 
     public function isEnabled(): bool;
+
+    public function isDisabled(): bool;
 }
