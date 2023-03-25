@@ -16,6 +16,7 @@ trait AppRelatedConstantsTrait
     final protected const CONTAINS = 'contains';
     final protected const COUNT = 'count';
     final protected const DIVISOR = 'divisor';
+    final protected const ENABLED = 'enabled';
     final protected const EXCEPTION = 'exception';
     final protected const EXTRACTED = 'extracted';
     final protected const FINISHED = 'finished';
@@ -40,6 +41,8 @@ trait AppRelatedConstantsTrait
     final protected const START = 'start';
     final protected const START_VALUE = 'startValue';
     final protected const STEPS = 'steps';
+    final protected const STYLE = 'style';
+    final protected const STYLE_MODE = 'styleMode';
     final protected const VALUE = 'value';
     final protected const WIDTH = 'width';
 }

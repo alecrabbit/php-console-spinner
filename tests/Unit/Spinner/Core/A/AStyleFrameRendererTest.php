@@ -4,8 +4,13 @@ declare(strict_types=1);
 // 15.02.23
 namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Core\A;
 
+use AlecRabbit\Spinner\Contract\IAnsiStyleConverter;
+use AlecRabbit\Spinner\Contract\IStyleFrameRenderer;
+use AlecRabbit\Spinner\Contract\StyleMode;
+use AlecRabbit\Spinner\Core\A\AStyleFrameRenderer;
 use AlecRabbit\Spinner\Core\Color\Ansi8Color;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
+use AlecRabbit\Spinner\Exception\LogicException;
 use AlecRabbit\Tests\Spinner\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
@@ -19,13 +24,15 @@ final class AStyleFrameRendererTest extends TestCase
         yield [
             [
                 self::EXCEPTION => [
-                    self::CLASS_ => InvalidArgumentException::class,
-                    // do not expect specific message
+                    self::CLASS_ => LogicException::class,
+                    self::MESSAGE => 'Styling is disabled.',
                 ],
             ],
             [
                 self::ARGUMENTS => [
-                    self::INDEX => -1,
+                    self::ENABLED => false,
+                    self::STYLE => 'red',
+                    self::STYLE_MODE => StyleMode::ANSI8,
                 ],
             ],
         ];
@@ -33,66 +40,19 @@ final class AStyleFrameRendererTest extends TestCase
         yield [
             [
                 self::EXCEPTION => [
-                    self::CLASS_ => InvalidArgumentException::class,
-                    // do not expect specific message
+                    self::CLASS_ => LogicException::class,
+                    self::MESSAGE => 'Styling is disabled.',
                 ],
             ],
             [
                 self::ARGUMENTS => [
-                    self::INDEX => 256,
+                    self::ENABLED => true,
+                    self::STYLE => 196,
+                    self::STYLE_MODE => StyleMode::ANSI8,
                 ],
             ],
         ];
-        // #2
-        yield [
-            [
-                self::EXCEPTION => [
-                    self::CLASS_ => InvalidArgumentException::class,
-                    // do not expect specific message
-                ],
-            ],
-            [
-                self::ARGUMENTS => [
-                    self::HEX => '256',
-                ],
-            ],
-        ];
-        // #3..
-        foreach (self::simplifiedDataFeeder() as $item) {
-            yield [
-                [
-                    self::RESULT => $item[0], // result
-                ],
-                [
-                    self::ARGUMENTS => [
-                        self::INDEX => $item[1], // index
-                        self::HEX => $item[2], // hex
-                    ],
-                ],
-            ];
-        }
-    }
 
-    public static function simplifiedDataFeeder(): iterable
-    {
-        // #3..
-        yield from [
-            // result, index, hex // first element - #3
-            ['#ff0000', 196, null,],
-            [196, null, '#ff0000',],
-            ['#ff5f87', 204, null,],
-            [204, null, '#ff5f87',],
-            ['#af87ff', 141, null,],
-            [141, null, '#af87ff',],
-            ['#eeeeee', 255, null,],
-            [255, null, '#eeeeee',],
-            ['#808080', 244, null,],
-            [244, null, '#808080',],
-            ['#000000', 16, null,],
-            [16, null, '#000000',],
-            ['#800000', 1, null,],
-            [1, null, '#800000',],
-        ];
     }
 
     #[Test]
@@ -103,32 +63,43 @@ final class AStyleFrameRendererTest extends TestCase
 
         $args = $incoming[self::ARGUMENTS];
 
-        $index = $args[self::INDEX] ?? null;
-        $hex = $args[self::HEX] ?? null;
+        $renderer = self::getTesteeInstance($args);
 
-        if (null === $index && null === $hex) {
-            self::fail('Both index and hex arguments are null.');
-        }
-
-        if (null !== $index && null !== $hex) {
-            self::fail('Both index and hex arguments are not null.');
-        }
-
-        $result =
-            null === $index
-                ? Ansi8Color::getIndex($hex)
-                : Ansi8Color::getHexColor($index);
+        $result = $renderer->render($args[self::STYLE], $args[self::STYLE_MODE]);
 
         if ($expectedException) {
-            self::exceptionNotThrown($expectedException);
+            self::exceptionNotThrown(
+                $expectedException,
+                dataSet: [$result, $expected, $incoming]
+            );
         }
 
         self::assertSame($expected[self::RESULT], $result);
     }
 
-    public static function getTesteeInstance(): self
+    public static function getTesteeInstance(array $args): IStyleFrameRenderer
     {
-        return new self();
+        $enabled = $args[self::ENABLED];
+
+        $converter = new class($enabled) implements IAnsiStyleConverter {
+            public function __construct(
+                protected bool $enabled,
+            ) {
+            }
+
+            public function ansiCode(int|string $color, StyleMode $styleMode): string
+            {
+                return '-';
+            }
+
+            public function isDisabled(): bool
+            {
+                return !$this->enabled;
+            }
+        };
+        return
+            new class($converter) extends AStyleFrameRenderer {
+            };
     }
 }
 
