@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 // 25.03.23
 namespace AlecRabbit\Spinner\Core\Color;
@@ -12,14 +13,27 @@ final class Ansi8Color
 {
     use AnsiColorTableTrait;
 
+    /** @var array<string,int>|null */
     private static ?array $flipped = null;
 
+    /**
+     * @throws InvalidArgumentException
+     */
     public static function getIndex(string $hex): ?int
     {
         self::assertHexStringColor($hex);
         return self::getFlipped()[$hex] ?? null;
     }
 
+    /**
+     * @throws InvalidArgumentException
+     */
+    private static function assertHexStringColor(string $hex): void
+    {
+        Asserter::assertHexStringColor($hex);
+    }
+
+    /** @return array<string,int> */
     private static function getFlipped(): array
     {
         if (null === self::$flipped) {
@@ -43,13 +57,5 @@ final class Ansi8Color
     private static function assertIndex(int $index): void
     {
         Asserter::assertIntColor($index, StyleMode::ANSI8);
-    }
-
-    /**
-     * @throws InvalidArgumentException
-     */
-    private static function assertHexStringColor(string $hex): void
-    {
-        Asserter::assertHexStringColor($hex);
     }
 }

@@ -6,6 +6,7 @@ namespace AlecRabbit\Spinner\Core\Color\A;
 
 use AlecRabbit\Spinner\Contract\IAnsiStyleConverter;
 use AlecRabbit\Spinner\Contract\StyleMode;
+use AlecRabbit\Spinner\Core\Color\Ansi8Color;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Exception\LogicException;
 use AlecRabbit\Spinner\Helper\Asserter;
@@ -173,28 +174,13 @@ abstract class AAnsiStyleConverter implements IAnsiStyleConverter
             return '8;5;' . $color;
         }
 
-        /** @var null|array<int, string> $colors8 */
-        static $colors8 = null;
+        $index = Ansi8Color::getIndex($color);
 
-        if (null === $colors8) {
-            $colors8 = array_slice(static::COLORS, 16, preserve_keys: true);
+        if ($index) {
+            return '8;5;'. $index ;
         }
 
-        /** @var int|false $result */
-        $result =
-            // non-optimal code, but it's not a bottleneck
-            array_search(
-                $color,
-                $colors8,
-                true
-            );
-
-
-        if (false === $result) {
-            return $this->convertFromHexToAnsiColorCode($color, $colorMode);
-        }
-
-        return '8;5;' . (string)$result;
+        return $this->convertFromHexToAnsiColorCode($color, $colorMode);
     }
 
     /**

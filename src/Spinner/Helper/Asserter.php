@@ -34,10 +34,18 @@ final class Asserter
                     'Class "%s" must be a subclass of "%s"%s.',
                     is_object($c) ? get_class($c) : $c,
                     $i,
-                    $callerMethod ? sprintf(', see "%s()"', $callerMethod) : '',
+                    self::getSeeMethodStr($callerMethod),
                 )
             );
         }
+    }
+
+    private static function getSeeMethodStr(?string $callerMethod): string
+    {
+        return
+            $callerMethod
+                ? sprintf(', see "%s()"', $callerMethod)
+                : '';
     }
 
     /**
@@ -96,7 +104,7 @@ final class Asserter
                 sprintf(
                     'Class "%s" does not exist%s.',
                     $class,
-                    $callerMethod ? sprintf(', see "%s()"', $callerMethod) : ''
+                    self::getSeeMethodStr($callerMethod)
                 )
             );
         }
@@ -133,36 +141,59 @@ final class Asserter
     /**
      * @throws InvalidArgumentException
      */
-    public static function assertIntColor(int $color, StyleMode $styleMode): void
+    public static function assertIntInRange(int $value, int $min, int $max, ?string $callerMethod = null): void
+    {
+        match (true) {
+            $min > $value || $max < $value => throw new InvalidArgumentException(
+                sprintf(
+                    'Value should be in range %d..%d, int(%d) given%s.',
+                    $min,
+                    $max,
+                    $value,
+                    self::getSeeMethodStr($callerMethod)
+                )
+            ),
+            default => null,
+        };
+    }
+
+    /**
+     * @throws InvalidArgumentException
+     */
+    public static function assertIntColor(int $color, StyleMode $styleMode, ?string $callerMethod = null): void
     {
         match (true) {
             0 > $color => throw new InvalidArgumentException(
                 sprintf(
-                    'Value should be positive integer, %d given.',
-                    $color
+                    'Value should be positive integer, %d given%s.',
+                    $color,
+                    self::getSeeMethodStr($callerMethod)
                 )
             ),
             StyleMode::ANSI24->name === $styleMode->name => throw new InvalidArgumentException(
                 sprintf(
-                    'For %s::%s color mode rendering from int is not allowed.',
+                    'For %s::%s style mode rendering from int is not allowed%s.',
                     StyleMode::class,
-                    StyleMode::ANSI24->name
+                    StyleMode::ANSI24->name,
+                    self::getSeeMethodStr($callerMethod)
                 )
             ),
             StyleMode::ANSI8->name === $styleMode->name && 255 < $color => throw new InvalidArgumentException(
                 sprintf(
-                    'For %s::%s color mode value should be in range 0..255, %d given.',
+                    'For %s::%s style mode value should be in range 0..255, %d given%s.',
                     StyleMode::class,
                     StyleMode::ANSI8->name,
-                    $color
+                    $color,
+                    self::getSeeMethodStr($callerMethod)
                 )
             ),
             StyleMode::ANSI4->name === $styleMode->name && 16 < $color => throw new InvalidArgumentException(
                 sprintf(
-                    'For %s::%s color mode value should be in range 0..15, %d given.',
+                    'For %s::%s style mode value should be in range 0..15, %d given%s.',
                     StyleMode::class,
                     StyleMode::ANSI4->name,
-                    $color
+                    $color,
+                    self::getSeeMethodStr($callerMethod)
                 )
             ),
             default => null,

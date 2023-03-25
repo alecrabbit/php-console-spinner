@@ -26,7 +26,7 @@ final class AsserterTest extends TestCase
                 self::EXCEPTION => [
                     self::CLASS_ => InvalidArgumentException::class,
                     self::MESSAGE => sprintf(
-                        'For %s::ANSI8 color mode value should be in range 0..255, 345 given.',
+                        'For %s::ANSI8 style mode value should be in range 0..255, 345 given.',
                         StyleMode::class,
                     ),
                 ],
@@ -59,7 +59,7 @@ final class AsserterTest extends TestCase
                 self::EXCEPTION => [
                     self::CLASS_ => InvalidArgumentException::class,
                     self::MESSAGE => sprintf(
-                        'For %s::ANSI4 color mode value should be in range 0..15, 22 given.',
+                        'For %s::ANSI4 style mode value should be in range 0..15, 22 given.',
                         StyleMode::class,
                     ),
                 ],
@@ -68,6 +68,54 @@ final class AsserterTest extends TestCase
                 self::ARGUMENTS => [
                     self::MODE => StyleMode::ANSI4,
                     self::COLOR => 22,
+                ],
+            ],
+        ];
+    }
+
+    public static function intInRangeDataProvider(): iterable
+    {
+        // [$expected, $incoming]
+        #0
+        yield [
+            [
+            ],
+            [
+                self::ARGUMENTS => [
+                    self::VALUE => 2,
+                    self::MIN => 0,
+                    self::MAX => 3,
+                ],
+            ],
+        ];
+        #1
+        yield [
+            [
+                self::EXCEPTION => [
+                    self::CLASS_ => InvalidArgumentException::class,
+                    self::MESSAGE => 'Value should be in range 0..3, int(5) given.',
+                ],
+            ],
+            [
+                self::ARGUMENTS => [
+                    self::VALUE => 5,
+                    self::MIN => 0,
+                    self::MAX => 3,
+                ],
+            ],
+        ];    #1
+        yield [
+            [
+                self::EXCEPTION => [
+                    self::CLASS_ => InvalidArgumentException::class,
+                    self::MESSAGE => 'Value should be in range 0..3, int(-1) given.',
+                ],
+            ],
+            [
+                self::ARGUMENTS => [
+                    self::VALUE => -1,
+                    self::MIN => 0,
+                    self::MAX => 3,
                 ],
             ],
         ];
@@ -286,5 +334,22 @@ final class AsserterTest extends TestCase
         if ($expectedException) {
             self::exceptionNotThrown($expectedException);
         }
+    }
+
+    #[Test]
+    #[DataProvider('intInRangeDataProvider')]
+    public function canAssertIntInRange(array $expected, array $incoming): void
+    {
+        $expectedException = $this->expectsException($expected);
+
+        $args = $incoming[self::ARGUMENTS];
+
+        Asserter::assertIntInRange($args[self::VALUE], $args[self::MIN], $args[self::MAX]);
+
+        if ($expectedException) {
+            self::exceptionNotThrown($expectedException);
+        }
+
+        self::assertTrue(true); // assertion to avoid risky test
     }
 }
