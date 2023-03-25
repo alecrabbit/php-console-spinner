@@ -133,7 +133,7 @@ final class Asserter
     /**
      * @throws InvalidArgumentException
      */
-    public static function assertIntColor(int $color, StyleMode $colorMode): void
+    public static function assertIntColor(int $color, StyleMode $styleMode): void
     {
         match (true) {
             0 > $color => throw new InvalidArgumentException(
@@ -142,14 +142,14 @@ final class Asserter
                     $color
                 )
             ),
-            StyleMode::ANSI24->name === $colorMode->name => throw new InvalidArgumentException(
+            StyleMode::ANSI24->name === $styleMode->name => throw new InvalidArgumentException(
                 sprintf(
                     'For %s::%s color mode rendering from int is not allowed.',
                     StyleMode::class,
                     StyleMode::ANSI24->name
                 )
             ),
-            StyleMode::ANSI8->name === $colorMode->name && 255 < $color => throw new InvalidArgumentException(
+            StyleMode::ANSI8->name === $styleMode->name && 255 < $color => throw new InvalidArgumentException(
                 sprintf(
                     'For %s::%s color mode value should be in range 0..255, %d given.',
                     StyleMode::class,
@@ -157,7 +157,7 @@ final class Asserter
                     $color
                 )
             ),
-            StyleMode::ANSI4->name === $colorMode->name && 16 < $color => throw new InvalidArgumentException(
+            StyleMode::ANSI4->name === $styleMode->name && 16 < $color => throw new InvalidArgumentException(
                 sprintf(
                     'For %s::%s color mode value should be in range 0..15, %d given.',
                     StyleMode::class,

@@ -177,7 +177,7 @@ abstract class AAnsiStyleConverter implements IAnsiStyleConverter
         static $colors8 = null;
 
         if (null === $colors8) {
-            $colors8 = array_slice(static::COLOR_TABLE, 16, preserve_keys: true);
+            $colors8 = array_slice(static::COLORS, 16, preserve_keys: true);
         }
 
         /** @var int|false $result */

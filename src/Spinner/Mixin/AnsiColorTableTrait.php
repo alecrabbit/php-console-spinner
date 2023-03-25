@@ -7,23 +7,23 @@ namespace AlecRabbit\Spinner\Mixin;
 trait AnsiColorTableTrait
 {
     /** @var array<int,string> */
-    protected const COLOR_TABLE = [
-        0 => '#000000',
-        1 => '#800000',
-        2 => '#008000',
-        3 => '#808000',
-        4 => '#000080',
-        5 => '#800080',
-        6 => '#008080',
-        7 => '#c0c0c0',
-        8 => '#808080',
-        9 => '#ff0000',
-        10 => '#00ff00',
-        11 => '#ffff00',
-        12 => '#0000ff',
-        13 => '#ff00ff',
-        14 => '#00ffff',
-        15 => '#ffffff',
+    protected const COLORS = [
+        0 => '#000000',    // fallback color
+        1 => '#800000',    // fallback color
+        2 => '#008000',    // fallback color
+        3 => '#808000',    // fallback color
+        4 => '#000080',    // fallback color
+        5 => '#800080',    // fallback color
+        6 => '#008080',    // fallback color
+        7 => '#c0c0c0',    // fallback color
+        8 => '#808080',    // fallback color
+        9 => '#ff0000',    // fallback color
+        10 => '#00ff00',   // fallback color
+        11 => '#ffff00',   // fallback color
+        12 => '#0000ff',   // fallback color
+        13 => '#ff00ff',   // fallback color
+        14 => '#00ffff',   // fallback color
+        15 => '#ffffff',   // fallback color
         16 => '#000000',
         17 => '#00005f',
         18 => '#000087',

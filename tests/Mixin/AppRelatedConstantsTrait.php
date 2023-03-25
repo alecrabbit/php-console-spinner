@@ -21,6 +21,8 @@ trait AppRelatedConstantsTrait
     final protected const FINISHED = 'finished';
     final protected const FIRST = 'first';
     final protected const FRAMES = 'frames';
+    final protected const HEX = 'hex';
+    final protected const INDEX = 'index';
     final protected const INDEXES = 'indexes';
     final protected const INTERVAL = 'interval';
     final protected const LAST_INDEX = 'lastIndex';
