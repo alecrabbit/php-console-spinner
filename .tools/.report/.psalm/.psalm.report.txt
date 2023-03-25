@@ -1,2 +1,1 @@
 /app/src/Spinner/Extras/Color/A/AColor.php:83:16:error - UnsafeInstantiation: Cannot safely instantiate class AlecRabbit\Spinner\Extras\Color\A\AColor with "new static" as its constructor might change in child classes
-/app/src/Spinner/Extras/Color/NativeColorConverter.php:169:32:error - PossiblyInvalidArgument: Argument 1 of AlecRabbit\Spinner\Extras\Color\NativeColorConverter::hexToRgb expects string, but possibly different type AlecRabbit\Spinner\Contract\Color\IColorDTO|string provided

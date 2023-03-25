@@ -28,8 +28,12 @@ final class NativeColorConverter implements IColorConverter
     /**
      * @throws InvalidArgumentException
      */
-    public function rgbToHsl(string|IColorDTO $color): HSLColorDTO
+    public function toHSL(string|IColorDTO $color): HSLColorDTO
     {
+        if ($color instanceof HSLColorDTO) {
+            return $color;
+        }
+
         $rgb = $this->refineRGB($color);
 
         $r = $rgb->red / 255;
@@ -75,18 +79,32 @@ final class NativeColorConverter implements IColorConverter
         }
 
         if ($color instanceof HSLColorDTO) {
-            return $this->hslToRgb($color->hue, $color->saturation, $color->lightness);
+            return $this->toRGB($color);
         }
-
+        /** @var string $color */
         return RGBColorDTO::fromHex($color);
     }
 
-    public function hslToRgb(int $hue, float $s = 1.0, float $l = 0.5, float $alpha = 1.0): RGBColorDTO
+    /**
+     * @throws InvalidArgumentException
+     */
+    public function toRGB(string|IColorDTO $color): RGBColorDTO
     {
+        if ($color instanceof RGBColorDTO) {
+            return $color;
+        }
+        if (is_string($color)) {
+            return RGBColorDTO::fromHex($color);
+        }
+        /** @var HSLColorDTO $color */
+        $hue = $color->hue;
+        $saturation = $color->saturation;
+        $lightness = $color->lightness;
+
         $h = $hue / 360;
-        $c = (1 - abs(2 * $l - 1)) * $s;
+        $c = (1 - abs(2 * $lightness - 1)) * $saturation;
         $x = $c * (1 - abs(fmod($h * 6, 2) - 1));
-        $m = $l - $c / 2;
+        $m = $lightness - $c / 2;
 
         $r = 0;
         $g = 0;
@@ -106,7 +124,7 @@ final class NativeColorConverter implements IColorConverter
                 (int)($r + $m) * 255,
                 (int)($g + $m) * 255,
                 (int)($b + $m) * 255,
-                $alpha
+                $color->alpha
             );
     }
 
