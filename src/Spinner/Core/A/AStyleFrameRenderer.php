@@ -43,7 +43,7 @@ abstract class AStyleFrameRenderer implements IStyleFrameRenderer
      * @throws LogicException
      * @throws InvalidArgumentException
      */
-    protected function createFrame(string|IStyle $entry, StyleMode $colorMode): IFrame
+    protected function createFrame(int|string|IStyle $entry, StyleMode $colorMode): IFrame
     {
         if ($entry instanceof IStyle) {
             return $this->createFromStyle($entry, $colorMode);

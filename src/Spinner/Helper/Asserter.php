@@ -49,9 +49,9 @@ final class Asserter
     }
 
     /**
+     * @param resource $stream
      * @throws InvalidArgumentException
      *
-     * @param resource $stream
      */
     public static function assertStream(mixed $stream): void
     {
