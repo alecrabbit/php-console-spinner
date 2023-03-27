@@ -98,11 +98,13 @@ final class ContainerTest extends TestCase
     {
         $serviceOne = new \stdClass();
         $serviceTwo = new \stdClass();
+        $serviceThree = new \stdClass();
 
         $container = new Container(
             new ArrayObject([
                 'foo' => $serviceOne,
                 'bar' => $serviceTwo,
+                'baz' => $serviceThree,
             ])
         );
         self::assertTrue($container->has('foo'));
@@ -110,21 +112,28 @@ final class ContainerTest extends TestCase
 
         self::assertSame($serviceOne, $container->get('foo'));
         self::assertSame($serviceTwo, $container->get('bar'));
+        self::assertCount(2, self::getValue('services', $container));
 
-        $serviceThree = new \stdClass();
-        $serviceFour = new \stdClass();
+        $replacedServiceOne = new \stdClass();
+        $replacedServiceTwo = new \stdClass();
+        $replacedServiceThree = new \stdClass();
 
-        $container->replace('foo', $serviceThree);
-        $container->replace('bar', $serviceFour);
+        $container->replace('foo', $replacedServiceOne);
+        $container->replace('bar', $replacedServiceTwo);
+        $container->replace('baz', $replacedServiceThree);
 
         self::assertTrue($container->has('foo'));
         self::assertTrue($container->has('bar'));
 
-        self::assertCount(2, self::getValue('definitions', $container));
+        self::assertCount(3, self::getValue('definitions', $container));
+        // Services should also be replaced because we already retrieved two them
         self::assertCount(2, self::getValue('services', $container));
 
-        self::assertSame($serviceFour, $container->get('bar')); // intentionally changed order
-        self::assertSame($serviceThree, $container->get('foo'));
+        self::assertSame($replacedServiceTwo, $container->get('bar')); // intentionally changed order
+        self::assertSame($replacedServiceThree, $container->get('baz'));
+        self::assertSame($replacedServiceOne, $container->get('foo'));
+
+        self::assertCount(3, self::getValue('services', $container));
     }
 
     #[Test]
