@@ -70,8 +70,7 @@ abstract class AStyleFrameRenderer implements IStyleFrameRenderer
 
         $color = '3' . $ansiCode . 'm' . '%s';
 
-        return
-            FrameFactory::create($this->sequencer::colorSequence($color), 0);
+        return $this->sequenceFrame($color, 0);
     }
 
     /**
@@ -86,9 +85,7 @@ abstract class AStyleFrameRenderer implements IStyleFrameRenderer
         }
 
         $color = $this->flattenStyle($entry, $styleMode);
-
-        return
-            FrameFactory::create($this->sequencer::colorSequence($color), $entry->getWidth());
+        return $this->sequenceFrame($color, $entry->getWidth());
     }
 
     /**
@@ -111,5 +108,13 @@ abstract class AStyleFrameRenderer implements IStyleFrameRenderer
         }
         $color .= 'm%s';
         return $color;
+    }
+
+    protected function sequenceFrame(string $color, int $width): IFrame
+    {
+        /** @var ISequencer $sequencer */
+        $sequencer = $this->sequencer;
+        return
+            FrameFactory::create($sequencer::colorSequence($color), $width);
     }
 }
