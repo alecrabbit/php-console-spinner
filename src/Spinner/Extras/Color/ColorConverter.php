@@ -23,11 +23,9 @@ use function min;
 use function round;
 use function sprintf;
 
-final class NativeColorConverter implements IColorConverter
+final class ColorConverter implements IColorConverter
 {
-    /**
-     * @throws InvalidArgumentException
-     */
+    /** @inheritdoc */
     public function toHSL(string|IColor $color): HSLColor
     {
         if ($color instanceof HSLColor) {
@@ -85,9 +83,7 @@ final class NativeColorConverter implements IColorConverter
         return RGBColor::fromHex($color);
     }
 
-    /**
-     * @throws InvalidArgumentException
-     */
+    /** @inheritdoc */
     public function toRGB(string|IColor $color): RGBColor
     {
         if ($color instanceof RGBColor) {
@@ -128,11 +124,7 @@ final class NativeColorConverter implements IColorConverter
             );
     }
 
-    /**
-     * @param Traversable $colors Colors to generate gradients between
-     * @param int $steps Steps per gradient
-     * @throws InvalidArgumentException
-     */
+    /** @inheritdoc */
     public function gradients(Traversable $colors, int $steps = 10, null|string|IColor $fromColor = null): Generator
     {
         /** @var string|IColor $color */
@@ -167,10 +159,8 @@ final class NativeColorConverter implements IColorConverter
         );
     }
 
-    /**
-     * @throws InvalidArgumentException
-     */
-    protected function gradient(string|IColor $from, string|IColor $to, int $steps = 100): Generator
+    /** @inheritdoc */
+    public function gradient(string|IColor $from, string|IColor $to, int $steps = 100): Generator
     {
         $from = $this->refineRGB($from);
         $to = $this->refineRGB($to);
@@ -180,14 +170,11 @@ final class NativeColorConverter implements IColorConverter
         $bStep = ($to->blue - $from->blue) / $steps;
 
         for ($i = 0; $i < $steps; $i++) {
-            $dto =
-                new RGBColor(
-                    (int)round($from->red + $rStep * $i),
-                    (int)round($from->green + $gStep * $i),
-                    (int)round($from->blue + $bStep * $i),
-                );
-
-            yield $dto->__toString();
+            yield new RGBColor(
+                (int)round($from->red + $rStep * $i),
+                (int)round($from->green + $gStep * $i),
+                (int)round($from->blue + $bStep * $i),
+            );
         }
     }
 }
