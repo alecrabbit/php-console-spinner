@@ -43,6 +43,6 @@ abstract class AStylePattern extends AReversiblePattern implements IStylePattern
      */
     protected function extractPattern(): array
     {
-        return self::PATTERN;
+        return static::PATTERN;
     }
 }
