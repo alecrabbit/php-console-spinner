@@ -22,7 +22,8 @@
         "revolt"
     ],
     "require": {
-        "php": ">=8.2"
+        "php": ">=8.2",
+        "psr/container": "^2.0"
     },
     "require-dev": {
         "alecrabbit/php-wcwidth": "^1.0.0-ALPHA.0",
