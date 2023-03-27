@@ -15,6 +15,8 @@ abstract class AStylePattern extends AReversiblePattern implements IStylePattern
 {
     /** @var StyleMode */
     protected const STYLE_MODE = StyleMode::ANSI8;
+
+    /** @var array<int, string> */
     protected const PATTERN = ['#c0c0c0'];
 
     public function __construct(
