@@ -11,13 +11,15 @@ use AlecRabbit\Spinner\Core\Pattern\Style\A\AMultiModeStylePattern;
 final class Rainbow extends AMultiModeStylePattern
 {
     protected const UPDATE_INTERVAL = 80;
-    protected const MULTI_PATTERN = [
-        StyleMode::ANSI4->value =>
-            [
+
+    /** @inheritdoc */
+    protected function extractPattern(): array
+    {
+        return match ($this->styleMode) {
+            StyleMode::ANSI4 => [
                 '#00ffff', // light cyan
             ],
-        StyleMode::ANSI8->value =>
-            [
+            StyleMode::ANSI8 => [
                 '#ff0000', // 196
                 '#ff8700', // 208
                 '#ffaf00', // 214
@@ -48,8 +50,7 @@ final class Rainbow extends AMultiModeStylePattern
                 '#ff0087', // 198
                 '#ff005f', // 197
             ],
-        StyleMode::ANSI24->value =>
-            [
+            StyleMode::ANSI24 => [
                 '#ff0000',
                 '#ff0400',
                 '#ff0800',
@@ -414,5 +415,7 @@ final class Rainbow extends AMultiModeStylePattern
                 '#ff0008',
                 '#ff0004',
             ],
-    ];
+            default => self::PATTERN,
+        };
+    }
 }
