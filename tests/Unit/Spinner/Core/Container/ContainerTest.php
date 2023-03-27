@@ -34,23 +34,6 @@ final class ContainerTest extends TestCase
     }
 
     #[Test]
-    public function canBeCreatedOnlyWithValidDefinitions(): void
-    {
-        $exception = ContainerException::class;
-        $exceptionMessage = 'Definition should be callable, object or string, integer given.';
-
-        $this->expectException($exception);
-        $this->expectExceptionMessage($exceptionMessage);
-
-        $container = new Container([
-            'foo' => 'bar',
-            'baz' => 1,
-        ]);
-
-        self::exceptionNotThrown($exception, $exceptionMessage);
-    }
-
-    #[Test]
     public function canAddDefinitionsAfterCreate(): void
     {
         $container = new Container([]);
@@ -64,7 +47,21 @@ final class ContainerTest extends TestCase
     }
 
     #[Test]
-    public function canAddOnlyValidDefinitionsAfterCreate(): void
+    public function canGetDefinition(): void
+    {
+        $container = new Container([
+            \stdClass::class => \stdClass::class,
+            'foo' => fn () => new \stdClass(),
+            'bar' => new \stdClass(),
+        ]);
+
+        $this->assertInstanceOf(\stdClass::class, $container->get(\stdClass::class));
+        $this->assertInstanceOf(\stdClass::class, $container->get('foo'));
+        $this->assertInstanceOf(\stdClass::class, $container->get('bar'));
+    }
+
+    #[Test]
+    public function throwsWhenInvalidDefinitionsAreAdded(): void
     {
         $exception = ContainerException::class;
         $exceptionMessage = 'Definition should be callable, object or string, integer given.';
@@ -114,16 +111,19 @@ final class ContainerTest extends TestCase
     }
 
     #[Test]
-    public function canGetDefinition(): void
+    public function throwsWhenBeCreatedWithInvalidDefinitions(): void
     {
+        $exception = ContainerException::class;
+        $exceptionMessage = 'Definition should be callable, object or string, integer given.';
+
+        $this->expectException($exception);
+        $this->expectExceptionMessage($exceptionMessage);
+
         $container = new Container([
-            \stdClass::class => \stdClass::class,
-            'foo' => fn () => new \stdClass(),
-            'bar' => new \stdClass(),
+            'foo' => 'bar',
+            'baz' => 1,
         ]);
 
-        $this->assertInstanceOf(\stdClass::class, $container->get(\stdClass::class));
-        $this->assertInstanceOf(\stdClass::class, $container->get('foo'));
-        $this->assertInstanceOf(\stdClass::class, $container->get('bar'));
+        self::exceptionNotThrown($exception, $exceptionMessage);
     }
 }
