@@ -49,4 +49,16 @@ final class ContainerTest extends TestCase
 
         self::exceptionNotThrown($exception, $exceptionMessage);
     }
+
+    #[Test]
+    public function canAddDefinitionsAfterCreate(): void
+    {
+        $container = new Container([]);
+
+        $container->add('foo', 'bar');
+        $container->add('bar', 'baz');
+
+        $this->assertTrue($container->has('foo'));
+        $this->assertTrue($container->has('bar'));
+    }
 }
