@@ -17,7 +17,7 @@ interface IContainer extends ContainerInterface
     public function has(string $id): bool;
 
     /**
-     * Adds definition to the container. **Does not** create service.
+     * Adds definition to the container. **Does not** instantiate service.
      *
      * @param string $id Identifier of the entry to add.
      * @param callable|object|string $definition Definition of the entry to add.
