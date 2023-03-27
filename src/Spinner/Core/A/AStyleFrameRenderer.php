@@ -70,7 +70,8 @@ abstract class AStyleFrameRenderer implements IStyleFrameRenderer
 
         $color = '3' . $ansiCode . 'm' . '%s';
 
-        return $this->sequenceFrame($color, 0);
+        return
+            $this->sequenceFrame($color, 0);
     }
 
     /**
@@ -85,7 +86,8 @@ abstract class AStyleFrameRenderer implements IStyleFrameRenderer
         }
 
         $color = $this->flattenStyle($entry, $styleMode);
-        return $this->sequenceFrame($color, $entry->getWidth());
+        return
+            $this->sequenceFrame($color, $entry->getWidth());
     }
 
     /**
@@ -110,6 +112,9 @@ abstract class AStyleFrameRenderer implements IStyleFrameRenderer
         return $color;
     }
 
+    /**
+     * FIXME rename method
+     */
     protected function sequenceFrame(string $color, int $width): IFrame
     {
         /** @var ISequencer $sequencer */
