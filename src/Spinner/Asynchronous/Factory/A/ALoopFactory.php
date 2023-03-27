@@ -25,10 +25,10 @@ abstract class ALoopFactory extends ADefaultsAwareClass implements ILoopFactory
         if (static::$loop instanceof ILoopAdapter) {
             return static::$loop;
         }
-        return static::createLoop();
+        return static::createLoopAdapter();
     }
 
-    protected static function createLoop(): ILoopAdapter
+    protected static function createLoopAdapter(): ILoopAdapter
     {
         /** @var class-string<IProbe> $probe */
         foreach (static::getProbeClasses() as $probe) {

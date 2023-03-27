@@ -18,7 +18,7 @@ use Generator;
 use Stringable;
 use Traversable;
 
-abstract class AFrameCollectionRenderer extends ADefaultsAwareClass implements IFrameCollectionRenderer
+abstract class AFrameCollectionRenderer implements IFrameCollectionRenderer
 {
     protected ?IPattern $pattern = null;
 
