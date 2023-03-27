@@ -16,7 +16,7 @@ final class ContainerTest extends TestCase
     #[Test]
     public function canBeCreatedEmpty(): void
     {
-        $container = new Container([]);
+        $container = new Container(new \ArrayObject([]));
 
         self::assertFalse($container->has('foo'));
         self::assertCount(0, self::getValue('definitions', $container));
@@ -25,10 +25,10 @@ final class ContainerTest extends TestCase
     #[Test]
     public function canBeCreatedWithDefinitions(): void
     {
-        $container = new Container([
+        $container = new Container(new \ArrayObject([
             'foo' => 'bar',
             'bar' => 'baz',
-        ]);
+        ]));
 
         self::assertTrue($container->has('foo'));
         self::assertTrue($container->has('bar'));
@@ -38,7 +38,7 @@ final class ContainerTest extends TestCase
     #[Test]
     public function canAddDefinitionsAfterCreate(): void
     {
-        $container = new Container([]);
+        $container = new Container(new \ArrayObject([]));
 
         $container->add('foo', 'bar');
         $container->add('bar', 'baz');
@@ -51,11 +51,11 @@ final class ContainerTest extends TestCase
     #[Test]
     public function canGetServiceAndItIsSameServiceEveryTime(): void
     {
-        $container = new Container([
+        $container = new Container(new \ArrayObject([
             \stdClass::class => \stdClass::class,
             'foo' => fn () => new \stdClass(),
             'bar' => new \stdClass(),
-        ]);
+        ]));
 
         $serviceOne = $container->get(\stdClass::class);
         self::assertInstanceOf(\stdClass::class, $serviceOne);
@@ -71,22 +71,6 @@ final class ContainerTest extends TestCase
     }
 
     #[Test]
-    public function throwsWhenInvalidDefinitionsAreAdded(): void
-    {
-        $exception = ContainerException::class;
-        $exceptionMessage = 'Definition should be callable, object or string, integer given.';
-
-        $this->expectException($exception);
-        $this->expectExceptionMessage($exceptionMessage);
-
-        $container = new Container([]);
-
-        $container->add('baz', 1);
-
-        self::exceptionNotThrown($exception, $exceptionMessage);
-    }
-
-    #[Test]
     public function throwsIfNoServiceFoundById(): void
     {
         $exception = ContainerException::class;
@@ -95,7 +79,7 @@ final class ContainerTest extends TestCase
         $this->expectException($exception);
         $this->expectExceptionMessage($exceptionMessage);
 
-        $container = new Container([]);
+        $container = new Container(new \ArrayObject([]));
 
         $container->get('foo');
 
@@ -111,9 +95,9 @@ final class ContainerTest extends TestCase
         $this->expectException($exception);
         $this->expectExceptionMessage($exceptionMessage);
 
-        $container = new Container([
+        $container = new Container(new \ArrayObject([
             'foo' => 'bar',
-        ]);
+        ]));
 
         $container->get('foo');
 
@@ -129,10 +113,10 @@ final class ContainerTest extends TestCase
         $this->expectException($exception);
         $this->expectExceptionMessage($exceptionMessage);
 
-        $container = new Container([
+        $container = new Container(new \ArrayObject([
             'foo' => 'bar',
             'baz' => 1,
-        ]);
+        ]));
 
         self::exceptionNotThrown($exception, $exceptionMessage);
     }
@@ -146,9 +130,9 @@ final class ContainerTest extends TestCase
         $this->expectException($exception);
         $this->expectExceptionMessage($exceptionMessage);
 
-        $container = new Container([
+        $container = new Container(new \ArrayObject([
             'foo' => fn () => throw new \InvalidArgumentException('Intentional exception.'),
-        ]);
+        ]));
 
         $container->get('foo');
 
@@ -164,11 +148,47 @@ final class ContainerTest extends TestCase
         $this->expectException($exception);
         $this->expectExceptionMessage($exceptionMessage);
 
-        $container = new Container([
+        $container = new Container(new \ArrayObject([
             'foo' => NonInstantiableClass::class,
-        ]);
+        ]));
 
         $container->get('foo');
+
+        self::exceptionNotThrown($exception, $exceptionMessage);
+    }
+
+    #[Test]
+    public function throwsWhenAddedIdIsAlreadyRegistered(): void
+    {
+        $exception = ContainerException::class;
+        $exceptionMessage = 'Definition with id "foo" already registered in the container.' ;
+
+        $this->expectException($exception);
+        $this->expectExceptionMessage($exceptionMessage);
+
+        $container = new Container(new \ArrayObject([
+            'foo' => 'bar',
+        ]));
+
+        $container->add('foo', 'baz');
+
+        self::exceptionNotThrown($exception, $exceptionMessage);
+    }
+
+    #[Test]
+    public function throwsWhenOneOfDefinitionsAlreadyRegistered(): void
+    {
+        $exception = ContainerException::class;
+        $exceptionMessage = 'Definition with id "foo" already registered in the container.' ;
+
+        $this->expectException($exception);
+        $this->expectExceptionMessage($exceptionMessage);
+
+        $definitions = static function (): \Generator {
+            yield 'foo' => 'bar';
+            yield 'foo' => 'bar';
+        };
+        $container = new Container($definitions());
 
         self::exceptionNotThrown($exception, $exceptionMessage);
     }

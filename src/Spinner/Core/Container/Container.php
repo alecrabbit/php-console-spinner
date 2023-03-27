@@ -8,6 +8,7 @@ use AlecRabbit\Spinner\Core\Container\Contract\IContainer;
 use AlecRabbit\Spinner\Core\Container\Exception\ContainerException;
 use AlecRabbit\Spinner\Core\Container\Exception\NotInContainerException;
 use Throwable;
+use Traversable;
 
 final class Container implements IContainer
 {
@@ -18,12 +19,11 @@ final class Container implements IContainer
     private array $services = [];
 
     /**
-     * Create a container object with a set of definitions. The array value MUST
-     * produce an object that implements Extension.
+     * Create a container object with a set of definitions.
      *
-     * @param array<string, callable|object|string> $definitions
+     * @param Traversable<string, callable|object|string> $definitions
      */
-    public function __construct(array $definitions)
+    public function __construct(Traversable $definitions)
     {
         /** @var callable|object|string $definition */
         foreach ($definitions as $id => $definition) {
@@ -42,17 +42,19 @@ final class Container implements IContainer
             );
         }
 
+        if ($this->has($id)) {
+            throw new ContainerException(
+                sprintf(
+                    'Definition with id "%s" already registered in the container.',
+                    $id,
+                )
+            );
+        }
+
         $this->definitions[$id] = $definition;
     }
 
-    /**
-     * Retrieve a service from the container.
-     *
-     * @param string $id
-     *
-     * @return object
-     * @throws NotInContainerException
-     */
+    /** @inheritdoc */
     public function get(string $id): object
     {
         if (array_key_exists($id, $this->services)) {
@@ -73,24 +75,12 @@ final class Container implements IContainer
         return $this->services[$id] = $this->getService($id, $definition);
     }
 
-    /**
-     * Check if the container contains a given identifier.
-     *
-     * @param string $id
-     * @return bool
-     */
+    /** @inheritdoc */
     public function has(string $id): bool
     {
         return array_key_exists($id, $this->definitions);
     }
 
-    /**
-     * Get the service from a definition.
-     *
-     * @param string $id
-     * @param callable|object|string $definition
-     * @return object
-     */
     private function getService(string $id, callable|object|string $definition): object
     {
         return match (true) {
@@ -152,8 +142,30 @@ final class Container implements IContainer
         );
     }
 
-    public function add(string $id, mixed $definition): void
+    /** @inheritdoc */
+    public function add(string $id, callable|object|string $definition): void
     {
         $this->addDefinition($id, $definition);
+    }
+
+    /** @inheritdoc */
+    public function remove(string $id): void
+    {
+        if (!$this->has($id)) {
+            throw new NotInContainerException(
+                sprintf(
+                    'No definition with id "%s" in the container.',
+                    $id,
+                )
+            );
+        }
+        unset($this->definitions[$id], $this->services[$id]);
+    }
+
+    /** @inheritdoc */
+    public function replace(string $id, callable|object|string $definition): void
+    {
+        $this->remove($id);
+        $this->add($id, $definition);
     }
 }
