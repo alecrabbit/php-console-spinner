@@ -33,13 +33,6 @@ final class Container implements IContainer
 
     private function addDefinition(string $id, mixed $definition): void
     {
-        self::assertDefinition($definition);
-        /** @psalm-suppress MixedPropertyTypeCoercion */
-        $this->definitions[$id] = $definition;
-    }
-
-    private static function assertDefinition(mixed $definition): void
-    {
         if (!is_callable($definition) && !is_object($definition) && !is_string($definition)) {
             throw new ContainerException(
                 sprintf(
@@ -48,6 +41,8 @@ final class Container implements IContainer
                 )
             );
         }
+
+        $this->definitions[$id] = $definition;
     }
 
     /**
@@ -87,11 +82,6 @@ final class Container implements IContainer
     public function has(string $id): bool
     {
         return array_key_exists($id, $this->definitions);
-    }
-
-    public function add(string $id, mixed $definition): void
-    {
-        $this->addDefinition($id, $definition);
     }
 
     /**
@@ -144,5 +134,10 @@ final class Container implements IContainer
                 $id,
             )
         );
+    }
+
+    public function add(string $id, mixed $definition): void
+    {
+        $this->addDefinition($id, $definition);
     }
 }
