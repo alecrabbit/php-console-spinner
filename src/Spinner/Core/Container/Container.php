@@ -26,16 +26,16 @@ final class Container implements IContainer
     public function __construct(array $definitions)
     {
         /** @var callable|object|string $definition */
-        foreach ($definitions as $definition) {
-            $this->addDefinition($definition);
+        foreach ($definitions as $id => $definition) {
+            $this->addDefinition($id, $definition);
         }
     }
 
-    private function addDefinition(mixed $definition): void
+    private function addDefinition(string $id, mixed $definition): void
     {
         self::assertDefinition($definition);
-        /** @psalm-suppress InvalidPropertyAssignmentValue */
-        $this->definitions[] = $definition;
+        /** @psalm-suppress MixedPropertyTypeCoercion */
+        $this->definitions[$id] = $definition;
     }
 
     private static function assertDefinition(mixed $definition): void
@@ -87,6 +87,11 @@ final class Container implements IContainer
     public function has(string $id): bool
     {
         return array_key_exists($id, $this->definitions);
+    }
+
+    public function add(string $id, mixed $definition): void
+    {
+        $this->addDefinition($id, $definition);
     }
 
     /**
