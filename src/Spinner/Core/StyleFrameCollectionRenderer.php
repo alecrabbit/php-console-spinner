@@ -16,7 +16,6 @@ use AlecRabbit\Spinner\Core\A\AFrameCollectionRenderer;
 use AlecRabbit\Spinner\Core\Factory\FrameFactory;
 use AlecRabbit\Spinner\Core\Pattern\Contract\IStylePattern;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
-use AlecRabbit\Spinner\Exception\LogicException;
 use ArrayObject;
 
 final class StyleFrameCollectionRenderer extends AFrameCollectionRenderer
@@ -24,9 +23,8 @@ final class StyleFrameCollectionRenderer extends AFrameCollectionRenderer
     private StyleMode $styleMode = StyleMode::NONE;
 
     public function __construct(
-        IStyleFrameRenderer $frameRenderer,
+        protected IStyleFrameRenderer $frameRenderer,
     ) {
-        parent::__construct($frameRenderer);
     }
 
     /** @inheritdoc */
@@ -44,31 +42,40 @@ final class StyleFrameCollectionRenderer extends AFrameCollectionRenderer
 
         $clone = clone $this;
         $clone->pattern = $pattern;
-        $clone->styleMode = $pattern->getColorMode();
+        $clone->styleMode = $pattern->getStyleMode();
         return $clone;
     }
 
     /**
-     * @throws LogicException
      * @throws InvalidArgumentException
      */
     protected function createFrame(string|IStyle $entry): IFrame
     {
-        /** @var IStyleFrameRenderer $this->frameRenderer */
         return $this->frameRenderer->render($entry, $this->styleMode);
     }
 
     /** @inheritdoc */
     public function render(): IFrameCollection
     {
-        if (!$this->frameRenderer->isStyleEnabled()) {
+        if ($this->frameRenderer->isStylingDisabled()) {
             return
-                $this->createCollection(
-                    new ArrayObject(
-                        [FrameFactory::create('%s', 0)]
-                    )
-                );
+                $this->createCollectionWithOneStyle();
         }
         return parent::render();
+    }
+
+    /**
+     * @throws InvalidArgumentException
+     */
+    private function createCollectionWithOneStyle(): FrameCollection
+    {
+        return
+            $this->createCollection(
+                new ArrayObject(
+                    [
+                        FrameFactory::create('%s', 0), // no styling
+                    ]
+                )
+            );
     }
 }

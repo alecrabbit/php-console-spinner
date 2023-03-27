@@ -24,6 +24,7 @@ final class Facade extends ADefaultsAwareClass implements
     IConfigBuilderGetter,
     ILoopGetter
 {
+    /** @var class-string<ILoopHelper>|null */
     protected static ?string $loopHelperClass = null;
 
     public static function getConfigBuilder(): IConfigBuilder
@@ -49,10 +50,11 @@ final class Facade extends ADefaultsAwareClass implements
         /** @var ILoopHelper $loopHelper */
         $loopHelper = self::getLoopHelper();
         return
-            $loopHelper::get();
+            $loopHelper::getLoopAdapter();
     }
 
     /**
+     * @return class-string<ILoopHelper>
      * @throws DomainException
      */
     public static function getLoopHelper(): string
@@ -64,7 +66,7 @@ final class Facade extends ADefaultsAwareClass implements
     }
 
     /**
-     * @param class-string $class
+     * @param class-string<ILoopHelper> $class
      * @throws InvalidArgumentException
      */
     public static function registerLoopHelperClass(string $class): void

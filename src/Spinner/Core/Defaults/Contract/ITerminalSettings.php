@@ -23,7 +23,7 @@ interface ITerminalSettings extends IDefaultsChild
 
     public function overrideWidth(int $width): static;
 
-    public function getColorMode(): StyleMode;
+    public function getStyleMode(): StyleMode;
 
     public function overrideColorMode(StyleMode $colorMode): static;
 

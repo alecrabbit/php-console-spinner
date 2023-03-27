@@ -18,15 +18,9 @@ use Generator;
 use Stringable;
 use Traversable;
 
-abstract class AFrameCollectionRenderer extends ADefaultsAwareClass implements IFrameCollectionRenderer
+abstract class AFrameCollectionRenderer implements IFrameCollectionRenderer
 {
     protected ?IPattern $pattern = null;
-
-    public function __construct(
-        protected IFrameRenderer $frameRenderer,
-    ) {
-    }
-
 
     /** @inheritdoc */
     public function pattern(IPattern $pattern): IFrameCollectionRenderer

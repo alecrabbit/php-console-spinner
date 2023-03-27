@@ -24,7 +24,7 @@ $output->writeln(
     sprintf(
         'Terminal width: %d, color mode: %s',
         $terminal->getWidth(),
-        $terminal->getColorMode()->name
+        $terminal->getStyleMode()->name
     )
 );
 

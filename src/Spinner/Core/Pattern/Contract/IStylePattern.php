@@ -10,5 +10,5 @@ use AlecRabbit\Spinner\Contract\StyleMode;
 
 interface IStylePattern extends IPattern
 {
-    public function getColorMode(): StyleMode;
+    public function getStyleMode(): StyleMode;
 }

@@ -7,7 +7,7 @@ namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Core\A;
 use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Core\Factory\FrameFactory;
 use AlecRabbit\Tests\Spinner\TestCase\TestCase;
-use AlecRabbit\Tests\Spinner\Unit\Spinner\Core\A\Override\FrameClass;
+use AlecRabbit\Tests\Spinner\Unit\Spinner\Core\A\Override\AFrameOverride;
 
 final class AFrameTest extends TestCase
 {
@@ -65,15 +65,15 @@ final class AFrameTest extends TestCase
     {
         $this->expectsException($expected);
 
-        $frame = self::getInstance($incoming[self::ARGUMENTS] ?? []);
+        $frame = self::getTesteeInstance($incoming[self::ARGUMENTS] ?? []);
 
         self::assertSame($expected[self::SEQUENCE], $frame->sequence());
         self::assertSame($expected[self::WIDTH], $frame->width());
     }
 
-    public static function getInstance(array $args = []): IFrame
+    public static function getTesteeInstance(array $args = []): IFrame
     {
-        return new FrameClass(...$args);
+        return new AFrameOverride(...$args);
     }
 
     /**

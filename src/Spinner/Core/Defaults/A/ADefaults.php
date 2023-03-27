@@ -74,9 +74,17 @@ abstract class ADefaults extends ASettableDefaults
     public function getStylePattern(): IPattern
     {
         if (null === static::$stylePattern) {
-            static::$stylePattern = new Rainbow();
+            static::$stylePattern =
+                new Rainbow(
+                    styleMode: $this->getTerminalSettings()->getStyleMode(),
+                );
         }
         return static::$stylePattern;
+    }
+
+    public function getTerminalSettings(): ITerminalSettings
+    {
+        return static::$terminalSettings;
     }
 
     public function getCharPattern(): IPattern
@@ -90,11 +98,6 @@ abstract class ADefaults extends ASettableDefaults
     public function getProbeClasses(): Traversable
     {
         return static::$loopProbes;
-    }
-
-    public function getTerminalSettings(): ITerminalSettings
-    {
-        return static::$terminalSettings;
     }
 
     public function getDriverSettings(): IDriverSettings

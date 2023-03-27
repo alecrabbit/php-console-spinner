@@ -6,10 +6,12 @@ namespace AlecRabbit\Spinner\Contract;
 
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 
-interface IStyleFrameRenderer extends IFrameRenderer
+interface IStyleFrameRenderer
 {
     /**
      * @throws InvalidArgumentException
      */
-    public function render(string|IStyle $entry, StyleMode $styleMode = StyleMode::NONE): IFrame;
+    public function render(int|string|IStyle $entry, StyleMode $styleMode = StyleMode::NONE): IFrame;
+
+    public function isStylingDisabled(): bool;
 }

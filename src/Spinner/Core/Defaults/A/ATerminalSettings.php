@@ -48,7 +48,7 @@ abstract class ATerminalSettings extends ADefaultsChild implements ITerminalSett
         return self::$objInstance;
     }
 
-    public function getColorMode(): StyleMode
+    public function getStyleMode(): StyleMode
     {
         return $this->colorMode;
     }
