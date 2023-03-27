@@ -38,7 +38,7 @@ final class StyleFrameCollectionRendererTest extends TestCase
                     self::PATTERN =>
                         new CustomStylePattern(
                             [new Style('#ff0000')],
-                            colorMode: StyleMode::NONE
+                            styleMode: StyleMode::NONE
                         ),
                 ],
             ],
@@ -57,7 +57,7 @@ final class StyleFrameCollectionRendererTest extends TestCase
                     self::PATTERN =>
                         new CustomStylePattern(
                             [new Style('#ff0000')],
-                            colorMode: StyleMode::ANSI4
+                            styleMode: StyleMode::ANSI4
                         ),
                 ],
             ],
@@ -76,7 +76,7 @@ final class StyleFrameCollectionRendererTest extends TestCase
                     self::PATTERN =>
                         new CustomStylePattern(
                             [new Style('#ff0000')],
-                            colorMode: StyleMode::ANSI8
+                            styleMode: StyleMode::ANSI8
                         ),
                 ],
             ],
@@ -95,7 +95,7 @@ final class StyleFrameCollectionRendererTest extends TestCase
                     self::PATTERN =>
                         new CustomStylePattern(
                             [new Style('#ff0000')],
-                            colorMode: StyleMode::ANSI24
+                            styleMode: StyleMode::ANSI24
                         ),
                 ],
             ],
@@ -114,7 +114,7 @@ final class StyleFrameCollectionRendererTest extends TestCase
                     self::PATTERN =>
                         new CustomStylePattern(
                             [new Style('#ff0000')],
-                            colorMode: StyleMode::ANSI24
+                            styleMode: StyleMode::ANSI24
                         ),
                 ],
             ],
@@ -133,7 +133,7 @@ final class StyleFrameCollectionRendererTest extends TestCase
                     self::PATTERN =>
                         new CustomStylePattern(
                             [new Style('#ff0000')],
-                            colorMode: StyleMode::ANSI8
+                            styleMode: StyleMode::ANSI8
                         ),
                 ],
             ],
@@ -157,7 +157,7 @@ final class StyleFrameCollectionRendererTest extends TestCase
                                 new Style('#ff0000', '#000000'),
                                 new Style('#ff005f')
                             ],
-                            colorMode: StyleMode::ANSI8
+                            styleMode: StyleMode::ANSI8
                         ),
                 ],
             ],
@@ -196,7 +196,7 @@ final class StyleFrameCollectionRendererTest extends TestCase
                     self::PATTERN =>
                         new CustomStylePattern(
                             ['#ff0000'],
-                            colorMode: StyleMode::ANSI8
+                            styleMode: StyleMode::ANSI8
                         ),
                 ],
             ],
