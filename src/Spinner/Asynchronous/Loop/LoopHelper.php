@@ -16,10 +16,10 @@ final class LoopHelper implements ILoopHelper
 
     public static function attach(ISpinner $spinner): void
     {
-        self::get()->attach($spinner);
+        self::getLoopAdapter()->attach($spinner);
     }
 
-    public static function get(): ILoopAdapter
+    public static function getLoopAdapter(): ILoopAdapter
     {
         if (self::$loopInstance instanceof ILoopAdapter) {
             return self::$loopInstance;
@@ -32,12 +32,12 @@ final class LoopHelper implements ILoopHelper
 
     public static function setSignalHandlers(ISpinner $spinner, ?iterable $handlers = null): void
     {
-        $handlers ??= self::get()->createSignalHandlers($spinner);
-        self::get()->setSignalHandlers($handlers);
+        $handlers ??= self::getLoopAdapter()->createSignalHandlers($spinner);
+        self::getLoopAdapter()->setSignalHandlers($handlers);
     }
 
     public static function autoStart(): void
     {
-        self::get()->autoStart();
+        self::getLoopAdapter()->autoStart();
     }
 }
