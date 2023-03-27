@@ -6,16 +6,12 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Pattern\Style;
 
 use AlecRabbit\Spinner\Contract\StyleMode;
-use AlecRabbit\Spinner\Core\Pattern\Style\A\AStylePattern;
-use ArrayObject;
-use Traversable;
+use AlecRabbit\Spinner\Core\Pattern\Style\A\AMultiModeStylePattern;
 
-final class Rainbow extends AStylePattern
+final class Rainbow extends AMultiModeStylePattern
 {
-    protected const UPDATE_INTERVAL = 400;
-
-    /** @var array<int, array<int, string>> */
-    protected const PATTERN = [
+    protected const UPDATE_INTERVAL = 80;
+    protected const MULTI_PATTERN = [
         StyleMode::ANSI4->value =>
             [
                 '#00ffff', // light cyan
@@ -68,6 +64,7 @@ final class Rainbow extends AStylePattern
                 '#ff2e00',
                 '#ff3200',
                 '#ff3700',
+                '#00ffff', // light cyan todo remove
                 '#ff3b00',
                 '#ff3f00',
                 '#ff4300',
@@ -90,6 +87,7 @@ final class Rainbow extends AStylePattern
                 '#ff8c00',
                 '#ff9000',
                 '#ff9400',
+                '#00ffff', // light cyan todo remove
                 '#ff9900',
                 '#ff9d00',
                 '#ffa100',
@@ -119,6 +117,7 @@ final class Rainbow extends AStylePattern
                 '#f6ff00',
                 '#f2ff00',
                 '#eeff00',
+                '#00ffff', // light cyan todo remove
                 '#e9ff00',
                 '#e5ff00',
                 '#e1ff00',
@@ -416,27 +415,4 @@ final class Rainbow extends AStylePattern
                 '#ff0004',
             ],
     ];
-
-    public function __construct(
-        ?int $interval = null,
-        bool $reversed = false,
-        protected StyleMode $styleMode = self::STYLE_MODE
-    ) {
-        parent::__construct($interval, $reversed);
-    }
-
-    public function getStyleMode(): StyleMode
-    {
-        return $this->styleMode;
-    }
-
-    protected function pattern(): Traversable
-    {
-        return
-            new ArrayObject(
-                self::PATTERN[$this->styleMode->value] ?? self::PATTERN[self::STYLE_MODE->value]
-            );
-    }
-
-
 }

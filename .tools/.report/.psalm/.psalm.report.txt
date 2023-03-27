@@ -1,4 +1,2 @@
-/app/src/Spinner/Core/Pattern/Style/Rainbow.php:18:21:error - LessSpecificClassConstantType: The type "mixed" for AlecRabbit\Spinner\Core\Pattern\Style\Rainbow::PATTERN is more general than the type "array<int, string>" inherited from AlecRabbit\Spinner\Core\Pattern\Style\A\AStylePattern::PATTERN
-/app/src/Spinner/Core/Pattern/Style/Rainbow.php:437:17:error - MixedArrayAccess: Cannot access array value on mixed variable AlecRabbit\Spinner\Core\Pattern\Style\Rainbow::PATTERN
-/app/src/Spinner/Core/Pattern/Style/Rainbow.php:437:17:error - MixedArgument: Argument 1 of ArrayObject::__construct cannot be mixed, expecting array<mixed, mixed>|null|object
-/app/src/Spinner/Core/Pattern/Style/Rainbow.php:437:61:error - MixedArrayAccess: Cannot access array value on mixed variable AlecRabbit\Spinner\Core\Pattern\Style\Rainbow::PATTERN
+/app/src/Spinner/Core/Pattern/Style/A/AMultiModeStylePattern.php:44:16:error - MixedInferredReturnType: Could not verify return type 'array<int, string>' for AlecRabbit\Spinner\Core\Pattern\Style\A\AMultiModeStylePattern::extractPattern
+/app/src/Spinner/Core/Pattern/Style/A/AMultiModeStylePattern.php:48:16:error - MixedReturnStatement: Could not infer a return type
