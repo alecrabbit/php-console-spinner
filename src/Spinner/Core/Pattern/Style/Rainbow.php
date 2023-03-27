@@ -21,6 +21,7 @@ final class Rainbow extends AStylePattern
                     '#00ffff', // light cyan
                 ],
                 StyleMode::ANSI8 => [
+                    // hex   , // ANSI8 color
                     '#ff0000', // 196
                     '#ff8700', // 208
                     '#ffaf00', // 214
