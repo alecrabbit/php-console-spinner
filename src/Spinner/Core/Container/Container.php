@@ -97,42 +97,49 @@ final class Container implements IContainer
      */
     private function getService(string $id, callable|object|string $definition): object
     {
-        if (is_callable($definition)) {
-            try {
-                return $definition();
-            } catch (Throwable $e) {
-                throw new ContainerException(
-                    sprintf('Error while invoking callable for "%s"', $id),
-                    previous: $e,
-                );
-            }
-        } elseif (is_object($definition)) {
-            return $definition;
-        } elseif (is_string($definition)) {
-            if (class_exists($definition)) {
-                try {
-                    return new $definition();
-                } catch (Throwable $e) {
-                    throw new ContainerException(
-                        sprintf('Could not instantiate class "%s"', $id),
-                        previous: $e
-                    );
-                }
-            }
-
-            throw new ContainerException(
-                sprintf(
-                    'Could not instantiate class "%s". Class was not found.',
-                    $id,
-                )
-            );
-        } else {
-            throw new ContainerException(
+        return match (true) {
+            is_callable($definition) => $this->createServiceWithCallable($definition, $id),
+            is_string($definition) => $this->getServiceWithString($definition, $id),
+            is_object($definition) => $definition,
+            default => throw new ContainerException(
                 sprintf(
                     'Invalid type for definition with id "%s"',
                     $id,
                 )
+            ),
+        };
+    }
+
+    private function createServiceWithCallable(callable $definition, string $id): object
+    {
+        try {
+            return $definition();
+        } catch (Throwable $e) {
+            throw new ContainerException(
+                sprintf('Error while invoking callable for "%s"', $id),
+                previous: $e,
             );
         }
+    }
+
+    private function getServiceWithString(string $definition, string $id): object
+    {
+        if (class_exists($definition)) {
+            try {
+                return new $definition();
+            } catch (Throwable $e) {
+                throw new ContainerException(
+                    sprintf('Could not instantiate class "%s"', $id),
+                    previous: $e
+                );
+            }
+        }
+
+        throw new ContainerException(
+            sprintf(
+                'Could not instantiate class "%s". Class was not found.',
+                $id,
+            )
+        );
     }
 }
