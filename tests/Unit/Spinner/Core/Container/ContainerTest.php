@@ -6,7 +6,9 @@ namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Core\Container;
 
 use AlecRabbit\Spinner\Core\Container\Container;
 use AlecRabbit\Spinner\Core\Container\Exception\ContainerException;
+use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Tests\Spinner\TestCase\TestCase;
+use AlecRabbit\Tests\Spinner\Unit\Spinner\Core\Container\Override\NonInstantiableClass;
 use PHPUnit\Framework\Attributes\Test;
 
 final class ContainerTest extends TestCase
@@ -123,6 +125,42 @@ final class ContainerTest extends TestCase
             'foo' => 'bar',
             'baz' => 1,
         ]);
+
+        self::exceptionNotThrown($exception, $exceptionMessage);
+    }
+
+    #[Test]
+    public function throwsWhenFailsToInstantiateServiceWithCallable(): void
+    {
+        $exception = ContainerException::class;
+        $exceptionMessage = 'Could not instantiate service with callable for "foo".';
+
+        $this->expectException($exception);
+        $this->expectExceptionMessage($exceptionMessage);
+
+        $container = new Container([
+            'foo' => fn () => throw new \InvalidArgumentException('Intentional exception.'),
+        ]);
+
+        $container->get('foo');
+
+        self::exceptionNotThrown($exception, $exceptionMessage);
+    }
+
+    #[Test]
+    public function throwsWhenFailsToInstantiateServiceByConstructor(): void
+    {
+        $exception = ContainerException::class;
+        $exceptionMessage = 'Could not instantiate service by __construct() for "foo".';
+
+        $this->expectException($exception);
+        $this->expectExceptionMessage($exceptionMessage);
+
+        $container = new Container([
+            'foo' => NonInstantiableClass::class,
+        ]);
+
+        $container->get('foo');
 
         self::exceptionNotThrown($exception, $exceptionMessage);
     }

@@ -108,7 +108,15 @@ final class Container implements IContainer
             return $definition();
         } catch (Throwable $e) {
             throw new ContainerException(
-                sprintf('Could not instantiate service with callable for "%s".', $id),
+                sprintf(
+                    'Could not instantiate service with callable for "%s".%s',
+                    $id,
+                    sprintf(
+                        ' [%s]: "%s"',
+                        get_debug_type($e),
+                        $e->getMessage(),
+                    ),
+                ),
                 previous: $e,
             );
         }
@@ -122,7 +130,14 @@ final class Container implements IContainer
                 return new $class();
             } catch (Throwable $e) {
                 throw new ContainerException(
-                    sprintf('Could not instantiate service by __construct() for "%s".', $id),
+                    sprintf('Could not instantiate service by __construct() for "%s".%s',
+                        $id,
+                        sprintf(
+                            ' [%s]: "%s"',
+                            get_debug_type($e),
+                            $e->getMessage(),
+                        ),
+                    ),
                     previous: $e
                 );
             }
