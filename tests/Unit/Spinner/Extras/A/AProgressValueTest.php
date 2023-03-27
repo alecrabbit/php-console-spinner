@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Core\A;
+namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Extras\A;
 
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Extras\A\AProgressValue;

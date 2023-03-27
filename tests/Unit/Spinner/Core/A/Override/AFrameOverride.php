@@ -6,7 +6,7 @@ namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Core\A\Override;
 
 use AlecRabbit\Spinner\Core\A\AFrame;
 
-final readonly class FrameClass extends AFrame
+final readonly class AFrameOverride extends AFrame
 {
 
 }

@@ -7,7 +7,7 @@ namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Core\A;
 use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Core\Factory\FrameFactory;
 use AlecRabbit\Tests\Spinner\TestCase\TestCase;
-use AlecRabbit\Tests\Spinner\Unit\Spinner\Core\A\Override\FrameClass;
+use AlecRabbit\Tests\Spinner\Unit\Spinner\Core\A\Override\AFrameOverride;
 
 final class AFrameTest extends TestCase
 {
@@ -73,7 +73,7 @@ final class AFrameTest extends TestCase
 
     public static function getTesteeInstance(array $args = []): IFrame
     {
-        return new FrameClass(...$args);
+        return new AFrameOverride(...$args);
     }
 
     /**

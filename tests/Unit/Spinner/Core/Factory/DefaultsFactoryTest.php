@@ -9,7 +9,7 @@ use AlecRabbit\Spinner\Core\Factory\DefaultsFactory;
 use AlecRabbit\Spinner\Exception\DomainException;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Tests\Spinner\TestCase\TestCase;
-use AlecRabbit\Tests\Spinner\Unit\Spinner\Config\Defaults\Override\DefaultsOverride;
+use AlecRabbit\Tests\Spinner\Unit\Spinner\Config\Defaults\Override\ADefaultsOverride;
 use PHPUnit\Framework\Attributes\Test;
 use stdClass;
 
@@ -43,7 +43,7 @@ final class DefaultsFactoryTest extends TestCase
         );
 
         $defaults = self::getDefaultsInstance();
-        $class = DefaultsOverride::class;
+        $class = ADefaultsOverride::class;
         DefaultsFactory::setDefaultsClass($class);
         self::assertSame($class, self::getValue('className', DefaultsFactory::class));
         self::assertSame($defaults, self::getDefaultsInstance());
@@ -52,7 +52,7 @@ final class DefaultsFactoryTest extends TestCase
     #[Test]
     public function defaultsClassCanBeSet(): void
     {
-        $class = DefaultsOverride::class;
+        $class = ADefaultsOverride::class;
         DefaultsFactory::setDefaultsClass($class);
         self::assertSame($class, self::getValue('className', DefaultsFactory::class));
     }

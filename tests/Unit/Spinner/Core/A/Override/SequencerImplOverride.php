@@ -7,7 +7,7 @@ namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Core\A\Override;
 use AlecRabbit\Spinner\Contract\ISequencer;
 use RuntimeException;
 
-final class SequencerOverride implements ISequencer
+final class SequencerImplOverride implements ISequencer
 {
     public static function colorSequence(string $sequence): string
     {

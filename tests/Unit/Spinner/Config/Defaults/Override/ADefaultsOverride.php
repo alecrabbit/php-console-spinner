@@ -6,7 +6,7 @@ namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Config\Defaults\Override;
 
 use AlecRabbit\Spinner\Core\Defaults\A\ADefaults;
 
-final class DefaultsOverride extends ADefaults
+final class ADefaultsOverride extends ADefaults
 {
 
 }

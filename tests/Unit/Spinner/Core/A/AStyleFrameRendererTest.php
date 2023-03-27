@@ -13,7 +13,7 @@ use AlecRabbit\Spinner\Core\Color\Style;
 use AlecRabbit\Spinner\Core\Factory\FrameFactory;
 use AlecRabbit\Spinner\Exception\LogicException;
 use AlecRabbit\Tests\Spinner\TestCase\TestCase;
-use AlecRabbit\Tests\Spinner\Unit\Spinner\Core\A\Override\SequencerOverride;
+use AlecRabbit\Tests\Spinner\Unit\Spinner\Core\A\Override\SequencerImplOverride;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 
@@ -138,7 +138,7 @@ final class AStyleFrameRendererTest extends TestCase
         };
 
         return
-            new class($converter, SequencerOverride::class) extends AStyleFrameRenderer {
+            new class($converter, SequencerImplOverride::class) extends AStyleFrameRenderer {
             };
     }
 }
