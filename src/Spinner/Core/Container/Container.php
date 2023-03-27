@@ -11,11 +11,10 @@ use Throwable;
 
 final class Container implements IContainer
 {
-    /**
-     * @var array<string, callable|object|string>
-     */
-    private array $definitions;
+    /** @var array<string, callable|object|string> */
+    private array $definitions = [];
 
+    /** @var array<string, object> */
     private array $services = [];
 
     /**
@@ -26,6 +25,7 @@ final class Container implements IContainer
      */
     public function __construct(array $definitions)
     {
+        /** @var callable|object|string $definition */
         foreach ($definitions as $definition) {
             $this->addDefinition($definition);
         }
@@ -34,6 +34,7 @@ final class Container implements IContainer
     private function addDefinition(mixed $definition): void
     {
         self::assertDefinition($definition);
+        /** @psalm-suppress InvalidPropertyAssignmentValue */
         $this->definitions[] = $definition;
     }
 
@@ -98,21 +99,17 @@ final class Container implements IContainer
     private function getService(string $id, callable|object|string $definition): object
     {
         return match (true) {
-            is_callable($definition) => $this->createServiceWithCallable($definition, $id),
-            is_string($definition) => $this->getServiceWithString($definition, $id),
+            is_callable($definition) => $this->instantiateServiceWithCallable($definition, $id),
             is_object($definition) => $definition,
-            default => throw new ContainerException(
-                sprintf(
-                    'Invalid type for definition with id "%s"',
-                    $id,
-                )
-            ),
+            is_string($definition) => $this->instantiateServiceByClass($definition, $id),
         };
     }
 
-    private function createServiceWithCallable(callable $definition, string $id): object
+    /** @psalm-suppress MixedInferredReturnType */
+    private function instantiateServiceWithCallable(callable $definition, string $id): object
     {
         try {
+            /** @psalm-suppress MixedReturnStatement */
             return $definition();
         } catch (Throwable $e) {
             throw new ContainerException(
@@ -122,11 +119,12 @@ final class Container implements IContainer
         }
     }
 
-    private function getServiceWithString(string $definition, string $id): object
+    private function instantiateServiceByClass(string $class, string $id): object
     {
-        if (class_exists($definition)) {
+        if (class_exists($class)) {
             try {
-                return new $definition();
+                /** @psalm-suppress MixedMethodCall */
+                return new $class();
             } catch (Throwable $e) {
                 throw new ContainerException(
                     sprintf('Could not instantiate class "%s"', $id),
