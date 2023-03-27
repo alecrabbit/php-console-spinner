@@ -55,6 +55,12 @@ final class Container implements IContainer
     }
 
     /** @inheritdoc */
+    public function has(string $id): bool
+    {
+        return array_key_exists($id, $this->definitions);
+    }
+
+    /** @inheritdoc */
     public function get(string $id): object
     {
         if (array_key_exists($id, $this->services)) {
@@ -73,12 +79,6 @@ final class Container implements IContainer
         $definition = $this->definitions[$id];
 
         return $this->services[$id] = $this->getService($id, $definition);
-    }
-
-    /** @inheritdoc */
-    public function has(string $id): bool
-    {
-        return array_key_exists($id, $this->definitions);
     }
 
     private function getService(string $id, callable|object|string $definition): object
@@ -120,7 +120,8 @@ final class Container implements IContainer
                 return new $class();
             } catch (Throwable $e) {
                 throw new ContainerException(
-                    sprintf('Could not instantiate service by __construct() for "%s".%s',
+                    sprintf(
+                        'Could not instantiate service by __construct() for "%s".%s',
                         $id,
                         sprintf(
                             ' [%s]: "%s"',
@@ -143,9 +144,15 @@ final class Container implements IContainer
     }
 
     /** @inheritdoc */
-    public function add(string $id, callable|object|string $definition): void
+    public function replace(string $id, callable|object|string $definition): void
     {
-        $this->addDefinition($id, $definition);
+        $serviceRegistered = array_key_exists($id, $this->services);
+
+        $this->remove($id);
+        $this->add($id, $definition);
+        if ($serviceRegistered) {
+            $this->get($id);
+        }
     }
 
     /** @inheritdoc */
@@ -163,9 +170,8 @@ final class Container implements IContainer
     }
 
     /** @inheritdoc */
-    public function replace(string $id, callable|object|string $definition): void
+    public function add(string $id, callable|object|string $definition): void
     {
-        $this->remove($id);
-        $this->add($id, $definition);
+        $this->addDefinition($id, $definition);
     }
 }
