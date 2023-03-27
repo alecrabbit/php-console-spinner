@@ -56,12 +56,17 @@ abstract class AStyleFrameRenderer implements IStyleFrameRenderer
      * @throws LogicException
      * @throws InvalidArgumentException
      */
-    protected function createFrame(int|string|IStyle $entry, StyleMode $colorMode): IFrame
+    protected function createFrame(int|string|IStyle $entry, StyleMode $styleMode): IFrame
     {
-        if ($entry instanceof IStyle) {
-            return $this->createFromStyle($entry, $colorMode);
+        if ($styleMode === StyleMode::NONE) {
+            return FrameFactory::create('%s', 0);
         }
-        $ansiCode = $this->converter->ansiCode($entry, $colorMode);
+
+        if ($entry instanceof IStyle) {
+            return $this->createFromStyle($entry, $styleMode);
+        }
+
+        $ansiCode = $this->converter->ansiCode($entry, $styleMode);
 
         $color = '3' . $ansiCode . 'm' . '%s';
 
@@ -74,13 +79,13 @@ abstract class AStyleFrameRenderer implements IStyleFrameRenderer
      * @throws InvalidArgumentException
      * @throws LogicException
      */
-    protected function createFromStyle(IStyle $entry, StyleMode $colorMode): IFrame
+    protected function createFromStyle(IStyle $entry, StyleMode $styleMode): IFrame
     {
         if ($entry->isEmpty() || $entry->isOptionsOnly()) {
             return FrameFactory::create('%s', $entry->getWidth());
         }
 
-        $color = $this->flattenStyle($entry, $colorMode);
+        $color = $this->flattenStyle($entry, $styleMode);
 
         return
             FrameFactory::create($this->sequencer::colorSequence($color), $entry->getWidth());
@@ -92,17 +97,17 @@ abstract class AStyleFrameRenderer implements IStyleFrameRenderer
      * @throws InvalidArgumentException
      * @throws LogicException
      */
-    protected function flattenStyle(IStyle $entry, StyleMode $colorMode): string
+    protected function flattenStyle(IStyle $entry, StyleMode $styleMode): string
     {
         $fgColor = $entry->getFgColor();
         $bgColor = $entry->getBgColor();
         $color = '';
         if (null !== $fgColor) {
-            $color .= '3' . $this->converter->ansiCode((string)$fgColor, $colorMode);
+            $color .= '3' . $this->converter->ansiCode((string)$fgColor, $styleMode);
         }
         if (null !== $bgColor) {
             $separator = null !== $fgColor ? ';' : '';
-            $color .= $separator . '4' . $this->converter->ansiCode((string)$bgColor, $colorMode);
+            $color .= $separator . '4' . $this->converter->ansiCode((string)$bgColor, $styleMode);
         }
         $color .= 'm%s';
         return $color;

@@ -414,7 +414,7 @@ final class Rainbow extends AStylePattern
                     '#ff0008',
                     '#ff0004',
                 ],
-                default => self::PATTERN,
+                default => ['#00ff00'],
             };
     }
 }
