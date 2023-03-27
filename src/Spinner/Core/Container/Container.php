@@ -94,27 +94,27 @@ final class Container implements IContainer
     private function getService(string $id, callable|object|string $definition): object
     {
         return match (true) {
-            is_callable($definition) => $this->instantiateServiceWithCallable($definition, $id),
+            is_callable($definition) => $this->instantiateWithCallable($definition, $id),
             is_object($definition) => $definition,
-            is_string($definition) => $this->instantiateServiceByClass($definition, $id),
+            is_string($definition) => $this->instantiateByConstructor($definition, $id),
         };
     }
 
     /** @psalm-suppress MixedInferredReturnType */
-    private function instantiateServiceWithCallable(callable $definition, string $id): object
+    private function instantiateWithCallable(callable $definition, string $id): object
     {
         try {
             /** @psalm-suppress MixedReturnStatement */
             return $definition();
         } catch (Throwable $e) {
             throw new ContainerException(
-                sprintf('Error while invoking callable for "%s"', $id),
+                sprintf('Could not instantiate service with callable for "%s".', $id),
                 previous: $e,
             );
         }
     }
 
-    private function instantiateServiceByClass(string $class, string $id): object
+    private function instantiateByConstructor(string $class, string $id): object
     {
         if (class_exists($class)) {
             try {
@@ -122,7 +122,7 @@ final class Container implements IContainer
                 return new $class();
             } catch (Throwable $e) {
                 throw new ContainerException(
-                    sprintf('Could not instantiate class "%s"', $id),
+                    sprintf('Could not instantiate service by __construct() for "%s".', $id),
                     previous: $e
                 );
             }
@@ -130,8 +130,9 @@ final class Container implements IContainer
 
         throw new ContainerException(
             sprintf(
-                'Could not instantiate class "%s". Class was not found.',
+                'Could not instantiate service for "%s". Class "%s" is not found.',
                 $id,
+                $class,
             )
         );
     }
