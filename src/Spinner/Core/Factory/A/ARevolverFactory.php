@@ -4,8 +4,10 @@ declare(strict_types=1);
 // 16.03.23
 namespace AlecRabbit\Spinner\Core\Factory\A;
 
+use AlecRabbit\Spinner\Contract\IAnsiStyleConverter;
 use AlecRabbit\Spinner\Contract\IPattern;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDefaults;
+use AlecRabbit\Spinner\Core\Factory\AnsiColorConverterFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IRevolverFactory;
 use AlecRabbit\Spinner\Core\Factory\FrameFactory;
 use AlecRabbit\Spinner\Core\Factory\IntervalFactory;
@@ -32,9 +34,9 @@ abstract class ARevolverFactory extends ADefaultsAwareClass implements IRevolver
             );
     }
 
-    public static function create(IPattern $pattern): IRevolver
+    public static function create(IPattern $pattern, ?IDefaults $defaults = null): IRevolver
     {
-        return self::getRevolverBuilder()->withPattern($pattern)->build();
+        return self::getRevolverBuilder($defaults)->withPattern($pattern)->build();
     }
 
     public static function getRevolverBuilder(?IDefaults $defaults = null): IFrameRevolverBuilder
@@ -52,7 +54,12 @@ abstract class ARevolverFactory extends ADefaultsAwareClass implements IRevolver
         $revolverBuilderClass = $defaults->getClasses()->getFrameRevolverBuilderClass();
 
         return
-            new $revolverBuilderClass(static::getDefaults());
+            new $revolverBuilderClass(static::getDefaults(), self::getColorConverter($defaults));
+    }
+
+    protected static function getColorConverter(?IDefaults $defaults): IAnsiStyleConverter
+    {
+        return AnsiColorConverterFactory::getGetAnsiColorConverter($defaults);
     }
 
     public static function defaultCharRevolver(): IRevolver

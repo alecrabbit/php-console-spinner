@@ -101,14 +101,14 @@ final class AFloatValueTest extends TestCase
     {
         $this->expectsException($expected);
 
-        $floatValue = self::getInstance($incoming[self::ARGUMENTS] ?? []);
+        $floatValue = self::getTesteeInstance($incoming[self::ARGUMENTS] ?? []);
 
         self::assertSame($expected[self::VALUE], $floatValue->getValue());
         self::assertSame($expected[self::MIN], $floatValue->getMin());
         self::assertSame($expected[self::MAX], $floatValue->getMax());
     }
 
-    public static function getInstance(array $args = []): IFloatValue
+    public static function getTesteeInstance(array $args = []): IFloatValue
     {
         return
             new class(...$args) extends AFloatValue {

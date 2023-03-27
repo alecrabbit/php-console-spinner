@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Defaults\A;
 
+use AlecRabbit\Spinner\Contract\IAnsiStyleConverter;
+use AlecRabbit\Spinner\Core\Color\AnsiStyleConverter;
 use AlecRabbit\Spinner\Core\Contract\IDriverBuilder;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDefaults;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDefaultsClasses;
@@ -30,6 +32,9 @@ abstract class ADefaultsClasses extends ADefaultsChild implements IDefaultsClass
     /** @var class-string<IFrameRevolverBuilder> */
     final protected const FRAME_REVOLVER_BUILDER_CLASS = FrameRevolverBuilder::class;
 
+    /** @var class-string<IAnsiStyleConverter> */
+    final protected const ANSI_STYLE_CONVERTER_CLASS = AnsiStyleConverter::class;
+
     /** @var class-string<IDriverBuilder> */
     protected static string $driverBuilderClass;
 
@@ -55,6 +60,12 @@ abstract class ADefaultsClasses extends ADefaultsChild implements IDefaultsClass
     /** @var null|class-string<IFrameRevolverBuilder> */
     protected static ?string $frameRevolverBuilderClassOverride = null;
 
+    /** @var class-string<IAnsiStyleConverter> */
+    protected static string $ansiStyleConverterClass;
+
+    /** @var null|class-string<IAnsiStyleConverter> */
+    protected static ?string $ansiStyleConverterClassOverride = null;
+
     private static ?IDefaultsClasses $objInstance = null; // private, singleton
 
     final protected function __construct(IDefaults $parent)
@@ -76,6 +87,9 @@ abstract class ADefaultsClasses extends ADefaultsChild implements IDefaultsClass
 
         static::$frameRevolverBuilderClass =
             static::$frameRevolverBuilderClassOverride ?? static::FRAME_REVOLVER_BUILDER_CLASS;
+
+        static::$ansiStyleConverterClass =
+            static::$ansiStyleConverterClassOverride ?? static::ANSI_STYLE_CONVERTER_CLASS;
     }
 
     final public static function getInstance(IDefaults $parent): IDefaultsClasses
@@ -138,5 +152,18 @@ abstract class ADefaultsClasses extends ADefaultsChild implements IDefaultsClass
     public function getFrameRevolverBuilderClass(): string
     {
         return self::$frameRevolverBuilderClass;
+    }
+
+    /** @inheritDoc */
+    public function getAnsiStyleConverterClass(): string
+    {
+        return self::$ansiStyleConverterClass;
+    }
+
+    /** @inheritDoc */
+    public function overrideAnsiStyleConverterClass(string $ansiColorConverterClass): void
+    {
+        Asserter::isSubClass($ansiColorConverterClass, IAnsiStyleConverter::class, __METHOD__);
+        self::$ansiStyleConverterClass = $ansiColorConverterClass;
     }
 }

@@ -9,6 +9,5 @@ use AlecRabbit\Spinner\Core\Defaults\Contract\IDefaults;
 
 interface IDriverFactory
 {
-
     public static function getDriverBuilder(?IDefaults $defaults = null): IDriverBuilder;
 }

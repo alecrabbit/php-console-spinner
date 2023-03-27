@@ -5,17 +5,44 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Pattern\Style\A;
 
-use AlecRabbit\Spinner\Contract\ColorMode;
-use AlecRabbit\Spinner\Core\Pattern\A\APattern;
+use AlecRabbit\Spinner\Contract\StyleMode;
+use AlecRabbit\Spinner\Core\Pattern\A\AReversiblePattern;
 use AlecRabbit\Spinner\Core\Pattern\Contract\IStylePattern;
+use ArrayObject;
+use Traversable;
 
-abstract class AStylePattern extends APattern implements IStylePattern
+abstract class AStylePattern extends AReversiblePattern implements IStylePattern
 {
-    /** @var ColorMode */
-    protected const COLOR_MODE = ColorMode::ANSI8;
+    /** @var StyleMode */
+    protected const STYLE_MODE = StyleMode::ANSI8;
 
-    public function getColorMode(): ColorMode
+    /** @var array<int, string> */
+    protected const PATTERN = ['#c0c0c0'];
+
+    public function __construct(
+        ?int $interval = null,
+        bool $reversed = false,
+        protected StyleMode $styleMode = self::STYLE_MODE
+    ) {
+        parent::__construct($interval, $reversed);
+    }
+
+    public function getStyleMode(): StyleMode
     {
-        return static::COLOR_MODE;
+        return $this->styleMode;
+    }
+
+    protected function pattern(): Traversable
+    {
+        return
+            new ArrayObject($this->extractPattern());
+    }
+
+    /**
+     * @return array<int,string>
+     */
+    protected function extractPattern(): array
+    {
+        return static::PATTERN;
     }
 }

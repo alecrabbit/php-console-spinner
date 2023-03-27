@@ -11,7 +11,7 @@ use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
 
 interface IRevolverFactory
 {
-    public static function create(IPattern $pattern): IRevolver;
+    public static function create(IPattern $pattern, ?IDefaults $defaults = null): IRevolver;
 
     public static function getRevolverBuilder(?IDefaults $defaults = null): IFrameRevolverBuilder;
 

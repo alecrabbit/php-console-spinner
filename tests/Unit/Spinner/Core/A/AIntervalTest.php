@@ -179,7 +179,7 @@ final class AIntervalTest extends TestCase
     {
         $this->expectsException($expected);
 
-        $interval = self::getInstance($incoming[self::ARGUMENTS] ?? []);
+        $interval = self::getTesteeInstance($incoming[self::ARGUMENTS] ?? []);
 
         if (array_key_exists(self::INTERVAL, $expected)) {
             self::assertEquals($expected[self::INTERVAL], $interval->toSeconds());
@@ -187,7 +187,7 @@ final class AIntervalTest extends TestCase
         }
     }
 
-    public static function getInstance(array $args = []): IInterval
+    public static function getTesteeInstance(array $args = []): IInterval
     {
         return new class(...$args) extends AInterval {
         };
@@ -198,7 +198,7 @@ final class AIntervalTest extends TestCase
      */
     public function canClone(): void
     {
-        $interval = self::getInstance();
+        $interval = self::getTesteeInstance();
         $clone = clone $interval;
         self::assertEquals($interval->toSeconds(), $clone->toSeconds());
         self::assertEquals($interval->toMicroseconds(), $clone->toMicroseconds());
@@ -213,8 +213,8 @@ final class AIntervalTest extends TestCase
      */
     public function canCalculateSmallest(array $expected, array $incoming): void
     {
-        $interval = self::getInstance($incoming[self::FIRST] ?? []);
-        $other = self::getInstance($incoming[self::SECOND] ?? []);
+        $interval = self::getTesteeInstance($incoming[self::FIRST] ?? []);
+        $other = self::getTesteeInstance($incoming[self::SECOND] ?? []);
         self::assertEquals($expected[self::INTERVAL], $interval->smallest($other)->toMilliseconds());
         self::assertSame((float)$expected[self::INTERVAL], $interval->smallest($other)->toMilliseconds());
     }

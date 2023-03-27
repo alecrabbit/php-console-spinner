@@ -17,6 +17,7 @@ use AlecRabbit\Spinner\Core\Factory\DriverFactory;
 use AlecRabbit\Spinner\Core\Factory\RevolverFactory;
 use AlecRabbit\Spinner\Core\Factory\WidgetFactory;
 use AlecRabbit\Spinner\Core\Output\StreamOutput;
+use AlecRabbit\Spinner\Core\Pattern\Contract\IStylePattern;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolverBuilder;
 use AlecRabbit\Spinner\Core\Timer;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetBuilder;
@@ -59,7 +60,7 @@ abstract class AConfigBuilder implements IConfigBuilder
         return $clone;
     }
 
-    public function withStylePattern(IPattern $pattern): static
+    public function withStylePattern(IStylePattern $pattern): static
     {
         $clone = clone $this;
         $clone->rootWidgetStylePattern = $pattern;
@@ -129,28 +130,5 @@ abstract class AConfigBuilder implements IConfigBuilder
                 ->withLeadingSpacer($this->defaults->getRootWidgetSettings()->getLeadingSpacer())
                 ->withTrailingSpacer($this->defaults->getRootWidgetSettings()->getTrailingSpacer())
                 ->build();
-//     return
-//            $this->widgetBuilder
-//                ->withWidgetRevolver(
-//                    $this->widgetRevolverBuilder
-//                        ->withStyleRevolver(
-//                            RevolverFactory::createFrom(
-//                                $this->rootWidgetStylePattern
-//                                ?? $this->defaults->getRootWidgetSettings()->getStylePattern()
-//                                ?? $this->defaults->getStylePattern()
-//                            )
-//                        )
-//                        ->withCharRevolver(
-//                            RevolverFactory::createFrom(
-//                                $this->rootWidgetCharPattern
-//                                ?? $this->defaults->getRootWidgetSettings()->getCharPattern()
-//                                ?? $this->defaults->getCharPattern()
-//                            )
-//                        )
-//                        ->build()
-//                )
-//                ->withLeadingSpacer($this->defaults->getRootWidgetSettings()->getLeadingSpacer())
-//                ->withTrailingSpacer($this->defaults->getRootWidgetSettings()->getTrailingSpacer())
-//                ->build();
     }
 }

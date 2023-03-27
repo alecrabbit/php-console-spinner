@@ -7,13 +7,13 @@ namespace AlecRabbit\Spinner\Core\Widget;
 use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Core\Factory\FrameFactory;
-use AlecRabbit\Spinner\Core\Interval;
+use AlecRabbit\Spinner\Core\Factory\IntervalFactory;
 use AlecRabbit\Spinner\Core\Widget\A\AWidgetComposite;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContext;
 use AlecRabbit\Spinner\Exception\LogicException;
-use WeakMap;
 
+/** @psalm-suppress PropertyNotSetInConstructor */ // initialized in [9fb243f6-24f6-4c10-bf0f-c80ec4236c8e]
 final class NullWidget extends AWidgetComposite
 {
     protected IFrame $currentFrame;
@@ -26,9 +26,8 @@ final class NullWidget extends AWidgetComposite
     public function __construct()
     {
         $this->currentFrame = FrameFactory::createEmpty();
-        $this->interval = new Interval();
-        $this->context = new WidgetContext($this);
-        $this->childrenContextMap = new WeakMap();
+        $this->interval = IntervalFactory::createStill();
+        $this->initialize(); // initialize properties [9fb243f6-24f6-4c10-bf0f-c80ec4236c8e]
     }
 
     public static function create(): IWidgetComposite

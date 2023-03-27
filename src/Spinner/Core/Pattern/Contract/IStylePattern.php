@@ -5,10 +5,10 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Pattern\Contract;
 
-use AlecRabbit\Spinner\Contract\ColorMode;
 use AlecRabbit\Spinner\Contract\IPattern;
+use AlecRabbit\Spinner\Contract\StyleMode;
 
 interface IStylePattern extends IPattern
 {
-    public function getColorMode(): ColorMode;
+    public function getStyleMode(): StyleMode;
 }
