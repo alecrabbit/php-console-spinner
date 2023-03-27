@@ -66,7 +66,6 @@ final class Rainbow extends AStylePattern
                     '#ff2e00',
                     '#ff3200',
                     '#ff3700',
-                    '#00ffff', // light cyan todo remove
                     '#ff3b00',
                     '#ff3f00',
                     '#ff4300',
@@ -89,7 +88,6 @@ final class Rainbow extends AStylePattern
                     '#ff8c00',
                     '#ff9000',
                     '#ff9400',
-                    '#00ffff', // light cyan todo remove
                     '#ff9900',
                     '#ff9d00',
                     '#ffa100',
@@ -119,7 +117,6 @@ final class Rainbow extends AStylePattern
                     '#f6ff00',
                     '#f2ff00',
                     '#eeff00',
-                    '#00ffff', // light cyan todo remove
                     '#e9ff00',
                     '#e5ff00',
                     '#e1ff00',
