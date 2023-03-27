@@ -18,8 +18,8 @@ final class ContainerTest extends TestCase
     {
         $container = new Container([]);
 
-        $this->assertFalse($container->has('foo'));
-        $this->assertCount(0, self::getValue('definitions', $container));
+        self::assertFalse($container->has('foo'));
+        self::assertCount(0, self::getValue('definitions', $container));
     }
 
     #[Test]
@@ -30,9 +30,9 @@ final class ContainerTest extends TestCase
             'bar' => 'baz',
         ]);
 
-        $this->assertTrue($container->has('foo'));
-        $this->assertTrue($container->has('bar'));
-        $this->assertCount(2, self::getValue('definitions', $container));
+        self::assertTrue($container->has('foo'));
+        self::assertTrue($container->has('bar'));
+        self::assertCount(2, self::getValue('definitions', $container));
     }
 
     #[Test]
@@ -43,13 +43,13 @@ final class ContainerTest extends TestCase
         $container->add('foo', 'bar');
         $container->add('bar', 'baz');
 
-        $this->assertTrue($container->has('foo'));
-        $this->assertTrue($container->has('bar'));
-        $this->assertCount(2, self::getValue('definitions', $container));
+        self::assertTrue($container->has('foo'));
+        self::assertTrue($container->has('bar'));
+        self::assertCount(2, self::getValue('definitions', $container));
     }
 
     #[Test]
-    public function canGetDefinition(): void
+    public function canGetServiceAndItIsSameServiceEveryTime(): void
     {
         $container = new Container([
             \stdClass::class => \stdClass::class,
@@ -57,9 +57,17 @@ final class ContainerTest extends TestCase
             'bar' => new \stdClass(),
         ]);
 
-        $this->assertInstanceOf(\stdClass::class, $container->get(\stdClass::class));
-        $this->assertInstanceOf(\stdClass::class, $container->get('foo'));
-        $this->assertInstanceOf(\stdClass::class, $container->get('bar'));
+        $serviceOne = $container->get(\stdClass::class);
+        self::assertInstanceOf(\stdClass::class, $serviceOne);
+        self::assertSame($serviceOne, $container->get(\stdClass::class));
+        
+        $serviceTwo = $container->get('foo');
+        self::assertInstanceOf(\stdClass::class, $serviceTwo);
+        self::assertSame($serviceTwo, $container->get('foo'));
+
+        $serviceThree = $container->get('bar');
+        self::assertInstanceOf(\stdClass::class, $serviceThree);
+        self::assertSame($serviceThree, $container->get('bar'));
     }
 
     #[Test]
