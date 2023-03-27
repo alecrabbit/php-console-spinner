@@ -6,9 +6,9 @@ namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Core\Container;
 
 use AlecRabbit\Spinner\Core\Container\Container;
 use AlecRabbit\Spinner\Core\Container\Exception\ContainerException;
-use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Tests\Spinner\TestCase\TestCase;
 use AlecRabbit\Tests\Spinner\Unit\Spinner\Core\Container\Override\NonInstantiableClass;
+use ArrayObject;
 use PHPUnit\Framework\Attributes\Test;
 
 final class ContainerTest extends TestCase
@@ -16,7 +16,7 @@ final class ContainerTest extends TestCase
     #[Test]
     public function canBeCreatedEmpty(): void
     {
-        $container = new Container(new \ArrayObject([]));
+        $container = new Container(new ArrayObject([]));
 
         self::assertFalse($container->has('foo'));
         self::assertCount(0, self::getValue('definitions', $container));
@@ -25,10 +25,12 @@ final class ContainerTest extends TestCase
     #[Test]
     public function canBeCreatedWithDefinitions(): void
     {
-        $container = new Container(new \ArrayObject([
-            'foo' => 'bar',
-            'bar' => 'baz',
-        ]));
+        $container = new Container(
+            new ArrayObject([
+                'foo' => 'bar',
+                'bar' => 'baz',
+            ])
+        );
 
         self::assertTrue($container->has('foo'));
         self::assertTrue($container->has('bar'));
@@ -38,7 +40,7 @@ final class ContainerTest extends TestCase
     #[Test]
     public function canAddDefinitionsAfterCreate(): void
     {
-        $container = new Container(new \ArrayObject([]));
+        $container = new Container(new ArrayObject([]));
 
         $container->add('foo', 'bar');
         $container->add('bar', 'baz');
@@ -51,16 +53,18 @@ final class ContainerTest extends TestCase
     #[Test]
     public function canGetServiceAndItIsSameServiceEveryTime(): void
     {
-        $container = new Container(new \ArrayObject([
-            \stdClass::class => \stdClass::class,
-            'foo' => fn () => new \stdClass(),
-            'bar' => new \stdClass(),
-        ]));
+        $container = new Container(
+            new ArrayObject([
+                \stdClass::class => \stdClass::class,
+                'foo' => fn() => new \stdClass(),
+                'bar' => new \stdClass(),
+            ])
+        );
 
         $serviceOne = $container->get(\stdClass::class);
         self::assertInstanceOf(\stdClass::class, $serviceOne);
         self::assertSame($serviceOne, $container->get(\stdClass::class));
-        
+
         $serviceTwo = $container->get('foo');
         self::assertInstanceOf(\stdClass::class, $serviceTwo);
         self::assertSame($serviceTwo, $container->get('foo'));
@@ -68,6 +72,59 @@ final class ContainerTest extends TestCase
         $serviceThree = $container->get('bar');
         self::assertInstanceOf(\stdClass::class, $serviceThree);
         self::assertSame($serviceThree, $container->get('bar'));
+    }
+
+    #[Test]
+    public function canRemoveDefinitionAndServiceRegisteredEarlier(): void
+    {
+        $container = new Container(
+            new ArrayObject([
+                'foo' => 'bar',
+                'bar' => 'baz',
+            ])
+        );
+
+        $container->remove('foo');
+        $container->remove('bar');
+
+        self::assertFalse($container->has('foo'));
+        self::assertFalse($container->has('bar'));
+        self::assertCount(0, self::getValue('definitions', $container));
+        self::assertCount(0, self::getValue('services', $container));
+    }
+
+    #[Test]
+    public function canReplaceDefinitionAndServiceRegisteredEarlier(): void
+    {
+        $serviceOne = new \stdClass();
+        $serviceTwo = new \stdClass();
+
+        $container = new Container(
+            new ArrayObject([
+                'foo' => $serviceOne,
+                'bar' => $serviceTwo,
+            ])
+        );
+        self::assertTrue($container->has('foo'));
+        self::assertTrue($container->has('bar'));
+
+        self::assertSame($serviceOne, $container->get('foo'));
+        self::assertSame($serviceTwo, $container->get('bar'));
+
+        $serviceThree = new \stdClass();
+        $serviceFour = new \stdClass();
+
+        $container->replace('foo', $serviceThree);
+        $container->replace('bar', $serviceFour);
+
+        self::assertTrue($container->has('foo'));
+        self::assertTrue($container->has('bar'));
+
+        self::assertCount(2, self::getValue('definitions', $container));
+        self::assertCount(2, self::getValue('services', $container));
+
+        self::assertSame($serviceFour, $container->get('bar')); // intentionally changed order
+        self::assertSame($serviceThree, $container->get('foo'));
     }
 
     #[Test]
@@ -79,7 +136,7 @@ final class ContainerTest extends TestCase
         $this->expectException($exception);
         $this->expectExceptionMessage($exceptionMessage);
 
-        $container = new Container(new \ArrayObject([]));
+        $container = new Container(new ArrayObject([]));
 
         $container->get('foo');
 
@@ -95,9 +152,11 @@ final class ContainerTest extends TestCase
         $this->expectException($exception);
         $this->expectExceptionMessage($exceptionMessage);
 
-        $container = new Container(new \ArrayObject([
-            'foo' => 'bar',
-        ]));
+        $container = new Container(
+            new ArrayObject([
+                'foo' => 'bar',
+            ])
+        );
 
         $container->get('foo');
 
@@ -113,10 +172,12 @@ final class ContainerTest extends TestCase
         $this->expectException($exception);
         $this->expectExceptionMessage($exceptionMessage);
 
-        $container = new Container(new \ArrayObject([
-            'foo' => 'bar',
-            'baz' => 1,
-        ]));
+        $container = new Container(
+            new ArrayObject([
+                'foo' => 'bar',
+                'baz' => 1,
+            ])
+        );
 
         self::exceptionNotThrown($exception, $exceptionMessage);
     }
@@ -130,9 +191,11 @@ final class ContainerTest extends TestCase
         $this->expectException($exception);
         $this->expectExceptionMessage($exceptionMessage);
 
-        $container = new Container(new \ArrayObject([
-            'foo' => fn () => throw new \InvalidArgumentException('Intentional exception.'),
-        ]));
+        $container = new Container(
+            new ArrayObject([
+                'foo' => fn() => throw new \InvalidArgumentException('Intentional exception.'),
+            ])
+        );
 
         $container->get('foo');
 
@@ -148,9 +211,11 @@ final class ContainerTest extends TestCase
         $this->expectException($exception);
         $this->expectExceptionMessage($exceptionMessage);
 
-        $container = new Container(new \ArrayObject([
-            'foo' => NonInstantiableClass::class,
-        ]));
+        $container = new Container(
+            new ArrayObject([
+                'foo' => NonInstantiableClass::class,
+            ])
+        );
 
         $container->get('foo');
 
@@ -161,14 +226,16 @@ final class ContainerTest extends TestCase
     public function throwsWhenAddedIdIsAlreadyRegistered(): void
     {
         $exception = ContainerException::class;
-        $exceptionMessage = 'Definition with id "foo" already registered in the container.' ;
+        $exceptionMessage = 'Definition with id "foo" already registered in the container.';
 
         $this->expectException($exception);
         $this->expectExceptionMessage($exceptionMessage);
 
-        $container = new Container(new \ArrayObject([
-            'foo' => 'bar',
-        ]));
+        $container = new Container(
+            new ArrayObject([
+                'foo' => 'bar',
+            ])
+        );
 
         $container->add('foo', 'baz');
 
@@ -179,7 +246,7 @@ final class ContainerTest extends TestCase
     public function throwsWhenOneOfDefinitionsAlreadyRegistered(): void
     {
         $exception = ContainerException::class;
-        $exceptionMessage = 'Definition with id "foo" already registered in the container.' ;
+        $exceptionMessage = 'Definition with id "foo" already registered in the container.';
 
         $this->expectException($exception);
         $this->expectExceptionMessage($exceptionMessage);
@@ -197,12 +264,12 @@ final class ContainerTest extends TestCase
     public function throwsWhenRemovingUnregisteredDefinition(): void
     {
         $exception = ContainerException::class;
-        $exceptionMessage = 'Definition with id "foo" is not registered in the container.' ;
+        $exceptionMessage = 'Definition with id "foo" is not registered in the container.';
 
         $this->expectException($exception);
         $this->expectExceptionMessage($exceptionMessage);
 
-        $container = new Container(new \ArrayObject([]));
+        $container = new Container(new ArrayObject([]));
 
         $container->remove('foo');
 
@@ -213,12 +280,12 @@ final class ContainerTest extends TestCase
     public function throwsWhenReplacingUnregisteredDefinition(): void
     {
         $exception = ContainerException::class;
-        $exceptionMessage = 'Definition with id "bar" is not registered in the container.' ;
+        $exceptionMessage = 'Definition with id "bar" is not registered in the container.';
 
         $this->expectException($exception);
         $this->expectExceptionMessage($exceptionMessage);
 
-        $container = new Container(new \ArrayObject([]));
+        $container = new Container(new ArrayObject([]));
 
         $container->replace('bar', 'foo');
 
