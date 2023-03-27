@@ -154,7 +154,7 @@ final class Container implements IContainer
         if (!$this->has($id)) {
             throw new NotInContainerException(
                 sprintf(
-                    'No definition with id "%s" in the container.',
+                    'Definition with id "%s" is not registered in the container.',
                     $id,
                 )
             );

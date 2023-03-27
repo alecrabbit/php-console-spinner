@@ -192,4 +192,36 @@ final class ContainerTest extends TestCase
 
         self::exceptionNotThrown($exception, $exceptionMessage);
     }
+
+    #[Test]
+    public function throwsWhenRemovingUnregisteredDefinition(): void
+    {
+        $exception = ContainerException::class;
+        $exceptionMessage = 'Definition with id "foo" is not registered in the container.' ;
+
+        $this->expectException($exception);
+        $this->expectExceptionMessage($exceptionMessage);
+
+        $container = new Container(new \ArrayObject([]));
+
+        $container->remove('foo');
+
+        self::exceptionNotThrown($exception, $exceptionMessage);
+    }
+
+    #[Test]
+    public function throwsWhenReplacingUnregisteredDefinition(): void
+    {
+        $exception = ContainerException::class;
+        $exceptionMessage = 'Definition with id "bar" is not registered in the container.' ;
+
+        $this->expectException($exception);
+        $this->expectExceptionMessage($exceptionMessage);
+
+        $container = new Container(new \ArrayObject([]));
+
+        $container->replace('bar', 'foo');
+
+        self::exceptionNotThrown($exception, $exceptionMessage);
+    }
 }
