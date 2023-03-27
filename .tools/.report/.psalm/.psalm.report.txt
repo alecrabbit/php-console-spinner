@@ -1,0 +1,8 @@
+/app/src/Spinner/Core/Container/Container.php:17:19:error - PropertyNotSetInConstructor: Property AlecRabbit\Spinner\Core\Container\Container::$definitions is not defined in constructor of AlecRabbit\Spinner\Core\Container\Container or in any private or final methods called in the constructor
+/app/src/Spinner/Core/Container/Container.php:37:9:error - InvalidPropertyAssignmentValue: $this->definitions with declared type 'array<string, callable|object|string>' cannot be assigned type 'non-empty-array<int<0, max>|string, callable|mixed|object|string>'
+/app/src/Spinner/Core/Container/Container.php:57:16:error - MixedInferredReturnType: Could not verify return type 'object' for AlecRabbit\Spinner\Core\Container\Container::get
+/app/src/Spinner/Core/Container/Container.php:63:20:error - MixedReturnStatement: Could not infer a return type
+/app/src/Spinner/Core/Container/Container.php:96:16:error - MixedInferredReturnType: Could not verify return type 'object' for AlecRabbit\Spinner\Core\Container\Container::getService
+/app/src/Spinner/Core/Container/Container.php:102:24:error - MixedReturnStatement: Could not infer a return type
+/app/src/Spinner/Core/Container/Container.php:111:19:error - RedundantCondition: Type string for $definition is always string
+/app/src/Spinner/Core/Container/Container.php:114:28:error - MixedMethodCall: Cannot call constructor on an unknown class
