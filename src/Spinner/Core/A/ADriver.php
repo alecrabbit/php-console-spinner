@@ -13,6 +13,7 @@ use AlecRabbit\Spinner\Core\Sequencer;
 
 abstract class ADriver implements IDriver
 {
+    /** @psalm-suppress PropertyNotSetInConstructor  */
     protected IFrame $currentFrame;
     protected int $previousFrameWidth = 0;
 
