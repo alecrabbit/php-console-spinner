@@ -48,19 +48,21 @@ final class StreamBufferedOutput implements IBufferedOutput
     /** @inheritdoc */
     public function write(iterable|string $messages, bool $newline = false, int $options = 0): void
     {
-        if (!is_iterable($messages)) {
-            $messages = [$messages];
+        foreach ($this->flatten($messages, $newline) as $message) {
+            $this->doWrite($message);
         }
-        /** @var string $message */
-        foreach ($messages as $message) {
-            /** @psalm-suppress RedundantConditionGivenDocblockType */
-            if (is_string($message)) {
-                if ($newline) {
-                    $message .= PHP_EOL;
-                }
-                $this->doWrite($message);
-            }
+    }
+
+    /**
+     * @throws RuntimeException
+     */
+    protected function doWrite(string $data): void
+    {
+        if (false === @fwrite($this->stream, $data)) {
+            // should never happen
+            throw new RuntimeException('Was unable to write to a stream.');
         }
+        fflush($this->stream);
     }
 
     /** @inheritdoc */
@@ -71,6 +73,15 @@ final class StreamBufferedOutput implements IBufferedOutput
 
     public function bufferedWrite(iterable|string $messages, bool $newline = false): IBufferedOutput
     {
+        foreach ($this->flatten($messages, $newline) as $message) {
+            $this->buffer->write($message);
+        }
+
+        return $this;
+    }
+
+    protected function flatten(iterable|string $messages, bool $newline = false): \Generator
+    {
         if (!is_iterable($messages)) {
             $messages = [$messages];
         }
@@ -81,21 +92,8 @@ final class StreamBufferedOutput implements IBufferedOutput
                 if ($newline) {
                     $message .= PHP_EOL;
                 }
-                $this->buffer->write($message);
+                yield $message;
             }
         }
-        return $this;
-    }
-
-    /**
-     * @throws RuntimeException
-     */
-    protected function doWrite(string $str): void
-    {
-        if (false === @fwrite($this->stream, $str )) {
-            // should never happen
-            throw new RuntimeException('Was unable to write to a stream.');
-        }
-        fflush($this->stream);
     }
 }
