@@ -12,6 +12,7 @@ use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
 use AlecRabbit\Tests\Spinner\TestCase\TestCase;
 use AlecRabbit\Tests\Spinner\Unit\Spinner\Core\A\Override\ASpinnerOverride;
 use PHPUnit\Framework\Attributes\Test;
+use PHPUnit\Framework\MockObject\MockObject;
 
 final class ASpinnerTest extends TestCase
 {
@@ -28,8 +29,8 @@ final class ASpinnerTest extends TestCase
     }
 
     public function getTesteeInstance(
-        ?IDriver $driver = null,
-        ?IWidgetComposite $rootWidget = null,
+        (MockObject&IDriver)|null $driver = null,
+        (MockObject&IWidgetComposite)|null $rootWidget = null,
     ): ISpinner {
         return
             new ASpinnerOverride(
@@ -38,12 +39,12 @@ final class ASpinnerTest extends TestCase
             );
     }
 
-    protected function getDriverMock(): IDriver
+    protected function getDriverMock(): MockObject&IDriver
     {
         return $this->createMock(IDriver::class);
     }
 
-    protected function getRootWidgetMock(): IWidgetComposite
+    protected function getRootWidgetMock(): MockObject&IWidgetComposite
     {
         return $this->createMock(IWidgetComposite::class);
     }
@@ -51,7 +52,7 @@ final class ASpinnerTest extends TestCase
     #[Test]
     public function canBeInitializedAfterCreation(): void
     {
-        $rootWidget = $this->createMock(IWidgetComposite::class);
+        $rootWidget = $this->getRootWidgetMock();
         $rootWidget->expects(self::once())->method('update');
 
         $spinner = $this->getTesteeInstance(rootWidget: $rootWidget);
