@@ -12,6 +12,7 @@ use AlecRabbit\Spinner\Core\Sequencer;
 
 abstract class ADriver implements IDriver
 {
+    protected IFrame $currentFrame;
     protected int $previousFrameWidth = 0;
 
     public function __construct(
@@ -23,21 +24,21 @@ abstract class ADriver implements IDriver
     ) {
     }
 
-    public function erase(IFrame $frame): void
+    public function erase(): void
     {
         $this->output->write(
-            Sequencer::eraseSequence($frame->width())
+            Sequencer::eraseSequence($this->currentFrame->width())
         );
     }
 
-    public function display(IFrame $frame): void
+    public function display(): void
     {
-        $width = $frame->width();
+        $width = $this->currentFrame->width();
         $widthDiff = $this->calculateWidthDiff($width);
 
         $this->output->write(
             [
-                $frame->sequence(),
+                $this->currentFrame->sequence(),
                 $widthDiff > 0 ? Sequencer::eraseSequence($widthDiff) : '',
                 Sequencer::moveBackSequence($width),
             ]
@@ -90,5 +91,10 @@ abstract class ADriver implements IDriver
                 Sequencer::hideCursorSequence()
             );
         }
+    }
+
+    public function setCurrentFrame(IFrame $frame): void
+    {
+        $this->currentFrame = $frame;
     }
 }

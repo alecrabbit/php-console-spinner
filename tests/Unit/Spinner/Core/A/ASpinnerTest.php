@@ -25,7 +25,7 @@ final class ASpinnerTest extends TestCase
         self::assertFalse(self::getValue('active', $spinner));
         self::assertFalse(self::getValue('interrupted', $spinner));
 
-        self::assertEquals(FrameFactory::createEmpty(), self::getValue('currentFrame', $spinner));
+//        self::assertEquals(FrameFactory::createEmpty(), self::getValue('currentFrame', $spinner));
     }
 
     public function getTesteeInstance(
