@@ -23,6 +23,7 @@ abstract class ASpinner implements ISpinner
         protected readonly IDriver $driver,
         protected IWidgetComposite $rootWidget,
     ) {
+        // TODO check if FrameFactory dependency is really needed
         $this->currentFrame = FrameFactory::createEmpty();
     }
 
