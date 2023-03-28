@@ -21,7 +21,7 @@ abstract class ATerminalSettings extends ADefaultsChild implements ITerminalSett
 
     final protected function __construct(
         IDefaults $parent,
-        protected StyleMode $colorMode,
+        protected StyleMode $styleMode,
         protected int $width,
         protected Cursor $cursor,
     ) {
@@ -36,13 +36,13 @@ abstract class ATerminalSettings extends ADefaultsChild implements ITerminalSett
 
     final public static function getInstance(
         IDefaults $parent,
-        StyleMode $colorMode,
+        StyleMode $styleMode,
         int $width,
         Cursor $cursor,
     ): ITerminalSettings {
         if (null === self::$objInstance) {
             self::$objInstance =
-                new class ($parent, $colorMode, $width, $cursor) extends ATerminalSettings {
+                new class ($parent, $styleMode, $width, $cursor) extends ATerminalSettings {
                 };
         }
         return self::$objInstance;
@@ -50,7 +50,7 @@ abstract class ATerminalSettings extends ADefaultsChild implements ITerminalSett
 
     public function getStyleMode(): StyleMode
     {
-        return $this->colorMode;
+        return $this->styleMode;
     }
 
     public function getWidth(): int
@@ -60,7 +60,7 @@ abstract class ATerminalSettings extends ADefaultsChild implements ITerminalSett
 
     public function overrideColorMode(StyleMode $colorMode): static
     {
-        $this->colorMode = $colorMode;
+        $this->styleMode = $colorMode;
         return $this;
     }
 

@@ -14,7 +14,7 @@ interface ITerminalSettings extends IDefaultsChild
 {
     public static function getInstance(
         IDefaults $parent,
-        StyleMode $colorMode,
+        StyleMode $styleMode,
         int $width,
         Cursor $cursor,
     ): ITerminalSettings;
