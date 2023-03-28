@@ -10,6 +10,8 @@ use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Exception\RuntimeException;
 use AlecRabbit\Spinner\Helper\Asserter;
 
+use Generator;
+
 use function fflush;
 use function fwrite;
 use function is_iterable;
@@ -80,7 +82,7 @@ final class StreamBufferedOutput implements IBufferedOutput
         return $this;
     }
 
-    protected function flatten(iterable|string $messages, bool $newline = false): \Generator
+    protected function flatten(iterable|string $messages, bool $newline = false): Generator
     {
         if (!is_iterable($messages)) {
             $messages = [$messages];
