@@ -16,7 +16,7 @@ interface IStringBuffer
     /**
      * Returns buffer content and flushes it.
      *
-     * @return string
+     * @return \Generator
      */
-    public function flush(): string;
+    public function flush(): \Generator;
 }

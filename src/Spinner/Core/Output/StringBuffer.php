@@ -8,17 +8,23 @@ use AlecRabbit\Spinner\Core\Output\Contract\IStringBuffer;
 
 final class StringBuffer implements IStringBuffer
 {
-    public function __construct(
-        protected string $buffer = '',
-    ) {
+    public function __construct(protected string $buffer = '')
+    {
     }
 
-    public function flush(): string
+    public function flush(): \Generator
     {
-        $buffer = $this->buffer;
+        yield $this->buffer;
         $this->buffer = '';
-        return $buffer;
     }
+
+//    public function flush(): string
+//    {
+//        $buffer = $this->buffer;
+//        $this->buffer = '';
+//        return $buffer;
+//    }
+
 
     public function write(string $message): IStringBuffer
     {

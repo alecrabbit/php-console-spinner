@@ -9,7 +9,6 @@ use AlecRabbit\Spinner\Core\Output\Contract\IStringBuffer;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Exception\RuntimeException;
 use AlecRabbit\Spinner\Helper\Asserter;
-
 use Generator;
 
 use function fflush;
@@ -50,39 +49,24 @@ final class StreamBufferedOutput implements IBufferedOutput
     /** @inheritdoc */
     public function write(iterable|string $messages, bool $newline = false, int $options = 0): void
     {
-        foreach ($this->flatten($messages, $newline) as $message) {
-            $this->doWrite($message);
-        }
+        $this->doWrite($this->prepare($messages, $newline));
     }
 
     /**
      * @throws RuntimeException
      */
-    protected function doWrite(string $data): void
+    protected function doWrite(\Traversable $data): void
     {
-        if (false === @fwrite($this->stream, $data)) {
-            // should never happen
-            throw new RuntimeException('Was unable to write to a stream.');
+        foreach ($data as $item) {
+            if (false === @fwrite($this->stream, $item)) {
+                // should never happen
+                throw new RuntimeException('Was unable to write to a stream.');
+            }
         }
         fflush($this->stream);
     }
 
-    /** @inheritdoc */
-    public function flush(): void
-    {
-        $this->doWrite($this->buffer->flush());
-    }
-
-    public function bufferedWrite(iterable|string $messages, bool $newline = false): IBufferedOutput
-    {
-        foreach ($this->flatten($messages, $newline) as $message) {
-            $this->buffer->write($message);
-        }
-
-        return $this;
-    }
-
-    protected function flatten(iterable|string $messages, bool $newline = false): Generator
+    protected function prepare(iterable|string $messages, bool $newline = false): Generator
     {
         if (!is_iterable($messages)) {
             $messages = [$messages];
@@ -97,5 +81,20 @@ final class StreamBufferedOutput implements IBufferedOutput
                 yield $message;
             }
         }
+    }
+
+    /** @inheritdoc */
+    public function flush(): void
+    {
+        $this->doWrite($this->buffer->flush());
+    }
+
+    public function bufferedWrite(iterable|string $messages, bool $newline = false): IBufferedOutput
+    {
+        foreach ($this->prepare($messages, $newline) as $message) {
+            $this->buffer->write($message);
+        }
+
+        return $this;
     }
 }
