@@ -10,10 +10,10 @@ interface IStringBuffer
     /**
      * Writes message to buffer.
      *
-     * @param string $message
+     * @param iterable|string $message
      * @return IStringBuffer
      */
-    public function write(string $message): IStringBuffer;
+    public function write(iterable|string $message): IStringBuffer;
 
     /**
      * Returns buffer content and flushes it.

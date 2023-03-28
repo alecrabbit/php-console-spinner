@@ -49,7 +49,7 @@ final class StreamBufferedOutput implements IBufferedOutput
     /** @inheritdoc */
     public function write(iterable|string $messages, bool $newline = false, int $options = 0): void
     {
-        $this->doWrite($this->prepare($messages, $newline));
+        $this->doWrite($this->homogenize($messages, $newline));
     }
 
     /**
@@ -72,7 +72,7 @@ final class StreamBufferedOutput implements IBufferedOutput
      * @param bool $newline
      * @return Generator<string>
      */
-    protected function prepare(iterable|string $messages, bool $newline = false): Generator
+    protected function homogenize(iterable|string $messages, bool $newline = false): Generator
     {
         if (!is_iterable($messages)) {
             $messages = [$messages];
@@ -97,9 +97,7 @@ final class StreamBufferedOutput implements IBufferedOutput
 
     public function bufferedWrite(iterable|string $messages, bool $newline = false): IBufferedOutput
     {
-        foreach ($this->prepare($messages, $newline) as $message) {
-            $this->buffer->write($message);
-        }
+        $this->buffer->write($this->homogenize($messages, $newline));
 
         return $this;
     }

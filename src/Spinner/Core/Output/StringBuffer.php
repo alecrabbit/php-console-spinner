@@ -7,6 +7,8 @@ namespace AlecRabbit\Spinner\Core\Output;
 use AlecRabbit\Spinner\Core\Output\Contract\IStringBuffer;
 use Generator;
 
+use function is_iterable;
+
 final class StringBuffer implements IStringBuffer
 {
     public function __construct(protected string $buffer = '')
@@ -19,9 +21,14 @@ final class StringBuffer implements IStringBuffer
         $this->buffer = '';
     }
 
-    public function write(string $message): IStringBuffer
+    public function write(iterable|string $message): IStringBuffer
     {
-        $this->buffer .= $message;
+        if (!is_iterable($message)) {
+            $message = [$message];
+        }
+        foreach ($message as $item) {
+            $this->buffer .= $item;
+        }
         return $this;
     }
 }
