@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Output;
 
 use AlecRabbit\Spinner\Contract\IBufferedOutput;
-use AlecRabbit\Spinner\Core\Output\Contract\IOutputBuffer;
+use AlecRabbit\Spinner\Core\Output\Contract\IStringBuffer;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Exception\RuntimeException;
 use AlecRabbit\Spinner\Helper\Asserter;
@@ -24,7 +24,7 @@ final class StreamBufferedOutput implements IBufferedOutput
      */
     private $stream;
 
-    private IOutputBuffer $buffer;
+    private IStringBuffer $buffer;
 
     /**
      * @param resource $stream
@@ -32,11 +32,11 @@ final class StreamBufferedOutput implements IBufferedOutput
      */
     public function __construct(
         $stream,
-        ?IOutputBuffer $buffer = null
+        ?IStringBuffer $buffer = null
     ) {
         Asserter::assertStream($stream);
         $this->stream = $stream;
-        $this->buffer = $buffer ?? new OutputBuffer();
+        $this->buffer = $buffer ?? new StringBuffer();
     }
 
     /** @inheritdoc */
