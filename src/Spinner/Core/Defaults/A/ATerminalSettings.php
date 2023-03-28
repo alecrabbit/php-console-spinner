@@ -72,7 +72,7 @@ abstract class ATerminalSettings extends ADefaultsChild implements ITerminalSett
 
     public function isCursorDisabled(): bool
     {
-        return $this->cursorOption === OptionCursor::DISABLED;
+        return $this->cursorOption === OptionCursor::HIDDEN;
     }
 
     public function overrideCursorOption(OptionCursor $cursor): static

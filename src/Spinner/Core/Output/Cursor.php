@@ -12,35 +12,30 @@ final readonly class Cursor implements ICursor
 {
     public function __construct(
         protected IOutput $output,
-        protected OptionCursor $cursorOption = OptionCursor::DISABLED,
+        protected OptionCursor $cursorOption,
     ) {
-        dump($this->cursorOption);
     }
 
     public function hide(): ICursor
-    {   
-        if ($this->isEnabled()) {
-            return $this;
+    {
+        if ($this->isHidden()) {
+            $this->output->write("\x1b[?25l");
         }
-        
-        $this->output->write("\x1b[?25l");
 
         return $this;
+    }
+
+    protected function isHidden(): bool
+    {
+        return OptionCursor::HIDDEN === $this->cursorOption;
     }
 
     public function show(): ICursor
     {
-        if ($this->isEnabled()) {
-            return $this;
+        if ($this->isHidden()) {
+            $this->output->write("\x1b[?25h\x1b[?0c");
         }
-        
-        $this->output->write("\x1b[?25h\x1b[?0c");
 
         return $this;
-    }
-
-    private function isEnabled(): bool
-    {
-        return OptionCursor::ENABLED === $this->cursorOption;
     }
 }

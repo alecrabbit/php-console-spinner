@@ -11,7 +11,7 @@ use AlecRabbit\Spinner\Contract\OptionStyleMode;
 
 interface ITerminalProbe extends IProbe
 {
-    final public const TERMINAL_DEFAULT_CURSOR_MODE = OptionCursor::DISABLED;
+    final public const TERMINAL_DEFAULT_CURSOR_MODE = OptionCursor::HIDDEN;
     final public const TERMINAL_DEFAULT_WIDTH = 100;
     final public const TERMINAL_DEFAULT_COLOR_SUPPORT = OptionStyleMode::ANSI8;
 
