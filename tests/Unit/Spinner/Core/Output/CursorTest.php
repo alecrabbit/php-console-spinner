@@ -58,6 +58,24 @@ final class CursorTest extends TestCase
 
         $cursor->hide();
     }
+
+    #[Test]
+    public function doesNotWriteToOutputWhenHideOrShowCalledIfEnabled(): void
+    {
+        $cursorOption = OptionCursor::ENABLED;
+
+        $output = $this->getOutputMock();
+
+        $output->expects(self::never())->method('write');
+
+        $cursor = $this->getTesteeInstance(output: $output, cursorOption: $cursorOption);
+
+        self::assertSame($cursorOption, self::getValue('cursorOption', $cursor));
+
+        $cursor->hide();
+        $cursor->show();
+    }
+
     #[Test]
     public function writesToOutputWhenShowCalledIfHidden(): void
     {
