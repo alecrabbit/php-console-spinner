@@ -9,7 +9,7 @@ use AlecRabbit\Tests\Spinner\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 
-final class RGBColorDTOTest extends TestCase
+final class RGBColorTest extends TestCase
 {
     public static function colorDataProvider(): iterable
     {
