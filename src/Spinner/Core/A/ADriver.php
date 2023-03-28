@@ -9,6 +9,7 @@ use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Contract\IOutput;
 use AlecRabbit\Spinner\Contract\ITimer;
 use AlecRabbit\Spinner\Core\DTO\DriverSettingsDTO;
+use AlecRabbit\Spinner\Core\Output\Contract\ICursor;
 use AlecRabbit\Spinner\Core\Sequencer;
 
 abstract class ADriver implements IDriver
@@ -19,6 +20,7 @@ abstract class ADriver implements IDriver
 
     public function __construct(
         protected readonly IOutput $output,
+        protected readonly ICursor $cursor,
         protected readonly ITimer $timer,
         protected readonly DriverSettingsDTO $driverSettings,
     ) {

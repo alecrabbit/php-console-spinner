@@ -5,8 +5,8 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Defaults\A;
 
-use AlecRabbit\Spinner\Contract\Cursor;
-use AlecRabbit\Spinner\Contract\StyleMode;
+use AlecRabbit\Spinner\Contract\OptionCursor;
+use AlecRabbit\Spinner\Contract\OptionStyleMode;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDefaults;
 use AlecRabbit\Spinner\Core\Defaults\Contract\ITerminalSettings;
 use AlecRabbit\Spinner\Helper\Asserter;
@@ -21,9 +21,9 @@ abstract class ATerminalSettings extends ADefaultsChild implements ITerminalSett
 
     final protected function __construct(
         IDefaults $parent,
-        protected StyleMode $styleMode,
+        protected OptionStyleMode $styleMode,
         protected int $width,
-        protected Cursor $cursor,
+        protected OptionCursor $cursor,
     ) {
         parent::__construct($parent);
         static::$supportedColorModes = $this->defaultSupportedColorModes();
@@ -31,14 +31,14 @@ abstract class ATerminalSettings extends ADefaultsChild implements ITerminalSett
 
     protected function defaultSupportedColorModes(): ArrayObject
     {
-        return new ArrayObject(StyleMode::cases());
+        return new ArrayObject(OptionStyleMode::cases());
     }
 
     final public static function getInstance(
         IDefaults $parent,
-        StyleMode $styleMode,
+        OptionStyleMode $styleMode,
         int $width,
-        Cursor $cursor,
+        OptionCursor $cursor,
     ): ITerminalSettings {
         if (null === self::$objInstance) {
             self::$objInstance =
@@ -48,7 +48,7 @@ abstract class ATerminalSettings extends ADefaultsChild implements ITerminalSett
         return self::$objInstance;
     }
 
-    public function getStyleMode(): StyleMode
+    public function getStyleMode(): OptionStyleMode
     {
         return $this->styleMode;
     }
@@ -58,7 +58,7 @@ abstract class ATerminalSettings extends ADefaultsChild implements ITerminalSett
         return $this->width;
     }
 
-    public function overrideColorMode(StyleMode $colorMode): static
+    public function overrideColorMode(OptionStyleMode $colorMode): static
     {
         $this->styleMode = $colorMode;
         return $this;
@@ -72,10 +72,10 @@ abstract class ATerminalSettings extends ADefaultsChild implements ITerminalSett
 
     public function isCursorDisabled(): bool
     {
-        return $this->cursor === Cursor::DISABLED;
+        return $this->cursor === OptionCursor::DISABLED;
     }
 
-    public function overrideCursor(Cursor $cursor): static
+    public function overrideCursor(OptionCursor $cursor): static
     {
         $this->cursor = $cursor;
         return $this;

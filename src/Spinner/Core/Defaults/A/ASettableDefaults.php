@@ -6,7 +6,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Defaults\A;
 
 use AlecRabbit\Spinner\Contract\IPattern;
-use AlecRabbit\Spinner\Contract\RunMode;
+use AlecRabbit\Spinner\Contract\OptionRunMode;
 use AlecRabbit\Spinner\Core\Contract\ILoopProbe;
 use AlecRabbit\Spinner\Core\Terminal\Contract\ITerminalProbe;
 use AlecRabbit\Spinner\Helper\Asserter;
@@ -40,7 +40,7 @@ abstract class ASettableDefaults extends ACoreDefaults
         return $this;
     }
 
-    public function overrideRunMode(RunMode $runMode): static
+    public function overrideRunMode(OptionRunMode $runMode): static
     {
         static::$runMode = $runMode;
         return $this;

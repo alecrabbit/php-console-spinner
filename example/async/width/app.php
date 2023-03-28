@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use AlecRabbit\Spinner\Contract\StyleMode;
+use AlecRabbit\Spinner\Contract\OptionStyleMode;
 use AlecRabbit\Spinner\Core\Factory\DefaultsFactory;
 use AlecRabbit\Spinner\Core\Output\StreamOutput;
 use AlecRabbit\Spinner\Facade;
@@ -13,7 +13,7 @@ $defaults = DefaultsFactory::get();
 
 $terminal = $defaults->getTerminalSettings();
 
-$terminal->overrideColorMode(StyleMode::NONE);
+$terminal->overrideColorMode(OptionStyleMode::NONE);
 $terminal->overrideWidth(80);
 
 $output = new StreamOutput(STDOUT);

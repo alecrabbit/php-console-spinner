@@ -5,7 +5,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Helper;
 
-use AlecRabbit\Spinner\Contract\StyleMode;
+use AlecRabbit\Spinner\Contract\OptionStyleMode;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Exception\RuntimeException;
 use Traversable;
@@ -71,9 +71,9 @@ final class Asserter
         if (0 === count(iterator_to_array($colorModes))) {
             throw new InvalidArgumentException('Color modes must not be empty.');
         }
-        /** @var StyleMode $colorMode */
+        /** @var OptionStyleMode $colorMode */
         foreach ($colorModes as $colorMode) {
-            if (!$colorMode instanceof StyleMode) {
+            if (!$colorMode instanceof OptionStyleMode) {
                 throw new InvalidArgumentException(
                     sprintf(
                         'Unsupported color mode of type "%s".',
@@ -162,7 +162,7 @@ final class Asserter
     /**
      * @throws InvalidArgumentException
      */
-    public static function assertIntColor(int $color, StyleMode $styleMode, ?string $callerMethod = null): void
+    public static function assertIntColor(int $color, OptionStyleMode $styleMode, ?string $callerMethod = null): void
     {
         match (true) {
             0 > $color => throw new InvalidArgumentException(
@@ -172,28 +172,28 @@ final class Asserter
                     self::getSeeMethodStr($callerMethod)
                 )
             ),
-            StyleMode::ANSI24->name === $styleMode->name => throw new InvalidArgumentException(
+            OptionStyleMode::ANSI24->name === $styleMode->name => throw new InvalidArgumentException(
                 sprintf(
                     'For %s::%s style mode rendering from int is not allowed%s.',
-                    StyleMode::class,
-                    StyleMode::ANSI24->name,
+                    OptionStyleMode::class,
+                    OptionStyleMode::ANSI24->name,
                     self::getSeeMethodStr($callerMethod)
                 )
             ),
-            StyleMode::ANSI8->name === $styleMode->name && 255 < $color => throw new InvalidArgumentException(
+            OptionStyleMode::ANSI8->name === $styleMode->name && 255 < $color => throw new InvalidArgumentException(
                 sprintf(
                     'For %s::%s style mode value should be in range 0..255, %d given%s.',
-                    StyleMode::class,
-                    StyleMode::ANSI8->name,
+                    OptionStyleMode::class,
+                    OptionStyleMode::ANSI8->name,
                     $color,
                     self::getSeeMethodStr($callerMethod)
                 )
             ),
-            StyleMode::ANSI4->name === $styleMode->name && 16 < $color => throw new InvalidArgumentException(
+            OptionStyleMode::ANSI4->name === $styleMode->name && 16 < $color => throw new InvalidArgumentException(
                 sprintf(
                     'For %s::%s style mode value should be in range 0..15, %d given%s.',
-                    StyleMode::class,
-                    StyleMode::ANSI4->name,
+                    OptionStyleMode::class,
+                    OptionStyleMode::ANSI4->name,
                     $color,
                     self::getSeeMethodStr($callerMethod)
                 )

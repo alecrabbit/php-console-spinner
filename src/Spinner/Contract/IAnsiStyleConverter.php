@@ -15,7 +15,7 @@ interface IAnsiStyleConverter
      * @throws LogicException
      * @throws DomainException
      */
-    public function ansiCode(int|string $color, StyleMode $styleMode): string;
+    public function ansiCode(int|string $color, OptionStyleMode $styleMode): string;
 
     public function isDisabled(): bool;
 }

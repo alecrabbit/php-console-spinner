@@ -4,8 +4,8 @@ declare(strict_types=1);
 // 20.03.23
 namespace AlecRabbit\Spinner\Core\Defaults\A;
 
-use AlecRabbit\Spinner\Contract\AutoStart;
-use AlecRabbit\Spinner\Contract\SignalHandlers;
+use AlecRabbit\Spinner\Contract\OptionAutoStart;
+use AlecRabbit\Spinner\Contract\OptionSignalHandlers;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDefaults;
 use AlecRabbit\Spinner\Core\Defaults\Contract\ILoopSettings;
 use AlecRabbit\Spinner\Core\Defaults\Mixin\DefaultsConst;
@@ -14,8 +14,8 @@ abstract class ALoopSettings extends ADefaultsChild implements ILoopSettings
 {
     use DefaultsConst;
 
-    protected static AutoStart $autoStartOption;
-    protected static SignalHandlers $signalHandlersOption;
+    protected static OptionAutoStart $autoStartOption;
+    protected static OptionSignalHandlers $signalHandlersOption;
 
     private static ?ILoopSettings $objInstance = null;
 
@@ -41,23 +41,23 @@ abstract class ALoopSettings extends ADefaultsChild implements ILoopSettings
         return self::$objInstance;
     }
 
-    public function getAutoStartOption(): AutoStart
+    public function getAutoStartOption(): OptionAutoStart
     {
         return static::$autoStartOption;
     }
 
-    public function getSignalHandlersOption(): SignalHandlers
+    public function getSignalHandlersOption(): OptionSignalHandlers
     {
         return static::$signalHandlersOption;
     }
 
-    public function overrideAutoStartOption(AutoStart $autoStartOption): ILoopSettings
+    public function overrideAutoStartOption(OptionAutoStart $autoStartOption): ILoopSettings
     {
         static::$autoStartOption = $autoStartOption;
         return $this;
     }
 
-    public function overrideSignalHandlersOption(SignalHandlers $signalHandlersOption): ILoopSettings
+    public function overrideSignalHandlersOption(OptionSignalHandlers $signalHandlersOption): ILoopSettings
     {
         static::$signalHandlersOption = $signalHandlersOption;
         return $this;

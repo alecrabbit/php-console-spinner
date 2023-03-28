@@ -4,7 +4,7 @@ declare(strict_types=1);
 // 21.03.23
 namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Core;
 
-use AlecRabbit\Spinner\Contract\StyleMode;
+use AlecRabbit\Spinner\Contract\OptionStyleMode;
 use AlecRabbit\Spinner\Core\Color\AnsiStyleConverter;
 use AlecRabbit\Spinner\Core\Color\Style;
 use AlecRabbit\Spinner\Core\Factory\FrameFactory;
@@ -34,11 +34,11 @@ final class StyleFrameCollectionRendererTest extends TestCase
             ],
             [
                 self::ARGUMENTS => [
-                    self::COLOR_MODE => StyleMode::NONE,
+                    self::COLOR_MODE => OptionStyleMode::NONE,
                     self::PATTERN =>
                         new CustomStylePattern(
                             [new Style('#ff0000')],
-                            styleMode: StyleMode::NONE
+                            styleMode: OptionStyleMode::NONE
                         ),
                 ],
             ],
@@ -53,11 +53,11 @@ final class StyleFrameCollectionRendererTest extends TestCase
             ],
             [
                 self::ARGUMENTS => [
-                    self::COLOR_MODE => StyleMode::NONE,
+                    self::COLOR_MODE => OptionStyleMode::NONE,
                     self::PATTERN =>
                         new CustomStylePattern(
                             [new Style('#ff0000')],
-                            styleMode: StyleMode::ANSI4
+                            styleMode: OptionStyleMode::ANSI4
                         ),
                 ],
             ],
@@ -72,11 +72,11 @@ final class StyleFrameCollectionRendererTest extends TestCase
             ],
             [
                 self::ARGUMENTS => [
-                    self::COLOR_MODE => StyleMode::NONE,
+                    self::COLOR_MODE => OptionStyleMode::NONE,
                     self::PATTERN =>
                         new CustomStylePattern(
                             [new Style('#ff0000')],
-                            styleMode: StyleMode::ANSI8
+                            styleMode: OptionStyleMode::ANSI8
                         ),
                 ],
             ],
@@ -91,11 +91,11 @@ final class StyleFrameCollectionRendererTest extends TestCase
             ],
             [
                 self::ARGUMENTS => [
-                    self::COLOR_MODE => StyleMode::NONE,
+                    self::COLOR_MODE => OptionStyleMode::NONE,
                     self::PATTERN =>
                         new CustomStylePattern(
                             [new Style('#ff0000')],
-                            styleMode: StyleMode::ANSI24
+                            styleMode: OptionStyleMode::ANSI24
                         ),
                 ],
             ],
@@ -110,11 +110,11 @@ final class StyleFrameCollectionRendererTest extends TestCase
             ],
             [
                 self::ARGUMENTS => [
-                    self::COLOR_MODE => StyleMode::ANSI24,
+                    self::COLOR_MODE => OptionStyleMode::ANSI24,
                     self::PATTERN =>
                         new CustomStylePattern(
                             [new Style('#ff0000')],
-                            styleMode: StyleMode::ANSI24
+                            styleMode: OptionStyleMode::ANSI24
                         ),
                 ],
             ],
@@ -129,11 +129,11 @@ final class StyleFrameCollectionRendererTest extends TestCase
             ],
             [
                 self::ARGUMENTS => [
-                    self::COLOR_MODE => StyleMode::ANSI8,
+                    self::COLOR_MODE => OptionStyleMode::ANSI8,
                     self::PATTERN =>
                         new CustomStylePattern(
                             [new Style('#ff0000')],
-                            styleMode: StyleMode::ANSI8
+                            styleMode: OptionStyleMode::ANSI8
                         ),
                 ],
             ],
@@ -150,14 +150,14 @@ final class StyleFrameCollectionRendererTest extends TestCase
             ],
             [
                 self::ARGUMENTS => [
-                    self::COLOR_MODE => StyleMode::ANSI8,
+                    self::COLOR_MODE => OptionStyleMode::ANSI8,
                     self::PATTERN =>
                         new CustomStylePattern(
                             [
                                 new Style('#ff0000', '#000000'),
                                 new Style('#ff005f')
                             ],
-                            styleMode: StyleMode::ANSI8
+                            styleMode: OptionStyleMode::ANSI8
                         ),
                 ],
             ],
@@ -177,7 +177,7 @@ final class StyleFrameCollectionRendererTest extends TestCase
             ],
             [
                 self::ARGUMENTS => [
-                    self::COLOR_MODE => StyleMode::ANSI8,
+                    self::COLOR_MODE => OptionStyleMode::ANSI8,
                     self::PATTERN => $pattern,
                 ],
             ],
@@ -192,11 +192,11 @@ final class StyleFrameCollectionRendererTest extends TestCase
             ],
             [
                 self::ARGUMENTS => [
-                    self::COLOR_MODE => StyleMode::ANSI8,
+                    self::COLOR_MODE => OptionStyleMode::ANSI8,
                     self::PATTERN =>
                         new CustomStylePattern(
                             ['#ff0000'],
-                            styleMode: StyleMode::ANSI8
+                            styleMode: OptionStyleMode::ANSI8
                         ),
                 ],
             ],

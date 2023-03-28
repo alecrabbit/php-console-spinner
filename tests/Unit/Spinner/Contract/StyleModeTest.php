@@ -4,7 +4,7 @@ declare(strict_types=1);
 // 15.02.23
 namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Contract;
 
-use AlecRabbit\Spinner\Contract\StyleMode;
+use AlecRabbit\Spinner\Contract\OptionStyleMode;
 use AlecRabbit\Tests\Spinner\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
@@ -35,18 +35,18 @@ final class StyleModeTest extends TestCase
         // #0..
         yield from [
             // result, modeOne, modeTwo // first element - #0..
-            [StyleMode::ANSI8, StyleMode::ANSI8, StyleMode::ANSI8],
-            [StyleMode::ANSI4, StyleMode::ANSI4, StyleMode::ANSI8],
-            [StyleMode::ANSI8, StyleMode::ANSI8, StyleMode::ANSI24],
-            [StyleMode::ANSI8, StyleMode::ANSI24, StyleMode::ANSI8],
-            [StyleMode::ANSI24, StyleMode::ANSI24, StyleMode::ANSI24],
-            [StyleMode::ANSI4, StyleMode::ANSI24, StyleMode::ANSI4],
-            [StyleMode::NONE, StyleMode::ANSI4, StyleMode::NONE],
-            [StyleMode::NONE, StyleMode::ANSI8, StyleMode::NONE],
-            [StyleMode::NONE, StyleMode::ANSI24, StyleMode::NONE],
-            [StyleMode::NONE, StyleMode::NONE, StyleMode::ANSI8],
-            [StyleMode::NONE, StyleMode::NONE, StyleMode::ANSI4],
-            [StyleMode::NONE, StyleMode::NONE, StyleMode::ANSI24],
+            [OptionStyleMode::ANSI8, OptionStyleMode::ANSI8, OptionStyleMode::ANSI8],
+            [OptionStyleMode::ANSI4, OptionStyleMode::ANSI4, OptionStyleMode::ANSI8],
+            [OptionStyleMode::ANSI8, OptionStyleMode::ANSI8, OptionStyleMode::ANSI24],
+            [OptionStyleMode::ANSI8, OptionStyleMode::ANSI24, OptionStyleMode::ANSI8],
+            [OptionStyleMode::ANSI24, OptionStyleMode::ANSI24, OptionStyleMode::ANSI24],
+            [OptionStyleMode::ANSI4, OptionStyleMode::ANSI24, OptionStyleMode::ANSI4],
+            [OptionStyleMode::NONE, OptionStyleMode::ANSI4, OptionStyleMode::NONE],
+            [OptionStyleMode::NONE, OptionStyleMode::ANSI8, OptionStyleMode::NONE],
+            [OptionStyleMode::NONE, OptionStyleMode::ANSI24, OptionStyleMode::NONE],
+            [OptionStyleMode::NONE, OptionStyleMode::NONE, OptionStyleMode::ANSI8],
+            [OptionStyleMode::NONE, OptionStyleMode::NONE, OptionStyleMode::ANSI4],
+            [OptionStyleMode::NONE, OptionStyleMode::NONE, OptionStyleMode::ANSI24],
         ];
     }
 
@@ -73,18 +73,18 @@ final class StyleModeTest extends TestCase
         // #0..
         yield from [
             // result, mode // first element - #0..
-            [true, StyleMode::ANSI8,],
-            [true, StyleMode::ANSI4,],
-            [true, StyleMode::ANSI8,],
-            [true, StyleMode::ANSI24,],
-            [true, StyleMode::ANSI24,],
-            [true, StyleMode::ANSI24,],
-            [true, StyleMode::ANSI4,],
-            [true, StyleMode::ANSI8,],
-            [true, StyleMode::ANSI24,],
-            [false, StyleMode::NONE,],
-            [false, StyleMode::NONE,],
-            [false, StyleMode::NONE,],
+            [true, OptionStyleMode::ANSI8,],
+            [true, OptionStyleMode::ANSI4,],
+            [true, OptionStyleMode::ANSI8,],
+            [true, OptionStyleMode::ANSI24,],
+            [true, OptionStyleMode::ANSI24,],
+            [true, OptionStyleMode::ANSI24,],
+            [true, OptionStyleMode::ANSI4,],
+            [true, OptionStyleMode::ANSI8,],
+            [true, OptionStyleMode::ANSI24,],
+            [false, OptionStyleMode::NONE,],
+            [false, OptionStyleMode::NONE,],
+            [false, OptionStyleMode::NONE,],
         ];
     }
 

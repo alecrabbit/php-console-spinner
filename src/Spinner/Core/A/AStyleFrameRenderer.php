@@ -9,7 +9,7 @@ use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Contract\ISequencer;
 use AlecRabbit\Spinner\Contract\IStyle;
 use AlecRabbit\Spinner\Contract\IStyleFrameRenderer;
-use AlecRabbit\Spinner\Contract\StyleMode;
+use AlecRabbit\Spinner\Contract\OptionStyleMode;
 use AlecRabbit\Spinner\Core\Factory\FrameFactory;
 use AlecRabbit\Spinner\Core\Sequencer;
 use AlecRabbit\Spinner\Exception\DomainException;
@@ -39,7 +39,7 @@ abstract class AStyleFrameRenderer implements IStyleFrameRenderer
      * @throws LogicException
      * @throws InvalidArgumentException
      */
-    public function render(int|string|IStyle $entry, StyleMode $styleMode = StyleMode::NONE): IFrame
+    public function render(int|string|IStyle $entry, OptionStyleMode $styleMode = OptionStyleMode::NONE): IFrame
     {
         if ($this->isStylingDisabled()) {
             throw new LogicException('Styling is disabled.'); // should never happen
@@ -56,9 +56,9 @@ abstract class AStyleFrameRenderer implements IStyleFrameRenderer
      * @throws LogicException
      * @throws InvalidArgumentException
      */
-    protected function createFrame(int|string|IStyle $entry, StyleMode $styleMode): IFrame
+    protected function createFrame(int|string|IStyle $entry, OptionStyleMode $styleMode): IFrame
     {
-        if ($styleMode === StyleMode::NONE) {
+        if ($styleMode === OptionStyleMode::NONE) {
             return FrameFactory::create('%s', 0);
         }
 
@@ -79,7 +79,7 @@ abstract class AStyleFrameRenderer implements IStyleFrameRenderer
      * @throws InvalidArgumentException
      * @throws LogicException
      */
-    protected function createFromStyle(IStyle $entry, StyleMode $styleMode): IFrame
+    protected function createFromStyle(IStyle $entry, OptionStyleMode $styleMode): IFrame
     {
         if ($entry->isEmpty() || $entry->isOptionsOnly()) {
             return FrameFactory::create('%s', $entry->getWidth());
@@ -96,7 +96,7 @@ abstract class AStyleFrameRenderer implements IStyleFrameRenderer
      * @throws InvalidArgumentException
      * @throws LogicException
      */
-    protected function flattenStyle(IStyle $entry, StyleMode $styleMode): string
+    protected function flattenStyle(IStyle $entry, OptionStyleMode $styleMode): string
     {
         $fgColor = $entry->getFgColor();
         $bgColor = $entry->getBgColor();

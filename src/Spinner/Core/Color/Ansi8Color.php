@@ -4,7 +4,7 @@ declare(strict_types=1);
 // 25.03.23
 namespace AlecRabbit\Spinner\Core\Color;
 
-use AlecRabbit\Spinner\Contract\StyleMode;
+use AlecRabbit\Spinner\Contract\OptionStyleMode;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Helper\Asserter;
 use AlecRabbit\Spinner\Mixin\AnsiColorTableTrait;
@@ -56,6 +56,6 @@ final class Ansi8Color
      */
     private static function assertIndex(int $index): void
     {
-        Asserter::assertIntColor($index, StyleMode::ANSI8);
+        Asserter::assertIntColor($index, OptionStyleMode::ANSI8);
     }
 }

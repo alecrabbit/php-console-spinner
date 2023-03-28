@@ -13,6 +13,7 @@ use AlecRabbit\Spinner\Core\Defaults\Contract\IDriverSettings;
 use AlecRabbit\Spinner\Core\Defaults\Contract\ITerminalSettings;
 use AlecRabbit\Spinner\Core\Driver;
 use AlecRabbit\Spinner\Core\DTO\DriverSettingsDTO;
+use AlecRabbit\Spinner\Core\Output\Cursor;
 use AlecRabbit\Spinner\Core\Output\StreamOutput;
 use AlecRabbit\Spinner\Core\Timer;
 
@@ -47,6 +48,7 @@ abstract class ADriverBuilder implements IDriverBuilder
         return
             new Driver(
                 output: $this->output,
+                cursor: new Cursor($this->output),
                 timer: $this->timer,
                 driverSettings: $driverSettings,
             );
