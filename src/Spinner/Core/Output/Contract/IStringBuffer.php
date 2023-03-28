@@ -3,6 +3,8 @@ declare(strict_types=1);
 // 28.03.23
 namespace AlecRabbit\Spinner\Core\Output\Contract;
 
+use Generator;
+
 interface IStringBuffer
 {
     /**
@@ -16,7 +18,7 @@ interface IStringBuffer
     /**
      * Returns buffer content and flushes it.
      *
-     * @return \Generator
+     * @return Generator
      */
-    public function flush(): \Generator;
+    public function flush(): Generator;
 }

@@ -18,14 +18,6 @@ final class StringBuffer implements IStringBuffer
         $this->buffer = '';
     }
 
-//    public function flush(): string
-//    {
-//        $buffer = $this->buffer;
-//        $this->buffer = '';
-//        return $buffer;
-//    }
-
-
     public function write(string $message): IStringBuffer
     {
         $this->buffer .= $message;

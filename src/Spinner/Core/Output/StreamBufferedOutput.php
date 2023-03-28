@@ -57,6 +57,7 @@ final class StreamBufferedOutput implements IBufferedOutput
      */
     protected function doWrite(\Traversable $data): void
     {
+        /** @var string $item */
         foreach ($data as $item) {
             if (false === @fwrite($this->stream, $item)) {
                 // should never happen
@@ -66,6 +67,11 @@ final class StreamBufferedOutput implements IBufferedOutput
         fflush($this->stream);
     }
 
+    /**
+     * @param iterable|string $messages
+     * @param bool $newline
+     * @return Generator<string>
+     */
     protected function prepare(iterable|string $messages, bool $newline = false): Generator
     {
         if (!is_iterable($messages)) {
