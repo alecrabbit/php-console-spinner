@@ -192,4 +192,28 @@ final class ASpinnerTest extends TestCase
         self::assertTrue(self::getValue('active', $spinner));
         self::assertFalse(self::getValue('interrupted', $spinner));
     }
+
+    #[Test]
+    public function canRemoveWidgetsFromRootWidget(): void
+    {
+        $rootWidget = $this->getWidgetCompositeMock();
+        $rootWidget->expects(self::once())->method('add');
+        $rootWidget->expects(self::once())->method('remove');
+        $rootWidget->expects(self::exactly(3))->method('update');
+
+        $driver = $this->getDriverMock();
+        $driver->expects(self::exactly(2))->method('erase');
+        $driver->expects(self::exactly(2))->method('display');
+        $driver->expects(self::exactly(2))->method('elapsedTime');
+
+        $spinner = $this->getTesteeInstance(driver: $driver, rootWidget: $rootWidget);
+
+        $spinner->initialize();
+        $context = $spinner->add($this->getWidgetCompositeMock());
+
+        self::assertTrue(self::getValue('active', $spinner));
+        self::assertFalse(self::getValue('interrupted', $spinner));
+
+        $spinner->remove($context);
+    }
 }
