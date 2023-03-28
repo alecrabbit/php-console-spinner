@@ -26,6 +26,7 @@ final class StringBuffer implements IStringBuffer
         if (!is_iterable($message)) {
             $message = [$message];
         }
+        /** @var string $item */
         foreach ($message as $item) {
             $this->buffer .= $item;
         }

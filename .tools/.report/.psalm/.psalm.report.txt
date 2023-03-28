@@ -1,2 +1,0 @@
-/app/src/Spinner/Core/Output/StringBuffer.php:27:30:error - MixedAssignment: Unable to determine the type that $item is being assigned to
-/app/src/Spinner/Core/Output/StringBuffer.php:28:30:error - MixedOperand: Right operand cannot be mixed
