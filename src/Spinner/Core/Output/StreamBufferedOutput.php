@@ -58,11 +58,7 @@ final class StreamBufferedOutput implements IBufferedOutput
                 if ($newline) {
                     $message .= PHP_EOL;
                 }
-                if (false === @fwrite($this->stream, $message)) {
-                    // should never happen
-                    throw new RuntimeException('Was unable to write to a stream.');
-                }
-                fflush($this->stream);
+                $this->doWrite($message);
             }
         }
     }
@@ -70,11 +66,7 @@ final class StreamBufferedOutput implements IBufferedOutput
     /** @inheritdoc */
     public function flush(): void
     {
-        if (false === @fwrite($this->stream, $this->buffer->flush())) {
-            // should never happen
-            throw new RuntimeException('Was unable to write to a stream.');
-        }
-        fflush($this->stream);
+        $this->doWrite($this->buffer->flush());
     }
 
     public function bufferedWrite(iterable|string $messages, bool $newline = false): IBufferedOutput
@@ -93,5 +85,17 @@ final class StreamBufferedOutput implements IBufferedOutput
             }
         }
         return $this;
+    }
+
+    /**
+     * @throws RuntimeException
+     */
+    protected function doWrite(string $str): void
+    {
+        if (false === @fwrite($this->stream, $str )) {
+            // should never happen
+            throw new RuntimeException('Was unable to write to a stream.');
+        }
+        fflush($this->stream);
     }
 }

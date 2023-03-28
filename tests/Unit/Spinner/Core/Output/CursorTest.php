@@ -95,18 +95,35 @@ final class CursorTest extends TestCase
     }
 
     #[Test]
-    public function writesToOutputWhenMoveLeftCalled(): void
+    public function writesToBufferWhenMoveLeftAndFlushCalled(): void
     {
         $output = $this->getOutputMock();
 
         $moveLeftSequence = "\x1b[2D";
 
-        $output->expects(self::once())->method('write')->with($moveLeftSequence);
+        $output->expects(self::once())->method('bufferedWrite')->with($moveLeftSequence);
+        $output->expects(self::once())->method('flush');
 
         $cursor = $this->getTesteeInstance(output: $output);
 
         self::assertInstanceOf(Cursor::class, $cursor);
 
-        $cursor->moveLeft(2);
+        $cursor->moveLeft(2)->flush();
+    }
+    #[Test]
+    public function writesToBufferWhenEraseAndFlushCalled(): void
+    {
+        $output = $this->getOutputMock();
+
+        $eraseSequence = "\x1b[2X";
+
+        $output->expects(self::once())->method('bufferedWrite')->with($eraseSequence);
+        $output->expects(self::once())->method('flush');
+
+        $cursor = $this->getTesteeInstance(output: $output);
+
+        self::assertInstanceOf(Cursor::class, $cursor);
+
+        $cursor->erase(2)->flush();
     }
 }

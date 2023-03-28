@@ -8,8 +8,11 @@ use AlecRabbit\Spinner\Core\Output\Contract\IOutputBuffer;
 
 final class OutputBuffer implements IOutputBuffer
 {
-    protected string $buffer = '';
-    protected bool $closed = false;
+    public function __construct(
+        protected string $buffer = '',
+        protected bool $closed = false,
+    ) {
+    }
 
     public function flush(): string
     {

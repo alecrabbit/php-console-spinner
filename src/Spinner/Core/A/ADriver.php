@@ -10,7 +10,6 @@ use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Contract\ITimer;
 use AlecRabbit\Spinner\Core\DTO\DriverSettingsDTO;
 use AlecRabbit\Spinner\Core\Output\Contract\ICursor;
-use AlecRabbit\Spinner\Core\Sequencer;
 
 abstract class ADriver implements IDriver
 {
@@ -26,21 +25,18 @@ abstract class ADriver implements IDriver
     ) {
     }
 
-    public function erase(): void
-    {
-        $this->output->write(
-            Sequencer::eraseSequence($this->currentFrame->width())
-        );
-    }
-
     public function display(): void
     {
         $width = $this->currentFrame->width();
         $widthDiff = $this->calculateWidthDiff($width);
 
-        $this->output->bufferedWrite($this->currentFrame->sequence());
-        $this->output->bufferedWrite($widthDiff > 0 ? Sequencer::eraseSequence($widthDiff) : '');
-        $this->output->bufferedWrite(Sequencer::moveBackSequence($width));
+        $this->output
+            ->bufferedWrite($this->currentFrame->sequence())
+            ->flush();
+
+        $this->cursor->erase(max($widthDiff, 0));
+        $this->cursor->moveLeft($width);
+
         $this->output->flush();
     }
 
@@ -53,6 +49,13 @@ abstract class ADriver implements IDriver
         return $diff;
     }
 
+    public function erase(): void
+    {
+        $this->cursor
+            ->erase($this->currentFrame->width())
+            ->flush();
+    }
+
     public function interrupt(?string $interruptMessage = null): void
     {
         $this->finalize($interruptMessage ?? $this->driverSettings->interruptMessage);
@@ -62,7 +65,6 @@ abstract class ADriver implements IDriver
     {
         $this->showCursor();
         $this->output->write($finalMessage ?? $this->driverSettings->finalMessage);
-
     }
 
     public function showCursor(): void
@@ -76,11 +78,6 @@ abstract class ADriver implements IDriver
     }
 
     public function initialize(): void
-    {
-        $this->hideCursor();
-    }
-
-    public function hideCursor(): void
     {
         $this->cursor->hide();
     }

@@ -20,7 +20,6 @@ final readonly class Cursor implements ICursor
     {
         if ($this->isHidden()) {
             $this->output->write("\x1b[?25l");
-
         }
 
         return $this;
@@ -35,7 +34,6 @@ final readonly class Cursor implements ICursor
     {
         if ($this->isHidden()) {
             $this->output->write("\x1b[?25h\x1b[?0c");
-
         }
 
         return $this;
@@ -43,8 +41,21 @@ final readonly class Cursor implements ICursor
 
     public function moveLeft(int $columns = 1): ICursor
     {
-        $this->output->write("\x1b[{$columns}D");
+        $this->output->bufferedWrite("\x1b[{$columns}D");
 
+        return $this;
+    }
+
+    public function erase(int $width = 1): ICursor
+    {
+        $this->output->bufferedWrite("\x1b[{$width}X");
+
+        return $this;
+    }
+
+    public function flush(): ICursor
+    {
+        $this->output->flush();
 
         return $this;
     }
