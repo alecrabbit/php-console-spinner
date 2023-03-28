@@ -11,7 +11,7 @@ interface IStyleFrameRenderer
     /**
      * @throws InvalidArgumentException
      */
-    public function render(int|string|IStyle $entry, StyleMode $styleMode = StyleMode::NONE): IFrame;
+    public function render(int|string|IStyle $entry, OptionStyleMode $styleMode = OptionStyleMode::NONE): IFrame;
 
     public function isStylingDisabled(): bool;
 }

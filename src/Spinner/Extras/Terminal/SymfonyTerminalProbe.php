@@ -5,7 +5,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Extras\Terminal;
 
-use AlecRabbit\Spinner\Contract\StyleMode;
+use AlecRabbit\Spinner\Contract\OptionStyleMode;
 use AlecRabbit\Spinner\Core\Terminal\A\ATerminalProbe;
 use Symfony\Component\Console\Output\AnsiColorMode;
 use Symfony\Component\Console\Terminal;
@@ -24,13 +24,13 @@ final class SymfonyTerminalProbe extends ATerminalProbe
         return (new Terminal())->getWidth();
     }
 
-    public static function getColorMode(): StyleMode
+    public static function getColorMode(): OptionStyleMode
     {
         return
             match (Terminal::getColorMode()) {
-                AnsiColorMode::Ansi24 => StyleMode::ANSI24,
-                AnsiColorMode::Ansi8 => StyleMode::ANSI8,
-                AnsiColorMode::Ansi4 => StyleMode::ANSI4,
+                AnsiColorMode::Ansi24 => OptionStyleMode::ANSI24,
+                AnsiColorMode::Ansi8 => OptionStyleMode::ANSI8,
+                AnsiColorMode::Ansi4 => OptionStyleMode::ANSI4,
             };
     }
 }

@@ -2,7 +2,7 @@
 // 19.03.23
 namespace AlecRabbit\Spinner\Contract;
 
-enum SignalHandlers
+enum OptionInitialization
 {
     case ENABLED;
     case DISABLED;

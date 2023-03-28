@@ -11,7 +11,7 @@ use AlecRabbit\Spinner\Contract\IFrameCollectionRenderer;
 use AlecRabbit\Spinner\Contract\IPattern;
 use AlecRabbit\Spinner\Contract\IStyle;
 use AlecRabbit\Spinner\Contract\IStyleFrameRenderer;
-use AlecRabbit\Spinner\Contract\StyleMode;
+use AlecRabbit\Spinner\Contract\OptionStyleMode;
 use AlecRabbit\Spinner\Core\A\AFrameCollectionRenderer;
 use AlecRabbit\Spinner\Core\Factory\FrameFactory;
 use AlecRabbit\Spinner\Core\Pattern\Contract\IStylePattern;
@@ -20,7 +20,7 @@ use ArrayObject;
 
 final class StyleFrameCollectionRenderer extends AFrameCollectionRenderer
 {
-    private StyleMode $styleMode = StyleMode::NONE;
+    private OptionStyleMode $styleMode = OptionStyleMode::NONE;
 
     public function __construct(
         protected IStyleFrameRenderer $frameRenderer,

@@ -6,7 +6,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Defaults\Contract;
 
 use AlecRabbit\Spinner\Contract\IInterval;
-use AlecRabbit\Spinner\Contract\Initialization;
+use AlecRabbit\Spinner\Contract\OptionInitialization;
 
 interface ISpinnerSettings extends IDefaultsChild
 {
@@ -16,9 +16,9 @@ interface ISpinnerSettings extends IDefaultsChild
 
     public function getInterval(): IInterval;
 
-    public function getInitializationOption(): Initialization;
+    public function getInitializationOption(): OptionInitialization;
 
-    public function overrideInitializationOption(Initialization $initialization): static;
+    public function overrideInitializationOption(OptionInitialization $initialization): static;
 
     public function overrideInterval(IInterval $interval): static;
 }

@@ -6,21 +6,23 @@ namespace AlecRabbit\Spinner\Core\A;
 
 use AlecRabbit\Spinner\Contract\IDriver;
 use AlecRabbit\Spinner\Contract\IFrame;
+use AlecRabbit\Spinner\Contract\IOutput;
 use AlecRabbit\Spinner\Contract\ITimer;
-use AlecRabbit\Spinner\Core\Output\Contract\IOutput;
+use AlecRabbit\Spinner\Core\DTO\DriverSettingsDTO;
+use AlecRabbit\Spinner\Core\Output\Contract\ICursor;
 use AlecRabbit\Spinner\Core\Sequencer;
 
 abstract class ADriver implements IDriver
 {
+    /** @psalm-suppress PropertyNotSetInConstructor */
     protected IFrame $currentFrame;
     protected int $previousFrameWidth = 0;
 
     public function __construct(
         protected readonly IOutput $output,
+        protected readonly ICursor $cursor,
         protected readonly ITimer $timer,
-        protected readonly bool $hideCursor,
-        protected readonly string $interruptMessage,
-        protected readonly string $finalMessage,
+        protected readonly DriverSettingsDTO $driverSettings,
     ) {
     }
 
@@ -56,22 +58,18 @@ abstract class ADriver implements IDriver
 
     public function interrupt(?string $interruptMessage = null): void
     {
-        $this->finalize($interruptMessage ?? $this->interruptMessage);
+        $this->finalize($interruptMessage ?? $this->driverSettings->interruptMessage);
     }
 
     public function finalize(?string $finalMessage = null): void
     {
         $this->showCursor();
-        $this->output->write($finalMessage ?? $this->finalMessage);
+        $this->output->write($finalMessage ?? $this->driverSettings->finalMessage);
     }
 
     public function showCursor(): void
     {
-        if ($this->hideCursor) {
-            $this->output->write(
-                Sequencer::showCursorSequence()
-            );
-        }
+        $this->cursor->show();
     }
 
     public function elapsedTime(): float
@@ -86,11 +84,7 @@ abstract class ADriver implements IDriver
 
     public function hideCursor(): void
     {
-        if ($this->hideCursor) {
-            $this->output->write(
-                Sequencer::hideCursorSequence()
-            );
-        }
+        $this->cursor->hide();
     }
 
     public function setCurrentFrame(IFrame $frame): void

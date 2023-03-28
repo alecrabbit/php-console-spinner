@@ -5,19 +5,19 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Terminal\Contract;
 
-use AlecRabbit\Spinner\Contract\Cursor;
+use AlecRabbit\Spinner\Contract\OptionCursor;
 use AlecRabbit\Spinner\Contract\IProbe;
-use AlecRabbit\Spinner\Contract\StyleMode;
+use AlecRabbit\Spinner\Contract\OptionStyleMode;
 
 interface ITerminalProbe extends IProbe
 {
-    final public const TERMINAL_DEFAULT_CURSOR_MODE = Cursor::DISABLED;
+    final public const TERMINAL_DEFAULT_CURSOR_MODE = OptionCursor::DISABLED;
     final public const TERMINAL_DEFAULT_WIDTH = 100;
-    final public const TERMINAL_DEFAULT_COLOR_SUPPORT = StyleMode::ANSI8;
+    final public const TERMINAL_DEFAULT_COLOR_SUPPORT = OptionStyleMode::ANSI8;
 
     public static function getWidth(): int;
 
-    public static function getColorMode(): StyleMode;
+    public static function getColorMode(): OptionStyleMode;
 
-    public static function getCursorMode(): Cursor;
+    public static function getCursorMode(): OptionCursor;
 }

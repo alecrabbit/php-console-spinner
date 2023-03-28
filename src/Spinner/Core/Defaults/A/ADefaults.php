@@ -6,7 +6,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Defaults\A;
 
 use AlecRabbit\Spinner\Contract\IPattern;
-use AlecRabbit\Spinner\Contract\RunMode;
+use AlecRabbit\Spinner\Contract\OptionRunMode;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDefaults;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDefaultsClasses;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDriverSettings;
@@ -53,10 +53,10 @@ abstract class ADefaults extends ASettableDefaults
 
     public function isModeSynchronous(): bool
     {
-        return static::$runMode === RunMode::SYNCHRONOUS;
+        return static::$runMode === OptionRunMode::SYNCHRONOUS;
     }
 
-    public function getRunMode(): RunMode
+    public function getRunMode(): OptionRunMode
     {
         return static::$runMode;
     }

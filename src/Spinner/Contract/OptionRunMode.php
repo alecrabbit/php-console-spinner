@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Contract;
 
-enum RunMode
+enum OptionRunMode
 {
     case SYNCHRONOUS; // long value name for readability
 

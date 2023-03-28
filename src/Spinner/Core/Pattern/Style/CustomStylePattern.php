@@ -5,7 +5,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Pattern\Style;
 
-use AlecRabbit\Spinner\Contract\StyleMode;
+use AlecRabbit\Spinner\Contract\OptionStyleMode;
 use AlecRabbit\Spinner\Core\Pattern\Style\A\AStylePattern;
 use Traversable;
 
@@ -14,7 +14,7 @@ final class CustomStylePattern extends AStylePattern
 {
     public function __construct(
         protected iterable $pattern,
-        protected StyleMode $styleMode = self::STYLE_MODE,
+        protected OptionStyleMode $styleMode = self::STYLE_MODE,
         ?int $interval = null,
         bool $reversed = false
     ) {

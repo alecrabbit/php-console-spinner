@@ -2,7 +2,7 @@
 // 19.03.23
 namespace AlecRabbit\Spinner\Contract;
 
-enum AutoStart
+enum OptionAutoStart
 {
     case ENABLED;
     case DISABLED;
