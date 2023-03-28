@@ -11,6 +11,7 @@ use AlecRabbit\Spinner\Core\Defaults\Contract\IDefaults;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDriverSettings;
 use AlecRabbit\Spinner\Core\Defaults\Contract\ITerminalSettings;
 use AlecRabbit\Spinner\Core\Driver;
+use AlecRabbit\Spinner\Core\DTO\DriverSettingsDTO;
 use AlecRabbit\Spinner\Core\Output\Contract\IOutput;
 use AlecRabbit\Spinner\Core\Output\StreamOutput;
 use AlecRabbit\Spinner\Core\Timer;
@@ -37,13 +38,17 @@ abstract class ADriverBuilder implements IDriverBuilder
         $this->terminalSettings ??= $this->defaults->getTerminalSettings();
         $this->driverSettings ??= $this->defaults->getDriverSettings();
 
+        $driverSettings = new DriverSettingsDTO(
+            hideCursor: $this->terminalSettings->isCursorDisabled(),
+            interruptMessage: $this->driverSettings->getInterruptMessage(),
+            finalMessage: $this->driverSettings->getFinalMessage(),
+        );
+
         return
             new Driver(
                 output: $this->output,
                 timer: $this->timer,
-                hideCursor: $this->terminalSettings->isCursorDisabled(),
-                interruptMessage: $this->driverSettings->getInterruptMessage(),
-                finalMessage: $this->driverSettings->getFinalMessage(),
+                driverSettings: $driverSettings,
             );
     }
 
