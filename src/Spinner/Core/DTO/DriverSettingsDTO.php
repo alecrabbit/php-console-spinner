@@ -10,7 +10,6 @@ namespace AlecRabbit\Spinner\Core\DTO;
 final readonly class DriverSettingsDTO
 {
     public function __construct(
-        public bool $hideCursor,
         public string $interruptMessage,
         public string $finalMessage,
     ) {

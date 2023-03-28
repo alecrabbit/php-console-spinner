@@ -40,15 +40,18 @@ abstract class ADriverBuilder implements IDriverBuilder
         $this->driverSettings ??= $this->defaults->getDriverSettings();
 
         $driverSettings = new DriverSettingsDTO(
-            hideCursor: $this->terminalSettings->isCursorDisabled(),
             interruptMessage: $this->driverSettings->getInterruptMessage(),
             finalMessage: $this->driverSettings->getFinalMessage(),
         );
 
+        $cursor = new Cursor(
+            $this->output,
+            $this->terminalSettings->getCursorOption(),
+        );
         return
             new Driver(
                 output: $this->output,
-                cursor: new Cursor($this->output),
+                cursor: $cursor,
                 timer: $this->timer,
                 driverSettings: $driverSettings,
             );

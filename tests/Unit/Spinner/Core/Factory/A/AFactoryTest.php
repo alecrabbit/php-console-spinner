@@ -47,7 +47,7 @@ final class AFactoryTest extends TestCase
             ->toParent()
             ->getTerminalSettings()
             ->overrideColorMode(OptionStyleMode::NONE)
-            ->overrideCursor(OptionCursor::ENABLED)
+            ->overrideCursorOption(OptionCursor::ENABLED)
             ->toParent();
     }
 }

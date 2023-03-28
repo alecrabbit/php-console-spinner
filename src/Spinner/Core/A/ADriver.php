@@ -14,7 +14,7 @@ use AlecRabbit\Spinner\Core\Sequencer;
 
 abstract class ADriver implements IDriver
 {
-    /** @psalm-suppress PropertyNotSetInConstructor  */
+    /** @psalm-suppress PropertyNotSetInConstructor */
     protected IFrame $currentFrame;
     protected int $previousFrameWidth = 0;
 
@@ -69,11 +69,7 @@ abstract class ADriver implements IDriver
 
     public function showCursor(): void
     {
-        if ($this->driverSettings->hideCursor) {
-            $this->output->write(
-                Sequencer::showCursorSequence()
-            );
-        }
+        $this->cursor->show();
     }
 
     public function elapsedTime(): float
@@ -88,11 +84,7 @@ abstract class ADriver implements IDriver
 
     public function hideCursor(): void
     {
-        if ($this->driverSettings->hideCursor) {
-            $this->output->write(
-                Sequencer::hideCursorSequence()
-            );
-        }
+        $this->cursor->hide();
     }
 
     public function setCurrentFrame(IFrame $frame): void

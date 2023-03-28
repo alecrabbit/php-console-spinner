@@ -6,7 +6,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Defaults\Mixin;
 
 use AlecRabbit\Spinner\Contract\OptionAutoStart;
-use AlecRabbit\Spinner\Contract\Initialization;
+use AlecRabbit\Spinner\Contract\OptionInitialization;
 use AlecRabbit\Spinner\Contract\OptionRunMode;
 use AlecRabbit\Spinner\Contract\OptionSignalHandlers;
 
@@ -32,6 +32,6 @@ trait DefaultsConst
     final protected const SHUTDOWN_DELAY = 0.15;
     /** @var int */
     final protected const SHUTDOWN_MAX_DELAY = 10;
-    /** @var Initialization */
-    final protected const INITIALIZATION_OPTION = Initialization::ENABLED;
+    /** @var OptionInitialization */
+    final protected const INITIALIZATION_OPTION = OptionInitialization::ENABLED;
 }

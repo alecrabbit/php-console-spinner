@@ -23,7 +23,7 @@ abstract class ATerminalSettings extends ADefaultsChild implements ITerminalSett
         IDefaults $parent,
         protected OptionStyleMode $styleMode,
         protected int $width,
-        protected OptionCursor $cursor,
+        protected OptionCursor $cursorOption,
     ) {
         parent::__construct($parent);
         static::$supportedColorModes = $this->defaultSupportedColorModes();
@@ -72,12 +72,12 @@ abstract class ATerminalSettings extends ADefaultsChild implements ITerminalSett
 
     public function isCursorDisabled(): bool
     {
-        return $this->cursor === OptionCursor::DISABLED;
+        return $this->cursorOption === OptionCursor::DISABLED;
     }
 
-    public function overrideCursor(OptionCursor $cursor): static
+    public function overrideCursorOption(OptionCursor $cursor): static
     {
-        $this->cursor = $cursor;
+        $this->cursorOption = $cursor;
         return $this;
     }
 
@@ -92,5 +92,10 @@ abstract class ATerminalSettings extends ADefaultsChild implements ITerminalSett
         Asserter::assertColorModes($supportedColorModes);
         static::$supportedColorModes = $supportedColorModes;
         return $this;
+    }
+
+    public function getCursorOption(): OptionCursor
+    {
+        return $this->cursorOption;
     }
 }
