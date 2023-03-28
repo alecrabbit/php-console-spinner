@@ -12,13 +12,14 @@ final readonly class Cursor implements ICursor
 {
     public function __construct(
         protected IOutput $output,
-        protected OptionCursor $option = OptionCursor::DISABLED,
+        protected OptionCursor $cursorOption = OptionCursor::DISABLED,
     ) {
+        dump($this->cursorOption);
     }
 
     public function hide(): ICursor
     {   
-        if ($this->isDisabled()) {
+        if ($this->isEnabled()) {
             return $this;
         }
         
@@ -29,7 +30,7 @@ final readonly class Cursor implements ICursor
 
     public function show(): ICursor
     {
-        if ($this->isDisabled()) {
+        if ($this->isEnabled()) {
             return $this;
         }
         
@@ -38,8 +39,8 @@ final readonly class Cursor implements ICursor
         return $this;
     }
 
-    private function isDisabled(): bool
+    private function isEnabled(): bool
     {
-        return OptionCursor::DISABLED === $this->option;
+        return OptionCursor::ENABLED === $this->cursorOption;
     }
 }
