@@ -7,7 +7,7 @@ namespace AlecRabbit\Spinner\Contract;
 interface IUpdatable
 {
     /**
-     * @param float|null $dt delta time, time passed since last update
+     * @param float|null $dt delta time(milliseconds), time passed since last update
      * @return IFrame
      */
     public function update(float $dt = null): IFrame;
