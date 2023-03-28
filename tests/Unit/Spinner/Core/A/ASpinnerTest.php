@@ -35,7 +35,7 @@ final class ASpinnerTest extends TestCase
         return
             new ASpinnerOverride(
                 driver: $driver ?? $this->getDriverMock(),
-                rootWidget: $rootWidget ?? $this->getRootWidgetMock(),
+                rootWidget: $rootWidget ?? $this->getWidgetCompositeMock(),
             );
     }
 
@@ -44,7 +44,7 @@ final class ASpinnerTest extends TestCase
         return $this->createMock(IDriver::class);
     }
 
-    protected function getRootWidgetMock(): MockObject&IWidgetComposite
+    protected function getWidgetCompositeMock(): MockObject&IWidgetComposite
     {
         return $this->createMock(IWidgetComposite::class);
     }
@@ -52,7 +52,7 @@ final class ASpinnerTest extends TestCase
     #[Test]
     public function canBeInitializedAfterCreation(): void
     {
-        $rootWidget = $this->getRootWidgetMock();
+        $rootWidget = $this->getWidgetCompositeMock();
         $rootWidget->expects(self::once())->method('update');
 
         $spinner = $this->getTesteeInstance(driver: null, rootWidget: $rootWidget);
@@ -88,7 +88,7 @@ final class ASpinnerTest extends TestCase
     #[Test]
     public function invokingSpinOnUninitializedHasNoEffect(): void
     {
-        $rootWidget = $this->getRootWidgetMock();
+        $rootWidget = $this->getWidgetCompositeMock();
         $rootWidget->expects(self::never())->method('update');
 
         $driver = $this->getDriverMock();
@@ -101,6 +101,7 @@ final class ASpinnerTest extends TestCase
         self::assertFalse(self::getValue('active', $spinner));
         self::assertFalse(self::getValue('interrupted', $spinner));
     }
+
     #[Test]
     public function invokingFinalizeOnInterruptedHasNoEffect(): void
     {
@@ -119,7 +120,7 @@ final class ASpinnerTest extends TestCase
     #[Test]
     public function invokingSpinOnInitializedHasEffect(): void
     {
-        $rootWidget = $this->getRootWidgetMock();
+        $rootWidget = $this->getWidgetCompositeMock();
         $rootWidget->expects(self::exactly(2))->method('update');
 
         $driver = $this->getDriverMock();
@@ -137,7 +138,7 @@ final class ASpinnerTest extends TestCase
     #[Test]
     public function canGetIntervalFromUnderlyingRootWidget(): void
     {
-        $rootWidget = $this->getRootWidgetMock();
+        $rootWidget = $this->getWidgetCompositeMock();
         $rootWidget->expects(self::once())->method('getInterval');
 
         $spinner = $this->getTesteeInstance(driver: null, rootWidget: $rootWidget);
@@ -150,7 +151,7 @@ final class ASpinnerTest extends TestCase
     #[Test]
     public function canWrapCallableUninitialized(): void
     {
-        $rootWidget = $this->getRootWidgetMock();
+        $rootWidget = $this->getWidgetCompositeMock();
         $rootWidget->expects(self::never())->method('update');
 
         $driver = $this->getDriverMock();
@@ -159,7 +160,7 @@ final class ASpinnerTest extends TestCase
 
         $spinner = $this->getTesteeInstance(driver: $driver, rootWidget: $rootWidget);
 
-        $func = static function () use (&$result){
+        $func = static function () use (&$result) {
             return $result = 42;
         };
 
@@ -169,5 +170,26 @@ final class ASpinnerTest extends TestCase
         self::assertFalse(self::getValue('interrupted', $spinner));
 
         self::assertEquals(42, $result);
+    }
+
+    #[Test]
+    public function canAddWidgetsToRootWidget(): void
+    {
+        $rootWidget = $this->getWidgetCompositeMock();
+        $rootWidget->expects(self::once())->method('add');
+        $rootWidget->expects(self::exactly(2))->method('update');
+
+        $driver = $this->getDriverMock();
+        $driver->expects(self::once())->method('erase');
+        $driver->expects(self::once())->method('display');
+        $driver->expects(self::once())->method('elapsedTime');
+
+        $spinner = $this->getTesteeInstance(driver: $driver, rootWidget: $rootWidget);
+
+        $spinner->initialize();
+        $spinner->add($this->getWidgetCompositeMock());
+
+        self::assertTrue(self::getValue('active', $spinner));
+        self::assertFalse(self::getValue('interrupted', $spinner));
     }
 }
