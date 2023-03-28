@@ -9,6 +9,7 @@ use AlecRabbit\Spinner\Core\A\ASpinner;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use AlecRabbit\Spinner\Core\Factory\FrameFactory;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
+use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContext;
 use AlecRabbit\Tests\Spinner\TestCase\TestCase;
 use AlecRabbit\Tests\Spinner\Unit\Spinner\Core\A\Override\ASpinnerOverride;
 use PHPUnit\Framework\Attributes\Test;
@@ -187,7 +188,8 @@ final class ASpinnerTest extends TestCase
         $spinner = $this->getTesteeInstance(driver: $driver, rootWidget: $rootWidget);
 
         $spinner->initialize();
-        $spinner->add($this->getWidgetCompositeMock());
+        /** @noinspection UnnecessaryAssertionInspection */
+        self::assertInstanceOf(IWidgetContext::class, $spinner->add($this->getWidgetCompositeMock()));
 
         self::assertTrue(self::getValue('active', $spinner));
         self::assertFalse(self::getValue('interrupted', $spinner));
