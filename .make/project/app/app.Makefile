@@ -1,9 +1,11 @@
 include ${_APP_DIR}/app.init.Makefile
 
-app_tools_run: test_full app_phploc_run app_php_cs_fixer_run app_deptrac_run_full app_psalm_run app_utils_run
+##
+## —— Application 📦 ———————————————————————————————————————————————————————————
+app_tools_run: test_full app_phploc_run app_php_cs_fixer_run app_deptrac_run_full app_psalm_run app_utils_run ## Run all tools
 	@${_NO_OP};
 
-app_utils_run: _app_composer_normalize
+app_utils_run: _app_composer_normalize ## Run all utils
 	@${_NO_OP};
 
 PHPLOC_DIR = /usr/local/bin
@@ -36,12 +38,12 @@ DPTR_OUT_DIR = ${_W_TOOLS_DIR}/${_DN_REPORT}/${_DN_DEPTRAC}
 app_save: app_php_cs_fixer_run app_deptrac_run
 	$(MAKE) save
 
-app_psalm_run:
+app_psalm_run: ## Run Psalm
 	@${_ECHO} "\n${_C_SELECT} ${PROJECT_NAME} ${_C_STOP} ${_C_INFO}Psalm run...${_C_STOP}\n";
 	@${_DC_EXEC} ${APP_CONTAINER} mkdir -p ${WORKING_DIR}/.tools/.report/.psalm
 	-${_DC_EXEC} ${APP_CONTAINER} psalm --config=${WORKING_DIR}/.tools/.psalm/psalm.xml --report=${WORKING_DIR}/.tools/.report/.psalm/${_PSALM_REPORT_FILE}
 
-app_php_cs_fixer_run:
+app_php_cs_fixer_run: ## Run PHP-CS-Fixer
 	@${_ECHO} "\n${_C_SELECT} ${PROJECT_NAME} ${_C_STOP} ${_C_INFO}PHP-CS-Fixer run...${_C_STOP}\n";
 	@-${_DC_EXEC} ${APP_CONTAINER} php-cs-fixer -vvv fix --config=${WORKING_DIR}/.tools/.php-cs-fixer/${_PHP_CS_FIXER_CONFIG_FILE} --cache-file=${WORKING_DIR}/.tools/.php-cs-fixer/${_PHP_CS_FIXER_CACHE_FILE} --allow-risky=yes
 	@${_ECHO};
