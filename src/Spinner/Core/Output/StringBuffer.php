@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Output;
 
 use AlecRabbit\Spinner\Core\Output\Contract\IStringBuffer;
+use Generator;
 
 final class StringBuffer implements IStringBuffer
 {
@@ -12,7 +13,7 @@ final class StringBuffer implements IStringBuffer
     {
     }
 
-    public function flush(): \Generator
+    public function flush(): Generator
     {
         yield $this->buffer;
         $this->buffer = '';
