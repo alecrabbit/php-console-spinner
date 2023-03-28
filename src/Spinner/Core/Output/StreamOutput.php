@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Output;
 
 use AlecRabbit\Spinner\Contract\IOutput;
+use AlecRabbit\Spinner\Core\Output\Contract\IOutputBuffer;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Exception\RuntimeException;
 use AlecRabbit\Spinner\Helper\Asserter;
@@ -63,5 +64,10 @@ final class StreamOutput implements IOutput
             }
         }
         fflush($this->stream);
+    }
+
+    public function createBuffer(): IOutputBuffer
+    {
+        return new OutputBuffer($this);
     }
 }

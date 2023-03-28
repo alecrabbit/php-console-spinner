@@ -93,4 +93,20 @@ final class CursorTest extends TestCase
 
         $cursor->show();
     }
+
+    #[Test]
+    public function writesToOutputWhenMoveLeftCalled(): void
+    {
+        $output = $this->getOutputMock();
+
+        $moveLeftSequence = "\x1b[2D";
+
+        $output->expects(self::once())->method('write')->with($moveLeftSequence);
+
+        $cursor = $this->getTesteeInstance(output: $output);
+
+        self::assertInstanceOf(Cursor::class, $cursor);
+
+        $cursor->moveLeft(2);
+    }
 }
