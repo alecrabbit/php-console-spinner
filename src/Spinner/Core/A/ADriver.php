@@ -28,9 +28,9 @@ abstract class ADriver implements IDriver
 
     public function erase(): void
     {
-//        $this->output->write(
-//            Sequencer::eraseSequence($this->currentFrame->width())
-//        );
+        $this->output->write(
+            Sequencer::eraseSequence($this->currentFrame->width())
+        );
     }
 
     public function display(): void
@@ -38,9 +38,9 @@ abstract class ADriver implements IDriver
         $width = $this->currentFrame->width();
         $widthDiff = $this->calculateWidthDiff($width);
 
-        $this->output->write($this->currentFrame->sequence());
-        $this->output->write($widthDiff > 0 ? Sequencer::eraseSequence($widthDiff) : '');
-        $this->output->write(Sequencer::moveBackSequence($width));
+        $this->output->bufferedWrite($this->currentFrame->sequence());
+        $this->output->bufferedWrite($widthDiff > 0 ? Sequencer::eraseSequence($widthDiff) : '');
+        $this->output->bufferedWrite(Sequencer::moveBackSequence($width));
         $this->output->flush();
     }
 
@@ -62,7 +62,7 @@ abstract class ADriver implements IDriver
     {
         $this->showCursor();
         $this->output->write($finalMessage ?? $this->driverSettings->finalMessage);
-        $this->output->flush();
+
     }
 
     public function showCursor(): void
