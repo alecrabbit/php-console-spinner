@@ -8,7 +8,7 @@ use AlecRabbit\Spinner\Contract\OptionRunMode;
 use AlecRabbit\Spinner\Core\Config\Contract\IConfig;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use AlecRabbit\Spinner\Core\Factory\DefaultsFactory;
-use AlecRabbit\Spinner\Core\Output\StreamOutput;
+use AlecRabbit\Spinner\Core\Output\StreamBufferedOutput;
 use AlecRabbit\Spinner\Facade;
 use Closure;
 use Example\Kernel\AppConfig;
@@ -82,8 +82,8 @@ abstract class AbstractApp
 
         $this->spinner = Facade::createSpinner($config);
 
-        $stdout = new StreamOutput(STDOUT);
-        $stderr = new StreamOutput(STDERR);
+        $stdout = new StreamBufferedOutput(STDOUT);
+        $stderr = new StreamBufferedOutput(STDERR);
         $this->write = $stdout->write(...);
         $this->writeln = $stdout->writeln(...);
         $this->writeErr = $stderr->write(...);

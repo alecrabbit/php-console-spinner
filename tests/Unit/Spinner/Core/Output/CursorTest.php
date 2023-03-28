@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Core\Output;
 
-use AlecRabbit\Spinner\Contract\IOutput;
+use AlecRabbit\Spinner\Contract\IBufferedOutput;
 use AlecRabbit\Spinner\Contract\OptionCursor;
 use AlecRabbit\Spinner\Core\Output\Contract\ICursor;
 use AlecRabbit\Spinner\Core\Output\Cursor;
@@ -26,7 +26,7 @@ final class CursorTest extends TestCase
     }
 
     public function getTesteeInstance(
-        (MockObject&IOutput)|null $output,
+        (MockObject&IBufferedOutput)|null $output,
         OptionCursor $cursorOption = OptionCursor::HIDDEN,
     ): ICursor {
         return
@@ -36,9 +36,9 @@ final class CursorTest extends TestCase
             );
     }
 
-    protected function getOutputMock(): MockObject&IOutput
+    protected function getOutputMock(): MockObject&IBufferedOutput
     {
-        return $this->createMock(IOutput::class);
+        return $this->createMock(IBufferedOutput::class);
     }
 
     #[Test]

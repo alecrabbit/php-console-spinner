@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Contract;
 
+use AlecRabbit\Spinner\Exception\RuntimeException;
+
 interface IDriver
 {
     public function elapsedTime(): float;

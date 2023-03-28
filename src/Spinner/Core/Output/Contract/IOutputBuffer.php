@@ -5,7 +5,18 @@ namespace AlecRabbit\Spinner\Core\Output\Contract;
 
 interface IOutputBuffer
 {
+    /**
+     * Writes message to buffer.
+     *
+     * @param string $message
+     * @return IOutputBuffer
+     */
     public function write(string $message): IOutputBuffer;
 
-    public function flush(): void;
+    /**
+     * Returns buffer content and flushes it.
+     *
+     * @return string
+     */
+    public function flush(): string;
 }

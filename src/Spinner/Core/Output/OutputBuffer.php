@@ -4,7 +4,6 @@ declare(strict_types=1);
 // 28.03.23
 namespace AlecRabbit\Spinner\Core\Output;
 
-use AlecRabbit\Spinner\Contract\IOutput;
 use AlecRabbit\Spinner\Core\Output\Contract\IOutputBuffer;
 
 final class OutputBuffer implements IOutputBuffer
@@ -12,18 +11,14 @@ final class OutputBuffer implements IOutputBuffer
     protected string $buffer = '';
     protected bool $closed = false;
 
-    public function __construct(
-        protected readonly IOutput $output
-    ) {
-    }
-
-    public function flush(): void
+    public function flush(): string
     {
         if ($this->isClosed()) {
-            return;
+            return '';
         }
-        $this->output->write($this->buffer);
+        $buffer = $this->buffer;
         $this->close();
+        return $buffer;
     }
 
     protected function isClosed(): bool
@@ -31,15 +26,15 @@ final class OutputBuffer implements IOutputBuffer
         return $this->closed;
     }
 
-    public function write(string $message): IOutputBuffer
-    {
-        $this->buffer .= $message;
-        return $this;
-    }
-
     protected function close(): void
     {
         $this->closed = true;
         $this->buffer = '';
+    }
+
+    public function write(string $message): IOutputBuffer
+    {
+        $this->buffer .= $message;
+        return $this;
     }
 }

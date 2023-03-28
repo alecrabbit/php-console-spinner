@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\A;
 
+use AlecRabbit\Spinner\Contract\IBufferedOutput;
 use AlecRabbit\Spinner\Contract\IDriver;
 use AlecRabbit\Spinner\Contract\IFrame;
-use AlecRabbit\Spinner\Contract\IOutput;
 use AlecRabbit\Spinner\Contract\ITimer;
 use AlecRabbit\Spinner\Core\DTO\DriverSettingsDTO;
 use AlecRabbit\Spinner\Core\Output\Contract\ICursor;
@@ -19,7 +19,7 @@ abstract class ADriver implements IDriver
     protected int $previousFrameWidth = 0;
 
     public function __construct(
-        protected readonly IOutput $output,
+        protected readonly IBufferedOutput $output,
         protected readonly ICursor $cursor,
         protected readonly ITimer $timer,
         protected readonly DriverSettingsDTO $driverSettings,
@@ -38,21 +38,10 @@ abstract class ADriver implements IDriver
         $width = $this->currentFrame->width();
         $widthDiff = $this->calculateWidthDiff($width);
 
-//        $this->output->write(
-//            [
-//                $this->currentFrame->sequence(),
-//                $widthDiff > 0 ? Sequencer::eraseSequence($widthDiff) : '',
-//                Sequencer::moveBackSequence($width),
-//            ]
-//        );
-
-        $buffer = $this->output->createBuffer();
-
-        $buffer
-            ->write($this->currentFrame->sequence())
-            ->write($widthDiff > 0 ? Sequencer::eraseSequence($widthDiff) : '')
-            ->write(Sequencer::moveBackSequence($width))
-            ->flush();
+        $this->output->write($this->currentFrame->sequence());
+        $this->output->write($widthDiff > 0 ? Sequencer::eraseSequence($widthDiff) : '');
+        $this->output->write(Sequencer::moveBackSequence($width));
+        $this->output->flush();
     }
 
     protected function calculateWidthDiff(int $currentWidth): int
@@ -73,6 +62,7 @@ abstract class ADriver implements IDriver
     {
         $this->showCursor();
         $this->output->write($finalMessage ?? $this->driverSettings->finalMessage);
+        $this->output->flush();
     }
 
     public function showCursor(): void
