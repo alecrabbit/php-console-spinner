@@ -5,6 +5,7 @@ parameters:
 imports:
   - .common/paths.yaml
   - module/async.yaml
+  - module/container.yaml
   - module/contract.yaml
   - module/core.yaml
   - module/exception.yaml
@@ -23,11 +24,14 @@ deptrac:
       - +ModuleHelper
       - +VendorReact
       - +VendorRevolt
+    ModuleContainer: ~
     ModuleContract:
       - +VendorReact
       - +VendorRevolt
       - +ModuleException
     ModuleCore:
+      - +ModuleContainer
+      - ModuleContract
       - +ModuleException
       - +ModuleHelper
       - +ModuleMixin

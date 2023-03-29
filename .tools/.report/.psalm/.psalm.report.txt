@@ -1,0 +1,6 @@
+/app/src/Spinner/Core/Config/A/AConfig.php:37:40:error - InvalidReturnType: Not all code paths of AlecRabbit\Spinner\Core\Config\A\AConfig::getDriverConfig end in a return statement, return type AlecRabbit\Spinner\Core\Config\Contract\IDriverConfig expected
+/app/src/Spinner/Core/Factory/A/AStaticSpinnerFactory.php:56:26:error - DeprecatedMethod: The method AlecRabbit\Spinner\Core\Config\Contract\IConfig::getDriver has been marked as deprecated
+/app/src/Spinner/Facade.php:11:60:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Core\Contract\ISpinner' for AlecRabbit\Spinner\Facade::createSpinner
+/app/src/Spinner/Facade.php:13:16:error - MixedReturnStatement: Could not infer a return type
+/app/src/Spinner/Facade.php:13:40:error - UndefinedMethod: Method AlecRabbit\Spinner\SpinnerBuilder::withConfig does not exist
+/app/src/Spinner/Facade.php:13:61:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression

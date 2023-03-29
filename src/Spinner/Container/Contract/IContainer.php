@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 // 27.03.23
-namespace AlecRabbit\Spinner\Core\Container\Contract;
+namespace AlecRabbit\Spinner\Container\Contract;
 
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\ContainerInterface;

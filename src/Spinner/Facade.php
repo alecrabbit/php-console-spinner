@@ -4,9 +4,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner;
 
 use AlecRabbit\Spinner\Core\Config\Contract\IConfig;
-use AlecRabbit\Spinner\Core\Container\Contract\IContainer;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
-use AlecRabbit\Spinner\Core\Factory\Contract\ISpinnerFactory;
 
 final class Facade
 {

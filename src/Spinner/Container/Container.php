@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 // 27.03.23
-namespace AlecRabbit\Spinner\Core\Container;
+namespace AlecRabbit\Spinner\Container;
 
-use AlecRabbit\Spinner\Core\Container\Contract\IContainer;
-use AlecRabbit\Spinner\Core\Container\Exception\ContainerException;
-use AlecRabbit\Spinner\Core\Container\Exception\NotInContainerException;
+use AlecRabbit\Spinner\Container\Contract\IContainer;
+use AlecRabbit\Spinner\Container\Exception\ContainerException;
+use AlecRabbit\Spinner\Container\Exception\NotInContainerException;
 use Throwable;
 use Traversable;
 

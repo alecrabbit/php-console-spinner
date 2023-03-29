@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Spinner\Core\Container\Exception;
+namespace AlecRabbit\Spinner\Container\Exception;
 
 use Psr\Container\ContainerExceptionInterface;
 

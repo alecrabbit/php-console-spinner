@@ -4,8 +4,8 @@ declare(strict_types=1);
 // 27.03.23
 namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Container;
 
-use AlecRabbit\Spinner\Core\Container\Container;
-use AlecRabbit\Spinner\Core\Container\Exception\ContainerException;
+use AlecRabbit\Spinner\Container\Container;
+use AlecRabbit\Spinner\Container\Exception\ContainerException;
 use AlecRabbit\Tests\Spinner\TestCase\TestCase;
 use AlecRabbit\Tests\Spinner\Unit\Spinner\Container\Override\NonInstantiableClass;
 use ArrayObject;
