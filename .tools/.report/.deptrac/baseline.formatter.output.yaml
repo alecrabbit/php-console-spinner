@@ -1,5 +1,11 @@
 deptrac:
   skip_violations:
+    AlecRabbit\Spinner\Core\Contract\ILoopAdapter:
+      - React\EventLoop\LoopInterface
+      - Revolt\EventLoop\Driver
+    AlecRabbit\Spinner\Core\Contract\ILoopGetter:
+      - React\EventLoop\LoopInterface
+      - Revolt\EventLoop\Driver
     AlecRabbit\Spinner\Core\Factory\A\AStaticSpinnerFactory:
       - AlecRabbit\Spinner\StaticFacade
     AlecRabbit\Spinner\Core\Factory\StaticSpinnerFactory:

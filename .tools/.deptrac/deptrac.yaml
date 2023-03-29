@@ -32,7 +32,7 @@ deptrac:
       - +ModuleException
     ModuleCore:
       - +ModuleContainer
-      - +ModuleContract
+      - ModuleContract
       - ModuleException
       - ModuleHelper
       - ModuleMixin

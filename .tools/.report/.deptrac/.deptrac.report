@@ -5,6 +5,14 @@
               /app/src/Spinner/Core/Factory/A/AStaticSpinnerFactory.php:78                                                             
   Violation   AlecRabbit\Spinner\Core\Factory\A\AStaticSpinnerFactory must not depend on AlecRabbit\Spinner\StaticFacade (ModuleRoot)  
               /app/src/Spinner/Core/Factory/A/AStaticSpinnerFactory.php:17                                                             
+  Violation   AlecRabbit\Spinner\Core\Contract\ILoopGetter must not depend on React\EventLoop\LoopInterface (VendorReact)              
+              /app/src/Spinner/Core/Contract/ILoopGetter.php:13                                                                        
+  Violation   AlecRabbit\Spinner\Core\Contract\ILoopGetter must not depend on Revolt\EventLoop\Driver (VendorRevolt)                   
+              /app/src/Spinner/Core/Contract/ILoopGetter.php:13                                                                        
+  Violation   AlecRabbit\Spinner\Core\Contract\ILoopGetter must not depend on React\EventLoop\LoopInterface (VendorReact)              
+              /app/src/Spinner/Core/Contract/ILoopGetter.php:8                                                                         
+  Violation   AlecRabbit\Spinner\Core\Contract\ILoopGetter must not depend on Revolt\EventLoop\Driver (VendorRevolt)                   
+              /app/src/Spinner/Core/Contract/ILoopGetter.php:9                                                                         
   Violation   AlecRabbit\Spinner\Core\Factory\StaticSpinnerFactory must not depend on AlecRabbit\Spinner\StaticFacade (ModuleRoot)     
               AlecRabbit\Spinner\Core\Factory\A\AStaticSpinnerFactory::9 ->                                                            
               AlecRabbit\Spinner\StaticFacade::78                                                                                      
@@ -13,16 +21,32 @@
               AlecRabbit\Spinner\Core\Factory\A\AStaticSpinnerFactory::9 ->                                                            
               AlecRabbit\Spinner\StaticFacade::17                                                                                      
               /app/src/Spinner/Core/Factory/A/AStaticSpinnerFactory.php:17                                                             
+  Violation   AlecRabbit\Spinner\Core\Contract\ILoopAdapter must not depend on React\EventLoop\LoopInterface (VendorReact)             
+              AlecRabbit\Spinner\Core\Contract\ILoopGetter::10 ->                                                                      
+              React\EventLoop\LoopInterface::13                                                                                        
+              /app/src/Spinner/Core/Contract/ILoopGetter.php:13                                                                        
+  Violation   AlecRabbit\Spinner\Core\Contract\ILoopAdapter must not depend on Revolt\EventLoop\Driver (VendorRevolt)                  
+              AlecRabbit\Spinner\Core\Contract\ILoopGetter::10 ->                                                                      
+              Revolt\EventLoop\Driver::13                                                                                              
+              /app/src/Spinner/Core/Contract/ILoopGetter.php:13                                                                        
+  Violation   AlecRabbit\Spinner\Core\Contract\ILoopAdapter must not depend on React\EventLoop\LoopInterface (VendorReact)             
+              AlecRabbit\Spinner\Core\Contract\ILoopGetter::10 ->                                                                      
+              React\EventLoop\LoopInterface::8                                                                                         
+              /app/src/Spinner/Core/Contract/ILoopGetter.php:8                                                                         
+  Violation   AlecRabbit\Spinner\Core\Contract\ILoopAdapter must not depend on Revolt\EventLoop\Driver (VendorRevolt)                  
+              AlecRabbit\Spinner\Core\Contract\ILoopGetter::10 ->                                                                      
+              Revolt\EventLoop\Driver::9                                                                                               
+              /app/src/Spinner/Core/Contract/ILoopGetter.php:9                                                                         
  ----------- ------------------------------------------------------------------------------------------------------------------------- 
 
 
  -------------------- ------ 
   Report                     
  -------------------- ------ 
-  Violations           4     
+  Violations           12    
   Skipped violations   0     
   Uncovered            215   
-  Allowed              3251  
+  Allowed              3243  
   Warnings             0     
   Errors               0     
  -------------------- ------ 
