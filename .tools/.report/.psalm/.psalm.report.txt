@@ -6,8 +6,8 @@
 /app/src/Spinner/Core/A/AFrameRevolverBuilder.php:44:22:error - UndefinedThisPropertyFetch: Instance property AlecRabbit\Spinner\Core\A\AFrameRevolverBuilder::$defaults is not defined
 /app/src/Spinner/Core/A/AFrameRevolverBuilder.php:44:39:error - MixedMethodCall: Cannot determine the type of $this->defaults when calling method getTerminalSettings
 /app/src/Spinner/Core/A/AFrameRevolverBuilder.php:44:62:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
-/app/src/Spinner/Core/ABuilder.php:13:47:error - MoreSpecificReturnType: The declared return type 'AlecRabbit\Spinner\Core\Config\Contract\IDefaultsProvider' for AlecRabbit\Spinner\Core\ABuilder::getDefaultsProvider is more specific than the inferred return type 'object'
-/app/src/Spinner/Core/ABuilder.php:15:16:error - LessSpecificReturnStatement: The type 'object' is more general than the declared return type 'AlecRabbit\Spinner\Core\Config\Contract\IDefaultsProvider' for AlecRabbit\Spinner\Core\ABuilder::getDefaultsProvider
+/app/src/Spinner/Core/ABuilder.php:12:47:error - MoreSpecificReturnType: The declared return type 'AlecRabbit\Spinner\Core\Config\Contract\IDefaultsProvider' for AlecRabbit\Spinner\Core\ABuilder::getDefaultsProvider is more specific than the inferred return type 'object'
+/app/src/Spinner/Core/ABuilder.php:14:16:error - LessSpecificReturnStatement: The type 'object' is more general than the declared return type 'AlecRabbit\Spinner\Core\Config\Contract\IDefaultsProvider' for AlecRabbit\Spinner\Core\ABuilder::getDefaultsProvider
 /app/src/Spinner/Core/Config/A/AConfig.php:37:40:error - InvalidReturnType: Not all code paths of AlecRabbit\Spinner\Core\Config\A\AConfig::getDriverConfig end in a return statement, return type AlecRabbit\Spinner\Core\Config\Contract\IDriverConfig expected
 /app/src/Spinner/Core/Config/A/AConfig.php:42:44:error - InvalidReturnType: Not all code paths of AlecRabbit\Spinner\Core\Config\A\AConfig::getRootWidgetConfig end in a return statement, return type AlecRabbit\Spinner\Core\Config\Contract\IWidgetConfig expected
 /app/src/Spinner/Core/Config/A/AConfigBuilder.php:79:13:error - TooFewArguments: Too few arguments for AlecRabbit\Spinner\Core\Config\Config::__construct - expecting driverConfig to be passed
@@ -52,8 +52,8 @@
 /app/src/Spinner/Core/Factory/A/AStaticSpinnerFactory.php:57:17:error - MixedArgument: Argument 2 of _app_src_Spinner_Core_Factory_A_AStaticSpinnerFactory_php_55_1565::__construct cannot be mixed, expecting AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite
 /app/src/Spinner/Core/Factory/A/AStaticSpinnerFactory.php:57:46:error - UndefinedInterfaceMethod: Method AlecRabbit\Spinner\Core\Config\Contract\ISpinnerConfig::getRootWidget does not exist
 /app/src/Spinner/Core/Factory/A/AStaticSpinnerFactory.php:65:53:error - UndefinedInterfaceMethod: Method AlecRabbit\Spinner\Core\Config\Contract\ISpinnerConfig::getWidgets does not exist
-/app/src/Spinner/Core/Factory/A/AStaticSpinnerFactory.php:84:58:error - MixedArgument: Argument 2 of AlecRabbit\Spinner\Core\Contract\ILoopHelper::setSignalHandlers cannot be mixed, expecting iterable<mixed, mixed>|null
-/app/src/Spinner/Core/Factory/A/AStaticSpinnerFactory.php:84:90:error - UndefinedInterfaceMethod: Method AlecRabbit\Spinner\Core\Config\Contract\ILoopConfig::getSignalHandlers does not exist
+/app/src/Spinner/Core/Factory/A/AStaticSpinnerFactory.php:75:69:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Core\Contract\ISpinner' for AlecRabbit\Spinner\Core\Factory\A\AStaticSpinnerFactory::initializeSpinner
+/app/src/Spinner/Core/Factory/A/AStaticSpinnerFactory.php:78:23:error - UndefinedClass: Class, interface or enum named AlecRabbit\Spinner\StaticFacade does not exist
 /app/src/Spinner/Core/Output/StreamBufferedOutput.php:40:30:error - MixedArgumentTypeCoercion: Argument 1 of AlecRabbit\Spinner\Contract\IResourceStream::write expects Traversable<mixed, string>, but parent type Traversable provided
 /app/src/Spinner/Core/SpinnerBuilder.php:23:9:error - MixedAssignment: Unable to determine the type that $driver is being assigned to
 /app/src/Spinner/Core/SpinnerBuilder.php:25:19:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
@@ -69,4 +69,3 @@
 /app/src/Spinner/Core/Widget/A/AWidgetBuilder.php:61:68:error - InvalidReturnType: Not all code paths of AlecRabbit\Spinner\Core\Widget\A\AWidgetBuilder::withWidgetConfig end in a return statement, return type AlecRabbit\Spinner\Core\Widget\A\AWidgetBuilder expected
 /app/src/Spinner/Facade.php:21:48:error - MoreSpecificReturnType: The declared return type 'AlecRabbit\Spinner\Core\Config\Contract\IConfigBuilder' for AlecRabbit\Spinner\Facade::getConfigBuilder is more specific than the inferred return type 'object'
 /app/src/Spinner/Facade.php:24:13:error - LessSpecificReturnStatement: The type 'object' is more general than the declared return type 'AlecRabbit\Spinner\Core\Config\Contract\IConfigBuilder' for AlecRabbit\Spinner\Facade::getConfigBuilder
-/app/src/Spinner/StaticFacade.php:42:13:error - InvalidStaticInvocation: Method AlecRabbit\Spinner\Core\Factory\A\AStaticSpinnerFactory::createSpinner is not static, but is called statically
