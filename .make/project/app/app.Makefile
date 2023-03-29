@@ -93,7 +93,7 @@ app_deptrac_run_uncovered:
 test:
 	@$(eval c ?=)
 	@${_ECHO} "\n${_C_SELECT} ${PROJECT_NAME} ${_C_STOP} ${_C_INFO}Default tests...${_C_STOP}\n";
-	${_DC_EXEC} -e XDEBUG_MODE=off ${APP_CONTAINER} vendor/bin/phpunit $(c) --display-warnings
+	${_DC_EXEC} -e XDEBUG_MODE=off ${APP_CONTAINER} vendor/bin/phpunit $(c) --display-warnings --display-deprecations
 	@${_ECHO_BG_GREEN};
 
 test_coverage:
