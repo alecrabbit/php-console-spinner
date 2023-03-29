@@ -70,7 +70,6 @@ final class StreamBufferedOutputTest extends TestCase
         $streamBufferedOutput->writeln('test');
     }
 
-
     #[Test]
     public function canWriteTraversable(): void
     {
@@ -82,6 +81,19 @@ final class StreamBufferedOutputTest extends TestCase
         $streamBufferedOutput = $this->getTesteeInstance(stream: $stream);
 
         $streamBufferedOutput->writeln(['test', 'test2']);
+    }
+
+    #[Test]
+    public function canDoIterableBufferedWrite(): void
+    {
+        $stream = $this->getStreamMock();
+        $stream
+            ->expects(self::once())
+            ->method('write');
+
+        $streamBufferedOutput = $this->getTesteeInstance(stream: $stream);
+
+        $streamBufferedOutput->bufferedWrite(['test', 'test2'])->flush();
     }
 //
 //    #[Test]
