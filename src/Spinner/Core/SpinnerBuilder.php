@@ -50,7 +50,7 @@ final class SpinnerBuilder extends ABuilder implements ISpinnerBuilder
         return $this->container->get(IConfigBuilder::class)->build();
     }
 
-    public function withConfig(?IConfig $config = null): self
+    public function withConfig(IConfig $config): self
     {
         $clone = clone $this;
         $clone->config = $config;
