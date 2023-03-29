@@ -11,7 +11,7 @@ use AlecRabbit\Spinner\Core\Defaults\Contract\ISpinnerSettings;
 use AlecRabbit\Spinner\Core\Defaults\Mixin\DefaultsConst;
 use AlecRabbit\Spinner\Core\Interval;
 
-abstract class ASpinnerSettings extends ADefaultsChild implements ISpinnerSettings
+abstract class ASpinnerSettings extends ADefaultsChild
 {
     use DefaultsConst;
 
@@ -58,13 +58,13 @@ abstract class ASpinnerSettings extends ADefaultsChild implements ISpinnerSettin
         return static::$initializationOption;
     }
 
-    public function overrideInitializationOption(OptionInitialization $initialization): static
+    public function setInitializationOption(OptionInitialization $initialization): static
     {
         static::$initializationOption = $initialization;
         return $this;
     }
 
-    public function overrideInterval(IInterval $interval): static
+    public function setInterval(IInterval $interval): static
     {
         static::$intervalObject = $interval;
         return $this;

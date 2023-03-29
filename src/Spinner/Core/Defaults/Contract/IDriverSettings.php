@@ -5,15 +5,13 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Defaults\Contract;
 
-interface IDriverSettings extends IDefaultsChild
+interface IDriverSettings
 {
-    public static function getInstance(IDefaults $parent): IDriverSettings;
-
     public function getFinalMessage(): string;
+
+    public function setFinalMessage(string $finalMessage): IDriverSettings;
 
     public function getInterruptMessage(): string;
 
-    public function setFinalMessage(string $finalMessage): static;
-
-    public function setInterruptMessage(string $interruptMessage): static;
+    public function setInterruptMessage(string $interruptMessage): IDriverSettings;
 }

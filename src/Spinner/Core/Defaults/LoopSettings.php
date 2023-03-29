@@ -9,7 +9,7 @@ use AlecRabbit\Spinner\Contract\OptionRunMode;
 use AlecRabbit\Spinner\Contract\OptionSignalHandlers;
 use AlecRabbit\Spinner\Core\Defaults\Contract\ILoopSettings;
 
-final readonly class LoopSettings implements ILoopSettings
+final class LoopSettings implements ILoopSettings
 {
     public function __construct(
         protected OptionRunMode $runModeOption = OptionRunMode::ASYNC,
@@ -25,12 +25,8 @@ final readonly class LoopSettings implements ILoopSettings
 
     public function setRunModeOption(OptionRunMode $runModeOption): ILoopSettings
     {
-        return
-            new self(
-                runModeOption: $runModeOption,
-                autoStartOption: $this->autoStartOption,
-                signalHandlersOption: $this->signalHandlersOption
-            );
+        $this->runModeOption = $runModeOption;
+        return $this;
     }
 
     public function getAutoStartOption(): OptionAutoStart
@@ -40,12 +36,8 @@ final readonly class LoopSettings implements ILoopSettings
 
     public function setAutoStartOption(OptionAutoStart $autoStartOption): ILoopSettings
     {
-        return
-            new self(
-                runModeOption: $this->runModeOption,
-                autoStartOption: $autoStartOption,
-                signalHandlersOption: $this->signalHandlersOption
-            );
+        $this->autoStartOption = $autoStartOption;
+        return $this;
     }
 
     public function getSignalHandlersOption(): OptionSignalHandlers
@@ -55,11 +47,7 @@ final readonly class LoopSettings implements ILoopSettings
 
     public function setSignalHandlersOption(OptionSignalHandlers $signalHandlersOption): ILoopSettings
     {
-        return
-            new self(
-                runModeOption: $this->runModeOption,
-                autoStartOption: $this->autoStartOption,
-                signalHandlersOption: $signalHandlersOption
-            );
+        $this->signalHandlersOption = $signalHandlersOption;
+        return $this;
     }
 }

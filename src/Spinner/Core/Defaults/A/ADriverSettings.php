@@ -9,7 +9,7 @@ use AlecRabbit\Spinner\Core\Defaults\Contract\IDefaults;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDriverSettings;
 use AlecRabbit\Spinner\Core\Defaults\Mixin\DefaultsConst;
 
-abstract class ADriverSettings extends ADefaultsChild implements IDriverSettings
+abstract class ADriverSettings extends ADefaultsChild
 {
     use DefaultsConst;
 
