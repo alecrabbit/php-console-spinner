@@ -8,6 +8,7 @@ use AlecRabbit\Spinner\Contract\OptionAutoStart;
 use AlecRabbit\Spinner\Contract\OptionRunMode;
 use AlecRabbit\Spinner\Contract\OptionSignalHandlers;
 use AlecRabbit\Spinner\Core\Config\Contract\ILoopConfig;
+use Traversable;
 
 abstract class ALoopConfig implements ILoopConfig
 {
@@ -33,7 +34,7 @@ abstract class ALoopConfig implements ILoopConfig
         return $this->signalHandlersOption === OptionSignalHandlers::ENABLED;
     }
 
-    public function getSignalHandlers(): ?iterable
+    public function getSignalHandlers(): ?Traversable
     {
         // TODO: Implement getSignalHandlers() method?
         return null;

@@ -9,7 +9,7 @@ use AlecRabbit\Spinner\Core\Factory\StaticDefaultsFactory;
 use AlecRabbit\Spinner\Exception\DomainException;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Tests\Spinner\TestCase\TestCase;
-use AlecRabbit\Tests\Spinner\Unit\Spinner\Config\Defaults\Override\ADefaultsOverride;
+use AlecRabbit\Tests\Spinner\Unit\Spinner\Core\Config\Defaults\Override\ADefaultsOverride;
 use PHPUnit\Framework\Attributes\Test;
 use stdClass;
 

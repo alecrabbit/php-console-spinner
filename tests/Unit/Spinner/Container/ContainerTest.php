@@ -2,19 +2,28 @@
 
 declare(strict_types=1);
 // 27.03.23
-namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Core\Container;
+namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Container;
 
 use AlecRabbit\Spinner\Core\Container\Container;
 use AlecRabbit\Spinner\Core\Container\Exception\ContainerException;
 use AlecRabbit\Tests\Spinner\TestCase\TestCase;
-use AlecRabbit\Tests\Spinner\Unit\Spinner\Core\Container\Override\NonInstantiableClass;
+use AlecRabbit\Tests\Spinner\Unit\Spinner\Container\Override\NonInstantiableClass;
 use ArrayObject;
 use PHPUnit\Framework\Attributes\Test;
 
 final class ContainerTest extends TestCase
 {
     #[Test]
-    public function canBeCreatedEmpty(): void
+    public function canBeCreatedWithNullDefinitions(): void
+    {
+        $container = new Container();
+
+        self::assertFalse($container->has('service'));
+        self::assertCount(0, self::getValue('definitions', $container));
+    }
+
+    #[Test]
+    public function canBeCreatedWithEmptyDefinitions(): void
     {
         $container = new Container(new ArrayObject([]));
 

@@ -4,6 +4,8 @@ declare(strict_types=1);
 // 17.03.23
 namespace AlecRabbit\Spinner\Core\Config\Contract;
 
+use Traversable;
+
 interface ILoopConfig
 {
     public function isAutoStartEnabled(): bool;
@@ -12,5 +14,5 @@ interface ILoopConfig
 
     public function isAsynchronous(): bool;
 
-    public function getSignalHandlers(): ?iterable;
+    public function getSignalHandlers(): ?Traversable;
 }

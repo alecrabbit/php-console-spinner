@@ -8,7 +8,10 @@ use AlecRabbit\Spinner\Contract\IDriver;
 
 interface IConfig
 {
+    /** @deprecated */
     public function getDriver(): IDriver;
+
+    public function getDriverConfig(): IDriverConfig;
 
     public function getLoopConfig(): ILoopConfig;
 

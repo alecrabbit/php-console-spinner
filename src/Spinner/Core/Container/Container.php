@@ -21,13 +21,15 @@ final class Container implements IContainer
     /**
      * Create a container object with a set of definitions.
      *
-     * @param Traversable<string, callable|object|string> $definitions
+     * @param null|Traversable<string, callable|object|string> $definitions
      */
-    public function __construct(Traversable $definitions)
+    public function __construct(?Traversable $definitions = null)
     {
-        /** @var callable|object|string $definition */
-        foreach ($definitions as $id => $definition) {
-            $this->addDefinition($id, $definition);
+        if ($definitions) {
+            /** @var callable|object|string $definition */
+            foreach ($definitions as $id => $definition) {
+                $this->addDefinition($id, $definition);
+            }
         }
     }
 
@@ -58,6 +60,38 @@ final class Container implements IContainer
     public function has(string $id): bool
     {
         return array_key_exists($id, $this->definitions);
+    }
+
+    /** @inheritdoc */
+    public function replace(string $id, callable|object|string $definition): void
+    {
+        $serviceRegistered = array_key_exists($id, $this->services);
+
+        $this->remove($id);
+        $this->add($id, $definition);
+        if ($serviceRegistered) {
+            $this->get($id);
+        }
+    }
+
+    /** @inheritdoc */
+    public function remove(string $id): void
+    {
+        if (!$this->has($id)) {
+            throw new NotInContainerException(
+                sprintf(
+                    'Definition with id "%s" is not registered in the container.',
+                    $id,
+                )
+            );
+        }
+        unset($this->definitions[$id], $this->services[$id]);
+    }
+
+    /** @inheritdoc */
+    public function add(string $id, callable|object|string $definition): void
+    {
+        $this->addDefinition($id, $definition);
     }
 
     /** @inheritdoc */
@@ -141,37 +175,5 @@ final class Container implements IContainer
                 $class,
             )
         );
-    }
-
-    /** @inheritdoc */
-    public function replace(string $id, callable|object|string $definition): void
-    {
-        $serviceRegistered = array_key_exists($id, $this->services);
-
-        $this->remove($id);
-        $this->add($id, $definition);
-        if ($serviceRegistered) {
-            $this->get($id);
-        }
-    }
-
-    /** @inheritdoc */
-    public function remove(string $id): void
-    {
-        if (!$this->has($id)) {
-            throw new NotInContainerException(
-                sprintf(
-                    'Definition with id "%s" is not registered in the container.',
-                    $id,
-                )
-            );
-        }
-        unset($this->definitions[$id], $this->services[$id]);
-    }
-
-    /** @inheritdoc */
-    public function add(string $id, callable|object|string $definition): void
-    {
-        $this->addDefinition($id, $definition);
     }
 }
