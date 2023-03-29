@@ -51,4 +51,5 @@ trait AppRelatedConstantsTrait
     final protected const STYLE_MODE = 'styleMode';
     final protected const VALUE = 'value';
     final protected const WIDTH = 'width';
+    final protected const UNWRAP = 'unwrap';
 }
