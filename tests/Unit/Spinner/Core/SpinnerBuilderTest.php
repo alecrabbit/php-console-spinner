@@ -37,7 +37,6 @@ final class SpinnerBuilderTest extends TestCase
 
     protected function getContainerMock(): MockObject&IContainer
     {
-
         return $this->createMock(IContainer::class);
     }
 
@@ -63,7 +62,8 @@ final class SpinnerBuilderTest extends TestCase
                 $this->createMock(IConfigBuilder::class),
                 $this->createMock(IDriverBuilder::class),
                 $this->createMock(IWidgetBuilder::class),
-            );
+            )
+        ;
 
         $spinnerBuilder = $this->getTesteeInstance(container: $container);
 

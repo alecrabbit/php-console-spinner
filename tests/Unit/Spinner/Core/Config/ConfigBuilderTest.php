@@ -53,7 +53,8 @@ final class ConfigBuilderTest extends TestCase
         $container = $this->createMock(IContainer::class);
         $container
             ->method('get')
-            ->willReturn(new DefaultsProvider());
+            ->willReturn(new DefaultsProvider())
+        ;
 
         $configBuilder = $this->getTesteeInstance(container: $container);
 
@@ -68,7 +69,8 @@ final class ConfigBuilderTest extends TestCase
         $container = $this->createMock(IContainer::class);
         $container
             ->method('get')
-            ->willReturn(new DefaultsProvider());
+            ->willReturn(new DefaultsProvider())
+        ;
 
         $configBuilder = $this->getTesteeInstance(container: $container);
 
@@ -87,7 +89,8 @@ final class ConfigBuilderTest extends TestCase
         $container = $this->createMock(IContainer::class);
         $container
             ->method('get')
-            ->willReturn(new DefaultsProvider());
+            ->willReturn(new DefaultsProvider())
+        ;
 
         $configBuilder = $this->getTesteeInstance(container: $container);
 
@@ -111,7 +114,8 @@ final class ConfigBuilderTest extends TestCase
         $container = $this->createMock(IContainer::class);
         $container
             ->method('get')
-            ->willReturn(new DefaultsProvider());
+            ->willReturn(new DefaultsProvider())
+        ;
 
         $configBuilder = $this->getTesteeInstance(container: $container);
 
@@ -134,7 +138,8 @@ final class ConfigBuilderTest extends TestCase
         $container = $this->createMock(IContainer::class);
         $container
             ->method('get')
-            ->willReturn(new DefaultsProvider());
+            ->willReturn(new DefaultsProvider())
+        ;
 
         $configBuilder = $this->getTesteeInstance(container: $container);
 

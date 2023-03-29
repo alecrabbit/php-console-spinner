@@ -13,6 +13,7 @@ use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetBuilder;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolverBuilder;
 use AlecRabbit\Spinner\Core\Widget\Widget;
 use AlecRabbit\Tests\Spinner\TestCase\TestCase;
+use LogicException;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 
@@ -46,7 +47,8 @@ final class WidgetBuilderTest extends TestCase
         $container = $this->createMock(IContainer::class);
         $container
             ->method('get')
-            ->willReturn($this->createMock(IWidgetRevolverBuilder::class));
+            ->willReturn($this->createMock(IWidgetRevolverBuilder::class))
+        ;
 //            ->method('get')
 //            ->willReturn(new DefaultsProvider());
 
@@ -67,7 +69,8 @@ final class WidgetBuilderTest extends TestCase
         $container = $this->createMock(IContainer::class);
         $container
             ->method('get')
-            ->willReturn($this->createMock(IWidgetRevolverBuilder::class));
+            ->willReturn($this->createMock(IWidgetRevolverBuilder::class))
+        ;
 
         $widgetBuilder = $this->getTesteeInstance(container: $container);
 
@@ -80,7 +83,8 @@ final class WidgetBuilderTest extends TestCase
             $widgetBuilder
                 ->withWidgetRevolver($revolver)
                 ->withWidgetConfig($widgetConfig)
-                ->build();
+                ->build()
+        ;
 
         self::assertInstanceOf(Widget::class, $widgetComposite);
     }
@@ -91,7 +95,8 @@ final class WidgetBuilderTest extends TestCase
         $container = $this->createMock(IContainer::class);
         $container
             ->method('get')
-            ->willReturn($this->createMock(IWidgetRevolverBuilder::class));
+            ->willReturn($this->createMock(IWidgetRevolverBuilder::class))
+        ;
 
         $widgetBuilder = $this->getTesteeInstance(container: $container);
 
@@ -103,7 +108,8 @@ final class WidgetBuilderTest extends TestCase
             $widgetBuilder
                 ->withLeadingSpacer($frame)
                 ->withTrailingSpacer($frame)
-                ->build();
+                ->build()
+        ;
 
         self::assertInstanceOf(Widget::class, $widgetComposite);
     }
@@ -114,13 +120,14 @@ final class WidgetBuilderTest extends TestCase
         $container = $this->createMock(IContainer::class);
         $container
             ->method('get')
-            ->willReturn($this->createMock(IWidgetRevolverBuilder::class));
+            ->willReturn($this->createMock(IWidgetRevolverBuilder::class))
+        ;
 
         $widgetBuilder = $this->getTesteeInstance(container: $container);
 
         self::assertInstanceOf(WidgetBuilder::class, $widgetBuilder);
 
-        $exceptionClass = \LogicException::class;
+        $exceptionClass = LogicException::class;
         $exceptionMessage = '[AlecRabbit\Spinner\Core\Config\WidgetBuilder]: Property $widgetConfig is not set.';
 
         $this->expectException($exceptionClass);

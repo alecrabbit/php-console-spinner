@@ -11,6 +11,7 @@ use AlecRabbit\Spinner\Core\Config\DriverConfig;
 use AlecRabbit\Spinner\Core\Defaults\DefaultsProvider;
 use AlecRabbit\Spinner\Core\Driver;
 use AlecRabbit\Tests\Spinner\TestCase\TestCase;
+use LogicException;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 
@@ -44,7 +45,8 @@ final class DriverBuilderTest extends TestCase
         $container = $this->createMock(IContainer::class);
         $container
             ->method('get')
-            ->willReturn(new DefaultsProvider());
+            ->willReturn(new DefaultsProvider())
+        ;
 
         $driverBuilder = $this->getTesteeInstance(container: $container);
 
@@ -62,13 +64,14 @@ final class DriverBuilderTest extends TestCase
         $container = $this->createMock(IContainer::class);
         $container
             ->method('get')
-            ->willReturn(new DefaultsProvider());
+            ->willReturn(new DefaultsProvider())
+        ;
 
         $driverBuilder = $this->getTesteeInstance(container: $container);
 
         self::assertInstanceOf(DriverBuilder::class, $driverBuilder);
 
-        $exceptionClass = \LogicException::class;
+        $exceptionClass = LogicException::class;
         $exceptionMessage = '[AlecRabbit\Spinner\Core\Config\DriverBuilder]: Property $driverConfig is not set.';
 
         $this->expectException($exceptionClass);

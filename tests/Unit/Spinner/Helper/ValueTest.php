@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Helper;
 
-use AlecRabbit\Spinner\Helper\Deprecation;
 use AlecRabbit\Spinner\Helper\Value;
 use AlecRabbit\Tests\Spinner\TestCase\TestCase;
 use ArrayObject;

@@ -110,6 +110,7 @@ final class CursorTest extends TestCase
 
         $cursor->moveLeft(2)->flush();
     }
+
     #[Test]
     public function writesToBufferWhenEraseAndFlushCalled(): void
     {

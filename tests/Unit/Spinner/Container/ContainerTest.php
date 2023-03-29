@@ -9,7 +9,10 @@ use AlecRabbit\Spinner\Container\Exception\ContainerException;
 use AlecRabbit\Tests\Spinner\TestCase\TestCase;
 use AlecRabbit\Tests\Spinner\Unit\Spinner\Container\Override\NonInstantiableClass;
 use ArrayObject;
+use Generator;
+use InvalidArgumentException;
 use PHPUnit\Framework\Attributes\Test;
+use stdClass;
 
 final class ContainerTest extends TestCase
 {
@@ -64,22 +67,22 @@ final class ContainerTest extends TestCase
     {
         $container = new Container(
             new ArrayObject([
-                \stdClass::class => \stdClass::class,
-                'foo' => fn() => new \stdClass(),
-                'bar' => new \stdClass(),
+                stdClass::class => stdClass::class,
+                'foo' => fn() => new stdClass(),
+                'bar' => new stdClass(),
             ])
         );
 
-        $serviceOne = $container->get(\stdClass::class);
-        self::assertInstanceOf(\stdClass::class, $serviceOne);
-        self::assertSame($serviceOne, $container->get(\stdClass::class));
+        $serviceOne = $container->get(stdClass::class);
+        self::assertInstanceOf(stdClass::class, $serviceOne);
+        self::assertSame($serviceOne, $container->get(stdClass::class));
 
         $serviceTwo = $container->get('foo');
-        self::assertInstanceOf(\stdClass::class, $serviceTwo);
+        self::assertInstanceOf(stdClass::class, $serviceTwo);
         self::assertSame($serviceTwo, $container->get('foo'));
 
         $serviceThree = $container->get('bar');
-        self::assertInstanceOf(\stdClass::class, $serviceThree);
+        self::assertInstanceOf(stdClass::class, $serviceThree);
         self::assertSame($serviceThree, $container->get('bar'));
     }
 
@@ -105,9 +108,9 @@ final class ContainerTest extends TestCase
     #[Test]
     public function canReplaceDefinitionAndServiceRegisteredEarlier(): void
     {
-        $serviceOne = new \stdClass();
-        $serviceTwo = new \stdClass();
-        $serviceThree = new \stdClass();
+        $serviceOne = new stdClass();
+        $serviceTwo = new stdClass();
+        $serviceThree = new stdClass();
 
         $container = new Container(
             new ArrayObject([
@@ -123,9 +126,9 @@ final class ContainerTest extends TestCase
         self::assertSame($serviceTwo, $container->get('bar'));
         self::assertCount(2, self::getValue('services', $container));
 
-        $replacedServiceOne = new \stdClass();
-        $replacedServiceTwo = new \stdClass();
-        $replacedServiceThree = new \stdClass();
+        $replacedServiceOne = new stdClass();
+        $replacedServiceTwo = new stdClass();
+        $replacedServiceThree = new stdClass();
 
         $container->replace('foo', $replacedServiceOne);
         $container->replace('bar', $replacedServiceTwo);
@@ -211,7 +214,7 @@ final class ContainerTest extends TestCase
 
         $container = new Container(
             new ArrayObject([
-                'foo' => fn() => throw new \InvalidArgumentException('Intentional exception.'),
+                'foo' => fn() => throw new InvalidArgumentException('Intentional exception.'),
             ])
         );
 
@@ -269,7 +272,7 @@ final class ContainerTest extends TestCase
         $this->expectException($exception);
         $this->expectExceptionMessage($exceptionMessage);
 
-        $definitions = static function (): \Generator {
+        $definitions = static function (): Generator {
             yield 'foo' => 'bar';
             yield 'foo' => 'bar';
         };
