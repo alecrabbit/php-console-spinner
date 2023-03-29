@@ -11,6 +11,8 @@ use AlecRabbit\Spinner\Exception\RuntimeException;
 use AlecRabbit\Spinner\Helper\Asserter;
 use Generator;
 
+use Traversable;
+
 use function fflush;
 use function fwrite;
 use function is_iterable;
@@ -55,7 +57,7 @@ final class StreamBufferedOutput implements IBufferedOutput
     /**
      * @throws RuntimeException
      */
-    protected function doWrite(\Traversable $data): void
+    protected function doWrite(Traversable $data): void
     {
         /** @var string $item */
         foreach ($data as $item) {

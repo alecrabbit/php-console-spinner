@@ -13,6 +13,7 @@ use AlecRabbit\Spinner\Core\Driver;
 use AlecRabbit\Spinner\Core\Output\Cursor;
 use AlecRabbit\Spinner\Core\Output\StreamBufferedOutput;
 use AlecRabbit\Spinner\Core\Timer;
+use LogicException;
 
 final class DriverBuilder extends ABuilder implements IDriverBuilder
 {
@@ -21,17 +22,11 @@ final class DriverBuilder extends ABuilder implements IDriverBuilder
     public function build(): IDriver
     {
         if (null === $this->driverConfig) {
-            throw new \LogicException(
+            throw new LogicException(
                 sprintf('[%s]: Property $driverConfig is not set.', __CLASS__)
             );
         }
         return $this->createDriver();
-    }
-
-    public function withDriverConfig(IDriverConfig $driverConfig): IDriverBuilder
-    {
-        $this->driverConfig = $driverConfig;
-        return $this;
     }
 
     private function createDriver(): Driver
@@ -45,5 +40,11 @@ final class DriverBuilder extends ABuilder implements IDriverBuilder
                 timer: new Timer(), // FIXME use ~ $defaults->get...
                 driverConfig: $this->driverConfig,
             );
+    }
+
+    public function withDriverConfig(IDriverConfig $driverConfig): IDriverBuilder
+    {
+        $this->driverConfig = $driverConfig;
+        return $this;
     }
 }

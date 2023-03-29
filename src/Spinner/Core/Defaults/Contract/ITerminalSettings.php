@@ -7,7 +7,6 @@ namespace AlecRabbit\Spinner\Core\Defaults\Contract;
 
 use AlecRabbit\Spinner\Contract\OptionCursor;
 use AlecRabbit\Spinner\Contract\OptionStyleMode;
-use AlecRabbit\Spinner\Core\Defaults\A\ATerminalSettings;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use Traversable;
 

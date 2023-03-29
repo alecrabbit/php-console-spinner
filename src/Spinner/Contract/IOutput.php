@@ -4,8 +4,6 @@ declare(strict_types=1);
 // 28.03.23
 namespace AlecRabbit\Spinner\Contract;
 
-use AlecRabbit\Spinner\Exception\RuntimeException;
-
 interface IOutput
 {
     /**

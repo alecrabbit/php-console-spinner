@@ -8,7 +8,6 @@ namespace AlecRabbit\Spinner\Core\Defaults\Contract;
 use AlecRabbit\Spinner\Contract\OptionAutoStart;
 use AlecRabbit\Spinner\Contract\OptionRunMode;
 use AlecRabbit\Spinner\Contract\OptionSignalHandlers;
-use AlecRabbit\Spinner\Core\Defaults\LoopSettings;
 
 interface ILoopSettings
 {

@@ -36,7 +36,7 @@ interface IColorConverter
      *
      * @param Traversable $colors Colors to generate gradients.
      * @param int $steps The number of steps in the gradient.
-     * @param string|null $fromColor  Optional. The starting color of the gradient.
+     * @param string|null $fromColor Optional. The starting color of the gradient.
      * @return Generator<RGBColor> A generator that yields RGBColor objects.
      * @throws InvalidArgumentException
      */

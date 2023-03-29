@@ -12,8 +12,7 @@ final class WidgetConfig implements IWidgetConfig
     public function __construct(
         protected IFrame $leadingSpacer,
         protected IFrame $trailingSpacer,
-    )
-    {
+    ) {
     }
 
     public function getLeadingSpacer(): IFrame

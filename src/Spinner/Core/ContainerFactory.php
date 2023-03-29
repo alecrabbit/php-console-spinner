@@ -16,6 +16,7 @@ use AlecRabbit\Spinner\Core\Config\WidgetRevolverBuilder;
 use AlecRabbit\Spinner\Core\Defaults\DefaultsProvider;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetBuilder;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolverBuilder;
+use ArrayObject;
 use Traversable;
 
 final class ContainerFactory
@@ -47,7 +48,7 @@ final class ContainerFactory
 
     protected static function getDefaultDefinitions(IContainer $container): Traversable
     {
-        return new \ArrayObject(
+        return new ArrayObject(
             [
                 IConfigBuilder::class =>
                     static function () use ($container): IConfigBuilder {

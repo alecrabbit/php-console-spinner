@@ -5,9 +5,6 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Config\Contract;
 
 use AlecRabbit\Spinner\Contract\IInterval;
-use AlecRabbit\Spinner\Core\Config\SpinnerConfig;
-use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
-use Traversable;
 
 interface ISpinnerConfig
 {

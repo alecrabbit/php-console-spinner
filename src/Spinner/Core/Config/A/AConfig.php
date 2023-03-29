@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Config\A;
 
 use AlecRabbit\Spinner\Contract\IDriver;
-use AlecRabbit\Spinner\Core\Config\Contract\IConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IDriverConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\ILoopConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\ISpinnerConfig;

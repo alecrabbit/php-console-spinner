@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Config\A;
 
 use AlecRabbit\Spinner\Contract\OptionInitialization;
-use AlecRabbit\Spinner\Core\Config\Contract\ISpinnerConfig;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
 use Traversable;
 

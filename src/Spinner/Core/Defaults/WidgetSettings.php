@@ -6,10 +6,6 @@ namespace AlecRabbit\Spinner\Core\Defaults;
 
 use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Contract\IPattern;
-use AlecRabbit\Spinner\Contract\OptionAutoStart;
-use AlecRabbit\Spinner\Contract\OptionRunMode;
-use AlecRabbit\Spinner\Contract\OptionSignalHandlers;
-use AlecRabbit\Spinner\Core\Defaults\Contract\ILoopSettings;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IWidgetSettings;
 
 final class WidgetSettings implements IWidgetSettings
@@ -19,13 +15,12 @@ final class WidgetSettings implements IWidgetSettings
         protected IFrame $trailingSpacer,
         protected ?IPattern $stylePattern = null,
         protected ?IPattern $charPattern = null,
-    )
-    {
+    ) {
     }
 
     public function getLeadingSpacer(): IFrame
     {
-    return $this->leadingSpacer;
+        return $this->leadingSpacer;
     }
 
     public function setLeadingSpacer(IFrame $frame): IWidgetSettings

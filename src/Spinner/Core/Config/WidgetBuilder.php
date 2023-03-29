@@ -12,6 +12,7 @@ use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetBuilder;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolverBuilder;
 use AlecRabbit\Spinner\Core\Widget\Widget;
+use LogicException;
 
 final class WidgetBuilder extends ABuilder implements IWidgetBuilder
 {
@@ -35,7 +36,7 @@ final class WidgetBuilder extends ABuilder implements IWidgetBuilder
     {
         match (true) {
             null === $this->leadingSpacer && null === $this->trailingSpacer && null === $this->widgetConfig =>
-            throw new \LogicException(
+            throw new LogicException(
                 sprintf('[%s]: Property $widgetConfig is not set.', __CLASS__)
             ),
             default => null,

@@ -16,6 +16,7 @@ final class Facade extends AContainerAware
         return
             (new SpinnerBuilder(self::getContainer()))
                 ->withConfig($config)
-                ->build();
+                ->build()
+        ;
     }
 }

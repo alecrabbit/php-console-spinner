@@ -23,12 +23,14 @@ final class SpinnerBuilder extends ABuilder implements ISpinnerBuilder
         $driver =
             $this->container->get(IDriverBuilder::class)
                 ->withDriverConfig($this->config->getDriverConfig())
-                ->build();
+                ->build()
+        ;
 
         $rootWidget =
             $this->container->get(IWidgetBuilder::class)
                 ->withWidgetConfig($this->config->getRootWidgetConfig())
-                ->build();
+                ->build()
+        ;
 
         return
             new class($driver, $rootWidget) extends ASpinner {

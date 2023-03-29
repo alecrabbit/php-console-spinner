@@ -97,7 +97,8 @@ abstract class AConfigBuilder
             $this->driverBuilder
                 ->withOutput(new StreamBufferedOutput($this->defaults->getOutputStream()))
                 ->withTimer(new Timer())
-                ->build();
+                ->build()
+        ;
     }
 
     protected function createRootWidget(): IWidgetComposite
@@ -128,6 +129,7 @@ abstract class AConfigBuilder
                 )
                 ->withLeadingSpacer($this->defaults->getRootWidgetSettings()->getLeadingSpacer())
                 ->withTrailingSpacer($this->defaults->getRootWidgetSettings()->getTrailingSpacer())
-                ->build();
+                ->build()
+        ;
     }
 }

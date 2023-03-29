@@ -42,7 +42,8 @@ abstract class AStaticWidgetFactory extends ADefaultsAwareClass implements IWidg
                 ->withWidgetRevolver($revolver)
                 ->withLeadingSpacer($leadingSpacer)
                 ->withTrailingSpacer($trailingSpacer)
-                ->build();
+                ->build()
+        ;
     }
 
     public static function getWidgetBuilder(?IDefaults $defaults = null): IWidgetBuilder

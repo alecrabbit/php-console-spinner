@@ -11,7 +11,6 @@ use AlecRabbit\Spinner\Contract\IFrameCollectionRenderer;
 use AlecRabbit\Spinner\Contract\IFrameRenderer;
 use AlecRabbit\Spinner\Contract\IPattern;
 use AlecRabbit\Spinner\Contract\IStyle;
-use AlecRabbit\Spinner\Core\Factory\A\ADefaultsAwareClass;
 use AlecRabbit\Spinner\Core\FrameCollection;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use Generator;
