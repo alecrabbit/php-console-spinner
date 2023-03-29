@@ -6,15 +6,15 @@ use AlecRabbit\Spinner\Asynchronous\Defaults\A\ALoopAwareDefaults;
 use AlecRabbit\Spinner\Asynchronous\Loop\LoopHelper;
 use AlecRabbit\Spinner\Asynchronous\Loop\Probe\ReactLoopProbe;
 use AlecRabbit\Spinner\Asynchronous\Loop\Probe\RevoltLoopProbe;
-use AlecRabbit\Spinner\Core\Factory\DefaultsFactory;
-use AlecRabbit\Spinner\Facade;
+use AlecRabbit\Spinner\Core\Factory\StaticDefaultsFactory;
+use AlecRabbit\Spinner\StaticFacade;
 
 // @codeCoverageIgnoreStart
 
-DefaultsFactory::addProbe(ReactLoopProbe::class);
-DefaultsFactory::addProbe(RevoltLoopProbe::class);
-DefaultsFactory::setDefaultsClass(ALoopAwareDefaults::class);
+StaticDefaultsFactory::addProbe(ReactLoopProbe::class);
+StaticDefaultsFactory::addProbe(RevoltLoopProbe::class);
+StaticDefaultsFactory::setDefaultsClass(ALoopAwareDefaults::class);
 
-Facade::registerLoopHelperClass(LoopHelper::class);
+StaticFacade::registerLoopHelperClass(LoopHelper::class);
 
 // @codeCoverageIgnoreEnd

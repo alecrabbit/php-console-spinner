@@ -10,8 +10,8 @@ use AlecRabbit\Spinner\Contract\OptionRunMode;
 use AlecRabbit\Spinner\Contract\OptionSignalHandlers;
 use AlecRabbit\Spinner\Contract\OptionStyleMode;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
-use AlecRabbit\Spinner\Core\Factory\A\ASpinnerFactory;
-use AlecRabbit\Spinner\Core\Factory\DefaultsFactory;
+use AlecRabbit\Spinner\Core\Factory\A\AStaticSpinnerFactory;
+use AlecRabbit\Spinner\Core\Factory\StaticDefaultsFactory;
 use AlecRabbit\Tests\Spinner\TestCase\TestCase;
 
 final class AFactoryTest extends TestCase
@@ -19,7 +19,7 @@ final class AFactoryTest extends TestCase
     /** @test */
     public function canCreateDefaultSpinner(): void
     {
-        $spinner = ASpinnerFactory::createSpinner();
+        $spinner = AStaticSpinnerFactory::createSpinner();
 
         /** @noinspection UnnecessaryAssertionInspection */
         self::assertInstanceOf(ISpinner::class, $spinner);
@@ -39,7 +39,7 @@ final class AFactoryTest extends TestCase
 
     protected function setUp(): void
     {
-        DefaultsFactory::get()
+        StaticDefaultsFactory::get()
             ->overrideRunMode(OptionRunMode::SYNCHRONOUS)
             ->getLoopSettings()
             ->overrideAutoStartOption(OptionAutoStart::DISABLED)

@@ -8,7 +8,7 @@ use AlecRabbit\Spinner\Core\Config\Contract\IConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IConfigBuilder;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Exception\LogicException;
-use AlecRabbit\Spinner\Facade;
+use AlecRabbit\Spinner\StaticFacade;
 
 abstract class ConfigTestCase extends TestCase
 {
@@ -48,7 +48,7 @@ abstract class ConfigTestCase extends TestCase
 
     protected static function getConfigBuilder(): IConfigBuilder
     {
-        return Facade::getConfigBuilder();
+        return StaticFacade::getConfigBuilder();
     }
 
     protected function tearDown(): void

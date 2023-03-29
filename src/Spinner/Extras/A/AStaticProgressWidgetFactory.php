@@ -10,9 +10,9 @@ use AlecRabbit\Spinner\Contract\IFrameCollection;
 use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Contract\IProcedure;
 use AlecRabbit\Spinner\Core\CharFrameCollectionRenderer;
-use AlecRabbit\Spinner\Core\Factory\A\AWidgetFactory;
-use AlecRabbit\Spinner\Core\Factory\FrameFactory;
-use AlecRabbit\Spinner\Core\Factory\RevolverFactory;
+use AlecRabbit\Spinner\Core\Factory\A\AStaticWidgetFactory;
+use AlecRabbit\Spinner\Core\Factory\StaticFrameFactory;
+use AlecRabbit\Spinner\Core\Factory\StaticRevolverFactory;
 use AlecRabbit\Spinner\Core\FrameRenderer;
 use AlecRabbit\Spinner\Core\Pattern\Char\CustomPattern;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
@@ -27,7 +27,7 @@ use AlecRabbit\Spinner\Extras\Procedure\ProgressValueProcedure;
 use AlecRabbit\Spinner\Extras\ProgressBarSprite;
 use AlecRabbit\Spinner\Extras\Revolver\ProceduralRevolver;
 
-abstract class AProgressWidgetFactory extends AWidgetFactory implements IProgressWidgetFactory
+abstract class AStaticProgressWidgetFactory extends AStaticWidgetFactory implements IProgressWidgetFactory
 {
     public static function createProgressSteps(
         IProgressValue $progressValue,
@@ -93,7 +93,7 @@ abstract class AProgressWidgetFactory extends AWidgetFactory implements IProgres
         $revolver =
             static::getWidgetRevolverBuilder()
                 ->withStyleRevolver(
-                    $styleRevolver ?? RevolverFactory::defaultStyleRevolver()
+                    $styleRevolver ?? StaticRevolverFactory::defaultStyleRevolver()
                 )
                 ->withCharRevolver(
                     new ProceduralRevolver(
@@ -139,15 +139,15 @@ abstract class AProgressWidgetFactory extends AWidgetFactory implements IProgres
     {
         $pattern =
             new CustomPattern([
-                FrameFactory::create(' ', 1),
-                FrameFactory::create('▁', 1),
-                FrameFactory::create('▂', 1),
-                FrameFactory::create('▃', 1),
-                FrameFactory::create('▄', 1),
-                FrameFactory::create('▅', 1),
-                FrameFactory::create('▆', 1),
-                FrameFactory::create('▇', 1),
-                FrameFactory::create('█', 1),
+                StaticFrameFactory::create(' ', 1),
+                StaticFrameFactory::create('▁', 1),
+                StaticFrameFactory::create('▂', 1),
+                StaticFrameFactory::create('▃', 1),
+                StaticFrameFactory::create('▄', 1),
+                StaticFrameFactory::create('▅', 1),
+                StaticFrameFactory::create('▆', 1),
+                StaticFrameFactory::create('▇', 1),
+                StaticFrameFactory::create('█', 1),
             ]);
 
         return

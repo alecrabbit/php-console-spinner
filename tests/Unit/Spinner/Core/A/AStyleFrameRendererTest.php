@@ -10,7 +10,7 @@ use AlecRabbit\Spinner\Contract\IStyleFrameRenderer;
 use AlecRabbit\Spinner\Contract\OptionStyleMode;
 use AlecRabbit\Spinner\Core\A\AStyleFrameRenderer;
 use AlecRabbit\Spinner\Core\Color\Style;
-use AlecRabbit\Spinner\Core\Factory\FrameFactory;
+use AlecRabbit\Spinner\Core\Factory\StaticFrameFactory;
 use AlecRabbit\Spinner\Exception\LogicException;
 use AlecRabbit\Tests\Spinner\TestCase\TestCase;
 use AlecRabbit\Tests\Spinner\Unit\Spinner\Core\A\Override\SequencerImplOverride;
@@ -43,7 +43,7 @@ final class AStyleFrameRendererTest extends TestCase
         // #1
         yield [
             [
-                self::RESULT => FrameFactory::create('3-m%s', 0),
+                self::RESULT => StaticFrameFactory::create('3-m%s', 0),
             ],
             [
                 self::ARGUMENTS => [
@@ -56,7 +56,7 @@ final class AStyleFrameRendererTest extends TestCase
         // #2
         yield [
             [
-                self::RESULT => FrameFactory::create('%s', 0),
+                self::RESULT => StaticFrameFactory::create('%s', 0),
             ],
             [
                 self::ARGUMENTS => [
@@ -69,7 +69,7 @@ final class AStyleFrameRendererTest extends TestCase
         // #3
         yield [
             [
-                self::RESULT => FrameFactory::create('%s', 0),
+                self::RESULT => StaticFrameFactory::create('%s', 0),
             ],
             [
                 self::ARGUMENTS => [
@@ -82,7 +82,7 @@ final class AStyleFrameRendererTest extends TestCase
         // #4
         yield [
             [
-                self::RESULT => FrameFactory::create('4-m%s', 0),
+                self::RESULT => StaticFrameFactory::create('4-m%s', 0),
             ],
             [
                 self::ARGUMENTS => [

@@ -3,22 +3,22 @@
 declare(strict_types=1);
 
 use AlecRabbit\Spinner\Contract\OptionStyleMode;
-use AlecRabbit\Spinner\Core\Factory\DefaultsFactory;
+use AlecRabbit\Spinner\Core\Factory\StaticDefaultsFactory;
 use AlecRabbit\Spinner\Core\Pattern\Char\Snake;
 use AlecRabbit\Spinner\Core\Pattern\Style\Rainbow;
-use AlecRabbit\Spinner\Facade;
+use AlecRabbit\Spinner\StaticFacade;
 
 require_once __DIR__ . '/../bootstrap.async.php';
 
 // Settings
 $runTime = 30; // s
 
-$defaults = DefaultsFactory::get();
+$defaults = StaticDefaultsFactory::get();
 
 //$defaults->getTerminalSettings()->overrideColorMode(StyleMode::ANSI24);
 
 $config =
-    Facade::getConfigBuilder()
+    StaticFacade::getConfigBuilder()
         ->withStylePattern(
             new Rainbow(
 //                styleMode: StyleMode::ANSI8
@@ -28,11 +28,11 @@ $config =
         ->build();
 
 $spinner =
-    Facade::createSpinner(
+    StaticFacade::createSpinner(
         $config
     );
 
-$loop = Facade::getLoop();
+$loop = StaticFacade::getLoop();
 
 // Limits run time
 $loop->delay(

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Extras\Procedure;
 
 use AlecRabbit\Spinner\Contract\IFrame;
-use AlecRabbit\Spinner\Core\Factory\FrameFactory;
+use AlecRabbit\Spinner\Core\Factory\StaticFrameFactory;
 use AlecRabbit\Spinner\Extras\Contract\IProgressBarSprite;
 use AlecRabbit\Spinner\Extras\Contract\IProgressValue;
 use AlecRabbit\Spinner\Extras\Procedure\A\AProgressValueProcedure;
@@ -56,13 +56,13 @@ final class ProgressBarProcedure extends AProgressValueProcedure
     {
         if ($this->progressValue->isFinished()) {
             if ($this->finishedDelay < 0) {
-                return FrameFactory::createEmpty();
+                return StaticFrameFactory::createEmpty();
             }
             $this->finishedDelay -= $dt ?? 0.0;
         }
         $v = $this->createBar($this->progressValue->getValue());
         return
-            FrameFactory::create($v);
+            StaticFrameFactory::create($v);
     }
 
     private function createBar(float $progress): string

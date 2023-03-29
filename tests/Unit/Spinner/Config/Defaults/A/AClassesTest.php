@@ -6,7 +6,7 @@ namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Config\Defaults\A;
 
 use AlecRabbit\Spinner\Core\Defaults\A\ADefaultsClasses;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDefaultsClasses;
-use AlecRabbit\Spinner\Core\Factory\DefaultsFactory;
+use AlecRabbit\Spinner\Core\Factory\StaticDefaultsFactory;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetBuilder;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolverBuilder;
 use AlecRabbit\Spinner\Core\Widget\WidgetBuilder;
@@ -30,7 +30,7 @@ final class AClassesTest extends TestCase
 
     private static function getTesteeInstance(): IDefaultsClasses
     {
-        return ADefaultsClasses::getInstance(DefaultsFactory::get());
+        return ADefaultsClasses::getInstance(StaticDefaultsFactory::get());
     }
 
     /** @test */

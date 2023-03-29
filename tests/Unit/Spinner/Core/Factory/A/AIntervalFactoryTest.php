@@ -6,8 +6,8 @@ namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Core\Factory\A;
 
 use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Contract\IIntNormalizer;
-use AlecRabbit\Spinner\Core\Factory\A\AIntervalFactory;
-use AlecRabbit\Spinner\Core\Factory\DefaultsFactory;
+use AlecRabbit\Spinner\Core\Factory\A\AStaticIntervalFactory;
+use AlecRabbit\Spinner\Core\Factory\StaticDefaultsFactory;
 use AlecRabbit\Spinner\Core\IntNormalizer;
 use AlecRabbit\Tests\Spinner\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
@@ -64,11 +64,11 @@ final class AIntervalFactoryTest extends TestCase
     #[Test]
     public function canCreateDefaultInterval(): void
     {
-        $defaults = DefaultsFactory::get();
+        $defaults = StaticDefaultsFactory::get();
 
         self::assertEquals(
             $defaults->getSpinnerSettings()->getInterval()->toMilliseconds(),
-            AIntervalFactory::createDefault()->toMilliseconds()
+            AStaticIntervalFactory::createDefault()->toMilliseconds()
         );
     }
 
@@ -84,7 +84,7 @@ final class AIntervalFactoryTest extends TestCase
 
         self::assertEquals(
             $expected[self::INTERVAL],
-            AIntervalFactory::createNormalized($args[self::INTERVAL])->toMilliseconds()
+            AStaticIntervalFactory::createNormalized($args[self::INTERVAL])->toMilliseconds()
         );
     }
 

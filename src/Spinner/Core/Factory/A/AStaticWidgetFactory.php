@@ -8,15 +8,15 @@ use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDefaults;
 use AlecRabbit\Spinner\Core\Factory\Contract\IWidgetFactory;
-use AlecRabbit\Spinner\Core\Factory\FrameFactory;
-use AlecRabbit\Spinner\Core\Factory\IntervalFactory;
+use AlecRabbit\Spinner\Core\Factory\StaticFrameFactory;
+use AlecRabbit\Spinner\Core\Factory\StaticIntervalFactory;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
 use AlecRabbit\Spinner\Core\Revolver\EmptyFrameRevolver;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetBuilder;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolverBuilder;
 
-abstract class AWidgetFactory extends ADefaultsAwareClass implements IWidgetFactory
+abstract class AStaticWidgetFactory extends ADefaultsAwareClass implements IWidgetFactory
 {
     protected static ?IWidgetBuilder $widgetBuilder = null;
     protected static ?IWidgetRevolverBuilder $widgetRevolverBuilder = null;
@@ -27,8 +27,8 @@ abstract class AWidgetFactory extends ADefaultsAwareClass implements IWidgetFact
         return
             static::create(
                 EmptyFrameRevolver::create(),
-                FrameFactory::createEmpty(),
-                FrameFactory::createEmpty(),
+                StaticFrameFactory::createEmpty(),
+                StaticFrameFactory::createEmpty(),
             );
     }
 
@@ -88,6 +88,6 @@ abstract class AWidgetFactory extends ADefaultsAwareClass implements IWidgetFact
 
     protected static function getDefaultUpdateInterval(): IInterval
     {
-        return IntervalFactory::createDefault();
+        return StaticIntervalFactory::createDefault();
     }
 }

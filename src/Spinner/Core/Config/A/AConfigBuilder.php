@@ -13,9 +13,9 @@ use AlecRabbit\Spinner\Core\Config\LoopConfig;
 use AlecRabbit\Spinner\Core\Config\SpinnerConfig;
 use AlecRabbit\Spinner\Core\Contract\IDriverBuilder;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDefaults;
-use AlecRabbit\Spinner\Core\Factory\DriverFactory;
-use AlecRabbit\Spinner\Core\Factory\RevolverFactory;
-use AlecRabbit\Spinner\Core\Factory\WidgetFactory;
+use AlecRabbit\Spinner\Core\Factory\StaticDriverFactory;
+use AlecRabbit\Spinner\Core\Factory\StaticRevolverFactory;
+use AlecRabbit\Spinner\Core\Factory\StaticWidgetFactory;
 use AlecRabbit\Spinner\Core\Output\StreamBufferedOutput;
 use AlecRabbit\Spinner\Core\Pattern\Contract\IStylePattern;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolverBuilder;
@@ -40,10 +40,10 @@ abstract class AConfigBuilder implements IConfigBuilder
     public function __construct(
         protected IDefaults $defaults,
     ) {
-        $this->widgetBuilder = WidgetFactory::getWidgetBuilder($this->defaults);
-        $this->widgetRevolverBuilder = WidgetFactory::getWidgetRevolverBuilder($this->defaults);
-        $this->driverBuilder = DriverFactory::getDriverBuilder($this->defaults);
-        $this->frameRevolverBuilder = RevolverFactory::getRevolverBuilder($this->defaults);
+        $this->widgetBuilder = StaticWidgetFactory::getWidgetBuilder($this->defaults);
+        $this->widgetRevolverBuilder = StaticWidgetFactory::getWidgetRevolverBuilder($this->defaults);
+        $this->driverBuilder = StaticDriverFactory::getDriverBuilder($this->defaults);
+        $this->frameRevolverBuilder = StaticRevolverFactory::getRevolverBuilder($this->defaults);
     }
 
     public function withRootWidget(IWidgetComposite $widget): static

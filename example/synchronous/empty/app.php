@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-use AlecRabbit\Spinner\Core\Factory\WidgetFactory;
+use AlecRabbit\Spinner\Core\Factory\StaticWidgetFactory;
 use AlecRabbit\Spinner\Extras\ProgressValue;
-use AlecRabbit\Spinner\Facade;
+use AlecRabbit\Spinner\StaticFacade;
 use Example\Kernel\App;
 use Example\Kernel\AppConfig;
 
@@ -14,10 +14,10 @@ App::prepareDefaults();
 
 $appConfig = new AppConfig(mainRunTime: 10);
 
-$configBuilder = Facade::getConfigBuilder();
+$configBuilder = StaticFacade::getConfigBuilder();
 
 $config = $configBuilder
-    ->withRootWidget(WidgetFactory::createEmpty())
+    ->withRootWidget(StaticWidgetFactory::createEmpty())
     ->build();
 
 $app = new App(

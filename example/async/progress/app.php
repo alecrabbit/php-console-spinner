@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-use AlecRabbit\Spinner\Core\Factory\DefaultsFactory;
+use AlecRabbit\Spinner\Core\Factory\StaticDefaultsFactory;
 use AlecRabbit\Spinner\Core\Interval;
 use AlecRabbit\Spinner\Core\Pattern\Char\Aesthetic;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
 use AlecRabbit\Spinner\Extras\ProgressValue;
-use AlecRabbit\Spinner\Extras\ProgressWidgetFactory;
-use AlecRabbit\Spinner\Facade;
+use AlecRabbit\Spinner\Extras\StaticProgressWidgetFactory;
+use AlecRabbit\Spinner\StaticFacade;
 
 require_once __DIR__ . '/../bootstrap.async.php';
 
@@ -23,7 +23,7 @@ $threshold = 900; // 90% [0..1000]
 $faker = Faker\Factory::create();
 $count = 0;
 
-$defaults = DefaultsFactory::get();
+$defaults = StaticDefaultsFactory::get();
 $defaults
     ->setCharPattern(new \AlecRabbit\Spinner\Extras\Procedure\TmpProceduralCharPattern())
 //    ->setSpinnerCharPattern(new \AlecRabbit\Spinner\Core\Pattern\Char\Custom(['o', 'O' ], 100))
@@ -31,7 +31,7 @@ $defaults
     //    ->setSpinnerStylePattern(new \AlecRabbit\Spinner\Extras\Procedure\TmpProceduralStylePattern())
 ;
 
-$spinner = Facade::createSpinner();
+$spinner = StaticFacade::createSpinner();
 
 $progress = new ProgressValue(steps: $steps, autoFinish: true);
 
@@ -41,7 +41,7 @@ $progressWidget = createProgressWidget($progress, $interval);
 
 $spinner->add($progressWidget);
 
-$loop = Facade::getLoop();
+$loop = StaticFacade::getLoop();
 
 // Progress
 $loop->repeat(
@@ -85,27 +85,27 @@ function createProgressWidget(
     ProgressValue $progress,
     Interval $interval
 ): IWidgetComposite {
-    $composite = ProgressWidgetFactory::createProgressSteps(
+    $composite = StaticProgressWidgetFactory::createProgressSteps(
         $progress,
         updateInterval: $interval,
     );
 
     $composite->add(
-        ProgressWidgetFactory::createProgressBar(
+        StaticProgressWidgetFactory::createProgressBar(
             $progress,
             updateInterval: $interval
         )
     );
 
     $composite->add(
-        ProgressWidgetFactory::createProgressValue(
+        StaticProgressWidgetFactory::createProgressValue(
             $progress,
             updateInterval: $interval
         )
     );
     
     $composite->add(
-        ProgressWidgetFactory::createProgressFrame(
+        StaticProgressWidgetFactory::createProgressFrame(
             $progress,
             updateInterval: $interval
         )

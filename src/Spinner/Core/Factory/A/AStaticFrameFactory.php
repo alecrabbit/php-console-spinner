@@ -10,7 +10,7 @@ use AlecRabbit\Spinner\Core\Factory\Contract\IFrameFactory;
 use AlecRabbit\Spinner\Core\Frame;
 use AlecRabbit\Spinner\Core\WidthDeterminer;
 
-abstract class AFrameFactory implements IFrameFactory
+abstract class AStaticFrameFactory implements IFrameFactory
 {
     public static function create(string $sequence, ?int $width = null): IFrame
     {

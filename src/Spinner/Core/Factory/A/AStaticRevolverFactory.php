@@ -7,17 +7,17 @@ namespace AlecRabbit\Spinner\Core\Factory\A;
 use AlecRabbit\Spinner\Contract\IAnsiStyleConverter;
 use AlecRabbit\Spinner\Contract\IPattern;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDefaults;
-use AlecRabbit\Spinner\Core\Factory\AnsiColorConverterFactory;
+use AlecRabbit\Spinner\Core\Factory\StaticAnsiColorConverterFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IRevolverFactory;
-use AlecRabbit\Spinner\Core\Factory\FrameFactory;
-use AlecRabbit\Spinner\Core\Factory\IntervalFactory;
+use AlecRabbit\Spinner\Core\Factory\StaticFrameFactory;
+use AlecRabbit\Spinner\Core\Factory\StaticIntervalFactory;
 use AlecRabbit\Spinner\Core\FrameCollection;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolverBuilder;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
 use AlecRabbit\Spinner\Core\Revolver\FrameCollectionRevolver;
 use ArrayObject;
 
-abstract class ARevolverFactory extends ADefaultsAwareClass implements IRevolverFactory
+abstract class AStaticRevolverFactory extends ADefaultsAwareClass implements IRevolverFactory
 {
     private static ?IFrameRevolverBuilder $revolverBuilder = null;
 
@@ -27,10 +27,10 @@ abstract class ARevolverFactory extends ADefaultsAwareClass implements IRevolver
             new FrameCollectionRevolver(
                 new FrameCollection(
                     new ArrayObject([
-                        FrameFactory::create('%s', 0),
+                        StaticFrameFactory::create('%s', 0),
                     ])
                 ),
-                IntervalFactory::createStill()
+                StaticIntervalFactory::createStill()
             );
     }
 
@@ -59,7 +59,7 @@ abstract class ARevolverFactory extends ADefaultsAwareClass implements IRevolver
 
     protected static function getColorConverter(?IDefaults $defaults): IAnsiStyleConverter
     {
-        return AnsiColorConverterFactory::getGetAnsiColorConverter($defaults);
+        return StaticAnsiColorConverterFactory::getGetAnsiColorConverter($defaults);
     }
 
     public static function defaultCharRevolver(): IRevolver
@@ -68,10 +68,10 @@ abstract class ARevolverFactory extends ADefaultsAwareClass implements IRevolver
             new FrameCollectionRevolver(
                 new FrameCollection(
                     new ArrayObject([
-                        FrameFactory::createEmpty(),
+                        StaticFrameFactory::createEmpty(),
                     ])
                 ),
-                IntervalFactory::createStill()
+                StaticIntervalFactory::createStill()
             );
     }
 }

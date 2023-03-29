@@ -4,7 +4,7 @@ declare(strict_types=1);
 // 15.02.23
 namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Core;
 
-use AlecRabbit\Spinner\Core\Factory\FrameFactory;
+use AlecRabbit\Spinner\Core\Factory\StaticFrameFactory;
 use AlecRabbit\Spinner\Core\FrameCollection;
 use AlecRabbit\Spinner\Exception\DomainException;
 use AlecRabbit\Tests\Spinner\TestCase\TestCase;
@@ -53,9 +53,9 @@ final class FrameCollectionTest extends TestCase
                 self::COUNT => 3,
                 self::FRAMES =>
                     $frames = [
-                        FrameFactory::create('a', 1),
-                        FrameFactory::create('b', 1),
-                        FrameFactory::create('c', 1)
+                        StaticFrameFactory::create('a', 1),
+                        StaticFrameFactory::create('b', 1),
+                        StaticFrameFactory::create('c', 1)
                     ],
                 self::LAST_INDEX => 2,
             ],

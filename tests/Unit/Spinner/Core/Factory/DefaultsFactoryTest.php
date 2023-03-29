@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Core\Factory;
 
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDefaults;
-use AlecRabbit\Spinner\Core\Factory\DefaultsFactory;
+use AlecRabbit\Spinner\Core\Factory\StaticDefaultsFactory;
 use AlecRabbit\Spinner\Exception\DomainException;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Tests\Spinner\TestCase\TestCase;
@@ -31,7 +31,7 @@ final class DefaultsFactoryTest extends TestCase
 
     private static function getDefaultsInstance(): IDefaults
     {
-        return DefaultsFactory::get();
+        return StaticDefaultsFactory::get();
     }
 
     #[Test]
@@ -44,8 +44,8 @@ final class DefaultsFactoryTest extends TestCase
 
         $defaults = self::getDefaultsInstance();
         $class = ADefaultsOverride::class;
-        DefaultsFactory::setDefaultsClass($class);
-        self::assertSame($class, self::getValue('className', DefaultsFactory::class));
+        StaticDefaultsFactory::setDefaultsClass($class);
+        self::assertSame($class, self::getValue('className', StaticDefaultsFactory::class));
         self::assertSame($defaults, self::getDefaultsInstance());
     }
 
@@ -53,8 +53,8 @@ final class DefaultsFactoryTest extends TestCase
     public function defaultsClassCanBeSet(): void
     {
         $class = ADefaultsOverride::class;
-        DefaultsFactory::setDefaultsClass($class);
-        self::assertSame($class, self::getValue('className', DefaultsFactory::class));
+        StaticDefaultsFactory::setDefaultsClass($class);
+        self::assertSame($class, self::getValue('className', StaticDefaultsFactory::class));
     }
 
     #[Test]
@@ -70,14 +70,14 @@ final class DefaultsFactoryTest extends TestCase
             )
         );
 
-        DefaultsFactory::setDefaultsClass(stdClass::class);
+        StaticDefaultsFactory::setDefaultsClass(stdClass::class);
         self::exceptionNotThrown($exceptionClass);
     }
 
     protected function setUp(): void
     {
-        self::setValue(DefaultsFactory::class, 'className', null);
-        self::setValue(DefaultsFactory::class, 'defaultsInstance', null);
+        self::setValue(StaticDefaultsFactory::class, 'className', null);
+        self::setValue(StaticDefaultsFactory::class, 'defaultsInstance', null);
     }
 }
 

@@ -13,7 +13,7 @@ use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Helper\Asserter;
 use AlecRabbit\Spinner\Mixin\NoInstanceTrait;
 
-final class DefaultsFactory
+final class StaticDefaultsFactory
 {
     use NoInstanceTrait;
 

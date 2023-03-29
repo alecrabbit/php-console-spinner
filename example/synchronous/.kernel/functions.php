@@ -2,8 +2,8 @@
 
 declare(strict_types=1);
 
-use AlecRabbit\Spinner\Core\Factory\FrameFactory;
-use AlecRabbit\Spinner\Core\Factory\WidgetFactory;
+use AlecRabbit\Spinner\Core\Factory\StaticFrameFactory;
+use AlecRabbit\Spinner\Core\Factory\StaticWidgetFactory;
 use AlecRabbit\Spinner\Core\Interval;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
 use AlecRabbit\Spinner\Extras\FractionBarSprite;
@@ -21,8 +21,8 @@ function createProgressWidget(
     $interval ??= 0.32;
     $progressUpdateInterval = new Interval($interval * 1000);
 
-    $widgetBuilder = WidgetFactory::getWidgetBuilder();
-    $widgetRevolverBuilder = WidgetFactory::getWidgetRevolverBuilder();
+    $widgetBuilder = StaticWidgetFactory::getWidgetBuilder();
+    $widgetRevolverBuilder = StaticWidgetFactory::getWidgetRevolverBuilder();
 
     $progressWidget =
         $widgetBuilder
@@ -38,7 +38,7 @@ function createProgressWidget(
                     )
                     ->build()
             )
-            ->withLeadingSpacer(FrameFactory::createSpace())
+            ->withLeadingSpacer(StaticFrameFactory::createSpace())
             ->build();
 
     $progressWidget->add(
@@ -55,7 +55,7 @@ function createProgressWidget(
                     )
                     ->build()
             )
-            ->withLeadingSpacer(FrameFactory::createSpace())
+            ->withLeadingSpacer(StaticFrameFactory::createSpace())
             ->build()
     );
 

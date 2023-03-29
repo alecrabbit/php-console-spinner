@@ -3,19 +3,19 @@
 declare(strict_types=1);
 
 use AlecRabbit\Spinner\Asynchronous\Loop\Probe\RevoltLoopProbe;
-use AlecRabbit\Spinner\Core\Factory\DefaultsFactory;
-use AlecRabbit\Spinner\Facade;
+use AlecRabbit\Spinner\Core\Factory\StaticDefaultsFactory;
+use AlecRabbit\Spinner\StaticFacade;
 use Revolt\EventLoop;
 
 require_once __DIR__ . '/../../bootstrap.async.php';
 
-DefaultsFactory::get()
+StaticDefaultsFactory::get()
     ->overrideLoopProbeClasses([RevoltLoopProbe::class]); // probe only for Revolt event loop
 
 /*
  * This example shows how you may use Revolt event loop.
  */
-$spinner = Facade::createSpinner();
+$spinner = StaticFacade::createSpinner();
 
 EventLoop::delay(3, static function () use ($spinner) {
     $spinner->finalize('Finished!' . PHP_EOL);

@@ -3,13 +3,13 @@
 declare(strict_types=1);
 
 use AlecRabbit\Spinner\Contract\OptionStyleMode;
-use AlecRabbit\Spinner\Core\Factory\DefaultsFactory;
+use AlecRabbit\Spinner\Core\Factory\StaticDefaultsFactory;
 use AlecRabbit\Spinner\Core\Output\StreamBufferedOutput;
-use AlecRabbit\Spinner\Facade;
+use AlecRabbit\Spinner\StaticFacade;
 
 require_once __DIR__ . '/../bootstrap.async.php';
 
-$defaults = DefaultsFactory::get();
+$defaults = StaticDefaultsFactory::get();
 
 $terminal = $defaults->getTerminalSettings();
 
@@ -18,7 +18,7 @@ $terminal->overrideWidth(80);
 
 $output = new StreamBufferedOutput(STDOUT);
 
-$loop = Facade::getLoop();
+$loop = StaticFacade::getLoop();
 
 $output->writeln(
     sprintf(

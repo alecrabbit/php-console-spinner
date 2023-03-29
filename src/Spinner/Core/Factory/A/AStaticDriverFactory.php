@@ -8,7 +8,7 @@ use AlecRabbit\Spinner\Core\Contract\IDriverBuilder;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDefaults;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDriverFactory;
 
-abstract class ADriverFactory extends ADefaultsAwareClass implements IDriverFactory
+abstract class AStaticDriverFactory extends ADefaultsAwareClass implements IDriverFactory
 {
     protected static ?IDriverBuilder $driverBuilder = null;
 

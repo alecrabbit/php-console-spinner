@@ -10,7 +10,7 @@ use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalFactory;
 use AlecRabbit\Spinner\Core\Interval;
 use AlecRabbit\Spinner\Core\IntNormalizer;
 
-abstract class AIntervalFactory extends ADefaultsAwareClass implements IIntervalFactory
+abstract class AStaticIntervalFactory extends ADefaultsAwareClass implements IIntervalFactory
 {
     protected static NormalizerMode $normalizerMode = self::NORMALIZER_MODE;
 
