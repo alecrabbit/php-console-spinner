@@ -6,6 +6,7 @@ namespace AlecRabbit\Spinner\Core\Config\A;
 
 use AlecRabbit\Spinner\Contract\IDriver;
 use AlecRabbit\Spinner\Contract\IPattern;
+use AlecRabbit\Spinner\Core\ABuilder;
 use AlecRabbit\Spinner\Core\Config\Config;
 use AlecRabbit\Spinner\Core\Config\Contract\IConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IConfigBuilder;
@@ -26,7 +27,7 @@ use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolverBuilder;
 use ArrayObject;
 use Traversable;
 
-abstract class AConfigBuilder implements IConfigBuilder
+abstract class AConfigBuilder extends ABuilder implements IConfigBuilder
 {
     protected IDriverBuilder $driverBuilder;
     protected ?IWidgetComposite $rootWidget = null;
@@ -37,14 +38,14 @@ abstract class AConfigBuilder implements IConfigBuilder
     protected IWidgetRevolverBuilder $widgetRevolverBuilder;
     protected ?Traversable $widgets = null;
 
-    public function __construct(
-        protected IDefaults $defaults,
-    ) {
-        $this->widgetBuilder = StaticWidgetFactory::getWidgetBuilder($this->defaults);
-        $this->widgetRevolverBuilder = StaticWidgetFactory::getWidgetRevolverBuilder($this->defaults);
-        $this->driverBuilder = StaticDriverFactory::getDriverBuilder($this->defaults);
-        $this->frameRevolverBuilder = StaticRevolverFactory::getRevolverBuilder($this->defaults);
-    }
+//    public function __construct(
+//        protected IDefaults $defaults,
+//    ) {
+//        $this->widgetBuilder = StaticWidgetFactory::getWidgetBuilder($this->defaults);
+//        $this->widgetRevolverBuilder = StaticWidgetFactory::getWidgetRevolverBuilder($this->defaults);
+//        $this->driverBuilder = StaticDriverFactory::getDriverBuilder($this->defaults);
+//        $this->frameRevolverBuilder = StaticRevolverFactory::getRevolverBuilder($this->defaults);
+//    }
 
     public function withRootWidget(IWidgetComposite $widget): static
     {
