@@ -18,7 +18,7 @@ abstract class ASpinnerConfig implements ISpinnerConfig
     ) {
     }
 
-    public function isInitializationEnabled(): bool
+    public function isEnabledInitialization(): bool
     {
         return $this->initialization === OptionInitialization::ENABLED;
     }

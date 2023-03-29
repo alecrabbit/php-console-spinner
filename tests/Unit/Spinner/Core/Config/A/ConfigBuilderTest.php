@@ -42,4 +42,15 @@ final class ConfigBuilderTest extends TestCase
 
         return $this->createMock(IContainer::class);
     }
+
+    #[Test]
+    public function canBuildDefaultConfig(): void
+    {
+        $configBuilder = $this->getTesteeInstance(container: null);
+
+        self::assertInstanceOf(ConfigBuilder::class, $configBuilder);
+
+        $config = $configBuilder->build();
+    }
+
 }

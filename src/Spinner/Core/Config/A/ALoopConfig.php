@@ -24,12 +24,12 @@ abstract class ALoopConfig implements ILoopConfig
         return $this->runMode === OptionRunMode::ASYNC;
     }
 
-    public function isAutoStartEnabled(): bool
+    public function isEnabledAutoStart(): bool
     {
         return $this->autoStart === OptionAutoStart::ENABLED;
     }
 
-    public function areSignalHandlersEnabled(): bool
+    public function areEnabledSignalHandlers(): bool
     {
         return $this->signalHandlersOption === OptionSignalHandlers::ENABLED;
     }

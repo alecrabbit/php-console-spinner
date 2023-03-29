@@ -27,7 +27,7 @@ use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolverBuilder;
 use ArrayObject;
 use Traversable;
 
-abstract class AConfigBuilder extends ABuilder implements IConfigBuilder
+abstract class AConfigBuilder
 {
     protected IDriverBuilder $driverBuilder;
     protected ?IWidgetComposite $rootWidget = null;
@@ -38,14 +38,14 @@ abstract class AConfigBuilder extends ABuilder implements IConfigBuilder
     protected IWidgetRevolverBuilder $widgetRevolverBuilder;
     protected ?Traversable $widgets = null;
 
-//    public function __construct(
-//        protected IDefaults $defaults,
-//    ) {
-//        $this->widgetBuilder = StaticWidgetFactory::getWidgetBuilder($this->defaults);
-//        $this->widgetRevolverBuilder = StaticWidgetFactory::getWidgetRevolverBuilder($this->defaults);
-//        $this->driverBuilder = StaticDriverFactory::getDriverBuilder($this->defaults);
-//        $this->frameRevolverBuilder = StaticRevolverFactory::getRevolverBuilder($this->defaults);
-//    }
+    public function __construct(
+        protected IDefaults $defaults,
+    ) {
+        $this->widgetBuilder = StaticWidgetFactory::getWidgetBuilder($this->defaults);
+        $this->widgetRevolverBuilder = StaticWidgetFactory::getWidgetRevolverBuilder($this->defaults);
+        $this->driverBuilder = StaticDriverFactory::getDriverBuilder($this->defaults);
+        $this->frameRevolverBuilder = StaticRevolverFactory::getRevolverBuilder($this->defaults);
+    }
 
     public function withRootWidget(IWidgetComposite $widget): static
     {

@@ -8,11 +8,9 @@ use Traversable;
 
 interface ILoopConfig
 {
-    public function isAutoStartEnabled(): bool;
+    public function isEnabledAutoStart(): bool;
 
-    public function areSignalHandlersEnabled(): bool;
+    public function areEnabledSignalHandlers(): bool;
 
     public function isAsynchronous(): bool;
-
-    public function getSignalHandlers(): ?Traversable;
 }

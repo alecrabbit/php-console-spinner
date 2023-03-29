@@ -80,16 +80,16 @@ abstract class AStaticSpinnerFactory extends ADefaultsAwareClass implements
         if (self::$config->getLoopConfig()->isAsynchronous()) {
             $loopHelper::attach($spinner);
 
-            if (self::$config->getLoopConfig()->areSignalHandlersEnabled()) {
+            if (self::$config->getLoopConfig()->areEnabledSignalHandlers()) {
                 $loopHelper::setSignalHandlers($spinner, self::$config->getLoopConfig()->getSignalHandlers());
             }
 
-            if (self::$config->getLoopConfig()->isAutoStartEnabled()) {
+            if (self::$config->getLoopConfig()->isEnabledAutoStart()) {
                 $loopHelper::autoStart();
             }
         }
 
-        if (self::$config->getSpinnerConfig()->isInitializationEnabled()
+        if (self::$config->getSpinnerConfig()->isEnabledInitialization()
             || self::$config->getLoopConfig()->isAsynchronous()) {
             $spinner->initialize();
         }

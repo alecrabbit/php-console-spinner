@@ -19,11 +19,11 @@ interface IConfigBuilder
      */
     public function build(): IConfig;
 
-    public function withStylePattern(IStylePattern $pattern): static;
+    public function withDriverConfig(IDriverConfig $driverConfig): static;
 
-    public function withCharPattern(IPattern $pattern): static;
+    public function withLoopConfig(ILoopConfig $loopConfig): static;
 
-    public function withRootWidget(IWidgetComposite $widget): static;
+    public function withSpinnerConfig(ISpinnerConfig $spinnerConfig): static;
 
-    public function withWidgets(Traversable $widgets): static;
+    public function withRootWidgetConfig(IWidgetConfig $widgetConfig): static;
 }

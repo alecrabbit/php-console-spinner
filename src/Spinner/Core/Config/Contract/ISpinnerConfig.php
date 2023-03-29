@@ -9,9 +9,5 @@ use Traversable;
 
 interface ISpinnerConfig
 {
-    public function isInitializationEnabled(): bool;
-
-    public function getWidgets(): Traversable;
-
-    public function getRootWidget(): IWidgetComposite;
+    public function isEnabledInitialization(): bool;
 }
