@@ -11,7 +11,7 @@ use AlecRabbit\Spinner\Core\SpinnerBuilder;
 
 final class Facade extends AContainerAware
 {
-    public function createSpinner(IConfig $config = null): ISpinner
+    public static function createSpinner(IConfig $config = null): ISpinner
     {
         return
             (new SpinnerBuilder(self::getContainer()))

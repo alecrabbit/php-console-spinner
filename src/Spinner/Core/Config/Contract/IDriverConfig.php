@@ -5,5 +5,7 @@ namespace AlecRabbit\Spinner\Core\Config\Contract;
 
 interface IDriverConfig
 {
+    public function getInterruptMessage(): string;
 
+    public function getFinalMessage(): string;
 }

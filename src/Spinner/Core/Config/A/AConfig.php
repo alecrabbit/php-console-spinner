@@ -11,7 +11,7 @@ use AlecRabbit\Spinner\Core\Config\Contract\ILoopConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\ISpinnerConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IWidgetConfig;
 
-abstract readonly class AConfig implements IConfig
+abstract readonly class AConfig
 {
     public function __construct(
         protected IDriver $driver,

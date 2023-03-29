@@ -4,32 +4,40 @@ declare(strict_types=1);
 // 29.03.23
 namespace AlecRabbit\Spinner\Core\Defaults;
 
-use AlecRabbit\Spinner\Contract\OptionAutoStart;
-use AlecRabbit\Spinner\Contract\OptionRunMode;
-use AlecRabbit\Spinner\Contract\OptionSignalHandlers;
-use AlecRabbit\Spinner\Core\Defaults\Contract\IDefaults;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDriverSettings;
-use AlecRabbit\Spinner\Core\Defaults\Contract\ILoopSettings;
 
-final class DriverSettings implements IDriverSettings {
+final class DriverSettings implements IDriverSettings
+{
+    /** @var string */
+    final protected const MESSAGE_ON_FINALIZE = PHP_EOL;
+    /** @var string */
+    final protected const MESSAGE_ON_INTERRUPT = PHP_EOL . 'Interrupted!' . PHP_EOL;
+
+    public function __construct(
+        protected string $interruptMessage = self::MESSAGE_ON_INTERRUPT,
+        protected string $finalMessage = self::MESSAGE_ON_FINALIZE,
+    ) {
+    }
 
     public function getFinalMessage(): string
     {
-        // TODO: Implement getFinalMessage() method.
+        return $this->finalMessage;
     }
 
     public function setFinalMessage(string $finalMessage): IDriverSettings
     {
-        // TODO: Implement setFinalMessage() method.
+        $this->finalMessage = $finalMessage;
+        return $this;
     }
 
     public function getInterruptMessage(): string
     {
-        // TODO: Implement getInterruptMessage() method.
+        return $this->interruptMessage;
     }
 
     public function setInterruptMessage(string $interruptMessage): IDriverSettings
     {
-        // TODO: Implement setInterruptMessage() method.
+        $this->interruptMessage = $interruptMessage;
+        return $this;
     }
 }

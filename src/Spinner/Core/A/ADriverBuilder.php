@@ -4,11 +4,10 @@ declare(strict_types=1);
 // 17.03.23
 namespace AlecRabbit\Spinner\Core\A;
 
-use AlecRabbit\Spinner\Contract\IDriver;
 use AlecRabbit\Spinner\Contract\IBufferedOutput;
+use AlecRabbit\Spinner\Contract\IDriver;
 use AlecRabbit\Spinner\Contract\ITimer;
 use AlecRabbit\Spinner\Core\Config\Contract\IDriverConfig;
-use AlecRabbit\Spinner\Core\Contract\IDriverBuilder;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDefaults;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDriverSettings;
 use AlecRabbit\Spinner\Core\Defaults\Contract\ITerminalSettings;
@@ -18,7 +17,7 @@ use AlecRabbit\Spinner\Core\Output\Cursor;
 use AlecRabbit\Spinner\Core\Output\StreamBufferedOutput;
 use AlecRabbit\Spinner\Core\Timer;
 
-abstract class ADriverBuilder implements IDriverBuilder
+abstract class ADriverBuilder
 {
     protected ?IDriverSettings $driverSettings = null;
     protected ?IBufferedOutput $output = null;

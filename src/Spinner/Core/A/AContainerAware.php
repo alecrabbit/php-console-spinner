@@ -5,21 +5,12 @@ namespace AlecRabbit\Spinner\Core\A;
 
 use AlecRabbit\Spinner\Container\Container;
 use AlecRabbit\Spinner\Container\Contract\IContainer;
+use AlecRabbit\Spinner\Core\ContainerFactory;
 
 abstract class AContainerAware
 {
-    protected static ?IContainer $container = null;
-
     protected static function getContainer(): IContainer
     {
-        if (null === static::$container) {
-            static::$container = static::createContainer();
-        }
-        return static::$container;
-    }
-
-    private static function createContainer(): IContainer
-    {
-        return new Container();
+        return ContainerFactory::getContainer();
     }
 }

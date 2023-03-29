@@ -59,7 +59,11 @@ final class ConfigBuilder extends ABuilder implements IConfigBuilder
 
     protected function defaultDriverConfig(): IDriverConfig
     {
-        return new DriverConfig();
+        $defaults = $this->getDefaultsProvider();
+        return new DriverConfig(
+            $defaults->getDriverSettings()->getInterruptMessage(),
+            $defaults->getDriverSettings()->getFinalMessage(),
+        );
     }
 
     protected function defaultLoopConfig(): ILoopConfig
