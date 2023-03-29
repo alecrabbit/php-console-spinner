@@ -7,6 +7,7 @@ namespace AlecRabbit\Spinner\Core\Contract;
 use AlecRabbit\Spinner\Contract\IDriver;
 use AlecRabbit\Spinner\Contract\IBufferedOutput;
 use AlecRabbit\Spinner\Contract\ITimer;
+use AlecRabbit\Spinner\Core\Config\Contract\IDriverConfig;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDriverSettings;
 use AlecRabbit\Spinner\Core\Defaults\Contract\ITerminalSettings;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
@@ -27,4 +28,6 @@ interface IDriverBuilder
     public function withTerminalSettings(ITerminalSettings $terminalSettings): static;
 
     public function withDriverSettings(IDriverSettings $driverSettings): static;
+
+    public function withDriverConfig(IDriverConfig $driverConfig): static;
 }

@@ -7,9 +7,11 @@ namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Core;
 use AlecRabbit\Spinner\Container\Contract\IContainer;
 use AlecRabbit\Spinner\Core\A\ASpinner;
 use AlecRabbit\Spinner\Core\Config\Contract\IConfig;
-use AlecRabbit\Spinner\Core\Contract\ISpinner;
+use AlecRabbit\Spinner\Core\Config\Contract\IConfigBuilder;
+use AlecRabbit\Spinner\Core\Contract\IDriverBuilder;
 use AlecRabbit\Spinner\Core\Contract\ISpinnerBuilder;
 use AlecRabbit\Spinner\Core\SpinnerBuilder;
+use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetBuilder;
 use AlecRabbit\Tests\Spinner\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -35,6 +37,7 @@ final class SpinnerBuilderTest extends TestCase
 
     protected function getContainerMock(): MockObject&IContainer
     {
+
         return $this->createMock(IContainer::class);
     }
 
@@ -53,7 +56,16 @@ final class SpinnerBuilderTest extends TestCase
     #[Test]
     public function canBuildSpinnerWithNoConfigProvided(): void
     {
-        $spinnerBuilder = $this->getTesteeInstance(container: null);
+        $container = $this->createMock(IContainer::class);
+        $container
+            ->method('get')
+            ->willReturn(
+                $this->createMock(IConfigBuilder::class),
+                $this->createMock(IDriverBuilder::class),
+                $this->createMock(IWidgetBuilder::class),
+            );
+
+        $spinnerBuilder = $this->getTesteeInstance(container: $container);
 
         $spinner = $spinnerBuilder->build();
 

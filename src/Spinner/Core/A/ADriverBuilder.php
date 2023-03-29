@@ -7,6 +7,7 @@ namespace AlecRabbit\Spinner\Core\A;
 use AlecRabbit\Spinner\Contract\IDriver;
 use AlecRabbit\Spinner\Contract\IBufferedOutput;
 use AlecRabbit\Spinner\Contract\ITimer;
+use AlecRabbit\Spinner\Core\Config\Contract\IDriverConfig;
 use AlecRabbit\Spinner\Core\Contract\IDriverBuilder;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDefaults;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDriverSettings;
@@ -86,4 +87,8 @@ abstract class ADriverBuilder implements IDriverBuilder
     }
 
 
+    public function withDriverConfig(IDriverConfig $driverConfig): static
+    {
+        // TODO: Implement withDriverConfig() method.
+    }
 }

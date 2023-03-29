@@ -9,6 +9,7 @@ use AlecRabbit\Spinner\Core\Config\Contract\IConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IDriverConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\ILoopConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\ISpinnerConfig;
+use AlecRabbit\Spinner\Core\Config\Contract\IWidgetConfig;
 
 abstract readonly class AConfig implements IConfig
 {
@@ -37,5 +38,10 @@ abstract readonly class AConfig implements IConfig
     public function getDriverConfig(): IDriverConfig
     {
         // TODO: Implement getDriverConfig() method.
+    }
+
+    public function getRootWidgetConfig(): IWidgetConfig
+    {
+        // TODO: Implement getRootWidgetConfig() method.
     }
 }

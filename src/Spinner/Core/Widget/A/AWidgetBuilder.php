@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Widget\A;
 
 use AlecRabbit\Spinner\Contract\IFrame;
+use AlecRabbit\Spinner\Core\Config\Contract\IWidgetConfig;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDefaults;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetBuilder;
@@ -56,5 +57,10 @@ abstract class AWidgetBuilder implements IWidgetBuilder
         $clone = clone $this;
         $clone->trailingSpacer = $frame;
         return $clone;
+    }
+
+    public function withWidgetConfig(IWidgetConfig $widgetConfig): static
+    {
+        // TODO: Implement withWidgetConfig() method.
     }
 }

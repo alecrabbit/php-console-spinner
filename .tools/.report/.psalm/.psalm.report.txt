@@ -1,6 +1,16 @@
-/app/src/Spinner/Core/Config/A/AConfig.php:37:40:error - InvalidReturnType: Not all code paths of AlecRabbit\Spinner\Core\Config\A\AConfig::getDriverConfig end in a return statement, return type AlecRabbit\Spinner\Core\Config\Contract\IDriverConfig expected
+/app/src/Spinner/Core/A/ADriverBuilder.php:90:68:error - InvalidReturnType: Not all code paths of AlecRabbit\Spinner\Core\A\ADriverBuilder::withDriverConfig end in a return statement, return type AlecRabbit\Spinner\Core\A\ADriverBuilder expected
+/app/src/Spinner/Core/Config/A/AConfig.php:38:40:error - InvalidReturnType: Not all code paths of AlecRabbit\Spinner\Core\Config\A\AConfig::getDriverConfig end in a return statement, return type AlecRabbit\Spinner\Core\Config\Contract\IDriverConfig expected
+/app/src/Spinner/Core/Config/A/AConfig.php:43:44:error - InvalidReturnType: Not all code paths of AlecRabbit\Spinner\Core\Config\A\AConfig::getRootWidgetConfig end in a return statement, return type AlecRabbit\Spinner\Core\Config\Contract\IWidgetConfig expected
 /app/src/Spinner/Core/Factory/A/AStaticSpinnerFactory.php:56:26:error - DeprecatedMethod: The method AlecRabbit\Spinner\Core\Config\Contract\IConfig::getDriver has been marked as deprecated
-/app/src/Spinner/Facade.php:11:60:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Core\Contract\ISpinner' for AlecRabbit\Spinner\Facade::createSpinner
-/app/src/Spinner/Facade.php:13:16:error - MixedReturnStatement: Could not infer a return type
-/app/src/Spinner/Facade.php:13:40:error - UndefinedMethod: Method AlecRabbit\Spinner\SpinnerBuilder::withConfig does not exist
-/app/src/Spinner/Facade.php:13:61:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
+/app/src/Spinner/Core/SpinnerBuilder.php:28:9:error - MixedAssignment: Unable to determine the type that $driver is being assigned to
+/app/src/Spinner/Core/SpinnerBuilder.php:30:19:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
+/app/src/Spinner/Core/SpinnerBuilder.php:31:19:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
+/app/src/Spinner/Core/SpinnerBuilder.php:33:9:error - MixedAssignment: Unable to determine the type that $rootWidget is being assigned to
+/app/src/Spinner/Core/SpinnerBuilder.php:35:19:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
+/app/src/Spinner/Core/SpinnerBuilder.php:36:19:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
+/app/src/Spinner/Core/SpinnerBuilder.php:38:26:error - MixedArgument: Argument 1 of _app_src_Spinner_Core_SpinnerBuilder_php_38_1152::__construct cannot be mixed, expecting AlecRabbit\Spinner\Contract\IDriver
+/app/src/Spinner/Core/SpinnerBuilder.php:38:35:error - MixedArgument: Argument 2 of _app_src_Spinner_Core_SpinnerBuilder_php_38_1152::__construct cannot be mixed, expecting AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite
+/app/src/Spinner/Core/SpinnerBuilder.php:50:40:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Core\Config\Contract\IConfig' for AlecRabbit\Spinner\Core\SpinnerBuilder::createConfig
+/app/src/Spinner/Core/SpinnerBuilder.php:52:16:error - MixedReturnStatement: Could not infer a return type
+/app/src/Spinner/Core/SpinnerBuilder.php:52:62:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
+/app/src/Spinner/Core/Widget/A/AWidgetBuilder.php:62:68:error - InvalidReturnType: Not all code paths of AlecRabbit\Spinner\Core\Widget\A\AWidgetBuilder::withWidgetConfig end in a return statement, return type AlecRabbit\Spinner\Core\Widget\A\AWidgetBuilder expected

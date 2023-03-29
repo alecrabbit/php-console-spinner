@@ -16,4 +16,6 @@ interface IConfig
     public function getLoopConfig(): ILoopConfig;
 
     public function getSpinnerConfig(): ISpinnerConfig;
+
+    public function getRootWidgetConfig(): IWidgetConfig;
 }
