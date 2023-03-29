@@ -1,14 +1,15 @@
 <?php
 declare(strict_types=1);
 // 29.03.23
-namespace AlecRabbit\Spinner;
+namespace AlecRabbit\Spinner\Core;
 
 use AlecRabbit\Spinner\Container\Contract\IContainer;
 use AlecRabbit\Spinner\Core\A\ASpinner;
 use AlecRabbit\Spinner\Core\Config\Contract\IConfig;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
+use AlecRabbit\Spinner\Core\Contract\ISpinnerBuilder;
 
-final class SpinnerBuilder
+final class SpinnerBuilder implements ISpinnerBuilder
 {
     protected ?IConfig $config = null;
 
