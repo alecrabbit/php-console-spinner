@@ -5,6 +5,13 @@ classDiagram
 direction LR
 Spinner ..|> ISpinner
 Spinner --* IDriver
-Spinner --* ITimer
+Spinner --* IWidgetComposite
+```
+
+```mermaid
+classDiagram
+direction LR
+Facade ..|> ISpinner
+Spinner --* IDriver
 Spinner --* IWidgetComposite
 ```
