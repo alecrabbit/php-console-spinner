@@ -25,7 +25,7 @@ final class WidgetBuilder extends ABuilder implements IWidgetBuilder
     {
         if(null === $this->widgetConfig) {
             throw new \LogicException(
-                sprintf('[%s]: Property $driverConfig is not set.', __CLASS__)
+                sprintf('[%s]: Property $widgetConfig is not set.', __CLASS__)
             );
         }
         return

@@ -5,8 +5,12 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Core\Config;
 
 use AlecRabbit\Spinner\Container\Contract\IContainer;
+use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Core\Config\WidgetBuilder;
+use AlecRabbit\Spinner\Core\Config\WidgetConfig;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetBuilder;
+use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolverBuilder;
+use AlecRabbit\Spinner\Core\Widget\Widget;
 use AlecRabbit\Tests\Spinner\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -34,45 +38,66 @@ final class WidgetBuilderTest extends TestCase
     {
         return $this->createMock(IContainer::class);
     }
-//
+
+    #[Test]
+    public function canBuildWidgetWithWidgetConfig(): void
+    {
+        $container = $this->createMock(IContainer::class);
+        $container
+            ->method('get')
+            ->willReturn($this->createMock(IWidgetRevolverBuilder::class));
+//            ->method('get')
+//            ->willReturn(new DefaultsProvider());
+
+        $widgetBuilder = $this->getTesteeInstance(container: $container);
+
+        self::assertInstanceOf(WidgetBuilder::class, $widgetBuilder);
+
+        $frame = $this->createMock(IFrame::class);
+        $widgetConfig = new WidgetConfig($frame, $frame);
+        $widgetComposite = $widgetBuilder->withWidgetConfig($widgetConfig)->build();
+
+        self::assertInstanceOf(Widget::class, $widgetComposite);
+    }
 //    #[Test]
-//    public function canBuildDriverWithDriverConfig(): void
+//    public function athrowsOnBuildWidgetWithoutWidgetConfig(): void
 //    {
 //        $container = $this->createMock(IContainer::class);
 //        $container
 //            ->method('get')
-//            ->willReturn(new DefaultsProvider());
+//            ->willReturn($this->createMock(IWidgetRevolverBuilder::class));
+////            ->method('get')
+////            ->willReturn(new DefaultsProvider());
 //
-//        $driverBuilder = $this->getTesteeInstance(container: $container);
+//        $widgetBuilder = $this->getTesteeInstance(container: $container);
 //
-//        self::assertInstanceOf(DriverBuilder::class, $driverBuilder);
+//        self::assertInstanceOf(WidgetBuilder::class, $widgetBuilder);
 //
-//        $driverConfig = new DriverConfig('interrupted', 'finished');
-//        $driver = $driverBuilder->withDriverConfig($driverConfig)->build();
+//        $widgetComposite = $widgetBuilder->build();
 //
-//        self::assertInstanceOf(Driver::class, $driver);
+//        self::assertInstanceOf(Widget::class, $widgetComposite);
 //    }
-//
-//    #[Test]
-//    public function throwsOnBuildDriverWithoutDriverConfig(): void
-//    {
-//        $container = $this->createMock(IContainer::class);
-//        $container
-//            ->method('get')
-//            ->willReturn(new DefaultsProvider());
-//
-//        $driverBuilder = $this->getTesteeInstance(container: $container);
-//
-//        self::assertInstanceOf(DriverBuilder::class, $driverBuilder);
-//
-//        $exceptionClass = \LogicException::class;
-//        $exceptionMessage = '[AlecRabbit\Spinner\Core\Config\DriverBuilder]: Property $driverConfig is not set.';
-//
-//        $this->expectException($exceptionClass);
-//        $this->expectExceptionMessage($exceptionMessage);
-//
-//        $driver = $driverBuilder->build();
-//
-//        self::exceptionNotThrown($exceptionClass, $exceptionMessage);
-//    }
+
+    #[Test]
+    public function throwsOnBuildWidgetWithoutWidgetConfig(): void
+    {
+        $container = $this->createMock(IContainer::class);
+        $container
+            ->method('get')
+            ->willReturn($this->createMock(IWidgetRevolverBuilder::class));
+
+        $widgetBuilder = $this->getTesteeInstance(container: $container);
+
+        self::assertInstanceOf(WidgetBuilder::class, $widgetBuilder);
+
+        $exceptionClass = \LogicException::class;
+        $exceptionMessage = '[AlecRabbit\Spinner\Core\Config\WidgetBuilder]: Property $widgetConfig is not set.';
+
+        $this->expectException($exceptionClass);
+        $this->expectExceptionMessage($exceptionMessage);
+
+        $widget = $widgetBuilder->build();
+
+        self::exceptionNotThrown($exceptionClass, $exceptionMessage);
+    }
 }
