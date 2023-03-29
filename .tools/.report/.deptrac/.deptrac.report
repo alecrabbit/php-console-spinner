@@ -1,39 +1,39 @@
  ----------- ------------------------------------------------------------------------------------------------------------------------- 
-  Reason      ModuleCore                                                                                                               
+ [32m Reason    [39m [32m ModuleCore                                                                                                              [39m 
  ----------- ------------------------------------------------------------------------------------------------------------------------- 
-  Violation   AlecRabbit\Spinner\Core\Factory\A\AStaticSpinnerFactory must not depend on AlecRabbit\Spinner\StaticFacade (ModuleRoot)  
+  [31mViolation[39m   [32mAlecRabbit\Spinner\Core\Factory\A\AStaticSpinnerFactory[39m must not depend on [32mAlecRabbit\Spinner\StaticFacade[39m (ModuleRoot)  
               /app/src/Spinner/Core/Factory/A/AStaticSpinnerFactory.php:78                                                             
-  Violation   AlecRabbit\Spinner\Core\Factory\A\AStaticSpinnerFactory must not depend on AlecRabbit\Spinner\StaticFacade (ModuleRoot)  
+  [31mViolation[39m   [32mAlecRabbit\Spinner\Core\Factory\A\AStaticSpinnerFactory[39m must not depend on [32mAlecRabbit\Spinner\StaticFacade[39m (ModuleRoot)  
               /app/src/Spinner/Core/Factory/A/AStaticSpinnerFactory.php:17                                                             
-  Violation   AlecRabbit\Spinner\Core\Contract\ILoopGetter must not depend on React\EventLoop\LoopInterface (VendorReact)              
+  [31mViolation[39m   [32mAlecRabbit\Spinner\Core\Contract\ILoopGetter[39m must not depend on [32mReact\EventLoop\LoopInterface[39m (VendorReact)              
               /app/src/Spinner/Core/Contract/ILoopGetter.php:13                                                                        
-  Violation   AlecRabbit\Spinner\Core\Contract\ILoopGetter must not depend on Revolt\EventLoop\Driver (VendorRevolt)                   
+  [31mViolation[39m   [32mAlecRabbit\Spinner\Core\Contract\ILoopGetter[39m must not depend on [32mRevolt\EventLoop\Driver[39m (VendorRevolt)                   
               /app/src/Spinner/Core/Contract/ILoopGetter.php:13                                                                        
-  Violation   AlecRabbit\Spinner\Core\Contract\ILoopGetter must not depend on React\EventLoop\LoopInterface (VendorReact)              
+  [31mViolation[39m   [32mAlecRabbit\Spinner\Core\Contract\ILoopGetter[39m must not depend on [32mReact\EventLoop\LoopInterface[39m (VendorReact)              
               /app/src/Spinner/Core/Contract/ILoopGetter.php:8                                                                         
-  Violation   AlecRabbit\Spinner\Core\Contract\ILoopGetter must not depend on Revolt\EventLoop\Driver (VendorRevolt)                   
+  [31mViolation[39m   [32mAlecRabbit\Spinner\Core\Contract\ILoopGetter[39m must not depend on [32mRevolt\EventLoop\Driver[39m (VendorRevolt)                   
               /app/src/Spinner/Core/Contract/ILoopGetter.php:9                                                                         
-  Violation   AlecRabbit\Spinner\Core\Factory\StaticSpinnerFactory must not depend on AlecRabbit\Spinner\StaticFacade (ModuleRoot)     
+  [31mViolation[39m   [32mAlecRabbit\Spinner\Core\Factory\StaticSpinnerFactory[39m must not depend on [32mAlecRabbit\Spinner\StaticFacade[39m (ModuleRoot)     
               AlecRabbit\Spinner\Core\Factory\A\AStaticSpinnerFactory::9 ->                                                            
               AlecRabbit\Spinner\StaticFacade::78                                                                                      
               /app/src/Spinner/Core/Factory/A/AStaticSpinnerFactory.php:78                                                             
-  Violation   AlecRabbit\Spinner\Core\Factory\StaticSpinnerFactory must not depend on AlecRabbit\Spinner\StaticFacade (ModuleRoot)     
+  [31mViolation[39m   [32mAlecRabbit\Spinner\Core\Factory\StaticSpinnerFactory[39m must not depend on [32mAlecRabbit\Spinner\StaticFacade[39m (ModuleRoot)     
               AlecRabbit\Spinner\Core\Factory\A\AStaticSpinnerFactory::9 ->                                                            
               AlecRabbit\Spinner\StaticFacade::17                                                                                      
               /app/src/Spinner/Core/Factory/A/AStaticSpinnerFactory.php:17                                                             
-  Violation   AlecRabbit\Spinner\Core\Contract\ILoopAdapter must not depend on React\EventLoop\LoopInterface (VendorReact)             
+  [31mViolation[39m   [32mAlecRabbit\Spinner\Core\Contract\ILoopAdapter[39m must not depend on [32mReact\EventLoop\LoopInterface[39m (VendorReact)             
               AlecRabbit\Spinner\Core\Contract\ILoopGetter::10 ->                                                                      
               React\EventLoop\LoopInterface::13                                                                                        
               /app/src/Spinner/Core/Contract/ILoopGetter.php:13                                                                        
-  Violation   AlecRabbit\Spinner\Core\Contract\ILoopAdapter must not depend on Revolt\EventLoop\Driver (VendorRevolt)                  
+  [31mViolation[39m   [32mAlecRabbit\Spinner\Core\Contract\ILoopAdapter[39m must not depend on [32mRevolt\EventLoop\Driver[39m (VendorRevolt)                  
               AlecRabbit\Spinner\Core\Contract\ILoopGetter::10 ->                                                                      
               Revolt\EventLoop\Driver::13                                                                                              
               /app/src/Spinner/Core/Contract/ILoopGetter.php:13                                                                        
-  Violation   AlecRabbit\Spinner\Core\Contract\ILoopAdapter must not depend on React\EventLoop\LoopInterface (VendorReact)             
+  [31mViolation[39m   [32mAlecRabbit\Spinner\Core\Contract\ILoopAdapter[39m must not depend on [32mReact\EventLoop\LoopInterface[39m (VendorReact)             
               AlecRabbit\Spinner\Core\Contract\ILoopGetter::10 ->                                                                      
               React\EventLoop\LoopInterface::8                                                                                         
               /app/src/Spinner/Core/Contract/ILoopGetter.php:8                                                                         
-  Violation   AlecRabbit\Spinner\Core\Contract\ILoopAdapter must not depend on Revolt\EventLoop\Driver (VendorRevolt)                  
+  [31mViolation[39m   [32mAlecRabbit\Spinner\Core\Contract\ILoopAdapter[39m must not depend on [32mRevolt\EventLoop\Driver[39m (VendorRevolt)                  
               AlecRabbit\Spinner\Core\Contract\ILoopGetter::10 ->                                                                      
               Revolt\EventLoop\Driver::9                                                                                               
               /app/src/Spinner/Core/Contract/ILoopGetter.php:9                                                                         
@@ -41,13 +41,13 @@
 
 
  -------------------- ------ 
-  Report                     
+ [32m Report                    [39m 
  -------------------- ------ 
-  Violations           12    
-  Skipped violations   0     
-  Uncovered            215   
-  Allowed              3300  
-  Warnings             0     
-  Errors               0     
+ [32m Violations         [39m  [31m12[39m    
+ [32m Skipped violations [39m  [39m0[39m     
+ [32m Uncovered          [39m  [33m215[39m   
+ [32m Allowed            [39m  3281  
+ [32m Warnings           [39m  [39m0[39m     
+ [32m Errors             [39m  [39m0[39m     
  -------------------- ------ 
 
