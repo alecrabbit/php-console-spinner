@@ -12,7 +12,6 @@ use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetBuilder;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolverBuilder;
 use AlecRabbit\Spinner\Core\Widget\Widget;
-use AlecRabbit\Spinner\Exception\LogicException;
 
 final class WidgetBuilder extends ABuilder implements IWidgetBuilder
 {
@@ -23,17 +22,24 @@ final class WidgetBuilder extends ABuilder implements IWidgetBuilder
 
     public function build(): IWidgetComposite
     {
-        if(null === $this->widgetConfig) {
-            throw new \LogicException(
-                sprintf('[%s]: Property $widgetConfig is not set.', __CLASS__)
-            );
-        }
+        $this->assert();
         return
             new Widget(
                 $this->createRevolver(),
                 $this->leadingSpacer ?? $this->widgetConfig->getLeadingSpacer(),
                 $this->trailingSpacer ?? $this->widgetConfig->getTrailingSpacer(),
             );
+    }
+
+    protected function assert(): void
+    {
+        match (true) {
+            null === $this->leadingSpacer && null === $this->trailingSpacer && null === $this->widgetConfig =>
+            throw new \LogicException(
+                sprintf('[%s]: Property $widgetConfig is not set.', __CLASS__)
+            ),
+            default => null,
+        };
     }
 
     protected function createRevolver(): IRevolver

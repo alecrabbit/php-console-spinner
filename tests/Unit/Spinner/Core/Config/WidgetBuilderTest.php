@@ -8,6 +8,7 @@ use AlecRabbit\Spinner\Container\Contract\IContainer;
 use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Core\Config\WidgetBuilder;
 use AlecRabbit\Spinner\Core\Config\WidgetConfig;
+use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetBuilder;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolverBuilder;
 use AlecRabbit\Spinner\Core\Widget\Widget;
@@ -56,6 +57,53 @@ final class WidgetBuilderTest extends TestCase
         $frame = $this->createMock(IFrame::class);
         $widgetConfig = new WidgetConfig($frame, $frame);
         $widgetComposite = $widgetBuilder->withWidgetConfig($widgetConfig)->build();
+
+        self::assertInstanceOf(Widget::class, $widgetComposite);
+    }
+
+    #[Test]
+    public function canBuildWidgetWithWidgetRevolver(): void
+    {
+        $container = $this->createMock(IContainer::class);
+        $container
+            ->method('get')
+            ->willReturn($this->createMock(IWidgetRevolverBuilder::class));
+
+        $widgetBuilder = $this->getTesteeInstance(container: $container);
+
+        self::assertInstanceOf(WidgetBuilder::class, $widgetBuilder);
+
+        $frame = $this->createMock(IFrame::class);
+        $widgetConfig = new WidgetConfig($frame, $frame);
+        $revolver = $this->createMock(IRevolver::class);
+        $widgetComposite =
+            $widgetBuilder
+                ->withWidgetRevolver($revolver)
+                ->withWidgetConfig($widgetConfig)
+                ->build();
+
+        self::assertInstanceOf(Widget::class, $widgetComposite);
+    }
+
+    #[Test]
+    public function canBuildWidgetWithSpacers(): void
+    {
+        $container = $this->createMock(IContainer::class);
+        $container
+            ->method('get')
+            ->willReturn($this->createMock(IWidgetRevolverBuilder::class));
+
+        $widgetBuilder = $this->getTesteeInstance(container: $container);
+
+        self::assertInstanceOf(WidgetBuilder::class, $widgetBuilder);
+
+        $frame = $this->createMock(IFrame::class);
+
+        $widgetComposite =
+            $widgetBuilder
+                ->withLeadingSpacer($frame)
+                ->withTrailingSpacer($frame)
+                ->build();
 
         self::assertInstanceOf(Widget::class, $widgetComposite);
     }
