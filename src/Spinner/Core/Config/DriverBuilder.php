@@ -22,7 +22,7 @@ final class DriverBuilder extends ABuilder implements IDriverBuilder
     {
         if (null === $this->driverConfig) {
             throw new \LogicException(
-                sprintf('%s::$driverConfig is not set.', __CLASS__)
+                sprintf('[%s]: Property $driverConfig is not set.', __CLASS__)
             );
         }
         return $this->createDriver();

@@ -56,4 +56,27 @@ final class DriverBuilderTest extends TestCase
         self::assertInstanceOf(Driver::class, $driver);
     }
 
+    #[Test]
+    public function throwsOnBuildDriverWithoutDriverConfig(): void
+    {
+        $container = $this->createMock(IContainer::class);
+        $container
+            ->method('get')
+            ->willReturn(new DefaultsProvider());
+
+        $driverBuilder = $this->getTesteeInstance(container: $container);
+
+        self::assertInstanceOf(DriverBuilder::class, $driverBuilder);
+
+        $exceptionClass = \LogicException::class;
+        $exceptionMessage = '[AlecRabbit\Spinner\Core\Config\DriverBuilder]: Property $driverConfig is not set.';
+
+        $this->expectException($exceptionClass);
+        $this->expectExceptionMessage($exceptionMessage);
+
+        $driver = $driverBuilder->build();
+
+        self::exceptionNotThrown($exceptionClass, $exceptionMessage);
+    }
+
 }
