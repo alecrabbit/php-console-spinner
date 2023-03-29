@@ -96,12 +96,16 @@ final class RGBColorTest extends TestCase
             self::exceptionNotThrown($expectedException);
         }
 
-        self::assertEquals($expected[self::RESULT], $result);
-        self::assertEquals($expected[self::TO_STRING], (string)$result);
-        self::assertSame($expected[self::RESULT]->red, $result->red);
-        self::assertSame($expected[self::RESULT]->green, $result->green);
-        self::assertSame($expected[self::RESULT]->blue, $result->blue);
-        self::assertSame($expected[self::RESULT]->alpha, $result->alpha);
+        $expectedResult = $expected[self::RESULT];
+        $toString = $expected[self::TO_STRING];
+
+        self::assertEquals($toString, (string)$result);
+
+        self::assertEquals($expectedResult, $result);
+        self::assertSame($expectedResult->red, $result->red);
+        self::assertSame($expectedResult->green, $result->green);
+        self::assertSame($expectedResult->blue, $result->blue);
+        self::assertSame($expectedResult->alpha, $result->alpha);
     }
 
     #[Test]
