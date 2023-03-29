@@ -25,18 +25,6 @@ final class AFactoryTest extends TestCase
         self::assertInstanceOf(ISpinner::class, $spinner);
     }
 
-//    /** @test */
-//    public function canCreateAndAddWidgets(): void
-//    {
-//        $config =
-//            (new ConfigBuilder(DefaultsFactory::create()))
-//                ->withWidgets([NullWidget::create()])
-//                ->build();
-//        $spinner = ASpinnerFactory::createSpinner($config);
-//
-//        self::assertEquals(1, self::getValue('childrenCount', self::getValue('widget', $spinner)));
-//    }
-
     protected function setUp(): void
     {
         StaticDefaultsFactory::get()
