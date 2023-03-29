@@ -5,8 +5,8 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Terminal\A;
 
-use AlecRabbit\Spinner\Contract\Cursor;
-use AlecRabbit\Spinner\Contract\StyleMode;
+use AlecRabbit\Spinner\Contract\OptionCursor;
+use AlecRabbit\Spinner\Contract\OptionStyleMode;
 use AlecRabbit\Spinner\Core\Terminal\Contract\ITerminalProbe;
 use AlecRabbit\Spinner\Mixin\NoInstanceTrait;
 
@@ -18,9 +18,9 @@ abstract class ATerminalProbe implements ITerminalProbe
 
     abstract public static function getWidth(): int;
 
-    abstract public static function getColorMode(): StyleMode;
+    abstract public static function getColorMode(): OptionStyleMode;
 
-    public static function getCursorMode(): Cursor
+    public static function getCursorMode(): OptionCursor
     {
         return ITerminalProbe::TERMINAL_DEFAULT_CURSOR_MODE;
     }

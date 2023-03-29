@@ -16,7 +16,7 @@ use AlecRabbit\Spinner\Core\Defaults\Contract\IDefaults;
 use AlecRabbit\Spinner\Core\Factory\DriverFactory;
 use AlecRabbit\Spinner\Core\Factory\RevolverFactory;
 use AlecRabbit\Spinner\Core\Factory\WidgetFactory;
-use AlecRabbit\Spinner\Core\Output\StreamOutput;
+use AlecRabbit\Spinner\Core\Output\StreamBufferedOutput;
 use AlecRabbit\Spinner\Core\Pattern\Contract\IStylePattern;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolverBuilder;
 use AlecRabbit\Spinner\Core\Timer;
@@ -96,7 +96,7 @@ abstract class AConfigBuilder implements IConfigBuilder
     {
         return
             $this->driverBuilder
-                ->withOutput(new StreamOutput($this->defaults->getOutputStream()))
+                ->withOutput(new StreamBufferedOutput($this->defaults->getOutputStream()))
                 ->withTimer(new Timer())
                 ->build();
     }

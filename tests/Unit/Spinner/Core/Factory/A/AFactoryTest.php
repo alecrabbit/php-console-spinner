@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Core\Factory\A;
 
-use AlecRabbit\Spinner\Contract\AutoStart;
-use AlecRabbit\Spinner\Contract\Cursor;
-use AlecRabbit\Spinner\Contract\RunMode;
-use AlecRabbit\Spinner\Contract\SignalHandlers;
-use AlecRabbit\Spinner\Contract\StyleMode;
+use AlecRabbit\Spinner\Contract\OptionAutoStart;
+use AlecRabbit\Spinner\Contract\OptionCursor;
+use AlecRabbit\Spinner\Contract\OptionRunMode;
+use AlecRabbit\Spinner\Contract\OptionSignalHandlers;
+use AlecRabbit\Spinner\Contract\OptionStyleMode;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use AlecRabbit\Spinner\Core\Factory\A\ASpinnerFactory;
 use AlecRabbit\Spinner\Core\Factory\DefaultsFactory;
@@ -40,14 +40,14 @@ final class AFactoryTest extends TestCase
     protected function setUp(): void
     {
         DefaultsFactory::get()
-            ->overrideRunMode(RunMode::SYNCHRONOUS)
+            ->overrideRunMode(OptionRunMode::SYNCHRONOUS)
             ->getLoopSettings()
-            ->overrideAutoStartOption(AutoStart::DISABLED)
-            ->overrideSignalHandlersOption(SignalHandlers::DISABLED)
+            ->overrideAutoStartOption(OptionAutoStart::DISABLED)
+            ->overrideSignalHandlersOption(OptionSignalHandlers::DISABLED)
             ->toParent()
             ->getTerminalSettings()
-            ->overrideColorMode(StyleMode::NONE)
-            ->overrideCursor(Cursor::ENABLED)
+            ->overrideColorMode(OptionStyleMode::NONE)
+            ->overrideCursorOption(OptionCursor::ENABLED)
             ->toParent();
     }
 }

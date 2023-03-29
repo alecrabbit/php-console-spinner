@@ -4,7 +4,7 @@ declare(strict_types=1);
 // 17.03.23
 namespace AlecRabbit\Spinner\Core\Config\A;
 
-use AlecRabbit\Spinner\Contract\Initialization;
+use AlecRabbit\Spinner\Contract\OptionInitialization;
 use AlecRabbit\Spinner\Core\Config\Contract\ISpinnerConfig;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
 use Traversable;
@@ -13,14 +13,14 @@ abstract class ASpinnerConfig implements ISpinnerConfig
 {
     public function __construct(
         protected IWidgetComposite $rootWidget,
-        protected Initialization $initialization,
+        protected OptionInitialization $initialization,
         protected Traversable $widgets,
     ) {
     }
 
     public function isInitializationEnabled(): bool
     {
-        return $this->initialization === Initialization::ENABLED;
+        return $this->initialization === OptionInitialization::ENABLED;
     }
 
     public function getWidgets(): Traversable

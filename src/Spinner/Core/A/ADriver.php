@@ -4,44 +4,40 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\A;
 
+use AlecRabbit\Spinner\Contract\IBufferedOutput;
 use AlecRabbit\Spinner\Contract\IDriver;
 use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Contract\ITimer;
-use AlecRabbit\Spinner\Core\Output\Contract\IOutput;
-use AlecRabbit\Spinner\Core\Sequencer;
+use AlecRabbit\Spinner\Core\DTO\DriverSettingsDTO;
+use AlecRabbit\Spinner\Core\Output\Contract\ICursor;
 
 abstract class ADriver implements IDriver
 {
+    /** @psalm-suppress PropertyNotSetInConstructor */
+    protected IFrame $currentFrame;
     protected int $previousFrameWidth = 0;
 
     public function __construct(
-        protected readonly IOutput $output,
+        protected readonly IBufferedOutput $output,
+        protected readonly ICursor $cursor,
         protected readonly ITimer $timer,
-        protected readonly bool $hideCursor,
-        protected readonly string $interruptMessage,
-        protected readonly string $finalMessage,
+        protected readonly DriverSettingsDTO $driverSettings,
     ) {
     }
 
-    public function erase(IFrame $frame): void
+    public function display(): void
     {
-        $this->output->write(
-            Sequencer::eraseSequence($frame->width())
-        );
-    }
-
-    public function display(IFrame $frame): void
-    {
-        $width = $frame->width();
+        $width = $this->currentFrame->width();
         $widthDiff = $this->calculateWidthDiff($width);
 
-        $this->output->write(
-            [
-                $frame->sequence(),
-                $widthDiff > 0 ? Sequencer::eraseSequence($widthDiff) : '',
-                Sequencer::moveBackSequence($width),
-            ]
-        );
+        $this->output
+            ->bufferedWrite($this->currentFrame->sequence())
+            ->flush();
+
+        $this->cursor->erase(max($widthDiff, 0));
+        $this->cursor->moveLeft($width);
+
+        $this->output->flush();
     }
 
     protected function calculateWidthDiff(int $currentWidth): int
@@ -53,24 +49,27 @@ abstract class ADriver implements IDriver
         return $diff;
     }
 
+    public function erase(): void
+    {
+        $this->cursor
+            ->erase($this->currentFrame->width())
+            ->flush();
+    }
+
     public function interrupt(?string $interruptMessage = null): void
     {
-        $this->finalize($interruptMessage ?? $this->interruptMessage);
+        $this->finalize($interruptMessage ?? $this->driverSettings->interruptMessage);
     }
 
     public function finalize(?string $finalMessage = null): void
     {
         $this->showCursor();
-        $this->output->write($finalMessage ?? $this->finalMessage);
+        $this->output->write($finalMessage ?? $this->driverSettings->finalMessage);
     }
 
     public function showCursor(): void
     {
-        if ($this->hideCursor) {
-            $this->output->write(
-                Sequencer::showCursorSequence()
-            );
-        }
+        $this->cursor->show();
     }
 
     public function elapsedTime(): float
@@ -80,15 +79,11 @@ abstract class ADriver implements IDriver
 
     public function initialize(): void
     {
-        $this->hideCursor();
+        $this->cursor->hide();
     }
 
-    public function hideCursor(): void
+    public function setCurrentFrame(IFrame $frame): void
     {
-        if ($this->hideCursor) {
-            $this->output->write(
-                Sequencer::hideCursorSequence()
-            );
-        }
+        $this->currentFrame = $frame;
     }
 }

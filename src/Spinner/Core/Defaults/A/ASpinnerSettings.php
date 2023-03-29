@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Defaults\A;
 
 use AlecRabbit\Spinner\Contract\IInterval;
-use AlecRabbit\Spinner\Contract\Initialization;
+use AlecRabbit\Spinner\Contract\OptionInitialization;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDefaults;
 use AlecRabbit\Spinner\Core\Defaults\Contract\ISpinnerSettings;
 use AlecRabbit\Spinner\Core\Defaults\Mixin\DefaultsConst;
@@ -15,7 +15,7 @@ abstract class ASpinnerSettings extends ADefaultsChild implements ISpinnerSettin
 {
     use DefaultsConst;
 
-    protected static Initialization $initializationOption;
+    protected static OptionInitialization $initializationOption;
     protected static IInterval $intervalObject;
 
     private static ?ISpinnerSettings $objInstance = null; // private, singleton
@@ -53,12 +53,12 @@ abstract class ASpinnerSettings extends ADefaultsChild implements ISpinnerSettin
         return static::$intervalObject;
     }
 
-    public function getInitializationOption(): Initialization
+    public function getInitializationOption(): OptionInitialization
     {
         return static::$initializationOption;
     }
 
-    public function overrideInitializationOption(Initialization $initialization): static
+    public function overrideInitializationOption(OptionInitialization $initialization): static
     {
         static::$initializationOption = $initialization;
         return $this;

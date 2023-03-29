@@ -7,7 +7,7 @@ namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Core\A;
 use AlecRabbit\Spinner\Contract\IAnsiStyleConverter;
 use AlecRabbit\Spinner\Contract\IOptions;
 use AlecRabbit\Spinner\Contract\IStyleFrameRenderer;
-use AlecRabbit\Spinner\Contract\StyleMode;
+use AlecRabbit\Spinner\Contract\OptionStyleMode;
 use AlecRabbit\Spinner\Core\A\AStyleFrameRenderer;
 use AlecRabbit\Spinner\Core\Color\Style;
 use AlecRabbit\Spinner\Core\Factory\FrameFactory;
@@ -36,7 +36,7 @@ final class AStyleFrameRendererTest extends TestCase
                 self::ARGUMENTS => [
                     self::ENABLED => false,
                     self::STYLE => 'red',
-                    self::STYLE_MODE => StyleMode::ANSI8,
+                    self::STYLE_MODE => OptionStyleMode::ANSI8,
                 ],
             ],
         ];
@@ -49,7 +49,7 @@ final class AStyleFrameRendererTest extends TestCase
                 self::ARGUMENTS => [
                     self::ENABLED => true,
                     self::STYLE => 196,
-                    self::STYLE_MODE => StyleMode::ANSI8,
+                    self::STYLE_MODE => OptionStyleMode::ANSI8,
                 ],
             ],
         ];
@@ -62,7 +62,7 @@ final class AStyleFrameRendererTest extends TestCase
                 self::ARGUMENTS => [
                     self::ENABLED => true,
                     self::STYLE => new Style(), // empty
-                    self::STYLE_MODE => StyleMode::ANSI8,
+                    self::STYLE_MODE => OptionStyleMode::ANSI8,
                 ],
             ],
         ];
@@ -75,7 +75,7 @@ final class AStyleFrameRendererTest extends TestCase
                 self::ARGUMENTS => [
                     self::ENABLED => true,
                     self::STYLE => new Style(options: $options),
-                    self::STYLE_MODE => StyleMode::ANSI24,
+                    self::STYLE_MODE => OptionStyleMode::ANSI24,
                 ],
             ],
         ];
@@ -88,7 +88,7 @@ final class AStyleFrameRendererTest extends TestCase
                 self::ARGUMENTS => [
                     self::ENABLED => true,
                     self::STYLE => new Style(bgColor: 'red'),
-                    self::STYLE_MODE => StyleMode::ANSI24,
+                    self::STYLE_MODE => OptionStyleMode::ANSI24,
                 ],
             ],
         ];
@@ -126,7 +126,7 @@ final class AStyleFrameRendererTest extends TestCase
             ) {
             }
 
-            public function ansiCode(int|string $color, StyleMode $styleMode): string
+            public function ansiCode(int|string $color, OptionStyleMode $styleMode): string
             {
                 return '-';
             }

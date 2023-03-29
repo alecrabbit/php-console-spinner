@@ -5,10 +5,8 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\A;
 
 use AlecRabbit\Spinner\Contract\IDriver;
-use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
-use AlecRabbit\Spinner\Core\Factory\FrameFactory;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContext;
 use Closure;
@@ -17,14 +15,11 @@ abstract class ASpinner implements ISpinner
 {
     protected bool $active = false;
     protected bool $interrupted = false;
-    protected IFrame $currentFrame;
 
     public function __construct(
         protected readonly IDriver $driver,
         protected IWidgetComposite $rootWidget,
     ) {
-        // TODO check if FrameFactory dependency is really needed
-        $this->currentFrame = FrameFactory::createEmpty();
     }
 
     public function initialize(): void
@@ -41,7 +36,7 @@ abstract class ASpinner implements ISpinner
 
     protected function update(float $dt = null): void
     {
-        $this->currentFrame = $this->rootWidget->update($dt);
+        $this->driver->setCurrentFrame($this->rootWidget->update($dt));
     }
 
     public function interrupt(string $interruptMessage = null): void
@@ -65,7 +60,7 @@ abstract class ASpinner implements ISpinner
     public function erase(): void
     {
         if ($this->active) {
-            $this->driver->erase($this->currentFrame);
+            $this->driver->erase();
         }
     }
 
@@ -105,7 +100,7 @@ abstract class ASpinner implements ISpinner
     {
         if ($this->active) {
             $this->update($dt);
-            $this->driver->display($this->currentFrame);
+            $this->driver->display();
         }
     }
 

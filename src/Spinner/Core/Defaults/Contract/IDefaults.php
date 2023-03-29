@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Defaults\Contract;
 
 use AlecRabbit\Spinner\Contract\IPattern;
-use AlecRabbit\Spinner\Contract\RunMode;
+use AlecRabbit\Spinner\Contract\OptionRunMode;
 use Traversable;
 
 interface IDefaults extends ISettableDefaults
@@ -24,7 +24,7 @@ interface IDefaults extends ISettableDefaults
 
     public function getClasses(): IDefaultsClasses;
 
-    public function getRunMode(): RunMode;
+    public function getRunMode(): OptionRunMode;
 
     /**
      * @return resource

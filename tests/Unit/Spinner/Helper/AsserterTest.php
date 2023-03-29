@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Helper;
 
-use AlecRabbit\Spinner\Contract\StyleMode;
+use AlecRabbit\Spinner\Contract\OptionStyleMode;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Exception\RuntimeException;
 use AlecRabbit\Spinner\Helper\Asserter;
@@ -27,13 +27,13 @@ final class AsserterTest extends TestCase
                     self::CLASS_ => InvalidArgumentException::class,
                     self::MESSAGE => sprintf(
                         'For %s::ANSI8 style mode value should be in range 0..255, 345 given.',
-                        StyleMode::class,
+                        OptionStyleMode::class,
                     ),
                 ],
             ],
             [
                 self::ARGUMENTS => [
-                    self::MODE => StyleMode::ANSI8,
+                    self::MODE => OptionStyleMode::ANSI8,
                     self::COLOR => 345,
                 ],
             ],
@@ -48,7 +48,7 @@ final class AsserterTest extends TestCase
             ],
             [
                 self::ARGUMENTS => [
-                    self::MODE => StyleMode::ANSI8,
+                    self::MODE => OptionStyleMode::ANSI8,
                     self::COLOR => -3,
                 ],
             ],
@@ -60,13 +60,13 @@ final class AsserterTest extends TestCase
                     self::CLASS_ => InvalidArgumentException::class,
                     self::MESSAGE => sprintf(
                         'For %s::ANSI4 style mode value should be in range 0..15, 22 given.',
-                        StyleMode::class,
+                        OptionStyleMode::class,
                     ),
                 ],
             ],
             [
                 self::ARGUMENTS => [
-                    self::MODE => StyleMode::ANSI4,
+                    self::MODE => OptionStyleMode::ANSI4,
                     self::COLOR => 22,
                 ],
             ],

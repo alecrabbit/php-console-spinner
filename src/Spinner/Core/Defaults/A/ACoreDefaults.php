@@ -7,7 +7,7 @@ namespace AlecRabbit\Spinner\Core\Defaults\A;
 
 use AlecRabbit\Spinner\Contract\IPattern;
 use AlecRabbit\Spinner\Contract\IProbe;
-use AlecRabbit\Spinner\Contract\RunMode;
+use AlecRabbit\Spinner\Contract\OptionRunMode;
 use AlecRabbit\Spinner\Core\Contract\ILoopProbe;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDefaults;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDefaultsClasses;
@@ -40,7 +40,7 @@ abstract class ACoreDefaults implements IDefaults
     protected static ?IPattern $stylePattern = null;
     protected static int $millisecondsInterval;
     protected static string $percentNumberFormat;
-    protected static RunMode $runMode;
+    protected static OptionRunMode $runMode;
     protected static float|int $shutdownDelay;
     protected static float|int $shutdownMaxDelay;
     /**

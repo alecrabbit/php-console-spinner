@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Defaults\Contract;
 
 use AlecRabbit\Spinner\Contract\IPattern;
-use AlecRabbit\Spinner\Contract\RunMode;
+use AlecRabbit\Spinner\Contract\OptionRunMode;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use Traversable;
 
@@ -41,5 +41,5 @@ interface ISettableDefaults
 
     public function setCharPattern(IPattern $spinnerCharPattern): static;
 
-    public function overrideRunMode(RunMode $runMode): static;
+    public function overrideRunMode(OptionRunMode $runMode): static;
 }

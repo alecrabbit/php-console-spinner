@@ -4,13 +4,17 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Contract;
 
+use AlecRabbit\Spinner\Exception\RuntimeException;
+
 interface IDriver
 {
     public function elapsedTime(): float;
 
-    public function erase(IFrame $frame): void;
+    public function erase(): void;
 
-    public function display(IFrame $frame): void;
+    public function display(): void;
+
+    public function setCurrentFrame(IFrame $frame): void;
 
     public function interrupt(?string $interruptMessage = null): void;
 

@@ -6,7 +6,7 @@ namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Config\Defaults\A;
 
 use AlecRabbit\Spinner\Asynchronous\Loop\Probe\ReactLoopProbe;
 use AlecRabbit\Spinner\Asynchronous\Loop\Probe\RevoltLoopProbe;
-use AlecRabbit\Spinner\Contract\RunMode;
+use AlecRabbit\Spinner\Contract\OptionRunMode;
 use AlecRabbit\Spinner\Core\Defaults\A\ADefaults;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDefaults;
 use AlecRabbit\Spinner\Core\Widget\WidgetBuilder;
@@ -96,11 +96,11 @@ final class ADefaultsTest extends TestCase
     public function canOverrideRunMode(): void
     {
         $defaults = self::getTesteeInstance();
-        $defaults->overrideRunMode(RunMode::SYNCHRONOUS);
+        $defaults->overrideRunMode(OptionRunMode::SYNCHRONOUS);
         self::assertTrue($defaults->isModeSynchronous());
-        $defaults->overrideRunMode(RunMode::ASYNC);
+        $defaults->overrideRunMode(OptionRunMode::ASYNC);
         self::assertFalse($defaults->isModeSynchronous());
-        $defaults->overrideRunMode(RunMode::SYNCHRONOUS);
+        $defaults->overrideRunMode(OptionRunMode::SYNCHRONOUS);
         self::assertTrue($defaults->isModeSynchronous());
     }
 

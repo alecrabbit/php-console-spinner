@@ -5,7 +5,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Pattern\Style;
 
-use AlecRabbit\Spinner\Contract\StyleMode;
+use AlecRabbit\Spinner\Contract\OptionStyleMode;
 use AlecRabbit\Spinner\Core\Pattern\Style\A\AStylePattern;
 
 final class Rainbow extends AStylePattern
@@ -17,10 +17,10 @@ final class Rainbow extends AStylePattern
     {
         return
             match ($this->styleMode) {
-                StyleMode::ANSI4 => [
+                OptionStyleMode::ANSI4 => [
                     '#00ffff', // light cyan
                 ],
-                StyleMode::ANSI8 => [
+                OptionStyleMode::ANSI8 => [
                     // hex   , // ANSI8 color
                     '#ff0000', // 196
                     '#ff8700', // 208
@@ -52,7 +52,7 @@ final class Rainbow extends AStylePattern
                     '#ff0087', // 198
                     '#ff005f', // 197
                 ],
-                StyleMode::ANSI24 => [
+                OptionStyleMode::ANSI24 => [
                     '#ff0000',
                     '#ff0400',
                     '#ff0800',
