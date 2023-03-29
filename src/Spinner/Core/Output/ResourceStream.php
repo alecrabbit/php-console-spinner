@@ -8,7 +8,11 @@ use AlecRabbit\Spinner\Contract\IResourceStream;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Exception\RuntimeException;
 use AlecRabbit\Spinner\Helper\Asserter;
+use Traversable;
 
+/**
+ * @codeCoverageIgnore Not testable
+ */
 final class ResourceStream implements IResourceStream
 {
     /**
@@ -27,7 +31,8 @@ final class ResourceStream implements IResourceStream
         $this->stream = $stream;
     }
 
-    public function write(\Traversable $data): void
+    /** @inheritDoc */
+    public function write(Traversable $data): void
     {
         /** @var string $item */
         foreach ($data as $item) {

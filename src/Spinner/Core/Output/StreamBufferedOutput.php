@@ -7,7 +7,6 @@ namespace AlecRabbit\Spinner\Core\Output;
 use AlecRabbit\Spinner\Contract\IBufferedOutput;
 use AlecRabbit\Spinner\Contract\IResourceStream;
 use AlecRabbit\Spinner\Core\Output\Contract\IStringBuffer;
-use AlecRabbit\Spinner\Exception\RuntimeException;
 use Generator;
 use Traversable;
 
@@ -36,16 +35,14 @@ final readonly class StreamBufferedOutput implements IBufferedOutput
         $this->doWrite($this->homogenize($messages, $newline));
     }
 
-    /**
-     * @throws RuntimeException
-     */
     protected function doWrite(Traversable $data): void
     {
         $this->stream->write($data);
-
     }
 
     /**
+     * @codeCoverageIgnore Generator is not iterated through during tests.
+     *
      * @param iterable|string $messages
      * @param bool $newline
      * @return Generator<string>
