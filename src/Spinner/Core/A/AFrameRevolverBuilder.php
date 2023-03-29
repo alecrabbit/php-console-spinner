@@ -30,7 +30,6 @@ abstract class AFrameRevolverBuilder extends ARevolverBuilder implements IFrameR
         parent::__construct($defaults);
     }
 
-
     public function withPattern(IPattern $pattern): static
     {
         $clone = clone $this;

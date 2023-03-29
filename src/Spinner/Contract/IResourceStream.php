@@ -11,5 +11,6 @@ interface IResourceStream
     /**
      * @param Traversable<string> $data
      * @return void
-     */public function write(Traversable $data): void;
+     */
+    public function write(Traversable $data): void;
 }
