@@ -36,7 +36,7 @@ final class StaticFacade extends ADefaultsAwareClass implements
     /**
      * @throws DomainException
      */
-    public static function createSpinner(IConfig $config = null): ISpinner
+    public function createSpinner(IConfig $config = null): ISpinner
     {
         return
             AStaticSpinnerFactory::createSpinner($config);

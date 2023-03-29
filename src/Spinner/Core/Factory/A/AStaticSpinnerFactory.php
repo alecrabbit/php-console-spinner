@@ -25,7 +25,7 @@ abstract class AStaticSpinnerFactory extends ADefaultsAwareClass implements
     /**
      * @throws DomainException
      */
-    public static function createSpinner(IConfig $config = null): ISpinner
+    public function createSpinner(IConfig $config = null): ISpinner
     {
         self::$config = self::refineConfig($config);
 

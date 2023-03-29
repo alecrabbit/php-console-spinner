@@ -8,22 +8,14 @@ use AlecRabbit\Spinner\Core\A\AContainerAware;
 use AlecRabbit\Spinner\Core\Config\Contract\IConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IConfigBuilder;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
-use AlecRabbit\Spinner\Core\SpinnerBuilder;
+use AlecRabbit\Spinner\Core\Factory\SpinnerFactory;
 
 final class Facade extends AContainerAware
 {
     public static function createSpinner(IConfig $config = null): ISpinner
     {
-        $spinnerBuilder = new SpinnerBuilder(self::getContainer());
-
-        if ($config) {
-            $spinnerBuilder = $spinnerBuilder->withConfig($config);
-        }
-
         return
-            $spinnerBuilder
-                ->build()
-        ;
+            (new SpinnerFactory(self::getContainer()))->createSpinner($config);
     }
 
     public static function getConfigBuilder(): IConfigBuilder
