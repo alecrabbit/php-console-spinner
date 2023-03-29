@@ -37,7 +37,7 @@ final class RGBColorTest extends TestCase
     {
         // #0..
         yield from [
-            // result, r, g, b, a // first element - #0..
+            // toString, result, r, g, b, a // first element - #0..
             ['#000000', new RGBColor(0, 0, 0, 1.0), 0, 0, 0, 1.0],
             ['#0000ff', new RGBColor(0, 0, 255, 1.0), -1, -1, 300, 3.0],
             ['#00f1ff', new RGBColor(0, 241, 255, 1.0), -1, 241, 300, 3.0],
@@ -68,11 +68,11 @@ final class RGBColorTest extends TestCase
     {
         // #0..
         yield from [
-            // result, r, g, b, a // first element - #0..
-            ['#000', new RGBColor(0, 0, 0, 1.0),'#000000',],
-            ['#00f', new RGBColor(0, 0, 255, 1.0),'#0000ff',],
-            ['#00f1ff', new RGBColor(0, 241, 255, 1.0),'#00f1ff',],
-            ['#0000ff', new RGBColor(0, 0, 255, 1.0),'#0000ff',],
+            // hex, result, toString // first element - #0..
+            ['#000', new RGBColor(0, 0, 0), '#000000',],
+            ['#00f', new RGBColor(0, 0, 255), '#0000ff',],
+            ['#00f1ff', new RGBColor(0, 241, 255), '#00f1ff',],
+            ['#0000ff', new RGBColor(0, 0, 255), '#0000ff',],
         ];
     }
 
