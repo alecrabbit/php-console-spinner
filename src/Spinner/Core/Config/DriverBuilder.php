@@ -11,6 +11,7 @@ use AlecRabbit\Spinner\Core\Config\Contract\IDriverBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\IDriverConfig;
 use AlecRabbit\Spinner\Core\Driver;
 use AlecRabbit\Spinner\Core\Output\Cursor;
+use AlecRabbit\Spinner\Core\Output\ResourceStream;
 use AlecRabbit\Spinner\Core\Output\StreamBufferedOutput;
 use AlecRabbit\Spinner\Core\Timer;
 use LogicException;
@@ -32,7 +33,7 @@ final class DriverBuilder extends ABuilder implements IDriverBuilder
     private function createDriver(): Driver
     {
         $defaults = $this->getDefaultsProvider();
-        $output = new StreamBufferedOutput(STDERR);
+        $output = new StreamBufferedOutput(new ResourceStream(STDERR));
         return
             new Driver(
                 output: $output, // FIXME use ~ $defaults->get...

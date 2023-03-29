@@ -5,41 +5,23 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Output;
 
 use AlecRabbit\Spinner\Contract\IBufferedOutput;
+use AlecRabbit\Spinner\Contract\IResourceStream;
 use AlecRabbit\Spinner\Core\Output\Contract\IStringBuffer;
-use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Exception\RuntimeException;
-use AlecRabbit\Spinner\Helper\Asserter;
 use Generator;
-
 use Traversable;
 
-use function fflush;
-use function fwrite;
 use function is_iterable;
 use function is_string;
 
 use const PHP_EOL;
 
-final class StreamBufferedOutput implements IBufferedOutput
+final readonly class StreamBufferedOutput implements IBufferedOutput
 {
-    /**
-     * @var resource
-     */
-    private $stream;
-
-    private IStringBuffer $buffer;
-
-    /**
-     * @param resource $stream
-     * @throws InvalidArgumentException
-     */
     public function __construct(
-        $stream,
-        ?IStringBuffer $buffer = null
+        private IResourceStream $stream,
+        private IStringBuffer $buffer = new StringBuffer()
     ) {
-        Asserter::assertStream($stream);
-        $this->stream = $stream;
-        $this->buffer = $buffer ?? new StringBuffer();
     }
 
     /** @inheritdoc */
@@ -59,14 +41,8 @@ final class StreamBufferedOutput implements IBufferedOutput
      */
     protected function doWrite(Traversable $data): void
     {
-        /** @var string $item */
-        foreach ($data as $item) {
-            if (false === @fwrite($this->stream, $item)) {
-                // should never happen
-                throw new RuntimeException('Was unable to write to a stream.');
-            }
-        }
-        fflush($this->stream);
+        $this->stream->write($data);
+
     }
 
     /**
