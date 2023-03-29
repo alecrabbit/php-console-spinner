@@ -13,7 +13,7 @@ use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolverBuilder;
 use AlecRabbit\Spinner\Core\Widget\Widget;
 
-abstract class AWidgetBuilder implements IWidgetBuilder
+abstract class AWidgetBuilder
 {
     protected ?IRevolver $revolver = null;
     protected ?IFrame $leadingSpacer = null;

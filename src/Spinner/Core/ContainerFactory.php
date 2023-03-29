@@ -11,7 +11,11 @@ use AlecRabbit\Spinner\Core\Config\Contract\IConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\IDefaultsProvider;
 use AlecRabbit\Spinner\Core\Config\Contract\IDriverBuilder;
 use AlecRabbit\Spinner\Core\Config\DriverBuilder;
+use AlecRabbit\Spinner\Core\Config\WidgetBuilder;
+use AlecRabbit\Spinner\Core\Config\WidgetRevolverBuilder;
 use AlecRabbit\Spinner\Core\Defaults\DefaultsProvider;
+use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetBuilder;
+use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolverBuilder;
 use Traversable;
 
 final class ContainerFactory
@@ -53,6 +57,14 @@ final class ContainerFactory
                 IDriverBuilder::class =>
                     static function () use ($container): IDriverBuilder {
                         return new DriverBuilder($container);
+                    },
+                IWidgetBuilder::class =>
+                    static function () use ($container): IWidgetBuilder {
+                        return new WidgetBuilder($container);
+                    },
+                IWidgetRevolverBuilder::class =>
+                    static function () use ($container): IWidgetRevolverBuilder {
+                        return new WidgetRevolverBuilder($container);
                     },
             ],
         );

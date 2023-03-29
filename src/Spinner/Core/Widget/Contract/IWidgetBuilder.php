@@ -18,11 +18,11 @@ interface IWidgetBuilder
      */
     public function build(): IWidgetComposite;
 
-    public function withWidgetRevolver(IRevolver $revolver): static;
+    public function withWidgetRevolver(IRevolver $revolver): IWidgetBuilder;
 
-    public function withLeadingSpacer(?IFrame $frame): static;
+    public function withLeadingSpacer(?IFrame $frame): IWidgetBuilder;
 
-    public function withTrailingSpacer(?IFrame $frame): static;
+    public function withTrailingSpacer(?IFrame $frame): IWidgetBuilder;
 
-    public function withWidgetConfig(IWidgetConfig $widgetConfig): static;
+    public function withWidgetConfig(IWidgetConfig $widgetConfig): IWidgetBuilder;
 }
