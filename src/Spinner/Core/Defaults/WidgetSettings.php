@@ -14,44 +14,56 @@ use AlecRabbit\Spinner\Core\Defaults\Contract\IWidgetSettings;
 
 final class WidgetSettings implements IWidgetSettings
 {
+    public function __construct(
+        protected IFrame $leadingSpacer,
+        protected IFrame $trailingSpacer,
+        protected ?IPattern $stylePattern = null,
+        protected ?IPattern $charPattern = null,
+    )
+    {
+    }
 
     public function getLeadingSpacer(): IFrame
     {
-        // TODO: Implement getLeadingSpacer() method.
+    return $this->leadingSpacer;
     }
 
     public function setLeadingSpacer(IFrame $frame): IWidgetSettings
     {
-        // TODO: Implement setLeadingSpacer() method.
+        $this->leadingSpacer = $frame;
+        return $this;
     }
 
     public function getTrailingSpacer(): IFrame
     {
-        // TODO: Implement getTrailingSpacer() method.
+        return $this->trailingSpacer;
     }
 
     public function setTrailingSpacer(IFrame $frame): IWidgetSettings
     {
-        // TODO: Implement setTrailingSpacer() method.
+        $this->trailingSpacer = $frame;
+        return $this;
     }
 
     public function getStylePattern(): ?IPattern
     {
-        // TODO: Implement getStylePattern() method.
+        return $this->stylePattern;
     }
 
     public function setStylePattern(IPattern $pattern): IWidgetSettings
     {
-        // TODO: Implement setStylePattern() method.
+        $this->stylePattern = $pattern;
+        return $this;
     }
 
     public function getCharPattern(): ?IPattern
     {
-        // TODO: Implement getCharPattern() method.
+        return $this->charPattern;
     }
 
     public function setCharPattern(IPattern $pattern): IWidgetSettings
     {
-        // TODO: Implement setCharPattern() method.
+        $this->charPattern = $pattern;
+        return $this;
     }
 }

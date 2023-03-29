@@ -59,24 +59,6 @@ final class WidgetBuilderTest extends TestCase
 
         self::assertInstanceOf(Widget::class, $widgetComposite);
     }
-//    #[Test]
-//    public function athrowsOnBuildWidgetWithoutWidgetConfig(): void
-//    {
-//        $container = $this->createMock(IContainer::class);
-//        $container
-//            ->method('get')
-//            ->willReturn($this->createMock(IWidgetRevolverBuilder::class));
-////            ->method('get')
-////            ->willReturn(new DefaultsProvider());
-//
-//        $widgetBuilder = $this->getTesteeInstance(container: $container);
-//
-//        self::assertInstanceOf(WidgetBuilder::class, $widgetBuilder);
-//
-//        $widgetComposite = $widgetBuilder->build();
-//
-//        self::assertInstanceOf(Widget::class, $widgetComposite);
-//    }
 
     #[Test]
     public function throwsOnBuildWidgetWithoutWidgetConfig(): void

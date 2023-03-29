@@ -9,3 +9,5 @@ require_once __DIR__ . '/../bootstrap.async.php';
 $spinner = Facade::createSpinner();
 
 // that's it :)
+
+dump($spinner);

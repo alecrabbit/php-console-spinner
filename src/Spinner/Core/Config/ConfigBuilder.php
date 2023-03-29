@@ -49,45 +49,53 @@ final class ConfigBuilder extends ABuilder implements IConfigBuilder
 
     public function build(): IConfig
     {
-        return new Config(
-            $this->driverConfig ?? $this->defaultDriverConfig(),
-            $this->loopConfig ?? $this->defaultLoopConfig(),
-            $this->spinnerConfig ?? $this->defaultSpinnerConfig(),
-            $this->rootWidgetConfig ?? $this->defaultRootWidgetConfig(),
-        );
+        return
+            new Config(
+                $this->driverConfig ?? $this->defaultDriverConfig(),
+                $this->loopConfig ?? $this->defaultLoopConfig(),
+                $this->spinnerConfig ?? $this->defaultSpinnerConfig(),
+                $this->rootWidgetConfig ?? $this->defaultRootWidgetConfig(),
+            );
     }
 
     protected function defaultDriverConfig(): IDriverConfig
     {
         $defaults = $this->getDefaultsProvider();
-        return new DriverConfig(
-            $defaults->getDriverSettings()->getInterruptMessage(),
-            $defaults->getDriverSettings()->getFinalMessage(),
-        );
+        return
+            new DriverConfig(
+                $defaults->getDriverSettings()->getInterruptMessage(),
+                $defaults->getDriverSettings()->getFinalMessage(),
+            );
     }
 
     protected function defaultLoopConfig(): ILoopConfig
     {
         $defaults = $this->getDefaultsProvider();
-        return new LoopConfig(
-            $defaults->getLoopSettings()->getRunModeOption(),
-            $defaults->getLoopSettings()->getAutoStartOption(),
-            $defaults->getLoopSettings()->getSignalHandlersOption(),
-        );
+        return
+            new LoopConfig(
+                $defaults->getLoopSettings()->getRunModeOption(),
+                $defaults->getLoopSettings()->getAutoStartOption(),
+                $defaults->getLoopSettings()->getSignalHandlersOption(),
+            );
     }
 
     protected function defaultSpinnerConfig(): ISpinnerConfig
     {
         $defaults = $this->getDefaultsProvider();
-        return new SpinnerConfig(
-            $defaults->getSpinnerSettings()->getInterval(),
-            $defaults->getSpinnerSettings()->getInitializationOption(),
-        );
+        return
+            new SpinnerConfig(
+                $defaults->getSpinnerSettings()->getInterval(),
+                $defaults->getSpinnerSettings()->getInitializationOption(),
+            );
     }
 
     protected function defaultRootWidgetConfig(): IWidgetConfig
     {
         $defaults = $this->getDefaultsProvider();
-        return new WidgetConfig();
+        return
+            new WidgetConfig(
+                $defaults->getWidgetSettings()->getLeadingSpacer(),
+                $defaults->getWidgetSettings()->getTrailingSpacer(),
+            );
     }
 }

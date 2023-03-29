@@ -11,7 +11,7 @@ use AlecRabbit\Spinner\Core\Defaults\Contract\IDefaults;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IWidgetSettings;
 use AlecRabbit\Spinner\Core\Factory\StaticFrameFactory;
 
-abstract class AWidgetSettings extends ADefaultsChild implements IWidgetSettings
+abstract class AWidgetSettings extends ADefaultsChild
 {
     protected static ?IFrame $leadingSpacer = null;
     protected static ?IFrame $trailingSpacer = null;

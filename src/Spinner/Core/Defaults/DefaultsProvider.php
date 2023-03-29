@@ -9,16 +9,40 @@ use AlecRabbit\Spinner\Core\Defaults\Contract\IDriverSettings;
 use AlecRabbit\Spinner\Core\Defaults\Contract\ILoopSettings;
 use AlecRabbit\Spinner\Core\Defaults\Contract\ISpinnerSettings;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IWidgetSettings;
+use AlecRabbit\Spinner\Core\Factory\StaticFrameFactory;
 
 final class DefaultsProvider implements IDefaultsProvider
 {
+    protected IWidgetSettings $rootWidgetSettings;
+    protected IWidgetSettings $widgetSettings;
+
     public function __construct(
-        protected IWidgetSettings $rootWidgetSettings = new WidgetSettings(),
-        protected IWidgetSettings $widgetSettings = new WidgetSettings(),
+        ?IWidgetSettings $rootWidgetSettings = null,
+        ?IWidgetSettings $widgetSettings = null,
         protected IDriverSettings $driverSettings = new DriverSettings(),
         protected ISpinnerSettings $spinnerSettings = new SpinnerSettings(),
         protected ILoopSettings $loopSettings = new LoopSettings(),
     ) {
+        $this->widgetSettings = $widgetSettings ?? $this->createDefaultWidgetSettings();
+        $this->rootWidgetSettings = $rootWidgetSettings ?? $this->createRootWidgetSettings($this->widgetSettings);
+    }
+
+    private function createDefaultWidgetSettings(): WidgetSettings
+    {
+        return
+            new WidgetSettings(
+                StaticFrameFactory::createEmpty(),
+                StaticFrameFactory::createSpace(),
+            );
+    }
+
+    protected function createRootWidgetSettings(IWidgetSettings $widgetSettings): IWidgetSettings
+    {
+        return
+            new WidgetSettings(
+                $widgetSettings->getLeadingSpacer(),
+                $widgetSettings->getTrailingSpacer(),
+            );
     }
 
     public function getRootWidgetSettings(): IWidgetSettings
