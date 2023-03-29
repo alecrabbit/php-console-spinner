@@ -18,14 +18,15 @@ final class RGBColorTest extends TestCase
         foreach (self::simplifiedColorDataFeeder() as $item) {
             yield [
                 [
-                    self::RESULT => $item[0], // result
+                    self::TO_STRING => $item[0], // result
+                    self::RESULT => $item[1], // result
                 ],
                 [
                     self::ARGUMENTS => [
-                        self::RED => $item[1],
-                        self::GREEN => $item[2],
-                        self::BLUE => $item[3],
-                        self::ALPHA => $item[4],
+                        self::RED => $item[2],
+                        self::GREEN => $item[3],
+                        self::BLUE => $item[4],
+                        self::ALPHA => $item[5],
                     ],
                 ],
             ];
@@ -37,17 +38,47 @@ final class RGBColorTest extends TestCase
         // #0..
         yield from [
             // result, r, g, b, a // first element - #0..
-            [new RGBColor(0, 0, 0, 1.0), 0, 0, 0, 1.0],
-            [new RGBColor(0, 0, 255, 1.0), -1, -1, 300, 3.0],
-            [new RGBColor(0, 241, 255, 1.0), -1, 241, 300, 3.0],
-            [new RGBColor(0, 0, 255, 0.0), -1, -1, 300, -2.0],
+            ['#000000', new RGBColor(0, 0, 0, 1.0), 0, 0, 0, 1.0],
+            ['#0000ff', new RGBColor(0, 0, 255, 1.0), -1, -1, 300, 3.0],
+            ['#00f1ff', new RGBColor(0, 241, 255, 1.0), -1, 241, 300, 3.0],
+            ['#0000ff', new RGBColor(0, 0, 255, 0.0), -1, -1, 300, -2.0],
         ];
     }
 
+    public static function hexColorDataProvider(): iterable
+    {
+        // [$expected, $incoming]
+        // #0..
+        foreach (self::simplifiedHexColorDataFeeder() as $item) {
+            yield [
+                [
+                    self::RESULT => $item[1], // result
+                    self::HEX => $item[2], // result to string
+                ],
+                [
+                    self::ARGUMENTS => [
+                        self::HEX => $item[0],
+                    ],
+                ],
+            ];
+        }
+    }
+
+    public static function simplifiedHexColorDataFeeder(): iterable
+    {
+        // #0..
+        yield from [
+            // result, r, g, b, a // first element - #0..
+            ['#000', new RGBColor(0, 0, 0, 1.0),'#000000',],
+            ['#00f', new RGBColor(0, 0, 255, 1.0),'#0000ff',],
+            ['#00f1ff', new RGBColor(0, 241, 255, 1.0),'#00f1ff',],
+            ['#0000ff', new RGBColor(0, 0, 255, 1.0),'#0000ff',],
+        ];
+    }
 
     #[Test]
     #[DataProvider('colorDataProvider')]
-    public function canDetermineLowest(array $expected, array $incoming): void
+    public function canBeCreated(array $expected, array $incoming): void
     {
         $expectedException = $this->expectsException($expected);
 
@@ -66,10 +97,29 @@ final class RGBColorTest extends TestCase
         }
 
         self::assertEquals($expected[self::RESULT], $result);
+        self::assertEquals($expected[self::TO_STRING], (string)$result);
         self::assertSame($expected[self::RESULT]->red, $result->red);
         self::assertSame($expected[self::RESULT]->green, $result->green);
         self::assertSame($expected[self::RESULT]->blue, $result->blue);
         self::assertSame($expected[self::RESULT]->alpha, $result->alpha);
+    }
+
+    #[Test]
+    #[DataProvider('hexColorDataProvider')]
+    public function canBeCreatedFromHex(array $expected, array $incoming): void
+    {
+        $expectedException = $this->expectsException($expected);
+
+        $args = $incoming[self::ARGUMENTS];
+
+        $result = RGBColor::fromHex($args[self::HEX]);
+
+        if ($expectedException) {
+            self::exceptionNotThrown($expectedException);
+        }
+
+        self::assertEquals($expected[self::RESULT], $result);
+        self::assertEquals($expected[self::HEX], (string)$result);
     }
 }
 
