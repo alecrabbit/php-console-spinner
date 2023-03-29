@@ -14,7 +14,7 @@ final class Facade extends AContainerAware
     public static function createSpinner(IConfig $config = null): ISpinner
     {
         $spinnerBuilder = new SpinnerBuilder(self::getContainer());
-        
+
         if ($config) {
             $spinnerBuilder = $spinnerBuilder->withConfig($config);
         }
