@@ -5,16 +5,11 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Defaults\Contract;
 
-use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Contract\OptionInitialization;
 
 interface ISpinnerSettings
 {
-    public function getInterval(): IInterval;
-
     public function getInitializationOption(): OptionInitialization;
 
     public function setInitializationOption(OptionInitialization $initialization): ISpinnerSettings;
-
-    public function setInterval(IInterval $interval): ISpinnerSettings;
 }

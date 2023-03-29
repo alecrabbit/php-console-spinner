@@ -84,7 +84,6 @@ final class ConfigBuilder extends ABuilder implements IConfigBuilder
         $defaults = $this->getDefaultsProvider();
         return
             new SpinnerConfig(
-                $defaults->getSpinnerSettings()->getInterval(),
                 $defaults->getSpinnerSettings()->getInitializationOption(),
             );
     }

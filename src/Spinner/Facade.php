@@ -6,6 +6,7 @@ namespace AlecRabbit\Spinner;
 
 use AlecRabbit\Spinner\Core\A\AContainerAware;
 use AlecRabbit\Spinner\Core\Config\Contract\IConfig;
+use AlecRabbit\Spinner\Core\Config\Contract\IConfigBuilder;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use AlecRabbit\Spinner\Core\SpinnerBuilder;
 
@@ -23,5 +24,11 @@ final class Facade extends AContainerAware
             $spinnerBuilder
                 ->build()
         ;
+    }
+
+    public static function getConfigBuilder(): IConfigBuilder
+    {
+        return
+            self::getContainer()->get(IConfigBuilder::class);
     }
 }

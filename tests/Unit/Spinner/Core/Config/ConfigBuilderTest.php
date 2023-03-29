@@ -123,7 +123,6 @@ final class ConfigBuilderTest extends TestCase
 
         $spinnerConfig =
             new SpinnerConfig(
-                new Interval(),
                 OptionInitialization::DISABLED,
             );
 
