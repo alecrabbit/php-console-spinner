@@ -12,6 +12,7 @@ imports:
   - module/extras.yaml
   - module/helper.yaml
   - module/mixin.yaml
+  - module/root.yaml
   - vendor/react.yaml
   - vendor/revolt.yaml
   - vendor/symfony.yaml
@@ -31,10 +32,10 @@ deptrac:
       - +ModuleException
     ModuleCore:
       - +ModuleContainer
-      - ModuleContract
-      - +ModuleException
-      - +ModuleHelper
-      - +ModuleMixin
+      - +ModuleContract
+      - ModuleException
+      - ModuleHelper
+      - ModuleMixin
     ModuleException: ~
     ModuleExtras:
       - +ModuleContract
@@ -48,6 +49,11 @@ deptrac:
       - +ModuleException
       - +ModuleMixin
     ModuleMixin: ~
+    ModuleRoot:
+      - +ModuleContract
+      - +ModuleCore
+      - +ModuleException
+      - +ModuleHelper
     VendorSymfony: ~
 #  skip_violations:
 #    NS\Class:

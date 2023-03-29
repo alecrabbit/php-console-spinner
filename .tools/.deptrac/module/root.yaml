@@ -1,0 +1,11 @@
+deptrac:
+  layers:
+    - name: ModuleRoot
+      collectors:
+        - type: bool
+          must:
+            - type: className
+              value: '%namespace%\\.*'
+          must_not:
+            - type: className
+              value: '%namespace%\\.*\\.*'

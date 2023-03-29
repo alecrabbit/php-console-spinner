@@ -1,11 +1,28 @@
+ ----------- ------------------------------------------------------------------------------------------------------------------------- 
+  Reason      ModuleCore                                                                                                               
+ ----------- ------------------------------------------------------------------------------------------------------------------------- 
+  Violation   AlecRabbit\Spinner\Core\Factory\A\AStaticSpinnerFactory must not depend on AlecRabbit\Spinner\StaticFacade (ModuleRoot)  
+              /app/src/Spinner/Core/Factory/A/AStaticSpinnerFactory.php:78                                                             
+  Violation   AlecRabbit\Spinner\Core\Factory\A\AStaticSpinnerFactory must not depend on AlecRabbit\Spinner\StaticFacade (ModuleRoot)  
+              /app/src/Spinner/Core/Factory/A/AStaticSpinnerFactory.php:17                                                             
+  Violation   AlecRabbit\Spinner\Core\Factory\StaticSpinnerFactory must not depend on AlecRabbit\Spinner\StaticFacade (ModuleRoot)     
+              AlecRabbit\Spinner\Core\Factory\A\AStaticSpinnerFactory::9 ->                                                            
+              AlecRabbit\Spinner\StaticFacade::78                                                                                      
+              /app/src/Spinner/Core/Factory/A/AStaticSpinnerFactory.php:78                                                             
+  Violation   AlecRabbit\Spinner\Core\Factory\StaticSpinnerFactory must not depend on AlecRabbit\Spinner\StaticFacade (ModuleRoot)     
+              AlecRabbit\Spinner\Core\Factory\A\AStaticSpinnerFactory::9 ->                                                            
+              AlecRabbit\Spinner\StaticFacade::17                                                                                      
+              /app/src/Spinner/Core/Factory/A/AStaticSpinnerFactory.php:17                                                             
+ ----------- ------------------------------------------------------------------------------------------------------------------------- 
+
 
  -------------------- ------ 
   Report                     
  -------------------- ------ 
-  Violations           0     
+  Violations           4     
   Skipped violations   0     
-  Uncovered            219   
-  Allowed              3187  
+  Uncovered            215   
+  Allowed              3251  
   Warnings             0     
   Errors               0     
  -------------------- ------ 

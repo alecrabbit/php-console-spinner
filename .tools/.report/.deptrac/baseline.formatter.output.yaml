@@ -1,2 +1,6 @@
 deptrac:
-  skip_violations: {  }
+  skip_violations:
+    AlecRabbit\Spinner\Core\Factory\A\AStaticSpinnerFactory:
+      - AlecRabbit\Spinner\StaticFacade
+    AlecRabbit\Spinner\Core\Factory\StaticSpinnerFactory:
+      - AlecRabbit\Spinner\StaticFacade
