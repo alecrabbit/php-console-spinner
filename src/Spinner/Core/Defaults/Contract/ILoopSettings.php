@@ -6,19 +6,21 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Defaults\Contract;
 
 use AlecRabbit\Spinner\Contract\OptionAutoStart;
+use AlecRabbit\Spinner\Contract\OptionRunMode;
 use AlecRabbit\Spinner\Contract\OptionSignalHandlers;
+use AlecRabbit\Spinner\Core\Defaults\LoopSettings;
 
-interface ILoopSettings extends IDefaultsChild
+interface ILoopSettings
 {
-    public static function getInstance(
-        IDefaults $parent,
-    ): ILoopSettings;
+    public function getRunModeOption(): OptionRunMode;
+
+    public function setRunModeOption(OptionRunMode $runModeOption): ILoopSettings;
 
     public function getAutoStartOption(): OptionAutoStart;
 
+    public function setAutoStartOption(OptionAutoStart $autoStartOption): ILoopSettings;
+
     public function getSignalHandlersOption(): OptionSignalHandlers;
 
-    public function overrideSignalHandlersOption(OptionSignalHandlers $signalHandlersOption): ILoopSettings;
-
-    public function overrideAutoStartOption(OptionAutoStart $autoStartOption): ILoopSettings;
+    public function setSignalHandlersOption(OptionSignalHandlers $signalHandlersOption): ILoopSettings;
 }

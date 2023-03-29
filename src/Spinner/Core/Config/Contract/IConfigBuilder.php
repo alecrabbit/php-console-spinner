@@ -19,11 +19,11 @@ interface IConfigBuilder
      */
     public function build(): IConfig;
 
-    public function withDriverConfig(IDriverConfig $driverConfig): static;
+    public function withDriverConfig(IDriverConfig $driverConfig): IConfigBuilder;
 
-    public function withLoopConfig(ILoopConfig $loopConfig): static;
+    public function withLoopConfig(ILoopConfig $loopConfig): IConfigBuilder;
 
-    public function withSpinnerConfig(ISpinnerConfig $spinnerConfig): static;
+    public function withSpinnerConfig(ISpinnerConfig $spinnerConfig): IConfigBuilder;
 
-    public function withRootWidgetConfig(IWidgetConfig $widgetConfig): static;
+    public function withRootWidgetConfig(IWidgetConfig $widgetConfig): IConfigBuilder;
 }

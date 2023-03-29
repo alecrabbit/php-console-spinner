@@ -8,23 +8,21 @@ namespace AlecRabbit\Spinner\Core\Defaults\Contract;
 use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Contract\IPattern;
 
-interface IWidgetSettings extends IDefaultsChild
+interface IWidgetSettings
 {
-    public static function getInstance(IDefaults $parent): IWidgetSettings;
-
     public function getLeadingSpacer(): IFrame;
+
+    public function setLeadingSpacer(IFrame $frame): IWidgetSettings;
 
     public function getTrailingSpacer(): IFrame;
 
-    public function setLeadingSpacer(IFrame $frame): static;
-
-    public function setTrailingSpacer(IFrame $frame): static;
+    public function setTrailingSpacer(IFrame $frame): IWidgetSettings;
 
     public function getStylePattern(): ?IPattern;
 
+    public function setStylePattern(IPattern $pattern): IWidgetSettings;
+
     public function getCharPattern(): ?IPattern;
 
-    public function setStylePattern(IPattern $pattern): static;
-
-    public function setCharPattern(IPattern $pattern): static;
+    public function setCharPattern(IPattern $pattern): IWidgetSettings;
 }

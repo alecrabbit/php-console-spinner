@@ -10,7 +10,7 @@ use AlecRabbit\Spinner\Core\Defaults\Contract\IDefaults;
 use AlecRabbit\Spinner\Core\Defaults\Contract\ILoopSettings;
 use AlecRabbit\Spinner\Core\Defaults\Mixin\DefaultsConst;
 
-abstract class ALoopSettings extends ADefaultsChild implements ILoopSettings
+abstract class ALoopSettings extends ADefaultsChild
 {
     use DefaultsConst;
 
