@@ -9,7 +9,7 @@ use AlecRabbit\Spinner\Core\Config\Contract\ISpinnerConfig;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
 use Traversable;
 
-abstract class ASpinnerConfig implements ISpinnerConfig
+abstract class ASpinnerConfig
 {
     public function __construct(
         protected IWidgetComposite $rootWidget,

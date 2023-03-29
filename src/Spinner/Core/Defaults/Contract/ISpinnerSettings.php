@@ -14,7 +14,7 @@ interface ISpinnerSettings
 
     public function getInitializationOption(): OptionInitialization;
 
-    public function setInitializationOption(OptionInitialization $initialization): static;
+    public function setInitializationOption(OptionInitialization $initialization): ISpinnerSettings;
 
-    public function setInterval(IInterval $interval): static;
+    public function setInterval(IInterval $interval): ISpinnerSettings;
 }

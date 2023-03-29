@@ -5,32 +5,37 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Defaults;
 
 use AlecRabbit\Spinner\Contract\IInterval;
-use AlecRabbit\Spinner\Contract\OptionAutoStart;
 use AlecRabbit\Spinner\Contract\OptionInitialization;
-use AlecRabbit\Spinner\Contract\OptionRunMode;
-use AlecRabbit\Spinner\Contract\OptionSignalHandlers;
-use AlecRabbit\Spinner\Core\Defaults\Contract\ILoopSettings;
 use AlecRabbit\Spinner\Core\Defaults\Contract\ISpinnerSettings;
+use AlecRabbit\Spinner\Core\Interval;
 
 final class SpinnerSettings implements ISpinnerSettings
 {
+    public function __construct(
+        protected IInterval $interval = new Interval(),
+        protected OptionInitialization $initializationOption = OptionInitialization::ENABLED,
+    ) {
+    }
+
     public function getInterval(): IInterval
     {
-        // TODO: Implement getInterval() method.
+        return $this->interval;
+    }
+
+    public function setInterval(IInterval $interval): ISpinnerSettings
+    {
+        $this->interval = $interval;
+        return $this;
     }
 
     public function getInitializationOption(): OptionInitialization
     {
-        // TODO: Implement getInitializationOption() method.
+        return $this->initializationOption;
     }
 
-    public function setInitializationOption(OptionInitialization $initialization): static
+    public function setInitializationOption(OptionInitialization $initialization): ISpinnerSettings
     {
-        // TODO: Implement setInitializationOption() method.
-    }
-
-    public function setInterval(IInterval $interval): static
-    {
-        // TODO: Implement setInterval() method.
+        $this->initializationOption = $initialization;
+        return $this;
     }
 }

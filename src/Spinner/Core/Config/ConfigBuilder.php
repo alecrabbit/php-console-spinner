@@ -74,11 +74,16 @@ final class ConfigBuilder extends ABuilder implements IConfigBuilder
 
     protected function defaultSpinnerConfig(): ISpinnerConfig
     {
-        return new SpinnerConfig();
+        $defaults = $this->getDefaultsProvider();
+        return new SpinnerConfig(
+            $defaults->getSpinnerSettings()->getInterval(),
+            $defaults->getSpinnerSettings()->getInitializationOption(),
+        );
     }
 
     protected function defaultRootWidgetConfig(): IWidgetConfig
     {
+        $defaults = $this->getDefaultsProvider();
         return new WidgetConfig();
     }
 }
