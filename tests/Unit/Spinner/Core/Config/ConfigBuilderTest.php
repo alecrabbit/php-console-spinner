@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Core\Config;
 
 use AlecRabbit\Spinner\Container\Contract\IContainer;
+use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Contract\OptionAutoStart;
 use AlecRabbit\Spinner\Contract\OptionInitialization;
 use AlecRabbit\Spinner\Contract\OptionRunMode;
@@ -15,6 +16,7 @@ use AlecRabbit\Spinner\Core\Config\Contract\IConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\DriverConfig;
 use AlecRabbit\Spinner\Core\Config\LoopConfig;
 use AlecRabbit\Spinner\Core\Config\SpinnerConfig;
+use AlecRabbit\Spinner\Core\Config\WidgetConfig;
 use AlecRabbit\Spinner\Core\Defaults\DefaultsProvider;
 use AlecRabbit\Spinner\Core\Interval;
 use AlecRabbit\Tests\Spinner\TestCase\TestCase;
@@ -122,6 +124,26 @@ final class ConfigBuilderTest extends TestCase
             );
 
         $config = $configBuilder->withSpinnerConfig($spinnerConfig)->build();
+
+        self::assertInstanceOf(Config::class, $config);
+    }
+
+    #[Test]
+    public function canBuildWithRootWidgetConfig(): void
+    {
+        $container = $this->createMock(IContainer::class);
+        $container
+            ->method('get')
+            ->willReturn(new DefaultsProvider());
+
+        $configBuilder = $this->getTesteeInstance(container: $container);
+
+        self::assertInstanceOf(ConfigBuilder::class, $configBuilder);
+
+        $frame = $this->createMock(IFrame::class);
+        $widgetConfig = new WidgetConfig($frame, $frame);
+
+        $config = $configBuilder->withRootWidgetConfig($widgetConfig)->build();
 
         self::assertInstanceOf(Config::class, $config);
     }
