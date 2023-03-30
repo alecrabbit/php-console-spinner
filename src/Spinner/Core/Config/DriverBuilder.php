@@ -6,7 +6,7 @@ namespace AlecRabbit\Spinner\Core\Config;
 
 use AlecRabbit\Spinner\Contract\IDriver;
 use AlecRabbit\Spinner\Contract\OptionCursor;
-use AlecRabbit\Spinner\Core\ABuilder;
+use AlecRabbit\Spinner\Core\A\ABuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\IDriverBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\IDriverConfig;
 use AlecRabbit\Spinner\Core\Driver;

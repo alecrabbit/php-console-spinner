@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Config;
 
-use AlecRabbit\Spinner\Core\ABuilder;
+use AlecRabbit\Spinner\Core\A\ABuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\IConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\IDriverConfig;

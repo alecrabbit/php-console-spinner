@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Spinner\Core\Factory\A;
+namespace AlecRabbit\Spinner\Core\A;
 
 use AlecRabbit\Spinner\Container\Contract\IContainer;
 

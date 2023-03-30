@@ -11,6 +11,8 @@ $config =
         ->build()
 ;
 
+$loop = Facade::getLoop();
+
 $spinner = Facade::createSpinner($config);
 
 // that's it :)

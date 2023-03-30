@@ -13,7 +13,9 @@ use AlecRabbit\Spinner\Core\Config\Contract\IDriverBuilder;
 use AlecRabbit\Spinner\Core\Config\DriverBuilder;
 use AlecRabbit\Spinner\Core\Config\WidgetBuilder;
 use AlecRabbit\Spinner\Core\Config\WidgetRevolverBuilder;
+use AlecRabbit\Spinner\Core\Contract\ILoopManager;
 use AlecRabbit\Spinner\Core\Defaults\DefaultsProvider;
+use AlecRabbit\Spinner\Core\Loop\LoopManagerDummy;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetBuilder;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolverBuilder;
 use ArrayObject;
@@ -67,6 +69,7 @@ final class ContainerFactory
                     static function () use ($container): IWidgetRevolverBuilder {
                         return new WidgetRevolverBuilder($container);
                     },
+                ILoopManager::class => LoopManagerDummy::class,
             ],
         );
     }
