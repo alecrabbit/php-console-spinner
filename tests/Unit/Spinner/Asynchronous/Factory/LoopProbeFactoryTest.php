@@ -4,13 +4,14 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Asynchronous\Factory;
 
-use AlecRabbit\Spinner\Asynchronous\Contract\ILoopProbeFactory;
 use AlecRabbit\Spinner\Asynchronous\Factory\LoopProbeFactory;
 use AlecRabbit\Spinner\Container\Contract\IContainer;
-use AlecRabbit\Spinner\Core\Loop\Probe\A\ALoopProbe;
+use AlecRabbit\Spinner\Core\Contract\ILoopProbeFactory;
+use AlecRabbit\Spinner\Core\Loop\A\ALoopProbe;
 use AlecRabbit\Spinner\Exception\DomainException;
 use AlecRabbit\Tests\Spinner\TestCase\TestCase;
 use AlecRabbit\Tests\Spinner\Unit\Spinner\Asynchronous\Factory\Stub\LoopProbeStub;
+use ArrayObject;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 use Traversable;
@@ -74,9 +75,10 @@ final class LoopProbeFactoryTest extends TestCase
         $container->expects(self::once())
             ->method('get')
             ->with(LoopProbeStub::class)
-            ->willReturn(new LoopProbeStub());
+            ->willReturn(new LoopProbeStub())
+        ;
 
-        $loopProbes = new \ArrayObject([
+        $loopProbes = new ArrayObject([
             LoopProbeStub::class,
         ]);
 

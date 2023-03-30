@@ -6,6 +6,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Asynchronous\Loop\Adapter;
 
 use AlecRabbit\Spinner\Core\A\ALoopAdapter;
+use AlecRabbit\Spinner\Core\Contract\IForeignLoop;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use Closure;
 use Revolt\EventLoop;
@@ -69,7 +70,7 @@ class RevoltLoopAdapter extends ALoopAdapter
         $this->getLoop()->run();
     }
 
-    public function getLoop()
+    public function getLoop(): EventLoop\Driver|IForeignLoop
     {
         return EventLoop::getDriver();
     }

@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Asynchronous\Factory;
 
-use AlecRabbit\Spinner\Asynchronous\Contract\ILoopProbeFactory;
 use AlecRabbit\Spinner\Container\Contract\IContainer;
+use AlecRabbit\Spinner\Core\Contract\ILoopProbe;
+use AlecRabbit\Spinner\Core\Contract\ILoopProbeFactory;
 use AlecRabbit\Spinner\Core\Factory\A\AFactory;
-use AlecRabbit\Spinner\Core\Loop\Probe\Contract\ILoopProbe;
 use AlecRabbit\Spinner\Exception\DomainException;
 use ArrayObject;
 use Psr\Container\ContainerExceptionInterface;

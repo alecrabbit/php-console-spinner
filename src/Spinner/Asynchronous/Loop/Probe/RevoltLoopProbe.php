@@ -7,7 +7,7 @@ namespace AlecRabbit\Spinner\Asynchronous\Loop\Probe;
 
 use AlecRabbit\Spinner\Asynchronous\Loop\Adapter\RevoltLoopAdapter;
 use AlecRabbit\Spinner\Core\Contract\ILoopAdapter;
-use AlecRabbit\Spinner\Core\Loop\Probe\A\ALoopProbe;
+use AlecRabbit\Spinner\Core\Loop\A\ALoopProbe;
 use Revolt\EventLoop;
 
 use function class_exists;
