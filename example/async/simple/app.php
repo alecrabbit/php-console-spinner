@@ -17,4 +17,4 @@ $spinner = Facade::createSpinner($config);
 
 // that's it :)
 
-dump($spinner, $config);
+dump($spinner, $config, $loop);

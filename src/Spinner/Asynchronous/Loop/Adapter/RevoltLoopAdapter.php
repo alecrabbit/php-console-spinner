@@ -5,17 +5,15 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Asynchronous\Loop\Adapter;
 
-use AlecRabbit\Spinner\Asynchronous\Loop\Adapter\A\AStaticLoopAdapter;
+use AlecRabbit\Spinner\Core\A\ALoopAdapter;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use Closure;
-use React\EventLoop\LoopInterface;
 use Revolt\EventLoop;
-use Revolt\EventLoop\Driver;
 use Revolt\EventLoop\Driver\EvDriver;
 use Revolt\EventLoop\Driver\EventDriver;
 use Revolt\EventLoop\Driver\UvDriver;
 
-class RevoltStaticLoopAdapter extends AStaticLoopAdapter
+class RevoltLoopAdapter extends ALoopAdapter
 {
     private static bool $stopped = false;
     private ?string $spinnerTimer = null;
@@ -66,10 +64,25 @@ class RevoltStaticLoopAdapter extends AStaticLoopAdapter
         // @codeCoverageIgnoreEnd
     }
 
+    public function run(): void
+    {
+        $this->getLoop()->run();
+    }
+
+    public function getLoop()
+    {
+        return EventLoop::getDriver();
+    }
+
     public function delay(float $delay, Closure $closure): void
     {
         /** @psalm-suppress MixedArgumentTypeCoercion */
         EventLoop::delay($delay, $closure);
+    }
+
+    public function stop(): void
+    {
+        $this->getLoop()->stop();
     }
 
     protected function assertExtPcntl(): void
@@ -82,11 +95,6 @@ class RevoltStaticLoopAdapter extends AStaticLoopAdapter
         }
 
         parent::assertExtPcntl();
-    }
-
-    public function getLoop(): LoopInterface|Driver
-    {
-        return EventLoop::getDriver();
     }
 
     protected function onSignal(int $signal, Closure $closure): void

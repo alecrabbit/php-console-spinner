@@ -5,13 +5,13 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Asynchronous\Loop\Adapter;
 
-use AlecRabbit\Spinner\Asynchronous\Loop\Adapter\A\AStaticLoopAdapter;
+use AlecRabbit\Spinner\Core\A\ALoopAdapter;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use Closure;
 use React\EventLoop\LoopInterface;
 use React\EventLoop\TimerInterface;
 
-class ReactStaticLoopAdapter extends AStaticLoopAdapter
+class ReactLoopAdapter extends ALoopAdapter
 {
     private ?TimerInterface $spinnerTimer = null;
 
@@ -47,14 +47,24 @@ class ReactStaticLoopAdapter extends AStaticLoopAdapter
         $this->loop->addPeriodicTimer($interval, $closure);
     }
 
-    public function getLoop(): LoopInterface
-    {
-        return $this->loop;
-    }
-
     public function delay(float $delay, Closure $closure): void
     {
         $this->loop->addTimer($delay, $closure);
+    }
+
+    public function run(): void
+    {
+        $this->getLoop()->run();
+    }
+
+    public function stop(): void
+    {
+        $this->getLoop()->stop();
+    }
+
+    public function getLoop(): LoopInterface
+    {
+        return $this->loop;
     }
 
     protected function onSignal(int $signal, Closure $closure): void

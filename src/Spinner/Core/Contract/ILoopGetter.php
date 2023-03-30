@@ -7,5 +7,8 @@ namespace AlecRabbit\Spinner\Core\Contract;
 
 interface ILoopGetter
 {
-    public function getLoop(): IForeignLoop;
+    /**
+     * @return IForeignLoop
+     */
+    public function getLoop();
 }

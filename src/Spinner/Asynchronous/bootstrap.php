@@ -7,7 +7,6 @@ use AlecRabbit\Spinner\Asynchronous\Loop\Probe\ReactLoopProbe;
 use AlecRabbit\Spinner\Asynchronous\Loop\Probe\RevoltLoopProbe;
 use AlecRabbit\Spinner\Core\ContainerFactory;
 use AlecRabbit\Spinner\Core\Contract\ILoopManager;
-use AlecRabbit\Spinner\Core\Factory\StaticDefaultsFactory;
 
 
 // @codeCoverageIgnoreStart
@@ -16,11 +15,14 @@ $container = ContainerFactory::getContainer();
 $container->replace(
     ILoopManager::class,
     static function () use ($container): ILoopManager {
-        return new LoopManager($container);
+        return
+            new LoopManager(
+                $container,
+                new \ArrayObject([
+                    ReactLoopProbe::class,
+                    RevoltLoopProbe::class,
+                ]),
+            );
     },
 );
-
-StaticDefaultsFactory::addProbe(ReactLoopProbe::class);
-StaticDefaultsFactory::addProbe(RevoltLoopProbe::class);
-
 // @codeCoverageIgnoreEnd
