@@ -38,7 +38,7 @@ final class LoopFactoryTest extends TestCase
     }
 
     #[Test]
-    public function throwsOnLoopGet(): void
+    public function throwsOnLoopGetWithEmptyProbes(): void
     {
         $container = $this->createMock(IContainer::class);
         $container
@@ -66,4 +66,5 @@ final class LoopFactoryTest extends TestCase
 
         self::exceptionNotThrown($exception, $exceptionMessage);
     }
+
 }

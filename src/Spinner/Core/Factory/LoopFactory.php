@@ -16,12 +16,12 @@ final class LoopFactory extends AFactory implements ILoopFactory
     public function getLoop(): ILoopAdapter
     {
         if (null === self::$loop) {
-            self::$loop = $this->getLoopProbesManager()->createLoop();
+            self::$loop = $this->getLoopManager()->createLoop();
         }
         return self::$loop;
     }
 
-    protected function getLoopProbesManager(): ILoopManager
+    protected function getLoopManager(): ILoopManager
     {
         return $this->container->get(ILoopManager::class);
     }
