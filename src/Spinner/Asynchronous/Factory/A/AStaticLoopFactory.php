@@ -8,13 +8,13 @@ use AlecRabbit\Spinner\Contract\IProbe;
 use AlecRabbit\Spinner\Core\Contract\ILoopAdapter;
 use AlecRabbit\Spinner\Core\Contract\ILoopProbe;
 use AlecRabbit\Spinner\Core\Factory\A\ADefaultsAwareClass;
-use AlecRabbit\Spinner\Core\Factory\Contract\ILoopFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\IStaticLoopFactory;
 use AlecRabbit\Spinner\Core\Factory\StaticDefaultsFactory;
 use AlecRabbit\Spinner\Mixin\NoInstanceTrait;
 use DomainException;
 use Traversable;
 
-abstract class ALoopFactory extends ADefaultsAwareClass implements ILoopFactory
+abstract class AStaticLoopFactory extends ADefaultsAwareClass implements IStaticLoopFactory
 {
     use NoInstanceTrait;
 

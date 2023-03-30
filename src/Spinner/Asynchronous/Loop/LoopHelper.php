@@ -5,7 +5,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Asynchronous\Loop;
 
-use AlecRabbit\Spinner\Asynchronous\Factory\LoopFactory;
+use AlecRabbit\Spinner\Asynchronous\Factory\StaticLoopFactory;
 use AlecRabbit\Spinner\Core\Contract\ILoopAdapter;
 use AlecRabbit\Spinner\Core\Contract\ILoopHelper;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
@@ -25,7 +25,7 @@ final class LoopHelper implements ILoopHelper
             return self::$loopInstance;
         }
 
-        self::$loopInstance = LoopFactory::create();
+        self::$loopInstance = StaticLoopFactory::create();
 
         return self::$loopInstance;
     }

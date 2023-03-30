@@ -4,21 +4,16 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Factory\A;
 
-use AlecRabbit\Spinner\Core\A\ASpinner;
 use AlecRabbit\Spinner\Core\Config\ConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\IConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IConfigBuilder;
-use AlecRabbit\Spinner\Core\Config\Contract\IConfigBuilderGetter;
 use AlecRabbit\Spinner\Core\Contract\ILoopHelper;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
-use AlecRabbit\Spinner\Core\Factory\Contract\ISpinnerFactory;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
 use AlecRabbit\Spinner\Exception\DomainException;
 use AlecRabbit\Spinner\StaticFacade;
 
-abstract class AStaticSpinnerFactory extends ADefaultsAwareClass implements
-    ISpinnerFactory,
-    IConfigBuilderGetter
+abstract class AStaticSpinnerFactory extends ADefaultsAwareClass
 {
     protected static IConfig $config;
 
@@ -51,12 +46,12 @@ abstract class AStaticSpinnerFactory extends ADefaultsAwareClass implements
 
     private static function doCreateSpinner(IConfig $config): ISpinner
     {
-        return
-            new class (
-                $config->getDriver(),
-                $config->getSpinnerConfig()->getRootWidget(),
-            ) extends ASpinner {
-            };
+//        return
+//            new class (
+//                $config->getDriver(),
+//                $config->getSpinnerConfig()->getRootWidget(),
+//            ) extends ASpinner {
+//            };
     }
 
     protected static function addWidgets(ISpinner $spinner): void

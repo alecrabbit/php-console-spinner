@@ -11,7 +11,6 @@ use AlecRabbit\Spinner\Core\SpinnerBuilder;
 
 final class SpinnerFactory extends AFactory implements Contract\ISpinnerFactory
 {
-
     public function createSpinner(IConfig $config = null): ISpinner
     {
         $spinnerBuilder = new SpinnerBuilder($this->container);

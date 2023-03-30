@@ -6,9 +6,8 @@ namespace AlecRabbit\Spinner\Core\Factory\A;
 
 use AlecRabbit\Spinner\Container\Contract\IContainer;
 
-abstract class AHasContainer
+abstract class AInstantiatesWithContainer
 {
-
     public function __construct(protected IContainer $container)
     {
     }

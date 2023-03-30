@@ -21,13 +21,13 @@ final class SpinnerBuilder extends ABuilder implements ISpinnerBuilder
         $this->config = $this->refineConfig($this->config);
 
         $driver =
-            $this->container->get(IDriverBuilder::class)
+            $this->getDriverBuilder()
                 ->withDriverConfig($this->config->getDriverConfig())
                 ->build()
         ;
 
         $rootWidget =
-            $this->container->get(IWidgetBuilder::class)
+            $this->getWidgetBuilder()
                 ->withWidgetConfig($this->config->getRootWidgetConfig())
                 ->build()
         ;
@@ -48,6 +48,16 @@ final class SpinnerBuilder extends ABuilder implements ISpinnerBuilder
     protected function createConfig(): IConfig
     {
         return $this->container->get(IConfigBuilder::class)->build();
+    }
+
+    protected function getDriverBuilder(): IDriverBuilder
+    {
+        return $this->container->get(IDriverBuilder::class);
+    }
+
+    protected function getWidgetBuilder(): IWidgetBuilder
+    {
+        return $this->container->get(IWidgetBuilder::class);
     }
 
     public function withConfig(IConfig $config): self

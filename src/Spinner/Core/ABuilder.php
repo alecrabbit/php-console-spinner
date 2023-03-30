@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core;
 
 use AlecRabbit\Spinner\Core\Config\Contract\IDefaultsProvider;
-use AlecRabbit\Spinner\Core\Factory\A\AHasContainer;
+use AlecRabbit\Spinner\Core\Factory\A\AInstantiatesWithContainer;
 
-abstract class ABuilder extends AHasContainer
+abstract class ABuilder extends AInstantiatesWithContainer
 {
     protected function getDefaultsProvider(): IDefaultsProvider
     {
