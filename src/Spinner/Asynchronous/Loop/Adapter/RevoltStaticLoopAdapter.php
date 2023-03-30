@@ -5,7 +5,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Asynchronous\Loop\Adapter;
 
-use AlecRabbit\Spinner\Asynchronous\Loop\Adapter\A\ALoopAdapter;
+use AlecRabbit\Spinner\Asynchronous\Loop\Adapter\A\AStaticLoopAdapter;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use Closure;
 use React\EventLoop\LoopInterface;
@@ -15,7 +15,7 @@ use Revolt\EventLoop\Driver\EvDriver;
 use Revolt\EventLoop\Driver\EventDriver;
 use Revolt\EventLoop\Driver\UvDriver;
 
-class RevoltLoopAdapter extends ALoopAdapter
+class RevoltStaticLoopAdapter extends AStaticLoopAdapter
 {
     private static bool $stopped = false;
     private ?string $spinnerTimer = null;

@@ -5,7 +5,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Asynchronous\Loop\Probe;
 
-use AlecRabbit\Spinner\Asynchronous\Loop\Adapter\RevoltLoopAdapter;
+use AlecRabbit\Spinner\Asynchronous\Loop\Adapter\RevoltStaticLoopAdapter;
 use AlecRabbit\Spinner\Asynchronous\Loop\Probe\A\ALoopProbe;
 use AlecRabbit\Spinner\Core\Contract\ILoopAdapter;
 use Revolt\EventLoop;
@@ -21,6 +21,6 @@ class RevoltLoopProbe extends ALoopProbe
 
     public static function createLoop(): ILoopAdapter
     {
-        return new RevoltLoopAdapter();
+        return new RevoltStaticLoopAdapter();
     }
 }

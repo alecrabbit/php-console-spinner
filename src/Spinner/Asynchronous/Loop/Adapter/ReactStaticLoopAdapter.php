@@ -5,13 +5,13 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Asynchronous\Loop\Adapter;
 
-use AlecRabbit\Spinner\Asynchronous\Loop\Adapter\A\ALoopAdapter;
+use AlecRabbit\Spinner\Asynchronous\Loop\Adapter\A\AStaticLoopAdapter;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use Closure;
 use React\EventLoop\LoopInterface;
 use React\EventLoop\TimerInterface;
 
-class ReactLoopAdapter extends ALoopAdapter
+class ReactStaticLoopAdapter extends AStaticLoopAdapter
 {
     private ?TimerInterface $spinnerTimer = null;
 
