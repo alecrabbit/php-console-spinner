@@ -65,7 +65,6 @@ abstract class ALoopAdapter implements ILoopAdapter
 
     abstract public function stop(): void;
 
-
     abstract public function repeat(float $interval, Closure $closure): void;
 
     abstract public function run(): void;

@@ -68,7 +68,7 @@ _deptrac_run_message:
 
 _deptrac_run_baseline:
 	@-mkdir -p ${DPTR_OUT_DIR_LOCAL}
-	@-${_DC_EXEC} ${APP_CONTAINER} deptrac analyse --no-progress --config-file=${DPTR_CONFIG} --cache-file=${DPTR_CACHE} > ${DPTR_OUT_DIR_LOCAL}/${_DEPTRAC_REPORT_FILE}
+	@-${_DC_EXEC} ${APP_CONTAINER} deptrac analyse --no-progress --config-file=${DPTR_CONFIG} --cache-file=${DPTR_CACHE} --no-ansi > ${DPTR_OUT_DIR_LOCAL}/${_DEPTRAC_REPORT_FILE}
 
 _deptrac_run_graph:
 	@-${_DC_EXEC} ${APP_CONTAINER} deptrac analyse --no-progress --config-file=${DPTR_CONFIG} --cache-file=${DPTR_CACHE} --formatter=graphviz-image --output=${DPTR_OUT_DIR}/${_DEPTRAC_GRAPH_FILE}

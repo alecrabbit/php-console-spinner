@@ -1,53 +1,12 @@
- ----------- ------------------------------------------------------------------------------------------------------------------------- 
- [32m Reason    [39m [32m ModuleCore                                                                                                              [39m 
- ----------- ------------------------------------------------------------------------------------------------------------------------- 
-  [31mViolation[39m   [32mAlecRabbit\Spinner\Core\Factory\A\AStaticSpinnerFactory[39m must not depend on [32mAlecRabbit\Spinner\StaticFacade[39m (ModuleRoot)  
-              /app/src/Spinner/Core/Factory/A/AStaticSpinnerFactory.php:78                                                             
-  [31mViolation[39m   [32mAlecRabbit\Spinner\Core\Factory\A\AStaticSpinnerFactory[39m must not depend on [32mAlecRabbit\Spinner\StaticFacade[39m (ModuleRoot)  
-              /app/src/Spinner/Core/Factory/A/AStaticSpinnerFactory.php:17                                                             
-  [31mViolation[39m   [32mAlecRabbit\Spinner\Core\Contract\ILoopGetter[39m must not depend on [32mReact\EventLoop\LoopInterface[39m (VendorReact)              
-              /app/src/Spinner/Core/Contract/ILoopGetter.php:13                                                                        
-  [31mViolation[39m   [32mAlecRabbit\Spinner\Core\Contract\ILoopGetter[39m must not depend on [32mRevolt\EventLoop\Driver[39m (VendorRevolt)                   
-              /app/src/Spinner/Core/Contract/ILoopGetter.php:13                                                                        
-  [31mViolation[39m   [32mAlecRabbit\Spinner\Core\Contract\ILoopGetter[39m must not depend on [32mReact\EventLoop\LoopInterface[39m (VendorReact)              
-              /app/src/Spinner/Core/Contract/ILoopGetter.php:8                                                                         
-  [31mViolation[39m   [32mAlecRabbit\Spinner\Core\Contract\ILoopGetter[39m must not depend on [32mRevolt\EventLoop\Driver[39m (VendorRevolt)                   
-              /app/src/Spinner/Core/Contract/ILoopGetter.php:9                                                                         
-  [31mViolation[39m   [32mAlecRabbit\Spinner\Core\Factory\StaticSpinnerFactory[39m must not depend on [32mAlecRabbit\Spinner\StaticFacade[39m (ModuleRoot)     
-              AlecRabbit\Spinner\Core\Factory\A\AStaticSpinnerFactory::9 ->                                                            
-              AlecRabbit\Spinner\StaticFacade::78                                                                                      
-              /app/src/Spinner/Core/Factory/A/AStaticSpinnerFactory.php:78                                                             
-  [31mViolation[39m   [32mAlecRabbit\Spinner\Core\Factory\StaticSpinnerFactory[39m must not depend on [32mAlecRabbit\Spinner\StaticFacade[39m (ModuleRoot)     
-              AlecRabbit\Spinner\Core\Factory\A\AStaticSpinnerFactory::9 ->                                                            
-              AlecRabbit\Spinner\StaticFacade::17                                                                                      
-              /app/src/Spinner/Core/Factory/A/AStaticSpinnerFactory.php:17                                                             
-  [31mViolation[39m   [32mAlecRabbit\Spinner\Core\Contract\ILoopAdapter[39m must not depend on [32mReact\EventLoop\LoopInterface[39m (VendorReact)             
-              AlecRabbit\Spinner\Core\Contract\ILoopGetter::10 ->                                                                      
-              React\EventLoop\LoopInterface::13                                                                                        
-              /app/src/Spinner/Core/Contract/ILoopGetter.php:13                                                                        
-  [31mViolation[39m   [32mAlecRabbit\Spinner\Core\Contract\ILoopAdapter[39m must not depend on [32mRevolt\EventLoop\Driver[39m (VendorRevolt)                  
-              AlecRabbit\Spinner\Core\Contract\ILoopGetter::10 ->                                                                      
-              Revolt\EventLoop\Driver::13                                                                                              
-              /app/src/Spinner/Core/Contract/ILoopGetter.php:13                                                                        
-  [31mViolation[39m   [32mAlecRabbit\Spinner\Core\Contract\ILoopAdapter[39m must not depend on [32mReact\EventLoop\LoopInterface[39m (VendorReact)             
-              AlecRabbit\Spinner\Core\Contract\ILoopGetter::10 ->                                                                      
-              React\EventLoop\LoopInterface::8                                                                                         
-              /app/src/Spinner/Core/Contract/ILoopGetter.php:8                                                                         
-  [31mViolation[39m   [32mAlecRabbit\Spinner\Core\Contract\ILoopAdapter[39m must not depend on [32mRevolt\EventLoop\Driver[39m (VendorRevolt)                  
-              AlecRabbit\Spinner\Core\Contract\ILoopGetter::10 ->                                                                      
-              Revolt\EventLoop\Driver::9                                                                                               
-              /app/src/Spinner/Core/Contract/ILoopGetter.php:9                                                                         
- ----------- ------------------------------------------------------------------------------------------------------------------------- 
-
 
  -------------------- ------ 
- [32m Report                    [39m 
+  Report                     
  -------------------- ------ 
- [32m Violations         [39m  [31m12[39m    
- [32m Skipped violations [39m  [39m0[39m     
- [32m Uncovered          [39m  [33m215[39m   
- [32m Allowed            [39m  3215  
- [32m Warnings           [39m  [39m0[39m     
- [32m Errors             [39m  [39m0[39m     
+  Violations           0     
+  Skipped violations   0     
+  Uncovered            215   
+  Allowed              3047  
+  Warnings             0     
+  Errors               0     
  -------------------- ------ 
 
