@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Core\Factory;
 
 use AlecRabbit\Spinner\Container\Contract\IContainer;
+use AlecRabbit\Spinner\Core\Contract\ILoopManager;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopFactory;
 use AlecRabbit\Spinner\Core\Factory\LoopFactory;
 use AlecRabbit\Spinner\Core\Loop\LoopManagerDummy;
@@ -46,6 +47,9 @@ final class LoopFactoryTest extends TestCase
             ->willReturn(new LoopManagerDummy())
         ;
 
+        dump($container);
+        dump($container->get(ILoopManager::class));
+
         $loopFactory = $this->getTesteeInstance(container: $container);
 
         $exception = DomainException::class;
@@ -56,7 +60,7 @@ final class LoopFactoryTest extends TestCase
         $this->expectException($exception);
         $this->expectExceptionMessage($exceptionMessage);
 
-        $loopFactory->getLoop();
+        dump($loopFactory->getLoop());
 
         self::exceptionNotThrown($exception, $exceptionMessage);
     }
