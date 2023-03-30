@@ -11,11 +11,6 @@ use Closure;
 final class ALoopAdapterOverride extends ALoopAdapter
 {
 
-    protected function onSignal(int $signal, Closure $closure): void
-    {
-        // TODO: Implement onSignal() method.
-    }
-
     public function stop(): void
     {
         // TODO: Implement stop() method.
@@ -29,11 +24,6 @@ final class ALoopAdapterOverride extends ALoopAdapter
     public function run(): void
     {
         // TODO: Implement run() method.
-    }
-
-    protected function detachSpinner(): void
-    {
-        // TODO: Implement detachSpinner() method.
     }
 
     public function delay(float $delay, Closure $closure): void
@@ -54,5 +44,15 @@ final class ALoopAdapterOverride extends ALoopAdapter
     public function attach(ISpinner $spinner): void
     {
         // TODO: Implement attach() method.
+    }
+
+    protected function onSignal(int $signal, Closure $closure): void
+    {
+        // TODO: Implement onSignal() method.
+    }
+
+    protected function detachSpinner(): void
+    {
+        // TODO: Implement detachSpinner() method.
     }
 }
