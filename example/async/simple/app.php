@@ -17,12 +17,29 @@ $spinner = Facade::createSpinner($config);
 
 // that's it :)
 
-dump($spinner, $config, $loop);
+//dump($spinner, $config, $loop);
+
+$spinner->initialize();
+echo 'Start!' . PHP_EOL;
 
 $loop->delay(
     $delay = 1,
     static function () use ($delay): void {
         echo sprintf('Delayed for %ss.', $delay) . PHP_EOL;
+    }
+);
+$loop->delay(
+    5,
+    static function () use ($loop): void {
+        $loop->stop();
+        echo 'Stopped!' . PHP_EOL;
+    }
+);
+
+$loop->repeat(
+    $interval = 0.5,
+    static function () use ($spinner): void {
+        $spinner->spin();
     }
 );
 
