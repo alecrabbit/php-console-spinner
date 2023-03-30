@@ -12,6 +12,9 @@ use React\EventLoop\Loop;
 
 use function class_exists;
 
+/**
+ * @codeCoverageIgnore
+ */
 class ReactLoopProbe extends ALoopProbe
 {
     public static function isSupported(): bool
