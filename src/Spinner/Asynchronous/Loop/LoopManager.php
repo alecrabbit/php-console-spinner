@@ -43,10 +43,10 @@ final class LoopManager extends AManager implements ILoopManager
 
     public function createLoop(): ILoopAdapter
     {
-        /** @var ILoopProbe $loopProbe */
+        /** @var class-string<ILoopProbe> $loopProbe */
         foreach ($this->loopProbes as $loopProbe) {
             if ($loopProbe::isSupported()) {
-                return $loopProbe::createLoop();
+                return $this->instantiateLoopProbe($loopProbe)->createLoop();
             }
         }
         throw new DomainException(
@@ -54,5 +54,11 @@ final class LoopManager extends AManager implements ILoopManager
             ' Check you have installed one of the supported event loops.' .
             ' Check your probes list if you have modified it.'
         );
+    }
+
+    /** @var class-string<ILoopProbe> $loopProbe */
+    private function instantiateLoopProbe(string $loopProbe): ILoopProbe
+    {
+        return (new $loopProbe());
     }
 }

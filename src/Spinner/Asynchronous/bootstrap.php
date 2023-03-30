@@ -18,8 +18,8 @@ $container->replace(
             new LoopManager(
                 $container,
                 new ArrayObject([
-                    ReactLoopProbe::class,
                     RevoltLoopProbe::class,
+                    ReactLoopProbe::class,
                 ]),
             );
     },

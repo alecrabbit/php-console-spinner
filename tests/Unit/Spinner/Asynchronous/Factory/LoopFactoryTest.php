@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Core\Factory;
+namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Asynchronous\Factory;
 
+use AlecRabbit\Spinner\Asynchronous\Loop\LoopManager;
 use AlecRabbit\Spinner\Container\Contract\IContainer;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopFactory;
 use AlecRabbit\Spinner\Core\Factory\LoopFactory;
-use AlecRabbit\Spinner\Core\Loop\LoopManagerDummy;
 use AlecRabbit\Spinner\Exception\DomainException;
 use AlecRabbit\Tests\Spinner\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
@@ -43,15 +43,21 @@ final class LoopFactoryTest extends TestCase
         $container = $this->createMock(IContainer::class);
         $container
             ->method('get')
-            ->willReturn(new LoopManagerDummy())
+            ->willReturn(
+                new LoopManager(
+                    $container,
+                    new \ArrayObject([]),
+                )
+            )
         ;
 
         $loopFactory = $this->getTesteeInstance(container: $container);
 
         $exception = DomainException::class;
         $exceptionMessage =
-            'Class [AlecRabbit\Spinner\Core\Loop\LoopManagerDummy] is not supposed to return any loop.'
-            . ' Check your configuration.';
+            'No supported event loop found.'
+            .' Check you have installed one of the supported event loops.'
+            .' Check your probes list if you have modified it.';
 
         $this->expectException($exception);
         $this->expectExceptionMessage($exceptionMessage);
