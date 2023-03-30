@@ -4,14 +4,13 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Asynchronous\Factory;
 
-use AlecRabbit\Spinner\Asynchronous\Loop\ILoopProbeFactory;
+use AlecRabbit\Spinner\Asynchronous\Contract\ILoopProbeFactory;
 use AlecRabbit\Spinner\Container\Contract\IContainer;
 use AlecRabbit\Spinner\Core\A\ALoopAdapter;
 use AlecRabbit\Spinner\Core\Contract\ILoopAdapter;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopFactory;
 use AlecRabbit\Spinner\Core\Factory\LoopFactory;
 use AlecRabbit\Spinner\Core\Loop\Probe\A\ALoopProbe;
-use AlecRabbit\Spinner\Exception\DomainException;
 use AlecRabbit\Tests\Spinner\TestCase\TestCase;
 use AlecRabbit\Tests\Spinner\Unit\Spinner\Core\Factory\Override\ALoopAdapterOverride;
 use PHPUnit\Framework\Attributes\Test;

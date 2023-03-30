@@ -2,8 +2,9 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Spinner\Asynchronous\Loop;
+namespace AlecRabbit\Spinner\Asynchronous\Factory;
 
+use AlecRabbit\Spinner\Asynchronous\Contract\ILoopProbeFactory;
 use AlecRabbit\Spinner\Container\Contract\IContainer;
 use AlecRabbit\Spinner\Core\Factory\A\AFactory;
 use AlecRabbit\Spinner\Core\Loop\Probe\Contract\ILoopProbe;

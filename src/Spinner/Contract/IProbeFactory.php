@@ -2,9 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Spinner\Asynchronous\Loop;
-
-use AlecRabbit\Spinner\Contract\IProbe;
+namespace AlecRabbit\Spinner\Contract;
 
 interface IProbeFactory
 {
