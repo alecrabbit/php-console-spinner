@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Core\Factory\Override;
+namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Asynchronous\Override;
 
 use AlecRabbit\Spinner\Core\A\ALoopAdapter;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;

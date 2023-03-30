@@ -12,7 +12,7 @@ use AlecRabbit\Spinner\Core\Factory\Contract\ILoopFactory;
 use AlecRabbit\Spinner\Core\Factory\LoopFactory;
 use AlecRabbit\Spinner\Core\Loop\Probe\A\ALoopProbe;
 use AlecRabbit\Tests\Spinner\TestCase\TestCase;
-use AlecRabbit\Tests\Spinner\Unit\Spinner\Core\Factory\Override\ALoopAdapterOverride;
+use AlecRabbit\Tests\Spinner\Unit\Spinner\Asynchronous\Override\ALoopAdapterOverride;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 
