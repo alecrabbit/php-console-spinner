@@ -8,7 +8,6 @@ use AlecRabbit\Spinner\Asynchronous\Loop\Probe\RevoltLoopProbe;
 use AlecRabbit\Spinner\Core\ContainerFactory;
 use AlecRabbit\Spinner\Core\Contract\ILoopManager;
 
-
 // @codeCoverageIgnoreStart
 $container = ContainerFactory::getContainer();
 
@@ -18,7 +17,7 @@ $container->replace(
         return
             new LoopManager(
                 $container,
-                new \ArrayObject([
+                new ArrayObject([
                     ReactLoopProbe::class,
                     RevoltLoopProbe::class,
                 ]),

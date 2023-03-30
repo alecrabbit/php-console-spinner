@@ -57,14 +57,14 @@ class ReactLoopAdapter extends ALoopAdapter
         $this->getLoop()->run();
     }
 
-    public function stop(): void
-    {
-        $this->getLoop()->stop();
-    }
-
     public function getLoop(): LoopInterface
     {
         return $this->loop;
+    }
+
+    public function stop(): void
+    {
+        $this->getLoop()->stop();
     }
 
     protected function onSignal(int $signal, Closure $closure): void

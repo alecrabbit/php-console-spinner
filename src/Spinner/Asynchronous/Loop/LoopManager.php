@@ -10,6 +10,7 @@ use AlecRabbit\Spinner\Core\Contract\ILoopAdapter;
 use AlecRabbit\Spinner\Core\Contract\ILoopManager;
 use AlecRabbit\Spinner\Core\Contract\ILoopProbe;
 use AlecRabbit\Spinner\Exception\DomainException;
+use ArrayObject;
 use Traversable;
 
 final class LoopManager extends AManager implements ILoopManager
@@ -22,7 +23,7 @@ final class LoopManager extends AManager implements ILoopManager
         Traversable $loopProbes,
     ) {
         parent::__construct($container);
-        $this->loopProbes = new \ArrayObject([]);
+        $this->loopProbes = new ArrayObject([]);
         $this->registerProbes($loopProbes);
     }
 
@@ -33,6 +34,11 @@ final class LoopManager extends AManager implements ILoopManager
                 $this->loopProbes->append($loopProbe);
             }
         }
+    }
+
+    protected static function isSubclassOfLoopProbe($loopProbe): bool
+    {
+        return is_subclass_of($loopProbe, ILoopProbe::class);
     }
 
     public function createLoop(): ILoopAdapter
@@ -48,10 +54,5 @@ final class LoopManager extends AManager implements ILoopManager
             ' Check you have installed one of the supported event loops.' .
             ' Check your probes list if you have modified it.'
         );
-    }
-
-    protected static function isSubclassOfLoopProbe($loopProbe): bool
-    {
-        return is_subclass_of($loopProbe, ILoopProbe::class);
     }
 }
