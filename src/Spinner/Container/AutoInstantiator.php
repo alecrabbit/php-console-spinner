@@ -43,8 +43,12 @@ final class AutoInstantiator implements IAutoInstantiator
         if ($constructorParameters) {
             $parameters = [];
             foreach ($constructorParameters as $parameter) {
-                $parameters[$parameter->getName()] =
-                    self::getContainer()->get($parameter->getType()?->getName());
+                $name = $parameter->getName();
+                $id = $parameter->getType()?->getName();
+                if (null === $id) {
+                    throw new RuntimeException('Unable to extract type for parameter name: $' . $name);
+                }
+                $parameters[$name] = self::getContainer()->get($id);
             }
             return new $class(...$parameters);
         }
