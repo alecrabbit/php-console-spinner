@@ -1,9 +1,2 @@
 deptrac:
-  skip_violations:
-    AlecRabbit\Spinner\Container\AutoInstantiator:
-      - AlecRabbit\Spinner\Exception\RuntimeException
-      - AlecRabbit\Spinner\Mixin\AutoInstantiableTrait
-    AlecRabbit\Spinner\Container\Contract\IAutoInstantiator:
-      - AlecRabbit\Spinner\Mixin\AutoInstantiableTrait
-    AlecRabbit\Spinner\Mixin\AutoInstantiableTrait:
-      - AlecRabbit\Spinner\Container\AutoInstantiator
+  skip_violations: {  }

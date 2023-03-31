@@ -7,7 +7,7 @@ namespace AlecRabbit\Spinner\Container;
 use AlecRabbit\Spinner\Container\Contract\IAutoInstantiator;
 use AlecRabbit\Spinner\Container\Exception\ContainerAlreadyRegistered;
 use AlecRabbit\Spinner\Container\Exception\ContainerNotRegistered;
-use AlecRabbit\Spinner\Exception\RuntimeException;
+use AlecRabbit\Spinner\Container\Exception\RuntimeException;
 use Psr\Container\ContainerInterface;
 use ReflectionClass;
 use Throwable;
