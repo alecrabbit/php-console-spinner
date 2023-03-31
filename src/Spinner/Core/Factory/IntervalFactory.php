@@ -9,8 +9,8 @@ use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Core\Config\Contract\IDefaultsProvider;
 use AlecRabbit\Spinner\Core\Factory\A\AFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalFactory;
-use AlecRabbit\Spinner\Core\Interval;
 use AlecRabbit\Spinner\Core\IntegerNormalizer;
+use AlecRabbit\Spinner\Core\Interval;
 
 final class IntervalFactory extends AFactory implements IIntervalFactory
 {
@@ -28,10 +28,8 @@ final class IntervalFactory extends AFactory implements IIntervalFactory
         static $normalized = null;
 
         if (null === $normalized) {
-//            $defaults = $this->getDefaultsProvider();
-//            dump($defaults);
             $normalized = $this->normalize(
-                1000, // FIXME <-- hard code: $defaults->?->getInterval()
+                $this->defaultsProvider->getAuxSettings()->getInterval(),
             );
         }
 

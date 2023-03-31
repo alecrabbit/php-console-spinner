@@ -22,5 +22,5 @@ interface IDefaultsProvider
 
     public function getLoopSettings(): ILoopSettings;
 
-    public function getAuxSettings(string $name): IAuxSettings;
+    public function getAuxSettings(): IAuxSettings;
 }

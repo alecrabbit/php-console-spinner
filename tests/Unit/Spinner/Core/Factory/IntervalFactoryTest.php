@@ -3,6 +3,7 @@
 namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Core\Factory;
 
 use AlecRabbit\Spinner\Container\Contract\IContainer;
+use AlecRabbit\Spinner\Core\Defaults\Contract\IAuxSettings;
 use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalFactory;
 use AlecRabbit\Spinner\Core\Factory\IntervalFactory;
 use AlecRabbit\Spinner\Core\Interval;
@@ -38,9 +39,13 @@ final class IntervalFactoryTest extends TestCaseWithPrebuiltMocks
     public function canCreateDefaultInterval(): void
     {
         $container = $this->getContainerMock();
+        $defaultsProvider = $this->getDefaultsProviderMock();
+        $defaultsProvider
+            ->method('getAuxSettings')
+            ->willReturn($this->getAuxSettingsMock());
         $container
             ->method('get')
-            ->willReturn($this->getDefaultsProviderMock())
+            ->willReturn($defaultsProvider)
         ;
 
         $intervalFactory = $this->getTesteeInstance(container: $container);
@@ -49,4 +54,5 @@ final class IntervalFactoryTest extends TestCaseWithPrebuiltMocks
 
         self::assertInstanceOf(Interval::class, $interval);
     }
+
 }

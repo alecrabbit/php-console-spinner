@@ -15,12 +15,14 @@ use AlecRabbit\Spinner\Core\Config\Contract\IDriverBuilder;
 use AlecRabbit\Spinner\Core\Config\WidgetConfig;
 use AlecRabbit\Spinner\Core\Contract\ILoopProbeFactory;
 use AlecRabbit\Spinner\Core\Contract\ISpinnerBuilder;
+use AlecRabbit\Spinner\Core\Defaults\Contract\IAuxSettings;
 use AlecRabbit\Spinner\Core\Factory\Contract\IRevolverFactory;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetBuilder;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolverBuilder;
 use AlecRabbit\Tests\Spinner\Unit\Spinner\Asynchronous\Factory\LoopFactoryTest;
 use AlecRabbit\Tests\Spinner\Unit\Spinner\Core\Config\ConfigBuilderTest;
+use AlecRabbit\Tests\Spinner\Unit\Spinner\Core\Factory\IntervalFactoryTest;
 use AlecRabbit\Tests\Spinner\Unit\Spinner\Core\Factory\SpinnerFactoryTest;
 use PHPUnit\Framework\MockObject\MockObject;
 
@@ -101,8 +103,13 @@ abstract class TestCaseWithPrebuiltMocks extends TestCase
         return $this->createMock(ILoopProbeFactory::class);
     }
 
-    protected function getDefaultsProviderMock(): IDefaultsProvider
+    protected function getDefaultsProviderMock(): MockObject&IDefaultsProvider
     {
         return $this->createMock(IDefaultsProvider::class);
+    }
+
+    protected function getAuxSettingsMock(): MockObject&IAuxSettings
+    {
+        return $this->createMock(IAuxSettings::class);
     }
 }

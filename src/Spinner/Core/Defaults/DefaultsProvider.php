@@ -89,7 +89,7 @@ final class DefaultsProvider implements IDefaultsProvider
         return $this->loopSettings;
     }
 
-    public function getAuxSettings(string $name): IAuxSettings
+    public function getAuxSettings(): IAuxSettings
     {
         return $this->auxSettings;
     }
