@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Color;
 
 use AlecRabbit\Spinner\Contract\Color\IStringableColor;
-use AlecRabbit\Spinner\Contract\IStyleOptions;
 use AlecRabbit\Spinner\Contract\IStyle;
+use AlecRabbit\Spinner\Contract\IStyleOptions;
 
 final readonly class Style implements IStyle
 {

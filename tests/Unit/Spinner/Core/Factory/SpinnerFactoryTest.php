@@ -4,14 +4,12 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Core\Factory;
 
-use AlecRabbit\Spinner\Container\Contract\IContainer;
 use AlecRabbit\Spinner\Core\A\ASpinner;
 use AlecRabbit\Spinner\Core\Contract\ISpinnerBuilder;
 use AlecRabbit\Spinner\Core\Factory\Contract\ISpinnerFactory;
 use AlecRabbit\Spinner\Core\Factory\SpinnerFactory;
 use AlecRabbit\Tests\Spinner\TestCase\TestCaseWithPrebuiltMocks;
 use PHPUnit\Framework\Attributes\Test;
-use PHPUnit\Framework\MockObject\MockObject;
 
 final class SpinnerFactoryTest extends TestCaseWithPrebuiltMocks
 {
@@ -23,7 +21,8 @@ final class SpinnerFactoryTest extends TestCaseWithPrebuiltMocks
         self::assertInstanceOf(SpinnerFactory::class, $spinnerFactory);
     }
 
-    public function getTesteeInstance(?ISpinnerBuilder $spinnerBuilder = null): ISpinnerFactory {
+    public function getTesteeInstance(?ISpinnerBuilder $spinnerBuilder = null): ISpinnerFactory
+    {
         return
             new SpinnerFactory(
                 spinnerBuilder: $spinnerBuilder ?? $this->getSpinnerBuilderMock(),

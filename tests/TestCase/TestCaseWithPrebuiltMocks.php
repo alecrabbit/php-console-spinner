@@ -18,7 +18,6 @@ use AlecRabbit\Spinner\Core\Contract\ILoopProbeFactory;
 use AlecRabbit\Spinner\Core\Contract\ISpinnerBuilder;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IAuxSettings;
 use AlecRabbit\Spinner\Core\Factory\Contract\IRevolverFactory;
-use AlecRabbit\Spinner\Core\IIntegerNormalizer;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetBuilder;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolverBuilder;

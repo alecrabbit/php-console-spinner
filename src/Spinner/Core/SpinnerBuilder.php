@@ -25,6 +25,7 @@ final class SpinnerBuilder implements ISpinnerBuilder
         protected IConfigBuilder $configBuilder,
     ) {
     }
+
     public function build(): ISpinner
     {
         $this->config = $this->refineConfig($this->config);

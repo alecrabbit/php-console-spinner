@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Container\Exception;
 
-final class ContainerNotRegistered extends \RuntimeException
+use RuntimeException;
+
+final class ContainerNotRegistered extends RuntimeException
 {
 
 }

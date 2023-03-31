@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Container\Contract;
 
-use AlecRabbit\Spinner\Mixin\AutoInstantiableTrait;
 use Psr\Container\ContainerInterface;
 
 interface IAutoInstantiator

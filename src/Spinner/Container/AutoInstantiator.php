@@ -35,14 +35,6 @@ final class AutoInstantiator implements IAutoInstantiator
         };
     }
 
-    protected static function getContainer(): ContainerInterface
-    {
-        if (null === self::$container) {
-            throw new ContainerNotRegistered('Container not registered.');
-        }
-        return self::$container;
-    }
-
     protected static function createInstanceByReflection(string $class): object
     {
         $reflection = new ReflectionClass($class);
@@ -62,5 +54,13 @@ final class AutoInstantiator implements IAutoInstantiator
         } catch (Throwable $e) {
             throw new RuntimeException('Unable to create instance of ' . $class, previous: $e);
         }
+    }
+
+    protected static function getContainer(): ContainerInterface
+    {
+        if (null === self::$container) {
+            throw new ContainerNotRegistered('Container not registered.');
+        }
+        return self::$container;
     }
 }

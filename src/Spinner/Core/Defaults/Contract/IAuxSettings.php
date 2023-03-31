@@ -6,8 +6,6 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Defaults\Contract;
 
 use AlecRabbit\Spinner\Contract\IInterval;
-use AlecRabbit\Spinner\Contract\OptionInitialization;
-use AlecRabbit\Spinner\Core\Defaults\AuxSettings;
 
 interface IAuxSettings
 {

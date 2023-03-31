@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Core;
 
-use AlecRabbit\Spinner\Container\Contract\IContainer;
 use AlecRabbit\Spinner\Core\A\ASpinner;
 use AlecRabbit\Spinner\Core\Config\Contract\IConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IConfigBuilder;
@@ -14,7 +13,6 @@ use AlecRabbit\Spinner\Core\SpinnerBuilder;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetBuilder;
 use AlecRabbit\Tests\Spinner\TestCase\TestCaseWithPrebuiltMocks;
 use PHPUnit\Framework\Attributes\Test;
-use PHPUnit\Framework\MockObject\MockObject;
 
 final class SpinnerBuilderTest extends TestCaseWithPrebuiltMocks
 {
@@ -54,7 +52,7 @@ final class SpinnerBuilderTest extends TestCaseWithPrebuiltMocks
     #[Test]
     public function canBuildSpinnerWithNoConfigProvided(): void
     {
-       $spinnerBuilder = $this->getTesteeInstance();
+        $spinnerBuilder = $this->getTesteeInstance();
 
         $spinner = $spinnerBuilder->build();
 

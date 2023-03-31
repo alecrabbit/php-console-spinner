@@ -15,12 +15,8 @@ use AlecRabbit\Spinner\Core\Contract\IIntervalNormalizer;
 use AlecRabbit\Spinner\Core\Contract\ILoopProbeFactory;
 use AlecRabbit\Spinner\Core\Contract\ISpinnerBuilder;
 use AlecRabbit\Spinner\Core\Factory\Contract\IRevolverFactory;
-use AlecRabbit\Spinner\Core\Factory\IntervalFactory;
-use AlecRabbit\Spinner\Core\Factory\LoopFactory;
-use AlecRabbit\Spinner\Core\SpinnerBuilder;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetBuilder;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolverBuilder;
-use AlecRabbit\Spinner\Core\WidgetBuilder;
 
 abstract class AContainerServices
 {
