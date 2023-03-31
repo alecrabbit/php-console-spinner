@@ -68,5 +68,9 @@ final class Stringify
     public static function shortClassName(string|object $fqcn): string
     {
         return (new \ReflectionClass($fqcn))->getShortName();
+        //$fullyQualifiedClassName = 'AlecRabbit\Spinner\Exception\DomainException';
+        //$classNameParts = explode('\\', $fullyQualifiedClassName);
+        //$className = end($classNameParts);
+        //echo $className; // outputs 'DomainException'
     }
 }
