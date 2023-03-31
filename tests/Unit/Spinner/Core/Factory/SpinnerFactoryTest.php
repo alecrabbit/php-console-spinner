@@ -6,6 +6,7 @@ namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Core\Factory;
 
 use AlecRabbit\Spinner\Container\Contract\IContainer;
 use AlecRabbit\Spinner\Core\A\ASpinner;
+use AlecRabbit\Spinner\Core\Contract\ISpinnerBuilder;
 use AlecRabbit\Spinner\Core\Factory\Contract\ISpinnerFactory;
 use AlecRabbit\Spinner\Core\Factory\SpinnerFactory;
 use AlecRabbit\Tests\Spinner\TestCase\TestCaseWithPrebuiltMocks;
@@ -17,17 +18,15 @@ final class SpinnerFactoryTest extends TestCaseWithPrebuiltMocks
     #[Test]
     public function canBeCreated(): void
     {
-        $spinnerFactory = $this->getTesteeInstance(container: null);
+        $spinnerFactory = $this->getTesteeInstance();
 
         self::assertInstanceOf(SpinnerFactory::class, $spinnerFactory);
     }
 
-    public function getTesteeInstance(
-        (MockObject&IContainer)|null $container,
-    ): ISpinnerFactory {
+    public function getTesteeInstance(?ISpinnerBuilder $spinnerBuilder = null): ISpinnerFactory {
         return
             new SpinnerFactory(
-                container: $container ?? $this->getContainerMock(),
+                spinnerBuilder: $spinnerBuilder ?? $this->getSpinnerBuilderMock(),
             );
     }
 
@@ -52,7 +51,7 @@ final class SpinnerFactoryTest extends TestCaseWithPrebuiltMocks
             )
         ;
 
-        $spinnerFactory = $this->getTesteeInstance(container: $container);
+        $spinnerFactory = $this->getTesteeInstance($spinnerBuilder);
 
         $spinner = $spinnerFactory->createSpinner();
 
@@ -85,7 +84,7 @@ final class SpinnerFactoryTest extends TestCaseWithPrebuiltMocks
             )
         ;
 
-        $spinnerFactory = $this->getTesteeInstance(container: $container);
+        $spinnerFactory = $this->getTesteeInstance($spinnerBuilder);
 
         $config = $this->getConfigMock();
 

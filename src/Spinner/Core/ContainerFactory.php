@@ -77,7 +77,7 @@ final class ContainerFactory implements IContainerFactory
                 },
                 IRevolverFactory::class => $instanceProducer(RevolverFactory::class),
                 IFrameRevolverBuilder::class => $instanceProducer(FrameRevolverBuilder::class),
-                ISpinnerFactory::class => $instanceProducer(SpinnerFactory::class),
+                ISpinnerFactory::class => SpinnerFactory::class::getInstance(...),
                 ISpinnerBuilder::class => $instanceProducer(SpinnerBuilder::class),
                 IFrameFactory::class => $instanceProducer(FrameFactory::class),
             ],

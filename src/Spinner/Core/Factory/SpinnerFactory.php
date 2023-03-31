@@ -4,23 +4,27 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Factory;
 
+use AlecRabbit\Spinner\Core\A\AAutoInstantiable;
 use AlecRabbit\Spinner\Core\Config\Contract\IConfig;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
-use AlecRabbit\Spinner\Core\Factory\A\AFactory;
+use AlecRabbit\Spinner\Core\Contract\ISpinnerBuilder;
 use AlecRabbit\Spinner\Core\Factory\Contract\ISpinnerFactory;
 
-final class SpinnerFactory extends AFactory implements ISpinnerFactory
+final class SpinnerFactory extends AAutoInstantiable implements ISpinnerFactory
 {
+    public function __construct(
+        protected ISpinnerBuilder $spinnerBuilder,
+    ) {
+    }
+
     public function createSpinner(IConfig $config = null): ISpinner
     {
-        $spinnerBuilder = $this->getSpinnerBuilder();
-
         if ($config) {
-            $spinnerBuilder = $spinnerBuilder->withConfig($config);
+            $this->spinnerBuilder = $this->spinnerBuilder->withConfig($config);
         }
 
         return
-            $spinnerBuilder
+            $this->spinnerBuilder
                 ->build()
         ;
     }
