@@ -7,6 +7,7 @@ namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Core;
 use AlecRabbit\Spinner\Contract\OptionStyleMode;
 use AlecRabbit\Spinner\Core\Color\AnsiStyleConverter;
 use AlecRabbit\Spinner\Core\Color\Style;
+use AlecRabbit\Spinner\Core\Factory\FrameFactory;
 use AlecRabbit\Spinner\Core\Factory\StaticFrameFactory;
 use AlecRabbit\Spinner\Core\Pattern\Char\CustomPattern;
 use AlecRabbit\Spinner\Core\Pattern\Contract\IStylePattern;
@@ -28,7 +29,7 @@ final class StyleFrameCollectionRendererTest extends TestCase
         yield [
             [
                 self::FRAMES => [
-                    StaticFrameFactory::create('%s', 0),
+                    FrameFactory::create('%s', 0),
                 ],
                 self::COUNT => 1,
             ],

@@ -8,7 +8,7 @@ use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDefaults;
 use AlecRabbit\Spinner\Core\Factory\Contract\IStaticWidgetFactory;
-use AlecRabbit\Spinner\Core\Factory\StaticFrameFactory;
+use AlecRabbit\Spinner\Core\Factory\FrameFactory;
 use AlecRabbit\Spinner\Core\Factory\StaticIntervalFactory;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
 use AlecRabbit\Spinner\Core\Revolver\EmptyFrameRevolver;
@@ -27,8 +27,8 @@ abstract class AStaticWidgetFactory extends ADefaultsAwareClass implements IStat
         return
             static::create(
                 EmptyFrameRevolver::create(),
-                StaticFrameFactory::createEmpty(),
-                StaticFrameFactory::createEmpty(),
+                FrameFactory::createEmpty(),
+                FrameFactory::createEmpty(),
             );
     }
 

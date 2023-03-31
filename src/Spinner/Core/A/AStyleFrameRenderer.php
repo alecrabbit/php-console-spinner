@@ -10,7 +10,7 @@ use AlecRabbit\Spinner\Contract\ISequencer;
 use AlecRabbit\Spinner\Contract\IStyle;
 use AlecRabbit\Spinner\Contract\IStyleFrameRenderer;
 use AlecRabbit\Spinner\Contract\OptionStyleMode;
-use AlecRabbit\Spinner\Core\Factory\StaticFrameFactory;
+use AlecRabbit\Spinner\Core\Factory\FrameFactory;
 use AlecRabbit\Spinner\Core\Sequencer;
 use AlecRabbit\Spinner\Exception\DomainException;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
@@ -59,7 +59,7 @@ abstract class AStyleFrameRenderer implements IStyleFrameRenderer
     protected function createFrame(int|string|IStyle $entry, OptionStyleMode $styleMode): IFrame
     {
         if ($styleMode === OptionStyleMode::NONE) {
-            return StaticFrameFactory::create('%s', 0);
+            return FrameFactory::create('%s', 0);
         }
 
         if ($entry instanceof IStyle) {
@@ -82,7 +82,7 @@ abstract class AStyleFrameRenderer implements IStyleFrameRenderer
     protected function createFromStyle(IStyle $entry, OptionStyleMode $styleMode): IFrame
     {
         if ($entry->isEmpty() || $entry->isOptionsOnly()) {
-            return StaticFrameFactory::create('%s', $entry->getWidth());
+            return FrameFactory::create('%s', $entry->getWidth());
         }
 
         $color = $this->flattenStyle($entry, $styleMode);
@@ -120,6 +120,6 @@ abstract class AStyleFrameRenderer implements IStyleFrameRenderer
         /** @var ISequencer $sequencer */
         $sequencer = $this->sequencer;
         return
-            StaticFrameFactory::create($sequencer::colorSequence($color), $width);
+            FrameFactory::create($sequencer::colorSequence($color), $width);
     }
 }

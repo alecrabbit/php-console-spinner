@@ -11,7 +11,7 @@ use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Contract\IProcedure;
 use AlecRabbit\Spinner\Core\CharFrameCollectionRenderer;
 use AlecRabbit\Spinner\Core\Factory\A\AStaticWidgetFactory;
-use AlecRabbit\Spinner\Core\Factory\StaticFrameFactory;
+use AlecRabbit\Spinner\Core\Factory\FrameFactory;
 use AlecRabbit\Spinner\Core\Factory\StaticRevolverFactory;
 use AlecRabbit\Spinner\Core\FrameRenderer;
 use AlecRabbit\Spinner\Core\Pattern\Char\CustomPattern;
@@ -141,15 +141,15 @@ abstract class AStaticProgressWidgetFactory extends AStaticWidgetFactory impleme
     {
         $pattern =
             new CustomPattern([
-                StaticFrameFactory::create(' ', 1),
-                StaticFrameFactory::create('▁', 1),
-                StaticFrameFactory::create('▂', 1),
-                StaticFrameFactory::create('▃', 1),
-                StaticFrameFactory::create('▄', 1),
-                StaticFrameFactory::create('▅', 1),
-                StaticFrameFactory::create('▆', 1),
-                StaticFrameFactory::create('▇', 1),
-                StaticFrameFactory::create('█', 1),
+                FrameFactory::create(' ', 1),
+                FrameFactory::create('▁', 1),
+                FrameFactory::create('▂', 1),
+                FrameFactory::create('▃', 1),
+                FrameFactory::create('▄', 1),
+                FrameFactory::create('▅', 1),
+                FrameFactory::create('▆', 1),
+                FrameFactory::create('▇', 1),
+                FrameFactory::create('█', 1),
             ]);
 
         return

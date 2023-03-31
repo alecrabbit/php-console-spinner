@@ -9,7 +9,7 @@ use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Contract\IPattern;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDefaults;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IWidgetSettings;
-use AlecRabbit\Spinner\Core\Factory\StaticFrameFactory;
+use AlecRabbit\Spinner\Core\Factory\FrameFactory;
 
 abstract class AWidgetSettings extends ADefaultsChild
 {
@@ -44,7 +44,7 @@ abstract class AWidgetSettings extends ADefaultsChild
     public function getLeadingSpacer(): IFrame
     {
         if (null === static::$leadingSpacer) {
-            static::$leadingSpacer = StaticFrameFactory::createEmpty();
+            static::$leadingSpacer = FrameFactory::createEmpty();
         }
         return static::$leadingSpacer;
     }
@@ -52,7 +52,7 @@ abstract class AWidgetSettings extends ADefaultsChild
     public function getTrailingSpacer(): IFrame
     {
         if (null === static::$trailingSpacer) {
-            static::$trailingSpacer = StaticFrameFactory::createSpace();
+            static::$trailingSpacer = FrameFactory::createSpace();
         }
         return static::$trailingSpacer;
     }

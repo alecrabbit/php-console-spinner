@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use AlecRabbit\Spinner\Core\Factory\StaticFrameFactory;
+use AlecRabbit\Spinner\Core\Factory\FrameFactory;
 use AlecRabbit\Spinner\Core\Factory\StaticWidgetFactory;
 use AlecRabbit\Spinner\Core\Interval;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
@@ -38,7 +38,7 @@ function createProgressWidget(
                     )
                     ->build()
             )
-            ->withLeadingSpacer(StaticFrameFactory::createSpace())
+            ->withLeadingSpacer(FrameFactory::createSpace())
             ->build();
 
     $progressWidget->add(
@@ -55,7 +55,7 @@ function createProgressWidget(
                     )
                     ->build()
             )
-            ->withLeadingSpacer(StaticFrameFactory::createSpace())
+            ->withLeadingSpacer(FrameFactory::createSpace())
             ->build()
     );
 
