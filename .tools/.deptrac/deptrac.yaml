@@ -55,6 +55,8 @@ deptrac:
       - +ModuleException
       - +ModuleHelper
     VendorSymfony: ~
+    VendorRevolt: ~
+    VendorReact: ~
 #  skip_violations:
 #    NS\Class:
 #      - AnotherNS\Class
