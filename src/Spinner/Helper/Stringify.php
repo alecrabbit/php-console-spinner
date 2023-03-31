@@ -4,7 +4,6 @@ declare(strict_types=1);
 // 25.03.23
 namespace AlecRabbit\Spinner\Helper;
 
-use ReflectionException;
 use Throwable;
 
 final class Stringify
@@ -46,9 +45,6 @@ final class Stringify
         return sprintf(self::FORMAT, $type, get_class($value));
     }
 
-    /**
-     * @throws ReflectionException
-     */
     public static function throwable(Throwable $t, bool $unwrap = true): string
     {
         $class = get_class($t);
@@ -62,15 +58,12 @@ final class Stringify
             ) . $aux;
     }
 
-    /**
-     * @throws ReflectionException
-     */
     public static function shortClassName(string|object $fqcn): string
     {
-        return (new \ReflectionClass($fqcn))->getShortName();
-        //$fullyQualifiedClassName = 'AlecRabbit\Spinner\Exception\DomainException';
-        //$classNameParts = explode('\\', $fullyQualifiedClassName);
-        //$className = end($classNameParts);
-        //echo $className; // outputs 'DomainException'
+        if (is_object($fqcn)) {
+            $fqcn = get_class($fqcn);
+        }
+        $parts = explode('\\', $fqcn);
+        return end($parts);
     }
 }

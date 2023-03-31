@@ -230,6 +230,41 @@ final class StringifyTest extends TestCase
                 ],
             ],
         ];
+        #3
+        yield [
+            [
+                self::RESULT => 'stdClass',
+            ],
+            [
+                self::ARGUMENTS => [
+                    self::VALUE => new \stdClass(),
+                    self::UNWRAP => false,
+                ],
+            ],
+        ];
+        #3
+        yield [
+            [
+                self::RESULT => 'TockClass',
+            ],
+            [
+                self::ARGUMENTS => [
+                    self::VALUE => 'Mom\Tock\TockClass',
+                    self::UNWRAP => false,
+                ],
+            ],
+        ];
+        #4
+        yield [
+            [
+                self::RESULT => 'TockClass',
+            ],
+            [
+                self::ARGUMENTS => [
+                    self::VALUE => 'TockClass',
+                ],
+            ],
+        ];
     }
 
     #[Test]
