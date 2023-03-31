@@ -4,8 +4,8 @@ declare(strict_types=1);
 // 15.02.23
 namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Core;
 
-use AlecRabbit\Spinner\Contract\IIntegerNormalizer;
-use AlecRabbit\Spinner\Core\IntegerNormalizer;
+use AlecRabbit\Spinner\Contract\IIntNormalizer;
+use AlecRabbit\Spinner\Core\IntNormalizer;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Tests\Spinner\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
@@ -85,7 +85,7 @@ final class IntNormalizerTest extends TestCase
 
         $args = $incoming[self::ARGUMENTS];
 
-        IntegerNormalizer::overrideDivisor($args[self::DIVISOR]);
+        IntNormalizer::overrideDivisor($args[self::DIVISOR]);
 
         if ($expectedException) {
             self::failTest($expectedException);
@@ -93,7 +93,7 @@ final class IntNormalizerTest extends TestCase
 
         self::assertSame(
             $expected[self::INTERVAL],
-            IntegerNormalizer::normalize($args[self::INTERVAL])
+            IntNormalizer::normalize($args[self::INTERVAL])
         );
     }
 
@@ -101,9 +101,9 @@ final class IntNormalizerTest extends TestCase
     #[DataProvider('simplifiedDataFeeder')]
     public function canSetAndGetDivisor(int $divisor,): void
     {
-        IntegerNormalizer::overrideDivisor($divisor);
+        IntNormalizer::overrideDivisor($divisor);
 
-        self::assertSame($divisor, IntegerNormalizer::getDivisor());
+        self::assertSame($divisor, IntNormalizer::getDivisor());
     }
 
     #[Test]
@@ -112,12 +112,12 @@ final class IntNormalizerTest extends TestCase
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('Min should be greater than 0.');
 
-        IntegerNormalizer::overrideMin(-1);
+        IntNormalizer::overrideMin(-1);
         self::fail(sprintf('[%s] Exception not thrown', __METHOD__));
     }
 
     protected function setUp(): void
     {
-        IntegerNormalizer::overrideMin(IIntegerNormalizer::DEFAULT_MIN);
+        IntNormalizer::overrideMin(IIntNormalizer::DEFAULT_MIN);
     }
 }

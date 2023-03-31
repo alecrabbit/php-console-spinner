@@ -13,17 +13,15 @@ use AlecRabbit\Spinner\Core\Config\Contract\IConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\IDefaultsProvider;
 use AlecRabbit\Spinner\Core\Config\Contract\IDriverBuilder;
 use AlecRabbit\Spinner\Core\Config\WidgetConfig;
+use AlecRabbit\Spinner\Core\Contract\IIntervalNormalizer;
 use AlecRabbit\Spinner\Core\Contract\ILoopProbeFactory;
 use AlecRabbit\Spinner\Core\Contract\ISpinnerBuilder;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IAuxSettings;
 use AlecRabbit\Spinner\Core\Factory\Contract\IRevolverFactory;
+use AlecRabbit\Spinner\Core\IIntegerNormalizer;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetBuilder;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolverBuilder;
-use AlecRabbit\Tests\Spinner\Unit\Spinner\Asynchronous\Factory\LoopFactoryTest;
-use AlecRabbit\Tests\Spinner\Unit\Spinner\Core\Config\ConfigBuilderTest;
-use AlecRabbit\Tests\Spinner\Unit\Spinner\Core\Factory\IntervalFactoryTest;
-use AlecRabbit\Tests\Spinner\Unit\Spinner\Core\Factory\SpinnerFactoryTest;
 use PHPUnit\Framework\MockObject\MockObject;
 
 abstract class TestCaseWithPrebuiltMocks extends TestCase
@@ -44,14 +42,14 @@ abstract class TestCaseWithPrebuiltMocks extends TestCase
         return $this->createMock(IFrame::class);
     }
 
-    protected function getConfigMock(): IConfig&MockObject
-    {
-        return $this->createMock(IConfig::class);
-    }
-
     protected function getPatternMock(): IPattern&MockObject
     {
         return $this->createMock(IPattern::class);
+    }
+
+    protected function getConfigMock(): IConfig&MockObject
+    {
+        return $this->createMock(IConfig::class);
     }
 
     protected function getContainerMock(): MockObject&IContainer
@@ -78,6 +76,7 @@ abstract class TestCaseWithPrebuiltMocks extends TestCase
     {
         return $this->createMock(IConfigBuilder::class);
     }
+
     protected function getSpinnerBuilderMock(): ISpinnerBuilder&MockObject
     {
         return $this->createMock(ISpinnerBuilder::class);
@@ -111,5 +110,15 @@ abstract class TestCaseWithPrebuiltMocks extends TestCase
     protected function getAuxSettingsMock(): MockObject&IAuxSettings
     {
         return $this->createMock(IAuxSettings::class);
+    }
+
+    protected function getIntervalNormalizerMock(): MockObject&IIntervalNormalizer
+    {
+        return $this->createMock(IIntervalNormalizer::class);
+    }
+
+    protected function getIntegerNormalizerMock(): MockObject&IIntegerNormalizer
+    {
+        return $this->createMock(IIntegerNormalizer::class);
     }
 }

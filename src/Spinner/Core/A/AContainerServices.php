@@ -11,9 +11,11 @@ use AlecRabbit\Spinner\Core\Color\AnsiStyleConverter;
 use AlecRabbit\Spinner\Core\Config\Contract\IConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\IDefaultsProvider;
 use AlecRabbit\Spinner\Core\Config\Contract\IDriverBuilder;
+use AlecRabbit\Spinner\Core\Contract\IIntervalNormalizer;
 use AlecRabbit\Spinner\Core\Contract\ILoopProbeFactory;
 use AlecRabbit\Spinner\Core\Contract\ISpinnerBuilder;
 use AlecRabbit\Spinner\Core\Factory\Contract\IRevolverFactory;
+use AlecRabbit\Spinner\Core\Factory\IntervalFactory;
 use AlecRabbit\Spinner\Core\Factory\LoopFactory;
 use AlecRabbit\Spinner\Core\SpinnerBuilder;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetBuilder;
@@ -71,5 +73,10 @@ abstract class AContainerServices
     protected function getWidgetRevolverBuilder(): IWidgetRevolverBuilder
     {
         return $this->container->get(IWidgetRevolverBuilder::class);
+    }
+
+    protected function getIntervalNormalizer(): IIntervalNormalizer
+    {
+        return $this->container->get(IIntervalNormalizer::class);
     }
 }

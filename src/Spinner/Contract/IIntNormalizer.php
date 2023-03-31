@@ -7,7 +7,7 @@ namespace AlecRabbit\Spinner\Contract;
 
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 
-interface IIntegerNormalizer
+interface IIntNormalizer
 {
     final public const DEFAULT_DIVISOR = 1;
     final public const DEFAULT_MIN = 0;

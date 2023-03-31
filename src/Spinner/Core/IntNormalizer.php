@@ -5,28 +5,36 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core;
 
+use AlecRabbit\Spinner\Contract\IIntNormalizer;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 
-final class IntegerNormalizer implements IIntegerNormalizer
+final class IntNormalizer implements IIntNormalizer
 {
-    protected const DEFAULT_DIVISOR = 1;
-    protected const DEFAULT_MIN = 0;
-    protected const MAX_DIVISOR = 1000000;
+    private static int $divisor = self::DEFAULT_DIVISOR;
+    private static int $min = self::DEFAULT_MIN;
 
-    /**
-     * @throws InvalidArgumentException
-     */
-    public function __construct(
-        protected int $divisor = self::DEFAULT_DIVISOR,
-        protected int $min = self::DEFAULT_MIN,
-    ) {
-        self::assertDivisor($divisor);
-        self::assertMin($min);
+    public static function normalize(int $interval): int
+    {
+        $result = (int)round($interval / self::$divisor) * self::$divisor;
+
+        if (self::$min > $result) {
+            return self::$min;
+        }
+
+        return $result;
     }
 
-    public function getDivisor(): int
+    public static function getDivisor(): int
     {
-        return $this->divisor;
+        return self::$divisor;
+    }
+
+
+    /** @inheritdoc */
+    public static function overrideDivisor(int $divisor): void
+    {
+        self::assertDivisor($divisor);
+        self::$divisor = $divisor;
     }
 
     /**
@@ -43,6 +51,14 @@ final class IntegerNormalizer implements IIntegerNormalizer
         };
     }
 
+    /** @inheritdoc */
+
+    public static function overrideMin(int $min): void
+    {
+        self::assertMin($min);
+        self::$min = $min;
+    }
+
     /**
      * @throws InvalidArgumentException
      */
@@ -51,16 +67,5 @@ final class IntegerNormalizer implements IIntegerNormalizer
         if (0 > $min) {
             throw new InvalidArgumentException('Min should be greater than 0.');
         }
-    }
-
-    public function normalize(int $interval): int
-    {
-        $result = (int)round($interval / $this->divisor) * $this->divisor;
-
-        if ($this->min > $result) {
-            return $this->min;
-        }
-
-        return $result;
     }
 }

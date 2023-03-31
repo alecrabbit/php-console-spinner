@@ -8,7 +8,7 @@ use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Contract\NormalizerMode;
 use AlecRabbit\Spinner\Core\Factory\Contract\IStaticIntervalFactory;
 use AlecRabbit\Spinner\Core\Interval;
-use AlecRabbit\Spinner\Core\IntegerNormalizer;
+use AlecRabbit\Spinner\Core\IntNormalizer;
 
 abstract class AStaticIntervalFactory extends ADefaultsAwareClass implements IStaticIntervalFactory
 {
@@ -35,7 +35,7 @@ abstract class AStaticIntervalFactory extends ADefaultsAwareClass implements ISt
             $interval = (int)$interval->toMilliseconds();
         }
 
-        return IntegerNormalizer::normalize($interval);
+        return IntNormalizer::normalize($interval);
     }
 
     public static function createStill(): IInterval
@@ -51,6 +51,6 @@ abstract class AStaticIntervalFactory extends ADefaultsAwareClass implements ISt
     public static function overrideNormalizerMode(NormalizerMode $mode): void
     {
         self::$normalizerMode = $mode;
-        IntegerNormalizer::overrideDivisor($mode->getDivisor());
+        IntNormalizer::overrideDivisor($mode->getDivisor());
     }
 }

@@ -7,43 +7,37 @@ namespace AlecRabbit\Spinner\Core\Factory;
 use AlecRabbit\Spinner\Container\Contract\IContainer;
 use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Core\Config\Contract\IDefaultsProvider;
+use AlecRabbit\Spinner\Core\Contract\IIntervalNormalizer;
 use AlecRabbit\Spinner\Core\Factory\A\AFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalFactory;
-use AlecRabbit\Spinner\Core\IntegerNormalizer;
 use AlecRabbit\Spinner\Core\Interval;
 
 final class IntervalFactory extends AFactory implements IIntervalFactory
 {
     protected IDefaultsProvider $defaultsProvider;
+    protected IIntervalNormalizer $intervalNormalizer;
 
     public function __construct(IContainer $container)
     {
         parent::__construct($container);
         $this->defaultsProvider = $this->getDefaultsProvider();
+        $this->intervalNormalizer = $this->getIntervalNormalizer();
     }
 
     public function createDefault(): IInterval
     {
-        /** @var null|int $normalized */
-        static $normalized = null;
+        /** @var null|IInterval $normalizedDefaultInterval */
+        static $normalizedDefaultInterval = null;
 
-        if (null === $normalized) {
-            $normalized = $this->normalize(
-                $this->defaultsProvider->getAuxSettings()->getInterval(),
-            );
+        if (null === $normalizedDefaultInterval) {
+            $normalizedDefaultInterval =
+                $this->intervalNormalizer->normalize(
+                    $this->defaultsProvider->getAuxSettings()->getInterval(),
+                );
         }
 
         return
-            new Interval($normalized);
-    }
-
-    protected function normalize(int|IInterval $interval): int
-    {
-        if ($interval instanceof IInterval) {
-            $interval = (int)$interval->toMilliseconds();
-        }
-
-        return IntegerNormalizer::normalize($interval);
+            $normalizedDefaultInterval;
     }
 
     public function createStill(): IInterval
@@ -53,6 +47,10 @@ final class IntervalFactory extends AFactory implements IIntervalFactory
 
     public function createNormalized(int $interval): IInterval
     {
-        return new Interval($this->normalize($interval));
+        return
+            $this->intervalNormalizer->normalize(
+                new Interval($interval)
+            );
     }
+
 }

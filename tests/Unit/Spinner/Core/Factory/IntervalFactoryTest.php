@@ -3,7 +3,6 @@
 namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Core\Factory;
 
 use AlecRabbit\Spinner\Container\Contract\IContainer;
-use AlecRabbit\Spinner\Core\Defaults\Contract\IAuxSettings;
 use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalFactory;
 use AlecRabbit\Spinner\Core\Factory\IntervalFactory;
 use AlecRabbit\Spinner\Core\Interval;
@@ -19,7 +18,11 @@ final class IntervalFactoryTest extends TestCaseWithPrebuiltMocks
         $container = $this->getContainerMock();
         $container
             ->method('get')
-            ->willReturn($this->getDefaultsProviderMock())
+            ->willReturn(
+                $this->getDefaultsProviderMock(),
+                $this->getIntervalNormalizerMock(),
+                $this->getIntegerNormalizerMock(),
+            )
         ;
         $intervalFactory = $this->getTesteeInstance(container: $container);
 
@@ -39,18 +42,65 @@ final class IntervalFactoryTest extends TestCaseWithPrebuiltMocks
     public function canCreateDefaultInterval(): void
     {
         $container = $this->getContainerMock();
+
+        $integerNormalizer = $this->getIntegerNormalizerMock();
         $defaultsProvider = $this->getDefaultsProviderMock();
         $defaultsProvider
             ->method('getAuxSettings')
-            ->willReturn($this->getAuxSettingsMock());
+            ->willReturn($this->getAuxSettingsMock())
+        ;
+
+        $intervalNormalizer = $this->getIntervalNormalizerMock();
+        $intervalNormalizer
+            ->method('normalize')
+            ->willReturn(new Interval())
+        ;
+
         $container
             ->method('get')
-            ->willReturn($defaultsProvider)
+            ->willReturn(
+                $defaultsProvider,
+                $intervalNormalizer,
+                $integerNormalizer,
+            )
         ;
 
         $intervalFactory = $this->getTesteeInstance(container: $container);
 
         $interval = $intervalFactory->createDefault();
+
+        self::assertInstanceOf(Interval::class, $interval);
+    }
+
+    #[Test]
+    public function canCreateStillInterval(): void
+    {
+        $container = $this->getContainerMock();
+
+        $defaultsProvider = $this->getDefaultsProviderMock();
+        $defaultsProvider
+            ->method('getAuxSettings')
+            ->willReturn($this->getAuxSettingsMock())
+        ;
+
+        $intervalNormalizer = $this->getIntervalNormalizerMock();
+        $intervalNormalizer
+            ->method('normalize')
+            ->willReturn(new Interval())
+        ;
+
+        $container
+            ->method('get')
+            ->willReturn(
+                $defaultsProvider,
+                $intervalNormalizer,
+                $this->getIntegerNormalizerMock(),
+            )
+        ;
+
+        $intervalFactory = $this->getTesteeInstance(container: $container);
+
+        $interval = $intervalFactory->createStill();
 
         self::assertInstanceOf(Interval::class, $interval);
     }
