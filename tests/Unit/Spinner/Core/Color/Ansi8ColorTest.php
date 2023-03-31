@@ -120,7 +120,7 @@ final class Ansi8ColorTest extends TestCase
                 : Ansi8Color::getHexColor($index);
 
         if ($expectedException) {
-            self::failExceptionNotThrown($expectedException);
+            self::failTest($expectedException);
         }
 
         self::assertSame($expected[self::RESULT], $result);

@@ -151,26 +151,26 @@ final class ContainerTest extends TestCase
     #[Test]
     public function throwsIfNoServiceFoundById(): void
     {
-        $exception = ContainerException::class;
+        $exceptionClass = ContainerException::class;
         $exceptionMessage = 'There is not service with id "foo" in the container.';
 
-        $this->expectException($exception);
+        $this->expectException($exceptionClass);
         $this->expectExceptionMessage($exceptionMessage);
 
         $container = new Container(new ArrayObject([]));
 
         $container->get('foo');
 
-        self::failExceptionNotThrown($exception, $exceptionMessage);
+        self::failTest(self::exceptionNotThrownString($exceptionClass, $exceptionMessage));
     }
 
     #[Test]
     public function throwsIfClassIsNotFound(): void
     {
-        $exception = ContainerException::class;
+        $exceptionClass = ContainerException::class;
         $exceptionMessage = 'Could not instantiate service for "foo". Class "bar" is not found.';
 
-        $this->expectException($exception);
+        $this->expectException($exceptionClass);
         $this->expectExceptionMessage($exceptionMessage);
 
         $container = new Container(
@@ -181,16 +181,16 @@ final class ContainerTest extends TestCase
 
         $container->get('foo');
 
-        self::failExceptionNotThrown($exception, $exceptionMessage);
+        self::failTest(self::exceptionNotThrownString($exceptionClass, $exceptionMessage));
     }
 
     #[Test]
     public function throwsWhenBeCreatedWithInvalidDefinitions(): void
     {
-        $exception = ContainerException::class;
+        $exceptionClass = ContainerException::class;
         $exceptionMessage = 'Definition should be callable, object or string, integer given.';
 
-        $this->expectException($exception);
+        $this->expectException($exceptionClass);
         $this->expectExceptionMessage($exceptionMessage);
 
         $container = new Container(
@@ -200,16 +200,16 @@ final class ContainerTest extends TestCase
             ])
         );
 
-        self::failExceptionNotThrown($exception, $exceptionMessage);
+        self::failTest(self::exceptionNotThrownString($exceptionClass, $exceptionMessage));
     }
 
     #[Test]
     public function throwsWhenFailsToInstantiateServiceWithCallable(): void
     {
-        $exception = ContainerException::class;
+        $exceptionClass = ContainerException::class;
         $exceptionMessage = 'Could not instantiate service with callable for "foo".';
 
-        $this->expectException($exception);
+        $this->expectException($exceptionClass);
         $this->expectExceptionMessage($exceptionMessage);
 
         $container = new Container(
@@ -220,16 +220,16 @@ final class ContainerTest extends TestCase
 
         $container->get('foo');
 
-        self::failExceptionNotThrown($exception, $exceptionMessage);
+        self::failTest(self::exceptionNotThrownString($exceptionClass, $exceptionMessage));
     }
 
     #[Test]
     public function throwsWhenFailsToInstantiateServiceByConstructor(): void
     {
-        $exception = ContainerException::class;
+        $exceptionClass = ContainerException::class;
         $exceptionMessage = 'Could not instantiate service by __construct() for "foo".';
 
-        $this->expectException($exception);
+        $this->expectException($exceptionClass);
         $this->expectExceptionMessage($exceptionMessage);
 
         $container = new Container(
@@ -240,16 +240,16 @@ final class ContainerTest extends TestCase
 
         $container->get('foo');
 
-        self::failExceptionNotThrown($exception, $exceptionMessage);
+        self::failTest(self::exceptionNotThrownString($exceptionClass, $exceptionMessage));
     }
 
     #[Test]
     public function throwsWhenAddedIdIsAlreadyRegistered(): void
     {
-        $exception = ContainerException::class;
+        $exceptionClass = ContainerException::class;
         $exceptionMessage = 'Definition with id "foo" already registered in the container.';
 
-        $this->expectException($exception);
+        $this->expectException($exceptionClass);
         $this->expectExceptionMessage($exceptionMessage);
 
         $container = new Container(
@@ -260,16 +260,16 @@ final class ContainerTest extends TestCase
 
         $container->add('foo', 'baz');
 
-        self::failExceptionNotThrown($exception, $exceptionMessage);
+        self::failTest(self::exceptionNotThrownString($exceptionClass, $exceptionMessage));
     }
 
     #[Test]
     public function throwsWhenOneOfDefinitionsAlreadyRegistered(): void
     {
-        $exception = ContainerException::class;
+        $exceptionClass = ContainerException::class;
         $exceptionMessage = 'Definition with id "foo" already registered in the container.';
 
-        $this->expectException($exception);
+        $this->expectException($exceptionClass);
         $this->expectExceptionMessage($exceptionMessage);
 
         $definitions = static function (): Generator {
@@ -278,38 +278,38 @@ final class ContainerTest extends TestCase
         };
         $container = new Container($definitions());
 
-        self::failExceptionNotThrown($exception, $exceptionMessage);
+        self::failTest(self::exceptionNotThrownString($exceptionClass, $exceptionMessage));
     }
 
     #[Test]
     public function throwsWhenRemovingUnregisteredDefinition(): void
     {
-        $exception = ContainerException::class;
+        $exceptionClass = ContainerException::class;
         $exceptionMessage = 'Definition with id "foo" is not registered in the container.';
 
-        $this->expectException($exception);
+        $this->expectException($exceptionClass);
         $this->expectExceptionMessage($exceptionMessage);
 
         $container = new Container(new ArrayObject([]));
 
         $container->remove('foo');
 
-        self::failExceptionNotThrown($exception, $exceptionMessage);
+        self::failTest(self::exceptionNotThrownString($exceptionClass, $exceptionMessage));
     }
 
     #[Test]
     public function throwsWhenReplacingUnregisteredDefinition(): void
     {
-        $exception = ContainerException::class;
+        $exceptionClass = ContainerException::class;
         $exceptionMessage = 'Definition with id "bar" is not registered in the container.';
 
-        $this->expectException($exception);
+        $this->expectException($exceptionClass);
         $this->expectExceptionMessage($exceptionMessage);
 
         $container = new Container(new ArrayObject([]));
 
         $container->replace('bar', 'foo');
 
-        self::failExceptionNotThrown($exception, $exceptionMessage);
+        self::failTest(self::exceptionNotThrownString($exceptionClass, $exceptionMessage));
     }
 }

@@ -36,30 +36,26 @@ abstract class TestCase extends PHPUnitTestCase
         return PickLock::callMethod($objectOrClass, $methodName, ...$args);
     }
 
-    protected static function failExceptionNotThrown(
-        string|Throwable $messageOrException,
-        ?string $exceptionMessage = null,
-        ?array $dataSet = null
-    ): never {
-        if (is_string($messageOrException)) {
-            $messageOrException = new $messageOrException($exceptionMessage ?? '');
-        }
-        $message = sprintf(
-            'Exception [%s]%s is not thrown.',
-            $messageOrException::class,
-            $messageOrException->getMessage() === '' ? '' : ' with message: "' . $messageOrException->getMessage() . '"'
-        );
-
-        if (null !== $dataSet) {
-            dump($dataSet); // intentional dump
-        }
+    protected static function failTest(string|Throwable $messageOrException): never
+    {
+        $message =
+            \is_string($messageOrException)
+                ? $messageOrException
+                : self::exceptionNotThrownString($messageOrException);
 
         self::fail($message);
     }
 
-    protected static function failTest(string|Throwable $messageOrException): never
-    {
-        self::fail(Stringify::value($messageOrException));
+    protected static function exceptionNotThrownString(
+        string|Throwable $messageOrException,
+        ?string $exceptionMessage = null
+    ): string {
+        if (is_string($messageOrException)
+            && class_exists($messageOrException)
+            && is_subclass_of($messageOrException, Throwable::class)) {
+            $messageOrException = new $messageOrException($exceptionMessage ?? '');
+        }
+        return 'Exception not thrown: ' . Stringify::throwable($messageOrException);
     }
 
     protected function setUp(): void

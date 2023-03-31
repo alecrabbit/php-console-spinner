@@ -107,10 +107,7 @@ final class AStyleFrameRendererTest extends TestCase
         $result = $renderer->render($args[self::STYLE], $args[self::STYLE_MODE]);
 
         if ($expectedException) {
-            self::failExceptionNotThrown(
-                $expectedException,
-                dataSet: [$result, $expected, $incoming]
-            );
+            self::failTest($expectedException);
         }
 
         self::assertEquals($expected[self::RESULT], $result);

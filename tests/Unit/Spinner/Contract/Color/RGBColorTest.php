@@ -93,7 +93,7 @@ final class RGBColorTest extends TestCase
             );
 
         if ($expectedException) {
-            self::failExceptionNotThrown($expectedException);
+            self::failTest($expectedException);
         }
 
         $expectedResult = $expected[self::RESULT];
@@ -119,7 +119,7 @@ final class RGBColorTest extends TestCase
         $result = RGBColor::fromHex($args[self::HEX]);
 
         if ($expectedException) {
-            self::failExceptionNotThrown($expectedException);
+            self::failTest($expectedException);
         }
 
         self::assertEquals($expected[self::RESULT], $result);

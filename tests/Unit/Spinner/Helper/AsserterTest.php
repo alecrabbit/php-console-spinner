@@ -231,7 +231,7 @@ final class AsserterTest extends TestCase
         );
 
         Asserter::isSubClass($invalidClass, $expectedClass, __METHOD__);
-        self::failExceptionNotThrown($exceptionClass);
+        self::failTest($exceptionClass);
     }
 
     #[Test]
@@ -317,7 +317,7 @@ final class AsserterTest extends TestCase
         Asserter::assertIntColor($args[self::COLOR], $args[self::MODE]);
 
         if ($expectedException) {
-            self::failExceptionNotThrown($expectedException);
+            self::failTest($expectedException);
         }
     }
 
@@ -332,7 +332,7 @@ final class AsserterTest extends TestCase
         Asserter::assertHexStringColor($args[self::COLOR]);
 
         if ($expectedException) {
-            self::failExceptionNotThrown($expectedException);
+            self::failTest($expectedException);
         }
     }
 
@@ -347,7 +347,7 @@ final class AsserterTest extends TestCase
         Asserter::assertIntInRange($args[self::VALUE], $args[self::MIN], $args[self::MAX]);
 
         if ($expectedException) {
-            self::failExceptionNotThrown($expectedException);
+            self::failTest($expectedException);
         }
 
         self::assertTrue(true); // assertion to avoid risky test

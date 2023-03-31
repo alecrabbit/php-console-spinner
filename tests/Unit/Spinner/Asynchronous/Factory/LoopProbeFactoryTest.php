@@ -65,7 +65,7 @@ final class LoopProbeFactoryTest extends TestCase
 
         self::assertInstanceOf(ALoopProbe::class, $loopProbe);
 
-        self::failExceptionNotThrown($exception, $exceptionMessage);
+        self::failTest(self::exceptionNotThrownString($exception, $exceptionMessage));
     }
 
     #[Test]

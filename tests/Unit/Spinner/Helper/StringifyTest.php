@@ -152,6 +152,17 @@ final class StringifyTest extends TestCase
                 ],
             ],
         ];
+        #12
+        yield [
+            [
+                self::RESULT => "DomainException('DomainException message') [AlecRabbit\Spinner\Exception\DomainException]",
+            ],
+            [
+                self::ARGUMENTS => [
+                    self::VALUE => new DomainException('DomainException message'),
+                ],
+            ],
+        ];
     }
     public static function stringifyThrowableDataProvider(): iterable
     {
@@ -159,7 +170,7 @@ final class StringifyTest extends TestCase
         #0
         yield [
             [
-                self::RESULT => 'DomainException("DomainException message") [AlecRabbit\Spinner\Exception\DomainException]',
+                self::RESULT => "DomainException('DomainException message') [AlecRabbit\Spinner\Exception\DomainException]",
             ],
             [
                 self::ARGUMENTS => [
@@ -170,7 +181,7 @@ final class StringifyTest extends TestCase
         #1
         yield [
             [
-                self::RESULT => 'DomainException("DomainException message")',
+                self::RESULT => "DomainException('DomainException message')",
             ],
             [
                 self::ARGUMENTS => [
@@ -193,7 +204,7 @@ final class StringifyTest extends TestCase
         $result = Stringify::value($args[self::VALUE], $args[self::UNWRAP] ?? true);
 
         if ($expectedException) {
-            self::failExceptionNotThrown($expectedException);
+            self::failTest($expectedException);
         }
 
         self::assertSame($expected[self::RESULT], $result);
@@ -210,7 +221,7 @@ final class StringifyTest extends TestCase
         $result = Stringify::throwable($args[self::VALUE], $args[self::UNWRAP] ?? true);
 
         if ($expectedException) {
-            self::failExceptionNotThrown($expectedException);
+            self::failTest($expectedException);
         }
 
         self::assertSame($expected[self::RESULT], $result);
