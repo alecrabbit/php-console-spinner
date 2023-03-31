@@ -9,9 +9,15 @@ use AlecRabbit\Spinner\Core\Factory\A\AFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IFrameFactory;
 use AlecRabbit\Spinner\Core\Frame;
 use AlecRabbit\Spinner\Core\WidthDeterminer;
+use AlecRabbit\Spinner\Mixin\AutoInstantiableTrait;
 
-final class FrameFactory extends AFactory implements IFrameFactory
+final class FrameFactory implements IFrameFactory
 {
+    use AutoInstantiableTrait;
+
+    public function __construct(
+    ) {
+    }
     public static function createEmpty(): IFrame
     {
         return new Frame('', 0);

@@ -4,28 +4,39 @@ declare(strict_types=1);
 // 29.03.23
 namespace AlecRabbit\Spinner\Core;
 
-use AlecRabbit\Spinner\Core\A\ABuilder;
 use AlecRabbit\Spinner\Core\A\ASpinner;
 use AlecRabbit\Spinner\Core\Config\Contract\IConfig;
+use AlecRabbit\Spinner\Core\Config\Contract\IConfigBuilder;
+use AlecRabbit\Spinner\Core\Config\Contract\IDriverBuilder;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use AlecRabbit\Spinner\Core\Contract\ISpinnerBuilder;
+use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetBuilder;
+use AlecRabbit\Spinner\Mixin\AutoInstantiableTrait;
 
-final class SpinnerBuilder extends ABuilder implements ISpinnerBuilder
+final class SpinnerBuilder implements ISpinnerBuilder
 {
+    use AutoInstantiableTrait;
+
     protected ?IConfig $config = null;
 
+    public function __construct(
+        protected IDriverBuilder $driverBuilder,
+        protected IWidgetBuilder $widgetBuilder,
+        protected IConfigBuilder $configBuilder,
+    ) {
+    }
     public function build(): ISpinner
     {
         $this->config = $this->refineConfig($this->config);
 
         $driver =
-            $this->getDriverBuilder()
+            $this->driverBuilder
                 ->withDriverConfig($this->config->getDriverConfig())
                 ->build()
         ;
 
         $rootWidget =
-            $this->getWidgetBuilder()
+            $this->widgetBuilder
                 ->withWidgetConfig($this->config->getRootWidgetConfig())
                 ->build()
         ;
@@ -45,7 +56,7 @@ final class SpinnerBuilder extends ABuilder implements ISpinnerBuilder
 
     protected function createDefaultConfig(): IConfig
     {
-        return $this->getConfigBuilder()->build();
+        return $this->configBuilder->build();
     }
 
     public function withConfig(IConfig $config): self

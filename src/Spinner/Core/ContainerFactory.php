@@ -67,7 +67,7 @@ final class ContainerFactory implements IContainerFactory
 
         return new ArrayObject(
             [
-                IConfigBuilder::class => $instanceProducer(ConfigBuilder::class),
+                IConfigBuilder::class => ConfigBuilder::class::getInstance(...),
                 IDefaultsProvider::class => DefaultsProvider::class,
                 IDriverBuilder::class => $instanceProducer(DriverBuilder::class),
                 IWidgetBuilder::class => $instanceProducer(WidgetBuilder::class),
@@ -78,8 +78,8 @@ final class ContainerFactory implements IContainerFactory
                 IRevolverFactory::class => $instanceProducer(RevolverFactory::class),
                 IFrameRevolverBuilder::class => $instanceProducer(FrameRevolverBuilder::class),
                 ISpinnerFactory::class => SpinnerFactory::class::getInstance(...),
-                ISpinnerBuilder::class => $instanceProducer(SpinnerBuilder::class),
-                IFrameFactory::class => $instanceProducer(FrameFactory::class),
+                ISpinnerBuilder::class => SpinnerBuilder::class::getInstance(...),
+                IFrameFactory::class => FrameFactory::class::getInstance(...),
             ],
         );
     }

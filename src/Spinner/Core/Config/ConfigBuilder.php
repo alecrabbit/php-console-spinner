@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Config;
 
-use AlecRabbit\Spinner\Container\Contract\IContainer;
-use AlecRabbit\Spinner\Core\A\ABuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\IConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\IDefaultsProvider;
@@ -13,51 +11,61 @@ use AlecRabbit\Spinner\Core\Config\Contract\IDriverConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\ILoopConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\ISpinnerConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IWidgetConfig;
+use AlecRabbit\Spinner\Mixin\AutoInstantiableTrait;
 
-final class ConfigBuilder extends ABuilder implements IConfigBuilder
+final class ConfigBuilder implements IConfigBuilder
 {
-    protected IDefaultsProvider $defaultsProvider;
+    use AutoInstantiableTrait;
+
     protected ?IDriverConfig $driverConfig = null;
     protected ?ILoopConfig $loopConfig = null;
     protected ?ISpinnerConfig $spinnerConfig = null;
     protected ?IWidgetConfig $rootWidgetConfig = null;
 
-    public function __construct(IContainer $container)
-    {
-        parent::__construct($container);
-        $this->defaultsProvider = $this->getDefaultsProvider();
+    public function __construct(
+        protected IDefaultsProvider $defaultsProvider
+    ) {
     }
 
 
-    public function withDriverConfig(IDriverConfig $driverConfig): IConfigBuilder
-    {
+    public
+    function withDriverConfig(
+        IDriverConfig $driverConfig
+    ): IConfigBuilder {
         $clone = clone $this;
         $clone->driverConfig = $driverConfig;
         return $clone;
     }
 
-    public function withLoopConfig(ILoopConfig $loopConfig): IConfigBuilder
-    {
+    public
+    function withLoopConfig(
+        ILoopConfig $loopConfig
+    ): IConfigBuilder {
         $clone = clone $this;
         $clone->loopConfig = $loopConfig;
         return $clone;
     }
 
-    public function withSpinnerConfig(ISpinnerConfig $spinnerConfig): IConfigBuilder
-    {
+    public
+    function withSpinnerConfig(
+        ISpinnerConfig $spinnerConfig
+    ): IConfigBuilder {
         $clone = clone $this;
         $clone->spinnerConfig = $spinnerConfig;
         return $clone;
     }
 
-    public function withRootWidgetConfig(IWidgetConfig $widgetConfig): IConfigBuilder
-    {
+    public
+    function withRootWidgetConfig(
+        IWidgetConfig $widgetConfig
+    ): IConfigBuilder {
         $clone = clone $this;
         $clone->rootWidgetConfig = $widgetConfig;
         return $clone;
     }
 
-    public function build(): IConfig
+    public
+    function build(): IConfig
     {
         return
             new Config(
@@ -68,7 +76,8 @@ final class ConfigBuilder extends ABuilder implements IConfigBuilder
             );
     }
 
-    protected function defaultDriverConfig(): IDriverConfig
+    protected
+    function defaultDriverConfig(): IDriverConfig
     {
         $driverSettings = $this->defaultsProvider->getDriverSettings();
         return
@@ -78,7 +87,8 @@ final class ConfigBuilder extends ABuilder implements IConfigBuilder
             );
     }
 
-    protected function defaultLoopConfig(): ILoopConfig
+    protected
+    function defaultLoopConfig(): ILoopConfig
     {
         $loopSettings = $this->defaultsProvider->getLoopSettings();
         return
@@ -89,7 +99,8 @@ final class ConfigBuilder extends ABuilder implements IConfigBuilder
             );
     }
 
-    protected function defaultSpinnerConfig(): ISpinnerConfig
+    protected
+    function defaultSpinnerConfig(): ISpinnerConfig
     {
         $spinnerSettings = $this->defaultsProvider->getSpinnerSettings();
         return
@@ -98,7 +109,8 @@ final class ConfigBuilder extends ABuilder implements IConfigBuilder
             );
     }
 
-    protected function defaultRootWidgetConfig(): IWidgetConfig
+    protected
+    function defaultRootWidgetConfig(): IWidgetConfig
     {
         $rootWidgetSettings = $this->defaultsProvider->getRootWidgetSettings();
         return
