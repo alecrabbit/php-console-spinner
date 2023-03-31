@@ -27,18 +27,7 @@ final class RevolverFactory extends AFactory implements IRevolverFactory
                 StaticIntervalFactory::createStill()
             );
     }
-    public function defaultCharRevolver(): IRevolver
-    {
-        return
-            new FrameCollectionRevolver(
-                new FrameCollection(
-                    new ArrayObject([
-                        $this->getFrameFactory()::createEmpty(),
-                    ])
-                ),
-                StaticIntervalFactory::createStill()
-            );
-    }
+
     public function create(IPattern $pattern): IRevolver
     {
         return $this->getFrameRevolverBuilder()->withPattern($pattern)->build();
@@ -52,5 +41,18 @@ final class RevolverFactory extends AFactory implements IRevolverFactory
     protected function getFrameFactory(): IFrameFactory
     {
         return $this->container->get(IFrameFactory::class);
+    }
+
+    public function defaultCharRevolver(): IRevolver
+    {
+        return
+            new FrameCollectionRevolver(
+                new FrameCollection(
+                    new ArrayObject([
+                        $this->getFrameFactory()::createEmpty(),
+                    ])
+                ),
+                StaticIntervalFactory::createStill()
+            );
     }
 }

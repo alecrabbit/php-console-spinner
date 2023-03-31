@@ -7,7 +7,6 @@ namespace AlecRabbit\Spinner\Core\Config;
 use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Core\A\ABuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\IWidgetConfig;
-use AlecRabbit\Spinner\Core\Factory\Contract\IRevolverFactory;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetBuilder;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
@@ -49,6 +48,25 @@ final class WidgetBuilder extends ABuilder implements IWidgetBuilder
         return $this->revolver ?? $this->buildRevolver();
     }
 
+    protected function buildRevolver(): IRevolver
+    {
+        return $this->getWidgetRevolverBuilder()
+            ->withStyleRevolver(
+                $this->getRevolverFactory()
+                    ->create(
+                        $this->widgetConfig->getStylePattern()
+                    )
+            )
+            ->withCharRevolver(
+                $this->getRevolverFactory()
+                    ->create(
+                        $this->widgetConfig->getCharPattern()
+                    )
+            )
+            ->build()
+        ;
+    }
+
     private function getWidgetRevolverBuilder(): IWidgetRevolverBuilder
     {
         return $this->container->get(IWidgetRevolverBuilder::class);
@@ -76,24 +94,6 @@ final class WidgetBuilder extends ABuilder implements IWidgetBuilder
     {
         $this->widgetConfig = $widgetConfig;
         return $this;
-    }
-
-    protected function buildRevolver(): IRevolver
-    {
-        return $this->getWidgetRevolverBuilder()
-            ->withStyleRevolver(
-                $this->getRevolverFactory()
-                    ->create(
-                        $this->widgetConfig->getStylePattern()
-                    )
-            )
-            ->withCharRevolver(
-                $this->getRevolverFactory()
-                    ->create(
-                        $this->widgetConfig->getCharPattern()
-                    )
-            )
-            ->build();
     }
 
 }

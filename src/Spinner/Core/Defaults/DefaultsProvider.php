@@ -33,8 +33,8 @@ final class DefaultsProvider implements IDefaultsProvider
     {
         return
             new WidgetSettings(
-                leadingSpacer:  StaticFrameFactory::createEmpty(),
-                trailingSpacer:  StaticFrameFactory::createSpace(),
+                leadingSpacer: StaticFrameFactory::createEmpty(),
+                trailingSpacer: StaticFrameFactory::createSpace(),
             );
     }
 

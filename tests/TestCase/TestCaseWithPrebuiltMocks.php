@@ -11,7 +11,6 @@ use AlecRabbit\Spinner\Core\Config\WidgetConfig;
 use AlecRabbit\Spinner\Core\Factory\Contract\IRevolverFactory;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolverBuilder;
-use AlecRabbit\Tests\Spinner\Unit\Spinner\Core\Config\WidgetBuilderTest;
 use PHPUnit\Framework\MockObject\MockObject;
 
 abstract class TestCaseWithPrebuiltMocks extends TestCase

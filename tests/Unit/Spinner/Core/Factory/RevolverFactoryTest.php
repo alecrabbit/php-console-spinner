@@ -7,7 +7,6 @@ namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Core\Factory;
 use AlecRabbit\Spinner\Container\Contract\IContainer;
 use AlecRabbit\Spinner\Core\Factory\Contract\IRevolverFactory;
 use AlecRabbit\Spinner\Core\Factory\RevolverFactory;
-use AlecRabbit\Spinner\Core\Revolver\A\ARevolver;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolver;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolverBuilder;
 use AlecRabbit\Tests\Spinner\TestCase\TestCaseWithPrebuiltMocks;

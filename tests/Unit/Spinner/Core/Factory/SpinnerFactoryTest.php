@@ -12,7 +12,6 @@ use AlecRabbit\Spinner\Core\Config\Contract\IDriverBuilder;
 use AlecRabbit\Spinner\Core\Factory\Contract\ISpinnerFactory;
 use AlecRabbit\Spinner\Core\Factory\SpinnerFactory;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetBuilder;
-use AlecRabbit\Tests\Spinner\TestCase\TestCase;
 use AlecRabbit\Tests\Spinner\TestCase\TestCaseWithPrebuiltMocks;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;

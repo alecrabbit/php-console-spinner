@@ -9,7 +9,6 @@ use AlecRabbit\Spinner\Container\Contract\IContainer;
 use AlecRabbit\Spinner\Core\Contract\ILoopProbeFactory;
 use AlecRabbit\Spinner\Core\Loop\A\ALoopProbe;
 use AlecRabbit\Spinner\Exception\DomainException;
-use AlecRabbit\Tests\Spinner\TestCase\TestCase;
 use AlecRabbit\Tests\Spinner\TestCase\TestCaseWithPrebuiltMocks;
 use AlecRabbit\Tests\Spinner\Unit\Spinner\Asynchronous\Factory\Stub\LoopProbeStub;
 use ArrayObject;

@@ -10,7 +10,6 @@ use AlecRabbit\Spinner\Core\Config\DriverBuilder;
 use AlecRabbit\Spinner\Core\Config\DriverConfig;
 use AlecRabbit\Spinner\Core\Defaults\DefaultsProvider;
 use AlecRabbit\Spinner\Core\Driver;
-use AlecRabbit\Tests\Spinner\TestCase\TestCase;
 use AlecRabbit\Tests\Spinner\TestCase\TestCaseWithPrebuiltMocks;
 use LogicException;
 use PHPUnit\Framework\Attributes\Test;
