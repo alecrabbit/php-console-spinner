@@ -4,6 +4,6 @@
 ```mermaid
 classDiagram
 direction LR
-SpinnerFactory ..|> ISpinnerFactory
-SpinnerFactory --> ISpinnerBuilder
+    LoopFactory ..|> ILoopFactory
+    LoopFactory --> ILoopProbeFactory
 ```

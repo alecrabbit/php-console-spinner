@@ -12,11 +12,13 @@ use AlecRabbit\Spinner\Core\Config\Contract\IConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\IDriverBuilder;
 use AlecRabbit\Spinner\Core\Config\WidgetConfig;
+use AlecRabbit\Spinner\Core\Contract\ILoopProbeFactory;
 use AlecRabbit\Spinner\Core\Contract\ISpinnerBuilder;
 use AlecRabbit\Spinner\Core\Factory\Contract\IRevolverFactory;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetBuilder;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolverBuilder;
+use AlecRabbit\Tests\Spinner\Unit\Spinner\Asynchronous\Factory\LoopFactoryTest;
 use AlecRabbit\Tests\Spinner\Unit\Spinner\Core\Factory\SpinnerFactoryTest;
 use PHPUnit\Framework\MockObject\MockObject;
 
@@ -90,5 +92,10 @@ abstract class TestCaseWithPrebuiltMocks extends TestCase
     protected function getSpinnerMock(): ASpinner&MockObject
     {
         return $this->createMock(ASpinner::class);
+    }
+
+    protected function getLoopProbeFactoryMock(): MockObject&ILoopProbeFactory
+    {
+        return $this->createMock(ILoopProbeFactory::class);
     }
 }

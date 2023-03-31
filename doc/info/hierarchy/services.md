@@ -3,19 +3,16 @@
 ```mermaid
 classDiagram
     direction LR
-    Facade ..|> IFacade
     Facade --> SpinnerFactory
     Facade --> ConfigBuilder
     Facade --> LoopFactory
 
-
-    SpinnerFactory ..|> ISpinnerFactory
     SpinnerFactory --> SpinnerBuilder
 
-    ConfigBuilder ..|> IConfigBuilder
     ConfigBuilder --> IDefaultsProvider
+
+    LoopFactory --> ILoopProbeFactory
     
-    SpinnerBuilder ..|> ISpinnerBuilder
     SpinnerBuilder --> DriverBuilder
     SpinnerBuilder --> WidgetBuilder
 ```

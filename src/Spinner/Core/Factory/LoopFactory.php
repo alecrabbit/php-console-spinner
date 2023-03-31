@@ -15,13 +15,6 @@ final class LoopFactory extends AFactory implements ILoopFactory
 {
     protected static ?ILoopAdapter $loop = null;
 
-    public function __construct(
-        IContainer $container,
-        protected ILoopProbeFactory $loopProbeFactory,
-    ) {
-        parent::__construct($container);
-    }
-
     public function getLoop(): ILoopAdapter
     {
         if (null === self::$loop) {
@@ -40,8 +33,4 @@ final class LoopFactory extends AFactory implements ILoopFactory
         return $this->getLoopProbeFactory()->getProbe();
     }
 
-    protected function getLoopProbeFactory(): ILoopProbeFactory
-    {
-        return $this->loopProbeFactory;
-    }
 }

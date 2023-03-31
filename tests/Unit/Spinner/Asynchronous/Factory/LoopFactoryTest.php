@@ -34,20 +34,15 @@ final class LoopFactoryTest extends TestCaseWithPrebuiltMocks
         return
             new LoopFactory(
                 container: $container ?? $this->getContainerMock(),
-                loopProbeFactory: $loopProbeFactory ?? $this->getLoopProbeFactoryMock(),
             );
-    }
-
-    protected function getLoopProbeFactoryMock(): MockObject&ILoopProbeFactory
-    {
-        return $this->createMock(ILoopProbeFactory::class);
     }
 
     #[Test]
     public function canGetLoopAdapter(): void
     {
-        $container = $this->createMock(IContainer::class);
-        $loopProbeFactory = $this->createMock(ILoopProbeFactory::class);
+        $container = $this->getContainerMock();
+
+        $loopProbeFactory = $this->getLoopProbeFactoryMock();
         $loopProbeFactory->method('getProbe')
             ->willReturn(
                 new class() extends ALoopProbe {
@@ -62,6 +57,11 @@ final class LoopFactoryTest extends TestCaseWithPrebuiltMocks
                     }
                 }
             )
+        ;
+
+        $container
+            ->method('get')
+            ->willReturn($loopProbeFactory)
         ;
 
         $loopFactory = $this->getTesteeInstance(container: $container, loopProbeFactory: $loopProbeFactory);

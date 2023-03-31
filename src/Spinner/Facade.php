@@ -26,7 +26,8 @@ final class Facade extends AContainerAware implements IFacade
 
     protected static function getSpinnerFactory(): ISpinnerFactory
     {
-        return new SpinnerFactory(self::getContainer());
+        return self::getContainer()->get(ISpinnerFactory::class);
+//        return new SpinnerFactory(self::getContainer());
     }
 
     public static function getConfigBuilder(): IConfigBuilder

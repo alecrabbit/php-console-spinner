@@ -4,6 +4,6 @@
 ```mermaid
 classDiagram
     direction LR
-    LoopFactory ..|> ILoopFactory
+    ConfigBuilder ..|> IConfigBuilder
     ConfigBuilder --> IDefaultsProvider
 ```

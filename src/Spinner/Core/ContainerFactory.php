@@ -14,18 +14,27 @@ use AlecRabbit\Spinner\Core\Config\Contract\IDriverBuilder;
 use AlecRabbit\Spinner\Core\Config\DriverBuilder;
 use AlecRabbit\Spinner\Core\Config\WidgetRevolverBuilder;
 use AlecRabbit\Spinner\Core\Contract\ILoopProbeFactory;
+use AlecRabbit\Spinner\Core\Contract\ISpinnerBuilder;
 use AlecRabbit\Spinner\Core\Defaults\DefaultsProvider;
 use AlecRabbit\Spinner\Core\Factory\Contract\IRevolverFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\ISpinnerFactory;
 use AlecRabbit\Spinner\Core\Factory\RevolverFactory;
+use AlecRabbit\Spinner\Core\Factory\SpinnerFactory;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolverBuilder;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetBuilder;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolverBuilder;
 use ArrayObject;
+use Closure;
 use Traversable;
 
 final class ContainerFactory
 {
     protected static ?IContainer $container = null;
+
+    protected function createContainerDependentService(string $class): object
+    {
+        return new $class(self::getContainer());
+    }
 
     public static function getContainer(): IContainer
     {
@@ -52,40 +61,25 @@ final class ContainerFactory
 
     protected static function getDefaultDefinitions(IContainer $container): Traversable
     {
+        $instanceProducer = static function (string $class) use ($container): Closure {
+            return
+                static function () use ($class, $container): object {
+                    return new $class($container);
+                };
+        };
+
         return new ArrayObject(
             [
-                IConfigBuilder::class =>
-                    static function () use ($container): IConfigBuilder {
-                        return new ConfigBuilder($container);
-                    },
+                IConfigBuilder::class => $instanceProducer(ConfigBuilder::class),
                 IDefaultsProvider::class => DefaultsProvider::class,
-                IDriverBuilder::class =>
-                    static function () use ($container): IDriverBuilder {
-                        return new DriverBuilder($container);
-                    },
-                IWidgetBuilder::class =>
-                    static function () use ($container): IWidgetBuilder {
-                        return new WidgetBuilder($container);
-                    },
-                IWidgetRevolverBuilder::class =>
-                    static function () use ($container): IWidgetRevolverBuilder {
-                        return new WidgetRevolverBuilder($container);
-                    },
-                ILoopProbeFactory::class =>
-                    static function () use ($container): ILoopProbeFactory {
-                        return
-                            new LoopProbeFactory($container, new ArrayObject([]),);
-                    },
-                IRevolverFactory::class =>
-                    static function () use ($container): IRevolverFactory {
-                        return
-                            new RevolverFactory($container);
-                    },
-                IFrameRevolverBuilder::class =>
-                    static function () use ($container): IFrameRevolverBuilder {
-                        return
-                            new FrameRevolverBuilder($container);
-                    },
+                IDriverBuilder::class => $instanceProducer(DriverBuilder::class),
+                IWidgetBuilder::class => $instanceProducer(WidgetBuilder::class),
+                IWidgetRevolverBuilder::class => $instanceProducer(WidgetRevolverBuilder::class),
+                ILoopProbeFactory::class => $instanceProducer(LoopProbeFactory::class),
+                IRevolverFactory::class => $instanceProducer(RevolverFactory::class),
+                IFrameRevolverBuilder::class => $instanceProducer(FrameRevolverBuilder::class),
+                ISpinnerFactory::class => $instanceProducer(SpinnerFactory::class),
+                ISpinnerBuilder::class => $instanceProducer(SpinnerBuilder::class),
             ],
         );
     }
