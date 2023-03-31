@@ -21,24 +21,28 @@ final class SpinnerBuilderTest extends TestCaseWithPrebuiltMocks
     #[Test]
     public function canBeCreated(): void
     {
-        $spinnerBuilder = $this->getTesteeInstance(container: null);
+        $spinnerBuilder = $this->getTesteeInstance();
 
         self::assertInstanceOf(SpinnerBuilder::class, $spinnerBuilder);
     }
 
     public function getTesteeInstance(
-        (MockObject&IContainer)|null $container,
+        ?IDriverBuilder $driverBuilder = null,
+        ?IWidgetBuilder $widgetBuilder = null,
+        ?IConfigBuilder $configBuilder = null,
     ): ISpinnerBuilder {
         return
             new SpinnerBuilder(
-                container: $container ?? $this->getContainerMock(),
+                driverBuilder: $driverBuilder ?? $this->getDriverBuilderMock(),
+                widgetBuilder: $widgetBuilder ?? $this->getWidgetBuilderMock(),
+                configBuilder: $configBuilder ?? $this->getConfigBuilderMock(),
             );
     }
 
     #[Test]
     public function canAcceptConfig(): void
     {
-        $spinnerBuilder = $this->getTesteeInstance(container: null);
+        $spinnerBuilder = $this->getTesteeInstance();
 
         $config = $this->createMock(IConfig::class);
 
@@ -50,17 +54,7 @@ final class SpinnerBuilderTest extends TestCaseWithPrebuiltMocks
     #[Test]
     public function canBuildSpinnerWithNoConfigProvided(): void
     {
-        $container = $this->createMock(IContainer::class);
-        $container
-            ->method('get')
-            ->willReturn(
-                $this->createMock(IConfigBuilder::class),
-                $this->createMock(IDriverBuilder::class),
-                $this->createMock(IWidgetBuilder::class),
-            )
-        ;
-
-        $spinnerBuilder = $this->getTesteeInstance(container: $container);
+       $spinnerBuilder = $this->getTesteeInstance();
 
         $spinner = $spinnerBuilder->build();
 

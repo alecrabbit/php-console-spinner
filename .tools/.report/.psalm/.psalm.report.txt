@@ -9,6 +9,12 @@
 /app/src/Spinner/Asynchronous/Loop/Adapter/RevoltLoopAdapter.php:73:32:error - InvalidReturnType: The declared return type 'AlecRabbit\Spinner\Core\Contract\IForeignLoop' for AlecRabbit\Spinner\Asynchronous\Loop\Adapter\RevoltLoopAdapter::getLoop is incorrect, got 'Revolt\EventLoop\Driver'
 /app/src/Spinner/Asynchronous/Loop/Adapter/RevoltLoopAdapter.php:75:16:error - InvalidReturnStatement: The inferred type 'Revolt\EventLoop\Driver' does not match the declared return type 'AlecRabbit\Spinner\Core\Contract\IForeignLoop' for AlecRabbit\Spinner\Asynchronous\Loop\Adapter\RevoltLoopAdapter::getLoop
 /app/src/Spinner/Asynchronous/Loop/Adapter/RevoltLoopAdapter.php:86:27:error - UndefinedInterfaceMethod: Method AlecRabbit\Spinner\Core\Contract\IForeignLoop::stop does not exist
+/app/src/Spinner/Container/AutoInstantiator.php:48:43:error - ArgumentTypeCoercion: Argument 1 of ReflectionClass::__construct expects class-string|object|trait-string, but parent type string provided
+/app/src/Spinner/Container/AutoInstantiator.php:54:17:error - MixedAssignment: Unable to determine the type of this assignment
+/app/src/Spinner/Container/AutoInstantiator.php:55:47:error - MixedArgument: Argument 1 of Psr\Container\ContainerInterface::get cannot be mixed, expecting string
+/app/src/Spinner/Container/AutoInstantiator.php:55:71:error - UndefinedMethod: Method ReflectionType::getName does not exist
+/app/src/Spinner/Container/AutoInstantiator.php:57:20:error - InvalidStringClass: String cannot be used as a class
+/app/src/Spinner/Container/AutoInstantiator.php:61:20:error - InvalidStringClass: String cannot be used as a class
 /app/src/Spinner/Core/A/AContainerServices.php:37:46:error - MoreSpecificReturnType: The declared return type 'AlecRabbit\Spinner\Core\Factory\Contract\IRevolverFactory' for AlecRabbit\Spinner\Core\A\AContainerServices::getRevolverFactory is more specific than the inferred return type 'object'
 /app/src/Spinner/Core/A/AContainerServices.php:39:16:error - LessSpecificReturnStatement: The type 'object' is more general than the declared return type 'AlecRabbit\Spinner\Core\Factory\Contract\IRevolverFactory' for AlecRabbit\Spinner\Core\A\AContainerServices::getRevolverFactory
 /app/src/Spinner/Core/A/AContainerServices.php:42:47:error - MoreSpecificReturnType: The declared return type 'AlecRabbit\Spinner\Core\Config\Contract\IDefaultsProvider' for AlecRabbit\Spinner\Core\A\AContainerServices::getDefaultsProvider is more specific than the inferred return type 'object'
@@ -25,17 +31,14 @@
 /app/src/Spinner/Core/A/AContainerServices.php:75:16:error - LessSpecificReturnStatement: The type 'object' is more general than the declared return type 'AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolverBuilder' for AlecRabbit\Spinner\Core\A\AContainerServices::getWidgetRevolverBuilder
 /app/src/Spinner/Core/A/AContainerServices.php:78:49:error - MoreSpecificReturnType: The declared return type 'AlecRabbit\Spinner\Core\Contract\IIntervalNormalizer' for AlecRabbit\Spinner\Core\A\AContainerServices::getIntervalNormalizer is more specific than the inferred return type 'object'
 /app/src/Spinner/Core/A/AContainerServices.php:80:16:error - LessSpecificReturnStatement: The type 'object' is more general than the declared return type 'AlecRabbit\Spinner\Core\Contract\IIntervalNormalizer' for AlecRabbit\Spinner\Core\A\AContainerServices::getIntervalNormalizer
-/app/src/Spinner/Core/A/ADriverBuilder.php:37:52:error - InvalidArgument: Argument 1 of AlecRabbit\Spinner\Core\Output\StreamBufferedOutput::__construct expects AlecRabbit\Spinner\Contract\IResourceStream, but resource provided
-/app/src/Spinner/Core/A/ADriverBuilder.php:56:17:error - InvalidNamedArgument: Parameter $driverSettings does not exist on function AlecRabbit\Spinner\Core\Driver::__construct
-/app/src/Spinner/Core/A/ADriverBuilder.php:89:68:error - InvalidReturnType: Not all code paths of AlecRabbit\Spinner\Core\A\ADriverBuilder::withDriverConfig end in a return statement, return type AlecRabbit\Spinner\Core\A\ADriverBuilder expected
 /app/src/Spinner/Core/A/AStyleFrameRenderer.php:62:20:error - InvalidStaticInvocation: Method AlecRabbit\Spinner\Core\Factory\FrameFactory::create is not static, but is called statically
 /app/src/Spinner/Core/A/AStyleFrameRenderer.php:85:20:error - InvalidStaticInvocation: Method AlecRabbit\Spinner\Core\Factory\FrameFactory::create is not static, but is called statically
 /app/src/Spinner/Core/A/AStyleFrameRenderer.php:123:13:error - InvalidStaticInvocation: Method AlecRabbit\Spinner\Core\Factory\FrameFactory::create is not static, but is called statically
 /app/src/Spinner/Core/CharFrameCollectionRenderer.php:29:16:error - InvalidStaticInvocation: Method AlecRabbit\Spinner\Core\Factory\FrameFactory::create is not static, but is called statically
 /app/src/Spinner/Core/Config/A/AConfig.php:37:40:error - InvalidReturnType: Not all code paths of AlecRabbit\Spinner\Core\Config\A\AConfig::getDriverConfig end in a return statement, return type AlecRabbit\Spinner\Core\Config\Contract\IDriverConfig expected
 /app/src/Spinner/Core/Config/A/AConfig.php:42:44:error - InvalidReturnType: Not all code paths of AlecRabbit\Spinner\Core\Config\A\AConfig::getRootWidgetConfig end in a return statement, return type AlecRabbit\Spinner\Core\Config\Contract\IWidgetConfig expected
-/app/src/Spinner/Core/Config/ConfigBuilder.php:108:17:error - PossiblyNullArgument: Argument 3 of AlecRabbit\Spinner\Core\Config\WidgetConfig::__construct cannot be null, possibly null value provided
-/app/src/Spinner/Core/Config/ConfigBuilder.php:109:17:error - PossiblyNullArgument: Argument 4 of AlecRabbit\Spinner\Core\Config\WidgetConfig::__construct cannot be null, possibly null value provided
+/app/src/Spinner/Core/Config/ConfigBuilder.php:120:17:error - PossiblyNullArgument: Argument 3 of AlecRabbit\Spinner\Core\Config\WidgetConfig::__construct cannot be null, possibly null value provided
+/app/src/Spinner/Core/Config/ConfigBuilder.php:121:17:error - PossiblyNullArgument: Argument 4 of AlecRabbit\Spinner\Core\Config\WidgetConfig::__construct cannot be null, possibly null value provided
 /app/src/Spinner/Core/Config/DriverBuilder.php:42:31:error - PossiblyNullArgument: Argument 4 of AlecRabbit\Spinner\Core\Driver::__construct cannot be null, possibly null value provided
 /app/src/Spinner/Core/ContainerFactory.php:54:61:error - MixedAssignment: Unable to determine the type that $id is being assigned to
 /app/src/Spinner/Core/ContainerFactory.php:54:68:error - MixedAssignment: Unable to determine the type that $service is being assigned to
@@ -64,9 +67,6 @@
 /app/src/Spinner/Core/Factory/RevolverFactory.php:53:25:error - UndefinedMethod: Method AlecRabbit\Spinner\Core\Factory\Contract\IFrameFactory::createempty does not exist
 /app/src/Spinner/Core/Factory/RevolverFactory.php:56:17:error - UndefinedClass: Class, interface or enum named AlecRabbit\Spinner\Core\Factory\StaticIntervalFactory does not exist
 /app/src/Spinner/Core/Output/StreamBufferedOutput.php:40:30:error - MixedArgumentTypeCoercion: Argument 1 of AlecRabbit\Spinner\Contract\IResourceStream::write expects Traversable<mixed, string>, but parent type Traversable provided
-/app/src/Spinner/Core/SpinnerBuilder.php:46:47:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Core\Config\Contract\IConfig' for AlecRabbit\Spinner\Core\SpinnerBuilder::createDefaultConfig
-/app/src/Spinner/Core/SpinnerBuilder.php:48:16:error - MixedReturnStatement: Could not infer a return type
-/app/src/Spinner/Core/SpinnerBuilder.php:48:43:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
 /app/src/Spinner/Core/StyleFrameCollectionRenderer.php:76:25:error - InvalidStaticInvocation: Method AlecRabbit\Spinner\Core\Factory\FrameFactory::create is not static, but is called statically
 /app/src/Spinner/Core/Widget/A/AWidgetBuilder.php:61:68:error - InvalidReturnType: Not all code paths of AlecRabbit\Spinner\Core\Widget\A\AWidgetBuilder::withWidgetConfig end in a return statement, return type AlecRabbit\Spinner\Core\Widget\A\AWidgetBuilder expected
 /app/src/Spinner/Core/Widget/A/AWidgetRevolverBuilder.php:27:17:error - MixedArgument: Argument 1 of AlecRabbit\Spinner\Core\Widget\WidgetRevolver::__construct cannot be mixed, expecting AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver
