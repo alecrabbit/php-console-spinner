@@ -116,9 +116,4 @@ abstract class TestCaseWithPrebuiltMocks extends TestCase
     {
         return $this->createMock(IIntervalNormalizer::class);
     }
-
-    protected function getIntegerNormalizerMock(): MockObject&IIntegerNormalizer
-    {
-        return $this->createMock(IIntegerNormalizer::class);
-    }
 }

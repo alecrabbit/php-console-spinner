@@ -4,15 +4,14 @@ declare(strict_types=1);
 // 15.02.23
 namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Core;
 
-use AlecRabbit\Spinner\Contract\IIntNormalizer;
-use AlecRabbit\Spinner\Core\IntNormalizer;
+use AlecRabbit\Spinner\Core\IntegerNormalizer;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Tests\Spinner\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 
 
-final class IntNormalizerTest extends TestCase
+final class IntegerNormalizerTest extends TestCase
 {
     public static function normalizeData(): iterable
     {
@@ -85,39 +84,29 @@ final class IntNormalizerTest extends TestCase
 
         $args = $incoming[self::ARGUMENTS];
 
-        IntNormalizer::overrideDivisor($args[self::DIVISOR]);
+        $normalizer = new IntegerNormalizer($args[self::DIVISOR]);
+
+        self::assertSame(
+            $expected[self::INTERVAL],
+            $normalizer->normalize($args[self::INTERVAL])
+        );
 
         if ($expectedException) {
             self::failTest($expectedException);
         }
-
-        self::assertSame(
-            $expected[self::INTERVAL],
-            IntNormalizer::normalize($args[self::INTERVAL])
-        );
-    }
-
-    #[Test]
-    #[DataProvider('simplifiedDataFeeder')]
-    public function canSetAndGetDivisor(int $divisor,): void
-    {
-        IntNormalizer::overrideDivisor($divisor);
-
-        self::assertSame($divisor, IntNormalizer::getDivisor());
     }
 
     #[Test]
     public function throwOnInvalidSetMin(): void
     {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('Min should be greater than 0.');
+        $exceptionClass = InvalidArgumentException::class;
+        $exceptionMessage = 'Min should be greater than 0.';
+        $this->expectException($exceptionClass);
+        $this->expectExceptionMessage($exceptionMessage);
 
-        IntNormalizer::overrideMin(-1);
-        self::fail(sprintf('[%s] Exception not thrown', __METHOD__));
+        $normalizer = new IntegerNormalizer(min: -1);
+
+        self::failTest(self::exceptionNotThrownString($exceptionClass, $exceptionMessage));
     }
 
-    protected function setUp(): void
-    {
-        IntNormalizer::overrideMin(IIntNormalizer::DEFAULT_MIN);
-    }
 }

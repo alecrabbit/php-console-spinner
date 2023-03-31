@@ -11,21 +11,20 @@ use AlecRabbit\Spinner\Contract\NormalizerMode;
 use AlecRabbit\Spinner\Core\A\AContainerServices;
 use AlecRabbit\Spinner\Core\Contract\IIntervalNormalizer;
 
-final class IntervalNormalizer extends AContainerServices implements IIntervalNormalizer
+final class IntervalNormalizer implements IIntervalNormalizer
 {
     protected IIntegerNormalizer $normalizer;
 
     public function __construct(
-        IContainer $container,
+        protected IContainer $container,
         protected NormalizerMode $mode = NormalizerMode::BALANCED,
     ) {
-        parent::__construct($container);
-        $this->normalizer = $this->getIntegerNormalizer();
+        $this->normalizer = $this->getIntegerNormalizer($mode);
     }
 
-    protected function getIntegerNormalizer(): IIntegerNormalizer
+    protected function getIntegerNormalizer(NormalizerMode $mode): IIntegerNormalizer
     {
-        return $this->container->get(IIntegerNormalizer::class);
+        return new IntegerNormalizer($mode->getDivisor());
     }
 
     public function normalize(IInterval $interval): IInterval

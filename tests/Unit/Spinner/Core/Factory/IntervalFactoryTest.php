@@ -21,7 +21,6 @@ final class IntervalFactoryTest extends TestCaseWithPrebuiltMocks
             ->willReturn(
                 $this->getDefaultsProviderMock(),
                 $this->getIntervalNormalizerMock(),
-                $this->getIntegerNormalizerMock(),
             )
         ;
         $intervalFactory = $this->getTesteeInstance(container: $container);
@@ -43,7 +42,6 @@ final class IntervalFactoryTest extends TestCaseWithPrebuiltMocks
     {
         $container = $this->getContainerMock();
 
-        $integerNormalizer = $this->getIntegerNormalizerMock();
         $defaultsProvider = $this->getDefaultsProviderMock();
         $defaultsProvider
             ->method('getAuxSettings')
@@ -61,7 +59,6 @@ final class IntervalFactoryTest extends TestCaseWithPrebuiltMocks
             ->willReturn(
                 $defaultsProvider,
                 $intervalNormalizer,
-                $integerNormalizer,
             )
         ;
 
@@ -94,7 +91,6 @@ final class IntervalFactoryTest extends TestCaseWithPrebuiltMocks
             ->willReturn(
                 $defaultsProvider,
                 $intervalNormalizer,
-                $this->getIntegerNormalizerMock(),
             )
         ;
 

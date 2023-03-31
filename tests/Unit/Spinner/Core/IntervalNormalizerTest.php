@@ -18,7 +18,6 @@ final class IntervalNormalizerTest extends TestCaseWithPrebuiltMocks
         $container
             ->method('get')
             ->willReturn(
-                $this->getIntegerNormalizerMock(),
                 $this->getDefaultsProviderMock(),
             )
         ;
