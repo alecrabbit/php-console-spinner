@@ -7,31 +7,27 @@
               /app/src/Spinner/Mixin/AutoInstantiableTrait.php:7                                                                                 
  ----------- ----------------------------------------------------------------------------------------------------------------------------------- 
 
- ----------- ----------------------------------------------------------------------------------------------------------------------------------------- 
-  Reason      ModuleContainer                                                                                                                          
- ----------- ----------------------------------------------------------------------------------------------------------------------------------------- 
-  Violation   AlecRabbit\Spinner\Container\AutoInstantiator must not depend on AlecRabbit\Spinner\Exception\RuntimeException (ModuleException)         
-              /app/src/Spinner/Container/AutoInstantiator.php:34                                                                                       
-  Violation   AlecRabbit\Spinner\Container\AutoInstantiator must not depend on AlecRabbit\Spinner\Exception\RuntimeException (ModuleException)         
-              /app/src/Spinner/Container/AutoInstantiator.php:63                                                                                       
-  Violation   AlecRabbit\Spinner\Container\AutoInstantiator must not depend on AlecRabbit\Spinner\Exception\RuntimeException (ModuleException)         
-              /app/src/Spinner/Container/AutoInstantiator.php:10                                                                                       
-  Violation   AlecRabbit\Spinner\Container\Contract\IAutoInstantiator must not depend on AlecRabbit\Spinner\Mixin\AutoInstantiableTrait (ModuleMixin)  
-              /app/src/Spinner/Container/Contract/IAutoInstantiator.php:7                                                                              
-  Violation   AlecRabbit\Spinner\Container\AutoInstantiator must not depend on AlecRabbit\Spinner\Mixin\AutoInstantiableTrait (ModuleMixin)            
-              AlecRabbit\Spinner\Container\Contract\IAutoInstantiator::17 ->                                                                           
-              AlecRabbit\Spinner\Mixin\AutoInstantiableTrait::7                                                                                        
-              /app/src/Spinner/Container/Contract/IAutoInstantiator.php:7                                                                              
- ----------- ----------------------------------------------------------------------------------------------------------------------------------------- 
+ ----------- ---------------------------------------------------------------------------------------------------------------------------------- 
+  Reason      ModuleContainer                                                                                                                   
+ ----------- ---------------------------------------------------------------------------------------------------------------------------------- 
+  Violation   AlecRabbit\Spinner\Container\AutoInstantiator must not depend on AlecRabbit\Spinner\Exception\RuntimeException (ModuleException)  
+              /app/src/Spinner/Container/AutoInstantiator.php:34                                                                                
+  Violation   AlecRabbit\Spinner\Container\AutoInstantiator must not depend on AlecRabbit\Spinner\Exception\RuntimeException (ModuleException)  
+              /app/src/Spinner/Container/AutoInstantiator.php:49                                                                                
+  Violation   AlecRabbit\Spinner\Container\AutoInstantiator must not depend on AlecRabbit\Spinner\Exception\RuntimeException (ModuleException)  
+              /app/src/Spinner/Container/AutoInstantiator.php:59                                                                                
+  Violation   AlecRabbit\Spinner\Container\AutoInstantiator must not depend on AlecRabbit\Spinner\Exception\RuntimeException (ModuleException)  
+              /app/src/Spinner/Container/AutoInstantiator.php:10                                                                                
+ ----------- ---------------------------------------------------------------------------------------------------------------------------------- 
 
 
  -------------------- ------ 
   Report                     
  -------------------- ------ 
-  Violations           7     
+  Violations           6     
   Skipped violations   0     
   Uncovered            227   
-  Allowed              3092  
+  Allowed              3058  
   Warnings             0     
   Errors               0     
  -------------------- ------ 

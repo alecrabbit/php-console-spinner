@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Factory;
 
+use AlecRabbit\Spinner\Container\Mixin\AutoInstantiableTrait;
 use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Core\Factory\Contract\IFrameFactory;
 use AlecRabbit\Spinner\Core\Frame;
 use AlecRabbit\Spinner\Core\WidthDeterminer;
-use AlecRabbit\Spinner\Mixin\AutoInstantiableTrait;
 
 final class FrameFactory implements IFrameFactory
 {

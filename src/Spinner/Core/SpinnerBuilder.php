@@ -4,6 +4,7 @@ declare(strict_types=1);
 // 29.03.23
 namespace AlecRabbit\Spinner\Core;
 
+use AlecRabbit\Spinner\Container\Mixin\AutoInstantiableTrait;
 use AlecRabbit\Spinner\Core\A\ASpinner;
 use AlecRabbit\Spinner\Core\Config\Contract\IConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IConfigBuilder;
@@ -11,7 +12,6 @@ use AlecRabbit\Spinner\Core\Config\Contract\IDriverBuilder;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use AlecRabbit\Spinner\Core\Contract\ISpinnerBuilder;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetBuilder;
-use AlecRabbit\Spinner\Mixin\AutoInstantiableTrait;
 
 final class SpinnerBuilder implements ISpinnerBuilder
 {

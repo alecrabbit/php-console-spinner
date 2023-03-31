@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Spinner\Mixin;
+namespace AlecRabbit\Spinner\Container\Mixin;
 
 use AlecRabbit\Spinner\Container\AutoInstantiator;
 
