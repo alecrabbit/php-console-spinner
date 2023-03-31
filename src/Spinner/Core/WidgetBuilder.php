@@ -50,20 +50,21 @@ final class WidgetBuilder extends ABuilder implements IWidgetBuilder
 
     protected function buildRevolver(): IRevolver
     {
-        return $this->getWidgetRevolverBuilder()
-            ->withStyleRevolver(
-                $this->getRevolverFactory()
-                    ->create(
-                        $this->widgetConfig->getStylePattern()
-                    )
-            )
-            ->withCharRevolver(
-                $this->getRevolverFactory()
-                    ->create(
-                        $this->widgetConfig->getCharPattern()
-                    )
-            )
-            ->build()
+        return
+            $this->getWidgetRevolverBuilder()
+                ->withStyleRevolver(
+                    $this->getRevolverFactory()
+                        ->create(
+                            $this->widgetConfig->getStylePattern()
+                        )
+                )
+                ->withCharRevolver(
+                    $this->getRevolverFactory()
+                        ->create(
+                            $this->widgetConfig->getCharPattern()
+                        )
+                )
+                ->build()
         ;
     }
 

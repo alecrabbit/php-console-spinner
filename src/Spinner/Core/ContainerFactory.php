@@ -13,6 +13,7 @@ use AlecRabbit\Spinner\Core\Config\Contract\IDefaultsProvider;
 use AlecRabbit\Spinner\Core\Config\Contract\IDriverBuilder;
 use AlecRabbit\Spinner\Core\Config\DriverBuilder;
 use AlecRabbit\Spinner\Core\Config\WidgetRevolverBuilder;
+use AlecRabbit\Spinner\Core\Contract\IContainerFactory;
 use AlecRabbit\Spinner\Core\Contract\ILoopProbeFactory;
 use AlecRabbit\Spinner\Core\Contract\ISpinnerBuilder;
 use AlecRabbit\Spinner\Core\Defaults\DefaultsProvider;
@@ -27,7 +28,7 @@ use ArrayObject;
 use Closure;
 use Traversable;
 
-final class ContainerFactory
+final class ContainerFactory implements IContainerFactory
 {
     protected static ?IContainer $container = null;
 
@@ -39,19 +40,18 @@ final class ContainerFactory
     public static function createContainer(): IContainer
     {
         if (null === self::$container) {
-            self::$container = self::initializeContainer();
+            self::$container = new Container();
+            self::initializeContainer(self::$container);
         }
 
         return self::$container;
     }
 
-    protected static function initializeContainer(): IContainer
+    protected static function initializeContainer(IContainer $container): void
     {
-        $container = new Container();
         foreach (self::getDefaultDefinitions($container) as $id => $service) {
             $container->add($id, $service);
         }
-        return $container;
     }
 
     protected static function getDefaultDefinitions(IContainer $container): Traversable

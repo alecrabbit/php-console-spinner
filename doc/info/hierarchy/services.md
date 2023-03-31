@@ -2,7 +2,7 @@
 
 ```mermaid
 classDiagram
-    direction LR
+    direction TB
     Facade --> SpinnerFactory
     Facade --> ConfigBuilder
     Facade --> LoopFactory
@@ -15,4 +15,8 @@ classDiagram
     
     SpinnerBuilder --> DriverBuilder
     SpinnerBuilder --> WidgetBuilder
+    
+    WidgetBuilder --> WidgetRevolverBuilder
+    WidgetBuilder --> RevolverFactory
+    
 ```
