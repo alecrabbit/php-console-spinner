@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Widget\A;
 
+use AlecRabbit\Spinner\Core\Factory\Contract\IRevolverFactory;
 use AlecRabbit\Spinner\Core\Factory\StaticRevolverFactory;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolverBuilder;
@@ -20,11 +21,10 @@ abstract class AWidgetRevolverBuilder extends ARevolverBuilder implements IWidge
     {
         return
             new WidgetRevolver(
-                $this->styleRevolver ?? StaticRevolverFactory::defaultStyleRevolver(),
-                $this->charRevolver ?? StaticRevolverFactory::defaultCharRevolver(),
+                $this->styleRevolver ?? $this->getRevolverFactory()->defaultStyleRevolver(),
+                $this->charRevolver ?? $this->getRevolverFactory()->defaultCharRevolver(),
             );
     }
-
 
     public function withStyleRevolver(IRevolver $styleRevolver): static
     {
@@ -38,5 +38,10 @@ abstract class AWidgetRevolverBuilder extends ARevolverBuilder implements IWidge
         $clone = clone $this;
         $clone->charRevolver = $charRevolver;
         return $clone;
+    }
+
+    protected function getRevolverFactory(): IRevolverFactory
+    {
+        return $this->container->get(IRevolverFactory::class);
     }
 }

@@ -13,7 +13,7 @@ use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolverBuilder;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Exception\LogicException;
 
-interface IWidgetFactory
+interface IStaticWidgetFactory
 {
     /**
      * @throws LogicException

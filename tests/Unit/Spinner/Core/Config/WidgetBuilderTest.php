@@ -5,11 +5,8 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Core\Config;
 
 use AlecRabbit\Spinner\Container\Contract\IContainer;
-use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Core\Config\WidgetBuilder;
-use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetBuilder;
-use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolverBuilder;
 use AlecRabbit\Spinner\Core\Widget\Widget;
 use AlecRabbit\Tests\Spinner\TestCase\TestCaseWithPrebuiltMocks;
 use LogicException;
@@ -38,10 +35,14 @@ final class WidgetBuilderTest extends TestCaseWithPrebuiltMocks
     #[Test]
     public function canBuildWidgetWithWidgetConfig(): void
     {
-        $container = $this->createMock(IContainer::class);
+        $container = $this->getContainerMock();
         $container
             ->method('get')
-            ->willReturn($this->createMock(IWidgetRevolverBuilder::class))
+            ->willReturn(
+                $this->getWidgetRevolverBuilderMock(),
+                $this->getRevolverFactoryMock(),
+                $this->getRevolverFactoryMock(),
+            )
         ;
 
         $widgetBuilder = $this->getTesteeInstance(container: $container);
@@ -57,10 +58,10 @@ final class WidgetBuilderTest extends TestCaseWithPrebuiltMocks
     #[Test]
     public function canBuildWidgetWithWidgetRevolver(): void
     {
-        $container = $this->createMock(IContainer::class);
+        $container = $this->getContainerMock();
         $container
             ->method('get')
-            ->willReturn($this->createMock(IWidgetRevolverBuilder::class))
+            ->willReturn($this->getWidgetRevolverBuilderMock())
         ;
 
         $widgetBuilder = $this->getTesteeInstance(container: $container);
@@ -68,7 +69,7 @@ final class WidgetBuilderTest extends TestCaseWithPrebuiltMocks
         self::assertInstanceOf(WidgetBuilder::class, $widgetBuilder);
 
         $widgetConfig = $this->getWidgetConfigMock();
-        $revolver = $this->createMock(IRevolver::class);
+        $revolver = $this->getRevolverMock();
         $widgetComposite =
             $widgetBuilder
                 ->withWidgetRevolver($revolver)
@@ -82,22 +83,26 @@ final class WidgetBuilderTest extends TestCaseWithPrebuiltMocks
     #[Test]
     public function canBuildWidgetWithSpacers(): void
     {
-        $container = $this->createMock(IContainer::class);
+        $container = $this->getContainerMock();
+
         $container
             ->method('get')
-            ->willReturn($this->createMock(IWidgetRevolverBuilder::class))
+            ->willReturn(
+                $this->getWidgetRevolverBuilderMock(),
+                $this->getRevolverFactoryMock(),
+                $this->getRevolverFactoryMock(),
+            )
         ;
 
         $widgetBuilder = $this->getTesteeInstance(container: $container);
 
         self::assertInstanceOf(WidgetBuilder::class, $widgetBuilder);
 
-        $frame = $this->createMock(IFrame::class);
-
         $widgetComposite =
             $widgetBuilder
-                ->withLeadingSpacer($frame)
-                ->withTrailingSpacer($frame)
+                ->withWidgetConfig($this->getWidgetConfigMock())
+                ->withLeadingSpacer($this->getFrameMock())
+                ->withTrailingSpacer($this->getFrameMock())
                 ->build()
         ;
 
@@ -107,10 +112,12 @@ final class WidgetBuilderTest extends TestCaseWithPrebuiltMocks
     #[Test]
     public function throwsOnBuildWidgetWithoutWidgetConfig(): void
     {
-        $container = $this->createMock(IContainer::class);
+        $container = $this->getContainerMock();
         $container
             ->method('get')
-            ->willReturn($this->createMock(IWidgetRevolverBuilder::class))
+            ->willReturn(
+                $this->getWidgetRevolverBuilderMock(),
+            )
         ;
 
         $widgetBuilder = $this->getTesteeInstance(container: $container);
@@ -128,4 +135,5 @@ final class WidgetBuilderTest extends TestCaseWithPrebuiltMocks
         self::assertInstanceOf(Widget::class, $widget);
         self::failTest(self::exceptionNotThrownString($exceptionClass, $exceptionMessage));
     }
+
 }

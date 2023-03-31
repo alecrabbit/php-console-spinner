@@ -32,7 +32,7 @@ final class SpinnerBuilder extends ABuilder implements ISpinnerBuilder
                 ->withWidgetConfig($this->config->getRootWidgetConfig())
                 ->build()
         ;
-        dump($rootWidget);
+
         return
             new class($driver, $rootWidget) extends ASpinner {
             };

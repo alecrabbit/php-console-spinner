@@ -152,7 +152,7 @@ final class ContainerTest extends TestCase
     public function throwsIfNoServiceFoundById(): void
     {
         $exceptionClass = ContainerException::class;
-        $exceptionMessage = 'There is not service with id "foo" in the container.';
+        $exceptionMessage = 'There is no service with id "foo" in the container.';
 
         $this->expectException($exceptionClass);
         $this->expectExceptionMessage($exceptionMessage);
