@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Color;
 
 use AlecRabbit\Spinner\Contract\Color\IStringableColor;
-use AlecRabbit\Spinner\Contract\IOptions;
+use AlecRabbit\Spinner\Contract\IStyleOptions;
 use AlecRabbit\Spinner\Contract\IStyle;
 
 final readonly class Style implements IStyle
@@ -13,7 +13,7 @@ final readonly class Style implements IStyle
     public function __construct(
         protected null|string|IStringableColor $fgColor = null,
         protected null|string|IStringableColor $bgColor = null,
-        protected ?IOptions $options = null,
+        protected ?IStyleOptions $options = null,
         protected string $format = '%s',
         protected int $width = 0,
     ) {
@@ -34,7 +34,7 @@ final readonly class Style implements IStyle
         return $this->bgColor;
     }
 
-    public function getOptions(): IOptions|null
+    public function getOptions(): IStyleOptions|null
     {
         return $this->options;
     }

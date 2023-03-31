@@ -9,7 +9,7 @@ use AlecRabbit\Spinner\Contract\Color\IStringableColor;
 interface IStyle
 {
 
-    public function getOptions(): IOptions|null;
+    public function getOptions(): IStyleOptions|null;
 
     public function isEmpty(): bool;
 
