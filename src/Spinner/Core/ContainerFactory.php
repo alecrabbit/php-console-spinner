@@ -4,6 +4,7 @@ declare(strict_types=1);
 // 29.03.23
 namespace AlecRabbit\Spinner\Core;
 
+use AlecRabbit\Spinner\Asynchronous\Factory\LoopProbeFactory;
 use AlecRabbit\Spinner\Container\Container;
 use AlecRabbit\Spinner\Container\Contract\IContainer;
 use AlecRabbit\Spinner\Core\Config\ConfigBuilder;
@@ -13,7 +14,11 @@ use AlecRabbit\Spinner\Core\Config\Contract\IDriverBuilder;
 use AlecRabbit\Spinner\Core\Config\DriverBuilder;
 use AlecRabbit\Spinner\Core\Config\WidgetBuilder;
 use AlecRabbit\Spinner\Core\Config\WidgetRevolverBuilder;
+use AlecRabbit\Spinner\Core\Contract\ILoopProbeFactory;
 use AlecRabbit\Spinner\Core\Defaults\DefaultsProvider;
+use AlecRabbit\Spinner\Core\Factory\Contract\IRevolverFactory;
+use AlecRabbit\Spinner\Core\Factory\RevolverFactory;
+use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolverBuilder;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetBuilder;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolverBuilder;
 use ArrayObject;
@@ -66,6 +71,21 @@ final class ContainerFactory
                 IWidgetRevolverBuilder::class =>
                     static function () use ($container): IWidgetRevolverBuilder {
                         return new WidgetRevolverBuilder($container);
+                    },
+                ILoopProbeFactory::class =>
+                    static function () use ($container): ILoopProbeFactory {
+                        return
+                            new LoopProbeFactory($container, new ArrayObject([]),);
+                    },
+                IRevolverFactory::class =>
+                    static function () use ($container): IRevolverFactory {
+                        return
+                            new RevolverFactory($container);
+                    },
+                IFrameRevolverBuilder::class =>
+                    static function () use ($container): IFrameRevolverBuilder {
+                        return
+                            new FrameRevolverBuilder($container);
                     },
             ],
         );

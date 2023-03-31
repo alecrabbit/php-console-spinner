@@ -18,7 +18,7 @@ $spinner = Facade::createSpinner($config);
 // that's it :)
 
 //dump($spinner, $config, $loop);
-//dump($spinner);
+dump($spinner);
 
 $spinner->initialize();
 echo 'Start!' . PHP_EOL;
@@ -38,7 +38,7 @@ $loop->delay(
 );
 
 $loop->repeat(
-    $interval = 0.5,
+    $spinner->getInterval()->toSeconds(),
     static function () use ($spinner): void {
         $spinner->spin();
     }
