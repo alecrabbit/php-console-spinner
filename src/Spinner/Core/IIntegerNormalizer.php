@@ -6,5 +6,5 @@ namespace AlecRabbit\Spinner\Core;
 
 interface IIntegerNormalizer
 {
-
+    public function normalize(int $interval): int;
 }

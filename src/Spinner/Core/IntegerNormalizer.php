@@ -24,11 +24,6 @@ final class IntegerNormalizer implements IIntegerNormalizer
         self::assertMin($min);
     }
 
-    public function getDivisor(): int
-    {
-        return $this->divisor;
-    }
-
     /**
      * @throws InvalidArgumentException
      */
