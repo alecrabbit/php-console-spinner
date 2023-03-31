@@ -13,10 +13,11 @@ use AlecRabbit\Spinner\Core\Contract\ISpinnerBuilder;
 use AlecRabbit\Spinner\Core\SpinnerBuilder;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetBuilder;
 use AlecRabbit\Tests\Spinner\TestCase\TestCase;
+use AlecRabbit\Tests\Spinner\TestCase\TestCaseWithPrebuiltMocks;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 
-final class SpinnerBuilderTest extends TestCase
+final class SpinnerBuilderTest extends TestCaseWithPrebuiltMocks
 {
     #[Test]
     public function canBeCreated(): void
@@ -33,11 +34,6 @@ final class SpinnerBuilderTest extends TestCase
             new SpinnerBuilder(
                 container: $container ?? $this->getContainerMock(),
             );
-    }
-
-    protected function getContainerMock(): MockObject&IContainer
-    {
-        return $this->createMock(IContainer::class);
     }
 
     #[Test]

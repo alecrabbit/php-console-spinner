@@ -10,6 +10,8 @@ use AlecRabbit\Spinner\Core\Defaults\Contract\ILoopSettings;
 use AlecRabbit\Spinner\Core\Defaults\Contract\ISpinnerSettings;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IWidgetSettings;
 use AlecRabbit\Spinner\Core\Factory\StaticFrameFactory;
+use AlecRabbit\Spinner\Core\Pattern\Char\Snake;
+use AlecRabbit\Spinner\Core\Pattern\Style\Rainbow;
 
 final class DefaultsProvider implements IDefaultsProvider
 {
@@ -31,8 +33,8 @@ final class DefaultsProvider implements IDefaultsProvider
     {
         return
             new WidgetSettings(
-                StaticFrameFactory::createEmpty(),
-                StaticFrameFactory::createSpace(),
+                leadingSpacer:  StaticFrameFactory::createEmpty(),
+                trailingSpacer:  StaticFrameFactory::createSpace(),
             );
     }
 
@@ -42,6 +44,8 @@ final class DefaultsProvider implements IDefaultsProvider
             new WidgetSettings(
                 $widgetSettings->getLeadingSpacer(),
                 $widgetSettings->getTrailingSpacer(),
+                stylePattern: new Rainbow(),
+                charPattern: new Snake(),
             );
     }
 

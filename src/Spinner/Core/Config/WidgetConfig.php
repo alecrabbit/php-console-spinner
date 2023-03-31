@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Config;
 
 use AlecRabbit\Spinner\Contract\IFrame;
+use AlecRabbit\Spinner\Contract\IPattern;
 use AlecRabbit\Spinner\Core\Config\Contract\IWidgetConfig;
 
 final class WidgetConfig implements IWidgetConfig
@@ -12,6 +13,8 @@ final class WidgetConfig implements IWidgetConfig
     public function __construct(
         protected IFrame $leadingSpacer,
         protected IFrame $trailingSpacer,
+        protected IPattern $stylePattern,
+        protected IPattern $charPattern,
     ) {
     }
 
@@ -23,5 +26,15 @@ final class WidgetConfig implements IWidgetConfig
     public function getTrailingSpacer(): IFrame
     {
         return $this->trailingSpacer;
+    }
+
+    public function getStylePattern(): IPattern
+    {
+        return $this->stylePattern;
+    }
+
+    public function getCharPattern(): IPattern
+    {
+        return $this->charPattern;
     }
 }

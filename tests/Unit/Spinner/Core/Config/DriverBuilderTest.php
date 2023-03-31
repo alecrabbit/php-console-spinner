@@ -11,11 +11,12 @@ use AlecRabbit\Spinner\Core\Config\DriverConfig;
 use AlecRabbit\Spinner\Core\Defaults\DefaultsProvider;
 use AlecRabbit\Spinner\Core\Driver;
 use AlecRabbit\Tests\Spinner\TestCase\TestCase;
+use AlecRabbit\Tests\Spinner\TestCase\TestCaseWithPrebuiltMocks;
 use LogicException;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 
-final class DriverBuilderTest extends TestCase
+final class DriverBuilderTest extends TestCaseWithPrebuiltMocks
 {
     #[Test]
     public function canBeCreated(): void
@@ -32,11 +33,6 @@ final class DriverBuilderTest extends TestCase
             new DriverBuilder(
                 container: $container ?? $this->getContainerMock(),
             );
-    }
-
-    protected function getContainerMock(): MockObject&IContainer
-    {
-        return $this->createMock(IContainer::class);
     }
 
     #[Test]

@@ -13,6 +13,7 @@ use Throwable;
 
 use function array_key_exists;
 use function is_array;
+use function is_string;
 
 abstract class TestCase extends PHPUnitTestCase
 {
@@ -39,7 +40,7 @@ abstract class TestCase extends PHPUnitTestCase
     protected static function failTest(string|Throwable $messageOrException): never
     {
         $message =
-            \is_string($messageOrException)
+            is_string($messageOrException)
                 ? $messageOrException
                 : self::exceptionNotThrownString($messageOrException);
 
@@ -85,4 +86,5 @@ abstract class TestCase extends PHPUnitTestCase
         }
         return null;
     }
+
 }

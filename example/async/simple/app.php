@@ -18,6 +18,7 @@ $spinner = Facade::createSpinner($config);
 // that's it :)
 
 //dump($spinner, $config, $loop);
+//dump($spinner);
 
 $spinner->initialize();
 echo 'Start!' . PHP_EOL;

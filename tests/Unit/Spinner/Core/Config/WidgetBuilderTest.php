@@ -7,17 +7,16 @@ namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Core\Config;
 use AlecRabbit\Spinner\Container\Contract\IContainer;
 use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Core\Config\WidgetBuilder;
-use AlecRabbit\Spinner\Core\Config\WidgetConfig;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetBuilder;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolverBuilder;
 use AlecRabbit\Spinner\Core\Widget\Widget;
-use AlecRabbit\Tests\Spinner\TestCase\TestCase;
+use AlecRabbit\Tests\Spinner\TestCase\TestCaseWithPrebuiltMocks;
 use LogicException;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 
-final class WidgetBuilderTest extends TestCase
+final class WidgetBuilderTest extends TestCaseWithPrebuiltMocks
 {
     #[Test]
     public function canBeCreated(): void
@@ -36,11 +35,6 @@ final class WidgetBuilderTest extends TestCase
             );
     }
 
-    protected function getContainerMock(): MockObject&IContainer
-    {
-        return $this->createMock(IContainer::class);
-    }
-
     #[Test]
     public function canBuildWidgetWithWidgetConfig(): void
     {
@@ -49,15 +43,12 @@ final class WidgetBuilderTest extends TestCase
             ->method('get')
             ->willReturn($this->createMock(IWidgetRevolverBuilder::class))
         ;
-//            ->method('get')
-//            ->willReturn(new DefaultsProvider());
 
         $widgetBuilder = $this->getTesteeInstance(container: $container);
 
         self::assertInstanceOf(WidgetBuilder::class, $widgetBuilder);
 
-        $frame = $this->createMock(IFrame::class);
-        $widgetConfig = new WidgetConfig($frame, $frame);
+        $widgetConfig = $this->getWidgetConfigMock();
         $widgetComposite = $widgetBuilder->withWidgetConfig($widgetConfig)->build();
 
         self::assertInstanceOf(Widget::class, $widgetComposite);
@@ -76,8 +67,7 @@ final class WidgetBuilderTest extends TestCase
 
         self::assertInstanceOf(WidgetBuilder::class, $widgetBuilder);
 
-        $frame = $this->createMock(IFrame::class);
-        $widgetConfig = new WidgetConfig($frame, $frame);
+        $widgetConfig = $this->getWidgetConfigMock();
         $revolver = $this->createMock(IRevolver::class);
         $widgetComposite =
             $widgetBuilder

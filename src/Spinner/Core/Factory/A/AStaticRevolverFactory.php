@@ -7,7 +7,7 @@ namespace AlecRabbit\Spinner\Core\Factory\A;
 use AlecRabbit\Spinner\Contract\IAnsiStyleConverter;
 use AlecRabbit\Spinner\Contract\IPattern;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDefaults;
-use AlecRabbit\Spinner\Core\Factory\Contract\IRevolverFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\IStaticRevolverFactory;
 use AlecRabbit\Spinner\Core\Factory\StaticAnsiColorConverterFactory;
 use AlecRabbit\Spinner\Core\Factory\StaticFrameFactory;
 use AlecRabbit\Spinner\Core\Factory\StaticIntervalFactory;
@@ -17,7 +17,7 @@ use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
 use AlecRabbit\Spinner\Core\Revolver\FrameCollectionRevolver;
 use ArrayObject;
 
-abstract class AStaticRevolverFactory extends ADefaultsAwareClass implements IRevolverFactory
+abstract class AStaticRevolverFactory extends ADefaultsAwareClass implements IStaticRevolverFactory
 {
     private static ?IFrameRevolverBuilder $revolverBuilder = null;
 

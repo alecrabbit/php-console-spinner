@@ -91,10 +91,13 @@ final class ConfigBuilder extends ABuilder implements IConfigBuilder
     protected function defaultRootWidgetConfig(): IWidgetConfig
     {
         $defaults = $this->getDefaultsProvider();
+        $settings = $defaults->getRootWidgetSettings();
         return
             new WidgetConfig(
-                $defaults->getWidgetSettings()->getLeadingSpacer(),
-                $defaults->getWidgetSettings()->getTrailingSpacer(),
+                $settings->getLeadingSpacer(),
+                $settings->getTrailingSpacer(),
+                $settings->getStylePattern(),
+                $settings->getCharPattern(),
             );
     }
 }

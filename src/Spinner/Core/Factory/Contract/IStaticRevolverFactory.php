@@ -9,7 +9,7 @@ use AlecRabbit\Spinner\Core\Defaults\Contract\IDefaults;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolverBuilder;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
 
-interface IRevolverFactory
+interface IStaticRevolverFactory
 {
     public static function create(IPattern $pattern, ?IDefaults $defaults = null): IRevolver;
 

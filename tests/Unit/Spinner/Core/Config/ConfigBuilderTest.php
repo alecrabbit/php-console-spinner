@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Core\Config;
 
 use AlecRabbit\Spinner\Container\Contract\IContainer;
-use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Contract\OptionAutoStart;
 use AlecRabbit\Spinner\Contract\OptionInitialization;
 use AlecRabbit\Spinner\Contract\OptionRunMode;
@@ -16,13 +15,12 @@ use AlecRabbit\Spinner\Core\Config\Contract\IConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\DriverConfig;
 use AlecRabbit\Spinner\Core\Config\LoopConfig;
 use AlecRabbit\Spinner\Core\Config\SpinnerConfig;
-use AlecRabbit\Spinner\Core\Config\WidgetConfig;
 use AlecRabbit\Spinner\Core\Defaults\DefaultsProvider;
-use AlecRabbit\Tests\Spinner\TestCase\TestCase;
+use AlecRabbit\Tests\Spinner\TestCase\TestCaseWithPrebuiltMocks;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 
-final class ConfigBuilderTest extends TestCase
+final class ConfigBuilderTest extends TestCaseWithPrebuiltMocks
 {
     #[Test]
     public function canBeCreated(): void
@@ -39,11 +37,6 @@ final class ConfigBuilderTest extends TestCase
             new ConfigBuilder(
                 container: $container ?? $this->getContainerMock(),
             );
-    }
-
-    protected function getContainerMock(): MockObject&IContainer
-    {
-        return $this->createMock(IContainer::class);
     }
 
     #[Test]
@@ -143,8 +136,7 @@ final class ConfigBuilderTest extends TestCase
 
         self::assertInstanceOf(ConfigBuilder::class, $configBuilder);
 
-        $frame = $this->createMock(IFrame::class);
-        $widgetConfig = new WidgetConfig($frame, $frame);
+        $widgetConfig = $this->getWidgetConfigMock();
 
         $config = $configBuilder->withRootWidgetConfig($widgetConfig)->build();
 

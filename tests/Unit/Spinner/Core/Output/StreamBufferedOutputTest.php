@@ -121,9 +121,4 @@ final class StreamBufferedOutputTest extends TestCase
 //        self::assertInstanceOf(ASpinner::class, $spinner);
 //        self::assertInstanceOf(IConfig::class, self::getValue('config', $spinnerBuilder));
 //    }
-//
-//    protected function getContainerMock(): MockObject&IContainer
-//    {
-//        return $this->createMock(IContainer::class);
-//    }
 }

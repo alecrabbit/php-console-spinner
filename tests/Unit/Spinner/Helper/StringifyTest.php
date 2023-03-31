@@ -237,7 +237,7 @@ final class StringifyTest extends TestCase
             ],
             [
                 self::ARGUMENTS => [
-                    self::VALUE => new \stdClass(),
+                    self::VALUE => new stdClass(),
                 ],
             ],
         ];

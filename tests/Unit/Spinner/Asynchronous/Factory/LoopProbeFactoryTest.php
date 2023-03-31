@@ -10,13 +10,14 @@ use AlecRabbit\Spinner\Core\Contract\ILoopProbeFactory;
 use AlecRabbit\Spinner\Core\Loop\A\ALoopProbe;
 use AlecRabbit\Spinner\Exception\DomainException;
 use AlecRabbit\Tests\Spinner\TestCase\TestCase;
+use AlecRabbit\Tests\Spinner\TestCase\TestCaseWithPrebuiltMocks;
 use AlecRabbit\Tests\Spinner\Unit\Spinner\Asynchronous\Factory\Stub\LoopProbeStub;
 use ArrayObject;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 use Traversable;
 
-final class LoopProbeFactoryTest extends TestCase
+final class LoopProbeFactoryTest extends TestCaseWithPrebuiltMocks
 {
     #[Test]
     public function canBeCreated(): void
@@ -35,11 +36,6 @@ final class LoopProbeFactoryTest extends TestCase
                 container: $container ?? $this->getContainerMock(),
                 loopProbes: $loopProbes ?? $this->getLoopProbesMock(),
             );
-    }
-
-    protected function getContainerMock(): MockObject&IContainer
-    {
-        return $this->createMock(IContainer::class);
     }
 
     private function getLoopProbesMock(): MockObject&Traversable

@@ -7,7 +7,7 @@ namespace AlecRabbit\Spinner\Core\Factory\Contract;
 
 use AlecRabbit\Spinner\Contract\IFrame;
 
-interface IFrameFactory
+interface IStaticFrameFactory
 {
     public static function create(string $sequence, ?int $width = null): IFrame;
 

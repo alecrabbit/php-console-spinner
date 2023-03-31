@@ -12,11 +12,12 @@ use AlecRabbit\Spinner\Core\Factory\Contract\ILoopFactory;
 use AlecRabbit\Spinner\Core\Factory\LoopFactory;
 use AlecRabbit\Spinner\Core\Loop\A\ALoopProbe;
 use AlecRabbit\Tests\Spinner\TestCase\TestCase;
+use AlecRabbit\Tests\Spinner\TestCase\TestCaseWithPrebuiltMocks;
 use AlecRabbit\Tests\Spinner\Unit\Spinner\Asynchronous\Override\ALoopAdapterOverride;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 
-final class LoopFactoryTest extends TestCase
+final class LoopFactoryTest extends TestCaseWithPrebuiltMocks
 {
     #[Test]
     public function canBeCreated(): void
@@ -36,11 +37,6 @@ final class LoopFactoryTest extends TestCase
                 container: $container ?? $this->getContainerMock(),
                 loopProbeFactory: $loopProbeFactory ?? $this->getLoopProbeFactoryMock(),
             );
-    }
-
-    protected function getContainerMock(): MockObject&IContainer
-    {
-        return $this->createMock(IContainer::class);
     }
 
     protected function getLoopProbeFactoryMock(): MockObject&ILoopProbeFactory
