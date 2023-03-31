@@ -31,11 +31,6 @@ final class ContainerFactory
 {
     protected static ?IContainer $container = null;
 
-    protected function createContainerDependentService(string $class): object
-    {
-        return new $class(self::getContainer());
-    }
-
     public static function getContainer(): IContainer
     {
         return self::createContainer();
