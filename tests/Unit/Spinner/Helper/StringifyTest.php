@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Helper;
 
 use AlecRabbit\Spinner\Exception\DomainException;
+use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Helper\Stringify;
 use AlecRabbit\Tests\Spinner\TestCase\TestCase;
 use ArrayObject;
@@ -164,6 +165,7 @@ final class StringifyTest extends TestCase
             ],
         ];
     }
+
     public static function stringifyThrowableDataProvider(): iterable
     {
         // [$expected, $incoming]
@@ -190,7 +192,44 @@ final class StringifyTest extends TestCase
                 ],
             ],
         ];
+    }
 
+    public static function stringifyShortClassNameDataProvider(): iterable
+    {
+        // [$expected, $incoming]
+        #0
+        yield [
+            [
+                self::RESULT => 'DomainException',
+            ],
+            [
+                self::ARGUMENTS => [
+                    self::VALUE => new DomainException('-'),
+                ],
+            ],
+        ];
+        #1
+        yield [
+            [
+                self::RESULT => 'InvalidArgumentException',
+            ],
+            [
+                self::ARGUMENTS => [
+                    self::VALUE => new \InvalidArgumentException('-'),
+                ],
+            ],
+        ];
+        #2
+        yield [
+            [
+                self::RESULT => 'InvalidArgumentException',
+            ],
+            [
+                self::ARGUMENTS => [
+                    self::VALUE => InvalidArgumentException::class,
+                ],
+            ],
+        ];
     }
 
     #[Test]
@@ -219,6 +258,23 @@ final class StringifyTest extends TestCase
         $args = $incoming[self::ARGUMENTS];
 
         $result = Stringify::throwable($args[self::VALUE], $args[self::UNWRAP] ?? true);
+
+        if ($expectedException) {
+            self::failTest($expectedException);
+        }
+
+        self::assertSame($expected[self::RESULT], $result);
+    }
+
+    #[Test]
+    #[DataProvider('stringifyShortClassNameDataProvider')]
+    public function canReturnClassShortName(array $expected, array $incoming): void
+    {
+        $expectedException = $this->expectsException($expected);
+
+        $args = $incoming[self::ARGUMENTS];
+
+        $result = Stringify::shortClassName($args[self::VALUE]);
 
         if ($expectedException) {
             self::failTest($expectedException);
