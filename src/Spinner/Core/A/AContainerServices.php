@@ -17,6 +17,8 @@ use AlecRabbit\Spinner\Core\Factory\Contract\IRevolverFactory;
 use AlecRabbit\Spinner\Core\Factory\LoopFactory;
 use AlecRabbit\Spinner\Core\SpinnerBuilder;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetBuilder;
+use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolverBuilder;
+use AlecRabbit\Spinner\Core\WidgetBuilder;
 
 abstract class AContainerServices
 {
@@ -64,5 +66,10 @@ abstract class AContainerServices
     protected function getLoopProbeFactory(): ILoopProbeFactory
     {
         return $this->container->get(ILoopProbeFactory::class);
+    }
+
+    protected function getWidgetRevolverBuilder(): IWidgetRevolverBuilder
+    {
+        return $this->container->get(IWidgetRevolverBuilder::class);
     }
 }

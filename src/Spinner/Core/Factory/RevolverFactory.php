@@ -6,6 +6,7 @@ namespace AlecRabbit\Spinner\Core\Factory;
 
 use AlecRabbit\Spinner\Contract\IPattern;
 use AlecRabbit\Spinner\Core\Factory\A\AFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\IFrameFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IRevolverFactory;
 use AlecRabbit\Spinner\Core\FrameCollection;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolverBuilder;

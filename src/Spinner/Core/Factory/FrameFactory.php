@@ -6,6 +6,7 @@ namespace AlecRabbit\Spinner\Core\Factory;
 
 use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Core\Factory\A\AFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\IFrameFactory;
 use AlecRabbit\Spinner\Core\Frame;
 use AlecRabbit\Spinner\Core\WidthDeterminer;
 

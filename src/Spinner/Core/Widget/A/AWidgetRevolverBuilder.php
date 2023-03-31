@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Widget\A;
 
-use AlecRabbit\Spinner\Core\Factory\Contract\IRevolverFactory;
+use AlecRabbit\Spinner\Contract\IPattern;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolverBuilder;
 use AlecRabbit\Spinner\Core\Widget\WidgetRevolver;
@@ -13,11 +13,15 @@ abstract class AWidgetRevolverBuilder extends ARevolverBuilder implements IWidge
 {
     protected ?IRevolver $styleRevolver = null;
     protected ?IRevolver $charRevolver = null;
+    protected ?IPattern $stylePattern = null;
+    protected ?IPattern $charPattern = null;
 
 
     /** @inheritdoc */
     public function build(): IRevolver
     {
+        $this->processPatterns();
+
         return
             new WidgetRevolver(
                 $this->styleRevolver ?? $this->getRevolverFactory()->defaultStyleRevolver(),
@@ -25,9 +29,25 @@ abstract class AWidgetRevolverBuilder extends ARevolverBuilder implements IWidge
             );
     }
 
-    protected function getRevolverFactory(): IRevolverFactory
+    protected function processPatterns(): void
     {
-        return $this->container->get(IRevolverFactory::class);
+        if ($this->stylePattern) {
+            $this->styleRevolver ??=
+                $this->getRevolverFactory()
+                    ->create(
+                        $this->stylePattern
+                    )
+            ;
+        }
+
+        if ($this->charPattern) {
+            $this->charRevolver ??=
+                $this->getRevolverFactory()
+                    ->create(
+                        $this->charPattern
+                    )
+            ;
+        }
     }
 
     public function withStyleRevolver(IRevolver $styleRevolver): static
@@ -41,6 +61,20 @@ abstract class AWidgetRevolverBuilder extends ARevolverBuilder implements IWidge
     {
         $clone = clone $this;
         $clone->charRevolver = $charRevolver;
+        return $clone;
+    }
+
+    public function withStylePattern(IPattern $stylePattern): static
+    {
+        $clone = clone $this;
+        $clone->stylePattern = $stylePattern;
+        return $clone;
+    }
+
+    public function withCharPattern(IPattern $charPattern): static
+    {
+        $clone = clone $this;
+        $clone->charPattern = $charPattern;
         return $clone;
     }
 }

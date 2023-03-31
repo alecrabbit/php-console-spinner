@@ -4,6 +4,7 @@ declare(strict_types=1);
 // 29.03.23
 namespace AlecRabbit\Spinner\Core\Config\Contract;
 
+use AlecRabbit\Spinner\Core\Defaults\Contract\IAuxSettings;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDriverSettings;
 use AlecRabbit\Spinner\Core\Defaults\Contract\ILoopSettings;
 use AlecRabbit\Spinner\Core\Defaults\Contract\ISpinnerSettings;
@@ -20,4 +21,6 @@ interface IDefaultsProvider
     public function getSpinnerSettings(): ISpinnerSettings;
 
     public function getLoopSettings(): ILoopSettings;
+
+    public function getAuxSettings(string $name): IAuxSettings;
 }

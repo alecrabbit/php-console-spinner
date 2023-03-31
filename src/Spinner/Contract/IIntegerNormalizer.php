@@ -7,9 +7,9 @@ namespace AlecRabbit\Spinner\Contract;
 
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 
-interface IIntNormalizer
+interface IIntegerNormalizer
 {
-    final public const DEFAULT_DIVISOR = 50; // FIXME: IntervalFactory indirectly depends on this value
+    final public const DEFAULT_DIVISOR = 1;
     final public const DEFAULT_MIN = 0;
     final public const MAX_DIVISOR = 1000000;
 

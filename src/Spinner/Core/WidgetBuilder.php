@@ -10,7 +10,6 @@ use AlecRabbit\Spinner\Core\Config\Contract\IWidgetConfig;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetBuilder;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
-use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolverBuilder;
 use AlecRabbit\Spinner\Core\Widget\Widget;
 use LogicException;
 
@@ -52,25 +51,10 @@ final class WidgetBuilder extends ABuilder implements IWidgetBuilder
     {
         return
             $this->getWidgetRevolverBuilder()
-                ->withStyleRevolver(
-                    $this->getRevolverFactory()
-                        ->create(
-                            $this->widgetConfig->getStylePattern()
-                        )
-                )
-                ->withCharRevolver(
-                    $this->getRevolverFactory()
-                        ->create(
-                            $this->widgetConfig->getCharPattern()
-                        )
-                )
+                ->withStylePattern($this->widgetConfig->getStylePattern())
+                ->withCharPattern($this->widgetConfig->getCharPattern())
                 ->build()
         ;
-    }
-
-    private function getWidgetRevolverBuilder(): IWidgetRevolverBuilder
-    {
-        return $this->container->get(IWidgetRevolverBuilder::class);
     }
 
     public function withWidgetRevolver(IRevolver $revolver): IWidgetBuilder

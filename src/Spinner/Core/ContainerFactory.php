@@ -17,8 +17,10 @@ use AlecRabbit\Spinner\Core\Contract\IContainerFactory;
 use AlecRabbit\Spinner\Core\Contract\ILoopProbeFactory;
 use AlecRabbit\Spinner\Core\Contract\ISpinnerBuilder;
 use AlecRabbit\Spinner\Core\Defaults\DefaultsProvider;
+use AlecRabbit\Spinner\Core\Factory\Contract\IFrameFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IRevolverFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ISpinnerFactory;
+use AlecRabbit\Spinner\Core\Factory\FrameFactory;
 use AlecRabbit\Spinner\Core\Factory\RevolverFactory;
 use AlecRabbit\Spinner\Core\Factory\SpinnerFactory;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolverBuilder;
@@ -75,6 +77,7 @@ final class ContainerFactory implements IContainerFactory
                 IFrameRevolverBuilder::class => $instanceProducer(FrameRevolverBuilder::class),
                 ISpinnerFactory::class => $instanceProducer(SpinnerFactory::class),
                 ISpinnerBuilder::class => $instanceProducer(SpinnerBuilder::class),
+                IFrameFactory::class => $instanceProducer(FrameFactory::class),
             ],
         );
     }

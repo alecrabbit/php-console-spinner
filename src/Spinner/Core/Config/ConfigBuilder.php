@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Config;
 
+use AlecRabbit\Spinner\Container\Contract\IContainer;
 use AlecRabbit\Spinner\Core\A\ABuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\IConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IConfigBuilder;
+use AlecRabbit\Spinner\Core\Config\Contract\IDefaultsProvider;
 use AlecRabbit\Spinner\Core\Config\Contract\IDriverConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\ILoopConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\ISpinnerConfig;
@@ -14,10 +16,18 @@ use AlecRabbit\Spinner\Core\Config\Contract\IWidgetConfig;
 
 final class ConfigBuilder extends ABuilder implements IConfigBuilder
 {
+    protected IDefaultsProvider $defaultsProvider;
     protected ?IDriverConfig $driverConfig = null;
     protected ?ILoopConfig $loopConfig = null;
     protected ?ISpinnerConfig $spinnerConfig = null;
     protected ?IWidgetConfig $rootWidgetConfig = null;
+
+    public function __construct(IContainer $container)
+    {
+        parent::__construct($container);
+        $this->defaultsProvider = $this->getDefaultsProvider();
+    }
+
 
     public function withDriverConfig(IDriverConfig $driverConfig): IConfigBuilder
     {
@@ -60,44 +70,43 @@ final class ConfigBuilder extends ABuilder implements IConfigBuilder
 
     protected function defaultDriverConfig(): IDriverConfig
     {
-        $defaults = $this->getDefaultsProvider();
+        $driverSettings = $this->defaultsProvider->getDriverSettings();
         return
             new DriverConfig(
-                $defaults->getDriverSettings()->getInterruptMessage(),
-                $defaults->getDriverSettings()->getFinalMessage(),
+                $driverSettings->getInterruptMessage(),
+                $driverSettings->getFinalMessage(),
             );
     }
 
     protected function defaultLoopConfig(): ILoopConfig
     {
-        $defaults = $this->getDefaultsProvider();
+        $loopSettings = $this->defaultsProvider->getLoopSettings();
         return
             new LoopConfig(
-                $defaults->getLoopSettings()->getRunModeOption(),
-                $defaults->getLoopSettings()->getAutoStartOption(),
-                $defaults->getLoopSettings()->getSignalHandlersOption(),
+                $loopSettings->getRunModeOption(),
+                $loopSettings->getAutoStartOption(),
+                $loopSettings->getSignalHandlersOption(),
             );
     }
 
     protected function defaultSpinnerConfig(): ISpinnerConfig
     {
-        $defaults = $this->getDefaultsProvider();
+        $spinnerSettings = $this->defaultsProvider->getSpinnerSettings();
         return
             new SpinnerConfig(
-                $defaults->getSpinnerSettings()->getInitializationOption(),
+                $spinnerSettings->getInitializationOption(),
             );
     }
 
     protected function defaultRootWidgetConfig(): IWidgetConfig
     {
-        $defaults = $this->getDefaultsProvider();
-        $settings = $defaults->getRootWidgetSettings();
+        $rootWidgetSettings = $this->defaultsProvider->getRootWidgetSettings();
         return
             new WidgetConfig(
-                $settings->getLeadingSpacer(),
-                $settings->getTrailingSpacer(),
-                $settings->getStylePattern(),
-                $settings->getCharPattern(),
+                $rootWidgetSettings->getLeadingSpacer(),
+                $rootWidgetSettings->getTrailingSpacer(),
+                $rootWidgetSettings->getStylePattern(),
+                $rootWidgetSettings->getCharPattern(),
             );
     }
 }

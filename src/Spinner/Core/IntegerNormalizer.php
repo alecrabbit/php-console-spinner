@@ -5,10 +5,10 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core;
 
-use AlecRabbit\Spinner\Contract\IIntNormalizer;
+use AlecRabbit\Spinner\Contract\IIntegerNormalizer;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 
-final class IntNormalizer implements IIntNormalizer
+final class IntegerNormalizer implements IIntegerNormalizer
 {
     private static int $divisor = self::DEFAULT_DIVISOR;
     private static int $min = self::DEFAULT_MIN;
