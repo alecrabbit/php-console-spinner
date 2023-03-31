@@ -8,7 +8,6 @@ use AlecRabbit\Spinner\Container\Contract\IContainer;
 use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Contract\IPattern;
 use AlecRabbit\Spinner\Core\Config\WidgetConfig;
-use AlecRabbit\Tests\Spinner\Unit\Spinner\Core\Config\WidgetBuilderTest;
 use PHPUnit\Framework\MockObject\MockObject;
 
 abstract class TestCaseWithPrebuiltMocks extends TestCase
@@ -17,11 +16,21 @@ abstract class TestCaseWithPrebuiltMocks extends TestCase
     {
         return
             new WidgetConfig(
-                $this->createMock(IFrame::class),
-                $this->createMock(IFrame::class),
-                $this->createMock(IPattern::class),
-                $this->createMock(IPattern::class)
+                $this->getFrameMock(),
+                $this->getFrameMock(),
+                $this->getPatternMock(),
+                $this->getPatternMock()
             );
+    }
+
+    protected function getFrameMock(): IFrame&MockObject
+    {
+        return $this->createMock(IFrame::class);
+    }
+
+    protected function getPatternMock(): IPattern&MockObject
+    {
+        return $this->createMock(IPattern::class);
     }
 
     protected function getContainerMock(): MockObject&IContainer

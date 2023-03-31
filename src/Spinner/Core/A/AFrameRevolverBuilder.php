@@ -4,12 +4,9 @@ declare(strict_types=1);
 // 20.03.23
 namespace AlecRabbit\Spinner\Core\A;
 
-use AlecRabbit\Spinner\Contract\IAnsiStyleConverter;
 use AlecRabbit\Spinner\Contract\IFrameCollectionRenderer;
 use AlecRabbit\Spinner\Contract\IPattern;
 use AlecRabbit\Spinner\Core\CharFrameCollectionRenderer;
-use AlecRabbit\Spinner\Core\Defaults\Contract\IDefaults;
-use AlecRabbit\Spinner\Core\FrameRenderer;
 use AlecRabbit\Spinner\Core\Pattern\Contract\IStylePattern;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolver;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolverBuilder;
@@ -22,13 +19,6 @@ use AlecRabbit\Spinner\Exception\DomainException;
 abstract class AFrameRevolverBuilder extends ARevolverBuilder implements IFrameRevolverBuilder
 {
     protected ?IPattern $pattern = null;
-
-    public function __construct(
-        IDefaults $defaults,
-        protected IAnsiStyleConverter $colorConverter,
-    ) {
-        parent::__construct($defaults);
-    }
 
     public function withPattern(IPattern $pattern): static
     {
