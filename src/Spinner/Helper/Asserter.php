@@ -22,7 +22,7 @@ final class Asserter
      * @param bool $allowString
      * @throws InvalidArgumentException
      */
-    public static function isSubClass(
+    public static function assertIsSubClass(
         object|string $c,
         string $i,
         ?string $callerMethod = null,

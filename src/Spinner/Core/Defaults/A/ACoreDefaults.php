@@ -113,7 +113,7 @@ abstract class ACoreDefaults implements IDefaults
     public static function registerProbeClass(string $class): void
     {
         Asserter::assertClassExists($class, __METHOD__);
-        Asserter::isSubClass($class, IProbe::class, __METHOD__);
+        Asserter::assertIsSubClass($class, IProbe::class, __METHOD__);
 
         if (is_subclass_of($class, ILoopProbe::class)) {
             static::registerLoopProbeClass($class);
@@ -144,7 +144,7 @@ abstract class ACoreDefaults implements IDefaults
      */
     protected static function registerLoopProbeClass(string $class): void
     {
-        Asserter::isSubClass($class, ILoopProbe::class, __METHOD__);
+        Asserter::assertIsSubClass($class, ILoopProbe::class, __METHOD__);
 
         if (!in_array($class, self::$registeredLoopProbes, true)) {
             self::$registeredLoopProbes[] = $class;
@@ -157,7 +157,7 @@ abstract class ACoreDefaults implements IDefaults
      */
     protected static function registerTerminalProbeClass(string $class): void
     {
-        Asserter::isSubClass($class, ITerminalProbe::class, __METHOD__);
+        Asserter::assertIsSubClass($class, ITerminalProbe::class, __METHOD__);
 
         if (!in_array($class, self::$registeredTerminalProbes, true)) {
             self::$registeredTerminalProbes[] = $class;

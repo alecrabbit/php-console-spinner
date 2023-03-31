@@ -105,7 +105,7 @@ abstract class ADefaultsClasses extends ADefaultsChild implements IDefaultsClass
     /** @inheritDoc */
     public static function overrideFrameRevolverBuilderClass(string $frameRevolverBuilderClass): void
     {
-        Asserter::isSubClass($frameRevolverBuilderClass, IFrameRevolverBuilder::class, __METHOD__);
+        Asserter::assertIsSubClass($frameRevolverBuilderClass, IFrameRevolverBuilder::class, __METHOD__);
         self::$frameRevolverBuilderClassOverride = $frameRevolverBuilderClass;
     }
 
@@ -118,7 +118,7 @@ abstract class ADefaultsClasses extends ADefaultsChild implements IDefaultsClass
     /** @inheritDoc */
     public function overrideWidgetBuilderClass(string $widgetBuilderClass): void
     {
-        Asserter::isSubClass($widgetBuilderClass, IWidgetBuilder::class, __METHOD__);
+        Asserter::assertIsSubClass($widgetBuilderClass, IWidgetBuilder::class, __METHOD__);
         self::$widgetBuilderClass = $widgetBuilderClass;
     }
 
@@ -131,7 +131,7 @@ abstract class ADefaultsClasses extends ADefaultsChild implements IDefaultsClass
     /** @inheritDoc */
     public function overrideWidgetRevolverBuilderClass(string $widgetRevolverBuilderClass): void
     {
-        Asserter::isSubClass($widgetRevolverBuilderClass, IWidgetRevolverBuilder::class, __METHOD__);
+        Asserter::assertIsSubClass($widgetRevolverBuilderClass, IWidgetRevolverBuilder::class, __METHOD__);
         self::$widgetRevolverBuilderClass = $widgetRevolverBuilderClass;
     }
 
@@ -144,7 +144,7 @@ abstract class ADefaultsClasses extends ADefaultsChild implements IDefaultsClass
     /** @inheritDoc */
     public function overrideDriverBuilderClass(string $driverBuilderClass): void
     {
-        Asserter::isSubClass($driverBuilderClass, IDriverBuilder::class, __METHOD__);
+        Asserter::assertIsSubClass($driverBuilderClass, IDriverBuilder::class, __METHOD__);
         self::$driverBuilderClass = $driverBuilderClass;
     }
 
@@ -163,7 +163,7 @@ abstract class ADefaultsClasses extends ADefaultsChild implements IDefaultsClass
     /** @inheritDoc */
     public function overrideAnsiStyleConverterClass(string $ansiColorConverterClass): void
     {
-        Asserter::isSubClass($ansiColorConverterClass, IAnsiStyleConverter::class, __METHOD__);
+        Asserter::assertIsSubClass($ansiColorConverterClass, IAnsiStyleConverter::class, __METHOD__);
         self::$ansiStyleConverterClass = $ansiColorConverterClass;
     }
 }

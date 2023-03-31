@@ -70,7 +70,7 @@ abstract class ASettableDefaults extends ACoreDefaults
     {
         /** @var class-string<ITerminalProbe> $probe */
         foreach ($terminalProbes as $probe) {
-            Asserter::isSubClass($probe, ITerminalProbe::class, __METHOD__);
+            Asserter::assertIsSubClass($probe, ITerminalProbe::class, __METHOD__);
         }
         static::$terminalProbes = $terminalProbes;
         return $this;
@@ -81,7 +81,7 @@ abstract class ASettableDefaults extends ACoreDefaults
     {
         /** @var class-string<ILoopProbe> $probe */
         foreach ($loopProbes as $probe) {
-            Asserter::isSubClass($probe, ILoopProbe::class, __METHOD__);
+            Asserter::assertIsSubClass($probe, ILoopProbe::class, __METHOD__);
         }
         static::$loopProbes = $loopProbes;
         return $this;

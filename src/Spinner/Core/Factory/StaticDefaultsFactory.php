@@ -75,7 +75,7 @@ final class StaticDefaultsFactory
      */
     public static function setDefaultsClass(string $class): void
     {
-        Asserter::isSubClass($class, IDefaults::class, __METHOD__);
+        Asserter::assertIsSubClass($class, IDefaults::class, __METHOD__);
 
         if (null !== self::$defaultsInstance) {
             throw new DomainException(

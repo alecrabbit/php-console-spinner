@@ -150,7 +150,7 @@ final class ColorConverter implements IColorConverter
         }
 
         if (is_object($color)) {
-            Asserter::isSubClass($color, IColor::class);
+            Asserter::assertIsSubClass($color, IColor::class);
             return;
         }
 

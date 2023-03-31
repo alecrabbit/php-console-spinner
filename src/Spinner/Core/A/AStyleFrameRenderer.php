@@ -31,7 +31,7 @@ abstract class AStyleFrameRenderer implements IStyleFrameRenderer
         protected IAnsiStyleConverter $converter,
         string $sequencer = Sequencer::class,
     ) {
-        Asserter::isSubClass($sequencer, ISequencer::class, __METHOD__);
+        Asserter::assertIsSubClass($sequencer, ISequencer::class, __METHOD__);
         $this->sequencer = $sequencer;
     }
 
