@@ -4,7 +4,6 @@ declare(strict_types=1);
 // 29.03.23
 namespace AlecRabbit\Spinner\Core;
 
-use AlecRabbit\Spinner\Asynchronous\Factory\LoopProbeFactory;
 use AlecRabbit\Spinner\Container\Container;
 use AlecRabbit\Spinner\Container\Contract\IContainer;
 use AlecRabbit\Spinner\Core\Config\ConfigBuilder;
@@ -26,6 +25,7 @@ use AlecRabbit\Spinner\Core\Factory\SpinnerFactory;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolverBuilder;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetBuilder;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolverBuilder;
+use AlecRabbit\Spinner\Exception\DomainException;
 use ArrayObject;
 use Closure;
 use Traversable;
@@ -72,7 +72,9 @@ final class ContainerFactory implements IContainerFactory
                 IDriverBuilder::class => $instanceProducer(DriverBuilder::class),
                 IWidgetBuilder::class => $instanceProducer(WidgetBuilder::class),
                 IWidgetRevolverBuilder::class => $instanceProducer(WidgetRevolverBuilder::class),
-                ILoopProbeFactory::class => $instanceProducer(LoopProbeFactory::class),
+                ILoopProbeFactory::class => static function (): never {
+                    throw new DomainException('LoopProbeFactory is not available in this context.');
+                },
                 IRevolverFactory::class => $instanceProducer(RevolverFactory::class),
                 IFrameRevolverBuilder::class => $instanceProducer(FrameRevolverBuilder::class),
                 ISpinnerFactory::class => $instanceProducer(SpinnerFactory::class),

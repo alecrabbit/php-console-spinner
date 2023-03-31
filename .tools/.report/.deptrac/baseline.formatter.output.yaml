@@ -1,4 +1,2 @@
 deptrac:
-  skip_violations:
-    AlecRabbit\Spinner\Core\ContainerFactory:
-      - AlecRabbit\Spinner\Asynchronous\Factory\LoopProbeFactory
+  skip_violations: {  }

@@ -9,12 +9,10 @@ use AlecRabbit\Spinner\Core\Config\Contract\IConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IConfigBuilder;
 use AlecRabbit\Spinner\Core\Contract\IFacade;
 use AlecRabbit\Spinner\Core\Contract\ILoopAdapter;
-use AlecRabbit\Spinner\Core\Contract\ILoopProbeFactory;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ISpinnerFactory;
 use AlecRabbit\Spinner\Core\Factory\LoopFactory;
-use AlecRabbit\Spinner\Core\Factory\SpinnerFactory;
 
 final class Facade extends AContainerAware implements IFacade
 {
@@ -27,7 +25,6 @@ final class Facade extends AContainerAware implements IFacade
     protected static function getSpinnerFactory(): ISpinnerFactory
     {
         return self::getContainer()->get(ISpinnerFactory::class);
-//        return new SpinnerFactory(self::getContainer());
     }
 
     public static function getConfigBuilder(): IConfigBuilder
@@ -46,9 +43,6 @@ final class Facade extends AContainerAware implements IFacade
     {
         $container = self::getContainer();
         return
-            new LoopFactory(
-                $container,
-                $container->get(ILoopProbeFactory::class)
-            );
+            new LoopFactory($container);
     }
 }
