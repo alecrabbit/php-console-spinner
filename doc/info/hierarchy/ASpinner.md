@@ -1,10 +1,10 @@
-# Spinner
-### AlecRabbit\Spinner\Core\A\ASpinner::class
+# ASpinner 
+### AlecRabbit\Spinner\Core\A\ASpinner => ISpinner
 
 ```mermaid
 classDiagram
 direction LR
-Spinner ..|> ISpinner
-Spinner --* IDriver
-Spinner --* IWidgetComposite
+ASpinner ..|> ISpinner
+ASpinner --> IDriver
+ASpinner --> IWidgetComposite
 ```

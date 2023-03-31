@@ -37,6 +37,11 @@ final class LoopFactory extends AFactory implements ILoopFactory
 
     protected function getLoopProbe(): ILoopProbe
     {
-        return $this->loopProbeFactory->getProbe();
+        return $this->getLoopProbeFactory()->getProbe();
+    }
+
+    protected function getLoopProbeFactory(): ILoopProbeFactory
+    {
+        return $this->loopProbeFactory;
     }
 }

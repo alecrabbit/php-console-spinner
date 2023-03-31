@@ -12,7 +12,6 @@ use AlecRabbit\Spinner\Core\Config\Contract\IConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\IDefaultsProvider;
 use AlecRabbit\Spinner\Core\Config\Contract\IDriverBuilder;
 use AlecRabbit\Spinner\Core\Config\DriverBuilder;
-use AlecRabbit\Spinner\Core\Config\WidgetBuilder;
 use AlecRabbit\Spinner\Core\Config\WidgetRevolverBuilder;
 use AlecRabbit\Spinner\Core\Contract\ILoopProbeFactory;
 use AlecRabbit\Spinner\Core\Defaults\DefaultsProvider;

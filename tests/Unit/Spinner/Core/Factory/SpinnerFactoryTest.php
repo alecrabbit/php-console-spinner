@@ -65,7 +65,7 @@ final class SpinnerFactoryTest extends TestCaseWithPrebuiltMocks
         $container = $this->getContainerMock();
 
         $spinnerBuilder = $this->getSpinnerBuilderMock();
-        
+
         $spinnerBuilder
             ->method('withConfig')
             ->willReturn($spinnerBuilder)

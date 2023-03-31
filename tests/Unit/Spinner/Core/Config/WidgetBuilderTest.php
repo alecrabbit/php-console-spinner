@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Core\Config;
 
 use AlecRabbit\Spinner\Container\Contract\IContainer;
-use AlecRabbit\Spinner\Core\Config\WidgetBuilder;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetBuilder;
 use AlecRabbit\Spinner\Core\Widget\Widget;
+use AlecRabbit\Spinner\Core\WidgetBuilder;
 use AlecRabbit\Tests\Spinner\TestCase\TestCaseWithPrebuiltMocks;
 use LogicException;
 use PHPUnit\Framework\Attributes\Test;
@@ -125,7 +125,7 @@ final class WidgetBuilderTest extends TestCaseWithPrebuiltMocks
         self::assertInstanceOf(WidgetBuilder::class, $widgetBuilder);
 
         $exceptionClass = LogicException::class;
-        $exceptionMessage = '[AlecRabbit\Spinner\Core\Config\WidgetBuilder]: Property $widgetConfig is not set.';
+        $exceptionMessage = '[AlecRabbit\Spinner\Core\WidgetBuilder]: Property $widgetConfig is not set.';
 
         $this->expectException($exceptionClass);
         $this->expectExceptionMessage($exceptionMessage);
