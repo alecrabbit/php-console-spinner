@@ -53,12 +53,12 @@ final class Stringify
         return
             sprintf(
                 self::FORMAT_THROWABLE,
-                self::shortClassName($class),
+                self::classShortName($class),
                 $message
             ) . $aux;
     }
 
-    public static function shortClassName(string|object $fqcn): string
+    public static function classShortName(string|object $fqcn): string
     {
         if (is_object($fqcn)) {
             $fqcn = get_class($fqcn);

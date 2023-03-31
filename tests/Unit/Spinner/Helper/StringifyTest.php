@@ -194,7 +194,7 @@ final class StringifyTest extends TestCase
         ];
     }
 
-    public static function stringifyShortClassNameDataProvider(): iterable
+    public static function stringifyClassShortNameDataProvider(): iterable
     {
         // [$expected, $incoming]
         #0
@@ -238,7 +238,6 @@ final class StringifyTest extends TestCase
             [
                 self::ARGUMENTS => [
                     self::VALUE => new \stdClass(),
-                    self::UNWRAP => false,
                 ],
             ],
         ];
@@ -250,7 +249,6 @@ final class StringifyTest extends TestCase
             [
                 self::ARGUMENTS => [
                     self::VALUE => 'Mom\Tock\TockClass',
-                    self::UNWRAP => false,
                 ],
             ],
         ];
@@ -262,6 +260,18 @@ final class StringifyTest extends TestCase
             [
                 self::ARGUMENTS => [
                     self::VALUE => 'TockClass',
+                ],
+            ],
+        ];
+        #5
+        yield [
+            [
+                self::RESULT => 'Tick Class',
+            ],
+            [
+                self::ARGUMENTS => [
+                    self::VALUE => 'Tick Class',
+                    self::UNWRAP => false,
                 ],
             ],
         ];
@@ -302,14 +312,14 @@ final class StringifyTest extends TestCase
     }
 
     #[Test]
-    #[DataProvider('stringifyShortClassNameDataProvider')]
-    public function canReturnClassShortName(array $expected, array $incoming): void
+    #[DataProvider('stringifyClassShortNameDataProvider')]
+    public function canStringifyClassShortName(array $expected, array $incoming): void
     {
         $expectedException = $this->expectsException($expected);
 
         $args = $incoming[self::ARGUMENTS];
 
-        $result = Stringify::shortClassName($args[self::VALUE]);
+        $result = Stringify::classShortName($args[self::VALUE]);
 
         if ($expectedException) {
             self::failTest($expectedException);
