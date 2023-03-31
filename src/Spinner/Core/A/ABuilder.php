@@ -10,20 +10,7 @@ use AlecRabbit\Spinner\Core\Color\AnsiStyleConverter;
 use AlecRabbit\Spinner\Core\Config\Contract\IDefaultsProvider;
 use AlecRabbit\Spinner\Core\Factory\Contract\IRevolverFactory;
 
-abstract class ABuilder extends AInstantiatesWithContainer
+abstract class ABuilder extends AContainerServices
 {
-    protected function getDefaultsProvider(): IDefaultsProvider
-    {
-        return $this->container->get(IDefaultsProvider::class);
-    }
 
-    protected function getRevolverFactory(): IRevolverFactory
-    {
-        return $this->container->get(IRevolverFactory::class);
-    }
-
-    protected function getColorConverter(): IAnsiStyleConverter
-    {
-        return new AnsiStyleConverter(OptionStyleMode::ANSI8);
-    }
 }

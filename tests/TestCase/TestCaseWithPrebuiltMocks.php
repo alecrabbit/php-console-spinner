@@ -7,10 +7,17 @@ namespace AlecRabbit\Tests\Spinner\TestCase;
 use AlecRabbit\Spinner\Container\Contract\IContainer;
 use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Contract\IPattern;
+use AlecRabbit\Spinner\Core\A\ASpinner;
+use AlecRabbit\Spinner\Core\Config\Contract\IConfig;
+use AlecRabbit\Spinner\Core\Config\Contract\IConfigBuilder;
+use AlecRabbit\Spinner\Core\Config\Contract\IDriverBuilder;
 use AlecRabbit\Spinner\Core\Config\WidgetConfig;
+use AlecRabbit\Spinner\Core\Contract\ISpinnerBuilder;
 use AlecRabbit\Spinner\Core\Factory\Contract\IRevolverFactory;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
+use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetBuilder;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolverBuilder;
+use AlecRabbit\Tests\Spinner\Unit\Spinner\Core\Factory\SpinnerFactoryTest;
 use PHPUnit\Framework\MockObject\MockObject;
 
 abstract class TestCaseWithPrebuiltMocks extends TestCase
@@ -29,6 +36,11 @@ abstract class TestCaseWithPrebuiltMocks extends TestCase
     protected function getFrameMock(): IFrame&MockObject
     {
         return $this->createMock(IFrame::class);
+    }
+
+    protected function getConfigMock(): IConfig&MockObject
+    {
+        return $this->createMock(IConfig::class);
     }
 
     protected function getPatternMock(): IPattern&MockObject
@@ -54,5 +66,29 @@ abstract class TestCaseWithPrebuiltMocks extends TestCase
     protected function getRevolverMock(): IRevolver&MockObject
     {
         return $this->createMock(IRevolver::class);
+    }
+
+    protected function getConfigBuilderMock(): IConfigBuilder&MockObject
+    {
+        return $this->createMock(IConfigBuilder::class);
+    }
+    protected function getSpinnerBuilderMock(): ISpinnerBuilder&MockObject
+    {
+        return $this->createMock(ISpinnerBuilder::class);
+    }
+
+    protected function getDriverBuilderMock(): IDriverBuilder&MockObject
+    {
+        return $this->createMock(IDriverBuilder::class);
+    }
+
+    protected function getWidgetBuilderMock(): IWidgetBuilder&MockObject
+    {
+        return $this->createMock(IWidgetBuilder::class);
+    }
+
+    protected function getSpinnerMock(): ASpinner&MockObject
+    {
+        return $this->createMock(ASpinner::class);
     }
 }

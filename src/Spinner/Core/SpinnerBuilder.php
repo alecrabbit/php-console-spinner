@@ -7,11 +7,8 @@ namespace AlecRabbit\Spinner\Core;
 use AlecRabbit\Spinner\Core\A\ABuilder;
 use AlecRabbit\Spinner\Core\A\ASpinner;
 use AlecRabbit\Spinner\Core\Config\Contract\IConfig;
-use AlecRabbit\Spinner\Core\Config\Contract\IConfigBuilder;
-use AlecRabbit\Spinner\Core\Config\Contract\IDriverBuilder;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use AlecRabbit\Spinner\Core\Contract\ISpinnerBuilder;
-use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetBuilder;
 
 final class SpinnerBuilder extends ABuilder implements ISpinnerBuilder
 {
@@ -41,24 +38,14 @@ final class SpinnerBuilder extends ABuilder implements ISpinnerBuilder
     protected function refineConfig(?IConfig $config): IConfig
     {
         if (null === $config) {
-            $config = $this->createConfig();
+            $config = $this->createDefaultConfig();
         }
         return $config;
     }
 
-    protected function createConfig(): IConfig
+    protected function createDefaultConfig(): IConfig
     {
-        return $this->container->get(IConfigBuilder::class)->build();
-    }
-
-    protected function getDriverBuilder(): IDriverBuilder
-    {
-        return $this->container->get(IDriverBuilder::class);
-    }
-
-    protected function getWidgetBuilder(): IWidgetBuilder
-    {
-        return $this->container->get(IWidgetBuilder::class);
+        return $this->getConfigBuilder()->build();
     }
 
     public function withConfig(IConfig $config): self
@@ -67,4 +54,5 @@ final class SpinnerBuilder extends ABuilder implements ISpinnerBuilder
         $clone->config = $config;
         return $clone;
     }
+
 }
