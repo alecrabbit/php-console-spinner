@@ -79,7 +79,7 @@ final class DriverBuilderTest extends TestCase
 
         $driver = $driverBuilder->build();
 
-        self::exceptionNotThrown($exceptionClass, $exceptionMessage);
+        self::failExceptionNotThrown($exceptionClass, $exceptionMessage);
     }
 
 }

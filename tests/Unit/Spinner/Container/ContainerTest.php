@@ -161,7 +161,7 @@ final class ContainerTest extends TestCase
 
         $container->get('foo');
 
-        self::exceptionNotThrown($exception, $exceptionMessage);
+        self::failExceptionNotThrown($exception, $exceptionMessage);
     }
 
     #[Test]
@@ -181,7 +181,7 @@ final class ContainerTest extends TestCase
 
         $container->get('foo');
 
-        self::exceptionNotThrown($exception, $exceptionMessage);
+        self::failExceptionNotThrown($exception, $exceptionMessage);
     }
 
     #[Test]
@@ -200,7 +200,7 @@ final class ContainerTest extends TestCase
             ])
         );
 
-        self::exceptionNotThrown($exception, $exceptionMessage);
+        self::failExceptionNotThrown($exception, $exceptionMessage);
     }
 
     #[Test]
@@ -220,7 +220,7 @@ final class ContainerTest extends TestCase
 
         $container->get('foo');
 
-        self::exceptionNotThrown($exception, $exceptionMessage);
+        self::failExceptionNotThrown($exception, $exceptionMessage);
     }
 
     #[Test]
@@ -240,7 +240,7 @@ final class ContainerTest extends TestCase
 
         $container->get('foo');
 
-        self::exceptionNotThrown($exception, $exceptionMessage);
+        self::failExceptionNotThrown($exception, $exceptionMessage);
     }
 
     #[Test]
@@ -260,7 +260,7 @@ final class ContainerTest extends TestCase
 
         $container->add('foo', 'baz');
 
-        self::exceptionNotThrown($exception, $exceptionMessage);
+        self::failExceptionNotThrown($exception, $exceptionMessage);
     }
 
     #[Test]
@@ -278,7 +278,7 @@ final class ContainerTest extends TestCase
         };
         $container = new Container($definitions());
 
-        self::exceptionNotThrown($exception, $exceptionMessage);
+        self::failExceptionNotThrown($exception, $exceptionMessage);
     }
 
     #[Test]
@@ -294,7 +294,7 @@ final class ContainerTest extends TestCase
 
         $container->remove('foo');
 
-        self::exceptionNotThrown($exception, $exceptionMessage);
+        self::failExceptionNotThrown($exception, $exceptionMessage);
     }
 
     #[Test]
@@ -310,6 +310,6 @@ final class ContainerTest extends TestCase
 
         $container->replace('bar', 'foo');
 
-        self::exceptionNotThrown($exception, $exceptionMessage);
+        self::failExceptionNotThrown($exception, $exceptionMessage);
     }
 }

@@ -10,7 +10,7 @@ use AlecRabbit\Spinner\Core\Color\RGBColor;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Extras\Contract\IColorConverter;
 use AlecRabbit\Spinner\Helper\Asserter;
-use AlecRabbit\Spinner\Helper\Value;
+use AlecRabbit\Spinner\Helper\Stringify;
 use Generator;
 use Traversable;
 
@@ -155,7 +155,7 @@ final class ColorConverter implements IColorConverter
         }
 
         throw new InvalidArgumentException(
-            sprintf('Invalid color type: %s.', Value::stringify($color))
+            sprintf('Invalid color type: %s.', Stringify::value($color))
         );
     }
 

@@ -136,6 +136,6 @@ final class WidgetBuilderTest extends TestCase
         $widget = $widgetBuilder->build();
 
         self::assertInstanceOf(Widget::class, $widget);
-        self::exceptionNotThrown($exceptionClass, $exceptionMessage);
+        self::failExceptionNotThrown($exceptionClass, $exceptionMessage);
     }
 }

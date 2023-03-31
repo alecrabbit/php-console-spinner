@@ -88,7 +88,7 @@ final class IntNormalizerTest extends TestCase
         IntNormalizer::overrideDivisor($args[self::DIVISOR]);
 
         if ($expectedException) {
-            self::exceptionNotThrown($expectedException);
+            self::failExceptionNotThrown($expectedException);
         }
 
         self::assertSame(
@@ -121,5 +121,3 @@ final class IntNormalizerTest extends TestCase
         IntNormalizer::overrideMin(IIntNormalizer::DEFAULT_MIN);
     }
 }
-
-

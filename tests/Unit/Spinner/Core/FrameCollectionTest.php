@@ -86,9 +86,7 @@ final class FrameCollectionTest extends TestCase
         self::assertSame($expected[self::FRAMES] ?? null, $collection->getArrayCopy());
 
         if ($expectedException) {
-            self::exceptionNotThrown($expectedException);
+            self::failExceptionNotThrown($expectedException);
         }
     }
 }
-
-

@@ -140,7 +140,7 @@ final class OptionStyleModeTest extends TestCase
         $result = $args[self::MODE_ONE]->lowest($args[self::MODE_TWO]);
 
         if ($expectedException) {
-            self::exceptionNotThrown($expectedException);
+            self::failExceptionNotThrown($expectedException);
         }
 
         self::assertSame($expected[self::RESULT]->value, $result->value);
@@ -158,7 +158,7 @@ final class OptionStyleModeTest extends TestCase
         $result = $args[self::MODE_ONE]->highest($args[self::MODE_TWO]);
 
         if ($expectedException) {
-            self::exceptionNotThrown($expectedException);
+            self::failExceptionNotThrown($expectedException);
         }
 
         self::assertSame($expected[self::RESULT]->value, $result->value);
@@ -176,11 +176,9 @@ final class OptionStyleModeTest extends TestCase
         $result = $args[self::MODE]->isStylingEnabled();
 
         if ($expectedException) {
-            self::exceptionNotThrown($expectedException);
+            self::failExceptionNotThrown($expectedException);
         }
 
         self::assertSame($expected[self::RESULT], $result);
     }
 }
-
-

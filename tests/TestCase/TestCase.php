@@ -4,6 +4,7 @@ declare(strict_types=1);
 // 16.06.22
 namespace AlecRabbit\Tests\Spinner\TestCase;
 
+use AlecRabbit\Spinner\Helper\Stringify;
 use AlecRabbit\Tests\Spinner\Helper\PickLock;
 use AlecRabbit\Tests\Spinner\Mixin\AppRelatedConstantsTrait;
 use ArrayAccess;
@@ -35,18 +36,18 @@ abstract class TestCase extends PHPUnitTestCase
         return PickLock::callMethod($objectOrClass, $methodName, ...$args);
     }
 
-    protected static function exceptionNotThrown(
-        string|Throwable $e,
+    protected static function failExceptionNotThrown(
+        string|Throwable $messageOrException,
         ?string $exceptionMessage = null,
         ?array $dataSet = null
     ): never {
-        if (is_string($e)) {
-            $e = new $e($exceptionMessage ?? '');
+        if (is_string($messageOrException)) {
+            $messageOrException = new $messageOrException($exceptionMessage ?? '');
         }
         $message = sprintf(
             'Exception [%s]%s is not thrown.',
-            $e::class,
-            $e->getMessage() === '' ? '' : ' with message: "' . $e->getMessage() . '"'
+            $messageOrException::class,
+            $messageOrException->getMessage() === '' ? '' : ' with message: "' . $messageOrException->getMessage() . '"'
         );
 
         if (null !== $dataSet) {
@@ -54,6 +55,11 @@ abstract class TestCase extends PHPUnitTestCase
         }
 
         self::fail($message);
+    }
+
+    protected static function failTest(string|Throwable $messageOrException): never
+    {
+        self::fail(Stringify::value($messageOrException));
     }
 
     protected function setUp(): void

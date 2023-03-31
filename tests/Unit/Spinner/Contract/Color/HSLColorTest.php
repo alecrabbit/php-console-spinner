@@ -62,7 +62,7 @@ final class HSLColorTest extends TestCase
             );
 
         if ($expectedException) {
-            self::exceptionNotThrown($expectedException);
+            self::failExceptionNotThrown($expectedException);
         }
 
         self::assertEquals($expected[self::RESULT], $result);
@@ -72,5 +72,3 @@ final class HSLColorTest extends TestCase
         self::assertSame($expected[self::RESULT]->alpha, $result->alpha);
     }
 }
-
-

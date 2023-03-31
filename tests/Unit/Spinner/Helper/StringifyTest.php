@@ -4,16 +4,17 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Helper;
 
-use AlecRabbit\Spinner\Helper\Value;
+use AlecRabbit\Spinner\Exception\DomainException;
+use AlecRabbit\Spinner\Helper\Stringify;
 use AlecRabbit\Tests\Spinner\TestCase\TestCase;
 use ArrayObject;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 use stdClass;
 
-final class ValueTest extends TestCase
+final class StringifyTest extends TestCase
 {
-    public static function stringifyDataProvider(): iterable
+    public static function stringifyValueDataProvider(): iterable
     {
         // [$expected, $incoming]
         #0
@@ -152,19 +153,64 @@ final class ValueTest extends TestCase
             ],
         ];
     }
+    public static function stringifyThrowableDataProvider(): iterable
+    {
+        // [$expected, $incoming]
+        #0
+        yield [
+            [
+                self::RESULT => 'DomainException("DomainException message") [AlecRabbit\Spinner\Exception\DomainException]',
+            ],
+            [
+                self::ARGUMENTS => [
+                    self::VALUE => new DomainException('DomainException message'),
+                ],
+            ],
+        ];
+        #1
+        yield [
+            [
+                self::RESULT => 'DomainException("DomainException message")',
+            ],
+            [
+                self::ARGUMENTS => [
+                    self::VALUE => new DomainException('DomainException message'),
+                    self::UNWRAP => false,
+                ],
+            ],
+        ];
+
+    }
 
     #[Test]
-    #[DataProvider('stringifyDataProvider')]
-    public function canAssertSubClass(array $expected, array $incoming): void
+    #[DataProvider('stringifyValueDataProvider')]
+    public function canStringifyValue(array $expected, array $incoming): void
     {
         $expectedException = $this->expectsException($expected);
 
         $args = $incoming[self::ARGUMENTS];
 
-        $result = Value::stringify($args[self::VALUE], $args[self::UNWRAP] ?? true);
+        $result = Stringify::value($args[self::VALUE], $args[self::UNWRAP] ?? true);
 
         if ($expectedException) {
-            self::exceptionNotThrown($expectedException);
+            self::failExceptionNotThrown($expectedException);
+        }
+
+        self::assertSame($expected[self::RESULT], $result);
+    }
+
+    #[Test]
+    #[DataProvider('stringifyThrowableDataProvider')]
+    public function canStringifyThrowable(array $expected, array $incoming): void
+    {
+        $expectedException = $this->expectsException($expected);
+
+        $args = $incoming[self::ARGUMENTS];
+
+        $result = Stringify::throwable($args[self::VALUE], $args[self::UNWRAP] ?? true);
+
+        if ($expectedException) {
+            self::failExceptionNotThrown($expectedException);
         }
 
         self::assertSame($expected[self::RESULT], $result);
