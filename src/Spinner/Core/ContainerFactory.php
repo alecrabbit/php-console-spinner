@@ -85,7 +85,9 @@ final class ContainerFactory implements IContainerFactory
                 ISpinnerBuilder::class => self::instantiatorCallback(SpinnerBuilder::class),
                 IIntervalFactory::class => self::instantiatorCallback(IntervalFactory::class),
                 IIntervalNormalizer::class => self::instantiatorCallback(IntervalNormalizer::class),
-                NormalizerMode::class => static fn(): NormalizerMode => NormalizerMode::BALANCED,
+                NormalizerMode::class => static function () use ($container): NormalizerMode {
+                    return $container->get(IDefaultsProvider::class)->getAuxSettings()->getNormalizerMode();
+                },
             ],
         );
     }
