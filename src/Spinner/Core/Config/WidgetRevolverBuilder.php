@@ -11,7 +11,7 @@ use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolverBuilder;
 use AlecRabbit\Spinner\Core\Widget\WidgetRevolver;
 
-final class WidgetRevolverBuilder extends ARevolverBuilder
+final class WidgetRevolverBuilder extends ARevolverBuilder implements IWidgetRevolverBuilder
 {
     protected ?IRevolver $styleRevolver = null;
     protected ?IRevolver $charRevolver = null;

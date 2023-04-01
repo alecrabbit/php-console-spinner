@@ -7,6 +7,7 @@ namespace AlecRabbit\Spinner\Core;
 use AlecRabbit\Spinner\Container\Container;
 use AlecRabbit\Spinner\Container\Contract\IContainer;
 use AlecRabbit\Spinner\Container\Instantiator;
+use AlecRabbit\Spinner\Contract\NormalizerMode;
 use AlecRabbit\Spinner\Core\Config\ConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\IConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\IDefaultsProvider;
@@ -14,13 +15,16 @@ use AlecRabbit\Spinner\Core\Config\Contract\IDriverBuilder;
 use AlecRabbit\Spinner\Core\Config\DriverBuilder;
 use AlecRabbit\Spinner\Core\Config\WidgetRevolverBuilder;
 use AlecRabbit\Spinner\Core\Contract\IContainerFactory;
+use AlecRabbit\Spinner\Core\Contract\IIntervalNormalizer;
 use AlecRabbit\Spinner\Core\Contract\ILoopProbeFactory;
 use AlecRabbit\Spinner\Core\Contract\ISpinnerBuilder;
 use AlecRabbit\Spinner\Core\Defaults\DefaultsProvider;
 use AlecRabbit\Spinner\Core\Factory\Contract\IFrameFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IRevolverFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ISpinnerFactory;
 use AlecRabbit\Spinner\Core\Factory\FrameFactory;
+use AlecRabbit\Spinner\Core\Factory\IntervalFactory;
 use AlecRabbit\Spinner\Core\Factory\RevolverFactory;
 use AlecRabbit\Spinner\Core\Factory\SpinnerFactory;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolverBuilder;
@@ -65,25 +69,28 @@ final class ContainerFactory implements IContainerFactory
         return new ArrayObject(
             [
                 IContainer::class => static fn(): IContainer => $container,
-
-                IConfigBuilder::class => self::getInstantiatorCallback(ConfigBuilder::class),
+                IFrameFactory::class => FrameFactory::class,
                 IDefaultsProvider::class => DefaultsProvider::class,
-                IDriverBuilder::class => self::getInstantiatorCallback(DriverBuilder::class),
-                IWidgetBuilder::class => self::getInstantiatorCallback(WidgetBuilder::class),
-                IWidgetRevolverBuilder::class => self::getInstantiatorCallback(WidgetRevolverBuilder::class),
+
+                IConfigBuilder::class => self::instantiatorCallback(ConfigBuilder::class),
+                IDriverBuilder::class => self::instantiatorCallback(DriverBuilder::class),
+                IWidgetBuilder::class => self::instantiatorCallback(WidgetBuilder::class),
+                IWidgetRevolverBuilder::class => self::instantiatorCallback(WidgetRevolverBuilder::class),
                 ILoopProbeFactory::class => static function (): never {
                     throw new DomainException('LoopProbeFactory is not available in this context.');
                 },
-                IRevolverFactory::class => self::getInstantiatorCallback(RevolverFactory::class),
-                IFrameRevolverBuilder::class => self::getInstantiatorCallback(FrameRevolverBuilder::class),
-                ISpinnerFactory::class => self::getInstantiatorCallback(SpinnerFactory::class),
-                ISpinnerBuilder::class => self::getInstantiatorCallback(SpinnerBuilder::class),
-                IFrameFactory::class => FrameFactory::class,
+                IRevolverFactory::class => self::instantiatorCallback(RevolverFactory::class),
+                IFrameRevolverBuilder::class => self::instantiatorCallback(FrameRevolverBuilder::class),
+                ISpinnerFactory::class => self::instantiatorCallback(SpinnerFactory::class),
+                ISpinnerBuilder::class => self::instantiatorCallback(SpinnerBuilder::class),
+                IIntervalFactory::class => self::instantiatorCallback(IntervalFactory::class),
+                IIntervalNormalizer::class => self::instantiatorCallback(IntervalNormalizer::class),
+                NormalizerMode::class => static fn(): NormalizerMode => NormalizerMode::BALANCED,
             ],
         );
     }
 
-    protected static function getInstantiatorCallback(string $class): Closure
+    protected static function instantiatorCallback(string $class): Closure
     {
         return static function () use ($class): object {
             return Instantiator::createInstance($class);
