@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Config;
 
-use AlecRabbit\Spinner\Container\Mixin\AutoInstantiableTrait;
 use AlecRabbit\Spinner\Core\Config\Contract\IConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\IDefaultsProvider;
@@ -15,8 +14,6 @@ use AlecRabbit\Spinner\Core\Config\Contract\IWidgetConfig;
 
 final class ConfigBuilder implements IConfigBuilder
 {
-    use AutoInstantiableTrait;
-
     protected ?IDriverConfig $driverConfig = null;
     protected ?ILoopConfig $loopConfig = null;
     protected ?ISpinnerConfig $spinnerConfig = null;

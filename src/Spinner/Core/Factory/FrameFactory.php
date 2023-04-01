@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Factory;
 
-use AlecRabbit\Spinner\Container\Mixin\AutoInstantiableTrait;
 use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Core\Factory\Contract\IFrameFactory;
 use AlecRabbit\Spinner\Core\Frame;
@@ -12,8 +11,6 @@ use AlecRabbit\Spinner\Core\WidthDeterminer;
 
 final class FrameFactory implements IFrameFactory
 {
-    use AutoInstantiableTrait;
-
     public static function createEmpty(): IFrame
     {
         return new Frame('', 0);

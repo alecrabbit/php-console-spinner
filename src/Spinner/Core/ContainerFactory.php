@@ -6,6 +6,7 @@ namespace AlecRabbit\Spinner\Core;
 
 use AlecRabbit\Spinner\Container\Container;
 use AlecRabbit\Spinner\Container\Contract\IContainer;
+use AlecRabbit\Spinner\Container\Instantiator;
 use AlecRabbit\Spinner\Core\Config\ConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\IConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\IDefaultsProvider;
@@ -58,29 +59,31 @@ final class ContainerFactory implements IContainerFactory
 
     protected static function getDefaultDefinitions(IContainer $container): Traversable
     {
-        $instanceProducer = static function (string $class) use ($container): Closure {
-            return
-                static function () use ($class, $container): object {
-                    return new $class($container);
-                };
-        };
-
         return new ArrayObject(
             [
-                IConfigBuilder::class => ConfigBuilder::class::getInstance(...),
+                IContainer::class => static fn(): IContainer => $container,
+
+                IConfigBuilder::class => self::getInstantiatorCallback(ConfigBuilder::class),
                 IDefaultsProvider::class => DefaultsProvider::class,
-                IDriverBuilder::class => $instanceProducer(DriverBuilder::class),
-                IWidgetBuilder::class => $instanceProducer(WidgetBuilder::class),
-                IWidgetRevolverBuilder::class => $instanceProducer(WidgetRevolverBuilder::class),
+                IDriverBuilder::class => self::getInstantiatorCallback(DriverBuilder::class),
+                IWidgetBuilder::class => self::getInstantiatorCallback(WidgetBuilder::class),
+                IWidgetRevolverBuilder::class => self::getInstantiatorCallback(WidgetRevolverBuilder::class),
                 ILoopProbeFactory::class => static function (): never {
                     throw new DomainException('LoopProbeFactory is not available in this context.');
                 },
-                IRevolverFactory::class => $instanceProducer(RevolverFactory::class),
-                IFrameRevolverBuilder::class => $instanceProducer(FrameRevolverBuilder::class),
-                ISpinnerFactory::class => SpinnerFactory::class::getInstance(...),
-                ISpinnerBuilder::class => SpinnerBuilder::class::getInstance(...),
-                IFrameFactory::class => FrameFactory::class::getInstance(...),
+                IRevolverFactory::class => self::getInstantiatorCallback(RevolverFactory::class),
+                IFrameRevolverBuilder::class => self::getInstantiatorCallback(FrameRevolverBuilder::class),
+                ISpinnerFactory::class => self::getInstantiatorCallback(SpinnerFactory::class),
+                ISpinnerBuilder::class => self::getInstantiatorCallback(SpinnerBuilder::class),
+                IFrameFactory::class => FrameFactory::class,
             ],
         );
+    }
+
+    protected static function getInstantiatorCallback(string $class): Closure
+    {
+        return static function () use ($class): object {
+            return Instantiator::createInstance($class);
+        };
     }
 }

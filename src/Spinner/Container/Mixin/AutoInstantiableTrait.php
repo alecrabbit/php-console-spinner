@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Container\Mixin;
 
-use AlecRabbit\Spinner\Container\AutoInstantiator;
+use AlecRabbit\Spinner\Container\Instantiator;
 
 trait AutoInstantiableTrait
 {
     final public static function getInstance(): object
     {
-        return AutoInstantiator::createInstance(static::class);
+        return Instantiator::createInstance(static::class);
     }
 }

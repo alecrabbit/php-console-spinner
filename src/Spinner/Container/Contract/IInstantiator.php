@@ -6,7 +6,7 @@ namespace AlecRabbit\Spinner\Container\Contract;
 
 use Psr\Container\ContainerInterface;
 
-interface IAutoInstantiator
+interface IInstantiator
 {
 
     public static function registerContainer(ContainerInterface $container): void;

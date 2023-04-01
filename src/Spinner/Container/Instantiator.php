@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Container;
 
-use AlecRabbit\Spinner\Container\Contract\IAutoInstantiator;
+use AlecRabbit\Spinner\Container\Contract\IInstantiator;
 use AlecRabbit\Spinner\Container\Exception\ContainerAlreadyRegistered;
 use AlecRabbit\Spinner\Container\Exception\ContainerNotRegistered;
 use AlecRabbit\Spinner\Container\Exception\RuntimeException;
@@ -14,7 +14,7 @@ use Throwable;
 
 use function class_exists;
 
-final class AutoInstantiator implements IAutoInstantiator
+final class Instantiator implements IInstantiator
 {
     protected static ?ContainerInterface $container = null;
 

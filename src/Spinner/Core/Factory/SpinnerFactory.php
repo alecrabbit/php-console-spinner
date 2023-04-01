@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Factory;
 
-use AlecRabbit\Spinner\Container\Mixin\AutoInstantiableTrait;
 use AlecRabbit\Spinner\Core\Config\Contract\IConfig;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use AlecRabbit\Spinner\Core\Contract\ISpinnerBuilder;
@@ -12,8 +11,6 @@ use AlecRabbit\Spinner\Core\Factory\Contract\ISpinnerFactory;
 
 final class SpinnerFactory implements ISpinnerFactory
 {
-    use AutoInstantiableTrait;
-
     public function __construct(
         protected ISpinnerBuilder $spinnerBuilder,
     ) {
