@@ -52,6 +52,8 @@ final class ContainerFactory implements IContainerFactory
 
     protected static function initializeContainer(IContainer $container): void
     {
+        Instantiator::registerContainer($container);
+
         foreach (self::getDefaultDefinitions($container) as $id => $service) {
             $container->add($id, $service);
         }

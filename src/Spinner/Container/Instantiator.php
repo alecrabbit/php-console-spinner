@@ -7,7 +7,9 @@ namespace AlecRabbit\Spinner\Container;
 use AlecRabbit\Spinner\Container\Contract\IInstantiator;
 use AlecRabbit\Spinner\Container\Exception\ContainerAlreadyRegistered;
 use AlecRabbit\Spinner\Container\Exception\ContainerNotRegistered;
-use AlecRabbit\Spinner\Container\Exception\RuntimeException;
+use AlecRabbit\Spinner\Container\Exception\ClassDoesNotExist;
+use AlecRabbit\Spinner\Container\Exception\UnableToCreateInstance;
+use AlecRabbit\Spinner\Container\Exception\UnableToExtractType;
 use Psr\Container\ContainerInterface;
 use ReflectionClass;
 use Throwable;
@@ -31,7 +33,7 @@ final class Instantiator implements IInstantiator
     {
         return match (true) {
             class_exists($class) => self::createInstanceByReflection($class),
-            default => throw new RuntimeException('Class does not exist: ' . $class),
+            default => throw new ClassDoesNotExist('Class does not exist: ' . $class),
         };
     }
 
@@ -46,7 +48,7 @@ final class Instantiator implements IInstantiator
                 $name = $parameter->getName();
                 $id = $parameter->getType()?->getName();
                 if (null === $id) {
-                    throw new RuntimeException('Unable to extract type for parameter name: $' . $name);
+                    throw new UnableToExtractType('Unable to extract type for parameter name: $' . $name);
                 }
                 $parameters[$name] = self::getContainer()->get($id);
             }
@@ -56,7 +58,7 @@ final class Instantiator implements IInstantiator
         try {
             return new $class();
         } catch (Throwable $e) {
-            throw new RuntimeException('Unable to create instance of ' . $class, previous: $e);
+            throw new UnableToCreateInstance('Unable to create instance of ' . $class, previous: $e);
         }
     }
 
