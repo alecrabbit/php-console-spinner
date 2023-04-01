@@ -18,26 +18,30 @@ final class LoopProbeFactory implements ILoopProbeFactory
     /** @var Traversable<ILoopProbe> $loopProbes */
     protected Traversable $loopProbes;
 
+    /**
+     * @param Traversable<ILoopProbe> $loopProbes
+     */
     public function __construct(
-        protected IContainer $container,
         Traversable $loopProbes,
     ) {
         $this->loopProbes = new ArrayObject([]);
         $this->registerProbes($loopProbes);
     }
 
+    /**
+     * @param Traversable<ILoopProbe> $loopProbes
+     */
     protected function registerProbes(Traversable $loopProbes): void
     {
         /** @var class-string<ILoopProbe> $loopProbe */
         foreach ($loopProbes as $loopProbe) {
-            if (self::isSubclassOfLoopProbe($loopProbe) && $loopProbe::isSupported()) {
+            if (self::isALoopProbeClass($loopProbe) && $loopProbe::isSupported()) {
                 $this->loopProbes->append($loopProbe);
-                $this->container->add($loopProbe, $loopProbe);
             }
         }
     }
 
-    protected static function isSubclassOfLoopProbe($loopProbe): bool
+    protected static function isALoopProbeClass(string $loopProbe): bool
     {
         return is_subclass_of($loopProbe, ILoopProbe::class);
     }
@@ -47,7 +51,7 @@ final class LoopProbeFactory implements ILoopProbeFactory
         /** @var class-string<ILoopProbe> $loopProbe */
         foreach ($this->loopProbes as $loopProbe) {
             if ($loopProbe::isSupported()) {
-                return $this->getLoopProbe($loopProbe);
+                return new $loopProbe();
             }
         }
         throw new DomainException(
@@ -55,17 +59,5 @@ final class LoopProbeFactory implements ILoopProbeFactory
             ' Check you have installed one of the supported event loops.' .
             ' Check your probes list if you have modified it.'
         );
-    }
-
-    /**
-     * @param class-string<ILoopProbe> $loopProbe
-     * @return ILoopProbe
-     *
-     * @throws NotFoundExceptionInterface
-     * @throws ContainerExceptionInterface
-     */
-    protected function getLoopProbe(string $loopProbe): ILoopProbe
-    {
-        return $this->container->get($loopProbe);
     }
 }

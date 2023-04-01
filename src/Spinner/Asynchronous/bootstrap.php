@@ -13,10 +13,9 @@ $container = ContainerFactory::getContainer();
 
 $container->replace(
     ILoopProbeFactory::class,
-    static function () use ($container): ILoopProbeFactory {
+    static function (): ILoopProbeFactory {
         return
             new LoopProbeFactory(
-                $container,
                 new ArrayObject([
                     RevoltLoopProbe::class,
                     ReactLoopProbe::class,

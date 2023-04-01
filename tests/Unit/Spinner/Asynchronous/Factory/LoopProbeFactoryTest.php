@@ -21,18 +21,16 @@ final class LoopProbeFactoryTest extends TestCaseWithPrebuiltMocks
     #[Test]
     public function canBeCreated(): void
     {
-        $loopProbesFactory = $this->getTesteeInstance(container: null);
+        $loopProbesFactory = $this->getTesteeInstance();
 
         self::assertInstanceOf(LoopProbeFactory::class, $loopProbesFactory);
     }
 
     public function getTesteeInstance(
-        (MockObject&IContainer)|null $container,
         ?Traversable $loopProbes = null,
     ): ILoopProbeFactory {
         return
             new LoopProbeFactory(
-                container: $container ?? $this->getContainerMock(),
                 loopProbes: $loopProbes ?? $this->getLoopProbesMock(),
             );
     }
@@ -45,7 +43,7 @@ final class LoopProbeFactoryTest extends TestCaseWithPrebuiltMocks
     #[Test]
     public function throwsWhenNoSupportedLoopFound(): void
     {
-        $loopProbesFactory = $this->getTesteeInstance(container: null);
+        $loopProbesFactory = $this->getTesteeInstance();
 
         $exception = DomainException::class;
         $exceptionMessage =
@@ -66,19 +64,11 @@ final class LoopProbeFactoryTest extends TestCaseWithPrebuiltMocks
     #[Test]
     public function canReturnLoopProbe(): void
     {
-        $container = $this->createMock(IContainer::class);
-        $container->expects(self::once())
-            ->method('get')
-            ->with(LoopProbeStub::class)
-            ->willReturn(new LoopProbeStub())
-        ;
-
         $loopProbes = new ArrayObject([
             LoopProbeStub::class,
         ]);
 
-        $loopProbesFactory = $this->getTesteeInstance(container: $container, loopProbes: $loopProbes);
-
+        $loopProbesFactory = $this->getTesteeInstance(loopProbes: $loopProbes);
 
         $loopProbe = $loopProbesFactory->getProbe();
 
