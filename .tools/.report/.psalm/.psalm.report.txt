@@ -29,7 +29,7 @@
 /app/src/Spinner/Core/ContainerFactory.php:63:68:error - MixedAssignment: Unable to determine the type that $service is being assigned to
 /app/src/Spinner/Core/ContainerFactory.php:64:29:error - MixedArgument: Argument 1 of AlecRabbit\Spinner\Container\Contract\IContainer::add cannot be mixed, expecting string
 /app/src/Spinner/Core/ContainerFactory.php:64:34:error - MixedArgument: Argument 2 of AlecRabbit\Spinner\Container\Contract\IContainer::add cannot be mixed, expecting callable|object|string
-/app/src/Spinner/Core/ContainerFactory.php:95:79:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Contract\NormalizerMode' for /app/src/spinner/core/containerfactory.php:95:4215:-:closure
+/app/src/Spinner/Core/ContainerFactory.php:95:79:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Contract\NormalizerMode' for /app/src/spinner/core/containerfactory.php:95:4225:-:closure
 /app/src/Spinner/Core/ContainerFactory.php:96:28:error - MixedReturnStatement: Could not infer a return type
 /app/src/Spinner/Core/ContainerFactory.php:96:71:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
 /app/src/Spinner/Core/ContainerFactory.php:96:89:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
