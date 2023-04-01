@@ -6,12 +6,17 @@ classDiagram
     Facade --> SpinnerFactory
     Facade --> ConfigBuilder
     Facade --> LoopFactory
-
+    class Facade{
+        +getConfigBuilder()
+        +getLoop()
+        +createSpinner(IConfig $config = null)
+    }
+    
     SpinnerFactory --> SpinnerBuilder
 
-    ConfigBuilder --> IDefaultsProvider
+    ConfigBuilder --> DefaultsProvider
 
-    LoopFactory --> ILoopProbeFactory
+    LoopFactory --> LoopProbeFactory
     
     SpinnerBuilder --> DriverBuilder
     SpinnerBuilder --> WidgetBuilder

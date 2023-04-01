@@ -6,7 +6,7 @@ namespace AlecRabbit\Spinner\Core\Config;
 
 use AlecRabbit\Spinner\Contract\IDriver;
 use AlecRabbit\Spinner\Contract\OptionCursor;
-use AlecRabbit\Spinner\Core\A\ABuilder;
+use AlecRabbit\Spinner\Core\Config\Contract\IDefaultsProvider;
 use AlecRabbit\Spinner\Core\Config\Contract\IDriverBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\IDriverConfig;
 use AlecRabbit\Spinner\Core\Driver;
@@ -16,9 +16,14 @@ use AlecRabbit\Spinner\Core\Output\StreamBufferedOutput;
 use AlecRabbit\Spinner\Core\Timer;
 use LogicException;
 
-final class DriverBuilder extends ABuilder implements IDriverBuilder
+final class DriverBuilder implements IDriverBuilder
 {
     protected ?IDriverConfig $driverConfig = null;
+
+    public function __construct(
+        protected IDefaultsProvider $defaultsProvider,
+    ) {
+    }
 
     public function build(): IDriver
     {
@@ -32,7 +37,6 @@ final class DriverBuilder extends ABuilder implements IDriverBuilder
 
     private function createDriver(): Driver
     {
-        $defaults = $this->getDefaultsProvider();
         $output = new StreamBufferedOutput(new ResourceStream(STDERR));
         return
             new Driver(

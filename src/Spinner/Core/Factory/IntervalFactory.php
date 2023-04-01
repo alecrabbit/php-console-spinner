@@ -12,16 +12,13 @@ use AlecRabbit\Spinner\Core\Factory\A\AFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalFactory;
 use AlecRabbit\Spinner\Core\Interval;
 
-final class IntervalFactory extends AFactory implements IIntervalFactory
+final class IntervalFactory implements IIntervalFactory
 {
-    protected IDefaultsProvider $defaultsProvider;
-    protected IIntervalNormalizer $intervalNormalizer;
-
-    public function __construct(IContainer $container)
+    public function __construct(
+        protected IDefaultsProvider $defaultsProvider,
+        protected IIntervalNormalizer $intervalNormalizer,
+    )
     {
-        parent::__construct($container);
-        $this->defaultsProvider = $this->getDefaultsProvider();
-        $this->intervalNormalizer = $this->getIntervalNormalizer();
     }
 
     public function createDefault(): IInterval

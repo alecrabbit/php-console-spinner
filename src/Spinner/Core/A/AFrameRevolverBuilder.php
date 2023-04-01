@@ -13,7 +13,6 @@ use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolverBuilder;
 use AlecRabbit\Spinner\Core\Revolver\FrameCollectionRevolver;
 use AlecRabbit\Spinner\Core\StyleFrameCollectionRenderer;
 use AlecRabbit\Spinner\Core\StyleFrameRenderer;
-use AlecRabbit\Spinner\Core\Widget\A\ARevolverBuilder;
 use AlecRabbit\Spinner\Exception\DomainException;
 
 abstract class AFrameRevolverBuilder extends ARevolverBuilder implements IFrameRevolverBuilder

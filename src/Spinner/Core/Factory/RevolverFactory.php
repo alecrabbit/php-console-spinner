@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Factory;
 
 use AlecRabbit\Spinner\Contract\IPattern;
-use AlecRabbit\Spinner\Core\Factory\A\AFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IFrameFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IRevolverFactory;
 use AlecRabbit\Spinner\Core\FrameCollection;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolverBuilder;
@@ -14,35 +14,34 @@ use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
 use AlecRabbit\Spinner\Core\Revolver\FrameCollectionRevolver;
 use ArrayObject;
 
-final class RevolverFactory extends AFactory implements IRevolverFactory
+final class RevolverFactory implements IRevolverFactory
 {
+    public function __construct(
+        protected IFrameRevolverBuilder $frameRevolverBuilder,
+        protected IFrameFactory $frameFactory,
+        protected IIntervalFactory $intervalFactory,
+    )
+    {
+    }
+
     public function defaultStyleRevolver(): IRevolver
     {
         return
             new FrameCollectionRevolver(
                 new FrameCollection(
                     new ArrayObject([
-                        $this->getFrameFactory()->create('%s', 0),
+                        $this->frameFactory->create('%s', 0),
                     ])
                 ),
-                StaticIntervalFactory::createStill()
+                $this->intervalFactory->createStill()
             );
     }
 
     public function create(IPattern $pattern): IRevolver
     {
-        return $this->getFrameRevolverBuilder()->withPattern($pattern)->build();
+        return $this->frameRevolverBuilder->withPattern($pattern)->build();
     }
 
-    protected function getFrameRevolverBuilder(): IFrameRevolverBuilder
-    {
-        return $this->container->get(IFrameRevolverBuilder::class);
-    }
-
-    protected function getFrameFactory(): IFrameFactory
-    {
-        return $this->container->get(IFrameFactory::class);
-    }
 
     public function defaultCharRevolver(): IRevolver
     {
@@ -50,10 +49,10 @@ final class RevolverFactory extends AFactory implements IRevolverFactory
             new FrameCollectionRevolver(
                 new FrameCollection(
                     new ArrayObject([
-                        $this->getFrameFactory()::createEmpty(),
+                        $this->frameFactory::createEmpty(),
                     ])
                 ),
-                StaticIntervalFactory::createStill()
+                $this->intervalFactory->createStill()
             );
     }
 }

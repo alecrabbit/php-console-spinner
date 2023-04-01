@@ -3,6 +3,8 @@
 namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Core\Factory;
 
 use AlecRabbit\Spinner\Container\Contract\IContainer;
+use AlecRabbit\Spinner\Core\Config\Contract\IDefaultsProvider;
+use AlecRabbit\Spinner\Core\Contract\IIntervalNormalizer;
 use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalFactory;
 use AlecRabbit\Spinner\Core\Factory\IntervalFactory;
 use AlecRabbit\Spinner\Core\Interval;
@@ -23,17 +25,19 @@ final class IntervalFactoryTest extends TestCaseWithPrebuiltMocks
                 $this->getIntervalNormalizerMock(),
             )
         ;
-        $intervalFactory = $this->getTesteeInstance(container: $container);
+        $intervalFactory = $this->getTesteeInstance();
 
         self::assertInstanceOf(IntervalFactory::class, $intervalFactory);
     }
 
     public function getTesteeInstance(
-        (MockObject&IContainer)|null $container,
+        ?IDefaultsProvider $defaultsProvider = null,
+        ?IIntervalNormalizer $intervalNormalizer = null,
     ): IIntervalFactory {
         return
             new IntervalFactory(
-                container: $container ?? $this->getContainerMock(),
+                defaultsProvider: $defaultsProvider ?? $this->getDefaultsProviderMock(),
+                intervalNormalizer: $intervalNormalizer ?? $this->getIntervalNormalizerMock(),
             );
     }
 
@@ -62,7 +66,7 @@ final class IntervalFactoryTest extends TestCaseWithPrebuiltMocks
             )
         ;
 
-        $intervalFactory = $this->getTesteeInstance(container: $container);
+        $intervalFactory = $this->getTesteeInstance();
 
         $interval = $intervalFactory->createDefault();
 
@@ -94,7 +98,7 @@ final class IntervalFactoryTest extends TestCaseWithPrebuiltMocks
             )
         ;
 
-        $intervalFactory = $this->getTesteeInstance(container: $container);
+        $intervalFactory = $this->getTesteeInstance();
 
         $interval = $intervalFactory->createStill();
 

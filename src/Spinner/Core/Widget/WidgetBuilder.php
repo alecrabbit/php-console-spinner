@@ -2,23 +2,28 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Spinner\Core;
+namespace AlecRabbit\Spinner\Core\Widget;
 
 use AlecRabbit\Spinner\Contract\IFrame;
-use AlecRabbit\Spinner\Core\A\ABuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\IWidgetConfig;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetBuilder;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
-use AlecRabbit\Spinner\Core\Widget\Widget;
+use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolverBuilder;
 use LogicException;
 
-final class WidgetBuilder extends ABuilder implements IWidgetBuilder
+final class WidgetBuilder implements IWidgetBuilder
 {
     protected ?IWidgetConfig $widgetConfig = null;
     protected ?IFrame $leadingSpacer = null;
     protected ?IFrame $trailingSpacer = null;
     protected ?IRevolver $revolver = null;
+
+    public function __construct(
+        protected IWidgetRevolverBuilder $widgetRevolverBuilder,
+    ) {
+    }
+
 
     public function build(): IWidgetComposite
     {
@@ -50,7 +55,7 @@ final class WidgetBuilder extends ABuilder implements IWidgetBuilder
     protected function buildRevolver(): IRevolver
     {
         return
-            $this->getWidgetRevolverBuilder()
+            $this->widgetRevolverBuilder
                 ->withStylePattern($this->widgetConfig->getStylePattern())
                 ->withCharPattern($this->widgetConfig->getCharPattern())
                 ->build()

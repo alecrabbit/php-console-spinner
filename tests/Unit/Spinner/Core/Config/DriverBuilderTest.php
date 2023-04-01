@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Core\Config;
 
-use AlecRabbit\Spinner\Container\Contract\IContainer;
+use AlecRabbit\Spinner\Core\Config\Contract\IDefaultsProvider;
 use AlecRabbit\Spinner\Core\Config\Contract\IDriverBuilder;
 use AlecRabbit\Spinner\Core\Config\DriverBuilder;
 use AlecRabbit\Spinner\Core\Config\DriverConfig;
@@ -13,37 +13,30 @@ use AlecRabbit\Spinner\Core\Driver;
 use AlecRabbit\Tests\Spinner\TestCase\TestCaseWithPrebuiltMocks;
 use LogicException;
 use PHPUnit\Framework\Attributes\Test;
-use PHPUnit\Framework\MockObject\MockObject;
 
 final class DriverBuilderTest extends TestCaseWithPrebuiltMocks
 {
     #[Test]
     public function canBeCreated(): void
     {
-        $configBuilder = $this->getTesteeInstance(container: null);
+        $configBuilder = $this->getTesteeInstance();
 
         self::assertInstanceOf(DriverBuilder::class, $configBuilder);
     }
 
     public function getTesteeInstance(
-        (MockObject&IContainer)|null $container,
+        ?IDefaultsProvider $defaultsProvider = null,
     ): IDriverBuilder {
         return
             new DriverBuilder(
-                container: $container ?? $this->getContainerMock(),
+                defaultsProvider: $defaultsProvider ?? new DefaultsProvider(),
             );
     }
 
     #[Test]
     public function canBuildDriverWithDriverConfig(): void
     {
-        $container = $this->createMock(IContainer::class);
-        $container
-            ->method('get')
-            ->willReturn(new DefaultsProvider())
-        ;
-
-        $driverBuilder = $this->getTesteeInstance(container: $container);
+        $driverBuilder = $this->getTesteeInstance();
 
         self::assertInstanceOf(DriverBuilder::class, $driverBuilder);
 
@@ -56,13 +49,7 @@ final class DriverBuilderTest extends TestCaseWithPrebuiltMocks
     #[Test]
     public function throwsOnBuildDriverWithoutDriverConfig(): void
     {
-        $container = $this->createMock(IContainer::class);
-        $container
-            ->method('get')
-            ->willReturn(new DefaultsProvider())
-        ;
-
-        $driverBuilder = $this->getTesteeInstance(container: $container);
+        $driverBuilder = $this->getTesteeInstance();
 
         self::assertInstanceOf(DriverBuilder::class, $driverBuilder);
 
