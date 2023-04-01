@@ -13,7 +13,7 @@ use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 
 use function is_string;
 
-final class CharFrameCollectionRenderer extends AFrameCollectionRenderer
+final class CharFrameCollectionRenderer extends AFrameCollectionRenderer implements ICharFrameCollectionRenderer
 {
     protected function createFrame(string|IStyle $entry): IFrame
     {

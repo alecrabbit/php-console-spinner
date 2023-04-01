@@ -4,10 +4,10 @@ declare(strict_types=1);
 // 25.03.23
 namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Core\A\Override;
 
-use AlecRabbit\Spinner\Contract\ISequencer;
+use AlecRabbit\Spinner\Contract\IStaticSequencer;
 use RuntimeException;
 
-final class SequencerImplOverride implements ISequencer
+final class StaticSequencerImplOverride implements IStaticSequencer
 {
     public static function colorSequence(string $sequence): string
     {

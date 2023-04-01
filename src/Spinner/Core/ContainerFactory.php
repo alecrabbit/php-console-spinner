@@ -7,7 +7,12 @@ namespace AlecRabbit\Spinner\Core;
 use AlecRabbit\Spinner\Container\Container;
 use AlecRabbit\Spinner\Container\Contract\IContainer;
 use AlecRabbit\Spinner\Container\Instantiator;
+use AlecRabbit\Spinner\Contract\IAnsiStyleConverter;
+use AlecRabbit\Spinner\Contract\ISequencer;
+use AlecRabbit\Spinner\Contract\IStyleFrameRenderer;
 use AlecRabbit\Spinner\Contract\NormalizerMode;
+use AlecRabbit\Spinner\Contract\OptionStyleMode;
+use AlecRabbit\Spinner\Core\Color\AnsiStyleConverter;
 use AlecRabbit\Spinner\Core\Config\ConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\IConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\IDefaultsProvider;
@@ -68,7 +73,7 @@ final class ContainerFactory implements IContainerFactory
     {
         return new ArrayObject(
             [
-                IContainer::class => static fn(): IContainer => $container,
+                IContainer::class => $container,
                 IFrameFactory::class => FrameFactory::class,
                 IDefaultsProvider::class => DefaultsProvider::class,
 
@@ -85,8 +90,18 @@ final class ContainerFactory implements IContainerFactory
                 ISpinnerBuilder::class => self::instantiatorCallback(SpinnerBuilder::class),
                 IIntervalFactory::class => self::instantiatorCallback(IntervalFactory::class),
                 IIntervalNormalizer::class => self::instantiatorCallback(IntervalNormalizer::class),
+                IStyleFrameRenderer::class => self::instantiatorCallback(StyleFrameRenderer::class),
+                IAnsiStyleConverter::class => self::instantiatorCallback(AnsiStyleConverter::class),
+                IStyleFrameCollectionRenderer::class => self::instantiatorCallback(StyleFrameCollectionRenderer::class),
+                ICharFrameCollectionRenderer::class => self::instantiatorCallback(CharFrameCollectionRenderer::class),
+                ISequencer::class => self::instantiatorCallback(Sequencer::class),
+
                 NormalizerMode::class => static function () use ($container): NormalizerMode {
                     return $container->get(IDefaultsProvider::class)->getAuxSettings()->getNormalizerMode();
+                },
+                OptionStyleMode::class => static function () use ($container): OptionStyleMode {
+                    return OptionStyleMode::ANSI8;
+//                    return $container->get(IDefaultsProvider::class)->getAuxSettings()->getOptionStyleMode();
                 },
             ],
         );

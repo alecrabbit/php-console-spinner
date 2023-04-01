@@ -18,7 +18,7 @@ use AlecRabbit\Spinner\Core\Pattern\Contract\IStylePattern;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use ArrayObject;
 
-final class StyleFrameCollectionRenderer extends AFrameCollectionRenderer
+final class StyleFrameCollectionRenderer extends AFrameCollectionRenderer implements IStyleFrameCollectionRenderer
 {
     private OptionStyleMode $styleMode = OptionStyleMode::NONE;
 

@@ -4,20 +4,24 @@ declare(strict_types=1);
 // 20.03.23
 namespace AlecRabbit\Spinner\Core\A;
 
-use AlecRabbit\Spinner\Contract\IFrameCollectionRenderer;
 use AlecRabbit\Spinner\Contract\IPattern;
-use AlecRabbit\Spinner\Core\CharFrameCollectionRenderer;
+use AlecRabbit\Spinner\Core\ICharFrameCollectionRenderer;
+use AlecRabbit\Spinner\Core\IStyleFrameCollectionRenderer;
 use AlecRabbit\Spinner\Core\Pattern\Contract\IStylePattern;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolver;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolverBuilder;
 use AlecRabbit\Spinner\Core\Revolver\FrameCollectionRevolver;
-use AlecRabbit\Spinner\Core\StyleFrameCollectionRenderer;
-use AlecRabbit\Spinner\Core\StyleFrameRenderer;
 use AlecRabbit\Spinner\Exception\DomainException;
 
 abstract class AFrameRevolverBuilder extends ARevolverBuilder implements IFrameRevolverBuilder
 {
     protected ?IPattern $pattern = null;
+
+    public function __construct(
+        protected IStyleFrameCollectionRenderer $styleFrameCollectionRenderer,
+        protected ICharFrameCollectionRenderer $charFrameCollectionRenderer,
+    ) {
+    }
 
     public function withPattern(IPattern $pattern): static
     {
@@ -30,13 +34,10 @@ abstract class AFrameRevolverBuilder extends ARevolverBuilder implements IFrameR
     {
         self::assertPattern($this->pattern);
 
-//        $defaultsProvider = $this->getDefaultsProvider();
-//        $colorMode = OptionStyleMode::ANSI8; // FIXME this is a hardcode
-
         if ($this->pattern instanceof IStylePattern) {
             return
                 new FrameCollectionRevolver(
-                    $this->getStyleFrameCollectionRenderer()
+                    $this->styleFrameCollectionRenderer
                         ->pattern($this->pattern)
                         ->render(),
                     $this->pattern->getInterval()
@@ -44,7 +45,7 @@ abstract class AFrameRevolverBuilder extends ARevolverBuilder implements IFrameR
         }
         return
             new FrameCollectionRevolver(
-                $this->getCharFrameCollectionRenderer()
+                $this->charFrameCollectionRenderer
                     ->pattern($this->pattern)
                     ->render(),
                 $this->pattern->getInterval()
@@ -60,19 +61,4 @@ abstract class AFrameRevolverBuilder extends ARevolverBuilder implements IFrameR
             throw new DomainException('Pattern is not set.');
         }
     }
-
-    private function getStyleFrameCollectionRenderer(): IFrameCollectionRenderer
-    {
-        return
-            new StyleFrameCollectionRenderer(
-                new StyleFrameRenderer($this->getColorConverter()),
-            );
-    }
-
-    private function getCharFrameCollectionRenderer(): CharFrameCollectionRenderer
-    {
-        return
-            new CharFrameCollectionRenderer();
-    }
-
 }
