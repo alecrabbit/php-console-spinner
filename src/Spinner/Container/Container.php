@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Container;
 
 use AlecRabbit\Spinner\Container\Contract\IContainer;
+use AlecRabbit\Spinner\Container\Contract\IInstantiator;
 use AlecRabbit\Spinner\Container\Exception\ContainerException;
 use AlecRabbit\Spinner\Container\Exception\NotInContainerException;
 use Throwable;
@@ -17,6 +18,7 @@ final class Container implements IContainer
 
     /** @var array<string, object> */
     private array $services = [];
+    private IInstantiator $instantiator;
 
     /**
      * Create a container object with a set of definitions.
@@ -31,6 +33,7 @@ final class Container implements IContainer
                 $this->addDefinition($id, $definition);
             }
         }
+        $this->instantiator = new Instantiator($this);
     }
 
     private function addDefinition(string $id, mixed $definition): void
@@ -151,7 +154,7 @@ final class Container implements IContainer
         if (class_exists($class)) {
             try {
                 /** @psalm-suppress MixedMethodCall */
-                return new $class();
+                return $this->instantiator->createInstance($class);
             } catch (Throwable $e) {
                 throw new ContainerException(
                     sprintf(

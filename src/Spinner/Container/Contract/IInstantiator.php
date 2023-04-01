@@ -8,8 +8,8 @@ use Psr\Container\ContainerInterface;
 
 interface IInstantiator
 {
-
-    public static function registerContainer(ContainerInterface $container): void;
-
-    public static function createInstance(string $class): object;
+    /**
+     * @param class-string $class
+     */
+    public function createInstance(string $class): object;
 }

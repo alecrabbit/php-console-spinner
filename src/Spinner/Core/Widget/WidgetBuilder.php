@@ -30,7 +30,7 @@ final class WidgetBuilder implements IWidgetBuilder
         $this->assert();
         return
             new Widget(
-                $this->createRevolver(),
+                $this->revolver ?? $this->buildRevolver(),
                 $this->leadingSpacer ?? $this->widgetConfig->getLeadingSpacer(),
                 $this->trailingSpacer ?? $this->widgetConfig->getTrailingSpacer(),
             );
@@ -45,11 +45,6 @@ final class WidgetBuilder implements IWidgetBuilder
             ),
             default => null,
         };
-    }
-
-    protected function createRevolver(): IRevolver
-    {
-        return $this->revolver ?? $this->buildRevolver();
     }
 
     protected function buildRevolver(): IRevolver

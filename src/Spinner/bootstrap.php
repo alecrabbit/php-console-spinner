@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-use AlecRabbit\Spinner\Container\Instantiator;
-use AlecRabbit\Spinner\Core\ContainerFactory;
+use AlecRabbit\Spinner\Facade;
 
-ContainerFactory::createContainer();
+Facade::getContainer();

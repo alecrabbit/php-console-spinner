@@ -31,8 +31,9 @@ $loop->delay(
 );
 $loop->delay(
     5,
-    static function () use ($loop): void {
+    static function () use ($loop,$spinner): void {
         $loop->stop();
+        $spinner->finalize();
         echo 'Stopped!' . PHP_EOL;
     }
 );

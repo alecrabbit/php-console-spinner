@@ -6,7 +6,9 @@ classDiagram
     Facade --> SpinnerFactory
     Facade --> ConfigBuilder
     Facade --> LoopFactory
+    Facade --> ContainerFactory
     class Facade{
+        +getContainer()
         +getConfigBuilder()
         +getLoop()
         +createSpinner(IConfig $config = null)
@@ -22,6 +24,11 @@ classDiagram
     SpinnerBuilder --> WidgetBuilder
     
     WidgetBuilder --> WidgetRevolverBuilder
-    WidgetBuilder --> RevolverFactory
     
+    WidgetRevolverBuilder --> RevolverFactory
+    
+    RevolverFactory --> FrameRevolverBuilder
+    RevolverFactory --> FrameFactory
+    RevolverFactory --> IntervalFactory
+
 ```

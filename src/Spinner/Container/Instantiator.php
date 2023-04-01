@@ -5,8 +5,6 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Container;
 
 use AlecRabbit\Spinner\Container\Contract\IInstantiator;
-use AlecRabbit\Spinner\Container\Exception\ContainerAlreadyRegistered;
-use AlecRabbit\Spinner\Container\Exception\ContainerNotRegistered;
 use AlecRabbit\Spinner\Container\Exception\ClassDoesNotExist;
 use AlecRabbit\Spinner\Container\Exception\UnableToCreateInstance;
 use AlecRabbit\Spinner\Container\Exception\UnableToExtractType;
@@ -18,26 +16,20 @@ use function class_exists;
 
 final class Instantiator implements IInstantiator
 {
-    protected static ?ContainerInterface $container = null;
-
-    public static function registerContainer(ContainerInterface $container): void
-    {
-        if (null === self::$container) {
-            self::$container = $container;
-            return;
-        }
-        throw new ContainerAlreadyRegistered('Container already registered.');
+    public function __construct(
+        protected ContainerInterface $container,
+    ) {
     }
 
-    public static function createInstance(string $class): object
+    public function createInstance(string $class): object
     {
         return match (true) {
-            class_exists($class) => self::createInstanceByReflection($class),
+            class_exists($class) => $this->createInstanceByReflection($class),
             default => throw new ClassDoesNotExist('Class does not exist: ' . $class),
         };
     }
 
-    protected static function createInstanceByReflection(string $class): object
+    protected function createInstanceByReflection(string $class): object
     {
         $reflection = new ReflectionClass($class);
 
@@ -50,7 +42,7 @@ final class Instantiator implements IInstantiator
                 if (null === $id) {
                     throw new UnableToExtractType('Unable to extract type for parameter name: $' . $name);
                 }
-                $parameters[$name] = self::getContainer()->get($id);
+                $parameters[$name] = $this->container->get($id);
             }
             return new $class(...$parameters);
         }
@@ -60,13 +52,5 @@ final class Instantiator implements IInstantiator
         } catch (Throwable $e) {
             throw new UnableToCreateInstance('Unable to create instance of ' . $class, previous: $e);
         }
-    }
-
-    protected static function getContainer(): ContainerInterface
-    {
-        if (null === self::$container) {
-            throw new ContainerNotRegistered('Container not registered.');
-        }
-        return self::$container;
     }
 }

@@ -4,9 +4,10 @@ declare(strict_types=1);
 // 29.03.23
 namespace AlecRabbit\Spinner;
 
-use AlecRabbit\Spinner\Core\A\AContainerAware;
+use AlecRabbit\Spinner\Container\Contract\IContainer;
 use AlecRabbit\Spinner\Core\Config\Contract\IConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IConfigBuilder;
+use AlecRabbit\Spinner\Core\ContainerFactory;
 use AlecRabbit\Spinner\Core\Contract\IFacade;
 use AlecRabbit\Spinner\Core\Contract\ILoopAdapter;
 use AlecRabbit\Spinner\Core\Contract\ILoopProbeFactory;
@@ -15,7 +16,7 @@ use AlecRabbit\Spinner\Core\Factory\Contract\ILoopFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ISpinnerFactory;
 use AlecRabbit\Spinner\Core\Factory\LoopFactory;
 
-final class Facade extends AContainerAware implements IFacade
+final class Facade implements IFacade
 {
     public static function createSpinner(IConfig $config = null): ISpinner
     {
@@ -45,5 +46,10 @@ final class Facade extends AContainerAware implements IFacade
         $container = self::getContainer();
         return
             new LoopFactory($container->get(ILoopProbeFactory::class));
+    }
+
+    public static function getContainer(): IContainer
+    {
+        return ContainerFactory::getContainer();
     }
 }

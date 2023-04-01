@@ -8,8 +8,5 @@ use AlecRabbit\Spinner\Container\Contract\IContainer;
 
 interface IContainerFactory
 {
-
     public static function getContainer(): IContainer;
-
-    public static function createContainer(): IContainer;
 }
