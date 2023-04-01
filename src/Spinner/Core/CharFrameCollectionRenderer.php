@@ -8,6 +8,7 @@ namespace AlecRabbit\Spinner\Core;
 use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Contract\IStyle;
 use AlecRabbit\Spinner\Core\A\AFrameCollectionRenderer;
+use AlecRabbit\Spinner\Core\Factory\Contract\IFrameFactory;
 use AlecRabbit\Spinner\Core\Factory\FrameFactory;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 
@@ -15,6 +16,10 @@ use function is_string;
 
 final class CharFrameCollectionRenderer extends AFrameCollectionRenderer implements ICharFrameCollectionRenderer
 {
+    public function __construct(
+        protected IFrameFactory $frameFactory,
+    ) {
+    }
     protected function createFrame(string|IStyle $entry): IFrame
     {
         if (!is_string($entry)) {
@@ -26,6 +31,6 @@ final class CharFrameCollectionRenderer extends AFrameCollectionRenderer impleme
                 )
             );
         }
-        return FrameFactory::create($entry, WidthDeterminer::determine($entry));
+        return $this->frameFactory->create($entry, WidthDeterminer::determine($entry));
     }
 }
