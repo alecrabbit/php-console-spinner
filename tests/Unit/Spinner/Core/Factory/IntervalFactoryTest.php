@@ -44,29 +44,13 @@ final class IntervalFactoryTest extends TestCaseWithPrebuiltMocks
     #[Test]
     public function canCreateDefaultInterval(): void
     {
-        $container = $this->getContainerMock();
-
-        $defaultsProvider = $this->getDefaultsProviderMock();
-        $defaultsProvider
-            ->method('getAuxSettings')
-            ->willReturn($this->getAuxSettingsMock())
-        ;
-
         $intervalNormalizer = $this->getIntervalNormalizerMock();
         $intervalNormalizer
             ->method('normalize')
             ->willReturn(new Interval())
         ;
 
-        $container
-            ->method('get')
-            ->willReturn(
-                $defaultsProvider,
-                $intervalNormalizer,
-            )
-        ;
-
-        $intervalFactory = $this->getTesteeInstance();
+        $intervalFactory = $this->getTesteeInstance(intervalNormalizer: $intervalNormalizer);
 
         $interval = $intervalFactory->createDefault();
 

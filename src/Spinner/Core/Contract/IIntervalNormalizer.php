@@ -8,6 +8,5 @@ use AlecRabbit\Spinner\Contract\IInterval;
 
 interface IIntervalNormalizer
 {
-
     public function normalize(IInterval $interval): IInterval;
 }

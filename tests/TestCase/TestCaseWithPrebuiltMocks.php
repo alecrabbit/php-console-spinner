@@ -17,10 +17,14 @@ use AlecRabbit\Spinner\Core\Contract\IIntervalNormalizer;
 use AlecRabbit\Spinner\Core\Contract\ILoopProbeFactory;
 use AlecRabbit\Spinner\Core\Contract\ISpinnerBuilder;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IAuxSettings;
+use AlecRabbit\Spinner\Core\Factory\Contract\IFrameFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IRevolverFactory;
+use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolverBuilder;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetBuilder;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolverBuilder;
+use AlecRabbit\Tests\Spinner\Unit\Spinner\Core\Factory\RevolverFactoryTest;
 use PHPUnit\Framework\MockObject\MockObject;
 
 abstract class TestCaseWithPrebuiltMocks extends TestCase
@@ -114,5 +118,20 @@ abstract class TestCaseWithPrebuiltMocks extends TestCase
     protected function getIntervalNormalizerMock(): MockObject&IIntervalNormalizer
     {
         return $this->createMock(IIntervalNormalizer::class);
+    }
+
+    protected function getIntervalFactoryMock(): MockObject&IIntervalFactory
+    {
+        return $this->createMock(IIntervalFactory::class);
+    }
+
+    protected function getFrameFactoryMock(): MockObject&IFrameFactory
+    {
+        return $this->createMock(IFrameFactory::class);
+    }
+
+    protected function getFrameRevolverBuilderMock(): MockObject&IFrameRevolverBuilder
+    {
+        return $this->createMock(IFrameRevolverBuilder::class);
     }
 }

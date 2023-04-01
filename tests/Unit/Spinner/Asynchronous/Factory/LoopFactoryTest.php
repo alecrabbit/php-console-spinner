@@ -21,26 +21,24 @@ final class LoopFactoryTest extends TestCaseWithPrebuiltMocks
     #[Test]
     public function canBeCreated(): void
     {
-        $loopFactory = $this->getTesteeInstance(container: null, loopProbeFactory: null);
+        $loopFactory = $this->getTesteeInstance();
 
         self::assertInstanceOf(LoopFactory::class, $loopFactory);
     }
 
 
     public function getTesteeInstance(
-        (MockObject&IContainer)|null $container,
-        (MockObject&ILoopProbeFactory)|null $loopProbeFactory,
+        ?ILoopProbeFactory $loopProbeFactory = null
     ): ILoopFactory {
         return
             new LoopFactory(
-                container: $container ?? $this->getContainerMock(),
+                loopProbeFactory: $loopProbeFactory ?? $this->getLoopProbeFactoryMock(),
             );
     }
 
     #[Test]
     public function canGetLoopAdapter(): void
     {
-        $container = $this->getContainerMock();
 
         $loopProbeFactory = $this->getLoopProbeFactoryMock();
         $loopProbeFactory->method('getProbe')
@@ -59,12 +57,7 @@ final class LoopFactoryTest extends TestCaseWithPrebuiltMocks
             )
         ;
 
-        $container
-            ->method('get')
-            ->willReturn($loopProbeFactory)
-        ;
-
-        $loopFactory = $this->getTesteeInstance(container: $container, loopProbeFactory: $loopProbeFactory);
+        $loopFactory = $this->getTesteeInstance(loopProbeFactory: $loopProbeFactory);
 
         self::assertInstanceOf(ALoopAdapter::class, $loopFactory->getLoop());
     }
