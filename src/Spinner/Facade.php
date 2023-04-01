@@ -24,8 +24,10 @@ final class Facade implements IFacade
             self::getSpinnerFactory()->createSpinner($config);
     }
 
+    /** @psalm-suppress MoreSpecificReturnType */
     protected static function getSpinnerFactory(): ISpinnerFactory
     {
+        /** @psalm-suppress LessSpecificReturnStatement */
         return self::getContainer()->get(ISpinnerFactory::class);
     }
 
@@ -34,8 +36,10 @@ final class Facade implements IFacade
         return ContainerFactory::getContainer();
     }
 
+    /** @psalm-suppress MoreSpecificReturnType */
     public static function getConfigBuilder(): IConfigBuilder
     {
+        /** @psalm-suppress LessSpecificReturnStatement */
         return
             self::getContainer()->get(IConfigBuilder::class);
     }
@@ -48,8 +52,14 @@ final class Facade implements IFacade
 
     protected static function getLoopFactory(): ILoopFactory
     {
-        $container = self::getContainer();
         return
-            new LoopFactory($container->get(ILoopProbeFactory::class));
+            new LoopFactory(self::getLoopProbeFactory());
+    }
+
+    /** @psalm-suppress MoreSpecificReturnType */
+    protected static function getLoopProbeFactory(): ILoopProbeFactory
+    {
+        /** @psalm-suppress LessSpecificReturnStatement */
+        return self::getContainer()->get(ILoopProbeFactory::class);
     }
 }
