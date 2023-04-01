@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Defaults\A;
 
-use AlecRabbit\Spinner\Contract\IAnsiStyleConverter;
 use AlecRabbit\Spinner\Core\Color\AnsiStyleConverter;
 use AlecRabbit\Spinner\Core\Config\Contract\IDriverBuilder;
 use AlecRabbit\Spinner\Core\Config\DriverBuilder;
 use AlecRabbit\Spinner\Core\Config\WidgetRevolverBuilder;
+use AlecRabbit\Spinner\Core\Contract\IAnsiStyleConverter;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDefaults;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDefaultsClasses;
 use AlecRabbit\Spinner\Core\FrameRevolverBuilder;

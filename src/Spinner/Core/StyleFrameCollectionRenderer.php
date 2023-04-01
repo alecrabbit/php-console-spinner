@@ -6,13 +6,13 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core;
 
 use AlecRabbit\Spinner\Contract\IFrame;
-use AlecRabbit\Spinner\Contract\IFrameCollection;
-use AlecRabbit\Spinner\Contract\IFrameCollectionRenderer;
 use AlecRabbit\Spinner\Contract\IPattern;
 use AlecRabbit\Spinner\Contract\IStyle;
-use AlecRabbit\Spinner\Contract\IStyleFrameRenderer;
 use AlecRabbit\Spinner\Contract\OptionStyleMode;
 use AlecRabbit\Spinner\Core\A\AFrameCollectionRenderer;
+use AlecRabbit\Spinner\Core\Contract\IFrameCollection;
+use AlecRabbit\Spinner\Core\Contract\IFrameCollectionRenderer;
+use AlecRabbit\Spinner\Core\Contract\IStyleFrameRenderer;
 use AlecRabbit\Spinner\Core\Factory\Contract\IFrameFactory;
 use AlecRabbit\Spinner\Core\Pattern\Contract\IStylePattern;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;

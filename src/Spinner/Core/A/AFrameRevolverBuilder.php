@@ -4,9 +4,9 @@ declare(strict_types=1);
 // 20.03.23
 namespace AlecRabbit\Spinner\Core\A;
 
-use AlecRabbit\Spinner\Contract\IFrameCollection;
 use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Contract\IPattern;
+use AlecRabbit\Spinner\Core\Contract\IFrameCollection;
 use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalFactory;
 use AlecRabbit\Spinner\Core\ICharFrameCollectionRenderer;
 use AlecRabbit\Spinner\Core\IStyleFrameCollectionRenderer;

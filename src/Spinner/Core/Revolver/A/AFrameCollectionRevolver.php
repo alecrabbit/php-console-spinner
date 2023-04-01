@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Revolver\A;
 
 use AlecRabbit\Spinner\Contract\IFrame;
-use AlecRabbit\Spinner\Contract\IFrameCollection;
 use AlecRabbit\Spinner\Contract\IInterval;
+use AlecRabbit\Spinner\Core\Contract\IFrameCollection;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameCollectionRevolver;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 

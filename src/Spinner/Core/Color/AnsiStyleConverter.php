@@ -4,8 +4,8 @@ declare(strict_types=1);
 // 23.03.23
 namespace AlecRabbit\Spinner\Core\Color;
 
-use AlecRabbit\Spinner\Contract\IAnsiStyleConverter;
 use AlecRabbit\Spinner\Contract\OptionStyleMode;
+use AlecRabbit\Spinner\Core\Contract\IAnsiStyleConverter;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Exception\LogicException;
 use AlecRabbit\Spinner\Helper\Asserter;

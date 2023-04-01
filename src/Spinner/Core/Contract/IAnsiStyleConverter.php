@@ -2,8 +2,9 @@
 
 declare(strict_types=1);
 // 23.03.23
-namespace AlecRabbit\Spinner\Contract;
+namespace AlecRabbit\Spinner\Core\Contract;
 
+use AlecRabbit\Spinner\Contract\OptionStyleMode;
 use AlecRabbit\Spinner\Exception\DomainException;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Exception\LogicException;

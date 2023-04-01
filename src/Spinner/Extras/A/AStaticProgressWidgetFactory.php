@@ -6,10 +6,10 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Extras\A;
 
 use AlecRabbit\Spinner\Contract\IFrame;
-use AlecRabbit\Spinner\Contract\IFrameCollection;
 use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Contract\IProcedure;
 use AlecRabbit\Spinner\Core\CharFrameCollectionRenderer;
+use AlecRabbit\Spinner\Core\Contract\IFrameCollection;
 use AlecRabbit\Spinner\Core\Factory\A\AStaticWidgetFactory;
 use AlecRabbit\Spinner\Core\Factory\FrameFactory;
 use AlecRabbit\Spinner\Core\Factory\StaticRevolverFactory;

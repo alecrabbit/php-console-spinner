@@ -4,12 +4,12 @@ declare(strict_types=1);
 // 24.03.23
 namespace AlecRabbit\Spinner\Core;
 
-use AlecRabbit\Spinner\Contract\IAnsiStyleConverter;
 use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Contract\ISequencer;
 use AlecRabbit\Spinner\Contract\IStyle;
-use AlecRabbit\Spinner\Contract\IStyleFrameRenderer;
 use AlecRabbit\Spinner\Contract\OptionStyleMode;
+use AlecRabbit\Spinner\Core\Contract\IAnsiStyleConverter;
+use AlecRabbit\Spinner\Core\Contract\IStyleFrameRenderer;
 use AlecRabbit\Spinner\Core\Factory\Contract\IFrameFactory;
 use AlecRabbit\Spinner\Exception\DomainException;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;

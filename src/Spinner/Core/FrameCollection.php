@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core;
 
 use AlecRabbit\Spinner\Contract\IFrame;
-use AlecRabbit\Spinner\Contract\IFrameCollection;
+use AlecRabbit\Spinner\Core\Contract\IFrameCollection;
 use AlecRabbit\Spinner\Exception\DomainException;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use ArrayObject;

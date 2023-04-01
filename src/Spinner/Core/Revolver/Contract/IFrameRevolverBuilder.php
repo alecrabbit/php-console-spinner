@@ -5,9 +5,9 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Revolver\Contract;
 
-use AlecRabbit\Spinner\Contract\IFrameCollection;
 use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Contract\IPattern;
+use AlecRabbit\Spinner\Core\Contract\IFrameCollection;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Exception\LogicException;
 
