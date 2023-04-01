@@ -13,6 +13,7 @@ use AlecRabbit\Spinner\Contract\IStyle;
 use AlecRabbit\Spinner\Contract\IStyleFrameRenderer;
 use AlecRabbit\Spinner\Contract\OptionStyleMode;
 use AlecRabbit\Spinner\Core\A\AFrameCollectionRenderer;
+use AlecRabbit\Spinner\Core\Factory\Contract\IFrameFactory;
 use AlecRabbit\Spinner\Core\Factory\FrameFactory;
 use AlecRabbit\Spinner\Core\Pattern\Contract\IStylePattern;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
@@ -24,6 +25,7 @@ final class StyleFrameCollectionRenderer extends AFrameCollectionRenderer implem
 
     public function __construct(
         protected IStyleFrameRenderer $frameRenderer,
+        protected IFrameFactory $frameFactory,
     ) {
     }
 
@@ -73,7 +75,7 @@ final class StyleFrameCollectionRenderer extends AFrameCollectionRenderer implem
             $this->createCollection(
                 new ArrayObject(
                     [
-                        FrameFactory::create('%s', 0), // no styling
+                        $this->frameFactory->create('%s', 0), // no styling
                     ]
                 )
             );
