@@ -4,13 +4,10 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Asynchronous\Factory;
 
-use AlecRabbit\Spinner\Container\Contract\IContainer;
 use AlecRabbit\Spinner\Core\Contract\ILoopProbe;
 use AlecRabbit\Spinner\Core\Contract\ILoopProbeFactory;
 use AlecRabbit\Spinner\Exception\DomainException;
 use ArrayObject;
-use Psr\Container\ContainerExceptionInterface;
-use Psr\Container\NotFoundExceptionInterface;
 use Traversable;
 
 final class LoopProbeFactory implements ILoopProbeFactory

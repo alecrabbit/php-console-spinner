@@ -29,6 +29,11 @@ final class Facade implements IFacade
         return self::getContainer()->get(ISpinnerFactory::class);
     }
 
+    public static function getContainer(): IContainer
+    {
+        return ContainerFactory::getContainer();
+    }
+
     public static function getConfigBuilder(): IConfigBuilder
     {
         return
@@ -46,10 +51,5 @@ final class Facade implements IFacade
         $container = self::getContainer();
         return
             new LoopFactory($container->get(ILoopProbeFactory::class));
-    }
-
-    public static function getContainer(): IContainer
-    {
-        return ContainerFactory::getContainer();
     }
 }

@@ -27,13 +27,11 @@ final class RevolverFactoryTest extends TestCaseWithPrebuiltMocks
     public function getTesteeInstance(
         ?IFrameRevolverBuilder $frameRevolverBuilder = null,
         ?IFrameFactory $frameFactory = null,
-        ?IIntervalFactory $intervalFactory = null,
     ): IRevolverFactory {
         return
             new RevolverFactory(
                 frameRevolverBuilder: $frameRevolverBuilder ?? $this->getFrameRevolverBuilderMock(),
                 frameFactory: $frameFactory ?? $this->getFrameFactoryMock(),
-                intervalFactory: $intervalFactory ?? $this->getIntervalFactoryMock(),
             );
     }
 
