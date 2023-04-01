@@ -7,23 +7,21 @@ namespace AlecRabbit\Spinner\Asynchronous\Factory;
 use AlecRabbit\Spinner\Container\Contract\IContainer;
 use AlecRabbit\Spinner\Core\Contract\ILoopProbe;
 use AlecRabbit\Spinner\Core\Contract\ILoopProbeFactory;
-use AlecRabbit\Spinner\Core\Factory\A\AFactory;
 use AlecRabbit\Spinner\Exception\DomainException;
 use ArrayObject;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\NotFoundExceptionInterface;
 use Traversable;
 
-final class LoopProbeFactory extends AFactory implements ILoopProbeFactory
+final class LoopProbeFactory implements ILoopProbeFactory
 {
     /** @var Traversable<ILoopProbe> $loopProbes */
     protected Traversable $loopProbes;
 
     public function __construct(
-        IContainer $container,
+        protected IContainer $container,
         Traversable $loopProbes,
     ) {
-        parent::__construct($container);
         $this->loopProbes = new ArrayObject([]);
         $this->registerProbes($loopProbes);
     }

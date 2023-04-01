@@ -4,11 +4,9 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Factory;
 
-use AlecRabbit\Spinner\Container\Contract\IContainer;
 use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Core\Config\Contract\IDefaultsProvider;
 use AlecRabbit\Spinner\Core\Contract\IIntervalNormalizer;
-use AlecRabbit\Spinner\Core\Factory\A\AFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalFactory;
 use AlecRabbit\Spinner\Core\Interval;
 
@@ -17,8 +15,7 @@ final class IntervalFactory implements IIntervalFactory
     public function __construct(
         protected IDefaultsProvider $defaultsProvider,
         protected IIntervalNormalizer $intervalNormalizer,
-    )
-    {
+    ) {
     }
 
     public function createDefault(): IInterval
