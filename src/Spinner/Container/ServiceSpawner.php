@@ -49,7 +49,7 @@ final class ServiceSpawner implements IServiceSpawner
     protected function spawnByCallable(callable $definition): object
     {
         /** @psalm-suppress MixedReturnStatement */
-        return $definition($this);
+        return $definition($this->container);
     }
 
     /**

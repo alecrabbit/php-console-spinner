@@ -60,7 +60,7 @@ final class ServiceSpawnerTest extends TestCaseWithPrebuiltMocks
     #[Test]
     public function canSpawnWithCallable(): void
     {
-        $callable = fn() => new ClassForSpawner();
+        $callable = fn(ContainerInterface $container) => new ClassForSpawner();
 
         $spawner = $this->getTesteeInstance();
 
