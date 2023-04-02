@@ -1,6 +1,6 @@
 deptrac:
   layers:
-    - name: ModuleExtras
+    - name: Extras
       collectors:
         - type: className
           value: '%namespace%\\Extras\\.*'

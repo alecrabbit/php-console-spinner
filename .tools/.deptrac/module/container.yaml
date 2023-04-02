@@ -1,6 +1,6 @@
 deptrac:
   layers:
-    - name: ModuleContainer
+    - name: Container
       collectors:
         - type: bool
           must:

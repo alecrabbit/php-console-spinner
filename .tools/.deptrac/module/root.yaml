@@ -1,6 +1,6 @@
 deptrac:
   layers:
-    - name: ModuleRoot
+    - name: Root
       collectors:
         - type: bool
           must:

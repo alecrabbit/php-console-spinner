@@ -13,54 +13,54 @@ imports:
   - module/helper.yaml
   - module/mixin.yaml
   - module/root.yaml
-  - vendor/psr_container.yaml
+  - vendor/container.yaml
   - vendor/react.yaml
   - vendor/revolt.yaml
   - vendor/symfony.yaml
 
 deptrac:
   ruleset:
-    ModuleAsynchronous:
-      - +ModuleCore
-      - +ModuleException
-      - +ModuleHelper
+    Asynchronous:
+      - +Core
+      - +Exception
+      - +Helper
       - +VendorReact
       - +VendorRevolt
-    ModuleContainer:
-      - +VendorPsrContainer
-    ModuleContract:
+    Container:
+      - +VendorContainer
+    Contract:
       - +VendorReact
       - +VendorRevolt
-      - +ModuleException
-    ModuleCore:
-      - +ModuleContainer
-      - ModuleContract
-      - ModuleException
-      - ModuleHelper
-      - ModuleMixin
-    ModuleException: ~
-    ModuleExtras:
-      - +ModuleContract
-      - +ModuleCore
-      - +ModuleException
-      - +ModuleHelper
-      - +ModuleMixin
+      - +Exception
+    Core:
+      - +Container
+      - Contract
+      - Exception
+      - Helper
+      - Mixin
+    Exception: ~
+    Extras:
+      - +Contract
+      - +Core
+      - +Exception
+      - +Helper
+      - +Mixin
       - +VendorSymfony
-    ModuleHelper:
-      - +ModuleContract
-      - +ModuleException
-      - +ModuleMixin
-    ModuleMixin: ~
-    ModuleRoot:
-      - +ModuleContract
-      - +ModuleCore
-      - +ModuleException
-      - +ModuleHelper
+    Helper:
+      - +Contract
+      - +Exception
+      - +Mixin
+    Mixin: ~
+    Root:
+      - +Contract
+      - +Core
+      - +Exception
+      - +Helper
     VendorSymfony:
-      - +VendorPsrContainer
+      - +VendorContainer
     VendorRevolt: ~
     VendorReact: ~
-    VendorPsrContainer: ~
+    VendorContainer: ~
 #  skip_violations:
 #    NS\Class:
 #      - AnotherNS\Class
