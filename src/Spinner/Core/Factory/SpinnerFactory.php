@@ -24,8 +24,7 @@ final class SpinnerFactory implements ISpinnerFactory
 
         return
             $this->spinnerBuilder
-                ->build()
-        ;
+                ->build();
     }
 
 }

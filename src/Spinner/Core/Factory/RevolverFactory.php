@@ -31,8 +31,7 @@ final class RevolverFactory implements IRevolverFactory
                         ])
                     )
                 )
-                ->build()
-        ;
+                ->build();
     }
 
     public function create(IPattern $pattern): IRevolver
@@ -52,7 +51,6 @@ final class RevolverFactory implements IRevolverFactory
                         ])
                     )
                 )
-                ->build()
-        ;
+                ->build();
     }
 }

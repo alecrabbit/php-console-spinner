@@ -5,10 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Container;
 
 use AlecRabbit\Spinner\Container\Contract\IServiceSpawner;
-use AlecRabbit\Spinner\Container\Exception\ClassDoesNotExist;
 use AlecRabbit\Spinner\Container\Exception\SpawnFailedException;
-use AlecRabbit\Spinner\Container\Exception\UnableToCreateInstance;
-use AlecRabbit\Spinner\Container\Exception\UnableToExtractType;
 use AlecRabbit\Spinner\Container\ServiceSpawner;
 use AlecRabbit\Tests\Spinner\TestCase\TestCaseWithPrebuiltMocks;
 use AlecRabbit\Tests\Spinner\Unit\Spinner\Container\Override\ClassForSpawner;
@@ -57,6 +54,7 @@ final class ServiceSpawnerTest extends TestCaseWithPrebuiltMocks
         self::assertInstanceOf(ServiceSpawner::class, $spawner);
         self::assertInstanceOf(ClassForSpawner::class, $spawner->spawn($classString));
     }
+
     #[Test]
     public function canSpawnWithCallable(): void
     {
@@ -106,6 +104,7 @@ final class ServiceSpawnerTest extends TestCaseWithPrebuiltMocks
             self::exceptionNotThrownString($exceptionClass, $exceptionMessage)
         );
     }
+
     #[Test]
     public function throwsWhenConstructorParameterTypeCanNotBeExtracted(): void
     {

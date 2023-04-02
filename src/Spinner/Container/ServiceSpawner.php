@@ -26,11 +26,12 @@ final class ServiceSpawner implements IServiceSpawner
     public function spawn(string|callable|object $definition): object
     {
         try {
-            return match (true) {
-                is_callable($definition) => $this->spawnByCallable($definition),
-                is_string($definition) => $this->spawnByClassConstructor($definition),
-                is_object($definition) => $definition, // return object as is
-            };
+            return
+                match (true) {
+                    is_callable($definition) => $this->spawnByCallable($definition),
+                    is_string($definition) => $this->spawnByClassConstructor($definition),
+                    is_object($definition) => $definition, // return object as is
+                };
         } catch (Throwable $e) {
             throw new SpawnFailedException(
                 sprintf(
@@ -62,10 +63,11 @@ final class ServiceSpawner implements IServiceSpawner
      */
     protected function spawnByClassConstructor(string $definition): object
     {
-        return match (true) {
-            class_exists($definition) => $this->createInstanceByReflection($definition),
-            default => throw new ClassDoesNotExist('Class does not exist: ' . $definition),
-        };
+        return
+            match (true) {
+                class_exists($definition) => $this->createInstanceByReflection($definition),
+                default => throw new ClassDoesNotExist('Class does not exist: ' . $definition),
+            };
     }
 
     /**

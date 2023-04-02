@@ -43,8 +43,7 @@ abstract class ConfigTestCase extends TestCase
     {
         return
             self::getConfigBuilder()
-                ->build()
-        ;
+                ->build();
     }
 
     protected static function getConfigBuilder(): IConfigBuilder

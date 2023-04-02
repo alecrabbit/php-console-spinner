@@ -53,8 +53,7 @@ final class WidgetBuilder implements IWidgetBuilder
             $this->widgetRevolverBuilder
                 ->withStylePattern($this->widgetConfig->getStylePattern())
                 ->withCharPattern($this->widgetConfig->getCharPattern())
-                ->build()
-        ;
+                ->build();
     }
 
     public function withWidgetRevolver(IRevolver $revolver): IWidgetBuilder

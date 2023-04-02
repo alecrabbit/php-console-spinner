@@ -74,14 +74,12 @@ abstract class AFrameRevolverBuilder extends ARevolverBuilder implements IFrameR
             return
                 $this->styleFrameCollectionRenderer
                     ->pattern($pattern)
-                    ->render()
-            ;
+                    ->render();
         }
         return
             $this->charFrameCollectionRenderer
                 ->pattern($pattern)
-                ->render()
-        ;
+                ->render();
     }
 
     public function withFrameCollection(IFrameCollection $frames): static

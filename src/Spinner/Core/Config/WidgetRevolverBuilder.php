@@ -42,8 +42,7 @@ final class WidgetRevolverBuilder extends ARevolverBuilder implements IWidgetRev
                 $this->revolverFactory
                     ->create(
                         $this->stylePattern
-                    )
-            ;
+                    );
         }
 
         if ($this->charPattern) {
@@ -51,8 +50,7 @@ final class WidgetRevolverBuilder extends ARevolverBuilder implements IWidgetRev
                 $this->revolverFactory
                     ->create(
                         $this->charPattern
-                    )
-            ;
+                    );
         }
     }
 

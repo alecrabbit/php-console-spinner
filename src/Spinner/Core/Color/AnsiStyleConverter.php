@@ -29,19 +29,20 @@ final class AnsiStyleConverter implements IAnsiStyleConverter
 
         $color24 = (string)$color;
 
-        return match ($styleMode) {
-            OptionStyleMode::ANSI4 => $this->convert4($color, $styleMode),
-            OptionStyleMode::ANSI8 => $this->convert8($color, $styleMode),
-            OptionStyleMode::ANSI24 => $this->convert24($color24, $styleMode),
-            default => throw new LogicException(
-                sprintf(
-                    '%s::%s: Unable to convert "%s" to ansi code.',
-                    OptionStyleMode::class,
-                    $styleMode->name,
-                    $color
-                )
-            ),
-        };
+        return
+            match ($styleMode) {
+                OptionStyleMode::ANSI4 => $this->convert4($color, $styleMode),
+                OptionStyleMode::ANSI8 => $this->convert8($color, $styleMode),
+                OptionStyleMode::ANSI24 => $this->convert24($color24, $styleMode),
+                default => throw new LogicException(
+                    sprintf(
+                        '%s::%s: Unable to convert "%s" to ansi code.',
+                        OptionStyleMode::class,
+                        $styleMode->name,
+                        $color
+                    )
+                ),
+            };
     }
 
     /**
@@ -87,17 +88,18 @@ final class AnsiStyleConverter implements IAnsiStyleConverter
         $g = ($color >> 8) & 255;
         $b = $color & 255;
 
-        return match ($styleMode) {
-            OptionStyleMode::ANSI4 => (string)$this->convertFromRGB($r, $g, $b, $styleMode),
-            OptionStyleMode::ANSI8 => '8;5;' . ((string)$this->convertFromRGB($r, $g, $b, $styleMode)),
-            OptionStyleMode::ANSI24 => sprintf('8;2;%d;%d;%d', $r, $g, $b),
-            OptionStyleMode::NONE => throw new InvalidArgumentException(
-                sprintf(
-                    'Hex color cannot be converted to %s.',
-                    $styleMode->name
-                )
-            ),
-        };
+        return
+            match ($styleMode) {
+                OptionStyleMode::ANSI4 => (string)$this->convertFromRGB($r, $g, $b, $styleMode),
+                OptionStyleMode::ANSI8 => '8;5;' . ((string)$this->convertFromRGB($r, $g, $b, $styleMode)),
+                OptionStyleMode::ANSI24 => sprintf('8;2;%d;%d;%d', $r, $g, $b),
+                OptionStyleMode::NONE => throw new InvalidArgumentException(
+                    sprintf(
+                        'Hex color cannot be converted to %s.',
+                        $styleMode->name
+                    )
+                ),
+            };
     }
 
     /**
@@ -105,16 +107,17 @@ final class AnsiStyleConverter implements IAnsiStyleConverter
      */
     protected function convertFromRGB(int $r, int $g, int $b, OptionStyleMode $styleMode): int
     {
-        return match ($styleMode) {
-            OptionStyleMode::ANSI4 => $this->degradeHexColorToAnsi4($r, $g, $b),
-            OptionStyleMode::ANSI8 => $this->degradeHexColorToAnsi8($r, $g, $b),
-            default => throw new InvalidArgumentException(
-                sprintf(
-                    'RGB cannot be converted to %s.',
-                    $styleMode->name
+        return
+            match ($styleMode) {
+                OptionStyleMode::ANSI4 => $this->degradeHexColorToAnsi4($r, $g, $b),
+                OptionStyleMode::ANSI8 => $this->degradeHexColorToAnsi8($r, $g, $b),
+                default => throw new InvalidArgumentException(
+                    sprintf(
+                        'RGB cannot be converted to %s.',
+                        $styleMode->name
+                    )
                 )
-            )
-        };
+            };
     }
 
     protected function degradeHexColorToAnsi4(int $r, int $g, int $b): int

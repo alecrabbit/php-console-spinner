@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Asynchronous\Factory;
 
-use AlecRabbit\Spinner\Container\Contract\IContainer;
 use AlecRabbit\Spinner\Core\A\ALoopAdapter;
 use AlecRabbit\Spinner\Core\Contract\ILoopAdapter;
 use AlecRabbit\Spinner\Core\Contract\ILoopProbeFactory;
@@ -14,7 +13,6 @@ use AlecRabbit\Spinner\Core\Loop\A\ALoopProbe;
 use AlecRabbit\Tests\Spinner\TestCase\TestCaseWithPrebuiltMocks;
 use AlecRabbit\Tests\Spinner\Unit\Spinner\Asynchronous\Override\ALoopAdapterOverride;
 use PHPUnit\Framework\Attributes\Test;
-use PHPUnit\Framework\MockObject\MockObject;
 
 final class LoopFactoryTest extends TestCaseWithPrebuiltMocks
 {
@@ -39,7 +37,6 @@ final class LoopFactoryTest extends TestCaseWithPrebuiltMocks
     #[Test]
     public function canGetLoopAdapter(): void
     {
-
         $loopProbeFactory = $this->getLoopProbeFactoryMock();
         $loopProbeFactory->method('getProbe')
             ->willReturn(
@@ -54,8 +51,7 @@ final class LoopFactoryTest extends TestCaseWithPrebuiltMocks
                         return new ALoopAdapterOverride();
                     }
                 }
-            )
-        ;
+            );
 
         $loopFactory = $this->getTesteeInstance(loopProbeFactory: $loopProbeFactory);
 

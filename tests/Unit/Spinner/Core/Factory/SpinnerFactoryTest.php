@@ -37,8 +37,7 @@ final class SpinnerFactoryTest extends TestCaseWithPrebuiltMocks
         $spinnerBuilder = $this->getSpinnerBuilderMock();
         $spinnerBuilder
             ->method('build')
-            ->willReturn($this->getSpinnerMock())
-        ;
+            ->willReturn($this->getSpinnerMock());
 
         $container
             ->method('get')
@@ -47,8 +46,7 @@ final class SpinnerFactoryTest extends TestCaseWithPrebuiltMocks
                 $this->getConfigBuilderMock(),
                 $this->getDriverBuilderMock(),
                 $this->getWidgetBuilderMock(),
-            )
-        ;
+            );
 
         $spinnerFactory = $this->getTesteeInstance($spinnerBuilder);
 
@@ -66,12 +64,10 @@ final class SpinnerFactoryTest extends TestCaseWithPrebuiltMocks
 
         $spinnerBuilder
             ->method('withConfig')
-            ->willReturn($spinnerBuilder)
-        ;
+            ->willReturn($spinnerBuilder);
         $spinnerBuilder
             ->method('build')
-            ->willReturn($this->getSpinnerMock())
-        ;
+            ->willReturn($this->getSpinnerMock());
 
         $container
             ->method('get')
@@ -80,8 +76,7 @@ final class SpinnerFactoryTest extends TestCaseWithPrebuiltMocks
                 $this->getDriverBuilderMock(),
                 $this->getWidgetBuilderMock(),
                 $this->getConfigBuilderMock(),
-            )
-        ;
+            );
 
         $spinnerFactory = $this->getTesteeInstance($spinnerBuilder);
 

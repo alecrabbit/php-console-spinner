@@ -84,6 +84,11 @@ final class Container implements IContainer
         }
     }
 
+    protected function hasService(string $id): bool
+    {
+        return $this->services->offsetExists($id);
+    }
+
     /** @inheritdoc */
     public function remove(string $id): void
     {
@@ -143,10 +148,5 @@ final class Container implements IContainer
                 previous: $e,
             );
         }
-    }
-
-    protected function hasService(string $id): bool
-    {
-        return $this->services->offsetExists($id);
     }
 }

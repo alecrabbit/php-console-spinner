@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Core\Factory;
 
-use AlecRabbit\Spinner\Container\Contract\IContainer;
 use AlecRabbit\Spinner\Core\Factory\Contract\IFrameFactory;
-use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IRevolverFactory;
 use AlecRabbit\Spinner\Core\Factory\RevolverFactory;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolver;
@@ -45,8 +43,7 @@ final class RevolverFactoryTest extends TestCaseWithPrebuiltMocks
         $frameRevolverBuilder
             ->expects(self::once())
             ->method('withPattern')
-            ->willReturn($frameRevolverBuilder)
-        ;
+            ->willReturn($frameRevolverBuilder);
 
         $revolverFactory = $this->getTesteeInstance(frameRevolverBuilder: $frameRevolverBuilder);
 

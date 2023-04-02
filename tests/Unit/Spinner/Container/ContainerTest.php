@@ -12,11 +12,13 @@ use AlecRabbit\Spinner\Container\Exception\SpawnFailedException;
 use AlecRabbit\Tests\Spinner\TestCase\TestCase;
 use AlecRabbit\Tests\Spinner\Unit\Spinner\Container\Override\NonInstantiableClass;
 use ArrayObject;
+use Closure;
 use Generator;
 use InvalidArgumentException;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 use stdClass;
+use Traversable;
 use TypeError;
 
 final class ContainerTest extends TestCase
@@ -30,7 +32,7 @@ final class ContainerTest extends TestCase
         self::assertCount(0, self::getValue('definitions', $container));
     }
 
-    protected function getTesteeInstance(?\Traversable $definitions = null, ?\Closure $spawnerCb = null): IContainer
+    protected function getTesteeInstance(?Traversable $definitions = null, ?Closure $spawnerCb = null): IContainer
     {
         $spawnerCb = $spawnerCb ?? function (): IServiceSpawner {
             return $this->getSpawnerInstanceMock();

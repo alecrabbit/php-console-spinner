@@ -32,8 +32,7 @@ final class Driver implements IDriver
 
         $this->output
             ->bufferedWrite($this->currentFrame->sequence())
-            ->flush()
-        ;
+            ->flush();
 
         $this->cursor->erase(max($widthDiff, 0));
         $this->cursor->moveLeft($width);
@@ -54,8 +53,7 @@ final class Driver implements IDriver
     {
         $this->cursor
             ->erase($this->currentFrame->width())
-            ->flush()
-        ;
+            ->flush();
     }
 
     public function interrupt(?string $interruptMessage = null): void
