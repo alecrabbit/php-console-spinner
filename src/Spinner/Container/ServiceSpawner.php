@@ -6,10 +6,14 @@ namespace AlecRabbit\Spinner\Container;
 
 use AlecRabbit\Spinner\Container\Contract\IServiceSpawner;
 use AlecRabbit\Spinner\Container\Exception\ClassDoesNotExist;
+use AlecRabbit\Spinner\Container\Exception\SpawnFailedException;
 use AlecRabbit\Spinner\Container\Exception\UnableToCreateInstance;
 use AlecRabbit\Spinner\Container\Exception\UnableToExtractType;
+use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\ContainerInterface;
+use Psr\Container\NotFoundExceptionInterface;
 use ReflectionClass;
+use ReflectionException;
 use Throwable;
 
 final class ServiceSpawner implements IServiceSpawner
@@ -21,17 +25,41 @@ final class ServiceSpawner implements IServiceSpawner
 
     public function spawn(string|callable|object $definition): object
     {
-        return match (true) {
-            is_object($definition) => $definition, // return object as is
-            is_callable($definition) => $this->spawnByCallable($definition),
-            is_string($definition) => $this->spawnByClassConstructor($definition),
-        };
+        try {
+            return match (true) {
+                is_callable($definition) => $this->spawnByCallable($definition),
+                is_string($definition) => $this->spawnByClassConstructor($definition),
+                is_object($definition) => $definition, // return object as is
+            };
+        } catch (Throwable $e) {
+            throw new SpawnFailedException(
+                sprintf(
+                    'Could not spawn object with callable.%s',
+                    sprintf(
+                        ' [%s]: "%s".',
+                        get_debug_type($e),
+                        $e->getMessage(),
+                    ),
+                ),
+                previous: $e,
+            );
+        }
     }
 
-    protected function spawnByCallable(callable|object|string $definition): object
+    protected function spawnByCallable(callable $definition): object
     {
+        /** @psalm-suppress MixedReturnStatement */
+        return $definition($this);
     }
 
+    /**
+     * @param class-string $definition
+     * @return object
+     *
+     * @throws ReflectionException
+     * @throws ContainerExceptionInterface
+     * @throws NotFoundExceptionInterface
+     */
     protected function spawnByClassConstructor(string $definition): object
     {
         return match (true) {
@@ -40,6 +68,13 @@ final class ServiceSpawner implements IServiceSpawner
         };
     }
 
+    /**
+     * @param class-string $class
+     *
+     * @throws ContainerExceptionInterface
+     * @throws NotFoundExceptionInterface
+     * @throws ReflectionException
+     */
     protected function createInstanceByReflection(string $class): object
     {
         $reflection = new ReflectionClass($class);

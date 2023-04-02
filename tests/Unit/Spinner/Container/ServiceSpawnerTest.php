@@ -6,6 +6,7 @@ namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Container;
 
 use AlecRabbit\Spinner\Container\Contract\IServiceSpawner;
 use AlecRabbit\Spinner\Container\Exception\ClassDoesNotExist;
+use AlecRabbit\Spinner\Container\Exception\SpawnFailedException;
 use AlecRabbit\Spinner\Container\Exception\UnableToCreateInstance;
 use AlecRabbit\Spinner\Container\Exception\UnableToExtractType;
 use AlecRabbit\Spinner\Container\ServiceSpawner;
@@ -56,6 +57,16 @@ final class ServiceSpawnerTest extends TestCaseWithPrebuiltMocks
         self::assertInstanceOf(ServiceSpawner::class, $spawner);
         self::assertInstanceOf(ClassForSpawner::class, $spawner->spawn($classString));
     }
+    #[Test]
+    public function canSpawnWithCallable(): void
+    {
+        $callable = fn() => new ClassForSpawner();
+
+        $spawner = $this->getTesteeInstance();
+
+        self::assertInstanceOf(ServiceSpawner::class, $spawner);
+        self::assertInstanceOf(ClassForSpawner::class, $spawner->spawn($callable));
+    }
 
     #[Test]
     public function canSpawnWithClassStringForClassConstructorWithParameters(): void
@@ -78,7 +89,7 @@ final class ServiceSpawnerTest extends TestCaseWithPrebuiltMocks
     #[Test]
     public function throwsSpawnWithClassStringIfClassDoesNotExist(): void
     {
-        $exceptionClass = ClassDoesNotExist::class;
+        $exceptionClass = SpawnFailedException::class;
         $exceptionMessage = 'Class does not exist: NonExistentClassForSpawner';
         $this->expectException($exceptionClass);
         $this->expectExceptionMessage($exceptionMessage);
@@ -98,7 +109,7 @@ final class ServiceSpawnerTest extends TestCaseWithPrebuiltMocks
     #[Test]
     public function throwsWhenConstructorParameterTypeCanNotBeExtracted(): void
     {
-        $exceptionClass = UnableToExtractType::class;
+        $exceptionClass = SpawnFailedException::class;
         $exceptionMessage = 'Unable to extract type for parameter name:';
         $this->expectException($exceptionClass);
         $this->expectExceptionMessage($exceptionMessage);
@@ -119,7 +130,7 @@ final class ServiceSpawnerTest extends TestCaseWithPrebuiltMocks
     #[Test]
     public function throwsWhenUnableToSpawn(): void
     {
-        $exceptionClass = UnableToCreateInstance::class;
+        $exceptionClass = SpawnFailedException::class;
         $exceptionMessage = 'Unable to create instance of';
         $this->expectException($exceptionClass);
         $this->expectExceptionMessage($exceptionMessage);
