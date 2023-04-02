@@ -15,13 +15,13 @@ use Traversable;
 
 final class Container implements IContainer
 {
-    private IServiceSpawner $serviceSpawner;
+    protected IServiceSpawner $serviceSpawner;
 
     /** @var ArrayObject<string, callable|object|string> */
-    private ArrayObject $definitions;
+    protected ArrayObject $definitions;
 
     /** @var ArrayObject<string, object> */
-    private ArrayObject $services;
+    protected ArrayObject $services;
 
     /**
      * Create a container object with a set of definitions.
@@ -43,7 +43,7 @@ final class Container implements IContainer
         }
     }
 
-    private function addDefinition(string $id, mixed $definition): void
+    protected function addDefinition(string $id, mixed $definition): void
     {
         if (!is_callable($definition) && !is_object($definition) && !is_string($definition)) {
             throw new ContainerException(
@@ -125,28 +125,17 @@ final class Container implements IContainer
         return $this->services[$id] = $this->getService($id, $definition);
     }
 
-    private function getService(string $id, callable|object|string $definition): object
-    {
-        return match (true) {
-            is_callable($definition) => $this->instantiateWithCallable($definition, $id),
-            is_object($definition) => $definition,
-            is_string($definition) => $this->instantiateByConstructor($definition, $id),
-        };
-    }
-
-    /** @psalm-suppress MixedInferredReturnType */
-    private function instantiateWithCallable(callable $definition, string $id): object
+    protected function getService(string $id, callable|object|string $definition): object
     {
         try {
-            /** @psalm-suppress MixedReturnStatement */
-            return $definition($this);
+            return $this->serviceSpawner->spawn($definition);
         } catch (Throwable $e) {
             throw new ContainerException(
                 sprintf(
-                    'Could not instantiate service with callable for "%s".%s',
+                    'Could not instantiate service with id "%s".%s',
                     $id,
                     sprintf(
-                        ' [%s]: "%s"',
+                        ' [%s]: "%s".',
                         get_debug_type($e),
                         $e->getMessage(),
                     ),
@@ -156,38 +145,7 @@ final class Container implements IContainer
         }
     }
 
-    private function instantiateByConstructor(string $class, string $id): object
-    {
-        if (class_exists($class)) {
-            try {
-                /** @psalm-suppress MixedMethodCall */
-                return $this->serviceSpawner->spawn($class);
-            } catch (Throwable $e) {
-                throw new ContainerException(
-                    sprintf(
-                        'Could not instantiate service by __construct() for "%s".%s',
-                        $id,
-                        sprintf(
-                            ' [%s]: "%s"',
-                            get_debug_type($e),
-                            $e->getMessage(),
-                        ),
-                    ),
-                    previous: $e
-                );
-            }
-        }
-
-        throw new ContainerException(
-            sprintf(
-                'Could not instantiate service for "%s". Class "%s" is not found.',
-                $id,
-                $class,
-            )
-        );
-    }
-
-    private function hasService(string $id): bool
+    protected function hasService(string $id): bool
     {
         return $this->services->offsetExists($id);
     }
