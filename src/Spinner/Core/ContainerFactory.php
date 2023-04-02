@@ -6,8 +6,8 @@ namespace AlecRabbit\Spinner\Core;
 
 use AlecRabbit\Spinner\Container\Container;
 use AlecRabbit\Spinner\Container\Contract\IContainer;
-use AlecRabbit\Spinner\Container\Contract\IInstanceSpawner;
-use AlecRabbit\Spinner\Container\InstanceSpawner;
+use AlecRabbit\Spinner\Container\Contract\IServiceSpawner;
+use AlecRabbit\Spinner\Container\ServiceSpawner;
 use AlecRabbit\Spinner\Contract\ISequencer;
 use AlecRabbit\Spinner\Contract\NormalizerMode;
 use AlecRabbit\Spinner\Contract\OptionStyleMode;
@@ -55,8 +55,8 @@ final class ContainerFactory implements IContainerFactory
     {
         if (null === self::$container) {
             self::$container = new Container(
-                spawnerCb: static function (ContainerInterface $container): IInstanceSpawner {
-                    return new InstanceSpawner($container);
+                spawnerCb: static function (ContainerInterface $container): IServiceSpawner {
+                    return new ServiceSpawner($container);
                 },
             );
             self::initializeContainer(self::$container);

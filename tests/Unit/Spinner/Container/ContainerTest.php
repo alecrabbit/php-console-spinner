@@ -6,7 +6,7 @@ namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Container;
 
 use AlecRabbit\Spinner\Container\Container;
 use AlecRabbit\Spinner\Container\Contract\IContainer;
-use AlecRabbit\Spinner\Container\Contract\IInstanceSpawner;
+use AlecRabbit\Spinner\Container\Contract\IServiceSpawner;
 use AlecRabbit\Spinner\Container\Exception\ContainerException;
 use AlecRabbit\Tests\Spinner\TestCase\TestCase;
 use AlecRabbit\Tests\Spinner\Unit\Spinner\Container\Override\NonInstantiableClass;
@@ -31,7 +31,7 @@ final class ContainerTest extends TestCase
 
     protected function getTesteeInstance(?\Traversable $definitions = null, ?\Closure $spawnerCb = null): IContainer
     {
-        $spawnerCb = $spawnerCb ?? function (): IInstanceSpawner {
+        $spawnerCb = $spawnerCb ?? function (): IServiceSpawner {
             return $this->getSpawnerInstanceMock();
         };
 
@@ -41,9 +41,9 @@ final class ContainerTest extends TestCase
         );
     }
 
-    protected function getSpawnerInstanceMock(): MockObject&IInstanceSpawner
+    protected function getSpawnerInstanceMock(): MockObject&IServiceSpawner
     {
-        return $this->createMock(IInstanceSpawner::class);
+        return $this->createMock(IServiceSpawner::class);
     }
 
     #[Test]
@@ -255,7 +255,7 @@ final class ContainerTest extends TestCase
             new ArrayObject([
                 'foo' => NonInstantiableClass::class,
             ]),
-            function (): IInstanceSpawner {
+            function (): IServiceSpawner {
                 $instanceSpawner = $this->getSpawnerInstanceMock();
                 $instanceSpawner
                     ->expects(self::once())

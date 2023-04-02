@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Container;
 
-use AlecRabbit\Spinner\Container\Contract\IInstanceSpawner;
+use AlecRabbit\Spinner\Container\Contract\IServiceSpawner;
 use AlecRabbit\Spinner\Container\Exception\ClassDoesNotExist;
 use AlecRabbit\Spinner\Container\Exception\UnableToCreateInstance;
 use AlecRabbit\Spinner\Container\Exception\UnableToExtractType;
@@ -14,18 +14,24 @@ use Throwable;
 
 use function class_exists;
 
-final class InstanceSpawner implements IInstanceSpawner
+final class ServiceSpawner implements IServiceSpawner
 {
     public function __construct(
         protected ContainerInterface $container,
     ) {
     }
 
-    public function spawn(string $class): object
+    public function spawn(string|callable $definition): object
     {
+        // TODO refactor to accept string|callable OR to accept string|callable|object
+        //  return match (true) {
+        //      is_object($definition) => $definition, // return object as is
+        //      is_callable($definition) => $this->spawnByCallable($definition),
+        //      is_string($definition) => $this-spawnByConstructor($definition),
+        //  };
         return match (true) {
-            class_exists($class) => $this->createInstanceByReflection($class),
-            default => throw new ClassDoesNotExist('Class does not exist: ' . $class),
+            class_exists($definition) => $this->createInstanceByReflection($definition),
+            default => throw new ClassDoesNotExist('Class does not exist: ' . $definition),
         };
     }
 

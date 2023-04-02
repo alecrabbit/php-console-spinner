@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Container;
 
 use AlecRabbit\Spinner\Container\Contract\IContainer;
-use AlecRabbit\Spinner\Container\Contract\IInstanceSpawner;
+use AlecRabbit\Spinner\Container\Contract\IServiceSpawner;
 use AlecRabbit\Spinner\Container\Exception\ContainerException;
 use AlecRabbit\Spinner\Container\Exception\NotInContainerException;
 use ArrayObject;
@@ -15,12 +15,13 @@ use Traversable;
 
 final class Container implements IContainer
 {
+    private IServiceSpawner $serviceSpawner;
+
     /** @var ArrayObject<string, callable|object|string> */
     private ArrayObject $definitions;
 
     /** @var ArrayObject<string, object> */
     private ArrayObject $services;
-    private IInstanceSpawner $instanceSpawner;
 
     /**
      * Create a container object with a set of definitions.
@@ -30,6 +31,7 @@ final class Container implements IContainer
      */
     public function __construct(Closure $spawnerCb, ?Traversable $definitions = null)
     {
+        $this->serviceSpawner = $spawnerCb($this);
         $this->definitions = new ArrayObject();
         $this->services = new ArrayObject();
 
@@ -39,7 +41,6 @@ final class Container implements IContainer
                 $this->addDefinition($id, $definition);
             }
         }
-        $this->instanceSpawner = $spawnerCb($this);
     }
 
     private function addDefinition(string $id, mixed $definition): void
@@ -74,12 +75,12 @@ final class Container implements IContainer
     /** @inheritdoc */
     public function replace(string $id, callable|object|string $definition): void
     {
-        $serviceRegistered = $this->services->offsetExists($id);
+        $serviceWasInstantiatedBefore = $this->hasService($id);
 
         $this->remove($id);
         $this->add($id, $definition);
-        if ($serviceRegistered) {
-            $this->get($id);
+        if ($serviceWasInstantiatedBefore) {
+            $this->get($id); // instantiates new service
         }
     }
 
@@ -106,7 +107,7 @@ final class Container implements IContainer
     /** @inheritdoc */
     public function get(string $id): object
     {
-        if ($this->services->offsetExists($id)) {
+        if ($this->hasService($id)) {
             return $this->services[$id];
         }
 
@@ -160,7 +161,7 @@ final class Container implements IContainer
         if (class_exists($class)) {
             try {
                 /** @psalm-suppress MixedMethodCall */
-                return $this->instanceSpawner->spawn($class);
+                return $this->serviceSpawner->spawn($class);
             } catch (Throwable $e) {
                 throw new ContainerException(
                     sprintf(
@@ -184,5 +185,10 @@ final class Container implements IContainer
                 $class,
             )
         );
+    }
+
+    private function hasService(string $id): bool
+    {
+        return $this->services->offsetExists($id);
     }
 }
