@@ -9,7 +9,7 @@ classDiagram
     Facade ..> LoopFactory
     
     ContainerFactory ..> Container
-    Container ..> InstanceSpawner
+    ContainerFactory ..> InstanceSpawner
     
     class Facade {
         +getContainer()

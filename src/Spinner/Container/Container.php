@@ -8,32 +8,38 @@ use AlecRabbit\Spinner\Container\Contract\IContainer;
 use AlecRabbit\Spinner\Container\Contract\IInstanceSpawner;
 use AlecRabbit\Spinner\Container\Exception\ContainerException;
 use AlecRabbit\Spinner\Container\Exception\NotInContainerException;
+use ArrayObject;
+use Closure;
 use Throwable;
 use Traversable;
 
 final class Container implements IContainer
 {
-    /** @var array<string, callable|object|string> */
-    private array $definitions = [];
+    /** @var ArrayObject<string, callable|object|string> */
+    private ArrayObject $definitions;
 
-    /** @var array<string, object> */
-    private array $services = [];
-    private IInstanceSpawner $instantiator;
+    /** @var ArrayObject<string, object> */
+    private ArrayObject $services;
+    private IInstanceSpawner $instanceSpawner;
 
     /**
      * Create a container object with a set of definitions.
      *
-     * @param null|Traversable<string, callable|object|string> $definitions
+     * @param Closure $spawnerCb
+     * @param null|Traversable $definitions
      */
-    public function __construct(?Traversable $definitions = null)
+    public function __construct(Closure $spawnerCb, ?Traversable $definitions = null)
     {
+        $this->definitions = new ArrayObject();
+        $this->services = new ArrayObject();
+
         if ($definitions) {
             /** @var callable|object|string $definition */
             foreach ($definitions as $id => $definition) {
                 $this->addDefinition($id, $definition);
             }
         }
-        $this->instantiator = new InstanceSpawner($this);
+        $this->instanceSpawner = $spawnerCb($this);
     }
 
     private function addDefinition(string $id, mixed $definition): void
@@ -62,13 +68,13 @@ final class Container implements IContainer
     /** @inheritdoc */
     public function has(string $id): bool
     {
-        return array_key_exists($id, $this->definitions);
+        return $this->definitions->offsetExists($id);
     }
 
     /** @inheritdoc */
     public function replace(string $id, callable|object|string $definition): void
     {
-        $serviceRegistered = array_key_exists($id, $this->services);
+        $serviceRegistered = $this->services->offsetExists($id);
 
         $this->remove($id);
         $this->add($id, $definition);
@@ -100,7 +106,7 @@ final class Container implements IContainer
     /** @inheritdoc */
     public function get(string $id): object
     {
-        if (array_key_exists($id, $this->services)) {
+        if ($this->services->offsetExists($id)) {
             return $this->services[$id];
         }
 
@@ -154,7 +160,7 @@ final class Container implements IContainer
         if (class_exists($class)) {
             try {
                 /** @psalm-suppress MixedMethodCall */
-                return $this->instantiator->spawn($class);
+                return $this->instanceSpawner->spawn($class);
             } catch (Throwable $e) {
                 throw new ContainerException(
                     sprintf(

@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Container;
 
 use AlecRabbit\Spinner\Container\Container;
+use AlecRabbit\Spinner\Container\Contract\IContainer;
+use AlecRabbit\Spinner\Container\Contract\IInstanceSpawner;
 use AlecRabbit\Spinner\Container\Exception\ContainerException;
 use AlecRabbit\Tests\Spinner\TestCase\TestCase;
 use AlecRabbit\Tests\Spinner\Unit\Spinner\Container\Override\NonInstantiableClass;
@@ -12,23 +14,42 @@ use ArrayObject;
 use Generator;
 use InvalidArgumentException;
 use PHPUnit\Framework\Attributes\Test;
+use PHPUnit\Framework\MockObject\MockObject;
 use stdClass;
+use TypeError;
 
 final class ContainerTest extends TestCase
 {
     #[Test]
     public function canBeCreatedWithNullDefinitions(): void
     {
-        $container = new Container();
+        $container = $this->getTesteeInstance();
 
         self::assertFalse($container->has('service'));
         self::assertCount(0, self::getValue('definitions', $container));
     }
 
+    protected function getTesteeInstance(?\Traversable $definitions = null, ?\Closure $spawnerCb = null): IContainer
+    {
+        $spawnerCb = $spawnerCb ?? function (): IInstanceSpawner {
+            return $this->getSpawnerInstanceMock();
+        };
+
+        return new Container(
+            spawnerCb: $spawnerCb,
+            definitions: $definitions,
+        );
+    }
+
+    protected function getSpawnerInstanceMock(): MockObject&IInstanceSpawner
+    {
+        return $this->createMock(IInstanceSpawner::class);
+    }
+
     #[Test]
     public function canBeCreatedWithEmptyDefinitions(): void
     {
-        $container = new Container(new ArrayObject([]));
+        $container = $this->getTesteeInstance(new ArrayObject([]));
 
         self::assertFalse($container->has('foo'));
         self::assertCount(0, self::getValue('definitions', $container));
@@ -37,7 +58,7 @@ final class ContainerTest extends TestCase
     #[Test]
     public function canBeCreatedWithDefinitions(): void
     {
-        $container = new Container(
+        $container = $this->getTesteeInstance(
             new ArrayObject([
                 'foo' => 'bar',
                 'bar' => 'baz',
@@ -52,7 +73,7 @@ final class ContainerTest extends TestCase
     #[Test]
     public function canAddDefinitionsAfterCreate(): void
     {
-        $container = new Container(new ArrayObject([]));
+        $container = $this->getTesteeInstance(new ArrayObject([]));
 
         $container->add('foo', 'bar');
         $container->add('bar', 'baz');
@@ -65,7 +86,7 @@ final class ContainerTest extends TestCase
     #[Test]
     public function canGetServiceAndItIsSameServiceEveryTime(): void
     {
-        $container = new Container(
+        $container = $this->getTesteeInstance(
             new ArrayObject([
                 stdClass::class => stdClass::class,
                 'foo' => fn() => new stdClass(),
@@ -89,7 +110,7 @@ final class ContainerTest extends TestCase
     #[Test]
     public function canRemoveDefinitionAndServiceRegisteredEarlier(): void
     {
-        $container = new Container(
+        $container = $this->getTesteeInstance(
             new ArrayObject([
                 'foo' => 'bar',
                 'bar' => 'baz',
@@ -112,7 +133,7 @@ final class ContainerTest extends TestCase
         $serviceTwo = new stdClass();
         $serviceThree = new stdClass();
 
-        $container = new Container(
+        $container = $this->getTesteeInstance(
             new ArrayObject([
                 'foo' => $serviceOne,
                 'bar' => $serviceTwo,
@@ -157,7 +178,7 @@ final class ContainerTest extends TestCase
         $this->expectException($exceptionClass);
         $this->expectExceptionMessage($exceptionMessage);
 
-        $container = new Container(new ArrayObject([]));
+        $container = $this->getTesteeInstance(new ArrayObject([]));
 
         $container->get('foo');
 
@@ -173,7 +194,7 @@ final class ContainerTest extends TestCase
         $this->expectException($exceptionClass);
         $this->expectExceptionMessage($exceptionMessage);
 
-        $container = new Container(
+        $container = $this->getTesteeInstance(
             new ArrayObject([
                 'foo' => 'bar',
             ])
@@ -193,7 +214,7 @@ final class ContainerTest extends TestCase
         $this->expectException($exceptionClass);
         $this->expectExceptionMessage($exceptionMessage);
 
-        $container = new Container(
+        $container = $this->getTesteeInstance(
             new ArrayObject([
                 'foo' => 'bar',
                 'baz' => 1,
@@ -212,7 +233,7 @@ final class ContainerTest extends TestCase
         $this->expectException($exceptionClass);
         $this->expectExceptionMessage($exceptionMessage);
 
-        $container = new Container(
+        $container = $this->getTesteeInstance(
             new ArrayObject([
                 'foo' => fn() => throw new InvalidArgumentException('Intentional exception.'),
             ])
@@ -227,20 +248,27 @@ final class ContainerTest extends TestCase
     public function throwsWhenFailsToInstantiateServiceByConstructor(): void
     {
         $exceptionClass = ContainerException::class;
-        $exceptionMessage = 'Could not instantiate service by __construct() for "foo".';
 
         $this->expectException($exceptionClass);
-        $this->expectExceptionMessage($exceptionMessage);
 
-        $container = new Container(
+        $container = $this->getTesteeInstance(
             new ArrayObject([
                 'foo' => NonInstantiableClass::class,
-            ])
+            ]),
+            function (): IInstanceSpawner {
+                $instanceSpawner = $this->getSpawnerInstanceMock();
+                $instanceSpawner
+                    ->expects(self::once())
+                    ->method('spawn')
+                    ->with(self::identicalTo(NonInstantiableClass::class))
+                    ->willThrowException(new ContainerException());
+                return $instanceSpawner;
+            }
         );
 
         $container->get('foo');
 
-        self::failTest(self::exceptionNotThrownString($exceptionClass, $exceptionMessage));
+        self::failTest(self::exceptionNotThrownString($exceptionClass));
     }
 
     #[Test]
@@ -252,7 +280,7 @@ final class ContainerTest extends TestCase
         $this->expectException($exceptionClass);
         $this->expectExceptionMessage($exceptionMessage);
 
-        $container = new Container(
+        $container = $this->getTesteeInstance(
             new ArrayObject([
                 'foo' => 'bar',
             ])
@@ -276,7 +304,7 @@ final class ContainerTest extends TestCase
             yield 'foo' => 'bar';
             yield 'foo' => 'bar';
         };
-        $container = new Container($definitions());
+        $container = $this->getTesteeInstance($definitions());
 
         self::failTest(self::exceptionNotThrownString($exceptionClass, $exceptionMessage));
     }
@@ -290,7 +318,7 @@ final class ContainerTest extends TestCase
         $this->expectException($exceptionClass);
         $this->expectExceptionMessage($exceptionMessage);
 
-        $container = new Container(new ArrayObject([]));
+        $container = $this->getTesteeInstance(new ArrayObject([]));
 
         $container->remove('foo');
 
@@ -306,10 +334,22 @@ final class ContainerTest extends TestCase
         $this->expectException($exceptionClass);
         $this->expectExceptionMessage($exceptionMessage);
 
-        $container = new Container(new ArrayObject([]));
+        $container = $this->getTesteeInstance(new ArrayObject([]));
 
         $container->replace('bar', 'foo');
 
         self::failTest(self::exceptionNotThrownString($exceptionClass, $exceptionMessage));
+    }
+
+    #[Test]
+    public function throwsWhenSpawnerCbIsInvalid(): void
+    {
+        $exceptionClass = TypeError::class;
+
+        $this->expectException($exceptionClass);
+
+        $container = new Container(fn() => 1, new ArrayObject([]));
+
+        self::failTest(self::exceptionNotThrownString($exceptionClass));
     }
 }

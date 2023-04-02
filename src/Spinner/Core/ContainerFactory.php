@@ -6,6 +6,8 @@ namespace AlecRabbit\Spinner\Core;
 
 use AlecRabbit\Spinner\Container\Container;
 use AlecRabbit\Spinner\Container\Contract\IContainer;
+use AlecRabbit\Spinner\Container\Contract\IInstanceSpawner;
+use AlecRabbit\Spinner\Container\InstanceSpawner;
 use AlecRabbit\Spinner\Contract\ISequencer;
 use AlecRabbit\Spinner\Contract\NormalizerMode;
 use AlecRabbit\Spinner\Contract\OptionStyleMode;
@@ -52,7 +54,11 @@ final class ContainerFactory implements IContainerFactory
     protected static function createContainer(): IContainer
     {
         if (null === self::$container) {
-            self::$container = new Container();
+            self::$container = new Container(
+                spawnerCb: static function (ContainerInterface $container): IInstanceSpawner {
+                    return new InstanceSpawner($container);
+                },
+            );
             self::initializeContainer(self::$container);
         }
 
@@ -68,7 +74,7 @@ final class ContainerFactory implements IContainerFactory
 
     protected static function getDefaultDefinitions(): Traversable
     {
-        // FIXME: container depends on all other services
+        // FIXME: extract definitions declarations? container factory depends on all other services
         return new ArrayObject(
             [
                 IDefaultsProvider::class => new DefaultsProvider(),
@@ -95,11 +101,13 @@ final class ContainerFactory implements IContainerFactory
 
                 NormalizerMode::class => static function (ContainerInterface $container): NormalizerMode {
                     return NormalizerMode::BALANCED;
-//                    return $container->get(IDefaultsProvider::class)->getAuxSettings()->getNormalizerMode();
+                    // TODO
+                    //  return $container->get(IDefaultsProvider::class)->getAuxSettings()->getNormalizerMode();
                 },
                 OptionStyleMode::class => static function (ContainerInterface $container): OptionStyleMode {
                     return OptionStyleMode::ANSI8;
-//                    return $container->get(IDefaultsProvider::class)->getAuxSettings()->getOptionStyleMode();
+                    // TODO
+                    //  return $container->get(IDefaultsProvider::class)->getAuxSettings()->getOptionStyleMode();
                 },
             ],
         );
