@@ -3,32 +3,53 @@
 ```mermaid
 classDiagram
     direction TB
-    Facade --> SpinnerFactory
-    Facade --> ConfigBuilder
-    Facade --> LoopFactory
-    Facade --> ContainerFactory
-    class Facade{
+    Facade ..> ContainerFactory
+    Facade ..> ConfigBuilder
+    Facade ..> SpinnerFactory
+    Facade ..> LoopFactory
+    
+    class Facade {
         +getContainer()
         +getConfigBuilder()
         +getLoop()
         +createSpinner(IConfig $config = null)
     }
     
-    SpinnerFactory --> SpinnerBuilder
+    SpinnerFactory ..> SpinnerBuilder
 
-    ConfigBuilder --> DefaultsProvider
+    ConfigBuilder ..> DefaultsProvider
 
-    LoopFactory --> LoopProbeFactory
+    LoopFactory ..> LoopProbeFactory
     
-    SpinnerBuilder --> DriverBuilder
-    SpinnerBuilder --> WidgetBuilder
+    SpinnerBuilder ..> DriverBuilder
+    SpinnerBuilder ..> WidgetBuilder
     
-    WidgetBuilder --> WidgetRevolverBuilder
+    WidgetBuilder ..> WidgetRevolverBuilder
     
-    WidgetRevolverBuilder --> RevolverFactory
+    WidgetRevolverBuilder ..> RevolverFactory
     
-    RevolverFactory --> FrameRevolverBuilder
-    RevolverFactory --> FrameFactory
-    RevolverFactory --> IntervalFactory
-
+    RevolverFactory ..> FrameRevolverBuilder
+    RevolverFactory ..> FrameFactory
+    
+    FrameRevolverBuilder ..> StyleFrameCollectionRenderer
+    FrameRevolverBuilder ..> CharFrameCollectionRenderer
+    FrameRevolverBuilder ..> IntervalFactory
+    
+    IntervalFactory ..> DefaultsProvider
+    IntervalFactory ..> IntervalNormalizer
+    
+    IntervalNormalizer ..> NormalizerMode
+    
+    StyleFrameCollectionRenderer ..> StyleFrameRenderer
+    StyleFrameCollectionRenderer ..> FrameFactory
+    
+    CharFrameCollectionRenderer ..> FrameFactory
+    
+    StyleFrameRenderer ..> AnsiStyleConverter
+    StyleFrameRenderer ..> Sequencer
+    StyleFrameRenderer ..> FrameFactory
+    
+    AnsiStyleConverter ..> OptionStyleMode
+    
+    
 ```
