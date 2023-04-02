@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Container;
 
-use AlecRabbit\Spinner\Container\Contract\IInstantiator;
+use AlecRabbit\Spinner\Container\Contract\IInstanceSpawner;
 use AlecRabbit\Spinner\Container\Exception\ClassDoesNotExist;
 use AlecRabbit\Spinner\Container\Exception\UnableToCreateInstance;
 use AlecRabbit\Spinner\Container\Exception\UnableToExtractType;
@@ -14,14 +14,14 @@ use Throwable;
 
 use function class_exists;
 
-final class Instantiator implements IInstantiator
+final class InstanceSpawner implements IInstanceSpawner
 {
     public function __construct(
         protected ContainerInterface $container,
     ) {
     }
 
-    public function createInstance(string $class): object
+    public function spawn(string $class): object
     {
         return match (true) {
             class_exists($class) => $this->createInstanceByReflection($class),

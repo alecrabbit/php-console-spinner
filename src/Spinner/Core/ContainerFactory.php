@@ -37,6 +37,7 @@ use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolverBuilder;
 use AlecRabbit\Spinner\Core\Widget\WidgetBuilder;
 use AlecRabbit\Spinner\Exception\DomainException;
 use ArrayObject;
+use Psr\Container\ContainerInterface;
 use Traversable;
 
 final class ContainerFactory implements IContainerFactory
@@ -60,16 +61,16 @@ final class ContainerFactory implements IContainerFactory
 
     protected static function initializeContainer(IContainer $container): void
     {
-        foreach (self::getDefaultDefinitions($container) as $id => $service) {
+        foreach (self::getDefaultDefinitions() as $id => $service) {
             $container->add($id, $service);
         }
     }
 
-    protected static function getDefaultDefinitions(IContainer $container): Traversable
+    protected static function getDefaultDefinitions(): Traversable
     {
+        // FIXME: container depends on all other services
         return new ArrayObject(
             [
-                IContainer::class => $container,
                 IDefaultsProvider::class => new DefaultsProvider(),
 
                 ILoopProbeFactory::class => static function (): never {
@@ -92,10 +93,11 @@ final class ContainerFactory implements IContainerFactory
                 ICharFrameCollectionRenderer::class => CharFrameCollectionRenderer::class,
                 ISequencer::class => Sequencer::class,
 
-                NormalizerMode::class => static function () use ($container): NormalizerMode {
-                    return $container->get(IDefaultsProvider::class)->getAuxSettings()->getNormalizerMode();
+                NormalizerMode::class => static function (ContainerInterface $container): NormalizerMode {
+                    return NormalizerMode::BALANCED;
+//                    return $container->get(IDefaultsProvider::class)->getAuxSettings()->getNormalizerMode();
                 },
-                OptionStyleMode::class => static function () use ($container): OptionStyleMode {
+                OptionStyleMode::class => static function (ContainerInterface $container): OptionStyleMode {
                     return OptionStyleMode::ANSI8;
 //                    return $container->get(IDefaultsProvider::class)->getAuxSettings()->getOptionStyleMode();
                 },

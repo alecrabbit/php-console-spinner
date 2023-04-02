@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Container\Contract;
 
-interface IInstantiator
+interface IInstanceSpawner
 {
     /**
      * @param class-string $class
      */
-    public function createInstance(string $class): object;
+    public function spawn(string $class): object;
 }

@@ -8,6 +8,9 @@ classDiagram
     Facade ..> SpinnerFactory
     Facade ..> LoopFactory
     
+    ContainerFactory ..> Container
+    Container ..> InstanceSpawner
+    
     class Facade {
         +getContainer()
         +getConfigBuilder()
@@ -24,6 +27,8 @@ classDiagram
     SpinnerBuilder ..> DriverBuilder
     SpinnerBuilder ..> WidgetBuilder
     
+    DriverBuilder ..> DefaultsProvider
+    
     WidgetBuilder ..> WidgetRevolverBuilder
     
     WidgetRevolverBuilder ..> RevolverFactory
@@ -39,6 +44,8 @@ classDiagram
     IntervalFactory ..> IntervalNormalizer
     
     IntervalNormalizer ..> NormalizerMode
+    IntervalNormalizer ..> IntegerNormalizer
+    IntervalNormalizer ..> IInterval
     
     StyleFrameCollectionRenderer ..> StyleFrameRenderer
     StyleFrameCollectionRenderer ..> FrameFactory
@@ -51,5 +58,9 @@ classDiagram
     
     AnsiStyleConverter ..> OptionStyleMode
     
+    
+    ProceduralFrameRevolverBuilder ..> StyleFrameCollectionRenderer
+    ProceduralFrameRevolverBuilder ..> CharFrameCollectionRenderer
+    ProceduralFrameRevolverBuilder ..> IntervalFactory
     
 ```
