@@ -9,5 +9,5 @@ interface IServiceSpawner
     /**
      * @param class-string|callable $definition
      */
-    public function spawn(string|callable $definition): object;
+    public function spawn(string|callable|object $definition): object;
 }

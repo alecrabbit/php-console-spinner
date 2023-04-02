@@ -12,8 +12,6 @@ use Psr\Container\ContainerInterface;
 use ReflectionClass;
 use Throwable;
 
-use function class_exists;
-
 final class ServiceSpawner implements IServiceSpawner
 {
     public function __construct(
@@ -21,14 +19,21 @@ final class ServiceSpawner implements IServiceSpawner
     ) {
     }
 
-    public function spawn(string|callable $definition): object
+    public function spawn(string|callable|object $definition): object
     {
-        // TODO refactor to accept string|callable OR to accept string|callable|object
-        //  return match (true) {
-        //      is_object($definition) => $definition, // return object as is
-        //      is_callable($definition) => $this->spawnByCallable($definition),
-        //      is_string($definition) => $this-spawnByConstructor($definition),
-        //  };
+        return match (true) {
+            is_object($definition) => $definition, // return object as is
+            is_callable($definition) => $this->spawnByCallable($definition),
+            is_string($definition) => $this->spawnByClassConstructor($definition),
+        };
+    }
+
+    protected function spawnByCallable(callable|object|string $definition): object
+    {
+    }
+
+    protected function spawnByClassConstructor(string $definition): object
+    {
         return match (true) {
             class_exists($definition) => $this->createInstanceByReflection($definition),
             default => throw new ClassDoesNotExist('Class does not exist: ' . $definition),
