@@ -127,75 +127,70 @@ final class ContainerTest extends TestCase
         self::assertCount(0, self::getValue('services', $container));
     }
 
-//    #[Test]
-//    public function canReplaceDefinitionAndServiceRegisteredEarlier(): void
-//    {
-//        $serviceOne = new stdClass();
-//        $serviceTwo = new stdClass();
-//        $serviceThree = new stdClass();
-//
-//        $replacedServiceOne = new stdClass();
-//        $replacedServiceTwo = new stdClass();
-//        $replacedServiceThree = new stdClass();
-//
-//        $container = $this->getTesteeInstance(
-//            new ArrayObject([
-//                'foo' => $serviceOne,
-//                'bar' => $serviceTwo,
-//                'baz' => $serviceThree,
-//            ]),
-//            function () use (
-//                $serviceOne,
-//                $serviceTwo,
-//                $replacedServiceTwo,
-//                $replacedServiceThree,
-//                $replacedServiceOne
-//            ): IServiceSpawner {
-//                $spawner = $this->getSpawnerInstanceMock();
-//                $spawner
-//                    ->expects(self::exactly(5))
-//                    ->method('spawn')
-////                    ->with(
-////                        self::identicalTo('foo'),
-////                        self::identicalTo('bar'),
-////                        self::identicalTo('baz'),
-////                        self::identicalTo('baz'),
-////                        self::identicalTo('baz'),
-////                    )
-//                    ->willReturn(
-//                        $serviceOne,
-//                        $serviceTwo,
-//                        $replacedServiceTwo,
-//                        $replacedServiceThree,
-//                        $replacedServiceOne
-//                    );
-//                return $spawner;
-//            }
-//        );
-//        self::assertTrue($container->has('foo'));
-//        self::assertTrue($container->has('bar'));
-//
-//        self::assertSame($serviceOne, $container->get('foo'));
-//        self::assertSame($serviceTwo, $container->get('bar'));
-//        self::assertCount(2, self::getValue('services', $container));
-//
-//        $container->replace('foo', $replacedServiceOne);
-//        $container->replace('bar', $replacedServiceTwo);
-//        $container->replace('baz', $replacedServiceThree);
-//
-//        self::assertTrue($container->has('foo'));
-//        self::assertTrue($container->has('bar'));
-//
-//        self::assertCount(3, self::getValue('definitions', $container));
-//        // Services should also be replaced because we already retrieved two of them
-//        self::assertCount(2, self::getValue('services', $container));
-//
-//        self::assertSame($replacedServiceTwo, $container->get('bar')); // intentionally changed order
-//        self::assertSame($replacedServiceThree, $container->get('baz'));
-//        self::assertSame($replacedServiceOne, $container->get('foo'));
-//
-//        self::assertCount(3, self::getValue('services', $container));
-//    }
+    #[Test]
+    public function canReplaceDefinitionAndServiceRegisteredEarlier(): void
+    {
+        $serviceOne = new stdClass();
+        $serviceTwo = new stdClass();
+        $serviceThree = new stdClass();
+
+        $replacedServiceOne = new stdClass();
+        $replacedServiceTwo = new stdClass();
+        $replacedServiceThree = new stdClass();
+
+        $container = $this->getTesteeInstance(
+            new ArrayObject([
+                'foo' => $serviceOne,
+                'bar' => $serviceTwo,
+                'baz' => $serviceThree,
+            ]),
+            function () use (
+                $serviceOne,
+                $serviceTwo,
+                $replacedServiceTwo,
+                $replacedServiceThree,
+                $replacedServiceOne
+            ): IServiceSpawner {
+                $spawner = $this->getSpawnerInstanceMock();
+                $spawner
+                    ->method('spawn')
+                    ->willReturn(
+                        $serviceOne,            // #1
+                        $serviceTwo,            // #2
+                        $replacedServiceOne,    // #3
+                        $replacedServiceTwo,    // #4
+                        $replacedServiceThree,  // #5
+                        $replacedServiceTwo,    // #6
+                        $replacedServiceOne,    // #7
+                        $replacedServiceThree   // #8
+                    );
+                return $spawner;
+            }
+        );
+        self::assertTrue($container->has('foo'));
+        self::assertTrue($container->has('bar'));
+
+        self::assertSame($serviceOne, $container->get('foo')); // #1
+        self::assertSame($serviceTwo, $container->get('bar')); // #2
+        self::assertCount(2, self::getValue('services', $container));
+
+        $container->replace('foo', $replacedServiceOne);    // #3
+        $container->replace('bar', $replacedServiceTwo);    // #4
+        $container->replace('baz', $replacedServiceThree);  // #5
+
+        self::assertTrue($container->has('foo'));
+        self::assertTrue($container->has('bar'));
+
+        self::assertCount(3, self::getValue('definitions', $container));
+        // Services should also be replaced because we already retrieved two of them
+        self::assertCount(2, self::getValue('services', $container));
+
+        self::assertSame($replacedServiceTwo, $container->get('bar'));   // #6
+        self::assertSame($replacedServiceOne, $container->get('foo'));   // #7
+        self::assertSame($replacedServiceThree, $container->get('baz')); // #8
+
+        self::assertCount(3, self::getValue('services', $container));
+    }
 
     #[Test]
     public function throwsIfNoServiceFoundById(): void
