@@ -4,7 +4,6 @@ declare(strict_types=1);
 // 29.03.23
 namespace AlecRabbit\Spinner\Core\Factory;
 
-use AlecRabbit\Spinner\Asynchronous\Factory\LoopProbeFactory;
 use AlecRabbit\Spinner\Container\Container;
 use AlecRabbit\Spinner\Container\Contract\IContainer;
 use AlecRabbit\Spinner\Container\Contract\IServiceSpawner;
@@ -92,8 +91,8 @@ final class ContainerFactory implements IContainerFactory
                 ILoopProbeFactory::class => static function (): never {
                     throw new DomainException(
                         sprintf(
-                            'Class [%s] is not available in this context.',
-                            LoopProbeFactory::class
+                            'Service for id [%s] is not available in this context.',
+                            ILoopProbeFactory::class
                         )
                     );
                 },

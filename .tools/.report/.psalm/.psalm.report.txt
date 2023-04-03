@@ -9,7 +9,7 @@
 /app/src/Spinner/Container/Container.php:36:27:error - MixedPropertyTypeCoercion: $this->services expects 'ArrayObject<string, object>',  parent type `ArrayObject<mixed, mixed>` provided
 /app/src/Spinner/Container/Container.php:40:38:error - MixedAssignment: Unable to determine the type that $id is being assigned to
 /app/src/Spinner/Container/Container.php:41:38:error - MixedArgument: Argument 1 of AlecRabbit\Spinner\Container\Container::addDefinition cannot be mixed, expecting string
-/app/src/Spinner/Container/Container.php:136:49:error - ArgumentTypeCoercion: Argument 1 of AlecRabbit\Spinner\Container\Contract\IServiceSpawner::spawn expects callable|class-string, but parent type callable|object|string provided
+/app/src/Spinner/Container/Container.php:147:49:error - ArgumentTypeCoercion: Argument 1 of AlecRabbit\Spinner\Container\Contract\IServiceSpawner::spawn expects callable|class-string, but parent type callable|object|string provided
 /app/src/Spinner/Container/ServiceSpawner.php:30:17:error - DocblockTypeContradiction: Docblock-defined type class-string for $definition is always string
 /app/src/Spinner/Container/ServiceSpawner.php:50:63:error - MixedInferredReturnType: Could not verify return type 'object' for AlecRabbit\Spinner\Container\ServiceSpawner::spawnByCallable
 /app/src/Spinner/Container/ServiceSpawner.php:69:83:error - MixedOperand: Right operand cannot be mixed
@@ -41,10 +41,10 @@
 /app/src/Spinner/Core/DriverBuilder.php:43:31:error - PossiblyNullArgument: Argument 4 of AlecRabbit\Spinner\Core\Driver::__construct cannot be null, possibly null value provided
 /app/src/Spinner/Core/Factory/A/AStaticWidgetFactory.php:89:59:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Contract\IInterval' for AlecRabbit\Spinner\Core\Factory\A\AStaticWidgetFactory::getDefaultUpdateInterval
 /app/src/Spinner/Core/Factory/A/AStaticWidgetFactory.php:91:16:error - UndefinedClass: Class, interface or enum named AlecRabbit\Spinner\Core\Factory\StaticIntervalFactory does not exist
-/app/src/Spinner/Core/Factory/ContainerFactory.php:80:51:error - MixedAssignment: Unable to determine the type that $id is being assigned to
-/app/src/Spinner/Core/Factory/ContainerFactory.php:80:58:error - MixedAssignment: Unable to determine the type that $service is being assigned to
-/app/src/Spinner/Core/Factory/ContainerFactory.php:81:29:error - MixedArgument: Argument 1 of AlecRabbit\Spinner\Container\Contract\IContainer::add cannot be mixed, expecting string
-/app/src/Spinner/Core/Factory/ContainerFactory.php:81:34:error - MixedArgument: Argument 2 of AlecRabbit\Spinner\Container\Contract\IContainer::add cannot be mixed, expecting callable|object|string
+/app/src/Spinner/Core/Factory/ContainerFactory.php:79:51:error - MixedAssignment: Unable to determine the type that $id is being assigned to
+/app/src/Spinner/Core/Factory/ContainerFactory.php:79:58:error - MixedAssignment: Unable to determine the type that $service is being assigned to
+/app/src/Spinner/Core/Factory/ContainerFactory.php:80:29:error - MixedArgument: Argument 1 of AlecRabbit\Spinner\Container\Contract\IContainer::add cannot be mixed, expecting string
+/app/src/Spinner/Core/Factory/ContainerFactory.php:80:34:error - MixedArgument: Argument 2 of AlecRabbit\Spinner\Container\Contract\IContainer::add cannot be mixed, expecting callable|object|string
 /app/src/Spinner/Core/Factory/CursorFactory.php:28:17:error - ArgumentTypeCoercion: Argument 1 of AlecRabbit\Spinner\Core\Output\Cursor::__construct expects AlecRabbit\Spinner\Contract\IBufferedOutput, but parent type AlecRabbit\Spinner\Contract\IOutput provided
 /app/src/Spinner/Core/Factory/RevolverFactory.php:50:29:error - UndefinedMethod: Method AlecRabbit\Spinner\Core\Factory\Contract\IFrameFactory::createempty does not exist
 /app/src/Spinner/Core/Output/StreamBufferedOutput.php:40:30:error - MixedArgumentTypeCoercion: Argument 1 of AlecRabbit\Spinner\Contract\IResourceStream::write expects Traversable<mixed, string>, but parent type Traversable provided
