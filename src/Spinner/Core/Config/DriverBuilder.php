@@ -22,6 +22,9 @@ final class DriverBuilder implements IDriverBuilder
 
     public function __construct(
         protected IDefaultsProvider $defaultsProvider,
+        protected ITimerFactory $timerFactory,
+        protected IOutputFactory $outputFactory,
+        protected OptionCursor $cursorOption,
     ) {
     }
 
@@ -40,9 +43,9 @@ final class DriverBuilder implements IDriverBuilder
         $output = new StreamBufferedOutput(new ResourceStream(STDERR));
         return
             new Driver(
-                output: $output, // FIXME use ~ $defaults->get...
-                cursor: new Cursor($output, OptionCursor::HIDDEN), // FIXME use ~ $defaults->get...
-                timer: new Timer(), // FIXME use ~ $defaults->get...
+                output: $this->outputFactory->getOutput(),
+                cursor: new Cursor($output, $this->cursorOption),
+                timer: $this->timerFactory->createTimer(),
                 driverConfig: $this->driverConfig,
             );
     }

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Spinner\TestCase;
 
 use AlecRabbit\Spinner\Container\Contract\IContainer;
+use AlecRabbit\Spinner\Contract\IBufferedOutput;
 use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Contract\IPattern;
 use AlecRabbit\Spinner\Core\A\ASpinner;
@@ -12,6 +13,8 @@ use AlecRabbit\Spinner\Core\Config\Contract\IConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\IDefaultsProvider;
 use AlecRabbit\Spinner\Core\Config\Contract\IDriverBuilder;
+use AlecRabbit\Spinner\Core\Config\IOutputFactory;
+use AlecRabbit\Spinner\Core\Config\ITimerFactory;
 use AlecRabbit\Spinner\Core\Config\WidgetConfig;
 use AlecRabbit\Spinner\Core\Contract\IIntervalNormalizer;
 use AlecRabbit\Spinner\Core\Contract\ILoopProbeFactory;
@@ -24,6 +27,7 @@ use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolverBuilder;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetBuilder;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolverBuilder;
+use AlecRabbit\Tests\Spinner\Unit\Spinner\Core\Config\DriverBuilderTest;
 use PHPUnit\Framework\MockObject\MockObject;
 
 abstract class TestCaseWithPrebuiltMocks extends TestCase
@@ -132,5 +136,20 @@ abstract class TestCaseWithPrebuiltMocks extends TestCase
     protected function getFrameRevolverBuilderMock(): MockObject&IFrameRevolverBuilder
     {
         return $this->createMock(IFrameRevolverBuilder::class);
+    }
+
+    protected function getOutputFactoryMock(): MockObject&IOutputFactory
+    {
+        return $this->createMock(IOutputFactory::class);
+    }
+
+    protected function getTimerFactoryMock(): MockObject&ITimerFactory
+    {
+        return $this->createMock(ITimerFactory::class);
+    }
+
+    protected function getOutputMock(): MockObject&IBufferedOutput
+    {
+        return $this->createMock(IBufferedOutput::class);
     }
 }
