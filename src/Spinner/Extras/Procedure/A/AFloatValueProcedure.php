@@ -7,7 +7,6 @@ namespace AlecRabbit\Spinner\Extras\Procedure\A;
 use AlecRabbit\Spinner\Contract\IFloatValue;
 use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Core\Frame;
-use AlecRabbit\Spinner\Core\WidthDeterminer;
 
 abstract class AFloatValueProcedure extends AProcedure
 {
@@ -28,7 +27,8 @@ abstract class AFloatValueProcedure extends AProcedure
             $this->format,
             $this->floatValue->getValue()
         );
-        return
-            new Frame($v, WidthDeterminer::determine($v));
+        // fixme refactor this to use FrameFactory?
+//        return
+//            new Frame($v, WidthDeterminer::determine($v));
     }
 }

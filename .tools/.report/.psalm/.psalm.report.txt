@@ -42,7 +42,7 @@
 /app/src/Spinner/Core/Defaults/A/ASpinnerSettings.php:41:66:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Core\Defaults\Contract\ISpinnerSettings' for AlecRabbit\Spinner\Core\Defaults\A\ASpinnerSettings::getInstance
 /app/src/Spinner/Core/Defaults/A/ASpinnerSettings.php:45:17:error - InvalidPropertyAssignmentValue: AlecRabbit\Spinner\Core\Defaults\A\ASpinnerSettings::$objInstance with declared type 'AlecRabbit\Spinner\Core\Defaults\Contract\ISpinnerSettings|null' cannot be assigned type '_app_src_Spinner_Core_Defaults_A_ASpinnerSettings_php_45_1361'
 /app/src/Spinner/Core/Defaults/A/AWidgetSettings.php:34:66:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Core\Defaults\Contract\IWidgetSettings' for AlecRabbit\Spinner\Core\Defaults\A\AWidgetSettings::getInstance
-/app/src/Spinner/Core/Defaults/A/AWidgetSettings.php:38:17:error - InvalidPropertyAssignmentValue: AlecRabbit\Spinner\Core\Defaults\A\AWidgetSettings::$objSettings with declared type 'AlecRabbit\Spinner\Core\Defaults\Contract\IWidgetSettings|null' cannot be assigned type '_app_src_Spinner_Core_Defaults_A_AWidgetSettings_php_38_1134'
+/app/src/Spinner/Core/Defaults/A/AWidgetSettings.php:38:17:error - InvalidPropertyAssignmentValue: AlecRabbit\Spinner\Core\Defaults\A\AWidgetSettings::$objSettings with declared type 'AlecRabbit\Spinner\Core\Defaults\Contract\IWidgetSettings|null' cannot be assigned type '_app_src_Spinner_Core_Defaults_A_AWidgetSettings_php_38_1142'
 /app/src/Spinner/Core/Defaults/AuxSettings.php:21:19:error - MissingParamType: Parameter $outputStream has no provided type
 /app/src/Spinner/Core/Defaults/AuxSettings.php:70:21:error - MixedInferredReturnType: Could not verify return type 'resource' for AlecRabbit\Spinner\Core\Defaults\AuxSettings::getOutputStream
 /app/src/Spinner/Core/Defaults/AuxSettings.php:72:16:error - MixedReturnStatement: Could not infer a return type
@@ -51,15 +51,18 @@
 /app/src/Spinner/Core/DriverBuilder.php:65:31:error - PossiblyNullArgument: Argument 4 of AlecRabbit\Spinner\Core\Driver::__construct cannot be null, possibly null value provided
 /app/src/Spinner/Core/Factory/A/AStaticWidgetFactory.php:89:59:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Contract\IInterval' for AlecRabbit\Spinner\Core\Factory\A\AStaticWidgetFactory::getDefaultUpdateInterval
 /app/src/Spinner/Core/Factory/A/AStaticWidgetFactory.php:91:16:error - UndefinedClass: Class, interface or enum named AlecRabbit\Spinner\Core\Factory\StaticIntervalFactory does not exist
-/app/src/Spinner/Core/Factory/ContainerFactory.php:84:51:error - MixedAssignment: Unable to determine the type that $id is being assigned to
-/app/src/Spinner/Core/Factory/ContainerFactory.php:84:58:error - MixedAssignment: Unable to determine the type that $service is being assigned to
-/app/src/Spinner/Core/Factory/ContainerFactory.php:85:29:error - MixedArgument: Argument 1 of AlecRabbit\Spinner\Container\Contract\IContainer::add cannot be mixed, expecting string
-/app/src/Spinner/Core/Factory/ContainerFactory.php:85:34:error - MixedArgument: Argument 2 of AlecRabbit\Spinner\Container\Contract\IContainer::add cannot be mixed, expecting callable|object|string
-/app/src/Spinner/Core/Factory/ContainerFactory.php:120:79:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
-/app/src/Spinner/Core/Factory/ContainerFactory.php:128:92:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Contract\OptionStyleMode' for /app/src/spinner/core/factory/containerfactory.php:128:5919:-:closure
-/app/src/Spinner/Core/Factory/ContainerFactory.php:129:28:error - MixedReturnStatement: Could not infer a return type
-/app/src/Spinner/Core/Factory/ContainerFactory.php:129:71:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
-/app/src/Spinner/Core/Factory/ContainerFactory.php:129:89:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
+/app/src/Spinner/Core/Factory/ContainerFactory.php:86:51:error - MixedAssignment: Unable to determine the type that $id is being assigned to
+/app/src/Spinner/Core/Factory/ContainerFactory.php:86:58:error - MixedAssignment: Unable to determine the type that $service is being assigned to
+/app/src/Spinner/Core/Factory/ContainerFactory.php:87:29:error - MixedArgument: Argument 1 of AlecRabbit\Spinner\Container\Contract\IContainer::add cannot be mixed, expecting string
+/app/src/Spinner/Core/Factory/ContainerFactory.php:87:34:error - MixedArgument: Argument 2 of AlecRabbit\Spinner\Container\Contract\IContainer::add cannot be mixed, expecting callable|object|string
+/app/src/Spinner/Core/Factory/ContainerFactory.php:120:88:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Core\IDeterminer' for /app/src/spinner/core/factory/containerfactory.php:120:5534:-:closure
+/app/src/Spinner/Core/Factory/ContainerFactory.php:122:25:error - MixedReturnStatement: Could not infer a return type
+/app/src/Spinner/Core/Factory/ContainerFactory.php:122:69:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
+/app/src/Spinner/Core/Factory/ContainerFactory.php:127:79:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
+/app/src/Spinner/Core/Factory/ContainerFactory.php:135:92:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Contract\OptionStyleMode' for /app/src/spinner/core/factory/containerfactory.php:135:6296:-:closure
+/app/src/Spinner/Core/Factory/ContainerFactory.php:136:28:error - MixedReturnStatement: Could not infer a return type
+/app/src/Spinner/Core/Factory/ContainerFactory.php:136:71:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
+/app/src/Spinner/Core/Factory/ContainerFactory.php:136:89:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
 /app/src/Spinner/Core/Factory/RevolverFactory.php:50:29:error - UndefinedMethod: Method AlecRabbit\Spinner\Core\Factory\Contract\IFrameFactory::createempty does not exist
 /app/src/Spinner/Core/Output/StreamBufferedOutput.php:40:30:error - MixedArgumentTypeCoercion: Argument 1 of AlecRabbit\Spinner\Contract\IResourceStream::write expects Traversable<mixed, string>, but parent type Traversable provided
 /app/src/Spinner/Core/OutputBuilder.php:37:32:error - MissingParamType: Parameter $stream has no provided type
@@ -85,6 +88,7 @@
 /app/src/Spinner/Extras/A/AStaticProgressWidgetFactory.php:149:17:error - InvalidStaticInvocation: Method AlecRabbit\Spinner\Core\Factory\FrameFactory::create is not static, but is called statically
 /app/src/Spinner/Extras/A/AStaticProgressWidgetFactory.php:150:17:error - InvalidStaticInvocation: Method AlecRabbit\Spinner\Core\Factory\FrameFactory::create is not static, but is called statically
 /app/src/Spinner/Extras/A/AStaticProgressWidgetFactory.php:154:14:error - TooFewArguments: Too few arguments for AlecRabbit\Spinner\Core\CharFrameCollectionRenderer::__construct - expecting frameFactory to be passed
+/app/src/Spinner/Extras/Procedure/A/AFloatValueProcedure.php:24:47:error - InvalidReturnType: Not all code paths of AlecRabbit\Spinner\Extras\Procedure\A\AFloatValueProcedure::update end in a return statement, return type AlecRabbit\Spinner\Contract\IFrame expected
 /app/src/Spinner/Extras/Procedure/A/AProgressValueProcedure.php:37:13:error - InvalidStaticInvocation: Method AlecRabbit\Spinner\Core\Factory\FrameFactory::create is not static, but is called statically
 /app/src/Spinner/Extras/Procedure/ProgressBarProcedure.php:65:13:error - InvalidStaticInvocation: Method AlecRabbit\Spinner\Core\Factory\FrameFactory::create is not static, but is called statically
 /app/src/Spinner/Extras/Procedure/ProgressStepsProcedure.php:33:13:error - InvalidStaticInvocation: Method AlecRabbit\Spinner\Core\Factory\FrameFactory::create is not static, but is called statically

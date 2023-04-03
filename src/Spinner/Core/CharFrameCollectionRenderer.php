@@ -32,6 +32,6 @@ final class CharFrameCollectionRenderer extends AFrameCollectionRenderer impleme
                 )
             );
         }
-        return $this->frameFactory->create($entry, WidthDeterminer::determine($entry));
+        return $this->frameFactory->create($entry);
     }
 }

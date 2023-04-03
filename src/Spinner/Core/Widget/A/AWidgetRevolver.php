@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Widget\A;
 
 use AlecRabbit\Spinner\Contract\IFrame;
-use AlecRabbit\Spinner\Core\Factory\FrameFactory;
 use AlecRabbit\Spinner\Core\Frame;
 use AlecRabbit\Spinner\Core\Revolver\A\ARevolver;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
+use AlecRabbit\Spinner\Exception\LogicException;
 
 abstract class AWidgetRevolver extends ARevolver
 {
@@ -41,6 +41,11 @@ abstract class AWidgetRevolver extends ARevolver
 
     protected function current(): IFrame
     {
-        return FrameFactory::createEmpty(); // should never be called
+        throw new LogicException(
+            sprintf(
+                'Method %s() should never be called.',
+                __METHOD__
+            )
+        );
     }
 }

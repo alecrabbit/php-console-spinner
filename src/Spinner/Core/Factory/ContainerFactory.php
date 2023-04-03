@@ -29,6 +29,7 @@ use AlecRabbit\Spinner\Core\Contract\IStyleFrameRenderer;
 use AlecRabbit\Spinner\Core\CursorBuilder;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IAuxSettings;
 use AlecRabbit\Spinner\Core\Defaults\DefaultsProvider;
+use AlecRabbit\Spinner\Core\Determiner;
 use AlecRabbit\Spinner\Core\DriverBuilder;
 use AlecRabbit\Spinner\Core\Factory\Contract\IContainerFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IFrameFactory;
@@ -38,6 +39,7 @@ use AlecRabbit\Spinner\Core\Factory\Contract\IRevolverFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ISpinnerFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ITimerBuilder;
 use AlecRabbit\Spinner\Core\FrameRevolverBuilder;
+use AlecRabbit\Spinner\Core\IDeterminer;
 use AlecRabbit\Spinner\Core\IntegerNormalizer;
 use AlecRabbit\Spinner\Core\IntervalNormalizer;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoopProbeFactory;
@@ -114,6 +116,11 @@ final class ContainerFactory implements IContainerFactory
                 ITimerBuilder::class => TimerBuilder::class,
                 IOutputBuilder::class => OutputBuilder::class,
                 ICursorBuilder::class => CursorBuilder::class,
+                IDeterminerFactory::class => DeterminerFactory::class,
+                IDeterminer::class => static function (ContainerInterface $container): IDeterminer {
+                    return
+                        $container->get(IDeterminerFactory::class)->create();
+                },
 
                 IIntegerNormalizer::class => static function (ContainerInterface $container): IIntegerNormalizer {
                     /** @var IAuxSettings $auxSettings */
