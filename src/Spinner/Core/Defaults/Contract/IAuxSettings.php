@@ -7,6 +7,7 @@ namespace AlecRabbit\Spinner\Core\Defaults\Contract;
 
 use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Contract\NormalizerMode;
+use AlecRabbit\Spinner\Contract\OptionCursor;
 
 interface IAuxSettings
 {
@@ -17,4 +18,8 @@ interface IAuxSettings
     public function getNormalizerMode(): NormalizerMode;
 
     public function setNormalizerMode(NormalizerMode $normalizerMode): IAuxSettings;
+
+    public function getCursorOption(): OptionCursor;
+
+    public function setCursorOption(OptionCursor $cursorOption): IAuxSettings;
 }

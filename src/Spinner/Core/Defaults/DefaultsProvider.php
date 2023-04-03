@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Defaults;
 
 use AlecRabbit\Spinner\Contract\NormalizerMode;
+use AlecRabbit\Spinner\Contract\OptionCursor;
 use AlecRabbit\Spinner\Core\Config\Contract\IDefaultsProvider;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IAuxSettings;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDriverSettings;
@@ -20,6 +21,7 @@ final class DefaultsProvider implements IDefaultsProvider
 {
     protected const DEFAULT_INTERVAL = 1000;
     protected const DEFAULT_NORMALIZER_MODE = NormalizerMode::BALANCED;
+    protected const DEFAULT_CURSOR_OPTION = OptionCursor::HIDDEN;
 
     protected IWidgetSettings $rootWidgetSettings;
     protected IWidgetSettings $widgetSettings;
@@ -64,6 +66,7 @@ final class DefaultsProvider implements IDefaultsProvider
             new AuxSettings(
                 new Interval(self::DEFAULT_INTERVAL),
                 self::DEFAULT_NORMALIZER_MODE,
+                self::DEFAULT_CURSOR_OPTION,
             );
     }
 

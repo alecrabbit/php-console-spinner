@@ -4,16 +4,14 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Core\Config;
 
-use AlecRabbit\Spinner\Contract\IBufferedOutput;
 use AlecRabbit\Spinner\Contract\OptionCursor;
-use AlecRabbit\Spinner\Core\Config\Contract\IDefaultsProvider;
 use AlecRabbit\Spinner\Core\Config\Contract\IDriverBuilder;
 use AlecRabbit\Spinner\Core\Config\DriverBuilder;
 use AlecRabbit\Spinner\Core\Config\DriverConfig;
-use AlecRabbit\Spinner\Core\Config\IOutputFactory;
-use AlecRabbit\Spinner\Core\Config\ITimerFactory;
-use AlecRabbit\Spinner\Core\Defaults\DefaultsProvider;
 use AlecRabbit\Spinner\Core\Driver;
+use AlecRabbit\Spinner\Core\Factory\Contract\ICursorFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\IOutputFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\ITimerFactory;
 use AlecRabbit\Tests\Spinner\TestCase\TestCaseWithPrebuiltMocks;
 use LogicException;
 use PHPUnit\Framework\Attributes\Test;
@@ -30,17 +28,15 @@ final class DriverBuilderTest extends TestCaseWithPrebuiltMocks
     }
 
     public function getTesteeInstance(
-        ?IDefaultsProvider $defaultsProvider = null,
         ?ITimerFactory $timerFactory = null,
         ?IOutputFactory $outputFactory = null,
-        ?OptionCursor $cursorOption = null,
+        ?ICursorFactory $cursorFactory = null,
     ): IDriverBuilder {
         return
             new DriverBuilder(
-                defaultsProvider: $defaultsProvider ?? new DefaultsProvider(),
                 timerFactory: $timerFactory ?? $this->getTimerFactoryMock(),
                 outputFactory: $outputFactory ?? $this->getOutputFactoryMock(),
-                cursorOption: $cursorOption ?? OptionCursor::ENABLED,
+                cursorFactory: $cursorFactory ?? $this->getCursorFactoryMock(),
             );
     }
 
@@ -51,7 +47,7 @@ final class DriverBuilderTest extends TestCaseWithPrebuiltMocks
         $outputFactory
             ->expects(self::once())
             ->method('getOutput')
-            ->willReturn($this->getOutputMock());
+            ->willReturn($this->getBufferedOutputMock());
 
         $driverBuilder = $this->getTesteeInstance(outputFactory: $outputFactory);
 

@@ -6,6 +6,7 @@ namespace AlecRabbit\Spinner\Core\Defaults;
 
 use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Contract\NormalizerMode;
+use AlecRabbit\Spinner\Contract\OptionCursor;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IAuxSettings;
 
 final class AuxSettings implements IAuxSettings
@@ -13,6 +14,7 @@ final class AuxSettings implements IAuxSettings
     public function __construct(
         protected IInterval $interval,
         protected NormalizerMode $normalizerMode,
+        protected OptionCursor $cursorOption,
     ) {
     }
 
@@ -35,6 +37,17 @@ final class AuxSettings implements IAuxSettings
     public function setNormalizerMode(NormalizerMode $normalizerMode): IAuxSettings
     {
         $this->normalizerMode = $normalizerMode;
+        return $this;
+    }
+
+    public function getCursorOption(): OptionCursor
+    {
+        return $this->cursorOption;
+    }
+
+    public function setCursorOption(OptionCursor $cursorOption): IAuxSettings
+    {
+        $this->cursorOption = $cursorOption;
         return $this;
     }
 }

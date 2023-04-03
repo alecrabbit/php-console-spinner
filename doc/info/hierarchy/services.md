@@ -27,7 +27,8 @@ classDiagram
     SpinnerBuilder ..> DriverBuilder
     SpinnerBuilder ..> WidgetBuilder
     
-    DriverBuilder ..> DefaultsProvider
+    DriverBuilder ..> TimerFactory
+    DriverBuilder ..> OutputFactory
     
     WidgetBuilder ..> WidgetRevolverBuilder
     
