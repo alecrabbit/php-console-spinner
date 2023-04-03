@@ -23,7 +23,7 @@ use AlecRabbit\Spinner\Core\Factory\Contract\IFrameFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IOutputFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IRevolverFactory;
-use AlecRabbit\Spinner\Core\Factory\Contract\ITimerFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\ITimerBuilder;
 use AlecRabbit\Spinner\Core\ICursorBuilder;
 use AlecRabbit\Spinner\Core\IOutputBuilder;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoopProbeFactory;
@@ -146,9 +146,9 @@ abstract class TestCaseWithPrebuiltMocks extends TestCase
         return $this->createMock(IOutputBuilder::class);
     }
 
-    protected function getTimerFactoryMock(): MockObject&ITimerFactory
+    protected function getTimerFactoryMock(): MockObject&ITimerBuilder
     {
-        return $this->createMock(ITimerFactory::class);
+        return $this->createMock(ITimerBuilder::class);
     }
 
     protected function getBufferedOutputMock(): MockObject&IBufferedOutput

@@ -8,7 +8,7 @@ use AlecRabbit\Spinner\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Config\Contract\IAuxConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IDriverBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\IDriverConfig;
-use AlecRabbit\Spinner\Core\Factory\Contract\ITimerFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\ITimerBuilder;
 use LogicException;
 
 final class DriverBuilder implements IDriverBuilder
@@ -17,7 +17,7 @@ final class DriverBuilder implements IDriverBuilder
     protected ?IAuxConfig $auxConfig = null;
 
     public function __construct(
-        protected ITimerFactory $timerFactory,
+        protected ITimerBuilder $timerBuilder,
         protected IOutputBuilder $outputBuilder,
         protected ICursorBuilder $cursorBuilder,
     ) {
@@ -38,20 +38,28 @@ final class DriverBuilder implements IDriverBuilder
     {
         $output =
             $this->outputBuilder
-                ->withStream($this->auxConfig->getOutputStream())
+                ->withStream(
+                    $this->auxConfig->getOutputStream()
+                )
                 ->build();
 
         $cursor =
             $this->cursorBuilder
                 ->withOutput($output)
-                ->withCursorOption($this->auxConfig->getCursorOption())
+                ->withCursorOption(
+                    $this->auxConfig->getCursorOption()
+                )
+                ->build();
+
+        $timer =
+            $this->timerBuilder
                 ->build();
 
         return
             new Driver(
                 output: $output,
                 cursor: $cursor,
-                timer: $this->timerFactory->createTimer(),
+                timer: $timer,
                 driverConfig: $this->driverConfig,
             );
     }

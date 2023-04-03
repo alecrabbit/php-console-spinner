@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Factory;
 
 use AlecRabbit\Spinner\Contract\ITimer;
-use AlecRabbit\Spinner\Core\Factory\Contract\ITimerFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\ITimerBuilder;
 use AlecRabbit\Spinner\Core\Timer;
 
-final class TimerFactory implements ITimerFactory
+final class TimerBuilder implements ITimerBuilder
 {
-    public function createTimer(): ITimer
+    public function build(): ITimer
     {
         return new Timer();
     }

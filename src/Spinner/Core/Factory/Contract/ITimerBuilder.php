@@ -6,7 +6,7 @@ namespace AlecRabbit\Spinner\Core\Factory\Contract;
 
 use AlecRabbit\Spinner\Contract\ITimer;
 
-interface ITimerFactory
+interface ITimerBuilder
 {
-    public function createTimer(): ITimer;
+    public function build(): ITimer;
 }

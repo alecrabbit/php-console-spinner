@@ -9,7 +9,7 @@ use AlecRabbit\Spinner\Core\Config\Contract\IDriverBuilder;
 use AlecRabbit\Spinner\Core\Config\DriverConfig;
 use AlecRabbit\Spinner\Core\Driver;
 use AlecRabbit\Spinner\Core\DriverBuilder;
-use AlecRabbit\Spinner\Core\Factory\Contract\ITimerFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\ITimerBuilder;
 use AlecRabbit\Spinner\Core\ICursorBuilder;
 use AlecRabbit\Spinner\Core\IOutputBuilder;
 use AlecRabbit\Tests\Spinner\TestCase\TestCaseWithPrebuiltMocks;
@@ -27,13 +27,13 @@ final class DriverBuilderTest extends TestCaseWithPrebuiltMocks
     }
 
     public function getTesteeInstance(
-        ?ITimerFactory $timerFactory = null,
+        ?ITimerBuilder $timerFactory = null,
         ?IOutputBuilder $outputBuilder = null,
         ?ICursorBuilder $cursorBuilder = null,
     ): IDriverBuilder {
         return
             new DriverBuilder(
-                timerFactory: $timerFactory ?? $this->getTimerFactoryMock(),
+                timerBuilder: $timerFactory ?? $this->getTimerFactoryMock(),
                 outputBuilder: $outputBuilder ?? $this->getOutputBuilderMock(),
                 cursorBuilder: $cursorBuilder ?? $this->getCursorBuilderMock(),
             );

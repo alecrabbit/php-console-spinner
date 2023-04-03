@@ -27,14 +27,12 @@ use AlecRabbit\Spinner\Core\Defaults\Contract\IAuxSettings;
 use AlecRabbit\Spinner\Core\Defaults\DefaultsProvider;
 use AlecRabbit\Spinner\Core\DriverBuilder;
 use AlecRabbit\Spinner\Core\Factory\Contract\IContainerFactory;
-use AlecRabbit\Spinner\Core\Factory\Contract\ICursorFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IFrameFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopFactory;
-use AlecRabbit\Spinner\Core\Factory\Contract\IOutputFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IRevolverFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ISpinnerFactory;
-use AlecRabbit\Spinner\Core\Factory\Contract\ITimerFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\ITimerBuilder;
 use AlecRabbit\Spinner\Core\FrameRevolverBuilder;
 use AlecRabbit\Spinner\Core\ICharFrameCollectionRenderer;
 use AlecRabbit\Spinner\Core\ICursorBuilder;
@@ -123,7 +121,7 @@ final class ContainerFactory implements IContainerFactory
                 IStyleFrameCollectionRenderer::class => StyleFrameCollectionRenderer::class,
                 ICharFrameCollectionRenderer::class => CharFrameCollectionRenderer::class,
                 ISequencer::class => Sequencer::class,
-                ITimerFactory::class => TimerFactory::class,
+                ITimerBuilder::class => TimerBuilder::class,
                 IOutputBuilder::class => OutputBuilder::class,
                 ICursorBuilder::class => CursorBuilder::class,
 

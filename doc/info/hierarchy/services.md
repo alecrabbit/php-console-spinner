@@ -28,14 +28,9 @@ classDiagram
     SpinnerBuilder ..> DriverBuilder
     SpinnerBuilder ..> WidgetBuilder
     
-    DriverBuilder ..> TimerFactory
-    DriverBuilder ..> OutputFactory
-    DriverBuilder ..> CursorFactory
-    
-    OutputFactory ..> DefaultsProvider
-    
-    CursorFactory ..> DefaultsProvider
-    CursorFactory ..> OutputFactory
+    DriverBuilder ..> TimerBuilder
+    DriverBuilder ..> OutputBuilder
+    DriverBuilder ..> CursorBuilder
     
     WidgetBuilder ..> WidgetRevolverBuilder
     
@@ -65,8 +60,12 @@ classDiagram
     AnsiStyleConverter ..> OptionStyleMode
     
     
-    ProceduralFrameRevolverBuilder ..> StyleFrameCollectionRenderer
-    ProceduralFrameRevolverBuilder ..> CharFrameCollectionRenderer
-    ProceduralFrameRevolverBuilder ..> IntervalFactory
+   
     
 ```
+
+ProceduralFrameRevolverBuilder ..> StyleFrameCollectionRenderer
+
+ProceduralFrameRevolverBuilder ..> CharFrameCollectionRenderer
+
+ProceduralFrameRevolverBuilder ..> IntervalFactory
