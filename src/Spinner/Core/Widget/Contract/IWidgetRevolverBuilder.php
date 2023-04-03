@@ -10,9 +10,9 @@ use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolverBuilder;
 
 interface IWidgetRevolverBuilder extends IRevolverBuilder
 {
-    public function withStyleRevolver(IRevolver $styleRevolver): IWidgetRevolverBuilder;
-
-    public function withCharRevolver(IRevolver $charRevolver): IWidgetRevolverBuilder;
+//    public function withStyleRevolver(IRevolver $styleRevolver): IWidgetRevolverBuilder;
+//
+//    public function withCharRevolver(IRevolver $charRevolver): IWidgetRevolverBuilder;
 
     public function withStylePattern(IPattern $stylePattern): IWidgetRevolverBuilder;
 

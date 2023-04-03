@@ -39,8 +39,6 @@ final class WidgetBuilderTest extends TestCaseWithPrebuiltMocks
             ->method('get')
             ->willReturn(
                 $this->getWidgetRevolverBuilderMock(),
-                $this->getRevolverFactoryMock(),
-                $this->getRevolverFactoryMock(),
             );
 
         $widgetBuilder = $this->getTesteeInstance();
@@ -85,8 +83,6 @@ final class WidgetBuilderTest extends TestCaseWithPrebuiltMocks
             ->method('get')
             ->willReturn(
                 $this->getWidgetRevolverBuilderMock(),
-                $this->getRevolverFactoryMock(),
-                $this->getRevolverFactoryMock(),
             );
 
         $widgetBuilder = $this->getTesteeInstance();

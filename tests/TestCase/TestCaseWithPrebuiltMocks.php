@@ -20,11 +20,8 @@ use AlecRabbit\Spinner\Core\Contract\IIntervalNormalizer;
 use AlecRabbit\Spinner\Core\Contract\IOutputBuilder;
 use AlecRabbit\Spinner\Core\Contract\ISpinnerBuilder;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IAuxSettings;
-use AlecRabbit\Spinner\Core\Factory\Contract\ICursorFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IFrameFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalFactory;
-use AlecRabbit\Spinner\Core\Factory\Contract\IOutputFactory;
-use AlecRabbit\Spinner\Core\Factory\Contract\IRevolverFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ITimerBuilder;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoopProbeFactory;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolverBuilder;
@@ -64,11 +61,6 @@ abstract class TestCaseWithPrebuiltMocks extends TestCase
     protected function getContainerMock(): MockObject&IContainer
     {
         return $this->createMock(IContainer::class);
-    }
-
-    protected function getRevolverFactoryMock(): IRevolverFactory&MockObject
-    {
-        return $this->createMock(IRevolverFactory::class);
     }
 
     protected function getWidgetRevolverBuilderMock(): IWidgetRevolverBuilder&MockObject

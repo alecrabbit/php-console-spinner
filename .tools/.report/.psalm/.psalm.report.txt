@@ -71,10 +71,9 @@
 /app/src/Spinner/Core/Widget/WidgetBuilder.php:34:62:error - PossiblyNullReference: Cannot call method getLeadingSpacer on possibly null value
 /app/src/Spinner/Core/Widget/WidgetBuilder.php:35:63:error - PossiblyNullReference: Cannot call method getTrailingSpacer on possibly null value
 /app/src/Spinner/Core/Widget/WidgetBuilder.php:54:57:error - PossiblyNullReference: Cannot call method getStylePattern on possibly null value
-/app/src/Spinner/Core/Widget/WidgetRevolverBuilder.php:32:17:error - MixedArgument: Argument 1 of AlecRabbit\Spinner\Core\Widget\WidgetRevolver::__construct cannot be mixed, expecting AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver
-/app/src/Spinner/Core/Widget/WidgetRevolverBuilder.php:32:65:error - UndefinedInterfaceMethod: Method AlecRabbit\Spinner\Core\Factory\Contract\IRevolverFactory::defaultStyleRevolver does not exist
-/app/src/Spinner/Core/Widget/WidgetRevolverBuilder.php:33:17:error - MixedArgument: Argument 2 of AlecRabbit\Spinner\Core\Widget\WidgetRevolver::__construct cannot be mixed, expecting AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver
-/app/src/Spinner/Core/Widget/WidgetRevolverBuilder.php:33:64:error - UndefinedInterfaceMethod: Method AlecRabbit\Spinner\Core\Factory\Contract\IRevolverFactory::defaultCharRevolver does not exist
+/app/src/Spinner/Core/Widget/WidgetRevolverBuilder.php:37:82:error - PossiblyNullArgument: Argument 1 of AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolverBuilder::withPattern cannot be null, possibly null value provided
+/app/src/Spinner/Core/Widget/WidgetRevolverBuilder.php:38:81:error - PossiblyNullArgument: Argument 1 of AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolverBuilder::withPattern cannot be null, possibly null value provided
+/app/src/Spinner/Core/Widget/WidgetRevolverBuilder.php:60:29:error - UndefinedMethod: Method AlecRabbit\Spinner\Core\Factory\Contract\IFrameFactory::createempty does not exist
 /app/src/Spinner/Extras/A/AStaticProgressWidgetFactory.php:30:53:error - UndefinedClass: Class, interface or enum named AlecRabbit\Spinner\Core\Factory\A\AStaticWidgetFactory does not exist
 /app/src/Spinner/Extras/Procedure/A/AFloatValueProcedure.php:24:47:error - InvalidReturnType: Not all code paths of AlecRabbit\Spinner\Extras\Procedure\A\AFloatValueProcedure::update end in a return statement, return type AlecRabbit\Spinner\Contract\IFrame expected
 /app/src/Spinner/Extras/Procedure/A/AProgressValueProcedure.php:37:13:error - InvalidStaticInvocation: Method AlecRabbit\Spinner\Core\Factory\FrameFactory::create is not static, but is called statically

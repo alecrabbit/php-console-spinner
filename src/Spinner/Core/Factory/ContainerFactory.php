@@ -36,7 +36,6 @@ use AlecRabbit\Spinner\Core\Factory\Contract\IDeterminerFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IFrameFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopFactory;
-use AlecRabbit\Spinner\Core\Factory\Contract\IRevolverFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ISpinnerFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ITimerBuilder;
 use AlecRabbit\Spinner\Core\FrameRevolverBuilder;
@@ -101,7 +100,6 @@ final class ContainerFactory implements IContainerFactory
                 IDriverBuilder::class => DriverBuilder::class,
                 IWidgetBuilder::class => WidgetBuilder::class,
                 IWidgetRevolverBuilder::class => WidgetRevolverBuilder::class,
-                IRevolverFactory::class => RevolverFactory::class,
                 IFrameRevolverBuilder::class => FrameRevolverBuilder::class,
                 ISpinnerFactory::class => SpinnerFactory::class,
                 ISpinnerBuilder::class => SpinnerBuilder::class,

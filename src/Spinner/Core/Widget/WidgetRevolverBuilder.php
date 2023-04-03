@@ -6,9 +6,12 @@ namespace AlecRabbit\Spinner\Core\Widget;
 
 use AlecRabbit\Spinner\Contract\Pattern\IPattern;
 use AlecRabbit\Spinner\Core\A\ARevolverBuilder;
-use AlecRabbit\Spinner\Core\Factory\Contract\IRevolverFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\IFrameFactory;
+use AlecRabbit\Spinner\Core\FrameCollection;
+use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolverBuilder;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolverBuilder;
+use ArrayObject;
 
 final class WidgetRevolverBuilder extends ARevolverBuilder implements IWidgetRevolverBuilder
 {
@@ -18,7 +21,8 @@ final class WidgetRevolverBuilder extends ARevolverBuilder implements IWidgetRev
     protected ?IPattern $charPattern = null;
 
     public function __construct(
-        protected IRevolverFactory $revolverFactory,
+        protected IFrameRevolverBuilder $frameRevolverBuilder,
+        protected IFrameFactory $frameFactory,
     ) {
     }
 
@@ -29,43 +33,64 @@ final class WidgetRevolverBuilder extends ARevolverBuilder implements IWidgetRev
 
         return
             new WidgetRevolver(
-                $this->styleRevolver ?? $this->revolverFactory->defaultStyleRevolver(),
-                $this->charRevolver ?? $this->revolverFactory->defaultCharRevolver(),
+                $this->styleRevolver ?? $this->frameRevolverBuilder->withPattern($this->stylePattern)->build(),
+                $this->charRevolver ?? $this->frameRevolverBuilder->withPattern($this->charPattern)->build(),
             );
     }
 
     protected function processPatterns(): void
     {
-        if ($this->stylePattern) {
-            $this->styleRevolver ??=
-                $this->revolverFactory
-                    ->create(
-                        $this->stylePattern
-                    );
+        if (!$this->stylePattern) {
+            $this->styleRevolver = $this->defaultStyleRevolver();
         }
 
-        if ($this->charPattern) {
-            $this->charRevolver ??=
-                $this->revolverFactory
-                    ->create(
-                        $this->charPattern
-                    );
+        if (!$this->charPattern) {
+            $this->charRevolver = $this->defaultCharRevolver();
         }
     }
 
-    public function withStyleRevolver(IRevolver $styleRevolver): IWidgetRevolverBuilder
+    public function defaultCharRevolver(): IRevolver
     {
-        $clone = clone $this;
-        $clone->styleRevolver = $styleRevolver;
-        return $clone;
+        return
+            $this->frameRevolverBuilder
+                ->withFrameCollection(
+                    new FrameCollection(
+                        new ArrayObject([
+                            $this->frameFactory::createEmpty(),
+                        ])
+                    )
+                )
+                ->build();
     }
 
-    public function withCharRevolver(IRevolver $charRevolver): IWidgetRevolverBuilder
+
+    public function defaultStyleRevolver(): IRevolver
     {
-        $clone = clone $this;
-        $clone->charRevolver = $charRevolver;
-        return $clone;
+        return
+            $this->frameRevolverBuilder
+                ->withFrameCollection(
+                    new FrameCollection(
+                        new ArrayObject([
+                            $this->frameFactory->create('%s', 0),
+                        ])
+                    )
+                )
+                ->build();
     }
+
+//    public function withStyleRevolver(IRevolver $styleRevolver): IWidgetRevolverBuilder
+//    {
+//        $clone = clone $this;
+//        $clone->styleRevolver = $styleRevolver;
+//        return $clone;
+//    }
+//
+//    public function withCharRevolver(IRevolver $charRevolver): IWidgetRevolverBuilder
+//    {
+//        $clone = clone $this;
+//        $clone->charRevolver = $charRevolver;
+//        return $clone;
+//    }
 
     public function withStylePattern(IPattern $stylePattern): IWidgetRevolverBuilder
     {
