@@ -6,7 +6,7 @@ namespace AlecRabbit\Spinner\Container\Exception;
 
 use RuntimeException;
 
-final class UnableToCreateInstance extends RuntimeException
+final class UnableToCreateInstance extends ContainerException
 {
 
 }

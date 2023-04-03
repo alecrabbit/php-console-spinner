@@ -6,7 +6,7 @@ namespace AlecRabbit\Spinner\Container\Exception;
 
 use RuntimeException;
 
-final class SpawnFailedException extends RuntimeException
+final class SpawnFailedException extends ContainerException
 {
 
 }

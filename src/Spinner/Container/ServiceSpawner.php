@@ -26,6 +26,9 @@ final class ServiceSpawner implements IServiceSpawner
     ) {
     }
 
+    /**
+     *
+     */
     public function spawn(string|callable|object $definition): object
     {
         try {
@@ -60,9 +63,9 @@ final class ServiceSpawner implements IServiceSpawner
      * @param class-string $definition
      * @return object
      *
-     * @throws ReflectionException
      * @throws ContainerExceptionInterface
      * @throws NotFoundExceptionInterface
+     * @throws ReflectionException
      */
     protected function spawnByClassConstructor(string $definition): object
     {
@@ -94,7 +97,7 @@ final class ServiceSpawner implements IServiceSpawner
                     throw new UnableToExtractType('Unable to extract type for parameter name: $' . $name);
                 }
                 if ($this->needsService($type)) {
-                    $parameters[$name] = $this->container->get($type->getName());
+                    $parameters[$name] = $this->getServiceFromContainer($type->getName());
                 }
             }
             return new $class(...$parameters);
@@ -107,11 +110,14 @@ final class ServiceSpawner implements IServiceSpawner
         }
     }
 
+    /**
+     * @throws ContainerExceptionInterface
+     */
     private function needsService(ReflectionIntersectionType|ReflectionNamedType|ReflectionUnionType $type): bool
     {
         return
             match (true) {
-                $type instanceof ReflectionNamedType => !$type->isBuiltin(),
+                $type instanceof ReflectionNamedType => !$type->isBuiltin(), // assumes that all non-builtin types are services
                 default => throw new UnableToExtractType(
                     sprintf(
                         'Only %s is supported.',
@@ -119,5 +125,14 @@ final class ServiceSpawner implements IServiceSpawner
                     )
                 ),
             };
+    }
+
+    /**
+     * @throws ContainerExceptionInterface
+     * @throws NotFoundExceptionInterface
+     */
+    private function getServiceFromContainer(string $id): object
+    {
+        return $this->container->get($id);
     }
 }
