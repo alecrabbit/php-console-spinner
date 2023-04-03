@@ -8,8 +8,6 @@ use AlecRabbit\Spinner\Core\Config\AuxConfig;
 use AlecRabbit\Spinner\Core\Config\Config;
 use AlecRabbit\Spinner\Core\Config\Contract\IAuxConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IConfig;
-use AlecRabbit\Spinner\Core\Config\Contract\IConfigBuilder;
-use AlecRabbit\Spinner\Core\Config\Contract\IDefaultsProvider;
 use AlecRabbit\Spinner\Core\Config\Contract\IDriverConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\ILoopConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\ISpinnerConfig;
@@ -18,6 +16,8 @@ use AlecRabbit\Spinner\Core\Config\DriverConfig;
 use AlecRabbit\Spinner\Core\Config\LoopConfig;
 use AlecRabbit\Spinner\Core\Config\SpinnerConfig;
 use AlecRabbit\Spinner\Core\Config\WidgetConfig;
+use AlecRabbit\Spinner\Core\Contract\IConfigBuilder;
+use AlecRabbit\Spinner\Core\Contract\IDefaultsProvider;
 
 final class ConfigBuilder implements IConfigBuilder
 {

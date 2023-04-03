@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 // 03.04.23
-namespace AlecRabbit\Spinner\Core;
+namespace AlecRabbit\Spinner\Core\Contract;
 
 interface IDeterminer
 {

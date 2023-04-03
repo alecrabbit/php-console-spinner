@@ -2,7 +2,6 @@
 
 namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Core\Factory;
 
-use AlecRabbit\Spinner\Core\Config\Contract\IDefaultsProvider;
 use AlecRabbit\Spinner\Core\Contract\IIntervalNormalizer;
 use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalFactory;
 use AlecRabbit\Spinner\Core\Factory\IntervalFactory;

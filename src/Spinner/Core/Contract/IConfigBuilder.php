@@ -2,8 +2,14 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Spinner\Core\Config\Contract;
+namespace AlecRabbit\Spinner\Core\Contract;
 
+use AlecRabbit\Spinner\Core\Config\Contract\IAuxConfig;
+use AlecRabbit\Spinner\Core\Config\Contract\IConfig;
+use AlecRabbit\Spinner\Core\Config\Contract\IDriverConfig;
+use AlecRabbit\Spinner\Core\Config\Contract\ILoopConfig;
+use AlecRabbit\Spinner\Core\Config\Contract\ISpinnerConfig;
+use AlecRabbit\Spinner\Core\Config\Contract\IWidgetConfig;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Exception\LogicException;
 

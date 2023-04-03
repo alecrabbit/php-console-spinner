@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Factory;
 
 use AlecRabbit\Spinner\Contract\IFrame;
+use AlecRabbit\Spinner\Core\Contract\IDeterminer;
 use AlecRabbit\Spinner\Core\Factory\Contract\IFrameFactory;
 use AlecRabbit\Spinner\Core\Frame;
-use AlecRabbit\Spinner\Core\IDeterminer;
 
 final class FrameFactory implements IFrameFactory
 {
@@ -32,12 +32,7 @@ final class FrameFactory implements IFrameFactory
         return
             new Frame(
                 $sequence,
-                $width ?? $this->width($sequence)
+                $width ?? $this->determiner->getWidth($sequence)
             );
-    }
-
-    protected function width(string $sequence): int
-    {
-        return $this->determiner->getWidth($sequence);
     }
 }
