@@ -8,6 +8,7 @@ use AlecRabbit\Spinner\Container\Container;
 use AlecRabbit\Spinner\Container\Contract\IContainer;
 use AlecRabbit\Spinner\Container\Contract\IServiceSpawner;
 use AlecRabbit\Spinner\Container\ServiceSpawner;
+use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Contract\ISequencer;
 use AlecRabbit\Spinner\Contract\NormalizerMode;
 use AlecRabbit\Spinner\Contract\OptionStyleMode;
@@ -21,6 +22,7 @@ use AlecRabbit\Spinner\Core\Contract\IAnsiStyleConverter;
 use AlecRabbit\Spinner\Core\Contract\IIntervalNormalizer;
 use AlecRabbit\Spinner\Core\Contract\ISpinnerBuilder;
 use AlecRabbit\Spinner\Core\Contract\IStyleFrameRenderer;
+use AlecRabbit\Spinner\Core\Defaults\Contract\IAuxSettings;
 use AlecRabbit\Spinner\Core\Defaults\DefaultsProvider;
 use AlecRabbit\Spinner\Core\DriverBuilder;
 use AlecRabbit\Spinner\Core\Factory\Contract\IContainerFactory;
@@ -34,6 +36,8 @@ use AlecRabbit\Spinner\Core\Factory\Contract\ISpinnerFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ITimerFactory;
 use AlecRabbit\Spinner\Core\FrameRevolverBuilder;
 use AlecRabbit\Spinner\Core\ICharFrameCollectionRenderer;
+use AlecRabbit\Spinner\Core\IIntegerNormalizer;
+use AlecRabbit\Spinner\Core\IntegerNormalizer;
 use AlecRabbit\Spinner\Core\IntervalNormalizer;
 use AlecRabbit\Spinner\Core\IStyleFrameCollectionRenderer;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoopProbeFactory;
@@ -108,6 +112,7 @@ final class ContainerFactory implements IContainerFactory
                 ISpinnerFactory::class => SpinnerFactory::class,
                 ISpinnerBuilder::class => SpinnerBuilder::class,
                 IIntervalFactory::class => IntervalFactory::class,
+
                 IIntervalNormalizer::class => IntervalNormalizer::class,
                 IStyleFrameRenderer::class => StyleFrameRenderer::class,
                 IAnsiStyleConverter::class => AnsiStyleConverter::class,
@@ -118,15 +123,21 @@ final class ContainerFactory implements IContainerFactory
                 ICursorFactory::class => CursorFactory::class,
                 IOutputFactory::class => OutputFactory::class,
 
+                IIntegerNormalizer::class => static function (ContainerInterface $container): IIntegerNormalizer {
+                    /** @var IAuxSettings $auxSettings */
+                    $auxSettings = $container->get(IDefaultsProvider::class)->getAuxSettings();
+                    return
+                        new IntegerNormalizer(
+                            $auxSettings->getNormalizerMode()->getDivisor(),
+                            IInterval::MIN_INTERVAL_MILLISECONDS
+                        );
+                },
+
                 NormalizerMode::class => static function (ContainerInterface $container): NormalizerMode {
-                    return NormalizerMode::BALANCED;
-                    // TODO
-                    //  return $container->get(IDefaultsProvider::class)->getAuxSettings()->getNormalizerMode();
+                    return $container->get(IDefaultsProvider::class)->getAuxSettings()->getNormalizerMode();
                 },
                 OptionStyleMode::class => static function (ContainerInterface $container): OptionStyleMode {
-                    return OptionStyleMode::ANSI8;
-                    // TODO
-                    //  return $container->get(IDefaultsProvider::class)->getAuxSettings()->getOptionStyleMode();
+                    return $container->get(IDefaultsProvider::class)->getAuxSettings()->getOptionStyleMode();
                 },
             ],
         );

@@ -8,6 +8,7 @@ namespace AlecRabbit\Spinner\Core\Defaults\Contract;
 use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Contract\NormalizerMode;
 use AlecRabbit\Spinner\Contract\OptionCursor;
+use AlecRabbit\Spinner\Contract\OptionStyleMode;
 
 interface IAuxSettings
 {
@@ -22,4 +23,8 @@ interface IAuxSettings
     public function getCursorOption(): OptionCursor;
 
     public function setCursorOption(OptionCursor $cursorOption): IAuxSettings;
+
+    public function getOptionStyleMode(): OptionStyleMode;
+
+    public function setOptionStyleMode(OptionStyleMode $optionStyleMode): IAuxSettings;
 }

@@ -2,8 +2,10 @@
 
 namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Core;
 
+use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Contract\NormalizerMode;
 use AlecRabbit\Spinner\Core\Contract\IIntervalNormalizer;
+use AlecRabbit\Spinner\Core\IntegerNormalizer;
 use AlecRabbit\Spinner\Core\Interval;
 use AlecRabbit\Spinner\Core\IntervalNormalizer;
 use AlecRabbit\Tests\Spinner\TestCase\TestCaseWithPrebuiltMocks;
@@ -27,34 +29,6 @@ final class IntervalNormalizerTest extends TestCaseWithPrebuiltMocks
                 ],
             ];
         }
-//        yield [
-//            [
-//                self::EXCEPTION => [
-//                    self::CLASS_ => InvalidArgumentException::class,
-//                    self::MESSAGE => 'Divisor should be greater than 0.',
-//                ],
-//            ],
-//            [
-//                self::ARGUMENTS => [
-//                    self::INTERVAL => 100,
-//                    self::DIVISOR => 0,
-//                ],
-//            ],
-//        ];
-//        yield [
-//            [
-//                self::EXCEPTION => [
-//                    self::CLASS_ => InvalidArgumentException::class,
-//                    self::MESSAGE => 'Divisor should be less than 1000000.',
-//                ],
-//            ],
-//            [
-//                self::ARGUMENTS => [
-//                    self::INTERVAL => 100,
-//                    self::DIVISOR => 1200000,
-//                ],
-//            ],
-//        ];
     }
 
     public static function simplifiedDataFeeder(): iterable
@@ -93,10 +67,16 @@ final class IntervalNormalizerTest extends TestCaseWithPrebuiltMocks
 
     public function getTesteeInstance(array $args = []): IIntervalNormalizer
     {
-        $mode =
-            $args[self::MODE] ?? NormalizerMode::BALANCED;
+        $mode = $args[self::MODE] ?? NormalizerMode::BALANCED;
+        $min = $args[self::MIN] ?? IInterval::MIN_INTERVAL_MILLISECONDS;
 
-        return new IntervalNormalizer($mode);
+        return
+            new IntervalNormalizer(
+                new IntegerNormalizer(
+                    $mode->getDivisor(),
+                    $min
+                )
+            );
     }
 
     #[Test]

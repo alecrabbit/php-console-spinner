@@ -14,6 +14,9 @@ use Psr\Container\ContainerInterface;
 use Psr\Container\NotFoundExceptionInterface;
 use ReflectionClass;
 use ReflectionException;
+use ReflectionIntersectionType;
+use ReflectionNamedType;
+use ReflectionUnionType;
 use Throwable;
 
 final class ServiceSpawner implements IServiceSpawner
@@ -86,11 +89,13 @@ final class ServiceSpawner implements IServiceSpawner
             $parameters = [];
             foreach ($constructorParameters as $parameter) {
                 $name = $parameter->getName();
-                $id = $parameter->getType()?->getName();
-                if (null === $id) {
+                $type = $parameter->getType();
+                if (null === $type) {
                     throw new UnableToExtractType('Unable to extract type for parameter name: $' . $name);
                 }
-                $parameters[$name] = $this->container->get($id);
+                if ($this->needsService($type)) {
+                    $parameters[$name] = $this->container->get($type->getName());
+                }
             }
             return new $class(...$parameters);
         }
@@ -100,5 +105,19 @@ final class ServiceSpawner implements IServiceSpawner
         } catch (Throwable $e) {
             throw new UnableToCreateInstance('Unable to create instance of ' . $class, previous: $e);
         }
+    }
+
+    private function needsService(ReflectionIntersectionType|ReflectionNamedType|ReflectionUnionType $type): bool
+    {
+        return
+            match (true) {
+                $type instanceof ReflectionNamedType => !$type->isBuiltin(),
+                default => throw new UnableToExtractType(
+                    sprintf(
+                        'Only %s is supported.',
+                        ReflectionNamedType::class,
+                    )
+                ),
+            };
     }
 }

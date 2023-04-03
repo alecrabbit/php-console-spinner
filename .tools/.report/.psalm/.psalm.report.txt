@@ -13,12 +13,12 @@
 /app/src/Spinner/Container/ServiceSpawner.php:30:17:error - DocblockTypeContradiction: Docblock-defined type class-string for $definition is always string
 /app/src/Spinner/Container/ServiceSpawner.php:50:63:error - MixedInferredReturnType: Could not verify return type 'object' for AlecRabbit\Spinner\Container\ServiceSpawner::spawnByCallable
 /app/src/Spinner/Container/ServiceSpawner.php:69:83:error - MixedOperand: Right operand cannot be mixed
-/app/src/Spinner/Container/ServiceSpawner.php:89:17:error - MixedAssignment: Unable to determine the type that $id is being assigned to
-/app/src/Spinner/Container/ServiceSpawner.php:89:47:error - UndefinedMethod: Method ReflectionType::getName does not exist
-/app/src/Spinner/Container/ServiceSpawner.php:93:17:error - MixedAssignment: Unable to determine the type of this assignment
-/app/src/Spinner/Container/ServiceSpawner.php:93:60:error - MixedArgument: Argument 1 of Psr\Container\ContainerInterface::get cannot be mixed, expecting string
-/app/src/Spinner/Container/ServiceSpawner.php:95:20:error - MixedMethodCall: Cannot call constructor on an unknown class
-/app/src/Spinner/Container/ServiceSpawner.php:99:20:error - MixedMethodCall: Cannot call constructor on an unknown class
+/app/src/Spinner/Container/ServiceSpawner.php:90:17:error - MixedAssignment: Unable to determine the type that $id is being assigned to
+/app/src/Spinner/Container/ServiceSpawner.php:90:47:error - UndefinedMethod: Method ReflectionType::getName does not exist
+/app/src/Spinner/Container/ServiceSpawner.php:94:17:error - MixedAssignment: Unable to determine the type of this assignment
+/app/src/Spinner/Container/ServiceSpawner.php:94:60:error - MixedArgument: Argument 1 of Psr\Container\ContainerInterface::get cannot be mixed, expecting string
+/app/src/Spinner/Container/ServiceSpawner.php:96:20:error - MixedMethodCall: Cannot call constructor on an unknown class
+/app/src/Spinner/Container/ServiceSpawner.php:100:20:error - MixedMethodCall: Cannot call constructor on an unknown class
 /app/src/Spinner/Core/A/AFrameRevolverBuilder.php:44:41:error - PossiblyNullArgument: Argument 1 of AlecRabbit\Spinner\Core\Revolver\FrameCollectionRevolver::__construct cannot be null, possibly null value provided
 /app/src/Spinner/Core/A/AFrameRevolverBuilder.php:44:56:error - PossiblyNullArgument: Argument 2 of AlecRabbit\Spinner\Core\Revolver\FrameCollectionRevolver::__construct cannot be null, possibly null value provided
 /app/src/Spinner/Core/Config/A/AConfig.php:37:40:error - InvalidReturnType: Not all code paths of AlecRabbit\Spinner\Core\Config\A\AConfig::getDriverConfig end in a return statement, return type AlecRabbit\Spinner\Core\Config\Contract\IDriverConfig expected
@@ -45,6 +45,14 @@
 /app/src/Spinner/Core/Factory/ContainerFactory.php:79:58:error - MixedAssignment: Unable to determine the type that $service is being assigned to
 /app/src/Spinner/Core/Factory/ContainerFactory.php:80:29:error - MixedArgument: Argument 1 of AlecRabbit\Spinner\Container\Contract\IContainer::add cannot be mixed, expecting string
 /app/src/Spinner/Core/Factory/ContainerFactory.php:80:34:error - MixedArgument: Argument 2 of AlecRabbit\Spinner\Container\Contract\IContainer::add cannot be mixed, expecting callable|object|string
+/app/src/Spinner/Core/Factory/ContainerFactory.php:121:91:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Contract\NormalizerMode' for /app/src/spinner/core/factory/containerfactory.php:121:5497:-:closure
+/app/src/Spinner/Core/Factory/ContainerFactory.php:122:28:error - MixedReturnStatement: Could not infer a return type
+/app/src/Spinner/Core/Factory/ContainerFactory.php:122:71:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
+/app/src/Spinner/Core/Factory/ContainerFactory.php:122:89:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
+/app/src/Spinner/Core/Factory/ContainerFactory.php:124:92:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Contract\OptionStyleMode' for /app/src/spinner/core/factory/containerfactory.php:124:5733:-:closure
+/app/src/Spinner/Core/Factory/ContainerFactory.php:125:28:error - MixedReturnStatement: Could not infer a return type
+/app/src/Spinner/Core/Factory/ContainerFactory.php:125:71:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
+/app/src/Spinner/Core/Factory/ContainerFactory.php:125:89:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
 /app/src/Spinner/Core/Factory/CursorFactory.php:28:17:error - ArgumentTypeCoercion: Argument 1 of AlecRabbit\Spinner\Core\Output\Cursor::__construct expects AlecRabbit\Spinner\Contract\IBufferedOutput, but parent type AlecRabbit\Spinner\Contract\IOutput provided
 /app/src/Spinner/Core/Factory/RevolverFactory.php:50:29:error - UndefinedMethod: Method AlecRabbit\Spinner\Core\Factory\Contract\IFrameFactory::createempty does not exist
 /app/src/Spinner/Core/Output/StreamBufferedOutput.php:40:30:error - MixedArgumentTypeCoercion: Argument 1 of AlecRabbit\Spinner\Contract\IResourceStream::write expects Traversable<mixed, string>, but parent type Traversable provided
