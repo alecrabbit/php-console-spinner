@@ -33,17 +33,14 @@ classDiagram
     DriverBuilder ..> CursorBuilder
     
     WidgetBuilder ..> WidgetRevolverBuilder
-    
-    WidgetRevolverBuilder ..> RevolverFactory
-    
-    RevolverFactory ..> FrameRevolverBuilder
-    RevolverFactory ..> FrameFactory
+     
+    WidgetRevolverBuilder ..> FrameRevolverBuilder
+    WidgetRevolverBuilder ..> FrameFactory
     
     FrameRevolverBuilder ..> StyleFrameCollectionRenderer
     FrameRevolverBuilder ..> CharFrameCollectionRenderer
     FrameRevolverBuilder ..> IntervalFactory
     
-    IntervalFactory ..> DefaultsProvider
     IntervalFactory ..> IntervalNormalizer
     
     IntervalNormalizer ..> IntegerNormalizer

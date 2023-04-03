@@ -78,20 +78,6 @@ final class WidgetRevolverBuilder extends ARevolverBuilder implements IWidgetRev
                 ->build();
     }
 
-//    public function withStyleRevolver(IRevolver $styleRevolver): IWidgetRevolverBuilder
-//    {
-//        $clone = clone $this;
-//        $clone->styleRevolver = $styleRevolver;
-//        return $clone;
-//    }
-//
-//    public function withCharRevolver(IRevolver $charRevolver): IWidgetRevolverBuilder
-//    {
-//        $clone = clone $this;
-//        $clone->charRevolver = $charRevolver;
-//        return $clone;
-//    }
-
     public function withStylePattern(IPattern $stylePattern): IWidgetRevolverBuilder
     {
         $clone = clone $this;
