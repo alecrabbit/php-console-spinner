@@ -11,4 +11,6 @@ interface IDriverBuilder
     public function build(): IDriver;
 
     public function withDriverConfig(IDriverConfig $driverConfig): IDriverBuilder;
+
+    public function withAuxConfig(IAuxConfig $auxConfig): IDriverBuilder;
 }

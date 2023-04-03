@@ -6,7 +6,6 @@ namespace AlecRabbit\Spinner\Core;
 
 
 use AlecRabbit\Spinner\Contract\IInterval;
-use AlecRabbit\Spinner\Contract\NormalizerMode;
 use AlecRabbit\Spinner\Core\Contract\IIntervalNormalizer;
 
 final class IntervalNormalizer implements IIntervalNormalizer

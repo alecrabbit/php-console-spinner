@@ -13,4 +13,6 @@ interface IConfig
     public function getSpinnerConfig(): ISpinnerConfig;
 
     public function getRootWidgetConfig(): IWidgetConfig;
+
+    public function getAuxConfig(): IAuxConfig;
 }

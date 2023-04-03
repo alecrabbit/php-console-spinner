@@ -22,6 +22,7 @@ use AlecRabbit\Spinner\Core\Contract\IAnsiStyleConverter;
 use AlecRabbit\Spinner\Core\Contract\IIntervalNormalizer;
 use AlecRabbit\Spinner\Core\Contract\ISpinnerBuilder;
 use AlecRabbit\Spinner\Core\Contract\IStyleFrameRenderer;
+use AlecRabbit\Spinner\Core\CursorBuilder;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IAuxSettings;
 use AlecRabbit\Spinner\Core\Defaults\DefaultsProvider;
 use AlecRabbit\Spinner\Core\DriverBuilder;
@@ -36,11 +37,14 @@ use AlecRabbit\Spinner\Core\Factory\Contract\ISpinnerFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ITimerFactory;
 use AlecRabbit\Spinner\Core\FrameRevolverBuilder;
 use AlecRabbit\Spinner\Core\ICharFrameCollectionRenderer;
+use AlecRabbit\Spinner\Core\ICursorBuilder;
 use AlecRabbit\Spinner\Core\IIntegerNormalizer;
 use AlecRabbit\Spinner\Core\IntegerNormalizer;
 use AlecRabbit\Spinner\Core\IntervalNormalizer;
+use AlecRabbit\Spinner\Core\IOutputBuilder;
 use AlecRabbit\Spinner\Core\IStyleFrameCollectionRenderer;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoopProbeFactory;
+use AlecRabbit\Spinner\Core\OutputBuilder;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolverBuilder;
 use AlecRabbit\Spinner\Core\Sequencer;
 use AlecRabbit\Spinner\Core\SpinnerBuilder;
@@ -120,8 +124,8 @@ final class ContainerFactory implements IContainerFactory
                 ICharFrameCollectionRenderer::class => CharFrameCollectionRenderer::class,
                 ISequencer::class => Sequencer::class,
                 ITimerFactory::class => TimerFactory::class,
-                ICursorFactory::class => CursorFactory::class,
-                IOutputFactory::class => OutputFactory::class,
+                IOutputBuilder::class => OutputBuilder::class,
+                ICursorBuilder::class => CursorBuilder::class,
 
                 IIntegerNormalizer::class => static function (ContainerInterface $container): IIntegerNormalizer {
                     /** @var IAuxSettings $auxSettings */

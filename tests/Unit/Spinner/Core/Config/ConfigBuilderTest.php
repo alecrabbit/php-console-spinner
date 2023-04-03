@@ -112,4 +112,18 @@ final class ConfigBuilderTest extends TestCaseWithPrebuiltMocks
         self::assertInstanceOf(Config::class, $config);
     }
 
+    #[Test]
+    public function canBuildWithAuxConfig(): void
+    {
+        $configBuilder = $this->getTesteeInstance();
+
+        self::assertInstanceOf(ConfigBuilder::class, $configBuilder);
+
+        $auxConfig = $this->getAuxConfigMock();
+
+        $config = $configBuilder->withAuxConfig($auxConfig)->build();
+
+        self::assertInstanceOf(Config::class, $config);
+    }
+
 }

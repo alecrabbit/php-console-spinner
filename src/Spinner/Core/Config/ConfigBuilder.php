@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Config;
 
+use AlecRabbit\Spinner\Core\Config\Contract\IAuxConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\IDefaultsProvider;
@@ -18,15 +19,14 @@ final class ConfigBuilder implements IConfigBuilder
     protected ?ILoopConfig $loopConfig = null;
     protected ?ISpinnerConfig $spinnerConfig = null;
     protected ?IWidgetConfig $rootWidgetConfig = null;
+    protected ?IAuxConfig $auxConfig = null;
 
     public function __construct(
         protected IDefaultsProvider $defaultsProvider
     ) {
     }
 
-
-    public
-    function withDriverConfig(
+    public function withDriverConfig(
         IDriverConfig $driverConfig
     ): IConfigBuilder {
         $clone = clone $this;
@@ -34,8 +34,7 @@ final class ConfigBuilder implements IConfigBuilder
         return $clone;
     }
 
-    public
-    function withLoopConfig(
+    public function withLoopConfig(
         ILoopConfig $loopConfig
     ): IConfigBuilder {
         $clone = clone $this;
@@ -43,8 +42,7 @@ final class ConfigBuilder implements IConfigBuilder
         return $clone;
     }
 
-    public
-    function withSpinnerConfig(
+    public function withSpinnerConfig(
         ISpinnerConfig $spinnerConfig
     ): IConfigBuilder {
         $clone = clone $this;
@@ -52,8 +50,7 @@ final class ConfigBuilder implements IConfigBuilder
         return $clone;
     }
 
-    public
-    function withRootWidgetConfig(
+    public function withRootWidgetConfig(
         IWidgetConfig $widgetConfig
     ): IConfigBuilder {
         $clone = clone $this;
@@ -61,8 +58,15 @@ final class ConfigBuilder implements IConfigBuilder
         return $clone;
     }
 
-    public
-    function build(): IConfig
+    public function withAuxConfig(
+        IAuxConfig $auxConfig
+    ): IConfigBuilder {
+        $clone = clone $this;
+        $clone->auxConfig = $auxConfig;
+        return $clone;
+    }
+
+    public function build(): IConfig
     {
         return
             new Config(
@@ -70,11 +74,11 @@ final class ConfigBuilder implements IConfigBuilder
                 $this->loopConfig ?? $this->defaultLoopConfig(),
                 $this->spinnerConfig ?? $this->defaultSpinnerConfig(),
                 $this->rootWidgetConfig ?? $this->defaultRootWidgetConfig(),
+                $this->auxConfig ?? $this->defaultAuxConfig(),
             );
     }
 
-    protected
-    function defaultDriverConfig(): IDriverConfig
+    protected function defaultDriverConfig(): IDriverConfig
     {
         $driverSettings = $this->defaultsProvider->getDriverSettings();
         return
@@ -84,8 +88,7 @@ final class ConfigBuilder implements IConfigBuilder
             );
     }
 
-    protected
-    function defaultLoopConfig(): ILoopConfig
+    protected function defaultLoopConfig(): ILoopConfig
     {
         $loopSettings = $this->defaultsProvider->getLoopSettings();
         return
@@ -96,8 +99,7 @@ final class ConfigBuilder implements IConfigBuilder
             );
     }
 
-    protected
-    function defaultSpinnerConfig(): ISpinnerConfig
+    protected function defaultSpinnerConfig(): ISpinnerConfig
     {
         $spinnerSettings = $this->defaultsProvider->getSpinnerSettings();
         return
@@ -106,8 +108,7 @@ final class ConfigBuilder implements IConfigBuilder
             );
     }
 
-    protected
-    function defaultRootWidgetConfig(): IWidgetConfig
+    protected function defaultRootWidgetConfig(): IWidgetConfig
     {
         $rootWidgetSettings = $this->defaultsProvider->getRootWidgetSettings();
         return
@@ -116,6 +117,19 @@ final class ConfigBuilder implements IConfigBuilder
                 $rootWidgetSettings->getTrailingSpacer(),
                 $rootWidgetSettings->getStylePattern(),
                 $rootWidgetSettings->getCharPattern(),
+            );
+    }
+
+    private function defaultAuxConfig(): IAuxConfig
+    {
+        $auxSettings = $this->defaultsProvider->getAuxSettings();
+        return
+            new AuxConfig(
+                $auxSettings->getInterval(),
+                $auxSettings->getNormalizerMode(),
+                $auxSettings->getCursorOption(),
+                $auxSettings->getOptionStyleMode(),
+                $auxSettings->getOutputStream(),
             );
     }
 }

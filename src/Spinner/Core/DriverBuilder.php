@@ -5,21 +5,21 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core;
 
 use AlecRabbit\Spinner\Contract\IDriver;
+use AlecRabbit\Spinner\Core\Config\Contract\IAuxConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IDriverBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\IDriverConfig;
-use AlecRabbit\Spinner\Core\Factory\Contract\ICursorFactory;
-use AlecRabbit\Spinner\Core\Factory\Contract\IOutputFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ITimerFactory;
 use LogicException;
 
 final class DriverBuilder implements IDriverBuilder
 {
     protected ?IDriverConfig $driverConfig = null;
+    protected ?IAuxConfig $auxConfig = null;
 
     public function __construct(
         protected ITimerFactory $timerFactory,
-        protected IOutputFactory $outputFactory,
-        protected ICursorFactory $cursorFactory,
+        protected IOutputBuilder $outputBuilder,
+        protected ICursorBuilder $cursorBuilder,
     ) {
     }
 
@@ -33,15 +33,33 @@ final class DriverBuilder implements IDriverBuilder
         return $this->createDriver();
     }
 
+
     private function createDriver(): Driver
     {
+        $output =
+            $this->outputBuilder
+                ->withStream($this->auxConfig->getOutputStream())
+                ->build();
+
+        $cursor =
+            $this->cursorBuilder
+                ->withOutput($output)
+                ->withCursorOption($this->auxConfig->getCursorOption())
+                ->build();
+
         return
             new Driver(
-                output: $this->outputFactory->getOutput(),
-                cursor: $this->cursorFactory->createCursor(),
+                output: $output,
+                cursor: $cursor,
                 timer: $this->timerFactory->createTimer(),
                 driverConfig: $this->driverConfig,
             );
+    }
+
+    public function withAuxConfig(IAuxConfig $auxConfig): IDriverBuilder
+    {
+        $this->auxConfig = $auxConfig;
+        return $this;
     }
 
     public function withDriverConfig(IDriverConfig $driverConfig): IDriverBuilder

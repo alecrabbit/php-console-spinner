@@ -4,13 +4,14 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Core;
 
+use AlecRabbit\Spinner\Contract\OptionCursor;
 use AlecRabbit\Spinner\Core\Config\Contract\IDriverBuilder;
 use AlecRabbit\Spinner\Core\Config\DriverConfig;
 use AlecRabbit\Spinner\Core\Driver;
 use AlecRabbit\Spinner\Core\DriverBuilder;
-use AlecRabbit\Spinner\Core\Factory\Contract\ICursorFactory;
-use AlecRabbit\Spinner\Core\Factory\Contract\IOutputFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ITimerFactory;
+use AlecRabbit\Spinner\Core\ICursorBuilder;
+use AlecRabbit\Spinner\Core\IOutputBuilder;
 use AlecRabbit\Tests\Spinner\TestCase\TestCaseWithPrebuiltMocks;
 use LogicException;
 use PHPUnit\Framework\Attributes\Test;
@@ -27,32 +28,49 @@ final class DriverBuilderTest extends TestCaseWithPrebuiltMocks
 
     public function getTesteeInstance(
         ?ITimerFactory $timerFactory = null,
-        ?IOutputFactory $outputFactory = null,
-        ?ICursorFactory $cursorFactory = null,
+        ?IOutputBuilder $outputBuilder = null,
+        ?ICursorBuilder $cursorBuilder = null,
     ): IDriverBuilder {
         return
             new DriverBuilder(
                 timerFactory: $timerFactory ?? $this->getTimerFactoryMock(),
-                outputFactory: $outputFactory ?? $this->getOutputFactoryMock(),
-                cursorFactory: $cursorFactory ?? $this->getCursorFactoryMock(),
+                outputBuilder: $outputBuilder ?? $this->getOutputBuilderMock(),
+                cursorBuilder: $cursorBuilder ?? $this->getCursorBuilderMock(),
             );
     }
 
     #[Test]
-    public function canBuildDriverWithDriverConfig(): void
+    public function canBuildDriverWithConfig(): void
     {
-        $outputFactory = $this->getOutputFactoryMock();
-        $outputFactory
-            ->expects(self::once())
-            ->method('getOutput')
+        $outputBuilder = $this->getOutputBuilderMock();
+
+        $outputBuilder
+            ->method('withStream')
+            ->willReturn($outputBuilder);
+
+        $outputBuilder
+            ->method('build')
             ->willReturn($this->getBufferedOutputMock());
 
-        $driverBuilder = $this->getTesteeInstance(outputFactory: $outputFactory);
+        $driverBuilder = $this->getTesteeInstance(outputBuilder: $outputBuilder);
 
         self::assertInstanceOf(DriverBuilder::class, $driverBuilder);
 
+        $auxConfig = $this->getAuxConfigMock();
+        $auxConfig
+            ->method('getOutputStream')
+            ->willReturn(STDERR);
+        $auxConfig
+            ->method('getCursorOption')
+            ->willReturn(OptionCursor::ENABLED);
+
         $driverConfig = new DriverConfig('interrupted', 'finished');
-        $driver = $driverBuilder->withDriverConfig($driverConfig)->build();
+
+        $driver =
+            $driverBuilder
+                ->withAuxConfig($auxConfig)
+                ->withDriverConfig($driverConfig)
+                ->build();
 
         self::assertInstanceOf(Driver::class, $driver);
     }

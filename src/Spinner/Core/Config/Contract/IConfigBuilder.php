@@ -22,4 +22,6 @@ interface IConfigBuilder
     public function withSpinnerConfig(ISpinnerConfig $spinnerConfig): IConfigBuilder;
 
     public function withRootWidgetConfig(IWidgetConfig $widgetConfig): IConfigBuilder;
+
+    public function withAuxConfig(IAuxConfig $auxConfig): IConfigBuilder;
 }

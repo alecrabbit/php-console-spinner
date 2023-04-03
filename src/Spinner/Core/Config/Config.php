@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Config;
 
+use AlecRabbit\Spinner\Core\Config\Contract\IAuxConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IDriverConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\ILoopConfig;
@@ -17,6 +18,7 @@ final readonly class Config implements IConfig
         protected ILoopConfig $loopConfig,
         protected ISpinnerConfig $spinnerConfig,
         protected IWidgetConfig $rootWidgetConfig,
+        protected IAuxConfig $auxConfig,
     ) {
     }
 
@@ -38,5 +40,10 @@ final readonly class Config implements IConfig
     public function getRootWidgetConfig(): IWidgetConfig
     {
         return $this->rootWidgetConfig;
+    }
+
+    public function getAuxConfig(): IAuxConfig
+    {
+        return $this->auxConfig;
     }
 }

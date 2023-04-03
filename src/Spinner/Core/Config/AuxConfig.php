@@ -9,6 +9,7 @@ use AlecRabbit\Spinner\Contract\NormalizerMode;
 use AlecRabbit\Spinner\Contract\OptionCursor;
 use AlecRabbit\Spinner\Contract\OptionStyleMode;
 use AlecRabbit\Spinner\Core\Config\Contract\IAuxConfig;
+use AlecRabbit\Spinner\Helper\Asserter;
 
 final class AuxConfig implements IAuxConfig
 {
@@ -19,6 +20,7 @@ final class AuxConfig implements IAuxConfig
         protected OptionStyleMode $optionStyleMode,
         protected $outputStream,
     ) {
+        Asserter::assertStream($outputStream);
     }
 
     public function getInterval(): IInterval

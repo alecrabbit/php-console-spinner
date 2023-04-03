@@ -29,6 +29,7 @@ final class SpinnerBuilder implements ISpinnerBuilder
 
         $driver =
             $this->driverBuilder
+                ->withAuxConfig($this->config->getAuxConfig())
                 ->withDriverConfig($this->config->getDriverConfig())
                 ->build();
 

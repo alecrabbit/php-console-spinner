@@ -20,17 +20,18 @@ final class TimerFactoryTest extends TestCaseWithPrebuiltMocks
 
         self::assertInstanceOf(TimerFactory::class, $timerFactory);
     }
+
+    public function getTesteeInstance(): ITimerFactory
+    {
+        return
+            new TimerFactory();
+    }
+
     #[Test]
     public function canCreateTimer(): void
     {
         $timerFactory = $this->getTesteeInstance();
 
         self::assertInstanceOf(Timer::class, $timerFactory->createTimer());
-    }
-
-    public function getTesteeInstance(): ITimerFactory
-    {
-        return
-            new TimerFactory();
     }
 }
