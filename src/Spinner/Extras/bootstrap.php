@@ -2,14 +2,16 @@
 
 declare(strict_types=1);
 
-use AlecRabbit\Spinner\Core\Defaults\A\ADefaultsClasses;
-use AlecRabbit\Spinner\Core\Factory\StaticDefaultsFactory;
-use AlecRabbit\Spinner\Extras\ProceduralFrameRevolverBuilder;
-use AlecRabbit\Spinner\Extras\Terminal\SymfonyTerminalProbe;
+use AlecRabbit\Spinner\Facade;
 
 // @codeCoverageIgnoreStart
 
-StaticDefaultsFactory::addProbe(SymfonyTerminalProbe::class);
+$container = Facade::getContainer();
 
-ADefaultsClasses::overrideFrameRevolverBuilderClass(ProceduralFrameRevolverBuilder::class);
+// $container->replace();
+
 // @codeCoverageIgnoreEnd
+
+// //StaticDefaultsFactory::addProbe(SymfonyTerminalProbe::class);
+// //
+// //ADefaultsClasses::overrideFrameRevolverBuilderClass(ProceduralFrameRevolverBuilder::class);

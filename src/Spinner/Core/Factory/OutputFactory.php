@@ -31,7 +31,15 @@ final class OutputFactory implements IOutputFactory
     {
         return
             new StreamBufferedOutput(
-                new ResourceStream(STDERR)
+                new ResourceStream($this->getOutputStream())
             );
+    }
+
+    /**
+     * @return resource
+     */
+    private function getOutputStream()
+    {
+        return $this->defaultsProvider->getAuxSettings()->getOutputStream();
     }
 }

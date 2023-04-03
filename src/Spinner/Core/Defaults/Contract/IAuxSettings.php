@@ -9,6 +9,7 @@ use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Contract\NormalizerMode;
 use AlecRabbit\Spinner\Contract\OptionCursor;
 use AlecRabbit\Spinner\Contract\OptionStyleMode;
+use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 
 interface IAuxSettings
 {
@@ -27,4 +28,17 @@ interface IAuxSettings
     public function getOptionStyleMode(): OptionStyleMode;
 
     public function setOptionStyleMode(OptionStyleMode $optionStyleMode): IAuxSettings;
+
+    /**
+     * @return resource
+     */
+    public function getOutputStream();
+
+    /**
+     * @param resource $outputStream
+     * @return IAuxSettings
+     *
+     * @throws InvalidArgumentException
+     */
+    public function setOutputStream($outputStream): IAuxSettings;
 }

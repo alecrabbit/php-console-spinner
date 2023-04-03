@@ -9,6 +9,7 @@ use AlecRabbit\Spinner\Contract\NormalizerMode;
 use AlecRabbit\Spinner\Contract\OptionCursor;
 use AlecRabbit\Spinner\Contract\OptionStyleMode;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IAuxSettings;
+use AlecRabbit\Spinner\Helper\Asserter;
 
 final class AuxSettings implements IAuxSettings
 {
@@ -17,6 +18,7 @@ final class AuxSettings implements IAuxSettings
         protected NormalizerMode $normalizerMode = NormalizerMode::BALANCED,
         protected OptionCursor $cursorOption = OptionCursor::HIDDEN,
         protected OptionStyleMode $optionStyleMode = OptionStyleMode::ANSI8,
+        protected $outputStream = STDERR,
     ) {
     }
 
@@ -64,5 +66,17 @@ final class AuxSettings implements IAuxSettings
         return $this;
     }
 
+    /** @inheritdoc */
+    public function getOutputStream()
+    {
+        return $this->outputStream;
+    }
 
+    /** @inheritdoc */
+    public function setOutputStream($outputStream): IAuxSettings
+    {
+        Asserter::assertStream($outputStream);
+        $this->outputStream = $outputStream;
+        return $this;
+    }
 }

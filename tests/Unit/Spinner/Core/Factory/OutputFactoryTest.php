@@ -10,6 +10,7 @@ use AlecRabbit\Spinner\Core\Factory\OutputFactory;
 use AlecRabbit\Spinner\Core\Output\StreamBufferedOutput;
 use AlecRabbit\Tests\Spinner\TestCase\TestCaseWithPrebuiltMocks;
 use PHPUnit\Framework\Attributes\Test;
+use PHPUnit\Framework\MockObject\MockObject;
 
 
 final class OutputFactoryTest extends TestCaseWithPrebuiltMocks
@@ -26,7 +27,7 @@ final class OutputFactoryTest extends TestCaseWithPrebuiltMocks
     {
         return
             new OutputFactory(
-                defaultsProvider: $defaultsProvider ?? $this->getDefaultsProviderMock(),
+                defaultsProvider: $defaultsProvider ?? $this->prepareDefaultsProviderMock(),
             );
     }
 
@@ -36,5 +37,19 @@ final class OutputFactoryTest extends TestCaseWithPrebuiltMocks
         $outputFactory = $this->getTesteeInstance();
 
         self::assertInstanceOf(StreamBufferedOutput::class, $outputFactory->getOutput());
+    }
+
+    private function prepareDefaultsProviderMock(): MockObject&IDefaultsProvider
+    {
+        $defaultsProvider = $this->getDefaultsProviderMock();
+        $auxSettings = $this->getAuxSettingsMock();
+        $auxSettings
+            ->method('getOutputStream')
+            ->willReturn(STDERR);
+        $defaultsProvider
+            ->method('getAuxSettings')
+            ->willReturn($auxSettings);
+
+        return $defaultsProvider;
     }
 }

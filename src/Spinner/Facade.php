@@ -52,14 +52,5 @@ final class Facade implements IFacade
     {
         /** @psalm-suppress LessSpecificReturnStatement */
         return self::getContainer()->get(ILoopFactory::class);
-//        return
-//            new LoopFactory(self::getLoopProbeFactory());
     }
-//
-//    /** @psalm-suppress MoreSpecificReturnType */
-//    protected static function getLoopProbeFactory(): ILoopProbeFactory
-//    {
-//        /** @psalm-suppress LessSpecificReturnStatement */
-//        return self::getContainer()->get(ILoopProbeFactory::class);
-//    }
 }

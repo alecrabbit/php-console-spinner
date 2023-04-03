@@ -30,6 +30,12 @@ classDiagram
     
     DriverBuilder ..> TimerFactory
     DriverBuilder ..> OutputFactory
+    DriverBuilder ..> CursorFactory
+    
+    OutputFactory ..> DefaultsProvider
+    
+    CursorFactory ..> DefaultsProvider
+    CursorFactory ..> OutputFactory
     
     WidgetBuilder ..> WidgetRevolverBuilder
     
@@ -45,9 +51,7 @@ classDiagram
     IntervalFactory ..> DefaultsProvider
     IntervalFactory ..> IntervalNormalizer
     
-    IntervalNormalizer ..> NormalizerMode
     IntervalNormalizer ..> IntegerNormalizer
-    IntervalNormalizer ..> IInterval
     
     StyleFrameCollectionRenderer ..> StyleFrameRenderer
     StyleFrameCollectionRenderer ..> FrameFactory
