@@ -26,9 +26,7 @@ final class ServiceSpawner implements IServiceSpawner
     ) {
     }
 
-    /**
-     *
-     */
+    /** @inheritdoc */
     public function spawn(string|callable|object $definition): object
     {
         try {
