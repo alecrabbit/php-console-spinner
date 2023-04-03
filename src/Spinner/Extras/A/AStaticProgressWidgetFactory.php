@@ -14,7 +14,7 @@ use AlecRabbit\Spinner\Core\Factory\A\AStaticWidgetFactory;
 use AlecRabbit\Spinner\Core\Factory\FrameFactory;
 use AlecRabbit\Spinner\Core\Factory\StaticRevolverFactory;
 use AlecRabbit\Spinner\Core\FrameRenderer;
-use AlecRabbit\Spinner\Core\Pattern\Char\CustomPattern;
+use AlecRabbit\Spinner\Core\Pattern\CharPattern\CustomPattern;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
 use AlecRabbit\Spinner\Extras\Contract\IProgressBarSprite;

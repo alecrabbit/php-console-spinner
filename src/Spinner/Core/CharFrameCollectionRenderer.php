@@ -5,9 +5,10 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core;
 
+use AlecRabbit\Spinner\Contract\Color\Style\IStyle;
 use AlecRabbit\Spinner\Contract\IFrame;
-use AlecRabbit\Spinner\Contract\IStyle;
 use AlecRabbit\Spinner\Core\A\AFrameCollectionRenderer;
+use AlecRabbit\Spinner\Core\Contract\ICharFrameCollectionRenderer;
 use AlecRabbit\Spinner\Core\Factory\Contract\IFrameFactory;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 

@@ -5,6 +5,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core;
 
+use AlecRabbit\Spinner\Core\Contract\IIntegerNormalizer;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 
 final class IntegerNormalizer implements IIntegerNormalizer

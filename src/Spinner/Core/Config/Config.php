@@ -14,11 +14,11 @@ use AlecRabbit\Spinner\Core\Config\Contract\IWidgetConfig;
 final readonly class Config implements IConfig
 {
     public function __construct(
+        protected IAuxConfig $auxConfig,
         protected IDriverConfig $driverConfig,
         protected ILoopConfig $loopConfig,
         protected ISpinnerConfig $spinnerConfig,
         protected IWidgetConfig $rootWidgetConfig,
-        protected IAuxConfig $auxConfig,
     ) {
     }
 

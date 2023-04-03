@@ -12,8 +12,8 @@ use AlecRabbit\Spinner\Core\Defaults\Contract\ISpinnerSettings;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IWidgetSettings;
 use AlecRabbit\Spinner\Core\Factory\FrameFactory;
 use AlecRabbit\Spinner\Core\Interval;
-use AlecRabbit\Spinner\Core\Pattern\Char\Snake;
-use AlecRabbit\Spinner\Core\Pattern\Style\Rainbow;
+use AlecRabbit\Spinner\Core\Pattern\CharPattern\Snake;
+use AlecRabbit\Spinner\Core\Pattern\StylePattern\Rainbow;
 
 final class DefaultsProvider implements IDefaultsProvider
 {

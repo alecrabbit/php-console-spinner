@@ -6,6 +6,7 @@ namespace AlecRabbit\Spinner\Core;
 
 use AlecRabbit\Spinner\Contract\IOutput;
 use AlecRabbit\Spinner\Contract\OptionCursor;
+use AlecRabbit\Spinner\Core\Contract\ICursorBuilder;
 use AlecRabbit\Spinner\Core\Output\Contract\ICursor;
 use AlecRabbit\Spinner\Core\Output\Cursor;
 use LogicException;

@@ -5,15 +5,15 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Factory;
 
 use AlecRabbit\Spinner\Contract\IInterval;
-use AlecRabbit\Spinner\Core\Config\Contract\IDefaultsProvider;
 use AlecRabbit\Spinner\Core\Contract\IIntervalNormalizer;
 use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalFactory;
 use AlecRabbit\Spinner\Core\Interval;
 
 final class IntervalFactory implements IIntervalFactory
 {
+    protected const DEFAULT_INTERVAL = 1000;
+
     public function __construct(
-        protected IDefaultsProvider $defaultsProvider,
         protected IIntervalNormalizer $intervalNormalizer,
     ) {
     }
@@ -26,7 +26,7 @@ final class IntervalFactory implements IIntervalFactory
         if (null === $normalizedDefaultInterval) {
             $normalizedDefaultInterval =
                 $this->intervalNormalizer->normalize(
-                    $this->defaultsProvider->getAuxSettings()->getInterval(),
+                    new Interval(self::DEFAULT_INTERVAL),
                 );
         }
 

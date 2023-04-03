@@ -28,12 +28,10 @@ final class IntervalFactoryTest extends TestCaseWithPrebuiltMocks
     }
 
     public function getTesteeInstance(
-        ?IDefaultsProvider $defaultsProvider = null,
         ?IIntervalNormalizer $intervalNormalizer = null,
     ): IIntervalFactory {
         return
             new IntervalFactory(
-                defaultsProvider: $defaultsProvider ?? $this->getDefaultsProviderMock(),
                 intervalNormalizer: $intervalNormalizer ?? $this->getIntervalNormalizerMock(),
             );
     }
