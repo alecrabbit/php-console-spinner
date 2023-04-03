@@ -4,6 +4,7 @@ declare(strict_types=1);
 // 29.03.23
 namespace AlecRabbit\Spinner\Core\Factory;
 
+use AlecRabbit\Spinner\Asynchronous\Factory\LoopProbeFactory;
 use AlecRabbit\Spinner\Container\Container;
 use AlecRabbit\Spinner\Container\Contract\IContainer;
 use AlecRabbit\Spinner\Container\Contract\IServiceSpawner;
@@ -28,6 +29,7 @@ use AlecRabbit\Spinner\Core\Factory\Contract\IContainerFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ICursorFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IFrameFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\ILoopFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IOutputFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IRevolverFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ISpinnerFactory;
@@ -88,8 +90,15 @@ final class ContainerFactory implements IContainerFactory
                 IDefaultsProvider::class => new DefaultsProvider(),
 
                 ILoopProbeFactory::class => static function (): never {
-                    throw new DomainException('LoopProbeFactory is not available in this context.');
+                    throw new DomainException(
+                        sprintf(
+                            'Class [%s] is not available in this context.',
+                            LoopProbeFactory::class
+                        )
+                    );
                 },
+
+                ILoopFactory::class => LoopFactory::class,
                 IFrameFactory::class => FrameFactory::class,
                 IConfigBuilder::class => ConfigBuilder::class,
                 IDriverBuilder::class => DriverBuilder::class,
