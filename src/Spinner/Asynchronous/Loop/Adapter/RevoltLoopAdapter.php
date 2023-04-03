@@ -5,9 +5,9 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Asynchronous\Loop\Adapter;
 
-use AlecRabbit\Spinner\Core\A\ALoopAdapter;
 use AlecRabbit\Spinner\Core\Contract\IForeignLoop;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
+use AlecRabbit\Spinner\Core\Loop\A\ALoopAdapter;
 use Closure;
 use Revolt\EventLoop;
 use Revolt\EventLoop\Driver\EvDriver;

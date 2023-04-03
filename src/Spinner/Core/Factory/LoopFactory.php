@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Factory;
 
-use AlecRabbit\Spinner\Core\Contract\ILoopAdapter;
-use AlecRabbit\Spinner\Core\Contract\ILoopProbe;
-use AlecRabbit\Spinner\Core\Contract\ILoopProbeFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopFactory;
+use AlecRabbit\Spinner\Core\Loop\Contract\ILoopAdapter;
+use AlecRabbit\Spinner\Core\Loop\Contract\ILoopProbe;
+use AlecRabbit\Spinner\Core\Loop\Contract\ILoopProbeFactory;
 
 final class LoopFactory implements ILoopFactory
 {

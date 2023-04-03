@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Asynchronous\Factory;
 
-use AlecRabbit\Spinner\Core\Contract\ILoopProbe;
-use AlecRabbit\Spinner\Core\Contract\ILoopProbeFactory;
+use AlecRabbit\Spinner\Core\Loop\Contract\ILoopProbe;
+use AlecRabbit\Spinner\Core\Loop\Contract\ILoopProbeFactory;
 use AlecRabbit\Spinner\Exception\DomainException;
 use ArrayObject;
 use Traversable;

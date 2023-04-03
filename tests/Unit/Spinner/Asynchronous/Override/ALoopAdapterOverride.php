@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Asynchronous\Override;
 
-use AlecRabbit\Spinner\Core\A\ALoopAdapter;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
+use AlecRabbit\Spinner\Core\Loop\A\ALoopAdapter;
 use Closure;
 
 final class ALoopAdapterOverride extends ALoopAdapter

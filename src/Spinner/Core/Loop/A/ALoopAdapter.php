@@ -2,14 +2,17 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Spinner\Core\A;
+namespace AlecRabbit\Spinner\Core\Loop\A;
 
-use AlecRabbit\Spinner\Core\Contract\ILoopAdapter;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
+use AlecRabbit\Spinner\Core\Loop\Contract\ILoopAdapter;
 use AlecRabbit\Spinner\Exception\RuntimeException;
 use AlecRabbit\Spinner\Helper\Asserter;
 use Closure;
 
+/**
+ * @codeCoverageIgnore
+ */
 abstract class ALoopAdapter implements ILoopAdapter
 {
     protected static function error(): bool
