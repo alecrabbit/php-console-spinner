@@ -73,7 +73,7 @@ final class RevoltLoopAdapter extends ALoopAdapter
         $this->getLoop()->run();
     }
 
-    public function getLoop(): EventLoop\Driver|IForeignLoop
+    public function getLoop(): EventLoop\Driver
     {
         return EventLoop::getDriver();
     }
