@@ -10,7 +10,7 @@
 /app/src/Spinner/Container/Container.php:40:38:error - MixedAssignment: Unable to determine the type that $id is being assigned to
 /app/src/Spinner/Container/Container.php:41:38:error - MixedArgument: Argument 1 of AlecRabbit\Spinner\Container\Container::addDefinition cannot be mixed, expecting string
 /app/src/Spinner/Container/Container.php:147:49:error - ArgumentTypeCoercion: Argument 1 of AlecRabbit\Spinner\Container\Contract\IServiceSpawner::spawn expects callable|class-string, but parent type callable|object|string provided
-/app/src/Spinner/Container/ServiceSpawner.php:36:17:error - DocblockTypeContradiction: Docblock-defined type class-string for $definition is always string
+/app/src/Spinner/Container/ServiceSpawner.php:39:32:error - DocblockTypeContradiction: Docblock-defined type class-string for $definition is always string
 /app/src/Spinner/Container/ServiceSpawner.php:56:63:error - MixedInferredReturnType: Could not verify return type 'object' for AlecRabbit\Spinner\Container\ServiceSpawner::spawnByCallable
 /app/src/Spinner/Container/ServiceSpawner.php:75:83:error - MixedOperand: Right operand cannot be mixed
 /app/src/Spinner/Container/ServiceSpawner.php:99:41:error - ArgumentTypeCoercion: Argument 1 of AlecRabbit\Spinner\Container\ServiceSpawner::needsService expects ReflectionIntersectionType|ReflectionNamedType|ReflectionUnionType, but parent type ReflectionType provided

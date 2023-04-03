@@ -58,8 +58,8 @@ Structure
       Static Methods                               130 (15.01%)
     Visibility
       Public Methods                               688 (79.45%)
-      Protected Methods                            146 (16.86%)
-      Private Methods                               32 (3.70%)
+      Protected Methods                            145 (16.74%)
+      Private Methods                               33 (3.81%)
   Functions                                         20
     Named Functions                                  4 (20.00%)
     Anonymous Functions                             16 (80.00%)

@@ -36,7 +36,7 @@ final class ServiceSpawner implements IServiceSpawner
                 match (true) {
                     is_callable($definition) => $this->spawnByCallable($definition),
                     is_string($definition) => $this->spawnByClassConstructor($definition),
-                    is_object($definition) => $definition, // return object as is
+                    default => $definition, // return object as is
                 };
         } catch (Throwable $e) {
             throw new SpawnFailedException(
@@ -83,7 +83,7 @@ final class ServiceSpawner implements IServiceSpawner
      * @throws NotFoundExceptionInterface
      * @throws ReflectionException
      */
-    protected function createInstanceByReflection(string $class): object
+    private function createInstanceByReflection(string $class): object
     {
         $reflection = new ReflectionClass($class);
 
