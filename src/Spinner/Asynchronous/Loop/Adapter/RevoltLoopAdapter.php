@@ -14,7 +14,10 @@ use Revolt\EventLoop\Driver\EvDriver;
 use Revolt\EventLoop\Driver\EventDriver;
 use Revolt\EventLoop\Driver\UvDriver;
 
-class RevoltLoopAdapter extends ALoopAdapter
+/**
+ * @codeCoverageIgnore
+ */
+final class RevoltLoopAdapter extends ALoopAdapter
 {
     private static bool $stopped = false;
     private ?string $spinnerTimer = null;

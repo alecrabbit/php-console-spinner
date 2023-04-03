@@ -11,7 +11,10 @@ use Closure;
 use React\EventLoop\LoopInterface;
 use React\EventLoop\TimerInterface;
 
-class ReactLoopAdapter extends ALoopAdapter
+/**
+ * @codeCoverageIgnore
+ */
+final class ReactLoopAdapter extends ALoopAdapter
 {
     private ?TimerInterface $spinnerTimer = null;
 
