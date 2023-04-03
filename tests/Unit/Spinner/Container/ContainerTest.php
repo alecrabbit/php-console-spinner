@@ -39,7 +39,7 @@ final class ContainerTest extends TestCase
         };
 
         return new Container(
-            spawnerCb: $spawnerCb,
+            spawnerCreatorCb: $spawnerCb,
             definitions: $definitions,
         );
     }

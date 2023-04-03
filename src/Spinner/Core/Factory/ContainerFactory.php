@@ -65,7 +65,7 @@ final class ContainerFactory implements IContainerFactory
     {
         if (null === self::$container) {
             self::$container = new Container(
-                spawnerCb: static function (ContainerInterface $container): IServiceSpawner {
+                spawnerCreatorCb: static function (ContainerInterface $container): IServiceSpawner {
                     return new ServiceSpawner($container);
                 },
             );

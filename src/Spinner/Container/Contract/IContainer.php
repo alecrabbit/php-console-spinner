@@ -27,7 +27,7 @@ interface IContainer extends ContainerInterface
     public function add(string $id, callable|object|string $definition): void;
 
     /**
-     * Removes definition and service(if any) from the container.
+     * Removes definition and service(if any) with **this** identifier from the container.
      *
      * @param string $id Identifier of the entry to remove.
      *
@@ -36,7 +36,7 @@ interface IContainer extends ContainerInterface
     public function remove(string $id): void;
 
     /**
-     * Replaces definition and service(if any) in the container.
+     * Replaces definition and service(if any) with **this** identifier in the container.
      *
      * @param string $id Identifier of the entry to replace.
      * @param callable|object|string $definition Definition of the entry to replace.

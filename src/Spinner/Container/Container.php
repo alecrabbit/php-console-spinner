@@ -26,12 +26,12 @@ final class Container implements IContainer
     /**
      * Create a container object with a set of definitions.
      *
-     * @param Closure $spawnerCb
+     * @param Closure $spawnerCreatorCb
      * @param null|Traversable $definitions
      */
-    public function __construct(Closure $spawnerCb, ?Traversable $definitions = null)
+    public function __construct(Closure $spawnerCreatorCb, ?Traversable $definitions = null)
     {
-        $this->serviceSpawner = $spawnerCb($this);
+        $this->serviceSpawner = $spawnerCreatorCb($this);
         $this->definitions = new ArrayObject();
         $this->services = new ArrayObject();
 
@@ -45,6 +45,16 @@ final class Container implements IContainer
 
     protected function addDefinition(string $id, mixed $definition): void
     {
+        $this->assertDefinition($definition);
+
+        $this->assertNotRegistered($id);
+
+        /** @var callable|object|string $definition */
+        $this->definitions[$id] = $definition;
+    }
+
+    protected function assertDefinition(mixed $definition): void
+    {
         if (!is_callable($definition) && !is_object($definition) && !is_string($definition)) {
             throw new ContainerException(
                 sprintf(
@@ -53,7 +63,10 @@ final class Container implements IContainer
                 )
             );
         }
+    }
 
+    protected function assertNotRegistered(string $id): void
+    {
         if ($this->has($id)) {
             throw new ContainerException(
                 sprintf(
@@ -62,8 +75,6 @@ final class Container implements IContainer
                 )
             );
         }
-
-        $this->definitions[$id] = $definition;
     }
 
     /** @inheritdoc */
@@ -75,12 +86,12 @@ final class Container implements IContainer
     /** @inheritdoc */
     public function replace(string $id, callable|object|string $definition): void
     {
-        $serviceWasInstantiatedBefore = $this->hasService($id);
+        $serviceInstantiated = $this->hasService($id);
 
         $this->remove($id);
         $this->add($id, $definition);
-        if ($serviceWasInstantiatedBefore) {
-            $this->get($id); // instantiates new service
+        if ($serviceInstantiated) {
+            $this->get($id); // instantiates service with new definition
         }
     }
 

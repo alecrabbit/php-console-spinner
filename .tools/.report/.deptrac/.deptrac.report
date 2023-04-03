@@ -1,11 +1,20 @@
+ ----------- --------------------------------------------------------------------------------------------------------------------------------------------- 
+  Reason      Core                                                                                                                                         
+ ----------- --------------------------------------------------------------------------------------------------------------------------------------------- 
+  Violation   AlecRabbit\Spinner\Core\Factory\ContainerFactory must not depend on AlecRabbit\Spinner\Asynchronous\Factory\LoopProbeFactory (Asynchronous)  
+              /app/src/Spinner/Core/Factory/ContainerFactory.php:96                                                                                        
+  Violation   AlecRabbit\Spinner\Core\Factory\ContainerFactory must not depend on AlecRabbit\Spinner\Asynchronous\Factory\LoopProbeFactory (Asynchronous)  
+              /app/src/Spinner/Core/Factory/ContainerFactory.php:7                                                                                         
+ ----------- --------------------------------------------------------------------------------------------------------------------------------------------- 
+
 
  -------------------- ------ 
   Report                     
  -------------------- ------ 
-  Violations           0     
+  Violations           2     
   Skipped violations   0     
   Uncovered            170   
-  Allowed              2837  
+  Allowed              2838  
   Warnings             0     
   Errors               0     
  -------------------- ------ 
