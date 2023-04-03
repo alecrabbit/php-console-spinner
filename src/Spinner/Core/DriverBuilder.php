@@ -2,13 +2,11 @@
 
 declare(strict_types=1);
 // 17.03.23
-namespace AlecRabbit\Spinner\Core\Config;
+namespace AlecRabbit\Spinner\Core;
 
 use AlecRabbit\Spinner\Contract\IDriver;
-use AlecRabbit\Spinner\Contract\OptionCursor;
 use AlecRabbit\Spinner\Core\Config\Contract\IDriverBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\IDriverConfig;
-use AlecRabbit\Spinner\Core\Driver;
 use AlecRabbit\Spinner\Core\Factory\Contract\ICursorFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IOutputFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ITimerFactory;

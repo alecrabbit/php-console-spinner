@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Core\Config;
+namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Core;
 
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetBuilder;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolverBuilder;

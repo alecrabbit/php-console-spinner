@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Spinner\Core\Config;
+namespace AlecRabbit\Spinner\Core;
 
 use AlecRabbit\Spinner\Contract\IPattern;
 use AlecRabbit\Spinner\Core\A\ARevolverBuilder;

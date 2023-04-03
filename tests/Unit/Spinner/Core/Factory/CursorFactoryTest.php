@@ -6,7 +6,6 @@ namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Core\Factory;
 
 use AlecRabbit\Spinner\Contract\OptionCursor;
 use AlecRabbit\Spinner\Core\Config\Contract\IDefaultsProvider;
-use AlecRabbit\Spinner\Core\Cursor\StreamBufferedCursor;
 use AlecRabbit\Spinner\Core\Factory\Contract\ICursorFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IOutputFactory;
 use AlecRabbit\Spinner\Core\Factory\CursorFactory;
@@ -30,12 +29,10 @@ final class CursorFactoryTest extends TestCaseWithPrebuiltMocks
         ?IDefaultsProvider $defaultsProvider = null,
         ?IOutputFactory $outputFactory = null,
     ): ICursorFactory {
-        $defaultsProvider = $defaultsProvider ?? $this->prepareDefaultsProviderMock();
-        $outputFactory = $outputFactory ?? $this->prepareOutputFactoryMock();
         return
             new CursorFactory(
-                defaultsProvider: $defaultsProvider,
-                outputFactory: $outputFactory,
+                defaultsProvider: $defaultsProvider ?? $this->prepareDefaultsProviderMock(),
+                outputFactory:  $outputFactory ?? $this->prepareOutputFactoryMock(),
             );
     }
 
@@ -60,6 +57,7 @@ final class CursorFactoryTest extends TestCaseWithPrebuiltMocks
         $outputFactory
             ->method('getOutput')
             ->willReturn($this->getBufferedOutputMock());
+
         return $outputFactory;
     }
 

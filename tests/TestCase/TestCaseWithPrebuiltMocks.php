@@ -28,7 +28,6 @@ use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolverBuilder;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetBuilder;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolverBuilder;
-use AlecRabbit\Tests\Spinner\Unit\Spinner\Core\Config\DriverBuilderTest;
 use PHPUnit\Framework\MockObject\MockObject;
 
 abstract class TestCaseWithPrebuiltMocks extends TestCase
