@@ -11,6 +11,7 @@ use AlecRabbit\Spinner\Container\ServiceSpawner;
 use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Contract\ISequencer;
 use AlecRabbit\Spinner\Contract\OptionStyleMode;
+use AlecRabbit\Spinner\Core\A\SpinnerInitializer;
 use AlecRabbit\Spinner\Core\CharFrameCollectionRenderer;
 use AlecRabbit\Spinner\Core\CharFrameRenderer;
 use AlecRabbit\Spinner\Core\Color\AnsiStyleConverter;
@@ -23,11 +24,15 @@ use AlecRabbit\Spinner\Core\Contract\ICursorBuilder;
 use AlecRabbit\Spinner\Core\Contract\IDefaultsProvider;
 use AlecRabbit\Spinner\Core\Contract\IIntegerNormalizer;
 use AlecRabbit\Spinner\Core\Contract\IIntervalNormalizer;
+use AlecRabbit\Spinner\Core\Contract\ILoopInitializer;
 use AlecRabbit\Spinner\Core\Contract\IOutputBuilder;
+use AlecRabbit\Spinner\Core\Contract\ISpinnerAttacher;
 use AlecRabbit\Spinner\Core\Contract\ISpinnerBuilder;
+use AlecRabbit\Spinner\Core\Contract\ISpinnerInitializer;
 use AlecRabbit\Spinner\Core\Contract\IStyleFrameCollectionRenderer;
 use AlecRabbit\Spinner\Core\Contract\IStyleFrameRenderer;
 use AlecRabbit\Spinner\Core\Contract\IWidthMeasurer;
+use AlecRabbit\Spinner\Core\Contract\LoopInitializer;
 use AlecRabbit\Spinner\Core\CursorBuilder;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IAuxSettings;
 use AlecRabbit\Spinner\Core\Defaults\DefaultsProvider;
@@ -137,7 +142,12 @@ final class ContainerFactory implements IContainerFactory
                 OptionStyleMode::class => static function (ContainerInterface $container): OptionStyleMode {
                     return $container->get(IDefaultsProvider::class)->getAuxSettings()->getOptionStyleMode();
                 },
-
+                ISpinnerInitializer::class => SpinnerInitializer::class,
+                ILoopInitializer::class => LoopInitializer::class,
+                ISpinnerAttacher::class => static function (ContainerInterface $container): ISpinnerAttacher {
+                    return
+                        $container->get(ISpinnerAttacherFactory::class)->getAttacher();
+                },
                 ISpinnerAttacherFactory::class => SpinnerAttacherFactory::class,
                 ILoopProbeFactory::class => static function (): never {
                     throw new DomainException(

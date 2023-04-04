@@ -32,4 +32,9 @@ final class LoopConfig implements ILoopConfig
     {
         return $this->signalHandlersOption === OptionSignalHandlers::ENABLED;
     }
+
+    public function getRunMode(): OptionRunMode
+    {
+        return $this->runMode;
+    }
 }
