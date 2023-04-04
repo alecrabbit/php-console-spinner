@@ -9,4 +9,8 @@ use AlecRabbit\Spinner\Core\Loop\Contract\ILoopAdapter;
 interface ILoopFactory
 {
     public function getLoop(): ILoopAdapter;
+
+    public function registerAutoStart(): void;
+
+    public function registerSignalHandlers(): void;
 }

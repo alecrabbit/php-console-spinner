@@ -7,6 +7,7 @@ classDiagram
     Facade ..> IConfigBuilder
     Facade ..> ISpinnerFactory
     Facade ..> ILoopFactory
+    Facade ..> ISpinnerAttacherFactory
 
     class Facade {
         +getContainer() IContainer
@@ -26,7 +27,7 @@ classDiagram
     ISpinnerFactory ..> ISpinnerBuilder
 
     class ISpinnerFactory {
-        +createSpinner(IConfig $config = null) ISpinner
+        +createSpinner(IConfig $config) ISpinner
     }
     
     IConfigBuilder ..> IDefaultsProvider
@@ -40,6 +41,8 @@ classDiagram
     class ILoopFactory {
         +getLoop() ILoopAdapter
     }
+    
+    ISpinnerAttacherFactory ..> ISpinnerAttacher
     
     ISpinnerBuilder ..> DriverBuilder
     ISpinnerBuilder ..> WidgetBuilder

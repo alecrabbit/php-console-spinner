@@ -36,7 +36,7 @@ final class ALoopAdapterOverride extends ALoopAdapter
         // TODO: Implement autoStart() method.
     }
 
-    public function getLoop()
+    public function getEventLoop()
     {
         // TODO: Implement getLoop() method.
     }

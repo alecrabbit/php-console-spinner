@@ -6,7 +6,6 @@ namespace AlecRabbit\Spinner\Core\Factory;
 
 use AlecRabbit\Spinner\Core\Contract\ISpinnerAttacher;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopFactory;
-use AlecRabbit\Spinner\Core\Loop\Contract\ILoopAdapter;
 
 final class SpinnerAttacherFactory implements Contract\ISpinnerAttacherFactory
 {

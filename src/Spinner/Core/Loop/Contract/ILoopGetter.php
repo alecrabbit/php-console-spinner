@@ -12,5 +12,5 @@ interface ILoopGetter
     /**
      * @return IForeignLoop
      */
-    public function getLoop();
+    public function getEventLoop();
 }

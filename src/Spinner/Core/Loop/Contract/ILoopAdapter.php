@@ -8,7 +8,7 @@ namespace AlecRabbit\Spinner\Core\Loop\Contract;
 use AlecRabbit\Spinner\Core\Contract\ISpinnerAttacher;
 use Closure;
 
-interface ILoopAdapter extends ILoopGetter, ILoopSignalHandlers
+interface ILoopAdapter
 {
     public function run(): void;
 

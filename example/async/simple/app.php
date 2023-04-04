@@ -25,6 +25,3 @@ $loop->delay(
         echo 'Stopped!' . PHP_EOL;
     }
 );
-
-
-$loop->run();

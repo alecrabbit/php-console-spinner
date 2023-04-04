@@ -20,23 +20,12 @@ use Revolt\EventLoop\Driver\UvDriver;
 final class RevoltLoopAdapter extends ALoopAdapter
 {
     private static bool $stopped = false;
-    private ?string $spinnerTimer = null;
 
-    public function attach(ISpinner $spinner): void
-    {
-        $this->detachSpinner();
-        $this->spinnerTimer =
-            EventLoop::repeat(
-                $spinner->getInterval()->toSeconds(),
-                static fn() => $spinner->spin()
-            );
-    }
+    protected readonly EventLoop\Driver $loop;
 
-    protected function detachSpinner(): void
-    {
-        if ($this->spinnerTimer) {
-            EventLoop::cancel($this->spinnerTimer);
-        }
+    public function __construct(
+    ) {
+        $this->loop = EventLoop::getDriver();
     }
 
     public function cancel(mixed $timer): void
@@ -83,12 +72,7 @@ final class RevoltLoopAdapter extends ALoopAdapter
 
     public function run(): void
     {
-        $this->getLoop()->run();
-    }
-
-    public function getLoop(): EventLoop\Driver
-    {
-        return EventLoop::getDriver();
+        $this->loop->run();
     }
 
     public function delay(float $delay, Closure $closure): void
@@ -99,12 +83,12 @@ final class RevoltLoopAdapter extends ALoopAdapter
 
     public function stop(): void
     {
-        $this->getLoop()->stop();
+        $this->loop->stop();
     }
 
     protected function assertExtPcntl(): void
     {
-        $driver = $this->getLoop();
+        $driver = $this->loop;
         if ($driver instanceof UvDriver
             || $driver instanceof EvDriver
             || $driver instanceof EventDriver) {

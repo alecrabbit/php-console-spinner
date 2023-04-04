@@ -24,12 +24,25 @@ final class Facade implements IFacade
 
         $spinner = self::getSpinnerFactory()->createSpinner($config);
 
-        if ($config->getSpinnerConfig()->isEnabledInitialization()) {
+        $spinnerConfig = $config->getSpinnerConfig();
+        $loopConfig = $config->getLoopConfig();
+
+        if ($spinnerConfig->isEnabledInitialization()) {
             $spinner->initialize();
         }
 
-        if ($config->getLoopConfig()->isAsynchronous() && $config->getSpinnerConfig()->isEnabledAttach()) {
+        if ($spinnerConfig->isEnabledAttach() || $loopConfig->isAsynchronous()) {
             self::getSpinnerAttacher()->attach($spinner);
+        }
+
+        if ($loopConfig->isAsynchronous()) {
+            if ($loopConfig->isEnabledAutoStart()) {
+                self::getLoopFactory()->registerAutoStart();
+            }
+            if ($loopConfig->areEnabledSignalHandlers()) {
+                self::getLoopFactory()->registerSignalHandlers();
+            }
+
         }
 
         return
@@ -41,10 +54,8 @@ final class Facade implements IFacade
         return $config ?? self::getConfigBuilder()->build();
     }
 
-    /** @psalm-suppress MoreSpecificReturnType */
     public static function getConfigBuilder(): IConfigBuilder
     {
-        /** @psalm-suppress LessSpecificReturnStatement */
         return
             self::getContainer()->get(IConfigBuilder::class);
     }
@@ -54,10 +65,8 @@ final class Facade implements IFacade
         return ContainerFactory::getContainer();
     }
 
-    /** @psalm-suppress MoreSpecificReturnType */
     protected static function getSpinnerFactory(): ISpinnerFactory
     {
-        /** @psalm-suppress LessSpecificReturnStatement */
         return self::getContainer()->get(ISpinnerFactory::class);
     }
 
@@ -72,7 +81,11 @@ final class Facade implements IFacade
 
     public static function getLoop(): ILoopAdapter
     {
-        /** @psalm-suppress LessSpecificReturnStatement */
-        return self::getContainer()->get(ILoopFactory::class)->getLoop();
+        return self::getLoopFactory()->getLoop();
+    }
+
+    private static function getLoopFactory(): ILoopFactory
+    {
+        return self::getContainer()->get(ILoopFactory::class);
     }
 }

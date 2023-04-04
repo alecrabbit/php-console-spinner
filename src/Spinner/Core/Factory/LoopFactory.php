@@ -8,6 +8,8 @@ use AlecRabbit\Spinner\Core\Factory\Contract\ILoopFactory;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoopAdapter;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoopProbe;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoopProbeFactory;
+use AlecRabbit\Spinner\Exception\RuntimeException;
+use AlecRabbit\Spinner\Helper\Asserter;
 
 final class LoopFactory implements ILoopFactory
 {
@@ -36,4 +38,21 @@ final class LoopFactory implements ILoopFactory
         return $this->loopProbeFactory->getProbe();
     }
 
+    public function registerAutoStart(): void
+    {
+        $this->getLoop()->autoStart();
+    }
+
+    /**
+     * @throws RuntimeException
+     */
+    protected function assertExtensionPcntl(): void
+    {
+        Asserter::assertExtensionLoaded('pcntl', 'Signal handling requires the pcntl extension.');
+    }
+
+    public function registerSignalHandlers(): void
+    {
+        $this->assertExtensionPcntl();
+    }
 }
