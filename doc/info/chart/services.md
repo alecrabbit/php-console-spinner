@@ -3,10 +3,10 @@
 ```mermaid
 classDiagram
     direction TB
-    Facade ..> ContainerFactory
-    Facade ..> ConfigBuilder
-    Facade ..> SpinnerFactory
-    Facade ..> LoopFactory
+    Facade ..> IContainerFactory
+    Facade ..> IConfigBuilder
+    Facade ..> ISpinnerFactory
+    Facade ..> ILoopFactory
 
     class Facade {
         +getContainer() IContainer
@@ -15,23 +15,34 @@ classDiagram
         +createSpinner(IConfig $config = null) ISpinner
     }
     
-    ContainerFactory ..> Container
+    IContainerFactory ..> IContainer
 
-    Container ..> ServiceSpawner
-
-
-    SpinnerFactory ..> SpinnerBuilder
-
-    ConfigBuilder ..> DefaultsProvider
+    class IContainerFactory {
+        +getContainer() IContainer
+    }
     
-    class ConfigBuilder {
+    IContainer ..> ServiceSpawner
+
+    ISpinnerFactory ..> ISpinnerBuilder
+
+    class ISpinnerFactory {
+        +createSpinner(IConfig $config = null) ISpinner
+    }
+    
+    IConfigBuilder ..> IDefaultsProvider
+    
+    class IConfigBuilder {
         +getDefaultsProvider() IDefaultsProvider
     }
     
-    LoopFactory ..> LoopProbeFactory
+    ILoopFactory ..> ILoopProbeFactory
 
-    SpinnerBuilder ..> DriverBuilder
-    SpinnerBuilder ..> WidgetBuilder
+    class ILoopFactory {
+        +getLoop() ILoopAdapter
+    }
+    
+    ISpinnerBuilder ..> DriverBuilder
+    ISpinnerBuilder ..> WidgetBuilder
 
     DriverBuilder ..> TimerBuilder
     DriverBuilder ..> OutputBuilder
