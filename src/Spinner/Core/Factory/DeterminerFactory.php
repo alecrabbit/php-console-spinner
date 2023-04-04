@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Factory;
 
 use AlecRabbit\Spinner\Core\Contract\IWidthMeasurer;
-use AlecRabbit\Spinner\Core\WidthMeasurer;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDeterminerFactory;
+use AlecRabbit\Spinner\Core\WidthMeasurer;
 use Closure;
 
 use function AlecRabbit\WCWidth\wcswidth;

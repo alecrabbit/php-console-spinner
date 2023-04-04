@@ -52,11 +52,13 @@ classDiagram
 
     StyleFrameCollectionRenderer ..> StyleFrameRenderer
 
-    CharFrameCollectionRenderer ..> FrameFactory
+    CharFrameCollectionRenderer ..> CharFrameRenderer
 
     StyleFrameRenderer ..> AnsiStyleConverter
     StyleFrameRenderer ..> Sequencer
     StyleFrameRenderer ..> FrameFactory
+    
+    CharFrameRenderer ..> FrameFactory
 
     AnsiStyleConverter ..> OptionStyleMode
 

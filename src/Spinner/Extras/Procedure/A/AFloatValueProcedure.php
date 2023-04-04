@@ -6,7 +6,6 @@ namespace AlecRabbit\Spinner\Extras\Procedure\A;
 
 use AlecRabbit\Spinner\Contract\IFloatValue;
 use AlecRabbit\Spinner\Contract\IFrame;
-use AlecRabbit\Spinner\Core\Frame;
 
 abstract class AFloatValueProcedure extends AProcedure
 {

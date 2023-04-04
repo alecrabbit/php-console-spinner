@@ -10,17 +10,12 @@ use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Core\A\AFrameCollectionRenderer;
 use AlecRabbit\Spinner\Core\Contract\ICharFrameCollectionRenderer;
 use AlecRabbit\Spinner\Core\Contract\IFrameCollection;
-use AlecRabbit\Spinner\Core\Factory\Contract\IFrameFactory;
-use AlecRabbit\Spinner\Exception\InvalidArgumentException;
-
 use ArrayObject;
-
-use function is_string;
 
 final class CharFrameCollectionRenderer extends AFrameCollectionRenderer implements ICharFrameCollectionRenderer
 {
     public function __construct(
-        protected IFrameFactory $frameFactory,
+        protected ICharFrameRenderer $frameRenderer,
     ) {
     }
 
@@ -29,22 +24,13 @@ final class CharFrameCollectionRenderer extends AFrameCollectionRenderer impleme
         return
             $this->createCollection(
                 new ArrayObject([
-                    $this->frameFactory::createEmpty(),
+                    $this->frameRenderer->emptyFrame(),
                 ])
             );
     }
 
     protected function createFrame(string|IStyle $entry): IFrame
     {
-        if (!is_string($entry)) {
-            throw new InvalidArgumentException(
-                sprintf(
-                    'Entry should be type of "string", "%s" given%s.',
-                    get_debug_type($entry),
-                    sprintf(', see "%s()"', __METHOD__),
-                )
-            );
-        }
-        return $this->frameFactory->create($entry);
+        return $this->frameRenderer->render($entry);
     }
 }

@@ -89,6 +89,19 @@ final class ConfigBuilder implements IConfigBuilder
             );
     }
 
+    private function defaultAuxConfig(): IAuxConfig
+    {
+        $auxSettings = $this->defaultsProvider->getAuxSettings();
+        return
+            new AuxConfig(
+                $auxSettings->getInterval(),
+                $auxSettings->getNormalizerMode(),
+                $auxSettings->getCursorOption(),
+                $auxSettings->getOptionStyleMode(),
+                $auxSettings->getOutputStream(),
+            );
+    }
+
     protected function defaultDriverConfig(): IDriverConfig
     {
         $driverSettings = $this->defaultsProvider->getDriverSettings();
@@ -128,19 +141,6 @@ final class ConfigBuilder implements IConfigBuilder
                 $rootWidgetSettings->getTrailingSpacer(),
                 $rootWidgetSettings->getStylePattern(),
                 $rootWidgetSettings->getCharPattern(),
-            );
-    }
-
-    private function defaultAuxConfig(): IAuxConfig
-    {
-        $auxSettings = $this->defaultsProvider->getAuxSettings();
-        return
-            new AuxConfig(
-                $auxSettings->getInterval(),
-                $auxSettings->getNormalizerMode(),
-                $auxSettings->getCursorOption(),
-                $auxSettings->getOptionStyleMode(),
-                $auxSettings->getOutputStream(),
             );
     }
 }

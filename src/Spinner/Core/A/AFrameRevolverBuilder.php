@@ -103,7 +103,7 @@ abstract class AFrameRevolverBuilder extends ARevolverBuilder implements IFrameR
         ;
     }
 
-    public function withFrameCollection(IFrameCollection $frames): static
+    protected function withFrameCollection(IFrameCollection $frames): static
     {
         $clone = clone $this;
         $clone->frames = $frames;

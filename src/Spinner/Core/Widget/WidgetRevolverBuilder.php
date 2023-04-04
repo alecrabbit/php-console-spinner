@@ -36,43 +36,14 @@ final class WidgetRevolverBuilder extends ARevolverBuilder implements IWidgetRev
 
     protected function processPatterns(): void
     {
-        if (!$this->stylePattern) {
+        if (null === $this->styleRevolver && null === $this->stylePattern) {
             $this->styleRevolver = $this->frameRevolverBuilder->defaultStyleRevolver();
         }
 
-        if (!$this->charPattern) {
+        if (null === $this->charRevolver && null === $this->charPattern) {
             $this->charRevolver = $this->frameRevolverBuilder->defaultCharRevolver();
         }
     }
-
-//    public function defaultCharRevolver(): IRevolver
-//    {
-//        return
-//            $this->frameRevolverBuilder
-//                ->withFrameCollection(
-//                    new FrameCollection(
-//                        new ArrayObject([
-//                            $this->frameFactory::createEmpty(),
-//                        ])
-//                    )
-//                )
-//                ->build();
-//    }
-
-
-//    public function defaultStyleRevolver(): IRevolver
-//    {
-//        return
-//            $this->frameRevolverBuilder
-//                ->withFrameCollection(
-//                    new FrameCollection(
-//                        new ArrayObject([
-//                            $this->frameFactory->create('%s', 0),
-//                        ])
-//                    )
-//                )
-//                ->build();
-//    }
 
     public function withStylePattern(IPattern $stylePattern): IWidgetRevolverBuilder
     {

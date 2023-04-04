@@ -47,7 +47,8 @@ abstract class AStaticProgressWidgetFactory extends AStaticWidgetFactory impleme
                         $updateInterval
                     )
                 )
-                ->build();
+                ->build()
+        ;
 
         return
             static::create(
@@ -101,7 +102,8 @@ abstract class AStaticProgressWidgetFactory extends AStaticWidgetFactory impleme
                         $updateInterval
                     )
                 )
-                ->build();
+                ->build()
+        ;
 
         return
             static::create(

@@ -49,13 +49,13 @@ final class StyleFrameCollectionRenderer extends AFrameCollectionRenderer implem
     public function defaultCollection(): IFrameCollection
     {
         return
-            $this->createNoStylingCollection();
+            $this->createNoStyleCollection();
     }
 
     /**
      * @throws InvalidArgumentException
      */
-    private function createNoStylingCollection(): FrameCollection
+    private function createNoStyleCollection(): FrameCollection
     {
         return
             $this->createCollection(
@@ -78,7 +78,7 @@ final class StyleFrameCollectionRenderer extends AFrameCollectionRenderer implem
     {
         if ($this->frameRenderer->isStylingDisabled()) {
             return
-                $this->createNoStylingCollection();
+                $this->createNoStyleCollection();
         }
         return parent::render();
     }

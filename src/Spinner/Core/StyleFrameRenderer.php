@@ -8,6 +8,7 @@ use AlecRabbit\Spinner\Contract\Color\Style\IStyle;
 use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Contract\ISequencer;
 use AlecRabbit\Spinner\Contract\OptionStyleMode;
+use AlecRabbit\Spinner\Core\A\AFrameRenderer;
 use AlecRabbit\Spinner\Core\Contract\IAnsiStyleConverter;
 use AlecRabbit\Spinner\Core\Contract\IStyleFrameRenderer;
 use AlecRabbit\Spinner\Core\Factory\Contract\IFrameFactory;
@@ -15,14 +16,15 @@ use AlecRabbit\Spinner\Exception\DomainException;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Exception\LogicException;
 
-final class StyleFrameRenderer implements IStyleFrameRenderer
+final class StyleFrameRenderer extends AFrameRenderer implements IStyleFrameRenderer
 {
 
     public function __construct(
+        protected IFrameFactory $frameFactory,
         protected IAnsiStyleConverter $converter,
         protected ISequencer $sequencer,
-        protected IFrameFactory $frameFactory,
     ) {
+        parent::__construct($frameFactory);
     }
 
     /**

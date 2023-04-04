@@ -43,7 +43,8 @@ final class DriverBuilder implements IDriverBuilder
                 ->withStream(
                     $this->auxConfig->getOutputStream()
                 )
-                ->build();
+                ->build()
+        ;
 
         $cursor =
             $this->cursorBuilder
@@ -51,11 +52,13 @@ final class DriverBuilder implements IDriverBuilder
                 ->withCursorOption(
                     $this->auxConfig->getCursorOption()
                 )
-                ->build();
+                ->build()
+        ;
 
         $timer =
             $this->timerBuilder
-                ->build();
+                ->build()
+        ;
 
         return
             new Driver(
