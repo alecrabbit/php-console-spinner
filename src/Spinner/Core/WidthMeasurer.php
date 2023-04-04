@@ -3,10 +3,10 @@ declare(strict_types=1);
 // 03.04.23
 namespace AlecRabbit\Spinner\Core;
 
-use AlecRabbit\Spinner\Core\Contract\IDeterminer;
+use AlecRabbit\Spinner\Core\Contract\IWidthMeasurer;
 use Closure;
 
-final class Determiner implements IDeterminer
+final class WidthMeasurer implements IWidthMeasurer
 {
     public function __construct(
         protected Closure $determinerFunc,

@@ -35,13 +35,13 @@ classDiagram
     WidgetBuilder ..> WidgetRevolverBuilder
      
     WidgetRevolverBuilder ..> FrameRevolverBuilder
-    WidgetRevolverBuilder ..> FrameFactory
     
     FrameRevolverBuilder ..> StyleFrameCollectionRenderer
     FrameRevolverBuilder ..> CharFrameCollectionRenderer
     FrameRevolverBuilder ..> IntervalFactory
     
     IntervalFactory ..> IntervalNormalizer
+    IntervalFactory .. Interval
     
     IntervalNormalizer ..> IntegerNormalizer
     
@@ -56,7 +56,7 @@ classDiagram
     
     AnsiStyleConverter ..> OptionStyleMode
     
-    
+    FrameFactory ..> WidthMeasurer
    
     
 ```

@@ -13,25 +13,25 @@ final class IntervalFactory implements IIntervalFactory
 {
     protected const DEFAULT_INTERVAL = 1000;
 
+    protected static ?IInterval $normalizedDefaultInterval = null;
+
     public function __construct(
         protected IIntervalNormalizer $intervalNormalizer,
     ) {
     }
 
+
     public function createDefault(): IInterval
     {
-        /** @var null|IInterval $normalizedDefaultInterval */
-        static $normalizedDefaultInterval = null;
-
-        if (null === $normalizedDefaultInterval) {
-            $normalizedDefaultInterval =
+        if (null === self::$normalizedDefaultInterval) {
+            self::$normalizedDefaultInterval =
                 $this->intervalNormalizer->normalize(
                     new Interval(self::DEFAULT_INTERVAL),
                 );
         }
 
         return
-            $normalizedDefaultInterval;
+            self::$normalizedDefaultInterval;
     }
 
     public function createStill(): IInterval

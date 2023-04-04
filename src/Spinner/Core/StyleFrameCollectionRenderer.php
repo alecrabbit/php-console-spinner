@@ -48,6 +48,16 @@ final class StyleFrameCollectionRenderer extends AFrameCollectionRenderer implem
         return $clone;
     }
 
+    public function defaultCollection(): IFrameCollection
+    {
+        return
+            $this->createCollection(
+                new ArrayObject([
+                    $this->frameFactory->create('%s', 0),
+                ])
+            );
+    }
+
     /**
      * @throws InvalidArgumentException
      */

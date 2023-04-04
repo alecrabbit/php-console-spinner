@@ -24,4 +24,8 @@ interface IFrameRevolverBuilder extends IRevolverBuilder
     public function withFrameCollection(IFrameCollection $frames): static;
 
     public function withInterval(IInterval $interval): static;
+
+    public function defaultCharRevolver(): IRevolver;
+
+    public function defaultStyleRevolver(): IRevolver;
 }

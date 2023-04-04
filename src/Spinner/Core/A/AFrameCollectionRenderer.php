@@ -13,6 +13,7 @@ use AlecRabbit\Spinner\Core\Contract\IFrameCollection;
 use AlecRabbit\Spinner\Core\Contract\IFrameCollectionRenderer;
 use AlecRabbit\Spinner\Core\FrameCollection;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
+use AlecRabbit\Spinner\Exception\LogicException;
 use Generator;
 use Stringable;
 use Traversable;
@@ -71,5 +72,10 @@ abstract class AFrameCollectionRenderer implements IFrameCollectionRenderer
     protected function createCollection(Traversable $frames): FrameCollection
     {
         return new FrameCollection($frames);
+    }
+
+    public function defaultCollection(): IFrameCollection
+    {
+        throw new LogicException('Not implemented.');
     }
 }

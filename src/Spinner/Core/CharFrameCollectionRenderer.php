@@ -9,8 +9,11 @@ use AlecRabbit\Spinner\Contract\Color\Style\IStyle;
 use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Core\A\AFrameCollectionRenderer;
 use AlecRabbit\Spinner\Core\Contract\ICharFrameCollectionRenderer;
+use AlecRabbit\Spinner\Core\Contract\IFrameCollection;
 use AlecRabbit\Spinner\Core\Factory\Contract\IFrameFactory;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
+
+use ArrayObject;
 
 use function is_string;
 
@@ -19,6 +22,16 @@ final class CharFrameCollectionRenderer extends AFrameCollectionRenderer impleme
     public function __construct(
         protected IFrameFactory $frameFactory,
     ) {
+    }
+
+    public function defaultCollection(): IFrameCollection
+    {
+        return
+            $this->createCollection(
+                new ArrayObject([
+                    $this->frameFactory::createEmpty(),
+                ])
+            );
     }
 
     protected function createFrame(string|IStyle $entry): IFrame

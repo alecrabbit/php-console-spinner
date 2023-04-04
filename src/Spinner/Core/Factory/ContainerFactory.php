@@ -20,7 +20,7 @@ use AlecRabbit\Spinner\Core\Contract\ICharFrameCollectionRenderer;
 use AlecRabbit\Spinner\Core\Contract\IConfigBuilder;
 use AlecRabbit\Spinner\Core\Contract\ICursorBuilder;
 use AlecRabbit\Spinner\Core\Contract\IDefaultsProvider;
-use AlecRabbit\Spinner\Core\Contract\IDeterminer;
+use AlecRabbit\Spinner\Core\Contract\IWidthMeasurer;
 use AlecRabbit\Spinner\Core\Contract\IIntegerNormalizer;
 use AlecRabbit\Spinner\Core\Contract\IIntervalNormalizer;
 use AlecRabbit\Spinner\Core\Contract\IOutputBuilder;
@@ -115,7 +115,7 @@ final class ContainerFactory implements IContainerFactory
                 IOutputBuilder::class => OutputBuilder::class,
                 ICursorBuilder::class => CursorBuilder::class,
                 IDeterminerFactory::class => DeterminerFactory::class,
-                IDeterminer::class => static function (ContainerInterface $container): IDeterminer {
+                IWidthMeasurer::class => static function (ContainerInterface $container): IWidthMeasurer {
                     return
                         $container->get(IDeterminerFactory::class)->create();
                 },

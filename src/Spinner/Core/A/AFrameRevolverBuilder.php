@@ -13,6 +13,7 @@ use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalFactory;
 use AlecRabbit\Spinner\Core\Pattern\Contract\IStylePattern;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolver;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolverBuilder;
+use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
 use AlecRabbit\Spinner\Core\Revolver\FrameCollectionRevolver;
 use AlecRabbit\Spinner\Exception\DomainException;
 
@@ -34,6 +35,24 @@ abstract class AFrameRevolverBuilder extends ARevolverBuilder implements IFrameR
         $clone = clone $this;
         $clone->pattern = $pattern;
         return $clone;
+    }
+
+    public function withInterval(IInterval $interval): static
+    {
+        $clone = clone $this;
+        $clone->interval = $interval;
+        return $clone;
+    }
+
+    public function defaultCharRevolver(): IRevolver
+    {
+        return
+            $this
+                ->withFrameCollection(
+                    $this->charFrameCollectionRenderer->defaultCollection()
+                )
+                ->build()
+        ;
     }
 
     public function build(): IFrameRevolver
@@ -74,12 +93,14 @@ abstract class AFrameRevolverBuilder extends ARevolverBuilder implements IFrameR
             return
                 $this->styleFrameCollectionRenderer
                     ->pattern($pattern)
-                    ->render();
+                    ->render()
+            ;
         }
         return
             $this->charFrameCollectionRenderer
                 ->pattern($pattern)
-                ->render();
+                ->render()
+        ;
     }
 
     public function withFrameCollection(IFrameCollection $frames): static
@@ -89,10 +110,14 @@ abstract class AFrameRevolverBuilder extends ARevolverBuilder implements IFrameR
         return $clone;
     }
 
-    public function withInterval(IInterval $interval): static
+    public function defaultStyleRevolver(): IRevolver
     {
-        $clone = clone $this;
-        $clone->interval = $interval;
-        return $clone;
+        return
+            $this
+                ->withFrameCollection(
+                    $this->styleFrameCollectionRenderer->defaultCollection()
+                )
+                ->build()
+        ;
     }
 }

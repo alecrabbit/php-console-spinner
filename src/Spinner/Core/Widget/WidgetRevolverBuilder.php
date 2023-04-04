@@ -6,12 +6,9 @@ namespace AlecRabbit\Spinner\Core\Widget;
 
 use AlecRabbit\Spinner\Contract\Pattern\IPattern;
 use AlecRabbit\Spinner\Core\A\ARevolverBuilder;
-use AlecRabbit\Spinner\Core\Factory\Contract\IFrameFactory;
-use AlecRabbit\Spinner\Core\FrameCollection;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolverBuilder;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolverBuilder;
-use ArrayObject;
 
 final class WidgetRevolverBuilder extends ARevolverBuilder implements IWidgetRevolverBuilder
 {
@@ -22,7 +19,6 @@ final class WidgetRevolverBuilder extends ARevolverBuilder implements IWidgetRev
 
     public function __construct(
         protected IFrameRevolverBuilder $frameRevolverBuilder,
-        protected IFrameFactory $frameFactory,
     ) {
     }
 
@@ -41,42 +37,42 @@ final class WidgetRevolverBuilder extends ARevolverBuilder implements IWidgetRev
     protected function processPatterns(): void
     {
         if (!$this->stylePattern) {
-            $this->styleRevolver = $this->defaultStyleRevolver();
+            $this->styleRevolver = $this->frameRevolverBuilder->defaultStyleRevolver();
         }
 
         if (!$this->charPattern) {
-            $this->charRevolver = $this->defaultCharRevolver();
+            $this->charRevolver = $this->frameRevolverBuilder->defaultCharRevolver();
         }
     }
 
-    public function defaultCharRevolver(): IRevolver
-    {
-        return
-            $this->frameRevolverBuilder
-                ->withFrameCollection(
-                    new FrameCollection(
-                        new ArrayObject([
-                            $this->frameFactory::createEmpty(),
-                        ])
-                    )
-                )
-                ->build();
-    }
+//    public function defaultCharRevolver(): IRevolver
+//    {
+//        return
+//            $this->frameRevolverBuilder
+//                ->withFrameCollection(
+//                    new FrameCollection(
+//                        new ArrayObject([
+//                            $this->frameFactory::createEmpty(),
+//                        ])
+//                    )
+//                )
+//                ->build();
+//    }
 
 
-    public function defaultStyleRevolver(): IRevolver
-    {
-        return
-            $this->frameRevolverBuilder
-                ->withFrameCollection(
-                    new FrameCollection(
-                        new ArrayObject([
-                            $this->frameFactory->create('%s', 0),
-                        ])
-                    )
-                )
-                ->build();
-    }
+//    public function defaultStyleRevolver(): IRevolver
+//    {
+//        return
+//            $this->frameRevolverBuilder
+//                ->withFrameCollection(
+//                    new FrameCollection(
+//                        new ArrayObject([
+//                            $this->frameFactory->create('%s', 0),
+//                        ])
+//                    )
+//                )
+//                ->build();
+//    }
 
     public function withStylePattern(IPattern $stylePattern): IWidgetRevolverBuilder
     {

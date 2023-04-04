@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Factory;
 
 use AlecRabbit\Spinner\Contract\IFrame;
-use AlecRabbit\Spinner\Core\Contract\IDeterminer;
+use AlecRabbit\Spinner\Core\Contract\IWidthMeasurer;
 use AlecRabbit\Spinner\Core\Factory\Contract\IFrameFactory;
 use AlecRabbit\Spinner\Core\Frame;
 
@@ -13,7 +13,7 @@ final class FrameFactory implements IFrameFactory
 {
 
     public function __construct(
-        protected IDeterminer $determiner,
+        protected IWidthMeasurer $determiner,
     ) {
     }
 

@@ -4,8 +4,8 @@ declare(strict_types=1);
 // 03.04.23
 namespace AlecRabbit\Spinner\Core\Factory;
 
-use AlecRabbit\Spinner\Core\Contract\IDeterminer;
-use AlecRabbit\Spinner\Core\Determiner;
+use AlecRabbit\Spinner\Core\Contract\IWidthMeasurer;
+use AlecRabbit\Spinner\Core\WidthMeasurer;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDeterminerFactory;
 use Closure;
 
@@ -13,10 +13,10 @@ use function AlecRabbit\WCWidth\wcswidth;
 
 final class DeterminerFactory implements IDeterminerFactory
 {
-    public function create(): IDeterminer
+    public function create(): IWidthMeasurer
     {
         return
-            new Determiner(
+            new WidthMeasurer(
                 self::determinerFunction()
             );
     }
