@@ -6,7 +6,7 @@ namespace AlecRabbit\Spinner\Core\Factory\Contract;
 
 use AlecRabbit\Spinner\Core\Contract\IWidthMeasurer;
 
-interface IDeterminerFactory
+interface IWidthMeasurerFactory
 {
     public function create(): IWidthMeasurer;
 }

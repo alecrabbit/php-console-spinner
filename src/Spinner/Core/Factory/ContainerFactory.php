@@ -33,7 +33,7 @@ use AlecRabbit\Spinner\Core\Defaults\Contract\IAuxSettings;
 use AlecRabbit\Spinner\Core\Defaults\DefaultsProvider;
 use AlecRabbit\Spinner\Core\DriverBuilder;
 use AlecRabbit\Spinner\Core\Factory\Contract\IContainerFactory;
-use AlecRabbit\Spinner\Core\Factory\Contract\IDeterminerFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\IWidthMeasurerFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IFrameFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopFactory;
@@ -117,10 +117,10 @@ final class ContainerFactory implements IContainerFactory
                 ITimerBuilder::class => TimerBuilder::class,
                 IOutputBuilder::class => OutputBuilder::class,
                 ICursorBuilder::class => CursorBuilder::class,
-                IDeterminerFactory::class => DeterminerFactory::class,
+                IWidthMeasurerFactory::class => WidthMeasurerFactory::class,
                 IWidthMeasurer::class => static function (ContainerInterface $container): IWidthMeasurer {
                     return
-                        $container->get(IDeterminerFactory::class)->create();
+                        $container->get(IWidthMeasurerFactory::class)->create();
                 },
 
                 IIntegerNormalizer::class => static function (ContainerInterface $container): IIntegerNormalizer {

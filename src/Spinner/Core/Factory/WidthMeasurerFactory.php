@@ -5,26 +5,26 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Factory;
 
 use AlecRabbit\Spinner\Core\Contract\IWidthMeasurer;
-use AlecRabbit\Spinner\Core\Factory\Contract\IDeterminerFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\IWidthMeasurerFactory;
 use AlecRabbit\Spinner\Core\WidthMeasurer;
 use Closure;
 
 use function AlecRabbit\WCWidth\wcswidth;
 
-final class DeterminerFactory implements IDeterminerFactory
+final class WidthMeasurerFactory implements IWidthMeasurerFactory
 {
     public function create(): IWidthMeasurer
     {
         return
             new WidthMeasurer(
-                self::determinerFunction()
+                self::measureFunction()
             );
     }
 
     /**
      * @codeCoverageIgnore
      */
-    private static function determinerFunction(): Closure
+    private static function measureFunction(): Closure
     {
         if (function_exists('\AlecRabbit\WCWidth\wcswidth')) {
             return wcswidth(...);
