@@ -14,8 +14,6 @@ interface IFacade
 
     public static function getConfigBuilder(): IConfigBuilder;
 
-    public static function getDefaultsProvider(): IDefaultsProvider;
-
     public static function getLoop(): ILoopAdapter;
 
     public static function createSpinner(IConfig $config = null): ISpinner;

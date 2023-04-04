@@ -9,7 +9,6 @@ use AlecRabbit\Spinner\Core\Config\Contract\ISpinnerConfig;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use AlecRabbit\Spinner\Core\Contract\ISpinnerAttacher;
 use AlecRabbit\Spinner\Core\Contract\ISpinnerInitializer;
-use AlecRabbit\Spinner\Core\Factory\Contract\ISpinnerAttacherFactory;
 use AlecRabbit\Spinner\Exception\LogicException;
 
 final class SpinnerInitializer implements ISpinnerInitializer

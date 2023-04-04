@@ -7,7 +7,6 @@ namespace AlecRabbit\Spinner;
 use AlecRabbit\Spinner\Container\Contract\IContainer;
 use AlecRabbit\Spinner\Core\Config\Contract\IConfig;
 use AlecRabbit\Spinner\Core\Contract\IConfigBuilder;
-use AlecRabbit\Spinner\Core\Contract\IDefaultsProvider;
 use AlecRabbit\Spinner\Core\Contract\IFacade;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use AlecRabbit\Spinner\Core\Factory\ContainerFactory;
@@ -21,7 +20,8 @@ final class Facade implements IFacade
     {
         return
             self::getSpinnerFactory()
-                ->createSpinner($config);
+                ->createSpinner($config)
+        ;
     }
 
     protected static function getSpinnerFactory(): ISpinnerFactory
@@ -51,14 +51,6 @@ final class Facade implements IFacade
         return
             self::getContainer()
                 ->get(IConfigBuilder::class)
-        ;
-    }
-
-    public static function getDefaultsProvider(): IDefaultsProvider
-    {
-        return
-            self::getConfigBuilder()
-                ->getDefaultsProvider()
         ;
     }
 }
