@@ -50,7 +50,8 @@ final class StreamBufferedOutputTest extends TestCase
         $stream = $this->getStreamMock();
         $stream
             ->expects(self::once())
-            ->method('write');
+            ->method('write')
+        ;
 
         $streamBufferedOutput = $this->getTesteeInstance(stream: $stream);
 
@@ -63,7 +64,8 @@ final class StreamBufferedOutputTest extends TestCase
         $stream = $this->getStreamMock();
         $stream
             ->expects(self::once())
-            ->method('write');
+            ->method('write')
+        ;
 
         $streamBufferedOutput = $this->getTesteeInstance(stream: $stream);
 
@@ -76,7 +78,8 @@ final class StreamBufferedOutputTest extends TestCase
         $stream = $this->getStreamMock();
         $stream
             ->expects(self::once())
-            ->method('write');
+            ->method('write')
+        ;
 
         $streamBufferedOutput = $this->getTesteeInstance(stream: $stream);
 
@@ -89,7 +92,8 @@ final class StreamBufferedOutputTest extends TestCase
         $stream = $this->getStreamMock();
         $stream
             ->expects(self::once())
-            ->method('write');
+            ->method('write')
+        ;
 
         $streamBufferedOutput = $this->getTesteeInstance(stream: $stream);
 

@@ -35,7 +35,8 @@ final class OutputBuilderTest extends TestCaseWithPrebuiltMocks
         $output =
             $outputBuilder
                 ->withStream(STDERR)
-                ->build();
+                ->build()
+        ;
 
         self::assertTrue(is_subclass_of($output, IOutput::class));
     }

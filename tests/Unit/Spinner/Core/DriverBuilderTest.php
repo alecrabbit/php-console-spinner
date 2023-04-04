@@ -46,11 +46,13 @@ final class DriverBuilderTest extends TestCaseWithPrebuiltMocks
 
         $outputBuilder
             ->method('withStream')
-            ->willReturn($outputBuilder);
+            ->willReturn($outputBuilder)
+        ;
 
         $outputBuilder
             ->method('build')
-            ->willReturn($this->getBufferedOutputMock());
+            ->willReturn($this->getBufferedOutputMock())
+        ;
 
         $driverBuilder = $this->getTesteeInstance(outputBuilder: $outputBuilder);
 
@@ -59,10 +61,12 @@ final class DriverBuilderTest extends TestCaseWithPrebuiltMocks
         $auxConfig = $this->getAuxConfigMock();
         $auxConfig
             ->method('getOutputStream')
-            ->willReturn(STDERR);
+            ->willReturn(STDERR)
+        ;
         $auxConfig
             ->method('getCursorOption')
-            ->willReturn(OptionCursor::ENABLED);
+            ->willReturn(OptionCursor::ENABLED)
+        ;
 
         $driverConfig = new DriverConfig('interrupted', 'finished');
 
@@ -70,7 +74,8 @@ final class DriverBuilderTest extends TestCaseWithPrebuiltMocks
             $driverBuilder
                 ->withAuxConfig($auxConfig)
                 ->withDriverConfig($driverConfig)
-                ->build();
+                ->build()
+        ;
 
         self::assertInstanceOf(Driver::class, $driver);
     }

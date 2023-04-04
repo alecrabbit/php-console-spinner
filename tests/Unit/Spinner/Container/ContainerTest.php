@@ -165,7 +165,8 @@ final class ContainerTest extends TestCase
                         $replacedServiceTwo,    // #6
                         $replacedServiceOne,    // #7
                         $replacedServiceThree   // #8
-                    );
+                    )
+                ;
                 return $spawner;
             }
         );
@@ -230,7 +231,8 @@ final class ContainerTest extends TestCase
                     ->expects(self::once())
                     ->method('spawn')
                     ->with(self::identicalTo('bar'))
-                    ->willThrowException(new SpawnFailedException('Class does not exist: bar'));
+                    ->willThrowException(new SpawnFailedException('Class does not exist: bar'))
+                ;
                 return $spawner;
             }
         );
@@ -279,7 +281,8 @@ final class ContainerTest extends TestCase
                     ->expects(self::once())
                     ->method('spawn')
                     ->with(self::identicalTo($closure))
-                    ->willThrowException(new ContainerException($exceptionMessage));
+                    ->willThrowException(new ContainerException($exceptionMessage))
+                ;
                 return $spawner;
             }
         );
@@ -306,7 +309,8 @@ final class ContainerTest extends TestCase
                     ->expects(self::once())
                     ->method('spawn')
                     ->with(self::identicalTo(NonInstantiableClass::class))
-                    ->willThrowException(new ContainerException());
+                    ->willThrowException(new ContainerException())
+                ;
                 return $instanceSpawner;
             }
         );

@@ -51,7 +51,8 @@ final class LoopFactoryTest extends TestCaseWithPrebuiltMocks
                         return new ALoopAdapterOverride();
                     }
                 }
-            );
+            )
+        ;
 
         $loopFactory = $this->getTesteeInstance(loopProbeFactory: $loopProbeFactory);
 

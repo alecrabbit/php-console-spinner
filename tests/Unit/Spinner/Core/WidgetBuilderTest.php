@@ -39,7 +39,8 @@ final class WidgetBuilderTest extends TestCaseWithPrebuiltMocks
             ->method('get')
             ->willReturn(
                 $this->getWidgetRevolverBuilderMock(),
-            );
+            )
+        ;
 
         $widgetBuilder = $this->getTesteeInstance();
 
@@ -57,7 +58,8 @@ final class WidgetBuilderTest extends TestCaseWithPrebuiltMocks
         $container = $this->getContainerMock();
         $container
             ->method('get')
-            ->willReturn($this->getWidgetRevolverBuilderMock());
+            ->willReturn($this->getWidgetRevolverBuilderMock())
+        ;
 
         $widgetBuilder = $this->getTesteeInstance();
 
@@ -69,7 +71,8 @@ final class WidgetBuilderTest extends TestCaseWithPrebuiltMocks
             $widgetBuilder
                 ->withWidgetRevolver($revolver)
                 ->withWidgetConfig($widgetConfig)
-                ->build();
+                ->build()
+        ;
 
         self::assertInstanceOf(Widget::class, $widgetComposite);
     }
@@ -83,7 +86,8 @@ final class WidgetBuilderTest extends TestCaseWithPrebuiltMocks
             ->method('get')
             ->willReturn(
                 $this->getWidgetRevolverBuilderMock(),
-            );
+            )
+        ;
 
         $widgetBuilder = $this->getTesteeInstance();
 
@@ -94,7 +98,8 @@ final class WidgetBuilderTest extends TestCaseWithPrebuiltMocks
                 ->withWidgetConfig($this->getWidgetConfigMock())
                 ->withLeadingSpacer($this->getFrameMock())
                 ->withTrailingSpacer($this->getFrameMock())
-                ->build();
+                ->build()
+        ;
 
         self::assertInstanceOf(Widget::class, $widgetComposite);
     }
@@ -107,7 +112,8 @@ final class WidgetBuilderTest extends TestCaseWithPrebuiltMocks
             ->method('get')
             ->willReturn(
                 $this->getWidgetRevolverBuilderMock(),
-            );
+            )
+        ;
 
         $widgetBuilder = $this->getTesteeInstance();
 

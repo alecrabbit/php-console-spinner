@@ -74,7 +74,8 @@ final class ServiceSpawnerTest extends TestCaseWithPrebuiltMocks
             ->expects(self::once())
             ->method('get')
             ->with(ClassForSpawner::class)
-            ->willReturn(new ClassForSpawner());
+            ->willReturn(new ClassForSpawner())
+        ;
 
         $classString = ClassForSpawnerWithParameters::class;
 
