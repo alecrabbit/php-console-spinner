@@ -9,7 +9,7 @@ use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Contract\OptionStyleMode;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 
-interface IStyleFrameRenderer
+interface IStyleFrameRenderer extends IFrameRenderer
 {
     /**
      * @throws InvalidArgumentException

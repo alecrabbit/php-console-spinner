@@ -15,6 +15,8 @@ use AlecRabbit\Spinner\Exception\LogicException;
 
 interface IConfigBuilder
 {
+    public function getDefaultsProvider(): IDefaultsProvider;
+
     /**
      * @throws LogicException
      * @throws InvalidArgumentException

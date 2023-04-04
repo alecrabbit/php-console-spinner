@@ -14,7 +14,6 @@ use AlecRabbit\Spinner\Core\Contract\IFrameCollection;
 use AlecRabbit\Spinner\Core\Contract\IFrameCollectionRenderer;
 use AlecRabbit\Spinner\Core\Contract\IStyleFrameCollectionRenderer;
 use AlecRabbit\Spinner\Core\Contract\IStyleFrameRenderer;
-use AlecRabbit\Spinner\Core\Factory\Contract\IFrameFactory;
 use AlecRabbit\Spinner\Core\Pattern\Contract\IStylePattern;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use ArrayObject;
@@ -25,7 +24,6 @@ final class StyleFrameCollectionRenderer extends AFrameCollectionRenderer implem
 
     public function __construct(
         protected IStyleFrameRenderer $frameRenderer,
-        protected IFrameFactory $frameFactory,
     ) {
     }
 
@@ -51,9 +49,18 @@ final class StyleFrameCollectionRenderer extends AFrameCollectionRenderer implem
     public function defaultCollection(): IFrameCollection
     {
         return
+            $this->createNoStylingCollection();
+    }
+
+    /**
+     * @throws InvalidArgumentException
+     */
+    private function createNoStylingCollection(): FrameCollection
+    {
+        return
             $this->createCollection(
                 new ArrayObject([
-                    $this->frameFactory->create('%s', 0),
+                    $this->frameRenderer->emptyFrame(),
                 ])
             );
     }
@@ -71,23 +78,8 @@ final class StyleFrameCollectionRenderer extends AFrameCollectionRenderer implem
     {
         if ($this->frameRenderer->isStylingDisabled()) {
             return
-                $this->createCollectionWithOneStyle();
+                $this->createNoStylingCollection();
         }
         return parent::render();
-    }
-
-    /**
-     * @throws InvalidArgumentException
-     */
-    private function createCollectionWithOneStyle(): FrameCollection
-    {
-        return
-            $this->createCollection(
-                new ArrayObject(
-                    [
-                        $this->frameFactory->create('%s', 0), // no styling
-                    ]
-                )
-            );
     }
 }

@@ -32,6 +32,11 @@ final class ConfigBuilder implements IConfigBuilder
     ) {
     }
 
+    public function getDefaultsProvider(): IDefaultsProvider
+    {
+        return $this->defaultsProvider;
+    }
+
     public function withDriverConfig(
         IDriverConfig $driverConfig
     ): IConfigBuilder {
