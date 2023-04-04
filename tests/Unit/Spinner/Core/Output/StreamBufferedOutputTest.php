@@ -99,26 +99,4 @@ final class StreamBufferedOutputTest extends TestCase
 
         $streamBufferedOutput->bufferedWrite(['test', 'test2'])->flush();
     }
-//
-//    #[Test]
-//    public function canBuildSpinnerWithNoConfigProvided(): void
-//    {
-//        $container = $this->createMock(IContainer::class);
-//        $container
-//            ->method('get')
-//            ->willReturn(
-//                $this->createMock(IConfigBuilder::class),
-//                $this->createMock(IDriverBuilder::class),
-//                $this->createMock(IWidgetBuilder::class),
-//            )
-//        ;
-//
-//        $spinnerBuilder = $this->getTesteeInstance(container: $container);
-//
-//        $spinner = $spinnerBuilder->build();
-//
-//        self::assertInstanceOf(SpinnerBuilder::class, $spinnerBuilder);
-//        self::assertInstanceOf(ASpinner::class, $spinner);
-//        self::assertInstanceOf(IConfig::class, self::getValue('config', $spinnerBuilder));
-//    }
 }

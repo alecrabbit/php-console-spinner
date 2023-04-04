@@ -11,6 +11,7 @@ use AlecRabbit\Spinner\Core\Contract\IConfigBuilder;
 use AlecRabbit\Spinner\Core\Contract\ISpinnerBuilder;
 use AlecRabbit\Spinner\Core\SpinnerBuilder;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetBuilder;
+use AlecRabbit\Spinner\Exception\LogicException;
 use AlecRabbit\Tests\Spinner\TestCase\TestCaseWithPrebuiltMocks;
 use PHPUnit\Framework\Attributes\Test;
 
@@ -27,13 +28,11 @@ final class SpinnerBuilderTest extends TestCaseWithPrebuiltMocks
     public function getTesteeInstance(
         ?IDriverBuilder $driverBuilder = null,
         ?IWidgetBuilder $widgetBuilder = null,
-        ?IConfigBuilder $configBuilder = null,
     ): ISpinnerBuilder {
         return
             new SpinnerBuilder(
                 driverBuilder: $driverBuilder ?? $this->getDriverBuilderMock(),
                 widgetBuilder: $widgetBuilder ?? $this->getWidgetBuilderMock(),
-                configBuilder: $configBuilder ?? $this->getConfigBuilderMock(),
             );
     }
 
@@ -50,14 +49,18 @@ final class SpinnerBuilderTest extends TestCaseWithPrebuiltMocks
     }
 
     #[Test]
-    public function canBuildSpinnerWithNoConfigProvided(): void
+    public function throwsWithNoConfigProvided(): void
     {
+        $exceptionClass = LogicException::class;
+        $exceptionMessage = 'Config is not set.';
+
+        $this->expectException($exceptionClass);
+        $this->expectExceptionMessage($exceptionMessage);
+
         $spinnerBuilder = $this->getTesteeInstance();
 
         $spinner = $spinnerBuilder->build();
 
-        self::assertInstanceOf(SpinnerBuilder::class, $spinnerBuilder);
-        self::assertInstanceOf(ASpinner::class, $spinner);
-        self::assertInstanceOf(IConfig::class, self::getValue('config', $spinnerBuilder));
+        self::failTest(self::exceptionNotThrownString($exceptionClass, $exceptionMessage));
     }
 }

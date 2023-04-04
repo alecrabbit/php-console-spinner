@@ -17,9 +17,11 @@ use AlecRabbit\Spinner\Core\Contract\IConfigBuilder;
 use AlecRabbit\Spinner\Core\Contract\ICursorBuilder;
 use AlecRabbit\Spinner\Core\Contract\IDefaultsProvider;
 use AlecRabbit\Spinner\Core\Contract\IIntervalNormalizer;
+use AlecRabbit\Spinner\Core\Contract\ILoopInitializer;
 use AlecRabbit\Spinner\Core\Contract\IOutputBuilder;
 use AlecRabbit\Spinner\Core\Contract\ISpinnerAttacher;
 use AlecRabbit\Spinner\Core\Contract\ISpinnerBuilder;
+use AlecRabbit\Spinner\Core\Contract\ISpinnerInitializer;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IAuxSettings;
 use AlecRabbit\Spinner\Core\Factory\Contract\IFrameFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalFactory;
@@ -29,7 +31,6 @@ use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolverBuilder;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetBuilder;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolverBuilder;
-use AlecRabbit\Tests\Spinner\Unit\Spinner\Core\Factory\SpinnerFactoryTest;
 use PHPUnit\Framework\MockObject\MockObject;
 
 abstract class TestCaseWithPrebuiltMocks extends TestCase
@@ -45,17 +46,17 @@ abstract class TestCaseWithPrebuiltMocks extends TestCase
             );
     }
 
-    protected function getFrameMock(): IFrame&MockObject
+    protected function getFrameMock():  MockObject&IFrame
     {
         return $this->createMock(IFrame::class);
     }
 
-    protected function getPatternMock(): IPattern&MockObject
+    protected function getPatternMock():  MockObject&IPattern
     {
         return $this->createMock(IPattern::class);
     }
 
-    protected function getConfigMock(): IConfig&MockObject
+    protected function getConfigMock(): MockObject&IConfig
     {
         return $this->createMock(IConfig::class);
     }
@@ -65,37 +66,47 @@ abstract class TestCaseWithPrebuiltMocks extends TestCase
         return $this->createMock(IContainer::class);
     }
 
-    protected function getWidgetRevolverBuilderMock(): IWidgetRevolverBuilder&MockObject
+    protected function getWidgetRevolverBuilderMock():  MockObject&IWidgetRevolverBuilder
     {
         return $this->createMock(IWidgetRevolverBuilder::class);
     }
 
-    protected function getRevolverMock(): IRevolver&MockObject
+    protected function getRevolverMock():  MockObject&IRevolver
     {
         return $this->createMock(IRevolver::class);
     }
 
-    protected function getConfigBuilderMock(): IConfigBuilder&MockObject
+    protected function getConfigBuilderMock():  MockObject&IConfigBuilder
     {
         return $this->createMock(IConfigBuilder::class);
     }
 
-    protected function getSpinnerBuilderMock(): ISpinnerBuilder&MockObject
+    protected function getSpinnerBuilderMock():  MockObject&ISpinnerBuilder
     {
         return $this->createMock(ISpinnerBuilder::class);
     }
 
-    protected function getDriverBuilderMock(): IDriverBuilder&MockObject
+    protected function getLoopInitializerMock(): MockObject&ILoopInitializer
+    {
+        return $this->createMock(ILoopInitializer::class);
+    }
+
+    protected function getSpinnerInitializerMock(): MockObject&ISpinnerInitializer
+    {
+        return $this->createMock(ISpinnerInitializer::class);
+    }
+
+    protected function getDriverBuilderMock():  MockObject&IDriverBuilder
     {
         return $this->createMock(IDriverBuilder::class);
     }
 
-    protected function getWidgetBuilderMock(): IWidgetBuilder&MockObject
+    protected function getWidgetBuilderMock():  MockObject&IWidgetBuilder
     {
         return $this->createMock(IWidgetBuilder::class);
     }
 
-    protected function getSpinnerMock(): ASpinner&MockObject
+    protected function getSpinnerMock():  MockObject&ASpinner
     {
         return $this->createMock(ASpinner::class);
     }

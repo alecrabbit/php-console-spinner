@@ -9,5 +9,5 @@ use AlecRabbit\Spinner\Core\Contract\ISpinner;
 
 interface ISpinnerFactory
 {
-    public function createSpinner(IConfig $config): ISpinner;
+    public function createSpinner(IConfig $config = null): ISpinner;
 }

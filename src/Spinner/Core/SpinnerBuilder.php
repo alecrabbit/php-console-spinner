@@ -11,6 +11,7 @@ use AlecRabbit\Spinner\Core\Contract\IConfigBuilder;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use AlecRabbit\Spinner\Core\Contract\ISpinnerBuilder;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetBuilder;
+use AlecRabbit\Spinner\Exception\LogicException;
 
 final class SpinnerBuilder implements ISpinnerBuilder
 {
@@ -19,13 +20,12 @@ final class SpinnerBuilder implements ISpinnerBuilder
     public function __construct(
         protected IDriverBuilder $driverBuilder,
         protected IWidgetBuilder $widgetBuilder,
-        protected IConfigBuilder $configBuilder,
     ) {
     }
 
     public function build(): ISpinner
     {
-        $this->config = $this->refineConfig($this->config);
+        $this->assertConfig();
 
         $driver =
             $this->driverBuilder
@@ -45,14 +45,6 @@ final class SpinnerBuilder implements ISpinnerBuilder
             };
     }
 
-    protected function refineConfig(?IConfig $config): IConfig
-    {
-        if (null === $config) {
-            $config = $this->configBuilder->build();
-        }
-        return $config;
-    }
-
     public function withConfig(IConfig $config): self
     {
         $clone = clone $this;
@@ -60,4 +52,10 @@ final class SpinnerBuilder implements ISpinnerBuilder
         return $clone;
     }
 
+    protected function assertConfig(): void
+    {
+        if (null === $this->config) {
+            throw new LogicException('Config is not set.');
+        }
+    }
 }
