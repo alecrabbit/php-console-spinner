@@ -18,6 +18,7 @@ use AlecRabbit\Spinner\Core\Contract\ICursorBuilder;
 use AlecRabbit\Spinner\Core\Contract\IDefaultsProvider;
 use AlecRabbit\Spinner\Core\Contract\IIntervalNormalizer;
 use AlecRabbit\Spinner\Core\Contract\IOutputBuilder;
+use AlecRabbit\Spinner\Core\Contract\ISpinnerAttacher;
 use AlecRabbit\Spinner\Core\Contract\ISpinnerBuilder;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IAuxSettings;
 use AlecRabbit\Spinner\Core\Factory\Contract\IFrameFactory;
@@ -28,6 +29,7 @@ use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolverBuilder;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetBuilder;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolverBuilder;
+use AlecRabbit\Tests\Spinner\Unit\Spinner\Core\Factory\SpinnerFactoryTest;
 use PHPUnit\Framework\MockObject\MockObject;
 
 abstract class TestCaseWithPrebuiltMocks extends TestCase
@@ -156,5 +158,10 @@ abstract class TestCaseWithPrebuiltMocks extends TestCase
     protected function getAuxConfigMock(): MockObject&IAuxConfig
     {
         return $this->createMock(IAuxConfig::class);
+    }
+
+    protected function getSpinnerAttacherMock(): MockObject&ISpinnerAttacher
+    {
+        return $this->createMock(ISpinnerAttacher::class);
     }
 }

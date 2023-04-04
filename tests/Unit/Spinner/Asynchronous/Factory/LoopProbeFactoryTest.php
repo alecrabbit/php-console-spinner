@@ -47,8 +47,9 @@ final class LoopProbeFactoryTest extends TestCaseWithPrebuiltMocks
         $exception = DomainException::class;
         $exceptionMessage =
             'No supported event loop found.'
-            . ' Check you have installed one of the supported event loops.'
-            . ' Check your probes list if you have modified it.';
+            . ' Check that you have installed one of the supported event loops.'
+            . ' Check your probes list if you have modified it.'
+            . ' If yoy what to use library in synchronous mode, set option explicitly.';
 
         $this->expectException($exception);
         $this->expectExceptionMessage($exceptionMessage);

@@ -21,8 +21,9 @@ final class SpinnerFactoryTest extends TestCaseWithPrebuiltMocks
         self::assertInstanceOf(SpinnerFactory::class, $spinnerFactory);
     }
 
-    public function getTesteeInstance(?ISpinnerBuilder $spinnerBuilder = null): ISpinnerFactory
-    {
+    public function getTesteeInstance(
+        ?ISpinnerBuilder $spinnerBuilder = null,
+    ): ISpinnerFactory {
         return
             new SpinnerFactory(
                 spinnerBuilder: $spinnerBuilder ?? $this->getSpinnerBuilderMock(),
@@ -33,8 +34,13 @@ final class SpinnerFactoryTest extends TestCaseWithPrebuiltMocks
     public function canCreateSpinner(): void
     {
         $container = $this->getContainerMock();
+        $config = $this->getConfigMock();
 
         $spinnerBuilder = $this->getSpinnerBuilderMock();
+        $spinnerBuilder
+            ->method('withConfig')
+            ->willReturn($spinnerBuilder)
+        ;
         $spinnerBuilder
             ->method('build')
             ->willReturn($this->getSpinnerMock())
@@ -52,7 +58,7 @@ final class SpinnerFactoryTest extends TestCaseWithPrebuiltMocks
 
         $spinnerFactory = $this->getTesteeInstance($spinnerBuilder);
 
-        $spinner = $spinnerFactory->createSpinner();
+        $spinner = $spinnerFactory->createSpinner($config);
 
         self::assertInstanceOf(ASpinner::class, $spinner);
     }

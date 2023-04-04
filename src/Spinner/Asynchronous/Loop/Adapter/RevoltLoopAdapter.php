@@ -7,6 +7,7 @@ namespace AlecRabbit\Spinner\Asynchronous\Loop\Adapter;
 
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use AlecRabbit\Spinner\Core\Loop\A\ALoopAdapter;
+use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use Closure;
 use Revolt\EventLoop;
 use Revolt\EventLoop\Driver\EvDriver;
@@ -38,10 +39,23 @@ final class RevoltLoopAdapter extends ALoopAdapter
         }
     }
 
-    public function repeat(float $interval, Closure $closure): void
+    public function cancel(mixed $timer): void
+    {
+        if (!is_string($timer)) {
+            throw new InvalidArgumentException(
+                sprintf(
+                    'Invalid timer type: %s, expected string',
+                    gettype($timer)
+                )
+            );
+        }
+        EventLoop::cancel($timer);
+    }
+
+    public function repeat(float $interval, Closure $closure): string
     {
         /** @psalm-suppress MixedArgumentTypeCoercion */
-        EventLoop::repeat($interval, $closure);
+        return EventLoop::repeat($interval, $closure);
     }
 
     public function autoStart(): void

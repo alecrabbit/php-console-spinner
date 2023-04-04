@@ -7,6 +7,7 @@ namespace AlecRabbit\Spinner\Asynchronous\Loop\Adapter;
 
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use AlecRabbit\Spinner\Core\Loop\A\ALoopAdapter;
+use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use Closure;
 use React\EventLoop\LoopInterface;
 use React\EventLoop\TimerInterface;
@@ -45,9 +46,9 @@ final class ReactLoopAdapter extends ALoopAdapter
         // ReactPHP event loop is started by its library code.
     }
 
-    public function repeat(float $interval, Closure $closure): void
+    public function repeat(float $interval, Closure $closure): TimerInterface
     {
-        $this->loop->addPeriodicTimer($interval, $closure);
+        return $this->loop->addPeriodicTimer($interval, $closure);
     }
 
     public function delay(float $delay, Closure $closure): void
@@ -73,5 +74,18 @@ final class ReactLoopAdapter extends ALoopAdapter
     protected function onSignal(int $signal, Closure $closure): void
     {
         $this->loop->addSignal($signal, $closure);
+    }
+    public function cancel(mixed $timer): void
+    {
+        if (!$timer instanceof TimerInterface) {
+            throw new InvalidArgumentException(
+                sprintf(
+                    'Invalid timer type: %s, expected %s',
+                    gettype($timer),
+                    TimerInterface::class
+                )
+            );
+        }
+        $this->loop->cancelTimer($timer);
     }
 }

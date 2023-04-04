@@ -129,6 +129,7 @@ final class ConfigBuilder implements IConfigBuilder
         return
             new SpinnerConfig(
                 $spinnerSettings->getInitializationOption(),
+                $spinnerSettings->getAttachOption(),
             );
     }
 

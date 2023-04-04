@@ -8,13 +8,15 @@ namespace AlecRabbit\Spinner\Core\Loop\Contract;
 use AlecRabbit\Spinner\Core\Contract\ISpinnerAttacher;
 use Closure;
 
-interface ILoopAdapter extends ILoopGetter, ISpinnerAttacher, ILoopSignalHandlers
+interface ILoopAdapter extends ILoopGetter, ILoopSignalHandlers
 {
     public function run(): void;
 
     public function stop(): void;
 
-    public function repeat(float $interval, Closure $closure): void;
+    public function repeat(float $interval, Closure $closure): mixed;
+
+    public function cancel(mixed $timer): void;
 
     public function delay(float $delay, Closure $closure): void;
 

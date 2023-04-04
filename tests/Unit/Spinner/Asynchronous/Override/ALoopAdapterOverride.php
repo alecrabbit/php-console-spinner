@@ -16,7 +16,7 @@ final class ALoopAdapterOverride extends ALoopAdapter
         // TODO: Implement stop() method.
     }
 
-    public function repeat(float $interval, Closure $closure): void
+    public function repeat(float $interval, Closure $closure): mixed
     {
         // TODO: Implement repeat() method.
     }
@@ -41,18 +41,13 @@ final class ALoopAdapterOverride extends ALoopAdapter
         // TODO: Implement getLoop() method.
     }
 
-    public function attach(ISpinner $spinner): void
-    {
-        // TODO: Implement attach() method.
-    }
-
     protected function onSignal(int $signal, Closure $closure): void
     {
         // TODO: Implement onSignal() method.
     }
 
-    protected function detachSpinner(): void
+    public function cancel(mixed $timer): void
     {
-        // TODO: Implement detachSpinner() method.
+        // TODO: Implement cancel() method.
     }
 }

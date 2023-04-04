@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Core\Config;
 
+use AlecRabbit\Spinner\Contract\OptionAttach;
 use AlecRabbit\Spinner\Contract\OptionAutoStart;
 use AlecRabbit\Spinner\Contract\OptionInitialization;
 use AlecRabbit\Spinner\Contract\OptionRunMode;
@@ -91,6 +92,7 @@ final class ConfigBuilderTest extends TestCaseWithPrebuiltMocks
         $spinnerConfig =
             new SpinnerConfig(
                 OptionInitialization::DISABLED,
+                OptionAttach::DISABLED,
             );
 
         $config = $configBuilder->withSpinnerConfig($spinnerConfig)->build();

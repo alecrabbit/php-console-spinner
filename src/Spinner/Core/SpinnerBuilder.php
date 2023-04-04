@@ -48,14 +48,9 @@ final class SpinnerBuilder implements ISpinnerBuilder
     protected function refineConfig(?IConfig $config): IConfig
     {
         if (null === $config) {
-            $config = $this->createDefaultConfig();
+            $config = $this->configBuilder->build();
         }
         return $config;
-    }
-
-    protected function createDefaultConfig(): IConfig
-    {
-        return $this->configBuilder->build();
     }
 
     public function withConfig(IConfig $config): self

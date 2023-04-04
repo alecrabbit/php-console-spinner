@@ -5,6 +5,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Defaults\Contract;
 
+use AlecRabbit\Spinner\Contract\OptionAttach;
 use AlecRabbit\Spinner\Contract\OptionInitialization;
 
 interface ISpinnerSettings
@@ -12,4 +13,8 @@ interface ISpinnerSettings
     public function getInitializationOption(): OptionInitialization;
 
     public function setInitializationOption(OptionInitialization $initialization): ISpinnerSettings;
+
+    public function getAttachOption(): OptionAttach;
+
+    public function setAttachOption(OptionAttach $attach): ISpinnerSettings;
 }

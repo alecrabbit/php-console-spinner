@@ -36,6 +36,7 @@ use AlecRabbit\Spinner\Core\Factory\Contract\IContainerFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IFrameFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\ISpinnerAttacherFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ISpinnerFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ITimerBuilder;
 use AlecRabbit\Spinner\Core\Factory\Contract\IWidthMeasurerFactory;
@@ -137,6 +138,7 @@ final class ContainerFactory implements IContainerFactory
                     return $container->get(IDefaultsProvider::class)->getAuxSettings()->getOptionStyleMode();
                 },
 
+                ISpinnerAttacherFactory::class => SpinnerAttacherFactory::class,
                 ILoopProbeFactory::class => static function (): never {
                     throw new DomainException(
                         sprintf(

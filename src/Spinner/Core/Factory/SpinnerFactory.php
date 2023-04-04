@@ -16,14 +16,11 @@ final class SpinnerFactory implements ISpinnerFactory
     ) {
     }
 
-    public function createSpinner(IConfig $config = null): ISpinner
+    public function createSpinner(IConfig $config): ISpinner
     {
-        if ($config) {
-            $this->spinnerBuilder = $this->spinnerBuilder->withConfig($config);
-        }
-
         return
             $this->spinnerBuilder
+                ->withConfig($config)
                 ->build()
         ;
     }

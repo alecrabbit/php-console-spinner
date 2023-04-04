@@ -7,4 +7,6 @@ namespace AlecRabbit\Spinner\Core\Config\Contract;
 interface ISpinnerConfig
 {
     public function isEnabledInitialization(): bool;
+
+    public function isEnabledAttach(): bool;
 }
