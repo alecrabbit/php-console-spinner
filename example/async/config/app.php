@@ -28,11 +28,11 @@ $config =
         ->build();
 
 $spinner =
-    StaticFacade::createSpinner(
+    Facade::createSpinner(
         $config
     );
 
-$loop = StaticFacade::getLoop();
+$loop = Facade::getLoop();
 
 // Limits run time
 $loop->delay(

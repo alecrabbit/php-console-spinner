@@ -57,11 +57,11 @@
 /app/src/Spinner/Core/Factory/ContainerFactory.php:87:58:error - MixedAssignment: Unable to determine the type that $service is being assigned to
 /app/src/Spinner/Core/Factory/ContainerFactory.php:88:29:error - MixedArgument: Argument 1 of AlecRabbit\Spinner\Container\Contract\IContainer::add cannot be mixed, expecting string
 /app/src/Spinner/Core/Factory/ContainerFactory.php:88:34:error - MixedArgument: Argument 2 of AlecRabbit\Spinner\Container\Contract\IContainer::add cannot be mixed, expecting callable|object|string
-/app/src/Spinner/Core/Factory/ContainerFactory.php:121:91:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Core\Contract\IWidthMeasurer' for /app/src/spinner/core/factory/containerfactory.php:121:5596:-:closure
+/app/src/Spinner/Core/Factory/ContainerFactory.php:121:91:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Core\Contract\IWidthMeasurer' for /app/src/spinner/core/factory/containerfactory.php:121:5605:-:closure
 /app/src/Spinner/Core/Factory/ContainerFactory.php:123:25:error - MixedReturnStatement: Could not infer a return type
-/app/src/Spinner/Core/Factory/ContainerFactory.php:123:69:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
+/app/src/Spinner/Core/Factory/ContainerFactory.php:123:72:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
 /app/src/Spinner/Core/Factory/ContainerFactory.php:128:79:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
-/app/src/Spinner/Core/Factory/ContainerFactory.php:136:92:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Contract\OptionStyleMode' for /app/src/spinner/core/factory/containerfactory.php:136:6361:-:closure
+/app/src/Spinner/Core/Factory/ContainerFactory.php:136:92:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Contract\OptionStyleMode' for /app/src/spinner/core/factory/containerfactory.php:136:6373:-:closure
 /app/src/Spinner/Core/Factory/ContainerFactory.php:137:28:error - MixedReturnStatement: Could not infer a return type
 /app/src/Spinner/Core/Factory/ContainerFactory.php:137:71:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
 /app/src/Spinner/Core/Factory/ContainerFactory.php:137:89:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression

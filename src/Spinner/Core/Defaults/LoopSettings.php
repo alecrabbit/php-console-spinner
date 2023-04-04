@@ -11,10 +11,14 @@ use AlecRabbit\Spinner\Core\Defaults\Contract\ILoopSettings;
 
 final class LoopSettings implements ILoopSettings
 {
+    protected const OPTION_RUN_MODE = OptionRunMode::ASYNC;
+    protected const OPTION_AUTO_START = OptionAutoStart::ENABLED;
+    protected const OPTION_SIGNAL_HANDLERS = OptionSignalHandlers::ENABLED;
+
     public function __construct(
-        protected OptionRunMode $runModeOption = OptionRunMode::ASYNC,
-        protected OptionAutoStart $autoStartOption = OptionAutoStart::ENABLED,
-        protected OptionSignalHandlers $signalHandlersOption = OptionSignalHandlers::ENABLED,
+        protected OptionRunMode $runModeOption = self::OPTION_RUN_MODE,
+        protected OptionAutoStart $autoStartOption = self::OPTION_AUTO_START,
+        protected OptionSignalHandlers $signalHandlersOption = self::OPTION_SIGNAL_HANDLERS,
     ) {
     }
 
