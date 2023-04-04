@@ -1,4 +1,4 @@
-# Hierarchy
+# Service hierarchy
 
 ```mermaid
 classDiagram
@@ -22,7 +22,7 @@ classDiagram
         +getContainer() IContainer
     }
     
-    IContainer ..> ServiceSpawner
+    IContainer ..> IServiceSpawner
 
     ISpinnerFactory ..> ISpinnerBuilder
 
@@ -44,39 +44,39 @@ classDiagram
     
     ISpinnerAttacherFactory ..> ISpinnerAttacher
     
-    ISpinnerBuilder ..> DriverBuilder
-    ISpinnerBuilder ..> WidgetBuilder
+    ISpinnerBuilder ..> IDriverBuilder
+    ISpinnerBuilder ..> IWidgetBuilder
 
-    DriverBuilder ..> TimerBuilder
-    DriverBuilder ..> OutputBuilder
-    DriverBuilder ..> CursorBuilder
+    IDriverBuilder ..> ITimerBuilder
+    IDriverBuilder ..> IOutputBuilder
+    IDriverBuilder ..> ICursorBuilder
 
-    WidgetBuilder ..> WidgetRevolverBuilder
+    IWidgetBuilder ..> IWidgetRevolverBuilder
 
-    WidgetRevolverBuilder ..> FrameRevolverBuilder
+    IWidgetRevolverBuilder ..> IFrameRevolverBuilder
 
-    FrameRevolverBuilder ..> StyleFrameCollectionRenderer
-    FrameRevolverBuilder ..> CharFrameCollectionRenderer
-    FrameRevolverBuilder ..> IntervalFactory
+    IFrameRevolverBuilder ..> IStyleFrameCollectionRenderer
+    IFrameRevolverBuilder ..> ICharFrameCollectionRenderer
+    IFrameRevolverBuilder ..> IIntervalFactory
 
-    IntervalFactory ..> IntervalNormalizer
-    IntervalFactory .. Interval
+    IIntervalFactory ..> IIntervalNormalizer
+    IIntervalFactory .. Interval
 
-    IntervalNormalizer ..> IntegerNormalizer
+    IIntervalNormalizer ..> IIntegerNormalizer
 
-    StyleFrameCollectionRenderer ..> StyleFrameRenderer
+    IStyleFrameCollectionRenderer ..> IStyleFrameRenderer
 
-    CharFrameCollectionRenderer ..> CharFrameRenderer
+    ICharFrameCollectionRenderer ..> ICharFrameRenderer
 
-    StyleFrameRenderer ..> AnsiStyleConverter
-    StyleFrameRenderer ..> Sequencer
-    StyleFrameRenderer ..> FrameFactory
+    IStyleFrameRenderer ..> IAnsiStyleConverter
+    IStyleFrameRenderer ..> ISequencer
+    IStyleFrameRenderer ..> IFrameFactory
     
-    CharFrameRenderer ..> FrameFactory
+    ICharFrameRenderer ..> IFrameFactory
 
-    AnsiStyleConverter ..> OptionStyleMode
+    IAnsiStyleConverter ..> OptionStyleMode
 
-    FrameFactory ..> WidthMeasurer
+    IFrameFactory ..> IWidthMeasurer
 
 
 ```
