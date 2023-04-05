@@ -8,6 +8,9 @@ use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Contract\Pattern\IPattern;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IWidgetSettings;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IWidgetSettingsBuilder;
+use AlecRabbit\Spinner\Core\Factory\FrameFactory;
+use AlecRabbit\Spinner\Core\Pattern\CharPattern\NoCharPattern;
+use AlecRabbit\Spinner\Core\Pattern\StylePattern\NoStylePattern;
 use AlecRabbit\Spinner\Exception\LogicException;
 
 final class WidgetSettingsBuilder implements IWidgetSettingsBuilder
@@ -31,19 +34,19 @@ final class WidgetSettingsBuilder implements IWidgetSettingsBuilder
             );
     }
 
-    protected function validate()
+    protected function validate(): void
     {
         if (null === $this->leadingSpacer) {
-            throw new LogicException('Leading spacer is not set.');
+            $this->leadingSpacer = FrameFactory::createEmpty();
         }
         if (null === $this->trailingSpacer) {
-            throw new LogicException('Trailing spacer is not set.');
+            $this->trailingSpacer = FrameFactory::createSpace();
         }
         if (null === $this->stylePattern) {
-            throw new LogicException('Style pattern is not set.');
+            $this->stylePattern = new NoStylePattern();
         }
         if (null === $this->charPattern) {
-            throw new LogicException('Char pattern is not set.');
+            $this->charPattern = new NoCharPattern();
         }
     }
 }

@@ -17,41 +17,14 @@ use AlecRabbit\Spinner\Core\Pattern\StylePattern\Rainbow;
 
 final class DefaultsProvider implements IDefaultsProvider
 {
-    protected const DEFAULT_INTERVAL = 1000;
-
-    protected IWidgetSettings $rootWidgetSettings;
-    protected IWidgetSettings $widgetSettings;
-
     public function __construct(
         protected IAuxSettings $auxSettings,
         protected ILoopSettings $loopSettings,
         protected ISpinnerSettings $spinnerSettings,
         protected IDriverSettings $driverSettings,
-        ?IWidgetSettings $rootWidgetSettings = null,
-        ?IWidgetSettings $widgetSettings = null,
+        protected IWidgetSettings $widgetSettings,
+        protected IWidgetSettings $rootWidgetSettings,
     ) {
-        $this->widgetSettings = $widgetSettings ?? $this->createDefaultWidgetSettings();
-        $this->rootWidgetSettings = $rootWidgetSettings ?? $this->createRootWidgetSettings($this->widgetSettings);
-    }
-
-    private function createDefaultWidgetSettings(): WidgetSettings
-    {
-        return
-            new WidgetSettings(
-                leadingSpacer: FrameFactory::createEmpty(),
-                trailingSpacer: FrameFactory::createSpace(),
-            );
-    }
-
-    protected function createRootWidgetSettings(IWidgetSettings $widgetSettings): IWidgetSettings
-    {
-        return
-            new WidgetSettings(
-                $widgetSettings->getLeadingSpacer(),
-                $widgetSettings->getTrailingSpacer(),
-                stylePattern: new Rainbow(),
-                charPattern: new Snake(),
-            );
     }
 
     public function getRootWidgetSettings(): IWidgetSettings

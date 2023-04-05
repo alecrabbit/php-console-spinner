@@ -10,10 +10,15 @@ use AlecRabbit\Spinner\Core\Defaults\Contract\IDefaultsProviderBuilder;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDriverSettingsBuilder;
 use AlecRabbit\Spinner\Core\Defaults\Contract\ILoopSettingsBuilder;
 use AlecRabbit\Spinner\Core\Defaults\Contract\ISpinnerSettingsBuilder;
+use AlecRabbit\Spinner\Core\Defaults\Contract\IWidgetSettings;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IWidgetSettingsBuilder;
+use AlecRabbit\Spinner\Core\Pattern\CharPattern\Snake;
+use AlecRabbit\Spinner\Core\Pattern\StylePattern\Rainbow;
 
 final class DefaultsProviderBuilder implements IDefaultsProviderBuilder
 {
+    protected IWidgetSettings $widgetSettings;
+
     public function __construct(
         protected ILoopSettingsBuilder $loopSettingsBuilder,
         protected ISpinnerSettingsBuilder $spinnerSettingsBuilder,
@@ -22,6 +27,7 @@ final class DefaultsProviderBuilder implements IDefaultsProviderBuilder
         protected IWidgetSettingsBuilder $widgetSettingsBuilder,
         protected IWidgetSettingsBuilder $rootWidgetSettingsBuilder,
     ) {
+        $this->widgetSettings = $this->widgetSettingsBuilder->build();
     }
 
     public function build(): IDefaultsProvider
@@ -32,6 +38,18 @@ final class DefaultsProviderBuilder implements IDefaultsProviderBuilder
                 loopSettings: $this->loopSettingsBuilder->build(),
                 spinnerSettings: $this->spinnerSettingsBuilder->build(),
                 driverSettings: $this->driverSettingsBuilder->build(),
+                widgetSettings: $this->widgetSettings,
+                rootWidgetSettings: $this->getRootWidgetSettings(),
             );
+    }
+
+    private function getRootWidgetSettings(): Contract\IWidgetSettings
+    {
+        return new WidgetSettings(
+            $this->widgetSettings->getLeadingSpacer(),
+            $this->widgetSettings->getTrailingSpacer(),
+            stylePattern: new Rainbow(),
+            charPattern: new Snake(),
+        );
     }
 }
