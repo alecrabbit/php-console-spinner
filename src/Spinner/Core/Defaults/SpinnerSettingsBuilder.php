@@ -7,6 +7,7 @@ namespace AlecRabbit\Spinner\Core\Defaults;
 use AlecRabbit\Spinner\Contract\OptionAttach;
 use AlecRabbit\Spinner\Contract\OptionInitialization;
 use AlecRabbit\Spinner\Core\Defaults\Contract\ISpinnerSettings;
+use AlecRabbit\Spinner\Core\Defaults\Contract\ISpinnerSettingsBuilder;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoopProbe;
 
 final class SpinnerSettingsBuilder implements ISpinnerSettingsBuilder

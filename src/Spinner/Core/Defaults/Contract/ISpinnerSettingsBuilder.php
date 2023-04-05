@@ -2,9 +2,7 @@
 
 declare(strict_types=1);
 // 05.04.23
-namespace AlecRabbit\Spinner\Core\Defaults;
-
-use AlecRabbit\Spinner\Core\Defaults\Contract\ISpinnerSettings;
+namespace AlecRabbit\Spinner\Core\Defaults\Contract;
 
 interface ISpinnerSettingsBuilder
 {

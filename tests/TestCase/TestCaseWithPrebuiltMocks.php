@@ -23,8 +23,9 @@ use AlecRabbit\Spinner\Core\Contract\ISpinnerAttacher;
 use AlecRabbit\Spinner\Core\Contract\ISpinnerBuilder;
 use AlecRabbit\Spinner\Core\Contract\ISpinnerSetup;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IAuxSettings;
-use AlecRabbit\Spinner\Core\Defaults\ILoopSettingsBuilder;
-use AlecRabbit\Spinner\Core\Defaults\ISpinnerSettingsBuilder;
+use AlecRabbit\Spinner\Core\Defaults\Contract\IAuxSettingsBuilder;
+use AlecRabbit\Spinner\Core\Defaults\Contract\ILoopSettingsBuilder;
+use AlecRabbit\Spinner\Core\Defaults\Contract\ISpinnerSettingsBuilder;
 use AlecRabbit\Spinner\Core\Factory\Contract\IFrameFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ITimerBuilder;
@@ -192,5 +193,10 @@ abstract class TestCaseWithPrebuiltMocks extends TestCase
     protected function getSpinnerSettingsBuilderMock(): MockObject&ISpinnerSettingsBuilder
     {
         return $this->createMock(ISpinnerSettingsBuilder::class);
+    }
+
+    protected function getAuxSettingsBuilderMock(): MockObject&IAuxSettingsBuilder
+    {
+        return $this->createMock(IAuxSettingsBuilder::class);
     }
 }

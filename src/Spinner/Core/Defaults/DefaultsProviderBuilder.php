@@ -5,13 +5,17 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Defaults;
 
 use AlecRabbit\Spinner\Core\Contract\IDefaultsProvider;
+use AlecRabbit\Spinner\Core\Defaults\Contract\IAuxSettingsBuilder;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDefaultsProviderBuilder;
+use AlecRabbit\Spinner\Core\Defaults\Contract\ILoopSettingsBuilder;
+use AlecRabbit\Spinner\Core\Defaults\Contract\ISpinnerSettingsBuilder;
 
 final class DefaultsProviderBuilder implements IDefaultsProviderBuilder
 {
     public function __construct(
         protected ILoopSettingsBuilder $loopSettingsBuilder,
         protected ISpinnerSettingsBuilder $spinnerSettingsBuilder,
+        protected IAuxSettingsBuilder $auxSettingsBuilder,
     ) {
     }
 
@@ -21,6 +25,7 @@ final class DefaultsProviderBuilder implements IDefaultsProviderBuilder
             new DefaultsProvider(
                 spinnerSettings: $this->spinnerSettingsBuilder->build(),
                 loopSettings: $this->loopSettingsBuilder->build(),
+                auxSettings: $this->auxSettingsBuilder->build(),
             );
     }
 }

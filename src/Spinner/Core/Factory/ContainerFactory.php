@@ -34,8 +34,14 @@ use AlecRabbit\Spinner\Core\Contract\IStyleFrameRenderer;
 use AlecRabbit\Spinner\Core\Contract\IWidthMeasurer;
 use AlecRabbit\Spinner\Core\Contract\LoopSetup;
 use AlecRabbit\Spinner\Core\CursorBuilder;
+use AlecRabbit\Spinner\Core\Defaults\AuxSettingsBuilder;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IAuxSettings;
+use AlecRabbit\Spinner\Core\Defaults\Contract\IAuxSettingsBuilder;
+use AlecRabbit\Spinner\Core\Defaults\Contract\ILoopSettingsBuilder;
+use AlecRabbit\Spinner\Core\Defaults\Contract\ISpinnerSettingsBuilder;
 use AlecRabbit\Spinner\Core\Defaults\DefaultsProviderBuilder;
+use AlecRabbit\Spinner\Core\Defaults\LoopSettingsBuilder;
+use AlecRabbit\Spinner\Core\Defaults\SpinnerSettingsBuilder;
 use AlecRabbit\Spinner\Core\DriverBuilder;
 use AlecRabbit\Spinner\Core\Factory\Contract\IContainerFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IFrameFactory;
@@ -102,10 +108,36 @@ final class ContainerFactory implements IContainerFactory
         return new ArrayObject(
             [
                 IDefaultsProvider::class => static function (ContainerInterface $container): IDefaultsProvider {
-                    dump(sprintf('Creating %s', IDefaultsProvider::class));
-                    return new DefaultsProviderBuilder();
+                    return
+                        (new DefaultsProviderBuilder(
+                            loopSettingsBuilder: $container->get(ILoopSettingsBuilder::class),
+                            spinnerSettingsBuilder: $container->get(ISpinnerSettingsBuilder::class),
+                            auxSettingsBuilder: $container->get(IAuxSettingsBuilder::class),
+                        ))
+                            ->build()
+                    ;
                 },
 
+                ILoopSettingsBuilder::class => static function (ContainerInterface $container): ILoopSettingsBuilder {
+                    $loopProbe = null;
+                    try {
+                        $loopProbe = $container->get(ILoopProbeFactory::class)->getProbe();
+                    } finally {
+                        return new LoopSettingsBuilder($loopProbe);
+                    }
+                },
+
+                ISpinnerSettingsBuilder::class =>
+                    static function (ContainerInterface $container): ISpinnerSettingsBuilder {
+                        $loopProbe = null;
+                        try {
+                            $loopProbe = $container->get(ILoopProbeFactory::class)->getProbe();
+                        } finally {
+                            return new SpinnerSettingsBuilder($loopProbe);
+                        }
+                    },
+
+                IAuxSettingsBuilder::class => AuxSettingsBuilder::class,
                 IAnsiStyleConverter::class => AnsiStyleConverter::class,
                 ICharFrameCollectionRenderer::class => CharFrameCollectionRenderer::class,
                 ICharFrameRenderer::class => CharFrameRenderer::class,
