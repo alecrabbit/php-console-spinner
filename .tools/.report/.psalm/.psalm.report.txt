@@ -1,6 +1,6 @@
 /app/src/Spinner/Asynchronous/Factory/LoopProbeFactory.php:36:36:error - UndefinedInterfaceMethod: Method Traversable::append does not exist
 /app/src/Spinner/Asynchronous/Loop/Adapter/ReactLoopAdapter.php:18:13:error - InaccessibleMethod: Interface-defined method onSignal must be public in AlecRabbit\Spinner\Asynchronous\Loop\Adapter\ReactLoopAdapter
-/app/src/Spinner/Asynchronous/Loop/Adapter/ReactLoopAdapter.php:83:5:error - OverriddenMethodAccess: Method AlecRabbit\Spinner\Asynchronous\Loop\Adapter\ReactLoopAdapter::onSignal has different access level than AlecRabbit\Spinner\Core\Loop\A\ALoopAdapter::onSignal
+/app/src/Spinner/Asynchronous/Loop/Adapter/ReactLoopAdapter.php:83:5:error - OverriddenMethodAccess: Method AlecRabbit\Spinner\Asynchronous\Loop\Adapter\ReactLoopAdapter::onSignal has different access level than AlecRabbit\Spinner\Core\Loop\A\ALoop::onSignal
 /app/src/Spinner/Asynchronous/bootstrap.php:18:17:error - InvalidArgument: Argument 1 of AlecRabbit\Spinner\Asynchronous\Factory\LoopProbeFactory::__construct expects Traversable<mixed, AlecRabbit\Spinner\Core\Loop\Contract\ILoopProbe>, but ArrayObject<int<0, 1>, AlecRabbit\Spinner\Asynchronous\Loop\Probe\ReactLoopProbe::class|AlecRabbit\Spinner\Asynchronous\Loop\Probe\RevoltLoopProbe::class> provided
 /app/src/Spinner/Container/Container.php:34:9:error - MixedAssignment: Unable to determine the type that $this->serviceSpawner is being assigned to
 /app/src/Spinner/Container/Container.php:35:30:error - MixedPropertyTypeCoercion: $this->definitions expects 'ArrayObject<string, callable|object|string>',  parent type `ArrayObject<mixed, mixed>` provided
@@ -32,8 +32,8 @@
 /app/src/Spinner/Core/Contract/IOutputBuilder.php:11:32:error - MissingParamType: Parameter $stream has no provided type
 /app/src/Spinner/Core/Contract/LoopSetup.php:44:31:error - MixedAssignment: Unable to determine the type that $signal is being assigned to
 /app/src/Spinner/Core/Contract/LoopSetup.php:44:42:error - MixedAssignment: Unable to determine the type that $handler is being assigned to
-/app/src/Spinner/Core/Contract/LoopSetup.php:45:35:error - MixedArgument: Argument 1 of AlecRabbit\Spinner\Core\Loop\Contract\ILoopAdapter::onSignal cannot be mixed, expecting int
-/app/src/Spinner/Core/Contract/LoopSetup.php:45:44:error - MixedArgument: Argument 2 of AlecRabbit\Spinner\Core\Loop\Contract\ILoopAdapter::onSignal cannot be mixed, expecting Closure
+/app/src/Spinner/Core/Contract/LoopSetup.php:45:35:error - MixedArgument: Argument 1 of AlecRabbit\Spinner\Core\Loop\Contract\ILoop::onSignal cannot be mixed, expecting int
+/app/src/Spinner/Core/Contract/LoopSetup.php:45:44:error - MixedArgument: Argument 2 of AlecRabbit\Spinner\Core\Loop\Contract\ILoop::onSignal cannot be mixed, expecting Closure
 /app/src/Spinner/Core/CursorBuilder.php:25:17:error - ArgumentTypeCoercion: Argument 1 of AlecRabbit\Spinner\Core\Output\Cursor::__construct expects AlecRabbit\Spinner\Contract\IBufferedOutput, but parent type AlecRabbit\Spinner\Contract\IOutput|null provided
 /app/src/Spinner/Core/CursorBuilder.php:25:17:error - PossiblyNullArgument: Argument 1 of AlecRabbit\Spinner\Core\Output\Cursor::__construct cannot be null, possibly null value provided
 /app/src/Spinner/Core/CursorBuilder.php:26:17:error - PossiblyNullArgument: Argument 2 of AlecRabbit\Spinner\Core\Output\Cursor::__construct cannot be null, possibly null value provided
@@ -48,17 +48,17 @@
 /app/src/Spinner/Core/Factory/ContainerFactory.php:95:29:error - MixedArgument: Argument 1 of AlecRabbit\Spinner\Container\Contract\IContainer::add cannot be mixed, expecting string
 /app/src/Spinner/Core/Factory/ContainerFactory.php:95:34:error - MixedArgument: Argument 2 of AlecRabbit\Spinner\Container\Contract\IContainer::add cannot be mixed, expecting callable|object|string
 /app/src/Spinner/Core/Factory/ContainerFactory.php:133:79:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
-/app/src/Spinner/Core/Factory/ContainerFactory.php:141:92:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Contract\OptionStyleMode' for /app/src/spinner/core/factory/containerfactory.php:141:6709:-:closure
+/app/src/Spinner/Core/Factory/ContainerFactory.php:141:92:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Contract\OptionStyleMode' for /app/src/spinner/core/factory/containerfactory.php:141:6702:-:closure
 /app/src/Spinner/Core/Factory/ContainerFactory.php:142:28:error - MixedReturnStatement: Could not infer a return type
 /app/src/Spinner/Core/Factory/ContainerFactory.php:142:71:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
 /app/src/Spinner/Core/Factory/ContainerFactory.php:142:89:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
-/app/src/Spinner/Core/Factory/ContainerFactory.php:146:89:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Core\Loop\Contract\ILoopAdapter' for /app/src/spinner/core/factory/containerfactory.php:146:6946:-:closure
+/app/src/Spinner/Core/Factory/ContainerFactory.php:146:82:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Core\Loop\Contract\ILoop' for /app/src/spinner/core/factory/containerfactory.php:146:6932:-:closure
 /app/src/Spinner/Core/Factory/ContainerFactory.php:148:25:error - MixedReturnStatement: Could not infer a return type
 /app/src/Spinner/Core/Factory/ContainerFactory.php:148:63:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
-/app/src/Spinner/Core/Factory/ContainerFactory.php:160:93:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Core\Contract\ISpinnerAttacher' for /app/src/spinner/core/factory/containerfactory.php:160:7532:-:closure
+/app/src/Spinner/Core/Factory/ContainerFactory.php:160:93:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Core\Contract\ISpinnerAttacher' for /app/src/spinner/core/factory/containerfactory.php:160:7511:-:closure
 /app/src/Spinner/Core/Factory/ContainerFactory.php:162:25:error - MixedReturnStatement: Could not infer a return type
 /app/src/Spinner/Core/Factory/ContainerFactory.php:162:74:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
-/app/src/Spinner/Core/Factory/ContainerFactory.php:165:91:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Core\Contract\IWidthMeasurer' for /app/src/spinner/core/factory/containerfactory.php:165:7776:-:closure
+/app/src/Spinner/Core/Factory/ContainerFactory.php:165:91:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Core\Contract\IWidthMeasurer' for /app/src/spinner/core/factory/containerfactory.php:165:7755:-:closure
 /app/src/Spinner/Core/Factory/ContainerFactory.php:167:25:error - MixedReturnStatement: Could not infer a return type
 /app/src/Spinner/Core/Factory/ContainerFactory.php:167:72:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
 /app/src/Spinner/Core/Factory/Contract/IDriverFactory.php:12:45:error - UndefinedClass: Class, interface or enum named AlecRabbit\Spinner\Core\Defaults\Contract\IDefaults does not exist
@@ -87,7 +87,7 @@
 /app/src/Spinner/Facade.php:62:13:error - LessSpecificReturnStatement: The type 'object' is more general than the declared return type 'AlecRabbit\Spinner\Core\Factory\Contract\ISpinnerFactory' for AlecRabbit\Spinner\Facade::getSpinnerFactory
 /app/src/Spinner/Facade.php:67:47:error - MoreSpecificReturnType: The declared return type 'AlecRabbit\Spinner\Core\Contract\ILoopSetup' for AlecRabbit\Spinner\Facade::getLoopSetup is more specific than the inferred return type 'object'
 /app/src/Spinner/Facade.php:70:13:error - LessSpecificReturnStatement: The type 'object' is more general than the declared return type 'AlecRabbit\Spinner\Core\Contract\ILoopSetup' for AlecRabbit\Spinner\Facade::getLoopSetup
-/app/src/Spinner/Facade.php:75:39:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Core\Loop\Contract\ILoopAdapter' for AlecRabbit\Spinner\Facade::getLoop
+/app/src/Spinner/Facade.php:75:39:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Core\Loop\Contract\ILoop' for AlecRabbit\Spinner\Facade::getLoop
 /app/src/Spinner/Facade.php:78:13:error - MixedReturnStatement: Could not infer a return type
 /app/src/Spinner/Facade.php:80:19:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
 /app/src/Spinner/Helper/Stringify.php:39:45:error - MixedArgument: Argument 3 of sprintf cannot be 'false'|'true'|mixed, expecting float|int|string
