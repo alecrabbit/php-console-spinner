@@ -23,9 +23,9 @@ final class DefaultsProviderBuilder implements IDefaultsProviderBuilder
     {
         return
             new DefaultsProvider(
-                spinnerSettings: $this->spinnerSettingsBuilder->build(),
-                loopSettings: $this->loopSettingsBuilder->build(),
                 auxSettings: $this->auxSettingsBuilder->build(),
+                loopSettings: $this->loopSettingsBuilder->build(),
+                spinnerSettings: $this->spinnerSettingsBuilder->build(),
             );
     }
 }

@@ -26,6 +26,7 @@ use AlecRabbit\Spinner\Core\Defaults\Contract\IAuxSettings;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IAuxSettingsBuilder;
 use AlecRabbit\Spinner\Core\Defaults\Contract\ILoopSettingsBuilder;
 use AlecRabbit\Spinner\Core\Defaults\Contract\ISpinnerSettingsBuilder;
+use AlecRabbit\Spinner\Core\Defaults\Contract\IWidgetSettings;
 use AlecRabbit\Spinner\Core\Factory\Contract\IFrameFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ITimerBuilder;
@@ -63,6 +64,11 @@ abstract class TestCaseWithPrebuiltMocks extends TestCase
     protected function getConfigMock(): MockObject&IConfig
     {
         return $this->createMock(IConfig::class);
+    }
+
+    protected function getWidgetSettingsMock(): MockObject&IWidgetSettings
+    {
+        return $this->createMock(IWidgetSettings::class);
     }
 
     protected function getContainerMock(): MockObject&IContainer

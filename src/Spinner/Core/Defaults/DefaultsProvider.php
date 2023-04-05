@@ -21,19 +21,17 @@ final class DefaultsProvider implements IDefaultsProvider
 
     protected IWidgetSettings $rootWidgetSettings;
     protected IWidgetSettings $widgetSettings;
-    protected IAuxSettings $auxSettings;
 
     public function __construct(
+        protected IAuxSettings $auxSettings,
+        protected ILoopSettings $loopSettings,
+        protected ISpinnerSettings $spinnerSettings,
+        protected IDriverSettings $driverSettings = new DriverSettings(),
         ?IWidgetSettings $rootWidgetSettings = null,
         ?IWidgetSettings $widgetSettings = null,
-        protected IDriverSettings $driverSettings = new DriverSettings(),
-        protected ISpinnerSettings $spinnerSettings = new SpinnerSettings(),
-        protected ILoopSettings $loopSettings = new LoopSettings(),
-        ?IAuxSettings $auxSettings = null,
     ) {
         $this->widgetSettings = $widgetSettings ?? $this->createDefaultWidgetSettings();
         $this->rootWidgetSettings = $rootWidgetSettings ?? $this->createRootWidgetSettings($this->widgetSettings);
-        $this->auxSettings = $auxSettings ?? $this->createAuxSettings();
     }
 
     private function createDefaultWidgetSettings(): WidgetSettings
