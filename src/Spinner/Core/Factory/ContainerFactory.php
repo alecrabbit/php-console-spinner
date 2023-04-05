@@ -35,7 +35,6 @@ use AlecRabbit\Spinner\Core\Contract\IWidthMeasurer;
 use AlecRabbit\Spinner\Core\Contract\LoopSetup;
 use AlecRabbit\Spinner\Core\CursorBuilder;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IAuxSettings;
-use AlecRabbit\Spinner\Core\Defaults\DefaultsProvider;
 use AlecRabbit\Spinner\Core\Defaults\DefaultsProviderBuilder;
 use AlecRabbit\Spinner\Core\DriverBuilder;
 use AlecRabbit\Spinner\Core\Factory\Contract\IContainerFactory;

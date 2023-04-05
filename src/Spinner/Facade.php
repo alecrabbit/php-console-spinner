@@ -14,7 +14,6 @@ use AlecRabbit\Spinner\Core\Factory\ContainerFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ISpinnerFactory;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoop;
-use Closure;
 
 final class Facade implements IFacade
 {

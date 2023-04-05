@@ -4,10 +4,8 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Contract;
 
-use AlecRabbit\Spinner\Container\Contract\IContainer;
 use AlecRabbit\Spinner\Core\Config\Contract\IConfig;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoop;
-use AlecRabbit\Spinner\Facade;
 
 interface IFacade
 {
