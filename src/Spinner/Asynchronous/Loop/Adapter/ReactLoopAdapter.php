@@ -6,7 +6,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Asynchronous\Loop\Adapter;
 
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
-use AlecRabbit\Spinner\Core\Loop\A\ALoop;
+use AlecRabbit\Spinner\Core\Loop\A\ALoopAdapter;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use Closure;
 use React\EventLoop\LoopInterface;
@@ -15,7 +15,7 @@ use React\EventLoop\TimerInterface;
 /**
  * @codeCoverageIgnore
  */
-final class ReactLoopAdapter extends ALoop
+final class ReactLoopAdapter extends ALoopAdapter
 {
     private ?TimerInterface $spinnerTimer = null;
 

@@ -10,7 +10,7 @@ use Closure;
 /**
  * @codeCoverageIgnore
  */
-abstract class ALoop implements ILoop
+abstract class ALoopAdapter implements ILoop
 {
     protected static function error(): bool
     {
