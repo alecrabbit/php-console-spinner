@@ -40,8 +40,8 @@
 /app/src/Spinner/Core/Defaults/AuxSettings.php:21:19:error - MissingParamType: Parameter $outputStream has no provided type
 /app/src/Spinner/Core/Defaults/AuxSettings.php:70:21:error - MixedInferredReturnType: Could not verify return type 'resource' for AlecRabbit\Spinner\Core\Defaults\AuxSettings::getOutputStream
 /app/src/Spinner/Core/Defaults/AuxSettings.php:72:16:error - MixedReturnStatement: Could not infer a return type
-/app/src/Spinner/Core/Defaults/WidgetSettingsBuilder.php:30:32:error - PossiblyNullArgument: Argument 1 of AlecRabbit\Spinner\Core\Defaults\WidgetSettings::__construct cannot be null, possibly null value provided
-/app/src/Spinner/Core/Defaults/WidgetSettingsBuilder.php:31:33:error - PossiblyNullArgument: Argument 2 of AlecRabbit\Spinner\Core\Defaults\WidgetSettings::__construct cannot be null, possibly null value provided
+/app/src/Spinner/Core/Defaults/WidgetSettingsBuilder.php:29:32:error - PossiblyNullArgument: Argument 1 of AlecRabbit\Spinner\Core\Defaults\WidgetSettings::__construct cannot be null, possibly null value provided
+/app/src/Spinner/Core/Defaults/WidgetSettingsBuilder.php:30:33:error - PossiblyNullArgument: Argument 2 of AlecRabbit\Spinner\Core\Defaults\WidgetSettings::__construct cannot be null, possibly null value provided
 /app/src/Spinner/Core/DriverBuilder.php:44:39:error - PossiblyNullReference: Cannot call method getOutputStream on possibly null value
 /app/src/Spinner/Core/DriverBuilder.php:65:25:error - ArgumentTypeCoercion: Argument 1 of AlecRabbit\Spinner\Core\Driver::__construct expects AlecRabbit\Spinner\Contract\IBufferedOutput, but parent type AlecRabbit\Spinner\Contract\IOutput provided
 /app/src/Spinner/Core/DriverBuilder.php:68:31:error - PossiblyNullArgument: Argument 4 of AlecRabbit\Spinner\Core\Driver::__construct cannot be null, possibly null value provided
