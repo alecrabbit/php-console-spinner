@@ -4,10 +4,9 @@ declare(strict_types=1);
 // 04.04.23
 namespace AlecRabbit\Spinner\Core\Contract;
 
-use AlecRabbit\Spinner\Core\Config\Contract\ILoopConfig;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopFactory;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoopAdapter;
-use AlecRabbit\Spinner\Exception\LogicException;
+use AlecRabbit\Spinner\Helper\Asserter;
 
 final class LoopSetup implements ILoopSetup
 {
@@ -20,16 +19,36 @@ final class LoopSetup implements ILoopSetup
     ) {
     }
 
-    public function setup(): void
+    public function setup(ISpinner $spinner): void
     {
         if ($this->asynchronous) {
             if ($this->autoStartEnabled) {
                 $this->loopFactory->registerAutoStart();
             }
             if ($this->signalHandlersEnabled) {
-                $this->loopFactory->registerSignalHandlers();
+                $this->loopFactory->registerSignalHandlers(
+                    $this->createSignalHandlers(
+                        $spinner,
+                        $this->loopFactory->getLoop(),
+                    ),
+                );
             }
         }
+    }
+
+    private function createSignalHandlers(ISpinner $spinner, ILoopAdapter $loop): \Traversable
+    {
+        Asserter::assertExtensionLoaded(
+            'pcntl',
+            'Signal handling requires the pcntl extension.'
+        );
+
+        yield from [
+            SIGINT => function () use ($spinner, $loop): void {
+                $spinner->interrupt();
+                $loop->stop();
+            },
+        ];
     }
 
     public function asynchronous(bool $enable): ILoopSetup

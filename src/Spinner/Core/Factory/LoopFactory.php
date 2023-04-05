@@ -43,16 +43,7 @@ final class LoopFactory implements ILoopFactory
         $this->getLoop()->autoStart();
     }
 
-    /**
-     * @throws RuntimeException
-     */
-    protected function assertExtensionPcntl(): void
+    public function registerSignalHandlers(\Traversable $handlers): void
     {
-        Asserter::assertExtensionLoaded('pcntl', 'Signal handling requires the pcntl extension.');
-    }
-
-    public function registerSignalHandlers(): void
-    {
-        $this->assertExtensionPcntl();
     }
 }

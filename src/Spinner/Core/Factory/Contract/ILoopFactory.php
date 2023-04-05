@@ -12,5 +12,5 @@ interface ILoopFactory
 
     public function registerAutoStart(): void;
 
-    public function registerSignalHandlers(): void;
+    public function registerSignalHandlers(\Traversable $handlers): void;
 }

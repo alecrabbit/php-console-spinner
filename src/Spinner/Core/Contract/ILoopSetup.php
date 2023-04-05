@@ -11,7 +11,7 @@ use AlecRabbit\Spinner\Core\Loop\Contract\ILoopAdapter;
 
 interface ILoopSetup
 {
-    public function setup(): void;
+    public function setup(ISpinner $spinner): void;
 
     public function enableSignalHandlers(bool $enable): ILoopSetup;
 
