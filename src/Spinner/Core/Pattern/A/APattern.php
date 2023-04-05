@@ -19,9 +19,11 @@ abstract class APattern implements IPattern
     /** @var array<int, string> */
     protected const PATTERN = ['  ', ' u', 'un', 'nd', 'de', 'ef', 'fi', 'in', 'ne', 'ed', 'd ',];
 
+    protected IInterval $interval;
     public function __construct(
-        protected ?int $interval = null,
+        ?int $interval = null,
     ) {
+        $this->interval = new Interval($interval ?? static::UPDATE_INTERVAL);
     }
 
     public function getPattern(): Traversable
@@ -37,6 +39,6 @@ abstract class APattern implements IPattern
     public function getInterval(): IInterval
     {
         return
-            new Interval($this->interval ?? static::UPDATE_INTERVAL);
+            $this->interval;
     }
 }

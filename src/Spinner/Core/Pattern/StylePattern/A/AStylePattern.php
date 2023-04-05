@@ -22,9 +22,10 @@ abstract class AStylePattern extends AReversiblePattern implements IStylePattern
     public function __construct(
         ?int $interval = null,
         bool $reversed = false,
-        protected OptionStyleMode $styleMode = self::STYLE_MODE
+        protected ?OptionStyleMode $styleMode = null,
     ) {
         parent::__construct($interval, $reversed);
+        $this->styleMode ??= static::STYLE_MODE;
     }
 
     public function getStyleMode(): OptionStyleMode
