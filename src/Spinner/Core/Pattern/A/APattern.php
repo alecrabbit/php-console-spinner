@@ -20,6 +20,7 @@ abstract class APattern implements IPattern
     protected const PATTERN = ['  ', ' u', 'un', 'nd', 'de', 'ef', 'fi', 'in', 'ne', 'ed', 'd ',];
 
     protected IInterval $interval;
+
     public function __construct(
         ?int $interval = null,
     ) {

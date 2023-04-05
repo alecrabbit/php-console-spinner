@@ -11,7 +11,6 @@ use AlecRabbit\Spinner\Core\Defaults\Contract\IWidgetSettingsBuilder;
 use AlecRabbit\Spinner\Core\Factory\FrameFactory;
 use AlecRabbit\Spinner\Core\Pattern\CharPattern\NoCharPattern;
 use AlecRabbit\Spinner\Core\Pattern\StylePattern\NoStylePattern;
-use AlecRabbit\Spinner\Exception\LogicException;
 
 final class WidgetSettingsBuilder implements IWidgetSettingsBuilder
 {

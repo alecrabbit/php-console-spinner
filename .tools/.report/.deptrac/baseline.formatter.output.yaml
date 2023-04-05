@@ -1,4 +1,2 @@
 deptrac:
-  skip_violations:
-    AlecRabbit\Spinner\Core\Contract\IFacade:
-      - AlecRabbit\Spinner\Facade
+  skip_violations: {  }

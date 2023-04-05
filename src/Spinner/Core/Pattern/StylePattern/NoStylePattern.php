@@ -16,8 +16,8 @@ final class NoStylePattern extends AStylePattern
 {
     protected const STYLE_MODE = OptionStyleMode::NONE;
 
-    public function __construct(
-    ) {
+    public function __construct()
+    {
         parent::__construct();
         $this->interval = new Interval();
     }

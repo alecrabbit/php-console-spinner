@@ -8,14 +8,13 @@ namespace AlecRabbit\Spinner\Core\Pattern\CharPattern;
 use AlecRabbit\Spinner\Core\Frame;
 use AlecRabbit\Spinner\Core\Interval;
 use AlecRabbit\Spinner\Core\Pattern\A\APattern;
-use AlecRabbit\Spinner\Core\Pattern\A\AReversiblePattern;
 use Traversable;
 
 /** @psalm-suppress UnusedClass */
 final class NoCharPattern extends APattern
 {
-    public function __construct(
-    ) {
+    public function __construct()
+    {
         parent::__construct();
         $this->interval = new Interval();
     }
