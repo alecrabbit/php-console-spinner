@@ -5,14 +5,10 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Asynchronous\Loop\Adapter;
 
-use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use AlecRabbit\Spinner\Core\Loop\A\ALoopAdapter;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use Closure;
 use Revolt\EventLoop;
-use Revolt\EventLoop\Driver\EvDriver;
-use Revolt\EventLoop\Driver\EventDriver;
-use Revolt\EventLoop\Driver\UvDriver;
 
 /**
  * @codeCoverageIgnore
@@ -23,8 +19,8 @@ final class RevoltLoopAdapter extends ALoopAdapter
 
     protected readonly EventLoop\Driver $loop;
 
-    public function __construct(
-    ) {
+    public function __construct()
+    {
         $this->loop = EventLoop::getDriver();
     }
 

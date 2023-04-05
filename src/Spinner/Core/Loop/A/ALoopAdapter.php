@@ -4,10 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Loop\A;
 
-use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoopAdapter;
-use AlecRabbit\Spinner\Exception\RuntimeException;
-use AlecRabbit\Spinner\Helper\Asserter;
 use Closure;
 
 /**

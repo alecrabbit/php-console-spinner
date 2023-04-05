@@ -4,10 +4,6 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Contract;
 
-use AlecRabbit\Spinner\Contract\OptionRunMode;
-use AlecRabbit\Spinner\Core\A\SpinnerSetup;
-use AlecRabbit\Spinner\Core\Config\Contract\ISpinnerConfig;
-
 interface ISpinnerSetup
 {
 

@@ -7,7 +7,6 @@ namespace AlecRabbit\Spinner\Core;
 use AlecRabbit\Spinner\Core\A\ASpinner;
 use AlecRabbit\Spinner\Core\Config\Contract\IConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IDriverBuilder;
-use AlecRabbit\Spinner\Core\Contract\IConfigBuilder;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use AlecRabbit\Spinner\Core\Contract\ISpinnerBuilder;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetBuilder;
@@ -45,17 +44,17 @@ final class SpinnerBuilder implements ISpinnerBuilder
             };
     }
 
-    public function withConfig(IConfig $config): self
-    {
-        $clone = clone $this;
-        $clone->config = $config;
-        return $clone;
-    }
-
     protected function assertConfig(): void
     {
         if (null === $this->config) {
             throw new LogicException('Config is not set.');
         }
+    }
+
+    public function withConfig(IConfig $config): self
+    {
+        $clone = clone $this;
+        $clone->config = $config;
+        return $clone;
     }
 }

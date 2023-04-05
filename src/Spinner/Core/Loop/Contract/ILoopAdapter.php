@@ -5,7 +5,6 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Loop\Contract;
 
-use AlecRabbit\Spinner\Core\Contract\ISpinnerAttacher;
 use Closure;
 
 interface ILoopAdapter

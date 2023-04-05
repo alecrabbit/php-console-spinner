@@ -66,10 +66,6 @@ final class ReactLoopAdapter extends ALoopAdapter
         $this->loop->stop();
     }
 
-    protected function onSignal(int $signal, Closure $closure): void
-    {
-        $this->loop->addSignal($signal, $closure);
-    }
     public function cancel(mixed $timer): void
     {
         if (!$timer instanceof TimerInterface) {
@@ -82,5 +78,10 @@ final class ReactLoopAdapter extends ALoopAdapter
             );
         }
         $this->loop->cancelTimer($timer);
+    }
+
+    protected function onSignal(int $signal, Closure $closure): void
+    {
+        $this->loop->addSignal($signal, $closure);
     }
 }

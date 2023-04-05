@@ -6,6 +6,7 @@ namespace AlecRabbit\Spinner\Core\Contract;
 
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoopAdapter;
 use AlecRabbit\Spinner\Helper\Asserter;
+use Traversable;
 
 final class LoopSetup implements ILoopSetup
 {
@@ -37,17 +38,15 @@ final class LoopSetup implements ILoopSetup
 
     private function registerSignalHandlers(ISpinner $spinner): void
     {
-        $loop = $this->loop;
-
         $handlers =
-            $this->createSignalHandlers($spinner, $loop);
+            $this->getSignalHandlers($spinner, $this->loop);
 
         foreach ($handlers as $signal => $handler) {
-            $loop->onSignal($signal, $handler);
+            $this->loop->onSignal($signal, $handler);
         }
     }
 
-    private function createSignalHandlers(ISpinner $spinner, ILoopAdapter $loop): \Traversable
+    private function getSignalHandlers(ISpinner $spinner, ILoopAdapter $loop): Traversable
     {
         Asserter::assertExtensionLoaded(
             'pcntl',

@@ -9,9 +9,8 @@ use AlecRabbit\Spinner\Core\Loop\Contract\ILoopProbeFactory;
 use AlecRabbit\Spinner\Facade;
 
 // @codeCoverageIgnoreStart
-$container = Facade::getContainer();
 
-$container->replace(
+Facade::replaceService(
     ILoopProbeFactory::class,
     static function (): ILoopProbeFactory {
         return
@@ -23,4 +22,5 @@ $container->replace(
             );
     },
 );
+
 // @codeCoverageIgnoreEnd

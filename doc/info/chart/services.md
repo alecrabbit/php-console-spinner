@@ -11,17 +11,13 @@ classDiagram
    
 
     class Facade {
-        +getContainer() IContainer
         +getConfigBuilder() IConfigBuilder
         +getLoop() ILoopAdapter
         +createSpinner(IConfig $config = null) ISpinner
+        +replaceService(string $id, object|callable|string $service) void
     }
     
     IContainerFactory ..> IContainer
-
-    class IContainerFactory {
-        +getContainer() IContainer
-    }
     
     IContainer ..> IServiceSpawner
 

@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Factory;
 
 use AlecRabbit\Spinner\Core\Config\Contract\IConfig;
-use AlecRabbit\Spinner\Core\Contract\ILoopSetup;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use AlecRabbit\Spinner\Core\Contract\ISpinnerBuilder;
 use AlecRabbit\Spinner\Core\Contract\ISpinnerSetup;
@@ -22,10 +21,10 @@ final class SpinnerFactory implements ISpinnerFactory
     public function createSpinner(IConfig $config): ISpinner
     {
         return
-            $this->createSpinnerAndInitializeServices($config);
+            $this->createAndSetupSpinner($config);
     }
 
-    protected function createSpinnerAndInitializeServices(IConfig $config): ISpinner
+    protected function createAndSetupSpinner(IConfig $config): ISpinner
     {
         $spinner = $this->buildSpinner($config);
 
