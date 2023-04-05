@@ -9,6 +9,7 @@ use AlecRabbit\Spinner\Core\Defaults\Contract\IDefaultsProviderBuilder;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDriverSettingsBuilder;
 use AlecRabbit\Spinner\Core\Defaults\Contract\ILoopSettingsBuilder;
 use AlecRabbit\Spinner\Core\Defaults\Contract\ISpinnerSettingsBuilder;
+use AlecRabbit\Spinner\Core\Defaults\Contract\IWidgetSettingsBuilder;
 use AlecRabbit\Spinner\Core\Defaults\DefaultsProvider;
 use AlecRabbit\Spinner\Core\Defaults\DefaultsProviderBuilder;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocks;
@@ -31,6 +32,8 @@ final class DefaultsProviderBuilderTest extends TestCaseWithPrebuiltMocks
         ?ISpinnerSettingsBuilder $spinnerSettingsBuilder = null,
         ?IAuxSettingsBuilder $auxSettingsBuilder = null,
         ?IDriverSettingsBuilder $driverSettingsBuilder = null,
+        ?IWidgetSettingsBuilder $widgetSettingsBuilder = null,
+        ?IWidgetSettingsBuilder $rootWidgetSettingsBuilder = null,
     ): IDefaultsProviderBuilder {
         return
             new DefaultsProviderBuilder(
@@ -38,6 +41,8 @@ final class DefaultsProviderBuilderTest extends TestCaseWithPrebuiltMocks
                 spinnerSettingsBuilder: $spinnerSettingsBuilder ?? $this->getSpinnerSettingsBuilderMock(),
                 auxSettingsBuilder: $auxSettingsBuilder ?? $this->getAuxSettingsBuilderMock(),
                 driverSettingsBuilder: $driverSettingsBuilder ?? $this->getDriverSettingsBuilderMock(),
+                widgetSettingsBuilder: $widgetSettingsBuilder ?? $this->getWidgetSettingsBuilderMock(),
+                rootWidgetSettingsBuilder: $rootWidgetSettingsBuilder ?? $this->getWidgetSettingsBuilderMock(),
             );
     }
 

@@ -40,10 +40,12 @@ use AlecRabbit\Spinner\Core\Defaults\Contract\IAuxSettingsBuilder;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDriverSettingsBuilder;
 use AlecRabbit\Spinner\Core\Defaults\Contract\ILoopSettingsBuilder;
 use AlecRabbit\Spinner\Core\Defaults\Contract\ISpinnerSettingsBuilder;
+use AlecRabbit\Spinner\Core\Defaults\Contract\IWidgetSettingsBuilder;
 use AlecRabbit\Spinner\Core\Defaults\DefaultsProviderBuilder;
 use AlecRabbit\Spinner\Core\Defaults\DriverSettingsBuilder;
 use AlecRabbit\Spinner\Core\Defaults\LoopSettingsBuilder;
 use AlecRabbit\Spinner\Core\Defaults\SpinnerSettingsBuilder;
+use AlecRabbit\Spinner\Core\Defaults\WidgetSettingsBuilder;
 use AlecRabbit\Spinner\Core\DriverBuilder;
 use AlecRabbit\Spinner\Core\Factory\Contract\IContainerFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IFrameFactory;
@@ -116,6 +118,8 @@ final class ContainerFactory implements IContainerFactory
                             spinnerSettingsBuilder: $container->get(ISpinnerSettingsBuilder::class),
                             auxSettingsBuilder: $container->get(IAuxSettingsBuilder::class),
                             driverSettingsBuilder: $container->get(IDriverSettingsBuilder::class),
+                            widgetSettingsBuilder: $container->get(IWidgetSettingsBuilder::class),
+                            rootWidgetSettingsBuilder: $container->get(IWidgetSettingsBuilder::class),
                         ))
                             ->build()
                     ;
@@ -142,6 +146,7 @@ final class ContainerFactory implements IContainerFactory
 
                 IAuxSettingsBuilder::class => AuxSettingsBuilder::class,
                 IDriverSettingsBuilder::class => DriverSettingsBuilder::class,
+                IWidgetSettingsBuilder::class => WidgetSettingsBuilder::class,
                 IAnsiStyleConverter::class => AnsiStyleConverter::class,
                 ICharFrameCollectionRenderer::class => CharFrameCollectionRenderer::class,
                 ICharFrameRenderer::class => CharFrameRenderer::class,

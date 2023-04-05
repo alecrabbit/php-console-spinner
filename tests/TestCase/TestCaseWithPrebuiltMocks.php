@@ -29,6 +29,7 @@ use AlecRabbit\Spinner\Core\Defaults\Contract\IDriverSettingsBuilder;
 use AlecRabbit\Spinner\Core\Defaults\Contract\ILoopSettingsBuilder;
 use AlecRabbit\Spinner\Core\Defaults\Contract\ISpinnerSettingsBuilder;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IWidgetSettings;
+use AlecRabbit\Spinner\Core\Defaults\Contract\IWidgetSettingsBuilder;
 use AlecRabbit\Spinner\Core\Factory\Contract\IFrameFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ITimerBuilder;
@@ -216,5 +217,9 @@ abstract class TestCaseWithPrebuiltMocks extends TestCase
     protected function getDriverSettingsBuilderMock(): MockObject&IDriverSettingsBuilder
     {
         return $this->createMock(IDriverSettingsBuilder::class);
+    }
+    protected function getWidgetSettingsBuilderMock(): MockObject&IWidgetSettingsBuilder
+    {
+        return $this->createMock(IWidgetSettingsBuilder::class);
     }
 }

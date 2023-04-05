@@ -10,6 +10,7 @@ use AlecRabbit\Spinner\Core\Defaults\Contract\IDefaultsProviderBuilder;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDriverSettingsBuilder;
 use AlecRabbit\Spinner\Core\Defaults\Contract\ILoopSettingsBuilder;
 use AlecRabbit\Spinner\Core\Defaults\Contract\ISpinnerSettingsBuilder;
+use AlecRabbit\Spinner\Core\Defaults\Contract\IWidgetSettingsBuilder;
 
 final class DefaultsProviderBuilder implements IDefaultsProviderBuilder
 {
@@ -18,6 +19,8 @@ final class DefaultsProviderBuilder implements IDefaultsProviderBuilder
         protected ISpinnerSettingsBuilder $spinnerSettingsBuilder,
         protected IAuxSettingsBuilder $auxSettingsBuilder,
         protected IDriverSettingsBuilder $driverSettingsBuilder,
+        protected IWidgetSettingsBuilder $widgetSettingsBuilder,
+        protected IWidgetSettingsBuilder $rootWidgetSettingsBuilder,
     ) {
     }
 

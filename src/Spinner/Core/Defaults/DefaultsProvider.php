@@ -26,7 +26,7 @@ final class DefaultsProvider implements IDefaultsProvider
         protected IAuxSettings $auxSettings,
         protected ILoopSettings $loopSettings,
         protected ISpinnerSettings $spinnerSettings,
-        protected IDriverSettings $driverSettings = new DriverSettings(),
+        protected IDriverSettings $driverSettings,
         ?IWidgetSettings $rootWidgetSettings = null,
         ?IWidgetSettings $widgetSettings = null,
     ) {
