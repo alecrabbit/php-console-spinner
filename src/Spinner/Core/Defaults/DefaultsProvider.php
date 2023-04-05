@@ -83,12 +83,4 @@ final class DefaultsProvider implements IDefaultsProvider
     {
         return $this->auxSettings;
     }
-
-    protected function createAuxSettings(): IAuxSettings
-    {
-        return
-            new AuxSettings(
-                new Interval(self::DEFAULT_INTERVAL),
-            );
-    }
 }
