@@ -218,6 +218,7 @@ abstract class TestCaseWithPrebuiltMocks extends TestCase
     {
         return $this->createMock(IDriverSettingsBuilder::class);
     }
+
     protected function getWidgetSettingsBuilderMock(): MockObject&IWidgetSettingsBuilder
     {
         return $this->createMock(IWidgetSettingsBuilder::class);
