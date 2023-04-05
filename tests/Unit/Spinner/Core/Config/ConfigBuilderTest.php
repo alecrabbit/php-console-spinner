@@ -25,7 +25,9 @@ use AlecRabbit\Spinner\Core\Defaults\Contract\IWidgetSettings;
 use AlecRabbit\Spinner\Core\Defaults\LoopSettings;
 use AlecRabbit\Spinner\Core\Defaults\SpinnerSettings;
 use AlecRabbit\Spinner\Core\Interval;
+use AlecRabbit\Spinner\Core\Pattern\A\APattern;
 use AlecRabbit\Spinner\Core\Pattern\CharPattern\Snake;
+use AlecRabbit\Spinner\Core\Pattern\StylePattern\A\AStylePattern;
 use AlecRabbit\Spinner\Core\Pattern\StylePattern\Rainbow;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocks;
 use PHPUnit\Framework\Attributes\Test;
@@ -105,22 +107,16 @@ final class ConfigBuilderTest extends TestCaseWithPrebuiltMocks
         return $defaultsProvider;
     }
 
-    protected function getDriverSettingsMock(): MockObject&IDriverSettings
-    {
-        return $this->createMock(IDriverSettings::class);
-    }
-
-
     protected function getWidgetSettingsMock(): MockObject&IWidgetSettings
     {
         $widgetSettings = parent::getWidgetSettingsMock();
         $widgetSettings
             ->method('getStylePattern')
-            ->willReturn(new Rainbow())
+            ->willReturn(new class() extends AStylePattern {})
         ;
         $widgetSettings
             ->method('getCharPattern')
-            ->willReturn(new Snake())
+            ->willReturn(new class() extends APattern {})
         ;
         return $widgetSettings;
     }
