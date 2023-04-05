@@ -20,5 +20,7 @@ interface ILoopAdapter
 
     public function delay(float $delay, Closure $closure): void;
 
+    public function onSignal(int $signal, Closure $closure): void;
+
     public function autoStart(): void; // TODO: choose a better name
 }

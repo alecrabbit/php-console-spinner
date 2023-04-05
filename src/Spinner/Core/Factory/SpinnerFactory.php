@@ -43,7 +43,7 @@ final class SpinnerFactory implements ISpinnerFactory
             ->asynchronous($loopConfig->isAsynchronous())
             ->enableAutoStart($loopConfig->isEnabledAutoStart())
             ->enableSignalHandlers($loopConfig->areEnabledSignalHandlers())
-            ->setup()
+            ->setup($spinner)
         ;
 
         return $spinner;

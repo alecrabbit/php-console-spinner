@@ -28,43 +28,7 @@ abstract class ALoopAdapter implements ILoopAdapter
             );
     }
 
-    public function setSignalHandlers(iterable $handlers): void
-    {
-        /**
-         * @var int $signal
-         * @var Closure $handler
-         */
-        foreach ($handlers as $signal => $handler) {
-            $this->onSignal($signal, $handler);
-        }
-    }
-
-    abstract protected function onSignal(int $signal, Closure $closure): void;
-
-    /** @inheritdoc */
-    public function createSignalHandlers(ISpinner $spinner): iterable
-    {
-        $this->assertExtPcntl();
-        return $this->doCreateHandlers($spinner);
-    }
-
-    /**
-     * @throws RuntimeException
-     */
-    protected function assertExtPcntl(): void
-    {
-        Asserter::assertExtensionLoaded('pcntl', 'Signal handling requires the pcntl extension.');
-    }
-
-    protected function doCreateHandlers(ISpinner $spinner): iterable
-    {
-        yield from [
-            SIGINT => function () use ($spinner): void {
-                $spinner->interrupt();
-                $this->stop();
-            },
-        ];
-    }
+    abstract public function onSignal(int $signal, Closure $closure): void;
 
     abstract public function stop(): void;
 

@@ -8,8 +8,6 @@ use AlecRabbit\Spinner\Core\Factory\Contract\ILoopFactory;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoopAdapter;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoopProbe;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoopProbeFactory;
-use AlecRabbit\Spinner\Exception\RuntimeException;
-use AlecRabbit\Spinner\Helper\Asserter;
 
 final class LoopFactory implements ILoopFactory
 {
@@ -18,6 +16,11 @@ final class LoopFactory implements ILoopFactory
     public function __construct(
         protected ILoopProbeFactory $loopProbeFactory,
     ) {
+    }
+
+    public function registerAutoStart(): void
+    {
+        $this->getLoop()->autoStart();
     }
 
     public function getLoop(): ILoopAdapter
@@ -38,12 +41,11 @@ final class LoopFactory implements ILoopFactory
         return $this->loopProbeFactory->getProbe();
     }
 
-    public function registerAutoStart(): void
-    {
-        $this->getLoop()->autoStart();
-    }
-
     public function registerSignalHandlers(\Traversable $handlers): void
     {
+        $loop = $this->getLoop();
+        foreach ($handlers as $signal => $handler) {
+            $loop->onSignal($signal, $handler);
+        }
     }
 }

@@ -86,19 +86,7 @@ final class RevoltLoopAdapter extends ALoopAdapter
         $this->loop->stop();
     }
 
-    protected function assertExtPcntl(): void
-    {
-        $driver = $this->loop;
-        if ($driver instanceof UvDriver
-            || $driver instanceof EvDriver
-            || $driver instanceof EventDriver) {
-            return; // these drivers do not require pcntl extension
-        }
-
-        parent::assertExtPcntl();
-    }
-
-    protected function onSignal(int $signal, Closure $closure): void
+    public function onSignal(int $signal, Closure $closure): void
     {
         /** @psalm-suppress MixedArgumentTypeCoercion */
         EventLoop::onSignal($signal, $closure);

@@ -19,7 +19,7 @@ echo 'Start!' . PHP_EOL;
 
 $loop->delay(
     5,
-    static function () use ($loop,$spinner): void {
+    static function () use ($loop, $spinner): void {
         $loop->stop();
         $spinner->finalize();
         echo 'Stopped!' . PHP_EOL;
