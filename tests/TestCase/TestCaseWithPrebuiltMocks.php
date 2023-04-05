@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 // 16.06.22
-namespace AlecRabbit\Tests\Spinner\TestCase;
+namespace AlecRabbit\Tests\TestCase;
 
 use AlecRabbit\Spinner\Container\Contract\IContainer;
 use AlecRabbit\Spinner\Contract\IBufferedOutput;

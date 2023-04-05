@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Extras\A;
+namespace AlecRabbit\Tests\Unit\Spinner\Extras\A;
 
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Extras\A\AProgressValue;
 use AlecRabbit\Spinner\Extras\Contract\IProgressValue;
-use AlecRabbit\Tests\Spinner\TestCase\TestCase;
+use AlecRabbit\Tests\TestCase\TestCase;
 
 final class AProgressValueTest extends TestCase
 {

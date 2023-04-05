@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 // 15.02.23
-namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Core\Color;
+namespace AlecRabbit\Tests\Unit\Spinner\Core\Color;
 
 use AlecRabbit\Spinner\Core\Color\Ansi8Color;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
-use AlecRabbit\Tests\Spinner\TestCase\TestCase;
+use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 

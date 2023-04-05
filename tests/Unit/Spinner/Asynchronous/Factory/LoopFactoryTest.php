@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Asynchronous\Factory;
+namespace AlecRabbit\Tests\Unit\Spinner\Asynchronous\Factory;
 
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopFactory;
 use AlecRabbit\Spinner\Core\Factory\LoopFactory;
@@ -10,8 +10,8 @@ use AlecRabbit\Spinner\Core\Loop\A\ALoopAdapter;
 use AlecRabbit\Spinner\Core\Loop\A\ALoopProbe;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoopAdapter;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoopProbeFactory;
-use AlecRabbit\Tests\Spinner\TestCase\TestCaseWithPrebuiltMocks;
-use AlecRabbit\Tests\Spinner\Unit\Spinner\Asynchronous\Override\ALoopAdapterOverride;
+use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocks;
+use AlecRabbit\Tests\Unit\Spinner\Asynchronous\Override\ALoopAdapterOverride;
 use PHPUnit\Framework\Attributes\Test;
 
 final class LoopFactoryTest extends TestCaseWithPrebuiltMocks

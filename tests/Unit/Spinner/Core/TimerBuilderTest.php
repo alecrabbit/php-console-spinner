@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 // 03.04.23
-namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Core;
+namespace AlecRabbit\Tests\Unit\Spinner\Core;
 
 use AlecRabbit\Spinner\Core\Factory\Contract\ITimerBuilder;
 use AlecRabbit\Spinner\Core\Factory\TimerBuilder;
 use AlecRabbit\Spinner\Core\Timer;
-use AlecRabbit\Tests\Spinner\TestCase\TestCaseWithPrebuiltMocks;
+use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocks;
 use PHPUnit\Framework\Attributes\Test;
 
 

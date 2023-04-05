@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Core\Output;
+namespace AlecRabbit\Tests\Unit\Spinner\Core\Output;
 
 use AlecRabbit\Spinner\Core\Output\Contract\IStringBuffer;
 use AlecRabbit\Spinner\Core\Output\StringBuffer;
-use AlecRabbit\Tests\Spinner\TestCase\TestCase;
+use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 
 final class StringBufferTest extends TestCase

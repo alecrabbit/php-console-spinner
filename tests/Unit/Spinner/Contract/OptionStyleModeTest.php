@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 // 15.02.23
-namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Contract;
+namespace AlecRabbit\Tests\Unit\Spinner\Contract;
 
 use AlecRabbit\Spinner\Contract\OptionStyleMode;
-use AlecRabbit\Tests\Spinner\TestCase\TestCase;
+use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 

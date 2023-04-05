@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Core;
+namespace AlecRabbit\Tests\Unit\Spinner\Core;
 
 use AlecRabbit\Spinner\Contract\OptionCursor;
 use AlecRabbit\Spinner\Core\Config\Contract\IDriverBuilder;
@@ -12,7 +12,7 @@ use AlecRabbit\Spinner\Core\Contract\IOutputBuilder;
 use AlecRabbit\Spinner\Core\Driver;
 use AlecRabbit\Spinner\Core\DriverBuilder;
 use AlecRabbit\Spinner\Core\Factory\Contract\ITimerBuilder;
-use AlecRabbit\Tests\Spinner\TestCase\TestCaseWithPrebuiltMocks;
+use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocks;
 use LogicException;
 use PHPUnit\Framework\Attributes\Test;
 

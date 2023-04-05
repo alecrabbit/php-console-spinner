@@ -1,6 +1,6 @@
 <?php
 
-namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Core;
+namespace AlecRabbit\Tests\Unit\Spinner\Core;
 
 use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Contract\NormalizerMode;
@@ -8,7 +8,7 @@ use AlecRabbit\Spinner\Core\Contract\IIntervalNormalizer;
 use AlecRabbit\Spinner\Core\IntegerNormalizer;
 use AlecRabbit\Spinner\Core\Interval;
 use AlecRabbit\Spinner\Core\IntervalNormalizer;
-use AlecRabbit\Tests\Spinner\TestCase\TestCaseWithPrebuiltMocks;
+use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocks;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 

@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 // 27.03.23
-namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Container;
+namespace AlecRabbit\Tests\Unit\Spinner\Container;
 
 use AlecRabbit\Spinner\Container\Contract\IServiceSpawner;
 use AlecRabbit\Spinner\Container\Exception\SpawnFailedException;
 use AlecRabbit\Spinner\Container\ServiceSpawner;
-use AlecRabbit\Tests\Spinner\TestCase\TestCaseWithPrebuiltMocks;
-use AlecRabbit\Tests\Spinner\Unit\Spinner\Container\Override\ClassForSpawner;
-use AlecRabbit\Tests\Spinner\Unit\Spinner\Container\Override\ClassForSpawnerWithParameters;
-use AlecRabbit\Tests\Spinner\Unit\Spinner\Container\Override\ClassForSpawnerWithParametersNoType;
-use AlecRabbit\Tests\Spinner\Unit\Spinner\Container\Override\NonInstantiableClass;
+use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocks;
+use AlecRabbit\Tests\Unit\Spinner\Container\Override\ClassForSpawner;
+use AlecRabbit\Tests\Unit\Spinner\Container\Override\ClassForSpawnerWithParameters;
+use AlecRabbit\Tests\Unit\Spinner\Container\Override\ClassForSpawnerWithParametersNoType;
+use AlecRabbit\Tests\Unit\Spinner\Container\Override\NonInstantiableClass;
 use PHPUnit\Framework\Attributes\Test;
 use Psr\Container\ContainerInterface;
 

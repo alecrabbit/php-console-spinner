@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Core\Config;
+namespace AlecRabbit\Tests\Unit\Spinner\Core\Config;
 
 use AlecRabbit\Spinner\Contract\OptionAttach;
 use AlecRabbit\Spinner\Contract\OptionAutoStart;
@@ -17,7 +17,7 @@ use AlecRabbit\Spinner\Core\ConfigBuilder;
 use AlecRabbit\Spinner\Core\Contract\IConfigBuilder;
 use AlecRabbit\Spinner\Core\Contract\IDefaultsProvider;
 use AlecRabbit\Spinner\Core\Defaults\DefaultsProvider;
-use AlecRabbit\Tests\Spinner\TestCase\TestCaseWithPrebuiltMocks;
+use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocks;
 use PHPUnit\Framework\Attributes\Test;
 
 final class ConfigBuilderTest extends TestCaseWithPrebuiltMocks

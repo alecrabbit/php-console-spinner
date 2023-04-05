@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Tests\Spinner\Mixin;
+namespace AlecRabbit\Tests\Mixin;
 
-trait AppRelatedConstantsTrait
+trait AppRelatedConstTrait
 {
     final protected const ALPHA = 'alpha';
     final protected const ARGUMENTS = 'arguments';

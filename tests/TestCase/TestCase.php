@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 // 16.06.22
-namespace AlecRabbit\Tests\Spinner\TestCase;
+namespace AlecRabbit\Tests\TestCase;
 
 use AlecRabbit\Spinner\Helper\Stringify;
-use AlecRabbit\Tests\Spinner\Helper\PickLock;
-use AlecRabbit\Tests\Spinner\Mixin\AppRelatedConstantsTrait;
+use AlecRabbit\Tests\Helper\PickLock;
+use AlecRabbit\Tests\Mixin\AppRelatedConstTrait;
 use ArrayAccess;
 use PHPUnit\Framework\TestCase as PHPUnitTestCase;
 use Throwable;
@@ -17,7 +17,7 @@ use function is_string;
 
 abstract class TestCase extends PHPUnitTestCase
 {
-    use AppRelatedConstantsTrait;
+    use AppRelatedConstTrait;
 
     final protected const REPEATS = 10;
     final protected const FLOAT_EQUALITY_DELTA = 0.0000001;

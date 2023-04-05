@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Tests\Spinner\Helper;
+namespace AlecRabbit\Tests\Helper;
 
 use Error;
 use ReflectionClass;

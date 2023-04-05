@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 // 15.02.23
-namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Contract\Color;
+namespace AlecRabbit\Tests\Unit\Spinner\Contract\Color;
 
 use AlecRabbit\Spinner\Core\Color\HSLColor;
-use AlecRabbit\Tests\Spinner\TestCase\TestCase;
+use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 
