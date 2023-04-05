@@ -9,7 +9,7 @@
 /app/src/Spinner/Container/Container.php:41:38:error - MixedArgument: Argument 1 of AlecRabbit\Spinner\Container\Container::addDefinition cannot be mixed, expecting string
 /app/src/Spinner/Container/Container.php:147:49:error - ArgumentTypeCoercion: Argument 1 of AlecRabbit\Spinner\Container\Contract\IServiceSpawner::spawn expects callable|class-string|object, but parent type callable|object|string provided
 /app/src/Spinner/Container/ServiceSpawner.php:54:63:error - MixedInferredReturnType: Could not verify return type 'object' for AlecRabbit\Spinner\Container\ServiceSpawner::spawnByCallable
-/app/src/Spinner/Container/ServiceSpawner.php:73:83:error - MixedOperand: Right operand cannot be mixed
+/app/src/Spinner/Container/ServiceSpawner.php:73:92:error - MixedOperand: Right operand cannot be mixed
 /app/src/Spinner/Container/ServiceSpawner.php:97:41:error - ArgumentTypeCoercion: Argument 1 of AlecRabbit\Spinner\Container\ServiceSpawner::needsService expects ReflectionIntersectionType|ReflectionNamedType|ReflectionUnionType, but parent type ReflectionType provided
 /app/src/Spinner/Container/ServiceSpawner.php:98:73:error - MixedArgument: Argument 1 of AlecRabbit\Spinner\Container\ServiceSpawner::getServiceFromContainer cannot be mixed, expecting string
 /app/src/Spinner/Container/ServiceSpawner.php:98:80:error - UndefinedMethod: Method ReflectionType::getName does not exist

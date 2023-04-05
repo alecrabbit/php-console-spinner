@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Container\Exception;
 
-final class UnableToExtractType extends ContainerException
+final class ClassDoesNotExistException extends ContainerException
 {
 
 }
