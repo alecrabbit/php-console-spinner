@@ -5,6 +5,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Pattern\CharPattern;
 
+use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Core\Pattern\A\AReversiblePattern;
 use Traversable;
 
@@ -13,7 +14,7 @@ final class CustomPattern extends AReversiblePattern
 {
     public function __construct(
         protected iterable $pattern,
-        ?int $interval = null,
+        ?IInterval $interval = null,
         bool $reversed = false
     ) {
         parent::__construct($interval, $reversed);

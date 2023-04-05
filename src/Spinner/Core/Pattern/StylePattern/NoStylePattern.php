@@ -7,25 +7,23 @@ namespace AlecRabbit\Spinner\Core\Pattern\StylePattern;
 
 use AlecRabbit\Spinner\Contract\OptionStyleMode;
 use AlecRabbit\Spinner\Core\Frame;
-use AlecRabbit\Spinner\Core\Interval;
-use AlecRabbit\Spinner\Core\Pattern\StylePattern\A\AStylePattern;
-use Traversable;
+use AlecRabbit\Spinner\Core\Pattern\A\AOneFramePattern;
+use AlecRabbit\Spinner\Core\Pattern\Contract\IStylePattern;
 
 /** @psalm-suppress UnusedClass */
-final class NoStylePattern extends AStylePattern
+final class NoStylePattern extends AOneFramePattern implements IStylePattern
 {
     protected const STYLE_MODE = OptionStyleMode::NONE;
 
     public function __construct()
     {
-        parent::__construct();
-        $this->interval = new Interval();
+        parent::__construct(
+            new Frame('%s', 0)
+        );
     }
 
-    protected function pattern(): Traversable
+    public function getStyleMode(): OptionStyleMode
     {
-        yield from [
-            new Frame('%s', 0),
-        ];
+        return self::STYLE_MODE;
     }
 }

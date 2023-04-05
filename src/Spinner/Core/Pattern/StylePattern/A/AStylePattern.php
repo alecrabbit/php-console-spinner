@@ -5,6 +5,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Pattern\StylePattern\A;
 
+use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Contract\OptionStyleMode;
 use AlecRabbit\Spinner\Core\Pattern\A\AReversiblePattern;
 use AlecRabbit\Spinner\Core\Pattern\Contract\IStylePattern;
@@ -20,7 +21,7 @@ abstract class AStylePattern extends AReversiblePattern implements IStylePattern
     protected const PATTERN = ['#c0c0c0'];
 
     public function __construct(
-        ?int $interval = null,
+        ?IInterval $interval = null,
         bool $reversed = false,
         protected ?OptionStyleMode $styleMode = null,
     ) {

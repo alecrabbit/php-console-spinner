@@ -22,9 +22,9 @@ abstract class APattern implements IPattern
     protected IInterval $interval;
 
     public function __construct(
-        ?int $interval = null,
+        ?IInterval $interval = null,
     ) {
-        $this->interval = new Interval($interval ?? static::UPDATE_INTERVAL);
+        $this->interval = $interval ?? new Interval(static::UPDATE_INTERVAL);
     }
 
     public function getPattern(): Traversable
