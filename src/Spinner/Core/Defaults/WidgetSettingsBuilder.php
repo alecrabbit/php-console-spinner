@@ -7,6 +7,7 @@ namespace AlecRabbit\Spinner\Core\Defaults;
 use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Contract\Pattern\IPattern;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IWidgetSettings;
+use AlecRabbit\Spinner\Core\Defaults\Contract\IWidgetSettingsBuilder;
 use AlecRabbit\Spinner\Exception\LogicException;
 
 final class WidgetSettingsBuilder implements IWidgetSettingsBuilder

@@ -6,12 +6,14 @@ namespace AlecRabbit\Tests\Unit\Spinner\Core\Defaults;
 
 use AlecRabbit\Spinner\Core\Defaults\Contract\IAuxSettingsBuilder;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDefaultsProviderBuilder;
+use AlecRabbit\Spinner\Core\Defaults\Contract\IDriverSettingsBuilder;
 use AlecRabbit\Spinner\Core\Defaults\Contract\ILoopSettingsBuilder;
 use AlecRabbit\Spinner\Core\Defaults\Contract\ISpinnerSettingsBuilder;
 use AlecRabbit\Spinner\Core\Defaults\DefaultsProvider;
 use AlecRabbit\Spinner\Core\Defaults\DefaultsProviderBuilder;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocks;
 use PHPUnit\Framework\Attributes\Test;
+use PHPUnit\Framework\MockObject\MockObject;
 
 final class DefaultsProviderBuilderTest extends TestCaseWithPrebuiltMocks
 {
@@ -29,12 +31,14 @@ final class DefaultsProviderBuilderTest extends TestCaseWithPrebuiltMocks
         ?ILoopSettingsBuilder $loopSettingsBuilder = null,
         ?ISpinnerSettingsBuilder $spinnerSettingsBuilder = null,
         ?IAuxSettingsBuilder $auxSettingsBuilder = null,
+        ?IDriverSettingsBuilder $driverSettingsBuilder = null,
     ): IDefaultsProviderBuilder {
         return
             new DefaultsProviderBuilder(
                 loopSettingsBuilder: $loopSettingsBuilder ?? $this->getLoopSettingsBuilderMock(),
                 spinnerSettingsBuilder: $spinnerSettingsBuilder ?? $this->getSpinnerSettingsBuilderMock(),
                 auxSettingsBuilder: $auxSettingsBuilder ?? $this->getAuxSettingsBuilderMock(),
+                driverSettingsBuilder: $driverSettingsBuilder ?? $this->getDriverSettingsBuilderMock(),
             );
     }
 

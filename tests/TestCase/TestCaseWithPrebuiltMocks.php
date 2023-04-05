@@ -25,6 +25,7 @@ use AlecRabbit\Spinner\Core\Contract\ISpinnerSetup;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IAuxSettings;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IAuxSettingsBuilder;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDriverSettings;
+use AlecRabbit\Spinner\Core\Defaults\Contract\IDriverSettingsBuilder;
 use AlecRabbit\Spinner\Core\Defaults\Contract\ILoopSettingsBuilder;
 use AlecRabbit\Spinner\Core\Defaults\Contract\ISpinnerSettingsBuilder;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IWidgetSettings;
@@ -38,6 +39,7 @@ use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetBuilder;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolverBuilder;
 use AlecRabbit\Tests\Unit\Spinner\Core\Config\ConfigBuilderTest;
+use AlecRabbit\Tests\Unit\Spinner\Core\Defaults\DefaultsProviderBuilderTest;
 use PHPUnit\Framework\MockObject\MockObject;
 
 abstract class TestCaseWithPrebuiltMocks extends TestCase
@@ -211,5 +213,10 @@ abstract class TestCaseWithPrebuiltMocks extends TestCase
     protected function getDriverSettingsMock(): MockObject&IDriverSettings
     {
         return $this->createMock(IDriverSettings::class);
+    }
+
+    protected function getDriverSettingsBuilderMock(): MockObject&IDriverSettingsBuilder
+    {
+        return $this->createMock(IDriverSettingsBuilder::class);
     }
 }

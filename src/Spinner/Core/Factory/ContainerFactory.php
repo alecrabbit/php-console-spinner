@@ -37,9 +37,11 @@ use AlecRabbit\Spinner\Core\CursorBuilder;
 use AlecRabbit\Spinner\Core\Defaults\AuxSettingsBuilder;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IAuxSettings;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IAuxSettingsBuilder;
+use AlecRabbit\Spinner\Core\Defaults\Contract\IDriverSettingsBuilder;
 use AlecRabbit\Spinner\Core\Defaults\Contract\ILoopSettingsBuilder;
 use AlecRabbit\Spinner\Core\Defaults\Contract\ISpinnerSettingsBuilder;
 use AlecRabbit\Spinner\Core\Defaults\DefaultsProviderBuilder;
+use AlecRabbit\Spinner\Core\Defaults\DriverSettingsBuilder;
 use AlecRabbit\Spinner\Core\Defaults\LoopSettingsBuilder;
 use AlecRabbit\Spinner\Core\Defaults\SpinnerSettingsBuilder;
 use AlecRabbit\Spinner\Core\DriverBuilder;
@@ -113,6 +115,7 @@ final class ContainerFactory implements IContainerFactory
                             loopSettingsBuilder: $container->get(ILoopSettingsBuilder::class),
                             spinnerSettingsBuilder: $container->get(ISpinnerSettingsBuilder::class),
                             auxSettingsBuilder: $container->get(IAuxSettingsBuilder::class),
+                            driverSettingsBuilder: $container->get(IDriverSettingsBuilder::class),
                         ))
                             ->build()
                     ;
@@ -138,6 +141,7 @@ final class ContainerFactory implements IContainerFactory
                     },
 
                 IAuxSettingsBuilder::class => AuxSettingsBuilder::class,
+                IDriverSettingsBuilder::class => DriverSettingsBuilder::class,
                 IAnsiStyleConverter::class => AnsiStyleConverter::class,
                 ICharFrameCollectionRenderer::class => CharFrameCollectionRenderer::class,
                 ICharFrameRenderer::class => CharFrameRenderer::class,

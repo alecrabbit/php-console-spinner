@@ -8,14 +8,11 @@ use AlecRabbit\Spinner\Core\Defaults\Contract\IDriverSettings;
 
 final class DriverSettings implements IDriverSettings
 {
-    /** @var string */
-    final protected const MESSAGE_ON_FINALIZE = PHP_EOL;
-    /** @var string */
-    final protected const MESSAGE_ON_INTERRUPT = PHP_EOL . 'Interrupted!' . PHP_EOL;
+
 
     public function __construct(
-        protected string $interruptMessage = self::MESSAGE_ON_INTERRUPT,
-        protected string $finalMessage = self::MESSAGE_ON_FINALIZE,
+        protected string $interruptMessage,
+        protected string $finalMessage,
     ) {
     }
 
