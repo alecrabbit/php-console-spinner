@@ -10,8 +10,6 @@ use AlecRabbit\Spinner\Contract\OptionSignalHandlers;
 use AlecRabbit\Spinner\Core\A\ASpinner;
 use AlecRabbit\Spinner\Core\Config\Contract\IConfig;
 use AlecRabbit\Spinner\Core\Config\LoopConfig;
-use AlecRabbit\Spinner\Core\Contract\IConfigBuilder;
-use AlecRabbit\Spinner\Core\Contract\ILoopSetup;
 use AlecRabbit\Spinner\Core\Contract\ISpinnerBuilder;
 use AlecRabbit\Spinner\Core\Contract\ISpinnerSetup;
 use AlecRabbit\Spinner\Core\Factory\Contract\ISpinnerFactory;
@@ -37,7 +35,7 @@ final class SpinnerFactoryTest extends TestCaseWithPrebuiltMocks
         return
             new SpinnerFactory(
                 spinnerBuilder: $spinnerBuilder ?? $this->getSpinnerBuilderMock(),
-                spinnerSetup: $spinnerSetup ??  $this->getSpinnerSetupMock(),
+                spinnerSetup: $spinnerSetup ?? $this->getSpinnerSetupMock(),
             );
     }
 
@@ -61,7 +59,8 @@ final class SpinnerFactoryTest extends TestCaseWithPrebuiltMocks
         $configBuilder = $this->getConfigBuilderMock();
         $configBuilder
             ->method('build')
-            ->willReturn($config);
+            ->willReturn($config)
+        ;
 
         $container
             ->method('get')
@@ -78,6 +77,25 @@ final class SpinnerFactoryTest extends TestCaseWithPrebuiltMocks
         $spinner = $spinnerFactory->createSpinner($config);
 
         self::assertInstanceOf(ASpinner::class, $spinner);
+    }
+
+    protected function getConfigMock(): MockObject&IConfig
+    {
+        $config = parent::getConfigMock();
+
+        $loopConfig =
+            new LoopConfig(
+                OptionRunMode::SYNCHRONOUS,
+                OptionAutoStart::DISABLED,
+                OptionSignalHandlers::DISABLED
+            );
+
+        $config
+            ->method('getLoopConfig')
+            ->willReturn($loopConfig)
+        ;
+
+        return $config;
     }
 
     #[Test]
@@ -113,24 +131,6 @@ final class SpinnerFactoryTest extends TestCaseWithPrebuiltMocks
         $spinner = $spinnerFactory->createSpinner($config);
 
         self::assertInstanceOf(ASpinner::class, $spinner);
-    }
-
-    protected function getConfigMock(): MockObject&IConfig
-    {
-        $config = parent::getConfigMock();
-
-        $loopConfig =
-            new LoopConfig(
-                OptionRunMode::SYNCHRONOUS,
-                OptionAutoStart::DISABLED,
-                OptionSignalHandlers::DISABLED
-            );
-
-        $config
-            ->method('getLoopConfig')
-            ->willReturn($loopConfig);
-
-        return $config;
     }
 
 

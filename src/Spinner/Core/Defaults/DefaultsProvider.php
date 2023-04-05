@@ -54,14 +54,6 @@ final class DefaultsProvider implements IDefaultsProvider
             );
     }
 
-    protected function createAuxSettings(): IAuxSettings
-    {
-        return
-            new AuxSettings(
-                new Interval(self::DEFAULT_INTERVAL),
-            );
-    }
-
     public function getRootWidgetSettings(): IWidgetSettings
     {
         return $this->rootWidgetSettings;
@@ -90,5 +82,13 @@ final class DefaultsProvider implements IDefaultsProvider
     public function getAuxSettings(): IAuxSettings
     {
         return $this->auxSettings;
+    }
+
+    protected function createAuxSettings(): IAuxSettings
+    {
+        return
+            new AuxSettings(
+                new Interval(self::DEFAULT_INTERVAL),
+            );
     }
 }

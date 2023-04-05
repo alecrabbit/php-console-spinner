@@ -20,15 +20,12 @@ use AlecRabbit\Spinner\Core\ConfigBuilder;
 use AlecRabbit\Spinner\Core\Contract\IConfigBuilder;
 use AlecRabbit\Spinner\Core\Contract\IDefaultsProvider;
 use AlecRabbit\Spinner\Core\Defaults\AuxSettings;
-use AlecRabbit\Spinner\Core\Defaults\Contract\IDriverSettings;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IWidgetSettings;
 use AlecRabbit\Spinner\Core\Defaults\LoopSettings;
 use AlecRabbit\Spinner\Core\Defaults\SpinnerSettings;
 use AlecRabbit\Spinner\Core\Interval;
 use AlecRabbit\Spinner\Core\Pattern\A\APattern;
-use AlecRabbit\Spinner\Core\Pattern\CharPattern\Snake;
 use AlecRabbit\Spinner\Core\Pattern\StylePattern\A\AStylePattern;
-use AlecRabbit\Spinner\Core\Pattern\StylePattern\Rainbow;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocks;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -112,11 +109,17 @@ final class ConfigBuilderTest extends TestCaseWithPrebuiltMocks
         $widgetSettings = parent::getWidgetSettingsMock();
         $widgetSettings
             ->method('getStylePattern')
-            ->willReturn(new class() extends AStylePattern {})
+            ->willReturn(
+                new class() extends AStylePattern {
+                }
+            )
         ;
         $widgetSettings
             ->method('getCharPattern')
-            ->willReturn(new class() extends APattern {})
+            ->willReturn(
+                new class() extends APattern {
+                }
+            )
         ;
         return $widgetSettings;
     }

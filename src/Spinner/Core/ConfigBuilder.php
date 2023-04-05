@@ -135,7 +135,7 @@ final class ConfigBuilder implements IConfigBuilder
 
     protected function defaultRootWidgetConfig(): IWidgetConfig
     {
-        $rootWidgetSettings =$this->defaultsProvider->getRootWidgetSettings();
+        $rootWidgetSettings = $this->defaultsProvider->getRootWidgetSettings();
         return
             new WidgetConfig(
                 $rootWidgetSettings->getLeadingSpacer(),

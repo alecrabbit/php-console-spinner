@@ -58,7 +58,8 @@ final class LoopSettingsBuilderTest extends TestCaseWithPrebuiltMocks
             $this->getTesteeInstance(
                 loopProbe: $this->getLoopProbeMock()
             )
-                ->build();
+                ->build()
+        ;
 
         self::assertInstanceOf(LoopSettings::class, $loopSettings);
 
