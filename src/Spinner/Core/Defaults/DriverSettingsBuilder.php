@@ -24,18 +24,4 @@ final class DriverSettingsBuilder implements IDriverSettingsBuilder
             finalMessage: $this->finalMessage ?? self::MESSAGE_ON_FINALIZE,
         );
     }
-
-    public function withFinalMessage(string $finalMessage): IDriverSettingsBuilder
-    {
-        $clone = clone $this;
-        $clone->finalMessage = $finalMessage;
-        return $clone;
-    }
-
-    public function withInterruptMessage(string $interruptMessage): IDriverSettingsBuilder
-    {
-        $clone = clone $this;
-        $clone->interruptMessage = $interruptMessage;
-        return $clone;
-    }
 }

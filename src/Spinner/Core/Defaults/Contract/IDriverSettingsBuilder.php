@@ -7,8 +7,4 @@ namespace AlecRabbit\Spinner\Core\Defaults\Contract;
 interface IDriverSettingsBuilder
 {
     public function build(): IDriverSettings;
-
-    public function withFinalMessage(string $finalMessage): IDriverSettingsBuilder;
-
-    public function withInterruptMessage(string $interruptMessage): IDriverSettingsBuilder;
 }

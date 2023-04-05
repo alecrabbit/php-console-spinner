@@ -18,7 +18,7 @@ final class SpinnerSettingsBuilderTest extends TestCaseWithPrebuiltMocks
     #[Test]
     public function canBeCreated(): void
     {
-        self::assertTrue(true);
+
 
         $builder = $this->getTesteeInstance();
 
@@ -37,7 +37,7 @@ final class SpinnerSettingsBuilderTest extends TestCaseWithPrebuiltMocks
     #[Test]
     public function attachOptionIsDisabledIfLoopProbeIsNull(): void
     {
-        self::assertTrue(true);
+
 
         $settings = $this->getTesteeInstance()->build();
 
@@ -50,7 +50,7 @@ final class SpinnerSettingsBuilderTest extends TestCaseWithPrebuiltMocks
     #[Test]
     public function attachOptionIsDisabledIfLoopProbeProvided(): void
     {
-        self::assertTrue(true);
+
 
         $settings =
             $this->getTesteeInstance(loopProbe: $this->getLoopProbeMock())

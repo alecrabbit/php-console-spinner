@@ -67,6 +67,7 @@ use AlecRabbit\Spinner\Core\Sequencer;
 use AlecRabbit\Spinner\Core\SpinnerBuilder;
 use AlecRabbit\Spinner\Core\StyleFrameCollectionRenderer;
 use AlecRabbit\Spinner\Core\StyleFrameRenderer;
+use AlecRabbit\Spinner\Core\TimerBuilder;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetBuilder;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolverBuilder;
 use AlecRabbit\Spinner\Core\Widget\WidgetBuilder;

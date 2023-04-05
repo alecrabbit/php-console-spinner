@@ -20,7 +20,7 @@ final class DefaultsProviderBuilderTest extends TestCaseWithPrebuiltMocks
     #[Test]
     public function canBeCreated(): void
     {
-        self::assertTrue(true);
+
 
         $defaultsProviderBuilder = $this->getTesteeInstance();
 
@@ -49,7 +49,7 @@ final class DefaultsProviderBuilderTest extends TestCaseWithPrebuiltMocks
     #[Test]
     public function canBuildDefaultsProvider(): void
     {
-        self::assertTrue(true);
+
 
         $defaultsProvider = $this->getTesteeInstance()->build();
 

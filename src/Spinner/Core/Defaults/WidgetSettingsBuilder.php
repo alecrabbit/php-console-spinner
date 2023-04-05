@@ -22,30 +22,13 @@ final class WidgetSettingsBuilder implements IWidgetSettingsBuilder
     /** @inheritdoc */
     public function build(): IWidgetSettings
     {
-        $this->validate();
-
         return
             new WidgetSettings(
-                leadingSpacer: $this->leadingSpacer,
-                trailingSpacer: $this->trailingSpacer,
-                stylePattern: $this->stylePattern,
-                charPattern: $this->charPattern,
+                leadingSpacer: $this->leadingSpacer ??= FrameFactory::createEmpty(),
+                trailingSpacer: $this->trailingSpacer ??= FrameFactory::createSpace(),
+                stylePattern: $this->stylePattern ??= new NoStylePattern(),
+                charPattern: $this->charPattern ??= new NoCharPattern(),
             );
     }
 
-    protected function validate(): void
-    {
-        if (null === $this->leadingSpacer) {
-            $this->leadingSpacer = FrameFactory::createEmpty();
-        }
-        if (null === $this->trailingSpacer) {
-            $this->trailingSpacer = FrameFactory::createSpace();
-        }
-        if (null === $this->stylePattern) {
-            $this->stylePattern = new NoStylePattern();
-        }
-        if (null === $this->charPattern) {
-            $this->charPattern = new NoCharPattern();
-        }
-    }
 }

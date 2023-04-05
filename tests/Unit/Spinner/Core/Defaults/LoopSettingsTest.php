@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Unit\Spinner\Core\Defaults;
+namespace AlecRabbit\Tests\Unit\Spinner\Core\Defaults;
 
 use AlecRabbit\Spinner\Contract\OptionAttach;
 use AlecRabbit\Spinner\Contract\OptionAutoStart;
