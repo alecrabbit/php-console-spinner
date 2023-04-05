@@ -7,7 +7,7 @@ namespace AlecRabbit\Spinner\Core\Loop\Contract;
 
 use Closure;
 
-interface ILoopAdapter
+interface ILoop
 {
     public function run(): void;
 
@@ -21,5 +21,5 @@ interface ILoopAdapter
 
     public function onSignal(int $signal, Closure $closure): void;
 
-    public function autoStart(): void; // TODO: choose a better name
+    public function autoStart(): void; // TODO (2023-04-05 13:11) [Alec Rabbit]: choose a better name and/or move to another interface/class
 }

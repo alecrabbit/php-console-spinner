@@ -5,20 +5,20 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Factory;
 
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopFactory;
-use AlecRabbit\Spinner\Core\Loop\Contract\ILoopAdapter;
+use AlecRabbit\Spinner\Core\Loop\Contract\ILoop;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoopProbe;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoopProbeFactory;
 
 final class LoopFactory implements ILoopFactory
 {
-    protected static ?ILoopAdapter $loop = null;
+    protected static ?ILoop $loop = null;
 
     public function __construct(
         protected ILoopProbeFactory $loopProbeFactory,
     ) {
     }
 
-    public function getLoop(): ILoopAdapter
+    public function getLoop(): ILoop
     {
         if (null === self::$loop) {
             self::$loop = $this->createLoop();
@@ -26,7 +26,7 @@ final class LoopFactory implements ILoopFactory
         return self::$loop;
     }
 
-    protected function createLoop(): ILoopAdapter
+    protected function createLoop(): ILoop
     {
         return $this->getLoopProbe()->createLoop();
     }

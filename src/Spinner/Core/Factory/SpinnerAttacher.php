@@ -6,13 +6,13 @@ namespace AlecRabbit\Spinner\Core\Factory;
 
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use AlecRabbit\Spinner\Core\Contract\ISpinnerAttacher;
-use AlecRabbit\Spinner\Core\Loop\Contract\ILoopAdapter;
+use AlecRabbit\Spinner\Core\Loop\Contract\ILoop;
 use WeakMap;
 
 final class SpinnerAttacher implements ISpinnerAttacher
 {
     public function __construct(
-        protected ILoopAdapter $loop,
+        protected ILoop $loop,
         protected WeakMap $timerMap = new WeakMap(),
     ) {
     }

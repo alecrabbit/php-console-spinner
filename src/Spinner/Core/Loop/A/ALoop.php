@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Loop\A;
 
-use AlecRabbit\Spinner\Core\Loop\Contract\ILoopAdapter;
+use AlecRabbit\Spinner\Core\Loop\Contract\ILoop;
 use Closure;
 
 /**
  * @codeCoverageIgnore
  */
-abstract class ALoopAdapter implements ILoopAdapter
+abstract class ALoop implements ILoop
 {
     protected static function error(): bool
     {

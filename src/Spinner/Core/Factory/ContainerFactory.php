@@ -49,7 +49,7 @@ use AlecRabbit\Spinner\Core\FrameRevolverBuilder;
 use AlecRabbit\Spinner\Core\ICharFrameRenderer;
 use AlecRabbit\Spinner\Core\IntegerNormalizer;
 use AlecRabbit\Spinner\Core\IntervalNormalizer;
-use AlecRabbit\Spinner\Core\Loop\Contract\ILoopAdapter;
+use AlecRabbit\Spinner\Core\Loop\Contract\ILoop;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoopProbeFactory;
 use AlecRabbit\Spinner\Core\OutputBuilder;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolverBuilder;
@@ -143,7 +143,7 @@ final class ContainerFactory implements IContainerFactory
                 },
 
 
-                ILoopAdapter::class => static function (ContainerInterface $container): ILoopAdapter {
+                ILoop::class => static function (ContainerInterface $container): ILoop {
                     return
                         $container->get(ILoopFactory::class)->getLoop();
                 },

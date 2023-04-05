@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Unit\Spinner\Asynchronous\Override;
 
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
-use AlecRabbit\Spinner\Core\Loop\A\ALoopAdapter;
+use AlecRabbit\Spinner\Core\Loop\A\ALoop;
 use Closure;
 
-final class ALoopAdapterOverride extends ALoopAdapter
+final class ALoopAdapterOverride extends ALoop
 {
 
     public function stop(): void

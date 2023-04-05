@@ -10,7 +10,7 @@ use AlecRabbit\Spinner\Facade;
 
 // @codeCoverageIgnoreStart
 
-Facade::replaceService(
+Facade::useService(
     ILoopProbeFactory::class,
     static function (): ILoopProbeFactory {
         return

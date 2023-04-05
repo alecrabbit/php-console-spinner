@@ -5,7 +5,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Asynchronous\Loop\Adapter;
 
-use AlecRabbit\Spinner\Core\Loop\A\ALoopAdapter;
+use AlecRabbit\Spinner\Core\Loop\A\ALoop;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use Closure;
 use Revolt\EventLoop;
@@ -13,7 +13,7 @@ use Revolt\EventLoop;
 /**
  * @codeCoverageIgnore
  */
-final class RevoltLoopAdapter extends ALoopAdapter
+final class RevoltLoopAdapter extends ALoop
 {
     private static bool $stopped = false;
 

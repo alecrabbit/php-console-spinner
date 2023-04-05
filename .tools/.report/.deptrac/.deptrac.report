@@ -1,11 +1,18 @@
+ ----------- ---------------------------------------------------------------------------------------------- 
+  Reason      Core                                                                                          
+ ----------- ---------------------------------------------------------------------------------------------- 
+  Violation   AlecRabbit\Spinner\Core\Contract\IFacade must not depend on AlecRabbit\Spinner\Facade (Root)  
+              /app/src/Spinner/Core/Contract/IFacade.php:10                                                 
+ ----------- ---------------------------------------------------------------------------------------------- 
+
 
  -------------------- ------ 
   Report                     
  -------------------- ------ 
-  Violations           0     
+  Violations           1     
   Skipped violations   0     
   Uncovered            170   
-  Allowed              2512  
+  Allowed              2490  
   Warnings             0     
   Errors               0     
  -------------------- ------ 

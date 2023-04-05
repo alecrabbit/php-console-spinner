@@ -4,7 +4,7 @@ declare(strict_types=1);
 // 04.04.23
 namespace AlecRabbit\Spinner\Core\Contract;
 
-use AlecRabbit\Spinner\Core\Loop\Contract\ILoopAdapter;
+use AlecRabbit\Spinner\Core\Loop\Contract\ILoop;
 use AlecRabbit\Spinner\Helper\Asserter;
 use Traversable;
 
@@ -15,7 +15,7 @@ final class LoopSetup implements ILoopSetup
     protected bool $autoStartEnabled = false;
 
     public function __construct(
-        protected ILoopAdapter $loop,
+        protected ILoop $loop,
     ) {
     }
 
@@ -46,7 +46,7 @@ final class LoopSetup implements ILoopSetup
         }
     }
 
-    private function getSignalHandlers(ISpinner $spinner, ILoopAdapter $loop): Traversable
+    private function getSignalHandlers(ISpinner $spinner, ILoop $loop): Traversable
     {
         Asserter::assertExtensionLoaded(
             'pcntl',

@@ -13,7 +13,7 @@ use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use AlecRabbit\Spinner\Core\Factory\ContainerFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ISpinnerFactory;
-use AlecRabbit\Spinner\Core\Loop\Contract\ILoopAdapter;
+use AlecRabbit\Spinner\Core\Loop\Contract\ILoop;
 use Closure;
 
 final class Facade implements IFacade
@@ -72,7 +72,7 @@ final class Facade implements IFacade
         ;
     }
 
-    public static function getLoop(): ILoopAdapter
+    public static function getLoop(): ILoop
     {
         return
             self::getContainer()
@@ -81,8 +81,13 @@ final class Facade implements IFacade
         ;
     }
 
-    public static function replaceService(string $id, object|callable|string $service): void
+    public static function useService(string $id, object|callable|string $service): void
     {
-        self::getContainer()->replace($id, $service);
+        $container = self::getContainer();
+
+        match ($container->has($id)) {
+            true => $container->replace($id, $service),
+            default => $container->add($id, $service),
+        };
     }
 }
