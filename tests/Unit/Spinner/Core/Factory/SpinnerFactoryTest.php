@@ -11,7 +11,7 @@ use AlecRabbit\Spinner\Core\A\ASpinner;
 use AlecRabbit\Spinner\Core\Config\Contract\IConfig;
 use AlecRabbit\Spinner\Core\Config\LoopConfig;
 use AlecRabbit\Spinner\Core\Contract\IConfigBuilder;
-use AlecRabbit\Spinner\Core\Contract\ILoopInitializer;
+use AlecRabbit\Spinner\Core\Contract\ILoopSetup;
 use AlecRabbit\Spinner\Core\Contract\ISpinnerBuilder;
 use AlecRabbit\Spinner\Core\Contract\ISpinnerSetup;
 use AlecRabbit\Spinner\Core\Factory\Contract\ISpinnerFactory;
@@ -33,13 +33,13 @@ final class SpinnerFactoryTest extends TestCaseWithPrebuiltMocks
     public function getTesteeInstance(
         ?ISpinnerBuilder $spinnerBuilder = null,
         ?ISpinnerSetup $spinnerInitializer = null,
-        ?ILoopInitializer $loopInitializer = null,
+        ?ILoopSetup $loopInitializer = null,
     ): ISpinnerFactory {
         return
             new SpinnerFactory(
                 spinnerBuilder: $spinnerBuilder ?? $this->getSpinnerBuilderMock(),
                 spinnerSetup: $spinnerInitializer ??  $this->getSpinnerInitializerMock(),
-                loopInitializer: $loopInitializer ??  $this->getLoopInitializerMock(),
+                loopSetup: $loopInitializer ??  $this->getLoopInitializerMock(),
             );
     }
 

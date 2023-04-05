@@ -17,7 +17,7 @@ use AlecRabbit\Spinner\Core\Contract\IConfigBuilder;
 use AlecRabbit\Spinner\Core\Contract\ICursorBuilder;
 use AlecRabbit\Spinner\Core\Contract\IDefaultsProvider;
 use AlecRabbit\Spinner\Core\Contract\IIntervalNormalizer;
-use AlecRabbit\Spinner\Core\Contract\ILoopInitializer;
+use AlecRabbit\Spinner\Core\Contract\ILoopSetup;
 use AlecRabbit\Spinner\Core\Contract\IOutputBuilder;
 use AlecRabbit\Spinner\Core\Contract\ISpinnerAttacher;
 use AlecRabbit\Spinner\Core\Contract\ISpinnerBuilder;
@@ -86,9 +86,9 @@ abstract class TestCaseWithPrebuiltMocks extends TestCase
         return $this->createMock(ISpinnerBuilder::class);
     }
 
-    protected function getLoopInitializerMock(): MockObject&ILoopInitializer
+    protected function getLoopInitializerMock(): MockObject&ILoopSetup
     {
-        return $this->createMock(ILoopInitializer::class);
+        return $this->createMock(ILoopSetup::class);
     }
 
     protected function getSpinnerInitializerMock(): MockObject&ISpinnerSetup

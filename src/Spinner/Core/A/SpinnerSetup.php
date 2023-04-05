@@ -4,12 +4,9 @@ declare(strict_types=1);
 // 04.04.23
 namespace AlecRabbit\Spinner\Core\A;
 
-use AlecRabbit\Spinner\Contract\OptionRunMode;
-use AlecRabbit\Spinner\Core\Config\Contract\ISpinnerConfig;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use AlecRabbit\Spinner\Core\Contract\ISpinnerAttacher;
 use AlecRabbit\Spinner\Core\Contract\ISpinnerSetup;
-use AlecRabbit\Spinner\Exception\LogicException;
 
 final class SpinnerSetup implements ISpinnerSetup
 {

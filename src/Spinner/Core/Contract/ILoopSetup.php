@@ -9,9 +9,14 @@ use AlecRabbit\Spinner\Core\Config\Contract\ILoopConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\ISpinnerConfig;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoopAdapter;
 
-interface ILoopInitializer
+interface ILoopSetup
 {
-    public function initialize(): void;
+    public function setup(): void;
 
-    public function useConfig(ILoopConfig $config): ILoopInitializer;
+    public function enableSignalHandlers(bool $enable): ILoopSetup;
+
+    public function asynchronous(bool $enable): ILoopSetup;
+
+    public function enableAutoStart(bool $enable): ILoopSetup;
+
 }

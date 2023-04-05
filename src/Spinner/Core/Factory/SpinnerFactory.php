@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Factory;
 
 use AlecRabbit\Spinner\Core\Config\Contract\IConfig;
-use AlecRabbit\Spinner\Core\Contract\ILoopInitializer;
+use AlecRabbit\Spinner\Core\Contract\ILoopSetup;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use AlecRabbit\Spinner\Core\Contract\ISpinnerBuilder;
 use AlecRabbit\Spinner\Core\Contract\ISpinnerSetup;
@@ -16,7 +16,7 @@ final class SpinnerFactory implements ISpinnerFactory
     public function __construct(
         protected ISpinnerBuilder $spinnerBuilder,
         protected ISpinnerSetup $spinnerSetup,
-        protected ILoopInitializer $loopInitializer,
+        protected ILoopSetup $loopSetup,
     ) {
     }
 
@@ -39,9 +39,11 @@ final class SpinnerFactory implements ISpinnerFactory
             ->setup($spinner)
         ;
 
-        $this->loopInitializer
-            ->useConfig($loopConfig)
-            ->initialize()
+        $this->loopSetup
+            ->asynchronous($loopConfig->isAsynchronous())
+            ->enableAutoStart($loopConfig->isEnabledAutoStart())
+            ->enableSignalHandlers($loopConfig->areEnabledSignalHandlers())
+            ->setup()
         ;
 
         return $spinner;

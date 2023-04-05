@@ -24,7 +24,7 @@ use AlecRabbit\Spinner\Core\Contract\ICursorBuilder;
 use AlecRabbit\Spinner\Core\Contract\IDefaultsProvider;
 use AlecRabbit\Spinner\Core\Contract\IIntegerNormalizer;
 use AlecRabbit\Spinner\Core\Contract\IIntervalNormalizer;
-use AlecRabbit\Spinner\Core\Contract\ILoopInitializer;
+use AlecRabbit\Spinner\Core\Contract\ILoopSetup;
 use AlecRabbit\Spinner\Core\Contract\IOutputBuilder;
 use AlecRabbit\Spinner\Core\Contract\ISpinnerAttacher;
 use AlecRabbit\Spinner\Core\Contract\ISpinnerBuilder;
@@ -32,7 +32,7 @@ use AlecRabbit\Spinner\Core\Contract\ISpinnerSetup;
 use AlecRabbit\Spinner\Core\Contract\IStyleFrameCollectionRenderer;
 use AlecRabbit\Spinner\Core\Contract\IStyleFrameRenderer;
 use AlecRabbit\Spinner\Core\Contract\IWidthMeasurer;
-use AlecRabbit\Spinner\Core\Contract\LoopInitializer;
+use AlecRabbit\Spinner\Core\Contract\LoopSetup;
 use AlecRabbit\Spinner\Core\CursorBuilder;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IAuxSettings;
 use AlecRabbit\Spinner\Core\Defaults\DefaultsProvider;
@@ -143,7 +143,7 @@ final class ContainerFactory implements IContainerFactory
                     return $container->get(IDefaultsProvider::class)->getAuxSettings()->getOptionStyleMode();
                 },
                 ISpinnerSetup::class => SpinnerSetup::class,
-                ILoopInitializer::class => LoopInitializer::class,
+                ILoopSetup::class => LoopSetup::class,
                 ISpinnerAttacher::class => static function (ContainerInterface $container): ISpinnerAttacher {
                     return
                         $container->get(ISpinnerAttacherFactory::class)->getAttacher();
