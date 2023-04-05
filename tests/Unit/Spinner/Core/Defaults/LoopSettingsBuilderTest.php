@@ -1,0 +1,70 @@
+<?php
+
+declare(strict_types=1);
+
+namespace AlecRabbit\Tests\Unit\Spinner\Core\Defaults;
+
+use AlecRabbit\Spinner\Contract\OptionAutoStart;
+use AlecRabbit\Spinner\Contract\OptionRunMode;
+use AlecRabbit\Spinner\Contract\OptionSignalHandlers;
+use AlecRabbit\Spinner\Core\Defaults\ILoopSettingsBuilder;
+use AlecRabbit\Spinner\Core\Defaults\LoopSettings;
+use AlecRabbit\Spinner\Core\Defaults\LoopSettingsBuilder;
+use AlecRabbit\Spinner\Core\Loop\Contract\ILoopProbe;
+use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocks;
+use PHPUnit\Framework\Attributes\Test;
+use PHPUnit\Framework\MockObject\MockObject;
+
+final class LoopSettingsBuilderTest extends TestCaseWithPrebuiltMocks
+{
+    #[Test]
+    public function canBeCreated(): void
+    {
+        self::assertTrue(true);
+
+        $builder = $this->getTesteeInstance();
+
+        self::assertInstanceOf(LoopSettingsBuilder::class, $builder);
+    }
+
+    public function getTesteeInstance(
+        ?ILoopProbe $loopProbe = null,
+    ): ILoopSettingsBuilder {
+        return
+            new LoopSettingsBuilder(
+                loopProbe: $loopProbe,
+            );
+    }
+
+    #[Test]
+    public function allSettingsAreDisabledIfLoopProbeIsNull(): void
+    {
+        self::assertTrue(true);
+
+        $loopSettings = $this->getTesteeInstance()->build();
+
+        self::assertInstanceOf(LoopSettings::class, $loopSettings);
+
+        self::assertSame(OptionRunMode::SYNCHRONOUS, $loopSettings->getRunModeOption());
+        self::assertSame(OptionAutoStart::DISABLED, $loopSettings->getAutoStartOption());
+        self::assertSame(OptionSignalHandlers::DISABLED, $loopSettings->getSignalHandlersOption());
+    }
+
+    #[Test]
+    public function allSettingsAreEnabledIfLoopProbeIsProvided(): void
+    {
+        self::assertTrue(true);
+
+        $loopSettings =
+            $this->getTesteeInstance(
+                loopProbe: $this->getLoopProbeMock()
+            )
+                ->build();
+
+        self::assertInstanceOf(LoopSettings::class, $loopSettings);
+
+        self::assertSame(OptionRunMode::ASYNC, $loopSettings->getRunModeOption());
+        self::assertSame(OptionAutoStart::ENABLED, $loopSettings->getAutoStartOption());
+        self::assertSame(OptionSignalHandlers::ENABLED, $loopSettings->getSignalHandlersOption());
+    }
+}

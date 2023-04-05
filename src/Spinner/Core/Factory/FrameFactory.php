@@ -11,7 +11,6 @@ use AlecRabbit\Spinner\Core\Frame;
 
 final class FrameFactory implements IFrameFactory
 {
-
     public function __construct(
         protected IWidthMeasurer $determiner,
     ) {

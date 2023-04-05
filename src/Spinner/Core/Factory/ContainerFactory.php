@@ -36,6 +36,7 @@ use AlecRabbit\Spinner\Core\Contract\LoopSetup;
 use AlecRabbit\Spinner\Core\CursorBuilder;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IAuxSettings;
 use AlecRabbit\Spinner\Core\Defaults\DefaultsProvider;
+use AlecRabbit\Spinner\Core\Defaults\DefaultsProviderBuilder;
 use AlecRabbit\Spinner\Core\DriverBuilder;
 use AlecRabbit\Spinner\Core\Factory\Contract\IContainerFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IFrameFactory;
@@ -101,7 +102,10 @@ final class ContainerFactory implements IContainerFactory
         // FIXME: extract definitions declarations? container factory depends on all other services
         return new ArrayObject(
             [
-                IDefaultsProvider::class => new DefaultsProvider(),
+                IDefaultsProvider::class => static function (ContainerInterface $container): IDefaultsProvider {
+                    dump(sprintf('Creating %s', IDefaultsProvider::class));
+                    return new DefaultsProviderBuilder();
+                },
 
                 IAnsiStyleConverter::class => AnsiStyleConverter::class,
                 ICharFrameCollectionRenderer::class => CharFrameCollectionRenderer::class,
