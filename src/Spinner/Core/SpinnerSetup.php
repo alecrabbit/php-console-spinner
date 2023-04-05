@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 // 04.04.23
-namespace AlecRabbit\Spinner\Core\A;
+namespace AlecRabbit\Spinner\Core;
 
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use AlecRabbit\Spinner\Core\Contract\ISpinnerAttacher;

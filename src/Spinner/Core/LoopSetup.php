@@ -2,8 +2,10 @@
 
 declare(strict_types=1);
 // 04.04.23
-namespace AlecRabbit\Spinner\Core\Contract;
+namespace AlecRabbit\Spinner\Core;
 
+use AlecRabbit\Spinner\Core\Contract\ILoopSetup;
+use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoop;
 use AlecRabbit\Spinner\Helper\Asserter;
 use Traversable;

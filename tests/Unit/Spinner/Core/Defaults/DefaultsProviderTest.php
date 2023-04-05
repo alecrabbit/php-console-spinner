@@ -5,17 +5,12 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Defaults;
 
 use AlecRabbit\Spinner\Core\Contract\IDefaultsProvider;
-use AlecRabbit\Spinner\Core\Defaults\AuxSettings;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IAuxSettings;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDriverSettings;
 use AlecRabbit\Spinner\Core\Defaults\Contract\ILoopSettings;
 use AlecRabbit\Spinner\Core\Defaults\Contract\ISpinnerSettings;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IWidgetSettings;
 use AlecRabbit\Spinner\Core\Defaults\DefaultsProvider;
-use AlecRabbit\Spinner\Core\Defaults\DriverSettings;
-use AlecRabbit\Spinner\Core\Defaults\LoopSettings;
-use AlecRabbit\Spinner\Core\Defaults\SpinnerSettings;
-use AlecRabbit\Spinner\Core\Defaults\WidgetSettings;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocks;
 use PHPUnit\Framework\Attributes\Test;
 

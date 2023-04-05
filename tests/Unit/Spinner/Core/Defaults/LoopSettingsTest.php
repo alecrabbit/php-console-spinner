@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Defaults;
 
-use AlecRabbit\Spinner\Contract\OptionAttach;
 use AlecRabbit\Spinner\Contract\OptionAutoStart;
-use AlecRabbit\Spinner\Contract\OptionInitialization;
 use AlecRabbit\Spinner\Contract\OptionRunMode;
 use AlecRabbit\Spinner\Contract\OptionSignalHandlers;
 use AlecRabbit\Spinner\Core\Defaults\Contract\ILoopSettings;

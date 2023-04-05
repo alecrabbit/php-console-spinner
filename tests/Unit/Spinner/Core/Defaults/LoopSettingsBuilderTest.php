@@ -19,8 +19,6 @@ final class LoopSettingsBuilderTest extends TestCaseWithPrebuiltMocks
     #[Test]
     public function canBeCreated(): void
     {
-
-
         $builder = $this->getTesteeInstance();
 
         self::assertInstanceOf(LoopSettingsBuilder::class, $builder);
@@ -38,8 +36,6 @@ final class LoopSettingsBuilderTest extends TestCaseWithPrebuiltMocks
     #[Test]
     public function allSettingsAreDisabledIfLoopProbeIsNull(): void
     {
-
-
         $loopSettings = $this->getTesteeInstance()->build();
 
         self::assertInstanceOf(LoopSettings::class, $loopSettings);
@@ -52,8 +48,6 @@ final class LoopSettingsBuilderTest extends TestCaseWithPrebuiltMocks
     #[Test]
     public function allSettingsAreEnabledIfLoopProbeIsProvided(): void
     {
-
-
         $loopSettings =
             $this->getTesteeInstance(
                 loopProbe: $this->getLoopProbeMock()

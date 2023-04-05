@@ -14,8 +14,7 @@ abstract class AOneFramePattern extends APattern
 {
     public function __construct(
         protected IFrame $frame,
-    )
-    {
+    ) {
         parent::__construct();
         $this->interval = new Interval();
     }

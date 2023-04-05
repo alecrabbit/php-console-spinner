@@ -24,13 +24,13 @@ final class WidthMeasurerTest extends TestCaseWithPrebuiltMocks
 
     public function getTesteeInstance(
         ?callable $measureFunction = null
-    ): IWidthMeasurer
-    {
+    ): IWidthMeasurer {
         return
             new WidthMeasurer(
                 measureFunction: $measureFunction ?? static fn(string $string): int => strlen($string)
             );
     }
+
     #[Test]
     public function throwsIfMeasureFunctionHasInvalidSignature(): void
     {
