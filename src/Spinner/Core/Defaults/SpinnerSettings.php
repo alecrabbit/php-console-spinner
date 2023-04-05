@@ -11,8 +11,8 @@ use AlecRabbit\Spinner\Core\Defaults\Contract\ISpinnerSettings;
 final class SpinnerSettings implements ISpinnerSettings
 {
     public function __construct(
-        protected OptionInitialization $initializationOption = OptionInitialization::ENABLED,
-        protected OptionAttach $attachOption = OptionAttach::ENABLED,
+        protected OptionInitialization $initializationOption,
+        protected OptionAttach $attachOption,
     ) {
     }
 

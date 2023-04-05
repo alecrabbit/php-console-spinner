@@ -26,7 +26,9 @@ use AlecRabbit\Spinner\Core\Defaults\Contract\IAuxSettings;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IAuxSettingsBuilder;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDriverSettings;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDriverSettingsBuilder;
+use AlecRabbit\Spinner\Core\Defaults\Contract\ILoopSettings;
 use AlecRabbit\Spinner\Core\Defaults\Contract\ILoopSettingsBuilder;
+use AlecRabbit\Spinner\Core\Defaults\Contract\ISpinnerSettings;
 use AlecRabbit\Spinner\Core\Defaults\Contract\ISpinnerSettingsBuilder;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IWidgetSettings;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IWidgetSettingsBuilder;
@@ -40,6 +42,7 @@ use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetBuilder;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolverBuilder;
 use PHPUnit\Framework\MockObject\MockObject;
+use Unit\Spinner\Core\Defaults\DefaultsProviderTest;
 
 abstract class TestCaseWithPrebuiltMocks extends TestCase
 {
@@ -222,5 +225,15 @@ abstract class TestCaseWithPrebuiltMocks extends TestCase
     protected function getWidgetSettingsBuilderMock(): MockObject&IWidgetSettingsBuilder
     {
         return $this->createMock(IWidgetSettingsBuilder::class);
+    }
+
+    protected function getSpinnerSettingsMock(): MockObject&ISpinnerSettings
+    {
+        return $this->getMockForAbstractClass(ISpinnerSettings::class);
+    }
+
+    protected function getLoopSettingsMock(): MockObject&ILoopSettings
+    {
+        return $this->getMockForAbstractClass(ILoopSettings::class);
     }
 }
