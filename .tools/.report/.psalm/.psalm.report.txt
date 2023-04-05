@@ -53,15 +53,15 @@
 /app/src/Spinner/Core/Factory/ContainerFactory.php:93:58:error - MixedAssignment: Unable to determine the type that $service is being assigned to
 /app/src/Spinner/Core/Factory/ContainerFactory.php:94:29:error - MixedArgument: Argument 1 of AlecRabbit\Spinner\Container\Contract\IContainer::add cannot be mixed, expecting string
 /app/src/Spinner/Core/Factory/ContainerFactory.php:94:34:error - MixedArgument: Argument 2 of AlecRabbit\Spinner\Container\Contract\IContainer::add cannot be mixed, expecting callable|object|string
-/app/src/Spinner/Core/Factory/ContainerFactory.php:127:91:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Core\Contract\IWidthMeasurer' for /app/src/spinner/core/factory/containerfactory.php:127:5947:-:closure
+/app/src/Spinner/Core/Factory/ContainerFactory.php:127:91:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Core\Contract\IWidthMeasurer' for /app/src/spinner/core/factory/containerfactory.php:127:5935:-:closure
 /app/src/Spinner/Core/Factory/ContainerFactory.php:129:25:error - MixedReturnStatement: Could not infer a return type
 /app/src/Spinner/Core/Factory/ContainerFactory.php:129:72:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
 /app/src/Spinner/Core/Factory/ContainerFactory.php:134:79:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
-/app/src/Spinner/Core/Factory/ContainerFactory.php:142:92:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Contract\OptionStyleMode' for /app/src/spinner/core/factory/containerfactory.php:142:6715:-:closure
+/app/src/Spinner/Core/Factory/ContainerFactory.php:142:92:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Contract\OptionStyleMode' for /app/src/spinner/core/factory/containerfactory.php:142:6703:-:closure
 /app/src/Spinner/Core/Factory/ContainerFactory.php:143:28:error - MixedReturnStatement: Could not infer a return type
 /app/src/Spinner/Core/Factory/ContainerFactory.php:143:71:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
 /app/src/Spinner/Core/Factory/ContainerFactory.php:143:89:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
-/app/src/Spinner/Core/Factory/ContainerFactory.php:147:93:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Core\Contract\ISpinnerAttacher' for /app/src/spinner/core/factory/containerfactory.php:147:7094:-:closure
+/app/src/Spinner/Core/Factory/ContainerFactory.php:147:93:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Core\Contract\ISpinnerAttacher' for /app/src/spinner/core/factory/containerfactory.php:147:7070:-:closure
 /app/src/Spinner/Core/Factory/ContainerFactory.php:149:25:error - MixedReturnStatement: Could not infer a return type
 /app/src/Spinner/Core/Factory/ContainerFactory.php:149:74:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
 /app/src/Spinner/Core/Factory/StaticDriverFactory.php:9:41:error - UndefinedClass: Class, interface or enum named AlecRabbit\Spinner\Core\Factory\A\AStaticDriverFactory does not exist
@@ -82,11 +82,11 @@
 /app/src/Spinner/Extras/Procedure/ProgressStepsProcedure.php:33:13:error - InvalidStaticInvocation: Method AlecRabbit\Spinner\Core\Factory\FrameFactory::create is not static, but is called statically
 /app/src/Spinner/Extras/Procedure/TmpProceduralCharPattern.php:30:25:error - InvalidStaticInvocation: Method AlecRabbit\Spinner\Core\Factory\FrameFactory::create is not static, but is called statically
 /app/src/Spinner/Extras/StaticProgressWidgetFactory.php:11:49:error - MissingDependency: AlecRabbit\Spinner\Extras\A\AStaticProgressWidgetFactory depends on class or interface alecrabbit\spinner\core\factory\a\astaticwidgetfactory that does not exist
-/app/src/Spinner/Facade.php:27:52:error - MoreSpecificReturnType: The declared return type 'AlecRabbit\Spinner\Core\Factory\Contract\ISpinnerFactory' for AlecRabbit\Spinner\Facade::getSpinnerFactory is more specific than the inferred return type 'object'
-/app/src/Spinner/Facade.php:30:13:error - LessSpecificReturnStatement: The type 'object' is more general than the declared return type 'AlecRabbit\Spinner\Core\Factory\Contract\ISpinnerFactory' for AlecRabbit\Spinner\Facade::getSpinnerFactory
-/app/src/Spinner/Facade.php:40:39:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Core\Loop\Contract\ILoopAdapter' for AlecRabbit\Spinner\Facade::getLoop
-/app/src/Spinner/Facade.php:43:13:error - MixedReturnStatement: Could not infer a return type
-/app/src/Spinner/Facade.php:45:19:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
-/app/src/Spinner/Facade.php:49:48:error - MoreSpecificReturnType: The declared return type 'AlecRabbit\Spinner\Core\Contract\IConfigBuilder' for AlecRabbit\Spinner\Facade::getConfigBuilder is more specific than the inferred return type 'object'
-/app/src/Spinner/Facade.php:52:13:error - LessSpecificReturnStatement: The type 'object' is more general than the declared return type 'AlecRabbit\Spinner\Core\Contract\IConfigBuilder' for AlecRabbit\Spinner\Facade::getConfigBuilder
+/app/src/Spinner/Facade.php:29:52:error - MoreSpecificReturnType: The declared return type 'AlecRabbit\Spinner\Core\Factory\Contract\ISpinnerFactory' for AlecRabbit\Spinner\Facade::getSpinnerFactory is more specific than the inferred return type 'object'
+/app/src/Spinner/Facade.php:32:13:error - LessSpecificReturnStatement: The type 'object' is more general than the declared return type 'AlecRabbit\Spinner\Core\Factory\Contract\ISpinnerFactory' for AlecRabbit\Spinner\Facade::getSpinnerFactory
+/app/src/Spinner/Facade.php:48:48:error - MoreSpecificReturnType: The declared return type 'AlecRabbit\Spinner\Core\Contract\IConfigBuilder' for AlecRabbit\Spinner\Facade::getConfigBuilder is more specific than the inferred return type 'object'
+/app/src/Spinner/Facade.php:51:13:error - LessSpecificReturnStatement: The type 'object' is more general than the declared return type 'AlecRabbit\Spinner\Core\Contract\IConfigBuilder' for AlecRabbit\Spinner\Facade::getConfigBuilder
+/app/src/Spinner/Facade.php:56:39:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Core\Loop\Contract\ILoopAdapter' for AlecRabbit\Spinner\Facade::getLoop
+/app/src/Spinner/Facade.php:59:13:error - MixedReturnStatement: Could not infer a return type
+/app/src/Spinner/Facade.php:61:19:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
 /app/src/Spinner/Helper/Stringify.php:39:45:error - MixedArgument: Argument 3 of sprintf cannot be 'false'|'true'|mixed, expecting float|int|string

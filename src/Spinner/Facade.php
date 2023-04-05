@@ -20,7 +20,9 @@ final class Facade implements IFacade
     {
         return
             self::getSpinnerFactory()
-                ->createSpinner($config)
+                ->createSpinner(
+                    self::refineConfig($config)
+                )
         ;
     }
 
@@ -37,13 +39,10 @@ final class Facade implements IFacade
         return ContainerFactory::getContainer();
     }
 
-    public static function getLoop(): ILoopAdapter
+    protected static function refineConfig(?IConfig $config): IConfig
     {
         return
-            self::getContainer()
-                ->get(ILoopFactory::class)
-                ->getLoop()
-        ;
+            $config ?? self::getConfigBuilder()->build();
     }
 
     public static function getConfigBuilder(): IConfigBuilder
@@ -51,6 +50,15 @@ final class Facade implements IFacade
         return
             self::getContainer()
                 ->get(IConfigBuilder::class)
+        ;
+    }
+
+    public static function getLoop(): ILoopAdapter
+    {
+        return
+            self::getContainer()
+                ->get(ILoopFactory::class)
+                ->getLoop()
         ;
     }
 }

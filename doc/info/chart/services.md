@@ -25,7 +25,6 @@ classDiagram
     IContainer ..> IServiceSpawner
 
     ISpinnerFactory ..> ISpinnerBuilder
-    ISpinnerFactory ..> IConfigBuilder
     ISpinnerFactory ..> ISpinnerInitializer
     ISpinnerFactory ..> ILoopInitializer
 

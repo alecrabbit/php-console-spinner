@@ -21,7 +21,7 @@ use AlecRabbit\Spinner\Core\Contract\ILoopInitializer;
 use AlecRabbit\Spinner\Core\Contract\IOutputBuilder;
 use AlecRabbit\Spinner\Core\Contract\ISpinnerAttacher;
 use AlecRabbit\Spinner\Core\Contract\ISpinnerBuilder;
-use AlecRabbit\Spinner\Core\Contract\ISpinnerInitializer;
+use AlecRabbit\Spinner\Core\Contract\ISpinnerSetup;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IAuxSettings;
 use AlecRabbit\Spinner\Core\Factory\Contract\IFrameFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalFactory;
@@ -91,9 +91,9 @@ abstract class TestCaseWithPrebuiltMocks extends TestCase
         return $this->createMock(ILoopInitializer::class);
     }
 
-    protected function getSpinnerInitializerMock(): MockObject&ISpinnerInitializer
+    protected function getSpinnerInitializerMock(): MockObject&ISpinnerSetup
     {
-        return $this->createMock(ISpinnerInitializer::class);
+        return $this->createMock(ISpinnerSetup::class);
     }
 
     protected function getDriverBuilderMock():  MockObject&IDriverBuilder
