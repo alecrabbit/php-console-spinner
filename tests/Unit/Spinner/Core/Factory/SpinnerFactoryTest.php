@@ -32,14 +32,12 @@ final class SpinnerFactoryTest extends TestCaseWithPrebuiltMocks
 
     public function getTesteeInstance(
         ?ISpinnerBuilder $spinnerBuilder = null,
-        ?ISpinnerSetup $spinnerInitializer = null,
-        ?ILoopSetup $loopInitializer = null,
+        ?ISpinnerSetup $spinnerSetup = null,
     ): ISpinnerFactory {
         return
             new SpinnerFactory(
                 spinnerBuilder: $spinnerBuilder ?? $this->getSpinnerBuilderMock(),
-                spinnerSetup: $spinnerInitializer ??  $this->getSpinnerInitializerMock(),
-                loopSetup: $loopInitializer ??  $this->getLoopInitializerMock(),
+                spinnerSetup: $spinnerSetup ??  $this->getSpinnerSetupMock(),
             );
     }
 

@@ -18,11 +18,6 @@ final class LoopFactory implements ILoopFactory
     ) {
     }
 
-    public function registerAutoStart(): void
-    {
-        $this->getLoop()->autoStart();
-    }
-
     public function getLoop(): ILoopAdapter
     {
         if (null === self::$loop) {
@@ -39,13 +34,5 @@ final class LoopFactory implements ILoopFactory
     protected function getLoopProbe(): ILoopProbe
     {
         return $this->loopProbeFactory->getProbe();
-    }
-
-    public function registerSignalHandlers(\Traversable $handlers): void
-    {
-        $loop = $this->getLoop();
-        foreach ($handlers as $signal => $handler) {
-            $loop->onSignal($signal, $handler);
-        }
     }
 }

@@ -91,7 +91,7 @@ abstract class TestCaseWithPrebuiltMocks extends TestCase
         return $this->createMock(ILoopSetup::class);
     }
 
-    protected function getSpinnerInitializerMock(): MockObject&ISpinnerSetup
+    protected function getSpinnerSetupMock(): MockObject&ISpinnerSetup
     {
         return $this->createMock(ISpinnerSetup::class);
     }

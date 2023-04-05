@@ -36,12 +36,7 @@ final class ALoopAdapterOverride extends ALoopAdapter
         // TODO: Implement autoStart() method.
     }
 
-    public function getEventLoop()
-    {
-        // TODO: Implement getLoop() method.
-    }
-
-    protected function onSignal(int $signal, Closure $closure): void
+    public function onSignal(int $signal, Closure $closure): void
     {
         // TODO: Implement onSignal() method.
     }

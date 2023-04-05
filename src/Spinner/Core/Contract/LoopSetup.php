@@ -4,7 +4,6 @@ declare(strict_types=1);
 // 04.04.23
 namespace AlecRabbit\Spinner\Core\Contract;
 
-use AlecRabbit\Spinner\Core\Factory\Contract\ILoopFactory;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoopAdapter;
 use AlecRabbit\Spinner\Helper\Asserter;
 
@@ -15,7 +14,7 @@ final class LoopSetup implements ILoopSetup
     protected bool $autoStartEnabled = false;
 
     public function __construct(
-        protected ILoopFactory $loopFactory,
+        protected ILoopAdapter $loop,
     ) {
     }
 
@@ -23,16 +22,28 @@ final class LoopSetup implements ILoopSetup
     {
         if ($this->asynchronous) {
             if ($this->autoStartEnabled) {
-                $this->loopFactory->registerAutoStart();
+                $this->registerAutoStart();
             }
             if ($this->signalHandlersEnabled) {
-                $this->loopFactory->registerSignalHandlers(
-                    $this->createSignalHandlers(
-                        $spinner,
-                        $this->loopFactory->getLoop(),
-                    ),
-                );
+                $this->registerSignalHandlers($spinner);
             }
+        }
+    }
+
+    private function registerAutoStart(): void
+    {
+        $this->loop->autoStart();
+    }
+
+    private function registerSignalHandlers(ISpinner $spinner): void
+    {
+        $loop = $this->loop;
+
+        $handlers =
+            $this->createSignalHandlers($spinner, $loop);
+
+        foreach ($handlers as $signal => $handler) {
+            $loop->onSignal($signal, $handler);
         }
     }
 

@@ -8,6 +8,7 @@ use AlecRabbit\Spinner\Container\Contract\IContainer;
 use AlecRabbit\Spinner\Core\Config\Contract\IConfig;
 use AlecRabbit\Spinner\Core\Contract\IConfigBuilder;
 use AlecRabbit\Spinner\Core\Contract\IFacade;
+use AlecRabbit\Spinner\Core\Contract\ILoopSetup;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use AlecRabbit\Spinner\Core\Factory\ContainerFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopFactory;
@@ -18,25 +19,21 @@ final class Facade implements IFacade
 {
     public static function createSpinner(IConfig $config = null): ISpinner
     {
-        return
-            self::getSpinnerFactory()
-                ->createSpinner(
-                    self::refineConfig($config)
-                )
-        ;
-    }
+        $config = self::refineConfig($config);
 
-    protected static function getSpinnerFactory(): ISpinnerFactory
-    {
-        return
-            self::getContainer()
-                ->get(ISpinnerFactory::class)
-        ;
-    }
+        $spinner = self::getSpinnerFactory()->createSpinner($config);
 
-    public static function getContainer(): IContainer
-    {
-        return ContainerFactory::getContainer();
+        $loopConfig = $config->getLoopConfig();
+
+        self::getLoopSetup()
+            ->asynchronous($loopConfig->isAsynchronous())
+            ->enableAutoStart($loopConfig->isEnabledAutoStart())
+            ->enableSignalHandlers($loopConfig->areEnabledSignalHandlers())
+            ->setup($spinner)
+        ;
+
+        return
+            $spinner;
     }
 
     protected static function refineConfig(?IConfig $config): IConfig
@@ -50,6 +47,27 @@ final class Facade implements IFacade
         return
             self::getContainer()
                 ->get(IConfigBuilder::class)
+        ;
+    }
+
+    public static function getContainer(): IContainer
+    {
+        return ContainerFactory::getContainer();
+    }
+
+    protected static function getSpinnerFactory(): ISpinnerFactory
+    {
+        return
+            self::getContainer()
+                ->get(ISpinnerFactory::class)
+        ;
+    }
+
+    protected static function getLoopSetup(): ILoopSetup
+    {
+        return
+            self::getContainer()
+                ->get(ILoopSetup::class)
         ;
     }
 

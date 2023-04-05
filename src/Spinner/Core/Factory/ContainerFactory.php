@@ -49,6 +49,7 @@ use AlecRabbit\Spinner\Core\FrameRevolverBuilder;
 use AlecRabbit\Spinner\Core\ICharFrameRenderer;
 use AlecRabbit\Spinner\Core\IntegerNormalizer;
 use AlecRabbit\Spinner\Core\IntervalNormalizer;
+use AlecRabbit\Spinner\Core\Loop\Contract\ILoopAdapter;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoopProbeFactory;
 use AlecRabbit\Spinner\Core\OutputBuilder;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolverBuilder;
@@ -102,32 +103,30 @@ final class ContainerFactory implements IContainerFactory
             [
                 IDefaultsProvider::class => new DefaultsProvider(),
 
-                ILoopFactory::class => LoopFactory::class,
-                IFrameFactory::class => FrameFactory::class,
+                IAnsiStyleConverter::class => AnsiStyleConverter::class,
+                ICharFrameCollectionRenderer::class => CharFrameCollectionRenderer::class,
+                ICharFrameRenderer::class => CharFrameRenderer::class,
                 IConfigBuilder::class => ConfigBuilder::class,
+                ICursorBuilder::class => CursorBuilder::class,
                 IDriverBuilder::class => DriverBuilder::class,
+                IFrameFactory::class => FrameFactory::class,
+                IFrameRevolverBuilder::class => FrameRevolverBuilder::class,
+                IIntervalFactory::class => IntervalFactory::class,
+                IIntervalNormalizer::class => IntervalNormalizer::class,
+                ILoopFactory::class => LoopFactory::class,
+                ILoopSetup::class => LoopSetup::class,
+                IOutputBuilder::class => OutputBuilder::class,
+                ISequencer::class => Sequencer::class,
+                ISpinnerAttacherFactory::class => SpinnerAttacherFactory::class,
+                ISpinnerBuilder::class => SpinnerBuilder::class,
+                ISpinnerFactory::class => SpinnerFactory::class,
+                ISpinnerSetup::class => SpinnerSetup::class,
+                IStyleFrameCollectionRenderer::class => StyleFrameCollectionRenderer::class,
+                IStyleFrameRenderer::class => StyleFrameRenderer::class,
+                ITimerBuilder::class => TimerBuilder::class,
                 IWidgetBuilder::class => WidgetBuilder::class,
                 IWidgetRevolverBuilder::class => WidgetRevolverBuilder::class,
-                IFrameRevolverBuilder::class => FrameRevolverBuilder::class,
-                ISpinnerFactory::class => SpinnerFactory::class,
-                ISpinnerBuilder::class => SpinnerBuilder::class,
-                IIntervalFactory::class => IntervalFactory::class,
-
-                IIntervalNormalizer::class => IntervalNormalizer::class,
-                IStyleFrameRenderer::class => StyleFrameRenderer::class,
-                ICharFrameRenderer::class => CharFrameRenderer::class,
-                IAnsiStyleConverter::class => AnsiStyleConverter::class,
-                IStyleFrameCollectionRenderer::class => StyleFrameCollectionRenderer::class,
-                ICharFrameCollectionRenderer::class => CharFrameCollectionRenderer::class,
-                ISequencer::class => Sequencer::class,
-                ITimerBuilder::class => TimerBuilder::class,
-                IOutputBuilder::class => OutputBuilder::class,
-                ICursorBuilder::class => CursorBuilder::class,
                 IWidthMeasurerFactory::class => WidthMeasurerFactory::class,
-                IWidthMeasurer::class => static function (ContainerInterface $container): IWidthMeasurer {
-                    return
-                        $container->get(IWidthMeasurerFactory::class)->create();
-                },
 
                 IIntegerNormalizer::class => static function (ContainerInterface $container): IIntegerNormalizer {
                     /** @var IAuxSettings $auxSettings */
@@ -142,13 +141,13 @@ final class ContainerFactory implements IContainerFactory
                 OptionStyleMode::class => static function (ContainerInterface $container): OptionStyleMode {
                     return $container->get(IDefaultsProvider::class)->getAuxSettings()->getOptionStyleMode();
                 },
-                ISpinnerSetup::class => SpinnerSetup::class,
-                ILoopSetup::class => LoopSetup::class,
-                ISpinnerAttacher::class => static function (ContainerInterface $container): ISpinnerAttacher {
+
+
+                ILoopAdapter::class => static function (ContainerInterface $container): ILoopAdapter {
                     return
-                        $container->get(ISpinnerAttacherFactory::class)->getAttacher();
+                        $container->get(ILoopFactory::class)->getLoop();
                 },
-                ISpinnerAttacherFactory::class => SpinnerAttacherFactory::class,
+
                 ILoopProbeFactory::class => static function (): never {
                     throw new DomainException(
                         sprintf(
@@ -156,6 +155,16 @@ final class ContainerFactory implements IContainerFactory
                             ILoopProbeFactory::class
                         )
                     );
+                },
+
+                ISpinnerAttacher::class => static function (ContainerInterface $container): ISpinnerAttacher {
+                    return
+                        $container->get(ISpinnerAttacherFactory::class)->getAttacher();
+                },
+
+                IWidthMeasurer::class => static function (ContainerInterface $container): IWidthMeasurer {
+                    return
+                        $container->get(IWidthMeasurerFactory::class)->create();
                 },
             ],
         );

@@ -16,7 +16,6 @@ final class SpinnerFactory implements ISpinnerFactory
     public function __construct(
         protected ISpinnerBuilder $spinnerBuilder,
         protected ISpinnerSetup $spinnerSetup,
-        protected ILoopSetup $loopSetup,
     ) {
     }
 
@@ -36,13 +35,6 @@ final class SpinnerFactory implements ISpinnerFactory
         $this->spinnerSetup
             ->enableInitialization($spinnerConfig->isEnabledInitialization())
             ->enableAttacher($spinnerConfig->isEnabledAttach() || $loopConfig->isAsynchronous())
-            ->setup($spinner)
-        ;
-
-        $this->loopSetup
-            ->asynchronous($loopConfig->isAsynchronous())
-            ->enableAutoStart($loopConfig->isEnabledAutoStart())
-            ->enableSignalHandlers($loopConfig->areEnabledSignalHandlers())
             ->setup($spinner)
         ;
 
