@@ -22,6 +22,15 @@ final class LoopFactory implements ILoopFactory
     ) {
     }
 
+    public function getLoopSetup(ILoopConfig $loopConfig): ILoopSetup
+    {
+        return $this->loopSetupBuilder
+            ->withLoop($this->getLoop())
+            ->withConfig($loopConfig)
+            ->build()
+        ;
+    }
+
     public function getLoop(): ILoop
     {
         if (null === self::$loop) {
@@ -38,13 +47,5 @@ final class LoopFactory implements ILoopFactory
     protected function getLoopProbe(): ILoopProbe
     {
         return $this->loopProbeFactory->getProbe();
-    }
-
-    public function getLoopSetup(ILoopConfig $loopConfig): ILoopSetup
-    {
-        return $this->loopSetupBuilder
-            ->withLoop($this->getLoop())
-            ->withConfig($loopConfig)
-            ->build();
     }
 }

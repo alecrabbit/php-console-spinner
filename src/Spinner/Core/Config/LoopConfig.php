@@ -4,9 +4,9 @@ declare(strict_types=1);
 // 17.03.23
 namespace AlecRabbit\Spinner\Core\Config;
 
+use AlecRabbit\Spinner\Contract\OptionAttachHandlers;
 use AlecRabbit\Spinner\Contract\OptionAutoStart;
 use AlecRabbit\Spinner\Contract\OptionRunMode;
-use AlecRabbit\Spinner\Contract\OptionAttachHandlers;
 use AlecRabbit\Spinner\Core\Config\Contract\ILoopConfig;
 
 final class LoopConfig implements ILoopConfig

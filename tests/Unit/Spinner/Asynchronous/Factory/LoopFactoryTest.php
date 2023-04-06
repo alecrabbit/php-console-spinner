@@ -40,14 +40,6 @@ final class LoopFactoryTest extends TestCaseWithPrebuiltMocks
             );
     }
 
-    #[Test]
-    public function canGetLoopAdapter(): void
-    {
-        $loopFactory = $this->getTesteeInstance();
-
-        self::assertInstanceOf(ALoopAdapter::class, $loopFactory->getLoop());
-    }
-
     protected function getLoopProbeFactoryMock(): MockObject&ILoopProbeFactory
     {
         $loopProbeFactory = parent::getLoopProbeFactoryMock();
@@ -67,6 +59,14 @@ final class LoopFactoryTest extends TestCaseWithPrebuiltMocks
             )
         ;
         return $loopProbeFactory;
+    }
+
+    #[Test]
+    public function canGetLoopAdapter(): void
+    {
+        $loopFactory = $this->getTesteeInstance();
+
+        self::assertInstanceOf(ALoopAdapter::class, $loopFactory->getLoop());
     }
 
     #[Test]

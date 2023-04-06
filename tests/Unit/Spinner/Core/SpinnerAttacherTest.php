@@ -4,13 +4,11 @@ declare(strict_types=1);
 // 03.04.23
 namespace AlecRabbit\Tests\Unit\Spinner\Core;
 
-use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Core\Contract\ISpinnerAttacher;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoop;
 use AlecRabbit\Spinner\Core\SpinnerAttacher;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocks;
 use PHPUnit\Framework\Attributes\Test;
-use PHPUnit\Framework\MockObject\MockObject;
 use WeakMap;
 
 

@@ -8,10 +8,8 @@ use AlecRabbit\Spinner\Core\Contract\IWidthMeasurer;
 use AlecRabbit\Spinner\Core\Factory\Contract\IFrameFactory;
 use AlecRabbit\Spinner\Core\Factory\FrameFactory;
 use AlecRabbit\Spinner\Core\Frame;
-use AlecRabbit\Spinner\Core\WidthMeasurer;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocks;
 use PHPUnit\Framework\Attributes\Test;
-use PHPUnit\Framework\MockObject\MockObject;
 
 final class FrameFactoryTest extends TestCaseWithPrebuiltMocks
 {

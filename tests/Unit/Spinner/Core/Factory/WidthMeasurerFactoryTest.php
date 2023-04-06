@@ -6,8 +6,6 @@ namespace AlecRabbit\Tests\Unit\Spinner\Core\Factory;
 
 use AlecRabbit\Spinner\Core\Factory\Contract\IWidthMeasurerFactory;
 use AlecRabbit\Spinner\Core\Factory\WidthMeasurerFactory;
-use AlecRabbit\Spinner\Core\Loop\Contract\ILoop;
-use AlecRabbit\Spinner\Core\SpinnerAttacher;
 use AlecRabbit\Spinner\Core\WidthMeasurer;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocks;
 use PHPUnit\Framework\Attributes\Test;
@@ -22,9 +20,10 @@ final class WidthMeasurerFactoryTest extends TestCaseWithPrebuiltMocks
         self::assertInstanceOf(WidthMeasurerFactory::class, $widthMeasurerFactory);
     }
 
-    public function getTesteeInstance(    ): IWidthMeasurerFactory {
+    public function getTesteeInstance(): IWidthMeasurerFactory
+    {
         return
-            new WidthMeasurerFactory(  );
+            new WidthMeasurerFactory();
     }
 
     #[Test]

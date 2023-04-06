@@ -45,9 +45,6 @@ use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolverBuilder;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetBuilder;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolverBuilder;
-use AlecRabbit\Tests\Unit\Spinner\Core\Factory\FrameFactoryTest;
-use AlecRabbit\Tests\Unit\Spinner\Core\Factory\SpinnerAttacherFactoryTest;
-use AlecRabbit\Tests\Unit\Spinner\Core\SpinnerAttacherTest;
 use PHPUnit\Framework\MockObject\MockObject;
 use Unit\Spinner\Core\Defaults\DefaultsProviderTest;
 

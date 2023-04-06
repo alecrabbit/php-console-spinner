@@ -10,7 +10,6 @@ use AlecRabbit\Spinner\Core\Loop\Contract\ILoop;
 use AlecRabbit\Spinner\Core\SpinnerAttacher;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocks;
 use PHPUnit\Framework\Attributes\Test;
-use PHPUnit\Framework\MockObject\MockObject;
 
 final class SpinnerAttacherFactoryTest extends TestCaseWithPrebuiltMocks
 {
