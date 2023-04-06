@@ -4,8 +4,8 @@ declare(strict_types=1);
 // 29.03.23
 namespace AlecRabbit\Spinner\Core\Defaults;
 
-use AlecRabbit\Spinner\Contract\OptionAttach;
-use AlecRabbit\Spinner\Contract\OptionInitialization;
+use AlecRabbit\Spinner\Contract\Option\OptionAttach;
+use AlecRabbit\Spinner\Contract\Option\OptionInitialization;
 use AlecRabbit\Spinner\Core\Defaults\Contract\ISpinnerSettings;
 
 final class SpinnerSettings implements ISpinnerSettings

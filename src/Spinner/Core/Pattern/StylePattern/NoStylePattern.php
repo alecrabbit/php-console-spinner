@@ -5,7 +5,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Pattern\StylePattern;
 
-use AlecRabbit\Spinner\Contract\OptionStyleMode;
+use AlecRabbit\Spinner\Contract\Option\OptionStyleMode;
 use AlecRabbit\Spinner\Core\Frame;
 use AlecRabbit\Spinner\Core\Pattern\A\AOneFramePattern;
 use AlecRabbit\Spinner\Core\Pattern\Contract\IStylePattern;

@@ -5,7 +5,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Terminal;
 
-use AlecRabbit\Spinner\Contract\OptionStyleMode;
+use AlecRabbit\Spinner\Contract\Option\OptionStyleMode;
 use AlecRabbit\Spinner\Core\Terminal\A\ATerminalProbe;
 
 final class NativeTerminalProbe extends ATerminalProbe

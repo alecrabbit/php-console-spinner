@@ -7,7 +7,7 @@ namespace AlecRabbit\Spinner\Core;
 
 use AlecRabbit\Spinner\Contract\Color\Style\IStyle;
 use AlecRabbit\Spinner\Contract\IFrame;
-use AlecRabbit\Spinner\Contract\OptionStyleMode;
+use AlecRabbit\Spinner\Contract\Option\OptionStyleMode;
 use AlecRabbit\Spinner\Contract\Pattern\IPattern;
 use AlecRabbit\Spinner\Core\A\AFrameCollectionRenderer;
 use AlecRabbit\Spinner\Core\Contract\IFrameCollection;

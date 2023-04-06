@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Defaults;
 
-use AlecRabbit\Spinner\Contract\OptionAttach;
-use AlecRabbit\Spinner\Contract\OptionInitialization;
+use AlecRabbit\Spinner\Contract\Option\OptionAttach;
+use AlecRabbit\Spinner\Contract\Option\OptionInitialization;
 use AlecRabbit\Spinner\Core\Defaults\Contract\ISpinnerSettingsBuilder;
 use AlecRabbit\Spinner\Core\Defaults\SpinnerSettings;
 use AlecRabbit\Spinner\Core\Defaults\SpinnerSettingsBuilder;

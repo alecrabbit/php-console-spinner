@@ -4,9 +4,6 @@ declare(strict_types=1);
 // 29.03.23
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Config;
 
-use AlecRabbit\Spinner\Contract\NormalizerMode;
-use AlecRabbit\Spinner\Contract\OptionCursor;
-use AlecRabbit\Spinner\Contract\OptionStyleMode;
 use AlecRabbit\Spinner\Core\Config\Config;
 use AlecRabbit\Spinner\Core\Config\Contract\IAuxConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IDriverConfig;

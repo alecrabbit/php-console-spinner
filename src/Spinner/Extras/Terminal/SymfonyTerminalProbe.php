@@ -5,7 +5,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Extras\Terminal;
 
-use AlecRabbit\Spinner\Contract\OptionStyleMode;
+use AlecRabbit\Spinner\Contract\Option\OptionStyleMode;
 use AlecRabbit\Spinner\Core\Terminal\A\ATerminalProbe;
 use Symfony\Component\Console\Output\AnsiColorMode;
 use Symfony\Component\Console\Terminal;

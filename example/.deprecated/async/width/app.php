@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use AlecRabbit\Spinner\Contract\OptionStyleMode;
+use AlecRabbit\Spinner\Contract\Option\OptionStyleMode;
 use AlecRabbit\Spinner\Core\Factory\StaticDefaultsFactory;
 use AlecRabbit\Spinner\Core\Output\StreamBufferedOutput;
 use AlecRabbit\Spinner\StaticFacade;
@@ -27,5 +27,3 @@ $output->writeln(
         $terminal->getStyleMode()->name
     )
 );
-
-

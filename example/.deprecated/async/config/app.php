@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-use AlecRabbit\Spinner\Contract\OptionStyleMode;
 use AlecRabbit\Spinner\Core\Factory\StaticDefaultsFactory;
 use AlecRabbit\Spinner\Core\Pattern\CharPattern\Snake;
 use AlecRabbit\Spinner\Core\Pattern\StylePattern\Rainbow;

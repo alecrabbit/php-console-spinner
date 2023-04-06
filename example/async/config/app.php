@@ -19,11 +19,11 @@ $defaultsProvider = $configBuilder->getDefaultsProvider(); // Get defaults provi
 $defaultsProvider->getDriverSettings()->setFinalMessage(PHP_EOL . '>>> Finished!' . PHP_EOL);
 
 $defaultsProvider->getAuxSettings()->setCursorOption(
-    \AlecRabbit\Spinner\Contract\OptionCursor::VISIBLE
+    \AlecRabbit\Spinner\Contract\Option\OptionCursor::VISIBLE
 );
 
 $defaultsProvider->getLoopSettings()->setAttachHandlersOption(
-    \AlecRabbit\Spinner\Contract\OptionAttachHandlers::DISABLED
+    \AlecRabbit\Spinner\Contract\Option\OptionAttachHandlers::DISABLED
 );
 
 // # !!! ATTENTION !!! (no spinner output)
@@ -34,9 +34,9 @@ $defaultsProvider->getLoopSettings()->setAttachHandlersOption(
 //);
 
 // # Spinner will NOT be attached to loop
-$defaultsProvider->getSpinnerSettings()->setAttachOption(
-    \AlecRabbit\Spinner\Contract\OptionAttach::DISABLED
-);
+//$defaultsProvider->getSpinnerSettings()->setAttachOption(
+//    \AlecRabbit\Spinner\Contract\OptionAttach::DISABLED
+//);
 
 // # Loop will NOT start automatically
 //$defaultsProvider->getLoopSettings()->setAutoStartOption(

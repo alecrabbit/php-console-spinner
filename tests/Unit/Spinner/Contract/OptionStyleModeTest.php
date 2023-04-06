@@ -4,7 +4,7 @@ declare(strict_types=1);
 // 15.02.23
 namespace AlecRabbit\Tests\Unit\Spinner\Contract;
 
-use AlecRabbit\Spinner\Contract\OptionStyleMode;
+use AlecRabbit\Spinner\Contract\Option\OptionStyleMode;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;

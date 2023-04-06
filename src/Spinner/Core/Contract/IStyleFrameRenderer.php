@@ -6,7 +6,7 @@ namespace AlecRabbit\Spinner\Core\Contract;
 
 use AlecRabbit\Spinner\Contract\Color\Style\IStyle;
 use AlecRabbit\Spinner\Contract\IFrame;
-use AlecRabbit\Spinner\Contract\OptionStyleMode;
+use AlecRabbit\Spinner\Contract\Option\OptionStyleMode;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 
 interface IStyleFrameRenderer extends IFrameRenderer

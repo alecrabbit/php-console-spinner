@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Defaults;
 
-use AlecRabbit\Spinner\Contract\OptionAttachHandlers;
-use AlecRabbit\Spinner\Contract\OptionAutoStart;
-use AlecRabbit\Spinner\Contract\OptionRunMode;
+use AlecRabbit\Spinner\Contract\Option\OptionAttachHandlers;
+use AlecRabbit\Spinner\Contract\Option\OptionAutoStart;
+use AlecRabbit\Spinner\Contract\Option\OptionRunMode;
 use AlecRabbit\Spinner\Core\Defaults\Contract\ILoopSettings;
 use AlecRabbit\Spinner\Core\Defaults\LoopSettings;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;

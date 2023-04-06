@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Example\Kernel\A;
 
-use AlecRabbit\Spinner\Contract\OptionRunMode;
+use AlecRabbit\Spinner\Contract\Option\OptionRunMode;
 use AlecRabbit\Spinner\Core\Config\Contract\IConfig;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use AlecRabbit\Spinner\Core\Factory\StaticDefaultsFactory;

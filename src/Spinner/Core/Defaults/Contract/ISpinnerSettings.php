@@ -5,8 +5,8 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Defaults\Contract;
 
-use AlecRabbit\Spinner\Contract\OptionAttach;
-use AlecRabbit\Spinner\Contract\OptionInitialization;
+use AlecRabbit\Spinner\Contract\Option\OptionAttach;
+use AlecRabbit\Spinner\Contract\Option\OptionInitialization;
 
 interface ISpinnerSettings
 {

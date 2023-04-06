@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core;
 
-use AlecRabbit\Spinner\Contract\OptionCursor;
+use AlecRabbit\Spinner\Contract\Option\OptionCursor;
 use AlecRabbit\Spinner\Core\Config\DriverConfig;
 use AlecRabbit\Spinner\Core\Contract\ICursorBuilder;
 use AlecRabbit\Spinner\Core\Contract\IDriverBuilder;

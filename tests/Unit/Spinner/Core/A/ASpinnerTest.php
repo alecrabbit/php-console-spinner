@@ -90,7 +90,7 @@ final class ASpinnerTest extends TestCaseWithPrebuiltMocksAndStubs
     }
 
     #[Test]
-    public function invokingFinalizeOnInterruptedHasNoEffect(): void
+    public function invokingInterruptOnUninitializedHasNoEffect(): void
     {
         $driver = $this->getDriverMock();
         $driver->expects(self::never())->method('finalize');
@@ -99,6 +99,38 @@ final class ASpinnerTest extends TestCaseWithPrebuiltMocksAndStubs
         $spinner = $this->getTesteeInstance(driver: $driver, rootWidget: null);
 
         $spinner->interrupt();
+        $spinner->finalize();
+        self::assertFalse(self::getValue('active', $spinner));
+        self::assertFalse(self::getValue('interrupted', $spinner));
+    }
+    #[Test]
+    public function invokingInterruptOnInitializedHasEffect(): void
+    {
+        $driver = $this->getDriverMock();
+        $driver->expects(self::never())->method('finalize');
+        $driver->expects(self::once())->method('erase');
+
+        $spinner = $this->getTesteeInstance(driver: $driver, rootWidget: null);
+
+        $spinner->initialize();
+        self::assertTrue(self::getValue('active', $spinner));
+        $spinner->interrupt();
+        $spinner->finalize();
+        self::assertFalse(self::getValue('active', $spinner));
+        self::assertTrue(self::getValue('interrupted', $spinner));
+    }
+
+    #[Test]
+    public function invokingFinalizeOnInitializedHasEffect(): void
+    {
+        $driver = $this->getDriverMock();
+        $driver->expects(self::once())->method('finalize');
+        $driver->expects(self::once())->method('erase');
+
+        $spinner = $this->getTesteeInstance(driver: $driver, rootWidget: null);
+
+        $spinner->initialize();
+        self::assertTrue(self::getValue('active', $spinner));
         $spinner->finalize();
         self::assertFalse(self::getValue('active', $spinner));
         self::assertFalse(self::getValue('interrupted', $spinner));

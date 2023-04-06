@@ -3,7 +3,7 @@
 namespace AlecRabbit\Tests\Unit\Spinner\Core;
 
 use AlecRabbit\Spinner\Contract\IInterval;
-use AlecRabbit\Spinner\Contract\NormalizerMode;
+use AlecRabbit\Spinner\Contract\Option\OptionNormalizerMode;
 use AlecRabbit\Spinner\Core\Contract\IIntervalNormalizer;
 use AlecRabbit\Spinner\Core\IntegerNormalizer;
 use AlecRabbit\Spinner\Core\Interval;
@@ -35,12 +35,12 @@ final class IntervalNormalizerTest extends TestCaseWithPrebuiltMocksAndStubs
     {
         yield from [
             // mode, result, interval,
-            [NormalizerMode::SMOOTH, 100, 100,],
-            [NormalizerMode::SMOOTH, 100, 110,],
-            [NormalizerMode::BALANCED, 100, 124,],
-            [NormalizerMode::BALANCED, 150, 135,],
-            [NormalizerMode::BALANCED, 10, 10,],
-            [NormalizerMode::BALANCED, 50, 25,],
+            [OptionNormalizerMode::SMOOTH, 100, 100,],
+            [OptionNormalizerMode::SMOOTH, 100, 110,],
+            [OptionNormalizerMode::BALANCED, 100, 124,],
+            [OptionNormalizerMode::BALANCED, 150, 135,],
+            [OptionNormalizerMode::BALANCED, 10, 10,],
+            [OptionNormalizerMode::BALANCED, 50, 25,],
 
         ];
     }
@@ -67,7 +67,7 @@ final class IntervalNormalizerTest extends TestCaseWithPrebuiltMocksAndStubs
 
     public function getTesteeInstance(array $args = []): IIntervalNormalizer
     {
-        $mode = $args[self::MODE] ?? NormalizerMode::BALANCED;
+        $mode = $args[self::MODE] ?? OptionNormalizerMode::BALANCED;
         $min = $args[self::MIN] ?? IInterval::MIN_INTERVAL_MILLISECONDS;
 
         return

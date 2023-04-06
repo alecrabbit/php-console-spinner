@@ -4,7 +4,7 @@ declare(strict_types=1);
 // 17.03.23
 namespace AlecRabbit\Spinner\Core\Config\Contract;
 
-use AlecRabbit\Spinner\Contract\OptionRunMode;
+use AlecRabbit\Spinner\Contract\Option\OptionRunMode;
 
 interface ILoopConfig
 {

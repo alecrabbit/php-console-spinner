@@ -6,8 +6,8 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Terminal\Contract;
 
 use AlecRabbit\Spinner\Contract\IProbe;
-use AlecRabbit\Spinner\Contract\OptionCursor;
-use AlecRabbit\Spinner\Contract\OptionStyleMode;
+use AlecRabbit\Spinner\Contract\Option\OptionCursor;
+use AlecRabbit\Spinner\Contract\Option\OptionStyleMode;
 
 interface ITerminalProbe extends IProbe
 {

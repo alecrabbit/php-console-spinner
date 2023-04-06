@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Config;
 
-use AlecRabbit\Spinner\Contract\NormalizerMode;
-use AlecRabbit\Spinner\Contract\OptionAttach;
-use AlecRabbit\Spinner\Contract\OptionAttachHandlers;
-use AlecRabbit\Spinner\Contract\OptionAutoStart;
-use AlecRabbit\Spinner\Contract\OptionCursor;
-use AlecRabbit\Spinner\Contract\OptionInitialization;
-use AlecRabbit\Spinner\Contract\OptionRunMode;
-use AlecRabbit\Spinner\Contract\OptionStyleMode;
+use AlecRabbit\Spinner\Contract\Option\OptionNormalizerMode;
+use AlecRabbit\Spinner\Contract\Option\OptionAttach;
+use AlecRabbit\Spinner\Contract\Option\OptionAttachHandlers;
+use AlecRabbit\Spinner\Contract\Option\OptionAutoStart;
+use AlecRabbit\Spinner\Contract\Option\OptionCursor;
+use AlecRabbit\Spinner\Contract\Option\OptionInitialization;
+use AlecRabbit\Spinner\Contract\Option\OptionRunMode;
+use AlecRabbit\Spinner\Contract\Option\OptionStyleMode;
 use AlecRabbit\Spinner\Core\Config\Config;
 use AlecRabbit\Spinner\Core\Config\DriverConfig;
 use AlecRabbit\Spinner\Core\Config\LoopConfig;
@@ -76,7 +76,7 @@ final class ConfigBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
             ->willReturn(
                 new AuxSettings(
                     new Interval(1000),
-                    NormalizerMode::BALANCED,
+                    OptionNormalizerMode::BALANCED,
                     OptionCursor::HIDDEN,
                     OptionStyleMode::ANSI8,
                     STDERR

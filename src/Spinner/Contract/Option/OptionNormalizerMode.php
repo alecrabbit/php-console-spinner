@@ -1,8 +1,8 @@
 <?php
 // 19.03.23
-namespace AlecRabbit\Spinner\Contract;
+namespace AlecRabbit\Spinner\Contract\Option;
 
-enum NormalizerMode
+enum OptionNormalizerMode
 {
     case SMOOTH;
     case BALANCED;

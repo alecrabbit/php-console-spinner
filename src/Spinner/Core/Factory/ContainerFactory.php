@@ -10,7 +10,7 @@ use AlecRabbit\Spinner\Container\Contract\IServiceSpawner;
 use AlecRabbit\Spinner\Container\ServiceSpawner;
 use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Contract\ISequencer;
-use AlecRabbit\Spinner\Contract\OptionStyleMode;
+use AlecRabbit\Spinner\Contract\Option\OptionStyleMode;
 use AlecRabbit\Spinner\Core\CharFrameCollectionRenderer;
 use AlecRabbit\Spinner\Core\CharFrameRenderer;
 use AlecRabbit\Spinner\Core\Color\AnsiStyleConverter;
