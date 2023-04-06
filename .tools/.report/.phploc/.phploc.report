@@ -1,14 +1,14 @@
 phploc 7.0.2 by Sebastian Bergmann.
 
-Directories                                         53
+Directories                                         55
 Files                                              278
 
 Size
-  Lines of Code (LOC)                            10488
-  Comment Lines of Code (CLOC)                     844 (8.05%)
-  Non-Comment Lines of Code (NCLOC)               9644 (91.95%)
-  Logical Lines of Code (LLOC)                    1382 (13.18%)
-    Classes                                       1351 (97.76%)
+  Lines of Code (LOC)                            10501
+  Comment Lines of Code (CLOC)                     844 (8.04%)
+  Non-Comment Lines of Code (NCLOC)               9657 (91.96%)
+  Logical Lines of Code (LLOC)                    1381 (13.15%)
+    Classes                                       1350 (97.76%)
       Average Class Length                           5
         Minimum Class Length                         0
         Maximum Class Length                        55
@@ -27,7 +27,7 @@ Cyclomatic Complexity
   Average Complexity per Class                    2.16
     Minimum Class Complexity                      1.00
     Maximum Class Complexity                     21.00
-  Average Complexity per Method                   1.48
+  Average Complexity per Method                   1.49
     Minimum Method Complexity                     1.00
     Maximum Method Complexity                     8.00
 
@@ -36,15 +36,15 @@ Dependencies
     Global Constants                                 0 (0.00%)
     Global Variables                                 0 (0.00%)
     Super-Global Variables                           0 (0.00%)
-  Attribute Accesses                               580
-    Non-Static                                     562 (96.90%)
-    Static                                          18 (3.10%)
-  Method Calls                                     586
-    Non-Static                                     444 (75.77%)
-    Static                                         142 (24.23%)
+  Attribute Accesses                               582
+    Non-Static                                     564 (96.91%)
+    Static                                          18 (3.09%)
+  Method Calls                                     584
+    Non-Static                                     442 (75.68%)
+    Static                                         142 (24.32%)
 
 Structure
-  Namespaces                                        53
+  Namespaces                                        55
   Interfaces                                        97
   Traits                                             4
   Classes                                          167
