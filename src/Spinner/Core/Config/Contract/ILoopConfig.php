@@ -10,9 +10,9 @@ interface ILoopConfig
 {
     public function isEnabledAutoStart(): bool;
 
-    public function areEnabledSignalHandlers(): bool;
+    public function isEnabledAttachHandlers(): bool;
 
-    public function isAsynchronous(): bool;
+    public function isRunModeAsynchronous(): bool;
 
-    public function getRunMode(): OptionRunMode;
+    public function getRunModeOption(): OptionRunMode;
 }

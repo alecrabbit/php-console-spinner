@@ -23,14 +23,7 @@ final class Facade implements IFacade
 
         $spinner = self::getSpinnerFactory()->createSpinner($config);
 
-        $loopConfig = $config->getLoopConfig();
-
-        self::getLoopSetup()
-            ->asynchronous($loopConfig->isAsynchronous())
-            ->enableAutoStart($loopConfig->isEnabledAutoStart())
-            ->enableSignalHandlers($loopConfig->areEnabledSignalHandlers())
-            ->setup($spinner)
-        ;
+        self::getLoopSetup($config)->setup($spinner);
 
         return
             $spinner;
@@ -63,19 +56,25 @@ final class Facade implements IFacade
         ;
     }
 
-    protected static function getLoopSetup(): ILoopSetup
+    protected static function getLoopSetup(IConfig $config): ILoopSetup
     {
         return
-            self::getContainer()
-                ->get(ILoopSetup::class)
+            self::getLoopFactory()
+                ->getLoopSetup($config->getLoopConfig())
+        ;
+    }
+
+    protected static function getLoopFactory(): ILoopFactory
+    {
+        return self::getContainer()
+            ->get(ILoopFactory::class)
         ;
     }
 
     public static function getLoop(): ILoop
     {
         return
-            self::getContainer()
-                ->get(ILoopFactory::class)
+            self::getLoopFactory()
                 ->getLoop()
         ;
     }

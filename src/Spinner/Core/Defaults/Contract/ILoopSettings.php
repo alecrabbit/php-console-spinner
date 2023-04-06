@@ -7,7 +7,7 @@ namespace AlecRabbit\Spinner\Core\Defaults\Contract;
 
 use AlecRabbit\Spinner\Contract\OptionAutoStart;
 use AlecRabbit\Spinner\Contract\OptionRunMode;
-use AlecRabbit\Spinner\Contract\OptionSignalHandlers;
+use AlecRabbit\Spinner\Contract\OptionAttachHandlers;
 
 interface ILoopSettings
 {
@@ -19,7 +19,7 @@ interface ILoopSettings
 
     public function setAutoStartOption(OptionAutoStart $autoStartOption): ILoopSettings;
 
-    public function getSignalHandlersOption(): OptionSignalHandlers;
+    public function getSignalHandlersOption(): OptionAttachHandlers;
 
-    public function setSignalHandlersOption(OptionSignalHandlers $signalHandlersOption): ILoopSettings;
+    public function setSignalHandlersOption(OptionAttachHandlers $signalHandlersOption): ILoopSettings;
 }

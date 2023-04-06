@@ -10,7 +10,7 @@ use AlecRabbit\Spinner\Contract\OptionAutoStart;
 use AlecRabbit\Spinner\Contract\OptionCursor;
 use AlecRabbit\Spinner\Contract\OptionInitialization;
 use AlecRabbit\Spinner\Contract\OptionRunMode;
-use AlecRabbit\Spinner\Contract\OptionSignalHandlers;
+use AlecRabbit\Spinner\Contract\OptionAttachHandlers;
 use AlecRabbit\Spinner\Contract\OptionStyleMode;
 use AlecRabbit\Spinner\Core\Config\Config;
 use AlecRabbit\Spinner\Core\Config\DriverConfig;
@@ -58,7 +58,7 @@ final class ConfigBuilderTest extends TestCaseWithPrebuiltMocks
                 new LoopSettings(
                     OptionRunMode::SYNCHRONOUS,
                     OptionAutoStart::DISABLED,
-                    OptionSignalHandlers::DISABLED,
+                    OptionAttachHandlers::DISABLED,
                 ),
             )
         ;
@@ -159,7 +159,7 @@ final class ConfigBuilderTest extends TestCaseWithPrebuiltMocks
             new LoopConfig(
                 OptionRunMode::SYNCHRONOUS,
                 OptionAutoStart::DISABLED,
-                OptionSignalHandlers::DISABLED,
+                OptionAttachHandlers::DISABLED,
             );
 
         $config = $configBuilder->withLoopConfig($loopConfig)->build();

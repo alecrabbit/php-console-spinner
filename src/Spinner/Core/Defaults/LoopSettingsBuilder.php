@@ -6,7 +6,7 @@ namespace AlecRabbit\Spinner\Core\Defaults;
 
 use AlecRabbit\Spinner\Contract\OptionAutoStart;
 use AlecRabbit\Spinner\Contract\OptionRunMode;
-use AlecRabbit\Spinner\Contract\OptionSignalHandlers;
+use AlecRabbit\Spinner\Contract\OptionAttachHandlers;
 use AlecRabbit\Spinner\Core\Defaults\Contract\ILoopSettings;
 use AlecRabbit\Spinner\Core\Defaults\Contract\ILoopSettingsBuilder;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoopProbe;
@@ -34,8 +34,8 @@ final class LoopSettingsBuilder implements ILoopSettingsBuilder
 
         $signalHandlersOption =
             $probe
-                ? OptionSignalHandlers::ENABLED
-                : OptionSignalHandlers::DISABLED;
+                ? OptionAttachHandlers::ENABLED
+                : OptionAttachHandlers::DISABLED;
 
         return
             new LoopSettings(
