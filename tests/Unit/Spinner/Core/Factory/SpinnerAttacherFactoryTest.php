@@ -8,10 +8,10 @@ use AlecRabbit\Spinner\Core\Factory\Contract\ISpinnerAttacherFactory;
 use AlecRabbit\Spinner\Core\Factory\SpinnerAttacherFactory;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoop;
 use AlecRabbit\Spinner\Core\SpinnerAttacher;
-use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocks;
+use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;
 
-final class SpinnerAttacherFactoryTest extends TestCaseWithPrebuiltMocks
+final class SpinnerAttacherFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
 {
     #[Test]
     public function canBeCreated(): void

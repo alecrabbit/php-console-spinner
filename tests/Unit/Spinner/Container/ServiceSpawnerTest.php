@@ -7,7 +7,7 @@ namespace AlecRabbit\Tests\Unit\Spinner\Container;
 use AlecRabbit\Spinner\Container\Contract\IServiceSpawner;
 use AlecRabbit\Spinner\Container\Exception\SpawnFailedException;
 use AlecRabbit\Spinner\Container\ServiceSpawner;
-use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocks;
+use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use AlecRabbit\Tests\Unit\Spinner\Container\Override\ClassForSpawner;
 use AlecRabbit\Tests\Unit\Spinner\Container\Override\ClassForSpawnerWithParameters;
 use AlecRabbit\Tests\Unit\Spinner\Container\Override\ClassForSpawnerWithParametersNoType;
@@ -15,7 +15,7 @@ use AlecRabbit\Tests\Unit\Spinner\Container\Override\NonInstantiableClass;
 use PHPUnit\Framework\Attributes\Test;
 use Psr\Container\ContainerInterface;
 
-final class ServiceSpawnerTest extends TestCaseWithPrebuiltMocks
+final class ServiceSpawnerTest extends TestCaseWithPrebuiltMocksAndStubs
 {
     #[Test]
     public function canBeCreated(): void

@@ -12,6 +12,7 @@ use AlecRabbit\Spinner\Contract\Pattern\IPattern;
 use AlecRabbit\Spinner\Core\A\ASpinner;
 use AlecRabbit\Spinner\Core\Config\Contract\IAuxConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IConfig;
+use AlecRabbit\Spinner\Core\Config\Contract\ILoopConfig;
 use AlecRabbit\Spinner\Core\Config\WidgetConfig;
 use AlecRabbit\Spinner\Core\Contract\IConfigBuilder;
 use AlecRabbit\Spinner\Core\Contract\ICursorBuilder;
@@ -45,10 +46,11 @@ use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolverBuilder;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetBuilder;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolverBuilder;
+use AlecRabbit\Tests\Unit\Spinner\Asynchronous\Factory\LoopFactoryTest;
 use PHPUnit\Framework\MockObject\MockObject;
 use Unit\Spinner\Core\Defaults\DefaultsProviderTest;
 
-abstract class TestCaseWithPrebuiltMocks extends TestCase
+abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
 {
     protected function getWidgetConfigMock(): WidgetConfig
     {
@@ -259,5 +261,10 @@ abstract class TestCaseWithPrebuiltMocks extends TestCase
     protected function getWidthMeasurerMock(): MockObject&IWidthMeasurer
     {
         return $this->createMock(IWidthMeasurer::class);
+    }
+
+    protected function getLoopConfigStub(): ILoopConfig
+    {
+        return $this->createStub(ILoopConfig::class);
     }
 }

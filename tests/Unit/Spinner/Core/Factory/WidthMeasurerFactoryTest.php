@@ -7,10 +7,10 @@ namespace AlecRabbit\Tests\Unit\Spinner\Core\Factory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IWidthMeasurerFactory;
 use AlecRabbit\Spinner\Core\Factory\WidthMeasurerFactory;
 use AlecRabbit\Spinner\Core\WidthMeasurer;
-use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocks;
+use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;
 
-final class WidthMeasurerFactoryTest extends TestCaseWithPrebuiltMocks
+final class WidthMeasurerFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
 {
     #[Test]
     public function canBeCreated(): void

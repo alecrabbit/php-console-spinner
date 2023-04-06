@@ -7,11 +7,11 @@ namespace AlecRabbit\Tests\Unit\Spinner\Core;
 use AlecRabbit\Spinner\Core\Contract\IWidthMeasurer;
 use AlecRabbit\Spinner\Core\WidthMeasurer;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
-use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocks;
+use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;
 
 
-final class WidthMeasurerTest extends TestCaseWithPrebuiltMocks
+final class WidthMeasurerTest extends TestCaseWithPrebuiltMocksAndStubs
 {
     #[Test]
     public function canMeasureWidth(): void

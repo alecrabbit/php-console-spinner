@@ -7,10 +7,10 @@ namespace AlecRabbit\Tests\Unit\Spinner\Core\Defaults;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDriverSettingsBuilder;
 use AlecRabbit\Spinner\Core\Defaults\DriverSettings;
 use AlecRabbit\Spinner\Core\Defaults\DriverSettingsBuilder;
-use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocks;
+use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;
 
-final class DriverSettingsBuilderTest extends TestCaseWithPrebuiltMocks
+final class DriverSettingsBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
 {
     #[Test]
     public function canBeCreated(): void

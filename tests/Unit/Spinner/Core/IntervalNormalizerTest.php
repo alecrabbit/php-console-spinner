@@ -8,11 +8,11 @@ use AlecRabbit\Spinner\Core\Contract\IIntervalNormalizer;
 use AlecRabbit\Spinner\Core\IntegerNormalizer;
 use AlecRabbit\Spinner\Core\Interval;
 use AlecRabbit\Spinner\Core\IntervalNormalizer;
-use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocks;
+use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 
-final class IntervalNormalizerTest extends TestCaseWithPrebuiltMocks
+final class IntervalNormalizerTest extends TestCaseWithPrebuiltMocksAndStubs
 {
     public static function normalizeData(): iterable
     {

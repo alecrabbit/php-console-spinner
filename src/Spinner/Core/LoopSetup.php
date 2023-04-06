@@ -50,6 +50,7 @@ final class LoopSetup implements ILoopSetup
 
     protected function getSignalHandlers(ISpinner $spinner): Traversable
     {
+        // FIXME (2023-04-06 15:38) [Alec Rabbit]: this assert is an obstacle for testing
         Asserter::assertExtensionLoaded(
             'pcntl',
             'Signal handling requires the pcntl extension.'
