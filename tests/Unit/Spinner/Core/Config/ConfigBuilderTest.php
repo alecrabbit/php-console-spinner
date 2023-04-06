@@ -6,11 +6,11 @@ namespace AlecRabbit\Tests\Unit\Spinner\Core\Config;
 
 use AlecRabbit\Spinner\Contract\NormalizerMode;
 use AlecRabbit\Spinner\Contract\OptionAttach;
+use AlecRabbit\Spinner\Contract\OptionAttachHandlers;
 use AlecRabbit\Spinner\Contract\OptionAutoStart;
 use AlecRabbit\Spinner\Contract\OptionCursor;
 use AlecRabbit\Spinner\Contract\OptionInitialization;
 use AlecRabbit\Spinner\Contract\OptionRunMode;
-use AlecRabbit\Spinner\Contract\OptionAttachHandlers;
 use AlecRabbit\Spinner\Contract\OptionStyleMode;
 use AlecRabbit\Spinner\Core\Config\Config;
 use AlecRabbit\Spinner\Core\Config\DriverConfig;
@@ -21,6 +21,7 @@ use AlecRabbit\Spinner\Core\Contract\IConfigBuilder;
 use AlecRabbit\Spinner\Core\Contract\IDefaultsProvider;
 use AlecRabbit\Spinner\Core\Defaults\AuxSettings;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IWidgetSettings;
+use AlecRabbit\Spinner\Core\Defaults\DefaultsProvider;
 use AlecRabbit\Spinner\Core\Defaults\LoopSettings;
 use AlecRabbit\Spinner\Core\Defaults\SpinnerSettings;
 use AlecRabbit\Spinner\Core\Interval;
@@ -47,6 +48,15 @@ final class ConfigBuilderTest extends TestCaseWithPrebuiltMocks
             new ConfigBuilder(
                 defaultsProvider: $defaultsProvider ?? $this->getDefaultsProviderMock(),
             );
+    }
+    #[Test]
+    public function canGetDefaultsProvider(): void
+    {
+        $configBuilder = $this->getTesteeInstance();
+
+        $defaultsProvider = $configBuilder->getDefaultsProvider();
+
+        self::assertInstanceOf(LoopSettings::class, $defaultsProvider->getLoopSettings());
     }
 
     protected function getDefaultsProviderMock(): MockObject&IDefaultsProvider
@@ -132,6 +142,8 @@ final class ConfigBuilderTest extends TestCaseWithPrebuiltMocks
         self::assertInstanceOf(ConfigBuilder::class, $configBuilder);
 
         $config = $configBuilder->build();
+
+        self::assertInstanceOf(Config::class, $config);
     }
 
     #[Test]

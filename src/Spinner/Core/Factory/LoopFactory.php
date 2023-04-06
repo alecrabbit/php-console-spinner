@@ -6,10 +6,11 @@ namespace AlecRabbit\Spinner\Core\Factory;
 
 use AlecRabbit\Spinner\Core\Config\Contract\ILoopConfig;
 use AlecRabbit\Spinner\Core\Contract\ILoopSetup;
+use AlecRabbit\Spinner\Core\Contract\ILoopSetupBuilder;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\ILoopProbeFactory;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoop;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoopProbe;
-use AlecRabbit\Spinner\Core\Loop\Contract\ILoopProbeFactory;
 
 final class LoopFactory implements ILoopFactory
 {

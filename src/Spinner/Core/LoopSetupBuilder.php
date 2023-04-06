@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 // 06.04.23
-namespace AlecRabbit\Spinner\Core\Factory;
+namespace AlecRabbit\Spinner\Core;
 
 use AlecRabbit\Spinner\Core\Config\Contract\ILoopConfig;
 use AlecRabbit\Spinner\Core\Contract\ILoopSetup;
+use AlecRabbit\Spinner\Core\Contract\ILoopSetupBuilder;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoop;
-use AlecRabbit\Spinner\Core\LoopSetup;
 use AlecRabbit\Spinner\Exception\LogicException;
 
 final class LoopSetupBuilder implements ILoopSetupBuilder

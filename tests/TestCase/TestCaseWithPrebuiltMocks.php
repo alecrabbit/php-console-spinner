@@ -7,6 +7,7 @@ namespace AlecRabbit\Tests\TestCase;
 use AlecRabbit\Spinner\Container\Contract\IContainer;
 use AlecRabbit\Spinner\Contract\IBufferedOutput;
 use AlecRabbit\Spinner\Contract\IFrame;
+use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Contract\Pattern\IPattern;
 use AlecRabbit\Spinner\Core\A\ASpinner;
 use AlecRabbit\Spinner\Core\Config\Contract\IAuxConfig;
@@ -18,10 +19,12 @@ use AlecRabbit\Spinner\Core\Contract\ICursorBuilder;
 use AlecRabbit\Spinner\Core\Contract\IDefaultsProvider;
 use AlecRabbit\Spinner\Core\Contract\IIntervalNormalizer;
 use AlecRabbit\Spinner\Core\Contract\ILoopSetup;
+use AlecRabbit\Spinner\Core\Contract\ILoopSetupBuilder;
 use AlecRabbit\Spinner\Core\Contract\IOutputBuilder;
 use AlecRabbit\Spinner\Core\Contract\ISpinnerAttacher;
 use AlecRabbit\Spinner\Core\Contract\ISpinnerBuilder;
 use AlecRabbit\Spinner\Core\Contract\ISpinnerSetup;
+use AlecRabbit\Spinner\Core\Contract\ITimerBuilder;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IAuxSettings;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IAuxSettingsBuilder;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDriverSettings;
@@ -34,14 +37,15 @@ use AlecRabbit\Spinner\Core\Defaults\Contract\IWidgetSettings;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IWidgetSettingsBuilder;
 use AlecRabbit\Spinner\Core\Factory\Contract\IFrameFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalFactory;
-use AlecRabbit\Spinner\Core\Factory\Contract\ITimerBuilder;
-use AlecRabbit\Spinner\Core\Factory\ILoopSetupBuilder;
+use AlecRabbit\Spinner\Core\Factory\Contract\ILoopProbeFactory;
+use AlecRabbit\Spinner\Core\Loop\Contract\ILoop;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoopProbe;
-use AlecRabbit\Spinner\Core\Loop\Contract\ILoopProbeFactory;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolverBuilder;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetBuilder;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolverBuilder;
+use AlecRabbit\Tests\Unit\Spinner\Core\Factory\SpinnerAttacherFactoryTest;
+use AlecRabbit\Tests\Unit\Spinner\Core\SpinnerAttacherTest;
 use PHPUnit\Framework\MockObject\MockObject;
 use Unit\Spinner\Core\Defaults\DefaultsProviderTest;
 
@@ -241,5 +245,15 @@ abstract class TestCaseWithPrebuiltMocks extends TestCase
     protected function getLoopSettingsMock(): MockObject&ILoopSettings
     {
         return $this->getMockForAbstractClass(ILoopSettings::class);
+    }
+
+    protected function getLoopMock(): MockObject&ILoop
+    {
+        return $this->createMock(ILoop::class);
+    }
+
+    protected function getIIntervalMock(): MockObject&IInterval
+    {
+        return $this->createMock(IInterval::class);
     }
 }

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core;
 
 use AlecRabbit\Spinner\Contract\ITimer;
-use AlecRabbit\Spinner\Core\Factory\Contract\ITimerBuilder;
+use AlecRabbit\Spinner\Core\Contract\ITimerBuilder;
 
 final class TimerBuilder implements ITimerBuilder
 {
