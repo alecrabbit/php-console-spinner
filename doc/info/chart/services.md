@@ -12,7 +12,7 @@ classDiagram
 
     class Facade {
         +getConfigBuilder() IConfigBuilder
-        +getLoop() ILoopAdapter
+        +getLoop() ILoop
         +createSpinner(IConfig $config = null) ISpinner
         +replaceService(string $id, object|callable|string $service) void
     }
@@ -24,7 +24,7 @@ classDiagram
     ISpinnerFactory ..> ISpinnerBuilder
     ISpinnerFactory ..> ISpinnerSetup
 
-    ILoopSetup ..> ILoopAdapter
+    ILoopSetup ..> ILoop
 
     ISpinnerSetup ..> ISpinnerAttacher
 
@@ -41,7 +41,7 @@ classDiagram
     ILoopFactory ..> ILoopProbeFactory
 
     class ILoopFactory {
-        +getLoop() ILoopAdapter
+        +getLoop() ILoop
     }
     
     ISpinnerBuilder ..> IDriverBuilder

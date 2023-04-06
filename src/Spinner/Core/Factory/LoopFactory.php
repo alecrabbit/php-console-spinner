@@ -15,6 +15,7 @@ final class LoopFactory implements ILoopFactory
 
     public function __construct(
         protected ILoopProbeFactory $loopProbeFactory,
+        protected ILoopSetupBuilder $loopSetupBuilder,
     ) {
     }
 

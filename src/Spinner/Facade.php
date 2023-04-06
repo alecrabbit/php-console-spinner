@@ -79,6 +79,13 @@ final class Facade implements IFacade
         ;
     }
 
+    protected static function getLoopFactory(): ILoopFactory
+    {
+        return self::getContainer()
+            ->get(ILoopFactory::class)
+        ;
+    }
+
     public static function useService(string $id, object|callable|string $service): void
     {
         $container = self::getContainer();
@@ -87,12 +94,5 @@ final class Facade implements IFacade
             true => $container->replace($id, $service),
             default => $container->add($id, $service),
         };
-    }
-
-    private static function getLoopFactory(): ILoopFactory
-    {
-        return self::getContainer()
-            ->get(ILoopFactory::class)
-        ;
     }
 }
