@@ -33,22 +33,22 @@ final class LoopSetup implements ILoopSetup
         }
     }
 
-    private function registerAutoStart(): void
+    protected function registerAutoStart(): void
     {
         $this->loop->autoStart();
     }
 
-    private function registerSignalHandlers(ISpinner $spinner): void
+    protected function registerSignalHandlers(ISpinner $spinner): void
     {
         $handlers =
-            $this->getSignalHandlers($spinner, $this->loop);
+            $this->getSignalHandlers($spinner);
 
         foreach ($handlers as $signal => $handler) {
             $this->loop->onSignal($signal, $handler);
         }
     }
 
-    private function getSignalHandlers(ISpinner $spinner, ILoop $loop): Traversable
+    protected function getSignalHandlers(ISpinner $spinner): Traversable
     {
         Asserter::assertExtensionLoaded(
             'pcntl',
@@ -56,10 +56,12 @@ final class LoopSetup implements ILoopSetup
         );
 
         yield from [
-            SIGINT => function () use ($spinner, $loop): void {
+            // @codeCoverageIgnoreStart
+            SIGINT => function () use ($spinner): void {
                 $spinner->interrupt();
-                $loop->stop();
+                $this->loop->stop();
             },
+            // @codeCoverageIgnoreEnd
         ];
     }
 
