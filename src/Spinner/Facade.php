@@ -6,7 +6,6 @@ namespace AlecRabbit\Spinner;
 
 use AlecRabbit\Spinner\Container\Contract\IContainer;
 use AlecRabbit\Spinner\Core\Config\Contract\IConfig;
-use AlecRabbit\Spinner\Core\Config\Contract\ILoopConfig;
 use AlecRabbit\Spinner\Core\Contract\IConfigBuilder;
 use AlecRabbit\Spinner\Core\Contract\IFacade;
 use AlecRabbit\Spinner\Core\Contract\ILoopSetup;
@@ -59,13 +58,16 @@ final class Facade implements IFacade
 
     protected static function getLoopSetup(IConfig $config): ILoopSetup
     {
-        $loopConfig = $config->getLoopConfig();
         return
-            self::getContainer()
-                ->get(ILoopSetup::class)
-                ->asynchronous($loopConfig->isRunModeAsynchronous())
-                ->enableAutoStart($loopConfig->isEnabledAutoStart())
-                ->enableSignalHandlers($loopConfig->isEnabledAttachHandlers())
+            self::getLoopFactory()
+                ->getLoopSetup($config->getLoopConfig())
+        ;
+    }
+
+    protected static function getLoopFactory(): ILoopFactory
+    {
+        return self::getContainer()
+            ->get(ILoopFactory::class)
         ;
     }
 
@@ -74,13 +76,6 @@ final class Facade implements IFacade
         return
             self::getLoopFactory()
                 ->getLoop()
-        ;
-    }
-
-    protected static function getLoopFactory(): ILoopFactory
-    {
-        return self::getContainer()
-            ->get(ILoopFactory::class)
         ;
     }
 

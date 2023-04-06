@@ -12,7 +12,7 @@ final class SpinnerAttacherFactory implements Contract\ISpinnerAttacherFactory
     protected static ?ISpinnerAttacher $attacher = null;
 
     public function __construct(
-        protected ILoopFactory $loopFactory,
+        protected ILoopFactory $loopFactory, // FIXME (2023-04-06 13:37) [Alec Rabbit]: depends on loop only
     ) {
     }
 
@@ -27,6 +27,6 @@ final class SpinnerAttacherFactory implements Contract\ISpinnerAttacherFactory
     protected function createAttacher(): ISpinnerAttacher
     {
         return
-            new SpinnerAttacher($this->loopFactory->getLoop());
+            new SpinnerAttacher($this->loopFactory->getLoop()); // FIXME (2023-04-06 13:37) [Alec Rabbit]: depends on loop only
     }
 }
