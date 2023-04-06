@@ -1,6 +1,6 @@
 {
     "name": "alecrabbit/php-console-spinner",
-    "description": "Colorful extremely flexible spinner for [async] php cli applications",
+    "description": "Extremely flexible spinner for [async] php cli applications",
     "license": "MIT",
     "type": "library",
     "keywords": [

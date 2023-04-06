@@ -21,7 +21,6 @@ use AlecRabbit\Spinner\Core\Contract\IConfigBuilder;
 use AlecRabbit\Spinner\Core\Contract\IDefaultsProvider;
 use AlecRabbit\Spinner\Core\Defaults\AuxSettings;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IWidgetSettings;
-use AlecRabbit\Spinner\Core\Defaults\DefaultsProvider;
 use AlecRabbit\Spinner\Core\Defaults\LoopSettings;
 use AlecRabbit\Spinner\Core\Defaults\SpinnerSettings;
 use AlecRabbit\Spinner\Core\Interval;
@@ -48,15 +47,6 @@ final class ConfigBuilderTest extends TestCaseWithPrebuiltMocks
             new ConfigBuilder(
                 defaultsProvider: $defaultsProvider ?? $this->getDefaultsProviderMock(),
             );
-    }
-    #[Test]
-    public function canGetDefaultsProvider(): void
-    {
-        $configBuilder = $this->getTesteeInstance();
-
-        $defaultsProvider = $configBuilder->getDefaultsProvider();
-
-        self::assertInstanceOf(LoopSettings::class, $defaultsProvider->getLoopSettings());
     }
 
     protected function getDefaultsProviderMock(): MockObject&IDefaultsProvider
@@ -132,6 +122,16 @@ final class ConfigBuilderTest extends TestCaseWithPrebuiltMocks
             )
         ;
         return $widgetSettings;
+    }
+
+    #[Test]
+    public function canGetDefaultsProvider(): void
+    {
+        $configBuilder = $this->getTesteeInstance();
+
+        $defaultsProvider = $configBuilder->getDefaultsProvider();
+
+        self::assertInstanceOf(LoopSettings::class, $defaultsProvider->getLoopSettings());
     }
 
     #[Test]
