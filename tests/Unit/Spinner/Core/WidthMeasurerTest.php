@@ -35,7 +35,9 @@ final class WidthMeasurerTest extends TestCaseWithPrebuiltMocks
     public function throwsIfMeasureFunctionHasInvalidSignature(): void
     {
         $exceptionClass = InvalidArgumentException::class;
-        $exceptionMessage = 'Invalid measure function signature. It should be: "function(string $string): int {...}".';
+        $exceptionMessage =
+            'Invalid measure function signature.'
+            . ' Signature expected to be: "function(string $string): int { //... }".';
 
         $this->expectException($exceptionClass);
         $this->expectExceptionMessage($exceptionMessage);

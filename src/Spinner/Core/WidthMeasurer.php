@@ -21,16 +21,15 @@ final class WidthMeasurer implements IWidthMeasurer
     {
         $reflection = new ReflectionFunction($measureFunction);
         $returnType = $reflection->getReturnType()?->getName();
-        $parameters = $reflection->getParameters();
-        $parameterType = $parameters[0]->getType()?->getName();
-        $count = count($parameters);
+        $parameterType = $reflection->getParameters()[0]->getType()?->getName();
 
-        if (1 === $count && 'string' === $parameterType && 'int' === $returnType) {
+        if ('string' === $parameterType && 'int' === $returnType) {
             return;
         }
 
         throw new InvalidArgumentException(
-            'Invalid measure function signature. It should be: "function(string $string): int {...}".'
+            'Invalid measure function signature.'
+            . ' Signature expected to be: "function(string $string): int { //... }".'
         );
     }
 
