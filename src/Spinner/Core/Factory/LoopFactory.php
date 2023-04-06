@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Factory;
 
+use AlecRabbit\Spinner\Core\Config\Contract\ILoopConfig;
+use AlecRabbit\Spinner\Core\Contract\ILoopSetup;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopFactory;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoop;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoopProbe;
@@ -35,5 +37,13 @@ final class LoopFactory implements ILoopFactory
     protected function getLoopProbe(): ILoopProbe
     {
         return $this->loopProbeFactory->getProbe();
+    }
+
+    public function getLoopSetup(ILoopConfig $loopConfig): ILoopSetup
+    {
+        return $this->loopSetupBuilder
+            ->withLoop($this->getLoop())
+            ->withConfig($loopConfig)
+            ->build();
     }
 }

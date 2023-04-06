@@ -6,7 +6,7 @@ namespace AlecRabbit\Tests\Unit\Spinner\Core\Factory;
 
 use AlecRabbit\Spinner\Contract\OptionAutoStart;
 use AlecRabbit\Spinner\Contract\OptionRunMode;
-use AlecRabbit\Spinner\Contract\OptionSignalHandlers;
+use AlecRabbit\Spinner\Contract\OptionAttachHandlers;
 use AlecRabbit\Spinner\Core\A\ASpinner;
 use AlecRabbit\Spinner\Core\Config\Contract\IConfig;
 use AlecRabbit\Spinner\Core\Config\LoopConfig;
@@ -87,7 +87,7 @@ final class SpinnerFactoryTest extends TestCaseWithPrebuiltMocks
             new LoopConfig(
                 OptionRunMode::SYNCHRONOUS,
                 OptionAutoStart::DISABLED,
-                OptionSignalHandlers::DISABLED
+                OptionAttachHandlers::DISABLED
             );
 
         $config

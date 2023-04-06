@@ -35,6 +35,7 @@ use AlecRabbit\Spinner\Core\Defaults\Contract\IWidgetSettingsBuilder;
 use AlecRabbit\Spinner\Core\Factory\Contract\IFrameFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ITimerBuilder;
+use AlecRabbit\Spinner\Core\Factory\ILoopSetupBuilder;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoopProbe;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoopProbeFactory;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolverBuilder;
@@ -130,6 +131,11 @@ abstract class TestCaseWithPrebuiltMocks extends TestCase
     protected function getLoopProbeFactoryMock(): MockObject&ILoopProbeFactory
     {
         return $this->createMock(ILoopProbeFactory::class);
+    }
+
+    protected function getLoopSetupBuilderMock(): MockObject&ILoopSetupBuilder
+    {
+        return $this->createMock(ILoopSetupBuilder::class);
     }
 
     protected function getDefaultsProviderMock(): MockObject&IDefaultsProvider

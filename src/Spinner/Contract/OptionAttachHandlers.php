@@ -2,7 +2,7 @@
 // 19.03.23
 namespace AlecRabbit\Spinner\Contract;
 
-enum OptionSignalHandlers
+enum OptionAttachHandlers
 {
     case ENABLED;
     case DISABLED;

@@ -33,7 +33,7 @@ final class SpinnerFactory implements ISpinnerFactory
 
         $this->spinnerSetup
             ->enableInitialization($spinnerConfig->isEnabledInitialization())
-            ->enableAttacher($spinnerConfig->isEnabledAttach() || $loopConfig->isAsynchronous())
+            ->enableAttacher($spinnerConfig->isEnabledAttach() || $loopConfig->isRunModeAsynchronous())
             ->setup($spinner)
         ;
 

@@ -160,6 +160,7 @@ final class ContainerFactory implements IContainerFactory
                 IIntervalNormalizer::class => IntervalNormalizer::class,
                 ILoopFactory::class => LoopFactory::class,
                 ILoopSetup::class => LoopSetup::class,
+                ILoopSetupBuilder::class => LoopSetupBuilder::class,
                 IOutputBuilder::class => OutputBuilder::class,
                 ISequencer::class => Sequencer::class,
                 ISpinnerAttacherFactory::class => SpinnerAttacherFactory::class,

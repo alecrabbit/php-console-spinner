@@ -6,6 +6,7 @@ namespace AlecRabbit\Spinner;
 
 use AlecRabbit\Spinner\Container\Contract\IContainer;
 use AlecRabbit\Spinner\Core\Config\Contract\IConfig;
+use AlecRabbit\Spinner\Core\Config\Contract\ILoopConfig;
 use AlecRabbit\Spinner\Core\Contract\IConfigBuilder;
 use AlecRabbit\Spinner\Core\Contract\IFacade;
 use AlecRabbit\Spinner\Core\Contract\ILoopSetup;
@@ -23,14 +24,7 @@ final class Facade implements IFacade
 
         $spinner = self::getSpinnerFactory()->createSpinner($config);
 
-        $loopConfig = $config->getLoopConfig();
-
-        self::getLoopSetup()
-            ->asynchronous($loopConfig->isAsynchronous())
-            ->enableAutoStart($loopConfig->isEnabledAutoStart())
-            ->enableSignalHandlers($loopConfig->areEnabledSignalHandlers())
-            ->setup($spinner)
-        ;
+        self::getLoopSetup($config)->setup($spinner);
 
         return
             $spinner;
@@ -63,11 +57,15 @@ final class Facade implements IFacade
         ;
     }
 
-    protected static function getLoopSetup(): ILoopSetup
+    protected static function getLoopSetup(IConfig $config): ILoopSetup
     {
+        $loopConfig = $config->getLoopConfig();
         return
             self::getContainer()
                 ->get(ILoopSetup::class)
+                ->asynchronous($loopConfig->isRunModeAsynchronous())
+                ->enableAutoStart($loopConfig->isEnabledAutoStart())
+                ->enableSignalHandlers($loopConfig->isEnabledAttachHandlers())
         ;
     }
 

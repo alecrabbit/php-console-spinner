@@ -6,7 +6,7 @@ namespace AlecRabbit\Tests\Unit\Spinner\Core\Defaults;
 
 use AlecRabbit\Spinner\Contract\OptionAutoStart;
 use AlecRabbit\Spinner\Contract\OptionRunMode;
-use AlecRabbit\Spinner\Contract\OptionSignalHandlers;
+use AlecRabbit\Spinner\Contract\OptionAttachHandlers;
 use AlecRabbit\Spinner\Core\Defaults\Contract\ILoopSettings;
 use AlecRabbit\Spinner\Core\Defaults\LoopSettings;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocks;
@@ -22,19 +22,19 @@ final class LoopSettingsTest extends TestCaseWithPrebuiltMocks
         self::assertInstanceOf(LoopSettings::class, $loopSettings);
         self::assertSame(OptionRunMode::SYNCHRONOUS, $loopSettings->getRunModeOption());
         self::assertSame(OptionAutoStart::DISABLED, $loopSettings->getAutoStartOption());
-        self::assertSame(OptionSignalHandlers::DISABLED, $loopSettings->getSignalHandlersOption());
+        self::assertSame(OptionAttachHandlers::DISABLED, $loopSettings->getSignalHandlersOption());
     }
 
     public function getTesteeInstance(
         ?OptionRunMode $runModeOption = null,
         ?OptionAutoStart $autoStartOption = null,
-        ?OptionSignalHandlers $signalHandlersOption = null,
+        ?OptionAttachHandlers $signalHandlersOption = null,
     ): ILoopSettings {
         return
             new LoopSettings(
                 runModeOption: $runModeOption ?? OptionRunMode::SYNCHRONOUS,
                 autoStartOption: $autoStartOption ?? OptionAutoStart::DISABLED,
-                signalHandlersOption: $signalHandlersOption ?? OptionSignalHandlers::DISABLED,
+                signalHandlersOption: $signalHandlersOption ?? OptionAttachHandlers::DISABLED,
             );
     }
 
@@ -43,7 +43,7 @@ final class LoopSettingsTest extends TestCaseWithPrebuiltMocks
     {
         $runModeOption = OptionRunMode::ASYNC;
         $autoStartOption = OptionAutoStart::ENABLED;
-        $signalHandlersOption = OptionSignalHandlers::ENABLED;
+        $signalHandlersOption = OptionAttachHandlers::ENABLED;
 
         $loopSettings =
             $this->getTesteeInstance(
@@ -63,7 +63,7 @@ final class LoopSettingsTest extends TestCaseWithPrebuiltMocks
     {
         $runModeOption = OptionRunMode::ASYNC;
         $autoStartOption = OptionAutoStart::ENABLED;
-        $signalHandlersOption = OptionSignalHandlers::ENABLED;
+        $signalHandlersOption = OptionAttachHandlers::ENABLED;
 
         $loopSettings =
             $this->getTesteeInstance(

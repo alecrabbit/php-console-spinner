@@ -6,7 +6,7 @@ namespace AlecRabbit\Tests\Unit\Spinner\Core\Defaults;
 
 use AlecRabbit\Spinner\Contract\OptionAutoStart;
 use AlecRabbit\Spinner\Contract\OptionRunMode;
-use AlecRabbit\Spinner\Contract\OptionSignalHandlers;
+use AlecRabbit\Spinner\Contract\OptionAttachHandlers;
 use AlecRabbit\Spinner\Core\Defaults\Contract\ILoopSettingsBuilder;
 use AlecRabbit\Spinner\Core\Defaults\LoopSettings;
 use AlecRabbit\Spinner\Core\Defaults\LoopSettingsBuilder;
@@ -42,7 +42,7 @@ final class LoopSettingsBuilderTest extends TestCaseWithPrebuiltMocks
 
         self::assertSame(OptionRunMode::SYNCHRONOUS, $loopSettings->getRunModeOption());
         self::assertSame(OptionAutoStart::DISABLED, $loopSettings->getAutoStartOption());
-        self::assertSame(OptionSignalHandlers::DISABLED, $loopSettings->getSignalHandlersOption());
+        self::assertSame(OptionAttachHandlers::DISABLED, $loopSettings->getSignalHandlersOption());
     }
 
     #[Test]
@@ -59,6 +59,6 @@ final class LoopSettingsBuilderTest extends TestCaseWithPrebuiltMocks
 
         self::assertSame(OptionRunMode::ASYNC, $loopSettings->getRunModeOption());
         self::assertSame(OptionAutoStart::ENABLED, $loopSettings->getAutoStartOption());
-        self::assertSame(OptionSignalHandlers::ENABLED, $loopSettings->getSignalHandlersOption());
+        self::assertSame(OptionAttachHandlers::ENABLED, $loopSettings->getSignalHandlersOption());
     }
 }

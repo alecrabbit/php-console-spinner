@@ -6,7 +6,7 @@ namespace AlecRabbit\Spinner\Core\Defaults;
 
 use AlecRabbit\Spinner\Contract\OptionAutoStart;
 use AlecRabbit\Spinner\Contract\OptionRunMode;
-use AlecRabbit\Spinner\Contract\OptionSignalHandlers;
+use AlecRabbit\Spinner\Contract\OptionAttachHandlers;
 use AlecRabbit\Spinner\Core\Defaults\Contract\ILoopSettings;
 
 final class LoopSettings implements ILoopSettings
@@ -14,7 +14,7 @@ final class LoopSettings implements ILoopSettings
     public function __construct(
         protected OptionRunMode $runModeOption,
         protected OptionAutoStart $autoStartOption,
-        protected OptionSignalHandlers $signalHandlersOption,
+        protected OptionAttachHandlers $signalHandlersOption,
     ) {
     }
 
@@ -40,12 +40,12 @@ final class LoopSettings implements ILoopSettings
         return $this;
     }
 
-    public function getSignalHandlersOption(): OptionSignalHandlers
+    public function getSignalHandlersOption(): OptionAttachHandlers
     {
         return $this->signalHandlersOption;
     }
 
-    public function setSignalHandlersOption(OptionSignalHandlers $signalHandlersOption): ILoopSettings
+    public function setSignalHandlersOption(OptionAttachHandlers $signalHandlersOption): ILoopSettings
     {
         $this->signalHandlersOption = $signalHandlersOption;
         return $this;

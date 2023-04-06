@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Unit\Spinner\Asynchronous\Factory;
 
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopFactory;
+use AlecRabbit\Spinner\Core\Factory\ILoopSetupBuilder;
 use AlecRabbit\Spinner\Core\Factory\LoopFactory;
 use AlecRabbit\Spinner\Core\Loop\A\ALoopAdapter;
 use AlecRabbit\Spinner\Core\Loop\A\ALoopProbe;
@@ -26,11 +27,14 @@ final class LoopFactoryTest extends TestCaseWithPrebuiltMocks
 
 
     public function getTesteeInstance(
-        ?ILoopProbeFactory $loopProbeFactory = null
+        ?ILoopProbeFactory $loopProbeFactory = null,
+        ?ILoopSetupBuilder $loopSetupBuilder = null,
+
     ): ILoopFactory {
         return
             new LoopFactory(
                 loopProbeFactory: $loopProbeFactory ?? $this->getLoopProbeFactoryMock(),
+                loopSetupBuilder: $loopSetupBuilder ?? $this->getLoopSetupBuilderMock(),
             );
     }
 
