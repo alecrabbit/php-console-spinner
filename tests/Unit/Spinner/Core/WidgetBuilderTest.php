@@ -46,7 +46,7 @@ final class WidgetBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
 
         self::assertInstanceOf(WidgetBuilder::class, $widgetBuilder);
 
-        $widgetConfig = $this->getWidgetConfigMock();
+        $widgetConfig = $this->getWidgetConfigStub();
         $widgetComposite = $widgetBuilder->withWidgetConfig($widgetConfig)->build();
 
         self::assertInstanceOf(Widget::class, $widgetComposite);
@@ -65,7 +65,7 @@ final class WidgetBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
 
         self::assertInstanceOf(WidgetBuilder::class, $widgetBuilder);
 
-        $widgetConfig = $this->getWidgetConfigMock();
+        $widgetConfig = $this->getWidgetConfigStub();
         $revolver = $this->getRevolverMock();
         $widgetComposite =
             $widgetBuilder
@@ -95,7 +95,7 @@ final class WidgetBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
 
         $widgetComposite =
             $widgetBuilder
-                ->withWidgetConfig($this->getWidgetConfigMock())
+                ->withWidgetConfig($this->getWidgetConfigStub())
                 ->withLeadingSpacer($this->getFrameMock())
                 ->withTrailingSpacer($this->getFrameMock())
                 ->build()

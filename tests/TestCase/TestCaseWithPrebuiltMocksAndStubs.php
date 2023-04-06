@@ -13,7 +13,7 @@ use AlecRabbit\Spinner\Core\A\ASpinner;
 use AlecRabbit\Spinner\Core\Config\Contract\IAuxConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\ILoopConfig;
-use AlecRabbit\Spinner\Core\Config\WidgetConfig;
+use AlecRabbit\Spinner\Core\Config\Contract\IWidgetConfig;
 use AlecRabbit\Spinner\Core\Contract\IConfigBuilder;
 use AlecRabbit\Spinner\Core\Contract\ICursorBuilder;
 use AlecRabbit\Spinner\Core\Contract\IDefaultsProvider;
@@ -47,19 +47,13 @@ use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetBuilder;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolverBuilder;
 use PHPUnit\Framework\MockObject\MockObject;
-use Unit\Spinner\Core\Defaults\DefaultsProviderTest;
+use PHPUnit\Framework\MockObject\Stub;
 
 abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
 {
-    protected function getWidgetConfigMock(): WidgetConfig
+    protected function getWidgetConfigStub(): Stub&IWidgetConfig
     {
-        return
-            new WidgetConfig(
-                $this->getFrameMock(),
-                $this->getFrameMock(),
-                $this->getPatternMock(),
-                $this->getPatternMock()
-            );
+        return $this->createStub(IWidgetConfig::class);
     }
 
     protected function getFrameMock(): MockObject&IFrame
@@ -252,7 +246,7 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
         return $this->createMock(ILoop::class);
     }
 
-    protected function getIIntervalMock(): MockObject&IInterval
+    protected function getIntervalMock(): MockObject&IInterval
     {
         return $this->createMock(IInterval::class);
     }
@@ -262,8 +256,18 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
         return $this->createMock(IWidthMeasurer::class);
     }
 
-    protected function getLoopConfigStub(): ILoopConfig
+    protected function getLoopConfigStub(): Stub&ILoopConfig
     {
         return $this->createStub(ILoopConfig::class);
+    }
+
+    protected function getPatternStub(): Stub&IPattern
+    {
+        return $this->createStub(IPattern::class);
+    }
+
+    protected function getFrameStub(): Stub&IFrame
+    {
+        return $this->createStub(IFrame::class);
     }
 }

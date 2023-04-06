@@ -17,7 +17,7 @@ interface IAuxConfig
 
     public function getCursorOption(): OptionCursor;
 
-    public function getOptionStyleMode(): OptionStyleMode;
+    public function getStyleModeOption(): OptionStyleMode;
 
     /**
      * @return resource

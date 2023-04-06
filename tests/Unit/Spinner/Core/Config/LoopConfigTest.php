@@ -16,14 +16,16 @@ class LoopConfigTest extends TestCase
     #[Test]
     public function simpleTest(): void
     {
+        $runModeOption = OptionRunMode::SYNCHRONOUS;
         $config =
             new LoopConfig(
-                OptionRunMode::SYNCHRONOUS,
+                $runModeOption,
                 OptionAutoStart::DISABLED,
                 OptionAttachHandlers::DISABLED,
             );
         self::assertFalse($config->isRunModeAsynchronous());
         self::assertFalse($config->isEnabledAutoStart());
         self::assertFalse($config->isEnabledAttachHandlers());
+        self::assertSame($runModeOption, $config->getRunModeOption());
     }
 }

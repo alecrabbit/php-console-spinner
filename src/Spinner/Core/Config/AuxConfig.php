@@ -38,7 +38,7 @@ final class AuxConfig implements IAuxConfig
         return $this->cursorOption;
     }
 
-    public function getOptionStyleMode(): OptionStyleMode
+    public function getStyleModeOption(): OptionStyleMode
     {
         return $this->optionStyleMode;
     }

@@ -48,7 +48,7 @@ final class SpinnerAttacherTest extends TestCaseWithPrebuiltMocksAndStubs
             ->method('cancel')
         ;
 
-        $intervalMock = $this->getIIntervalMock();
+        $intervalMock = $this->getIntervalMock();
         $intervalMock
             ->expects(self::once())
             ->method('toSeconds')
@@ -86,7 +86,7 @@ final class SpinnerAttacherTest extends TestCaseWithPrebuiltMocksAndStubs
             ->method('cancel')
         ;
 
-        $intervalMock = $this->getIIntervalMock();
+        $intervalMock = $this->getIntervalMock();
         $intervalMock
             ->expects(self::exactly(2))
             ->method('toSeconds')

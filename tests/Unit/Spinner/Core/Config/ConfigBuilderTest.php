@@ -204,7 +204,7 @@ final class ConfigBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
 
         self::assertInstanceOf(ConfigBuilder::class, $configBuilder);
 
-        $widgetConfig = $this->getWidgetConfigMock();
+        $widgetConfig = $this->getWidgetConfigStub();
 
         $config = $configBuilder->withRootWidgetConfig($widgetConfig)->build();
 
