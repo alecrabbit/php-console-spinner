@@ -5,14 +5,15 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Factory;
 
 use AlecRabbit\Spinner\Core\Contract\ISpinnerAttacher;
-use AlecRabbit\Spinner\Core\Factory\Contract\ILoopFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\ISpinnerAttacherFactory;
+use AlecRabbit\Spinner\Core\Loop\Contract\ILoop;
 
-final class SpinnerAttacherFactory implements Contract\ISpinnerAttacherFactory
+final class SpinnerAttacherFactory implements ISpinnerAttacherFactory
 {
     protected static ?ISpinnerAttacher $attacher = null;
 
     public function __construct(
-        protected ILoopFactory $loopFactory, // FIXME (2023-04-06 13:37) [Alec Rabbit]: depends on loop only
+        protected ILoop $loop,
     ) {
     }
 
@@ -27,6 +28,6 @@ final class SpinnerAttacherFactory implements Contract\ISpinnerAttacherFactory
     protected function createAttacher(): ISpinnerAttacher
     {
         return
-            new SpinnerAttacher($this->loopFactory->getLoop()); // FIXME (2023-04-06 13:37) [Alec Rabbit]: depends on loop only
+            new SpinnerAttacher($this->loop);
     }
 }
