@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Asynchronous\Factory;
 
+use AlecRabbit\Spinner\Core\Config\Contract\ILoopConfig;
 use AlecRabbit\Spinner\Core\Contract\ILoopSetupBuilder;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopProbeFactory;
@@ -14,6 +15,7 @@ use AlecRabbit\Spinner\Core\Loop\Contract\ILoop;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocks;
 use AlecRabbit\Tests\Unit\Spinner\Asynchronous\Override\ALoopAdapterOverride;
 use PHPUnit\Framework\Attributes\Test;
+use PHPUnit\Framework\MockObject\MockObject;
 
 final class LoopFactoryTest extends TestCaseWithPrebuiltMocks
 {
@@ -41,7 +43,14 @@ final class LoopFactoryTest extends TestCaseWithPrebuiltMocks
     #[Test]
     public function canGetLoopAdapter(): void
     {
-        $loopProbeFactory = $this->getLoopProbeFactoryMock();
+        $loopFactory = $this->getTesteeInstance();
+
+        self::assertInstanceOf(ALoopAdapter::class, $loopFactory->getLoop());
+    }
+
+    protected function getLoopProbeFactoryMock(): MockObject&ILoopProbeFactory
+    {
+        $loopProbeFactory = parent::getLoopProbeFactoryMock();
         $loopProbeFactory->method('getProbe')
             ->willReturn(
                 new class() extends ALoopProbe {
@@ -57,10 +66,28 @@ final class LoopFactoryTest extends TestCaseWithPrebuiltMocks
                 }
             )
         ;
+        return $loopProbeFactory;
+    }
 
-        $loopFactory = $this->getTesteeInstance(loopProbeFactory: $loopProbeFactory);
+    #[Test]
+    public function canGetLoopSetup(): void
+    {
+        $loopFactory = $this->getTesteeInstance();
+
+        self::assertInstanceOf(LoopFactory::class, $loopFactory);
+
+        $loopSetup = $loopFactory->getLoopSetup($this->getLoopConfigStub());
 
         self::assertInstanceOf(ALoopAdapter::class, $loopFactory->getLoop());
     }
 
+    protected function getLoopConfigStub(): ILoopConfig
+    {
+        return $this->createStub(ILoopConfig::class);
+    }
+
+    protected function setUp(): void
+    {
+        self::setValue(LoopFactory::class, 'loop', null);
+    }
 }

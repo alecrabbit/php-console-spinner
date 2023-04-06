@@ -12,7 +12,7 @@ use AlecRabbit\Spinner\Core\Frame;
 final class FrameFactory implements IFrameFactory
 {
     public function __construct(
-        protected IWidthMeasurer $determiner,
+        protected IWidthMeasurer $widthMeasurer,
     ) {
     }
 
@@ -31,7 +31,7 @@ final class FrameFactory implements IFrameFactory
         return
             new Frame(
                 $sequence,
-                $width ?? $this->determiner->getWidth($sequence)
+                $width ?? $this->widthMeasurer->getWidth($sequence)
             );
     }
 }
