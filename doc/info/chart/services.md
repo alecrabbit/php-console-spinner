@@ -7,7 +7,6 @@ classDiagram
     Facade ..> IConfigBuilder
     Facade ..> ISpinnerFactory
     Facade ..> ILoopFactory
-    Facade ..> ILoopSetup
    
 
     class Facade {
@@ -39,6 +38,9 @@ classDiagram
     }
     
     ILoopFactory ..> ILoopProbeFactory
+    ILoopFactory ..> ILoopSetupBuilder
+    
+    ILoopSetupBuilder ..> ILoopSetup
 
     class ILoopFactory {
         +getLoop() ILoop
