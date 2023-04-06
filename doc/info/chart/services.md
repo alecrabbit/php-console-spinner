@@ -1,4 +1,4 @@
-# Service hierarchy
+# Service "hierarchy"
 
 ```mermaid
 classDiagram
@@ -27,6 +27,8 @@ classDiagram
 
     ISpinnerSetup ..> ISpinnerAttacher
 
+    ISpinnerAttacher ..> ILoop
+    
     class ISpinnerFactory {
         +createSpinner(IConfig $config) ISpinner
     }
@@ -39,6 +41,8 @@ classDiagram
     
     ILoopFactory ..> ILoopProbeFactory
     ILoopFactory ..> ILoopSetupBuilder
+    
+    ILoopProbeFactory ..> `ILoopProbe[]`
     
     ILoopSetupBuilder ..> ILoopSetup
 
