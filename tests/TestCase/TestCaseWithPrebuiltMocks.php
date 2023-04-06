@@ -25,6 +25,7 @@ use AlecRabbit\Spinner\Core\Contract\ISpinnerAttacher;
 use AlecRabbit\Spinner\Core\Contract\ISpinnerBuilder;
 use AlecRabbit\Spinner\Core\Contract\ISpinnerSetup;
 use AlecRabbit\Spinner\Core\Contract\ITimerBuilder;
+use AlecRabbit\Spinner\Core\Contract\IWidthMeasurer;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IAuxSettings;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IAuxSettingsBuilder;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDriverSettings;
@@ -44,6 +45,7 @@ use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolverBuilder;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetBuilder;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolverBuilder;
+use AlecRabbit\Tests\Unit\Spinner\Core\Factory\FrameFactoryTest;
 use AlecRabbit\Tests\Unit\Spinner\Core\Factory\SpinnerAttacherFactoryTest;
 use AlecRabbit\Tests\Unit\Spinner\Core\SpinnerAttacherTest;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -255,5 +257,10 @@ abstract class TestCaseWithPrebuiltMocks extends TestCase
     protected function getIIntervalMock(): MockObject&IInterval
     {
         return $this->createMock(IInterval::class);
+    }
+
+    protected function getWidthMeasurerMock(): MockObject&IWidthMeasurer
+    {
+        return $this->createMock(IWidthMeasurer::class);
     }
 }

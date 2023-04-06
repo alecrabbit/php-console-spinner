@@ -42,8 +42,4 @@ final class FrameFactoryTest extends TestCaseWithPrebuiltMocks
         self::assertInstanceOf(Frame::class, $frameFactory->create(''));
     }
 
-    protected function getWidthMeasurerMock(): MockObject&IWidthMeasurer
-    {
-        return $this->createMock(IWidthMeasurer::class);
-    }
 }
