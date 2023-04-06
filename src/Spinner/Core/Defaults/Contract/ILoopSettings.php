@@ -21,5 +21,5 @@ interface ILoopSettings
 
     public function getSignalHandlersOption(): OptionAttachHandlers;
 
-    public function setSignalHandlersOption(OptionAttachHandlers $signalHandlersOption): ILoopSettings;
+    public function setAttachHandlersOption(OptionAttachHandlers $signalHandlersOption): ILoopSettings;
 }

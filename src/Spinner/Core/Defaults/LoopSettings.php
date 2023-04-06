@@ -45,7 +45,7 @@ final class LoopSettings implements ILoopSettings
         return $this->signalHandlersOption;
     }
 
-    public function setSignalHandlersOption(OptionAttachHandlers $signalHandlersOption): ILoopSettings
+    public function setAttachHandlersOption(OptionAttachHandlers $signalHandlersOption): ILoopSettings
     {
         $this->signalHandlersOption = $signalHandlersOption;
         return $this;

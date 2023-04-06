@@ -12,15 +12,15 @@ use AlecRabbit\Spinner\Core\Defaults\Contract\IWidgetSettings;
 
 interface IDefaultsProvider
 {
-    public function getRootWidgetSettings(): IWidgetSettings;
-
-    public function getWidgetSettings(): IWidgetSettings;
+    public function getAuxSettings(): IAuxSettings;
 
     public function getDriverSettings(): IDriverSettings;
 
-    public function getSpinnerSettings(): ISpinnerSettings;
-
     public function getLoopSettings(): ILoopSettings;
 
-    public function getAuxSettings(): IAuxSettings;
+    public function getSpinnerSettings(): ISpinnerSettings;
+
+    public function getWidgetSettings(): IWidgetSettings;
+
+    public function getRootWidgetSettings(): IWidgetSettings;
 }

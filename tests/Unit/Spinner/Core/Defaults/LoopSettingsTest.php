@@ -73,7 +73,7 @@ final class LoopSettingsTest extends TestCaseWithPrebuiltMocksAndStubs
             );
         $loopSettings->setRunModeOption($runModeOption);
         $loopSettings->setAutoStartOption($autoStartOption);
-        $loopSettings->setSignalHandlersOption($signalHandlersOption);
+        $loopSettings->setAttachHandlersOption($signalHandlersOption);
 
         self::assertInstanceOf(LoopSettings::class, $loopSettings);
         self::assertSame($runModeOption, $loopSettings->getRunModeOption());

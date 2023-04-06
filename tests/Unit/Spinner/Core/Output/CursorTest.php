@@ -17,7 +17,7 @@ final class CursorTest extends TestCase
     #[Test]
     public function isCreatedWithGivenOption(): void
     {
-        $cursorOption = OptionCursor::ENABLED;
+        $cursorOption = OptionCursor::VISIBLE;
 
         $cursor = $this->getTesteeInstance(output: null, cursorOption: $cursorOption);
 
@@ -62,7 +62,7 @@ final class CursorTest extends TestCase
     #[Test]
     public function doesNotWriteToOutputWhenHideOrShowCalledIfEnabled(): void
     {
-        $cursorOption = OptionCursor::ENABLED;
+        $cursorOption = OptionCursor::VISIBLE;
 
         $output = $this->getOutputMock();
 

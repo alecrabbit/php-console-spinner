@@ -19,7 +19,7 @@ class AuxConfigTest extends TestCaseWithPrebuiltMocksAndStubs
         $interval = $this->getIntervalMock();
         $normalizerMode = NormalizerMode::SMOOTH;
         $outputStream = STDERR;
-        $cursorOption = OptionCursor::ENABLED;
+        $cursorOption = OptionCursor::VISIBLE;
         $optionStyleMode = OptionStyleMode::ANSI24;
 
         $config =

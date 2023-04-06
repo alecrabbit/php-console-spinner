@@ -65,7 +65,7 @@ final class DriverBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
         ;
         $auxConfig
             ->method('getCursorOption')
-            ->willReturn(OptionCursor::ENABLED)
+            ->willReturn(OptionCursor::VISIBLE)
         ;
 
         $driverConfig = new DriverConfig('interrupted', 'finished');

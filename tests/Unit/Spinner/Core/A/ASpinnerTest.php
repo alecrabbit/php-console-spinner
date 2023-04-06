@@ -8,12 +8,12 @@ use AlecRabbit\Spinner\Contract\IDriver;
 use AlecRabbit\Spinner\Core\A\ASpinner;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
-use AlecRabbit\Tests\TestCase\TestCase;
+use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use AlecRabbit\Tests\Unit\Spinner\Core\A\Override\ASpinnerOverride;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 
-final class ASpinnerTest extends TestCase
+final class ASpinnerTest extends TestCaseWithPrebuiltMocksAndStubs
 {
     #[Test]
     public function isCreatedInactiveAndUninterrupted(): void
@@ -34,16 +34,6 @@ final class ASpinnerTest extends TestCase
                 driver: $driver ?? $this->getDriverMock(),
                 rootWidget: $rootWidget ?? $this->getWidgetCompositeMock(),
             );
-    }
-
-    protected function getDriverMock(): MockObject&IDriver
-    {
-        return $this->createMock(IDriver::class);
-    }
-
-    protected function getWidgetCompositeMock(): MockObject&IWidgetComposite
-    {
-        return $this->createMock(IWidgetComposite::class);
     }
 
     #[Test]
@@ -69,7 +59,7 @@ final class ASpinnerTest extends TestCase
 
         $spinner->interrupt();
         self::assertFalse(self::getValue('active', $spinner));
-        self::assertTrue(self::getValue('interrupted', $spinner));
+        self::assertFalse(self::getValue('interrupted', $spinner));
     }
 
     #[Test]
@@ -111,7 +101,7 @@ final class ASpinnerTest extends TestCase
         $spinner->interrupt();
         $spinner->finalize();
         self::assertFalse(self::getValue('active', $spinner));
-        self::assertTrue(self::getValue('interrupted', $spinner));
+        self::assertFalse(self::getValue('interrupted', $spinner));
     }
 
     #[Test]

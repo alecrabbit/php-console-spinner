@@ -4,6 +4,6 @@ namespace AlecRabbit\Spinner\Contract;
 
 enum OptionCursor
 {
-    case ENABLED;
+    case VISIBLE;
     case HIDDEN;
 }

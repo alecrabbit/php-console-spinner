@@ -41,9 +41,11 @@ abstract class ASpinner implements ISpinner
 
     public function interrupt(string $interruptMessage = null): void
     {
-        $this->interrupted = true;
-        $this->stop();
-        $this->driver->interrupt($interruptMessage);
+        if ($this->active) {
+            $this->interrupted = true;
+            $this->stop();
+            $this->driver->interrupt($interruptMessage);
+        }
     }
 
     protected function stop(): void
@@ -69,8 +71,10 @@ abstract class ASpinner implements ISpinner
         if ($this->interrupted) {
             return;
         }
-        $this->stop();
-        $this->driver->finalize($finalMessage);
+        if ($this->active) {
+            $this->stop();
+            $this->driver->finalize($finalMessage);
+        }
     }
 
     public function add(IWidgetComposite|IWidgetContext $element): IWidgetContext

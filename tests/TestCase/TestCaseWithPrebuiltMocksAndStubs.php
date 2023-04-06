@@ -6,6 +6,7 @@ namespace AlecRabbit\Tests\TestCase;
 
 use AlecRabbit\Spinner\Container\Contract\IContainer;
 use AlecRabbit\Spinner\Contract\IBufferedOutput;
+use AlecRabbit\Spinner\Contract\IDriver;
 use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Contract\Pattern\IPattern;
@@ -45,7 +46,9 @@ use AlecRabbit\Spinner\Core\Loop\Contract\ILoopProbe;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolverBuilder;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetBuilder;
+use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolverBuilder;
+use AlecRabbit\Tests\Unit\Spinner\Core\A\ASpinnerTest;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\MockObject\Stub;
 
@@ -269,5 +272,15 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
     protected function getFrameStub(): Stub&IFrame
     {
         return $this->createStub(IFrame::class);
+    }
+
+    protected function getDriverMock(): MockObject&IDriver
+    {
+        return $this->createMock(IDriver::class);
+    }
+
+    protected function getWidgetCompositeMock(): MockObject&IWidgetComposite
+    {
+        return $this->createMock(IWidgetComposite::class);
     }
 }
