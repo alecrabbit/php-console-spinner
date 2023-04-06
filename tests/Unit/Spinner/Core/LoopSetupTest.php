@@ -47,7 +47,8 @@ final class LoopSetupTest extends TestCaseWithPrebuiltMocksAndStubs
         ;
 
         $this->getTesteeInstance($loop)
-            ->setup($this->getSpinnerMock());
+            ->setup($this->getSpinnerMock())
+        ;
     }
 
     #[Test]
@@ -61,7 +62,8 @@ final class LoopSetupTest extends TestCaseWithPrebuiltMocksAndStubs
         $loopSetup
             ->asynchronous(true)
             ->enableSignalHandlers(true)
-            ->enableAutoStart(true);
+            ->enableAutoStart(true)
+        ;
 
         self::assertTrue(self::getValue('asynchronous', $loopSetup));
         self::assertTrue(self::getValue('signalHandlersEnabled', $loopSetup));
@@ -86,9 +88,11 @@ final class LoopSetupTest extends TestCaseWithPrebuiltMocksAndStubs
         $loopSetup
             ->asynchronous(true)
             ->enableSignalHandlers(true)
-            ->enableAutoStart(true);
+            ->enableAutoStart(true)
+        ;
 
         $loopSetup
-            ->setup($this->getSpinnerMock());
+            ->setup($this->getSpinnerMock())
+        ;
     }
 }

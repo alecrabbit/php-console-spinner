@@ -4,7 +4,6 @@ declare(strict_types=1);
 // 03.04.23
 namespace AlecRabbit\Tests\Unit\Spinner\Core;
 
-use AlecRabbit\Spinner\Core\Contract\ILoopSetup;
 use AlecRabbit\Spinner\Core\Contract\ILoopSetupBuilder;
 use AlecRabbit\Spinner\Core\LoopSetup;
 use AlecRabbit\Spinner\Core\LoopSetupBuilder;
@@ -38,10 +37,12 @@ final class LoopSetupBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
 
         $loopSetupBuilder = $loopSetupBuilder
             ->withLoop($this->getLoopMock())
-            ->withConfig($this->getLoopConfigStub());
+            ->withConfig($this->getLoopConfigStub())
+        ;
 
         self::assertInstanceOf(LoopSetup::class, $loopSetupBuilder->build());
     }
+
     #[Test]
     public function throwsIfLoopIsNotSet(): void
     {
@@ -58,6 +59,7 @@ final class LoopSetupBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
 
         self::fail(self::exceptionNotThrownString($exceptionClass, $exceptionMessage));
     }
+
     #[Test]
     public function throwsIfConfigIsNotSet(): void
     {
@@ -72,7 +74,8 @@ final class LoopSetupBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
 
         $loopSetupBuilder
             ->withLoop($this->getLoopMock())
-            ->build();
+            ->build()
+        ;
 
         self::fail(self::exceptionNotThrownString($exceptionClass, $exceptionMessage));
     }
