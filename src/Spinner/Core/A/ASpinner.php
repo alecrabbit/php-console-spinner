@@ -88,6 +88,9 @@ abstract class ASpinner implements ISpinner
         return $result;
     }
 
+    /**
+     * Wraps/decorates $closure with spinner erase() and spin() methods.
+     */
     public function wrap(Closure $closure, mixed ...$args): void
     {
         $this->erase();
