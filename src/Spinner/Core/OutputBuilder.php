@@ -4,7 +4,7 @@ declare(strict_types=1);
 // 03.04.23
 namespace AlecRabbit\Spinner\Core;
 
-use AlecRabbit\Spinner\Contract\IOutput;
+use AlecRabbit\Spinner\Contract\Output\IOutput;
 use AlecRabbit\Spinner\Core\Contract\IOutputBuilder;
 use AlecRabbit\Spinner\Core\Factory\Contract\IOutputFactory;
 use AlecRabbit\Spinner\Core\Output\ResourceStream;

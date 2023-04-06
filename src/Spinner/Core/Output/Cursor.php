@@ -4,8 +4,8 @@ declare(strict_types=1);
 // 28.03.23
 namespace AlecRabbit\Spinner\Core\Output;
 
-use AlecRabbit\Spinner\Contract\IBufferedOutput;
 use AlecRabbit\Spinner\Contract\Option\OptionCursor;
+use AlecRabbit\Spinner\Contract\Output\IBufferedOutput;
 use AlecRabbit\Spinner\Core\Output\Contract\ICursor;
 
 final readonly class Cursor implements ICursor

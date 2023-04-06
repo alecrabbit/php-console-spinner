@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Output;
 
-use AlecRabbit\Spinner\Contract\IBufferedOutput;
 use AlecRabbit\Spinner\Contract\Option\OptionCursor;
+use AlecRabbit\Spinner\Contract\Output\IBufferedOutput;
 use AlecRabbit\Spinner\Core\Output\Contract\ICursor;
 use AlecRabbit\Spinner\Core\Output\Cursor;
 use AlecRabbit\Tests\TestCase\TestCase;

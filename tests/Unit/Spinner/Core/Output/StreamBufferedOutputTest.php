@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Output;
 
-use AlecRabbit\Spinner\Contract\IBufferedOutput;
-use AlecRabbit\Spinner\Contract\IResourceStream;
+use AlecRabbit\Spinner\Contract\Output\IBufferedOutput;
+use AlecRabbit\Spinner\Contract\Output\IResourceStream;
 use AlecRabbit\Spinner\Core\Output\StreamBufferedOutput;
 use AlecRabbit\Spinner\Core\Output\StringBuffer;
 use AlecRabbit\Tests\TestCase\TestCase;

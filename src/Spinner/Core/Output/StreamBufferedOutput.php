@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Output;
 
-use AlecRabbit\Spinner\Contract\IBufferedOutput;
-use AlecRabbit\Spinner\Contract\IResourceStream;
+use AlecRabbit\Spinner\Contract\Output\IBufferedOutput;
+use AlecRabbit\Spinner\Contract\Output\IResourceStream;
 use AlecRabbit\Spinner\Core\Output\Contract\IStringBuffer;
 use Generator;
 use Traversable;

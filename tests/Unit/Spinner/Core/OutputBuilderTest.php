@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core;
 
-use AlecRabbit\Spinner\Contract\IOutput;
+use AlecRabbit\Spinner\Contract\Output\IOutput;
 use AlecRabbit\Spinner\Core\Contract\IOutputBuilder;
 use AlecRabbit\Spinner\Core\OutputBuilder;
 use AlecRabbit\Spinner\Exception\LogicException;
