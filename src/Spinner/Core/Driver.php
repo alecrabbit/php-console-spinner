@@ -77,7 +77,7 @@ final class Driver implements IDriver
         return $width;
     }
 
-    public function erase(ISpinner $spinner): void
+    protected function erase(ISpinner $spinner): void
     {
         if ($this->initialized) {
             $this->cursor

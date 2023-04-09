@@ -13,8 +13,6 @@ interface IDriver extends IRenderable, HasInterval
 
     public function remove(ISpinner $spinner): void;
 
-    public function erase(ISpinner $spinner): void;
-
     public function initialize(): void;
 
     public function interrupt(?string $interruptMessage = null): void;

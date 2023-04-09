@@ -4,11 +4,11 @@ Directories                                         55
 Files                                              282
 
 Size
-  Lines of Code (LOC)                            10727
-  Comment Lines of Code (CLOC)                     850 (7.92%)
-  Non-Comment Lines of Code (NCLOC)               9877 (92.08%)
-  Logical Lines of Code (LLOC)                    1428 (13.31%)
-    Classes                                       1397 (97.83%)
+  Lines of Code (LOC)                            10725
+  Comment Lines of Code (CLOC)                     850 (7.93%)
+  Non-Comment Lines of Code (NCLOC)               9875 (92.07%)
+  Logical Lines of Code (LLOC)                    1427 (13.31%)
+    Classes                                       1396 (97.83%)
       Average Class Length                           5
         Minimum Class Length                         0
         Maximum Class Length                        55
@@ -52,14 +52,14 @@ Structure
     Concrete Classes                               141 (83.43%)
       Final Classes                                125 (88.65%)
       Non-Final Classes                             16 (11.35%)
-  Methods                                          802
+  Methods                                          801
     Scope
-      Non-Static Methods                           704 (87.78%)
-      Static Methods                                98 (12.22%)
+      Non-Static Methods                           703 (87.77%)
+      Static Methods                                98 (12.23%)
     Visibility
-      Public Methods                               657 (81.92%)
-      Protected Methods                            110 (13.72%)
-      Private Methods                               35 (4.36%)
+      Public Methods                               655 (81.77%)
+      Protected Methods                            111 (13.86%)
+      Private Methods                               35 (4.37%)
   Functions                                         22
     Named Functions                                  4 (18.18%)
     Anonymous Functions                             18 (81.82%)
