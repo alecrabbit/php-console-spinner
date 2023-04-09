@@ -11,6 +11,7 @@ use AlecRabbit\Spinner\Contract\Output\IBufferedOutput;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use AlecRabbit\Spinner\Core\Output\Contract\ICursor;
+use AlecRabbit\Spinner\Core\Output\Contract\IDriverOutput;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use WeakMap;
 
@@ -25,6 +26,7 @@ final class Driver implements IDriver
         protected readonly IBufferedOutput $output,
         protected readonly ICursor $cursor,
         protected readonly ITimer $timer,
+        protected readonly IDriverOutput $driverOutput,
         protected \Closure $intervalCb,
     ) {
         self::assertIntervalCallback($intervalCb);
@@ -68,9 +70,11 @@ final class Driver implements IDriver
         $this->output->bufferedWrite($frame->sequence());
 
         $widthDiff = max($previousWidth - $width, 0);
-        $this->cursor->erase(max($widthDiff, 0));
 
-        $this->cursor->moveLeft($width);
+        $this->cursor
+            ->erase(max($widthDiff, 0))
+            ->moveLeft($width)
+        ;
 
         $this->output->flush();
 

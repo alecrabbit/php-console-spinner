@@ -34,10 +34,12 @@ final class MethodRenderDriverTest extends TestCaseForDriver
         $cursor
             ->expects(self::once())
             ->method('erase')
+            ->willReturnSelf()
         ;
         $cursor
             ->expects(self::once())
             ->method('moveLeft')
+            ->willReturnSelf()
         ;
 
         $driver =
@@ -85,10 +87,12 @@ final class MethodRenderDriverTest extends TestCaseForDriver
         $cursor
             ->expects(self::once())
             ->method('erase')
+            ->willReturnSelf()
         ;
         $cursor
             ->expects(self::once())
             ->method('moveLeft')
+            ->willReturnSelf()
         ;
 
         $driver =

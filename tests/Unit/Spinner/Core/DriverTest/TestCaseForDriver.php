@@ -10,6 +10,7 @@ use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Driver;
 use AlecRabbit\Spinner\Core\Interval;
 use AlecRabbit\Spinner\Core\Output\Contract\ICursor;
+use AlecRabbit\Spinner\Core\Output\Contract\IDriverOutput;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use Closure;
 
@@ -19,6 +20,7 @@ class TestCaseForDriver extends TestCaseWithPrebuiltMocksAndStubs
         ?IBufferedOutput $output = null,
         ?ICursor $cursor = null,
         ?ITimer $timer = null,
+        ?IDriverOutput $driverOutput = null,
         ?Closure $intervalCb = null,
     ): IDriver {
         return
@@ -26,7 +28,9 @@ class TestCaseForDriver extends TestCaseWithPrebuiltMocksAndStubs
                 output: $output ?? $this->getBufferedOutputMock(),
                 cursor: $cursor ?? $this->getCursorMock(),
                 timer: $timer ?? $this->getTimerMock(),
+                driverOutput: $driverOutput ?? $this->getDriverOutputMock(),
                 intervalCb: $intervalCb ?? static fn() => new Interval(),
             );
     }
+
 }
