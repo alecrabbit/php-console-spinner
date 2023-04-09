@@ -8,6 +8,7 @@ use AlecRabbit\Spinner\Container\Contract\IContainer;
 use AlecRabbit\Spinner\Contract\ILegacyDriver;
 use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Contract\IInterval;
+use AlecRabbit\Spinner\Contract\ISpinner;
 use AlecRabbit\Spinner\Contract\ITimer;
 use AlecRabbit\Spinner\Contract\Output\IBufferedOutput;
 use AlecRabbit\Spinner\Contract\Output\IOutput;
@@ -127,7 +128,7 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
         return $this->createMock(IWidgetBuilder::class);
     }
 
-    protected function getSpinnerMock(): MockObject&ALegacySpinner
+    protected function getLegacySpinnerMock(): MockObject&ALegacySpinner
     {
         return $this->createMock(ALegacySpinner::class);
     }
@@ -299,5 +300,10 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
     protected function getTimerMock(): MockObject&ITimer
     {
         return $this->createMock(ITimer::class);
+    }
+
+    protected function getSpinnerMock(): MockObject&ISpinner
+    {
+        return $this->createMock(ISpinner::class);
     }
 }

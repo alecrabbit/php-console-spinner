@@ -47,7 +47,7 @@ final class LoopSetupTest extends TestCaseWithPrebuiltMocksAndStubs
         ;
 
         $this->getTesteeInstance($loop)
-            ->setup($this->getSpinnerMock())
+            ->setup($this->getLegacySpinnerMock())
         ;
     }
 
@@ -92,7 +92,7 @@ final class LoopSetupTest extends TestCaseWithPrebuiltMocksAndStubs
         ;
 
         $loopSetup
-            ->setup($this->getSpinnerMock())
+            ->setup($this->getLegacySpinnerMock())
         ;
     }
 }

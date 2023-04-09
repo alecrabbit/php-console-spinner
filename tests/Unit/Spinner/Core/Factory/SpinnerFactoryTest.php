@@ -53,7 +53,7 @@ final class SpinnerFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
         ;
         $spinnerBuilder
             ->method('build')
-            ->willReturn($this->getSpinnerMock())
+            ->willReturn($this->getLegacySpinnerMock())
         ;
 
         $configBuilder = $this->getConfigBuilderMock();
@@ -111,7 +111,7 @@ final class SpinnerFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
         ;
         $spinnerBuilder
             ->method('build')
-            ->willReturn($this->getSpinnerMock())
+            ->willReturn($this->getLegacySpinnerMock())
         ;
 
         $container

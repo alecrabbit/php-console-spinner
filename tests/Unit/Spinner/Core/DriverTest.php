@@ -6,6 +6,7 @@ namespace Unit\Spinner\Core;
 
 use AlecRabbit\Spinner\Contract\IDriver;
 use AlecRabbit\Spinner\Contract\IInterval;
+use AlecRabbit\Spinner\Contract\ISpinner;
 use AlecRabbit\Spinner\Contract\ITimer;
 use AlecRabbit\Spinner\Contract\Output\IBufferedOutput;
 use AlecRabbit\Spinner\Contract\Output\IOutput;
@@ -13,6 +14,7 @@ use AlecRabbit\Spinner\Core\Driver;
 use AlecRabbit\Spinner\Core\Output\Contract\ICursor;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;
+use PHPUnit\Framework\MockObject\MockObject;
 
 final class DriverTest extends TestCaseWithPrebuiltMocksAndStubs
 {
@@ -22,6 +24,9 @@ final class DriverTest extends TestCaseWithPrebuiltMocksAndStubs
         $driver = $this->getTesteeInstance();
 
         self::assertInstanceOf(Driver::class, $driver);
+
+        self::assertCount(0, self::getValue('spinners', $driver));
+        self::assertFalse(self::getValue('initialized', $driver));
     }
 
     public function getTesteeInstance(
@@ -46,7 +51,11 @@ final class DriverTest extends TestCaseWithPrebuiltMocksAndStubs
     #[Test]
     public function canRender(): void
     {
+        $spinner = $this->getSpinnerMock();
+
         $driver = $this->getTesteeInstance();
+
+        $driver->add($spinner);
 
         $driver->render();
 
@@ -54,7 +63,7 @@ final class DriverTest extends TestCaseWithPrebuiltMocksAndStubs
     }
 
     #[Test]
-    public function canHidesAndShowCursorAndWritesToOutputIfInitialized(): void
+    public function hidesCursorOnInitializeAndOnInterruptShowsCursorAndWritesToOutput(): void
     {
         $interruptMessage = 'interruptMessage';
 
@@ -85,4 +94,29 @@ final class DriverTest extends TestCaseWithPrebuiltMocksAndStubs
         $driver->interrupt($interruptMessage);
     }
 
+    #[Test]
+    public function canBeInitialized(): void
+    {
+        $driver = $this->getTesteeInstance();
+
+        $driver->initialize();
+
+        self::assertTrue(self::getValue('initialized', $driver));
+    }
+
+    #[Test]
+    public function canAddAndRemoveSpinner(): void
+    {
+        $driver = $this->getTesteeInstance();
+
+        $spinner = $this->getSpinnerMock();
+
+        $driver->add($spinner);
+
+        self::assertCount(1, self::getValue('spinners', $driver));
+
+        $driver->remove($spinner);
+
+        self::assertCount(0, self::getValue('spinners', $driver));
+    }
 }

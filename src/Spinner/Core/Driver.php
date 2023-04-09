@@ -5,18 +5,17 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core;
 
 use AlecRabbit\Spinner\Contract\IDriver;
+use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Contract\ISpinner;
 use AlecRabbit\Spinner\Contract\ITimer;
-use AlecRabbit\Spinner\Contract\IWrapper;
 use AlecRabbit\Spinner\Contract\Output\IBufferedOutput;
-use AlecRabbit\Spinner\Contract\Output\IOutput;
 use AlecRabbit\Spinner\Core\Output\Contract\ICursor;
 use WeakMap;
 
 final class Driver implements IDriver
 {
-    /** @var WeakMap<ISpinner, ISpinner> */
+    /** @var WeakMap<ISpinner, int> */
     protected WeakMap $spinners;
     protected bool $initialized = false;
 
@@ -33,15 +32,22 @@ final class Driver implements IDriver
 
     public function render(float $dt = null): void
     {
-        /** @var ISpinner $spinner */
-        foreach ($this->spinners as $spinner) {
-            $this->renderFrame($spinner->update($dt));
+        foreach ($this->spinners as $spinner => $previousWidth) {
+            $this->renderFrame($spinner->update($dt), $previousWidth);
         }
     }
 
-    protected function renderFrame(ISpinner $spinner): void
+    protected function renderFrame(IFrame $frame, int $previousWidth): void
     {
-        // TODO (2023-04-09 12:41) [Alec Rabbit]: Implement renderOne() method.
+        $width = $frame->width();
+        $widthDiff = max($previousWidth - $width, 0);
+
+        $this->output->bufferedWrite($frame->sequence());
+
+        $this->cursor->erase(max($widthDiff, 0));
+        $this->cursor->moveLeft($width);
+
+        $this->output->flush();
     }
 
     protected function erase(?ISpinner $spinner = null): void
@@ -86,5 +92,19 @@ final class Driver implements IDriver
     public function getInterval(): IInterval
     {
         return $this->interval;
+    }
+
+    public function add(ISpinner $spinner): void
+    {
+        if (!$this->spinners->offsetExists($spinner)) {
+            $this->spinners->offsetSet($spinner, 0);
+        }
+    }
+
+    public function remove(ISpinner $spinner): void
+    {
+        if ($this->spinners->offsetExists($spinner)) {
+            $this->spinners->offsetUnset($spinner);
+        }
     }
 }

@@ -55,7 +55,7 @@ final class SpinnerAttacherTest extends TestCaseWithPrebuiltMocksAndStubs
             ->willReturn(1.0)
         ;
 
-        $spinner = $this->getSpinnerMock();
+        $spinner = $this->getLegacySpinnerMock();
         $spinner
             ->expects(self::once())
             ->method('getInterval')
@@ -93,7 +93,7 @@ final class SpinnerAttacherTest extends TestCaseWithPrebuiltMocksAndStubs
             ->willReturn(1.0)
         ;
 
-        $spinner = $this->getSpinnerMock();
+        $spinner = $this->getLegacySpinnerMock();
         $spinner
             ->expects(self::exactly(2))
             ->method('getInterval')

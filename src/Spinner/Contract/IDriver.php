@@ -6,6 +6,10 @@ namespace AlecRabbit\Spinner\Contract;
 
 interface IDriver extends IRenderable, HasInterval
 {
+    public function add(ISpinner $spinner): void;
+
+    public function remove(ISpinner $spinner): void;
+
     public function render(float $dt = null): void;
 
 //    public function erase(?ISpinner $spinner = null): void; // TODO Does it belong here?
