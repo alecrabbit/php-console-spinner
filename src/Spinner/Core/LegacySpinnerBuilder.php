@@ -4,25 +4,25 @@ declare(strict_types=1);
 // 29.03.23
 namespace AlecRabbit\Spinner\Core;
 
-use AlecRabbit\Spinner\Core\A\ASpinner;
+use AlecRabbit\Spinner\Core\A\ALegacySpinner;
 use AlecRabbit\Spinner\Core\Config\Contract\IConfig;
-use AlecRabbit\Spinner\Core\Contract\IDriverBuilder;
-use AlecRabbit\Spinner\Core\Contract\ISpinner;
+use AlecRabbit\Spinner\Core\Contract\ILegacyDriverBuilder;
+use AlecRabbit\Spinner\Core\Contract\ILegacySpinner;
 use AlecRabbit\Spinner\Core\Contract\ISpinnerBuilder;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetBuilder;
 use AlecRabbit\Spinner\Exception\LogicException;
 
-final class SpinnerBuilder implements ISpinnerBuilder
+final class LegacySpinnerBuilder implements ISpinnerBuilder
 {
     protected ?IConfig $config = null;
 
     public function __construct(
-        protected IDriverBuilder $driverBuilder,
+        protected ILegacyDriverBuilder $driverBuilder,
         protected IWidgetBuilder $widgetBuilder,
     ) {
     }
 
-    public function build(): ISpinner
+    public function build(): ILegacySpinner
     {
         $this->assertConfig();
 
@@ -40,7 +40,7 @@ final class SpinnerBuilder implements ISpinnerBuilder
         ;
 
         return
-            new class($driver, $rootWidget) extends ASpinner {
+            new class($driver, $rootWidget) extends ALegacySpinner {
             };
     }
 

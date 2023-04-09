@@ -6,7 +6,7 @@ namespace AlecRabbit\Spinner\Core\Contract;
 
 interface ILoopSetup
 {
-    public function setup(ISpinner $spinner): void;
+    public function setup(ILegacySpinner $spinner): void;
 
     public function enableSignalHandlers(bool $enable): ILoopSetup;
 

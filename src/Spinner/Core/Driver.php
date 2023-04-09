@@ -1,91 +1,90 @@
 <?php
 
 declare(strict_types=1);
-
+// 09.04.23
 namespace AlecRabbit\Spinner\Core;
 
 use AlecRabbit\Spinner\Contract\IDriver;
-use AlecRabbit\Spinner\Contract\IFrame;
+use AlecRabbit\Spinner\Contract\IInterval;
+use AlecRabbit\Spinner\Contract\ISpinner;
 use AlecRabbit\Spinner\Contract\ITimer;
+use AlecRabbit\Spinner\Contract\IWrapper;
 use AlecRabbit\Spinner\Contract\Output\IBufferedOutput;
-use AlecRabbit\Spinner\Core\Config\Contract\IDriverConfig;
+use AlecRabbit\Spinner\Contract\Output\IOutput;
 use AlecRabbit\Spinner\Core\Output\Contract\ICursor;
+use WeakMap;
 
 final class Driver implements IDriver
 {
-    /** @psalm-suppress PropertyNotSetInConstructor */
-    protected IFrame $currentFrame;
-    protected int $previousFrameWidth = 0;
+    /** @var WeakMap<ISpinner, ISpinner> */
+    protected WeakMap $spinners;
+    protected bool $initialized = false;
 
     public function __construct(
         protected readonly IBufferedOutput $output,
         protected readonly ICursor $cursor,
         protected readonly ITimer $timer,
-        protected readonly IDriverConfig $driverConfig,
+        protected readonly string $interruptMessage,
+        protected readonly string $finalMessage,
+        protected IInterval $interval,
     ) {
+        $this->spinners = new WeakMap();
     }
 
-    public function display(): void
+    public function render(float $dt = null): void
     {
-        $width = $this->currentFrame->width();
-        $widthDiff = $this->calculateWidthDiff($width);
-
-        $this->output
-            ->bufferedWrite($this->currentFrame->sequence())
-            ->flush()
-        ;
-
-        $this->cursor->erase(max($widthDiff, 0));
-        $this->cursor->moveLeft($width);
-
-        $this->output->flush();
+        /** @var ISpinner $spinner */
+        foreach ($this->spinners as $spinner) {
+            $this->renderFrame($spinner->update($dt));
+        }
     }
 
-    protected function calculateWidthDiff(int $currentWidth): int
+    protected function renderFrame(ISpinner $spinner): void
     {
-        $diff = max($this->previousFrameWidth - $currentWidth, 0);
-
-        $this->previousFrameWidth = $currentWidth;
-
-        return $diff;
+        // TODO (2023-04-09 12:41) [Alec Rabbit]: Implement renderOne() method.
     }
 
-    public function erase(): void
+    protected function erase(?ISpinner $spinner = null): void
     {
-        $this->cursor
-            ->erase($this->currentFrame->width())
-            ->flush()
-        ;
+        match (true) {
+            null === $spinner => $this->eraseAll(),
+            default => $this->eraseOne($spinner),
+        };
+    }
+
+    protected function eraseAll(): void
+    {
+        foreach ($this->spinners as $spinner) {
+            $this->eraseOne($spinner);
+        }
+    }
+
+    protected function eraseOne(ISpinner $spinner): void
+    {
+        // TODO (2023-04-09 12:41) [Alec Rabbit]: Implement eraseOne() method.
     }
 
     public function interrupt(?string $interruptMessage = null): void
     {
-        $this->finalize($interruptMessage ?? $this->driverConfig->getInterruptMessage());
+        $this->finalize($interruptMessage ?? $this->interruptMessage);
     }
 
     public function finalize(?string $finalMessage = null): void
     {
-        $this->showCursor();
-        $this->output->write($finalMessage ?? $this->driverConfig->getFinalMessage());
-    }
-
-    public function showCursor(): void
-    {
-        $this->cursor->show();
-    }
-
-    public function elapsedTime(): float
-    {
-        return $this->timer->elapsed();
+        if ($this->initialized) {
+            $this->cursor->show();
+            $this->output->write($finalMessage ?? $this->finalMessage);
+        }
     }
 
     public function initialize(): void
     {
         $this->cursor->hide();
+        $this->initialized = true;
     }
 
-    public function setCurrentFrame(IFrame $frame): void
+    public function getInterval(): IInterval
     {
-        $this->currentFrame = $frame;
+        return $this->interval;
     }
 }

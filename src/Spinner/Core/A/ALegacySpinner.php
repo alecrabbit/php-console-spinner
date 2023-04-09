@@ -4,20 +4,20 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\A;
 
-use AlecRabbit\Spinner\Contract\IDriver;
+use AlecRabbit\Spinner\Contract\ILegacyDriver;
 use AlecRabbit\Spinner\Contract\IInterval;
-use AlecRabbit\Spinner\Core\Contract\ISpinner;
+use AlecRabbit\Spinner\Core\Contract\ILegacySpinner;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContext;
 use Closure;
 
-abstract class ASpinner implements ISpinner
+abstract class ALegacySpinner implements ILegacySpinner
 {
     protected bool $active = false;
     protected bool $interrupted = false;
 
     public function __construct(
-        protected readonly IDriver $driver,
+        protected readonly ILegacyDriver $driver,
         protected IWidgetComposite $rootWidget,
     ) {
     }

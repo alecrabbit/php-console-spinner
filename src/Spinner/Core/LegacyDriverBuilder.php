@@ -4,16 +4,16 @@ declare(strict_types=1);
 // 17.03.23
 namespace AlecRabbit\Spinner\Core;
 
-use AlecRabbit\Spinner\Contract\IDriver;
+use AlecRabbit\Spinner\Contract\ILegacyDriver;
 use AlecRabbit\Spinner\Core\Config\Contract\IAuxConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IDriverConfig;
 use AlecRabbit\Spinner\Core\Contract\ICursorBuilder;
-use AlecRabbit\Spinner\Core\Contract\IDriverBuilder;
+use AlecRabbit\Spinner\Core\Contract\ILegacyDriverBuilder;
 use AlecRabbit\Spinner\Core\Contract\IOutputBuilder;
 use AlecRabbit\Spinner\Core\Contract\ITimerBuilder;
 use LogicException;
 
-final class DriverBuilder implements IDriverBuilder
+final class LegacyDriverBuilder implements ILegacyDriverBuilder
 {
     protected ?IDriverConfig $driverConfig = null;
     protected ?IAuxConfig $auxConfig = null;
@@ -25,7 +25,7 @@ final class DriverBuilder implements IDriverBuilder
     ) {
     }
 
-    public function build(): IDriver
+    public function build(): ILegacyDriver
     {
         if (null === $this->driverConfig) {
             throw new LogicException(
@@ -36,7 +36,7 @@ final class DriverBuilder implements IDriverBuilder
     }
 
 
-    private function createDriver(): Driver
+    private function createDriver(): LegacyDriver
     {
         $output =
             $this->outputBuilder
@@ -61,7 +61,7 @@ final class DriverBuilder implements IDriverBuilder
         ;
 
         return
-            new Driver(
+            new LegacyDriver(
                 output: $output,
                 cursor: $cursor,
                 timer: $timer,
@@ -69,13 +69,13 @@ final class DriverBuilder implements IDriverBuilder
             );
     }
 
-    public function withAuxConfig(IAuxConfig $auxConfig): IDriverBuilder
+    public function withAuxConfig(IAuxConfig $auxConfig): ILegacyDriverBuilder
     {
         $this->auxConfig = $auxConfig;
         return $this;
     }
 
-    public function withDriverConfig(IDriverConfig $driverConfig): IDriverBuilder
+    public function withDriverConfig(IDriverConfig $driverConfig): ILegacyDriverBuilder
     {
         $this->driverConfig = $driverConfig;
         return $this;

@@ -4,7 +4,7 @@ declare(strict_types=1);
 // 04.04.23
 namespace AlecRabbit\Spinner\Core;
 
-use AlecRabbit\Spinner\Core\Contract\ISpinner;
+use AlecRabbit\Spinner\Core\Contract\ILegacySpinner;
 use AlecRabbit\Spinner\Core\Contract\ISpinnerAttacher;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoop;
 use WeakMap;
@@ -17,7 +17,7 @@ final class SpinnerAttacher implements ISpinnerAttacher
     ) {
     }
 
-    public function attach(ISpinner $spinner): void
+    public function attach(ILegacySpinner $spinner): void
     {
         $this->detachSpinner($spinner);
         $this->timerMap[$spinner] =
@@ -27,7 +27,7 @@ final class SpinnerAttacher implements ISpinnerAttacher
             );
     }
 
-    protected function detachSpinner(ISpinner $spinner): void
+    protected function detachSpinner(ILegacySpinner $spinner): void
     {
         if ($this->timerMap->offsetExists($spinner)) {
             $this->loop->cancel($this->timerMap[$spinner]);

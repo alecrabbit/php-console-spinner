@@ -8,7 +8,7 @@ use AlecRabbit\Spinner\Core\Config\Contract\IConfig;
 
 interface ISpinnerBuilder
 {
-    public function build(): ISpinner;
+    public function build(): ILegacySpinner;
 
     public function withConfig(IConfig $config): self;
 }

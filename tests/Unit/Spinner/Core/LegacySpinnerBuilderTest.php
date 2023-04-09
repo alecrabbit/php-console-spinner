@@ -5,30 +5,30 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Unit\Spinner\Core;
 
 use AlecRabbit\Spinner\Core\Config\Contract\IConfig;
-use AlecRabbit\Spinner\Core\Contract\IDriverBuilder;
+use AlecRabbit\Spinner\Core\Contract\ILegacyDriverBuilder;
 use AlecRabbit\Spinner\Core\Contract\ISpinnerBuilder;
-use AlecRabbit\Spinner\Core\SpinnerBuilder;
+use AlecRabbit\Spinner\Core\LegacySpinnerBuilder;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetBuilder;
 use AlecRabbit\Spinner\Exception\LogicException;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;
 
-final class SpinnerBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
+final class LegacySpinnerBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
 {
     #[Test]
     public function canBeCreated(): void
     {
         $spinnerBuilder = $this->getTesteeInstance();
 
-        self::assertInstanceOf(SpinnerBuilder::class, $spinnerBuilder);
+        self::assertInstanceOf(LegacySpinnerBuilder::class, $spinnerBuilder);
     }
 
     public function getTesteeInstance(
-        ?IDriverBuilder $driverBuilder = null,
+        ?ILegacyDriverBuilder $driverBuilder = null,
         ?IWidgetBuilder $widgetBuilder = null,
     ): ISpinnerBuilder {
         return
-            new SpinnerBuilder(
+            new LegacySpinnerBuilder(
                 driverBuilder: $driverBuilder ?? $this->getDriverBuilderMock(),
                 widgetBuilder: $widgetBuilder ?? $this->getWidgetBuilderMock(),
             );
@@ -42,7 +42,7 @@ final class SpinnerBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
         $config = $this->createMock(IConfig::class);
 
         $spinnerBuilder = $spinnerBuilder->withConfig($config);
-        self::assertInstanceOf(SpinnerBuilder::class, $spinnerBuilder);
+        self::assertInstanceOf(LegacySpinnerBuilder::class, $spinnerBuilder);
         self::assertInstanceOf(IConfig::class, self::getValue('config', $spinnerBuilder));
     }
 

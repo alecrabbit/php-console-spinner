@@ -7,5 +7,5 @@ namespace AlecRabbit\Spinner\Core\Contract;
 
 interface ISpinnerAttacher
 {
-    public function attach(ISpinner $spinner): void;
+    public function attach(ILegacySpinner $spinner): void;
 }

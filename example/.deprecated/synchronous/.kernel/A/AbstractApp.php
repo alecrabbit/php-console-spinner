@@ -6,7 +6,7 @@ namespace Example\Kernel\A;
 
 use AlecRabbit\Spinner\Contract\Option\OptionRunMode;
 use AlecRabbit\Spinner\Core\Config\Contract\IConfig;
-use AlecRabbit\Spinner\Core\Contract\ISpinner;
+use AlecRabbit\Spinner\Core\Contract\ILegacySpinner;
 use AlecRabbit\Spinner\Core\Factory\StaticDefaultsFactory;
 use AlecRabbit\Spinner\Core\Output\StreamBufferedOutput;
 use AlecRabbit\Spinner\StaticFacade;
@@ -24,7 +24,7 @@ abstract class AbstractApp
     protected const CALLBACK = 'callback';
 
     public readonly AppConfig $applicationConfig;
-    public readonly ISpinner $spinner;
+    public readonly ILegacySpinner $spinner;
     public readonly Closure $writeln;
     public readonly Closure $write;
     public readonly Closure $writelnErr;

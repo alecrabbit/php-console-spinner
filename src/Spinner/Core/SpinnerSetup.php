@@ -4,7 +4,7 @@ declare(strict_types=1);
 // 04.04.23
 namespace AlecRabbit\Spinner\Core;
 
-use AlecRabbit\Spinner\Core\Contract\ISpinner;
+use AlecRabbit\Spinner\Core\Contract\ILegacySpinner;
 use AlecRabbit\Spinner\Core\Contract\ISpinnerAttacher;
 use AlecRabbit\Spinner\Core\Contract\ISpinnerSetup;
 
@@ -18,7 +18,7 @@ final class SpinnerSetup implements ISpinnerSetup
     ) {
     }
 
-    public function setup(ISpinner $spinner): void
+    public function setup(ILegacySpinner $spinner): void
     {
         if ($this->initializationEnabled) {
             $spinner->initialize();

@@ -7,32 +7,32 @@ namespace AlecRabbit\Tests\Unit\Spinner\Core;
 use AlecRabbit\Spinner\Contract\Option\OptionCursor;
 use AlecRabbit\Spinner\Core\Config\DriverConfig;
 use AlecRabbit\Spinner\Core\Contract\ICursorBuilder;
-use AlecRabbit\Spinner\Core\Contract\IDriverBuilder;
+use AlecRabbit\Spinner\Core\Contract\ILegacyDriverBuilder;
 use AlecRabbit\Spinner\Core\Contract\IOutputBuilder;
 use AlecRabbit\Spinner\Core\Contract\ITimerBuilder;
-use AlecRabbit\Spinner\Core\Driver;
-use AlecRabbit\Spinner\Core\DriverBuilder;
+use AlecRabbit\Spinner\Core\LegacyDriver;
+use AlecRabbit\Spinner\Core\LegacyDriverBuilder;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use LogicException;
 use PHPUnit\Framework\Attributes\Test;
 
-final class DriverBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
+final class LegacyDriverBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
 {
     #[Test]
     public function canBeCreated(): void
     {
         $configBuilder = $this->getTesteeInstance();
 
-        self::assertInstanceOf(DriverBuilder::class, $configBuilder);
+        self::assertInstanceOf(LegacyDriverBuilder::class, $configBuilder);
     }
 
     public function getTesteeInstance(
         ?ITimerBuilder $timerFactory = null,
         ?IOutputBuilder $outputBuilder = null,
         ?ICursorBuilder $cursorBuilder = null,
-    ): IDriverBuilder {
+    ): ILegacyDriverBuilder {
         return
-            new DriverBuilder(
+            new LegacyDriverBuilder(
                 timerBuilder: $timerFactory ?? $this->getTimerFactoryMock(),
                 outputBuilder: $outputBuilder ?? $this->getOutputBuilderMock(),
                 cursorBuilder: $cursorBuilder ?? $this->getCursorBuilderMock(),
@@ -56,7 +56,7 @@ final class DriverBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
 
         $driverBuilder = $this->getTesteeInstance(outputBuilder: $outputBuilder);
 
-        self::assertInstanceOf(DriverBuilder::class, $driverBuilder);
+        self::assertInstanceOf(LegacyDriverBuilder::class, $driverBuilder);
 
         $auxConfig = $this->getAuxConfigMock();
         $auxConfig
@@ -77,7 +77,7 @@ final class DriverBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
                 ->build()
         ;
 
-        self::assertInstanceOf(Driver::class, $driver);
+        self::assertInstanceOf(LegacyDriver::class, $driver);
     }
 
     #[Test]
@@ -85,10 +85,10 @@ final class DriverBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
     {
         $driverBuilder = $this->getTesteeInstance();
 
-        self::assertInstanceOf(DriverBuilder::class, $driverBuilder);
+        self::assertInstanceOf(LegacyDriverBuilder::class, $driverBuilder);
 
         $exceptionClass = LogicException::class;
-        $exceptionMessage = '[AlecRabbit\Spinner\Core\DriverBuilder]: Property $driverConfig is not set.';
+        $exceptionMessage = '[AlecRabbit\Spinner\Core\LegacyDriverBuilder]: Property $driverConfig is not set.';
 
         $this->expectException($exceptionClass);
         $this->expectExceptionMessage($exceptionMessage);

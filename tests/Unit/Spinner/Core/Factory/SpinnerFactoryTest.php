@@ -7,7 +7,7 @@ namespace AlecRabbit\Tests\Unit\Spinner\Core\Factory;
 use AlecRabbit\Spinner\Contract\Option\OptionAttachHandlers;
 use AlecRabbit\Spinner\Contract\Option\OptionAutoStart;
 use AlecRabbit\Spinner\Contract\Option\OptionRunMode;
-use AlecRabbit\Spinner\Core\A\ASpinner;
+use AlecRabbit\Spinner\Core\A\ALegacySpinner;
 use AlecRabbit\Spinner\Core\Config\Contract\IConfig;
 use AlecRabbit\Spinner\Core\Config\LoopConfig;
 use AlecRabbit\Spinner\Core\Contract\ISpinnerBuilder;
@@ -76,7 +76,7 @@ final class SpinnerFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
 
         $spinner = $spinnerFactory->createSpinner($config);
 
-        self::assertInstanceOf(ASpinner::class, $spinner);
+        self::assertInstanceOf(ALegacySpinner::class, $spinner);
     }
 
     protected function getConfigMock(): MockObject&IConfig
@@ -130,7 +130,7 @@ final class SpinnerFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
 
         $spinner = $spinnerFactory->createSpinner($config);
 
-        self::assertInstanceOf(ASpinner::class, $spinner);
+        self::assertInstanceOf(ALegacySpinner::class, $spinner);
     }
 
 

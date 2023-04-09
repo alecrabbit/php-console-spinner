@@ -4,33 +4,33 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core\A;
 
-use AlecRabbit\Spinner\Contract\IDriver;
-use AlecRabbit\Spinner\Core\A\ASpinner;
-use AlecRabbit\Spinner\Core\Contract\ISpinner;
+use AlecRabbit\Spinner\Contract\ILegacyDriver;
+use AlecRabbit\Spinner\Core\A\ALegacySpinner;
+use AlecRabbit\Spinner\Core\Contract\ILegacySpinner;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
-use AlecRabbit\Tests\Unit\Spinner\Core\A\Override\ASpinnerOverride;
+use AlecRabbit\Tests\Unit\Spinner\Core\A\Override\ALegacySpinnerOverride;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 
-final class ASpinnerTest extends TestCaseWithPrebuiltMocksAndStubs
+final class ASpinnerLegacyTest extends TestCaseWithPrebuiltMocksAndStubs
 {
     #[Test]
     public function isCreatedInactiveAndUninterrupted(): void
     {
         $spinner = $this->getTesteeInstance(driver: null, rootWidget: null);
 
-        self::assertInstanceOf(ASpinner::class, $spinner);
+        self::assertInstanceOf(ALegacySpinner::class, $spinner);
         self::assertFalse(self::getValue('active', $spinner));
         self::assertFalse(self::getValue('interrupted', $spinner));
     }
 
     public function getTesteeInstance(
-        (MockObject&IDriver)|null $driver,
+        (MockObject&ILegacyDriver)|null $driver,
         (MockObject&IWidgetComposite)|null $rootWidget,
-    ): ISpinner {
+    ): ILegacySpinner {
         return
-            new ASpinnerOverride(
+            new ALegacySpinnerOverride(
                 driver: $driver ?? $this->getDriverMock(),
                 rootWidget: $rootWidget ?? $this->getWidgetCompositeMock(),
             );

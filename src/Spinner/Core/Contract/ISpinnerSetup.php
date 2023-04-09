@@ -7,7 +7,7 @@ namespace AlecRabbit\Spinner\Core\Contract;
 interface ISpinnerSetup
 {
 
-    public function setup(ISpinner $spinner): void;
+    public function setup(ILegacySpinner $spinner): void;
 
     public function enableInitialization(bool $enable): ISpinnerSetup;
 

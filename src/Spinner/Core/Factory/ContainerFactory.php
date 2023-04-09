@@ -21,7 +21,7 @@ use AlecRabbit\Spinner\Core\Contract\ICharFrameRenderer;
 use AlecRabbit\Spinner\Core\Contract\IConfigBuilder;
 use AlecRabbit\Spinner\Core\Contract\ICursorBuilder;
 use AlecRabbit\Spinner\Core\Contract\IDefaultsProvider;
-use AlecRabbit\Spinner\Core\Contract\IDriverBuilder;
+use AlecRabbit\Spinner\Core\Contract\ILegacyDriverBuilder;
 use AlecRabbit\Spinner\Core\Contract\IIntegerNormalizer;
 use AlecRabbit\Spinner\Core\Contract\IIntervalNormalizer;
 use AlecRabbit\Spinner\Core\Contract\ILoopSetup;
@@ -47,7 +47,7 @@ use AlecRabbit\Spinner\Core\Defaults\DriverSettingsBuilder;
 use AlecRabbit\Spinner\Core\Defaults\LoopSettingsBuilder;
 use AlecRabbit\Spinner\Core\Defaults\SpinnerSettingsBuilder;
 use AlecRabbit\Spinner\Core\Defaults\WidgetSettingsBuilder;
-use AlecRabbit\Spinner\Core\DriverBuilder;
+use AlecRabbit\Spinner\Core\LegacyDriverBuilder;
 use AlecRabbit\Spinner\Core\Factory\Contract\IContainerFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IFrameFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalFactory;
@@ -65,7 +65,7 @@ use AlecRabbit\Spinner\Core\LoopSetupBuilder;
 use AlecRabbit\Spinner\Core\OutputBuilder;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolverBuilder;
 use AlecRabbit\Spinner\Core\Sequencer;
-use AlecRabbit\Spinner\Core\SpinnerBuilder;
+use AlecRabbit\Spinner\Core\LegacySpinnerBuilder;
 use AlecRabbit\Spinner\Core\SpinnerSetup;
 use AlecRabbit\Spinner\Core\StyleFrameCollectionRenderer;
 use AlecRabbit\Spinner\Core\StyleFrameRenderer;
@@ -155,7 +155,7 @@ final class ContainerFactory implements IContainerFactory
                 ICharFrameRenderer::class => CharFrameRenderer::class,
                 IConfigBuilder::class => ConfigBuilder::class,
                 ICursorBuilder::class => CursorBuilder::class,
-                IDriverBuilder::class => DriverBuilder::class,
+                ILegacyDriverBuilder::class => LegacyDriverBuilder::class,
                 IFrameFactory::class => FrameFactory::class,
                 IFrameRevolverBuilder::class => FrameRevolverBuilder::class,
                 IIntervalFactory::class => IntervalFactory::class,
@@ -166,7 +166,7 @@ final class ContainerFactory implements IContainerFactory
                 IOutputBuilder::class => OutputBuilder::class,
                 ISequencer::class => Sequencer::class,
                 ISpinnerAttacherFactory::class => SpinnerAttacherFactory::class,
-                ISpinnerBuilder::class => SpinnerBuilder::class,
+                ISpinnerBuilder::class => LegacySpinnerBuilder::class,
                 ISpinnerFactory::class => SpinnerFactory::class,
                 ISpinnerSetup::class => SpinnerSetup::class,
                 IStyleFrameCollectionRenderer::class => StyleFrameCollectionRenderer::class,

@@ -10,7 +10,7 @@ use AlecRabbit\Spinner\Contract\IWrapper;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContext;
 
-interface ISpinner extends IRenderable, IWrapper, HasInterval
+interface ILegacySpinner extends IRenderable, IWrapper, HasInterval
 {
     public function spin(float $dt = null): void;
 

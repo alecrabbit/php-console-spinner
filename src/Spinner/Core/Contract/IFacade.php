@@ -13,7 +13,7 @@ interface IFacade
 
     public static function getLoop(): ILoop;
 
-    public static function createSpinner(IConfig $config = null): ISpinner;
+    public static function createSpinner(IConfig $config = null): ILegacySpinner;
 
     public static function useService(string $id, object|callable|string $service): void;
 }

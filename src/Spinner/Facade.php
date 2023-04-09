@@ -9,7 +9,7 @@ use AlecRabbit\Spinner\Core\Config\Contract\IConfig;
 use AlecRabbit\Spinner\Core\Contract\IConfigBuilder;
 use AlecRabbit\Spinner\Core\Contract\IFacade;
 use AlecRabbit\Spinner\Core\Contract\ILoopSetup;
-use AlecRabbit\Spinner\Core\Contract\ISpinner;
+use AlecRabbit\Spinner\Core\Contract\ILegacySpinner;
 use AlecRabbit\Spinner\Core\Factory\ContainerFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ISpinnerFactory;
@@ -17,7 +17,7 @@ use AlecRabbit\Spinner\Core\Loop\Contract\ILoop;
 
 final class Facade implements IFacade
 {
-    public static function createSpinner(IConfig $config = null): ISpinner
+    public static function createSpinner(IConfig $config = null): ILegacySpinner
     {
         $config = self::refineConfig($config);
 
