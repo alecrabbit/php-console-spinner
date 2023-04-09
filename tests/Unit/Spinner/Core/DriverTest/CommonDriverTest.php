@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core\DriverTest;
 
+use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Core\Driver;
 use AlecRabbit\Spinner\Core\Interval;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
@@ -121,8 +122,9 @@ final class CommonDriverTest extends TestCaseForDriver
     {
         $exceptionClass = InvalidArgumentException::class;
         $exceptionMessage =
-            'Interval callback must return an instance of'
-            . ' "AlecRabbit\Spinner\Contract\IInterval", "null" received.';
+            'Interval callback MUST return an instance of "'
+            . IInterval::class
+            . '", instead returns "null".';
 
         $this->expectException($exceptionClass);
         $this->expectExceptionMessage($exceptionMessage);

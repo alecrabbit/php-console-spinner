@@ -35,15 +35,16 @@ final class Driver implements IDriver
     protected static function assertIntervalCallback(\Closure $intervalCb): void
     {
         $interval = $intervalCb();
-        if (!$interval instanceof IInterval) {
-            throw new InvalidArgumentException(
-                sprintf(
-                    'Interval callback must return an instance of "%s", "%s" received.',
-                    IInterval::class,
-                    get_debug_type($interval)
-                )
-            );
+        if ($interval instanceof IInterval) {
+            return;
         }
+        throw new InvalidArgumentException(
+            sprintf(
+                'Interval callback MUST return an instance of "%s", instead returns "%s".',
+                IInterval::class,
+                get_debug_type($interval)
+            )
+        );
     }
 
     public function render(float $dt = null): void
@@ -51,12 +52,16 @@ final class Driver implements IDriver
         $dt ??= $this->timer->getDelta();
         foreach ($this->spinners as $spinner => $previousWidth) {
             if ($this->initialized) {
-                $this->renderFrame($spinner->update($dt), $previousWidth);
+                $this->spinners[$spinner] =
+                    $this->renderFrame(
+                        $spinner->update($dt),
+                        $previousWidth
+                    );
             }
         }
     }
 
-    protected function renderFrame(IFrame $frame, int $previousWidth): void
+    protected function renderFrame(IFrame $frame, int $previousWidth): int
     {
         $width = $frame->width();
         $widthDiff = max($previousWidth - $width, 0);
@@ -67,12 +72,17 @@ final class Driver implements IDriver
         $this->cursor->moveLeft($width);
 
         $this->output->flush();
+
+        return $width;
     }
 
-    protected function eraseAll(): void
+    public function erase(ISpinner $spinner): void
     {
-        foreach ($this->spinners as $spinner => $_) {
-            $this->erase($spinner);
+        if ($this->initialized) {
+            $this->cursor
+                ->erase($this->spinners[$spinner])
+                ->flush()
+            ;
         }
     }
 
@@ -87,6 +97,13 @@ final class Driver implements IDriver
             $this->eraseAll();
             $this->cursor->show();
             $finalMessage && $this->output->write($finalMessage);
+        }
+    }
+
+    protected function eraseAll(): void
+    {
+        foreach ($this->spinners as $spinner => $_) {
+            $this->erase($spinner);
         }
     }
 
@@ -115,16 +132,6 @@ final class Driver implements IDriver
             $this->erase($spinner);
             $this->spinners->offsetUnset($spinner);
             $this->recalculateInterval();
-        }
-    }
-
-    public function erase(ISpinner $spinner): void
-    {
-        if ($this->initialized) {
-            $this->cursor
-                ->erase($this->spinners[$spinner])
-                ->flush()
-            ;
         }
     }
 
