@@ -7,10 +7,8 @@ namespace AlecRabbit\Spinner\Core;
 use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Contract\ITimer;
-use AlecRabbit\Spinner\Contract\Output\IBufferedOutput;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
-use AlecRabbit\Spinner\Core\Output\Contract\ICursor;
 use AlecRabbit\Spinner\Core\Output\Contract\IDriverOutput;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use WeakMap;
@@ -23,10 +21,8 @@ final class Driver implements IDriver
     protected IInterval $interval;
 
     public function __construct(
-        protected readonly IBufferedOutput $output,
-        protected readonly ICursor $cursor,
-        protected readonly ITimer $timer,
         protected readonly IDriverOutput $driverOutput,
+        protected readonly ITimer $timer,
         protected \Closure $intervalCb,
     ) {
         self::assertIntervalCallback($intervalCb);
@@ -67,28 +63,9 @@ final class Driver implements IDriver
     {
         $width = $frame->width();
 
-        $this->output->bufferedWrite($frame->sequence());
-
-        $widthDiff = max($previousWidth - $width, 0);
-
-        $this->cursor
-            ->erase(max($widthDiff, 0))
-            ->moveLeft($width)
-        ;
-
-        $this->output->flush();
+        $this->driverOutput->writeSequence($frame->sequence(), $width, $previousWidth);
 
         return $width;
-    }
-
-    protected function erase(ISpinner $spinner): void
-    {
-        if ($this->initialized) {
-            $this->cursor
-                ->erase($this->spinners[$spinner])
-                ->flush()
-            ;
-        }
     }
 
     public function interrupt(?string $interruptMessage = null): void
@@ -100,8 +77,7 @@ final class Driver implements IDriver
     {
         if ($this->initialized) {
             $this->eraseAll();
-            $this->cursor->show();
-            $finalMessage && $this->output->write($finalMessage);
+            $this->driverOutput->finalize($finalMessage);
         }
     }
 
@@ -112,9 +88,16 @@ final class Driver implements IDriver
         }
     }
 
+    protected function erase(ISpinner $spinner): void
+    {
+        if ($this->initialized) {
+            $this->driverOutput->erase($this->spinners[$spinner]);
+        }
+    }
+
     public function initialize(): void
     {
-        $this->cursor->hide();
+        $this->driverOutput->initialize();
         $this->initialized = true;
     }
 

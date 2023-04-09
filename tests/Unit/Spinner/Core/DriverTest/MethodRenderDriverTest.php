@@ -20,32 +20,15 @@ final class MethodRenderDriverTest extends TestCaseForDriver
             ->with(self::equalTo(null))
         ;
 
-        $output = $this->getBufferedOutputMock();
-        $output
+        $driverOutput = $this->getDriverOutputMock();
+        $driverOutput
             ->expects(self::once())
-            ->method('bufferedWrite')
-        ;
-        $output
-            ->expects(self::once())
-            ->method('flush')
-        ;
-
-        $cursor = $this->getCursorMock();
-        $cursor
-            ->expects(self::once())
-            ->method('erase')
-            ->willReturnSelf()
-        ;
-        $cursor
-            ->expects(self::once())
-            ->method('moveLeft')
-            ->willReturnSelf()
+            ->method('writeSequence')
         ;
 
         $driver =
             $this->getTesteeInstance(
-                output: $output,
-                cursor: $cursor
+                driverOutput: $driverOutput
             );
         $driver->initialize();
 
@@ -72,34 +55,16 @@ final class MethodRenderDriverTest extends TestCaseForDriver
             ->with(self::equalTo($delta))
         ;
 
-        $output = $this->getBufferedOutputMock();
-        $output
+        $driverOutput = $this->getDriverOutputMock();
+        $driverOutput
             ->expects(self::once())
-            ->method('bufferedWrite')
-        ;
-
-        $output
-            ->expects(self::once())
-            ->method('flush')
-        ;
-
-        $cursor = $this->getCursorMock();
-        $cursor
-            ->expects(self::once())
-            ->method('erase')
-            ->willReturnSelf()
-        ;
-        $cursor
-            ->expects(self::once())
-            ->method('moveLeft')
-            ->willReturnSelf()
+            ->method('writeSequence')
         ;
 
         $driver =
             $this->getTesteeInstance(
-                output: $output,
-                cursor: $cursor,
-                timer: $timer
+                timer: $timer,
+                driverOutput: $driverOutput
             );
         $driver->initialize();
 

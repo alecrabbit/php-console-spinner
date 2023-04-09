@@ -14,23 +14,16 @@ final class MethodInterruptDriverTest extends TestCaseForDriver
     {
         $interruptMessage = 'interruptMessage';
 
-        $cursor = $this->getCursorMock();
-        $cursor
+        $driverOutput = $this->getDriverOutputMock();
+        $driverOutput
             ->expects(self::once())
-            ->method('show')
-        ;
-
-        $output = $this->getBufferedOutputMock();
-        $output
-            ->expects(self::once())
-            ->method('write')
+            ->method('finalize')
             ->with(self::equalTo($interruptMessage))
         ;
 
         $driver =
             $this->getTesteeInstance(
-                output: $output,
-                cursor: $cursor,
+                driverOutput: $driverOutput
             );
 
         $driver->initialize();
@@ -40,22 +33,16 @@ final class MethodInterruptDriverTest extends TestCaseForDriver
     #[Test]
     public function canInterruptInitializedWithNoMessage(): void
     {
-        $cursor = $this->getCursorMock();
-        $cursor
+        $driverOutput = $this->getDriverOutputMock();
+        $driverOutput
             ->expects(self::once())
-            ->method('show')
-        ;
-
-        $output = $this->getBufferedOutputMock();
-        $output
-            ->expects(self::never())
-            ->method('write')
+            ->method('finalize')
+            ->with(self::equalTo(null))
         ;
 
         $driver =
             $this->getTesteeInstance(
-                output: $output,
-                cursor: $cursor,
+                driverOutput: $driverOutput
             );
 
         $driver->initialize();
@@ -67,22 +54,15 @@ final class MethodInterruptDriverTest extends TestCaseForDriver
     {
         $interruptMessage = 'interruptMessage';
 
-        $cursor = $this->getCursorMock();
-        $cursor
+        $driverOutput = $this->getDriverOutputMock();
+        $driverOutput
             ->expects(self::never())
-            ->method('show')
-        ;
-
-        $output = $this->getBufferedOutputMock();
-        $output
-            ->expects(self::never())
-            ->method('write')
+            ->method('finalize')
         ;
 
         $driver =
             $this->getTesteeInstance(
-                output: $output,
-                cursor: $cursor,
+                driverOutput: $driverOutput
             );
 
         $driver->interrupt($interruptMessage);

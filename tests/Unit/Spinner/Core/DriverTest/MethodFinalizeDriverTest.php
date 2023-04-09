@@ -14,23 +14,16 @@ final class MethodFinalizeDriverTest extends TestCaseForDriver
     {
         $finalMessage = 'finalMessage';
 
-        $cursor = $this->getCursorMock();
-        $cursor
+        $driverOutput = $this->getDriverOutputMock();
+        $driverOutput
             ->expects(self::once())
-            ->method('show')
-        ;
-
-        $output = $this->getBufferedOutputMock();
-        $output
-            ->expects(self::once())
-            ->method('write')
+            ->method('finalize')
             ->with(self::equalTo($finalMessage))
         ;
 
         $driver =
             $this->getTesteeInstance(
-                output: $output,
-                cursor: $cursor,
+                driverOutput: $driverOutput
             );
 
         $driver->initialize();
@@ -40,22 +33,16 @@ final class MethodFinalizeDriverTest extends TestCaseForDriver
     #[Test]
     public function canFinalizeInitializedWithNoMessage(): void
     {
-        $cursor = $this->getCursorMock();
-        $cursor
+        $driverOutput = $this->getDriverOutputMock();
+        $driverOutput
             ->expects(self::once())
-            ->method('show')
-        ;
-
-        $output = $this->getBufferedOutputMock();
-        $output
-            ->expects(self::never())
-            ->method('write')
+            ->method('finalize')
+            ->with(self::equalTo(null))
         ;
 
         $driver =
             $this->getTesteeInstance(
-                output: $output,
-                cursor: $cursor,
+                driverOutput: $driverOutput
             );
 
         $driver->initialize();
@@ -67,22 +54,15 @@ final class MethodFinalizeDriverTest extends TestCaseForDriver
     {
         $finalMessage = 'finalMessage';
 
-        $cursor = $this->getCursorMock();
-        $cursor
+        $driverOutput = $this->getDriverOutputMock();
+        $driverOutput
             ->expects(self::never())
-            ->method('show')
-        ;
-
-        $output = $this->getBufferedOutputMock();
-        $output
-            ->expects(self::never())
-            ->method('write')
+            ->method('finalize')
         ;
 
         $driver =
             $this->getTesteeInstance(
-                output: $output,
-                cursor: $cursor,
+                driverOutput: $driverOutput
             );
 
         $driver->finalize($finalMessage);
@@ -91,22 +71,14 @@ final class MethodFinalizeDriverTest extends TestCaseForDriver
     #[Test]
     public function canFinalizeUninitializedWithNoMessage(): void
     {
-        $cursor = $this->getCursorMock();
-        $cursor
+        $driverOutput = $this->getDriverOutputMock();
+        $driverOutput
             ->expects(self::never())
-            ->method('show')
+            ->method('finalize')
         ;
-
-        $output = $this->getBufferedOutputMock();
-        $output
-            ->expects(self::never())
-            ->method('write')
-        ;
-
         $driver =
             $this->getTesteeInstance(
-                output: $output,
-                cursor: $cursor,
+                driverOutput: $driverOutput
             );
 
         $driver->finalize();
@@ -115,33 +87,15 @@ final class MethodFinalizeDriverTest extends TestCaseForDriver
     #[Test]
     public function erasesAllAddedSpinners(): void
     {
-        $cursor = $this->getCursorMock();
-        $cursor
-            ->expects(self::once())
-            ->method('show')
-        ;
-
-        $cursor
+        $driverOutput = $this->getDriverOutputMock();
+        $driverOutput
             ->expects(self::exactly(2))
             ->method('erase')
-            ->willReturnSelf()
-        ;
-
-        $cursor
-            ->expects(self::exactly(2))
-            ->method('flush')
-        ;
-
-        $output = $this->getBufferedOutputMock();
-        $output
-            ->expects(self::never())
-            ->method('write')
         ;
 
         $driver =
             $this->getTesteeInstance(
-                output: $output,
-                cursor: $cursor,
+                driverOutput: $driverOutput
             );
 
         $driver->initialize();

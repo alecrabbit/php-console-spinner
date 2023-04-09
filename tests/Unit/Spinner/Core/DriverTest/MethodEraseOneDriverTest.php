@@ -12,13 +12,7 @@ final class MethodEraseOneDriverTest extends TestCaseForDriver
     #[Test]
     public function cursorEraseIsNotCalledIfNotInitialized(): void
     {
-        $cursor = $this->getCursorMock();
-        $cursor
-            ->expects(self::never())
-            ->method('erase')
-        ;
-
-        $driver = $this->getTesteeInstance(cursor: $cursor);
+        $driver = $this->getTesteeInstance();
 
         $intervalOne = new Interval(1200);
         $intervalTwo = new Interval(135);
@@ -62,13 +56,7 @@ final class MethodEraseOneDriverTest extends TestCaseForDriver
 #[Test]
     public function cursorEraseCalledIfInitialized(): void
     {
-        $cursor = $this->getCursorMock();
-        $cursor
-            ->expects(self::exactly(2))
-            ->method('erase')
-        ;
-
-        $driver = $this->getTesteeInstance(cursor: $cursor);
+        $driver = $this->getTesteeInstance();
         $driver->initialize();
 
         $intervalOne = new Interval(1200);

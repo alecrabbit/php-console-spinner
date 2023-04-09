@@ -17,18 +17,14 @@ use Closure;
 class TestCaseForDriver extends TestCaseWithPrebuiltMocksAndStubs
 {
     public function getTesteeInstance(
-        ?IBufferedOutput $output = null,
-        ?ICursor $cursor = null,
         ?ITimer $timer = null,
         ?IDriverOutput $driverOutput = null,
         ?Closure $intervalCb = null,
     ): IDriver {
         return
             new Driver(
-                output: $output ?? $this->getBufferedOutputMock(),
-                cursor: $cursor ?? $this->getCursorMock(),
-                timer: $timer ?? $this->getTimerMock(),
                 driverOutput: $driverOutput ?? $this->getDriverOutputMock(),
+                timer: $timer ?? $this->getTimerMock(),
                 intervalCb: $intervalCb ?? static fn() => new Interval(),
             );
     }
