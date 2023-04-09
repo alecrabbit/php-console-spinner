@@ -2,19 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Unit\Spinner\Core\TestDriver;
+namespace AlecRabbit\Tests\Unit\Spinner\Core\TestDriver;
 
-use AlecRabbit\Spinner\Contract\IDriver;
-use AlecRabbit\Spinner\Contract\ITimer;
-use AlecRabbit\Spinner\Contract\Output\IBufferedOutput;
 use AlecRabbit\Spinner\Core\Driver;
 use AlecRabbit\Spinner\Core\Interval;
-use AlecRabbit\Spinner\Core\Output\Contract\ICursor;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
-use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;
 
-final class DriverTest extends TestCaseWithPrebuiltMocksAndStubs
+final class CommonDriverTest extends TestCaseForDriver
 {
     #[Test]
     public function canBeCreated(): void
@@ -27,115 +22,6 @@ final class DriverTest extends TestCaseWithPrebuiltMocksAndStubs
         self::assertFalse(self::getValue('initialized', $driver));
     }
 
-    public function getTesteeInstance(
-        ?IBufferedOutput $output = null,
-        ?ICursor $cursor = null,
-        ?ITimer $timer = null,
-        ?string $interruptMessage = null,
-        ?string $finalMessage = null,
-        ?\Closure $intervalCb = null,
-    ): IDriver {
-        return
-            new Driver(
-                output: $output ?? $this->getBufferedOutputMock(),
-                cursor: $cursor ?? $this->getCursorMock(),
-                timer: $timer ?? $this->getTimerMock(),
-                interruptMessage: $interruptMessage ?? '--interrupted--',
-                finalMessage: $finalMessage ?? '--finalized--',
-                intervalCb: $intervalCb ?? static fn() => new Interval(),
-            );
-    }
-
-    #[Test]
-    public function canRender(): void
-    {
-        $spinner = $this->getSpinnerMock();
-        $spinner
-            ->expects(self::once())
-            ->method('update')
-            ->with(self::equalTo(null))
-        ;
-
-        $output = $this->getBufferedOutputMock();
-        $output
-            ->expects(self::once())
-            ->method('bufferedWrite')
-        ;
-        $output
-            ->expects(self::once())
-            ->method('flush')
-        ;
-
-        $cursor = $this->getCursorMock();
-        $cursor
-            ->expects(self::once())
-            ->method('erase')
-        ;
-        $cursor
-            ->expects(self::once())
-            ->method('moveLeft')
-        ;
-
-        $driver =
-            $this->getTesteeInstance(
-                output: $output,
-                cursor: $cursor
-            );
-
-        $driver->add($spinner);
-
-        $driver->render();
-    }
-
-    #[Test]
-    public function canRenderUsingTimer(): void
-    {
-        $delta = 0.1;
-        $timer = $this->getTimerMock();
-        $timer
-            ->expects(self::once())
-            ->method('getDelta')
-            ->willReturn($delta);
-
-        $spinner = $this->getSpinnerMock();
-        $spinner
-            ->expects(self::once())
-            ->method('update')
-            ->with(self::equalTo($delta))
-        ;
-
-        $output = $this->getBufferedOutputMock();
-        $output
-            ->expects(self::once())
-            ->method('bufferedWrite')
-        ;
-
-        $output
-            ->expects(self::once())
-            ->method('flush')
-        ;
-
-        $cursor = $this->getCursorMock();
-        $cursor
-            ->expects(self::once())
-            ->method('erase')
-        ;
-        $cursor
-            ->expects(self::once())
-            ->method('moveLeft')
-        ;
-
-        $driver =
-            $this->getTesteeInstance(
-                output: $output,
-                cursor: $cursor,
-                timer: $timer
-            );
-
-        $driver->add($spinner);
-
-        $driver->render();
-    }
 
     #[Test]
     public function hidesCursorOnInitializeAndOnInterruptShowsCursorAndWritesToOutput(): void
