@@ -210,10 +210,14 @@ final class DriverTest extends TestCaseWithPrebuiltMocksAndStubs
         $exceptionMessage =
             'Interval callback must return an instance of'
             . ' "AlecRabbit\Spinner\Contract\IInterval", "null" received.';
+        
         $this->expectException($exceptionClass);
         $this->expectExceptionMessage($exceptionMessage);
 
-        $driver = $this->getTesteeInstance(intervalCb: fn() => null);
+        $_ =
+            $this->getTesteeInstance(
+                intervalCb: fn() => null
+            );
 
         self::fail(self::exceptionNotThrownString($exceptionClass, $exceptionMessage));
     }
