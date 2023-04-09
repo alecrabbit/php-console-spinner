@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Unit\Spinner\Core\TestDriver;
+namespace AlecRabbit\Tests\Unit\Spinner\Core\Driver;
 
-use AlecRabbit\Tests\Unit\Spinner\Core\TestDriver\TestCaseForDriver;
+use AlecRabbit\Tests\Unit\Spinner\Core\Driver\TestCaseForDriver;
 use PHPUnit\Framework\Attributes\Test;
 
 final class MethodInterruptDriverTest extends TestCaseForDriver

@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Unit\Spinner\Core\TestDriver;
+namespace AlecRabbit\Tests\Unit\Spinner\Core\Driver;
 
 use AlecRabbit\Spinner\Core\Interval;
-use AlecRabbit\Tests\Unit\Spinner\Core\TestDriver\TestCaseForDriver;
+use AlecRabbit\Tests\Unit\Spinner\Core\Driver\TestCaseForDriver;
 use PHPUnit\Framework\Attributes\Test;
 
 final class MethodRenderDriverTest extends TestCaseForDriver

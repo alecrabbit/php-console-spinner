@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Tests\Unit\Spinner\Core\TestDriver;
+namespace AlecRabbit\Tests\Unit\Spinner\Core\Driver;
 
 use AlecRabbit\Spinner\Core\Driver;
 use AlecRabbit\Spinner\Core\Interval;
