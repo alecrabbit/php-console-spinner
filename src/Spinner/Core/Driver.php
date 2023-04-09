@@ -11,6 +11,7 @@ use AlecRabbit\Spinner\Contract\ISpinner;
 use AlecRabbit\Spinner\Contract\ITimer;
 use AlecRabbit\Spinner\Contract\Output\IBufferedOutput;
 use AlecRabbit\Spinner\Core\Output\Contract\ICursor;
+use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use WeakMap;
 
 final class Driver implements IDriver
@@ -18,6 +19,7 @@ final class Driver implements IDriver
     /** @var WeakMap<ISpinner, int> */
     protected WeakMap $spinners;
     protected bool $initialized = false;
+    protected IInterval $interval;
 
     public function __construct(
         protected readonly IBufferedOutput $output,
@@ -25,9 +27,25 @@ final class Driver implements IDriver
         protected readonly ITimer $timer,
         protected readonly string $interruptMessage,
         protected readonly string $finalMessage,
-        protected IInterval $interval,
+        protected \Closure $intervalCb,
     ) {
+        self::assertIntervalCallback($intervalCb);
         $this->spinners = new WeakMap();
+        $this->interval = $intervalCb();
+    }
+
+    protected static function assertIntervalCallback(\Closure $intervalCb): void
+    {
+        $interval = $intervalCb();
+        if (!$interval instanceof IInterval) {
+            throw new InvalidArgumentException(
+                sprintf(
+                    'Interval callback must return an instance of "%s", "%s" received.',
+                    IInterval::class,
+                    get_debug_type($interval)
+                )
+            );
+        }
     }
 
     public function render(float $dt = null): void
@@ -49,26 +67,26 @@ final class Driver implements IDriver
 
         $this->output->flush();
     }
-
-    protected function erase(?ISpinner $spinner = null): void
-    {
-        match (true) {
-            null === $spinner => $this->eraseAll(),
-            default => $this->eraseOne($spinner),
-        };
-    }
-
-    protected function eraseAll(): void
-    {
-        foreach ($this->spinners as $spinner) {
-            $this->eraseOne($spinner);
-        }
-    }
-
-    protected function eraseOne(ISpinner $spinner): void
-    {
-        // TODO (2023-04-09 12:41) [Alec Rabbit]: Implement eraseOne() method.
-    }
+//
+//    protected function erase(?ISpinner $spinner = null): void
+//    {
+//        match (true) {
+//            null === $spinner => $this->eraseAll(),
+//            default => $this->eraseOne($spinner),
+//        };
+//    }
+//
+//    protected function eraseAll(): void
+//    {
+//        foreach ($this->spinners as $spinner) {
+//            $this->eraseOne($spinner);
+//        }
+//    }
+//
+//    protected function eraseOne(ISpinner $spinner): void
+//    {
+//        // TODO (2023-04-09 12:41) [Alec Rabbit]: Implement eraseOne() method.
+//    }
 
     public function interrupt(?string $interruptMessage = null): void
     {
@@ -89,22 +107,32 @@ final class Driver implements IDriver
         $this->initialized = true;
     }
 
-    public function getInterval(): IInterval
-    {
-        return $this->interval;
-    }
-
     public function add(ISpinner $spinner): void
     {
         if (!$this->spinners->offsetExists($spinner)) {
             $this->spinners->offsetSet($spinner, 0);
+            $this->interval = $this->interval->smallest($spinner->getInterval());
         }
+    }
+
+    public function getInterval(): IInterval
+    {
+        return $this->interval;
     }
 
     public function remove(ISpinner $spinner): void
     {
         if ($this->spinners->offsetExists($spinner)) {
             $this->spinners->offsetUnset($spinner);
+            $this->recalculateInterval();
+        }
+    }
+
+    protected function recalculateInterval(): void
+    {
+        $this->interval = ($this->intervalCb)();
+        foreach ($this->spinners as $spinner => $_) {
+            $this->interval = $this->interval->smallest($spinner->getInterval());
         }
     }
 }

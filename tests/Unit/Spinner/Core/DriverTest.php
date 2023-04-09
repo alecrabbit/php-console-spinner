@@ -5,16 +5,14 @@ declare(strict_types=1);
 namespace Unit\Spinner\Core;
 
 use AlecRabbit\Spinner\Contract\IDriver;
-use AlecRabbit\Spinner\Contract\IInterval;
-use AlecRabbit\Spinner\Contract\ISpinner;
 use AlecRabbit\Spinner\Contract\ITimer;
 use AlecRabbit\Spinner\Contract\Output\IBufferedOutput;
-use AlecRabbit\Spinner\Contract\Output\IOutput;
 use AlecRabbit\Spinner\Core\Driver;
+use AlecRabbit\Spinner\Core\Interval;
 use AlecRabbit\Spinner\Core\Output\Contract\ICursor;
+use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;
-use PHPUnit\Framework\MockObject\MockObject;
 
 final class DriverTest extends TestCaseWithPrebuiltMocksAndStubs
 {
@@ -35,7 +33,7 @@ final class DriverTest extends TestCaseWithPrebuiltMocksAndStubs
         ?ITimer $timer = null,
         ?string $interruptMessage = null,
         ?string $finalMessage = null,
-        ?IInterval $interval = null,
+        ?\Closure $intervalCb = null,
     ): IDriver {
         return
             new Driver(
@@ -44,7 +42,7 @@ final class DriverTest extends TestCaseWithPrebuiltMocksAndStubs
                 timer: $timer ?? $this->getTimerMock(),
                 interruptMessage: $interruptMessage ?? '--interrupted--',
                 finalMessage: $finalMessage ?? '--finalized--',
-                interval: $interval ?? $this->getIntervalMock(),
+                intervalCb: $intervalCb ?? static fn() => new Interval(),
             );
     }
 
@@ -52,14 +50,41 @@ final class DriverTest extends TestCaseWithPrebuiltMocksAndStubs
     public function canRender(): void
     {
         $spinner = $this->getSpinnerMock();
+        $spinner
+            ->expects(self::once())
+            ->method('update')
+            ->with(self::equalTo(null))
+        ;
 
-        $driver = $this->getTesteeInstance();
+        $output = $this->getBufferedOutputMock();
+        $output
+            ->expects(self::once())
+            ->method('bufferedWrite')
+        ;
+        $output
+            ->expects(self::once())
+            ->method('flush')
+        ;
+
+        $cursor = $this->getCursorMock();
+        $cursor
+            ->expects(self::once())
+            ->method('erase')
+        ;
+        $cursor
+            ->expects(self::once())
+            ->method('moveLeft')
+        ;
+
+        $driver =
+            $this->getTesteeInstance(
+                output: $output,
+                cursor: $cursor
+            );
 
         $driver->add($spinner);
 
         $driver->render();
-
-        self::assertTrue(true); // TODO: Implement render() method.
     }
 
     #[Test]
@@ -109,14 +134,87 @@ final class DriverTest extends TestCaseWithPrebuiltMocksAndStubs
     {
         $driver = $this->getTesteeInstance();
 
-        $spinner = $this->getSpinnerMock();
+        $intervalOne = new Interval(1200);
+        $intervalTwo = new Interval(135);
 
-        $driver->add($spinner);
+        $spinnerOne = $this->getSpinnerStub();
+        $spinnerOne
+            ->method('getInterval')
+            ->willReturn($intervalOne)
+        ;
+
+        $driver->add($spinnerOne);
+        self::assertCount(1, self::getValue('spinners', $driver));
+        self::assertSame($intervalOne, $driver->getInterval());
+
+        $spinnerTwo = $this->getSpinnerStub();
+        $spinnerTwo
+            ->method('getInterval')
+            ->willReturn($intervalTwo)
+        ;
+
+        $driver->add($spinnerTwo);
+
+        self::assertCount(2, self::getValue('spinners', $driver));
+        self::assertSame($intervalTwo, $driver->getInterval());
+
+        $driver->remove($spinnerTwo);
 
         self::assertCount(1, self::getValue('spinners', $driver));
+        self::assertSame($intervalOne, $driver->getInterval());
 
-        $driver->remove($spinner);
+        $driver->remove($spinnerTwo);
+
+        self::assertCount(1, self::getValue('spinners', $driver));
+        self::assertSame($intervalOne, $driver->getInterval());
+
+        $driver->remove($spinnerOne);
 
         self::assertCount(0, self::getValue('spinners', $driver));
+        self::assertEquals(new Interval(), $driver->getInterval());
+    }
+
+
+    #[Test]
+    public function canBeFinalized(): void
+    {
+        $finalMessage = 'finalMessage';
+
+        $cursor = $this->getCursorMock();
+        $cursor
+            ->expects(self::once())
+            ->method('show')
+        ;
+
+        $output = $this->getBufferedOutputMock();
+        $output
+            ->expects(self::once())
+            ->method('write')
+            ->with(self::equalTo($finalMessage))
+        ;
+
+        $driver =
+            $this->getTesteeInstance(
+                output: $output,
+                cursor: $cursor,
+            );
+
+        $driver->initialize();
+        $driver->finalize($finalMessage);
+    }
+
+    #[Test]
+    public function throwsIfInvalidIntervalCallbackProvided(): void
+    {
+        $exceptionClass = InvalidArgumentException::class;
+        $exceptionMessage =
+            'Interval callback must return an instance of'
+            . ' "AlecRabbit\Spinner\Contract\IInterval", "null" received.';
+        $this->expectException($exceptionClass);
+        $this->expectExceptionMessage($exceptionMessage);
+
+        $driver = $this->getTesteeInstance(intervalCb: fn() => null);
+
+        self::fail(self::exceptionNotThrownString($exceptionClass, $exceptionMessage));
     }
 }

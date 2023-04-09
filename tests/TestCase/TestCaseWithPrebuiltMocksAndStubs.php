@@ -306,4 +306,9 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
     {
         return $this->createMock(ISpinner::class);
     }
+
+    protected function getSpinnerStub(): Stub&ISpinner
+    {
+        return $this->createStub(ISpinner::class);
+    }
 }
