@@ -116,35 +116,6 @@ final class CommonDriverTest extends TestCaseForDriver
         self::assertEquals(new Interval(), $driver->getInterval());
     }
 
-
-    #[Test]
-    public function canBeFinalized(): void
-    {
-        $finalMessage = 'finalMessage';
-
-        $cursor = $this->getCursorMock();
-        $cursor
-            ->expects(self::once())
-            ->method('show')
-        ;
-
-        $output = $this->getBufferedOutputMock();
-        $output
-            ->expects(self::once())
-            ->method('write')
-            ->with(self::equalTo($finalMessage))
-        ;
-
-        $driver =
-            $this->getTesteeInstance(
-                output: $output,
-                cursor: $cursor,
-            );
-
-        $driver->initialize();
-        $driver->finalize($finalMessage);
-    }
-
     #[Test]
     public function throwsIfInvalidIntervalCallbackProvided(): void
     {

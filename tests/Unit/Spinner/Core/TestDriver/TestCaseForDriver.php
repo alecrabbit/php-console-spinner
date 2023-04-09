@@ -19,8 +19,6 @@ class TestCaseForDriver extends TestCaseWithPrebuiltMocksAndStubs
         ?IBufferedOutput $output = null,
         ?ICursor $cursor = null,
         ?ITimer $timer = null,
-        ?string $interruptMessage = null,
-        ?string $finalMessage = null,
         ?Closure $intervalCb = null,
     ): IDriver {
         return
@@ -28,8 +26,6 @@ class TestCaseForDriver extends TestCaseWithPrebuiltMocksAndStubs
                 output: $output ?? $this->getBufferedOutputMock(),
                 cursor: $cursor ?? $this->getCursorMock(),
                 timer: $timer ?? $this->getTimerMock(),
-                interruptMessage: $interruptMessage ?? '--interrupted--',
-                finalMessage: $finalMessage ?? '--finalized--',
                 intervalCb: $intervalCb ?? static fn() => new Interval(),
             );
     }

@@ -25,8 +25,6 @@ final class Driver implements IDriver
         protected readonly IBufferedOutput $output,
         protected readonly ICursor $cursor,
         protected readonly ITimer $timer,
-        protected readonly string $interruptMessage,
-        protected readonly string $finalMessage,
         protected \Closure $intervalCb,
     ) {
         self::assertIntervalCallback($intervalCb);
@@ -80,7 +78,7 @@ final class Driver implements IDriver
 
     public function interrupt(?string $interruptMessage = null): void
     {
-        $this->finalize($interruptMessage ?? $this->interruptMessage);
+        $this->finalize($interruptMessage);
     }
 
     public function finalize(?string $finalMessage = null): void
@@ -88,7 +86,7 @@ final class Driver implements IDriver
         if ($this->initialized) {
             $this->eraseAll();
             $this->cursor->show();
-            $this->output->write($finalMessage ?? $this->finalMessage);
+            $finalMessage && $this->output->write($finalMessage);
         }
     }
 
