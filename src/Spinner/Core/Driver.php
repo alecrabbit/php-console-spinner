@@ -4,12 +4,12 @@ declare(strict_types=1);
 // 09.04.23
 namespace AlecRabbit\Spinner\Core;
 
-use AlecRabbit\Spinner\Contract\IDriver;
 use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Contract\IInterval;
-use AlecRabbit\Spinner\Contract\ISpinner;
 use AlecRabbit\Spinner\Contract\ITimer;
 use AlecRabbit\Spinner\Contract\Output\IBufferedOutput;
+use AlecRabbit\Spinner\Core\Contract\IDriver;
+use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use AlecRabbit\Spinner\Core\Output\Contract\ICursor;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use WeakMap;

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Contract;
 
-use AlecRabbit\Spinner\Contract\ILegacyDriver;
 use AlecRabbit\Spinner\Core\Config\Contract\IAuxConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IDriverConfig;
 

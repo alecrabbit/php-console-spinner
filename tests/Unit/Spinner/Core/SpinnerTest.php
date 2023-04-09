@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Unit\Spinner\Core;
 
-use AlecRabbit\Spinner\Contract\ISpinner;
+use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use AlecRabbit\Spinner\Core\Spinner;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;

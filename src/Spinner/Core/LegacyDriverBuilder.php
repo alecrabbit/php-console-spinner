@@ -4,10 +4,10 @@ declare(strict_types=1);
 // 17.03.23
 namespace AlecRabbit\Spinner\Core;
 
-use AlecRabbit\Spinner\Contract\ILegacyDriver;
 use AlecRabbit\Spinner\Core\Config\Contract\IAuxConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IDriverConfig;
 use AlecRabbit\Spinner\Core\Contract\ICursorBuilder;
+use AlecRabbit\Spinner\Core\Contract\ILegacyDriver;
 use AlecRabbit\Spinner\Core\Contract\ILegacyDriverBuilder;
 use AlecRabbit\Spinner\Core\Contract\IOutputBuilder;
 use AlecRabbit\Spinner\Core\Contract\ITimerBuilder;

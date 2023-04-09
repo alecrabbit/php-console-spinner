@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core\A;
 
-use AlecRabbit\Spinner\Contract\ILegacyDriver;
 use AlecRabbit\Spinner\Core\A\ALegacySpinner;
+use AlecRabbit\Spinner\Core\Contract\ILegacyDriver;
 use AlecRabbit\Spinner\Core\Contract\ILegacySpinner;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;

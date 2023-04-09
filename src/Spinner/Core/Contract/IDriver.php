@@ -2,9 +2,10 @@
 
 declare(strict_types=1);
 // 09.04.23
-namespace AlecRabbit\Spinner\Contract;
+namespace AlecRabbit\Spinner\Core\Contract;
 
-use AlecRabbit\Spinner\Core\Driver;
+use AlecRabbit\Spinner\Contract\HasInterval;
+use AlecRabbit\Spinner\Contract\IRenderable;
 
 interface IDriver extends IRenderable, HasInterval
 {
