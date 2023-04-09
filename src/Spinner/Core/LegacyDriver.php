@@ -73,7 +73,7 @@ final class LegacyDriver implements ILegacyDriver
 
     public function elapsedTime(): float
     {
-        return $this->timer->elapsed();
+        return $this->timer->getDelta();
     }
 
     public function initialize(): void

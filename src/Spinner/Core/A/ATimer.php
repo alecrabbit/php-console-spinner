@@ -48,7 +48,7 @@ abstract class ATimer implements ITimer
         }
     }
 
-    public function elapsed(): float
+    public function getDelta(): float
     {
         $last = $this->time;
         $this->time = (float)($this->timeFunction)();

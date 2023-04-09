@@ -6,5 +6,5 @@ namespace AlecRabbit\Spinner\Contract;
 
 interface ITimer
 {
-    public function elapsed(): float;
+    public function getDelta(): float;
 }

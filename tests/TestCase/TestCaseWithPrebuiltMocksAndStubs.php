@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\TestCase;
 
 use AlecRabbit\Spinner\Container\Contract\IContainer;
-use AlecRabbit\Spinner\Contract\ILegacyDriver;
 use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Contract\IInterval;
+use AlecRabbit\Spinner\Contract\ILegacyDriver;
 use AlecRabbit\Spinner\Contract\ISpinner;
 use AlecRabbit\Spinner\Contract\ITimer;
 use AlecRabbit\Spinner\Contract\Output\IBufferedOutput;
@@ -21,8 +21,8 @@ use AlecRabbit\Spinner\Core\Config\Contract\IWidgetConfig;
 use AlecRabbit\Spinner\Core\Contract\IConfigBuilder;
 use AlecRabbit\Spinner\Core\Contract\ICursorBuilder;
 use AlecRabbit\Spinner\Core\Contract\IDefaultsProvider;
-use AlecRabbit\Spinner\Core\Contract\ILegacyDriverBuilder;
 use AlecRabbit\Spinner\Core\Contract\IIntervalNormalizer;
+use AlecRabbit\Spinner\Core\Contract\ILegacyDriverBuilder;
 use AlecRabbit\Spinner\Core\Contract\ILoopSetup;
 use AlecRabbit\Spinner\Core\Contract\ILoopSetupBuilder;
 use AlecRabbit\Spinner\Core\Contract\IOutputBuilder;
@@ -54,7 +54,6 @@ use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolverBuilder;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\MockObject\Stub;
-use Unit\Spinner\Core\DriverTest;
 
 abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
 {

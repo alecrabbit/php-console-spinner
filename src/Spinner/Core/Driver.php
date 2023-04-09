@@ -50,6 +50,7 @@ final class Driver implements IDriver
 
     public function render(float $dt = null): void
     {
+        $dt ??= $this->timer->getDelta();
         foreach ($this->spinners as $spinner => $previousWidth) {
             $this->renderFrame($spinner->update($dt), $previousWidth);
         }
@@ -81,11 +82,6 @@ final class Driver implements IDriver
 //        foreach ($this->spinners as $spinner) {
 //            $this->eraseOne($spinner);
 //        }
-//    }
-//
-//    protected function eraseOne(ISpinner $spinner): void
-//    {
-//        // TODO (2023-04-09 12:41) [Alec Rabbit]: Implement eraseOne() method.
 //    }
 
     public function interrupt(?string $interruptMessage = null): void
@@ -123,8 +119,19 @@ final class Driver implements IDriver
     public function remove(ISpinner $spinner): void
     {
         if ($this->spinners->offsetExists($spinner)) {
+            $this->eraseOne($spinner);
             $this->spinners->offsetUnset($spinner);
             $this->recalculateInterval();
+        }
+    }
+
+    protected function eraseOne(ISpinner $spinner): void
+    {
+        if ($this->initialized) {
+            $this->cursor
+                ->erase($this->spinners[$spinner])
+                ->flush()
+            ;
         }
     }
 

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Unit\Spinner\Core;
+namespace Unit\Spinner\Core\TestDriver;
 
 use AlecRabbit\Spinner\Contract\IDriver;
 use AlecRabbit\Spinner\Contract\ITimer;
@@ -88,6 +88,56 @@ final class DriverTest extends TestCaseWithPrebuiltMocksAndStubs
     }
 
     #[Test]
+    public function canRenderUsingTimer(): void
+    {
+        $delta = 0.1;
+        $timer = $this->getTimerMock();
+        $timer
+            ->expects(self::once())
+            ->method('getDelta')
+            ->willReturn($delta);
+
+        $spinner = $this->getSpinnerMock();
+        $spinner
+            ->expects(self::once())
+            ->method('update')
+            ->with(self::equalTo($delta))
+        ;
+
+        $output = $this->getBufferedOutputMock();
+        $output
+            ->expects(self::once())
+            ->method('bufferedWrite')
+        ;
+
+        $output
+            ->expects(self::once())
+            ->method('flush')
+        ;
+
+        $cursor = $this->getCursorMock();
+        $cursor
+            ->expects(self::once())
+            ->method('erase')
+        ;
+        $cursor
+            ->expects(self::once())
+            ->method('moveLeft')
+        ;
+
+        $driver =
+            $this->getTesteeInstance(
+                output: $output,
+                cursor: $cursor,
+                timer: $timer
+            );
+
+        $driver->add($spinner);
+
+        $driver->render();
+    }
+
+    #[Test]
     public function hidesCursorOnInitializeAndOnInterruptShowsCursorAndWritesToOutput(): void
     {
         $interruptMessage = 'interruptMessage';
@@ -132,7 +182,13 @@ final class DriverTest extends TestCaseWithPrebuiltMocksAndStubs
     #[Test]
     public function canAddAndRemoveSpinner(): void
     {
-        $driver = $this->getTesteeInstance();
+        $cursor = $this->getCursorMock();
+        $cursor
+            ->expects(self::never())
+            ->method('erase')
+        ;
+
+        $driver = $this->getTesteeInstance(cursor: $cursor);
 
         $intervalOne = new Interval(1200);
         $intervalTwo = new Interval(135);
@@ -210,7 +266,7 @@ final class DriverTest extends TestCaseWithPrebuiltMocksAndStubs
         $exceptionMessage =
             'Interval callback must return an instance of'
             . ' "AlecRabbit\Spinner\Contract\IInterval", "null" received.';
-        
+
         $this->expectException($exceptionClass);
         $this->expectExceptionMessage($exceptionMessage);
 
