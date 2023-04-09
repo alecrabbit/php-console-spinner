@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 // 09.04.23
-namespace AlecRabbit\Tests\Unit\Spinner\Core\Driver;
+namespace AlecRabbit\Tests\Unit\Spinner\Core\DriverTest;
 
 use AlecRabbit\Spinner\Contract\IDriver;
 use AlecRabbit\Spinner\Contract\ITimer;
