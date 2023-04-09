@@ -64,11 +64,12 @@ final class Driver implements IDriver
     protected function renderFrame(IFrame $frame, int $previousWidth): int
     {
         $width = $frame->width();
-        $widthDiff = max($previousWidth - $width, 0);
 
         $this->output->bufferedWrite($frame->sequence());
 
+        $widthDiff = max($previousWidth - $width, 0);
         $this->cursor->erase(max($widthDiff, 0));
+
         $this->cursor->moveLeft($width);
 
         $this->output->flush();
