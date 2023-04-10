@@ -6,8 +6,8 @@ namespace AlecRabbit\Tests\Unit\Spinner\Core\Defaults;
 
 use AlecRabbit\Spinner\Contract\Option\OptionAttach;
 use AlecRabbit\Spinner\Contract\Option\OptionInitialization;
-use AlecRabbit\Spinner\Core\Defaults\Contract\ISpinnerSettings;
-use AlecRabbit\Spinner\Core\Defaults\SpinnerSettings;
+use AlecRabbit\Spinner\Core\Defaults\Contract\ILegacySpinnerSettings;
+use AlecRabbit\Spinner\Core\Defaults\LegacySpinnerSettings;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;
 
@@ -18,7 +18,7 @@ final class SpinnerSettingsTest extends TestCaseWithPrebuiltMocksAndStubs
     {
         $spinnerSettings = $this->getTesteeInstance();
 
-        self::assertInstanceOf(SpinnerSettings::class, $spinnerSettings);
+        self::assertInstanceOf(LegacySpinnerSettings::class, $spinnerSettings);
         self::assertSame(OptionInitialization::DISABLED, $spinnerSettings->getInitializationOption());
         self::assertSame(OptionAttach::DISABLED, $spinnerSettings->getAttachOption());
     }
@@ -26,9 +26,9 @@ final class SpinnerSettingsTest extends TestCaseWithPrebuiltMocksAndStubs
     public function getTesteeInstance(
         ?OptionInitialization $initializationOption = null,
         ?OptionAttach $attachOption = null,
-    ): ISpinnerSettings {
+    ): ILegacySpinnerSettings {
         return
-            new SpinnerSettings(
+            new LegacySpinnerSettings(
                 initializationOption: $initializationOption ?? OptionInitialization::DISABLED,
                 attachOption: $attachOption ?? OptionAttach::DISABLED,
             );
@@ -42,7 +42,7 @@ final class SpinnerSettingsTest extends TestCaseWithPrebuiltMocksAndStubs
 
         $spinnerSettings = $this->getTesteeInstance($initializationOption, $attachOption);
 
-        self::assertInstanceOf(SpinnerSettings::class, $spinnerSettings);
+        self::assertInstanceOf(LegacySpinnerSettings::class, $spinnerSettings);
         self::assertSame($initializationOption, $spinnerSettings->getInitializationOption());
         self::assertSame($attachOption, $spinnerSettings->getAttachOption());
     }
@@ -57,7 +57,7 @@ final class SpinnerSettingsTest extends TestCaseWithPrebuiltMocksAndStubs
         $spinnerSettings->setInitializationOption($initializationOption);
         $spinnerSettings->setAttachOption($attachOption);
 
-        self::assertInstanceOf(SpinnerSettings::class, $spinnerSettings);
+        self::assertInstanceOf(LegacySpinnerSettings::class, $spinnerSettings);
         self::assertSame($initializationOption, $spinnerSettings->getInitializationOption());
         self::assertSame($attachOption, $spinnerSettings->getAttachOption());
     }

@@ -10,10 +10,10 @@ classDiagram
    
 
     class Facade {
-        +getConfigBuilder() IConfigBuilder
+        +getDefaultsProvider() IDefaultsProvider
         +getLoop() ILoop
         +createDriver() IDriver
-        +replaceService(string $id, object|callable|string $service) void
+        +useService(string $id, object|callable|string $service) void
     }
     
     IContainerFactory ..> IContainer

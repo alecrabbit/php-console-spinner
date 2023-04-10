@@ -6,9 +6,9 @@ namespace AlecRabbit\Spinner\Core\Defaults;
 
 use AlecRabbit\Spinner\Contract\Option\OptionAttach;
 use AlecRabbit\Spinner\Contract\Option\OptionInitialization;
-use AlecRabbit\Spinner\Core\Defaults\Contract\ISpinnerSettings;
+use AlecRabbit\Spinner\Core\Defaults\Contract\ILegacySpinnerSettings;
 
-final class SpinnerSettings implements ISpinnerSettings
+final class LegacySpinnerSettings implements ILegacySpinnerSettings
 {
     public function __construct(
         protected OptionInitialization $initializationOption,
@@ -21,7 +21,7 @@ final class SpinnerSettings implements ISpinnerSettings
         return $this->initializationOption;
     }
 
-    public function setInitializationOption(OptionInitialization $initialization): ISpinnerSettings
+    public function setInitializationOption(OptionInitialization $initialization): ILegacySpinnerSettings
     {
         $this->initializationOption = $initialization;
         return $this;
@@ -32,7 +32,7 @@ final class SpinnerSettings implements ISpinnerSettings
         return $this->attachOption;
     }
 
-    public function setAttachOption(OptionAttach $attach): ISpinnerSettings
+    public function setAttachOption(OptionAttach $attach): ILegacySpinnerSettings
     {
         $this->attachOption = $attach;
         return $this;

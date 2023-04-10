@@ -6,7 +6,7 @@ namespace AlecRabbit\Spinner\Core\Defaults;
 
 use AlecRabbit\Spinner\Contract\Option\OptionAttach;
 use AlecRabbit\Spinner\Contract\Option\OptionInitialization;
-use AlecRabbit\Spinner\Core\Defaults\Contract\ISpinnerSettings;
+use AlecRabbit\Spinner\Core\Defaults\Contract\ILegacySpinnerSettings;
 use AlecRabbit\Spinner\Core\Defaults\Contract\ILegacySpinnerSettingsBuilder;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoopProbe;
 
@@ -17,7 +17,7 @@ final class LegacySpinnerSettingsBuilder implements ILegacySpinnerSettingsBuilde
     ) {
     }
 
-    public function build(): ISpinnerSettings
+    public function build(): ILegacySpinnerSettings
     {
         $probe = $this->loopProbe instanceof ILoopProbe;
 
@@ -27,7 +27,7 @@ final class LegacySpinnerSettingsBuilder implements ILegacySpinnerSettingsBuilde
                 : OptionAttach::DISABLED;
 
         return
-            new SpinnerSettings(
+            new LegacySpinnerSettings(
                 initializationOption: OptionInitialization::ENABLED,
                 attachOption: $attachOption,
             );

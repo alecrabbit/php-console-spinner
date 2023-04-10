@@ -79,7 +79,6 @@ use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolverBuilder;
 use AlecRabbit\Spinner\Core\Widget\WidgetBuilder;
 use AlecRabbit\Spinner\Core\Widget\WidgetRevolverBuilder;
 use AlecRabbit\Spinner\Exception\DomainException;
-use ArrayObject;
 use Psr\Container\ContainerInterface;
 use Traversable;
 
@@ -115,118 +114,117 @@ final class ContainerFactory implements IContainerFactory
 
     protected static function getDefaultDefinitions(): Traversable
     {
-        // FIXME: extract definitions declarations? container factory depends on all other services
-        return new ArrayObject(
-            [
-                IDefaultsProvider::class => static function (ContainerInterface $container): IDefaultsProvider {
-                    return
-                        (new DefaultsProviderBuilder(
-                            loopSettingsBuilder: $container->get(ILoopSettingsBuilder::class),
-                            spinnerSettingsBuilder: $container->get(ILegacySpinnerSettingsBuilder::class),
-                            auxSettingsBuilder: $container->get(IAuxSettingsBuilder::class),
-                            driverSettingsBuilder: $container->get(IDriverSettingsBuilder::class),
-                            widgetSettingsBuilder: $container->get(IWidgetSettingsBuilder::class),
-                            rootWidgetSettingsBuilder: $container->get(IWidgetSettingsBuilder::class),
-                        ))
-                            ->build()
-                    ;
-                },
+        // TODO (2023-04-10 20:21) [Alec Rabbit]: consider extracting definitions?
+        yield from [
+            IDefaultsProvider::class => static function (ContainerInterface $container): IDefaultsProvider {
+                return
+                    (new DefaultsProviderBuilder(
+                        loopSettingsBuilder: $container->get(ILoopSettingsBuilder::class),
+                        spinnerSettingsBuilder: $container->get(ILegacySpinnerSettingsBuilder::class),
+                        auxSettingsBuilder: $container->get(IAuxSettingsBuilder::class),
+                        driverSettingsBuilder: $container->get(IDriverSettingsBuilder::class),
+                        widgetSettingsBuilder: $container->get(IWidgetSettingsBuilder::class),
+                        rootWidgetSettingsBuilder: $container->get(IWidgetSettingsBuilder::class),
+                    ))
+                        ->build()
+                ;
+            },
 
-                ILoopSettingsBuilder::class => static function (ContainerInterface $container): ILoopSettingsBuilder {
+            ILoopSettingsBuilder::class => static function (ContainerInterface $container): ILoopSettingsBuilder {
+                $loopProbe = null;
+                try {
+                    $loopProbe = $container->get(ILoopProbeFactory::class)->getProbe();
+                } finally {
+                    return new LoopSettingsBuilder($loopProbe);
+                }
+            },
+
+            IAnsiStyleConverter::class => AnsiStyleConverter::class,
+            IAuxSettingsBuilder::class => AuxSettingsBuilder::class,
+            IBufferedOutputBuilder::class => BufferedOutputBuilder::class,
+            ICharFrameCollectionRenderer::class => CharFrameCollectionRenderer::class,
+            ICharFrameRenderer::class => CharFrameRenderer::class,
+            IConfigBuilder::class => ConfigBuilder::class,
+            IConsoleCursorBuilder::class => ConsoleCursorBuilder::class,
+            IDriverAttacherFactory::class => DriverAttacherFactory::class,
+            IDriverSettingsBuilder::class => DriverSettingsBuilder::class,
+            IDriverSetup::class => DriverSetup::class,
+            IFrameFactory::class => FrameFactory::class,
+            IFrameRevolverBuilder::class => FrameRevolverBuilder::class,
+            IIntervalFactory::class => IntervalFactory::class,
+            IIntervalNormalizer::class => IntervalNormalizer::class,
+            ILoopFactory::class => LoopFactory::class,
+            ILoopSetup::class => LoopSetup::class,
+            ILoopSetupBuilder::class => LoopSetupBuilder::class,
+            ISequencer::class => Sequencer::class,
+            IStyleFrameCollectionRenderer::class => StyleFrameCollectionRenderer::class,
+            IStyleFrameRenderer::class => StyleFrameRenderer::class,
+            ITimerBuilder::class => TimerBuilder::class,
+            IWidgetBuilder::class => WidgetBuilder::class,
+            IWidgetRevolverBuilder::class => WidgetRevolverBuilder::class,
+            IWidgetSettingsBuilder::class => WidgetSettingsBuilder::class,
+            IWidthMeasurerFactory::class => WidthMeasurerFactory::class,
+
+            IIntegerNormalizer::class => static function (ContainerInterface $container): IIntegerNormalizer {
+                /** @var IAuxSettings $auxSettings */
+                $auxSettings = $container->get(IDefaultsProvider::class)->getAuxSettings();
+                return
+                    new IntegerNormalizer(
+                        $auxSettings->getNormalizerMode()->getDivisor(),
+                        IInterval::MIN_INTERVAL_MILLISECONDS
+                    );
+            },
+
+            OptionStyleMode::class => static function (ContainerInterface $container): OptionStyleMode {
+                return $container->get(IDefaultsProvider::class)->getAuxSettings()->getOptionStyleMode();
+            },
+
+
+            ILoop::class => static function (ContainerInterface $container): ILoop {
+                return
+                    $container->get(ILoopFactory::class)->getLoop();
+            },
+
+            ILoopProbeFactory::class => static function (): never {
+                throw new DomainException(
+                    sprintf(
+                        'Service for id [%s] is not available in this context.',
+                        ILoopProbeFactory::class
+                    )
+                );
+            },
+
+            IDriverAttacher::class => static function (ContainerInterface $container): IDriverAttacher {
+                return
+                    $container->get(IDriverAttacherFactory::class)->getAttacher();
+            },
+
+            IWidthMeasurer::class => static function (ContainerInterface $container): IWidthMeasurer {
+                return
+                    $container->get(IWidthMeasurerFactory::class)->create();
+            },
+
+
+            ILegacyDriverBuilder::class => LegacyDriverBuilder::class,
+            ILegacySpinnerAttacher::class =>
+                static function (ContainerInterface $container): ILegacySpinnerAttacher {
+                    return
+                        $container->get(ILegacySpinnerAttacherFactory::class)->getAttacher();
+                },
+            ILegacySpinnerAttacherFactory::class => LegacySpinnerAttacherFactory::class,
+            ILegacySpinnerBuilder::class => LegacySpinnerBuilder::class,
+            ILegacySpinnerFactory::class => LegacySpinnerFactory::class,
+            ILegacySpinnerSetup::class => LegacySpinnerSetup::class,
+
+            ILegacySpinnerSettingsBuilder::class =>
+                static function (ContainerInterface $container): ILegacySpinnerSettingsBuilder {
                     $loopProbe = null;
                     try {
                         $loopProbe = $container->get(ILoopProbeFactory::class)->getProbe();
                     } finally {
-                        return new LoopSettingsBuilder($loopProbe);
+                        return new LegacySpinnerSettingsBuilder($loopProbe);
                     }
                 },
-
-                ILegacySpinnerSettingsBuilder::class =>
-                    static function (ContainerInterface $container): ILegacySpinnerSettingsBuilder {
-                        $loopProbe = null;
-                        try {
-                            $loopProbe = $container->get(ILoopProbeFactory::class)->getProbe();
-                        } finally {
-                            return new LegacySpinnerSettingsBuilder($loopProbe);
-                        }
-                    },
-
-                IAuxSettingsBuilder::class => AuxSettingsBuilder::class,
-                IDriverSettingsBuilder::class => DriverSettingsBuilder::class,
-                IWidgetSettingsBuilder::class => WidgetSettingsBuilder::class,
-                IAnsiStyleConverter::class => AnsiStyleConverter::class,
-                ICharFrameCollectionRenderer::class => CharFrameCollectionRenderer::class,
-                ICharFrameRenderer::class => CharFrameRenderer::class,
-                IConfigBuilder::class => ConfigBuilder::class,
-                IConsoleCursorBuilder::class => ConsoleCursorBuilder::class,
-                ILegacyDriverBuilder::class => LegacyDriverBuilder::class,
-                IFrameFactory::class => FrameFactory::class,
-                IFrameRevolverBuilder::class => FrameRevolverBuilder::class,
-                IIntervalFactory::class => IntervalFactory::class,
-                IIntervalNormalizer::class => IntervalNormalizer::class,
-                ILoopFactory::class => LoopFactory::class,
-                ILoopSetup::class => LoopSetup::class,
-                ILoopSetupBuilder::class => LoopSetupBuilder::class,
-                IBufferedOutputBuilder::class => BufferedOutputBuilder::class,
-                ISequencer::class => Sequencer::class,
-                ILegacySpinnerAttacherFactory::class => LegacySpinnerAttacherFactory::class,
-                IDriverAttacherFactory::class => DriverAttacherFactory::class,
-                ILegacySpinnerBuilder::class => LegacySpinnerBuilder::class,
-                ILegacySpinnerFactory::class => LegacySpinnerFactory::class,
-                ILegacySpinnerSetup::class => LegacySpinnerSetup::class,
-                IDriverSetup::class => DriverSetup::class,
-                IStyleFrameCollectionRenderer::class => StyleFrameCollectionRenderer::class,
-                IStyleFrameRenderer::class => StyleFrameRenderer::class,
-                ITimerBuilder::class => TimerBuilder::class,
-                IWidgetBuilder::class => WidgetBuilder::class,
-                IWidgetRevolverBuilder::class => WidgetRevolverBuilder::class,
-                IWidthMeasurerFactory::class => WidthMeasurerFactory::class,
-
-                IIntegerNormalizer::class => static function (ContainerInterface $container): IIntegerNormalizer {
-                    /** @var IAuxSettings $auxSettings */
-                    $auxSettings = $container->get(IDefaultsProvider::class)->getAuxSettings();
-                    return
-                        new IntegerNormalizer(
-                            $auxSettings->getNormalizerMode()->getDivisor(),
-                            IInterval::MIN_INTERVAL_MILLISECONDS
-                        );
-                },
-
-                OptionStyleMode::class => static function (ContainerInterface $container): OptionStyleMode {
-                    return $container->get(IDefaultsProvider::class)->getAuxSettings()->getOptionStyleMode();
-                },
-
-
-                ILoop::class => static function (ContainerInterface $container): ILoop {
-                    return
-                        $container->get(ILoopFactory::class)->getLoop();
-                },
-
-                ILoopProbeFactory::class => static function (): never {
-                    throw new DomainException(
-                        sprintf(
-                            'Service for id [%s] is not available in this context.',
-                            ILoopProbeFactory::class
-                        )
-                    );
-                },
-
-                ILegacySpinnerAttacher::class =>
-                    static function (ContainerInterface $container): ILegacySpinnerAttacher {
-                        return
-                            $container->get(ILegacySpinnerAttacherFactory::class)->getAttacher();
-                    },
-
-                IDriverAttacher::class => static function (ContainerInterface $container): IDriverAttacher {
-                    return
-                        $container->get(IDriverAttacherFactory::class)->getAttacher();
-                },
-
-                IWidthMeasurer::class => static function (ContainerInterface $container): IWidthMeasurer {
-                    return
-                        $container->get(IWidthMeasurerFactory::class)->create();
-                },
-            ],
-        );
+        ];
     }
 }

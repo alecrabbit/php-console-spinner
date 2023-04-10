@@ -7,7 +7,7 @@ namespace AlecRabbit\Tests\Unit\Spinner\Core\Defaults;
 use AlecRabbit\Spinner\Contract\Option\OptionAttach;
 use AlecRabbit\Spinner\Contract\Option\OptionInitialization;
 use AlecRabbit\Spinner\Core\Defaults\Contract\ILegacySpinnerSettingsBuilder;
-use AlecRabbit\Spinner\Core\Defaults\SpinnerSettings;
+use AlecRabbit\Spinner\Core\Defaults\LegacySpinnerSettings;
 use AlecRabbit\Spinner\Core\Defaults\LegacySpinnerSettingsBuilder;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoopProbe;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
@@ -37,7 +37,7 @@ final class SpinnerSettingsBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
     {
         $settings = $this->getTesteeInstance()->build();
 
-        self::assertInstanceOf(SpinnerSettings::class, $settings);
+        self::assertInstanceOf(LegacySpinnerSettings::class, $settings);
 
         self::assertSame(OptionAttach::DISABLED, $settings->getAttachOption());
         self::assertSame(OptionInitialization::ENABLED, $settings->getInitializationOption());
@@ -51,7 +51,7 @@ final class SpinnerSettingsBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
                 ->build()
         ;
 
-        self::assertInstanceOf(SpinnerSettings::class, $settings);
+        self::assertInstanceOf(LegacySpinnerSettings::class, $settings);
 
         self::assertSame(OptionAttach::ENABLED, $settings->getAttachOption());
         self::assertSame(OptionInitialization::ENABLED, $settings->getInitializationOption());

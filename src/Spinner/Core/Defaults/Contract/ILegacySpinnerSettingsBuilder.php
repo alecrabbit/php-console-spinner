@@ -7,5 +7,5 @@ namespace AlecRabbit\Spinner\Core\Defaults\Contract;
 interface ILegacySpinnerSettingsBuilder
 {
 
-    public function build(): ISpinnerSettings;
+    public function build(): ILegacySpinnerSettings;
 }

@@ -22,7 +22,7 @@ use AlecRabbit\Spinner\Core\Contract\IDefaultsProvider;
 use AlecRabbit\Spinner\Core\Defaults\AuxSettings;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IWidgetSettings;
 use AlecRabbit\Spinner\Core\Defaults\LoopSettings;
-use AlecRabbit\Spinner\Core\Defaults\SpinnerSettings;
+use AlecRabbit\Spinner\Core\Defaults\LegacySpinnerSettings;
 use AlecRabbit\Spinner\Core\Interval;
 use AlecRabbit\Spinner\Core\Pattern\A\APattern;
 use AlecRabbit\Spinner\Core\Pattern\StylePattern\A\AStylePattern;
@@ -65,7 +65,7 @@ final class ConfigBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
         $defaultsProvider
             ->method('getSpinnerSettings')
             ->willReturn(
-                new SpinnerSettings(
+                new LegacySpinnerSettings(
                     OptionInitialization::DISABLED,
                     OptionAttach::DISABLED,
                 ),

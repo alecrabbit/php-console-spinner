@@ -7,12 +7,13 @@ namespace AlecRabbit\Spinner;
 use AlecRabbit\Spinner\Container\Contract\IContainer;
 use AlecRabbit\Spinner\Core\Config\Contract\IConfig;
 use AlecRabbit\Spinner\Core\Contract\IConfigBuilder;
+use AlecRabbit\Spinner\Core\Contract\IDefaultsProvider;
 use AlecRabbit\Spinner\Core\Contract\IFacade;
 use AlecRabbit\Spinner\Core\Contract\ILegacySpinner;
 use AlecRabbit\Spinner\Core\Contract\ILoopSetup;
 use AlecRabbit\Spinner\Core\Factory\ContainerFactory;
-use AlecRabbit\Spinner\Core\Factory\Contract\ILoopFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILegacySpinnerFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\ILoopFactory;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoop;
 
 final class Facade implements IFacade
@@ -87,5 +88,12 @@ final class Facade implements IFacade
             true => $container->replace($id, $service),
             default => $container->add($id, $service),
         };
+    }
+
+    public static function getDefaultsProvider(): IDefaultsProvider
+    {
+        return
+            self::getConfigBuilder()
+                ->getDefaultsProvider();
     }
 }

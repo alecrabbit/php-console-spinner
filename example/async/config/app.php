@@ -7,13 +7,9 @@ use AlecRabbit\Spinner\Facade;
 require_once __DIR__ . '/../bootstrap.async.php';
 
 /**
- * Example of using custom config
- *
+ * Example of using custom settings
  */
-
-$configBuilder = Facade::getConfigBuilder();
-
-$defaultsProvider = $configBuilder->getDefaultsProvider(); // Get defaults provider
+$defaultsProvider = Facade::getDefaultsProvider();
 
 // # Set custom settings
 $defaultsProvider->getDriverSettings()->setFinalMessage(PHP_EOL . '>>> Finished!' . PHP_EOL);

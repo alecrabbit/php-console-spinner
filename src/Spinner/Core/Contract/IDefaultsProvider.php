@@ -7,7 +7,7 @@ namespace AlecRabbit\Spinner\Core\Contract;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IAuxSettings;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDriverSettings;
 use AlecRabbit\Spinner\Core\Defaults\Contract\ILoopSettings;
-use AlecRabbit\Spinner\Core\Defaults\Contract\ISpinnerSettings;
+use AlecRabbit\Spinner\Core\Defaults\Contract\ILegacySpinnerSettings;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IWidgetSettings;
 
 interface IDefaultsProvider
@@ -18,7 +18,7 @@ interface IDefaultsProvider
 
     public function getLoopSettings(): ILoopSettings;
 
-    public function getSpinnerSettings(): ISpinnerSettings;
+    public function getSpinnerSettings(): ILegacySpinnerSettings;
 
     public function getWidgetSettings(): IWidgetSettings;
 
