@@ -87,4 +87,24 @@ abstract class TestCase extends PHPUnitTestCase
         return null;
     }
 
+    protected function expectedExceptionWrapper(
+        string $exceptionClass,
+        string $exceptionMessage,
+        callable $test,
+        array $args = [],
+        ?string $method = null
+    ): void {
+        $this->expectException($exceptionClass);
+        $this->expectExceptionMessage($exceptionMessage);
+
+        $test(...$args);
+
+        self::fail(
+            sprintf(
+                '%s%s',
+                $method ? sprintf('[%s()]: ', $method): '',
+                self::exceptionNotThrownString($exceptionClass, $exceptionMessage)
+            )
+        );
+    }
 }

@@ -103,6 +103,7 @@ final class ASpinnerLegacyTest extends TestCaseWithPrebuiltMocksAndStubs
         self::assertFalse(self::getPropertyValue('active', $spinner));
         self::assertFalse(self::getPropertyValue('interrupted', $spinner));
     }
+
     #[Test]
     public function invokingInterruptOnInitializedHasEffect(): void
     {

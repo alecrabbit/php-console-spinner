@@ -53,7 +53,8 @@ final class MethodEraseOneDriverTest extends TestCaseForDriver
         self::assertCount(0, self::getPropertyValue('spinners', $driver));
         self::assertEquals(new Interval(), $driver->getInterval());
     }
-#[Test]
+
+    #[Test]
     public function cursorEraseCalledIfInitialized(): void
     {
         $driver = $this->getTesteeInstance();

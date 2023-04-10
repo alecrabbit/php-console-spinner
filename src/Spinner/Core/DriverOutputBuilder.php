@@ -30,8 +30,8 @@ final class DriverOutputBuilder implements IDriverOutputBuilder
     protected function validate(): void
     {
         match (true) {
-            null === $this->bufferedOutput => throw new LogicException('Output is not defined.'),
-            null === $this->cursor => throw new LogicException('Cursor is not defined.'),
+            null === $this->bufferedOutput => throw new LogicException('Output is not set.'),
+            null === $this->cursor => throw new LogicException('Cursor is not set.'),
             default => null,
         };
     }

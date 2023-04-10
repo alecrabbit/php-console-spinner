@@ -36,7 +36,6 @@ class ConfigTest extends TestCaseWithPrebuiltMocksAndStubs
         self::assertSame($loopConfig, $config->getLoopConfig());
         self::assertSame($spinnerConfig, $config->getSpinnerConfig());
         self::assertSame($rootWidgetConfig, $config->getRootWidgetConfig());
-
     }
 
     protected function getAuxConfigStub(): Stub&IAuxConfig
