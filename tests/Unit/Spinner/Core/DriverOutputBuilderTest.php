@@ -45,6 +45,9 @@ final class DriverOutputBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
     #[Test]
     public function throwsIfCursorIsNotSet(): void
     {
+        $exceptionClass = LogicException::class;
+        $exceptionMessage = 'Cursor is not set.';
+
         $test = function () {
             $outputBuilder = $this->getTesteeInstance();
 
@@ -54,13 +57,14 @@ final class DriverOutputBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
             ;
         };
 
-        $this->expectedExceptionWrapper(
-            LogicException::class,
-            'Cursor is not set.',
-            $test,
+        $this->testExceptionWrapper(
+            exceptionClass: $exceptionClass,
+            exceptionMessage: $exceptionMessage,
+            test: $test,
             method: __METHOD__,
         );
     }
+
     #[Test]
     public function throwsIfOutputIsNotSet(): void
     {
@@ -73,7 +77,7 @@ final class DriverOutputBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
             ;
         };
 
-        $this->expectedExceptionWrapper(
+        $this->testExceptionWrapper(
             LogicException::class,
             'Output is not set.',
             $test,
