@@ -24,6 +24,8 @@ use AlecRabbit\Spinner\Core\Contract\ICharFrameRenderer;
 use AlecRabbit\Spinner\Core\Contract\IConfigBuilder;
 use AlecRabbit\Spinner\Core\Contract\IConsoleCursorBuilder;
 use AlecRabbit\Spinner\Core\Contract\IDefaultsProvider;
+use AlecRabbit\Spinner\Core\Contract\IDriverAttacher;
+use AlecRabbit\Spinner\Core\Contract\IDriverSetup;
 use AlecRabbit\Spinner\Core\Contract\IIntegerNormalizer;
 use AlecRabbit\Spinner\Core\Contract\IIntervalNormalizer;
 use AlecRabbit\Spinner\Core\Contract\ILegacyDriverBuilder;
@@ -48,7 +50,9 @@ use AlecRabbit\Spinner\Core\Defaults\DriverSettingsBuilder;
 use AlecRabbit\Spinner\Core\Defaults\LoopSettingsBuilder;
 use AlecRabbit\Spinner\Core\Defaults\SpinnerSettingsBuilder;
 use AlecRabbit\Spinner\Core\Defaults\WidgetSettingsBuilder;
+use AlecRabbit\Spinner\Core\DriverSetup;
 use AlecRabbit\Spinner\Core\Factory\Contract\IContainerFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\IDriverAttacherFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IFrameFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopFactory;
@@ -166,9 +170,11 @@ final class ContainerFactory implements IContainerFactory
                 IBufferedOutputBuilder::class => BufferedOutputBuilder::class,
                 ISequencer::class => Sequencer::class,
                 ISpinnerAttacherFactory::class => SpinnerAttacherFactory::class,
+                IDriverAttacherFactory::class => DriverAttacherFactory::class,
                 ILegacySpinnerBuilder::class => LegacySpinnerBuilder::class,
                 ISpinnerFactory::class => SpinnerFactory::class,
                 ISpinnerSetup::class => SpinnerSetup::class,
+                IDriverSetup::class => DriverSetup::class,
                 IStyleFrameCollectionRenderer::class => StyleFrameCollectionRenderer::class,
                 IStyleFrameRenderer::class => StyleFrameRenderer::class,
                 ITimerBuilder::class => TimerBuilder::class,
@@ -208,6 +214,11 @@ final class ContainerFactory implements IContainerFactory
                 ISpinnerAttacher::class => static function (ContainerInterface $container): ISpinnerAttacher {
                     return
                         $container->get(ISpinnerAttacherFactory::class)->getAttacher();
+                },
+
+                IDriverAttacher::class => static function (ContainerInterface $container): IDriverAttacher {
+                    return
+                        $container->get(IDriverAttacherFactory::class)->getAttacher();
                 },
 
                 IWidthMeasurer::class => static function (ContainerInterface $container): IWidthMeasurer {
