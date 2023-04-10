@@ -14,7 +14,7 @@ interface IDriverBuilder
 {
     public function build(): IDriver;
 
-    public function withIntervalCallback(Closure $intervalCb): IDriverBuilder;
+    public function withIntervalCallback(Closure $fn): IDriverBuilder;
 
     public function withTimer(ITimer $timer): IDriverBuilder;
 

@@ -47,6 +47,26 @@ final class DriverBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
     }
 
     #[Test]
+    public function canBuildDriverWithoutIntervalCallback(): void
+    {
+        $intervalFactory = $this->getIntervalFactoryMock();
+        $intervalFactory
+            ->expects(self::exactly(2))
+            ->method('createStill')
+            ->willReturn($this->getIntervalMock());
+
+        $driverBuilder = $this->getTesteeInstance(intervalFactory: $intervalFactory);
+
+        $driver = $driverBuilder
+            ->withDriverOutput($this->getDriverOutputMock())
+            ->withTimer($this->getTimerMock())
+            ->build()
+        ;
+
+        self::assertInstanceOf(Driver::class, $driver);
+    }
+
+    #[Test]
     public function throwsIfDriverOutputIsNotSet(): void
     {
         $exceptionClass = LogicException::class;

@@ -16,7 +16,7 @@ final class DriverBuilder implements Contract\IDriverBuilder
 {
     protected ?IDriverOutput $driverOutput = null;
     protected ?ITimer $timer = null;
-    protected ?Closure $intervalCb = null;
+    protected ?Closure $intervalCallback = null;
 
     public function __construct(
         protected IIntervalFactory $intervalFactory,
@@ -37,10 +37,10 @@ final class DriverBuilder implements Contract\IDriverBuilder
         return $clone;
     }
 
-    public function withIntervalCallback(Closure $intervalCb): IDriverBuilder
+    public function withIntervalCallback(Closure $fn): IDriverBuilder
     {
         $clone = clone $this;
-        $clone->intervalCb = $intervalCb;
+        $clone->intervalCallback = $fn;
         return $clone;
     }
 
@@ -52,7 +52,7 @@ final class DriverBuilder implements Contract\IDriverBuilder
             new Driver(
                 driverOutput: $this->driverOutput,
                 timer: $this->timer,
-                intervalCb: $this->intervalCb ?? $this->getIntervalCb(),
+                intervalCb: $this->intervalCallback ?? $this->defaultIntervalCallback(),
             );
     }
 
@@ -65,7 +65,7 @@ final class DriverBuilder implements Contract\IDriverBuilder
         };
     }
 
-    protected function getIntervalCb(): Closure
+    protected function defaultIntervalCallback(): Closure
     {
         return
             fn() => $this->intervalFactory->createStill();
