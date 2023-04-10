@@ -62,19 +62,16 @@ final class Driver implements IDriver
 
     protected function renderFrame(IFrame $frame, ISpinnerState $state): ISpinnerState
     {
-        $width = $frame->width();
+        $spinnerState =
+            new SpinnerState(
+                sequence: $frame->sequence(),
+                width: $frame->width(),
+                previousWidth: $state->getWidth()
+            );
 
-        $this->driverOutput
-            ->write(
-                new SpinnerState(
-                    sequence: $frame->sequence(),
-                    width: $width,
-                    previousWidth: $state->getPreviousWidth()
-                )
-            )
-        ;
+        $this->driverOutput->write($spinnerState);
 
-        return new SpinnerState(previousWidth: $width);
+        return $spinnerState;
     }
 
     public function interrupt(?string $interruptMessage = null): void
