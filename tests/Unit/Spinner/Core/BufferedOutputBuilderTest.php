@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core;
 
+use AlecRabbit\Spinner\Contract\Output\IBufferedOutput;
 use AlecRabbit\Spinner\Contract\Output\IOutput;
 use AlecRabbit\Spinner\Core\Contract\IBufferedOutputBuilder;
 use AlecRabbit\Spinner\Core\BufferedOutputBuilder;
@@ -30,15 +31,16 @@ final class BufferedOutputBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
     #[Test]
     public function canBuildOutput(): void
     {
-        $outputBuilder = $this->getTesteeInstance();
+        $bufferedOutputBuilder = $this->getTesteeInstance();
 
-        $output =
-            $outputBuilder
-                ->withStreamHandler(STDERR)
+        $bufferedOutput =
+            $bufferedOutputBuilder
+                ->withStream($this->getResourceStreamMock())
                 ->build()
         ;
 
-        self::assertTrue(is_subclass_of($output, IOutput::class));
+        self::assertTrue(is_subclass_of($bufferedOutput, IOutput::class));
+        self::assertTrue(is_subclass_of($bufferedOutput, IBufferedOutput::class));
     }
 
     #[Test]

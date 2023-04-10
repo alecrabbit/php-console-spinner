@@ -44,6 +44,9 @@ final class BufferedOutputBuilder implements IBufferedOutputBuilder
         }
     }
 
+    /**
+     * @codeCoverageIgnore
+     */
     public function withStreamHandler($stream): IBufferedOutputBuilder
     {
         // FIXME (2023-04-10 14:18) [Alec Rabbit]: remove this method [d68322c7-932f-4d63-afa9-7c5cc0dacba6]
