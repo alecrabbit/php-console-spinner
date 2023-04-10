@@ -22,7 +22,7 @@ final class CursorTest extends TestCase
         $cursor = $this->getTesteeInstance(output: null, cursorOption: $cursorOption);
 
         self::assertInstanceOf(Cursor::class, $cursor);
-        self::assertSame($cursorOption, self::getValue('cursorOption', $cursor));
+        self::assertSame($cursorOption, self::getPropertyValue('cursorOption', $cursor));
     }
 
     public function getTesteeInstance(
@@ -54,7 +54,7 @@ final class CursorTest extends TestCase
         $cursor = $this->getTesteeInstance(output: $output, cursorOption: $cursorOption);
 
         self::assertInstanceOf(Cursor::class, $cursor);
-        self::assertSame($cursorOption, self::getValue('cursorOption', $cursor));
+        self::assertSame($cursorOption, self::getPropertyValue('cursorOption', $cursor));
 
         $cursor->hide();
     }
@@ -70,7 +70,7 @@ final class CursorTest extends TestCase
 
         $cursor = $this->getTesteeInstance(output: $output, cursorOption: $cursorOption);
 
-        self::assertSame($cursorOption, self::getValue('cursorOption', $cursor));
+        self::assertSame($cursorOption, self::getPropertyValue('cursorOption', $cursor));
 
         $cursor->hide();
         $cursor->show();
@@ -89,7 +89,7 @@ final class CursorTest extends TestCase
         $cursor = $this->getTesteeInstance(output: $output, cursorOption: $cursorOption);
 
         self::assertInstanceOf(Cursor::class, $cursor);
-        self::assertSame($cursorOption, self::getValue('cursorOption', $cursor));
+        self::assertSame($cursorOption, self::getPropertyValue('cursorOption', $cursor));
 
         $cursor->show();
     }

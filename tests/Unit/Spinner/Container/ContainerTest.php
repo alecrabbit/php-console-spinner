@@ -29,7 +29,7 @@ final class ContainerTest extends TestCase
         $container = $this->getTesteeInstance();
 
         self::assertFalse($container->has('service'));
-        self::assertCount(0, self::getValue('definitions', $container));
+        self::assertCount(0, self::getPropertyValue('definitions', $container));
     }
 
     protected function getTesteeInstance(?Traversable $definitions = null, ?Closure $spawnerCb = null): IContainer
@@ -55,7 +55,7 @@ final class ContainerTest extends TestCase
         $container = $this->getTesteeInstance(new ArrayObject([]));
 
         self::assertFalse($container->has('foo'));
-        self::assertCount(0, self::getValue('definitions', $container));
+        self::assertCount(0, self::getPropertyValue('definitions', $container));
     }
 
     #[Test]
@@ -70,7 +70,7 @@ final class ContainerTest extends TestCase
 
         self::assertTrue($container->has('foo'));
         self::assertTrue($container->has('bar'));
-        self::assertCount(2, self::getValue('definitions', $container));
+        self::assertCount(2, self::getPropertyValue('definitions', $container));
     }
 
     #[Test]
@@ -83,7 +83,7 @@ final class ContainerTest extends TestCase
 
         self::assertTrue($container->has('foo'));
         self::assertTrue($container->has('bar'));
-        self::assertCount(2, self::getValue('definitions', $container));
+        self::assertCount(2, self::getPropertyValue('definitions', $container));
     }
 
     #[Test]
@@ -125,8 +125,8 @@ final class ContainerTest extends TestCase
 
         self::assertFalse($container->has('foo'));
         self::assertFalse($container->has('bar'));
-        self::assertCount(0, self::getValue('definitions', $container));
-        self::assertCount(0, self::getValue('services', $container));
+        self::assertCount(0, self::getPropertyValue('definitions', $container));
+        self::assertCount(0, self::getPropertyValue('services', $container));
     }
 
     #[Test]
@@ -175,7 +175,7 @@ final class ContainerTest extends TestCase
 
         self::assertSame($serviceOne, $container->get('foo')); // #1
         self::assertSame($serviceTwo, $container->get('bar')); // #2
-        self::assertCount(2, self::getValue('services', $container));
+        self::assertCount(2, self::getPropertyValue('services', $container));
 
         $container->replace('foo', $replacedServiceOne);    // #3
         $container->replace('bar', $replacedServiceTwo);    // #4
@@ -184,15 +184,15 @@ final class ContainerTest extends TestCase
         self::assertTrue($container->has('foo'));
         self::assertTrue($container->has('bar'));
 
-        self::assertCount(3, self::getValue('definitions', $container));
+        self::assertCount(3, self::getPropertyValue('definitions', $container));
         // Services should also be replaced because we already retrieved two of them
-        self::assertCount(2, self::getValue('services', $container));
+        self::assertCount(2, self::getPropertyValue('services', $container));
 
         self::assertSame($replacedServiceTwo, $container->get('bar'));   // #6
         self::assertSame($replacedServiceOne, $container->get('foo'));   // #7
         self::assertSame($replacedServiceThree, $container->get('baz')); // #8
 
-        self::assertCount(3, self::getValue('services', $container));
+        self::assertCount(3, self::getPropertyValue('services', $container));
     }
 
     #[Test]

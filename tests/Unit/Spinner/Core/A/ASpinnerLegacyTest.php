@@ -21,8 +21,8 @@ final class ASpinnerLegacyTest extends TestCaseWithPrebuiltMocksAndStubs
         $spinner = $this->getTesteeInstance(driver: null, rootWidget: null);
 
         self::assertInstanceOf(ALegacySpinner::class, $spinner);
-        self::assertFalse(self::getValue('active', $spinner));
-        self::assertFalse(self::getValue('interrupted', $spinner));
+        self::assertFalse(self::getPropertyValue('active', $spinner));
+        self::assertFalse(self::getPropertyValue('interrupted', $spinner));
     }
 
     public function getTesteeInstance(
@@ -45,11 +45,11 @@ final class ASpinnerLegacyTest extends TestCaseWithPrebuiltMocksAndStubs
         $spinner = $this->getTesteeInstance(driver: null, rootWidget: $rootWidget);
 
         $spinner->initialize();
-        self::assertTrue(self::getValue('active', $spinner));
-        self::assertFalse(self::getValue('interrupted', $spinner));
+        self::assertTrue(self::getPropertyValue('active', $spinner));
+        self::assertFalse(self::getPropertyValue('interrupted', $spinner));
 
         $spinner->deactivate();
-        self::assertFalse(self::getValue('active', $spinner));
+        self::assertFalse(self::getPropertyValue('active', $spinner));
     }
 
     #[Test]
@@ -58,8 +58,8 @@ final class ASpinnerLegacyTest extends TestCaseWithPrebuiltMocksAndStubs
         $spinner = $this->getTesteeInstance(driver: null, rootWidget: null);
 
         $spinner->interrupt();
-        self::assertFalse(self::getValue('active', $spinner));
-        self::assertFalse(self::getValue('interrupted', $spinner));
+        self::assertFalse(self::getPropertyValue('active', $spinner));
+        self::assertFalse(self::getPropertyValue('interrupted', $spinner));
     }
 
     #[Test]
@@ -68,8 +68,8 @@ final class ASpinnerLegacyTest extends TestCaseWithPrebuiltMocksAndStubs
         $spinner = $this->getTesteeInstance(driver: null, rootWidget: null);
 
         $spinner->finalize();
-        self::assertFalse(self::getValue('active', $spinner));
-        self::assertFalse(self::getValue('interrupted', $spinner));
+        self::assertFalse(self::getPropertyValue('active', $spinner));
+        self::assertFalse(self::getPropertyValue('interrupted', $spinner));
     }
 
     #[Test]
@@ -85,8 +85,8 @@ final class ASpinnerLegacyTest extends TestCaseWithPrebuiltMocksAndStubs
         $spinner = $this->getTesteeInstance(driver: $driver, rootWidget: $rootWidget);
 
         $spinner->spin();
-        self::assertFalse(self::getValue('active', $spinner));
-        self::assertFalse(self::getValue('interrupted', $spinner));
+        self::assertFalse(self::getPropertyValue('active', $spinner));
+        self::assertFalse(self::getPropertyValue('interrupted', $spinner));
     }
 
     #[Test]
@@ -100,8 +100,8 @@ final class ASpinnerLegacyTest extends TestCaseWithPrebuiltMocksAndStubs
 
         $spinner->interrupt();
         $spinner->finalize();
-        self::assertFalse(self::getValue('active', $spinner));
-        self::assertFalse(self::getValue('interrupted', $spinner));
+        self::assertFalse(self::getPropertyValue('active', $spinner));
+        self::assertFalse(self::getPropertyValue('interrupted', $spinner));
     }
     #[Test]
     public function invokingInterruptOnInitializedHasEffect(): void
@@ -113,11 +113,11 @@ final class ASpinnerLegacyTest extends TestCaseWithPrebuiltMocksAndStubs
         $spinner = $this->getTesteeInstance(driver: $driver, rootWidget: null);
 
         $spinner->initialize();
-        self::assertTrue(self::getValue('active', $spinner));
+        self::assertTrue(self::getPropertyValue('active', $spinner));
         $spinner->interrupt();
         $spinner->finalize();
-        self::assertFalse(self::getValue('active', $spinner));
-        self::assertTrue(self::getValue('interrupted', $spinner));
+        self::assertFalse(self::getPropertyValue('active', $spinner));
+        self::assertTrue(self::getPropertyValue('interrupted', $spinner));
     }
 
     #[Test]
@@ -130,10 +130,10 @@ final class ASpinnerLegacyTest extends TestCaseWithPrebuiltMocksAndStubs
         $spinner = $this->getTesteeInstance(driver: $driver, rootWidget: null);
 
         $spinner->initialize();
-        self::assertTrue(self::getValue('active', $spinner));
+        self::assertTrue(self::getPropertyValue('active', $spinner));
         $spinner->finalize();
-        self::assertFalse(self::getValue('active', $spinner));
-        self::assertFalse(self::getValue('interrupted', $spinner));
+        self::assertFalse(self::getPropertyValue('active', $spinner));
+        self::assertFalse(self::getPropertyValue('interrupted', $spinner));
     }
 
     #[Test]
@@ -150,8 +150,8 @@ final class ASpinnerLegacyTest extends TestCaseWithPrebuiltMocksAndStubs
 
         $spinner->initialize();
         $spinner->spin();
-        self::assertTrue(self::getValue('active', $spinner));
-        self::assertFalse(self::getValue('interrupted', $spinner));
+        self::assertTrue(self::getPropertyValue('active', $spinner));
+        self::assertFalse(self::getPropertyValue('interrupted', $spinner));
     }
 
     #[Test]
@@ -163,8 +163,8 @@ final class ASpinnerLegacyTest extends TestCaseWithPrebuiltMocksAndStubs
         $spinner = $this->getTesteeInstance(driver: null, rootWidget: $rootWidget);
 
         $spinner->getInterval();
-        self::assertFalse(self::getValue('active', $spinner));
-        self::assertFalse(self::getValue('interrupted', $spinner));
+        self::assertFalse(self::getPropertyValue('active', $spinner));
+        self::assertFalse(self::getPropertyValue('interrupted', $spinner));
     }
 
     #[Test]
@@ -185,8 +185,8 @@ final class ASpinnerLegacyTest extends TestCaseWithPrebuiltMocksAndStubs
 
         $spinner->wrap($func);
 
-        self::assertFalse(self::getValue('active', $spinner));
-        self::assertFalse(self::getValue('interrupted', $spinner));
+        self::assertFalse(self::getPropertyValue('active', $spinner));
+        self::assertFalse(self::getPropertyValue('interrupted', $spinner));
 
         self::assertEquals(42, $result);
     }
@@ -208,8 +208,8 @@ final class ASpinnerLegacyTest extends TestCaseWithPrebuiltMocksAndStubs
         $spinner->initialize();
         $spinner->add($this->getWidgetCompositeMock());
 
-        self::assertTrue(self::getValue('active', $spinner));
-        self::assertFalse(self::getValue('interrupted', $spinner));
+        self::assertTrue(self::getPropertyValue('active', $spinner));
+        self::assertFalse(self::getPropertyValue('interrupted', $spinner));
     }
 
     #[Test]
@@ -230,8 +230,8 @@ final class ASpinnerLegacyTest extends TestCaseWithPrebuiltMocksAndStubs
         $spinner->initialize();
         $context = $spinner->add($this->getWidgetCompositeMock());
 
-        self::assertTrue(self::getValue('active', $spinner));
-        self::assertFalse(self::getValue('interrupted', $spinner));
+        self::assertTrue(self::getPropertyValue('active', $spinner));
+        self::assertFalse(self::getPropertyValue('interrupted', $spinner));
 
         $spinner->remove($context);
     }

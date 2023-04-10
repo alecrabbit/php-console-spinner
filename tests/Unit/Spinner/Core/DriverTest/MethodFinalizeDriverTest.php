@@ -56,7 +56,7 @@ final class MethodFinalizeDriverTest extends TestCaseForDriver
 
         $driverOutput = $this->getDriverOutputMock();
         $driverOutput
-            ->expects(self::never())
+            ->expects(self::once())
             ->method('finalize')
         ;
 
@@ -73,7 +73,7 @@ final class MethodFinalizeDriverTest extends TestCaseForDriver
     {
         $driverOutput = $this->getDriverOutputMock();
         $driverOutput
-            ->expects(self::never())
+            ->expects(self::once())
             ->method('finalize')
         ;
         $driver =

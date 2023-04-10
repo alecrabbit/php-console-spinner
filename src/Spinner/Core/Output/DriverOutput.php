@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Output;
 
 use AlecRabbit\Spinner\Contract\Output\IBufferedOutput;
+use AlecRabbit\Spinner\Core\Contract\ISpinnerState;
 use AlecRabbit\Spinner\Core\Output\Contract\ICursor;
 use AlecRabbit\Spinner\Core\Output\Contract\IDriverOutput;
 
@@ -26,30 +27,30 @@ final class DriverOutput implements IDriverOutput
         }
     }
 
-    public function initialize(): void
-    {
-        $this->initialized = true;
-        $this->cursor->hide();
-    }
-
-    public function writeSequence(string $sequence, int $width, int $previousWidth): void
+    public function write(ISpinnerState $spinnerState): void
     {
         if ($this->initialized) {
-            $this->output->bufferedWrite($sequence);
+            $this->output->bufferedWrite($spinnerState->getSequence());
 
-            $this->cursor
-                ->erase(max($previousWidth - $width, 0))
-                ->moveLeft($width)
-            ;
+            $width = $spinnerState->getWidth();
+            $eraseWidth = max($spinnerState->getPreviousWidth() - $width, 0);
+
+            $this->cursor->erase($eraseWidth)->moveLeft($width);
 
             $this->output->flush();
         }
     }
 
-    public function erase(int $width): void
+    public function erase(ISpinnerState $spinnerState): void
     {
         if ($this->initialized) {
-            $this->cursor->erase($width)->flush();
+            $this->cursor->erase($spinnerState->getPreviousWidth())->flush();
         }
+    }
+
+    public function initialize(): void
+    {
+        $this->initialized = true;
+        $this->cursor->hide();
     }
 }

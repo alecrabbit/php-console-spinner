@@ -22,12 +22,12 @@ abstract class TestCase extends PHPUnitTestCase
     final protected const REPEATS = 10;
     final protected const FLOAT_EQUALITY_DELTA = 0.0000001;
 
-    protected static function getValue(string $property, mixed $from): mixed
+    protected static function getPropertyValue(string $property, mixed $from): mixed
     {
         return PickLock::getValue($from, $property);
     }
 
-    protected static function setValue(object|string $objectOrClass, string $propertyName, mixed $value): void
+    protected static function setPropertyValue(object|string $objectOrClass, string $propertyName, mixed $value): void
     {
         PickLock::setValue($objectOrClass, $propertyName, $value);
     }

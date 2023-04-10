@@ -82,6 +82,6 @@ final class LoopFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
 
     protected function setUp(): void
     {
-        self::setValue(LoopFactory::class, 'loop', null);
+        self::setPropertyValue(LoopFactory::class, 'loop', null);
     }
 }

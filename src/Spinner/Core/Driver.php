@@ -9,28 +9,29 @@ use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Contract\ITimer;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
+use AlecRabbit\Spinner\Core\Contract\ISpinnerState;
 use AlecRabbit\Spinner\Core\Output\Contract\IDriverOutput;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
+use Closure;
 use WeakMap;
 
 final class Driver implements IDriver
 {
-    /** @var WeakMap<ISpinner, int> */
-    protected WeakMap $spinners;
-    protected bool $active = false;
+    /** @var WeakMap<ISpinner, ISpinnerState> */
+    protected readonly WeakMap $spinners;
     protected IInterval $interval;
 
     public function __construct(
         protected readonly IDriverOutput $driverOutput,
         protected readonly ITimer $timer,
-        protected \Closure $intervalCb,
+        protected readonly Closure $intervalCb,
     ) {
         self::assertIntervalCallback($intervalCb);
         $this->spinners = new WeakMap();
         $this->interval = $intervalCb();
     }
 
-    protected static function assertIntervalCallback(\Closure $intervalCb): void
+    protected static function assertIntervalCallback(Closure $intervalCb): void
     {
         $interval = $intervalCb();
         if ($interval instanceof IInterval) {
@@ -47,25 +48,33 @@ final class Driver implements IDriver
 
     public function render(float $dt = null): void
     {
-        if ($this->active) {
-            $dt ??= $this->timer->getDelta();
-            foreach ($this->spinners as $spinner => $previousWidth) {
-                $this->spinners[$spinner] =
-                    $this->renderFrame(
-                        $spinner->update($dt),
-                        $previousWidth
-                    );
-            }
+        $dt ??= $this->timer->getDelta();
+        foreach ($this->spinners as $spinner => $state) {
+            $this->spinners->offsetSet(
+                $spinner,
+                $this->renderFrame(
+                    $spinner->update($dt),
+                    $state
+                )
+            );
         }
     }
 
-    protected function renderFrame(IFrame $frame, int $previousWidth): int
+    protected function renderFrame(IFrame $frame, ISpinnerState $state): ISpinnerState
     {
         $width = $frame->width();
 
-        $this->driverOutput->writeSequence($frame->sequence(), $width, $previousWidth);
+        $this->driverOutput
+            ->write(
+                new SpinnerState(
+                    sequence: $frame->sequence(),
+                    width: $width,
+                    previousWidth: $state->getPreviousWidth()
+                )
+            )
+        ;
 
-        return $width;
+        return new SpinnerState(previousWidth: $width);
     }
 
     public function interrupt(?string $interruptMessage = null): void
@@ -75,36 +84,32 @@ final class Driver implements IDriver
 
     public function finalize(?string $finalMessage = null): void
     {
-        if ($this->active) {
-            $this->eraseAll();
-            $this->driverOutput->finalize($finalMessage);
-        }
+        $this->eraseAll();
+        $this->driverOutput->finalize($finalMessage);
     }
 
     protected function eraseAll(): void
     {
-        foreach ($this->spinners as $spinner => $_) {
-            $this->erase($spinner);
+        /** @var ISpinnerState $state */
+        foreach ($this->spinners as $state) {
+            $this->erase($state);
         }
     }
 
-    protected function erase(ISpinner $spinner): void
+    protected function erase(ISpinnerState $state): void
     {
-        if ($this->active) {
-            $this->driverOutput->erase($this->spinners[$spinner]);
-        }
+        $this->driverOutput->erase($state);
     }
 
     public function initialize(): void
     {
-        $this->active = true;
         $this->driverOutput->initialize();
     }
 
     public function add(ISpinner $spinner): void
     {
         if (!$this->spinners->offsetExists($spinner)) {
-            $this->spinners->offsetSet($spinner, 0);
+            $this->spinners->offsetSet($spinner, new SpinnerState());
             $this->interval = $this->interval->smallest($spinner->getInterval());
         }
     }
@@ -117,7 +122,7 @@ final class Driver implements IDriver
     public function remove(ISpinner $spinner): void
     {
         if ($this->spinners->offsetExists($spinner)) {
-            $this->erase($spinner);
+            $this->erase($this->spinners[$spinner]);
             $this->spinners->offsetUnset($spinner);
             $this->recalculateInterval();
         }

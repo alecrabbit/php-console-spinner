@@ -56,7 +56,7 @@ final class MethodInterruptDriverTest extends TestCaseForDriver
 
         $driverOutput = $this->getDriverOutputMock();
         $driverOutput
-            ->expects(self::never())
+            ->expects(self::once())
             ->method('finalize')
         ;
 

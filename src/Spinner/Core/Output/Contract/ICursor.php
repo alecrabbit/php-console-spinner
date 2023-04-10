@@ -21,7 +21,7 @@ interface ICursor
     public function hide(): ICursor;
 
     /**
-     * Moves cursor left by $columns. Requires flushing.
+     * Moves cursor left by $columns. Requires buffer flushing.
      *
      * @param int $columns
      * @return ICursor
@@ -29,7 +29,7 @@ interface ICursor
     public function moveLeft(int $columns = 1): ICursor;
 
     /**
-     * Erases $width characters from the current position. Requires flushing.
+     * Erases $width characters from the current position. Requires buffer flushing.
      *
      * @param int $width
      * @return ICursor

@@ -19,9 +19,9 @@ final class LoopSetupTest extends TestCaseWithPrebuiltMocksAndStubs
         $loopSetup = $this->getTesteeInstance();
 
         self::assertInstanceOf(LoopSetup::class, $loopSetup);
-        self::assertFalse(self::getValue('asynchronous', $loopSetup));
-        self::assertFalse(self::getValue('signalHandlersEnabled', $loopSetup));
-        self::assertFalse(self::getValue('autoStartEnabled', $loopSetup));
+        self::assertFalse(self::getPropertyValue('asynchronous', $loopSetup));
+        self::assertFalse(self::getPropertyValue('signalHandlersEnabled', $loopSetup));
+        self::assertFalse(self::getPropertyValue('autoStartEnabled', $loopSetup));
     }
 
     public function getTesteeInstance(
@@ -55,9 +55,9 @@ final class LoopSetupTest extends TestCaseWithPrebuiltMocksAndStubs
     public function parametersCanBeSet(): void
     {
         $loopSetup = $this->getTesteeInstance();
-        self::assertFalse(self::getValue('asynchronous', $loopSetup));
-        self::assertFalse(self::getValue('signalHandlersEnabled', $loopSetup));
-        self::assertFalse(self::getValue('autoStartEnabled', $loopSetup));
+        self::assertFalse(self::getPropertyValue('asynchronous', $loopSetup));
+        self::assertFalse(self::getPropertyValue('signalHandlersEnabled', $loopSetup));
+        self::assertFalse(self::getPropertyValue('autoStartEnabled', $loopSetup));
 
         $loopSetup
             ->asynchronous(true)
@@ -65,9 +65,9 @@ final class LoopSetupTest extends TestCaseWithPrebuiltMocksAndStubs
             ->enableAutoStart(true)
         ;
 
-        self::assertTrue(self::getValue('asynchronous', $loopSetup));
-        self::assertTrue(self::getValue('signalHandlersEnabled', $loopSetup));
-        self::assertTrue(self::getValue('autoStartEnabled', $loopSetup));
+        self::assertTrue(self::getPropertyValue('asynchronous', $loopSetup));
+        self::assertTrue(self::getPropertyValue('signalHandlersEnabled', $loopSetup));
+        self::assertTrue(self::getPropertyValue('autoStartEnabled', $loopSetup));
     }
 
     #[Test]

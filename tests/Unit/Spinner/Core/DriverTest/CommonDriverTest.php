@@ -19,8 +19,7 @@ final class CommonDriverTest extends TestCaseForDriver
 
         self::assertInstanceOf(Driver::class, $driver);
 
-        self::assertCount(0, self::getValue('spinners', $driver));
-        self::assertFalse(self::getValue('active', $driver));
+        self::assertCount(0, self::getPropertyValue('spinners', $driver));
     }
 
 
@@ -46,16 +45,6 @@ final class CommonDriverTest extends TestCaseForDriver
     }
 
     #[Test]
-    public function canBeInitialized(): void
-    {
-        $driver = $this->getTesteeInstance();
-
-        $driver->initialize();
-
-        self::assertTrue(self::getValue('active', $driver));
-    }
-
-    #[Test]
     public function canAddAndRemoveSpinner(): void
     {
         $driver = $this->getTesteeInstance();
@@ -70,7 +59,7 @@ final class CommonDriverTest extends TestCaseForDriver
         ;
 
         $driver->add($spinnerOne);
-        self::assertCount(1, self::getValue('spinners', $driver));
+        self::assertCount(1, self::getPropertyValue('spinners', $driver));
         self::assertSame($intervalOne, $driver->getInterval());
 
         $spinnerTwo = $this->getSpinnerStub();
@@ -81,22 +70,22 @@ final class CommonDriverTest extends TestCaseForDriver
 
         $driver->add($spinnerTwo);
 
-        self::assertCount(2, self::getValue('spinners', $driver));
+        self::assertCount(2, self::getPropertyValue('spinners', $driver));
         self::assertSame($intervalTwo, $driver->getInterval());
 
         $driver->remove($spinnerTwo);
 
-        self::assertCount(1, self::getValue('spinners', $driver));
+        self::assertCount(1, self::getPropertyValue('spinners', $driver));
         self::assertSame($intervalOne, $driver->getInterval());
 
         $driver->remove($spinnerTwo);
 
-        self::assertCount(1, self::getValue('spinners', $driver));
+        self::assertCount(1, self::getPropertyValue('spinners', $driver));
         self::assertSame($intervalOne, $driver->getInterval());
 
         $driver->remove($spinnerOne);
 
-        self::assertCount(0, self::getValue('spinners', $driver));
+        self::assertCount(0, self::getPropertyValue('spinners', $driver));
         self::assertEquals(new Interval(), $driver->getInterval());
     }
 

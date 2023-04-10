@@ -43,7 +43,7 @@ final class LegacySpinnerBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
 
         $spinnerBuilder = $spinnerBuilder->withConfig($config);
         self::assertInstanceOf(LegacySpinnerBuilder::class, $spinnerBuilder);
-        self::assertInstanceOf(IConfig::class, self::getValue('config', $spinnerBuilder));
+        self::assertInstanceOf(IConfig::class, self::getPropertyValue('config', $spinnerBuilder));
     }
 
     #[Test]

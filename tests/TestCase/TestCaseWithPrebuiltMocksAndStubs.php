@@ -29,6 +29,7 @@ use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use AlecRabbit\Spinner\Core\Contract\ISpinnerAttacher;
 use AlecRabbit\Spinner\Core\Contract\ISpinnerBuilder;
 use AlecRabbit\Spinner\Core\Contract\ISpinnerSetup;
+use AlecRabbit\Spinner\Core\Contract\ISpinnerState;
 use AlecRabbit\Spinner\Core\Contract\ITimerBuilder;
 use AlecRabbit\Spinner\Core\Contract\IWidthMeasurer;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IAuxSettings;
@@ -55,6 +56,7 @@ use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolverBuilder;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\MockObject\Stub;
+use Unit\Spinner\Core\Output\DriverOutputTest;
 
 abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
 {
@@ -315,5 +317,14 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
     protected function getDriverOutputMock(): MockObject&IDriverOutput
     {
         return $this->createMock(IDriverOutput::class);
+    }
+
+    protected function getSpinnerStateStub(): Stub&ISpinnerState
+    {
+        return $this->createStub(ISpinnerState::class);
+    }
+    protected function getSpinnerStateMock(): MockObject&ISpinnerState
+    {
+        return $this->createMock(ISpinnerState::class);
     }
 }

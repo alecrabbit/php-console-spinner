@@ -23,7 +23,7 @@ final class MethodRenderDriverTest extends TestCaseForDriver
         $driverOutput = $this->getDriverOutputMock();
         $driverOutput
             ->expects(self::once())
-            ->method('writeSequence')
+            ->method('write')
         ;
 
         $driver =
@@ -58,7 +58,7 @@ final class MethodRenderDriverTest extends TestCaseForDriver
         $driverOutput = $this->getDriverOutputMock();
         $driverOutput
             ->expects(self::once())
-            ->method('writeSequence')
+            ->method('write')
         ;
 
         $driver =
