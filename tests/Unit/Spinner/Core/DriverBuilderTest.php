@@ -53,7 +53,8 @@ final class DriverBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
         $intervalFactory
             ->expects(self::exactly(2))
             ->method('createStill')
-            ->willReturn($this->getIntervalMock());
+            ->willReturn($this->getIntervalMock())
+        ;
 
         $driverBuilder = $this->getTesteeInstance(intervalFactory: $intervalFactory);
 

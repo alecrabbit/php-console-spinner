@@ -26,7 +26,7 @@ final class ConsoleCursorFactory implements IConsoleCursorFactory
                     $this->bufferedOutputFactory->getOutput()
                 )
                 ->withCursorOption(
-                    // TODO (2023-04-10 14:46) [Alec Rabbit]: Make it configurable [64045a0f-da0f-4bed-94fd-8f178bdf9282]
+                // TODO (2023-04-10 14:46) [Alec Rabbit]: Make it configurable [64045a0f-da0f-4bed-94fd-8f178bdf9282]
                     OptionCursor::VISIBLE,
                 )
                 ->build()

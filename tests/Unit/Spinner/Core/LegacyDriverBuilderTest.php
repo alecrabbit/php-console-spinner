@@ -27,13 +27,13 @@ final class LegacyDriverBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
     }
 
     public function getTesteeInstance(
-        ?ITimerBuilder $timerFactory = null,
+        ?ITimerBuilder $timerBuilder = null,
         ?IBufferedOutputBuilder $outputBuilder = null,
         ?IConsoleCursorBuilder $cursorBuilder = null,
     ): ILegacyDriverBuilder {
         return
             new LegacyDriverBuilder(
-                timerBuilder: $timerFactory ?? $this->getTimerFactoryMock(),
+                timerBuilder: $timerBuilder ?? $this->getTimerBuilderMock(),
                 outputBuilder: $outputBuilder ?? $this->getOutputBuilderMock(),
                 cursorBuilder: $cursorBuilder ?? $this->getCursorBuilderMock(),
             );

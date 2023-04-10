@@ -21,6 +21,8 @@ use AlecRabbit\Spinner\Core\Contract\IBufferedOutputBuilder;
 use AlecRabbit\Spinner\Core\Contract\IConfigBuilder;
 use AlecRabbit\Spinner\Core\Contract\IConsoleCursorBuilder;
 use AlecRabbit\Spinner\Core\Contract\IDefaultsProvider;
+use AlecRabbit\Spinner\Core\Contract\IDriver;
+use AlecRabbit\Spinner\Core\Contract\IDriverBuilder;
 use AlecRabbit\Spinner\Core\Contract\IDriverOutputBuilder;
 use AlecRabbit\Spinner\Core\Contract\IIntervalNormalizer;
 use AlecRabbit\Spinner\Core\Contract\ILegacyDriver;
@@ -46,9 +48,11 @@ use AlecRabbit\Spinner\Core\Defaults\Contract\IWidgetSettings;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IWidgetSettingsBuilder;
 use AlecRabbit\Spinner\Core\Factory\Contract\IBufferedOutputSingletonFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IConsoleCursorFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\IDriverOutputFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IFrameFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopProbeFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\ITimerFactory;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoop;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoopProbe;
 use AlecRabbit\Spinner\Core\Output\Contract\IConsoleCursor;
@@ -123,7 +127,7 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
         return $this->createMock(ISpinnerSetup::class);
     }
 
-    protected function getDriverBuilderMock(): MockObject&ILegacyDriverBuilder
+    protected function getLegacyDriverBuilderMock(): MockObject&ILegacyDriverBuilder
     {
         return $this->createMock(ILegacyDriverBuilder::class);
     }
@@ -183,9 +187,14 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
         return $this->createMock(IBufferedOutputBuilder::class);
     }
 
-    protected function getTimerFactoryMock(): MockObject&ITimerBuilder
+    protected function getTimerFactoryMock(): MockObject&ITimerFactory
     {
-        return $this->createMock(ITimerBuilder::class);
+        return $this->createMock(ITimerFactory::class);
+    }
+
+    protected function getDriverOutputFactoryMock(): MockObject&IDriverOutputFactory
+    {
+        return $this->createMock(IDriverOutputFactory::class);
     }
 
     protected function getBufferedOutputMock(): MockObject&IBufferedOutput
@@ -366,5 +375,25 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
     protected function getDriverOutputStub(): Stub&IDriverOutput
     {
         return $this->createStub(IDriverOutput::class);
+    }
+
+    protected function getTimerBuilderMock(): MockObject&ITimerBuilder
+    {
+        return $this->createMock(ITimerBuilder::class);
+    }
+
+    protected function getDriverBuilderMock(): MockObject&IDriverBuilder
+    {
+        return $this->createMock(IDriverBuilder::class);
+    }
+
+    protected function getTimerStub(): Stub&ITimer
+    {
+        return $this->createStub(ITimer::class);
+    }
+
+    protected function getDriverStub(): Stub&IDriver
+    {
+        return $this->createStub(IDriver::class);
     }
 }

@@ -54,7 +54,8 @@
 /app/src/Spinner/Core/Driver.php:132:36:error - MixedMethodCall: Cannot determine the type of $interval when calling method smallest
 /app/src/Spinner/Core/Driver.php:132:55:error - MixedMethodCall: Cannot determine the type of $spinner when calling method getInterval
 /app/src/Spinner/Core/Driver.php:134:16:error - MixedReturnStatement: Could not infer a return type
-/app/src/Spinner/Core/DriverBuilder.php:11:30:error - InvalidReturnType: Not all code paths of AlecRabbit\Spinner\Core\DriverBuilder::build end in a return statement, return type AlecRabbit\Spinner\Core\Contract\IDriver expected
+/app/src/Spinner/Core/DriverBuilder.php:53:31:error - PossiblyNullArgument: Argument 1 of AlecRabbit\Spinner\Core\Driver::__construct cannot be null, possibly null value provided
+/app/src/Spinner/Core/DriverBuilder.php:54:24:error - PossiblyNullArgument: Argument 2 of AlecRabbit\Spinner\Core\Driver::__construct cannot be null, possibly null value provided
 /app/src/Spinner/Core/DriverOutputBuilder.php:25:25:error - PossiblyNullArgument: Argument 1 of AlecRabbit\Spinner\Core\Output\DriverOutput::__construct cannot be null, possibly null value provided
 /app/src/Spinner/Core/DriverOutputBuilder.php:26:25:error - PossiblyNullArgument: Argument 2 of AlecRabbit\Spinner\Core\Output\DriverOutput::__construct cannot be null, possibly null value provided
 /app/src/Spinner/Core/Factory/ContainerFactory.php:107:51:error - MixedAssignment: Unable to determine the type that $id is being assigned to
@@ -87,7 +88,6 @@
 /app/src/Spinner/Core/Factory/ContainerFactory.php:213:91:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Core\Contract\IWidthMeasurer' for /app/src/spinner/core/factory/containerfactory.php:213:10671:-:closure
 /app/src/Spinner/Core/Factory/ContainerFactory.php:215:25:error - MixedReturnStatement: Could not infer a return type
 /app/src/Spinner/Core/Factory/ContainerFactory.php:215:72:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
-/app/src/Spinner/Core/Factory/Contract/IDriverFactory.php:12:45:error - UndefinedClass: Class, interface or enum named AlecRabbit\Spinner\Core\Defaults\Contract\IDefaults does not exist
 /app/src/Spinner/Core/Factory/Contract/IStaticWidgetFactory.php:24:45:error - UndefinedClass: Class, interface or enum named AlecRabbit\Spinner\Core\Defaults\Contract\IDefaults does not exist
 /app/src/Spinner/Core/Factory/Contract/IStaticWidgetFactory.php:26:53:error - UndefinedClass: Class, interface or enum named AlecRabbit\Spinner\Core\Defaults\Contract\IDefaults does not exist
 /app/src/Spinner/Core/LegacyDriverBuilder.php:44:39:error - PossiblyNullReference: Cannot call method getOutputStream on possibly null value

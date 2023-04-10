@@ -29,7 +29,7 @@ final class LegacySpinnerBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
     ): ILegacySpinnerBuilder {
         return
             new LegacySpinnerBuilder(
-                driverBuilder: $driverBuilder ?? $this->getDriverBuilderMock(),
+                driverBuilder: $driverBuilder ?? $this->getLegacyDriverBuilderMock(),
                 widgetBuilder: $widgetBuilder ?? $this->getWidgetBuilderMock(),
             );
     }

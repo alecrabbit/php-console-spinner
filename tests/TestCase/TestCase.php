@@ -102,7 +102,7 @@ abstract class TestCase extends PHPUnitTestCase
         self::fail(
             sprintf(
                 '%s%s',
-                $method ? sprintf('[%s()]: ', $method): '',
+                $method ? sprintf('[%s()]: ', $method) : '',
                 self::exceptionNotThrownString($exceptionClass, $exceptionMessage)
             )
         );

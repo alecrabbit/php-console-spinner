@@ -5,9 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Contract;
 
 use AlecRabbit\Spinner\Contract\ITimer;
-use AlecRabbit\Spinner\Core\DriverBuilder;
 use AlecRabbit\Spinner\Core\Output\Contract\IDriverOutput;
-use AlecRabbit\Spinner\Core\Timer;
 use Closure;
 
 interface IDriverBuilder

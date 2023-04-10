@@ -67,7 +67,7 @@ final class SpinnerFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
             ->willReturn(
                 $spinnerBuilder,
                 $configBuilder,
-                $this->getDriverBuilderMock(),
+                $this->getLegacyDriverBuilderMock(),
                 $this->getWidgetBuilderMock(),
             )
         ;
@@ -118,7 +118,7 @@ final class SpinnerFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
             ->method('get')
             ->willReturn(
                 $spinnerBuilder,
-                $this->getDriverBuilderMock(),
+                $this->getLegacyDriverBuilderMock(),
                 $this->getWidgetBuilderMock(),
                 $this->getConfigBuilderMock(),
             )
