@@ -6,7 +6,7 @@ namespace AlecRabbit\Spinner\Core\Contract;
 
 use AlecRabbit\Spinner\Core\Config\Contract\IConfig;
 
-interface ISpinnerBuilder
+interface ILegacySpinnerBuilder
 {
     public function build(): ILegacySpinner;
 

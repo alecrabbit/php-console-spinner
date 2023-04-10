@@ -6,7 +6,7 @@ namespace AlecRabbit\Tests\Unit\Spinner\Core;
 
 use AlecRabbit\Spinner\Core\Config\Contract\IConfig;
 use AlecRabbit\Spinner\Core\Contract\ILegacyDriverBuilder;
-use AlecRabbit\Spinner\Core\Contract\ISpinnerBuilder;
+use AlecRabbit\Spinner\Core\Contract\ILegacySpinnerBuilder;
 use AlecRabbit\Spinner\Core\LegacySpinnerBuilder;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetBuilder;
 use AlecRabbit\Spinner\Exception\LogicException;
@@ -26,7 +26,7 @@ final class LegacySpinnerBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
     public function getTesteeInstance(
         ?ILegacyDriverBuilder $driverBuilder = null,
         ?IWidgetBuilder $widgetBuilder = null,
-    ): ISpinnerBuilder {
+    ): ILegacySpinnerBuilder {
         return
             new LegacySpinnerBuilder(
                 driverBuilder: $driverBuilder ?? $this->getDriverBuilderMock(),

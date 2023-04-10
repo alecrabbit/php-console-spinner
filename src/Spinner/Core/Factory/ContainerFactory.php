@@ -26,9 +26,9 @@ use AlecRabbit\Spinner\Core\Contract\IIntegerNormalizer;
 use AlecRabbit\Spinner\Core\Contract\IIntervalNormalizer;
 use AlecRabbit\Spinner\Core\Contract\ILoopSetup;
 use AlecRabbit\Spinner\Core\Contract\ILoopSetupBuilder;
-use AlecRabbit\Spinner\Core\Contract\IOutputBuilder;
+use AlecRabbit\Spinner\Core\Contract\IBufferedOutputBuilder;
 use AlecRabbit\Spinner\Core\Contract\ISpinnerAttacher;
-use AlecRabbit\Spinner\Core\Contract\ISpinnerBuilder;
+use AlecRabbit\Spinner\Core\Contract\ILegacySpinnerBuilder;
 use AlecRabbit\Spinner\Core\Contract\ISpinnerSetup;
 use AlecRabbit\Spinner\Core\Contract\IStyleFrameCollectionRenderer;
 use AlecRabbit\Spinner\Core\Contract\IStyleFrameRenderer;
@@ -62,7 +62,7 @@ use AlecRabbit\Spinner\Core\IntervalNormalizer;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoop;
 use AlecRabbit\Spinner\Core\LoopSetup;
 use AlecRabbit\Spinner\Core\LoopSetupBuilder;
-use AlecRabbit\Spinner\Core\OutputBuilder;
+use AlecRabbit\Spinner\Core\BufferedOutputBuilder;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolverBuilder;
 use AlecRabbit\Spinner\Core\Sequencer;
 use AlecRabbit\Spinner\Core\LegacySpinnerBuilder;
@@ -163,10 +163,10 @@ final class ContainerFactory implements IContainerFactory
                 ILoopFactory::class => LoopFactory::class,
                 ILoopSetup::class => LoopSetup::class,
                 ILoopSetupBuilder::class => LoopSetupBuilder::class,
-                IOutputBuilder::class => OutputBuilder::class,
+                IBufferedOutputBuilder::class => BufferedOutputBuilder::class,
                 ISequencer::class => Sequencer::class,
                 ISpinnerAttacherFactory::class => SpinnerAttacherFactory::class,
-                ISpinnerBuilder::class => LegacySpinnerBuilder::class,
+                ILegacySpinnerBuilder::class => LegacySpinnerBuilder::class,
                 ISpinnerFactory::class => SpinnerFactory::class,
                 ISpinnerSetup::class => SpinnerSetup::class,
                 IStyleFrameCollectionRenderer::class => StyleFrameCollectionRenderer::class,

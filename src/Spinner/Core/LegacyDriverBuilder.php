@@ -9,7 +9,7 @@ use AlecRabbit\Spinner\Core\Config\Contract\IDriverConfig;
 use AlecRabbit\Spinner\Core\Contract\ICursorBuilder;
 use AlecRabbit\Spinner\Core\Contract\ILegacyDriver;
 use AlecRabbit\Spinner\Core\Contract\ILegacyDriverBuilder;
-use AlecRabbit\Spinner\Core\Contract\IOutputBuilder;
+use AlecRabbit\Spinner\Core\Contract\IBufferedOutputBuilder;
 use AlecRabbit\Spinner\Core\Contract\ITimerBuilder;
 use LogicException;
 
@@ -20,7 +20,7 @@ final class LegacyDriverBuilder implements ILegacyDriverBuilder
 
     public function __construct(
         protected ITimerBuilder $timerBuilder,
-        protected IOutputBuilder $outputBuilder,
+        protected IBufferedOutputBuilder $outputBuilder,
         protected ICursorBuilder $cursorBuilder,
     ) {
     }
@@ -40,7 +40,7 @@ final class LegacyDriverBuilder implements ILegacyDriverBuilder
     {
         $output =
             $this->outputBuilder
-                ->withStream(
+                ->withStreamHandler(
                     $this->auxConfig->getOutputStream()
                 )
                 ->build()

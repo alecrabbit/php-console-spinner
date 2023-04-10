@@ -5,26 +5,26 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Unit\Spinner\Core;
 
 use AlecRabbit\Spinner\Contract\Output\IOutput;
-use AlecRabbit\Spinner\Core\Contract\IOutputBuilder;
-use AlecRabbit\Spinner\Core\OutputBuilder;
+use AlecRabbit\Spinner\Core\Contract\IBufferedOutputBuilder;
+use AlecRabbit\Spinner\Core\BufferedOutputBuilder;
 use AlecRabbit\Spinner\Exception\LogicException;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;
 
-final class OutputBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
+final class BufferedOutputBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
 {
     #[Test]
     public function canBeCreated(): void
     {
         $outputBuilder = $this->getTesteeInstance();
 
-        self::assertInstanceOf(OutputBuilder::class, $outputBuilder);
+        self::assertInstanceOf(BufferedOutputBuilder::class, $outputBuilder);
     }
 
-    public function getTesteeInstance(): IOutputBuilder
+    public function getTesteeInstance(): IBufferedOutputBuilder
     {
         return
-            new OutputBuilder();
+            new BufferedOutputBuilder();
     }
 
     #[Test]
@@ -34,7 +34,7 @@ final class OutputBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
 
         $output =
             $outputBuilder
-                ->withStream(STDERR)
+                ->withStreamHandler(STDERR)
                 ->build()
         ;
 

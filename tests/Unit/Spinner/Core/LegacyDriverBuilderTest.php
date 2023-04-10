@@ -8,7 +8,7 @@ use AlecRabbit\Spinner\Contract\Option\OptionCursor;
 use AlecRabbit\Spinner\Core\Config\DriverConfig;
 use AlecRabbit\Spinner\Core\Contract\ICursorBuilder;
 use AlecRabbit\Spinner\Core\Contract\ILegacyDriverBuilder;
-use AlecRabbit\Spinner\Core\Contract\IOutputBuilder;
+use AlecRabbit\Spinner\Core\Contract\IBufferedOutputBuilder;
 use AlecRabbit\Spinner\Core\Contract\ITimerBuilder;
 use AlecRabbit\Spinner\Core\LegacyDriver;
 use AlecRabbit\Spinner\Core\LegacyDriverBuilder;
@@ -28,7 +28,7 @@ final class LegacyDriverBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
 
     public function getTesteeInstance(
         ?ITimerBuilder $timerFactory = null,
-        ?IOutputBuilder $outputBuilder = null,
+        ?IBufferedOutputBuilder $outputBuilder = null,
         ?ICursorBuilder $cursorBuilder = null,
     ): ILegacyDriverBuilder {
         return
@@ -45,7 +45,7 @@ final class LegacyDriverBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
         $outputBuilder = $this->getOutputBuilderMock();
 
         $outputBuilder
-            ->method('withStream')
+            ->method('withStreamHandler')
             ->willReturn($outputBuilder)
         ;
 

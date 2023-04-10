@@ -8,11 +8,11 @@ use AlecRabbit\Spinner\Core\A\ALegacySpinner;
 use AlecRabbit\Spinner\Core\Config\Contract\IConfig;
 use AlecRabbit\Spinner\Core\Contract\ILegacyDriverBuilder;
 use AlecRabbit\Spinner\Core\Contract\ILegacySpinner;
-use AlecRabbit\Spinner\Core\Contract\ISpinnerBuilder;
+use AlecRabbit\Spinner\Core\Contract\ILegacySpinnerBuilder;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetBuilder;
 use AlecRabbit\Spinner\Exception\LogicException;
 
-final class LegacySpinnerBuilder implements ISpinnerBuilder
+final class LegacySpinnerBuilder implements ILegacySpinnerBuilder
 {
     protected ?IConfig $config = null;
 

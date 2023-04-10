@@ -10,7 +10,7 @@ use AlecRabbit\Spinner\Contract\Option\OptionRunMode;
 use AlecRabbit\Spinner\Core\A\ALegacySpinner;
 use AlecRabbit\Spinner\Core\Config\Contract\IConfig;
 use AlecRabbit\Spinner\Core\Config\LoopConfig;
-use AlecRabbit\Spinner\Core\Contract\ISpinnerBuilder;
+use AlecRabbit\Spinner\Core\Contract\ILegacySpinnerBuilder;
 use AlecRabbit\Spinner\Core\Contract\ISpinnerSetup;
 use AlecRabbit\Spinner\Core\Factory\Contract\ISpinnerFactory;
 use AlecRabbit\Spinner\Core\Factory\SpinnerFactory;
@@ -29,7 +29,7 @@ final class SpinnerFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
     }
 
     public function getTesteeInstance(
-        ?ISpinnerBuilder $spinnerBuilder = null,
+        ?ILegacySpinnerBuilder $spinnerBuilder = null,
         ?ISpinnerSetup $spinnerSetup = null,
     ): ISpinnerFactory {
         return

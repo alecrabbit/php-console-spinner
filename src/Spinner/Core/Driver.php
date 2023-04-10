@@ -121,15 +121,16 @@ final class Driver implements IDriver
         if ($this->spinners->offsetExists($spinner)) {
             $this->erase($this->spinners[$spinner]);
             $this->spinners->offsetUnset($spinner);
-            $this->recalculateInterval();
+            $this->interval = $this->recalculateInterval();
         }
     }
 
-    protected function recalculateInterval(): void
+    protected function recalculateInterval(): IInterval
     {
-        $this->interval = ($this->intervalCb)();
+        $interval = ($this->intervalCb)();
         foreach ($this->spinners as $spinner => $_) {
-            $this->interval = $this->interval->smallest($spinner->getInterval());
+            $interval = $interval->smallest($spinner->getInterval());
         }
+        return $interval;
     }
 }

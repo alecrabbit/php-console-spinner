@@ -10,24 +10,25 @@ use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Contract\ITimer;
 use AlecRabbit\Spinner\Contract\Output\IBufferedOutput;
 use AlecRabbit\Spinner\Contract\Output\IOutput;
+use AlecRabbit\Spinner\Contract\Output\IResourceStream;
 use AlecRabbit\Spinner\Contract\Pattern\IPattern;
 use AlecRabbit\Spinner\Core\A\ALegacySpinner;
 use AlecRabbit\Spinner\Core\Config\Contract\IAuxConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\ILoopConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IWidgetConfig;
+use AlecRabbit\Spinner\Core\Contract\IBufferedOutputBuilder;
 use AlecRabbit\Spinner\Core\Contract\IConfigBuilder;
 use AlecRabbit\Spinner\Core\Contract\ICursorBuilder;
 use AlecRabbit\Spinner\Core\Contract\IDefaultsProvider;
 use AlecRabbit\Spinner\Core\Contract\IIntervalNormalizer;
 use AlecRabbit\Spinner\Core\Contract\ILegacyDriver;
 use AlecRabbit\Spinner\Core\Contract\ILegacyDriverBuilder;
+use AlecRabbit\Spinner\Core\Contract\ILegacySpinnerBuilder;
 use AlecRabbit\Spinner\Core\Contract\ILoopSetup;
 use AlecRabbit\Spinner\Core\Contract\ILoopSetupBuilder;
-use AlecRabbit\Spinner\Core\Contract\IOutputBuilder;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use AlecRabbit\Spinner\Core\Contract\ISpinnerAttacher;
-use AlecRabbit\Spinner\Core\Contract\ISpinnerBuilder;
 use AlecRabbit\Spinner\Core\Contract\ISpinnerSetup;
 use AlecRabbit\Spinner\Core\Contract\ISpinnerState;
 use AlecRabbit\Spinner\Core\Contract\ITimerBuilder;
@@ -56,7 +57,6 @@ use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolverBuilder;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\MockObject\Stub;
-use Unit\Spinner\Core\Output\DriverOutputTest;
 
 abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
 {
@@ -105,9 +105,9 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
         return $this->createMock(IConfigBuilder::class);
     }
 
-    protected function getSpinnerBuilderMock(): MockObject&ISpinnerBuilder
+    protected function getSpinnerBuilderMock(): MockObject&ILegacySpinnerBuilder
     {
-        return $this->createMock(ISpinnerBuilder::class);
+        return $this->createMock(ILegacySpinnerBuilder::class);
     }
 
     protected function getLoopInitializerMock(): MockObject&ILoopSetup
@@ -175,9 +175,9 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
         return $this->createMock(IFrameRevolverBuilder::class);
     }
 
-    protected function getOutputBuilderMock(): MockObject&IOutputBuilder
+    protected function getOutputBuilderMock(): MockObject&IBufferedOutputBuilder
     {
-        return $this->createMock(IOutputBuilder::class);
+        return $this->createMock(IBufferedOutputBuilder::class);
     }
 
     protected function getTimerFactoryMock(): MockObject&ITimerBuilder
@@ -299,6 +299,7 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
     {
         return $this->createMock(ICursor::class);
     }
+
     protected function getTimerMock(): MockObject&ITimer
     {
         return $this->createMock(ITimer::class);
@@ -323,8 +324,19 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
     {
         return $this->createStub(ISpinnerState::class);
     }
+
     protected function getSpinnerStateMock(): MockObject&ISpinnerState
     {
         return $this->createMock(ISpinnerState::class);
+    }
+
+    protected function getResourceStreamMock(): MockObject&IResourceStream
+    {
+        return $this->createMock(IResourceStream::class);
+    }
+
+    protected function getBufferedOutputBuilderMock(): MockObject&IBufferedOutputBuilder
+    {
+        return $this->createMock(IBufferedOutputBuilder::class);
     }
 }
