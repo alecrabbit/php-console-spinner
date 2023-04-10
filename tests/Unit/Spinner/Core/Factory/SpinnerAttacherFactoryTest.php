@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Factory;
 
-use AlecRabbit\Spinner\Core\Factory\Contract\ISpinnerAttacherFactory;
-use AlecRabbit\Spinner\Core\Factory\SpinnerAttacherFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\ILegacySpinnerAttacherFactory;
+use AlecRabbit\Spinner\Core\Factory\LegacySpinnerAttacherFactory;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoop;
-use AlecRabbit\Spinner\Core\SpinnerAttacher;
+use AlecRabbit\Spinner\Core\LegacySpinnerAttacher;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;
 
@@ -18,14 +18,14 @@ final class SpinnerAttacherFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
     {
         $spinnerAttacherFactory = $this->getTesteeInstance();
 
-        self::assertInstanceOf(SpinnerAttacherFactory::class, $spinnerAttacherFactory);
+        self::assertInstanceOf(LegacySpinnerAttacherFactory::class, $spinnerAttacherFactory);
     }
 
     public function getTesteeInstance(
         ?ILoop $loop = null,
-    ): ISpinnerAttacherFactory {
+    ): ILegacySpinnerAttacherFactory {
         return
-            new SpinnerAttacherFactory(
+            new LegacySpinnerAttacherFactory(
                 loop: $loop ?? $this->getLoopMock(),
             );
     }
@@ -36,7 +36,7 @@ final class SpinnerAttacherFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
     {
         $spinnerAttacherFactory = $this->getTesteeInstance();
 
-        self::assertInstanceOf(SpinnerAttacherFactory::class, $spinnerAttacherFactory);
-        self::assertInstanceOf(SpinnerAttacher::class, $spinnerAttacherFactory->getAttacher());
+        self::assertInstanceOf(LegacySpinnerAttacherFactory::class, $spinnerAttacherFactory);
+        self::assertInstanceOf(LegacySpinnerAttacher::class, $spinnerAttacherFactory->getAttacher());
     }
 }

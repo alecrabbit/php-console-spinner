@@ -4,9 +4,9 @@ declare(strict_types=1);
 // 03.04.23
 namespace AlecRabbit\Tests\Unit\Spinner\Core;
 
-use AlecRabbit\Spinner\Core\Contract\ISpinnerAttacher;
+use AlecRabbit\Spinner\Core\Contract\ILegacySpinnerAttacher;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoop;
-use AlecRabbit\Spinner\Core\SpinnerAttacher;
+use AlecRabbit\Spinner\Core\LegacySpinnerAttacher;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;
 use WeakMap;
@@ -19,15 +19,15 @@ final class SpinnerAttacherTest extends TestCaseWithPrebuiltMocksAndStubs
     {
         $spinnerAttacher = $this->getTesteeInstance();
 
-        self::assertInstanceOf(SpinnerAttacher::class, $spinnerAttacher);
+        self::assertInstanceOf(LegacySpinnerAttacher::class, $spinnerAttacher);
     }
 
     public function getTesteeInstance(
         ?ILoop $loop = null,
         ?WeakMap $timerMap = null,
-    ): ISpinnerAttacher {
+    ): ILegacySpinnerAttacher {
         return
-            new SpinnerAttacher(
+            new LegacySpinnerAttacher(
                 loop: $loop ?? $this->getLoopMock(),
                 timerMap: $timerMap ?? new WeakMap(),
             );

@@ -12,7 +12,7 @@ use AlecRabbit\Spinner\Core\Contract\ILegacySpinner;
 use AlecRabbit\Spinner\Core\Contract\ILoopSetup;
 use AlecRabbit\Spinner\Core\Factory\ContainerFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopFactory;
-use AlecRabbit\Spinner\Core\Factory\Contract\ISpinnerFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\ILegacySpinnerFactory;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoop;
 
 final class Facade implements IFacade
@@ -48,11 +48,11 @@ final class Facade implements IFacade
         return ContainerFactory::getContainer();
     }
 
-    protected static function getSpinnerFactory(): ISpinnerFactory
+    protected static function getSpinnerFactory(): ILegacySpinnerFactory
     {
         return
             self::getContainer()
-                ->get(ISpinnerFactory::class)
+                ->get(ILegacySpinnerFactory::class)
         ;
     }
 

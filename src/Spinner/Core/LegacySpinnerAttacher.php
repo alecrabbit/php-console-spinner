@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core;
 
 use AlecRabbit\Spinner\Core\Contract\ILegacySpinner;
-use AlecRabbit\Spinner\Core\Contract\ISpinnerAttacher;
+use AlecRabbit\Spinner\Core\Contract\ILegacySpinnerAttacher;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoop;
 use WeakMap;
 
-final class SpinnerAttacher implements ISpinnerAttacher
+final class LegacySpinnerAttacher implements ILegacySpinnerAttacher
 {
     public function __construct(
         protected ILoop $loop,

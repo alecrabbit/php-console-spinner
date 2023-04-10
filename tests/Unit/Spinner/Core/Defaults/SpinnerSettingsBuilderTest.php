@@ -6,9 +6,9 @@ namespace AlecRabbit\Tests\Unit\Spinner\Core\Defaults;
 
 use AlecRabbit\Spinner\Contract\Option\OptionAttach;
 use AlecRabbit\Spinner\Contract\Option\OptionInitialization;
-use AlecRabbit\Spinner\Core\Defaults\Contract\ISpinnerSettingsBuilder;
+use AlecRabbit\Spinner\Core\Defaults\Contract\ILegacySpinnerSettingsBuilder;
 use AlecRabbit\Spinner\Core\Defaults\SpinnerSettings;
-use AlecRabbit\Spinner\Core\Defaults\SpinnerSettingsBuilder;
+use AlecRabbit\Spinner\Core\Defaults\LegacySpinnerSettingsBuilder;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoopProbe;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;
@@ -20,14 +20,14 @@ final class SpinnerSettingsBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
     {
         $builder = $this->getTesteeInstance();
 
-        self::assertInstanceOf(SpinnerSettingsBuilder::class, $builder);
+        self::assertInstanceOf(LegacySpinnerSettingsBuilder::class, $builder);
     }
 
     public function getTesteeInstance(
         ?ILoopProbe $loopProbe = null,
-    ): ISpinnerSettingsBuilder {
+    ): ILegacySpinnerSettingsBuilder {
         return
-            new SpinnerSettingsBuilder(
+            new LegacySpinnerSettingsBuilder(
                 loopProbe: $loopProbe,
             );
     }

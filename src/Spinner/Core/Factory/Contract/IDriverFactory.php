@@ -9,6 +9,5 @@ use AlecRabbit\Spinner\Core\Defaults\Contract\IDefaults;
 
 interface IDriverFactory
 {
-
     public function create(): IDriver;
 }

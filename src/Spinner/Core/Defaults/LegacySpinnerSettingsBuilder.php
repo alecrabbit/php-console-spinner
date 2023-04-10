@@ -7,10 +7,10 @@ namespace AlecRabbit\Spinner\Core\Defaults;
 use AlecRabbit\Spinner\Contract\Option\OptionAttach;
 use AlecRabbit\Spinner\Contract\Option\OptionInitialization;
 use AlecRabbit\Spinner\Core\Defaults\Contract\ISpinnerSettings;
-use AlecRabbit\Spinner\Core\Defaults\Contract\ISpinnerSettingsBuilder;
+use AlecRabbit\Spinner\Core\Defaults\Contract\ILegacySpinnerSettingsBuilder;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoopProbe;
 
-final class SpinnerSettingsBuilder implements ISpinnerSettingsBuilder
+final class LegacySpinnerSettingsBuilder implements ILegacySpinnerSettingsBuilder
 {
     public function __construct(
         protected ?ILoopProbe $loopProbe = null,

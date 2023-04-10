@@ -29,11 +29,11 @@ use AlecRabbit\Spinner\Core\Contract\IDriverSetup;
 use AlecRabbit\Spinner\Core\Contract\IIntegerNormalizer;
 use AlecRabbit\Spinner\Core\Contract\IIntervalNormalizer;
 use AlecRabbit\Spinner\Core\Contract\ILegacyDriverBuilder;
+use AlecRabbit\Spinner\Core\Contract\ILegacySpinnerAttacher;
 use AlecRabbit\Spinner\Core\Contract\ILegacySpinnerBuilder;
+use AlecRabbit\Spinner\Core\Contract\ILegacySpinnerSetup;
 use AlecRabbit\Spinner\Core\Contract\ILoopSetup;
 use AlecRabbit\Spinner\Core\Contract\ILoopSetupBuilder;
-use AlecRabbit\Spinner\Core\Contract\ISpinnerAttacher;
-use AlecRabbit\Spinner\Core\Contract\ISpinnerSetup;
 use AlecRabbit\Spinner\Core\Contract\IStyleFrameCollectionRenderer;
 use AlecRabbit\Spinner\Core\Contract\IStyleFrameRenderer;
 use AlecRabbit\Spinner\Core\Contract\ITimerBuilder;
@@ -42,35 +42,35 @@ use AlecRabbit\Spinner\Core\Defaults\AuxSettingsBuilder;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IAuxSettings;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IAuxSettingsBuilder;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDriverSettingsBuilder;
+use AlecRabbit\Spinner\Core\Defaults\Contract\ILegacySpinnerSettingsBuilder;
 use AlecRabbit\Spinner\Core\Defaults\Contract\ILoopSettingsBuilder;
-use AlecRabbit\Spinner\Core\Defaults\Contract\ISpinnerSettingsBuilder;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IWidgetSettingsBuilder;
 use AlecRabbit\Spinner\Core\Defaults\DefaultsProviderBuilder;
 use AlecRabbit\Spinner\Core\Defaults\DriverSettingsBuilder;
+use AlecRabbit\Spinner\Core\Defaults\LegacySpinnerSettingsBuilder;
 use AlecRabbit\Spinner\Core\Defaults\LoopSettingsBuilder;
-use AlecRabbit\Spinner\Core\Defaults\SpinnerSettingsBuilder;
 use AlecRabbit\Spinner\Core\Defaults\WidgetSettingsBuilder;
 use AlecRabbit\Spinner\Core\DriverSetup;
 use AlecRabbit\Spinner\Core\Factory\Contract\IContainerFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDriverAttacherFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IFrameFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\ILegacySpinnerAttacherFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\ILegacySpinnerFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopProbeFactory;
-use AlecRabbit\Spinner\Core\Factory\Contract\ISpinnerAttacherFactory;
-use AlecRabbit\Spinner\Core\Factory\Contract\ISpinnerFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IWidthMeasurerFactory;
 use AlecRabbit\Spinner\Core\FrameRevolverBuilder;
 use AlecRabbit\Spinner\Core\IntegerNormalizer;
 use AlecRabbit\Spinner\Core\IntervalNormalizer;
 use AlecRabbit\Spinner\Core\LegacyDriverBuilder;
 use AlecRabbit\Spinner\Core\LegacySpinnerBuilder;
+use AlecRabbit\Spinner\Core\LegacySpinnerSetup;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoop;
 use AlecRabbit\Spinner\Core\LoopSetup;
 use AlecRabbit\Spinner\Core\LoopSetupBuilder;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolverBuilder;
 use AlecRabbit\Spinner\Core\Sequencer;
-use AlecRabbit\Spinner\Core\SpinnerSetup;
 use AlecRabbit\Spinner\Core\StyleFrameCollectionRenderer;
 use AlecRabbit\Spinner\Core\StyleFrameRenderer;
 use AlecRabbit\Spinner\Core\TimerBuilder;
@@ -122,7 +122,7 @@ final class ContainerFactory implements IContainerFactory
                     return
                         (new DefaultsProviderBuilder(
                             loopSettingsBuilder: $container->get(ILoopSettingsBuilder::class),
-                            spinnerSettingsBuilder: $container->get(ISpinnerSettingsBuilder::class),
+                            spinnerSettingsBuilder: $container->get(ILegacySpinnerSettingsBuilder::class),
                             auxSettingsBuilder: $container->get(IAuxSettingsBuilder::class),
                             driverSettingsBuilder: $container->get(IDriverSettingsBuilder::class),
                             widgetSettingsBuilder: $container->get(IWidgetSettingsBuilder::class),
@@ -141,13 +141,13 @@ final class ContainerFactory implements IContainerFactory
                     }
                 },
 
-                ISpinnerSettingsBuilder::class =>
-                    static function (ContainerInterface $container): ISpinnerSettingsBuilder {
+                ILegacySpinnerSettingsBuilder::class =>
+                    static function (ContainerInterface $container): ILegacySpinnerSettingsBuilder {
                         $loopProbe = null;
                         try {
                             $loopProbe = $container->get(ILoopProbeFactory::class)->getProbe();
                         } finally {
-                            return new SpinnerSettingsBuilder($loopProbe);
+                            return new LegacySpinnerSettingsBuilder($loopProbe);
                         }
                     },
 
@@ -169,11 +169,11 @@ final class ContainerFactory implements IContainerFactory
                 ILoopSetupBuilder::class => LoopSetupBuilder::class,
                 IBufferedOutputBuilder::class => BufferedOutputBuilder::class,
                 ISequencer::class => Sequencer::class,
-                ISpinnerAttacherFactory::class => SpinnerAttacherFactory::class,
+                ILegacySpinnerAttacherFactory::class => LegacySpinnerAttacherFactory::class,
                 IDriverAttacherFactory::class => DriverAttacherFactory::class,
                 ILegacySpinnerBuilder::class => LegacySpinnerBuilder::class,
-                ISpinnerFactory::class => SpinnerFactory::class,
-                ISpinnerSetup::class => SpinnerSetup::class,
+                ILegacySpinnerFactory::class => LegacySpinnerFactory::class,
+                ILegacySpinnerSetup::class => LegacySpinnerSetup::class,
                 IDriverSetup::class => DriverSetup::class,
                 IStyleFrameCollectionRenderer::class => StyleFrameCollectionRenderer::class,
                 IStyleFrameRenderer::class => StyleFrameRenderer::class,
@@ -211,10 +211,11 @@ final class ContainerFactory implements IContainerFactory
                     );
                 },
 
-                ISpinnerAttacher::class => static function (ContainerInterface $container): ISpinnerAttacher {
-                    return
-                        $container->get(ISpinnerAttacherFactory::class)->getAttacher();
-                },
+                ILegacySpinnerAttacher::class =>
+                    static function (ContainerInterface $container): ILegacySpinnerAttacher {
+                        return
+                            $container->get(ILegacySpinnerAttacherFactory::class)->getAttacher();
+                    },
 
                 IDriverAttacher::class => static function (ContainerInterface $container): IDriverAttacher {
                     return

@@ -5,16 +5,16 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core;
 
 use AlecRabbit\Spinner\Core\Contract\ILegacySpinner;
-use AlecRabbit\Spinner\Core\Contract\ISpinnerAttacher;
-use AlecRabbit\Spinner\Core\Contract\ISpinnerSetup;
+use AlecRabbit\Spinner\Core\Contract\ILegacySpinnerAttacher;
+use AlecRabbit\Spinner\Core\Contract\ILegacySpinnerSetup;
 
-final class SpinnerSetup implements ISpinnerSetup
+final class LegacySpinnerSetup implements ILegacySpinnerSetup
 {
     protected bool $initializationEnabled = false;
     protected bool $attacherEnabled = false;
 
     public function __construct(
-        protected ISpinnerAttacher $attacher,
+        protected ILegacySpinnerAttacher $attacher,
     ) {
     }
 
@@ -29,13 +29,13 @@ final class SpinnerSetup implements ISpinnerSetup
         }
     }
 
-    public function enableInitialization(bool $enable): ISpinnerSetup
+    public function enableInitialization(bool $enable): ILegacySpinnerSetup
     {
         $this->initializationEnabled = $enable;
         return $this;
     }
 
-    public function enableAttacher(bool $enable): ISpinnerSetup
+    public function enableAttacher(bool $enable): ILegacySpinnerSetup
     {
         $this->attacherEnabled = $enable;
         return $this;

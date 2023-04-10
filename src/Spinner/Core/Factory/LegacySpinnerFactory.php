@@ -7,14 +7,14 @@ namespace AlecRabbit\Spinner\Core\Factory;
 use AlecRabbit\Spinner\Core\Config\Contract\IConfig;
 use AlecRabbit\Spinner\Core\Contract\ILegacySpinner;
 use AlecRabbit\Spinner\Core\Contract\ILegacySpinnerBuilder;
-use AlecRabbit\Spinner\Core\Contract\ISpinnerSetup;
-use AlecRabbit\Spinner\Core\Factory\Contract\ISpinnerFactory;
+use AlecRabbit\Spinner\Core\Contract\ILegacySpinnerSetup;
+use AlecRabbit\Spinner\Core\Factory\Contract\ILegacySpinnerFactory;
 
-final class SpinnerFactory implements ISpinnerFactory
+final class LegacySpinnerFactory implements ILegacySpinnerFactory
 {
     public function __construct(
         protected ILegacySpinnerBuilder $spinnerBuilder,
-        protected ISpinnerSetup $spinnerSetup,
+        protected ILegacySpinnerSetup $spinnerSetup,
     ) {
     }
 

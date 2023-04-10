@@ -8,7 +8,7 @@ use AlecRabbit\Spinner\Core\Defaults\Contract\IAuxSettingsBuilder;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDefaultsProviderBuilder;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDriverSettingsBuilder;
 use AlecRabbit\Spinner\Core\Defaults\Contract\ILoopSettingsBuilder;
-use AlecRabbit\Spinner\Core\Defaults\Contract\ISpinnerSettingsBuilder;
+use AlecRabbit\Spinner\Core\Defaults\Contract\ILegacySpinnerSettingsBuilder;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IWidgetSettingsBuilder;
 use AlecRabbit\Spinner\Core\Defaults\DefaultsProvider;
 use AlecRabbit\Spinner\Core\Defaults\DefaultsProviderBuilder;
@@ -27,7 +27,7 @@ final class DefaultsProviderBuilderTest extends TestCaseWithPrebuiltMocksAndStub
 
     public function getTesteeInstance(
         ?ILoopSettingsBuilder $loopSettingsBuilder = null,
-        ?ISpinnerSettingsBuilder $spinnerSettingsBuilder = null,
+        ?ILegacySpinnerSettingsBuilder $spinnerSettingsBuilder = null,
         ?IAuxSettingsBuilder $auxSettingsBuilder = null,
         ?IDriverSettingsBuilder $driverSettingsBuilder = null,
         ?IWidgetSettingsBuilder $widgetSettingsBuilder = null,

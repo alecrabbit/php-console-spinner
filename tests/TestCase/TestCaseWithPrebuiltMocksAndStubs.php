@@ -31,8 +31,8 @@ use AlecRabbit\Spinner\Core\Contract\ILegacySpinnerBuilder;
 use AlecRabbit\Spinner\Core\Contract\ILoopSetup;
 use AlecRabbit\Spinner\Core\Contract\ILoopSetupBuilder;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
-use AlecRabbit\Spinner\Core\Contract\ISpinnerAttacher;
-use AlecRabbit\Spinner\Core\Contract\ISpinnerSetup;
+use AlecRabbit\Spinner\Core\Contract\ILegacySpinnerAttacher;
+use AlecRabbit\Spinner\Core\Contract\ILegacySpinnerSetup;
 use AlecRabbit\Spinner\Core\Contract\ISpinnerState;
 use AlecRabbit\Spinner\Core\Contract\ITimerBuilder;
 use AlecRabbit\Spinner\Core\Contract\IWidthMeasurer;
@@ -43,7 +43,7 @@ use AlecRabbit\Spinner\Core\Defaults\Contract\IDriverSettingsBuilder;
 use AlecRabbit\Spinner\Core\Defaults\Contract\ILoopSettings;
 use AlecRabbit\Spinner\Core\Defaults\Contract\ILoopSettingsBuilder;
 use AlecRabbit\Spinner\Core\Defaults\Contract\ISpinnerSettings;
-use AlecRabbit\Spinner\Core\Defaults\Contract\ISpinnerSettingsBuilder;
+use AlecRabbit\Spinner\Core\Defaults\Contract\ILegacySpinnerSettingsBuilder;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IWidgetSettings;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IWidgetSettingsBuilder;
 use AlecRabbit\Spinner\Core\Factory\Contract\IBufferedOutputSingletonFactory;
@@ -122,9 +122,9 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
         return $this->createMock(ILoopSetup::class);
     }
 
-    protected function getSpinnerSetupMock(): MockObject&ISpinnerSetup
+    protected function getSpinnerSetupMock(): MockObject&ILegacySpinnerSetup
     {
-        return $this->createMock(ISpinnerSetup::class);
+        return $this->createMock(ILegacySpinnerSetup::class);
     }
 
     protected function getLegacyDriverBuilderMock(): MockObject&ILegacyDriverBuilder
@@ -227,9 +227,9 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
         return $this->createMock(IAuxConfig::class);
     }
 
-    protected function getSpinnerAttacherMock(): MockObject&ISpinnerAttacher
+    protected function getSpinnerAttacherMock(): MockObject&ILegacySpinnerAttacher
     {
-        return $this->createMock(ISpinnerAttacher::class);
+        return $this->createMock(ILegacySpinnerAttacher::class);
     }
 
     protected function getLoopProbeMock(): MockObject&ILoopProbe
@@ -242,9 +242,9 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
         return $this->createMock(ILoopSettingsBuilder::class);
     }
 
-    protected function getSpinnerSettingsBuilderMock(): MockObject&ISpinnerSettingsBuilder
+    protected function getSpinnerSettingsBuilderMock(): MockObject&ILegacySpinnerSettingsBuilder
     {
-        return $this->createMock(ISpinnerSettingsBuilder::class);
+        return $this->createMock(ILegacySpinnerSettingsBuilder::class);
     }
 
     protected function getAuxSettingsBuilderMock(): MockObject&IAuxSettingsBuilder

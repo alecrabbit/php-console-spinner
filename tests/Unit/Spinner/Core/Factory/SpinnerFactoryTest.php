@@ -11,9 +11,9 @@ use AlecRabbit\Spinner\Core\A\ALegacySpinner;
 use AlecRabbit\Spinner\Core\Config\Contract\IConfig;
 use AlecRabbit\Spinner\Core\Config\LoopConfig;
 use AlecRabbit\Spinner\Core\Contract\ILegacySpinnerBuilder;
-use AlecRabbit\Spinner\Core\Contract\ISpinnerSetup;
-use AlecRabbit\Spinner\Core\Factory\Contract\ISpinnerFactory;
-use AlecRabbit\Spinner\Core\Factory\SpinnerFactory;
+use AlecRabbit\Spinner\Core\Contract\ILegacySpinnerSetup;
+use AlecRabbit\Spinner\Core\Factory\Contract\ILegacySpinnerFactory;
+use AlecRabbit\Spinner\Core\Factory\LegacySpinnerFactory;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -25,15 +25,15 @@ final class SpinnerFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
     {
         $spinnerFactory = $this->getTesteeInstance();
 
-        self::assertInstanceOf(SpinnerFactory::class, $spinnerFactory);
+        self::assertInstanceOf(LegacySpinnerFactory::class, $spinnerFactory);
     }
 
     public function getTesteeInstance(
         ?ILegacySpinnerBuilder $spinnerBuilder = null,
-        ?ISpinnerSetup $spinnerSetup = null,
-    ): ISpinnerFactory {
+        ?ILegacySpinnerSetup $spinnerSetup = null,
+    ): ILegacySpinnerFactory {
         return
-            new SpinnerFactory(
+            new LegacySpinnerFactory(
                 spinnerBuilder: $spinnerBuilder ?? $this->getSpinnerBuilderMock(),
                 spinnerSetup: $spinnerSetup ?? $this->getSpinnerSetupMock(),
             );

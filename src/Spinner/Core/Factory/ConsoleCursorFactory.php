@@ -15,7 +15,9 @@ final class ConsoleCursorFactory implements IConsoleCursorFactory
     public function __construct(
         protected IBufferedOutputSingletonFactory $bufferedOutputFactory,
         protected IConsoleCursorBuilder $cursorBuilder
-    ) {
+        // TODO (2023-04-10 20:07) [Alec Rabbit]: inject config [64045a0f-da0f-4bed-94fd-8f178bdf9282]
+    )
+    {
     }
 
     public function create(): IConsoleCursor
