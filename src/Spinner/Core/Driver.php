@@ -31,6 +31,9 @@ final class Driver implements IDriver
         $this->interval = $intervalCb();
     }
 
+    /**
+     * @throws InvalidArgumentException
+     */
     protected static function assertIntervalCallback(Closure $intervalCb): void
     {
         $interval = $intervalCb();

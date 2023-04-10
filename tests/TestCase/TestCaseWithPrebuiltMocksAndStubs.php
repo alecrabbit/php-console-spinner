@@ -287,6 +287,11 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
         return $this->createMock(IInterval::class);
     }
 
+    protected function getDriverMock(): MockObject&IDriver
+    {
+        return $this->createMock(IDriver::class);
+    }
+
     protected function getWidthMeasurerMock(): MockObject&IWidthMeasurer
     {
         return $this->createMock(IWidthMeasurer::class);
@@ -307,7 +312,7 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
         return $this->createStub(IFrame::class);
     }
 
-    protected function getDriverMock(): MockObject&ILegacyDriver
+    protected function getLegacyDriverMock(): MockObject&ILegacyDriver
     {
         return $this->createMock(ILegacyDriver::class);
     }

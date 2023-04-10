@@ -31,7 +31,7 @@ final class ASpinnerLegacyTest extends TestCaseWithPrebuiltMocksAndStubs
     ): ILegacySpinner {
         return
             new ALegacySpinnerOverride(
-                driver: $driver ?? $this->getDriverMock(),
+                driver: $driver ?? $this->getLegacyDriverMock(),
                 rootWidget: $rootWidget ?? $this->getWidgetCompositeMock(),
             );
     }
@@ -78,7 +78,7 @@ final class ASpinnerLegacyTest extends TestCaseWithPrebuiltMocksAndStubs
         $rootWidget = $this->getWidgetCompositeMock();
         $rootWidget->expects(self::never())->method('update');
 
-        $driver = $this->getDriverMock();
+        $driver = $this->getLegacyDriverMock();
         $driver->expects(self::never())->method('display');
         $driver->expects(self::once())->method('elapsedTime');
 
@@ -92,7 +92,7 @@ final class ASpinnerLegacyTest extends TestCaseWithPrebuiltMocksAndStubs
     #[Test]
     public function invokingInterruptOnUninitializedHasNoEffect(): void
     {
-        $driver = $this->getDriverMock();
+        $driver = $this->getLegacyDriverMock();
         $driver->expects(self::never())->method('finalize');
         $driver->expects(self::never())->method('erase');
 
@@ -107,7 +107,7 @@ final class ASpinnerLegacyTest extends TestCaseWithPrebuiltMocksAndStubs
     #[Test]
     public function invokingInterruptOnInitializedHasEffect(): void
     {
-        $driver = $this->getDriverMock();
+        $driver = $this->getLegacyDriverMock();
         $driver->expects(self::never())->method('finalize');
         $driver->expects(self::once())->method('erase');
 
@@ -124,7 +124,7 @@ final class ASpinnerLegacyTest extends TestCaseWithPrebuiltMocksAndStubs
     #[Test]
     public function invokingFinalizeOnInitializedHasEffect(): void
     {
-        $driver = $this->getDriverMock();
+        $driver = $this->getLegacyDriverMock();
         $driver->expects(self::once())->method('finalize');
         $driver->expects(self::once())->method('erase');
 
@@ -143,7 +143,7 @@ final class ASpinnerLegacyTest extends TestCaseWithPrebuiltMocksAndStubs
         $rootWidget = $this->getWidgetCompositeMock();
         $rootWidget->expects(self::exactly(2))->method('update');
 
-        $driver = $this->getDriverMock();
+        $driver = $this->getLegacyDriverMock();
         $driver->expects(self::once())->method('display');
         $driver->expects(self::once())->method('elapsedTime');
 
@@ -174,7 +174,7 @@ final class ASpinnerLegacyTest extends TestCaseWithPrebuiltMocksAndStubs
         $rootWidget = $this->getWidgetCompositeMock();
         $rootWidget->expects(self::never())->method('update');
 
-        $driver = $this->getDriverMock();
+        $driver = $this->getLegacyDriverMock();
         $driver->expects(self::never())->method('display');
         $driver->expects(self::once())->method('elapsedTime');
 
@@ -199,7 +199,7 @@ final class ASpinnerLegacyTest extends TestCaseWithPrebuiltMocksAndStubs
         $rootWidget->expects(self::once())->method('add');
         $rootWidget->expects(self::exactly(2))->method('update');
 
-        $driver = $this->getDriverMock();
+        $driver = $this->getLegacyDriverMock();
         $driver->expects(self::once())->method('erase');
         $driver->expects(self::once())->method('display');
         $driver->expects(self::once())->method('elapsedTime');
@@ -221,7 +221,7 @@ final class ASpinnerLegacyTest extends TestCaseWithPrebuiltMocksAndStubs
         $rootWidget->expects(self::once())->method('remove');
         $rootWidget->expects(self::exactly(3))->method('update');
 
-        $driver = $this->getDriverMock();
+        $driver = $this->getLegacyDriverMock();
         $driver->expects(self::exactly(2))->method('erase');
         $driver->expects(self::exactly(2))->method('display');
         $driver->expects(self::exactly(2))->method('elapsedTime');

@@ -40,20 +40,20 @@
 /app/src/Spinner/Core/Defaults/AuxSettings.php:72:16:error - MixedReturnStatement: Could not infer a return type
 /app/src/Spinner/Core/Driver.php:30:27:error - PropertyTypeCoercion: $this->spinners expects 'WeakMap<AlecRabbit\Spinner\Core\Contract\ISpinner, AlecRabbit\Spinner\Core\Contract\ISpinnerState>',  parent type 'WeakMap<object, mixed>' provided
 /app/src/Spinner/Core/Driver.php:31:9:error - MixedAssignment: Unable to determine the type that $this->interval is being assigned to
-/app/src/Spinner/Core/Driver.php:36:9:error - MixedAssignment: Unable to determine the type that $interval is being assigned to
-/app/src/Spinner/Core/Driver.php:52:37:error - MixedAssignment: Unable to determine the type that $spinner is being assigned to
-/app/src/Spinner/Core/Driver.php:52:49:error - MixedAssignment: Unable to determine the type that $state is being assigned to
-/app/src/Spinner/Core/Driver.php:54:17:error - MixedArgument: Argument 1 of WeakMap::offsetSet cannot be mixed, expecting AlecRabbit\Spinner\Core\Contract\ISpinner
-/app/src/Spinner/Core/Driver.php:56:21:error - MixedArgument: Argument 1 of AlecRabbit\Spinner\Core\Driver::renderFrame cannot be mixed, expecting AlecRabbit\Spinner\Contract\IFrame
-/app/src/Spinner/Core/Driver.php:56:31:error - MixedMethodCall: Cannot determine the type of $spinner when calling method update
-/app/src/Spinner/Core/Driver.php:57:21:error - MixedArgument: Argument 2 of AlecRabbit\Spinner\Core\Driver::renderFrame cannot be mixed, expecting AlecRabbit\Spinner\Core\Contract\ISpinnerState
-/app/src/Spinner/Core/Driver.php:128:47:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Contract\IInterval' for AlecRabbit\Spinner\Core\Driver::recalculateInterval
-/app/src/Spinner/Core/Driver.php:130:9:error - MixedAssignment: Unable to determine the type that $interval is being assigned to
-/app/src/Spinner/Core/Driver.php:131:37:error - MixedAssignment: Unable to determine the type that $spinner is being assigned to
-/app/src/Spinner/Core/Driver.php:132:13:error - MixedAssignment: Unable to determine the type that $interval is being assigned to
-/app/src/Spinner/Core/Driver.php:132:36:error - MixedMethodCall: Cannot determine the type of $interval when calling method smallest
-/app/src/Spinner/Core/Driver.php:132:55:error - MixedMethodCall: Cannot determine the type of $spinner when calling method getInterval
-/app/src/Spinner/Core/Driver.php:134:16:error - MixedReturnStatement: Could not infer a return type
+/app/src/Spinner/Core/Driver.php:39:9:error - MixedAssignment: Unable to determine the type that $interval is being assigned to
+/app/src/Spinner/Core/Driver.php:55:37:error - MixedAssignment: Unable to determine the type that $spinner is being assigned to
+/app/src/Spinner/Core/Driver.php:55:49:error - MixedAssignment: Unable to determine the type that $state is being assigned to
+/app/src/Spinner/Core/Driver.php:57:17:error - MixedArgument: Argument 1 of WeakMap::offsetSet cannot be mixed, expecting AlecRabbit\Spinner\Core\Contract\ISpinner
+/app/src/Spinner/Core/Driver.php:59:21:error - MixedArgument: Argument 1 of AlecRabbit\Spinner\Core\Driver::renderFrame cannot be mixed, expecting AlecRabbit\Spinner\Contract\IFrame
+/app/src/Spinner/Core/Driver.php:59:31:error - MixedMethodCall: Cannot determine the type of $spinner when calling method update
+/app/src/Spinner/Core/Driver.php:60:21:error - MixedArgument: Argument 2 of AlecRabbit\Spinner\Core\Driver::renderFrame cannot be mixed, expecting AlecRabbit\Spinner\Core\Contract\ISpinnerState
+/app/src/Spinner/Core/Driver.php:131:47:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Contract\IInterval' for AlecRabbit\Spinner\Core\Driver::recalculateInterval
+/app/src/Spinner/Core/Driver.php:133:9:error - MixedAssignment: Unable to determine the type that $interval is being assigned to
+/app/src/Spinner/Core/Driver.php:134:37:error - MixedAssignment: Unable to determine the type that $spinner is being assigned to
+/app/src/Spinner/Core/Driver.php:135:13:error - MixedAssignment: Unable to determine the type that $interval is being assigned to
+/app/src/Spinner/Core/Driver.php:135:36:error - MixedMethodCall: Cannot determine the type of $interval when calling method smallest
+/app/src/Spinner/Core/Driver.php:135:55:error - MixedMethodCall: Cannot determine the type of $spinner when calling method getInterval
+/app/src/Spinner/Core/Driver.php:137:16:error - MixedReturnStatement: Could not infer a return type
 /app/src/Spinner/Core/DriverBuilder.php:53:31:error - PossiblyNullArgument: Argument 1 of AlecRabbit\Spinner\Core\Driver::__construct cannot be null, possibly null value provided
 /app/src/Spinner/Core/DriverBuilder.php:54:24:error - PossiblyNullArgument: Argument 2 of AlecRabbit\Spinner\Core\Driver::__construct cannot be null, possibly null value provided
 /app/src/Spinner/Core/DriverOutputBuilder.php:25:25:error - PossiblyNullArgument: Argument 1 of AlecRabbit\Spinner\Core\Output\DriverOutput::__construct cannot be null, possibly null value provided
