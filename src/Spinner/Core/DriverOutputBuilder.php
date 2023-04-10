@@ -13,7 +13,7 @@ use AlecRabbit\Spinner\Exception\LogicException;
 
 final class DriverOutputBuilder implements IDriverOutputBuilder
 {
-    protected ?IBufferedOutput $output = null;
+    protected ?IBufferedOutput $bufferedOutput = null;
     protected ?ICursor $cursor = null;
 
     public function build(): IDriverOutput
@@ -22,7 +22,7 @@ final class DriverOutputBuilder implements IDriverOutputBuilder
 
         return
             new DriverOutput(
-                output: $this->output,
+                output: $this->bufferedOutput,
                 cursor: $this->cursor,
             );
     }
@@ -30,9 +30,23 @@ final class DriverOutputBuilder implements IDriverOutputBuilder
     protected function validate(): void
     {
         match (true) {
-            null === $this->output => throw new LogicException('Output is not defined.'),
+            null === $this->bufferedOutput => throw new LogicException('Output is not defined.'),
             null === $this->cursor => throw new LogicException('Cursor is not defined.'),
             default => null,
         };
+    }
+
+    public function withOutput(IBufferedOutput $bufferedOutput): IDriverOutputBuilder
+    {
+        $clone = clone $this;
+        $clone->bufferedOutput = $bufferedOutput;
+        return $clone;
+    }
+
+    public function withCursor(ICursor $cursor): IDriverOutputBuilder
+    {
+        $clone = clone $this;
+        $clone->cursor = $cursor;
+        return $clone;
     }
 }

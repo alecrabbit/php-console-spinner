@@ -43,6 +43,7 @@ use AlecRabbit\Spinner\Core\Defaults\Contract\ISpinnerSettings;
 use AlecRabbit\Spinner\Core\Defaults\Contract\ISpinnerSettingsBuilder;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IWidgetSettings;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IWidgetSettingsBuilder;
+use AlecRabbit\Spinner\Core\Factory\Contract\IBufferedOutputSingletonFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IFrameFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopProbeFactory;
@@ -195,6 +196,11 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
         return $this->createMock(ICursorBuilder::class);
     }
 
+    protected function getBufferedOutputFactoryMock(): MockObject&IBufferedOutputSingletonFactory
+    {
+        return $this->createMock(IBufferedOutputSingletonFactory::class);
+    }
+
     protected function getAuxConfigMock(): MockObject&IAuxConfig
     {
         return $this->createMock(IAuxConfig::class);
@@ -338,5 +344,10 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
     protected function getBufferedOutputBuilderMock(): MockObject&IBufferedOutputBuilder
     {
         return $this->createMock(IBufferedOutputBuilder::class);
+    }
+
+    protected function getCursorStub(): Stub&ICursor
+    {
+        return $this->createStub(ICursor::class);
     }
 }

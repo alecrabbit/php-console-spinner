@@ -6,7 +6,7 @@ namespace AlecRabbit\Spinner\Core\Factory\Contract;
 
 use AlecRabbit\Spinner\Contract\Output\IBufferedOutput;
 
-interface IBufferedOutputFactory
+interface IBufferedOutputSingletonFactory
 {
-    public function create(): IBufferedOutput;
+    public function getOutput(): IBufferedOutput;
 }

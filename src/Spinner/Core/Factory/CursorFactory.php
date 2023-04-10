@@ -4,30 +4,30 @@ declare(strict_types=1);
 // 10.04.23
 namespace AlecRabbit\Spinner\Core\Factory;
 
-use AlecRabbit\Spinner\Core\Contract\IDriverOutputBuilder;
+use AlecRabbit\Spinner\Contract\Option\OptionCursor;
+use AlecRabbit\Spinner\Core\Contract\ICursorBuilder;
 use AlecRabbit\Spinner\Core\Factory\Contract\IBufferedOutputSingletonFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ICursorFactory;
-use AlecRabbit\Spinner\Core\Factory\Contract\IDriverOutputFactory;
-use AlecRabbit\Spinner\Core\Output\Contract\IDriverOutput;
+use AlecRabbit\Spinner\Core\Output\Contract\ICursor;
 
-final class DriverOutputFactory implements IDriverOutputFactory
+final class CursorFactory implements ICursorFactory
 {
     public function __construct(
-        protected IDriverOutputBuilder $driverOutputBuilder,
         protected IBufferedOutputSingletonFactory $bufferedOutputFactory,
-        protected ICursorFactory $cursorFactory,
+        protected ICursorBuilder $cursorBuilder
     ) {
     }
 
-    public function create(): IDriverOutput
+    public function create(): ICursor
     {
         return
-            $this->driverOutputBuilder
+            $this->cursorBuilder
                 ->withOutput(
                     $this->bufferedOutputFactory->getOutput()
                 )
-                ->withCursor(
-                    $this->cursorFactory->create()
+                ->withCursorOption(
+                    // TODO (2023-04-10 14:46) [Alec Rabbit]: Make it configurable [64045a0f-da0f-4bed-94fd-8f178bdf9282]
+                    OptionCursor::VISIBLE,
                 )
                 ->build()
         ;
