@@ -6,22 +6,22 @@ namespace AlecRabbit\Spinner\Core;
 
 use AlecRabbit\Spinner\Contract\Option\OptionCursor;
 use AlecRabbit\Spinner\Contract\Output\IOutput;
-use AlecRabbit\Spinner\Core\Contract\ICursorBuilder;
-use AlecRabbit\Spinner\Core\Output\Contract\ICursor;
-use AlecRabbit\Spinner\Core\Output\Cursor;
+use AlecRabbit\Spinner\Core\Contract\IConsoleCursorBuilder;
+use AlecRabbit\Spinner\Core\Output\Contract\IConsoleCursor;
+use AlecRabbit\Spinner\Core\Output\ConsoleCursor;
 use LogicException;
 
-final class CursorBuilder implements ICursorBuilder
+final class ConsoleCursorBuilder implements IConsoleCursorBuilder
 {
     protected ?IOutput $output = null;
     protected ?OptionCursor $cursorOption = null;
 
-    public function build(): ICursor
+    public function build(): IConsoleCursor
     {
         $this->assert();
 
         return
-            new Cursor(
+            new ConsoleCursor(
                 $this->output,
                 $this->cursorOption,
             );
@@ -47,14 +47,14 @@ final class CursorBuilder implements ICursorBuilder
         }
     }
 
-    public function withOutput(IOutput $output): ICursorBuilder
+    public function withOutput(IOutput $output): IConsoleCursorBuilder
     {
         $clone = clone $this;
         $clone->output = $output;
         return $clone;
     }
 
-    public function withCursorOption(OptionCursor $getCursorOption): ICursorBuilder
+    public function withCursorOption(OptionCursor $getCursorOption): IConsoleCursorBuilder
     {
         $clone = clone $this;
         $clone->cursorOption = $getCursorOption;

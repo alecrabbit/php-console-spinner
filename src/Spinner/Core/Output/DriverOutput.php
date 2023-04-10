@@ -6,7 +6,7 @@ namespace AlecRabbit\Spinner\Core\Output;
 
 use AlecRabbit\Spinner\Contract\Output\IBufferedOutput;
 use AlecRabbit\Spinner\Core\Contract\ISpinnerState;
-use AlecRabbit\Spinner\Core\Output\Contract\ICursor;
+use AlecRabbit\Spinner\Core\Output\Contract\IConsoleCursor;
 use AlecRabbit\Spinner\Core\Output\Contract\IDriverOutput;
 
 final class DriverOutput implements IDriverOutput
@@ -15,7 +15,7 @@ final class DriverOutput implements IDriverOutput
 
     public function __construct(
         protected readonly IBufferedOutput $output,
-        protected readonly ICursor $cursor,
+        protected readonly IConsoleCursor $cursor,
     ) {
     }
 

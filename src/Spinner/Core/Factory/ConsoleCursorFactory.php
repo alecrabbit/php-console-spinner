@@ -5,20 +5,20 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Factory;
 
 use AlecRabbit\Spinner\Contract\Option\OptionCursor;
-use AlecRabbit\Spinner\Core\Contract\ICursorBuilder;
+use AlecRabbit\Spinner\Core\Contract\IConsoleCursorBuilder;
 use AlecRabbit\Spinner\Core\Factory\Contract\IBufferedOutputSingletonFactory;
-use AlecRabbit\Spinner\Core\Factory\Contract\ICursorFactory;
-use AlecRabbit\Spinner\Core\Output\Contract\ICursor;
+use AlecRabbit\Spinner\Core\Factory\Contract\IConsoleCursorFactory;
+use AlecRabbit\Spinner\Core\Output\Contract\IConsoleCursor;
 
-final class CursorFactory implements ICursorFactory
+final class ConsoleCursorFactory implements IConsoleCursorFactory
 {
     public function __construct(
         protected IBufferedOutputSingletonFactory $bufferedOutputFactory,
-        protected ICursorBuilder $cursorBuilder
+        protected IConsoleCursorBuilder $cursorBuilder
     ) {
     }
 
-    public function create(): ICursor
+    public function create(): IConsoleCursor
     {
         return
             $this->cursorBuilder

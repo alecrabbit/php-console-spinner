@@ -19,7 +19,7 @@ use AlecRabbit\Spinner\Core\Config\Contract\ILoopConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IWidgetConfig;
 use AlecRabbit\Spinner\Core\Contract\IBufferedOutputBuilder;
 use AlecRabbit\Spinner\Core\Contract\IConfigBuilder;
-use AlecRabbit\Spinner\Core\Contract\ICursorBuilder;
+use AlecRabbit\Spinner\Core\Contract\IConsoleCursorBuilder;
 use AlecRabbit\Spinner\Core\Contract\IDefaultsProvider;
 use AlecRabbit\Spinner\Core\Contract\IIntervalNormalizer;
 use AlecRabbit\Spinner\Core\Contract\ILegacyDriver;
@@ -49,7 +49,7 @@ use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopProbeFactory;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoop;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoopProbe;
-use AlecRabbit\Spinner\Core\Output\Contract\ICursor;
+use AlecRabbit\Spinner\Core\Output\Contract\IConsoleCursor;
 use AlecRabbit\Spinner\Core\Output\Contract\IDriverOutput;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolverBuilder;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
@@ -191,9 +191,9 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
         return $this->createMock(IBufferedOutput::class);
     }
 
-    protected function getCursorBuilderMock(): MockObject&ICursorBuilder
+    protected function getCursorBuilderMock(): MockObject&IConsoleCursorBuilder
     {
-        return $this->createMock(ICursorBuilder::class);
+        return $this->createMock(IConsoleCursorBuilder::class);
     }
 
     protected function getBufferedOutputFactoryMock(): MockObject&IBufferedOutputSingletonFactory
@@ -301,9 +301,9 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
         return $this->createMock(IOutput::class);
     }
 
-    protected function getCursorMock(): MockObject&ICursor
+    protected function getCursorMock(): MockObject&IConsoleCursor
     {
-        return $this->createMock(ICursor::class);
+        return $this->createMock(IConsoleCursor::class);
     }
 
     protected function getTimerMock(): MockObject&ITimer
@@ -346,8 +346,8 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
         return $this->createMock(IBufferedOutputBuilder::class);
     }
 
-    protected function getCursorStub(): Stub&ICursor
+    protected function getCursorStub(): Stub&IConsoleCursor
     {
-        return $this->createStub(ICursor::class);
+        return $this->createStub(IConsoleCursor::class);
     }
 }

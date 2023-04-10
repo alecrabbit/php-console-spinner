@@ -19,7 +19,7 @@ use AlecRabbit\Spinner\Core\Contract\IAnsiStyleConverter;
 use AlecRabbit\Spinner\Core\Contract\ICharFrameCollectionRenderer;
 use AlecRabbit\Spinner\Core\Contract\ICharFrameRenderer;
 use AlecRabbit\Spinner\Core\Contract\IConfigBuilder;
-use AlecRabbit\Spinner\Core\Contract\ICursorBuilder;
+use AlecRabbit\Spinner\Core\Contract\IConsoleCursorBuilder;
 use AlecRabbit\Spinner\Core\Contract\IDefaultsProvider;
 use AlecRabbit\Spinner\Core\Contract\ILegacyDriverBuilder;
 use AlecRabbit\Spinner\Core\Contract\IIntegerNormalizer;
@@ -34,7 +34,7 @@ use AlecRabbit\Spinner\Core\Contract\IStyleFrameCollectionRenderer;
 use AlecRabbit\Spinner\Core\Contract\IStyleFrameRenderer;
 use AlecRabbit\Spinner\Core\Contract\ITimerBuilder;
 use AlecRabbit\Spinner\Core\Contract\IWidthMeasurer;
-use AlecRabbit\Spinner\Core\CursorBuilder;
+use AlecRabbit\Spinner\Core\ConsoleCursorBuilder;
 use AlecRabbit\Spinner\Core\Defaults\AuxSettingsBuilder;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IAuxSettings;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IAuxSettingsBuilder;
@@ -154,7 +154,7 @@ final class ContainerFactory implements IContainerFactory
                 ICharFrameCollectionRenderer::class => CharFrameCollectionRenderer::class,
                 ICharFrameRenderer::class => CharFrameRenderer::class,
                 IConfigBuilder::class => ConfigBuilder::class,
-                ICursorBuilder::class => CursorBuilder::class,
+                IConsoleCursorBuilder::class => ConsoleCursorBuilder::class,
                 ILegacyDriverBuilder::class => LegacyDriverBuilder::class,
                 IFrameFactory::class => FrameFactory::class,
                 IFrameRevolverBuilder::class => FrameRevolverBuilder::class,

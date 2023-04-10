@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Factory;
 
-use AlecRabbit\Spinner\Core\Contract\ICursorBuilder;
+use AlecRabbit\Spinner\Core\Contract\IConsoleCursorBuilder;
 use AlecRabbit\Spinner\Core\Factory\Contract\IBufferedOutputSingletonFactory;
-use AlecRabbit\Spinner\Core\Factory\Contract\ICursorFactory;
-use AlecRabbit\Spinner\Core\Factory\CursorFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\IConsoleCursorFactory;
+use AlecRabbit\Spinner\Core\Factory\ConsoleCursorFactory;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;
 
@@ -18,15 +18,15 @@ final class CursorFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
     {
         $cursorFactory = $this->getTesteeInstance();
 
-        self::assertInstanceOf(CursorFactory::class, $cursorFactory);
+        self::assertInstanceOf(ConsoleCursorFactory::class, $cursorFactory);
     }
 
     public function getTesteeInstance(
         ?IBufferedOutputSingletonFactory $bufferedOutputFactory = null,
-        ?ICursorBuilder $cursorBuilder = null,
-    ): ICursorFactory {
+        ?IConsoleCursorBuilder $cursorBuilder = null,
+    ): IConsoleCursorFactory {
         return
-            new CursorFactory(
+            new ConsoleCursorFactory(
                 bufferedOutputFactory: $bufferedOutputFactory ?? $this->getBufferedOutputFactoryMock(),
                 cursorBuilder: $cursorBuilder ?? $this->getCursorBuilderMock(),
             );
@@ -69,7 +69,7 @@ final class CursorFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
             cursorBuilder: $cursorBuilder
         );
 
-        self::assertInstanceOf(CursorFactory::class, $cursorFactory);
+        self::assertInstanceOf(ConsoleCursorFactory::class, $cursorFactory);
 
         $cursor = $cursorFactory->create();
 

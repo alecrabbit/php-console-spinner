@@ -6,7 +6,7 @@ namespace AlecRabbit\Spinner\Core;
 
 use AlecRabbit\Spinner\Contract\Output\IBufferedOutput;
 use AlecRabbit\Spinner\Core\Contract\IDriverOutputBuilder;
-use AlecRabbit\Spinner\Core\Output\Contract\ICursor;
+use AlecRabbit\Spinner\Core\Output\Contract\IConsoleCursor;
 use AlecRabbit\Spinner\Core\Output\Contract\IDriverOutput;
 use AlecRabbit\Spinner\Core\Output\DriverOutput;
 use AlecRabbit\Spinner\Exception\LogicException;
@@ -14,7 +14,7 @@ use AlecRabbit\Spinner\Exception\LogicException;
 final class DriverOutputBuilder implements IDriverOutputBuilder
 {
     protected ?IBufferedOutput $bufferedOutput = null;
-    protected ?ICursor $cursor = null;
+    protected ?IConsoleCursor $cursor = null;
 
     public function build(): IDriverOutput
     {
@@ -43,7 +43,7 @@ final class DriverOutputBuilder implements IDriverOutputBuilder
         return $clone;
     }
 
-    public function withCursor(ICursor $cursor): IDriverOutputBuilder
+    public function withCursor(IConsoleCursor $cursor): IDriverOutputBuilder
     {
         $clone = clone $this;
         $clone->cursor = $cursor;

@@ -6,7 +6,7 @@ namespace AlecRabbit\Spinner\Core\Contract;
 
 use AlecRabbit\Spinner\Contract\Output\IBufferedOutput;
 use AlecRabbit\Spinner\Core\DriverOutputBuilder;
-use AlecRabbit\Spinner\Core\Output\Contract\ICursor;
+use AlecRabbit\Spinner\Core\Output\Contract\IConsoleCursor;
 use AlecRabbit\Spinner\Core\Output\Contract\IDriverOutput;
 
 interface IDriverOutputBuilder
@@ -15,5 +15,5 @@ interface IDriverOutputBuilder
 
     public function withOutput(IBufferedOutput $bufferedOutput): IDriverOutputBuilder;
 
-    public function withCursor(ICursor $cursor): IDriverOutputBuilder;
+    public function withCursor(IConsoleCursor $cursor): IDriverOutputBuilder;
 }

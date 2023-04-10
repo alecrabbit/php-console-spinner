@@ -6,7 +6,7 @@ namespace AlecRabbit\Tests\Unit\Spinner\Core;
 
 use AlecRabbit\Spinner\Contract\Option\OptionCursor;
 use AlecRabbit\Spinner\Core\Config\DriverConfig;
-use AlecRabbit\Spinner\Core\Contract\ICursorBuilder;
+use AlecRabbit\Spinner\Core\Contract\IConsoleCursorBuilder;
 use AlecRabbit\Spinner\Core\Contract\ILegacyDriverBuilder;
 use AlecRabbit\Spinner\Core\Contract\IBufferedOutputBuilder;
 use AlecRabbit\Spinner\Core\Contract\ITimerBuilder;
@@ -29,7 +29,7 @@ final class LegacyDriverBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
     public function getTesteeInstance(
         ?ITimerBuilder $timerFactory = null,
         ?IBufferedOutputBuilder $outputBuilder = null,
-        ?ICursorBuilder $cursorBuilder = null,
+        ?IConsoleCursorBuilder $cursorBuilder = null,
     ): ILegacyDriverBuilder {
         return
             new LegacyDriverBuilder(

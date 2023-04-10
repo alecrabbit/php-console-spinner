@@ -4,37 +4,37 @@ declare(strict_types=1);
 // 28.03.23
 namespace AlecRabbit\Spinner\Core\Output\Contract;
 
-interface ICursor
+interface IConsoleCursor
 {
     /**
      * Hides cursor.
      *
-     * @return ICursor
+     * @return IConsoleCursor
      */
-    public function show(): ICursor;
+    public function show(): IConsoleCursor;
 
     /**
      * Shows cursor.
      *
-     * @return ICursor
+     * @return IConsoleCursor
      */
-    public function hide(): ICursor;
+    public function hide(): IConsoleCursor;
 
     /**
      * Moves cursor left by $columns. Requires buffer flushing.
      *
      * @param int $columns
-     * @return ICursor
+     * @return IConsoleCursor
      */
-    public function moveLeft(int $columns = 1): ICursor;
+    public function moveLeft(int $columns = 1): IConsoleCursor;
 
     /**
      * Erases $width characters from the current position. Requires buffer flushing.
      *
      * @param int $width
-     * @return ICursor
+     * @return IConsoleCursor
      */
-    public function erase(int $width): ICursor;
+    public function erase(int $width): IConsoleCursor;
 
-    public function flush(): ICursor;
+    public function flush(): IConsoleCursor;
 }

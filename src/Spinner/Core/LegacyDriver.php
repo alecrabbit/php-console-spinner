@@ -9,7 +9,7 @@ use AlecRabbit\Spinner\Contract\ITimer;
 use AlecRabbit\Spinner\Contract\Output\IBufferedOutput;
 use AlecRabbit\Spinner\Core\Config\Contract\IDriverConfig;
 use AlecRabbit\Spinner\Core\Contract\ILegacyDriver;
-use AlecRabbit\Spinner\Core\Output\Contract\ICursor;
+use AlecRabbit\Spinner\Core\Output\Contract\IConsoleCursor;
 
 final class LegacyDriver implements ILegacyDriver
 {
@@ -19,7 +19,7 @@ final class LegacyDriver implements ILegacyDriver
 
     public function __construct(
         protected readonly IBufferedOutput $output,
-        protected readonly ICursor $cursor,
+        protected readonly IConsoleCursor $cursor,
         protected readonly ITimer $timer,
         protected readonly IDriverConfig $driverConfig,
     ) {

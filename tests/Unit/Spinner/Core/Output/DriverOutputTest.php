@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Unit\Spinner\Core\Output;
 
 use AlecRabbit\Spinner\Contract\Output\IBufferedOutput;
-use AlecRabbit\Spinner\Core\Output\Contract\ICursor;
+use AlecRabbit\Spinner\Core\Output\Contract\IConsoleCursor;
 use AlecRabbit\Spinner\Core\Output\Contract\IDriverOutput;
 use AlecRabbit\Spinner\Core\Output\DriverOutput;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
@@ -24,7 +24,7 @@ final class DriverOutputTest extends TestCaseWithPrebuiltMocksAndStubs
 
     public function getTesteeInstance(
         ?IBufferedOutput $output = null,
-        ?ICursor $cursor = null,
+        ?IConsoleCursor $cursor = null,
     ): IDriverOutput {
         return
             new DriverOutput(

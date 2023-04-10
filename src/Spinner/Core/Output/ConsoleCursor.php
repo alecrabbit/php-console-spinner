@@ -6,9 +6,9 @@ namespace AlecRabbit\Spinner\Core\Output;
 
 use AlecRabbit\Spinner\Contract\Option\OptionCursor;
 use AlecRabbit\Spinner\Contract\Output\IBufferedOutput;
-use AlecRabbit\Spinner\Core\Output\Contract\ICursor;
+use AlecRabbit\Spinner\Core\Output\Contract\IConsoleCursor;
 
-final readonly class Cursor implements ICursor
+final readonly class ConsoleCursor implements IConsoleCursor
 {
     public function __construct(
         protected IBufferedOutput $output,
@@ -16,7 +16,7 @@ final readonly class Cursor implements ICursor
     ) {
     }
 
-    public function hide(): ICursor
+    public function hide(): IConsoleCursor
     {
         if ($this->isHidden()) {
             $this->output->write("\x1b[?25l");
@@ -30,7 +30,7 @@ final readonly class Cursor implements ICursor
         return OptionCursor::HIDDEN === $this->cursorOption;
     }
 
-    public function show(): ICursor
+    public function show(): IConsoleCursor
     {
         if ($this->isHidden()) {
             $this->output->write("\x1b[?25h\x1b[?0c");
@@ -39,21 +39,21 @@ final readonly class Cursor implements ICursor
         return $this;
     }
 
-    public function moveLeft(int $columns = 1): ICursor
+    public function moveLeft(int $columns = 1): IConsoleCursor
     {
         $this->output->bufferedWrite("\x1b[{$columns}D");
 
         return $this;
     }
 
-    public function erase(int $width = 1): ICursor
+    public function erase(int $width = 1): IConsoleCursor
     {
         $this->output->bufferedWrite("\x1b[{$width}X");
 
         return $this;
     }
 
-    public function flush(): ICursor
+    public function flush(): IConsoleCursor
     {
         $this->output->flush();
 

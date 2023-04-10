@@ -6,7 +6,7 @@ namespace AlecRabbit\Spinner\Core;
 
 use AlecRabbit\Spinner\Core\Config\Contract\IAuxConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IDriverConfig;
-use AlecRabbit\Spinner\Core\Contract\ICursorBuilder;
+use AlecRabbit\Spinner\Core\Contract\IConsoleCursorBuilder;
 use AlecRabbit\Spinner\Core\Contract\ILegacyDriver;
 use AlecRabbit\Spinner\Core\Contract\ILegacyDriverBuilder;
 use AlecRabbit\Spinner\Core\Contract\IBufferedOutputBuilder;
@@ -21,7 +21,7 @@ final class LegacyDriverBuilder implements ILegacyDriverBuilder
     public function __construct(
         protected ITimerBuilder $timerBuilder,
         protected IBufferedOutputBuilder $outputBuilder,
-        protected ICursorBuilder $cursorBuilder,
+        protected IConsoleCursorBuilder $cursorBuilder,
     ) {
     }
 
