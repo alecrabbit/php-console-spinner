@@ -21,6 +21,7 @@ use AlecRabbit\Spinner\Core\Contract\IBufferedOutputBuilder;
 use AlecRabbit\Spinner\Core\Contract\IConfigBuilder;
 use AlecRabbit\Spinner\Core\Contract\IConsoleCursorBuilder;
 use AlecRabbit\Spinner\Core\Contract\IDefaultsProvider;
+use AlecRabbit\Spinner\Core\Contract\IDriverOutputBuilder;
 use AlecRabbit\Spinner\Core\Contract\IIntervalNormalizer;
 use AlecRabbit\Spinner\Core\Contract\ILegacyDriver;
 use AlecRabbit\Spinner\Core\Contract\ILegacyDriverBuilder;
@@ -44,6 +45,7 @@ use AlecRabbit\Spinner\Core\Defaults\Contract\ISpinnerSettingsBuilder;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IWidgetSettings;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IWidgetSettingsBuilder;
 use AlecRabbit\Spinner\Core\Factory\Contract\IBufferedOutputSingletonFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\IConsoleCursorFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IFrameFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopProbeFactory;
@@ -201,6 +203,16 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
         return $this->createMock(IBufferedOutputSingletonFactory::class);
     }
 
+    protected function getCursorFactoryMock(): MockObject&IConsoleCursorFactory
+    {
+        return $this->createMock(IConsoleCursorFactory::class);
+    }
+
+    protected function getDriverOutputBuilderMock(): MockObject&IDriverOutputBuilder
+    {
+        return $this->createMock(IDriverOutputBuilder::class);
+    }
+
     protected function getAuxConfigMock(): MockObject&IAuxConfig
     {
         return $this->createMock(IAuxConfig::class);
@@ -349,5 +361,10 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
     protected function getCursorStub(): Stub&IConsoleCursor
     {
         return $this->createStub(IConsoleCursor::class);
+    }
+
+    protected function getDriverOutputStub(): Stub&IDriverOutput
+    {
+        return $this->createStub(IDriverOutput::class);
     }
 }
