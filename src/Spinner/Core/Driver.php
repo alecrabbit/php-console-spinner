@@ -17,7 +17,7 @@ final class Driver implements IDriver
 {
     /** @var WeakMap<ISpinner, int> */
     protected WeakMap $spinners;
-    protected bool $initialized = false;
+    protected bool $active = false;
     protected IInterval $interval;
 
     public function __construct(
@@ -47,9 +47,9 @@ final class Driver implements IDriver
 
     public function render(float $dt = null): void
     {
-        $dt ??= $this->timer->getDelta();
-        foreach ($this->spinners as $spinner => $previousWidth) {
-            if ($this->initialized) {
+        if ($this->active) {
+            $dt ??= $this->timer->getDelta();
+            foreach ($this->spinners as $spinner => $previousWidth) {
                 $this->spinners[$spinner] =
                     $this->renderFrame(
                         $spinner->update($dt),
@@ -75,7 +75,7 @@ final class Driver implements IDriver
 
     public function finalize(?string $finalMessage = null): void
     {
-        if ($this->initialized) {
+        if ($this->active) {
             $this->eraseAll();
             $this->driverOutput->finalize($finalMessage);
         }
@@ -90,15 +90,15 @@ final class Driver implements IDriver
 
     protected function erase(ISpinner $spinner): void
     {
-        if ($this->initialized) {
+        if ($this->active) {
             $this->driverOutput->erase($this->spinners[$spinner]);
         }
     }
 
     public function initialize(): void
     {
+        $this->active = true;
         $this->driverOutput->initialize();
-        $this->initialized = true;
     }
 
     public function add(ISpinner $spinner): void

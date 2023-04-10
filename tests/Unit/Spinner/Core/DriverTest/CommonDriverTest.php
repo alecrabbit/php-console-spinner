@@ -20,7 +20,7 @@ final class CommonDriverTest extends TestCaseForDriver
         self::assertInstanceOf(Driver::class, $driver);
 
         self::assertCount(0, self::getValue('spinners', $driver));
-        self::assertFalse(self::getValue('initialized', $driver));
+        self::assertFalse(self::getValue('active', $driver));
     }
 
 
@@ -52,7 +52,7 @@ final class CommonDriverTest extends TestCaseForDriver
 
         $driver->initialize();
 
-        self::assertTrue(self::getValue('initialized', $driver));
+        self::assertTrue(self::getValue('active', $driver));
     }
 
     #[Test]
