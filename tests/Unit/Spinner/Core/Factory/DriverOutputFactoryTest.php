@@ -67,7 +67,7 @@ final class DriverOutputFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
             ->expects(self::once())
             ->method('create')
         ;
-        
+
         $driverOutputFactory = $this->getTesteeInstance(
             driverOutputBuilder: $driverOutputBuilder,
             bufferedOutputFactory: $bufferedOutputFactory,
