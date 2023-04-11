@@ -6,5 +6,5 @@ namespace AlecRabbit\Spinner\Core\Contract;
 
 interface ILoopSetup
 {
-    public function setup(): void;
+    public function setup(IDriver $driver): void;
 }

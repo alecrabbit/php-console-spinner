@@ -26,13 +26,11 @@ final class LoopSetupTest extends TestCaseWithPrebuiltMocksAndStubs
     public function getTesteeInstance(
         ?ILoop $loop = null,
         ?ILoopSettings $settings = null,
-        ?IDriver $driver = null,
     ): ILoopSetup {
         return
             new LoopSetup(
                 loop: $loop ?? $this->getLoopMock(),
                 settings: $settings ?? $this->getLoopSettingsMock(),
-                driver: $driver ?? $this->getDriverMock(),
             );
     }
 
@@ -50,7 +48,7 @@ final class LoopSetupTest extends TestCaseWithPrebuiltMocksAndStubs
         ;
 
         $this->getTesteeInstance($loop)
-            ->setup()
+            ->setup($this->getDriverMock())
         ;
     }
 
@@ -86,6 +84,6 @@ final class LoopSetupTest extends TestCaseWithPrebuiltMocksAndStubs
         $this->getTesteeInstance(
             loop: $loop,
             settings: $settings,
-        )->setup();
+        )->setup($this->getDriverMock());
     }
 }

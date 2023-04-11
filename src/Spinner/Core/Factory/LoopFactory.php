@@ -19,10 +19,9 @@ final class LoopFactory implements ILoopFactory
     protected static ?ILoop $loop = null;
 
     public function __construct(
+        protected IDefaultsProvider $defaultsProvider,
         protected ILoopProbeFactory $loopProbeFactory,
         protected ILoopSetupBuilder $loopSetupBuilder,
-        protected IDefaultsProvider $defaultsProvider,
-        protected IDriver $driver,
     ) {
     }
 
@@ -32,7 +31,6 @@ final class LoopFactory implements ILoopFactory
             $this->loopSetupBuilder
                 ->withLoop($this->getLoop())
                 ->withSettings($this->defaultsProvider->getLoopSettings())
-                ->withDriver($this->driver)
                 ->build()
         ;
     }

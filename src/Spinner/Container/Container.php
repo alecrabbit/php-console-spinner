@@ -24,7 +24,7 @@ final class Container implements IContainer
     /** @var ArrayObject<string, object> */
     protected ArrayObject $services;
 
-    protected ArrayObject $dependenciesStack;
+    protected ArrayObject $dependencyStack;
 
     /**
      * Create a container object with a set of definitions.
@@ -37,7 +37,7 @@ final class Container implements IContainer
         $this->serviceSpawner = $spawnerCreatorCb($this);
         $this->definitions = new ArrayObject();
         $this->services = new ArrayObject();
-        $this->dependenciesStack = new ArrayObject();
+        $this->dependencyStack = new ArrayObject();
 
         if ($definitions) {
             /** @var callable|object|string $definition */
@@ -153,39 +153,16 @@ final class Container implements IContainer
 
     protected function addDependencyToStack(string $id): void
     {
-        $this->assertDependency($id);
+        $this->assertDependencyStack($id);
 
-        $this->dependenciesStack->append($id);
+        $this->dependencyStack->append($id);
     }
 
-    protected function assertDependency(string $id): void
+    protected function assertDependencyStack(string $id): void
     {
-        $stack = $this->dependenciesStack->getArrayCopy();
-        if (in_array($id, $stack, true)) {
-            throw new CircularDependencyDetectedException(
-                sprintf(
-                    'Circular dependency detected!%s',
-                    PHP_EOL . $this->formatDependencyStack($id),
-                )
-            );
+        if (in_array($id, $this->dependencyStack->getArrayCopy(), true)) {
+            throw new CircularDependencyDetectedException($this->dependencyStack);
         }
-    }
-
-    private function formatDependencyStack(string $id): string
-    {
-        return sprintf(
-            'Stack: %s%s%s%s',
-            PHP_EOL,
-            '🔴 ↓ ' . implode(
-                sprintf(
-                    '%s   ↓ ',
-                    PHP_EOL,
-                ),
-                $this->dependenciesStack->getArrayCopy(),
-            ),
-            PHP_EOL .'🔴   '. $id,
-            PHP_EOL,
-        );
     }
 
     protected function getService(string $id, callable|object|string $definition): object
@@ -210,6 +187,6 @@ final class Container implements IContainer
 
     protected function removeDependencyFromStack(): void
     {
-        $this->dependenciesStack->offsetUnset($this->dependenciesStack->count() - 1);
+        $this->dependencyStack->offsetUnset($this->dependencyStack->count() - 1);
     }
 }

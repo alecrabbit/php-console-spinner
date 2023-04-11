@@ -15,18 +15,17 @@ final class LoopSetup implements ILoopSetup
     public function __construct(
         protected ILoop $loop,
         protected ILoopSettings $settings,
-        protected IDriver $driver,
     ) {
     }
 
-    public function setup(): void
+    public function setup(IDriver $driver): void
     {
         if ($this->settings->isLoopAvailable()) {
             if ($this->settings->isAutoStartEnabled()) {
                 $this->registerAutoStart();
             }
             if ($this->settings->isAttachHandlersEnabled()) {
-                $this->registerSignalHandlers();
+                $this->registerSignalHandlers($driver);
             }
         }
     }
@@ -36,19 +35,19 @@ final class LoopSetup implements ILoopSetup
         $this->loop->autoStart();
     }
 
-    protected function registerSignalHandlers(): void
+    protected function registerSignalHandlers(IDriver $driver): void
     {
-        foreach ($this->signalHandlers() as $signal => $handler) {
+        foreach ($this->signalHandlers($driver) as $signal => $handler) {
             $this->loop->onSignal($signal, $handler);
         }
     }
 
-    protected function signalHandlers(): Traversable
+    protected function signalHandlers(IDriver $driver): Traversable
     {
         yield from [
             // @codeCoverageIgnoreStart
-            SIGINT => function (): void {
-                $this->driver->interrupt();
+            SIGINT => function () use ($driver): void {
+                $driver->interrupt();
                 $this->loop->stop();
             },
             // @codeCoverageIgnoreEnd

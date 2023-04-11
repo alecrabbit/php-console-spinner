@@ -30,17 +30,15 @@ final class LoopFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
 
 
     public function getTesteeInstance(
+        ?IDefaultsProvider $defaultsProvider = null,
         ?ILoopProbeFactory $loopProbeFactory = null,
         ?ILoopSetupBuilder $loopSetupBuilder = null,
-        ?IDefaultsProvider $defaultsProvider = null,
-        ?IDriver $driver = null,
     ): ILoopFactory {
         return
             new LoopFactory(
+                defaultsProvider: $defaultsProvider ?? $this->getDefaultsProviderMock(),
                 loopProbeFactory: $loopProbeFactory ?? $this->getLoopProbeFactoryMock(),
                 loopSetupBuilder: $loopSetupBuilder ?? $this->getLoopSetupBuilderMock(),
-                defaultsProvider: $defaultsProvider ?? $this->getDefaultsProviderMock(),
-                driver: $driver ?? $this->getDriverMock(),
             );
     }
 
@@ -85,11 +83,6 @@ final class LoopFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
         ;$loopSetupBuilder
             ->expects(self::once())
             ->method('withLoop')
-            ->willReturnSelf()
-        ;
-        $loopSetupBuilder
-            ->expects(self::once())
-            ->method('withDriver')
             ->willReturnSelf()
         ;
         $loopSetupBuilder
