@@ -8,6 +8,7 @@ use AlecRabbit\Spinner\Container\Contract\IContainer;
 use AlecRabbit\Spinner\Core\Config\Contract\IConfig;
 use AlecRabbit\Spinner\Core\Contract\IConfigBuilder;
 use AlecRabbit\Spinner\Core\Contract\IDefaultsProvider;
+use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\IFacade;
 use AlecRabbit\Spinner\Core\Contract\ILegacySpinner;
 use AlecRabbit\Spinner\Core\Contract\ILoopSetup;
@@ -18,6 +19,9 @@ use AlecRabbit\Spinner\Core\Loop\Contract\ILoop;
 
 final class Facade implements IFacade
 {
+    /**
+     * @deprecated
+     */
     public static function createSpinner(IConfig $config = null): ILegacySpinner
     {
         $config = self::refineConfig($config);
@@ -30,12 +34,18 @@ final class Facade implements IFacade
             $spinner;
     }
 
+    /**
+     * @deprecated
+     */
     protected static function refineConfig(?IConfig $config): IConfig
     {
         return
             $config ?? self::getConfigBuilder()->build();
     }
 
+    /**
+     * @deprecated
+     */
     public static function getConfigBuilder(): IConfigBuilder
     {
         return
@@ -67,17 +77,12 @@ final class Facade implements IFacade
 
     protected static function getLoopFactory(): ILoopFactory
     {
-        return self::getContainer()
-            ->get(ILoopFactory::class)
-        ;
+        return self::getContainer()->get(ILoopFactory::class);
     }
 
     public static function getLoop(): ILoop
     {
-        return
-            self::getLoopFactory()
-                ->getLoop()
-        ;
+        return self::getLoopFactory()->getLoop();
     }
 
     public static function useService(string $id, object|callable|string $service): void
@@ -92,8 +97,11 @@ final class Facade implements IFacade
 
     public static function getDefaultsProvider(): IDefaultsProvider
     {
-        return
-            self::getConfigBuilder()
-                ->getDefaultsProvider();
+        return self::getContainer()->get(IDefaultsProvider::class);
+    }
+
+    public static function getDriver(): IDriver
+    {
+        return self::getContainer()->get(IDriver::class);
     }
 }

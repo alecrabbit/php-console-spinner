@@ -8,7 +8,7 @@ use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\IDriverAttacher;
 use AlecRabbit\Spinner\Core\Contract\IDriverSetup;
 
-final class DriverSetup implements Contract\IDriverSetup
+final class DriverSetup implements IDriverSetup
 {
     protected bool $initializationEnabled = false;
     protected bool $attacherEnabled = false;

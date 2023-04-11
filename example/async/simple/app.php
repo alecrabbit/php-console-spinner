@@ -6,8 +6,6 @@ use AlecRabbit\Spinner\Facade;
 
 require_once __DIR__ . '/../bootstrap.async.php';
 
-$spinner = Facade::createSpinner();
+$driver = Facade::getDriver();
 
-// # that's it :)
-
-finalizeSpinner($spinner); // ...and limit run time
+dump($driver);

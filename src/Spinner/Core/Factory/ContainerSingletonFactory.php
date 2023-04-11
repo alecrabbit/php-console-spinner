@@ -11,6 +11,7 @@ use AlecRabbit\Spinner\Container\ServiceSpawner;
 use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Contract\Option\OptionNormalizerMode;
 use AlecRabbit\Spinner\Contract\Option\OptionStyleMode;
+use AlecRabbit\Spinner\Contract\Output\IResourceStream;
 use AlecRabbit\Spinner\Contract\Output\ISequencer;
 use AlecRabbit\Spinner\Core\BufferedOutputBuilder;
 use AlecRabbit\Spinner\Core\CharFrameCollectionRenderer;
@@ -25,7 +26,10 @@ use AlecRabbit\Spinner\Core\Contract\ICharFrameRenderer;
 use AlecRabbit\Spinner\Core\Contract\IConfigBuilder;
 use AlecRabbit\Spinner\Core\Contract\IConsoleCursorBuilder;
 use AlecRabbit\Spinner\Core\Contract\IDefaultsProvider;
+use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\IDriverAttacher;
+use AlecRabbit\Spinner\Core\Contract\IDriverBuilder;
+use AlecRabbit\Spinner\Core\Contract\IDriverOutputBuilder;
 use AlecRabbit\Spinner\Core\Contract\IDriverSetup;
 use AlecRabbit\Spinner\Core\Contract\IIntegerNormalizer;
 use AlecRabbit\Spinner\Core\Contract\IIntervalNormalizer;
@@ -52,15 +56,22 @@ use AlecRabbit\Spinner\Core\Defaults\DriverSettingsBuilder;
 use AlecRabbit\Spinner\Core\Defaults\LegacySpinnerSettingsBuilder;
 use AlecRabbit\Spinner\Core\Defaults\LoopSettingsBuilder;
 use AlecRabbit\Spinner\Core\Defaults\WidgetSettingsBuilder;
+use AlecRabbit\Spinner\Core\DriverBuilder;
+use AlecRabbit\Spinner\Core\DriverOutputBuilder;
 use AlecRabbit\Spinner\Core\DriverSetup;
+use AlecRabbit\Spinner\Core\Factory\Contract\IBufferedOutputSingletonFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\IConsoleCursorFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IContainerSingletonFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDriverAttacherFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\IDriverFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\IDriverOutputFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IFrameFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILegacySpinnerAttacherFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILegacySpinnerFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopProbeFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\ITimerFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IWidthMeasurerFactory;
 use AlecRabbit\Spinner\Core\FrameRevolverBuilder;
 use AlecRabbit\Spinner\Core\IntegerNormalizer;
@@ -71,6 +82,7 @@ use AlecRabbit\Spinner\Core\LegacySpinnerSetup;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoop;
 use AlecRabbit\Spinner\Core\LoopSetup;
 use AlecRabbit\Spinner\Core\LoopSetupBuilder;
+use AlecRabbit\Spinner\Core\Output\ResourceStream;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolverBuilder;
 use AlecRabbit\Spinner\Core\Sequencer;
 use AlecRabbit\Spinner\Core\StyleFrameCollectionRenderer;
@@ -133,6 +145,22 @@ final class ContainerSingletonFactory implements IContainerSingletonFactory
                 }
             },
 
+            IDriver::class => static function (ContainerInterface $container): IDriver {
+                return $container->get(IDriverFactory::class)->create();
+            },
+
+            IDriverFactory::class => DriverFactory::class,
+            IDriverBuilder::class => DriverBuilder::class,
+            IDriverOutputFactory::class => DriverOutputFactory::class,
+            IDriverOutputBuilder::class => DriverOutputBuilder::class,
+            IBufferedOutputSingletonFactory::class => BufferedOutputSingletonFactory::class,
+            IResourceStream::class => static function (ContainerInterface $container): IResourceStream {
+                // TODO (2023-04-11 12:15) [Alec Rabbit]: get stream from DefaultsProvider
+                //  return $container->get(IDefaultsProvider::class)-> ~;
+                return new ResourceStream(STDERR);
+            },
+            IConsoleCursorFactory::class => ConsoleCursorFactory::class,
+            ITimerFactory::class => TimerFactory::class,
             IAnsiStyleConverter::class => AnsiStyleConverter::class,
             IAuxSettingsBuilder::class => AuxSettingsBuilder::class,
             IBufferedOutputBuilder::class => BufferedOutputBuilder::class,
