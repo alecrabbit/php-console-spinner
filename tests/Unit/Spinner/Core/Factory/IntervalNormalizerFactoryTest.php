@@ -28,7 +28,7 @@ final class IntervalNormalizerFactoryTest extends TestCaseWithPrebuiltMocksAndSt
     ): IIntervalNormalizerFactory {
         return
             new IntervalNormalizerFactory(
-                integerNormalizerBuilder: $integerNormalizerBuilder ?? $this->getIntegerNormalizerBuilder(),
+                integerNormalizerBuilder: $integerNormalizerBuilder ?? $this->getIntegerNormalizerBuilderMock(),
                 normalizerMode: $normalizerMode ?? OptionNormalizerMode::BALANCED,
             );
     }
@@ -37,7 +37,7 @@ final class IntervalNormalizerFactoryTest extends TestCaseWithPrebuiltMocksAndSt
     #[Test]
     public function canCreate(): void
     {
-        $integerNormalizerBuilder = $this->getIntegerNormalizerBuilder();
+        $integerNormalizerBuilder = $this->getIntegerNormalizerBuilderMock();
         $integerNormalizerBuilder
             ->expects(self::once())
             ->method('withDivisor')

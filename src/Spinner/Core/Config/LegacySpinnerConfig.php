@@ -6,9 +6,9 @@ namespace AlecRabbit\Spinner\Core\Config;
 
 use AlecRabbit\Spinner\Contract\Option\OptionAttacher;
 use AlecRabbit\Spinner\Contract\Option\OptionInitialization;
-use AlecRabbit\Spinner\Core\Config\Contract\ISpinnerConfig;
+use AlecRabbit\Spinner\Core\Config\Contract\ILegacySpinnerConfig;
 
-final class SpinnerConfig implements ISpinnerConfig
+final class LegacySpinnerConfig implements ILegacySpinnerConfig
 {
     public function __construct(
         protected OptionInitialization $initializationOption,

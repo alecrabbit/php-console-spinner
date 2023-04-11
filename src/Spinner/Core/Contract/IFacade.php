@@ -9,19 +9,9 @@ use AlecRabbit\Spinner\Core\Loop\Contract\ILoop;
 
 interface IFacade
 {
-    /**
-     * @deprecated
-     */
-    public static function getConfigBuilder(): IConfigBuilder;
-
     public static function getDefaultsProvider(): IDefaultsProvider;
 
     public static function getLoop(): ILoop;
-
-    /**
-     * @deprecated
-     */
-    public static function createSpinner(IConfig $config = null): ILegacySpinner;
 
     public static function useService(string $id, object|callable|string $service): void;
 

@@ -7,7 +7,7 @@ namespace AlecRabbit\Tests\Unit\Spinner\Core\Config;
 use AlecRabbit\Spinner\Core\Config\Config;
 use AlecRabbit\Spinner\Core\Config\Contract\IAuxConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IDriverConfig;
-use AlecRabbit\Spinner\Core\Config\Contract\ISpinnerConfig;
+use AlecRabbit\Spinner\Core\Config\Contract\ILegacySpinnerConfig;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\Stub;
@@ -48,9 +48,9 @@ class ConfigTest extends TestCaseWithPrebuiltMocksAndStubs
         return $this->createStub(IDriverConfig::class);
     }
 
-    protected function getSpinnerConfigStub(): Stub&ISpinnerConfig
+    protected function getSpinnerConfigStub(): Stub&ILegacySpinnerConfig
     {
-        return $this->createStub(ISpinnerConfig::class);
+        return $this->createStub(ILegacySpinnerConfig::class);
     }
 
 

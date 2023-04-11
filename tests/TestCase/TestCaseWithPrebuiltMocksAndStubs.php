@@ -22,6 +22,7 @@ use AlecRabbit\Spinner\Core\Contract\IConfigBuilder;
 use AlecRabbit\Spinner\Core\Contract\IConsoleCursorBuilder;
 use AlecRabbit\Spinner\Core\Contract\IDefaultsProvider;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
+use AlecRabbit\Spinner\Core\Contract\IDriverAttacher;
 use AlecRabbit\Spinner\Core\Contract\IDriverBuilder;
 use AlecRabbit\Spinner\Core\Contract\IDriverOutputBuilder;
 use AlecRabbit\Spinner\Core\Contract\IDriverSetup;
@@ -409,8 +410,12 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
         return $this->createMock(IDriverSetup::class);
     }
 
-    protected function getIntegerNormalizerBuilder(): MockObject&IIntegerNormalizerBuilder
+    protected function getIntegerNormalizerBuilderMock(): MockObject&IIntegerNormalizerBuilder
     {
         return $this->createMock(IIntegerNormalizerBuilder::class);
+    }
+    protected function getDriverAttacherMock(): MockObject&IDriverAttacher
+    {
+        return $this->createMock(IDriverAttacher::class);
     }
 }

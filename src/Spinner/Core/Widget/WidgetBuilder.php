@@ -14,47 +14,30 @@ use LogicException;
 
 final class WidgetBuilder implements IWidgetBuilder
 {
-    protected ?IWidgetConfig $widgetConfig = null;
     protected ?IFrame $leadingSpacer = null;
     protected ?IFrame $trailingSpacer = null;
     protected ?IRevolver $revolver = null;
 
-    public function __construct(
-        protected IWidgetRevolverBuilder $widgetRevolverBuilder,
-    ) {
-    }
-
-
     public function build(): IWidgetComposite
     {
-        $this->assert();
+        $this->validate();
+
         return
             new Widget(
-                $this->revolver ?? $this->buildRevolver(),
-                $this->leadingSpacer ?? $this->widgetConfig->getLeadingSpacer(),
-                $this->trailingSpacer ?? $this->widgetConfig->getTrailingSpacer(),
+                $this->revolver,
+                $this->leadingSpacer,
+                $this->trailingSpacer,
             );
     }
 
-    protected function assert(): void
+    protected function validate(): void
     {
         match (true) {
-            null === $this->leadingSpacer && null === $this->trailingSpacer && null === $this->widgetConfig =>
-            throw new LogicException(
-                sprintf('[%s]: Property $widgetConfig is not set.', __CLASS__)
-            ),
+            null === $this->revolver => throw new LogicException('Revolver is not set.'),
+            null === $this->leadingSpacer => throw new LogicException('Leading spacer is not set.'),
+            null === $this->trailingSpacer => throw new LogicException('Trailing spacer is not set.'),
             default => null,
         };
-    }
-
-    protected function buildRevolver(): IRevolver
-    {
-        return
-            $this->widgetRevolverBuilder
-                ->withStylePattern($this->widgetConfig->getStylePattern())
-                ->withCharPattern($this->widgetConfig->getCharPattern())
-                ->build()
-        ;
     }
 
     public function withWidgetRevolver(IRevolver $revolver): IWidgetBuilder
@@ -74,11 +57,4 @@ final class WidgetBuilder implements IWidgetBuilder
         $this->trailingSpacer = $frame;
         return $this;
     }
-
-    public function withWidgetConfig(IWidgetConfig $widgetConfig): IWidgetBuilder
-    {
-        $this->widgetConfig = $widgetConfig;
-        return $this;
-    }
-
 }

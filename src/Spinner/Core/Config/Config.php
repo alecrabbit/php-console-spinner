@@ -8,7 +8,7 @@ use AlecRabbit\Spinner\Core\Config\Contract\IAuxConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IDriverConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\ILoopConfig;
-use AlecRabbit\Spinner\Core\Config\Contract\ISpinnerConfig;
+use AlecRabbit\Spinner\Core\Config\Contract\ILegacySpinnerConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IWidgetConfig;
 
 final readonly class Config implements IConfig
@@ -17,7 +17,7 @@ final readonly class Config implements IConfig
         protected IAuxConfig $auxConfig,
         protected IDriverConfig $driverConfig,
         protected ILoopConfig $loopConfig,
-        protected ISpinnerConfig $spinnerConfig,
+        protected ILegacySpinnerConfig $spinnerConfig,
         protected IWidgetConfig $rootWidgetConfig,
     ) {
     }
@@ -32,7 +32,7 @@ final readonly class Config implements IConfig
         return $this->loopConfig;
     }
 
-    public function getSpinnerConfig(): ISpinnerConfig
+    public function getSpinnerConfig(): ILegacySpinnerConfig
     {
         return $this->spinnerConfig;
     }

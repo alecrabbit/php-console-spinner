@@ -6,7 +6,7 @@ namespace AlecRabbit\Tests\Unit\Spinner\Core\Config;
 
 use AlecRabbit\Spinner\Contract\Option\OptionAttacher;
 use AlecRabbit\Spinner\Contract\Option\OptionInitialization;
-use AlecRabbit\Spinner\Core\Config\SpinnerConfig;
+use AlecRabbit\Spinner\Core\Config\LegacySpinnerConfig;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;
 
@@ -19,7 +19,7 @@ class SpinnerConfigTest extends TestCaseWithPrebuiltMocksAndStubs
         $attachOption = OptionAttacher::DISABLED;
 
         $config =
-            new SpinnerConfig(
+            new LegacySpinnerConfig(
                 $initializationOption,
                 $attachOption,
             );
@@ -34,7 +34,7 @@ class SpinnerConfigTest extends TestCaseWithPrebuiltMocksAndStubs
         $attachOption = OptionAttacher::ENABLED;
 
         $config =
-            new SpinnerConfig(
+            new LegacySpinnerConfig(
                 $initializationOption,
                 $attachOption,
             );

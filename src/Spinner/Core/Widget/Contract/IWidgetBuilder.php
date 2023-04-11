@@ -23,6 +23,4 @@ interface IWidgetBuilder
     public function withLeadingSpacer(?IFrame $frame): IWidgetBuilder;
 
     public function withTrailingSpacer(?IFrame $frame): IWidgetBuilder;
-
-    public function withWidgetConfig(IWidgetConfig $widgetConfig): IWidgetBuilder;
 }
