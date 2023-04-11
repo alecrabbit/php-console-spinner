@@ -12,7 +12,6 @@ use AlecRabbit\Spinner\Contract\Output\IBufferedOutput;
 use AlecRabbit\Spinner\Contract\Output\IOutput;
 use AlecRabbit\Spinner\Contract\Output\IResourceStream;
 use AlecRabbit\Spinner\Contract\Pattern\IPattern;
-use AlecRabbit\Spinner\Core\A\ALegacySpinner;
 use AlecRabbit\Spinner\Core\Config\Contract\IAuxConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\ILoopConfig;
@@ -28,14 +27,9 @@ use AlecRabbit\Spinner\Core\Contract\IDriverOutputBuilder;
 use AlecRabbit\Spinner\Core\Contract\IDriverSetup;
 use AlecRabbit\Spinner\Core\Contract\IIntegerNormalizerBuilder;
 use AlecRabbit\Spinner\Core\Contract\IIntervalNormalizer;
-use AlecRabbit\Spinner\Core\Contract\ILegacyDriver;
-use AlecRabbit\Spinner\Core\Contract\ILegacyDriverBuilder;
-use AlecRabbit\Spinner\Core\Contract\ILegacySpinnerBuilder;
 use AlecRabbit\Spinner\Core\Contract\ILoopSetup;
 use AlecRabbit\Spinner\Core\Contract\ILoopSetupBuilder;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
-use AlecRabbit\Spinner\Core\Contract\ILegacySpinnerAttacher;
-use AlecRabbit\Spinner\Core\Contract\ILegacySpinnerSetup;
 use AlecRabbit\Spinner\Core\Contract\ISpinnerState;
 use AlecRabbit\Spinner\Core\Contract\ITimerBuilder;
 use AlecRabbit\Spinner\Core\Contract\IWidthMeasurer;
@@ -115,34 +109,15 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
         return $this->createMock(IConfigBuilder::class);
     }
 
-    protected function getSpinnerBuilderMock(): MockObject&ILegacySpinnerBuilder
-    {
-        return $this->createMock(ILegacySpinnerBuilder::class);
-    }
 
     protected function getLoopInitializerMock(): MockObject&ILoopSetup
     {
         return $this->createMock(ILoopSetup::class);
     }
 
-    protected function getSpinnerSetupMock(): MockObject&ILegacySpinnerSetup
-    {
-        return $this->createMock(ILegacySpinnerSetup::class);
-    }
-
-    protected function getLegacyDriverBuilderMock(): MockObject&ILegacyDriverBuilder
-    {
-        return $this->createMock(ILegacyDriverBuilder::class);
-    }
-
     protected function getWidgetBuilderMock(): MockObject&IWidgetBuilder
     {
         return $this->createMock(IWidgetBuilder::class);
-    }
-
-    protected function getLegacySpinnerMock(): MockObject&ALegacySpinner
-    {
-        return $this->createMock(ALegacySpinner::class);
     }
 
     protected function getLoopProbeFactoryMock(): MockObject&ILoopProbeFactory
@@ -153,6 +128,11 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
     protected function getLoopSetupBuilderMock(): MockObject&ILoopSetupBuilder
     {
         return $this->createMock(ILoopSetupBuilder::class);
+    }
+
+    protected function getLoopSetupStub(): Stub&ILoopSetup
+    {
+        return $this->createStub(ILoopSetup::class);
     }
 
     protected function getDefaultsProviderMock(): MockObject&IDefaultsProvider
@@ -228,11 +208,6 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
     protected function getAuxConfigMock(): MockObject&IAuxConfig
     {
         return $this->createMock(IAuxConfig::class);
-    }
-
-    protected function getSpinnerAttacherMock(): MockObject&ILegacySpinnerAttacher
-    {
-        return $this->createMock(ILegacySpinnerAttacher::class);
     }
 
     protected function getLoopProbeMock(): MockObject&ILoopProbe
@@ -313,11 +288,6 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
     protected function getFrameStub(): Stub&IFrame
     {
         return $this->createStub(IFrame::class);
-    }
-
-    protected function getLegacyDriverMock(): MockObject&ILegacyDriver
-    {
-        return $this->createMock(ILegacyDriver::class);
     }
 
     protected function getWidgetCompositeMock(): MockObject&IWidgetComposite

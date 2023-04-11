@@ -4,7 +4,9 @@ declare(strict_types=1);
 // 03.04.23
 namespace AlecRabbit\Tests\Unit\Spinner\Core;
 
+use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\ILoopSetup;
+use AlecRabbit\Spinner\Core\Defaults\Contract\ILoopSettings;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoop;
 use AlecRabbit\Spinner\Core\LoopSetup;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
@@ -19,17 +21,18 @@ final class LoopSetupTest extends TestCaseWithPrebuiltMocksAndStubs
         $loopSetup = $this->getTesteeInstance();
 
         self::assertInstanceOf(LoopSetup::class, $loopSetup);
-        self::assertFalse(self::getPropertyValue('asynchronous', $loopSetup));
-        self::assertFalse(self::getPropertyValue('signalHandlersEnabled', $loopSetup));
-        self::assertFalse(self::getPropertyValue('autoStartEnabled', $loopSetup));
     }
 
     public function getTesteeInstance(
         ?ILoop $loop = null,
+        ?ILoopSettings $settings = null,
+        ?IDriver $driver = null,
     ): ILoopSetup {
         return
             new LoopSetup(
                 loop: $loop ?? $this->getLoopMock(),
+                settings: $settings ?? $this->getLoopSettingsMock(),
+                driver: $driver ?? $this->getDriverMock(),
             );
     }
 
@@ -47,27 +50,8 @@ final class LoopSetupTest extends TestCaseWithPrebuiltMocksAndStubs
         ;
 
         $this->getTesteeInstance($loop)
-            ->setup($this->getLegacySpinnerMock())
+            ->setup()
         ;
-    }
-
-    #[Test]
-    public function parametersCanBeSet(): void
-    {
-        $loopSetup = $this->getTesteeInstance();
-        self::assertFalse(self::getPropertyValue('asynchronous', $loopSetup));
-        self::assertFalse(self::getPropertyValue('signalHandlersEnabled', $loopSetup));
-        self::assertFalse(self::getPropertyValue('autoStartEnabled', $loopSetup));
-
-        $loopSetup
-            ->asynchronous(true)
-            ->enableSignalHandlers(true)
-            ->enableAutoStart(true)
-        ;
-
-        self::assertTrue(self::getPropertyValue('asynchronous', $loopSetup));
-        self::assertTrue(self::getPropertyValue('signalHandlersEnabled', $loopSetup));
-        self::assertTrue(self::getPropertyValue('autoStartEnabled', $loopSetup));
     }
 
     #[Test]
@@ -82,17 +66,26 @@ final class LoopSetupTest extends TestCaseWithPrebuiltMocksAndStubs
             ->expects(self::once())
             ->method('onSignal')
         ;
-
-        $loopSetup = $this->getTesteeInstance($loop);
-
-        $loopSetup
-            ->asynchronous(true)
-            ->enableSignalHandlers(true)
-            ->enableAutoStart(true)
+        $settings = $this->getLoopSettingsMock();
+        $settings
+            ->expects(self::once())
+            ->method('isLoopAvailable')
+            ->willReturn(true)
+        ;
+        $settings
+            ->expects(self::once())
+            ->method('isAutoStartEnabled')
+            ->willReturn(true)
+        ;
+        $settings
+            ->expects(self::once())
+            ->method('isAttachHandlersEnabled')
+            ->willReturn(true)
         ;
 
-        $loopSetup
-            ->setup($this->getLegacySpinnerMock())
-        ;
+        $this->getTesteeInstance(
+            loop: $loop,
+            settings: $settings,
+        )->setup();
     }
 }

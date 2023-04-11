@@ -5,13 +5,16 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Contract;
 
 use AlecRabbit\Spinner\Core\Config\Contract\ILoopConfig;
+use AlecRabbit\Spinner\Core\Defaults\Contract\ILoopSettings;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoop;
 
 interface ILoopSetupBuilder
 {
     public function build(): ILoopSetup;
 
-    public function withConfig(ILoopConfig $config): ILoopSetupBuilder;
+    public function withDriver(IDriver $driver): ILoopSetupBuilder;
+
+    public function withSettings(ILoopSettings $settings): ILoopSetupBuilder;
 
     public function withLoop(ILoop $loop): ILoopSetupBuilder;
 }

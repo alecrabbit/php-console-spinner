@@ -12,5 +12,5 @@ interface ILoopFactory
 {
     public function getLoop(): ILoop;
 
-    public function getLoopSetup(ILoopConfig $loopConfig): ILoopSetup;
+    public function getLoopSetup(): ILoopSetup;
 }

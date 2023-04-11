@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Factory;
 
 use AlecRabbit\Spinner\Core\Config\Contract\ILoopConfig;
+use AlecRabbit\Spinner\Core\Contract\IDefaultsProvider;
+use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\ILoopSetup;
 use AlecRabbit\Spinner\Core\Contract\ILoopSetupBuilder;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopFactory;
@@ -19,15 +21,19 @@ final class LoopFactory implements ILoopFactory
     public function __construct(
         protected ILoopProbeFactory $loopProbeFactory,
         protected ILoopSetupBuilder $loopSetupBuilder,
+        protected IDefaultsProvider $defaultsProvider,
+        protected IDriver $driver,
     ) {
     }
 
-    public function getLoopSetup(ILoopConfig $loopConfig): ILoopSetup
+    public function getLoopSetup(): ILoopSetup
     {
-        return $this->loopSetupBuilder
-            ->withLoop($this->getLoop())
-            ->withConfig($loopConfig)
-            ->build()
+        return
+            $this->loopSetupBuilder
+                ->withLoop($this->getLoop())
+                ->withSettings($this->defaultsProvider->getLoopSettings())
+                ->withDriver($this->driver)
+                ->build()
         ;
     }
 

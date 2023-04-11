@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Asynchronous\Factory;
 
+use AlecRabbit\Spinner\Core\Contract\IDefaultsProvider;
+use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\ILoopSetupBuilder;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopProbeFactory;
@@ -30,12 +32,15 @@ final class LoopFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
     public function getTesteeInstance(
         ?ILoopProbeFactory $loopProbeFactory = null,
         ?ILoopSetupBuilder $loopSetupBuilder = null,
-
+        ?IDefaultsProvider $defaultsProvider = null,
+        ?IDriver $driver = null,
     ): ILoopFactory {
         return
             new LoopFactory(
                 loopProbeFactory: $loopProbeFactory ?? $this->getLoopProbeFactoryMock(),
                 loopSetupBuilder: $loopSetupBuilder ?? $this->getLoopSetupBuilderMock(),
+                defaultsProvider: $defaultsProvider ?? $this->getDefaultsProviderMock(),
+                driver: $driver ?? $this->getDriverMock(),
             );
     }
 
@@ -71,13 +76,36 @@ final class LoopFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
     #[Test]
     public function canGetLoopSetup(): void
     {
-        $loopFactory = $this->getTesteeInstance();
+        $loopSetupStub = $this->getLoopSetupStub();
+        $loopSetupBuilder = $this->getLoopSetupBuilderMock();
+        $loopSetupBuilder
+            ->expects(self::once())
+            ->method('withSettings')
+            ->willReturnSelf()
+        ;$loopSetupBuilder
+            ->expects(self::once())
+            ->method('withLoop')
+            ->willReturnSelf()
+        ;
+        $loopSetupBuilder
+            ->expects(self::once())
+            ->method('withDriver')
+            ->willReturnSelf()
+        ;
+        $loopSetupBuilder
+            ->expects(self::once())
+            ->method('build')
+            ->willReturn($loopSetupStub)
+        ;
+
+        $loopFactory = $this->getTesteeInstance(loopSetupBuilder: $loopSetupBuilder);
 
         self::assertInstanceOf(LoopFactory::class, $loopFactory);
 
-        $loopSetup = $loopFactory->getLoopSetup($this->getLoopConfigStub());
+        $loopSetup = $loopFactory->getLoopSetup();
 
         self::assertInstanceOf(ALoopAdapter::class, $loopFactory->getLoop());
+        self::assertSame($loopSetupStub, $loopSetup);
     }
 
     protected function setUp(): void

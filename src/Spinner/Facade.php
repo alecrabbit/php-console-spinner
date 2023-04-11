@@ -6,11 +6,9 @@ namespace AlecRabbit\Spinner;
 
 use AlecRabbit\Spinner\Container\Contract\IContainer;
 use AlecRabbit\Spinner\Core\Config\Contract\IConfig;
-use AlecRabbit\Spinner\Core\Contract\IConfigBuilder;
 use AlecRabbit\Spinner\Core\Contract\IDefaultsProvider;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\IFacade;
-use AlecRabbit\Spinner\Core\Contract\ILegacySpinner;
 use AlecRabbit\Spinner\Core\Contract\ILoopSetup;
 use AlecRabbit\Spinner\Core\Factory\ContainerSingletonFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILegacySpinnerFactory;
@@ -19,67 +17,6 @@ use AlecRabbit\Spinner\Core\Loop\Contract\ILoop;
 
 final class Facade implements IFacade
 {
-    /**
-     * @deprecated
-     */
-    public static function createSpinner(IConfig $config = null): ILegacySpinner
-    {
-        $config = self::refineConfig($config);
-
-        $spinner = self::getSpinnerFactory()->createSpinner($config);
-
-        self::getLoopSetup($config)->setup($spinner);
-
-        return
-            $spinner;
-    }
-
-    /**
-     * @deprecated
-     */
-    protected static function refineConfig(?IConfig $config): IConfig
-    {
-        return
-            $config ?? self::getConfigBuilder()->build();
-    }
-
-    /**
-     * @deprecated
-     */
-    public static function getConfigBuilder(): IConfigBuilder
-    {
-        return
-            self::getContainer()
-                ->get(IConfigBuilder::class)
-        ;
-    }
-
-    protected static function getContainer(): IContainer
-    {
-        return ContainerSingletonFactory::getContainer();
-    }
-
-    protected static function getSpinnerFactory(): ILegacySpinnerFactory
-    {
-        return
-            self::getContainer()
-                ->get(ILegacySpinnerFactory::class)
-        ;
-    }
-
-    protected static function getLoopSetup(IConfig $config): ILoopSetup
-    {
-        return
-            self::getLoopFactory()
-                ->getLoopSetup($config->getLoopConfig())
-        ;
-    }
-
-    protected static function getLoopFactory(): ILoopFactory
-    {
-        return self::getContainer()->get(ILoopFactory::class);
-    }
-
     public static function getLoop(): ILoop
     {
         return self::getLoopFactory()->getLoop();
@@ -103,5 +40,15 @@ final class Facade implements IFacade
     public static function getDriver(): IDriver
     {
         return self::getContainer()->get(IDriver::class);
+    }
+
+    protected static function getContainer(): IContainer
+    {
+        return ContainerSingletonFactory::getContainer();
+    }
+
+    protected static function getLoopFactory(): ILoopFactory
+    {
+        return self::getContainer()->get(ILoopFactory::class);
     }
 }
