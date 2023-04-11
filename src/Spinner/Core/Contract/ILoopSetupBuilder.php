@@ -11,8 +11,6 @@ interface ILoopSetupBuilder
 {
     public function build(): ILoopSetup;
 
-    public function withDriver(IDriver $driver): ILoopSetupBuilder;
-
     public function withSettings(ILoopSettings $settings): ILoopSetupBuilder;
 
     public function withLoop(ILoop $loop): ILoopSetupBuilder;

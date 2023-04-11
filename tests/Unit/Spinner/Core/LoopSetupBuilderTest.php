@@ -38,7 +38,6 @@ final class LoopSetupBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
         $loopSetupBuilder = $loopSetupBuilder
             ->withLoop($this->getLoopMock())
             ->withSettings($this->getLoopSettingsMock())
-            ->withDriver($this->getDriverMock())
         ;
 
         self::assertInstanceOf(LoopSetup::class, $loopSetupBuilder->build());
@@ -55,7 +54,6 @@ final class LoopSetupBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
             self::assertInstanceOf(LoopSetupBuilder::class, $loopSetupBuilder);
             $loopSetupBuilder
                 ->withSettings($this->getLoopSettingsMock())
-                ->withDriver($this->getDriverMock())
                 ->build()
             ;
         };
@@ -79,31 +77,6 @@ final class LoopSetupBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
             self::assertInstanceOf(LoopSetupBuilder::class, $loopSetupBuilder);
             $loopSetupBuilder
                 ->withLoop($this->getLoopMock())
-                ->withDriver($this->getDriverMock())
-                ->build()
-            ;
-        };
-
-        $this->testExceptionWrapper(
-            exceptionClass: $exceptionClass,
-            exceptionMessage: $exceptionMessage,
-            test: $test,
-            method: __METHOD__,
-        );
-    }
-
-    #[Test]
-    public function throwsIfDriverIsNotSet(): void
-    {
-        $exceptionClass = LogicException::class;
-        $exceptionMessage = 'Driver is not set.';
-
-        $test = function () {
-            $loopSetupBuilder = $this->getTesteeInstance();
-            self::assertInstanceOf(LoopSetupBuilder::class, $loopSetupBuilder);
-            $loopSetupBuilder
-                ->withLoop($this->getLoopMock())
-                ->withSettings($this->getLoopSettingsMock())
                 ->build()
             ;
         };
