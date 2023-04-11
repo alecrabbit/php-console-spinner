@@ -23,7 +23,6 @@ use AlecRabbit\Spinner\Core\Contract\IAnsiStyleConverter;
 use AlecRabbit\Spinner\Core\Contract\IBufferedOutputBuilder;
 use AlecRabbit\Spinner\Core\Contract\ICharFrameCollectionRenderer;
 use AlecRabbit\Spinner\Core\Contract\ICharFrameRenderer;
-use AlecRabbit\Spinner\Core\Contract\IConfigBuilder;
 use AlecRabbit\Spinner\Core\Contract\IConsoleCursorBuilder;
 use AlecRabbit\Spinner\Core\Contract\IDefaultsProvider;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
@@ -64,14 +63,15 @@ use AlecRabbit\Spinner\Core\Factory\Contract\IBufferedOutputSingletonFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IConsoleCursorFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IContainerSingletonFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDriverAttacherFactory;
-use AlecRabbit\Spinner\Core\Factory\Contract\IDriverFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDriverOutputFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\IDriverSingletonFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IFrameFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILegacySpinnerAttacherFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILegacySpinnerFactory;
-use AlecRabbit\Spinner\Core\Factory\Contract\ILoopFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopProbeFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\ILoopSetupFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\ILoopSingletonFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ITimerFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IWidthMeasurerFactory;
 use AlecRabbit\Spinner\Core\FrameRevolverBuilder;
@@ -147,10 +147,10 @@ final class ContainerSingletonFactory implements IContainerSingletonFactory
             },
 
             IDriver::class => static function (ContainerInterface $container): IDriver {
-                return $container->get(IDriverFactory::class)->create();
+                return $container->get(IDriverSingletonFactory::class)->create();
             },
 
-            IDriverFactory::class => DriverFactory::class,
+            IDriverSingletonFactory::class => DriverSingletonFactory::class,
             IDriverBuilder::class => DriverBuilder::class,
             IDriverOutputFactory::class => DriverOutputFactory::class,
             IDriverOutputBuilder::class => DriverOutputBuilder::class,
@@ -168,9 +168,9 @@ final class ContainerSingletonFactory implements IContainerSingletonFactory
             IAnsiStyleConverter::class => AnsiStyleConverter::class,
             IAuxSettingsBuilder::class => AuxSettingsBuilder::class,
             IBufferedOutputBuilder::class => BufferedOutputBuilder::class,
+            ILoopSetupFactory::class => LoopSetupFactory::class,
             ICharFrameCollectionRenderer::class => CharFrameCollectionRenderer::class,
             ICharFrameRenderer::class => CharFrameRenderer::class,
-            IConfigBuilder::class => ConfigBuilder::class,
             IConsoleCursorBuilder::class => ConsoleCursorBuilder::class,
             IDriverAttacherFactory::class => DriverAttacherFactory::class,
             IDriverSettingsBuilder::class => DriverSettingsBuilder::class,
@@ -179,7 +179,7 @@ final class ContainerSingletonFactory implements IContainerSingletonFactory
             IFrameRevolverBuilder::class => FrameRevolverBuilder::class,
             IIntervalFactory::class => IntervalFactory::class,
             IIntervalNormalizer::class => IntervalNormalizer::class,
-            ILoopFactory::class => LoopFactory::class,
+            ILoopSingletonFactory::class => LoopSingletonFactory::class,
             ILoopSetup::class => LoopSetup::class,
             ILoopSetupBuilder::class => LoopSetupBuilder::class,
             ISequencer::class => Sequencer::class,
@@ -214,7 +214,7 @@ final class ContainerSingletonFactory implements IContainerSingletonFactory
 
             ILoop::class => static function (ContainerInterface $container): ILoop {
                 return
-                    $container->get(ILoopFactory::class)->getLoop();
+                    $container->get(ILoopSingletonFactory::class)->getLoop();
             },
 
             ILoopProbeFactory::class => static function (): never {

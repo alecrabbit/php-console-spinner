@@ -8,33 +8,41 @@ use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\IDriverBuilder;
 use AlecRabbit\Spinner\Core\Contract\IDriverSetup;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDriverSettings;
-use AlecRabbit\Spinner\Core\Factory\Contract\IDriverFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDriverOutputFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\IDriverSingletonFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\ILoopSetupFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ITimerFactory;
 
-final class DriverFactory implements IDriverFactory
+final class DriverSingletonFactory implements IDriverSingletonFactory
 {
+    protected static ?IDriver $driver = null;
+
     public function __construct(
         protected IDriverBuilder $driverBuilder,
         protected IDriverOutputFactory $driverOutputFactory,
         protected ITimerFactory $timerFactory,
         protected IDriverSetup $driverSetup,
         protected IDriverSettings $driverSettings,
+        protected ILoopSetupFactory $loopSetupFactory,
     ) {
     }
 
     public function create(): IDriver
     {
-        $driver = $this->buildDriver();
+        if (null === self::$driver) {
+            self::$driver = $this->buildDriver();
 
-        $this->driverSetup
-            ->enableInitialization($this->driverSettings->isInitializationEnabled())
-            ->enableAttacher($this->driverSettings->isAttacherEnabled())
-            ->setup($driver)
-        ;
+            $this->driverSetup
+                ->enableInitialization($this->driverSettings->isInitializationEnabled())
+                ->enableAttacher($this->driverSettings->isAttacherEnabled())
+                ->setup(self::$driver)
+            ;
+
+            $this->loopSetupFactory->create()->setup(self::$driver);
+        }
 
         return
-            $driver;
+            self::$driver;
     }
 
     private function buildDriver(): IDriver

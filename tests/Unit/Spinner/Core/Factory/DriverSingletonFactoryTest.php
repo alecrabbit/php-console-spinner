@@ -7,21 +7,22 @@ namespace AlecRabbit\Tests\Unit\Spinner\Core\Factory;
 use AlecRabbit\Spinner\Core\Contract\IDriverBuilder;
 use AlecRabbit\Spinner\Core\Contract\IDriverSetup;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDriverSettings;
-use AlecRabbit\Spinner\Core\Factory\Contract\IDriverFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDriverOutputFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\IDriverSingletonFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\ILoopSetupFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ITimerFactory;
-use AlecRabbit\Spinner\Core\Factory\DriverFactory;
+use AlecRabbit\Spinner\Core\Factory\DriverSingletonFactory;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;
 
-final class DriverFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
+final class DriverSingletonFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
 {
     #[Test]
     public function canBeCreated(): void
     {
         $driverFactory = $this->getTesteeInstance();
 
-        self::assertInstanceOf(DriverFactory::class, $driverFactory);
+        self::assertInstanceOf(DriverSingletonFactory::class, $driverFactory);
     }
 
     public function getTesteeInstance(
@@ -30,14 +31,16 @@ final class DriverFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
         ?ITimerFactory $timerFactory = null,
         ?IDriverSetup $driverSetup = null,
         ?IDriverSettings $driverSettings = null,
-    ): IDriverFactory {
+        ?ILoopSetupFactory $loopSetupFactory = null,
+    ): IDriverSingletonFactory {
         return
-            new DriverFactory(
+            new DriverSingletonFactory(
                 driverBuilder: $driverBuilder ?? $this->getDriverBuilderMock(),
                 driverOutputFactory: $driverOutputFactory ?? $this->getDriverOutputFactoryMock(),
                 timerFactory: $timerFactory ?? $this->getTimerFactoryMock(),
                 driverSetup: $driverSetup ?? $this->getDriverSetupMock(),
                 driverSettings: $driverSettings ?? $this->getDriverSettingsMock(),
+                loopSetupFactory: $loopSetupFactory ?? $this->getLoopSetupFactoryMock(),
             );
     }
 

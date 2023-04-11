@@ -47,7 +47,7 @@ final class LoopSetup implements ILoopSetup
         yield from [
             // @codeCoverageIgnoreStart
             SIGINT => function () use ($driver): void {
-                $driver->interrupt();
+                $driver->interrupt('SIGINT'); // todo: test
                 $this->loop->stop();
             },
             // @codeCoverageIgnoreEnd

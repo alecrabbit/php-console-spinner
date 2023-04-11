@@ -9,7 +9,7 @@ use AlecRabbit\Spinner\Core\Contract\IDefaultsProvider;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\IFacade;
 use AlecRabbit\Spinner\Core\Factory\ContainerSingletonFactory;
-use AlecRabbit\Spinner\Core\Factory\Contract\ILoopFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\ILoopSingletonFactory;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoop;
 
 final class Facade implements IFacade
@@ -19,9 +19,9 @@ final class Facade implements IFacade
         return self::getLoopFactory()->getLoop();
     }
 
-    protected static function getLoopFactory(): ILoopFactory
+    protected static function getLoopFactory(): ILoopSingletonFactory
     {
-        return self::getContainer()->get(ILoopFactory::class);
+        return self::getContainer()->get(ILoopSingletonFactory::class);
     }
 
     protected static function getContainer(): IContainer

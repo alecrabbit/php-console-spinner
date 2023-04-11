@@ -49,6 +49,7 @@ use AlecRabbit\Spinner\Core\Factory\Contract\IDriverOutputFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IFrameFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopProbeFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\ILoopSetupFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ITimerFactory;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoop;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoopProbe;
@@ -233,6 +234,11 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
     protected function getDriverSettingsMock(): MockObject&IDriverSettings
     {
         return $this->createMock(IDriverSettings::class);
+    }
+
+    protected function getLoopSetupFactoryMock(): MockObject&ILoopSetupFactory
+    {
+        return $this->createMock(ILoopSetupFactory::class);
     }
 
     protected function getDriverSettingsBuilderMock(): MockObject&IDriverSettingsBuilder
