@@ -16,7 +16,6 @@ final class DefaultsProvider implements IDefaultsProvider
     public function __construct(
         protected IAuxSettings $auxSettings,
         protected ILoopSettings $loopSettings,
-        protected ILegacySpinnerSettings $spinnerSettings,
         protected IDriverSettings $driverSettings,
         protected IWidgetSettings $widgetSettings,
         protected IWidgetSettings $rootWidgetSettings,
@@ -36,11 +35,6 @@ final class DefaultsProvider implements IDefaultsProvider
     public function getDriverSettings(): IDriverSettings
     {
         return $this->driverSettings;
-    }
-
-    public function getSpinnerSettings(): ILegacySpinnerSettings
-    {
-        return $this->spinnerSettings;
     }
 
     public function getLoopSettings(): ILoopSettings

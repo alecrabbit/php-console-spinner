@@ -18,8 +18,6 @@ interface IDefaultsProvider
 
     public function getLoopSettings(): ILoopSettings;
 
-    public function getSpinnerSettings(): ILegacySpinnerSettings;
-
     public function getWidgetSettings(): IWidgetSettings;
 
     public function getRootWidgetSettings(): IWidgetSettings;

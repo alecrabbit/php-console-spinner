@@ -17,9 +17,8 @@ final class AuxSettingsBuilder implements IAuxSettingsBuilder
     {
         return
             new AuxSettings(
-                interval: new Interval(1000),
-                normalizerMode: OptionNormalizerMode::BALANCED,
-                cursorOption: OptionCursor::HIDDEN,
+                optionNormalizerMode: OptionNormalizerMode::BALANCED,
+                optionCursor: OptionCursor::HIDDEN,
                 optionStyleMode: OptionStyleMode::ANSI8,
                 outputStream: STDERR
             );

@@ -24,7 +24,6 @@ final class DefaultsProviderTest extends TestCaseWithPrebuiltMocksAndStubs
         self::assertInstanceOf(DefaultsProvider::class, $defaultsProvider);
 
         self::assertInstanceOf(ILoopSettings::class, $defaultsProvider->getLoopSettings());
-        self::assertInstanceOf(ILegacySpinnerSettings::class, $defaultsProvider->getSpinnerSettings());
         self::assertInstanceOf(IAuxSettings::class, $defaultsProvider->getAuxSettings());
         self::assertInstanceOf(IDriverSettings::class, $defaultsProvider->getDriverSettings());
         self::assertInstanceOf(IWidgetSettings::class, $defaultsProvider->getWidgetSettings());
@@ -33,7 +32,6 @@ final class DefaultsProviderTest extends TestCaseWithPrebuiltMocksAndStubs
 
     public function getTesteeInstance(
         ?ILoopSettings $loopSettings = null,
-        ?ILegacySpinnerSettings $spinnerSettings = null,
         ?IAuxSettings $auxSettings = null,
         ?IDriverSettings $driverSettings = null,
         ?IWidgetSettings $widgetSettings = null,
@@ -43,7 +41,6 @@ final class DefaultsProviderTest extends TestCaseWithPrebuiltMocksAndStubs
             new DefaultsProvider(
                 auxSettings: $auxSettings ?? $this->getAuxSettingsMock(),
                 loopSettings: $loopSettings ?? $this->getLoopSettingsMock(),
-                spinnerSettings: $spinnerSettings ?? $this->getSpinnerSettingsMock(),
                 driverSettings: $driverSettings ?? $this->getDriverSettingsMock(),
                 widgetSettings: $widgetSettings ?? $this->getWidgetSettingsMock(),
                 rootWidgetSettings: $rootWidgetSettings ?? $this->getWidgetSettingsMock(),

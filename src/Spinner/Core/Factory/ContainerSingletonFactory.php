@@ -196,7 +196,7 @@ final class ContainerSingletonFactory implements IContainerSingletonFactory
                 $auxSettings = $container->get(IDefaultsProvider::class)->getAuxSettings();
                 return
                     new IntegerNormalizer(
-                        $auxSettings->getNormalizerMode()->getDivisor(),
+                        $auxSettings->getOptionNormalizerMode()->getDivisor(),
                         IInterval::MIN_INTERVAL_MILLISECONDS
                     );
             },

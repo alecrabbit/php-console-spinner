@@ -14,7 +14,7 @@ $defaultsProvider = Facade::getDefaultsProvider();
 // # Set custom settings
 $defaultsProvider->getDriverSettings()->setFinalMessage(PHP_EOL . '>>> Finished!' . PHP_EOL);
 
-$defaultsProvider->getAuxSettings()->setCursorOption(
+$defaultsProvider->getAuxSettings()->setOptionCursor(
     \AlecRabbit\Spinner\Contract\Option\OptionCursor::VISIBLE
 );
 

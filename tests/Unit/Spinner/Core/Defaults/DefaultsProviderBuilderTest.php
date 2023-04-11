@@ -27,7 +27,6 @@ final class DefaultsProviderBuilderTest extends TestCaseWithPrebuiltMocksAndStub
 
     public function getTesteeInstance(
         ?ILoopSettingsBuilder $loopSettingsBuilder = null,
-        ?ILegacySpinnerSettingsBuilder $spinnerSettingsBuilder = null,
         ?IAuxSettingsBuilder $auxSettingsBuilder = null,
         ?IDriverSettingsBuilder $driverSettingsBuilder = null,
         ?IWidgetSettingsBuilder $widgetSettingsBuilder = null,
@@ -36,7 +35,6 @@ final class DefaultsProviderBuilderTest extends TestCaseWithPrebuiltMocksAndStub
         return
             new DefaultsProviderBuilder(
                 loopSettingsBuilder: $loopSettingsBuilder ?? $this->getLoopSettingsBuilderMock(),
-                spinnerSettingsBuilder: $spinnerSettingsBuilder ?? $this->getSpinnerSettingsBuilderMock(),
                 auxSettingsBuilder: $auxSettingsBuilder ?? $this->getAuxSettingsBuilderMock(),
                 driverSettingsBuilder: $driverSettingsBuilder ?? $this->getDriverSettingsBuilderMock(),
                 widgetSettingsBuilder: $widgetSettingsBuilder ?? $this->getWidgetSettingsBuilderMock(),

@@ -14,44 +14,32 @@ use AlecRabbit\Spinner\Helper\Asserter;
 final class AuxSettings implements IAuxSettings
 {
     public function __construct(
-        protected IInterval $interval,
-        protected OptionNormalizerMode $normalizerMode = OptionNormalizerMode::BALANCED,
-        protected OptionCursor $cursorOption = OptionCursor::HIDDEN,
+        protected OptionNormalizerMode $optionNormalizerMode = OptionNormalizerMode::BALANCED,
+        protected OptionCursor $optionCursor = OptionCursor::HIDDEN,
         protected OptionStyleMode $optionStyleMode = OptionStyleMode::ANSI8,
         protected $outputStream = STDERR,
     ) {
     }
 
-    public function getInterval(): IInterval
+    public function getOptionNormalizerMode(): OptionNormalizerMode
     {
-        return $this->interval;
+        return $this->optionNormalizerMode;
     }
 
-    public function setInterval(IInterval $interval): IAuxSettings
+    public function setOptionNormalizerMode(OptionNormalizerMode $optionNormalizerMode): IAuxSettings
     {
-        $this->interval = $interval;
+        $this->optionNormalizerMode = $optionNormalizerMode;
         return $this;
     }
 
-    public function getNormalizerMode(): OptionNormalizerMode
+    public function getOptionCursor(): OptionCursor
     {
-        return $this->normalizerMode;
+        return $this->optionCursor;
     }
 
-    public function setNormalizerMode(OptionNormalizerMode $normalizerMode): IAuxSettings
+    public function setOptionCursor(OptionCursor $optionCursor): IAuxSettings
     {
-        $this->normalizerMode = $normalizerMode;
-        return $this;
-    }
-
-    public function getCursorOption(): OptionCursor
-    {
-        return $this->cursorOption;
-    }
-
-    public function setCursorOption(OptionCursor $cursorOption): IAuxSettings
-    {
-        $this->cursorOption = $cursorOption;
+        $this->optionCursor = $optionCursor;
         return $this;
     }
 
@@ -75,7 +63,6 @@ final class AuxSettings implements IAuxSettings
     /** @inheritdoc */
     public function setOutputStream($outputStream): IAuxSettings
     {
-        Asserter::assertStream($outputStream);
         $this->outputStream = $outputStream;
         return $this;
     }

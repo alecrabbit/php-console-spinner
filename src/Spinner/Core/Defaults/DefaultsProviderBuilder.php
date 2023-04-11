@@ -23,7 +23,6 @@ final class DefaultsProviderBuilder implements IDefaultsProviderBuilder
 
     public function __construct(
         protected ILoopSettingsBuilder $loopSettingsBuilder,
-        protected ILegacySpinnerSettingsBuilder $spinnerSettingsBuilder,
         protected IAuxSettingsBuilder $auxSettingsBuilder,
         protected IDriverSettingsBuilder $driverSettingsBuilder,
         protected IWidgetSettingsBuilder $widgetSettingsBuilder,
@@ -40,7 +39,6 @@ final class DefaultsProviderBuilder implements IDefaultsProviderBuilder
             new DefaultsProvider(
                 auxSettings: $this->auxSettingsBuilder->build(),
                 loopSettings: $this->loopSettingsBuilder->build(),
-                spinnerSettings: $this->spinnerSettingsBuilder->build(),
                 driverSettings: $this->driverSettingsBuilder->build(),
                 widgetSettings: $widgetSettings,
                 rootWidgetSettings: $this->getRootWidgetSettings($widgetSettings),
