@@ -5,11 +5,8 @@ declare(strict_types=1);
 namespace Unit\Spinner\Core;
 
 use AlecRabbit\Spinner\Core\Contract\IIntegerNormalizerBuilder;
-use AlecRabbit\Spinner\Core\Driver;
 use AlecRabbit\Spinner\Core\IntegerNormalizer;
 use AlecRabbit\Spinner\Core\IntegerNormalizerBuilder;
-use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalFactory;
-use AlecRabbit\Spinner\Exception\LogicException;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;
 
@@ -23,9 +20,10 @@ final class IntegerNormalizerBuilderTest extends TestCaseWithPrebuiltMocksAndStu
         self::assertInstanceOf(IntegerNormalizerBuilder::class, $integerNormalizerBuilder);
     }
 
-    public function getTesteeInstance(  ): IIntegerNormalizerBuilder {
+    public function getTesteeInstance(): IIntegerNormalizerBuilder
+    {
         return
-            new IntegerNormalizerBuilder(    );
+            new IntegerNormalizerBuilder();
     }
 
     #[Test]

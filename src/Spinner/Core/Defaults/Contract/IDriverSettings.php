@@ -7,7 +7,6 @@ namespace AlecRabbit\Spinner\Core\Defaults\Contract;
 
 use AlecRabbit\Spinner\Contract\Option\OptionAttacher;
 use AlecRabbit\Spinner\Contract\Option\OptionInitialization;
-use AlecRabbit\Spinner\Core\Defaults\DriverSettings;
 
 interface IDriverSettings
 {

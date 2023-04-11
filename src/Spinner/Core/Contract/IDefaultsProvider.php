@@ -7,7 +7,6 @@ namespace AlecRabbit\Spinner\Core\Contract;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IAuxSettings;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDriverSettings;
 use AlecRabbit\Spinner\Core\Defaults\Contract\ILoopSettings;
-use AlecRabbit\Spinner\Core\Defaults\Contract\ILegacySpinnerSettings;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IWidgetSettings;
 
 interface IDefaultsProvider

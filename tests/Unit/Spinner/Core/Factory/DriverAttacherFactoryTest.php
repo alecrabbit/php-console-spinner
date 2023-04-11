@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Factory;
 
+use AlecRabbit\Spinner\Core\DriverAttacher;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDriverAttacherFactory;
 use AlecRabbit\Spinner\Core\Factory\DriverAttacherFactory;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoop;
-use AlecRabbit\Spinner\Core\DriverAttacher;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;
 

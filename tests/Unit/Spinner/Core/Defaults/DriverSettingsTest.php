@@ -24,8 +24,7 @@ final class DriverSettingsTest extends TestCaseWithPrebuiltMocksAndStubs
     public function getTesteeInstance(
         OptionInitialization $optionInitialization = OptionInitialization::ENABLED,
         OptionAttacher $optionAttacher = OptionAttacher::ENABLED,
-    ): IDriverSettings
-    {
+    ): IDriverSettings {
         return
             new DriverSettings(
                 optionInitialization: $optionInitialization,
@@ -39,7 +38,7 @@ final class DriverSettingsTest extends TestCaseWithPrebuiltMocksAndStubs
     {
         $driverSettings = $this->getTesteeInstance(
             optionInitialization: OptionInitialization::DISABLED,
-            optionAttacher:  OptionAttacher::DISABLED,
+            optionAttacher: OptionAttacher::DISABLED,
         );
         self::assertInstanceOf(DriverSettings::class, $driverSettings);
         self::assertFalse($driverSettings->isInitializationEnabled());

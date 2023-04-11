@@ -9,7 +9,6 @@ use AlecRabbit\Spinner\Contract\Option\OptionNormalizerMode;
 use AlecRabbit\Spinner\Contract\Option\OptionStyleMode;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IAuxSettings;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IAuxSettingsBuilder;
-use AlecRabbit\Spinner\Core\Interval;
 
 final class AuxSettingsBuilder implements IAuxSettingsBuilder
 {

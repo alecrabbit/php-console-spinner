@@ -6,8 +6,8 @@ namespace AlecRabbit\Spinner\Core\Factory;
 
 use AlecRabbit\Spinner\Core\Contract\ILegacySpinnerAttacher;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILegacySpinnerAttacherFactory;
-use AlecRabbit\Spinner\Core\Loop\Contract\ILoop;
 use AlecRabbit\Spinner\Core\LegacySpinnerAttacher;
+use AlecRabbit\Spinner\Core\Loop\Contract\ILoop;
 
 final class LegacySpinnerAttacherFactory implements ILegacySpinnerAttacherFactory
 {

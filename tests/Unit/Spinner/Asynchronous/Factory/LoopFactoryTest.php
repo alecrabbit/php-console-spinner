@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Unit\Spinner\Asynchronous\Factory;
 
 use AlecRabbit\Spinner\Core\Contract\IDefaultsProvider;
-use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\ILoopSetupBuilder;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopProbeFactory;
@@ -80,7 +79,8 @@ final class LoopFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
             ->expects(self::once())
             ->method('withSettings')
             ->willReturnSelf()
-        ;$loopSetupBuilder
+        ;
+        $loopSetupBuilder
             ->expects(self::once())
             ->method('withLoop')
             ->willReturnSelf()

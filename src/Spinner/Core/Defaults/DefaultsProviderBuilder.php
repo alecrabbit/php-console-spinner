@@ -10,7 +10,6 @@ use AlecRabbit\Spinner\Core\Defaults\Contract\IAuxSettingsBuilder;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDefaultsProviderBuilder;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDriverSettingsBuilder;
 use AlecRabbit\Spinner\Core\Defaults\Contract\ILoopSettingsBuilder;
-use AlecRabbit\Spinner\Core\Defaults\Contract\ILegacySpinnerSettingsBuilder;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IWidgetSettings;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IWidgetSettingsBuilder;
 use AlecRabbit\Spinner\Core\Pattern\CharPattern\Snake;

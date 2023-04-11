@@ -89,7 +89,9 @@ final class DriverSetupTest extends TestCaseWithPrebuiltMocksAndStubs
             ->enableAttacher(true)
             ->setup($driver)
         ;
-    }    #[Test]
+    }
+
+    #[Test]
     public function doesFullSetup(): void
     {
         $driverAttacher = $this->getDriverAttacherMock();

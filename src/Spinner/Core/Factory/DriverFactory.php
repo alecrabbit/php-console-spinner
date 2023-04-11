@@ -30,7 +30,8 @@ final class DriverFactory implements IDriverFactory
         $this->driverSetup
             ->enableInitialization($this->driverSettings->isInitializationEnabled())
             ->enableAttacher($this->driverSettings->isAttacherEnabled())
-            ->setup($driver);
+            ->setup($driver)
+        ;
 
         return
             $driver;

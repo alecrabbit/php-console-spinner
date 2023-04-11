@@ -37,10 +37,10 @@ use AlecRabbit\Spinner\Core\Defaults\Contract\IAuxSettings;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IAuxSettingsBuilder;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDriverSettings;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDriverSettingsBuilder;
-use AlecRabbit\Spinner\Core\Defaults\Contract\ILoopSettings;
-use AlecRabbit\Spinner\Core\Defaults\Contract\ILoopSettingsBuilder;
 use AlecRabbit\Spinner\Core\Defaults\Contract\ILegacySpinnerSettings;
 use AlecRabbit\Spinner\Core\Defaults\Contract\ILegacySpinnerSettingsBuilder;
+use AlecRabbit\Spinner\Core\Defaults\Contract\ILoopSettings;
+use AlecRabbit\Spinner\Core\Defaults\Contract\ILoopSettingsBuilder;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IWidgetSettings;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IWidgetSettingsBuilder;
 use AlecRabbit\Spinner\Core\Factory\Contract\IBufferedOutputSingletonFactory;
@@ -384,6 +384,7 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
     {
         return $this->createMock(IIntegerNormalizerBuilder::class);
     }
+
     protected function getDriverAttacherMock(): MockObject&IDriverAttacher
     {
         return $this->createMock(IDriverAttacher::class);

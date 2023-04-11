@@ -6,7 +6,6 @@ namespace AlecRabbit\Spinner\Core\Defaults;
 
 use AlecRabbit\Spinner\Contract\Option\OptionAttachHandlers;
 use AlecRabbit\Spinner\Contract\Option\OptionAutoStart;
-use AlecRabbit\Spinner\Contract\Option\OptionRunMode;
 use AlecRabbit\Spinner\Core\Defaults\Contract\ILoopSettings;
 
 final class LoopSettings implements ILoopSettings
