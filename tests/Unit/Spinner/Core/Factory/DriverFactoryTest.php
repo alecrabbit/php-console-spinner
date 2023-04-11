@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Factory;
 
 use AlecRabbit\Spinner\Core\Contract\IDriverBuilder;
+use AlecRabbit\Spinner\Core\Contract\IDriverSetup;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDriverFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDriverOutputFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ITimerFactory;
@@ -26,12 +27,14 @@ final class DriverFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
         ?IDriverBuilder $driverBuilder = null,
         ?IDriverOutputFactory $driverOutputFactory = null,
         ?ITimerFactory $timerFactory = null,
+        ?IDriverSetup $driverSetup = null,
     ): IDriverFactory {
         return
             new DriverFactory(
                 driverBuilder: $driverBuilder ?? $this->getDriverBuilderMock(),
                 driverOutputFactory: $driverOutputFactory ?? $this->getDriverOutputFactoryMock(),
                 timerFactory: $timerFactory ?? $this->getTimerFactoryMock(),
+                driverSetup: $driverSetup ?? $this->getDriverSetupMock(),
             );
     }
 
@@ -41,19 +44,16 @@ final class DriverFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
         $driverStub = $this->getDriverStub();
 
         $driverBuilder = $this->getDriverBuilderMock();
-
         $driverBuilder
             ->expects(self::once())
             ->method('withDriverOutput')
             ->willReturnSelf()
         ;
-
         $driverBuilder
             ->expects(self::once())
             ->method('withTimer')
             ->willReturnSelf()
         ;
-
         $driverBuilder
             ->expects(self::once())
             ->method('build')
@@ -68,19 +68,36 @@ final class DriverFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
         ;
 
         $driverOutputFactory = $this->getDriverOutputFactoryMock();
-
         $driverOutputFactory
             ->expects(self::once())
             ->method('create')
             ->willReturn($this->getDriverOutputStub())
         ;
 
+        $driverSetup = $this->getDriverSetupMock();
+        $driverSetup
+            ->expects(self::once())
+            ->method('enableInitialization')
+            ->with(true)
+            ->willReturnSelf()
+        ;
+        $driverSetup
+            ->expects(self::once())
+            ->method('enableAttacher')
+            ->with(true)
+            ->willReturnSelf()
+        ;
+        $driverSetup
+            ->expects(self::once())
+            ->method('setup')
+        ;
 
         $driverFactory =
             $this->getTesteeInstance(
                 driverBuilder: $driverBuilder,
                 driverOutputFactory: $driverOutputFactory,
-                timerFactory: $timerFactory
+                timerFactory: $timerFactory,
+                driverSetup: $driverSetup,
             );
 
         self::assertSame($driverStub, $driverFactory->create());

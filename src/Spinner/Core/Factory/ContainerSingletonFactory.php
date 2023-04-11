@@ -9,6 +9,7 @@ use AlecRabbit\Spinner\Container\Contract\IContainer;
 use AlecRabbit\Spinner\Container\Contract\IServiceSpawner;
 use AlecRabbit\Spinner\Container\ServiceSpawner;
 use AlecRabbit\Spinner\Contract\IInterval;
+use AlecRabbit\Spinner\Contract\Option\OptionNormalizerMode;
 use AlecRabbit\Spinner\Contract\Option\OptionStyleMode;
 use AlecRabbit\Spinner\Contract\Output\ISequencer;
 use AlecRabbit\Spinner\Core\BufferedOutputBuilder;
@@ -41,6 +42,7 @@ use AlecRabbit\Spinner\Core\Contract\IWidthMeasurer;
 use AlecRabbit\Spinner\Core\Defaults\AuxSettingsBuilder;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IAuxSettings;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IAuxSettingsBuilder;
+use AlecRabbit\Spinner\Core\Defaults\Contract\IDefaultsProviderBuilder;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDriverSettingsBuilder;
 use AlecRabbit\Spinner\Core\Defaults\Contract\ILegacySpinnerSettingsBuilder;
 use AlecRabbit\Spinner\Core\Defaults\Contract\ILoopSettingsBuilder;
@@ -51,7 +53,7 @@ use AlecRabbit\Spinner\Core\Defaults\LegacySpinnerSettingsBuilder;
 use AlecRabbit\Spinner\Core\Defaults\LoopSettingsBuilder;
 use AlecRabbit\Spinner\Core\Defaults\WidgetSettingsBuilder;
 use AlecRabbit\Spinner\Core\DriverSetup;
-use AlecRabbit\Spinner\Core\Factory\Contract\IContainerFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\IContainerSingletonFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDriverAttacherFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IFrameFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalFactory;
@@ -82,7 +84,7 @@ use AlecRabbit\Spinner\Exception\DomainException;
 use Psr\Container\ContainerInterface;
 use Traversable;
 
-final class ContainerFactory implements IContainerFactory
+final class ContainerSingletonFactory implements IContainerSingletonFactory
 {
     protected static ?IContainer $container = null;
 
@@ -117,18 +119,10 @@ final class ContainerFactory implements IContainerFactory
         // TODO (2023-04-10 20:21) [Alec Rabbit]: consider extracting definitions?
         yield from [
             IDefaultsProvider::class => static function (ContainerInterface $container): IDefaultsProvider {
-                return
-                    (new DefaultsProviderBuilder(
-                        loopSettingsBuilder: $container->get(ILoopSettingsBuilder::class),
-                        spinnerSettingsBuilder: $container->get(ILegacySpinnerSettingsBuilder::class),
-                        auxSettingsBuilder: $container->get(IAuxSettingsBuilder::class),
-                        driverSettingsBuilder: $container->get(IDriverSettingsBuilder::class),
-                        widgetSettingsBuilder: $container->get(IWidgetSettingsBuilder::class),
-                        rootWidgetSettingsBuilder: $container->get(IWidgetSettingsBuilder::class),
-                    ))
-                        ->build()
-                ;
+                return $container->get(IDefaultsProviderBuilder::class)->build();
             },
+
+            IDefaultsProviderBuilder::class => DefaultsProviderBuilder::class,
 
             ILoopSettingsBuilder::class => static function (ContainerInterface $container): ILoopSettingsBuilder {
                 $loopProbe = null;
@@ -177,6 +171,12 @@ final class ContainerFactory implements IContainerFactory
 
             OptionStyleMode::class => static function (ContainerInterface $container): OptionStyleMode {
                 return $container->get(IDefaultsProvider::class)->getAuxSettings()->getOptionStyleMode();
+            },
+
+            OptionNormalizerMode::class => static function (ContainerInterface $container): OptionNormalizerMode {
+                // TODO (2023-04-11 11:41) [Alec Rabbit]: get from DefaultsProvider
+                //  $container->get(IDefaultsProvider::class)-> ~ ->getNormalizerMode();
+                return OptionNormalizerMode::BALANCED;
             },
 
 
