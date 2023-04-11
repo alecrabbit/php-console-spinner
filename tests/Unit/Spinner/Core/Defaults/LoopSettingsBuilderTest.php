@@ -40,9 +40,9 @@ final class LoopSettingsBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
 
         self::assertInstanceOf(LoopSettings::class, $loopSettings);
 
-        self::assertSame(OptionRunMode::SYNCHRONOUS, $loopSettings->getRunModeOption());
-        self::assertSame(OptionAutoStart::DISABLED, $loopSettings->getAutoStartOption());
-        self::assertSame(OptionAttachHandlers::DISABLED, $loopSettings->getSignalHandlersOption());
+        self::assertFalse($loopSettings->isLoopAvailable());
+        self::assertFalse($loopSettings->isAutoStartEnabled());
+        self::assertFalse($loopSettings->isAttachHandlersEnabled());
     }
 
     #[Test]
@@ -57,8 +57,8 @@ final class LoopSettingsBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
 
         self::assertInstanceOf(LoopSettings::class, $loopSettings);
 
-        self::assertSame(OptionRunMode::ASYNC, $loopSettings->getRunModeOption());
-        self::assertSame(OptionAutoStart::ENABLED, $loopSettings->getAutoStartOption());
-        self::assertSame(OptionAttachHandlers::ENABLED, $loopSettings->getSignalHandlersOption());
+        self::assertTrue($loopSettings->isLoopAvailable());
+        self::assertTrue($loopSettings->isAutoStartEnabled());
+        self::assertTrue($loopSettings->isAttachHandlersEnabled());
     }
 }

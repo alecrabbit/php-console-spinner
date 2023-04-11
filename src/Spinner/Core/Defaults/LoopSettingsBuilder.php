@@ -20,28 +20,23 @@ final class LoopSettingsBuilder implements ILoopSettingsBuilder
 
     public function build(): ILoopSettings
     {
-        $probe = $this->loopProbe instanceof ILoopProbe;
+        $loopAvailable = $this->loopProbe instanceof ILoopProbe;
 
-        $runModeOption =
-            $probe
-                ? OptionRunMode::ASYNC
-                : OptionRunMode::SYNCHRONOUS;
-
-        $autoStartOption =
-            $probe
+        $optionAutoStart =
+            $loopAvailable
                 ? OptionAutoStart::ENABLED
                 : OptionAutoStart::DISABLED;
 
-        $signalHandlersOption =
-            $probe
+        $optionAttachHandlers =
+            $loopAvailable
                 ? OptionAttachHandlers::ENABLED
                 : OptionAttachHandlers::DISABLED;
 
         return
             new LoopSettings(
-                runModeOption: $runModeOption,
-                autoStartOption: $autoStartOption,
-                signalHandlersOption: $signalHandlersOption,
+                loopAvailable: $loopAvailable,
+                optionAutoStart: $optionAutoStart,
+                optionAttachHandlers: $optionAttachHandlers,
             );
     }
 }

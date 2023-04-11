@@ -118,8 +118,8 @@ final class ConfigBuilder implements IConfigBuilder
         return
             new LoopConfig(
                 $loopSettings->getRunModeOption(),
-                $loopSettings->getAutoStartOption(),
-                $loopSettings->getSignalHandlersOption(),
+                $loopSettings->isAutoStartEnabled(),
+                $loopSettings->isAttachHandlersEnabled(),
             );
     }
 
