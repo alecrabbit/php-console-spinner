@@ -147,6 +147,7 @@ final class ContainerSingletonFactory implements IContainerSingletonFactory
             },
 
             IDriver::class => static function (ContainerInterface $container): IDriver {
+                dump('IDriver');
                 return $container->get(IDriverFactory::class)->create();
             },
 

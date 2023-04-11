@@ -6,6 +6,7 @@ namespace AlecRabbit\Spinner\Container;
 
 use AlecRabbit\Spinner\Container\Contract\IContainer;
 use AlecRabbit\Spinner\Container\Contract\IServiceSpawner;
+use AlecRabbit\Spinner\Container\Exception\CircularDependencyDetectedException;
 use AlecRabbit\Spinner\Container\Exception\ContainerException;
 use AlecRabbit\Spinner\Container\Exception\NotInContainerException;
 use ArrayObject;
@@ -23,6 +24,8 @@ final class Container implements IContainer
     /** @var ArrayObject<string, object> */
     protected ArrayObject $services;
 
+    protected ArrayObject $dependenciesStack;
+
     /**
      * Create a container object with a set of definitions.
      *
@@ -34,6 +37,7 @@ final class Container implements IContainer
         $this->serviceSpawner = $spawnerCreatorCb($this);
         $this->definitions = new ArrayObject();
         $this->services = new ArrayObject();
+        $this->dependenciesStack = new ArrayObject();
 
         if ($definitions) {
             /** @var callable|object|string $definition */
@@ -136,9 +140,52 @@ final class Container implements IContainer
             );
         }
 
+        $this->addDependencyToStack($id);
+
         $definition = $this->definitions[$id];
 
-        return $this->services[$id] = $this->getService($id, $definition);
+        $this->services[$id] = $this->getService($id, $definition);
+
+        $this->removeDependencyFromStack();
+
+        return $this->services[$id];
+    }
+
+    protected function addDependencyToStack(string $id): void
+    {
+        $this->assertDependency($id);
+
+        $this->dependenciesStack->append($id);
+    }
+
+    protected function assertDependency(string $id): void
+    {
+        $stack = $this->dependenciesStack->getArrayCopy();
+        if (in_array($id, $stack, true)) {
+            throw new CircularDependencyDetectedException(
+                sprintf(
+                    'Circular dependency detected!%s',
+                    PHP_EOL . $this->formatDependencyStack($id),
+                )
+            );
+        }
+    }
+
+    private function formatDependencyStack(string $id): string
+    {
+        return sprintf(
+            'Stack: %s%s%s%s',
+            PHP_EOL,
+            '🔴 ↓ ' . implode(
+                sprintf(
+                    '%s   ↓ ',
+                    PHP_EOL,
+                ),
+                $this->dependenciesStack->getArrayCopy(),
+            ),
+            PHP_EOL .'🔴   '. $id,
+            PHP_EOL,
+        );
     }
 
     protected function getService(string $id, callable|object|string $definition): object
@@ -159,5 +206,10 @@ final class Container implements IContainer
                 previous: $e,
             );
         }
+    }
+
+    protected function removeDependencyFromStack(): void
+    {
+        $this->dependenciesStack->offsetUnset($this->dependenciesStack->count() - 1);
     }
 }
