@@ -6,6 +6,7 @@ namespace AlecRabbit\Tests\Unit\Spinner\Core\Factory;
 
 use AlecRabbit\Spinner\Core\Contract\IDriverBuilder;
 use AlecRabbit\Spinner\Core\Contract\IDriverSetup;
+use AlecRabbit\Spinner\Core\Defaults\Contract\IDriverSettings;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDriverFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDriverOutputFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ITimerFactory;
@@ -28,6 +29,7 @@ final class DriverFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
         ?IDriverOutputFactory $driverOutputFactory = null,
         ?ITimerFactory $timerFactory = null,
         ?IDriverSetup $driverSetup = null,
+        ?IDriverSettings $driverSettings = null,
     ): IDriverFactory {
         return
             new DriverFactory(
@@ -35,6 +37,7 @@ final class DriverFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
                 driverOutputFactory: $driverOutputFactory ?? $this->getDriverOutputFactoryMock(),
                 timerFactory: $timerFactory ?? $this->getTimerFactoryMock(),
                 driverSetup: $driverSetup ?? $this->getDriverSetupMock(),
+                driverSettings: $driverSettings ?? $this->getDriverSettingsMock(),
             );
     }
 
@@ -92,12 +95,25 @@ final class DriverFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
             ->method('setup')
         ;
 
+        $driverSettings = $this->getDriverSettingsMock();
+        $driverSettings
+            ->expects(self::once())
+            ->method('isInitializationEnabled')
+            ->willReturn(true)
+        ;
+        $driverSettings
+            ->expects(self::once())
+            ->method('isAttacherEnabled')
+            ->willReturn(true)
+        ;
+
         $driverFactory =
             $this->getTesteeInstance(
                 driverBuilder: $driverBuilder,
                 driverOutputFactory: $driverOutputFactory,
                 timerFactory: $timerFactory,
                 driverSetup: $driverSetup,
+                driverSettings: $driverSettings,
             );
 
         self::assertSame($driverStub, $driverFactory->create());

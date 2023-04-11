@@ -7,6 +7,7 @@ namespace AlecRabbit\Spinner\Core\Factory;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\IDriverBuilder;
 use AlecRabbit\Spinner\Core\Contract\IDriverSetup;
+use AlecRabbit\Spinner\Core\Defaults\Contract\IDriverSettings;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDriverFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDriverOutputFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ITimerFactory;
@@ -18,7 +19,7 @@ final class DriverFactory implements IDriverFactory
         protected IDriverOutputFactory $driverOutputFactory,
         protected ITimerFactory $timerFactory,
         protected IDriverSetup $driverSetup,
-        // TODO (2023-04-10 20:07) [Alec Rabbit]: inject config [64045a0f-da0f-4bed-94fd-8f178bdf9282]
+        protected IDriverSettings $driverSettings,
     ) {
     }
 
@@ -27,8 +28,8 @@ final class DriverFactory implements IDriverFactory
         $driver = $this->buildDriver();
 
         $this->driverSetup
-            ->enableInitialization(true) // TODO: Make it configurable [64045a0f-da0f-4bed-94fd-8f178bdf9282]
-            ->enableAttacher(true) // TODO: Make it configurable [64045a0f-da0f-4bed-94fd-8f178bdf9282]
+            ->enableInitialization($this->driverSettings->isInitializationEnabled())
+            ->enableAttacher($this->driverSettings->isAttacherEnabled())
             ->setup($driver);
 
         return

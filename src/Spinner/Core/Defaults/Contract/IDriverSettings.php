@@ -5,13 +5,27 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Defaults\Contract;
 
+use AlecRabbit\Spinner\Contract\Option\OptionAttacher;
+use AlecRabbit\Spinner\Contract\Option\OptionInitialization;
+use AlecRabbit\Spinner\Core\Defaults\DriverSettings;
+
 interface IDriverSettings
 {
+    /**
+     * @deprecated
+     */
     public function getFinalMessage(): string;
 
-    public function setFinalMessage(string $finalMessage): IDriverSettings;
-
+    /**
+     * @deprecated
+     */
     public function getInterruptMessage(): string;
 
-    public function setInterruptMessage(string $interruptMessage): IDriverSettings;
+    public function isInitializationEnabled(): bool;
+
+    public function isAttacherEnabled(): bool;
+
+    public function setOptionInitialization(OptionInitialization $optionInitialization): IDriverSettings;
+
+    public function setOptionAttacher(OptionAttacher $optionAttacher): IDriverSettings;
 }

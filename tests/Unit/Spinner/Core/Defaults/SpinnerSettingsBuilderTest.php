@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Defaults;
 
-use AlecRabbit\Spinner\Contract\Option\OptionAttach;
+use AlecRabbit\Spinner\Contract\Option\OptionAttacher;
 use AlecRabbit\Spinner\Contract\Option\OptionInitialization;
 use AlecRabbit\Spinner\Core\Defaults\Contract\ILegacySpinnerSettingsBuilder;
 use AlecRabbit\Spinner\Core\Defaults\LegacySpinnerSettings;
@@ -39,7 +39,7 @@ final class SpinnerSettingsBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
 
         self::assertInstanceOf(LegacySpinnerSettings::class, $settings);
 
-        self::assertSame(OptionAttach::DISABLED, $settings->getAttachOption());
+        self::assertSame(OptionAttacher::DISABLED, $settings->getAttachOption());
         self::assertSame(OptionInitialization::ENABLED, $settings->getInitializationOption());
     }
 
@@ -53,7 +53,7 @@ final class SpinnerSettingsBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
 
         self::assertInstanceOf(LegacySpinnerSettings::class, $settings);
 
-        self::assertSame(OptionAttach::ENABLED, $settings->getAttachOption());
+        self::assertSame(OptionAttacher::ENABLED, $settings->getAttachOption());
         self::assertSame(OptionInitialization::ENABLED, $settings->getInitializationOption());
     }
 

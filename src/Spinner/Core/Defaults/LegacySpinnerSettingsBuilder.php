@@ -4,7 +4,7 @@ declare(strict_types=1);
 // 05.04.23
 namespace AlecRabbit\Spinner\Core\Defaults;
 
-use AlecRabbit\Spinner\Contract\Option\OptionAttach;
+use AlecRabbit\Spinner\Contract\Option\OptionAttacher;
 use AlecRabbit\Spinner\Contract\Option\OptionInitialization;
 use AlecRabbit\Spinner\Core\Defaults\Contract\ILegacySpinnerSettings;
 use AlecRabbit\Spinner\Core\Defaults\Contract\ILegacySpinnerSettingsBuilder;
@@ -23,8 +23,8 @@ final class LegacySpinnerSettingsBuilder implements ILegacySpinnerSettingsBuilde
 
         $attachOption =
             $probe
-                ? OptionAttach::ENABLED
-                : OptionAttach::DISABLED;
+                ? OptionAttacher::ENABLED
+                : OptionAttacher::DISABLED;
 
         return
             new LegacySpinnerSettings(

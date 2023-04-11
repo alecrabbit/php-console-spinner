@@ -2,7 +2,7 @@
 // 19.03.23
 namespace AlecRabbit\Spinner\Contract\Option;
 
-enum OptionAttach
+enum OptionAttacher
 {
     case ENABLED;
     case DISABLED;

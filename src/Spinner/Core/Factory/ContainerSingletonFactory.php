@@ -47,6 +47,7 @@ use AlecRabbit\Spinner\Core\Defaults\AuxSettingsBuilder;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IAuxSettings;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IAuxSettingsBuilder;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDefaultsProviderBuilder;
+use AlecRabbit\Spinner\Core\Defaults\Contract\IDriverSettings;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDriverSettingsBuilder;
 use AlecRabbit\Spinner\Core\Defaults\Contract\ILegacySpinnerSettingsBuilder;
 use AlecRabbit\Spinner\Core\Defaults\Contract\ILoopSettingsBuilder;
@@ -153,6 +154,9 @@ final class ContainerSingletonFactory implements IContainerSingletonFactory
             IDriverBuilder::class => DriverBuilder::class,
             IDriverOutputFactory::class => DriverOutputFactory::class,
             IDriverOutputBuilder::class => DriverOutputBuilder::class,
+            IDriverSettings::class => static function (ContainerInterface $container): IDriverSettings {
+                return $container->get(IDefaultsProvider::class)->getDriverSettings();
+            },
             IBufferedOutputSingletonFactory::class => BufferedOutputSingletonFactory::class,
             IResourceStream::class => static function (ContainerInterface $container): IResourceStream {
                 // TODO (2023-04-11 12:15) [Alec Rabbit]: get stream from DefaultsProvider

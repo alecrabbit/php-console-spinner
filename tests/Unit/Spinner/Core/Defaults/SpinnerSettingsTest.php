@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Defaults;
 
-use AlecRabbit\Spinner\Contract\Option\OptionAttach;
+use AlecRabbit\Spinner\Contract\Option\OptionAttacher;
 use AlecRabbit\Spinner\Contract\Option\OptionInitialization;
 use AlecRabbit\Spinner\Core\Defaults\Contract\ILegacySpinnerSettings;
 use AlecRabbit\Spinner\Core\Defaults\LegacySpinnerSettings;
@@ -20,17 +20,17 @@ final class SpinnerSettingsTest extends TestCaseWithPrebuiltMocksAndStubs
 
         self::assertInstanceOf(LegacySpinnerSettings::class, $spinnerSettings);
         self::assertSame(OptionInitialization::DISABLED, $spinnerSettings->getInitializationOption());
-        self::assertSame(OptionAttach::DISABLED, $spinnerSettings->getAttachOption());
+        self::assertSame(OptionAttacher::DISABLED, $spinnerSettings->getAttachOption());
     }
 
     public function getTesteeInstance(
         ?OptionInitialization $initializationOption = null,
-        ?OptionAttach $attachOption = null,
+        ?OptionAttacher $attachOption = null,
     ): ILegacySpinnerSettings {
         return
             new LegacySpinnerSettings(
                 initializationOption: $initializationOption ?? OptionInitialization::DISABLED,
-                attachOption: $attachOption ?? OptionAttach::DISABLED,
+                attachOption: $attachOption ?? OptionAttacher::DISABLED,
             );
     }
 
@@ -38,7 +38,7 @@ final class SpinnerSettingsTest extends TestCaseWithPrebuiltMocksAndStubs
     public function canBeCreatedWithArguments(): void
     {
         $initializationOption = OptionInitialization::ENABLED;
-        $attachOption = OptionAttach::ENABLED;
+        $attachOption = OptionAttacher::ENABLED;
 
         $spinnerSettings = $this->getTesteeInstance($initializationOption, $attachOption);
 
@@ -51,7 +51,7 @@ final class SpinnerSettingsTest extends TestCaseWithPrebuiltMocksAndStubs
     public function valuesCanBeOverriddenWithSetters(): void
     {
         $initializationOption = OptionInitialization::ENABLED;
-        $attachOption = OptionAttach::ENABLED;
+        $attachOption = OptionAttacher::ENABLED;
 
         $spinnerSettings = $this->getTesteeInstance();
         $spinnerSettings->setInitializationOption($initializationOption);

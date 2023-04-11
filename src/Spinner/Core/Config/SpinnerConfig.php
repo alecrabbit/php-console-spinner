@@ -4,7 +4,7 @@ declare(strict_types=1);
 // 17.03.23
 namespace AlecRabbit\Spinner\Core\Config;
 
-use AlecRabbit\Spinner\Contract\Option\OptionAttach;
+use AlecRabbit\Spinner\Contract\Option\OptionAttacher;
 use AlecRabbit\Spinner\Contract\Option\OptionInitialization;
 use AlecRabbit\Spinner\Core\Config\Contract\ISpinnerConfig;
 
@@ -12,7 +12,7 @@ final class SpinnerConfig implements ISpinnerConfig
 {
     public function __construct(
         protected OptionInitialization $initializationOption,
-        protected OptionAttach $attachOption,
+        protected OptionAttacher $attachOption,
     ) {
     }
 
@@ -23,6 +23,6 @@ final class SpinnerConfig implements ISpinnerConfig
 
     public function isEnabledAttach(): bool
     {
-        return $this->attachOption === OptionAttach::ENABLED;
+        return $this->attachOption === OptionAttacher::ENABLED;
     }
 }
