@@ -253,28 +253,6 @@ final class ContainerSingletonFactory implements IContainerSingletonFactory
                 return
                     $container->get(IWidthMeasurerFactory::class)->create();
             },
-
-
-            ILegacyDriverBuilder::class => LegacyDriverBuilder::class,
-            ILegacySpinnerAttacher::class =>
-                static function (ContainerInterface $container): ILegacySpinnerAttacher {
-                    return
-                        $container->get(ILegacySpinnerAttacherFactory::class)->getAttacher();
-                },
-            ILegacySpinnerAttacherFactory::class => LegacySpinnerAttacherFactory::class,
-            ILegacySpinnerBuilder::class => LegacySpinnerBuilder::class,
-            ILegacySpinnerFactory::class => LegacySpinnerFactory::class,
-            ILegacySpinnerSetup::class => LegacySpinnerSetup::class,
-
-            ILegacySpinnerSettingsBuilder::class =>
-                static function (ContainerInterface $container): ILegacySpinnerSettingsBuilder {
-                    $loopProbe = null;
-                    try {
-                        $loopProbe = $container->get(ILoopProbeFactory::class)->getProbe();
-                    } finally {
-                        return new LegacySpinnerSettingsBuilder($loopProbe);
-                    }
-                },
         ];
     }
 }

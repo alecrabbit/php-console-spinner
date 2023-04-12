@@ -43,7 +43,7 @@ final class WidgetRevolverFactory implements IWidgetRevolverFactory
     {
         return
             $this->charRevolverFactory->createCharRevolver(
-                $widgetSettings->getStylePattern()
+                $widgetSettings->getCharPattern()
             );
     }
 }
