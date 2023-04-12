@@ -85,7 +85,7 @@ use AlecRabbit\Spinner\Core\Loop\Contract\ILoop;
 use AlecRabbit\Spinner\Core\LoopSetup;
 use AlecRabbit\Spinner\Core\LoopSetupBuilder;
 use AlecRabbit\Spinner\Core\Output\ResourceStream;
-use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolverBuilder;
+use AlecRabbit\Spinner\Core\Revolver\Contract\ILegacyFrameRevolverBuilder;
 use AlecRabbit\Spinner\Core\Sequencer;
 use AlecRabbit\Spinner\Core\StyleFrameCollectionRenderer;
 use AlecRabbit\Spinner\Core\StyleFrameRenderer;
@@ -179,7 +179,7 @@ final class ContainerSingletonFactory implements IContainerSingletonFactory
             IDriverSettingsBuilder::class => DriverSettingsBuilder::class,
             IDriverSetup::class => DriverSetup::class,
             IFrameFactory::class => FrameFactory::class,
-            IFrameRevolverBuilder::class => FrameRevolverBuilder::class,
+            ILegacyFrameRevolverBuilder::class => FrameRevolverBuilder::class,
             IIntervalFactory::class => IntervalFactory::class,
             IIntervalNormalizer::class => IntervalNormalizer::class,
             ILoopSingletonFactory::class => LoopSingletonFactory::class,

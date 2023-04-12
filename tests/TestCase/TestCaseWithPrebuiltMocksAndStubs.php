@@ -55,7 +55,7 @@ use AlecRabbit\Spinner\Core\Loop\Contract\ILoop;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoopProbe;
 use AlecRabbit\Spinner\Core\Output\Contract\IConsoleCursor;
 use AlecRabbit\Spinner\Core\Output\Contract\IDriverOutput;
-use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolverBuilder;
+use AlecRabbit\Spinner\Core\Revolver\Contract\ILegacyFrameRevolverBuilder;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetBuilder;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
@@ -161,9 +161,9 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
         return $this->createMock(IFrameFactory::class);
     }
 
-    protected function getFrameRevolverBuilderMock(): MockObject&IFrameRevolverBuilder
+    protected function getFrameRevolverBuilderMock(): MockObject&ILegacyFrameRevolverBuilder
     {
-        return $this->createMock(IFrameRevolverBuilder::class);
+        return $this->createMock(ILegacyFrameRevolverBuilder::class);
     }
 
     protected function getOutputBuilderMock(): MockObject&IBufferedOutputBuilder

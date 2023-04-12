@@ -4,9 +4,9 @@ declare(strict_types=1);
 // 20.03.23
 namespace AlecRabbit\Spinner\Core;
 
-use AlecRabbit\Spinner\Core\A\AFrameRevolverBuilder;
+use AlecRabbit\Spinner\Core\A\ALegacyFrameRevolverBuilder;
 
-final class FrameRevolverBuilder extends AFrameRevolverBuilder
+final class FrameRevolverBuilder extends ALegacyFrameRevolverBuilder
 {
 
 }

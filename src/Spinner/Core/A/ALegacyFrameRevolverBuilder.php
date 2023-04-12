@@ -12,12 +12,12 @@ use AlecRabbit\Spinner\Core\Contract\IStyleFrameCollectionRenderer;
 use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalFactory;
 use AlecRabbit\Spinner\Core\Pattern\Contract\IStylePattern;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolver;
-use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolverBuilder;
+use AlecRabbit\Spinner\Core\Revolver\Contract\ILegacyFrameRevolverBuilder;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
 use AlecRabbit\Spinner\Core\Revolver\FrameCollectionRevolver;
 use AlecRabbit\Spinner\Exception\DomainException;
 
-abstract class AFrameRevolverBuilder extends ARevolverBuilder implements IFrameRevolverBuilder
+abstract class ALegacyFrameRevolverBuilder extends ARevolverBuilder implements ILegacyFrameRevolverBuilder
 {
     protected ?IPattern $pattern = null;
     protected ?IFrameCollection $frames = null;
