@@ -9,5 +9,5 @@ use AlecRabbit\Spinner\Core\Defaults\Contract\IDefaults;
 
 interface IDriverSingletonFactory
 {
-    public function create(): IDriver;
+    public function getDriver(): IDriver;
 }

@@ -22,7 +22,7 @@ final class LoopSettingsTest extends TestCaseWithPrebuiltMocksAndStubs
         self::assertFalse($loopSettings->isLoopAvailable());
         self::assertFalse($loopSettings->isAutoStartEnabled());
         self::assertFalse($loopSettings->isAttachHandlersEnabled());
-        self::assertFalse($loopSettings->isPcntlExtensionAvailable());
+        self::assertFalse($loopSettings->isSignalProcessingAvailable());
     }
 
     public function getTesteeInstance(
@@ -35,8 +35,8 @@ final class LoopSettingsTest extends TestCaseWithPrebuiltMocksAndStubs
             new LoopSettings(
                 loopAvailable: $loopAvailable ?? false,
                 optionAutoStart: $autoStartOption ?? OptionAutoStart::DISABLED,
+                signalProcessingAvailable: $pcntlExtensionAvailable ?? false,
                 optionAttachHandlers: $signalHandlersOption ?? OptionAttachHandlers::DISABLED,
-                pcntlExtensionAvailable: $pcntlExtensionAvailable ?? false,
             );
     }
 
@@ -55,7 +55,7 @@ final class LoopSettingsTest extends TestCaseWithPrebuiltMocksAndStubs
         self::assertTrue($loopSettings->isLoopAvailable());
         self::assertTrue($loopSettings->isAutoStartEnabled());
         self::assertTrue($loopSettings->isAttachHandlersEnabled());
-        self::assertTrue($loopSettings->isPcntlExtensionAvailable());
+        self::assertTrue($loopSettings->isSignalProcessingAvailable());
     }
 
     #[Test]
@@ -74,6 +74,6 @@ final class LoopSettingsTest extends TestCaseWithPrebuiltMocksAndStubs
         self::assertTrue($loopSettings->isLoopAvailable());
         self::assertTrue($loopSettings->isAutoStartEnabled());
         self::assertTrue($loopSettings->isAttachHandlersEnabled());
-        self::assertTrue($loopSettings->isPcntlExtensionAvailable());
+        self::assertTrue($loopSettings->isSignalProcessingAvailable());
     }
 }

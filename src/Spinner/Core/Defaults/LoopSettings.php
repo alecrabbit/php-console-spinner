@@ -13,8 +13,8 @@ final class LoopSettings implements ILoopSettings
     public function __construct(
         protected bool $loopAvailable,
         protected OptionAutoStart $optionAutoStart,
+        protected bool $signalProcessingAvailable,
         protected OptionAttachHandlers $optionAttachHandlers,
-        protected bool $pcntlExtensionAvailable,
     ) {
     }
 
@@ -45,8 +45,8 @@ final class LoopSettings implements ILoopSettings
         return $this;
     }
 
-    public function isPcntlExtensionAvailable(): bool
+    public function isSignalProcessingAvailable(): bool
     {
-        return $this->pcntlExtensionAvailable;
+        return $this->signalProcessingAvailable;
     }
 }

@@ -4,7 +4,7 @@ declare(strict_types=1);
 // 05.04.23
 namespace AlecRabbit\Spinner\Core\Defaults\Contract;
 
-interface ILoopSettingsBuilder
+interface ILoopSettingsFactory
 {
-    public function build(): ILoopSettings;
+    public function createLoopSettings(): ILoopSettings;
 }

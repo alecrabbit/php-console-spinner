@@ -21,5 +21,5 @@ interface ILoopSettings
 
     public function isLoopAvailable(): bool;
 
-    public function isPcntlExtensionAvailable(): bool;
+    public function isSignalProcessingAvailable(): bool;
 }

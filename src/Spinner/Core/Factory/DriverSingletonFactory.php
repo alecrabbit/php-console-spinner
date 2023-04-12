@@ -27,7 +27,7 @@ final class DriverSingletonFactory implements IDriverSingletonFactory
     ) {
     }
 
-    public function create(): IDriver
+    public function getDriver(): IDriver
     {
         if (null === self::$driver) {
             self::$driver = $this->buildDriver();

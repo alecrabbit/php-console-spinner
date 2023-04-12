@@ -38,7 +38,7 @@ use AlecRabbit\Spinner\Core\Contract\ILegacySpinnerBuilder;
 use AlecRabbit\Spinner\Core\Contract\ILegacySpinnerSetup;
 use AlecRabbit\Spinner\Core\Contract\ILoopSetup;
 use AlecRabbit\Spinner\Core\Contract\ILoopSetupBuilder;
-use AlecRabbit\Spinner\Core\Contract\IPcntlExtensionProbe;
+use AlecRabbit\Spinner\Core\Contract\ISignalProcessingProbe;
 use AlecRabbit\Spinner\Core\Contract\IStyleFrameCollectionRenderer;
 use AlecRabbit\Spinner\Core\Contract\IStyleFrameRenderer;
 use AlecRabbit\Spinner\Core\Contract\ITimerBuilder;
@@ -50,12 +50,12 @@ use AlecRabbit\Spinner\Core\Defaults\Contract\IDefaultsProviderBuilder;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDriverSettings;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDriverSettingsBuilder;
 use AlecRabbit\Spinner\Core\Defaults\Contract\ILegacySpinnerSettingsBuilder;
-use AlecRabbit\Spinner\Core\Defaults\Contract\ILoopSettingsBuilder;
+use AlecRabbit\Spinner\Core\Defaults\Contract\ILoopSettingsFactory;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IWidgetSettingsBuilder;
 use AlecRabbit\Spinner\Core\Defaults\DefaultsProviderBuilder;
 use AlecRabbit\Spinner\Core\Defaults\DriverSettingsBuilder;
 use AlecRabbit\Spinner\Core\Defaults\LegacySpinnerSettingsBuilder;
-use AlecRabbit\Spinner\Core\Defaults\LoopSettingsBuilder;
+use AlecRabbit\Spinner\Core\Defaults\LoopSettingsFactory;
 use AlecRabbit\Spinner\Core\Defaults\WidgetSettingsBuilder;
 use AlecRabbit\Spinner\Core\DriverBuilder;
 use AlecRabbit\Spinner\Core\DriverOutputBuilder;
@@ -138,19 +138,19 @@ final class ContainerSingletonFactory implements IContainerSingletonFactory
 
             IDefaultsProviderBuilder::class => DefaultsProviderBuilder::class,
 
-            ILoopSettingsBuilder::class => static function (ContainerInterface $container): ILoopSettingsBuilder {
+            ILoopSettingsFactory::class => static function (ContainerInterface $container): ILoopSettingsFactory {
                 $loopProbe = null;
                 $pcntlExtensionProbe = null;
                 try {
                     $loopProbe = $container->get(ILoopProbeFactory::class)->getProbe();
-                    $pcntlExtensionProbe = $container->get(IPcntlExtensionProbe::class)->getProbe();
+                    $pcntlExtensionProbe = $container->get(ISignalProcessingProbe::class)->getProbe();
                 } finally {
-                    return new LoopSettingsBuilder($loopProbe, $pcntlExtensionProbe);
+                    return new LoopSettingsFactory($loopProbe, $pcntlExtensionProbe);
                 }
             },
 
             IDriver::class => static function (ContainerInterface $container): IDriver {
-                return $container->get(IDriverSingletonFactory::class)->create();
+                return $container->get(IDriverSingletonFactory::class)->getDriver();
             },
 
             IDriverSingletonFactory::class => DriverSingletonFactory::class,

@@ -5,7 +5,7 @@ namespace AlecRabbit\Spinner\Core\Contract;
 
 use AlecRabbit\Spinner\Contract\IProbe;
 
-interface IPcntlExtensionProbe extends IProbe
+interface ISignalProcessingProbe extends IProbe
 {
 
 }

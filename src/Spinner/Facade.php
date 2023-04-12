@@ -9,6 +9,7 @@ use AlecRabbit\Spinner\Core\Contract\IDefaultsProvider;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\IFacade;
 use AlecRabbit\Spinner\Core\Factory\ContainerSingletonFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\IDriverSingletonFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopSingletonFactory;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoop;
 
@@ -46,6 +47,6 @@ final class Facade implements IFacade
 
     public static function getDriver(): IDriver
     {
-        return self::getContainer()->get(IDriver::class);
+        return self::getContainer()->get(IDriverSingletonFactory::class)->getDriver();
     }
 }

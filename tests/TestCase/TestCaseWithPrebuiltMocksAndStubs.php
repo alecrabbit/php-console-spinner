@@ -40,7 +40,7 @@ use AlecRabbit\Spinner\Core\Defaults\Contract\IDriverSettingsBuilder;
 use AlecRabbit\Spinner\Core\Defaults\Contract\ILegacySpinnerSettings;
 use AlecRabbit\Spinner\Core\Defaults\Contract\ILegacySpinnerSettingsBuilder;
 use AlecRabbit\Spinner\Core\Defaults\Contract\ILoopSettings;
-use AlecRabbit\Spinner\Core\Defaults\Contract\ILoopSettingsBuilder;
+use AlecRabbit\Spinner\Core\Defaults\Contract\ILoopSettingsFactory;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IWidgetSettings;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IWidgetSettingsBuilder;
 use AlecRabbit\Spinner\Core\Factory\Contract\IBufferedOutputSingletonFactory;
@@ -216,9 +216,9 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
         return $this->createMock(ILoopProbe::class);
     }
 
-    protected function getLoopSettingsBuilderMock(): MockObject&ILoopSettingsBuilder
+    protected function getLoopSettingsBuilderMock(): MockObject&ILoopSettingsFactory
     {
-        return $this->createMock(ILoopSettingsBuilder::class);
+        return $this->createMock(ILoopSettingsFactory::class);
     }
 
     protected function getSpinnerSettingsBuilderMock(): MockObject&ILegacySpinnerSettingsBuilder
@@ -258,7 +258,7 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
 
     protected function getLoopSettingsMock(): MockObject&ILoopSettings
     {
-        return $this->getMockForAbstractClass(ILoopSettings::class);
+        return $this->createMock(ILoopSettings::class);
     }
 
     protected function getLoopMock(): MockObject&ILoop

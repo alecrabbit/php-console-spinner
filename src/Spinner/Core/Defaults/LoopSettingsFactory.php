@@ -6,22 +6,22 @@ namespace AlecRabbit\Spinner\Core\Defaults;
 
 use AlecRabbit\Spinner\Contract\Option\OptionAttachHandlers;
 use AlecRabbit\Spinner\Contract\Option\OptionAutoStart;
-use AlecRabbit\Spinner\Core\Contract\IPcntlExtensionProbe;
+use AlecRabbit\Spinner\Core\Contract\ISignalProcessingProbe;
 use AlecRabbit\Spinner\Core\Defaults\Contract\ILoopSettings;
-use AlecRabbit\Spinner\Core\Defaults\Contract\ILoopSettingsBuilder;
+use AlecRabbit\Spinner\Core\Defaults\Contract\ILoopSettingsFactory;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoopProbe;
 
-final class LoopSettingsBuilder implements ILoopSettingsBuilder
+final class LoopSettingsFactory implements ILoopSettingsFactory
 {
     public function __construct(
         protected ?ILoopProbe $loopProbe = null,
-        protected ?IPcntlExtensionProbe $pcntlExtensionProbe = null,
+        protected ?ISignalProcessingProbe $signalProcessingProbe = null,
     ) {
     }
 
-    public function build(): ILoopSettings
+    public function createLoopSettings(): ILoopSettings
     {
-        $loopAvailable = $this->isAvailableLoop();
+        $loopAvailable = $this->isLoopAvailable();
 
         $optionAutoStart =
             $loopAvailable
@@ -37,25 +37,26 @@ final class LoopSettingsBuilder implements ILoopSettingsBuilder
             new LoopSettings(
                 loopAvailable: $loopAvailable,
                 optionAutoStart: $optionAutoStart,
+                signalProcessingAvailable: $this->isSignalProcessingAvailable(),
                 optionAttachHandlers: $optionAttachHandlers,
-                pcntlExtensionAvailable: $this->isAvailablePcntlExtension(),
             );
     }
 
-    protected function isAvailablePcntlExtension(): bool
-    {
-        return
-            match (true) {
-                $this->pcntlExtensionProbe instanceof IPcntlExtensionProbe => $this->pcntlExtensionProbe::isAvailable(),
-                default => false,
-            };
-    }
-
-    protected function isAvailableLoop(): bool
+    protected function isLoopAvailable(): bool
     {
         return
             match (true) {
                 $this->loopProbe instanceof ILoopProbe => $this->loopProbe::isAvailable(),
+                default => false,
+            };
+    }
+
+    protected function isSignalProcessingAvailable(): bool
+    {
+        return
+            match (true) {
+                $this->signalProcessingProbe instanceof ISignalProcessingProbe
+                => $this->signalProcessingProbe::isAvailable(),
                 default => false,
             };
     }

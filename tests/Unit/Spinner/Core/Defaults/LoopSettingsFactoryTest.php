@@ -4,48 +4,48 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Defaults;
 
-use AlecRabbit\Spinner\Core\Contract\IPcntlExtensionProbe;
-use AlecRabbit\Spinner\Core\Defaults\Contract\ILoopSettingsBuilder;
+use AlecRabbit\Spinner\Core\Contract\ISignalProcessingProbe;
+use AlecRabbit\Spinner\Core\Defaults\Contract\ILoopSettingsFactory;
 use AlecRabbit\Spinner\Core\Defaults\LoopSettings;
-use AlecRabbit\Spinner\Core\Defaults\LoopSettingsBuilder;
+use AlecRabbit\Spinner\Core\Defaults\LoopSettingsFactory;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoopProbe;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use AlecRabbit\Tests\Unit\Spinner\Core\Defaults\Override\LoopProbeStub;
-use AlecRabbit\Tests\Unit\Spinner\Core\Defaults\Override\PcntlExtensionProbeStub;
+use AlecRabbit\Tests\Unit\Spinner\Core\Defaults\Override\SignalProcessingProbeStub;
 use PHPUnit\Framework\Attributes\Test;
 
-final class LoopSettingsBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
+final class LoopSettingsFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
 {
     #[Test]
     public function canBeCreated(): void
     {
         $builder = $this->getTesteeInstance();
 
-        self::assertInstanceOf(LoopSettingsBuilder::class, $builder);
+        self::assertInstanceOf(LoopSettingsFactory::class, $builder);
     }
 
     public function getTesteeInstance(
         ?ILoopProbe $loopProbe = null,
-        ?IPcntlExtensionProbe $pcntlExtensionProbe = null,
-    ): ILoopSettingsBuilder {
+        ?ISignalProcessingProbe $pcntlExtensionProbe = null,
+    ): ILoopSettingsFactory {
         return
-            new LoopSettingsBuilder(
+            new LoopSettingsFactory(
                 loopProbe: $loopProbe,
-                pcntlExtensionProbe: $pcntlExtensionProbe,
+                signalProcessingProbe: $pcntlExtensionProbe,
             );
     }
 
     #[Test]
     public function allSettingsAreDisabledIfLoopProbeIsNull(): void
     {
-        $loopSettings = $this->getTesteeInstance()->build();
+        $loopSettings = $this->getTesteeInstance()->createLoopSettings();
 
         self::assertInstanceOf(LoopSettings::class, $loopSettings);
 
         self::assertFalse($loopSettings->isLoopAvailable());
         self::assertFalse($loopSettings->isAutoStartEnabled());
         self::assertFalse($loopSettings->isAttachHandlersEnabled());
-        self::assertFalse($loopSettings->isPcntlExtensionAvailable());
+        self::assertFalse($loopSettings->isSignalProcessingAvailable());
     }
 
     #[Test]
@@ -56,7 +56,7 @@ final class LoopSettingsBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
                 loopProbe: $this->getLoopProbeStub(),
                 pcntlExtensionProbe: $this->getPcntlExtensionProbeStub(),
             )
-                ->build()
+                ->createLoopSettings()
         ;
 
         self::assertInstanceOf(LoopSettings::class, $loopSettings);
@@ -64,7 +64,7 @@ final class LoopSettingsBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
         self::assertTrue($loopSettings->isLoopAvailable());
         self::assertTrue($loopSettings->isAutoStartEnabled());
         self::assertTrue($loopSettings->isAttachHandlersEnabled());
-        self::assertTrue($loopSettings->isPcntlExtensionAvailable());
+        self::assertTrue($loopSettings->isSignalProcessingAvailable());
     }
 
     protected function getLoopProbeStub(): ILoopProbe
@@ -72,8 +72,8 @@ final class LoopSettingsBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
         return new LoopProbeStub();
     }
 
-    protected function getPcntlExtensionProbeStub(): IPcntlExtensionProbe
+    protected function getPcntlExtensionProbeStub(): ISignalProcessingProbe
     {
-        return new PcntlExtensionProbeStub();
+        return new SignalProcessingProbeStub();
     }
 }

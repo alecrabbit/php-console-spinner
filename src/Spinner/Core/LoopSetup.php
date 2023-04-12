@@ -24,7 +24,7 @@ final class LoopSetup implements ILoopSetup
             if ($this->settings->isAutoStartEnabled()) {
                 $this->registerAutoStart();
             }
-            if ($this->settings->isAttachHandlersEnabled()) {
+            if ($this->settings->isSignalProcessingAvailable() && $this->settings->isAttachHandlersEnabled()) {
                 $this->registerSignalHandlers($driver);
             }
         }
@@ -47,7 +47,7 @@ final class LoopSetup implements ILoopSetup
         yield from [
             // @codeCoverageIgnoreStart
             SIGINT => function () use ($driver): void {
-                $driver->interrupt('SIGINT'); // todo: test
+                $driver->interrupt(PHP_EOL . 'SIGINT' . PHP_EOL); // todo: test
                 $this->loop->stop();
             },
             // @codeCoverageIgnoreEnd

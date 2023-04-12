@@ -119,7 +119,7 @@ final class DriverSingletonFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
                 driverSettings: $driverSettings,
             );
 
-        self::assertSame($driverStub, $driverFactory->create());
+        self::assertSame($driverStub, $driverFactory->getDriver());
     }
 
 }
