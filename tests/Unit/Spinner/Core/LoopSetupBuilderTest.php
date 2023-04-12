@@ -37,7 +37,7 @@ final class LoopSetupBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
 
         $loopSetupBuilder = $loopSetupBuilder
             ->withLoop($this->getLoopMock())
-            ->withConfig($this->getLoopConfigStub())
+            ->withSettings($this->getLoopSettingsMock())
         ;
 
         self::assertInstanceOf(LoopSetup::class, $loopSetupBuilder->build());
@@ -46,37 +46,46 @@ final class LoopSetupBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
     #[Test]
     public function throwsIfLoopIsNotSet(): void
     {
-        $loopSetupBuilder = $this->getTesteeInstance();
-
-        self::assertInstanceOf(LoopSetupBuilder::class, $loopSetupBuilder);
-
         $exceptionClass = LogicException::class;
         $exceptionMessage = 'Loop is not set.';
-        $this->expectException($exceptionClass);
-        $this->expectExceptionMessage($exceptionMessage);
 
-        $loopSetupBuilder->build();
+        $test = function () {
+            $loopSetupBuilder = $this->getTesteeInstance();
+            self::assertInstanceOf(LoopSetupBuilder::class, $loopSetupBuilder);
+            $loopSetupBuilder
+                ->withSettings($this->getLoopSettingsMock())
+                ->build()
+            ;
+        };
 
-        self::fail(self::exceptionNotThrownString($exceptionClass, $exceptionMessage));
+        $this->testExceptionWrapper(
+            exceptionClass: $exceptionClass,
+            exceptionMessage: $exceptionMessage,
+            test: $test,
+            method: __METHOD__,
+        );
     }
 
     #[Test]
-    public function throwsIfConfigIsNotSet(): void
+    public function throwsIfLoopSettingsAreNotSet(): void
     {
-        $loopSetupBuilder = $this->getTesteeInstance();
-
-        self::assertInstanceOf(LoopSetupBuilder::class, $loopSetupBuilder);
-
         $exceptionClass = LogicException::class;
-        $exceptionMessage = 'Loop config is not set.';
-        $this->expectException($exceptionClass);
-        $this->expectExceptionMessage($exceptionMessage);
+        $exceptionMessage = 'Loop settings are not set.';
 
-        $loopSetupBuilder
-            ->withLoop($this->getLoopMock())
-            ->build()
-        ;
+        $test = function () {
+            $loopSetupBuilder = $this->getTesteeInstance();
+            self::assertInstanceOf(LoopSetupBuilder::class, $loopSetupBuilder);
+            $loopSetupBuilder
+                ->withLoop($this->getLoopMock())
+                ->build()
+            ;
+        };
 
-        self::fail(self::exceptionNotThrownString($exceptionClass, $exceptionMessage));
+        $this->testExceptionWrapper(
+            exceptionClass: $exceptionClass,
+            exceptionMessage: $exceptionMessage,
+            test: $test,
+            method: __METHOD__,
+        );
     }
 }

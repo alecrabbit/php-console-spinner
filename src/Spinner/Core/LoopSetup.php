@@ -4,83 +4,54 @@ declare(strict_types=1);
 // 04.04.23
 namespace AlecRabbit\Spinner\Core;
 
+use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\ILoopSetup;
-use AlecRabbit\Spinner\Core\Contract\ISpinner;
+use AlecRabbit\Spinner\Core\Defaults\Contract\ILoopSettings;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoop;
-use AlecRabbit\Spinner\Helper\Asserter;
 use Traversable;
 
 final class LoopSetup implements ILoopSetup
 {
-    protected bool $asynchronous = false;
-    protected bool $signalHandlersEnabled = false;
-    protected bool $autoStartEnabled = false;
-
     public function __construct(
         protected ILoop $loop,
+        protected ILoopSettings $settings,
     ) {
     }
 
-    public function setup(ISpinner $spinner): void
+    public function setup(IDriver $driver): void
     {
-        if ($this->asynchronous) {
-            if ($this->autoStartEnabled) {
+        if ($this->settings->isLoopAvailable()) {
+            if ($this->settings->isAutoStartEnabled()) {
                 $this->registerAutoStart();
             }
-            if ($this->signalHandlersEnabled) {
-                $this->registerSignalHandlers($spinner);
+            if ($this->settings->isSignalProcessingAvailable() && $this->settings->isAttachHandlersEnabled()) {
+                $this->registerSignalHandlers($driver);
             }
         }
     }
 
     protected function registerAutoStart(): void
     {
+        dump(__METHOD__);
         $this->loop->autoStart();
     }
 
-    protected function registerSignalHandlers(ISpinner $spinner): void
+    protected function registerSignalHandlers(IDriver $driver): void
     {
-        $handlers =
-            $this->getSignalHandlers($spinner);
-
-        foreach ($handlers as $signal => $handler) {
+        foreach ($this->signalHandlers($driver) as $signal => $handler) {
             $this->loop->onSignal($signal, $handler);
         }
     }
 
-    protected function getSignalHandlers(ISpinner $spinner): Traversable
+    protected function signalHandlers(IDriver $driver): Traversable
     {
-        // FIXME (2023-04-06 15:38) [Alec Rabbit]: this assert is an obstacle for testing
-        Asserter::assertExtensionLoaded(
-            'pcntl',
-            'Signal handling requires the pcntl extension.'
-        );
-
         yield from [
             // @codeCoverageIgnoreStart
-            SIGINT => function () use ($spinner): void {
-                $spinner->interrupt();
+            SIGINT => function () use ($driver): void {
+                $driver->interrupt(PHP_EOL . 'SIGINT' . PHP_EOL); // todo: test
                 $this->loop->stop();
             },
             // @codeCoverageIgnoreEnd
         ];
-    }
-
-    public function asynchronous(bool $enable): ILoopSetup
-    {
-        $this->asynchronous = $enable;
-        return $this;
-    }
-
-    public function enableSignalHandlers(bool $enable): ILoopSetup
-    {
-        $this->signalHandlersEnabled = $enable;
-        return $this;
-    }
-
-    public function enableAutoStart(bool $enable): ILoopSetup
-    {
-        $this->autoStartEnabled = $enable;
-        return $this;
     }
 }

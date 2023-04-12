@@ -6,48 +6,47 @@ namespace AlecRabbit\Spinner\Core\Defaults;
 
 use AlecRabbit\Spinner\Contract\Option\OptionAttachHandlers;
 use AlecRabbit\Spinner\Contract\Option\OptionAutoStart;
-use AlecRabbit\Spinner\Contract\Option\OptionRunMode;
 use AlecRabbit\Spinner\Core\Defaults\Contract\ILoopSettings;
 
 final class LoopSettings implements ILoopSettings
 {
     public function __construct(
-        protected OptionRunMode $runModeOption,
-        protected OptionAutoStart $autoStartOption,
-        protected OptionAttachHandlers $signalHandlersOption,
+        protected bool $loopAvailable,
+        protected OptionAutoStart $optionAutoStart,
+        protected bool $signalProcessingAvailable,
+        protected OptionAttachHandlers $optionAttachHandlers,
     ) {
     }
 
-    public function getRunModeOption(): OptionRunMode
+    public function isLoopAvailable(): bool
     {
-        return $this->runModeOption;
+        return $this->loopAvailable;
     }
 
-    public function setRunModeOption(OptionRunMode $runModeOption): ILoopSettings
+    public function isAutoStartEnabled(): bool
     {
-        $this->runModeOption = $runModeOption;
+        return $this->optionAutoStart === OptionAutoStart::ENABLED;
+    }
+
+    public function setOptionAutoStart(OptionAutoStart $optionAutoStart): ILoopSettings
+    {
+        $this->optionAutoStart = $optionAutoStart;
         return $this;
     }
 
-    public function getAutoStartOption(): OptionAutoStart
+    public function isAttachHandlersEnabled(): bool
     {
-        return $this->autoStartOption;
+        return $this->optionAttachHandlers === OptionAttachHandlers::ENABLED;
     }
 
-    public function setAutoStartOption(OptionAutoStart $autoStartOption): ILoopSettings
+    public function setAttachHandlersOption(OptionAttachHandlers $optionAttachHandlers): ILoopSettings
     {
-        $this->autoStartOption = $autoStartOption;
+        $this->optionAttachHandlers = $optionAttachHandlers;
         return $this;
     }
 
-    public function getSignalHandlersOption(): OptionAttachHandlers
+    public function isSignalProcessingAvailable(): bool
     {
-        return $this->signalHandlersOption;
-    }
-
-    public function setAttachHandlersOption(OptionAttachHandlers $signalHandlersOption): ILoopSettings
-    {
-        $this->signalHandlersOption = $signalHandlersOption;
-        return $this;
+        return $this->signalProcessingAvailable;
     }
 }

@@ -2,48 +2,45 @@
 
 declare(strict_types=1);
 
-use AlecRabbit\Spinner\Core\Factory\StaticDefaultsFactory;
-use AlecRabbit\Spinner\Core\Pattern\CharPattern\Snake;
-use AlecRabbit\Spinner\Core\Pattern\StylePattern\Rainbow;
-use AlecRabbit\Spinner\StaticFacade;
+use AlecRabbit\Spinner\Facade;
 
 require_once __DIR__ . '/../bootstrap.async.php';
 
-// Settings
-$runTime = 30; // s
+/**
+ * Example of using custom settings
+ */
+$defaultsProvider = Facade::getDefaultsProvider();
 
-$defaults = StaticDefaultsFactory::get();
+// # Set custom settings
+$defaultsProvider->getDriverSettings()->setFinalMessage(PHP_EOL . '>>> Finished!' . PHP_EOL);
 
-//$defaults->getTerminalSettings()->overrideColorMode(StyleMode::ANSI24);
-
-$config =
-    StaticFacade::getConfigBuilder()
-        ->withStylePattern(
-            new Rainbow(
-//                styleMode: StyleMode::ANSI8
-            )
-        )
-        ->withCharPattern(new Snake())
-        ->build();
-
-$spinner =
-    StaticFacade::createSpinner(
-        $config
-    );
-
-$loop = StaticFacade::getLoop();
-
-// Limits run time
-$loop->delay(
-    $runTime,
-    static function () use ($spinner, $defaults, $loop) {
-        $spinner->finalize('Finished!' . PHP_EOL);
-        // Sets shutdown delay
-        $loop->delay(
-            $defaults->getShutdownDelay(),
-            static function () use ($loop) {
-                $loop->stop();
-            }
-        );
-    }
+$defaultsProvider->getAuxSettings()->setOptionCursor(
+    \AlecRabbit\Spinner\Contract\Option\OptionCursor::VISIBLE
 );
+
+$defaultsProvider->getLoopSettings()->setAttachHandlersOption(
+    \AlecRabbit\Spinner\Contract\Option\OptionAttachHandlers::DISABLED
+);
+
+// # !!! ATTENTION !!! (no spinner output)
+
+// # Spinner will NOT be initialized
+//$defaultsProvider->getSpinnerSettings()->setInitializationOption(
+//    \AlecRabbit\Spinner\Contract\OptionInitialization::DISABLED
+//);
+
+// # Spinner will NOT be attached to loop
+//$defaultsProvider->getSpinnerSettings()->setAttachOption(
+//    \AlecRabbit\Spinner\Contract\OptionAttach::DISABLED
+//);
+
+// # Loop will NOT start automatically
+//$defaultsProvider->getLoopSettings()->setAutoStartOption(
+//    \AlecRabbit\Spinner\Contract\OptionAutoStart::DISABLED
+//);
+
+$spinner = Facade::createSpinner();
+
+// # that's it :)
+
+finalizeSpinner($spinner); // ...and limit run time

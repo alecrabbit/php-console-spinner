@@ -10,6 +10,9 @@ enum OptionNormalizerMode
     case SLOW;
     case STILL;
 
+    /**
+     * @deprecated
+     */
     public function getDivisor(): int
     {
         return

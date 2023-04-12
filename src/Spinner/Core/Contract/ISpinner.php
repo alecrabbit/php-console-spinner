@@ -1,30 +1,17 @@
 <?php
 
 declare(strict_types=1);
-
+// 09.04.23
 namespace AlecRabbit\Spinner\Core\Contract;
 
 use AlecRabbit\Spinner\Contract\HasInterval;
-use AlecRabbit\Spinner\Contract\IRenderable;
-use AlecRabbit\Spinner\Contract\IWrapper;
+use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContext;
 
-interface ISpinner extends IRenderable, IWrapper, HasInterval
+interface ISpinner extends HasInterval
 {
-    public function spin(float $dt = null): void;
-
-    public function initialize(): void;
-
-    public function interrupt(string $interruptMessage = null): void;
-
-    public function finalize(string $finalMessage = null): void;
-
-    public function erase(): void;
-
-    public function deactivate(): void;
-
-    public function activate(): void;
+    public function update(?float $dt = null): IFrame;
 
     public function add(IWidgetComposite|IWidgetContext $element): IWidgetContext;
 

@@ -9,8 +9,7 @@ use AlecRabbit\Spinner\Core\Contract\IDefaultsProvider;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IAuxSettingsBuilder;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDefaultsProviderBuilder;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDriverSettingsBuilder;
-use AlecRabbit\Spinner\Core\Defaults\Contract\ILoopSettingsBuilder;
-use AlecRabbit\Spinner\Core\Defaults\Contract\ISpinnerSettingsBuilder;
+use AlecRabbit\Spinner\Core\Defaults\Contract\ILoopSettingsFactory;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IWidgetSettings;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IWidgetSettingsBuilder;
 use AlecRabbit\Spinner\Core\Pattern\CharPattern\Snake;
@@ -22,8 +21,7 @@ final class DefaultsProviderBuilder implements IDefaultsProviderBuilder
     protected IPattern $charPattern;
 
     public function __construct(
-        protected ILoopSettingsBuilder $loopSettingsBuilder,
-        protected ISpinnerSettingsBuilder $spinnerSettingsBuilder,
+        protected ILoopSettingsFactory $loopSettingsBuilder,
         protected IAuxSettingsBuilder $auxSettingsBuilder,
         protected IDriverSettingsBuilder $driverSettingsBuilder,
         protected IWidgetSettingsBuilder $widgetSettingsBuilder,
@@ -39,8 +37,7 @@ final class DefaultsProviderBuilder implements IDefaultsProviderBuilder
         return
             new DefaultsProvider(
                 auxSettings: $this->auxSettingsBuilder->build(),
-                loopSettings: $this->loopSettingsBuilder->build(),
-                spinnerSettings: $this->spinnerSettingsBuilder->build(),
+                loopSettings: $this->loopSettingsBuilder->createLoopSettings(),
                 driverSettings: $this->driverSettingsBuilder->build(),
                 widgetSettings: $widgetSettings,
                 rootWidgetSettings: $this->getRootWidgetSettings($widgetSettings),

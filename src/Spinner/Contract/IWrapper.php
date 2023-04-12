@@ -8,5 +8,5 @@ use Closure;
 
 interface IWrapper
 {
-   public function wrap(Closure $closure, mixed ...$args): void;
+    public function wrap(Closure $closure, mixed ...$args): void;
 }

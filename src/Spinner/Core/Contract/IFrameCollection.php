@@ -20,8 +20,5 @@ interface IFrameCollection extends Countable, ArrayAccess
      */
     public function get(int $index): IFrame;
 
-    /**
-     * @throws DomainException
-     */
     public function lastIndex(): int;
 }

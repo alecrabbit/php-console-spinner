@@ -8,7 +8,6 @@ use AlecRabbit\Spinner\Core\Contract\IDefaultsProvider;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IAuxSettings;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDriverSettings;
 use AlecRabbit\Spinner\Core\Defaults\Contract\ILoopSettings;
-use AlecRabbit\Spinner\Core\Defaults\Contract\ISpinnerSettings;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IWidgetSettings;
 use AlecRabbit\Spinner\Core\Defaults\DefaultsProvider;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
@@ -24,7 +23,6 @@ final class DefaultsProviderTest extends TestCaseWithPrebuiltMocksAndStubs
         self::assertInstanceOf(DefaultsProvider::class, $defaultsProvider);
 
         self::assertInstanceOf(ILoopSettings::class, $defaultsProvider->getLoopSettings());
-        self::assertInstanceOf(ISpinnerSettings::class, $defaultsProvider->getSpinnerSettings());
         self::assertInstanceOf(IAuxSettings::class, $defaultsProvider->getAuxSettings());
         self::assertInstanceOf(IDriverSettings::class, $defaultsProvider->getDriverSettings());
         self::assertInstanceOf(IWidgetSettings::class, $defaultsProvider->getWidgetSettings());
@@ -33,7 +31,6 @@ final class DefaultsProviderTest extends TestCaseWithPrebuiltMocksAndStubs
 
     public function getTesteeInstance(
         ?ILoopSettings $loopSettings = null,
-        ?ISpinnerSettings $spinnerSettings = null,
         ?IAuxSettings $auxSettings = null,
         ?IDriverSettings $driverSettings = null,
         ?IWidgetSettings $widgetSettings = null,
@@ -43,7 +40,6 @@ final class DefaultsProviderTest extends TestCaseWithPrebuiltMocksAndStubs
             new DefaultsProvider(
                 auxSettings: $auxSettings ?? $this->getAuxSettingsMock(),
                 loopSettings: $loopSettings ?? $this->getLoopSettingsMock(),
-                spinnerSettings: $spinnerSettings ?? $this->getSpinnerSettingsMock(),
                 driverSettings: $driverSettings ?? $this->getDriverSettingsMock(),
                 widgetSettings: $widgetSettings ?? $this->getWidgetSettingsMock(),
                 rootWidgetSettings: $rootWidgetSettings ?? $this->getWidgetSettingsMock(),

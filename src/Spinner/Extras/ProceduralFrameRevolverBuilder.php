@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Extras;
 
 use AlecRabbit\Spinner\Contract\Pattern\IProceduralPattern;
-use AlecRabbit\Spinner\Core\A\AFrameRevolverBuilder;
+use AlecRabbit\Spinner\Core\A\ALegacyFrameRevolverBuilder;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolver;
 use AlecRabbit\Spinner\Extras\Revolver\ProceduralRevolver;
 
-final class ProceduralFrameRevolverBuilder extends AFrameRevolverBuilder
+final class ProceduralFrameRevolverBuilder extends ALegacyFrameRevolverBuilder
 {
     public function build(): IFrameRevolver
     {

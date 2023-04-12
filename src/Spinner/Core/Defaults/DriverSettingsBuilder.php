@@ -4,24 +4,18 @@ declare(strict_types=1);
 // 05.04.23
 namespace AlecRabbit\Spinner\Core\Defaults;
 
+use AlecRabbit\Spinner\Contract\Option\OptionAttacher;
+use AlecRabbit\Spinner\Contract\Option\OptionInitialization;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDriverSettings;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDriverSettingsBuilder;
 
 final class DriverSettingsBuilder implements IDriverSettingsBuilder
 {
-    /** @var string */
-    final protected const MESSAGE_ON_FINALIZE = PHP_EOL;
-    /** @var string */
-    final protected const MESSAGE_ON_INTERRUPT = PHP_EOL . 'Interrupted!' . PHP_EOL;
-
-    protected ?string $interruptMessage = null;
-    protected ?string $finalMessage = null;
-
     public function build(): IDriverSettings
     {
         return new DriverSettings(
-            interruptMessage: $this->interruptMessage ?? self::MESSAGE_ON_INTERRUPT,
-            finalMessage: $this->finalMessage ?? self::MESSAGE_ON_FINALIZE,
+            optionInitialization: OptionInitialization::ENABLED,
+            optionAttacher: OptionAttacher::ENABLED,
         );
     }
 }

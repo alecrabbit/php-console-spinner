@@ -4,16 +4,12 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core;
 
-use AlecRabbit\Spinner\Contract\Option\OptionCursor;
-use AlecRabbit\Spinner\Core\Config\DriverConfig;
-use AlecRabbit\Spinner\Core\Contract\ICursorBuilder;
 use AlecRabbit\Spinner\Core\Contract\IDriverBuilder;
-use AlecRabbit\Spinner\Core\Contract\IOutputBuilder;
-use AlecRabbit\Spinner\Core\Contract\ITimerBuilder;
 use AlecRabbit\Spinner\Core\Driver;
 use AlecRabbit\Spinner\Core\DriverBuilder;
+use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalFactory;
+use AlecRabbit\Spinner\Exception\LogicException;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
-use LogicException;
 use PHPUnit\Framework\Attributes\Test;
 
 final class DriverBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
@@ -21,80 +17,100 @@ final class DriverBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
     #[Test]
     public function canBeCreated(): void
     {
-        $configBuilder = $this->getTesteeInstance();
+        $driverBuilder = $this->getTesteeInstance();
 
-        self::assertInstanceOf(DriverBuilder::class, $configBuilder);
+        self::assertInstanceOf(DriverBuilder::class, $driverBuilder);
     }
 
     public function getTesteeInstance(
-        ?ITimerBuilder $timerFactory = null,
-        ?IOutputBuilder $outputBuilder = null,
-        ?ICursorBuilder $cursorBuilder = null,
+        ?IIntervalFactory $intervalFactory = null,
     ): IDriverBuilder {
         return
             new DriverBuilder(
-                timerBuilder: $timerFactory ?? $this->getTimerFactoryMock(),
-                outputBuilder: $outputBuilder ?? $this->getOutputBuilderMock(),
-                cursorBuilder: $cursorBuilder ?? $this->getCursorBuilderMock(),
+                intervalFactory: $intervalFactory ?? $this->getIntervalFactoryMock()
             );
     }
 
     #[Test]
-    public function canBuildDriverWithConfig(): void
+    public function canBuildDriverWithCustomIntervalCallback(): void
     {
-        $outputBuilder = $this->getOutputBuilderMock();
+        $driverBuilder = $this->getTesteeInstance();
 
-        $outputBuilder
-            ->method('withStream')
-            ->willReturn($outputBuilder)
-        ;
-
-        $outputBuilder
-            ->method('build')
-            ->willReturn($this->getBufferedOutputMock())
-        ;
-
-        $driverBuilder = $this->getTesteeInstance(outputBuilder: $outputBuilder);
-
-        self::assertInstanceOf(DriverBuilder::class, $driverBuilder);
-
-        $auxConfig = $this->getAuxConfigMock();
-        $auxConfig
-            ->method('getOutputStream')
-            ->willReturn(STDERR)
-        ;
-        $auxConfig
-            ->method('getCursorOption')
-            ->willReturn(OptionCursor::VISIBLE)
-        ;
-
-        $driverConfig = new DriverConfig('interrupted', 'finished');
-
-        $driver =
-            $driverBuilder
-                ->withAuxConfig($auxConfig)
-                ->withDriverConfig($driverConfig)
-                ->build()
+        $driver = $driverBuilder
+            ->withDriverOutput($this->getDriverOutputMock())
+            ->withTimer($this->getTimerMock())
+            ->withIntervalCallback(fn() => $this->getIntervalMock())
+            ->build()
         ;
 
         self::assertInstanceOf(Driver::class, $driver);
     }
 
     #[Test]
-    public function throwsOnBuildDriverWithoutDriverConfig(): void
+    public function canBuildDriverWithoutIntervalCallback(): void
     {
-        $driverBuilder = $this->getTesteeInstance();
+        $intervalFactory = $this->getIntervalFactoryMock();
+        $intervalFactory
+            ->expects(self::exactly(2))
+            ->method('createStill')
+            ->willReturn($this->getIntervalMock())
+        ;
 
-        self::assertInstanceOf(DriverBuilder::class, $driverBuilder);
+        $driverBuilder = $this->getTesteeInstance(intervalFactory: $intervalFactory);
 
-        $exceptionClass = LogicException::class;
-        $exceptionMessage = '[AlecRabbit\Spinner\Core\DriverBuilder]: Property $driverConfig is not set.';
+        $driver = $driverBuilder
+            ->withDriverOutput($this->getDriverOutputMock())
+            ->withTimer($this->getTimerMock())
+            ->build()
+        ;
 
-        $this->expectException($exceptionClass);
-        $this->expectExceptionMessage($exceptionMessage);
-
-        $driver = $driverBuilder->build();
-
-        self::failTest(self::exceptionNotThrownString($exceptionClass, $exceptionMessage));
+        self::assertInstanceOf(Driver::class, $driver);
     }
+
+    #[Test]
+    public function throwsIfDriverOutputIsNotSet(): void
+    {
+        $exceptionClass = LogicException::class;
+        $exceptionMessage = 'DriverOutput is not set.';
+
+        $test = function () {
+            $driverBuilder = $this->getTesteeInstance();
+
+            $driverBuilder
+                ->withTimer($this->getTimerMock())
+                ->build()
+            ;
+        };
+
+        $this->testExceptionWrapper(
+            exceptionClass: $exceptionClass,
+            exceptionMessage: $exceptionMessage,
+            test: $test,
+            method: __METHOD__,
+        );
+    }
+
+    #[Test]
+    public function throwsIfTimerOutputIsNotSet(): void
+    {
+        $exceptionClass = LogicException::class;
+        $exceptionMessage = 'Timer is not set.';
+
+        $test = function () {
+            $driverBuilder = $this->getTesteeInstance();
+
+            $driverBuilder
+                ->withDriverOutput($this->getDriverOutputMock())
+                ->build()
+            ;
+        };
+
+        $this->testExceptionWrapper(
+            exceptionClass: $exceptionClass,
+            exceptionMessage: $exceptionMessage,
+            test: $test,
+            method: __METHOD__,
+        );
+    }
+
 }

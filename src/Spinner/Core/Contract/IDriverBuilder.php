@@ -1,18 +1,20 @@
 <?php
 
 declare(strict_types=1);
-
+// 03.04.23
 namespace AlecRabbit\Spinner\Core\Contract;
 
-use AlecRabbit\Spinner\Contract\IDriver;
-use AlecRabbit\Spinner\Core\Config\Contract\IAuxConfig;
-use AlecRabbit\Spinner\Core\Config\Contract\IDriverConfig;
+use AlecRabbit\Spinner\Contract\ITimer;
+use AlecRabbit\Spinner\Core\Output\Contract\IDriverOutput;
+use Closure;
 
 interface IDriverBuilder
 {
     public function build(): IDriver;
 
-    public function withDriverConfig(IDriverConfig $driverConfig): IDriverBuilder;
+    public function withIntervalCallback(Closure $fn): IDriverBuilder;
 
-    public function withAuxConfig(IAuxConfig $auxConfig): IDriverBuilder;
+    public function withTimer(ITimer $timer): IDriverBuilder;
+
+    public function withDriverOutput(IDriverOutput $driverOutput): IDriverBuilder;
 }

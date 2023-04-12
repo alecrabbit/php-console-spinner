@@ -6,7 +6,6 @@ namespace AlecRabbit\Tests\Unit\Spinner\Core\Defaults;
 
 use AlecRabbit\Spinner\Contract\Option\OptionAttachHandlers;
 use AlecRabbit\Spinner\Contract\Option\OptionAutoStart;
-use AlecRabbit\Spinner\Contract\Option\OptionRunMode;
 use AlecRabbit\Spinner\Core\Defaults\Contract\ILoopSettings;
 use AlecRabbit\Spinner\Core\Defaults\LoopSettings;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
@@ -20,64 +19,61 @@ final class LoopSettingsTest extends TestCaseWithPrebuiltMocksAndStubs
         $loopSettings = $this->getTesteeInstance();
 
         self::assertInstanceOf(LoopSettings::class, $loopSettings);
-        self::assertSame(OptionRunMode::SYNCHRONOUS, $loopSettings->getRunModeOption());
-        self::assertSame(OptionAutoStart::DISABLED, $loopSettings->getAutoStartOption());
-        self::assertSame(OptionAttachHandlers::DISABLED, $loopSettings->getSignalHandlersOption());
+        self::assertFalse($loopSettings->isLoopAvailable());
+        self::assertFalse($loopSettings->isAutoStartEnabled());
+        self::assertFalse($loopSettings->isAttachHandlersEnabled());
+        self::assertFalse($loopSettings->isSignalProcessingAvailable());
     }
 
     public function getTesteeInstance(
-        ?OptionRunMode $runModeOption = null,
+        ?bool $loopAvailable = null,
         ?OptionAutoStart $autoStartOption = null,
         ?OptionAttachHandlers $signalHandlersOption = null,
+        ?bool $pcntlExtensionAvailable = null,
     ): ILoopSettings {
         return
             new LoopSettings(
-                runModeOption: $runModeOption ?? OptionRunMode::SYNCHRONOUS,
-                autoStartOption: $autoStartOption ?? OptionAutoStart::DISABLED,
-                signalHandlersOption: $signalHandlersOption ?? OptionAttachHandlers::DISABLED,
+                loopAvailable: $loopAvailable ?? false,
+                optionAutoStart: $autoStartOption ?? OptionAutoStart::DISABLED,
+                signalProcessingAvailable: $pcntlExtensionAvailable ?? false,
+                optionAttachHandlers: $signalHandlersOption ?? OptionAttachHandlers::DISABLED,
             );
     }
 
     #[Test]
     public function canBeCreatedWithArguments(): void
     {
-        $runModeOption = OptionRunMode::ASYNC;
-        $autoStartOption = OptionAutoStart::ENABLED;
-        $signalHandlersOption = OptionAttachHandlers::ENABLED;
-
         $loopSettings =
             $this->getTesteeInstance(
-                $runModeOption,
-                $autoStartOption,
-                $signalHandlersOption,
+                true,
+                OptionAutoStart::ENABLED,
+                OptionAttachHandlers::ENABLED,
+                true,
             );
 
         self::assertInstanceOf(LoopSettings::class, $loopSettings);
-        self::assertSame($runModeOption, $loopSettings->getRunModeOption());
-        self::assertSame($autoStartOption, $loopSettings->getAutoStartOption());
-        self::assertSame($signalHandlersOption, $loopSettings->getSignalHandlersOption());
+        self::assertTrue($loopSettings->isLoopAvailable());
+        self::assertTrue($loopSettings->isAutoStartEnabled());
+        self::assertTrue($loopSettings->isAttachHandlersEnabled());
+        self::assertTrue($loopSettings->isSignalProcessingAvailable());
     }
 
     #[Test]
     public function valuesCanBeOverriddenWithSetters(): void
     {
-        $runModeOption = OptionRunMode::ASYNC;
-        $autoStartOption = OptionAutoStart::ENABLED;
-        $signalHandlersOption = OptionAttachHandlers::ENABLED;
-
         $loopSettings =
             $this->getTesteeInstance(
-                $runModeOption,
-                $autoStartOption,
-                $signalHandlersOption,
+                loopAvailable: true,
+                pcntlExtensionAvailable: true,
             );
-        $loopSettings->setRunModeOption($runModeOption);
-        $loopSettings->setAutoStartOption($autoStartOption);
-        $loopSettings->setAttachHandlersOption($signalHandlersOption);
+
+        $loopSettings->setOptionAutoStart(OptionAutoStart::ENABLED);
+        $loopSettings->setAttachHandlersOption(OptionAttachHandlers::ENABLED);
 
         self::assertInstanceOf(LoopSettings::class, $loopSettings);
-        self::assertSame($runModeOption, $loopSettings->getRunModeOption());
-        self::assertSame($autoStartOption, $loopSettings->getAutoStartOption());
-        self::assertSame($signalHandlersOption, $loopSettings->getSignalHandlersOption());
+        self::assertTrue($loopSettings->isLoopAvailable());
+        self::assertTrue($loopSettings->isAutoStartEnabled());
+        self::assertTrue($loopSettings->isAttachHandlersEnabled());
+        self::assertTrue($loopSettings->isSignalProcessingAvailable());
     }
 }

@@ -6,6 +6,7 @@ namespace AlecRabbit\Spinner\Container;
 
 use AlecRabbit\Spinner\Container\Contract\IContainer;
 use AlecRabbit\Spinner\Container\Contract\IServiceSpawner;
+use AlecRabbit\Spinner\Container\Exception\CircularDependencyDetectedException;
 use AlecRabbit\Spinner\Container\Exception\ContainerException;
 use AlecRabbit\Spinner\Container\Exception\NotInContainerException;
 use ArrayObject;
@@ -23,6 +24,8 @@ final class Container implements IContainer
     /** @var ArrayObject<string, object> */
     protected ArrayObject $services;
 
+    protected ArrayObject $dependencyStack;
+
     /**
      * Create a container object with a set of definitions.
      *
@@ -34,6 +37,7 @@ final class Container implements IContainer
         $this->serviceSpawner = $spawnerCreatorCb($this);
         $this->definitions = new ArrayObject();
         $this->services = new ArrayObject();
+        $this->dependencyStack = new ArrayObject();
 
         if ($definitions) {
             /** @var callable|object|string $definition */
@@ -136,9 +140,29 @@ final class Container implements IContainer
             );
         }
 
+        $this->addDependencyToStack($id);
+
         $definition = $this->definitions[$id];
 
-        return $this->services[$id] = $this->getService($id, $definition);
+        $this->services[$id] = $this->getService($id, $definition);
+
+        $this->removeDependencyFromStack();
+
+        return $this->services[$id];
+    }
+
+    protected function addDependencyToStack(string $id): void
+    {
+        $this->assertDependencyStack($id);
+
+        $this->dependencyStack->append($id);
+    }
+
+    protected function assertDependencyStack(string $id): void
+    {
+        if (in_array($id, $this->dependencyStack->getArrayCopy(), true)) {
+            throw new CircularDependencyDetectedException($this->dependencyStack);
+        }
     }
 
     protected function getService(string $id, callable|object|string $definition): object
@@ -159,5 +183,10 @@ final class Container implements IContainer
                 previous: $e,
             );
         }
+    }
+
+    protected function removeDependencyFromStack(): void
+    {
+        $this->dependencyStack->offsetUnset($this->dependencyStack->count() - 1);
     }
 }

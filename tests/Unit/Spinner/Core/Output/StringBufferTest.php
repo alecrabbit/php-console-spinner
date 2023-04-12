@@ -17,7 +17,7 @@ final class StringBufferTest extends TestCase
         $str = 'test';
         $buffer = $this->getTesteeInstance(buffer: $str);
 
-        self::assertSame($str, self::getValue('buffer', $buffer));
+        self::assertSame($str, self::getPropertyValue('buffer', $buffer));
     }
 
     public function getTesteeInstance(
@@ -35,11 +35,11 @@ final class StringBufferTest extends TestCase
         $str = 'new string';
         $buffer = $this->getTesteeInstance();
 
-        self::assertSame('', self::getValue('buffer', $buffer));
+        self::assertSame('', self::getPropertyValue('buffer', $buffer));
 
         $buffer->write($str);
 
-        self::assertSame($str, self::getValue('buffer', $buffer));
+        self::assertSame($str, self::getPropertyValue('buffer', $buffer));
     }
 
     #[Test]
@@ -48,15 +48,15 @@ final class StringBufferTest extends TestCase
         $str = 'new string';
         $buffer = $this->getTesteeInstance();
 
-        self::assertSame('', self::getValue('buffer', $buffer));
+        self::assertSame('', self::getPropertyValue('buffer', $buffer));
 
         $buffer->write($str);
 
-        self::assertSame($str, self::getValue('buffer', $buffer));
+        self::assertSame($str, self::getPropertyValue('buffer', $buffer));
 
         $content = implode('', iterator_to_array($buffer->flush()));
         self::assertSame($content, $str);
 
-        self::assertSame('', self::getValue('buffer', $buffer));
+        self::assertSame('', self::getPropertyValue('buffer', $buffer));
     }
 }

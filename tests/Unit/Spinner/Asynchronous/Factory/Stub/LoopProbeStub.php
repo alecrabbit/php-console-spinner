@@ -10,7 +10,7 @@ use AlecRabbit\Tests\Unit\Spinner\Asynchronous\Override\ALoopAdapterOverride;
 
 final class LoopProbeStub extends ALoopProbe
 {
-    public static function isSupported(): bool
+    public static function isAvailable(): bool
     {
         return true;
     }

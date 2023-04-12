@@ -5,7 +5,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Asynchronous\Loop\Adapter;
 
-use AlecRabbit\Spinner\Core\Contract\ISpinner;
+use AlecRabbit\Spinner\Core\Contract\ILegacySpinner;
 use AlecRabbit\Spinner\Core\Loop\A\ALoopAdapter;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use Closure;
@@ -24,7 +24,7 @@ final class ReactLoopAdapter extends ALoopAdapter
     ) {
     }
 
-    public function attach(ISpinner $spinner): void
+    public function attach(ILegacySpinner $spinner): void
     {
         $this->detachSpinner();
         $this->spinnerTimer =

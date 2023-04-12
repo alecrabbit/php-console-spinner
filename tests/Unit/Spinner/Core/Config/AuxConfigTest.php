@@ -4,8 +4,8 @@ declare(strict_types=1);
 // 29.03.23
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Config;
 
-use AlecRabbit\Spinner\Contract\Option\OptionNormalizerMode;
 use AlecRabbit\Spinner\Contract\Option\OptionCursor;
+use AlecRabbit\Spinner\Contract\Option\OptionNormalizerMode;
 use AlecRabbit\Spinner\Contract\Option\OptionStyleMode;
 use AlecRabbit\Spinner\Core\Config\AuxConfig;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;

@@ -1,50 +1,39 @@
 <?php
 
 declare(strict_types=1);
-
+// 12.04.23
 namespace AlecRabbit\Spinner\Core\Factory;
 
-use AlecRabbit\Spinner\Core\Config\Contract\IConfig;
+use AlecRabbit\Spinner\Core\Contract\IDefaultsProvider;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
-use AlecRabbit\Spinner\Core\Contract\ISpinnerBuilder;
-use AlecRabbit\Spinner\Core\Contract\ISpinnerSetup;
+use AlecRabbit\Spinner\Core\Defaults\Contract\ISpinnerSettings;
 use AlecRabbit\Spinner\Core\Factory\Contract\ISpinnerFactory;
+use AlecRabbit\Spinner\Core\Spinner;
+use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
+use AlecRabbit\Spinner\Core\Widget\Factory\Contract\IWidgetFactory;
 
 final class SpinnerFactory implements ISpinnerFactory
 {
     public function __construct(
-        protected ISpinnerBuilder $spinnerBuilder,
-        protected ISpinnerSetup $spinnerSetup,
+        protected IDefaultsProvider $defaultsProvider,
+        protected IWidgetFactory $widgetFactory,
     ) {
     }
 
-    public function createSpinner(IConfig $config): ISpinner
+    public function createSpinner(?ISpinnerSettings $settings = null): ISpinner
     {
         return
-            $this->createAndSetupSpinner($config);
+            new Spinner(
+                $this->createWidget($settings),
+            );
     }
 
-    protected function createAndSetupSpinner(IConfig $config): ISpinner
+    protected function createWidget(?ISpinnerSettings $settings): IWidgetComposite
     {
-        $spinner = $this->buildSpinner($config);
+        $widgetSettings =
+            $settings?->getWidgetSettings() ?? $this->defaultsProvider->getRootWidgetSettings();
 
-        $spinnerConfig = $config->getSpinnerConfig();
-
-        $this->spinnerSetup
-            ->enableInitialization($spinnerConfig->isEnabledInitialization())
-            ->enableAttacher($spinnerConfig->isEnabledAttach())
-            ->setup($spinner)
-        ;
-
-        return $spinner;
-    }
-
-    protected function buildSpinner(IConfig $config): ISpinner
-    {
         return
-            $this->spinnerBuilder
-                ->withConfig($config)
-                ->build()
-        ;
+            $this->widgetFactory->createWidget($widgetSettings);
     }
 }

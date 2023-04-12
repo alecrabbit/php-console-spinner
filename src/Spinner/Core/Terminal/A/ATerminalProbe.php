@@ -14,7 +14,7 @@ abstract class ATerminalProbe implements ITerminalProbe
 {
     use NoInstanceTrait;
 
-    abstract public static function isSupported(): bool;
+    abstract public static function isAvailable(): bool;
 
     abstract public static function getWidth(): int;
 

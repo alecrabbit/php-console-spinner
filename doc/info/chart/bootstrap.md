@@ -10,8 +10,15 @@ flowchart TD
 ```mermaid
 flowchart TD
     Start[Start]
+    Start[Start] --> IsIt{Is it?}
     End[End]
 ```
+- DefaultsProvider created 
+  - probing for event loop --> Loop settings
+
+- Driver created by DriverFactory
+
+
 
 - probing for event loop
   - ReactPHP            --> ReactPHP

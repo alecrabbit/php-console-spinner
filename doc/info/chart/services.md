@@ -5,34 +5,45 @@ classDiagram
     direction TB
     Facade ..> IContainerFactory
     Facade ..> IConfigBuilder
-    Facade ..> ISpinnerFactory
+    Facade ..> IDriverFactory
     Facade ..> ILoopFactory
    
 
     class Facade {
-        +getConfigBuilder() IConfigBuilder
+        +getDefaultsProvider() IDefaultsProvider
         +getLoop() ILoop
-        +createSpinner(IConfig $config = null) ISpinner
-        +replaceService(string $id, object|callable|string $service) void
+        +createDriver() IDriver
+        +useService(string $id, object|callable|string $service) void
     }
     
     IContainerFactory ..> IContainer
     
     IContainer ..> IServiceSpawner
 
-    ISpinnerFactory ..> ISpinnerBuilder
-    ISpinnerFactory ..> ISpinnerSetup
-
-    ILoopSetup ..> ILoop
-
-    ISpinnerSetup ..> ISpinnerAttacher
-
-    ISpinnerAttacher ..> ILoop
+    IDriverFactory ..> IDriverBuilder
+    IDriverFactory ..> IDriverOutputFactory
+    IDriverFactory ..> ITimerFactory
+    IDriverFactory ..> IDriverSetup
     
-    class ISpinnerFactory {
-        +createSpinner(IConfig $config) ISpinner
+    class IDriverFactory {
+        +create() IDriver
     }
     
+    IDriverOutputFactory ..> IDriverOutputBuilder
+    IDriverOutputFactory ..> IBufferedOutputSingletonFactory
+    IDriverOutputFactory ..> IConsoleCursorFactory
+    
+    IDriverBuilder ..> IIntervalFactory
+    
+    IConsoleCursorFactory ..> IBufferedOutputSingletonFactory
+    IConsoleCursorFactory ..> IConsoleCursorBuilder
+    
+    ITimerFactory ..> ITimerBuilder
+    
+    IDriverSetup ..> IDriverAttacher
+    
+    ILoopSetup ..> ILoop
+
     IConfigBuilder ..> IDefaultsProvider
     
     class IConfigBuilder {
@@ -49,14 +60,10 @@ classDiagram
     class ILoopFactory {
         +getLoop() ILoop
     }
-    
-    ISpinnerBuilder ..> IDriverBuilder
-    ISpinnerBuilder ..> IWidgetBuilder
-
-    IDriverBuilder ..> ITimerBuilder
-    IDriverBuilder ..> IOutputBuilder
-    IDriverBuilder ..> ICursorBuilder
-
+```
+```mermaid
+classDiagram
+    direction TB
     IWidgetBuilder ..> IWidgetRevolverBuilder
 
     IWidgetRevolverBuilder ..> IFrameRevolverBuilder

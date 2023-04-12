@@ -10,7 +10,7 @@ use AlecRabbit\Spinner\Core\Terminal\A\ATerminalProbe;
 
 final class NativeTerminalProbe extends ATerminalProbe
 {
-    public static function isSupported(): bool
+    public static function isAvailable(): bool
     {
         return true;
     }

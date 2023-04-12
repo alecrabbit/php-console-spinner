@@ -1,83 +1,73 @@
 <?php
 
 declare(strict_types=1);
-// 17.03.23
+// 10.04.23
 namespace AlecRabbit\Spinner\Core;
 
-use AlecRabbit\Spinner\Contract\IDriver;
-use AlecRabbit\Spinner\Core\Config\Contract\IAuxConfig;
-use AlecRabbit\Spinner\Core\Config\Contract\IDriverConfig;
-use AlecRabbit\Spinner\Core\Contract\ICursorBuilder;
+use AlecRabbit\Spinner\Contract\ITimer;
+use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\IDriverBuilder;
-use AlecRabbit\Spinner\Core\Contract\IOutputBuilder;
-use AlecRabbit\Spinner\Core\Contract\ITimerBuilder;
-use LogicException;
+use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalFactory;
+use AlecRabbit\Spinner\Core\Output\Contract\IDriverOutput;
+use AlecRabbit\Spinner\Exception\LogicException;
+use Closure;
 
-final class DriverBuilder implements IDriverBuilder
+final class DriverBuilder implements Contract\IDriverBuilder
 {
-    protected ?IDriverConfig $driverConfig = null;
-    protected ?IAuxConfig $auxConfig = null;
+    protected ?IDriverOutput $driverOutput = null;
+    protected ?ITimer $timer = null;
+    protected ?Closure $intervalCallback = null;
 
     public function __construct(
-        protected ITimerBuilder $timerBuilder,
-        protected IOutputBuilder $outputBuilder,
-        protected ICursorBuilder $cursorBuilder,
+        protected IIntervalFactory $intervalFactory,
     ) {
+    }
+
+    public function withDriverOutput(IDriverOutput $driverOutput): IDriverBuilder
+    {
+        $clone = clone $this;
+        $clone->driverOutput = $driverOutput;
+        return $clone;
+    }
+
+    public function withTimer(ITimer $timer): IDriverBuilder
+    {
+        $clone = clone $this;
+        $clone->timer = $timer;
+        return $clone;
+    }
+
+    public function withIntervalCallback(Closure $fn): IDriverBuilder
+    {
+        $clone = clone $this;
+        $clone->intervalCallback = $fn;
+        return $clone;
     }
 
     public function build(): IDriver
     {
-        if (null === $this->driverConfig) {
-            throw new LogicException(
-                sprintf('[%s]: Property $driverConfig is not set.', __CLASS__)
-            );
-        }
-        return $this->createDriver();
-    }
-
-
-    private function createDriver(): Driver
-    {
-        $output =
-            $this->outputBuilder
-                ->withStream(
-                    $this->auxConfig->getOutputStream()
-                )
-                ->build()
-        ;
-
-        $cursor =
-            $this->cursorBuilder
-                ->withOutput($output)
-                ->withCursorOption(
-                    $this->auxConfig->getCursorOption()
-                )
-                ->build()
-        ;
-
-        $timer =
-            $this->timerBuilder
-                ->build()
-        ;
+        $this->validate();
 
         return
             new Driver(
-                output: $output,
-                cursor: $cursor,
-                timer: $timer,
-                driverConfig: $this->driverConfig,
+                driverOutput: $this->driverOutput,
+                timer: $this->timer,
+                intervalCb: $this->intervalCallback ?? $this->defaultIntervalCallback(),
             );
     }
 
-    public function withAuxConfig(IAuxConfig $auxConfig): IDriverBuilder
+    protected function validate(): void
     {
-        $this->auxConfig = $auxConfig;
-        return $this;
+        match (true) {
+            null === $this->driverOutput => throw new LogicException('DriverOutput is not set.'),
+            null === $this->timer => throw new LogicException('Timer is not set.'),
+            default => null,
+        };
     }
 
-    public function withDriverConfig(IDriverConfig $driverConfig): IDriverBuilder
+    protected function defaultIntervalCallback(): Closure
     {
-        $this->driverConfig = $driverConfig;
-        return $this;
+        return
+            fn() => $this->intervalFactory->createStill();
     }
 }

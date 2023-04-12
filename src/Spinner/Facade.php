@@ -5,78 +5,33 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner;
 
 use AlecRabbit\Spinner\Container\Contract\IContainer;
-use AlecRabbit\Spinner\Core\Config\Contract\IConfig;
-use AlecRabbit\Spinner\Core\Contract\IConfigBuilder;
+use AlecRabbit\Spinner\Core\Contract\IDefaultsProvider;
+use AlecRabbit\Spinner\Core\Contract\IDriver;
+use AlecRabbit\Spinner\Core\Contract\IDriverAttacher;
 use AlecRabbit\Spinner\Core\Contract\IFacade;
-use AlecRabbit\Spinner\Core\Contract\ILoopSetup;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
-use AlecRabbit\Spinner\Core\Factory\ContainerFactory;
-use AlecRabbit\Spinner\Core\Factory\Contract\ILoopFactory;
+use AlecRabbit\Spinner\Core\Defaults\Contract\IWidgetSettings;
+use AlecRabbit\Spinner\Core\Factory\ContainerSingletonFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\IDriverSingletonFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\ILoopSingletonFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ISpinnerFactory;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoop;
 
 final class Facade implements IFacade
 {
-    public static function createSpinner(IConfig $config = null): ISpinner
+    public static function getLoop(): ILoop
     {
-        $config = self::refineConfig($config);
-
-        $spinner = self::getSpinnerFactory()->createSpinner($config);
-
-        self::getLoopSetup($config)->setup($spinner);
-
-        return
-            $spinner;
+        return self::getLoopFactory()->getLoop();
     }
 
-    protected static function refineConfig(?IConfig $config): IConfig
+    protected static function getLoopFactory(): ILoopSingletonFactory
     {
-        return
-            $config ?? self::getConfigBuilder()->build();
-    }
-
-    public static function getConfigBuilder(): IConfigBuilder
-    {
-        return
-            self::getContainer()
-                ->get(IConfigBuilder::class)
-        ;
+        return self::getContainer()->get(ILoopSingletonFactory::class);
     }
 
     protected static function getContainer(): IContainer
     {
-        return ContainerFactory::getContainer();
-    }
-
-    protected static function getSpinnerFactory(): ISpinnerFactory
-    {
-        return
-            self::getContainer()
-                ->get(ISpinnerFactory::class)
-        ;
-    }
-
-    protected static function getLoopSetup(IConfig $config): ILoopSetup
-    {
-        return
-            self::getLoopFactory()
-                ->getLoopSetup($config->getLoopConfig())
-        ;
-    }
-
-    protected static function getLoopFactory(): ILoopFactory
-    {
-        return self::getContainer()
-            ->get(ILoopFactory::class)
-        ;
-    }
-
-    public static function getLoop(): ILoop
-    {
-        return
-            self::getLoopFactory()
-                ->getLoop()
-        ;
+        return ContainerSingletonFactory::getContainer();
     }
 
     public static function useService(string $id, object|callable|string $service): void
@@ -87,5 +42,48 @@ final class Facade implements IFacade
             true => $container->replace($id, $service),
             default => $container->add($id, $service),
         };
+    }
+
+    public static function getDefaultsProvider(): IDefaultsProvider
+    {
+        return self::getContainer()->get(IDefaultsProvider::class);
+    }
+
+    public static function createSpinner(?IWidgetSettings $settings = null): ISpinner
+    {
+        $spinner =
+            self::getSpinnerFactory()
+                ->createSpinner($settings)
+        ;
+
+        $driver = self::getDriverFactory()
+            ->getDriver()
+        ;
+        $driver->attach($spinner);
+
+        self::getDriverAttacher()
+            ->attach($driver)
+        ;
+        return $spinner;
+    }
+
+    protected static function getSpinnerFactory(): ISpinnerFactory
+    {
+        return self::getContainer()->get(ISpinnerFactory::class);
+    }
+
+    public static function getDriver(): IDriver
+    {
+        return self::getDriverFactory()->getDriver();
+    }
+
+    protected static function getDriverFactory(): IDriverSingletonFactory
+    {
+        return self::getContainer()->get(IDriverSingletonFactory::class);
+    }
+
+    protected static function getDriverAttacher(): IDriverAttacher
+    {
+        return self::getContainer()->get(IDriverAttacher::class);
     }
 }
