@@ -21,14 +21,12 @@ final class DriverAttacher implements IDriverAttacher
 
     public function attach(IDriver $driver): void
     {
-        dump(__METHOD__);
         $this->detach();
         $this->timer =
             $this->loop->repeat(
                 $driver->getInterval()->toSeconds(),
                 static fn() => $driver->render()
             );
-        dump($this);
     }
 
     protected function detach(): void

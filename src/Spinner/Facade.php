@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner;
 
 use AlecRabbit\Spinner\Container\Contract\IContainer;
+use AlecRabbit\Spinner\Core\Config\Contract\ISpinnerConfig;
 use AlecRabbit\Spinner\Core\Contract\IDefaultsProvider;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\IDriverAttacher;
 use AlecRabbit\Spinner\Core\Contract\IFacade;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
-use AlecRabbit\Spinner\Core\Defaults\Contract\IWidgetSettings;
 use AlecRabbit\Spinner\Core\Factory\ContainerSingletonFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDriverSingletonFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopSingletonFactory;
@@ -49,7 +49,7 @@ final class Facade implements IFacade
         return self::getContainer()->get(IDefaultsProvider::class);
     }
 
-    public static function createSpinner(?IWidgetSettings $settings = null): ISpinner
+    public static function createSpinner(?ISpinnerConfig $settings = null): ISpinner
     {
         $spinner =
             self::getSpinnerFactory()

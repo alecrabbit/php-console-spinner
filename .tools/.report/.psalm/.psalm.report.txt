@@ -27,14 +27,16 @@
 /app/src/Spinner/Core/CharFrameRenderer.php:30:35:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Contract\IFrame' for AlecRabbit\Spinner\Core\CharFrameRenderer::emptyFrame
 /app/src/Spinner/Core/CharFrameRenderer.php:32:16:error - UndefinedMethod: Method AlecRabbit\Spinner\Core\Factory\Contract\IFrameFactory::createempty does not exist
 /app/src/Spinner/Core/CharFrameRenderer.php:32:16:error - MixedReturnStatement: Could not infer a return type
-/app/src/Spinner/Core/Config/AuxConfig.php:21:19:error - MissingParamType: Parameter $outputStream has no provided type
-/app/src/Spinner/Core/Config/AuxConfig.php:23:32:error - MixedArgument: Argument 1 of AlecRabbit\Spinner\Helper\Asserter::assertStream cannot be mixed, expecting resource
-/app/src/Spinner/Core/Config/AuxConfig.php:46:21:error - MixedInferredReturnType: Could not verify return type 'resource' for AlecRabbit\Spinner\Core\Config\AuxConfig::getOutputStream
-/app/src/Spinner/Core/Config/AuxConfig.php:48:16:error - MixedReturnStatement: Could not infer a return type
 /app/src/Spinner/Core/ConsoleCursorBuilder.php:25:17:error - ArgumentTypeCoercion: Argument 1 of AlecRabbit\Spinner\Core\Output\ConsoleCursor::__construct expects AlecRabbit\Spinner\Contract\Output\IBufferedOutput, but parent type AlecRabbit\Spinner\Contract\Output\IOutput|null provided
 /app/src/Spinner/Core/ConsoleCursorBuilder.php:25:17:error - PossiblyNullArgument: Argument 1 of AlecRabbit\Spinner\Core\Output\ConsoleCursor::__construct cannot be null, possibly null value provided
 /app/src/Spinner/Core/ConsoleCursorBuilder.php:26:17:error - PossiblyNullArgument: Argument 2 of AlecRabbit\Spinner\Core\Output\ConsoleCursor::__construct cannot be null, possibly null value provided
 /app/src/Spinner/Core/Contract/IBufferedOutputBuilder.php:12:39:error - MissingParamType: Parameter $stream has no provided type
+/app/src/Spinner/Core/Contract/IConfigBuilder.php:24:30:error - UndefinedClass: Class, interface or enum named AlecRabbit\Spinner\Core\Config\Contract\IConfig does not exist
+/app/src/Spinner/Core/Contract/IConfigBuilder.php:26:38:error - UndefinedClass: Class, interface or enum named AlecRabbit\Spinner\Core\Config\Contract\IDriverConfig does not exist
+/app/src/Spinner/Core/Contract/IConfigBuilder.php:28:36:error - UndefinedClass: Class, interface or enum named AlecRabbit\Spinner\Core\Config\Contract\ILoopConfig does not exist
+/app/src/Spinner/Core/Contract/IConfigBuilder.php:30:39:error - UndefinedClass: Class, interface or enum named AlecRabbit\Spinner\Core\Config\Contract\ILegacySpinnerConfig does not exist
+/app/src/Spinner/Core/Contract/IConfigBuilder.php:32:42:error - UndefinedClass: Class, interface or enum named AlecRabbit\Spinner\Core\Config\Contract\IWidgetConfig does not exist
+/app/src/Spinner/Core/Contract/IConfigBuilder.php:34:35:error - UndefinedClass: Class, interface or enum named AlecRabbit\Spinner\Core\Config\Contract\IAuxConfig does not exist
 /app/src/Spinner/Core/Defaults/AuxSettings.php:18:19:error - MissingParamType: Parameter $outputStream has no provided type
 /app/src/Spinner/Core/Defaults/AuxSettings.php:27:66:error - ParamNameMismatch: Argument 1 of AlecRabbit\Spinner\Core\Defaults\AuxSettings::setOptionNormalizerMode has wrong name $optionNormalizerMode, expecting $normalizerMode as defined by AlecRabbit\Spinner\Core\Defaults\Contract\IAuxSettings::setOptionNormalizerMode
 /app/src/Spinner/Core/Defaults/AuxSettings.php:38:50:error - ParamNameMismatch: Argument 1 of AlecRabbit\Spinner\Core\Defaults\AuxSettings::setOptionCursor has wrong name $optionCursor, expecting $cursorOption as defined by AlecRabbit\Spinner\Core\Defaults\Contract\IAuxSettings::setOptionCursor
@@ -97,6 +99,7 @@
 /app/src/Spinner/Core/Factory/ContainerSingletonFactory.php:251:21:error - MixedReturnStatement: Could not infer a return type
 /app/src/Spinner/Core/Factory/ContainerSingletonFactory.php:251:68:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
 /app/src/Spinner/Core/Factory/Contract/ILegacySpinnerAttacherFactory.php:11:36:error - UndefinedClass: Class, interface or enum named AlecRabbit\Spinner\Core\Contract\ILegacySpinnerAttacher does not exist
+/app/src/Spinner/Core/Factory/Contract/ILegacySpinnerFactory.php:12:35:error - UndefinedClass: Class, interface or enum named AlecRabbit\Spinner\Core\Config\Contract\IConfig does not exist
 /app/src/Spinner/Core/Factory/Contract/ILegacySpinnerFactory.php:12:53:error - UndefinedClass: Class, interface or enum named AlecRabbit\Spinner\Core\Contract\ILegacySpinner does not exist
 /app/src/Spinner/Core/Factory/Contract/IStaticWidgetFactory.php:24:45:error - UndefinedClass: Class, interface or enum named AlecRabbit\Spinner\Core\Defaults\Contract\IDefaults does not exist
 /app/src/Spinner/Core/Factory/Contract/IStaticWidgetFactory.php:26:53:error - UndefinedClass: Class, interface or enum named AlecRabbit\Spinner\Core\Defaults\Contract\IDefaults does not exist
@@ -108,16 +111,15 @@
 /app/src/Spinner/Core/Factory/LegacySpinnerAttacherFactory.php:32:17:error - UndefinedClass: Class, interface or enum named AlecRabbit\Spinner\Core\LegacySpinnerAttacher does not exist
 /app/src/Spinner/Core/Factory/LegacySpinnerFactory.php:16:9:error - UndefinedClass: Class, interface or enum named AlecRabbit\Spinner\Core\Contract\ILegacySpinnerBuilder does not exist
 /app/src/Spinner/Core/Factory/LegacySpinnerFactory.php:17:9:error - UndefinedClass: Class, interface or enum named AlecRabbit\Spinner\Core\Contract\ILegacySpinnerSetup does not exist
+/app/src/Spinner/Core/Factory/LegacySpinnerFactory.php:21:35:error - UndefinedClass: Class, interface or enum named AlecRabbit\Spinner\Core\Config\Contract\IConfig does not exist
 /app/src/Spinner/Core/Factory/LegacySpinnerFactory.php:21:53:error - UndefinedClass: Class, interface or enum named AlecRabbit\Spinner\Core\Contract\ILegacySpinner does not exist
+/app/src/Spinner/Core/Factory/LegacySpinnerFactory.php:21:53:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Core\Contract\ILegacySpinner' for AlecRabbit\Spinner\Core\Factory\LegacySpinnerFactory::createSpinner
+/app/src/Spinner/Core/Factory/LegacySpinnerFactory.php:27:46:error - UndefinedClass: Class, interface or enum named AlecRabbit\Spinner\Core\Config\Contract\IConfig does not exist
 /app/src/Spinner/Core/Factory/LegacySpinnerFactory.php:27:64:error - UndefinedClass: Class, interface or enum named AlecRabbit\Spinner\Core\Contract\ILegacySpinner does not exist
-/app/src/Spinner/Core/Factory/LegacySpinnerFactory.php:33:9:error - UndefinedClass: Class, interface or enum named AlecRabbit\Spinner\Core\Contract\ILegacySpinnerSetup does not exist
-/app/src/Spinner/Core/Factory/LegacySpinnerFactory.php:35:15:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
-/app/src/Spinner/Core/Factory/LegacySpinnerFactory.php:36:15:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
+/app/src/Spinner/Core/Factory/LegacySpinnerFactory.php:27:64:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Core\Contract\ILegacySpinner' for AlecRabbit\Spinner\Core\Factory\LegacySpinnerFactory::createAndSetupSpinner
+/app/src/Spinner/Core/Factory/LegacySpinnerFactory.php:42:37:error - UndefinedClass: Class, interface or enum named AlecRabbit\Spinner\Core\Config\Contract\IConfig does not exist
 /app/src/Spinner/Core/Factory/LegacySpinnerFactory.php:42:55:error - UndefinedClass: Class, interface or enum named AlecRabbit\Spinner\Core\Contract\ILegacySpinner does not exist
 /app/src/Spinner/Core/Factory/LegacySpinnerFactory.php:42:55:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Core\Contract\ILegacySpinner' for AlecRabbit\Spinner\Core\Factory\LegacySpinnerFactory::buildSpinner
-/app/src/Spinner/Core/Factory/LegacySpinnerFactory.php:45:13:error - UndefinedClass: Class, interface or enum named AlecRabbit\Spinner\Core\Contract\ILegacySpinnerBuilder does not exist
-/app/src/Spinner/Core/Factory/LegacySpinnerFactory.php:45:13:error - MixedReturnStatement: Could not infer a return type
-/app/src/Spinner/Core/Factory/LegacySpinnerFactory.php:47:19:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
 /app/src/Spinner/Core/FrameCollection.php:66:34:error - InvalidNullableReturnType: The declared return type 'int' for AlecRabbit\Spinner\Core\FrameCollection::lastIndex is not nullable, but 'int|null' contains null
 /app/src/Spinner/Core/FrameCollection.php:68:16:error - NullableReturnStatement: The declared return type 'int' for AlecRabbit\Spinner\Core\FrameCollection::lastIndex is not nullable, but the function returns 'int|null'
 /app/src/Spinner/Core/IntegerNormalizerBuilder.php:22:17:error - PossiblyNullArgument: Argument 1 of AlecRabbit\Spinner\Core\IntegerNormalizer::__construct cannot be null, possibly null value provided

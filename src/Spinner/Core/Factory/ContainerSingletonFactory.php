@@ -31,6 +31,7 @@ use AlecRabbit\Spinner\Core\Contract\IDriverBuilder;
 use AlecRabbit\Spinner\Core\Contract\IDriverOutputBuilder;
 use AlecRabbit\Spinner\Core\Contract\IDriverSetup;
 use AlecRabbit\Spinner\Core\Contract\IIntegerNormalizer;
+use AlecRabbit\Spinner\Core\Contract\IIntegerNormalizerBuilder;
 use AlecRabbit\Spinner\Core\Contract\IIntervalNormalizer;
 use AlecRabbit\Spinner\Core\Contract\ILegacyDriverBuilder;
 use AlecRabbit\Spinner\Core\Contract\ILegacySpinnerAttacher;
@@ -68,6 +69,7 @@ use AlecRabbit\Spinner\Core\Factory\Contract\IDriverOutputFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDriverSingletonFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IFrameFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalNormalizerFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopProbeFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopSetupFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopSingletonFactory;
@@ -76,6 +78,7 @@ use AlecRabbit\Spinner\Core\Factory\Contract\IStyleRevolverFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ITimerFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IWidthMeasurerFactory;
 use AlecRabbit\Spinner\Core\IntegerNormalizer;
+use AlecRabbit\Spinner\Core\IntegerNormalizerBuilder;
 use AlecRabbit\Spinner\Core\IntervalNormalizer;
 use AlecRabbit\Spinner\Core\LegacyDriverBuilder;
 use AlecRabbit\Spinner\Core\LegacyFrameRevolverBuilder;
@@ -185,7 +188,6 @@ final class ContainerSingletonFactory implements IContainerSingletonFactory
             IDriverSettingsBuilder::class => DriverSettingsBuilder::class,
             IDriverSetup::class => DriverSetup::class,
             IFrameFactory::class => FrameFactory::class,
-            ILegacyFrameRevolverBuilder::class => LegacyFrameRevolverBuilder::class,
             IIntervalFactory::class => IntervalFactory::class,
             ISpinnerFactory::class => SpinnerFactory::class,
             IWidgetFactory::class => WidgetFactory::class,
@@ -193,7 +195,11 @@ final class ContainerSingletonFactory implements IContainerSingletonFactory
             IStyleRevolverFactory::class => StyleRevolverFactory::class,
             ICharRevolverFactory::class => CharRevolverFactory::class,
             IFrameRevolverBuilder::class => FrameRevolverBuilder::class,
-            IIntervalNormalizer::class => IntervalNormalizer::class,
+            IIntervalNormalizerFactory::class => IntervalNormalizerFactory::class,
+            IIntervalNormalizer::class => static function (ContainerInterface $container): IIntervalNormalizer {
+                return $container->get(IIntervalNormalizerFactory::class)->create();
+            },
+            IIntegerNormalizerBuilder::class => IntegerNormalizerBuilder::class,
             ILoopSingletonFactory::class => LoopSingletonFactory::class,
             ILoopSetup::class => LoopSetup::class,
             ILoopSetupBuilder::class => LoopSetupBuilder::class,
@@ -221,9 +227,7 @@ final class ContainerSingletonFactory implements IContainerSingletonFactory
             },
 
             OptionNormalizerMode::class => static function (ContainerInterface $container): OptionNormalizerMode {
-                // TODO (2023-04-11 11:41) [Alec Rabbit]: get from DefaultsProvider
-                //  $container->get(IDefaultsProvider::class)-> ~ ->getNormalizerMode();
-                return OptionNormalizerMode::BALANCED;
+                return $container->get(IDefaultsProvider::class)->getAuxSettings()->getOptionNormalizerMode();
             },
 
 

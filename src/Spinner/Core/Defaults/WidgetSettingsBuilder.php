@@ -31,4 +31,31 @@ final class WidgetSettingsBuilder implements IWidgetSettingsBuilder
             );
     }
 
+    public function withLeadingSpacer(IFrame $frame): IWidgetSettingsBuilder
+    {
+        $clone = clone $this;
+        $clone->leadingSpacer = $frame;
+        return $clone;
+    }
+
+    public function withTrailingSpacer(IFrame $frame): IWidgetSettingsBuilder
+    {
+        $clone = clone $this;
+        $clone->trailingSpacer = $frame;
+        return $clone;
+    }
+
+    public function withStylePattern(IPattern $pattern): IWidgetSettingsBuilder
+    {
+        $clone = clone $this;
+        $clone->stylePattern = $pattern;
+        return $clone;
+    }
+
+    public function withCharPattern(IPattern $pattern): IWidgetSettingsBuilder
+    {
+        $clone = clone $this;
+        $clone->charPattern = $pattern;
+        return $clone;
+    }
 }

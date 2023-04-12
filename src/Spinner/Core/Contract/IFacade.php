@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Contract;
 
-use AlecRabbit\Spinner\Core\Defaults\Contract\IWidgetSettings;
+use AlecRabbit\Spinner\Core\Config\Contract\ISpinnerConfig;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoop;
 
 interface IFacade
@@ -17,5 +17,5 @@ interface IFacade
 
     public static function getDriver(): IDriver;
 
-    public static function createSpinner(?IWidgetSettings $settings = null): ISpinner;
+    public static function createSpinner(?ISpinnerConfig $settings = null): ISpinner;
 }

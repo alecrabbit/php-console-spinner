@@ -103,6 +103,12 @@ classDiagram
 
 
 ```
+```mermaid
+classDiagram
+    direction TB
+    IIntegerNormalizerFactory ..> IIntegerNormalizerBuilder
+    IIntegerNormalizerFactory ..> OptionNormalizerMode
+```
 
 ProceduralFrameRevolverBuilder ..> StyleFrameCollectionRenderer
 
