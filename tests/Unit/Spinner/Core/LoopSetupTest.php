@@ -76,6 +76,11 @@ final class LoopSetupTest extends TestCaseWithPrebuiltMocksAndStubs
         ;
         $settings
             ->expects(self::once())
+            ->method('isSignalProcessingAvailable')
+            ->willReturn(true)
+        ;
+        $settings
+            ->expects(self::once())
             ->method('isAttachHandlersEnabled')
             ->willReturn(true)
         ;
