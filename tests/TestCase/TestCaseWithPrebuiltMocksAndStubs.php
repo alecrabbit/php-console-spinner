@@ -12,9 +12,6 @@ use AlecRabbit\Spinner\Contract\Output\IBufferedOutput;
 use AlecRabbit\Spinner\Contract\Output\IOutput;
 use AlecRabbit\Spinner\Contract\Output\IResourceStream;
 use AlecRabbit\Spinner\Contract\Pattern\IPattern;
-use AlecRabbit\Spinner\Core\Config\Contract\IAuxConfig;
-use AlecRabbit\Spinner\Core\Config\Contract\IConfig;
-use AlecRabbit\Spinner\Core\Config\Contract\ILoopConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IWidgetConfig;
 use AlecRabbit\Spinner\Core\Contract\IBufferedOutputBuilder;
 use AlecRabbit\Spinner\Core\Contract\IConfigBuilder;
@@ -37,8 +34,6 @@ use AlecRabbit\Spinner\Core\Defaults\Contract\IAuxSettings;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IAuxSettingsBuilder;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDriverSettings;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDriverSettingsBuilder;
-use AlecRabbit\Spinner\Core\Defaults\Contract\ILegacySpinnerSettings;
-use AlecRabbit\Spinner\Core\Defaults\Contract\ILegacySpinnerSettingsBuilder;
 use AlecRabbit\Spinner\Core\Defaults\Contract\ILoopSettings;
 use AlecRabbit\Spinner\Core\Defaults\Contract\ILoopSettingsFactory;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IWidgetSettings;
@@ -55,7 +50,6 @@ use AlecRabbit\Spinner\Core\Loop\Contract\ILoop;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoopProbe;
 use AlecRabbit\Spinner\Core\Output\Contract\IConsoleCursor;
 use AlecRabbit\Spinner\Core\Output\Contract\IDriverOutput;
-use AlecRabbit\Spinner\Core\Revolver\Contract\ILegacyFrameRevolverBuilder;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetBuilder;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
@@ -78,11 +72,6 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
     protected function getPatternMock(): MockObject&IPattern
     {
         return $this->createMock(IPattern::class);
-    }
-
-    protected function getConfigMock(): MockObject&IConfig
-    {
-        return $this->createMock(IConfig::class);
     }
 
     protected function getWidgetSettingsMock(): MockObject&IWidgetSettings
@@ -161,11 +150,6 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
         return $this->createMock(IFrameFactory::class);
     }
 
-    protected function getFrameRevolverBuilderMock(): MockObject&ILegacyFrameRevolverBuilder
-    {
-        return $this->createMock(ILegacyFrameRevolverBuilder::class);
-    }
-
     protected function getOutputBuilderMock(): MockObject&IBufferedOutputBuilder
     {
         return $this->createMock(IBufferedOutputBuilder::class);
@@ -206,11 +190,6 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
         return $this->createMock(IDriverOutputBuilder::class);
     }
 
-    protected function getAuxConfigMock(): MockObject&IAuxConfig
-    {
-        return $this->createMock(IAuxConfig::class);
-    }
-
     protected function getLoopProbeMock(): MockObject&ILoopProbe
     {
         return $this->createMock(ILoopProbe::class);
@@ -219,11 +198,6 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
     protected function getLoopSettingsBuilderMock(): MockObject&ILoopSettingsFactory
     {
         return $this->createMock(ILoopSettingsFactory::class);
-    }
-
-    protected function getSpinnerSettingsBuilderMock(): MockObject&ILegacySpinnerSettingsBuilder
-    {
-        return $this->createMock(ILegacySpinnerSettingsBuilder::class);
     }
 
     protected function getAuxSettingsBuilderMock(): MockObject&IAuxSettingsBuilder
@@ -251,11 +225,6 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
         return $this->createMock(IWidgetSettingsBuilder::class);
     }
 
-    protected function getSpinnerSettingsMock(): MockObject&ILegacySpinnerSettings
-    {
-        return $this->getMockForAbstractClass(ILegacySpinnerSettings::class);
-    }
-
     protected function getLoopSettingsMock(): MockObject&ILoopSettings
     {
         return $this->createMock(ILoopSettings::class);
@@ -279,11 +248,6 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
     protected function getWidthMeasurerMock(): MockObject&IWidthMeasurer
     {
         return $this->createMock(IWidthMeasurer::class);
-    }
-
-    protected function getLoopConfigStub(): Stub&ILoopConfig
-    {
-        return $this->createStub(ILoopConfig::class);
     }
 
     protected function getPatternStub(): Stub&IPattern

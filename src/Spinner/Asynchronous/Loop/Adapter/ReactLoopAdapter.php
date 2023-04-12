@@ -5,7 +5,6 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Asynchronous\Loop\Adapter;
 
-use AlecRabbit\Spinner\Core\Contract\ILegacySpinner;
 use AlecRabbit\Spinner\Core\Loop\A\ALoopAdapter;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use Closure;
@@ -17,28 +16,9 @@ use React\EventLoop\TimerInterface;
  */
 final class ReactLoopAdapter extends ALoopAdapter
 {
-    private ?TimerInterface $spinnerTimer = null;
-
     public function __construct(
         private readonly LoopInterface $loop,
     ) {
-    }
-
-    public function attach(ILegacySpinner $spinner): void
-    {
-        $this->detachSpinner();
-        $this->spinnerTimer =
-            $this->loop->addPeriodicTimer(
-                $spinner->getInterval()->toSeconds(),
-                static fn() => $spinner->spin()
-            );
-    }
-
-    protected function detachSpinner(): void
-    {
-        if ($this->spinnerTimer instanceof TimerInterface) {
-            $this->loop->cancelTimer($this->spinnerTimer);
-        }
     }
 
     public function autoStart(): void
@@ -80,7 +60,7 @@ final class ReactLoopAdapter extends ALoopAdapter
         $this->loop->cancelTimer($timer);
     }
 
-    protected function onSignal(int $signal, Closure $closure): void
+    public function onSignal(int $signal, Closure $closure): void
     {
         $this->loop->addSignal($signal, $closure);
     }
