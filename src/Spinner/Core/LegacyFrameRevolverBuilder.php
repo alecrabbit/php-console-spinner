@@ -6,7 +6,7 @@ namespace AlecRabbit\Spinner\Core;
 
 use AlecRabbit\Spinner\Core\A\ALegacyFrameRevolverBuilder;
 
-final class FrameRevolverBuilder extends ALegacyFrameRevolverBuilder
+final class LegacyFrameRevolverBuilder extends ALegacyFrameRevolverBuilder
 {
 
 }

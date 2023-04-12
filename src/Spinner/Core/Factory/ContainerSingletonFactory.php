@@ -61,6 +61,7 @@ use AlecRabbit\Spinner\Core\DriverBuilder;
 use AlecRabbit\Spinner\Core\DriverOutputBuilder;
 use AlecRabbit\Spinner\Core\DriverSetup;
 use AlecRabbit\Spinner\Core\Factory\Contract\IBufferedOutputSingletonFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\ICharRevolverFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IConsoleCursorFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IContainerSingletonFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDriverAttacherFactory;
@@ -73,9 +74,11 @@ use AlecRabbit\Spinner\Core\Factory\Contract\ILegacySpinnerFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopProbeFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopSetupFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopSingletonFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\ISpinnerFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\IStyleRevolverFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ITimerFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IWidthMeasurerFactory;
-use AlecRabbit\Spinner\Core\FrameRevolverBuilder;
+use AlecRabbit\Spinner\Core\LegacyFrameRevolverBuilder;
 use AlecRabbit\Spinner\Core\IntegerNormalizer;
 use AlecRabbit\Spinner\Core\IntervalNormalizer;
 use AlecRabbit\Spinner\Core\LegacyDriverBuilder;
@@ -85,13 +88,19 @@ use AlecRabbit\Spinner\Core\Loop\Contract\ILoop;
 use AlecRabbit\Spinner\Core\LoopSetup;
 use AlecRabbit\Spinner\Core\LoopSetupBuilder;
 use AlecRabbit\Spinner\Core\Output\ResourceStream;
+use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolverBuilder;
 use AlecRabbit\Spinner\Core\Revolver\Contract\ILegacyFrameRevolverBuilder;
+use AlecRabbit\Spinner\Core\Revolver\FrameRevolverBuilder;
 use AlecRabbit\Spinner\Core\Sequencer;
 use AlecRabbit\Spinner\Core\StyleFrameCollectionRenderer;
 use AlecRabbit\Spinner\Core\StyleFrameRenderer;
 use AlecRabbit\Spinner\Core\TimerBuilder;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetBuilder;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolverBuilder;
+use AlecRabbit\Spinner\Core\Widget\Factory\Contract\IWidgetFactory;
+use AlecRabbit\Spinner\Core\Widget\Factory\Contract\IWidgetRevolverFactory;
+use AlecRabbit\Spinner\Core\Widget\Factory\WidgetFactory;
+use AlecRabbit\Spinner\Core\Widget\Factory\WidgetRevolverFactory;
 use AlecRabbit\Spinner\Core\Widget\WidgetBuilder;
 use AlecRabbit\Spinner\Core\Widget\WidgetRevolverBuilder;
 use AlecRabbit\Spinner\Exception\DomainException;
@@ -179,8 +188,14 @@ final class ContainerSingletonFactory implements IContainerSingletonFactory
             IDriverSettingsBuilder::class => DriverSettingsBuilder::class,
             IDriverSetup::class => DriverSetup::class,
             IFrameFactory::class => FrameFactory::class,
-            ILegacyFrameRevolverBuilder::class => FrameRevolverBuilder::class,
+            ILegacyFrameRevolverBuilder::class => LegacyFrameRevolverBuilder::class,
             IIntervalFactory::class => IntervalFactory::class,
+            ISpinnerFactory::class => SpinnerFactory::class,
+            IWidgetFactory::class => WidgetFactory::class,
+            IWidgetRevolverFactory::class => WidgetRevolverFactory::class,
+            IStyleRevolverFactory::class => StyleRevolverFactory::class,
+            ICharRevolverFactory::class => CharRevolverFactory::class,
+            IFrameRevolverBuilder::class => FrameRevolverBuilder::class,
             IIntervalNormalizer::class => IntervalNormalizer::class,
             ILoopSingletonFactory::class => LoopSingletonFactory::class,
             ILoopSetup::class => LoopSetup::class,

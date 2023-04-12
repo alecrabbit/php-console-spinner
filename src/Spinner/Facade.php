@@ -48,7 +48,7 @@ final class Facade implements IFacade
         return self::getContainer()->get(IDefaultsProvider::class);
     }
 
-    public static function createSpinner(?IWidgetSettings $settings): ISpinner
+    public static function createSpinner(?IWidgetSettings $settings = null): ISpinner
     {
         $spinner =
             self::getSpinnerFactory()
