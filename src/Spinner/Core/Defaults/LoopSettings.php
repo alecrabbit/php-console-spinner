@@ -14,6 +14,7 @@ final class LoopSettings implements ILoopSettings
         protected bool $loopAvailable,
         protected OptionAutoStart $optionAutoStart,
         protected OptionAttachHandlers $optionAttachHandlers,
+        protected bool $pcntlExtensionAvailable,
     ) {
     }
 
@@ -42,5 +43,10 @@ final class LoopSettings implements ILoopSettings
     {
         $this->optionAttachHandlers = $optionAttachHandlers;
         return $this;
+    }
+
+    public function isPcntlExtensionAvailable(): bool
+    {
+        return $this->pcntlExtensionAvailable;
     }
 }

@@ -7,6 +7,7 @@ namespace AlecRabbit\Spinner\Core\Defaults\Contract;
 
 use AlecRabbit\Spinner\Contract\Option\OptionAttachHandlers;
 use AlecRabbit\Spinner\Contract\Option\OptionAutoStart;
+use AlecRabbit\Spinner\Core\Defaults\LoopSettings;
 
 interface ILoopSettings
 {
@@ -19,4 +20,6 @@ interface ILoopSettings
     public function setAttachHandlersOption(OptionAttachHandlers $optionAttachHandlers): ILoopSettings;
 
     public function isLoopAvailable(): bool;
+
+    public function isPcntlExtensionAvailable(): bool;
 }

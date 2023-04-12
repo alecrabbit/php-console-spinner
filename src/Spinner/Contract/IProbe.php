@@ -7,5 +7,5 @@ namespace AlecRabbit\Spinner\Contract;
 
 interface IProbe
 {
-    public static function isSupported(): bool;
+    public static function isAvailable(): bool;
 }

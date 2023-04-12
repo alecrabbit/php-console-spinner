@@ -38,6 +38,7 @@ use AlecRabbit\Spinner\Core\Contract\ILegacySpinnerBuilder;
 use AlecRabbit\Spinner\Core\Contract\ILegacySpinnerSetup;
 use AlecRabbit\Spinner\Core\Contract\ILoopSetup;
 use AlecRabbit\Spinner\Core\Contract\ILoopSetupBuilder;
+use AlecRabbit\Spinner\Core\Contract\IPcntlExtensionProbe;
 use AlecRabbit\Spinner\Core\Contract\IStyleFrameCollectionRenderer;
 use AlecRabbit\Spinner\Core\Contract\IStyleFrameRenderer;
 use AlecRabbit\Spinner\Core\Contract\ITimerBuilder;
@@ -139,10 +140,12 @@ final class ContainerSingletonFactory implements IContainerSingletonFactory
 
             ILoopSettingsBuilder::class => static function (ContainerInterface $container): ILoopSettingsBuilder {
                 $loopProbe = null;
+                $pcntlExtensionProbe = null;
                 try {
                     $loopProbe = $container->get(ILoopProbeFactory::class)->getProbe();
+                    $pcntlExtensionProbe = $container->get(IPcntlExtensionProbe::class)->getProbe();
                 } finally {
-                    return new LoopSettingsBuilder($loopProbe);
+                    return new LoopSettingsBuilder($loopProbe, $pcntlExtensionProbe);
                 }
             },
 

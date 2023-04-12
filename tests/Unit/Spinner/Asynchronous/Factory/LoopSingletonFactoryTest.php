@@ -41,7 +41,7 @@ final class LoopSingletonFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
         $loopProbeFactory->method('getProbe')
             ->willReturn(
                 new class() extends ALoopProbe {
-                    public static function isSupported(): bool
+                    public static function isAvailable(): bool
                     {
                         return true;
                     }

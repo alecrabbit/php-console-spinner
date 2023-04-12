@@ -17,7 +17,7 @@ use function class_exists;
  */
 class ReactLoopProbe extends ALoopProbe
 {
-    public static function isSupported(): bool
+    public static function isAvailable(): bool
     {
         return class_exists(Loop::class);
     }

@@ -28,12 +28,14 @@ final class LoopSettingsTest extends TestCaseWithPrebuiltMocksAndStubs
         ?bool $loopAvailable = null,
         ?OptionAutoStart $autoStartOption = null,
         ?OptionAttachHandlers $signalHandlersOption = null,
+        ?bool $pcntlExtensionAvailable = null,
     ): ILoopSettings {
         return
             new LoopSettings(
                 loopAvailable: $loopAvailable ?? false,
                 optionAutoStart: $autoStartOption ?? OptionAutoStart::DISABLED,
                 optionAttachHandlers: $signalHandlersOption ?? OptionAttachHandlers::DISABLED,
+                pcntlExtensionAvailable: $pcntlExtensionAvailable ?? false,
             );
     }
 

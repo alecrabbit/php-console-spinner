@@ -9,7 +9,7 @@ use AlecRabbit\Spinner\Core\Loop\Contract\ILoopProbe;
 
 abstract class ALoopProbe implements ILoopProbe
 {
-    abstract public static function isSupported(): bool;
+    abstract public static function isAvailable(): bool;
 
     abstract public function createLoop(): ILoop;
 }

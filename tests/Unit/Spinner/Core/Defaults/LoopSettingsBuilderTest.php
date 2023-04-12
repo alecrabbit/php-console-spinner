@@ -4,11 +4,14 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Defaults;
 
+use AlecRabbit\Spinner\Core\Contract\IPcntlExtensionProbe;
 use AlecRabbit\Spinner\Core\Defaults\Contract\ILoopSettingsBuilder;
 use AlecRabbit\Spinner\Core\Defaults\LoopSettings;
 use AlecRabbit\Spinner\Core\Defaults\LoopSettingsBuilder;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoopProbe;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
+use AlecRabbit\Tests\Unit\Spinner\Core\Defaults\Override\LoopProbeStub;
+use AlecRabbit\Tests\Unit\Spinner\Core\Defaults\Override\PcntlExtensionProbeStub;
 use PHPUnit\Framework\Attributes\Test;
 
 final class LoopSettingsBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
@@ -23,10 +26,12 @@ final class LoopSettingsBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
 
     public function getTesteeInstance(
         ?ILoopProbe $loopProbe = null,
+        ?IPcntlExtensionProbe $pcntlExtensionProbe = null,
     ): ILoopSettingsBuilder {
         return
             new LoopSettingsBuilder(
                 loopProbe: $loopProbe,
+                pcntlExtensionProbe: $pcntlExtensionProbe,
             );
     }
 
@@ -47,7 +52,8 @@ final class LoopSettingsBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
     {
         $loopSettings =
             $this->getTesteeInstance(
-                loopProbe: $this->getLoopProbeMock()
+                loopProbe: $this->getLoopProbeStub(),
+                pcntlExtensionProbe: $this->getPcntlExtensionProbeStub(),
             )
                 ->build()
         ;
@@ -57,5 +63,15 @@ final class LoopSettingsBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
         self::assertTrue($loopSettings->isLoopAvailable());
         self::assertTrue($loopSettings->isAutoStartEnabled());
         self::assertTrue($loopSettings->isAttachHandlersEnabled());
+    }
+
+    protected function getLoopProbeStub(): ILoopProbe
+    {
+        return new LoopProbeStub();
+    }
+
+    protected function getPcntlExtensionProbeStub(): IPcntlExtensionProbe
+    {
+        return new PcntlExtensionProbeStub();
     }
 }
