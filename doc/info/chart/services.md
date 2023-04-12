@@ -6,6 +6,8 @@ classDiagram
     Facade ..> IContainerFactory
     Facade ..> IConfigBuilder
     Facade ..> IDriverFactory
+    Facade ..> ISpinnerFactory
+    Facade ..> IDriverAttacher
     Facade ..> ILoopFactory
    
 
@@ -60,22 +62,30 @@ classDiagram
     class ILoopFactory {
         +getLoop() ILoop
     }
-```
-```mermaid
-classDiagram
-    direction TB
-    IWidgetBuilder ..> IWidgetRevolverBuilder
-
-    IWidgetRevolverBuilder ..> IFrameRevolverBuilder
-
-    IFrameRevolverBuilder ..> IStyleFrameCollectionRenderer
-    IFrameRevolverBuilder ..> ICharFrameCollectionRenderer
-    IFrameRevolverBuilder ..> IIntervalFactory
 
     IIntervalFactory ..> IIntervalNormalizer
     IIntervalFactory .. Interval
 
     IIntervalNormalizer ..> IIntegerNormalizer
+```
+```mermaid
+classDiagram
+    direction TB
+    ISpinnerFactory ..> IWidgetFactory
+    ISpinnerFactory ..> IDefaultsProvider
+
+    IWidgetFactory ..> IWidgetBuilder
+    IWidgetFactory ..> IWidgetRevolverFactory
+
+    IWidgetRevolverFactory ..> IWidgetRevolverBuilder
+    IWidgetRevolverFactory ..> IStyleRevolverFactory
+    IWidgetRevolverFactory ..> ICharRevolverFactory
+
+    IStyleRevolverFactory ..> IFrameRevolverBuilder
+    IStyleRevolverFactory ..> IStyleFrameCollectionRenderer
+
+    ICharRevolverFactory ..> IFrameRevolverBuilder
+    ICharRevolverFactory ..> ICharFrameCollectionRenderer
 
     IStyleFrameCollectionRenderer ..> IStyleFrameRenderer
 
@@ -84,7 +94,7 @@ classDiagram
     IStyleFrameRenderer ..> IAnsiStyleConverter
     IStyleFrameRenderer ..> ISequencer
     IStyleFrameRenderer ..> IFrameFactory
-    
+
     ICharFrameRenderer ..> IFrameFactory
 
     IAnsiStyleConverter ..> OptionStyleMode
