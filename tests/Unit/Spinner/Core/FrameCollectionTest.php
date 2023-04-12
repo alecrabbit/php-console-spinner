@@ -9,7 +9,9 @@ use AlecRabbit\Spinner\Core\Contract\IFrameCollection;
 use AlecRabbit\Spinner\Core\FrameCollection;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
+use ArrayObject;
 use PHPUnit\Framework\Attributes\Test;
+use Traversable;
 
 final class FrameCollectionTest extends TestCaseWithPrebuiltMocksAndStubs
 {
@@ -17,7 +19,7 @@ final class FrameCollectionTest extends TestCaseWithPrebuiltMocksAndStubs
     public function canBeCreated(): void
     {
         $frameCollection = $this->getTesteeInstance(
-            new \ArrayObject(
+            new ArrayObject(
                 [
                     $this->getFrameMock(),
                     $this->getFrameMock(),
@@ -27,6 +29,12 @@ final class FrameCollectionTest extends TestCaseWithPrebuiltMocksAndStubs
         );
         self::assertInstanceOf(FrameCollection::class, $frameCollection);
     }
+
+    protected function getTesteeInstance(Traversable $frames): IFrameCollection
+    {
+        return new FrameCollection($frames);
+    }
+
     #[Test]
     public function canGetFrameByIndex(): void
     {
@@ -34,7 +42,7 @@ final class FrameCollectionTest extends TestCaseWithPrebuiltMocksAndStubs
         $frame1 = $this->getFrameMock();
         $frame2 = $this->getFrameMock();
         $frameCollection = $this->getTesteeInstance(
-            new \ArrayObject(
+            new ArrayObject(
                 [
                     $frame0,
                     $frame1,
@@ -50,11 +58,6 @@ final class FrameCollectionTest extends TestCaseWithPrebuiltMocksAndStubs
         self::assertSame(2, $frameCollection->lastIndex());
     }
 
-    protected function getTesteeInstance(\Traversable $frames): IFrameCollection
-    {
-        return new FrameCollection($frames);
-    }
-
     #[Test]
     public function throwsIfIsCreatedEmpty(): void
     {
@@ -62,7 +65,7 @@ final class FrameCollectionTest extends TestCaseWithPrebuiltMocksAndStubs
         $exceptionMessage = 'Collection is empty.';
 
         $test = function () {
-            $frameCollection = $this->getTesteeInstance(new \ArrayObject([]));
+            $frameCollection = $this->getTesteeInstance(new ArrayObject([]));
             self::assertInstanceOf(FrameCollection::class, $frameCollection);
         };
 
@@ -80,7 +83,7 @@ final class FrameCollectionTest extends TestCaseWithPrebuiltMocksAndStubs
         $exceptionMessage = '"AlecRabbit\Spinner\Contract\IFrame" expected, "string" given.';
 
         $test = function () {
-            $frameCollection = $this->getTesteeInstance(new \ArrayObject(['a string']));
+            $frameCollection = $this->getTesteeInstance(new ArrayObject(['a string']));
             self::assertInstanceOf(FrameCollection::class, $frameCollection);
         };
 

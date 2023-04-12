@@ -26,6 +26,15 @@ final class FrameRevolverBuilder implements IFrameRevolverBuilder
             );
     }
 
+    protected function validate(): void
+    {
+        match (true) {
+            null === $this->frames => throw new LogicException('Frames are not set.'),
+            null === $this->interval => throw new LogicException('Interval is not set.'),
+            default => null,
+        };
+    }
+
     public function withFrames(IFrameCollection $frames): IFrameRevolverBuilder
     {
         $clone = clone $this;
@@ -38,14 +47,5 @@ final class FrameRevolverBuilder implements IFrameRevolverBuilder
         $clone = clone $this;
         $clone->interval = $interval;
         return $clone;
-    }
-
-    protected function validate(): void
-    {
-        match (true) {
-            null === $this->frames => throw new LogicException('Frames are not set.'),
-            null === $this->interval => throw new LogicException('Interval is not set.'),
-            default => null,
-        };
     }
 }

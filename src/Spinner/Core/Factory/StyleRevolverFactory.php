@@ -26,7 +26,8 @@ final class StyleRevolverFactory implements IStyleRevolverFactory
             $this->frameRevolverBuilder
                 ->withFrames($this->getFrameCollection($stylePattern))
                 ->withInterval($stylePattern->getInterval())
-                ->build();
+                ->build()
+        ;
     }
 
     protected function getFrameCollection(IPattern $stylePattern): IFrameCollection

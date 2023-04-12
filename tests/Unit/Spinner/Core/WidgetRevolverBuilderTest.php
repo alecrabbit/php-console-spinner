@@ -68,6 +68,7 @@ final class WidgetRevolverBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
             method: __METHOD__,
         );
     }
+
     #[Test]
     public function throwsOnBuildWithoutCharRevolver(): void
     {

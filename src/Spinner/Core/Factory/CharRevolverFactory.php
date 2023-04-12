@@ -26,7 +26,8 @@ final class CharRevolverFactory implements ICharRevolverFactory
             $this->frameRevolverBuilder
                 ->withFrames($this->getFrameCollection($charPattern))
                 ->withInterval($charPattern->getInterval())
-                ->build();
+                ->build()
+        ;
     }
 
     protected function getFrameCollection(IPattern $charPattern): IFrameCollection
