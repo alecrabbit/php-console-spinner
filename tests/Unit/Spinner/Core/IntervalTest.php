@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Tests\Unit\Spinner\Core\A;
+namespace Unit\Spinner\Core;
 
 use AlecRabbit\Spinner\Contract\IInterval;
-use AlecRabbit\Spinner\Core\A\AInterval;
+use AlecRabbit\Spinner\Core\Interval;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Tests\TestCase\TestCase;
 
-final class AIntervalTest extends TestCase
+final class IntervalTest extends TestCase
 {
     public static function createDataProvider(): iterable
     {
@@ -189,8 +189,7 @@ final class AIntervalTest extends TestCase
 
     public static function getTesteeInstance(array $args = []): IInterval
     {
-        return new class(...$args) extends AInterval {
-        };
+        return new Interval(...$args);
     }
 
     /**

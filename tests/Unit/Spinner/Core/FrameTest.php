@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Tests\Unit\Spinner\Core\A;
+namespace Unit\Spinner\Core;
 
 use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Core\Factory\FrameFactory;
+use AlecRabbit\Spinner\Core\Frame;
 use AlecRabbit\Tests\TestCase\TestCase;
-use AlecRabbit\Tests\Unit\Spinner\Core\A\Override\AFrameOverride;
 
-final class AFrameTest extends TestCase
+final class FrameTest extends TestCase
 {
     public static function createDataProvider(): iterable
     {
@@ -73,7 +73,7 @@ final class AFrameTest extends TestCase
 
     public static function getTesteeInstance(array $args = []): IFrame
     {
-        return new AFrameOverride(...$args);
+        return new Frame(...$args);
     }
 
     /**
