@@ -45,6 +45,7 @@ final class LoopSettingsBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
         self::assertFalse($loopSettings->isLoopAvailable());
         self::assertFalse($loopSettings->isAutoStartEnabled());
         self::assertFalse($loopSettings->isAttachHandlersEnabled());
+        self::assertFalse($loopSettings->isPcntlExtensionAvailable());
     }
 
     #[Test]
@@ -63,6 +64,7 @@ final class LoopSettingsBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
         self::assertTrue($loopSettings->isLoopAvailable());
         self::assertTrue($loopSettings->isAutoStartEnabled());
         self::assertTrue($loopSettings->isAttachHandlersEnabled());
+        self::assertTrue($loopSettings->isPcntlExtensionAvailable());
     }
 
     protected function getLoopProbeStub(): ILoopProbe

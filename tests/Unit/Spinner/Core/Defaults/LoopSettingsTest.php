@@ -22,6 +22,7 @@ final class LoopSettingsTest extends TestCaseWithPrebuiltMocksAndStubs
         self::assertFalse($loopSettings->isLoopAvailable());
         self::assertFalse($loopSettings->isAutoStartEnabled());
         self::assertFalse($loopSettings->isAttachHandlersEnabled());
+        self::assertFalse($loopSettings->isPcntlExtensionAvailable());
     }
 
     public function getTesteeInstance(
@@ -47,19 +48,24 @@ final class LoopSettingsTest extends TestCaseWithPrebuiltMocksAndStubs
                 true,
                 OptionAutoStart::ENABLED,
                 OptionAttachHandlers::ENABLED,
+                true,
             );
 
         self::assertInstanceOf(LoopSettings::class, $loopSettings);
         self::assertTrue($loopSettings->isLoopAvailable());
         self::assertTrue($loopSettings->isAutoStartEnabled());
         self::assertTrue($loopSettings->isAttachHandlersEnabled());
+        self::assertTrue($loopSettings->isPcntlExtensionAvailable());
     }
 
     #[Test]
     public function valuesCanBeOverriddenWithSetters(): void
     {
         $loopSettings =
-            $this->getTesteeInstance(true);
+            $this->getTesteeInstance(
+                loopAvailable: true,
+                pcntlExtensionAvailable: true,
+            );
 
         $loopSettings->setOptionAutoStart(OptionAutoStart::ENABLED);
         $loopSettings->setAttachHandlersOption(OptionAttachHandlers::ENABLED);
@@ -68,5 +74,6 @@ final class LoopSettingsTest extends TestCaseWithPrebuiltMocksAndStubs
         self::assertTrue($loopSettings->isLoopAvailable());
         self::assertTrue($loopSettings->isAutoStartEnabled());
         self::assertTrue($loopSettings->isAttachHandlersEnabled());
+        self::assertTrue($loopSettings->isPcntlExtensionAvailable());
     }
 }
