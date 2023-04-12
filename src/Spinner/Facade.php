@@ -7,6 +7,7 @@ namespace AlecRabbit\Spinner;
 use AlecRabbit\Spinner\Container\Contract\IContainer;
 use AlecRabbit\Spinner\Core\Contract\IDefaultsProvider;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
+use AlecRabbit\Spinner\Core\Contract\IDriverAttacher;
 use AlecRabbit\Spinner\Core\Contract\IFacade;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IWidgetSettings;
@@ -55,11 +56,14 @@ final class Facade implements IFacade
                 ->createSpinner($settings)
         ;
 
-        self::getDriverFactory()
+        $driver = self::getDriverFactory()
             ->getDriver()
-            ->attach($spinner)
         ;
+        $driver->attach($spinner);
 
+        self::getDriverAttacher()
+            ->attach($driver)
+        ;
         return $spinner;
     }
 
@@ -76,5 +80,10 @@ final class Facade implements IFacade
     protected static function getDriverFactory(): IDriverSingletonFactory
     {
         return self::getContainer()->get(IDriverSingletonFactory::class);
+    }
+
+    protected static function getDriverAttacher(): IDriverAttacher
+    {
+        return self::getContainer()->get(IDriverAttacher::class);
     }
 }

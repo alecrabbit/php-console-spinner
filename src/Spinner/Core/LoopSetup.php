@@ -32,6 +32,7 @@ final class LoopSetup implements ILoopSetup
 
     protected function registerAutoStart(): void
     {
+        dump(__METHOD__);
         $this->loop->autoStart();
     }
 

@@ -64,7 +64,7 @@ use AlecRabbit\Spinner\Core\Factory\Contract\IBufferedOutputSingletonFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ICharRevolverFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IConsoleCursorFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IContainerSingletonFactory;
-use AlecRabbit\Spinner\Core\Factory\Contract\IDriverAttacherFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\IDriverAttacherSingletonFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDriverOutputFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDriverSingletonFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IFrameFactory;
@@ -184,7 +184,7 @@ final class ContainerSingletonFactory implements IContainerSingletonFactory
             ICharFrameCollectionRenderer::class => CharFrameCollectionRenderer::class,
             ICharFrameRenderer::class => CharFrameRenderer::class,
             IConsoleCursorBuilder::class => ConsoleCursorBuilder::class,
-            IDriverAttacherFactory::class => DriverAttacherFactory::class,
+            IDriverAttacherSingletonFactory::class => DriverAttacherSingletonFactory::class,
             IDriverSettingsBuilder::class => DriverSettingsBuilder::class,
             IDriverSetup::class => DriverSetup::class,
             IFrameFactory::class => FrameFactory::class,
@@ -246,7 +246,7 @@ final class ContainerSingletonFactory implements IContainerSingletonFactory
 
             IDriverAttacher::class => static function (ContainerInterface $container): IDriverAttacher {
                 return
-                    $container->get(IDriverAttacherFactory::class)->getAttacher();
+                    $container->get(IDriverAttacherSingletonFactory::class)->getAttacher();
             },
 
             IWidthMeasurer::class => static function (ContainerInterface $container): IWidthMeasurer {

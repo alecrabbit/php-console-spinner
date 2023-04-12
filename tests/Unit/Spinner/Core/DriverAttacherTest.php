@@ -4,6 +4,7 @@ declare(strict_types=1);
 // 03.04.23
 namespace AlecRabbit\Tests\Unit\Spinner\Core;
 
+use AlecRabbit\Spinner\Contract\Option\OptionAttacher;
 use AlecRabbit\Spinner\Core\Contract\IDriverAttacher;
 use AlecRabbit\Spinner\Core\DriverAttacher;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoop;
@@ -27,6 +28,7 @@ final class DriverAttacherTest extends TestCaseWithPrebuiltMocksAndStubs
         return
             new DriverAttacher(
                 loop: $loop ?? $this->getLoopMock(),
+                optionAttacher: OptionAttacher::ENABLED,
             );
     }
 

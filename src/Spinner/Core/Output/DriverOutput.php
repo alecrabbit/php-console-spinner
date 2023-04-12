@@ -29,7 +29,9 @@ final class DriverOutput implements IDriverOutput
 
     public function write(ISpinnerState $spinnerState): void
     {
+        dump(__METHOD__);
         if ($this->initialized) {
+            dump(__METHOD__);
             $this->output->bufferedWrite($spinnerState->getSequence());
 
             $width = $spinnerState->getWidth();

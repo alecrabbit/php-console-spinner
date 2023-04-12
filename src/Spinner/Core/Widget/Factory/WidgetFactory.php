@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 // 12.04.23
 namespace AlecRabbit\Spinner\Core\Widget\Factory;
@@ -16,8 +17,15 @@ final class WidgetFactory implements IWidgetFactory
         protected IWidgetRevolverFactory $widgetRevolverBuilder,
     ) {
     }
+
     public function createWidget(IWidgetSettings $widgetSettings): IWidgetComposite
     {
-        return $this->widgetBuilder->build();
+        return
+            $this->widgetBuilder
+                ->withLeadingSpacer($widgetSettings->getLeadingSpacer())
+                ->withTrailingSpacer($widgetSettings->getTrailingSpacer())
+                ->withWidgetRevolver($this->widgetRevolverBuilder->createWidgetRevolver($widgetSettings))
+                ->build()
+        ;
     }
 }

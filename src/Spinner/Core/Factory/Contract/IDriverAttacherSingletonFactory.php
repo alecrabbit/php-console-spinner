@@ -6,7 +6,7 @@ namespace AlecRabbit\Spinner\Core\Factory\Contract;
 
 use AlecRabbit\Spinner\Core\Contract\IDriverAttacher;
 
-interface IDriverAttacherFactory
+interface IDriverAttacherSingletonFactory
 {
     public function getAttacher(): IDriverAttacher;
 }

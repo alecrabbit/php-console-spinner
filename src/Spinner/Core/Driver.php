@@ -51,6 +51,7 @@ final class Driver implements IDriver
 
     public function render(float $dt = null): void
     {
+        dump(__METHOD__);
         $dt ??= $this->timer->getDelta();
         foreach ($this->spinners as $spinner => $state) {
             $this->spinners->offsetSet(

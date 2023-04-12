@@ -53,4 +53,9 @@ final class DriverSettings implements IDriverSettings
     {
         return $this->optionAttacher === OptionAttacher::ENABLED;
     }
+
+    public function getOptionAttacher(): OptionAttacher
+    {
+        return $this->optionAttacher;
+    }
 }

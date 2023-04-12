@@ -27,4 +27,6 @@ interface IDriverSettings
     public function setOptionInitialization(OptionInitialization $optionInitialization): IDriverSettings;
 
     public function setOptionAttacher(OptionAttacher $optionAttacher): IDriverSettings;
+
+    public function getOptionAttacher(): OptionAttacher;
 }
