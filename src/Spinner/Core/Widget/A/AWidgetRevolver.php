@@ -8,9 +8,10 @@ use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Core\Frame;
 use AlecRabbit\Spinner\Core\Revolver\A\ARevolver;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
+use AlecRabbit\Spinner\Core\Revolver\Contract\IWidgetRevolver;
 use AlecRabbit\Spinner\Exception\LogicException;
 
-abstract class AWidgetRevolver extends ARevolver
+abstract class AWidgetRevolver extends ARevolver implements IWidgetRevolver
 {
     public function __construct(
         protected IRevolver $style,

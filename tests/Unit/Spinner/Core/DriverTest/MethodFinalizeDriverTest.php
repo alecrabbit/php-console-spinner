@@ -103,8 +103,8 @@ final class MethodFinalizeDriverTest extends TestCaseForDriver
 
         $spinnerTwo = $this->getSpinnerMock();
 
-        $driver->add($spinnerOne);
-        $driver->add($spinnerTwo);
+        $driver->attach($spinnerOne);
+        $driver->attach($spinnerTwo);
         $driver->finalize();
     }
 }

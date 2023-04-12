@@ -9,9 +9,9 @@ use AlecRabbit\Spinner\Contract\IRenderable;
 
 interface IDriver extends IRenderable, HasInterval
 {
-    public function add(ISpinner $spinner): void;
+    public function attach(ISpinner $spinner): void;
 
-    public function remove(ISpinner $spinner): void;
+    public function detach(ISpinner $spinner): void;
 
     public function initialize(): void;
 

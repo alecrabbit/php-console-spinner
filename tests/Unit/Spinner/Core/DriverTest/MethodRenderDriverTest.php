@@ -30,7 +30,7 @@ final class MethodRenderDriverTest extends TestCaseForDriver
             );
         $driver->initialize();
 
-        $driver->add($spinner);
+        $driver->attach($spinner);
 
         $driver->render();
     }
@@ -66,7 +66,7 @@ final class MethodRenderDriverTest extends TestCaseForDriver
             );
         $driver->initialize();
 
-        $driver->add($spinner);
+        $driver->attach($spinner);
 
         $driver->render();
     }

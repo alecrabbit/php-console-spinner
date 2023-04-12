@@ -9,53 +9,45 @@ use AlecRabbit\Spinner\Core\A\ARevolverBuilder;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolverBuilder;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolverBuilder;
+use AlecRabbit\Spinner\Exception\LogicException;
 
 final class WidgetRevolverBuilder extends ARevolverBuilder implements IWidgetRevolverBuilder
 {
     protected ?IRevolver $styleRevolver = null;
     protected ?IRevolver $charRevolver = null;
-    protected ?IPattern $stylePattern = null;
-    protected ?IPattern $charPattern = null;
-
-    public function __construct(
-        protected IFrameRevolverBuilder $frameRevolverBuilder,
-    ) {
-    }
 
     /** @inheritdoc */
     public function build(): IRevolver
     {
-        $this->processPatterns();
+        $this->validate();
 
         return
             new WidgetRevolver(
-                $this->styleRevolver ?? $this->frameRevolverBuilder->withPattern($this->stylePattern)->build(),
-                $this->charRevolver ?? $this->frameRevolverBuilder->withPattern($this->charPattern)->build(),
+                $this->styleRevolver,
+                $this->charRevolver,
             );
     }
 
-    protected function processPatterns(): void
+    protected function validate(): void
     {
-        if (null === $this->styleRevolver && null === $this->stylePattern) {
-            $this->styleRevolver = $this->frameRevolverBuilder->defaultStyleRevolver();
-        }
-
-        if (null === $this->charRevolver && null === $this->charPattern) {
-            $this->charRevolver = $this->frameRevolverBuilder->defaultCharRevolver();
-        }
+        match (true) {
+            null === $this->styleRevolver => throw new LogicException('Style revolver is not set.'),
+            null === $this->charRevolver => throw new LogicException('Character revolver is not set.'),
+            default => null,
+        };
     }
 
-    public function withStylePattern(IPattern $stylePattern): IWidgetRevolverBuilder
+    public function withStyleRevolver(IRevolver $styleRevolver): IWidgetRevolverBuilder
     {
         $clone = clone $this;
-        $clone->stylePattern = $stylePattern;
+        $clone->styleRevolver = $styleRevolver;
         return $clone;
     }
 
-    public function withCharPattern(IPattern $charPattern): IWidgetRevolverBuilder
+    public function withCharRevolver(IRevolver $charRevolver): IWidgetRevolverBuilder
     {
         $clone = clone $this;
-        $clone->charPattern = $charPattern;
+        $clone->charRevolver = $charRevolver;
         return $clone;
     }
 }

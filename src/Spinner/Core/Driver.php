@@ -106,7 +106,7 @@ final class Driver implements IDriver
         $this->driverOutput->initialize();
     }
 
-    public function add(ISpinner $spinner): void
+    public function attach(ISpinner $spinner): void
     {
         if (!$this->spinners->offsetExists($spinner)) {
             $this->spinners->offsetSet($spinner, new SpinnerState());
@@ -119,7 +119,7 @@ final class Driver implements IDriver
         return $this->interval;
     }
 
-    public function remove(ISpinner $spinner): void
+    public function detach(ISpinner $spinner): void
     {
         if ($this->spinners->offsetExists($spinner)) {
             $this->erase($this->spinners[$spinner]);
