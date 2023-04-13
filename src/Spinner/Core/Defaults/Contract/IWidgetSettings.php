@@ -18,11 +18,11 @@ interface IWidgetSettings
 
     public function setTrailingSpacer(IFrame $frame): IWidgetSettings;
 
-    public function getStylePattern(): ?IPattern;
+    public function getStylePattern(): IPattern;
 
     public function setStylePattern(IPattern $pattern): IWidgetSettings;
 
-    public function getCharPattern(): ?IPattern;
+    public function getCharPattern(): IPattern;
 
     public function setCharPattern(IPattern $pattern): IWidgetSettings;
 }

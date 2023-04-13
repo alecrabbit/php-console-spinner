@@ -4,7 +4,6 @@ declare(strict_types=1);
 // 05.04.23
 namespace AlecRabbit\Spinner\Core\Defaults;
 
-use AlecRabbit\Spinner\Contract\Pattern\IPattern;
 use AlecRabbit\Spinner\Core\Contract\IDefaultsProvider;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IAuxSettingsBuilder;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDefaultsProviderBuilder;
@@ -12,14 +11,14 @@ use AlecRabbit\Spinner\Core\Defaults\Contract\IDriverSettingsBuilder;
 use AlecRabbit\Spinner\Core\Defaults\Contract\ILoopSettingsFactory;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IWidgetSettings;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IWidgetSettingsBuilder;
+use AlecRabbit\Spinner\Core\Factory\FrameFactory;
+use AlecRabbit\Spinner\Core\Pattern\CharPattern\NoCharPattern;
 use AlecRabbit\Spinner\Core\Pattern\CharPattern\Snake;
+use AlecRabbit\Spinner\Core\Pattern\StylePattern\NoStylePattern;
 use AlecRabbit\Spinner\Core\Pattern\StylePattern\Rainbow;
 
 final class DefaultsProviderBuilder implements IDefaultsProviderBuilder
 {
-    protected IPattern $stylePattern;
-    protected IPattern $charPattern;
-
     public function __construct(
         protected ILoopSettingsFactory $loopSettingsBuilder,
         protected IAuxSettingsBuilder $auxSettingsBuilder,
@@ -27,13 +26,11 @@ final class DefaultsProviderBuilder implements IDefaultsProviderBuilder
         protected IWidgetSettingsBuilder $widgetSettingsBuilder,
         protected IWidgetSettingsBuilder $rootWidgetSettingsBuilder,
     ) {
-        $this->stylePattern = new Rainbow();
-        $this->charPattern = new Snake();
     }
 
     public function build(): IDefaultsProvider
     {
-        $widgetSettings = $this->widgetSettingsBuilder->build();
+        $widgetSettings = $this->getWidgetSettings();
         return
             new DefaultsProvider(
                 auxSettings: $this->auxSettingsBuilder->build(),
@@ -44,13 +41,27 @@ final class DefaultsProviderBuilder implements IDefaultsProviderBuilder
             );
     }
 
+    private function getWidgetSettings(): IWidgetSettings
+    {
+        return
+            $this->widgetSettingsBuilder
+                ->withLeadingSpacer(FrameFactory::createEmpty())
+                ->withTrailingSpacer(FrameFactory::createSpace())
+                ->withStylePattern(new NoStylePattern())
+                ->withCharPattern(new NoCharPattern())
+                ->build()
+        ;
+    }
+
     private function getRootWidgetSettings(IWidgetSettings $widgetSettings): Contract\IWidgetSettings
     {
-        return new WidgetSettings(
-            $widgetSettings->getLeadingSpacer(),
-            $widgetSettings->getTrailingSpacer(),
-            stylePattern: $this->stylePattern,
-            charPattern: $this->charPattern,
-        );
+        return
+            $this->widgetSettingsBuilder
+                ->withLeadingSpacer($widgetSettings->getLeadingSpacer())
+                ->withTrailingSpacer($widgetSettings->getTrailingSpacer())
+                ->withStylePattern(new Rainbow())
+                ->withCharPattern(new Snake())
+                ->build()
+        ;
     }
 }

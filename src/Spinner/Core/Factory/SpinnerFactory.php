@@ -11,7 +11,6 @@ use AlecRabbit\Spinner\Core\Defaults\Contract\IWidgetSettings;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IWidgetSettingsBuilder;
 use AlecRabbit\Spinner\Core\Factory\Contract\ISpinnerFactory;
 use AlecRabbit\Spinner\Core\Spinner;
-use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
 use AlecRabbit\Spinner\Core\Widget\Factory\Contract\IWidgetFactory;
 
 final class SpinnerFactory implements ISpinnerFactory
@@ -33,28 +32,19 @@ final class SpinnerFactory implements ISpinnerFactory
             );
     }
 
-    protected function createWidget(?ISpinnerConfig $settings): IWidgetComposite
-    {
-        $widgetSettings =
-            $settings?->getWidgetConfig() ?? $this->defaultsProvider->getRootWidgetSettings();
-
-        return
-            $this->widgetFactory->createWidget($widgetSettings);
-    }
-
     protected function createWidgetSettings(?ISpinnerConfig $config): IWidgetSettings
     {
-        $settings = $this->defaultsProvider->getRootWidgetSettings();
+        $rootWidgetSettings = $this->defaultsProvider->getRootWidgetSettings();
         $widgetConfig = $config?->getWidgetConfig();
         if (null === $widgetConfig) {
-            return $settings;
+            return $rootWidgetSettings;
         }
         return
             $this->widgetSettingsBuilder
-                ->withLeadingSpacer($widgetConfig->getLeadingSpacer() ?? $settings->getLeadingSpacer())
-                ->withTrailingSpacer($widgetConfig->getTrailingSpacer() ?? $settings->getTrailingSpacer())
-                ->withStylePattern($widgetConfig->getStylePattern() ?? $settings->getStylePattern())
-                ->withCharPattern($widgetConfig->getCharPattern() ?? $settings->getCharPattern())
+                ->withLeadingSpacer($widgetConfig->getLeadingSpacer() ?? $rootWidgetSettings->getLeadingSpacer())
+                ->withTrailingSpacer($widgetConfig->getTrailingSpacer() ?? $rootWidgetSettings->getTrailingSpacer())
+                ->withStylePattern($widgetConfig->getStylePattern() ?? $rootWidgetSettings->getStylePattern())
+                ->withCharPattern($widgetConfig->getCharPattern() ?? $rootWidgetSettings->getCharPattern())
                 ->build()
         ;
     }

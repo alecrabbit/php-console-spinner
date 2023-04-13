@@ -13,8 +13,8 @@ final class WidgetSettings implements IWidgetSettings
     public function __construct(
         protected IFrame $leadingSpacer,
         protected IFrame $trailingSpacer,
-        protected ?IPattern $stylePattern = null,
-        protected ?IPattern $charPattern = null,
+        protected IPattern $stylePattern,
+        protected IPattern $charPattern,
     ) {
     }
 
@@ -40,7 +40,7 @@ final class WidgetSettings implements IWidgetSettings
         return $this;
     }
 
-    public function getStylePattern(): ?IPattern
+    public function getStylePattern(): IPattern
     {
         return $this->stylePattern;
     }
@@ -51,7 +51,7 @@ final class WidgetSettings implements IWidgetSettings
         return $this;
     }
 
-    public function getCharPattern(): ?IPattern
+    public function getCharPattern(): IPattern
     {
         return $this->charPattern;
     }
