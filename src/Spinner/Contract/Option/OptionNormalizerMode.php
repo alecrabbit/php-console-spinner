@@ -9,19 +9,4 @@ enum OptionNormalizerMode
     case PERFORMANCE;
     case SLOW;
     case STILL;
-
-    /**
-     * @deprecated
-     */
-    public function getDivisor(): int
-    {
-        return
-            match ($this) {
-                self::SMOOTH => 20,
-                self::BALANCED => 50,
-                self::PERFORMANCE => 100,
-                self::SLOW => 1000,
-                self::STILL => 900000,
-            };
-    }
 }

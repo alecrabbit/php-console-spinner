@@ -67,6 +67,7 @@ use AlecRabbit\Spinner\Core\Factory\Contract\ILoopProbeFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopSetupFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopSingletonFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ISpinnerFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\IStyleFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IStyleRevolverFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ITimerFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IWidthMeasurerFactory;
@@ -197,21 +198,12 @@ final class ContainerSingletonFactory implements IContainerSingletonFactory
             IStyleFrameCollectionRenderer::class => StyleFrameCollectionRenderer::class,
             IStyleFrameRenderer::class => StyleFrameRenderer::class,
             IStyleRenderer::class => StyleRenderer::class,
+            IStyleFactory::class => StyleFactory::class,
             ITimerBuilder::class => TimerBuilder::class,
             IWidgetBuilder::class => WidgetBuilder::class,
             IWidgetRevolverBuilder::class => WidgetRevolverBuilder::class,
             IWidgetSettingsBuilder::class => WidgetSettingsBuilder::class,
             IWidthMeasurerFactory::class => WidthMeasurerFactory::class,
-
-            IIntegerNormalizer::class => static function (ContainerInterface $container): IIntegerNormalizer {
-                /** @var IAuxSettings $auxSettings */
-                $auxSettings = $container->get(IDefaultsProvider::class)->getAuxSettings();
-                return
-                    new IntegerNormalizer(
-                        $auxSettings->getOptionNormalizerMode()->getDivisor(),
-                        IInterval::MIN_INTERVAL_MILLISECONDS
-                    );
-            },
 
             OptionStyleMode::class => static function (ContainerInterface $container): OptionStyleMode {
                 return $container->get(IDefaultsProvider::class)->getAuxSettings()->getOptionStyleMode();

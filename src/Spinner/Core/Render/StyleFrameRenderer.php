@@ -54,4 +54,9 @@ final class StyleFrameRenderer implements IStyleFrameRenderer
     {
         return $this->frameFactory->create('%s', 0);
     }
+
+    public function useLowestStyleMode(OptionStyleMode $styleMode): void
+    {
+        $this->styleMode = $this->styleMode->lowest($styleMode);
+    }
 }

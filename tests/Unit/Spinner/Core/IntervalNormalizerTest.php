@@ -2,8 +2,6 @@
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core;
 
-use AlecRabbit\Spinner\Contract\IInterval;
-use AlecRabbit\Spinner\Contract\Option\OptionNormalizerMode;
 use AlecRabbit\Spinner\Core\Contract\IIntervalNormalizer;
 use AlecRabbit\Spinner\Core\IntegerNormalizer;
 use AlecRabbit\Spinner\Core\Interval;
@@ -20,11 +18,13 @@ final class IntervalNormalizerTest extends TestCaseWithPrebuiltMocksAndStubs
         foreach (self::simplifiedDataFeeder() as $item) {
             yield [
                 [
-                    self::INTERVAL => new Interval($item[1]), // result
+                    self::INTERVAL => new Interval($item[0]), // result
                 ],
                 [
                     self::ARGUMENTS => [
-                        self::INTERVAL => new Interval($item[2]), // interval
+                        self::INTERVAL => new Interval($item[1]), // interval
+                        self::DIVISOR => $item[2], // divisor
+                        self::MIN => $item[3], // divisor
                     ],
                 ],
             ];
@@ -34,13 +34,15 @@ final class IntervalNormalizerTest extends TestCaseWithPrebuiltMocksAndStubs
     public static function simplifiedDataFeeder(): iterable
     {
         yield from [
-            // mode, result, interval,
-            [OptionNormalizerMode::SMOOTH, 100, 100,],
-            [OptionNormalizerMode::SMOOTH, 100, 110,],
-            [OptionNormalizerMode::BALANCED, 100, 124,],
-            [OptionNormalizerMode::BALANCED, 150, 135,],
-            [OptionNormalizerMode::BALANCED, 10, 10,],
-            [OptionNormalizerMode::BALANCED, 50, 25,],
+            // result, interval, divisor, min,
+            [100, 100, 20, 20,],
+            [120, 115, 20, 20,],
+            [100, 124, 50, 50,],
+            [150, 135, 50, 50,],
+            [50, 10, 50, 50,],
+            [10, 10, 50, 10,],
+            [50, 25, 50, 50,],
+            [50, 25, 50, 10,],
 
         ];
     }
@@ -67,15 +69,12 @@ final class IntervalNormalizerTest extends TestCaseWithPrebuiltMocksAndStubs
 
     public function getTesteeInstance(array $args = []): IIntervalNormalizer
     {
-        $mode = $args[self::MODE] ?? OptionNormalizerMode::BALANCED;
-        $min = $args[self::MIN] ?? IInterval::MIN_INTERVAL_MILLISECONDS;
+        $min = $args[self::MIN] ?? 10;
+        $divisor = $args[self::DIVISOR] ?? 20;
 
         return
             new IntervalNormalizer(
-                new IntegerNormalizer(
-                    $mode->getDivisor(),
-                    $min
-                )
+                new IntegerNormalizer($divisor, $min)
             );
     }
 
