@@ -15,5 +15,8 @@ interface IStyleFrameRenderer
      */
     public function render(IStyle $style): IFrame;
 
+    /**
+     * @deprecated
+     */
     public function emptyFrame(): IFrame;
 }

@@ -32,7 +32,7 @@ final class StyleFrameRenderer implements IStyleFrameRenderer
     protected function createFrameFromStyle(IStyle $style, OptionStyleMode $mode): IFrame
     {
         if ($style->isEmpty()) {
-            return $this->frameFactory->create('%s', $style->getWidth());
+            return $this->frameFactory->create($style->getFormat(), $style->getWidth());
         }
 
         return
@@ -42,6 +42,7 @@ final class StyleFrameRenderer implements IStyleFrameRenderer
             );
     }
 
+    /** @inheritdoc  */
     public function emptyFrame(): IFrame
     {
         return $this->frameFactory->create('%s', 0);

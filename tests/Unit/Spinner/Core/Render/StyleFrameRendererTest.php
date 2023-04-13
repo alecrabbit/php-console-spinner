@@ -68,7 +68,52 @@ final class StyleFrameRendererTest extends TestCaseWithPrebuiltMocksAndStubs
         $style
             ->expects(self::once())
             ->method('getWidth')
-            ->willReturn(0);
+            ->willReturn(0)
+        ;
+
+        self::assertInstanceOf(StyleFrameRenderer::class, $styleFrameRenderer);
+        self::assertSame($frame, $styleFrameRenderer->render($style));
+    }
+
+    #[Test]
+    public function canRenderIfStyleIsEmpty(): void
+    {
+        $frame = $this->getFrameMock();
+        $format = ' %s ';
+
+        $frameFactory = $this->getFrameFactoryMock();
+        $width = 2;
+        $frameFactory
+            ->expects(self::once())
+            ->method('create')
+            ->with($format, $width)
+            ->willReturn($frame)
+        ;
+        $styleRenderer = $this->getStyleRendererMock();
+        $styleRenderer
+            ->expects(self::never())
+            ->method('render')
+        ;
+        $styleFrameRenderer = $this->getTesteeInstance(
+            frameFactory: $frameFactory,
+            styleRenderer: $styleRenderer,
+            styleMode: OptionStyleMode::ANSI8,
+        );
+        $style = $this->getStyleMock();
+        $style
+            ->expects(self::once())
+            ->method('isEmpty')
+            ->willReturn(true)
+        ;
+        $style
+            ->expects(self::once())
+            ->method('getFormat')
+            ->willReturn($format)
+        ;$style
+            ->expects(self::once())
+            ->method('getWidth')
+            ->willReturn($width)
+        ;
 
         self::assertInstanceOf(StyleFrameRenderer::class, $styleFrameRenderer);
         self::assertSame($frame, $styleFrameRenderer->render($style));
