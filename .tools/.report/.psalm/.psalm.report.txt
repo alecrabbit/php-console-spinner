@@ -6,7 +6,7 @@
 /app/src/Spinner/Container/Container.php:44:38:error - MixedAssignment: Unable to determine the type that $id is being assigned to
 /app/src/Spinner/Container/Container.php:45:38:error - MixedArgument: Argument 1 of AlecRabbit\Spinner\Container\Container::addDefinition cannot be mixed, expecting string
 /app/src/Spinner/Container/Container.php:171:49:error - ArgumentTypeCoercion: Argument 1 of AlecRabbit\Spinner\Container\Contract\IServiceSpawner::spawn expects callable|class-string|object, but parent type callable|object|string provided
-/app/src/Spinner/Container/Exception/CircularDependencyException.php:20:43:error - MixedArgumentTypeCoercion: Argument 2 of implode expects array<array-key, null|object{__tostring()}|scalar>, but parent type array<array-key, mixed> provided
+/app/src/Spinner/Container/Exception/CircularDependencyException.php:23:43:error - MixedArgumentTypeCoercion: Argument 2 of implode expects array<array-key, null|object{__tostring()}|scalar>, but parent type array<array-key, mixed> provided
 /app/src/Spinner/Container/ServiceSpawner.php:54:63:error - MixedInferredReturnType: Could not verify return type 'object' for AlecRabbit\Spinner\Container\ServiceSpawner::spawnByCallable
 /app/src/Spinner/Container/ServiceSpawner.php:73:92:error - MixedOperand: Right operand cannot be mixed
 /app/src/Spinner/Container/ServiceSpawner.php:97:41:error - ArgumentTypeCoercion: Argument 1 of AlecRabbit\Spinner\Container\ServiceSpawner::needsService expects ReflectionIntersectionType|ReflectionNamedType|ReflectionUnionType, but parent type ReflectionType provided
@@ -148,5 +148,4 @@
 /app/src/Spinner/Facade.php:82:16:error - LessSpecificReturnStatement: The type 'object' is more general than the declared return type 'AlecRabbit\Spinner\Core\Factory\Contract\IDriverSingletonFactory' for AlecRabbit\Spinner\Facade::getDriverFactory
 /app/src/Spinner/Facade.php:85:52:error - MoreSpecificReturnType: The declared return type 'AlecRabbit\Spinner\Core\Contract\IDriverAttacher' for AlecRabbit\Spinner\Facade::getDriverAttacher is more specific than the inferred return type 'object'
 /app/src/Spinner/Facade.php:87:16:error - LessSpecificReturnStatement: The type 'object' is more general than the declared return type 'AlecRabbit\Spinner\Core\Contract\IDriverAttacher' for AlecRabbit\Spinner\Facade::getDriverAttacher
-/app/src/Spinner/Helper/MemoryUsage.php:22:53:error - InvalidArrayOffset: Cannot access value on variable AlecRabbit\Spinner\Helper\MemoryUsage::UNITS using a float offset, expecting array-key
 /app/src/Spinner/Helper/Stringify.php:39:45:error - MixedArgument: Argument 3 of sprintf cannot be 'false'|'true'|mixed, expecting float|int|string

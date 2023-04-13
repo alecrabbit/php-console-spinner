@@ -17,7 +17,7 @@ final class MemoryUsage
 
     private static function format(int $memoryUsage): string
     {
-        $i = floor(log($memoryUsage, 1024));
+        $i = (int)floor(log($memoryUsage, 1024));
         return
             round($memoryUsage / (1024 ** $i), 2) . self::UNITS[$i];
     }
