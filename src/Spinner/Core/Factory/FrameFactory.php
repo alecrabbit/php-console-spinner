@@ -16,14 +16,14 @@ final class FrameFactory implements IFrameFactory
     ) {
     }
 
-    public static function createEmpty(): IFrame
+    public function createEmpty(): IFrame
     {
-        return new Frame('', 0);
+        return Frame::createEmpty();
     }
 
-    public static function createSpace(): IFrame
+    public function createSpace(): IFrame
     {
-        return new Frame(' ', 1);
+        return Frame::createSpace();
     }
 
     public function create(string $sequence, ?int $width = null): IFrame

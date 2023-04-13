@@ -27,7 +27,7 @@ final class ProgressFrameProcedure extends AProgressValueProcedure
     {
         if ($this->progressValue->isFinished()) {
             if ($this->finishedDelay < 0) {
-                return FrameFactory::createEmpty();
+                return Frame::createEmpty();
             }
             $this->finishedDelay -= $dt ?? 0.0;
         }

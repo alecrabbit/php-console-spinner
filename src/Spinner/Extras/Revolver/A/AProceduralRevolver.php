@@ -8,6 +8,7 @@ use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Contract\IProcedure;
 use AlecRabbit\Spinner\Core\Factory\FrameFactory;
+use AlecRabbit\Spinner\Core\Frame;
 use AlecRabbit\Spinner\Core\Revolver\A\ARevolver;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolver;
 
@@ -20,7 +21,7 @@ abstract class AProceduralRevolver extends ARevolver implements IFrameRevolver
         IInterval $interval,
     ) {
         parent::__construct($interval);
-        $this->currentFrame = FrameFactory::createEmpty();
+        $this->currentFrame = Frame::createEmpty();
     }
 
     protected function next(float $dt = null): void

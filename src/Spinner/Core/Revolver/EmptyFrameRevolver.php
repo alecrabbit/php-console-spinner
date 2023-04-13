@@ -6,6 +6,7 @@ namespace AlecRabbit\Spinner\Core\Revolver;
 
 use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Core\Factory\FrameFactory;
+use AlecRabbit\Spinner\Core\Frame;
 use AlecRabbit\Spinner\Core\Interval;
 use AlecRabbit\Spinner\Core\Revolver\A\ARevolver;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
@@ -17,7 +18,7 @@ final class EmptyFrameRevolver extends ARevolver
     protected function __construct()
     {
         parent::__construct(new Interval());
-        $this->currentFrame = FrameFactory::createEmpty();
+        $this->currentFrame = Frame::createEmpty();
     }
 
     public static function create(): IRevolver

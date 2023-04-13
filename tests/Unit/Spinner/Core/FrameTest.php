@@ -5,9 +5,10 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Unit\Spinner\Core;
 
 use AlecRabbit\Spinner\Contract\IFrame;
-use AlecRabbit\Spinner\Core\Factory\FrameFactory;
 use AlecRabbit\Spinner\Core\Frame;
 use AlecRabbit\Tests\TestCase\TestCase;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
 
 final class FrameTest extends TestCase
 {
@@ -57,10 +58,8 @@ final class FrameTest extends TestCase
         ];
     }
 
-    /**
-     * @test
-     * @dataProvider createDataProvider
-     */
+    #[Test]
+    #[DataProvider('createDataProvider')]
     public function create(array $expected, array $incoming): void
     {
         $this->expectsException($expected);
@@ -74,5 +73,24 @@ final class FrameTest extends TestCase
     public static function getTesteeInstance(array $args = []): IFrame
     {
         return new Frame(...$args);
+    }
+
+
+    #[Test]
+    public function createEmpty(): void
+    {
+        $frame = Frame::createEmpty();
+
+        self::assertSame('', $frame->sequence());
+        self::assertSame(0, $frame->width());
+    }
+
+    #[Test]
+    public function createSpace(): void
+    {
+        $frame = Frame::createSpace();
+
+        self::assertSame(' ', $frame->sequence());
+        self::assertSame(1, $frame->width());
     }
 }

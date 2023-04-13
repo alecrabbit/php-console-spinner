@@ -8,6 +8,7 @@ use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Core\Factory\FrameFactory;
 use AlecRabbit\Spinner\Core\Factory\IntervalFactory;
+use AlecRabbit\Spinner\Core\Frame;
 use AlecRabbit\Spinner\Core\Widget\A\AWidgetComposite;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContext;
@@ -25,7 +26,7 @@ final class NullWidget extends AWidgetComposite
      */
     public function __construct()
     {
-        $this->currentFrame = FrameFactory::createEmpty();
+        $this->currentFrame = Frame::createEmpty();
         $this->interval = IntervalFactory::createStill();
         $this->initialize(); // initialize properties [9fb243f6-24f6-4c10-bf0f-c80ec4236c8e]
     }

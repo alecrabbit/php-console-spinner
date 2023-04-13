@@ -29,6 +29,6 @@ final class CharFrameRenderer extends AFrameRenderer implements ICharFrameRender
 
     public function emptyFrame(): IFrame
     {
-        return $this->frameFactory::createEmpty();
+        return $this->frameFactory->createEmpty();
     }
 }

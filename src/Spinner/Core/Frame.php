@@ -23,4 +23,14 @@ final readonly class Frame implements IFrame
     {
         return $this->width;
     }
+
+    public static function createEmpty(): IFrame
+    {
+        return new Frame('', 0);
+    }
+
+    public static function createSpace(): IFrame
+    {
+        return new Frame(' ', 1);
+    }
 }
