@@ -8,9 +8,7 @@ use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Contract\Pattern\IPattern;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IWidgetSettings;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IWidgetSettingsBuilder;
-use AlecRabbit\Spinner\Core\Factory\FrameFactory;
-use AlecRabbit\Spinner\Core\Pattern\CharPattern\NoCharPattern;
-use AlecRabbit\Spinner\Core\Pattern\StylePattern\NoStylePattern;
+use AlecRabbit\Spinner\Exception\LogicException;
 
 final class WidgetSettingsBuilder implements IWidgetSettingsBuilder
 {
@@ -22,13 +20,26 @@ final class WidgetSettingsBuilder implements IWidgetSettingsBuilder
     /** @inheritdoc */
     public function build(): IWidgetSettings
     {
+        $this->validate();
+
         return
             new WidgetSettings(
-                leadingSpacer: $this->leadingSpacer ??= FrameFactory::createEmpty(),
-                trailingSpacer: $this->trailingSpacer ??= FrameFactory::createSpace(),
-                stylePattern: $this->stylePattern ??= new NoStylePattern(),
-                charPattern: $this->charPattern ??= new NoCharPattern(),
+                leadingSpacer: $this->leadingSpacer,
+                trailingSpacer: $this->trailingSpacer,
+                stylePattern: $this->stylePattern,
+                charPattern: $this->charPattern,
             );
+    }
+
+    protected function validate(): void
+    {
+        match (true) {
+            null === $this->leadingSpacer => throw new LogicException('Leading spacer is not set.'),
+            null === $this->trailingSpacer => throw new LogicException('Trailing spacer is not set.'),
+            null === $this->stylePattern => throw new LogicException('Style pattern is not set.'),
+            null === $this->charPattern => throw new LogicException('Char pattern is not set.'),
+            default => null,
+        };
     }
 
     public function withLeadingSpacer(IFrame $frame): IWidgetSettingsBuilder
