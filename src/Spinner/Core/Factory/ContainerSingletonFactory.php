@@ -62,6 +62,7 @@ use AlecRabbit\Spinner\Core\Factory\Contract\ILoopSingletonFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ISpinnerFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IStyleFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IStyleFrameRendererFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\IStyleRendererFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IStyleRevolverFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ITimerFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IWidthMeasurerFactory;
@@ -194,8 +195,7 @@ final class ContainerSingletonFactory implements IContainerSingletonFactory
             ISequencer::class => Sequencer::class,
             IStyleFrameCollectionRenderer::class => StyleFrameCollectionRenderer::class,
             IStyleFrameRendererFactory::class => StyleFrameRendererFactory::class,
-            IStyleFrameRenderer::class => StyleFrameRenderer::class,
-            IStyleRenderer::class => StyleRenderer::class,
+            IStyleRendererFactory::class => StyleRendererFactory::class,
             IStyleFactory::class => StyleFactory::class,
             ITimerBuilder::class => TimerBuilder::class,
             IWidgetBuilder::class => WidgetBuilder::class,

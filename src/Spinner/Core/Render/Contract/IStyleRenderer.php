@@ -13,5 +13,5 @@ interface IStyleRenderer
     /**
      * @throws InvalidArgumentException
      */
-    public function render(IStyle $style, OptionStyleMode $mode): string;
+    public function render(IStyle $style): string;
 }
