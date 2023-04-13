@@ -7,7 +7,6 @@ namespace AlecRabbit\Spinner\Core;
 
 use AlecRabbit\Spinner\Contract\Color\Style\IStyle;
 use AlecRabbit\Spinner\Contract\IFrame;
-use AlecRabbit\Spinner\Core\Color\Style\Style;
 use AlecRabbit\Spinner\Core\Contract\IFrameCollection;
 use AlecRabbit\Spinner\Core\Contract\IStyleFrameCollectionRenderer;
 use AlecRabbit\Spinner\Core\Factory\Contract\IStyleFactory;
@@ -23,6 +22,13 @@ final class StyleFrameCollectionRenderer implements IStyleFrameCollectionRendere
         protected IStyleFrameRenderer $styleFrameRenderer,
         protected IStyleFactory $styleFactory,
     ) {
+    }
+
+    /** @inheritdoc */
+    public function render(IStylePattern $pattern): IFrameCollection
+    {
+        return
+            new FrameCollection($this->generateFrames($pattern));
     }
 
     /**
@@ -53,23 +59,8 @@ final class StyleFrameCollectionRenderer implements IStyleFrameCollectionRendere
     protected function createFrame(string|IStyle $entry): IFrame
     {
         if (is_string($entry)) {
-            $entry = $this->styleFactory->createFromString($entry);
+            $entry = $this->styleFactory->fromString($entry);
         }
         return $this->styleFrameRenderer->render($entry);
-    }
-
-    /** @inheritdoc */
-    public function render(IStylePattern $pattern): IFrameCollection
-    {
-        return
-            $this->createCollection($this->generateFrames($pattern));
-    }
-
-    /**
-     * @throws InvalidArgumentException
-     */
-    protected function createCollection(Traversable $frames): FrameCollection
-    {
-        return new FrameCollection($frames);
     }
 }

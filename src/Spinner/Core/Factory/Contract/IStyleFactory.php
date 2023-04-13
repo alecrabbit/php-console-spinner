@@ -7,5 +7,5 @@ use AlecRabbit\Spinner\Contract\Color\Style\IStyle;
 
 interface IStyleFactory
 {
-    public function createFromString(string $entry): IStyle;
+    public function fromString(string $entry): IStyle;
 }

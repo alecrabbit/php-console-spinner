@@ -10,7 +10,7 @@ use AlecRabbit\Spinner\Core\Factory\Contract\IStyleFactory;
 
 final class StyleFactory implements IStyleFactory
 {
-    public function createFromString(string $entry): IStyle
+    public function fromString(string $entry): IStyle
     {
         return new Style(fgColor: $entry);
     }

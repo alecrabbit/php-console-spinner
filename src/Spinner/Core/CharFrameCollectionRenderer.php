@@ -2,13 +2,11 @@
 
 declare(strict_types=1);
 // 10.03.23
-
 namespace AlecRabbit\Spinner\Core;
 
 use AlecRabbit\Spinner\Contract\Color\Style\IStyle;
 use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Contract\Pattern\IPattern;
-use AlecRabbit\Spinner\Core\A\AFrameCollectionRenderer;
 use AlecRabbit\Spinner\Core\Contract\ICharFrameCollectionRenderer;
 use AlecRabbit\Spinner\Core\Contract\ICharFrameRenderer;
 use AlecRabbit\Spinner\Core\Contract\IFrameCollection;
@@ -27,7 +25,7 @@ final class CharFrameCollectionRenderer implements ICharFrameCollectionRenderer
     public function render(IPattern $pattern): IFrameCollection
     {
         return
-            $this->createCollection($this->generateFrames($pattern));
+            new FrameCollection($this->generateFrames($pattern));
     }
 
     protected function generateFrames(IPattern $pattern): Traversable
@@ -47,18 +45,16 @@ final class CharFrameCollectionRenderer implements ICharFrameCollectionRenderer
         }
     }
 
-    /**
-     * @throws InvalidArgumentException
-     */
-    protected function createCollection(Traversable $frames): FrameCollection
-    {
-        return new FrameCollection($frames);
-    }
     protected function createFrame(string|IStyle $entry): IFrame
+    {
+        $this->assertEntry($entry);
+        return $this->frameRenderer->render($entry);
+    }
+
+    protected function assertEntry(IStyle|string $entry): void
     {
         if ($entry instanceof IStyle) {
             throw new InvalidArgumentException('Style is not allowed here.');
         }
-        return $this->frameRenderer->render($entry);
     }
 }
