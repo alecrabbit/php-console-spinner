@@ -35,6 +35,18 @@ final class TimerFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
         $timerBuilder = $this->getTimerBuilderMock();
         $timerBuilder
             ->expects(self::once())
+            ->method('withTimeFunction')
+//            ->with(self::equalTo(static fn(): float => 0.0))
+            ->willReturnSelf()
+        ;
+        $timerBuilder
+            ->expects(self::once())
+            ->method('withStartTime')
+            ->with(self::equalTo(0.0))
+            ->willReturnSelf()
+        ;
+        $timerBuilder
+            ->expects(self::once())
             ->method('build')
             ->willReturn($timerStub)
         ;

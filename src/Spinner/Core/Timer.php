@@ -10,39 +10,22 @@ use InvalidArgumentException;
 use ReflectionException;
 use ReflectionFunction;
 
-/**
- * @codeCoverageIgnore
- */
 final class Timer implements ITimer
 {
-
-    protected const COEFFICIENT = 1e-6; // for milliseconds
-    protected Closure $timeFunction;
-
     public function __construct(
-        ?Closure $timeFunction = null,
+        protected Closure $timeFunction,
         protected float $time = 0.0,
     ) {
         self::assertTimeFunction($timeFunction);
-        $this->timeFunction =
-            $timeFunction
-            ??
-            static fn(): float => hrtime(true) * self::COEFFICIENT; // returns milliseconds
     }
 
-    private static function assertTimeFunction(?Closure $timeFunction): void
+    private static function assertTimeFunction(Closure $timeFunction): void
     {
-        if (null === $timeFunction) {
-            return;
-        }
         try {
             $reflection = new ReflectionFunction($timeFunction);
-            if (1 !== $reflection->getNumberOfParameters()) {
-                throw new InvalidArgumentException('Time function must have no parameters');
-            }
             /** @psalm-suppress UndefinedMethod */
             if ('float' !== $reflection->getReturnType()?->getName()) {
-                throw new InvalidArgumentException('Time function must return float');
+                throw new InvalidArgumentException('Time function must return float, e.g. "fn(): float => 0.0".');
             }
         } catch (ReflectionException $e) {
             throw new InvalidArgumentException('Time function has invalid signature: ' . $e->getMessage());

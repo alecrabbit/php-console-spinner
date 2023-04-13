@@ -9,6 +9,8 @@ use AlecRabbit\Spinner\Core\Contract\ITimerBuilder;
 
 final class TimerFactory implements Contract\ITimerFactory
 {
+    protected const COEFFICIENT = 1e-6; // for milliseconds
+
     public function __construct(
         protected ITimerBuilder $timerBuilder,
     ) {
@@ -16,6 +18,13 @@ final class TimerFactory implements Contract\ITimerFactory
 
     public function create(): ITimer
     {
-        return $this->timerBuilder->build();
+        return
+            $this->timerBuilder
+                ->withStartTime(0.0)
+                ->withTimeFunction(
+                    static fn(): float => hrtime(true) * self::COEFFICIENT // returns milliseconds
+                )
+                ->build()
+        ;
     }
 }

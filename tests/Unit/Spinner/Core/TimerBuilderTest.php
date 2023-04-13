@@ -30,8 +30,14 @@ final class TimerBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
     #[Test]
     public function canCreateTimer(): void
     {
-        $timerFactory = $this->getTesteeInstance();
+        $timerBuilder = $this->getTesteeInstance();
 
-        self::assertInstanceOf(Timer::class, $timerFactory->build());
+        $timer =
+            $timerBuilder
+                ->withTimeFunction(static fn(): float => 0.0)
+                ->withStartTime(0.0)
+                ->build()
+        ;
+        self::assertInstanceOf(Timer::class, $timer);
     }
 }
