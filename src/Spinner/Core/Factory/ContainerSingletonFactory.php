@@ -77,7 +77,9 @@ use AlecRabbit\Spinner\Core\LoopSetup;
 use AlecRabbit\Spinner\Core\LoopSetupBuilder;
 use AlecRabbit\Spinner\Core\Output\ResourceStream;
 use AlecRabbit\Spinner\Core\Render\Contract\IStyleFrameRenderer;
+use AlecRabbit\Spinner\Core\Render\Contract\IStyleRenderer;
 use AlecRabbit\Spinner\Core\Render\StyleFrameRenderer;
+use AlecRabbit\Spinner\Core\Render\StyleRenderer;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolverBuilder;
 use AlecRabbit\Spinner\Core\Revolver\FrameRevolverBuilder;
 use AlecRabbit\Spinner\Core\Sequencer;
@@ -194,6 +196,7 @@ final class ContainerSingletonFactory implements IContainerSingletonFactory
             ISequencer::class => Sequencer::class,
             IStyleFrameCollectionRenderer::class => StyleFrameCollectionRenderer::class,
             IStyleFrameRenderer::class => StyleFrameRenderer::class,
+            IStyleRenderer::class => StyleRenderer::class,
             ITimerBuilder::class => TimerBuilder::class,
             IWidgetBuilder::class => WidgetBuilder::class,
             IWidgetRevolverBuilder::class => WidgetRevolverBuilder::class,

@@ -32,6 +32,6 @@ final class StyleRevolverFactory implements IStyleRevolverFactory
 
     protected function getFrameCollection(IPattern $stylePattern): IFrameCollection
     {
-        return $this->styleFrameCollectionRenderer->pattern($stylePattern)->render();
+        return $this->styleFrameCollectionRenderer->render($stylePattern);
     }
 }

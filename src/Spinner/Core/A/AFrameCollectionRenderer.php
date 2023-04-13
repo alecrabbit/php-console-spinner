@@ -7,13 +7,11 @@ namespace AlecRabbit\Spinner\Core\A;
 
 use AlecRabbit\Spinner\Contract\Color\Style\IStyle;
 use AlecRabbit\Spinner\Contract\IFrame;
-use AlecRabbit\Spinner\Contract\IFrameRenderer;
 use AlecRabbit\Spinner\Contract\Pattern\IPattern;
 use AlecRabbit\Spinner\Core\Contract\IFrameCollection;
 use AlecRabbit\Spinner\Core\Contract\IFrameCollectionRenderer;
 use AlecRabbit\Spinner\Core\FrameCollection;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
-use AlecRabbit\Spinner\Exception\LogicException;
 use Generator;
 use Stringable;
 use Traversable;
@@ -23,27 +21,17 @@ abstract class AFrameCollectionRenderer implements IFrameCollectionRenderer
     protected ?IPattern $pattern = null;
 
     /** @inheritdoc */
-    public function pattern(IPattern $pattern): IFrameCollectionRenderer
-    {
-        $clone = clone $this;
-        $clone->pattern = $pattern;
-        return $clone;
-    }
-
-    /** @inheritdoc */
-    public function render(): IFrameCollection
+    public function render(IPattern $pattern): IFrameCollection
     {
         $cb =
             /**
+             * @param IPattern $pattern
              * @return Generator<IFrame>
              * @throws InvalidArgumentException
              */
-            function (): Generator {
-                if (null === $this->pattern) {
-                    throw new InvalidArgumentException('Pattern is not set.');
-                }
+            function (IPattern $pattern): Generator {
                 /** @var IFrame|Stringable|string|IStyle $entry */
-                foreach ($this->pattern->getPattern() as $entry) {
+                foreach ($pattern->getPattern() as $entry) {
                     if ($entry instanceof IFrame) {
                         yield $entry;
                         continue;
@@ -58,7 +46,7 @@ abstract class AFrameCollectionRenderer implements IFrameCollectionRenderer
             };
 
         return
-            $this->createCollection($cb());
+            $this->createCollection($cb($pattern));
     }
 
     /**
@@ -72,10 +60,5 @@ abstract class AFrameCollectionRenderer implements IFrameCollectionRenderer
     protected function createCollection(Traversable $frames): FrameCollection
     {
         return new FrameCollection($frames);
-    }
-
-    public function defaultCollection(): IFrameCollection
-    {
-        throw new LogicException('Not implemented.');
     }
 }

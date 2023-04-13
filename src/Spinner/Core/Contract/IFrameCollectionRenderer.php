@@ -13,10 +13,5 @@ interface IFrameCollectionRenderer
     /**
      * @throws InvalidArgumentException
      */
-    public function pattern(IPattern $pattern): IFrameCollectionRenderer;
-
-    /**
-     * @throws InvalidArgumentException
-     */
-    public function render(): IFrameCollection;
+    public function render(IPattern $pattern): IFrameCollection;
 }

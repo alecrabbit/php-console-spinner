@@ -11,11 +11,13 @@ use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 
 final class StyleRenderer implements IStyleRenderer
 {
-
     public function __construct()
     {
     }
 
+    /**
+     * @throws InvalidArgumentException
+     */
     public function render(IStyle $style, OptionStyleMode $mode): string
     {
         if ($style->isEmpty()) {
@@ -26,6 +28,6 @@ final class StyleRenderer implements IStyleRenderer
             return $style->getFormat();
         }
 
-        return '';
+        return $style->getFormat();
     }
 }

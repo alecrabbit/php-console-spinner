@@ -10,24 +10,12 @@ use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Core\A\AFrameCollectionRenderer;
 use AlecRabbit\Spinner\Core\Contract\ICharFrameCollectionRenderer;
 use AlecRabbit\Spinner\Core\Contract\ICharFrameRenderer;
-use AlecRabbit\Spinner\Core\Contract\IFrameCollection;
-use ArrayObject;
 
 final class CharFrameCollectionRenderer extends AFrameCollectionRenderer implements ICharFrameCollectionRenderer
 {
     public function __construct(
         protected ICharFrameRenderer $frameRenderer,
     ) {
-    }
-
-    public function defaultCollection(): IFrameCollection
-    {
-        return
-            $this->createCollection(
-                new ArrayObject([
-                    $this->frameRenderer->emptyFrame(),
-                ])
-            );
     }
 
     protected function createFrame(string|IStyle $entry): IFrame

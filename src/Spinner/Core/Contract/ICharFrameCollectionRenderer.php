@@ -6,5 +6,4 @@ namespace AlecRabbit\Spinner\Core\Contract;
 
 interface ICharFrameCollectionRenderer extends IFrameCollectionRenderer
 {
-    public function defaultCollection(): IFrameCollection;
 }

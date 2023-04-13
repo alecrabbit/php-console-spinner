@@ -56,6 +56,32 @@ final class StyleRendererTest extends TestCaseWithPrebuiltMocksAndStubs
     }
 
     #[Test]
+    public function canRender(): void
+    {
+        $style = $this->getStyleMock();
+        $style
+            ->expects(self::once())
+            ->method('isEmpty')
+            ->willReturn(false)
+        ;
+        $style
+            ->expects(self::once())
+            ->method('getFormat')
+            ->willReturn('%s ')
+        ;
+        $style
+            ->expects(self::never())
+            ->method('getWidth')
+        ;
+        $styleFrameRenderer = $this->getTesteeInstance();
+        self::assertInstanceOf(StyleRenderer::class, $styleFrameRenderer);
+        self::assertEquals(
+            '%s ', // FIXME (2023-04-13 15:57) [Alec Rabbit]: its not correct
+            $styleFrameRenderer->render($style, OptionStyleMode::ANSI8),
+        );
+    }
+
+    #[Test]
     public function throwsIfStyleIsEmpty(): void
     {
         $exceptionClass = InvalidArgumentException::class;

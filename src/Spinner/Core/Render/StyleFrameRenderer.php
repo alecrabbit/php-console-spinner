@@ -10,6 +10,7 @@ use AlecRabbit\Spinner\Contract\Option\OptionStyleMode;
 use AlecRabbit\Spinner\Core\Factory\Contract\IFrameFactory;
 use AlecRabbit\Spinner\Core\Render\Contract\IStyleFrameRenderer;
 use AlecRabbit\Spinner\Core\Render\Contract\IStyleRenderer;
+use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 
 final class StyleFrameRenderer implements IStyleFrameRenderer
 {
@@ -21,6 +22,9 @@ final class StyleFrameRenderer implements IStyleFrameRenderer
     ) {
     }
 
+    /**
+     * @throws InvalidArgumentException
+     */
     public function render(IStyle $style): IFrame
     {
         if ($this->styleMode === OptionStyleMode::NONE) {
@@ -29,6 +33,9 @@ final class StyleFrameRenderer implements IStyleFrameRenderer
         return $this->createFrameFromStyle($style, $this->styleMode);
     }
 
+    /**
+     * @throws InvalidArgumentException
+     */
     protected function createFrameFromStyle(IStyle $style, OptionStyleMode $mode): IFrame
     {
         if ($style->isEmpty()) {
@@ -42,7 +49,7 @@ final class StyleFrameRenderer implements IStyleFrameRenderer
             );
     }
 
-    /** @inheritdoc  */
+    /** @inheritdoc */
     public function emptyFrame(): IFrame
     {
         return $this->frameFactory->create('%s', 0);

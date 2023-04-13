@@ -32,6 +32,6 @@ final class CharRevolverFactory implements ICharRevolverFactory
 
     protected function getFrameCollection(IPattern $charPattern): IFrameCollection
     {
-        return $this->charFrameCollectionRenderer->pattern($charPattern)->render();
+        return $this->charFrameCollectionRenderer->render($charPattern);
     }
 }
