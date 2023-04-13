@@ -8,6 +8,7 @@ use AlecRabbit\Spinner\Contract\ITimer;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use Closure;
 use ReflectionFunction;
+use Throwable;
 
 final class Timer implements ITimer
 {
@@ -22,7 +23,7 @@ final class Timer implements ITimer
     {
         try {
             $timeFunction();
-        } catch (\Throwable $e) {
+        } catch (Throwable $e) {
             throw new InvalidArgumentException(
                 'Invoke of time function throws: ' . $e->getMessage(),
                 previous: $e,
@@ -46,8 +47,8 @@ final class Timer implements ITimer
                 )
             );
         }
-
     }
+
     public function getDelta(): float
     {
         $last = $this->time;

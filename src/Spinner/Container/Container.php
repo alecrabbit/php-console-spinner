@@ -6,7 +6,7 @@ namespace AlecRabbit\Spinner\Container;
 
 use AlecRabbit\Spinner\Container\Contract\IContainer;
 use AlecRabbit\Spinner\Container\Contract\IServiceSpawner;
-use AlecRabbit\Spinner\Container\Exception\CircularDependencyDetectedException;
+use AlecRabbit\Spinner\Container\Exception\CircularDependencyException;
 use AlecRabbit\Spinner\Container\Exception\ContainerException;
 use AlecRabbit\Spinner\Container\Exception\NotInContainerException;
 use ArrayObject;
@@ -161,7 +161,7 @@ final class Container implements IContainer
     protected function assertDependencyStack(string $id): void
     {
         if (in_array($id, $this->dependencyStack->getArrayCopy(), true)) {
-            throw new CircularDependencyDetectedException($this->dependencyStack);
+            throw new CircularDependencyException($this->dependencyStack);
         }
     }
 

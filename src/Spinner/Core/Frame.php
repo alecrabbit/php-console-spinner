@@ -14,16 +14,6 @@ final readonly class Frame implements IFrame
     ) {
     }
 
-    public function sequence(): string
-    {
-        return $this->sequence;
-    }
-
-    public function width(): int
-    {
-        return $this->width;
-    }
-
     public static function createEmpty(): IFrame
     {
         return new Frame('', 0);
@@ -32,5 +22,15 @@ final readonly class Frame implements IFrame
     public static function createSpace(): IFrame
     {
         return new Frame(' ', 1);
+    }
+
+    public function sequence(): string
+    {
+        return $this->sequence;
+    }
+
+    public function width(): int
+    {
+        return $this->width;
     }
 }

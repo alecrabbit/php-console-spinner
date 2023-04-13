@@ -10,4 +10,6 @@ interface IFrameFactory
 {
 
     public function create(string $sequence, ?int $width = null): IFrame;
+
+    public function createEmpty(): IFrame;
 }

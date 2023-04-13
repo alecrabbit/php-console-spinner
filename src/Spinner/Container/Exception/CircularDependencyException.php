@@ -7,7 +7,7 @@ namespace AlecRabbit\Spinner\Container\Exception;
 use ArrayObject;
 use Throwable;
 
-final class CircularDependencyDetectedException extends ContainerException
+final class CircularDependencyException extends ContainerException
 {
     public function __construct(ArrayObject $dependencyStack, int $code = 0, ?Throwable $previous = null)
     {

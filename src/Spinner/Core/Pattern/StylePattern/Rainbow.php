@@ -8,6 +8,9 @@ namespace AlecRabbit\Spinner\Core\Pattern\StylePattern;
 use AlecRabbit\Spinner\Contract\Option\OptionStyleMode;
 use AlecRabbit\Spinner\Core\Pattern\StylePattern\A\AStylePattern;
 
+/**
+ * @codeCoverageIgnore
+ */
 final class Rainbow extends AStylePattern
 {
     protected const UPDATE_INTERVAL = 100;

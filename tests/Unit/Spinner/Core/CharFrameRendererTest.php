@@ -6,7 +6,10 @@ namespace AlecRabbit\Tests\Unit\Spinner\Core;
 
 use AlecRabbit\Spinner\Core\CharFrameRenderer;
 use AlecRabbit\Spinner\Core\Contract\ICharFrameRenderer;
+use AlecRabbit\Spinner\Core\Defaults\WidgetSettings;
 use AlecRabbit\Spinner\Core\Factory\Contract\IFrameFactory;
+use AlecRabbit\Spinner\Exception\InvalidArgumentException;
+use AlecRabbit\Spinner\Exception\LogicException;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;
 
@@ -28,5 +31,57 @@ final class CharFrameRendererTest extends TestCaseWithPrebuiltMocksAndStubs
             new CharFrameRenderer(
                 frameFactory: $frameFactory ?? $this->getFrameFactoryMock(),
             );
+    }
+
+    #[Test]
+    public function canRender(): void
+    {
+        $str = 'test';
+
+        $frameFactory = $this->getFrameFactoryMock();
+        $frameMock = $this->getFrameMock();
+        $frameFactory
+            ->expects(self::once())
+            ->method('create')
+            ->willReturn($frameMock)
+        ;
+
+        $charFrameRenderer = $this->getTesteeInstance(frameFactory: $frameFactory);
+        self::assertSame($frameMock, $charFrameRenderer->render($str));
+    }
+
+    #[Test]
+    public function canCreateEmptyFrame(): void
+    {
+        $frameFactory = $this->getFrameFactoryMock();
+        $frameMock = $this->getFrameMock();
+        $frameFactory
+            ->expects(self::once())
+            ->method('createEmpty')
+            ->willReturn($frameMock)
+        ;
+
+        $charFrameRenderer = $this->getTesteeInstance(frameFactory: $frameFactory);
+        self::assertSame($frameMock, $charFrameRenderer->emptyFrame());
+    }
+
+    #[Test]
+    public function throwsIfInvalidArgumentPassedToRenderMethod(): void
+    {
+        $exceptionClass = InvalidArgumentException::class;
+        $exceptionMessage = 'Entry should be type of "string",';
+
+        $test = function () {
+            $this->getTesteeInstance()->render(1);
+        };
+
+        $this->testExceptionWrapper(
+            exceptionClass: $exceptionClass,
+            exceptionMessage: $exceptionMessage,
+            test: $test,
+        );
+        $value = 1;
+
+
     }
 }

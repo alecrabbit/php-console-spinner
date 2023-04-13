@@ -39,6 +39,7 @@ trait AppRelatedConstTrait
     final protected const MODE_ONE = 'modeOne';
     final protected const MODE_TWO = 'modeTwo';
     final protected const PATTERN = 'pattern';
+    final protected const PREFIX = 'prefix';
     final protected const RED = 'red';
     final protected const RESULT = 'result';
     final protected const SATURATION = 'saturation';

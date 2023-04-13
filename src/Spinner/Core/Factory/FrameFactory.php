@@ -21,11 +21,6 @@ final class FrameFactory implements IFrameFactory
         return Frame::createEmpty();
     }
 
-    public function createSpace(): IFrame
-    {
-        return Frame::createSpace();
-    }
-
     public function create(string $sequence, ?int $width = null): IFrame
     {
         return

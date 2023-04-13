@@ -16,13 +16,15 @@ final class MemoryUsageTest extends TestCase
         // [$expected, $incoming]
         // #0..
         foreach (self::simplifiedMemoryUsageDataFeeder() as $item) {
+            $prefix = $item[2] ?? 'Memory usage: ';
             yield [
                 [
-                    self::RESULT => 'Memory usage: ' . $item[0],
+                    self::RESULT => $prefix . $item[0],
                 ],
                 [
                     self::ARGUMENTS => [
                         self::VALUE => $item[1],
+                        self::PREFIX => $item[2] ?? null
                     ],
                 ],
             ];
@@ -37,7 +39,7 @@ final class MemoryUsageTest extends TestCase
             ['1000B', 1000],
             ['1.95KB', 2000],
             ['1.91MB', 2000000],
-            ['4.22GB', 4532000000],
+            ['4.22GB', 4532000000, 'Prefix:'],
             ['9.31GB', 9999999999],
             ['1GB', 1073741824],
             ['1MB', 1048576],
@@ -54,7 +56,7 @@ final class MemoryUsageTest extends TestCase
 
         $args = $incoming[self::ARGUMENTS];
 
-        $result = MemoryUsage::report($args[self::VALUE]);
+        $result = MemoryUsage::report($args[self::VALUE], $args[self::PREFIX] ?? null);
 
         if ($expectedException) {
             self::failTest($expectedException);
