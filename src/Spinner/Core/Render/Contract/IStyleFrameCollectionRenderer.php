@@ -2,8 +2,9 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Spinner\Core\Contract;
+namespace AlecRabbit\Spinner\Core\Render\Contract;
 
+use AlecRabbit\Spinner\Core\Contract\IFrameCollection;
 use AlecRabbit\Spinner\Core\Pattern\Contract\IStylePattern;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 

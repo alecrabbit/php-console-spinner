@@ -6,8 +6,8 @@ namespace AlecRabbit\Spinner\Core\Factory;
 
 use AlecRabbit\Spinner\Contract\Pattern\IPattern;
 use AlecRabbit\Spinner\Core\Contract\IFrameCollection;
-use AlecRabbit\Spinner\Core\Contract\IStyleFrameCollectionRenderer;
 use AlecRabbit\Spinner\Core\Factory\Contract\IStyleRevolverFactory;
+use AlecRabbit\Spinner\Core\Render\Contract\IStyleFrameCollectionRenderer;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolver;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolverBuilder;
 

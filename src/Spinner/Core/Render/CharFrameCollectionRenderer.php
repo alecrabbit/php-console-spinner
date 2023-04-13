@@ -2,14 +2,15 @@
 
 declare(strict_types=1);
 // 10.03.23
-namespace AlecRabbit\Spinner\Core;
+namespace AlecRabbit\Spinner\Core\Render;
 
 use AlecRabbit\Spinner\Contract\Color\Style\IStyle;
 use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Contract\Pattern\IPattern;
-use AlecRabbit\Spinner\Core\Contract\ICharFrameCollectionRenderer;
 use AlecRabbit\Spinner\Core\Contract\ICharFrameRenderer;
 use AlecRabbit\Spinner\Core\Contract\IFrameCollection;
+use AlecRabbit\Spinner\Core\FrameCollection;
+use AlecRabbit\Spinner\Core\Render\Contract\ICharFrameCollectionRenderer;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use Stringable;
 use Traversable;

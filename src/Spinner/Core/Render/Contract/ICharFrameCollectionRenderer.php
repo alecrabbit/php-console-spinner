@@ -2,9 +2,10 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Spinner\Core\Contract;
+namespace AlecRabbit\Spinner\Core\Render\Contract;
 
 use AlecRabbit\Spinner\Contract\Pattern\IPattern;
+use AlecRabbit\Spinner\Core\Contract\IFrameCollection;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 
 interface ICharFrameCollectionRenderer
