@@ -1,6 +1,6 @@
 <?php
 
-const DIR = '/app/src'; // Sources root
+const DIR = '/app/tests'; // Sources root
 
 $finder = PhpCsFixer\Finder::create()
     ->in(DIR)

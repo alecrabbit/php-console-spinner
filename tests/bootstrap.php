@@ -25,7 +25,7 @@ VarDumper::setHandler(static function ($var) use ($cloner, $dumper) {
 
 function getFallbackDumper(): HtmlDumper|CliDumper
 {
-    return in_array(PHP_SAPI, ['cli', 'phpdbg']) ? new CliDumper() : new HtmlDumper();
+    return in_array(PHP_SAPI, ['cli', 'phpdbg'], true) ? new CliDumper() : new HtmlDumper();
 }
 
 function getAddress(false|string $srv): string

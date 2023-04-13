@@ -26,8 +26,10 @@ _PHPLOC_REPORT_FILE=.phploc.report
 
 _PHP_CS_FIXER_CONFIG=.php-cs-fixer.php
 _PHP_CS_FIXER_DIST_CONFIG=.php-cs-fixer.dist.php
+_PHP_CS_FIXER_TEST_CONFIG=.php-cs-fixer.test.php
 _PHP_CS_FIXER_CONFIG_FILE=${_PHP_CS_FIXER_DIST_CONFIG}
-_PHP_CS_FIXER_CACHE_FILE=.php-cs-fixer.cache
+_PHP_CS_FIXER_CACHE_FILE=.src.php-cs-fixer.cache
+_PHP_CS_FIXER_CACHE_TESTS_FILE=.tests.php-cs-fixer.cache
 
 DPTR_DIR = ${_W_TOOLS_DIR}/${_DN_DEPTRAC}
 DPTR_CONFIG = ${DPTR_DIR}/${_DEPTRAC_CONFIG_FILE}
@@ -46,6 +48,11 @@ app_psalm_run: ## Run Psalm
 app_php_cs_fixer_run: ## Run PHP-CS-Fixer
 	@${_ECHO} "\n${_C_SELECT} ${PROJECT_NAME} ${_C_STOP} ${_C_INFO}PHP-CS-Fixer run...${_C_STOP}\n";
 	@-${_DC_EXEC} ${APP_CONTAINER} php-cs-fixer -vvv fix --config=${WORKING_DIR}/.tools/.php-cs-fixer/${_PHP_CS_FIXER_CONFIG_FILE} --cache-file=${WORKING_DIR}/.tools/.php-cs-fixer/${_PHP_CS_FIXER_CACHE_FILE} --allow-risky=yes
+	@${_ECHO};
+
+_php_cs_fixer_tests_run:
+	@${_ECHO} "\n${_C_SELECT} ${PROJECT_NAME} ${_C_STOP} ${_C_INFO}PHP-CS-Fixer run...${_C_STOP}\n";
+	@-${_DC_EXEC} ${APP_CONTAINER} php-cs-fixer -vvv fix --config=${WORKING_DIR}/.tools/.php-cs-fixer/${_PHP_CS_FIXER_TEST_CONFIG} --cache-file=${WORKING_DIR}/.tools/.php-cs-fixer/${_PHP_CS_FIXER_CACHE_TESTS_FILE} --allow-risky=yes
 	@${_ECHO};
 
 app_php_cs_fixer_dry:
