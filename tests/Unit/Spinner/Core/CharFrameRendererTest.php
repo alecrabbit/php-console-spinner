@@ -78,6 +78,5 @@ final class CharFrameRendererTest extends TestCaseWithPrebuiltMocksAndStubs
             exceptionMessage: $exceptionMessage,
             test: $test,
         );
-        $value = 1;
     }
 }

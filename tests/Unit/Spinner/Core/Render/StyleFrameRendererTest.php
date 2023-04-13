@@ -109,7 +109,8 @@ final class StyleFrameRendererTest extends TestCaseWithPrebuiltMocksAndStubs
             ->expects(self::once())
             ->method('getFormat')
             ->willReturn($format)
-        ;$style
+        ;
+        $style
             ->expects(self::once())
             ->method('getWidth')
             ->willReturn($width)
