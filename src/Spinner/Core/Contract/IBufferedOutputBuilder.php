@@ -9,8 +9,6 @@ use AlecRabbit\Spinner\Contract\Output\IResourceStream;
 
 interface IBufferedOutputBuilder
 {
-    public function withStreamHandler($stream): IBufferedOutputBuilder;
-
     public function withStream(IResourceStream $stream): IBufferedOutputBuilder;
 
     public function build(): IBufferedOutput;

@@ -13,23 +13,10 @@ use AlecRabbit\Spinner\Exception\LogicException;
 
 final class BufferedOutputBuilder implements IBufferedOutputBuilder
 {
-    /** @var null|resource */
-    protected $streamHandler = null; // remove [d68322c7-932f-4d63-afa9-7c5cc0dacba6]
-
     protected ?IResourceStream $stream = null;
 
     public function build(): IBufferedOutput
     {
-        {
-            // FIXME (2023-04-10 14:19) [Alec Rabbit]: remove this block [d68322c7-932f-4d63-afa9-7c5cc0dacba6]
-            if (null === $this->stream) {
-                if (null === $this->streamHandler) {
-                    throw new LogicException('Stream is not set.');
-                }
-                $this->stream = new ResourceStream($this->streamHandler);
-            }
-        }
-
         $this->validate();
 
         return
@@ -41,17 +28,6 @@ final class BufferedOutputBuilder implements IBufferedOutputBuilder
         if (null === $this->stream) {
             throw new LogicException('Stream is not set.');
         }
-    }
-
-    /**
-     * @codeCoverageIgnore
-     */
-    public function withStreamHandler($stream): IBufferedOutputBuilder
-    {
-        // FIXME (2023-04-10 14:18) [Alec Rabbit]: remove this method [d68322c7-932f-4d63-afa9-7c5cc0dacba6]
-        $clone = clone $this;
-        $clone->streamHandler = $stream;
-        return $clone;
     }
 
     public function withStream(IResourceStream $stream): IBufferedOutputBuilder
