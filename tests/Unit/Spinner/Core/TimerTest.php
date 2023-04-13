@@ -31,6 +31,7 @@ final class TimerTest extends TestCase
                 $startTime ?? 0.0,
             );
     }
+
     #[Test]
     public function canGetDelta(): void
     {
@@ -40,6 +41,7 @@ final class TimerTest extends TestCase
         self::assertSame(0.0, $timer->getDelta());
         self::assertSame(0.0, $timer->getDelta());
     }
+
     #[Test]
     public function canCalculateDelta(): void
     {

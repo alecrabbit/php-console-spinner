@@ -76,6 +76,7 @@ final class SpinnerTest extends TestCaseWithPrebuiltMocksAndStubs
         self::assertInstanceOf(Spinner::class, $spinner);
         self::assertSame($context, $spinner->add($context));
     }
+
     #[Test]
     public function canRemoveWidget(): void
     {
