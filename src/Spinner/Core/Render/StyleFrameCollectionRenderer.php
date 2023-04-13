@@ -9,6 +9,7 @@ use AlecRabbit\Spinner\Contract\Color\Style\IStyle;
 use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Core\Contract\IFrameCollection;
 use AlecRabbit\Spinner\Core\Factory\Contract\IStyleFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\IStyleFrameRendererFactory;
 use AlecRabbit\Spinner\Core\FrameCollection;
 use AlecRabbit\Spinner\Core\Pattern\Contract\IStylePattern;
 use AlecRabbit\Spinner\Core\Render\Contract\IStyleFrameCollectionRenderer;
@@ -19,8 +20,10 @@ use Traversable;
 
 final class StyleFrameCollectionRenderer implements IStyleFrameCollectionRenderer
 {
+    protected IStyleFrameRenderer $styleFrameRenderer;
+
     public function __construct(
-        protected IStyleFrameRenderer $styleFrameRenderer,
+        protected IStyleFrameRendererFactory $styleFrameRendererFactory,
         protected IStyleFactory $styleFactory,
     ) {
     }
@@ -28,6 +31,11 @@ final class StyleFrameCollectionRenderer implements IStyleFrameCollectionRendere
     /** @inheritdoc */
     public function render(IStylePattern $pattern): IFrameCollection
     {
+        $this->styleFrameRenderer =
+            $this->styleFrameRendererFactory->create(
+                $pattern->getStyleMode()
+            );
+
         return
             new FrameCollection($this->generateFrames($pattern));
     }
@@ -37,8 +45,6 @@ final class StyleFrameCollectionRenderer implements IStyleFrameCollectionRendere
      */
     protected function generateFrames(IStylePattern $pattern): Traversable
     {
-        $this->styleFrameRenderer->useLowestStyleMode($pattern->getStyleMode());
-
         /** @var IFrame|Stringable|string|IStyle $entry */
         foreach ($pattern->getEntries() as $entry) {
             if ($entry instanceof IFrame) {
@@ -57,11 +63,11 @@ final class StyleFrameCollectionRenderer implements IStyleFrameCollectionRendere
     /**
      * @throws InvalidArgumentException
      */
-    protected function createFrame(string|IStyle $entry): IFrame
+    protected function createFrame(string|IStyle $style): IFrame
     {
-        if (is_string($entry)) {
-            $entry = $this->styleFactory->fromString($entry);
+        if (is_string($style)) {
+            $style = $this->styleFactory->fromString($style);
         }
-        return $this->styleFrameRenderer->render($entry);
+        return $this->styleFrameRenderer->render($style);
     }
 }

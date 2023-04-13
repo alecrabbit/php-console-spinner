@@ -16,8 +16,6 @@ interface IStyleFrameRenderer
      */
     public function render(IStyle $style): IFrame;
 
-    public function useLowestStyleMode(OptionStyleMode $styleMode): void;
-
     /**
      * @deprecated
      */
