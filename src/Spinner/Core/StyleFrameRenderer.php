@@ -16,27 +16,27 @@ use AlecRabbit\Spinner\Exception\DomainException;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Exception\LogicException;
 
-final class StyleFrameRenderer extends AFrameRenderer implements IStyleFrameRenderer
+final class StyleFrameRenderer implements IStyleFrameRenderer
 {
 
     public function __construct(
         protected IFrameFactory $frameFactory,
         protected IAnsiStyleConverter $converter,
         protected ISequencer $sequencer,
+        protected OptionStyleMode $styleMode = OptionStyleMode::NONE,
     ) {
-        parent::__construct($frameFactory);
     }
 
     /**
      * @throws LogicException
      * @throws InvalidArgumentException
      */
-    public function render(int|string|IStyle $entry, OptionStyleMode $styleMode = OptionStyleMode::NONE): IFrame
+    public function render(IStyle $entry): IFrame
     {
         if ($this->isStylingDisabled()) {
             throw new LogicException('Styling is disabled.'); // should never happen
         }
-        return $this->createFrame($entry, $styleMode);
+        return $this->createFrame($entry);
     }
 
     public function isStylingDisabled(): bool
@@ -48,22 +48,23 @@ final class StyleFrameRenderer extends AFrameRenderer implements IStyleFrameRend
      * @throws LogicException
      * @throws InvalidArgumentException
      */
-    protected function createFrame(int|string|IStyle $entry, OptionStyleMode $styleMode): IFrame
+    protected function createFrame(IStyle $entry): IFrame
     {
-        if ($styleMode === OptionStyleMode::NONE) {
+        if ($this->styleMode === OptionStyleMode::NONE) {
             return $this->frameFactory->create('%s', 0);
         }
+        return $this->createFromStyle($entry, $this->styleMode);
 
-        if ($entry instanceof IStyle) {
-            return $this->createFromStyle($entry, $styleMode);
-        }
-
-        $ansiCode = $this->converter->ansiCode($entry, $styleMode);
-
-        $color = '3' . $ansiCode . 'm' . '%s';
-
-        return
-            $this->sequenceFrame($color, 0);
+//        if ($entry instanceof IStyle) {
+//            return $this->createFromStyle($entry, $this->styleMode);
+//        }
+//
+//        $ansiCode = $this->converter->ansiCode($entry, $this->styleMode);
+//
+//        $color = '3' . $ansiCode . 'm' . '%s';
+//
+//        return
+//            $this->sequenceFrame($color, 0);
     }
 
     /**

@@ -9,12 +9,14 @@ use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Contract\Option\OptionStyleMode;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 
-interface IStyleFrameRenderer extends IFrameRenderer
+interface IStyleFrameRenderer
 {
     /**
      * @throws InvalidArgumentException
      */
-    public function render(int|string|IStyle $entry, OptionStyleMode $styleMode = OptionStyleMode::NONE): IFrame;
+    public function render(IStyle $entry): IFrame;
 
     public function isStylingDisabled(): bool;
+
+    public function emptyFrame(): IFrame;
 }
