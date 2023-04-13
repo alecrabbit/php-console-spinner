@@ -14,5 +14,5 @@ interface IConsoleCursorBuilder
 
     public function withOutput(IOutput $output): IConsoleCursorBuilder;
 
-    public function withCursorOption(OptionCursor $getCursorOption): IConsoleCursorBuilder;
+    public function withOptionCursor(OptionCursor $getCursorOption): IConsoleCursorBuilder;
 }

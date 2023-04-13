@@ -54,7 +54,7 @@ final class ConsoleCursorFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
 
         $cursorBuilder
             ->expects(self::once())
-            ->method('withCursorOption')
+            ->method('withOptionCursor')
             ->willReturnSelf()
         ;
 

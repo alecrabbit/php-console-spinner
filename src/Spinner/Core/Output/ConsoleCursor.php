@@ -12,27 +12,27 @@ final readonly class ConsoleCursor implements IConsoleCursor
 {
     public function __construct(
         protected IBufferedOutput $output,
-        protected OptionCursor $cursorOption,
+        protected OptionCursor $optionCursor,
     ) {
     }
 
     public function hide(): IConsoleCursor
     {
-        if ($this->isHidden()) {
+        if ($this->isHideCursorEnabled()) {
             $this->output->write("\x1b[?25l");
         }
 
         return $this;
     }
 
-    protected function isHidden(): bool
+    protected function isHideCursorEnabled(): bool
     {
-        return OptionCursor::HIDDEN === $this->cursorOption;
+        return OptionCursor::HIDDEN === $this->optionCursor;
     }
 
     public function show(): IConsoleCursor
     {
-        if ($this->isHidden()) {
+        if ($this->isHideCursorEnabled()) {
             $this->output->write("\x1b[?25h\x1b[?0c");
         }
 

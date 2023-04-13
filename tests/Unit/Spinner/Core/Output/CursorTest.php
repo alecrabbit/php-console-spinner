@@ -22,7 +22,7 @@ final class CursorTest extends TestCase
         $cursor = $this->getTesteeInstance(output: null, cursorOption: $cursorOption);
 
         self::assertInstanceOf(ConsoleCursor::class, $cursor);
-        self::assertSame($cursorOption, self::getPropertyValue('cursorOption', $cursor));
+        self::assertSame($cursorOption, self::getPropertyValue('optionCursor', $cursor));
     }
 
     public function getTesteeInstance(
@@ -32,7 +32,7 @@ final class CursorTest extends TestCase
         return
             new ConsoleCursor(
                 output: $output ?? $this->getOutputMock(),
-                cursorOption: $cursorOption,
+                optionCursor: $cursorOption,
             );
     }
 
@@ -54,7 +54,7 @@ final class CursorTest extends TestCase
         $cursor = $this->getTesteeInstance(output: $output, cursorOption: $cursorOption);
 
         self::assertInstanceOf(ConsoleCursor::class, $cursor);
-        self::assertSame($cursorOption, self::getPropertyValue('cursorOption', $cursor));
+        self::assertSame($cursorOption, self::getPropertyValue('optionCursor', $cursor));
 
         $cursor->hide();
     }
@@ -70,7 +70,7 @@ final class CursorTest extends TestCase
 
         $cursor = $this->getTesteeInstance(output: $output, cursorOption: $cursorOption);
 
-        self::assertSame($cursorOption, self::getPropertyValue('cursorOption', $cursor));
+        self::assertSame($cursorOption, self::getPropertyValue('optionCursor', $cursor));
 
         $cursor->hide();
         $cursor->show();
@@ -89,7 +89,7 @@ final class CursorTest extends TestCase
         $cursor = $this->getTesteeInstance(output: $output, cursorOption: $cursorOption);
 
         self::assertInstanceOf(ConsoleCursor::class, $cursor);
-        self::assertSame($cursorOption, self::getPropertyValue('cursorOption', $cursor));
+        self::assertSame($cursorOption, self::getPropertyValue('optionCursor', $cursor));
 
         $cursor->show();
     }

@@ -18,7 +18,7 @@ final class ConsoleCursorBuilder implements IConsoleCursorBuilder
 
     public function build(): IConsoleCursor
     {
-        $this->assert();
+        $this->validate();
 
         return
             new ConsoleCursor(
@@ -27,24 +27,13 @@ final class ConsoleCursorBuilder implements IConsoleCursorBuilder
             );
     }
 
-    private function assert(): void
+    private function validate(): void
     {
-        $this->assertOutput($this->output);
-        $this->assertCursorOption($this->cursorOption);
-    }
-
-    private function assertOutput(?IOutput $output): void
-    {
-        if (null === $output) {
-            throw new LogicException('Output is not set');
-        }
-    }
-
-    private function assertCursorOption(?OptionCursor $cursorOption): void
-    {
-        if (null === $cursorOption) {
-            throw new LogicException('CursorOption is not set');
-        }
+        match (true) {
+            null === $this->output => throw new LogicException('Output is not set.'),
+            null === $this->cursorOption => throw new LogicException('CursorOption is not set.'),
+            default => null,
+        };
     }
 
     public function withOutput(IOutput $output): IConsoleCursorBuilder
@@ -54,7 +43,7 @@ final class ConsoleCursorBuilder implements IConsoleCursorBuilder
         return $clone;
     }
 
-    public function withCursorOption(OptionCursor $getCursorOption): IConsoleCursorBuilder
+    public function withOptionCursor(OptionCursor $getCursorOption): IConsoleCursorBuilder
     {
         $clone = clone $this;
         $clone->cursorOption = $getCursorOption;
