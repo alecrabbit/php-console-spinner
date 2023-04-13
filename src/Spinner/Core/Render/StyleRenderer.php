@@ -28,6 +28,7 @@ final class StyleRenderer implements IStyleRenderer
             return $style->getFormat();
         }
 
+        dump($style);
         return $style->getFormat();
     }
 }
