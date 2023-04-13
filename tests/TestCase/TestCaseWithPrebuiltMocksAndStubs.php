@@ -5,14 +5,17 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\TestCase;
 
 use AlecRabbit\Spinner\Container\Contract\IContainer;
+use AlecRabbit\Spinner\Contract\Color\Style\IStyle;
 use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Contract\ITimer;
 use AlecRabbit\Spinner\Contract\Output\IBufferedOutput;
 use AlecRabbit\Spinner\Contract\Output\IOutput;
 use AlecRabbit\Spinner\Contract\Output\IResourceStream;
+use AlecRabbit\Spinner\Contract\Output\ISequencer;
 use AlecRabbit\Spinner\Contract\Pattern\IPattern;
 use AlecRabbit\Spinner\Core\Config\Contract\IWidgetConfig;
+use AlecRabbit\Spinner\Core\Contract\IAnsiStyleConverter;
 use AlecRabbit\Spinner\Core\Contract\IBufferedOutputBuilder;
 use AlecRabbit\Spinner\Core\Contract\IConfigBuilder;
 use AlecRabbit\Spinner\Core\Contract\IConsoleCursorBuilder;
@@ -50,6 +53,7 @@ use AlecRabbit\Spinner\Core\Loop\Contract\ILoop;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoopProbe;
 use AlecRabbit\Spinner\Core\Output\Contract\IConsoleCursor;
 use AlecRabbit\Spinner\Core\Output\Contract\IDriverOutput;
+use AlecRabbit\Spinner\Core\Render\Contract\IStyleRenderer;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetBuilder;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
@@ -149,6 +153,21 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
     protected function getFrameFactoryMock(): MockObject&IFrameFactory
     {
         return $this->createMock(IFrameFactory::class);
+    }
+
+    protected function getStyleRendererMock(): MockObject&IStyleRenderer
+    {
+        return $this->createMock(IStyleRenderer::class);
+    }
+
+    protected function getSequencerMock(): MockObject&ISequencer
+    {
+        return $this->createMock(ISequencer::class);
+    }
+
+    protected function getAnsiStyleConverterMock(): MockObject&IAnsiStyleConverter
+    {
+        return $this->createMock(IAnsiStyleConverter::class);
     }
 
     protected function getOutputBuilderMock(): MockObject&IBufferedOutputBuilder
@@ -364,5 +383,10 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
     protected function getWidgetContextMock(): MockObject&IWidgetContext
     {
         return $this->createMock(IWidgetContext::class);
+    }
+
+    protected function getStyleMock(): MockObject&IStyle
+    {
+        return $this->createMock(IStyle::class);
     }
 }

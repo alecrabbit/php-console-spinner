@@ -7,21 +7,18 @@ namespace AlecRabbit\Spinner\Core;
 
 use AlecRabbit\Spinner\Contract\Color\Style\IStyle;
 use AlecRabbit\Spinner\Contract\IFrame;
-use AlecRabbit\Spinner\Contract\Option\OptionStyleMode;
 use AlecRabbit\Spinner\Contract\Pattern\IPattern;
 use AlecRabbit\Spinner\Core\A\AFrameCollectionRenderer;
 use AlecRabbit\Spinner\Core\Contract\IFrameCollection;
 use AlecRabbit\Spinner\Core\Contract\IFrameCollectionRenderer;
 use AlecRabbit\Spinner\Core\Contract\IStyleFrameCollectionRenderer;
-use AlecRabbit\Spinner\Core\Contract\IStyleFrameRenderer;
 use AlecRabbit\Spinner\Core\Pattern\Contract\IStylePattern;
+use AlecRabbit\Spinner\Core\Render\Contract\IStyleFrameRenderer;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use ArrayObject;
 
 final class StyleFrameCollectionRenderer extends AFrameCollectionRenderer implements IStyleFrameCollectionRenderer
 {
-    private OptionStyleMode $styleMode = OptionStyleMode::NONE;
-
     public function __construct(
         protected IStyleFrameRenderer $frameRenderer,
     ) {
@@ -42,7 +39,6 @@ final class StyleFrameCollectionRenderer extends AFrameCollectionRenderer implem
 
         $clone = clone $this;
         $clone->pattern = $pattern;
-        $clone->styleMode = $pattern->getStyleMode();
         return $clone;
     }
 
@@ -70,7 +66,7 @@ final class StyleFrameCollectionRenderer extends AFrameCollectionRenderer implem
      */
     protected function createFrame(string|IStyle $entry): IFrame
     {
-        return $this->frameRenderer->render($entry, $this->styleMode);
+        return $this->frameRenderer->render($entry);
     }
 
     /** @inheritdoc */
