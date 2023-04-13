@@ -19,7 +19,7 @@ $config =
         )
     );
 
-$spinner = Facade::createSpinner($config);
+$spinner = Facade::createSpinner();
 $driver = Facade::getDriver();
 $loop = Facade::getLoop();
 
@@ -28,8 +28,14 @@ dump($spinner);
 dump($driver);
 
 $loop->repeat(
-    1,
+    60,
     static function () {
-        echo MemoryUsage::report() . PHP_EOL;
+        $message =
+            sprintf(
+                '%s %s',
+                (new \DateTimeImmutable())->format(DATE_ISO8601_EXPANDED),
+                MemoryUsage::report()
+            );
+        echo $message . PHP_EOL;
     }
 );
