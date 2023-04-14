@@ -88,22 +88,20 @@ abstract class TestCase extends PHPUnitTestCase
     }
 
     protected function wrapExceptionTest(
-        string $exceptionClass,
-        string $exceptionMessage,
         callable $test,
-        array $args = [],
-        ?string $method = null
+        string|\Throwable $exceptionOrExceptionClass,
+        ?string $exceptionMessage = null,
+        array $args = []
     ): void {
-        $this->expectException($exceptionClass);
+        $this->expectException($exceptionOrExceptionClass);
         $this->expectExceptionMessage($exceptionMessage);
 
         $test(...$args);
 
         self::fail(
             sprintf(
-                '%s%s',
-                $method ? sprintf('[%s()]: ', $method) : '',
-                self::exceptionNotThrownString($exceptionClass, $exceptionMessage)
+                '%s',
+                self::exceptionNotThrownString($exceptionOrExceptionClass, $exceptionMessage)
             )
         );
     }

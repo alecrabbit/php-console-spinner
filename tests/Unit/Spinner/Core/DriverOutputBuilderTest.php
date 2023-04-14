@@ -58,10 +58,10 @@ final class DriverOutputBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
         };
 
         $this->wrapExceptionTest(
-            exceptionClass: $exceptionClass,
-            exceptionMessage: $exceptionMessage,
             test: $test,
-            method: __METHOD__,
+            exceptionOrExceptionClass: $exceptionClass,
+            exceptionMessage: $exceptionMessage,
+            
         );
     }
 
@@ -78,10 +78,10 @@ final class DriverOutputBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
         };
 
         $this->wrapExceptionTest(
+            $test,
             LogicException::class,
             'Output is not set.',
-            $test,
-            method: __METHOD__,
+            
         );
     }
 }

@@ -65,10 +65,10 @@ final class WidgetBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
         };
 
         $this->wrapExceptionTest(
-            exceptionClass: $exceptionClass,
-            exceptionMessage: $exceptionMessage,
             test: $test,
-            method: __METHOD__,
+            exceptionOrExceptionClass: $exceptionClass,
+            exceptionMessage: $exceptionMessage,
+            
         );
     }
 
@@ -92,10 +92,10 @@ final class WidgetBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
         };
 
         $this->wrapExceptionTest(
-            exceptionClass: $exceptionClass,
-            exceptionMessage: $exceptionMessage,
             test: $test,
-            method: __METHOD__,
+            exceptionOrExceptionClass: $exceptionClass,
+            exceptionMessage: $exceptionMessage,
+            
         );
     }
 
@@ -119,10 +119,10 @@ final class WidgetBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
         };
 
         $this->wrapExceptionTest(
-            exceptionClass: $exceptionClass,
-            exceptionMessage: $exceptionMessage,
             test: $test,
-            method: __METHOD__,
+            exceptionOrExceptionClass: $exceptionClass,
+            exceptionMessage: $exceptionMessage,
+            
         );
     }
 

@@ -83,9 +83,9 @@ final class StyleRendererTest extends TestCaseWithPrebuiltMocksAndStubs
         };
 
         $this->wrapExceptionTest(
-            exceptionClass: $exceptionClass,
-            exceptionMessage: $exceptionMessage,
             test: $test,
+            exceptionOrExceptionClass: $exceptionClass,
+            exceptionMessage: $exceptionMessage,
         );
     }
 }
