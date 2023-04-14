@@ -21,7 +21,10 @@ final readonly class Style implements IStyle
 
     public function isEmpty(): bool
     {
-        return null === $this->fgColor && null === $this->bgColor && null === $this->options;
+        return
+            null === $this->fgColor
+            && null === $this->bgColor
+            && $this->noOptions();
     }
 
     public function getFgColor(): IStringableColor|string|null
@@ -56,6 +59,11 @@ final readonly class Style implements IStyle
 
     public function hasOptions(): bool
     {
-        return null !== $this->options;
+        return !$this->noOptions();
+    }
+
+    protected function noOptions(): bool
+    {
+        return null === $this->options || $this->options->isEmpty();
     }
 }
