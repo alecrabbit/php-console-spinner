@@ -34,7 +34,7 @@ final class StyleToAnsiStringConverter implements IStyleToAnsiStringConverter
         $options = $this->parseOptions($style);
 
         return
-            dump($this->set($fg, $bg, $options) . $style->getFormat() . $this->unset($fg, $bg, $options));
+            $this->set($fg, $bg, $options) . $style->getFormat() . $this->unset($fg, $bg, $options);
     }
 
     protected function parse(string $color, bool $bg = false): string
