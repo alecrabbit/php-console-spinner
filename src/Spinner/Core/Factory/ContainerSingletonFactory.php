@@ -11,7 +11,7 @@ use AlecRabbit\Spinner\Container\ServiceSpawner;
 use AlecRabbit\Spinner\Contract\Option\OptionNormalizerMode;
 use AlecRabbit\Spinner\Contract\Option\OptionStyleMode;
 use AlecRabbit\Spinner\Contract\Output\IResourceStream;
-use AlecRabbit\Spinner\Contract\Output\ISequencer;
+
 use AlecRabbit\Spinner\Core\BufferedOutputBuilder;
 use AlecRabbit\Spinner\Core\ConsoleCursorBuilder;
 use AlecRabbit\Spinner\Core\Contract\IBufferedOutputBuilder;
@@ -191,7 +191,6 @@ final class ContainerSingletonFactory implements IContainerSingletonFactory
             ILoopSingletonFactory::class => LoopSingletonFactory::class,
             ILoopSetup::class => LoopSetup::class,
             ILoopSetupBuilder::class => LoopSetupBuilder::class,
-            ISequencer::class => Sequencer::class,
             IStyleFrameCollectionRenderer::class => StyleFrameCollectionRenderer::class,
             IStyleFrameRendererFactory::class => StyleFrameRendererFactory::class,
             IStyleToAnsiStringConverterFactory::class => StyleToAnsiStringConverterFactory::class,

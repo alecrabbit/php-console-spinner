@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Render;
 
 use AlecRabbit\Spinner\Contract\Color\Style\IStyle;
-use AlecRabbit\Spinner\Contract\Output\ISequencer;
 use AlecRabbit\Spinner\Core\Contract\IHexColorToAnsiCodeConverter;
 use AlecRabbit\Spinner\Core\Render\Contract\IStyleToAnsiStringConverter;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
@@ -16,7 +15,6 @@ final class StyleToAnsiStringConverter implements IStyleToAnsiStringConverter
 {
     public function __construct(
         protected IHexColorToAnsiCodeConverter $converter,
-        protected ISequencer $sequencer,
     ) {
     }
 
@@ -31,12 +29,6 @@ final class StyleToAnsiStringConverter implements IStyleToAnsiStringConverter
 
         return
             $this->set($fg, $bg) . $style->getFormat() . $this->unset($fg, $bg);
-        //        return
-//            $this->sequencer->colorSequence(
-//                '3' .
-//                $this->converter->ansiCode($style->getFgColor()) . 'm' .
-//                $style->getFormat()
-//            );
     }
 
     protected function parse(string $color, bool $bg = false): string

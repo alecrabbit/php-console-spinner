@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Render;
 
 use AlecRabbit\Spinner\Contract\Option\OptionStyleMode;
-use AlecRabbit\Spinner\Contract\Output\ISequencer;
 use AlecRabbit\Spinner\Core\Color\Style\Style;
 use AlecRabbit\Spinner\Core\Render\Contract\IStyleToAnsiStringConverter;
 use AlecRabbit\Spinner\Core\Render\StyleToAnsiStringConverter;
@@ -48,13 +47,11 @@ final class StyleToAnsiStringConverterTest extends TestCaseWithPrebuiltMocksAndS
         self::assertInstanceOf(StyleToAnsiStringConverter::class, $converter);
     }
 
-    public function getTesteeInstance(
-        ?ISequencer $sequencer = null,
-    ): IStyleToAnsiStringConverter {
+    public function getTesteeInstance(): IStyleToAnsiStringConverter
+    {
         return
             new StyleToAnsiStringConverter(
                 converter: $this->getHexColorToAnsiCodeConverterMock(),
-                sequencer: $sequencer ?? $this->getSequencerMock(),
             );
     }
 

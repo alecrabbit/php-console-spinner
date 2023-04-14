@@ -12,11 +12,11 @@ use AlecRabbit\Spinner\Contract\ITimer;
 use AlecRabbit\Spinner\Contract\Output\IBufferedOutput;
 use AlecRabbit\Spinner\Contract\Output\IOutput;
 use AlecRabbit\Spinner\Contract\Output\IResourceStream;
-use AlecRabbit\Spinner\Contract\Output\ISequencer;
+
 use AlecRabbit\Spinner\Contract\Pattern\IPattern;
 use AlecRabbit\Spinner\Core\Config\Contract\IWidgetConfig;
 use AlecRabbit\Spinner\Core\Contract\IBufferedOutputBuilder;
-use AlecRabbit\Spinner\Core\Contract\IConfigBuilder;
+
 use AlecRabbit\Spinner\Core\Contract\IConsoleCursorBuilder;
 use AlecRabbit\Spinner\Core\Contract\IDefaultsProvider;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
@@ -159,11 +159,6 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
     protected function getStyleRendererMock(): MockObject&IStyleRenderer
     {
         return $this->createMock(IStyleRenderer::class);
-    }
-
-    protected function getSequencerMock(): MockObject&ISequencer
-    {
-        return $this->createMock(ISequencer::class);
     }
 
     protected function getAnsiStyleConverterMock(): MockObject&IHexColorToAnsiCodeConverter
