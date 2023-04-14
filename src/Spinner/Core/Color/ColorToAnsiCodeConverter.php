@@ -5,32 +5,12 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Color;
 
 use AlecRabbit\Spinner\Contract\Option\OptionStyleMode;
+use AlecRabbit\Spinner\Core\Color\A\AColorToAnsiCodeConverter;
 use AlecRabbit\Spinner\Core\Contract\IColorToAnsiCodeConverter;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
-use AlecRabbit\Spinner\Mixin\AnsiColorTableTrait;
 
-final class ColorToAnsiCodeConverter implements IColorToAnsiCodeConverter
+final class ColorToAnsiCodeConverter extends AColorToAnsiCodeConverter implements IColorToAnsiCodeConverter
 {
-    use AnsiColorTableTrait;
-
-    public function __construct(
-        protected OptionStyleMode $styleMode,
-    ) {
-        self::assert($this);
-    }
-
-    protected static function assert(self $obj): void
-    {
-        if ($obj->styleMode === OptionStyleMode::NONE) {
-            throw new InvalidArgumentException(
-                sprintf(
-                    'Unsupported style mode "%s".',
-                    $obj->styleMode->name,
-                )
-            );
-        }
-    }
-
     /** @inheritdoc */
     public function ansiCode(string $color): string
     {
@@ -38,41 +18,21 @@ final class ColorToAnsiCodeConverter implements IColorToAnsiCodeConverter
 
         return
             match ($this->styleMode) {
-                OptionStyleMode::ANSI4, OptionStyleMode::ANSI24 => $this->convertFromHexToAnsiColorCode($color),
+                OptionStyleMode::ANSI4 => $this->convert4($color),
+                OptionStyleMode::ANSI24 => $this->convertFromHexToAnsiColorCode($color),
                 default => $this->convert8($color),
             };
     }
 
-    /**
-     * @throws InvalidArgumentException
-     */
-    protected function normalize(string $color): string
+    protected function convert4(string $color): string
     {
-        $color = strtolower($color);
+        $index = Ansi4Color::getIndex($color);
 
-        $color = str_replace('#', '', $color);
-
-        if (3 === strlen($color)) {
-            $color = $color[0] . $color[0] . $color[1] . $color[1] . $color[2] . $color[2];
+        if ($index) {
+            return (string)$index;
         }
 
-        $this->assertColor($color);
-
-        return '#' . $color;
-    }
-
-    /**
-     * @throws InvalidArgumentException
-     */
-    private function assertColor(array|string $color): void
-    {
-        if ('' === $color) {
-            throw new InvalidArgumentException('Empty color string.');
-        }
-
-        if (6 !== strlen($color)) {
-            throw new InvalidArgumentException(sprintf('Invalid color: "#%s".', $color));
-        }
+        return $this->convertFromHexToAnsiColorCode($color);
     }
 
     /**

@@ -10,8 +10,10 @@ use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Helper\Asserter;
 use AlecRabbit\Spinner\Mixin\AnsiColorTableTrait;
 
-final class Ansi8Color extends AAnsiColor
+final class Ansi4Color extends AAnsiColor
 {
+    use AnsiColorTableTrait;
+
     /** @var array<string,int>|null */
     protected static ?array $colors = null;
 
@@ -19,7 +21,7 @@ final class Ansi8Color extends AAnsiColor
     protected static function getColors(): array
     {
         if (null === self::$colors) {
-            self::$colors = array_flip(self::COLORS);
+            self::$colors = array_flip(array_slice(self::COLORS, 0, 16));
         }
         return self::$colors;
     }
@@ -29,6 +31,6 @@ final class Ansi8Color extends AAnsiColor
      */
     protected static function assertIndex(int $index): void
     {
-        Asserter::assertIntColor($index, OptionStyleMode::ANSI8);
+        Asserter::assertIntColor($index, OptionStyleMode::ANSI4);
     }
 }
