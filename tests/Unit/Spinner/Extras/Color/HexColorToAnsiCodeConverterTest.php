@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 // 03.04.23
-namespace AlecRabbit\Tests\Unit\Spinner\Core\Color;
+namespace AlecRabbit\Tests\Unit\Spinner\Extras\Color;
 
 use AlecRabbit\Spinner\Contract\Option\OptionStyleMode;
-use AlecRabbit\Spinner\Core\Color\ColorToAnsiCodeConverter;
-use AlecRabbit\Spinner\Core\Contract\IColorToAnsiCodeConverter;
+use AlecRabbit\Spinner\Core\Contract\IHexColorToAnsiCodeConverter;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
+use AlecRabbit\Spinner\Extras\Color\HexColorToAnsiCodeConverter;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 
 
-final class ColorToAnsiCodeConverterTest extends TestCaseWithPrebuiltMocksAndStubs
+final class HexColorToAnsiCodeConverterTest extends TestCaseWithPrebuiltMocksAndStubs
 {
     public static function canConvertDataProvider(): iterable
     {
@@ -345,10 +345,10 @@ final class ColorToAnsiCodeConverterTest extends TestCaseWithPrebuiltMocksAndStu
         yield from [
             // exceptionClass, exceptionMessage, color, styleMode
             [$e, 'Unsupported style mode "NONE".', '#000000', $none],
-            [$e,  'Invalid color: "#00000".', '#00000', $ansi4],
-            [$e,  'Invalid color: "#00000".', '#00000', $ansi8],
-            [$e,  'Invalid color: "#00000".', '#00000', $ansi24],
-            [$e,  'Empty color string.', '', $ansi24],
+            [$e, 'Invalid color: "#00000".', '#00000', $ansi4],
+            [$e, 'Invalid color: "#00000".', '#00000', $ansi8],
+            [$e, 'Invalid color: "#00000".', '#00000', $ansi24],
+            [$e, 'Empty color string.', '', $ansi24],
         ];
     }
 
@@ -357,14 +357,14 @@ final class ColorToAnsiCodeConverterTest extends TestCaseWithPrebuiltMocksAndStu
     {
         $converter = $this->getTesteeInstance();
 
-        self::assertInstanceOf(ColorToAnsiCodeConverter::class, $converter);
+        self::assertInstanceOf(HexColorToAnsiCodeConverter::class, $converter);
     }
 
     public function getTesteeInstance(
         ?OptionStyleMode $styleMode = null,
-    ): IColorToAnsiCodeConverter {
+    ): IHexColorToAnsiCodeConverter {
         return
-            new ColorToAnsiCodeConverter(
+            new HexColorToAnsiCodeConverter(
                 styleMode: $styleMode ?? OptionStyleMode::ANSI24,
             );
     }

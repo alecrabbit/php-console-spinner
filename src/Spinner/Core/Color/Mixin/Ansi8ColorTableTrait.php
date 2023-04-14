@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 // 24.03.23
-namespace AlecRabbit\Spinner\Mixin;
+namespace AlecRabbit\Spinner\Core\Color\Mixin;
 
-trait AnsiColorTableTrait
+trait Ansi8ColorTableTrait
 {
     /** @var array<int,string> */
     protected const COLORS = [

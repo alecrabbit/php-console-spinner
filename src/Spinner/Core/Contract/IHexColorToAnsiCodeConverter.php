@@ -5,9 +5,8 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Contract;
 
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
-use AlecRabbit\Spinner\Exception\LogicException;
 
-interface IColorToAnsiCodeConverter
+interface IHexColorToAnsiCodeConverter
 {
     /**
      * @throws InvalidArgumentException

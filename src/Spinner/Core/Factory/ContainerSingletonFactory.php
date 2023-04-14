@@ -13,11 +13,9 @@ use AlecRabbit\Spinner\Contract\Option\OptionStyleMode;
 use AlecRabbit\Spinner\Contract\Output\IResourceStream;
 use AlecRabbit\Spinner\Contract\Output\ISequencer;
 use AlecRabbit\Spinner\Core\BufferedOutputBuilder;
-use AlecRabbit\Spinner\Core\Color\ColorToAnsiCodeConverter;
 use AlecRabbit\Spinner\Core\ConsoleCursorBuilder;
 use AlecRabbit\Spinner\Core\Contract\IBufferedOutputBuilder;
 use AlecRabbit\Spinner\Core\Contract\ICharFrameRenderer;
-use AlecRabbit\Spinner\Core\Contract\IColorToAnsiCodeConverter;
 use AlecRabbit\Spinner\Core\Contract\IConsoleCursorBuilder;
 use AlecRabbit\Spinner\Core\Contract\IDefaultsProvider;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
@@ -25,6 +23,7 @@ use AlecRabbit\Spinner\Core\Contract\IDriverAttacher;
 use AlecRabbit\Spinner\Core\Contract\IDriverBuilder;
 use AlecRabbit\Spinner\Core\Contract\IDriverOutputBuilder;
 use AlecRabbit\Spinner\Core\Contract\IDriverSetup;
+use AlecRabbit\Spinner\Core\Contract\IHexColorToAnsiCodeConverter;
 use AlecRabbit\Spinner\Core\Contract\IIntegerNormalizerBuilder;
 use AlecRabbit\Spinner\Core\Contract\IIntervalNormalizer;
 use AlecRabbit\Spinner\Core\Contract\ILoopSetup;
@@ -89,6 +88,7 @@ use AlecRabbit\Spinner\Core\Widget\Factory\WidgetRevolverFactory;
 use AlecRabbit\Spinner\Core\Widget\WidgetBuilder;
 use AlecRabbit\Spinner\Core\Widget\WidgetRevolverBuilder;
 use AlecRabbit\Spinner\Exception\DomainException;
+use AlecRabbit\Spinner\Extras\Color\HexColorToAnsiCodeConverter;
 use Psr\Container\ContainerInterface;
 use Traversable;
 
@@ -162,7 +162,7 @@ final class ContainerSingletonFactory implements IContainerSingletonFactory
             },
             IConsoleCursorFactory::class => ConsoleCursorFactory::class,
             ITimerFactory::class => TimerFactory::class,
-            IColorToAnsiCodeConverter::class => ColorToAnsiCodeConverter::class,
+            IHexColorToAnsiCodeConverter::class => HexColorToAnsiCodeConverter::class,
             IAuxSettingsBuilder::class => AuxSettingsBuilder::class,
             IBufferedOutputBuilder::class => BufferedOutputBuilder::class,
             ILoopSetupFactory::class => LoopSetupFactory::class,

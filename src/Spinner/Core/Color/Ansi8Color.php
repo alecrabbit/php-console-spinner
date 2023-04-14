@@ -8,7 +8,6 @@ use AlecRabbit\Spinner\Contract\Option\OptionStyleMode;
 use AlecRabbit\Spinner\Core\Color\A\AAnsiColor;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Helper\Asserter;
-use AlecRabbit\Spinner\Mixin\AnsiColorTableTrait;
 
 final class Ansi8Color extends AAnsiColor
 {

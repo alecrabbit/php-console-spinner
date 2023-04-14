@@ -6,13 +6,13 @@ namespace AlecRabbit\Spinner\Core\Color;
 
 use AlecRabbit\Spinner\Contract\Option\OptionStyleMode;
 use AlecRabbit\Spinner\Core\Color\A\AAnsiColor;
+use AlecRabbit\Spinner\Core\Color\Mixin\Ansi8ColorTableTrait;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Helper\Asserter;
-use AlecRabbit\Spinner\Mixin\AnsiColorTableTrait;
 
 final class Ansi4Color extends AAnsiColor
 {
-    use AnsiColorTableTrait;
+    use Ansi8ColorTableTrait;
 
     /** @var array<string,int>|null */
     protected static ?array $colors = null;

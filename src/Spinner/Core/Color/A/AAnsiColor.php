@@ -4,13 +4,13 @@ declare(strict_types=1);
 // 14.04.23
 namespace AlecRabbit\Spinner\Core\Color\A;
 
+use AlecRabbit\Spinner\Core\Color\Mixin\Ansi8ColorTableTrait;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Helper\Asserter;
-use AlecRabbit\Spinner\Mixin\AnsiColorTableTrait;
 
 abstract class AAnsiColor
 {
-    use AnsiColorTableTrait;
+    use Ansi8ColorTableTrait;
 
     /**
      * @throws InvalidArgumentException

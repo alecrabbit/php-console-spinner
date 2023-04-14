@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 // 23.03.23
-namespace AlecRabbit\Spinner\Core\Color;
+namespace AlecRabbit\Spinner\Extras\Color;
 
 use AlecRabbit\Spinner\Contract\Option\OptionStyleMode;
 use AlecRabbit\Spinner\Core\Color\A\AColorToAnsiCodeConverter;
-use AlecRabbit\Spinner\Core\Contract\IColorToAnsiCodeConverter;
+use AlecRabbit\Spinner\Core\Contract\IHexColorToAnsiCodeConverter;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 
-final class ColorToAnsiCodeConverter extends AColorToAnsiCodeConverter implements IColorToAnsiCodeConverter
+final class HexColorToAnsiCodeConverter extends AColorToAnsiCodeConverter implements IHexColorToAnsiCodeConverter
 {
     /** @inheritdoc */
     public function ansiCode(string $color): string
@@ -22,20 +22,6 @@ final class ColorToAnsiCodeConverter extends AColorToAnsiCodeConverter implement
                 OptionStyleMode::ANSI8 => $this->convert8($color),
                 default => $this->convertHexColorToAnsiColorCode($color),
             };
-    }
-
-    /**
-     * @throws InvalidArgumentException
-     */
-    protected function convert4(string $color): string
-    {
-        $index = Ansi4Color::getIndex($color);
-
-        if ($index) {
-            return (string)$index;
-        }
-
-        return $this->convertHexColorToAnsiColorCode($color);
     }
 
     /**
@@ -56,11 +42,6 @@ final class ColorToAnsiCodeConverter extends AColorToAnsiCodeConverter implement
                 OptionStyleMode::ANSI24 => sprintf('8;2;%d;%d;%d', $r, $g, $b),
                 default => throw new InvalidArgumentException('Should not be thrown: Unsupported style mode.'),
             };
-    }
-
-    protected function toInt(string $color): int
-    {
-        return (int)hexdec(str_replace('#', '', $color));
     }
 
     /**
@@ -132,19 +113,5 @@ final class ColorToAnsiCodeConverter extends AColorToAnsiCodeConverter implement
         }
 
         return (int)round(($r - 8) / 247 * 24) + 232;
-    }
-
-    /**
-     * @throws InvalidArgumentException
-     */
-    protected function convert8(string $color): string
-    {
-        $index = Ansi8Color::getIndex($color);
-
-        if ($index) {
-            return '8;5;' . $index;
-        }
-
-        return $this->convertHexColorToAnsiColorCode($color);
     }
 }
