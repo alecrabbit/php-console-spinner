@@ -88,7 +88,7 @@ use AlecRabbit\Spinner\Core\Widget\Factory\WidgetRevolverFactory;
 use AlecRabbit\Spinner\Core\Widget\WidgetBuilder;
 use AlecRabbit\Spinner\Core\Widget\WidgetRevolverBuilder;
 use AlecRabbit\Spinner\Exception\DomainException;
-use AlecRabbit\Spinner\Extras\Color\HexColorToAnsiCodeConverter;
+use AlecRabbit\Spinner\Core\Color\HexColorToAnsiCodeConverter;
 use Psr\Container\ContainerInterface;
 use Traversable;
 
