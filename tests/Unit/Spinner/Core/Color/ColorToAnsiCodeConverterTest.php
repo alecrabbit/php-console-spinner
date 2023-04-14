@@ -41,6 +41,7 @@ final class ColorToAnsiCodeConverterTest extends TestCaseWithPrebuiltMocksAndStu
         yield from [
             // result, color, styleMode
             ['0', '#000000', $ansi4],
+            ['0', '#023010', $ansi4],
             ['1', '#800000', $ansi4],
             ['2', '#008000', $ansi4],
             ['3', '#808000', $ansi4],
@@ -48,7 +49,11 @@ final class ColorToAnsiCodeConverterTest extends TestCaseWithPrebuiltMocksAndStu
             ['5', '#800080', $ansi4],
             ['6', '#008080', $ansi4],
             ['7', '#c0c0c0', $ansi4],
+            ['0', '#761176', $ansi4], // color degrading
+            ['4', '#00008f', $ansi4], // color degrading
+            ['5', '#861185', $ansi4], // color degrading
             ['5', '#d75f87', $ansi4], // color degrading
+            ['5', '#d134f2', $ansi4], // color degrading
 
             ['8;5;16', '#000000', $ansi8],
             ['8;5;17', '#00005f', $ansi8],

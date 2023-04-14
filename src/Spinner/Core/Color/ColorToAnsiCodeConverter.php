@@ -143,26 +143,32 @@ final class ColorToAnsiCodeConverter implements IColorToAnsiCodeConverter
     }
 
     /**
-     * Inspired from https://github.com/ajalt/colormath/blob/e464e0da1b014976736cf97250063248fc77b8e7/colormath/src/commonMain/kotlin/com/github/ajalt/colormath/model/Ansi256.kt code (MIT license).
+     * Inspired from (MIT license):
+     * @link https://github.com/ajalt/colormath/blob/e464e0da1b014976736cf97250063248fc77b8e7/colormath/src/commonMain/kotlin/com/github/ajalt/colormath/model/Ansi256.kt
      */
     protected function degradeHexColorToAnsi8(int $r, int $g, int $b): int
     {
         if ($r === $g && $g === $b) {
-            if ($r < 8) {
-                return 16;
-            }
-
-            if ($r > 248) {
-                return 231;
-            }
-
-            return (int)round(($r - 8) / 247 * 24) + 232;
+            return $this->degradeFrom($r);
         }
 
         return 16 +
             (36 * (int)round($r / 255 * 5)) +
             (6 * (int)round($g / 255 * 5)) +
             (int)round($b / 255 * 5);
+    }
+
+    protected function degradeFrom(int $r): int
+    {
+        if ($r < 8) {
+            return 16;
+        }
+
+        if ($r > 248) {
+            return 231;
+        }
+
+        return (int)round(($r - 8) / 247 * 24) + 232;
     }
 
     /**
