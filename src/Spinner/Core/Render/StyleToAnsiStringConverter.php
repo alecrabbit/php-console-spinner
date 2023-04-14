@@ -8,7 +8,6 @@ use AlecRabbit\Spinner\Contract\Color\Style\IStyle;
 use AlecRabbit\Spinner\Contract\Option\OptionStyleMode;
 use AlecRabbit\Spinner\Contract\Output\ISequencer;
 use AlecRabbit\Spinner\Core\Render\Contract\IStyleToAnsiStringConverter;
-use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 
 final class StyleToAnsiStringConverter implements IStyleToAnsiStringConverter
 {

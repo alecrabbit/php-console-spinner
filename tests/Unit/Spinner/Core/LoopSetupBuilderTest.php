@@ -62,7 +62,7 @@ final class LoopSetupBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
             test: $test,
             exceptionOrExceptionClass: $exceptionClass,
             exceptionMessage: $exceptionMessage,
-            
+
         );
     }
 
@@ -85,7 +85,7 @@ final class LoopSetupBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
             test: $test,
             exceptionOrExceptionClass: $exceptionClass,
             exceptionMessage: $exceptionMessage,
-            
+
         );
     }
 }

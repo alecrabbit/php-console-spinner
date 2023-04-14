@@ -68,7 +68,7 @@ final class WidgetBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
             test: $test,
             exceptionOrExceptionClass: $exceptionClass,
             exceptionMessage: $exceptionMessage,
-            
+
         );
     }
 
@@ -95,7 +95,7 @@ final class WidgetBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
             test: $test,
             exceptionOrExceptionClass: $exceptionClass,
             exceptionMessage: $exceptionMessage,
-            
+
         );
     }
 
@@ -122,7 +122,7 @@ final class WidgetBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
             test: $test,
             exceptionOrExceptionClass: $exceptionClass,
             exceptionMessage: $exceptionMessage,
-            
+
         );
     }
 

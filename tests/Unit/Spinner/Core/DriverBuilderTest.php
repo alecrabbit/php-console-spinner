@@ -109,7 +109,7 @@ final class DriverBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
             test: $test,
             exceptionOrExceptionClass: $exceptionClass,
             exceptionMessage: $exceptionMessage,
-            
+
         );
     }
 

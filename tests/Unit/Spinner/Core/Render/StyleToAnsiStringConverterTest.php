@@ -10,7 +10,6 @@ use AlecRabbit\Spinner\Core\Color\Style\Style;
 use AlecRabbit\Spinner\Core\Render\Contract\IStyleToAnsiStringConverter;
 use AlecRabbit\Spinner\Core\Render\StyleToAnsiStringConverter;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
-use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 
 
@@ -40,6 +39,7 @@ final class StyleToAnsiStringConverterTest extends TestCaseWithPrebuiltMocksAndS
             ['31m%s', new Style(fgColor: '#800000'), OptionStyleMode::ANSI4],
         ];
     }
+
     #[Test]
     public function canBeCreated(): void
     {

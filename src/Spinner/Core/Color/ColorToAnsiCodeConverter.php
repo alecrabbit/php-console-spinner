@@ -55,17 +55,6 @@ final class ColorToAnsiCodeConverter implements IColorToAnsiCodeConverter
     /**
      * @throws InvalidArgumentException
      */
-    protected function assertColor(int|string $color, OptionStyleMode $styleMode): void
-    {
-        match (true) {
-            is_int($color) => Asserter::assertIntColor($color, $styleMode),
-            is_string($color) => Asserter::assertHexStringColor($color),
-        };
-    }
-
-    /**
-     * @throws InvalidArgumentException
-     */
     protected function convert4(int|string $color): string
     {
         if (is_int($color)) {
@@ -203,5 +192,16 @@ final class ColorToAnsiCodeConverter implements IColorToAnsiCodeConverter
     public function isDisabled(): bool
     {
         return !$this->styleMode->isStylingEnabled();
+    }
+
+    /**
+     * @throws InvalidArgumentException
+     */
+    protected function assertColor(int|string $color, OptionStyleMode $styleMode): void
+    {
+        match (true) {
+            is_int($color) => Asserter::assertIntColor($color, $styleMode),
+            is_string($color) => Asserter::assertHexStringColor($color),
+        };
     }
 }

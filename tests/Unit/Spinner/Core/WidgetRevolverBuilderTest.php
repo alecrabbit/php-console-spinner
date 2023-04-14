@@ -65,7 +65,7 @@ final class WidgetRevolverBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
             test: $test,
             exceptionOrExceptionClass: $exceptionClass,
             exceptionMessage: $exceptionMessage,
-            
+
         );
     }
 
@@ -89,7 +89,7 @@ final class WidgetRevolverBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
             test: $test,
             exceptionOrExceptionClass: $exceptionClass,
             exceptionMessage: $exceptionMessage,
-            
+
         );
     }
 }
