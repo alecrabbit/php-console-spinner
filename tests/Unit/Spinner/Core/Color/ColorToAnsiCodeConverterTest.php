@@ -290,6 +290,13 @@ final class ColorToAnsiCodeConverterTest extends TestCaseWithPrebuiltMocksAndStu
             ['8;5;253', '#dadada', $ansi8],
             ['8;5;254', '#e4e4e4', $ansi8],
             ['8;5;255', '#eeeeee', $ansi8],
+            ['8;5;238', '#444', $ansi8],
+            ['8;5;255', '#eee', $ansi8],
+            ['8;5;231', '#fff', $ansi8],
+            ['8;5;59', '#434544', $ansi8],
+            ['8;5;238', '#454545', $ansi8],
+            ['8;5;231', '#fafafa', $ansi8],
+            ['8;5;16', '#070707', $ansi8],
 
             ['8;2;198;198;198', '#c6c6c6', $ansi24],
             ['8;2;255;135;135', '#ff8787', $ansi24],
@@ -299,6 +306,44 @@ final class ColorToAnsiCodeConverterTest extends TestCaseWithPrebuiltMocksAndStu
             ['8;2;255;215;255', '#ffd7ff', $ansi24],
             ['8;2;215;135;95', '#d7875f', $ansi24],
 
+        ];
+    }
+
+    public static function invalidInputDataProvider(): iterable
+    {
+        foreach (self::simpleInvalidInputDataFeeder() as $item) {
+            yield [
+                [
+                    self::EXCEPTION => [
+                        self::CLASS_ => $item[0],
+                        self::MESSAGE => $item[1],
+                    ],
+                ],
+                [
+                    self::ARGUMENTS => [
+                        self::COLOR => $item[2],
+                        self::STYLE_MODE => $item[3],
+                    ],
+                ],
+            ];
+        }
+    }
+
+    protected static function simpleInvalidInputDataFeeder(): iterable
+    {
+        $e = InvalidArgumentException::class;
+        $none = OptionStyleMode::NONE;
+        $ansi4 = OptionStyleMode::ANSI4;
+        $ansi8 = OptionStyleMode::ANSI8;
+        $ansi24 = OptionStyleMode::ANSI24;
+
+        yield from [
+            // exceptionClass, exceptionMessage, color, styleMode
+            [$e, 'Unsupported style mode "NONE".', '#000000', $none],
+            [$e,  'Invalid color: "#00000".', '#00000', $ansi4],
+            [$e,  'Invalid color: "#00000".', '#00000', $ansi8],
+            [$e,  'Invalid color: "#00000".', '#00000', $ansi24],
+            [$e,  'Empty color string.', '', $ansi24],
         ];
     }
 
@@ -322,6 +367,27 @@ final class ColorToAnsiCodeConverterTest extends TestCaseWithPrebuiltMocksAndStu
     #[Test]
     #[DataProvider('canConvertDataProvider')]
     public function canConvert(array $expected, array $incoming): void
+    {
+        $expectedException = $this->expectsException($expected);
+
+        $args = $incoming[self::ARGUMENTS];
+
+        $converter = $this->getTesteeInstance(
+            styleMode: $args[self::STYLE_MODE],
+        );
+
+        $result = $converter->ansiCode($args[self::COLOR]);
+
+        if ($expectedException) {
+            self::failTest($expectedException);
+        }
+
+        self::assertSame($expected[self::RESULT], $result);
+    }
+
+    #[Test]
+    #[DataProvider('invalidInputDataProvider')]
+    public function throwsOnInvalidInput(array $expected, array $incoming): void
     {
         $expectedException = $this->expectsException($expected);
 

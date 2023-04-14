@@ -7,8 +7,6 @@ namespace AlecRabbit\Spinner\Core\Color;
 use AlecRabbit\Spinner\Contract\Option\OptionStyleMode;
 use AlecRabbit\Spinner\Core\Contract\IColorToAnsiCodeConverter;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
-use AlecRabbit\Spinner\Exception\LogicException;
-use AlecRabbit\Spinner\Helper\Asserter;
 use AlecRabbit\Spinner\Mixin\AnsiColorTableTrait;
 
 final class ColorToAnsiCodeConverter implements IColorToAnsiCodeConverter
@@ -36,31 +34,45 @@ final class ColorToAnsiCodeConverter implements IColorToAnsiCodeConverter
     /** @inheritdoc */
     public function ansiCode(string $color): string
     {
+        $color = $this->normalize($color);
+
         return
             match ($this->styleMode) {
-                OptionStyleMode::ANSI4 => $this->convert4($color),
-                OptionStyleMode::ANSI8 => $this->convert8($color),
-                OptionStyleMode::ANSI24 => $this->convert24($color),
-                default => throw new LogicException(
-                    sprintf(
-                        '%s::%s: Unable to convert "%s" to ansi code.',
-                        OptionStyleMode::class,
-                        $this->styleMode->name,
-                        $color
-                    )
-                ),
+                OptionStyleMode::ANSI4, OptionStyleMode::ANSI24 => $this->convertFromHexToAnsiColorCode($color),
+                default => $this->convert8($color),
             };
     }
 
     /**
      * @throws InvalidArgumentException
      */
-    protected function convert4(int|string $color): string
+    protected function normalize(string $color): string
     {
-        if (is_int($color)) {
-            return (string)$color;
+        $color = strtolower($color);
+
+        $color = str_replace('#', '', $color);
+
+        if (3 === strlen($color)) {
+            $color = $color[0] . $color[0] . $color[1] . $color[1] . $color[2] . $color[2];
         }
-        return $this->convertFromHexToAnsiColorCode($color);
+
+        $this->assertColor($color);
+
+        return '#' . $color;
+    }
+
+    /**
+     * @throws InvalidArgumentException
+     */
+    private function assertColor(array|string $color): void
+    {
+        if ('' === $color) {
+            throw new InvalidArgumentException('Empty color string.');
+        }
+
+        if (6 !== strlen($color)) {
+            throw new InvalidArgumentException(sprintf('Invalid color: "#%s".', $color));
+        }
     }
 
     /**
@@ -68,17 +80,7 @@ final class ColorToAnsiCodeConverter implements IColorToAnsiCodeConverter
      */
     protected function convertFromHexToAnsiColorCode(string $hexColor): string
     {
-        $hexColor = str_replace('#', '', $hexColor);
-
-        if (3 === strlen($hexColor)) {
-            $hexColor = $hexColor[0] . $hexColor[0] . $hexColor[1] . $hexColor[1] . $hexColor[2] . $hexColor[2];
-        }
-
-        if (6 !== strlen($hexColor)) {
-            throw new InvalidArgumentException(sprintf('Invalid "#%s" color.', $hexColor));
-        }
-
-        $color = hexdec($hexColor);
+        $color = $this->toInt($hexColor);
 
         $r = ($color >> 16) & 255;
         $g = ($color >> 8) & 255;
@@ -89,13 +91,13 @@ final class ColorToAnsiCodeConverter implements IColorToAnsiCodeConverter
                 OptionStyleMode::ANSI4 => (string)$this->convertFromRGB($r, $g, $b),
                 OptionStyleMode::ANSI8 => '8;5;' . ((string)$this->convertFromRGB($r, $g, $b)),
                 OptionStyleMode::ANSI24 => sprintf('8;2;%d;%d;%d', $r, $g, $b),
-                OptionStyleMode::NONE => throw new InvalidArgumentException(
-                    sprintf(
-                        'Hex color cannot be converted to %s.',
-                        $this->styleMode->name
-                    )
-                ),
+                default => throw new InvalidArgumentException('Should not be thrown: Unsupported style mode.'),
             };
+    }
+
+    protected function toInt(string $color): int
+    {
+        return (int)hexdec(str_replace('#', '', $color));
     }
 
     /**
@@ -109,7 +111,7 @@ final class ColorToAnsiCodeConverter implements IColorToAnsiCodeConverter
                 OptionStyleMode::ANSI8 => $this->degradeHexColorToAnsi8($r, $g, $b),
                 default => throw new InvalidArgumentException(
                     sprintf(
-                        'RGB cannot be converted to %s.',
+                        'RGB cannot be converted to "%s".',
                         $this->styleMode->name
                     )
                 )
@@ -166,12 +168,8 @@ final class ColorToAnsiCodeConverter implements IColorToAnsiCodeConverter
     /**
      * @throws InvalidArgumentException
      */
-    protected function convert8(int|string $color): string
+    protected function convert8(string $color): string
     {
-        if (is_int($color)) {
-            return '8;5;' . $color;
-        }
-
         $index = Ansi8Color::getIndex($color);
 
         if ($index) {
@@ -179,29 +177,5 @@ final class ColorToAnsiCodeConverter implements IColorToAnsiCodeConverter
         }
 
         return $this->convertFromHexToAnsiColorCode($color);
-    }
-
-    /**
-     * @throws InvalidArgumentException
-     */
-    protected function convert24(string $color): string
-    {
-        return $this->convertFromHexToAnsiColorCode($color);
-    }
-
-    public function isDisabled(): bool
-    {
-        return !$this->styleMode->isStylingEnabled();
-    }
-
-    /**
-     * @throws InvalidArgumentException
-     */
-    protected function assertColor(int|string $color, OptionStyleMode $styleMode): void
-    {
-        match (true) {
-            is_int($color) => Asserter::assertIntColor($color, $styleMode),
-            is_string($color) => Asserter::assertHexStringColor($color),
-        };
     }
 }
