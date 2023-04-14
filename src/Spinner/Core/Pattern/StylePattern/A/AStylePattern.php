@@ -34,7 +34,7 @@ abstract class AStylePattern extends AReversiblePattern implements IStylePattern
         return $this->styleMode;
     }
 
-    protected function pattern(): Traversable
+    protected function entries(): Traversable
     {
         return
             new ArrayObject($this->extractPattern());

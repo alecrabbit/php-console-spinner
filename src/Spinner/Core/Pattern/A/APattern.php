@@ -27,12 +27,12 @@ abstract class APattern implements IPattern
         $this->interval = $interval ?? new Interval(static::UPDATE_INTERVAL);
     }
 
-    public function getPattern(): Traversable
+    public function getEntries(): Traversable
     {
-        return $this->pattern();
+        return $this->entries();
     }
 
-    protected function pattern(): Traversable
+    protected function entries(): Traversable
     {
         return new ArrayObject(static::PATTERN);
     }

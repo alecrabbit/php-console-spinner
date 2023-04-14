@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
+use AlecRabbit\Spinner\Core\Config\SpinnerConfig;
 use AlecRabbit\Spinner\Core\Config\WidgetConfig;
-use AlecRabbit\Spinner\Core\Defaults\SpinnerConfig;
-use AlecRabbit\Spinner\Core\Pattern\CharPattern\Aesthetic;
+use AlecRabbit\Spinner\Core\Pattern\CharPattern\Monkey;
 use AlecRabbit\Spinner\Facade;
 use AlecRabbit\Spinner\Helper\MemoryUsage;
 
@@ -15,11 +15,11 @@ echo '--' . PHP_EOL;
 $config =
     new SpinnerConfig(
         new WidgetConfig(
-            charPattern: new Aesthetic()
+            charPattern: new Monkey()
         )
     );
 
-$spinner = Facade::createSpinner();
+$spinner = Facade::createSpinner($config);
 $driver = Facade::getDriver();
 $loop = Facade::getLoop();
 
@@ -27,13 +27,15 @@ dump($loop);
 dump($spinner);
 dump($driver);
 
+$reportInterval = 60;
+
 $loop->repeat(
-    60,
+    $reportInterval,
     static function () {
         $message =
             sprintf(
                 '%s %s',
-                (new \DateTimeImmutable())->format(DATE_ISO8601_EXPANDED),
+                (new \DateTimeImmutable())->format(DATE_RFC3339_EXTENDED),
                 MemoryUsage::report()
             );
         echo $message . PHP_EOL;

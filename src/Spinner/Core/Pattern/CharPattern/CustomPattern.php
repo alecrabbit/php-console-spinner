@@ -20,7 +20,7 @@ final class CustomPattern extends AReversiblePattern
         parent::__construct($interval, $reversed);
     }
 
-    protected function pattern(): Traversable
+    protected function entries(): Traversable
     {
         yield from $this->pattern;
     }

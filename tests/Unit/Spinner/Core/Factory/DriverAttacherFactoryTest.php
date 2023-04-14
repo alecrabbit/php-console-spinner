@@ -6,10 +6,10 @@ namespace AlecRabbit\Tests\Unit\Spinner\Core\Factory;
 
 use AlecRabbit\Spinner\Contract\Option\OptionAttacher;
 use AlecRabbit\Spinner\Core\Contract\IDefaultsProvider;
+use AlecRabbit\Spinner\Core\Contract\Loop\Contract\ILoop;
 use AlecRabbit\Spinner\Core\DriverAttacher;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDriverAttacherSingletonFactory;
 use AlecRabbit\Spinner\Core\Factory\DriverAttacherSingletonFactory;
-use AlecRabbit\Spinner\Core\Loop\Contract\ILoop;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;
 

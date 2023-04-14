@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Factory;
 
 use AlecRabbit\Spinner\Contract\Pattern\IPattern;
-use AlecRabbit\Spinner\Core\Contract\ICharFrameCollectionRenderer;
 use AlecRabbit\Spinner\Core\Contract\IFrameCollection;
 use AlecRabbit\Spinner\Core\Factory\Contract\ICharRevolverFactory;
+use AlecRabbit\Spinner\Core\Render\Contract\ICharFrameCollectionRenderer;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolver;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolverBuilder;
 
@@ -32,6 +32,6 @@ final class CharRevolverFactory implements ICharRevolverFactory
 
     protected function getFrameCollection(IPattern $charPattern): IFrameCollection
     {
-        return $this->charFrameCollectionRenderer->pattern($charPattern)->render();
+        return $this->charFrameCollectionRenderer->render($charPattern);
     }
 }

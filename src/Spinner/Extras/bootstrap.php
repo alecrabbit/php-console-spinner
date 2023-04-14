@@ -2,10 +2,15 @@
 
 declare(strict_types=1);
 
+use AlecRabbit\Spinner\Core\Factory\Contract\IHexColorToAnsiCodeConverterFactory;
+use AlecRabbit\Spinner\Extras\Factory\HexColorToAnsiCodeConverterFactory;
+use AlecRabbit\Spinner\Facade;
+
 // @codeCoverageIgnoreStart
 
-// Facade::replaceService();
-//   SymfonyTerminalProbe::class
-//   ProceduralFrameRevolverBuilder::class
+Facade::useService(
+    IHexColorToAnsiCodeConverterFactory::class,
+    HexColorToAnsiCodeConverterFactory::class,
+);
 
 // @codeCoverageIgnoreEnd

@@ -79,10 +79,10 @@ final class TimerTest extends TestCase
             self::assertInstanceOf(Timer::class, $timer);
         };
 
-        $this->testExceptionWrapper(
-            exceptionClass: $exceptionClass,
-            exceptionMessage: $exceptionMessage,
+        $this->wrapExceptionTest(
             test: $test,
+            exceptionOrExceptionClass: $exceptionClass,
+            exceptionMessage: $exceptionMessage,
         );
     }
 
@@ -101,10 +101,10 @@ final class TimerTest extends TestCase
             self::assertInstanceOf(Timer::class, $timer);
         };
 
-        $this->testExceptionWrapper(
-            exceptionClass: $exceptionClass,
-            exceptionMessage: $exceptionMessage,
+        $this->wrapExceptionTest(
             test: $test,
+            exceptionOrExceptionClass: $exceptionClass,
+            exceptionMessage: $exceptionMessage,
         );
     }
 
@@ -122,10 +122,10 @@ final class TimerTest extends TestCase
             self::assertInstanceOf(Timer::class, $timer);
         };
 
-        $this->testExceptionWrapper(
-            exceptionClass: $exceptionClass,
-            exceptionMessage: $exceptionMessage,
+        $this->wrapExceptionTest(
             test: $test,
+            exceptionOrExceptionClass: $exceptionClass,
+            exceptionMessage: $exceptionMessage,
         );
     }
 }

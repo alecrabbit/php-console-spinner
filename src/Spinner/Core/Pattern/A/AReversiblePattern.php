@@ -18,20 +18,20 @@ abstract class AReversiblePattern extends APattern
         parent::__construct($interval);
     }
 
-    public function getPattern(): Traversable
+    public function getEntries(): Traversable
     {
         return
             $this->reversed
-                ? $this->reversedPattern()
-                : $this->pattern();
+                ? $this->reversedEntries()
+                : $this->entries();
     }
 
-    protected function reversedPattern(): Traversable
+    protected function reversedEntries(): Traversable
     {
         return
             new ArrayObject(
                 array_reverse(
-                    iterator_to_array($this->pattern())
+                    iterator_to_array($this->entries())
                 )
             );
     }

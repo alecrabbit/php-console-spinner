@@ -65,10 +65,10 @@ final class WidgetSettingsBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
             self::assertInstanceOf(WidgetSettings::class, $widgetSettings);
         };
 
-        $this->testExceptionWrapper(
-            exceptionClass: $exceptionClass,
-            exceptionMessage: $exceptionMessage,
+        $this->wrapExceptionTest(
             test: $test,
+            exceptionOrExceptionClass: $exceptionClass,
+            exceptionMessage: $exceptionMessage,
         );
     }
 
@@ -92,10 +92,10 @@ final class WidgetSettingsBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
             self::assertInstanceOf(WidgetSettings::class, $widgetSettings);
         };
 
-        $this->testExceptionWrapper(
-            exceptionClass: $exceptionClass,
-            exceptionMessage: $exceptionMessage,
+        $this->wrapExceptionTest(
             test: $test,
+            exceptionOrExceptionClass: $exceptionClass,
+            exceptionMessage: $exceptionMessage,
         );
     }
 
@@ -119,10 +119,10 @@ final class WidgetSettingsBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
             self::assertInstanceOf(WidgetSettings::class, $widgetSettings);
         };
 
-        $this->testExceptionWrapper(
-            exceptionClass: $exceptionClass,
-            exceptionMessage: $exceptionMessage,
+        $this->wrapExceptionTest(
             test: $test,
+            exceptionOrExceptionClass: $exceptionClass,
+            exceptionMessage: $exceptionMessage,
         );
     }
 
@@ -146,10 +146,10 @@ final class WidgetSettingsBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
             self::assertInstanceOf(WidgetSettings::class, $widgetSettings);
         };
 
-        $this->testExceptionWrapper(
-            exceptionClass: $exceptionClass,
-            exceptionMessage: $exceptionMessage,
+        $this->wrapExceptionTest(
             test: $test,
+            exceptionOrExceptionClass: $exceptionClass,
+            exceptionMessage: $exceptionMessage,
         );
     }
 }

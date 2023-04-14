@@ -8,11 +8,11 @@ final class MemoryUsage
 {
     protected const UNITS = ['B', 'KB', 'MB', 'GB', 'TB', 'PB'];
 
-    public static function report(?int $memoryUsage = null, ?string $prefix = null): string
+    public static function report(?string $prefix = null, ?int $bytes = null): string
     {
         $prefix ??= 'Memory usage: ';
         return
-            $prefix . self::format($memoryUsage ?? memory_get_peak_usage(true));
+            $prefix . self::format($bytes ?? memory_get_peak_usage(true));
     }
 
     private static function format(int $memoryUsage): string

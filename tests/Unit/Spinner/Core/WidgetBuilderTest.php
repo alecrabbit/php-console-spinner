@@ -64,11 +64,11 @@ final class WidgetBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
             self::assertInstanceOf(Widget::class, $widget);
         };
 
-        $this->testExceptionWrapper(
-            exceptionClass: $exceptionClass,
-            exceptionMessage: $exceptionMessage,
+        $this->wrapExceptionTest(
             test: $test,
-            method: __METHOD__,
+            exceptionOrExceptionClass: $exceptionClass,
+            exceptionMessage: $exceptionMessage,
+
         );
     }
 
@@ -91,11 +91,11 @@ final class WidgetBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
             self::assertInstanceOf(Widget::class, $widget);
         };
 
-        $this->testExceptionWrapper(
-            exceptionClass: $exceptionClass,
-            exceptionMessage: $exceptionMessage,
+        $this->wrapExceptionTest(
             test: $test,
-            method: __METHOD__,
+            exceptionOrExceptionClass: $exceptionClass,
+            exceptionMessage: $exceptionMessage,
+
         );
     }
 
@@ -118,11 +118,11 @@ final class WidgetBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
             self::assertInstanceOf(Widget::class, $widget);
         };
 
-        $this->testExceptionWrapper(
-            exceptionClass: $exceptionClass,
-            exceptionMessage: $exceptionMessage,
+        $this->wrapExceptionTest(
             test: $test,
-            method: __METHOD__,
+            exceptionOrExceptionClass: $exceptionClass,
+            exceptionMessage: $exceptionMessage,
+
         );
     }
 

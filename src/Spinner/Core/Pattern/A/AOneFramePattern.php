@@ -19,7 +19,7 @@ abstract class AOneFramePattern extends APattern
         $this->interval = new Interval();
     }
 
-    protected function pattern(): Traversable
+    protected function entries(): Traversable
     {
         yield from [
             $this->frame,

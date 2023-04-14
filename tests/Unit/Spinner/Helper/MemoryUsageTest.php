@@ -56,7 +56,7 @@ final class MemoryUsageTest extends TestCase
 
         $args = $incoming[self::ARGUMENTS];
 
-        $result = MemoryUsage::report($args[self::VALUE], $args[self::PREFIX] ?? null);
+        $result = MemoryUsage::report($args[self::PREFIX] ?? null, $args[self::VALUE]);
 
         if ($expectedException) {
             self::failTest($expectedException);

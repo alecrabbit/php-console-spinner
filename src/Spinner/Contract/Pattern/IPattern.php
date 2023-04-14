@@ -10,7 +10,7 @@ use Traversable;
 
 interface IPattern
 {
-    public function getPattern(): Traversable;
+    public function getEntries(): Traversable;
 
     public function getInterval(): IInterval;
 }

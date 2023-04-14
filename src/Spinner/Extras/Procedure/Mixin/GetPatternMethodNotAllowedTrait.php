@@ -13,7 +13,7 @@ trait GetPatternMethodNotAllowedTrait
     /**
      * @throws DomainException
      */
-    final public function getPattern(): Traversable
+    final public function getEntries(): Traversable
     {
         throw new DomainException(
             sprintf(

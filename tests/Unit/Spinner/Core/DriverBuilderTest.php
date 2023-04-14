@@ -82,11 +82,11 @@ final class DriverBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
             ;
         };
 
-        $this->testExceptionWrapper(
-            exceptionClass: $exceptionClass,
-            exceptionMessage: $exceptionMessage,
+        $this->wrapExceptionTest(
             test: $test,
-            method: __METHOD__,
+            exceptionOrExceptionClass: $exceptionClass,
+            exceptionMessage: $exceptionMessage,
+
         );
     }
 
@@ -105,11 +105,11 @@ final class DriverBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
             ;
         };
 
-        $this->testExceptionWrapper(
-            exceptionClass: $exceptionClass,
-            exceptionMessage: $exceptionMessage,
+        $this->wrapExceptionTest(
             test: $test,
-            method: __METHOD__,
+            exceptionOrExceptionClass: $exceptionClass,
+            exceptionMessage: $exceptionMessage,
+
         );
     }
 

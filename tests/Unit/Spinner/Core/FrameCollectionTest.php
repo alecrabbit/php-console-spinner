@@ -69,10 +69,10 @@ final class FrameCollectionTest extends TestCaseWithPrebuiltMocksAndStubs
             self::assertInstanceOf(FrameCollection::class, $frameCollection);
         };
 
-        $this->testExceptionWrapper(
-            exceptionClass: $exceptionClass,
-            exceptionMessage: $exceptionMessage,
+        $this->wrapExceptionTest(
             test: $test,
+            exceptionOrExceptionClass: $exceptionClass,
+            exceptionMessage: $exceptionMessage,
         );
     }
 
@@ -87,10 +87,10 @@ final class FrameCollectionTest extends TestCaseWithPrebuiltMocksAndStubs
             self::assertInstanceOf(FrameCollection::class, $frameCollection);
         };
 
-        $this->testExceptionWrapper(
-            exceptionClass: $exceptionClass,
-            exceptionMessage: $exceptionMessage,
+        $this->wrapExceptionTest(
             test: $test,
+            exceptionOrExceptionClass: $exceptionClass,
+            exceptionMessage: $exceptionMessage,
         );
     }
 

@@ -6,9 +6,9 @@ namespace AlecRabbit\Spinner\Core\Factory;
 
 use AlecRabbit\Spinner\Core\Contract\IDefaultsProvider;
 use AlecRabbit\Spinner\Core\Contract\IDriverAttacher;
+use AlecRabbit\Spinner\Core\Contract\Loop\Contract\ILoop;
 use AlecRabbit\Spinner\Core\DriverAttacher;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDriverAttacherSingletonFactory;
-use AlecRabbit\Spinner\Core\Loop\Contract\ILoop;
 
 final class DriverAttacherSingletonFactory implements IDriverAttacherSingletonFactory
 {

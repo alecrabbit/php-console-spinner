@@ -8,19 +8,13 @@ use AlecRabbit\Spinner\Container\Container;
 use AlecRabbit\Spinner\Container\Contract\IContainer;
 use AlecRabbit\Spinner\Container\Contract\IServiceSpawner;
 use AlecRabbit\Spinner\Container\ServiceSpawner;
-use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Contract\Option\OptionNormalizerMode;
 use AlecRabbit\Spinner\Contract\Option\OptionStyleMode;
 use AlecRabbit\Spinner\Contract\Output\IResourceStream;
-use AlecRabbit\Spinner\Contract\Output\ISequencer;
+
 use AlecRabbit\Spinner\Core\BufferedOutputBuilder;
-use AlecRabbit\Spinner\Core\CharFrameCollectionRenderer;
-use AlecRabbit\Spinner\Core\CharFrameRenderer;
-use AlecRabbit\Spinner\Core\Color\AnsiStyleConverter;
 use AlecRabbit\Spinner\Core\ConsoleCursorBuilder;
-use AlecRabbit\Spinner\Core\Contract\IAnsiStyleConverter;
 use AlecRabbit\Spinner\Core\Contract\IBufferedOutputBuilder;
-use AlecRabbit\Spinner\Core\Contract\ICharFrameCollectionRenderer;
 use AlecRabbit\Spinner\Core\Contract\ICharFrameRenderer;
 use AlecRabbit\Spinner\Core\Contract\IConsoleCursorBuilder;
 use AlecRabbit\Spinner\Core\Contract\IDefaultsProvider;
@@ -29,27 +23,21 @@ use AlecRabbit\Spinner\Core\Contract\IDriverAttacher;
 use AlecRabbit\Spinner\Core\Contract\IDriverBuilder;
 use AlecRabbit\Spinner\Core\Contract\IDriverOutputBuilder;
 use AlecRabbit\Spinner\Core\Contract\IDriverSetup;
-use AlecRabbit\Spinner\Core\Contract\IIntegerNormalizer;
 use AlecRabbit\Spinner\Core\Contract\IIntegerNormalizerBuilder;
 use AlecRabbit\Spinner\Core\Contract\IIntervalNormalizer;
 use AlecRabbit\Spinner\Core\Contract\ILoopSetup;
 use AlecRabbit\Spinner\Core\Contract\ILoopSetupBuilder;
-use AlecRabbit\Spinner\Core\Contract\ISignalProcessingProbe;
-use AlecRabbit\Spinner\Core\Contract\IStyleFrameCollectionRenderer;
-use AlecRabbit\Spinner\Core\Contract\IStyleFrameRenderer;
 use AlecRabbit\Spinner\Core\Contract\ITimerBuilder;
 use AlecRabbit\Spinner\Core\Contract\IWidthMeasurer;
+use AlecRabbit\Spinner\Core\Contract\Loop\Contract\ILoop;
 use AlecRabbit\Spinner\Core\Defaults\AuxSettingsBuilder;
-use AlecRabbit\Spinner\Core\Defaults\Contract\IAuxSettings;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IAuxSettingsBuilder;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDefaultsProviderBuilder;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDriverSettings;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDriverSettingsBuilder;
-use AlecRabbit\Spinner\Core\Defaults\Contract\ILoopSettingsFactory;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IWidgetSettingsBuilder;
 use AlecRabbit\Spinner\Core\Defaults\DefaultsProviderBuilder;
 use AlecRabbit\Spinner\Core\Defaults\DriverSettingsBuilder;
-use AlecRabbit\Spinner\Core\Defaults\LoopSettingsFactory;
 use AlecRabbit\Spinner\Core\Defaults\WidgetSettingsBuilder;
 use AlecRabbit\Spinner\Core\DriverBuilder;
 use AlecRabbit\Spinner\Core\DriverOutputBuilder;
@@ -62,26 +50,34 @@ use AlecRabbit\Spinner\Core\Factory\Contract\IDriverAttacherSingletonFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDriverOutputFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDriverSingletonFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IFrameFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\IHexColorToAnsiCodeConverterFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalNormalizerFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopProbeFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\ILoopSettingsFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopSetupFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopSingletonFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\ISignalProcessingProbeFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ISpinnerFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\IStyleFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\IStyleFrameRendererFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\IStyleRendererFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IStyleRevolverFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\IStyleToAnsiStringConverterFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ITimerFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IWidthMeasurerFactory;
-use AlecRabbit\Spinner\Core\IntegerNormalizer;
 use AlecRabbit\Spinner\Core\IntegerNormalizerBuilder;
-use AlecRabbit\Spinner\Core\Loop\Contract\ILoop;
 use AlecRabbit\Spinner\Core\LoopSetup;
 use AlecRabbit\Spinner\Core\LoopSetupBuilder;
 use AlecRabbit\Spinner\Core\Output\ResourceStream;
+use AlecRabbit\Spinner\Core\Render\CharFrameCollectionRenderer;
+use AlecRabbit\Spinner\Core\Render\CharFrameRenderer;
+use AlecRabbit\Spinner\Core\Render\Contract\ICharFrameCollectionRenderer;
+use AlecRabbit\Spinner\Core\Render\Contract\IStyleFrameCollectionRenderer;
+use AlecRabbit\Spinner\Core\Render\StyleFrameCollectionRenderer;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolverBuilder;
 use AlecRabbit\Spinner\Core\Revolver\FrameRevolverBuilder;
 use AlecRabbit\Spinner\Core\Sequencer;
-use AlecRabbit\Spinner\Core\StyleFrameCollectionRenderer;
-use AlecRabbit\Spinner\Core\StyleFrameRenderer;
 use AlecRabbit\Spinner\Core\TimerBuilder;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetBuilder;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolverBuilder;
@@ -137,12 +133,16 @@ final class ContainerSingletonFactory implements IContainerSingletonFactory
 
             ILoopSettingsFactory::class => static function (ContainerInterface $container): ILoopSettingsFactory {
                 $loopProbe = null;
-                $pcntlExtensionProbe = null;
+                $signalProcessingProbe = null;
                 try {
                     $loopProbe = $container->get(ILoopProbeFactory::class)->getProbe();
-                    $pcntlExtensionProbe = $container->get(ISignalProcessingProbe::class)->getProbe();
+                    $signalProcessingProbe = $container->get(ISignalProcessingProbeFactory::class)->getProbe();
                 } finally {
-                    return new LoopSettingsFactory($loopProbe, $pcntlExtensionProbe);
+                    return
+                        new LoopSettingsFactory(
+                            $loopProbe,
+                            $signalProcessingProbe
+                        );
                 }
             },
 
@@ -159,13 +159,13 @@ final class ContainerSingletonFactory implements IContainerSingletonFactory
             },
             IBufferedOutputSingletonFactory::class => BufferedOutputSingletonFactory::class,
             IResourceStream::class => static function (ContainerInterface $container): IResourceStream {
-                // TODO (2023-04-11 12:15) [Alec Rabbit]: get stream from DefaultsProvider
-                //  return $container->get(IDefaultsProvider::class)-> ~;
-                return new ResourceStream(STDERR);
+                /** @var IDefaultsProvider $provider */
+                $provider = $container->get(IDefaultsProvider::class);
+                return new ResourceStream($provider->getAuxSettings()->getOutputStream());
             },
             IConsoleCursorFactory::class => ConsoleCursorFactory::class,
             ITimerFactory::class => TimerFactory::class,
-            IAnsiStyleConverter::class => AnsiStyleConverter::class,
+            IHexColorToAnsiCodeConverterFactory::class => HexColorToAnsiCodeConverterFactory::class,
             IAuxSettingsBuilder::class => AuxSettingsBuilder::class,
             IBufferedOutputBuilder::class => BufferedOutputBuilder::class,
             ILoopSetupFactory::class => LoopSetupFactory::class,
@@ -191,24 +191,16 @@ final class ContainerSingletonFactory implements IContainerSingletonFactory
             ILoopSingletonFactory::class => LoopSingletonFactory::class,
             ILoopSetup::class => LoopSetup::class,
             ILoopSetupBuilder::class => LoopSetupBuilder::class,
-            ISequencer::class => Sequencer::class,
             IStyleFrameCollectionRenderer::class => StyleFrameCollectionRenderer::class,
-            IStyleFrameRenderer::class => StyleFrameRenderer::class,
+            IStyleFrameRendererFactory::class => StyleFrameRendererFactory::class,
+            IStyleToAnsiStringConverterFactory::class => StyleToAnsiStringConverterFactory::class,
+            IStyleRendererFactory::class => StyleRendererFactory::class,
+            IStyleFactory::class => StyleFactory::class,
             ITimerBuilder::class => TimerBuilder::class,
             IWidgetBuilder::class => WidgetBuilder::class,
             IWidgetRevolverBuilder::class => WidgetRevolverBuilder::class,
             IWidgetSettingsBuilder::class => WidgetSettingsBuilder::class,
             IWidthMeasurerFactory::class => WidthMeasurerFactory::class,
-
-            IIntegerNormalizer::class => static function (ContainerInterface $container): IIntegerNormalizer {
-                /** @var IAuxSettings $auxSettings */
-                $auxSettings = $container->get(IDefaultsProvider::class)->getAuxSettings();
-                return
-                    new IntegerNormalizer(
-                        $auxSettings->getOptionNormalizerMode()->getDivisor(),
-                        IInterval::MIN_INTERVAL_MILLISECONDS
-                    );
-            },
 
             OptionStyleMode::class => static function (ContainerInterface $container): OptionStyleMode {
                 return $container->get(IDefaultsProvider::class)->getAuxSettings()->getOptionStyleMode();

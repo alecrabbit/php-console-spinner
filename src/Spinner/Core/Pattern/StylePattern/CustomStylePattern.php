@@ -22,7 +22,7 @@ final class CustomStylePattern extends AStylePattern
         parent::__construct($interval, $reversed, $styleMode);
     }
 
-    protected function pattern(): Traversable
+    protected function entries(): Traversable
     {
         yield from $this->pattern;
     }

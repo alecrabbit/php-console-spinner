@@ -74,5 +74,4 @@ final readonly class RGBColor implements IStringableColor
     {
         return sprintf(self::HEX_FORMAT, $this->red, $this->green, $this->blue);
     }
-
 }
