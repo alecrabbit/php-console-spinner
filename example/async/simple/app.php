@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 use AlecRabbit\Spinner\Core\Config\SpinnerConfig;
 use AlecRabbit\Spinner\Core\Config\WidgetConfig;
-use AlecRabbit\Spinner\Core\Pattern\CharPattern\Monkey;
+use AlecRabbit\Spinner\Core\Pattern\CharPattern\Aesthetic;
 use AlecRabbit\Spinner\Facade;
 use AlecRabbit\Spinner\Helper\MemoryUsage;
 
@@ -15,7 +15,7 @@ echo '--' . PHP_EOL;
 $config =
     new SpinnerConfig(
         new WidgetConfig(
-            charPattern: new Monkey()
+            charPattern: new Aesthetic()
         )
     );
 
