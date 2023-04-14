@@ -82,7 +82,7 @@ final class StyleRendererTest extends TestCaseWithPrebuiltMocksAndStubs
             $this->getTesteeInstance()->render($style, OptionStyleMode::ANSI8);
         };
 
-        $this->testExceptionWrapper(
+        $this->wrapExceptionTest(
             exceptionClass: $exceptionClass,
             exceptionMessage: $exceptionMessage,
             test: $test,

@@ -87,7 +87,7 @@ abstract class TestCase extends PHPUnitTestCase
         return null;
     }
 
-    protected function testExceptionWrapper(
+    protected function wrapExceptionTest(
         string $exceptionClass,
         string $exceptionMessage,
         callable $test,

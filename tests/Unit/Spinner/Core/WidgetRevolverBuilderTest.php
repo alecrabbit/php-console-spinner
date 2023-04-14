@@ -61,7 +61,7 @@ final class WidgetRevolverBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
             self::assertInstanceOf(Widget::class, $widgetRevolver);
         };
 
-        $this->testExceptionWrapper(
+        $this->wrapExceptionTest(
             exceptionClass: $exceptionClass,
             exceptionMessage: $exceptionMessage,
             test: $test,
@@ -85,7 +85,7 @@ final class WidgetRevolverBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
             self::assertInstanceOf(Widget::class, $widgetRevolver);
         };
 
-        $this->testExceptionWrapper(
+        $this->wrapExceptionTest(
             exceptionClass: $exceptionClass,
             exceptionMessage: $exceptionMessage,
             test: $test,

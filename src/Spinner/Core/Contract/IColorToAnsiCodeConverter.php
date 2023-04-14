@@ -14,5 +14,5 @@ interface IColorToAnsiCodeConverter
     /**
      * @throws InvalidArgumentException
      */
-    public function ansiCode(int|string $color): string;
+    public function ansiCode(string $color): string;
 }

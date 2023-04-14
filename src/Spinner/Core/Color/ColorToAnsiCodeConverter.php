@@ -18,20 +18,29 @@ final class ColorToAnsiCodeConverter implements IColorToAnsiCodeConverter
     public function __construct(
         protected OptionStyleMode $styleMode,
     ) {
+        self::assert($this);
+    }
+
+    protected static function assert(self $obj): void
+    {
+        if ($obj->styleMode === OptionStyleMode::NONE) {
+            throw new InvalidArgumentException(
+                sprintf(
+                    'Unsupported style mode "%s".',
+                    $obj->styleMode->name,
+                )
+            );
+        }
     }
 
     /** @inheritdoc */
-    public function ansiCode(int|string $color): string
+    public function ansiCode(string $color): string
     {
-        $this->assertColor($color, $this->styleMode);
-
-        $color24 = (string)$color;
-
         return
             match ($this->styleMode) {
                 OptionStyleMode::ANSI4 => $this->convert4($color),
                 OptionStyleMode::ANSI8 => $this->convert8($color),
-                OptionStyleMode::ANSI24 => $this->convert24($color24),
+                OptionStyleMode::ANSI24 => $this->convert24($color),
                 default => throw new LogicException(
                     sprintf(
                         '%s::%s: Unable to convert "%s" to ansi code.',

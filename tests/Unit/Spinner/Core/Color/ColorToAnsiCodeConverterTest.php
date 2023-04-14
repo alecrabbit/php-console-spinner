@@ -7,6 +7,7 @@ namespace AlecRabbit\Tests\Unit\Spinner\Core\Color;
 use AlecRabbit\Spinner\Contract\Option\OptionStyleMode;
 use AlecRabbit\Spinner\Core\Color\ColorToAnsiCodeConverter;
 use AlecRabbit\Spinner\Core\Contract\IColorToAnsiCodeConverter;
+use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
@@ -314,7 +315,7 @@ final class ColorToAnsiCodeConverterTest extends TestCaseWithPrebuiltMocksAndStu
     ): IColorToAnsiCodeConverter {
         return
             new ColorToAnsiCodeConverter(
-                styleMode: $styleMode ?? OptionStyleMode::NONE,
+                styleMode: $styleMode ?? OptionStyleMode::ANSI24,
             );
     }
 
@@ -339,26 +340,20 @@ final class ColorToAnsiCodeConverterTest extends TestCaseWithPrebuiltMocksAndStu
         self::assertSame($expected[self::RESULT], $result);
     }
 
-//    #[Test]
-//    public function throwsIfStyleIsEmpty(): void
-//    {
-//        $exceptionClass = InvalidArgumentException::class;
-//        $exceptionMessage = 'Style is empty.';
-//
-//        $test = function () {
-//            $style = $this->getStyleMock();
-//            $style
-//                ->expects(self::once())
-//                ->method('isEmpty')
-//                ->willReturn(true)
-//            ;
-//            $this->getTesteeInstance()->render($style) ;
-//        };
-//
-//        $this->testExceptionWrapper(
-//            exceptionClass: $exceptionClass,
-//            exceptionMessage: $exceptionMessage,
-//            test: $test,
-//        );
-//    }
+    #[Test]
+    public function throwsIfStyleModeIsNone(): void
+    {
+        $exceptionClass = InvalidArgumentException::class;
+        $exceptionMessage = 'Unsupported style mode "NONE".';
+
+        $test = function () {
+            $this->getTesteeInstance(styleMode: OptionStyleMode::NONE);
+        };
+
+        $this->wrapExceptionTest(
+            exceptionClass: $exceptionClass,
+            exceptionMessage: $exceptionMessage,
+            test: $test,
+        );
+    }
 }

@@ -73,7 +73,7 @@ final class CharFrameRendererTest extends TestCaseWithPrebuiltMocksAndStubs
             $this->getTesteeInstance()->render(1);
         };
 
-        $this->testExceptionWrapper(
+        $this->wrapExceptionTest(
             exceptionClass: $exceptionClass,
             exceptionMessage: $exceptionMessage,
             test: $test,
