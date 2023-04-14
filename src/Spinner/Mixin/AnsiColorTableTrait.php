@@ -265,5 +265,4 @@ trait AnsiColorTableTrait
         254 => '#e4e4e4',
         255 => '#eeeeee',
     ];
-
 }

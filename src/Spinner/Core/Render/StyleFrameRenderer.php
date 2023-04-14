@@ -14,7 +14,6 @@ use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 
 final class StyleFrameRenderer implements IStyleFrameRenderer
 {
-
     public function __construct(
         protected IFrameFactory $frameFactory,
         protected IStyleRenderer $styleRenderer,
@@ -53,10 +52,5 @@ final class StyleFrameRenderer implements IStyleFrameRenderer
     public function emptyFrame(): IFrame
     {
         return $this->frameFactory->create('%s', 0);
-    }
-
-    public function useLowestStyleMode(OptionStyleMode $styleMode): void
-    {
-        $this->styleMode = $this->styleMode->lowest($styleMode);
     }
 }

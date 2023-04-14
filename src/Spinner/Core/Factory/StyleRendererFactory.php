@@ -5,16 +5,14 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Factory;
 
 use AlecRabbit\Spinner\Contract\Option\OptionStyleMode;
-use AlecRabbit\Spinner\Contract\Output\ISequencer;
-use AlecRabbit\Spinner\Core\Contract\IAnsiStyleConverter;
+use AlecRabbit\Spinner\Core\Factory\Contract\IStyleToAnsiStringConverterFactory;
 use AlecRabbit\Spinner\Core\Render\Contract\IStyleRenderer;
 use AlecRabbit\Spinner\Core\Render\StyleRenderer;
 
 final class StyleRendererFactory implements Contract\IStyleRendererFactory
 {
     public function __construct(
-        protected IAnsiStyleConverter $converter,
-        protected ISequencer $sequencer,
+        protected IStyleToAnsiStringConverterFactory $converterFactory,
     ) {
     }
 
@@ -22,9 +20,7 @@ final class StyleRendererFactory implements Contract\IStyleRendererFactory
     {
         return
             new StyleRenderer(
-                converter: $this->converter,
-                sequencer: $this->sequencer,
-                styleMode: $styleMode,
+                converter: $this->converterFactory->create($styleMode),
             );
     }
 }

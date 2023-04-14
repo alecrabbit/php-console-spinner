@@ -13,9 +13,9 @@ use AlecRabbit\Spinner\Contract\Option\OptionStyleMode;
 use AlecRabbit\Spinner\Contract\Output\IResourceStream;
 use AlecRabbit\Spinner\Contract\Output\ISequencer;
 use AlecRabbit\Spinner\Core\BufferedOutputBuilder;
-use AlecRabbit\Spinner\Core\Color\AnsiStyleConverter;
+use AlecRabbit\Spinner\Core\Color\ColorToAnsiCodeConverter;
 use AlecRabbit\Spinner\Core\ConsoleCursorBuilder;
-use AlecRabbit\Spinner\Core\Contract\IAnsiStyleConverter;
+use AlecRabbit\Spinner\Core\Contract\IColorToAnsiCodeConverter;
 use AlecRabbit\Spinner\Core\Contract\IBufferedOutputBuilder;
 use AlecRabbit\Spinner\Core\Contract\ICharFrameRenderer;
 use AlecRabbit\Spinner\Core\Contract\IConsoleCursorBuilder;
@@ -166,7 +166,7 @@ final class ContainerSingletonFactory implements IContainerSingletonFactory
             },
             IConsoleCursorFactory::class => ConsoleCursorFactory::class,
             ITimerFactory::class => TimerFactory::class,
-            IAnsiStyleConverter::class => AnsiStyleConverter::class,
+            IColorToAnsiCodeConverter::class => ColorToAnsiCodeConverter::class,
             IAuxSettingsBuilder::class => AuxSettingsBuilder::class,
             IBufferedOutputBuilder::class => BufferedOutputBuilder::class,
             ILoopSetupFactory::class => LoopSetupFactory::class,

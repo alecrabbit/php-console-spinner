@@ -15,7 +15,7 @@ use AlecRabbit\Spinner\Contract\Output\IResourceStream;
 use AlecRabbit\Spinner\Contract\Output\ISequencer;
 use AlecRabbit\Spinner\Contract\Pattern\IPattern;
 use AlecRabbit\Spinner\Core\Config\Contract\IWidgetConfig;
-use AlecRabbit\Spinner\Core\Contract\IAnsiStyleConverter;
+use AlecRabbit\Spinner\Core\Contract\IColorToAnsiCodeConverter;
 use AlecRabbit\Spinner\Core\Contract\IBufferedOutputBuilder;
 use AlecRabbit\Spinner\Core\Contract\IConfigBuilder;
 use AlecRabbit\Spinner\Core\Contract\IConsoleCursorBuilder;
@@ -54,6 +54,7 @@ use AlecRabbit\Spinner\Core\Loop\Contract\ILoopProbe;
 use AlecRabbit\Spinner\Core\Output\Contract\IConsoleCursor;
 use AlecRabbit\Spinner\Core\Output\Contract\IDriverOutput;
 use AlecRabbit\Spinner\Core\Render\Contract\IStyleRenderer;
+use AlecRabbit\Spinner\Core\Render\Contract\IStyleToAnsiStringConverter;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetBuilder;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
@@ -165,9 +166,9 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
         return $this->createMock(ISequencer::class);
     }
 
-    protected function getAnsiStyleConverterMock(): MockObject&IAnsiStyleConverter
+    protected function getAnsiStyleConverterMock(): MockObject&IColorToAnsiCodeConverter
     {
-        return $this->createMock(IAnsiStyleConverter::class);
+        return $this->createMock(IColorToAnsiCodeConverter::class);
     }
 
     protected function getOutputBuilderMock(): MockObject&IBufferedOutputBuilder
@@ -388,5 +389,9 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
     protected function getStyleMock(): MockObject&IStyle
     {
         return $this->createMock(IStyle::class);
+    }
+    protected function getStyleToAnsiStringConverterMock(): MockObject&IStyleToAnsiStringConverter
+    {
+        return $this->createMock(IStyleToAnsiStringConverter::class);
     }
 }
