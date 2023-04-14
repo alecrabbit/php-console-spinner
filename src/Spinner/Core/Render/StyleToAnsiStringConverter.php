@@ -5,33 +5,29 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Render;
 
 use AlecRabbit\Spinner\Contract\Color\Style\IStyle;
-use AlecRabbit\Spinner\Contract\Option\OptionStyleMode;
 use AlecRabbit\Spinner\Contract\Output\ISequencer;
+use AlecRabbit\Spinner\Core\Contract\IHexColorToAnsiCodeConverter;
 use AlecRabbit\Spinner\Core\Render\Contract\IStyleToAnsiStringConverter;
 
 final class StyleToAnsiStringConverter implements IStyleToAnsiStringConverter
 {
     public function __construct(
-        protected OptionStyleMode $styleMode,
+        protected IHexColorToAnsiCodeConverter $converter,
         protected ISequencer $sequencer,
     ) {
     }
 
     public function convert(IStyle $style): string
     {
-        if ($this->styleMode === OptionStyleMode::NONE || $style->isEmpty()) {
+        if ($style->isEmpty()) {
             return $style->getFormat();
         }
 
-        return '';
-//        return
-//            dump(
-//                $this->sequencer->colorSequence(
-//                    '3' .
-//                    $this->converter->ansiCode($style->getFgColor(), $this->styleMode) . 'm' .
-//                    $style->getFormat()
-//                )
-//            );
-//
+        return
+            $this->sequencer->colorSequence(
+                '3' .
+                $this->converter->ansiCode($style->getFgColor()) . 'm' .
+                $style->getFormat()
+            );
     }
 }

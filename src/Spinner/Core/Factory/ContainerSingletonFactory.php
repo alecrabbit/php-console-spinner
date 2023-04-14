@@ -23,24 +23,21 @@ use AlecRabbit\Spinner\Core\Contract\IDriverAttacher;
 use AlecRabbit\Spinner\Core\Contract\IDriverBuilder;
 use AlecRabbit\Spinner\Core\Contract\IDriverOutputBuilder;
 use AlecRabbit\Spinner\Core\Contract\IDriverSetup;
-use AlecRabbit\Spinner\Core\Contract\IHexColorToAnsiCodeConverter;
 use AlecRabbit\Spinner\Core\Contract\IIntegerNormalizerBuilder;
 use AlecRabbit\Spinner\Core\Contract\IIntervalNormalizer;
 use AlecRabbit\Spinner\Core\Contract\ILoopSetup;
 use AlecRabbit\Spinner\Core\Contract\ILoopSetupBuilder;
-use AlecRabbit\Spinner\Core\Contract\ISignalProcessingProbe;
 use AlecRabbit\Spinner\Core\Contract\ITimerBuilder;
 use AlecRabbit\Spinner\Core\Contract\IWidthMeasurer;
+use AlecRabbit\Spinner\Core\Contract\Loop\Contract\ILoop;
 use AlecRabbit\Spinner\Core\Defaults\AuxSettingsBuilder;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IAuxSettingsBuilder;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDefaultsProviderBuilder;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDriverSettings;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDriverSettingsBuilder;
-use AlecRabbit\Spinner\Core\Defaults\Contract\ILoopSettingsFactory;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IWidgetSettingsBuilder;
 use AlecRabbit\Spinner\Core\Defaults\DefaultsProviderBuilder;
 use AlecRabbit\Spinner\Core\Defaults\DriverSettingsBuilder;
-use AlecRabbit\Spinner\Core\Defaults\LoopSettingsFactory;
 use AlecRabbit\Spinner\Core\Defaults\WidgetSettingsBuilder;
 use AlecRabbit\Spinner\Core\DriverBuilder;
 use AlecRabbit\Spinner\Core\DriverOutputBuilder;
@@ -53,9 +50,11 @@ use AlecRabbit\Spinner\Core\Factory\Contract\IDriverAttacherSingletonFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDriverOutputFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDriverSingletonFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IFrameFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\IHexColorToAnsiCodeConverterFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalNormalizerFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopProbeFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\ILoopSettingsFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopSetupFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopSingletonFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ISignalProcessingProbeFactory;
@@ -64,10 +63,10 @@ use AlecRabbit\Spinner\Core\Factory\Contract\IStyleFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IStyleFrameRendererFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IStyleRendererFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IStyleRevolverFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\IStyleToAnsiStringConverterFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ITimerFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IWidthMeasurerFactory;
 use AlecRabbit\Spinner\Core\IntegerNormalizerBuilder;
-use AlecRabbit\Spinner\Core\Loop\Contract\ILoop;
 use AlecRabbit\Spinner\Core\LoopSetup;
 use AlecRabbit\Spinner\Core\LoopSetupBuilder;
 use AlecRabbit\Spinner\Core\Output\ResourceStream;
@@ -89,7 +88,6 @@ use AlecRabbit\Spinner\Core\Widget\Factory\WidgetRevolverFactory;
 use AlecRabbit\Spinner\Core\Widget\WidgetBuilder;
 use AlecRabbit\Spinner\Core\Widget\WidgetRevolverBuilder;
 use AlecRabbit\Spinner\Exception\DomainException;
-use AlecRabbit\Spinner\Core\Color\HexColorToAnsiCodeConverter;
 use Psr\Container\ContainerInterface;
 use Traversable;
 
@@ -167,7 +165,7 @@ final class ContainerSingletonFactory implements IContainerSingletonFactory
             },
             IConsoleCursorFactory::class => ConsoleCursorFactory::class,
             ITimerFactory::class => TimerFactory::class,
-            IHexColorToAnsiCodeConverter::class => HexColorToAnsiCodeConverter::class,
+            IHexColorToAnsiCodeConverterFactory::class => HexColorToAnsiCodeConverterFactory::class,
             IAuxSettingsBuilder::class => AuxSettingsBuilder::class,
             IBufferedOutputBuilder::class => BufferedOutputBuilder::class,
             ILoopSetupFactory::class => LoopSetupFactory::class,
@@ -196,6 +194,7 @@ final class ContainerSingletonFactory implements IContainerSingletonFactory
             ISequencer::class => Sequencer::class,
             IStyleFrameCollectionRenderer::class => StyleFrameCollectionRenderer::class,
             IStyleFrameRendererFactory::class => StyleFrameRendererFactory::class,
+            IStyleToAnsiStringConverterFactory::class => StyleToAnsiStringConverterFactory::class,
             IStyleRendererFactory::class => StyleRendererFactory::class,
             IStyleFactory::class => StyleFactory::class,
             ITimerBuilder::class => TimerBuilder::class,

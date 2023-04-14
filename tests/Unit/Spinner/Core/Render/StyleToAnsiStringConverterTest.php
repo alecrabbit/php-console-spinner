@@ -49,12 +49,11 @@ final class StyleToAnsiStringConverterTest extends TestCaseWithPrebuiltMocksAndS
     }
 
     public function getTesteeInstance(
-        ?OptionStyleMode $styleMode = null,
         ?ISequencer $sequencer = null,
     ): IStyleToAnsiStringConverter {
         return
             new StyleToAnsiStringConverter(
-                styleMode: $styleMode ?? OptionStyleMode::NONE,
+                converter: $this->getHexColorToAnsiCodeConverterMock(),
                 sequencer: $sequencer ?? $this->getSequencerMock(),
             );
     }
@@ -62,70 +61,20 @@ final class StyleToAnsiStringConverterTest extends TestCaseWithPrebuiltMocksAndS
     #[Test]
     public function returnsStyleFormatIfStyleIsEmpty(): void
     {
-        $converter = $this->getTesteeInstance(
-            styleMode: OptionStyleMode::ANSI24,
-        );
+        $converter = $this->getTesteeInstance();
 
         self::assertInstanceOf(StyleToAnsiStringConverter::class, $converter);
-        $style = new Style();
-        self::assertTrue($style->isEmpty());
-        self::assertSame($style->getFormat(), $converter->convert($style),);
+        $style = $this->getStyleMock();
+        $style
+            ->expects(self::once())
+            ->method('isEmpty')
+            ->willReturn(true)
+        ;
+        $style
+            ->expects(self::once())
+            ->method('getFormat')
+            ->willReturn('%s')
+        ;
+        self::assertSame('%s', $converter->convert($style));
     }
-
-    #[Test]
-    public function returnsStyleFormatIfStyleIsNotEmptyButStyleModeIsNone(): void
-    {
-        $converter = $this->getTesteeInstance(
-            styleMode: OptionStyleMode::NONE,
-        );
-
-        self::assertInstanceOf(StyleToAnsiStringConverter::class, $converter);
-        $style = new Style(fgColor: 'red');
-        self::assertFalse($style->isEmpty());
-        self::assertSame($style->getFormat(), $converter->convert($style),);
-    }
-
-//    #[Test]
-//    #[DataProvider('canConvertDataProvider')]
-//    public function canConvert(array $expected, array $incoming): void
-//    {
-//        $expectedException = $this->expectsException($expected);
-//
-//        $args = $incoming[self::ARGUMENTS];
-//
-//        $converter = $this->getTesteeInstance(
-//            styleMode: $args[self::STYLE_MODE] ?? OptionStyleMode::NONE,
-//        );
-//
-//        $result = $converter->convert($args[self::STYLE]);
-//
-//        if ($expectedException) {
-//            self::failTest($expectedException);
-//        }
-//
-//        self::assertSame($expected[self::RESULT], $result);
-//    }
-
-//    #[Test]
-//    public function throwsIfStyleIsEmpty(): void
-//    {
-//        $exceptionClass = InvalidArgumentException::class;
-//        $exceptionMessage = 'Style is empty.';
-//
-//        $test = function () {
-//            $style = $this->getStyleMock();
-//            $style
-//                ->expects(self::once())
-//                ->method('isEmpty')
-//                ->willReturn(true)
-//            ;
-//            $this->getTesteeInstance()->render($style) ;
-//        };
-//
-//        $this->testExceptionWrapper(
-//            exceptionClass: $exceptionClass,
-//            exceptionMessage: $exceptionMessage,
-//            test: $test,
-//        );
-//    }
 }

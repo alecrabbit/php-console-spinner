@@ -43,7 +43,7 @@ final class StyleFrameRenderer implements IStyleFrameRenderer
 
         return
             $this->frameFactory->create(
-                $this->styleRenderer->render($style, $this->styleMode),
+                $this->styleRenderer->render($style),
                 $style->getWidth()
             );
     }

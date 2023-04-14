@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Defaults;
 
 use AlecRabbit\Spinner\Core\Contract\ISignalProcessingProbe;
-use AlecRabbit\Spinner\Core\Defaults\Contract\ILoopSettingsFactory;
+use AlecRabbit\Spinner\Core\Contract\Loop\Contract\ILoopProbe;
 use AlecRabbit\Spinner\Core\Defaults\LoopSettings;
-use AlecRabbit\Spinner\Core\Defaults\LoopSettingsFactory;
-use AlecRabbit\Spinner\Core\Loop\Contract\ILoopProbe;
+use AlecRabbit\Spinner\Core\Factory\Contract\ILoopSettingsFactory;
+use AlecRabbit\Spinner\Core\Factory\LoopSettingsFactory;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use AlecRabbit\Tests\Unit\Spinner\Core\Defaults\Override\LoopProbeStub;
 use AlecRabbit\Tests\Unit\Spinner\Core\Defaults\Override\SignalProcessingProbeStub;

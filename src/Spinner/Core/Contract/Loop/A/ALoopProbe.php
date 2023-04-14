@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Spinner\Core\Loop\A;
+namespace AlecRabbit\Spinner\Core\Contract\Loop\A;
 
-use AlecRabbit\Spinner\Core\Loop\Contract\ILoop;
-use AlecRabbit\Spinner\Core\Loop\Contract\ILoopProbe;
+use AlecRabbit\Spinner\Core\Contract\Loop\Contract\ILoop;
+use AlecRabbit\Spinner\Core\Contract\Loop\Contract\ILoopProbe;
 
 abstract class ALoopProbe implements ILoopProbe
 {

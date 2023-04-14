@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Asynchronous\Factory\Stub;
 
-use AlecRabbit\Spinner\Core\Loop\A\ALoopProbe;
-use AlecRabbit\Spinner\Core\Loop\Contract\ILoop;
+use AlecRabbit\Spinner\Core\Contract\Loop\A\ALoopProbe;
+use AlecRabbit\Spinner\Core\Contract\Loop\Contract\ILoop;
 use AlecRabbit\Tests\Unit\Spinner\Asynchronous\Override\ALoopAdapterOverride;
 
 final class LoopProbeStub extends ALoopProbe

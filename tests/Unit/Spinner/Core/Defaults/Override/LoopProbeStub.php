@@ -4,8 +4,8 @@ declare(strict_types=1);
 // 12.04.23
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Defaults\Override;
 
-use AlecRabbit\Spinner\Core\Loop\Contract\ILoop;
-use AlecRabbit\Spinner\Core\Loop\Contract\ILoopProbe;
+use AlecRabbit\Spinner\Core\Contract\Loop\Contract\ILoop;
+use AlecRabbit\Spinner\Core\Contract\Loop\Contract\ILoopProbe;
 use RuntimeException;
 
 final class LoopProbeStub implements ILoopProbe

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 // 12.04.23
-namespace AlecRabbit\Spinner\Core\Defaults;
+namespace AlecRabbit\Spinner\Core\Config;
 
 use AlecRabbit\Spinner\Core\Config\Contract\ISpinnerConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IWidgetConfig;

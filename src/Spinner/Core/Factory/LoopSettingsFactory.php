@@ -2,14 +2,15 @@
 
 declare(strict_types=1);
 // 05.04.23
-namespace AlecRabbit\Spinner\Core\Defaults;
+namespace AlecRabbit\Spinner\Core\Factory;
 
 use AlecRabbit\Spinner\Contract\Option\OptionAttachHandlers;
 use AlecRabbit\Spinner\Contract\Option\OptionAutoStart;
 use AlecRabbit\Spinner\Core\Contract\ISignalProcessingProbe;
+use AlecRabbit\Spinner\Core\Contract\Loop\Contract\ILoopProbe;
 use AlecRabbit\Spinner\Core\Defaults\Contract\ILoopSettings;
-use AlecRabbit\Spinner\Core\Defaults\Contract\ILoopSettingsFactory;
-use AlecRabbit\Spinner\Core\Loop\Contract\ILoopProbe;
+use AlecRabbit\Spinner\Core\Defaults\LoopSettings;
+use AlecRabbit\Spinner\Core\Factory\Contract\ILoopSettingsFactory;
 
 final class LoopSettingsFactory implements ILoopSettingsFactory
 {
