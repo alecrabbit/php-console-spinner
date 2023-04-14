@@ -8,7 +8,7 @@ use AlecRabbit\Spinner\Contract\Color\IColor;
 use AlecRabbit\Spinner\Core\Color\HSLColor;
 use AlecRabbit\Spinner\Core\Color\RGBColor;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
-use AlecRabbit\Spinner\Extras\Contract\IColorConverter;
+use AlecRabbit\Spinner\Extras\Color\Contract\IColorProcessor;
 use AlecRabbit\Spinner\Helper\Asserter;
 use AlecRabbit\Spinner\Helper\Stringify;
 use Generator;
@@ -23,7 +23,7 @@ use function min;
 use function round;
 use function sprintf;
 
-final class ColorConverter implements IColorConverter
+final class ColorProcessor implements IColorProcessor
 {
     /** @inheritdoc */
     public function toHSL(string|IColor $color): HSLColor

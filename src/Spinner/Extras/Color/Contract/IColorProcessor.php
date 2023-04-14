@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 // 22.03.23
-namespace AlecRabbit\Spinner\Extras\Contract;
+namespace AlecRabbit\Spinner\Extras\Color\Contract;
 
 use AlecRabbit\Spinner\Contract\Color\IColor;
 use AlecRabbit\Spinner\Core\Color\HSLColor;
@@ -11,7 +11,7 @@ use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use Generator;
 use Traversable;
 
-interface IColorConverter
+interface IColorProcessor
 {
     /**
      * Converts a color to RGB.

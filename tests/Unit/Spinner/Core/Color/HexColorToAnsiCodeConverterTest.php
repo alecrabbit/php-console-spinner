@@ -48,14 +48,6 @@ final class HexColorToAnsiCodeConverterTest extends TestCaseWithPrebuiltMocksAnd
             ['5', '#800080', $ansi4],
             ['6', '#008080', $ansi4],
             ['7', '#c0c0c0', $ansi4],
-
-//            ['0', '#023010', $ansi4],
-//            ['0', '#761176', $ansi4], // color degrading
-//            ['4', '#00008f', $ansi4], // color degrading
-//            ['5', '#861185', $ansi4], // color degrading
-//            ['5', '#d75f87', $ansi4], // color degrading
-//            ['5', '#d134f2', $ansi4], // color degrading
-
             ['8;5;16', '#000000', $ansi8],
             ['8;5;17', '#00005f', $ansi8],
             ['8;5;18', '#000087', $ansi8],
@@ -299,11 +291,6 @@ final class HexColorToAnsiCodeConverterTest extends TestCaseWithPrebuiltMocksAnd
             ['8;5;238', '#444', $ansi8],
             ['8;5;255', '#eee', $ansi8],
             ['8;5;231', '#fff', $ansi8],
-//            ['8;5;59', '#434544', $ansi8],
-//            ['8;5;238', '#454545', $ansi8],
-//            ['8;5;231', '#fafafa', $ansi8],
-//            ['8;5;16', '#070707', $ansi8],
-
             ['8;2;198;198;198', '#c6c6c6', $ansi24],
             ['8;2;255;135;135', '#ff8787', $ansi24],
             ['8;2;255;95;0', '#ff5f00', $ansi24],
