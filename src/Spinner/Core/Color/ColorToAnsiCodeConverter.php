@@ -19,11 +19,14 @@ final class ColorToAnsiCodeConverter extends AColorToAnsiCodeConverter implement
         return
             match ($this->styleMode) {
                 OptionStyleMode::ANSI4 => $this->convert4($color),
-                OptionStyleMode::ANSI24 => $this->convertFromHexToAnsiColorCode($color),
-                default => $this->convert8($color),
+                OptionStyleMode::ANSI8 => $this->convert8($color),
+                default => $this->convertHexColorToAnsiColorCode($color),
             };
     }
 
+    /**
+     * @throws InvalidArgumentException
+     */
     protected function convert4(string $color): string
     {
         $index = Ansi4Color::getIndex($color);
@@ -32,13 +35,13 @@ final class ColorToAnsiCodeConverter extends AColorToAnsiCodeConverter implement
             return (string)$index;
         }
 
-        return $this->convertFromHexToAnsiColorCode($color);
+        return $this->convertHexColorToAnsiColorCode($color);
     }
 
     /**
      * @throws InvalidArgumentException
      */
-    protected function convertFromHexToAnsiColorCode(string $hexColor): string
+    protected function convertHexColorToAnsiColorCode(string $hexColor): string
     {
         $color = $this->toInt($hexColor);
 
@@ -142,6 +145,6 @@ final class ColorToAnsiCodeConverter extends AColorToAnsiCodeConverter implement
             return '8;5;' . $index;
         }
 
-        return $this->convertFromHexToAnsiColorCode($color);
+        return $this->convertHexColorToAnsiColorCode($color);
     }
 }
