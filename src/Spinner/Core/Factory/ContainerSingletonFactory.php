@@ -58,6 +58,7 @@ use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalNormalizerFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopProbeFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopSetupFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopSingletonFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\ISignalProcessingProbeFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ISpinnerFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IStyleFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IStyleFrameRendererFactory;
@@ -134,12 +135,16 @@ final class ContainerSingletonFactory implements IContainerSingletonFactory
 
             ILoopSettingsFactory::class => static function (ContainerInterface $container): ILoopSettingsFactory {
                 $loopProbe = null;
-                $pcntlExtensionProbe = null;
+                $signalProcessingProbe = null;
                 try {
                     $loopProbe = $container->get(ILoopProbeFactory::class)->getProbe();
-                    $pcntlExtensionProbe = $container->get(ISignalProcessingProbe::class)->getProbe();
+                    $signalProcessingProbe = $container->get(ISignalProcessingProbeFactory::class)->getProbe();
                 } finally {
-                    return new LoopSettingsFactory($loopProbe, $pcntlExtensionProbe);
+                    return
+                        new LoopSettingsFactory(
+                            $loopProbe,
+                            $signalProcessingProbe
+                        );
                 }
             },
 
@@ -156,9 +161,9 @@ final class ContainerSingletonFactory implements IContainerSingletonFactory
             },
             IBufferedOutputSingletonFactory::class => BufferedOutputSingletonFactory::class,
             IResourceStream::class => static function (ContainerInterface $container): IResourceStream {
-                // TODO (2023-04-11 12:15) [Alec Rabbit]: get stream from DefaultsProvider
-                //  return $container->get(IDefaultsProvider::class)-> ~;
-                return new ResourceStream(STDERR);
+                /** @var IDefaultsProvider $provider */
+                $provider = $container->get(IDefaultsProvider::class);
+                return new ResourceStream($provider->getAuxSettings()->getOutputStream());
             },
             IConsoleCursorFactory::class => ConsoleCursorFactory::class,
             ITimerFactory::class => TimerFactory::class,
