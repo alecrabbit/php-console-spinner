@@ -7,9 +7,9 @@ namespace AlecRabbit\Spinner\Core\Render;
 use AlecRabbit\Spinner\Contract\Color\Style\IStyle;
 use AlecRabbit\Spinner\Contract\Color\Style\IStyleOptions;
 use AlecRabbit\Spinner\Contract\Color\Style\StyleOption;
-use AlecRabbit\Spinner\Core\Contract\IHexColorToAnsiCodeConverter;
 use AlecRabbit\Spinner\Core\Render\Contract\IStyleToAnsiStringConverter;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
+use AlecRabbit\Spinner\Extras\Color\Contract\IAnsiColorParser;
 
 use function count;
 
@@ -19,7 +19,7 @@ final class StyleToAnsiStringConverter implements IStyleToAnsiStringConverter
     private const UNSET = 'unset';
 
     public function __construct(
-        protected IHexColorToAnsiCodeConverter $converter,
+        protected IAnsiColorParser $parser,
     ) {
     }
 
@@ -29,26 +29,30 @@ final class StyleToAnsiStringConverter implements IStyleToAnsiStringConverter
             return $style->getFormat();
         }
 
-        $fg = $this->parse((string)$style->getFgColor());
-        $bg = $this->parse((string)$style->getBgColor(), true);
+        $fg = $this->fg($style);
+        $bg = $this->bg($style);
 
-        $options = $style->hasOptions() ? $this->parseOptions($style->getOptions()) : [];
+        $options = $this->options($style);
 
         return
             $this->set($fg, $bg, $options) . $style->getFormat() . $this->unset($fg, $bg, $options);
     }
 
-    protected function parse(string $color, bool $bg = false): string
+    protected function fg(IStyle $style): string
     {
-        if ('' === $color) {
-            return '';
-        }
+        $parsed = $this->parser->parse((string)$style->getFgColor());
+        return '' === $parsed ? '' : '3' . $parsed;
+    }
 
-        if ('#' === $color[0]) {
-            return ($bg ? '4' : '3') . $this->converter->convert($color);
-        }
+    protected function bg(IStyle $style): string
+    {
+        $parsed = $this->parser->parse((string)$style->getBgColor());
+        return '' === $parsed ? '' : '4' . $parsed;
+    }
 
-        throw new InvalidArgumentException('Invalid color format: ' . $color);
+    protected function options(IStyle $style): iterable
+    {
+        return $style->hasOptions() ? $this->parseOptions($style->getOptions()) : [];
     }
 
     protected function parseOptions(?IStyleOptions $styleOptions): iterable
@@ -64,18 +68,19 @@ final class StyleToAnsiStringConverter implements IStyleToAnsiStringConverter
 
     protected static function getOptionCodes(StyleOption $option): array
     {
-        return match ($option) {
-            StyleOption::BOLD => [self::SET => 1, self::UNSET => 22],
-            StyleOption::DIM => [self::SET => 2, self::UNSET => 22],
-            StyleOption::ITALIC => [self::SET => 3, self::UNSET => 23],
-            StyleOption::UNDERLINE => [self::SET => 4, self::UNSET => 24],
-            StyleOption::BLINK => [self::SET => 5, self::UNSET => 25],
-            StyleOption::REVERSE => [self::SET => 7, self::UNSET => 27],
-            StyleOption::HIDDEN => [self::SET => 8, self::UNSET => 28],
-            StyleOption::STRIKETHROUGH => [self::SET => 9, self::UNSET => 29],
-            StyleOption::DOUBLE_UNDERLINE => [self::SET => 21, self::UNSET => 24],
-            default => throw new InvalidArgumentException('Unknown option: ' . $option->name),
-        };
+        return
+            match ($option) {
+                StyleOption::BOLD => [self::SET => 1, self::UNSET => 22],
+                StyleOption::DIM => [self::SET => 2, self::UNSET => 22],
+                StyleOption::ITALIC => [self::SET => 3, self::UNSET => 23],
+                StyleOption::UNDERLINE => [self::SET => 4, self::UNSET => 24],
+                StyleOption::BLINK => [self::SET => 5, self::UNSET => 25],
+                StyleOption::REVERSE => [self::SET => 7, self::UNSET => 27],
+                StyleOption::HIDDEN => [self::SET => 8, self::UNSET => 28],
+                StyleOption::STRIKETHROUGH => [self::SET => 9, self::UNSET => 29],
+                StyleOption::DOUBLE_UNDERLINE => [self::SET => 21, self::UNSET => 24],
+                default => throw new InvalidArgumentException('Unknown option: ' . $option->name),
+            };
     }
 
     protected function set(string $fg, string $bg, iterable $options = []): string
@@ -94,10 +99,10 @@ final class StyleToAnsiStringConverter implements IStyleToAnsiStringConverter
             return '';
         }
 
-        return $this->toAnsiString($codes);
+        return $this->unwrap($codes);
     }
 
-    protected function toAnsiString(array $setCodes): string
+    protected function unwrap(array $setCodes): string
     {
         return sprintf("\033[%sm", implode(';', array_unique($setCodes)));
     }
@@ -118,6 +123,6 @@ final class StyleToAnsiStringConverter implements IStyleToAnsiStringConverter
             return '';
         }
 
-        return $this->toAnsiString($codes);
+        return $this->unwrap($codes);
     }
 }

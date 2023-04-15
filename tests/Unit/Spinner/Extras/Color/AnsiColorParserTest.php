@@ -36,14 +36,6 @@ final class AnsiColorParserTest extends TestCaseWithPrebuiltMocksAndStubs
     }
 
     #[Test]
-    public function emptyColorReturnsEmptyParsedString(): void
-    {
-        $colorParser = $this->getTesteeInstance();
-
-        self::assertSame('', $colorParser->parse(''));
-    }
-
-    #[Test]
     public function invokesAnsiConvertMethodIfColorFormatIsRecognised(): void
     {
         $converter = $this->getHexColorToAnsiCodeConverterMock();
@@ -65,8 +57,16 @@ final class AnsiColorParserTest extends TestCaseWithPrebuiltMocksAndStubs
         $colorParser = $this->getTesteeInstance();
 
         $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('Invalid color format: ffaacc');
+        $this->expectExceptionMessage('Invalid color format: "ffaacc".');
 
         $colorParser->parse('ffaacc');
+    }
+
+    #[Test]
+    public function emptyColorReturnsEmptyParsedString(): void
+    {
+        $colorParser = $this->getTesteeInstance();
+
+        self::assertSame('', $colorParser->parse(''));
     }
 }

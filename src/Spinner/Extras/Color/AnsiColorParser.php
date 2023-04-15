@@ -24,16 +24,18 @@ final class AnsiColorParser implements IAnsiColorParser
         }
 
         self::assertValid($color);
-        
+
         return $this->converter->convert($color);
     }
 
     protected static function assertValid(string $color): void
     {
-        if (self::correctFormat($color)) {
-            return;
-        }
-        throw new InvalidArgumentException('Invalid color format: ' . $color);
+        match (true) {
+            self::correctFormat($color) => null,
+            default => throw new InvalidArgumentException(
+                sprintf('Invalid color format: "%s".,', $color)
+            ),
+        };
     }
 
     protected static function correctFormat(string $color): bool

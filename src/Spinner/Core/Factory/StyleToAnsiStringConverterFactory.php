@@ -21,7 +21,7 @@ final class StyleToAnsiStringConverterFactory implements IStyleToAnsiStringConve
     {
         return
             new StyleToAnsiStringConverter(
-                converter: $this->converterFactory->create($styleMode),
+                parser: $this->converterFactory->create($styleMode),
             );
     }
 }

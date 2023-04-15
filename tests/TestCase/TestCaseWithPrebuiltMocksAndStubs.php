@@ -58,6 +58,7 @@ use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetBuilder;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContext;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolverBuilder;
+use AlecRabbit\Spinner\Extras\Color\Contract\IAnsiColorParser;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\MockObject\Stub;
 
@@ -387,5 +388,10 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
     protected function getHexColorToAnsiCodeConverterMock(): MockObject&IHexColorToAnsiCodeConverter
     {
         return $this->createMock(IHexColorToAnsiCodeConverter::class);
+    }
+
+    protected function getAnsiColorParserMock(): MockObject&IAnsiColorParser
+    {
+        return $this->createMock(IAnsiColorParser::class);
     }
 }
