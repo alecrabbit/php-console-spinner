@@ -159,11 +159,6 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
         return $this->createMock(IStyleRenderer::class);
     }
 
-    protected function getAnsiStyleConverterMock(): MockObject&IHexColorToAnsiCodeConverter
-    {
-        return $this->createMock(IHexColorToAnsiCodeConverter::class);
-    }
-
     protected function getOutputBuilderMock(): MockObject&IBufferedOutputBuilder
     {
         return $this->createMock(IBufferedOutputBuilder::class);

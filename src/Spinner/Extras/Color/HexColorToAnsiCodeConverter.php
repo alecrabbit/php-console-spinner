@@ -12,7 +12,7 @@ use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 final class HexColorToAnsiCodeConverter extends AColorToAnsiCodeConverter implements IHexColorToAnsiCodeConverter
 {
     /** @inheritdoc */
-    public function ansiCode(string $color): string
+    public function convert(string $color): string
     {
         $color = $this->normalize($color);
 

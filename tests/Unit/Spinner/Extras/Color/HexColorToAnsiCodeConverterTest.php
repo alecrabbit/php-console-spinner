@@ -131,7 +131,7 @@ final class HexColorToAnsiCodeConverterTest extends TestCaseWithPrebuiltMocksAnd
             styleMode: $args[self::STYLE_MODE],
         );
 
-        $result = $converter->ansiCode($args[self::COLOR]);
+        $result = $converter->convert($args[self::COLOR]);
 
         if ($expectedException) {
             self::failTest($expectedException);
@@ -152,7 +152,7 @@ final class HexColorToAnsiCodeConverterTest extends TestCaseWithPrebuiltMocksAnd
             styleMode: $args[self::STYLE_MODE],
         );
 
-        $result = $converter->ansiCode($args[self::COLOR]);
+        $result = $converter->convert($args[self::COLOR]);
 
         if ($expectedException) {
             self::failTest($expectedException);

@@ -45,7 +45,7 @@ final class StyleToAnsiStringConverter implements IStyleToAnsiStringConverter
         }
 
         if ('#' === $color[0]) {
-            return ($bg ? '4' : '3') . $this->converter->ansiCode($color);
+            return ($bg ? '4' : '3') . $this->converter->convert($color);
         }
 
         throw new InvalidArgumentException('Invalid color format: ' . $color);

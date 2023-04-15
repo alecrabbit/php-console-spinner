@@ -11,5 +11,5 @@ interface IHexColorToAnsiCodeConverter
     /**
      * @throws InvalidArgumentException
      */
-    public function ansiCode(string $color): string;
+    public function convert(string $color): string;
 }
