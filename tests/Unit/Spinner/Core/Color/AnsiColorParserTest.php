@@ -24,8 +24,7 @@ final class AnsiColorParserTest extends TestCaseWithPrebuiltMocksAndStubs
 
     protected function getTesteeInstance(
         ?IHexColorToAnsiCodeConverter $converter = null,
-    ): IAnsiColorParser
-    {
+    ): IAnsiColorParser {
         return
             new AnsiColorParser(
                 converter: $converter ?? $this->getHexColorToAnsiCodeConverterMock(),
@@ -42,7 +41,8 @@ final class AnsiColorParserTest extends TestCaseWithPrebuiltMocksAndStubs
             ->expects(self::once())
             ->method('convert')
             ->with(self::equalTo($color))
-            ->willReturn($result);
+            ->willReturn($result)
+        ;
         $colorParser = $this->getTesteeInstance(converter: $converter);
 
         self::assertSame($result, $colorParser->parse($color));

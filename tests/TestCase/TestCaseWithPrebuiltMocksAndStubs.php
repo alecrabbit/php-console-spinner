@@ -395,6 +395,7 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
     {
         return $this->createMock(IAnsiColorParser::class);
     }
+
     protected function getHexColorToAnsiCodeConverterFactoryMock(): MockObject&IHexColorToAnsiCodeConverterFactory
     {
         return $this->createMock(IHexColorToAnsiCodeConverterFactory::class);
