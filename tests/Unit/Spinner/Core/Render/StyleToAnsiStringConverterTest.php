@@ -4,9 +4,9 @@ declare(strict_types=1);
 // 03.04.23
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Render;
 
+use AlecRabbit\Spinner\Contract\IAnsiColorParser;
 use AlecRabbit\Spinner\Core\Render\Contract\IStyleToAnsiStringConverter;
 use AlecRabbit\Spinner\Core\Render\StyleToAnsiStringConverter;
-use AlecRabbit\Spinner\Extras\Color\Contract\IAnsiColorParser;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;
 

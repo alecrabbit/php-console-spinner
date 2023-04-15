@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Factory;
 
 use AlecRabbit\Spinner\Contract\Option\OptionStyleMode;
-use AlecRabbit\Spinner\Core\Factory\Contract\IHexColorToAnsiCodeConverterFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\IAnsiColorParserFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IStyleToAnsiStringConverterFactory;
 use AlecRabbit\Spinner\Core\Render\Contract\IStyleToAnsiStringConverter;
 use AlecRabbit\Spinner\Core\Render\StyleToAnsiStringConverter;
@@ -13,7 +13,7 @@ use AlecRabbit\Spinner\Core\Render\StyleToAnsiStringConverter;
 final class StyleToAnsiStringConverterFactory implements IStyleToAnsiStringConverterFactory
 {
     public function __construct(
-        protected IHexColorToAnsiCodeConverterFactory $converterFactory,
+        protected IAnsiColorParserFactory $parserFactory,
     ) {
     }
 
@@ -21,7 +21,7 @@ final class StyleToAnsiStringConverterFactory implements IStyleToAnsiStringConve
     {
         return
             new StyleToAnsiStringConverter(
-                parser: $this->converterFactory->create($styleMode),
+                parser: $this->parserFactory->create($styleMode),
             );
     }
 }

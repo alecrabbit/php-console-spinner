@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 // 15.04.23
-namespace AlecRabbit\Spinner\Extras\Color;
+namespace AlecRabbit\Spinner\Core\Color;
 
+use AlecRabbit\Spinner\Contract\IAnsiColorParser;
 use AlecRabbit\Spinner\Core\Contract\IHexColorToAnsiCodeConverter;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
-use AlecRabbit\Spinner\Extras\Color\Contract\IAnsiColorParser;
 
 final class AnsiColorParser implements IAnsiColorParser
 {

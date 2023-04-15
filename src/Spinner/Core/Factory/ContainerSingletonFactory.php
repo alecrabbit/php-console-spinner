@@ -11,7 +11,6 @@ use AlecRabbit\Spinner\Container\ServiceSpawner;
 use AlecRabbit\Spinner\Contract\Option\OptionNormalizerMode;
 use AlecRabbit\Spinner\Contract\Option\OptionStyleMode;
 use AlecRabbit\Spinner\Contract\Output\IResourceStream;
-
 use AlecRabbit\Spinner\Core\BufferedOutputBuilder;
 use AlecRabbit\Spinner\Core\ConsoleCursorBuilder;
 use AlecRabbit\Spinner\Core\Contract\IBufferedOutputBuilder;
@@ -42,6 +41,7 @@ use AlecRabbit\Spinner\Core\Defaults\WidgetSettingsBuilder;
 use AlecRabbit\Spinner\Core\DriverBuilder;
 use AlecRabbit\Spinner\Core\DriverOutputBuilder;
 use AlecRabbit\Spinner\Core\DriverSetup;
+use AlecRabbit\Spinner\Core\Factory\Contract\IAnsiColorParserFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IBufferedOutputSingletonFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ICharRevolverFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IConsoleCursorFactory;
@@ -167,6 +167,7 @@ final class ContainerSingletonFactory implements IContainerSingletonFactory
             ITimerFactory::class => TimerFactory::class,
             IHexColorToAnsiCodeConverterFactory::class => HexColorToAnsiCodeConverterFactory::class,
             IAuxSettingsBuilder::class => AuxSettingsBuilder::class,
+            IAnsiColorParserFactory::class => AnsiColorParserFactory::class,
             IBufferedOutputBuilder::class => BufferedOutputBuilder::class,
             ILoopSetupFactory::class => LoopSetupFactory::class,
             ICharFrameCollectionRenderer::class => CharFrameCollectionRenderer::class,

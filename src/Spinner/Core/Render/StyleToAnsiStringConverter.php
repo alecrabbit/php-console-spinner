@@ -7,9 +7,9 @@ namespace AlecRabbit\Spinner\Core\Render;
 use AlecRabbit\Spinner\Contract\Color\Style\IStyle;
 use AlecRabbit\Spinner\Contract\Color\Style\IStyleOptions;
 use AlecRabbit\Spinner\Contract\Color\Style\StyleOption;
+use AlecRabbit\Spinner\Contract\IAnsiColorParser;
 use AlecRabbit\Spinner\Core\Render\Contract\IStyleToAnsiStringConverter;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
-use AlecRabbit\Spinner\Extras\Color\Contract\IAnsiColorParser;
 
 use function count;
 
