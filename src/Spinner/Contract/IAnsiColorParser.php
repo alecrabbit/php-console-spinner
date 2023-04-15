@@ -6,5 +6,5 @@ namespace AlecRabbit\Spinner\Contract;
 
 interface IAnsiColorParser
 {
-    public function parse(string $color): string;
+    public function parseColor(string $color): string;
 }

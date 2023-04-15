@@ -8,10 +8,12 @@ use AlecRabbit\Spinner\Container\Container;
 use AlecRabbit\Spinner\Container\Contract\IContainer;
 use AlecRabbit\Spinner\Container\Contract\IServiceSpawner;
 use AlecRabbit\Spinner\Container\ServiceSpawner;
+use AlecRabbit\Spinner\Contract\Color\Style\IStyleOptionsParser;
 use AlecRabbit\Spinner\Contract\Option\OptionNormalizerMode;
 use AlecRabbit\Spinner\Contract\Option\OptionStyleMode;
 use AlecRabbit\Spinner\Contract\Output\IResourceStream;
 use AlecRabbit\Spinner\Core\BufferedOutputBuilder;
+use AlecRabbit\Spinner\Core\Color\Style\StyleOptionsParser;
 use AlecRabbit\Spinner\Core\ConsoleCursorBuilder;
 use AlecRabbit\Spinner\Core\Contract\IBufferedOutputBuilder;
 use AlecRabbit\Spinner\Core\Contract\ICharFrameRenderer;
@@ -168,6 +170,7 @@ final class ContainerSingletonFactory implements IContainerSingletonFactory
             IHexColorToAnsiCodeConverterFactory::class => HexColorToAnsiCodeConverterFactory::class,
             IAuxSettingsBuilder::class => AuxSettingsBuilder::class,
             IAnsiColorParserFactory::class => AnsiColorParserFactory::class,
+            IStyleOptionsParser::class => StyleOptionsParser::class,
             IBufferedOutputBuilder::class => BufferedOutputBuilder::class,
             ILoopSetupFactory::class => LoopSetupFactory::class,
             ICharFrameCollectionRenderer::class => CharFrameCollectionRenderer::class,

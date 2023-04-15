@@ -4,6 +4,7 @@ declare(strict_types=1);
 // 14.04.23
 namespace AlecRabbit\Spinner\Core\Factory;
 
+use AlecRabbit\Spinner\Contract\Color\Style\IStyleOptionsParser;
 use AlecRabbit\Spinner\Contract\Option\OptionStyleMode;
 use AlecRabbit\Spinner\Core\Factory\Contract\IAnsiColorParserFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IStyleToAnsiStringConverterFactory;
@@ -14,6 +15,7 @@ final class StyleToAnsiStringConverterFactory implements IStyleToAnsiStringConve
 {
     public function __construct(
         protected IAnsiColorParserFactory $parserFactory,
+        protected IStyleOptionsParser $optionsParser,
     ) {
     }
 
@@ -21,7 +23,8 @@ final class StyleToAnsiStringConverterFactory implements IStyleToAnsiStringConve
     {
         return
             new StyleToAnsiStringConverter(
-                parser: $this->parserFactory->create($styleMode),
+                colorParser: $this->parserFactory->create($styleMode),
+                optionsParser: $this->optionsParser,
             );
     }
 }

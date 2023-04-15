@@ -5,11 +5,9 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Render;
 
 use AlecRabbit\Spinner\Contract\Color\Style\IStyle;
-use AlecRabbit\Spinner\Contract\Color\Style\IStyleOptions;
-use AlecRabbit\Spinner\Contract\Color\Style\StyleOption;
+use AlecRabbit\Spinner\Contract\Color\Style\IStyleOptionsParser;
 use AlecRabbit\Spinner\Contract\IAnsiColorParser;
 use AlecRabbit\Spinner\Core\Render\Contract\IStyleToAnsiStringConverter;
-use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 
 use function count;
 
@@ -19,7 +17,8 @@ final class StyleToAnsiStringConverter implements IStyleToAnsiStringConverter
     private const UNSET = 'unset';
 
     public function __construct(
-        protected IAnsiColorParser $parser,
+        protected IAnsiColorParser $colorParser,
+        protected IStyleOptionsParser $optionsParser,
     ) {
     }
 
@@ -32,7 +31,10 @@ final class StyleToAnsiStringConverter implements IStyleToAnsiStringConverter
         $fg = $this->fg($style);
         $bg = $this->bg($style);
 
-        $options = $this->options($style);
+        $options =
+            $style->hasOptions()
+                ? $this->optionsParser->parseOptions($style->getOptions())
+                : [];
 
         return
             $this->set($fg, $bg, $options) . $style->getFormat() . $this->unset($fg, $bg, $options);
@@ -40,47 +42,14 @@ final class StyleToAnsiStringConverter implements IStyleToAnsiStringConverter
 
     protected function fg(IStyle $style): string
     {
-        $parsed = $this->parser->parse((string)$style->getFgColor());
+        $parsed = $this->colorParser->parseColor((string)$style->getFgColor());
         return '' === $parsed ? '' : '3' . $parsed;
     }
 
     protected function bg(IStyle $style): string
     {
-        $parsed = $this->parser->parse((string)$style->getBgColor());
+        $parsed = $this->colorParser->parseColor((string)$style->getBgColor());
         return '' === $parsed ? '' : '4' . $parsed;
-    }
-
-    protected function options(IStyle $style): iterable
-    {
-        return $style->hasOptions() ? $this->parseOptions($style->getOptions()) : [];
-    }
-
-    protected function parseOptions(?IStyleOptions $styleOptions): iterable
-    {
-        $optionCodes = [];
-        if ($styleOptions) {
-            foreach ($styleOptions as $option) {
-                $optionCodes[] = self::getOptionCodes($option);
-            }
-        }
-        return $optionCodes;
-    }
-
-    protected static function getOptionCodes(StyleOption $option): array
-    {
-        return
-            match ($option) {
-                StyleOption::BOLD => [self::SET => 1, self::UNSET => 22],
-                StyleOption::DIM => [self::SET => 2, self::UNSET => 22],
-                StyleOption::ITALIC => [self::SET => 3, self::UNSET => 23],
-                StyleOption::UNDERLINE => [self::SET => 4, self::UNSET => 24],
-                StyleOption::BLINK => [self::SET => 5, self::UNSET => 25],
-                StyleOption::REVERSE => [self::SET => 7, self::UNSET => 27],
-                StyleOption::HIDDEN => [self::SET => 8, self::UNSET => 28],
-                StyleOption::STRIKETHROUGH => [self::SET => 9, self::UNSET => 29],
-                StyleOption::DOUBLE_UNDERLINE => [self::SET => 21, self::UNSET => 24],
-                default => throw new InvalidArgumentException('Unknown option: ' . $option->name),
-            };
     }
 
     protected function set(string $fg, string $bg, iterable $options = []): string

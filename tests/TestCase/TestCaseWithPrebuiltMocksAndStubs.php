@@ -6,6 +6,7 @@ namespace AlecRabbit\Tests\TestCase;
 
 use AlecRabbit\Spinner\Container\Contract\IContainer;
 use AlecRabbit\Spinner\Contract\Color\Style\IStyle;
+use AlecRabbit\Spinner\Contract\Color\Style\IStyleOptionsParser;
 use AlecRabbit\Spinner\Contract\IAnsiColorParser;
 use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Contract\IInterval;
@@ -394,6 +395,11 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
     protected function getAnsiColorParserMock(): MockObject&IAnsiColorParser
     {
         return $this->createMock(IAnsiColorParser::class);
+    }
+
+    protected function getStyleOptionsParserMock(): MockObject&IStyleOptionsParser
+    {
+        return $this->createMock(IStyleOptionsParser::class);
     }
 
     protected function getHexColorToAnsiCodeConverterFactoryMock(): MockObject&IHexColorToAnsiCodeConverterFactory

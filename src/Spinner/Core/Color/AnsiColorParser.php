@@ -17,7 +17,7 @@ final class AnsiColorParser implements IAnsiColorParser
     ) {
     }
 
-    public function parse(string $color): string
+    public function parseColor(string $color): string
     {
         if ('' === $color) {
             return '';

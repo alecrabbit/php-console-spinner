@@ -4,6 +4,7 @@ declare(strict_types=1);
 // 03.04.23
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Render;
 
+use AlecRabbit\Spinner\Contract\Color\Style\IStyleOptionsParser;
 use AlecRabbit\Spinner\Contract\IAnsiColorParser;
 use AlecRabbit\Spinner\Core\Render\Contract\IStyleToAnsiStringConverter;
 use AlecRabbit\Spinner\Core\Render\StyleToAnsiStringConverter;
@@ -22,11 +23,13 @@ final class StyleToAnsiStringConverterTest extends TestCaseWithPrebuiltMocksAndS
     }
 
     public function getTesteeInstance(
-        ?IAnsiColorParser $parser = null,
+        ?IAnsiColorParser $colorParser = null,
+        ?IStyleOptionsParser $optionsParser = null,
     ): IStyleToAnsiStringConverter {
         return
             new StyleToAnsiStringConverter(
-                parser: $parser ?? $this->getAnsiColorParserMock(),
+                colorParser: $colorParser ?? $this->getAnsiColorParserMock(),
+                optionsParser: $optionsParser ?? $this->getStyleOptionsParserMock(),
             );
     }
 
