@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Render;
 
 use AlecRabbit\Spinner\Contract\Color\Style\IStyle;
+use AlecRabbit\Spinner\Contract\Color\Style\IStyleOptions;
 use AlecRabbit\Spinner\Contract\Color\Style\StyleOption;
 use AlecRabbit\Spinner\Core\Contract\IHexColorToAnsiCodeConverter;
 use AlecRabbit\Spinner\Core\Render\Contract\IStyleToAnsiStringConverter;
@@ -31,7 +32,7 @@ final class StyleToAnsiStringConverter implements IStyleToAnsiStringConverter
         $fg = $this->parse((string)$style->getFgColor());
         $bg = $this->parse((string)$style->getBgColor(), true);
 
-        $options = $this->parseOptions($style);
+        $options = $style->hasOptions() ? $this->parseOptions($style->getOptions()) : [];
 
         return
             $this->set($fg, $bg, $options) . $style->getFormat() . $this->unset($fg, $bg, $options);
@@ -50,18 +51,18 @@ final class StyleToAnsiStringConverter implements IStyleToAnsiStringConverter
         throw new InvalidArgumentException('Invalid color format: ' . $color);
     }
 
-    protected function parseOptions(IStyle $style): iterable
+    protected function parseOptions(?IStyleOptions $styleOptions): iterable
     {
-        $options = [];
-        if ($style->hasOptions()) {
-            foreach ($style->getOptions() as $option) {
-                $options[] = self::getOptionArray($option);
+        $optionCodes = [];
+        if ($styleOptions) {
+            foreach ($styleOptions as $option) {
+                $optionCodes[] = self::getOptionCodes($option);
             }
         }
-        return $options;
+        return $optionCodes;
     }
 
-    protected static function getOptionArray(StyleOption $option): array
+    protected static function getOptionCodes(StyleOption $option): array
     {
         return match ($option) {
             StyleOption::BOLD => [self::SET => 1, self::UNSET => 22],
