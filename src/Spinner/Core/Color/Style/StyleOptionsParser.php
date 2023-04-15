@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 // 15.04.23
 namespace AlecRabbit\Spinner\Core\Color\Style;
@@ -12,6 +13,7 @@ final class StyleOptionsParser implements IStyleOptionsParser
 {
     private const SET = 'set';
     private const UNSET = 'unset';
+
     public function parseOptions(?IStyleOptions $options): iterable
     {
         $optionCodes = [];
