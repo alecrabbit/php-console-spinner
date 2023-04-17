@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 // 09.04.23
+
 namespace AlecRabbit\Tests\Unit\Spinner\Core\DriverTest;
 
 use AlecRabbit\Spinner\Contract\ITimer;
@@ -20,11 +21,10 @@ class TestCaseForDriver extends TestCaseWithPrebuiltMocksAndStubs
         ?IDriverOutput $driverOutput = null,
         ?Closure $intervalCb = null,
     ): IDriver {
-        return
-            new Driver(
-                driverOutput: $driverOutput ?? $this->getDriverOutputMock(),
-                timer: $timer ?? $this->getTimerMock(),
-                intervalCb: $intervalCb ?? static fn() => new Interval(),
-            );
+        return new Driver(
+            driverOutput: $driverOutput ?? $this->getDriverOutputMock(),
+            timer: $timer ?? $this->getTimerMock(),
+            intervalCb: $intervalCb ?? static fn () => new Interval(),
+        );
     }
 }

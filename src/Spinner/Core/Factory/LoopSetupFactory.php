@@ -21,11 +21,10 @@ final class LoopSetupFactory implements ILoopSetupFactory
 
     public function create(): ILoopSetup
     {
-        return
-            $this->loopSetupBuilder
-                ->withLoop($this->loopFactory->getLoop())
-                ->withSettings($this->defaultsProvider->getLoopSettings())
-                ->build()
+        return $this->loopSetupBuilder
+            ->withLoop($this->loopFactory->getLoop())
+            ->withSettings($this->defaultsProvider->getLoopSettings())
+            ->build()
         ;
     }
 }

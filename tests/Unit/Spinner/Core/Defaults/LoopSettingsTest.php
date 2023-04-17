@@ -31,13 +31,12 @@ final class LoopSettingsTest extends TestCaseWithPrebuiltMocksAndStubs
         ?OptionAttachHandlers $signalHandlersOption = null,
         ?bool $pcntlExtensionAvailable = null,
     ): ILoopSettings {
-        return
-            new LoopSettings(
-                loopAvailable: $loopAvailable ?? false,
-                optionAutoStart: $autoStartOption ?? OptionAutoStart::DISABLED,
-                signalProcessingAvailable: $pcntlExtensionAvailable ?? false,
-                optionAttachHandlers: $signalHandlersOption ?? OptionAttachHandlers::DISABLED,
-            );
+        return new LoopSettings(
+            loopAvailable: $loopAvailable ?? false,
+            optionAutoStart: $autoStartOption ?? OptionAutoStart::DISABLED,
+            signalProcessingAvailable: $pcntlExtensionAvailable ?? false,
+            optionAttachHandlers: $signalHandlersOption ?? OptionAttachHandlers::DISABLED,
+        );
     }
 
     #[Test]

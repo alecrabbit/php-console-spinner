@@ -44,15 +44,13 @@ final class WidgetSettingsTest extends TestCaseWithPrebuiltMocksAndStubs
         IPattern $stylePattern,
         IPattern $charPattern,
     ): IWidgetSettings {
-        return
-            new WidgetSettings(
-                leadingSpacer: $leadingSpacer,
-                trailingSpacer: $trailingSpacer,
-                stylePattern: $stylePattern,
-                charPattern: $charPattern,
-            );
+        return new WidgetSettings(
+            leadingSpacer: $leadingSpacer,
+            trailingSpacer: $trailingSpacer,
+            stylePattern: $stylePattern,
+            charPattern: $charPattern,
+        );
     }
-
 
     #[Test]
     public function valuesCanBeOverriddenWithSetters(): void

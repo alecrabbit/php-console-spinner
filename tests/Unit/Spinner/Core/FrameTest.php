@@ -75,7 +75,6 @@ final class FrameTest extends TestCase
         return new Frame(...$args);
     }
 
-
     #[Test]
     public function createEmpty(): void
     {

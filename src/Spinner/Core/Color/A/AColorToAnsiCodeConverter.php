@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 // 14.04.23
+
 namespace AlecRabbit\Spinner\Core\Color\A;
 
 use AlecRabbit\Spinner\Contract\Option\OptionStyleMode;
@@ -33,7 +34,6 @@ abstract class AColorToAnsiCodeConverter
         }
     }
 
-
     /**
      * @throws InvalidArgumentException
      */
@@ -43,7 +43,7 @@ abstract class AColorToAnsiCodeConverter
 
         $color = str_replace('#', '', $color);
 
-        if (3 === strlen($color)) {
+        if (strlen($color) === 3) {
             $color = $color[0] . $color[0] . $color[1] . $color[1] . $color[2] . $color[2];
         }
 
@@ -57,11 +57,11 @@ abstract class AColorToAnsiCodeConverter
      */
     private function assertColor(array|string $color): void
     {
-        if ('' === $color) {
+        if ($color === '') {
             throw new InvalidArgumentException('Empty color string.');
         }
 
-        if (6 !== strlen($color)) {
+        if (strlen($color) !== 6) {
             throw new InvalidArgumentException(sprintf('Invalid color: "#%s".', $color));
         }
     }
@@ -89,7 +89,7 @@ abstract class AColorToAnsiCodeConverter
     {
         $index = Ansi4Color::getIndex($color);
 
-        if (null !== $index) {
+        if ($index !== null) {
             return (string)$index;
         }
 

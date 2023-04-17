@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 // 15.02.23
+
 namespace AlecRabbit\Tests\Unit\Spinner\Core;
 
 use AlecRabbit\Spinner\Core\IntegerNormalizer;
@@ -63,16 +64,16 @@ final class IntegerNormalizerTest extends TestCase
     {
         yield from [
             // divisor, result, interval,
-            [50, 100, 100,],
-            [10, 100, 100,],
-            [100, 100, 100,],
-            [100, 400, 400,],
-            [50, 500, 490,],
-            [50, 450, 450,],
-            [50, 500, 475,],
-            [50, 450, 474,],
-            [1000, 0, 474,],
-            [1000, 1000, 500,],
+            [50, 100, 100],
+            [10, 100, 100],
+            [100, 100, 100],
+            [100, 400, 400],
+            [50, 500, 490],
+            [50, 450, 450],
+            [50, 500, 475],
+            [50, 450, 474],
+            [1000, 0, 474],
+            [1000, 1000, 500],
         ];
     }
 

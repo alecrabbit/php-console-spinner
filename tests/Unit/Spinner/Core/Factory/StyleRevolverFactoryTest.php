@@ -25,12 +25,11 @@ final class StyleRevolverFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
         ?IFrameRevolverBuilder $frameRevolverBuilder = null,
         ?IStyleFrameCollectionRenderer $styleFrameCollectionRenderer = null,
     ): IStyleRevolverFactory {
-        return
-            new StyleRevolverFactory(
-                frameRevolverBuilder: $frameRevolverBuilder ?? $this->getFrameRevolverBuilderMock(),
-                styleFrameCollectionRenderer: $styleFrameCollectionRenderer ?? $this->getStyleFrameCollectionRendererMock(
+        return new StyleRevolverFactory(
+            frameRevolverBuilder: $frameRevolverBuilder ?? $this->getFrameRevolverBuilderMock(),
+            styleFrameCollectionRenderer: $styleFrameCollectionRenderer ?? $this->getStyleFrameCollectionRendererMock(
             ),
-            );
+        );
     }
 
     #[Test]
@@ -53,7 +52,6 @@ final class StyleRevolverFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
             ->willReturn($frameCollection)
         ;
 
-
         $frameRevolverBuilder = $this->getFrameRevolverBuilderMock();
         $frameRevolverBuilder
             ->expects(self::once())
@@ -74,7 +72,6 @@ final class StyleRevolverFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
             ->willReturn($frameRevolver)
         ;
 
-
         $styleRevolverFactory = $this->getTesteeInstance(
             frameRevolverBuilder: $frameRevolverBuilder,
             styleFrameCollectionRenderer: $styleFrameCollectionRenderer,
@@ -84,5 +81,4 @@ final class StyleRevolverFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
         self::assertInstanceOf(StyleRevolverFactory::class, $styleRevolverFactory);
         self::assertSame($frameRevolver, $styleRevolver);
     }
-
 }

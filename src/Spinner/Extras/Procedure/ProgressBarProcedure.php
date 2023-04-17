@@ -21,7 +21,6 @@ final class ProgressBarProcedure extends AProgressValueProcedure
     protected string $cursor;
     protected float $cursorThreshold;
 
-
     public function __construct(
         IProgressValue $progressValue,
         protected ?IProgressBarSprite $sprite = null,
@@ -46,13 +45,12 @@ final class ProgressBarProcedure extends AProgressValueProcedure
 
     private function getCursor(float $fraction): string
     {
-        return
-            $fraction >= $this->cursorThreshold
-                ? $this->done
-                : $this->cursor;
+        return $fraction >= $this->cursorThreshold
+            ? $this->done
+            : $this->cursor;
     }
 
-    public function update(float $dt = null): IFrame
+    public function update(?float $dt = null): IFrame
     {
         if ($this->progressValue->isFinished()) {
             if ($this->finishedDelay < 0) {
@@ -61,8 +59,7 @@ final class ProgressBarProcedure extends AProgressValueProcedure
             $this->finishedDelay -= $dt ?? 0.0;
         }
         $v = $this->createBar($this->progressValue->getValue());
-        return
-            FrameFactory::create($v);
+        return FrameFactory::create($v);
     }
 
     private function createBar(float $progress): string
@@ -74,8 +71,7 @@ final class ProgressBarProcedure extends AProgressValueProcedure
                 ? $this->getCursor($progress)
                 : '';
 
-        return
-            $this->open .
+        return $this->open .
             str_repeat($this->done, $p) .
             $cursor .
             str_repeat($this->empty, $this->units - $p) .

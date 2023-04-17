@@ -13,7 +13,7 @@ use Traversable;
 final class LoopProbeFactory implements ILoopProbeFactory
 {
     /** @var Traversable<ILoopProbe> $loopProbes */
-    protected Traversable $loopProbes;
+    private Traversable $loopProbes;
 
     /**
      * @param Traversable<ILoopProbe> $loopProbes
@@ -28,7 +28,7 @@ final class LoopProbeFactory implements ILoopProbeFactory
     /**
      * @param Traversable<ILoopProbe> $loopProbes
      */
-    protected function registerProbes(Traversable $loopProbes): void
+    private function registerProbes(Traversable $loopProbes): void
     {
         /** @var class-string<ILoopProbe> $loopProbe */
         foreach ($loopProbes as $loopProbe) {
@@ -38,7 +38,7 @@ final class LoopProbeFactory implements ILoopProbeFactory
         }
     }
 
-    protected static function isALoopProbeClass(string $loopProbe): bool
+    private static function isALoopProbeClass(string $loopProbe): bool
     {
         return is_subclass_of($loopProbe, ILoopProbe::class);
     }

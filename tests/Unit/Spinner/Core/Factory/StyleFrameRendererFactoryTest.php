@@ -8,10 +8,8 @@ use AlecRabbit\Spinner\Contract\Option\OptionStyleMode;
 use AlecRabbit\Spinner\Core\Factory\Contract\IFrameFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IStyleFrameRendererFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IStyleRendererFactory;
-use AlecRabbit\Spinner\Core\Factory\Contract\IStyleToAnsiStringConverterFactory;
 use AlecRabbit\Spinner\Core\Factory\StyleFrameRendererFactory;
 use AlecRabbit\Spinner\Core\Render\StyleFrameRenderer;
-use AlecRabbit\Spinner\Core\Render\StyleRenderer;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;
 
@@ -30,12 +28,11 @@ final class StyleFrameRendererFactoryTest extends TestCaseWithPrebuiltMocksAndSt
         ?IStyleRendererFactory $styleRendererFactory = null,
         ?OptionStyleMode $styleMode = null,
     ): IStyleFrameRendererFactory {
-        return
-            new StyleFrameRendererFactory(
-                frameFactory: $frameFactory ?? $this->getFrameFactoryMock(),
-                styleRendererFactory: $styleRendererFactory ?? $this->getStyleRendererFactoryMock(),
-                styleMode: $styleMode ?? OptionStyleMode::ANSI4,
-            );
+        return new StyleFrameRendererFactory(
+            frameFactory: $frameFactory ?? $this->getFrameFactoryMock(),
+            styleRendererFactory: $styleRendererFactory ?? $this->getStyleRendererFactoryMock(),
+            styleMode: $styleMode ?? OptionStyleMode::ANSI4,
+        );
     }
 
     #[Test]
@@ -50,7 +47,8 @@ final class StyleFrameRendererFactoryTest extends TestCaseWithPrebuiltMocksAndSt
             ->expects(self::once())
             ->method('create')
             ->with($styleMode)
-            ->willReturn($styleRenderer);
+            ->willReturn($styleRenderer)
+        ;
 
         $styleFrameRendererFactory = $this->getTesteeInstance(
             frameFactory: $frameFactory,

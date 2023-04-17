@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Factory;
 
 use AlecRabbit\Spinner\Core\Contract\IIntervalNormalizer;
@@ -30,10 +32,9 @@ final class IntervalFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
     public function getTesteeInstance(
         ?IIntervalNormalizer $intervalNormalizer = null,
     ): IIntervalFactory {
-        return
-            new IntervalFactory(
-                intervalNormalizer: $intervalNormalizer ?? $this->getIntervalNormalizerMock(),
-            );
+        return new IntervalFactory(
+            intervalNormalizer: $intervalNormalizer ?? $this->getIntervalNormalizerMock(),
+        );
     }
 
     #[Test]

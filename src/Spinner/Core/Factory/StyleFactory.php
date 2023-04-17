@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 // 13.04.23
+
 namespace AlecRabbit\Spinner\Core\Factory;
 
 use AlecRabbit\Spinner\Contract\Color\Style\IStyle;

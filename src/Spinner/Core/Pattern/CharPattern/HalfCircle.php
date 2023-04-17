@@ -13,5 +13,5 @@ final class HalfCircle extends AReversiblePattern
 {
     protected const UPDATE_INTERVAL = 160;
 
-    protected const PATTERN = ['◐', '◓', '◑', '◒',];
+    protected const PATTERN = ['◐', '◓', '◑', '◒'];
 }

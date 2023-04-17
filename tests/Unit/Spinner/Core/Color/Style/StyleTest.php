@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 // 15.02.23
+
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Color\Style;
 
 use AlecRabbit\Spinner\Contract\Color\Style\StyleOption;

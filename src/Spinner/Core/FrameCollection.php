@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 // 20.03.23
+
 namespace AlecRabbit\Spinner\Core;
 
 use AlecRabbit\Spinner\Contract\IFrame;
@@ -13,7 +14,9 @@ use Traversable;
 
 /**
  * @template T of IFrame
+ *
  * @extends ArrayObject<int,T>
+ *
  * @implements IFrameCollection<T>
  */
 final class FrameCollection extends ArrayObject implements IFrameCollection
@@ -58,12 +61,11 @@ final class FrameCollection extends ArrayObject implements IFrameCollection
 
     private static function assertIsNotEmpty(IFrameCollection $collection): void
     {
-        if (0 === $collection->count()) {
+        if ($collection->count() === 0) {
             throw new InvalidArgumentException('Collection is empty.');
         }
     }
 
-    /** @inheritdoc */
     public function lastIndex(): int
     {
         return array_key_last($this->getArrayCopy());

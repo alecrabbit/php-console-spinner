@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 // 23.03.23
+
 namespace AlecRabbit\Spinner\Extras\Color;
 
 use AlecRabbit\Spinner\Contract\Color\IColor;
@@ -26,7 +27,6 @@ use function sprintf;
 
 final class ColorProcessor implements IColorProcessor
 {
-    /** @inheritdoc */
     public function toHSL(string|IColor $color): HSLColor
     {
         if ($color instanceof HSLColor) {
@@ -71,7 +71,7 @@ final class ColorProcessor implements IColorProcessor
     /**
      * @throws InvalidArgumentException
      */
-    protected function refineRGB(string|IColor $color): RGBColor
+    private function refineRGB(string|IColor $color): RGBColor
     {
         if ($color instanceof RGBColor) {
             return $color;
@@ -84,7 +84,6 @@ final class ColorProcessor implements IColorProcessor
         return RGBColor::fromHex($color);
     }
 
-    /** @inheritdoc */
     public function toRGB(string|IColor $color): RGBColor
     {
         if ($color instanceof RGBColor) {
@@ -116,22 +115,20 @@ final class ColorProcessor implements IColorProcessor
             default => [$r, $b] = [$c, $x],
         };
 
-        return
-            new RGBColor(
-                (int)(($r + $m) * 255),
-                (int)(($g + $m) * 255),
-                (int)(($b + $m) * 255),
-                $color->alpha
-            );
+        return new RGBColor(
+            (int)(($r + $m) * 255),
+            (int)(($g + $m) * 255),
+            (int)(($b + $m) * 255),
+            $color->alpha
+        );
     }
 
-    /** @inheritdoc */
     public function gradients(Traversable $colors, int $steps = 10, null|string|IColor $fromColor = null): Generator
     {
         /** @var string|IColor $color */
         foreach ($colors as $color) {
             self::assertColor($color);
-            if (null === $fromColor) {
+            if ($fromColor === null) {
                 $fromColor = $color;
                 continue;
             }
@@ -143,7 +140,7 @@ final class ColorProcessor implements IColorProcessor
     /**
      * @throws InvalidArgumentException
      */
-    protected static function assertColor(mixed $color): void
+    private static function assertColor(mixed $color): void
     {
         if (is_string($color)) {
             Asserter::assertHexStringColor($color);
@@ -160,7 +157,6 @@ final class ColorProcessor implements IColorProcessor
         );
     }
 
-    /** @inheritdoc */
     public function gradient(string|IColor $from, string|IColor $to, int $steps = 100): Generator
     {
         $from = $this->refineRGB($from);

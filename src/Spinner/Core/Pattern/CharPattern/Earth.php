@@ -13,5 +13,5 @@ final class Earth extends AReversiblePattern
 {
     protected const UPDATE_INTERVAL = 300;
 
-    protected const PATTERN = ['🌍', '🌎', '🌏',];
+    protected const PATTERN = ['🌍', '🌎', '🌏'];
 }

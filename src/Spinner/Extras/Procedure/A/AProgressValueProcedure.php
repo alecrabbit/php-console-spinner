@@ -16,13 +16,13 @@ abstract class AProgressValueProcedure extends AFloatValueProcedure
 
     public function __construct(
         protected readonly IProgressValue $progressValue,
-        string $format = null,
+        ?string $format = null,
         protected float $finishedDelay = self::FINISHED_DELAY,
     ) {
         parent::__construct($progressValue, $format);
     }
 
-    public function update(float $dt = null): IFrame
+    public function update(?float $dt = null): IFrame
     {
         if ($this->progressValue->isFinished()) {
             if ($this->finishedDelay < 0) {
@@ -34,7 +34,6 @@ abstract class AProgressValueProcedure extends AFloatValueProcedure
             $this->format,
             $this->progressValue->getValue() * 100
         );
-        return
-            FrameFactory::create($v);
+        return FrameFactory::create($v);
     }
 }

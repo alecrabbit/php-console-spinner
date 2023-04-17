@@ -23,10 +23,9 @@ final class DriverSetupTest extends TestCaseWithPrebuiltMocksAndStubs
     public function getTesteeInstance(
         ?IDriverAttacher $driverAttacher = null,
     ): IDriverSetup {
-        return
-            new DriverSetup(
-                attacher: $driverAttacher ?? $this->getDriverAttacherMock(),
-            );
+        return new DriverSetup(
+            attacher: $driverAttacher ?? $this->getDriverAttacherMock(),
+        );
     }
 
     #[Test]

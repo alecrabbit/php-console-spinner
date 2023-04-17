@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 // 04.04.23
+
 namespace AlecRabbit\Spinner\Core\A;
 
 use AlecRabbit\Spinner\Contract\IFrame;

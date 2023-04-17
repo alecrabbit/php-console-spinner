@@ -23,8 +23,7 @@ final class ConsoleCursorBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
 
     public function getTesteeInstance(): IConsoleCursorBuilder
     {
-        return
-            new ConsoleCursorBuilder();
+        return new ConsoleCursorBuilder();
     }
 
     #[Test]

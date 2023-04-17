@@ -77,7 +77,7 @@ final class AProgressValueTest extends TestCase
             [
                 self::ARGUMENTS => [
                     self::START => 0.35,
-                    self::STEPS => 200
+                    self::STEPS => 200,
                 ],
                 self::STEPS => 34,
             ],
@@ -95,7 +95,7 @@ final class AProgressValueTest extends TestCase
                     self::START => -1.0,
                     self::STEPS => 200,
                     self::MIN => -1.0,
-                    self::MAX => 1.0
+                    self::MAX => 1.0,
                 ],
                 self::STEPS => 10,
             ],
@@ -151,11 +151,10 @@ final class AProgressValueTest extends TestCase
             [
                 self::EXCEPTION => [
                     self::CLASS_ => InvalidArgumentException::class,
-                    self::MESSAGE =>
-                        sprintf(
-                            'Steps should be greater than 0. Steps: "%s".',
-                            $steps = -2
-                        ),
+                    self::MESSAGE => sprintf(
+                        'Steps should be greater than 0. Steps: "%s".',
+                        $steps = -2
+                    ),
                 ],
             ],
             [
@@ -168,11 +167,10 @@ final class AProgressValueTest extends TestCase
             [
                 self::EXCEPTION => [
                     self::CLASS_ => InvalidArgumentException::class,
-                    self::MESSAGE =>
-                        sprintf(
-                            'Steps should be greater than 0. Steps: "%s".',
-                            $steps = 0
-                        ),
+                    self::MESSAGE => sprintf(
+                        'Steps should be greater than 0. Steps: "%s".',
+                        $steps = 0
+                    ),
                 ],
             ],
             [
@@ -185,12 +183,11 @@ final class AProgressValueTest extends TestCase
             [
                 self::EXCEPTION => [
                     self::CLASS_ => InvalidArgumentException::class,
-                    self::MESSAGE =>
-                        sprintf(
-                            'Max value should be greater than min value. Min: "%s", Max: "%s".',
-                            $min = 1,
-                            $max = 0
-                        ),
+                    self::MESSAGE => sprintf(
+                        'Max value should be greater than min value. Min: "%s", Max: "%s".',
+                        $min = 1,
+                        $max = 0
+                    ),
                 ],
             ],
             [
@@ -204,8 +201,7 @@ final class AProgressValueTest extends TestCase
             [
                 self::EXCEPTION => [
                     self::CLASS_ => InvalidArgumentException::class,
-                    self::MESSAGE =>
-                        'Min and Max values cannot be equal.',
+                    self::MESSAGE => 'Min and Max values cannot be equal.',
                 ],
             ],
             [
@@ -219,6 +215,7 @@ final class AProgressValueTest extends TestCase
 
     /**
      * @test
+     *
      * @dataProvider createDataProvider
      */
     public function create(array $expected, array $incoming): void
@@ -249,18 +246,13 @@ final class AProgressValueTest extends TestCase
 
     public static function getTesteeInstance(array $args = []): IProgressValue
     {
-        return new class (
-            startValue: $args[self::START] ?? 0.0,
-            steps: $args[self::STEPS] ?? 100,
-            min: $args[self::MIN] ?? 0.0,
-            max: $args[self::MAX] ?? 1.0,
-            autoFinish: $args[self::AUTO_FINISH] ?? false,
-        ) extends AProgressValue {
+        return new class(startValue: $args[self::START] ?? 0.0, steps: $args[self::STEPS] ?? 100, min: $args[self::MIN] ?? 0.0, max: $args[self::MAX] ?? 1.0, autoFinish: $args[self::AUTO_FINISH] ?? false, ) extends AProgressValue {
         };
     }
 
     /**
      * @test
+     *
      * @dataProvider createDataProvider
      */
     public function canBeFinished(array $expected, array $incoming): void

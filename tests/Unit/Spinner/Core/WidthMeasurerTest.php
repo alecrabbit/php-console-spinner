@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 // 03.04.23
+
 namespace AlecRabbit\Tests\Unit\Spinner\Core;
 
 use AlecRabbit\Spinner\Core\Contract\IWidthMeasurer;
@@ -25,10 +26,9 @@ final class WidthMeasurerTest extends TestCaseWithPrebuiltMocksAndStubs
     public function getTesteeInstance(
         ?callable $measureFunction = null
     ): IWidthMeasurer {
-        return
-            new WidthMeasurer(
-                measureFunction: $measureFunction ?? static fn(string $string): int => strlen($string)
-            );
+        return new WidthMeasurer(
+            measureFunction: $measureFunction ?? static fn (string $string): int => strlen($string)
+        );
     }
 
     #[Test]
@@ -43,7 +43,7 @@ final class WidthMeasurerTest extends TestCaseWithPrebuiltMocksAndStubs
         $this->expectExceptionMessage($exceptionMessage);
 
         $measurer = $this->getTesteeInstance(
-            static fn(int $int): string => 'whoops!'
+            static fn (int $int): string => 'whoops!'
         );
 
         self::assertInstanceOf(WidthMeasurer::class, $measurer);

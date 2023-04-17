@@ -24,7 +24,7 @@ final class MemoryUsageTest extends TestCase
                 [
                     self::ARGUMENTS => [
                         self::VALUE => $item[1],
-                        self::PREFIX => $item[2] ?? null
+                        self::PREFIX => $item[2] ?? null,
                     ],
                 ],
             ];

@@ -24,8 +24,7 @@ final class WidgetRevolverBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
 
     public function getTesteeInstance(): IWidgetRevolverBuilder
     {
-        return
-            new WidgetRevolverBuilder();
+        return new WidgetRevolverBuilder();
     }
 
     #[Test]
@@ -51,7 +50,7 @@ final class WidgetRevolverBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
         $exceptionClass = LogicException::class;
         $exceptionMessage = 'Style revolver is not set.';
 
-        $test = function () {
+        $test = function (): void {
             $widgetRevolver =
                 $this->getTesteeInstance()
                     ->withCharRevolver($this->getRevolverMock())
@@ -74,7 +73,7 @@ final class WidgetRevolverBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
         $exceptionClass = LogicException::class;
         $exceptionMessage = 'Character revolver is not set.';
 
-        $test = function () {
+        $test = function (): void {
             $widgetRevolver =
                 $this->getTesteeInstance()
                     ->withStyleRevolver($this->getRevolverMock())

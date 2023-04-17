@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Factory;
 
-
 use AlecRabbit\Spinner\Contract\Option\OptionStyleMode;
 use AlecRabbit\Spinner\Core\Color\HexColorToAnsiCodeConverter;
 use AlecRabbit\Spinner\Core\Factory\Contract\IHexColorToAnsiCodeConverterFactory;
@@ -25,8 +24,7 @@ final class HexColorToAnsiCodeConverterFactoryTest extends TestCaseWithPrebuiltM
 
     public function getTesteeInstance(): IHexColorToAnsiCodeConverterFactory
     {
-        return
-            new HexColorToAnsiCodeConverterFactory();
+        return new HexColorToAnsiCodeConverterFactory();
     }
 
     #[Test]
@@ -45,7 +43,7 @@ final class HexColorToAnsiCodeConverterFactoryTest extends TestCaseWithPrebuiltM
         $exceptionClass = InvalidArgumentException::class;
         $exceptionMessage = 'Unsupported style mode "NONE".';
 
-        $test = function () {
+        $test = function (): void {
             $converterFactory = $this->getTesteeInstance();
 
             $converter = $converterFactory->create(OptionStyleMode::NONE);
@@ -59,5 +57,4 @@ final class HexColorToAnsiCodeConverterFactoryTest extends TestCaseWithPrebuiltM
             exceptionMessage: $exceptionMessage,
         );
     }
-
 }

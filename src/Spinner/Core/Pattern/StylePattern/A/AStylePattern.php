@@ -15,10 +15,8 @@ use Traversable;
 
 abstract class AStylePattern extends AReversiblePattern implements IStylePattern
 {
-    /** @var OptionStyleMode */
     protected const STYLE_MODE = OptionStyleMode::ANSI8;
 
-    /** @var array<int, string> */
     protected const PATTERN = ['#c0c0c0'];
 
     public function __construct(
@@ -27,7 +25,7 @@ abstract class AStylePattern extends AReversiblePattern implements IStylePattern
         protected ?OptionStyleMode $styleMode = null,
     ) {
         parent::__construct($interval, $reversed);
-        $this->styleMode ??= static::STYLE_MODE;
+        $this->styleMode ??= self::STYLE_MODE;
     }
 
     public function getStyleMode(): OptionStyleMode
@@ -37,8 +35,7 @@ abstract class AStylePattern extends AReversiblePattern implements IStylePattern
 
     protected function entries(): Traversable
     {
-        return
-            new ArrayObject($this->extractPattern());
+        return new ArrayObject($this->extractPattern());
     }
 
     /**
@@ -46,6 +43,6 @@ abstract class AStylePattern extends AReversiblePattern implements IStylePattern
      */
     protected function extractPattern(): array
     {
-        return static::PATTERN;
+        return self::PATTERN;
     }
 }

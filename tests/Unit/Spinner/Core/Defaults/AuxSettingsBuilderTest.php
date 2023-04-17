@@ -22,8 +22,7 @@ final class AuxSettingsBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
 
     public function getTesteeInstance(): IAuxSettingsBuilder
     {
-        return
-            new AuxSettingsBuilder();
+        return new AuxSettingsBuilder();
     }
 
     #[Test]

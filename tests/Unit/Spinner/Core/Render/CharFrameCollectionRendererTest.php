@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 // 03.04.23
+
 namespace Unit\Spinner\Core\Render;
 
 use AlecRabbit\Spinner\Core\Contract\ICharFrameRenderer;
@@ -10,6 +11,7 @@ use AlecRabbit\Spinner\Core\FrameCollection;
 use AlecRabbit\Spinner\Core\Render\CharFrameCollectionRenderer;
 use AlecRabbit\Spinner\Core\Render\Contract\ICharFrameCollectionRenderer;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
+use ArrayObject;
 use PHPUnit\Framework\Attributes\Test;
 
 final class CharFrameCollectionRendererTest extends TestCaseWithPrebuiltMocksAndStubs
@@ -25,10 +27,9 @@ final class CharFrameCollectionRendererTest extends TestCaseWithPrebuiltMocksAnd
     public function getTesteeInstance(
         ?ICharFrameRenderer $frameRenderer = null,
     ): ICharFrameCollectionRenderer {
-        return
-            new CharFrameCollectionRenderer(
-                frameRenderer: $frameRenderer ?? $this->getCharFrameRendererMock(),
-            );
+        return new CharFrameCollectionRenderer(
+            frameRenderer: $frameRenderer ?? $this->getCharFrameRendererMock(),
+        );
     }
 
     #[Test]
@@ -63,7 +64,7 @@ final class CharFrameCollectionRendererTest extends TestCaseWithPrebuiltMocksAnd
         $pattern
             ->expects(self::once())
             ->method('getEntries')
-            ->willReturn(new \ArrayObject([$str]))
+            ->willReturn(new ArrayObject([$str]))
         ;
         $collection = $collectionRenderer->render($pattern);
         self::assertInstanceOf(FrameCollection::class, $collection);
@@ -102,7 +103,7 @@ final class CharFrameCollectionRendererTest extends TestCaseWithPrebuiltMocksAnd
         $pattern
             ->expects(self::once())
             ->method('getEntries')
-            ->willReturn(new \ArrayObject([$frameMock]))
+            ->willReturn(new ArrayObject([$frameMock]))
         ;
         $collection = $collectionRenderer->render($pattern);
         self::assertInstanceOf(FrameCollection::class, $collection);
@@ -142,16 +143,20 @@ final class CharFrameCollectionRendererTest extends TestCaseWithPrebuiltMocksAnd
         $pattern
             ->expects(self::once())
             ->method('getEntries')
-            ->willReturn(new \ArrayObject([new class($str) {
-                public function __construct(private readonly string $str)
-                {
-                }
+            ->willReturn(
+                new ArrayObject([
+                    new class($str) {
+                        public function __construct(private readonly string $str)
+                        {
+                        }
 
-                public function __toString(): string
-                {
-                    return $this->str;
-                }
-            }]))
+                        public function __toString(): string
+                        {
+                            return $this->str;
+                        }
+                    },
+                ])
+            )
         ;
         $collection = $collectionRenderer->render($pattern);
         self::assertInstanceOf(FrameCollection::class, $collection);

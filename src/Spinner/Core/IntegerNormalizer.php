@@ -11,9 +11,9 @@ use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 
 final class IntegerNormalizer implements IIntegerNormalizer
 {
-    protected const DEFAULT_DIVISOR = 1;
-    protected const DEFAULT_MIN = 0;
-    protected const MAX_DIVISOR = 1000000;
+    private const DEFAULT_DIVISOR = 1;
+    private const DEFAULT_MIN = 0;
+    private const MAX_DIVISOR = 1000000;
 
     /**
      * @throws InvalidArgumentException

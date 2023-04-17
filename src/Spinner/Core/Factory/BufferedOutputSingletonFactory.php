@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 // 10.04.23
+
 namespace AlecRabbit\Spinner\Core\Factory;
 
 use AlecRabbit\Spinner\Contract\Output\IBufferedOutput;
@@ -22,7 +23,7 @@ final class BufferedOutputSingletonFactory implements IBufferedOutputSingletonFa
 
     public function getOutput(): IBufferedOutput
     {
-        if (null === self::$bufferedOutput) {
+        if (self::$bufferedOutput === null) {
             self::$bufferedOutput = $this->bufferedOutputBuilder
                 ->withStream($this->resourceStream)
                 ->build()

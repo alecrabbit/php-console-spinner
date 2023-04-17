@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 // 05.04.23
+
 namespace AlecRabbit\Spinner\Core\Defaults;
 
 use AlecRabbit\Spinner\Core\Contract\IDefaultsProvider;
@@ -32,37 +33,34 @@ final class DefaultsProviderBuilder implements IDefaultsProviderBuilder
     public function build(): IDefaultsProvider
     {
         $widgetSettings = $this->getWidgetSettings();
-        return
-            new DefaultsProvider(
-                auxSettings: $this->auxSettingsBuilder->build(),
-                loopSettings: $this->loopSettingsFactory->createLoopSettings(),
-                driverSettings: $this->driverSettingsBuilder->build(),
-                widgetSettings: $widgetSettings,
-                rootWidgetSettings: $this->getRootWidgetSettings($widgetSettings),
-            );
+        return new DefaultsProvider(
+            auxSettings: $this->auxSettingsBuilder->build(),
+            loopSettings: $this->loopSettingsFactory->createLoopSettings(),
+            driverSettings: $this->driverSettingsBuilder->build(),
+            widgetSettings: $widgetSettings,
+            rootWidgetSettings: $this->getRootWidgetSettings($widgetSettings),
+        );
     }
 
     private function getWidgetSettings(): IWidgetSettings
     {
-        return
-            $this->widgetSettingsBuilder
-                ->withLeadingSpacer(Frame::createEmpty())
-                ->withTrailingSpacer(Frame::createSpace())
-                ->withStylePattern(new NoStylePattern())
-                ->withCharPattern(new NoCharPattern())
-                ->build()
+        return $this->widgetSettingsBuilder
+            ->withLeadingSpacer(Frame::createEmpty())
+            ->withTrailingSpacer(Frame::createSpace())
+            ->withStylePattern(new NoStylePattern())
+            ->withCharPattern(new NoCharPattern())
+            ->build()
         ;
     }
 
     private function getRootWidgetSettings(IWidgetSettings $widgetSettings): Contract\IWidgetSettings
     {
-        return
-            $this->widgetSettingsBuilder
-                ->withLeadingSpacer($widgetSettings->getLeadingSpacer())
-                ->withTrailingSpacer($widgetSettings->getTrailingSpacer())
-                ->withStylePattern(new Rainbow())
-                ->withCharPattern(new Snake())
-                ->build()
+        return $this->widgetSettingsBuilder
+            ->withLeadingSpacer($widgetSettings->getLeadingSpacer())
+            ->withTrailingSpacer($widgetSettings->getTrailingSpacer())
+            ->withStylePattern(new Rainbow())
+            ->withCharPattern(new Snake())
+            ->build()
         ;
     }
 }

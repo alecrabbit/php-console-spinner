@@ -21,7 +21,7 @@ use Traversable;
 
 final class StyleFrameCollectionRenderer implements IStyleFrameCollectionRenderer
 {
-    protected IStyleFrameRenderer $styleFrameRenderer;
+    private IStyleFrameRenderer $styleFrameRenderer;
 
     public function __construct(
         protected IStyleFrameRendererFactory $styleFrameRendererFactory,
@@ -29,7 +29,6 @@ final class StyleFrameCollectionRenderer implements IStyleFrameCollectionRendere
     ) {
     }
 
-    /** @inheritdoc */
     public function render(IStylePattern $pattern): IFrameCollection
     {
         $this->styleFrameRenderer =
@@ -37,18 +36,16 @@ final class StyleFrameCollectionRenderer implements IStyleFrameCollectionRendere
                 $pattern->getStyleMode()
             );
 
-        return
-            new FrameCollection($this->generateFrames($pattern));
+        return new FrameCollection($this->generateFrames($pattern));
     }
 
     /**
      * @throws InvalidArgumentException
      */
-    protected function generateFrames(IStylePattern $pattern): Traversable
+    private function generateFrames(IStylePattern $pattern): Traversable
     {
         /** @var IFrame|Stringable|string|IStyle $entry */
         foreach ($pattern->getEntries() as $entry) {
-
             if ($entry instanceof IFrame) {
                 yield $entry;
                 continue;
@@ -65,7 +62,7 @@ final class StyleFrameCollectionRenderer implements IStyleFrameCollectionRendere
     /**
      * @throws InvalidArgumentException
      */
-    protected function createFrame(string|IStyle $style): IFrame
+    private function createFrame(string|IStyle $style): IFrame
     {
         if (is_string($style)) {
             $style = $this->styleFactory->fromString($style);

@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 // 27.03.23
+
 namespace AlecRabbit\Tests\Unit\Spinner\Container;
 
 use AlecRabbit\Spinner\Container\Contract\IServiceSpawner;
@@ -26,17 +27,10 @@ final class ServiceSpawnerTest extends TestCaseWithPrebuiltMocksAndStubs
         self::assertInstanceOf(ServiceSpawner::class, $spawner);
     }
 
-    protected function getTesteeInstance(?ContainerInterface $container = null): IServiceSpawner
-    {
-        return new ServiceSpawner(
-            container: $container ?? $this->getContainerMock(),
-        );
-    }
-
     #[Test]
     public function canSpawnObject(): void
     {
-        $object = new class {
+        $object = new class() {
         };
 
         $spawner = $this->getTesteeInstance();
@@ -59,7 +53,7 @@ final class ServiceSpawnerTest extends TestCaseWithPrebuiltMocksAndStubs
     #[Test]
     public function canSpawnWithCallable(): void
     {
-        $callable = fn(ContainerInterface $container) => new ClassForSpawner();
+        $callable = static fn (ContainerInterface $container) => new ClassForSpawner();
 
         $spawner = $this->getTesteeInstance();
 
@@ -146,6 +140,13 @@ final class ServiceSpawnerTest extends TestCaseWithPrebuiltMocksAndStubs
 
         self::fail(
             self::exceptionNotThrownString($exceptionClass, $exceptionMessage)
+        );
+    }
+
+    protected function getTesteeInstance(?ContainerInterface $container = null): IServiceSpawner
+    {
+        return new ServiceSpawner(
+            container: $container ?? $this->getContainerMock(),
         );
     }
 }

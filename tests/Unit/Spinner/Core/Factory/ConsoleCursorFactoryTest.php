@@ -25,11 +25,10 @@ final class ConsoleCursorFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
         ?IBufferedOutputSingletonFactory $bufferedOutputFactory = null,
         ?IConsoleCursorBuilder $cursorBuilder = null,
     ): IConsoleCursorFactory {
-        return
-            new ConsoleCursorFactory(
-                bufferedOutputFactory: $bufferedOutputFactory ?? $this->getBufferedOutputFactoryMock(),
-                cursorBuilder: $cursorBuilder ?? $this->getCursorBuilderMock(),
-            );
+        return new ConsoleCursorFactory(
+            bufferedOutputFactory: $bufferedOutputFactory ?? $this->getBufferedOutputFactoryMock(),
+            cursorBuilder: $cursorBuilder ?? $this->getCursorBuilderMock(),
+        );
     }
 
     #[Test]

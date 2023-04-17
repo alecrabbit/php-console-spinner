@@ -3,14 +3,13 @@
 declare(strict_types=1);
 
 // 14.04.23
+
 namespace AlecRabbit\Spinner\Core\Render;
 
 use AlecRabbit\Spinner\Contract\Color\Style\IStyle;
 use AlecRabbit\Spinner\Contract\Color\Style\IStyleOptionsParser;
 use AlecRabbit\Spinner\Contract\IAnsiColorParser;
 use AlecRabbit\Spinner\Core\Render\Contract\IStyleToAnsiStringConverter;
-
-use function count;
 
 final class StyleToAnsiStringConverter implements IStyleToAnsiStringConverter
 {
@@ -37,42 +36,41 @@ final class StyleToAnsiStringConverter implements IStyleToAnsiStringConverter
                 ? $this->optionsParser->parseOptions($style->getOptions())
                 : [];
 
-        return
-            $this->set($fg, $bg, $options) . $style->getFormat() . $this->unset($fg, $bg, $options);
+        return $this->set($fg, $bg, $options) . $style->getFormat() . $this->unset($fg, $bg, $options);
     }
 
-    protected function fg(IStyle $style): string
+    private function fg(IStyle $style): string
     {
         $parsed = $this->colorParser->parseColor((string)$style->getFgColor());
-        return '' === $parsed ? '' : '3' . $parsed;
+        return $parsed === '' ? '' : '3' . $parsed;
     }
 
-    protected function bg(IStyle $style): string
+    private function bg(IStyle $style): string
     {
         $parsed = $this->colorParser->parseColor((string)$style->getBgColor());
-        return '' === $parsed ? '' : '4' . $parsed;
+        return $parsed === '' ? '' : '4' . $parsed;
     }
 
-    protected function set(string $fg, string $bg, iterable $options = []): string
+    private function set(string $fg, string $bg, iterable $options = []): string
     {
         $codes = [];
-        if ('' !== $fg) {
+        if ($fg !== '') {
             $codes[] = $fg;
         }
-        if ('' !== $bg) {
+        if ($bg !== '') {
             $codes[] = $bg;
         }
         foreach ($options as $option) {
             $codes[] = $option[self::SET];
         }
-        if ([] === $codes) {
+        if ($codes === []) {
             return '';
         }
 
         return $this->unwrap($codes);
     }
 
-    protected function unwrap(array $codes): string
+    private function unwrap(array $codes): string
     {
         return sprintf("\033[%sm", implode(';', array_unique($codes)));
     }
@@ -80,16 +78,16 @@ final class StyleToAnsiStringConverter implements IStyleToAnsiStringConverter
     public function unset(string $fg, string $bg, iterable $options = []): string
     {
         $codes = [];
-        if ('' !== $fg) {
+        if ($fg !== '') {
             $codes[] = 39;
         }
-        if ('' !== $bg) {
+        if ($bg !== '') {
             $codes[] = 49;
         }
         foreach ($options as $option) {
             $codes[] = $option[self::UNSET];
         }
-        if ([] === $codes) {
+        if ($codes === []) {
             return '';
         }
 

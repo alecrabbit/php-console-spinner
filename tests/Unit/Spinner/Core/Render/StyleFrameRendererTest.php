@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 // 03.04.23
+
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Render;
 
 use AlecRabbit\Spinner\Contract\Option\OptionStyleMode;
@@ -28,12 +29,11 @@ final class StyleFrameRendererTest extends TestCaseWithPrebuiltMocksAndStubs
         ?IStyleRenderer $styleRenderer = null,
         ?OptionStyleMode $styleMode = null,
     ): IStyleFrameRenderer {
-        return
-            new StyleFrameRenderer(
-                frameFactory: $frameFactory ?? $this->getFrameFactoryMock(),
-                styleRenderer: $styleRenderer ?? $this->getStyleRendererMock(),
-                styleMode: $styleMode ?? OptionStyleMode::NONE,
-            );
+        return new StyleFrameRenderer(
+            frameFactory: $frameFactory ?? $this->getFrameFactoryMock(),
+            styleRenderer: $styleRenderer ?? $this->getStyleRendererMock(),
+            styleMode: $styleMode ?? OptionStyleMode::NONE,
+        );
     }
 
     #[Test]

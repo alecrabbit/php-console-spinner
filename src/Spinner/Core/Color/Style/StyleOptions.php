@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 // 14.04.23
+
 namespace AlecRabbit\Spinner\Core\Color\Style;
 
 use AlecRabbit\Spinner\Contract\Color\Style\IStyleOptions;
@@ -26,6 +27,6 @@ final class StyleOptions implements IStyleOptions
 
     public function isEmpty(): bool
     {
-        return 0 === count($this->options);
+        return count($this->options) === 0;
     }
 }

@@ -25,12 +25,11 @@ final class CharRevolverFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
         ?IFrameRevolverBuilder $frameRevolverBuilder = null,
         ?ICharFrameCollectionRenderer $charFrameCollectionRenderer = null,
     ): ICharRevolverFactory {
-        return
-            new CharRevolverFactory(
-                frameRevolverBuilder: $frameRevolverBuilder ?? $this->getFrameRevolverBuilderMock(),
-                charFrameCollectionRenderer: $charFrameCollectionRenderer ?? $this->getCharFrameCollectionRendererMock(
+        return new CharRevolverFactory(
+            frameRevolverBuilder: $frameRevolverBuilder ?? $this->getFrameRevolverBuilderMock(),
+            charFrameCollectionRenderer: $charFrameCollectionRenderer ?? $this->getCharFrameCollectionRendererMock(
             ),
-            );
+        );
     }
 
     #[Test]
@@ -53,7 +52,6 @@ final class CharRevolverFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
             ->willReturn($frameCollection)
         ;
 
-
         $frameRevolverBuilder = $this->getFrameRevolverBuilderMock();
         $frameRevolverBuilder
             ->expects(self::once())
@@ -74,7 +72,6 @@ final class CharRevolverFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
             ->willReturn($frameRevolver)
         ;
 
-
         $charRevolverFactory = $this->getTesteeInstance(
             frameRevolverBuilder: $frameRevolverBuilder,
             charFrameCollectionRenderer: $charFrameCollectionRenderer,
@@ -84,5 +81,4 @@ final class CharRevolverFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
         self::assertInstanceOf(CharRevolverFactory::class, $charRevolverFactory);
         self::assertSame($frameRevolver, $styleRevolver);
     }
-
 }

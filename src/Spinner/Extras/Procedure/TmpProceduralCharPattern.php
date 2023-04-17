@@ -21,15 +21,13 @@ final class TmpProceduralCharPattern extends AProceduralPattern
 
     public function getProcedure(): IProcedure
     {
-        return
-            new class () extends AProcedure {
-                public function update(float $dt = null): IFrame
-                {
-                    static $odd = true;
-                    $odd = !$odd;
-                    return
-                        FrameFactory::create($odd ? '⢸' : '⡇', 1);
-                }
-            };
+        return new class() extends AProcedure {
+            public function update(?float $dt = null): IFrame
+            {
+                static $odd = true;
+                $odd = !$odd;
+                return FrameFactory::create($odd ? '⢸' : '⡇', 1);
+            }
+        };
     }
 }

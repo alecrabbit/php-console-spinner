@@ -29,16 +29,14 @@ abstract class AFloatValue implements IFloatValue
     private static function assert(AFloatValue $value): void
     {
         match (true) {
-            $value->min > $value->max =>
-            throw new InvalidArgumentException(
+            $value->min > $value->max => throw new InvalidArgumentException(
                 sprintf(
                     'Max value should be greater than min value. Min: "%s", Max: "%s".',
                     $value->min,
                     $value->max,
                 )
             ),
-            $value->min === $value->max =>
-            throw new InvalidArgumentException(
+            $value->min === $value->max => throw new InvalidArgumentException(
                 'Min and Max values cannot be equal.'
             ),
             default => null,

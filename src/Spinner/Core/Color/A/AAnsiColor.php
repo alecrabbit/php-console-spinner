@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 // 14.04.23
+
 namespace AlecRabbit\Spinner\Core\Color\A;
 
 use AlecRabbit\Spinner\Core\Color\Mixin\Ansi8ColorTableTrait;

@@ -12,28 +12,27 @@ use LogicException;
 
 final class WidgetBuilder implements IWidgetBuilder
 {
-    protected ?IFrame $leadingSpacer = null;
-    protected ?IFrame $trailingSpacer = null;
-    protected ?IRevolver $revolver = null;
+    private ?IFrame $leadingSpacer = null;
+    private ?IFrame $trailingSpacer = null;
+    private ?IRevolver $revolver = null;
 
     public function build(): IWidgetComposite
     {
         $this->validate();
 
-        return
-            new Widget(
-                $this->revolver,
-                $this->leadingSpacer,
-                $this->trailingSpacer,
-            );
+        return new Widget(
+            $this->revolver,
+            $this->leadingSpacer,
+            $this->trailingSpacer,
+        );
     }
 
-    protected function validate(): void
+    private function validate(): void
     {
         match (true) {
             null === $this->revolver => throw new LogicException('Revolver is not set.'),
-            null === $this->leadingSpacer => throw new LogicException('Leading spacer is not set.'),
-            null === $this->trailingSpacer => throw new LogicException('Trailing spacer is not set.'),
+            $this->leadingSpacer === null => throw new LogicException('Leading spacer is not set.'),
+            $this->trailingSpacer === null => throw new LogicException('Trailing spacer is not set.'),
             default => null,
         };
     }

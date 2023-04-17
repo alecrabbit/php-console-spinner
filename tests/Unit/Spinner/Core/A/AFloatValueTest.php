@@ -62,12 +62,11 @@ final class AFloatValueTest extends TestCase
             [
                 self::EXCEPTION => [
                     self::CLASS_ => InvalidArgumentException::class,
-                    self::MESSAGE =>
-                        sprintf(
-                            'Max value should be greater than min value. Min: "%s", Max: "%s".',
-                            1,
-                            0
-                        ),
+                    self::MESSAGE => sprintf(
+                        'Max value should be greater than min value. Min: "%s", Max: "%s".',
+                        1,
+                        0
+                    ),
                 ],
             ],
             [
@@ -110,8 +109,7 @@ final class AFloatValueTest extends TestCase
 
     public static function getTesteeInstance(array $args = []): IFloatValue
     {
-        return
-            new class (...$args) extends AFloatValue {
-            };
+        return new class(...$args) extends AFloatValue {
+        };
     }
 }

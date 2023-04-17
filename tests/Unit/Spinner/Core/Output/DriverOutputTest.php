@@ -26,11 +26,10 @@ final class DriverOutputTest extends TestCaseWithPrebuiltMocksAndStubs
         ?IBufferedOutput $output = null,
         ?IConsoleCursor $cursor = null,
     ): IDriverOutput {
-        return
-            new DriverOutput(
-                output: $output ?? $this->getBufferedOutputMock(),
-                cursor: $cursor ?? $this->getCursorMock(),
-            );
+        return new DriverOutput(
+            output: $output ?? $this->getBufferedOutputMock(),
+            cursor: $cursor ?? $this->getCursorMock(),
+        );
     }
 
     #[Test]

@@ -26,16 +26,14 @@ final class ServiceSpawner implements IServiceSpawner
     ) {
     }
 
-    /** @inheritdoc */
     public function spawn(string|callable|object $definition): object
     {
         try {
-            return
-                match (true) {
-                    is_callable($definition) => $this->spawnByCallable($definition),
-                    is_string($definition) => $this->spawnByClassConstructor($definition),
-                    default => $definition, // return object as is
-                };
+            return match (true) {
+                is_callable($definition) => $this->spawnByCallable($definition),
+                is_string($definition) => $this->spawnByClassConstructor($definition),
+                default => $definition, // return object as is
+            };
         } catch (Throwable $e) {
             throw new SpawnFailedException(
                 sprintf(
@@ -51,7 +49,7 @@ final class ServiceSpawner implements IServiceSpawner
         }
     }
 
-    protected function spawnByCallable(callable $definition): object
+    private function spawnByCallable(callable $definition): object
     {
         /** @psalm-suppress MixedReturnStatement */
         return $definition($this->container);
@@ -59,19 +57,17 @@ final class ServiceSpawner implements IServiceSpawner
 
     /**
      * @param class-string $definition
-     * @return object
      *
      * @throws ContainerExceptionInterface
      * @throws NotFoundExceptionInterface
      * @throws ReflectionException
      */
-    protected function spawnByClassConstructor(string $definition): object
+    private function spawnByClassConstructor(string $definition): object
     {
-        return
-            match (true) {
-                class_exists($definition) => $this->createInstanceByReflection($definition),
-                default => throw new ClassDoesNotExistException('Class does not exist: ' . $definition),
-            };
+        return match (true) {
+            class_exists($definition) => $this->createInstanceByReflection($definition),
+            default => throw new ClassDoesNotExistException('Class does not exist: ' . $definition),
+        };
     }
 
     /**
@@ -91,7 +87,7 @@ final class ServiceSpawner implements IServiceSpawner
             foreach ($constructorParameters as $parameter) {
                 $name = $parameter->getName();
                 $type = $parameter->getType();
-                if (null === $type) {
+                if ($type === null) {
                     throw new UnableToExtractTypeException('Unable to extract type for parameter name: $' . $name);
                 }
                 if ($this->needsService($type)) {
@@ -113,17 +109,16 @@ final class ServiceSpawner implements IServiceSpawner
      */
     private function needsService(ReflectionIntersectionType|ReflectionNamedType|ReflectionUnionType $type): bool
     {
-        return
-            match (true) {
-                // assumes that all non-builtin types are services
-                $type instanceof ReflectionNamedType => !$type->isBuiltin(),
-                default => throw new UnableToExtractTypeException(
-                    sprintf(
-                        'Only %s is supported.',
-                        ReflectionNamedType::class,
-                    )
-                ),
-            };
+        return match (true) {
+            // assumes that all non-builtin types are services
+            $type instanceof ReflectionNamedType => !$type->isBuiltin(),
+            default => throw new UnableToExtractTypeException(
+                sprintf(
+                    'Only %s is supported.',
+                    ReflectionNamedType::class,
+                )
+            ),
+        };
     }
 
     /**

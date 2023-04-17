@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 // 15.02.23
+
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Color;
 
 use AlecRabbit\Spinner\Core\Color\Ansi8Color;
@@ -79,20 +80,20 @@ final class Ansi8ColorTest extends TestCase
         // #3..
         yield from [
             // result, index, hex // first element - #3
-            ['#ff0000', 196, null,],
-            [196, null, '#ff0000',],
-            ['#ff5f87', 204, null,],
-            [204, null, '#ff5f87',],
-            ['#af87ff', 141, null,],
-            [141, null, '#af87ff',],
-            ['#eeeeee', 255, null,],
-            [255, null, '#eeeeee',],
-            ['#808080', 244, null,],
-            [244, null, '#808080',],
-            ['#000000', 16, null,],
-            [16, null, '#000000',],
-            ['#800000', 1, null,],
-            [1, null, '#800000',],
+            ['#ff0000', 196, null],
+            [196, null, '#ff0000'],
+            ['#ff5f87', 204, null],
+            [204, null, '#ff5f87'],
+            ['#af87ff', 141, null],
+            [141, null, '#af87ff'],
+            ['#eeeeee', 255, null],
+            [255, null, '#eeeeee'],
+            ['#808080', 244, null],
+            [244, null, '#808080'],
+            ['#000000', 16, null],
+            [16, null, '#000000'],
+            ['#800000', 1, null],
+            [1, null, '#800000'],
         ];
     }
 
@@ -107,16 +108,16 @@ final class Ansi8ColorTest extends TestCase
         $index = $args[self::INDEX] ?? null;
         $hex = $args[self::HEX] ?? null;
 
-        if (null === $index && null === $hex) {
+        if ($index === null && $hex === null) {
             self::fail('Both index and hex arguments are null.');
         }
 
-        if (null !== $index && null !== $hex) {
+        if ($index !== null && $hex !== null) {
             self::fail('Both index and hex arguments are not null.');
         }
 
         $result =
-            null === $index
+            $index === null
                 ? Ansi8Color::getIndex($hex)
                 : Ansi8Color::getHexColor($index);
 

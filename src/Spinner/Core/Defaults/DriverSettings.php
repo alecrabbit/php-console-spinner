@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 // 29.03.23
+
 namespace AlecRabbit\Spinner\Core\Defaults;
 
 use AlecRabbit\Spinner\Contract\Option\OptionAttacher;
@@ -36,7 +37,6 @@ final class DriverSettings implements IDriverSettings
         $this->finalMessage = $finalMessage;
         return $this;
     }
-
 
     public function setInterruptMessage(string $interruptMessage): IDriverSettings
     {

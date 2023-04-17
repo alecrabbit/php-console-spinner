@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 // 12.04.23
+
 namespace AlecRabbit\Spinner\Core\Factory;
 
 use AlecRabbit\Spinner\Contract\Pattern\IPattern;
@@ -20,18 +21,16 @@ final class CharRevolverFactory implements ICharRevolverFactory
     ) {
     }
 
-
     public function createCharRevolver(IPattern $charPattern): IFrameRevolver
     {
-        return
-            $this->frameRevolverBuilder
-                ->withFrames($this->getFrameCollection($charPattern))
-                ->withInterval($charPattern->getInterval())
-                ->build()
+        return $this->frameRevolverBuilder
+            ->withFrames($this->getFrameCollection($charPattern))
+            ->withInterval($charPattern->getInterval())
+            ->build()
         ;
     }
 
-    protected function getFrameCollection(IPattern $charPattern): IFrameCollection
+    private function getFrameCollection(IPattern $charPattern): IFrameCollection
     {
         return $this->charFrameCollectionRenderer->render($charPattern);
     }

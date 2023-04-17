@@ -17,6 +17,6 @@ final class Speaker extends APattern
         '🔈 ',
         '🔉 ',
         '🔊 ',
-        '🔉 '
+        '🔉 ',
     ];
 }

@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 // 03.04.23
+
 namespace AlecRabbit\Spinner\Core\Factory;
 
 use AlecRabbit\Spinner\Core\Contract\IWidthMeasurer;
@@ -16,10 +17,9 @@ final class WidthMeasurerFactory implements IWidthMeasurerFactory
 {
     public function create(): IWidthMeasurer
     {
-        return
-            new WidthMeasurer(
-                self::measureFunction()
-            );
+        return new WidthMeasurer(
+            self::measureFunction()
+        );
     }
 
     /**

@@ -28,11 +28,10 @@ final class LoopSettingsFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
         ?ILoopProbe $loopProbe = null,
         ?ISignalProcessingProbe $pcntlExtensionProbe = null,
     ): ILoopSettingsFactory {
-        return
-            new LoopSettingsFactory(
-                loopProbe: $loopProbe,
-                signalProcessingProbe: $pcntlExtensionProbe,
-            );
+        return new LoopSettingsFactory(
+            loopProbe: $loopProbe,
+            signalProcessingProbe: $pcntlExtensionProbe,
+        );
     }
 
     #[Test]

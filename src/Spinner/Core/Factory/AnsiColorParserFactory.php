@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 // 15.04.23
+
 namespace AlecRabbit\Spinner\Core\Factory;
 
 use AlecRabbit\Spinner\Contract\IAnsiColorParser;
@@ -19,9 +20,8 @@ final class AnsiColorParserFactory implements Contract\IAnsiColorParserFactory
 
     public function create(OptionStyleMode $styleMode): IAnsiColorParser
     {
-        return
-            new AnsiColorParser(
-                converter: $this->converterFactory->create($styleMode),
-            );
+        return new AnsiColorParser(
+            converter: $this->converterFactory->create($styleMode),
+        );
     }
 }

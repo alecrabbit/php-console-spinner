@@ -21,17 +21,6 @@ final class TimerTest extends TestCase
         self::assertInstanceOf(Timer::class, $timer);
     }
 
-    protected function getTesteeInstance(
-        ?Closure $timeFunction = null,
-        ?float $startTime = null,
-    ): ITimer {
-        return
-            new Timer(
-                $timeFunction ?? static fn(): float => 0.0,
-                $startTime ?? 0.0,
-            );
-    }
-
     #[Test]
     public function canGetDelta(): void
     {
@@ -71,9 +60,9 @@ final class TimerTest extends TestCase
         $exceptionClass = InvalidArgumentException::class;
         $exceptionMessage = 'Return type of time function is not specified.';
 
-        $test = function () {
+        $test = function (): void {
             $timer = $this->getTesteeInstance(
-                timeFunction: static fn() => null,
+                timeFunction: static fn () => null,
             );
 
             self::assertInstanceOf(Timer::class, $timer);
@@ -93,9 +82,9 @@ final class TimerTest extends TestCase
         $exceptionMessage =
             'Time function must return "float"(e.g. "fn(): float => 0.0"), instead return type is "string".';
 
-        $test = function () {
+        $test = function (): void {
             $timer = $this->getTesteeInstance(
-                timeFunction: static fn(): string => '-',
+                timeFunction: static fn (): string => '-',
             );
 
             self::assertInstanceOf(Timer::class, $timer);
@@ -114,9 +103,9 @@ final class TimerTest extends TestCase
         $exceptionClass = InvalidArgumentException::class;
         $exceptionMessage = 'Invoke of time function throws:';
 
-        $test = function () {
+        $test = function (): void {
             $timer = $this->getTesteeInstance(
-                timeFunction: static fn(): float => null,
+                timeFunction: static fn (): float => null,
             );
 
             self::assertInstanceOf(Timer::class, $timer);
@@ -126,6 +115,16 @@ final class TimerTest extends TestCase
             test: $test,
             exceptionOrExceptionClass: $exceptionClass,
             exceptionMessage: $exceptionMessage,
+        );
+    }
+
+    protected function getTesteeInstance(
+        ?Closure $timeFunction = null,
+        ?float $startTime = null,
+    ): ITimer {
+        return new Timer(
+            $timeFunction ?? static fn (): float => 0.0,
+            $startTime ?? 0.0,
         );
     }
 }

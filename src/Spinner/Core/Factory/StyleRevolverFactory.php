@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 // 12.04.23
+
 namespace AlecRabbit\Spinner\Core\Factory;
 
 use AlecRabbit\Spinner\Contract\Pattern\IPattern;
@@ -20,18 +21,16 @@ final class StyleRevolverFactory implements IStyleRevolverFactory
     ) {
     }
 
-
     public function createStyleRevolver(IPattern $stylePattern): IFrameRevolver
     {
-        return
-            $this->frameRevolverBuilder
-                ->withFrames($this->getFrameCollection($stylePattern))
-                ->withInterval($stylePattern->getInterval())
-                ->build()
+        return $this->frameRevolverBuilder
+            ->withFrames($this->getFrameCollection($stylePattern))
+            ->withInterval($stylePattern->getInterval())
+            ->build()
         ;
     }
 
-    protected function getFrameCollection(IPattern $stylePattern): IFrameCollection
+    private function getFrameCollection(IPattern $stylePattern): IFrameCollection
     {
         return $this->styleFrameCollectionRenderer->render($stylePattern);
     }

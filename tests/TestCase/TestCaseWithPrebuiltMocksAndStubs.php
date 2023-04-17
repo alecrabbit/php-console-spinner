@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 // 16.06.22
+
 namespace AlecRabbit\Tests\TestCase;
 
 use AlecRabbit\Spinner\Container\Contract\IContainer;
@@ -127,7 +128,6 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
     {
         return $this->createMock(IConfigBuilder::class);
     }
-
 
     protected function getLoopInitializerMock(): MockObject&ILoopSetup
     {
@@ -448,7 +448,6 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
     {
         return $this->createMock(ICharFrameRenderer::class);
     }
-
 
     protected function getStyleToAnsiStringConverterMock(): MockObject&IStyleToAnsiStringConverter
     {

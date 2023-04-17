@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AlecRabbit\Tests\Unit\Spinner\Core;
 
 use AlecRabbit\Spinner\Core\Contract\IIntervalNormalizer;
@@ -35,14 +37,14 @@ final class IntervalNormalizerTest extends TestCaseWithPrebuiltMocksAndStubs
     {
         yield from [
             // result, interval, divisor, min,
-            [100, 100, 20, 20,],
-            [120, 115, 20, 20,],
-            [100, 124, 50, 50,],
-            [150, 135, 50, 50,],
-            [50, 10, 50, 50,],
-            [10, 10, 50, 10,],
-            [50, 25, 50, 50,],
-            [50, 25, 50, 10,],
+            [100, 100, 20, 20],
+            [120, 115, 20, 20],
+            [100, 124, 50, 50],
+            [150, 135, 50, 50],
+            [50, 10, 50, 50],
+            [10, 10, 50, 10],
+            [50, 25, 50, 50],
+            [50, 25, 50, 10],
 
         ];
     }
@@ -72,10 +74,9 @@ final class IntervalNormalizerTest extends TestCaseWithPrebuiltMocksAndStubs
         $min = $args[self::MIN] ?? 10;
         $divisor = $args[self::DIVISOR] ?? 20;
 
-        return
-            new IntervalNormalizer(
-                new IntegerNormalizer($divisor, $min)
-            );
+        return new IntervalNormalizer(
+            new IntegerNormalizer($divisor, $min)
+        );
     }
 
     #[Test]

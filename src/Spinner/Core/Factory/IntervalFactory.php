@@ -11,27 +11,25 @@ use AlecRabbit\Spinner\Core\Interval;
 
 final class IntervalFactory implements IIntervalFactory
 {
-    protected const DEFAULT_INTERVAL = 1000;
+    private const DEFAULT_INTERVAL = 1000;
 
-    protected static ?IInterval $normalizedDefaultInterval = null;
+    private static ?IInterval $normalizedDefaultInterval = null;
 
     public function __construct(
         protected IIntervalNormalizer $intervalNormalizer,
     ) {
     }
 
-
     public function createDefault(): IInterval
     {
-        if (null === self::$normalizedDefaultInterval) {
+        if (self::$normalizedDefaultInterval === null) {
             self::$normalizedDefaultInterval =
                 $this->intervalNormalizer->normalize(
                     new Interval(self::DEFAULT_INTERVAL),
                 );
         }
 
-        return
-            self::$normalizedDefaultInterval;
+        return self::$normalizedDefaultInterval;
     }
 
     public function createStill(): IInterval
@@ -41,9 +39,8 @@ final class IntervalFactory implements IIntervalFactory
 
     public function createNormalized(int $interval): IInterval
     {
-        return
-            $this->intervalNormalizer->normalize(
-                new Interval($interval)
-            );
+        return $this->intervalNormalizer->normalize(
+            new Interval($interval)
+        );
     }
 }

@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 // 05.04.23
+
 namespace AlecRabbit\Spinner\Core\Defaults;
 
 use AlecRabbit\Spinner\Contract\Option\OptionCursor;
@@ -15,12 +16,11 @@ final class AuxSettingsBuilder implements IAuxSettingsBuilder
 {
     public function build(): IAuxSettings
     {
-        return
-            new AuxSettings(
-                optionNormalizerMode: OptionNormalizerMode::BALANCED,
-                optionCursor: OptionCursor::HIDDEN,
-                optionStyleMode: OptionStyleMode::ANSI8,
-                outputStream: STDERR
-            );
+        return new AuxSettings(
+            optionNormalizerMode: OptionNormalizerMode::BALANCED,
+            optionCursor: OptionCursor::HIDDEN,
+            optionStyleMode: OptionStyleMode::ANSI8,
+            outputStream: STDERR
+        );
     }
 }

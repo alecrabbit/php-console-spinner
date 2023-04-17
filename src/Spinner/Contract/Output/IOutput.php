@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 // 28.03.23
+
 namespace AlecRabbit\Spinner\Contract\Output;
 
 interface IOutput

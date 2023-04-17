@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 // 10.04.23
+
 namespace AlecRabbit\Spinner\Core;
 
 use AlecRabbit\Spinner\Contract\Option\OptionAttacher;
@@ -12,7 +13,7 @@ use AlecRabbit\Spinner\Core\Contract\Loop\Contract\ILoop;
 
 final class DriverAttacher implements IDriverAttacher
 {
-    protected mixed $timer = null;
+    private mixed $timer = null;
 
     public function __construct(
         protected ILoop $loop,
@@ -30,7 +31,7 @@ final class DriverAttacher implements IDriverAttacher
             );
     }
 
-    protected function detach(): void
+    private function detach(): void
     {
         if ($this->timer) {
             $this->loop->cancel($this->timer);

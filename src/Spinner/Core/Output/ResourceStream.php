@@ -22,6 +22,7 @@ final class ResourceStream implements IResourceStream
 
     /**
      * @param resource $stream
+     *
      * @throws InvalidArgumentException
      */
     public function __construct(
@@ -31,12 +32,11 @@ final class ResourceStream implements IResourceStream
         $this->stream = $stream;
     }
 
-    /** @inheritDoc */
     public function write(Traversable $data): void
     {
         /** @var string $item */
         foreach ($data as $item) {
-            if (false === @fwrite($this->stream, $item)) {
+            if (@fwrite($this->stream, $item) === false) {
                 // should never happen
                 throw new RuntimeException('Was unable to write to a stream.');
             }

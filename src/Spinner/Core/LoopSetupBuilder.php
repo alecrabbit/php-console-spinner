@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 // 06.04.23
+
 namespace AlecRabbit\Spinner\Core;
 
 use AlecRabbit\Spinner\Core\Contract\ILoopSetup;
@@ -13,25 +14,24 @@ use AlecRabbit\Spinner\Exception\LogicException;
 
 final class LoopSetupBuilder implements ILoopSetupBuilder
 {
-    protected ?ILoop $loop = null;
-    protected ?ILoopSettings $settings = null;
+    private ?ILoop $loop = null;
+    private ?ILoopSettings $settings = null;
 
     public function build(): ILoopSetup
     {
         $this->validate();
 
-        return
-            new LoopSetup(
-                $this->loop,
-                $this->settings,
-            );
+        return new LoopSetup(
+            $this->loop,
+            $this->settings,
+        );
     }
 
-    protected function validate(): void
+    private function validate(): void
     {
         match (true) {
             null === $this->loop => throw new LogicException('Loop is not set.'),
-            null === $this->settings => throw new LogicException('Loop settings are not set.'),
+            $this->settings === null => throw new LogicException('Loop settings are not set.'),
             default => null,
         };
     }

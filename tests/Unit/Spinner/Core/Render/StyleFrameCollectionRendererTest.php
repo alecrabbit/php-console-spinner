@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 // 03.04.23
+
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Render;
 
 use AlecRabbit\Spinner\Contract\Option\OptionStyleMode;
@@ -13,6 +14,7 @@ use AlecRabbit\Spinner\Core\FrameCollection;
 use AlecRabbit\Spinner\Core\Render\Contract\IStyleFrameCollectionRenderer;
 use AlecRabbit\Spinner\Core\Render\StyleFrameCollectionRenderer;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
+use ArrayObject;
 use PHPUnit\Framework\Attributes\Test;
 
 final class StyleFrameCollectionRendererTest extends TestCaseWithPrebuiltMocksAndStubs
@@ -29,11 +31,10 @@ final class StyleFrameCollectionRendererTest extends TestCaseWithPrebuiltMocksAn
         ?IStyleFrameRendererFactory $styleFrameRendererFactory = null,
         ?IStyleFactory $styleFactory = null,
     ): IStyleFrameCollectionRenderer {
-        return
-            new StyleFrameCollectionRenderer(
-                styleFrameRendererFactory: $styleFrameRendererFactory ?? $this->getStyleFrameRendererFactoryMock(),
-                styleFactory: $styleFactory ?? $this->getStyleFactoryMock(),
-            );
+        return new StyleFrameCollectionRenderer(
+            styleFrameRendererFactory: $styleFrameRendererFactory ?? $this->getStyleFrameRendererFactoryMock(),
+            styleFactory: $styleFactory ?? $this->getStyleFactoryMock(),
+        );
     }
 
     #[Test]
@@ -75,13 +76,12 @@ final class StyleFrameCollectionRendererTest extends TestCaseWithPrebuiltMocksAn
         $pattern
             ->expects(self::once())
             ->method('getEntries')
-            ->willReturn(new \ArrayObject([$this->getStyleMock()]))
+            ->willReturn(new ArrayObject([$this->getStyleMock()]))
         ;
         $collection = $collectionRenderer->render($pattern);
         self::assertInstanceOf(FrameCollection::class, $collection);
         self::assertSame($frame, $collection[0]);
     }
-
 
     #[Test]
     public function canRenderFromString(): void
@@ -122,7 +122,7 @@ final class StyleFrameCollectionRendererTest extends TestCaseWithPrebuiltMocksAn
         $pattern
             ->expects(self::once())
             ->method('getEntries')
-            ->willReturn(new \ArrayObject(['#ffffff']))
+            ->willReturn(new ArrayObject(['#ffffff']))
         ;
         $collection = $collectionRenderer->render($pattern);
         self::assertInstanceOf(FrameCollection::class, $collection);
@@ -167,7 +167,7 @@ final class StyleFrameCollectionRendererTest extends TestCaseWithPrebuiltMocksAn
         $pattern
             ->expects(self::once())
             ->method('getEntries')
-            ->willReturn(new \ArrayObject([$frame]))
+            ->willReturn(new ArrayObject([$frame]))
         ;
         $collection = $collectionRenderer->render($pattern);
         self::assertInstanceOf(FrameCollection::class, $collection);
@@ -213,7 +213,7 @@ final class StyleFrameCollectionRendererTest extends TestCaseWithPrebuiltMocksAn
         $pattern
             ->expects(self::once())
             ->method('getEntries')
-            ->willReturn(new \ArrayObject([RGBColor::fromHex('#ffffff')]))
+            ->willReturn(new ArrayObject([RGBColor::fromHex('#ffffff')]))
         ;
         $collection = $collectionRenderer->render($pattern);
         self::assertInstanceOf(FrameCollection::class, $collection);

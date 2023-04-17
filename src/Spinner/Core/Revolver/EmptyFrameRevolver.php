@@ -25,7 +25,7 @@ final class EmptyFrameRevolver extends ARevolver
         return new self();
     }
 
-    public function update(float $dt = null): IFrame
+    public function update(?float $dt = null): IFrame
     {
         return $this->current();
     }
@@ -35,7 +35,7 @@ final class EmptyFrameRevolver extends ARevolver
         return $this->currentFrame;
     }
 
-    protected function next(float $dt = null): void
+    protected function next(?float $dt = null): void
     {
         // do nothing
     }

@@ -23,8 +23,7 @@ final class WidgetBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
 
     public function getTesteeInstance(): IWidgetBuilder
     {
-        return
-            new WidgetBuilder();
+        return new WidgetBuilder();
     }
 
     #[Test]
@@ -51,7 +50,7 @@ final class WidgetBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
         $exceptionClass = LogicException::class;
         $exceptionMessage = 'Revolver is not set.';
 
-        $test = function () {
+        $test = function (): void {
             $widgetBuilder = $this->getTesteeInstance();
 
             $widget =
@@ -77,7 +76,7 @@ final class WidgetBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
         $exceptionClass = LogicException::class;
         $exceptionMessage = 'Leading spacer is not set.';
 
-        $test = function () {
+        $test = function (): void {
             $widgetBuilder = $this->getTesteeInstance();
 
             $widget =
@@ -103,7 +102,7 @@ final class WidgetBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
         $exceptionClass = LogicException::class;
         $exceptionMessage = 'Trailing spacer is not set.';
 
-        $test = function () {
+        $test = function (): void {
             $widgetBuilder = $this->getTesteeInstance();
 
             $widget =

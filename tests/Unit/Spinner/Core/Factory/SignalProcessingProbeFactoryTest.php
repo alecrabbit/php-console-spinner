@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Factory;
 
-
 use AlecRabbit\Spinner\Core\Defaults\SignalProcessingProbe;
 use AlecRabbit\Spinner\Core\Factory\Contract\ISignalProcessingProbeFactory;
 use AlecRabbit\Spinner\Core\Factory\SignalProcessingProbeFactory;
@@ -23,8 +22,7 @@ final class SignalProcessingProbeFactoryTest extends TestCaseWithPrebuiltMocksAn
 
     public function getTesteeInstance(): ISignalProcessingProbeFactory
     {
-        return
-            new SignalProcessingProbeFactory();
+        return new SignalProcessingProbeFactory();
     }
 
     #[Test]

@@ -29,16 +29,10 @@ final class CursorTest extends TestCase
         (MockObject & IBufferedOutput)|null $output,
         OptionCursor $cursorOption = OptionCursor::HIDDEN,
     ): IConsoleCursor {
-        return
-            new ConsoleCursor(
-                output: $output ?? $this->getOutputMock(),
-                optionCursor: $cursorOption,
-            );
-    }
-
-    protected function getOutputMock(): MockObject&IBufferedOutput
-    {
-        return $this->createMock(IBufferedOutput::class);
+        return new ConsoleCursor(
+            output: $output ?? $this->getOutputMock(),
+            optionCursor: $cursorOption,
+        );
     }
 
     #[Test]
@@ -126,5 +120,10 @@ final class CursorTest extends TestCase
         self::assertInstanceOf(ConsoleCursor::class, $cursor);
 
         $cursor->erase(2)->flush();
+    }
+
+    protected function getOutputMock(): MockObject&IBufferedOutput
+    {
+        return $this->createMock(IBufferedOutput::class);
     }
 }

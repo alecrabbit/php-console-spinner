@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 // 03.04.23
+
 namespace AlecRabbit\Spinner\Core;
 
 use AlecRabbit\Spinner\Contract\Output\IBufferedOutput;
@@ -13,19 +14,18 @@ use AlecRabbit\Spinner\Exception\LogicException;
 
 final class BufferedOutputBuilder implements IBufferedOutputBuilder
 {
-    protected ?IResourceStream $stream = null;
+    private ?IResourceStream $stream = null;
 
     public function build(): IBufferedOutput
     {
         $this->validate();
 
-        return
-            new StreamBufferedOutput($this->stream);
+        return new StreamBufferedOutput($this->stream);
     }
 
-    protected function validate(): void
+    private function validate(): void
     {
-        if (null === $this->stream) {
+        if ($this->stream === null) {
             throw new LogicException('Stream is not set.');
         }
     }

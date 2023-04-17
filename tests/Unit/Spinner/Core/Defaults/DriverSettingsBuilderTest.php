@@ -22,8 +22,7 @@ final class DriverSettingsBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
 
     public function getTesteeInstance(): IDriverSettingsBuilder
     {
-        return
-            new DriverSettingsBuilder();
+        return new DriverSettingsBuilder();
     }
 
     #[Test]

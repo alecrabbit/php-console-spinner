@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 // 27.03.23
+
 namespace AlecRabbit\Tests\Unit\Spinner\Container\Override;
 
 use RuntimeException;

@@ -16,7 +16,7 @@ use WeakMap;
 abstract class AWidgetComposite implements IWidgetComposite
 {
     protected IWidgetContext $context;
-    /** @var IWidgetContext[] */
+    /** @var array<IWidgetContext> */
     protected array $children = [];
     protected int $childrenCount = 0;
     protected ?IWidgetComposite $parent = null;
@@ -37,7 +37,7 @@ abstract class AWidgetComposite implements IWidgetComposite
         $this->childrenContextMap = new WeakMap();
     }
 
-    public function update(float $dt = null): IFrame
+    public function update(?float $dt = null): IFrame
     {
         $revolverFrame = $this->revolver->update($dt);
 
@@ -128,7 +128,7 @@ abstract class AWidgetComposite implements IWidgetComposite
 
     protected function hasParent(): bool
     {
-        return null !== $this->parent;
+        return $this->parent !== null;
     }
 
     public function remove(IWidgetComposite|IWidgetContext $element): void

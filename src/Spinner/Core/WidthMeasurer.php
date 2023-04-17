@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 // 03.04.23
+
 namespace AlecRabbit\Spinner\Core;
 
 use AlecRabbit\Spinner\Core\Contract\IWidthMeasurer;
@@ -18,13 +19,13 @@ final class WidthMeasurer implements IWidthMeasurer
         self::assert($this->measureFunction);
     }
 
-    protected static function assert(Closure $measureFunction): void
+    private static function assert(Closure $measureFunction): void
     {
         $reflection = new ReflectionFunction($measureFunction);
         $returnType = $reflection->getReturnType()?->getName();
         $parameterType = $reflection->getParameters()[0]->getType()?->getName();
 
-        if ('string' === $parameterType && 'int' === $returnType) {
+        if ($parameterType === 'string' && $returnType === 'int') {
             return;
         }
 

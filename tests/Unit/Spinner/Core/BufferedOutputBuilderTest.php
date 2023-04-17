@@ -24,8 +24,7 @@ final class BufferedOutputBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
 
     public function getTesteeInstance(): IBufferedOutputBuilder
     {
-        return
-            new BufferedOutputBuilder();
+        return new BufferedOutputBuilder();
     }
 
     #[Test]

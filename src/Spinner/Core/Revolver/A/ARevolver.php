@@ -10,7 +10,6 @@ use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
 
 abstract class ARevolver implements IRevolver
 {
-    /** @var int */
     protected const TOLERANCE = 5; // ms // FIXME: make configurable - move to ...(?)
     protected float $intervalValue;
     protected float $differential;
@@ -22,7 +21,7 @@ abstract class ARevolver implements IRevolver
         IInterval $interval,
     ) {
         $this->setInterval($interval);
-        $this->tolerance = static::TOLERANCE;
+        $this->tolerance = self::TOLERANCE;
     }
 
     public function getInterval(): IInterval
@@ -38,7 +37,7 @@ abstract class ARevolver implements IRevolver
         $this->differential = $this->intervalValue;
     }
 
-    public function update(float $dt = null): IFrame
+    public function update(?float $dt = null): IFrame
     {
         if ($this->shouldUpdate($dt)) {
             $this->next($dt);
@@ -46,9 +45,9 @@ abstract class ARevolver implements IRevolver
         return $this->current();
     }
 
-    protected function shouldUpdate(float $dt = null): bool
+    protected function shouldUpdate(?float $dt = null): bool
     {
-        if (null === $dt || $this->intervalValue <= ($dt + $this->tolerance) || $this->differential <= 0) {
+        if ($dt === null || $this->intervalValue <= ($dt + $this->tolerance) || $this->differential <= 0) {
             $this->differential = $this->intervalValue;
             return true;
         }
@@ -56,7 +55,7 @@ abstract class ARevolver implements IRevolver
         return false;
     }
 
-    abstract protected function next(float $dt = null): void;
+    abstract protected function next(?float $dt = null): void;
 
     abstract protected function current(): IFrame;
 }

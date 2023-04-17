@@ -22,7 +22,7 @@ final class IntervalTest extends TestCase
         // [$expected, $incoming]
         yield [
             [
-                self::INTERVAL => (float)(IInterval::MAX_INTERVAL_MILLISECONDS / 1000),
+                self::INTERVAL => (float) (IInterval::MAX_INTERVAL_MILLISECONDS / 1000),
             ],
             [
                 self::ARGUMENTS => [],
@@ -64,7 +64,7 @@ final class IntervalTest extends TestCase
 
         yield [
             [
-                self::INTERVAL => (float)(IInterval::MIN_INTERVAL_MILLISECONDS / 1000),
+                self::INTERVAL => (float) (IInterval::MIN_INTERVAL_MILLISECONDS / 1000),
             ],
             [
                 self::ARGUMENTS => [
@@ -75,7 +75,7 @@ final class IntervalTest extends TestCase
 
         yield [
             [
-                self::INTERVAL => (float)(IInterval::MAX_INTERVAL_MILLISECONDS / 1000),
+                self::INTERVAL => (float) (IInterval::MAX_INTERVAL_MILLISECONDS / 1000),
             ],
             [
                 self::ARGUMENTS => [
@@ -92,11 +92,10 @@ final class IntervalTest extends TestCase
             [
                 self::EXCEPTION => [
                     self::CLASS_ => InvalidArgumentException::class,
-                    self::MESSAGE =>
-                        sprintf(
-                            'Interval should be greater than or equal to %s.',
-                            IInterval::MIN_INTERVAL_MILLISECONDS
-                        ),
+                    self::MESSAGE => sprintf(
+                        'Interval should be greater than or equal to %s.',
+                        IInterval::MIN_INTERVAL_MILLISECONDS
+                    ),
                 ],
             ],
             [
@@ -110,11 +109,10 @@ final class IntervalTest extends TestCase
             [
                 self::EXCEPTION => [
                     self::CLASS_ => InvalidArgumentException::class,
-                    self::MESSAGE =>
-                        sprintf(
-                            'Interval should be less than or equal to %s.',
-                            IInterval::MAX_INTERVAL_MILLISECONDS
-                        ),
+                    self::MESSAGE => sprintf(
+                        'Interval should be less than or equal to %s.',
+                        IInterval::MAX_INTERVAL_MILLISECONDS
+                    ),
                 ],
             ],
             [
@@ -137,7 +135,7 @@ final class IntervalTest extends TestCase
                     100,
                 ],
                 self::SECOND => [
-                    200
+                    200,
                 ],
             ],
         ];
@@ -151,7 +149,7 @@ final class IntervalTest extends TestCase
                     100,
                 ],
                 self::SECOND => [
-                    50
+                    50,
                 ],
             ],
         ];
@@ -165,7 +163,7 @@ final class IntervalTest extends TestCase
                     1000,
                 ],
                 self::SECOND => [
-                    35
+                    35,
                 ],
             ],
         ];
@@ -173,6 +171,7 @@ final class IntervalTest extends TestCase
 
     /**
      * @test
+     *
      * @dataProvider createDataProvider
      */
     public function create(array $expected, array $incoming): void
@@ -208,6 +207,7 @@ final class IntervalTest extends TestCase
 
     /**
      * @test
+     *
      * @dataProvider smallestDataProvider
      */
     public function canCalculateSmallest(array $expected, array $incoming): void
@@ -215,6 +215,6 @@ final class IntervalTest extends TestCase
         $interval = self::getTesteeInstance($incoming[self::FIRST] ?? []);
         $other = self::getTesteeInstance($incoming[self::SECOND] ?? []);
         self::assertEquals($expected[self::INTERVAL], $interval->smallest($other)->toMilliseconds());
-        self::assertSame((float)$expected[self::INTERVAL], $interval->smallest($other)->toMilliseconds());
+        self::assertSame((float) $expected[self::INTERVAL], $interval->smallest($other)->toMilliseconds());
     }
 }

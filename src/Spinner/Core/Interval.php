@@ -9,7 +9,7 @@ use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 
 final class Interval implements IInterval
 {
-    protected float $milliseconds;
+    private float $milliseconds;
 
     /**
      * @throws InvalidArgumentException
@@ -20,12 +20,12 @@ final class Interval implements IInterval
         self::assert($this);
     }
 
-    protected static function default(): int|float
+    private static function default(): int|float
     {
         return self::max();
     }
 
-    protected static function max(): int|float
+    private static function max(): int|float
     {
         return self::MAX_INTERVAL_MILLISECONDS;
     }
@@ -33,18 +33,16 @@ final class Interval implements IInterval
     /**
      * @throws InvalidArgumentException
      */
-    protected static function assert(self $interval): void
+    private static function assert(self $interval): void
     {
         match (true) {
-            $interval->milliseconds < self::min() =>
-            throw new InvalidArgumentException(
+            $interval->milliseconds < self::min() => throw new InvalidArgumentException(
                 sprintf(
                     'Interval should be greater than or equal to %s.',
                     self::min()
                 )
             ),
-            $interval->milliseconds > self::max() =>
-            throw new InvalidArgumentException(
+            $interval->milliseconds > self::max() => throw new InvalidArgumentException(
                 sprintf(
                     'Interval should be less than or equal to %s.',
                     self::max()
@@ -54,7 +52,7 @@ final class Interval implements IInterval
         };
     }
 
-    protected static function min(): int|float
+    private static function min(): int|float
     {
         return self::MIN_INTERVAL_MILLISECONDS;
     }

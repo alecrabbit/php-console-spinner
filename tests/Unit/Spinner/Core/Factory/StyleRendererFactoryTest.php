@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Factory;
 
-
 use AlecRabbit\Spinner\Contract\Option\OptionStyleMode;
 use AlecRabbit\Spinner\Core\Factory\Contract\IStyleRendererFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IStyleToAnsiStringConverterFactory;
@@ -26,10 +25,9 @@ final class StyleRendererFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
     public function getTesteeInstance(
         ?IStyleToAnsiStringConverterFactory $converterFactory = null,
     ): IStyleRendererFactory {
-        return
-            new StyleRendererFactory(
-                converterFactory: $converterFactory ?? $this->getStyleToAnsiStringConverterFactoryMock(),
-            );
+        return new StyleRendererFactory(
+            converterFactory: $converterFactory ?? $this->getStyleToAnsiStringConverterFactoryMock(),
+        );
     }
 
     #[Test]

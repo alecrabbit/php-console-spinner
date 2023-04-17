@@ -35,7 +35,7 @@ final class NullWidget extends AWidgetComposite
         return new self();
     }
 
-    public function update(float $dt = null): IFrame
+    public function update(?float $dt = null): IFrame
     {
         return $this->currentFrame;
     }

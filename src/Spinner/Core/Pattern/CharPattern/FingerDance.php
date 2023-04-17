@@ -19,6 +19,6 @@ final class FingerDance extends APattern
         '🖖 ',
         '✋ ',
         '🤚 ',
-        '👆 '
+        '👆 ',
     ];
 }

@@ -27,13 +27,11 @@ final class DriverAttacherFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
         ?ILoop $loop = null,
         ?IDefaultsProvider $defaultsProvider = null,
     ): IDriverAttacherSingletonFactory {
-        return
-            new DriverAttacherSingletonFactory(
-                loop: $loop ?? $this->getLoopMock(),
-                defaultsProvider: $defaultsProvider ?? $this->getDefaultsProviderMock(),
-            );
+        return new DriverAttacherSingletonFactory(
+            loop: $loop ?? $this->getLoopMock(),
+            defaultsProvider: $defaultsProvider ?? $this->getDefaultsProviderMock(),
+        );
     }
-
 
     #[Test]
     public function canGetAttacher(): void

@@ -23,8 +23,7 @@ final class WidgetSettingsBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
 
     public function getTesteeInstance(): IWidgetSettingsBuilder
     {
-        return
-            new WidgetSettingsBuilder();
+        return new WidgetSettingsBuilder();
     }
 
     #[Test]
@@ -51,7 +50,7 @@ final class WidgetSettingsBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
         $exceptionClass = LogicException::class;
         $exceptionMessage = 'Leading spacer is not set.';
 
-        $test = function () {
+        $test = function (): void {
             $widgetSettingsBuilder = $this->getTesteeInstance();
 
             $widgetSettings =
@@ -78,7 +77,7 @@ final class WidgetSettingsBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
         $exceptionClass = LogicException::class;
         $exceptionMessage = 'Trailing spacer is not set.';
 
-        $test = function () {
+        $test = function (): void {
             $widgetSettingsBuilder = $this->getTesteeInstance();
 
             $widgetSettings =
@@ -105,7 +104,7 @@ final class WidgetSettingsBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
         $exceptionClass = LogicException::class;
         $exceptionMessage = 'Style pattern is not set.';
 
-        $test = function () {
+        $test = function (): void {
             $widgetSettingsBuilder = $this->getTesteeInstance();
 
             $widgetSettings =
@@ -132,7 +131,7 @@ final class WidgetSettingsBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
         $exceptionClass = LogicException::class;
         $exceptionMessage = 'Char pattern is not set.';
 
-        $test = function () {
+        $test = function (): void {
             $widgetSettingsBuilder = $this->getTesteeInstance();
 
             $widgetSettings =

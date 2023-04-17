@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 // 04.04.23
+
 namespace AlecRabbit\Spinner\Core\Factory;
 
 use AlecRabbit\Spinner\Core\Contract\IDefaultsProvider;
@@ -13,7 +14,7 @@ use AlecRabbit\Spinner\Core\Factory\Contract\IDriverAttacherSingletonFactory;
 
 final class DriverAttacherSingletonFactory implements IDriverAttacherSingletonFactory
 {
-    protected static ?IDriverAttacher $attacher = null;
+    private static ?IDriverAttacher $attacher = null;
 
     public function __construct(
         protected ILoop $loop,
@@ -23,18 +24,17 @@ final class DriverAttacherSingletonFactory implements IDriverAttacherSingletonFa
 
     public function getAttacher(): IDriverAttacher
     {
-        if (null === self::$attacher) {
+        if (self::$attacher === null) {
             self::$attacher = $this->createAttacher();
         }
         return self::$attacher;
     }
 
-    protected function createAttacher(): IDriverAttacher
+    private function createAttacher(): IDriverAttacher
     {
-        return
-            new DriverAttacher(
-                $this->loop,
-                $this->defaultsProvider->getDriverSettings()->getOptionAttacher(),
-            );
+        return new DriverAttacher(
+            $this->loop,
+            $this->defaultsProvider->getDriverSettings()->getOptionAttacher(),
+        );
     }
 }

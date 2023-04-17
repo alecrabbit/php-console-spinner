@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 // 12.04.23
+
 namespace AlecRabbit\Spinner\Core\Widget\Factory;
 
 use AlecRabbit\Spinner\Core\Defaults\Contract\IWidgetSettings;
@@ -24,27 +25,24 @@ final class WidgetRevolverFactory implements IWidgetRevolverFactory
 
     public function createWidgetRevolver(IWidgetSettings $widgetSettings): IRevolver
     {
-        return
-            $this->widgetRevolverBuilder
-                ->withStyleRevolver($this->getStyleRevolver($widgetSettings))
-                ->withCharRevolver($this->getCharRevolver($widgetSettings))
-                ->build()
+        return $this->widgetRevolverBuilder
+            ->withStyleRevolver($this->getStyleRevolver($widgetSettings))
+            ->withCharRevolver($this->getCharRevolver($widgetSettings))
+            ->build()
         ;
     }
 
     private function getStyleRevolver(IWidgetSettings $widgetSettings): IFrameRevolver
     {
-        return
-            $this->styleRevolverFactory->createStyleRevolver(
-                $widgetSettings->getStylePattern()
-            );
+        return $this->styleRevolverFactory->createStyleRevolver(
+            $widgetSettings->getStylePattern()
+        );
     }
 
     private function getCharRevolver(IWidgetSettings $widgetSettings): IFrameRevolver
     {
-        return
-            $this->charRevolverFactory->createCharRevolver(
-                $widgetSettings->getCharPattern()
-            );
+        return $this->charRevolverFactory->createCharRevolver(
+            $widgetSettings->getCharPattern()
+        );
     }
 }

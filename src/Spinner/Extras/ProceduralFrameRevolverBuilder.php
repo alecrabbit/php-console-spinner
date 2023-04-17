@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 // 20.03.23
+
 namespace AlecRabbit\Spinner\Extras;
 
 use AlecRabbit\Spinner\Contract\Pattern\IProceduralPattern;
@@ -15,11 +16,10 @@ final class ProceduralFrameRevolverBuilder extends AFrameRevolverBuilder
     {
         self::assertPattern($this->pattern);
         if ($this->pattern instanceof IProceduralPattern) {
-            return
-                new ProceduralRevolver(
-                    $this->pattern->getProcedure(),
-                    $this->pattern->getInterval()
-                );
+            return new ProceduralRevolver(
+                $this->pattern->getProcedure(),
+                $this->pattern->getInterval()
+            );
         }
         return parent::build();
     }

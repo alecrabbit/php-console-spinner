@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 // 03.04.23
+
 namespace AlecRabbit\Tests\Unit\Spinner\Core;
 
 use AlecRabbit\Spinner\Core\Contract\ICharFrameRenderer;
@@ -25,10 +26,9 @@ final class CharFrameRendererTest extends TestCaseWithPrebuiltMocksAndStubs
     public function getTesteeInstance(
         ?IFrameFactory $frameFactory = null,
     ): ICharFrameRenderer {
-        return
-            new CharFrameRenderer(
-                frameFactory: $frameFactory ?? $this->getFrameFactoryMock(),
-            );
+        return new CharFrameRenderer(
+            frameFactory: $frameFactory ?? $this->getFrameFactoryMock(),
+        );
     }
 
     #[Test]
@@ -69,7 +69,7 @@ final class CharFrameRendererTest extends TestCaseWithPrebuiltMocksAndStubs
         $exceptionClass = InvalidArgumentException::class;
         $exceptionMessage = 'Entry should be type of "string",';
 
-        $test = function () {
+        $test = function (): void {
             $this->getTesteeInstance()->render(1);
         };
 

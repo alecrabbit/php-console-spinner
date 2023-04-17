@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 // 14.04.23
+
 namespace AlecRabbit\Spinner\Extras\Factory;
 
 use AlecRabbit\Spinner\Contract\Option\OptionStyleMode;

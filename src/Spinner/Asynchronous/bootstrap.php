@@ -13,13 +13,12 @@ use AlecRabbit\Spinner\Facade;
 Facade::useService(
     ILoopProbeFactory::class,
     static function (): ILoopProbeFactory {
-        return
-            new LoopProbeFactory(
-                new ArrayObject([
-                    RevoltLoopProbe::class,
-                    ReactLoopProbe::class,
-                ]),
-            );
+        return new LoopProbeFactory(
+            new ArrayObject([
+                RevoltLoopProbe::class,
+                ReactLoopProbe::class,
+            ]),
+        );
     },
 );
 

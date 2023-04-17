@@ -3,11 +3,11 @@
 declare(strict_types=1);
 
 // 24.03.23
+
 namespace AlecRabbit\Spinner\Core\Color\Mixin;
 
 trait Ansi8ColorTableTrait
 {
-    /** @var array<int,string> */
     protected const COLORS = [
         0 => '#000000',    // ansi4 bc color (black)
         1 => '#800000',    // ansi4 bc color (red)

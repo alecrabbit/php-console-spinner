@@ -23,8 +23,7 @@ final class DriverOutputBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
 
     public function getTesteeInstance(): IDriverOutputBuilder
     {
-        return
-            new DriverOutputBuilder();
+        return new DriverOutputBuilder();
     }
 
     #[Test]
@@ -48,7 +47,7 @@ final class DriverOutputBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
         $exceptionClass = LogicException::class;
         $exceptionMessage = 'Cursor is not set.';
 
-        $test = function () {
+        $test = function (): void {
             $outputBuilder = $this->getTesteeInstance();
 
             $outputBuilder
@@ -67,7 +66,7 @@ final class DriverOutputBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
     #[Test]
     public function throwsIfOutputIsNotSet(): void
     {
-        $test = function () {
+        $test = function (): void {
             $outputBuilder = $this->getTesteeInstance();
 
             $outputBuilder

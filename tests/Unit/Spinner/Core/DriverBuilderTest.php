@@ -25,10 +25,9 @@ final class DriverBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
     public function getTesteeInstance(
         ?IIntervalFactory $intervalFactory = null,
     ): IDriverBuilder {
-        return
-            new DriverBuilder(
-                intervalFactory: $intervalFactory ?? $this->getIntervalFactoryMock()
-            );
+        return new DriverBuilder(
+            intervalFactory: $intervalFactory ?? $this->getIntervalFactoryMock()
+        );
     }
 
     #[Test]
@@ -39,7 +38,7 @@ final class DriverBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
         $driver = $driverBuilder
             ->withDriverOutput($this->getDriverOutputMock())
             ->withTimer($this->getTimerMock())
-            ->withIntervalCallback(fn() => $this->getIntervalMock())
+            ->withIntervalCallback(fn () => $this->getIntervalMock())
             ->build()
         ;
 
@@ -73,7 +72,7 @@ final class DriverBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
         $exceptionClass = LogicException::class;
         $exceptionMessage = 'DriverOutput is not set.';
 
-        $test = function () {
+        $test = function (): void {
             $driverBuilder = $this->getTesteeInstance();
 
             $driverBuilder
@@ -95,7 +94,7 @@ final class DriverBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
         $exceptionClass = LogicException::class;
         $exceptionMessage = 'Timer is not set.';
 
-        $test = function () {
+        $test = function (): void {
             $driverBuilder = $this->getTesteeInstance();
 
             $driverBuilder
