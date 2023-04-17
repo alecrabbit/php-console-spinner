@@ -65,7 +65,7 @@ final class StyleToAnsiStringConverter implements IStyleToAnsiStringConverter
         foreach ($options as $option) {
             $codes[] = $option[self::SET];
         }
-        if (0 === count($codes)) {
+        if ([] === $codes) {
             return '';
         }
 
@@ -89,7 +89,7 @@ final class StyleToAnsiStringConverter implements IStyleToAnsiStringConverter
         foreach ($options as $option) {
             $codes[] = $option[self::UNSET];
         }
-        if (0 === count($codes)) {
+        if ([] === $codes) {
             return '';
         }
 

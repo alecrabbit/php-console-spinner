@@ -54,7 +54,7 @@ final class RevoltLoopAdapter extends ALoopAdapter
         });
 
         $stopped =& self::$stopped;
-        register_shutdown_function(static function () use (&$hasRun, &$stopped) {
+        register_shutdown_function(static function () use (&$hasRun, &$stopped): void {
             // Don't run if we're coming from a fatal error (uncaught exception).
             if (self::error()) {
                 return;
