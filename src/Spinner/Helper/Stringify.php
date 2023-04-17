@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 // 25.03.23
 namespace AlecRabbit\Spinner\Helper;
 
@@ -15,20 +16,20 @@ final class Stringify
     {
         $type = gettype($value);
         return
-            match ($unwrap) {
-                true => self::unwrapValue($value, $type),
-                false => $type,
-            };
+        match ($unwrap) {
+            true => self::unwrapValue($value, $type),
+            false => $type,
+        };
     }
 
     protected static function unwrapValue(mixed $value, string $type): string
     {
         return
-            match (true) {
-                is_scalar($value) => self::unwrapScalar($value, $type),
-                is_object($value) => self::unwrapObject($value, $type),
-                default => $type,
-            };
+        match (true) {
+            is_scalar($value) => self::unwrapScalar($value, $type),
+            is_object($value) => self::unwrapObject($value, $type),
+            default => $type,
+        };
     }
 
     protected static function unwrapScalar(mixed $value, string $type): string

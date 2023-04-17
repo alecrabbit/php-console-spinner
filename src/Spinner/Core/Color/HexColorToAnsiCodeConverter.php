@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 // 23.03.23
 namespace AlecRabbit\Spinner\Core\Color;
 
@@ -17,11 +18,11 @@ final class HexColorToAnsiCodeConverter extends AColorToAnsiCodeConverter implem
         $color = $this->normalize($color);
 
         return
-            match ($this->styleMode) {
-                OptionStyleMode::ANSI4 => $this->convert4($color),
-                OptionStyleMode::ANSI8 => $this->convert8($color),
-                default => $this->convertHexColorToAnsiColorCode($color),
-            };
+        match ($this->styleMode) {
+            OptionStyleMode::ANSI4 => $this->convert4($color),
+            OptionStyleMode::ANSI8 => $this->convert8($color),
+            default => $this->convertHexColorToAnsiColorCode($color),
+        };
     }
 
     /**
@@ -36,15 +37,15 @@ final class HexColorToAnsiCodeConverter extends AColorToAnsiCodeConverter implem
         $b = $color & 255;
 
         return
-            match ($this->styleMode) {
-                OptionStyleMode::ANSI24 => sprintf('8;2;%d;%d;%d', $r, $g, $b),
-                default => throw new InvalidArgumentException(
-                    sprintf(
-                        'Failed to convert color "%s" in mode "%s".',
-                        $hexColor,
-                        $this->styleMode->name,
-                    )
+        match ($this->styleMode) {
+            OptionStyleMode::ANSI24 => sprintf('8;2;%d;%d;%d', $r, $g, $b),
+            default => throw new InvalidArgumentException(
+                sprintf(
+                    'Failed to convert color "%s" in mode "%s".',
+                    $hexColor,
+                    $this->styleMode->name,
                 )
-            };
+            )
+        };
     }
 }

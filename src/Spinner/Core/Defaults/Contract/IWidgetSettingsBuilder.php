@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 // 05.04.23
 namespace AlecRabbit\Spinner\Core\Defaults\Contract;
 
@@ -22,5 +23,4 @@ interface IWidgetSettingsBuilder
     public function withStylePattern(IPattern $pattern): IWidgetSettingsBuilder;
 
     public function withCharPattern(IPattern $pattern): IWidgetSettingsBuilder;
-
 }

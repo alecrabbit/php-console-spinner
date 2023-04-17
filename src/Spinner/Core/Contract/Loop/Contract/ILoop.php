@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 // 17.02.23
 
 namespace AlecRabbit\Spinner\Core\Contract\Loop\Contract;
@@ -21,6 +22,5 @@ interface ILoop
 
     public function onSignal(int $signal, Closure $closure): void;
 
-    public function autoStart(
-    ): void; // TODO (2023-04-05 13:11) [Alec Rabbit]: choose a better name and/or move to another interface/class
+    public function autoStart(): void; // TODO (2023-04-05 13:11) [Alec Rabbit]: choose a better name and/or move to another interface/class
 }
