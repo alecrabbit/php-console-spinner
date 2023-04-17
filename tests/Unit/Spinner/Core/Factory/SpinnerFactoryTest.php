@@ -60,7 +60,7 @@ final class SpinnerFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
             ->method('getCharPattern')
             ->willReturn($this->getPatternMock())
         ;
-        
+
         $defaultsProvider = $this->getDefaultsProviderMock();
         $defaultsProvider
             ->expects(self::once())
