@@ -19,6 +19,7 @@ use AlecRabbit\Spinner\Contract\Pattern\IPattern;
 use AlecRabbit\Spinner\Core\Config\Contract\ISpinnerConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IWidgetConfig;
 use AlecRabbit\Spinner\Core\Contract\IBufferedOutputBuilder;
+use AlecRabbit\Spinner\Core\Contract\ICharFrameRenderer;
 use AlecRabbit\Spinner\Core\Contract\IConsoleCursorBuilder;
 use AlecRabbit\Spinner\Core\Contract\IDefaultsProvider;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
@@ -441,6 +442,11 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
     protected function getStyleFrameRendererMock(): MockObject&IStyleFrameRenderer
     {
         return $this->createMock(IStyleFrameRenderer::class);
+    }
+
+    protected function getCharFrameRendererMock(): MockObject&ICharFrameRenderer
+    {
+        return $this->createMock(ICharFrameRenderer::class);
     }
 
 

@@ -72,9 +72,9 @@ final class StyleToAnsiStringConverter implements IStyleToAnsiStringConverter
         return $this->unwrap($codes);
     }
 
-    protected function unwrap(array $setCodes): string
+    protected function unwrap(array $codes): string
     {
-        return sprintf("\033[%sm", implode(';', array_unique($setCodes)));
+        return sprintf("\033[%sm", implode(';', array_unique($codes)));
     }
 
     public function unset(string $fg, string $bg, iterable $options = []): string
