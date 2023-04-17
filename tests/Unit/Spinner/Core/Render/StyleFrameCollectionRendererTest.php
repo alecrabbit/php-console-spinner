@@ -79,6 +79,7 @@ final class StyleFrameCollectionRendererTest extends TestCaseWithPrebuiltMocksAn
         ;
         $collection = $collectionRenderer->render($pattern);
         self::assertInstanceOf(FrameCollection::class, $collection);
+        self::assertSame($frame, $collection[0]);
     }
 
 
@@ -125,6 +126,7 @@ final class StyleFrameCollectionRendererTest extends TestCaseWithPrebuiltMocksAn
         ;
         $collection = $collectionRenderer->render($pattern);
         self::assertInstanceOf(FrameCollection::class, $collection);
+        self::assertSame($frame, $collection[0]);
     }
 
     #[Test]
@@ -138,7 +140,6 @@ final class StyleFrameCollectionRendererTest extends TestCaseWithPrebuiltMocksAn
         $styleFrameRenderer
             ->expects(self::never())
             ->method('render')
-            ->willReturn($frame)
         ;
         $styleFrameRendererFactory
             ->expects(self::once())
@@ -170,6 +171,7 @@ final class StyleFrameCollectionRendererTest extends TestCaseWithPrebuiltMocksAn
         ;
         $collection = $collectionRenderer->render($pattern);
         self::assertInstanceOf(FrameCollection::class, $collection);
+        self::assertSame($frame, $collection[0]);
     }
 
     #[Test]
@@ -215,5 +217,6 @@ final class StyleFrameCollectionRendererTest extends TestCaseWithPrebuiltMocksAn
         ;
         $collection = $collectionRenderer->render($pattern);
         self::assertInstanceOf(FrameCollection::class, $collection);
+        self::assertSame($frame, $collection[0]);
     }
 }

@@ -48,6 +48,7 @@ final class StyleFrameCollectionRenderer implements IStyleFrameCollectionRendere
     {
         /** @var IFrame|Stringable|string|IStyle $entry */
         foreach ($pattern->getEntries() as $entry) {
+
             if ($entry instanceof IFrame) {
                 yield $entry;
                 continue;
