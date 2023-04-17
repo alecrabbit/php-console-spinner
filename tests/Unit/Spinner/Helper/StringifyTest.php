@@ -327,5 +327,4 @@ final class StringifyTest extends TestCase
 
         self::assertSame($expected[self::RESULT], $result);
     }
-
 }

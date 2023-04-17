@@ -56,5 +56,4 @@ final class TimerFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
         self::assertInstanceOf(TimerFactory::class, $timerFactory);
         self::assertSame($timerStub, $timerFactory->create());
     }
-
 }

@@ -9,7 +9,6 @@ use Closure;
 
 final class ALoopAdapterOverride extends ALoopAdapter
 {
-
     public function stop(): void
     {
         // TODO: Implement stop() method.

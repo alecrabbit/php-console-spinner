@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 // 15.02.23
 namespace AlecRabbit\Tests\Unit\Spinner\Core;
 
@@ -9,7 +10,6 @@ use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
-
 
 final class IntegerNormalizerTest extends TestCase
 {
@@ -108,5 +108,4 @@ final class IntegerNormalizerTest extends TestCase
 
         self::failTest(self::exceptionNotThrownString($exceptionClass, $exceptionMessage));
     }
-
 }

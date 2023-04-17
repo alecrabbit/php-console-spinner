@@ -60,5 +60,4 @@ final class IntervalNormalizerFactoryTest extends TestCaseWithPrebuiltMocksAndSt
         self::assertInstanceOf(IntervalNormalizerFactory::class, $intervalNormalizerFactory);
         self::assertInstanceOf(IntervalNormalizer::class, $intervalNormalizerFactory->create());
     }
-
 }

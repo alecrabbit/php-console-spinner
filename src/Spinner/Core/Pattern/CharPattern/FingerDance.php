@@ -14,11 +14,11 @@ final class FingerDance extends APattern
     protected const UPDATE_INTERVAL = 300;
 
     protected const PATTERN = [
-        "🤘 ",
-        "🤟 ",
-        "🖖 ",
-        "✋ ",
-        "🤚 ",
-        "👆 "
+        '🤘 ',
+        '🤟 ',
+        '🖖 ',
+        '✋ ',
+        '🤚 ',
+        '👆 '
     ];
 }

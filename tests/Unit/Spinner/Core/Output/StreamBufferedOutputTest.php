@@ -23,7 +23,7 @@ final class StreamBufferedOutputTest extends TestCase
     }
 
     public function getTesteeInstance(
-        (MockObject&IResourceStream)|null $stream,
+        (MockObject & IResourceStream)|null $stream,
         ?StringBuffer $buffer = null,
     ): IBufferedOutput {
         if (null === $buffer) {

@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 // 03.04.23
 namespace AlecRabbit\Tests\Unit\Spinner\Extras\Color;
 
@@ -11,7 +12,6 @@ use AlecRabbit\Spinner\Extras\Color\HexColorToAnsiCodeConverter;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
-
 
 final class HexColorToAnsiCodeConverterTest extends TestCaseWithPrebuiltMocksAndStubs
 {

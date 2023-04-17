@@ -14,9 +14,9 @@ final class Speaker extends APattern
     protected const UPDATE_INTERVAL = 300;
 
     protected const PATTERN = [
-        "🔈 ",
-        "🔉 ",
-        "🔊 ",
-        "🔉 "
+        '🔈 ',
+        '🔉 ',
+        '🔊 ',
+        '🔉 '
     ];
 }

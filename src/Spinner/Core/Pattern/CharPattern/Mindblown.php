@@ -11,24 +11,26 @@ use AlecRabbit\Spinner\Core\Pattern\A\APattern;
 /** @psalm-suppress UnusedClass */
 final class Mindblown extends APattern
 {
+    private const SPACE = "\u{3000} ";
+
     protected const UPDATE_INTERVAL = 200;
 
     protected const PATTERN = [
-        "😊 ",
-        "🙂 ",
-        "😐 ",
-        "😐 ",
-        "😮 ",
-        "😮 ",
-        "😦 ",
-        "😦 ",
-        "😧 ",
-        "😧 ",
-        "🤯 ",
-        "💥 ",
-        "✨ ",
-        "\u{3000} ",
-        "\u{3000} ",
-        "\u{3000} "
+        '😊 ',
+        '🙂 ',
+        '😐 ',
+        '😐 ',
+        '😮 ',
+        '😮 ',
+        '😦 ',
+        '😦 ',
+        '😧 ',
+        '😧 ',
+        '🤯 ',
+        '💥 ',
+        '✨ ',
+        self::SPACE,
+        self::SPACE,
+        self::SPACE
     ];
 }

@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 // 03.04.23
 namespace AlecRabbit\Tests\Unit\Spinner\Core;
 
@@ -10,7 +11,6 @@ use AlecRabbit\Spinner\Core\LoopSetupBuilder;
 use AlecRabbit\Spinner\Exception\LogicException;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;
-
 
 final class LoopSetupBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
 {
@@ -62,7 +62,6 @@ final class LoopSetupBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
             test: $test,
             exceptionOrExceptionClass: $exceptionClass,
             exceptionMessage: $exceptionMessage,
-
         );
     }
 
@@ -85,7 +84,6 @@ final class LoopSetupBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
             test: $test,
             exceptionOrExceptionClass: $exceptionClass,
             exceptionMessage: $exceptionMessage,
-
         );
     }
 }

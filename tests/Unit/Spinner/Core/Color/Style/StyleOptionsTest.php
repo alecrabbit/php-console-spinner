@@ -1,11 +1,11 @@
 <?php
 
 declare(strict_types=1);
+
 // 15.02.23
-namespace Unit\Spinner\Core\Color\Style;
+namespace AlecRabbit\Tests\Unit\Spinner\Core\Color\Style;
 
 use AlecRabbit\Spinner\Contract\Color\Style\StyleOption;
-use AlecRabbit\Spinner\Core\Color\Style\Style;
 use AlecRabbit\Spinner\Core\Color\Style\StyleOptions;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
@@ -28,5 +28,4 @@ final class StyleOptionsTest extends TestCase
         self::assertFalse($options->isEmpty());
         self::assertCount(1, $options->getIterator());
     }
-
 }

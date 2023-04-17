@@ -75,5 +75,4 @@ final class ConsoleCursorFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
 
         self::assertSame($cursorStub, $cursor);
     }
-
 }

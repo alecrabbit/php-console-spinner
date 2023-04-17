@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 // 09.04.23
 namespace AlecRabbit\Tests\Unit\Spinner\Core\DriverTest;
 
@@ -26,5 +27,4 @@ class TestCaseForDriver extends TestCaseWithPrebuiltMocksAndStubs
                 intervalCb: $intervalCb ?? static fn() => new Interval(),
             );
     }
-
 }

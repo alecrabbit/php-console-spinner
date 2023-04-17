@@ -91,5 +91,4 @@ final class SpinnerTest extends TestCaseWithPrebuiltMocksAndStubs
         self::assertInstanceOf(Spinner::class, $spinner);
         $spinner->remove($context);
     }
-
 }
