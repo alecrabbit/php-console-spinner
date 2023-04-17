@@ -9,6 +9,7 @@ namespace AlecRabbit\Spinner\Core\Pattern\StylePattern;
 use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Contract\Option\OptionStyleMode;
 use AlecRabbit\Spinner\Core\Pattern\StylePattern\A\AStylePattern;
+use AlecRabbit\Spinner\Exception\LogicException;
 use Traversable;
 
 /** @psalm-suppress UnusedClass */
@@ -26,5 +27,10 @@ final class CustomStylePattern extends AStylePattern
     protected function entries(): Traversable
     {
         yield from $this->pattern;
+    }
+
+    protected function extractPattern(): array
+    {
+        throw new LogicException('Not implemented'); // should never be called
     }
 }

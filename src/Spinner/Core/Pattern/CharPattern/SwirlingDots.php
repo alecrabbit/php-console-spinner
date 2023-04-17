@@ -11,7 +11,7 @@ use AlecRabbit\Spinner\Core\Pattern\A\AReversiblePattern;
 /** @psalm-suppress UnusedClass */
 final class SwirlingDots extends AReversiblePattern
 {
-    protected const UPDATE_INTERVAL = 80;
+    protected const INTERVAL = 80;
 
     protected const PATTERN = [
         '⢀⠀',
@@ -71,4 +71,9 @@ final class SwirlingDots extends AReversiblePattern
         '⠀⢀',
         '⠀⡀',
     ];
+
+    protected function entries(): \Traversable
+    {
+        return new \ArrayObject(self::PATTERN);
+    }
 }

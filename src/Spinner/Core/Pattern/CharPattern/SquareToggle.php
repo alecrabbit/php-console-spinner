@@ -11,7 +11,7 @@ use AlecRabbit\Spinner\Core\Pattern\A\AReversiblePattern;
 /** @psalm-suppress UnusedClass */
 final class SquareToggle extends AReversiblePattern
 {
-    protected const UPDATE_INTERVAL = 200;
+    protected const INTERVAL = 200;
 
     protected const PATTERN = [
         '■',
@@ -19,4 +19,9 @@ final class SquareToggle extends AReversiblePattern
         '▪',
         '▫',
     ];
+
+    protected function entries(): \Traversable
+    {
+        return new \ArrayObject(self::PATTERN);
+    }
 }

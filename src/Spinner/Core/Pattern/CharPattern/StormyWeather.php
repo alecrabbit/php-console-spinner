@@ -11,7 +11,7 @@ use AlecRabbit\Spinner\Core\Pattern\A\APattern;
 /** @psalm-suppress UnusedClass */
 final class StormyWeather extends APattern
 {
-    protected const UPDATE_INTERVAL = 80;
+    protected const INTERVAL = 80;
 
     protected const PATTERN = [
         '☀️ ',
@@ -43,4 +43,9 @@ final class StormyWeather extends APattern
         '☀️ ',
         '☀️ ',
     ];
+
+    protected function entries(): \Traversable
+    {
+        return new \ArrayObject(self::PATTERN);
+    }
 }

@@ -11,7 +11,12 @@ use AlecRabbit\Spinner\Core\Pattern\A\AReversiblePattern;
 /** @psalm-suppress UnusedClass */
 final class ShortSnake extends AReversiblePattern
 {
-    protected const UPDATE_INTERVAL = 80;
+    protected const INTERVAL = 80;
 
     protected const PATTERN = ['⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏'];
+
+    protected function entries(): \Traversable
+    {
+        return new \ArrayObject(self::PATTERN);
+    }
 }

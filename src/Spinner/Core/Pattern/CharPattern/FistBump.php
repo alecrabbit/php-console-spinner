@@ -11,7 +11,7 @@ use AlecRabbit\Spinner\Core\Pattern\A\AReversiblePattern;
 /** @psalm-suppress UnusedClass */
 final class FistBump extends AReversiblePattern
 {
-    protected const UPDATE_INTERVAL = 80;
+    protected const INTERVAL = 80;
 
     protected const PATTERN = [
         "🤜\u{3000}\u{3000}\u{3000}\u{3000}🤛\u{3000} ",
@@ -25,4 +25,9 @@ final class FistBump extends AReversiblePattern
         "🤜\u{3000}\u{3000}\u{3000}\u{3000}🤛\u{3000} ",
         "🤜\u{3000}\u{3000}\u{3000}\u{3000}🤛\u{3000} ",
     ];
+
+    protected function entries(): \Traversable
+    {
+        return new \ArrayObject(self::PATTERN);
+    }
 }

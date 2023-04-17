@@ -17,7 +17,7 @@ use AlecRabbit\Spinner\Extras\Procedure\A\AProcedure;
  */
 final class TmpProceduralCharPattern extends AProceduralPattern
 {
-    protected const UPDATE_INTERVAL = 500;
+    protected const INTERVAL = 500;
 
     public function getProcedure(): IProcedure
     {

@@ -11,7 +11,12 @@ use AlecRabbit\Spinner\Core\Pattern\A\AReversiblePattern;
 /** @psalm-suppress UnusedClass */
 final class Toggle extends AReversiblePattern
 {
-    protected const UPDATE_INTERVAL = 500;
+    protected const INTERVAL = 500;
 
     protected const PATTERN = ['⊶', '⊷'];
+
+    protected function entries(): \Traversable
+    {
+        return new \ArrayObject(self::PATTERN);
+    }
 }

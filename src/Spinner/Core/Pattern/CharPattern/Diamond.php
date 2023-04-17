@@ -11,7 +11,12 @@ use AlecRabbit\Spinner\Core\Pattern\A\AReversiblePattern;
 /** @psalm-suppress UnusedClass */
 final class Diamond extends AReversiblePattern
 {
-    protected const UPDATE_INTERVAL = 160;
+    protected const INTERVAL = 160;
 
     protected const PATTERN = ['♦'];
+
+    protected function entries(): \Traversable
+    {
+        return new \ArrayObject(self::PATTERN);
+    }
 }

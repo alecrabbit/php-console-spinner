@@ -11,7 +11,12 @@ use AlecRabbit\Spinner\Core\Pattern\A\AReversiblePattern;
 /** @psalm-suppress UnusedClass */
 final class Moon extends AReversiblePattern
 {
-    protected const UPDATE_INTERVAL = 300;
+    protected const INTERVAL = 300;
 
     protected const PATTERN = ['🌘', '🌗', '🌖', '🌕', '🌔', '🌓', '🌒', '🌑'];
+
+    protected function entries(): \Traversable
+    {
+        return new \ArrayObject(self::PATTERN);
+    }
 }

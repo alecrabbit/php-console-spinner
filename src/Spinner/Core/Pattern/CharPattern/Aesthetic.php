@@ -7,11 +7,12 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Pattern\CharPattern;
 
 use AlecRabbit\Spinner\Core\Pattern\A\AReversiblePattern;
+use Traversable;
 
 /** @psalm-suppress UnusedClass */
 final class Aesthetic extends AReversiblePattern
 {
-    protected const UPDATE_INTERVAL = 80;
+    protected const INTERVAL = 80;
 
     protected const PATTERN = [
         '▰▱▱▱▱▱▱',
@@ -26,4 +27,9 @@ final class Aesthetic extends AReversiblePattern
         '▱▱▱▱▱▱▰',
         '▱▱▱▱▱▱▱',
     ];
+
+    protected function entries(): Traversable
+    {
+        return new \ArrayObject(self::PATTERN);
+    }
 }

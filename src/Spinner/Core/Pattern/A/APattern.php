@@ -14,16 +14,14 @@ use Traversable;
 
 abstract class APattern implements IPattern
 {
-    protected const UPDATE_INTERVAL = 1000;
-
-    protected const PATTERN = ['  ', ' u', 'un', 'nd', 'de', 'ef', 'fi', 'in', 'ne', 'ed', 'd '];
+    protected const INTERVAL = 1000;
 
     protected IInterval $interval;
 
     public function __construct(
         ?IInterval $interval = null,
     ) {
-        $this->interval = $interval ?? new Interval(self::UPDATE_INTERVAL);
+        $this->interval = $interval ?? $this->defaultInterval();
     }
 
     public function getEntries(): Traversable
@@ -31,13 +29,15 @@ abstract class APattern implements IPattern
         return $this->entries();
     }
 
-    protected function entries(): Traversable
-    {
-        return new ArrayObject(self::PATTERN);
-    }
+    abstract protected function entries(): Traversable;
 
     public function getInterval(): IInterval
     {
         return $this->interval;
+    }
+
+    protected function defaultInterval(): Interval
+    {
+        return new Interval(static::INTERVAL);
     }
 }

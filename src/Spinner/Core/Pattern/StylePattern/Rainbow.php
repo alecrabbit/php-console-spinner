@@ -14,9 +14,8 @@ use AlecRabbit\Spinner\Core\Pattern\StylePattern\A\AStylePattern;
  */
 final class Rainbow extends AStylePattern
 {
-    protected const UPDATE_INTERVAL = 100;
+    protected const INTERVAL = 100;
 
-    /** @inheritdoc */
     protected function extractPattern(): array
     {
         return match ($this->styleMode) {
@@ -417,7 +416,7 @@ final class Rainbow extends AStylePattern
                 '#ff0008',
                 '#ff0004',
             ],
-            default => ['#00ff00'],
+            default => [''],
         };
     }
 }

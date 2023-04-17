@@ -11,7 +11,7 @@ use AlecRabbit\Spinner\Core\Pattern\A\AReversiblePattern;
 /** @psalm-suppress UnusedClass */
 final class FeatheredArrow extends AReversiblePattern
 {
-    protected const UPDATE_INTERVAL = 160;
+    protected const INTERVAL = 160;
     protected const PATTERN = [
         '➵', // BLACK-FEATHERED RIGHTWARDS ARROW
         '➴', // BLACK-FEATHERED SOUTH EAST ARROW
@@ -22,4 +22,9 @@ final class FeatheredArrow extends AReversiblePattern
         '➸', // HEAVY BLACK-FEATHERED RIGHTWARDS ARROW
         '➹', // HEAVY BLACK-FEATHERED NORTH EAST ARROW
     ];
+
+    protected function entries(): \Traversable
+    {
+        return new \ArrayObject(self::PATTERN);
+    }
 }

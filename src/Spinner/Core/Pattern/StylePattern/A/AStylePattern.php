@@ -38,11 +38,5 @@ abstract class AStylePattern extends AReversiblePattern implements IStylePattern
         return new ArrayObject($this->extractPattern());
     }
 
-    /**
-     * @return array<int,string>
-     */
-    protected function extractPattern(): array
-    {
-        return self::PATTERN;
-    }
+    abstract protected function extractPattern(): array;
 }

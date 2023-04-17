@@ -11,7 +11,7 @@ use AlecRabbit\Spinner\Core\Pattern\A\APattern;
 /** @psalm-suppress UnusedClass */
 final class FingerDance extends APattern
 {
-    protected const UPDATE_INTERVAL = 300;
+    protected const INTERVAL = 300;
 
     protected const PATTERN = [
         '🤘 ',
@@ -21,4 +21,9 @@ final class FingerDance extends APattern
         '🤚 ',
         '👆 ',
     ];
+
+    protected function entries(): \Traversable
+    {
+        return new \ArrayObject(self::PATTERN);
+    }
 }
