@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 // 29.03.23
 namespace AlecRabbit\Spinner\Core\Defaults;
 
@@ -13,6 +14,8 @@ final class DriverSettings implements IDriverSettings
     public function __construct(
         protected OptionInitialization $optionInitialization,
         protected OptionAttacher $optionAttacher,
+        protected string $finalMessage,
+        protected string $interruptMessage,
     ) {
     }
 
@@ -28,12 +31,25 @@ final class DriverSettings implements IDriverSettings
         return $this;
     }
 
+    public function setFinalMessage(string $finalMessage): IDriverSettings
+    {
+        $this->finalMessage = $finalMessage;
+        return $this;
+    }
+
+
+    public function setInterruptMessage(string $interruptMessage): IDriverSettings
+    {
+        $this->interruptMessage = $interruptMessage;
+        return $this;
+    }
+
     /**
      * @deprecated
      */
     public function getFinalMessage(): string
     {
-        return 'undefined';
+        return $this->finalMessage;
     }
 
     /**
@@ -41,7 +57,7 @@ final class DriverSettings implements IDriverSettings
      */
     public function getInterruptMessage(): string
     {
-        return 'undefined';
+        return $this->interruptMessage;
     }
 
     public function isInitializationEnabled(): bool

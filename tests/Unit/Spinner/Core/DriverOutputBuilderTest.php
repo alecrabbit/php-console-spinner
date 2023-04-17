@@ -61,7 +61,6 @@ final class DriverOutputBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
             test: $test,
             exceptionOrExceptionClass: $exceptionClass,
             exceptionMessage: $exceptionMessage,
-
         );
     }
 
@@ -81,7 +80,6 @@ final class DriverOutputBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
             $test,
             LogicException::class,
             'Output is not set.',
-
         );
     }
 }

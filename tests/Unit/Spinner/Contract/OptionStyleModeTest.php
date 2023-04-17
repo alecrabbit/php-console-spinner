@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 // 15.02.23
 namespace AlecRabbit\Tests\Unit\Spinner\Contract;
 

@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 // 25.03.23
 namespace AlecRabbit\Spinner\Core\Color;
 
@@ -25,22 +26,22 @@ final class HSLColor implements IColor
         $this->alpha = self::refineAlpha($alpha);
     }
 
-    private static function refineHue(int $value): int
+    protected static function refineHue(int $value): int
     {
         return max(0, min(360, $value));
     }
 
-    private static function refineSaturation(float $value): float
+    protected static function refineSaturation(float $value): float
     {
         return max(0.0, min(1.0, $value));
     }
 
-    private static function refineLightness(float $value): float
+    protected static function refineLightness(float $value): float
     {
         return max(0.0, min(1.0, $value));
     }
 
-    private static function refineAlpha(float $value): float
+    protected static function refineAlpha(float $value): float
     {
         return max(0.0, min(1.0, $value));
     }

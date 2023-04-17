@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 // 10.03.23
 
 namespace AlecRabbit\Spinner\Core\Render;
@@ -47,6 +48,7 @@ final class StyleFrameCollectionRenderer implements IStyleFrameCollectionRendere
     {
         /** @var IFrame|Stringable|string|IStyle $entry */
         foreach ($pattern->getEntries() as $entry) {
+
             if ($entry instanceof IFrame) {
                 yield $entry;
                 continue;

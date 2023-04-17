@@ -76,5 +76,4 @@ final class DriverOutputFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
 
         self::assertSame($driverOutputStub, $driverOutputFactory->create());
     }
-
 }

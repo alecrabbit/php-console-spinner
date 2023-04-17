@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 // 10.03.23
 namespace AlecRabbit\Spinner\Core\Render;
 
@@ -31,7 +32,7 @@ final class CharFrameCollectionRenderer implements ICharFrameCollectionRenderer
 
     protected function generateFrames(IPattern $pattern): Traversable
     {
-        /** @var IFrame|Stringable|string|IStyle $entry */
+        /** @var IFrame|Stringable|string $entry */
         foreach ($pattern->getEntries() as $entry) {
             if ($entry instanceof IFrame) {
                 yield $entry;
@@ -46,16 +47,9 @@ final class CharFrameCollectionRenderer implements ICharFrameCollectionRenderer
         }
     }
 
-    protected function createFrame(string|IStyle $entry): IFrame
+    protected function createFrame(string $entry): IFrame
     {
-        $this->assertEntry($entry);
         return $this->frameRenderer->render($entry);
     }
 
-    protected function assertEntry(IStyle|string $entry): void
-    {
-        if ($entry instanceof IStyle) {
-            throw new InvalidArgumentException('Style is not allowed here.');
-        }
-    }
 }

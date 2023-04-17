@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 // 05.04.23
 namespace AlecRabbit\Spinner\Core\Defaults;
 
@@ -16,6 +17,8 @@ final class DriverSettingsBuilder implements IDriverSettingsBuilder
         return new DriverSettings(
             optionInitialization: OptionInitialization::ENABLED,
             optionAttacher: OptionAttacher::ENABLED,
+            finalMessage: '',
+            interruptMessage: '',
         );
     }
 }

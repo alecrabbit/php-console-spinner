@@ -115,8 +115,8 @@ final class ServiceSpawner implements IServiceSpawner
     {
         return
             match (true) {
-                $type instanceof ReflectionNamedType => !$type->isBuiltin(
-                ), // assumes that all non-builtin types are services
+                // assumes that all non-builtin types are services
+                $type instanceof ReflectionNamedType => !$type->isBuiltin(),
                 default => throw new UnableToExtractTypeException(
                     sprintf(
                         'Only %s is supported.',

@@ -29,6 +29,7 @@
         "alecrabbit/php-wcwidth": "^1.0.0-ALPHA.0",
         "fakerphp/faker": "*",
         "nunomaduro/collision": "^7.0",
+        "nunomaduro/phpinsights": "^2.8",
         "phpunit/php-code-coverage": "*",
         "phpunit/phpunit": "^10.0",
         "react/event-loop": "*",
@@ -56,6 +57,11 @@
     "autoload-dev": {
         "psr-4": {
             "AlecRabbit\\Tests\\": "tests\\"
+        }
+    },
+    "config": {
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true
         }
     }
 }

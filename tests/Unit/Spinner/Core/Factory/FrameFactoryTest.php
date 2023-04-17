@@ -39,4 +39,16 @@ final class FrameFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
         self::assertInstanceOf(Frame::class, $frameFactory->create('', 0));
         self::assertInstanceOf(Frame::class, $frameFactory->create(''));
     }
+
+    #[Test]
+    public function canCreateEmptyFrame(): void
+    {
+        $frameFactory = $this->getTesteeInstance();
+
+        self::assertInstanceOf(FrameFactory::class, $frameFactory);
+        $frame = $frameFactory->createEmpty();
+        self::assertInstanceOf(Frame::class, $frame);
+        self::assertSame('', $frame->sequence());
+        self::assertSame(0, $frame->width());
+    }
 }

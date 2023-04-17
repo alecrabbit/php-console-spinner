@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 // 25.03.23
 namespace AlecRabbit\Spinner\Core\Color;
 
@@ -10,7 +11,7 @@ use AlecRabbit\Spinner\Helper\Asserter;
 
 final readonly class RGBColor implements IStringableColor
 {
-    private const HEX_FORMAT = '#%02x%02x%02x';
+    protected const HEX_FORMAT = '#%02x%02x%02x';
     public int $red;
     public int $green;
     public int $blue;
@@ -28,12 +29,12 @@ final readonly class RGBColor implements IStringableColor
         $this->alpha = self::refineAlpha($alpha);
     }
 
-    private static function refineColor(int $value): int
+    protected static function refineColor(int $value): int
     {
         return max(0, min(255, $value));
     }
 
-    private static function refineAlpha(float $value): float
+    protected static function refineAlpha(float $value): float
     {
         return max(0.0, min(1.0, $value));
     }

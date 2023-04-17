@@ -12,10 +12,10 @@ use Throwable;
  */
 final class CircularDependencyException extends ContainerException
 {
-    public function __construct(ArrayObject $dependencyStack, int $code = 0, ?Throwable $previous = null)
+    public function __construct(ArrayObject $dependencyStack, ?Throwable $previous = null)
     {
         $message = 'Circular dependency detected!' . $this->formatStack($dependencyStack);
-        parent::__construct($message, $code, $previous);
+        parent::__construct($message, previous: $previous);
     }
 
     private function formatStack(ArrayObject $stack): string

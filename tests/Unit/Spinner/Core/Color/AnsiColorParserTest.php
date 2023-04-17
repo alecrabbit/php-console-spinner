@@ -1,19 +1,16 @@
 <?php
 
 declare(strict_types=1);
-// 03.04.23
-namespace AlecRabbit\Tests\Unit\Spinner\Extras\Color;
 
-use AlecRabbit\Spinner\Contract\Option\OptionStyleMode;
+// 03.04.23
+namespace AlecRabbit\Tests\Unit\Spinner\Core\Color;
+
+use AlecRabbit\Spinner\Contract\IAnsiColorParser;
+use AlecRabbit\Spinner\Core\Color\AnsiColorParser;
 use AlecRabbit\Spinner\Core\Contract\IHexColorToAnsiCodeConverter;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
-use AlecRabbit\Spinner\Extras\Color\AnsiColorParser;
-use AlecRabbit\Spinner\Extras\Color\Contract\IAnsiColorParser;
-use AlecRabbit\Spinner\Extras\Color\HexColorToAnsiCodeConverter;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
-use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
-
 
 final class AnsiColorParserTest extends TestCaseWithPrebuiltMocksAndStubs
 {
@@ -27,8 +24,7 @@ final class AnsiColorParserTest extends TestCaseWithPrebuiltMocksAndStubs
 
     protected function getTesteeInstance(
         ?IHexColorToAnsiCodeConverter $converter = null,
-    ): IAnsiColorParser
-    {
+    ): IAnsiColorParser {
         return
             new AnsiColorParser(
                 converter: $converter ?? $this->getHexColorToAnsiCodeConverterMock(),
@@ -36,15 +32,7 @@ final class AnsiColorParserTest extends TestCaseWithPrebuiltMocksAndStubs
     }
 
     #[Test]
-    public function emptyColorReturnsEmptyParsedString(): void
-    {
-        $colorParser = $this->getTesteeInstance();
-
-        self::assertSame('', $colorParser->parse(''));
-    }
-
-    #[Test]
-    public function invokesAnsiConvertMethodIfColorFormatIsRecognised(): void
+    public function invokesAnsiConvertMethodIfColorFormatIsOk(): void
     {
         $converter = $this->getHexColorToAnsiCodeConverterMock();
         $color = '#ffaacc';
@@ -53,10 +41,11 @@ final class AnsiColorParserTest extends TestCaseWithPrebuiltMocksAndStubs
             ->expects(self::once())
             ->method('convert')
             ->with(self::equalTo($color))
-            ->willReturn($result);
+            ->willReturn($result)
+        ;
         $colorParser = $this->getTesteeInstance(converter: $converter);
 
-        self::assertSame($result, $colorParser->parse($color));
+        self::assertSame($result, $colorParser->parseColor($color));
     }
 
     #[Test]
@@ -65,8 +54,16 @@ final class AnsiColorParserTest extends TestCaseWithPrebuiltMocksAndStubs
         $colorParser = $this->getTesteeInstance();
 
         $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('Invalid color format: ffaacc');
+        $this->expectExceptionMessage('Invalid color format: "ffaacc".');
 
-        $colorParser->parse('ffaacc');
+        $colorParser->parseColor('ffaacc');
+    }
+
+    #[Test]
+    public function emptyColorReturnsEmptyParsedString(): void
+    {
+        $colorParser = $this->getTesteeInstance();
+
+        self::assertSame('', $colorParser->parseColor(''));
     }
 }

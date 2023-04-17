@@ -1,18 +1,19 @@
 <?php
 
 declare(strict_types=1);
+
 // 24.03.23
 namespace AlecRabbit\Spinner\Core\Color\Style;
 
-use AlecRabbit\Spinner\Contract\Color\IStringableColor;
+use AlecRabbit\Spinner\Contract\Color\IColor;
 use AlecRabbit\Spinner\Contract\Color\Style\IStyle;
 use AlecRabbit\Spinner\Contract\Color\Style\IStyleOptions;
 
 final readonly class Style implements IStyle
 {
     public function __construct(
-        protected null|string|IStringableColor $fgColor = null,
-        protected null|string|IStringableColor $bgColor = null,
+        protected null|string|IColor $fgColor = null,
+        protected null|string|IColor $bgColor = null,
         protected ?IStyleOptions $options = null,
         protected string $format = '%s',
         protected int $width = 0,
@@ -27,12 +28,17 @@ final readonly class Style implements IStyle
             && $this->noOptions();
     }
 
-    public function getFgColor(): IStringableColor|string|null
+    protected function noOptions(): bool
+    {
+        return null === $this->options || $this->options->isEmpty();
+    }
+
+    public function getFgColor(): IColor|string|null
     {
         return $this->fgColor;
     }
 
-    public function getBgColor(): IStringableColor|string|null
+    public function getBgColor(): IColor|string|null
     {
         return $this->bgColor;
     }
@@ -60,10 +66,5 @@ final readonly class Style implements IStyle
     public function hasOptions(): bool
     {
         return !$this->noOptions();
-    }
-
-    protected function noOptions(): bool
-    {
-        return null === $this->options || $this->options->isEmpty();
     }
 }

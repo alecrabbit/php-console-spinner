@@ -111,7 +111,7 @@ final class AFloatValueTest extends TestCase
     public static function getTesteeInstance(array $args = []): IFloatValue
     {
         return
-            new class(...$args) extends AFloatValue {
+            new class (...$args) extends AFloatValue {
             };
     }
 }

@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 // 03.04.23
 namespace AlecRabbit\Tests\Unit\Spinner\Core;
 
@@ -10,7 +11,6 @@ use AlecRabbit\Spinner\Core\Contract\Loop\Contract\ILoop;
 use AlecRabbit\Spinner\Core\DriverAttacher;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;
-
 
 final class DriverAttacherTest extends TestCaseWithPrebuiltMocksAndStubs
 {

@@ -40,7 +40,7 @@ final class LoopSingletonFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
         $loopProbeFactory = parent::getLoopProbeFactoryMock();
         $loopProbeFactory->method('getProbe')
             ->willReturn(
-                new class() extends ALoopProbe {
+                new class () extends ALoopProbe {
                     public static function isAvailable(): bool
                     {
                         return true;

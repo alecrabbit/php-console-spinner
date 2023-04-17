@@ -11,5 +11,4 @@ interface IDriverSetup
     public function enableInitialization(bool $enable): IDriverSetup;
 
     public function enableAttacher(bool $enable): IDriverSetup;
-
 }

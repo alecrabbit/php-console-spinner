@@ -46,5 +46,4 @@ final class IntervalFactory implements IIntervalFactory
                 new Interval($interval)
             );
     }
-
 }

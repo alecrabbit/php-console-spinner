@@ -1,11 +1,14 @@
 <?php
 
 declare(strict_types=1);
+
 // 16.06.22
 namespace AlecRabbit\Tests\TestCase;
 
 use AlecRabbit\Spinner\Container\Contract\IContainer;
 use AlecRabbit\Spinner\Contract\Color\Style\IStyle;
+use AlecRabbit\Spinner\Contract\Color\Style\IStyleOptionsParser;
+use AlecRabbit\Spinner\Contract\IAnsiColorParser;
 use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Contract\ITimer;
@@ -13,8 +16,10 @@ use AlecRabbit\Spinner\Contract\Output\IBufferedOutput;
 use AlecRabbit\Spinner\Contract\Output\IOutput;
 use AlecRabbit\Spinner\Contract\Output\IResourceStream;
 use AlecRabbit\Spinner\Contract\Pattern\IPattern;
+use AlecRabbit\Spinner\Core\Config\Contract\ISpinnerConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IWidgetConfig;
 use AlecRabbit\Spinner\Core\Contract\IBufferedOutputBuilder;
+use AlecRabbit\Spinner\Core\Contract\ICharFrameRenderer;
 use AlecRabbit\Spinner\Core\Contract\IConsoleCursorBuilder;
 use AlecRabbit\Spinner\Core\Contract\IDefaultsProvider;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
@@ -22,6 +27,7 @@ use AlecRabbit\Spinner\Core\Contract\IDriverAttacher;
 use AlecRabbit\Spinner\Core\Contract\IDriverBuilder;
 use AlecRabbit\Spinner\Core\Contract\IDriverOutputBuilder;
 use AlecRabbit\Spinner\Core\Contract\IDriverSetup;
+use AlecRabbit\Spinner\Core\Contract\IFrameCollection;
 use AlecRabbit\Spinner\Core\Contract\IHexColorToAnsiCodeConverter;
 use AlecRabbit\Spinner\Core\Contract\IIntegerNormalizerBuilder;
 use AlecRabbit\Spinner\Core\Contract\IIntervalNormalizer;
@@ -40,24 +46,38 @@ use AlecRabbit\Spinner\Core\Defaults\Contract\IDriverSettingsBuilder;
 use AlecRabbit\Spinner\Core\Defaults\Contract\ILoopSettings;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IWidgetSettings;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IWidgetSettingsBuilder;
+use AlecRabbit\Spinner\Core\Factory\Contract\IAnsiColorParserFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IBufferedOutputSingletonFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IConsoleCursorFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDriverOutputFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IFrameFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\IHexColorToAnsiCodeConverterFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopProbeFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopSettingsFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopSetupFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\ILoopSingletonFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\IStyleFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\IStyleFrameRendererFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\IStyleRendererFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\IStyleToAnsiStringConverterFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ITimerFactory;
 use AlecRabbit\Spinner\Core\Output\Contract\IConsoleCursor;
 use AlecRabbit\Spinner\Core\Output\Contract\IDriverOutput;
+use AlecRabbit\Spinner\Core\Pattern\Contract\IStylePattern;
+use AlecRabbit\Spinner\Core\Render\Contract\ICharFrameCollectionRenderer;
+use AlecRabbit\Spinner\Core\Render\Contract\IStyleFrameCollectionRenderer;
+use AlecRabbit\Spinner\Core\Render\Contract\IStyleFrameRenderer;
 use AlecRabbit\Spinner\Core\Render\Contract\IStyleRenderer;
 use AlecRabbit\Spinner\Core\Render\Contract\IStyleToAnsiStringConverter;
+use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolver;
+use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolverBuilder;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetBuilder;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContext;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolverBuilder;
+use AlecRabbit\Spinner\Core\Widget\Factory\Contract\IWidgetFactory;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\MockObject\Stub;
 
@@ -76,6 +96,11 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
     protected function getPatternMock(): MockObject&IPattern
     {
         return $this->createMock(IPattern::class);
+    }
+
+    protected function getStylePatternMock(): MockObject&IStylePattern
+    {
+        return $this->createMock(IStylePattern::class);
     }
 
     protected function getWidgetSettingsMock(): MockObject&IWidgetSettings
@@ -119,6 +144,11 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
         return $this->createMock(ILoopProbeFactory::class);
     }
 
+    protected function getLoopSingletonFactoryMock(): MockObject&ILoopSingletonFactory
+    {
+        return $this->createMock(ILoopSingletonFactory::class);
+    }
+
     protected function getLoopSetupBuilderMock(): MockObject&ILoopSetupBuilder
     {
         return $this->createMock(ILoopSetupBuilder::class);
@@ -132,6 +162,21 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
     protected function getDefaultsProviderMock(): MockObject&IDefaultsProvider
     {
         return $this->createMock(IDefaultsProvider::class);
+    }
+
+    protected function getSpinnerConfigMock(): MockObject&ISpinnerConfig
+    {
+        return $this->createMock(ISpinnerConfig::class);
+    }
+
+    protected function getWidgetConfigMock(): MockObject&IWidgetConfig
+    {
+        return $this->createMock(IWidgetConfig::class);
+    }
+
+    protected function getWidgetFactoryMock(): MockObject&IWidgetFactory
+    {
+        return $this->createMock(IWidgetFactory::class);
     }
 
     protected function getAuxSettingsMock(): MockObject&IAuxSettings
@@ -152,6 +197,11 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
     protected function getFrameFactoryMock(): MockObject&IFrameFactory
     {
         return $this->createMock(IFrameFactory::class);
+    }
+
+    protected function getStyleRendererFactoryMock(): MockObject&IStyleRendererFactory
+    {
+        return $this->createMock(IStyleRendererFactory::class);
     }
 
     protected function getStyleRendererMock(): MockObject&IStyleRenderer
@@ -379,6 +429,27 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
         return $this->createMock(IStyle::class);
     }
 
+    protected function getStyleFactoryMock(): MockObject&IStyleFactory
+    {
+        return $this->createMock(IStyleFactory::class);
+    }
+
+    protected function getStyleFrameRendererFactoryMock(): MockObject&IStyleFrameRendererFactory
+    {
+        return $this->createMock(IStyleFrameRendererFactory::class);
+    }
+
+    protected function getStyleFrameRendererMock(): MockObject&IStyleFrameRenderer
+    {
+        return $this->createMock(IStyleFrameRenderer::class);
+    }
+
+    protected function getCharFrameRendererMock(): MockObject&ICharFrameRenderer
+    {
+        return $this->createMock(ICharFrameRenderer::class);
+    }
+
+
     protected function getStyleToAnsiStringConverterMock(): MockObject&IStyleToAnsiStringConverter
     {
         return $this->createMock(IStyleToAnsiStringConverter::class);
@@ -387,5 +458,55 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
     protected function getHexColorToAnsiCodeConverterMock(): MockObject&IHexColorToAnsiCodeConverter
     {
         return $this->createMock(IHexColorToAnsiCodeConverter::class);
+    }
+
+    protected function getAnsiColorParserMock(): MockObject&IAnsiColorParser
+    {
+        return $this->createMock(IAnsiColorParser::class);
+    }
+
+    protected function getStyleOptionsParserMock(): MockObject&IStyleOptionsParser
+    {
+        return $this->createMock(IStyleOptionsParser::class);
+    }
+
+    protected function getAnsiColorParserFactoryMock(): MockObject&IAnsiColorParserFactory
+    {
+        return $this->createMock(IAnsiColorParserFactory::class);
+    }
+
+    protected function getHexColorToAnsiCodeConverterFactoryMock(): MockObject&IHexColorToAnsiCodeConverterFactory
+    {
+        return $this->createMock(IHexColorToAnsiCodeConverterFactory::class);
+    }
+
+    protected function getFrameRevolverBuilderMock(): MockObject&IFrameRevolverBuilder
+    {
+        return $this->createMock(IFrameRevolverBuilder::class);
+    }
+
+    protected function getFrameRevolverMock(): MockObject&IFrameRevolver
+    {
+        return $this->createMock(IFrameRevolver::class);
+    }
+
+    protected function getFrameCollectionMock(): MockObject&IFrameCollection
+    {
+        return $this->createMock(IFrameCollection::class);
+    }
+
+    protected function getStyleFrameCollectionRendererMock(): MockObject&IStyleFrameCollectionRenderer
+    {
+        return $this->createMock(IStyleFrameCollectionRenderer::class);
+    }
+
+    protected function getCharFrameCollectionRendererMock(): MockObject&ICharFrameCollectionRenderer
+    {
+        return $this->createMock(ICharFrameCollectionRenderer::class);
+    }
+
+    protected function getStyleToAnsiStringConverterFactoryMock(): MockObject&IStyleToAnsiStringConverterFactory
+    {
+        return $this->createMock(IStyleToAnsiStringConverterFactory::class);
     }
 }

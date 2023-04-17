@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.0/phpunit.xsd"
+         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.1/phpunit.xsd"
          bootstrap="tests/bootstrap.php"
          executionOrder="random"
          beStrictAboutOutputDuringTests="true"
@@ -10,18 +10,20 @@
          cacheDirectory=".tools/.phpunit.cache"
          beStrictAboutCoverageMetadata="false"
 >
-    <testsuites>
-        <testsuite name="default">
-            <directory>tests</directory>
-        </testsuite>
-    </testsuites>
-    <coverage>
-        <include>
-            <directory suffix=".php">src</directory>
-        </include>
-        <report>
-            <text outputFile=".tools/.report/.build/coverage.txt" showOnlySummary="true"/>
-            <html outputDirectory=".tools/.report/.build/coverage"/>
-        </report>
-    </coverage>
+  <testsuites>
+    <testsuite name="default">
+      <directory>tests</directory>
+    </testsuite>
+  </testsuites>
+  <coverage>
+    <report>
+      <text outputFile=".tools/.report/.build/coverage.txt" showOnlySummary="true"/>
+      <html outputDirectory=".tools/.report/.build/coverage"/>
+    </report>
+  </coverage>
+  <source>
+    <include>
+      <directory suffix=".php">src</directory>
+    </include>
+  </source>
 </phpunit>

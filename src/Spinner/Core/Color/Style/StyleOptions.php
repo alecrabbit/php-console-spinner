@@ -1,11 +1,13 @@
 <?php
 
 declare(strict_types=1);
+
 // 14.04.23
 namespace AlecRabbit\Spinner\Core\Color\Style;
 
 use AlecRabbit\Spinner\Contract\Color\Style\IStyleOptions;
 use AlecRabbit\Spinner\Contract\Color\Style\StyleOption;
+use ArrayIterator;
 use Traversable;
 
 final class StyleOptions implements IStyleOptions
@@ -19,7 +21,7 @@ final class StyleOptions implements IStyleOptions
 
     public function getIterator(): Traversable
     {
-        return new \ArrayIterator($this->options);
+        return new ArrayIterator($this->options);
     }
 
     public function isEmpty(): bool

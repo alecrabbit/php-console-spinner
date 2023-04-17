@@ -9,5 +9,4 @@ namespace AlecRabbit\Spinner\Core\Contract;
  */
 interface IForeignLoop
 {
-
 }

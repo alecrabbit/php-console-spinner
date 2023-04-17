@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 // 29.03.23
 namespace AlecRabbit\Spinner\Core\Factory;
 
@@ -8,11 +9,12 @@ use AlecRabbit\Spinner\Container\Container;
 use AlecRabbit\Spinner\Container\Contract\IContainer;
 use AlecRabbit\Spinner\Container\Contract\IServiceSpawner;
 use AlecRabbit\Spinner\Container\ServiceSpawner;
+use AlecRabbit\Spinner\Contract\Color\Style\IStyleOptionsParser;
 use AlecRabbit\Spinner\Contract\Option\OptionNormalizerMode;
 use AlecRabbit\Spinner\Contract\Option\OptionStyleMode;
 use AlecRabbit\Spinner\Contract\Output\IResourceStream;
-
 use AlecRabbit\Spinner\Core\BufferedOutputBuilder;
+use AlecRabbit\Spinner\Core\Color\Style\StyleOptionsParser;
 use AlecRabbit\Spinner\Core\ConsoleCursorBuilder;
 use AlecRabbit\Spinner\Core\Contract\IBufferedOutputBuilder;
 use AlecRabbit\Spinner\Core\Contract\ICharFrameRenderer;
@@ -42,6 +44,7 @@ use AlecRabbit\Spinner\Core\Defaults\WidgetSettingsBuilder;
 use AlecRabbit\Spinner\Core\DriverBuilder;
 use AlecRabbit\Spinner\Core\DriverOutputBuilder;
 use AlecRabbit\Spinner\Core\DriverSetup;
+use AlecRabbit\Spinner\Core\Factory\Contract\IAnsiColorParserFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IBufferedOutputSingletonFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ICharRevolverFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IConsoleCursorFactory;
@@ -167,6 +170,8 @@ final class ContainerSingletonFactory implements IContainerSingletonFactory
             ITimerFactory::class => TimerFactory::class,
             IHexColorToAnsiCodeConverterFactory::class => HexColorToAnsiCodeConverterFactory::class,
             IAuxSettingsBuilder::class => AuxSettingsBuilder::class,
+            IAnsiColorParserFactory::class => AnsiColorParserFactory::class,
+            IStyleOptionsParser::class => StyleOptionsParser::class,
             IBufferedOutputBuilder::class => BufferedOutputBuilder::class,
             ILoopSetupFactory::class => LoopSetupFactory::class,
             ICharFrameCollectionRenderer::class => CharFrameCollectionRenderer::class,

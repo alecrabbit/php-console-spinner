@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 // 20.03.23
 namespace AlecRabbit\Spinner\Extras;
 
@@ -22,5 +23,4 @@ final class ProceduralFrameRevolverBuilder extends AFrameRevolverBuilder
         }
         return parent::build();
     }
-
 }

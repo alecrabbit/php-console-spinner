@@ -1,11 +1,13 @@
 <?php
 
 declare(strict_types=1);
+
 // 14.04.23
 namespace AlecRabbit\Spinner\Core\Factory;
 
+use AlecRabbit\Spinner\Contract\Color\Style\IStyleOptionsParser;
 use AlecRabbit\Spinner\Contract\Option\OptionStyleMode;
-use AlecRabbit\Spinner\Core\Factory\Contract\IHexColorToAnsiCodeConverterFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\IAnsiColorParserFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IStyleToAnsiStringConverterFactory;
 use AlecRabbit\Spinner\Core\Render\Contract\IStyleToAnsiStringConverter;
 use AlecRabbit\Spinner\Core\Render\StyleToAnsiStringConverter;
@@ -13,7 +15,8 @@ use AlecRabbit\Spinner\Core\Render\StyleToAnsiStringConverter;
 final class StyleToAnsiStringConverterFactory implements IStyleToAnsiStringConverterFactory
 {
     public function __construct(
-        protected IHexColorToAnsiCodeConverterFactory $converterFactory,
+        protected IAnsiColorParserFactory $parserFactory,
+        protected IStyleOptionsParser $optionsParser,
     ) {
     }
 
@@ -21,7 +24,8 @@ final class StyleToAnsiStringConverterFactory implements IStyleToAnsiStringConve
     {
         return
             new StyleToAnsiStringConverter(
-                converter: $this->converterFactory->create($styleMode),
+                colorParser: $this->parserFactory->create($styleMode),
+                optionsParser: $this->optionsParser,
             );
     }
 }
