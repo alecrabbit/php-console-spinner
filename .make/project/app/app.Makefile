@@ -6,7 +6,7 @@ include ${_APP_DIR}/phpinsights.Makefile
 app_tools_run: test_full app_phploc_run app_php_cs_fixer_run app_deptrac_run_full app_psalm_run app_utils_run ## Run all tools
 	@${_NO_OP};
 
-app_utils_run: _app_composer_normalize ## Run all utils
+app_utils_run: _app_composer_normalize a_phpinsights_summary ## Run all utils
 	@${_NO_OP};
 
 PHPLOC_DIR = /usr/local/bin
