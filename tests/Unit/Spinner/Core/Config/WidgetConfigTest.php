@@ -1,0 +1,49 @@
+<?php
+
+declare(strict_types=1);
+
+// 15.02.23
+
+namespace AlecRabbit\Tests\Unit\Spinner\Core\Config;
+
+use AlecRabbit\Spinner\Core\Config\WidgetConfig;
+use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
+use PHPUnit\Framework\Attributes\Test;
+
+final class WidgetConfigTest extends TestCaseWithPrebuiltMocksAndStubs
+{
+    #[Test]
+    public function canBeCreatedEmpty(): void
+    {
+        $config = new WidgetConfig();
+        self::assertNull($config->getLeadingSpacer());
+        self::assertNull($config->getTrailingSpacer());
+        self::assertNull($config->getStylePattern());
+        self::assertNull($config->getCharPattern());
+    }
+
+    #[Test]
+    public function canBeCreatedWithValues(): void
+    {
+        $leadingSpacer = $this->getFrameMock();
+        $trailingSpacer = $this->getFrameMock();
+        $stylePattern = $this->getStylePatternMock();
+        $charPattern = $this->getPatternMock();
+
+        $config = new WidgetConfig(
+            leadingSpacer: $leadingSpacer,
+            trailingSpacer: $trailingSpacer,
+            stylePattern: $stylePattern,
+            charPattern: $charPattern,
+        );
+        self::assertNotNull($config->getLeadingSpacer());
+        self::assertNotNull($config->getTrailingSpacer());
+        self::assertNotNull($config->getStylePattern());
+        self::assertNotNull($config->getCharPattern());
+
+        self::assertSame($leadingSpacer, $config->getLeadingSpacer());
+        self::assertSame($trailingSpacer, $config->getTrailingSpacer());
+        self::assertSame($stylePattern, $config->getStylePattern());
+        self::assertSame($charPattern, $config->getCharPattern());
+    }
+}

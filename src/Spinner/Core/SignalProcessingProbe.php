@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 // 14.04.23
 
-namespace AlecRabbit\Spinner\Core\Defaults;
+namespace AlecRabbit\Spinner\Core;
 
 use AlecRabbit\Spinner\Core\Contract\ISignalProcessingProbe;
 

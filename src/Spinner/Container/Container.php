@@ -147,15 +147,17 @@ final class Container implements IContainer
 
     private function addDependencyToStack(string $id): void
     {
-        $this->assertDependencyStack($id);
+        $this->assertDependencyIsNotInStack($id);
 
         $this->dependencyStack->append($id);
     }
 
-    private function assertDependencyStack(string $id): void
+    private function assertDependencyIsNotInStack(string $id): void
     {
         if (in_array($id, $this->dependencyStack->getArrayCopy(), true)) {
+            // @codeCoverageIgnoreStart
             throw new CircularDependencyException($this->dependencyStack);
+            // @codeCoverageIgnoreEnd
         }
     }
 

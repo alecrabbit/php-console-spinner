@@ -31,15 +31,17 @@ final class LoopSettingsFactory implements ILoopSettingsFactory
                 ? OptionAutoStart::ENABLED
                 : OptionAutoStart::DISABLED;
 
+        $signalProcessingAvailable = $this->isSignalProcessingAvailable();
+
         $optionAttachHandlers =
-            $loopAvailable
+            $signalProcessingAvailable
                 ? OptionAttachHandlers::ENABLED
                 : OptionAttachHandlers::DISABLED;
 
         return new LoopSettings(
             loopAvailable: $loopAvailable,
             optionAutoStart: $optionAutoStart,
-            signalProcessingAvailable: $this->isSignalProcessingAvailable(),
+            signalProcessingAvailable: $signalProcessingAvailable,
             optionAttachHandlers: $optionAttachHandlers,
         );
     }

@@ -26,11 +26,11 @@ final class LoopSettingsFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
 
     public function getTesteeInstance(
         ?ILoopProbe $loopProbe = null,
-        ?ISignalProcessingProbe $pcntlExtensionProbe = null,
+        ?ISignalProcessingProbe $signalProcessingProbe = null,
     ): ILoopSettingsFactory {
         return new LoopSettingsFactory(
             loopProbe: $loopProbe,
-            signalProcessingProbe: $pcntlExtensionProbe,
+            signalProcessingProbe: $signalProcessingProbe,
         );
     }
 
@@ -53,7 +53,7 @@ final class LoopSettingsFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
         $loopSettings =
             $this->getTesteeInstance(
                 loopProbe: $this->getLoopProbeStub(),
-                pcntlExtensionProbe: $this->getPcntlExtensionProbeStub(),
+                signalProcessingProbe: $this->getSignalProcessingProbeStub(),
             )
                 ->createLoopSettings()
         ;
@@ -71,7 +71,7 @@ final class LoopSettingsFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
         return new LoopProbeStub();
     }
 
-    protected function getPcntlExtensionProbeStub(): ISignalProcessingProbe
+    protected function getSignalProcessingProbeStub(): ISignalProcessingProbe
     {
         return new SignalProcessingProbeStub();
     }
