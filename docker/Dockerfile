@@ -176,7 +176,7 @@ RUN set -eux \
     ## // install phpcs \
     && phive install phpcs --trust-gpg-keys ${PHP_CODESNIFFER_KEY} --target /usr/local/bin \
     ## // install phpcbf \
-    && phive install phpcs --trust-gpg-keys ${PHP_CODESNIFFER_KEY} --target /usr/local/bin \
+    && phive install phpcbf --trust-gpg-keys ${PHP_CODESNIFFER_KEY} --target /usr/local/bin \
     ## // install ergebnis/composer-normalize \
     && phive install ergebnis/composer-normalize \
     --trust-gpg-keys ${ERGEBNIS_COMPOSER_NORMALIZE_KEY} --target /usr/local/bin \
