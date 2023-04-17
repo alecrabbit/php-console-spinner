@@ -157,6 +157,9 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
     protected function getSpinnerConfigMock(): MockObject&ISpinnerConfig
     {
         return $this->createMock(ISpinnerConfig::class);
+    }    protected function getWidgetConfigMock(): MockObject&IWidgetConfig
+    {
+        return $this->createMock(IWidgetConfig::class);
     }
 
     protected function getWidgetFactoryMock(): MockObject&IWidgetFactory
