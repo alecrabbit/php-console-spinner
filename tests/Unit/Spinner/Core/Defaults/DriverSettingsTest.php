@@ -24,30 +24,47 @@ final class DriverSettingsTest extends TestCaseWithPrebuiltMocksAndStubs
     public function getTesteeInstance(
         OptionInitialization $optionInitialization = OptionInitialization::ENABLED,
         OptionAttacher $optionAttacher = OptionAttacher::ENABLED,
+        string $finalMessage = 'Final message',
+        string $interruptMessage = 'Interrupt message',
     ): IDriverSettings {
         return
             new DriverSettings(
                 optionInitialization: $optionInitialization,
                 optionAttacher: $optionAttacher,
+                finalMessage: $finalMessage,
+                interruptMessage: $interruptMessage,
             );
     }
-
 
     #[Test]
     public function valuesCanBeOverriddenWithSetters(): void
     {
+        $finalMessage = 'Final';
+        $interruptMessage = 'Interrupt';
+
         $driverSettings = $this->getTesteeInstance(
             optionInitialization: OptionInitialization::DISABLED,
             optionAttacher: OptionAttacher::DISABLED,
+            finalMessage: $finalMessage,
+            interruptMessage: $interruptMessage,
         );
         self::assertInstanceOf(DriverSettings::class, $driverSettings);
         self::assertFalse($driverSettings->isInitializationEnabled());
         self::assertFalse($driverSettings->isAttacherEnabled());
+        self::assertSame($finalMessage, $driverSettings->getFinalMessage());
+        self::assertSame($interruptMessage, $driverSettings->getInterruptMessage());
+
+        $finalMessage = 'Final message';
+        $interruptMessage = 'Interrupt message';
 
         $driverSettings->setOptionInitialization(OptionInitialization::ENABLED);
         $driverSettings->setOptionAttacher(OptionAttacher::ENABLED);
+        $driverSettings->setFinalMessage($finalMessage);
+        $driverSettings->setInterruptMessage($interruptMessage);
 
         self::assertTrue($driverSettings->isInitializationEnabled());
         self::assertTrue($driverSettings->isAttacherEnabled());
+        self::assertSame($finalMessage, $driverSettings->getFinalMessage());
+        self::assertSame($interruptMessage, $driverSettings->getInterruptMessage());
     }
 }

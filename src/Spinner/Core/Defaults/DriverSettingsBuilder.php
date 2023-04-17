@@ -17,6 +17,8 @@ final class DriverSettingsBuilder implements IDriverSettingsBuilder
         return new DriverSettings(
             optionInitialization: OptionInitialization::ENABLED,
             optionAttacher: OptionAttacher::ENABLED,
+            finalMessage: '',
+            interruptMessage: '',
         );
     }
 }

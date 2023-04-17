@@ -43,6 +43,7 @@ use AlecRabbit\Spinner\Core\Defaults\Contract\IDriverSettingsBuilder;
 use AlecRabbit\Spinner\Core\Defaults\Contract\ILoopSettings;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IWidgetSettings;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IWidgetSettingsBuilder;
+use AlecRabbit\Spinner\Core\Factory\Contract\IAnsiColorParserFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IBufferedOutputSingletonFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IConsoleCursorFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDriverOutputFactory;
@@ -401,6 +402,11 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
     protected function getStyleOptionsParserMock(): MockObject&IStyleOptionsParser
     {
         return $this->createMock(IStyleOptionsParser::class);
+    }
+
+    protected function getAnsiColorParserFactoryMock(): MockObject&IAnsiColorParserFactory
+    {
+        return $this->createMock(IAnsiColorParserFactory::class);
     }
 
     protected function getHexColorToAnsiCodeConverterFactoryMock(): MockObject&IHexColorToAnsiCodeConverterFactory
