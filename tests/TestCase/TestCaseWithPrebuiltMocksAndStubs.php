@@ -54,6 +54,7 @@ use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopProbeFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopSettingsFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopSetupFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\IStyleToAnsiStringConverterFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ITimerFactory;
 use AlecRabbit\Spinner\Core\Output\Contract\IConsoleCursor;
 use AlecRabbit\Spinner\Core\Output\Contract\IDriverOutput;
@@ -447,5 +448,8 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
     protected function getCharFrameCollectionRendererMock(): MockObject&ICharFrameCollectionRenderer
     {
         return $this->createMock(ICharFrameCollectionRenderer::class);
+    }    protected function getStyleToAnsiStringConverterFactoryMock(): MockObject&IStyleToAnsiStringConverterFactory
+    {
+        return $this->createMock(IStyleToAnsiStringConverterFactory::class);
     }
 }
