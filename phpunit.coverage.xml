@@ -10,18 +10,20 @@
          cacheDirectory=".tools/.phpunit.cache"
          beStrictAboutCoverageMetadata="false"
 >
-    <testsuites>
-        <testsuite name="default">
-            <directory>tests</directory>
-        </testsuite>
-    </testsuites>
-    <coverage>
-        <include>
-            <directory suffix=".php">src</directory>
-        </include>
-        <report>
-            <text outputFile=".tools/.report/.build/coverage.txt" showOnlySummary="true"/>
-            <html outputDirectory=".tools/.report/.build/coverage"/>
-        </report>
-    </coverage>
+  <testsuites>
+    <testsuite name="default">
+      <directory>tests</directory>
+    </testsuite>
+  </testsuites>
+  <coverage>
+    <report>
+      <text outputFile=".tools/.report/.build/coverage.txt" showOnlySummary="true"/>
+      <html outputDirectory=".tools/.report/.build/coverage"/>
+    </report>
+  </coverage>
+  <source>
+    <include>
+      <directory suffix=".php">src</directory>
+    </include>
+  </source>
 </phpunit>
