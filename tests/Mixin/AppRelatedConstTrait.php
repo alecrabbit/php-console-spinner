@@ -52,6 +52,7 @@ trait AppRelatedConstTrait
     final protected const STYLE_MODE = 'styleMode';
     final protected const TO_STRING = 'toString';
     final protected const VALUE = 'value';
+    final protected const PEAK = 'peak';
     final protected const WIDTH = 'width';
     final protected const UNWRAP = 'unwrap';
 }

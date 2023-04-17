@@ -10,12 +10,16 @@ use AlecRabbit\Spinner\Helper\MemoryUsage;
 
 require_once __DIR__ . '/../bootstrap.async.php';
 
+$reportInterval = 60;
+$m = new MemoryUsage();
+
 echo '--' . PHP_EOL;
+echo $m->report() . PHP_EOL;
 
 $config =
     new SpinnerConfig(
         new WidgetConfig(
-            charPattern: new Aesthetic()
+            charPattern: new \AlecRabbit\Spinner\Core\Pattern\CharPattern\SwirlingDots()
         )
     );
 
@@ -23,20 +27,18 @@ $spinner = Facade::createSpinner($config);
 $driver = Facade::getDriver();
 $loop = Facade::getLoop();
 
-dump($loop);
-dump($spinner);
-dump($driver);
-
-$reportInterval = 60;
+//dump($loop);
+//dump($spinner);
+//dump($driver);
 
 $loop->repeat(
     $reportInterval,
-    static function () {
+    static function () use ($m) {
         $message =
             sprintf(
                 '%s %s',
                 (new \DateTimeImmutable())->format(DATE_RFC3339_EXTENDED),
-                MemoryUsage::report()
+                $m->report(),
             );
         echo $message . PHP_EOL;
     }

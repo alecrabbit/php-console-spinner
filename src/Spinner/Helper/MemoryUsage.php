@@ -6,19 +6,30 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Helper;
 
+use AlecRabbit\Spinner\Helper\Contract\IBytesFormatter;
+
+/**
+ * @codeCoverageIgnore
+ */
 final class MemoryUsage
 {
-    private const UNITS = ['B', 'KB', 'MB', 'GB', 'TB', 'PB'];
+    protected IBytesFormatter $formatter;
 
-    public static function report(?string $prefix = null, ?int $bytes = null): string
-    {
-        $prefix ??= 'Memory usage: ';
-        return $prefix . self::format($bytes ?? memory_get_peak_usage(true));
+    public function __construct(
+        protected string $format = 'Memory usage: %s Peak: %s',
+        IBytesFormatter $formatter = null,
+    ) {
+        $this->formatter = $formatter ?? new BytesFormatter();
     }
 
-    private static function format(int $memoryUsage): string
+    public function report(?int $peakBytes = null, ?int $bytes = null): string
     {
-        $i = (int)floor(log($memoryUsage, 1024));
-        return round($memoryUsage / (1024 ** $i), 2) . self::UNITS[$i];
+        return
+            sprintf(
+                $this->format,
+                $this->formatter->format($peakBytes ?? memory_get_peak_usage(true)),
+                $this->formatter->format($bytes ?? memory_get_usage(true)),
+            );
     }
+
 }
