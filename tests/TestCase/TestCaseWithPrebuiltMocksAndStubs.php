@@ -55,6 +55,7 @@ use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopProbeFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopSettingsFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopSetupFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\ILoopSingletonFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IStyleRendererFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IStyleToAnsiStringConverterFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ITimerFactory;
@@ -139,6 +140,11 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
         return $this->createMock(ILoopProbeFactory::class);
     }
 
+    protected function getLoopSingletonFactoryMock(): MockObject&ILoopSingletonFactory
+    {
+        return $this->createMock(ILoopSingletonFactory::class);
+    }
+
     protected function getLoopSetupBuilderMock(): MockObject&ILoopSetupBuilder
     {
         return $this->createMock(ILoopSetupBuilder::class);
@@ -157,7 +163,9 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
     protected function getSpinnerConfigMock(): MockObject&ISpinnerConfig
     {
         return $this->createMock(ISpinnerConfig::class);
-    }    protected function getWidgetConfigMock(): MockObject&IWidgetConfig
+    }
+
+    protected function getWidgetConfigMock(): MockObject&IWidgetConfig
     {
         return $this->createMock(IWidgetConfig::class);
     }
@@ -186,6 +194,7 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
     {
         return $this->createMock(IFrameFactory::class);
     }
+
     protected function getStyleRendererFactoryMock(): MockObject&IStyleRendererFactory
     {
         return $this->createMock(IStyleRendererFactory::class);

@@ -145,4 +145,77 @@ final class SpinnerFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
         self::assertInstanceOf(Spinner::class, $spinner);
         self::assertSame($widget, self::getPropertyValue('rootWidget', $spinner));
     }
+
+    #[Test]
+    public function canCreateSpinnerWithoutConfig(): void
+    {
+        $rootWidgetSettings = $this->getWidgetSettingsMock();
+        $rootWidgetSettings
+            ->expects(self::never())
+            ->method('getLeadingSpacer')
+        ;
+        $rootWidgetSettings
+            ->expects(self::never())
+            ->method('getTrailingSpacer')
+        ;
+        $rootWidgetSettings
+            ->expects(self::never())
+            ->method('getStylePattern')
+        ;
+        $rootWidgetSettings
+            ->expects(self::never())
+            ->method('getCharPattern')
+        ;
+
+        $defaultsProvider = $this->getDefaultsProviderMock();
+        $defaultsProvider
+            ->expects(self::once())
+            ->method('getRootWidgetSettings')
+            ->willReturn($rootWidgetSettings)
+        ;
+
+        $widgetSettingsBuilder = $this->getWidgetSettingsBuilderMock();
+        $widgetSettingsBuilder
+            ->expects(self::never())
+            ->method('withLeadingSpacer')
+            ->willReturn($widgetSettingsBuilder)
+        ;
+        $widgetSettingsBuilder
+            ->expects(self::never())
+            ->method('withTrailingSpacer')
+        ;
+        $widgetSettingsBuilder
+            ->expects(self::never())
+            ->method('withStylePattern')
+        ;
+        $widgetSettingsBuilder
+            ->expects(self::never())
+            ->method('withCharPattern')
+        ;
+        $widgetSettingsBuilder
+            ->expects(self::never())
+            ->method('build')
+        ;
+
+        $widget = $this->getWidgetCompositeMock();
+
+
+        $widgetFactory = $this->getWidgetFactoryMock();
+        $widgetFactory
+            ->expects(self::once())
+            ->method('createWidget')
+            ->with($rootWidgetSettings)
+            ->willReturn($widget)
+        ;
+        $spinnerFactory = $this->getTesteeInstance(
+            defaultsProvider: $defaultsProvider,
+            widgetFactory: $widgetFactory,
+            widgetSettingsBuilder: $widgetSettingsBuilder,
+        );
+
+        $spinner = $spinnerFactory->createSpinner();
+        self::assertInstanceOf(SpinnerFactory::class, $spinnerFactory);
+        self::assertInstanceOf(Spinner::class, $spinner);
+        self::assertSame($widget, self::getPropertyValue('rootWidget', $spinner));
+    }
 }
