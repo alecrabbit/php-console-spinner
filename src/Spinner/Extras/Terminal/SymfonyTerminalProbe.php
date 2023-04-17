@@ -28,10 +28,10 @@ final class SymfonyTerminalProbe extends ATerminalProbe
     public static function getColorMode(): OptionStyleMode
     {
         return
-        match (Terminal::getColorMode()) {
-            AnsiColorMode::Ansi24 => OptionStyleMode::ANSI24,
-            AnsiColorMode::Ansi8 => OptionStyleMode::ANSI8,
-            AnsiColorMode::Ansi4 => OptionStyleMode::ANSI4,
-        };
+            match (Terminal::getColorMode()) {
+                AnsiColorMode::Ansi24 => OptionStyleMode::ANSI24,
+                AnsiColorMode::Ansi8 => OptionStyleMode::ANSI8,
+                AnsiColorMode::Ansi4 => OptionStyleMode::ANSI4,
+            };
     }
 }

@@ -43,12 +43,12 @@ final class IntervalNormalizerFactory implements IIntervalNormalizerFactory
     protected function getDivisor(): int
     {
         return
-        match ($this->normalizerMode) {
-            OptionNormalizerMode::SMOOTH => 20,
-            OptionNormalizerMode::BALANCED => 50,
-            OptionNormalizerMode::PERFORMANCE => 100,
-            OptionNormalizerMode::SLOW => 1000,
-            OptionNormalizerMode::STILL => 900000,
-        };
+            match ($this->normalizerMode) {
+                OptionNormalizerMode::SMOOTH => 20,
+                OptionNormalizerMode::BALANCED => 50,
+                OptionNormalizerMode::PERFORMANCE => 100,
+                OptionNormalizerMode::SLOW => 1000,
+                OptionNormalizerMode::STILL => 900000,
+            };
     }
 }

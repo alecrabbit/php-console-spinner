@@ -47,19 +47,19 @@ final class LoopSettingsFactory implements ILoopSettingsFactory
     protected function isLoopAvailable(): bool
     {
         return
-        match (true) {
-            $this->loopProbe instanceof ILoopProbe => $this->loopProbe::isAvailable(),
-            default => false,
-        };
+            match (true) {
+                $this->loopProbe instanceof ILoopProbe => $this->loopProbe::isAvailable(),
+                default => false,
+            };
     }
 
     protected function isSignalProcessingAvailable(): bool
     {
         return
-        match (true) {
-            $this->signalProcessingProbe instanceof ISignalProcessingProbe
-            => $this->signalProcessingProbe::isAvailable(),
-            default => false,
-        };
+            match (true) {
+                $this->signalProcessingProbe instanceof ISignalProcessingProbe
+                => $this->signalProcessingProbe::isAvailable(),
+                default => false,
+            };
     }
 }
