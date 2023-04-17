@@ -66,6 +66,7 @@ use AlecRabbit\Spinner\Core\Output\Contract\IDriverOutput;
 use AlecRabbit\Spinner\Core\Pattern\Contract\IStylePattern;
 use AlecRabbit\Spinner\Core\Render\Contract\ICharFrameCollectionRenderer;
 use AlecRabbit\Spinner\Core\Render\Contract\IStyleFrameCollectionRenderer;
+use AlecRabbit\Spinner\Core\Render\Contract\IStyleFrameRenderer;
 use AlecRabbit\Spinner\Core\Render\Contract\IStyleRenderer;
 use AlecRabbit\Spinner\Core\Render\Contract\IStyleToAnsiStringConverter;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolver;
@@ -435,6 +436,11 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
     protected function getStyleFrameRendererFactoryMock(): MockObject&IStyleFrameRendererFactory
     {
         return $this->createMock(IStyleFrameRendererFactory::class);
+    }
+
+    protected function getStyleFrameRendererMock(): MockObject&IStyleFrameRenderer
+    {
+        return $this->createMock(IStyleFrameRenderer::class);
     }
 
 
