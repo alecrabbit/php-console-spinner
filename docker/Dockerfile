@@ -18,6 +18,7 @@ ARG PHIVE_VERSION_KEY=0x6AF725270AB81E04D79442549D8A98B29B2D5D79
 
 ARG DEPTRAC_VERSION_KEY=0x41DDE07547459FAECFA17813B8F640134AB1782E
 ARG PHP_CS_FIXER_VERSION_KEY=0xBBAB5DF0A0D6672989CF1869E82B2FB314E9906E
+ARG PHP_CODESNIFFER_KEY=0xA972B9ABB95D0B760B51442231C7E470E2138192
 ARG PHPLOC_VERSION_KEY=0x4AA394086372C20A
 ARG PSALM_VERSION_KEY=0x2DE50EB60C013FFFA831040D12CE0F1D262429A5
 ARG ERGEBNIS_COMPOSER_NORMALIZE_KEY=0x0FDE18AE1D09E19F60F6B1CBC00543248C87FB13
@@ -172,6 +173,10 @@ RUN set -eux \
     && phive install php-cs-fixer --trust-gpg-keys ${PHP_CS_FIXER_VERSION_KEY} --target /usr/local/bin \
     ## // install psalm \
     && phive install psalm --trust-gpg-keys ${PSALM_VERSION_KEY} --target /usr/local/bin \
+    ## // install phpcs \
+    && phive install phpcs --trust-gpg-keys ${PHP_CODESNIFFER_KEY} --target /usr/local/bin \
+    ## // install phpcbf \
+    && phive install phpcs --trust-gpg-keys ${PHP_CODESNIFFER_KEY} --target /usr/local/bin \
     ## // install ergebnis/composer-normalize \
     && phive install ergebnis/composer-normalize \
     --trust-gpg-keys ${ERGEBNIS_COMPOSER_NORMALIZE_KEY} --target /usr/local/bin \
