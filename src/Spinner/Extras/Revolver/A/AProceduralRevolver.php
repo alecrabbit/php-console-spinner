@@ -23,7 +23,7 @@ abstract class AProceduralRevolver extends ARevolver implements IFrameRevolver
         $this->currentFrame = Frame::createEmpty();
     }
 
-    protected function next(float $dt = null): void
+    protected function next(?float $dt = null): void
     {
         $this->currentFrame = $this->procedure->update($dt);
     }

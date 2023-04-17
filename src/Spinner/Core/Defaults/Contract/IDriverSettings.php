@@ -28,5 +28,4 @@ interface IDriverSettings
     public function getOptionAttacher(): OptionAttacher;
 
     public function setOptionAttacher(OptionAttacher $optionAttacher): IDriverSettings;
-
 }

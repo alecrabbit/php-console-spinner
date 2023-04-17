@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 // 27.03.23
+
 namespace AlecRabbit\Spinner\Container;
 
 use AlecRabbit\Spinner\Container\Contract\IContainer;
@@ -17,21 +18,18 @@ use Traversable;
 
 final class Container implements IContainer
 {
-    protected IServiceSpawner $serviceSpawner;
+    private IServiceSpawner $serviceSpawner;
 
     /** @var ArrayObject<string, callable|object|string> */
-    protected ArrayObject $definitions;
+    private ArrayObject $definitions;
 
     /** @var ArrayObject<string, object> */
-    protected ArrayObject $services;
+    private ArrayObject $services;
 
-    protected ArrayObject $dependencyStack;
+    private ArrayObject $dependencyStack;
 
     /**
      * Create a container object with a set of definitions.
-     *
-     * @param Closure $spawnerCreatorCb
-     * @param null|Traversable $definitions
      */
     public function __construct(Closure $spawnerCreatorCb, ?Traversable $definitions = null)
     {
@@ -48,7 +46,7 @@ final class Container implements IContainer
         }
     }
 
-    protected function addDefinition(string $id, mixed $definition): void
+    private function addDefinition(string $id, mixed $definition): void
     {
         $this->assertDefinition($definition);
 
@@ -58,7 +56,7 @@ final class Container implements IContainer
         $this->definitions[$id] = $definition;
     }
 
-    protected function assertDefinition(mixed $definition): void
+    private function assertDefinition(mixed $definition): void
     {
         if (!is_callable($definition) && !is_object($definition) && !is_string($definition)) {
             throw new ContainerException(
@@ -70,7 +68,7 @@ final class Container implements IContainer
         }
     }
 
-    protected function assertNotRegistered(string $id): void
+    private function assertNotRegistered(string $id): void
     {
         if ($this->has($id)) {
             throw new ContainerException(
@@ -82,13 +80,11 @@ final class Container implements IContainer
         }
     }
 
-    /** @inheritdoc */
     public function has(string $id): bool
     {
         return $this->definitions->offsetExists($id);
     }
 
-    /** @inheritdoc */
     public function replace(string $id, callable|object|string $definition): void
     {
         $serviceInstantiated = $this->hasService($id);
@@ -100,12 +96,11 @@ final class Container implements IContainer
         }
     }
 
-    protected function hasService(string $id): bool
+    private function hasService(string $id): bool
     {
         return $this->services->offsetExists($id);
     }
 
-    /** @inheritdoc */
     public function remove(string $id): void
     {
         if (!$this->has($id)) {
@@ -119,13 +114,11 @@ final class Container implements IContainer
         unset($this->definitions[$id], $this->services[$id]);
     }
 
-    /** @inheritdoc */
     public function add(string $id, callable|object|string $definition): void
     {
         $this->addDefinition($id, $definition);
     }
 
-    /** @inheritdoc */
     public function get(string $id): object
     {
         if ($this->hasService($id)) {
@@ -152,21 +145,21 @@ final class Container implements IContainer
         return $this->services[$id];
     }
 
-    protected function addDependencyToStack(string $id): void
+    private function addDependencyToStack(string $id): void
     {
         $this->assertDependencyStack($id);
 
         $this->dependencyStack->append($id);
     }
 
-    protected function assertDependencyStack(string $id): void
+    private function assertDependencyStack(string $id): void
     {
         if (in_array($id, $this->dependencyStack->getArrayCopy(), true)) {
             throw new CircularDependencyException($this->dependencyStack);
         }
     }
 
-    protected function getService(string $id, callable|object|string $definition): object
+    private function getService(string $id, callable|object|string $definition): object
     {
         try {
             return $this->serviceSpawner->spawn($definition);
@@ -186,7 +179,7 @@ final class Container implements IContainer
         }
     }
 
-    protected function removeDependencyFromStack(): void
+    private function removeDependencyFromStack(): void
     {
         $this->dependencyStack->offsetUnset($this->dependencyStack->count() - 1);
     }

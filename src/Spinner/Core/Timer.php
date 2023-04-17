@@ -19,7 +19,7 @@ final class Timer implements ITimer
         self::assertTimeFunction($timeFunction);
     }
 
-    protected static function assertTimeFunction(Closure $timeFunction): void
+    private static function assertTimeFunction(Closure $timeFunction): void
     {
         try {
             $timeFunction();
@@ -32,13 +32,13 @@ final class Timer implements ITimer
         $reflection = new ReflectionFunction($timeFunction);
 
         $returnType = $reflection->getReturnType();
-        if (null === $returnType) {
+        if ($returnType === null) {
             throw new InvalidArgumentException(
                 'Return type of time function is not specified.'
             );
         }
         $type = $returnType?->getName();
-        if ('float' !== $type) {
+        if ($type !== 'float') {
             throw new InvalidArgumentException(
                 sprintf(
                     'Time function must return "float"(e.g. "%s"), instead return type is "%s".',

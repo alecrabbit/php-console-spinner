@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 // 03.04.23
+
 namespace AlecRabbit\Tests\Unit\Spinner\Core;
 
 use AlecRabbit\Spinner\Core\Contract\ILoopSetupBuilder;
@@ -24,8 +25,7 @@ final class LoopSetupBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
 
     public function getTesteeInstance(): ILoopSetupBuilder
     {
-        return
-            new LoopSetupBuilder();
+        return new LoopSetupBuilder();
     }
 
     #[Test]
@@ -49,7 +49,7 @@ final class LoopSetupBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
         $exceptionClass = LogicException::class;
         $exceptionMessage = 'Loop is not set.';
 
-        $test = function () {
+        $test = function (): void {
             $loopSetupBuilder = $this->getTesteeInstance();
             self::assertInstanceOf(LoopSetupBuilder::class, $loopSetupBuilder);
             $loopSetupBuilder
@@ -71,7 +71,7 @@ final class LoopSetupBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
         $exceptionClass = LogicException::class;
         $exceptionMessage = 'Loop settings are not set.';
 
-        $test = function () {
+        $test = function (): void {
             $loopSetupBuilder = $this->getTesteeInstance();
             self::assertInstanceOf(LoopSetupBuilder::class, $loopSetupBuilder);
             $loopSetupBuilder

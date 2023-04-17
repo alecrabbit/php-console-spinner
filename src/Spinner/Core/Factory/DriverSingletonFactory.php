@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 // 10.04.23
+
 namespace AlecRabbit\Spinner\Core\Factory;
 
 use AlecRabbit\Spinner\Core\Contract\IDriver;
@@ -16,7 +17,7 @@ use AlecRabbit\Spinner\Core\Factory\Contract\ITimerFactory;
 
 final class DriverSingletonFactory implements IDriverSingletonFactory
 {
-    protected static ?IDriver $driver = null;
+    private static ?IDriver $driver = null;
 
     public function __construct(
         protected IDriverBuilder $driverBuilder,
@@ -30,7 +31,7 @@ final class DriverSingletonFactory implements IDriverSingletonFactory
 
     public function getDriver(): IDriver
     {
-        if (null === self::$driver) {
+        if (self::$driver === null) {
             self::$driver = $this->buildDriver();
 
             $this->driverSetup
@@ -42,8 +43,7 @@ final class DriverSingletonFactory implements IDriverSingletonFactory
             $this->loopSetupFactory->create()->setup(self::$driver);
         }
 
-        return
-            self::$driver;
+        return self::$driver;
     }
 
     private function buildDriver(): IDriver

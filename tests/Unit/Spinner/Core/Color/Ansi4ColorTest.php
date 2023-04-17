@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 // 15.02.23
+
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Color;
 
 use AlecRabbit\Spinner\Core\Color\Ansi4Color;
@@ -79,38 +80,38 @@ final class Ansi4ColorTest extends TestCase
         // #3..
         yield from [
             // result, index, hex // first element - #3
-            ['#000000', 0, null,],
-            ['#800000', 1, null,],
-            ['#008000', 2, null,],
-            ['#808000', 3, null,],
-            ['#000080', 4, null,],
-            ['#800080', 5, null,],
-            ['#008080', 6, null,],
-            ['#c0c0c0', 7, null,],
-            ['#808080', 8, null,],
-            ['#ff0000', 9, null,],
-            ['#00ff00', 10, null,],
-            ['#ffff00', 11, null,],
-            ['#0000ff', 12, null,],
-            ['#ff00ff', 13, null,],
-            ['#00ffff', 14, null,],
-            ['#ffffff', 15, null,],
-            [0, null, '#000000',],
-            [1, null, '#800000',],
-            [2, null, '#008000',],
-            [3, null, '#808000',],
-            [4, null, '#000080',],
-            [5, null, '#800080',],
-            [6, null, '#008080',],
-            [7, null, '#c0c0c0',],
-            [8, null, '#808080',],
-            [9, null, '#ff0000',],
-            [10, null, '#00ff00',],
-            [11, null, '#ffff00',],
-            [12, null, '#0000ff',],
-            [13, null, '#ff00ff',],
-            [14, null, '#00ffff',],
-            [15, null, '#ffffff',],
+            ['#000000', 0, null],
+            ['#800000', 1, null],
+            ['#008000', 2, null],
+            ['#808000', 3, null],
+            ['#000080', 4, null],
+            ['#800080', 5, null],
+            ['#008080', 6, null],
+            ['#c0c0c0', 7, null],
+            ['#808080', 8, null],
+            ['#ff0000', 9, null],
+            ['#00ff00', 10, null],
+            ['#ffff00', 11, null],
+            ['#0000ff', 12, null],
+            ['#ff00ff', 13, null],
+            ['#00ffff', 14, null],
+            ['#ffffff', 15, null],
+            [0, null, '#000000'],
+            [1, null, '#800000'],
+            [2, null, '#008000'],
+            [3, null, '#808000'],
+            [4, null, '#000080'],
+            [5, null, '#800080'],
+            [6, null, '#008080'],
+            [7, null, '#c0c0c0'],
+            [8, null, '#808080'],
+            [9, null, '#ff0000'],
+            [10, null, '#00ff00'],
+            [11, null, '#ffff00'],
+            [12, null, '#0000ff'],
+            [13, null, '#ff00ff'],
+            [14, null, '#00ffff'],
+            [15, null, '#ffffff'],
 
         ];
     }
@@ -126,16 +127,16 @@ final class Ansi4ColorTest extends TestCase
         $index = $args[self::INDEX] ?? null;
         $hex = $args[self::HEX] ?? null;
 
-        if (null === $index && null === $hex) {
+        if ($index === null && $hex === null) {
             self::fail('Both index and hex arguments are null.');
         }
 
-        if (null !== $index && null !== $hex) {
+        if ($index !== null && $hex !== null) {
             self::fail('Both index and hex arguments are not null.');
         }
 
         $result =
-            null === $index
+            $index === null
                 ? Ansi4Color::getIndex($hex)
                 : Ansi4Color::getHexColor($index);
 

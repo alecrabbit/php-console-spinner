@@ -22,8 +22,7 @@ final class IntegerNormalizerBuilderTest extends TestCaseWithPrebuiltMocksAndStu
 
     public function getTesteeInstance(): IIntegerNormalizerBuilder
     {
-        return
-            new IntegerNormalizerBuilder();
+        return new IntegerNormalizerBuilder();
     }
 
     #[Test]

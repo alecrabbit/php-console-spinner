@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 // 12.04.23
+
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Defaults\Override;
 
 use AlecRabbit\Spinner\Core\Contract\Loop\Contract\ILoop;

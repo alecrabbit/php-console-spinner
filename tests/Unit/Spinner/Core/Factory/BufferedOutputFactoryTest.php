@@ -26,11 +26,10 @@ final class BufferedOutputFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
         ?IBufferedOutputBuilder $bufferedOutputBuilder = null,
         ?IResourceStream $resourceStream = null,
     ): IBufferedOutputSingletonFactory {
-        return
-            new BufferedOutputSingletonFactory(
-                bufferedOutputBuilder: $bufferedOutputBuilder ?? $this->getBufferedOutputBuilderMock(),
-                resourceStream: $resourceStream ?? $this->getResourceStreamMock(),
-            );
+        return new BufferedOutputSingletonFactory(
+            bufferedOutputBuilder: $bufferedOutputBuilder ?? $this->getBufferedOutputBuilderMock(),
+            resourceStream: $resourceStream ?? $this->getResourceStreamMock(),
+        );
     }
 
     #[Test]

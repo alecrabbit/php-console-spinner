@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 // 25.03.23
+
 namespace AlecRabbit\Spinner\Core\Color;
 
 use AlecRabbit\Spinner\Contract\Color\IStringableColor;
@@ -11,7 +12,7 @@ use AlecRabbit\Spinner\Helper\Asserter;
 
 final readonly class RGBColor implements IStringableColor
 {
-    protected const HEX_FORMAT = '#%02x%02x%02x';
+    private const HEX_FORMAT = '#%02x%02x%02x';
     public int $red;
     public int $green;
     public int $blue;
@@ -29,12 +30,12 @@ final readonly class RGBColor implements IStringableColor
         $this->alpha = self::refineAlpha($alpha);
     }
 
-    protected static function refineColor(int $value): int
+    private static function refineColor(int $value): int
     {
         return max(0, min(255, $value));
     }
 
-    protected static function refineAlpha(float $value): float
+    private static function refineAlpha(float $value): float
     {
         return max(0.0, min(1.0, $value));
     }
@@ -49,24 +50,23 @@ final readonly class RGBColor implements IStringableColor
         $hex = str_replace('#', '', $hex);
 
         $length = strlen($hex);
-        if (3 === $length) {
+        if ($length === 3) {
             $hex = $hex[0] . $hex[0] . $hex[1] . $hex[1] . $hex[2] . $hex[2];
             $length = strlen($hex);
         }
 
         $cLength = (int)($length / 3);
-        return
-            new self(
-                hexdec(substr($hex, 0, $cLength)),
-                hexdec(substr($hex, $cLength, $cLength)),
-                hexdec(substr($hex, $cLength * 2, $cLength)),
-            );
+        return new self(
+            hexdec(substr($hex, 0, $cLength)),
+            hexdec(substr($hex, $cLength, $cLength)),
+            hexdec(substr($hex, $cLength * 2, $cLength)),
+        );
     }
 
     /**
      * @throws InvalidArgumentException
      */
-    protected static function assertHex(string $hex): void
+    private static function assertHex(string $hex): void
     {
         Asserter::assertHexStringColor($hex);
     }

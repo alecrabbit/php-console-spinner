@@ -27,13 +27,12 @@ final class DriverSettingsTest extends TestCaseWithPrebuiltMocksAndStubs
         string $finalMessage = 'Final message',
         string $interruptMessage = 'Interrupt message',
     ): IDriverSettings {
-        return
-            new DriverSettings(
-                optionInitialization: $optionInitialization,
-                optionAttacher: $optionAttacher,
-                finalMessage: $finalMessage,
-                interruptMessage: $interruptMessage,
-            );
+        return new DriverSettings(
+            optionInitialization: $optionInitialization,
+            optionAttacher: $optionAttacher,
+            finalMessage: $finalMessage,
+            interruptMessage: $interruptMessage,
+        );
     }
 
     #[Test]

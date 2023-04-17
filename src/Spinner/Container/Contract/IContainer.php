@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 // 27.03.23
+
 namespace AlecRabbit\Spinner\Container\Contract;
 
 use Psr\Container\ContainerExceptionInterface;
@@ -11,10 +12,8 @@ use Psr\Container\NotFoundExceptionInterface;
 
 interface IContainer extends ContainerInterface
 {
-    /** @inheritdoc */
     public function get(string $id): object;
 
-    /** @inheritdoc */
     public function has(string $id): bool;
 
     /**

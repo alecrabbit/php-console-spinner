@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 // 29.03.23
+
 namespace AlecRabbit\Spinner;
 
 use AlecRabbit\Spinner\Container\Contract\IContainer;
@@ -25,12 +26,12 @@ final class Facade implements IFacade
         return self::getLoopFactory()->getLoop();
     }
 
-    protected static function getLoopFactory(): ILoopSingletonFactory
+    private static function getLoopFactory(): ILoopSingletonFactory
     {
         return self::getContainer()->get(ILoopSingletonFactory::class);
     }
 
-    protected static function getContainer(): IContainer
+    private static function getContainer(): IContainer
     {
         return ContainerSingletonFactory::getContainer();
     }
@@ -68,7 +69,7 @@ final class Facade implements IFacade
         return $spinner;
     }
 
-    protected static function getSpinnerFactory(): ISpinnerFactory
+    private static function getSpinnerFactory(): ISpinnerFactory
     {
         return self::getContainer()->get(ISpinnerFactory::class);
     }
@@ -78,12 +79,12 @@ final class Facade implements IFacade
         return self::getDriverFactory()->getDriver();
     }
 
-    protected static function getDriverFactory(): IDriverSingletonFactory
+    private static function getDriverFactory(): IDriverSingletonFactory
     {
         return self::getContainer()->get(IDriverSingletonFactory::class);
     }
 
-    protected static function getDriverAttacher(): IDriverAttacher
+    private static function getDriverAttacher(): IDriverAttacher
     {
         return self::getContainer()->get(IDriverAttacher::class);
     }

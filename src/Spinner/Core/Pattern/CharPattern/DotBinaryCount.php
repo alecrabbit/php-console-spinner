@@ -269,6 +269,6 @@ final class DotBinaryCount extends AReversiblePattern
         '⣼',
         '⣽',
         '⣾',
-        '⣿'
+        '⣿',
     ];
 }

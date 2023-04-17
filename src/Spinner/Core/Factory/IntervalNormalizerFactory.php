@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 // 11.04.23
+
 namespace AlecRabbit\Spinner\Core\Factory;
 
 use AlecRabbit\Spinner\Contract\Option\OptionNormalizerMode;
@@ -22,33 +23,30 @@ final class IntervalNormalizerFactory implements IIntervalNormalizerFactory
 
     public function create(): IIntervalNormalizer
     {
-        return
-            new IntervalNormalizer(
-                $this->buildIntegerNormalizer(),
-            );
+        return new IntervalNormalizer(
+            $this->buildIntegerNormalizer(),
+        );
     }
 
     private function buildIntegerNormalizer(): IIntegerNormalizer
     {
         $divisor = $this->getDivisor();
 
-        return
-            $this->integerNormalizerBuilder
-                ->withDivisor($divisor)
-                ->withMin($divisor)
-                ->build()
+        return $this->integerNormalizerBuilder
+            ->withDivisor($divisor)
+            ->withMin($divisor)
+            ->build()
         ;
     }
 
-    protected function getDivisor(): int
+    private function getDivisor(): int
     {
-        return
-            match ($this->normalizerMode) {
-                OptionNormalizerMode::SMOOTH => 20,
-                OptionNormalizerMode::BALANCED => 50,
-                OptionNormalizerMode::PERFORMANCE => 100,
-                OptionNormalizerMode::SLOW => 1000,
-                OptionNormalizerMode::STILL => 900000,
-            };
+        return match ($this->normalizerMode) {
+            OptionNormalizerMode::SMOOTH => 20,
+            OptionNormalizerMode::BALANCED => 50,
+            OptionNormalizerMode::PERFORMANCE => 100,
+            OptionNormalizerMode::SLOW => 1000,
+            OptionNormalizerMode::STILL => 900000,
+        };
     }
 }

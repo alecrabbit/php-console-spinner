@@ -22,8 +22,7 @@ final class StyleFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
 
     public function getTesteeInstance(): IStyleFactory
     {
-        return
-            new StyleFactory();
+        return new StyleFactory();
     }
 
     #[Test]

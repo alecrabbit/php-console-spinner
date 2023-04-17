@@ -19,8 +19,7 @@ final class Asserter
     /**
      * @param object|class-string $c
      * @param class-string $i
-     * @param string|null $callerMethod
-     * @param bool $allowString
+     *
      * @throws InvalidArgumentException
      */
     public static function assertIsSubClass(
@@ -33,7 +32,7 @@ final class Asserter
             throw new InvalidArgumentException(
                 sprintf(
                     'Class "%s" must be a subclass of "%s"%s.',
-                    is_object($c) ? get_class($c) : $c,
+                    is_object($c) ? $c::class : $c,
                     $i,
                     self::getSeeMethodStr($callerMethod),
                 )
@@ -43,21 +42,20 @@ final class Asserter
 
     private static function getSeeMethodStr(?string $callerMethod): string
     {
-        return
-            $callerMethod
-                ? sprintf(', see "%s()"', $callerMethod)
-                : '';
+        return $callerMethod
+            ? sprintf(', see "%s()"', $callerMethod)
+            : '';
     }
 
     /**
      * @param resource $stream
-     * @throws InvalidArgumentException
      *
+     * @throws InvalidArgumentException
      */
     public static function assertStream(mixed $stream): void
     {
         /** @psalm-suppress DocblockTypeContradiction */
-        if (!is_resource($stream) || 'stream' !== get_resource_type($stream)) {
+        if (!is_resource($stream) || get_resource_type($stream) !== 'stream') {
             throw new InvalidArgumentException(
                 sprintf('Argument is expected to be a stream(resource), "%s" given.', get_debug_type($stream))
             );
@@ -69,7 +67,7 @@ final class Asserter
      */
     public static function assertColorModes(Traversable $colorModes): void
     {
-        if (0 === count(iterator_to_array($colorModes))) {
+        if (count(iterator_to_array($colorModes)) === 0) {
             throw new InvalidArgumentException('Color modes must not be empty.');
         }
         /** @var OptionStyleMode $colorMode */
@@ -130,7 +128,7 @@ final class Asserter
                     $entry
                 )
             ),
-            4 !== $strlen && 7 !== $strlen => throw new InvalidArgumentException(
+            $strlen !== 4 && $strlen !== 7 => throw new InvalidArgumentException(
                 sprintf(
                     'Value should be a valid hex color code("#rgb", "#rrggbb"), "%s" given. Length: %d.',
                     $entry,

@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 // 09.04.23
+
 namespace AlecRabbit\Spinner\Core\Output\Contract;
 
 use AlecRabbit\Spinner\Core\Contract\ISpinnerState;

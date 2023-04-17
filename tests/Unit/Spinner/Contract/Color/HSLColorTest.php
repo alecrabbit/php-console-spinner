@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 // 15.02.23
+
 namespace AlecRabbit\Tests\Unit\Spinner\Contract\Color;
 
 use AlecRabbit\Spinner\Core\Color\HSLColor;
@@ -44,7 +45,6 @@ final class HSLColorTest extends TestCase
             [new HSLColor(14, 0, 1, 0), 14, 0, 2, -1],
         ];
     }
-
 
     #[Test]
     #[DataProvider('colorDataProvider')]

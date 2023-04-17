@@ -26,22 +26,15 @@ final class StreamBufferedOutputTest extends TestCase
         (MockObject & IResourceStream)|null $stream,
         ?StringBuffer $buffer = null,
     ): IBufferedOutput {
-        if (null === $buffer) {
-            return
-                new StreamBufferedOutput(
-                    stream: $stream ?? $this->getStreamMock(),
-                );
-        }
-        return
-            new StreamBufferedOutput(
+        if ($buffer === null) {
+            return new StreamBufferedOutput(
                 stream: $stream ?? $this->getStreamMock(),
-                buffer: $buffer
             );
-    }
-
-    private function getStreamMock(): MockObject&IResourceStream
-    {
-        return $this->createMock(IResourceStream::class);
+        }
+        return new StreamBufferedOutput(
+            stream: $stream ?? $this->getStreamMock(),
+            buffer: $buffer
+        );
     }
 
     #[Test]
@@ -98,5 +91,10 @@ final class StreamBufferedOutputTest extends TestCase
         $streamBufferedOutput = $this->getTesteeInstance(stream: $stream);
 
         $streamBufferedOutput->bufferedWrite(['test', 'test2'])->flush();
+    }
+
+    private function getStreamMock(): MockObject&IResourceStream
+    {
+        return $this->createMock(IResourceStream::class);
     }
 }

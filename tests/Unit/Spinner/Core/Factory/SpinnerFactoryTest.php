@@ -28,12 +28,11 @@ final class SpinnerFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
         ?IWidgetFactory $widgetFactory = null,
         ?IWidgetSettingsBuilder $widgetSettingsBuilder = null,
     ): ISpinnerFactory {
-        return
-            new SpinnerFactory(
-                defaultsProvider: $defaultsProvider ?? $this->getDefaultsProviderMock(),
-                widgetFactory: $widgetFactory ?? $this->getWidgetFactoryMock(),
-                widgetSettingsBuilder: $widgetSettingsBuilder ?? $this->getWidgetSettingsBuilderMock(),
-            );
+        return new SpinnerFactory(
+            defaultsProvider: $defaultsProvider ?? $this->getDefaultsProviderMock(),
+            widgetFactory: $widgetFactory ?? $this->getWidgetFactoryMock(),
+            widgetSettingsBuilder: $widgetSettingsBuilder ?? $this->getWidgetSettingsBuilderMock(),
+        );
     }
 
     #[Test]
@@ -117,7 +116,6 @@ final class SpinnerFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
             ->willReturn(null)
         ;
 
-
         $config = $this->getSpinnerConfigMock();
         $config
             ->expects(self::once())
@@ -125,7 +123,6 @@ final class SpinnerFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
             ->willReturn($widgetConfig)
         ;
         $widget = $this->getWidgetCompositeMock();
-
 
         $widgetFactory = $this->getWidgetFactoryMock();
         $widgetFactory
@@ -198,7 +195,6 @@ final class SpinnerFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
         ;
 
         $widget = $this->getWidgetCompositeMock();
-
 
         $widgetFactory = $this->getWidgetFactoryMock();
         $widgetFactory

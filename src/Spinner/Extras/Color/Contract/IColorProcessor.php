@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 // 22.03.23
+
 namespace AlecRabbit\Spinner\Extras\Color\Contract;
 
 use AlecRabbit\Spinner\Contract\Color\IColor;
@@ -38,7 +39,9 @@ interface IColorProcessor
      * @param Traversable $colors Colors to generate gradients.
      * @param int $steps The number of steps in the gradient.
      * @param string|null $fromColor Optional. The starting color of the gradient.
+     *
      * @return Generator<RGBColor> A generator that yields RGBColor objects.
+     *
      * @throws InvalidArgumentException
      */
     public function gradients(Traversable $colors, int $steps = 10, ?string $fromColor = null): Generator;
@@ -49,7 +52,9 @@ interface IColorProcessor
      * @param string|IColor $from The starting color of the gradient.
      * @param string|IColor $to The ending color of the gradient.
      * @param int $steps The number of steps in the gradient.
+     *
      * @return Generator<RGBColor> A generator that yields RGBColor objects.
+     *
      * @throws InvalidArgumentException if the parameters are invalid.
      */
     public function gradient(string|IColor $from, string|IColor $to, int $steps = 100): Generator;

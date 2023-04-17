@@ -13,7 +13,7 @@ enum OptionStyleMode: int
 
     public function lowest(?self $other): self
     {
-        if (null === $other) {
+        if ($other === null) {
             return $this;
         }
 
@@ -25,7 +25,7 @@ enum OptionStyleMode: int
 
     public function highest(?self $other): self
     {
-        if (null === $other) {
+        if ($other === null) {
             return $this;
         }
 

@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 // 15.02.23
+
 namespace AlecRabbit\Tests\Unit\Spinner\Contract;
 
 use AlecRabbit\Spinner\Contract\Option\OptionStyleMode;
@@ -115,18 +116,18 @@ final class OptionStyleModeTest extends TestCase
         // #0..
         yield from [
             // result, mode // first element - #0..
-            [true, OptionStyleMode::ANSI8,],
-            [true, OptionStyleMode::ANSI4,],
-            [true, OptionStyleMode::ANSI8,],
-            [true, OptionStyleMode::ANSI24,],
-            [true, OptionStyleMode::ANSI24,],
-            [true, OptionStyleMode::ANSI24,],
-            [true, OptionStyleMode::ANSI4,],
-            [true, OptionStyleMode::ANSI8,],
-            [true, OptionStyleMode::ANSI24,],
-            [false, OptionStyleMode::NONE,],
-            [false, OptionStyleMode::NONE,],
-            [false, OptionStyleMode::NONE,],
+            [true, OptionStyleMode::ANSI8],
+            [true, OptionStyleMode::ANSI4],
+            [true, OptionStyleMode::ANSI8],
+            [true, OptionStyleMode::ANSI24],
+            [true, OptionStyleMode::ANSI24],
+            [true, OptionStyleMode::ANSI24],
+            [true, OptionStyleMode::ANSI4],
+            [true, OptionStyleMode::ANSI8],
+            [true, OptionStyleMode::ANSI24],
+            [false, OptionStyleMode::NONE],
+            [false, OptionStyleMode::NONE],
+            [false, OptionStyleMode::NONE],
         ];
     }
 

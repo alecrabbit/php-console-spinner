@@ -32,16 +32,16 @@ abstract class AFrameCollectionRevolver extends ARevolver implements IFrameColle
      */
     protected function assertIsNotEmpty(): void
     {
-        if (0 === $this->count) {
+        if ($this->count === 0) {
             throw new InvalidArgumentException(
                 sprintf('%s: Frame collection is empty.', static::class)
             );
         }
     }
 
-    protected function next(float $dt = null): void
+    protected function next(?float $dt = null): void
     {
-        if (1 === $this->count || ++$this->offset === $this->count) {
+        if ($this->count === 1 || ++$this->offset === $this->count) {
             $this->offset = 0;
         }
     }

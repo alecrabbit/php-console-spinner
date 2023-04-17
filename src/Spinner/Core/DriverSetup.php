@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 // 10.04.23
+
 namespace AlecRabbit\Spinner\Core;
 
 use AlecRabbit\Spinner\Core\Contract\IDriver;
@@ -11,8 +12,8 @@ use AlecRabbit\Spinner\Core\Contract\IDriverSetup;
 
 final class DriverSetup implements IDriverSetup
 {
-    protected bool $initializationEnabled = false;
-    protected bool $attacherEnabled = false;
+    private bool $initializationEnabled = false;
+    private bool $attacherEnabled = false;
 
     public function __construct(
         protected IDriverAttacher $attacher,

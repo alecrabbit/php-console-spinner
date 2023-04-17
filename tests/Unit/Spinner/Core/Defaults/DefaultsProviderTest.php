@@ -36,13 +36,12 @@ final class DefaultsProviderTest extends TestCaseWithPrebuiltMocksAndStubs
         ?IWidgetSettings $widgetSettings = null,
         ?IWidgetSettings $rootWidgetSettings = null,
     ): IDefaultsProvider {
-        return
-            new DefaultsProvider(
-                auxSettings: $auxSettings ?? $this->getAuxSettingsMock(),
-                loopSettings: $loopSettings ?? $this->getLoopSettingsMock(),
-                driverSettings: $driverSettings ?? $this->getDriverSettingsMock(),
-                widgetSettings: $widgetSettings ?? $this->getWidgetSettingsMock(),
-                rootWidgetSettings: $rootWidgetSettings ?? $this->getWidgetSettingsMock(),
-            );
+        return new DefaultsProvider(
+            auxSettings: $auxSettings ?? $this->getAuxSettingsMock(),
+            loopSettings: $loopSettings ?? $this->getLoopSettingsMock(),
+            driverSettings: $driverSettings ?? $this->getDriverSettingsMock(),
+            widgetSettings: $widgetSettings ?? $this->getWidgetSettingsMock(),
+            rootWidgetSettings: $rootWidgetSettings ?? $this->getWidgetSettingsMock(),
+        );
     }
 }

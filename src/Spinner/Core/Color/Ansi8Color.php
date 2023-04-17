@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 // 25.03.23
+
 namespace AlecRabbit\Spinner\Core\Color;
 
 use AlecRabbit\Spinner\Contract\Option\OptionStyleMode;
@@ -18,7 +19,7 @@ final class Ansi8Color extends AAnsiColor
     /** @return array<string,int> */
     protected static function getColors(): array
     {
-        if (null === self::$colors) {
+        if (self::$colors === null) {
             self::$colors = array_flip(self::COLORS);
         }
         return self::$colors;

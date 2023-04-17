@@ -21,14 +21,13 @@ final class TmpProceduralStylePattern extends AProceduralStylePattern
 
     public function getProcedure(): IProcedure
     {
-        return
-            new class () extends AProcedure {
-                public function update(float $dt = null): IFrame
-                {
-                    static $odd = true;
-                    $odd = !$odd;
-                    return new Frame($odd ? '>%s>' : '<%s<', 2);
-                }
-            };
+        return new class() extends AProcedure {
+            public function update(?float $dt = null): IFrame
+            {
+                static $odd = true;
+                $odd = !$odd;
+                return new Frame($odd ? '>%s>' : '<%s<', 2);
+            }
+        };
     }
 }

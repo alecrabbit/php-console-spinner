@@ -28,15 +28,9 @@ final class LoopProbeFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
     public function getTesteeInstance(
         ?Traversable $loopProbes = null,
     ): ILoopProbeFactory {
-        return
-            new LoopProbeFactory(
-                loopProbes: $loopProbes ?? $this->getLoopProbesMock(),
-            );
-    }
-
-    private function getLoopProbesMock(): MockObject&Traversable
-    {
-        return $this->createMock(Traversable::class);
+        return new LoopProbeFactory(
+            loopProbes: $loopProbes ?? $this->getLoopProbesMock(),
+        );
     }
 
     #[Test]
@@ -73,5 +67,10 @@ final class LoopProbeFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
         $loopProbe = $loopProbesFactory->getProbe();
 
         self::assertInstanceOf(ALoopProbe::class, $loopProbe);
+    }
+
+    private function getLoopProbesMock(): MockObject&Traversable
+    {
+        return $this->createMock(Traversable::class);
     }
 }

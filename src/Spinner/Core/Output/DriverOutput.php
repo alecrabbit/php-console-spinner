@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 // 09.04.23
+
 namespace AlecRabbit\Spinner\Core\Output;
 
 use AlecRabbit\Spinner\Contract\Output\IBufferedOutput;
@@ -12,7 +13,7 @@ use AlecRabbit\Spinner\Core\Output\Contract\IDriverOutput;
 
 final class DriverOutput implements IDriverOutput
 {
-    protected bool $initialized = false;
+    private bool $initialized = false;
 
     public function __construct(
         protected readonly IBufferedOutput $output,

@@ -13,7 +13,6 @@ interface IServiceSpawner
     /**
      * @param class-string|object|callable $definition
      *
-     * @return object
      * @throws ContainerExceptionInterface
      * @throws NotFoundExceptionInterface
      * @throws ReflectionException

@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 // 10.04.23
+
 namespace AlecRabbit\Spinner\Core;
 
 use AlecRabbit\Spinner\Contract\Output\IBufferedOutput;
@@ -14,25 +15,24 @@ use AlecRabbit\Spinner\Exception\LogicException;
 
 final class DriverOutputBuilder implements IDriverOutputBuilder
 {
-    protected ?IBufferedOutput $bufferedOutput = null;
-    protected ?IConsoleCursor $cursor = null;
+    private ?IBufferedOutput $bufferedOutput = null;
+    private ?IConsoleCursor $cursor = null;
 
     public function build(): IDriverOutput
     {
         $this->validate();
 
-        return
-            new DriverOutput(
-                output: $this->bufferedOutput,
-                cursor: $this->cursor,
-            );
+        return new DriverOutput(
+            output: $this->bufferedOutput,
+            cursor: $this->cursor,
+        );
     }
 
-    protected function validate(): void
+    private function validate(): void
     {
         match (true) {
             null === $this->bufferedOutput => throw new LogicException('Output is not set.'),
-            null === $this->cursor => throw new LogicException('Cursor is not set.'),
+            $this->cursor === null => throw new LogicException('Cursor is not set.'),
             default => null,
         };
     }

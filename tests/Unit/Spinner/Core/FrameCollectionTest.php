@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 // 15.02.23
+
 namespace AlecRabbit\Tests\Unit\Spinner\Core;
 
 use AlecRabbit\Spinner\Core\Contract\IFrameCollection;
@@ -28,11 +29,6 @@ final class FrameCollectionTest extends TestCaseWithPrebuiltMocksAndStubs
             )
         );
         self::assertInstanceOf(FrameCollection::class, $frameCollection);
-    }
-
-    protected function getTesteeInstance(Traversable $frames): IFrameCollection
-    {
-        return new FrameCollection($frames);
     }
 
     #[Test]
@@ -64,7 +60,7 @@ final class FrameCollectionTest extends TestCaseWithPrebuiltMocksAndStubs
         $exceptionClass = InvalidArgumentException::class;
         $exceptionMessage = 'Collection is empty.';
 
-        $test = function () {
+        $test = function (): void {
             $frameCollection = $this->getTesteeInstance(new ArrayObject([]));
             self::assertInstanceOf(FrameCollection::class, $frameCollection);
         };
@@ -82,7 +78,7 @@ final class FrameCollectionTest extends TestCaseWithPrebuiltMocksAndStubs
         $exceptionClass = InvalidArgumentException::class;
         $exceptionMessage = '"AlecRabbit\Spinner\Contract\IFrame" expected, "string" given.';
 
-        $test = function () {
+        $test = function (): void {
             $frameCollection = $this->getTesteeInstance(new ArrayObject(['a string']));
             self::assertInstanceOf(FrameCollection::class, $frameCollection);
         };
@@ -92,5 +88,10 @@ final class FrameCollectionTest extends TestCaseWithPrebuiltMocksAndStubs
             exceptionOrExceptionClass: $exceptionClass,
             exceptionMessage: $exceptionMessage,
         );
+    }
+
+    protected function getTesteeInstance(Traversable $frames): IFrameCollection
+    {
+        return new FrameCollection($frames);
     }
 }

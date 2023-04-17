@@ -17,7 +17,6 @@ use Revolt\EventLoop;
 final class RevoltLoopAdapter extends ALoopAdapter
 {
     private static bool $stopped = false;
-
     protected readonly EventLoop\Driver $loop;
 
     public function __construct()
@@ -53,7 +52,7 @@ final class RevoltLoopAdapter extends ALoopAdapter
             $hasRun = true;
         });
 
-        $stopped =& self::$stopped;
+        $stopped = &self::$stopped;
         register_shutdown_function(static function () use (&$hasRun, &$stopped): void {
             // Don't run if we're coming from a fatal error (uncaught exception).
             if (self::error()) {

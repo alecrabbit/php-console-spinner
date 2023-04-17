@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 // 11.04.23
+
 namespace AlecRabbit\Spinner\Core\Contract;
 
 interface IIntegerNormalizerBuilder

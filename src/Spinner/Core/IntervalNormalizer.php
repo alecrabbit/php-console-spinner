@@ -17,9 +17,8 @@ final class IntervalNormalizer implements IIntervalNormalizer
 
     public function normalize(IInterval $interval): IInterval
     {
-        return
-            new Interval(
-                $this->integerNormalizer->normalize((int)$interval->toMilliseconds())
-            );
+        return new Interval(
+            $this->integerNormalizer->normalize((int)$interval->toMilliseconds())
+        );
     }
 }

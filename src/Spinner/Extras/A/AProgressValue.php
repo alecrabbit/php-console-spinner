@@ -34,8 +34,7 @@ abstract class AProgressValue extends AFloatValue implements IProgressValue
     private static function assert(AProgressValue $value): void
     {
         match (true) {
-            0 > $value->steps || 0 === $value->steps =>
-            throw new InvalidArgumentException(
+            0 > $value->steps || $value->steps === 0 => throw new InvalidArgumentException(
                 sprintf(
                     'Steps should be greater than 0. Steps: "%s".',
                     $value->steps,
@@ -45,7 +44,6 @@ abstract class AProgressValue extends AFloatValue implements IProgressValue
         };
     }
 
-    /** @inheritdoc */
     public function advance(int $steps = 1): void
     {
         if ($this->finished) {

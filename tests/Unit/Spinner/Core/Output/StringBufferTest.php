@@ -23,10 +23,9 @@ final class StringBufferTest extends TestCase
     public function getTesteeInstance(
         ?string $buffer = null,
     ): IStringBuffer {
-        return
-            new StringBuffer(
-                buffer: $buffer ?? '',
-            );
+        return new StringBuffer(
+            buffer: $buffer ?? '',
+        );
     }
 
     #[Test]

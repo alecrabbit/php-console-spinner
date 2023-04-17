@@ -13,7 +13,6 @@ use AlecRabbit\Spinner\Core\Contract\IFrameCollection;
 use AlecRabbit\Spinner\Core\Factory\A\AStaticWidgetFactory;
 use AlecRabbit\Spinner\Core\Factory\FrameFactory;
 use AlecRabbit\Spinner\Core\Factory\StaticRevolverFactory;
-use AlecRabbit\Spinner\Core\FrameRenderer;
 use AlecRabbit\Spinner\Core\Pattern\CharPattern\CustomPattern;
 use AlecRabbit\Spinner\Core\Render\CharFrameCollectionRenderer;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
@@ -51,12 +50,11 @@ abstract class AStaticProgressWidgetFactory extends AStaticWidgetFactory impleme
                 ->build()
         ;
 
-        return
-            static::create(
-                $revolver,
-                $leadingSpacer,
-                $trailingSpacer
-            );
+        return static::create(
+            $revolver,
+            $leadingSpacer,
+            $trailingSpacer
+        );
     }
 
     public static function createProgressBar(
@@ -74,13 +72,12 @@ abstract class AStaticProgressWidgetFactory extends AStaticWidgetFactory impleme
                 $sprite,
             );
 
-        return
-            static::createProcedureWidget(
-                $procedure,
-                $updateInterval,
-                $leadingSpacer,
-                $trailingSpacer
-            );
+        return static::createProcedureWidget(
+            $procedure,
+            $updateInterval,
+            $leadingSpacer,
+            $trailingSpacer
+        );
     }
 
     public static function createProcedureWidget(
@@ -106,12 +103,11 @@ abstract class AStaticProgressWidgetFactory extends AStaticWidgetFactory impleme
                 ->build()
         ;
 
-        return
-            static::create(
-                $revolver,
-                $leadingSpacer,
-                $trailingSpacer
-            );
+        return static::create(
+            $revolver,
+            $leadingSpacer,
+            $trailingSpacer
+        );
     }
 
     public static function createProgressFrame(
@@ -129,13 +125,12 @@ abstract class AStaticProgressWidgetFactory extends AStaticWidgetFactory impleme
                 $frames,
             );
 
-        return
-            static::createProcedureWidget(
-                $procedure,
-                $updateInterval,
-                $leadingSpacer,
-                $trailingSpacer
-            );
+        return static::createProcedureWidget(
+            $procedure,
+            $updateInterval,
+            $leadingSpacer,
+            $trailingSpacer
+        );
     }
 
     private static function defaultFrames(): IFrameCollection
@@ -153,8 +148,7 @@ abstract class AStaticProgressWidgetFactory extends AStaticWidgetFactory impleme
                 FrameFactory::create('█', 1),
             ]);
 
-        return
-            (new CharFrameCollectionRenderer())->pattern($pattern)->render();
+        return (new CharFrameCollectionRenderer())->pattern($pattern)->render();
     }
 
     public static function createProgressValue(
@@ -170,12 +164,11 @@ abstract class AStaticProgressWidgetFactory extends AStaticWidgetFactory impleme
                 $format
             );
 
-        return
-            static::createProcedureWidget(
-                $procedure,
-                $updateInterval,
-                $leadingSpacer,
-                $trailingSpacer
-            );
+        return static::createProcedureWidget(
+            $procedure,
+            $updateInterval,
+            $leadingSpacer,
+            $trailingSpacer
+        );
     }
 }

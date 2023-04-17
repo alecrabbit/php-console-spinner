@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 // 05.04.23
+
 namespace AlecRabbit\Spinner\Core\Defaults;
 
 use AlecRabbit\Spinner\Contract\IFrame;
@@ -13,32 +14,30 @@ use AlecRabbit\Spinner\Exception\LogicException;
 
 final class WidgetSettingsBuilder implements IWidgetSettingsBuilder
 {
-    protected ?IFrame $leadingSpacer = null;
-    protected ?IFrame $trailingSpacer = null;
-    protected ?IPattern $stylePattern = null;
-    protected ?IPattern $charPattern = null;
+    private ?IFrame $leadingSpacer = null;
+    private ?IFrame $trailingSpacer = null;
+    private ?IPattern $stylePattern = null;
+    private ?IPattern $charPattern = null;
 
-    /** @inheritdoc */
     public function build(): IWidgetSettings
     {
         $this->validate();
 
-        return
-            new WidgetSettings(
-                leadingSpacer: $this->leadingSpacer,
-                trailingSpacer: $this->trailingSpacer,
-                stylePattern: $this->stylePattern,
-                charPattern: $this->charPattern,
-            );
+        return new WidgetSettings(
+            leadingSpacer: $this->leadingSpacer,
+            trailingSpacer: $this->trailingSpacer,
+            stylePattern: $this->stylePattern,
+            charPattern: $this->charPattern,
+        );
     }
 
-    protected function validate(): void
+    private function validate(): void
     {
         match (true) {
             null === $this->leadingSpacer => throw new LogicException('Leading spacer is not set.'),
-            null === $this->trailingSpacer => throw new LogicException('Trailing spacer is not set.'),
-            null === $this->stylePattern => throw new LogicException('Style pattern is not set.'),
-            null === $this->charPattern => throw new LogicException('Char pattern is not set.'),
+            $this->trailingSpacer === null => throw new LogicException('Trailing spacer is not set.'),
+            $this->stylePattern === null => throw new LogicException('Style pattern is not set.'),
+            $this->charPattern === null => throw new LogicException('Char pattern is not set.'),
             default => null,
         };
     }

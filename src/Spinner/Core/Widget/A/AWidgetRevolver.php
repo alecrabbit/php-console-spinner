@@ -24,18 +24,17 @@ abstract class AWidgetRevolver extends ARevolver implements IWidgetRevolver
         parent::__construct($interval);
     }
 
-    public function update(float $dt = null): IFrame
+    public function update(?float $dt = null): IFrame
     {
         $style = $this->style->update($dt);
         $char = $this->character->update($dt);
-        return
-            new Frame(
-                sprintf($style->sequence(), $char->sequence()),
-                $style->width() + $char->width()
-            );
+        return new Frame(
+            sprintf($style->sequence(), $char->sequence()),
+            $style->width() + $char->width()
+        );
     }
 
-    protected function next(float $dt = null): void
+    protected function next(?float $dt = null): void
     {
         // do nothing
     }

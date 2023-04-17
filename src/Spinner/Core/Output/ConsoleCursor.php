@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 // 28.03.23
+
 namespace AlecRabbit\Spinner\Core\Output;
 
 use AlecRabbit\Spinner\Contract\Option\OptionCursor;
@@ -26,9 +27,9 @@ final readonly class ConsoleCursor implements IConsoleCursor
         return $this;
     }
 
-    protected function isHideCursorEnabled(): bool
+    private function isHideCursorEnabled(): bool
     {
-        return OptionCursor::HIDDEN === $this->optionCursor;
+        return $this->optionCursor === OptionCursor::HIDDEN;
     }
 
     public function show(): IConsoleCursor

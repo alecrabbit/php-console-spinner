@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 // 24.03.23
+
 namespace AlecRabbit\Spinner\Core\Render;
 
 use AlecRabbit\Spinner\Contract\Color\Style\IStyle;
@@ -26,7 +27,6 @@ final class StyleRenderer implements IStyleRenderer
             throw new InvalidArgumentException('Style is empty.');
         }
 
-        return
-            $this->converter->convert($style);
+        return $this->converter->convert($style);
     }
 }

@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 // 04.04.23
+
 namespace AlecRabbit\Spinner\Core;
 
 use AlecRabbit\Spinner\Core\Contract\IDriver;
@@ -31,19 +32,19 @@ final class LoopSetup implements ILoopSetup
         }
     }
 
-    protected function registerAutoStart(): void
+    private function registerAutoStart(): void
     {
         $this->loop->autoStart();
     }
 
-    protected function registerSignalHandlers(IDriver $driver): void
+    private function registerSignalHandlers(IDriver $driver): void
     {
         foreach ($this->signalHandlers($driver) as $signal => $handler) {
             $this->loop->onSignal($signal, $handler);
         }
     }
 
-    protected function signalHandlers(IDriver $driver): Traversable
+    private function signalHandlers(IDriver $driver): Traversable
     {
         yield from [
             // @codeCoverageIgnoreStart

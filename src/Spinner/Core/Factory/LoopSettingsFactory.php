@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 // 05.04.23
+
 namespace AlecRabbit\Spinner\Core\Factory;
 
 use AlecRabbit\Spinner\Contract\Option\OptionAttachHandlers;
@@ -35,31 +36,28 @@ final class LoopSettingsFactory implements ILoopSettingsFactory
                 ? OptionAttachHandlers::ENABLED
                 : OptionAttachHandlers::DISABLED;
 
-        return
-            new LoopSettings(
-                loopAvailable: $loopAvailable,
-                optionAutoStart: $optionAutoStart,
-                signalProcessingAvailable: $this->isSignalProcessingAvailable(),
-                optionAttachHandlers: $optionAttachHandlers,
-            );
+        return new LoopSettings(
+            loopAvailable: $loopAvailable,
+            optionAutoStart: $optionAutoStart,
+            signalProcessingAvailable: $this->isSignalProcessingAvailable(),
+            optionAttachHandlers: $optionAttachHandlers,
+        );
     }
 
-    protected function isLoopAvailable(): bool
+    private function isLoopAvailable(): bool
     {
-        return
-            match (true) {
-                $this->loopProbe instanceof ILoopProbe => $this->loopProbe::isAvailable(),
-                default => false,
-            };
+        return match (true) {
+            $this->loopProbe instanceof ILoopProbe => $this->loopProbe::isAvailable(),
+            default => false,
+        };
     }
 
-    protected function isSignalProcessingAvailable(): bool
+    private function isSignalProcessingAvailable(): bool
     {
-        return
-            match (true) {
-                $this->signalProcessingProbe instanceof ISignalProcessingProbe
-                => $this->signalProcessingProbe::isAvailable(),
-                default => false,
-            };
+        return match (true) {
+            $this->signalProcessingProbe instanceof ISignalProcessingProbe => $this->signalProcessingProbe::isAvailable(
+            ),
+            default => false,
+        };
     }
 }

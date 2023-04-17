@@ -23,10 +23,9 @@ final class FrameFactory implements IFrameFactory
 
     public function create(string $sequence, ?int $width = null): IFrame
     {
-        return
-            new Frame(
-                $sequence,
-                $width ?? $this->widthMeasurer->getWidth($sequence)
-            );
+        return new Frame(
+            $sequence,
+            $width ?? $this->widthMeasurer->getWidth($sequence)
+        );
     }
 }

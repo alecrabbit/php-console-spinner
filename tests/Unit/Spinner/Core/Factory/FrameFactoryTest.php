@@ -24,10 +24,9 @@ final class FrameFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
     public function getTesteeInstance(
         ?IWidthMeasurer $widthMeasurer = null,
     ): IFrameFactory {
-        return
-            new FrameFactory(
-                widthMeasurer: $widthMeasurer ?? $this->getWidthMeasurerMock(),
-            );
+        return new FrameFactory(
+            widthMeasurer: $widthMeasurer ?? $this->getWidthMeasurerMock(),
+        );
     }
 
     #[Test]

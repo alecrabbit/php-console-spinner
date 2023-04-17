@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 // 03.04.23
+
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Color;
 
 use AlecRabbit\Spinner\Contract\IAnsiColorParser;
@@ -20,15 +21,6 @@ final class AnsiColorParserTest extends TestCaseWithPrebuiltMocksAndStubs
         $colorParser = $this->getTesteeInstance();
 
         self::assertInstanceOf(AnsiColorParser::class, $colorParser);
-    }
-
-    protected function getTesteeInstance(
-        ?IHexColorToAnsiCodeConverter $converter = null,
-    ): IAnsiColorParser {
-        return
-            new AnsiColorParser(
-                converter: $converter ?? $this->getHexColorToAnsiCodeConverterMock(),
-            );
     }
 
     #[Test]
@@ -65,5 +57,13 @@ final class AnsiColorParserTest extends TestCaseWithPrebuiltMocksAndStubs
         $colorParser = $this->getTesteeInstance();
 
         self::assertSame('', $colorParser->parseColor(''));
+    }
+
+    protected function getTesteeInstance(
+        ?IHexColorToAnsiCodeConverter $converter = null,
+    ): IAnsiColorParser {
+        return new AnsiColorParser(
+            converter: $converter ?? $this->getHexColorToAnsiCodeConverterMock(),
+        );
     }
 }

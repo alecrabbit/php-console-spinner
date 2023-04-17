@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 // 16.06.22
+
 namespace AlecRabbit\Tests\TestCase;
 
 use AlecRabbit\Spinner\Core\Config\Contract\IConfig;
@@ -15,10 +16,14 @@ abstract class ConfigTestCase extends TestCase
 {
     protected static ?IConfig $config = null;
 
+    protected function tearDown(): void
+    {
+        self::$config = null; // Reset config after each test.
+    }
+
     /**
      * @param bool $fresh Set to true to create a fresh config during one test.
      *
-     * @return IConfig
      * @throws InvalidArgumentException
      * @throws LogicException
      */
@@ -28,12 +33,16 @@ abstract class ConfigTestCase extends TestCase
             return self::doBuildConfig();
         }
 
-        if (null === self::$config) {
+        if (self::$config === null) {
             // creates a reusable config for one test
             self::$config = self::doBuildConfig();
         }
-        return
-            self::$config;
+        return self::$config;
+    }
+
+    protected static function getConfigBuilder(): IConfigBuilder
+    {
+        return StaticFacade::getConfigBuilder();
     }
 
     /**
@@ -42,19 +51,8 @@ abstract class ConfigTestCase extends TestCase
      */
     private static function doBuildConfig(): IConfig
     {
-        return
-            self::getConfigBuilder()
-                ->build()
+        return self::getConfigBuilder()
+            ->build()
         ;
-    }
-
-    protected static function getConfigBuilder(): IConfigBuilder
-    {
-        return StaticFacade::getConfigBuilder();
-    }
-
-    protected function tearDown(): void
-    {
-        self::$config = null; // Reset config after each test.
     }
 }

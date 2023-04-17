@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 // 03.04.23
+
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Render;
 
 use AlecRabbit\Spinner\Contract\Option\OptionStyleMode;
@@ -26,10 +27,9 @@ final class StyleRendererTest extends TestCaseWithPrebuiltMocksAndStubs
     public function getTesteeInstance(
         ?IStyleToAnsiStringConverter $converter = null,
     ): IStyleRenderer {
-        return
-            new StyleRenderer(
-                converter: $converter ?? $this->getStyleToAnsiStringConverterMock(),
-            );
+        return new StyleRenderer(
+            converter: $converter ?? $this->getStyleToAnsiStringConverterMock(),
+        );
     }
 
     #[Test]
@@ -72,7 +72,7 @@ final class StyleRendererTest extends TestCaseWithPrebuiltMocksAndStubs
         $exceptionClass = InvalidArgumentException::class;
         $exceptionMessage = 'Style is empty.';
 
-        $test = function () {
+        $test = function (): void {
             $style = $this->getStyleMock();
             $style
                 ->expects(self::once())

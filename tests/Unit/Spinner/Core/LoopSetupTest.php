@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 // 03.04.23
+
 namespace AlecRabbit\Tests\Unit\Spinner\Core;
 
 use AlecRabbit\Spinner\Core\Contract\ILoopSetup;
@@ -26,11 +27,10 @@ final class LoopSetupTest extends TestCaseWithPrebuiltMocksAndStubs
         ?ILoop $loop = null,
         ?ILoopSettings $settings = null,
     ): ILoopSetup {
-        return
-            new LoopSetup(
-                loop: $loop ?? $this->getLoopMock(),
-                settings: $settings ?? $this->getLoopSettingsMock(),
-            );
+        return new LoopSetup(
+            loop: $loop ?? $this->getLoopMock(),
+            settings: $settings ?? $this->getLoopSettingsMock(),
+        );
     }
 
     #[Test]

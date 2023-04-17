@@ -1,6 +1,9 @@
 <?php
 
+declare(strict_types=1);
+
 // 14.04.23
+
 namespace AlecRabbit\Spinner\Contract\Color\Style;
 
 enum StyleOption

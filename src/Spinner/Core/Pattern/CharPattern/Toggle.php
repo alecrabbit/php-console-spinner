@@ -13,5 +13,5 @@ final class Toggle extends AReversiblePattern
 {
     protected const UPDATE_INTERVAL = 500;
 
-    protected const PATTERN = ['⊶', '⊷',];
+    protected const PATTERN = ['⊶', '⊷'];
 }

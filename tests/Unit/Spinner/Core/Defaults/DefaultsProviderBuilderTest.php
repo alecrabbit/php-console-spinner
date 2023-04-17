@@ -31,14 +31,13 @@ final class DefaultsProviderBuilderTest extends TestCaseWithPrebuiltMocksAndStub
         ?IWidgetSettingsBuilder $widgetSettingsBuilder = null,
         ?IWidgetSettingsBuilder $rootWidgetSettingsBuilder = null,
     ): IDefaultsProviderBuilder {
-        return
-            new DefaultsProviderBuilder(
-                loopSettingsFactory: $loopSettingsBuilder ?? $this->getLoopSettingsBuilderMock(),
-                auxSettingsBuilder: $auxSettingsBuilder ?? $this->getAuxSettingsBuilderMock(),
-                driverSettingsBuilder: $driverSettingsBuilder ?? $this->getDriverSettingsBuilderMock(),
-                widgetSettingsBuilder: $widgetSettingsBuilder ?? $this->getWidgetSettingsBuilderMock(),
-                rootWidgetSettingsBuilder: $rootWidgetSettingsBuilder ?? $this->getWidgetSettingsBuilderMock(),
-            );
+        return new DefaultsProviderBuilder(
+            loopSettingsFactory: $loopSettingsBuilder ?? $this->getLoopSettingsBuilderMock(),
+            auxSettingsBuilder: $auxSettingsBuilder ?? $this->getAuxSettingsBuilderMock(),
+            driverSettingsBuilder: $driverSettingsBuilder ?? $this->getDriverSettingsBuilderMock(),
+            widgetSettingsBuilder: $widgetSettingsBuilder ?? $this->getWidgetSettingsBuilderMock(),
+            rootWidgetSettingsBuilder: $rootWidgetSettingsBuilder ?? $this->getWidgetSettingsBuilderMock(),
+        );
     }
 
     #[Test]

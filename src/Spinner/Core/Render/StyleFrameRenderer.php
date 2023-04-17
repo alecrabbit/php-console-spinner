@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 // 24.03.23
+
 namespace AlecRabbit\Spinner\Core\Render;
 
 use AlecRabbit\Spinner\Contract\Color\Style\IStyle;
@@ -36,20 +37,18 @@ final class StyleFrameRenderer implements IStyleFrameRenderer
     /**
      * @throws InvalidArgumentException
      */
-    protected function createFrameFromStyle(IStyle $style): IFrame
+    private function createFrameFromStyle(IStyle $style): IFrame
     {
         if ($style->isEmpty()) {
             return $this->frameFactory->create($style->getFormat(), $style->getWidth());
         }
 
-        return
-            $this->frameFactory->create(
-                $this->styleRenderer->render($style),
-                $style->getWidth()
-            );
+        return $this->frameFactory->create(
+            $this->styleRenderer->render($style),
+            $style->getWidth()
+        );
     }
 
-    /** @inheritdoc */
     public function emptyFrame(): IFrame
     {
         return $this->frameFactory->create('%s', 0);

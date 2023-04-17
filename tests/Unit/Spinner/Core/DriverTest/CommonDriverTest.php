@@ -22,7 +22,6 @@ final class CommonDriverTest extends TestCaseForDriver
         self::assertCount(0, self::getPropertyValue('spinners', $driver));
     }
 
-
     #[Test]
     public function hidesCursorOnInitializeAndOnInterruptShowsCursorAndWritesToOutput(): void
     {
@@ -103,7 +102,7 @@ final class CommonDriverTest extends TestCaseForDriver
 
         $_ =
             $this->getTesteeInstance(
-                intervalCb: fn() => null
+                intervalCb: static fn () => null
             );
 
         self::fail(self::exceptionNotThrownString($exceptionClass, $exceptionMessage));

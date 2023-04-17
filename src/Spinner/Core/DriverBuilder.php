@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 // 10.04.23
+
 namespace AlecRabbit\Spinner\Core;
 
 use AlecRabbit\Spinner\Contract\ITimer;
@@ -15,9 +16,9 @@ use Closure;
 
 final class DriverBuilder implements Contract\IDriverBuilder
 {
-    protected ?IDriverOutput $driverOutput = null;
-    protected ?ITimer $timer = null;
-    protected ?Closure $intervalCallback = null;
+    private ?IDriverOutput $driverOutput = null;
+    private ?ITimer $timer = null;
+    private ?Closure $intervalCallback = null;
 
     public function __construct(
         protected IIntervalFactory $intervalFactory,
@@ -49,26 +50,24 @@ final class DriverBuilder implements Contract\IDriverBuilder
     {
         $this->validate();
 
-        return
-            new Driver(
-                driverOutput: $this->driverOutput,
-                timer: $this->timer,
-                intervalCb: $this->intervalCallback ?? $this->defaultIntervalCallback(),
-            );
+        return new Driver(
+            driverOutput: $this->driverOutput,
+            timer: $this->timer,
+            intervalCb: $this->intervalCallback ?? $this->defaultIntervalCallback(),
+        );
     }
 
-    protected function validate(): void
+    private function validate(): void
     {
         match (true) {
             null === $this->driverOutput => throw new LogicException('DriverOutput is not set.'),
-            null === $this->timer => throw new LogicException('Timer is not set.'),
+            $this->timer === null => throw new LogicException('Timer is not set.'),
             default => null,
         };
     }
 
-    protected function defaultIntervalCallback(): Closure
+    private function defaultIntervalCallback(): Closure
     {
-        return
-            fn() => $this->intervalFactory->createStill();
+        return fn() => $this->intervalFactory->createStill();
     }
 }

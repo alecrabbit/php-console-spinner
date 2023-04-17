@@ -27,11 +27,10 @@ final class StyleToAnsiStringConverterFactoryTest extends TestCaseWithPrebuiltMo
         ?IAnsiColorParserFactory $parserFactory = null,
         ?IStyleOptionsParser $optionsParser = null,
     ): IStyleToAnsiStringConverterFactory {
-        return
-            new StyleToAnsiStringConverterFactory(
-                parserFactory: $parserFactory ?? $this->getAnsiColorParserFactoryMock(),
-                optionsParser: $optionsParser ?? $this->getStyleOptionsParserMock(),
-            );
+        return new StyleToAnsiStringConverterFactory(
+            parserFactory: $parserFactory ?? $this->getAnsiColorParserFactoryMock(),
+            optionsParser: $optionsParser ?? $this->getStyleOptionsParserMock(),
+        );
     }
 
     #[Test]

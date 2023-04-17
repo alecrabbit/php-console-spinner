@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 // 24.03.23
+
 namespace AlecRabbit\Spinner\Core\Color\Style;
 
 use AlecRabbit\Spinner\Contract\Color\IColor;
@@ -22,15 +23,14 @@ final readonly class Style implements IStyle
 
     public function isEmpty(): bool
     {
-        return
-            null === $this->fgColor
-            && null === $this->bgColor
+        return $this->fgColor === null
+            && $this->bgColor === null
             && $this->noOptions();
     }
 
-    protected function noOptions(): bool
+    private function noOptions(): bool
     {
-        return null === $this->options || $this->options->isEmpty();
+        return $this->options === null || $this->options->isEmpty();
     }
 
     public function getFgColor(): IColor|string|null
@@ -60,7 +60,7 @@ final readonly class Style implements IStyle
 
     public function isOptionsOnly(): bool
     {
-        return $this->hasOptions() && null === $this->fgColor && null === $this->bgColor;
+        return $this->hasOptions() && $this->fgColor === null && $this->bgColor === null;
     }
 
     public function hasOptions(): bool

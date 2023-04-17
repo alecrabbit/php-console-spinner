@@ -11,7 +11,7 @@ use AlecRabbit\Spinner\Core\Factory\Contract\ILoopSingletonFactory;
 
 final class LoopSingletonFactory implements ILoopSingletonFactory
 {
-    protected static ?ILoop $loop = null;
+    private static ?ILoop $loop = null;
 
     public function __construct(
         protected ILoopProbeFactory $loopProbeFactory,
@@ -20,18 +20,18 @@ final class LoopSingletonFactory implements ILoopSingletonFactory
 
     public function getLoop(): ILoop
     {
-        if (null === self::$loop) {
+        if (self::$loop === null) {
             self::$loop = $this->createLoop();
         }
         return self::$loop;
     }
 
-    protected function createLoop(): ILoop
+    private function createLoop(): ILoop
     {
         return $this->getLoopProbe()->createLoop();
     }
 
-    protected function getLoopProbe(): ILoopProbe
+    private function getLoopProbe(): ILoopProbe
     {
         return $this->loopProbeFactory->getProbe();
     }

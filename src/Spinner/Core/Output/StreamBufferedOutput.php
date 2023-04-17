@@ -23,19 +23,17 @@ final readonly class StreamBufferedOutput implements IBufferedOutput
     ) {
     }
 
-    /** @inheritdoc */
     public function writeln(iterable|string $messages, int $options = 0): void
     {
         $this->write($messages, true, $options);
     }
 
-    /** @inheritdoc */
     public function write(iterable|string $messages, bool $newline = false, int $options = 0): void
     {
         $this->doWrite($this->homogenize($messages, $newline));
     }
 
-    protected function doWrite(Traversable $data): void
+    private function doWrite(Traversable $data): void
     {
         $this->stream->write($data);
     }
@@ -43,11 +41,9 @@ final readonly class StreamBufferedOutput implements IBufferedOutput
     /**
      * @codeCoverageIgnore Generator is not iterated through during tests.
      *
-     * @param iterable|string $messages
-     * @param bool $newline
      * @return Generator<string>
      */
-    protected function homogenize(iterable|string $messages, bool $newline = false): Generator
+    private function homogenize(iterable|string $messages, bool $newline = false): Generator
     {
         if (!is_iterable($messages)) {
             $messages = [$messages];
@@ -64,7 +60,6 @@ final readonly class StreamBufferedOutput implements IBufferedOutput
         }
     }
 
-    /** @inheritdoc */
     public function flush(): void
     {
         $this->doWrite($this->buffer->flush());

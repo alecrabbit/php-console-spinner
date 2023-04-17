@@ -27,12 +27,11 @@ final class DriverOutputFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
         ?IBufferedOutputSingletonFactory $bufferedOutputFactory = null,
         ?IConsoleCursorFactory $cursorFactory = null,
     ): IDriverOutputFactory {
-        return
-            new DriverOutputFactory(
-                driverOutputBuilder: $driverOutputBuilder ?? $this->getDriverOutputBuilderMock(),
-                bufferedOutputFactory: $bufferedOutputFactory ?? $this->getBufferedOutputFactoryMock(),
-                cursorFactory: $cursorFactory ?? $this->getCursorFactoryMock(),
-            );
+        return new DriverOutputFactory(
+            driverOutputBuilder: $driverOutputBuilder ?? $this->getDriverOutputBuilderMock(),
+            bufferedOutputFactory: $bufferedOutputFactory ?? $this->getBufferedOutputFactoryMock(),
+            cursorFactory: $cursorFactory ?? $this->getCursorFactoryMock(),
+        );
     }
 
     #[Test]

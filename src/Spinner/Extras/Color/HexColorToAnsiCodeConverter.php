@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 // 23.03.23
+
 namespace AlecRabbit\Spinner\Extras\Color;
 
 use AlecRabbit\Spinner\Contract\Option\OptionStyleMode;
@@ -12,17 +13,15 @@ use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 
 final class HexColorToAnsiCodeConverter extends AColorToAnsiCodeConverter implements IHexColorToAnsiCodeConverter
 {
-    /** @inheritdoc */
     public function convert(string $color): string
     {
         $color = $this->normalize($color);
 
-        return
-            match ($this->styleMode) {
-                OptionStyleMode::ANSI4 => $this->convert4($color),
-                OptionStyleMode::ANSI8 => $this->convert8($color),
-                default => $this->convertHexColorToAnsiColorCode($color),
-            };
+        return match ($this->styleMode) {
+            OptionStyleMode::ANSI4 => $this->convert4($color),
+            OptionStyleMode::ANSI8 => $this->convert8($color),
+            default => $this->convertHexColorToAnsiColorCode($color),
+        };
     }
 
     /**
@@ -36,13 +35,12 @@ final class HexColorToAnsiCodeConverter extends AColorToAnsiCodeConverter implem
         $g = ($color >> 8) & 255;
         $b = $color & 255;
 
-        return
-            match ($this->styleMode) {
-                OptionStyleMode::ANSI4 => (string)$this->convertFromRGB($r, $g, $b),
-                OptionStyleMode::ANSI8 => '8;5;' . ((string)$this->convertFromRGB($r, $g, $b)),
-                OptionStyleMode::ANSI24 => sprintf('8;2;%d;%d;%d', $r, $g, $b),
-                default => throw new InvalidArgumentException('Should not be thrown: Unsupported style mode.'),
-            };
+        return match ($this->styleMode) {
+            OptionStyleMode::ANSI4 => (string)$this->convertFromRGB($r, $g, $b),
+            OptionStyleMode::ANSI8 => '8;5;' . (string)$this->convertFromRGB($r, $g, $b),
+            OptionStyleMode::ANSI24 => sprintf('8;2;%d;%d;%d', $r, $g, $b),
+            default => throw new InvalidArgumentException('Should not be thrown: Unsupported style mode.'),
+        };
     }
 
     /**
@@ -50,23 +48,22 @@ final class HexColorToAnsiCodeConverter extends AColorToAnsiCodeConverter implem
      */
     protected function convertFromRGB(int $r, int $g, int $b): int
     {
-        return
-            match ($this->styleMode) {
-                OptionStyleMode::ANSI4 => $this->degradeHexColorToAnsi4($r, $g, $b),
-                OptionStyleMode::ANSI8 => $this->degradeHexColorToAnsi8($r, $g, $b),
-                default => throw new InvalidArgumentException(
-                    sprintf(
-                        'RGB cannot be converted to "%s".',
-                        $this->styleMode->name
-                    )
+        return match ($this->styleMode) {
+            OptionStyleMode::ANSI4 => $this->degradeHexColorToAnsi4($r, $g, $b),
+            OptionStyleMode::ANSI8 => $this->degradeHexColorToAnsi8($r, $g, $b),
+            default => throw new InvalidArgumentException(
+                sprintf(
+                    'RGB cannot be converted to "%s".',
+                    $this->styleMode->name
                 )
-            };
+            )
+        };
     }
 
     protected function degradeHexColorToAnsi4(int $r, int $g, int $b): int
     {
         /** @psalm-suppress TypeDoesNotContainType */
-        if (0 === round($this->getSaturation($r, $g, $b) / 50)) { // 0 === round(... - it is a hack
+        if (round($this->getSaturation($r, $g, $b) / 50) === 0) { // 0 === round(... - it is a hack
             return 0;
         }
 
@@ -89,6 +86,7 @@ final class HexColorToAnsiCodeConverter extends AColorToAnsiCodeConverter implem
 
     /**
      * Inspired from (MIT license):
+     *
      * @link https://github.com/ajalt/colormath/blob/e464e0da1b014976736cf97250063248fc77b8e7/colormath/src/commonMain/kotlin/com/github/ajalt/colormath/model/Ansi256.kt
      */
     protected function degradeHexColorToAnsi8(int $r, int $g, int $b): int

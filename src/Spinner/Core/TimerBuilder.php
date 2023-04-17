@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 // 03.04.23
+
 namespace AlecRabbit\Spinner\Core;
 
 use AlecRabbit\Spinner\Contract\ITimer;
@@ -12,25 +13,24 @@ use Closure;
 
 final class TimerBuilder implements ITimerBuilder
 {
-    protected ?float $startingTime = null;
-    protected ?Closure $timeFunction = null;
+    private ?float $startingTime = null;
+    private ?Closure $timeFunction = null;
 
     public function build(): ITimer
     {
         $this->validate();
 
-        return
-            new Timer(
-                timeFunction: $this->timeFunction,
-                time: $this->startingTime,
-            );
+        return new Timer(
+            timeFunction: $this->timeFunction,
+            time: $this->startingTime,
+        );
     }
 
-    protected function validate(): void
+    private function validate(): void
     {
         match (true) {
             null === $this->startingTime => throw new LogicException('Starting time is not set.'),
-            null === $this->timeFunction => throw new LogicException('Time function is not set.'),
+            $this->timeFunction === null => throw new LogicException('Time function is not set.'),
             default => null,
         };
     }

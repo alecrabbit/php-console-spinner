@@ -31,7 +31,6 @@ interface IAuxSettings
 
     /**
      * @param resource $outputStream
-     * @return IAuxSettings
      */
     public function setOutputStream($outputStream): IAuxSettings;
 }

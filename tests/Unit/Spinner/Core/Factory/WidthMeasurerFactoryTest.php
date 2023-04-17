@@ -22,8 +22,7 @@ final class WidthMeasurerFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
 
     public function getTesteeInstance(): IWidthMeasurerFactory
     {
-        return
-            new WidthMeasurerFactory();
+        return new WidthMeasurerFactory();
     }
 
     #[Test]

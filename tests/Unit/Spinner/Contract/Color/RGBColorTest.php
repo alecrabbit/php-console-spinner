@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 // 15.02.23
+
 namespace AlecRabbit\Tests\Unit\Spinner\Contract\Color;
 
 use AlecRabbit\Spinner\Core\Color\RGBColor;
@@ -70,10 +71,10 @@ final class RGBColorTest extends TestCase
         // #0..
         yield from [
             // hex, result, toString // first element - #0..
-            ['#000', new RGBColor(0, 0, 0), '#000000',],
-            ['#00f', new RGBColor(0, 0, 255), '#0000ff',],
-            ['#00f1ff', new RGBColor(0, 241, 255), '#00f1ff',],
-            ['#0000ff', new RGBColor(0, 0, 255), '#0000ff',],
+            ['#000', new RGBColor(0, 0, 0), '#000000'],
+            ['#00f', new RGBColor(0, 0, 255), '#0000ff'],
+            ['#00f1ff', new RGBColor(0, 241, 255), '#00f1ff'],
+            ['#0000ff', new RGBColor(0, 0, 255), '#0000ff'],
         ];
     }
 
@@ -100,7 +101,7 @@ final class RGBColorTest extends TestCase
         $expectedResult = $expected[self::RESULT];
         $toString = $expected[self::TO_STRING];
 
-        self::assertEquals($toString, (string)$result);
+        self::assertEquals($toString, (string) $result);
 
         self::assertEquals($expectedResult, $result);
         self::assertSame($expectedResult->red, $result->red);
@@ -124,6 +125,6 @@ final class RGBColorTest extends TestCase
         }
 
         self::assertEquals($expected[self::RESULT], $result);
-        self::assertEquals($expected[self::HEX], (string)$result);
+        self::assertEquals($expected[self::HEX], (string) $result);
     }
 }

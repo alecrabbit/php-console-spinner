@@ -23,8 +23,7 @@ final class TimerFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
     public function getTesteeInstance(
         ?ITimerBuilder $timerBuilder = null,
     ): ITimerFactory {
-        return
-            new TimerFactory(timerBuilder: $timerBuilder ?? $this->getTimerBuilderMock());
+        return new TimerFactory(timerBuilder: $timerBuilder ?? $this->getTimerBuilderMock());
     }
 
     #[Test]

@@ -3,18 +3,18 @@
 declare(strict_types=1);
 
 // 16.06.22
+
 namespace AlecRabbit\Tests\TestCase;
 
 use AlecRabbit\Spinner\Helper\Stringify;
 use AlecRabbit\Tests\Helper\PickLock;
 use AlecRabbit\Tests\Mixin\AppRelatedConstTrait;
-use ArrayAccess;
-use PHPUnit\Framework\TestCase as PHPUnitTestCase;
-use Throwable;
-
 use function array_key_exists;
+use ArrayAccess;
 use function is_array;
 use function is_string;
+use PHPUnit\Framework\TestCase as PHPUnitTestCase;
+use Throwable;
 
 abstract class TestCase extends PHPUnitTestCase
 {
@@ -22,6 +22,14 @@ abstract class TestCase extends PHPUnitTestCase
 
     final protected const REPEATS = 10;
     final protected const FLOAT_EQUALITY_DELTA = 0.0000001;
+
+    protected function setUp(): void
+    {
+    }
+
+    protected function tearDown(): void
+    {
+    }
 
     protected static function getPropertyValue(string $property, mixed $from): mixed
     {
@@ -62,18 +70,6 @@ abstract class TestCase extends PHPUnitTestCase
         return 'Exception not thrown: ' . Stringify::throwable($messageOrException);
     }
 
-    protected function setUp(): void
-    {
-    }
-
-    protected function tearDown(): void
-    {
-    }
-
-    /**
-     * @param mixed $expected
-     * @return null|Throwable
-     */
     protected function expectsException(mixed $expected): ?Throwable
     {
         if (

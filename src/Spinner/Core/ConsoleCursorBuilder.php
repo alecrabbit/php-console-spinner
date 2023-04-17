@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 // 03.04.23
+
 namespace AlecRabbit\Spinner\Core;
 
 use AlecRabbit\Spinner\Contract\Option\OptionCursor;
@@ -14,25 +15,24 @@ use LogicException;
 
 final class ConsoleCursorBuilder implements IConsoleCursorBuilder
 {
-    protected ?IOutput $output = null;
-    protected ?OptionCursor $cursorOption = null;
+    private ?IOutput $output = null;
+    private ?OptionCursor $cursorOption = null;
 
     public function build(): IConsoleCursor
     {
         $this->validate();
 
-        return
-            new ConsoleCursor(
-                $this->output,
-                $this->cursorOption,
-            );
+        return new ConsoleCursor(
+            $this->output,
+            $this->cursorOption,
+        );
     }
 
     private function validate(): void
     {
         match (true) {
             null === $this->output => throw new LogicException('Output is not set.'),
-            null === $this->cursorOption => throw new LogicException('CursorOption is not set.'),
+            $this->cursorOption === null => throw new LogicException('CursorOption is not set.'),
             default => null,
         };
     }

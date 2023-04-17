@@ -17,6 +17,11 @@ use PHPUnit\Framework\MockObject\MockObject;
 
 final class LoopSingletonFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
 {
+
+    protected function setUp(): void
+    {
+        self::setPropertyValue(LoopSingletonFactory::class, 'loop', null);
+    }
     #[Test]
     public function canBeCreated(): void
     {
@@ -25,14 +30,20 @@ final class LoopSingletonFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
         self::assertInstanceOf(LoopSingletonFactory::class, $loopFactory);
     }
 
-
     public function getTesteeInstance(
         ?ILoopProbeFactory $loopProbeFactory = null,
     ): ILoopSingletonFactory {
-        return
-            new LoopSingletonFactory(
-                loopProbeFactory: $loopProbeFactory ?? $this->getLoopProbeFactoryMock(),
-            );
+        return new LoopSingletonFactory(
+            loopProbeFactory: $loopProbeFactory ?? $this->getLoopProbeFactoryMock(),
+        );
+    }
+
+    #[Test]
+    public function canGetLoopAdapter(): void
+    {
+        $loopFactory = $this->getTesteeInstance();
+
+        self::assertInstanceOf(ALoopAdapter::class, $loopFactory->getLoop());
     }
 
     protected function getLoopProbeFactoryMock(): MockObject&ILoopProbeFactory
@@ -40,7 +51,7 @@ final class LoopSingletonFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
         $loopProbeFactory = parent::getLoopProbeFactoryMock();
         $loopProbeFactory->method('getProbe')
             ->willReturn(
-                new class () extends ALoopProbe {
+                new class() extends ALoopProbe {
                     public static function isAvailable(): bool
                     {
                         return true;
@@ -54,18 +65,5 @@ final class LoopSingletonFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
             )
         ;
         return $loopProbeFactory;
-    }
-
-    #[Test]
-    public function canGetLoopAdapter(): void
-    {
-        $loopFactory = $this->getTesteeInstance();
-
-        self::assertInstanceOf(ALoopAdapter::class, $loopFactory->getLoop());
-    }
-
-    protected function setUp(): void
-    {
-        self::setPropertyValue(LoopSingletonFactory::class, 'loop', null);
     }
 }

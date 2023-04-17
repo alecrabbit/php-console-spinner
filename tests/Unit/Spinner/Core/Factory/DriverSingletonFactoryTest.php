@@ -33,15 +33,14 @@ final class DriverSingletonFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
         ?IDriverSettings $driverSettings = null,
         ?ILoopSetupFactory $loopSetupFactory = null,
     ): IDriverSingletonFactory {
-        return
-            new DriverSingletonFactory(
-                driverBuilder: $driverBuilder ?? $this->getDriverBuilderMock(),
-                driverOutputFactory: $driverOutputFactory ?? $this->getDriverOutputFactoryMock(),
-                timerFactory: $timerFactory ?? $this->getTimerFactoryMock(),
-                driverSetup: $driverSetup ?? $this->getDriverSetupMock(),
-                driverSettings: $driverSettings ?? $this->getDriverSettingsMock(),
-                loopSetupFactory: $loopSetupFactory ?? $this->getLoopSetupFactoryMock(),
-            );
+        return new DriverSingletonFactory(
+            driverBuilder: $driverBuilder ?? $this->getDriverBuilderMock(),
+            driverOutputFactory: $driverOutputFactory ?? $this->getDriverOutputFactoryMock(),
+            timerFactory: $timerFactory ?? $this->getTimerFactoryMock(),
+            driverSetup: $driverSetup ?? $this->getDriverSetupMock(),
+            driverSettings: $driverSettings ?? $this->getDriverSettingsMock(),
+            loopSetupFactory: $loopSetupFactory ?? $this->getLoopSetupFactoryMock(),
+        );
     }
 
     #[Test]

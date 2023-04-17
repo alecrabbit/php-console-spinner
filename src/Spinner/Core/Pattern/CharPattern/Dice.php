@@ -13,5 +13,5 @@ final class Dice extends AReversiblePattern
 {
     protected const UPDATE_INTERVAL = 120;
 
-    protected const PATTERN = ['⚀', '⚁', '⚂', '⚃', '⚄', '⚅',];
+    protected const PATTERN = ['⚀', '⚁', '⚂', '⚃', '⚄', '⚅'];
 }

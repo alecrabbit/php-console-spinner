@@ -9,18 +9,17 @@ use AlecRabbit\Spinner\Contract\IFrame;
 
 abstract class AFloatValueProcedure extends AProcedure
 {
-    /** @var string */
-    protected const FORMAT = "%s";
+    protected const FORMAT = '%s';
     protected string $format;
 
     public function __construct(
         protected readonly IFloatValue $floatValue,
-        string $format = null,
+        ?string $format = null,
     ) {
-        $this->format = $format ?? static::FORMAT;
+        $this->format = $format ?? self::FORMAT;
     }
 
-    public function update(float $dt = null): IFrame
+    public function update(?float $dt = null): IFrame
     {
         $v = sprintf(
             $this->format,

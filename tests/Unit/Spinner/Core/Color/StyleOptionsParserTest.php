@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 // 03.04.23
+
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Color;
 
 use AlecRabbit\Spinner\Contract\Color\Style\IStyleOptionsParser;
@@ -23,12 +24,6 @@ final class StyleOptionsParserTest extends TestCaseWithPrebuiltMocksAndStubs
         $optionsParser = $this->getTesteeInstance();
 
         self::assertInstanceOf(StyleOptionsParser::class, $optionsParser);
-    }
-
-    protected function getTesteeInstance(): IStyleOptionsParser
-    {
-        return
-            new StyleOptionsParser();
     }
 
     #[Test]
@@ -87,5 +82,10 @@ final class StyleOptionsParserTest extends TestCaseWithPrebuiltMocksAndStubs
             ],
             $optionsParser->parseOptions($options)
         );
+    }
+
+    protected function getTesteeInstance(): IStyleOptionsParser
+    {
+        return new StyleOptionsParser();
     }
 }

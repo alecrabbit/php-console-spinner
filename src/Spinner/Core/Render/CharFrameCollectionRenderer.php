@@ -3,16 +3,15 @@
 declare(strict_types=1);
 
 // 10.03.23
+
 namespace AlecRabbit\Spinner\Core\Render;
 
-use AlecRabbit\Spinner\Contract\Color\Style\IStyle;
 use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Contract\Pattern\IPattern;
 use AlecRabbit\Spinner\Core\Contract\ICharFrameRenderer;
 use AlecRabbit\Spinner\Core\Contract\IFrameCollection;
 use AlecRabbit\Spinner\Core\FrameCollection;
 use AlecRabbit\Spinner\Core\Render\Contract\ICharFrameCollectionRenderer;
-use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use Stringable;
 use Traversable;
 
@@ -23,14 +22,12 @@ final class CharFrameCollectionRenderer implements ICharFrameCollectionRenderer
     ) {
     }
 
-    /** @inheritdoc */
     public function render(IPattern $pattern): IFrameCollection
     {
-        return
-            new FrameCollection($this->generateFrames($pattern));
+        return new FrameCollection($this->generateFrames($pattern));
     }
 
-    protected function generateFrames(IPattern $pattern): Traversable
+    private function generateFrames(IPattern $pattern): Traversable
     {
         /** @var IFrame|Stringable|string $entry */
         foreach ($pattern->getEntries() as $entry) {
@@ -47,9 +44,8 @@ final class CharFrameCollectionRenderer implements ICharFrameCollectionRenderer
         }
     }
 
-    protected function createFrame(string $entry): IFrame
+    private function createFrame(string $entry): IFrame
     {
         return $this->frameRenderer->render($entry);
     }
-
 }

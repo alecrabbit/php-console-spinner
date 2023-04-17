@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 // 09.04.23
+
 namespace AlecRabbit\Spinner\Core;
 
 use AlecRabbit\Spinner\Contract\IFrame;
@@ -19,8 +20,8 @@ use WeakMap;
 final class Driver implements IDriver
 {
     /** @var WeakMap<ISpinner, ISpinnerState> */
-    protected readonly WeakMap $spinners;
-    protected IInterval $interval;
+    private readonly WeakMap $spinners;
+    private IInterval $interval;
 
     public function __construct(
         protected readonly IDriverOutput $driverOutput,
@@ -35,7 +36,7 @@ final class Driver implements IDriver
     /**
      * @throws InvalidArgumentException
      */
-    protected static function assertIntervalCallback(Closure $intervalCb): void
+    private static function assertIntervalCallback(Closure $intervalCb): void
     {
         $interval = $intervalCb();
         if ($interval instanceof IInterval) {
@@ -50,7 +51,7 @@ final class Driver implements IDriver
         );
     }
 
-    public function render(float $dt = null): void
+    public function render(?float $dt = null): void
     {
         $dt ??= $this->timer->getDelta();
         foreach ($this->spinners as $spinner => $state) {
@@ -64,7 +65,7 @@ final class Driver implements IDriver
         }
     }
 
-    protected function renderFrame(IFrame $frame, ISpinnerState $state): ISpinnerState
+    private function renderFrame(IFrame $frame, ISpinnerState $state): ISpinnerState
     {
         $spinnerState =
             new SpinnerState(
@@ -89,7 +90,7 @@ final class Driver implements IDriver
         $this->driverOutput->finalize($finalMessage);
     }
 
-    protected function eraseAll(): void
+    private function eraseAll(): void
     {
         /** @var ISpinnerState $state */
         foreach ($this->spinners as $state) {
@@ -97,7 +98,7 @@ final class Driver implements IDriver
         }
     }
 
-    protected function erase(ISpinnerState $state): void
+    private function erase(ISpinnerState $state): void
     {
         $this->driverOutput->erase($state);
     }
@@ -129,7 +130,7 @@ final class Driver implements IDriver
         }
     }
 
-    protected function recalculateInterval(): IInterval
+    private function recalculateInterval(): IInterval
     {
         $interval = ($this->intervalCb)();
         foreach ($this->spinners as $spinner => $_) {

@@ -25,10 +25,9 @@ final class AnsiColorParserFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
     public function getTesteeInstance(
         ?IHexColorToAnsiCodeConverterFactory $converterFactory = null,
     ): IAnsiColorParserFactory {
-        return
-            new AnsiColorParserFactory(
-                converterFactory: $converterFactory ?? $this->getHexColorToAnsiCodeConverterFactoryMock(),
-            );
+        return new AnsiColorParserFactory(
+            converterFactory: $converterFactory ?? $this->getHexColorToAnsiCodeConverterFactoryMock(),
+        );
     }
 
     #[Test]

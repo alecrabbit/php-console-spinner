@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 // 29.03.23
+
 namespace AlecRabbit\Spinner\Core\Factory;
 
 use AlecRabbit\Spinner\Container\Container;
@@ -80,7 +81,6 @@ use AlecRabbit\Spinner\Core\Render\Contract\IStyleFrameCollectionRenderer;
 use AlecRabbit\Spinner\Core\Render\StyleFrameCollectionRenderer;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolverBuilder;
 use AlecRabbit\Spinner\Core\Revolver\FrameRevolverBuilder;
-use AlecRabbit\Spinner\Core\Sequencer;
 use AlecRabbit\Spinner\Core\TimerBuilder;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetBuilder;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolverBuilder;
@@ -96,16 +96,16 @@ use Traversable;
 
 final class ContainerSingletonFactory implements IContainerSingletonFactory
 {
-    protected static ?IContainer $container = null;
+    private static ?IContainer $container = null;
 
     public static function getContainer(): IContainer
     {
         return self::createContainer();
     }
 
-    protected static function createContainer(): IContainer
+    private static function createContainer(): IContainer
     {
-        if (null === self::$container) {
+        if (self::$container === null) {
             self::$container = new Container(
                 spawnerCreatorCb: static function (ContainerInterface $container): IServiceSpawner {
                     return new ServiceSpawner($container);
@@ -117,14 +117,14 @@ final class ContainerSingletonFactory implements IContainerSingletonFactory
         return self::$container;
     }
 
-    protected static function initializeContainer(IContainer $container): void
+    private static function initializeContainer(IContainer $container): void
     {
         foreach (self::getDefaultDefinitions() as $id => $service) {
             $container->add($id, $service);
         }
     }
 
-    protected static function getDefaultDefinitions(): Traversable
+    private static function getDefaultDefinitions(): Traversable
     {
         // TODO (2023-04-10 20:21) [Alec Rabbit]: consider extracting definitions?
         yield from [
@@ -141,11 +141,10 @@ final class ContainerSingletonFactory implements IContainerSingletonFactory
                     $loopProbe = $container->get(ILoopProbeFactory::class)->getProbe();
                     $signalProcessingProbe = $container->get(ISignalProcessingProbeFactory::class)->getProbe();
                 } finally {
-                    return
-                        new LoopSettingsFactory(
-                            $loopProbe,
-                            $signalProcessingProbe
-                        );
+                    return new LoopSettingsFactory(
+                        $loopProbe,
+                        $signalProcessingProbe
+                    );
                 }
             },
 
@@ -215,10 +214,8 @@ final class ContainerSingletonFactory implements IContainerSingletonFactory
                 return $container->get(IDefaultsProvider::class)->getAuxSettings()->getOptionNormalizerMode();
             },
 
-
             ILoop::class => static function (ContainerInterface $container): ILoop {
-                return
-                    $container->get(ILoopSingletonFactory::class)->getLoop();
+                return $container->get(ILoopSingletonFactory::class)->getLoop();
             },
 
             ILoopProbeFactory::class => static function (): never {
@@ -231,13 +228,11 @@ final class ContainerSingletonFactory implements IContainerSingletonFactory
             },
 
             IDriverAttacher::class => static function (ContainerInterface $container): IDriverAttacher {
-                return
-                    $container->get(IDriverAttacherSingletonFactory::class)->getAttacher();
+                return $container->get(IDriverAttacherSingletonFactory::class)->getAttacher();
             },
 
             IWidthMeasurer::class => static function (ContainerInterface $container): IWidthMeasurer {
-                return
-                    $container->get(IWidthMeasurerFactory::class)->create();
+                return $container->get(IWidthMeasurerFactory::class)->create();
             },
         ];
     }

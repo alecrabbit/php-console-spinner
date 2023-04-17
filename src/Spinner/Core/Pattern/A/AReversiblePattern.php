@@ -21,19 +21,17 @@ abstract class AReversiblePattern extends APattern
 
     public function getEntries(): Traversable
     {
-        return
-            $this->reversed
-                ? $this->reversedEntries()
-                : $this->entries();
+        return $this->reversed
+            ? $this->reversedEntries()
+            : $this->entries();
     }
 
     protected function reversedEntries(): Traversable
     {
-        return
-            new ArrayObject(
-                array_reverse(
-                    iterator_to_array($this->entries())
-                )
-            );
+        return new ArrayObject(
+            array_reverse(
+                iterator_to_array($this->entries())
+            )
+        );
     }
 }

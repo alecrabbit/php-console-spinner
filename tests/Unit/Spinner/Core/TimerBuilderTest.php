@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 // 03.04.23
+
 namespace AlecRabbit\Tests\Unit\Spinner\Core;
 
 use AlecRabbit\Spinner\Core\Contract\ITimerBuilder;
@@ -23,8 +24,7 @@ final class TimerBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
 
     public function getTesteeInstance(): ITimerBuilder
     {
-        return
-            new TimerBuilder();
+        return new TimerBuilder();
     }
 
     #[Test]
@@ -34,7 +34,7 @@ final class TimerBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
 
         $timer =
             $timerBuilder
-                ->withTimeFunction(static fn(): float => 0.0)
+                ->withTimeFunction(static fn (): float => 0.0)
                 ->withStartTime(0.0)
                 ->build()
         ;

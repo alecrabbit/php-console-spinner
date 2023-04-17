@@ -26,13 +26,11 @@ final class IntervalNormalizerFactoryTest extends TestCaseWithPrebuiltMocksAndSt
         ?IIntegerNormalizerBuilder $integerNormalizerBuilder = null,
         ?OptionNormalizerMode $normalizerMode = null,
     ): IIntervalNormalizerFactory {
-        return
-            new IntervalNormalizerFactory(
-                integerNormalizerBuilder: $integerNormalizerBuilder ?? $this->getIntegerNormalizerBuilderMock(),
-                normalizerMode: $normalizerMode ?? OptionNormalizerMode::BALANCED,
-            );
+        return new IntervalNormalizerFactory(
+            integerNormalizerBuilder: $integerNormalizerBuilder ?? $this->getIntegerNormalizerBuilderMock(),
+            normalizerMode: $normalizerMode ?? OptionNormalizerMode::BALANCED,
+        );
     }
-
 
     #[Test]
     public function canCreate(): void
