@@ -25,6 +25,7 @@ use AlecRabbit\Spinner\Core\Contract\IDriverAttacher;
 use AlecRabbit\Spinner\Core\Contract\IDriverBuilder;
 use AlecRabbit\Spinner\Core\Contract\IDriverOutputBuilder;
 use AlecRabbit\Spinner\Core\Contract\IDriverSetup;
+use AlecRabbit\Spinner\Core\Contract\IFrameCollection;
 use AlecRabbit\Spinner\Core\Contract\IHexColorToAnsiCodeConverter;
 use AlecRabbit\Spinner\Core\Contract\IIntegerNormalizerBuilder;
 use AlecRabbit\Spinner\Core\Contract\IIntervalNormalizer;
@@ -56,8 +57,13 @@ use AlecRabbit\Spinner\Core\Factory\Contract\ILoopSetupFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ITimerFactory;
 use AlecRabbit\Spinner\Core\Output\Contract\IConsoleCursor;
 use AlecRabbit\Spinner\Core\Output\Contract\IDriverOutput;
+use AlecRabbit\Spinner\Core\Pattern\Contract\IStylePattern;
+use AlecRabbit\Spinner\Core\Render\Contract\ICharFrameCollectionRenderer;
+use AlecRabbit\Spinner\Core\Render\Contract\IStyleFrameCollectionRenderer;
 use AlecRabbit\Spinner\Core\Render\Contract\IStyleRenderer;
 use AlecRabbit\Spinner\Core\Render\Contract\IStyleToAnsiStringConverter;
+use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolver;
+use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolverBuilder;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetBuilder;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
@@ -81,6 +87,11 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
     protected function getPatternMock(): MockObject&IPattern
     {
         return $this->createMock(IPattern::class);
+    }
+
+    protected function getStylePatternMock(): MockObject&IStylePattern
+    {
+        return $this->createMock(IStylePattern::class);
     }
 
     protected function getWidgetSettingsMock(): MockObject&IWidgetSettings
@@ -412,5 +423,29 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
     protected function getHexColorToAnsiCodeConverterFactoryMock(): MockObject&IHexColorToAnsiCodeConverterFactory
     {
         return $this->createMock(IHexColorToAnsiCodeConverterFactory::class);
+    }
+
+    protected function getFrameRevolverBuilderMock(): MockObject&IFrameRevolverBuilder
+    {
+        return $this->createMock(IFrameRevolverBuilder::class);
+    }
+
+    protected function getFrameRevolverMock(): MockObject&IFrameRevolver
+    {
+        return $this->createMock(IFrameRevolver::class);
+    }
+
+    protected function getFrameCollectionMock(): MockObject&IFrameCollection
+    {
+        return $this->createMock(IFrameCollection::class);
+    }
+
+    protected function getStyleFrameCollectionRendererMock(): MockObject&IStyleFrameCollectionRenderer
+    {
+        return $this->createMock(IStyleFrameCollectionRenderer::class);
+    }
+    protected function getCharFrameCollectionRendererMock(): MockObject&ICharFrameCollectionRenderer
+    {
+        return $this->createMock(ICharFrameCollectionRenderer::class);
     }
 }
