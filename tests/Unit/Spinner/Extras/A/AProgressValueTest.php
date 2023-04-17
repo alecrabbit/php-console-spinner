@@ -249,7 +249,7 @@ final class AProgressValueTest extends TestCase
 
     public static function getTesteeInstance(array $args = []): IProgressValue
     {
-        return new class(
+        return new class (
             startValue: $args[self::START] ?? 0.0,
             steps: $args[self::STEPS] ?? 100,
             min: $args[self::MIN] ?? 0.0,
@@ -292,5 +292,4 @@ final class AProgressValueTest extends TestCase
 
         self::assertTrue($fractionValue->isFinished());
     }
-
 }

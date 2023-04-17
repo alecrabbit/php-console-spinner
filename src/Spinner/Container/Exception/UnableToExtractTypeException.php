@@ -6,5 +6,4 @@ namespace AlecRabbit\Spinner\Container\Exception;
 
 final class UnableToExtractTypeException extends ContainerException
 {
-
 }

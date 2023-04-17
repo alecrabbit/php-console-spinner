@@ -26,7 +26,7 @@ final class CursorTest extends TestCase
     }
 
     public function getTesteeInstance(
-        (MockObject&IBufferedOutput)|null $output,
+        (MockObject & IBufferedOutput)|null $output,
         OptionCursor $cursorOption = OptionCursor::HIDDEN,
     ): IConsoleCursor {
         return

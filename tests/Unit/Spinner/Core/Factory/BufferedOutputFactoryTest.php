@@ -47,5 +47,4 @@ final class BufferedOutputFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
         self::assertSame($bufferedOutput, $bufferedOutputFactory->getOutput());
         self::assertSame($bufferedOutput, $bufferedOutputFactory->getOutput());
     }
-
 }

@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 // 03.04.23
 namespace AlecRabbit\Tests\Unit\Spinner\Core;
 
@@ -9,7 +10,6 @@ use AlecRabbit\Spinner\Core\Timer;
 use AlecRabbit\Spinner\Core\TimerBuilder;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;
-
 
 final class TimerBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
 {

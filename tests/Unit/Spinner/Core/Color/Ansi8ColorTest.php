@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 // 15.02.23
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Color;
 
@@ -125,5 +126,4 @@ final class Ansi8ColorTest extends TestCase
 
         self::assertSame($expected[self::RESULT], $result);
     }
-
 }

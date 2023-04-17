@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 // 27.03.23
 namespace AlecRabbit\Tests\Unit\Spinner\Container\Override;
 
@@ -12,5 +13,4 @@ final class NonInstantiableClass
     {
         throw new RuntimeException('This class is not instantiable');
     }
-
 }

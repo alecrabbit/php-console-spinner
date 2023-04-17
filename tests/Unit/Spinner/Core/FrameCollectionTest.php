@@ -1,9 +1,9 @@
 <?php
 
 declare(strict_types=1);
+
 // 15.02.23
 namespace AlecRabbit\Tests\Unit\Spinner\Core;
-
 
 use AlecRabbit\Spinner\Core\Contract\IFrameCollection;
 use AlecRabbit\Spinner\Core\FrameCollection;
@@ -93,5 +93,4 @@ final class FrameCollectionTest extends TestCaseWithPrebuiltMocksAndStubs
             exceptionMessage: $exceptionMessage,
         );
     }
-
 }

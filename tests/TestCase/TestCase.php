@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 // 16.06.22
 namespace AlecRabbit\Tests\TestCase;
 
@@ -51,9 +52,11 @@ abstract class TestCase extends PHPUnitTestCase
         string|Throwable $messageOrException,
         ?string $exceptionMessage = null
     ): string {
-        if (is_string($messageOrException)
+        if (
+            is_string($messageOrException)
             && class_exists($messageOrException)
-            && is_subclass_of($messageOrException, Throwable::class)) {
+            && is_subclass_of($messageOrException, Throwable::class)
+        ) {
             $messageOrException = new $messageOrException($exceptionMessage ?? '');
         }
         return 'Exception not thrown: ' . Stringify::throwable($messageOrException);
@@ -73,8 +76,10 @@ abstract class TestCase extends PHPUnitTestCase
      */
     protected function expectsException(mixed $expected): ?Throwable
     {
-        if ((is_array($expected) || $expected instanceof ArrayAccess)
-            && array_key_exists(self::EXCEPTION, $expected)) {
+        if (
+            (is_array($expected) || $expected instanceof ArrayAccess)
+            && array_key_exists(self::EXCEPTION, $expected)
+        ) {
             $exceptionClass = $expected[self::EXCEPTION][self::CLASS_];
             $exceptionMessage = '';
             $this->expectException($exceptionClass);

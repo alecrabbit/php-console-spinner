@@ -1,4 +1,5 @@
 <?php
+
 // 14.04.23
 namespace AlecRabbit\Spinner\Contract\Color\Style;
 
