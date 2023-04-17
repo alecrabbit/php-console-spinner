@@ -2,8 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Unit\Spinner\Core\Factory;
-
+namespace AlecRabbit\Tests\Unit\Spinner\Core\Factory;
 
 use AlecRabbit\Spinner\Contract\Option\OptionStyleMode;
 use AlecRabbit\Spinner\Core\Factory\Contract\IFrameFactory;
