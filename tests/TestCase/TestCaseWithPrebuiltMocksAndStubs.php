@@ -16,6 +16,7 @@ use AlecRabbit\Spinner\Contract\Output\IBufferedOutput;
 use AlecRabbit\Spinner\Contract\Output\IOutput;
 use AlecRabbit\Spinner\Contract\Output\IResourceStream;
 use AlecRabbit\Spinner\Contract\Pattern\IPattern;
+use AlecRabbit\Spinner\Core\Config\Contract\ISpinnerConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IWidgetConfig;
 use AlecRabbit\Spinner\Core\Contract\IBufferedOutputBuilder;
 use AlecRabbit\Spinner\Core\Contract\IConsoleCursorBuilder;
@@ -71,6 +72,7 @@ use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetBuilder;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContext;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolverBuilder;
+use AlecRabbit\Spinner\Core\Widget\Factory\Contract\IWidgetFactory;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\MockObject\Stub;
 
@@ -150,6 +152,16 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
     protected function getDefaultsProviderMock(): MockObject&IDefaultsProvider
     {
         return $this->createMock(IDefaultsProvider::class);
+    }
+
+    protected function getSpinnerConfigMock(): MockObject&ISpinnerConfig
+    {
+        return $this->createMock(ISpinnerConfig::class);
+    }
+
+    protected function getWidgetFactoryMock(): MockObject&IWidgetFactory
+    {
+        return $this->createMock(IWidgetFactory::class);
     }
 
     protected function getAuxSettingsMock(): MockObject&IAuxSettings
