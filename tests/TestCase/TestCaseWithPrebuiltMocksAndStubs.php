@@ -445,10 +445,13 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
     {
         return $this->createMock(IStyleFrameCollectionRenderer::class);
     }
+
     protected function getCharFrameCollectionRendererMock(): MockObject&ICharFrameCollectionRenderer
     {
         return $this->createMock(ICharFrameCollectionRenderer::class);
-    }    protected function getStyleToAnsiStringConverterFactoryMock(): MockObject&IStyleToAnsiStringConverterFactory
+    }
+
+    protected function getStyleToAnsiStringConverterFactoryMock(): MockObject&IStyleToAnsiStringConverterFactory
     {
         return $this->createMock(IStyleToAnsiStringConverterFactory::class);
     }

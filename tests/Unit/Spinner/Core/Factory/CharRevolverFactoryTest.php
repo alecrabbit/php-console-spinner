@@ -4,10 +4,9 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Factory;
 
-use AlecRabbit\Spinner\Core\Factory\Contract\ICharRevolverFactory;
 use AlecRabbit\Spinner\Core\Factory\CharRevolverFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\ICharRevolverFactory;
 use AlecRabbit\Spinner\Core\Render\Contract\ICharFrameCollectionRenderer;
-use AlecRabbit\Spinner\Core\Render\Contract\IStyleFrameCollectionRenderer;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolverBuilder;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;

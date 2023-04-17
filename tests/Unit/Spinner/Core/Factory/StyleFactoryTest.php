@@ -5,10 +5,8 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Factory;
 
 use AlecRabbit\Spinner\Core\Color\Style\Style;
-use AlecRabbit\Spinner\Core\Contract\IWidthMeasurer;
 use AlecRabbit\Spinner\Core\Factory\Contract\IStyleFactory;
 use AlecRabbit\Spinner\Core\Factory\StyleFactory;
-use AlecRabbit\Spinner\Core\Frame;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;
 
@@ -22,7 +20,8 @@ final class StyleFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
         self::assertInstanceOf(StyleFactory::class, $styleFactory);
     }
 
-    public function getTesteeInstance(): IStyleFactory {
+    public function getTesteeInstance(): IStyleFactory
+    {
         return
             new StyleFactory();
     }

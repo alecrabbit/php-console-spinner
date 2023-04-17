@@ -6,12 +6,10 @@ namespace AlecRabbit\Tests\Unit\Spinner\Core\Factory;
 
 
 use AlecRabbit\Spinner\Contract\Option\OptionStyleMode;
-use AlecRabbit\Spinner\Core\Color\HexColorToAnsiCodeConverter;
 use AlecRabbit\Spinner\Core\Factory\Contract\IStyleRendererFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IStyleToAnsiStringConverterFactory;
 use AlecRabbit\Spinner\Core\Factory\StyleRendererFactory;
 use AlecRabbit\Spinner\Core\Render\StyleRenderer;
-use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;
 
@@ -45,7 +43,8 @@ final class StyleRendererFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
             ->expects(self::once())
             ->method('create')
             ->with($styleMode)
-            ->willReturn($converter);
+            ->willReturn($converter)
+        ;
 
         $styleRendererFactory = $this->getTesteeInstance(converterFactory: $converterFactory);
 
