@@ -15,22 +15,4 @@ interface IAuxSettings
     public function getOptionNormalizerMode(): OptionNormalizerMode;
 
     public function setOptionNormalizerMode(OptionNormalizerMode $normalizerMode): IAuxSettings;
-
-    public function getOptionCursor(): OptionCursor;
-
-    public function setOptionCursor(OptionCursor $cursorOption): IAuxSettings;
-
-    public function getOptionStyleMode(): OptionStyleMode;
-
-    public function setOptionStyleMode(OptionStyleMode $optionStyleMode): IAuxSettings;
-
-    /**
-     * @return resource
-     */
-    public function getOutputStream();
-
-    /**
-     * @param resource $outputStream
-     */
-    public function setOutputStream($outputStream): IAuxSettings;
 }

@@ -45,6 +45,7 @@ use AlecRabbit\Spinner\Core\Defaults\Contract\IAuxSettingsBuilder;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDriverSettings;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDriverSettingsBuilder;
 use AlecRabbit\Spinner\Core\Defaults\Contract\ILoopSettings;
+use AlecRabbit\Spinner\Core\Defaults\Contract\ITerminalSettings;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IWidgetSettings;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IWidgetSettingsBuilder;
 use AlecRabbit\Spinner\Core\Factory\Contract\IAnsiColorParserFactory;
@@ -62,6 +63,7 @@ use AlecRabbit\Spinner\Core\Factory\Contract\IStyleFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IStyleFrameRendererFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IStyleRendererFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IStyleToAnsiStringConverterFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\ITerminalSettingsFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ITimerFactory;
 use AlecRabbit\Spinner\Core\Output\Contract\IConsoleCursor;
 use AlecRabbit\Spinner\Core\Output\Contract\IDriverOutput;
@@ -255,9 +257,13 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
         return $this->createMock(ILoopProbe::class);
     }
 
-    protected function getLoopSettingsBuilderMock(): MockObject&ILoopSettingsFactory
+    protected function getLoopSettingsFactoryMock(): MockObject&ILoopSettingsFactory
     {
         return $this->createMock(ILoopSettingsFactory::class);
+    }
+    protected function getTerminalSettingsFactoryMock(): MockObject&ITerminalSettingsFactory
+    {
+        return $this->createMock(ITerminalSettingsFactory::class);
     }
 
     protected function getAuxSettingsBuilderMock(): MockObject&IAuxSettingsBuilder
@@ -288,6 +294,10 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
     protected function getLoopSettingsMock(): MockObject&ILoopSettings
     {
         return $this->createMock(ILoopSettings::class);
+    }
+    protected function getTerminalSettingsMock(): MockObject&ITerminalSettings
+    {
+        return $this->createMock(ITerminalSettings::class);
     }
 
     protected function getLoopMock(): MockObject&ILoop

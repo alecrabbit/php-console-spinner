@@ -15,9 +15,6 @@ final class AuxSettings implements IAuxSettings
 {
     public function __construct(
         protected OptionNormalizerMode $optionNormalizerMode = OptionNormalizerMode::BALANCED,
-        protected OptionCursor $optionCursor = OptionCursor::HIDDEN,
-        protected OptionStyleMode $optionStyleMode = OptionStyleMode::ANSI8,
-        protected $outputStream = STDERR,
     ) {
     }
 
@@ -29,41 +26,6 @@ final class AuxSettings implements IAuxSettings
     public function setOptionNormalizerMode(OptionNormalizerMode $optionNormalizerMode): IAuxSettings
     {
         $this->optionNormalizerMode = $optionNormalizerMode;
-        return $this;
-    }
-
-    public function getOptionCursor(): OptionCursor
-    {
-        return $this->optionCursor;
-    }
-
-    public function setOptionCursor(OptionCursor $optionCursor): IAuxSettings
-    {
-        $this->optionCursor = $optionCursor;
-        return $this;
-    }
-
-    public function getOptionStyleMode(): OptionStyleMode
-    {
-        return $this->optionStyleMode;
-    }
-
-    public function setOptionStyleMode(OptionStyleMode $optionStyleMode): IAuxSettings
-    {
-        $this->optionStyleMode = $optionStyleMode;
-        return $this;
-    }
-
-    /** @inheritdoc */
-    public function getOutputStream()
-    {
-        return $this->outputStream;
-    }
-
-    /** @inheritdoc */
-    public function setOutputStream($outputStream): IAuxSettings
-    {
-        $this->outputStream = $outputStream;
         return $this;
     }
 }

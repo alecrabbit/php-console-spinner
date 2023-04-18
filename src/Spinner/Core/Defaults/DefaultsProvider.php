@@ -10,12 +10,14 @@ use AlecRabbit\Spinner\Core\Contract\IDefaultsProvider;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IAuxSettings;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDriverSettings;
 use AlecRabbit\Spinner\Core\Defaults\Contract\ILoopSettings;
+use AlecRabbit\Spinner\Core\Defaults\Contract\ITerminalSettings;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IWidgetSettings;
 
 final class DefaultsProvider implements IDefaultsProvider
 {
     public function __construct(
         protected IAuxSettings $auxSettings,
+        protected ITerminalSettings $terminalSettings,
         protected ILoopSettings $loopSettings,
         protected IDriverSettings $driverSettings,
         protected IWidgetSettings $widgetSettings,
@@ -41,6 +43,11 @@ final class DefaultsProvider implements IDefaultsProvider
     public function getLoopSettings(): ILoopSettings
     {
         return $this->loopSettings;
+    }
+
+    public function getTerminalSettings(): ITerminalSettings
+    {
+        return $this->terminalSettings;
     }
 
     public function getAuxSettings(): IAuxSettings

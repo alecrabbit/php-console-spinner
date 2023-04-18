@@ -9,7 +9,9 @@ namespace AlecRabbit\Spinner\Core\Contract;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IAuxSettings;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDriverSettings;
 use AlecRabbit\Spinner\Core\Defaults\Contract\ILoopSettings;
+use AlecRabbit\Spinner\Core\Defaults\Contract\ITerminalSettings;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IWidgetSettings;
+use AlecRabbit\Spinner\Core\Defaults\DefaultsProvider;
 
 interface IDefaultsProvider
 {
@@ -22,4 +24,6 @@ interface IDefaultsProvider
     public function getWidgetSettings(): IWidgetSettings;
 
     public function getRootWidgetSettings(): IWidgetSettings;
+
+    public function getTerminalSettings(): ITerminalSettings;
 }

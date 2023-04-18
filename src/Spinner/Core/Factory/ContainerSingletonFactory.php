@@ -68,6 +68,8 @@ use AlecRabbit\Spinner\Core\Factory\Contract\IStyleFrameRendererFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IStyleRendererFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IStyleRevolverFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IStyleToAnsiStringConverterFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\ITerminalProbeFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\ITerminalSettingsFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ITimerFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IWidthMeasurerFactory;
 use AlecRabbit\Spinner\Core\IntegerNormalizerBuilder;
@@ -81,6 +83,7 @@ use AlecRabbit\Spinner\Core\Render\Contract\IStyleFrameCollectionRenderer;
 use AlecRabbit\Spinner\Core\Render\StyleFrameCollectionRenderer;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolverBuilder;
 use AlecRabbit\Spinner\Core\Revolver\FrameRevolverBuilder;
+use AlecRabbit\Spinner\Core\Terminal\NativeTerminalProbe;
 use AlecRabbit\Spinner\Core\TimerBuilder;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetBuilder;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolverBuilder;
@@ -148,6 +151,13 @@ final class ContainerSingletonFactory implements IContainerSingletonFactory
                 }
             },
 
+            ITerminalSettingsFactory::class => static function (ContainerInterface $container
+            ): ITerminalSettingsFactory {
+                $terminalProbe = $container->get(ITerminalProbeFactory::class)->getProbe();
+
+                return new TerminalSettingsFactory($terminalProbe);
+            },
+
             IDriver::class => static function (ContainerInterface $container): IDriver {
                 return $container->get(IDriverSingletonFactory::class)->getDriver();
             },
@@ -163,7 +173,7 @@ final class ContainerSingletonFactory implements IContainerSingletonFactory
             IResourceStream::class => static function (ContainerInterface $container): IResourceStream {
                 /** @var IDefaultsProvider $provider */
                 $provider = $container->get(IDefaultsProvider::class);
-                return new ResourceStream($provider->getAuxSettings()->getOutputStream());
+                return new ResourceStream($provider->getTerminalSettings()->getOutputStream());
             },
             IConsoleCursorFactory::class => ConsoleCursorFactory::class,
             ITimerFactory::class => TimerFactory::class,
@@ -207,7 +217,7 @@ final class ContainerSingletonFactory implements IContainerSingletonFactory
             IWidthMeasurerFactory::class => WidthMeasurerFactory::class,
 
             OptionStyleMode::class => static function (ContainerInterface $container): OptionStyleMode {
-                return $container->get(IDefaultsProvider::class)->getAuxSettings()->getOptionStyleMode();
+                return $container->get(IDefaultsProvider::class)->getTerminalSettings()->getOptionStyleMode();
             },
 
             OptionNormalizerMode::class => static function (ContainerInterface $container): OptionNormalizerMode {
@@ -224,6 +234,13 @@ final class ContainerSingletonFactory implements IContainerSingletonFactory
                         'Service for id [%s] is not available in this context.',
                         ILoopProbeFactory::class
                     )
+                );
+            },
+            ITerminalProbeFactory::class => static function (): ITerminalProbeFactory {
+                return new TerminalProbeFactory(
+                    new \ArrayObject([
+                        NativeTerminalProbe::class,
+                    ]),
                 );
             },
 

@@ -11,6 +11,7 @@ use AlecRabbit\Spinner\Core\Defaults\Contract\IWidgetSettingsBuilder;
 use AlecRabbit\Spinner\Core\Defaults\DefaultsProvider;
 use AlecRabbit\Spinner\Core\Defaults\DefaultsProviderBuilder;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopSettingsFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\ITerminalSettingsFactory;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;
 
@@ -26,13 +27,15 @@ final class DefaultsProviderBuilderTest extends TestCaseWithPrebuiltMocksAndStub
 
     public function getTesteeInstance(
         ?ILoopSettingsFactory $loopSettingsBuilder = null,
+        ?ITerminalSettingsFactory $terminalSettingsFactory = null,
         ?IAuxSettingsBuilder $auxSettingsBuilder = null,
         ?IDriverSettingsBuilder $driverSettingsBuilder = null,
         ?IWidgetSettingsBuilder $widgetSettingsBuilder = null,
         ?IWidgetSettingsBuilder $rootWidgetSettingsBuilder = null,
     ): IDefaultsProviderBuilder {
         return new DefaultsProviderBuilder(
-            loopSettingsFactory: $loopSettingsBuilder ?? $this->getLoopSettingsBuilderMock(),
+            loopSettingsFactory: $loopSettingsBuilder ?? $this->getLoopSettingsFactoryMock(),
+            terminalSettingsFactory: $terminalSettingsFactory ?? $this->getTerminalSettingsFactoryMock(),
             auxSettingsBuilder: $auxSettingsBuilder ?? $this->getAuxSettingsBuilderMock(),
             driverSettingsBuilder: $driverSettingsBuilder ?? $this->getDriverSettingsBuilderMock(),
             widgetSettingsBuilder: $widgetSettingsBuilder ?? $this->getWidgetSettingsBuilderMock(),

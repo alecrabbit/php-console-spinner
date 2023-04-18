@@ -13,6 +13,7 @@ use AlecRabbit\Spinner\Core\Defaults\Contract\IDriverSettingsBuilder;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IWidgetSettings;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IWidgetSettingsBuilder;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopSettingsFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\ITerminalSettingsFactory;
 use AlecRabbit\Spinner\Core\Frame;
 use AlecRabbit\Spinner\Core\Pattern\CharPattern\NoCharPattern;
 use AlecRabbit\Spinner\Core\Pattern\CharPattern\Snake;
@@ -23,7 +24,7 @@ final class DefaultsProviderBuilder implements IDefaultsProviderBuilder
 {
     public function __construct(
         protected ILoopSettingsFactory $loopSettingsFactory,
-        // protected ITerminalSettingsFactory $terminalSettingsFactory,
+        protected ITerminalSettingsFactory $terminalSettingsFactory,
         protected IAuxSettingsBuilder $auxSettingsBuilder,
         protected IDriverSettingsBuilder $driverSettingsBuilder,
         protected IWidgetSettingsBuilder $widgetSettingsBuilder,
@@ -36,6 +37,7 @@ final class DefaultsProviderBuilder implements IDefaultsProviderBuilder
         $widgetSettings = $this->getWidgetSettings();
         return new DefaultsProvider(
             auxSettings: $this->auxSettingsBuilder->build(),
+            terminalSettings: $this->terminalSettingsFactory->createTerminalSettings(),
             loopSettings: $this->loopSettingsFactory->createLoopSettings(),
             driverSettings: $this->driverSettingsBuilder->build(),
             widgetSettings: $widgetSettings,
