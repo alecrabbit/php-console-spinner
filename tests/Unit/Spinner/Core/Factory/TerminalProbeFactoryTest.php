@@ -4,13 +4,12 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Factory;
 
-use AlecRabbit\Tests\Unit\Spinner\Core\Factory\Stub\TerminalProbeStub;
-use AlecRabbit\Spinner\Core\Contract\Loop\A\ALoopProbe;
 use AlecRabbit\Spinner\Core\Factory\Contract\ITerminalProbeFactory;
 use AlecRabbit\Spinner\Core\Factory\TerminalProbeFactory;
 use AlecRabbit\Spinner\Core\Terminal\A\ATerminalProbe;
 use AlecRabbit\Spinner\Exception\DomainException;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
+use AlecRabbit\Tests\Unit\Spinner\Core\Factory\Stub\TerminalProbeStub;
 use ArrayObject;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -40,7 +39,7 @@ final class TerminalProbeFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
     }
 
     #[Test]
-    public function throwsWhenNoSupportedLoopFound(): void
+    public function throwsWhenNoAvailableProbeFound(): void
     {
         $terminalProbeFactory = $this->getTesteeInstance();
 
@@ -50,9 +49,9 @@ final class TerminalProbeFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
         $this->expectException($exception);
         $this->expectExceptionMessage($exceptionMessage);
 
-        $loopProbe = $terminalProbeFactory->getProbe();
+        $terminalProbe = $terminalProbeFactory->getProbe();
 
-        self::assertInstanceOf(ALoopProbe::class, $loopProbe);
+        self::assertInstanceOf(ATerminalProbe::class, $terminalProbe);
 
         self::failTest(self::exceptionNotThrownString($exception, $exceptionMessage));
     }
@@ -66,8 +65,8 @@ final class TerminalProbeFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
 
         $terminalProbeFactory = $this->getTesteeInstance(terminalProbes: $terminalProbes);
 
-        $loopProbe = $terminalProbeFactory->getProbe();
+        $terminalProbe = $terminalProbeFactory->getProbe();
 
-        self::assertInstanceOf(ATerminalProbe::class, $loopProbe);
+        self::assertInstanceOf(ATerminalProbe::class, $terminalProbe);
     }
 }
