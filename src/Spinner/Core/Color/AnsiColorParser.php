@@ -6,6 +6,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Color;
 
+use AlecRabbit\Spinner\Contract\Color\IColor;
 use AlecRabbit\Spinner\Contract\IAnsiColorParser;
 use AlecRabbit\Spinner\Core\Contract\IHexColorToAnsiCodeConverter;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
@@ -19,9 +20,9 @@ final class AnsiColorParser implements IAnsiColorParser
     ) {
     }
 
-    public function parseColor(string $color): string
+    public function parseColor(IColor|null|string $color): string
     {
-        if ($color === '') {
+        if ($color === '' || $color === null) {
             return '';
         }
 
@@ -30,7 +31,7 @@ final class AnsiColorParser implements IAnsiColorParser
         return $this->converter->convert($color);
     }
 
-    private static function assertValid(string $color): void
+    private static function assertValid(IColor|string $color): void
     {
         match (true) {
             self::correctFormat($color) => null,
@@ -40,8 +41,11 @@ final class AnsiColorParser implements IAnsiColorParser
         };
     }
 
-    private static function correctFormat(string $color): bool
+    private static function correctFormat(IColor|string $color): bool
     {
+        if ($color instanceof IColor) {
+            return false; // not supported yet
+        }
         return (bool)preg_match(self::FORMAT, $color);
     }
 }

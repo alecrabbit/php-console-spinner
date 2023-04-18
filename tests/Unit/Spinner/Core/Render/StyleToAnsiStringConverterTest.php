@@ -7,7 +7,9 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Render;
 
 use AlecRabbit\Spinner\Contract\Color\Style\IStyleOptionsParser;
+use AlecRabbit\Spinner\Contract\Color\Style\StyleOption;
 use AlecRabbit\Spinner\Contract\IAnsiColorParser;
+use AlecRabbit\Spinner\Core\Color\Style\StyleOptions;
 use AlecRabbit\Spinner\Core\Render\Contract\IStyleToAnsiStringConverter;
 use AlecRabbit\Spinner\Core\Render\StyleToAnsiStringConverter;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
@@ -34,7 +36,7 @@ final class StyleToAnsiStringConverterTest extends TestCaseWithPrebuiltMocksAndS
     }
 
     #[Test]
-    public function returnsStyleFormatIfStyleIsEmpty(): void
+    public function convertReturnsStyleFormatIfStyleIsEmpty(): void
     {
         $converter = $this->getTesteeInstance();
 
@@ -51,5 +53,61 @@ final class StyleToAnsiStringConverterTest extends TestCaseWithPrebuiltMocksAndS
             ->willReturn('%s')
         ;
         self::assertSame('%s', $converter->convert($style));
+    }
+
+    #[Test]
+    public function convertReturnsFormatIfStyleIsNotEmpty(): void
+    {
+        $red = '#ff0000';
+        $green = '#00ff00';
+
+        $colorParser = $this->getAnsiColorParserMock();
+        $colorParser
+            ->method('parseColor')
+            ->willReturn('1')
+        ;
+        $optionsParser = $this->getStyleOptionsParserMock();
+        $optionsParser
+            ->method('parseOptions')
+            ->willReturn([['set' => 1, 'unset' => 22]])
+        ;
+        $converter = $this->getTesteeInstance(
+            colorParser: $colorParser,
+            optionsParser: $optionsParser,
+        );
+
+        self::assertInstanceOf(StyleToAnsiStringConverter::class, $converter);
+        $style = $this->getStyleMock();
+        $style
+            ->expects(self::once())
+            ->method('isEmpty')
+            ->willReturn(false)
+        ;
+        $style
+            ->expects(self::once())
+            ->method('getFgColor')
+            ->willReturn($red)
+        ;
+        $style
+            ->expects(self::once())
+            ->method('getBgColor')
+            ->willReturn($green)
+        ;
+        $style
+            ->expects(self::once())
+            ->method('hasOptions')
+            ->willReturn(true)
+        ;
+        $style
+            ->expects(self::once())
+            ->method('getOptions')
+            ->willReturn(new StyleOptions(StyleOption::BOLD));
+        ;
+        $style
+            ->expects(self::once())
+            ->method('getFormat')
+            ->willReturn('%s')
+        ;
+        self::assertSame("\e[31;41;1m%s\e[39;49;22m", $converter->convert($style));
     }
 }
