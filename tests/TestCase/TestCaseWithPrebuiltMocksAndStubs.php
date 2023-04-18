@@ -74,6 +74,7 @@ use AlecRabbit\Spinner\Core\Render\Contract\IStyleToAnsiStringConverter;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolver;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolverBuilder;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
+use AlecRabbit\Spinner\Core\Terminal\Contract\ITerminalProbe;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetBuilder;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContext;
@@ -507,5 +508,10 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
     protected function getStyleToAnsiStringConverterFactoryMock(): MockObject&IStyleToAnsiStringConverterFactory
     {
         return $this->createMock(IStyleToAnsiStringConverterFactory::class);
+    }
+
+    protected function getTerminalProbeMock(): MockObject&ITerminalProbe
+    {
+        return $this->createMock(ITerminalProbe::class);
     }
 }

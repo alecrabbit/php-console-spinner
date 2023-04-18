@@ -25,4 +25,9 @@ final class NativeTerminalProbe extends ATerminalProbe
     {
         return self::DEFAULT_OPTION_STYLE_MODE;
     }
+
+    public function getOutputStream()
+    {
+        return STDERR;
+    }
 }

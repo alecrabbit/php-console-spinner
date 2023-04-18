@@ -33,4 +33,9 @@ final class SymfonyTerminalProbe extends ATerminalProbe
             AnsiColorMode::Ansi4 => OptionStyleMode::ANSI4,
         };
     }
+
+    public function getOutputStream()
+    {
+        return STDERR;
+    }
 }

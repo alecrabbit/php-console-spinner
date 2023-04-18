@@ -21,4 +21,9 @@ interface ITerminalProbe extends IProbe
     public function getOptionStyleMode(): OptionStyleMode;
 
     public function getOptionCursor(): OptionCursor;
+
+    /**
+     * @return resource
+     */
+    public function getOutputStream();
 }
