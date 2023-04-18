@@ -8,10 +8,14 @@ namespace AlecRabbit\Spinner\Core;
 
 use AlecRabbit\Spinner\Core\Contract\ISignalProcessingProbe;
 
+use function extension_loaded;
+
 final class SignalProcessingProbe implements ISignalProcessingProbe
 {
+    private const SIGNAL_PROCESSING_EXTENSION = 'pcntl';
+
     public function isAvailable(): bool
     {
-        return true; // FIXME (2023-04-14 15:48) [Alec Rabbit]: IT IS A STUB!
+        return extension_loaded(self::SIGNAL_PROCESSING_EXTENSION);
     }
 }
