@@ -26,6 +26,11 @@ final class StyleOptionsParserTest extends TestCaseWithPrebuiltMocksAndStubs
         self::assertInstanceOf(StyleOptionsParser::class, $optionsParser);
     }
 
+    protected function getTesteeInstance(): IStyleOptionsParser
+    {
+        return new StyleOptionsParser();
+    }
+
     #[Test]
     public function canParseEmptyStyleOptions(): void
     {
@@ -82,10 +87,5 @@ final class StyleOptionsParserTest extends TestCaseWithPrebuiltMocksAndStubs
             ],
             $optionsParser->parseOptions($options)
         );
-    }
-
-    protected function getTesteeInstance(): IStyleOptionsParser
-    {
-        return new StyleOptionsParser();
     }
 }

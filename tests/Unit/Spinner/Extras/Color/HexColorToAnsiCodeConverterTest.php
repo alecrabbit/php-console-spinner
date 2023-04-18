@@ -35,6 +35,36 @@ final class HexColorToAnsiCodeConverterTest extends TestCaseWithPrebuiltMocksAnd
         }
     }
 
+    protected static function coreTestCanConvertDataProvider(): iterable
+    {
+        $src = \AlecRabbit\Tests\Unit\Spinner\Core\Color\HexColorToAnsiCodeConverterTest::class;
+        yield from $src::canConvertDataProvider();
+    }
+
+    protected static function simpleCanConvertDataFeeder(): iterable
+    {
+        $ansi4 = OptionStyleMode::ANSI4;
+        $ansi8 = OptionStyleMode::ANSI8;
+        $ansi24 = OptionStyleMode::ANSI24;
+
+        yield from [
+            // result, color, styleMode
+            ['0', '#761176', $ansi4], // color degrading
+            ['4', '#00008f', $ansi4], // color degrading
+            ['5', '#861185', $ansi4], // color degrading
+            ['5', '#d75f87', $ansi4], // color degrading
+            ['5', '#d134f2', $ansi4], // color degrading
+
+            ['8;5;238', '#444', $ansi8],
+            ['8;5;255', '#eee', $ansi8],
+            ['8;5;231', '#fff', $ansi8],
+            ['8;5;59', '#434544', $ansi8],
+            ['8;5;238', '#454545', $ansi8],
+            ['8;5;231', '#fafafa', $ansi8],
+            ['8;5;16', '#070707', $ansi8],
+        ];
+    }
+
     public static function invalidInputDataProvider(): iterable
     {
         foreach (self::simpleInvalidInputDataFeeder() as $item) {
@@ -53,6 +83,24 @@ final class HexColorToAnsiCodeConverterTest extends TestCaseWithPrebuiltMocksAnd
                 ],
             ];
         }
+    }
+
+    protected static function simpleInvalidInputDataFeeder(): iterable
+    {
+        $e = InvalidArgumentException::class;
+        $none = OptionStyleMode::NONE;
+        $ansi4 = OptionStyleMode::ANSI4;
+        $ansi8 = OptionStyleMode::ANSI8;
+        $ansi24 = OptionStyleMode::ANSI24;
+
+        yield from [
+            // exceptionClass, exceptionMessage, color, styleMode
+            [$e, 'Unsupported style mode "NONE".', '#000000', $none],
+            [$e, 'Invalid color: "#00000".', '#00000', $ansi4],
+            [$e, 'Invalid color: "#00000".', '#00000', $ansi8],
+            [$e, 'Invalid color: "#00000".', '#00000', $ansi24],
+            [$e, 'Empty color string.', '', $ansi24],
+        ];
     }
 
     #[Test]
@@ -128,53 +176,5 @@ final class HexColorToAnsiCodeConverterTest extends TestCaseWithPrebuiltMocksAnd
             exceptionOrExceptionClass: $exceptionClass,
             exceptionMessage: $exceptionMessage,
         );
-    }
-
-    protected static function coreTestCanConvertDataProvider(): iterable
-    {
-        $src = \AlecRabbit\Tests\Unit\Spinner\Core\Color\HexColorToAnsiCodeConverterTest::class;
-        yield from $src::canConvertDataProvider();
-    }
-
-    protected static function simpleCanConvertDataFeeder(): iterable
-    {
-        $ansi4 = OptionStyleMode::ANSI4;
-        $ansi8 = OptionStyleMode::ANSI8;
-        $ansi24 = OptionStyleMode::ANSI24;
-
-        yield from [
-            // result, color, styleMode
-            ['0', '#761176', $ansi4], // color degrading
-            ['4', '#00008f', $ansi4], // color degrading
-            ['5', '#861185', $ansi4], // color degrading
-            ['5', '#d75f87', $ansi4], // color degrading
-            ['5', '#d134f2', $ansi4], // color degrading
-
-            ['8;5;238', '#444', $ansi8],
-            ['8;5;255', '#eee', $ansi8],
-            ['8;5;231', '#fff', $ansi8],
-            ['8;5;59', '#434544', $ansi8],
-            ['8;5;238', '#454545', $ansi8],
-            ['8;5;231', '#fafafa', $ansi8],
-            ['8;5;16', '#070707', $ansi8],
-        ];
-    }
-
-    protected static function simpleInvalidInputDataFeeder(): iterable
-    {
-        $e = InvalidArgumentException::class;
-        $none = OptionStyleMode::NONE;
-        $ansi4 = OptionStyleMode::ANSI4;
-        $ansi8 = OptionStyleMode::ANSI8;
-        $ansi24 = OptionStyleMode::ANSI24;
-
-        yield from [
-            // exceptionClass, exceptionMessage, color, styleMode
-            [$e, 'Unsupported style mode "NONE".', '#000000', $none],
-            [$e, 'Invalid color: "#00000".', '#00000', $ansi4],
-            [$e, 'Invalid color: "#00000".', '#00000', $ansi8],
-            [$e, 'Invalid color: "#00000".', '#00000', $ansi24],
-            [$e, 'Empty color string.', '', $ansi24],
-        ];
     }
 }

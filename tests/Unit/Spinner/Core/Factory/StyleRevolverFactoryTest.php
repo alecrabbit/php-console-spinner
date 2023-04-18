@@ -27,8 +27,7 @@ final class StyleRevolverFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
     ): IStyleRevolverFactory {
         return new StyleRevolverFactory(
             frameRevolverBuilder: $frameRevolverBuilder ?? $this->getFrameRevolverBuilderMock(),
-            styleFrameCollectionRenderer: $styleFrameCollectionRenderer ?? $this->getStyleFrameCollectionRendererMock(
-            ),
+            styleFrameCollectionRenderer: $styleFrameCollectionRenderer ?? $this->getStyleFrameCollectionRendererMock(),
         );
     }
 

@@ -31,6 +31,11 @@ final class FrameCollectionTest extends TestCaseWithPrebuiltMocksAndStubs
         self::assertInstanceOf(FrameCollection::class, $frameCollection);
     }
 
+    protected function getTesteeInstance(Traversable $frames): IFrameCollection
+    {
+        return new FrameCollection($frames);
+    }
+
     #[Test]
     public function canGetFrameByIndex(): void
     {
@@ -88,10 +93,5 @@ final class FrameCollectionTest extends TestCaseWithPrebuiltMocksAndStubs
             exceptionOrExceptionClass: $exceptionClass,
             exceptionMessage: $exceptionMessage,
         );
-    }
-
-    protected function getTesteeInstance(Traversable $frames): IFrameCollection
-    {
-        return new FrameCollection($frames);
     }
 }

@@ -35,6 +35,11 @@ final class CursorTest extends TestCase
         );
     }
 
+    protected function getOutputMock(): MockObject&IBufferedOutput
+    {
+        return $this->createMock(IBufferedOutput::class);
+    }
+
     #[Test]
     public function writesToOutputWhenHideCalledIfHidden(): void
     {
@@ -120,10 +125,5 @@ final class CursorTest extends TestCase
         self::assertInstanceOf(ConsoleCursor::class, $cursor);
 
         $cursor->erase(2)->flush();
-    }
-
-    protected function getOutputMock(): MockObject&IBufferedOutput
-    {
-        return $this->createMock(IBufferedOutput::class);
     }
 }

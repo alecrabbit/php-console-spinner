@@ -16,11 +16,6 @@ abstract class ConfigTestCase extends TestCase
 {
     protected static ?IConfig $config = null;
 
-    protected function tearDown(): void
-    {
-        self::$config = null; // Reset config after each test.
-    }
-
     /**
      * @param bool $fresh Set to true to create a fresh config during one test.
      *
@@ -40,11 +35,6 @@ abstract class ConfigTestCase extends TestCase
         return self::$config;
     }
 
-    protected static function getConfigBuilder(): IConfigBuilder
-    {
-        return StaticFacade::getConfigBuilder();
-    }
-
     /**
      * @throws LogicException
      * @throws InvalidArgumentException
@@ -54,5 +44,15 @@ abstract class ConfigTestCase extends TestCase
         return self::getConfigBuilder()
             ->build()
         ;
+    }
+
+    protected static function getConfigBuilder(): IConfigBuilder
+    {
+        return StaticFacade::getConfigBuilder();
+    }
+
+    protected function tearDown(): void
+    {
+        self::$config = null; // Reset config after each test.
     }
 }

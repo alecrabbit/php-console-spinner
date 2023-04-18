@@ -37,6 +37,11 @@ final class StreamBufferedOutputTest extends TestCase
         );
     }
 
+    private function getStreamMock(): MockObject&IResourceStream
+    {
+        return $this->createMock(IResourceStream::class);
+    }
+
     #[Test]
     public function callingWriteInvokesStreamWrite(): void
     {
@@ -91,10 +96,5 @@ final class StreamBufferedOutputTest extends TestCase
         $streamBufferedOutput = $this->getTesteeInstance(stream: $stream);
 
         $streamBufferedOutput->bufferedWrite(['test', 'test2'])->flush();
-    }
-
-    private function getStreamMock(): MockObject&IResourceStream
-    {
-        return $this->createMock(IResourceStream::class);
     }
 }

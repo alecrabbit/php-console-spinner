@@ -33,101 +33,6 @@ final class HexColorToAnsiCodeConverterTest extends TestCaseWithPrebuiltMocksAnd
         }
     }
 
-    public static function invalidInputDataProvider(): iterable
-    {
-        foreach (self::simpleInvalidInputDataFeeder() as $item) {
-            yield [
-                [
-                    self::EXCEPTION => [
-                        self::CLASS_ => $item[0],
-                        self::MESSAGE => $item[1],
-                    ],
-                ],
-                [
-                    self::ARGUMENTS => [
-                        self::COLOR => $item[2],
-                        self::STYLE_MODE => $item[3],
-                    ],
-                ],
-            ];
-        }
-    }
-
-    #[Test]
-    public function canBeCreated(): void
-    {
-        $converter = $this->getTesteeInstance();
-
-        self::assertInstanceOf(HexColorToAnsiCodeConverter::class, $converter);
-    }
-
-    public function getTesteeInstance(
-        ?OptionStyleMode $styleMode = null,
-    ): IHexColorToAnsiCodeConverter {
-        return new HexColorToAnsiCodeConverter(
-            styleMode: $styleMode ?? OptionStyleMode::ANSI24,
-        );
-    }
-
-    #[Test]
-    #[DataProvider('canConvertDataProvider')]
-    public function canConvert(array $expected, array $incoming): void
-    {
-        $expectedException = $this->expectsException($expected);
-
-        $args = $incoming[self::ARGUMENTS];
-
-        $converter = $this->getTesteeInstance(
-            styleMode: $args[self::STYLE_MODE],
-        );
-
-        $result = $converter->convert($args[self::COLOR]);
-
-        if ($expectedException) {
-            self::failTest($expectedException);
-        }
-
-        self::assertSame($expected[self::RESULT], $result);
-    }
-
-    #[Test]
-    #[DataProvider('invalidInputDataProvider')]
-    public function throwsOnInvalidInput(array $expected, array $incoming): void
-    {
-        $expectedException = $this->expectsException($expected);
-
-        $args = $incoming[self::ARGUMENTS];
-
-        $converter = $this->getTesteeInstance(
-            styleMode: $args[self::STYLE_MODE],
-        );
-
-        $result = $converter->convert($args[self::COLOR]);
-
-        if ($expectedException) {
-            self::failTest($expectedException);
-        }
-
-        self::assertSame($expected[self::RESULT], $result);
-    }
-
-    #[Test]
-    public function throwsIfStyleModeIsNone(): void
-    {
-        $exceptionClass = InvalidArgumentException::class;
-        $exceptionMessage = 'Unsupported style mode "NONE".';
-
-        $test = function (): void {
-            $this->getTesteeInstance(styleMode: OptionStyleMode::NONE);
-        };
-
-        $this->wrapExceptionTest(
-            test: $test,
-            exceptionOrExceptionClass: $exceptionClass,
-            exceptionMessage: $exceptionMessage,
-        );
-    }
-
     protected static function simpleCanConvertDataFeeder(): iterable
     {
         $ansi4 = OptionStyleMode::ANSI4;
@@ -398,6 +303,26 @@ final class HexColorToAnsiCodeConverterTest extends TestCaseWithPrebuiltMocksAnd
         ];
     }
 
+    public static function invalidInputDataProvider(): iterable
+    {
+        foreach (self::simpleInvalidInputDataFeeder() as $item) {
+            yield [
+                [
+                    self::EXCEPTION => [
+                        self::CLASS_ => $item[0],
+                        self::MESSAGE => $item[1],
+                    ],
+                ],
+                [
+                    self::ARGUMENTS => [
+                        self::COLOR => $item[2],
+                        self::STYLE_MODE => $item[3],
+                    ],
+                ],
+            ];
+        }
+    }
+
     protected static function simpleInvalidInputDataFeeder(): iterable
     {
         $e = InvalidArgumentException::class;
@@ -414,5 +339,80 @@ final class HexColorToAnsiCodeConverterTest extends TestCaseWithPrebuiltMocksAnd
             [$e, 'Invalid color: "#00000".', '#00000', $ansi24],
             [$e, 'Empty color string.', '', $ansi24],
         ];
+    }
+
+    #[Test]
+    public function canBeCreated(): void
+    {
+        $converter = $this->getTesteeInstance();
+
+        self::assertInstanceOf(HexColorToAnsiCodeConverter::class, $converter);
+    }
+
+    public function getTesteeInstance(
+        ?OptionStyleMode $styleMode = null,
+    ): IHexColorToAnsiCodeConverter {
+        return new HexColorToAnsiCodeConverter(
+            styleMode: $styleMode ?? OptionStyleMode::ANSI24,
+        );
+    }
+
+    #[Test]
+    #[DataProvider('canConvertDataProvider')]
+    public function canConvert(array $expected, array $incoming): void
+    {
+        $expectedException = $this->expectsException($expected);
+
+        $args = $incoming[self::ARGUMENTS];
+
+        $converter = $this->getTesteeInstance(
+            styleMode: $args[self::STYLE_MODE],
+        );
+
+        $result = $converter->convert($args[self::COLOR]);
+
+        if ($expectedException) {
+            self::failTest($expectedException);
+        }
+
+        self::assertSame($expected[self::RESULT], $result);
+    }
+
+    #[Test]
+    #[DataProvider('invalidInputDataProvider')]
+    public function throwsOnInvalidInput(array $expected, array $incoming): void
+    {
+        $expectedException = $this->expectsException($expected);
+
+        $args = $incoming[self::ARGUMENTS];
+
+        $converter = $this->getTesteeInstance(
+            styleMode: $args[self::STYLE_MODE],
+        );
+
+        $result = $converter->convert($args[self::COLOR]);
+
+        if ($expectedException) {
+            self::failTest($expectedException);
+        }
+
+        self::assertSame($expected[self::RESULT], $result);
+    }
+
+    #[Test]
+    public function throwsIfStyleModeIsNone(): void
+    {
+        $exceptionClass = InvalidArgumentException::class;
+        $exceptionMessage = 'Unsupported style mode "NONE".';
+
+        $test = function (): void {
+            $this->getTesteeInstance(styleMode: OptionStyleMode::NONE);
+        };
+
+        $this->wrapExceptionTest(
+            test: $test,
+            exceptionOrExceptionClass: $exceptionClass,
+            exceptionMessage: $exceptionMessage,
+        );
     }
 }

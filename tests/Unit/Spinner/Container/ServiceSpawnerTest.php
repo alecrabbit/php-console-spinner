@@ -27,6 +27,13 @@ final class ServiceSpawnerTest extends TestCaseWithPrebuiltMocksAndStubs
         self::assertInstanceOf(ServiceSpawner::class, $spawner);
     }
 
+    protected function getTesteeInstance(?ContainerInterface $container = null): IServiceSpawner
+    {
+        return new ServiceSpawner(
+            container: $container ?? $this->getContainerMock(),
+        );
+    }
+
     #[Test]
     public function canSpawnObject(): void
     {
@@ -53,7 +60,7 @@ final class ServiceSpawnerTest extends TestCaseWithPrebuiltMocksAndStubs
     #[Test]
     public function canSpawnWithCallable(): void
     {
-        $callable = static fn (ContainerInterface $container) => new ClassForSpawner();
+        $callable = static fn(ContainerInterface $container) => new ClassForSpawner();
 
         $spawner = $this->getTesteeInstance();
 
@@ -140,13 +147,6 @@ final class ServiceSpawnerTest extends TestCaseWithPrebuiltMocksAndStubs
 
         self::fail(
             self::exceptionNotThrownString($exceptionClass, $exceptionMessage)
-        );
-    }
-
-    protected function getTesteeInstance(?ContainerInterface $container = null): IServiceSpawner
-    {
-        return new ServiceSpawner(
-            container: $container ?? $this->getContainerMock(),
         );
     }
 }

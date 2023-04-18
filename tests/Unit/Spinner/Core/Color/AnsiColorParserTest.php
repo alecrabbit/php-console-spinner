@@ -23,6 +23,14 @@ final class AnsiColorParserTest extends TestCaseWithPrebuiltMocksAndStubs
         self::assertInstanceOf(AnsiColorParser::class, $colorParser);
     }
 
+    protected function getTesteeInstance(
+        ?IHexColorToAnsiCodeConverter $converter = null,
+    ): IAnsiColorParser {
+        return new AnsiColorParser(
+            converter: $converter ?? $this->getHexColorToAnsiCodeConverterMock(),
+        );
+    }
+
     #[Test]
     public function invokesAnsiConvertMethodIfColorFormatIsOk(): void
     {
@@ -57,13 +65,5 @@ final class AnsiColorParserTest extends TestCaseWithPrebuiltMocksAndStubs
         $colorParser = $this->getTesteeInstance();
 
         self::assertSame('', $colorParser->parseColor(''));
-    }
-
-    protected function getTesteeInstance(
-        ?IHexColorToAnsiCodeConverter $converter = null,
-    ): IAnsiColorParser {
-        return new AnsiColorParser(
-            converter: $converter ?? $this->getHexColorToAnsiCodeConverterMock(),
-        );
     }
 }

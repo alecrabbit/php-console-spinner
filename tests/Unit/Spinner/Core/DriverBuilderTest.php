@@ -38,7 +38,7 @@ final class DriverBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
         $driver = $driverBuilder
             ->withDriverOutput($this->getDriverOutputMock())
             ->withTimer($this->getTimerMock())
-            ->withIntervalCallback(fn () => $this->getIntervalMock())
+            ->withIntervalCallback(fn() => $this->getIntervalMock())
             ->build()
         ;
 

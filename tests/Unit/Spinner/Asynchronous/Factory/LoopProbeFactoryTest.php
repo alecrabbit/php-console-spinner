@@ -33,6 +33,11 @@ final class LoopProbeFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
         );
     }
 
+    private function getLoopProbesMock(): MockObject&Traversable
+    {
+        return $this->createMock(Traversable::class);
+    }
+
     #[Test]
     public function throwsWhenNoSupportedLoopFound(): void
     {
@@ -67,10 +72,5 @@ final class LoopProbeFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
         $loopProbe = $loopProbesFactory->getProbe();
 
         self::assertInstanceOf(ALoopProbe::class, $loopProbe);
-    }
-
-    private function getLoopProbesMock(): MockObject&Traversable
-    {
-        return $this->createMock(Traversable::class);
     }
 }

@@ -102,7 +102,7 @@ final class CommonDriverTest extends TestCaseForDriver
 
         $_ =
             $this->getTesteeInstance(
-                intervalCb: static fn () => null
+                intervalCb: static fn() => null
             );
 
         self::fail(self::exceptionNotThrownString($exceptionClass, $exceptionMessage));

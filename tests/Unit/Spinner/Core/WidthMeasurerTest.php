@@ -27,7 +27,7 @@ final class WidthMeasurerTest extends TestCaseWithPrebuiltMocksAndStubs
         ?callable $measureFunction = null
     ): IWidthMeasurer {
         return new WidthMeasurer(
-            measureFunction: $measureFunction ?? static fn (string $string): int => strlen($string)
+            measureFunction: $measureFunction ?? static fn(string $string): int => strlen($string)
         );
     }
 
@@ -43,7 +43,7 @@ final class WidthMeasurerTest extends TestCaseWithPrebuiltMocksAndStubs
         $this->expectExceptionMessage($exceptionMessage);
 
         $measurer = $this->getTesteeInstance(
-            static fn (int $int): string => 'whoops!'
+            static fn(int $int): string => 'whoops!'
         );
 
         self::assertInstanceOf(WidthMeasurer::class, $measurer);

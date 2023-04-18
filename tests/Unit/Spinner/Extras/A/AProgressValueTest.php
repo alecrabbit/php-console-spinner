@@ -246,7 +246,8 @@ final class AProgressValueTest extends TestCase
 
     public static function getTesteeInstance(array $args = []): IProgressValue
     {
-        return new class(startValue: $args[self::START] ?? 0.0, steps: $args[self::STEPS] ?? 100, min: $args[self::MIN] ?? 0.0, max: $args[self::MAX] ?? 1.0, autoFinish: $args[self::AUTO_FINISH] ?? false, ) extends AProgressValue {
+        return new class(startValue: $args[self::START] ?? 0.0, steps: $args[self::STEPS] ?? 100, min: $args[self::MIN] ?? 0.0, max: $args[self::MAX] ?? 1.0, autoFinish: $args[self::AUTO_FINISH] ?? false,) extends
+            AProgressValue {
         };
     }
 

@@ -24,7 +24,7 @@ class TestCaseForDriver extends TestCaseWithPrebuiltMocksAndStubs
         return new Driver(
             driverOutput: $driverOutput ?? $this->getDriverOutputMock(),
             timer: $timer ?? $this->getTimerMock(),
-            intervalCb: $intervalCb ?? static fn () => new Interval(),
+            intervalCb: $intervalCb ?? static fn() => new Interval(),
         );
     }
 }

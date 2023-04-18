@@ -18,10 +18,6 @@ use PHPUnit\Framework\MockObject\MockObject;
 final class LoopSingletonFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
 {
 
-    protected function setUp(): void
-    {
-        self::setPropertyValue(LoopSingletonFactory::class, 'loop', null);
-    }
     #[Test]
     public function canBeCreated(): void
     {
@@ -36,14 +32,6 @@ final class LoopSingletonFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
         return new LoopSingletonFactory(
             loopProbeFactory: $loopProbeFactory ?? $this->getLoopProbeFactoryMock(),
         );
-    }
-
-    #[Test]
-    public function canGetLoopAdapter(): void
-    {
-        $loopFactory = $this->getTesteeInstance();
-
-        self::assertInstanceOf(ALoopAdapter::class, $loopFactory->getLoop());
     }
 
     protected function getLoopProbeFactoryMock(): MockObject&ILoopProbeFactory
@@ -65,5 +53,18 @@ final class LoopSingletonFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
             )
         ;
         return $loopProbeFactory;
+    }
+
+    #[Test]
+    public function canGetLoopAdapter(): void
+    {
+        $loopFactory = $this->getTesteeInstance();
+
+        self::assertInstanceOf(ALoopAdapter::class, $loopFactory->getLoop());
+    }
+
+    protected function setUp(): void
+    {
+        self::setPropertyValue(LoopSingletonFactory::class, 'loop', null);
     }
 }

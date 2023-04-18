@@ -22,7 +22,7 @@ final class IntervalTest extends TestCase
         // [$expected, $incoming]
         yield [
             [
-                self::INTERVAL => (float) (IInterval::MAX_INTERVAL_MILLISECONDS / 1000),
+                self::INTERVAL => (float)(IInterval::MAX_INTERVAL_MILLISECONDS / 1000),
             ],
             [
                 self::ARGUMENTS => [],
@@ -64,7 +64,7 @@ final class IntervalTest extends TestCase
 
         yield [
             [
-                self::INTERVAL => (float) (IInterval::MIN_INTERVAL_MILLISECONDS / 1000),
+                self::INTERVAL => (float)(IInterval::MIN_INTERVAL_MILLISECONDS / 1000),
             ],
             [
                 self::ARGUMENTS => [
@@ -75,7 +75,7 @@ final class IntervalTest extends TestCase
 
         yield [
             [
-                self::INTERVAL => (float) (IInterval::MAX_INTERVAL_MILLISECONDS / 1000),
+                self::INTERVAL => (float)(IInterval::MAX_INTERVAL_MILLISECONDS / 1000),
             ],
             [
                 self::ARGUMENTS => [
@@ -215,6 +215,6 @@ final class IntervalTest extends TestCase
         $interval = self::getTesteeInstance($incoming[self::FIRST] ?? []);
         $other = self::getTesteeInstance($incoming[self::SECOND] ?? []);
         self::assertEquals($expected[self::INTERVAL], $interval->smallest($other)->toMilliseconds());
-        self::assertSame((float) $expected[self::INTERVAL], $interval->smallest($other)->toMilliseconds());
+        self::assertSame((float)$expected[self::INTERVAL], $interval->smallest($other)->toMilliseconds());
     }
 }

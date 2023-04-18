@@ -7,6 +7,8 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Pattern\CharPattern;
 
 use AlecRabbit\Spinner\Core\Pattern\A\AReversiblePattern;
+use ArrayObject;
+use Traversable;
 
 /** @psalm-suppress UnusedClass */
 final class Diamond extends AReversiblePattern
@@ -15,8 +17,8 @@ final class Diamond extends AReversiblePattern
 
     protected const PATTERN = ['♦'];
 
-    protected function entries(): \Traversable
+    protected function entries(): Traversable
     {
-        return new \ArrayObject(self::PATTERN);
+        return new ArrayObject(self::PATTERN);
     }
 }

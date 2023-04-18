@@ -7,6 +7,8 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Pattern\CharPattern;
 
 use AlecRabbit\Spinner\Core\Pattern\A\AReversiblePattern;
+use ArrayObject;
+use Traversable;
 
 /** @psalm-suppress UnusedClass */
 final class Ascii extends AReversiblePattern
@@ -14,8 +16,8 @@ final class Ascii extends AReversiblePattern
     protected const INTERVAL = 300;
     protected const PATTERN = ['/', '|', '\\', '─'];
 
-    protected function entries(): \Traversable
+    protected function entries(): Traversable
     {
-        return new \ArrayObject(self::PATTERN);
+        return new ArrayObject(self::PATTERN);
     }
 }

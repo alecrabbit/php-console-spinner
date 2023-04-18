@@ -9,7 +9,6 @@ namespace AlecRabbit\Spinner\Core\Pattern\A;
 use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Contract\Pattern\IPattern;
 use AlecRabbit\Spinner\Core\Interval;
-use ArrayObject;
 use Traversable;
 
 abstract class APattern implements IPattern
@@ -24,6 +23,11 @@ abstract class APattern implements IPattern
         $this->interval = $interval ?? $this->defaultInterval();
     }
 
+    protected function defaultInterval(): Interval
+    {
+        return new Interval(static::INTERVAL);
+    }
+
     public function getEntries(): Traversable
     {
         return $this->entries();
@@ -34,10 +38,5 @@ abstract class APattern implements IPattern
     public function getInterval(): IInterval
     {
         return $this->interval;
-    }
-
-    protected function defaultInterval(): Interval
-    {
-        return new Interval(static::INTERVAL);
     }
 }

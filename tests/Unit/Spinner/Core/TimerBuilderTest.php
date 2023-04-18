@@ -34,7 +34,7 @@ final class TimerBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
 
         $timer =
             $timerBuilder
-                ->withTimeFunction(static fn (): float => 0.0)
+                ->withTimeFunction(static fn(): float => 0.0)
                 ->withStartTime(0.0)
                 ->build()
         ;

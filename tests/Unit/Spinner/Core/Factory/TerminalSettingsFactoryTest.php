@@ -52,7 +52,8 @@ final class TerminalSettingsFactoryTest extends TestCaseWithPrebuiltMocksAndStub
         ;
         $terminalSettings =
             $this->getTesteeInstance(terminalProbe: $terminalProbe)
-                ->createTerminalSettings();
+                ->createTerminalSettings()
+        ;
 
         self::assertInstanceOf(TerminalSettings::class, $terminalSettings);
     }

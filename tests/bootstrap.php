@@ -31,8 +31,8 @@ function getFallbackDumper(): HtmlDumper|CliDumper
 function getAddress(false|string $srv): string
 {
     return $srv === false
-            ? 'tcp://127.0.0.1:9912'
-            : sprintf('tcp://%s', $srv);
+        ? 'tcp://127.0.0.1:9912'
+        : sprintf('tcp://%s', $srv);
 }
 
 function getHost(): string

@@ -7,6 +7,8 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Pattern\CharPattern;
 
 use AlecRabbit\Spinner\Core\Pattern\A\APattern;
+use ArrayObject;
+use Traversable;
 
 /** @psalm-suppress UnusedClass */
 final class PulseOrange extends APattern
@@ -15,8 +17,8 @@ final class PulseOrange extends APattern
 
     protected const PATTERN = ['🔸', '🔶', '🟠', '🟠', '🔶'];
 
-    protected function entries(): \Traversable
+    protected function entries(): Traversable
     {
-        return new \ArrayObject(self::PATTERN);
+        return new ArrayObject(self::PATTERN);
     }
 }

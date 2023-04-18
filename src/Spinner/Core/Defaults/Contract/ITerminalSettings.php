@@ -7,7 +7,6 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Defaults\Contract;
 
 use AlecRabbit\Spinner\Contract\Option\OptionCursor;
-use AlecRabbit\Spinner\Contract\Option\OptionNormalizerMode;
 use AlecRabbit\Spinner\Contract\Option\OptionStyleMode;
 
 interface ITerminalSettings

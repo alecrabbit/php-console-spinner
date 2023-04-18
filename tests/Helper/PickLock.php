@@ -5,12 +5,13 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Helper;
 
 use Error;
-use function is_string;
-use function method_exists;
-use function property_exists;
 use ReflectionClass;
 use ReflectionException;
 use RuntimeException;
+
+use function is_string;
+use function method_exists;
+use function property_exists;
 
 /**
  * Class PickLock
@@ -47,6 +48,33 @@ final class PickLock
                 );
             };
         return $closure->call($objectOrClass, $methodName, ...$args);
+    }
+
+    /**
+     * @psalm-suppress TypeCoercion
+     * @psalm-suppress InvalidStringClass
+     */
+    private static function getObject(object|string $objectOrClass): object
+    {
+        if (is_string($objectOrClass)) {
+            try {
+                $objectOrClass = new $objectOrClass();
+            } catch (Error $_) {
+                try {
+                    $class = new ReflectionClass($objectOrClass);
+                    $objectOrClass = $class->newInstanceWithoutConstructor();
+                    // @codeCoverageIgnoreStart
+                } catch (ReflectionException $exception) {
+                    throw new RuntimeException(
+                        '[' . get_debug_type($exception) . '] ' . $exception->getMessage(),
+                        (int)$exception->getCode(),
+                        $exception
+                    );
+                }
+                // @codeCoverageIgnoreEnd
+            }
+        }
+        return $objectOrClass;
     }
 
     /**
@@ -106,32 +134,5 @@ final class PickLock
                 );
             };
         return $closure->bindTo($objectOrClass, $objectOrClass)($value);
-    }
-
-    /**
-     * @psalm-suppress TypeCoercion
-     * @psalm-suppress InvalidStringClass
-     */
-    private static function getObject(object|string $objectOrClass): object
-    {
-        if (is_string($objectOrClass)) {
-            try {
-                $objectOrClass = new $objectOrClass();
-            } catch (Error $_) {
-                try {
-                    $class = new ReflectionClass($objectOrClass);
-                    $objectOrClass = $class->newInstanceWithoutConstructor();
-                    // @codeCoverageIgnoreStart
-                } catch (ReflectionException $exception) {
-                    throw new RuntimeException(
-                        '[' . get_debug_type($exception) . '] ' . $exception->getMessage(),
-                        (int) $exception->getCode(),
-                        $exception
-                    );
-                }
-                // @codeCoverageIgnoreEnd
-            }
-        }
-        return $objectOrClass;
     }
 }

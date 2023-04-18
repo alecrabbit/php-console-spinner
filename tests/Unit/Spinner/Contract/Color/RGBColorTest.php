@@ -101,7 +101,7 @@ final class RGBColorTest extends TestCase
         $expectedResult = $expected[self::RESULT];
         $toString = $expected[self::TO_STRING];
 
-        self::assertEquals($toString, (string) $result);
+        self::assertEquals($toString, (string)$result);
 
         self::assertEquals($expectedResult, $result);
         self::assertSame($expectedResult->red, $result->red);
@@ -125,6 +125,6 @@ final class RGBColorTest extends TestCase
         }
 
         self::assertEquals($expected[self::RESULT], $result);
-        self::assertEquals($expected[self::HEX], (string) $result);
+        self::assertEquals($expected[self::HEX], (string)$result);
     }
 }

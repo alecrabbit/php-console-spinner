@@ -20,6 +20,14 @@ final class SpinnerTest extends TestCaseWithPrebuiltMocksAndStubs
         self::assertInstanceOf(Spinner::class, $spinner);
     }
 
+    protected function getTesteeInstance(
+        ?IWidgetComposite $rootWidget = null,
+    ): ISpinner {
+        return new Spinner(
+            $rootWidget ?? $this->getWidgetCompositeMock(),
+        );
+    }
+
     #[Test]
     public function canUpdate(): void
     {
@@ -81,13 +89,5 @@ final class SpinnerTest extends TestCaseWithPrebuiltMocksAndStubs
 
         self::assertInstanceOf(Spinner::class, $spinner);
         $spinner->remove($context);
-    }
-
-    protected function getTesteeInstance(
-        ?IWidgetComposite $rootWidget = null,
-    ): ISpinner {
-        return new Spinner(
-            $rootWidget ?? $this->getWidgetCompositeMock(),
-        );
     }
 }

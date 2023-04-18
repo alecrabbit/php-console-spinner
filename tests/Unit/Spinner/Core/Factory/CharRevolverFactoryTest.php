@@ -27,8 +27,7 @@ final class CharRevolverFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
     ): ICharRevolverFactory {
         return new CharRevolverFactory(
             frameRevolverBuilder: $frameRevolverBuilder ?? $this->getFrameRevolverBuilderMock(),
-            charFrameCollectionRenderer: $charFrameCollectionRenderer ?? $this->getCharFrameCollectionRendererMock(
-            ),
+            charFrameCollectionRenderer: $charFrameCollectionRenderer ?? $this->getCharFrameCollectionRendererMock(),
         );
     }
 
