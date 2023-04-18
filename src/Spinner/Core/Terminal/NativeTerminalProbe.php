@@ -11,18 +11,18 @@ use AlecRabbit\Spinner\Core\Terminal\A\ATerminalProbe;
 
 final class NativeTerminalProbe extends ATerminalProbe
 {
-    public static function isAvailable(): bool
+    public function isAvailable(): bool
     {
         return true;
     }
 
-    public static function getWidth(): int
+    public function getWidth(): int
     {
-        return self::TERMINAL_DEFAULT_WIDTH;
+        return self::DEFAULT_TERMINAL_WIDTH;
     }
 
-    public static function getColorMode(): OptionStyleMode
+    public function getOptionStyleMode(): OptionStyleMode
     {
-        return self::TERMINAL_DEFAULT_COLOR_SUPPORT;
+        return self::DEFAULT_OPTION_STYLE_MODE;
     }
 }

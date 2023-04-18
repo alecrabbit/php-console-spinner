@@ -15,17 +15,17 @@ use function class_exists;
 
 final class SymfonyTerminalProbe extends ATerminalProbe
 {
-    public static function isAvailable(): bool
+    public function isAvailable(): bool
     {
         return class_exists(Terminal::class);
     }
 
-    public static function getWidth(): int
+    public function getWidth(): int
     {
         return (new Terminal())->getWidth();
     }
 
-    public static function getColorMode(): OptionStyleMode
+    public function getOptionStyleMode(): OptionStyleMode
     {
         return match (Terminal::getColorMode()) {
             AnsiColorMode::Ansi24 => OptionStyleMode::ANSI24,

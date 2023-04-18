@@ -15,14 +15,14 @@ abstract class ATerminalProbe implements ITerminalProbe
 {
     use NoInstanceTrait;
 
-    abstract public static function isAvailable(): bool;
+    abstract public function isAvailable(): bool;
 
-    abstract public static function getWidth(): int;
+    abstract public function getWidth(): int;
 
-    abstract public static function getColorMode(): OptionStyleMode;
+    abstract public function getOptionStyleMode(): OptionStyleMode;
 
-    public static function getCursorMode(): OptionCursor
+    public function getOptionCursor(): OptionCursor
     {
-        return ITerminalProbe::TERMINAL_DEFAULT_CURSOR_MODE;
+        return ITerminalProbe::DEFAULT_OPTION_CURSOR;
     }
 }

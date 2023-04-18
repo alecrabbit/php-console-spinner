@@ -6,7 +6,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Contract;
 
-interface IProbe
+interface IStaticProbe
 {
-    public function isAvailable(): bool;
+    public static function isAvailable(): bool;
 }

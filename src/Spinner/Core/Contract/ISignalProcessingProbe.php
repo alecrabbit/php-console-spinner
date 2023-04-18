@@ -6,8 +6,8 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Contract;
 
-use AlecRabbit\Spinner\Contract\IProbe;
+use AlecRabbit\Spinner\Contract\IStaticProbe;
 
-interface ISignalProcessingProbe extends IProbe
+interface ISignalProcessingProbe extends IStaticProbe
 {
 }

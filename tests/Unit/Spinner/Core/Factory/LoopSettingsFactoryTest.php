@@ -19,9 +19,9 @@ final class LoopSettingsFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
     #[Test]
     public function canBeCreated(): void
     {
-        $builder = $this->getTesteeInstance();
+        $loopSettingsFactory = $this->getTesteeInstance();
 
-        self::assertInstanceOf(LoopSettingsFactory::class, $builder);
+        self::assertInstanceOf(LoopSettingsFactory::class, $loopSettingsFactory);
     }
 
     public function getTesteeInstance(

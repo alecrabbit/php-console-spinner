@@ -23,6 +23,7 @@ final class DefaultsProviderBuilder implements IDefaultsProviderBuilder
 {
     public function __construct(
         protected ILoopSettingsFactory $loopSettingsFactory,
+        // protected ITerminalSettingsFactory $terminalSettingsFactory,
         protected IAuxSettingsBuilder $auxSettingsBuilder,
         protected IDriverSettingsBuilder $driverSettingsBuilder,
         protected IWidgetSettingsBuilder $widgetSettingsBuilder,

@@ -12,13 +12,13 @@ use AlecRabbit\Spinner\Contract\Option\OptionStyleMode;
 
 interface ITerminalProbe extends IProbe
 {
-    final public const TERMINAL_DEFAULT_CURSOR_MODE = OptionCursor::HIDDEN;
-    final public const TERMINAL_DEFAULT_WIDTH = 100;
-    final public const TERMINAL_DEFAULT_COLOR_SUPPORT = OptionStyleMode::ANSI8;
+    final public const DEFAULT_OPTION_CURSOR = OptionCursor::HIDDEN;
+    final public const DEFAULT_TERMINAL_WIDTH = 100;
+    final public const DEFAULT_OPTION_STYLE_MODE = OptionStyleMode::ANSI8;
 
-    public static function getWidth(): int;
+    public function getWidth(): int;
 
-    public static function getColorMode(): OptionStyleMode;
+    public function getOptionStyleMode(): OptionStyleMode;
 
-    public static function getCursorMode(): OptionCursor;
+    public function getOptionCursor(): OptionCursor;
 }

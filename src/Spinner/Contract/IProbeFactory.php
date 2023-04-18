@@ -6,5 +6,5 @@ namespace AlecRabbit\Spinner\Contract;
 
 interface IProbeFactory
 {
-    public function getProbe(): IProbe;
+    public function getProbe(): IStaticProbe;
 }
