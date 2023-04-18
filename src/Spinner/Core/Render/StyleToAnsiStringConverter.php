@@ -28,6 +28,11 @@ final class StyleToAnsiStringConverter implements IStyleToAnsiStringConverter
             return $style->getFormat();
         }
 
+        return $this->doConvert($style);
+    }
+
+    private function doConvert(IStyle $style): string
+    {
         $fg = $this->fg($style);
         $bg = $this->bg($style);
 
@@ -36,7 +41,10 @@ final class StyleToAnsiStringConverter implements IStyleToAnsiStringConverter
                 ? $this->optionsParser->parseOptions($style->getOptions())
                 : [];
 
-        return $this->set($fg, $bg, $options) . $style->getFormat() . $this->unset($fg, $bg, $options);
+        return
+            $this->set($fg, $bg, $options)
+            . $style->getFormat()
+            . $this->unset($fg, $bg, $options);
     }
 
     private function fg(IStyle $style): string
