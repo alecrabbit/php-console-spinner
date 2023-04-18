@@ -11,6 +11,7 @@ use AlecRabbit\Spinner\Container\Contract\IContainer;
 use AlecRabbit\Spinner\Container\Contract\IServiceSpawner;
 use AlecRabbit\Spinner\Container\ServiceSpawner;
 use AlecRabbit\Spinner\Contract\Color\Style\IStyleOptionsParser;
+use AlecRabbit\Spinner\Contract\Option\OptionCursor;
 use AlecRabbit\Spinner\Contract\Option\OptionNormalizerMode;
 use AlecRabbit\Spinner\Contract\Option\OptionStyleMode;
 use AlecRabbit\Spinner\Contract\Output\IResourceStream;
@@ -131,12 +132,73 @@ final class ContainerSingletonFactory implements IContainerSingletonFactory
     {
         // TODO (2023-04-10 20:21) [Alec Rabbit]: consider extracting definitions?
         yield from [
+            IAnsiColorParserFactory::class => AnsiColorParserFactory::class,
+            IAuxSettingsBuilder::class => AuxSettingsBuilder::class,
+            IBufferedOutputBuilder::class => BufferedOutputBuilder::class,
+            IBufferedOutputSingletonFactory::class => BufferedOutputSingletonFactory::class,
+            ICharFrameCollectionRenderer::class => CharFrameCollectionRenderer::class,
+            ICharFrameRenderer::class => CharFrameRenderer::class,
+            ICharRevolverFactory::class => CharRevolverFactory::class,
+            IConsoleCursorBuilder::class => ConsoleCursorBuilder::class,
+            IConsoleCursorFactory::class => ConsoleCursorFactory::class,
+            IDefaultsProviderBuilder::class => DefaultsProviderBuilder::class,
+            IDriverAttacherSingletonFactory::class => DriverAttacherSingletonFactory::class,
+            IDriverBuilder::class => DriverBuilder::class,
+            IDriverOutputBuilder::class => DriverOutputBuilder::class,
+            IDriverOutputFactory::class => DriverOutputFactory::class,
+            IDriverSettingsBuilder::class => DriverSettingsBuilder::class,
+            IDriverSetup::class => DriverSetup::class,
+            IDriverSingletonFactory::class => DriverSingletonFactory::class,
+            IFrameFactory::class => FrameFactory::class,
+            IFrameRevolverBuilder::class => FrameRevolverBuilder::class,
+            IHexColorToAnsiCodeConverterFactory::class => HexColorToAnsiCodeConverterFactory::class,
+            IIntegerNormalizerBuilder::class => IntegerNormalizerBuilder::class,
+            IIntervalFactory::class => IntervalFactory::class,
+            IIntervalNormalizerFactory::class => IntervalNormalizerFactory::class,
+            ILoopSetup::class => LoopSetup::class,
+            ILoopSetupBuilder::class => LoopSetupBuilder::class,
+            ILoopSetupFactory::class => LoopSetupFactory::class,
+            ILoopSingletonFactory::class => LoopSingletonFactory::class,
+            ISpinnerFactory::class => SpinnerFactory::class,
+            IStyleFactory::class => StyleFactory::class,
+            IStyleFrameCollectionRenderer::class => StyleFrameCollectionRenderer::class,
+            IStyleFrameRendererFactory::class => StyleFrameRendererFactory::class,
+            IStyleOptionsParser::class => StyleOptionsParser::class,
+            IStyleRendererFactory::class => StyleRendererFactory::class,
+            IStyleRevolverFactory::class => StyleRevolverFactory::class,
+            IStyleToAnsiStringConverterFactory::class => StyleToAnsiStringConverterFactory::class,
+            ITimerBuilder::class => TimerBuilder::class,
+            ITimerFactory::class => TimerFactory::class,
+            IWidgetBuilder::class => WidgetBuilder::class,
+            IWidgetFactory::class => WidgetFactory::class,
+            IWidgetRevolverBuilder::class => WidgetRevolverBuilder::class,
+            IWidgetRevolverFactory::class => WidgetRevolverFactory::class,
+            IWidgetSettingsBuilder::class => WidgetSettingsBuilder::class,
+            IWidthMeasurerFactory::class => WidthMeasurerFactory::class,
+
             IDefaultsProvider::class => static function (ContainerInterface $container): IDefaultsProvider {
                 return $container->get(IDefaultsProviderBuilder::class)->build();
             },
-
-            IDefaultsProviderBuilder::class => DefaultsProviderBuilder::class,
-
+            IDriver::class => static function (ContainerInterface $container): IDriver {
+                return $container->get(IDriverSingletonFactory::class)->getDriver();
+            },
+            IDriverAttacher::class => static function (ContainerInterface $container): IDriverAttacher {
+                return $container->get(IDriverAttacherSingletonFactory::class)->getAttacher();
+            },
+            IDriverSettings::class => static function (ContainerInterface $container): IDriverSettings {
+                return $container->get(IDefaultsProvider::class)->getDriverSettings();
+            },
+            ILoop::class => static function (ContainerInterface $container): ILoop {
+                return $container->get(ILoopSingletonFactory::class)->getLoop();
+            },
+            ILoopProbeFactory::class => static function (): never {
+                throw new DomainException(
+                    sprintf(
+                        'Service for id [%s] is not available in this context.',
+                        ILoopProbeFactory::class
+                    )
+                );
+            },
             ILoopSettingsFactory::class => static function (ContainerInterface $container): ILoopSettingsFactory {
                 $loopProbe = null;
                 $signalProcessingProbe = null;
@@ -150,91 +212,13 @@ final class ContainerSingletonFactory implements IContainerSingletonFactory
                     );
                 }
             },
-
-            ITerminalSettingsFactory::class => static function (ContainerInterface $container
-            ): ITerminalSettingsFactory {
-                $terminalProbe = $container->get(ITerminalProbeFactory::class)->getProbe();
-
-                return new TerminalSettingsFactory($terminalProbe);
+            IIntervalNormalizer::class => static function (ContainerInterface $container): IIntervalNormalizer {
+                return $container->get(IIntervalNormalizerFactory::class)->create();
             },
-
-            IDriver::class => static function (ContainerInterface $container): IDriver {
-                return $container->get(IDriverSingletonFactory::class)->getDriver();
-            },
-
-            IDriverSingletonFactory::class => DriverSingletonFactory::class,
-            IDriverBuilder::class => DriverBuilder::class,
-            IDriverOutputFactory::class => DriverOutputFactory::class,
-            IDriverOutputBuilder::class => DriverOutputBuilder::class,
-            IDriverSettings::class => static function (ContainerInterface $container): IDriverSettings {
-                return $container->get(IDefaultsProvider::class)->getDriverSettings();
-            },
-            IBufferedOutputSingletonFactory::class => BufferedOutputSingletonFactory::class,
             IResourceStream::class => static function (ContainerInterface $container): IResourceStream {
                 /** @var IDefaultsProvider $provider */
                 $provider = $container->get(IDefaultsProvider::class);
                 return new ResourceStream($provider->getTerminalSettings()->getOutputStream());
-            },
-            IConsoleCursorFactory::class => ConsoleCursorFactory::class,
-            ITimerFactory::class => TimerFactory::class,
-            IHexColorToAnsiCodeConverterFactory::class => HexColorToAnsiCodeConverterFactory::class,
-            IAuxSettingsBuilder::class => AuxSettingsBuilder::class,
-            IAnsiColorParserFactory::class => AnsiColorParserFactory::class,
-            IStyleOptionsParser::class => StyleOptionsParser::class,
-            IBufferedOutputBuilder::class => BufferedOutputBuilder::class,
-            ILoopSetupFactory::class => LoopSetupFactory::class,
-            ICharFrameCollectionRenderer::class => CharFrameCollectionRenderer::class,
-            ICharFrameRenderer::class => CharFrameRenderer::class,
-            IConsoleCursorBuilder::class => ConsoleCursorBuilder::class,
-            IDriverAttacherSingletonFactory::class => DriverAttacherSingletonFactory::class,
-            IDriverSettingsBuilder::class => DriverSettingsBuilder::class,
-            IDriverSetup::class => DriverSetup::class,
-            IFrameFactory::class => FrameFactory::class,
-            IIntervalFactory::class => IntervalFactory::class,
-            ISpinnerFactory::class => SpinnerFactory::class,
-            IWidgetFactory::class => WidgetFactory::class,
-            IWidgetRevolverFactory::class => WidgetRevolverFactory::class,
-            IStyleRevolverFactory::class => StyleRevolverFactory::class,
-            ICharRevolverFactory::class => CharRevolverFactory::class,
-            IFrameRevolverBuilder::class => FrameRevolverBuilder::class,
-            IIntervalNormalizerFactory::class => IntervalNormalizerFactory::class,
-            IIntervalNormalizer::class => static function (ContainerInterface $container): IIntervalNormalizer {
-                return $container->get(IIntervalNormalizerFactory::class)->create();
-            },
-            IIntegerNormalizerBuilder::class => IntegerNormalizerBuilder::class,
-            ILoopSingletonFactory::class => LoopSingletonFactory::class,
-            ILoopSetup::class => LoopSetup::class,
-            ILoopSetupBuilder::class => LoopSetupBuilder::class,
-            IStyleFrameCollectionRenderer::class => StyleFrameCollectionRenderer::class,
-            IStyleFrameRendererFactory::class => StyleFrameRendererFactory::class,
-            IStyleToAnsiStringConverterFactory::class => StyleToAnsiStringConverterFactory::class,
-            IStyleRendererFactory::class => StyleRendererFactory::class,
-            IStyleFactory::class => StyleFactory::class,
-            ITimerBuilder::class => TimerBuilder::class,
-            IWidgetBuilder::class => WidgetBuilder::class,
-            IWidgetRevolverBuilder::class => WidgetRevolverBuilder::class,
-            IWidgetSettingsBuilder::class => WidgetSettingsBuilder::class,
-            IWidthMeasurerFactory::class => WidthMeasurerFactory::class,
-
-            OptionStyleMode::class => static function (ContainerInterface $container): OptionStyleMode {
-                return $container->get(IDefaultsProvider::class)->getTerminalSettings()->getOptionStyleMode();
-            },
-
-            OptionNormalizerMode::class => static function (ContainerInterface $container): OptionNormalizerMode {
-                return $container->get(IDefaultsProvider::class)->getAuxSettings()->getOptionNormalizerMode();
-            },
-
-            ILoop::class => static function (ContainerInterface $container): ILoop {
-                return $container->get(ILoopSingletonFactory::class)->getLoop();
-            },
-
-            ILoopProbeFactory::class => static function (): never {
-                throw new DomainException(
-                    sprintf(
-                        'Service for id [%s] is not available in this context.',
-                        ILoopProbeFactory::class
-                    )
-                );
             },
             ITerminalProbeFactory::class => static function (): ITerminalProbeFactory {
                 return new TerminalProbeFactory(
@@ -243,13 +227,23 @@ final class ContainerSingletonFactory implements IContainerSingletonFactory
                     ]),
                 );
             },
+            ITerminalSettingsFactory::class => static function (ContainerInterface $container
+            ): ITerminalSettingsFactory {
+                $terminalProbe = $container->get(ITerminalProbeFactory::class)->getProbe();
 
-            IDriverAttacher::class => static function (ContainerInterface $container): IDriverAttacher {
-                return $container->get(IDriverAttacherSingletonFactory::class)->getAttacher();
+                return new TerminalSettingsFactory($terminalProbe);
             },
-
             IWidthMeasurer::class => static function (ContainerInterface $container): IWidthMeasurer {
                 return $container->get(IWidthMeasurerFactory::class)->create();
+            },
+            OptionNormalizerMode::class => static function (ContainerInterface $container): OptionNormalizerMode {
+                return $container->get(IDefaultsProvider::class)->getAuxSettings()->getOptionNormalizerMode();
+            },
+            OptionCursor::class => static function (ContainerInterface $container): OptionCursor {
+                return $container->get(IDefaultsProvider::class)->getTerminalSettings()->getOptionCursor();
+            },
+            OptionStyleMode::class => static function (ContainerInterface $container): OptionStyleMode {
+                return $container->get(IDefaultsProvider::class)->getTerminalSettings()->getOptionStyleMode();
             },
         ];
     }
