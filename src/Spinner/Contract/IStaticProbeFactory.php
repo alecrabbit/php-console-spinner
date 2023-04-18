@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Contract;
 
-interface IProbeFactory
+interface IStaticProbeFactory
 {
-    public function getProbe(): IProbe;
+    public function getProbe(): IStaticProbe;
 }

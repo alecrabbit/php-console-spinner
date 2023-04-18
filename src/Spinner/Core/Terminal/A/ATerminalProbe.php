@@ -13,8 +13,6 @@ use AlecRabbit\Spinner\Mixin\NoInstanceTrait;
 
 abstract class ATerminalProbe implements ITerminalProbe
 {
-    use NoInstanceTrait;
-
     abstract public function isAvailable(): bool;
 
     abstract public function getWidth(): int;
