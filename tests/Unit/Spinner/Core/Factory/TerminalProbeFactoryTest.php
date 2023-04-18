@@ -29,7 +29,7 @@ final class TerminalProbeFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
         ?Traversable $terminalProbes = null,
     ): ITerminalProbeFactory {
         return new TerminalProbeFactory(
-            terminalProbes: $terminalProbes ?? $this->getTerminalProbesMock(),
+            probeClasses: $terminalProbes ?? $this->getTerminalProbesMock(),
         );
     }
 

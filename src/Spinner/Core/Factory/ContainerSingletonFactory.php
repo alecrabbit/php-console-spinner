@@ -95,6 +95,7 @@ use AlecRabbit\Spinner\Core\Widget\Factory\WidgetRevolverFactory;
 use AlecRabbit\Spinner\Core\Widget\WidgetBuilder;
 use AlecRabbit\Spinner\Core\Widget\WidgetRevolverBuilder;
 use AlecRabbit\Spinner\Exception\DomainException;
+use ArrayObject;
 use Psr\Container\ContainerInterface;
 use Traversable;
 
@@ -222,7 +223,7 @@ final class ContainerSingletonFactory implements IContainerSingletonFactory
             },
             ITerminalProbeFactory::class => static function (): ITerminalProbeFactory {
                 return new TerminalProbeFactory(
-                    new \ArrayObject([
+                    new ArrayObject([
                         NativeTerminalProbe::class,
                     ]),
                 );
@@ -243,7 +244,7 @@ final class ContainerSingletonFactory implements IContainerSingletonFactory
                 return $container->get(IDefaultsProvider::class)->getTerminalSettings()->getOptionCursor();
             },
             OptionStyleMode::class => static function (ContainerInterface $container): OptionStyleMode {
-                return $container->get(IDefaultsProvider::class)->getTerminalSettings()->getOptionStyleMode();
+                return dump($container->get(IDefaultsProvider::class)->getTerminalSettings()->getOptionStyleMode());
             },
         ];
     }

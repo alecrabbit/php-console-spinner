@@ -261,6 +261,7 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
     {
         return $this->createMock(ILoopSettingsFactory::class);
     }
+
     protected function getTerminalSettingsFactoryMock(): MockObject&ITerminalSettingsFactory
     {
         return $this->createMock(ITerminalSettingsFactory::class);
@@ -295,6 +296,7 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
     {
         return $this->createMock(ILoopSettings::class);
     }
+
     protected function getTerminalSettingsMock(): MockObject&ITerminalSettings
     {
         return $this->createMock(ITerminalSettings::class);

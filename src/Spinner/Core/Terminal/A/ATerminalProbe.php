@@ -9,7 +9,6 @@ namespace AlecRabbit\Spinner\Core\Terminal\A;
 use AlecRabbit\Spinner\Contract\Option\OptionCursor;
 use AlecRabbit\Spinner\Contract\Option\OptionStyleMode;
 use AlecRabbit\Spinner\Core\Terminal\Contract\ITerminalProbe;
-use AlecRabbit\Spinner\Mixin\NoInstanceTrait;
 
 abstract class ATerminalProbe implements ITerminalProbe
 {

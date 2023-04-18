@@ -2,9 +2,10 @@
 
 declare(strict_types=1);
 
+use AlecRabbit\Spinner\Contract\Option\OptionStyleMode;
 use AlecRabbit\Spinner\Core\Config\SpinnerConfig;
 use AlecRabbit\Spinner\Core\Config\WidgetConfig;
-use AlecRabbit\Spinner\Core\Pattern\CharPattern\Aesthetic;
+use AlecRabbit\Spinner\Core\Pattern\CharPattern\SwirlingDots;
 use AlecRabbit\Spinner\Facade;
 use AlecRabbit\Spinner\Helper\MemoryUsage;
 
@@ -16,12 +17,16 @@ $m = new MemoryUsage();
 echo '--' . PHP_EOL;
 echo $m->report() . PHP_EOL;
 
+$defaultsProvider = Facade::getDefaultsProvider();
+$defaultsProvider->getTerminalSettings()->setOptionStyleMode(OptionStyleMode::ANSI4);
+
 $config =
     new SpinnerConfig(
         new WidgetConfig(
-            charPattern: new \AlecRabbit\Spinner\Core\Pattern\CharPattern\SwirlingDots()
+            charPattern: new SwirlingDots()
         )
     );
+
 
 $spinner = Facade::createSpinner($config);
 $driver = Facade::getDriver();
@@ -37,7 +42,7 @@ $loop->repeat(
         $message =
             sprintf(
                 '%s %s',
-                (new \DateTimeImmutable())->format(DATE_RFC3339_EXTENDED),
+                (new DateTimeImmutable())->format(DATE_RFC3339_EXTENDED),
                 $m->report(),
             );
         echo $message . PHP_EOL;
