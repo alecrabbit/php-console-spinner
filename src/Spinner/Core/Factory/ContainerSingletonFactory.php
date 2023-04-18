@@ -31,9 +31,11 @@ use AlecRabbit\Spinner\Core\Contract\IIntegerNormalizerBuilder;
 use AlecRabbit\Spinner\Core\Contract\IIntervalNormalizer;
 use AlecRabbit\Spinner\Core\Contract\ILoopSetup;
 use AlecRabbit\Spinner\Core\Contract\ILoopSetupBuilder;
+use AlecRabbit\Spinner\Core\Contract\ISignalProcessingProbe;
 use AlecRabbit\Spinner\Core\Contract\ITimerBuilder;
 use AlecRabbit\Spinner\Core\Contract\IWidthMeasurer;
 use AlecRabbit\Spinner\Core\Contract\Loop\Contract\ILoop;
+use AlecRabbit\Spinner\Core\Contract\Loop\Contract\ILoopProbe;
 use AlecRabbit\Spinner\Core\Defaults\AuxSettingsBuilder;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IAuxSettingsBuilder;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDefaultsProviderBuilder;
@@ -189,6 +191,9 @@ final class ContainerSingletonFactory implements IContainerSingletonFactory
             IDriverSettings::class => static function (ContainerInterface $container): IDriverSettings {
                 return $container->get(IDefaultsProvider::class)->getDriverSettings();
             },
+            IIntervalNormalizer::class => static function (ContainerInterface $container): IIntervalNormalizer {
+                return $container->get(IIntervalNormalizerFactory::class)->create();
+            },
             ILoop::class => static function (ContainerInterface $container): ILoop {
                 return $container->get(ILoopSingletonFactory::class)->getLoop();
             },
@@ -199,6 +204,9 @@ final class ContainerSingletonFactory implements IContainerSingletonFactory
                         ILoopProbeFactory::class
                     )
                 );
+            },
+            ILoopProbe::class => static function (ContainerInterface $container): ILoopProbe {
+                return $container->get(ILoopProbeFactory::class)->getProbe();
             },
             ILoopSettingsFactory::class => static function (ContainerInterface $container): ILoopSettingsFactory {
                 $loopProbe = null;
@@ -213,9 +221,10 @@ final class ContainerSingletonFactory implements IContainerSingletonFactory
                     );
                 }
             },
-            IIntervalNormalizer::class => static function (ContainerInterface $container): IIntervalNormalizer {
-                return $container->get(IIntervalNormalizerFactory::class)->create();
+            ISignalProcessingProbe::class => static function (ContainerInterface $container): ISignalProcessingProbe {
+                return $container->get(ISignalProcessingProbeFactory::class)->getProbe();
             },
+            ISignalProcessingProbeFactory::class => SignalProcessingProbeFactory::class,
             IResourceStream::class => static function (ContainerInterface $container): IResourceStream {
                 /** @var IDefaultsProvider $provider */
                 $provider = $container->get(IDefaultsProvider::class);
@@ -244,7 +253,7 @@ final class ContainerSingletonFactory implements IContainerSingletonFactory
                 return $container->get(IDefaultsProvider::class)->getTerminalSettings()->getOptionCursor();
             },
             OptionStyleMode::class => static function (ContainerInterface $container): OptionStyleMode {
-                return dump($container->get(IDefaultsProvider::class)->getTerminalSettings()->getOptionStyleMode());
+                return $container->get(IDefaultsProvider::class)->getTerminalSettings()->getOptionStyleMode();
             },
         ];
     }
