@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Tests\Unit\Spinner\Asynchronous\Factory\Stub;
+namespace AlecRabbit\Tests\Unit\Spinner\Core\Factory\Stub;
 
 use AlecRabbit\Spinner\Contract\Option\OptionStyleMode;
 use AlecRabbit\Spinner\Core\Terminal\A\ATerminalProbe;

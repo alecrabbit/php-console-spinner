@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Tests\Unit\Spinner\Asynchronous\Factory;
+namespace AlecRabbit\Tests\Unit\Spinner\Core\Factory;
 
+use AlecRabbit\Tests\Unit\Spinner\Core\Factory\Stub\TerminalProbeStub;
 use AlecRabbit\Spinner\Core\Contract\Loop\A\ALoopProbe;
 use AlecRabbit\Spinner\Core\Factory\Contract\ITerminalProbeFactory;
 use AlecRabbit\Spinner\Core\Factory\TerminalProbeFactory;
 use AlecRabbit\Spinner\Core\Terminal\A\ATerminalProbe;
 use AlecRabbit\Spinner\Exception\DomainException;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
-use AlecRabbit\Tests\Unit\Spinner\Asynchronous\Factory\Stub\TerminalProbeStub;
 use ArrayObject;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
