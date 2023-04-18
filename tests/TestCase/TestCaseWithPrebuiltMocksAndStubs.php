@@ -34,6 +34,7 @@ use AlecRabbit\Spinner\Core\Contract\IIntegerNormalizerBuilder;
 use AlecRabbit\Spinner\Core\Contract\IIntervalNormalizer;
 use AlecRabbit\Spinner\Core\Contract\ILoopSetup;
 use AlecRabbit\Spinner\Core\Contract\ILoopSetupBuilder;
+use AlecRabbit\Spinner\Core\Contract\ISignalProcessingProbe;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use AlecRabbit\Spinner\Core\Contract\ISpinnerState;
 use AlecRabbit\Spinner\Core\Contract\ITimerBuilder;
@@ -82,6 +83,7 @@ use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContext;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolverBuilder;
 use AlecRabbit\Spinner\Core\Widget\Factory\Contract\IWidgetFactory;
+use AlecRabbit\Tests\Unit\Spinner\Core\Factory\LoopSettingsFactoryTest;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\MockObject\Stub;
 
@@ -525,5 +527,10 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
     protected function getTerminalProbeMock(): MockObject&ITerminalProbe
     {
         return $this->createMock(ITerminalProbe::class);
+    }
+
+    protected function getSignalProcessingProbeMock(): MockObject&ISignalProcessingProbe
+    {
+        return $this->createMock(ISignalProcessingProbe::class);
     }
 }

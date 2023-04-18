@@ -11,7 +11,6 @@ use AlecRabbit\Spinner\Core\Factory\Contract\ILoopSettingsFactory;
 use AlecRabbit\Spinner\Core\Factory\LoopSettingsFactory;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use AlecRabbit\Tests\Unit\Spinner\Core\Defaults\Override\LoopProbeStub;
-use AlecRabbit\Tests\Unit\Spinner\Core\Defaults\Override\SignalProcessingProbeStub;
 use PHPUnit\Framework\Attributes\Test;
 
 final class LoopSettingsFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
@@ -48,12 +47,18 @@ final class LoopSettingsFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
     }
 
     #[Test]
-    public function allSettingsAreEnabledIfLoopProbeIsProvided(): void
+    public function allSettingsAreEnabledIfAllProbesAreProvided(): void
     {
+        $signalProcessingProbe = $this->getSignalProcessingProbeMock();
+        $signalProcessingProbe
+            ->expects(self::once())
+            ->method('isAvailable')
+            ->willReturn(true);
+
         $loopSettings =
             $this->getTesteeInstance(
                 loopProbe: $this->getLoopProbeStub(),
-                signalProcessingProbe: $this->getSignalProcessingProbeStub(),
+                signalProcessingProbe: $signalProcessingProbe,
             )
                 ->createLoopSettings()
         ;
@@ -71,8 +76,4 @@ final class LoopSettingsFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
         return new LoopProbeStub();
     }
 
-    protected function getSignalProcessingProbeStub(): ISignalProcessingProbe
-    {
-        return new SignalProcessingProbeStub();
-    }
 }

@@ -57,7 +57,7 @@ final class LoopSettingsFactory implements ILoopSettingsFactory
     private function isSignalProcessingAvailable(): bool
     {
         return match (true) {
-            $this->signalProcessingProbe instanceof ISignalProcessingProbe => $this->signalProcessingProbe::isAvailable(
+            $this->signalProcessingProbe instanceof ISignalProcessingProbe => $this->signalProcessingProbe->isAvailable(
             ),
             default => false,
         };

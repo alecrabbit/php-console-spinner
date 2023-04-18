@@ -10,11 +10,7 @@ use AlecRabbit\Spinner\Core\Contract\ISignalProcessingProbe;
 
 final class SignalProcessingProbe implements ISignalProcessingProbe
 {
-    public function __construct()
-    {
-    }
-
-    public static function isAvailable(): bool
+    public function isAvailable(): bool
     {
         return true; // FIXME (2023-04-14 15:48) [Alec Rabbit]: IT IS A STUB!
     }
