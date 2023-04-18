@@ -102,7 +102,7 @@ final class StyleToAnsiStringConverterTest extends TestCaseWithPrebuiltMocksAndS
             ->expects(self::once())
             ->method('getOptions')
             ->willReturn(new StyleOptions(StyleOption::BOLD))
-        ;;
+        ;
         $style
             ->expects(self::once())
             ->method('getFormat')

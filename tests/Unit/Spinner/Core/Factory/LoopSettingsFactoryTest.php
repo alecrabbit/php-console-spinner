@@ -53,7 +53,8 @@ final class LoopSettingsFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
         $signalProcessingProbe
             ->expects(self::once())
             ->method('isAvailable')
-            ->willReturn(true);
+            ->willReturn(true)
+        ;
 
         $loopSettings =
             $this->getTesteeInstance(
