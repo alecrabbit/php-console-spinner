@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-use AlecRabbit\Spinner\Contract\Option\OptionStyleMode;
 use AlecRabbit\Spinner\Core\Config\SpinnerConfig;
 use AlecRabbit\Spinner\Core\Config\WidgetConfig;
 use AlecRabbit\Spinner\Core\Pattern\CharPattern\SwirlingDots;
@@ -18,7 +17,18 @@ echo '--' . PHP_EOL;
 echo $m->report() . PHP_EOL;
 
 $defaultsProvider = Facade::getDefaultsProvider();
-$defaultsProvider->getTerminalSettings()->setOptionStyleMode(OptionStyleMode::ANSI4);
+//$defaultsProvider
+//    ->getTerminalSettings()
+//    ->setOptionStyleMode(
+//        \AlecRabbit\Spinner\Contract\Option\OptionStyleMode::ANSI4
+//    )
+//;
+//$defaultsProvider
+//    ->getLoopSettings()
+//    ->setOptionAutoStart(
+//        \AlecRabbit\Spinner\Contract\Option\OptionAutoStart::DISABLED
+//    )
+//;
 
 $config =
     new SpinnerConfig(
@@ -35,6 +45,7 @@ $loop = Facade::getLoop();
 //dump($loop);
 //dump($spinner);
 //dump($driver);
+dump($defaultsProvider);
 
 $loop->repeat(
     $reportInterval,

@@ -8,7 +8,7 @@ use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Core\Frame;
 use AlecRabbit\Spinner\Core\Revolver\A\ARevolver;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
-use AlecRabbit\Spinner\Core\Revolver\Contract\IWidgetRevolver;
+use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolver;
 use AlecRabbit\Spinner\Exception\LogicException;
 
 abstract class AWidgetRevolver extends ARevolver implements IWidgetRevolver
