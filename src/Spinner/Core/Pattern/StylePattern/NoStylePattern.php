@@ -9,10 +9,10 @@ namespace AlecRabbit\Spinner\Core\Pattern\StylePattern;
 use AlecRabbit\Spinner\Contract\Option\OptionStyleMode;
 use AlecRabbit\Spinner\Core\Frame;
 use AlecRabbit\Spinner\Core\Pattern\A\AOneFramePattern;
-use AlecRabbit\Spinner\Core\Pattern\Contract\IStylePattern;
+use AlecRabbit\Spinner\Core\Pattern\Contract\IStyleLegacyPattern;
 
 /** @psalm-suppress UnusedClass */
-final class NoStylePattern extends AOneFramePattern implements IStylePattern
+final class NoStylePattern extends AOneFramePattern implements IStyleLegacyPattern
 {
     protected const STYLE_MODE = OptionStyleMode::NONE;
 

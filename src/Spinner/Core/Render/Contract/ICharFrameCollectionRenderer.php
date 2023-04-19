@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Render\Contract;
 
-use AlecRabbit\Spinner\Contract\Pattern\IPattern;
+use AlecRabbit\Spinner\Contract\Pattern\ILegacyPattern;
 use AlecRabbit\Spinner\Core\Contract\IFrameCollection;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 
@@ -13,5 +13,5 @@ interface ICharFrameCollectionRenderer
     /**
      * @throws InvalidArgumentException
      */
-    public function render(IPattern $pattern): IFrameCollection;
+    public function render(ILegacyPattern $pattern): IFrameCollection;
 }

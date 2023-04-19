@@ -8,12 +8,12 @@ namespace AlecRabbit\Spinner\Core\Pattern\StylePattern;
 
 use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Contract\Option\OptionStyleMode;
-use AlecRabbit\Spinner\Core\Pattern\StylePattern\A\AStylePattern;
+use AlecRabbit\Spinner\Core\Pattern\StylePattern\A\ALegacyStylePattern;
 use AlecRabbit\Spinner\Exception\LogicException;
 use Traversable;
 
 /** @psalm-suppress UnusedClass */
-final class CustomStylePattern extends AStylePattern
+final class CustomStylePattern extends ALegacyStylePattern
 {
     public function __construct(
         protected iterable $pattern,

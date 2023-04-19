@@ -6,12 +6,12 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Pattern\CharPattern;
 
-use AlecRabbit\Spinner\Core\Pattern\A\APattern;
+use AlecRabbit\Spinner\Core\Pattern\A\ALegacyPattern;
 use ArrayObject;
 use Traversable;
 
 /** @psalm-suppress UnusedClass */
-final class PulseOrange extends APattern
+final class PulseOrange extends ALegacyPattern
 {
     protected const INTERVAL = 100;
 

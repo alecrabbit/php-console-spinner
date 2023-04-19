@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Defaults;
 
 use AlecRabbit\Spinner\Contract\IFrame;
-use AlecRabbit\Spinner\Contract\Pattern\IPattern;
+use AlecRabbit\Spinner\Contract\Pattern\ILegacyPattern;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IWidgetSettings;
 use AlecRabbit\Spinner\Core\Defaults\WidgetSettings;
 use AlecRabbit\Spinner\Core\Frame;
@@ -41,8 +41,8 @@ final class WidgetSettingsTest extends TestCaseWithPrebuiltMocksAndStubs
     public function getTesteeInstance(
         IFrame $leadingSpacer,
         IFrame $trailingSpacer,
-        IPattern $stylePattern,
-        IPattern $charPattern,
+        ILegacyPattern $stylePattern,
+        ILegacyPattern $charPattern,
     ): IWidgetSettings {
         return new WidgetSettings(
             leadingSpacer: $leadingSpacer,

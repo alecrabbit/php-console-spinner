@@ -16,7 +16,7 @@ use AlecRabbit\Spinner\Contract\ITimer;
 use AlecRabbit\Spinner\Contract\Output\IBufferedOutput;
 use AlecRabbit\Spinner\Contract\Output\IOutput;
 use AlecRabbit\Spinner\Contract\Output\IResourceStream;
-use AlecRabbit\Spinner\Contract\Pattern\IPattern;
+use AlecRabbit\Spinner\Contract\Pattern\ILegacyPattern;
 use AlecRabbit\Spinner\Core\Config\Contract\ISpinnerConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IWidgetConfig;
 use AlecRabbit\Spinner\Core\Contract\IBufferedOutputBuilder;
@@ -68,7 +68,7 @@ use AlecRabbit\Spinner\Core\Factory\Contract\ITerminalSettingsFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ITimerFactory;
 use AlecRabbit\Spinner\Core\Output\Contract\IConsoleCursor;
 use AlecRabbit\Spinner\Core\Output\Contract\IDriverOutput;
-use AlecRabbit\Spinner\Core\Pattern\Contract\IStylePattern;
+use AlecRabbit\Spinner\Core\Pattern\Contract\IStyleLegacyPattern;
 use AlecRabbit\Spinner\Core\Render\Contract\ICharFrameCollectionRenderer;
 use AlecRabbit\Spinner\Core\Render\Contract\IStyleFrameCollectionRenderer;
 use AlecRabbit\Spinner\Core\Render\Contract\IStyleFrameRenderer;
@@ -98,14 +98,14 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
         return $this->createMock(IFrame::class);
     }
 
-    protected function getPatternMock(): MockObject&IPattern
+    protected function getPatternMock(): MockObject&ILegacyPattern
     {
-        return $this->createMock(IPattern::class);
+        return $this->createMock(ILegacyPattern::class);
     }
 
-    protected function getStylePatternMock(): MockObject&IStylePattern
+    protected function getStylePatternMock(): MockObject&IStyleLegacyPattern
     {
-        return $this->createMock(IStylePattern::class);
+        return $this->createMock(IStyleLegacyPattern::class);
     }
 
     protected function getWidgetSettingsMock(): MockObject&IWidgetSettings
@@ -323,9 +323,9 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
         return $this->createMock(IWidthMeasurer::class);
     }
 
-    protected function getPatternStub(): Stub&IPattern
+    protected function getPatternStub(): Stub&ILegacyPattern
     {
-        return $this->createStub(IPattern::class);
+        return $this->createStub(ILegacyPattern::class);
     }
 
     protected function getFrameStub(): Stub&IFrame

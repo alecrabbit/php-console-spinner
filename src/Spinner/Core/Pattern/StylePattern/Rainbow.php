@@ -7,12 +7,12 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Pattern\StylePattern;
 
 use AlecRabbit\Spinner\Contract\Option\OptionStyleMode;
-use AlecRabbit\Spinner\Core\Pattern\StylePattern\A\AStylePattern;
+use AlecRabbit\Spinner\Core\Pattern\StylePattern\A\ALegacyStylePattern;
 
 /**
  * @codeCoverageIgnore
  */
-final class Rainbow extends AStylePattern
+final class Rainbow extends ALegacyStylePattern
 {
     protected const INTERVAL = 100;
 

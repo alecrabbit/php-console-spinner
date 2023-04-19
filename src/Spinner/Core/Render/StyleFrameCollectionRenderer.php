@@ -12,7 +12,7 @@ use AlecRabbit\Spinner\Core\Contract\IFrameCollection;
 use AlecRabbit\Spinner\Core\Factory\Contract\IStyleFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IStyleFrameRendererFactory;
 use AlecRabbit\Spinner\Core\FrameCollection;
-use AlecRabbit\Spinner\Core\Pattern\Contract\IStylePattern;
+use AlecRabbit\Spinner\Core\Pattern\Contract\IStyleLegacyPattern;
 use AlecRabbit\Spinner\Core\Render\Contract\IStyleFrameCollectionRenderer;
 use AlecRabbit\Spinner\Core\Render\Contract\IStyleFrameRenderer;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
@@ -29,7 +29,7 @@ final class StyleFrameCollectionRenderer implements IStyleFrameCollectionRendere
     ) {
     }
 
-    public function render(IStylePattern $pattern): IFrameCollection
+    public function render(IStyleLegacyPattern $pattern): IFrameCollection
     {
         $this->styleFrameRenderer =
             $this->styleFrameRendererFactory->create(
@@ -42,7 +42,7 @@ final class StyleFrameCollectionRenderer implements IStyleFrameCollectionRendere
     /**
      * @throws InvalidArgumentException
      */
-    private function generateFrames(IStylePattern $pattern): Traversable
+    private function generateFrames(IStyleLegacyPattern $pattern): Traversable
     {
         /** @var IFrame|Stringable|string|IStyle $entry */
         foreach ($pattern->getEntries() as $entry) {

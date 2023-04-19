@@ -7,7 +7,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Config\Contract;
 
 use AlecRabbit\Spinner\Contract\IFrame;
-use AlecRabbit\Spinner\Contract\Pattern\IPattern;
+use AlecRabbit\Spinner\Contract\Pattern\ILegacyPattern;
 
 interface IWidgetConfig
 {
@@ -15,7 +15,7 @@ interface IWidgetConfig
 
     public function getTrailingSpacer(): ?IFrame;
 
-    public function getStylePattern(): ?IPattern;
+    public function getStylePattern(): ?ILegacyPattern;
 
-    public function getCharPattern(): ?IPattern;
+    public function getCharPattern(): ?ILegacyPattern;
 }

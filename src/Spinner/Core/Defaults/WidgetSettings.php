@@ -7,7 +7,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Defaults;
 
 use AlecRabbit\Spinner\Contract\IFrame;
-use AlecRabbit\Spinner\Contract\Pattern\IPattern;
+use AlecRabbit\Spinner\Contract\Pattern\ILegacyPattern;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IWidgetSettings;
 
 final class WidgetSettings implements IWidgetSettings
@@ -15,8 +15,8 @@ final class WidgetSettings implements IWidgetSettings
     public function __construct(
         protected IFrame $leadingSpacer,
         protected IFrame $trailingSpacer,
-        protected IPattern $stylePattern,
-        protected IPattern $charPattern,
+        protected ILegacyPattern $stylePattern,
+        protected ILegacyPattern $charPattern,
     ) {
     }
 
@@ -42,23 +42,23 @@ final class WidgetSettings implements IWidgetSettings
         return $this;
     }
 
-    public function getStylePattern(): IPattern
+    public function getStylePattern(): ILegacyPattern
     {
         return $this->stylePattern;
     }
 
-    public function setStylePattern(IPattern $pattern): IWidgetSettings
+    public function setStylePattern(ILegacyPattern $pattern): IWidgetSettings
     {
         $this->stylePattern = $pattern;
         return $this;
     }
 
-    public function getCharPattern(): IPattern
+    public function getCharPattern(): ILegacyPattern
     {
         return $this->charPattern;
     }
 
-    public function setCharPattern(IPattern $pattern): IWidgetSettings
+    public function setCharPattern(ILegacyPattern $pattern): IWidgetSettings
     {
         $this->charPattern = $pattern;
         return $this;

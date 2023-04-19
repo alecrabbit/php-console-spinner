@@ -10,7 +10,7 @@ use AlecRabbit\Spinner\Contract\IInterval;
 use ArrayObject;
 use Traversable;
 
-abstract class AReversiblePattern extends APattern
+abstract class ALegacyReversiblePattern extends ALegacyPattern
 {
     public function __construct(
         ?IInterval $interval = null,

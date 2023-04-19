@@ -7,9 +7,9 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Pattern\Contract;
 
 use AlecRabbit\Spinner\Contract\Option\OptionStyleMode;
-use AlecRabbit\Spinner\Contract\Pattern\IPattern;
+use AlecRabbit\Spinner\Contract\Pattern\ILegacyPattern;
 
-interface IStylePattern extends IPattern
+interface IStyleLegacyPattern extends ILegacyPattern
 {
     public function getStyleMode(): OptionStyleMode;
 }

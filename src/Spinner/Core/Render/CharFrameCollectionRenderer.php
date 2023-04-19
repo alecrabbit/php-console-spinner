@@ -7,7 +7,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Render;
 
 use AlecRabbit\Spinner\Contract\IFrame;
-use AlecRabbit\Spinner\Contract\Pattern\IPattern;
+use AlecRabbit\Spinner\Contract\Pattern\ILegacyPattern;
 use AlecRabbit\Spinner\Core\Contract\ICharFrameRenderer;
 use AlecRabbit\Spinner\Core\Contract\IFrameCollection;
 use AlecRabbit\Spinner\Core\FrameCollection;
@@ -22,12 +22,12 @@ final class CharFrameCollectionRenderer implements ICharFrameCollectionRenderer
     ) {
     }
 
-    public function render(IPattern $pattern): IFrameCollection
+    public function render(ILegacyPattern $pattern): IFrameCollection
     {
         return new FrameCollection($this->generateFrames($pattern));
     }
 
-    private function generateFrames(IPattern $pattern): Traversable
+    private function generateFrames(ILegacyPattern $pattern): Traversable
     {
         /** @var IFrame|Stringable|string $entry */
         foreach ($pattern->getEntries() as $entry) {

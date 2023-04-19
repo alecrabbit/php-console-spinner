@@ -6,12 +6,12 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Pattern\CharPattern;
 
-use AlecRabbit\Spinner\Core\Pattern\A\AReversiblePattern;
+use AlecRabbit\Spinner\Core\Pattern\A\ALegacyReversiblePattern;
 use ArrayObject;
 use Traversable;
 
 /** @psalm-suppress UnusedClass */
-final class Monkey extends AReversiblePattern
+final class Monkey extends ALegacyReversiblePattern
 {
     protected const INTERVAL = 300;
 

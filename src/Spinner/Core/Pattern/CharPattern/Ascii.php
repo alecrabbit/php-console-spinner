@@ -6,12 +6,12 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Pattern\CharPattern;
 
-use AlecRabbit\Spinner\Core\Pattern\A\AReversiblePattern;
+use AlecRabbit\Spinner\Core\Pattern\A\ALegacyReversiblePattern;
 use ArrayObject;
 use Traversable;
 
 /** @psalm-suppress UnusedClass */
-final class Ascii extends AReversiblePattern
+final class Ascii extends ALegacyReversiblePattern
 {
     protected const INTERVAL = 300;
     protected const PATTERN = ['/', '|', '\\', '─'];

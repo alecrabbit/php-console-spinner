@@ -7,11 +7,11 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Pattern\CharPattern;
 
 use AlecRabbit\Spinner\Contract\IInterval;
-use AlecRabbit\Spinner\Core\Pattern\A\AReversiblePattern;
+use AlecRabbit\Spinner\Core\Pattern\A\ALegacyReversiblePattern;
 use Traversable;
 
 /** @psalm-suppress UnusedClass */
-final class CustomPattern extends AReversiblePattern
+final class CustomPatternLegacy extends ALegacyReversiblePattern
 {
     public function __construct(
         protected iterable $pattern,

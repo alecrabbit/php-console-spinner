@@ -13,7 +13,7 @@ use AlecRabbit\Spinner\Core\Contract\IFrameCollection;
 use AlecRabbit\Spinner\Core\Factory\A\AStaticWidgetFactory;
 use AlecRabbit\Spinner\Core\Factory\FrameFactory;
 use AlecRabbit\Spinner\Core\Factory\StaticRevolverFactory;
-use AlecRabbit\Spinner\Core\Pattern\CharPattern\CustomPattern;
+use AlecRabbit\Spinner\Core\Pattern\CharPattern\CustomPatternLegacy;
 use AlecRabbit\Spinner\Core\Render\CharFrameCollectionRenderer;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
@@ -136,7 +136,7 @@ abstract class AStaticProgressWidgetFactory extends AStaticWidgetFactory impleme
     private static function defaultFrames(): IFrameCollection
     {
         $pattern =
-            new CustomPattern([
+            new CustomPatternLegacy([
                 FrameFactory::create(' ', 1),
                 FrameFactory::create('▁', 1),
                 FrameFactory::create('▂', 1),

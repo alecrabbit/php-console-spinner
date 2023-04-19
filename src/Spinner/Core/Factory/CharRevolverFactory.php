@@ -6,7 +6,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Factory;
 
-use AlecRabbit\Spinner\Contract\Pattern\IPattern;
+use AlecRabbit\Spinner\Contract\Pattern\ILegacyPattern;
 use AlecRabbit\Spinner\Core\Contract\IFrameCollection;
 use AlecRabbit\Spinner\Core\Factory\Contract\ICharRevolverFactory;
 use AlecRabbit\Spinner\Core\Render\Contract\ICharFrameCollectionRenderer;
@@ -21,7 +21,7 @@ final class CharRevolverFactory implements ICharRevolverFactory
     ) {
     }
 
-    public function createCharRevolver(IPattern $charPattern): IFrameRevolver
+    public function createCharRevolver(ILegacyPattern $charPattern): IFrameRevolver
     {
         return $this->frameRevolverBuilder
             ->withFrames($this->getFrameCollection($charPattern))
@@ -30,7 +30,7 @@ final class CharRevolverFactory implements ICharRevolverFactory
         ;
     }
 
-    private function getFrameCollection(IPattern $charPattern): IFrameCollection
+    private function getFrameCollection(ILegacyPattern $charPattern): IFrameCollection
     {
         return $this->charFrameCollectionRenderer->render($charPattern);
     }
