@@ -86,7 +86,9 @@ final class WidgetSettingsFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
         $config->method('getCharPattern')->willReturn($charPattern);
 
         self::assertSame($widgetSettings, $widgetSettingsFactory->createFromConfig($config));
-    }#[Test]
+    }
+
+    #[Test]
     public function canCreateFromEmptyConfig(): void
     {
         $widgetSettings = $this->getWidgetSettingsMock();
