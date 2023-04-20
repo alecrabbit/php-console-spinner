@@ -21,6 +21,7 @@ final class WidgetSettingsFactory implements IWidgetSettingsFactory
     public function createFromConfig(IWidgetConfig $config): IWidgetSettings
     {
         $config = $this->refineConfig($config);
+
         return
             $this->widgetSettingsBuilder
                 ->withLeadingSpacer($config->getLeadingSpacer())
@@ -33,13 +34,11 @@ final class WidgetSettingsFactory implements IWidgetSettingsFactory
 
     private function refineConfig(IWidgetConfig $config): IWidgetConfig
     {
+        $widgetConfig = $this->defaultsProvider->getWidgetConfig();
+
+        $rootWidgetConfig = $this->defaultsProvider->getRootWidgetConfig()->merge($widgetConfig);
+
         return
-            $config->merge(
-                $this->defaultsProvider
-                    ->getRootWidgetConfig()
-                    ->merge(
-                        $this->defaultsProvider->getWidgetConfig()
-                    )
-            );
+            $config->merge($rootWidgetConfig);
     }
 }

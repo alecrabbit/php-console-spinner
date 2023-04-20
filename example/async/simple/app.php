@@ -17,12 +17,12 @@ echo '--' . PHP_EOL;
 echo $m->report() . PHP_EOL;
 
 $defaultsProvider = Facade::getDefaultsProvider();
-//$defaultsProvider
-//    ->getTerminalSettings()
-//    ->setOptionStyleMode(
-//        \AlecRabbit\Spinner\Contract\Option\OptionStyleMode::ANSI4
-//    )
-//;
+$defaultsProvider
+    ->getTerminalSettings()
+    ->setOptionStyleMode(
+        \AlecRabbit\Spinner\Contract\Option\OptionStyleMode::NONE
+    )
+;
 //$defaultsProvider
 //    ->getLoopSettings()
 //    ->setOptionAutoStart(
