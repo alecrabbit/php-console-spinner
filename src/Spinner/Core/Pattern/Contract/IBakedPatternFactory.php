@@ -5,8 +5,9 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Pattern\Contract;
 
 use AlecRabbit\Spinner\Contract\Pattern\IBakedPattern;
+use AlecRabbit\Spinner\Contract\Pattern\IPattern;
 
-interface IPatternFactory
+interface IBakedPatternFactory
 {
-    public function getPattern(string $name): IBakedPattern;
+    public function createFromPattern(IPattern $name): IBakedPattern;
 }

@@ -6,31 +6,26 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Pattern\StylePattern;
 
-use AlecRabbit\Spinner\Contract\IInterval;
-use AlecRabbit\Spinner\Contract\Option\OptionStyleMode;
-use AlecRabbit\Spinner\Core\Pattern\StylePattern\A\ALegacyStylePattern;
+use AlecRabbit\Spinner\Core\Pattern\StylePattern\A\AStylePattern;
 use AlecRabbit\Spinner\Exception\LogicException;
 use Traversable;
 
 /** @psalm-suppress UnusedClass */
-final class CustomStylePattern extends ALegacyStylePattern
+final class CustomStylePattern extends AStylePattern
 {
     public function __construct(
         protected iterable $pattern,
-        ?OptionStyleMode $styleMode = null,
-        ?IInterval $interval = null,
-        bool $reversed = false
+        ?int $interval = null,
+        bool $reversed = false,
     ) {
-        parent::__construct($interval, $reversed, $styleMode);
+        parent::__construct(
+            interval: $interval,
+            reversed: $reversed,
+        );
     }
 
-    protected function entries(): Traversable
+    public function getEntries(): Traversable
     {
         yield from $this->pattern;
-    }
-
-    protected function extractPattern(): array
-    {
-        throw new LogicException('Not implemented'); // should never be called
     }
 }

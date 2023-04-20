@@ -12,7 +12,7 @@ use AlecRabbit\Spinner\Core\Contract\IFrameCollection;
 use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IStyleFrameRevolverFactory;
 use AlecRabbit\Spinner\Core\Pattern\Contract\IStylePattern;
-use AlecRabbit\Spinner\Core\Pattern\StylePattern\NoStylePattern;
+use AlecRabbit\Spinner\Core\Pattern\NoStylePattern;
 use AlecRabbit\Spinner\Core\Render\Contract\IStyleFrameCollectionRenderer;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolver;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolverBuilder;
@@ -37,7 +37,7 @@ final class StyleFrameRevolverFactory implements IStyleFrameRevolverFactory
                 ->withFrames($this->getFrameCollection($stylePattern))
                 ->withInterval(
                     $this->intervalFactory->createNormalized(
-                        (int)$stylePattern->getInterval()->toMilliseconds()
+                        $stylePattern->getInterval()
                     )
                 )
                 ->build()

@@ -37,17 +37,15 @@ final class CharRevolverFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
     #[Test]
     public function canCreateConverter(): void
     {
+        $intInterval = 100;
         $interval = $this->getIntervalMock();
-        $interval
-            ->expects(self::once())
-            ->method('toMilliseconds')
-        ;
+
 
         $pattern = $this->getPatternMock();
         $pattern
             ->expects(self::once())
             ->method('getInterval')
-            ->willReturn($interval)
+            ->willReturn($intInterval)
         ;
 
         $frameCollection = $this->getFrameCollectionMock();

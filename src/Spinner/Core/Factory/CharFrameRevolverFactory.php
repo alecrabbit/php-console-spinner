@@ -29,7 +29,7 @@ final class CharFrameRevolverFactory implements ICharFrameRevolverFactory
             ->withFrames($this->getFrameCollection($charPattern))
             ->withInterval(
                 $this->intervalFactory->createNormalized(
-                    (int)$charPattern->getInterval()->toMilliseconds()
+                    $charPattern->getInterval()
                 )
             )
             ->build()

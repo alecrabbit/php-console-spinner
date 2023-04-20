@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 // 09.03.23
 
-namespace AlecRabbit\Spinner\Core\Pattern\StylePattern;
+namespace AlecRabbit\Spinner\Core\Pattern;
 
 use AlecRabbit\Spinner\Contract\Option\OptionStyleMode;
 use AlecRabbit\Spinner\Core\Frame;
