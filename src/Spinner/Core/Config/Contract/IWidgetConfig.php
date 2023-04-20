@@ -8,6 +8,7 @@ namespace AlecRabbit\Spinner\Core\Config\Contract;
 
 use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Contract\Pattern\ILegacyPattern;
+use AlecRabbit\Spinner\Core\Config\WidgetConfig;
 
 interface IWidgetConfig
 {
@@ -26,4 +27,6 @@ interface IWidgetConfig
     public function getCharPattern(): ?ILegacyPattern;
 
     public function setCharPattern(?ILegacyPattern $charPattern): IWidgetConfig;
+
+    public function merge(IWidgetConfig $other): IWidgetConfig;
 }

@@ -144,7 +144,7 @@ final class WidgetConfigTest extends TestCaseWithPrebuiltMocksAndStubs
         self::assertNull($config->getStylePattern());
         self::assertNull($config->getCharPattern());
 
-        $config->merge($configToMerge);
+        $config = $config->merge($configToMerge);
 
         self::assertNotNull($config->getLeadingSpacer());
         self::assertNotNull($config->getTrailingSpacer());
@@ -181,7 +181,7 @@ final class WidgetConfigTest extends TestCaseWithPrebuiltMocksAndStubs
         self::assertNotNull($config->getStylePattern());
         self::assertNull($config->getCharPattern());
 
-        $config->merge($configToMerge);
+        $config = $config->merge($configToMerge);
 
         self::assertNotNull($config->getLeadingSpacer());
         self::assertNotNull($config->getTrailingSpacer());
