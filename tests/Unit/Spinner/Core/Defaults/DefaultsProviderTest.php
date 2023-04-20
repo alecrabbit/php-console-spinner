@@ -38,7 +38,8 @@ final class DefaultsProviderTest extends TestCaseWithPrebuiltMocksAndStubs
         ?IWidgetSettings $widgetSettings = null,
         ?IWidgetSettings $rootWidgetSettings = null,
     ): IDefaultsProvider {
-        return new DefaultsProvider(
+        return
+            new DefaultsProvider(
             auxSettings: $auxSettings ?? $this->getAuxSettingsMock(),
             terminalSettings: $terminalSettings ?? $this->getTerminalSettingsMock(),
             loopSettings: $loopSettings ?? $this->getLoopSettingsMock(),
