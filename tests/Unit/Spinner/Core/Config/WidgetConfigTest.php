@@ -121,4 +121,76 @@ final class WidgetConfigTest extends TestCaseWithPrebuiltMocksAndStubs
         self::assertSame($stylePattern, $config->getStylePattern());
         self::assertSame($charPattern, $config->getCharPattern());
     }
+
+    #[Test]
+    public function canMergeIfEmpty(): void
+    {
+        $config = new WidgetConfig();
+
+        $leadingSpacer = $this->getFrameMock();
+        $trailingSpacer = $this->getFrameMock();
+        $stylePattern = $this->getStylePatternMock();
+        $charPattern = $this->getPatternMock();
+
+        $configToMerge = new WidgetConfig(
+            leadingSpacer: $leadingSpacer,
+            trailingSpacer: $trailingSpacer,
+            stylePattern: $stylePattern,
+            charPattern: $charPattern,
+        );
+
+        self::assertNull($config->getLeadingSpacer());
+        self::assertNull($config->getTrailingSpacer());
+        self::assertNull($config->getStylePattern());
+        self::assertNull($config->getCharPattern());
+
+        $config->merge($configToMerge);
+
+        self::assertNotNull($config->getLeadingSpacer());
+        self::assertNotNull($config->getTrailingSpacer());
+        self::assertNotNull($config->getStylePattern());
+        self::assertNotNull($config->getCharPattern());
+
+        self::assertSame($leadingSpacer, $config->getLeadingSpacer());
+        self::assertSame($trailingSpacer, $config->getTrailingSpacer());
+        self::assertSame($stylePattern, $config->getStylePattern());
+        self::assertSame($charPattern, $config->getCharPattern());
+    }
+
+    #[Test]
+    public function canMergeIfNotEmpty(): void
+    {
+        $trailingSpacer = $this->getFrameMock();
+        $stylePattern = $this->getStylePatternMock();
+
+        $config = new WidgetConfig(
+            trailingSpacer: $trailingSpacer,
+            stylePattern: $stylePattern,
+        );
+
+        $leadingSpacer = $this->getFrameMock();
+        $charPattern = $this->getPatternMock();
+
+        $configToMerge = new WidgetConfig(
+            leadingSpacer: $leadingSpacer,
+            charPattern: $charPattern,
+        );
+
+        self::assertNull($config->getLeadingSpacer());
+        self::assertNotNull($config->getTrailingSpacer());
+        self::assertNotNull($config->getStylePattern());
+        self::assertNull($config->getCharPattern());
+
+        $config->merge($configToMerge);
+
+        self::assertNotNull($config->getLeadingSpacer());
+        self::assertNotNull($config->getTrailingSpacer());
+        self::assertNotNull($config->getStylePattern());
+        self::assertNotNull($config->getCharPattern());
+
+        self::assertSame($leadingSpacer, $config->getLeadingSpacer());
+        self::assertSame($trailingSpacer, $config->getTrailingSpacer());
+        self::assertSame($stylePattern, $config->getStylePattern());
+        self::assertSame($charPattern, $config->getCharPattern());
+    }
 }

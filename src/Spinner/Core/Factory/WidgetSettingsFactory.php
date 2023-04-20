@@ -23,6 +23,7 @@ final class WidgetSettingsFactory implements IWidgetSettingsFactory
 
     public function createFromConfig(IWidgetConfig $config): IWidgetSettings
     {
+        dump($config);
         return
             $this->widgetSettingsBuilder
                 ->withLeadingSpacer($config->getLeadingSpacer() ?? $this->defaultLeadingSpacer())
