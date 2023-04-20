@@ -8,7 +8,6 @@ namespace AlecRabbit\Spinner\Core\Config\Contract;
 
 use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Contract\Pattern\IPattern;
-use AlecRabbit\Spinner\Core\Config\WidgetConfig;
 
 interface IWidgetConfig
 {

@@ -183,6 +183,7 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
     {
         return $this->createMock(IWidgetFactory::class);
     }
+
     protected function getWidgetSettingsFactoryMock(): MockObject&IWidgetSettingsFactory
     {
         return $this->createMock(IWidgetSettingsFactory::class);

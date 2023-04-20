@@ -6,11 +6,9 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Render;
 
-use AlecRabbit\Spinner\Contract\Color\Style\IStyle;
 use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Core\A\AFrameRenderer;
 use AlecRabbit\Spinner\Core\Contract\ICharFrameRenderer;
-use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 
 final class CharFrameRenderer extends AFrameRenderer implements ICharFrameRenderer
 {

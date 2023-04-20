@@ -20,20 +20,10 @@ final class WidgetConfig implements IWidgetConfig
     ) {
     }
 
-    public function getLeadingSpacer(): ?IFrame
-    {
-        return $this->leadingSpacer;
-    }
-
     public function setLeadingSpacer(?IFrame $leadingSpacer): IWidgetConfig
     {
         $this->leadingSpacer = $leadingSpacer;
         return $this;
-    }
-
-    public function getTrailingSpacer(): ?IFrame
-    {
-        return $this->trailingSpacer;
     }
 
     public function setTrailingSpacer(?IFrame $trailingSpacer): IWidgetConfig
@@ -42,20 +32,10 @@ final class WidgetConfig implements IWidgetConfig
         return $this;
     }
 
-    public function getStylePattern(): ?IPattern
-    {
-        return $this->stylePattern;
-    }
-
     public function setStylePattern(?IPattern $stylePattern): IWidgetConfig
     {
         $this->stylePattern = $stylePattern;
         return $this;
-    }
-
-    public function getCharPattern(): ?IPattern
-    {
-        return $this->charPattern;
     }
 
     public function setCharPattern(?IPattern $charPattern): IWidgetConfig
@@ -72,5 +52,25 @@ final class WidgetConfig implements IWidgetConfig
             $this->stylePattern ?? $other->getStylePattern(),
             $this->charPattern ?? $other->getCharPattern(),
         );
+    }
+
+    public function getLeadingSpacer(): ?IFrame
+    {
+        return $this->leadingSpacer;
+    }
+
+    public function getTrailingSpacer(): ?IFrame
+    {
+        return $this->trailingSpacer;
+    }
+
+    public function getStylePattern(): ?IPattern
+    {
+        return $this->stylePattern;
+    }
+
+    public function getCharPattern(): ?IPattern
+    {
+        return $this->charPattern;
     }
 }

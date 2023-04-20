@@ -42,15 +42,6 @@ final class DefaultsProviderBuilder implements IDefaultsProviderBuilder
         );
     }
 
-    protected function getRootWidgetConfig(): IWidgetConfig
-    {
-        return
-            new WidgetConfig(
-                stylePattern: new Rainbow(),
-                charPattern: new Snake(),
-            );
-    }
-
     protected function getWidgetConfig(): IWidgetConfig
     {
         return new WidgetConfig(
@@ -59,5 +50,14 @@ final class DefaultsProviderBuilder implements IDefaultsProviderBuilder
             stylePattern: new NoStylePattern(),
             charPattern: new NoCharPattern(),
         );
+    }
+
+    protected function getRootWidgetConfig(): IWidgetConfig
+    {
+        return
+            new WidgetConfig(
+                stylePattern: new Rainbow(),
+                charPattern: new Snake(),
+            );
     }
 }
