@@ -9,7 +9,7 @@ namespace AlecRabbit\Spinner\Core\Factory\Contract;
 use AlecRabbit\Spinner\Core\Pattern\Contract\IStylePattern;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolver;
 
-interface IStyleRevolverFactory
+interface IStyleFrameRevolverFactory
 {
     public function createStyleRevolver(IStylePattern $stylePattern): IFrameRevolver;
 }

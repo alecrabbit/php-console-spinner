@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Factory;
 
-use AlecRabbit\Spinner\Core\Factory\CharRevolverFactory;
-use AlecRabbit\Spinner\Core\Factory\Contract\ICharRevolverFactory;
+use AlecRabbit\Spinner\Core\Factory\CharFrameRevolverFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\ICharFrameRevolverFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalFactory;
 use AlecRabbit\Spinner\Core\Render\Contract\ICharFrameCollectionRenderer;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolverBuilder;
@@ -19,15 +19,15 @@ final class CharRevolverFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
     {
         $charRevolverFactory = $this->getTesteeInstance();
 
-        self::assertInstanceOf(CharRevolverFactory::class, $charRevolverFactory);
+        self::assertInstanceOf(CharFrameRevolverFactory::class, $charRevolverFactory);
     }
 
     public function getTesteeInstance(
         ?IFrameRevolverBuilder $frameRevolverBuilder = null,
         ?ICharFrameCollectionRenderer $charFrameCollectionRenderer = null,
         ?IIntervalFactory $intervalFactory = null,
-    ): ICharRevolverFactory {
-        return new CharRevolverFactory(
+    ): ICharFrameRevolverFactory {
+        return new CharFrameRevolverFactory(
             frameRevolverBuilder: $frameRevolverBuilder ?? $this->getFrameRevolverBuilderMock(),
             charFrameCollectionRenderer: $charFrameCollectionRenderer ?? $this->getCharFrameCollectionRendererMock(),
             intervalFactory: $intervalFactory ?? $this->getIntervalFactoryMock(),
@@ -93,7 +93,7 @@ final class CharRevolverFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
         );
 
         $styleRevolver = $charRevolverFactory->createCharRevolver($pattern);
-        self::assertInstanceOf(CharRevolverFactory::class, $charRevolverFactory);
+        self::assertInstanceOf(CharFrameRevolverFactory::class, $charRevolverFactory);
         self::assertSame($frameRevolver, $styleRevolver);
     }
 }
