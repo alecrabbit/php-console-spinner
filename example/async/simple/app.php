@@ -30,7 +30,7 @@ $defaultsProvider
 //    )
 //;
 
-dump($defaultsProvider);
+//dump($defaultsProvider);
 
 $config =
     new SpinnerConfig(
@@ -47,7 +47,6 @@ $loop = Facade::getLoop();
 //dump($loop);
 //dump($spinner);
 //dump($driver);
-dump($defaultsProvider);
 
 $loop->repeat(
     $reportInterval,
