@@ -16,7 +16,7 @@ final class WidgetFactory implements IWidgetFactory
 {
     public function __construct(
         protected IWidgetBuilder $widgetBuilder,
-        protected IWidgetRevolverFactory $widgetRevolverBuilder,
+        protected IWidgetRevolverFactory $widgetRevolverFactory,
     ) {
     }
 
@@ -27,7 +27,7 @@ final class WidgetFactory implements IWidgetFactory
                 ->withLeadingSpacer($widgetSettings->getLeadingSpacer())
                 ->withTrailingSpacer($widgetSettings->getTrailingSpacer())
                 ->withWidgetRevolver(
-                    $this->widgetRevolverBuilder->createWidgetRevolver($widgetSettings)
+                    $this->widgetRevolverFactory->createWidgetRevolver($widgetSettings)
                 )
                 ->build()
         ;
