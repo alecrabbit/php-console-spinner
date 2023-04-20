@@ -17,8 +17,14 @@ final class PulseOrange extends APattern
 
     protected const PATTERN = ['🔸', '🔶', '🟠', '🟠', '🔶'];
 
-    protected function entries(): Traversable
-    {
-        return new ArrayObject(self::PATTERN);
+    public function __construct(
+        ?int $interval = null,
+        bool $reversed = false
+    ) {
+        parent::__construct(
+            new \ArrayObject(self::PATTERN),
+            $interval ?? self::INTERVAL,
+            $reversed
+        );
     }
 }

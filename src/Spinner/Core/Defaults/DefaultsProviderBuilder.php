@@ -15,9 +15,9 @@ use AlecRabbit\Spinner\Core\Defaults\Contract\IDriverSettingsBuilder;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopSettingsFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ITerminalSettingsFactory;
 use AlecRabbit\Spinner\Core\Frame;
-use AlecRabbit\Spinner\Core\Pattern\CharPattern\NoCharPattern;
 use AlecRabbit\Spinner\Core\Pattern\CharPattern\Snake;
-use AlecRabbit\Spinner\Core\Pattern\StylePattern\NoStylePattern;
+use AlecRabbit\Spinner\Core\Pattern\NoCharPattern;
+use AlecRabbit\Spinner\Core\Pattern\NoStylePattern;
 use AlecRabbit\Spinner\Core\Pattern\StylePattern\Rainbow;
 
 final class DefaultsProviderBuilder implements IDefaultsProviderBuilder

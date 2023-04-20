@@ -40,17 +40,15 @@ final class StyleRevolverFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
     #[Test]
     public function canCreateConverter(): void
     {
+        $intInterval = 100;
+
         $pattern = $this->getStylePatternMock();
         $interval = $this->getIntervalMock();
-        $interval
-            ->expects(self::once())
-            ->method('toMilliseconds')
-        ;
 
         $pattern
             ->expects(self::once())
             ->method('getInterval')
-            ->willReturn($interval)
+            ->willReturn($intInterval)
         ;
         $frameCollection = $this->getFrameCollectionMock();
 

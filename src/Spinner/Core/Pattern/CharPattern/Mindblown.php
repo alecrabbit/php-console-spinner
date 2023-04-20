@@ -35,8 +35,14 @@ final class Mindblown extends APattern
     ];
     private const SPACE = "\u{3000} ";
 
-    protected function entries(): Traversable
-    {
-        return new ArrayObject(self::PATTERN);
+    public function __construct(
+        ?int $interval = null,
+        bool $reversed = false
+    ) {
+        parent::__construct(
+            new \ArrayObject(self::PATTERN),
+            $interval ?? self::INTERVAL,
+            $reversed
+        );
     }
 }

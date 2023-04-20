@@ -6,19 +6,24 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Pattern\CharPattern;
 
-use AlecRabbit\Spinner\Contract\IInterval;
-use AlecRabbit\Spinner\Core\Pattern\A\ALegacyReversiblePattern;
+use AlecRabbit\Spinner\Core\Pattern\A\AReversiblePattern;
 use Traversable;
 
 /** @psalm-suppress UnusedClass */
-final class CustomPatternLegacy extends ALegacyReversiblePattern
+final class CustomPattern extends AReversiblePattern
 {
+    protected const INTERVAL = 1000;
+
     public function __construct(
         protected iterable $pattern,
-        ?IInterval $interval = null,
+        ?int $interval = null,
         bool $reversed = false
     ) {
-        parent::__construct($interval, $reversed);
+        parent::__construct(
+            $this->entries(),
+            $interval ?? self::INTERVAL,
+            $reversed
+        );
     }
 
     protected function entries(): Traversable

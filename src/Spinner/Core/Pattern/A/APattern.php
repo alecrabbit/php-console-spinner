@@ -13,30 +13,24 @@ use Traversable;
 
 abstract class APattern implements IPattern
 {
-    protected const INTERVAL = 1000;
-
-    protected IInterval $interval;
-
     public function __construct(
-        ?IInterval $interval = null,
+        protected ?Traversable $entries = null,
+        protected ?int $interval = null,
     ) {
-        $this->interval = $interval ?? $this->defaultInterval();
     }
 
-    protected function defaultInterval(): Interval
+    public function getEntries(): ?Traversable
     {
-        return new Interval(static::INTERVAL);
+        return $this->entries;
     }
 
-    public function getEntries(): Traversable
-    {
-        return $this->entries();
-    }
-
-    abstract protected function entries(): Traversable;
-
-    public function getInterval(): IInterval
+    public function getInterval(): ?int
     {
         return $this->interval;
+    }
+
+    public function isReversed(): bool
+    {
+        return false;
     }
 }
