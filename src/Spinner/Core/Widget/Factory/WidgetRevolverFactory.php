@@ -7,8 +7,8 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Widget\Factory;
 
 use AlecRabbit\Spinner\Core\Defaults\Contract\IWidgetSettings;
-use AlecRabbit\Spinner\Core\Factory\Contract\ICharRevolverFactory;
-use AlecRabbit\Spinner\Core\Factory\Contract\IStyleRevolverFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\ICharFrameRevolverFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\IStyleFrameRevolverFactory;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolver;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolverBuilder;
@@ -18,8 +18,8 @@ final class WidgetRevolverFactory implements IWidgetRevolverFactory
 {
     public function __construct(
         protected IWidgetRevolverBuilder $widgetRevolverBuilder,
-        protected IStyleRevolverFactory $styleRevolverFactory,
-        protected ICharRevolverFactory $charRevolverFactory,
+        protected IStyleFrameRevolverFactory $styleRevolverFactory,
+        protected ICharFrameRevolverFactory $charRevolverFactory,
     ) {
     }
 

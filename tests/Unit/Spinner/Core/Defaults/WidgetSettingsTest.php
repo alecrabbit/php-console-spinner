@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Defaults;
 
 use AlecRabbit\Spinner\Contract\IFrame;
-use AlecRabbit\Spinner\Contract\Pattern\ILegacyPattern;
+use AlecRabbit\Spinner\Contract\Pattern\IPattern;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IWidgetSettings;
 use AlecRabbit\Spinner\Core\Defaults\WidgetSettings;
 use AlecRabbit\Spinner\Core\Frame;
-use AlecRabbit\Spinner\Core\Pattern\CharPattern\NoCharPattern;
-use AlecRabbit\Spinner\Core\Pattern\StylePattern\NoStylePattern;
+use AlecRabbit\Spinner\Core\Pattern\NoCharPattern;
+use AlecRabbit\Spinner\Core\Pattern\NoStylePattern;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;
 
@@ -41,8 +41,8 @@ final class WidgetSettingsTest extends TestCaseWithPrebuiltMocksAndStubs
     public function getTesteeInstance(
         IFrame $leadingSpacer,
         IFrame $trailingSpacer,
-        ILegacyPattern $stylePattern,
-        ILegacyPattern $charPattern,
+        IPattern $stylePattern,
+        IPattern $charPattern,
     ): IWidgetSettings {
         return new WidgetSettings(
             leadingSpacer: $leadingSpacer,

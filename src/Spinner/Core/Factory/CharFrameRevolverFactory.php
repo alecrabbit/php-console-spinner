@@ -6,31 +6,37 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Factory;
 
-use AlecRabbit\Spinner\Contract\Pattern\ILegacyPattern;
+use AlecRabbit\Spinner\Contract\Pattern\IPattern;
 use AlecRabbit\Spinner\Core\Contract\IFrameCollection;
-use AlecRabbit\Spinner\Core\Factory\Contract\ICharRevolverFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\ICharFrameRevolverFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalFactory;
 use AlecRabbit\Spinner\Core\Render\Contract\ICharFrameCollectionRenderer;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolver;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolverBuilder;
 
-final class CharRevolverFactory implements ICharRevolverFactory
+final class CharFrameRevolverFactory implements ICharFrameRevolverFactory
 {
     public function __construct(
         protected IFrameRevolverBuilder $frameRevolverBuilder,
         protected ICharFrameCollectionRenderer $charFrameCollectionRenderer,
+        protected IIntervalFactory $intervalFactory,
     ) {
     }
 
-    public function createCharRevolver(ILegacyPattern $charPattern): IFrameRevolver
+    public function createCharRevolver(IPattern $charPattern): IFrameRevolver
     {
         return $this->frameRevolverBuilder
             ->withFrames($this->getFrameCollection($charPattern))
-            ->withInterval($charPattern->getInterval())
+            ->withInterval(
+                $this->intervalFactory->createNormalized(
+                    $charPattern->getInterval()
+                )
+            )
             ->build()
         ;
     }
 
-    private function getFrameCollection(ILegacyPattern $charPattern): IFrameCollection
+    private function getFrameCollection(IPattern $charPattern): IFrameCollection
     {
         return $this->charFrameCollectionRenderer->render($charPattern);
     }

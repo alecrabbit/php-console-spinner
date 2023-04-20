@@ -6,12 +6,12 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Pattern\CharPattern;
 
-use AlecRabbit\Spinner\Core\Pattern\A\ALegacyPattern;
+use AlecRabbit\Spinner\Core\Pattern\A\APattern;
 use ArrayObject;
 use Traversable;
 
 /** @psalm-suppress UnusedClass */
-final class RainyWeather extends ALegacyPattern
+final class RainyWeather extends APattern
 {
     protected const INTERVAL = 100;
 
@@ -37,8 +37,14 @@ final class RainyWeather extends ALegacyPattern
         '🌤 ',
     ];
 
-    protected function entries(): Traversable
-    {
-        return new ArrayObject(self::PATTERN);
+    public function __construct(
+        ?int $interval = null,
+        bool $reversed = false
+    ) {
+        parent::__construct(
+            new \ArrayObject(self::PATTERN),
+            $interval ?? self::INTERVAL,
+            $reversed
+        );
     }
 }

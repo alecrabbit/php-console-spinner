@@ -15,9 +15,9 @@ use AlecRabbit\Spinner\Core\Defaults\Contract\IDriverSettingsBuilder;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopSettingsFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ITerminalSettingsFactory;
 use AlecRabbit\Spinner\Core\Frame;
-use AlecRabbit\Spinner\Core\Pattern\CharPattern\NoCharPattern;
 use AlecRabbit\Spinner\Core\Pattern\CharPattern\Snake;
-use AlecRabbit\Spinner\Core\Pattern\StylePattern\NoStylePattern;
+use AlecRabbit\Spinner\Core\Pattern\NoCharPattern;
+use AlecRabbit\Spinner\Core\Pattern\NoStylePattern;
 use AlecRabbit\Spinner\Core\Pattern\StylePattern\Rainbow;
 
 final class DefaultsProviderBuilder implements IDefaultsProviderBuilder
@@ -42,15 +42,6 @@ final class DefaultsProviderBuilder implements IDefaultsProviderBuilder
         );
     }
 
-    protected function getRootWidgetConfig(): IWidgetConfig
-    {
-        return
-            new WidgetConfig(
-                stylePattern: new Rainbow(),
-                charPattern: new Snake(),
-            );
-    }
-
     protected function getWidgetConfig(): IWidgetConfig
     {
         return new WidgetConfig(
@@ -59,5 +50,14 @@ final class DefaultsProviderBuilder implements IDefaultsProviderBuilder
             stylePattern: new NoStylePattern(),
             charPattern: new NoCharPattern(),
         );
+    }
+
+    protected function getRootWidgetConfig(): IWidgetConfig
+    {
+        return
+            new WidgetConfig(
+                stylePattern: new Rainbow(),
+                charPattern: new Snake(),
+            );
     }
 }

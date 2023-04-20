@@ -6,12 +6,12 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Pattern\CharPattern;
 
-use AlecRabbit\Spinner\Core\Pattern\A\ALegacyPattern;
+use AlecRabbit\Spinner\Core\Pattern\A\APattern;
 use ArrayObject;
 use Traversable;
 
 /** @psalm-suppress UnusedClass */
-final class Speaker extends ALegacyPattern
+final class Speaker extends APattern
 {
     protected const INTERVAL = 300;
 
@@ -22,8 +22,14 @@ final class Speaker extends ALegacyPattern
         '🔉 ',
     ];
 
-    protected function entries(): Traversable
-    {
-        return new ArrayObject(self::PATTERN);
+    public function __construct(
+        ?int $interval = null,
+        bool $reversed = false
+    ) {
+        parent::__construct(
+            new \ArrayObject(self::PATTERN),
+            $interval ?? self::INTERVAL,
+            $reversed
+        );
     }
 }

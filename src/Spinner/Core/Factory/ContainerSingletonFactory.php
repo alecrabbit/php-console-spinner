@@ -50,7 +50,7 @@ use AlecRabbit\Spinner\Core\DriverOutputBuilder;
 use AlecRabbit\Spinner\Core\DriverSetup;
 use AlecRabbit\Spinner\Core\Factory\Contract\IAnsiColorParserFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IBufferedOutputSingletonFactory;
-use AlecRabbit\Spinner\Core\Factory\Contract\ICharRevolverFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\ICharFrameRevolverFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IConsoleCursorFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IContainerSingletonFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDriverAttacherSingletonFactory;
@@ -69,7 +69,7 @@ use AlecRabbit\Spinner\Core\Factory\Contract\ISpinnerFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IStyleFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IStyleFrameRendererFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IStyleRendererFactory;
-use AlecRabbit\Spinner\Core\Factory\Contract\IStyleRevolverFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\IStyleFrameRevolverFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IStyleToAnsiStringConverterFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ITerminalProbeFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ITerminalSettingsFactory;
@@ -142,7 +142,7 @@ final class ContainerSingletonFactory implements IContainerSingletonFactory
             IBufferedOutputSingletonFactory::class => BufferedOutputSingletonFactory::class,
             ICharFrameCollectionRenderer::class => CharFrameCollectionRenderer::class,
             ICharFrameRenderer::class => CharFrameRenderer::class,
-            ICharRevolverFactory::class => CharRevolverFactory::class,
+            ICharFrameRevolverFactory::class => CharFrameRevolverFactory::class,
             IConsoleCursorBuilder::class => ConsoleCursorBuilder::class,
             IConsoleCursorFactory::class => ConsoleCursorFactory::class,
             IDefaultsProviderBuilder::class => DefaultsProviderBuilder::class,
@@ -169,7 +169,7 @@ final class ContainerSingletonFactory implements IContainerSingletonFactory
             IStyleFrameRendererFactory::class => StyleFrameRendererFactory::class,
             IStyleOptionsParser::class => StyleOptionsParser::class,
             IStyleRendererFactory::class => StyleRendererFactory::class,
-            IStyleRevolverFactory::class => StyleRevolverFactory::class,
+            IStyleFrameRevolverFactory::class => StyleFrameRevolverFactory::class,
             IStyleToAnsiStringConverterFactory::class => StyleToAnsiStringConverterFactory::class,
             ITimerBuilder::class => TimerBuilder::class,
             ITimerFactory::class => TimerFactory::class,

@@ -16,7 +16,7 @@ use AlecRabbit\Spinner\Contract\ITimer;
 use AlecRabbit\Spinner\Contract\Output\IBufferedOutput;
 use AlecRabbit\Spinner\Contract\Output\IOutput;
 use AlecRabbit\Spinner\Contract\Output\IResourceStream;
-use AlecRabbit\Spinner\Contract\Pattern\ILegacyPattern;
+use AlecRabbit\Spinner\Contract\Pattern\IPattern;
 use AlecRabbit\Spinner\Core\Config\Contract\ISpinnerConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IWidgetConfig;
 use AlecRabbit\Spinner\Core\Contract\IBufferedOutputBuilder;
@@ -69,7 +69,7 @@ use AlecRabbit\Spinner\Core\Factory\Contract\ITimerFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IWidgetSettingsFactory;
 use AlecRabbit\Spinner\Core\Output\Contract\IConsoleCursor;
 use AlecRabbit\Spinner\Core\Output\Contract\IDriverOutput;
-use AlecRabbit\Spinner\Core\Pattern\Contract\IStyleLegacyPattern;
+use AlecRabbit\Spinner\Core\Pattern\Contract\IStylePattern;
 use AlecRabbit\Spinner\Core\Render\Contract\ICharFrameCollectionRenderer;
 use AlecRabbit\Spinner\Core\Render\Contract\IStyleFrameCollectionRenderer;
 use AlecRabbit\Spinner\Core\Render\Contract\IStyleFrameRenderer;
@@ -99,14 +99,14 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
         return $this->createMock(IFrame::class);
     }
 
-    protected function getPatternMock(): MockObject&ILegacyPattern
+    protected function getPatternMock(): MockObject&IPattern
     {
-        return $this->createMock(ILegacyPattern::class);
+        return $this->createMock(IPattern::class);
     }
 
-    protected function getStylePatternMock(): MockObject&IStyleLegacyPattern
+    protected function getStylePatternMock(): MockObject&IStylePattern
     {
-        return $this->createMock(IStyleLegacyPattern::class);
+        return $this->createMock(IStylePattern::class);
     }
 
     protected function getWidgetSettingsMock(): MockObject&IWidgetSettings
@@ -183,6 +183,7 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
     {
         return $this->createMock(IWidgetFactory::class);
     }
+
     protected function getWidgetSettingsFactoryMock(): MockObject&IWidgetSettingsFactory
     {
         return $this->createMock(IWidgetSettingsFactory::class);
@@ -328,9 +329,9 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
         return $this->createMock(IWidthMeasurer::class);
     }
 
-    protected function getPatternStub(): Stub&ILegacyPattern
+    protected function getPatternStub(): Stub&IPattern
     {
-        return $this->createStub(ILegacyPattern::class);
+        return $this->createStub(IPattern::class);
     }
 
     protected function getFrameStub(): Stub&IFrame
