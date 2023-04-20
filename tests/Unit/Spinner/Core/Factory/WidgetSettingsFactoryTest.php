@@ -89,11 +89,6 @@ final class WidgetSettingsFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
     }#[Test]
     public function canCreateFromEmptyConfig(): void
     {
-        $leadingSpacer = $this->getFrameMock();
-        $trailingSpacer = $this->getFrameMock();
-        $stylePattern = $this->getStylePatternMock();
-        $charPattern = $this->getPatternMock();
-
         $widgetSettings = $this->getWidgetSettingsMock();
 
         $builder = $this->getWidgetSettingsBuilderMock();
