@@ -13,9 +13,17 @@ interface IWidgetConfig
 {
     public function getLeadingSpacer(): ?IFrame;
 
+    public function setLeadingSpacer(?IFrame $leadingSpacer): IWidgetConfig;
+
     public function getTrailingSpacer(): ?IFrame;
+
+    public function setTrailingSpacer(?IFrame $trailingSpacer): IWidgetConfig;
 
     public function getStylePattern(): ?ILegacyPattern;
 
+    public function setStylePattern(?ILegacyPattern $stylePattern): IWidgetConfig;
+
     public function getCharPattern(): ?ILegacyPattern;
+
+    public function setCharPattern(?ILegacyPattern $charPattern): IWidgetConfig;
 }
