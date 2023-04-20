@@ -6,6 +6,7 @@ namespace AlecRabbit\Tests\Unit\Spinner\Core\Factory\Stub;
 
 use AlecRabbit\Spinner\Contract\Option\OptionStyleMode;
 use AlecRabbit\Spinner\Core\Terminal\A\ATerminalProbe;
+use RuntimeException;
 
 final class TerminalProbeStub extends ATerminalProbe
 {
@@ -16,16 +17,16 @@ final class TerminalProbeStub extends ATerminalProbe
 
     public function getWidth(): int
     {
-        // TODO: Implement getWidth() method.
+        throw new RuntimeException('Not implemented.'); // Unimplemented intentionally
     }
 
     public function getOptionStyleMode(): OptionStyleMode
     {
-        // TODO: Implement getOptionStyleMode() method.
+        throw new RuntimeException('Not implemented.'); // Unimplemented intentionally
     }
 
     public function getOutputStream()
     {
-        // TODO: Implement getOutputStream() method.
+        throw new RuntimeException('Not implemented.'); // Unimplemented intentionally
     }
 }
