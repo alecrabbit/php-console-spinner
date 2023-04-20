@@ -74,6 +74,7 @@ use AlecRabbit\Spinner\Core\Factory\Contract\IStyleToAnsiStringConverterFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ITerminalProbeFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ITerminalSettingsFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ITimerFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\IWidgetSettingsFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IWidthMeasurerFactory;
 use AlecRabbit\Spinner\Core\IntegerNormalizerBuilder;
 use AlecRabbit\Spinner\Core\LoopSetup;
@@ -174,6 +175,7 @@ final class ContainerSingletonFactory implements IContainerSingletonFactory
             ITimerFactory::class => TimerFactory::class,
             IWidgetBuilder::class => WidgetBuilder::class,
             IWidgetFactory::class => WidgetFactory::class,
+            IWidgetSettingsFactory::class => WidgetSettingsFactory::class,
             IWidgetRevolverBuilder::class => WidgetRevolverBuilder::class,
             IWidgetRevolverFactory::class => WidgetRevolverFactory::class,
             IWidgetSettingsBuilder::class => WidgetSettingsBuilder::class,

@@ -66,6 +66,7 @@ use AlecRabbit\Spinner\Core\Factory\Contract\IStyleRendererFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IStyleToAnsiStringConverterFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ITerminalSettingsFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ITimerFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\IWidgetSettingsFactory;
 use AlecRabbit\Spinner\Core\Output\Contract\IConsoleCursor;
 use AlecRabbit\Spinner\Core\Output\Contract\IDriverOutput;
 use AlecRabbit\Spinner\Core\Pattern\Contract\IStyleLegacyPattern;
@@ -181,6 +182,10 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
     protected function getWidgetFactoryMock(): MockObject&IWidgetFactory
     {
         return $this->createMock(IWidgetFactory::class);
+    }
+    protected function getWidgetSettingsFactoryMock(): MockObject&IWidgetSettingsFactory
+    {
+        return $this->createMock(IWidgetSettingsFactory::class);
     }
 
     protected function getAuxSettingsMock(): MockObject&IAuxSettings
