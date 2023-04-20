@@ -11,10 +11,21 @@ use AlecRabbit\Spinner\Helper\MemoryUsage;
 require_once __DIR__ . '/../bootstrap.async.php';
 
 $reportInterval = 60;
-$m = new MemoryUsage();
+
+$memoryReport = static function () {
+    static $m = new MemoryUsage();
+    $message =
+        sprintf(
+            '%s %s',
+            (new DateTimeImmutable())->format(DATE_RFC3339_EXTENDED),
+            $m->report(),
+        );
+    echo $message . PHP_EOL;
+};
 
 echo '--' . PHP_EOL;
-echo $m->report() . PHP_EOL;
+$memoryReport();
+
 
 $defaultsProvider = Facade::getDefaultsProvider();
 $defaultsProvider
@@ -48,15 +59,8 @@ $loop = Facade::getLoop();
 //dump($spinner);
 //dump($driver);
 
+
 $loop->repeat(
     $reportInterval,
-    static function () use ($m) {
-        $message =
-            sprintf(
-                '%s %s',
-                (new DateTimeImmutable())->format(DATE_RFC3339_EXTENDED),
-                $m->report(),
-            );
-        echo $message . PHP_EOL;
-    }
+    $memoryReport
 );
