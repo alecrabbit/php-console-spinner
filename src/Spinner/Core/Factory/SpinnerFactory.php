@@ -40,12 +40,13 @@ final class SpinnerFactory implements ISpinnerFactory
         if ($widgetConfig === null) {
             return $rootWidgetSettings;
         }
-        return $this->widgetSettingsBuilder
-            ->withLeadingSpacer($widgetConfig->getLeadingSpacer() ?? $rootWidgetSettings->getLeadingSpacer())
-            ->withTrailingSpacer($widgetConfig->getTrailingSpacer() ?? $rootWidgetSettings->getTrailingSpacer())
-            ->withStylePattern($widgetConfig->getStylePattern() ?? $rootWidgetSettings->getStylePattern())
-            ->withCharPattern($widgetConfig->getCharPattern() ?? $rootWidgetSettings->getCharPattern())
-            ->build()
+        return
+            $this->widgetSettingsBuilder
+                ->withLeadingSpacer($widgetConfig->getLeadingSpacer() ?? $rootWidgetSettings->getLeadingSpacer())
+                ->withTrailingSpacer($widgetConfig->getTrailingSpacer() ?? $rootWidgetSettings->getTrailingSpacer())
+                ->withStylePattern($widgetConfig->getStylePattern() ?? $rootWidgetSettings->getStylePattern())
+                ->withCharPattern($widgetConfig->getCharPattern() ?? $rootWidgetSettings->getCharPattern())
+                ->build()
         ;
     }
 }
