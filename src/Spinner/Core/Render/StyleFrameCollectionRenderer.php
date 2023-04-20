@@ -8,11 +8,13 @@ namespace AlecRabbit\Spinner\Core\Render;
 
 use AlecRabbit\Spinner\Contract\Color\Style\IStyle;
 use AlecRabbit\Spinner\Contract\IFrame;
+use AlecRabbit\Spinner\Contract\Option\OptionStyleMode;
 use AlecRabbit\Spinner\Core\Contract\IFrameCollection;
 use AlecRabbit\Spinner\Core\Factory\Contract\IStyleFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IStyleFrameRendererFactory;
 use AlecRabbit\Spinner\Core\FrameCollection;
 use AlecRabbit\Spinner\Core\Pattern\Contract\IStyleLegacyPattern;
+use AlecRabbit\Spinner\Core\Pattern\StylePattern\NoStylePattern;
 use AlecRabbit\Spinner\Core\Render\Contract\IStyleFrameCollectionRenderer;
 use AlecRabbit\Spinner\Core\Render\Contract\IStyleFrameRenderer;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
@@ -26,14 +28,20 @@ final class StyleFrameCollectionRenderer implements IStyleFrameCollectionRendere
     public function __construct(
         protected IStyleFrameRendererFactory $styleFrameRendererFactory,
         protected IStyleFactory $styleFactory,
+        protected OptionStyleMode $styleMode,
     ) {
     }
 
     public function render(IStyleLegacyPattern $pattern): IFrameCollection
     {
-        $this->styleFrameRenderer =
+        if (OptionStyleMode::NONE === $this->styleMode) {
+            // FIXME (2023-04-20 13:47) [Alec Rabbit]: stub!
+            return new FrameCollection($this->generateFrames(new NoStylePattern()));
+        }
+        dump($pattern);
+        $this->styleFrameRenderer = // TODO (2023-04-20 13:50) [Alec Rabbit]: can be retrieved from the container?
             $this->styleFrameRendererFactory->create(
-                $pattern->getStyleMode()
+                dump($pattern->getStyleMode())
             );
 
         return new FrameCollection($this->generateFrames($pattern));

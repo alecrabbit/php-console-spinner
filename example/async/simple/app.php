@@ -30,6 +30,8 @@ $defaultsProvider = Facade::getDefaultsProvider();
 //    )
 //;
 
+dump($defaultsProvider);
+
 $config =
     new SpinnerConfig(
         new WidgetConfig(

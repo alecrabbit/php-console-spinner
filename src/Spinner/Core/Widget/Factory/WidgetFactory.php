@@ -22,11 +22,14 @@ final class WidgetFactory implements IWidgetFactory
 
     public function createWidget(IWidgetSettings $widgetSettings): IWidgetComposite
     {
-        return $this->widgetBuilder
-            ->withLeadingSpacer($widgetSettings->getLeadingSpacer())
-            ->withTrailingSpacer($widgetSettings->getTrailingSpacer())
-            ->withWidgetRevolver($this->widgetRevolverBuilder->createWidgetRevolver($widgetSettings))
-            ->build()
+        return
+            $this->widgetBuilder
+                ->withLeadingSpacer($widgetSettings->getLeadingSpacer())
+                ->withTrailingSpacer($widgetSettings->getTrailingSpacer())
+                ->withWidgetRevolver(
+                    $this->widgetRevolverBuilder->createWidgetRevolver($widgetSettings)
+                )
+                ->build()
         ;
     }
 }

@@ -30,10 +30,12 @@ final class StyleFrameCollectionRendererTest extends TestCaseWithPrebuiltMocksAn
     public function getTesteeInstance(
         ?IStyleFrameRendererFactory $styleFrameRendererFactory = null,
         ?IStyleFactory $styleFactory = null,
+        ?OptionStyleMode $styleMode = null,
     ): IStyleFrameCollectionRenderer {
         return new StyleFrameCollectionRenderer(
             styleFrameRendererFactory: $styleFrameRendererFactory ?? $this->getStyleFrameRendererFactoryMock(),
             styleFactory: $styleFactory ?? $this->getStyleFactoryMock(),
+            styleMode: $styleMode ?? OptionStyleMode::NONE,
         );
     }
 
@@ -63,8 +65,9 @@ final class StyleFrameCollectionRendererTest extends TestCaseWithPrebuiltMocksAn
         ;
 
         $collectionRenderer = $this->getTesteeInstance(
-            $styleFrameRendererFactory,
-            $styleFactory
+            styleFrameRendererFactory:  $styleFrameRendererFactory,
+            styleFactory: $styleFactory,
+            styleMode: $styleMode,
         );
 
         $pattern = $this->getStylePatternMock();
@@ -109,8 +112,9 @@ final class StyleFrameCollectionRendererTest extends TestCaseWithPrebuiltMocksAn
         ;
 
         $collectionRenderer = $this->getTesteeInstance(
-            $styleFrameRendererFactory,
-            $styleFactory
+            styleFrameRendererFactory:  $styleFrameRendererFactory,
+            styleFactory: $styleFactory,
+            styleMode: $styleMode,
         );
 
         $pattern = $this->getStylePatternMock();
@@ -154,8 +158,9 @@ final class StyleFrameCollectionRendererTest extends TestCaseWithPrebuiltMocksAn
         ;
 
         $collectionRenderer = $this->getTesteeInstance(
-            $styleFrameRendererFactory,
-            $styleFactory
+            styleFrameRendererFactory:  $styleFrameRendererFactory,
+            styleFactory: $styleFactory,
+            styleMode: $styleMode,
         );
 
         $pattern = $this->getStylePatternMock();
@@ -200,8 +205,9 @@ final class StyleFrameCollectionRendererTest extends TestCaseWithPrebuiltMocksAn
         ;
 
         $collectionRenderer = $this->getTesteeInstance(
-            $styleFrameRendererFactory,
-            $styleFactory
+            styleFrameRendererFactory:  $styleFrameRendererFactory,
+            styleFactory: $styleFactory,
+            styleMode: $styleMode,
         );
 
         $pattern = $this->getStylePatternMock();
