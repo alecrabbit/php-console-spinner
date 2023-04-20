@@ -6,12 +6,13 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Mixin;
 
-trait PrivateConstructorTrait
+trait NonInstantiable
 {
     // @codeCoverageIgnoreStart
-    private function __construct()
+    /** @psalm-suppress UnusedConstructor */
+    final private function __construct()
     {
-        // no instances, can be overridden
+        // no instances, can NOT be overridden
     }
     // @codeCoverageIgnoreEnd
 }
