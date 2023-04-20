@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Factory;
 
 use AlecRabbit\Spinner\Contract\Option\OptionStyleMode;
+use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IStyleRevolverFactory;
 use AlecRabbit\Spinner\Core\Factory\StyleRevolverFactory;
 use AlecRabbit\Spinner\Core\Render\Contract\IStyleFrameCollectionRenderer;
@@ -25,11 +26,13 @@ final class StyleRevolverFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
     public function getTesteeInstance(
         ?IFrameRevolverBuilder $frameRevolverBuilder = null,
         ?IStyleFrameCollectionRenderer $styleFrameCollectionRenderer = null,
+        ?IIntervalFactory $intervalFactory = null,
         ?OptionStyleMode $styleMode = null,
     ): IStyleRevolverFactory {
         return new StyleRevolverFactory(
             frameRevolverBuilder: $frameRevolverBuilder ?? $this->getFrameRevolverBuilderMock(),
             styleFrameCollectionRenderer: $styleFrameCollectionRenderer ?? $this->getStyleFrameCollectionRendererMock(),
+            intervalFactory: $intervalFactory ?? $this->getIntervalFactoryMock(),
             styleMode: $styleMode ?? OptionStyleMode::NONE,
         );
     }
@@ -39,6 +42,11 @@ final class StyleRevolverFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
     {
         $pattern = $this->getStylePatternMock();
         $interval = $this->getIntervalMock();
+        $interval
+            ->expects(self::once())
+            ->method('toMilliseconds')
+        ;
+        
         $pattern
             ->expects(self::once())
             ->method('getInterval')
@@ -76,9 +84,17 @@ final class StyleRevolverFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
 
         $styleMode = OptionStyleMode::ANSI8;
 
+        $intervalFactory = $this->getIntervalFactoryMock();
+        $intervalFactory
+            ->expects(self::once())
+            ->method('createNormalized')
+            ->willReturn($interval)
+        ;
+
         $styleRevolverFactory = $this->getTesteeInstance(
             frameRevolverBuilder: $frameRevolverBuilder,
             styleFrameCollectionRenderer: $styleFrameCollectionRenderer,
+            intervalFactory: $intervalFactory,
             styleMode: $styleMode,
         );
 

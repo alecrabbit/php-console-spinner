@@ -5,16 +5,16 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Pattern\A;
 
 
-use AlecRabbit\Spinner\Contract\Pattern\IPattern;
+use AlecRabbit\Spinner\Contract\Pattern\IBakedPattern;
 use AlecRabbit\Spinner\Core\Interval;
-use AlecRabbit\Spinner\Core\Pattern\A\APattern;
+use AlecRabbit\Spinner\Core\Pattern\A\ABakedPattern;
 use AlecRabbit\Tests\TestCase\TestCase;
-use AlecRabbit\Tests\Unit\Spinner\Core\Pattern\Override\APatternOverride;
+use AlecRabbit\Tests\Unit\Spinner\Core\Pattern\Override\ABakedPatternOverride;
 use ArrayObject;
 use PHPUnit\Framework\Attributes\Test;
 use Traversable;
 
-final class APatternTest extends TestCase
+final class ABakedPatternTest extends TestCase
 {
     #[Test]
     public function canBeCreated(): void
@@ -22,19 +22,19 @@ final class APatternTest extends TestCase
         $entries = new ArrayObject([]);
         $interval = new Interval();
         $pattern = $this->getTesteeInstance(
-            entries: $entries,
+            frames: $entries,
             interval: $interval,
         );
-        self::assertInstanceOf(APattern::class, $pattern);
+        self::assertInstanceOf(ABakedPattern::class, $pattern);
     }
 
     protected function getTesteeInstance(
-        ?Traversable $entries = null,
+        ?Traversable $frames = null,
         ?Interval $interval = null,
-    ): IPattern {
+    ): IBakedPattern {
         return
-            new APatternOverride(
-                entries: $entries ?? new ArrayObject([]),
+            new ABakedPatternOverride(
+                frames: $frames ?? new ArrayObject([]),
                 interval: $interval ?? new Interval(),
             );
     }

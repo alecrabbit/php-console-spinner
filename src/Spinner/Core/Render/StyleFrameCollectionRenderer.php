@@ -13,7 +13,7 @@ use AlecRabbit\Spinner\Core\Contract\IFrameCollection;
 use AlecRabbit\Spinner\Core\Factory\Contract\IStyleFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IStyleFrameRendererFactory;
 use AlecRabbit\Spinner\Core\FrameCollection;
-use AlecRabbit\Spinner\Core\Pattern\Contract\IStyleLegacyPattern;
+use AlecRabbit\Spinner\Core\Pattern\Contract\IStylePattern;
 use AlecRabbit\Spinner\Core\Pattern\StylePattern\NoStylePattern;
 use AlecRabbit\Spinner\Core\Render\Contract\IStyleFrameCollectionRenderer;
 use AlecRabbit\Spinner\Core\Render\Contract\IStyleFrameRenderer;
@@ -31,7 +31,7 @@ final class StyleFrameCollectionRenderer implements IStyleFrameCollectionRendere
     ) {
     }
 
-    public function render(IStyleLegacyPattern $pattern): IFrameCollection
+    public function render(IStylePattern $pattern): IFrameCollection
     {
         if (OptionStyleMode::NONE === $pattern->getStyleMode()) {
             return new FrameCollection($this->generateFrames($pattern));
@@ -47,7 +47,7 @@ final class StyleFrameCollectionRenderer implements IStyleFrameCollectionRendere
     /**
      * @throws InvalidArgumentException
      */
-    private function generateFrames(IStyleLegacyPattern $pattern): Traversable
+    private function generateFrames(IStylePattern $pattern): Traversable
     {
         /** @var IFrame|Stringable|string|IStyle $entry */
         foreach ($pattern->getEntries() as $entry) {

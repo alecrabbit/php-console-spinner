@@ -11,7 +11,7 @@ use AlecRabbit\Spinner\Core\Interval;
 use Traversable;
 
 /** @psalm-suppress UnusedClass */
-abstract class AOneFramePattern extends ALegacyPattern
+abstract class AOneFramePattern extends APattern
 {
     public function __construct(
         protected IFrame $frame,

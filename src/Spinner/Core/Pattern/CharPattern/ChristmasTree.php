@@ -6,12 +6,12 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Pattern\CharPattern;
 
-use AlecRabbit\Spinner\Core\Pattern\A\ALegacyPattern;
+use AlecRabbit\Spinner\Core\Pattern\A\APattern;
 use ArrayObject;
 use Traversable;
 
 /** @psalm-suppress UnusedClass */
-final class ChristmasTree extends ALegacyPattern
+final class ChristmasTree extends APattern
 {
     protected const INTERVAL = 500;
 

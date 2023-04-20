@@ -9,11 +9,11 @@ namespace AlecRabbit\Spinner\Core\Pattern\StylePattern\A;
 use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Contract\Option\OptionStyleMode;
 use AlecRabbit\Spinner\Core\Pattern\A\ALegacyReversiblePattern;
-use AlecRabbit\Spinner\Core\Pattern\Contract\IStyleLegacyPattern;
+use AlecRabbit\Spinner\Core\Pattern\Contract\IStylePattern;
 use ArrayObject;
 use Traversable;
 
-abstract class ALegacyStylePattern extends ALegacyReversiblePattern implements IStyleLegacyPattern
+abstract class ALegacyStylePattern extends ALegacyReversiblePattern implements IStylePattern
 {
     protected const STYLE_MODE = OptionStyleMode::ANSI8;
 

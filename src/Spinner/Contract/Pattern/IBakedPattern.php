@@ -9,9 +9,9 @@ namespace AlecRabbit\Spinner\Contract\Pattern;
 use AlecRabbit\Spinner\Contract\IInterval;
 use Traversable;
 
-interface ILegacyPattern
+interface IBakedPattern
 {
-    public function getEntries(): Traversable;
+    public function getFrames(): Traversable;
 
     public function getInterval(): IInterval;
 }
