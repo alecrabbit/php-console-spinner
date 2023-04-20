@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Factory;
 
+use AlecRabbit\Spinner\Contract\Option\OptionStyleMode;
 use AlecRabbit\Spinner\Core\Factory\Contract\IStyleRevolverFactory;
 use AlecRabbit\Spinner\Core\Factory\StyleRevolverFactory;
 use AlecRabbit\Spinner\Core\Render\Contract\IStyleFrameCollectionRenderer;
@@ -24,10 +25,12 @@ final class StyleRevolverFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
     public function getTesteeInstance(
         ?IFrameRevolverBuilder $frameRevolverBuilder = null,
         ?IStyleFrameCollectionRenderer $styleFrameCollectionRenderer = null,
+        ?OptionStyleMode $styleMode = null,
     ): IStyleRevolverFactory {
         return new StyleRevolverFactory(
             frameRevolverBuilder: $frameRevolverBuilder ?? $this->getFrameRevolverBuilderMock(),
             styleFrameCollectionRenderer: $styleFrameCollectionRenderer ?? $this->getStyleFrameCollectionRendererMock(),
+            styleMode: $styleMode ?? OptionStyleMode::NONE,
         );
     }
 
@@ -71,9 +74,12 @@ final class StyleRevolverFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
             ->willReturn($frameRevolver)
         ;
 
+        $styleMode = OptionStyleMode::ANSI8;
+
         $styleRevolverFactory = $this->getTesteeInstance(
             frameRevolverBuilder: $frameRevolverBuilder,
             styleFrameCollectionRenderer: $styleFrameCollectionRenderer,
+            styleMode: $styleMode,
         );
 
         $styleRevolver = $styleRevolverFactory->createStyleRevolver($pattern);

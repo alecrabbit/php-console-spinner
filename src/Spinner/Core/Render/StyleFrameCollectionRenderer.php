@@ -28,20 +28,17 @@ final class StyleFrameCollectionRenderer implements IStyleFrameCollectionRendere
     public function __construct(
         protected IStyleFrameRendererFactory $styleFrameRendererFactory,
         protected IStyleFactory $styleFactory,
-        protected OptionStyleMode $styleMode,
     ) {
     }
 
     public function render(IStyleLegacyPattern $pattern): IFrameCollection
     {
-        if (OptionStyleMode::NONE === $this->styleMode) {
-            // FIXME (2023-04-20 13:47) [Alec Rabbit]: stub!
-            return new FrameCollection($this->generateFrames(new NoStylePattern()));
+        if (OptionStyleMode::NONE === $pattern->getStyleMode()) {
+            return new FrameCollection($this->generateFrames($pattern));
         }
-        dump($pattern);
         $this->styleFrameRenderer = // TODO (2023-04-20 13:50) [Alec Rabbit]: can be retrieved from the container?
             $this->styleFrameRendererFactory->create(
-                dump($pattern->getStyleMode())
+                $pattern->getStyleMode()
             );
 
         return new FrameCollection($this->generateFrames($pattern));

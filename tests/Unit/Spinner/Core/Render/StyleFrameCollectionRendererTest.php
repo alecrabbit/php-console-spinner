@@ -30,12 +30,10 @@ final class StyleFrameCollectionRendererTest extends TestCaseWithPrebuiltMocksAn
     public function getTesteeInstance(
         ?IStyleFrameRendererFactory $styleFrameRendererFactory = null,
         ?IStyleFactory $styleFactory = null,
-        ?OptionStyleMode $styleMode = null,
     ): IStyleFrameCollectionRenderer {
         return new StyleFrameCollectionRenderer(
             styleFrameRendererFactory: $styleFrameRendererFactory ?? $this->getStyleFrameRendererFactoryMock(),
             styleFactory: $styleFactory ?? $this->getStyleFactoryMock(),
-            styleMode: $styleMode ?? OptionStyleMode::NONE,
         );
     }
 
@@ -65,14 +63,13 @@ final class StyleFrameCollectionRendererTest extends TestCaseWithPrebuiltMocksAn
         ;
 
         $collectionRenderer = $this->getTesteeInstance(
-            styleFrameRendererFactory:  $styleFrameRendererFactory,
+            styleFrameRendererFactory: $styleFrameRendererFactory,
             styleFactory: $styleFactory,
-            styleMode: $styleMode,
         );
 
         $pattern = $this->getStylePatternMock();
         $pattern
-            ->expects(self::once())
+            ->expects(self::exactly(2))
             ->method('getStyleMode')
             ->willReturn($styleMode)
         ;
@@ -112,14 +109,13 @@ final class StyleFrameCollectionRendererTest extends TestCaseWithPrebuiltMocksAn
         ;
 
         $collectionRenderer = $this->getTesteeInstance(
-            styleFrameRendererFactory:  $styleFrameRendererFactory,
+            styleFrameRendererFactory: $styleFrameRendererFactory,
             styleFactory: $styleFactory,
-            styleMode: $styleMode,
         );
 
         $pattern = $this->getStylePatternMock();
         $pattern
-            ->expects(self::once())
+            ->expects(self::exactly(2))
             ->method('getStyleMode')
             ->willReturn($styleMode)
         ;
@@ -158,14 +154,13 @@ final class StyleFrameCollectionRendererTest extends TestCaseWithPrebuiltMocksAn
         ;
 
         $collectionRenderer = $this->getTesteeInstance(
-            styleFrameRendererFactory:  $styleFrameRendererFactory,
+            styleFrameRendererFactory: $styleFrameRendererFactory,
             styleFactory: $styleFactory,
-            styleMode: $styleMode,
         );
 
         $pattern = $this->getStylePatternMock();
         $pattern
-            ->expects(self::once())
+            ->expects(self::exactly(2))
             ->method('getStyleMode')
             ->willReturn($styleMode)
         ;
@@ -205,14 +200,13 @@ final class StyleFrameCollectionRendererTest extends TestCaseWithPrebuiltMocksAn
         ;
 
         $collectionRenderer = $this->getTesteeInstance(
-            styleFrameRendererFactory:  $styleFrameRendererFactory,
+            styleFrameRendererFactory: $styleFrameRendererFactory,
             styleFactory: $styleFactory,
-            styleMode: $styleMode,
         );
 
         $pattern = $this->getStylePatternMock();
         $pattern
-            ->expects(self::once())
+            ->expects(self::exactly(2))
             ->method('getStyleMode')
             ->willReturn($styleMode)
         ;
