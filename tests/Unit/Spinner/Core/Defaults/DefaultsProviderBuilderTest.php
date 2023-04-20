@@ -30,8 +30,6 @@ final class DefaultsProviderBuilderTest extends TestCaseWithPrebuiltMocksAndStub
         ?ITerminalSettingsFactory $terminalSettingsFactory = null,
         ?IAuxSettingsBuilder $auxSettingsBuilder = null,
         ?IDriverSettingsBuilder $driverSettingsBuilder = null,
-        ?IWidgetSettingsBuilder $widgetSettingsBuilder = null,
-        ?IWidgetSettingsBuilder $rootWidgetSettingsBuilder = null,
     ): IDefaultsProviderBuilder {
         return
             new DefaultsProviderBuilder(
@@ -39,8 +37,6 @@ final class DefaultsProviderBuilderTest extends TestCaseWithPrebuiltMocksAndStub
                 terminalSettingsFactory: $terminalSettingsFactory ?? $this->getTerminalSettingsFactoryMock(),
                 auxSettingsBuilder: $auxSettingsBuilder ?? $this->getAuxSettingsBuilderMock(),
                 driverSettingsBuilder: $driverSettingsBuilder ?? $this->getDriverSettingsBuilderMock(),
-                widgetSettingsBuilder: $widgetSettingsBuilder ?? $this->getWidgetSettingsBuilderMock(),
-                rootWidgetSettingsBuilder: $rootWidgetSettingsBuilder ?? $this->getWidgetSettingsBuilderMock(),
             );
     }
 
