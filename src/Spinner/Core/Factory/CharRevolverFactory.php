@@ -9,6 +9,7 @@ namespace AlecRabbit\Spinner\Core\Factory;
 use AlecRabbit\Spinner\Contract\Pattern\IPattern;
 use AlecRabbit\Spinner\Core\Contract\IFrameCollection;
 use AlecRabbit\Spinner\Core\Factory\Contract\ICharRevolverFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalFactory;
 use AlecRabbit\Spinner\Core\Render\Contract\ICharFrameCollectionRenderer;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolver;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolverBuilder;
@@ -18,6 +19,7 @@ final class CharRevolverFactory implements ICharRevolverFactory
     public function __construct(
         protected IFrameRevolverBuilder $frameRevolverBuilder,
         protected ICharFrameCollectionRenderer $charFrameCollectionRenderer,
+        protected IIntervalFactory $intervalFactory,
     ) {
     }
 
@@ -25,7 +27,11 @@ final class CharRevolverFactory implements ICharRevolverFactory
     {
         return $this->frameRevolverBuilder
             ->withFrames($this->getFrameCollection($charPattern))
-            ->withInterval($charPattern->getInterval())
+            ->withInterval(
+                $this->intervalFactory->createNormalized(
+                    (int)$charPattern->getInterval()->toMilliseconds()
+                )
+            )
             ->build()
         ;
     }

@@ -46,7 +46,7 @@ final class StyleRevolverFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
             ->expects(self::once())
             ->method('toMilliseconds')
         ;
-        
+
         $pattern
             ->expects(self::once())
             ->method('getInterval')
