@@ -11,6 +11,8 @@ use AlecRabbit\Spinner\Contract\Pattern\IPattern;
 use AlecRabbit\Spinner\Core\Contract\IFrameCollection;
 use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IStyleFrameRevolverFactory;
+use AlecRabbit\Spinner\Core\Pattern\BakedPattern;
+use AlecRabbit\Spinner\Core\Pattern\Contract\IBakedPattern;
 use AlecRabbit\Spinner\Core\Pattern\Contract\IStylePattern;
 use AlecRabbit\Spinner\Core\Pattern\NoStylePattern;
 use AlecRabbit\Spinner\Core\Render\Contract\IStyleFrameCollectionRenderer;
@@ -29,23 +31,26 @@ final class StyleFrameRevolverFactory implements IStyleFrameRevolverFactory
 
     public function createStyleRevolver(IStylePattern $stylePattern): IFrameRevolver
     {
-        if (OptionStyleMode::NONE === $this->styleMode) {
-            $stylePattern = new NoStylePattern();
-        }
+        $bakedPattern = $this->bakePattern($stylePattern);
         return
             $this->frameRevolverBuilder
-                ->withFrames($this->getFrameCollection($stylePattern))
-                ->withInterval(
-                    $this->intervalFactory->createNormalized(
-                        $stylePattern->getInterval()
-                    )
-                )
+                ->withFrames($bakedPattern->getFrameCollection())
+                ->withInterval($bakedPattern->getInterval())
                 ->build()
         ;
     }
 
-    private function getFrameCollection(IPattern $stylePattern): IFrameCollection
+    private function bakePattern(IStylePattern $pattern): IBakedPattern
     {
-        return $this->styleFrameCollectionRenderer->render($stylePattern);
+        if (OptionStyleMode::NONE === $this->styleMode) {
+            $pattern = new NoStylePattern();
+        }
+        return
+            new BakedPattern(
+                frames: $this->styleFrameCollectionRenderer->render($pattern),
+                interval: $this->intervalFactory->createNormalized(
+                    $pattern->getInterval()
+                ),
+            );
     }
 }
