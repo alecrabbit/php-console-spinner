@@ -21,22 +21,23 @@ final class FrameRevolverBuilder implements IFrameRevolverBuilder
     {
         $this->validate();
 
-        return new FrameCollectionRevolver(
-            $this->frames,
-            $this->interval
-        );
+        return
+            new FrameCollectionRevolver(
+                $this->frames,
+                $this->interval
+            );
     }
 
     private function validate(): void
     {
         match (true) {
-            null === $this->frames => throw new LogicException('Frames are not set.'),
+            $this->frames === null => throw new LogicException('Frame collection is not set.'),
             $this->interval === null => throw new LogicException('Interval is not set.'),
             default => null,
         };
     }
 
-    public function withFrames(IFrameCollection $frames): IFrameRevolverBuilder
+    public function withFrameCollection(IFrameCollection $frames): IFrameRevolverBuilder
     {
         $clone = clone $this;
         $clone->frames = $frames;

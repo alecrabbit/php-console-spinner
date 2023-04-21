@@ -32,7 +32,7 @@ final class StyleFrameRevolverFactory implements IStyleFrameRevolverFactory
         $bakedPattern = $this->bakePattern($stylePattern);
         return
             $this->frameRevolverBuilder
-                ->withFrames($bakedPattern->getFrameCollection())
+                ->withFrameCollection($bakedPattern->getFrameCollection())
                 ->withInterval($bakedPattern->getInterval())
                 ->build()
         ;

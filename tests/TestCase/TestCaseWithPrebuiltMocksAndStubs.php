@@ -527,6 +527,13 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
         return $this->createMock(IFrameCollection::class);
     }
 
+    protected function getOneElementFrameCollectionMock(): MockObject&IFrameCollection
+    {
+        $mockObject = $this->createMock(IFrameCollection::class);
+        $mockObject->method('count')->willReturn(1);
+        return $mockObject;
+    }
+
     protected function getStyleFrameCollectionRendererMock(): MockObject&IStyleFrameCollectionRenderer
     {
         return $this->createMock(IStyleFrameCollectionRenderer::class);

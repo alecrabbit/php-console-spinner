@@ -63,7 +63,7 @@ final class StyleRevolverFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
         $frameRevolverBuilder = $this->getFrameRevolverBuilderMock();
         $frameRevolverBuilder
             ->expects(self::once())
-            ->method('withFrames')
+            ->method('withFrameCollection')
             ->with($frameCollection)
             ->willReturnSelf()
         ;
