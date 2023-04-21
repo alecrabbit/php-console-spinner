@@ -46,6 +46,53 @@ final class FrameCollectionRevolverTest extends TestCaseWithPrebuiltMocksAndStub
         self::assertEquals(0, self::getPropertyValue('offset', $frameCollectionRevolver));
     }
 
+
+    #[Test]
+    public function canUpdate(): void
+    {
+        $frameCollection = $this->getFrameCollectionMock();
+        $frameCollection
+            ->expects(self::once())
+            ->method('count')
+            ->willReturn(3)
+        ;
+        $frame0 = $this->getFrameMock();
+        $frame1 = $this->getFrameMock();
+        $frame2 = $this->getFrameMock();
+        $frameCollection
+            ->expects(self::exactly(4))
+            ->method('get')
+            ->willReturn($frame0, $frame1, $frame2, $frame2)
+        ;
+
+        $frameCollectionRevolver = $this->getTesteeInstance(
+            frameCollection: $frameCollection,
+        );
+
+        self::assertInstanceOf(FrameCollectionRevolver::class, $frameCollectionRevolver);
+        self::assertSame($frame0, $frameCollectionRevolver->update());
+        self::assertSame($frame1, $frameCollectionRevolver->update());
+        self::assertSame($frame2, $frameCollectionRevolver->update());
+        self::assertSame($frame2, $frameCollectionRevolver->update(100000));
+    }
+
+    #[Test]
+    public function canGetInterval(): void
+    {
+        $interval = $this->getIntervalMock();
+        $interval
+            ->expects(self::once())
+            ->method('smallest')
+            ->willReturnSelf()
+        ;
+        $frameCollectionRevolver = $this->getTesteeInstance(
+            interval: $interval,
+        );
+
+        self::assertInstanceOf(FrameCollectionRevolver::class, $frameCollectionRevolver);
+        self::assertSame($interval, $frameCollectionRevolver->getInterval());
+    }
+
     #[Test]
     public function invokingCurrentInvokesGetOnCollection(): void
     {
