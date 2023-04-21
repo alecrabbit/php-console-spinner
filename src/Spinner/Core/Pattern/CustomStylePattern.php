@@ -4,10 +4,9 @@ declare(strict_types=1);
 
 // 09.03.23
 
-namespace AlecRabbit\Spinner\Core\Pattern\StylePattern;
+namespace AlecRabbit\Spinner\Core\Pattern;
 
 use AlecRabbit\Spinner\Core\Pattern\StylePattern\A\AStylePattern;
-use AlecRabbit\Spinner\Exception\LogicException;
 use Traversable;
 
 /** @psalm-suppress UnusedClass */

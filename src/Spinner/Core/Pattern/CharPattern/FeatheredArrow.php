@@ -8,9 +8,11 @@ namespace AlecRabbit\Spinner\Core\Pattern\CharPattern;
 
 use AlecRabbit\Spinner\Core\Pattern\A\AReversiblePattern;
 use ArrayObject;
-use Traversable;
 
-/** @psalm-suppress UnusedClass */
+/**
+ * @codeCoverageIgnore
+ * @psalm-suppress UnusedClass
+ */
 final class FeatheredArrow extends AReversiblePattern
 {
     protected const INTERVAL = 160;
@@ -24,12 +26,13 @@ final class FeatheredArrow extends AReversiblePattern
         '➸', // HEAVY BLACK-FEATHERED RIGHTWARDS ARROW
         '➹', // HEAVY BLACK-FEATHERED NORTH EAST ARROW
     ];
+
     public function __construct(
         ?int $interval = null,
         bool $reversed = false
     ) {
         parent::__construct(
-            new \ArrayObject(self::PATTERN),
+            new ArrayObject(self::PATTERN),
             $interval ?? self::INTERVAL,
             $reversed
         );

@@ -28,12 +28,12 @@ $memoryReport();
 
 
 $defaultsProvider = Facade::getDefaultsProvider();
-$defaultsProvider
-    ->getTerminalSettings()
-    ->setOptionStyleMode(
-        \AlecRabbit\Spinner\Contract\Option\OptionStyleMode::NONE
-    )
-;
+//$defaultsProvider
+//    ->getTerminalSettings()
+//    ->setOptionStyleMode(
+//        \AlecRabbit\Spinner\Contract\Option\OptionStyleMode::NONE
+//    )
+//;
 //$defaultsProvider
 //    ->getLoopSettings()
 //    ->setOptionAutoStart(

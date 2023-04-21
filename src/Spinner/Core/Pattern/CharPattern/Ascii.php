@@ -8,9 +8,11 @@ namespace AlecRabbit\Spinner\Core\Pattern\CharPattern;
 
 use AlecRabbit\Spinner\Core\Pattern\A\AReversiblePattern;
 use ArrayObject;
-use Traversable;
 
-/** @psalm-suppress UnusedClass */
+/**
+ * @codeCoverageIgnore
+ * @psalm-suppress UnusedClass
+ */
 final class Ascii extends AReversiblePattern
 {
     protected const INTERVAL = 300;
@@ -21,7 +23,7 @@ final class Ascii extends AReversiblePattern
         bool $reversed = false
     ) {
         parent::__construct(
-            new \ArrayObject(self::PATTERN),
+            new ArrayObject(self::PATTERN),
             $interval ?? self::INTERVAL,
             $reversed
         );

@@ -23,9 +23,4 @@ abstract class AStylePattern extends AReversiblePattern implements IStylePattern
     {
         return self::STYLE_MODE;
     }
-
-    public function getEntries(): ?Traversable
-    {
-        return new ArrayObject($this->extractPattern());
-    }
 }

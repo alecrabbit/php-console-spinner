@@ -8,9 +8,11 @@ namespace AlecRabbit\Spinner\Core\Pattern\CharPattern;
 
 use AlecRabbit\Spinner\Core\Pattern\A\APattern;
 use ArrayObject;
-use Traversable;
 
-/** @psalm-suppress UnusedClass */
+/**
+ * @codeCoverageIgnore
+ * @psalm-suppress UnusedClass
+ */
 final class PulseOrangeBlue extends APattern
 {
     protected const INTERVAL = 100;
@@ -22,7 +24,7 @@ final class PulseOrangeBlue extends APattern
         bool $reversed = false
     ) {
         parent::__construct(
-            new \ArrayObject(self::PATTERN),
+            new ArrayObject(self::PATTERN),
             $interval ?? self::INTERVAL,
             $reversed
         );

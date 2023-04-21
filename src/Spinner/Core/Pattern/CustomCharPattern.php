@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 // 09.03.23
 
-namespace AlecRabbit\Spinner\Core\Pattern\CharPattern;
+namespace AlecRabbit\Spinner\Core\Pattern;
 
 use AlecRabbit\Spinner\Core\Pattern\A\AReversiblePattern;
 use Traversable;
 
 /** @psalm-suppress UnusedClass */
-final class CustomPattern extends AReversiblePattern
+final class CustomCharPattern extends AReversiblePattern
 {
     protected const INTERVAL = 1000;
 
