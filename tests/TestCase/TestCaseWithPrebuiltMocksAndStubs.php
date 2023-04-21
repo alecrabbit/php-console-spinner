@@ -131,6 +131,7 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
     {
         return $this->createMock(ICharFrameRevolverFactory::class);
     }
+
     protected function getStyleFrameRevolverFactoryMock(): MockObject&IStyleFrameRevolverFactory
     {
         return $this->createMock(IStyleFrameRevolverFactory::class);

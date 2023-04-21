@@ -15,8 +15,7 @@ final class APatternTest extends TestCase
     #[Test]
     public function canBeCreated(): void
     {
-        $pattern = $this->getTesteeInstance(
-        );
+        $pattern = $this->getTesteeInstance();
         self::assertInstanceOf(APattern::class, $pattern);
         self::assertNull($pattern->getEntries());
         self::assertNull($pattern->getInterval());

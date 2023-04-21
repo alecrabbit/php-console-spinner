@@ -6,9 +6,7 @@ namespace AlecRabbit\Spinner\Core\Pattern\A;
 
 use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Core\Contract\IFrameCollection;
-use AlecRabbit\Spinner\Core\Interval;
 use AlecRabbit\Spinner\Core\Pattern\Contract\IBakedPattern;
-use Traversable;
 
 abstract readonly class ABakedPattern implements IBakedPattern
 {

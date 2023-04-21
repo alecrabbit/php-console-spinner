@@ -6,8 +6,6 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Pattern\A;
 
-use AlecRabbit\Spinner\Contract\IInterval;
-use ArrayObject;
 use Traversable;
 
 abstract class AReversiblePattern extends APattern

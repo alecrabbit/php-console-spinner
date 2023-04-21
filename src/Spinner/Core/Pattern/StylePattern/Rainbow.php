@@ -6,8 +6,8 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Pattern\StylePattern;
 
-use AlecRabbit\Spinner\Contract\Option\OptionStyleMode;
 use AlecRabbit\Spinner\Core\Pattern\StylePattern\A\AStylePattern;
+use ArrayObject;
 
 /**
  * @codeCoverageIgnore
@@ -17,7 +17,7 @@ final class Rainbow extends AStylePattern
     public function __construct(?int $interval = 100, bool $reversed = false)
     {
         parent::__construct(
-            new \ArrayObject([
+            new ArrayObject([
                 '#00ffff', // light cyan
             ]),
             $interval,
