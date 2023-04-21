@@ -10,5 +10,7 @@ use AlecRabbit\Spinner\Contract\IUpdatable;
 
 interface IRevolver extends IUpdatable, HasInterval
 {
+    final const TOLERANCE = 5;
+
     public function setInterval(IInterval $interval): void;
 }

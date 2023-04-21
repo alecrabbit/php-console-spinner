@@ -22,8 +22,9 @@ final class FrameCollectionRevolver extends ARevolver implements IFrameCollectio
     public function __construct(
         protected IFrameCollection $frameCollection,
         IInterval $interval,
+        int $tolerance,
     ) {
-        parent::__construct($interval);
+        parent::__construct($interval, $tolerance);
         $this->count = $this->frameCollection->count();
         $this->assertIsNotEmpty();
     }

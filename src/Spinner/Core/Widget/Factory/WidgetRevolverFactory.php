@@ -33,6 +33,9 @@ final class WidgetRevolverFactory implements IWidgetRevolverFactory
                 ->withCharRevolver(
                     $this->getCharRevolver($widgetSettings)
                 )
+//                ->withTolerance(
+//                    $this->getTolerance()
+//                )
                 ->build()
         ;
     }
@@ -55,5 +58,10 @@ final class WidgetRevolverFactory implements IWidgetRevolverFactory
                     $widgetSettings->getCharPattern()
                 )
         ;
+    }
+
+    private function getTolerance(): int
+    {
+        return IRevolver::TOLERANCE;
     }
 }

@@ -30,6 +30,7 @@ final class FrameCollectionRevolverTest extends TestCaseWithPrebuiltMocksAndStub
             new FrameCollectionRevolver(
                 frameCollection: $frameCollection ?? $this->getOneElementFrameCollectionMock(),
                 interval: $interval ?? $this->getIntervalMock(),
+                tolerance: 5,
             );
     }
 

@@ -13,6 +13,7 @@ use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalFactory;
 use AlecRabbit\Spinner\Core\Render\Contract\ICharFrameCollectionRenderer;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolver;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolverBuilder;
+use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
 
 final class CharFrameRevolverFactory implements ICharFrameRevolverFactory
 {
@@ -32,6 +33,9 @@ final class CharFrameRevolverFactory implements ICharFrameRevolverFactory
                     $charPattern->getInterval()
                 )
             )
+//            ->withTolerance(
+//                $this->getTolerance()
+//            )
             ->build()
         ;
     }
@@ -39,5 +43,10 @@ final class CharFrameRevolverFactory implements ICharFrameRevolverFactory
     private function getFrameCollection(IPattern $charPattern): IFrameCollection
     {
         return $this->charFrameCollectionRenderer->render($charPattern);
+    }
+
+    private function getTolerance(): int
+    {
+        return IRevolver::TOLERANCE;
     }
 }

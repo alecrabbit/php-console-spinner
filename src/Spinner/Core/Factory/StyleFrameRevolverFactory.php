@@ -16,6 +16,7 @@ use AlecRabbit\Spinner\Core\Pattern\NoStylePattern;
 use AlecRabbit\Spinner\Core\Render\Contract\IStyleFrameCollectionRenderer;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolver;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolverBuilder;
+use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
 
 final class StyleFrameRevolverFactory implements IStyleFrameRevolverFactory
 {
@@ -34,6 +35,9 @@ final class StyleFrameRevolverFactory implements IStyleFrameRevolverFactory
             $this->frameRevolverBuilder
                 ->withFrameCollection($bakedPattern->getFrameCollection())
                 ->withInterval($bakedPattern->getInterval())
+//                ->withTolerance(
+//                    $this->getTolerance()
+//                )
                 ->build()
         ;
     }
@@ -50,5 +54,10 @@ final class StyleFrameRevolverFactory implements IStyleFrameRevolverFactory
                     $pattern->getInterval()
                 ),
             );
+    }
+
+    private function getTolerance(): int
+    {
+        return IRevolver::TOLERANCE;
     }
 }

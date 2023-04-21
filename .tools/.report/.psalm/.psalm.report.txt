@@ -152,8 +152,10 @@
 /app/src/Spinner/Core/Render/StyleToAnsiStringConverter.php:95:30:error - MixedAssignment: Unable to determine the type that $option is being assigned to
 /app/src/Spinner/Core/Render/StyleToAnsiStringConverter.php:96:13:error - MixedAssignment: Unable to determine the type of this assignment
 /app/src/Spinner/Core/Render/StyleToAnsiStringConverter.php:96:24:error - MixedArrayAccess: Cannot access array value on mixed variable $option
-/app/src/Spinner/Core/Revolver/FrameRevolverBuilder.php:25:13:error - PossiblyNullArgument: Argument 1 of AlecRabbit\Spinner\Core\Revolver\FrameCollectionRevolver::__construct cannot be null, possibly null value provided
-/app/src/Spinner/Core/Revolver/FrameRevolverBuilder.php:26:13:error - PossiblyNullArgument: Argument 2 of AlecRabbit\Spinner\Core\Revolver\FrameCollectionRevolver::__construct cannot be null, possibly null value provided
+/app/src/Spinner/Core/Revolver/Contract/IRevolver.php:13:17:error - AmbiguousConstantInheritance: Ambiguous inheritance of AlecRabbit\Spinner\Core\Revolver\FrameCollectionRevolver::TOLERANCE from AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolver and AlecRabbit\Spinner\Core\Revolver\A\ARevolver
+/app/src/Spinner/Core/Revolver/FrameRevolverBuilder.php:28:17:error - PossiblyNullArgument: Argument 1 of AlecRabbit\Spinner\Core\Revolver\FrameCollectionRevolver::__construct cannot be null, possibly null value provided
+/app/src/Spinner/Core/Revolver/FrameRevolverBuilder.php:29:17:error - PossiblyNullArgument: Argument 2 of AlecRabbit\Spinner\Core\Revolver\FrameCollectionRevolver::__construct cannot be null, possibly null value provided
+/app/src/Spinner/Core/Revolver/FrameRevolverBuilder.php:30:17:error - PossiblyNullArgument: Argument 3 of AlecRabbit\Spinner\Core\Revolver\FrameCollectionRevolver::__construct cannot be null, possibly null value provided
 /app/src/Spinner/Core/Timer.php:40:17:error - TypeDoesNotContainNull: ReflectionType does not contain null
 /app/src/Spinner/Core/Timer.php:40:17:error - RedundantCondition: Type ReflectionType for $returnType is never null
 /app/src/Spinner/Core/Timer.php:40:31:error - UndefinedMethod: Method ReflectionType::getName does not exist
@@ -163,8 +165,8 @@
 /app/src/Spinner/Core/Widget/WidgetBuilder.php:24:13:error - PossiblyNullArgument: Argument 1 of AlecRabbit\Spinner\Core\Widget\Widget::__construct cannot be null, possibly null value provided
 /app/src/Spinner/Core/Widget/WidgetBuilder.php:25:13:error - PossiblyNullArgument: Argument 2 of AlecRabbit\Spinner\Core\Widget\Widget::__construct cannot be null, possibly null value provided
 /app/src/Spinner/Core/Widget/WidgetBuilder.php:26:13:error - PossiblyNullArgument: Argument 3 of AlecRabbit\Spinner\Core\Widget\Widget::__construct cannot be null, possibly null value provided
-/app/src/Spinner/Core/Widget/WidgetRevolverBuilder.php:22:13:error - PossiblyNullArgument: Argument 1 of AlecRabbit\Spinner\Core\Widget\WidgetRevolver::__construct cannot be null, possibly null value provided
-/app/src/Spinner/Core/Widget/WidgetRevolverBuilder.php:23:13:error - PossiblyNullArgument: Argument 2 of AlecRabbit\Spinner\Core\Widget\WidgetRevolver::__construct cannot be null, possibly null value provided
+/app/src/Spinner/Core/Widget/WidgetRevolverBuilder.php:24:13:error - PossiblyNullArgument: Argument 1 of AlecRabbit\Spinner\Core\Widget\WidgetRevolver::__construct cannot be null, possibly null value provided
+/app/src/Spinner/Core/Widget/WidgetRevolverBuilder.php:25:13:error - PossiblyNullArgument: Argument 2 of AlecRabbit\Spinner\Core\Widget\WidgetRevolver::__construct cannot be null, possibly null value provided
 /app/src/Spinner/Core/WidthMeasurer.php:25:9:error - MixedAssignment: Unable to determine the type that $returnType is being assigned to
 /app/src/Spinner/Core/WidthMeasurer.php:25:54:error - UndefinedMethod: Method ReflectionType::getName does not exist
 /app/src/Spinner/Core/WidthMeasurer.php:26:9:error - MixedAssignment: Unable to determine the type that $parameterType is being assigned to
