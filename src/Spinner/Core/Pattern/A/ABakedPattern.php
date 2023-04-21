@@ -5,19 +5,20 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Pattern\A;
 
 use AlecRabbit\Spinner\Contract\IInterval;
-use AlecRabbit\Spinner\Contract\Pattern\IBakedPattern;
+use AlecRabbit\Spinner\Core\Contract\IFrameCollection;
 use AlecRabbit\Spinner\Core\Interval;
+use AlecRabbit\Spinner\Core\Pattern\Contract\IBakedPattern;
 use Traversable;
 
 abstract readonly class ABakedPattern implements IBakedPattern
 {
     public function __construct(
-        protected Traversable $frames,
-        protected Interval $interval,
+        protected IFrameCollection $frames,
+        protected IInterval $interval,
     ) {
     }
 
-    public function getFrames(): Traversable
+    public function getFrameCollection(): IFrameCollection
     {
         return $this->frames;
     }
