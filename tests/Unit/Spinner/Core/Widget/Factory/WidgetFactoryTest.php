@@ -64,19 +64,19 @@ final class WidgetFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
             ->expects(self::once())
             ->method('withLeadingSpacer')
             ->with(self::identicalTo($leadingSpacer))
-            ->willReturn($widgetBuilder)
+            ->willReturnSelf()
         ;
         $widgetBuilder
             ->expects(self::once())
             ->method('withTrailingSpacer')
             ->with(self::identicalTo($trailingSpacer))
-            ->willReturn($widgetBuilder)
+            ->willReturnSelf()
         ;
         $widgetBuilder
             ->expects(self::once())
             ->method('withWidgetRevolver')
             ->with(self::identicalTo($widgetRevolver))
-            ->willReturn($widgetBuilder)
+            ->willReturnSelf()
         ;
 
 
