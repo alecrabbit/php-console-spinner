@@ -50,30 +50,61 @@ final class FrameCollectionRevolverTest extends TestCaseWithPrebuiltMocksAndStub
     #[Test]
     public function canUpdate(): void
     {
+        $interval = $this->getIntervalMock();
+        $interval
+            ->expects(self::once())
+            ->method('smallest')
+            ->willReturnSelf()
+        ;
+        $interval
+            ->expects(self::once())
+            ->method('toMilliseconds')
+            ->willReturn(10.0)
+        ;
+
         $frameCollection = $this->getFrameCollectionMock();
         $frameCollection
             ->expects(self::once())
             ->method('count')
             ->willReturn(3)
         ;
+
         $frame0 = $this->getFrameMock();
         $frame1 = $this->getFrameMock();
         $frame2 = $this->getFrameMock();
-        $frameCollection
-            ->expects(self::exactly(4))
-            ->method('get')
-            ->willReturn($frame0, $frame1, $frame2, $frame2)
-        ;
+
+        {
+            // A solution to absence of `->withConsecutive()` in PHPUnit 10
+            $matcher = self::exactly(4);
+
+            $frameCollection
+                ->expects($matcher)
+                ->method('get')
+                ->willReturnCallback(function (int $offset) use ($matcher, $frame0, $frame1, $frame2) {
+                    match ($matcher->numberOfInvocations()) {
+                        1 => self::assertEquals(1, $offset),
+                        2 => self::assertEquals(2, $offset),
+                        3, 4 => self::assertEquals(0, $offset),
+                    };
+                    return match ($offset) {
+                        0 => $frame0,
+                        1 => $frame1,
+                        2 => $frame2,
+                    };
+                })
+            ;
+        }
 
         $frameCollectionRevolver = $this->getTesteeInstance(
             frameCollection: $frameCollection,
+            interval: $interval,
         );
 
         self::assertInstanceOf(FrameCollectionRevolver::class, $frameCollectionRevolver);
-        self::assertSame($frame0, $frameCollectionRevolver->update());
         self::assertSame($frame1, $frameCollectionRevolver->update());
         self::assertSame($frame2, $frameCollectionRevolver->update());
-        self::assertSame($frame2, $frameCollectionRevolver->update(100000));
+        self::assertSame($frame0, $frameCollectionRevolver->update());
+        self::assertSame($frame0, $frameCollectionRevolver->update(1));
     }
 
     #[Test]
