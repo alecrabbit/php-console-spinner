@@ -84,6 +84,7 @@ use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContext;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolverBuilder;
 use AlecRabbit\Spinner\Core\Widget\Factory\Contract\IWidgetFactory;
+use AlecRabbit\Spinner\Core\Widget\Factory\Contract\IWidgetRevolverFactory;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\MockObject\Stub;
 
@@ -129,19 +130,19 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
         return $this->createMock(IRevolver::class);
     }
 
-    protected function getConfigBuilderMock(): MockObject&IConfigBuilder
-    {
-        return $this->createMock(IConfigBuilder::class);
-    }
-
-    protected function getLoopInitializerMock(): MockObject&ILoopSetup
-    {
-        return $this->createMock(ILoopSetup::class);
-    }
-
     protected function getWidgetBuilderMock(): MockObject&IWidgetBuilder
     {
         return $this->createMock(IWidgetBuilder::class);
+    }
+
+    protected function getWidgetRevolverFactoryMock(): MockObject&IWidgetRevolverFactory
+    {
+        return $this->createMock(IWidgetRevolverFactory::class);
+    }
+
+    protected function getWidgetRevolverMock(): MockObject&IRevolver
+    {
+        return $this->createMock(IRevolver::class);
     }
 
     protected function getLoopProbeFactoryMock(): MockObject&ILoopProbeFactory
