@@ -257,6 +257,29 @@ final class WidgetCompositeTest extends TestCaseWithPrebuiltMocksAndStubs
         self::assertFalse($children->offsetExists($widget2));
         $composite->remove($widget1);
         self::assertFalse($children->offsetExists($widget1));
+
+    }
+
+    #[Test]
+    public function removingNonExistentWidgetDoesNothing(): void
+    {
+        $composite = $this->getTesteeInstance();
+
+        $widget1 = $this->getWidgetObserverAndSubjectMock();
+        $widget1
+            ->expects(self::once())
+            ->method('detach')
+            ->with($composite)
+        ;
+
+        /** @var \WeakMap $children */
+        $children = self::getPropertyValue('children', $composite);
+        $children->offsetSet($widget1, $widget1);
+
+        $composite->remove($this->getWidgetObserverAndSubjectMock());
+
+        $composite->remove($widget1);
+        self::assertFalse($children->offsetExists($widget1));
     }
 
     #[Test]

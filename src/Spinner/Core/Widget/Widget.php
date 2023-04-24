@@ -102,6 +102,10 @@ final class Widget implements IWidgetObserverAndSubject
 
     public function remove(IWidgetObserverAndSubject $element): void
     {
+        if (!$this->children->offsetExists($element)) {
+            return;
+        }
+
         $this->children->offsetUnset($element);
         foreach ($this->children as $child) {
             $this->updateInterval($child->getInterval());
