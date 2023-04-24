@@ -28,11 +28,6 @@ abstract class AWidgetComposite implements IWidgetComposite
         protected readonly IFrame $leadingSpacer,
         protected readonly IFrame $trailingSpacer,
     ) {
-        $this->initialize();
-    }
-
-    protected function initialize(): void
-    {
         $this->context = new WidgetContext($this);
         $this->childrenContextMap = new WeakMap();
     }
