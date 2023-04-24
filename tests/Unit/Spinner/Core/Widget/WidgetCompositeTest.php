@@ -127,7 +127,7 @@ final class WidgetCompositeTest extends TestCaseWithPrebuiltMocksAndStubs
     }
 
     #[Test]
-    public function canAddWidgetComposites(): void
+    public function canAddWidgets(): void
     {
         $interval = $this->getIntervalMock();
         $interval
@@ -199,6 +199,64 @@ final class WidgetCompositeTest extends TestCaseWithPrebuiltMocksAndStubs
 
         self::assertTrue($children->offsetExists($widget1));
         self::assertTrue($children->offsetExists($widget2));
+    }
+
+    #[Test]
+    public function canRemoveWidgets(): void
+    {
+        $composite = $this->getTesteeInstance(
+
+        );
+        $observer1 = $this->getWidgetObserverAndSubjectMock();
+        $widget1 = $this->getWidgetObserverAndSubjectMock();
+        $widget2 = $this->getWidgetObserverAndSubjectMock();
+
+        /** @var \WeakMap $observers */
+        $observers = self::getPropertyValue('observers', $composite);
+        $observers->offsetSet($observer1, $observer1);
+
+        /** @var \WeakMap $children */
+        $children = self::getPropertyValue('children', $composite);
+        $children->offsetSet($widget1, $widget1);
+        $children->offsetSet($widget2, $widget2);
+
+
+        $observer1
+            ->expects(self::exactly(2))
+            ->method('update')
+            ->with($composite)
+        ;
+
+        $widget1Interval = $this->getIntervalMock();
+
+        $widget1
+            ->expects(self::once())
+            ->method('getInterval')
+            ->willReturn($widget1Interval)
+        ;
+        $widget1
+            ->expects(self::once())
+            ->method('detach')
+            ->with($composite)
+        ;
+
+        $widget2Interval = $this->getIntervalMock();
+
+        $widget2
+            ->expects(self::never())
+            ->method('getInterval')
+            ->willReturn($widget2Interval)
+        ;
+        $widget2
+            ->expects(self::once())
+            ->method('detach')
+            ->with($composite)
+        ;
+
+        $composite->remove($widget2);
+        self::assertFalse($children->offsetExists($widget2));
+        $composite->remove($widget1);
+        self::assertFalse($children->offsetExists($widget1));
     }
 
     #[Test]

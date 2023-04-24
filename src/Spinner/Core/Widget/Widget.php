@@ -52,6 +52,7 @@ final class Widget implements IWidgetObserverAndSubject
 
     public function add(IWidgetObserverAndSubject $element): IWidgetContext
     {
+        $this->assertNotSelf($element);
         $element->attach($this);
         $this->children->offsetSet($element, $element);
 
@@ -63,12 +64,12 @@ final class Widget implements IWidgetObserverAndSubject
 
     public function attach(SplObserver $observer): void
     {
-        $this->assertObject($observer);
+        $this->assertNotSelf($observer);
 
         $this->observers->offsetSet($observer, $observer);
     }
 
-    protected function assertObject(object $obj): void
+    protected function assertNotSelf(object $obj): void
     {
         if ($obj === $this) {
             throw new InvalidArgumentException('Object can not be self.');
@@ -101,7 +102,12 @@ final class Widget implements IWidgetObserverAndSubject
 
     public function remove(IWidgetObserverAndSubject $element): void
     {
-        // TODO: Implement remove() method.
+        $this->children->offsetUnset($element);
+        foreach ($this->children as $child) {
+            $this->updateInterval($child->getInterval());
+        }
+        $element->detach($this);
+        $this->notify();
     }
 
     public function setContext(IWidgetContext $widgetContext): void
