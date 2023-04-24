@@ -105,6 +105,34 @@ final class WidgetCompositeTest extends TestCaseWithPrebuiltMocksAndStubs
     }
 
     #[Test]
+    public function canAddWidgetComposites(): void
+    {
+        $composite = $this->getTesteeInstance();
+
+        $widget1 = $this->getObserverAndSubjectMock();
+        $widget1
+            ->expects(self::once())
+            ->method('attach')
+            ->with($composite);
+
+        $widget2 = $this->getObserverAndSubjectMock();
+        $widget2
+            ->expects(self::once())
+            ->method('attach')
+            ->with($composite);
+
+        $composite->add($widget1);
+        $composite->add($widget2);
+
+        /** @var \WeakMap $children */
+        $children = self::getPropertyValue('children', $composite);
+
+        self::assertTrue($children->offsetExists($widget1));
+        self::assertTrue($children->offsetExists($widget2));
+
+    }
+
+    #[Test]
     public function throwsIfObserverIsSelf(): void
     {
         $exceptionClass = InvalidArgumentException::class;
@@ -121,5 +149,23 @@ final class WidgetCompositeTest extends TestCaseWithPrebuiltMocksAndStubs
             exceptionMessage: $exceptionMessage,
         );
     }
+
+//    #[Test]
+//    public function throwsIfAddedWidgetIsSelf(): void
+//    {
+//        $exceptionClass = InvalidArgumentException::class;
+//        $exceptionMessage = 'Object can not be self.';
+//
+//        $test = function (): void {
+//            $widget = $this->getTesteeInstance();
+//            $widget->add($widget);
+//        };
+//
+//        $this->wrapExceptionTest(
+//            test: $test,
+//            exceptionOrExceptionClass: $exceptionClass,
+//            exceptionMessage: $exceptionMessage,
+//        );
+//    }
 
 }
