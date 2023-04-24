@@ -6,6 +6,6 @@ namespace AlecRabbit\Spinner\Core\Widget;
 
 use AlecRabbit\Spinner\Core\Widget\A\AWidgetComposite;
 
-final class Widget extends AWidgetComposite
+final class WidgetComposite extends AWidgetComposite
 {
 }

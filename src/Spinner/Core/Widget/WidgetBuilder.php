@@ -20,7 +20,7 @@ final class WidgetBuilder implements IWidgetBuilder
     {
         $this->validate();
 
-        return new Widget(
+        return new WidgetComposite(
             $this->revolver,
             $this->leadingSpacer,
             $this->trailingSpacer,
