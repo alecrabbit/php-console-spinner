@@ -6,7 +6,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Contract;
 
-interface HasInterval
+interface IHasInterval
 {
     public function getInterval(): IInterval;
 }

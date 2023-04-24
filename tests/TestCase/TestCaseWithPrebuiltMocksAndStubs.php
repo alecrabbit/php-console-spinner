@@ -81,7 +81,7 @@ use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolver;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolverBuilder;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
 use AlecRabbit\Spinner\Core\Terminal\Contract\ITerminalProbe;
-use AlecRabbit\Spinner\Core\Widget\Contract\IObserverAndSubject;
+use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetObserverAndSubject;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetBuilder;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContext;
@@ -103,9 +103,9 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
         return $this->createMock(IFrame::class);
     }
 
-    protected function getObserverAndSubjectMock(): MockObject&IObserverAndSubject
+    protected function getWidgetObserverAndSubjectMock(): MockObject&IWidgetObserverAndSubject
     {
-        return $this->createMock(IObserverAndSubject::class);
+        return $this->createMock(IWidgetObserverAndSubject::class);
     }
 
     protected function getPatternMock(): MockObject&IPattern
