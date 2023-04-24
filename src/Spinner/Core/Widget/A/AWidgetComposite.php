@@ -32,9 +32,9 @@ abstract class AWidgetComposite implements IWidgetComposite
         $this->childrenContextMap = new WeakMap();
     }
 
-    public function update(?float $dt = null): IFrame
+    public function getFrame(?float $dt = null): IFrame
     {
-        $revolverFrame = $this->revolver->update($dt);
+        $revolverFrame = $this->revolver->getFrame($dt);
 
         $frame = new Frame(
             $this->leadingSpacer->sequence() . $revolverFrame->sequence() . $this->trailingSpacer->sequence(),
@@ -43,7 +43,7 @@ abstract class AWidgetComposite implements IWidgetComposite
 
         if ($this->isComposite()) {
             foreach ($this->children as $context) {
-                $f = $context->getWidget()->update($dt);
+                $f = $context->getWidget()->getFrame($dt);
                 $frame = new Frame(
                     $frame->sequence() . $f->sequence(),
                     $frame->width() + $f->width()

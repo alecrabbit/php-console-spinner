@@ -35,7 +35,7 @@ final class SpinnerTest extends TestCaseWithPrebuiltMocksAndStubs
         $rootWidget = $this->getWidgetCompositeMock();
         $rootWidget
             ->expects(self::once())
-            ->method('update')
+            ->method('getFrame')
             ->willReturn($frame)
         ;
         $spinner = $this->getTesteeInstance(rootWidget: $rootWidget);

@@ -25,7 +25,7 @@ abstract class AProceduralRevolver extends ARevolver implements IFrameRevolver
 
     protected function next(?float $dt = null): void
     {
-        $this->currentFrame = $this->procedure->update($dt);
+        $this->currentFrame = $this->procedure->getFrame($dt);
     }
 
     protected function current(): IFrame

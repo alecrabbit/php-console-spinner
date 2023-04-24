@@ -102,10 +102,10 @@ final class FrameCollectionRevolverTest extends TestCaseWithPrebuiltMocksAndStub
         );
 
         self::assertInstanceOf(FrameCollectionRevolver::class, $frameCollectionRevolver);
-        self::assertSame($frame1, $frameCollectionRevolver->update());
-        self::assertSame($frame2, $frameCollectionRevolver->update());
-        self::assertSame($frame0, $frameCollectionRevolver->update());
-        self::assertSame($frame0, $frameCollectionRevolver->update(1));
+        self::assertSame($frame1, $frameCollectionRevolver->getFrame());
+        self::assertSame($frame2, $frameCollectionRevolver->getFrame());
+        self::assertSame($frame0, $frameCollectionRevolver->getFrame());
+        self::assertSame($frame0, $frameCollectionRevolver->getFrame(1));
     }
 
     #[Test]

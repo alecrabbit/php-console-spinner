@@ -22,7 +22,7 @@ final class ProgressFrameProcedure extends AProgressValueProcedure
         $this->steps = $frames->lastIndex();
     }
 
-    public function update(?float $dt = null): IFrame
+    public function getFrame(?float $dt = null): IFrame
     {
         if ($this->progressValue->isFinished()) {
             if ($this->finishedDelay < 0) {

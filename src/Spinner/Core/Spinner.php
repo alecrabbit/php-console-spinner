@@ -21,7 +21,7 @@ final class Spinner implements ISpinner
 
     public function update(?float $dt = null): IFrame
     {
-        return $this->rootWidget->update($dt);
+        return $this->rootWidget->getFrame($dt);
     }
 
     public function getInterval(): IInterval

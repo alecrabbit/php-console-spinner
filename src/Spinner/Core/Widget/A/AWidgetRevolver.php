@@ -24,10 +24,10 @@ abstract class AWidgetRevolver extends ARevolver implements IWidgetRevolver
         parent::__construct($interval);
     }
 
-    public function update(?float $dt = null): IFrame
+    public function getFrame(?float $dt = null): IFrame
     {
-        $style = $this->style->update($dt);
-        $char = $this->character->update($dt);
+        $style = $this->style->getFrame($dt);
+        $char = $this->character->getFrame($dt);
         return new Frame(
             sprintf($style->sequence(), $char->sequence()),
             $style->width() + $char->width()
