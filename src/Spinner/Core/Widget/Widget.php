@@ -53,13 +53,16 @@ final class Widget implements IWidgetObserverAndSubject
     public function add(IWidgetObserverAndSubject $element): IWidgetContext
     {
         $this->assertNotSelf($element);
+
+        $context = $element->getContext();
+
         $element->attach($this);
-        $this->children->offsetSet($element, $element);
+        $this->children->offsetSet($element, $context);
 
         $this->updateInterval($element->getInterval());
 
         $this->notify();
-        return $element->getContext();
+        return $context;
     }
 
     public function attach(SplObserver $observer): void
