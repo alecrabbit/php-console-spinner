@@ -94,6 +94,8 @@ final class Widget implements IWidget
 
     public function update(SplSubject $subject): void
     {
+        $this->assertNotSelf($subject);
+
         if ($subject instanceof IHasInterval) {
             $this->interval = $this->interval->smallest($subject->getInterval());
         }

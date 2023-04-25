@@ -41,6 +41,39 @@ final class WidgetTest extends TestCaseWithPrebuiltMocksAndStubs
     }
 
     #[Test]
+    public function canBeUpdated(): void
+    {
+        $interval = $this->getIntervalMock();
+        $revolver = $this->getRevolverMock();
+        $revolver
+            ->expects(self::once())
+            ->method('getInterval')
+            ->willReturn($interval);
+
+        $widget = $this->getTesteeInstance(
+            revolver: $revolver
+        );
+
+        self::assertSame($interval, $widget->getInterval());
+
+        $otherInterval = $this->getIntervalMock();
+        $otherWidget = $this->getWidgetMock();
+        $otherWidget
+            ->expects(self::once())
+            ->method('getInterval')
+            ->willReturn($otherInterval);
+        $interval
+            ->expects(self::once())
+            ->method('smallest')
+            ->with($otherInterval)
+            ->willReturn($otherInterval);
+
+        $widget->update($otherWidget);
+
+        self::assertSame($otherInterval, $widget->getInterval());
+    }
+
+    #[Test]
     public function canAttachObserver(): void
     {
         $widget = $this->getTesteeInstance();
@@ -167,6 +200,7 @@ final class WidgetTest extends TestCaseWithPrebuiltMocksAndStubs
 
         self::assertSame($context, $widget->getContext());
     }
+
 
     #[Test]
     public function canNotifyObserverOnOtherWidgetRemove(): void
@@ -349,4 +383,22 @@ final class WidgetTest extends TestCaseWithPrebuiltMocksAndStubs
         );
     }
 
+    #[Test]
+    public function throwsIfUpdateInvokedForSelf(): void
+    {
+        $exceptionClass = InvalidArgumentException::class;
+        $exceptionMessage = 'Object can not be self.';
+
+        $test = function (): void {
+            $widget = $this->getTesteeInstance();
+
+            $widget->update($widget);
+        };
+
+        $this->wrapExceptionTest(
+            test: $test,
+            exceptionOrExceptionClass: $exceptionClass,
+            exceptionMessage: $exceptionMessage,
+        );
+    }
 }
