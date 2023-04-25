@@ -13,7 +13,7 @@ interface IWidget extends IComboSubjectObserver,
                           IFrameUpdatable,
                           IHasWidgetContext
 {
-    public function add(IWidget $widget): IWidgetContext;
+    public function add(IWidget $widget): ILegacyWidgetContext;
 
     public function remove(IWidget $widget): void;
 }

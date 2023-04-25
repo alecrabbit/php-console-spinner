@@ -81,6 +81,7 @@ final class WidgetContextContainerTest extends TestCaseWithPrebuiltMocksAndStubs
         self::assertSame($context, $container->get($context));
     }
 
+
     #[Test]
     public function throwsIfContextNotFound(): void
     {

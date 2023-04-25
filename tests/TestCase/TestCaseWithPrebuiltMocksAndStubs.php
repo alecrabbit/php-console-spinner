@@ -85,6 +85,7 @@ use AlecRabbit\Spinner\Core\Terminal\Contract\ITerminalProbe;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidget;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetBuilder;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
+use AlecRabbit\Spinner\Core\Widget\Contract\ILegacyWidgetContext;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContext;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolverBuilder;
 use AlecRabbit\Spinner\Core\Widget\Factory\Contract\IWidgetFactory;
@@ -462,6 +463,11 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
     protected function getDriverAttacherMock(): MockObject&IDriverAttacher
     {
         return $this->createMock(IDriverAttacher::class);
+    }
+
+    protected function getLegacyWidgetContextMock(): MockObject&ILegacyWidgetContext
+    {
+        return $this->createMock(ILegacyWidgetContext::class);
     }
 
     protected function getWidgetContextMock(): MockObject&IWidgetContext

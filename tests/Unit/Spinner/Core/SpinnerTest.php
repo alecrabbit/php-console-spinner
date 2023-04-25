@@ -63,7 +63,7 @@ final class SpinnerTest extends TestCaseWithPrebuiltMocksAndStubs
     #[Test]
     public function canAddWidget(): void
     {
-        $context = $this->getWidgetContextMock();
+        $context = $this->getLegacyWidgetContextMock();
         $rootWidget = $this->getWidgetCompositeMock();
         $rootWidget
             ->expects(self::once())
@@ -79,7 +79,7 @@ final class SpinnerTest extends TestCaseWithPrebuiltMocksAndStubs
     #[Test]
     public function canRemoveWidget(): void
     {
-        $context = $this->getWidgetContextMock();
+        $context = $this->getLegacyWidgetContextMock();
         $rootWidget = $this->getWidgetCompositeMock();
         $rootWidget
             ->expects(self::once())

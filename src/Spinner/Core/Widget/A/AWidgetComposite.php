@@ -9,14 +9,14 @@ use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Core\Frame;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
-use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContext;
-use AlecRabbit\Spinner\Core\Widget\WidgetContext;
+use AlecRabbit\Spinner\Core\Widget\Contract\ILegacyWidgetContext;
+use AlecRabbit\Spinner\Core\Widget\LegacyWidgetContext;
 use WeakMap;
 
 abstract class AWidgetComposite implements IWidgetComposite
 {
-    protected IWidgetContext $context;
-    /** @var array<IWidgetContext> */
+    protected ILegacyWidgetContext $context;
+    /** @var array<ILegacyWidgetContext> */
     protected array $children = [];
     protected int $childrenCount = 0;
     protected ?IWidgetComposite $parent = null;
@@ -28,7 +28,7 @@ abstract class AWidgetComposite implements IWidgetComposite
         protected readonly IFrame $leadingSpacer,
         protected readonly IFrame $trailingSpacer,
     ) {
-        $this->context = new WidgetContext($this);
+        $this->context = new LegacyWidgetContext($this);
         $this->childrenContextMap = new WeakMap();
     }
 
@@ -59,7 +59,7 @@ abstract class AWidgetComposite implements IWidgetComposite
         return 0 < $this->childrenCount;
     }
 
-    public function add(IWidgetComposite|IWidgetContext $element): IWidgetContext
+    public function add(IWidgetComposite|ILegacyWidgetContext $element): ILegacyWidgetContext
     {
         $widgetContext = $this->extractContext($element);
         $widget = $this->extractWidget($element);
@@ -73,7 +73,7 @@ abstract class AWidgetComposite implements IWidgetComposite
         return $widgetContext;
     }
 
-    protected function extractContext(IWidgetComposite|IWidgetContext $element): IWidgetContext
+    protected function extractContext(IWidgetComposite|ILegacyWidgetContext $element): ILegacyWidgetContext
     {
         if ($element instanceof IWidgetComposite) {
             return $element->getContext();
@@ -81,17 +81,17 @@ abstract class AWidgetComposite implements IWidgetComposite
         return $element;
     }
 
-    public function getContext(): IWidgetContext
+    public function getContext(): ILegacyWidgetContext
     {
         return $this->context;
     }
 
-    public function setContext(IWidgetContext $widgetContext): void
+    public function setContext(ILegacyWidgetContext $widgetContext): void
     {
         $this->context = $widgetContext;
     }
 
-    protected function extractWidget(IWidgetComposite|IWidgetContext $element): IWidgetComposite
+    protected function extractWidget(IWidgetComposite|ILegacyWidgetContext $element): IWidgetComposite
     {
         if ($element instanceof IWidgetComposite) {
             return $element;
@@ -126,7 +126,7 @@ abstract class AWidgetComposite implements IWidgetComposite
         return $this->parent !== null;
     }
 
-    public function remove(IWidgetComposite|IWidgetContext $element): void
+    public function remove(IWidgetComposite|ILegacyWidgetContext $element): void
     {
         $widgetContext = $this->extractContext($element);
 

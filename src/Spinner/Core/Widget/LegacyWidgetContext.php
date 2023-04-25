@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Widget;
 
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
-use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContext;
+use AlecRabbit\Spinner\Core\Widget\Contract\ILegacyWidgetContext;
 
-final class WidgetContext implements IWidgetContext
+final class LegacyWidgetContext implements ILegacyWidgetContext
 {
     public function __construct(
         protected IWidgetComposite $widget,

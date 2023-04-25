@@ -9,9 +9,9 @@ use AlecRabbit\Spinner\Contract\IFrameUpdatable;
 
 interface IWidgetComposite extends IHasInterval, IFrameUpdatable, IHasWidgetContext
 {
-    public function add(IWidgetComposite|IWidgetContext $element): IWidgetContext;
+    public function add(IWidgetComposite|ILegacyWidgetContext $element): ILegacyWidgetContext;
 
-    public function remove(IWidgetComposite|IWidgetContext $element): void;
+    public function remove(IWidgetComposite|ILegacyWidgetContext $element): void;
 
     public function adoptBy(IWidgetComposite $widget): void;
 

@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Widget;
 
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
-use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContext;
-use AlecRabbit\Spinner\Core\Widget\WidgetContext;
+use AlecRabbit\Spinner\Core\Widget\Contract\ILegacyWidgetContext;
+use AlecRabbit\Spinner\Core\Widget\LegacyWidgetContext;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;
 
@@ -17,14 +17,14 @@ final class WidgetContextTest extends TestCaseWithPrebuiltMocksAndStubs
     {
         $widgetContext = $this->getTesteeInstance();
 
-        self::assertInstanceOf(WidgetContext::class, $widgetContext);
+        self::assertInstanceOf(LegacyWidgetContext::class, $widgetContext);
     }
 
     public function getTesteeInstance(
         ?IWidgetComposite $widget = null,
-    ): IWidgetContext
+    ): ILegacyWidgetContext
     {
-        return new WidgetContext(
+        return new LegacyWidgetContext(
             widget: $widget ?? $this->getWidgetCompositeMock(),
         );
     }
@@ -37,7 +37,7 @@ final class WidgetContextTest extends TestCaseWithPrebuiltMocksAndStubs
             widget: $widget,
         );
 
-        self::assertInstanceOf(WidgetContext::class, $widgetContext);
+        self::assertInstanceOf(LegacyWidgetContext::class, $widgetContext);
         self::assertSame($widget, $widgetContext->getWidget());
     }
 
@@ -58,7 +58,7 @@ final class WidgetContextTest extends TestCaseWithPrebuiltMocksAndStubs
 
         $widgetContext->replaceWidget($widget2);
 
-        self::assertInstanceOf(WidgetContext::class, $widgetContext);
+        self::assertInstanceOf(LegacyWidgetContext::class, $widgetContext);
         self::assertSame($widget2, $widgetContext->getWidget());
     }
 }
