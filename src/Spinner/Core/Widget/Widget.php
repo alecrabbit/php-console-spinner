@@ -88,9 +88,7 @@ final class Widget implements IWidget
 
     public function notify(): void
     {
-        foreach ($this->observers as $observer) {
-            $observer->update($this);
-        }
+        $this->observer->update($this);
     }
 
     public function update(SplSubject $subject): void

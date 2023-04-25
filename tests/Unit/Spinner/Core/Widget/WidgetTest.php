@@ -10,7 +10,6 @@ use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidget;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContextContainer;
 use AlecRabbit\Spinner\Core\Widget\Widget;
-use AlecRabbit\Spinner\Core\Widget\WidgetContextContainer;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;
@@ -70,9 +69,61 @@ final class WidgetTest extends TestCaseWithPrebuiltMocksAndStubs
 
         self::assertNull(self::getPropertyValue('observer', $widget));
     }
-//
-//    #[Test]
-//    public function canNotifyObservers(): void
+
+    #[Test]
+    public function canNotifyObserverOnOtherWidgetAdd(): void
+    {
+        $observer = $this->getObserverMock();
+        $intervalContainer = $this->getWidgetIntervalContainerMock();
+        $children = $this->getWidgetContextContainerMock();
+        $children
+            ->expects(self::once())
+            ->method('getIntervalContainer')
+            ->willReturn($intervalContainer)
+        ;
+
+        $widget = $this->getTesteeInstance(
+            children: $children,
+            observer: $observer,
+        );
+        $observer
+            ->expects(self::once())
+            ->method('update')
+            ->with($widget)
+        ;
+
+        $widgetContext = $this->getWidgetContextMock();
+        $otherWidget = $this->getWidgetMock();
+        $otherWidget
+            ->expects(self::once())
+            ->method('attach')
+            ->with($widget)
+        ;
+        $otherWidget
+            ->expects(self::once())
+            ->method('getContext')
+            ->willReturn($widgetContext)
+        ;
+
+        $children
+            ->expects(self::once())
+            ->method('add')
+            ->with($widgetContext)
+        ;
+
+        $intervalContainer
+            ->expects(self::once())
+            ->method('getSmallest')
+            ->willReturn($this->getIntervalMock());
+
+        $observer
+            ->expects(self::once())
+            ->method('update')
+            ->with($widget);
+
+        $widget->add($otherWidget);
+    }
+
 //    {
 //        $widget = $this->getTesteeInstance();
 //
@@ -124,6 +175,7 @@ final class WidgetTest extends TestCaseWithPrebuiltMocksAndStubs
         );
         self::assertSame($interval, $widget->getInterval());
     }
+
     #[Test]
     public function canGetContext(): void
     {
@@ -309,6 +361,7 @@ final class WidgetTest extends TestCaseWithPrebuiltMocksAndStubs
             exceptionMessage: $exceptionMessage,
         );
     }
+
     #[Test]
     public function throwsIfObserverAlreadyAttached(): void
     {
