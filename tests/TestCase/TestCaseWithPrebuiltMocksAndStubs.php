@@ -10,6 +10,7 @@ use AlecRabbit\Spinner\Container\Contract\IContainer;
 use AlecRabbit\Spinner\Contract\Color\Style\IStyle;
 use AlecRabbit\Spinner\Contract\Color\Style\IStyleOptionsParser;
 use AlecRabbit\Spinner\Contract\IAnsiColorParser;
+use AlecRabbit\Spinner\Contract\IComboSubjectObserver;
 use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Contract\ITimer;
@@ -81,7 +82,7 @@ use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolver;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolverBuilder;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
 use AlecRabbit\Spinner\Core\Terminal\Contract\ITerminalProbe;
-use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetObserverAndSubject;
+use AlecRabbit\Spinner\Core\Widget\Contract\IWidget;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetBuilder;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContext;
@@ -103,9 +104,14 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
         return $this->createMock(IFrame::class);
     }
 
-    protected function getWidgetObserverAndSubjectMock(): MockObject&IWidgetObserverAndSubject
+    protected function getWidgetMock(): MockObject&IWidget
     {
-        return $this->createMock(IWidgetObserverAndSubject::class);
+        return $this->createMock(IWidget::class);
+    }
+
+    protected function getComboSubjectObserverMock(): MockObject&IComboSubjectObserver
+    {
+        return $this->createMock(IComboSubjectObserver::class);
     }
 
     protected function getPatternMock(): MockObject&IPattern

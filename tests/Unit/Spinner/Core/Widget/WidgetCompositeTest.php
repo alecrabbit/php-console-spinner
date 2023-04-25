@@ -6,7 +6,7 @@ namespace AlecRabbit\Tests\Unit\Spinner\Core\Widget;
 
 use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
-use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetObserverAndSubject;
+use AlecRabbit\Spinner\Core\Widget\Contract\IWidget;
 use AlecRabbit\Spinner\Core\Widget\Widget;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
@@ -26,7 +26,7 @@ final class WidgetCompositeTest extends TestCaseWithPrebuiltMocksAndStubs
         ?IRevolver $revolver = null,
         ?IFrame $leadingSpacer = null,
         ?IFrame $trailingSpacer = null,
-    ): IWidgetObserverAndSubject {
+    ): IWidget {
         return new Widget(
             revolver: $revolver ?? $this->getRevolverMock(),
             leadingSpacer: $leadingSpacer ?? $this->getFrameMock(),
@@ -39,8 +39,8 @@ final class WidgetCompositeTest extends TestCaseWithPrebuiltMocksAndStubs
     {
         $widget = $this->getTesteeInstance();
 
-        $observer1 = $this->getWidgetObserverAndSubjectMock();
-        $observer2 = $this->getWidgetObserverAndSubjectMock();
+        $observer1 = $this->getWidgetMock();
+        $observer2 = $this->getWidgetMock();
 
         $widget->attach($observer1);
         $widget->attach($observer2);
@@ -57,8 +57,8 @@ final class WidgetCompositeTest extends TestCaseWithPrebuiltMocksAndStubs
     {
         $widget = $this->getTesteeInstance();
 
-        $observer1 = $this->getWidgetObserverAndSubjectMock();
-        $observer2 = $this->getWidgetObserverAndSubjectMock();
+        $observer1 = $this->getWidgetMock();
+        $observer2 = $this->getWidgetMock();
 
         $widget->attach($observer1);
         $widget->attach($observer2);
@@ -77,13 +77,13 @@ final class WidgetCompositeTest extends TestCaseWithPrebuiltMocksAndStubs
     {
         $widget = $this->getTesteeInstance();
 
-        $observer1 = $this->getWidgetObserverAndSubjectMock();
+        $observer1 = $this->getWidgetMock();
         $observer1
             ->expects(self::once())
             ->method('update')
             ->with($widget)
         ;
-        $observer2 = $this->getWidgetObserverAndSubjectMock();
+        $observer2 = $this->getWidgetMock();
         $observer2
             ->expects(self::once())
             ->method('update')
@@ -101,7 +101,7 @@ final class WidgetCompositeTest extends TestCaseWithPrebuiltMocksAndStubs
     {
         $widget = $this->getTesteeInstance();
 
-        $subject = $this->getWidgetObserverAndSubjectMock();
+        $subject = $this->getWidgetMock();
         $subject
             ->expects(self::once())
             ->method('getInterval')
@@ -147,14 +147,14 @@ final class WidgetCompositeTest extends TestCaseWithPrebuiltMocksAndStubs
             revolver: $revolver,
         );
 
-        $observer1 = $this->getWidgetObserverAndSubjectMock();
+        $observer1 = $this->getWidgetMock();
         $observer1
             ->expects(self::exactly(2))
             ->method('update')
             ->with($composite)
         ;
 
-        $observer2 = $this->getWidgetObserverAndSubjectMock();
+        $observer2 = $this->getWidgetMock();
         $observer2
             ->expects(self::exactly(2))
             ->method('update')
@@ -162,7 +162,7 @@ final class WidgetCompositeTest extends TestCaseWithPrebuiltMocksAndStubs
         ;
 
         $widget1Interval = $this->getIntervalMock();
-        $widget1 = $this->getWidgetObserverAndSubjectMock();
+        $widget1 = $this->getWidgetMock();
         $widget1
             ->expects(self::once())
             ->method('getInterval')
@@ -175,7 +175,7 @@ final class WidgetCompositeTest extends TestCaseWithPrebuiltMocksAndStubs
         ;
 
         $widget2Interval = $this->getIntervalMock();
-        $widget2 = $this->getWidgetObserverAndSubjectMock();
+        $widget2 = $this->getWidgetMock();
         $widget2
             ->expects(self::once())
             ->method('getInterval')
@@ -186,7 +186,6 @@ final class WidgetCompositeTest extends TestCaseWithPrebuiltMocksAndStubs
             ->method('attach')
             ->with($composite)
         ;
-
 
         $composite->attach($observer1);
         $composite->attach($observer2);
@@ -204,12 +203,12 @@ final class WidgetCompositeTest extends TestCaseWithPrebuiltMocksAndStubs
     #[Test]
     public function canRemoveWidgets(): void
     {
-        $composite = $this->getTesteeInstance(
+        $composite = $this->getTesteeInstance();
 
-        );
-        $observer1 = $this->getWidgetObserverAndSubjectMock();
-        $widget1 = $this->getWidgetObserverAndSubjectMock();
-        $widget2 = $this->getWidgetObserverAndSubjectMock();
+        $observer1 = $this->getComboSubjectObserverMock();
+
+        $widget1 = $this->getWidgetMock();
+        $widget2 = $this->getWidgetMock();
 
         /** @var \WeakMap $observers */
         $observers = self::getPropertyValue('observers', $composite);
@@ -265,7 +264,7 @@ final class WidgetCompositeTest extends TestCaseWithPrebuiltMocksAndStubs
     {
         $composite = $this->getTesteeInstance();
 
-        $widget1 = $this->getWidgetObserverAndSubjectMock();
+        $widget1 = $this->getWidgetMock();
         $widget1
             ->expects(self::once())
             ->method('detach')
@@ -276,7 +275,7 @@ final class WidgetCompositeTest extends TestCaseWithPrebuiltMocksAndStubs
         $children = self::getPropertyValue('children', $composite);
         $children->offsetSet($widget1, $widget1);
 
-        $composite->remove($this->getWidgetObserverAndSubjectMock());
+        $composite->remove($this->getWidgetMock());
 
         $composite->remove($widget1);
         self::assertFalse($children->offsetExists($widget1));
