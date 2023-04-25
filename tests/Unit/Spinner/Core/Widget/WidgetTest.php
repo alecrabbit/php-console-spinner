@@ -10,6 +10,7 @@ use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidget;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContextContainer;
 use AlecRabbit\Spinner\Core\Widget\Widget;
+use AlecRabbit\Spinner\Core\Widget\WidgetContextContainer;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;
@@ -48,7 +49,8 @@ final class WidgetTest extends TestCaseWithPrebuiltMocksAndStubs
         $revolver
             ->expects(self::once())
             ->method('getInterval')
-            ->willReturn($interval);
+            ->willReturn($interval)
+        ;
 
         $widget = $this->getTesteeInstance(
             revolver: $revolver
@@ -61,12 +63,14 @@ final class WidgetTest extends TestCaseWithPrebuiltMocksAndStubs
         $otherWidget
             ->expects(self::once())
             ->method('getInterval')
-            ->willReturn($otherInterval);
+            ->willReturn($otherInterval)
+        ;
         $interval
             ->expects(self::once())
             ->method('smallest')
             ->with($otherInterval)
-            ->willReturn($otherInterval);
+            ->willReturn($otherInterval)
+        ;
 
         $widget->update($otherWidget);
 
@@ -85,6 +89,64 @@ final class WidgetTest extends TestCaseWithPrebuiltMocksAndStubs
         $widget->attach($observer);
 
         self::assertSame($observer, self::getPropertyValue('observer', $widget));
+    }
+
+    #[Test]
+    public function canGetFrameIfHasRevolverOnly(): void
+    {
+        $revolverFrame = $this->getFrameMock();
+        $revolver = $this->getRevolverMock();
+        $revolver
+            ->expects(self::once())
+            ->method('getFrame')
+            ->willReturn($revolverFrame)
+        ;
+
+        $leadingSpacer = $this->getFrameMock();
+        $trailingSpacer = $this->getFrameMock();
+        $widget = $this->getTesteeInstance(
+            revolver: $revolver,
+            leadingSpacer: $leadingSpacer,
+            trailingSpacer: $trailingSpacer,
+        );
+
+        $revolverFrame
+            ->expects(self::once())
+            ->method('sequence')
+            ->willReturn('rfs')
+        ;
+        $revolverFrame
+            ->expects(self::once())
+            ->method('width')
+            ->willReturn(3)
+        ;
+
+        $leadingSpacer
+            ->expects(self::once())
+            ->method('sequence')
+            ->willReturn('ls')
+        ;
+        $leadingSpacer
+            ->expects(self::once())
+            ->method('width')
+            ->willReturn(2)
+        ;
+
+        $trailingSpacer
+            ->expects(self::once())
+            ->method('sequence')
+            ->willReturn('ts')
+        ;
+        $trailingSpacer
+            ->expects(self::once())
+            ->method('width')
+            ->willReturn(2)
+        ;
+
+        $result = $widget->getFrame();
+
+        self::assertSame('lsrfsts', $result->sequence());
+        self::assertSame(7, $result->width());
     }
 
     #[Test]

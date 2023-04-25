@@ -11,18 +11,22 @@ use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetIntervalContainer;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use WeakMap;
 
-final readonly class WidgetContextContainer implements IWidgetContextContainer
+final class WidgetContextContainer implements IWidgetContextContainer
 {
+    protected int $count = 0;
+
     public function __construct(
-        protected WeakMap $map = new WeakMap(),
-        protected IWidgetIntervalContainer $intervalContainer = new WidgetIntervalContainer(),
+        protected readonly WeakMap $map = new WeakMap(),
+        protected readonly IWidgetIntervalContainer $intervalContainer = new WidgetIntervalContainer(),
     ) {
+        $this->updateCount();
     }
 
     public function add(IWidgetContext $context): IWidgetContext
     {
         $this->map->offsetSet($context, $context);
         $this->intervalContainer->add($context->getWidget()->getInterval());
+        $this->updateCount();
         return $context;
     }
 
@@ -31,6 +35,7 @@ final readonly class WidgetContextContainer implements IWidgetContextContainer
         if ($this->map->offsetExists($context)) {
             $this->map->offsetUnset($context);
             $this->intervalContainer->remove($context->getWidget()->getInterval());
+            $this->updateCount();
         }
     }
 
@@ -59,5 +64,20 @@ final readonly class WidgetContextContainer implements IWidgetContextContainer
     public function getIntervalContainer(): IWidgetIntervalContainer
     {
         return $this->intervalContainer;
+    }
+
+    public function count(): int
+    {
+        return $this->count;
+    }
+
+    protected function updateCount(): void
+    {
+        $this->count = $this->map->count();
+    }
+
+    public function getIterator(): \Traversable
+    {
+        return $this->map;
     }
 }

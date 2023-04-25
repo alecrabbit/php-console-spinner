@@ -8,6 +8,7 @@ use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Contract\IHasInterval;
 use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Contract\IObserver;
+use AlecRabbit\Spinner\Core\Frame;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidget;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContext;
@@ -39,7 +40,24 @@ final class Widget implements IWidget
 
     public function getFrame(?float $dt = null): IFrame
     {
-        // TODO: Implement getFrame() method.
+        $revolverFrame = $this->revolver->getFrame($dt);
+
+        $frame = new Frame(
+            $this->leadingSpacer->sequence() . $revolverFrame->sequence() . $this->trailingSpacer->sequence(),
+            $this->leadingSpacer->width() + $revolverFrame->width() + $this->trailingSpacer->width()
+        );
+
+        if ($this->children->count() > 0) {
+            foreach ($this->children as $context) {
+                $f = $context->getWidget()->getFrame($dt);
+                $frame = new Frame(
+                    $frame->sequence() . $f->sequence(),
+                    $frame->width() + $f->width()
+                );
+            }
+        }
+
+        return $frame;
     }
 
     public function add(IWidget $widget): IWidgetContext
@@ -89,7 +107,7 @@ final class Widget implements IWidget
 
     public function notify(): void
     {
-        $this->observer->update($this);
+        $this->observer?->update($this);
     }
 
     public function update(SplSubject $subject): void

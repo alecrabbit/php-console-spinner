@@ -4,7 +4,10 @@ declare(strict_types=1);
 // 24.04.23
 namespace AlecRabbit\Spinner\Core\Widget\Contract;
 
-interface IWidgetContextContainer
+use Countable;
+use IteratorAggregate;
+
+interface IWidgetContextContainer extends Countable, IteratorAggregate
 {
     public function add(IWidgetContext $context): IWidgetContext;
 
@@ -17,4 +20,8 @@ interface IWidgetContextContainer
     public function find(IWidget $widget): IWidgetContext;
 
     public function has(IWidgetContext $context): bool;
+
+    public function count(): int;
+
+    public function getIterator(): \Traversable;
 }
