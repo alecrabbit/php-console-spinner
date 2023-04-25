@@ -4,8 +4,9 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Widget;
 
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidget;
+use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContext;
 
-final class WidgetContext implements Contract\IWidgetContext
+final class WidgetContext implements IWidgetContext
 {
     public function __construct(
         protected IWidget $widget,
