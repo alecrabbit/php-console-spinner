@@ -14,12 +14,9 @@ use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContextContainer;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use SplObserver;
 use SplSubject;
-use WeakMap;
 
 final class Widget implements IWidget
 {
-    /** @var WeakMap<IObserver, IObserver> */
-    protected readonly WeakMap $observers;
     protected IInterval $interval;
     protected IWidgetContext $context;
 
@@ -28,11 +25,10 @@ final class Widget implements IWidget
         protected readonly IFrame $leadingSpacer,
         protected readonly IFrame $trailingSpacer,
         protected readonly IWidgetContextContainer $children = new WidgetContextContainer(),
+        protected ?IObserver $observer = null,
     ) {
         $this->interval = $this->revolver->getInterval();
         $this->context = new WidgetContext($this);
-
-        $this->observers = new WeakMap();
     }
 
     public function getInterval(): IInterval
@@ -50,19 +46,23 @@ final class Widget implements IWidget
         $widget->attach($this);
 
         $context = $widget->getContext();
+
         $this->children->add($context);
 
-        $this->updateState();
-//        $this->updateInterval($widget->getInterval());
-//        $this->notify();
+        $this->stateUpdate();
+
         return $context;
     }
 
     public function attach(SplObserver $observer): void
     {
+        if ($this->observer !== null) {
+            throw new InvalidArgumentException('Observer is already attached.');
+        }
+
         $this->assertNotSelf($observer);
 
-        $this->observers->offsetSet($observer, $observer);
+        $this->observer = $observer;
     }
 
     protected function assertNotSelf(object $obj): void
@@ -74,13 +74,16 @@ final class Widget implements IWidget
 
     public function getContext(): IWidgetContext
     {
-        // TODO: Implement getContext() method.
+        return $this->context;
     }
 
-    protected function updateInterval(IInterval $interval): void
+    private function stateUpdate(): void
     {
-        $this->interval = $this->interval->smallest($interval);
-
+        $interval = $this->interval;
+        $this->interval = $this->children->getIntervalContainer()->getSmallest();
+        if ($interval !== $this->interval) {
+            $this->notify();
+        }
     }
 
     public function notify(): void
@@ -97,6 +100,11 @@ final class Widget implements IWidget
         }
     }
 
+    protected function updateInterval(IInterval $interval): void
+    {
+        $this->interval = $this->interval->smallest($interval);
+    }
+
     public function remove(IWidget $widget): void
     {
         $context = $widget->getContext();
@@ -105,28 +113,19 @@ final class Widget implements IWidget
 
             $widget->detach($this);
 
-            $this->updateState();
+            $this->stateUpdate();
         }
     }
 
     public function detach(SplObserver $observer): void
     {
-        if ($this->observers->offsetExists($observer)) {
-            $this->observers->offsetUnset($observer);
+        if ($this->observer === $observer) {
+            $this->observer = null;
         }
     }
 
     public function replaceContext(IWidgetContext $context): void
     {
         $this->context = $context;
-    }
-
-    private function updateState(): void
-    {
-        $interval = $this->interval;
-//        $this->interval = $this->children->getIntervalContainer()->getSmallest();
-        if ($interval !== $this->interval) {
-            $this->notify();
-        }
     }
 }

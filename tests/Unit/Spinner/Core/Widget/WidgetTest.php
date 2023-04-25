@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Widget;
 
 use AlecRabbit\Spinner\Contract\IFrame;
+use AlecRabbit\Spinner\Contract\IObserver;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidget;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContextContainer;
@@ -28,53 +29,47 @@ final class WidgetTest extends TestCaseWithPrebuiltMocksAndStubs
         ?IRevolver $revolver = null,
         ?IFrame $leadingSpacer = null,
         ?IFrame $trailingSpacer = null,
-        ?IWidgetContextContainer $contexts = null,
+        ?IWidgetContextContainer $children = null,
+        ?IObserver $observer = null,
     ): IWidget {
         return new Widget(
             revolver: $revolver ?? $this->getRevolverMock(),
             leadingSpacer: $leadingSpacer ?? $this->getFrameMock(),
             trailingSpacer: $trailingSpacer ?? $this->getFrameMock(),
-            children: $contexts ?? $this->getWidgetContextContainerMock(),
+            children: $children ?? $this->getWidgetContextContainerMock(),
+            observer: $observer,
         );
     }
-//
-//    #[Test]
-//    public function canAttachObservers(): void
-//    {
-//        $widget = $this->getTesteeInstance();
-//
-//        $observer1 = $this->getWidgetMock();
-//        $observer2 = $this->getWidgetMock();
-//
-//        $widget->attach($observer1);
-//        $widget->attach($observer2);
-//
-//        /** @var \WeakMap $observers */
-//        $observers = self::getPropertyValue('observers', $widget);
-//
-//        self::assertSame($observer1, $observers[$observer1]);
-//        self::assertSame($observer2, $observers[$observer2]);
-//    }
-//
-//    #[Test]
-//    public function canDetachObservers(): void
-//    {
-//        $widget = $this->getTesteeInstance();
-//
-//        $observer1 = $this->getWidgetMock();
-//        $observer2 = $this->getWidgetMock();
-//
-//        $widget->attach($observer1);
-//        $widget->attach($observer2);
-//
-//        $widget->detach($observer1);
-//
-//        /** @var \WeakMap $observers */
-//        $observers = self::getPropertyValue('observers', $widget);
-//
-//        self::assertFalse($observers->offsetExists($observer1));
-//        self::assertSame($observer2, $observers[$observer2]);
-//    }
+
+    #[Test]
+    public function canAttachObserver(): void
+    {
+        $widget = $this->getTesteeInstance();
+
+        $observer = $this->getObserverMock();
+
+        self::assertNull(self::getPropertyValue('observer', $widget));
+
+        $widget->attach($observer);
+
+        self::assertSame($observer, self::getPropertyValue('observer', $widget));
+    }
+
+    #[Test]
+    public function canDetachObserver(): void
+    {
+        $observer = $this->getObserverMock();
+
+        $widget = $this->getTesteeInstance(
+            observer: $observer
+        );
+
+        self::assertSame($observer, self::getPropertyValue('observer', $widget));
+
+        $widget->detach($observer);
+
+        self::assertNull(self::getPropertyValue('observer', $widget));
+    }
 //
 //    #[Test]
 //    public function canNotifyObservers(): void
@@ -128,6 +123,15 @@ final class WidgetTest extends TestCaseWithPrebuiltMocksAndStubs
             revolver: $revolver,
         );
         self::assertSame($interval, $widget->getInterval());
+    }
+    #[Test]
+    public function canGetContext(): void
+    {
+        $widget = $this->getTesteeInstance();
+
+        $context = self::getPropertyValue('context', $widget);
+
+        self::assertSame($context, $widget->getContext());
     }
 //
 //    #[Test]
@@ -287,24 +291,43 @@ final class WidgetTest extends TestCaseWithPrebuiltMocksAndStubs
 //        $composite->remove($widget1);
 //        self::assertFalse($children->offsetExists($widget1));
 //    }
-//
-//    #[Test]
-//    public function throwsIfObserverIsSelf(): void
-//    {
-//        $exceptionClass = InvalidArgumentException::class;
-//        $exceptionMessage = 'Object can not be self.';
-//
-//        $test = function (): void {
-//            $widget = $this->getTesteeInstance();
-//            $widget->attach($widget);
-//        };
-//
-//        $this->wrapExceptionTest(
-//            test: $test,
-//            exceptionOrExceptionClass: $exceptionClass,
-//            exceptionMessage: $exceptionMessage,
-//        );
-//    }
+
+    #[Test]
+    public function throwsIfObserverIsSelf(): void
+    {
+        $exceptionClass = InvalidArgumentException::class;
+        $exceptionMessage = 'Object can not be self.';
+
+        $test = function (): void {
+            $widget = $this->getTesteeInstance();
+            $widget->attach($widget);
+        };
+
+        $this->wrapExceptionTest(
+            test: $test,
+            exceptionOrExceptionClass: $exceptionClass,
+            exceptionMessage: $exceptionMessage,
+        );
+    }
+    #[Test]
+    public function throwsIfObserverAlreadyAttached(): void
+    {
+        $exceptionClass = InvalidArgumentException::class;
+        $exceptionMessage = 'Observer is already attached.';
+
+        $test = function (): void {
+            $widget = $this->getTesteeInstance();
+            $observer = $this->getObserverMock();
+            $widget->attach($observer);
+            $widget->attach($observer);
+        };
+
+        $this->wrapExceptionTest(
+            test: $test,
+            exceptionOrExceptionClass: $exceptionClass,
+            exceptionMessage: $exceptionMessage,
+        );
+    }
 
     #[Test]
     public function throwsIfAddedWidgetIsSelf(): void
