@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Widget;
 
 use AlecRabbit\Spinner\Contract\IFrame;
+use AlecRabbit\Spinner\Contract\IHasInterval;
 use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Contract\IObserver;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
@@ -93,14 +94,9 @@ final class Widget implements IWidget
 
     public function update(SplSubject $subject): void
     {
-        if ($subject instanceof IWidget) {
-            $this->updateInterval($subject->getInterval());
+        if ($subject instanceof IHasInterval) {
+            $this->interval = $this->interval->smallest($subject->getInterval());
         }
-    }
-
-    protected function updateInterval(IInterval $interval): void
-    {
-        $this->interval = $this->interval->smallest($interval);
     }
 
     public function remove(IWidget $widget): void
@@ -124,6 +120,9 @@ final class Widget implements IWidget
 
     public function replaceContext(IWidgetContext $context): void
     {
+        if ($context->getWidget() !== $this) {
+            throw new InvalidArgumentException('Context is not related to this widget.');
+        }
         $this->context = $context;
     }
 }

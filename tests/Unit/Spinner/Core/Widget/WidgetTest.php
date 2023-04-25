@@ -76,89 +76,54 @@ final class WidgetTest extends TestCaseWithPrebuiltMocksAndStubs
         $observer = $this->getObserverMock();
         $intervalContainer = $this->getWidgetIntervalContainerMock();
         $children = $this->getWidgetContextContainerMock();
+
+
+        $widget = $this->getTesteeInstance(
+            children: $children,
+            observer: $observer,
+        );
+
+        $otherWidgetContext = $this->getWidgetContextMock();
+        $otherWidget = $this->getWidgetMock();
+
+        $otherWidget
+            ->expects(self::once())
+            ->method('attach')
+            ->with($widget)
+        ;
+
+        $otherWidget
+            ->expects(self::once())
+            ->method('getContext')
+            ->willReturn($otherWidgetContext)
+        ;
+
+        $children
+            ->expects(self::once())
+            ->method('add')
+            ->with($otherWidgetContext)
+        ;
+
         $children
             ->expects(self::once())
             ->method('getIntervalContainer')
             ->willReturn($intervalContainer)
         ;
 
-        $widget = $this->getTesteeInstance(
-            children: $children,
-            observer: $observer,
-        );
-        $observer
-            ->expects(self::once())
-            ->method('update')
-            ->with($widget)
-        ;
-
-        $widgetContext = $this->getWidgetContextMock();
-        $otherWidget = $this->getWidgetMock();
-        $otherWidget
-            ->expects(self::once())
-            ->method('attach')
-            ->with($widget)
-        ;
-        $otherWidget
-            ->expects(self::once())
-            ->method('getContext')
-            ->willReturn($widgetContext)
-        ;
-
-        $children
-            ->expects(self::once())
-            ->method('add')
-            ->with($widgetContext)
-        ;
-
         $intervalContainer
             ->expects(self::once())
             ->method('getSmallest')
-            ->willReturn($this->getIntervalMock());
+            ->willReturn($this->getIntervalMock())
+        ;
 
         $observer
             ->expects(self::once())
             ->method('update')
-            ->with($widget);
+            ->with($widget)
+        ;
 
         $widget->add($otherWidget);
     }
-
-//    {
-//        $widget = $this->getTesteeInstance();
-//
-//        $observer1 = $this->getWidgetMock();
-//        $observer1
-//            ->expects(self::once())
-//            ->method('update')
-//            ->with($widget)
-//        ;
-//        $observer2 = $this->getWidgetMock();
-//        $observer2
-//            ->expects(self::once())
-//            ->method('update')
-//            ->with($widget)
-//        ;
-//
-//        $widget->attach($observer1);
-//        $widget->attach($observer2);
-//
-//        $widget->notify();
-//    }
-//
-//    #[Test]
-//    public function canBeUpdatedWithSubject(): void
-//    {
-//        $widget = $this->getTesteeInstance();
-//
-//        $subject = $this->getWidgetMock();
-//        $subject
-//            ->expects(self::once())
-//            ->method('getInterval')
-//        ;
-//
-//        $widget->update($subject);
-//    }
 
     #[Test]
     public function canGetInterval(): void
@@ -177,6 +142,23 @@ final class WidgetTest extends TestCaseWithPrebuiltMocksAndStubs
     }
 
     #[Test]
+    public function canReplaceContext(): void
+    {
+        $widget = $this->getTesteeInstance();
+
+        $context = $this->getWidgetContextMock();
+        $context
+            ->expects(self::once())
+            ->method('getWidget')
+            ->willReturn($widget)
+        ;
+
+        $widget->replaceContext($context);
+
+        self::assertSame($context, $widget->getContext());
+    }
+
+    #[Test]
     public function canGetContext(): void
     {
         $widget = $this->getTesteeInstance();
@@ -185,164 +167,105 @@ final class WidgetTest extends TestCaseWithPrebuiltMocksAndStubs
 
         self::assertSame($context, $widget->getContext());
     }
-//
-//    #[Test]
-//    public function canAddWidgets(): void
-//    {
-//        $interval = $this->getIntervalMock();
-//        $interval
-////            ->expects(self::exactly(2))
-//            ->method('smallest')
-//            ->willReturnSelf()
-//        ;
-//
-//        $revolver = $this->getRevolverMock();
-//        $revolver
-//            ->expects(self::once())
-//            ->method('getInterval')
-//            ->willReturn($interval)
-//        ;
-//
-//        $widgetContextContainer = new WidgetContextContainer();
-//
-//        $composite = $this->getTesteeInstance(
-//            revolver: $revolver,
-//            contexts: $widgetContextContainer,
-//        );
-//
-//        $observer1 = $this->getWidgetMock();
-//        $observer1
-////            ->expects(self::exactly(2))
-//            ->method('update')
-//            ->with($composite)
-//        ;
-//
-//        $observer2 = $this->getWidgetMock();
-//        $observer2
-////            ->expects(self::exactly(2))
-//            ->method('update')
-//            ->with($composite)
-//        ;
-//
-//        $context1 = $this->getWidgetContextMock();
-//        $widget1Interval = $this->getIntervalMock();
-//        $widget1 = $this->getWidgetMock();
-//        $widget1
-//            ->expects(self::once())
-//            ->method('getContext')
-//            ->willReturn($context1)
-//        ;
-//        $widget1
-//            ->expects(self::once())
-//            ->method('getInterval')
-//            ->willReturn($widget1Interval)
-//        ;
-//        $widget1
-//            ->expects(self::once())
-//            ->method('attach')
-//            ->with($composite)
-//        ;
-//
-//        $context2 = $this->getWidgetContextMock();
-//        $widget2Interval = $this->getIntervalMock();
-//        $widget2 = $this->getWidgetMock();
-//        $widget2
-//            ->expects(self::once())
-//            ->method('getContext')
-//            ->willReturn($context2)
-//        ;
-//        $widget2
-//            ->expects(self::once())
-//            ->method('getInterval')
-//            ->willReturn($widget2Interval)
-//        ;
-//        $widget2
-//            ->expects(self::once())
-//            ->method('attach')
-//            ->with($composite)
-//        ;
-//
-//        $composite->attach($observer1);
-//        $composite->attach($observer2);
-//
-//        $composite->add($widget1);
-//        $composite->add($widget2);
-//    }
-//
-//    #[Test]
-//    public function canRemoveWidgets(): void
-//    {
-//        $container = new WidgetContextContainer();
-//        $composite = $this->getTesteeInstance(
-//            contexts: $container,
-//        );
-//
-//        $observer1 = $this->getComboSubjectObserverMock();
-//
-//        $widget1 = $this->getWidgetMock();
-//        $widget2 = $this->getWidgetMock();
-//
-//        /** @var \WeakMap $observers */
-//        $observers = self::getPropertyValue('observers', $composite);
-//        $observers->offsetSet($observer1, $observer1);
-//
-//        $observer1
-//            ->expects(self::exactly(2))
-//            ->method('update')
-//            ->with($composite)
-//        ;
-//
-//        $widget1Interval = $this->getIntervalMock();
-//
-//        $widget1
-//            ->expects(self::once())
-//            ->method('getInterval')
-//            ->willReturn($widget1Interval)
-//        ;
-//        $widget1
-//            ->expects(self::once())
-//            ->method('detach')
-//            ->with($composite)
-//        ;
-//
-//        $widget2Interval = $this->getIntervalMock();
-//
-//        $widget2
-//            ->expects(self::never())
-//            ->method('getInterval')
-//            ->willReturn($widget2Interval)
-//        ;
-//        $widget2
-//            ->expects(self::once())
-//            ->method('detach')
-//            ->with($composite)
-//        ;
-//
-//        $composite->remove($widget2);
-//        $composite->remove($widget1);
-//    }
 
-//    #[Test]
-//    public function removingNonExistentWidgetDoesNothing(): void
-//    {
-//        $composite = $this->getTesteeInstance();
-//
-//        $widget1 = $this->getWidgetMock();
-//        $widget1
-//            ->expects(self::once())
-//            ->method('detach')
-//            ->with($composite)
-//        ;
-//
-//        /** @var \WeakMap $children */
-//        $children = self::getPropertyValue('children', $composite);
-//        $children->offsetSet($widget1, $widget1);
-//
-//        $composite->remove($this->getWidgetMock());
-//
-//        $composite->remove($widget1);
-//        self::assertFalse($children->offsetExists($widget1));
-//    }
+    #[Test]
+    public function canNotifyObserverOnOtherWidgetRemove(): void
+    {
+        $observer = $this->getObserverMock();
+
+        $intervalContainer = $this->getWidgetIntervalContainerMock();
+
+        $children = $this->getWidgetContextContainerMock();
+
+        $widget = $this->getTesteeInstance(
+            children: $children,
+            observer: $observer,
+        );
+
+        $otherWidgetContext = $this->getWidgetContextMock();
+        $otherWidget = $this->getWidgetMock();
+
+        $otherWidget
+            ->expects(self::once())
+            ->method('getContext')
+            ->willReturn($otherWidgetContext)
+        ;
+
+        $children
+            ->expects(self::once())
+            ->method('has')
+            ->with($otherWidgetContext)
+            ->willReturn(true)
+        ;
+
+        $children
+            ->expects(self::once())
+            ->method('remove')
+            ->with($otherWidgetContext)
+        ;
+
+        $otherWidget
+            ->expects(self::once())
+            ->method('detach')
+            ->with($widget)
+        ;
+
+        $children
+            ->expects(self::once())
+            ->method('getIntervalContainer')
+            ->willReturn($intervalContainer)
+        ;
+
+        $intervalContainer
+            ->expects(self::once())
+            ->method('getSmallest')
+            ->willReturn($this->getIntervalMock())
+        ;
+
+        $observer
+            ->expects(self::once())
+            ->method('update')
+            ->with($widget)
+        ;
+
+        $widget->remove($otherWidget);
+    }
+
+    #[Test]
+    public function removingNonExistentWidgetDoesNothing(): void
+    {
+        $children = $this->getWidgetContextContainerMock();
+        $composite = $this->getTesteeInstance(
+            children: $children,
+        );
+
+        $nonExistentContext = $this->getWidgetContextMock();
+        $nonExistent = $this->getWidgetMock();
+        $nonExistent
+            ->expects(self::once())
+            ->method('getContext')
+            ->willReturn($nonExistentContext)
+        ;
+        $children
+            ->expects(self::once())
+            ->method('has')
+            ->with($nonExistentContext)
+            ->willReturn(false)
+        ;
+        $children
+            ->expects(self::never())
+            ->method('remove')
+        ;
+        $nonExistent
+            ->expects(self::never())
+            ->method('detach')
+        ;
+        $children
+            ->expects(self::never())
+            ->method('getIntervalContainer')
+        ;
+        $composite->remove($nonExistent);
+    }
 
     #[Test]
     public function throwsIfObserverIsSelf(): void
@@ -391,6 +314,32 @@ final class WidgetTest extends TestCaseWithPrebuiltMocksAndStubs
         $test = function (): void {
             $widget = $this->getTesteeInstance();
             $widget->add($widget);
+        };
+
+        $this->wrapExceptionTest(
+            test: $test,
+            exceptionOrExceptionClass: $exceptionClass,
+            exceptionMessage: $exceptionMessage,
+        );
+    }
+
+    #[Test]
+    public function throwsIfContextIsNotRelatedToWidget(): void
+    {
+        $exceptionClass = InvalidArgumentException::class;
+        $exceptionMessage = 'Context is not related to this widget.';
+
+        $test = function (): void {
+            $widget = $this->getTesteeInstance();
+
+            $context = $this->getWidgetContextMock();
+            $context
+                ->expects(self::once())
+                ->method('getWidget')
+                ->willReturn($this->getWidgetMock())
+            ;
+
+            $widget->replaceContext($context);
         };
 
         $this->wrapExceptionTest(
