@@ -11,8 +11,11 @@
          beStrictAboutCoverageMetadata="false"
 >
   <testsuites>
-    <testsuite name="default">
-      <directory>tests</directory>
+    <testsuite name="Functional">
+      <directory>tests/Functional</directory>
+    </testsuite>
+    <testsuite name="Unit">
+      <directory>tests/Unit</directory>
     </testsuite>
   </testsuites>
   <coverage>
