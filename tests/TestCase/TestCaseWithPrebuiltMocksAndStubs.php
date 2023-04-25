@@ -88,17 +88,24 @@ use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
 use AlecRabbit\Spinner\Core\Widget\Contract\ILegacyWidgetContext;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContext;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContextContainer;
+use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetIntervalContainer;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolverBuilder;
 use AlecRabbit\Spinner\Core\Widget\Factory\Contract\IWidgetFactory;
 use AlecRabbit\Spinner\Core\Widget\Factory\Contract\IWidgetRevolverFactory;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\MockObject\Stub;
+use WeakMap;
 
 abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
 {
     protected function getWidgetConfigStub(): Stub&IWidgetConfig
     {
         return $this->createStub(IWidgetConfig::class);
+    }
+
+    protected function getWidgetIntervalContainerMock(): MockObject&IWidgetIntervalContainer
+    {
+        return $this->createMock(IWidgetIntervalContainer::class);
     }
 
     protected function getFrameMock(): MockObject&IFrame

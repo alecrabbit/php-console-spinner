@@ -15,13 +15,14 @@ final readonly class WidgetContextContainer implements IWidgetContextContainer
 {
     public function __construct(
         protected WeakMap $map = new WeakMap(),
+        protected IWidgetIntervalContainer $intervalContainer = new WidgetIntervalContainer(),
     ) {
     }
 
     public function add(IWidgetContext $context): IWidgetContext
     {
         $this->map->offsetSet($context, $context);
-
+        $this->intervalContainer->add($context->getWidget()->getInterval());
         return $context;
     }
 
@@ -29,6 +30,7 @@ final readonly class WidgetContextContainer implements IWidgetContextContainer
     {
         if ($this->map->offsetExists($context)) {
             $this->map->offsetUnset($context);
+            $this->intervalContainer->remove($context->getWidget()->getInterval());
         }
     }
 
@@ -56,6 +58,6 @@ final readonly class WidgetContextContainer implements IWidgetContextContainer
 
     public function getIntervalContainer(): IWidgetIntervalContainer
     {
-        // TODO: Implement getIntervalContainer() method.
+        return $this->intervalContainer;
     }
 }
