@@ -66,6 +66,21 @@ final class WidgetContextContainerTest extends TestCaseWithPrebuiltMocksAndStubs
     }
 
     #[Test]
+    public function removingNonExistingContextDoesNotThrow(): void
+    {
+        $map = new WeakMap();
+        $container = $this->getTesteeInstance(
+            map: $map,
+        );
+
+        $context = $this->getWidgetContextMock();
+
+        self::assertFalse($map->offsetExists($context));
+
+        $container->remove($context);
+    }
+
+    #[Test]
     public function canGetContext(): void
     {
         $map = new WeakMap();
@@ -96,6 +111,18 @@ final class WidgetContextContainerTest extends TestCaseWithPrebuiltMocksAndStubs
         $container->add($context);
 
         self::assertSame($context, $container->find($widget));
+    }
+    #[Test]
+    public function canCheckContainerHasContext(): void
+    {
+        $container = $this->getTesteeInstance();
+
+        $context = $this->getWidgetContextMock();
+
+        $container->add($context);
+
+        self::assertTrue($container->has($context));
+        self::assertFalse($container->has($this->getWidgetContextMock()));
     }
 
     #[Test]

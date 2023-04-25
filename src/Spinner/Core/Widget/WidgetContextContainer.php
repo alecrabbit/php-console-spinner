@@ -7,6 +7,7 @@ namespace AlecRabbit\Spinner\Core\Widget;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidget;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContext;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContextContainer;
+use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetIntervalContainer;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use WeakMap;
 
@@ -26,7 +27,18 @@ final readonly class WidgetContextContainer implements IWidgetContextContainer
 
     public function remove(IWidgetContext $context): void
     {
-        $this->map->offsetUnset($context);
+        if ($this->map->offsetExists($context)) {
+            $this->map->offsetUnset($context);
+        }
+    }
+
+    /**
+     * @deprecated Questionable method
+     */
+    public function find(IWidget $widget): IWidgetContext
+    {
+        $context = $widget->getContext();
+        return $this->get($context);
     }
 
     public function get(IWidgetContext $context): IWidgetContext
@@ -37,9 +49,13 @@ final readonly class WidgetContextContainer implements IWidgetContextContainer
         throw new InvalidArgumentException('Context not found.');
     }
 
-    public function find(IWidget $widget): IWidgetContext
+    public function has(IWidgetContext $context): bool
     {
-        $context = $widget->getContext();
-        return $this->get($context);
+        return $this->map->offsetExists($context);
+    }
+
+    public function getIntervalContainer(): IWidgetIntervalContainer
+    {
+        // TODO: Implement getIntervalContainer() method.
     }
 }

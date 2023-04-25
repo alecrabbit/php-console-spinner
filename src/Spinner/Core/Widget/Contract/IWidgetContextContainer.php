@@ -8,9 +8,13 @@ interface IWidgetContextContainer
 {
     public function add(IWidgetContext $context): IWidgetContext;
 
+    public function getIntervalContainer(): IWidgetIntervalContainer;
+
     public function remove(IWidgetContext $context): void;
 
     public function get(IWidgetContext $context);
 
     public function find(IWidget $widget): IWidgetContext;
+
+    public function has(IWidgetContext $context): bool;
 }
