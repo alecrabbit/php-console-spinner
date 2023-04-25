@@ -7,7 +7,7 @@ namespace AlecRabbit\Spinner\Core\Widget\Contract;
 use AlecRabbit\Spinner\Contract\IHasInterval;
 use AlecRabbit\Spinner\Contract\IFrameUpdatable;
 
-interface IWidgetComposite extends IHasInterval, IFrameUpdatable, IHasWidgetContext
+interface IWidgetComposite extends IHasInterval, IFrameUpdatable, IHasLegacyWidgetContext
 {
     public function add(IWidgetComposite|ILegacyWidgetContext $element): ILegacyWidgetContext;
 

@@ -6,7 +6,7 @@ namespace AlecRabbit\Spinner\Core\Widget\Contract;
 
 interface IHasWidgetContext
 {
-    public function getContext(): ILegacyWidgetContext;
+    public function getContext(): IWidgetContext;
 
-    public function setContext(ILegacyWidgetContext $widgetContext): void;
+    public function setContext(IWidgetContext $widgetContext): void;
 }

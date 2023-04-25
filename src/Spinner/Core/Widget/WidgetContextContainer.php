@@ -4,6 +4,7 @@ declare(strict_types=1);
 // 25.04.23
 namespace AlecRabbit\Spinner\Core\Widget;
 
+use AlecRabbit\Spinner\Core\Widget\Contract\IWidget;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContext;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContextContainer;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
@@ -34,5 +35,11 @@ final readonly class WidgetContextContainer implements IWidgetContextContainer
             return $this->map->offsetGet($context);
         }
         throw new InvalidArgumentException('Context not found.');
+    }
+
+    public function find(IWidget $widget): IWidgetContext
+    {
+        $context = $widget->getContext();
+        return $this->get($context);
     }
 }

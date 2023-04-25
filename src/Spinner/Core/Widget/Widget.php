@@ -9,7 +9,7 @@ use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Contract\IObserver;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidget;
-use AlecRabbit\Spinner\Core\Widget\Contract\ILegacyWidgetContext;
+use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContext;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use SplObserver;
 use SplSubject;
@@ -44,7 +44,7 @@ final class Widget implements IWidget
         // TODO: Implement getFrame() method.
     }
 
-    public function add(IWidget $widget): ILegacyWidgetContext
+    public function add(IWidget $widget): IWidgetContext
     {
         $this->assertNotSelf($widget);
 
@@ -66,7 +66,7 @@ final class Widget implements IWidget
         }
     }
 
-    public function getContext(): ILegacyWidgetContext
+    public function getContext(): IWidgetContext
     {
         // TODO: Implement getContext() method.
     }
@@ -118,7 +118,7 @@ final class Widget implements IWidget
         }
     }
 
-    public function setContext(ILegacyWidgetContext $widgetContext): void
+    public function setContext(IWidgetContext $widgetContext): void
     {
         // TODO: Implement setContext() method.
     }

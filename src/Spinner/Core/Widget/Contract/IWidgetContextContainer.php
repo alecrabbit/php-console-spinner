@@ -11,4 +11,6 @@ interface IWidgetContextContainer
     public function remove(IWidgetContext $context): void;
 
     public function get(IWidgetContext $context);
+
+    public function find(IWidget $widget): IWidgetContext;
 }
