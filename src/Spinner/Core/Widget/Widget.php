@@ -8,16 +8,16 @@ use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Contract\IHasInterval;
 use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Contract\IObserver;
+use AlecRabbit\Spinner\Contract\ISubject;
+use AlecRabbit\Spinner\Core\A\ASubject;
 use AlecRabbit\Spinner\Core\Frame;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidget;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContext;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContextContainer;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
-use SplObserver;
-use SplSubject;
 
-final class Widget implements IWidget
+final class Widget extends ASubject implements IWidget
 {
     protected IInterval $interval;
     protected IWidgetContext $context;
@@ -27,8 +27,9 @@ final class Widget implements IWidget
         protected readonly IFrame $leadingSpacer,
         protected readonly IFrame $trailingSpacer,
         protected readonly IWidgetContextContainer $children = new WidgetContextContainer(),
-        protected ?IObserver $observer = null,
+        ?IObserver $observer = null,
     ) {
+        parent::__construct($observer);
         $this->interval = $this->revolver->getInterval();
         $this->context = new WidgetContext($this);
     }
@@ -73,24 +74,6 @@ final class Widget implements IWidget
         return $context;
     }
 
-    public function attach(SplObserver $observer): void
-    {
-        if ($this->observer !== null) {
-            throw new InvalidArgumentException('Observer is already attached.');
-        }
-
-        $this->assertNotSelf($observer);
-
-        $this->observer = $observer;
-    }
-
-    protected function assertNotSelf(object $obj): void
-    {
-        if ($obj === $this) {
-            throw new InvalidArgumentException('Object can not be self.');
-        }
-    }
-
     public function getContext(): IWidgetContext
     {
         return $this->context;
@@ -105,12 +88,7 @@ final class Widget implements IWidget
         }
     }
 
-    public function notify(): void
-    {
-        $this->observer?->update($this);
-    }
-
-    public function update(SplSubject $subject): void
+    public function update(ISubject $subject): void
     {
         $this->assertNotSelf($subject);
 
@@ -128,13 +106,6 @@ final class Widget implements IWidget
             $widget->detach($this);
 
             $this->stateUpdate();
-        }
-    }
-
-    public function detach(SplObserver $observer): void
-    {
-        if ($this->observer === $observer) {
-            $this->observer = null;
         }
     }
 

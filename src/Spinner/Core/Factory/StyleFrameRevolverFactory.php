@@ -36,9 +36,9 @@ final class StyleFrameRevolverFactory implements IStyleFrameRevolverFactory
             $this->frameRevolverBuilder
                 ->withFrameCollection($bakedPattern->getFrameCollection())
                 ->withInterval($bakedPattern->getInterval())
-//                ->withTolerance(
-//                    $this->getTolerance()
-//                )
+                ->withTolerance(
+                    $this->getTolerance()
+                )
                 ->build()
         ;
     }
@@ -57,6 +57,7 @@ final class StyleFrameRevolverFactory implements IStyleFrameRevolverFactory
 
     private function getTolerance(): int
     {
+        // TODO (2023-04-26 14:21) [Alec Rabbit]: make it configurable [fd86d318-9069-47e2-b60d-a68f537be4a3]
         return IRevolver::TOLERANCE;
     }
 }

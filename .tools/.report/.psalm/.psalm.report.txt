@@ -47,7 +47,7 @@
 /app/src/Spinner/Core/Driver.php:57:49:error - MixedAssignment: Unable to determine the type that $state is being assigned to
 /app/src/Spinner/Core/Driver.php:59:17:error - MixedArgument: Argument 1 of WeakMap::offsetSet cannot be mixed, expecting AlecRabbit\Spinner\Core\Contract\ISpinner
 /app/src/Spinner/Core/Driver.php:61:21:error - MixedArgument: Argument 1 of AlecRabbit\Spinner\Core\Driver::renderFrame cannot be mixed, expecting AlecRabbit\Spinner\Contract\IFrame
-/app/src/Spinner/Core/Driver.php:61:31:error - MixedMethodCall: Cannot determine the type of $spinner when calling method update
+/app/src/Spinner/Core/Driver.php:61:31:error - MixedMethodCall: Cannot determine the type of $spinner when calling method getFrame
 /app/src/Spinner/Core/Driver.php:62:21:error - MixedArgument: Argument 2 of AlecRabbit\Spinner\Core\Driver::renderFrame cannot be mixed, expecting AlecRabbit\Spinner\Core\Contract\ISpinnerState
 /app/src/Spinner/Core/Driver.php:133:45:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Contract\IInterval' for AlecRabbit\Spinner\Core\Driver::recalculateInterval
 /app/src/Spinner/Core/Driver.php:135:9:error - MixedAssignment: Unable to determine the type that $interval is being assigned to
@@ -112,8 +112,6 @@
 /app/src/Spinner/Core/Factory/ContainerSingletonFactory.php:258:24:error - MixedReturnStatement: Could not infer a return type
 /app/src/Spinner/Core/Factory/ContainerSingletonFactory.php:258:67:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
 /app/src/Spinner/Core/Factory/ContainerSingletonFactory.php:258:90:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
-/app/src/Spinner/Core/Factory/Contract/IStaticWidgetFactory.php:24:45:error - UndefinedClass: Class, interface or enum named AlecRabbit\Spinner\Core\Defaults\Contract\IDefaults does not exist
-/app/src/Spinner/Core/Factory/Contract/IStaticWidgetFactory.php:26:53:error - UndefinedClass: Class, interface or enum named AlecRabbit\Spinner\Core\Defaults\Contract\IDefaults does not exist
 /app/src/Spinner/Core/Factory/StyleFrameRevolverFactory.php:53:64:error - ArgumentTypeCoercion: Argument 1 of AlecRabbit\Spinner\Core\Render\Contract\IStyleFrameCollectionRenderer::render expects AlecRabbit\Spinner\Core\Pattern\Contract\IStylePattern, but parent type AlecRabbit\Spinner\Contract\Pattern\IPattern provided
 /app/src/Spinner/Core/Factory/TerminalProbeFactory.php:31:42:error - UndefinedInterfaceMethod: Method Traversable::append does not exist
 /app/src/Spinner/Core/Factory/TerminalProbeFactory.php:31:49:error - MixedMethodCall: Cannot call constructor on an unknown class
@@ -163,24 +161,23 @@
 /app/src/Spinner/Core/Timer.php:46:21:error - MixedArgument: Argument 3 of sprintf cannot be mixed, expecting float|int|string
 /app/src/Spinner/Core/TimerBuilder.php:24:27:error - PossiblyNullArgument: Argument 1 of AlecRabbit\Spinner\Core\Timer::__construct cannot be null, possibly null value provided
 /app/src/Spinner/Core/TimerBuilder.php:25:19:error - PossiblyNullArgument: Argument 2 of AlecRabbit\Spinner\Core\Timer::__construct cannot be null, possibly null value provided
-/app/src/Spinner/Core/Widget/Contract/IWidgetContextContainer.php:10:54:error - MissingTemplateParam: AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContextContainer has missing template params when extending IteratorAggregate, expecting 2
-/app/src/Spinner/Core/Widget/Contract/IWidgetContextContainer.php:18:21:error - MissingReturnType: Method AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContextContainer::get does not have a return type
-/app/src/Spinner/Core/Widget/Widget.php:51:41:error - MixedAssignment: Unable to determine the type that $context is being assigned to
-/app/src/Spinner/Core/Widget/Widget.php:52:17:error - MixedAssignment: Unable to determine the type that $f is being assigned to
-/app/src/Spinner/Core/Widget/Widget.php:52:32:error - MixedMethodCall: Cannot determine the type of $context when calling method getWidget
-/app/src/Spinner/Core/Widget/Widget.php:52:45:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
-/app/src/Spinner/Core/Widget/Widget.php:54:42:error - MixedOperand: Right operand cannot be mixed
-/app/src/Spinner/Core/Widget/Widget.php:54:46:error - MixedMethodCall: Cannot determine the type of $f when calling method sequence
-/app/src/Spinner/Core/Widget/Widget.php:55:21:error - MixedArgument: Argument 2 of AlecRabbit\Spinner\Core\Frame::__construct cannot be mixed, expecting int
-/app/src/Spinner/Core/Widget/Widget.php:55:39:error - MixedOperand: Right operand cannot be mixed
-/app/src/Spinner/Core/Widget/Widget.php:55:43:error - MixedMethodCall: Cannot determine the type of $f when calling method width
-/app/src/Spinner/Core/Widget/Widget.php:84:27:error - PropertyTypeCoercion: $this->observer expects 'AlecRabbit\Spinner\Contract\IObserver|null',  parent type 'SplObserver' provided
-/app/src/Spinner/Core/Widget/Widget.php:102:27:error - PossiblyNullPropertyAssignmentValue: $this->interval with non-nullable declared type 'AlecRabbit\Spinner\Contract\IInterval' cannot be assigned nullable type 'AlecRabbit\Spinner\Contract\IInterval|null'
-/app/src/Spinner/Core/Widget/WidgetBuilder.php:24:13:error - PossiblyNullArgument: Argument 1 of AlecRabbit\Spinner\Core\Widget\WidgetComposite::__construct cannot be null, possibly null value provided
-/app/src/Spinner/Core/Widget/WidgetBuilder.php:25:13:error - PossiblyNullArgument: Argument 2 of AlecRabbit\Spinner\Core\Widget\WidgetComposite::__construct cannot be null, possibly null value provided
-/app/src/Spinner/Core/Widget/WidgetBuilder.php:26:13:error - PossiblyNullArgument: Argument 3 of AlecRabbit\Spinner\Core\Widget\WidgetComposite::__construct cannot be null, possibly null value provided
-/app/src/Spinner/Core/Widget/WidgetContextContainer.php:51:51:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContext' for AlecRabbit\Spinner\Core\Widget\WidgetContextContainer::get
-/app/src/Spinner/Core/Widget/WidgetContextContainer.php:54:20:error - MixedReturnStatement: Could not infer a return type
+/app/src/Spinner/Core/Widget/Contract/IWidgetContextContainer.php:11:54:error - MissingTemplateParam: AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContextContainer has missing template params when extending IteratorAggregate, expecting 2
+/app/src/Spinner/Core/Widget/Contract/IWidgetContextContainer.php:19:21:error - MissingReturnType: Method AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContextContainer::get does not have a return type
+/app/src/Spinner/Core/Widget/Widget.php:50:41:error - MixedAssignment: Unable to determine the type that $context is being assigned to
+/app/src/Spinner/Core/Widget/Widget.php:51:17:error - MixedAssignment: Unable to determine the type that $f is being assigned to
+/app/src/Spinner/Core/Widget/Widget.php:51:32:error - MixedMethodCall: Cannot determine the type of $context when calling method getWidget
+/app/src/Spinner/Core/Widget/Widget.php:51:45:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
+/app/src/Spinner/Core/Widget/Widget.php:53:42:error - MixedOperand: Right operand cannot be mixed
+/app/src/Spinner/Core/Widget/Widget.php:53:46:error - MixedMethodCall: Cannot determine the type of $f when calling method sequence
+/app/src/Spinner/Core/Widget/Widget.php:54:21:error - MixedArgument: Argument 2 of AlecRabbit\Spinner\Core\Frame::__construct cannot be mixed, expecting int
+/app/src/Spinner/Core/Widget/Widget.php:54:39:error - MixedOperand: Right operand cannot be mixed
+/app/src/Spinner/Core/Widget/Widget.php:54:43:error - MixedMethodCall: Cannot determine the type of $f when calling method width
+/app/src/Spinner/Core/Widget/Widget.php:101:27:error - PossiblyNullPropertyAssignmentValue: $this->interval with non-nullable declared type 'AlecRabbit\Spinner\Contract\IInterval' cannot be assigned nullable type 'AlecRabbit\Spinner\Contract\IInterval|null'
+/app/src/Spinner/Core/Widget/WidgetBuilder.php:24:13:error - PossiblyNullArgument: Argument 1 of AlecRabbit\Spinner\Core\Widget\Widget::__construct cannot be null, possibly null value provided
+/app/src/Spinner/Core/Widget/WidgetBuilder.php:25:13:error - PossiblyNullArgument: Argument 2 of AlecRabbit\Spinner\Core\Widget\Widget::__construct cannot be null, possibly null value provided
+/app/src/Spinner/Core/Widget/WidgetBuilder.php:26:13:error - PossiblyNullArgument: Argument 3 of AlecRabbit\Spinner\Core\Widget\Widget::__construct cannot be null, possibly null value provided
+/app/src/Spinner/Core/Widget/WidgetContextContainer.php:62:51:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContext' for AlecRabbit\Spinner\Core\Widget\WidgetContextContainer::get
+/app/src/Spinner/Core/Widget/WidgetContextContainer.php:65:20:error - MixedReturnStatement: Could not infer a return type
 /app/src/Spinner/Core/Widget/WidgetIntervalContainer.php:52:36:error - MixedAssignment: Unable to determine the type that $i is being assigned to
 /app/src/Spinner/Core/Widget/WidgetIntervalContainer.php:53:44:error - MixedArgument: Argument 1 of AlecRabbit\Spinner\Core\Widget\WidgetIntervalContainer::updateSmallestOnAdd cannot be mixed, expecting AlecRabbit\Spinner\Contract\IInterval
 /app/src/Spinner/Core/Widget/WidgetRevolverBuilder.php:23:13:error - PossiblyNullArgument: Argument 1 of AlecRabbit\Spinner\Core\Widget\WidgetRevolver::__construct cannot be null, possibly null value provided
@@ -190,6 +187,8 @@
 /app/src/Spinner/Core/WidthMeasurer.php:26:9:error - MixedAssignment: Unable to determine the type that $parameterType is being assigned to
 /app/src/Spinner/Core/WidthMeasurer.php:26:71:error - UndefinedMethod: Method ReflectionType::getName does not exist
 /app/src/Spinner/Extras/A/AStaticProgressWidgetFactory.php:30:53:error - UndefinedClass: Class, interface or enum named AlecRabbit\Spinner\Core\Factory\A\AStaticWidgetFactory does not exist
+/app/src/Spinner/Extras/Contract/IProgressWidgetFactory.php:22:8:error - UndefinedClass: Class, interface or enum named AlecRabbit\Spinner\Core\Widget\Contract\ILegacyWidgetComposite does not exist
+/app/src/Spinner/Extras/Contract/IProgressWidgetFactory.php:30:8:error - UndefinedClass: Class, interface or enum named AlecRabbit\Spinner\Core\Widget\Contract\ILegacyWidgetComposite does not exist
 /app/src/Spinner/Extras/ProceduralFrameRevolverBuilder.php:13:52:error - UndefinedClass: Class, interface or enum named AlecRabbit\Spinner\Extras\AFrameRevolverBuilder does not exist
 /app/src/Spinner/Extras/Procedure/A/AFloatValueProcedure.php:22:50:error - InvalidReturnType: Not all code paths of AlecRabbit\Spinner\Extras\Procedure\A\AFloatValueProcedure::getFrame end in a return statement, return type AlecRabbit\Spinner\Contract\IFrame expected
 /app/src/Spinner/Extras/Procedure/A/AProgressValueProcedure.php:14:21:error - InvalidClassConstantType: The type "'%' 3.0f%%'" for AlecRabbit\Spinner\Extras\Procedure\A\AProgressValueProcedure::FORMAT does not satisfy the type "'%s'" inherited from AlecRabbit\Spinner\Extras\Procedure\A\AFloatValueProcedure::FORMAT

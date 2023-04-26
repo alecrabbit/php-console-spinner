@@ -4,8 +4,7 @@ declare(strict_types=1);
 // 25.04.23
 namespace AlecRabbit\Spinner\Contract;
 
-use SplObserver;
-
-interface IObserver extends SplObserver
+interface IObserver
 {
+    public function update(ISubject $subject): void;
 }

@@ -33,9 +33,9 @@ final class WidgetRevolverFactory implements IWidgetRevolverFactory
                 ->withCharRevolver(
                     $this->getCharRevolver($widgetSettings)
                 )
-//                ->withTolerance(
-//                    $this->getTolerance()
-//                )
+                ->withTolerance(
+                    $this->getTolerance()
+                )
                 ->build()
         ;
     }
@@ -62,6 +62,7 @@ final class WidgetRevolverFactory implements IWidgetRevolverFactory
 
     private function getTolerance(): int
     {
+        // TODO (2023-04-26 14:21) [Alec Rabbit]: make it configurable [fd86d318-9069-47e2-b60d-a68f537be4a3]
         return IRevolver::TOLERANCE;
     }
 }
