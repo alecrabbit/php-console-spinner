@@ -6,16 +6,17 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Contract;
 
+use AlecRabbit\Spinner\Contract\IComboSubjectObserver;
+use AlecRabbit\Spinner\Contract\IFrameUpdatable;
 use AlecRabbit\Spinner\Contract\IHasInterval;
-use AlecRabbit\Spinner\Contract\IFrame;
-use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
+use AlecRabbit\Spinner\Core\Widget\Contract\IWidget;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContext;
 
-interface ISpinner extends IHasInterval
+interface ISpinner extends IComboSubjectObserver,
+                           IHasInterval,
+                           IFrameUpdatable
 {
-    public function update(?float $dt = null): IFrame;
+    public function add(IWidget $element): IWidgetContext;
 
-    public function add(IWidgetComposite|IWidgetContext $element): IWidgetContext;
-
-    public function remove(IWidgetComposite|IWidgetContext $element): void;
+    public function remove(IWidget $element): void;
 }

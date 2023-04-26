@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Widget;
 
-use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
+use AlecRabbit\Spinner\Core\Widget\Contract\IWidget;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContext;
 use AlecRabbit\Spinner\Core\Widget\WidgetContext;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
@@ -21,18 +21,17 @@ final class WidgetContextTest extends TestCaseWithPrebuiltMocksAndStubs
     }
 
     public function getTesteeInstance(
-        ?IWidgetComposite $widget = null,
-    ): IWidgetContext
-    {
+        ?IWidget $widget = null,
+    ): IWidgetContext {
         return new WidgetContext(
-            widget: $widget ?? $this->getWidgetCompositeMock(),
+            widget: $widget ?? $this->getWidgetMock(),
         );
     }
 
     #[Test]
     public function canGetWidget(): void
     {
-        $widget = $this->getWidgetCompositeMock();
+        $widget = $this->getWidgetMock();
         $widgetContext = $this->getTesteeInstance(
             widget: $widget,
         );
@@ -44,17 +43,18 @@ final class WidgetContextTest extends TestCaseWithPrebuiltMocksAndStubs
     #[Test]
     public function canReplaceWidget(): void
     {
-        $widget = $this->getWidgetCompositeMock();
+        $widget = $this->getWidgetMock();
 
         $widgetContext = $this->getTesteeInstance(
             widget: $widget,
         );
 
-        $widget2 = $this->getWidgetCompositeMock();
+        $widget2 = $this->getWidgetMock();
         $widget2
             ->expects(self::once())
-            ->method('setContext')
-            ->with($widgetContext);
+            ->method('replaceContext')
+            ->with($widgetContext)
+        ;
 
         $widgetContext->replaceWidget($widget2);
 

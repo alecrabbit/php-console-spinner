@@ -5,32 +5,32 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Widget;
 
 use AlecRabbit\Spinner\Contract\IFrame;
+use AlecRabbit\Spinner\Contract\IHasInterval;
 use AlecRabbit\Spinner\Contract\IInterval;
+use AlecRabbit\Spinner\Contract\IObserver;
+use AlecRabbit\Spinner\Core\Frame;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
+use AlecRabbit\Spinner\Core\Widget\Contract\IWidget;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContext;
-use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetObserverAndSubject;
+use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContextContainer;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use SplObserver;
 use SplSubject;
-use WeakMap;
 
-final class Widget implements IWidgetObserverAndSubject
+final class Widget implements IWidget
 {
-    /** @var WeakMap<SplObserver, SplObserver> */
-    protected readonly WeakMap $observers;
-
-    /** @var WeakMap<IWidgetObserverAndSubject, IWidgetObserverAndSubject> */
-    protected readonly WeakMap $children;
     protected IInterval $interval;
+    protected IWidgetContext $context;
 
     public function __construct(
         protected readonly IRevolver $revolver,
         protected readonly IFrame $leadingSpacer,
         protected readonly IFrame $trailingSpacer,
+        protected readonly IWidgetContextContainer $children = new WidgetContextContainer(),
+        protected ?IObserver $observer = null,
     ) {
-        $this->observers = new WeakMap();
-        $this->children = new WeakMap();
         $this->interval = $this->revolver->getInterval();
+        $this->context = new WidgetContext($this);
     }
 
     public function getInterval(): IInterval
@@ -38,38 +38,50 @@ final class Widget implements IWidgetObserverAndSubject
         return $this->interval;
     }
 
-    public function detach(SplObserver $observer): void
-    {
-        if ($this->observers->offsetExists($observer)) {
-            $this->observers->offsetUnset($observer);
-        }
-    }
-
     public function getFrame(?float $dt = null): IFrame
     {
-        // TODO: Implement getFrame() method.
+        $revolverFrame = $this->revolver->getFrame($dt);
+
+        $frame = new Frame(
+            $this->leadingSpacer->sequence() . $revolverFrame->sequence() . $this->trailingSpacer->sequence(),
+            $this->leadingSpacer->width() + $revolverFrame->width() + $this->trailingSpacer->width()
+        );
+
+        if ($this->children->count() > 0) {
+            foreach ($this->children as $context) {
+                $f = $context->getWidget()->getFrame($dt);
+                $frame = new Frame(
+                    $frame->sequence() . $f->sequence(),
+                    $frame->width() + $f->width()
+                );
+            }
+        }
+
+        return $frame;
     }
 
-    public function add(IWidgetObserverAndSubject $element): IWidgetContext
+    public function add(IWidget $widget): IWidgetContext
     {
-        $this->assertNotSelf($element);
+        $widget->attach($this);
 
-        $context = $element->getContext();
+        $context = $widget->getContext();
 
-        $element->attach($this);
-        $this->children->offsetSet($element, $context);
+        $this->children->add($context);
 
-        $this->updateInterval($element->getInterval());
+        $this->stateUpdate();
 
-        $this->notify();
         return $context;
     }
 
     public function attach(SplObserver $observer): void
     {
+        if ($this->observer !== null) {
+            throw new InvalidArgumentException('Observer is already attached.');
+        }
+
         $this->assertNotSelf($observer);
 
-        $this->observers->offsetSet($observer, $observer);
+        $this->observer = $observer;
     }
 
     protected function assertNotSelf(object $obj): void
@@ -79,46 +91,58 @@ final class Widget implements IWidgetObserverAndSubject
         }
     }
 
-    protected function updateInterval(IInterval $interval): void
+    public function getContext(): IWidgetContext
     {
-        $this->interval = $this->interval->smallest($interval);
+        return $this->context;
+    }
+
+    private function stateUpdate(): void
+    {
+        $interval = $this->interval;
+        $this->interval = $this->children->getIntervalContainer()->getSmallest();
+        if ($interval !== $this->interval) {
+            $this->notify();
+        }
     }
 
     public function notify(): void
     {
-        foreach ($this->observers as $observer) {
-            $observer->update($this);
-        }
+        $this->observer?->update($this);
     }
 
     public function update(SplSubject $subject): void
     {
-        if ($subject instanceof IWidgetObserverAndSubject) {
-            $this->updateInterval($subject->getInterval());
+        $this->assertNotSelf($subject);
+
+        if ($subject instanceof IHasInterval) {
+            $this->interval = $this->interval->smallest($subject->getInterval());
         }
     }
 
-    public function getContext(): IWidgetContext
+    public function remove(IWidget $widget): void
     {
-        // TODO: Implement getContext() method.
+        $context = $widget->getContext();
+        if ($this->children->has($context)) {
+            $this->children->remove($context);
+
+            $widget->detach($this);
+
+            $this->stateUpdate();
+        }
     }
 
-    public function remove(IWidgetObserverAndSubject $element): void
+    public function detach(SplObserver $observer): void
     {
-        if (!$this->children->offsetExists($element)) {
-            return;
+        if ($this->observer === $observer) {
+            $this->observer = null;
         }
-
-        $this->children->offsetUnset($element);
-        foreach ($this->children as $child) {
-            $this->updateInterval($child->getInterval());
-        }
-        $element->detach($this);
-        $this->notify();
     }
 
-    public function setContext(IWidgetContext $widgetContext): void
+    public function replaceContext(IWidgetContext $context): void
     {
-        // TODO: Implement setContext() method.
+        if ($context->getWidget() !== $this) {
+            throw new InvalidArgumentException('Context is not related to this widget.');
+        }
+        $this->context = $context;
     }
 }

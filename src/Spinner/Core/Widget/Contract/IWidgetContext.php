@@ -8,7 +8,7 @@ namespace AlecRabbit\Spinner\Core\Widget\Contract;
 
 interface IWidgetContext
 {
-    public function replaceWidget(IWidgetComposite $widget): void;
+    public function replaceWidget(IWidget $widget): void;
 
-    public function getWidget(): IWidgetComposite;
+    public function getWidget(): IWidget;
 }
