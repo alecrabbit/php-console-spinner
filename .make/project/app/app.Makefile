@@ -78,17 +78,21 @@ _deptrac_run_message:
 	@${_ECHO} "\n${_C_SELECT} ${PROJECT_NAME} ${_C_STOP} ${_C_INFO}Deptrac run...${_C_STOP}\n";
 
 _deptrac_run_baseline:
-	@${_ECHO} "${_C_COMMENT}Deptrac baseline...${_C_STOP}\n";
+	@${_ECHO} "${_C_COMMENT}Deptrac baseline...${_C_STOP}";
 	@-mkdir -p ${DPTR_OUT_DIR_LOCAL}
 	@-${_DC_EXEC} ${APP_CONTAINER} deptrac analyse --no-progress --config-file=${DPTR_CONFIG} --cache-file=${DPTR_CACHE} --no-ansi > ${DPTR_OUT_DIR_LOCAL}/${_DEPTRAC_REPORT_FILE}
+	@${_ECHO_OK};
+	@${_ECHO};
 
 _deptrac_run_graph:
 	@${_ECHO} "${_C_COMMENT}Deptrac graph...${_C_STOP}\n";
 	@-${_DC_EXEC} ${APP_CONTAINER} deptrac analyse --no-progress --config-file=${DPTR_CONFIG} --cache-file=${DPTR_CACHE} --formatter=graphviz-image --output=${DPTR_OUT_DIR}/${_DEPTRAC_GRAPH_FILE}
+	@${_ECHO};
 
 _deptrac_run_baseline_formatter:
 	@${_ECHO} "${_C_COMMENT}Deptrac baseline formatter...${_C_STOP}\n";
 	@-${_DC_EXEC} ${APP_CONTAINER} deptrac analyse --no-progress --config-file=${DPTR_CONFIG} --cache-file=${DPTR_CACHE} --formatter=baseline --output=${DPTR_OUT_DIR}/baseline.formatter.output.yaml
+	@${_ECHO};
 
 app_deptrac_run:
 	@${_ECHO} "${_C_COMMENT}Deptrac main run...${_C_STOP}\n";
