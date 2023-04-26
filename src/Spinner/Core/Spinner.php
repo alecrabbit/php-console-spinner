@@ -9,12 +9,11 @@ namespace AlecRabbit\Spinner\Core;
 use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Contract\IObserver;
+use AlecRabbit\Spinner\Contract\ISubject;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidget;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContext;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
-use SplObserver;
-use SplSubject;
 
 final class Spinner implements ISpinner
 {
@@ -44,7 +43,7 @@ final class Spinner implements ISpinner
         $this->rootWidget->remove($element);
     }
 
-    public function attach(SplObserver $observer): void
+    public function attach(IObserver $observer): void
     {
         if ($this->observer !== null) {
             throw new InvalidArgumentException('Observer is already attached.');
@@ -62,7 +61,7 @@ final class Spinner implements ISpinner
         }
     }
 
-    public function update(SplSubject $subject): void
+    public function update(ISubject $subject): void
     {
         if ($subject === $this->rootWidget) {
             $this->notify();
@@ -74,7 +73,7 @@ final class Spinner implements ISpinner
         $this->observer?->update($this);
     }
 
-    public function detach(SplObserver $observer): void
+    public function detach(IObserver $observer): void
     {
         if ($this->observer === $observer) {
             $this->observer = null;

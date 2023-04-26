@@ -8,14 +8,13 @@ use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Contract\IHasInterval;
 use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Contract\IObserver;
+use AlecRabbit\Spinner\Contract\ISubject;
 use AlecRabbit\Spinner\Core\Frame;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidget;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContext;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContextContainer;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
-use SplObserver;
-use SplSubject;
 
 final class Widget implements IWidget
 {
@@ -73,7 +72,7 @@ final class Widget implements IWidget
         return $context;
     }
 
-    public function attach(SplObserver $observer): void
+    public function attach(IObserver $observer): void
     {
         if ($this->observer !== null) {
             throw new InvalidArgumentException('Observer is already attached.');
@@ -110,7 +109,7 @@ final class Widget implements IWidget
         $this->observer?->update($this);
     }
 
-    public function update(SplSubject $subject): void
+    public function update(ISubject $subject): void
     {
         $this->assertNotSelf($subject);
 
@@ -131,7 +130,7 @@ final class Widget implements IWidget
         }
     }
 
-    public function detach(SplObserver $observer): void
+    public function detach(IObserver $observer): void
     {
         if ($this->observer === $observer) {
             $this->observer = null;

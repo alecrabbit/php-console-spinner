@@ -17,11 +17,12 @@ abstract class AWidgetRevolver extends ARevolver implements IWidgetRevolver
         protected IRevolver $style,
         protected IRevolver $character,
     ) {
-        $interval =
-            $style->getInterval()->smallest(
-                $character->getInterval()
-            );
-        parent::__construct($interval);
+        parent::__construct(
+            $style->getInterval()
+                ->smallest(
+                    $character->getInterval()
+                )
+        );
     }
 
     public function getFrame(?float $dt = null): IFrame

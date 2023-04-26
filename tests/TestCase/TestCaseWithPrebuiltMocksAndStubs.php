@@ -10,7 +10,6 @@ use AlecRabbit\Spinner\Container\Contract\IContainer;
 use AlecRabbit\Spinner\Contract\Color\Style\IStyle;
 use AlecRabbit\Spinner\Contract\Color\Style\IStyleOptionsParser;
 use AlecRabbit\Spinner\Contract\IAnsiColorParser;
-use AlecRabbit\Spinner\Contract\IComboSubjectObserver;
 use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Contract\IObserver;
@@ -124,11 +123,6 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
     protected function getWidgetMock(): MockObject&IWidget
     {
         return $this->createMock(IWidget::class);
-    }
-
-    protected function getComboSubjectObserverMock(): MockObject&IComboSubjectObserver
-    {
-        return $this->createMock(IComboSubjectObserver::class);
     }
 
     protected function getPatternMock(): MockObject&IPattern

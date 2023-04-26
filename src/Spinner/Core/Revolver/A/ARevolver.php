@@ -13,26 +13,17 @@ abstract class ARevolver implements IRevolver
     protected float $intervalValue;
     protected float $differential;
 
-    protected IInterval $interval;
-
     public function __construct(
-        IInterval $interval,
+        protected IInterval $interval,
         protected int $tolerance = 0,
     ) {
-        $this->setInterval($interval);
+        $this->intervalValue = $interval->toMilliseconds();
+        $this->differential = $this->intervalValue;
     }
 
     public function getInterval(): IInterval
     {
         return $this->interval;
-    }
-
-    public function setInterval(IInterval $interval): void
-    {
-        /** @psalm-suppress RedundantPropertyInitializationCheck */
-        $this->interval = $interval->smallest($this->interval ?? null);
-        $this->intervalValue = $interval->toMilliseconds();
-        $this->differential = $this->intervalValue;
     }
 
     public function getFrame(?float $dt = null): IFrame

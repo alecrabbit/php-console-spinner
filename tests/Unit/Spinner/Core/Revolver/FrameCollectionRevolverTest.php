@@ -52,11 +52,7 @@ final class FrameCollectionRevolverTest extends TestCaseWithPrebuiltMocksAndStub
     public function canUpdate(): void
     {
         $interval = $this->getIntervalMock();
-        $interval
-            ->expects(self::once())
-            ->method('smallest')
-            ->willReturnSelf()
-        ;
+
         $interval
             ->expects(self::once())
             ->method('toMilliseconds')
@@ -112,11 +108,7 @@ final class FrameCollectionRevolverTest extends TestCaseWithPrebuiltMocksAndStub
     public function canGetInterval(): void
     {
         $interval = $this->getIntervalMock();
-        $interval
-            ->expects(self::once())
-            ->method('smallest')
-            ->willReturnSelf()
-        ;
+
         $frameCollectionRevolver = $this->getTesteeInstance(
             interval: $interval,
         );
