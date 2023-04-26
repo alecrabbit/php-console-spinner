@@ -19,7 +19,7 @@ final class Spinner implements ISpinner
     ) {
     }
 
-    public function update(?float $dt = null): IFrame
+    public function getFrame(?float $dt = null): IFrame
     {
         return $this->rootWidget->getFrame($dt);
     }

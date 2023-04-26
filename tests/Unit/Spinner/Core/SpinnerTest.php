@@ -41,7 +41,7 @@ final class SpinnerTest extends TestCaseWithPrebuiltMocksAndStubs
         $spinner = $this->getTesteeInstance(rootWidget: $rootWidget);
 
         self::assertInstanceOf(Spinner::class, $spinner);
-        self::assertSame($frame, $spinner->update());
+        self::assertSame($frame, $spinner->getFrame());
     }
 
     #[Test]
