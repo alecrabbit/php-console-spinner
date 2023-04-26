@@ -83,8 +83,6 @@ use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolver;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolverBuilder;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
 use AlecRabbit\Spinner\Core\Terminal\Contract\ITerminalProbe;
-use AlecRabbit\Spinner\Core\Widget\Contract\ILegacyWidgetComposite;
-use AlecRabbit\Spinner\Core\Widget\Contract\ILegacyWidgetContext;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidget;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetBuilder;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContext;
@@ -383,11 +381,6 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
         return $this->createStub(IFrame::class);
     }
 
-    protected function getLegacyWidgetCompositeMock(): MockObject&ILegacyWidgetComposite
-    {
-        return $this->createMock(ILegacyWidgetComposite::class);
-    }
-
     protected function getOutputMock(): MockObject&IOutput
     {
         return $this->createMock(IOutput::class);
@@ -481,11 +474,6 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
     protected function getDriverAttacherMock(): MockObject&IDriverAttacher
     {
         return $this->createMock(IDriverAttacher::class);
-    }
-
-    protected function getLegacyWidgetContextMock(): MockObject&ILegacyWidgetContext
-    {
-        return $this->createMock(ILegacyWidgetContext::class);
     }
 
     protected function getWidgetContextMock(): MockObject&IWidgetContext

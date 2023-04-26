@@ -8,6 +8,7 @@ use AlecRabbit\Spinner\Contract\IObserver;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use AlecRabbit\Spinner\Core\Spinner;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidget;
+use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;
 
@@ -143,5 +144,44 @@ final class SpinnerTest extends TestCaseWithPrebuiltMocksAndStubs
 
         self::assertInstanceOf(Spinner::class, $spinner);
         $spinner->remove($widget);
+    }
+
+    #[Test]
+    public function throwsIfObserverAlreadyAttached(): void
+    {
+        $exceptionClass = InvalidArgumentException::class;
+        $exceptionMessage = 'Observer is already attached.';
+
+        $test = function (): void {
+            $observer = $this->getObserverMock();
+            $spinner = $this->getTesteeInstance(
+                observer: $observer
+            );
+            $spinner->attach($observer);
+        };
+
+        $this->wrapExceptionTest(
+            test: $test,
+            exceptionOrExceptionClass: $exceptionClass,
+            exceptionMessage: $exceptionMessage,
+        );
+    }
+
+    #[Test]
+    public function throwsIfObserverAttachedIsSelf(): void
+    {
+        $exceptionClass = InvalidArgumentException::class;
+        $exceptionMessage = 'Object can not be self.';
+
+        $test = function (): void {
+            $spinner = $this->getTesteeInstance();
+            $spinner->attach($spinner);
+        };
+
+        $this->wrapExceptionTest(
+            test: $test,
+            exceptionOrExceptionClass: $exceptionClass,
+            exceptionMessage: $exceptionMessage,
+        );
     }
 }
