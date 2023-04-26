@@ -23,7 +23,8 @@ _DEPTRAC_GRAPH_FILE=.deptrac.graph.png
 _PSALM_CONFIG_FILE=psalm.xml
 _PSALM_REPORT_FILE=.psalm.report.txt
 
-_PHPLOC_REPORT_FILE=.phploc.report
+_PHPLOC_SRC_REPORT_FILE=.src.phploc.report
+_PHPLOC_TEST_REPORT_FILE=.test.phploc.report
 
 _PHP_CS_FIXER_CONFIG=.php-cs-fixer.php
 _PHP_CS_FIXER_DIST_CONFIG=.php-cs-fixer.dist.php
@@ -67,8 +68,12 @@ app_php_cs_fixer_dry:
 app_phploc_run:
 	@${_ECHO} "\n${_C_SELECT} ${PROJECT_NAME} ${_C_STOP} ${_C_INFO}PHPLOC run...${_C_STOP}\n";
 	@mkdir -p ${APP_DIR}/.tools/.report/.phploc
-	@-${_DC_EXEC} ${APP_CONTAINER} ${PHPLOC_DIR}/phploc src > ${APP_DIR}/.tools/.report/.phploc/${_PHPLOC_REPORT_FILE}
-	@-cat ${APP_DIR}/.tools/.report/.phploc/${_PHPLOC_REPORT_FILE}
+	@-${_DC_EXEC} ${APP_CONTAINER} ${PHPLOC_DIR}/phploc src > ${APP_DIR}/.tools/.report/.phploc/${_PHPLOC_SRC_REPORT_FILE}
+	@-${_DC_EXEC} ${APP_CONTAINER} ${PHPLOC_DIR}/phploc tests > ${APP_DIR}/.tools/.report/.phploc/${_PHPLOC_TEST_REPORT_FILE}
+	@${_ECHO} "\n${_C_INFO}📝 'tests' PHPLOC report:${_C_STOP}\n";
+	@-cat ${APP_DIR}/.tools/.report/.phploc/${_PHPLOC_TEST_REPORT_FILE}
+	@${_ECHO} "\n${_C_INFO}📝 'src' PHPLOC report:${_C_STOP}\n";
+	@-cat ${APP_DIR}/.tools/.report/.phploc/${_PHPLOC_SRC_REPORT_FILE}
 	@${_ECHO};
 
 app_deptrac_run_full: _deptrac_run_message app_deptrac_run _deptrac_run_baseline _deptrac_run_graph _deptrac_run_baseline_formatter
