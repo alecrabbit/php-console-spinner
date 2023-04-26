@@ -33,7 +33,7 @@ final class DriverLinkerTest extends TestCaseWithPrebuiltMocksAndStubs
     }
 
     #[Test]
-    public function canAttach(): void
+    public function canLink(): void
     {
         $loop = $this->getLoopMock();
         $loop
