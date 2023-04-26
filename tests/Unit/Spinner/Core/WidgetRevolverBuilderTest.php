@@ -55,8 +55,6 @@ final class WidgetRevolverBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
                     ->withCharRevolver($this->getRevolverMock())
                     ->build()
             ;
-
-            self::assertInstanceOf(LegacyWidgetComposite::class, $widgetRevolver);
         };
 
         $this->wrapExceptionTest(
@@ -78,8 +76,6 @@ final class WidgetRevolverBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
                     ->withStyleRevolver($this->getRevolverMock())
                     ->build()
             ;
-
-            self::assertInstanceOf(LegacyWidgetComposite::class, $widgetRevolver);
         };
 
         $this->wrapExceptionTest(

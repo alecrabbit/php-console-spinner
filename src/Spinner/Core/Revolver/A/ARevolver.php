@@ -11,14 +11,14 @@ use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
 abstract class ARevolver implements IRevolver
 {
     protected float $intervalValue;
-    protected float $differential;
+    protected float $diff;
 
     public function __construct(
         protected IInterval $interval,
-        protected int $tolerance = 0,
+        protected int $deltaTolerance = 0,
     ) {
         $this->intervalValue = $interval->toMilliseconds();
-        $this->differential = $this->intervalValue;
+        $this->diff = $this->intervalValue;
     }
 
     public function getInterval(): IInterval
@@ -34,13 +34,16 @@ abstract class ARevolver implements IRevolver
         return $this->current();
     }
 
+    /**
+     * @param float|null $dt delta time(milliseconds), time passed since last update
+     */
     protected function shouldUpdate(?float $dt = null): bool
     {
-        if ($dt === null || $this->intervalValue <= ($dt + $this->tolerance) || $this->differential <= 0) {
-            $this->differential = $this->intervalValue;
+        if ($dt === null || $this->intervalValue <= ($dt + $this->deltaTolerance) || $this->diff <= 0) {
+            $this->diff = $this->intervalValue;
             return true;
         }
-        $this->differential -= $dt;
+        $this->diff -= $dt;
         return false;
     }
 
