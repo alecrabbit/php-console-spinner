@@ -12,11 +12,11 @@ use Traversable;
 
 final class LoopProbeFactory implements ILoopProbeFactory
 {
-    /** @var Traversable<ILoopProbe> $loopProbes */
-    private Traversable $loopProbes;
+    /** @var ArrayObject<int, class-string<ILoopProbe>> $loopProbes */
+    private ArrayObject $loopProbes;
 
     /**
-     * @param Traversable<ILoopProbe> $loopProbes
+     * @param Traversable<class-string<ILoopProbe>> $loopProbes
      */
     public function __construct(
         Traversable $loopProbes,
@@ -26,7 +26,7 @@ final class LoopProbeFactory implements ILoopProbeFactory
     }
 
     /**
-     * @param Traversable<ILoopProbe> $loopProbes
+     * @param Traversable<class-string<ILoopProbe>> $loopProbes
      */
     private function registerProbes(Traversable $loopProbes): void
     {
