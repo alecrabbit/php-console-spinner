@@ -8,7 +8,10 @@ namespace AlecRabbit\Spinner\Core;
 
 use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Contract\IInterval;
+use AlecRabbit\Spinner\Contract\IObserver;
+use AlecRabbit\Spinner\Contract\ISubject;
 use AlecRabbit\Spinner\Contract\ITimer;
+use AlecRabbit\Spinner\Core\A\ASubject;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use AlecRabbit\Spinner\Core\Contract\ISpinnerState;
@@ -17,7 +20,7 @@ use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use Closure;
 use WeakMap;
 
-final class Driver implements IDriver
+final class Driver extends ASubject implements IDriver
 {
     /** @var WeakMap<ISpinner, ISpinnerState> */
     private readonly WeakMap $spinners;
@@ -27,8 +30,10 @@ final class Driver implements IDriver
         protected readonly IDriverOutput $driverOutput,
         protected readonly ITimer $timer,
         protected readonly Closure $intervalCb,
+        ?IObserver $observer = null,
     ) {
         self::assertIntervalCallback($intervalCb);
+        parent::__construct($observer);
         $this->spinners = new WeakMap();
         $this->interval = $intervalCb();
     }
@@ -108,7 +113,7 @@ final class Driver implements IDriver
         $this->driverOutput->initialize();
     }
 
-    public function attach(ISpinner $spinner): void
+    public function add(ISpinner $spinner): void
     {
         if (!$this->spinners->offsetExists($spinner)) {
             $this->spinners->offsetSet($spinner, new SpinnerState());
@@ -121,7 +126,7 @@ final class Driver implements IDriver
         return $this->interval;
     }
 
-    public function detach(ISpinner $spinner): void
+    public function remove(ISpinner $spinner): void
     {
         if ($this->spinners->offsetExists($spinner)) {
             $this->erase($this->spinners[$spinner]);
@@ -137,5 +142,12 @@ final class Driver implements IDriver
             $interval = $interval->smallest($spinner->getInterval());
         }
         return $interval;
+    }
+
+    public function update(ISubject $subject): void
+    {
+        if ($this->spinners->offsetExists($subject)) {
+            $this->notify();
+        }
     }
 }

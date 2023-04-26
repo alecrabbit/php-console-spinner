@@ -61,7 +61,7 @@ final class Facade implements IFacade
         $driver = self::getDriverFactory()
             ->getDriver()
         ;
-        $driver->attach($spinner);
+        $driver->add($spinner);
 
         self::getDriverAttacher()
             ->attach($driver)

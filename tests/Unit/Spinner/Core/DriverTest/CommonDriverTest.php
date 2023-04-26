@@ -57,7 +57,7 @@ final class CommonDriverTest extends TestCaseForDriver
             ->willReturn($intervalOne)
         ;
 
-        $driver->attach($spinnerOne);
+        $driver->add($spinnerOne);
         self::assertCount(1, self::getPropertyValue('spinners', $driver));
         self::assertSame($intervalOne, $driver->getInterval());
 
@@ -67,22 +67,22 @@ final class CommonDriverTest extends TestCaseForDriver
             ->willReturn($intervalTwo)
         ;
 
-        $driver->attach($spinnerTwo);
+        $driver->add($spinnerTwo);
 
         self::assertCount(2, self::getPropertyValue('spinners', $driver));
         self::assertSame($intervalTwo, $driver->getInterval());
 
-        $driver->detach($spinnerTwo);
+        $driver->remove($spinnerTwo);
 
         self::assertCount(1, self::getPropertyValue('spinners', $driver));
         self::assertSame($intervalOne, $driver->getInterval());
 
-        $driver->detach($spinnerTwo);
+        $driver->remove($spinnerTwo);
 
         self::assertCount(1, self::getPropertyValue('spinners', $driver));
         self::assertSame($intervalOne, $driver->getInterval());
 
-        $driver->detach($spinnerOne);
+        $driver->remove($spinnerOne);
 
         self::assertCount(0, self::getPropertyValue('spinners', $driver));
         self::assertEquals(new Interval(), $driver->getInterval());
