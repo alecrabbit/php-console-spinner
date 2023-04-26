@@ -32,6 +32,7 @@ final class IntervalFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
     public function getTesteeInstance(
         ?IIntervalNormalizer $intervalNormalizer = null,
     ): IIntervalFactory {
+        self::setPropertyValue(IntervalFactory::class, 'normalizedDefaultInterval', null);
         return new IntervalFactory(
             intervalNormalizer: $intervalNormalizer ?? $this->getIntervalNormalizerMock(),
         );
@@ -41,16 +42,22 @@ final class IntervalFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
     public function canCreateDefaultInterval(): void
     {
         $intervalNormalizer = $this->getIntervalNormalizerMock();
+        $interval = new Interval();
         $intervalNormalizer
+            ->expects(self::once())
             ->method('normalize')
-            ->willReturn(new Interval())
+            ->willReturn($interval)
         ;
 
         $intervalFactory = $this->getTesteeInstance(intervalNormalizer: $intervalNormalizer);
 
-        $interval = $intervalFactory->createDefault();
+        $result = $intervalFactory->createDefault();
+        self::assertInstanceOf(Interval::class, $result);
+        self::assertSame($interval, $result);
 
-        self::assertInstanceOf(Interval::class, $interval);
+        self::assertSame($interval, $intervalFactory->createDefault());
+        self::assertSame($interval, $intervalFactory->createDefault());
+        self::assertSame($interval, $intervalFactory->createDefault());
     }
 
     #[Test]
@@ -67,15 +74,40 @@ final class IntervalFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
     public function canCreateNormalizedInterval(): void
     {
         $intervalNormalizer = $this->getIntervalNormalizerMock();
+        $interval = new Interval();
         $intervalNormalizer
             ->method('normalize')
-            ->willReturn(new Interval())
+            ->with(self::isInstanceOf(Interval::class))
+            ->willReturn($interval)
         ;
 
         $intervalFactory = $this->getTesteeInstance(intervalNormalizer: $intervalNormalizer);
 
-        $interval = $intervalFactory->createNormalized(100);
+        $result = $intervalFactory->createNormalized(100);
 
-        self::assertInstanceOf(Interval::class, $interval);
+        self::assertInstanceOf(Interval::class, $result);
+        self::assertSame($interval, $result);
     }
+
+    #[Test]
+    public function canCreateNormalizedDefaultInterval(): void
+    {
+        $intervalNormalizer = $this->getIntervalNormalizerMock();
+        $interval = $this->getIntervalMock();
+        $intervalNormalizer
+            ->expects(self::once())
+            ->method('normalize')
+            ->with(self::isInstanceOf(Interval::class))
+            ->willReturn($interval)
+        ;
+
+        $intervalFactory = $this->getTesteeInstance(intervalNormalizer: $intervalNormalizer);
+
+        $result = $intervalFactory->createNormalized(null);
+
+        self::assertSame($interval, $result);
+        self::assertSame($interval, $intervalFactory->createNormalized(null));
+        self::assertSame($interval, $intervalFactory->createNormalized(null));
+    }
+
 }
