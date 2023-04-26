@@ -41,9 +41,11 @@ final class DriverSettingsTest extends TestCaseWithPrebuiltMocksAndStubs
         $finalMessage = 'Final';
         $interruptMessage = 'Interrupt';
 
+        $optionAttacher = OptionAttacher::DISABLED;
+
         $driverSettings = $this->getTesteeInstance(
             optionInitialization: OptionInitialization::DISABLED,
-            optionAttacher: OptionAttacher::DISABLED,
+            optionAttacher: $optionAttacher,
             finalMessage: $finalMessage,
             interruptMessage: $interruptMessage,
         );
@@ -52,12 +54,14 @@ final class DriverSettingsTest extends TestCaseWithPrebuiltMocksAndStubs
         self::assertFalse($driverSettings->isAttacherEnabled());
         self::assertSame($finalMessage, $driverSettings->getFinalMessage());
         self::assertSame($interruptMessage, $driverSettings->getInterruptMessage());
+        self::assertSame($optionAttacher, $driverSettings->getOptionAttacher());
 
         $finalMessage = 'Final message';
         $interruptMessage = 'Interrupt message';
+        $optionAttacher = OptionAttacher::ENABLED;
 
         $driverSettings->setOptionInitialization(OptionInitialization::ENABLED);
-        $driverSettings->setOptionAttacher(OptionAttacher::ENABLED);
+        $driverSettings->setOptionAttacher($optionAttacher);
         $driverSettings->setFinalMessage($finalMessage);
         $driverSettings->setInterruptMessage($interruptMessage);
 
@@ -65,5 +69,6 @@ final class DriverSettingsTest extends TestCaseWithPrebuiltMocksAndStubs
         self::assertTrue($driverSettings->isAttacherEnabled());
         self::assertSame($finalMessage, $driverSettings->getFinalMessage());
         self::assertSame($interruptMessage, $driverSettings->getInterruptMessage());
+        self::assertSame($optionAttacher, $driverSettings->getOptionAttacher());
     }
 }

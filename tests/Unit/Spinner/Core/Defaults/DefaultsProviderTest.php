@@ -25,6 +25,7 @@ final class DefaultsProviderTest extends TestCaseWithPrebuiltMocksAndStubs
 
         self::assertInstanceOf(ILoopSettings::class, $defaultsProvider->getLoopSettings());
         self::assertInstanceOf(IAuxSettings::class, $defaultsProvider->getAuxSettings());
+        self::assertInstanceOf(ITerminalSettings::class, $defaultsProvider->getTerminalSettings());
         self::assertInstanceOf(IDriverSettings::class, $defaultsProvider->getDriverSettings());
         self::assertInstanceOf(IWidgetConfig::class, $defaultsProvider->getWidgetConfig());
         self::assertInstanceOf(IWidgetConfig::class, $defaultsProvider->getRootWidgetConfig());
