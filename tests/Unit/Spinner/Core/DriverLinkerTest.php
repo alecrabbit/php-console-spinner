@@ -25,10 +25,11 @@ final class DriverLinkerTest extends TestCaseWithPrebuiltMocksAndStubs
 
     public function getTesteeInstance(
         ?ILoop $loop = null,
+        ?OptionLinker $optionLinker = null,
     ): IDriverLinker {
         return new DriverLinker(
             loop: $loop ?? $this->getLoopMock(),
-            optionLinker: OptionLinker::ENABLED,
+            optionLinker: $optionLinker ?? OptionLinker::DISABLED,
         );
     }
 
@@ -61,7 +62,10 @@ final class DriverLinkerTest extends TestCaseWithPrebuiltMocksAndStubs
             ->willReturn($intervalMock)
         ;
 
-        $driverLinker = $this->getTesteeInstance($loop);
+        $driverLinker = $this->getTesteeInstance(
+            loop: $loop,
+            optionLinker: OptionLinker::ENABLED,
+        );
 
         $driverLinker->link($driver);
     }
@@ -95,7 +99,10 @@ final class DriverLinkerTest extends TestCaseWithPrebuiltMocksAndStubs
             ->willReturn($intervalMock)
         ;
 
-        $driverLinker = $this->getTesteeInstance($loop);
+        $driverLinker = $this->getTesteeInstance(
+            loop: $loop,
+            optionLinker: OptionLinker::ENABLED,
+        );
 
         $driverLinker->link($driver);
 
