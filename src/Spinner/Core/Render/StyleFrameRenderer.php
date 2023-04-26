@@ -48,9 +48,4 @@ final class StyleFrameRenderer implements IStyleFrameRenderer
             $style->getWidth()
         );
     }
-
-    public function emptyFrame(): IFrame
-    {
-        return $this->frameFactory->create('%s', 0);
-    }
 }

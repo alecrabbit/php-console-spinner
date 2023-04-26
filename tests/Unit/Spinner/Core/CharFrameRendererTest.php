@@ -46,19 +46,4 @@ final class CharFrameRendererTest extends TestCaseWithPrebuiltMocksAndStubs
         $charFrameRenderer = $this->getTesteeInstance(frameFactory: $frameFactory);
         self::assertSame($frameMock, $charFrameRenderer->render($str));
     }
-
-    #[Test]
-    public function canCreateEmptyFrame(): void
-    {
-        $frameFactory = $this->getFrameFactoryMock();
-        $frameMock = $this->getFrameMock();
-        $frameFactory
-            ->expects(self::once())
-            ->method('createEmpty')
-            ->willReturn($frameMock)
-        ;
-
-        $charFrameRenderer = $this->getTesteeInstance(frameFactory: $frameFactory);
-        self::assertSame($frameMock, $charFrameRenderer->emptyFrame());
-    }
 }

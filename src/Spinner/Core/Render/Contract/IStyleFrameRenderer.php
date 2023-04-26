@@ -16,9 +16,4 @@ interface IStyleFrameRenderer
      * @throws InvalidArgumentException
      */
     public function render(IStyle $style): IFrame;
-
-    /**
-     * @deprecated
-     */
-    public function emptyFrame(): IFrame;
 }

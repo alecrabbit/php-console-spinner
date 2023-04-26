@@ -16,6 +16,4 @@ abstract class AFrameRenderer implements IFrameRenderer
         protected IFrameFactory $frameFactory,
     ) {
     }
-
-    abstract public function emptyFrame(): IFrame;
 }

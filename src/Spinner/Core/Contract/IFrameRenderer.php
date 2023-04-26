@@ -10,5 +10,4 @@ use AlecRabbit\Spinner\Contract\IFrame;
 
 interface IFrameRenderer
 {
-    public function emptyFrame(): IFrame;
 }
