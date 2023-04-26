@@ -5,7 +5,8 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Unit\Spinner\Core;
 
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetBuilder;
-use AlecRabbit\Spinner\Core\Widget\WidgetComposite;
+use AlecRabbit\Spinner\Core\Widget\LegacyWidgetComposite;
+use AlecRabbit\Spinner\Core\Widget\Widget;
 use AlecRabbit\Spinner\Core\Widget\WidgetBuilder;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use LogicException;
@@ -41,7 +42,7 @@ final class WidgetBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
                 ->build()
         ;
 
-        self::assertInstanceOf(WidgetComposite::class, $widgetComposite);
+        self::assertInstanceOf(Widget::class, $widgetComposite);
     }
 
     #[Test]
@@ -60,7 +61,7 @@ final class WidgetBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
                     ->build()
             ;
 
-            self::assertInstanceOf(WidgetComposite::class, $widget);
+            self::assertInstanceOf(LegacyWidgetComposite::class, $widget);
         };
 
         $this->wrapExceptionTest(
@@ -86,7 +87,7 @@ final class WidgetBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
                     ->build()
             ;
 
-            self::assertInstanceOf(WidgetComposite::class, $widget);
+            self::assertInstanceOf(LegacyWidgetComposite::class, $widget);
         };
 
         $this->wrapExceptionTest(
@@ -112,7 +113,7 @@ final class WidgetBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
                     ->build()
             ;
 
-            self::assertInstanceOf(WidgetComposite::class, $widget);
+            self::assertInstanceOf(LegacyWidgetComposite::class, $widget);
         };
 
         $this->wrapExceptionTest(

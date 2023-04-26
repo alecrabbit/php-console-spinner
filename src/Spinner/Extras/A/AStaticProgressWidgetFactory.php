@@ -16,7 +16,7 @@ use AlecRabbit\Spinner\Core\Factory\StaticRevolverFactory;
 use AlecRabbit\Spinner\Core\Pattern\CustomCharPattern;
 use AlecRabbit\Spinner\Core\Render\CharFrameCollectionRenderer;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
-use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
+use AlecRabbit\Spinner\Core\Widget\Contract\ILegacyWidgetComposite;
 use AlecRabbit\Spinner\Extras\Contract\IProgressBarSprite;
 use AlecRabbit\Spinner\Extras\Contract\IProgressValue;
 use AlecRabbit\Spinner\Extras\Contract\IProgressWidgetFactory;
@@ -34,7 +34,7 @@ abstract class AStaticProgressWidgetFactory extends AStaticWidgetFactory impleme
         ?IInterval $updateInterval = null,
         ?IFrame $leadingSpacer = null,
         ?IFrame $trailingSpacer = null,
-    ): IWidgetComposite {
+    ): ILegacyWidgetComposite {
         $updateInterval ??= static::getDefaultUpdateInterval();
 
         $revolver =
@@ -63,7 +63,7 @@ abstract class AStaticProgressWidgetFactory extends AStaticWidgetFactory impleme
         ?IInterval $updateInterval = null,
         ?IFrame $leadingSpacer = null,
         ?IFrame $trailingSpacer = null,
-    ): IWidgetComposite {
+    ): ILegacyWidgetComposite {
         $sprite ??= new ProgressBarSprite();
 
         $procedure =
@@ -86,7 +86,7 @@ abstract class AStaticProgressWidgetFactory extends AStaticWidgetFactory impleme
         ?IFrame $leadingSpacer = null,
         ?IFrame $trailingSpacer = null,
         ?IRevolver $styleRevolver = null,
-    ): IWidgetComposite {
+    ): ILegacyWidgetComposite {
         $updateInterval ??= static::getDefaultUpdateInterval();
 
         $revolver =
@@ -116,7 +116,7 @@ abstract class AStaticProgressWidgetFactory extends AStaticWidgetFactory impleme
         ?IInterval $updateInterval = null,
         ?IFrame $leadingSpacer = null,
         ?IFrame $trailingSpacer = null,
-    ): IWidgetComposite {
+    ): ILegacyWidgetComposite {
         $frames ??= self::defaultFrames();
 
         $procedure =
@@ -157,7 +157,7 @@ abstract class AStaticProgressWidgetFactory extends AStaticWidgetFactory impleme
         ?IInterval $updateInterval = null,
         ?IFrame $leadingSpacer = null,
         ?IFrame $trailingSpacer = null,
-    ): IWidgetComposite {
+    ): ILegacyWidgetComposite {
         $procedure =
             new ProgressValueProcedure(
                 $progressValue,

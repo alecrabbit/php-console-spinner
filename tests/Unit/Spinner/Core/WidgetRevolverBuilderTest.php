@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Unit\Spinner\Core;
 
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolverBuilder;
-use AlecRabbit\Spinner\Core\Widget\WidgetComposite;
+use AlecRabbit\Spinner\Core\Widget\LegacyWidgetComposite;
 use AlecRabbit\Spinner\Core\Widget\WidgetRevolver;
 use AlecRabbit\Spinner\Core\Widget\WidgetRevolverBuilder;
 use AlecRabbit\Spinner\Exception\LogicException;
@@ -57,7 +57,7 @@ final class WidgetRevolverBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
                     ->build()
             ;
 
-            self::assertInstanceOf(WidgetComposite::class, $widgetRevolver);
+            self::assertInstanceOf(LegacyWidgetComposite::class, $widgetRevolver);
         };
 
         $this->wrapExceptionTest(
@@ -80,7 +80,7 @@ final class WidgetRevolverBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
                     ->build()
             ;
 
-            self::assertInstanceOf(WidgetComposite::class, $widgetRevolver);
+            self::assertInstanceOf(LegacyWidgetComposite::class, $widgetRevolver);
         };
 
         $this->wrapExceptionTest(

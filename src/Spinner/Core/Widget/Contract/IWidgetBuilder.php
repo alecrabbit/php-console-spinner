@@ -15,7 +15,7 @@ interface IWidgetBuilder
      * @throws LogicException
      * @throws InvalidArgumentException
      */
-    public function build(): IWidgetComposite;
+    public function build(): IWidget;
 
     public function withWidgetRevolver(IRevolver $revolver): IWidgetBuilder;
 

@@ -85,8 +85,6 @@ use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
 use AlecRabbit\Spinner\Core\Terminal\Contract\ITerminalProbe;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidget;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetBuilder;
-use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
-use AlecRabbit\Spinner\Core\Widget\Contract\ILegacyWidgetContext;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContext;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContextContainer;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetIntervalContainer;
@@ -95,7 +93,6 @@ use AlecRabbit\Spinner\Core\Widget\Factory\Contract\IWidgetFactory;
 use AlecRabbit\Spinner\Core\Widget\Factory\Contract\IWidgetRevolverFactory;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\MockObject\Stub;
-use WeakMap;
 
 abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
 {
@@ -113,6 +110,7 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
     {
         return $this->createMock(IFrame::class);
     }
+
     protected function getWidgetContextContainerMock(): MockObject&IWidgetContextContainer
     {
         return $this->createMock(IWidgetContextContainer::class);
@@ -383,11 +381,6 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
         return $this->createStub(IFrame::class);
     }
 
-    protected function getWidgetCompositeMock(): MockObject&IWidgetComposite
-    {
-        return $this->createMock(IWidgetComposite::class);
-    }
-
     protected function getOutputMock(): MockObject&IOutput
     {
         return $this->createMock(IOutput::class);
@@ -481,11 +474,6 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
     protected function getDriverAttacherMock(): MockObject&IDriverAttacher
     {
         return $this->createMock(IDriverAttacher::class);
-    }
-
-    protected function getLegacyWidgetContextMock(): MockObject&ILegacyWidgetContext
-    {
-        return $this->createMock(ILegacyWidgetContext::class);
     }
 
     protected function getWidgetContextMock(): MockObject&IWidgetContext

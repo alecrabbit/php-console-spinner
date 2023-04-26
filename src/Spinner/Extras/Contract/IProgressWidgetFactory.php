@@ -10,7 +10,7 @@ use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Contract\IProcedure;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
-use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
+use AlecRabbit\Spinner\Core\Widget\Contract\ILegacyWidgetComposite;
 
 interface IProgressWidgetFactory
 {
@@ -19,7 +19,7 @@ interface IProgressWidgetFactory
         ?IInterval $updateInterval = null,
         ?IFrame $leadingSpacer = null,
         ?IFrame $trailingSpacer = null,
-    ): IWidgetComposite;
+    ): ILegacyWidgetComposite;
 
     public static function createProcedureWidget(
         IProcedure $procedure,
@@ -27,5 +27,5 @@ interface IProgressWidgetFactory
         ?IFrame $leadingSpacer = null,
         ?IFrame $trailingSpacer = null,
         ?IRevolver $styleRevolver = null,
-    ): IWidgetComposite;
+    ): ILegacyWidgetComposite;
 }

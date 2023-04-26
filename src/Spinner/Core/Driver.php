@@ -58,7 +58,7 @@ final class Driver implements IDriver
             $this->spinners->offsetSet(
                 $spinner,
                 $this->renderFrame(
-                    $spinner->update($dt),
+                    $spinner->getFrame($dt),
                     $state
                 )
             );
