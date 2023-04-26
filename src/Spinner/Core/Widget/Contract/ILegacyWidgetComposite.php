@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Widget\Contract;
 
-use AlecRabbit\Spinner\Contract\IHasInterval;
 use AlecRabbit\Spinner\Contract\IFrameUpdatable;
+use AlecRabbit\Spinner\Contract\IHasInterval;
 
 interface ILegacyWidgetComposite extends IHasInterval, IFrameUpdatable, IHasLegacyWidgetContext
 {

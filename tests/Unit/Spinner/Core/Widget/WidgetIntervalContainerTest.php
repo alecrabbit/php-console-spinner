@@ -4,14 +4,10 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Widget;
 
-use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContextContainer;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetIntervalContainer;
-use AlecRabbit\Spinner\Core\Widget\WidgetContextContainer;
 use AlecRabbit\Spinner\Core\Widget\WidgetIntervalContainer;
-use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;
-use WeakMap;
 
 final class WidgetIntervalContainerTest extends TestCaseWithPrebuiltMocksAndStubs
 {
@@ -72,6 +68,5 @@ final class WidgetIntervalContainerTest extends TestCaseWithPrebuiltMocksAndStub
         $intervalContainer->remove($interval);
 
         self::assertNull($intervalContainer->getSmallest());
-
     }
 }

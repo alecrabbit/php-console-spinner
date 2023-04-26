@@ -22,8 +22,7 @@ final class LegacyWidgetContextTest extends TestCaseWithPrebuiltMocksAndStubs
 
     public function getTesteeInstance(
         ?ILegacyWidgetComposite $widget = null,
-    ): ILegacyWidgetContext
-    {
+    ): ILegacyWidgetContext {
         return new LegacyWidgetContext(
             widget: $widget ?? $this->getLegacyWidgetCompositeMock(),
         );
@@ -54,7 +53,8 @@ final class LegacyWidgetContextTest extends TestCaseWithPrebuiltMocksAndStubs
         $widget2
             ->expects(self::once())
             ->method('setContext')
-            ->with($widgetContext);
+            ->with($widgetContext)
+        ;
 
         $widgetContext->replaceWidget($widget2);
 
