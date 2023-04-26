@@ -9,6 +9,7 @@ use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContext;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContextContainer;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetIntervalContainer;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
+use Traversable;
 use WeakMap;
 
 final class WidgetContextContainer implements IWidgetContextContainer
@@ -20,6 +21,16 @@ final class WidgetContextContainer implements IWidgetContextContainer
         protected readonly IWidgetIntervalContainer $intervalContainer = new WidgetIntervalContainer(),
     ) {
         $this->updateCount();
+    }
+
+    protected function updateCount(): void
+    {
+        $this->count = $this->map->count();
+    }
+
+    public function count(): int
+    {
+        return $this->count;
     }
 
     public function add(IWidgetContext $context): IWidgetContext
@@ -66,17 +77,7 @@ final class WidgetContextContainer implements IWidgetContextContainer
         return $this->intervalContainer;
     }
 
-    public function count(): int
-    {
-        return $this->count;
-    }
-
-    protected function updateCount(): void
-    {
-        $this->count = $this->map->count();
-    }
-
-    public function getIterator(): \Traversable
+    public function getIterator(): Traversable
     {
         return $this->map;
     }

@@ -6,7 +6,6 @@ namespace AlecRabbit\Tests\Unit\Spinner\Core\Widget;
 
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidget;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContext;
-use AlecRabbit\Spinner\Core\Widget\Contract\ILegacyWidgetComposite;
 use AlecRabbit\Spinner\Core\Widget\WidgetContext;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;
@@ -23,8 +22,7 @@ final class WidgetContextTest extends TestCaseWithPrebuiltMocksAndStubs
 
     public function getTesteeInstance(
         ?IWidget $widget = null,
-    ): IWidgetContext
-    {
+    ): IWidgetContext {
         return new WidgetContext(
             widget: $widget ?? $this->getWidgetMock(),
         );
@@ -55,7 +53,8 @@ final class WidgetContextTest extends TestCaseWithPrebuiltMocksAndStubs
         $widget2
             ->expects(self::once())
             ->method('replaceContext')
-            ->with($widgetContext);
+            ->with($widgetContext)
+        ;
 
         $widgetContext->replaceWidget($widget2);
 

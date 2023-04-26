@@ -6,6 +6,7 @@ namespace AlecRabbit\Spinner\Core\Widget\Contract;
 
 use Countable;
 use IteratorAggregate;
+use Traversable;
 
 interface IWidgetContextContainer extends Countable, IteratorAggregate
 {
@@ -23,5 +24,5 @@ interface IWidgetContextContainer extends Countable, IteratorAggregate
 
     public function count(): int;
 
-    public function getIterator(): \Traversable;
+    public function getIterator(): Traversable;
 }
