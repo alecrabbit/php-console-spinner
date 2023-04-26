@@ -6,6 +6,7 @@ namespace AlecRabbit\Tests\Unit\Spinner\Core;
 
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetBuilder;
 use AlecRabbit\Spinner\Core\Widget\LegacyWidgetComposite;
+use AlecRabbit\Spinner\Core\Widget\Widget;
 use AlecRabbit\Spinner\Core\Widget\WidgetBuilder;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use LogicException;
@@ -41,7 +42,7 @@ final class WidgetBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
                 ->build()
         ;
 
-        self::assertInstanceOf(LegacyWidgetComposite::class, $widgetComposite);
+        self::assertInstanceOf(Widget::class, $widgetComposite);
     }
 
     #[Test]

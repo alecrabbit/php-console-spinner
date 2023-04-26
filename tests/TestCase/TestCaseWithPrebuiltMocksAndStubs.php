@@ -383,7 +383,7 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
         return $this->createStub(IFrame::class);
     }
 
-    protected function getWidgetCompositeMock(): MockObject&ILegacyWidgetComposite
+    protected function getLegacyWidgetCompositeMock(): MockObject&ILegacyWidgetComposite
     {
         return $this->createMock(ILegacyWidgetComposite::class);
     }

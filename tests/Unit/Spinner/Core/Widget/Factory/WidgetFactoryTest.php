@@ -36,7 +36,7 @@ final class WidgetFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
     {
         $leadingSpacer = $this->getFrameMock();
         $trailingSpacer = $this->getFrameMock();
-        $widgetComposite = $this->getWidgetCompositeMock();
+        $widgetComposite = $this->getWidgetMock();
 
         $widgetSettings = $this->getWidgetSettingsMock();
         $widgetSettings
