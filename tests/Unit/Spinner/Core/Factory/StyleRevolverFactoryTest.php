@@ -39,7 +39,7 @@ final class StyleRevolverFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
     }
 
     #[Test]
-    public function canCreateConverter(): void
+    public function canCreateRevolver(): void
     {
         $intInterval = 100;
 
@@ -94,6 +94,65 @@ final class StyleRevolverFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
             ->expects(self::once())
             ->method('createNormalized')
             ->willReturn($interval)
+        ;
+
+        $styleRevolverFactory = $this->getTesteeInstance(
+            frameRevolverBuilder: $frameRevolverBuilder,
+            styleFrameCollectionRenderer: $styleFrameCollectionRenderer,
+            intervalFactory: $intervalFactory,
+            styleMode: $styleMode,
+        );
+
+        $styleRevolver = $styleRevolverFactory->createStyleRevolver($pattern);
+        self::assertInstanceOf(StyleFrameRevolverFactory::class, $styleRevolverFactory);
+        self::assertSame($frameRevolver, $styleRevolver);
+    }
+
+    #[Test]
+    public function canCreateRevolverInStyleModeNone(): void
+    {
+        $pattern = $this->getStylePatternMock();
+        $pattern
+            ->expects(self::never())
+            ->method('getInterval')
+        ;
+
+        $styleFrameCollectionRenderer = $this->getStyleFrameCollectionRendererMock();
+        $styleFrameCollectionRenderer
+            ->expects(self::once())
+            ->method('render')
+        ;
+
+        $frameRevolverBuilder = $this->getFrameRevolverBuilderMock();
+        $frameRevolverBuilder
+            ->expects(self::once())
+            ->method('withFrameCollection')
+            ->willReturnSelf()
+        ;
+        $frameRevolverBuilder
+            ->expects(self::once())
+            ->method('withInterval')
+            ->willReturnSelf()
+        ;
+        $frameRevolverBuilder
+            ->expects(self::once())
+            ->method('withTolerance')
+            ->with(self::identicalTo(IRevolver::TOLERANCE)) // [fd86d318-9069-47e2-b60d-a68f537be4a3]
+            ->willReturnSelf()
+        ;
+        $frameRevolver = $this->getFrameRevolverMock();
+        $frameRevolverBuilder
+            ->expects(self::once())
+            ->method('build')
+            ->willReturn($frameRevolver)
+        ;
+
+        $styleMode = OptionStyleMode::NONE;
+
+        $intervalFactory = $this->getIntervalFactoryMock();
+        $intervalFactory
+            ->expects(self::once())
+            ->method('createNormalized')
         ;
 
         $styleRevolverFactory = $this->getTesteeInstance(
