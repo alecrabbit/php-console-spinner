@@ -36,7 +36,7 @@ final class FrameRevolverBuilder implements IFrameRevolverBuilder
         match (true) {
             $this->frames === null => throw new LogicException('Frame collection is not set.'),
             $this->interval === null => throw new LogicException('Interval is not set.'),
-            $this->tolerance === null => $this->tolerance = IRevolver::TOLERANCE, // FIXME (2023-04-21 20:52) [Alec Rabbit]: it should throw
+            $this->tolerance === null => throw new LogicException('Tolerance is not set.'),
             default => null,
         };
     }

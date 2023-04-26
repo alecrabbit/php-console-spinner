@@ -41,6 +41,7 @@ final class FrameRevolverBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
             $frameRevolverBuilder
                 ->withFrameCollection($frameCollection)
                 ->withInterval($this->getIntervalMock())
+                ->withTolerance(10)
                 ->build()
         ;
 

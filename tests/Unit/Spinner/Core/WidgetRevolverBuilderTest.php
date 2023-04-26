@@ -37,6 +37,7 @@ final class WidgetRevolverBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
             $widgetRevolverBuilder
                 ->withStyleRevolver($this->getRevolverMock())
                 ->withCharRevolver($this->getRevolverMock())
+                ->withTolerance(10)
                 ->build()
         ;
 

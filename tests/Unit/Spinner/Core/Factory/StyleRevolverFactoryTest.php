@@ -10,6 +10,7 @@ use AlecRabbit\Spinner\Core\Factory\Contract\IStyleFrameRevolverFactory;
 use AlecRabbit\Spinner\Core\Factory\StyleFrameRevolverFactory;
 use AlecRabbit\Spinner\Core\Render\Contract\IStyleFrameCollectionRenderer;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolverBuilder;
+use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;
 
@@ -71,6 +72,12 @@ final class StyleRevolverFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
             ->expects(self::once())
             ->method('withInterval')
             ->with($interval)
+            ->willReturnSelf()
+        ;
+        $frameRevolverBuilder
+            ->expects(self::once())
+            ->method('withTolerance')
+            ->with(self::identicalTo(IRevolver::TOLERANCE)) // [fd86d318-9069-47e2-b60d-a68f537be4a3]
             ->willReturnSelf()
         ;
         $frameRevolver = $this->getFrameRevolverMock();

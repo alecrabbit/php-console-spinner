@@ -6,6 +6,7 @@ namespace AlecRabbit\Tests\Unit\Spinner\Core\Widget\Factory;
 
 use AlecRabbit\Spinner\Core\Factory\Contract\ICharFrameRevolverFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IStyleFrameRevolverFactory;
+use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolverBuilder;
 use AlecRabbit\Spinner\Core\Widget\Factory\Contract\IWidgetRevolverFactory;
 use AlecRabbit\Spinner\Core\Widget\Factory\WidgetRevolverFactory;
@@ -66,6 +67,12 @@ final class WidgetRevolverFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
             ->expects(self::once())
             ->method('withCharRevolver')
             ->with(self::identicalTo($charRevolver))
+            ->willReturnSelf()
+        ;
+        $widgetRevolverBuilder
+            ->expects(self::once())
+            ->method('withTolerance')
+            ->with(self::identicalTo(IRevolver::TOLERANCE)) // [fd86d318-9069-47e2-b60d-a68f537be4a3]
             ->willReturnSelf()
         ;
         $widgetRevolverBuilder

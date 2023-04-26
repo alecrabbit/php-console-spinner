@@ -16,12 +16,14 @@ final class WidgetRevolver extends ARevolver implements IWidgetRevolver
     public function __construct(
         protected IRevolver $style,
         protected IRevolver $character,
+        int $deltaTolerance,
     ) {
         parent::__construct(
             $style->getInterval()
                 ->smallest(
                     $character->getInterval()
-                )
+                ),
+            $deltaTolerance
         );
     }
 
