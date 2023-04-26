@@ -118,6 +118,7 @@ final class Driver extends ASubject implements IDriver
         if (!$this->spinners->offsetExists($spinner)) {
             $this->spinners->offsetSet($spinner, new SpinnerState());
             $this->interval = $this->interval->smallest($spinner->getInterval());
+            $this->notify();
         }
     }
 

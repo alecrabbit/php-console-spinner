@@ -6,6 +6,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Contract;
 
+use AlecRabbit\Spinner\Contract\IObserver;
 use AlecRabbit\Spinner\Contract\ITimer;
 use AlecRabbit\Spinner\Core\Output\Contract\IDriverOutput;
 use Closure;
@@ -19,4 +20,6 @@ interface IDriverBuilder
     public function withTimer(ITimer $timer): IDriverBuilder;
 
     public function withDriverOutput(IDriverOutput $driverOutput): IDriverBuilder;
+
+    public function withObserver(IObserver $observer): IDriverBuilder;
 }

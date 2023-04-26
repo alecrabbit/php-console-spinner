@@ -6,7 +6,9 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Contract;
 
-interface IDriverAttacher
+use AlecRabbit\Spinner\Contract\IObserver;
+
+interface IDriverAttacher extends IObserver
 {
     public function attach(IDriver $driver): void;
 }

@@ -17,11 +17,11 @@ use Revolt\EventLoop;
 final class RevoltLoopAdapter extends ALoopAdapter
 {
     private static bool $stopped = false;
-    protected readonly EventLoop\Driver $loop;
+    protected readonly EventLoop\Driver $revoltLoop;
 
     public function __construct()
     {
-        $this->loop = EventLoop::getDriver();
+        $this->revoltLoop = EventLoop::getDriver();
     }
 
     public function cancel(mixed $timer): void
@@ -68,7 +68,7 @@ final class RevoltLoopAdapter extends ALoopAdapter
 
     public function run(): void
     {
-        $this->loop->run();
+        $this->revoltLoop->run();
     }
 
     public function delay(float $delay, Closure $closure): void
@@ -80,7 +80,7 @@ final class RevoltLoopAdapter extends ALoopAdapter
     public function stop(): void
     {
         self::$stopped = true;
-        $this->loop->stop();
+        $this->revoltLoop->stop();
     }
 
     public function onSignal(int $signal, Closure $closure): void

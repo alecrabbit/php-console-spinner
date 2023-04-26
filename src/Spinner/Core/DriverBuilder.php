@@ -6,6 +6,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core;
 
+use AlecRabbit\Spinner\Contract\IObserver;
 use AlecRabbit\Spinner\Contract\ITimer;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\IDriverBuilder;
@@ -19,6 +20,7 @@ final class DriverBuilder implements Contract\IDriverBuilder
     private ?IDriverOutput $driverOutput = null;
     private ?ITimer $timer = null;
     private ?Closure $intervalCallback = null;
+    private ?IObserver $observer = null;
 
     public function __construct(
         protected IIntervalFactory $intervalFactory,
@@ -54,6 +56,7 @@ final class DriverBuilder implements Contract\IDriverBuilder
             driverOutput: $this->driverOutput,
             timer: $this->timer,
             intervalCb: $this->intervalCallback ?? $this->defaultIntervalCallback(),
+            observer: $this->observer,
         );
     }
 
@@ -69,5 +72,12 @@ final class DriverBuilder implements Contract\IDriverBuilder
     private function defaultIntervalCallback(): Closure
     {
         return fn() => $this->intervalFactory->createStill();
+    }
+
+    public function withObserver(IObserver $observer): IDriverBuilder
+    {
+        $clone = clone $this;
+        $clone->observer = $observer;
+        return $clone;
     }
 }
