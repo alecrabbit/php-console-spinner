@@ -22,7 +22,7 @@ abstract class AProgressValueProcedure extends AFloatValueProcedure
         parent::__construct($progressValue, $format);
     }
 
-    public function update(?float $dt = null): IFrame
+    public function getFrame(?float $dt = null): IFrame
     {
         if ($this->progressValue->isFinished()) {
             if ($this->finishedDelay < 0) {

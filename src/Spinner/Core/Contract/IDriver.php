@@ -6,10 +6,10 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Contract;
 
-use AlecRabbit\Spinner\Contract\HasInterval;
+use AlecRabbit\Spinner\Contract\IHasInterval;
 use AlecRabbit\Spinner\Contract\IRenderable;
 
-interface IDriver extends IRenderable, HasInterval
+interface IDriver extends IRenderable, IHasInterval
 {
     public function attach(ISpinner $spinner): void;
 

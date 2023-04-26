@@ -19,7 +19,7 @@ abstract class AFloatValueProcedure extends AProcedure
         $this->format = $format ?? self::FORMAT;
     }
 
-    public function update(?float $dt = null): IFrame
+    public function getFrame(?float $dt = null): IFrame
     {
         $v = sprintf(
             $this->format,

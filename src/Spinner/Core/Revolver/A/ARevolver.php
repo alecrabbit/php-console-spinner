@@ -35,7 +35,7 @@ abstract class ARevolver implements IRevolver
         $this->differential = $this->intervalValue;
     }
 
-    public function update(?float $dt = null): IFrame
+    public function getFrame(?float $dt = null): IFrame
     {
         if ($this->shouldUpdate($dt)) {
             $this->next($dt);

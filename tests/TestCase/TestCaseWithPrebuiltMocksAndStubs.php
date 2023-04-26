@@ -10,8 +10,10 @@ use AlecRabbit\Spinner\Container\Contract\IContainer;
 use AlecRabbit\Spinner\Contract\Color\Style\IStyle;
 use AlecRabbit\Spinner\Contract\Color\Style\IStyleOptionsParser;
 use AlecRabbit\Spinner\Contract\IAnsiColorParser;
+use AlecRabbit\Spinner\Contract\IComboSubjectObserver;
 use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Contract\IInterval;
+use AlecRabbit\Spinner\Contract\IObserver;
 use AlecRabbit\Spinner\Contract\ITimer;
 use AlecRabbit\Spinner\Contract\Output\IBufferedOutput;
 use AlecRabbit\Spinner\Contract\Output\IOutput;
@@ -81,9 +83,11 @@ use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolver;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolverBuilder;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
 use AlecRabbit\Spinner\Core\Terminal\Contract\ITerminalProbe;
+use AlecRabbit\Spinner\Core\Widget\Contract\IWidget;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetBuilder;
-use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContext;
+use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContextContainer;
+use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetIntervalContainer;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolverBuilder;
 use AlecRabbit\Spinner\Core\Widget\Factory\Contract\IWidgetFactory;
 use AlecRabbit\Spinner\Core\Widget\Factory\Contract\IWidgetRevolverFactory;
@@ -97,9 +101,34 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
         return $this->createStub(IWidgetConfig::class);
     }
 
+    protected function getWidgetIntervalContainerMock(): MockObject&IWidgetIntervalContainer
+    {
+        return $this->createMock(IWidgetIntervalContainer::class);
+    }
+
     protected function getFrameMock(): MockObject&IFrame
     {
         return $this->createMock(IFrame::class);
+    }
+
+    protected function getWidgetContextContainerMock(): MockObject&IWidgetContextContainer
+    {
+        return $this->createMock(IWidgetContextContainer::class);
+    }
+
+    protected function getObserverMock(): MockObject&IObserver
+    {
+        return $this->createMock(IObserver::class);
+    }
+
+    protected function getWidgetMock(): MockObject&IWidget
+    {
+        return $this->createMock(IWidget::class);
+    }
+
+    protected function getComboSubjectObserverMock(): MockObject&IComboSubjectObserver
+    {
+        return $this->createMock(IComboSubjectObserver::class);
     }
 
     protected function getPatternMock(): MockObject&IPattern
@@ -350,11 +379,6 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
     protected function getFrameStub(): Stub&IFrame
     {
         return $this->createStub(IFrame::class);
-    }
-
-    protected function getWidgetCompositeMock(): MockObject&IWidgetComposite
-    {
-        return $this->createMock(IWidgetComposite::class);
     }
 
     protected function getOutputMock(): MockObject&IOutput
