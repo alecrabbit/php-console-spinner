@@ -8,7 +8,7 @@ namespace AlecRabbit\Spinner\Core\Widget\Contract;
 
 interface ILegacyWidgetContext
 {
-    public function replaceWidget(IWidgetComposite $widget): void;
+    public function replaceWidget(ILegacyWidgetComposite $widget): void;
 
-    public function getWidget(): IWidgetComposite;
+    public function getWidget(): ILegacyWidgetComposite;
 }

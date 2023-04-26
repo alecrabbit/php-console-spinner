@@ -8,18 +8,18 @@ use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Core\Frame;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
-use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
+use AlecRabbit\Spinner\Core\Widget\Contract\ILegacyWidgetComposite;
 use AlecRabbit\Spinner\Core\Widget\Contract\ILegacyWidgetContext;
 use AlecRabbit\Spinner\Core\Widget\LegacyWidgetContext;
 use WeakMap;
 
-abstract class AWidgetComposite implements IWidgetComposite
+abstract class ALegacyWidgetComposite implements ILegacyWidgetComposite
 {
     protected ILegacyWidgetContext $context;
     /** @var array<ILegacyWidgetContext> */
     protected array $children = [];
     protected int $childrenCount = 0;
-    protected ?IWidgetComposite $parent = null;
+    protected ?ILegacyWidgetComposite $parent = null;
     protected WeakMap $childrenContextMap;
     protected int $childIndex = 0;
 
@@ -59,7 +59,7 @@ abstract class AWidgetComposite implements IWidgetComposite
         return 0 < $this->childrenCount;
     }
 
-    public function add(IWidgetComposite|ILegacyWidgetContext $element): ILegacyWidgetContext
+    public function add(ILegacyWidgetComposite|ILegacyWidgetContext $element): ILegacyWidgetContext
     {
         $widgetContext = $this->extractContext($element);
         $widget = $this->extractWidget($element);
@@ -73,9 +73,9 @@ abstract class AWidgetComposite implements IWidgetComposite
         return $widgetContext;
     }
 
-    protected function extractContext(IWidgetComposite|ILegacyWidgetContext $element): ILegacyWidgetContext
+    protected function extractContext(ILegacyWidgetComposite|ILegacyWidgetContext $element): ILegacyWidgetContext
     {
-        if ($element instanceof IWidgetComposite) {
+        if ($element instanceof ILegacyWidgetComposite) {
             return $element->getContext();
         }
         return $element;
@@ -91,15 +91,15 @@ abstract class AWidgetComposite implements IWidgetComposite
         $this->context = $widgetContext;
     }
 
-    protected function extractWidget(IWidgetComposite|ILegacyWidgetContext $element): IWidgetComposite
+    protected function extractWidget(ILegacyWidgetComposite|ILegacyWidgetContext $element): ILegacyWidgetComposite
     {
-        if ($element instanceof IWidgetComposite) {
+        if ($element instanceof ILegacyWidgetComposite) {
             return $element;
         }
         return $element->getWidget();
     }
 
-    public function adoptBy(IWidgetComposite $widget): void
+    public function adoptBy(ILegacyWidgetComposite $widget): void
     {
         $this->parent = $widget;
     }
@@ -126,7 +126,7 @@ abstract class AWidgetComposite implements IWidgetComposite
         return $this->parent !== null;
     }
 
-    public function remove(IWidgetComposite|ILegacyWidgetContext $element): void
+    public function remove(ILegacyWidgetComposite|ILegacyWidgetContext $element): void
     {
         $widgetContext = $this->extractContext($element);
 

@@ -4,23 +4,23 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Widget;
 
-use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
+use AlecRabbit\Spinner\Core\Widget\Contract\ILegacyWidgetComposite;
 use AlecRabbit\Spinner\Core\Widget\Contract\ILegacyWidgetContext;
 
 final class LegacyWidgetContext implements ILegacyWidgetContext
 {
     public function __construct(
-        protected IWidgetComposite $widget,
+        protected ILegacyWidgetComposite $widget,
     ) {
     }
 
-    public function replaceWidget(IWidgetComposite $widget): void
+    public function replaceWidget(ILegacyWidgetComposite $widget): void
     {
         $this->widget = $widget;
         $widget->setContext($this);
     }
 
-    public function getWidget(): IWidgetComposite
+    public function getWidget(): ILegacyWidgetComposite
     {
         return $this->widget;
     }

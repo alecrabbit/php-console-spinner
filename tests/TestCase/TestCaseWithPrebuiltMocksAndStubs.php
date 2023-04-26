@@ -85,7 +85,7 @@ use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
 use AlecRabbit\Spinner\Core\Terminal\Contract\ITerminalProbe;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidget;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetBuilder;
-use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
+use AlecRabbit\Spinner\Core\Widget\Contract\ILegacyWidgetComposite;
 use AlecRabbit\Spinner\Core\Widget\Contract\ILegacyWidgetContext;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContext;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContextContainer;
@@ -383,9 +383,9 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
         return $this->createStub(IFrame::class);
     }
 
-    protected function getWidgetCompositeMock(): MockObject&IWidgetComposite
+    protected function getWidgetCompositeMock(): MockObject&ILegacyWidgetComposite
     {
-        return $this->createMock(IWidgetComposite::class);
+        return $this->createMock(ILegacyWidgetComposite::class);
     }
 
     protected function getOutputMock(): MockObject&IOutput

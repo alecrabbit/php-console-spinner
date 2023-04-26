@@ -6,7 +6,7 @@ namespace AlecRabbit\Tests\Unit\Spinner\Core;
 
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use AlecRabbit\Spinner\Core\Spinner;
-use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
+use AlecRabbit\Spinner\Core\Widget\Contract\ILegacyWidgetComposite;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;
 
@@ -21,7 +21,7 @@ final class SpinnerTest extends TestCaseWithPrebuiltMocksAndStubs
     }
 
     protected function getTesteeInstance(
-        ?IWidgetComposite $rootWidget = null,
+        ?ILegacyWidgetComposite $rootWidget = null,
     ): ISpinner {
         return new Spinner(
             $rootWidget ?? $this->getWidgetCompositeMock(),

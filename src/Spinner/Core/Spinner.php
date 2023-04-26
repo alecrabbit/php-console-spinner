@@ -9,13 +9,13 @@ namespace AlecRabbit\Spinner\Core;
 use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
-use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
+use AlecRabbit\Spinner\Core\Widget\Contract\ILegacyWidgetComposite;
 use AlecRabbit\Spinner\Core\Widget\Contract\ILegacyWidgetContext;
 
 final class Spinner implements ISpinner
 {
     public function __construct(
-        protected IWidgetComposite $rootWidget,
+        protected ILegacyWidgetComposite $rootWidget,
     ) {
     }
 
@@ -29,12 +29,12 @@ final class Spinner implements ISpinner
         return $this->rootWidget->getInterval();
     }
 
-    public function add(IWidgetComposite|ILegacyWidgetContext $element): ILegacyWidgetContext
+    public function add(ILegacyWidgetComposite|ILegacyWidgetContext $element): ILegacyWidgetContext
     {
         return $this->rootWidget->add($element);
     }
 
-    public function remove(IWidgetComposite|ILegacyWidgetContext $element): void
+    public function remove(ILegacyWidgetComposite|ILegacyWidgetContext $element): void
     {
         $this->rootWidget->remove($element);
     }
