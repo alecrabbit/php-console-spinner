@@ -7,16 +7,16 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core;
 
 use AlecRabbit\Spinner\Core\Contract\IDriver;
-use AlecRabbit\Spinner\Core\Contract\IDriverAttacher;
+use AlecRabbit\Spinner\Core\Contract\IDriverLinker;
 use AlecRabbit\Spinner\Core\Contract\IDriverSetup;
 
 final class DriverSetup implements IDriverSetup
 {
     private bool $initializationEnabled = false;
-    private bool $attacherEnabled = false;
+    private bool $linkerEnabled = false;
 
     public function __construct(
-        protected IDriverAttacher $attacher,
+        protected IDriverLinker $linker,
     ) {
     }
 
@@ -26,8 +26,8 @@ final class DriverSetup implements IDriverSetup
             $driver->initialize();
         }
 
-        if ($this->attacherEnabled) {
-            $this->attacher->attach($driver);
+        if ($this->linkerEnabled) {
+            $this->linker->link($driver);
         }
     }
 
@@ -37,9 +37,9 @@ final class DriverSetup implements IDriverSetup
         return $this;
     }
 
-    public function enableAttacher(bool $enable): IDriverSetup
+    public function enableLinker(bool $enable): IDriverSetup
     {
-        $this->attacherEnabled = $enable;
+        $this->linkerEnabled = $enable;
         return $this;
     }
 }

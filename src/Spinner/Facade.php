@@ -10,7 +10,7 @@ use AlecRabbit\Spinner\Container\Contract\IContainer;
 use AlecRabbit\Spinner\Core\Config\Contract\ISpinnerConfig;
 use AlecRabbit\Spinner\Core\Contract\IDefaultsProvider;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
-use AlecRabbit\Spinner\Core\Contract\IDriverAttacher;
+use AlecRabbit\Spinner\Core\Contract\IDriverLinker;
 use AlecRabbit\Spinner\Core\Contract\IFacade;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use AlecRabbit\Spinner\Core\Contract\Loop\Contract\ILoop;
@@ -63,9 +63,6 @@ final class Facade implements IFacade
         ;
         $driver->add($spinner);
 
-//        self::getDriverAttacher()
-//            ->attach($driver)
-//        ;
         return $spinner;
     }
 
@@ -82,10 +79,5 @@ final class Facade implements IFacade
     private static function getDriverFactory(): IDriverSingletonFactory
     {
         return self::getContainer()->get(IDriverSingletonFactory::class);
-    }
-
-    private static function getDriverAttacher(): IDriverAttacher
-    {
-        return self::getContainer()->get(IDriverAttacher::class);
     }
 }

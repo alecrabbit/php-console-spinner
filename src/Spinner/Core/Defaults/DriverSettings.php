@@ -6,7 +6,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Defaults;
 
-use AlecRabbit\Spinner\Contract\Option\OptionAttacher;
+use AlecRabbit\Spinner\Contract\Option\OptionLinker;
 use AlecRabbit\Spinner\Contract\Option\OptionInitialization;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDriverSettings;
 
@@ -14,7 +14,7 @@ final class DriverSettings implements IDriverSettings
 {
     public function __construct(
         protected OptionInitialization $optionInitialization,
-        protected OptionAttacher $optionAttacher,
+        protected OptionLinker $optionLinker,
         protected string $finalMessage,
         protected string $interruptMessage,
     ) {
@@ -26,9 +26,9 @@ final class DriverSettings implements IDriverSettings
         return $this;
     }
 
-    public function setOptionAttacher(OptionAttacher $optionAttacher): IDriverSettings
+    public function setOptionLinker(OptionLinker $optionLinker): IDriverSettings
     {
-        $this->optionAttacher = $optionAttacher;
+        $this->optionLinker = $optionLinker;
         return $this;
     }
 
@@ -65,13 +65,13 @@ final class DriverSettings implements IDriverSettings
         return $this->optionInitialization === OptionInitialization::ENABLED;
     }
 
-    public function isAttacherEnabled(): bool
+    public function isLinkerEnabled(): bool
     {
-        return $this->optionAttacher === OptionAttacher::ENABLED;
+        return $this->optionLinker === OptionLinker::ENABLED;
     }
 
-    public function getOptionAttacher(): OptionAttacher
+    public function getOptionLinker(): OptionLinker
     {
-        return $this->optionAttacher;
+        return $this->optionLinker;
     }
 }

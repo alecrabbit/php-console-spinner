@@ -23,7 +23,7 @@ use AlecRabbit\Spinner\Core\Contract\ICharFrameRenderer;
 use AlecRabbit\Spinner\Core\Contract\IConsoleCursorBuilder;
 use AlecRabbit\Spinner\Core\Contract\IDefaultsProvider;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
-use AlecRabbit\Spinner\Core\Contract\IDriverAttacher;
+use AlecRabbit\Spinner\Core\Contract\IDriverLinker;
 use AlecRabbit\Spinner\Core\Contract\IDriverBuilder;
 use AlecRabbit\Spinner\Core\Contract\IDriverOutputBuilder;
 use AlecRabbit\Spinner\Core\Contract\IDriverSetup;
@@ -53,7 +53,7 @@ use AlecRabbit\Spinner\Core\Factory\Contract\IBufferedOutputSingletonFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ICharFrameRevolverFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IConsoleCursorFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IContainerSingletonFactory;
-use AlecRabbit\Spinner\Core\Factory\Contract\IDriverAttacherSingletonFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\IDriverLinkerSingletonFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDriverOutputFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDriverSingletonFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IFrameFactory;
@@ -146,7 +146,7 @@ final class ContainerSingletonFactory implements IContainerSingletonFactory
             IConsoleCursorBuilder::class => ConsoleCursorBuilder::class,
             IConsoleCursorFactory::class => ConsoleCursorFactory::class,
             IDefaultsProviderBuilder::class => DefaultsProviderBuilder::class,
-            IDriverAttacherSingletonFactory::class => DriverAttacherSingletonFactory::class,
+            IDriverLinkerSingletonFactory::class => DriverLinkerSingletonFactory::class,
             IDriverBuilder::class => DriverBuilder::class,
             IDriverOutputBuilder::class => DriverOutputBuilder::class,
             IDriverOutputFactory::class => DriverOutputFactory::class,
@@ -187,8 +187,8 @@ final class ContainerSingletonFactory implements IContainerSingletonFactory
             IDriver::class => static function (ContainerInterface $container): IDriver {
                 return $container->get(IDriverSingletonFactory::class)->getDriver();
             },
-            IDriverAttacher::class => static function (ContainerInterface $container): IDriverAttacher {
-                return $container->get(IDriverAttacherSingletonFactory::class)->getAttacher();
+            IDriverLinker::class => static function (ContainerInterface $container): IDriverLinker {
+                return $container->get(IDriverLinkerSingletonFactory::class)->getDriverLinker();
             },
             IDriverSettings::class => static function (ContainerInterface $container): IDriverSettings {
                 return $container->get(IDefaultsProvider::class)->getDriverSettings();

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core;
 
-use AlecRabbit\Spinner\Core\Contract\IDriverAttacher;
+use AlecRabbit\Spinner\Core\Contract\IDriverLinker;
 use AlecRabbit\Spinner\Core\Contract\IDriverSetup;
 use AlecRabbit\Spinner\Core\DriverSetup;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
@@ -21,20 +21,20 @@ final class DriverSetupTest extends TestCaseWithPrebuiltMocksAndStubs
     }
 
     public function getTesteeInstance(
-        ?IDriverAttacher $driverAttacher = null,
+        ?IDriverLinker $driverLinker = null,
     ): IDriverSetup {
         return new DriverSetup(
-            attacher: $driverAttacher ?? $this->getDriverAttacherMock(),
+            linker: $driverLinker ?? $this->getDriverLinkerMock(),
         );
     }
 
     #[Test]
     public function doesNothingWithDefaults(): void
     {
-        $driverAttacher = $this->getDriverAttacherMock();
-        $driverAttacher
+        $driverLinker = $this->getDriverLinkerMock();
+        $driverLinker
             ->expects(self::never())
-            ->method('attach')
+            ->method('link')
         ;
 
         $driver = $this->getDriverMock();
@@ -43,7 +43,7 @@ final class DriverSetupTest extends TestCaseWithPrebuiltMocksAndStubs
             ->method('initialize')
         ;
 
-        $this->getTesteeInstance($driverAttacher)
+        $this->getTesteeInstance($driverLinker)
             ->setup($driver)
         ;
     }
@@ -51,10 +51,10 @@ final class DriverSetupTest extends TestCaseWithPrebuiltMocksAndStubs
     #[Test]
     public function callsInitializeOnDriverIfInitializationEnabled(): void
     {
-        $driverAttacher = $this->getDriverAttacherMock();
-        $driverAttacher
+        $driverLinker = $this->getDriverLinkerMock();
+        $driverLinker
             ->expects(self::never())
-            ->method('attach')
+            ->method('link')
         ;
 
         $driver = $this->getDriverMock();
@@ -63,19 +63,19 @@ final class DriverSetupTest extends TestCaseWithPrebuiltMocksAndStubs
             ->method('initialize')
         ;
 
-        $this->getTesteeInstance($driverAttacher)
+        $this->getTesteeInstance($driverLinker)
             ->enableInitialization(true)
             ->setup($driver)
         ;
     }
 
     #[Test]
-    public function callsAttachOnAttacherIfAttacherEnabled(): void
+    public function callsLinkOnLinkerIfLinkerEnabled(): void
     {
-        $driverAttacher = $this->getDriverAttacherMock();
-        $driverAttacher
+        $driverLinker = $this->getDriverLinkerMock();
+        $driverLinker
             ->expects(self::once())
-            ->method('attach')
+            ->method('link')
         ;
 
         $driver = $this->getDriverMock();
@@ -84,8 +84,8 @@ final class DriverSetupTest extends TestCaseWithPrebuiltMocksAndStubs
             ->method('initialize')
         ;
 
-        $this->getTesteeInstance($driverAttacher)
-            ->enableAttacher(true)
+        $this->getTesteeInstance($driverLinker)
+            ->enableLinker(true)
             ->setup($driver)
         ;
     }
@@ -93,10 +93,10 @@ final class DriverSetupTest extends TestCaseWithPrebuiltMocksAndStubs
     #[Test]
     public function doesFullSetup(): void
     {
-        $driverAttacher = $this->getDriverAttacherMock();
-        $driverAttacher
+        $driverLinker = $this->getDriverLinkerMock();
+        $driverLinker
             ->expects(self::once())
-            ->method('attach')
+            ->method('link')
         ;
 
         $driver = $this->getDriverMock();
@@ -105,9 +105,9 @@ final class DriverSetupTest extends TestCaseWithPrebuiltMocksAndStubs
             ->method('initialize')
         ;
 
-        $this->getTesteeInstance($driverAttacher)
+        $this->getTesteeInstance($driverLinker)
             ->enableInitialization(true)
-            ->enableAttacher(true)
+            ->enableLinker(true)
             ->setup($driver)
         ;
     }

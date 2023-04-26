@@ -7,7 +7,7 @@ classDiagram
     Facade ..> IConfigBuilder
     Facade ..> IDriverFactory
     Facade ..> ISpinnerFactory
-    Facade ..> IDriverAttacher
+    Facade ..> IDriverLinker
     Facade ..> ILoopFactory
    
 
@@ -42,7 +42,7 @@ classDiagram
     
     ITimerFactory ..> ITimerBuilder
     
-    IDriverSetup ..> IDriverAttacher
+    IDriverSetup ..> IDriverLinker
     
     ILoopSetup ..> ILoop
 

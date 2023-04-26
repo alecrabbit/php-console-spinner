@@ -6,29 +6,29 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core;
 
-use AlecRabbit\Spinner\Contract\Option\OptionAttacher;
-use AlecRabbit\Spinner\Core\Contract\IDriverAttacher;
+use AlecRabbit\Spinner\Contract\Option\OptionLinker;
+use AlecRabbit\Spinner\Core\Contract\IDriverLinker;
 use AlecRabbit\Spinner\Core\Contract\Loop\Contract\ILoop;
-use AlecRabbit\Spinner\Core\DriverAttacher;
+use AlecRabbit\Spinner\Core\DriverLinker;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;
 
-final class DriverAttacherTest extends TestCaseWithPrebuiltMocksAndStubs
+final class DriverLinkerTest extends TestCaseWithPrebuiltMocksAndStubs
 {
     #[Test]
     public function canBeCreated(): void
     {
-        $driverAttacher = $this->getTesteeInstance();
+        $driverLinker = $this->getTesteeInstance();
 
-        self::assertInstanceOf(DriverAttacher::class, $driverAttacher);
+        self::assertInstanceOf(DriverLinker::class, $driverLinker);
     }
 
     public function getTesteeInstance(
         ?ILoop $loop = null,
-    ): IDriverAttacher {
-        return new DriverAttacher(
+    ): IDriverLinker {
+        return new DriverLinker(
             loop: $loop ?? $this->getLoopMock(),
-            optionAttacher: OptionAttacher::ENABLED,
+            optionLinker: OptionLinker::ENABLED,
         );
     }
 
@@ -61,9 +61,9 @@ final class DriverAttacherTest extends TestCaseWithPrebuiltMocksAndStubs
             ->willReturn($intervalMock)
         ;
 
-        $driverAttacher = $this->getTesteeInstance($loop);
+        $driverLinker = $this->getTesteeInstance($loop);
 
-        $driverAttacher->attach($driver);
+        $driverLinker->link($driver);
     }
 
     #[Test]
@@ -95,10 +95,10 @@ final class DriverAttacherTest extends TestCaseWithPrebuiltMocksAndStubs
             ->willReturn($intervalMock)
         ;
 
-        $driverAttacher = $this->getTesteeInstance($loop);
+        $driverLinker = $this->getTesteeInstance($loop);
 
-        $driverAttacher->attach($driver);
+        $driverLinker->link($driver);
 
-        $driverAttacher->attach($driver);
+        $driverLinker->link($driver);
     }
 }

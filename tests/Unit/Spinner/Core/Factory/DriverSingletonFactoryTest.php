@@ -88,7 +88,7 @@ final class DriverSingletonFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
         ;
         $driverSetup
             ->expects(self::once())
-            ->method('enableAttacher')
+            ->method('enableLinker')
             ->with(true)
             ->willReturnSelf()
         ;
@@ -105,7 +105,7 @@ final class DriverSingletonFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
         ;
         $driverSettings
             ->expects(self::once())
-            ->method('isAttacherEnabled')
+            ->method('isLinkerEnabled')
             ->willReturn(true)
         ;
 

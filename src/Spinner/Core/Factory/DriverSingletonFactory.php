@@ -36,7 +36,7 @@ final class DriverSingletonFactory implements IDriverSingletonFactory
 
             $this->driverSetup
                 ->enableInitialization($this->driverSettings->isInitializationEnabled())
-                ->enableAttacher($this->driverSettings->isAttacherEnabled())
+                ->enableLinker($this->driverSettings->isLinkerEnabled())
                 ->setup(self::$driver)
             ;
 

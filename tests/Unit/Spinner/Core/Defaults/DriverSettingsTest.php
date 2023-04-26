@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Defaults;
 
-use AlecRabbit\Spinner\Contract\Option\OptionAttacher;
+use AlecRabbit\Spinner\Contract\Option\OptionLinker;
 use AlecRabbit\Spinner\Contract\Option\OptionInitialization;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDriverSettings;
 use AlecRabbit\Spinner\Core\Defaults\DriverSettings;
@@ -23,13 +23,13 @@ final class DriverSettingsTest extends TestCaseWithPrebuiltMocksAndStubs
 
     public function getTesteeInstance(
         OptionInitialization $optionInitialization = OptionInitialization::ENABLED,
-        OptionAttacher $optionAttacher = OptionAttacher::ENABLED,
+        OptionLinker $optionLinker = OptionLinker::ENABLED,
         string $finalMessage = 'Final message',
         string $interruptMessage = 'Interrupt message',
     ): IDriverSettings {
         return new DriverSettings(
             optionInitialization: $optionInitialization,
-            optionAttacher: $optionAttacher,
+            optionLinker: $optionLinker,
             finalMessage: $finalMessage,
             interruptMessage: $interruptMessage,
         );
@@ -41,34 +41,34 @@ final class DriverSettingsTest extends TestCaseWithPrebuiltMocksAndStubs
         $finalMessage = 'Final';
         $interruptMessage = 'Interrupt';
 
-        $optionAttacher = OptionAttacher::DISABLED;
+        $optionLinker = OptionLinker::DISABLED;
 
         $driverSettings = $this->getTesteeInstance(
             optionInitialization: OptionInitialization::DISABLED,
-            optionAttacher: $optionAttacher,
+            optionLinker: $optionLinker,
             finalMessage: $finalMessage,
             interruptMessage: $interruptMessage,
         );
         self::assertInstanceOf(DriverSettings::class, $driverSettings);
         self::assertFalse($driverSettings->isInitializationEnabled());
-        self::assertFalse($driverSettings->isAttacherEnabled());
+        self::assertFalse($driverSettings->isLinkerEnabled());
         self::assertSame($finalMessage, $driverSettings->getFinalMessage());
         self::assertSame($interruptMessage, $driverSettings->getInterruptMessage());
-        self::assertSame($optionAttacher, $driverSettings->getOptionAttacher());
+        self::assertSame($optionLinker, $driverSettings->getOptionLinker());
 
         $finalMessage = 'Final message';
         $interruptMessage = 'Interrupt message';
-        $optionAttacher = OptionAttacher::ENABLED;
+        $optionLinker = OptionLinker::ENABLED;
 
         $driverSettings->setOptionInitialization(OptionInitialization::ENABLED);
-        $driverSettings->setOptionAttacher($optionAttacher);
+        $driverSettings->setOptionLinker($optionLinker);
         $driverSettings->setFinalMessage($finalMessage);
         $driverSettings->setInterruptMessage($interruptMessage);
 
         self::assertTrue($driverSettings->isInitializationEnabled());
-        self::assertTrue($driverSettings->isAttacherEnabled());
+        self::assertTrue($driverSettings->isLinkerEnabled());
         self::assertSame($finalMessage, $driverSettings->getFinalMessage());
         self::assertSame($interruptMessage, $driverSettings->getInterruptMessage());
-        self::assertSame($optionAttacher, $driverSettings->getOptionAttacher());
+        self::assertSame($optionLinker, $driverSettings->getOptionLinker());
     }
 }

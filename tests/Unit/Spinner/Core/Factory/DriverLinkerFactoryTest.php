@@ -4,43 +4,43 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Factory;
 
-use AlecRabbit\Spinner\Contract\Option\OptionAttacher;
+use AlecRabbit\Spinner\Contract\Option\OptionLinker;
 use AlecRabbit\Spinner\Core\Contract\IDefaultsProvider;
 use AlecRabbit\Spinner\Core\Contract\Loop\Contract\ILoop;
-use AlecRabbit\Spinner\Core\DriverAttacher;
-use AlecRabbit\Spinner\Core\Factory\Contract\IDriverAttacherSingletonFactory;
-use AlecRabbit\Spinner\Core\Factory\DriverAttacherSingletonFactory;
+use AlecRabbit\Spinner\Core\DriverLinker;
+use AlecRabbit\Spinner\Core\Factory\Contract\IDriverLinkerSingletonFactory;
+use AlecRabbit\Spinner\Core\Factory\DriverLinkerSingletonFactory;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;
 
-final class DriverAttacherFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
+final class DriverLinkerFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
 {
     #[Test]
     public function canBeCreated(): void
     {
-        $driverAttacherFactory = $this->getTesteeInstance();
+        $linkerSingletonFactory = $this->getTesteeInstance();
 
-        self::assertInstanceOf(DriverAttacherSingletonFactory::class, $driverAttacherFactory);
+        self::assertInstanceOf(DriverLinkerSingletonFactory::class, $linkerSingletonFactory);
     }
 
     public function getTesteeInstance(
         ?ILoop $loop = null,
         ?IDefaultsProvider $defaultsProvider = null,
-    ): IDriverAttacherSingletonFactory {
-        return new DriverAttacherSingletonFactory(
+    ): IDriverLinkerSingletonFactory {
+        return new DriverLinkerSingletonFactory(
             loop: $loop ?? $this->getLoopMock(),
             defaultsProvider: $defaultsProvider ?? $this->getDefaultsProviderMock(),
         );
     }
 
     #[Test]
-    public function canGetAttacher(): void
+    public function canGetLinker(): void
     {
         $driverSettings = $this->getDriverSettingsMock();
         $driverSettings
             ->expects(self::once())
-            ->method('getOptionAttacher')
-            ->willReturn(OptionAttacher::ENABLED)
+            ->method('getOptionLinker')
+            ->willReturn(OptionLinker::ENABLED)
         ;
         $defaultsProvider = $this->getDefaultsProviderMock();
         $defaultsProvider
@@ -48,9 +48,9 @@ final class DriverAttacherFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
             ->method('getDriverSettings')
             ->willReturn($driverSettings)
         ;
-        $driverAttacherFactory = $this->getTesteeInstance(defaultsProvider: $defaultsProvider);
+        $linkerSingletonFactory = $this->getTesteeInstance(defaultsProvider: $defaultsProvider);
 
-        self::assertInstanceOf(DriverAttacherSingletonFactory::class, $driverAttacherFactory);
-        self::assertInstanceOf(DriverAttacher::class, $driverAttacherFactory->getAttacher());
+        self::assertInstanceOf(DriverLinkerSingletonFactory::class, $linkerSingletonFactory);
+        self::assertInstanceOf(DriverLinker::class, $linkerSingletonFactory->getDriverLinker());
     }
 }
