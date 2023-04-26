@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core;
 
+use AlecRabbit\Spinner\Contract\IObserver;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use AlecRabbit\Spinner\Core\Spinner;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidget;
@@ -22,9 +23,11 @@ final class SpinnerTest extends TestCaseWithPrebuiltMocksAndStubs
 
     protected function getTesteeInstance(
         ?IWidget $rootWidget = null,
+        ?IObserver $observer = null,
     ): ISpinner {
         return new Spinner(
-            $rootWidget ?? $this->getWidgetMock(),
+            rootWidget: $rootWidget ?? $this->getWidgetMock(),
+            observer: $observer,
         );
     }
 
@@ -58,6 +61,36 @@ final class SpinnerTest extends TestCaseWithPrebuiltMocksAndStubs
 
         self::assertInstanceOf(Spinner::class, $spinner);
         self::assertSame($interval, $spinner->getInterval());
+    }
+
+    #[Test]
+    public function canAttachObserver(): void
+    {
+        $spinner = $this->getTesteeInstance();
+
+        $observer = $this->getObserverMock();
+
+        self::assertNull(self::getPropertyValue('observer', $spinner));
+
+        $spinner->attach($observer);
+
+        self::assertSame($observer, self::getPropertyValue('observer', $spinner));
+    }
+
+    #[Test]
+    public function canDetachObserver(): void
+    {
+        $observer = $this->getObserverMock();
+
+        $spinner = $this->getTesteeInstance(
+            observer: $observer
+        );
+
+        self::assertSame($observer, self::getPropertyValue('observer', $spinner));
+
+        $spinner->detach($observer);
+
+        self::assertNull(self::getPropertyValue('observer', $spinner));
     }
 
     #[Test]
