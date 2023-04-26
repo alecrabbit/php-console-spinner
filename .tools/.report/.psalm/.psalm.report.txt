@@ -40,22 +40,23 @@
 /app/src/Spinner/Core/Defaults/WidgetSettingsBuilder.php:29:27:error - ArgumentTypeCoercion: Argument 3 of AlecRabbit\Spinner\Core\Defaults\WidgetSettings::__construct expects AlecRabbit\Spinner\Core\Pattern\Contract\IStylePattern, but parent type AlecRabbit\Spinner\Contract\Pattern\IPattern|null provided
 /app/src/Spinner/Core/Defaults/WidgetSettingsBuilder.php:29:27:error - PossiblyNullArgument: Argument 3 of AlecRabbit\Spinner\Core\Defaults\WidgetSettings::__construct cannot be null, possibly null value provided
 /app/src/Spinner/Core/Defaults/WidgetSettingsBuilder.php:30:26:error - PossiblyNullArgument: Argument 4 of AlecRabbit\Spinner\Core\Defaults\WidgetSettings::__construct cannot be null, possibly null value provided
-/app/src/Spinner/Core/Driver.php:32:27:error - PropertyTypeCoercion: $this->spinners expects 'WeakMap<AlecRabbit\Spinner\Core\Contract\ISpinner, AlecRabbit\Spinner\Core\Contract\ISpinnerState>',  parent type 'WeakMap<object, mixed>' provided
-/app/src/Spinner/Core/Driver.php:33:9:error - MixedAssignment: Unable to determine the type that $this->interval is being assigned to
-/app/src/Spinner/Core/Driver.php:41:9:error - MixedAssignment: Unable to determine the type that $interval is being assigned to
-/app/src/Spinner/Core/Driver.php:57:37:error - MixedAssignment: Unable to determine the type that $spinner is being assigned to
-/app/src/Spinner/Core/Driver.php:57:49:error - MixedAssignment: Unable to determine the type that $state is being assigned to
-/app/src/Spinner/Core/Driver.php:59:17:error - MixedArgument: Argument 1 of WeakMap::offsetSet cannot be mixed, expecting AlecRabbit\Spinner\Core\Contract\ISpinner
-/app/src/Spinner/Core/Driver.php:61:21:error - MixedArgument: Argument 1 of AlecRabbit\Spinner\Core\Driver::renderFrame cannot be mixed, expecting AlecRabbit\Spinner\Contract\IFrame
-/app/src/Spinner/Core/Driver.php:61:31:error - MixedMethodCall: Cannot determine the type of $spinner when calling method getFrame
-/app/src/Spinner/Core/Driver.php:62:21:error - MixedArgument: Argument 2 of AlecRabbit\Spinner\Core\Driver::renderFrame cannot be mixed, expecting AlecRabbit\Spinner\Core\Contract\ISpinnerState
-/app/src/Spinner/Core/Driver.php:133:45:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Contract\IInterval' for AlecRabbit\Spinner\Core\Driver::recalculateInterval
-/app/src/Spinner/Core/Driver.php:135:9:error - MixedAssignment: Unable to determine the type that $interval is being assigned to
-/app/src/Spinner/Core/Driver.php:136:37:error - MixedAssignment: Unable to determine the type that $spinner is being assigned to
-/app/src/Spinner/Core/Driver.php:137:13:error - MixedAssignment: Unable to determine the type that $interval is being assigned to
-/app/src/Spinner/Core/Driver.php:137:36:error - MixedMethodCall: Cannot determine the type of $interval when calling method smallest
-/app/src/Spinner/Core/Driver.php:137:55:error - MixedMethodCall: Cannot determine the type of $spinner when calling method getInterval
-/app/src/Spinner/Core/Driver.php:139:16:error - MixedReturnStatement: Could not infer a return type
+/app/src/Spinner/Core/Driver.php:37:27:error - PropertyTypeCoercion: $this->spinners expects 'WeakMap<AlecRabbit\Spinner\Core\Contract\ISpinner, AlecRabbit\Spinner\Core\Contract\ISpinnerState>',  parent type 'WeakMap<object, mixed>' provided
+/app/src/Spinner/Core/Driver.php:38:9:error - MixedAssignment: Unable to determine the type that $this->interval is being assigned to
+/app/src/Spinner/Core/Driver.php:46:9:error - MixedAssignment: Unable to determine the type that $interval is being assigned to
+/app/src/Spinner/Core/Driver.php:62:37:error - MixedAssignment: Unable to determine the type that $spinner is being assigned to
+/app/src/Spinner/Core/Driver.php:62:49:error - MixedAssignment: Unable to determine the type that $state is being assigned to
+/app/src/Spinner/Core/Driver.php:64:17:error - MixedArgument: Argument 1 of WeakMap::offsetSet cannot be mixed, expecting AlecRabbit\Spinner\Core\Contract\ISpinner
+/app/src/Spinner/Core/Driver.php:66:21:error - MixedArgument: Argument 1 of AlecRabbit\Spinner\Core\Driver::renderFrame cannot be mixed, expecting AlecRabbit\Spinner\Contract\IFrame
+/app/src/Spinner/Core/Driver.php:66:31:error - MixedMethodCall: Cannot determine the type of $spinner when calling method getFrame
+/app/src/Spinner/Core/Driver.php:67:21:error - MixedArgument: Argument 2 of AlecRabbit\Spinner\Core\Driver::renderFrame cannot be mixed, expecting AlecRabbit\Spinner\Core\Contract\ISpinnerState
+/app/src/Spinner/Core/Driver.php:138:45:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Contract\IInterval' for AlecRabbit\Spinner\Core\Driver::recalculateInterval
+/app/src/Spinner/Core/Driver.php:140:9:error - MixedAssignment: Unable to determine the type that $interval is being assigned to
+/app/src/Spinner/Core/Driver.php:141:37:error - MixedAssignment: Unable to determine the type that $spinner is being assigned to
+/app/src/Spinner/Core/Driver.php:142:13:error - MixedAssignment: Unable to determine the type that $interval is being assigned to
+/app/src/Spinner/Core/Driver.php:142:36:error - MixedMethodCall: Cannot determine the type of $interval when calling method smallest
+/app/src/Spinner/Core/Driver.php:142:55:error - MixedMethodCall: Cannot determine the type of $spinner when calling method getInterval
+/app/src/Spinner/Core/Driver.php:144:16:error - MixedReturnStatement: Could not infer a return type
+/app/src/Spinner/Core/Driver.php:149:43:error - ArgumentTypeCoercion: Argument 1 of WeakMap::offsetExists expects AlecRabbit\Spinner\Core\Contract\ISpinner, but parent type AlecRabbit\Spinner\Contract\ISubject provided
 /app/src/Spinner/Core/DriverBuilder.php:54:27:error - PossiblyNullArgument: Argument 1 of AlecRabbit\Spinner\Core\Driver::__construct cannot be null, possibly null value provided
 /app/src/Spinner/Core/DriverBuilder.php:55:20:error - PossiblyNullArgument: Argument 2 of AlecRabbit\Spinner\Core\Driver::__construct cannot be null, possibly null value provided
 /app/src/Spinner/Core/DriverOutputBuilder.php:26:21:error - PossiblyNullArgument: Argument 1 of AlecRabbit\Spinner\Core\Output\DriverOutput::__construct cannot be null, possibly null value provided
@@ -163,16 +164,16 @@
 /app/src/Spinner/Core/TimerBuilder.php:25:19:error - PossiblyNullArgument: Argument 2 of AlecRabbit\Spinner\Core\Timer::__construct cannot be null, possibly null value provided
 /app/src/Spinner/Core/Widget/Contract/IWidgetContextContainer.php:11:54:error - MissingTemplateParam: AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContextContainer has missing template params when extending IteratorAggregate, expecting 2
 /app/src/Spinner/Core/Widget/Contract/IWidgetContextContainer.php:19:21:error - MissingReturnType: Method AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContextContainer::get does not have a return type
-/app/src/Spinner/Core/Widget/Widget.php:50:41:error - MixedAssignment: Unable to determine the type that $context is being assigned to
-/app/src/Spinner/Core/Widget/Widget.php:51:17:error - MixedAssignment: Unable to determine the type that $f is being assigned to
-/app/src/Spinner/Core/Widget/Widget.php:51:32:error - MixedMethodCall: Cannot determine the type of $context when calling method getWidget
-/app/src/Spinner/Core/Widget/Widget.php:51:45:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
-/app/src/Spinner/Core/Widget/Widget.php:53:42:error - MixedOperand: Right operand cannot be mixed
-/app/src/Spinner/Core/Widget/Widget.php:53:46:error - MixedMethodCall: Cannot determine the type of $f when calling method sequence
-/app/src/Spinner/Core/Widget/Widget.php:54:21:error - MixedArgument: Argument 2 of AlecRabbit\Spinner\Core\Frame::__construct cannot be mixed, expecting int
-/app/src/Spinner/Core/Widget/Widget.php:54:39:error - MixedOperand: Right operand cannot be mixed
-/app/src/Spinner/Core/Widget/Widget.php:54:43:error - MixedMethodCall: Cannot determine the type of $f when calling method width
-/app/src/Spinner/Core/Widget/Widget.php:101:27:error - PossiblyNullPropertyAssignmentValue: $this->interval with non-nullable declared type 'AlecRabbit\Spinner\Contract\IInterval' cannot be assigned nullable type 'AlecRabbit\Spinner\Contract\IInterval|null'
+/app/src/Spinner/Core/Widget/Widget.php:52:41:error - MixedAssignment: Unable to determine the type that $context is being assigned to
+/app/src/Spinner/Core/Widget/Widget.php:53:17:error - MixedAssignment: Unable to determine the type that $f is being assigned to
+/app/src/Spinner/Core/Widget/Widget.php:53:32:error - MixedMethodCall: Cannot determine the type of $context when calling method getWidget
+/app/src/Spinner/Core/Widget/Widget.php:53:45:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
+/app/src/Spinner/Core/Widget/Widget.php:55:42:error - MixedOperand: Right operand cannot be mixed
+/app/src/Spinner/Core/Widget/Widget.php:55:46:error - MixedMethodCall: Cannot determine the type of $f when calling method sequence
+/app/src/Spinner/Core/Widget/Widget.php:56:21:error - MixedArgument: Argument 2 of AlecRabbit\Spinner\Core\Frame::__construct cannot be mixed, expecting int
+/app/src/Spinner/Core/Widget/Widget.php:56:39:error - MixedOperand: Right operand cannot be mixed
+/app/src/Spinner/Core/Widget/Widget.php:56:43:error - MixedMethodCall: Cannot determine the type of $f when calling method width
+/app/src/Spinner/Core/Widget/Widget.php:85:27:error - PossiblyNullPropertyAssignmentValue: $this->interval with non-nullable declared type 'AlecRabbit\Spinner\Contract\IInterval' cannot be assigned nullable type 'AlecRabbit\Spinner\Contract\IInterval|null'
 /app/src/Spinner/Core/Widget/WidgetBuilder.php:24:13:error - PossiblyNullArgument: Argument 1 of AlecRabbit\Spinner\Core\Widget\Widget::__construct cannot be null, possibly null value provided
 /app/src/Spinner/Core/Widget/WidgetBuilder.php:25:13:error - PossiblyNullArgument: Argument 2 of AlecRabbit\Spinner\Core\Widget\Widget::__construct cannot be null, possibly null value provided
 /app/src/Spinner/Core/Widget/WidgetBuilder.php:26:13:error - PossiblyNullArgument: Argument 3 of AlecRabbit\Spinner\Core\Widget\Widget::__construct cannot be null, possibly null value provided
@@ -180,8 +181,9 @@
 /app/src/Spinner/Core/Widget/WidgetContextContainer.php:65:20:error - MixedReturnStatement: Could not infer a return type
 /app/src/Spinner/Core/Widget/WidgetIntervalContainer.php:52:36:error - MixedAssignment: Unable to determine the type that $i is being assigned to
 /app/src/Spinner/Core/Widget/WidgetIntervalContainer.php:53:44:error - MixedArgument: Argument 1 of AlecRabbit\Spinner\Core\Widget\WidgetIntervalContainer::updateSmallestOnAdd cannot be mixed, expecting AlecRabbit\Spinner\Contract\IInterval
-/app/src/Spinner/Core/Widget/WidgetRevolverBuilder.php:23:13:error - PossiblyNullArgument: Argument 1 of AlecRabbit\Spinner\Core\Widget\WidgetRevolver::__construct cannot be null, possibly null value provided
-/app/src/Spinner/Core/Widget/WidgetRevolverBuilder.php:24:13:error - PossiblyNullArgument: Argument 2 of AlecRabbit\Spinner\Core\Widget\WidgetRevolver::__construct cannot be null, possibly null value provided
+/app/src/Spinner/Core/Widget/WidgetRevolverBuilder.php:24:17:error - PossiblyNullArgument: Argument 1 of AlecRabbit\Spinner\Core\Widget\WidgetRevolver::__construct cannot be null, possibly null value provided
+/app/src/Spinner/Core/Widget/WidgetRevolverBuilder.php:25:17:error - PossiblyNullArgument: Argument 2 of AlecRabbit\Spinner\Core\Widget\WidgetRevolver::__construct cannot be null, possibly null value provided
+/app/src/Spinner/Core/Widget/WidgetRevolverBuilder.php:26:17:error - PossiblyNullArgument: Argument 3 of AlecRabbit\Spinner\Core\Widget\WidgetRevolver::__construct cannot be null, possibly null value provided
 /app/src/Spinner/Core/WidthMeasurer.php:25:9:error - MixedAssignment: Unable to determine the type that $returnType is being assigned to
 /app/src/Spinner/Core/WidthMeasurer.php:25:54:error - UndefinedMethod: Method ReflectionType::getName does not exist
 /app/src/Spinner/Core/WidthMeasurer.php:26:9:error - MixedAssignment: Unable to determine the type that $parameterType is being assigned to
