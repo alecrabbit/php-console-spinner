@@ -32,7 +32,7 @@ final class SpinnerTest extends TestCaseWithPrebuiltMocksAndStubs
     }
 
     #[Test]
-    public function canUpdate(): void
+    public function canGetFrame(): void
     {
         $frame = $this->getFrameMock();
         $rootWidget = $this->getWidgetMock();
@@ -45,6 +45,25 @@ final class SpinnerTest extends TestCaseWithPrebuiltMocksAndStubs
 
         self::assertInstanceOf(Spinner::class, $spinner);
         self::assertSame($frame, $spinner->getFrame());
+    }
+
+    #[Test]
+    public function canNotifyOnUpdateFromRootWidget(): void
+    {
+        $rootWidget = $this->getWidgetMock();
+        $observer = $this->getObserverMock();
+        $observer
+            ->expects(self::once())
+            ->method('update')
+        ;
+        $spinner = $this->getTesteeInstance(
+            rootWidget: $rootWidget,
+            observer: $observer
+        );
+
+        self::assertInstanceOf(Spinner::class, $spinner);
+
+        $spinner->update($rootWidget);
     }
 
     #[Test]

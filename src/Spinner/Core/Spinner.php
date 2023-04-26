@@ -64,7 +64,14 @@ final class Spinner implements ISpinner
 
     public function update(SplSubject $subject): void
     {
-        // TODO: Implement update() method.
+        if ($subject === $this->rootWidget) {
+            $this->notify();
+        }
+    }
+
+    public function notify(): void
+    {
+        $this->observer?->update($this);
     }
 
     public function detach(SplObserver $observer): void
@@ -72,10 +79,5 @@ final class Spinner implements ISpinner
         if ($this->observer === $observer) {
             $this->observer = null;
         }
-    }
-
-    public function notify(): void
-    {
-        $this->observer?->update($this);
     }
 }
