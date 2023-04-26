@@ -35,7 +35,7 @@ final class WidgetSettingsBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
             $widgetSettingsBuilder
                 ->withLeadingSpacer($this->getFrameMock())
                 ->withTrailingSpacer($this->getFrameMock())
-                ->withStylePattern($this->getPatternMock())
+                ->withStylePattern($this->getStylePatternMock())
                 ->withCharPattern($this->getPatternMock())
                 ->build()
         ;
@@ -56,7 +56,7 @@ final class WidgetSettingsBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
             $widgetSettings =
                 $widgetSettingsBuilder
                     ->withTrailingSpacer($this->getFrameMock())
-                    ->withStylePattern($this->getPatternMock())
+                    ->withStylePattern($this->getStylePatternMock())
                     ->withCharPattern($this->getPatternMock())
                     ->build()
             ;
@@ -83,7 +83,7 @@ final class WidgetSettingsBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
             $widgetSettings =
                 $widgetSettingsBuilder
                     ->withLeadingSpacer($this->getFrameMock())
-                    ->withStylePattern($this->getPatternMock())
+                    ->withStylePattern($this->getStylePatternMock())
                     ->withCharPattern($this->getPatternMock())
                     ->build()
             ;
@@ -138,7 +138,7 @@ final class WidgetSettingsBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
                 $widgetSettingsBuilder
                     ->withLeadingSpacer($this->getFrameMock())
                     ->withTrailingSpacer($this->getFrameMock())
-                    ->withStylePattern($this->getPatternMock())
+                    ->withStylePattern($this->getStylePatternMock())
                     ->build()
             ;
 

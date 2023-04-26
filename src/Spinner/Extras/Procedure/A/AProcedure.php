@@ -9,5 +9,5 @@ use AlecRabbit\Spinner\Contract\IProcedure;
 
 abstract class AProcedure implements IProcedure
 {
-    abstract public function update(?float $dt = null): IFrame;
+    abstract public function getFrame(?float $dt = null): IFrame;
 }

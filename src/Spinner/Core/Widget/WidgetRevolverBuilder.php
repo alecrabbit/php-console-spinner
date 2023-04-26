@@ -13,6 +13,7 @@ final class WidgetRevolverBuilder extends ARevolverBuilder implements IWidgetRev
 {
     protected ?IRevolver $styleRevolver = null;
     protected ?IRevolver $charRevolver = null;
+    private ?int $tolerance = null;
 
     public function build(): IRevolver
     {
@@ -29,6 +30,7 @@ final class WidgetRevolverBuilder extends ARevolverBuilder implements IWidgetRev
         match (true) {
             null === $this->styleRevolver => throw new LogicException('Style revolver is not set.'),
             $this->charRevolver === null => throw new LogicException('Character revolver is not set.'),
+            $this->tolerance === null => $this->tolerance = IRevolver::TOLERANCE, // FIXME (2023-04-21 20:52) [Alec Rabbit]: it should throw
             default => null,
         };
     }
@@ -44,6 +46,13 @@ final class WidgetRevolverBuilder extends ARevolverBuilder implements IWidgetRev
     {
         $clone = clone $this;
         $clone->charRevolver = $charRevolver;
+        return $clone;
+    }
+
+    public function withTolerance(int $tolerance): IWidgetRevolverBuilder
+    {
+        $clone = clone $this;
+        $clone->tolerance = $tolerance;
         return $clone;
     }
 }

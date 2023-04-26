@@ -9,7 +9,6 @@ namespace AlecRabbit\Tests\Unit\Spinner\Core;
 use AlecRabbit\Spinner\Core\Contract\ICharFrameRenderer;
 use AlecRabbit\Spinner\Core\Factory\Contract\IFrameFactory;
 use AlecRabbit\Spinner\Core\Render\CharFrameRenderer;
-use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;
 
@@ -61,22 +60,5 @@ final class CharFrameRendererTest extends TestCaseWithPrebuiltMocksAndStubs
 
         $charFrameRenderer = $this->getTesteeInstance(frameFactory: $frameFactory);
         self::assertSame($frameMock, $charFrameRenderer->emptyFrame());
-    }
-
-    #[Test]
-    public function throwsIfInvalidArgumentPassedToRenderMethod(): void
-    {
-        $exceptionClass = InvalidArgumentException::class;
-        $exceptionMessage = 'Entry should be type of "string",';
-
-        $test = function (): void {
-            $this->getTesteeInstance()->render(1);
-        };
-
-        $this->wrapExceptionTest(
-            test: $test,
-            exceptionOrExceptionClass: $exceptionClass,
-            exceptionMessage: $exceptionMessage,
-        );
     }
 }

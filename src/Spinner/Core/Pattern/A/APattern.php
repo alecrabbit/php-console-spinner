@@ -1,30 +1,34 @@
 <?php
 
 declare(strict_types=1);
-// 19.04.23
+
+// 10.03.23
+
 namespace AlecRabbit\Spinner\Core\Pattern\A;
 
-use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Contract\Pattern\IPattern;
-use AlecRabbit\Spinner\Core\Interval;
 use Traversable;
 
-abstract readonly class APattern implements IPattern
+abstract class APattern implements IPattern
 {
     public function __construct(
-        protected Traversable $entries,
-        protected Interval $interval,
+        protected ?Traversable $entries = null,
+        protected ?int $interval = null,
     ) {
     }
 
-    public function getEntries(): Traversable
+    public function getEntries(): ?Traversable
     {
-        // TODO: Implement getEntries() method.
+        return $this->entries;
     }
 
-    public function getInterval(): IInterval
+    public function getInterval(): ?int
     {
-        // TODO: Implement getInterval() method.
+        return $this->interval;
     }
 
+    public function isReversed(): bool
+    {
+        return false;
+    }
 }

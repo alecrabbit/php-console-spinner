@@ -6,18 +6,18 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Defaults;
 
+use AlecRabbit\Spinner\Core\Config\Contract\IWidgetConfig;
+use AlecRabbit\Spinner\Core\Config\WidgetConfig;
 use AlecRabbit\Spinner\Core\Contract\IDefaultsProvider;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IAuxSettingsBuilder;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDefaultsProviderBuilder;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDriverSettingsBuilder;
-use AlecRabbit\Spinner\Core\Defaults\Contract\IWidgetSettings;
-use AlecRabbit\Spinner\Core\Defaults\Contract\IWidgetSettingsBuilder;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopSettingsFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ITerminalSettingsFactory;
 use AlecRabbit\Spinner\Core\Frame;
-use AlecRabbit\Spinner\Core\Pattern\CharPattern\NoCharPattern;
 use AlecRabbit\Spinner\Core\Pattern\CharPattern\Snake;
-use AlecRabbit\Spinner\Core\Pattern\StylePattern\NoStylePattern;
+use AlecRabbit\Spinner\Core\Pattern\NoCharPattern;
+use AlecRabbit\Spinner\Core\Pattern\NoStylePattern;
 use AlecRabbit\Spinner\Core\Pattern\StylePattern\Rainbow;
 
 final class DefaultsProviderBuilder implements IDefaultsProviderBuilder
@@ -27,43 +27,37 @@ final class DefaultsProviderBuilder implements IDefaultsProviderBuilder
         protected ITerminalSettingsFactory $terminalSettingsFactory,
         protected IAuxSettingsBuilder $auxSettingsBuilder,
         protected IDriverSettingsBuilder $driverSettingsBuilder,
-        protected IWidgetSettingsBuilder $widgetSettingsBuilder,
-        protected IWidgetSettingsBuilder $rootWidgetSettingsBuilder,
     ) {
     }
 
     public function build(): IDefaultsProvider
     {
-        $widgetSettings = $this->getWidgetSettings();
         return new DefaultsProvider(
             auxSettings: $this->auxSettingsBuilder->build(),
             terminalSettings: $this->terminalSettingsFactory->createTerminalSettings(),
             loopSettings: $this->loopSettingsFactory->createLoopSettings(),
             driverSettings: $this->driverSettingsBuilder->build(),
-            widgetSettings: $widgetSettings,
-            rootWidgetSettings: $this->getRootWidgetSettings($widgetSettings),
+            widgetConfig: $this->getWidgetConfig(),
+            rootWidgetConfig: $this->getRootWidgetConfig(),
         );
     }
 
-    private function getWidgetSettings(): IWidgetSettings
+    protected function getWidgetConfig(): IWidgetConfig
     {
-        return $this->widgetSettingsBuilder
-            ->withLeadingSpacer(Frame::createEmpty())
-            ->withTrailingSpacer(Frame::createSpace())
-            ->withStylePattern(new NoStylePattern())
-            ->withCharPattern(new NoCharPattern())
-            ->build()
-        ;
+        return new WidgetConfig(
+            leadingSpacer: Frame::createEmpty(),
+            trailingSpacer: Frame::createSpace(),
+            stylePattern: new NoStylePattern(),
+            charPattern: new NoCharPattern(),
+        );
     }
 
-    private function getRootWidgetSettings(IWidgetSettings $widgetSettings): Contract\IWidgetSettings
+    protected function getRootWidgetConfig(): IWidgetConfig
     {
-        return $this->widgetSettingsBuilder
-            ->withLeadingSpacer($widgetSettings->getLeadingSpacer())
-            ->withTrailingSpacer($widgetSettings->getTrailingSpacer())
-            ->withStylePattern(new Rainbow())
-            ->withCharPattern(new Snake())
-            ->build()
-        ;
+        return
+            new WidgetConfig(
+                stylePattern: new Rainbow(),
+                charPattern: new Snake(),
+            );
     }
 }

@@ -8,11 +8,12 @@ namespace AlecRabbit\Spinner\Core\Render;
 
 use AlecRabbit\Spinner\Contract\Color\Style\IStyle;
 use AlecRabbit\Spinner\Contract\IFrame;
+use AlecRabbit\Spinner\Contract\Option\OptionStyleMode;
 use AlecRabbit\Spinner\Core\Contract\IFrameCollection;
 use AlecRabbit\Spinner\Core\Factory\Contract\IStyleFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IStyleFrameRendererFactory;
 use AlecRabbit\Spinner\Core\FrameCollection;
-use AlecRabbit\Spinner\Core\Pattern\Contract\IStyleLegacyPattern;
+use AlecRabbit\Spinner\Core\Pattern\Contract\IStylePattern;
 use AlecRabbit\Spinner\Core\Render\Contract\IStyleFrameCollectionRenderer;
 use AlecRabbit\Spinner\Core\Render\Contract\IStyleFrameRenderer;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
@@ -29,9 +30,12 @@ final class StyleFrameCollectionRenderer implements IStyleFrameCollectionRendere
     ) {
     }
 
-    public function render(IStyleLegacyPattern $pattern): IFrameCollection
+    public function render(IStylePattern $pattern): IFrameCollection
     {
-        $this->styleFrameRenderer =
+        if (OptionStyleMode::NONE === $pattern->getStyleMode()) {
+            return new FrameCollection($this->generateFrames($pattern));
+        }
+        $this->styleFrameRenderer = // TODO (2023-04-20 13:50) [Alec Rabbit]: can be retrieved from the container?
             $this->styleFrameRendererFactory->create(
                 $pattern->getStyleMode()
             );
@@ -42,7 +46,7 @@ final class StyleFrameCollectionRenderer implements IStyleFrameCollectionRendere
     /**
      * @throws InvalidArgumentException
      */
-    private function generateFrames(IStyleLegacyPattern $pattern): Traversable
+    private function generateFrames(IStylePattern $pattern): Traversable
     {
         /** @var IFrame|Stringable|string|IStyle $entry */
         foreach ($pattern->getEntries() as $entry) {

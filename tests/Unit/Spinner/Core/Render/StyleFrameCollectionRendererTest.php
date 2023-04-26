@@ -63,13 +63,13 @@ final class StyleFrameCollectionRendererTest extends TestCaseWithPrebuiltMocksAn
         ;
 
         $collectionRenderer = $this->getTesteeInstance(
-            $styleFrameRendererFactory,
-            $styleFactory
+            styleFrameRendererFactory: $styleFrameRendererFactory,
+            styleFactory: $styleFactory,
         );
 
         $pattern = $this->getStylePatternMock();
         $pattern
-            ->expects(self::once())
+            ->expects(self::exactly(2))
             ->method('getStyleMode')
             ->willReturn($styleMode)
         ;
@@ -109,13 +109,13 @@ final class StyleFrameCollectionRendererTest extends TestCaseWithPrebuiltMocksAn
         ;
 
         $collectionRenderer = $this->getTesteeInstance(
-            $styleFrameRendererFactory,
-            $styleFactory
+            styleFrameRendererFactory: $styleFrameRendererFactory,
+            styleFactory: $styleFactory,
         );
 
         $pattern = $this->getStylePatternMock();
         $pattern
-            ->expects(self::once())
+            ->expects(self::exactly(2))
             ->method('getStyleMode')
             ->willReturn($styleMode)
         ;
@@ -154,13 +154,13 @@ final class StyleFrameCollectionRendererTest extends TestCaseWithPrebuiltMocksAn
         ;
 
         $collectionRenderer = $this->getTesteeInstance(
-            $styleFrameRendererFactory,
-            $styleFactory
+            styleFrameRendererFactory: $styleFrameRendererFactory,
+            styleFactory: $styleFactory,
         );
 
         $pattern = $this->getStylePatternMock();
         $pattern
-            ->expects(self::once())
+            ->expects(self::exactly(2))
             ->method('getStyleMode')
             ->willReturn($styleMode)
         ;
@@ -200,13 +200,13 @@ final class StyleFrameCollectionRendererTest extends TestCaseWithPrebuiltMocksAn
         ;
 
         $collectionRenderer = $this->getTesteeInstance(
-            $styleFrameRendererFactory,
-            $styleFactory
+            styleFrameRendererFactory: $styleFrameRendererFactory,
+            styleFactory: $styleFactory,
         );
 
         $pattern = $this->getStylePatternMock();
         $pattern
-            ->expects(self::once())
+            ->expects(self::exactly(2))
             ->method('getStyleMode')
             ->willReturn($styleMode)
         ;

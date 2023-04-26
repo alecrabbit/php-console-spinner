@@ -6,12 +6,12 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Defaults;
 
+use AlecRabbit\Spinner\Core\Config\Contract\IWidgetConfig;
 use AlecRabbit\Spinner\Core\Contract\IDefaultsProvider;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IAuxSettings;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IDriverSettings;
 use AlecRabbit\Spinner\Core\Defaults\Contract\ILoopSettings;
 use AlecRabbit\Spinner\Core\Defaults\Contract\ITerminalSettings;
-use AlecRabbit\Spinner\Core\Defaults\Contract\IWidgetSettings;
 
 final class DefaultsProvider implements IDefaultsProvider
 {
@@ -20,19 +20,19 @@ final class DefaultsProvider implements IDefaultsProvider
         protected ITerminalSettings $terminalSettings,
         protected ILoopSettings $loopSettings,
         protected IDriverSettings $driverSettings,
-        protected IWidgetSettings $widgetSettings,
-        protected IWidgetSettings $rootWidgetSettings,
+        protected IWidgetConfig $widgetConfig,
+        protected IWidgetConfig $rootWidgetConfig,
     ) {
     }
 
-    public function getRootWidgetSettings(): IWidgetSettings
+    public function getRootWidgetConfig(): IWidgetConfig
     {
-        return $this->rootWidgetSettings;
+        return $this->rootWidgetConfig;
     }
 
-    public function getWidgetSettings(): IWidgetSettings
+    public function getWidgetConfig(): IWidgetConfig
     {
-        return $this->widgetSettings;
+        return $this->widgetConfig;
     }
 
     public function getDriverSettings(): IDriverSettings

@@ -10,13 +10,15 @@ use AlecRabbit\Spinner\Container\Contract\IContainer;
 use AlecRabbit\Spinner\Contract\Color\Style\IStyle;
 use AlecRabbit\Spinner\Contract\Color\Style\IStyleOptionsParser;
 use AlecRabbit\Spinner\Contract\IAnsiColorParser;
+use AlecRabbit\Spinner\Contract\IComboSubjectObserver;
 use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Contract\IInterval;
+use AlecRabbit\Spinner\Contract\IObserver;
 use AlecRabbit\Spinner\Contract\ITimer;
 use AlecRabbit\Spinner\Contract\Output\IBufferedOutput;
 use AlecRabbit\Spinner\Contract\Output\IOutput;
 use AlecRabbit\Spinner\Contract\Output\IResourceStream;
-use AlecRabbit\Spinner\Contract\Pattern\ILegacyPattern;
+use AlecRabbit\Spinner\Contract\Pattern\IPattern;
 use AlecRabbit\Spinner\Core\Config\Contract\ISpinnerConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IWidgetConfig;
 use AlecRabbit\Spinner\Core\Contract\IBufferedOutputBuilder;
@@ -51,6 +53,7 @@ use AlecRabbit\Spinner\Core\Defaults\Contract\IWidgetSettings;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IWidgetSettingsBuilder;
 use AlecRabbit\Spinner\Core\Factory\Contract\IAnsiColorParserFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IBufferedOutputSingletonFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\ICharFrameRevolverFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IConsoleCursorFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDriverOutputFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IFrameFactory;
@@ -62,13 +65,15 @@ use AlecRabbit\Spinner\Core\Factory\Contract\ILoopSetupFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopSingletonFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IStyleFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IStyleFrameRendererFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\IStyleFrameRevolverFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IStyleRendererFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IStyleToAnsiStringConverterFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ITerminalSettingsFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ITimerFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\IWidgetSettingsFactory;
 use AlecRabbit\Spinner\Core\Output\Contract\IConsoleCursor;
 use AlecRabbit\Spinner\Core\Output\Contract\IDriverOutput;
-use AlecRabbit\Spinner\Core\Pattern\Contract\IStyleLegacyPattern;
+use AlecRabbit\Spinner\Core\Pattern\Contract\IStylePattern;
 use AlecRabbit\Spinner\Core\Render\Contract\ICharFrameCollectionRenderer;
 use AlecRabbit\Spinner\Core\Render\Contract\IStyleFrameCollectionRenderer;
 use AlecRabbit\Spinner\Core\Render\Contract\IStyleFrameRenderer;
@@ -78,11 +83,14 @@ use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolver;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolverBuilder;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
 use AlecRabbit\Spinner\Core\Terminal\Contract\ITerminalProbe;
+use AlecRabbit\Spinner\Core\Widget\Contract\IWidget;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetBuilder;
-use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContext;
+use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContextContainer;
+use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetIntervalContainer;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolverBuilder;
 use AlecRabbit\Spinner\Core\Widget\Factory\Contract\IWidgetFactory;
+use AlecRabbit\Spinner\Core\Widget\Factory\Contract\IWidgetRevolverFactory;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\MockObject\Stub;
 
@@ -93,19 +101,44 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
         return $this->createStub(IWidgetConfig::class);
     }
 
+    protected function getWidgetIntervalContainerMock(): MockObject&IWidgetIntervalContainer
+    {
+        return $this->createMock(IWidgetIntervalContainer::class);
+    }
+
     protected function getFrameMock(): MockObject&IFrame
     {
         return $this->createMock(IFrame::class);
     }
 
-    protected function getPatternMock(): MockObject&ILegacyPattern
+    protected function getWidgetContextContainerMock(): MockObject&IWidgetContextContainer
     {
-        return $this->createMock(ILegacyPattern::class);
+        return $this->createMock(IWidgetContextContainer::class);
     }
 
-    protected function getStylePatternMock(): MockObject&IStyleLegacyPattern
+    protected function getObserverMock(): MockObject&IObserver
     {
-        return $this->createMock(IStyleLegacyPattern::class);
+        return $this->createMock(IObserver::class);
+    }
+
+    protected function getWidgetMock(): MockObject&IWidget
+    {
+        return $this->createMock(IWidget::class);
+    }
+
+    protected function getComboSubjectObserverMock(): MockObject&IComboSubjectObserver
+    {
+        return $this->createMock(IComboSubjectObserver::class);
+    }
+
+    protected function getPatternMock(): MockObject&IPattern
+    {
+        return $this->createMock(IPattern::class);
+    }
+
+    protected function getStylePatternMock(): MockObject&IStylePattern
+    {
+        return $this->createMock(IStylePattern::class);
     }
 
     protected function getWidgetSettingsMock(): MockObject&IWidgetSettings
@@ -123,24 +156,34 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
         return $this->createMock(IWidgetRevolverBuilder::class);
     }
 
+    protected function getCharFrameRevolverFactoryMock(): MockObject&ICharFrameRevolverFactory
+    {
+        return $this->createMock(ICharFrameRevolverFactory::class);
+    }
+
+    protected function getStyleFrameRevolverFactoryMock(): MockObject&IStyleFrameRevolverFactory
+    {
+        return $this->createMock(IStyleFrameRevolverFactory::class);
+    }
+
     protected function getRevolverMock(): MockObject&IRevolver
     {
         return $this->createMock(IRevolver::class);
     }
 
-    protected function getConfigBuilderMock(): MockObject&IConfigBuilder
-    {
-        return $this->createMock(IConfigBuilder::class);
-    }
-
-    protected function getLoopInitializerMock(): MockObject&ILoopSetup
-    {
-        return $this->createMock(ILoopSetup::class);
-    }
-
     protected function getWidgetBuilderMock(): MockObject&IWidgetBuilder
     {
         return $this->createMock(IWidgetBuilder::class);
+    }
+
+    protected function getWidgetRevolverFactoryMock(): MockObject&IWidgetRevolverFactory
+    {
+        return $this->createMock(IWidgetRevolverFactory::class);
+    }
+
+    protected function getWidgetRevolverMock(): MockObject&IRevolver
+    {
+        return $this->createMock(IRevolver::class);
     }
 
     protected function getLoopProbeFactoryMock(): MockObject&ILoopProbeFactory
@@ -181,6 +224,11 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
     protected function getWidgetFactoryMock(): MockObject&IWidgetFactory
     {
         return $this->createMock(IWidgetFactory::class);
+    }
+
+    protected function getWidgetSettingsFactoryMock(): MockObject&IWidgetSettingsFactory
+    {
+        return $this->createMock(IWidgetSettingsFactory::class);
     }
 
     protected function getAuxSettingsMock(): MockObject&IAuxSettings
@@ -323,19 +371,14 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
         return $this->createMock(IWidthMeasurer::class);
     }
 
-    protected function getPatternStub(): Stub&ILegacyPattern
+    protected function getPatternStub(): Stub&IPattern
     {
-        return $this->createStub(ILegacyPattern::class);
+        return $this->createStub(IPattern::class);
     }
 
     protected function getFrameStub(): Stub&IFrame
     {
         return $this->createStub(IFrame::class);
-    }
-
-    protected function getWidgetCompositeMock(): MockObject&IWidgetComposite
-    {
-        return $this->createMock(IWidgetComposite::class);
     }
 
     protected function getOutputMock(): MockObject&IOutput
@@ -506,6 +549,13 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
     protected function getFrameCollectionMock(): MockObject&IFrameCollection
     {
         return $this->createMock(IFrameCollection::class);
+    }
+
+    protected function getOneElementFrameCollectionMock(): MockObject&IFrameCollection
+    {
+        $mockObject = $this->createMock(IFrameCollection::class);
+        $mockObject->method('count')->willReturn(1);
+        return $mockObject;
     }
 
     protected function getStyleFrameCollectionRendererMock(): MockObject&IStyleFrameCollectionRenderer

@@ -13,7 +13,9 @@ interface IFrameRevolverBuilder
 {
     public function build(): IFrameRevolver;
 
-    public function withFrames(IFrameCollection $frames): IFrameRevolverBuilder;
+    public function withFrameCollection(IFrameCollection $frames): IFrameRevolverBuilder;
 
     public function withInterval(IInterval $interval): IFrameRevolverBuilder;
+
+    public function withTolerance(int $tolerance): IFrameRevolverBuilder;
 }

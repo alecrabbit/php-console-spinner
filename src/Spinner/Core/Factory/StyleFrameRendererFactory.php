@@ -25,10 +25,11 @@ final class StyleFrameRendererFactory implements IStyleFrameRendererFactory
     public function create(OptionStyleMode $mode): IStyleFrameRenderer
     {
         $styleMode = $this->styleMode->lowest($mode);
-        return new StyleFrameRenderer(
-            frameFactory: $this->frameFactory,
-            styleRenderer: $this->styleRendererFactory->create($styleMode),
-            styleMode: $styleMode,
-        );
+        return
+            new StyleFrameRenderer(
+                frameFactory: $this->frameFactory,
+                styleRenderer: $this->styleRendererFactory->create($styleMode),
+                styleMode: $styleMode,
+            );
     }
 }

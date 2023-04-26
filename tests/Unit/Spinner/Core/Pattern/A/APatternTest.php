@@ -4,36 +4,32 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Pattern\A;
 
-
 use AlecRabbit\Spinner\Contract\Pattern\IPattern;
-use AlecRabbit\Spinner\Core\Interval;
 use AlecRabbit\Spinner\Core\Pattern\A\APattern;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
-use AlecRabbit\Tests\Unit\Spinner\Core\Pattern\Override\APatternOverride;
+use Traversable;
 
 final class APatternTest extends TestCase
 {
     #[Test]
     public function canBeCreated(): void
     {
-        $entries = new \ArrayObject([]);
-        $interval = new Interval();
-        $pattern = $this->getTesteeInstance(
-            entries: $entries,
-            interval: $interval,
-        );
+        $pattern = $this->getTesteeInstance();
         self::assertInstanceOf(APattern::class, $pattern);
+        self::assertNull($pattern->getEntries());
+        self::assertNull($pattern->getInterval());
     }
 
     protected function getTesteeInstance(
-        ?\Traversable $entries = null,
-        ?Interval $interval = null,
+        ?Traversable $entries = null,
+        ?int $interval = null,
     ): IPattern {
         return
-            new APatternOverride(
-                entries: $entries ?? new \ArrayObject([]),
-                interval: $interval ?? new Interval(),
-            );
+            new class(
+                entries: $entries,
+                interval: $interval,
+            ) extends APattern {
+            };
     }
 }

@@ -10,7 +10,7 @@ interface IIntervalFactory
 {
     public function createDefault(): IInterval;
 
-    public function createNormalized(int $interval): IInterval;
+    public function createNormalized(?int $interval): IInterval;
 
     public function createStill(): IInterval;
 }
