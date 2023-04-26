@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Core\A;
+namespace AlecRabbit\Tests\Unit\Spinner\Core\A;
 
 use AlecRabbit\Spinner\Contract\IFloatValue;
 use AlecRabbit\Spinner\Core\A\AFloatValue;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
-use AlecRabbit\Tests\Spinner\TestCase\TestCase;
+use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 
@@ -62,12 +62,11 @@ final class AFloatValueTest extends TestCase
             [
                 self::EXCEPTION => [
                     self::CLASS_ => InvalidArgumentException::class,
-                    self::MESSAGE =>
-                        sprintf(
-                            'Max value should be greater than min value. Min: "%s", Max: "%s".',
-                            1,
-                            0
-                        ),
+                    self::MESSAGE => sprintf(
+                        'Max value should be greater than min value. Min: "%s", Max: "%s".',
+                        1,
+                        0
+                    ),
                 ],
             ],
             [
@@ -110,8 +109,7 @@ final class AFloatValueTest extends TestCase
 
     public static function getTesteeInstance(array $args = []): IFloatValue
     {
-        return
-            new class(...$args) extends AFloatValue {
-            };
+        return new class(...$args) extends AFloatValue {
+        };
     }
 }

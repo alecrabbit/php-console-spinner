@@ -6,5 +6,5 @@ namespace AlecRabbit\Spinner\Contract;
 
 interface IRenderable
 {
-    public function render(float $dt = null): void;
+    public function render(?float $dt = null): void;
 }

@@ -1,24 +1,25 @@
 <?php
 
 declare(strict_types=1);
+
 // 09.03.23
 
 namespace AlecRabbit\Spinner\Core\Defaults\Contract;
 
-use AlecRabbit\Spinner\Contract\OptionAutoStart;
-use AlecRabbit\Spinner\Contract\OptionSignalHandlers;
+use AlecRabbit\Spinner\Contract\Option\OptionAttachHandlers;
+use AlecRabbit\Spinner\Contract\Option\OptionAutoStart;
 
-interface ILoopSettings extends IDefaultsChild
+interface ILoopSettings
 {
-    public static function getInstance(
-        IDefaults $parent,
-    ): ILoopSettings;
+    public function isAutoStartEnabled(): bool;
 
-    public function getAutoStartOption(): OptionAutoStart;
+    public function setOptionAutoStart(OptionAutoStart $optionAutoStart): ILoopSettings;
 
-    public function getSignalHandlersOption(): OptionSignalHandlers;
+    public function isAttachHandlersEnabled(): bool;
 
-    public function overrideSignalHandlersOption(OptionSignalHandlers $signalHandlersOption): ILoopSettings;
+    public function setAttachHandlersOption(OptionAttachHandlers $optionAttachHandlers): ILoopSettings;
 
-    public function overrideAutoStartOption(OptionAutoStart $autoStartOption): ILoopSettings;
+    public function isLoopAvailable(): bool;
+
+    public function isSignalProcessingAvailable(): bool;
 }

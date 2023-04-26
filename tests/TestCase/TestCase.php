@@ -1,31 +1,35 @@
 <?php
 
 declare(strict_types=1);
-// 16.06.22
-namespace AlecRabbit\Tests\Spinner\TestCase;
 
-use AlecRabbit\Tests\Spinner\Helper\PickLock;
-use AlecRabbit\Tests\Spinner\Mixin\AppRelatedConstantsTrait;
+// 16.06.22
+
+namespace AlecRabbit\Tests\TestCase;
+
+use AlecRabbit\Spinner\Helper\Stringify;
+use AlecRabbit\Tests\Helper\PickLock;
+use AlecRabbit\Tests\Mixin\AppRelatedConstTrait;
 use ArrayAccess;
 use PHPUnit\Framework\TestCase as PHPUnitTestCase;
 use Throwable;
 
 use function array_key_exists;
 use function is_array;
+use function is_string;
 
 abstract class TestCase extends PHPUnitTestCase
 {
-    use AppRelatedConstantsTrait;
+    use AppRelatedConstTrait;
 
     final protected const REPEATS = 10;
     final protected const FLOAT_EQUALITY_DELTA = 0.0000001;
 
-    protected static function getValue(string $property, mixed $from): mixed
+    protected static function getPropertyValue(string $property, mixed $from): mixed
     {
         return PickLock::getValue($from, $property);
     }
 
-    protected static function setValue(object|string $objectOrClass, string $propertyName, mixed $value): void
+    protected static function setPropertyValue(object|string $objectOrClass, string $propertyName, mixed $value): void
     {
         PickLock::setValue($objectOrClass, $propertyName, $value);
     }
@@ -35,25 +39,28 @@ abstract class TestCase extends PHPUnitTestCase
         return PickLock::callMethod($objectOrClass, $methodName, ...$args);
     }
 
-    protected static function exceptionNotThrown(
-        string|Throwable $e,
-        ?string $exceptionMessage = null,
-        ?array $dataSet = null
-    ): never {
-        if (is_string($e)) {
-            $e = new $e($exceptionMessage ?? '');
-        }
-        $message = sprintf(
-            'Exception [%s]%s is not thrown.',
-            $e::class,
-            $e->getMessage() === '' ? '' : ' with message: "' . $e->getMessage() . '"'
-        );
-
-        if (null !== $dataSet) {
-            dump($dataSet); // intentional dump
-        }
+    protected static function failTest(string|Throwable $messageOrException): never
+    {
+        $message =
+            is_string($messageOrException)
+                ? $messageOrException
+                : self::exceptionNotThrownString($messageOrException);
 
         self::fail($message);
+    }
+
+    protected static function exceptionNotThrownString(
+        string|Throwable $messageOrException,
+        ?string $exceptionMessage = null
+    ): string {
+        if (
+            is_string($messageOrException)
+            && class_exists($messageOrException)
+            && is_subclass_of($messageOrException, Throwable::class)
+        ) {
+            $messageOrException = new $messageOrException($exceptionMessage ?? '');
+        }
+        return 'Exception not thrown: ' . Stringify::throwable($messageOrException);
     }
 
     protected function setUp(): void
@@ -64,14 +71,12 @@ abstract class TestCase extends PHPUnitTestCase
     {
     }
 
-    /**
-     * @param mixed $expected
-     * @return null|Throwable
-     */
     protected function expectsException(mixed $expected): ?Throwable
     {
-        if ((is_array($expected) || $expected instanceof ArrayAccess)
-            && array_key_exists(self::EXCEPTION, $expected)) {
+        if (
+            (is_array($expected) || $expected instanceof ArrayAccess)
+            && array_key_exists(self::EXCEPTION, $expected)
+        ) {
             $exceptionClass = $expected[self::EXCEPTION][self::CLASS_];
             $exceptionMessage = '';
             $this->expectException($exceptionClass);
@@ -82,5 +87,24 @@ abstract class TestCase extends PHPUnitTestCase
             return new $exceptionClass($exceptionMessage);
         }
         return null;
+    }
+
+    protected function wrapExceptionTest(
+        callable $test,
+        string|Throwable $exceptionOrExceptionClass,
+        ?string $exceptionMessage = null,
+        array $args = []
+    ): void {
+        $this->expectException($exceptionOrExceptionClass);
+        $this->expectExceptionMessage($exceptionMessage);
+
+        $test(...$args);
+
+        self::fail(
+            sprintf(
+                '%s',
+                self::exceptionNotThrownString($exceptionOrExceptionClass, $exceptionMessage)
+            )
+        );
     }
 }

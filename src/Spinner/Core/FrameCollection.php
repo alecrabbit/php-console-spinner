@@ -1,19 +1,22 @@
 <?php
 
 declare(strict_types=1);
+
 // 20.03.23
+
 namespace AlecRabbit\Spinner\Core;
 
 use AlecRabbit\Spinner\Contract\IFrame;
-use AlecRabbit\Spinner\Contract\IFrameCollection;
-use AlecRabbit\Spinner\Exception\DomainException;
+use AlecRabbit\Spinner\Core\Contract\IFrameCollection;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use ArrayObject;
 use Traversable;
 
 /**
  * @template T of IFrame
+ *
  * @extends ArrayObject<int,T>
+ *
  * @implements IFrameCollection<T>
  */
 final class FrameCollection extends ArrayObject implements IFrameCollection
@@ -25,6 +28,7 @@ final class FrameCollection extends ArrayObject implements IFrameCollection
     {
         parent::__construct();
         $this->initialize($frames);
+        self::assertIsNotEmpty($this);
     }
 
     /**
@@ -47,7 +51,7 @@ final class FrameCollection extends ArrayObject implements IFrameCollection
         if (!$frame instanceof IFrame) {
             throw new InvalidArgumentException(
                 sprintf(
-                    'Frame must be instance of %s. %s given.', // TODO: clarify message
+                    '"%s" expected, "%s" given.',
                     IFrame::class,
                     get_debug_type($frame)
                 )
@@ -55,13 +59,16 @@ final class FrameCollection extends ArrayObject implements IFrameCollection
         }
     }
 
-    /** @inheritdoc */
+    private static function assertIsNotEmpty(IFrameCollection $collection): void
+    {
+        if ($collection->count() === 0) {
+            throw new InvalidArgumentException('Collection is empty.');
+        }
+    }
+
     public function lastIndex(): int
     {
-        return
-            array_key_last($this->getArrayCopy())
-            ??
-            throw new DomainException('Empty collection.');
+        return array_key_last($this->getArrayCopy());
     }
 
     public function get(int $index): IFrame

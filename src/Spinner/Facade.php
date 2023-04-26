@@ -1,78 +1,91 @@
 <?php
 
 declare(strict_types=1);
-// 16.03.23
+
+// 29.03.23
 
 namespace AlecRabbit\Spinner;
 
-use AlecRabbit\Spinner\Core\Config\Contract\IConfig;
-use AlecRabbit\Spinner\Core\Config\Contract\IConfigBuilder;
-use AlecRabbit\Spinner\Core\Config\Contract\IConfigBuilderGetter;
-use AlecRabbit\Spinner\Core\Contract\ILoopAdapter;
-use AlecRabbit\Spinner\Core\Contract\ILoopHelper;
+use AlecRabbit\Spinner\Container\Contract\IContainer;
+use AlecRabbit\Spinner\Core\Config\Contract\ISpinnerConfig;
+use AlecRabbit\Spinner\Core\Contract\IDefaultsProvider;
+use AlecRabbit\Spinner\Core\Contract\IDriver;
+use AlecRabbit\Spinner\Core\Contract\IDriverAttacher;
+use AlecRabbit\Spinner\Core\Contract\IFacade;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
-use AlecRabbit\Spinner\Core\Factory\A\ADefaultsAwareClass;
-use AlecRabbit\Spinner\Core\Factory\A\ASpinnerFactory;
-use AlecRabbit\Spinner\Core\Factory\Contract\ILoopGetter;
+use AlecRabbit\Spinner\Core\Contract\Loop\Contract\ILoop;
+use AlecRabbit\Spinner\Core\Factory\ContainerSingletonFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\IDriverSingletonFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\ILoopSingletonFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ISpinnerFactory;
-use AlecRabbit\Spinner\Exception\DomainException;
-use AlecRabbit\Spinner\Exception\InvalidArgumentException;
-use AlecRabbit\Spinner\Helper\Asserter;
 
-final class Facade extends ADefaultsAwareClass implements
-    ISpinnerFactory,
-    IConfigBuilderGetter,
-    ILoopGetter
+final class Facade implements IFacade
 {
-    /** @var class-string<ILoopHelper>|null */
-    protected static ?string $loopHelperClass = null;
-
-    public static function getConfigBuilder(): IConfigBuilder
+    public static function getLoop(): ILoop
     {
-        return
-            ASpinnerFactory::getConfigBuilder();
+        return self::getLoopFactory()->getLoop();
     }
 
-    /**
-     * @throws DomainException
-     */
-    public static function createSpinner(IConfig $config = null): ISpinner
+    private static function getLoopFactory(): ILoopSingletonFactory
     {
-        return
-            ASpinnerFactory::createSpinner($config);
+        return self::getContainer()->get(ILoopSingletonFactory::class);
     }
 
-    /**
-     * @throws DomainException
-     */
-    public static function getLoop(): ILoopAdapter
+    private static function getContainer(): IContainer
     {
-        /** @var ILoopHelper $loopHelper */
-        $loopHelper = self::getLoopHelper();
-        return
-            $loopHelper::getLoopAdapter();
+        return ContainerSingletonFactory::getContainer();
     }
 
-    /**
-     * @return class-string<ILoopHelper>
-     * @throws DomainException
-     */
-    public static function getLoopHelper(): string
+    public static function useService(string $id, object|callable|string $service): void
     {
-        if (null === self::$loopHelperClass) {
-            throw new DomainException('LoopHelper class is not registered');
-        }
-        return self::$loopHelperClass;
+        $container = self::getContainer();
+
+        match ($container->has($id)) {
+            true => $container->replace($id, $service),
+            default => $container->add($id, $service),
+        };
     }
 
-    /**
-     * @param class-string<ILoopHelper> $class
-     * @throws InvalidArgumentException
-     */
-    public static function registerLoopHelperClass(string $class): void
+    public static function getDefaultsProvider(): IDefaultsProvider
     {
-        Asserter::assertClassExists($class);
-        Asserter::isSubClass($class, ILoopHelper::class);
-        self::$loopHelperClass = $class;
+        return self::getContainer()->get(IDefaultsProvider::class);
+    }
+
+    public static function createSpinner(?ISpinnerConfig $settings = null): ISpinner
+    {
+        $spinner =
+            self::getSpinnerFactory()
+                ->createSpinner($settings)
+        ;
+
+        $driver = self::getDriverFactory()
+            ->getDriver()
+        ;
+        $driver->add($spinner);
+
+        self::getDriverAttacher()
+            ->attach($driver)
+        ;
+        return $spinner;
+    }
+
+    private static function getSpinnerFactory(): ISpinnerFactory
+    {
+        return self::getContainer()->get(ISpinnerFactory::class);
+    }
+
+    public static function getDriver(): IDriver
+    {
+        return self::getDriverFactory()->getDriver();
+    }
+
+    private static function getDriverFactory(): IDriverSingletonFactory
+    {
+        return self::getContainer()->get(IDriverSingletonFactory::class);
+    }
+
+    private static function getDriverAttacher(): IDriverAttacher
+    {
+        return self::getContainer()->get(IDriverAttacher::class);
     }
 }

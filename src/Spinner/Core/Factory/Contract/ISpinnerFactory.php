@@ -2,12 +2,14 @@
 
 declare(strict_types=1);
 
+// 12.04.23
+
 namespace AlecRabbit\Spinner\Core\Factory\Contract;
 
-use AlecRabbit\Spinner\Core\Config\Contract\IConfig;
+use AlecRabbit\Spinner\Core\Config\Contract\ISpinnerConfig;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
 
 interface ISpinnerFactory
 {
-    public static function createSpinner(IConfig $config = null): ISpinner;
+    public function createSpinner(?ISpinnerConfig $config = null): ISpinner;
 }

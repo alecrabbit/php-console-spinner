@@ -1,25 +1,29 @@
 <?php
 
 declare(strict_types=1);
+
 // 17.02.23
 
 namespace AlecRabbit\Spinner\Asynchronous\Loop\Probe;
 
 use AlecRabbit\Spinner\Asynchronous\Loop\Adapter\RevoltLoopAdapter;
-use AlecRabbit\Spinner\Asynchronous\Loop\Probe\A\ALoopProbe;
-use AlecRabbit\Spinner\Core\Contract\ILoopAdapter;
+use AlecRabbit\Spinner\Core\Contract\Loop\A\ALoopProbe;
+use AlecRabbit\Spinner\Core\Contract\Loop\Contract\ILoop;
 use Revolt\EventLoop;
 
 use function class_exists;
 
+/**
+ * @codeCoverageIgnore
+ */
 class RevoltLoopProbe extends ALoopProbe
 {
-    public static function isSupported(): bool
+    public static function isAvailable(): bool
     {
         return class_exists(EventLoop::class);
     }
 
-    public static function createLoop(): ILoopAdapter
+    public function createLoop(): ILoop
     {
         return new RevoltLoopAdapter();
     }

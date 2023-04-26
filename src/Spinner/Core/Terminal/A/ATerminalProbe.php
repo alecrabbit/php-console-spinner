@@ -1,27 +1,28 @@
 <?php
 
 declare(strict_types=1);
+
 // 09.03.23
 
 namespace AlecRabbit\Spinner\Core\Terminal\A;
 
-use AlecRabbit\Spinner\Contract\OptionCursor;
-use AlecRabbit\Spinner\Contract\OptionStyleMode;
+use AlecRabbit\Spinner\Contract\Option\OptionCursor;
+use AlecRabbit\Spinner\Contract\Option\OptionStyleMode;
 use AlecRabbit\Spinner\Core\Terminal\Contract\ITerminalProbe;
-use AlecRabbit\Spinner\Mixin\NoInstanceTrait;
 
 abstract class ATerminalProbe implements ITerminalProbe
 {
-    use NoInstanceTrait;
+    abstract public function isAvailable(): bool;
 
-    abstract public static function isSupported(): bool;
+    abstract public function getWidth(): int;
 
-    abstract public static function getWidth(): int;
+    abstract public function getOptionStyleMode(): OptionStyleMode;
 
-    abstract public static function getColorMode(): OptionStyleMode;
-
-    public static function getCursorMode(): OptionCursor
+    public function getOptionCursor(): OptionCursor
     {
-        return ITerminalProbe::TERMINAL_DEFAULT_CURSOR_MODE;
+        return ITerminalProbe::DEFAULT_OPTION_CURSOR;
     }
+
+    /** @inheritdoc */
+    abstract public function getOutputStream();
 }

@@ -1,17 +1,12 @@
 <?php
 
 declare(strict_types=1);
-// 17.03.23
-namespace AlecRabbit\Spinner\Core\Config\Contract;
 
-use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
-use Traversable;
+// 12.04.23
+
+namespace AlecRabbit\Spinner\Core\Config\Contract;
 
 interface ISpinnerConfig
 {
-    public function isInitializationEnabled(): bool;
-
-    public function getWidgets(): Traversable;
-
-    public function getRootWidget(): IWidgetComposite;
+    public function getWidgetConfig(): IWidgetConfig;
 }

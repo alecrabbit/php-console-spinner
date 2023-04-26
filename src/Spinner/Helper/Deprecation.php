@@ -1,11 +1,12 @@
 <?php
 
 declare(strict_types=1);
+
 // 11.03.23
 
 namespace AlecRabbit\Spinner\Helper;
 
-use AlecRabbit\Spinner\Mixin\NoInstanceTrait;
+use AlecRabbit\Spinner\Mixin\NonInstantiable;
 
 use function trigger_error;
 
@@ -14,7 +15,7 @@ use const E_USER_DEPRECATED;
 /** @codeCoverageIgnore */
 final class Deprecation
 {
-    use NoInstanceTrait;
+    use NonInstantiable;
 
     public static function method(string $method, ?string $message = null): void
     {

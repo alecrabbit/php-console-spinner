@@ -6,6 +6,7 @@ namespace AlecRabbit\Spinner\Extras\Procedure\A;
 
 use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Core\Factory\FrameFactory;
+use AlecRabbit\Spinner\Core\Frame;
 use AlecRabbit\Spinner\Extras\Contract\IProgressValue;
 
 abstract class AProgressValueProcedure extends AFloatValueProcedure
@@ -15,17 +16,17 @@ abstract class AProgressValueProcedure extends AFloatValueProcedure
 
     public function __construct(
         protected readonly IProgressValue $progressValue,
-        string $format = null,
+        ?string $format = null,
         protected float $finishedDelay = self::FINISHED_DELAY,
     ) {
         parent::__construct($progressValue, $format);
     }
 
-    public function update(float $dt = null): IFrame
+    public function getFrame(?float $dt = null): IFrame
     {
         if ($this->progressValue->isFinished()) {
             if ($this->finishedDelay < 0) {
-                return FrameFactory::createEmpty();
+                return Frame::createEmpty();
             }
             $this->finishedDelay -= $dt ?? 0.0;
         }
@@ -33,7 +34,6 @@ abstract class AProgressValueProcedure extends AFloatValueProcedure
             $this->format,
             $this->progressValue->getValue() * 100
         );
-        return
-            FrameFactory::create($v);
+        return FrameFactory::create($v);
     }
 }

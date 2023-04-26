@@ -1,30 +1,30 @@
 <?php
 
 declare(strict_types=1);
+
 // 09.03.23
 
 namespace AlecRabbit\Spinner\Core\Defaults\Contract;
 
 use AlecRabbit\Spinner\Contract\IFrame;
-use AlecRabbit\Spinner\Contract\IPattern;
+use AlecRabbit\Spinner\Contract\Pattern\IPattern;
+use AlecRabbit\Spinner\Core\Pattern\Contract\IStylePattern;
 
-interface IWidgetSettings extends IDefaultsChild
+interface IWidgetSettings
 {
-    public static function getInstance(IDefaults $parent): IWidgetSettings;
-
     public function getLeadingSpacer(): IFrame;
+
+    public function setLeadingSpacer(IFrame $frame): IWidgetSettings;
 
     public function getTrailingSpacer(): IFrame;
 
-    public function setLeadingSpacer(IFrame $frame): static;
+    public function setTrailingSpacer(IFrame $frame): IWidgetSettings;
 
-    public function setTrailingSpacer(IFrame $frame): static;
+    public function getStylePattern(): IStylePattern;
 
-    public function getStylePattern(): ?IPattern;
+    public function setStylePattern(IStylePattern $pattern): IWidgetSettings;
 
-    public function getCharPattern(): ?IPattern;
+    public function getCharPattern(): IPattern;
 
-    public function setStylePattern(IPattern $pattern): static;
-
-    public function setCharPattern(IPattern $pattern): static;
+    public function setCharPattern(IPattern $pattern): IWidgetSettings;
 }

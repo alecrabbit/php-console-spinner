@@ -1,40 +1,25 @@
 <?php
 
 declare(strict_types=1);
+
 // 17.02.23
 
 namespace AlecRabbit\Spinner\Asynchronous\Loop\Adapter;
 
-use AlecRabbit\Spinner\Asynchronous\Loop\Adapter\A\ALoopAdapter;
-use AlecRabbit\Spinner\Core\Contract\ISpinner;
+use AlecRabbit\Spinner\Core\Contract\Loop\A\ALoopAdapter;
+use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use Closure;
 use React\EventLoop\LoopInterface;
 use React\EventLoop\TimerInterface;
 
-class ReactLoopAdapter extends ALoopAdapter
+/**
+ * @codeCoverageIgnore
+ */
+final class ReactLoopAdapter extends ALoopAdapter
 {
-    private ?TimerInterface $spinnerTimer = null;
-
     public function __construct(
         private readonly LoopInterface $loop,
     ) {
-    }
-
-    public function attach(ISpinner $spinner): void
-    {
-        $this->detachSpinner();
-        $this->spinnerTimer =
-            $this->loop->addPeriodicTimer(
-                $spinner->getInterval()->toSeconds(),
-                static fn() => $spinner->spin()
-            );
-    }
-
-    protected function detachSpinner(): void
-    {
-        if ($this->spinnerTimer instanceof TimerInterface) {
-            $this->loop->cancelTimer($this->spinnerTimer);
-        }
     }
 
     public function autoStart(): void
@@ -42,14 +27,9 @@ class ReactLoopAdapter extends ALoopAdapter
         // ReactPHP event loop is started by its library code.
     }
 
-    public function repeat(float $interval, Closure $closure): void
+    public function repeat(float $interval, Closure $closure): TimerInterface
     {
-        $this->loop->addPeriodicTimer($interval, $closure);
-    }
-
-    public function getLoop(): LoopInterface
-    {
-        return $this->loop;
+        return $this->loop->addPeriodicTimer($interval, $closure);
     }
 
     public function delay(float $delay, Closure $closure): void
@@ -57,7 +37,31 @@ class ReactLoopAdapter extends ALoopAdapter
         $this->loop->addTimer($delay, $closure);
     }
 
-    protected function onSignal(int $signal, Closure $closure): void
+    public function run(): void
+    {
+        $this->loop->run();
+    }
+
+    public function stop(): void
+    {
+        $this->loop->stop();
+    }
+
+    public function cancel(mixed $timer): void
+    {
+        if (!$timer instanceof TimerInterface) {
+            throw new InvalidArgumentException(
+                sprintf(
+                    'Invalid timer type: %s, expected %s',
+                    gettype($timer),
+                    TimerInterface::class
+                )
+            );
+        }
+        $this->loop->cancelTimer($timer);
+    }
+
+    public function onSignal(int $signal, Closure $closure): void
     {
         $this->loop->addSignal($signal, $closure);
     }

@@ -1,7 +1,9 @@
 <?php
 
 declare(strict_types=1);
+
 // 25.03.23
+
 namespace AlecRabbit\Spinner\Core\Color;
 
 use AlecRabbit\Spinner\Contract\Color\IColor;

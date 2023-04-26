@@ -1,37 +1,25 @@
 <?php
 
 declare(strict_types=1);
+
 // 10.03.23
 
 namespace AlecRabbit\Spinner\Core\Pattern\A;
 
-use ArrayObject;
 use Traversable;
 
 abstract class AReversiblePattern extends APattern
 {
     public function __construct(
+        ?Traversable $entries = null,
         ?int $interval = null,
-        protected bool $reversed = false
+        protected bool $reversed = false,
     ) {
-        parent::__construct($interval);
+        parent::__construct($entries, $interval);
     }
 
-    public function getPattern(): Traversable
+    public function isReversed(): bool
     {
-        return
-            $this->reversed
-                ? $this->reversedPattern()
-                : $this->pattern();
-    }
-
-    protected function reversedPattern(): Traversable
-    {
-        return
-            new ArrayObject(
-                array_reverse(
-                    iterator_to_array($this->pattern())
-                )
-            );
+        return $this->reversed;
     }
 }

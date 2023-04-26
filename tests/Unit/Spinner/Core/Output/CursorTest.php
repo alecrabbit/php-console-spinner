@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Core\Output;
+namespace AlecRabbit\Tests\Unit\Spinner\Core\Output;
 
-use AlecRabbit\Spinner\Contract\IBufferedOutput;
-use AlecRabbit\Spinner\Contract\OptionCursor;
-use AlecRabbit\Spinner\Core\Output\Contract\ICursor;
-use AlecRabbit\Spinner\Core\Output\Cursor;
-use AlecRabbit\Tests\Spinner\TestCase\TestCase;
+use AlecRabbit\Spinner\Contract\Option\OptionCursor;
+use AlecRabbit\Spinner\Contract\Output\IBufferedOutput;
+use AlecRabbit\Spinner\Core\Output\ConsoleCursor;
+use AlecRabbit\Spinner\Core\Output\Contract\IConsoleCursor;
+use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 
@@ -17,23 +17,22 @@ final class CursorTest extends TestCase
     #[Test]
     public function isCreatedWithGivenOption(): void
     {
-        $cursorOption = OptionCursor::ENABLED;
+        $cursorOption = OptionCursor::VISIBLE;
 
         $cursor = $this->getTesteeInstance(output: null, cursorOption: $cursorOption);
 
-        self::assertInstanceOf(Cursor::class, $cursor);
-        self::assertSame($cursorOption, self::getValue('cursorOption', $cursor));
+        self::assertInstanceOf(ConsoleCursor::class, $cursor);
+        self::assertSame($cursorOption, self::getPropertyValue('optionCursor', $cursor));
     }
 
     public function getTesteeInstance(
-        (MockObject&IBufferedOutput)|null $output,
+        (MockObject & IBufferedOutput)|null $output,
         OptionCursor $cursorOption = OptionCursor::HIDDEN,
-    ): ICursor {
-        return
-            new Cursor(
-                output: $output ?? $this->getOutputMock(),
-                cursorOption: $cursorOption,
-            );
+    ): IConsoleCursor {
+        return new ConsoleCursor(
+            output: $output ?? $this->getOutputMock(),
+            optionCursor: $cursorOption,
+        );
     }
 
     protected function getOutputMock(): MockObject&IBufferedOutput
@@ -53,8 +52,8 @@ final class CursorTest extends TestCase
 
         $cursor = $this->getTesteeInstance(output: $output, cursorOption: $cursorOption);
 
-        self::assertInstanceOf(Cursor::class, $cursor);
-        self::assertSame($cursorOption, self::getValue('cursorOption', $cursor));
+        self::assertInstanceOf(ConsoleCursor::class, $cursor);
+        self::assertSame($cursorOption, self::getPropertyValue('optionCursor', $cursor));
 
         $cursor->hide();
     }
@@ -62,7 +61,7 @@ final class CursorTest extends TestCase
     #[Test]
     public function doesNotWriteToOutputWhenHideOrShowCalledIfEnabled(): void
     {
-        $cursorOption = OptionCursor::ENABLED;
+        $cursorOption = OptionCursor::VISIBLE;
 
         $output = $this->getOutputMock();
 
@@ -70,7 +69,7 @@ final class CursorTest extends TestCase
 
         $cursor = $this->getTesteeInstance(output: $output, cursorOption: $cursorOption);
 
-        self::assertSame($cursorOption, self::getValue('cursorOption', $cursor));
+        self::assertSame($cursorOption, self::getPropertyValue('optionCursor', $cursor));
 
         $cursor->hide();
         $cursor->show();
@@ -88,8 +87,8 @@ final class CursorTest extends TestCase
 
         $cursor = $this->getTesteeInstance(output: $output, cursorOption: $cursorOption);
 
-        self::assertInstanceOf(Cursor::class, $cursor);
-        self::assertSame($cursorOption, self::getValue('cursorOption', $cursor));
+        self::assertInstanceOf(ConsoleCursor::class, $cursor);
+        self::assertSame($cursorOption, self::getPropertyValue('optionCursor', $cursor));
 
         $cursor->show();
     }
@@ -106,10 +105,11 @@ final class CursorTest extends TestCase
 
         $cursor = $this->getTesteeInstance(output: $output);
 
-        self::assertInstanceOf(Cursor::class, $cursor);
+        self::assertInstanceOf(ConsoleCursor::class, $cursor);
 
         $cursor->moveLeft(2)->flush();
     }
+
     #[Test]
     public function writesToBufferWhenEraseAndFlushCalled(): void
     {
@@ -122,7 +122,7 @@ final class CursorTest extends TestCase
 
         $cursor = $this->getTesteeInstance(output: $output);
 
-        self::assertInstanceOf(Cursor::class, $cursor);
+        self::assertInstanceOf(ConsoleCursor::class, $cursor);
 
         $cursor->erase(2)->flush();
     }

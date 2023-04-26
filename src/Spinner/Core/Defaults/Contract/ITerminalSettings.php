@@ -1,43 +1,31 @@
 <?php
 
 declare(strict_types=1);
+
 // 09.03.23
 
 namespace AlecRabbit\Spinner\Core\Defaults\Contract;
 
-use AlecRabbit\Spinner\Contract\OptionCursor;
-use AlecRabbit\Spinner\Contract\OptionStyleMode;
-use AlecRabbit\Spinner\Core\Defaults\A\ATerminalSettings;
-use AlecRabbit\Spinner\Exception\InvalidArgumentException;
-use Traversable;
+use AlecRabbit\Spinner\Contract\Option\OptionCursor;
+use AlecRabbit\Spinner\Contract\Option\OptionStyleMode;
 
-interface ITerminalSettings extends IDefaultsChild
+interface ITerminalSettings
 {
-    public static function getInstance(
-        IDefaults $parent,
-        OptionStyleMode $styleMode,
-        int $width,
-        OptionCursor $cursor,
-    ): ITerminalSettings;
+    public function getOptionCursor(): OptionCursor;
 
-    public function getWidth(): int;
+    public function setOptionCursor(OptionCursor $cursorOption): ITerminalSettings;
 
-    public function overrideWidth(int $width): static;
+    public function getOptionStyleMode(): OptionStyleMode;
 
-    public function getStyleMode(): OptionStyleMode;
-
-    public function overrideColorMode(OptionStyleMode $colorMode): static;
-
-    public function isCursorDisabled(): bool;
+    public function setOptionStyleMode(OptionStyleMode $optionStyleMode): ITerminalSettings;
 
     /**
-     * @throws InvalidArgumentException
+     * @return resource
      */
-    public function overrideSupportedColorModes(Traversable $supportedColorModes): static;
+    public function getOutputStream();
 
-    public function getSupportedColorModes(): Traversable;
-
-    public function overrideCursorOption(OptionCursor $cursor): static;
-
-    public function getCursorOption(): OptionCursor;
+    /**
+     * @param resource $outputStream
+     */
+    public function setOutputStream($outputStream): ITerminalSettings;
 }

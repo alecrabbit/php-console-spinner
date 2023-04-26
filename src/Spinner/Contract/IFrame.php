@@ -6,6 +6,10 @@ namespace AlecRabbit\Spinner\Contract;
 
 interface IFrame
 {
+    public static function createEmpty(): IFrame;
+
+    public static function createSpace(): IFrame;
+
     public function sequence(): string;
 
     public function width(): int;

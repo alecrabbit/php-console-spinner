@@ -1,7 +1,9 @@
 <?php
 
 declare(strict_types=1);
+
 // 25.03.23
+
 namespace AlecRabbit\Spinner\Core\Color;
 
 use AlecRabbit\Spinner\Contract\Color\IStringableColor;
@@ -48,24 +50,23 @@ final readonly class RGBColor implements IStringableColor
         $hex = str_replace('#', '', $hex);
 
         $length = strlen($hex);
-        if (3 === $length) {
+        if ($length === 3) {
             $hex = $hex[0] . $hex[0] . $hex[1] . $hex[1] . $hex[2] . $hex[2];
             $length = strlen($hex);
         }
 
         $cLength = (int)($length / 3);
-        return
-            new self(
-                hexdec(substr($hex, 0, $cLength)),
-                hexdec(substr($hex, $cLength, $cLength)),
-                hexdec(substr($hex, $cLength * 2, $cLength)),
-            );
+        return new self(
+            hexdec(substr($hex, 0, $cLength)),
+            hexdec(substr($hex, $cLength, $cLength)),
+            hexdec(substr($hex, $cLength * 2, $cLength)),
+        );
     }
 
     /**
      * @throws InvalidArgumentException
      */
-    protected static function assertHex(string $hex): void
+    private static function assertHex(string $hex): void
     {
         Asserter::assertHexStringColor($hex);
     }
@@ -74,5 +75,4 @@ final readonly class RGBColor implements IStringableColor
     {
         return sprintf(self::HEX_FORMAT, $this->red, $this->green, $this->blue);
     }
-
 }

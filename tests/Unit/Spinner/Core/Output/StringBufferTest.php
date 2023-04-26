@@ -2,17 +2,12 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Core\Output;
+namespace AlecRabbit\Tests\Unit\Spinner\Core\Output;
 
-use AlecRabbit\Spinner\Contract\IBufferedOutput;
-use AlecRabbit\Spinner\Contract\OptionCursor;
-use AlecRabbit\Spinner\Core\Output\Contract\ICursor;
 use AlecRabbit\Spinner\Core\Output\Contract\IStringBuffer;
-use AlecRabbit\Spinner\Core\Output\Cursor;
 use AlecRabbit\Spinner\Core\Output\StringBuffer;
-use AlecRabbit\Tests\Spinner\TestCase\TestCase;
+use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
-use PHPUnit\Framework\MockObject\MockObject;
 
 final class StringBufferTest extends TestCase
 {
@@ -22,16 +17,15 @@ final class StringBufferTest extends TestCase
         $str = 'test';
         $buffer = $this->getTesteeInstance(buffer: $str);
 
-        self::assertSame($str, self::getValue('buffer', $buffer));
+        self::assertSame($str, self::getPropertyValue('buffer', $buffer));
     }
 
     public function getTesteeInstance(
         ?string $buffer = null,
     ): IStringBuffer {
-        return
-            new StringBuffer(
-                buffer: $buffer ?? '',
-            );
+        return new StringBuffer(
+            buffer: $buffer ?? '',
+        );
     }
 
     #[Test]
@@ -40,11 +34,11 @@ final class StringBufferTest extends TestCase
         $str = 'new string';
         $buffer = $this->getTesteeInstance();
 
-        self::assertSame('', self::getValue('buffer', $buffer));
+        self::assertSame('', self::getPropertyValue('buffer', $buffer));
 
         $buffer->write($str);
 
-        self::assertSame($str, self::getValue('buffer', $buffer));
+        self::assertSame($str, self::getPropertyValue('buffer', $buffer));
     }
 
     #[Test]
@@ -53,15 +47,15 @@ final class StringBufferTest extends TestCase
         $str = 'new string';
         $buffer = $this->getTesteeInstance();
 
-        self::assertSame('', self::getValue('buffer', $buffer));
+        self::assertSame('', self::getPropertyValue('buffer', $buffer));
 
         $buffer->write($str);
 
-        self::assertSame($str, self::getValue('buffer', $buffer));
+        self::assertSame($str, self::getPropertyValue('buffer', $buffer));
 
         $content = implode('', iterator_to_array($buffer->flush()));
         self::assertSame($content, $str);
 
-        self::assertSame('', self::getValue('buffer', $buffer));
+        self::assertSame('', self::getPropertyValue('buffer', $buffer));
     }
 }
