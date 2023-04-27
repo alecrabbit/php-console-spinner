@@ -52,7 +52,6 @@ final class ColorGradientGenerator implements IColorGradientGenerator
 
     private function assertCount(int $count): void
     {
-        dump($count);
         match (true) {
             $count < self::MIN => throw new InvalidArgumentException(
                 sprintf('Number of colors must be greater than %s.', self::MIN)
