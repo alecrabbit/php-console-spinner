@@ -16,13 +16,13 @@ interface IColorGradientGenerator
      *
      * @param string|IColor $from The starting color of the gradient.
      * @param string|IColor $to The ending color of the gradient.
-     * @param int $steps The number of steps in the gradient. Minimum 2.
+     * @param int $count The number of colors in the resulting gradient. Minimum 2.
      *
      * @return Generator<RGBColor> A generator that yields RGBColor objects.
      *
      * @throws InvalidArgumentException if the parameters are invalid.
      */
-    public function gradient(string|IColor $from, string|IColor $to, int $steps = 2): Generator;
+    public function gradient(string|IColor $from, string|IColor $to, int $count = 2): Generator;
 
 //    /**
 //     * Generates gradients of colors between pairs of colors.
@@ -37,6 +37,4 @@ interface IColorGradientGenerator
 //     */
 //    public function gradients(Traversable $colors, int $steps = 10, ?string $fromColor = null): Generator;
 //
-
-//    public function gradient(string|IColor $from, string|IColor $to, int $steps = 100): Generator;
 }

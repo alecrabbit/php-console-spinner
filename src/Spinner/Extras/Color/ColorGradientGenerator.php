@@ -13,32 +13,32 @@ use Generator;
 
 final class ColorGradientGenerator implements IColorGradientGenerator
 {
-    protected const MAX_STEPS = 1000;
-    protected const MIN_STEPS = 2;
+    protected const MAX = 1000;
+    protected const MIN = 2;
     protected int $floatPrecision;
 
     public function __construct(
         protected IColorProcessor $colorProcessor,
-        protected int $maxSteps = self::MAX_STEPS,
+        protected int $maxColors = self::MAX,
     ) {
         $this->floatPrecision = $colorProcessor->getFloatPrecision();
     }
 
-    public function gradient(IColor|string $from, IColor|string $to, int $steps = 2): Generator
+    public function gradient(IColor|string $from, IColor|string $to, int $count = 2): Generator
     {
-        $this->assertSteps($steps);
+        $this->assertCount($count);
 
-        $steps--;
+        $count--;
 
         $from = $this->colorProcessor->toRGB($from);
         $to = $this->colorProcessor->toRGB($to);
 
-        $rStep = ($to->red - $from->red) / $steps;
-        $gStep = ($to->green - $from->green) / $steps;
-        $bStep = ($to->blue - $from->blue) / $steps;
-        $aStep = ($to->alpha - $from->alpha) / $steps;
+        $rStep = ($to->red - $from->red) / $count;
+        $gStep = ($to->green - $from->green) / $count;
+        $bStep = ($to->blue - $from->blue) / $count;
+        $aStep = ($to->alpha - $from->alpha) / $count;
 
-        for ($i = 0; $i < $steps; $i++) {
+        for ($i = 0; $i < $count; $i++) {
             yield new RGBColor(
                 (int)round($from->red + $rStep * $i),
                 (int)round($from->green + $gStep * $i),
@@ -50,14 +50,15 @@ final class ColorGradientGenerator implements IColorGradientGenerator
         yield $to;
     }
 
-    private function assertSteps(int $steps): void
+    private function assertCount(int $count): void
     {
+        dump($count);
         match (true) {
-            $steps < self::MIN_STEPS => throw new InvalidArgumentException(
-                sprintf('Steps must be greater than %s.', self::MIN_STEPS)
+            $count < self::MIN => throw new InvalidArgumentException(
+                sprintf('Number of colors must be greater than %s.', self::MIN)
             ),
-            $steps > $this->maxSteps => throw new InvalidArgumentException(
-                sprintf('Steps must be less than %s.', $this->maxSteps)
+            $count > $this->maxColors => throw new InvalidArgumentException(
+                sprintf('Number of colors must be less than %s.', $this->maxColors)
             ),
             default => null,
         };

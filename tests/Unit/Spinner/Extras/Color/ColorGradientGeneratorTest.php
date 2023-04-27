@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Unit\Spinner\Extras\Color;
 
 use AlecRabbit\Spinner\Core\Color\RGBColor;
+use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Extras\Color\ColorGradientGenerator;
 use AlecRabbit\Spinner\Extras\Color\ColorProcessor;
 use AlecRabbit\Spinner\Extras\Color\Contract\IColorGradientGenerator;
@@ -99,9 +100,11 @@ final class ColorGradientGeneratorTest extends TestCaseWithPrebuiltMocksAndStubs
 
     public function getTesteeInstance(
         ?IColorProcessor $colorProcessor = null,
+        ?int $maxColors = null,
     ): IColorGradientGenerator {
         return new ColorGradientGenerator(
             colorProcessor: $colorProcessor ?? new ColorProcessor(),
+            maxColors: $maxColors ?? 100,
         );
     }
 
@@ -114,6 +117,45 @@ final class ColorGradientGeneratorTest extends TestCaseWithPrebuiltMocksAndStubs
         $result = $generator->gradient(...$incoming);
 
         self::assertEquals($expected, iterator_to_array($result));
+    }
+
+    #[Test]
+    public function throwsIfCountLessThenTwo(): void
+    {
+        $e = new InvalidArgumentException('Number of colors must be greater than 2.');
+
+        $test = function () {
+            $generator = $this->getTesteeInstance();
+
+            $result = $generator->gradient('#000', '#fff', 1);
+
+            iterator_to_array($result); // unwrap Generator
+        };
+
+        $this->wrapExceptionTest(
+            test: $test,
+            exception: $e,
+        );
+    }
+    #[Test]
+    public function throwsIfCountGreaterThenMax(): void
+    {
+        $e = new InvalidArgumentException('Number of colors must be less than 5.');
+
+        $test = function () {
+            $generator = $this->getTesteeInstance(
+                maxColors: 5,
+            );
+
+            $result = $generator->gradient('#000', '#fff', 6);
+
+            iterator_to_array($result); // unwrap Generator
+        };
+
+        $this->wrapExceptionTest(
+            test: $test,
+            exception: $e,
+        );
     }
 
     private function dump(array $iterator_to_array): array
