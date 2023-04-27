@@ -72,6 +72,21 @@ final readonly class RGBColor implements IStringableColor
 
     public function __toString(): string
     {
+        return $this->toHex();
+    }
+
+    public function toHex(): string
+    {
         return sprintf(self::HEX_FORMAT, $this->red, $this->green, $this->blue);
+    }
+
+    public function toRgb(): string
+    {
+        return sprintf('rgb(%d, %d, %d)', $this->red, $this->green, $this->blue);
+    }
+
+    public function toRgba(): string
+    {
+        return sprintf('rgba(%d, %d, %d, %s)', $this->red, $this->green, $this->blue, $this->alpha);
     }
 }
