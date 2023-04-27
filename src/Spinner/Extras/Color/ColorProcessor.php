@@ -8,21 +8,14 @@ namespace AlecRabbit\Spinner\Extras\Color;
 use AlecRabbit\Spinner\Contract\Color\IColor;
 use AlecRabbit\Spinner\Core\Color\HSLColor;
 use AlecRabbit\Spinner\Core\Color\RGBColor;
-use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Extras\Color\Contract\IColorProcessor;
-use AlecRabbit\Spinner\Helper\Asserter;
-use AlecRabbit\Spinner\Helper\Stringify;
-use Generator;
-use Traversable;
 
 use function abs;
 use function fmod;
-use function is_object;
 use function is_string;
 use function max;
 use function min;
 use function round;
-use function sprintf;
 
 final class ColorProcessor implements IColorProcessor
 {
@@ -82,32 +75,6 @@ final class ColorProcessor implements IColorProcessor
                 round($l, $this->floatPrecision),
                 $color->alpha
             );
-    }
-
-    /**
-     * @throws InvalidArgumentException
-     */
-    private function refineRGB(string|IColor $color): RGBColor
-    {
-        if (is_string($color)) {
-            $color = $this->colorFromString($color);
-        }
-
-        if ($color instanceof HSLColor) {
-            return $this->toRGB($color);
-        }
-
-        if ($color instanceof RGBColor) {
-            return $color;
-        }
-
-        throw new InvalidArgumentException(
-            sprintf(
-                'Unsupported implementation of "%s" given: "%s".',
-                IColor::class,
-                get_debug_type($color)
-            )
-        );
     }
 
     public function colorFromString(string $color): IColor
@@ -174,58 +141,6 @@ final class ColorProcessor implements IColorProcessor
             $color->alpha
         );
     }
-
-//    public function gradients(Traversable $colors, int $steps = 10, null|string|IColor $fromColor = null): Generator
-//    {
-//        /** @var string|IColor $color */
-//        foreach ($colors as $color) {
-//            self::assertColor($color);
-//            if ($fromColor === null) {
-//                $fromColor = $color;
-//                continue;
-//            }
-//            yield from $this->gradient($fromColor, $color, $steps);
-//            $fromColor = $color;
-//        }
-//    }
-
-//    /**
-//     * @throws InvalidArgumentException
-//     */
-//    private static function assertColor(mixed $color): void
-//    {
-//        if (is_string($color)) {
-//            Asserter::assertHexStringColor($color);
-//            return;
-//        }
-//
-//        if (is_object($color)) {
-//            Asserter::assertIsSubClass($color, IColor::class);
-//            return;
-//        }
-//
-//        throw new InvalidArgumentException(
-//            sprintf('Invalid color type: %s.', Stringify::value($color))
-//        );
-//    }
-
-//    public function gradient(string|IColor $from, string|IColor $to, int $steps = 100): Generator
-//    {
-//        $from = $this->refineRGB($from);
-//        $to = $this->refineRGB($to);
-//
-//        $rStep = ($to->red - $from->red) / $steps;
-//        $gStep = ($to->green - $from->green) / $steps;
-//        $bStep = ($to->blue - $from->blue) / $steps;
-//
-//        for ($i = 0; $i < $steps; $i++) {
-//            yield new RGBColor(
-//                (int)round($from->red + $rStep * $i),
-//                (int)round($from->green + $gStep * $i),
-//                (int)round($from->blue + $bStep * $i),
-//            );
-//        }
-//    }
 
     public function getFloatPrecision(): int
     {
