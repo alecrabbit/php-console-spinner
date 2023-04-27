@@ -57,4 +57,6 @@ interface IColorProcessor
      * @throws InvalidArgumentException if the parameters are invalid.
      */
     public function gradient(string|IColor $from, string|IColor $to, int $steps = 100): Generator;
+
+    public function colorFromString(string $color): IColor;
 }

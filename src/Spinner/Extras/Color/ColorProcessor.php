@@ -26,6 +26,14 @@ use function sprintf;
 
 final class ColorProcessor implements IColorProcessor
 {
+    private const FLOAT_PRECISION = 2;
+
+    public function __construct(
+        protected int $floatPrecision = self::FLOAT_PRECISION,
+    ) {
+    }
+
+
     public function toHSL(string|IColor $color): HSLColor
     {
         if ($color instanceof HSLColor) {
@@ -64,7 +72,13 @@ final class ColorProcessor implements IColorProcessor
             $h /= 6;
         }
 
-        return new HSLColor((int)round($h * 360), $s, $l, $rgb->alpha);
+        return
+            new HSLColor(
+                (int)round($h * 360),
+                round($s, $this->floatPrecision),
+                round($l, $this->floatPrecision),
+                $rgb->alpha
+            );
     }
 
     /**
@@ -72,21 +86,55 @@ final class ColorProcessor implements IColorProcessor
      */
     private function refineRGB(string|IColor $color): RGBColor
     {
-        if ($color instanceof RGBColor) {
-            return $color;
+        if (is_string($color)) {
+            $color = $this->colorFromString($color);
         }
 
         if ($color instanceof HSLColor) {
             return $this->toRGB($color);
         }
-        /** @var string $color */
+
+        if ($color instanceof RGBColor) {
+            return $color;
+        }
+
+        throw new InvalidArgumentException(
+            sprintf(
+                'Unsupported implementation of "%s" given: "%s".',
+                IColor::class,
+                get_debug_type($color)
+            )
+        );
+    }
+
+    public function colorFromString(string $color): IColor
+    {
+        $pattern = '/^hsla?\((\d+),\s*(\d+)%,\s*(\d+)%(?:,\s*([\d.]+))?\)$/';
+        if (preg_match($pattern, $color, $matches)) {
+            $h = (int)$matches[1];
+            $s = (float)$matches[2] / 100;
+            $l = (float)$matches[3] / 100;
+            $a = isset($matches[4]) ? (float)$matches[4] : 1.0;
+            return
+                new HSLColor($h, $s, $l, $a);
+        }
+
+        $pattern = '/^rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\)$/';
+        if (preg_match($pattern, $color, $matches)) {
+            $r = (int)$matches[1];
+            $g = (int)$matches[2];
+            $b = (int)$matches[3];
+            $a = isset($matches[4]) ? (float)$matches[4] : 1.0;
+            return new RGBColor($r, $g, $b, $a);
+        }
+
         return RGBColor::fromHex($color);
     }
 
     public function toRGB(string|IColor $color): RGBColor
     {
         if (is_string($color)) {
-            $color =  $this->createColorObjectFromString($color);
+            $color = $this->colorFromString($color);
         }
 
         if ($color instanceof RGBColor) {
@@ -174,29 +222,5 @@ final class ColorProcessor implements IColorProcessor
                 (int)round($from->blue + $bStep * $i),
             );
         }
-    }
-
-    protected function createColorObjectFromString(string $color): IColor
-    {
-        $pattern = '/^hsla?\((\d+),\s*(\d+)%,\s*(\d+)%(?:,\s*([\d.]+))?\)$/';
-        if (preg_match($pattern, $color, $matches)) {
-            $h = (int) $matches[1];
-            $s = (float) $matches[2] / 100;
-            $l = (float) $matches[3] / 100;
-            $a = isset($matches[4]) ? (float) $matches[4] : 1.0;
-            return
-                new HSLColor($h, $s, $l, $a);
-        }
-
-        $pattern = '/^rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\)$/';
-        if (preg_match($pattern, $color, $matches)) {
-            $r = (int) $matches[1];
-            $g = (int) $matches[2];
-            $b = (int) $matches[3];
-            $a = isset($matches[4]) ? (float) $matches[4] : 1.0;
-            return new RGBColor($r, $g, $b, $a);
-        }
-
-        return RGBColor::fromHex($color);
     }
 }
