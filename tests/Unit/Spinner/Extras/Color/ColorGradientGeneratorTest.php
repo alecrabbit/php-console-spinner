@@ -28,10 +28,24 @@ final class ColorGradientGeneratorTest extends TestCaseWithPrebuiltMocksAndStubs
             ],
             [
                 [
+                    new RGBColor(0, 0, 0),
+                    new RGBColor(255, 255, 255),
+                ],
+                ['#000', '#fff'],
+            ],
+            [
+                [
                     new RGBColor(0, 0, 0, 0),
                     new RGBColor(255, 255, 255, 1),
                 ],
                 ['rgba(0, 0, 0, 0)', 'rgba(255, 255, 255, 1)', 2],
+            ],
+            [
+                [
+                    new RGBColor(0, 0, 0, 0),
+                    new RGBColor(255, 255, 255, 1),
+                ],
+                ['rgba(0, 0, 0, 0)', 'rgba(255, 255, 255, 1)',],
             ],
             [
                 [

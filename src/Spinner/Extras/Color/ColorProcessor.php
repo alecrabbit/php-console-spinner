@@ -172,57 +172,57 @@ final class ColorProcessor implements IColorProcessor
         );
     }
 
-    public function gradients(Traversable $colors, int $steps = 10, null|string|IColor $fromColor = null): Generator
-    {
-        /** @var string|IColor $color */
-        foreach ($colors as $color) {
-            self::assertColor($color);
-            if ($fromColor === null) {
-                $fromColor = $color;
-                continue;
-            }
-            yield from $this->gradient($fromColor, $color, $steps);
-            $fromColor = $color;
-        }
-    }
+//    public function gradients(Traversable $colors, int $steps = 10, null|string|IColor $fromColor = null): Generator
+//    {
+//        /** @var string|IColor $color */
+//        foreach ($colors as $color) {
+//            self::assertColor($color);
+//            if ($fromColor === null) {
+//                $fromColor = $color;
+//                continue;
+//            }
+//            yield from $this->gradient($fromColor, $color, $steps);
+//            $fromColor = $color;
+//        }
+//    }
 
-    /**
-     * @throws InvalidArgumentException
-     */
-    private static function assertColor(mixed $color): void
-    {
-        if (is_string($color)) {
-            Asserter::assertHexStringColor($color);
-            return;
-        }
+//    /**
+//     * @throws InvalidArgumentException
+//     */
+//    private static function assertColor(mixed $color): void
+//    {
+//        if (is_string($color)) {
+//            Asserter::assertHexStringColor($color);
+//            return;
+//        }
+//
+//        if (is_object($color)) {
+//            Asserter::assertIsSubClass($color, IColor::class);
+//            return;
+//        }
+//
+//        throw new InvalidArgumentException(
+//            sprintf('Invalid color type: %s.', Stringify::value($color))
+//        );
+//    }
 
-        if (is_object($color)) {
-            Asserter::assertIsSubClass($color, IColor::class);
-            return;
-        }
-
-        throw new InvalidArgumentException(
-            sprintf('Invalid color type: %s.', Stringify::value($color))
-        );
-    }
-
-    public function gradient(string|IColor $from, string|IColor $to, int $steps = 100): Generator
-    {
-        $from = $this->refineRGB($from);
-        $to = $this->refineRGB($to);
-
-        $rStep = ($to->red - $from->red) / $steps;
-        $gStep = ($to->green - $from->green) / $steps;
-        $bStep = ($to->blue - $from->blue) / $steps;
-
-        for ($i = 0; $i < $steps; $i++) {
-            yield new RGBColor(
-                (int)round($from->red + $rStep * $i),
-                (int)round($from->green + $gStep * $i),
-                (int)round($from->blue + $bStep * $i),
-            );
-        }
-    }
+//    public function gradient(string|IColor $from, string|IColor $to, int $steps = 100): Generator
+//    {
+//        $from = $this->refineRGB($from);
+//        $to = $this->refineRGB($to);
+//
+//        $rStep = ($to->red - $from->red) / $steps;
+//        $gStep = ($to->green - $from->green) / $steps;
+//        $bStep = ($to->blue - $from->blue) / $steps;
+//
+//        for ($i = 0; $i < $steps; $i++) {
+//            yield new RGBColor(
+//                (int)round($from->red + $rStep * $i),
+//                (int)round($from->green + $gStep * $i),
+//                (int)round($from->blue + $bStep * $i),
+//            );
+//        }
+//    }
 
     public function getFloatPrecision(): int
     {

@@ -24,7 +24,7 @@ final class ColorGradientGenerator implements IColorGradientGenerator
         $this->floatPrecision = $colorProcessor->getFloatPrecision();
     }
 
-    public function gradient(IColor|string $from, IColor|string $to, int $steps = 100): Generator
+    public function gradient(IColor|string $from, IColor|string $to, int $steps = 2): Generator
     {
         $this->assertSteps($steps);
 
