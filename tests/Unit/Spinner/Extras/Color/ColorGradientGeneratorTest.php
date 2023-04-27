@@ -11,13 +11,14 @@ use AlecRabbit\Spinner\Extras\Color\ColorProcessor;
 use AlecRabbit\Spinner\Extras\Color\Contract\IColorGradientGenerator;
 use AlecRabbit\Spinner\Extras\Color\Contract\IColorProcessor;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
+use ArrayObject;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 
 final class ColorGradientGeneratorTest extends TestCaseWithPrebuiltMocksAndStubs
 {
 
-    public static function canConvertToRgbFromHexStringDataProvider(): iterable
+    public static function canProduceGradientDataProvider(): iterable
     {
         yield from [
             [
@@ -62,7 +63,7 @@ final class ColorGradientGeneratorTest extends TestCaseWithPrebuiltMocksAndStubs
                     new RGBColor(128, 128, 128, 0.5),
                     new RGBColor(255, 255, 255, 1),
                 ],
-                ['rgba(0, 0, 0, 0)', 'rgba(255, 255, 255, 1)', 3],
+                ['rgba(0, 0, 0, 0)', new RGBColor(255, 255, 255, 1), 3],
             ],
             [
                 [
@@ -74,7 +75,7 @@ final class ColorGradientGeneratorTest extends TestCaseWithPrebuiltMocksAndStubs
                     new RGBColor(255, 0, 34, 1.0),
 
                 ],
-                ['#ae4312', '#ff0022', 6],
+                [new RGBColor(174, 67, 18, 1.0), '#ff0022', 6],
             ],
             [
                 [
@@ -87,6 +88,62 @@ final class ColorGradientGeneratorTest extends TestCaseWithPrebuiltMocksAndStubs
 
                 ],
                 ['rgba(174, 67, 18, 0)', 'rgba(255, 0, 34, 1)', 6],
+            ],
+        ];
+    }
+
+    public static function canProduceGradientsDataProvider(): iterable
+    {
+        yield from [
+            [
+                [
+                    new RGBColor(0, 0, 0),
+                    new RGBColor(255, 255, 255),
+                ],
+                [new ArrayObject(['#000', '#fff']),],
+            ],
+            [
+                [
+                    new RGBColor(0, 0, 0),
+                    new RGBColor(128, 128, 128),
+                    new RGBColor(255, 255, 255),
+                ],
+                [new ArrayObject(['#000', '#fff'],), 3,],
+            ],
+            [
+                [
+                    new RGBColor(0, 0, 0),
+                    new RGBColor(0, 0, 0),
+                    new RGBColor(0, 0, 0),
+                    new RGBColor(0, 0, 0),
+                    new RGBColor(128, 128, 128),
+                    new RGBColor(255, 255, 255),
+                ],
+                [new ArrayObject(['#000', '#fff'],), 3, '#000'],
+            ],
+            [
+                [
+                    new RGBColor(255, 255, 255),
+                    new RGBColor(128, 128, 128),
+                    new RGBColor(0, 0, 0),
+                    new RGBColor(0, 0, 0),
+                    new RGBColor(128, 128, 128),
+                    new RGBColor(255, 255, 255),
+                ],
+                [new ArrayObject(['#000', '#fff'],), 3, '#fff'],
+            ],            [
+                [
+                    new RGBColor(255, 255, 255, 1.000000),
+                    new RGBColor(170, 170, 170, 1.000000),
+                    new RGBColor(85, 85, 85, 1.000000),
+                    new RGBColor(0, 0, 0, 1.000000),
+                    new RGBColor(0, 0, 0, 1.000000),
+                    new RGBColor(85, 85, 85, 1.000000),
+                    new RGBColor(170, 170, 170, 1.000000),
+                    new RGBColor(255, 255, 255, 1.000000),
+
+                ],
+                [new ArrayObject(['#000', '#fff'],), 4, '#fff'],
             ],
         ];
     }
@@ -109,14 +166,31 @@ final class ColorGradientGeneratorTest extends TestCaseWithPrebuiltMocksAndStubs
     }
 
     #[Test]
-    #[DataProvider('canConvertToRgbFromHexStringDataProvider')]
-    public function canGenerateGradientsFromStringColors(array $expected, array $incoming): void
+    #[DataProvider('canProduceGradientDataProvider')]
+    public function canGenerateGradientFromColors(array $expected, array $incoming): void
     {
         $generator = $this->getTesteeInstance();
 
         $result = $generator->gradient(...$incoming);
 
         self::assertEquals($expected, iterator_to_array($result));
+    }
+
+    #[Test]
+    #[DataProvider('canProduceGradientsDataProvider')]
+    public function canGenerateGradientsFromColors(array $expected, array $incoming): void
+    {
+        $generator = $this->getTesteeInstance();
+
+        $result = [];
+
+        foreach ($generator->gradients(...$incoming) as $item) {
+
+            $result[] = $item;
+        }
+       $this->dump($result);
+
+        self::assertEquals($expected, $result);
     }
 
     #[Test]
@@ -137,6 +211,7 @@ final class ColorGradientGeneratorTest extends TestCaseWithPrebuiltMocksAndStubs
             exception: $e,
         );
     }
+
     #[Test]
     public function throwsIfCountGreaterThenMax(): void
     {
@@ -158,12 +233,11 @@ final class ColorGradientGeneratorTest extends TestCaseWithPrebuiltMocksAndStubs
         );
     }
 
-    private function dump(array $iterator_to_array): array
+    private function dump(array $result): void
     {
-        echo PHP_EOL;
-        /** @var RGBColor $item */
-        foreach ($iterator_to_array as $item) {
-            echo sprintf(
+        $s = PHP_EOL;
+        foreach ($result as $item) {
+            $s .= sprintf(
                 'new RGBColor(%d, %d, %d, %02f),' . PHP_EOL,
                 $item->red,
                 $item->green,
@@ -171,8 +245,6 @@ final class ColorGradientGeneratorTest extends TestCaseWithPrebuiltMocksAndStubs
                 $item->alpha
             );
         }
-        echo PHP_EOL;
-
-        return $iterator_to_array;
+        dump($s);
     }
 }

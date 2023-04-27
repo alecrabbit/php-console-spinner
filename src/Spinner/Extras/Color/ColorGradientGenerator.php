@@ -10,6 +10,7 @@ use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Extras\Color\Contract\IColorGradientGenerator;
 use AlecRabbit\Spinner\Extras\Color\Contract\IColorProcessor;
 use Generator;
+use Traversable;
 
 final class ColorGradientGenerator implements IColorGradientGenerator
 {
@@ -24,6 +25,9 @@ final class ColorGradientGenerator implements IColorGradientGenerator
         $this->floatPrecision = $colorProcessor->getFloatPrecision();
     }
 
+    /**
+     * @inheritDoc
+     */
     public function gradient(IColor|string $from, IColor|string $to, int $count = 2): Generator
     {
         $this->assertCount($count);
@@ -61,5 +65,20 @@ final class ColorGradientGenerator implements IColorGradientGenerator
             ),
             default => null,
         };
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function gradients(Traversable $colors, int $num = 2, IColor|string|null $fromColor = null): Generator
+    {
+        foreach ($colors as $color) {
+            if ($fromColor === null) {
+                $fromColor = $color;
+                continue;
+            }
+            yield from $this->gradient($fromColor, $color, $num);
+            $fromColor = $color;
+        }
     }
 }

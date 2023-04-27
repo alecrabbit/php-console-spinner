@@ -36,15 +36,18 @@ final class ColorProcessor implements IColorProcessor
 
     public function toHSL(string|IColor $color): HSLColor
     {
+        if (is_string($color)) {
+            $color = $this->colorFromString($color);
+        }
+
         if ($color instanceof HSLColor) {
             return $color;
         }
 
-        $rgb = $this->refineRGB($color);
-
-        $r = $rgb->red / 255;
-        $g = $rgb->green / 255;
-        $b = $rgb->blue / 255;
+        /** @var RGBColor $color */
+        $r = $color->red / 255;
+        $g = $color->green / 255;
+        $b = $color->blue / 255;
 
         $max = max($r, $g, $b);
         $min = min($r, $g, $b);
@@ -77,7 +80,7 @@ final class ColorProcessor implements IColorProcessor
                 (int)round($h * 360),
                 round($s, $this->floatPrecision),
                 round($l, $this->floatPrecision),
-                $rgb->alpha
+                $color->alpha
             );
     }
 

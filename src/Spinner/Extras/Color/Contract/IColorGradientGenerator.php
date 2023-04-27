@@ -8,6 +8,7 @@ use AlecRabbit\Spinner\Contract\Color\IColor;
 use AlecRabbit\Spinner\Core\Color\RGBColor;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use Generator;
+use Traversable;
 
 interface IColorGradientGenerator
 {
@@ -24,17 +25,16 @@ interface IColorGradientGenerator
      */
     public function gradient(string|IColor $from, string|IColor $to, int $count = 2): Generator;
 
-//    /**
-//     * Generates gradients of colors between pairs of colors.
-//     *
-//     * @param Traversable $colors Colors to generate gradients.
-//     * @param int $steps The number of steps in the gradient.
-//     * @param string|null $fromColor Optional. The starting color of the gradient.
-//     *
-//     * @return Generator<RGBColor> A generator that yields RGBColor objects.
-//     *
-//     * @throws InvalidArgumentException
-//     */
-//    public function gradients(Traversable $colors, int $steps = 10, ?string $fromColor = null): Generator;
-//
+    /**
+     * Generates gradients of colors between pairs of colors.
+     *
+     * @param Traversable $colors Colors to generate gradients.
+     * @param int $num The number of colors between supplied colors. Minimum 2.
+     * @param string|null|IColor $fromColor Optional. The starting color of the gradient.
+     *
+     * @return Generator<RGBColor> A generator that yields RGBColor objects.
+     *
+     * @throws InvalidArgumentException
+     */
+    public function gradients(Traversable $colors, int $num = 2, null|string|IColor $fromColor = null): Generator;
 }
