@@ -77,9 +77,12 @@ final class ColorProcessorTest extends TestCaseWithPrebuiltMocksAndStubs
         self::assertInstanceOf(ColorProcessor::class, $processor);
     }
 
-    public function getTesteeInstance(): IColorProcessor
-    {
-        return new ColorProcessor();
+    public function getTesteeInstance(
+        ?int $floatPrecision = null,
+    ): IColorProcessor {
+        return new ColorProcessor(
+            floatPrecision: $floatPrecision ?? 2
+        );
     }
 
     #[Test]
@@ -148,5 +151,17 @@ final class ColorProcessorTest extends TestCaseWithPrebuiltMocksAndStubs
         $result = $processor->toRGB($incoming);
 
         self::assertEquals($expected, $result);
+    }
+
+    #[Test]
+    public function canSetCustomPrecision(): void
+    {
+        $floatPrecision = 3;
+
+        $processor = $this->getTesteeInstance(
+            floatPrecision: $floatPrecision
+        );
+
+        self::assertSame($floatPrecision, $processor->getFloatPrecision());
     }
 }
