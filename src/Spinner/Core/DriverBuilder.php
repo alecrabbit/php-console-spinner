@@ -6,6 +6,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core;
 
+use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Contract\IObserver;
 use AlecRabbit\Spinner\Contract\ITimer;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
@@ -19,7 +20,7 @@ final class DriverBuilder implements Contract\IDriverBuilder
 {
     private ?IDriverOutput $driverOutput = null;
     private ?ITimer $timer = null;
-    private ?Closure $intervalCallback = null;
+    private ?IInterval $initialInterval = null;
     private ?IObserver $observer = null;
 
     public function __construct(
@@ -41,10 +42,10 @@ final class DriverBuilder implements Contract\IDriverBuilder
         return $clone;
     }
 
-    public function withIntervalCallback(Closure $fn): IDriverBuilder
+    public function withInitialInterval(IInterval $interval): IDriverBuilder
     {
         $clone = clone $this;
-        $clone->intervalCallback = $fn;
+        $clone->initialInterval = $interval;
         return $clone;
     }
 
@@ -55,7 +56,7 @@ final class DriverBuilder implements Contract\IDriverBuilder
         return new Driver(
             driverOutput: $this->driverOutput,
             timer: $this->timer,
-            intervalCb: $this->intervalCallback ?? $this->defaultIntervalCallback(),
+            initialInterval: $this->initialInterval ?? $this->createInitialInterval(),
             observer: $this->observer,
         );
     }
@@ -63,15 +64,15 @@ final class DriverBuilder implements Contract\IDriverBuilder
     private function validate(): void
     {
         match (true) {
-            null === $this->driverOutput => throw new LogicException('DriverOutput is not set.'),
+            $this->driverOutput === null => throw new LogicException('DriverOutput is not set.'),
             $this->timer === null => throw new LogicException('Timer is not set.'),
             default => null,
         };
     }
 
-    private function defaultIntervalCallback(): Closure
+    private function createInitialInterval(): IInterval
     {
-        return fn() => $this->intervalFactory->createStill();
+        return $this->intervalFactory->createStill();
     }
 
     public function withObserver(IObserver $observer): IDriverBuilder

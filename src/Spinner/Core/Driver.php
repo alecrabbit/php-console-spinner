@@ -29,31 +29,12 @@ final class Driver extends ASubject implements IDriver
     public function __construct(
         protected readonly IDriverOutput $driverOutput,
         protected readonly ITimer $timer,
-        protected readonly Closure $intervalCb,
+        protected readonly IInterval $initialInterval,
         ?IObserver $observer = null,
     ) {
-        self::assertIntervalCallback($intervalCb);
         parent::__construct($observer);
         $this->spinners = new WeakMap();
-        $this->interval = $intervalCb();
-    }
-
-    /**
-     * @throws InvalidArgumentException
-     */
-    private static function assertIntervalCallback(Closure $intervalCb): void
-    {
-        $interval = $intervalCb();
-        if ($interval instanceof IInterval) {
-            return;
-        }
-        throw new InvalidArgumentException(
-            sprintf(
-                'Interval callback MUST return an instance of "%s", instead returns "%s".',
-                IInterval::class,
-                get_debug_type($interval)
-            )
-        );
+        $this->interval = $initialInterval;
     }
 
     public function render(?float $dt = null): void
@@ -138,7 +119,7 @@ final class Driver extends ASubject implements IDriver
 
     private function recalculateInterval(): IInterval
     {
-        $interval = ($this->intervalCb)();
+        $interval = $this->initialInterval;
         foreach ($this->spinners as $spinner => $_) {
             $interval = $interval->smallest($spinner->getInterval());
         }

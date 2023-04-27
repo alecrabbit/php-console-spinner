@@ -46,7 +46,11 @@ final class CommonDriverTest extends TestCaseForDriver
     #[Test]
     public function canAddAndRemoveSpinner(): void
     {
-        $driver = $this->getTesteeInstance();
+        $initialInterval = new Interval(2000);
+
+        $driver = $this->getTesteeInstance(
+            initialInterval: $initialInterval
+        );
 
         $intervalOne = new Interval(1200);
         $intervalTwo = new Interval(135);
@@ -85,26 +89,26 @@ final class CommonDriverTest extends TestCaseForDriver
         $driver->remove($spinnerOne);
 
         self::assertCount(0, self::getPropertyValue('spinners', $driver));
-        self::assertEquals(new Interval(), $driver->getInterval());
+        self::assertSame($initialInterval, $driver->getInterval());
     }
-
-    #[Test]
-    public function throwsIfInvalidIntervalCallbackProvided(): void
-    {
-        $exceptionClass = InvalidArgumentException::class;
-        $exceptionMessage =
-            'Interval callback MUST return an instance of "'
-            . IInterval::class
-            . '", instead returns "null".';
-
-        $this->expectException($exceptionClass);
-        $this->expectExceptionMessage($exceptionMessage);
-
-        $_ =
-            $this->getTesteeInstance(
-                intervalCb: static fn() => null
-            );
-
-        self::fail(self::exceptionNotThrownString($exceptionClass, $exceptionMessage));
-    }
+//
+//    #[Test]
+//    public function throwsIfInvalidIntervalCallbackProvided(): void
+//    {
+//        $exceptionClass = InvalidArgumentException::class;
+//        $exceptionMessage =
+//            'Interval callback MUST return an instance of "'
+//            . IInterval::class
+//            . '", instead returns "null".';
+//
+//        $this->expectException($exceptionClass);
+//        $this->expectExceptionMessage($exceptionMessage);
+//
+//        $_ =
+//            $this->getTesteeInstance(
+//                intervalCb: static fn() => null
+//            );
+//
+//        self::fail(self::exceptionNotThrownString($exceptionClass, $exceptionMessage));
+//    }
 }

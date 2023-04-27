@@ -35,14 +35,16 @@ final class DriverBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
     {
         $driverBuilder = $this->getTesteeInstance();
 
+        $interval = $this->getIntervalMock();
         $driver = $driverBuilder
             ->withDriverOutput($this->getDriverOutputMock())
             ->withTimer($this->getTimerMock())
-            ->withIntervalCallback(fn() => $this->getIntervalMock())
+            ->withInitialInterval($interval)
             ->build()
         ;
 
         self::assertInstanceOf(Driver::class, $driver);
+        self::assertSame($interval, $driver->getInterval());
     }
 
     #[Test]
@@ -50,7 +52,7 @@ final class DriverBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
     {
         $intervalFactory = $this->getIntervalFactoryMock();
         $intervalFactory
-            ->expects(self::exactly(2))
+            ->expects(self::once())
             ->method('createStill')
             ->willReturn($this->getIntervalMock())
         ;

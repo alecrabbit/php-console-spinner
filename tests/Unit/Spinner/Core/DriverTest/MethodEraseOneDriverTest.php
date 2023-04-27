@@ -12,7 +12,10 @@ final class MethodEraseOneDriverTest extends TestCaseForDriver
     #[Test]
     public function cursorEraseIsNotCalledIfNotInitialized(): void
     {
-        $driver = $this->getTesteeInstance();
+        $initialInterval = new Interval(2000);
+        $driver = $this->getTesteeInstance(
+            initialInterval: $initialInterval
+        );
 
         $intervalOne = new Interval(1200);
         $intervalTwo = new Interval(135);
@@ -51,13 +54,16 @@ final class MethodEraseOneDriverTest extends TestCaseForDriver
         $driver->remove($spinnerOne);
 
         self::assertCount(0, self::getPropertyValue('spinners', $driver));
-        self::assertEquals(new Interval(), $driver->getInterval());
+        self::assertSame($initialInterval, $driver->getInterval());
     }
 
     #[Test]
     public function cursorEraseCalledIfInitialized(): void
     {
-        $driver = $this->getTesteeInstance();
+        $initialInterval = new Interval(2000);
+        $driver = $this->getTesteeInstance(
+            initialInterval: $initialInterval
+        );
         $driver->initialize();
 
         $intervalOne = new Interval(1200);
@@ -97,6 +103,6 @@ final class MethodEraseOneDriverTest extends TestCaseForDriver
         $driver->remove($spinnerOne);
 
         self::assertCount(0, self::getPropertyValue('spinners', $driver));
-        self::assertEquals(new Interval(), $driver->getInterval());
+        self::assertSame($initialInterval, $driver->getInterval());
     }
 }

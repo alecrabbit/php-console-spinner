@@ -6,6 +6,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Contract;
 
+use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Contract\IObserver;
 use AlecRabbit\Spinner\Contract\ITimer;
 use AlecRabbit\Spinner\Core\Output\Contract\IDriverOutput;
@@ -15,7 +16,7 @@ interface IDriverBuilder
 {
     public function build(): IDriver;
 
-    public function withIntervalCallback(Closure $fn): IDriverBuilder;
+    public function withInitialInterval(IInterval $interval): IDriverBuilder;
 
     public function withTimer(ITimer $timer): IDriverBuilder;
 
