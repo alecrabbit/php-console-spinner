@@ -245,6 +245,6 @@ final class ColorGradientGeneratorTest extends TestCaseWithPrebuiltMocksAndStubs
                 $item->alpha
             );
         }
-        dump($s);
+//        dump($s);
     }
 }
