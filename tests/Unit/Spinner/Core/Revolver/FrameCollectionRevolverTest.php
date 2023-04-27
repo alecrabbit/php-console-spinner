@@ -150,8 +150,8 @@ final class FrameCollectionRevolverTest extends TestCaseWithPrebuiltMocksAndStub
 
         $this->wrapExceptionTest(
             test: $test,
-            exceptionOrExceptionClass: $exceptionClass,
-            exceptionMessage: $exceptionMessage,
+            exception: $exceptionClass,
+            message: $exceptionMessage,
         );
     }
 }

@@ -10,6 +10,7 @@ use AlecRabbit\Spinner\Contract\Option\OptionLinker;
 use AlecRabbit\Spinner\Core\Contract\IDriverLinker;
 use AlecRabbit\Spinner\Core\Contract\Loop\Contract\ILoop;
 use AlecRabbit\Spinner\Core\DriverLinker;
+use AlecRabbit\Spinner\Exception\LogicException;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;
 
@@ -71,7 +72,35 @@ final class DriverLinkerTest extends TestCaseWithPrebuiltMocksAndStubs
     }
 
     #[Test]
-    public function canReattach(): void
+    public function canBeUpdated(): void
+    {
+        $driver = $this->getDriverMock();
+        $driver
+            ->expects(self::exactly(2))
+            ->method('getInterval')
+        ;
+        $loop = $this->getLoopMock();
+        $loop
+            ->expects(self::once())
+            ->method('cancel')
+        ;
+        $loop
+            ->expects(self::exactly(2))
+            ->method('repeat')
+            ->willReturn(1, 2)
+        ;
+        $driverLinker = $this->getTesteeInstance(
+            loop: $loop,
+            optionLinker: OptionLinker::ENABLED,
+        );
+
+        $driverLinker->link($driver);
+
+        $driverLinker->update($driver);
+    }
+
+    #[Test]
+    public function canRelink(): void
     {
         $loop = $this->getLoopMock();
         $loop
@@ -107,5 +136,28 @@ final class DriverLinkerTest extends TestCaseWithPrebuiltMocksAndStubs
         $driverLinker->link($driver);
 
         $driverLinker->link($driver);
+    }
+
+    #[Test]
+    public function throwsIfLinkOfOtherInstanceOfDriverAttempted(): void
+    {
+        $e = new LogicException(
+            'Other instance of Driver is already linked.'
+        );
+
+        $test = function (): void {
+            $driverLinker = $this->getTesteeInstance(
+                optionLinker: OptionLinker::ENABLED,
+            );
+            $driver = $this->getDriverMock();
+            $driverLinker->link($driver);
+
+            $driverLinker->link($this->getDriverMock());
+        };
+
+        $this->wrapExceptionTest(
+            test: $test,
+            exception: $e,
+        );
     }
 }

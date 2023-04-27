@@ -162,8 +162,8 @@ final class SpinnerTest extends TestCaseWithPrebuiltMocksAndStubs
 
         $this->wrapExceptionTest(
             test: $test,
-            exceptionOrExceptionClass: $exceptionClass,
-            exceptionMessage: $exceptionMessage,
+            exception: $exceptionClass,
+            message: $exceptionMessage,
         );
     }
 
@@ -180,8 +180,8 @@ final class SpinnerTest extends TestCaseWithPrebuiltMocksAndStubs
 
         $this->wrapExceptionTest(
             test: $test,
-            exceptionOrExceptionClass: $exceptionClass,
-            exceptionMessage: $exceptionMessage,
+            exception: $exceptionClass,
+            message: $exceptionMessage,
         );
     }
 }

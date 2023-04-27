@@ -66,8 +66,8 @@ final class WidgetSettingsBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
 
         $this->wrapExceptionTest(
             test: $test,
-            exceptionOrExceptionClass: $exceptionClass,
-            exceptionMessage: $exceptionMessage,
+            exception: $exceptionClass,
+            message: $exceptionMessage,
         );
     }
 
@@ -93,8 +93,8 @@ final class WidgetSettingsBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
 
         $this->wrapExceptionTest(
             test: $test,
-            exceptionOrExceptionClass: $exceptionClass,
-            exceptionMessage: $exceptionMessage,
+            exception: $exceptionClass,
+            message: $exceptionMessage,
         );
     }
 
@@ -120,8 +120,8 @@ final class WidgetSettingsBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
 
         $this->wrapExceptionTest(
             test: $test,
-            exceptionOrExceptionClass: $exceptionClass,
-            exceptionMessage: $exceptionMessage,
+            exception: $exceptionClass,
+            message: $exceptionMessage,
         );
     }
 
@@ -147,8 +147,8 @@ final class WidgetSettingsBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
 
         $this->wrapExceptionTest(
             test: $test,
-            exceptionOrExceptionClass: $exceptionClass,
-            exceptionMessage: $exceptionMessage,
+            exception: $exceptionClass,
+            message: $exceptionMessage,
         );
     }
 }

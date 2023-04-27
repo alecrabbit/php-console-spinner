@@ -80,8 +80,8 @@ final class TimerTest extends TestCase
 
         $this->wrapExceptionTest(
             test: $test,
-            exceptionOrExceptionClass: $exceptionClass,
-            exceptionMessage: $exceptionMessage,
+            exception: $exceptionClass,
+            message: $exceptionMessage,
         );
     }
 
@@ -102,8 +102,8 @@ final class TimerTest extends TestCase
 
         $this->wrapExceptionTest(
             test: $test,
-            exceptionOrExceptionClass: $exceptionClass,
-            exceptionMessage: $exceptionMessage,
+            exception: $exceptionClass,
+            message: $exceptionMessage,
         );
     }
 
@@ -123,8 +123,8 @@ final class TimerTest extends TestCase
 
         $this->wrapExceptionTest(
             test: $test,
-            exceptionOrExceptionClass: $exceptionClass,
-            exceptionMessage: $exceptionMessage,
+            exception: $exceptionClass,
+            message: $exceptionMessage,
         );
     }
 }

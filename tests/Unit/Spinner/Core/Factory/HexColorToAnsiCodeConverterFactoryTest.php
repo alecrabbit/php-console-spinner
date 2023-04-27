@@ -53,8 +53,8 @@ final class HexColorToAnsiCodeConverterFactoryTest extends TestCaseWithPrebuiltM
 
         $this->wrapExceptionTest(
             test: $test,
-            exceptionOrExceptionClass: $exceptionClass,
-            exceptionMessage: $exceptionMessage,
+            exception: $exceptionClass,
+            message: $exceptionMessage,
         );
     }
 }

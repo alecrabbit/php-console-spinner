@@ -19,8 +19,8 @@ final class DriverLinker implements IDriverLinker
     private ?IDriver $driver = null;
 
     public function __construct(
-        protected ILoop $loop,
-        protected OptionLinker $optionLinker,
+        private readonly ILoop $loop,
+        private readonly OptionLinker $optionLinker,
     ) {
     }
 
@@ -37,7 +37,17 @@ final class DriverLinker implements IDriverLinker
         }
     }
 
-    protected function linkTimer(IDriver $driver): void
+    private function assertDriver(IDriver $driver): void
+    {
+        if ($this->driver === null || $this->driver === $driver) {
+            return;
+        }
+        throw new LogicException(
+            'Other instance of Driver is already linked.'
+        );
+    }
+
+    private function linkTimer(IDriver $driver): void
     {
         $this->unlinkTimer();
 
@@ -58,10 +68,10 @@ final class DriverLinker implements IDriverLinker
         }
     }
 
-    protected function observe(IDriver $driver): void
+    private function observe(IDriver $driver): void
     {
-        $driver->attach($this);
         $this->driver = $driver;
+        $driver->attach($this);
     }
 
     public function update(ISubject $subject): void
@@ -69,15 +79,5 @@ final class DriverLinker implements IDriverLinker
         if ($subject === $this->driver) {
             $this->linkTimer($subject);
         }
-    }
-
-    private function assertDriver(IDriver $driver): void
-    {
-        if ($this->driver === null || $this->driver === $driver) {
-            return;
-        }
-        throw new LogicException(
-            'Other instance of Driver is already attached.'
-        );
     }
 }
