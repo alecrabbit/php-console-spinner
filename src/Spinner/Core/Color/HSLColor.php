@@ -21,9 +21,9 @@ final class HSLColor implements IColor
         float $alpha = 1.0,
     ) {
         $this->hue = self::refineHue($hue);
-        $this->saturation = self::refineSaturation($saturation);
-        $this->lightness = self::refineLightness($lightness);
-        $this->alpha = self::refineAlpha($alpha);
+        $this->saturation = self::refineValue($saturation);
+        $this->lightness = self::refineValue($lightness);
+        $this->alpha = self::refineValue($alpha);
     }
 
     private static function refineHue(int $value): int
@@ -31,18 +31,28 @@ final class HSLColor implements IColor
         return max(0, min(360, $value));
     }
 
-    private static function refineSaturation(float $value): float
+    private static function refineValue(float $value): float
     {
-        return max(0.0, min(1.0, $value));
+        return round(max(0.0, min(1.0, $value)), 2);
     }
 
-    private static function refineLightness(float $value): float
+    public function toHsl(): string
     {
-        return max(0.0, min(1.0, $value));
+        return sprintf(
+            'hsl(%d, %s%%, %s%%)',
+            $this->hue,
+            round($this->saturation * 100),
+            round($this->lightness * 100),
+        );
     }
 
-    private static function refineAlpha(float $value): float
-    {
-        return max(0.0, min(1.0, $value));
+    public function toHsla(): string {
+        return sprintf(
+            'hsla(%d, %s%%, %s%%, %s)',
+            $this->hue,
+            round($this->saturation * 100),
+            round($this->lightness * 100),
+            $this->alpha,
+        );
     }
 }
