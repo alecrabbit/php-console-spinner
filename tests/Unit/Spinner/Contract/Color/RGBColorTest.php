@@ -54,7 +54,10 @@ final class RGBColorTest extends TestCase
             yield [
                 [
                     self::RESULT => $item[1], // result
-                    self::HEX => $item[2], // result to string
+                    self::TO_STRING => $item[2],
+                    self::TO_HEX => $item[3],
+                    self::TO_RGB => $item[4],
+                    self::TO_RGBA => $item[5],
                 ],
                 [
                     self::ARGUMENTS => [
@@ -69,11 +72,14 @@ final class RGBColorTest extends TestCase
     {
         // #0..
         yield from [
-            // hex, result, toString // first element - #0..
-            ['#000', new RGBColor(0, 0, 0), '#000000'],
-            ['#00f', new RGBColor(0, 0, 255), '#0000ff'],
-            ['#00f1ff', new RGBColor(0, 241, 255), '#00f1ff'],
-            ['#0000ff', new RGBColor(0, 0, 255), '#0000ff'],
+            // hex, result, toString, toHex, toRgb, to Rgba // first element - #0..
+            ['#000', new RGBColor(0, 0, 0), '#000000', '#000000', 'rgb(0, 0, 0)', 'rgba(0, 0, 0, 1)'],
+            ['#00f', new RGBColor(0, 0, 255), '#0000ff', '#0000ff', 'rgb(0, 0, 255)', 'rgba(0, 0, 255, 1)'],
+            ['#00f1ff', new RGBColor(0, 241, 255), '#00f1ff', '#00f1ff', 'rgb(0, 241, 255)', 'rgba(0, 241, 255, 1)'],
+            ['#0000ff', new RGBColor(0, 0, 255), '#0000ff', '#0000ff', 'rgb(0, 0, 255)', 'rgba(0, 0, 255, 1)'],
+            ['#b4f598', new RGBColor(180, 245, 152), '#b4f598', '#b4f598', 'rgb(180, 245, 152)', 'rgba(180, 245, 152, 1)'],
+            ['#915922', new RGBColor(145, 89, 34), '#915922', '#915922', 'rgb(145, 89, 34)', 'rgba(145, 89, 34, 1)'],
+            ['#00ff80', new RGBColor(0, 255, 128), '#00ff80', '#00ff80', 'rgb(0, 255, 128)', 'rgba(0, 255, 128, 1)'],
         ];
     }
 
@@ -124,6 +130,9 @@ final class RGBColorTest extends TestCase
         }
 
         self::assertEquals($expected[self::RESULT], $result);
-        self::assertEquals($expected[self::HEX], (string)$result);
+        self::assertEquals($expected[self::TO_STRING], (string)$result);
+        self::assertEquals($expected[self::TO_HEX], $result->toHex());
+        self::assertEquals($expected[self::TO_RGB], $result->toRgb());
+        self::assertEquals($expected[self::TO_RGBA], $result->toRgba());
     }
 }

@@ -51,6 +51,9 @@ trait AppRelatedConstTrait
     final protected const STYLE = 'style';
     final protected const STYLE_MODE = 'styleMode';
     final protected const TO_STRING = 'toString';
+    final protected const TO_HEX = 'toHex';
+    final protected const TO_RGB = 'toRgb';
+    final protected const TO_RGBA = 'toRgba';
     final protected const VALUE = 'value';
     final protected const PEAK = 'peak';
     final protected const WIDTH = 'width';
