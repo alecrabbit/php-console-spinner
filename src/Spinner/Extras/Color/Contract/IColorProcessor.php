@@ -9,6 +9,7 @@ use AlecRabbit\Spinner\Contract\Color\IColor;
 use AlecRabbit\Spinner\Core\Color\HSLColor;
 use AlecRabbit\Spinner\Core\Color\RGBColor;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
+use AlecRabbit\Spinner\Extras\Color\ColorProcessor;
 use Generator;
 use Traversable;
 
@@ -59,4 +60,6 @@ interface IColorProcessor
     public function gradient(string|IColor $from, string|IColor $to, int $steps = 100): Generator;
 
     public function colorFromString(string $color): IColor;
+
+    public function getFloatPrecision(): int;
 }

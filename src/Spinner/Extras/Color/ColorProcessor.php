@@ -223,4 +223,9 @@ final class ColorProcessor implements IColorProcessor
             );
         }
     }
+
+    public function getFloatPrecision(): int
+    {
+        return $this->floatPrecision;
+    }
 }
