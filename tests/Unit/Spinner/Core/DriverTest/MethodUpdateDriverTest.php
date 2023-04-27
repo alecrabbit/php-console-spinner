@@ -23,7 +23,8 @@ final class MethodUpdateDriverTest extends TestCaseForDriver
         $observer
             ->expects(self::once())
             ->method('update')
-            ->with($driver);
+            ->with($driver)
+        ;
 
         $driver->update($spinner);
     }

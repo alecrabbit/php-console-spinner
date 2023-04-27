@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-// 12.04.23
 
 namespace AlecRabbit\Spinner\Core\Revolver;
 
@@ -10,7 +9,6 @@ use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Core\Contract\IFrameCollection;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolver;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolverBuilder;
-use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
 use AlecRabbit\Spinner\Exception\LogicException;
 
 final class FrameRevolverBuilder implements IFrameRevolverBuilder

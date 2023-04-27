@@ -1,7 +1,7 @@
 <?php
 
 declare(strict_types=1);
-// 25.04.23
+
 namespace Functional\Spinner\Core\Widget;
 
 use AlecRabbit\Spinner\Core\Interval;

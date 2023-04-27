@@ -4,10 +4,8 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core\DriverTest;
 
-use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Core\Driver;
 use AlecRabbit\Spinner\Core\Interval;
-use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use PHPUnit\Framework\Attributes\Test;
 
 final class CommonDriverTest extends TestCaseForDriver

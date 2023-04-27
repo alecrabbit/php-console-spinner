@@ -1,7 +1,7 @@
 <?php
 
 declare(strict_types=1);
-// 18.04.23
+
 namespace AlecRabbit\Spinner\Core\Factory;
 
 use AlecRabbit\Spinner\Contract\IProbe;

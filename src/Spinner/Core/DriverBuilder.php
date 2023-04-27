@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-// 10.04.23
 
 namespace AlecRabbit\Spinner\Core;
 
@@ -14,7 +13,6 @@ use AlecRabbit\Spinner\Core\Contract\IDriverBuilder;
 use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalFactory;
 use AlecRabbit\Spinner\Core\Output\Contract\IDriverOutput;
 use AlecRabbit\Spinner\Exception\LogicException;
-use Closure;
 
 final class DriverBuilder implements Contract\IDriverBuilder
 {

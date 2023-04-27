@@ -119,7 +119,9 @@ final class ARevolverTest extends TestCaseWithPrebuiltMocksAndStubs
 
         self::assertSame($frame, $revolver->getFrame(90.0)); // this calls next()
         self::assertSame($frame, $revolver->getFrame(80.0)); // this does not call next()
-    }    #[Test]
+    }
+
+    #[Test]
     public function canGetFrameIfDiffIsBelowZero(): void
     {
         $frame = $this->getFrameMock();

@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-// 09.04.23
 
 namespace AlecRabbit\Spinner\Core;
 
@@ -14,7 +13,6 @@ use AlecRabbit\Spinner\Core\A\ASubject;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidget;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContext;
-use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 
 final class Spinner extends ASubject implements ISpinner
 {

@@ -2,11 +2,9 @@
 
 declare(strict_types=1);
 
-// 09.04.23
 
 namespace AlecRabbit\Spinner\Core;
 
-use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Contract\IObserver;
 use AlecRabbit\Spinner\Contract\ISubject;
@@ -16,8 +14,6 @@ use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use AlecRabbit\Spinner\Core\Contract\ISpinnerState;
 use AlecRabbit\Spinner\Core\Output\Contract\IDriverOutput;
-use AlecRabbit\Spinner\Exception\InvalidArgumentException;
-use Closure;
 use WeakMap;
 
 final class Driver extends ASubject implements IDriver
@@ -40,29 +36,21 @@ final class Driver extends ASubject implements IDriver
     public function render(?float $dt = null): void
     {
         $dt ??= $this->timer->getDelta();
-        foreach ($this->spinners as $spinner => $state) {
-            $this->spinners->offsetSet(
-                $spinner,
-                $this->renderFrame(
-                    $spinner->getFrame($dt),
-                    $state
-                )
-            );
+
+        foreach ($this->spinners as $spinner => $previousState) {
+            $frame = $spinner->getFrame($dt);
+
+            $state =
+                new SpinnerState(
+                    sequence: $frame->sequence(),
+                    width: $frame->width(),
+                    previousWidth: $previousState->getWidth()
+                );
+
+            $this->spinners->offsetSet($spinner, $state);
+
+            $this->driverOutput->write($state);
         }
-    }
-
-    private function renderFrame(IFrame $frame, ISpinnerState $state): ISpinnerState
-    {
-        $spinnerState =
-            new SpinnerState(
-                sequence: $frame->sequence(),
-                width: $frame->width(),
-                previousWidth: $state->getWidth()
-            );
-
-        $this->driverOutput->write($spinnerState);
-
-        return $spinnerState;
     }
 
     public function interrupt(?string $interruptMessage = null): void

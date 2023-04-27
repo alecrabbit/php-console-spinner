@@ -1,7 +1,7 @@
 <?php
 
 declare(strict_types=1);
-// 26.04.23
+
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Revolver\Override;
 
 use AlecRabbit\Spinner\Contract\IFrame;

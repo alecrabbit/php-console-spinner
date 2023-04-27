@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-// 03.04.23
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core;
 
