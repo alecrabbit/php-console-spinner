@@ -67,6 +67,21 @@ final class DriverBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
     }
 
     #[Test]
+    public function canBuildWithObserver(): void
+    {
+        $driverBuilder = $this->getTesteeInstance();
+
+        $driver = $driverBuilder
+            ->withDriverOutput($this->getDriverOutputMock())
+            ->withTimer($this->getTimerMock())
+            ->withObserver($this->getObserverMock())
+            ->build()
+        ;
+
+        self::assertInstanceOf(Driver::class, $driver);
+    }
+
+    #[Test]
     public function throwsIfDriverOutputIsNotSet(): void
     {
         $exceptionClass = LogicException::class;
