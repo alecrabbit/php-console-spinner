@@ -86,30 +86,29 @@ final readonly class RGBColor implements IStringableColor
      */
     private static function assertHex(string $hex): void
     {
-        if (!preg_match('/^#?([a-f\d]{2}){3}|#?([a-f\d]){3}$/i', $hex)) { // /^#?([a-f\d]{2}){3}|#?([a-f\d]){3}$/i
-
+        if (!preg_match('/^#(?:([a-f\d]{2}){3}|([a-f\d]){3})$/i', $hex)) {
             throw new InvalidArgumentException(
-                sprintf('Invalid hex color: %s', $hex)
+                sprintf('Invalid color string: "%s".', $hex)
             );
         }
     }
 
     public function __toString(): string
     {
-        return $this->toHex();
+        return $this->toHexString();
     }
 
-    public function toHex(): string
+    public function toHexString(): string
     {
         return sprintf(self::HEX_FORMAT, $this->red, $this->green, $this->blue);
     }
 
-    public function toRgb(): string
+    public function toRgbString(): string
     {
         return sprintf(self::RGB_FORMAT, $this->red, $this->green, $this->blue);
     }
 
-    public function toRgba(): string
+    public function toRgbaString(): string
     {
         return sprintf(self::RGBA_FORMAT, $this->red, $this->green, $this->blue, $this->alpha);
     }
