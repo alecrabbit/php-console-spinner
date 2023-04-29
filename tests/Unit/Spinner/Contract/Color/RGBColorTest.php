@@ -51,100 +51,34 @@ final class RGBColorTest extends TestCase
     {
         // [$expected, $incoming]
         // #0..
-        yield [
-            [
-                self::EXCEPTION => [
-                    self::CLASS_ => InvalidArgumentException::class,
-                    self::MESSAGE => 'Invalid color string: "nanana".',
+        foreach (self::simplifiedInvalidStringDataFeeder() as $item) {
+            $string = $item[0];
+            yield [
+                [
+                    self::EXCEPTION => [
+                        self::CLASS_ => InvalidArgumentException::class,
+                        self::MESSAGE => "Invalid color string: \"{$string}\".",
+                    ],
                 ],
-            ],
-            [
-                self::COLOR => 'nanana',
-            ],
-        ];
-        // #1
-        yield [
-            [
-                self::EXCEPTION => [
-                    self::CLASS_ => InvalidArgumentException::class,
-                    self::MESSAGE => 'Invalid color string: "#aabbc".',
+                [
+                    self::COLOR => $string,
                 ],
-            ],
-            [
-                self::COLOR => '#aabbc',
-            ],
-        ];
-        // #2
-        yield [
-            [
-                self::EXCEPTION => [
-                    self::CLASS_ => InvalidArgumentException::class,
-                    self::MESSAGE => 'Invalid color string: "#aabbccdd".',
-                ],
-            ],
-            [
-                self::COLOR => '#aabbccdd',
-            ],
-        ];
-        // #3
-        yield [
-            [
-                self::EXCEPTION => [
-                    self::CLASS_ => InvalidArgumentException::class,
-                    self::MESSAGE => 'Invalid color string: "00000".',
-                ],
-            ],
-            [
-                self::COLOR => '00000',
-            ],
-        ];
-        // #4
-        yield [
-            [
-                self::EXCEPTION => [
-                    self::CLASS_ => InvalidArgumentException::class,
-                    self::MESSAGE => 'Invalid color string: "aaaaa".',
-                ],
-            ],
-            [
-                self::COLOR => 'aaaaa',
-            ],
-        ];
-        // #5
-        yield [
-            [
-                self::EXCEPTION => [
-                    self::CLASS_ => InvalidArgumentException::class,
-                    self::MESSAGE => 'Invalid color string: "ffaaa".',
-                ],
-            ],
-            [
-                self::COLOR => 'ffaaa',
-            ],
-        ];
-        // #6
-        yield [
-            [
-                self::EXCEPTION => [
-                    self::CLASS_ => InvalidArgumentException::class,
-                    self::MESSAGE => 'Invalid color string: "aaaaaa".',
-                ],
-            ],
-            [
-                self::COLOR => 'aaaaaa',
-            ],
-        ];
-        // #7
-        yield [
-            [
-                self::EXCEPTION => [
-                    self::CLASS_ => InvalidArgumentException::class,
-                    self::MESSAGE => 'Invalid color string: "ffaaca".',
-                ],
-            ],
-            [
-                self::COLOR => 'ffaaca',
-            ],
+            ];
+        }
+    }
+
+    private static function simplifiedInvalidStringDataFeeder(): iterable
+    {
+        yield from [
+            'rgb(145, 89, 34,)',
+            'ffaaca',
+            'aaaaaa',
+            'ffaaa',
+            'aaaaa',
+            '00000',
+            '#aabbccdd',
+            '#aabbc',
+            'nanana',
         ];
     }
 
@@ -218,10 +152,13 @@ final class RGBColorTest extends TestCase
             [new RGBColor(0, 241, 255), '#00f1ff', 'rgb(0, 241, 255)', 'rgba(0, 241, 255, 1)'],
             [new RGBColor(0, 0, 255), '#0000ff', 'rgb(0, 0, 255)', 'rgba(0, 0, 255, 1)'],
             [new RGBColor(180, 245, 152), '#b4f598', 'rgb(180, 245, 152)', 'rgba(180, 245, 152, 1)'],
+            [new RGBColor(180, 245, 152, 0.45), '#b4f598', 'rgb(180, 245, 152)', 'rgba(180, 245, 152, 0.45)'],
             [new RGBColor(145, 89, 34), '#915922', 'rgb(145, 89, 34)', 'rgba(145, 89, 34, 1)'],
+            [new RGBColor(145, 89, 34, 0.11), '#915922', 'rgb(145, 89, 34)', 'rgba(145, 89, 34, 0.11)'],
             [new RGBColor(0, 255, 128), '#00ff80', 'rgb(0, 255, 128)', 'rgba(0, 255, 128, 1)'],
         ];
     }
+
 
     #[Test]
     #[DataProvider('colorDataProvider')]
@@ -291,9 +228,9 @@ final class RGBColorTest extends TestCase
         self::assertSame($color->toRgbString(), $rgb);
         self::assertSame($color->toRgbaString(), $rgba);
 
-        self::assertEquals(RGBColor::fromString($hex), $color);
-        self::assertEquals(RGBColor::fromString($rgb), $color);
-        self::assertEquals(RGBColor::fromString($rgba), $color);
+        self::assertEquals(RGBColor::fromString($hex)->toHexString(), $color->toHexString());
+        self::assertEquals(RGBColor::fromString($rgb)->toRgbString(), $color->toRgbString());
+        self::assertEquals(RGBColor::fromString($rgba)->toRgbaString(), $color->toRgbaString());
     }
 
     #[Test]
