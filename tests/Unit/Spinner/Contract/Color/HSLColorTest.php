@@ -39,9 +39,11 @@ final class HSLColorTest extends TestCase
         yield from [
             // result, h, s, l, a // first element - #0..
             [new HSLColor(0, 0, 0, 1.0), 0, 0, 0, 1.0],
-            [new HSLColor(0, 0, 0, 1.0), -1, 0, 0, 1.0],
-            [new HSLColor(0, 1, 0, 1.0), -1, 2, 0, 1.0],
+            [new HSLColor(359, 0, 0, 1.0), -1, 0, 0, 1.0],
+            [new HSLColor(359, 1, 0, 1.0), -1, 2, 0, 1.0],
             [new HSLColor(14, 0, 1, 0), 14, 0, 2, -1],
+            [new HSLColor(114, 0.5, 0.5, 1), 114, 0.5, 0.5, 1],
+            [new HSLColor(359, 0.5, 0.5, 1), -1, 0.5, 0.5, 1],
         ];
     }
 
@@ -52,18 +54,11 @@ final class HSLColorTest extends TestCase
         foreach (self::simplifiedStringColorDataFeeder() as $item) {
             yield [
                 [
-                    self::RESULT => $item[0], // result
                     self::TO_HSL => $item[1],
                     self::TO_HSLA => $item[2],
-
                 ],
                 [
-                    self::ARGUMENTS => [
-                        self::HUE => $item[3],
-                        self::SATURATION => $item[4],
-                        self::LIGHTNESS => $item[5],
-                        self::ALPHA => $item[6],
-                    ],
+                    self::COLOR => $item[0],
                 ],
             ];
         }
@@ -73,17 +68,10 @@ final class HSLColorTest extends TestCase
     {
         // #0..
         yield from [
-            // result, toHsl, toHsla, h, s, l, a // first element - #0..
-            [new HSLColor(0, 0, 0, 1), 'hsl(0, 0%, 0%)', 'hsla(0, 0%, 0%, 1)', 0, 0, 0, 1],
-            [
-                new HSLColor(350, 0.2, 0, 0.5),
-                'hsl(350, 20%, 0%)',
-                'hsla(350, 20%, 0%, 0.5)',
-                350,
-                0.2,
-                0,
-                0.5
-            ],
+            // color, toHsl, toHsla, // first element - #0..
+            [new HSLColor(0, 0, 0, 1), 'hsl(0, 0%, 0%)', 'hsla(0, 0%, 0%, 1)'],
+            [new HSLColor(350, 0.2, 0, 0.5), 'hsl(350, 20%, 0%)', 'hsla(350, 20%, 0%, 0.5)',],
+            [new HSLColor(32, 0.34, 1, 0.55), 'hsl(32, 34%, 100%)', 'hsla(32, 34%, 100%, 0.55)',],
         ];
     }
 
@@ -121,28 +109,13 @@ final class HSLColorTest extends TestCase
     {
         $expectedException = $this->expectsException($expected);
 
-        $args = $incoming[self::ARGUMENTS];
-
-        $result =
-            new HSLColor(
-                $args[self::HUE],
-                $args[self::SATURATION],
-                $args[self::LIGHTNESS],
-                $args[self::ALPHA],
-            );
+        $color = $incoming[self::COLOR];
 
         if ($expectedException) {
             self::failTest($expectedException);
         }
 
-        self::assertEquals($expected[self::RESULT], $result);
-        
-        self::assertSame($expected[self::RESULT]->hue, $result->hue);
-        self::assertSame($expected[self::RESULT]->saturation, $result->saturation);
-        self::assertSame($expected[self::RESULT]->lightness, $result->lightness);
-        self::assertSame($expected[self::RESULT]->alpha, $result->alpha);
-
-        self::assertSame($expected[self::TO_HSL], $result->toHSL());
-        self::assertSame($expected[self::TO_HSLA], $result->toHSLA());
+        self::assertSame($expected[self::TO_HSL], $color->toHSL());
+        self::assertSame($expected[self::TO_HSLA], $color->toHSLA());
     }
 }

@@ -66,6 +66,20 @@ final class RGBColorTest extends TestCase
                 ],
             ];
         }
+    }    public static function stringColorDataProvider(): iterable
+    {
+        // [$expected, $incoming]
+        // #0..
+        foreach (self::simplifiedStringColorDataFeeder() as $item) {
+            yield [
+                [
+                    self::TO_HEX => $item[1],
+                    self::TO_RGB => $item[2],
+                    self::TO_RGBA => $item[3],
+                    self::COLOR =>  $item[0],
+                ],
+            ];
+        }
     }
 
     public static function simplifiedHexColorDataFeeder(): iterable
@@ -80,6 +94,20 @@ final class RGBColorTest extends TestCase
             ['#b4f598', new RGBColor(180, 245, 152), '#b4f598', '#b4f598', 'rgb(180, 245, 152)', 'rgba(180, 245, 152, 1)'],
             ['#915922', new RGBColor(145, 89, 34), '#915922', '#915922', 'rgb(145, 89, 34)', 'rgba(145, 89, 34, 1)'],
             ['#00ff80', new RGBColor(0, 255, 128), '#00ff80', '#00ff80', 'rgb(0, 255, 128)', 'rgba(0, 255, 128, 1)'],
+        ];
+    }
+    public static function simplifiedStringColorDataFeeder(): iterable
+    {
+        // #0..
+        yield from [
+            // color, hex, rgb, rgba // first element - #0..
+            [new RGBColor(0, 0, 0), '#000000', 'rgb(0, 0, 0)', 'rgba(0, 0, 0, 1)'],
+            [new RGBColor(0, 0, 255), '#0000ff', 'rgb(0, 0, 255)', 'rgba(0, 0, 255, 1)'],
+            [new RGBColor(0, 241, 255), '#00f1ff', 'rgb(0, 241, 255)', 'rgba(0, 241, 255, 1)'],
+            [new RGBColor(0, 0, 255), '#0000ff', 'rgb(0, 0, 255)', 'rgba(0, 0, 255, 1)'],
+            [new RGBColor(180, 245, 152), '#b4f598', 'rgb(180, 245, 152)', 'rgba(180, 245, 152, 1)'],
+            [new RGBColor(145, 89, 34), '#915922', 'rgb(145, 89, 34)', 'rgba(145, 89, 34, 1)'],
+            [new RGBColor(0, 255, 128), '#00ff80', 'rgb(0, 255, 128)', 'rgba(0, 255, 128, 1)'],
         ];
     }
 
@@ -123,7 +151,7 @@ final class RGBColorTest extends TestCase
 
         $args = $incoming[self::ARGUMENTS];
 
-        $result = RGBColor::fromHex($args[self::HEX]);
+        $result = RGBColor::fromString($args[self::HEX]);
 
         if ($expectedException) {
             self::failTest($expectedException);
@@ -134,5 +162,30 @@ final class RGBColorTest extends TestCase
         self::assertEquals($expected[self::TO_HEX], $result->toHex());
         self::assertEquals($expected[self::TO_RGB], $result->toRgb());
         self::assertEquals($expected[self::TO_RGBA], $result->toRgba());
+    }
+    #[Test]
+    #[DataProvider('stringColorDataProvider')]
+    public function canBeCreatedFromString(array $expected): void
+    {
+        $expectedException = $this->expectsException($expected);
+
+        /** @var RGBColor $color */
+        $color= $expected[self::COLOR];
+
+        if ($expectedException) {
+            self::failTest($expectedException);
+        }
+
+        $hex = $expected[self::TO_HEX];
+        $rgb = $expected[self::TO_RGB];
+        $rgba = $expected[self::TO_RGBA];
+
+        self::assertSame($color->toHex(), $hex);
+        self::assertSame($color->toRgb(), $rgb);
+        self::assertSame($color->toRgba(), $rgba);
+
+        self::assertEquals(RGBColor::fromString($hex), $color);
+        self::assertEquals(RGBColor::fromString($rgb), $color);
+        self::assertEquals(RGBColor::fromString($rgba), $color);
     }
 }

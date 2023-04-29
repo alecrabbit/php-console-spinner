@@ -98,7 +98,7 @@ final class ColorProcessor implements IColorProcessor
             return new RGBColor($r, $g, $b, $a);
         }
 
-        return RGBColor::fromHex($color);
+        return RGBColor::fromString($color);
     }
 
     public function toRGB(string|IColor $color): RGBColor

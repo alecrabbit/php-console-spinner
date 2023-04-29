@@ -7,11 +7,13 @@ namespace AlecRabbit\Spinner\Core\Color;
 
 use AlecRabbit\Spinner\Contract\Color\IStringableColor;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
-use AlecRabbit\Spinner\Helper\Asserter;
 
 final readonly class RGBColor implements IStringableColor
 {
     private const HEX_FORMAT = '#%02x%02x%02x';
+    private const RGB_FORMAT = 'rgb(%d, %d, %d)';
+    private const RGBA_FORMAT = 'rgba(%d, %d, %d, %s)';
+
     public int $red;
     public int $green;
     public int $blue;
@@ -36,13 +38,30 @@ final readonly class RGBColor implements IStringableColor
 
     private static function refineAlpha(float $value): float
     {
-        return max(0.0, min(1.0, $value));
+        return round(max(0.0, min(1.0, $value)), 2);
     }
 
     /**
      * @throws InvalidArgumentException
      */
-    public static function fromHex(string $hex): self
+    public static function fromString(string $color): self
+    {
+        if (preg_match('/^rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\)$/', $color, $matches)) {
+            return
+                new RGBColor(
+                    (int)$matches[1],
+                    (int)$matches[2],
+                    (int)$matches[3],
+                    isset($matches[4]) ? (float)$matches[4] : 1.0,
+                );
+        }
+        return self::fromHex($color);
+    }
+
+    /**
+     * @throws InvalidArgumentException
+     */
+    private static function fromHex(string $hex): self
     {
         self::assertHex($hex);
 
@@ -67,7 +86,12 @@ final readonly class RGBColor implements IStringableColor
      */
     private static function assertHex(string $hex): void
     {
-        Asserter::assertHexStringColor($hex);
+        if (!preg_match('/^#?([a-f\d]{2}){3}|#?([a-f\d]){3}$/i', $hex)) { // /^#?([a-f\d]{2}){3}|#?([a-f\d]){3}$/i
+
+            throw new InvalidArgumentException(
+                sprintf('Invalid hex color: %s', $hex)
+            );
+        }
     }
 
     public function __toString(): string
@@ -82,11 +106,11 @@ final readonly class RGBColor implements IStringableColor
 
     public function toRgb(): string
     {
-        return sprintf('rgb(%d, %d, %d)', $this->red, $this->green, $this->blue);
+        return sprintf(self::RGB_FORMAT, $this->red, $this->green, $this->blue);
     }
 
     public function toRgba(): string
     {
-        return sprintf('rgba(%d, %d, %d, %s)', $this->red, $this->green, $this->blue, $this->alpha);
+        return sprintf(self::RGBA_FORMAT, $this->red, $this->green, $this->blue, $this->alpha);
     }
 }

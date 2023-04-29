@@ -212,7 +212,7 @@ final class StyleFrameCollectionRendererTest extends TestCaseWithPrebuiltMocksAn
         $pattern
             ->expects(self::once())
             ->method('getEntries')
-            ->willReturn(new ArrayObject([RGBColor::fromHex('#ffffff')]))
+            ->willReturn(new ArrayObject([RGBColor::fromString('#ffffff')]))
         ;
         $collection = $collectionRenderer->render($pattern);
         self::assertInstanceOf(FrameCollection::class, $collection);

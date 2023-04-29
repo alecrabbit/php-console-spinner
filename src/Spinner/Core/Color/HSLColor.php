@@ -9,6 +9,9 @@ use AlecRabbit\Spinner\Contract\Color\IColor;
 
 final class HSLColor implements IColor
 {
+    private const HSL_FORMAT = 'hsl(%d, %s%%, %s%%)';
+    private const HSLA_FORMAT = 'hsla(%d, %s%%, %s%%, %s)';
+
     public int $hue;
     public float $saturation;
     public float $lightness;
@@ -28,7 +31,7 @@ final class HSLColor implements IColor
 
     private static function refineHue(int $value): int
     {
-        return max(0, min(360, $value));
+        return ($value % 360 + 360) % 360;
     }
 
     private static function refineValue(float $value): float
@@ -38,21 +41,24 @@ final class HSLColor implements IColor
 
     public function toHsl(): string
     {
-        return sprintf(
-            'hsl(%d, %s%%, %s%%)',
-            $this->hue,
-            round($this->saturation * 100),
-            round($this->lightness * 100),
-        );
+        return
+            sprintf(
+                self::HSL_FORMAT,
+                $this->hue,
+                round($this->saturation * 100),
+                round($this->lightness * 100),
+            );
     }
 
-    public function toHsla(): string {
-        return sprintf(
-            'hsla(%d, %s%%, %s%%, %s)',
-            $this->hue,
-            round($this->saturation * 100),
-            round($this->lightness * 100),
-            $this->alpha,
-        );
+    public function toHsla(): string
+    {
+        return
+            sprintf(
+                self::HSLA_FORMAT,
+                $this->hue,
+                round($this->saturation * 100),
+                round($this->lightness * 100),
+                $this->alpha,
+            );
     }
 }
