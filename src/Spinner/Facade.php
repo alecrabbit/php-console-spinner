@@ -49,11 +49,11 @@ final class Facade implements IFacade
         return self::getContainer()->get(IDefaultsProvider::class);
     }
 
-    public static function createSpinner(?ISpinnerConfig $settings = null): ISpinner
+    public static function createSpinner(?ISpinnerConfig $config = null): ISpinner
     {
         $spinner =
             self::getSpinnerFactory()
-                ->createSpinner($settings)
+                ->createSpinner($config)
         ;
 
         $driver = self::getDriverFactory()

@@ -17,5 +17,5 @@ interface IFacade
 
     public static function getDriver(): IDriver;
 
-    public static function createSpinner(?ISpinnerConfig $settings = null): ISpinner;
+    public static function createSpinner(?ISpinnerConfig $config = null): ISpinner;
 }
