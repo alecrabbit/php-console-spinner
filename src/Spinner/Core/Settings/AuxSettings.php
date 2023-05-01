@@ -3,10 +3,10 @@
 declare(strict_types=1);
 
 
-namespace AlecRabbit\Spinner\Core\Defaults;
+namespace AlecRabbit\Spinner\Core\Settings;
 
 use AlecRabbit\Spinner\Contract\Option\OptionNormalizerMode;
-use AlecRabbit\Spinner\Core\Defaults\Contract\IAuxSettings;
+use AlecRabbit\Spinner\Core\Settings\Contract\IAuxSettings;
 
 final class AuxSettings implements IAuxSettings
 {

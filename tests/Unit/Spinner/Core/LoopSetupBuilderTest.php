@@ -5,8 +5,8 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core;
 
+use AlecRabbit\Spinner\Core\Builder\Contract\ILoopSetupBuilder;
 use AlecRabbit\Spinner\Core\Builder\LoopSetupBuilder;
-use AlecRabbit\Spinner\Core\Contract\ILoopSetupBuilder;
 use AlecRabbit\Spinner\Core\LoopSetup;
 use AlecRabbit\Spinner\Exception\LogicException;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;

@@ -5,13 +5,13 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Builder\Settings;
 
-use AlecRabbit\Spinner\Core\Builder\Contract\IAuxSettingsBuilder;
-use AlecRabbit\Spinner\Core\Builder\Contract\IDefaultsProviderBuilder;
-use AlecRabbit\Spinner\Core\Builder\Contract\IDriverSettingsBuilder;
+use AlecRabbit\Spinner\Core\Builder\Settings\Contract\IAuxSettingsBuilder;
+use AlecRabbit\Spinner\Core\Builder\Settings\Contract\IDefaultsProviderBuilder;
+use AlecRabbit\Spinner\Core\Builder\Settings\Contract\IDriverSettingsBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\IWidgetConfig;
 use AlecRabbit\Spinner\Core\Config\WidgetConfig;
 use AlecRabbit\Spinner\Core\Contract\IDefaultsProvider;
-use AlecRabbit\Spinner\Core\Defaults\DefaultsProvider;
+use AlecRabbit\Spinner\Core\DefaultsProvider;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopSettingsFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ITerminalSettingsFactory;
 use AlecRabbit\Spinner\Core\Frame;

@@ -3,7 +3,9 @@
 declare(strict_types=1);
 
 
-namespace AlecRabbit\Spinner\Core\Contract;
+namespace AlecRabbit\Spinner\Core\Builder\Contract;
+
+use AlecRabbit\Spinner\Core\Contract\IIntegerNormalizer;
 
 interface IIntegerNormalizerBuilder
 {

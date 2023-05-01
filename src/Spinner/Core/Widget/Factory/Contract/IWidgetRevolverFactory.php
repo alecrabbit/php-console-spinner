@@ -5,8 +5,8 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Widget\Factory\Contract;
 
-use AlecRabbit\Spinner\Core\Defaults\Contract\IWidgetSettings;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
+use AlecRabbit\Spinner\Core\Settings\Contract\IWidgetSettings;
 
 interface IWidgetRevolverFactory
 {

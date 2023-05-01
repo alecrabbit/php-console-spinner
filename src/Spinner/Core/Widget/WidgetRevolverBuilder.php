@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Widget;
 
-use AlecRabbit\Spinner\Core\Builder\A\ARevolverBuilder;
+use AlecRabbit\Spinner\Core\Revolver\A\ARevolverBuilder;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolverBuilder;
 use AlecRabbit\Spinner\Exception\LogicException;

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Factory;
 
+use AlecRabbit\Spinner\Core\Builder\Contract\ILoopSetupBuilder;
 use AlecRabbit\Spinner\Core\Contract\IDefaultsProvider;
-use AlecRabbit\Spinner\Core\Contract\ILoopSetupBuilder;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopSetupFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopSingletonFactory;
 use AlecRabbit\Spinner\Core\Factory\LoopSetupFactory;

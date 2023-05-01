@@ -6,11 +6,11 @@ namespace AlecRabbit\Tests\Unit\Spinner\Core\Defaults;
 
 use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Contract\Pattern\IPattern;
-use AlecRabbit\Spinner\Core\Defaults\Contract\IWidgetSettings;
-use AlecRabbit\Spinner\Core\Defaults\WidgetSettings;
 use AlecRabbit\Spinner\Core\Frame;
 use AlecRabbit\Spinner\Core\Pattern\NoCharPattern;
 use AlecRabbit\Spinner\Core\Pattern\NoStylePattern;
+use AlecRabbit\Spinner\Core\Settings\Contract\IWidgetSettings;
+use AlecRabbit\Spinner\Core\Settings\WidgetSettings;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;
 

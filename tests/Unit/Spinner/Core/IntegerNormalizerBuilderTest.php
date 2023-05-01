@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core;
 
+use AlecRabbit\Spinner\Core\Builder\Contract\IIntegerNormalizerBuilder;
 use AlecRabbit\Spinner\Core\Builder\IntegerNormalizerBuilder;
-use AlecRabbit\Spinner\Core\Contract\IIntegerNormalizerBuilder;
 use AlecRabbit\Spinner\Core\IntegerNormalizer;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;

@@ -5,11 +5,11 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Builder;
 
+use AlecRabbit\Spinner\Core\Builder\Contract\ILoopSetupBuilder;
 use AlecRabbit\Spinner\Core\Contract\ILoopSetup;
-use AlecRabbit\Spinner\Core\Contract\ILoopSetupBuilder;
 use AlecRabbit\Spinner\Core\Contract\Loop\Contract\ILoop;
-use AlecRabbit\Spinner\Core\Defaults\Contract\ILoopSettings;
 use AlecRabbit\Spinner\Core\LoopSetup;
+use AlecRabbit\Spinner\Core\Settings\Contract\ILoopSettings;
 use AlecRabbit\Spinner\Exception\LogicException;
 
 final class LoopSetupBuilder implements ILoopSetupBuilder

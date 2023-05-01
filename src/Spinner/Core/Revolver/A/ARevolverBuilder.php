@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 
-namespace AlecRabbit\Spinner\Core\Builder\A;
+namespace AlecRabbit\Spinner\Core\Revolver\A;
 
 use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
 

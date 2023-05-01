@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Factory\Contract;
 
 use AlecRabbit\Spinner\Core\Config\Contract\IWidgetConfig;
-use AlecRabbit\Spinner\Core\Defaults\Contract\IWidgetSettings;
+use AlecRabbit\Spinner\Core\Settings\Contract\IWidgetSettings;
 
 interface IWidgetSettingsFactory
 {

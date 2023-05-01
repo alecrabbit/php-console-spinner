@@ -6,11 +6,11 @@ namespace AlecRabbit\Tests\Unit\Spinner\Core\Defaults;
 
 use AlecRabbit\Spinner\Core\Config\Contract\IWidgetConfig;
 use AlecRabbit\Spinner\Core\Contract\IDefaultsProvider;
-use AlecRabbit\Spinner\Core\Defaults\Contract\IAuxSettings;
-use AlecRabbit\Spinner\Core\Defaults\Contract\IDriverSettings;
-use AlecRabbit\Spinner\Core\Defaults\Contract\ILoopSettings;
-use AlecRabbit\Spinner\Core\Defaults\Contract\ITerminalSettings;
-use AlecRabbit\Spinner\Core\Defaults\DefaultsProvider;
+use AlecRabbit\Spinner\Core\DefaultsProvider;
+use AlecRabbit\Spinner\Core\Settings\Contract\IAuxSettings;
+use AlecRabbit\Spinner\Core\Settings\Contract\IDriverSettings;
+use AlecRabbit\Spinner\Core\Settings\Contract\ILoopSettings;
+use AlecRabbit\Spinner\Core\Settings\Contract\ITerminalSettings;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;
 

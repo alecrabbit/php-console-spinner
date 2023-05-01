@@ -3,11 +3,11 @@
 declare(strict_types=1);
 
 
-namespace AlecRabbit\Spinner\Core\Defaults;
+namespace AlecRabbit\Spinner\Core\Settings;
 
 use AlecRabbit\Spinner\Contract\Option\OptionInitialization;
 use AlecRabbit\Spinner\Contract\Option\OptionLinker;
-use AlecRabbit\Spinner\Core\Defaults\Contract\IDriverSettings;
+use AlecRabbit\Spinner\Core\Settings\Contract\IDriverSettings;
 
 final class DriverSettings implements IDriverSettings
 {

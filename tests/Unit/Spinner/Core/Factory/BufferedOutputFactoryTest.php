@@ -6,7 +6,7 @@ namespace AlecRabbit\Tests\Unit\Spinner\Core\Factory;
 
 use AlecRabbit\Spinner\Contract\Output\IBufferedOutput;
 use AlecRabbit\Spinner\Contract\Output\IResourceStream;
-use AlecRabbit\Spinner\Core\Contract\IBufferedOutputBuilder;
+use AlecRabbit\Spinner\Core\Builder\Contract\IBufferedOutputBuilder;
 use AlecRabbit\Spinner\Core\Factory\BufferedOutputSingletonFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IBufferedOutputSingletonFactory;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;

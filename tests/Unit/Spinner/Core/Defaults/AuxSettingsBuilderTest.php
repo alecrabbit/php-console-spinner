@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Defaults;
 
-use AlecRabbit\Spinner\Core\Builder\Contract\IAuxSettingsBuilder;
 use AlecRabbit\Spinner\Core\Builder\Settings\AuxSettingsBuilder;
-use AlecRabbit\Spinner\Core\Defaults\AuxSettings;
+use AlecRabbit\Spinner\Core\Builder\Settings\Contract\IAuxSettingsBuilder;
+use AlecRabbit\Spinner\Core\Settings\AuxSettings;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;
 

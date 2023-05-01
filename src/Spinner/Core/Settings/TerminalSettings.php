@@ -3,11 +3,11 @@
 declare(strict_types=1);
 
 
-namespace AlecRabbit\Spinner\Core\Builder\Settings;
+namespace AlecRabbit\Spinner\Core\Settings;
 
 use AlecRabbit\Spinner\Contract\Option\OptionCursor;
 use AlecRabbit\Spinner\Contract\Option\OptionStyleMode;
-use AlecRabbit\Spinner\Core\Defaults\Contract\ITerminalSettings;
+use AlecRabbit\Spinner\Core\Settings\Contract\ITerminalSettings;
 
 final class TerminalSettings implements ITerminalSettings
 {

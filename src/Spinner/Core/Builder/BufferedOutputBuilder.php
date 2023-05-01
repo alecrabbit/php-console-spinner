@@ -7,7 +7,7 @@ namespace AlecRabbit\Spinner\Core\Builder;
 
 use AlecRabbit\Spinner\Contract\Output\IBufferedOutput;
 use AlecRabbit\Spinner\Contract\Output\IResourceStream;
-use AlecRabbit\Spinner\Core\Contract\IBufferedOutputBuilder;
+use AlecRabbit\Spinner\Core\Builder\Contract\IBufferedOutputBuilder;
 use AlecRabbit\Spinner\Core\Output\StreamBufferedOutput;
 use AlecRabbit\Spinner\Exception\LogicException;
 

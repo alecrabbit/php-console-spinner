@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Factory;
 
-use AlecRabbit\Spinner\Core\Builder\Contract\IWidgetSettingsBuilder;
+use AlecRabbit\Spinner\Core\Builder\Settings\Contract\IWidgetSettingsBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\IWidgetConfig;
 use AlecRabbit\Spinner\Core\Contract\IDefaultsProvider;
-use AlecRabbit\Spinner\Core\Defaults\Contract\IWidgetSettings;
 use AlecRabbit\Spinner\Core\Factory\Contract\IWidgetSettingsFactory;
+use AlecRabbit\Spinner\Core\Settings\Contract\IWidgetSettings;
 
 final class WidgetSettingsFactory implements IWidgetSettingsFactory
 {

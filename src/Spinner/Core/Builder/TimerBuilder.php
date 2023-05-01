@@ -6,7 +6,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Builder;
 
 use AlecRabbit\Spinner\Contract\ITimer;
-use AlecRabbit\Spinner\Core\Contract\ITimerBuilder;
+use AlecRabbit\Spinner\Core\Builder\Contract\ITimerBuilder;
 use AlecRabbit\Spinner\Core\Timer;
 use AlecRabbit\Spinner\Exception\LogicException;
 use Closure;

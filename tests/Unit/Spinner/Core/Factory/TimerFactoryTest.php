@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Factory;
 
-use AlecRabbit\Spinner\Core\Contract\ITimerBuilder;
+use AlecRabbit\Spinner\Core\Builder\Contract\ITimerBuilder;
 use AlecRabbit\Spinner\Core\Factory\Contract\ITimerFactory;
 use AlecRabbit\Spinner\Core\Factory\TimerFactory;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;

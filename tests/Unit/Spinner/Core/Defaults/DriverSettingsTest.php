@@ -6,8 +6,8 @@ namespace AlecRabbit\Tests\Unit\Spinner\Core\Defaults;
 
 use AlecRabbit\Spinner\Contract\Option\OptionInitialization;
 use AlecRabbit\Spinner\Contract\Option\OptionLinker;
-use AlecRabbit\Spinner\Core\Defaults\Contract\IDriverSettings;
-use AlecRabbit\Spinner\Core\Defaults\DriverSettings;
+use AlecRabbit\Spinner\Core\Settings\Contract\IDriverSettings;
+use AlecRabbit\Spinner\Core\Settings\DriverSettings;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;
 

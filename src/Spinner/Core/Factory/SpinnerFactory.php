@@ -9,9 +9,9 @@ use AlecRabbit\Spinner\Core\Config\Contract\ISpinnerConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IWidgetConfig;
 use AlecRabbit\Spinner\Core\Contract\IDefaultsProvider;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
-use AlecRabbit\Spinner\Core\Defaults\Contract\IWidgetSettings;
 use AlecRabbit\Spinner\Core\Factory\Contract\ISpinnerFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IWidgetSettingsFactory;
+use AlecRabbit\Spinner\Core\Settings\Contract\IWidgetSettings;
 use AlecRabbit\Spinner\Core\Spinner;
 use AlecRabbit\Spinner\Core\Widget\Factory\Contract\IWidgetFactory;
 

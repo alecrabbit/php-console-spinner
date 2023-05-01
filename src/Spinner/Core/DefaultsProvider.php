@@ -3,14 +3,14 @@
 declare(strict_types=1);
 
 
-namespace AlecRabbit\Spinner\Core\Defaults;
+namespace AlecRabbit\Spinner\Core;
 
 use AlecRabbit\Spinner\Core\Config\Contract\IWidgetConfig;
 use AlecRabbit\Spinner\Core\Contract\IDefaultsProvider;
-use AlecRabbit\Spinner\Core\Defaults\Contract\IAuxSettings;
-use AlecRabbit\Spinner\Core\Defaults\Contract\IDriverSettings;
-use AlecRabbit\Spinner\Core\Defaults\Contract\ILoopSettings;
-use AlecRabbit\Spinner\Core\Defaults\Contract\ITerminalSettings;
+use AlecRabbit\Spinner\Core\Settings\Contract\IAuxSettings;
+use AlecRabbit\Spinner\Core\Settings\Contract\IDriverSettings;
+use AlecRabbit\Spinner\Core\Settings\Contract\ILoopSettings;
+use AlecRabbit\Spinner\Core\Settings\Contract\ITerminalSettings;
 
 final class DefaultsProvider implements IDefaultsProvider
 {

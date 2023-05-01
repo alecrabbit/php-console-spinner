@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Defaults;
 
-use AlecRabbit\Spinner\Core\Builder\Contract\IDriverSettingsBuilder;
+use AlecRabbit\Spinner\Core\Builder\Settings\Contract\IDriverSettingsBuilder;
 use AlecRabbit\Spinner\Core\Builder\Settings\DriverSettingsBuilder;
-use AlecRabbit\Spinner\Core\Defaults\DriverSettings;
+use AlecRabbit\Spinner\Core\Settings\DriverSettings;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;
 

@@ -7,10 +7,10 @@ namespace AlecRabbit\Spinner\Core\Builder;
 
 use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Contract\Pattern\IPattern;
-use AlecRabbit\Spinner\Core\Builder\Contract\IWidgetSettingsBuilder;
-use AlecRabbit\Spinner\Core\Defaults\Contract\IWidgetSettings;
-use AlecRabbit\Spinner\Core\Defaults\WidgetSettings;
+use AlecRabbit\Spinner\Core\Builder\Settings\Contract\IWidgetSettingsBuilder;
 use AlecRabbit\Spinner\Core\Pattern\Contract\IStylePattern;
+use AlecRabbit\Spinner\Core\Settings\Contract\IWidgetSettings;
+use AlecRabbit\Spinner\Core\Settings\WidgetSettings;
 use AlecRabbit\Spinner\Exception\LogicException;
 
 final class WidgetSettingsBuilder implements IWidgetSettingsBuilder
@@ -24,12 +24,13 @@ final class WidgetSettingsBuilder implements IWidgetSettingsBuilder
     {
         $this->validate();
 
-        return new WidgetSettings(
-            leadingSpacer: $this->leadingSpacer,
-            trailingSpacer: $this->trailingSpacer,
-            stylePattern: $this->stylePattern,
-            charPattern: $this->charPattern,
-        );
+        return
+            new WidgetSettings(
+                leadingSpacer: $this->leadingSpacer,
+                trailingSpacer: $this->trailingSpacer,
+                stylePattern: $this->stylePattern,
+                charPattern: $this->charPattern,
+            );
     }
 
     /**

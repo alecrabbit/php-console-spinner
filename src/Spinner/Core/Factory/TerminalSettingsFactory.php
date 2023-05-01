@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Factory;
 
-use AlecRabbit\Spinner\Core\Builder\Settings\TerminalSettings;
-use AlecRabbit\Spinner\Core\Defaults\Contract\ITerminalSettings;
+use AlecRabbit\Spinner\Core\Settings\Contract\ITerminalSettings;
+use AlecRabbit\Spinner\Core\Settings\TerminalSettings;
 use AlecRabbit\Spinner\Core\Terminal\Contract\ITerminalProbe;
 
 final class TerminalSettingsFactory implements Contract\ITerminalSettingsFactory

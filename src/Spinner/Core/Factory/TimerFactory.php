@@ -6,7 +6,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Factory;
 
 use AlecRabbit\Spinner\Contract\ITimer;
-use AlecRabbit\Spinner\Core\Contract\ITimerBuilder;
+use AlecRabbit\Spinner\Core\Builder\Contract\ITimerBuilder;
 
 final class TimerFactory implements Contract\ITimerFactory
 {

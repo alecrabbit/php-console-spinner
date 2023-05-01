@@ -6,7 +6,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Builder;
 
 use AlecRabbit\Spinner\Contract\Output\IBufferedOutput;
-use AlecRabbit\Spinner\Core\Contract\IDriverOutputBuilder;
+use AlecRabbit\Spinner\Core\Builder\Contract\IDriverOutputBuilder;
 use AlecRabbit\Spinner\Core\Output\Contract\IConsoleCursor;
 use AlecRabbit\Spinner\Core\Output\Contract\IDriverOutput;
 use AlecRabbit\Spinner\Core\Output\DriverOutput;

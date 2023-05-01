@@ -3,11 +3,11 @@
 declare(strict_types=1);
 
 
-namespace AlecRabbit\Spinner\Core\Defaults;
+namespace AlecRabbit\Spinner\Core\Settings;
 
 use AlecRabbit\Spinner\Contract\Option\OptionAttachHandlers;
 use AlecRabbit\Spinner\Contract\Option\OptionAutoStart;
-use AlecRabbit\Spinner\Core\Defaults\Contract\ILoopSettings;
+use AlecRabbit\Spinner\Core\Settings\Contract\ILoopSettings;
 
 final class LoopSettings implements ILoopSettings
 {
