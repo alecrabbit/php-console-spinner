@@ -5,14 +5,11 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Color;
 
-use AlecRabbit\Spinner\Contract\Color\IColor;
+use AlecRabbit\Spinner\Core\Color\A\AColor;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 
-final class HSLColor implements IColor
+final readonly class HSLColor extends AColor
 {
-    private const HSL_FORMAT = 'hsl(%d, %s%%, %s%%)';
-    private const HSLA_FORMAT = 'hsla(%d, %s%%, %s%%, %s)';
-    const REGEXP_HSLA = '/^hsla?\((\d+),\s*(\d+)%,\s*(\d+)%(?:,\s*([\d.]+))?\)$/';
 
     public int $hue;
     public float $saturation;
@@ -41,29 +38,6 @@ final class HSLColor implements IColor
         return round(max(0.0, min(1.0, $value)), 2);
     }
 
-    public function toHsl(): string
-    {
-        return
-            sprintf(
-                self::HSL_FORMAT,
-                $this->hue,
-                round($this->saturation * 100),
-                round($this->lightness * 100),
-            );
-    }
-
-    public function toHsla(): string
-    {
-        return
-            sprintf(
-                self::HSLA_FORMAT,
-                $this->hue,
-                round($this->saturation * 100),
-                round($this->lightness * 100),
-                $this->alpha,
-            );
-    }
-
     /**
      * @throws InvalidArgumentException
      */
@@ -80,5 +54,28 @@ final class HSLColor implements IColor
         throw new InvalidArgumentException(
             sprintf('Invalid color string: "%s".', $color)
         );
+    }
+
+    public function toHsl(): string
+    {
+        return
+            sprintf(
+                self::FORMAT_HSL,
+                $this->hue,
+                round($this->saturation * 100),
+                round($this->lightness * 100),
+            );
+    }
+
+    public function toHsla(): string
+    {
+        return
+            sprintf(
+                self::FORMAT_HSLA,
+                $this->hue,
+                round($this->saturation * 100),
+                round($this->lightness * 100),
+                $this->alpha,
+            );
     }
 }

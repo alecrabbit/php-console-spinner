@@ -5,17 +5,12 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Color;
 
-use AlecRabbit\Spinner\Contract\Color\IColor;
+use AlecRabbit\Spinner\Core\Color\A\AColor;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use Stringable;
 
-final readonly class RGBColor implements IColor, Stringable
+final readonly class RGBColor extends AColor implements Stringable
 {
-    private const HEX_FORMAT = '#%02x%02x%02x';
-    private const RGB_FORMAT = 'rgb(%d, %d, %d)';
-    private const RGBA_FORMAT = 'rgba(%d, %d, %d, %s)';
-    private const REGEXP_RGBA = '/^rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\)$/';
-    private const REGEXP_HEX = '/^#?(?:([a-f\d]{2}){3}|([a-f\d]){3})$/i';
 
     public int $red;
     public int $green;
@@ -111,16 +106,16 @@ final readonly class RGBColor implements IColor, Stringable
 
     public function toHexString(): string
     {
-        return sprintf(self::HEX_FORMAT, $this->red, $this->green, $this->blue);
+        return sprintf(self::FORMAT_HEX, $this->red, $this->green, $this->blue);
     }
 
     public function toRgbString(): string
     {
-        return sprintf(self::RGB_FORMAT, $this->red, $this->green, $this->blue);
+        return sprintf(self::FORMAT_RGB, $this->red, $this->green, $this->blue);
     }
 
     public function toRgbaString(): string
     {
-        return sprintf(self::RGBA_FORMAT, $this->red, $this->green, $this->blue, $this->alpha);
+        return sprintf(self::FORMAT_RGBA, $this->red, $this->green, $this->blue, $this->alpha);
     }
 }
