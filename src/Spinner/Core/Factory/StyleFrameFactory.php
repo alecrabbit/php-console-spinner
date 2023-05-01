@@ -14,12 +14,26 @@ final class StyleFrameFactory implements Contract\IStyleFrameFactory
         protected IWidthMeasurer $widthMeasurer,
     ) {
     }
+
     public function create(string $sequence, ?int $width = null): IFrame
     {
         return
             new StyleFrame(
                 $sequence,
-                $width ?? $this->widthMeasurer->getWidth($sequence)
+                $width ?? $this->measure($sequence)
             );
+    }
+
+    protected function measure(string $sequence): int
+    {
+        return
+            $this->widthMeasurer->getWidth(
+                $this->refineSequence($sequence)
+            );
+    }
+
+    protected function refineSequence(string $sequence): string|array
+    {
+        return str_replace('%s', '', $sequence);
     }
 }
