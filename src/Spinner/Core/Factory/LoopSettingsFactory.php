@@ -37,18 +37,19 @@ final class LoopSettingsFactory implements ILoopSettingsFactory
                 ? OptionAttachHandlers::ENABLED
                 : OptionAttachHandlers::DISABLED;
 
-        return new LoopSettings(
-            loopAvailable: $loopAvailable,
-            optionAutoStart: $optionAutoStart,
-            signalProcessingAvailable: $signalProcessingAvailable,
-            optionAttachHandlers: $optionAttachHandlers,
-        );
+        return
+            new LoopSettings(
+                loopAvailable: $loopAvailable,
+                optionAutoStart: $optionAutoStart,
+                signalProcessingAvailable: $signalProcessingAvailable,
+                optionAttachHandlers: $optionAttachHandlers,
+            );
     }
 
     private function isLoopAvailable(): bool
     {
         return match (true) {
-            $this->loopProbe instanceof ILoopProbe => $this->loopProbe::isAvailable(),
+            $this->loopProbe instanceof ILoopProbe => $this->loopProbe::isSupported(),
             default => false,
         };
     }

@@ -7,5 +7,5 @@ namespace AlecRabbit\Spinner\Contract;
 
 interface IStaticProbe
 {
-    public static function isAvailable(): bool;
+    public static function isSupported(): bool;
 }
