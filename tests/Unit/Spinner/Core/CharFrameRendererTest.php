@@ -25,7 +25,7 @@ final class CharFrameRendererTest extends TestCaseWithPrebuiltMocksAndStubs
         ?ICharFrameFactory $frameFactory = null,
     ): ICharFrameRenderer {
         return new CharFrameRenderer(
-            frameFactory: $frameFactory ?? $this->getFrameFactoryMock(),
+            frameFactory: $frameFactory ?? $this->getCharFrameFactoryMock(),
         );
     }
 
@@ -34,7 +34,7 @@ final class CharFrameRendererTest extends TestCaseWithPrebuiltMocksAndStubs
     {
         $str = 'test';
 
-        $frameFactory = $this->getFrameFactoryMock();
+        $frameFactory = $this->getCharFrameFactoryMock();
         $frameMock = $this->getFrameMock();
         $frameFactory
             ->expects(self::once())

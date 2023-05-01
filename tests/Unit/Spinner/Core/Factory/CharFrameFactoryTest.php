@@ -35,7 +35,6 @@ final class CharFrameFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
         $frameFactory = $this->getTesteeInstance();
 
         self::assertInstanceOf(CharFrameFactory::class, $frameFactory);
-        self::assertInstanceOf(CharFrame::class, $frameFactory->create('', 0));
         self::assertInstanceOf(CharFrame::class, $frameFactory->create(''));
     }
 }

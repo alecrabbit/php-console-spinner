@@ -7,6 +7,7 @@ namespace AlecRabbit\Tests\Unit\Spinner\Core\Render;
 
 use AlecRabbit\Spinner\Contract\Option\OptionStyleMode;
 use AlecRabbit\Spinner\Core\Factory\Contract\ICharFrameFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\IStyleFrameFactory;
 use AlecRabbit\Spinner\Core\Render\Contract\IStyleFrameRenderer;
 use AlecRabbit\Spinner\Core\Render\Contract\IStyleRenderer;
 use AlecRabbit\Spinner\Core\Render\StyleFrameRenderer;
@@ -24,12 +25,12 @@ final class StyleFrameRendererTest extends TestCaseWithPrebuiltMocksAndStubs
     }
 
     public function getTesteeInstance(
-        ?ICharFrameFactory $frameFactory = null,
+        ?IStyleFrameFactory $frameFactory = null,
         ?IStyleRenderer $styleRenderer = null,
         ?OptionStyleMode $styleMode = null,
     ): IStyleFrameRenderer {
         return new StyleFrameRenderer(
-            frameFactory: $frameFactory ?? $this->getFrameFactoryMock(),
+            frameFactory: $frameFactory ?? $this->getStyleFrameFactoryMock(),
             styleRenderer: $styleRenderer ?? $this->getStyleRendererMock(),
             styleMode: $styleMode ?? OptionStyleMode::NONE,
         );
@@ -40,7 +41,7 @@ final class StyleFrameRendererTest extends TestCaseWithPrebuiltMocksAndStubs
     {
         $frame = $this->getFrameMock();
         $rendered = 'rendered';
-        $frameFactory = $this->getFrameFactoryMock();
+        $frameFactory = $this->getStyleFrameFactoryMock();
         $frameFactory
             ->expects(self::once())
             ->method('create')
@@ -80,7 +81,7 @@ final class StyleFrameRendererTest extends TestCaseWithPrebuiltMocksAndStubs
         $frame = $this->getFrameMock();
         $format = ' %s ';
 
-        $frameFactory = $this->getFrameFactoryMock();
+        $frameFactory = $this->getStyleFrameFactoryMock();
         $width = 2;
         $frameFactory
             ->expects(self::once())
@@ -122,7 +123,7 @@ final class StyleFrameRendererTest extends TestCaseWithPrebuiltMocksAndStubs
     #[Test]
     public function canRenderIfStyleModeIsNone(): void
     {
-        $frameFactory = $this->getFrameFactoryMock();
+        $frameFactory = $this->getStyleFrameFactoryMock();
         $frame = $this->getFrameMock();
         $frameFactory
             ->expects(self::once())

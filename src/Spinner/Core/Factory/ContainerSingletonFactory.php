@@ -68,6 +68,7 @@ use AlecRabbit\Spinner\Core\Factory\Contract\ILoopSingletonFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ISignalProcessingProbeFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ISpinnerFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IStyleFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\IStyleFrameFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IStyleFrameRendererFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IStyleFrameRevolverFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IStyleRendererFactory;
@@ -140,6 +141,7 @@ final class ContainerSingletonFactory implements IContainerSingletonFactory
             IBufferedOutputBuilder::class => BufferedOutputBuilder::class,
             IBufferedOutputSingletonFactory::class => BufferedOutputSingletonFactory::class,
             ICharFrameCollectionRenderer::class => CharFrameCollectionRenderer::class,
+            ICharFrameFactory::class => CharFrameFactory::class,
             ICharFrameRenderer::class => CharFrameRenderer::class,
             ICharFrameRevolverFactory::class => CharFrameRevolverFactory::class,
             IConsoleCursorBuilder::class => ConsoleCursorBuilder::class,
@@ -152,7 +154,6 @@ final class ContainerSingletonFactory implements IContainerSingletonFactory
             IDriverSettingsBuilder::class => DriverSettingsBuilder::class,
             IDriverSetup::class => DriverSetup::class,
             IDriverSingletonFactory::class => DriverSingletonFactory::class,
-            ICharFrameFactory::class => CharFrameFactory::class,
             IFrameRevolverBuilder::class => FrameRevolverBuilder::class,
             IHexColorToAnsiCodeConverterFactory::class => HexColorToAnsiCodeConverterFactory::class,
             IIntegerNormalizerBuilder::class => IntegerNormalizerBuilder::class,
@@ -164,6 +165,7 @@ final class ContainerSingletonFactory implements IContainerSingletonFactory
             ILoopSingletonFactory::class => LoopSingletonFactory::class,
             ISpinnerFactory::class => SpinnerFactory::class,
             IStyleFactory::class => StyleFactory::class,
+            IStyleFrameFactory::class => StyleFrameFactory::class,
             IStyleFrameCollectionRenderer::class => StyleFrameCollectionRenderer::class,
             IStyleFrameRendererFactory::class => StyleFrameRendererFactory::class,
             IStyleOptionsParser::class => StyleOptionsParser::class,

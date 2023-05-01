@@ -5,23 +5,21 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Factory;
 
 use AlecRabbit\Spinner\Contract\IFrame;
-use AlecRabbit\Spinner\Core\CharFrame;
 use AlecRabbit\Spinner\Core\Contract\IWidthMeasurer;
-use AlecRabbit\Spinner\Core\Factory\Contract\ICharFrameFactory;
+use AlecRabbit\Spinner\Core\StyleFrame;
 
-final class CharFrameFactory implements ICharFrameFactory
+final class StyleFrameFactory implements Contract\IStyleFrameFactory
 {
     public function __construct(
         protected IWidthMeasurer $widthMeasurer,
     ) {
     }
-
-    public function create(string $sequence): IFrame
+    public function create(string $sequence, ?int $width = null): IFrame
     {
         return
-            new CharFrame(
+            new StyleFrame(
                 $sequence,
-                $this->widthMeasurer->getWidth($sequence)
+                $width ?? $this->widthMeasurer->getWidth($sequence)
             );
     }
 }
