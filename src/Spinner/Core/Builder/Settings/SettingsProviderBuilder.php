@@ -6,8 +6,8 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Builder\Settings;
 
 use AlecRabbit\Spinner\Core\Builder\Settings\Contract\IAuxSettingsBuilder;
-use AlecRabbit\Spinner\Core\Builder\Settings\Contract\ISettingsProviderBuilder;
 use AlecRabbit\Spinner\Core\Builder\Settings\Contract\IDriverSettingsBuilder;
+use AlecRabbit\Spinner\Core\Builder\Settings\Contract\ISettingsProviderBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\IWidgetConfig;
 use AlecRabbit\Spinner\Core\Config\WidgetConfig;
 use AlecRabbit\Spinner\Core\Contract\ISettingsProvider;
@@ -44,12 +44,13 @@ final class SettingsProviderBuilder implements ISettingsProviderBuilder
 
     protected function getWidgetConfig(): IWidgetConfig
     {
-        return new WidgetConfig(
-            leadingSpacer: Frame::createEmpty(),
-            trailingSpacer: Frame::createSpace(),
-            stylePattern: new NoStylePattern(),
-            charPattern: new NoCharPattern(),
-        );
+        return
+            new WidgetConfig(
+                leadingSpacer: Frame::createEmpty(),
+                trailingSpacer: Frame::createSpace(),
+                stylePattern: new NoStylePattern(),
+                charPattern: new NoCharPattern(),
+            );
     }
 
     protected function getRootWidgetConfig(): IWidgetConfig
