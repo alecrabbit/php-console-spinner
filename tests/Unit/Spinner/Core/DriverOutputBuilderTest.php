@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core;
 
-use AlecRabbit\Spinner\Core\Contract\IDriverOutputBuilder;
-use AlecRabbit\Spinner\Core\DriverOutputBuilder;
+use AlecRabbit\Spinner\Core\Builder\Contract\IDriverOutputBuilder;
+use AlecRabbit\Spinner\Core\Builder\DriverOutputBuilder;
 use AlecRabbit\Spinner\Core\Output\DriverOutput;
 use AlecRabbit\Spinner\Exception\LogicException;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
