@@ -27,5 +27,12 @@ interface IWidgetConfig
 
     public function setCharPattern(?IPattern $charPattern): IWidgetConfig;
 
+    /**
+     * Merges properties of $this and $other. Properties of $this replaced only if null. Creates a new WidgetConfig
+     * instance.
+     *
+     * @param IWidgetConfig $other
+     * @return IWidgetConfig
+     */
     public function merge(IWidgetConfig $other): IWidgetConfig;
 }

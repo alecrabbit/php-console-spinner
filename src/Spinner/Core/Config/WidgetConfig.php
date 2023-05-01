@@ -44,14 +44,16 @@ final class WidgetConfig implements IWidgetConfig
         return $this;
     }
 
+    /** @inheritdoc */
     public function merge(IWidgetConfig $other): IWidgetConfig
     {
-        return new WidgetConfig(
-            $this->leadingSpacer ?? $other->getLeadingSpacer(),
-            $this->trailingSpacer ?? $other->getTrailingSpacer(),
-            $this->stylePattern ?? $other->getStylePattern(),
-            $this->charPattern ?? $other->getCharPattern(),
-        );
+        return
+            new WidgetConfig(
+                $this->leadingSpacer ?? $other->getLeadingSpacer(),
+                $this->trailingSpacer ?? $other->getTrailingSpacer(),
+                $this->stylePattern ?? $other->getStylePattern(),
+                $this->charPattern ?? $other->getCharPattern(),
+            );
     }
 
     public function getLeadingSpacer(): ?IFrame

@@ -114,4 +114,58 @@ final class SpinnerFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
         self::assertInstanceOf(Spinner::class, $spinner);
         self::assertSame($widget, self::getPropertyValue('rootWidget', $spinner));
     }
+
+    #[Test]
+    public function canCreateSpinnerWithConfig(): void
+    {
+        $rootWidgetConfig = $this->getWidgetConfigMock();
+        $defaultsProvider = $this->getDefaultsProviderMock();
+        $defaultsProvider
+            ->expects(self::once())
+            ->method('getRootWidgetConfig')
+            ->willReturn($rootWidgetConfig)
+        ;
+
+        $widgetConfig = $this->getWidgetConfigMock();
+        $widgetConfig
+            ->expects(self::once())
+            ->method('merge')
+            ->with($rootWidgetConfig)
+            ->willReturnSelf();
+
+        $spinnerConfig = $this->getSpinnerConfigMock();
+        $spinnerConfig
+            ->expects(self::once())
+            ->method('getWidgetConfig')
+            ->willReturn($widgetConfig);
+
+        $widget = $this->getWidgetMock();
+        $widgetSettings = $this->getWidgetSettingsMock();
+
+        $widgetFactory = $this->getWidgetFactoryMock();
+        $widgetFactory
+            ->expects(self::once())
+            ->method('createWidget')
+            ->with($widgetSettings)
+            ->willReturn($widget);
+
+        $widgetSettingsFactory = $this->getWidgetSettingsFactoryMock();
+        $widgetSettingsFactory
+            ->expects(self::once())
+            ->method('createFromConfig')
+            ->with($widgetConfig)
+            ->willReturn($widgetSettings)
+        ;
+        $spinnerFactory = $this->getTesteeInstance(
+            defaultsProvider: $defaultsProvider,
+            widgetFactory: $widgetFactory,
+            widgetSettingsFactory: $widgetSettingsFactory,
+        );
+
+        $spinner = $spinnerFactory->createSpinner($spinnerConfig);
+//
+        self::assertInstanceOf(SpinnerFactory::class, $spinnerFactory);
+        self::assertInstanceOf(Spinner::class, $spinner);
+        self::assertSame($widget, self::getPropertyValue('rootWidget', $spinner));
+    }
 }

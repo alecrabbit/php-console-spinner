@@ -10,5 +10,5 @@ use AlecRabbit\Spinner\Core\Contract\ISpinner;
 
 interface ISpinnerFactory
 {
-    public function createSpinner(?ISpinnerConfig $config = null): ISpinner;
+    public function createSpinner(?ISpinnerConfig $spinnerConfig = null): ISpinner;
 }
