@@ -13,7 +13,7 @@ flowchart TD
     Start[Start] --> IsIt{Is it?}
     End[End]
 ```
-- DefaultsProvider created 
+- SettingsProvider created 
   - probing for event loop --> Loop settings
 
 - Driver created by DriverFactory

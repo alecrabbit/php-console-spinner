@@ -12,7 +12,7 @@ classDiagram
    
 
     class Facade {
-        +getDefaultsProvider() IDefaultsProvider
+        +getSettingsProvider() ISettingsProvider
         +getLoop() ILoop
         +createDriver() IDriver
         +useService(string $id, object|callable|string $service) void
@@ -46,10 +46,10 @@ classDiagram
     
     ILoopSetup ..> ILoop
 
-    IConfigBuilder ..> IDefaultsProvider
+    IConfigBuilder ..> ISettingsProvider
     
     class IConfigBuilder {
-        +getDefaultsProvider() IDefaultsProvider
+        +getSettingsProvider() ISettingsProvider
     }
     
     ILoopFactory ..> ILoopProbeFactory
@@ -72,7 +72,7 @@ classDiagram
 classDiagram
     direction TB
     ISpinnerFactory ..> IWidgetFactory
-    ISpinnerFactory ..> IDefaultsProvider
+    ISpinnerFactory ..> ISettingsProvider
 
     IWidgetFactory ..> IWidgetBuilder
     IWidgetFactory ..> IWidgetRevolverFactory
