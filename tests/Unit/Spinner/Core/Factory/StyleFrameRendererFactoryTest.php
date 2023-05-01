@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Factory;
 
 use AlecRabbit\Spinner\Contract\Option\OptionStyleMode;
-use AlecRabbit\Spinner\Core\Factory\Contract\IFrameFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\ICharFrameFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IStyleFrameRendererFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IStyleRendererFactory;
 use AlecRabbit\Spinner\Core\Factory\StyleFrameRendererFactory;
@@ -24,7 +24,7 @@ final class StyleFrameRendererFactoryTest extends TestCaseWithPrebuiltMocksAndSt
     }
 
     public function getTesteeInstance(
-        ?IFrameFactory $frameFactory = null,
+        ?ICharFrameFactory $frameFactory = null,
         ?IStyleRendererFactory $styleRendererFactory = null,
         ?OptionStyleMode $styleMode = null,
     ): IStyleFrameRendererFactory {

@@ -49,7 +49,7 @@ use AlecRabbit\Spinner\Core\Factory\Contract\IBufferedOutputSingletonFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ICharFrameRevolverFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IConsoleCursorFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDriverOutputFactory;
-use AlecRabbit\Spinner\Core\Factory\Contract\IFrameFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\ICharFrameFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IHexColorToAnsiCodeConverterFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopProbeFactory;
@@ -239,9 +239,9 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
         return $this->createMock(IIntervalFactory::class);
     }
 
-    protected function getFrameFactoryMock(): MockObject&IFrameFactory
+    protected function getFrameFactoryMock(): MockObject&ICharFrameFactory
     {
-        return $this->createMock(IFrameFactory::class);
+        return $this->createMock(ICharFrameFactory::class);
     }
 
     protected function getStyleRendererFactoryMock(): MockObject&IStyleRendererFactory

@@ -6,7 +6,7 @@ namespace Functional\Spinner\Core\Widget;
 
 use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Contract\IObserver;
-use AlecRabbit\Spinner\Core\Frame;
+use AlecRabbit\Spinner\Core\CharFrame;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidget;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContextContainer;
@@ -56,7 +56,7 @@ final class WidgetTest extends TestCaseWithPrebuiltMocksAndStubs
 
         $otherWidget1
             ->method('getFrame')
-            ->willReturn(new Frame('o1', 2))
+            ->willReturn(new CharFrame('o1', 2))
         ;
         $otherWidgetContext2 = $this->getWidgetContextMock();
         $otherWidget2 = $this->getWidgetMock();
@@ -71,7 +71,7 @@ final class WidgetTest extends TestCaseWithPrebuiltMocksAndStubs
         ;
         $otherWidget2
             ->method('getFrame')
-            ->willReturn(new Frame('o2', 2))
+            ->willReturn(new CharFrame('o2', 2))
         ;
 
         $widget->add($otherWidget1);

@@ -13,7 +13,7 @@ use AlecRabbit\Spinner\Core\Config\WidgetConfig;
 use AlecRabbit\Spinner\Core\Contract\ISettingsProvider;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopSettingsFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ITerminalSettingsFactory;
-use AlecRabbit\Spinner\Core\Frame;
+use AlecRabbit\Spinner\Core\CharFrame;
 use AlecRabbit\Spinner\Core\Pattern\CharPattern\Snake;
 use AlecRabbit\Spinner\Core\Pattern\NoCharPattern;
 use AlecRabbit\Spinner\Core\Pattern\NoStylePattern;
@@ -46,8 +46,8 @@ final class SettingsProviderBuilder implements ISettingsProviderBuilder
     {
         return
             new WidgetConfig(
-                leadingSpacer: Frame::createEmpty(),
-                trailingSpacer: Frame::createSpace(),
+                leadingSpacer: CharFrame::createEmpty(),
+                trailingSpacer: CharFrame::createSpace(),
                 stylePattern: new NoStylePattern(),
                 charPattern: new NoCharPattern(),
             );

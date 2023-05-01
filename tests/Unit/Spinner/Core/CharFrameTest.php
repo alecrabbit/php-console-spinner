@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Unit\Spinner\Core;
 
 use AlecRabbit\Spinner\Contract\IFrame;
-use AlecRabbit\Spinner\Core\Frame;
+use AlecRabbit\Spinner\Core\CharFrame;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 
-final class FrameTest extends TestCase
+final class CharFrameTest extends TestCase
 {
     public static function createDataProvider(): iterable
     {
@@ -72,13 +72,13 @@ final class FrameTest extends TestCase
 
     public static function getTesteeInstance(array $args = []): IFrame
     {
-        return new Frame(...$args);
+        return new CharFrame(...$args);
     }
 
     #[Test]
     public function createEmpty(): void
     {
-        $frame = Frame::createEmpty();
+        $frame = CharFrame::createEmpty();
 
         self::assertSame('', $frame->sequence());
         self::assertSame(0, $frame->width());
@@ -87,7 +87,7 @@ final class FrameTest extends TestCase
     #[Test]
     public function createSpace(): void
     {
-        $frame = Frame::createSpace();
+        $frame = CharFrame::createSpace();
 
         self::assertSame(' ', $frame->sequence());
         self::assertSame(1, $frame->width());

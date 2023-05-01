@@ -10,7 +10,7 @@ use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Contract\IObserver;
 use AlecRabbit\Spinner\Contract\ISubject;
 use AlecRabbit\Spinner\Core\A\ASubject;
-use AlecRabbit\Spinner\Core\Frame;
+use AlecRabbit\Spinner\Core\CharFrame;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidget;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContext;
@@ -43,7 +43,7 @@ final class Widget extends ASubject implements IWidget
     {
         $revolverFrame = $this->revolver->getFrame($dt);
 
-        $frame = new Frame(
+        $frame = new CharFrame(
             $this->leadingSpacer->sequence() . $revolverFrame->sequence() . $this->trailingSpacer->sequence(),
             $this->leadingSpacer->width() + $revolverFrame->width() + $this->trailingSpacer->width()
         );
@@ -51,7 +51,7 @@ final class Widget extends ASubject implements IWidget
         if ($this->children->count() > 0) {
             foreach ($this->children as $context) {
                 $f = $context->getWidget()->getFrame($dt);
-                $frame = new Frame(
+                $frame = new CharFrame(
                     $frame->sequence() . $f->sequence(),
                     $frame->width() + $f->width()
                 );

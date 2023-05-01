@@ -2,26 +2,16 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Spinner\Core;
+namespace AlecRabbit\Spinner\Core\A;
 
 use AlecRabbit\Spinner\Contract\IFrame;
 
-final readonly class Frame implements IFrame
+abstract readonly class AFrame implements IFrame
 {
     public function __construct(
         protected string $sequence,
         protected int $width,
     ) {
-    }
-
-    public static function createEmpty(): IFrame
-    {
-        return new Frame('', 0);
-    }
-
-    public static function createSpace(): IFrame
-    {
-        return new Frame(' ', 1);
     }
 
     public function sequence(): string

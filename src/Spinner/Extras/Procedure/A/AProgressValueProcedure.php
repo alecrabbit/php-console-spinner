@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Extras\Procedure\A;
 
 use AlecRabbit\Spinner\Contract\IFrame;
-use AlecRabbit\Spinner\Core\Factory\FrameFactory;
-use AlecRabbit\Spinner\Core\Frame;
+use AlecRabbit\Spinner\Core\Factory\CharFrameFactory;
+use AlecRabbit\Spinner\Core\CharFrame;
 use AlecRabbit\Spinner\Extras\Contract\IProgressValue;
 
 abstract class AProgressValueProcedure extends AFloatValueProcedure
@@ -26,7 +26,7 @@ abstract class AProgressValueProcedure extends AFloatValueProcedure
     {
         if ($this->progressValue->isFinished()) {
             if ($this->finishedDelay < 0) {
-                return Frame::createEmpty();
+                return CharFrame::createEmpty();
             }
             $this->finishedDelay -= $dt ?? 0.0;
         }
@@ -34,6 +34,6 @@ abstract class AProgressValueProcedure extends AFloatValueProcedure
             $this->format,
             $this->progressValue->getValue() * 100
         );
-        return FrameFactory::create($v);
+        return CharFrameFactory::create($v);
     }
 }

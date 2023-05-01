@@ -6,7 +6,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Unit\Spinner\Core;
 
 use AlecRabbit\Spinner\Core\Contract\ICharFrameRenderer;
-use AlecRabbit\Spinner\Core\Factory\Contract\IFrameFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\ICharFrameFactory;
 use AlecRabbit\Spinner\Core\Render\CharFrameRenderer;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;
@@ -22,7 +22,7 @@ final class CharFrameRendererTest extends TestCaseWithPrebuiltMocksAndStubs
     }
 
     public function getTesteeInstance(
-        ?IFrameFactory $frameFactory = null,
+        ?ICharFrameFactory $frameFactory = null,
     ): ICharFrameRenderer {
         return new CharFrameRenderer(
             frameFactory: $frameFactory ?? $this->getFrameFactoryMock(),

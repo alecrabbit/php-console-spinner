@@ -7,7 +7,7 @@ namespace AlecRabbit\Spinner\Extras\Procedure;
 
 use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Contract\IProcedure;
-use AlecRabbit\Spinner\Core\Factory\FrameFactory;
+use AlecRabbit\Spinner\Core\Factory\CharFrameFactory;
 use AlecRabbit\Spinner\Extras\Procedure\A\AProceduralPattern;
 use AlecRabbit\Spinner\Extras\Procedure\A\AProcedure;
 
@@ -25,7 +25,7 @@ final class TmpProceduralCharPattern extends AProceduralPattern
             {
                 static $odd = true;
                 $odd = !$odd;
-                return FrameFactory::create($odd ? '⢸' : '⡇', 1);
+                return CharFrameFactory::create($odd ? '⢸' : '⡇', 1);
             }
         };
     }

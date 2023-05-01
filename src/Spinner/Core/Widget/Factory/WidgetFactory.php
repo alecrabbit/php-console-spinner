@@ -26,7 +26,8 @@ final class WidgetFactory implements IWidgetFactory
                 ->withLeadingSpacer($widgetSettings->getLeadingSpacer())
                 ->withTrailingSpacer($widgetSettings->getTrailingSpacer())
                 ->withWidgetRevolver(
-                    $this->widgetRevolverFactory->createWidgetRevolver($widgetSettings)
+                    $this->widgetRevolverFactory
+                        ->createWidgetRevolver($widgetSettings)
                 )
                 ->build()
         ;
