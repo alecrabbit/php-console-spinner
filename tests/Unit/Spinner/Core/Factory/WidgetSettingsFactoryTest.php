@@ -22,12 +22,12 @@ final class WidgetSettingsFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
     }
 
     public function getTesteeInstance(
-        ?ISettingsProvider $defaultsProvider = null,
+        ?ISettingsProvider $settingsProvider = null,
         ?IWidgetSettingsBuilder $widgetSettingsBuilder = null,
     ): IWidgetSettingsFactory {
         return
             new WidgetSettingsFactory(
-                defaultsProvider: $defaultsProvider ?? $this->getDefaultsProviderMock(),
+                settingsProvider: $settingsProvider ?? $this->getSettingsProviderMock(),
                 widgetSettingsBuilder: $widgetSettingsBuilder ?? $this->getWidgetSettingsBuilderMock()
             );
     }
@@ -152,8 +152,8 @@ final class WidgetSettingsFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
 
         $widgetConfig = $this->getWidgetConfigMock();
 
-        $defaultsProvider = $this->getDefaultsProviderMock();
-        $defaultsProvider
+        $settingsProvider = $this->getSettingsProviderMock();
+        $settingsProvider
             ->expects(self::once())
             ->method('getWidgetConfig')
             ->willReturn($widgetConfig)
@@ -179,13 +179,13 @@ final class WidgetSettingsFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
             ->willReturn($charPattern)
         ;
 
-        $defaultsProvider
+        $settingsProvider
             ->expects(self::never())
             ->method('getRootWidgetConfig')
         ;
 
         $widgetSettingsFactory = $this->getTesteeInstance(
-            defaultsProvider: $defaultsProvider,
+            settingsProvider: $settingsProvider,
             widgetSettingsBuilder: $builder,
         );
 

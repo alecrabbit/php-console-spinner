@@ -199,7 +199,7 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
         return $this->createStub(ILoopSetup::class);
     }
 
-    protected function getDefaultsProviderMock(): MockObject&ISettingsProvider
+    protected function getSettingsProviderMock(): MockObject&ISettingsProvider
     {
         return $this->createMock(ISettingsProvider::class);
     }

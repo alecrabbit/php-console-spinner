@@ -24,12 +24,12 @@ final class SpinnerFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
     }
 
     public function getTesteeInstance(
-        ?ISettingsProvider $defaultsProvider = null,
+        ?ISettingsProvider $settingsProvider = null,
         ?IWidgetFactory $widgetFactory = null,
         ?IWidgetSettingsFactory $widgetSettingsFactory = null,
     ): ISpinnerFactory {
         return new SpinnerFactory(
-            defaultsProvider: $defaultsProvider ?? $this->getDefaultsProviderMock(),
+            settingsProvider: $settingsProvider ?? $this->getSettingsProviderMock(),
             widgetFactory: $widgetFactory ?? $this->getWidgetFactoryMock(),
             widgetSettingsFactory: $widgetSettingsFactory ?? $this->getWidgetSettingsFactoryMock(),
         );
@@ -58,8 +58,8 @@ final class SpinnerFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
 
         $widgetConfig = $this->getWidgetConfigMock();
 
-        $defaultsProvider = $this->getDefaultsProviderMock();
-        $defaultsProvider
+        $settingsProvider = $this->getSettingsProviderMock();
+        $settingsProvider
             ->expects(self::once())
             ->method('getRootWidgetConfig')
             ->willReturn($widgetConfig)
@@ -104,7 +104,7 @@ final class SpinnerFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
             ->willReturn($rootWidgetSettings)
         ;
         $spinnerFactory = $this->getTesteeInstance(
-            defaultsProvider: $defaultsProvider,
+            settingsProvider: $settingsProvider,
             widgetFactory: $widgetFactory,
             widgetSettingsFactory: $widgetSettingsFactory,
         );
@@ -119,8 +119,8 @@ final class SpinnerFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
     public function canCreateSpinnerWithConfig(): void
     {
         $rootWidgetConfig = $this->getWidgetConfigMock();
-        $defaultsProvider = $this->getDefaultsProviderMock();
-        $defaultsProvider
+        $settingsProvider = $this->getSettingsProviderMock();
+        $settingsProvider
             ->expects(self::once())
             ->method('getRootWidgetConfig')
             ->willReturn($rootWidgetConfig)
@@ -157,7 +157,7 @@ final class SpinnerFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
             ->willReturn($widgetSettings)
         ;
         $spinnerFactory = $this->getTesteeInstance(
-            defaultsProvider: $defaultsProvider,
+            settingsProvider: $settingsProvider,
             widgetFactory: $widgetFactory,
             widgetSettingsFactory: $widgetSettingsFactory,
         );

@@ -18,7 +18,7 @@ use AlecRabbit\Spinner\Core\Widget\Factory\Contract\IWidgetFactory;
 final class SpinnerFactory implements ISpinnerFactory
 {
     public function __construct(
-        protected ISettingsProvider $defaultsProvider,
+        protected ISettingsProvider $settingsProvider,
         protected IWidgetFactory $widgetFactory,
         protected IWidgetSettingsFactory $widgetSettingsFactory,
     ) {
@@ -49,7 +49,7 @@ final class SpinnerFactory implements ISpinnerFactory
 
     private function refineConfig(?IWidgetConfig $config): IWidgetConfig
     {
-        $rootWidgetConfig = $this->defaultsProvider->getRootWidgetConfig();
+        $rootWidgetConfig = $this->settingsProvider->getRootWidgetConfig();
 
         if ($config === null) {
             return $rootWidgetConfig;

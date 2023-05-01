@@ -13,14 +13,14 @@ use AlecRabbit\Spinner\Core\Settings\Contract\IWidgetSettings;
 final class WidgetSettingsFactory implements IWidgetSettingsFactory
 {
     public function __construct(
-        protected ISettingsProvider $defaultsProvider,
+        protected ISettingsProvider $settingsProvider,
         protected IWidgetSettingsBuilder $widgetSettingsBuilder,
     ) {
     }
 
     public function createFromConfig(IWidgetConfig $config): IWidgetSettings
     {
-        $config = $config->merge($this->defaultsProvider->getWidgetConfig());
+        $config = $config->merge($this->settingsProvider->getWidgetConfig());
 
         return
             $this->widgetSettingsBuilder

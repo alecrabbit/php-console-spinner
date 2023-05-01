@@ -17,7 +17,7 @@ final class DriverLinkerSingletonFactory implements IDriverLinkerSingletonFactor
 
     public function __construct(
         protected ILoop $loop,
-        protected ISettingsProvider $defaultsProvider,
+        protected ISettingsProvider $settingsProvider,
     ) {
     }
 
@@ -33,7 +33,7 @@ final class DriverLinkerSingletonFactory implements IDriverLinkerSingletonFactor
     {
         return new DriverLinker(
             $this->loop,
-            $this->defaultsProvider->getDriverSettings()->getOptionLinker(),
+            $this->settingsProvider->getDriverSettings()->getOptionLinker(),
         );
     }
 }

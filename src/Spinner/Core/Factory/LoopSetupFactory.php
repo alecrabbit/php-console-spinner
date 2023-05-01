@@ -13,7 +13,7 @@ use AlecRabbit\Spinner\Core\Factory\Contract\ILoopSingletonFactory;
 final class LoopSetupFactory implements ILoopSetupFactory
 {
     public function __construct(
-        protected ISettingsProvider $defaultsProvider,
+        protected ISettingsProvider $settingsProvider,
         protected ILoopSingletonFactory $loopFactory,
         protected ILoopSetupBuilder $loopSetupBuilder,
     ) {
@@ -23,7 +23,7 @@ final class LoopSetupFactory implements ILoopSetupFactory
     {
         return $this->loopSetupBuilder
             ->withLoop($this->loopFactory->getLoop())
-            ->withSettings($this->defaultsProvider->getLoopSettings())
+            ->withSettings($this->settingsProvider->getLoopSettings())
             ->build()
         ;
     }

@@ -27,21 +27,21 @@ echo '--' . PHP_EOL;
 $memoryReport();
 
 
-$defaultsProvider = Facade::getSettingsProvider();
-//$defaultsProvider
+$settingsProvider = Facade::getSettingsProvider();
+//$settingsProvider
 //    ->getTerminalSettings()
 //    ->setOptionStyleMode(
 //        \AlecRabbit\Spinner\Contract\Option\OptionStyleMode::NONE
 //    )
 //;
-//$defaultsProvider
+//$settingsProvider
 //    ->getLoopSettings()
 //    ->setOptionAutoStart(
 //        \AlecRabbit\Spinner\Contract\Option\OptionAutoStart::DISABLED
 //    )
 //;
 
-//dump($defaultsProvider);
+//dump($settingsProvider);
 
 $config =
     new SpinnerConfig(

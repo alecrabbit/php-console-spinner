@@ -25,11 +25,11 @@ final class DriverLinkerFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
 
     public function getTesteeInstance(
         ?ILoop $loop = null,
-        ?ISettingsProvider $defaultsProvider = null,
+        ?ISettingsProvider $settingsProvider = null,
     ): IDriverLinkerSingletonFactory {
         return new DriverLinkerSingletonFactory(
             loop: $loop ?? $this->getLoopMock(),
-            defaultsProvider: $defaultsProvider ?? $this->getDefaultsProviderMock(),
+            settingsProvider: $settingsProvider ?? $this->getSettingsProviderMock(),
         );
     }
 
@@ -42,13 +42,13 @@ final class DriverLinkerFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
             ->method('getOptionLinker')
             ->willReturn(OptionLinker::ENABLED)
         ;
-        $defaultsProvider = $this->getDefaultsProviderMock();
-        $defaultsProvider
+        $settingsProvider = $this->getSettingsProviderMock();
+        $settingsProvider
             ->expects(self::once())
             ->method('getDriverSettings')
             ->willReturn($driverSettings)
         ;
-        $linkerSingletonFactory = $this->getTesteeInstance(defaultsProvider: $defaultsProvider);
+        $linkerSingletonFactory = $this->getTesteeInstance(settingsProvider: $settingsProvider);
 
         self::assertInstanceOf(DriverLinkerSingletonFactory::class, $linkerSingletonFactory);
         self::assertInstanceOf(DriverLinker::class, $linkerSingletonFactory->getDriverLinker());

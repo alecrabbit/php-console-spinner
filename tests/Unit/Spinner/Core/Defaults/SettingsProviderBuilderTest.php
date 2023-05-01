@@ -40,7 +40,7 @@ final class SettingsProviderBuilderTest extends TestCaseWithPrebuiltMocksAndStub
     }
 
     #[Test]
-    public function canBuildDefaultsProvider(): void
+    public function canBuildSettingsProvider(): void
     {
         $settingsProvider = $this->getTesteeInstance()->build();
 
