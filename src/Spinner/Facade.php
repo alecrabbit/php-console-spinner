@@ -44,7 +44,7 @@ final class Facade implements IFacade
         };
     }
 
-    public static function getDefaultsProvider(): ISettingsProvider
+    public static function getSettingsProvider(): ISettingsProvider
     {
         return self::getContainer()->get(ISettingsProvider::class);
     }

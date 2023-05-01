@@ -27,7 +27,7 @@ echo '--' . PHP_EOL;
 $memoryReport();
 
 
-$defaultsProvider = Facade::getDefaultsProvider();
+$defaultsProvider = Facade::getSettingsProvider();
 //$defaultsProvider
 //    ->getTerminalSettings()
 //    ->setOptionStyleMode(
