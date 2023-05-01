@@ -51,7 +51,7 @@ final readonly class RGBColor implements IColor, Stringable
     {
         if (preg_match(self::REGEXP_RGBA, $color, $matches)) {
             return
-                new RGBColor(
+                new self(
                     (int)$matches[1],
                     (int)$matches[2],
                     (int)$matches[3],

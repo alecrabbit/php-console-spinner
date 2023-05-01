@@ -6,6 +6,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Unit\Spinner\Contract\Color;
 
 use AlecRabbit\Spinner\Core\Color\HSLColor;
+use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
@@ -71,7 +72,45 @@ final class HSLColorTest extends TestCase
             // color, toHsl, toHsla, // first element - #0..
             [new HSLColor(0, 0, 0, 1), 'hsl(0, 0%, 0%)', 'hsla(0, 0%, 0%, 1)'],
             [new HSLColor(350, 0.2, 0, 0.5), 'hsl(350, 20%, 0%)', 'hsla(350, 20%, 0%, 0.5)',],
+            [new HSLColor(350, 0.2, 0, 0.25), 'hsl(350, 20%, 0%)', 'hsla(350, 20%, 0%, 0.25)',],
             [new HSLColor(32, 0.34, 1, 0.55), 'hsl(32, 34%, 100%)', 'hsla(32, 34%, 100%, 0.55)',],
+            [new HSLColor(123, 0.39, 1, 0.71), 'hsl(123, 39%, 100%)', 'hsla(123, 39%, 100%, 0.71)',],
+            [new HSLColor(123, 0.39, 0.89, 0.71), 'hsl(123, 39%, 89%)', 'hsla(123, 39%, 89%, 0.71)',],
+            [new HSLColor(123, 0.3, 0.89, 0.71), 'hsl(123, 30%, 89%)', 'hsla(123, 30%, 89%, 0.71)',],
+        ];
+    }
+
+    public static function invalidStringDataProvider(): iterable
+    {
+        // [$expected, $incoming]
+        // #0..
+        foreach (self::simplifiedInvalidStringDataFeeder() as $string) {
+            yield [
+                [
+                    self::EXCEPTION => [
+                        self::CLASS_ => InvalidArgumentException::class,
+                        self::MESSAGE => "Invalid color string: \"{$string}\".",
+                    ],
+                ],
+                [
+                    self::COLOR => $string,
+                ],
+            ];
+        }
+    }
+
+    private static function simplifiedInvalidStringDataFeeder(): iterable
+    {
+        yield from [
+            'rgb(145, 89, 34,)',
+            'hsl(145, 89%, 34)',
+            'hsla(145, 89%, 34%, 0.5',
+            'ffaaa',
+            'aaaaa',
+            '00000',
+            '#aabbccdd',
+            '#aabbc',
+            'nanana',
         ];
     }
 
@@ -117,5 +156,20 @@ final class HSLColorTest extends TestCase
 
         self::assertSame($expected[self::TO_HSL], $color->toHSL());
         self::assertSame($expected[self::TO_HSLA], $color->toHSLA());
+
+        self::assertSame($color->toHsl(), HSLColor::fromString($expected[self::TO_HSL])->toHSL());
+        self::assertEquals($color, HSLColor::fromString($expected[self::TO_HSLA]));
+    }
+
+    #[Test]
+    #[DataProvider('invalidStringDataProvider')]
+    public function throwsIfInvalidStringProvided(array $expected, array $incoming): void
+    {
+        $expectedException = $this->expectsException($expected);
+
+        $this->wrapExceptionTest(
+            fn() => HSLColor::fromString($incoming[self::COLOR]),
+            $expectedException,
+        );
     }
 }

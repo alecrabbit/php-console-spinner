@@ -243,7 +243,7 @@ final class RGBColorTest extends TestCase
         $expectedException = $this->expectsException($expected);
 
         $this->wrapExceptionTest(
-            fn() => dump(RGBColor::fromString($incoming[self::COLOR])),
+            fn() => RGBColor::fromString($incoming[self::COLOR]),
             $expectedException,
         );
     }

@@ -6,11 +6,13 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Color;
 
 use AlecRabbit\Spinner\Contract\Color\IColor;
+use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 
 final class HSLColor implements IColor
 {
     private const HSL_FORMAT = 'hsl(%d, %s%%, %s%%)';
     private const HSLA_FORMAT = 'hsla(%d, %s%%, %s%%, %s)';
+    const REGEXP_HSLA = '/^hsla?\((\d+),\s*(\d+)%,\s*(\d+)%(?:,\s*([\d.]+))?\)$/';
 
     public int $hue;
     public float $saturation;
@@ -60,5 +62,23 @@ final class HSLColor implements IColor
                 round($this->lightness * 100),
                 $this->alpha,
             );
+    }
+
+    /**
+     * @throws InvalidArgumentException
+     */
+    public static function fromString(string $color): self
+    {
+        if (preg_match(self::REGEXP_HSLA, $color, $matches)) {
+            $h = (int)$matches[1];
+            $s = (float)$matches[2] / 100;
+            $l = (float)$matches[3] / 100;
+            $a = isset($matches[4]) ? (float)$matches[4] : 1.0;
+            return
+                new self($h, $s, $l, $a);
+        }
+        throw new InvalidArgumentException(
+            sprintf('Invalid color string: "%s".', $color)
+        );
     }
 }
