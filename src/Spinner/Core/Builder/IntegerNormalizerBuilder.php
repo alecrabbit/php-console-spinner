@@ -3,10 +3,11 @@
 declare(strict_types=1);
 
 
-namespace AlecRabbit\Spinner\Core;
+namespace AlecRabbit\Spinner\Core\Builder;
 
 use AlecRabbit\Spinner\Core\Contract\IIntegerNormalizer;
 use AlecRabbit\Spinner\Core\Contract\IIntegerNormalizerBuilder;
+use AlecRabbit\Spinner\Core\IntegerNormalizer;
 use AlecRabbit\Spinner\Exception\LogicException;
 
 final class IntegerNormalizerBuilder implements IIntegerNormalizerBuilder

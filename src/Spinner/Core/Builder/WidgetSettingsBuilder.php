@@ -3,19 +3,21 @@
 declare(strict_types=1);
 
 
-namespace AlecRabbit\Spinner\Core\Defaults;
+namespace AlecRabbit\Spinner\Core\Builder;
 
 use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Contract\Pattern\IPattern;
+use AlecRabbit\Spinner\Core\Builder\Contract\IWidgetSettingsBuilder;
 use AlecRabbit\Spinner\Core\Defaults\Contract\IWidgetSettings;
-use AlecRabbit\Spinner\Core\Defaults\Contract\IWidgetSettingsBuilder;
+use AlecRabbit\Spinner\Core\Defaults\WidgetSettings;
+use AlecRabbit\Spinner\Core\Pattern\Contract\IStylePattern;
 use AlecRabbit\Spinner\Exception\LogicException;
 
 final class WidgetSettingsBuilder implements IWidgetSettingsBuilder
 {
     private ?IFrame $leadingSpacer = null;
     private ?IFrame $trailingSpacer = null;
-    private ?IPattern $stylePattern = null;
+    private ?IStylePattern $stylePattern = null;
     private ?IPattern $charPattern = null;
 
     public function build(): IWidgetSettings
@@ -55,7 +57,7 @@ final class WidgetSettingsBuilder implements IWidgetSettingsBuilder
         return $clone;
     }
 
-    public function withStylePattern(IPattern $pattern): IWidgetSettingsBuilder
+    public function withStylePattern(IStylePattern $pattern): IWidgetSettingsBuilder
     {
         $clone = clone $this;
         $clone->stylePattern = $pattern;

@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Defaults;
 
-use AlecRabbit\Spinner\Core\Defaults\Contract\IAuxSettingsBuilder;
-use AlecRabbit\Spinner\Core\Defaults\Contract\IDefaultsProviderBuilder;
-use AlecRabbit\Spinner\Core\Defaults\Contract\IDriverSettingsBuilder;
+use AlecRabbit\Spinner\Core\Builder\Contract\IAuxSettingsBuilder;
+use AlecRabbit\Spinner\Core\Builder\Contract\IDefaultsProviderBuilder;
+use AlecRabbit\Spinner\Core\Builder\Contract\IDriverSettingsBuilder;
+use AlecRabbit\Spinner\Core\Builder\Settings\DefaultsProviderBuilder;
 use AlecRabbit\Spinner\Core\Defaults\DefaultsProvider;
-use AlecRabbit\Spinner\Core\Defaults\DefaultsProviderBuilder;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopSettingsFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ITerminalSettingsFactory;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
