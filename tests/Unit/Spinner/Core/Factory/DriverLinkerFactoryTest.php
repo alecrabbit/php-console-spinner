@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Factory;
 
 use AlecRabbit\Spinner\Contract\Option\OptionLinker;
-use AlecRabbit\Spinner\Core\Contract\IDefaultsProvider;
+use AlecRabbit\Spinner\Core\Contract\ISettingsProvider;
 use AlecRabbit\Spinner\Core\Contract\Loop\Contract\ILoop;
 use AlecRabbit\Spinner\Core\DriverLinker;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDriverLinkerSingletonFactory;
@@ -25,7 +25,7 @@ final class DriverLinkerFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
 
     public function getTesteeInstance(
         ?ILoop $loop = null,
-        ?IDefaultsProvider $defaultsProvider = null,
+        ?ISettingsProvider $defaultsProvider = null,
     ): IDriverLinkerSingletonFactory {
         return new DriverLinkerSingletonFactory(
             loop: $loop ?? $this->getLoopMock(),

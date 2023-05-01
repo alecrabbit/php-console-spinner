@@ -5,23 +5,23 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Defaults;
 
 use AlecRabbit\Spinner\Core\Builder\Settings\Contract\IAuxSettingsBuilder;
-use AlecRabbit\Spinner\Core\Builder\Settings\Contract\IDefaultsProviderBuilder;
+use AlecRabbit\Spinner\Core\Builder\Settings\Contract\ISettingsProviderBuilder;
 use AlecRabbit\Spinner\Core\Builder\Settings\Contract\IDriverSettingsBuilder;
-use AlecRabbit\Spinner\Core\Builder\Settings\DefaultsProviderBuilder;
-use AlecRabbit\Spinner\Core\DefaultsProvider;
+use AlecRabbit\Spinner\Core\Builder\Settings\SettingsProviderBuilder;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopSettingsFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ITerminalSettingsFactory;
+use AlecRabbit\Spinner\Core\Settings\SettingsProvider;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;
 
-final class DefaultsProviderBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
+final class SettingsProviderBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
 {
     #[Test]
     public function canBeCreated(): void
     {
-        $defaultsProviderBuilder = $this->getTesteeInstance();
+        $settingsProviderBuilder = $this->getTesteeInstance();
 
-        self::assertInstanceOf(DefaultsProviderBuilder::class, $defaultsProviderBuilder);
+        self::assertInstanceOf(SettingsProviderBuilder::class, $settingsProviderBuilder);
     }
 
     public function getTesteeInstance(
@@ -29,9 +29,9 @@ final class DefaultsProviderBuilderTest extends TestCaseWithPrebuiltMocksAndStub
         ?ITerminalSettingsFactory $terminalSettingsFactory = null,
         ?IAuxSettingsBuilder $auxSettingsBuilder = null,
         ?IDriverSettingsBuilder $driverSettingsBuilder = null,
-    ): IDefaultsProviderBuilder {
+    ): ISettingsProviderBuilder {
         return
-            new DefaultsProviderBuilder(
+            new SettingsProviderBuilder(
                 loopSettingsFactory: $loopSettingsBuilder ?? $this->getLoopSettingsFactoryMock(),
                 terminalSettingsFactory: $terminalSettingsFactory ?? $this->getTerminalSettingsFactoryMock(),
                 auxSettingsBuilder: $auxSettingsBuilder ?? $this->getAuxSettingsBuilderMock(),
@@ -42,8 +42,8 @@ final class DefaultsProviderBuilderTest extends TestCaseWithPrebuiltMocksAndStub
     #[Test]
     public function canBuildDefaultsProvider(): void
     {
-        $defaultsProvider = $this->getTesteeInstance()->build();
+        $settingsProvider = $this->getTesteeInstance()->build();
 
-        self::assertInstanceOf(DefaultsProvider::class, $defaultsProvider);
+        self::assertInstanceOf(SettingsProvider::class, $settingsProvider);
     }
 }

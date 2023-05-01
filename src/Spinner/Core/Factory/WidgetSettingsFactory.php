@@ -6,14 +6,14 @@ namespace AlecRabbit\Spinner\Core\Factory;
 
 use AlecRabbit\Spinner\Core\Builder\Settings\Contract\IWidgetSettingsBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\IWidgetConfig;
-use AlecRabbit\Spinner\Core\Contract\IDefaultsProvider;
+use AlecRabbit\Spinner\Core\Contract\ISettingsProvider;
 use AlecRabbit\Spinner\Core\Factory\Contract\IWidgetSettingsFactory;
 use AlecRabbit\Spinner\Core\Settings\Contract\IWidgetSettings;
 
 final class WidgetSettingsFactory implements IWidgetSettingsFactory
 {
     public function __construct(
-        protected IDefaultsProvider $defaultsProvider,
+        protected ISettingsProvider $defaultsProvider,
         protected IWidgetSettingsBuilder $widgetSettingsBuilder,
     ) {
     }

@@ -11,7 +11,7 @@ use AlecRabbit\Spinner\Core\Settings\Contract\IDriverSettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\ILoopSettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\ITerminalSettings;
 
-interface IDefaultsProvider
+interface ISettingsProvider
 {
     public function getAuxSettings(): IAuxSettings;
 

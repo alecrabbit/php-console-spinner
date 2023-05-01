@@ -3,16 +3,16 @@
 declare(strict_types=1);
 
 
-namespace AlecRabbit\Spinner\Core;
+namespace AlecRabbit\Spinner\Core\Settings;
 
 use AlecRabbit\Spinner\Core\Config\Contract\IWidgetConfig;
-use AlecRabbit\Spinner\Core\Contract\IDefaultsProvider;
+use AlecRabbit\Spinner\Core\Contract\ISettingsProvider;
 use AlecRabbit\Spinner\Core\Settings\Contract\IAuxSettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\IDriverSettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\ILoopSettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\ITerminalSettings;
 
-final class DefaultsProvider implements IDefaultsProvider
+final class SettingsProvider implements ISettingsProvider
 {
     public function __construct(
         protected IAuxSettings $auxSettings,

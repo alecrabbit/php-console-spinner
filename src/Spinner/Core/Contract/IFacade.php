@@ -9,7 +9,7 @@ use AlecRabbit\Spinner\Core\Contract\Loop\Contract\ILoop;
 
 interface IFacade
 {
-    public static function getDefaultsProvider(): IDefaultsProvider;
+    public static function getDefaultsProvider(): ISettingsProvider;
 
     public static function getLoop(): ILoop;
 

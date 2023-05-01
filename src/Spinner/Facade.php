@@ -7,7 +7,7 @@ namespace AlecRabbit\Spinner;
 
 use AlecRabbit\Spinner\Container\Contract\IContainer;
 use AlecRabbit\Spinner\Core\Config\Contract\ISpinnerConfig;
-use AlecRabbit\Spinner\Core\Contract\IDefaultsProvider;
+use AlecRabbit\Spinner\Core\Contract\ISettingsProvider;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\IFacade;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
@@ -44,9 +44,9 @@ final class Facade implements IFacade
         };
     }
 
-    public static function getDefaultsProvider(): IDefaultsProvider
+    public static function getDefaultsProvider(): ISettingsProvider
     {
-        return self::getContainer()->get(IDefaultsProvider::class);
+        return self::getContainer()->get(ISettingsProvider::class);
     }
 
     public static function createSpinner(?ISpinnerConfig $config = null): ISpinner

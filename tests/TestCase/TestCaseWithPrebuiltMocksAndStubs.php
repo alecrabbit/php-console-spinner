@@ -29,7 +29,7 @@ use AlecRabbit\Spinner\Core\Builder\Settings\Contract\IWidgetSettingsBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\ISpinnerConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IWidgetConfig;
 use AlecRabbit\Spinner\Core\Contract\ICharFrameRenderer;
-use AlecRabbit\Spinner\Core\Contract\IDefaultsProvider;
+use AlecRabbit\Spinner\Core\Contract\ISettingsProvider;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\IDriverBuilder;
 use AlecRabbit\Spinner\Core\Contract\IDriverLinker;
@@ -199,9 +199,9 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
         return $this->createStub(ILoopSetup::class);
     }
 
-    protected function getDefaultsProviderMock(): MockObject&IDefaultsProvider
+    protected function getDefaultsProviderMock(): MockObject&ISettingsProvider
     {
-        return $this->createMock(IDefaultsProvider::class);
+        return $this->createMock(ISettingsProvider::class);
     }
 
     protected function getSpinnerConfigMock(): MockObject&ISpinnerConfig

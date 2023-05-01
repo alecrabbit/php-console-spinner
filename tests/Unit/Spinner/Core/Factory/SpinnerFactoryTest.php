@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Factory;
 
-use AlecRabbit\Spinner\Core\Contract\IDefaultsProvider;
+use AlecRabbit\Spinner\Core\Contract\ISettingsProvider;
 use AlecRabbit\Spinner\Core\Factory\Contract\ISpinnerFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IWidgetSettingsFactory;
 use AlecRabbit\Spinner\Core\Factory\SpinnerFactory;
@@ -24,7 +24,7 @@ final class SpinnerFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
     }
 
     public function getTesteeInstance(
-        ?IDefaultsProvider $defaultsProvider = null,
+        ?ISettingsProvider $defaultsProvider = null,
         ?IWidgetFactory $widgetFactory = null,
         ?IWidgetSettingsFactory $widgetSettingsFactory = null,
     ): ISpinnerFactory {

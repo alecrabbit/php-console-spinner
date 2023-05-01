@@ -6,12 +6,11 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Builder\Settings;
 
 use AlecRabbit\Spinner\Core\Builder\Settings\Contract\IAuxSettingsBuilder;
-use AlecRabbit\Spinner\Core\Builder\Settings\Contract\IDefaultsProviderBuilder;
+use AlecRabbit\Spinner\Core\Builder\Settings\Contract\ISettingsProviderBuilder;
 use AlecRabbit\Spinner\Core\Builder\Settings\Contract\IDriverSettingsBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\IWidgetConfig;
 use AlecRabbit\Spinner\Core\Config\WidgetConfig;
-use AlecRabbit\Spinner\Core\Contract\IDefaultsProvider;
-use AlecRabbit\Spinner\Core\DefaultsProvider;
+use AlecRabbit\Spinner\Core\Contract\ISettingsProvider;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopSettingsFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ITerminalSettingsFactory;
 use AlecRabbit\Spinner\Core\Frame;
@@ -19,8 +18,9 @@ use AlecRabbit\Spinner\Core\Pattern\CharPattern\Snake;
 use AlecRabbit\Spinner\Core\Pattern\NoCharPattern;
 use AlecRabbit\Spinner\Core\Pattern\NoStylePattern;
 use AlecRabbit\Spinner\Core\Pattern\StylePattern\Rainbow;
+use AlecRabbit\Spinner\Core\Settings\SettingsProvider;
 
-final class DefaultsProviderBuilder implements IDefaultsProviderBuilder
+final class SettingsProviderBuilder implements ISettingsProviderBuilder
 {
     public function __construct(
         protected ILoopSettingsFactory $loopSettingsFactory,
@@ -30,9 +30,9 @@ final class DefaultsProviderBuilder implements IDefaultsProviderBuilder
     ) {
     }
 
-    public function build(): IDefaultsProvider
+    public function build(): ISettingsProvider
     {
-        return new DefaultsProvider(
+        return new SettingsProvider(
             auxSettings: $this->auxSettingsBuilder->build(),
             terminalSettings: $this->terminalSettingsFactory->createTerminalSettings(),
             loopSettings: $this->loopSettingsFactory->createLoopSettings(),

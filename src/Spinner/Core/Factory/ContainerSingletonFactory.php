@@ -28,16 +28,16 @@ use AlecRabbit\Spinner\Core\Builder\IntegerNormalizerBuilder;
 use AlecRabbit\Spinner\Core\Builder\LoopSetupBuilder;
 use AlecRabbit\Spinner\Core\Builder\Settings\AuxSettingsBuilder;
 use AlecRabbit\Spinner\Core\Builder\Settings\Contract\IAuxSettingsBuilder;
-use AlecRabbit\Spinner\Core\Builder\Settings\Contract\IDefaultsProviderBuilder;
+use AlecRabbit\Spinner\Core\Builder\Settings\Contract\ISettingsProviderBuilder;
 use AlecRabbit\Spinner\Core\Builder\Settings\Contract\IDriverSettingsBuilder;
 use AlecRabbit\Spinner\Core\Builder\Settings\Contract\IWidgetSettingsBuilder;
-use AlecRabbit\Spinner\Core\Builder\Settings\DefaultsProviderBuilder;
+use AlecRabbit\Spinner\Core\Builder\Settings\SettingsProviderBuilder;
 use AlecRabbit\Spinner\Core\Builder\Settings\DriverSettingsBuilder;
 use AlecRabbit\Spinner\Core\Builder\TimerBuilder;
 use AlecRabbit\Spinner\Core\Builder\WidgetSettingsBuilder;
 use AlecRabbit\Spinner\Core\Color\Style\StyleOptionsParser;
 use AlecRabbit\Spinner\Core\Contract\ICharFrameRenderer;
-use AlecRabbit\Spinner\Core\Contract\IDefaultsProvider;
+use AlecRabbit\Spinner\Core\Contract\ISettingsProvider;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\IDriverBuilder;
 use AlecRabbit\Spinner\Core\Contract\IDriverLinker;
@@ -144,7 +144,7 @@ final class ContainerSingletonFactory implements IContainerSingletonFactory
             ICharFrameRevolverFactory::class => CharFrameRevolverFactory::class,
             IConsoleCursorBuilder::class => ConsoleCursorBuilder::class,
             IConsoleCursorFactory::class => ConsoleCursorFactory::class,
-            IDefaultsProviderBuilder::class => DefaultsProviderBuilder::class,
+            ISettingsProviderBuilder::class => SettingsProviderBuilder::class,
             IDriverLinkerSingletonFactory::class => DriverLinkerSingletonFactory::class,
             IDriverBuilder::class => DriverBuilder::class,
             IDriverOutputBuilder::class => DriverOutputBuilder::class,
@@ -180,8 +180,8 @@ final class ContainerSingletonFactory implements IContainerSingletonFactory
             IWidgetSettingsBuilder::class => WidgetSettingsBuilder::class,
             IWidthMeasurerFactory::class => WidthMeasurerFactory::class,
 
-            IDefaultsProvider::class => static function (ContainerInterface $container): IDefaultsProvider {
-                return $container->get(IDefaultsProviderBuilder::class)->build();
+            ISettingsProvider::class => static function (ContainerInterface $container): ISettingsProvider {
+                return $container->get(ISettingsProviderBuilder::class)->build();
             },
             IDriver::class => static function (ContainerInterface $container): IDriver {
                 return $container->get(IDriverSingletonFactory::class)->getDriver();
@@ -190,7 +190,7 @@ final class ContainerSingletonFactory implements IContainerSingletonFactory
                 return $container->get(IDriverLinkerSingletonFactory::class)->getDriverLinker();
             },
             IDriverSettings::class => static function (ContainerInterface $container): IDriverSettings {
-                return $container->get(IDefaultsProvider::class)->getDriverSettings();
+                return $container->get(ISettingsProvider::class)->getDriverSettings();
             },
             IIntervalNormalizer::class => static function (ContainerInterface $container): IIntervalNormalizer {
                 return $container->get(IIntervalNormalizerFactory::class)->create();
@@ -227,8 +227,8 @@ final class ContainerSingletonFactory implements IContainerSingletonFactory
             },
             ISignalProcessingProbeFactory::class => SignalProcessingProbeFactory::class,
             IResourceStream::class => static function (ContainerInterface $container): IResourceStream {
-                /** @var IDefaultsProvider $provider */
-                $provider = $container->get(IDefaultsProvider::class);
+                /** @var ISettingsProvider $provider */
+                $provider = $container->get(ISettingsProvider::class);
                 return new ResourceStream($provider->getTerminalSettings()->getOutputStream());
             },
             ITerminalProbeFactory::class => static function (): ITerminalProbeFactory {
@@ -248,13 +248,13 @@ final class ContainerSingletonFactory implements IContainerSingletonFactory
                 return $container->get(IWidthMeasurerFactory::class)->create();
             },
             OptionNormalizerMode::class => static function (ContainerInterface $container): OptionNormalizerMode {
-                return $container->get(IDefaultsProvider::class)->getAuxSettings()->getOptionNormalizerMode();
+                return $container->get(ISettingsProvider::class)->getAuxSettings()->getOptionNormalizerMode();
             },
             OptionCursor::class => static function (ContainerInterface $container): OptionCursor {
-                return $container->get(IDefaultsProvider::class)->getTerminalSettings()->getOptionCursor();
+                return $container->get(ISettingsProvider::class)->getTerminalSettings()->getOptionCursor();
             },
             OptionStyleMode::class => static function (ContainerInterface $container): OptionStyleMode {
-                return $container->get(IDefaultsProvider::class)->getTerminalSettings()->getOptionStyleMode();
+                return $container->get(ISettingsProvider::class)->getTerminalSettings()->getOptionStyleMode();
             },
         ];
     }

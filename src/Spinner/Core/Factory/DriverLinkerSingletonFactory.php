@@ -5,7 +5,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Factory;
 
-use AlecRabbit\Spinner\Core\Contract\IDefaultsProvider;
+use AlecRabbit\Spinner\Core\Contract\ISettingsProvider;
 use AlecRabbit\Spinner\Core\Contract\IDriverLinker;
 use AlecRabbit\Spinner\Core\Contract\Loop\Contract\ILoop;
 use AlecRabbit\Spinner\Core\DriverLinker;
@@ -17,7 +17,7 @@ final class DriverLinkerSingletonFactory implements IDriverLinkerSingletonFactor
 
     public function __construct(
         protected ILoop $loop,
-        protected IDefaultsProvider $defaultsProvider,
+        protected ISettingsProvider $defaultsProvider,
     ) {
     }
 
