@@ -36,9 +36,7 @@ final class WidgetSettingsFactory implements IWidgetSettingsFactory
     {
         $widgetConfig = $this->defaultsProvider->getWidgetConfig();
 
-        $rootWidgetConfig = $this->defaultsProvider->getRootWidgetConfig()->merge($widgetConfig);
-
         return
-            $config->merge($rootWidgetConfig);
+            $config->merge($widgetConfig);
     }
 }

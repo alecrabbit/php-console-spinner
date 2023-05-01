@@ -150,37 +150,38 @@ final class WidgetSettingsFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
             ->willReturn($widgetSettings)
         ;
 
+        $widgetConfig = $this->getWidgetConfigMock();
+
         $defaultsProvider = $this->getDefaultsProviderMock();
         $defaultsProvider
             ->expects(self::once())
             ->method('getWidgetConfig')
+            ->willReturn($widgetConfig)
         ;
-        $rootWidgetConfig = $this->getWidgetConfigMock();
-        $rootWidgetConfig
+        $widgetConfig
             ->expects(self::once())
             ->method('getLeadingSpacer')
             ->willReturn($leadingSpacer)
         ;
-        $rootWidgetConfig
+        $widgetConfig
             ->expects(self::once())
             ->method('getTrailingSpacer')
             ->willReturn($trailingSpacer)
         ;
-        $rootWidgetConfig
+        $widgetConfig
             ->expects(self::once())
             ->method('getStylePattern')
             ->willReturn($stylePattern)
         ;
-        $rootWidgetConfig
+        $widgetConfig
             ->expects(self::once())
             ->method('getCharPattern')
             ->willReturn($charPattern)
         ;
 
         $defaultsProvider
-            ->expects(self::once())
+            ->expects(self::never())
             ->method('getRootWidgetConfig')
-            ->willReturn($rootWidgetConfig)
         ;
 
         $widgetSettingsFactory = $this->getTesteeInstance(
@@ -194,7 +195,7 @@ final class WidgetSettingsFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
         $config
             ->expects(self::once())
             ->method('merge')
-            ->willReturn($rootWidgetConfig)
+            ->willReturn($widgetConfig)
         ;
         $config
             ->expects(self::never())
