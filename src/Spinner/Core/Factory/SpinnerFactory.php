@@ -47,7 +47,7 @@ final class SpinnerFactory implements ISpinnerFactory
         ;
     }
 
-    protected function refineConfig(?IWidgetConfig $config): IWidgetConfig
+    private function refineConfig(?IWidgetConfig $config): IWidgetConfig
     {
         $rootWidgetConfig = $this->defaultsProvider->getRootWidgetConfig();
 

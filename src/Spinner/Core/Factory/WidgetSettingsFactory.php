@@ -20,7 +20,7 @@ final class WidgetSettingsFactory implements IWidgetSettingsFactory
 
     public function createFromConfig(IWidgetConfig $config): IWidgetSettings
     {
-        $config = $this->refineConfig($config);
+        $config = $config->merge($this->defaultsProvider->getWidgetConfig());
 
         return
             $this->widgetSettingsBuilder
@@ -32,11 +32,4 @@ final class WidgetSettingsFactory implements IWidgetSettingsFactory
         ;
     }
 
-    private function refineConfig(IWidgetConfig $config): IWidgetConfig
-    {
-        $widgetConfig = $this->defaultsProvider->getWidgetConfig();
-
-        return
-            $config->merge($widgetConfig);
-    }
 }
