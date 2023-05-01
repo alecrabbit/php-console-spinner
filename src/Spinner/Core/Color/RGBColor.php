@@ -5,14 +5,17 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Color;
 
-use AlecRabbit\Spinner\Contract\Color\IStringableColor;
+use AlecRabbit\Spinner\Contract\Color\IColor;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
+use Stringable;
 
-final readonly class RGBColor implements IStringableColor
+final readonly class RGBColor implements IColor, Stringable
 {
     private const HEX_FORMAT = '#%02x%02x%02x';
     private const RGB_FORMAT = 'rgb(%d, %d, %d)';
     private const RGBA_FORMAT = 'rgba(%d, %d, %d, %s)';
+    private const REGEXP_RGBA = '/^rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\)$/';
+    private const REGEXP_HEX = '/^#?(?:([a-f\d]{2}){3}|([a-f\d]){3})$/i';
 
     public int $red;
     public int $green;
@@ -46,7 +49,7 @@ final readonly class RGBColor implements IStringableColor
      */
     public static function fromString(string $color): self
     {
-        if (preg_match('/^rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\)$/', $color, $matches)) {
+        if (preg_match(self::REGEXP_RGBA, $color, $matches)) {
             return
                 new RGBColor(
                     (int)$matches[1],
@@ -63,22 +66,30 @@ final readonly class RGBColor implements IStringableColor
      */
     private static function fromHex(string $hex): self
     {
+        $hex = self::normalizeHex($hex);
+
+        return
+            new self(
+                hexdec(substr($hex, 0, 2)),
+                hexdec(substr($hex, 2, 2)),
+                hexdec(substr($hex, 4, 2)),
+            );
+    }
+
+    /**
+     * @throws InvalidArgumentException
+     */
+    private static function normalizeHex(string $hex): string
+    {
         self::assertHex($hex);
 
         $hex = str_replace('#', '', $hex);
 
-        $length = strlen($hex);
-        if ($length === 3) {
+        if (strlen($hex) === 3) {
             $hex = $hex[0] . $hex[0] . $hex[1] . $hex[1] . $hex[2] . $hex[2];
-            $length = strlen($hex);
         }
 
-        $cLength = (int)($length / 3);
-        return new self(
-            hexdec(substr($hex, 0, $cLength)),
-            hexdec(substr($hex, $cLength, $cLength)),
-            hexdec(substr($hex, $cLength * 2, $cLength)),
-        );
+        return $hex;
     }
 
     /**
@@ -86,7 +97,7 @@ final readonly class RGBColor implements IStringableColor
      */
     private static function assertHex(string $hex): void
     {
-        if (!preg_match('/^#(?:([a-f\d]{2}){3}|([a-f\d]){3})$/i', $hex)) {
+        if (!preg_match(self::REGEXP_HEX, $hex)) {
             throw new InvalidArgumentException(
                 sprintf('Invalid color string: "%s".', $hex)
             );

@@ -89,15 +89,6 @@ final class ColorProcessor implements IColorProcessor
                 new HSLColor($h, $s, $l, $a);
         }
 
-//        $pattern = '/^rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\)$/';
-//        if (preg_match($pattern, $color, $matches)) {
-//            $r = (int)$matches[1];
-//            $g = (int)$matches[2];
-//            $b = (int)$matches[3];
-//            $a = isset($matches[4]) ? (float)$matches[4] : 1.0;
-//            return new RGBColor($r, $g, $b, $a);
-//        }
-
         return RGBColor::fromString($color);
     }
 

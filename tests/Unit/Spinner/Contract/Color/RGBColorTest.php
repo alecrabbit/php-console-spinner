@@ -41,9 +41,11 @@ final class RGBColorTest extends TestCase
         yield from [
             // toString, result, r, g, b, a // first element - #0..
             ['#000000', new RGBColor(0, 0, 0, 1.0), 0, 0, 0, 1.0],
+            ['#0000ff', new RGBColor(0, 0, 0xff, 0.1), 0, 0, 0xff, 0.1],
             ['#0000ff', new RGBColor(0, 0, 255, 1.0), -1, -1, 300, 3.0],
             ['#00f1ff', new RGBColor(0, 241, 255, 1.0), -1, 241, 300, 3.0],
             ['#0000ff', new RGBColor(0, 0, 255, 0.0), -1, -1, 300, -2.0],
+            ['#32aaff', new RGBColor(0x32, 0xaa, 0xff,0.3), 0x32, 0xaa, 0xff, 0.3],
         ];
     }
 
@@ -51,8 +53,7 @@ final class RGBColorTest extends TestCase
     {
         // [$expected, $incoming]
         // #0..
-        foreach (self::simplifiedInvalidStringDataFeeder() as $item) {
-            $string = $item[0];
+        foreach (self::simplifiedInvalidStringDataFeeder() as $string) {
             yield [
                 [
                     self::EXCEPTION => [
@@ -71,8 +72,8 @@ final class RGBColorTest extends TestCase
     {
         yield from [
             'rgb(145, 89, 34,)',
-            'ffaaca',
-            'aaaaaa',
+            'hsl(145, 89%, 34%)',
+            'hsla(145, 89%, 34%, 0.5)',
             'ffaaa',
             'aaaaa',
             '00000',
@@ -110,7 +111,9 @@ final class RGBColorTest extends TestCase
         yield from [
             // hex, result, toString, toHex, toRgb, to Rgba // first element - #0..
             ['#000', new RGBColor(0, 0, 0), '#000000', '#000000', 'rgb(0, 0, 0)', 'rgba(0, 0, 0, 1)'],
+            ['000', new RGBColor(0, 0, 0), '#000000', '#000000', 'rgb(0, 0, 0)', 'rgba(0, 0, 0, 1)'],
             ['#00f', new RGBColor(0, 0, 255), '#0000ff', '#0000ff', 'rgb(0, 0, 255)', 'rgba(0, 0, 255, 1)'],
+            ['00f', new RGBColor(0, 0, 255), '#0000ff', '#0000ff', 'rgb(0, 0, 255)', 'rgba(0, 0, 255, 1)'],
             ['#00f1ff', new RGBColor(0, 241, 255), '#00f1ff', '#00f1ff', 'rgb(0, 241, 255)', 'rgba(0, 241, 255, 1)'],
             ['#0000ff', new RGBColor(0, 0, 255), '#0000ff', '#0000ff', 'rgb(0, 0, 255)', 'rgba(0, 0, 255, 1)'],
             [
