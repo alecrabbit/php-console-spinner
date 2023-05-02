@@ -9,6 +9,7 @@ use AlecRabbit\Spinner\Contract\Option\OptionStyleMode;
 use AlecRabbit\Spinner\Contract\Pattern\IPattern;
 use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IStyleFrameRevolverFactory;
+use AlecRabbit\Spinner\Core\FrameCollection;
 use AlecRabbit\Spinner\Core\Pattern\BakedPattern;
 use AlecRabbit\Spinner\Core\Pattern\Contract\IBakedPattern;
 use AlecRabbit\Spinner\Core\Pattern\Contract\IStylePattern;
@@ -49,7 +50,7 @@ final class StyleFrameRevolverFactory implements IStyleFrameRevolverFactory
         }
         return
             new BakedPattern(
-                frames: $this->frameCollectionRenderer->render($pattern),
+                frames: new FrameCollection($pattern->getEntries($this->styleMode)),
                 interval: $this->intervalFactory->createNormalized($pattern->getInterval()),
             );
     }

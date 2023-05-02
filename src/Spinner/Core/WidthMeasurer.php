@@ -34,7 +34,7 @@ final class WidthMeasurer implements IWidthMeasurer
         );
     }
 
-    public function getWidth(string $string): int
+    public function measureWidth(string $string): int
     {
         return (int)($this->measureFunction)($string);
     }

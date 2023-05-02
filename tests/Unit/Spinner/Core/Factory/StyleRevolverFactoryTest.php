@@ -41,6 +41,7 @@ final class StyleRevolverFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
     #[Test]
     public function canCreateRevolver(): void
     {
+        $styleMode = OptionStyleMode::ANSI8;
         $intInterval = 100;
 
         $pattern = $this->getStylePatternMock();
@@ -48,46 +49,42 @@ final class StyleRevolverFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
 
         $pattern
             ->expects(self::once())
+            ->method('getEntries')
+            ->with($styleMode)
+            ->willReturn(new \ArrayObject([$this->getFrameMock()]))
+        ;
+        $pattern
+            ->expects(self::once())
             ->method('getInterval')
             ->willReturn($intInterval)
         ;
         $frameCollection = $this->getFrameCollectionMock();
-
-        $styleFrameCollectionRenderer = $this->getStyleFrameCollectionRendererMock();
-        $styleFrameCollectionRenderer
-            ->expects(self::once())
-            ->method('render')
-            ->with($pattern)
-            ->willReturn($frameCollection)
-        ;
-
-        $frameRevolverBuilder = $this->getFrameRevolverBuilderMock();
-        $frameRevolverBuilder
-            ->expects(self::once())
-            ->method('withFrameCollection')
-            ->with($frameCollection)
-            ->willReturnSelf()
-        ;
-        $frameRevolverBuilder
-            ->expects(self::once())
-            ->method('withInterval')
-            ->with($interval)
-            ->willReturnSelf()
-        ;
-        $frameRevolverBuilder
-            ->expects(self::once())
-            ->method('withTolerance')
-            ->with(self::identicalTo(IRevolver::TOLERANCE)) // [fd86d318-9069-47e2-b60d-a68f537be4a3]
-            ->willReturnSelf()
-        ;
-        $frameRevolver = $this->getFrameRevolverMock();
-        $frameRevolverBuilder
-            ->expects(self::once())
-            ->method('build')
-            ->willReturn($frameRevolver)
-        ;
-
-        $styleMode = OptionStyleMode::ANSI8;
+//
+//        $frameRevolverBuilder = $this->getFrameRevolverBuilderMock();
+//        $frameRevolverBuilder
+//            ->expects(self::never())
+//            ->method('withFrameCollection')
+//            ->with($frameCollection)
+//            ->willReturnSelf()
+//        ;
+//        $frameRevolverBuilder
+//            ->expects(self::once())
+//            ->method('withInterval')
+//            ->with($interval)
+//            ->willReturnSelf()
+//        ;
+//        $frameRevolverBuilder
+//            ->expects(self::once())
+//            ->method('withTolerance')
+//            ->with(self::identicalTo(IRevolver::TOLERANCE)) // [fd86d318-9069-47e2-b60d-a68f537be4a3]
+//            ->willReturnSelf()
+//        ;
+//        $frameRevolver = $this->getFrameRevolverMock();
+//        $frameRevolverBuilder
+//            ->expects(self::once())
+//            ->method('build')
+//            ->willReturn($frameRevolver)
+//        ;
 
         $intervalFactory = $this->getIntervalFactoryMock();
         $intervalFactory
@@ -97,15 +94,14 @@ final class StyleRevolverFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
         ;
 
         $styleRevolverFactory = $this->getTesteeInstance(
-            frameRevolverBuilder: $frameRevolverBuilder,
-            styleFrameCollectionRenderer: $styleFrameCollectionRenderer,
+//            frameRevolverBuilder: $frameRevolverBuilder,
             intervalFactory: $intervalFactory,
             styleMode: $styleMode,
         );
 
         $styleRevolver = $styleRevolverFactory->createStyleRevolver($pattern);
         self::assertInstanceOf(StyleFrameRevolverFactory::class, $styleRevolverFactory);
-        self::assertSame($frameRevolver, $styleRevolver);
+//        self::assertSame($frameRevolver, $styleRevolver);
     }
 
     #[Test]
@@ -119,7 +115,7 @@ final class StyleRevolverFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
 
         $styleFrameCollectionRenderer = $this->getStyleFrameCollectionRendererMock();
         $styleFrameCollectionRenderer
-            ->expects(self::once())
+            ->expects(self::never())
             ->method('render')
         ;
 

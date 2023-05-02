@@ -16,11 +16,6 @@ abstract class APattern implements IPattern
     ) {
     }
 
-    public function getEntries(): ?Traversable
-    {
-        return $this->entries;
-    }
-
     public function getInterval(): ?int
     {
         return $this->interval;

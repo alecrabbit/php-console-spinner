@@ -15,4 +15,12 @@ final class NoCharPattern extends AOneFramePattern
     {
         parent::__construct(new CharFrame('', 0));
     }
+
+
+    public function getEntries(): ?\Traversable
+    {
+        yield from [
+            $this->frame,
+        ];
+    }
 }

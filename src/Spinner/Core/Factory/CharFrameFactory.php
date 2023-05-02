@@ -21,7 +21,7 @@ final class CharFrameFactory implements ICharFrameFactory
         return
             new CharFrame(
                 $sequence,
-                $this->widthMeasurer->getWidth($sequence)
+                $this->widthMeasurer->measureWidth($sequence)
             );
     }
 }

@@ -17,7 +17,6 @@ final class APatternTest extends TestCase
     {
         $pattern = $this->getTesteeInstance();
         self::assertInstanceOf(APattern::class, $pattern);
-        self::assertNull($pattern->getEntries());
         self::assertNull($pattern->getInterval());
     }
 

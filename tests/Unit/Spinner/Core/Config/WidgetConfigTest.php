@@ -33,7 +33,7 @@ final class WidgetConfigTest extends TestCaseWithPrebuiltMocksAndStubs
         $leadingSpacer = $this->getFrameMock();
         $trailingSpacer = $this->getFrameMock();
         $stylePattern = $this->getStylePatternMock();
-        $charPattern = $this->getPatternMock();
+        $charPattern = $this->getCharPatternMock();
 
         $config->setLeadingSpacer($leadingSpacer);
         $config->setTrailingSpacer($trailingSpacer);
@@ -57,7 +57,7 @@ final class WidgetConfigTest extends TestCaseWithPrebuiltMocksAndStubs
         $leadingSpacer = $this->getFrameMock();
         $trailingSpacer = $this->getFrameMock();
         $stylePattern = $this->getStylePatternMock();
-        $charPattern = $this->getPatternMock();
+        $charPattern = $this->getCharPatternMock();
 
         $config = new WidgetConfig(
             leadingSpacer: $leadingSpacer,
@@ -82,7 +82,7 @@ final class WidgetConfigTest extends TestCaseWithPrebuiltMocksAndStubs
         $leadingSpacer = $this->getFrameMock();
         $trailingSpacer = $this->getFrameMock();
         $stylePattern = $this->getStylePatternMock();
-        $charPattern = $this->getPatternMock();
+        $charPattern = $this->getCharPatternMock();
 
         $config = new WidgetConfig(
             leadingSpacer: $leadingSpacer,
@@ -103,7 +103,7 @@ final class WidgetConfigTest extends TestCaseWithPrebuiltMocksAndStubs
         $leadingSpacer = $this->getFrameMock();
         $trailingSpacer = $this->getFrameMock();
         $stylePattern = $this->getStylePatternMock();
-        $charPattern = $this->getPatternMock();
+        $charPattern = $this->getCharPatternMock();
 
         $config->setLeadingSpacer($leadingSpacer);
         $config->setTrailingSpacer($trailingSpacer);
@@ -129,7 +129,7 @@ final class WidgetConfigTest extends TestCaseWithPrebuiltMocksAndStubs
         $leadingSpacer = $this->getFrameMock();
         $trailingSpacer = $this->getFrameMock();
         $stylePattern = $this->getStylePatternMock();
-        $charPattern = $this->getPatternMock();
+        $charPattern = $this->getCharPatternMock();
 
         $configToMerge = new WidgetConfig(
             leadingSpacer: $leadingSpacer,
@@ -168,7 +168,7 @@ final class WidgetConfigTest extends TestCaseWithPrebuiltMocksAndStubs
         );
 
         $leadingSpacer = $this->getFrameMock();
-        $charPattern = $this->getPatternMock();
+        $charPattern = $this->getCharPatternMock();
 
         $configToMerge = new WidgetConfig(
             leadingSpacer: $leadingSpacer,

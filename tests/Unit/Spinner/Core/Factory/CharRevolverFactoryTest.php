@@ -42,7 +42,7 @@ final class CharRevolverFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
         $interval = $this->getIntervalMock();
 
 
-        $pattern = $this->getPatternMock();
+        $pattern = $this->getCharPatternMock();
         $pattern
             ->expects(self::once())
             ->method('getInterval')

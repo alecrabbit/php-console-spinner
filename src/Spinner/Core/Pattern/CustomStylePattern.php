@@ -5,6 +5,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Pattern;
 
+use AlecRabbit\Spinner\Contract\Option\OptionStyleMode;
 use AlecRabbit\Spinner\Core\Pattern\StylePattern\A\AStylePattern;
 use Traversable;
 
@@ -22,7 +23,7 @@ final class CustomStylePattern extends AStylePattern
         );
     }
 
-    public function getEntries(): Traversable
+    public function getEntries(OptionStyleMode $styleMode = OptionStyleMode::ANSI8): Traversable
     {
         yield from $this->pattern;
     }

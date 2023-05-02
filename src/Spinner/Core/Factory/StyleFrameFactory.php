@@ -27,7 +27,7 @@ final class StyleFrameFactory implements Contract\IStyleFrameFactory
     protected function measure(string $sequence): int
     {
         return
-            $this->widthMeasurer->getWidth(
+            $this->widthMeasurer->measureWidth(
                 $this->refineSequence($sequence)
             );
     }

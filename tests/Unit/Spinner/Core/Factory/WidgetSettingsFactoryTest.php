@@ -38,7 +38,7 @@ final class WidgetSettingsFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
         $leadingSpacer = $this->getFrameMock();
         $trailingSpacer = $this->getFrameMock();
         $stylePattern = $this->getStylePatternMock();
-        $charPattern = $this->getPatternMock();
+        $charPattern = $this->getCharPatternMock();
 
         $widgetSettings = $this->getWidgetSettingsMock();
 
@@ -115,7 +115,7 @@ final class WidgetSettingsFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
         $leadingSpacer = $this->getFrameMock();
         $trailingSpacer = $this->getFrameMock();
         $stylePattern = $this->getStylePatternMock();
-        $charPattern = $this->getPatternMock();
+        $charPattern = $this->getCharPatternMock();
 
         $widgetSettings = $this->getWidgetSettingsMock();
 

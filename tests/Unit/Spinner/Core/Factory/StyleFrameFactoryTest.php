@@ -44,7 +44,7 @@ final class StyleFrameFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
         $widthMeasurer = $this->getWidthMeasurerMock();
         $widthMeasurer
             ->expects(self::once())
-            ->method('getWidth')
+            ->method('measureWidth')
             ->with('')
             ->willReturn(0);
 

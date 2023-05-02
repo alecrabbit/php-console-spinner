@@ -5,14 +5,14 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Pattern\CharPattern;
 
-use AlecRabbit\Spinner\Core\Pattern\A\AReversiblePattern;
+use AlecRabbit\Spinner\Core\Pattern\A\ACharPattern;
 use ArrayObject;
 
 /**
  * @codeCoverageIgnore
  * @psalm-suppress UnusedClass
  */
-final class Monkey extends AReversiblePattern
+final class Monkey extends ACharPattern
 {
     protected const INTERVAL = 300;
 

@@ -16,11 +16,4 @@ abstract class AOneFramePattern extends APattern
     ) {
         parent::__construct();
     }
-
-    public function getEntries(): ?Traversable
-    {
-        yield from [
-            $this->frame,
-        ];
-    }
 }

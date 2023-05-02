@@ -5,14 +5,14 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Pattern\CharPattern;
 
-use AlecRabbit\Spinner\Core\Pattern\A\APattern;
+use AlecRabbit\Spinner\Core\Pattern\A\ACharPattern;
 use ArrayObject;
 
 /**
  * @codeCoverageIgnore
  * @psalm-suppress UnusedClass
  */
-final class Mindblown extends APattern
+final class Mindblown extends ACharPattern
 {
     protected const INTERVAL = 200;
 

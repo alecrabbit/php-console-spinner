@@ -9,8 +9,6 @@ use Traversable;
 
 interface IPattern
 {
-    public function getEntries(): ?Traversable;
-
     public function getInterval(): ?int;
 
     public function isReversed(): bool;
