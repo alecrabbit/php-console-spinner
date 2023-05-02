@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 use AlecRabbit\Spinner\Core\Config\SpinnerConfig;
 use AlecRabbit\Spinner\Core\Config\WidgetConfig;
-use AlecRabbit\Spinner\Core\Pattern\CharPattern\SwirlingDots;
-use AlecRabbit\Spinner\Core\Pattern\StylePattern\Rainbow;
 use AlecRabbit\Spinner\Facade;
 use AlecRabbit\Spinner\Helper\MemoryUsage;
 
@@ -32,7 +30,7 @@ $settingsProvider = Facade::getSettingsProvider();
 $settingsProvider
     ->getTerminalSettings()
     ->setOptionStyleMode(
-        \AlecRabbit\Spinner\Contract\Option\OptionStyleMode::ANSI4
+        \AlecRabbit\Spinner\Contract\Option\OptionStyleMode::ANSI24
     )
 ;
 //$settingsProvider
@@ -44,24 +42,21 @@ $settingsProvider
 
 //dump($settingsProvider);
 
-$i = 100;
 $config =
     new SpinnerConfig(
         new WidgetConfig(
-            stylePattern: new Rainbow(interval: $i),
-            charPattern: new SwirlingDots(interval: $i)
+            stylePattern: new \AlecRabbit\Spinner\Core\Pattern\StylePattern\Rainbow(),
+//            charPattern: new \AlecRabbit\Spinner\Core\Pattern\CharPattern\SwirlingDots()
         )
     );
-
 
 $spinner = Facade::createSpinner($config);
 $driver = Facade::getDriver();
 $loop = Facade::getLoop();
 
 //dump($loop);
-dump($driver);
-dump($spinner);
-
+//dump($driver);
+//dump($spinner);
 
 $loop->repeat(
     $reportInterval,
