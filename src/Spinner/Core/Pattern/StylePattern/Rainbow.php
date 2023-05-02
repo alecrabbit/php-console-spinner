@@ -33,7 +33,7 @@ final class Rainbow extends AStylePattern
             new ArrayObject(
                 match ($styleMode) {
                     OptionStyleMode::ANSI4 => [
-                        '#00ffff', // light cyan
+                        new StyleFrame("\e[96m%s\e[39m", 0),
                     ],
                     OptionStyleMode::ANSI8 => [
                         new StyleFrame("\e[38;5;196m%s\e[39m", 0),

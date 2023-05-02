@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Contract;
 
-interface IStyleFrame
+use AlecRabbit\Spinner\Contract\IFrame;
+
+interface IStyleFrame extends IFrame
 {
 }

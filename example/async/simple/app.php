@@ -5,6 +5,7 @@ declare(strict_types=1);
 use AlecRabbit\Spinner\Core\Config\SpinnerConfig;
 use AlecRabbit\Spinner\Core\Config\WidgetConfig;
 use AlecRabbit\Spinner\Core\Pattern\CharPattern\SwirlingDots;
+use AlecRabbit\Spinner\Core\Pattern\StylePattern\Rainbow;
 use AlecRabbit\Spinner\Facade;
 use AlecRabbit\Spinner\Helper\MemoryUsage;
 
@@ -28,12 +29,12 @@ $memoryReport();
 
 
 $settingsProvider = Facade::getSettingsProvider();
-//$settingsProvider
-//    ->getTerminalSettings()
-//    ->setOptionStyleMode(
-//        \AlecRabbit\Spinner\Contract\Option\OptionStyleMode::NONE
-//    )
-//;
+$settingsProvider
+    ->getTerminalSettings()
+    ->setOptionStyleMode(
+        \AlecRabbit\Spinner\Contract\Option\OptionStyleMode::ANSI24
+    )
+;
 //$settingsProvider
 //    ->getLoopSettings()
 //    ->setOptionAutoStart(
@@ -43,10 +44,12 @@ $settingsProvider = Facade::getSettingsProvider();
 
 //dump($settingsProvider);
 
+$i = 100;
 $config =
     new SpinnerConfig(
         new WidgetConfig(
-            charPattern: new SwirlingDots()
+            stylePattern: new Rainbow(interval: $i),
+            charPattern: new SwirlingDots(interval: $i)
         )
     );
 

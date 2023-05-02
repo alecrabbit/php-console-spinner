@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Contract;
 
-interface ICharFrame
+use AlecRabbit\Spinner\Contract\IFrame;
+
+interface ICharFrame extends IFrame
 {
     public static function createEmpty(): ICharFrame;
 
