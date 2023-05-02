@@ -28,7 +28,7 @@ final class NoStylePattern extends AOneFramePattern implements IStylePattern
         return self::STYLE_MODE;
     }
 
-    public function getEntries(OptionStyleMode $styleMode= OptionStyleMode::ANSI8): ?Traversable
+    public function getEntries(OptionStyleMode $styleMode= OptionStyleMode::ANSI8): Traversable
     {
         yield from [
             $this->frame,

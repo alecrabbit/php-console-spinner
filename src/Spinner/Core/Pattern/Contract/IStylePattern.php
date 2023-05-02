@@ -13,5 +13,5 @@ interface IStylePattern extends IPattern
 {
     public function getStyleMode(): OptionStyleMode;
 
-    public function getEntries(OptionStyleMode $styleMode = OptionStyleMode::ANSI8): ?Traversable;
+    public function getEntries(OptionStyleMode $styleMode = OptionStyleMode::ANSI8): Traversable;
 }

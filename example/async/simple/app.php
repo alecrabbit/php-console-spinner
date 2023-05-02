@@ -32,7 +32,7 @@ $settingsProvider = Facade::getSettingsProvider();
 $settingsProvider
     ->getTerminalSettings()
     ->setOptionStyleMode(
-        \AlecRabbit\Spinner\Contract\Option\OptionStyleMode::ANSI24
+        \AlecRabbit\Spinner\Contract\Option\OptionStyleMode::ANSI4
     )
 ;
 //$settingsProvider
@@ -59,8 +59,8 @@ $driver = Facade::getDriver();
 $loop = Facade::getLoop();
 
 //dump($loop);
-//dump($spinner);
-//dump($driver);
+dump($driver);
+dump($spinner);
 
 
 $loop->repeat(

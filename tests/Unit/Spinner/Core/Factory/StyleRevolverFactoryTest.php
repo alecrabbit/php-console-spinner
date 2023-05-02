@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Factory;
 
 use AlecRabbit\Spinner\Contract\Option\OptionStyleMode;
+use AlecRabbit\Spinner\Core\Factory\Contract\IFrameCollectionFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IStyleFrameRevolverFactory;
 use AlecRabbit\Spinner\Core\Factory\StyleFrameRevolverFactory;
@@ -26,13 +27,13 @@ final class StyleRevolverFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
 
     public function getTesteeInstance(
         ?IFrameRevolverBuilder $frameRevolverBuilder = null,
-        ?IStyleFrameCollectionRenderer $styleFrameCollectionRenderer = null,
+        ?IFrameCollectionFactory $frameCollectionFactory = null,
         ?IIntervalFactory $intervalFactory = null,
         ?OptionStyleMode $styleMode = null,
     ): IStyleFrameRevolverFactory {
         return new StyleFrameRevolverFactory(
             frameRevolverBuilder: $frameRevolverBuilder ?? $this->getFrameRevolverBuilderMock(),
-            frameCollectionRenderer: $styleFrameCollectionRenderer ?? $this->getStyleFrameCollectionRendererMock(),
+            frameCollectionFactory: $frameCollectionFactory ?? $this->getFrameCollectionFactoryMock(),
             intervalFactory: $intervalFactory ?? $this->getIntervalFactoryMock(),
             styleMode: $styleMode ?? OptionStyleMode::NONE,
         );
@@ -113,11 +114,6 @@ final class StyleRevolverFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
             ->method('getInterval')
         ;
 
-        $styleFrameCollectionRenderer = $this->getStyleFrameCollectionRendererMock();
-        $styleFrameCollectionRenderer
-            ->expects(self::never())
-            ->method('render')
-        ;
 
         $frameRevolverBuilder = $this->getFrameRevolverBuilderMock();
         $frameRevolverBuilder
@@ -151,9 +147,15 @@ final class StyleRevolverFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
             ->method('createNormalized')
         ;
 
+        $frameCollectionFactory = $this->getFrameCollectionFactoryMock();
+        $frameCollectionFactory
+            ->expects(self::once())
+            ->method('create')
+            ->willReturn($this->getFrameCollectionMock());
+
         $styleRevolverFactory = $this->getTesteeInstance(
             frameRevolverBuilder: $frameRevolverBuilder,
-            styleFrameCollectionRenderer: $styleFrameCollectionRenderer,
+            frameCollectionFactory: $frameCollectionFactory,
             intervalFactory: $intervalFactory,
             styleMode: $styleMode,
         );

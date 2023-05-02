@@ -18,7 +18,7 @@ abstract class AStylePattern extends AReversiblePattern implements IStylePattern
         throw new \RuntimeException('Not implemented.');
     }
 
-    public function getEntries(OptionStyleMode $styleMode = OptionStyleMode::ANSI8): ?Traversable
+    public function getEntries(OptionStyleMode $styleMode = OptionStyleMode::ANSI8): Traversable
     {
         // TODO: Implement getEntries() method.
         throw new \RuntimeException('Not implemented.');

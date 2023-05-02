@@ -50,6 +50,7 @@ use AlecRabbit\Spinner\Core\Factory\Contract\ICharFrameFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ICharFrameRevolverFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IConsoleCursorFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDriverOutputFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\IFrameCollectionFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IHexColorToAnsiCodeConverterFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopProbeFactory;
@@ -539,6 +540,11 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
     protected function getFrameRevolverBuilderMock(): MockObject&IFrameRevolverBuilder
     {
         return $this->createMock(IFrameRevolverBuilder::class);
+    }
+
+    protected function getFrameCollectionFactoryMock(): MockObject&IFrameCollectionFactory
+    {
+        return $this->createMock(IFrameCollectionFactory::class);
     }
 
     protected function getFrameRevolverMock(): MockObject&IFrameRevolver
