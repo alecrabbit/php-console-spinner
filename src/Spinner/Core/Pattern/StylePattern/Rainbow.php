@@ -17,7 +17,7 @@ use Traversable;
  */
 final class Rainbow extends AStylePattern
 {
-    public function __construct(?int $interval = 100, bool $reversed = false)
+    public function __construct(?int $interval = null, bool $reversed = false)
     {
         parent::__construct(
             interval: $interval,
