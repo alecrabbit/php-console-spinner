@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-
 namespace AlecRabbit\Spinner;
 
 use AlecRabbit\Spinner\Container\Contract\IContainer;
@@ -39,8 +38,8 @@ final class Facade implements IFacade
         $container = self::getContainer();
 
         match ($container->has($id)) {
-            true => $container->replace($id, $service),
-            default => $container->add($id, $service),
+            false => $container->add($id, $service),
+            default => $container->replace($id, $service),
         };
     }
 
