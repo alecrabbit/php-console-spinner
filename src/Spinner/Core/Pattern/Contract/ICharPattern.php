@@ -7,9 +7,13 @@ namespace AlecRabbit\Spinner\Core\Pattern\Contract;
 
 use AlecRabbit\Spinner\Contract\Option\OptionStyleMode;
 use AlecRabbit\Spinner\Contract\Pattern\IPattern;
+use AlecRabbit\Spinner\Core\Contract\ICharFrame;
 use Traversable;
 
 interface ICharPattern extends IPattern
 {
-    public function getEntries(): ?Traversable;
+    /**
+     * @return Traversable<int, ICharFrame>
+     */
+    public function getEntries(): Traversable;
 }

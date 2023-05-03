@@ -11,7 +11,8 @@ use Traversable;
 
 abstract class ACharPattern extends AReversiblePattern implements ICharPattern
 {
-    public function getEntries(): ?Traversable
+    /** @inheritdoc */
+    public function getEntries(): Traversable
     {
         return $this->entries;
     }
