@@ -60,32 +60,39 @@ final class StyleRevolverFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
             ->willReturn($intInterval)
         ;
         $frameCollection = $this->getFrameCollectionMock();
-//
-//        $frameRevolverBuilder = $this->getFrameRevolverBuilderMock();
-//        $frameRevolverBuilder
-//            ->expects(self::never())
-//            ->method('withFrameCollection')
-//            ->with($frameCollection)
-//            ->willReturnSelf()
-//        ;
-//        $frameRevolverBuilder
-//            ->expects(self::once())
-//            ->method('withInterval')
-//            ->with($interval)
-//            ->willReturnSelf()
-//        ;
-//        $frameRevolverBuilder
-//            ->expects(self::once())
-//            ->method('withTolerance')
-//            ->with(self::identicalTo(IRevolver::TOLERANCE)) // [fd86d318-9069-47e2-b60d-a68f537be4a3]
-//            ->willReturnSelf()
-//        ;
-//        $frameRevolver = $this->getFrameRevolverMock();
-//        $frameRevolverBuilder
-//            ->expects(self::once())
-//            ->method('build')
-//            ->willReturn($frameRevolver)
-//        ;
+
+        $frameCollectionFactory = $this->getFrameCollectionFactoryMock();
+        $frameCollectionFactory
+            ->expects(self::once())
+            ->method('create')
+            ->willReturn($this->getFrameCollectionMock())
+        ;
+
+        $frameRevolverBuilder = $this->getFrameRevolverBuilderMock();
+        $frameRevolverBuilder
+            ->expects(self::once())
+            ->method('withFrameCollection')
+            ->with($frameCollection)
+            ->willReturnSelf()
+        ;
+        $frameRevolverBuilder
+            ->expects(self::once())
+            ->method('withInterval')
+            ->with(self::identicalTo($interval))
+            ->willReturnSelf()
+        ;
+        $frameRevolverBuilder
+            ->expects(self::once())
+            ->method('withTolerance')
+            ->with(self::identicalTo(IRevolver::TOLERANCE)) // [fd86d318-9069-47e2-b60d-a68f537be4a3]
+            ->willReturnSelf()
+        ;
+        $frameRevolver = $this->getFrameRevolverMock();
+        $frameRevolverBuilder
+            ->expects(self::once())
+            ->method('build')
+            ->willReturn($frameRevolver)
+        ;
 
         $intervalFactory = $this->getIntervalFactoryMock();
         $intervalFactory
@@ -95,14 +102,15 @@ final class StyleRevolverFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
         ;
 
         $styleRevolverFactory = $this->getTesteeInstance(
-//            frameRevolverBuilder: $frameRevolverBuilder,
+            frameRevolverBuilder: $frameRevolverBuilder,
+            frameCollectionFactory: $frameCollectionFactory,
             intervalFactory: $intervalFactory,
             styleMode: $styleMode,
         );
 
         $styleRevolver = $styleRevolverFactory->createStyleRevolver($pattern);
         self::assertInstanceOf(StyleFrameRevolverFactory::class, $styleRevolverFactory);
-//        self::assertSame($frameRevolver, $styleRevolver);
+        self::assertSame($frameRevolver, $styleRevolver);
     }
 
     #[Test]
