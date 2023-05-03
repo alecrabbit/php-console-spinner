@@ -11,7 +11,7 @@ require_once __DIR__ . '/../bootstrap.async.php';
 
 $reportInterval = 60;
 
-$memoryReport = static function () {
+$memoryReport = static function (): void {
     static $m = new MemoryUsage();
     $message =
         sprintf(
@@ -30,7 +30,7 @@ $settingsProvider = Facade::getSettingsProvider();
 $settingsProvider
     ->getTerminalSettings()
     ->setOptionStyleMode(
-        \AlecRabbit\Spinner\Contract\Option\OptionStyleMode::ANSI24
+        \AlecRabbit\Spinner\Contract\Option\OptionStyleMode::ANSI8
     )
 ;
 //$settingsProvider

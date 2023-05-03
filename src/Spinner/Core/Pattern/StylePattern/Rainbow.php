@@ -11,9 +11,6 @@ use AlecRabbit\Spinner\Core\StyleFrame;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use Traversable;
 
-/**
- * @codeCoverageIgnore
- */
 final class Rainbow extends AStylePattern
 {
     public function __construct(?int $interval = null, bool $reversed = false)
@@ -34,18 +31,18 @@ final class Rainbow extends AStylePattern
         };
     }
 
-    protected function ansi4Frames(): array
+    protected function ansi4Frames(): Traversable
     {
         $this->interval = null;
-        return [
+        yield from [
             new StyleFrame("\e[96m%s\e[39m", 0),
         ];
     }
 
-    protected function ansi8Frames(): array
+    protected function ansi8Frames(): Traversable
     {
-        $this->interval = 500;
-        return [
+        $this->interval = 1000;
+        yield from [
             new StyleFrame("\e[38;5;196m%s\e[39m", 0),
             new StyleFrame("\e[38;5;208m%s\e[39m", 0),
             new StyleFrame("\e[38;5;214m%s\e[39m", 0),
@@ -78,7 +75,7 @@ final class Rainbow extends AStylePattern
         ];
     }
 
-    protected function ansi24Frames(): \Traversable
+    protected function ansi24Frames(): Traversable
     {
         $this->interval = 100;
         yield from [
