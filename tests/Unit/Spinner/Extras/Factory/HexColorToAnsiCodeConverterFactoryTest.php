@@ -7,6 +7,7 @@ namespace AlecRabbit\Tests\Unit\Spinner\Extras\Factory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IHexColorToAnsiCodeConverterFactory;
 use AlecRabbit\Spinner\Extras\Factory\HexColorToAnsiCodeConverterFactory;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
+use PHPUnit\Framework\Attributes\Test;
 
 final class HexColorToAnsiCodeConverterFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
 {
