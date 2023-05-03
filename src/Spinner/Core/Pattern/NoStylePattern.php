@@ -14,8 +14,6 @@ use Traversable;
 /** @psalm-suppress UnusedClass */
 final class NoStylePattern extends AOneFramePattern implements IStylePattern
 {
-    protected const STYLE_MODE = OptionStyleMode::NONE;
-
     public function __construct()
     {
         parent::__construct(
@@ -25,7 +23,7 @@ final class NoStylePattern extends AOneFramePattern implements IStylePattern
 
     public function getStyleMode(): OptionStyleMode
     {
-        return self::STYLE_MODE;
+        return OptionStyleMode::NONE;
     }
 
     public function getEntries(OptionStyleMode $styleMode = OptionStyleMode::ANSI8): Traversable
