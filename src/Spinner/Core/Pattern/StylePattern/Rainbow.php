@@ -31,6 +31,7 @@ final class Rainbow extends AStylePattern
         };
     }
 
+// @codeCoverageIgnoreStart
     protected function ansi4Frames(): Traversable
     {
         $this->interval = null;
@@ -441,4 +442,6 @@ final class Rainbow extends AStylePattern
             new StyleFrame("\e[38;2;255;0;4m%s\e[39m", 0),
         ];
     }
+
+// @codeCoverageIgnoreEnd
 }

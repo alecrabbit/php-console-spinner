@@ -28,4 +28,21 @@ final class RainbowTest extends TestCaseWithPrebuiltMocksAndStubs
             reversed: $reversed ?? false,
         );
     }
+
+    #[Test]
+    public function throwsIfGetEntriesForStyleModeNone(): void
+    {
+        $exception = new InvalidArgumentException('Unsupported style mode.');
+
+        $test = function () {
+            $rainbow = $this->getTesteeInstance();
+            $generator = $rainbow->getEntries(OptionStyleMode::NONE);
+            iterator_to_array($generator); // unwrap generator
+        };
+
+        $this->wrapExceptionTest(
+            $test,
+            $exception,
+        );
+    }
 }
