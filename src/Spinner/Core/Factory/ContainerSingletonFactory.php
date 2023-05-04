@@ -34,7 +34,6 @@ use AlecRabbit\Spinner\Core\Builder\Settings\DriverSettingsBuilder;
 use AlecRabbit\Spinner\Core\Builder\Settings\SettingsProviderBuilder;
 use AlecRabbit\Spinner\Core\Builder\TimerBuilder;
 use AlecRabbit\Spinner\Core\Builder\WidgetSettingsBuilder;
-use AlecRabbit\Spinner\Core\Contract\ICharFrameRenderer;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\IDriverBuilder;
 use AlecRabbit\Spinner\Core\Contract\IDriverLinker;
@@ -86,17 +85,6 @@ use AlecRabbit\Spinner\Core\Widget\Factory\WidgetRevolverFactory;
 use AlecRabbit\Spinner\Core\Widget\WidgetBuilder;
 use AlecRabbit\Spinner\Core\Widget\WidgetRevolverBuilder;
 use AlecRabbit\Spinner\Exception\DomainException;
-use AlecRabbit\Spinner\Extras\Factory\Contract\IStyleFrameRendererFactory;
-use AlecRabbit\Spinner\Extras\Factory\Contract\IStyleRendererFactory;
-use AlecRabbit\Spinner\Extras\Factory\Contract\IStyleToAnsiStringConverterFactory;
-use AlecRabbit\Spinner\Extras\Factory\StyleFrameRendererFactory;
-use AlecRabbit\Spinner\Extras\Factory\StyleRendererFactory;
-use AlecRabbit\Spinner\Extras\Factory\StyleToAnsiStringConverterFactory;
-use AlecRabbit\Spinner\Extras\Render\CharFrameCollectionRenderer;
-use AlecRabbit\Spinner\Extras\Render\CharFrameRenderer;
-use AlecRabbit\Spinner\Extras\Render\Contract\ICharFrameCollectionRenderer;
-use AlecRabbit\Spinner\Extras\Render\Contract\IStyleFrameCollectionRenderer;
-use AlecRabbit\Spinner\Extras\Render\StyleFrameCollectionRenderer;
 use ArrayObject;
 use Psr\Container\ContainerInterface;
 use Traversable;
@@ -107,40 +95,39 @@ final class ContainerSingletonFactory implements IContainerSingletonFactory
 
     public static function getContainer(): IContainer
     {
-        return self::createContainer();
+        if (self::$container === null) {
+            self::$container = self::createContainer();
+        }
+        return self::$container;
     }
 
     private static function createContainer(): IContainer
     {
-        if (self::$container === null) {
-            self::$container = new Container(
-                spawnerCreatorCb: static function (ContainerInterface $container): IServiceSpawner {
-                    return new ServiceSpawner($container);
-                },
-            );
-            self::initializeContainer(self::$container);
-        }
+        $container = new Container(
+            spawnerCreatorCb: static function (ContainerInterface $container): IServiceSpawner {
+                return new ServiceSpawner($container);
+            },
+        );
+        self::initializeContainer($container);
 
-        return self::$container;
+        return $container;
     }
 
     private static function initializeContainer(IContainer $container): void
     {
-        foreach (self::getDefaultDefinitions() as $id => $service) {
+        foreach (self::getRegisteredDefinitions() as $id => $service) {
             $container->add($id, $service);
         }
     }
 
-    private static function getDefaultDefinitions(): Traversable
+    private static function getRegisteredDefinitions(): Traversable
     {
         // TODO (2023-04-10 20:21) [Alec Rabbit]: consider extracting definitions?
         yield from [
             IAuxSettingsBuilder::class => AuxSettingsBuilder::class,
             IBufferedOutputBuilder::class => BufferedOutputBuilder::class,
             IBufferedOutputSingletonFactory::class => BufferedOutputSingletonFactory::class,
-            ICharFrameCollectionRenderer::class => CharFrameCollectionRenderer::class,
             ICharFrameFactory::class => CharFrameFactory::class,
-            ICharFrameRenderer::class => CharFrameRenderer::class,
             ICharFrameRevolverFactory::class => CharFrameRevolverFactory::class,
             IConsoleCursorBuilder::class => ConsoleCursorBuilder::class,
             IConsoleCursorFactory::class => ConsoleCursorFactory::class,
@@ -163,11 +150,7 @@ final class ContainerSingletonFactory implements IContainerSingletonFactory
             ILoopSingletonFactory::class => LoopSingletonFactory::class,
             ISpinnerFactory::class => SpinnerFactory::class,
             IStyleFrameFactory::class => StyleFrameFactory::class,
-            IStyleFrameCollectionRenderer::class => StyleFrameCollectionRenderer::class,
-            IStyleFrameRendererFactory::class => StyleFrameRendererFactory::class,
-            IStyleRendererFactory::class => StyleRendererFactory::class,
             IStyleFrameRevolverFactory::class => StyleFrameRevolverFactory::class,
-            IStyleToAnsiStringConverterFactory::class => StyleToAnsiStringConverterFactory::class,
             ITimerBuilder::class => TimerBuilder::class,
             ITimerFactory::class => TimerFactory::class,
             IWidgetBuilder::class => WidgetBuilder::class,

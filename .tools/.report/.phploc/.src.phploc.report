@@ -1,13 +1,13 @@
 phploc 7.0.2 by Sebastian Bergmann.
 
 Directories                                         69
-Files                                              344
+Files                                              343
 
 Size
-  Lines of Code (LOC)                            12509
-  Comment Lines of Code (CLOC)                     692 (5.53%)
-  Non-Comment Lines of Code (NCLOC)              11817 (94.47%)
-  Logical Lines of Code (LLOC)                    1550 (12.39%)
+  Lines of Code (LOC)                            12491
+  Comment Lines of Code (CLOC)                     708 (5.67%)
+  Non-Comment Lines of Code (NCLOC)              11783 (94.33%)
+  Logical Lines of Code (LLOC)                    1550 (12.41%)
     Classes                                       1507 (97.23%)
       Average Class Length                           4
         Minimum Class Length                         0
@@ -24,7 +24,7 @@ Size
 
 Cyclomatic Complexity
   Average Complexity per LLOC                     0.28
-  Average Complexity per Class                    2.20
+  Average Complexity per Class                    2.21
     Minimum Class Complexity                      1.00
     Maximum Class Complexity                     21.00
   Average Complexity per Method                   1.53
@@ -47,11 +47,11 @@ Structure
   Namespaces                                        69
   Interfaces                                       132
   Traits                                             4
-  Classes                                          197
-    Abstract Classes                                22 (11.17%)
-    Concrete Classes                               175 (88.83%)
-      Final Classes                                155 (88.57%)
-      Non-Final Classes                             20 (11.43%)
+  Classes                                          196
+    Abstract Classes                                22 (11.22%)
+    Concrete Classes                               174 (88.78%)
+      Final Classes                                154 (88.51%)
+      Non-Final Classes                             20 (11.49%)
   Methods                                          906
     Scope
       Non-Static Methods                           822 (90.73%)
