@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Extras\Render;
 
-use AlecRabbit\Spinner\Core\Contract\ICharFrameRenderer;
 use AlecRabbit\Spinner\Core\FrameCollection;
+use AlecRabbit\Spinner\Extras\Contract\ICharFrameRenderer;
 use AlecRabbit\Spinner\Extras\Render\CharFrameCollectionRenderer;
 use AlecRabbit\Spinner\Extras\Render\Contract\ICharFrameCollectionRenderer;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;

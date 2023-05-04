@@ -7,7 +7,7 @@ namespace AlecRabbit\Spinner\Extras\Render;
 
 use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Core\A\AFrameRenderer;
-use AlecRabbit\Spinner\Core\Contract\ICharFrameRenderer;
+use AlecRabbit\Spinner\Extras\Contract\ICharFrameRenderer;
 
 final class CharFrameRenderer extends AFrameRenderer implements ICharFrameRenderer
 {
