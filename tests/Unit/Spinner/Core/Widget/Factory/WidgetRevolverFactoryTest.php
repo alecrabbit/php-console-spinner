@@ -39,7 +39,7 @@ final class WidgetRevolverFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
     public function canCreateWidgetRevolver(): void
     {
         $stylePattern = $this->getStylePatternMock();
-        $charPattern = $this->getPatternMock();
+        $charPattern = $this->getCharPatternMock();
 
         $widgetSettings = $this->getWidgetSettingsMock();
         $widgetSettings

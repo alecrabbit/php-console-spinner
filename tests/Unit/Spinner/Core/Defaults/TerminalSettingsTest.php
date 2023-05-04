@@ -6,8 +6,8 @@ namespace AlecRabbit\Tests\Unit\Spinner\Core\Defaults;
 
 use AlecRabbit\Spinner\Contract\Option\OptionCursor;
 use AlecRabbit\Spinner\Contract\Option\OptionStyleMode;
-use AlecRabbit\Spinner\Core\Defaults\Contract\ITerminalSettings;
-use AlecRabbit\Spinner\Core\Defaults\TerminalSettings;
+use AlecRabbit\Spinner\Core\Settings\Contract\ITerminalSettings;
+use AlecRabbit\Spinner\Core\Settings\TerminalSettings;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;
 

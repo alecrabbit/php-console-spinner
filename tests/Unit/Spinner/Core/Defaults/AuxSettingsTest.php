@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Defaults;
 
 use AlecRabbit\Spinner\Contract\Option\OptionNormalizerMode;
-use AlecRabbit\Spinner\Core\Defaults\AuxSettings;
-use AlecRabbit\Spinner\Core\Defaults\Contract\IAuxSettings;
+use AlecRabbit\Spinner\Core\Settings\AuxSettings;
+use AlecRabbit\Spinner\Core\Settings\Contract\IAuxSettings;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;
 

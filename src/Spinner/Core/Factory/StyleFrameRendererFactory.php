@@ -6,7 +6,8 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Factory;
 
 use AlecRabbit\Spinner\Contract\Option\OptionStyleMode;
-use AlecRabbit\Spinner\Core\Factory\Contract\IFrameFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\ICharFrameFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\IStyleFrameFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IStyleFrameRendererFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IStyleRendererFactory;
 use AlecRabbit\Spinner\Core\Render\Contract\IStyleFrameRenderer;
@@ -15,7 +16,7 @@ use AlecRabbit\Spinner\Core\Render\StyleFrameRenderer;
 final class StyleFrameRendererFactory implements IStyleFrameRendererFactory
 {
     public function __construct(
-        protected IFrameFactory $frameFactory,
+        protected IStyleFrameFactory $frameFactory,
         protected IStyleRendererFactory $styleRendererFactory,
         protected OptionStyleMode $styleMode,
     ) {

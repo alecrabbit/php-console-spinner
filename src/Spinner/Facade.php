@@ -2,12 +2,11 @@
 
 declare(strict_types=1);
 
-
 namespace AlecRabbit\Spinner;
 
 use AlecRabbit\Spinner\Container\Contract\IContainer;
 use AlecRabbit\Spinner\Core\Config\Contract\ISpinnerConfig;
-use AlecRabbit\Spinner\Core\Contract\IDefaultsProvider;
+use AlecRabbit\Spinner\Core\Contract\ISettingsProvider;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\IFacade;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
@@ -39,21 +38,21 @@ final class Facade implements IFacade
         $container = self::getContainer();
 
         match ($container->has($id)) {
-            true => $container->replace($id, $service),
-            default => $container->add($id, $service),
+            false => $container->add($id, $service),
+            default => $container->replace($id, $service),
         };
     }
 
-    public static function getDefaultsProvider(): IDefaultsProvider
+    public static function getSettingsProvider(): ISettingsProvider
     {
-        return self::getContainer()->get(IDefaultsProvider::class);
+        return self::getContainer()->get(ISettingsProvider::class);
     }
 
-    public static function createSpinner(?ISpinnerConfig $settings = null): ISpinner
+    public static function createSpinner(?ISpinnerConfig $config = null): ISpinner
     {
         $spinner =
             self::getSpinnerFactory()
-                ->createSpinner($settings)
+                ->createSpinner($config)
         ;
 
         $driver = self::getDriverFactory()

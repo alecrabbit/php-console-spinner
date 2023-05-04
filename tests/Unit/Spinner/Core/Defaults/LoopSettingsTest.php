@@ -6,8 +6,8 @@ namespace AlecRabbit\Tests\Unit\Spinner\Core\Defaults;
 
 use AlecRabbit\Spinner\Contract\Option\OptionAttachHandlers;
 use AlecRabbit\Spinner\Contract\Option\OptionAutoStart;
-use AlecRabbit\Spinner\Core\Defaults\Contract\ILoopSettings;
-use AlecRabbit\Spinner\Core\Defaults\LoopSettings;
+use AlecRabbit\Spinner\Core\Settings\Contract\ILoopSettings;
+use AlecRabbit\Spinner\Core\Settings\LoopSettings;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;
 

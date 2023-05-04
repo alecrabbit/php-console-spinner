@@ -45,7 +45,7 @@ final class StyleFrameCollectionRendererTest extends TestCaseWithPrebuiltMocksAn
         $styleFrameRendererFactory = $this->getStyleFrameRendererFactoryMock();
         $styleFrameRenderer = $this->getStyleFrameRendererMock();
         $styleFrameRenderer
-            ->expects(self::once())
+            ->expects(self::never())
             ->method('render')
             ->willReturn($frame)
         ;
@@ -75,7 +75,7 @@ final class StyleFrameCollectionRendererTest extends TestCaseWithPrebuiltMocksAn
         $pattern
             ->expects(self::once())
             ->method('getEntries')
-            ->willReturn(new ArrayObject([$this->getStyleMock()]))
+            ->willReturn(new ArrayObject([$frame]))
         ;
         $collection = $collectionRenderer->render($pattern);
         self::assertInstanceOf(FrameCollection::class, $collection);

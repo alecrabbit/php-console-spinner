@@ -32,7 +32,7 @@ final class LoopProbeFactory implements ILoopProbeFactory
     {
         /** @var class-string<ILoopProbe> $loopProbe */
         foreach ($loopProbes as $loopProbe) {
-            if (self::isALoopProbeClass($loopProbe) && $loopProbe::isAvailable()) {
+            if (self::isALoopProbeClass($loopProbe) && $loopProbe::isSupported()) {
                 $this->loopProbes->append($loopProbe);
             }
         }
@@ -47,7 +47,7 @@ final class LoopProbeFactory implements ILoopProbeFactory
     {
         /** @var class-string<ILoopProbe> $loopProbe */
         foreach ($this->loopProbes as $loopProbe) {
-            if ($loopProbe::isAvailable()) {
+            if ($loopProbe::isSupported()) {
                 return new $loopProbe();
             }
         }

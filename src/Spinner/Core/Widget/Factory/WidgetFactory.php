@@ -5,7 +5,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Widget\Factory;
 
-use AlecRabbit\Spinner\Core\Defaults\Contract\IWidgetSettings;
+use AlecRabbit\Spinner\Core\Settings\Contract\IWidgetSettings;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidget;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetBuilder;
 use AlecRabbit\Spinner\Core\Widget\Factory\Contract\IWidgetFactory;
@@ -26,7 +26,8 @@ final class WidgetFactory implements IWidgetFactory
                 ->withLeadingSpacer($widgetSettings->getLeadingSpacer())
                 ->withTrailingSpacer($widgetSettings->getTrailingSpacer())
                 ->withWidgetRevolver(
-                    $this->widgetRevolverFactory->createWidgetRevolver($widgetSettings)
+                    $this->widgetRevolverFactory
+                        ->createWidgetRevolver($widgetSettings)
                 )
                 ->build()
         ;

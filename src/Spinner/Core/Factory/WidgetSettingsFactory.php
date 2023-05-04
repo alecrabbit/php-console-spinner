@@ -4,23 +4,23 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Factory;
 
+use AlecRabbit\Spinner\Core\Builder\Settings\Contract\IWidgetSettingsBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\IWidgetConfig;
-use AlecRabbit\Spinner\Core\Contract\IDefaultsProvider;
-use AlecRabbit\Spinner\Core\Defaults\Contract\IWidgetSettings;
-use AlecRabbit\Spinner\Core\Defaults\Contract\IWidgetSettingsBuilder;
+use AlecRabbit\Spinner\Core\Contract\ISettingsProvider;
 use AlecRabbit\Spinner\Core\Factory\Contract\IWidgetSettingsFactory;
+use AlecRabbit\Spinner\Core\Settings\Contract\IWidgetSettings;
 
 final class WidgetSettingsFactory implements IWidgetSettingsFactory
 {
     public function __construct(
-        protected IDefaultsProvider $defaultsProvider,
+        protected ISettingsProvider $settingsProvider,
         protected IWidgetSettingsBuilder $widgetSettingsBuilder,
     ) {
     }
 
     public function createFromConfig(IWidgetConfig $config): IWidgetSettings
     {
-        $config = $this->refineConfig($config);
+        $config = $config->merge($this->settingsProvider->getWidgetConfig());
 
         return
             $this->widgetSettingsBuilder
@@ -32,13 +32,4 @@ final class WidgetSettingsFactory implements IWidgetSettingsFactory
         ;
     }
 
-    private function refineConfig(IWidgetConfig $config): IWidgetConfig
-    {
-        $widgetConfig = $this->defaultsProvider->getWidgetConfig();
-
-        $rootWidgetConfig = $this->defaultsProvider->getRootWidgetConfig()->merge($widgetConfig);
-
-        return
-            $config->merge($rootWidgetConfig);
-    }
 }

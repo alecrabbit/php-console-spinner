@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 
-namespace Unit\Spinner\Core\Render;
+namespace AlecRabbit\Tests\Unit\Spinner\Core\Render;
 
 use AlecRabbit\Spinner\Core\Contract\ICharFrameRenderer;
 use AlecRabbit\Spinner\Core\FrameCollection;
@@ -58,7 +58,7 @@ final class CharFrameCollectionRendererTest extends TestCaseWithPrebuiltMocksAnd
 
         $collectionRenderer = $this->getTesteeInstance(frameRenderer: $frameRenderer);
 
-        $pattern = $this->getPatternMock();
+        $pattern = $this->getCharPatternMock();
 
         $pattern
             ->expects(self::once())
@@ -97,7 +97,7 @@ final class CharFrameCollectionRendererTest extends TestCaseWithPrebuiltMocksAnd
 
         $collectionRenderer = $this->getTesteeInstance(frameRenderer: $frameRenderer);
 
-        $pattern = $this->getPatternMock();
+        $pattern = $this->getCharPatternMock();
 
         $pattern
             ->expects(self::once())
@@ -137,7 +137,7 @@ final class CharFrameCollectionRendererTest extends TestCaseWithPrebuiltMocksAnd
         ;
         $collectionRenderer = $this->getTesteeInstance(frameRenderer: $frameRenderer);
 
-        $pattern = $this->getPatternMock();
+        $pattern = $this->getCharPatternMock();
 
         $pattern
             ->expects(self::once())

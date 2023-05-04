@@ -11,7 +11,7 @@ use RuntimeException;
 
 final class LoopProbeStub implements ILoopProbe
 {
-    public static function isAvailable(): bool
+    public static function isSupported(): bool
     {
         return true;
     }

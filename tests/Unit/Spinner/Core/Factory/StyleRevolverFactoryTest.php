@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Factory;
 
 use AlecRabbit\Spinner\Contract\Option\OptionStyleMode;
+use AlecRabbit\Spinner\Core\Factory\Contract\IFrameCollectionFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IStyleFrameRevolverFactory;
 use AlecRabbit\Spinner\Core\Factory\StyleFrameRevolverFactory;
@@ -26,13 +27,13 @@ final class StyleRevolverFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
 
     public function getTesteeInstance(
         ?IFrameRevolverBuilder $frameRevolverBuilder = null,
-        ?IStyleFrameCollectionRenderer $styleFrameCollectionRenderer = null,
+        ?IFrameCollectionFactory $frameCollectionFactory = null,
         ?IIntervalFactory $intervalFactory = null,
         ?OptionStyleMode $styleMode = null,
     ): IStyleFrameRevolverFactory {
         return new StyleFrameRevolverFactory(
             frameRevolverBuilder: $frameRevolverBuilder ?? $this->getFrameRevolverBuilderMock(),
-            frameCollectionRenderer: $styleFrameCollectionRenderer ?? $this->getStyleFrameCollectionRendererMock(),
+            frameCollectionFactory: $frameCollectionFactory ?? $this->getFrameCollectionFactoryMock(),
             intervalFactory: $intervalFactory ?? $this->getIntervalFactoryMock(),
             styleMode: $styleMode ?? OptionStyleMode::NONE,
         );
@@ -41,6 +42,7 @@ final class StyleRevolverFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
     #[Test]
     public function canCreateRevolver(): void
     {
+        $styleMode = OptionStyleMode::ANSI8;
         $intInterval = 100;
 
         $pattern = $this->getStylePatternMock();
@@ -48,17 +50,22 @@ final class StyleRevolverFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
 
         $pattern
             ->expects(self::once())
+            ->method('getEntries')
+            ->with($styleMode)
+            ->willReturn(new \ArrayObject([$this->getFrameMock()]))
+        ;
+        $pattern
+            ->expects(self::once())
             ->method('getInterval')
             ->willReturn($intInterval)
         ;
         $frameCollection = $this->getFrameCollectionMock();
 
-        $styleFrameCollectionRenderer = $this->getStyleFrameCollectionRendererMock();
-        $styleFrameCollectionRenderer
+        $frameCollectionFactory = $this->getFrameCollectionFactoryMock();
+        $frameCollectionFactory
             ->expects(self::once())
-            ->method('render')
-            ->with($pattern)
-            ->willReturn($frameCollection)
+            ->method('create')
+            ->willReturn($this->getFrameCollectionMock())
         ;
 
         $frameRevolverBuilder = $this->getFrameRevolverBuilderMock();
@@ -71,7 +78,7 @@ final class StyleRevolverFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
         $frameRevolverBuilder
             ->expects(self::once())
             ->method('withInterval')
-            ->with($interval)
+            ->with(self::identicalTo($interval))
             ->willReturnSelf()
         ;
         $frameRevolverBuilder
@@ -87,8 +94,6 @@ final class StyleRevolverFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
             ->willReturn($frameRevolver)
         ;
 
-        $styleMode = OptionStyleMode::ANSI8;
-
         $intervalFactory = $this->getIntervalFactoryMock();
         $intervalFactory
             ->expects(self::once())
@@ -98,7 +103,7 @@ final class StyleRevolverFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
 
         $styleRevolverFactory = $this->getTesteeInstance(
             frameRevolverBuilder: $frameRevolverBuilder,
-            styleFrameCollectionRenderer: $styleFrameCollectionRenderer,
+            frameCollectionFactory: $frameCollectionFactory,
             intervalFactory: $intervalFactory,
             styleMode: $styleMode,
         );
@@ -117,11 +122,6 @@ final class StyleRevolverFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
             ->method('getInterval')
         ;
 
-        $styleFrameCollectionRenderer = $this->getStyleFrameCollectionRendererMock();
-        $styleFrameCollectionRenderer
-            ->expects(self::once())
-            ->method('render')
-        ;
 
         $frameRevolverBuilder = $this->getFrameRevolverBuilderMock();
         $frameRevolverBuilder
@@ -155,9 +155,15 @@ final class StyleRevolverFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
             ->method('createNormalized')
         ;
 
+        $frameCollectionFactory = $this->getFrameCollectionFactoryMock();
+        $frameCollectionFactory
+            ->expects(self::once())
+            ->method('create')
+            ->willReturn($this->getFrameCollectionMock());
+
         $styleRevolverFactory = $this->getTesteeInstance(
             frameRevolverBuilder: $frameRevolverBuilder,
-            styleFrameCollectionRenderer: $styleFrameCollectionRenderer,
+            frameCollectionFactory: $frameCollectionFactory,
             intervalFactory: $intervalFactory,
             styleMode: $styleMode,
         );

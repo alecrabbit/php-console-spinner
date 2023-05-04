@@ -7,7 +7,7 @@ namespace AlecRabbit\Spinner\Extras\Procedure;
 
 use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Contract\IProcedure;
-use AlecRabbit\Spinner\Core\Frame;
+use AlecRabbit\Spinner\Core\CharFrame;
 use AlecRabbit\Spinner\Extras\Procedure\A\AProceduralStylePattern;
 use AlecRabbit\Spinner\Extras\Procedure\A\AProcedure;
 
@@ -25,7 +25,7 @@ final class TmpProceduralStylePattern extends AProceduralStylePattern
             {
                 static $odd = true;
                 $odd = !$odd;
-                return new Frame($odd ? '>%s>' : '<%s<', 2);
+                return new CharFrame($odd ? '>%s>' : '<%s<', 2);
             }
         };
     }

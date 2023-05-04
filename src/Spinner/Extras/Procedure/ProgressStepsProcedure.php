@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Extras\Procedure;
 
 use AlecRabbit\Spinner\Contract\IFrame;
-use AlecRabbit\Spinner\Core\Factory\FrameFactory;
+use AlecRabbit\Spinner\Core\Factory\CharFrameFactory;
 use AlecRabbit\Spinner\Extras\Contract\IProgressValue;
 use AlecRabbit\Spinner\Extras\Procedure\A\AProgressValueProcedure;
 
@@ -29,7 +29,7 @@ final class ProgressStepsProcedure extends AProgressValueProcedure
             $this->finishedDelay -= $dt ?? 0.0;
         }
         $v = $this->createSteps($this->progressValue);
-        return FrameFactory::create($v);
+        return CharFrameFactory::create($v);
     }
 
     private function createSteps(IProgressValue $fractionValue): string

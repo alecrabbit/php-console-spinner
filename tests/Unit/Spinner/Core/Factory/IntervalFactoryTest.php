@@ -20,7 +20,7 @@ final class IntervalFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
         $container
             ->method('get')
             ->willReturn(
-                $this->getDefaultsProviderMock(),
+                $this->getSettingsProviderMock(),
                 $this->getIntervalNormalizerMock(),
             )
         ;
@@ -63,11 +63,21 @@ final class IntervalFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
     #[Test]
     public function canCreateStillInterval(): void
     {
-        $intervalFactory = $this->getTesteeInstance();
+        $interval = new Interval();
+        $intervalNormalizer = $this->getIntervalNormalizerMock();
+        $intervalNormalizer
+            ->expects(self::once())
+            ->method('normalize')
+            ->with($interval)
+            ->willReturn($interval)
+        ;
 
-        $interval = $intervalFactory->createStill();
+        $intervalFactory = $this->getTesteeInstance(intervalNormalizer: $intervalNormalizer);
 
-        self::assertInstanceOf(Interval::class, $interval);
+        $result = $intervalFactory->createStill();
+
+        self::assertInstanceOf(Interval::class, $result);
+        self::assertSame($interval, $result);
     }
 
     #[Test]
@@ -90,7 +100,7 @@ final class IntervalFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
     }
 
     #[Test]
-    public function canCreateNormalizedDefaultInterval(): void
+    public function canCreateNormalizedIntervalWithNull(): void
     {
         $intervalNormalizer = $this->getIntervalNormalizerMock();
         $interval = $this->getIntervalMock();
@@ -110,4 +120,9 @@ final class IntervalFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
         self::assertSame($interval, $intervalFactory->createNormalized(null));
     }
 
+    protected function setUp(): void
+    {
+        self::setPropertyValue(IntervalFactory::class, 'normalizedDefaultInterval', null);
+        self::setPropertyValue(IntervalFactory::class, 'normalizedStillInterval', null);
+    }
 }

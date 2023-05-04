@@ -17,7 +17,7 @@ use function class_exists;
  */
 class RevoltLoopProbe extends ALoopProbe
 {
-    public static function isAvailable(): bool
+    public static function isSupported(): bool
     {
         return class_exists(EventLoop::class);
     }

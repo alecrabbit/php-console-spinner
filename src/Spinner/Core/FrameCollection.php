@@ -35,7 +35,10 @@ final class FrameCollection extends ArrayObject implements IFrameCollection
      */
     private function initialize(Traversable $frames): void
     {
-        /** @var T $frame */
+        /**
+         * @noinspection PhpRedundantVariableDocTypeInspection
+         * @var T $frame
+         */
         foreach ($frames as $frame) {
             self::assertFrame($frame);
             $this->append($frame);

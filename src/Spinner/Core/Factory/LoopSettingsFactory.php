@@ -9,9 +9,9 @@ use AlecRabbit\Spinner\Contract\Option\OptionAttachHandlers;
 use AlecRabbit\Spinner\Contract\Option\OptionAutoStart;
 use AlecRabbit\Spinner\Core\Contract\ISignalProcessingProbe;
 use AlecRabbit\Spinner\Core\Contract\Loop\Contract\ILoopProbe;
-use AlecRabbit\Spinner\Core\Defaults\Contract\ILoopSettings;
-use AlecRabbit\Spinner\Core\Defaults\LoopSettings;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopSettingsFactory;
+use AlecRabbit\Spinner\Core\Settings\Contract\ILoopSettings;
+use AlecRabbit\Spinner\Core\Settings\LoopSettings;
 
 final class LoopSettingsFactory implements ILoopSettingsFactory
 {
@@ -37,18 +37,19 @@ final class LoopSettingsFactory implements ILoopSettingsFactory
                 ? OptionAttachHandlers::ENABLED
                 : OptionAttachHandlers::DISABLED;
 
-        return new LoopSettings(
-            loopAvailable: $loopAvailable,
-            optionAutoStart: $optionAutoStart,
-            signalProcessingAvailable: $signalProcessingAvailable,
-            optionAttachHandlers: $optionAttachHandlers,
-        );
+        return
+            new LoopSettings(
+                loopAvailable: $loopAvailable,
+                optionAutoStart: $optionAutoStart,
+                signalProcessingAvailable: $signalProcessingAvailable,
+                optionAttachHandlers: $optionAttachHandlers,
+            );
     }
 
     private function isLoopAvailable(): bool
     {
         return match (true) {
-            $this->loopProbe instanceof ILoopProbe => $this->loopProbe::isAvailable(),
+            $this->loopProbe instanceof ILoopProbe => $this->loopProbe::isSupported(),
             default => false,
         };
     }

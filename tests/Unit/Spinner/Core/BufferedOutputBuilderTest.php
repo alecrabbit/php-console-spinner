@@ -6,8 +6,8 @@ namespace AlecRabbit\Tests\Unit\Spinner\Core;
 
 use AlecRabbit\Spinner\Contract\Output\IBufferedOutput;
 use AlecRabbit\Spinner\Contract\Output\IOutput;
-use AlecRabbit\Spinner\Core\BufferedOutputBuilder;
-use AlecRabbit\Spinner\Core\Contract\IBufferedOutputBuilder;
+use AlecRabbit\Spinner\Core\Builder\BufferedOutputBuilder;
+use AlecRabbit\Spinner\Core\Builder\Contract\IBufferedOutputBuilder;
 use AlecRabbit\Spinner\Exception\LogicException;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;

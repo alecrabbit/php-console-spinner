@@ -9,7 +9,7 @@ use AlecRabbit\Spinner\Core\Contract\Loop\Contract\ILoop;
 
 interface IFacade
 {
-    public static function getDefaultsProvider(): IDefaultsProvider;
+    public static function getSettingsProvider(): ISettingsProvider;
 
     public static function getLoop(): ILoop;
 
@@ -17,5 +17,5 @@ interface IFacade
 
     public static function getDriver(): IDriver;
 
-    public static function createSpinner(?ISpinnerConfig $settings = null): ISpinner;
+    public static function createSpinner(?ISpinnerConfig $config = null): ISpinner;
 }

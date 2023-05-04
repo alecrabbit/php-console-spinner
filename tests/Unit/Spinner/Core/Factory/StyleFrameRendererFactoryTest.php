@@ -5,7 +5,8 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Factory;
 
 use AlecRabbit\Spinner\Contract\Option\OptionStyleMode;
-use AlecRabbit\Spinner\Core\Factory\Contract\IFrameFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\ICharFrameFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\IStyleFrameFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IStyleFrameRendererFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IStyleRendererFactory;
 use AlecRabbit\Spinner\Core\Factory\StyleFrameRendererFactory;
@@ -24,12 +25,12 @@ final class StyleFrameRendererFactoryTest extends TestCaseWithPrebuiltMocksAndSt
     }
 
     public function getTesteeInstance(
-        ?IFrameFactory $frameFactory = null,
+        ?IStyleFrameFactory $frameFactory = null,
         ?IStyleRendererFactory $styleRendererFactory = null,
         ?OptionStyleMode $styleMode = null,
     ): IStyleFrameRendererFactory {
         return new StyleFrameRendererFactory(
-            frameFactory: $frameFactory ?? $this->getFrameFactoryMock(),
+            frameFactory: $frameFactory ?? $this->getStyleFrameFactoryMock(),
             styleRendererFactory: $styleRendererFactory ?? $this->getStyleRendererFactoryMock(),
             styleMode: $styleMode ?? OptionStyleMode::ANSI4,
         );
@@ -39,7 +40,7 @@ final class StyleFrameRendererFactoryTest extends TestCaseWithPrebuiltMocksAndSt
     public function canCreate(): void
     {
         $styleMode = OptionStyleMode::ANSI4; // lowest
-        $frameFactory = $this->getFrameFactoryMock();
+        $frameFactory = $this->getStyleFrameFactoryMock();
         $styleRenderer = $this->getStyleRendererMock();
 
         $styleRendererFactory = $this->getStyleRendererFactoryMock();

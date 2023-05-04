@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Factory;
 
-use AlecRabbit\Spinner\Core\Contract\IDefaultsProvider;
-use AlecRabbit\Spinner\Core\Defaults\Contract\IWidgetSettingsBuilder;
+use AlecRabbit\Spinner\Core\Builder\Settings\Contract\IWidgetSettingsBuilder;
+use AlecRabbit\Spinner\Core\Contract\ISettingsProvider;
 use AlecRabbit\Spinner\Core\Factory\Contract\IWidgetSettingsFactory;
 use AlecRabbit\Spinner\Core\Factory\WidgetSettingsFactory;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
@@ -22,12 +22,12 @@ final class WidgetSettingsFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
     }
 
     public function getTesteeInstance(
-        ?IDefaultsProvider $defaultsProvider = null,
+        ?ISettingsProvider $settingsProvider = null,
         ?IWidgetSettingsBuilder $widgetSettingsBuilder = null,
     ): IWidgetSettingsFactory {
         return
             new WidgetSettingsFactory(
-                defaultsProvider: $defaultsProvider ?? $this->getDefaultsProviderMock(),
+                settingsProvider: $settingsProvider ?? $this->getSettingsProviderMock(),
                 widgetSettingsBuilder: $widgetSettingsBuilder ?? $this->getWidgetSettingsBuilderMock()
             );
     }
@@ -38,7 +38,7 @@ final class WidgetSettingsFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
         $leadingSpacer = $this->getFrameMock();
         $trailingSpacer = $this->getFrameMock();
         $stylePattern = $this->getStylePatternMock();
-        $charPattern = $this->getPatternMock();
+        $charPattern = $this->getCharPatternMock();
 
         $widgetSettings = $this->getWidgetSettingsMock();
 
@@ -115,7 +115,7 @@ final class WidgetSettingsFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
         $leadingSpacer = $this->getFrameMock();
         $trailingSpacer = $this->getFrameMock();
         $stylePattern = $this->getStylePatternMock();
-        $charPattern = $this->getPatternMock();
+        $charPattern = $this->getCharPatternMock();
 
         $widgetSettings = $this->getWidgetSettingsMock();
 
@@ -150,41 +150,42 @@ final class WidgetSettingsFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
             ->willReturn($widgetSettings)
         ;
 
-        $defaultsProvider = $this->getDefaultsProviderMock();
-        $defaultsProvider
+        $widgetConfig = $this->getWidgetConfigMock();
+
+        $settingsProvider = $this->getSettingsProviderMock();
+        $settingsProvider
             ->expects(self::once())
             ->method('getWidgetConfig')
+            ->willReturn($widgetConfig)
         ;
-        $rootWidgetConfig = $this->getWidgetConfigMock();
-        $rootWidgetConfig
+        $widgetConfig
             ->expects(self::once())
             ->method('getLeadingSpacer')
             ->willReturn($leadingSpacer)
         ;
-        $rootWidgetConfig
+        $widgetConfig
             ->expects(self::once())
             ->method('getTrailingSpacer')
             ->willReturn($trailingSpacer)
         ;
-        $rootWidgetConfig
+        $widgetConfig
             ->expects(self::once())
             ->method('getStylePattern')
             ->willReturn($stylePattern)
         ;
-        $rootWidgetConfig
+        $widgetConfig
             ->expects(self::once())
             ->method('getCharPattern')
             ->willReturn($charPattern)
         ;
 
-        $defaultsProvider
-            ->expects(self::once())
+        $settingsProvider
+            ->expects(self::never())
             ->method('getRootWidgetConfig')
-            ->willReturn($rootWidgetConfig)
         ;
 
         $widgetSettingsFactory = $this->getTesteeInstance(
-            defaultsProvider: $defaultsProvider,
+            settingsProvider: $settingsProvider,
             widgetSettingsBuilder: $builder,
         );
 
@@ -194,7 +195,7 @@ final class WidgetSettingsFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
         $config
             ->expects(self::once())
             ->method('merge')
-            ->willReturn($rootWidgetConfig)
+            ->willReturn($widgetConfig)
         ;
         $config
             ->expects(self::never())

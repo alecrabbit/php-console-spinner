@@ -14,38 +14,40 @@ use AlecRabbit\Spinner\Contract\Option\OptionCursor;
 use AlecRabbit\Spinner\Contract\Option\OptionNormalizerMode;
 use AlecRabbit\Spinner\Contract\Option\OptionStyleMode;
 use AlecRabbit\Spinner\Contract\Output\IResourceStream;
-use AlecRabbit\Spinner\Core\BufferedOutputBuilder;
+use AlecRabbit\Spinner\Core\Builder\BufferedOutputBuilder;
+use AlecRabbit\Spinner\Core\Builder\ConsoleCursorBuilder;
+use AlecRabbit\Spinner\Core\Builder\Contract\IBufferedOutputBuilder;
+use AlecRabbit\Spinner\Core\Builder\Contract\IConsoleCursorBuilder;
+use AlecRabbit\Spinner\Core\Builder\Contract\IDriverOutputBuilder;
+use AlecRabbit\Spinner\Core\Builder\Contract\IIntegerNormalizerBuilder;
+use AlecRabbit\Spinner\Core\Builder\Contract\ILoopSetupBuilder;
+use AlecRabbit\Spinner\Core\Builder\Contract\ITimerBuilder;
+use AlecRabbit\Spinner\Core\Builder\DriverBuilder;
+use AlecRabbit\Spinner\Core\Builder\DriverOutputBuilder;
+use AlecRabbit\Spinner\Core\Builder\IntegerNormalizerBuilder;
+use AlecRabbit\Spinner\Core\Builder\LoopSetupBuilder;
+use AlecRabbit\Spinner\Core\Builder\Settings\AuxSettingsBuilder;
+use AlecRabbit\Spinner\Core\Builder\Settings\Contract\IAuxSettingsBuilder;
+use AlecRabbit\Spinner\Core\Builder\Settings\Contract\ISettingsProviderBuilder;
+use AlecRabbit\Spinner\Core\Builder\Settings\Contract\IDriverSettingsBuilder;
+use AlecRabbit\Spinner\Core\Builder\Settings\Contract\IWidgetSettingsBuilder;
+use AlecRabbit\Spinner\Core\Builder\Settings\SettingsProviderBuilder;
+use AlecRabbit\Spinner\Core\Builder\Settings\DriverSettingsBuilder;
+use AlecRabbit\Spinner\Core\Builder\TimerBuilder;
+use AlecRabbit\Spinner\Core\Builder\WidgetSettingsBuilder;
 use AlecRabbit\Spinner\Core\Color\Style\StyleOptionsParser;
-use AlecRabbit\Spinner\Core\ConsoleCursorBuilder;
-use AlecRabbit\Spinner\Core\Contract\IBufferedOutputBuilder;
 use AlecRabbit\Spinner\Core\Contract\ICharFrameRenderer;
-use AlecRabbit\Spinner\Core\Contract\IConsoleCursorBuilder;
-use AlecRabbit\Spinner\Core\Contract\IDefaultsProvider;
+use AlecRabbit\Spinner\Core\Contract\ISettingsProvider;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\IDriverBuilder;
 use AlecRabbit\Spinner\Core\Contract\IDriverLinker;
-use AlecRabbit\Spinner\Core\Contract\IDriverOutputBuilder;
 use AlecRabbit\Spinner\Core\Contract\IDriverSetup;
-use AlecRabbit\Spinner\Core\Contract\IIntegerNormalizerBuilder;
 use AlecRabbit\Spinner\Core\Contract\IIntervalNormalizer;
 use AlecRabbit\Spinner\Core\Contract\ILoopSetup;
-use AlecRabbit\Spinner\Core\Contract\ILoopSetupBuilder;
 use AlecRabbit\Spinner\Core\Contract\ISignalProcessingProbe;
-use AlecRabbit\Spinner\Core\Contract\ITimerBuilder;
 use AlecRabbit\Spinner\Core\Contract\IWidthMeasurer;
 use AlecRabbit\Spinner\Core\Contract\Loop\Contract\ILoop;
 use AlecRabbit\Spinner\Core\Contract\Loop\Contract\ILoopProbe;
-use AlecRabbit\Spinner\Core\Defaults\AuxSettingsBuilder;
-use AlecRabbit\Spinner\Core\Defaults\Contract\IAuxSettingsBuilder;
-use AlecRabbit\Spinner\Core\Defaults\Contract\IDefaultsProviderBuilder;
-use AlecRabbit\Spinner\Core\Defaults\Contract\IDriverSettings;
-use AlecRabbit\Spinner\Core\Defaults\Contract\IDriverSettingsBuilder;
-use AlecRabbit\Spinner\Core\Defaults\Contract\IWidgetSettingsBuilder;
-use AlecRabbit\Spinner\Core\Defaults\DefaultsProviderBuilder;
-use AlecRabbit\Spinner\Core\Defaults\DriverSettingsBuilder;
-use AlecRabbit\Spinner\Core\Defaults\WidgetSettingsBuilder;
-use AlecRabbit\Spinner\Core\DriverBuilder;
-use AlecRabbit\Spinner\Core\DriverOutputBuilder;
 use AlecRabbit\Spinner\Core\DriverSetup;
 use AlecRabbit\Spinner\Core\Factory\Contract\IAnsiColorParserFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IBufferedOutputSingletonFactory;
@@ -55,7 +57,8 @@ use AlecRabbit\Spinner\Core\Factory\Contract\IContainerSingletonFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDriverLinkerSingletonFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDriverOutputFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDriverSingletonFactory;
-use AlecRabbit\Spinner\Core\Factory\Contract\IFrameFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\ICharFrameFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\IFrameCollectionFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IHexColorToAnsiCodeConverterFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalNormalizerFactory;
@@ -66,6 +69,7 @@ use AlecRabbit\Spinner\Core\Factory\Contract\ILoopSingletonFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ISignalProcessingProbeFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ISpinnerFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IStyleFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\IStyleFrameFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IStyleFrameRendererFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IStyleFrameRevolverFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IStyleRendererFactory;
@@ -75,9 +79,7 @@ use AlecRabbit\Spinner\Core\Factory\Contract\ITerminalSettingsFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ITimerFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IWidgetSettingsFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IWidthMeasurerFactory;
-use AlecRabbit\Spinner\Core\IntegerNormalizerBuilder;
 use AlecRabbit\Spinner\Core\LoopSetup;
-use AlecRabbit\Spinner\Core\LoopSetupBuilder;
 use AlecRabbit\Spinner\Core\Output\ResourceStream;
 use AlecRabbit\Spinner\Core\Render\CharFrameCollectionRenderer;
 use AlecRabbit\Spinner\Core\Render\CharFrameRenderer;
@@ -86,8 +88,8 @@ use AlecRabbit\Spinner\Core\Render\Contract\IStyleFrameCollectionRenderer;
 use AlecRabbit\Spinner\Core\Render\StyleFrameCollectionRenderer;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolverBuilder;
 use AlecRabbit\Spinner\Core\Revolver\FrameRevolverBuilder;
+use AlecRabbit\Spinner\Core\Settings\Contract\IDriverSettings;
 use AlecRabbit\Spinner\Core\Terminal\NativeTerminalProbe;
-use AlecRabbit\Spinner\Core\TimerBuilder;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetBuilder;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolverBuilder;
 use AlecRabbit\Spinner\Core\Widget\Factory\Contract\IWidgetFactory;
@@ -140,11 +142,12 @@ final class ContainerSingletonFactory implements IContainerSingletonFactory
             IBufferedOutputBuilder::class => BufferedOutputBuilder::class,
             IBufferedOutputSingletonFactory::class => BufferedOutputSingletonFactory::class,
             ICharFrameCollectionRenderer::class => CharFrameCollectionRenderer::class,
+            ICharFrameFactory::class => CharFrameFactory::class,
             ICharFrameRenderer::class => CharFrameRenderer::class,
             ICharFrameRevolverFactory::class => CharFrameRevolverFactory::class,
             IConsoleCursorBuilder::class => ConsoleCursorBuilder::class,
             IConsoleCursorFactory::class => ConsoleCursorFactory::class,
-            IDefaultsProviderBuilder::class => DefaultsProviderBuilder::class,
+            ISettingsProviderBuilder::class => SettingsProviderBuilder::class,
             IDriverLinkerSingletonFactory::class => DriverLinkerSingletonFactory::class,
             IDriverBuilder::class => DriverBuilder::class,
             IDriverOutputBuilder::class => DriverOutputBuilder::class,
@@ -152,7 +155,7 @@ final class ContainerSingletonFactory implements IContainerSingletonFactory
             IDriverSettingsBuilder::class => DriverSettingsBuilder::class,
             IDriverSetup::class => DriverSetup::class,
             IDriverSingletonFactory::class => DriverSingletonFactory::class,
-            IFrameFactory::class => FrameFactory::class,
+            IFrameCollectionFactory::class => FrameCollectionFactory::class,
             IFrameRevolverBuilder::class => FrameRevolverBuilder::class,
             IHexColorToAnsiCodeConverterFactory::class => HexColorToAnsiCodeConverterFactory::class,
             IIntegerNormalizerBuilder::class => IntegerNormalizerBuilder::class,
@@ -164,6 +167,7 @@ final class ContainerSingletonFactory implements IContainerSingletonFactory
             ILoopSingletonFactory::class => LoopSingletonFactory::class,
             ISpinnerFactory::class => SpinnerFactory::class,
             IStyleFactory::class => StyleFactory::class,
+            IStyleFrameFactory::class => StyleFrameFactory::class,
             IStyleFrameCollectionRenderer::class => StyleFrameCollectionRenderer::class,
             IStyleFrameRendererFactory::class => StyleFrameRendererFactory::class,
             IStyleOptionsParser::class => StyleOptionsParser::class,
@@ -180,8 +184,8 @@ final class ContainerSingletonFactory implements IContainerSingletonFactory
             IWidgetSettingsBuilder::class => WidgetSettingsBuilder::class,
             IWidthMeasurerFactory::class => WidthMeasurerFactory::class,
 
-            IDefaultsProvider::class => static function (ContainerInterface $container): IDefaultsProvider {
-                return $container->get(IDefaultsProviderBuilder::class)->build();
+            ISettingsProvider::class => static function (ContainerInterface $container): ISettingsProvider {
+                return $container->get(ISettingsProviderBuilder::class)->build();
             },
             IDriver::class => static function (ContainerInterface $container): IDriver {
                 return $container->get(IDriverSingletonFactory::class)->getDriver();
@@ -190,7 +194,7 @@ final class ContainerSingletonFactory implements IContainerSingletonFactory
                 return $container->get(IDriverLinkerSingletonFactory::class)->getDriverLinker();
             },
             IDriverSettings::class => static function (ContainerInterface $container): IDriverSettings {
-                return $container->get(IDefaultsProvider::class)->getDriverSettings();
+                return $container->get(ISettingsProvider::class)->getDriverSettings();
             },
             IIntervalNormalizer::class => static function (ContainerInterface $container): IIntervalNormalizer {
                 return $container->get(IIntervalNormalizerFactory::class)->create();
@@ -227,8 +231,8 @@ final class ContainerSingletonFactory implements IContainerSingletonFactory
             },
             ISignalProcessingProbeFactory::class => SignalProcessingProbeFactory::class,
             IResourceStream::class => static function (ContainerInterface $container): IResourceStream {
-                /** @var IDefaultsProvider $provider */
-                $provider = $container->get(IDefaultsProvider::class);
+                /** @var ISettingsProvider $provider */
+                $provider = $container->get(ISettingsProvider::class);
                 return new ResourceStream($provider->getTerminalSettings()->getOutputStream());
             },
             ITerminalProbeFactory::class => static function (): ITerminalProbeFactory {
@@ -248,13 +252,13 @@ final class ContainerSingletonFactory implements IContainerSingletonFactory
                 return $container->get(IWidthMeasurerFactory::class)->create();
             },
             OptionNormalizerMode::class => static function (ContainerInterface $container): OptionNormalizerMode {
-                return $container->get(IDefaultsProvider::class)->getAuxSettings()->getOptionNormalizerMode();
+                return $container->get(ISettingsProvider::class)->getAuxSettings()->getOptionNormalizerMode();
             },
             OptionCursor::class => static function (ContainerInterface $container): OptionCursor {
-                return $container->get(IDefaultsProvider::class)->getTerminalSettings()->getOptionCursor();
+                return $container->get(ISettingsProvider::class)->getTerminalSettings()->getOptionCursor();
             },
             OptionStyleMode::class => static function (ContainerInterface $container): OptionStyleMode {
-                return $container->get(IDefaultsProvider::class)->getTerminalSettings()->getOptionStyleMode();
+                return $container->get(ISettingsProvider::class)->getTerminalSettings()->getOptionStyleMode();
             },
         ];
     }

@@ -19,7 +19,7 @@ final class WidthMeasurerTest extends TestCaseWithPrebuiltMocksAndStubs
         $measurer = $this->getTesteeInstance();
 
         self::assertInstanceOf(WidthMeasurer::class, $measurer);
-        self::assertSame(3, $measurer->getWidth('abc'));
+        self::assertSame(3, $measurer->measureWidth('abc'));
     }
 
     public function getTesteeInstance(

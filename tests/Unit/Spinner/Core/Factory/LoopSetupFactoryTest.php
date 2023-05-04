@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Factory;
 
-use AlecRabbit\Spinner\Core\Contract\IDefaultsProvider;
-use AlecRabbit\Spinner\Core\Contract\ILoopSetupBuilder;
+use AlecRabbit\Spinner\Core\Builder\Contract\ILoopSetupBuilder;
+use AlecRabbit\Spinner\Core\Contract\ISettingsProvider;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopSetupFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopSingletonFactory;
 use AlecRabbit\Spinner\Core\Factory\LoopSetupFactory;
@@ -23,12 +23,12 @@ final class LoopSetupFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
     }
 
     public function getTesteeInstance(
-        ?IDefaultsProvider $defaultsProvider = null,
+        ?ISettingsProvider $settingsProvider = null,
         ?ILoopSingletonFactory $loopFactory = null,
         ?ILoopSetupBuilder $loopSetupBuilder = null,
     ): ILoopSetupFactory {
         return new LoopSetupFactory(
-            defaultsProvider: $defaultsProvider ?? $this->getDefaultsProviderMock(),
+            settingsProvider: $settingsProvider ?? $this->getSettingsProviderMock(),
             loopFactory: $loopFactory ?? $this->getLoopSingletonFactoryMock(),
             loopSetupBuilder: $loopSetupBuilder ?? $this->getLoopSetupBuilderMock(),
         );
@@ -65,15 +65,15 @@ final class LoopSetupFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
             ->willReturn($loopSetupStub)
         ;
 
-        $defaultsProvider = $this->getDefaultsProviderMock();
-        $defaultsProvider
+        $settingsProvider = $this->getSettingsProviderMock();
+        $settingsProvider
             ->expects(self::once())
             ->method('getLoopSettings')
             ->willReturn($loopSettings)
         ;
 
         $loopSetupFactory = $this->getTesteeInstance(
-            defaultsProvider: $defaultsProvider,
+            settingsProvider: $settingsProvider,
             loopFactory: $loopFactory,
             loopSetupBuilder: $loopSetupBuilder,
         );

@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Defaults;
 
-use AlecRabbit\Spinner\Core\Defaults\Contract\IWidgetSettingsBuilder;
-use AlecRabbit\Spinner\Core\Defaults\WidgetSettings;
-use AlecRabbit\Spinner\Core\Defaults\WidgetSettingsBuilder;
+use AlecRabbit\Spinner\Core\Builder\Settings\Contract\IWidgetSettingsBuilder;
+use AlecRabbit\Spinner\Core\Builder\WidgetSettingsBuilder;
+use AlecRabbit\Spinner\Core\Settings\WidgetSettings;
 use AlecRabbit\Spinner\Exception\LogicException;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;
@@ -36,7 +36,7 @@ final class WidgetSettingsBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
                 ->withLeadingSpacer($this->getFrameMock())
                 ->withTrailingSpacer($this->getFrameMock())
                 ->withStylePattern($this->getStylePatternMock())
-                ->withCharPattern($this->getPatternMock())
+                ->withCharPattern($this->getCharPatternMock())
                 ->build()
         ;
 
@@ -57,7 +57,7 @@ final class WidgetSettingsBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
                 $widgetSettingsBuilder
                     ->withTrailingSpacer($this->getFrameMock())
                     ->withStylePattern($this->getStylePatternMock())
-                    ->withCharPattern($this->getPatternMock())
+                    ->withCharPattern($this->getCharPatternMock())
                     ->build()
             ;
 
@@ -84,7 +84,7 @@ final class WidgetSettingsBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
                 $widgetSettingsBuilder
                     ->withLeadingSpacer($this->getFrameMock())
                     ->withStylePattern($this->getStylePatternMock())
-                    ->withCharPattern($this->getPatternMock())
+                    ->withCharPattern($this->getCharPatternMock())
                     ->build()
             ;
 
@@ -111,7 +111,7 @@ final class WidgetSettingsBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
                 $widgetSettingsBuilder
                     ->withLeadingSpacer($this->getFrameMock())
                     ->withTrailingSpacer($this->getFrameMock())
-                    ->withCharPattern($this->getPatternMock())
+                    ->withCharPattern($this->getCharPatternMock())
                     ->build()
             ;
 

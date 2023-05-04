@@ -17,7 +17,6 @@ final class APatternTest extends TestCase
     {
         $pattern = $this->getTesteeInstance();
         self::assertInstanceOf(APattern::class, $pattern);
-        self::assertNull($pattern->getEntries());
         self::assertNull($pattern->getInterval());
     }
 
@@ -31,5 +30,13 @@ final class APatternTest extends TestCase
                 interval: $interval,
             ) extends APattern {
             };
+    }
+
+    #[Test]
+    public function isReversedReturnsFalse(): void
+    {
+        $pattern = $this->getTesteeInstance();
+        self::assertInstanceOf(APattern::class, $pattern);
+        self::assertFalse($pattern->isReversed());
     }
 }

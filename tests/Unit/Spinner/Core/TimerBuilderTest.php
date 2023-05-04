@@ -5,9 +5,9 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core;
 
-use AlecRabbit\Spinner\Core\Contract\ITimerBuilder;
+use AlecRabbit\Spinner\Core\Builder\Contract\ITimerBuilder;
+use AlecRabbit\Spinner\Core\Builder\TimerBuilder;
 use AlecRabbit\Spinner\Core\Timer;
-use AlecRabbit\Spinner\Core\TimerBuilder;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;
 

@@ -6,11 +6,11 @@ namespace AlecRabbit\Tests\Unit\Spinner\Core\Defaults;
 
 use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Contract\Pattern\IPattern;
-use AlecRabbit\Spinner\Core\Defaults\Contract\IWidgetSettings;
-use AlecRabbit\Spinner\Core\Defaults\WidgetSettings;
-use AlecRabbit\Spinner\Core\Frame;
+use AlecRabbit\Spinner\Core\CharFrame;
 use AlecRabbit\Spinner\Core\Pattern\NoCharPattern;
 use AlecRabbit\Spinner\Core\Pattern\NoStylePattern;
+use AlecRabbit\Spinner\Core\Settings\Contract\IWidgetSettings;
+use AlecRabbit\Spinner\Core\Settings\WidgetSettings;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;
 
@@ -19,8 +19,8 @@ final class WidgetSettingsTest extends TestCaseWithPrebuiltMocksAndStubs
     #[Test]
     public function canBeCreated(): void
     {
-        $leadingSpacer = new Frame('', 0);
-        $trailingSpacer = new Frame('', 0);
+        $leadingSpacer = new CharFrame('', 0);
+        $trailingSpacer = new CharFrame('', 0);
         $stylePattern = new NoStylePattern();
         $charPattern = new NoCharPattern();
 
@@ -56,14 +56,14 @@ final class WidgetSettingsTest extends TestCaseWithPrebuiltMocksAndStubs
     public function valuesCanBeOverriddenWithSetters(): void
     {
         $widgetSettings = $this->getTesteeInstance(
-            new Frame('', 0),
-            new Frame('', 0),
+            new CharFrame('', 0),
+            new CharFrame('', 0),
             new NoStylePattern(),
             new NoCharPattern()
         );
 
-        $leadingSpacer = new Frame('', 0);
-        $trailingSpacer = new Frame('', 0);
+        $leadingSpacer = new CharFrame('', 0);
+        $trailingSpacer = new CharFrame('', 0);
         $stylePattern = new NoStylePattern();
         $charPattern = new NoCharPattern();
 

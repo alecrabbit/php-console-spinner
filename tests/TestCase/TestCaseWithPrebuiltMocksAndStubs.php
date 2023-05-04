@@ -17,44 +17,40 @@ use AlecRabbit\Spinner\Contract\Output\IBufferedOutput;
 use AlecRabbit\Spinner\Contract\Output\IOutput;
 use AlecRabbit\Spinner\Contract\Output\IResourceStream;
 use AlecRabbit\Spinner\Contract\Pattern\IPattern;
+use AlecRabbit\Spinner\Core\Builder\Contract\IBufferedOutputBuilder;
+use AlecRabbit\Spinner\Core\Builder\Contract\IConsoleCursorBuilder;
+use AlecRabbit\Spinner\Core\Builder\Contract\IDriverOutputBuilder;
+use AlecRabbit\Spinner\Core\Builder\Contract\IIntegerNormalizerBuilder;
+use AlecRabbit\Spinner\Core\Builder\Contract\ILoopSetupBuilder;
+use AlecRabbit\Spinner\Core\Builder\Contract\ITimerBuilder;
+use AlecRabbit\Spinner\Core\Builder\Settings\Contract\IAuxSettingsBuilder;
+use AlecRabbit\Spinner\Core\Builder\Settings\Contract\IDriverSettingsBuilder;
+use AlecRabbit\Spinner\Core\Builder\Settings\Contract\IWidgetSettingsBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\ISpinnerConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IWidgetConfig;
-use AlecRabbit\Spinner\Core\Contract\IBufferedOutputBuilder;
 use AlecRabbit\Spinner\Core\Contract\ICharFrameRenderer;
-use AlecRabbit\Spinner\Core\Contract\IConsoleCursorBuilder;
-use AlecRabbit\Spinner\Core\Contract\IDefaultsProvider;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\IDriverBuilder;
 use AlecRabbit\Spinner\Core\Contract\IDriverLinker;
-use AlecRabbit\Spinner\Core\Contract\IDriverOutputBuilder;
 use AlecRabbit\Spinner\Core\Contract\IDriverSetup;
 use AlecRabbit\Spinner\Core\Contract\IFrameCollection;
 use AlecRabbit\Spinner\Core\Contract\IHexColorToAnsiCodeConverter;
-use AlecRabbit\Spinner\Core\Contract\IIntegerNormalizerBuilder;
 use AlecRabbit\Spinner\Core\Contract\IIntervalNormalizer;
 use AlecRabbit\Spinner\Core\Contract\ILoopSetup;
-use AlecRabbit\Spinner\Core\Contract\ILoopSetupBuilder;
+use AlecRabbit\Spinner\Core\Contract\ISettingsProvider;
 use AlecRabbit\Spinner\Core\Contract\ISignalProcessingProbe;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use AlecRabbit\Spinner\Core\Contract\ISpinnerState;
-use AlecRabbit\Spinner\Core\Contract\ITimerBuilder;
 use AlecRabbit\Spinner\Core\Contract\IWidthMeasurer;
 use AlecRabbit\Spinner\Core\Contract\Loop\Contract\ILoop;
 use AlecRabbit\Spinner\Core\Contract\Loop\Contract\ILoopProbe;
-use AlecRabbit\Spinner\Core\Defaults\Contract\IAuxSettings;
-use AlecRabbit\Spinner\Core\Defaults\Contract\IAuxSettingsBuilder;
-use AlecRabbit\Spinner\Core\Defaults\Contract\IDriverSettings;
-use AlecRabbit\Spinner\Core\Defaults\Contract\IDriverSettingsBuilder;
-use AlecRabbit\Spinner\Core\Defaults\Contract\ILoopSettings;
-use AlecRabbit\Spinner\Core\Defaults\Contract\ITerminalSettings;
-use AlecRabbit\Spinner\Core\Defaults\Contract\IWidgetSettings;
-use AlecRabbit\Spinner\Core\Defaults\Contract\IWidgetSettingsBuilder;
 use AlecRabbit\Spinner\Core\Factory\Contract\IAnsiColorParserFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IBufferedOutputSingletonFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\ICharFrameFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ICharFrameRevolverFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IConsoleCursorFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDriverOutputFactory;
-use AlecRabbit\Spinner\Core\Factory\Contract\IFrameFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\IFrameCollectionFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IHexColorToAnsiCodeConverterFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopProbeFactory;
@@ -62,6 +58,7 @@ use AlecRabbit\Spinner\Core\Factory\Contract\ILoopSettingsFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopSetupFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopSingletonFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IStyleFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\IStyleFrameFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IStyleFrameRendererFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IStyleFrameRevolverFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IStyleRendererFactory;
@@ -71,6 +68,7 @@ use AlecRabbit\Spinner\Core\Factory\Contract\ITimerFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IWidgetSettingsFactory;
 use AlecRabbit\Spinner\Core\Output\Contract\IConsoleCursor;
 use AlecRabbit\Spinner\Core\Output\Contract\IDriverOutput;
+use AlecRabbit\Spinner\Core\Pattern\Contract\ICharPattern;
 use AlecRabbit\Spinner\Core\Pattern\Contract\IStylePattern;
 use AlecRabbit\Spinner\Core\Render\Contract\ICharFrameCollectionRenderer;
 use AlecRabbit\Spinner\Core\Render\Contract\IStyleFrameCollectionRenderer;
@@ -80,6 +78,11 @@ use AlecRabbit\Spinner\Core\Render\Contract\IStyleToAnsiStringConverter;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolver;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolverBuilder;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
+use AlecRabbit\Spinner\Core\Settings\Contract\IAuxSettings;
+use AlecRabbit\Spinner\Core\Settings\Contract\IDriverSettings;
+use AlecRabbit\Spinner\Core\Settings\Contract\ILoopSettings;
+use AlecRabbit\Spinner\Core\Settings\Contract\ITerminalSettings;
+use AlecRabbit\Spinner\Core\Settings\Contract\IWidgetSettings;
 use AlecRabbit\Spinner\Core\Terminal\Contract\ITerminalProbe;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidget;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetBuilder;
@@ -124,9 +127,9 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
         return $this->createMock(IWidget::class);
     }
 
-    protected function getPatternMock(): MockObject&IPattern
+    protected function getCharPatternMock(): MockObject&ICharPattern
     {
-        return $this->createMock(IPattern::class);
+        return $this->createMock(ICharPattern::class);
     }
 
     protected function getStylePatternMock(): MockObject&IStylePattern
@@ -199,9 +202,9 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
         return $this->createStub(ILoopSetup::class);
     }
 
-    protected function getDefaultsProviderMock(): MockObject&IDefaultsProvider
+    protected function getSettingsProviderMock(): MockObject&ISettingsProvider
     {
-        return $this->createMock(IDefaultsProvider::class);
+        return $this->createMock(ISettingsProvider::class);
     }
 
     protected function getSpinnerConfigMock(): MockObject&ISpinnerConfig
@@ -239,9 +242,14 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
         return $this->createMock(IIntervalFactory::class);
     }
 
-    protected function getFrameFactoryMock(): MockObject&IFrameFactory
+    protected function getCharFrameFactoryMock(): MockObject&ICharFrameFactory
     {
-        return $this->createMock(IFrameFactory::class);
+        return $this->createMock(ICharFrameFactory::class);
+    }
+
+    protected function getStyleFrameFactoryMock(): MockObject&IStyleFrameFactory
+    {
+        return $this->createMock(IStyleFrameFactory::class);
     }
 
     protected function getStyleRendererFactoryMock(): MockObject&IStyleRendererFactory
@@ -532,6 +540,11 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
     protected function getFrameRevolverBuilderMock(): MockObject&IFrameRevolverBuilder
     {
         return $this->createMock(IFrameRevolverBuilder::class);
+    }
+
+    protected function getFrameCollectionFactoryMock(): MockObject&IFrameCollectionFactory
+    {
+        return $this->createMock(IFrameCollectionFactory::class);
     }
 
     protected function getFrameRevolverMock(): MockObject&IFrameRevolver
