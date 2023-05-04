@@ -54,9 +54,9 @@ $spinner = Facade::createSpinner($config);
 $driver = Facade::getDriver();
 $loop = Facade::getLoop();
 
-//dump($loop);
-//dump($driver);
-//dump($spinner);
+dump($loop);
+dump($driver);
+dump($spinner);
 
 $loop->repeat(
     $reportInterval,
