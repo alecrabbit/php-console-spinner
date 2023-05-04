@@ -7,10 +7,10 @@ namespace AlecRabbit\Tests\Unit\Spinner\Core\Render;
 
 use AlecRabbit\Spinner\Extras\Color\Style\StyleOptions;
 use AlecRabbit\Spinner\Extras\Contract\IAnsiColorParser;
+use AlecRabbit\Spinner\Extras\Contract\IStyleToAnsiStringConverter;
 use AlecRabbit\Spinner\Extras\Contract\Style\IStyleOptionsParser;
 use AlecRabbit\Spinner\Extras\Contract\Style\StyleOption;
-use AlecRabbit\Spinner\Extras\Render\Contract\IStyleToAnsiStringConverter;
-use AlecRabbit\Spinner\Extras\Render\StyleToAnsiStringConverter;
+use AlecRabbit\Spinner\Extras\StyleToAnsiStringConverter;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;
 

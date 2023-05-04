@@ -80,6 +80,7 @@ use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolverBuilder;
 use AlecRabbit\Spinner\Core\Widget\Factory\Contract\IWidgetFactory;
 use AlecRabbit\Spinner\Core\Widget\Factory\Contract\IWidgetRevolverFactory;
 use AlecRabbit\Spinner\Extras\Contract\IAnsiColorParser;
+use AlecRabbit\Spinner\Extras\Contract\IStyleToAnsiStringConverter;
 use AlecRabbit\Spinner\Extras\Contract\Style\IStyle;
 use AlecRabbit\Spinner\Extras\Contract\Style\IStyleOptionsParser;
 use AlecRabbit\Spinner\Extras\Factory\Contract\IAnsiColorParserFactory;
@@ -91,7 +92,6 @@ use AlecRabbit\Spinner\Extras\Render\Contract\ICharFrameCollectionRenderer;
 use AlecRabbit\Spinner\Extras\Render\Contract\IStyleFrameCollectionRenderer;
 use AlecRabbit\Spinner\Extras\Render\Contract\IStyleFrameRenderer;
 use AlecRabbit\Spinner\Extras\Render\Contract\IStyleRenderer;
-use AlecRabbit\Spinner\Extras\Render\Contract\IStyleToAnsiStringConverter;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\MockObject\Stub;
 

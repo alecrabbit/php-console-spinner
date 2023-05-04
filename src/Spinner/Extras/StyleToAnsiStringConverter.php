@@ -3,12 +3,12 @@
 declare(strict_types=1);
 
 
-namespace AlecRabbit\Spinner\Extras\Render;
+namespace AlecRabbit\Spinner\Extras;
 
 use AlecRabbit\Spinner\Extras\Contract\IAnsiColorParser;
+use AlecRabbit\Spinner\Extras\Contract\IStyleToAnsiStringConverter;
 use AlecRabbit\Spinner\Extras\Contract\Style\IStyle;
 use AlecRabbit\Spinner\Extras\Contract\Style\IStyleOptionsParser;
-use AlecRabbit\Spinner\Extras\Render\Contract\IStyleToAnsiStringConverter;
 
 final class StyleToAnsiStringConverter implements IStyleToAnsiStringConverter
 {

@@ -6,9 +6,9 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Extras\Render;
 
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
+use AlecRabbit\Spinner\Extras\Contract\IStyleToAnsiStringConverter;
 use AlecRabbit\Spinner\Extras\Contract\Style\IStyle;
 use AlecRabbit\Spinner\Extras\Render\Contract\IStyleRenderer;
-use AlecRabbit\Spinner\Extras\Render\Contract\IStyleToAnsiStringConverter;
 
 final class StyleRenderer implements IStyleRenderer
 {

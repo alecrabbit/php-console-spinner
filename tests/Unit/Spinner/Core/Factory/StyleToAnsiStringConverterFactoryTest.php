@@ -9,7 +9,7 @@ use AlecRabbit\Spinner\Extras\Contract\Style\IStyleOptionsParser;
 use AlecRabbit\Spinner\Extras\Factory\Contract\IAnsiColorParserFactory;
 use AlecRabbit\Spinner\Extras\Factory\Contract\IStyleToAnsiStringConverterFactory;
 use AlecRabbit\Spinner\Extras\Factory\StyleToAnsiStringConverterFactory;
-use AlecRabbit\Spinner\Extras\Render\StyleToAnsiStringConverter;
+use AlecRabbit\Spinner\Extras\StyleToAnsiStringConverter;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;
 

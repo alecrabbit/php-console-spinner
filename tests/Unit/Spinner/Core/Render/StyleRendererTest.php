@@ -7,8 +7,8 @@ namespace AlecRabbit\Tests\Unit\Spinner\Core\Render;
 
 use AlecRabbit\Spinner\Contract\Option\OptionStyleMode;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
+use AlecRabbit\Spinner\Extras\Contract\IStyleToAnsiStringConverter;
 use AlecRabbit\Spinner\Extras\Render\Contract\IStyleRenderer;
-use AlecRabbit\Spinner\Extras\Render\Contract\IStyleToAnsiStringConverter;
 use AlecRabbit\Spinner\Extras\Render\StyleRenderer;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;
