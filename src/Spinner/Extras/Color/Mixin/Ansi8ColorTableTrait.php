@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 
-namespace AlecRabbit\Spinner\Core\Color\Mixin;
+namespace AlecRabbit\Spinner\Extras\Color\Mixin;
 
 trait Ansi8ColorTableTrait
 {

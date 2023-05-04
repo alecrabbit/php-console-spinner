@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 
-namespace AlecRabbit\Spinner\Core\Color\Style;
+namespace AlecRabbit\Spinner\Extras\Color\Style;
 
 use AlecRabbit\Spinner\Contract\Color\Style\IStyleOptions;
 use AlecRabbit\Spinner\Contract\Color\Style\StyleOption;

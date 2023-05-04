@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Spinner\Core\Color\A;
+namespace AlecRabbit\Spinner\Extras\Color\A;
 
 use AlecRabbit\Spinner\Contract\Color\IColor;
 

@@ -7,8 +7,8 @@ namespace AlecRabbit\Tests\Unit\Spinner\Core\Color;
 
 use AlecRabbit\Spinner\Contract\Color\Style\IStyleOptionsParser;
 use AlecRabbit\Spinner\Contract\Color\Style\StyleOption;
-use AlecRabbit\Spinner\Core\Color\Style\StyleOptions;
-use AlecRabbit\Spinner\Core\Color\Style\StyleOptionsParser;
+use AlecRabbit\Spinner\Extras\Color\Style\StyleOptions;
+use AlecRabbit\Spinner\Extras\Color\Style\StyleOptionsParser;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;
 

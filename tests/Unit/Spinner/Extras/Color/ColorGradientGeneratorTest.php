@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Extras\Color;
 
-use AlecRabbit\Spinner\Core\Color\RGBColor;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Extras\Color\ColorGradientGenerator;
 use AlecRabbit\Spinner\Extras\Color\ColorProcessor;
 use AlecRabbit\Spinner\Extras\Color\Contract\IColorGradientGenerator;
 use AlecRabbit\Spinner\Extras\Color\Contract\IColorProcessor;
+use AlecRabbit\Spinner\Extras\Color\RGBColor;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use ArrayObject;
 use PHPUnit\Framework\Attributes\DataProvider;

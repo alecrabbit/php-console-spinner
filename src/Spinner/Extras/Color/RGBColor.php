@@ -3,10 +3,10 @@
 declare(strict_types=1);
 
 
-namespace AlecRabbit\Spinner\Core\Color;
+namespace AlecRabbit\Spinner\Extras\Color;
 
-use AlecRabbit\Spinner\Core\Color\A\AColor;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
+use AlecRabbit\Spinner\Extras\Color\A\AColor;
 use Stringable;
 
 final readonly class RGBColor extends AColor implements Stringable

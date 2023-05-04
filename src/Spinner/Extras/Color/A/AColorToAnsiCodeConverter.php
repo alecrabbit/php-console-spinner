@@ -3,13 +3,13 @@
 declare(strict_types=1);
 
 
-namespace AlecRabbit\Spinner\Core\Color\A;
+namespace AlecRabbit\Spinner\Extras\Color\A;
 
 use AlecRabbit\Spinner\Contract\Option\OptionStyleMode;
-use AlecRabbit\Spinner\Core\Color\Ansi4Color;
-use AlecRabbit\Spinner\Core\Color\Ansi8Color;
-use AlecRabbit\Spinner\Core\Color\Mixin\Ansi8ColorTableTrait;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
+use AlecRabbit\Spinner\Extras\Color\Ansi4Color;
+use AlecRabbit\Spinner\Extras\Color\Ansi8Color;
+use AlecRabbit\Spinner\Extras\Color\Mixin\Ansi8ColorTableTrait;
 
 abstract class AColorToAnsiCodeConverter
 {

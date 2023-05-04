@@ -28,22 +28,21 @@ use AlecRabbit\Spinner\Core\Builder\IntegerNormalizerBuilder;
 use AlecRabbit\Spinner\Core\Builder\LoopSetupBuilder;
 use AlecRabbit\Spinner\Core\Builder\Settings\AuxSettingsBuilder;
 use AlecRabbit\Spinner\Core\Builder\Settings\Contract\IAuxSettingsBuilder;
-use AlecRabbit\Spinner\Core\Builder\Settings\Contract\ISettingsProviderBuilder;
 use AlecRabbit\Spinner\Core\Builder\Settings\Contract\IDriverSettingsBuilder;
+use AlecRabbit\Spinner\Core\Builder\Settings\Contract\ISettingsProviderBuilder;
 use AlecRabbit\Spinner\Core\Builder\Settings\Contract\IWidgetSettingsBuilder;
-use AlecRabbit\Spinner\Core\Builder\Settings\SettingsProviderBuilder;
 use AlecRabbit\Spinner\Core\Builder\Settings\DriverSettingsBuilder;
+use AlecRabbit\Spinner\Core\Builder\Settings\SettingsProviderBuilder;
 use AlecRabbit\Spinner\Core\Builder\TimerBuilder;
 use AlecRabbit\Spinner\Core\Builder\WidgetSettingsBuilder;
-use AlecRabbit\Spinner\Core\Color\Style\StyleOptionsParser;
 use AlecRabbit\Spinner\Core\Contract\ICharFrameRenderer;
-use AlecRabbit\Spinner\Core\Contract\ISettingsProvider;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\IDriverBuilder;
 use AlecRabbit\Spinner\Core\Contract\IDriverLinker;
 use AlecRabbit\Spinner\Core\Contract\IDriverSetup;
 use AlecRabbit\Spinner\Core\Contract\IIntervalNormalizer;
 use AlecRabbit\Spinner\Core\Contract\ILoopSetup;
+use AlecRabbit\Spinner\Core\Contract\ISettingsProvider;
 use AlecRabbit\Spinner\Core\Contract\ISignalProcessingProbe;
 use AlecRabbit\Spinner\Core\Contract\IWidthMeasurer;
 use AlecRabbit\Spinner\Core\Contract\Loop\Contract\ILoop;
@@ -51,13 +50,13 @@ use AlecRabbit\Spinner\Core\Contract\Loop\Contract\ILoopProbe;
 use AlecRabbit\Spinner\Core\DriverSetup;
 use AlecRabbit\Spinner\Core\Factory\Contract\IAnsiColorParserFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IBufferedOutputSingletonFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\ICharFrameFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ICharFrameRevolverFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IConsoleCursorFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IContainerSingletonFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDriverLinkerSingletonFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDriverOutputFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDriverSingletonFactory;
-use AlecRabbit\Spinner\Core\Factory\Contract\ICharFrameFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IFrameCollectionFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IHexColorToAnsiCodeConverterFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalFactory;
@@ -99,6 +98,10 @@ use AlecRabbit\Spinner\Core\Widget\Factory\WidgetRevolverFactory;
 use AlecRabbit\Spinner\Core\Widget\WidgetBuilder;
 use AlecRabbit\Spinner\Core\Widget\WidgetRevolverBuilder;
 use AlecRabbit\Spinner\Exception\DomainException;
+//use AlecRabbit\Spinner\Extras\Color\Style\StyleOptionsParser;
+//use AlecRabbit\Spinner\Extras\Factory\AnsiColorParserFactory;
+//use AlecRabbit\Spinner\Extras\Factory\SimpleHexColorToAnsiCodeConverterFactory;
+//use AlecRabbit\Spinner\Extras\Factory\StyleFactory;
 use ArrayObject;
 use Psr\Container\ContainerInterface;
 use Traversable;
@@ -137,7 +140,7 @@ final class ContainerSingletonFactory implements IContainerSingletonFactory
     {
         // TODO (2023-04-10 20:21) [Alec Rabbit]: consider extracting definitions?
         yield from [
-            IAnsiColorParserFactory::class => AnsiColorParserFactory::class,
+//            IAnsiColorParserFactory::class => AnsiColorParserFactory::class,
             IAuxSettingsBuilder::class => AuxSettingsBuilder::class,
             IBufferedOutputBuilder::class => BufferedOutputBuilder::class,
             IBufferedOutputSingletonFactory::class => BufferedOutputSingletonFactory::class,
@@ -157,7 +160,7 @@ final class ContainerSingletonFactory implements IContainerSingletonFactory
             IDriverSingletonFactory::class => DriverSingletonFactory::class,
             IFrameCollectionFactory::class => FrameCollectionFactory::class,
             IFrameRevolverBuilder::class => FrameRevolverBuilder::class,
-            IHexColorToAnsiCodeConverterFactory::class => HexColorToAnsiCodeConverterFactory::class,
+//            IHexColorToAnsiCodeConverterFactory::class => SimpleHexColorToAnsiCodeConverterFactory::class,
             IIntegerNormalizerBuilder::class => IntegerNormalizerBuilder::class,
             IIntervalFactory::class => IntervalFactory::class,
             IIntervalNormalizerFactory::class => IntervalNormalizerFactory::class,
@@ -166,11 +169,11 @@ final class ContainerSingletonFactory implements IContainerSingletonFactory
             ILoopSetupFactory::class => LoopSetupFactory::class,
             ILoopSingletonFactory::class => LoopSingletonFactory::class,
             ISpinnerFactory::class => SpinnerFactory::class,
-            IStyleFactory::class => StyleFactory::class,
+//            IStyleFactory::class => StyleFactory::class,
             IStyleFrameFactory::class => StyleFrameFactory::class,
             IStyleFrameCollectionRenderer::class => StyleFrameCollectionRenderer::class,
             IStyleFrameRendererFactory::class => StyleFrameRendererFactory::class,
-            IStyleOptionsParser::class => StyleOptionsParser::class,
+//            IStyleOptionsParser::class => StyleOptionsParser::class,
             IStyleRendererFactory::class => StyleRendererFactory::class,
             IStyleFrameRevolverFactory::class => StyleFrameRevolverFactory::class,
             IStyleToAnsiStringConverterFactory::class => StyleToAnsiStringConverterFactory::class,

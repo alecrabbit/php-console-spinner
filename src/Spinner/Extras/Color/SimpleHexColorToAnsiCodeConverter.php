@@ -3,14 +3,14 @@
 declare(strict_types=1);
 
 
-namespace AlecRabbit\Spinner\Core\Color;
+namespace AlecRabbit\Spinner\Extras\Color;
 
 use AlecRabbit\Spinner\Contract\Option\OptionStyleMode;
-use AlecRabbit\Spinner\Core\Color\A\AColorToAnsiCodeConverter;
 use AlecRabbit\Spinner\Core\Contract\IHexColorToAnsiCodeConverter;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
+use AlecRabbit\Spinner\Extras\Color\A\AColorToAnsiCodeConverter;
 
-final class HexColorToAnsiCodeConverter extends AColorToAnsiCodeConverter implements IHexColorToAnsiCodeConverter
+final class SimpleHexColorToAnsiCodeConverter extends AColorToAnsiCodeConverter implements IHexColorToAnsiCodeConverter
 {
     public function convert(string $color): string
     {

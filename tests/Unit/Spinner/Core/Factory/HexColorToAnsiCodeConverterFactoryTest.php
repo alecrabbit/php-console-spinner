@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Factory;
 
 use AlecRabbit\Spinner\Contract\Option\OptionStyleMode;
-use AlecRabbit\Spinner\Core\Color\HexColorToAnsiCodeConverter;
 use AlecRabbit\Spinner\Core\Factory\Contract\IHexColorToAnsiCodeConverterFactory;
-use AlecRabbit\Spinner\Core\Factory\HexColorToAnsiCodeConverterFactory;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
+use AlecRabbit\Spinner\Extras\Color\SimpleHexColorToAnsiCodeConverter;
+use AlecRabbit\Spinner\Extras\Factory\SimpleHexColorToAnsiCodeConverterFactory;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;
 
@@ -19,12 +19,12 @@ final class HexColorToAnsiCodeConverterFactoryTest extends TestCaseWithPrebuiltM
     {
         $converterFactory = $this->getTesteeInstance();
 
-        self::assertInstanceOf(HexColorToAnsiCodeConverterFactory::class, $converterFactory);
+        self::assertInstanceOf(SimpleHexColorToAnsiCodeConverterFactory::class, $converterFactory);
     }
 
     public function getTesteeInstance(): IHexColorToAnsiCodeConverterFactory
     {
-        return new HexColorToAnsiCodeConverterFactory();
+        return new SimpleHexColorToAnsiCodeConverterFactory();
     }
 
     #[Test]
@@ -33,8 +33,8 @@ final class HexColorToAnsiCodeConverterFactoryTest extends TestCaseWithPrebuiltM
         $converterFactory = $this->getTesteeInstance();
 
         $converter = $converterFactory->create(OptionStyleMode::ANSI4);
-        self::assertInstanceOf(HexColorToAnsiCodeConverterFactory::class, $converterFactory);
-        self::assertInstanceOf(HexColorToAnsiCodeConverter::class, $converter);
+        self::assertInstanceOf(SimpleHexColorToAnsiCodeConverterFactory::class, $converterFactory);
+        self::assertInstanceOf(SimpleHexColorToAnsiCodeConverter::class, $converter);
     }
 
     #[Test]
@@ -47,8 +47,8 @@ final class HexColorToAnsiCodeConverterFactoryTest extends TestCaseWithPrebuiltM
             $converterFactory = $this->getTesteeInstance();
 
             $converter = $converterFactory->create(OptionStyleMode::NONE);
-            self::assertInstanceOf(HexColorToAnsiCodeConverterFactory::class, $converterFactory);
-            self::assertInstanceOf(HexColorToAnsiCodeConverter::class, $converter);
+            self::assertInstanceOf(SimpleHexColorToAnsiCodeConverterFactory::class, $converterFactory);
+            self::assertInstanceOf(SimpleHexColorToAnsiCodeConverter::class, $converter);
         };
 
         $this->wrapExceptionTest(

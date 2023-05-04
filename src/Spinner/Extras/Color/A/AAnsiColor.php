@@ -3,10 +3,10 @@
 declare(strict_types=1);
 
 
-namespace AlecRabbit\Spinner\Core\Color\A;
+namespace AlecRabbit\Spinner\Extras\Color\A;
 
-use AlecRabbit\Spinner\Core\Color\Mixin\Ansi8ColorTableTrait;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
+use AlecRabbit\Spinner\Extras\Color\Mixin\Ansi8ColorTableTrait;
 use AlecRabbit\Spinner\Helper\Asserter;
 
 abstract class AAnsiColor

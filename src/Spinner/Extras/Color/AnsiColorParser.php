@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 
-namespace AlecRabbit\Spinner\Core\Color;
+namespace AlecRabbit\Spinner\Extras\Color;
 
 use AlecRabbit\Spinner\Contract\Color\IColor;
 use AlecRabbit\Spinner\Contract\IAnsiColorParser;

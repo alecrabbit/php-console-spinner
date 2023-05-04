@@ -3,12 +3,13 @@
 declare(strict_types=1);
 
 
-namespace AlecRabbit\Spinner\Core\Factory;
+namespace AlecRabbit\Spinner\Extras\Factory;
 
 use AlecRabbit\Spinner\Contract\IAnsiColorParser;
 use AlecRabbit\Spinner\Contract\Option\OptionStyleMode;
-use AlecRabbit\Spinner\Core\Color\AnsiColorParser;
+use AlecRabbit\Spinner\Core\Factory\Contract;
 use AlecRabbit\Spinner\Core\Factory\Contract\IHexColorToAnsiCodeConverterFactory;
+use AlecRabbit\Spinner\Extras\Color\AnsiColorParser;
 
 final class AnsiColorParserFactory implements Contract\IAnsiColorParserFactory
 {
