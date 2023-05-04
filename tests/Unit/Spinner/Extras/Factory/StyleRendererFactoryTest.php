@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Tests\Unit\Spinner\Core\Factory;
+namespace AlecRabbit\Tests\Unit\Spinner\Extras\Factory;
 
 use AlecRabbit\Spinner\Contract\Option\OptionStyleMode;
 use AlecRabbit\Spinner\Extras\Factory\Contract\IStyleRendererFactory;

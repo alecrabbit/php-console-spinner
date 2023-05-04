@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 
-namespace AlecRabbit\Tests\Unit\Spinner\Core;
+namespace AlecRabbit\Tests\Unit\Spinner\Extras;
 
 use AlecRabbit\Spinner\Core\Contract\ICharFrameRenderer;
 use AlecRabbit\Spinner\Core\Factory\Contract\ICharFrameFactory;

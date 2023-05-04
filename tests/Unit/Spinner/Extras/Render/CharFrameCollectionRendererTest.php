@@ -2,8 +2,7 @@
 
 declare(strict_types=1);
 
-
-namespace AlecRabbit\Tests\Unit\Spinner\Core\Render;
+namespace AlecRabbit\Tests\Unit\Spinner\Extras\Render;
 
 use AlecRabbit\Spinner\Core\Contract\ICharFrameRenderer;
 use AlecRabbit\Spinner\Core\FrameCollection;

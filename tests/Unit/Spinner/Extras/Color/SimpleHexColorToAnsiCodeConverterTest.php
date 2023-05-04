@@ -3,17 +3,17 @@
 declare(strict_types=1);
 
 
-namespace AlecRabbit\Tests\Unit\Spinner\Core\Color;
+namespace AlecRabbit\Tests\Unit\Spinner\Extras\Color;
 
 use AlecRabbit\Spinner\Contract\Option\OptionStyleMode;
-use AlecRabbit\Spinner\Core\Contract\IHexColorToAnsiCodeConverter;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Extras\Color\SimpleHexColorToAnsiCodeConverter;
+use AlecRabbit\Spinner\Extras\Contract\IHexColorToAnsiCodeConverter;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 
-final class HexColorToAnsiCodeConverterTest extends TestCaseWithPrebuiltMocksAndStubs
+final class SimpleHexColorToAnsiCodeConverterTest extends TestCaseWithPrebuiltMocksAndStubs
 {
     public static function canConvertDataProvider(): iterable
     {
