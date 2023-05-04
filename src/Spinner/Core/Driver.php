@@ -87,6 +87,7 @@ final class Driver extends ASubject implements IDriver
         if (!$this->spinners->offsetExists($spinner)) {
             $this->spinners->offsetSet($spinner, new SpinnerState());
             $this->interval = $this->interval->smallest($spinner->getInterval());
+            $spinner->attach($this);
             $this->notify();
         }
     }
@@ -101,6 +102,7 @@ final class Driver extends ASubject implements IDriver
         if ($this->spinners->offsetExists($spinner)) {
             $this->erase($this->spinners[$spinner]);
             $this->spinners->offsetUnset($spinner);
+            $spinner->detach($this);
             $this->interval = $this->recalculateInterval();
         }
     }
@@ -117,6 +119,7 @@ final class Driver extends ASubject implements IDriver
     public function update(ISubject $subject): void
     {
         if ($this->spinners->offsetExists($subject)) {
+            $this->interval = $this->recalculateInterval();
             $this->notify();
         }
     }
