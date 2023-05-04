@@ -12,8 +12,8 @@ use AlecRabbit\Spinner\Extras\Contract\Style\IStyleOptions;
 final readonly class Style implements IStyle
 {
     public function __construct(
-        protected null|string|IColor $fgColor = null,
-        protected null|string|IColor $bgColor = null,
+        protected IColor|string|null $fgColor = null,
+        protected IColor|string|null $bgColor = null,
         protected ?IStyleOptions $options = null,
         protected string $format = '%s',
         protected int $width = 0,

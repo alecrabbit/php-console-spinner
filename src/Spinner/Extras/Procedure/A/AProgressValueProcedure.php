@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Extras\Procedure\A;
 
 use AlecRabbit\Spinner\Contract\IFrame;
-use AlecRabbit\Spinner\Core\Factory\CharFrameFactory;
 use AlecRabbit\Spinner\Core\CharFrame;
+use AlecRabbit\Spinner\Core\Factory\CharFrameFactory;
 use AlecRabbit\Spinner\Extras\Contract\IProgressValue;
 
 abstract class AProgressValueProcedure extends AFloatValueProcedure

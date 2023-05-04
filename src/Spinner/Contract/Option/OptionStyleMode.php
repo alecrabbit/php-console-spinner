@@ -22,21 +22,4 @@ enum OptionStyleMode: int
         }
         return $other;
     }
-
-    public function highest(?self $other): self
-    {
-        if ($other === null) {
-            return $this;
-        }
-
-        if ($this->value >= $other->value) {
-            return $this;
-        }
-        return $other;
-    }
-
-    public function isStylingEnabled(): bool
-    {
-        return $this->value > 0;
-    }
 }
