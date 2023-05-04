@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 
-namespace AlecRabbit\Tests\Unit\Spinner\Core\Color;
+namespace AlecRabbit\Tests\Unit\Spinner\Extras\Color;
 
 use AlecRabbit\Spinner\Core\Contract\IHexColorToAnsiCodeConverter;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
