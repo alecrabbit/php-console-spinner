@@ -5,12 +5,11 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Factory;
 
 use AlecRabbit\Spinner\Contract\Option\OptionStyleMode;
-use AlecRabbit\Spinner\Core\Factory\Contract\ICharFrameFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IStyleFrameFactory;
-use AlecRabbit\Spinner\Core\Factory\Contract\IStyleFrameRendererFactory;
-use AlecRabbit\Spinner\Core\Factory\Contract\IStyleRendererFactory;
-use AlecRabbit\Spinner\Core\Factory\StyleFrameRendererFactory;
-use AlecRabbit\Spinner\Core\Render\StyleFrameRenderer;
+use AlecRabbit\Spinner\Extras\Factory\Contract\IStyleFrameRendererFactory;
+use AlecRabbit\Spinner\Extras\Factory\Contract\IStyleRendererFactory;
+use AlecRabbit\Spinner\Extras\Factory\StyleFrameRendererFactory;
+use AlecRabbit\Spinner\Extras\Render\StyleFrameRenderer;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;
 

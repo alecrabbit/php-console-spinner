@@ -3,14 +3,14 @@
 declare(strict_types=1);
 
 
-namespace AlecRabbit\Spinner\Core\Factory;
+namespace AlecRabbit\Spinner\Extras\Factory;
 
-use AlecRabbit\Spinner\Contract\Color\Style\IStyleOptionsParser;
 use AlecRabbit\Spinner\Contract\Option\OptionStyleMode;
-use AlecRabbit\Spinner\Core\Factory\Contract\IAnsiColorParserFactory;
-use AlecRabbit\Spinner\Core\Factory\Contract\IStyleToAnsiStringConverterFactory;
-use AlecRabbit\Spinner\Core\Render\Contract\IStyleToAnsiStringConverter;
-use AlecRabbit\Spinner\Core\Render\StyleToAnsiStringConverter;
+use AlecRabbit\Spinner\Extras\Contract\Style\IStyleOptionsParser;
+use AlecRabbit\Spinner\Extras\Factory\Contract\IAnsiColorParserFactory;
+use AlecRabbit\Spinner\Extras\Factory\Contract\IStyleToAnsiStringConverterFactory;
+use AlecRabbit\Spinner\Extras\Render\Contract\IStyleToAnsiStringConverter;
+use AlecRabbit\Spinner\Extras\Render\StyleToAnsiStringConverter;
 
 final class StyleToAnsiStringConverterFactory implements IStyleToAnsiStringConverterFactory
 {

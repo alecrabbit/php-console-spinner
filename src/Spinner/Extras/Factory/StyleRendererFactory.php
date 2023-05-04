@@ -3,14 +3,14 @@
 declare(strict_types=1);
 
 
-namespace AlecRabbit\Spinner\Core\Factory;
+namespace AlecRabbit\Spinner\Extras\Factory;
 
 use AlecRabbit\Spinner\Contract\Option\OptionStyleMode;
-use AlecRabbit\Spinner\Core\Factory\Contract\IStyleToAnsiStringConverterFactory;
-use AlecRabbit\Spinner\Core\Render\Contract\IStyleRenderer;
-use AlecRabbit\Spinner\Core\Render\StyleRenderer;
+use AlecRabbit\Spinner\Extras\Factory\Contract\IStyleToAnsiStringConverterFactory;
+use AlecRabbit\Spinner\Extras\Render\Contract\IStyleRenderer;
+use AlecRabbit\Spinner\Extras\Render\StyleRenderer;
 
-final class StyleRendererFactory implements Contract\IStyleRendererFactory
+final class StyleRendererFactory implements \AlecRabbit\Spinner\Extras\Factory\Contract\IStyleRendererFactory
 {
     public function __construct(
         protected IStyleToAnsiStringConverterFactory $converterFactory,

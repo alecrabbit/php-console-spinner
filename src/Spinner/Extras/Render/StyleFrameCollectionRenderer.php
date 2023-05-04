@@ -3,19 +3,19 @@
 declare(strict_types=1);
 
 
-namespace AlecRabbit\Spinner\Core\Render;
+namespace AlecRabbit\Spinner\Extras\Render;
 
-use AlecRabbit\Spinner\Contract\Color\Style\IStyle;
 use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Contract\Option\OptionStyleMode;
 use AlecRabbit\Spinner\Core\Contract\IFrameCollection;
-use AlecRabbit\Spinner\Core\Factory\Contract\IStyleFactory;
-use AlecRabbit\Spinner\Core\Factory\Contract\IStyleFrameRendererFactory;
 use AlecRabbit\Spinner\Core\FrameCollection;
 use AlecRabbit\Spinner\Core\Pattern\Contract\IStylePattern;
-use AlecRabbit\Spinner\Core\Render\Contract\IStyleFrameCollectionRenderer;
-use AlecRabbit\Spinner\Core\Render\Contract\IStyleFrameRenderer;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
+use AlecRabbit\Spinner\Extras\Contract\Style\IStyle;
+use AlecRabbit\Spinner\Extras\Factory\Contract\IStyleFactory;
+use AlecRabbit\Spinner\Extras\Factory\Contract\IStyleFrameRendererFactory;
+use AlecRabbit\Spinner\Extras\Render\Contract\IStyleFrameCollectionRenderer;
+use AlecRabbit\Spinner\Extras\Render\Contract\IStyleFrameRenderer;
 use Stringable;
 use Traversable;
 

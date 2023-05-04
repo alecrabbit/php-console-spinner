@@ -3,14 +3,14 @@
 declare(strict_types=1);
 
 
-namespace AlecRabbit\Spinner\Core\Render;
+namespace AlecRabbit\Spinner\Extras\Render;
 
 use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Contract\Pattern\IPattern;
 use AlecRabbit\Spinner\Core\Contract\ICharFrameRenderer;
 use AlecRabbit\Spinner\Core\Contract\IFrameCollection;
 use AlecRabbit\Spinner\Core\FrameCollection;
-use AlecRabbit\Spinner\Core\Render\Contract\ICharFrameCollectionRenderer;
+use AlecRabbit\Spinner\Extras\Render\Contract\ICharFrameCollectionRenderer;
 use Stringable;
 use Traversable;
 

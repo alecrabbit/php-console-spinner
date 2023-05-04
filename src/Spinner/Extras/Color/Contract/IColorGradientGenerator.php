@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Extras\Color\Contract;
 
-use AlecRabbit\Spinner\Contract\Color\IColor;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Extras\Color\RGBColor;
 use Generator;

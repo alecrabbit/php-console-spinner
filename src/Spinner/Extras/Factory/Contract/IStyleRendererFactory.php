@@ -3,10 +3,10 @@
 declare(strict_types=1);
 
 
-namespace AlecRabbit\Spinner\Core\Factory\Contract;
+namespace AlecRabbit\Spinner\Extras\Factory\Contract;
 
 use AlecRabbit\Spinner\Contract\Option\OptionStyleMode;
-use AlecRabbit\Spinner\Core\Render\Contract\IStyleRenderer;
+use AlecRabbit\Spinner\Extras\Render\Contract\IStyleRenderer;
 
 interface IStyleRendererFactory
 {

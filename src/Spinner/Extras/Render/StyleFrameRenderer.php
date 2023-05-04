@@ -3,16 +3,15 @@
 declare(strict_types=1);
 
 
-namespace AlecRabbit\Spinner\Core\Render;
+namespace AlecRabbit\Spinner\Extras\Render;
 
-use AlecRabbit\Spinner\Contract\Color\Style\IStyle;
 use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Contract\Option\OptionStyleMode;
-use AlecRabbit\Spinner\Core\Factory\Contract\ICharFrameFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IStyleFrameFactory;
-use AlecRabbit\Spinner\Core\Render\Contract\IStyleFrameRenderer;
-use AlecRabbit\Spinner\Core\Render\Contract\IStyleRenderer;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
+use AlecRabbit\Spinner\Extras\Contract\Style\IStyle;
+use AlecRabbit\Spinner\Extras\Render\Contract\IStyleFrameRenderer;
+use AlecRabbit\Spinner\Extras\Render\Contract\IStyleRenderer;
 
 final class StyleFrameRenderer implements IStyleFrameRenderer
 {

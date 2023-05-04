@@ -7,8 +7,8 @@ namespace AlecRabbit\Tests\Unit\Spinner\Core\Render;
 
 use AlecRabbit\Spinner\Core\Contract\ICharFrameRenderer;
 use AlecRabbit\Spinner\Core\FrameCollection;
-use AlecRabbit\Spinner\Core\Render\CharFrameCollectionRenderer;
-use AlecRabbit\Spinner\Core\Render\Contract\ICharFrameCollectionRenderer;
+use AlecRabbit\Spinner\Extras\Render\CharFrameCollectionRenderer;
+use AlecRabbit\Spinner\Extras\Render\Contract\ICharFrameCollectionRenderer;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use ArrayObject;
 use PHPUnit\Framework\Attributes\Test;

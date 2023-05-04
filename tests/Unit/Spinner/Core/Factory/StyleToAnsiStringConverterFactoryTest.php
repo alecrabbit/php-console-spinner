@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Factory;
 
-use AlecRabbit\Spinner\Contract\Color\Style\IStyleOptionsParser;
 use AlecRabbit\Spinner\Contract\Option\OptionStyleMode;
-use AlecRabbit\Spinner\Core\Factory\Contract\IAnsiColorParserFactory;
-use AlecRabbit\Spinner\Core\Factory\Contract\IStyleToAnsiStringConverterFactory;
-use AlecRabbit\Spinner\Core\Factory\StyleToAnsiStringConverterFactory;
-use AlecRabbit\Spinner\Core\Render\StyleToAnsiStringConverter;
+use AlecRabbit\Spinner\Extras\Contract\Style\IStyleOptionsParser;
+use AlecRabbit\Spinner\Extras\Factory\Contract\IAnsiColorParserFactory;
+use AlecRabbit\Spinner\Extras\Factory\Contract\IStyleToAnsiStringConverterFactory;
+use AlecRabbit\Spinner\Extras\Factory\StyleToAnsiStringConverterFactory;
+use AlecRabbit\Spinner\Extras\Render\StyleToAnsiStringConverter;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;
 

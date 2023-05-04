@@ -7,7 +7,7 @@ namespace AlecRabbit\Tests\Unit\Spinner\Core;
 
 use AlecRabbit\Spinner\Core\Contract\ICharFrameRenderer;
 use AlecRabbit\Spinner\Core\Factory\Contract\ICharFrameFactory;
-use AlecRabbit\Spinner\Core\Render\CharFrameRenderer;
+use AlecRabbit\Spinner\Extras\Render\CharFrameRenderer;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;
 

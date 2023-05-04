@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 
-namespace AlecRabbit\Spinner\Contract\Color\Style;
+namespace AlecRabbit\Spinner\Extras\Contract\Style;
 
 use IteratorAggregate;
 

@@ -5,10 +5,10 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Extras\Color\Style;
 
-use AlecRabbit\Spinner\Contract\Color\Style\IStyleOptions;
-use AlecRabbit\Spinner\Contract\Color\Style\IStyleOptionsParser;
-use AlecRabbit\Spinner\Contract\Color\Style\StyleOption;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
+use AlecRabbit\Spinner\Extras\Contract\Style\IStyleOptions;
+use AlecRabbit\Spinner\Extras\Contract\Style\IStyleOptionsParser;
+use AlecRabbit\Spinner\Extras\Contract\Style\StyleOption;
 
 final class StyleOptionsParser implements IStyleOptionsParser
 {

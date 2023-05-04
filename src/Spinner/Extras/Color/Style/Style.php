@@ -5,9 +5,9 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Extras\Color\Style;
 
-use AlecRabbit\Spinner\Contract\Color\IColor;
-use AlecRabbit\Spinner\Contract\Color\Style\IStyle;
-use AlecRabbit\Spinner\Contract\Color\Style\IStyleOptions;
+use AlecRabbit\Spinner\Extras\Color\Contract\IColor;
+use AlecRabbit\Spinner\Extras\Contract\Style\IStyle;
+use AlecRabbit\Spinner\Extras\Contract\Style\IStyleOptions;
 
 final readonly class Style implements IStyle
 {

@@ -5,8 +5,8 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Extras\Color\Style;
 
-use AlecRabbit\Spinner\Contract\Color\Style\IStyleOptions;
-use AlecRabbit\Spinner\Contract\Color\Style\StyleOption;
+use AlecRabbit\Spinner\Extras\Contract\Style\IStyleOptions;
+use AlecRabbit\Spinner\Extras\Contract\Style\StyleOption;
 use ArrayIterator;
 use Traversable;
 

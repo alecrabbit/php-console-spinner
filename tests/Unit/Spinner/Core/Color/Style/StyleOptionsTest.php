@@ -5,8 +5,8 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Color\Style;
 
-use AlecRabbit\Spinner\Contract\Color\Style\StyleOption;
 use AlecRabbit\Spinner\Extras\Color\Style\StyleOptions;
+use AlecRabbit\Spinner\Extras\Contract\Style\StyleOption;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 

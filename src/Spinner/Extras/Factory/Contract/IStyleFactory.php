@@ -3,9 +3,9 @@
 declare(strict_types=1);
 
 
-namespace AlecRabbit\Spinner\Core\Factory\Contract;
+namespace AlecRabbit\Spinner\Extras\Factory\Contract;
 
-use AlecRabbit\Spinner\Contract\Color\Style\IStyle;
+use AlecRabbit\Spinner\Extras\Contract\Style\IStyle;
 
 interface IStyleFactory
 {

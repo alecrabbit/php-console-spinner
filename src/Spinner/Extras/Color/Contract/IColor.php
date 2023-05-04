@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 
-namespace AlecRabbit\Spinner\Contract\Color;
+namespace AlecRabbit\Spinner\Extras\Color\Contract;
 
 interface IColor
 {

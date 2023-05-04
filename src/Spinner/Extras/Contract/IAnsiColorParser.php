@@ -3,9 +3,9 @@
 declare(strict_types=1);
 
 
-namespace AlecRabbit\Spinner\Contract;
+namespace AlecRabbit\Spinner\Extras\Contract;
 
-use AlecRabbit\Spinner\Contract\Color\IColor;
+use AlecRabbit\Spinner\Extras\Color\Contract\IColor;
 
 interface IAnsiColorParser
 {

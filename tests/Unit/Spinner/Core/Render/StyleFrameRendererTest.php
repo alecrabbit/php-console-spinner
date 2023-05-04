@@ -6,11 +6,10 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Render;
 
 use AlecRabbit\Spinner\Contract\Option\OptionStyleMode;
-use AlecRabbit\Spinner\Core\Factory\Contract\ICharFrameFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IStyleFrameFactory;
-use AlecRabbit\Spinner\Core\Render\Contract\IStyleFrameRenderer;
-use AlecRabbit\Spinner\Core\Render\Contract\IStyleRenderer;
-use AlecRabbit\Spinner\Core\Render\StyleFrameRenderer;
+use AlecRabbit\Spinner\Extras\Render\Contract\IStyleFrameRenderer;
+use AlecRabbit\Spinner\Extras\Render\Contract\IStyleRenderer;
+use AlecRabbit\Spinner\Extras\Render\StyleFrameRenderer;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;
 

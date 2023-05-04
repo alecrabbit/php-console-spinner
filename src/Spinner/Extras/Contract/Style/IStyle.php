@@ -3,9 +3,9 @@
 declare(strict_types=1);
 
 
-namespace AlecRabbit\Spinner\Contract\Color\Style;
+namespace AlecRabbit\Spinner\Extras\Contract\Style;
 
-use AlecRabbit\Spinner\Contract\Color\IColor;
+use AlecRabbit\Spinner\Extras\Color\Contract\IColor;
 
 interface IStyle
 {
