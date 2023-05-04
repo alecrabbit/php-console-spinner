@@ -9,7 +9,6 @@ use AlecRabbit\Spinner\Container\Container;
 use AlecRabbit\Spinner\Container\Contract\IContainer;
 use AlecRabbit\Spinner\Container\Contract\IServiceSpawner;
 use AlecRabbit\Spinner\Container\ServiceSpawner;
-use AlecRabbit\Spinner\Contract\Color\Style\IStyleOptionsParser;
 use AlecRabbit\Spinner\Contract\Option\OptionCursor;
 use AlecRabbit\Spinner\Contract\Option\OptionNormalizerMode;
 use AlecRabbit\Spinner\Contract\Option\OptionStyleMode;
@@ -48,7 +47,6 @@ use AlecRabbit\Spinner\Core\Contract\IWidthMeasurer;
 use AlecRabbit\Spinner\Core\Contract\Loop\Contract\ILoop;
 use AlecRabbit\Spinner\Core\Contract\Loop\Contract\ILoopProbe;
 use AlecRabbit\Spinner\Core\DriverSetup;
-use AlecRabbit\Spinner\Core\Factory\Contract\IAnsiColorParserFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IBufferedOutputSingletonFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ICharFrameFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ICharFrameRevolverFactory;
@@ -58,7 +56,6 @@ use AlecRabbit\Spinner\Core\Factory\Contract\IDriverLinkerSingletonFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDriverOutputFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDriverSingletonFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IFrameCollectionFactory;
-use AlecRabbit\Spinner\Core\Factory\Contract\IHexColorToAnsiCodeConverterFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalNormalizerFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopProbeFactory;
@@ -67,7 +64,6 @@ use AlecRabbit\Spinner\Core\Factory\Contract\ILoopSetupFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopSingletonFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ISignalProcessingProbeFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ISpinnerFactory;
-use AlecRabbit\Spinner\Core\Factory\Contract\IStyleFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IStyleFrameFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IStyleFrameRendererFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IStyleFrameRevolverFactory;
@@ -98,10 +94,6 @@ use AlecRabbit\Spinner\Core\Widget\Factory\WidgetRevolverFactory;
 use AlecRabbit\Spinner\Core\Widget\WidgetBuilder;
 use AlecRabbit\Spinner\Core\Widget\WidgetRevolverBuilder;
 use AlecRabbit\Spinner\Exception\DomainException;
-//use AlecRabbit\Spinner\Extras\Color\Style\StyleOptionsParser;
-//use AlecRabbit\Spinner\Extras\Factory\AnsiColorParserFactory;
-//use AlecRabbit\Spinner\Extras\Factory\SimpleHexColorToAnsiCodeConverterFactory;
-//use AlecRabbit\Spinner\Extras\Factory\StyleFactory;
 use ArrayObject;
 use Psr\Container\ContainerInterface;
 use Traversable;
@@ -140,7 +132,6 @@ final class ContainerSingletonFactory implements IContainerSingletonFactory
     {
         // TODO (2023-04-10 20:21) [Alec Rabbit]: consider extracting definitions?
         yield from [
-//            IAnsiColorParserFactory::class => AnsiColorParserFactory::class,
             IAuxSettingsBuilder::class => AuxSettingsBuilder::class,
             IBufferedOutputBuilder::class => BufferedOutputBuilder::class,
             IBufferedOutputSingletonFactory::class => BufferedOutputSingletonFactory::class,
@@ -160,7 +151,6 @@ final class ContainerSingletonFactory implements IContainerSingletonFactory
             IDriverSingletonFactory::class => DriverSingletonFactory::class,
             IFrameCollectionFactory::class => FrameCollectionFactory::class,
             IFrameRevolverBuilder::class => FrameRevolverBuilder::class,
-//            IHexColorToAnsiCodeConverterFactory::class => SimpleHexColorToAnsiCodeConverterFactory::class,
             IIntegerNormalizerBuilder::class => IntegerNormalizerBuilder::class,
             IIntervalFactory::class => IntervalFactory::class,
             IIntervalNormalizerFactory::class => IntervalNormalizerFactory::class,
@@ -169,11 +159,9 @@ final class ContainerSingletonFactory implements IContainerSingletonFactory
             ILoopSetupFactory::class => LoopSetupFactory::class,
             ILoopSingletonFactory::class => LoopSingletonFactory::class,
             ISpinnerFactory::class => SpinnerFactory::class,
-//            IStyleFactory::class => StyleFactory::class,
             IStyleFrameFactory::class => StyleFrameFactory::class,
             IStyleFrameCollectionRenderer::class => StyleFrameCollectionRenderer::class,
             IStyleFrameRendererFactory::class => StyleFrameRendererFactory::class,
-//            IStyleOptionsParser::class => StyleOptionsParser::class,
             IStyleRendererFactory::class => StyleRendererFactory::class,
             IStyleFrameRevolverFactory::class => StyleFrameRevolverFactory::class,
             IStyleToAnsiStringConverterFactory::class => StyleToAnsiStringConverterFactory::class,
