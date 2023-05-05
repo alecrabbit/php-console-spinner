@@ -50,14 +50,14 @@ use AlecRabbit\Spinner\Core\Factory\Contract\ICharFrameRevolverFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IConsoleCursorFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDriverLinkerSingletonFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDriverOutputFactory;
-use AlecRabbit\Spinner\Core\Factory\Contract\IDriverSingletonFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\IDriverFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IFrameCollectionFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalNormalizerFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopProbeFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopSettingsFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopSetupFactory;
-use AlecRabbit\Spinner\Core\Factory\Contract\ILoopSingletonFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\ILoopFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ISignalProcessingProbeFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ISpinnerFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IStyleFrameFactory;
@@ -69,13 +69,13 @@ use AlecRabbit\Spinner\Core\Factory\Contract\IWidgetSettingsFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IWidthMeasurerFactory;
 use AlecRabbit\Spinner\Core\Factory\DriverLinkerSingletonFactory;
 use AlecRabbit\Spinner\Core\Factory\DriverOutputFactory;
-use AlecRabbit\Spinner\Core\Factory\DriverSingletonFactory;
+use AlecRabbit\Spinner\Core\Factory\DriverFactory;
 use AlecRabbit\Spinner\Core\Factory\FrameCollectionFactory;
 use AlecRabbit\Spinner\Core\Factory\IntervalFactory;
 use AlecRabbit\Spinner\Core\Factory\IntervalNormalizerFactory;
 use AlecRabbit\Spinner\Core\Factory\LoopSettingsFactory;
 use AlecRabbit\Spinner\Core\Factory\LoopSetupFactory;
-use AlecRabbit\Spinner\Core\Factory\LoopSingletonFactory;
+use AlecRabbit\Spinner\Core\Factory\LoopFactory;
 use AlecRabbit\Spinner\Core\Factory\SignalProcessingProbeFactory;
 use AlecRabbit\Spinner\Core\Factory\SpinnerFactory;
 use AlecRabbit\Spinner\Core\Factory\StyleFrameFactory;
@@ -105,6 +105,7 @@ use Psr\Container\ContainerInterface;
 // @codeCoverageIgnoreStart
 
 $definitions = DefinitionRegistry::getInstance();
+
 foreach (definitions() as $id => $definition) {
     $definitions->bind($id, $definition);
 }
@@ -126,7 +127,7 @@ function definitions(): Traversable
         IDriverOutputFactory::class => DriverOutputFactory::class,
         IDriverSettingsBuilder::class => DriverSettingsBuilder::class,
         IDriverSetup::class => DriverSetup::class,
-        IDriverSingletonFactory::class => DriverSingletonFactory::class,
+        IDriverFactory::class => DriverFactory::class,
         IFrameCollectionFactory::class => FrameCollectionFactory::class,
         IFrameRevolverBuilder::class => FrameRevolverBuilder::class,
         IIntegerNormalizerBuilder::class => IntegerNormalizerBuilder::class,
@@ -135,7 +136,7 @@ function definitions(): Traversable
         ILoopSetup::class => LoopSetup::class,
         ILoopSetupBuilder::class => LoopSetupBuilder::class,
         ILoopSetupFactory::class => LoopSetupFactory::class,
-        ILoopSingletonFactory::class => LoopSingletonFactory::class,
+        ILoopFactory::class => LoopFactory::class,
         ISpinnerFactory::class => SpinnerFactory::class,
         IStyleFrameFactory::class => StyleFrameFactory::class,
         IStyleFrameRevolverFactory::class => StyleFrameRevolverFactory::class,
@@ -153,7 +154,7 @@ function definitions(): Traversable
             return $container->get(ISettingsProviderBuilder::class)->build();
         },
         IDriver::class => static function (ContainerInterface $container): IDriver {
-            return $container->get(IDriverSingletonFactory::class)->getDriver();
+            return $container->get(IDriverFactory::class)->getDriver();
         },
         IDriverLinker::class => static function (ContainerInterface $container): IDriverLinker {
             return $container->get(IDriverLinkerSingletonFactory::class)->getDriverLinker();
@@ -165,7 +166,7 @@ function definitions(): Traversable
             return $container->get(IIntervalNormalizerFactory::class)->create();
         },
         ILoop::class => static function (ContainerInterface $container): ILoop {
-            return $container->get(ILoopSingletonFactory::class)->getLoop();
+            return $container->get(ILoopFactory::class)->getLoop();
         },
         ILoopProbeFactory::class => static function (): never {
             throw new DomainException(

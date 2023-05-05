@@ -5,13 +5,15 @@ declare(strict_types=1);
 use AlecRabbit\Spinner\Asynchronous\Factory\LoopProbeFactory;
 use AlecRabbit\Spinner\Asynchronous\Loop\Probe\ReactLoopProbe;
 use AlecRabbit\Spinner\Asynchronous\Loop\Probe\RevoltLoopProbe;
+use AlecRabbit\Spinner\Container\DefinitionRegistry;
 use AlecRabbit\Spinner\Core\Contract\Loop\Contract\ILoopProbe;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopProbeFactory;
-use AlecRabbit\Spinner\Facade;
 
 // @codeCoverageIgnoreStart
 
-Facade::bind(
+$definitions = DefinitionRegistry::getInstance();
+
+$definitions->bind(
     ILoopProbeFactory::class,
     static function (): ILoopProbeFactory {
         return new LoopProbeFactory(probes());
@@ -28,4 +30,5 @@ function probes(): Traversable
         ReactLoopProbe::class,
     ];
 }
+
 // @codeCoverageIgnoreEnd

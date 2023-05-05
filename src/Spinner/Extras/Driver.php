@@ -15,6 +15,7 @@ use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use AlecRabbit\Spinner\Core\Contract\ISpinnerState;
 use AlecRabbit\Spinner\Core\Output\Contract\IDriverOutput;
 use AlecRabbit\Spinner\Core\SpinnerState;
+use Closure;
 use WeakMap;
 
 final class Driver extends ASubject implements IDriver
@@ -124,5 +125,15 @@ final class Driver extends ASubject implements IDriver
             $this->interval = $this->recalculateInterval();
             $this->notify();
         }
+    }
+
+    public function wrap(Closure $callback): Closure
+    {
+        return
+            function (mixed ...$args) use ($callback): void {
+                $this->eraseAll();
+                $callback(...$args);
+                $this->render();
+            };
     }
 }

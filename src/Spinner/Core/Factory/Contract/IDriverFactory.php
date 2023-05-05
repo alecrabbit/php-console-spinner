@@ -7,7 +7,7 @@ namespace AlecRabbit\Spinner\Core\Factory\Contract;
 
 use AlecRabbit\Spinner\Core\Contract\IDriver;
 
-interface IDriverSingletonFactory
+interface IDriverFactory
 {
     public function getDriver(): IDriver;
 }

@@ -6,7 +6,7 @@ namespace AlecRabbit\Spinner\Core\Factory\Contract;
 
 use AlecRabbit\Spinner\Core\Contract\Loop\Contract\ILoop;
 
-interface ILoopSingletonFactory
+interface ILoopFactory
 {
     public function getLoop(): ILoop;
 }

@@ -9,6 +9,7 @@ use AlecRabbit\Spinner\Contract\IHasInterval;
 use AlecRabbit\Spinner\Contract\IObserver;
 use AlecRabbit\Spinner\Contract\IRenderable;
 use AlecRabbit\Spinner\Contract\ISubject;
+use Closure;
 
 interface IDriver extends IObserver,
                           ISubject,
@@ -25,5 +26,5 @@ interface IDriver extends IObserver,
 
     public function finalize(?string $finalMessage = null): void;
 
-//    public function getWrapper(ISpinner $spinner): IWrapper; // TODO Does it belong here?
+    public function wrap(Closure $callback): Closure;
 }

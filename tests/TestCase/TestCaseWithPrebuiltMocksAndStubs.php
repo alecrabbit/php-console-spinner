@@ -50,7 +50,7 @@ use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopProbeFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopSettingsFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopSetupFactory;
-use AlecRabbit\Spinner\Core\Factory\Contract\ILoopSingletonFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\ILoopFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IStyleFrameFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IStyleFrameRevolverFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ITerminalSettingsFactory;
@@ -193,9 +193,9 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
         return $this->createMock(ILoopProbeFactory::class);
     }
 
-    protected function getLoopSingletonFactoryMock(): MockObject&ILoopSingletonFactory
+    protected function getLoopSingletonFactoryMock(): MockObject&ILoopFactory
     {
-        return $this->createMock(ILoopSingletonFactory::class);
+        return $this->createMock(ILoopFactory::class);
     }
 
     protected function getLoopSetupBuilderMock(): MockObject&ILoopSetupBuilder

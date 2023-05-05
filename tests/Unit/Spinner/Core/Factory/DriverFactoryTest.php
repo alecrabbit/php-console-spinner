@@ -7,22 +7,22 @@ namespace AlecRabbit\Tests\Unit\Spinner\Core\Factory;
 use AlecRabbit\Spinner\Core\Contract\IDriverBuilder;
 use AlecRabbit\Spinner\Core\Contract\IDriverSetup;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDriverOutputFactory;
-use AlecRabbit\Spinner\Core\Factory\Contract\IDriverSingletonFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\IDriverFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopSetupFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ITimerFactory;
-use AlecRabbit\Spinner\Core\Factory\DriverSingletonFactory;
+use AlecRabbit\Spinner\Core\Factory\DriverFactory;
 use AlecRabbit\Spinner\Core\Settings\Contract\IDriverSettings;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;
 
-final class DriverSingletonFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
+final class DriverFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
 {
     #[Test]
     public function canBeCreated(): void
     {
         $driverFactory = $this->getTesteeInstance();
 
-        self::assertInstanceOf(DriverSingletonFactory::class, $driverFactory);
+        self::assertInstanceOf(DriverFactory::class, $driverFactory);
     }
 
     public function getTesteeInstance(
@@ -32,8 +32,8 @@ final class DriverSingletonFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
         ?IDriverSetup $driverSetup = null,
         ?IDriverSettings $driverSettings = null,
         ?ILoopSetupFactory $loopSetupFactory = null,
-    ): IDriverSingletonFactory {
-        return new DriverSingletonFactory(
+    ): IDriverFactory {
+        return new DriverFactory(
             driverBuilder: $driverBuilder ?? $this->getDriverBuilderMock(),
             driverOutputFactory: $driverOutputFactory ?? $this->getDriverOutputFactoryMock(),
             timerFactory: $timerFactory ?? $this->getTimerFactoryMock(),

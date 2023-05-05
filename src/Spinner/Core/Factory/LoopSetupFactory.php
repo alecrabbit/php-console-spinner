@@ -8,13 +8,13 @@ use AlecRabbit\Spinner\Core\Builder\Contract\ILoopSetupBuilder;
 use AlecRabbit\Spinner\Core\Contract\ILoopSetup;
 use AlecRabbit\Spinner\Core\Contract\ISettingsProvider;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopSetupFactory;
-use AlecRabbit\Spinner\Core\Factory\Contract\ILoopSingletonFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\ILoopFactory;
 
 final class LoopSetupFactory implements ILoopSetupFactory
 {
     public function __construct(
         protected ISettingsProvider $settingsProvider,
-        protected ILoopSingletonFactory $loopFactory,
+        protected ILoopFactory $loopFactory,
         protected ILoopSetupBuilder $loopSetupBuilder,
     ) {
     }

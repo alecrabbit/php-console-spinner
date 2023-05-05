@@ -42,3 +42,7 @@ $loop->delay(7, static function () use ($driver, $loop, $spinner): void {
         $driver->remove($spinner);
     });
 });
+
+$loop->delay(40, static function () use ($loop): void {
+    $loop->stop();
+});

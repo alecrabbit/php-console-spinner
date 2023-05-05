@@ -14,8 +14,8 @@ use AlecRabbit\Spinner\Core\Contract\ISettingsProvider;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use AlecRabbit\Spinner\Core\Contract\Loop\Contract\ILoop;
 use AlecRabbit\Spinner\Core\Factory\ContainerFactory;
-use AlecRabbit\Spinner\Core\Factory\Contract\IDriverSingletonFactory;
-use AlecRabbit\Spinner\Core\Factory\Contract\ILoopSingletonFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\IDriverFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\ILoopFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ISpinnerFactory;
 
 final class Facade implements IFacade
@@ -25,24 +25,18 @@ final class Facade implements IFacade
         return self::getLoopFactory()->getLoop();
     }
 
-    private static function getLoopFactory(): ILoopSingletonFactory
+    private static function getLoopFactory(): ILoopFactory
     {
-        return self::getContainer()->get(ILoopSingletonFactory::class);
+        return self::getContainer()->get(ILoopFactory::class);
     }
 
     private static function getContainer(): IContainer
     {
-        return (new ContainerFactory(DefinitionRegistry::getInstance()))->getContainer();
-    }
+        $class = ContainerFactory::class;
 
-    public static function bind(string $typeId, object|callable|string $service): void
-    {
-        $container = self::getContainer();
+        $registry = DefinitionRegistry::getInstance();
 
-        match ($container->has($typeId)) {
-            false => $container->add($typeId, $service),
-            default => $container->replace($typeId, $service),
-        };
+        return (new $class($registry))->getContainer();
     }
 
     public static function getSettingsProvider(): ISettingsProvider
@@ -81,9 +75,9 @@ final class Facade implements IFacade
         return self::getDriverFactory()->getDriver();
     }
 
-    private static function getDriverFactory(): IDriverSingletonFactory
+    private static function getDriverFactory(): IDriverFactory
     {
-        return self::getContainer()->get(IDriverSingletonFactory::class);
+        return self::getContainer()->get(IDriverFactory::class);
     }
 }
 

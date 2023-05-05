@@ -14,6 +14,7 @@ use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use AlecRabbit\Spinner\Core\Contract\ISpinnerState;
 use AlecRabbit\Spinner\Core\Output\Contract\IDriverOutput;
+use Closure;
 
 final class Driver extends ASubject implements IDriver
 {
@@ -29,22 +30,6 @@ final class Driver extends ASubject implements IDriver
     ) {
         parent::__construct($observer);
         $this->interval = $initialInterval;
-    }
-
-    public function render(?float $dt = null): void
-    {
-        if ($this->spinner) {
-            $dt ??= $this->timer->getDelta();
-            $frame = $this->spinner->getFrame($dt);
-            $this->state =
-                new SpinnerState(
-                    sequence: $frame->sequence(),
-                    width: $frame->width(),
-                    previousWidth: $this->state->getWidth()
-                );
-
-            $this->driverOutput->write($this->state);
-        }
     }
 
     public function interrupt(?string $interruptMessage = null): void
@@ -106,6 +91,32 @@ final class Driver extends ASubject implements IDriver
         if ($this->spinner === $subject) {
             $this->interval = $this->recalculateInterval();
             $this->notify();
+        }
+    }
+
+    public function wrap(Closure $callback): Closure
+    {
+        return
+            function (mixed ...$args) use ($callback): void {
+                $this->erase();
+                $callback(...$args);
+                $this->render();
+            };
+    }
+
+    public function render(?float $dt = null): void
+    {
+        if ($this->spinner) {
+            $dt ??= $this->timer->getDelta();
+            $frame = $this->spinner->getFrame($dt);
+            $this->state =
+                new SpinnerState(
+                    sequence: $frame->sequence(),
+                    width: $frame->width(),
+                    previousWidth: $this->state->getWidth()
+                );
+
+            $this->driverOutput->write($this->state);
         }
     }
 }

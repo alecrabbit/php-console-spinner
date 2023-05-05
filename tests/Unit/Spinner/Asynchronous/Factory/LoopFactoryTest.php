@@ -8,14 +8,14 @@ use AlecRabbit\Spinner\Core\Contract\Loop\A\ALoopAdapter;
 use AlecRabbit\Spinner\Core\Contract\Loop\A\ALoopProbe;
 use AlecRabbit\Spinner\Core\Contract\Loop\Contract\ILoop;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopProbeFactory;
-use AlecRabbit\Spinner\Core\Factory\Contract\ILoopSingletonFactory;
-use AlecRabbit\Spinner\Core\Factory\LoopSingletonFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\ILoopFactory;
+use AlecRabbit\Spinner\Core\Factory\LoopFactory;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use AlecRabbit\Tests\Unit\Spinner\Asynchronous\Override\ALoopAdapterOverride;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 
-final class LoopSingletonFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
+final class LoopFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
 {
 
     #[Test]
@@ -23,13 +23,13 @@ final class LoopSingletonFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
     {
         $loopFactory = $this->getTesteeInstance();
 
-        self::assertInstanceOf(LoopSingletonFactory::class, $loopFactory);
+        self::assertInstanceOf(LoopFactory::class, $loopFactory);
     }
 
     public function getTesteeInstance(
         ?ILoopProbeFactory $loopProbeFactory = null,
-    ): ILoopSingletonFactory {
-        return new LoopSingletonFactory(
+    ): ILoopFactory {
+        return new LoopFactory(
             loopProbeFactory: $loopProbeFactory ?? $this->getLoopProbeFactoryMock(),
         );
     }
@@ -65,6 +65,6 @@ final class LoopSingletonFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
 
     protected function setUp(): void
     {
-        self::setPropertyValue(LoopSingletonFactory::class, 'loop', null);
+        self::setPropertyValue(LoopFactory::class, 'loop', null);
     }
 }

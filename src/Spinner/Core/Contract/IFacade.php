@@ -14,8 +14,6 @@ interface IFacade
 
     public static function getLoop(): ILoop;
 
-    public static function bind(string $typeId, object|callable|string $service): void;
-
     public static function getDriver(): IDriver;
 
     public static function createSpinner(
