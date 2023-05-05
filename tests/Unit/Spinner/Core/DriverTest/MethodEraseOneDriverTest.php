@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core\DriverTest;
 
+use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use AlecRabbit\Spinner\Core\Interval;
 use PHPUnit\Framework\Attributes\Test;
 
@@ -26,8 +27,11 @@ final class MethodEraseOneDriverTest extends TestCaseForDriver
             ->willReturn($intervalOne)
         ;
 
+        self::assertNull(self::getPropertyValue('spinner', $driver));
+        self::assertSame($initialInterval, $driver->getInterval());
+
         $driver->add($spinnerOne);
-        self::assertCount(1, self::getPropertyValue('spinners', $driver));
+        self::assertSame($spinnerOne, self::getPropertyValue('spinner', $driver));
         self::assertSame($intervalOne, $driver->getInterval());
 
         $spinnerTwo = $this->getSpinnerStub();
@@ -38,22 +42,22 @@ final class MethodEraseOneDriverTest extends TestCaseForDriver
 
         $driver->add($spinnerTwo);
 
-        self::assertCount(2, self::getPropertyValue('spinners', $driver));
+        self::assertSame($spinnerTwo, self::getPropertyValue('spinner', $driver));
         self::assertSame($intervalTwo, $driver->getInterval());
 
         $driver->remove($spinnerTwo);
 
-        self::assertCount(1, self::getPropertyValue('spinners', $driver));
-        self::assertSame($intervalOne, $driver->getInterval());
+        self::assertNull(self::getPropertyValue('spinner', $driver));
+        self::assertSame($initialInterval, $driver->getInterval());
 
         $driver->remove($spinnerTwo);
 
-        self::assertCount(1, self::getPropertyValue('spinners', $driver));
-        self::assertSame($intervalOne, $driver->getInterval());
+        self::assertNull(self::getPropertyValue('spinner', $driver));
+        self::assertSame($initialInterval, $driver->getInterval());
 
         $driver->remove($spinnerOne);
 
-        self::assertCount(0, self::getPropertyValue('spinners', $driver));
+        self::assertNull(self::getPropertyValue('spinner', $driver));
         self::assertSame($initialInterval, $driver->getInterval());
     }
 
@@ -74,10 +78,13 @@ final class MethodEraseOneDriverTest extends TestCaseForDriver
             ->method('getInterval')
             ->willReturn($intervalOne)
         ;
+        self::assertNull(self::getPropertyValue('spinner', $driver));
 
         $driver->add($spinnerOne);
-        self::assertCount(1, self::getPropertyValue('spinners', $driver));
+
+        self::assertInstanceOf(ISpinner::class, self::getPropertyValue('spinner', $driver));
         self::assertSame($intervalOne, $driver->getInterval());
+        self::assertSame($spinnerOne, self::getPropertyValue('spinner', $driver));
 
         $spinnerTwo = $this->getSpinnerStub();
         $spinnerTwo
@@ -87,22 +94,22 @@ final class MethodEraseOneDriverTest extends TestCaseForDriver
 
         $driver->add($spinnerTwo);
 
-        self::assertCount(2, self::getPropertyValue('spinners', $driver));
+        self::assertSame($spinnerTwo, self::getPropertyValue('spinner', $driver));
         self::assertSame($intervalTwo, $driver->getInterval());
 
         $driver->remove($spinnerTwo);
 
-        self::assertCount(1, self::getPropertyValue('spinners', $driver));
-        self::assertSame($intervalOne, $driver->getInterval());
+        self::assertNull(self::getPropertyValue('spinner', $driver));
+        self::assertSame($initialInterval, $driver->getInterval());
 
         $driver->remove($spinnerTwo);
 
-        self::assertCount(1, self::getPropertyValue('spinners', $driver));
-        self::assertSame($intervalOne, $driver->getInterval());
+        self::assertNull(self::getPropertyValue('spinner', $driver));
+        self::assertSame($initialInterval, $driver->getInterval());
 
         $driver->remove($spinnerOne);
 
-        self::assertCount(0, self::getPropertyValue('spinners', $driver));
+        self::assertNull(self::getPropertyValue('spinner', $driver));
         self::assertSame($initialInterval, $driver->getInterval());
     }
 }
