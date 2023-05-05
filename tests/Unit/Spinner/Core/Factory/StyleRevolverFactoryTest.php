@@ -9,10 +9,10 @@ use AlecRabbit\Spinner\Core\Factory\Contract\IFrameCollectionFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IStyleFrameRevolverFactory;
 use AlecRabbit\Spinner\Core\Factory\StyleFrameRevolverFactory;
-use AlecRabbit\Spinner\Core\Render\Contract\IStyleFrameCollectionRenderer;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolverBuilder;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
+use ArrayObject;
 use PHPUnit\Framework\Attributes\Test;
 
 final class StyleRevolverFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
@@ -52,7 +52,7 @@ final class StyleRevolverFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
             ->expects(self::once())
             ->method('getEntries')
             ->with($styleMode)
-            ->willReturn(new \ArrayObject([$this->getFrameMock()]))
+            ->willReturn(new ArrayObject([$this->getFrameMock()]))
         ;
         $pattern
             ->expects(self::once())
@@ -159,7 +159,8 @@ final class StyleRevolverFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
         $frameCollectionFactory
             ->expects(self::once())
             ->method('create')
-            ->willReturn($this->getFrameCollectionMock());
+            ->willReturn($this->getFrameCollectionMock())
+        ;
 
         $styleRevolverFactory = $this->getTesteeInstance(
             frameRevolverBuilder: $frameRevolverBuilder,

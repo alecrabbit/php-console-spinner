@@ -12,6 +12,9 @@ use Symfony\Component\Console\Terminal;
 
 use function class_exists;
 
+/**
+ * @codeCoverageIgnore
+ */
 final class SymfonyTerminalProbe extends ATerminalProbe
 {
     public function isAvailable(): bool

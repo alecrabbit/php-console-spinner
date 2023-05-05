@@ -21,6 +21,7 @@ final class Spinner extends ASubject implements ISpinner
         ?IObserver $observer = null,
     ) {
         parent::__construct($observer);
+        $this->rootWidget->attach($this);
     }
 
     public function getFrame(?float $dt = null): IFrame

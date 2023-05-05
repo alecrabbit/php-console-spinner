@@ -61,7 +61,6 @@ final class CustomStylePattern extends AStylePattern
 
     private static function assertPatternSection(mixed $value): void
     {
-
     }
 
     public function getEntries(OptionStyleMode $styleMode = OptionStyleMode::ANSI8): Traversable

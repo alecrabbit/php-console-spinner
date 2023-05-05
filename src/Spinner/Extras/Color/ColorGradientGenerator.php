@@ -4,9 +4,8 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Extras\Color;
 
-use AlecRabbit\Spinner\Contract\Color\IColor;
-use AlecRabbit\Spinner\Core\Color\RGBColor;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
+use AlecRabbit\Spinner\Extras\Color\Contract\IColor;
 use AlecRabbit\Spinner\Extras\Color\Contract\IColorGradientGenerator;
 use AlecRabbit\Spinner\Extras\Color\Contract\IColorProcessor;
 use Generator;
@@ -23,6 +22,21 @@ final class ColorGradientGenerator implements IColorGradientGenerator
         protected int $maxColors = self::MAX,
     ) {
         $this->floatPrecision = $colorProcessor->getFloatPrecision();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function gradients(Traversable $colors, int $num = 2, IColor|string|null $fromColor = null): Generator
+    {
+        foreach ($colors as $color) {
+            if ($fromColor === null) {
+                $fromColor = $color;
+                continue;
+            }
+            yield from $this->gradient($fromColor, $color, $num);
+            $fromColor = $color;
+        }
     }
 
     /**
@@ -65,20 +79,5 @@ final class ColorGradientGenerator implements IColorGradientGenerator
             ),
             default => null,
         };
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function gradients(Traversable $colors, int $num = 2, IColor|string|null $fromColor = null): Generator
-    {
-        foreach ($colors as $color) {
-            if ($fromColor === null) {
-                $fromColor = $color;
-                continue;
-            }
-            yield from $this->gradient($fromColor, $color, $num);
-            $fromColor = $color;
-        }
     }
 }

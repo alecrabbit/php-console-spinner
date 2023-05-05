@@ -9,6 +9,7 @@ use AlecRabbit\Spinner\Core\Factory\Contract\IFrameCollectionFactory;
 use AlecRabbit\Spinner\Core\Factory\FrameCollectionFactory;
 use AlecRabbit\Spinner\Core\FrameCollection;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
+use ArrayObject;
 use PHPUnit\Framework\Attributes\Test;
 
 final class FrameCollectionFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
@@ -35,7 +36,7 @@ final class FrameCollectionFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
         self::assertInstanceOf(
             FrameCollection::class,
             $frameCollectionFactory->create(
-                new \ArrayObject([
+                new ArrayObject([
                     new CharFrame('a', 1),
                 ])
             )

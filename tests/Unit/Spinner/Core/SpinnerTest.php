@@ -68,6 +68,22 @@ final class SpinnerTest extends TestCaseWithPrebuiltMocksAndStubs
     }
 
     #[Test]
+    public function canBeAttachedAsObserverToRootWidget(): void
+    {
+        $rootWidget = $this->getWidgetMock();
+        $rootWidget
+            ->expects(self::once())
+            ->method('attach')
+        ;
+
+        $spinner = $this->getTesteeInstance(
+            rootWidget: $rootWidget,
+        );
+
+        self::assertInstanceOf(Spinner::class, $spinner);
+    }
+
+    #[Test]
     public function canGetInterval(): void
     {
         $interval = $this->getIntervalMock();

@@ -5,8 +5,8 @@ declare(strict_types=1);
 use AlecRabbit\Spinner\Core\Factory\StaticDefaultsFactory;
 use AlecRabbit\Spinner\Core\Interval;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
+use AlecRabbit\Spinner\Extras\Factory\StaticProgressWidgetFactory;
 use AlecRabbit\Spinner\Extras\ProgressValue;
-use AlecRabbit\Spinner\Extras\StaticProgressWidgetFactory;
 use AlecRabbit\Spinner\StaticFacade;
 
 require_once __DIR__ . '/../bootstrap.async.php';

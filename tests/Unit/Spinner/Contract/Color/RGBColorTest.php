@@ -5,8 +5,8 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Contract\Color;
 
-use AlecRabbit\Spinner\Core\Color\RGBColor;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
+use AlecRabbit\Spinner\Extras\Color\RGBColor;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
@@ -45,7 +45,7 @@ final class RGBColorTest extends TestCase
             ['#0000ff', new RGBColor(0, 0, 255, 1.0), -1, -1, 300, 3.0],
             ['#00f1ff', new RGBColor(0, 241, 255, 1.0), -1, 241, 300, 3.0],
             ['#0000ff', new RGBColor(0, 0, 255, 0.0), -1, -1, 300, -2.0],
-            ['#32aaff', new RGBColor(0x32, 0xaa, 0xff,0.3), 0x32, 0xaa, 0xff, 0.3],
+            ['#32aaff', new RGBColor(0x32, 0xaa, 0xff, 0.3), 0x32, 0xaa, 0xff, 0.3],
         ];
     }
 

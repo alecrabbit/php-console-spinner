@@ -6,9 +6,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\TestCase;
 
 use AlecRabbit\Spinner\Container\Contract\IContainer;
-use AlecRabbit\Spinner\Contract\Color\Style\IStyle;
-use AlecRabbit\Spinner\Contract\Color\Style\IStyleOptionsParser;
-use AlecRabbit\Spinner\Contract\IAnsiColorParser;
+use AlecRabbit\Spinner\Container\IDefinitionRegistry;
 use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Contract\IObserver;
@@ -28,13 +26,11 @@ use AlecRabbit\Spinner\Core\Builder\Settings\Contract\IDriverSettingsBuilder;
 use AlecRabbit\Spinner\Core\Builder\Settings\Contract\IWidgetSettingsBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\ISpinnerConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IWidgetConfig;
-use AlecRabbit\Spinner\Core\Contract\ICharFrameRenderer;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\IDriverBuilder;
 use AlecRabbit\Spinner\Core\Contract\IDriverLinker;
 use AlecRabbit\Spinner\Core\Contract\IDriverSetup;
 use AlecRabbit\Spinner\Core\Contract\IFrameCollection;
-use AlecRabbit\Spinner\Core\Contract\IHexColorToAnsiCodeConverter;
 use AlecRabbit\Spinner\Core\Contract\IIntervalNormalizer;
 use AlecRabbit\Spinner\Core\Contract\ILoopSetup;
 use AlecRabbit\Spinner\Core\Contract\ISettingsProvider;
@@ -44,25 +40,19 @@ use AlecRabbit\Spinner\Core\Contract\ISpinnerState;
 use AlecRabbit\Spinner\Core\Contract\IWidthMeasurer;
 use AlecRabbit\Spinner\Core\Contract\Loop\Contract\ILoop;
 use AlecRabbit\Spinner\Core\Contract\Loop\Contract\ILoopProbe;
-use AlecRabbit\Spinner\Core\Factory\Contract\IAnsiColorParserFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IBufferedOutputSingletonFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ICharFrameFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ICharFrameRevolverFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IConsoleCursorFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDriverOutputFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IFrameCollectionFactory;
-use AlecRabbit\Spinner\Core\Factory\Contract\IHexColorToAnsiCodeConverterFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopProbeFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopSettingsFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopSetupFactory;
-use AlecRabbit\Spinner\Core\Factory\Contract\ILoopSingletonFactory;
-use AlecRabbit\Spinner\Core\Factory\Contract\IStyleFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\ILoopFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IStyleFrameFactory;
-use AlecRabbit\Spinner\Core\Factory\Contract\IStyleFrameRendererFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IStyleFrameRevolverFactory;
-use AlecRabbit\Spinner\Core\Factory\Contract\IStyleRendererFactory;
-use AlecRabbit\Spinner\Core\Factory\Contract\IStyleToAnsiStringConverterFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ITerminalSettingsFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ITimerFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IWidgetSettingsFactory;
@@ -70,11 +60,6 @@ use AlecRabbit\Spinner\Core\Output\Contract\IConsoleCursor;
 use AlecRabbit\Spinner\Core\Output\Contract\IDriverOutput;
 use AlecRabbit\Spinner\Core\Pattern\Contract\ICharPattern;
 use AlecRabbit\Spinner\Core\Pattern\Contract\IStylePattern;
-use AlecRabbit\Spinner\Core\Render\Contract\ICharFrameCollectionRenderer;
-use AlecRabbit\Spinner\Core\Render\Contract\IStyleFrameCollectionRenderer;
-use AlecRabbit\Spinner\Core\Render\Contract\IStyleFrameRenderer;
-use AlecRabbit\Spinner\Core\Render\Contract\IStyleRenderer;
-use AlecRabbit\Spinner\Core\Render\Contract\IStyleToAnsiStringConverter;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolver;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolverBuilder;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
@@ -92,6 +77,22 @@ use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetIntervalContainer;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolverBuilder;
 use AlecRabbit\Spinner\Core\Widget\Factory\Contract\IWidgetFactory;
 use AlecRabbit\Spinner\Core\Widget\Factory\Contract\IWidgetRevolverFactory;
+use AlecRabbit\Spinner\Extras\Contract\IAnsiColorParser;
+use AlecRabbit\Spinner\Extras\Contract\ICharFrameRenderer;
+use AlecRabbit\Spinner\Extras\Contract\IHexColorToAnsiCodeConverter;
+use AlecRabbit\Spinner\Extras\Contract\IStyleToAnsiStringConverter;
+use AlecRabbit\Spinner\Extras\Contract\Style\IStyle;
+use AlecRabbit\Spinner\Extras\Contract\Style\IStyleOptionsParser;
+use AlecRabbit\Spinner\Extras\Factory\Contract\IAnsiColorParserFactory;
+use AlecRabbit\Spinner\Extras\Factory\Contract\IHexColorToAnsiCodeConverterFactory;
+use AlecRabbit\Spinner\Extras\Factory\Contract\IStyleFactory;
+use AlecRabbit\Spinner\Extras\Factory\Contract\IStyleFrameRendererFactory;
+use AlecRabbit\Spinner\Extras\Factory\Contract\IStyleRendererFactory;
+use AlecRabbit\Spinner\Extras\Factory\Contract\IStyleToAnsiStringConverterFactory;
+use AlecRabbit\Spinner\Extras\Render\Contract\ICharFrameCollectionRenderer;
+use AlecRabbit\Spinner\Extras\Render\Contract\IStyleFrameCollectionRenderer;
+use AlecRabbit\Spinner\Extras\Render\Contract\IStyleFrameRenderer;
+use AlecRabbit\Spinner\Extras\Render\Contract\IStyleRenderer;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\MockObject\Stub;
 
@@ -100,6 +101,11 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
     protected function getWidgetConfigStub(): Stub&IWidgetConfig
     {
         return $this->createStub(IWidgetConfig::class);
+    }
+
+    protected function createDefinitionRegistryMock(): MockObject&IDefinitionRegistry
+    {
+        return $this->createMock(IDefinitionRegistry::class);
     }
 
     protected function getWidgetIntervalContainerMock(): MockObject&IWidgetIntervalContainer
@@ -187,9 +193,9 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
         return $this->createMock(ILoopProbeFactory::class);
     }
 
-    protected function getLoopSingletonFactoryMock(): MockObject&ILoopSingletonFactory
+    protected function getLoopSingletonFactoryMock(): MockObject&ILoopFactory
     {
-        return $this->createMock(ILoopSingletonFactory::class);
+        return $this->createMock(ILoopFactory::class);
     }
 
     protected function getLoopSetupBuilderMock(): MockObject&ILoopSetupBuilder

@@ -21,6 +21,14 @@ final class IntervalFactory implements IIntervalFactory
     ) {
     }
 
+    public function createNormalized(?int $interval): IInterval
+    {
+        return
+            $interval === null
+                ? $this->createStill()
+                : $this->intervalNormalizer->normalize(new Interval($interval));
+    }
+
     public function createStill(): IInterval
     {
         if (self::$normalizedStillInterval === null) {
@@ -30,14 +38,6 @@ final class IntervalFactory implements IIntervalFactory
                 );
         }
         return self::$normalizedStillInterval;
-    }
-
-    public function createNormalized(?int $interval): IInterval
-    {
-        return
-            $interval === null
-                ? $this->createStill()
-                : $this->intervalNormalizer->normalize(new Interval($interval));
     }
 
     public function createDefault(): IInterval

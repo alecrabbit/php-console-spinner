@@ -17,7 +17,7 @@ final class CommonDriverTest extends TestCaseForDriver
 
         self::assertInstanceOf(Driver::class, $driver);
 
-        self::assertCount(0, self::getPropertyValue('spinners', $driver));
+        self::assertNull(self::getPropertyValue('spinner', $driver));
     }
 
     #[Test]
@@ -60,7 +60,7 @@ final class CommonDriverTest extends TestCaseForDriver
         ;
 
         $driver->add($spinnerOne);
-        self::assertCount(1, self::getPropertyValue('spinners', $driver));
+        self::assertSame($spinnerOne, self::getPropertyValue('spinner', $driver));
         self::assertSame($intervalOne, $driver->getInterval());
 
         $spinnerTwo = $this->getSpinnerStub();
@@ -71,42 +71,22 @@ final class CommonDriverTest extends TestCaseForDriver
 
         $driver->add($spinnerTwo);
 
-        self::assertCount(2, self::getPropertyValue('spinners', $driver));
+        self::assertSame($spinnerTwo, self::getPropertyValue('spinner', $driver));
         self::assertSame($intervalTwo, $driver->getInterval());
 
         $driver->remove($spinnerTwo);
 
-        self::assertCount(1, self::getPropertyValue('spinners', $driver));
-        self::assertSame($intervalOne, $driver->getInterval());
+        self::assertNull(self::getPropertyValue('spinner', $driver));
+        self::assertSame($initialInterval, $driver->getInterval());
 
         $driver->remove($spinnerTwo);
 
-        self::assertCount(1, self::getPropertyValue('spinners', $driver));
-        self::assertSame($intervalOne, $driver->getInterval());
+        self::assertNull(self::getPropertyValue('spinner', $driver));
+        self::assertSame($initialInterval, $driver->getInterval());
 
         $driver->remove($spinnerOne);
 
-        self::assertCount(0, self::getPropertyValue('spinners', $driver));
+        self::assertNull(self::getPropertyValue('spinner', $driver));
         self::assertSame($initialInterval, $driver->getInterval());
     }
-//
-//    #[Test]
-//    public function throwsIfInvalidIntervalCallbackProvided(): void
-//    {
-//        $exceptionClass = InvalidArgumentException::class;
-//        $exceptionMessage =
-//            'Interval callback MUST return an instance of "'
-//            . IInterval::class
-//            . '", instead returns "null".';
-//
-//        $this->expectException($exceptionClass);
-//        $this->expectExceptionMessage($exceptionMessage);
-//
-//        $_ =
-//            $this->getTesteeInstance(
-//                intervalCb: static fn() => null
-//            );
-//
-//        self::fail(self::exceptionNotThrownString($exceptionClass, $exceptionMessage));
-//    }
 }

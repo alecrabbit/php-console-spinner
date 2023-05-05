@@ -131,13 +131,15 @@ final class SpinnerFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
             ->expects(self::once())
             ->method('merge')
             ->with($rootWidgetConfig)
-            ->willReturnSelf();
+            ->willReturnSelf()
+        ;
 
         $spinnerConfig = $this->getSpinnerConfigMock();
         $spinnerConfig
             ->expects(self::once())
             ->method('getWidgetConfig')
-            ->willReturn($widgetConfig);
+            ->willReturn($widgetConfig)
+        ;
 
         $widget = $this->getWidgetMock();
         $widgetSettings = $this->getWidgetSettingsMock();
@@ -147,7 +149,8 @@ final class SpinnerFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
             ->expects(self::once())
             ->method('createWidget')
             ->with($widgetSettings)
-            ->willReturn($widget);
+            ->willReturn($widget)
+        ;
 
         $widgetSettingsFactory = $this->getWidgetSettingsFactoryMock();
         $widgetSettingsFactory
@@ -163,7 +166,57 @@ final class SpinnerFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
         );
 
         $spinner = $spinnerFactory->createSpinner($spinnerConfig);
-//
+
+        self::assertInstanceOf(SpinnerFactory::class, $spinnerFactory);
+        self::assertInstanceOf(Spinner::class, $spinner);
+        self::assertSame($widget, self::getPropertyValue('rootWidget', $spinner));
+    }
+
+    #[Test]
+    public function canCreateSpinnerWithWidgetConfig(): void
+    {
+        $rootWidgetConfig = $this->getWidgetConfigMock();
+        $settingsProvider = $this->getSettingsProviderMock();
+        $settingsProvider
+            ->expects(self::once())
+            ->method('getRootWidgetConfig')
+            ->willReturn($rootWidgetConfig)
+        ;
+
+        $widgetConfig = $this->getWidgetConfigMock();
+        $widgetConfig
+            ->expects(self::once())
+            ->method('merge')
+            ->with($rootWidgetConfig)
+            ->willReturnSelf()
+        ;
+
+        $widget = $this->getWidgetMock();
+        $widgetSettings = $this->getWidgetSettingsMock();
+
+        $widgetFactory = $this->getWidgetFactoryMock();
+        $widgetFactory
+            ->expects(self::once())
+            ->method('createWidget')
+            ->with($widgetSettings)
+            ->willReturn($widget)
+        ;
+
+        $widgetSettingsFactory = $this->getWidgetSettingsFactoryMock();
+        $widgetSettingsFactory
+            ->expects(self::once())
+            ->method('createFromConfig')
+            ->with($widgetConfig)
+            ->willReturn($widgetSettings)
+        ;
+        $spinnerFactory = $this->getTesteeInstance(
+            settingsProvider: $settingsProvider,
+            widgetFactory: $widgetFactory,
+            widgetSettingsFactory: $widgetSettingsFactory,
+        );
+
+        $spinner = $spinnerFactory->createSpinner($widgetConfig);
+
         self::assertInstanceOf(SpinnerFactory::class, $spinnerFactory);
         self::assertInstanceOf(Spinner::class, $spinner);
         self::assertSame($widget, self::getPropertyValue('rootWidget', $spinner));

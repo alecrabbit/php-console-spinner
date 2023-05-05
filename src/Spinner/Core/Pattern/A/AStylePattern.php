@@ -12,8 +12,6 @@ abstract class AStylePattern extends AReversiblePattern implements IStylePattern
 {
     protected const STYLE_MODE = OptionStyleMode::ANSI8;
 
-    protected const PATTERN = ['#c0c0c0'];
-
     public function getStyleMode(): OptionStyleMode
     {
         return self::STYLE_MODE;

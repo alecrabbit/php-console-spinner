@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Extras\Color;
 
-use AlecRabbit\Spinner\Contract\Color\IColor;
-use AlecRabbit\Spinner\Core\Color\HSLColor;
-use AlecRabbit\Spinner\Core\Color\RGBColor;
 use AlecRabbit\Spinner\Extras\Color\ColorProcessor;
+use AlecRabbit\Spinner\Extras\Color\Contract\IColor;
 use AlecRabbit\Spinner\Extras\Color\Contract\IColorProcessor;
+use AlecRabbit\Spinner\Extras\Color\HSLColor;
+use AlecRabbit\Spinner\Extras\Color\RGBColor;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
