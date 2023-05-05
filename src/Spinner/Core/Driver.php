@@ -14,12 +14,11 @@ use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use AlecRabbit\Spinner\Core\Contract\ISpinnerState;
 use AlecRabbit\Spinner\Core\Output\Contract\IDriverOutput;
-use WeakMap;
 
 final class Driver extends ASubject implements IDriver
 {
-    /** @var WeakMap<ISpinner, ISpinnerState> */
-    private readonly WeakMap $spinners;
+    private ?ISpinner $spinner = null;
+    private ISpinnerState $state;
     private IInterval $interval;
 
     public function __construct(
@@ -29,27 +28,22 @@ final class Driver extends ASubject implements IDriver
         ?IObserver $observer = null,
     ) {
         parent::__construct($observer);
-        $this->spinners = new WeakMap();
         $this->interval = $initialInterval;
     }
 
     public function render(?float $dt = null): void
     {
-        $dt ??= $this->timer->getDelta();
-
-        foreach ($this->spinners as $spinner => $previousState) {
-            $frame = $spinner->getFrame($dt);
-
-            $state =
+        if ($this->spinner) {
+            $dt ??= $this->timer->getDelta();
+            $frame = $this->spinner->getFrame($dt);
+            $this->state =
                 new SpinnerState(
                     sequence: $frame->sequence(),
                     width: $frame->width(),
-                    previousWidth: $previousState->getWidth()
+                    previousWidth: $this->state->getWidth()
                 );
 
-            $this->spinners->offsetSet($spinner, $state);
-
-            $this->driverOutput->write($state);
+            $this->driverOutput->write($this->state);
         }
     }
 
@@ -60,21 +54,15 @@ final class Driver extends ASubject implements IDriver
 
     public function finalize(?string $finalMessage = null): void
     {
-        $this->eraseAll();
+        $this->erase();
         $this->driverOutput->finalize($finalMessage);
     }
 
-    private function eraseAll(): void
+    private function erase(): void
     {
-        /** @var ISpinnerState $state */
-        foreach ($this->spinners as $state) {
-            $this->erase($state);
+        if ($this->spinner) {
+            $this->driverOutput->erase($this->state);
         }
-    }
-
-    private function erase(ISpinnerState $state): void
-    {
-        $this->driverOutput->erase($state);
     }
 
     public function initialize(): void
@@ -84,12 +72,12 @@ final class Driver extends ASubject implements IDriver
 
     public function add(ISpinner $spinner): void
     {
-        if (!$this->spinners->offsetExists($spinner)) {
-            $this->spinners->offsetSet($spinner, new SpinnerState());
-            $this->interval = $this->interval->smallest($spinner->getInterval());
-            $spinner->attach($this);
-            $this->notify();
-        }
+        $this->erase();
+        $spinner->attach($this);
+        $this->spinner = $spinner;
+        $this->state = new SpinnerState();
+        $this->interval = $this->interval->smallest($spinner->getInterval());
+        $this->notify();
     }
 
     public function getInterval(): IInterval
@@ -99,10 +87,10 @@ final class Driver extends ASubject implements IDriver
 
     public function remove(ISpinner $spinner): void
     {
-        if ($this->spinners->offsetExists($spinner)) {
-            $this->erase($this->spinners[$spinner]);
-            $this->spinners->offsetUnset($spinner);
+        if ($this->spinner === $spinner) {
+            $this->erase();
             $spinner->detach($this);
+            $this->spinner = null;
             $this->interval = $this->recalculateInterval();
             $this->notify();
         }
@@ -110,16 +98,12 @@ final class Driver extends ASubject implements IDriver
 
     private function recalculateInterval(): IInterval
     {
-        $interval = $this->initialInterval;
-        foreach ($this->spinners as $spinner => $_) {
-            $interval = $interval->smallest($spinner->getInterval());
-        }
-        return $interval;
+        return $this->initialInterval->smallest($this->spinner?->getInterval());
     }
 
     public function update(ISubject $subject): void
     {
-        if ($this->spinners->offsetExists($subject)) {
+        if ($this->spinner === $subject) {
             $this->interval = $this->recalculateInterval();
             $this->notify();
         }
