@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner;
 
 use AlecRabbit\Spinner\Container\Contract\IContainer;
+use AlecRabbit\Spinner\Container\DefinitionRegistry;
 use AlecRabbit\Spinner\Core\Config\Contract\ISpinnerConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IWidgetConfig;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
@@ -31,7 +32,7 @@ final class Facade implements IFacade
 
     private static function getContainer(): IContainer
     {
-        return ContainerFactory::getContainer();
+        return (new ContainerFactory(DefinitionRegistry::getInstance()))->getContainer();
     }
 
     public static function bind(string $typeId, object|callable|string $service): void
@@ -85,3 +86,5 @@ final class Facade implements IFacade
         return self::getContainer()->get(IDriverSingletonFactory::class);
     }
 }
+
+//

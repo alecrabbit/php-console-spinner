@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Factory;
 
 use AlecRabbit\Spinner\Container\Container;
+use AlecRabbit\Spinner\Container\IDefinitionRegistry;
 use AlecRabbit\Spinner\Core\Factory\ContainerFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IContainerFactory;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
@@ -21,17 +22,11 @@ final class ContainerFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
         self::assertNull(self::getPropertyValue('container', ContainerFactory::class));
     }
 
-    public function getTesteeInstance(): IContainerFactory
-    {
-        return new ContainerFactory();
-    }
-
-    protected function setUp(): void
-    {
-        self::setPropertyValue(
-            ContainerFactory::class,
-            'container',
-            null
+    public function getTesteeInstance(
+        ?IDefinitionRegistry $registry = null
+    ): IContainerFactory {
+        return new ContainerFactory(
+            registry: $registry ?? $this->createDefinitionRegistryMock()
         );
     }
 
@@ -42,7 +37,7 @@ final class ContainerFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
 
         self::assertNull(self::getPropertyValue('container', ContainerFactory::class));
 
-        $container = $containerFactory::getContainer();
+        $container = $containerFactory->getContainer();
 
         self::assertNotNull(self::getPropertyValue('container', ContainerFactory::class));
         self::assertInstanceOf(Container::class, $container);
@@ -53,10 +48,19 @@ final class ContainerFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
     {
         $containerFactory = $this->getTesteeInstance();
 
-        $container = $containerFactory::getContainer();
+        $container = $containerFactory->getContainer();
 
-        self::assertSame($container, $containerFactory::getContainer());
-        self::assertSame($container, $containerFactory::getContainer());
-        self::assertSame($container, $containerFactory::getContainer());
+        self::assertSame($container, $containerFactory->getContainer());
+        self::assertSame($container, $containerFactory->getContainer());
+        self::assertSame($container, $containerFactory->getContainer());
+    }
+
+    protected function setUp(): void
+    {
+        self::setPropertyValue(
+            ContainerFactory::class,
+            'container',
+            null
+        );
     }
 }

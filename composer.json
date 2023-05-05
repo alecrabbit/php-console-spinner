@@ -50,6 +50,7 @@
             "AlecRabbit\\Spinner\\": "src\\Spinner\\"
         },
         "files": [
+            "src/Spinner/bootstrap.php",
             "src/Spinner/Asynchronous/bootstrap.php",
             "src/Spinner/Extras/bootstrap.php"
         ]

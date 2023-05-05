@@ -6,6 +6,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\TestCase;
 
 use AlecRabbit\Spinner\Container\Contract\IContainer;
+use AlecRabbit\Spinner\Container\IDefinitionRegistry;
 use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Contract\IObserver;
@@ -100,6 +101,11 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
     protected function getWidgetConfigStub(): Stub&IWidgetConfig
     {
         return $this->createStub(IWidgetConfig::class);
+    }
+
+    protected function createDefinitionRegistryMock(): MockObject&IDefinitionRegistry
+    {
+        return $this->createMock(IDefinitionRegistry::class);
     }
 
     protected function getWidgetIntervalContainerMock(): MockObject&IWidgetIntervalContainer

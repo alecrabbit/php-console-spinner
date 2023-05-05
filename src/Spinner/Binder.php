@@ -2,8 +2,9 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Spinner\Container;
+namespace AlecRabbit\Spinner;
 
+use AlecRabbit\Spinner\Container\DefinitionRegistry;
 use AlecRabbit\Spinner\Contract\Option\OptionCursor;
 use AlecRabbit\Spinner\Contract\Option\OptionNormalizerMode;
 use AlecRabbit\Spinner\Contract\Option\OptionStyleMode;
@@ -101,19 +102,22 @@ use AlecRabbit\Spinner\Core\Widget\Factory\WidgetRevolverFactory;
 use AlecRabbit\Spinner\Core\Widget\WidgetBuilder;
 use AlecRabbit\Spinner\Core\Widget\WidgetRevolverBuilder;
 use AlecRabbit\Spinner\Exception\DomainException;
-use AlecRabbit\Spinner\Mixin\NonInstantiable;
-use ArrayObject;
 use Psr\Container\ContainerInterface;
-use Traversable;
 
 /**
  * @codeCoverageIgnore
  */
-final class DefinitionsRegistry
+final class Binder
 {
-    use NonInstantiable;
+    public static function bind(): void
+    {
+        $definitions = DefinitionRegistry::getInstance();
+        foreach (self::defaults() as $id => $definition) {
+            $definitions->register($id, $definition);
+        }
+    }
 
-    public static function getDefinitions(): Traversable
+    protected static function defaults(): \Traversable
     {
         yield from [
             IAuxSettingsBuilder::class => AuxSettingsBuilder::class,
@@ -206,7 +210,7 @@ final class DefinitionsRegistry
             },
             ITerminalProbeFactory::class => static function (): ITerminalProbeFactory {
                 return new TerminalProbeFactory(
-                    new ArrayObject([
+                    new \ArrayObject([
                         NativeTerminalProbe::class,
                     ]),
                 );
