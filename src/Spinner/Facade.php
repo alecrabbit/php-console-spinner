@@ -48,17 +48,16 @@ final class Facade implements IFacade
         return self::getContainer()->get(ISettingsProvider::class);
     }
 
-    public static function createSpinner(?ISpinnerConfig $config = null): ISpinner
+    public static function createSpinner(?ISpinnerConfig $config = null, bool $attach = true): ISpinner
     {
         $spinner =
             self::getSpinnerFactory()
                 ->createSpinner($config)
         ;
 
-        $driver = self::getDriverFactory()
-            ->getDriver()
-        ;
-        $driver->add($spinner);
+        if ($attach) {
+            self::attach($spinner);
+        }
 
         return $spinner;
     }
@@ -66,6 +65,11 @@ final class Facade implements IFacade
     private static function getSpinnerFactory(): ISpinnerFactory
     {
         return self::getContainer()->get(ISpinnerFactory::class);
+    }
+
+    protected static function attach(ISpinner $spinner): void
+    {
+        self::getDriverFactory()->getDriver()->add($spinner);
     }
 
     public static function getDriver(): IDriver
