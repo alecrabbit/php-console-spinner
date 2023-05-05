@@ -11,7 +11,7 @@ use AlecRabbit\Spinner\Core\Contract\IFacade;
 use AlecRabbit\Spinner\Core\Contract\ISettingsProvider;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use AlecRabbit\Spinner\Core\Contract\Loop\Contract\ILoop;
-use AlecRabbit\Spinner\Core\Factory\ContainerSingletonFactory;
+use AlecRabbit\Spinner\Core\Factory\ContainerFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDriverSingletonFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopSingletonFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ISpinnerFactory;
@@ -30,16 +30,16 @@ final class Facade implements IFacade
 
     private static function getContainer(): IContainer
     {
-        return ContainerSingletonFactory::getContainer();
+        return ContainerFactory::getContainer();
     }
 
-    public static function useService(string $id, object|callable|string $service): void
+    public static function bind(string $typeId, object|callable|string $service): void
     {
         $container = self::getContainer();
 
-        match ($container->has($id)) {
-            false => $container->add($id, $service),
-            default => $container->replace($id, $service),
+        match ($container->has($typeId)) {
+            false => $container->add($typeId, $service),
+            default => $container->replace($typeId, $service),
         };
     }
 

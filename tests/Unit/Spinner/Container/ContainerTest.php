@@ -225,7 +225,6 @@ final class ContainerTest extends TestCase
             new ArrayObject([
                 'foo' => 'bar',
             ]),
-            //ContainerException('Could not instantiate service for "foo". Class "bar" is not found.')
             function (): IServiceSpawner {
                 $spawner = $this->getSpawnerInstanceMock();
                 $spawner
@@ -246,20 +245,20 @@ final class ContainerTest extends TestCase
     #[Test]
     public function throwsWhenBeCreatedWithInvalidDefinitions(): void
     {
-        $exceptionClass = ContainerException::class;
-        $exceptionMessage = 'Definition should be callable, object or string, integer given.';
-
-        $this->expectException($exceptionClass);
-        $this->expectExceptionMessage($exceptionMessage);
-
-        $container = $this->getTesteeInstance(
-            new ArrayObject([
-                'foo' => 'bar',
-                'baz' => 1,
-            ])
+        $this->wrapExceptionTest(
+            function (): void {
+                $container = $this->getTesteeInstance(
+                    new ArrayObject([
+                        'foo' => 'bar',
+                        'baz' => 1,
+                    ])
+                );
+                self::assertInstanceOf(Container::class, $container);
+            },
+            new ContainerException(
+                'Definition should be callable, object or string, "integer" given.'
+            )
         );
-
-        self::failTest(self::exceptionNotThrownString($exceptionClass, $exceptionMessage));
     }
 
     #[Test]

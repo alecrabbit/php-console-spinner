@@ -11,7 +11,7 @@ use AlecRabbit\Spinner\Facade;
 
 // @codeCoverageIgnoreStart
 
-Facade::useService(
+Facade::bind(
     ILoopProbeFactory::class,
     static function (): ILoopProbeFactory {
         return new LoopProbeFactory(probes());

@@ -40,12 +40,12 @@ final class Container implements IContainer
         if ($definitions) {
             /** @var callable|object|string $definition */
             foreach ($definitions as $id => $definition) {
-                $this->addDefinition($id, $definition);
+                $this->register($id, $definition);
             }
         }
     }
 
-    private function addDefinition(string $id, mixed $definition): void
+    private function register(string $id, mixed $definition): void
     {
         $this->assertDefinition($definition);
 
@@ -60,7 +60,7 @@ final class Container implements IContainer
         if (!is_callable($definition) && !is_object($definition) && !is_string($definition)) {
             throw new ContainerException(
                 sprintf(
-                    'Definition should be callable, object or string, %s given.',
+                    'Definition should be callable, object or string, "%s" given.',
                     gettype($definition),
                 )
             );
@@ -115,7 +115,7 @@ final class Container implements IContainer
 
     public function add(string $id, callable|object|string $definition): void
     {
-        $this->addDefinition($id, $definition);
+        $this->register($id, $definition);
     }
 
     public function get(string $id): object

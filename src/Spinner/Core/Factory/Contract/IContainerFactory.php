@@ -6,7 +6,7 @@ namespace AlecRabbit\Spinner\Core\Factory\Contract;
 
 use AlecRabbit\Spinner\Container\Contract\IContainer;
 
-interface IContainerSingletonFactory
+interface IContainerFactory
 {
     public static function getContainer(): IContainer;
 }

@@ -2,13 +2,8 @@
 
 declare(strict_types=1);
 
+namespace AlecRabbit\Spinner\Container;
 
-namespace AlecRabbit\Spinner\Core\Factory;
-
-use AlecRabbit\Spinner\Container\Container;
-use AlecRabbit\Spinner\Container\Contract\IContainer;
-use AlecRabbit\Spinner\Container\Contract\IServiceSpawner;
-use AlecRabbit\Spinner\Container\ServiceSpawner;
 use AlecRabbit\Spinner\Contract\Option\OptionCursor;
 use AlecRabbit\Spinner\Contract\Option\OptionNormalizerMode;
 use AlecRabbit\Spinner\Contract\Option\OptionStyleMode;
@@ -46,11 +41,14 @@ use AlecRabbit\Spinner\Core\Contract\IWidthMeasurer;
 use AlecRabbit\Spinner\Core\Contract\Loop\Contract\ILoop;
 use AlecRabbit\Spinner\Core\Contract\Loop\Contract\ILoopProbe;
 use AlecRabbit\Spinner\Core\DriverSetup;
+use AlecRabbit\Spinner\Core\Factory\BufferedOutputSingletonFactory;
+use AlecRabbit\Spinner\Core\Factory\CharFrameFactory;
+use AlecRabbit\Spinner\Core\Factory\CharFrameRevolverFactory;
+use AlecRabbit\Spinner\Core\Factory\ConsoleCursorFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IBufferedOutputSingletonFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ICharFrameFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ICharFrameRevolverFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IConsoleCursorFactory;
-use AlecRabbit\Spinner\Core\Factory\Contract\IContainerSingletonFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDriverLinkerSingletonFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDriverOutputFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDriverSingletonFactory;
@@ -70,6 +68,24 @@ use AlecRabbit\Spinner\Core\Factory\Contract\ITerminalSettingsFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ITimerFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IWidgetSettingsFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IWidthMeasurerFactory;
+use AlecRabbit\Spinner\Core\Factory\DriverLinkerSingletonFactory;
+use AlecRabbit\Spinner\Core\Factory\DriverOutputFactory;
+use AlecRabbit\Spinner\Core\Factory\DriverSingletonFactory;
+use AlecRabbit\Spinner\Core\Factory\FrameCollectionFactory;
+use AlecRabbit\Spinner\Core\Factory\IntervalFactory;
+use AlecRabbit\Spinner\Core\Factory\IntervalNormalizerFactory;
+use AlecRabbit\Spinner\Core\Factory\LoopSettingsFactory;
+use AlecRabbit\Spinner\Core\Factory\LoopSetupFactory;
+use AlecRabbit\Spinner\Core\Factory\LoopSingletonFactory;
+use AlecRabbit\Spinner\Core\Factory\SignalProcessingProbeFactory;
+use AlecRabbit\Spinner\Core\Factory\SpinnerFactory;
+use AlecRabbit\Spinner\Core\Factory\StyleFrameFactory;
+use AlecRabbit\Spinner\Core\Factory\StyleFrameRevolverFactory;
+use AlecRabbit\Spinner\Core\Factory\TerminalProbeFactory;
+use AlecRabbit\Spinner\Core\Factory\TerminalSettingsFactory;
+use AlecRabbit\Spinner\Core\Factory\TimerFactory;
+use AlecRabbit\Spinner\Core\Factory\WidgetSettingsFactory;
+use AlecRabbit\Spinner\Core\Factory\WidthMeasurerFactory;
 use AlecRabbit\Spinner\Core\LoopSetup;
 use AlecRabbit\Spinner\Core\Output\ResourceStream;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolverBuilder;
@@ -85,44 +101,20 @@ use AlecRabbit\Spinner\Core\Widget\Factory\WidgetRevolverFactory;
 use AlecRabbit\Spinner\Core\Widget\WidgetBuilder;
 use AlecRabbit\Spinner\Core\Widget\WidgetRevolverBuilder;
 use AlecRabbit\Spinner\Exception\DomainException;
+use AlecRabbit\Spinner\Mixin\NonInstantiable;
 use ArrayObject;
 use Psr\Container\ContainerInterface;
 use Traversable;
 
-final class ContainerSingletonFactory implements IContainerSingletonFactory
+/**
+ * @codeCoverageIgnore
+ */
+final class DefinitionsRegistry
 {
-    private static ?IContainer $container = null;
+    use NonInstantiable;
 
-    public static function getContainer(): IContainer
+    public static function getDefinitions(): Traversable
     {
-        if (self::$container === null) {
-            self::$container = self::createContainer();
-        }
-        return self::$container;
-    }
-
-    private static function createContainer(): IContainer
-    {
-        $container = new Container(
-            spawnerCreatorCb: static function (ContainerInterface $container): IServiceSpawner {
-                return new ServiceSpawner($container);
-            },
-        );
-        self::initializeContainer($container);
-
-        return $container;
-    }
-
-    private static function initializeContainer(IContainer $container): void
-    {
-        foreach (self::getRegisteredDefinitions() as $id => $service) {
-            $container->add($id, $service);
-        }
-    }
-
-    private static function getRegisteredDefinitions(): Traversable
-    {
-        // TODO (2023-04-10 20:21) [Alec Rabbit]: consider extracting definitions?
         yield from [
             IAuxSettingsBuilder::class => AuxSettingsBuilder::class,
             IBufferedOutputBuilder::class => BufferedOutputBuilder::class,

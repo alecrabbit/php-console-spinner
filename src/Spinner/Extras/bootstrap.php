@@ -11,11 +11,11 @@ use AlecRabbit\Spinner\Facade;
 
 // @codeCoverageIgnoreStart
 
-Facade::useService(
+Facade::bind(
     IHexColorToAnsiCodeConverterFactory::class,
     HexColorToAnsiCodeConverterFactory::class,
 );
-Facade::useService(
+Facade::bind(
     ITerminalProbeFactory::class,
     static function (): ITerminalProbeFactory {
         return new TerminalProbeFactory(
