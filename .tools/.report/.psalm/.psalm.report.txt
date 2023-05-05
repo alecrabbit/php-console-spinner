@@ -32,7 +32,7 @@
 /app/src/Spinner/Core/Builder/WidgetSettingsBuilder.php:30:33:error - PossiblyNullArgument: Argument 2 of AlecRabbit\Spinner\Core\Settings\WidgetSettings::__construct cannot be null, possibly null value provided
 /app/src/Spinner/Core/Builder/WidgetSettingsBuilder.php:31:31:error - PossiblyNullArgument: Argument 3 of AlecRabbit\Spinner\Core\Settings\WidgetSettings::__construct cannot be null, possibly null value provided
 /app/src/Spinner/Core/Builder/WidgetSettingsBuilder.php:32:30:error - PossiblyNullArgument: Argument 4 of AlecRabbit\Spinner\Core\Settings\WidgetSettings::__construct cannot be null, possibly null value provided
-/app/src/Spinner/Core/Driver.php:21:27:error - PropertyNotSetInConstructor: Property AlecRabbit\Spinner\Core\Driver::$state is not defined in constructor of AlecRabbit\Spinner\Core\Driver or in any private or final methods called in the constructor
+/app/src/Spinner/Core/Driver.php:22:27:error - PropertyNotSetInConstructor: Property AlecRabbit\Spinner\Core\Driver::$state is not defined in constructor of AlecRabbit\Spinner\Core\Driver or in any private or final methods called in the constructor
 /app/src/Spinner/Core/Factory/CharFrameRevolverFactory.php:45:63:error - MixedArgument: Argument 1 of AlecRabbit\Spinner\Core\Factory\Contract\IFrameCollectionFactory::create cannot be mixed, expecting Traversable
 /app/src/Spinner/Core/Factory/CharFrameRevolverFactory.php:45:73:error - UndefinedInterfaceMethod: Method AlecRabbit\Spinner\Contract\Pattern\IPattern::getEntries does not exist
 /app/src/Spinner/Core/Factory/StyleFrameFactory.php:31:17:error - PossiblyInvalidArgument: Argument 1 of AlecRabbit\Spinner\Core\Contract\IWidthMeasurer::measureWidth expects string, but possibly different type array<array-key, mixed>|string provided
@@ -113,21 +113,21 @@
 /app/src/Spinner/Extras/Contract/IProgressWidgetFactory.php:21:8:error - UndefinedClass: Class, interface or enum named AlecRabbit\Spinner\Core\Widget\Contract\ILegacyWidgetComposite does not exist
 /app/src/Spinner/Extras/Contract/IProgressWidgetFactory.php:29:8:error - UndefinedClass: Class, interface or enum named AlecRabbit\Spinner\Core\Widget\Contract\ILegacyWidgetComposite does not exist
 /app/src/Spinner/Extras/Contract/Style/IStyleOptions.php:10:33:error - MissingTemplateParam: AlecRabbit\Spinner\Extras\Contract\Style\IStyleOptions has missing template params when extending IteratorAggregate, expecting 2
-/app/src/Spinner/Extras/Driver.php:33:27:error - PropertyTypeCoercion: $this->spinners expects 'WeakMap<AlecRabbit\Spinner\Core\Contract\ISpinner, AlecRabbit\Spinner\Core\Contract\ISpinnerState>',  parent type 'WeakMap<object, mixed>' provided
-/app/src/Spinner/Extras/Driver.php:41:37:error - MixedAssignment: Unable to determine the type that $spinner is being assigned to
-/app/src/Spinner/Extras/Driver.php:41:49:error - MixedAssignment: Unable to determine the type that $previousState is being assigned to
-/app/src/Spinner/Extras/Driver.php:42:13:error - MixedAssignment: Unable to determine the type that $frame is being assigned to
-/app/src/Spinner/Extras/Driver.php:42:32:error - MixedMethodCall: Cannot determine the type of $spinner when calling method getFrame
-/app/src/Spinner/Extras/Driver.php:46:31:error - MixedArgument: Argument 1 of AlecRabbit\Spinner\Core\SpinnerState::__construct cannot be mixed, expecting string
-/app/src/Spinner/Extras/Driver.php:46:39:error - MixedMethodCall: Cannot determine the type of $frame when calling method sequence
-/app/src/Spinner/Extras/Driver.php:47:28:error - MixedArgument: Argument 2 of AlecRabbit\Spinner\Core\SpinnerState::__construct cannot be mixed, expecting int
-/app/src/Spinner/Extras/Driver.php:47:36:error - MixedMethodCall: Cannot determine the type of $frame when calling method width
-/app/src/Spinner/Extras/Driver.php:48:36:error - MixedArgument: Argument 3 of AlecRabbit\Spinner\Core\SpinnerState::__construct cannot be mixed, expecting int
-/app/src/Spinner/Extras/Driver.php:48:52:error - MixedMethodCall: Cannot determine the type of $previousState when calling method getWidth
-/app/src/Spinner/Extras/Driver.php:51:40:error - MixedArgument: Argument 1 of WeakMap::offsetSet cannot be mixed, expecting AlecRabbit\Spinner\Core\Contract\ISpinner
-/app/src/Spinner/Extras/Driver.php:115:37:error - MixedAssignment: Unable to determine the type that $spinner is being assigned to
-/app/src/Spinner/Extras/Driver.php:116:55:error - MixedMethodCall: Cannot determine the type of $spinner when calling method getInterval
-/app/src/Spinner/Extras/Driver.php:123:43:error - ArgumentTypeCoercion: Argument 1 of WeakMap::offsetExists expects AlecRabbit\Spinner\Core\Contract\ISpinner, but parent type AlecRabbit\Spinner\Contract\ISubject provided
+/app/src/Spinner/Extras/Driver.php:34:27:error - PropertyTypeCoercion: $this->spinners expects 'WeakMap<AlecRabbit\Spinner\Core\Contract\ISpinner, AlecRabbit\Spinner\Core\Contract\ISpinnerState>',  parent type 'WeakMap<object, mixed>' provided
+/app/src/Spinner/Extras/Driver.php:42:37:error - MixedAssignment: Unable to determine the type that $spinner is being assigned to
+/app/src/Spinner/Extras/Driver.php:42:49:error - MixedAssignment: Unable to determine the type that $previousState is being assigned to
+/app/src/Spinner/Extras/Driver.php:43:13:error - MixedAssignment: Unable to determine the type that $frame is being assigned to
+/app/src/Spinner/Extras/Driver.php:43:32:error - MixedMethodCall: Cannot determine the type of $spinner when calling method getFrame
+/app/src/Spinner/Extras/Driver.php:47:31:error - MixedArgument: Argument 1 of AlecRabbit\Spinner\Core\SpinnerState::__construct cannot be mixed, expecting string
+/app/src/Spinner/Extras/Driver.php:47:39:error - MixedMethodCall: Cannot determine the type of $frame when calling method sequence
+/app/src/Spinner/Extras/Driver.php:48:28:error - MixedArgument: Argument 2 of AlecRabbit\Spinner\Core\SpinnerState::__construct cannot be mixed, expecting int
+/app/src/Spinner/Extras/Driver.php:48:36:error - MixedMethodCall: Cannot determine the type of $frame when calling method width
+/app/src/Spinner/Extras/Driver.php:49:36:error - MixedArgument: Argument 3 of AlecRabbit\Spinner\Core\SpinnerState::__construct cannot be mixed, expecting int
+/app/src/Spinner/Extras/Driver.php:49:52:error - MixedMethodCall: Cannot determine the type of $previousState when calling method getWidth
+/app/src/Spinner/Extras/Driver.php:52:40:error - MixedArgument: Argument 1 of WeakMap::offsetSet cannot be mixed, expecting AlecRabbit\Spinner\Core\Contract\ISpinner
+/app/src/Spinner/Extras/Driver.php:116:37:error - MixedAssignment: Unable to determine the type that $spinner is being assigned to
+/app/src/Spinner/Extras/Driver.php:117:55:error - MixedMethodCall: Cannot determine the type of $spinner when calling method getInterval
+/app/src/Spinner/Extras/Driver.php:124:43:error - ArgumentTypeCoercion: Argument 1 of WeakMap::offsetExists expects AlecRabbit\Spinner\Core\Contract\ISpinner, but parent type AlecRabbit\Spinner\Contract\ISubject provided
 /app/src/Spinner/Extras/Procedure/A/AFloatValueProcedure.php:22:50:error - InvalidReturnType: Not all code paths of AlecRabbit\Spinner\Extras\Procedure\A\AFloatValueProcedure::getFrame end in a return statement, return type AlecRabbit\Spinner\Contract\IFrame expected
 /app/src/Spinner/Extras/Procedure/A/AProgressValueProcedure.php:14:21:error - InvalidClassConstantType: The type "'%' 3.0f%%'" for AlecRabbit\Spinner\Extras\Procedure\A\AProgressValueProcedure::FORMAT does not satisfy the type "'%s'" inherited from AlecRabbit\Spinner\Extras\Procedure\A\AFloatValueProcedure::FORMAT
 /app/src/Spinner/Extras/Procedure/A/AProgressValueProcedure.php:37:16:error - InvalidStaticInvocation: Method AlecRabbit\Spinner\Core\Factory\CharFrameFactory::create is not static, but is called statically
