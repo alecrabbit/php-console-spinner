@@ -24,17 +24,25 @@ final class SpinnerFactory implements ISpinnerFactory
     ) {
     }
 
-    public function createSpinner(?ISpinnerConfig $spinnerConfig = null): ISpinner
+    public function createSpinner(ISpinnerConfig|IWidgetConfig|null $config = null): ISpinner
     {
+        $config = $this->extractConfig($config);
+
         return
             new Spinner(
                 $this->widgetFactory
                     ->createWidget(
-                        $this->createWidgetSettings(
-                            $spinnerConfig?->getWidgetConfig()
-                        )
+                        $this->createWidgetSettings($config)
                     ),
             );
+    }
+
+    protected function extractConfig(ISpinnerConfig|IWidgetConfig|null $config): ?IWidgetConfig
+    {
+        if ($config instanceof ISpinnerConfig) {
+            $config = $config->getWidgetConfig();
+        }
+        return $config;
     }
 
     private function createWidgetSettings(?IWidgetConfig $config): IWidgetSettings

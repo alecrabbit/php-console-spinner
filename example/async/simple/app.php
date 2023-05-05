@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-use AlecRabbit\Spinner\Core\Config\SpinnerConfig;
 use AlecRabbit\Spinner\Core\Config\WidgetConfig;
 use AlecRabbit\Spinner\Facade;
 use AlecRabbit\Spinner\Helper\MemoryUsage;
@@ -43,11 +42,9 @@ $settingsProvider
 //dump($settingsProvider);
 
 $config =
-    new SpinnerConfig(
-        new WidgetConfig(
-            stylePattern: new \AlecRabbit\Spinner\Core\Pattern\StylePattern\Rainbow(),
-//            charPattern: new \AlecRabbit\Spinner\Core\Pattern\CharPattern\SwirlingDots()
-        )
+    new WidgetConfig(
+        stylePattern: new \AlecRabbit\Spinner\Core\Pattern\StylePattern\Rainbow(),
+//        charPattern: new \AlecRabbit\Spinner\Core\Pattern\CharPattern\SwirlingDots()
     );
 
 $spinner = Facade::createSpinner($config);
