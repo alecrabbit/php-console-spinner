@@ -36,7 +36,7 @@ final class HexColorToAnsiCodeConverterTest extends TestCaseWithPrebuiltMocksAnd
 
     protected static function coreTestCanConvertDataProvider(): iterable
     {
-        $src = \AlecRabbit\Tests\Unit\Spinner\Extras\Color\SimpleHexColorToAnsiCodeConverterTest::class;
+        $src = SimpleHexColorToAnsiCodeConverterTest::class;
         yield from $src::canConvertDataProvider();
     }
 

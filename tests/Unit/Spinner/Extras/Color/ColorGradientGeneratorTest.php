@@ -131,7 +131,8 @@ final class ColorGradientGeneratorTest extends TestCaseWithPrebuiltMocksAndStubs
                     new RGBColor(255, 255, 255),
                 ],
                 [new ArrayObject(['#000', '#fff'],), 3, '#fff'],
-            ],            [
+            ],
+            [
                 [
                     new RGBColor(255, 255, 255, 1.000000),
                     new RGBColor(170, 170, 170, 1.000000),
@@ -185,12 +186,26 @@ final class ColorGradientGeneratorTest extends TestCaseWithPrebuiltMocksAndStubs
         $result = [];
 
         foreach ($generator->gradients(...$incoming) as $item) {
-
             $result[] = $item;
         }
-       $this->dump($result);
+        $this->dump($result);
 
         self::assertEquals($expected, $result);
+    }
+
+    private function dump(array $result): void
+    {
+        $s = PHP_EOL;
+        foreach ($result as $item) {
+            $s .= sprintf(
+                'new RGBColor(%d, %d, %d, %02f),' . PHP_EOL,
+                $item->red,
+                $item->green,
+                $item->blue,
+                $item->alpha
+            );
+        }
+//        dump($s);
     }
 
     #[Test]
@@ -231,20 +246,5 @@ final class ColorGradientGeneratorTest extends TestCaseWithPrebuiltMocksAndStubs
             test: $test,
             exception: $e,
         );
-    }
-
-    private function dump(array $result): void
-    {
-        $s = PHP_EOL;
-        foreach ($result as $item) {
-            $s .= sprintf(
-                'new RGBColor(%d, %d, %d, %02f),' . PHP_EOL,
-                $item->red,
-                $item->green,
-                $item->blue,
-                $item->alpha
-            );
-        }
-//        dump($s);
     }
 }

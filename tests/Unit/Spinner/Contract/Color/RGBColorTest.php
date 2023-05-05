@@ -45,7 +45,7 @@ final class RGBColorTest extends TestCase
             ['#0000ff', new RGBColor(0, 0, 255, 1.0), -1, -1, 300, 3.0],
             ['#00f1ff', new RGBColor(0, 241, 255, 1.0), -1, 241, 300, 3.0],
             ['#0000ff', new RGBColor(0, 0, 255, 0.0), -1, -1, 300, -2.0],
-            ['#32aaff', new RGBColor(0x32, 0xaa, 0xff,0.3), 0x32, 0xaa, 0xff, 0.3],
+            ['#32aaff', new RGBColor(0x32, 0xaa, 0xff, 0.3), 0x32, 0xaa, 0xff, 0.3],
         ];
     }
 

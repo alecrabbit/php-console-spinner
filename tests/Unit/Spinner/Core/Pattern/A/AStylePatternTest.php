@@ -9,6 +9,7 @@ use AlecRabbit\Spinner\Contract\Pattern\IPattern;
 use AlecRabbit\Spinner\Core\Pattern\A\AStylePattern;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
+use RuntimeException;
 use Traversable;
 
 final class AStylePatternTest extends TestCase
@@ -32,7 +33,7 @@ final class AStylePatternTest extends TestCase
             ) extends AStylePattern {
                 public function getEntries(OptionStyleMode $styleMode = OptionStyleMode::ANSI8): Traversable
                 {
-                    throw new \RuntimeException('Not implemented');
+                    throw new RuntimeException('Not implemented');
                 }
 
             };
@@ -47,10 +48,11 @@ final class AStylePatternTest extends TestCase
         self::assertInstanceOf(AStylePattern::class, $pattern);
         self::assertTrue($pattern->isReversed());
     }
+
     #[Test]
     public function canStyleMode(): void
     {
-        $pattern = $this->getTesteeInstance(        );
+        $pattern = $this->getTesteeInstance();
         self::assertInstanceOf(AStylePattern::class, $pattern);
         self::assertSame(OptionStyleMode::ANSI8, $pattern->getStyleMode());
     }
@@ -64,7 +66,7 @@ final class AStylePatternTest extends TestCase
                 self::assertInstanceOf(AStylePattern::class, $pattern);
                 $pattern->getEntries();
             },
-            new \RuntimeException('Not implemented'),
+            new RuntimeException('Not implemented'),
         );
     }
 

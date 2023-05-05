@@ -6,8 +6,8 @@ namespace AlecRabbit\Tests\Unit\Spinner\Core\Pattern\A;
 
 use AlecRabbit\Spinner\Contract\Pattern\IPattern;
 use AlecRabbit\Spinner\Core\Pattern\A\ACharPattern;
-use AlecRabbit\Spinner\Core\Pattern\A\AReversiblePattern;
 use AlecRabbit\Tests\TestCase\TestCase;
+use ArrayObject;
 use PHPUnit\Framework\Attributes\Test;
 use Traversable;
 
@@ -48,7 +48,7 @@ final class ACharPatternTest extends TestCase
     #[Test]
     public function canGetEntries(): void
     {
-        $entries = new \ArrayObject([]);
+        $entries = new ArrayObject([]);
         $pattern = $this->getTesteeInstance(entries: $entries);
         self::assertInstanceOf(ACharPattern::class, $pattern);
         self::assertSame($entries, $pattern->getEntries());

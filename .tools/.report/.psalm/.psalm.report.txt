@@ -1,57 +1,61 @@
+/app/src/Spinner/Binder.php:117:38:error - MixedAssignment: Unable to determine the type that $id is being assigned to
+/app/src/Spinner/Binder.php:117:45:error - MixedAssignment: Unable to determine the type that $definition is being assigned to
+/app/src/Spinner/Binder.php:118:36:error - MixedArgument: Argument 1 of AlecRabbit\Spinner\Container\IDefinitionRegistry::register cannot be mixed, expecting string
+/app/src/Spinner/Binder.php:118:41:error - MixedArgument: Argument 2 of AlecRabbit\Spinner\Container\IDefinitionRegistry::register cannot be mixed, expecting callable|object|string
+/app/src/Spinner/Binder.php:162:90:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Core\Contract\ISettingsProvider' for /app/src/spinner/binder.php:162:9142:-:closure
+/app/src/Spinner/Binder.php:163:24:error - MixedReturnStatement: Could not infer a return type
+/app/src/Spinner/Binder.php:163:74:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
+/app/src/Spinner/Binder.php:165:80:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Core\Contract\IDriver' for /app/src/spinner/binder.php:165:9338:-:closure
+/app/src/Spinner/Binder.php:166:24:error - MixedReturnStatement: Could not infer a return type
+/app/src/Spinner/Binder.php:166:73:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
+/app/src/Spinner/Binder.php:168:86:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Core\Contract\IDriverLinker' for /app/src/spinner/binder.php:168:9533:-:closure
+/app/src/Spinner/Binder.php:169:24:error - MixedReturnStatement: Could not infer a return type
+/app/src/Spinner/Binder.php:169:79:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
+/app/src/Spinner/Binder.php:171:88:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Core\Settings\Contract\IDriverSettings' for /app/src/spinner/binder.php:171:9748:-:closure
+/app/src/Spinner/Binder.php:172:24:error - MixedReturnStatement: Could not infer a return type
+/app/src/Spinner/Binder.php:172:67:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
+/app/src/Spinner/Binder.php:174:92:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Core\Contract\IIntervalNormalizer' for /app/src/spinner/binder.php:174:9959:-:closure
+/app/src/Spinner/Binder.php:175:24:error - MixedReturnStatement: Could not infer a return type
+/app/src/Spinner/Binder.php:175:76:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
+/app/src/Spinner/Binder.php:177:78:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Core\Contract\Loop\Contract\ILoop' for /app/src/spinner/binder.php:177:10158:-:closure
+/app/src/Spinner/Binder.php:178:24:error - MixedReturnStatement: Could not infer a return type
+/app/src/Spinner/Binder.php:178:71:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
+/app/src/Spinner/Binder.php:188:83:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Core\Contract\Loop\Contract\ILoopProbe' for /app/src/spinner/binder.php:188:10670:-:closure
+/app/src/Spinner/Binder.php:189:24:error - MixedReturnStatement: Could not infer a return type
+/app/src/Spinner/Binder.php:189:67:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
+/app/src/Spinner/Binder.php:195:21:error - MixedAssignment: Unable to determine the type that $loopProbe is being assigned to
+/app/src/Spinner/Binder.php:195:77:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
+/app/src/Spinner/Binder.php:196:21:error - MixedAssignment: Unable to determine the type that $signalProcessingProbe is being assigned to
+/app/src/Spinner/Binder.php:196:101:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
+/app/src/Spinner/Binder.php:199:25:error - MixedArgument: Argument 1 of AlecRabbit\Spinner\Core\Factory\LoopSettingsFactory::__construct cannot be mixed|null, expecting AlecRabbit\Spinner\Core\Contract\Loop\Contract\ILoopProbe|null
+/app/src/Spinner/Binder.php:200:25:error - MixedArgument: Argument 2 of AlecRabbit\Spinner\Core\Factory\LoopSettingsFactory::__construct cannot be mixed|null, expecting AlecRabbit\Spinner\Core\Contract\ISignalProcessingProbe|null
+/app/src/Spinner/Binder.php:204:95:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Core\Contract\ISignalProcessingProbe' for /app/src/spinner/binder.php:204:11508:-:closure
+/app/src/Spinner/Binder.php:205:24:error - MixedReturnStatement: Could not infer a return type
+/app/src/Spinner/Binder.php:205:79:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
+/app/src/Spinner/Binder.php:222:17:error - MixedAssignment: Unable to determine the type that $terminalProbe is being assigned to
+/app/src/Spinner/Binder.php:222:81:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
+/app/src/Spinner/Binder.php:224:52:error - MixedArgument: Argument 1 of AlecRabbit\Spinner\Core\Factory\TerminalSettingsFactory::__construct cannot be mixed, expecting AlecRabbit\Spinner\Core\Terminal\Contract\ITerminalProbe
+/app/src/Spinner/Binder.php:226:87:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Core\Contract\IWidthMeasurer' for /app/src/spinner/binder.php:226:12753:-:closure
+/app/src/Spinner/Binder.php:227:24:error - MixedReturnStatement: Could not infer a return type
+/app/src/Spinner/Binder.php:227:71:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
+/app/src/Spinner/Binder.php:229:93:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Contract\Option\OptionNormalizerMode' for /app/src/spinner/binder.php:229:12957:-:closure
+/app/src/Spinner/Binder.php:230:24:error - MixedReturnStatement: Could not infer a return type
+/app/src/Spinner/Binder.php:230:67:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
+/app/src/Spinner/Binder.php:230:85:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
+/app/src/Spinner/Binder.php:232:85:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Contract\Option\OptionCursor' for /app/src/spinner/binder.php:232:13190:-:closure
+/app/src/Spinner/Binder.php:233:24:error - MixedReturnStatement: Could not infer a return type
+/app/src/Spinner/Binder.php:233:67:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
+/app/src/Spinner/Binder.php:233:90:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
+/app/src/Spinner/Binder.php:235:88:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Contract\Option\OptionStyleMode' for /app/src/spinner/binder.php:235:13415:-:closure
+/app/src/Spinner/Binder.php:236:24:error - MixedReturnStatement: Could not infer a return type
+/app/src/Spinner/Binder.php:236:67:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
+/app/src/Spinner/Binder.php:236:90:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
 /app/src/Spinner/Container/Container.php:35:9:error - MixedAssignment: Unable to determine the type that $this->serviceSpawner is being assigned to
 /app/src/Spinner/Container/Container.php:36:30:error - MixedPropertyTypeCoercion: $this->definitions expects 'ArrayObject<string, callable|object|string>',  parent type `ArrayObject<mixed, mixed>` provided
 /app/src/Spinner/Container/Container.php:37:27:error - MixedPropertyTypeCoercion: $this->services expects 'ArrayObject<string, object>',  parent type `ArrayObject<mixed, mixed>` provided
 /app/src/Spinner/Container/Container.php:42:38:error - MixedAssignment: Unable to determine the type that $id is being assigned to
 /app/src/Spinner/Container/Container.php:43:33:error - MixedArgument: Argument 1 of AlecRabbit\Spinner\Container\Container::register cannot be mixed, expecting string
 /app/src/Spinner/Container/Container.php:166:49:error - ArgumentTypeCoercion: Argument 1 of AlecRabbit\Spinner\Container\Contract\IServiceSpawner::spawn expects callable|class-string|object, but parent type callable|object|string provided
-/app/src/Spinner/Container/DefinitionsRegistry.php:156:90:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Core\Contract\ISettingsProvider' for /app/src/spinner/container/definitionsregistry.php:156:8953:-:closure
-/app/src/Spinner/Container/DefinitionsRegistry.php:157:24:error - MixedReturnStatement: Could not infer a return type
-/app/src/Spinner/Container/DefinitionsRegistry.php:157:74:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
-/app/src/Spinner/Container/DefinitionsRegistry.php:159:80:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Core\Contract\IDriver' for /app/src/spinner/container/definitionsregistry.php:159:9149:-:closure
-/app/src/Spinner/Container/DefinitionsRegistry.php:160:24:error - MixedReturnStatement: Could not infer a return type
-/app/src/Spinner/Container/DefinitionsRegistry.php:160:73:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
-/app/src/Spinner/Container/DefinitionsRegistry.php:162:86:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Core\Contract\IDriverLinker' for /app/src/spinner/container/definitionsregistry.php:162:9344:-:closure
-/app/src/Spinner/Container/DefinitionsRegistry.php:163:24:error - MixedReturnStatement: Could not infer a return type
-/app/src/Spinner/Container/DefinitionsRegistry.php:163:79:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
-/app/src/Spinner/Container/DefinitionsRegistry.php:165:88:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Core\Settings\Contract\IDriverSettings' for /app/src/spinner/container/definitionsregistry.php:165:9559:-:closure
-/app/src/Spinner/Container/DefinitionsRegistry.php:166:24:error - MixedReturnStatement: Could not infer a return type
-/app/src/Spinner/Container/DefinitionsRegistry.php:166:67:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
-/app/src/Spinner/Container/DefinitionsRegistry.php:168:92:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Core\Contract\IIntervalNormalizer' for /app/src/spinner/container/definitionsregistry.php:168:9770:-:closure
-/app/src/Spinner/Container/DefinitionsRegistry.php:169:24:error - MixedReturnStatement: Could not infer a return type
-/app/src/Spinner/Container/DefinitionsRegistry.php:169:76:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
-/app/src/Spinner/Container/DefinitionsRegistry.php:171:78:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Core\Contract\Loop\Contract\ILoop' for /app/src/spinner/container/definitionsregistry.php:171:9969:-:closure
-/app/src/Spinner/Container/DefinitionsRegistry.php:172:24:error - MixedReturnStatement: Could not infer a return type
-/app/src/Spinner/Container/DefinitionsRegistry.php:172:71:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
-/app/src/Spinner/Container/DefinitionsRegistry.php:182:83:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Core\Contract\Loop\Contract\ILoopProbe' for /app/src/spinner/container/definitionsregistry.php:182:10481:-:closure
-/app/src/Spinner/Container/DefinitionsRegistry.php:183:24:error - MixedReturnStatement: Could not infer a return type
-/app/src/Spinner/Container/DefinitionsRegistry.php:183:67:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
-/app/src/Spinner/Container/DefinitionsRegistry.php:189:21:error - MixedAssignment: Unable to determine the type that $loopProbe is being assigned to
-/app/src/Spinner/Container/DefinitionsRegistry.php:189:77:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
-/app/src/Spinner/Container/DefinitionsRegistry.php:190:21:error - MixedAssignment: Unable to determine the type that $signalProcessingProbe is being assigned to
-/app/src/Spinner/Container/DefinitionsRegistry.php:190:101:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
-/app/src/Spinner/Container/DefinitionsRegistry.php:193:25:error - MixedArgument: Argument 1 of AlecRabbit\Spinner\Core\Factory\LoopSettingsFactory::__construct cannot be mixed|null, expecting AlecRabbit\Spinner\Core\Contract\Loop\Contract\ILoopProbe|null
-/app/src/Spinner/Container/DefinitionsRegistry.php:194:25:error - MixedArgument: Argument 2 of AlecRabbit\Spinner\Core\Factory\LoopSettingsFactory::__construct cannot be mixed|null, expecting AlecRabbit\Spinner\Core\Contract\ISignalProcessingProbe|null
-/app/src/Spinner/Container/DefinitionsRegistry.php:198:95:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Core\Contract\ISignalProcessingProbe' for /app/src/spinner/container/definitionsregistry.php:198:11319:-:closure
-/app/src/Spinner/Container/DefinitionsRegistry.php:199:24:error - MixedReturnStatement: Could not infer a return type
-/app/src/Spinner/Container/DefinitionsRegistry.php:199:79:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
-/app/src/Spinner/Container/DefinitionsRegistry.php:216:17:error - MixedAssignment: Unable to determine the type that $terminalProbe is being assigned to
-/app/src/Spinner/Container/DefinitionsRegistry.php:216:81:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
-/app/src/Spinner/Container/DefinitionsRegistry.php:218:52:error - MixedArgument: Argument 1 of AlecRabbit\Spinner\Core\Factory\TerminalSettingsFactory::__construct cannot be mixed, expecting AlecRabbit\Spinner\Core\Terminal\Contract\ITerminalProbe
-/app/src/Spinner/Container/DefinitionsRegistry.php:220:87:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Core\Contract\IWidthMeasurer' for /app/src/spinner/container/definitionsregistry.php:220:12564:-:closure
-/app/src/Spinner/Container/DefinitionsRegistry.php:221:24:error - MixedReturnStatement: Could not infer a return type
-/app/src/Spinner/Container/DefinitionsRegistry.php:221:71:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
-/app/src/Spinner/Container/DefinitionsRegistry.php:223:93:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Contract\Option\OptionNormalizerMode' for /app/src/spinner/container/definitionsregistry.php:223:12768:-:closure
-/app/src/Spinner/Container/DefinitionsRegistry.php:224:24:error - MixedReturnStatement: Could not infer a return type
-/app/src/Spinner/Container/DefinitionsRegistry.php:224:67:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
-/app/src/Spinner/Container/DefinitionsRegistry.php:224:85:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
-/app/src/Spinner/Container/DefinitionsRegistry.php:226:85:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Contract\Option\OptionCursor' for /app/src/spinner/container/definitionsregistry.php:226:13001:-:closure
-/app/src/Spinner/Container/DefinitionsRegistry.php:227:24:error - MixedReturnStatement: Could not infer a return type
-/app/src/Spinner/Container/DefinitionsRegistry.php:227:67:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
-/app/src/Spinner/Container/DefinitionsRegistry.php:227:90:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
-/app/src/Spinner/Container/DefinitionsRegistry.php:229:88:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Contract\Option\OptionStyleMode' for /app/src/spinner/container/definitionsregistry.php:229:13226:-:closure
-/app/src/Spinner/Container/DefinitionsRegistry.php:230:24:error - MixedReturnStatement: Could not infer a return type
-/app/src/Spinner/Container/DefinitionsRegistry.php:230:67:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
-/app/src/Spinner/Container/DefinitionsRegistry.php:230:90:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
 /app/src/Spinner/Container/Exception/CircularDependencyException.php:23:43:error - MixedArgumentTypeCoercion: Argument 2 of implode expects array<array-key, null|object{__tostring()}|scalar>, but parent type array<array-key, mixed> provided
 /app/src/Spinner/Container/ServiceSpawner.php:52:61:error - MixedInferredReturnType: Could not verify return type 'object' for AlecRabbit\Spinner\Container\ServiceSpawner::spawnByCallable
 /app/src/Spinner/Container/ServiceSpawner.php:69:88:error - MixedOperand: Right operand cannot be mixed
@@ -196,12 +200,12 @@
 /app/src/Spinner/Extras/StyleToAnsiStringConverter.php:94:30:error - MixedAssignment: Unable to determine the type that $option is being assigned to
 /app/src/Spinner/Extras/StyleToAnsiStringConverter.php:95:13:error - MixedAssignment: Unable to determine the type of this assignment
 /app/src/Spinner/Extras/StyleToAnsiStringConverter.php:95:24:error - MixedArrayAccess: Cannot access array value on mixed variable $option
-/app/src/Spinner/Facade.php:27:47:error - MoreSpecificReturnType: The declared return type 'AlecRabbit\Spinner\Core\Factory\Contract\ILoopSingletonFactory' for AlecRabbit\Spinner\Facade::getLoopFactory is more specific than the inferred return type 'object'
-/app/src/Spinner/Facade.php:29:16:error - LessSpecificReturnStatement: The type 'object' is more general than the declared return type 'AlecRabbit\Spinner\Core\Factory\Contract\ILoopSingletonFactory' for AlecRabbit\Spinner\Facade::getLoopFactory
-/app/src/Spinner/Facade.php:47:51:error - MoreSpecificReturnType: The declared return type 'AlecRabbit\Spinner\Core\Contract\ISettingsProvider' for AlecRabbit\Spinner\Facade::getSettingsProvider is more specific than the inferred return type 'object'
-/app/src/Spinner/Facade.php:49:16:error - LessSpecificReturnStatement: The type 'object' is more general than the declared return type 'AlecRabbit\Spinner\Core\Contract\ISettingsProvider' for AlecRabbit\Spinner\Facade::getSettingsProvider
-/app/src/Spinner/Facade.php:68:50:error - MoreSpecificReturnType: The declared return type 'AlecRabbit\Spinner\Core\Factory\Contract\ISpinnerFactory' for AlecRabbit\Spinner\Facade::getSpinnerFactory is more specific than the inferred return type 'object'
-/app/src/Spinner/Facade.php:70:16:error - LessSpecificReturnStatement: The type 'object' is more general than the declared return type 'AlecRabbit\Spinner\Core\Factory\Contract\ISpinnerFactory' for AlecRabbit\Spinner\Facade::getSpinnerFactory
-/app/src/Spinner/Facade.php:83:49:error - MoreSpecificReturnType: The declared return type 'AlecRabbit\Spinner\Core\Factory\Contract\IDriverSingletonFactory' for AlecRabbit\Spinner\Facade::getDriverFactory is more specific than the inferred return type 'object'
-/app/src/Spinner/Facade.php:85:16:error - LessSpecificReturnStatement: The type 'object' is more general than the declared return type 'AlecRabbit\Spinner\Core\Factory\Contract\IDriverSingletonFactory' for AlecRabbit\Spinner\Facade::getDriverFactory
+/app/src/Spinner/Facade.php:28:47:error - MoreSpecificReturnType: The declared return type 'AlecRabbit\Spinner\Core\Factory\Contract\ILoopSingletonFactory' for AlecRabbit\Spinner\Facade::getLoopFactory is more specific than the inferred return type 'object'
+/app/src/Spinner/Facade.php:30:16:error - LessSpecificReturnStatement: The type 'object' is more general than the declared return type 'AlecRabbit\Spinner\Core\Factory\Contract\ILoopSingletonFactory' for AlecRabbit\Spinner\Facade::getLoopFactory
+/app/src/Spinner/Facade.php:48:51:error - MoreSpecificReturnType: The declared return type 'AlecRabbit\Spinner\Core\Contract\ISettingsProvider' for AlecRabbit\Spinner\Facade::getSettingsProvider is more specific than the inferred return type 'object'
+/app/src/Spinner/Facade.php:50:16:error - LessSpecificReturnStatement: The type 'object' is more general than the declared return type 'AlecRabbit\Spinner\Core\Contract\ISettingsProvider' for AlecRabbit\Spinner\Facade::getSettingsProvider
+/app/src/Spinner/Facade.php:69:50:error - MoreSpecificReturnType: The declared return type 'AlecRabbit\Spinner\Core\Factory\Contract\ISpinnerFactory' for AlecRabbit\Spinner\Facade::getSpinnerFactory is more specific than the inferred return type 'object'
+/app/src/Spinner/Facade.php:71:16:error - LessSpecificReturnStatement: The type 'object' is more general than the declared return type 'AlecRabbit\Spinner\Core\Factory\Contract\ISpinnerFactory' for AlecRabbit\Spinner\Facade::getSpinnerFactory
+/app/src/Spinner/Facade.php:84:49:error - MoreSpecificReturnType: The declared return type 'AlecRabbit\Spinner\Core\Factory\Contract\IDriverSingletonFactory' for AlecRabbit\Spinner\Facade::getDriverFactory is more specific than the inferred return type 'object'
+/app/src/Spinner/Facade.php:86:16:error - LessSpecificReturnStatement: The type 'object' is more general than the declared return type 'AlecRabbit\Spinner\Core\Factory\Contract\IDriverSingletonFactory' for AlecRabbit\Spinner\Facade::getDriverFactory
 /app/src/Spinner/Helper/Stringify.php:38:45:error - MixedArgument: Argument 3 of sprintf cannot be 'false'|'true'|mixed, expecting float|int|string

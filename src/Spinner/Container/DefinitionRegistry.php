@@ -29,7 +29,7 @@ final class DefinitionRegistry implements IDefinitionRegistry
         yield from $this->definitions;
     }
 
-    public function register(string $typeId, callable|object|string $definition): void
+    public function bind(string $typeId, callable|object|string $definition): void
     {
         $this->definitions[$typeId] = $definition;
     }

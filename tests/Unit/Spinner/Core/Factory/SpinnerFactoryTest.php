@@ -131,13 +131,15 @@ final class SpinnerFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
             ->expects(self::once())
             ->method('merge')
             ->with($rootWidgetConfig)
-            ->willReturnSelf();
+            ->willReturnSelf()
+        ;
 
         $spinnerConfig = $this->getSpinnerConfigMock();
         $spinnerConfig
             ->expects(self::once())
             ->method('getWidgetConfig')
-            ->willReturn($widgetConfig);
+            ->willReturn($widgetConfig)
+        ;
 
         $widget = $this->getWidgetMock();
         $widgetSettings = $this->getWidgetSettingsMock();
@@ -147,7 +149,8 @@ final class SpinnerFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
             ->expects(self::once())
             ->method('createWidget')
             ->with($widgetSettings)
-            ->willReturn($widget);
+            ->willReturn($widget)
+        ;
 
         $widgetSettingsFactory = $this->getWidgetSettingsFactoryMock();
         $widgetSettingsFactory
@@ -168,6 +171,7 @@ final class SpinnerFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
         self::assertInstanceOf(Spinner::class, $spinner);
         self::assertSame($widget, self::getPropertyValue('rootWidget', $spinner));
     }
+
     #[Test]
     public function canCreateSpinnerWithWidgetConfig(): void
     {
@@ -184,7 +188,8 @@ final class SpinnerFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
             ->expects(self::once())
             ->method('merge')
             ->with($rootWidgetConfig)
-            ->willReturnSelf();
+            ->willReturnSelf()
+        ;
 
         $widget = $this->getWidgetMock();
         $widgetSettings = $this->getWidgetSettingsMock();
@@ -194,7 +199,8 @@ final class SpinnerFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
             ->expects(self::once())
             ->method('createWidget')
             ->with($widgetSettings)
-            ->willReturn($widget);
+            ->willReturn($widget)
+        ;
 
         $widgetSettingsFactory = $this->getWidgetSettingsFactoryMock();
         $widgetSettingsFactory

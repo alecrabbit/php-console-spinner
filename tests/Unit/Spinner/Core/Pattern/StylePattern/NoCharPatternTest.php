@@ -2,11 +2,9 @@
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Pattern\StylePattern;
 
-use AlecRabbit\Spinner\Contract\Option\OptionStyleMode;
 use AlecRabbit\Spinner\Core\CharFrame;
 use AlecRabbit\Spinner\Core\Pattern\Contract\ICharPattern;
 use AlecRabbit\Spinner\Core\Pattern\NoCharPattern;
-use AlecRabbit\Spinner\Core\StyleFrame;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;
 

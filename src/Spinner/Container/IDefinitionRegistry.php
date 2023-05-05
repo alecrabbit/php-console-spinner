@@ -12,5 +12,5 @@ interface IDefinitionRegistry
 
     public function getDefinitions(): Traversable;
 
-    public function register(string $typeId, object|callable|string $definition): void;
+    public function bind(string $typeId, object|callable|string $definition): void;
 }

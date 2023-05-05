@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Defaults;
 
 use AlecRabbit\Spinner\Core\Builder\Settings\Contract\IAuxSettingsBuilder;
-use AlecRabbit\Spinner\Core\Builder\Settings\Contract\ISettingsProviderBuilder;
 use AlecRabbit\Spinner\Core\Builder\Settings\Contract\IDriverSettingsBuilder;
+use AlecRabbit\Spinner\Core\Builder\Settings\Contract\ISettingsProviderBuilder;
 use AlecRabbit\Spinner\Core\Builder\Settings\SettingsProviderBuilder;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopSettingsFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ITerminalSettingsFactory;
