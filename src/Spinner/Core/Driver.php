@@ -104,6 +104,7 @@ final class Driver extends ASubject implements IDriver
             $this->spinners->offsetUnset($spinner);
             $spinner->detach($this);
             $this->interval = $this->recalculateInterval();
+            $this->notify();
         }
     }
 
