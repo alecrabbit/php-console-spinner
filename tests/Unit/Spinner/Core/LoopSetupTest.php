@@ -26,10 +26,11 @@ final class LoopSetupTest extends TestCaseWithPrebuiltMocksAndStubs
         ?ILoop $loop = null,
         ?ILoopSettings $settings = null,
     ): ILoopSetup {
-        return new LoopSetup(
-            loop: $loop ?? $this->getLoopMock(),
-            settings: $settings ?? $this->getLoopSettingsMock(),
-        );
+        return
+            new LoopSetup(
+                loop: $loop ?? $this->getLoopMock(),
+                settings: $settings ?? $this->getLoopSettingsMock(),
+            );
     }
 
     #[Test]
@@ -58,10 +59,7 @@ final class LoopSetupTest extends TestCaseWithPrebuiltMocksAndStubs
             ->expects(self::once())
             ->method('autoStart')
         ;
-        $loop
-            ->expects(self::once())
-            ->method('onSignal')
-        ;
+
         $settings = $this->getLoopSettingsMock();
         $settings
             ->expects(self::once())
@@ -87,11 +85,18 @@ final class LoopSetupTest extends TestCaseWithPrebuiltMocksAndStubs
         if (!defined('SIGINT')) {
             $this->expectException(\Error::class);
             $this->expectExceptionMessage('Undefined constant');
+        } else {
+            $loop
+                ->expects(self::once())
+                ->method('onSignal')
+            ;
         }
 
-        $this->getTesteeInstance(
+        $loopSetup = $this->getTesteeInstance(
             loop: $loop,
             settings: $settings,
-        )->setup($this->getDriverMock());
+        );
+
+        $loopSetup->setup($this->getDriverMock());
     }
 }

@@ -77,15 +77,15 @@ library provides additional components to extend functionality:
 
 > See [Features](doc/features.md) and [limitations](doc/limitations.md) for more details
 
-| Feature                 |                             | 
-|-------------------------|:---------------------------:|
-| Extremely flexible      |            🟢️ ️            |  
-| Zero dependencies ️     | 🟢️ [*](doc/limitations.md) |
-| Asynchronous            |            🟢️ ️            |
-| Synchronous             |            🟢️ ️            |
-| AutoStart (async)       |            🟢️ ️            |
+| Feature                |                             | 
+|------------------------|:---------------------------:|
+| Extremely flexible     |            🟢️ ️            |  
+| "Zero" dependencies ️    | 🟢️ [*](doc/limitations.md) |
+| Asynchronous           |            🟢️ ️            |
+| Synchronous            |            🟢️ ️            |
+| AutoStart (async)      |            🟢️ ️            |
 | Signal handling (async) |            🟢️ ️            |
-| Cursor auto hide/show   |            🟢️ ️            |
+| Cursor auto hide/show  |            🟢️ ️            |
 
 
 ### <a name="links"></a> Links
