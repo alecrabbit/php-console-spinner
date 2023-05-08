@@ -9,9 +9,9 @@ use AlecRabbit\Spinner\Core\Contract\IDriverLinker;
 use AlecRabbit\Spinner\Core\Contract\ISettingsProvider;
 use AlecRabbit\Spinner\Core\Contract\Loop\Contract\ILoop;
 use AlecRabbit\Spinner\Core\DriverLinker;
-use AlecRabbit\Spinner\Core\Factory\Contract\IDriverLinkerSingletonFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\IDriverLinkerFactory;
 
-final class DriverLinkerSingletonFactory implements IDriverLinkerSingletonFactory
+final class DriverLinkerFactory implements IDriverLinkerFactory
 {
     private static ?IDriverLinker $driverLinker = null;
 
@@ -31,9 +31,10 @@ final class DriverLinkerSingletonFactory implements IDriverLinkerSingletonFactor
 
     private function createLinker(): IDriverLinker
     {
-        return new DriverLinker(
-            $this->loop,
-            $this->settingsProvider->getDriverSettings()->getOptionLinker(),
-        );
+        return
+            new DriverLinker(
+                $this->loop,
+                $this->settingsProvider->getDriverSettings()->getOptionLinker(),
+            );
     }
 }

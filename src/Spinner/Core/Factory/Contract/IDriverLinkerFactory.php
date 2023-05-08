@@ -7,7 +7,7 @@ namespace AlecRabbit\Spinner\Core\Factory\Contract;
 
 use AlecRabbit\Spinner\Core\Contract\IDriverLinker;
 
-interface IDriverLinkerSingletonFactory
+interface IDriverLinkerFactory
 {
     public function getDriverLinker(): IDriverLinker;
 }

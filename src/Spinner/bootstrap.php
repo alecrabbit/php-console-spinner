@@ -48,7 +48,7 @@ use AlecRabbit\Spinner\Core\Factory\Contract\IBufferedOutputSingletonFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ICharFrameFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ICharFrameRevolverFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IConsoleCursorFactory;
-use AlecRabbit\Spinner\Core\Factory\Contract\IDriverLinkerSingletonFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\IDriverLinkerFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDriverOutputFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDriverFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IFrameCollectionFactory;
@@ -67,7 +67,7 @@ use AlecRabbit\Spinner\Core\Factory\Contract\ITerminalSettingsFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ITimerFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IWidgetSettingsFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IWidthMeasurerFactory;
-use AlecRabbit\Spinner\Core\Factory\DriverLinkerSingletonFactory;
+use AlecRabbit\Spinner\Core\Factory\DriverLinkerFactory;
 use AlecRabbit\Spinner\Core\Factory\DriverOutputFactory;
 use AlecRabbit\Spinner\Core\Factory\DriverFactory;
 use AlecRabbit\Spinner\Core\Factory\FrameCollectionFactory;
@@ -121,7 +121,7 @@ function definitions(): Traversable
         IConsoleCursorBuilder::class => ConsoleCursorBuilder::class,
         IConsoleCursorFactory::class => ConsoleCursorFactory::class,
         ISettingsProviderBuilder::class => SettingsProviderBuilder::class,
-        IDriverLinkerSingletonFactory::class => DriverLinkerSingletonFactory::class,
+        IDriverLinkerFactory::class => DriverLinkerFactory::class,
         IDriverBuilder::class => DriverBuilder::class,
         IDriverOutputBuilder::class => DriverOutputBuilder::class,
         IDriverOutputFactory::class => DriverOutputFactory::class,
@@ -157,7 +157,7 @@ function definitions(): Traversable
             return $container->get(IDriverFactory::class)->getDriver();
         },
         IDriverLinker::class => static function (ContainerInterface $container): IDriverLinker {
-            return $container->get(IDriverLinkerSingletonFactory::class)->getDriverLinker();
+            return $container->get(IDriverLinkerFactory::class)->getDriverLinker();
         },
         IDriverSettings::class => static function (ContainerInterface $container): IDriverSettings {
             return $container->get(ISettingsProvider::class)->getDriverSettings();
