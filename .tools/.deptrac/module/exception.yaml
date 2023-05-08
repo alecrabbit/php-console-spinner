@@ -1,6 +1,6 @@
 deptrac:
   layers:
-    - name: ModuleException
+    - name: Exception
       collectors:
         - type: className
           value: '%namespace%\\Exception\\.*'

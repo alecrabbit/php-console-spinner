@@ -1,94 +1,96 @@
 <?php
 
 declare(strict_types=1);
-// 15.02.23
-namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Core;
 
-use AlecRabbit\Spinner\Core\Factory\FrameFactory;
+
+namespace AlecRabbit\Tests\Unit\Spinner\Core;
+
+use AlecRabbit\Spinner\Core\Contract\IFrameCollection;
 use AlecRabbit\Spinner\Core\FrameCollection;
-use AlecRabbit\Spinner\Exception\DomainException;
-use AlecRabbit\Tests\Spinner\TestCase\TestCase;
+use AlecRabbit\Spinner\Exception\InvalidArgumentException;
+use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use ArrayObject;
-use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
+use Traversable;
 
-
-final class FrameCollectionTest extends TestCase
+final class FrameCollectionTest extends TestCaseWithPrebuiltMocksAndStubs
 {
-    public static function collectionData(): iterable
+    #[Test]
+    public function canBeCreated(): void
     {
-        // [$expected, $incoming]
-        yield [
-            [
-                self::EXCEPTION => [
-                    self::CLASS_ => DomainException::class,
-                    self::MESSAGE => 'Empty collection.',
-                ],
-            ],
-            [
-                self::ARGUMENTS => [
-                    self::FRAMES => new ArrayObject([]),
-                ],
-            ],
-        ];
-        yield [
-            [
-                self::EXCEPTION => [
-                    self::CLASS_ => DomainException::class,
-                    self::MESSAGE => 'Empty collection.',
-                ],
-            ],
-            [
-                self::ARGUMENTS => [
-                    self::FRAMES =>
-                        (static function () {
-                            yield from [];
-                        })(),
+        $frameCollection = $this->getTesteeInstance(
+            new ArrayObject(
+                [
+                    $this->getFrameMock(),
+                    $this->getFrameMock(),
+                    $this->getFrameMock(),
+                ]
+            )
+        );
+        self::assertInstanceOf(FrameCollection::class, $frameCollection);
+    }
 
-                ],
-            ],
-        ];
-        yield [
-            [
-                self::COUNT => 3,
-                self::FRAMES =>
-                    $frames = [
-                        FrameFactory::create('a', 1),
-                        FrameFactory::create('b', 1),
-                        FrameFactory::create('c', 1)
-                    ],
-                self::LAST_INDEX => 2,
-            ],
-            [
-                self::ARGUMENTS => [
-                    self::FRAMES =>
-                        (static function () use ($frames) {
-                            yield from $frames;
-                        })(),
-
-                ],
-            ],
-        ];
+    protected function getTesteeInstance(Traversable $frames): IFrameCollection
+    {
+        return new FrameCollection($frames);
     }
 
     #[Test]
-    #[DataProvider('collectionData')]
-    public function canBeCreated(array $expected, array $incoming): void
+    public function canGetFrameByIndex(): void
     {
-        $expectedException = $this->expectsException($expected);
+        $frame0 = $this->getFrameMock();
+        $frame1 = $this->getFrameMock();
+        $frame2 = $this->getFrameMock();
+        $frameCollection = $this->getTesteeInstance(
+            new ArrayObject(
+                [
+                    $frame0,
+                    $frame1,
+                    $frame2,
+                ]
+            )
+        );
+        self::assertInstanceOf(FrameCollection::class, $frameCollection);
+        self::assertSame($frame1, $frameCollection->get(1));
+        self::assertSame($frame0, $frameCollection->get(0));
+        self::assertSame($frame2, $frameCollection->get(2));
+        self::assertSame($frame0, $frameCollection->get(0));
+        self::assertSame(2, $frameCollection->lastIndex());
+    }
 
-        $args = $incoming[self::ARGUMENTS];
+    #[Test]
+    public function throwsIfIsCreatedEmpty(): void
+    {
+        $exceptionClass = InvalidArgumentException::class;
+        $exceptionMessage = 'Collection is empty.';
 
-        $collection = new FrameCollection($args[self::FRAMES]);
+        $test = function (): void {
+            $frameCollection = $this->getTesteeInstance(new ArrayObject([]));
+            self::assertInstanceOf(FrameCollection::class, $frameCollection);
+        };
 
-        self::assertSame($expected[self::LAST_INDEX] ?? null, $collection->lastIndex());
-        self::assertSame($expected[self::COUNT] ?? null, $collection->count());
-        self::assertSame($expected[self::FRAMES] ?? null, $collection->getArrayCopy());
+        $this->wrapExceptionTest(
+            test: $test,
+            exception: $exceptionClass,
+            message: $exceptionMessage,
+        );
+    }
 
-        if ($expectedException) {
-            self::exceptionNotThrown($expectedException);
-        }
+    #[Test]
+    public function throwsIfIsCreatedWithWrongTypeTraversable(): void
+    {
+        $exceptionClass = InvalidArgumentException::class;
+        $exceptionMessage = '"AlecRabbit\Spinner\Contract\IFrame" expected, "string" given.';
+
+        $test = function (): void {
+            $frameCollection = $this->getTesteeInstance(new ArrayObject(['a string']));
+            self::assertInstanceOf(FrameCollection::class, $frameCollection);
+        };
+
+        $this->wrapExceptionTest(
+            test: $test,
+            exception: $exceptionClass,
+            message: $exceptionMessage,
+        );
     }
 }
-
-

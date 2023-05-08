@@ -1,9 +1,9 @@
 <?php
 
-const SRC = '/app/src'; // Sources root
+const DIR = '/app/src'; // Sources root
 
 $finder = PhpCsFixer\Finder::create()
-    ->in(SRC)
+    ->in(DIR)
 ;
 
 $config = new PhpCsFixer\Config();

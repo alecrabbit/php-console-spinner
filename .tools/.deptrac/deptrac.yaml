@@ -5,46 +5,62 @@ parameters:
 imports:
   - .common/paths.yaml
   - module/async.yaml
+  - module/container.yaml
   - module/contract.yaml
   - module/core.yaml
   - module/exception.yaml
   - module/extras.yaml
   - module/helper.yaml
   - module/mixin.yaml
+  - module/root.yaml
+  - vendor/container.yaml
   - vendor/react.yaml
   - vendor/revolt.yaml
   - vendor/symfony.yaml
 
 deptrac:
   ruleset:
-    ModuleAsynchronous:
-      - +ModuleCore
-      - +ModuleException
-      - +ModuleHelper
+    Asynchronous:
+      - +Core
+      - +Exception
+      - +Helper
       - +VendorReact
       - +VendorRevolt
-    ModuleContract:
+    Container:
+      - +VendorContainer
+    Contract:
       - +VendorReact
       - +VendorRevolt
-      - +ModuleException
-    ModuleCore:
-      - +ModuleException
-      - +ModuleHelper
-      - +ModuleMixin
-    ModuleException: ~
-    ModuleExtras:
-      - +ModuleContract
-      - +ModuleCore
-      - +ModuleException
-      - +ModuleHelper
-      - +ModuleMixin
+      - +Exception
+    Core:
+      - +Container
+      - Contract
+      - Exception
+      - Helper
+      - Mixin
+    Exception: ~
+    Extras:
+      - +Contract
+      - +Core
+      - +Exception
+      - +Helper
+      - +Mixin
       - +VendorSymfony
-    ModuleHelper:
-      - +ModuleContract
-      - +ModuleException
-      - +ModuleMixin
-    ModuleMixin: ~
-    VendorSymfony: ~
+    Helper:
+      - +Contract
+      - +Exception
+      - +Mixin
+    Mixin: ~
+    Root:
+      - +Contract
+      - +Core
+      - +Exception
+      - +Helper
+    VendorSymfony:
+      - +VendorContainer
+    VendorRevolt: ~
+    VendorReact: ~
+    VendorContainer: ~
 #  skip_violations:
 #    NS\Class:
 #      - AnotherNS\Class

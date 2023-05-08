@@ -1,23 +1,28 @@
 <?php
 
 declare(strict_types=1);
-// 09.03.23
+
 
 namespace AlecRabbit\Spinner\Core\Terminal\Contract;
 
-use AlecRabbit\Spinner\Contract\Cursor;
 use AlecRabbit\Spinner\Contract\IProbe;
-use AlecRabbit\Spinner\Contract\StyleMode;
+use AlecRabbit\Spinner\Contract\Option\OptionCursor;
+use AlecRabbit\Spinner\Contract\Option\OptionStyleMode;
 
 interface ITerminalProbe extends IProbe
 {
-    final public const TERMINAL_DEFAULT_CURSOR_MODE = Cursor::DISABLED;
-    final public const TERMINAL_DEFAULT_WIDTH = 100;
-    final public const TERMINAL_DEFAULT_COLOR_SUPPORT = StyleMode::ANSI8;
+    final public const DEFAULT_OPTION_CURSOR = OptionCursor::HIDDEN;
+    final public const DEFAULT_TERMINAL_WIDTH = 100;
+    final public const DEFAULT_OPTION_STYLE_MODE = OptionStyleMode::ANSI8;
 
-    public static function getWidth(): int;
+    public function getWidth(): int;
 
-    public static function getColorMode(): StyleMode;
+    public function getOptionStyleMode(): OptionStyleMode;
 
-    public static function getCursorMode(): Cursor;
+    public function getOptionCursor(): OptionCursor;
+
+    /**
+     * @return resource
+     */
+    public function getOutputStream();
 }

@@ -19,21 +19,20 @@ $dumper = new ServerDumper(getHost(), getFallbackDumper(), [
     'source' => new SourceContextProvider(),
 ]);
 
-VarDumper::setHandler(static function ($var) use ($cloner, $dumper) {
+VarDumper::setHandler(static function ($var) use ($cloner, $dumper): void {
     $dumper->dump($cloner->cloneVar($var)); // intentional dump
 });
 
 function getFallbackDumper(): HtmlDumper|CliDumper
 {
-    return in_array(PHP_SAPI, ['cli', 'phpdbg']) ? new CliDumper() : new HtmlDumper();
+    return in_array(PHP_SAPI, ['cli', 'phpdbg'], true) ? new CliDumper() : new HtmlDumper();
 }
 
 function getAddress(false|string $srv): string
 {
-    return
-        false === $srv
-            ? 'tcp://127.0.0.1:9912'
-            : sprintf('tcp://%s', $srv);
+    return $srv === false
+        ? 'tcp://127.0.0.1:9912'
+        : sprintf('tcp://%s', $srv);
 }
 
 function getHost(): string

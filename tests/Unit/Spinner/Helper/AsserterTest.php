@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Tests\Spinner\Unit\Spinner\Helper;
+namespace AlecRabbit\Tests\Unit\Spinner\Helper;
 
-use AlecRabbit\Spinner\Contract\StyleMode;
+use AlecRabbit\Spinner\Contract\Option\OptionStyleMode;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Exception\RuntimeException;
 use AlecRabbit\Spinner\Helper\Asserter;
-use AlecRabbit\Tests\Spinner\TestCase\TestCase;
+use AlecRabbit\Tests\TestCase\TestCase;
 use ArrayObject;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
@@ -27,13 +27,13 @@ final class AsserterTest extends TestCase
                     self::CLASS_ => InvalidArgumentException::class,
                     self::MESSAGE => sprintf(
                         'For %s::ANSI8 style mode value should be in range 0..255, 345 given.',
-                        StyleMode::class,
+                        OptionStyleMode::class,
                     ),
                 ],
             ],
             [
                 self::ARGUMENTS => [
-                    self::MODE => StyleMode::ANSI8,
+                    self::MODE => OptionStyleMode::ANSI8,
                     self::COLOR => 345,
                 ],
             ],
@@ -48,7 +48,7 @@ final class AsserterTest extends TestCase
             ],
             [
                 self::ARGUMENTS => [
-                    self::MODE => StyleMode::ANSI8,
+                    self::MODE => OptionStyleMode::ANSI8,
                     self::COLOR => -3,
                 ],
             ],
@@ -60,13 +60,13 @@ final class AsserterTest extends TestCase
                     self::CLASS_ => InvalidArgumentException::class,
                     self::MESSAGE => sprintf(
                         'For %s::ANSI4 style mode value should be in range 0..15, 22 given.',
-                        StyleMode::class,
+                        OptionStyleMode::class,
                     ),
                 ],
             ],
             [
                 self::ARGUMENTS => [
-                    self::MODE => StyleMode::ANSI4,
+                    self::MODE => OptionStyleMode::ANSI4,
                     self::COLOR => 22,
                 ],
             ],
@@ -210,7 +210,7 @@ final class AsserterTest extends TestCase
             )
         );
 
-        Asserter::isSubClass($invalidClass, $expectedClass); // Note: no caller method
+        Asserter::assertIsSubClass($invalidClass, $expectedClass); // Note: no caller method
         self::fail(sprintf('[%s] Exception not thrown', __METHOD__));
     }
 
@@ -230,8 +230,8 @@ final class AsserterTest extends TestCase
             )
         );
 
-        Asserter::isSubClass($invalidClass, $expectedClass, __METHOD__);
-        self::exceptionNotThrown($exceptionClass);
+        Asserter::assertIsSubClass($invalidClass, $expectedClass, __METHOD__);
+        self::failTest($exceptionClass);
     }
 
     #[Test]
@@ -317,7 +317,7 @@ final class AsserterTest extends TestCase
         Asserter::assertIntColor($args[self::COLOR], $args[self::MODE]);
 
         if ($expectedException) {
-            self::exceptionNotThrown($expectedException);
+            self::failTest($expectedException);
         }
     }
 
@@ -332,7 +332,7 @@ final class AsserterTest extends TestCase
         Asserter::assertHexStringColor($args[self::COLOR]);
 
         if ($expectedException) {
-            self::exceptionNotThrown($expectedException);
+            self::failTest($expectedException);
         }
     }
 
@@ -347,7 +347,7 @@ final class AsserterTest extends TestCase
         Asserter::assertIntInRange($args[self::VALUE], $args[self::MIN], $args[self::MAX]);
 
         if ($expectedException) {
-            self::exceptionNotThrown($expectedException);
+            self::failTest($expectedException);
         }
 
         self::assertTrue(true); // assertion to avoid risky test
