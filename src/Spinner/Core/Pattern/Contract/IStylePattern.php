@@ -1,14 +1,17 @@
 <?php
 
 declare(strict_types=1);
-// 09.03.23
+
 
 namespace AlecRabbit\Spinner\Core\Pattern\Contract;
 
-use AlecRabbit\Spinner\Contract\IPattern;
-use AlecRabbit\Spinner\Contract\StyleMode;
+use AlecRabbit\Spinner\Contract\Option\OptionStyleMode;
+use AlecRabbit\Spinner\Contract\Pattern\IPattern;
+use Traversable;
 
 interface IStylePattern extends IPattern
 {
-    public function getStyleMode(): StyleMode;
+    public function getStyleMode(): OptionStyleMode;
+
+    public function getEntries(OptionStyleMode $styleMode = OptionStyleMode::ANSI8): Traversable;
 }

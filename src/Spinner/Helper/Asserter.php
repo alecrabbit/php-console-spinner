@@ -1,11 +1,11 @@
 <?php
 
 declare(strict_types=1);
-// 15.02.23
+
 
 namespace AlecRabbit\Spinner\Helper;
 
-use AlecRabbit\Spinner\Contract\StyleMode;
+use AlecRabbit\Spinner\Contract\Option\OptionStyleMode;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Exception\RuntimeException;
 use Traversable;
@@ -18,11 +18,10 @@ final class Asserter
     /**
      * @param object|class-string $c
      * @param class-string $i
-     * @param string|null $callerMethod
-     * @param bool $allowString
+     *
      * @throws InvalidArgumentException
      */
-    public static function isSubClass(
+    public static function assertIsSubClass(
         object|string $c,
         string $i,
         ?string $callerMethod = null,
@@ -32,7 +31,7 @@ final class Asserter
             throw new InvalidArgumentException(
                 sprintf(
                     'Class "%s" must be a subclass of "%s"%s.',
-                    is_object($c) ? get_class($c) : $c,
+                    is_object($c) ? $c::class : $c,
                     $i,
                     self::getSeeMethodStr($callerMethod),
                 )
@@ -42,21 +41,20 @@ final class Asserter
 
     private static function getSeeMethodStr(?string $callerMethod): string
     {
-        return
-            $callerMethod
-                ? sprintf(', see "%s()"', $callerMethod)
-                : '';
+        return $callerMethod
+            ? sprintf(', see "%s()"', $callerMethod)
+            : '';
     }
 
     /**
      * @param resource $stream
-     * @throws InvalidArgumentException
      *
+     * @throws InvalidArgumentException
      */
     public static function assertStream(mixed $stream): void
     {
         /** @psalm-suppress DocblockTypeContradiction */
-        if (!is_resource($stream) || 'stream' !== get_resource_type($stream)) {
+        if (!is_resource($stream) || get_resource_type($stream) !== 'stream') {
             throw new InvalidArgumentException(
                 sprintf('Argument is expected to be a stream(resource), "%s" given.', get_debug_type($stream))
             );
@@ -68,12 +66,12 @@ final class Asserter
      */
     public static function assertColorModes(Traversable $colorModes): void
     {
-        if (0 === count(iterator_to_array($colorModes))) {
+        if (count(iterator_to_array($colorModes)) === 0) {
             throw new InvalidArgumentException('Color modes must not be empty.');
         }
-        /** @var StyleMode $colorMode */
+        /** @var OptionStyleMode $colorMode */
         foreach ($colorModes as $colorMode) {
-            if (!$colorMode instanceof StyleMode) {
+            if (!$colorMode instanceof OptionStyleMode) {
                 throw new InvalidArgumentException(
                     sprintf(
                         'Unsupported color mode of type "%s".',
@@ -129,7 +127,7 @@ final class Asserter
                     $entry
                 )
             ),
-            4 !== $strlen && 7 !== $strlen => throw new InvalidArgumentException(
+            $strlen !== 4 && $strlen !== 7 => throw new InvalidArgumentException(
                 sprintf(
                     'Value should be a valid hex color code("#rgb", "#rrggbb"), "%s" given. Length: %d.',
                     $entry,
@@ -162,7 +160,7 @@ final class Asserter
     /**
      * @throws InvalidArgumentException
      */
-    public static function assertIntColor(int $color, StyleMode $styleMode, ?string $callerMethod = null): void
+    public static function assertIntColor(int $color, OptionStyleMode $styleMode, ?string $callerMethod = null): void
     {
         match (true) {
             0 > $color => throw new InvalidArgumentException(
@@ -172,28 +170,28 @@ final class Asserter
                     self::getSeeMethodStr($callerMethod)
                 )
             ),
-            StyleMode::ANSI24->name === $styleMode->name => throw new InvalidArgumentException(
+            OptionStyleMode::ANSI24->name === $styleMode->name => throw new InvalidArgumentException(
                 sprintf(
                     'For %s::%s style mode rendering from int is not allowed%s.',
-                    StyleMode::class,
-                    StyleMode::ANSI24->name,
+                    OptionStyleMode::class,
+                    OptionStyleMode::ANSI24->name,
                     self::getSeeMethodStr($callerMethod)
                 )
             ),
-            StyleMode::ANSI8->name === $styleMode->name && 255 < $color => throw new InvalidArgumentException(
+            OptionStyleMode::ANSI8->name === $styleMode->name && 255 < $color => throw new InvalidArgumentException(
                 sprintf(
                     'For %s::%s style mode value should be in range 0..255, %d given%s.',
-                    StyleMode::class,
-                    StyleMode::ANSI8->name,
+                    OptionStyleMode::class,
+                    OptionStyleMode::ANSI8->name,
                     $color,
                     self::getSeeMethodStr($callerMethod)
                 )
             ),
-            StyleMode::ANSI4->name === $styleMode->name && 16 < $color => throw new InvalidArgumentException(
+            OptionStyleMode::ANSI4->name === $styleMode->name && 16 < $color => throw new InvalidArgumentException(
                 sprintf(
                     'For %s::%s style mode value should be in range 0..15, %d given%s.',
-                    StyleMode::class,
-                    StyleMode::ANSI4->name,
+                    OptionStyleMode::class,
+                    OptionStyleMode::ANSI4->name,
                     $color,
                     self::getSeeMethodStr($callerMethod)
                 )

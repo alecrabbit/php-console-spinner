@@ -1,17 +1,20 @@
 <?php
 
 declare(strict_types=1);
-// 17.02.23
+
 
 namespace AlecRabbit\Spinner\Asynchronous\Loop\Probe;
 
 use AlecRabbit\Spinner\Asynchronous\Loop\Adapter\ReactLoopAdapter;
-use AlecRabbit\Spinner\Asynchronous\Loop\Probe\A\ALoopProbe;
-use AlecRabbit\Spinner\Core\Contract\ILoopAdapter;
+use AlecRabbit\Spinner\Core\Contract\Loop\A\ALoopProbe;
+use AlecRabbit\Spinner\Core\Contract\Loop\Contract\ILoop;
 use React\EventLoop\Loop;
 
 use function class_exists;
 
+/**
+ * @codeCoverageIgnore
+ */
 class ReactLoopProbe extends ALoopProbe
 {
     public static function isSupported(): bool
@@ -19,7 +22,7 @@ class ReactLoopProbe extends ALoopProbe
         return class_exists(Loop::class);
     }
 
-    public static function createLoop(): ILoopAdapter
+    public function createLoop(): ILoop
     {
         return new ReactLoopAdapter(Loop::get());
     }

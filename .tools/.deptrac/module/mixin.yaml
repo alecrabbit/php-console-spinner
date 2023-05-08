@@ -1,6 +1,6 @@
 deptrac:
   layers:
-    - name: ModuleMixin
+    - name: Mixin
       collectors:
         - type: className
           value: '%namespace%\\Mixin\\.*'

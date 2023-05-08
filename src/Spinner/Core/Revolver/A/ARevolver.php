@@ -10,19 +10,15 @@ use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
 
 abstract class ARevolver implements IRevolver
 {
-    /** @var int */
-    protected const TOLERANCE = 5; // ms // FIXME: make configurable - move to ...(?)
     protected float $intervalValue;
-    protected float $differential;
-
-    protected IInterval $interval;
-    protected int $tolerance;
+    protected float $diff;
 
     public function __construct(
-        IInterval $interval,
+        protected IInterval $interval,
+        protected int $deltaTolerance = 0,
     ) {
-        $this->setInterval($interval);
-        $this->tolerance = static::TOLERANCE;
+        $this->intervalValue = $interval->toMilliseconds();
+        $this->diff = $this->intervalValue;
     }
 
     public function getInterval(): IInterval
@@ -30,15 +26,7 @@ abstract class ARevolver implements IRevolver
         return $this->interval;
     }
 
-    public function setInterval(IInterval $interval): void
-    {
-        /** @psalm-suppress RedundantPropertyInitializationCheck */
-        $this->interval = $interval->smallest($this->interval ?? null);
-        $this->intervalValue = $interval->toMilliseconds();
-        $this->differential = $this->intervalValue;
-    }
-
-    public function update(float $dt = null): IFrame
+    public function getFrame(?float $dt = null): IFrame
     {
         if ($this->shouldUpdate($dt)) {
             $this->next($dt);
@@ -46,17 +34,20 @@ abstract class ARevolver implements IRevolver
         return $this->current();
     }
 
-    protected function shouldUpdate(float $dt = null): bool
+    /**
+     * @param float|null $dt delta time(milliseconds), time passed since last update
+     */
+    protected function shouldUpdate(?float $dt = null): bool
     {
-        if (null === $dt || $this->intervalValue <= ($dt + $this->tolerance) || $this->differential <= 0) {
-            $this->differential = $this->intervalValue;
+        if ($dt === null || $this->intervalValue <= ($dt + $this->deltaTolerance) || $this->diff <= 0) {
+            $this->diff = $this->intervalValue;
             return true;
         }
-        $this->differential -= $dt;
+        $this->diff -= $dt;
         return false;
     }
 
-    abstract protected function next(float $dt = null): void;
+    abstract protected function next(?float $dt = null): void;
 
     abstract protected function current(): IFrame;
 }

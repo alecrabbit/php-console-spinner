@@ -2,14 +2,13 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Tests\Spinner\Helper;
+namespace AlecRabbit\Tests\Helper;
 
 use Error;
 use ReflectionClass;
 use ReflectionException;
 use RuntimeException;
 
-use function get_class;
 use function is_string;
 use function method_exists;
 use function property_exists;
@@ -23,9 +22,9 @@ use function property_exists;
  */
 final class PickLock
 {
-    protected const EXCEPTION_TEMPLATE = 'Class [%s] does not have %s "%s"';
-    protected const METHOD = 'method';
-    protected const PROPERTY = 'property';
+    private const EXCEPTION_TEMPLATE = 'Class [%s] does not have %s "%s"';
+    private const METHOD = 'method';
+    private const PROPERTY = 'property';
 
     /**
      * Calls a private or protected method of an object.
@@ -37,6 +36,7 @@ final class PickLock
             /**
              * @param string $methodName
              * @param array $args
+             *
              * @return mixed
              */
             function (string $methodName, ...$args) {
@@ -47,15 +47,14 @@ final class PickLock
                     PickLock::errorMessage($this, $methodName, true)
                 );
             };
-        return
-            $closure->call($objectOrClass, $methodName, ...$args);
+        return $closure->call($objectOrClass, $methodName, ...$args);
     }
 
     /**
      * @psalm-suppress TypeCoercion
      * @psalm-suppress InvalidStringClass
      */
-    protected static function getObject(object|string $objectOrClass): object
+    private static function getObject(object|string $objectOrClass): object
     {
         if (is_string($objectOrClass)) {
             try {
@@ -83,13 +82,12 @@ final class PickLock
      */
     public static function errorMessage(object $object, string $part, bool $forMethod): string
     {
-        return
-            sprintf(
-                self::EXCEPTION_TEMPLATE,
-                get_class($object),
-                $forMethod ? self::METHOD : self::PROPERTY,
-                $part,
-            );
+        return sprintf(
+            self::EXCEPTION_TEMPLATE,
+            $object::class,
+            $forMethod ? self::METHOD : self::PROPERTY,
+            $part,
+        );
     }
 
     /**
@@ -113,8 +111,7 @@ final class PickLock
                     PickLock::errorMessage($this, $propertyName, false)
                 );
             };
-        return
-            $closure->bindTo($objectOrClass, $objectOrClass)();
+        return $closure->bindTo($objectOrClass, $objectOrClass)();
     }
 
     public static function setValue(object|string $objectOrClass, string $propertyName, mixed $value): mixed
@@ -124,7 +121,7 @@ final class PickLock
             /**
              * @throws ReflectionException
              */
-            function (mixed $value) use ($propertyName) {
+            function (mixed $value) use ($propertyName): void {
                 if (property_exists($this, $propertyName)) {
                     $class = new ReflectionClass(get_debug_type($this));
                     $property = $class->getProperty($propertyName);
@@ -136,7 +133,6 @@ final class PickLock
                     PickLock::errorMessage($this, $propertyName, false)
                 );
             };
-        return
-            $closure->bindTo($objectOrClass, $objectOrClass)($value);
+        return $closure->bindTo($objectOrClass, $objectOrClass)($value);
     }
 }

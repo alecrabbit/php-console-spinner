@@ -1,27 +1,32 @@
 <?php
 
 declare(strict_types=1);
-// 09.03.23
+
 
 namespace AlecRabbit\Spinner\Core\Terminal;
 
-use AlecRabbit\Spinner\Contract\StyleMode;
+use AlecRabbit\Spinner\Contract\Option\OptionStyleMode;
 use AlecRabbit\Spinner\Core\Terminal\A\ATerminalProbe;
 
 final class NativeTerminalProbe extends ATerminalProbe
 {
-    public static function isSupported(): bool
+    public function isAvailable(): bool
     {
         return true;
     }
 
-    public static function getWidth(): int
+    public function getWidth(): int
     {
-        return self::TERMINAL_DEFAULT_WIDTH;
+        return self::DEFAULT_TERMINAL_WIDTH;
     }
 
-    public static function getColorMode(): StyleMode
+    public function getOptionStyleMode(): OptionStyleMode
     {
-        return self::TERMINAL_DEFAULT_COLOR_SUPPORT;
+        return self::DEFAULT_OPTION_STYLE_MODE;
+    }
+
+    public function getOutputStream()
+    {
+        return STDERR;
     }
 }

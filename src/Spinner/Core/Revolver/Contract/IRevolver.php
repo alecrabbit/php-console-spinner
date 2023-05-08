@@ -4,11 +4,10 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Revolver\Contract;
 
-use AlecRabbit\Spinner\Contract\HasInterval;
-use AlecRabbit\Spinner\Contract\IInterval;
-use AlecRabbit\Spinner\Contract\IUpdatable;
+use AlecRabbit\Spinner\Contract\IHasFrame;
+use AlecRabbit\Spinner\Contract\IHasInterval;
 
-interface IRevolver extends IUpdatable, HasInterval
+interface IRevolver extends IHasFrame, IHasInterval
 {
-    public function setInterval(IInterval $interval): void;
+    final const TOLERANCE = 5; // milliseconds
 }

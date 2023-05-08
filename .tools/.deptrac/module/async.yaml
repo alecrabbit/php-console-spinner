@@ -1,6 +1,6 @@
 deptrac:
   layers:
-    - name: ModuleAsynchronous
+    - name: Asynchronous
       collectors:
         - type: className
           value: '%namespace%\\Asynchronous\\.*'

@@ -1,21 +1,20 @@
 <?php
 
 declare(strict_types=1);
-// 10.03.23
+
 
 namespace AlecRabbit\Spinner\Core\Revolver\Contract;
 
-use AlecRabbit\Spinner\Contract\IPattern;
-use AlecRabbit\Spinner\Exception\InvalidArgumentException;
-use AlecRabbit\Spinner\Exception\LogicException;
+use AlecRabbit\Spinner\Contract\IInterval;
+use AlecRabbit\Spinner\Core\Contract\IFrameCollection;
 
-interface IFrameRevolverBuilder extends IRevolverBuilder
+interface IFrameRevolverBuilder
 {
-    /**
-     * @throws LogicException
-     * @throws InvalidArgumentException
-     */
     public function build(): IFrameRevolver;
 
-    public function withPattern(IPattern $pattern): static;
+    public function withFrameCollection(IFrameCollection $frames): IFrameRevolverBuilder;
+
+    public function withInterval(IInterval $interval): IFrameRevolverBuilder;
+
+    public function withTolerance(int $tolerance): IFrameRevolverBuilder;
 }

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Extras\Procedure;
 
 use AlecRabbit\Spinner\Contract\IFrame;
-use AlecRabbit\Spinner\Core\Factory\FrameFactory;
+use AlecRabbit\Spinner\Core\Factory\CharFrameFactory;
 use AlecRabbit\Spinner\Extras\Contract\IProgressBarSprite;
 use AlecRabbit\Spinner\Extras\Contract\IProgressValue;
 use AlecRabbit\Spinner\Extras\Procedure\A\AProgressValueProcedure;
@@ -20,7 +20,6 @@ final class ProgressBarProcedure extends AProgressValueProcedure
     protected string $done;
     protected string $cursor;
     protected float $cursorThreshold;
-
 
     public function __construct(
         IProgressValue $progressValue,
@@ -46,23 +45,21 @@ final class ProgressBarProcedure extends AProgressValueProcedure
 
     private function getCursor(float $fraction): string
     {
-        return
-            $fraction >= $this->cursorThreshold
-                ? $this->done
-                : $this->cursor;
+        return $fraction >= $this->cursorThreshold
+            ? $this->done
+            : $this->cursor;
     }
 
-    public function update(float $dt = null): IFrame
+    public function getFrame(?float $dt = null): IFrame
     {
         if ($this->progressValue->isFinished()) {
             if ($this->finishedDelay < 0) {
-                return FrameFactory::createEmpty();
+                return Frame::createEmpty();
             }
             $this->finishedDelay -= $dt ?? 0.0;
         }
         $v = $this->createBar($this->progressValue->getValue());
-        return
-            FrameFactory::create($v);
+        return CharFrameFactory::create($v);
     }
 
     private function createBar(float $progress): string
@@ -74,8 +71,7 @@ final class ProgressBarProcedure extends AProgressValueProcedure
                 ? $this->getCursor($progress)
                 : '';
 
-        return
-            $this->open .
+        return $this->open .
             str_repeat($this->done, $p) .
             $cursor .
             str_repeat($this->empty, $this->units - $p) .

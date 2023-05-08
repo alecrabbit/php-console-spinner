@@ -1,46 +1,45 @@
 <?php
 
 declare(strict_types=1);
-// 17.02.23
+
 
 namespace AlecRabbit\Spinner\Asynchronous\Loop\Adapter;
 
-use AlecRabbit\Spinner\Asynchronous\Loop\Adapter\A\ALoopAdapter;
-use AlecRabbit\Spinner\Core\Contract\ISpinner;
+use AlecRabbit\Spinner\Core\Contract\Loop\A\ALoopAdapter;
+use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use Closure;
-use React\EventLoop\LoopInterface;
 use Revolt\EventLoop;
-use Revolt\EventLoop\Driver;
-use Revolt\EventLoop\Driver\EvDriver;
-use Revolt\EventLoop\Driver\EventDriver;
-use Revolt\EventLoop\Driver\UvDriver;
 
-class RevoltLoopAdapter extends ALoopAdapter
+/**
+ * @codeCoverageIgnore
+ */
+final class RevoltLoopAdapter extends ALoopAdapter
 {
     private static bool $stopped = false;
-    private ?string $spinnerTimer = null;
+    protected readonly EventLoop\Driver $revoltLoop;
 
-    public function attach(ISpinner $spinner): void
+    public function __construct()
     {
-        $this->detachSpinner();
-        $this->spinnerTimer =
-            EventLoop::repeat(
-                $spinner->getInterval()->toSeconds(),
-                static fn() => $spinner->spin()
+        $this->revoltLoop = EventLoop::getDriver();
+    }
+
+    public function cancel(mixed $timer): void
+    {
+        if (!is_string($timer)) {
+            throw new InvalidArgumentException(
+                sprintf(
+                    'Invalid timer type: %s, expected string',
+                    gettype($timer)
+                )
             );
-    }
-
-    protected function detachSpinner(): void
-    {
-        if ($this->spinnerTimer) {
-            EventLoop::cancel($this->spinnerTimer);
         }
+        EventLoop::cancel($timer);
     }
 
-    public function repeat(float $interval, Closure $closure): void
+    public function repeat(float $interval, Closure $closure): string
     {
         /** @psalm-suppress MixedArgumentTypeCoercion */
-        EventLoop::repeat($interval, $closure);
+        return EventLoop::repeat($interval, $closure);
     }
 
     public function autoStart(): void
@@ -52,8 +51,8 @@ class RevoltLoopAdapter extends ALoopAdapter
             $hasRun = true;
         });
 
-        $stopped =& self::$stopped;
-        register_shutdown_function(static function () use (&$hasRun, &$stopped) {
+        $stopped = &self::$stopped;
+        register_shutdown_function(static function () use (&$hasRun, &$stopped): void {
             // Don't run if we're coming from a fatal error (uncaught exception).
             if (self::error()) {
                 return;
@@ -66,30 +65,24 @@ class RevoltLoopAdapter extends ALoopAdapter
         // @codeCoverageIgnoreEnd
     }
 
+    public function run(): void
+    {
+        $this->revoltLoop->run();
+    }
+
     public function delay(float $delay, Closure $closure): void
     {
         /** @psalm-suppress MixedArgumentTypeCoercion */
         EventLoop::delay($delay, $closure);
     }
 
-    protected function assertExtPcntl(): void
+    public function stop(): void
     {
-        $driver = $this->getLoop();
-        if ($driver instanceof UvDriver
-            || $driver instanceof EvDriver
-            || $driver instanceof EventDriver) {
-            return; // these drivers do not require pcntl extension
-        }
-
-        parent::assertExtPcntl();
+        self::$stopped = true;
+        $this->revoltLoop->stop();
     }
 
-    public function getLoop(): LoopInterface|Driver
-    {
-        return EventLoop::getDriver();
-    }
-
-    protected function onSignal(int $signal, Closure $closure): void
+    public function onSignal(int $signal, Closure $closure): void
     {
         /** @psalm-suppress MixedArgumentTypeCoercion */
         EventLoop::onSignal($signal, $closure);
