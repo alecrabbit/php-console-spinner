@@ -2,9 +2,19 @@
 
 [⬅️ to features.md](features.md)
 
+### "Zero" dependencies
+
+"Zero" dependencies mode means that the library does not require any additional dependencies to work. The only exception 
+is `psr/container`. That's why zero is in quotes.
+```json
+    "require": {
+        "php": ">=8.2",
+        "psr/container": ">=2.0"
+    },
+```
 ### Limitations
 
-In zero dependencies "mode", the library has the following limitations:
+In "Zero" dependencies "mode", the library has the following limitations:
 - ❗ **Only synchronous mode is available.**
 - Terminal color support can not be detected thus it is set to 256 colors by default. Can be overridden manually.
 - Terminal width can not be detected thus it is set to 100 by default. Can be overridden manually.

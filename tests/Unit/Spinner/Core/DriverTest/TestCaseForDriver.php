@@ -22,7 +22,7 @@ class TestCaseForDriver extends TestCaseWithPrebuiltMocksAndStubs
         ?IObserver $observer = null,
     ): IDriver {
         return new Driver(
-            driverOutput: $driverOutput ?? $this->getDriverOutputMock(),
+            output: $driverOutput ?? $this->getDriverOutputMock(),
             timer: $timer ?? $this->getTimerMock(),
             initialInterval: $initialInterval ?? $this->getIntervalMock(),
             observer: $observer,

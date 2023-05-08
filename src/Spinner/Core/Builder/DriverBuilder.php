@@ -54,7 +54,7 @@ final class DriverBuilder implements Contract\IDriverBuilder
         $this->validate();
 
         return new Driver(
-            driverOutput: $this->driverOutput,
+            output: $this->driverOutput,
             timer: $this->timer,
             initialInterval: $this->initialInterval ?? $this->createInitialInterval(),
             observer: $this->observer,
