@@ -84,6 +84,11 @@ final class LoopSetupTest extends TestCaseWithPrebuiltMocksAndStubs
             ->willReturn(true)
         ;
 
+        if (!defined('SIGINT')) {
+            $this->expectException(\Error::class);
+            $this->expectExceptionMessage('Undefined constant "SIGINT"');
+        }
+
         $this->getTesteeInstance(
             loop: $loop,
             settings: $settings,
