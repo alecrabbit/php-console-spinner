@@ -7,5 +7,8 @@ namespace AlecRabbit\Spinner\Contract;
 
 interface IHasInterval
 {
+    /**
+     * @return IInterval
+     */
     public function getInterval(): IInterval;
 }

@@ -16,15 +16,50 @@ interface IDriver extends IObserver,
                           IRenderable,
                           IHasInterval
 {
+    /**
+     * Adds spinner to the driver.
+     *
+     * @param ISpinner $spinner
+     * @return void
+     */
     public function add(ISpinner $spinner): void;
 
+    /**
+     * Removes spinner from the driver. Fails silently if spinner is not in the driver.
+     *
+     * @param ISpinner $spinner
+     * @return void
+     */
     public function remove(ISpinner $spinner): void;
 
+    /**
+     * Initializes driver. Hides cursor(if enabled).
+     *
+     * @return void
+     */
     public function initialize(): void;
 
+    /**
+     * Interrupts driver. Erases spinner(s) and outputs interrupt message. Shows cursor(if enabled).
+     *
+     * @param string|null $interruptMessage
+     * @return void
+     */
     public function interrupt(?string $interruptMessage = null): void;
 
+    /**
+     * Finalizes driver. Erases spinner(s) and outputs final message. Shows cursor(if enabled).
+     *
+     * @param string|null $finalMessage
+     * @return void
+     */
     public function finalize(?string $finalMessage = null): void;
 
+    /**
+     * Wraps a user callback with erase and render methods calls. Returns wrapped callback.
+     *
+     * @param Closure $callback
+     * @return Closure
+     */
     public function wrap(Closure $callback): Closure;
 }
