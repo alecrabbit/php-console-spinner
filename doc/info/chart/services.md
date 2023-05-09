@@ -4,69 +4,38 @@
 classDiagram
     direction TB
     Facade ..> IContainerFactory
-    Facade ..> IConfigBuilder
+    Facade ..> ISettingsProvider
+    Facade ..> ILoopFactory
     Facade ..> IDriverFactory
     Facade ..> ISpinnerFactory
-    Facade ..> IDriverLinker
-    Facade ..> ILoopFactory
    
 
     class Facade {
-        +getSettingsProvider() ISettingsProvider
+        +createSpinner() ISpinner
+        +getDriver() IDriver
         +getLoop() ILoop
-        +createDriver() IDriver
-        +useService(string $id, object|callable|string $service) void
+        +getSettingsProvider() ISettingsProvider
+    }  
+    
+    class DefinitionRegistry {
+        +bind() void
     }
     
     IContainerFactory ..> IContainer
     
-    IContainer ..> IServiceSpawner
-
-    IDriverFactory ..> IDriverBuilder
-    IDriverFactory ..> IDriverOutputFactory
-    IDriverFactory ..> ITimerFactory
-    IDriverFactory ..> IDriverSetup
-    
-    class IDriverFactory {
-        +create() IDriver
-    }
-    
-    IDriverOutputFactory ..> IDriverOutputBuilder
-    IDriverOutputFactory ..> IBufferedOutputSingletonFactory
-    IDriverOutputFactory ..> IConsoleCursorFactory
-    
-    IDriverBuilder ..> IIntervalFactory
-    
-    IConsoleCursorFactory ..> IBufferedOutputSingletonFactory
-    IConsoleCursorFactory ..> IConsoleCursorBuilder
-    
-    ITimerFactory ..> ITimerBuilder
-    
-    IDriverSetup ..> IDriverLinker
-    
-    ILoopSetup ..> ILoop
-
-    IConfigBuilder ..> ISettingsProvider
-    
-    class IConfigBuilder {
-        +getSettingsProvider() ISettingsProvider
-    }
-    
-    ILoopFactory ..> ILoopProbeFactory
-    ILoopFactory ..> ILoopSetupBuilder
-    
-    ILoopProbeFactory ..> `ILoopProbe[]`
-    
-    ILoopSetupBuilder ..> ILoopSetup
-
     class ILoopFactory {
         +getLoop() ILoop
     }
+    
+    class ISpinnerFactory {
+        +createSpinner() ISpinner
+    }   
+    
+    class IDriverFactory {
+        +getDriver() IDriver
+    }
 
-    IIntervalFactory ..> IIntervalNormalizer
-    IIntervalFactory .. Interval
 
-    IIntervalNormalizer ..> IIntegerNormalizer
 ```
 ```mermaid
 classDiagram
@@ -99,6 +68,38 @@ classDiagram
 
 
 ```
+
+```mermaid
+classDiagram
+    direction TB
+    IDriverFactory ..> IDriverBuilder
+    IDriverFactory ..> IDriverOutputFactory
+    IDriverFactory ..> ITimerFactory
+    IDriverFactory ..> IDriverSetup
+    IDriverFactory ..> IDriverSettings
+    IDriverFactory ..> ILoopSetupFactory
+    
+    IDriverBuilder ..> IIntervalFactory
+    
+    ILoopSetupFactory ..> ISettingsProvider
+    ILoopSetupFactory ..> ILoopFactory
+    ILoopSetupFactory ..> ILoopSetupBuilder
+    
+    IDriverOutputFactory ..> IDriverOutputBuilder
+    IDriverOutputFactory ..> IBufferedOutputSingletonFactory
+    IDriverOutputFactory ..> IConsoleCursorFactory
+
+    ITimerFactory ..> ITimerBuilder
+    
+    IDriverSetup ..> IDriverLinker
+    
+    IDriverLinker ..> ILoop
+    IDriverLinker ..> OptionLinker
+
+    ILoopFactory ..> ILoopProbeFactory
+
+```
+
 ```mermaid
 classDiagram
     direction TB
