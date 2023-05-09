@@ -71,35 +71,31 @@ classDiagram
 ```mermaid
 classDiagram
     direction TB
-    ISpinnerFactory ..> IWidgetFactory
     ISpinnerFactory ..> ISettingsProvider
+    ISpinnerFactory ..> IWidgetFactory
+    ISpinnerFactory ..> IWidgetSettingsFactory
 
+    IWidgetSettingsFactory ..> ISettingsProvider
+    IWidgetSettingsFactory ..> IWidgetSettingsBuilder 
+    
     IWidgetFactory ..> IWidgetBuilder
     IWidgetFactory ..> IWidgetRevolverFactory
 
     IWidgetRevolverFactory ..> IWidgetRevolverBuilder
-    IWidgetRevolverFactory ..> IStyleRevolverFactory
-    IWidgetRevolverFactory ..> ICharRevolverFactory
+    IWidgetRevolverFactory ..> IStyleFrameRevolverFactory
+    IWidgetRevolverFactory ..> ICharFrameRevolverFactory
+    
+    IStyleFrameRevolverFactory ..> IFrameRevolverBuilder
+    IStyleFrameRevolverFactory ..> IFrameCollectionFactory
+    IStyleFrameRevolverFactory ..> IIntervalFactory
+    IStyleFrameRevolverFactory ..> OptionStyleMode
+    
+    ICharFrameRevolverFactory ..> IFrameRevolverBuilder
+    ICharFrameRevolverFactory ..> IFrameCollectionFactory
+    ICharFrameRevolverFactory ..> IIntervalFactory
+    
+    IIntervalFactory ..> IIntervalNormalizer
 
-    IStyleRevolverFactory ..> IFrameRevolverBuilder
-    IStyleRevolverFactory ..> IStyleFrameCollectionRenderer
-
-    ICharRevolverFactory ..> IFrameRevolverBuilder
-    ICharRevolverFactory ..> ICharFrameCollectionRenderer
-
-    IStyleFrameCollectionRenderer ..> IStyleFrameRenderer
-
-    ICharFrameCollectionRenderer ..> ICharFrameRenderer
-
-    IStyleFrameRenderer ..> IAnsiStyleConverter
-    IStyleFrameRenderer ..> ISequencer
-    IStyleFrameRenderer ..> IFrameFactory
-
-    ICharFrameRenderer ..> IFrameFactory
-
-    IAnsiStyleConverter ..> OptionStyleMode
-
-    IFrameFactory ..> IWidthMeasurer
 
 
 ```
