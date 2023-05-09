@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Spinner\Container;
+namespace AlecRabbit\Spinner\Container\Contract;
 
 use Traversable;
 
