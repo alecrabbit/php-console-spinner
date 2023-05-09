@@ -17,7 +17,7 @@ $loop->delay(5, static function () use ($driver, $loop, $spinner): void {
     });
 });
 
-$loop->delay(65, static function () use ($loop,$driver): void {
+$loop->delay(63, static function () use ($loop,$driver): void {
     $driver->finalize();
     $loop->stop();
 });
