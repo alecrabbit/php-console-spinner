@@ -28,8 +28,8 @@
 
 ### New version 1.0.0
 
+> - ‼️ documentation is a bit clumsy at the moment
 > - WIP
-> - documentation is a bit clumsy at the moment
 > - ‼️ API is subject to change until `1.0.0-BETA.0`
 > - is intended to be used with event loop (see [limitations](doc/limitations.md))
 

@@ -14,11 +14,11 @@ require_once __DIR__ . '/../bootstrap.php';
 
 $spinner = Factory::createSpinner();
 ```
-> see [examples/async](../example/async)
+> see [example/async](../example/async)
 
 ## <a name="no-ev"></a> Usage without event loop - Synchronous mode
 
-In synchronous mode usage is a bit more complicated. For tha sake of examples `App::class` is used. It is a simple class with `run()` method. It is used to demonstrate how to use `Spinner` in synchronous mode.
+In synchronous mode usage is a bit more complicated. For the sake of examples `App::class` is used. It is a simple class with `run()` method. It is used to demonstrate how to use `Spinner` in synchronous mode.
 
 ```php
 use Example\Kernel\App;
@@ -31,18 +31,18 @@ $app = new App();
 
 $app->run();
 ```
-> see [examples/synchronous](../example/synchronous)
+> see [example/synchronous](../example/synchronous)
 
 
 ## <a name="patterns"></a> Patterns
 
 There are two pattern types:
 - character patterns, e.g. `'⠏'` `'⠛'` `'⠹'`
-- style patterns, describing which style to apply to a frame
+- style patterns, describing which style to apply to a char frame
 
 ### Character patterns
 
-List of supplied character patterns you will find [here]().
+List of supplied character patterns you will find [here](patterns.md).
 
 #### How to create your own character pattern
 
@@ -66,7 +66,7 @@ $config =
 
 ### Style patterns
 
-List of supplied style patterns you will find [here]().
+List of supplied style patterns you will find [here](patterns.md).
 
 #### How to create your own style pattern
 
