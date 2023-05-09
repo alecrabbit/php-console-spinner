@@ -9,6 +9,8 @@
 
 # 🇺🇦 🏵️ PHP Console Spinner
 
+![demo](doc/image/demo/fpdemo.svg)
+
 [![PHP Version](https://img.shields.io/packagist/php-v/alecrabbit/php-console-spinner/dev-master.svg)](https://php.net)
 [![Build Status](https://github.com/alecrabbit/php-console-spinner/workflows/build/badge.svg)](https://github.com/alecrabbit/php-console-spinner/actions)
 
@@ -32,8 +34,6 @@
 > - is intended to be used with event loop (see [limitations](doc/limitations.md))
 
 
-
-![demo](doc/image/demo/fpdemo.svg)
 
 + [Installation](#installation)
 + [Quick start](#quickstart)

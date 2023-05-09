@@ -29,16 +29,11 @@ $memoryReport = static function () use ($echo): void {
     );
 };
 
-$echo('--');
-
 $memoryReport();
-$loop = Facade::getLoop();
 
-//dump($loop);
-//dump($driver);
-//dump($spinner);
-
-$loop->repeat(
-    $reportInterval,
-    $memoryReport
-);
+Facade::getLoop()
+    ->repeat(
+        $reportInterval,
+        $memoryReport
+    )
+;
