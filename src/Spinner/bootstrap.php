@@ -120,23 +120,23 @@ function definitions(): Traversable
         ICharFrameRevolverFactory::class => CharFrameRevolverFactory::class,
         IConsoleCursorBuilder::class => ConsoleCursorBuilder::class,
         IConsoleCursorFactory::class => ConsoleCursorFactory::class,
-        ISettingsProviderBuilder::class => SettingsProviderBuilder::class,
-        IDriverLinkerFactory::class => DriverLinkerFactory::class,
         IDriverBuilder::class => DriverBuilder::class,
+        IDriverFactory::class => DriverFactory::class,
+        IDriverLinkerFactory::class => DriverLinkerFactory::class,
         IDriverOutputBuilder::class => DriverOutputBuilder::class,
         IDriverOutputFactory::class => DriverOutputFactory::class,
         IDriverSettingsBuilder::class => DriverSettingsBuilder::class,
         IDriverSetup::class => DriverSetup::class,
-        IDriverFactory::class => DriverFactory::class,
         IFrameCollectionFactory::class => FrameCollectionFactory::class,
         IFrameRevolverBuilder::class => FrameRevolverBuilder::class,
         IIntegerNormalizerBuilder::class => IntegerNormalizerBuilder::class,
         IIntervalFactory::class => IntervalFactory::class,
         IIntervalNormalizerFactory::class => IntervalNormalizerFactory::class,
+        ILoopFactory::class => LoopFactory::class,
         ILoopSetup::class => LoopSetup::class,
         ILoopSetupBuilder::class => LoopSetupBuilder::class,
         ILoopSetupFactory::class => LoopSetupFactory::class,
-        ILoopFactory::class => LoopFactory::class,
+        ISettingsProviderBuilder::class => SettingsProviderBuilder::class,
         ISpinnerFactory::class => SpinnerFactory::class,
         IStyleFrameFactory::class => StyleFrameFactory::class,
         IStyleFrameRevolverFactory::class => StyleFrameRevolverFactory::class,
@@ -144,15 +144,12 @@ function definitions(): Traversable
         ITimerFactory::class => TimerFactory::class,
         IWidgetBuilder::class => WidgetBuilder::class,
         IWidgetFactory::class => WidgetFactory::class,
-        IWidgetSettingsFactory::class => WidgetSettingsFactory::class,
         IWidgetRevolverBuilder::class => WidgetRevolverBuilder::class,
         IWidgetRevolverFactory::class => WidgetRevolverFactory::class,
         IWidgetSettingsBuilder::class => WidgetSettingsBuilder::class,
+        IWidgetSettingsFactory::class => WidgetSettingsFactory::class,
         IWidthMeasurerFactory::class => WidthMeasurerFactory::class,
 
-        ISettingsProvider::class => static function (ContainerInterface $container): ISettingsProvider {
-            return $container->get(ISettingsProviderBuilder::class)->build();
-        },
         IDriver::class => static function (ContainerInterface $container): IDriver {
             return $container->get(IDriverFactory::class)->getDriver();
         },
@@ -192,15 +189,21 @@ function definitions(): Traversable
                 );
             }
         },
-        ISignalProcessingProbe::class => static function (ContainerInterface $container): ISignalProcessingProbe {
-            return $container->get(ISignalProcessingProbeFactory::class)->getProbe();
-        },
-        ISignalProcessingProbeFactory::class => SignalProcessingProbeFactory::class,
+
         IResourceStream::class => static function (ContainerInterface $container): IResourceStream {
             /** @var ISettingsProvider $provider */
             $provider = $container->get(ISettingsProvider::class);
             return new ResourceStream($provider->getTerminalSettings()->getOutputStream());
         },
+
+        ISettingsProvider::class => static function (ContainerInterface $container): ISettingsProvider {
+            return $container->get(ISettingsProviderBuilder::class)->build();
+        },
+        ISignalProcessingProbe::class => static function (ContainerInterface $container): ISignalProcessingProbe {
+            return $container->get(ISignalProcessingProbeFactory::class)->getProbe();
+        },
+        ISignalProcessingProbeFactory::class => SignalProcessingProbeFactory::class,
+
         ITerminalProbeFactory::class => static function (): ITerminalProbeFactory {
             return new TerminalProbeFactory(
                 new ArrayObject([
@@ -214,9 +217,11 @@ function definitions(): Traversable
 
             return new TerminalSettingsFactory($terminalProbe);
         },
+
         IWidthMeasurer::class => static function (ContainerInterface $container): IWidthMeasurer {
             return $container->get(IWidthMeasurerFactory::class)->create();
         },
+
         OptionNormalizerMode::class => static function (ContainerInterface $container): OptionNormalizerMode {
             return $container->get(ISettingsProvider::class)->getAuxSettings()->getOptionNormalizerMode();
         },

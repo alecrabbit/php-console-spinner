@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Factory;
 
 use AlecRabbit\Spinner\Container\Container;
-use AlecRabbit\Spinner\Container\IDefinitionRegistry;
+use AlecRabbit\Spinner\Container\Contract\IDefinitionRegistry;
 use AlecRabbit\Spinner\Core\Factory\ContainerFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IContainerFactory;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;

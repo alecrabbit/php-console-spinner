@@ -3,46 +3,21 @@
 declare(strict_types=1);
 
 use AlecRabbit\Spinner\Facade;
-use AlecRabbit\Spinner\Helper\MemoryUsage;
 
 require_once __DIR__ . '/../bootstrap.async.php';
 
-$loop = Facade::getLoop();
-
-$reportInterval = 5;
-
-$memoryReport = static function (): void {
-    static $m = new MemoryUsage();
-    $message =
-        sprintf(
-            '%s %s',
-            (new DateTimeImmutable())->format(DATE_RFC3339_EXTENDED),
-            $m->report(),
-        );
-    echo $message . PHP_EOL;
-};
-
-$loop->repeat(
-    $reportInterval,
-    $memoryReport
-);
-
-echo '--' . PHP_EOL;
-$memoryReport();
-
 $spinner = Facade::createSpinner(attach: false);
 $driver = Facade::getDriver();
+$loop = Facade::getLoop();
 
-dump($driver);
-dump($loop);
-
-$loop->delay(7, static function () use ($driver, $loop, $spinner): void {
+$loop->delay(5, static function () use ($driver, $loop, $spinner): void {
     $driver->add($spinner);
-    $loop->delay(12, static function () use ($driver, $spinner): void {
+    $loop->delay(55, static function () use ($driver, $spinner): void {
         $driver->remove($spinner);
     });
 });
 
-$loop->delay(40, static function () use ($loop): void {
+$loop->delay(63, static function () use ($loop,$driver): void {
+    $driver->finalize();
     $loop->stop();
 });
