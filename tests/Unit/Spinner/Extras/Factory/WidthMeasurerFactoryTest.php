@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Tests\Unit\Spinner\Core\Factory;
+namespace AlecRabbit\Tests\Unit\Spinner\Extras\Factory;
 
-use AlecRabbit\Spinner\Core\Factory\Contract\IWidthMeasurerFactory;
-use AlecRabbit\Spinner\Core\Factory\WidthMeasurerFactory;
-use AlecRabbit\Spinner\Core\WidthMeasurer;
+use AlecRabbit\Spinner\Extras\Factory\Contract\IWidthMeasurerFactory;
+use AlecRabbit\Spinner\Extras\Factory\WidthMeasurerFactory;
+use AlecRabbit\Spinner\Extras\WidthMeasurer;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;
 

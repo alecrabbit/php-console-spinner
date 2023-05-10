@@ -3,14 +3,15 @@
 declare(strict_types=1);
 
 
-namespace AlecRabbit\Spinner\Core\Factory;
+namespace AlecRabbit\Spinner\Extras\Factory;
 
-use AlecRabbit\Spinner\Core\Contract\IWidthMeasurer;
-use AlecRabbit\Spinner\Core\Factory\Contract\IWidthMeasurerFactory;
-use AlecRabbit\Spinner\Core\WidthMeasurer;
+use AlecRabbit\Spinner\Extras\Contract\IWidthMeasurer;
+use AlecRabbit\Spinner\Extras\Factory\Contract\IWidthMeasurerFactory;
+use AlecRabbit\Spinner\Extras\WidthMeasurer;
 use Closure;
 
 use function AlecRabbit\WCWidth\wcswidth;
+use function mb_strlen;
 
 final class WidthMeasurerFactory implements IWidthMeasurerFactory
 {

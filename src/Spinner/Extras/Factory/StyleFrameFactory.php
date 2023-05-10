@@ -2,13 +2,14 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Spinner\Core\Factory;
+namespace AlecRabbit\Spinner\Extras\Factory;
 
 use AlecRabbit\Spinner\Contract\IFrame;
-use AlecRabbit\Spinner\Core\Contract\IWidthMeasurer;
 use AlecRabbit\Spinner\Core\StyleFrame;
+use AlecRabbit\Spinner\Extras\Contract\IWidthMeasurer;
+use AlecRabbit\Spinner\Extras\Factory\Contract\IStyleFrameFactory;
 
-final class StyleFrameFactory implements Contract\IStyleFrameFactory
+final class StyleFrameFactory implements IStyleFrameFactory
 {
     public function __construct(
         protected IWidthMeasurer $widthMeasurer,

@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Factory;
 
-use AlecRabbit\Spinner\Core\Contract\IWidthMeasurer;
-use AlecRabbit\Spinner\Core\Factory\Contract\IStyleFrameFactory;
-use AlecRabbit\Spinner\Core\Factory\StyleFrameFactory;
 use AlecRabbit\Spinner\Core\StyleFrame;
+use AlecRabbit\Spinner\Extras\Contract\IWidthMeasurer;
+use AlecRabbit\Spinner\Extras\Factory\Contract\IStyleFrameFactory;
+use AlecRabbit\Spinner\Extras\Factory\StyleFrameFactory;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;
 
