@@ -36,55 +36,48 @@ use AlecRabbit\Spinner\Core\Contract\IIntervalNormalizer;
 use AlecRabbit\Spinner\Core\Contract\ILoopSetup;
 use AlecRabbit\Spinner\Core\Contract\ISettingsProvider;
 use AlecRabbit\Spinner\Core\Contract\ISignalProcessingProbe;
-use AlecRabbit\Spinner\Core\Contract\IWidthMeasurer;
 use AlecRabbit\Spinner\Core\Contract\Loop\Contract\ILoop;
 use AlecRabbit\Spinner\Core\Contract\Loop\Contract\ILoopProbe;
 use AlecRabbit\Spinner\Core\DriverSetup;
 use AlecRabbit\Spinner\Core\Factory\BufferedOutputSingletonFactory;
-use AlecRabbit\Spinner\Core\Factory\CharFrameFactory;
 use AlecRabbit\Spinner\Core\Factory\CharFrameRevolverFactory;
 use AlecRabbit\Spinner\Core\Factory\ConsoleCursorFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IBufferedOutputSingletonFactory;
-use AlecRabbit\Spinner\Core\Factory\Contract\ICharFrameFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ICharFrameRevolverFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IConsoleCursorFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\IDriverFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDriverLinkerFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDriverOutputFactory;
-use AlecRabbit\Spinner\Core\Factory\Contract\IDriverFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IFrameCollectionFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalNormalizerFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\ILoopFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopProbeFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopSettingsFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopSetupFactory;
-use AlecRabbit\Spinner\Core\Factory\Contract\ILoopFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ISignalProcessingProbeFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ISpinnerFactory;
-use AlecRabbit\Spinner\Core\Factory\Contract\IStyleFrameFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IStyleFrameRevolverFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ITerminalProbeFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ITerminalSettingsFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ITimerFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IWidgetSettingsFactory;
-use AlecRabbit\Spinner\Core\Factory\Contract\IWidthMeasurerFactory;
+use AlecRabbit\Spinner\Core\Factory\DriverFactory;
 use AlecRabbit\Spinner\Core\Factory\DriverLinkerFactory;
 use AlecRabbit\Spinner\Core\Factory\DriverOutputFactory;
-use AlecRabbit\Spinner\Core\Factory\DriverFactory;
 use AlecRabbit\Spinner\Core\Factory\FrameCollectionFactory;
 use AlecRabbit\Spinner\Core\Factory\IntervalFactory;
 use AlecRabbit\Spinner\Core\Factory\IntervalNormalizerFactory;
+use AlecRabbit\Spinner\Core\Factory\LoopFactory;
 use AlecRabbit\Spinner\Core\Factory\LoopSettingsFactory;
 use AlecRabbit\Spinner\Core\Factory\LoopSetupFactory;
-use AlecRabbit\Spinner\Core\Factory\LoopFactory;
 use AlecRabbit\Spinner\Core\Factory\SignalProcessingProbeFactory;
 use AlecRabbit\Spinner\Core\Factory\SpinnerFactory;
-use AlecRabbit\Spinner\Core\Factory\StyleFrameFactory;
 use AlecRabbit\Spinner\Core\Factory\StyleFrameRevolverFactory;
 use AlecRabbit\Spinner\Core\Factory\TerminalProbeFactory;
 use AlecRabbit\Spinner\Core\Factory\TerminalSettingsFactory;
 use AlecRabbit\Spinner\Core\Factory\TimerFactory;
 use AlecRabbit\Spinner\Core\Factory\WidgetSettingsFactory;
-use AlecRabbit\Spinner\Core\Factory\WidthMeasurerFactory;
 use AlecRabbit\Spinner\Core\LoopSetup;
 use AlecRabbit\Spinner\Core\Output\ResourceStream;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolverBuilder;
@@ -116,7 +109,7 @@ function definitions(): Traversable
         IAuxSettingsBuilder::class => AuxSettingsBuilder::class,
         IBufferedOutputBuilder::class => BufferedOutputBuilder::class,
         IBufferedOutputSingletonFactory::class => BufferedOutputSingletonFactory::class,
-        ICharFrameFactory::class => CharFrameFactory::class,
+//        ICharFrameFactory::class => CharFrameFactory::class,
         ICharFrameRevolverFactory::class => CharFrameRevolverFactory::class,
         IConsoleCursorBuilder::class => ConsoleCursorBuilder::class,
         IConsoleCursorFactory::class => ConsoleCursorFactory::class,
@@ -138,7 +131,7 @@ function definitions(): Traversable
         ILoopSetupFactory::class => LoopSetupFactory::class,
         ISettingsProviderBuilder::class => SettingsProviderBuilder::class,
         ISpinnerFactory::class => SpinnerFactory::class,
-        IStyleFrameFactory::class => StyleFrameFactory::class,
+//        IStyleFrameFactory::class => StyleFrameFactory::class,
         IStyleFrameRevolverFactory::class => StyleFrameRevolverFactory::class,
         ITimerBuilder::class => TimerBuilder::class,
         ITimerFactory::class => TimerFactory::class,
@@ -148,7 +141,7 @@ function definitions(): Traversable
         IWidgetRevolverFactory::class => WidgetRevolverFactory::class,
         IWidgetSettingsBuilder::class => WidgetSettingsBuilder::class,
         IWidgetSettingsFactory::class => WidgetSettingsFactory::class,
-        IWidthMeasurerFactory::class => WidthMeasurerFactory::class,
+//        IWidthMeasurerFactory::class => WidthMeasurerFactory::class,
 
         IDriver::class => static function (ContainerInterface $container): IDriver {
             return $container->get(IDriverFactory::class)->getDriver();
@@ -218,9 +211,9 @@ function definitions(): Traversable
             return new TerminalSettingsFactory($terminalProbe);
         },
 
-        IWidthMeasurer::class => static function (ContainerInterface $container): IWidthMeasurer {
-            return $container->get(IWidthMeasurerFactory::class)->create();
-        },
+//        IWidthMeasurer::class => static function (ContainerInterface $container): IWidthMeasurer {
+//            return $container->get(IWidthMeasurerFactory::class)->create();
+//        },
 
         OptionNormalizerMode::class => static function (ContainerInterface $container): OptionNormalizerMode {
             return $container->get(ISettingsProvider::class)->getAuxSettings()->getOptionNormalizerMode();
