@@ -8,6 +8,7 @@ use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Contract\IObserver;
 use AlecRabbit\Spinner\Contract\ITimer;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
+use AlecRabbit\Spinner\Core\Driver;
 use AlecRabbit\Spinner\Core\Output\Contract\IDriverOutput;
 use Closure;
 
@@ -58,4 +59,10 @@ abstract class ADriver extends ASubject implements IDriver
     }
 
     abstract public function render(?float $dt = null): void;
+
+    /** @inheritdoc */
+    public function initialize(): void
+    {
+        $this->output->initialize();
+    }
 }

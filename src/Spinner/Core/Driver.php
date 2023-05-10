@@ -17,12 +17,6 @@ final class Driver extends ADriver
     protected ISpinnerState $state;
 
     /** @inheritdoc */
-    public function initialize(): void
-    {
-        $this->output->initialize();
-    }
-
-    /** @inheritdoc */
     public function add(ISpinner $spinner): void
     {
         $this->erase();
