@@ -12,7 +12,7 @@
 ![demo](doc/image/demo/fpdemo.svg)
 
 [![PHP Version](https://img.shields.io/packagist/php-v/alecrabbit/php-console-spinner/dev-master.svg)](https://php.net)
-[![Build Status](https://github.com/alecrabbit/php-console-spinner/workflows/build/badge.svg)](https://github.com/alecrabbit/php-console-spinner/actions)
+[![Tests Status](https://github.com/alecrabbit/php-console-spinner/workflows/tests/badge.svg)](https://github.com/alecrabbit/php-console-spinner/actions)
 
 [![Build Status](https://scrutinizer-ci.com/g/alecrabbit/php-console-spinner/badges/build.png?b=master)](https://scrutinizer-ci.com/g/alecrabbit/php-console-spinner/build-status/master)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/alecrabbit/php-console-spinner/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/alecrabbit/php-console-spinner/?branch=master)
