@@ -10,6 +10,7 @@ use AlecRabbit\Spinner\Core\Contract\Loop\Contract\ILoop;
 use AlecRabbit\Spinner\Core\LoopSetup;
 use AlecRabbit\Spinner\Core\Settings\Contract\ILoopSettings;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
+use Error;
 use PHPUnit\Framework\Attributes\Test;
 
 final class LoopSetupTest extends TestCaseWithPrebuiltMocksAndStubs
@@ -83,7 +84,7 @@ final class LoopSetupTest extends TestCaseWithPrebuiltMocksAndStubs
         ;
 
         if (!defined('SIGINT')) {
-            $this->expectException(\Error::class);
+            $this->expectException(Error::class);
             $this->expectExceptionMessage('Undefined constant');
         } else {
             $loop

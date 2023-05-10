@@ -38,15 +38,13 @@ abstract class ADriver extends ASubject implements IDriver
         $this->output->finalize($finalMessage);
     }
 
+    abstract protected function erase(): void;
+
     /** @inheritdoc */
     public function getInterval(): IInterval
     {
         return $this->interval;
     }
-
-    abstract protected function erase(): void;
-
-    abstract public function render(?float $dt = null): void;
 
     /** @inheritdoc */
     public function wrap(Closure $callback): Closure
@@ -58,4 +56,6 @@ abstract class ADriver extends ASubject implements IDriver
                 $this->render();
             };
     }
+
+    abstract public function render(?float $dt = null): void;
 }
