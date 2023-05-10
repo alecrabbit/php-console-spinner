@@ -25,6 +25,7 @@ ARG PHPLOC_VERSION_KEY=0x4AA394086372C20A
 ARG PSALM_VERSION_KEY=0x2DE50EB60C013FFFA831040D12CE0F1D262429A5
 
 ARG COMPOSER_PACKAGES="\
+    nunomaduro/phpinsights \
     "
 
 ARG TOOLS="\
@@ -153,6 +154,7 @@ RUN set -eux \
         /home/user \
         ${COMPOSER_HOME} \
     && chmod 777 /home/user ${COMPOSER_HOME} \
+    && composer global config allow-plugins.dealerdirect/phpcodesniffer-composer-installer true \
     && composer --no-interaction global --prefer-stable \
         --optimize-autoloader require \
         ${COMPOSER_PACKAGES} \
