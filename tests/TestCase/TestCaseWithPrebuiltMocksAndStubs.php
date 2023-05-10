@@ -74,25 +74,9 @@ use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetIntervalContainer;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolverBuilder;
 use AlecRabbit\Spinner\Core\Widget\Factory\Contract\IWidgetFactory;
 use AlecRabbit\Spinner\Core\Widget\Factory\Contract\IWidgetRevolverFactory;
-use AlecRabbit\Spinner\Extras\Contract\IAnsiColorParser;
-use AlecRabbit\Spinner\Extras\Contract\ICharFrameRenderer;
-use AlecRabbit\Spinner\Extras\Contract\IHexColorToAnsiCodeConverter;
-use AlecRabbit\Spinner\Extras\Contract\IStyleToAnsiStringConverter;
 use AlecRabbit\Spinner\Extras\Contract\IWidthMeasurer;
-use AlecRabbit\Spinner\Extras\Contract\Style\IStyle;
-use AlecRabbit\Spinner\Extras\Contract\Style\IStyleOptionsParser;
-use AlecRabbit\Spinner\Extras\Factory\Contract\IAnsiColorParserFactory;
 use AlecRabbit\Spinner\Extras\Factory\Contract\ICharFrameFactory;
-use AlecRabbit\Spinner\Extras\Factory\Contract\IHexColorToAnsiCodeConverterFactory;
-use AlecRabbit\Spinner\Extras\Factory\Contract\IStyleFactory;
 use AlecRabbit\Spinner\Extras\Factory\Contract\IStyleFrameFactory;
-use AlecRabbit\Spinner\Extras\Factory\Contract\IStyleFrameRendererFactory;
-use AlecRabbit\Spinner\Extras\Factory\Contract\IStyleRendererFactory;
-use AlecRabbit\Spinner\Extras\Factory\Contract\IStyleToAnsiStringConverterFactory;
-use AlecRabbit\Spinner\Extras\Render\Contract\ICharFrameCollectionRenderer;
-use AlecRabbit\Spinner\Extras\Render\Contract\IStyleFrameCollectionRenderer;
-use AlecRabbit\Spinner\Extras\Render\Contract\IStyleFrameRenderer;
-use AlecRabbit\Spinner\Extras\Render\Contract\IStyleRenderer;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\MockObject\Stub;
 
@@ -488,61 +472,6 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
         return $this->createMock(IWidgetContext::class);
     }
 
-    protected function getStyleMock(): MockObject&IStyle
-    {
-        return $this->createMock(IStyle::class);
-    }
-
-    protected function getStyleFactoryMock(): MockObject&IStyleFactory
-    {
-        return $this->createMock(IStyleFactory::class);
-    }
-
-    protected function getStyleFrameRendererFactoryMock(): MockObject&IStyleFrameRendererFactory
-    {
-        return $this->createMock(IStyleFrameRendererFactory::class);
-    }
-
-    protected function getStyleFrameRendererMock(): MockObject&IStyleFrameRenderer
-    {
-        return $this->createMock(IStyleFrameRenderer::class);
-    }
-
-    protected function getCharFrameRendererMock(): MockObject&ICharFrameRenderer
-    {
-        return $this->createMock(ICharFrameRenderer::class);
-    }
-
-    protected function getStyleToAnsiStringConverterMock(): MockObject&IStyleToAnsiStringConverter
-    {
-        return $this->createMock(IStyleToAnsiStringConverter::class);
-    }
-
-    protected function getHexColorToAnsiCodeConverterMock(): MockObject&IHexColorToAnsiCodeConverter
-    {
-        return $this->createMock(IHexColorToAnsiCodeConverter::class);
-    }
-
-    protected function getAnsiColorParserMock(): MockObject&IAnsiColorParser
-    {
-        return $this->createMock(IAnsiColorParser::class);
-    }
-
-    protected function getStyleOptionsParserMock(): MockObject&IStyleOptionsParser
-    {
-        return $this->createMock(IStyleOptionsParser::class);
-    }
-
-    protected function getAnsiColorParserFactoryMock(): MockObject&IAnsiColorParserFactory
-    {
-        return $this->createMock(IAnsiColorParserFactory::class);
-    }
-
-    protected function getHexColorToAnsiCodeConverterFactoryMock(): MockObject&IHexColorToAnsiCodeConverterFactory
-    {
-        return $this->createMock(IHexColorToAnsiCodeConverterFactory::class);
-    }
-
     protected function getFrameRevolverBuilderMock(): MockObject&IFrameRevolverBuilder
     {
         return $this->createMock(IFrameRevolverBuilder::class);
@@ -568,21 +497,6 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
         $mockObject = $this->createMock(IFrameCollection::class);
         $mockObject->method('count')->willReturn(1);
         return $mockObject;
-    }
-
-    protected function getStyleFrameCollectionRendererMock(): MockObject&IStyleFrameCollectionRenderer
-    {
-        return $this->createMock(IStyleFrameCollectionRenderer::class);
-    }
-
-    protected function getCharFrameCollectionRendererMock(): MockObject&ICharFrameCollectionRenderer
-    {
-        return $this->createMock(ICharFrameCollectionRenderer::class);
-    }
-
-    protected function getStyleToAnsiStringConverterFactoryMock(): MockObject&IStyleToAnsiStringConverterFactory
-    {
-        return $this->createMock(IStyleToAnsiStringConverterFactory::class);
     }
 
     protected function getTerminalProbeMock(): MockObject&ITerminalProbe

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Tests\Unit\Spinner\Core\Factory;
+namespace AlecRabbit\Tests\Unit\Spinner\Extras\Factory;
 
 use AlecRabbit\Spinner\Core\StyleFrame;
 use AlecRabbit\Spinner\Extras\Contract\IWidthMeasurer;
