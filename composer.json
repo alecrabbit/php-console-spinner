@@ -26,7 +26,6 @@
         "psr/container": ">=2.0"
     },
     "require-dev": {
-        "alecrabbit/php-wcwidth": "^1.0.0-ALPHA.0",
         "fakerphp/faker": "*",
         "nunomaduro/collision": "^7.0",
         "phpunit/php-code-coverage": "*",

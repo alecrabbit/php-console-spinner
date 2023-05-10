@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "15599ddb5da3c5cf8a278b37a5fab0db",
+    "content-hash": "093d054cf6370a3fa8167efc1bcef6aa",
     "packages": [
         {
             "name": "psr/container",
@@ -61,69 +61,6 @@
         }
     ],
     "packages-dev": [
-        {
-            "name": "alecrabbit/php-wcwidth",
-            "version": "1.0.0-ALPHA.2+BUILD.3",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/alecrabbit/php-wcwidth.git",
-                "reference": "180a72cb0085cb5b4c8e93806dbe28024b62e8a2"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/alecrabbit/php-wcwidth/zipball/180a72cb0085cb5b4c8e93806dbe28024b62e8a2",
-                "reference": "180a72cb0085cb5b4c8e93806dbe28024b62e8a2",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=8.2"
-            },
-            "require-dev": {
-                "nunomaduro/collision": "^7.0",
-                "phpunit/phpunit": "^10.0",
-                "symfony/cache": "^6.2",
-                "symfony/console": "^6.2",
-                "symfony/http-client": "^6.2",
-                "symfony/var-dumper": "^6.2",
-                "twig/twig": "^3.5"
-            },
-            "suggest": {
-                "ext-ffi": "For FFI bindings.",
-                "ext-mbstring": "For multibyte Unicode string functionality."
-            },
-            "type": "library",
-            "autoload": {
-                "files": [
-                    "src\\File\\versions.php",
-                    "src\\File\\wide.php",
-                    "src\\File\\zero.php",
-                    "src\\bootstrap.php"
-                ],
-                "psr-4": {
-                    "AlecRabbit\\WCWidth\\Core\\": "lib\\Core",
-                    "AlecRabbit\\WCWidth\\Kernel\\": "src\\Kernel",
-                    "AlecRabbit\\WCWidth\\Builder\\": "lib\\Builder",
-                    "AlecRabbit\\WCWidth\\Command\\": "lib\\Command"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "description": "Calculate width of unicode strings rendered to a terminal",
-            "keywords": [
-                "cli",
-                "console",
-                "php",
-                "wcswidth",
-                "wcwidth"
-            ],
-            "support": {
-                "issues": "https://github.com/alecrabbit/php-wcwidth/issues",
-                "source": "https://github.com/alecrabbit/php-wcwidth/tree/1.0.0-ALPHA.2+BUILD.3"
-            },
-            "time": "2023-03-17T16:04:20+00:00"
-        },
         {
             "name": "evenement/evenement",
             "version": "v3.0.1",
@@ -3783,9 +3720,7 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "alecrabbit/php-wcwidth": 15
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
