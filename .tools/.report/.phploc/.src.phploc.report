@@ -1,30 +1,30 @@
 phploc 7.0.2 by Sebastian Bergmann.
 
 Directories                                         47
-Files                                              242
+Files                                              232
 
 Size
-  Lines of Code (LOC)                             8226
-  Comment Lines of Code (CLOC)                     407 (4.95%)
-  Non-Comment Lines of Code (NCLOC)               7819 (95.05%)
-  Logical Lines of Code (LLOC)                    1058 (12.86%)
-    Classes                                       1004 (94.90%)
+  Lines of Code (LOC)                             7990
+  Comment Lines of Code (CLOC)                     410 (5.13%)
+  Non-Comment Lines of Code (NCLOC)               7580 (94.87%)
+  Logical Lines of Code (LLOC)                    1038 (12.99%)
+    Classes                                        985 (94.89%)
       Average Class Length                           4
         Minimum Class Length                         0
         Maximum Class Length                        36
       Average Method Length                          1
         Minimum Method Length                        0
         Maximum Method Length                       10
-      Average Methods Per Class                      2
+      Average Methods Per Class                      3
         Minimum Methods Per Class                    0
         Maximum Methods Per Class                   14
-    Functions                                       30 (2.84%)
+    Functions                                       29 (2.79%)
       Average Function Length                        1
-    Not in classes or functions                     24 (2.27%)
+    Not in classes or functions                     24 (2.31%)
 
 Cyclomatic Complexity
   Average Complexity per LLOC                     0.26
-  Average Complexity per Class                    2.09
+  Average Complexity per Class                    2.11
     Minimum Class Complexity                      1.00
     Maximum Class Complexity                     21.00
   Average Complexity per Method                   1.43
@@ -36,33 +36,33 @@ Dependencies
     Global Constants                                 0 (0.00%)
     Global Variables                                 0 (0.00%)
     Super-Global Variables                           0 (0.00%)
-  Attribute Accesses                               480
-    Non-Static                                     452 (94.17%)
-    Static                                          28 (5.83%)
-  Method Calls                                     491
-    Non-Static                                     423 (86.15%)
-    Static                                          68 (13.85%)
+  Attribute Accesses                               476
+    Non-Static                                     448 (94.12%)
+    Static                                          28 (5.88%)
+  Method Calls                                     480
+    Non-Static                                     414 (86.25%)
+    Static                                          66 (13.75%)
 
 Structure
   Namespaces                                        47
-  Interfaces                                       110
+  Interfaces                                       105
   Traits                                             2
-  Classes                                          120
-    Abstract Classes                                14 (11.67%)
-    Concrete Classes                               106 (88.33%)
-      Final Classes                                 91 (85.85%)
-      Non-Final Classes                             15 (14.15%)
-  Methods                                          693
+  Classes                                          115
+    Abstract Classes                                13 (11.30%)
+    Concrete Classes                               102 (88.70%)
+      Final Classes                                 87 (85.29%)
+      Non-Final Classes                             15 (14.71%)
+  Methods                                          677
     Scope
-      Non-Static Methods                           640 (92.35%)
-      Static Methods                                53 (7.65%)
+      Non-Static Methods                           626 (92.47%)
+      Static Methods                                51 (7.53%)
     Visibility
-      Public Methods                               583 (84.13%)
-      Protected Methods                             27 (3.90%)
-      Private Methods                               83 (11.98%)
-  Functions                                         27
-    Named Functions                                  3 (11.11%)
-    Anonymous Functions                             24 (88.89%)
+      Public Methods                               571 (84.34%)
+      Protected Methods                             25 (3.69%)
+      Private Methods                               81 (11.96%)
+  Functions                                         26
+    Named Functions                                  3 (11.54%)
+    Anonymous Functions                             23 (88.46%)
   Constants                                         19
     Global Constants                                 0 (0.00%)
     Class Constants                                 19 (100.00%)

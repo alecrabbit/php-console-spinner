@@ -6,31 +6,15 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core;
 
 use AlecRabbit\Spinner\Contract\IInterval;
-use AlecRabbit\Spinner\Contract\IObserver;
 use AlecRabbit\Spinner\Contract\ISubject;
-use AlecRabbit\Spinner\Contract\ITimer;
 use AlecRabbit\Spinner\Core\A\ADriver;
-use AlecRabbit\Spinner\Core\A\ASubject;
-use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use AlecRabbit\Spinner\Core\Contract\ISpinnerState;
-use AlecRabbit\Spinner\Core\Output\Contract\IDriverOutput;
-use Closure;
 
 final class Driver extends ADriver
 {
     protected ?ISpinner $spinner = null;
     protected ISpinnerState $state;
-
-
-
-
-    protected function erase(): void
-    {
-        if ($this->spinner) {
-            $this->output->erase($this->state);
-        }
-    }
 
     /** @inheritdoc */
     public function initialize(): void
@@ -49,6 +33,12 @@ final class Driver extends ADriver
         $this->notify();
     }
 
+    protected function erase(): void
+    {
+        if ($this->spinner) {
+            $this->output->erase($this->state);
+        }
+    }
 
     /** @inheritdoc */
     public function remove(ISpinner $spinner): void
