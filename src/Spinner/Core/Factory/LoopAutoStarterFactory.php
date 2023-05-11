@@ -8,7 +8,6 @@ use AlecRabbit\Spinner\Core\Builder\Contract\ILoopAutoStarterBuilder;
 use AlecRabbit\Spinner\Core\Contract\ILoopAutoStarter;
 use AlecRabbit\Spinner\Core\Contract\ISettingsProvider;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopAutoStarterFactory;
-use AlecRabbit\Spinner\Core\Factory\Contract\ILoopFactory;
 
 final class LoopAutoStarterFactory implements ILoopAutoStarterFactory
 {
