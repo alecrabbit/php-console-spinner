@@ -22,7 +22,7 @@ final class MethodFinalizeDriverTest extends TestCaseForDriver
 
         $driver =
             $this->getTesteeInstance(
-                driverOutput: $driverOutput
+                output: $driverOutput
             );
 
         $driver->initialize();
@@ -41,7 +41,7 @@ final class MethodFinalizeDriverTest extends TestCaseForDriver
 
         $driver =
             $this->getTesteeInstance(
-                driverOutput: $driverOutput
+                output: $driverOutput
             );
 
         $driver->initialize();
@@ -61,7 +61,7 @@ final class MethodFinalizeDriverTest extends TestCaseForDriver
 
         $driver =
             $this->getTesteeInstance(
-                driverOutput: $driverOutput
+                output: $driverOutput
             );
 
         $driver->finalize($finalMessage);
@@ -77,7 +77,7 @@ final class MethodFinalizeDriverTest extends TestCaseForDriver
         ;
         $driver =
             $this->getTesteeInstance(
-                driverOutput: $driverOutput
+                output: $driverOutput
             );
 
         $driver->finalize();
@@ -94,7 +94,7 @@ final class MethodFinalizeDriverTest extends TestCaseForDriver
 
         $driver =
             $this->getTesteeInstance(
-                driverOutput: $driverOutput
+                output: $driverOutput
             );
 
         $driver->initialize();

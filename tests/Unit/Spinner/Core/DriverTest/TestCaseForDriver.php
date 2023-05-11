@@ -17,12 +17,12 @@ class TestCaseForDriver extends TestCaseWithPrebuiltMocksAndStubs
 {
     public function getTesteeInstance(
         ?ITimer $timer = null,
-        ?IDriverOutput $driverOutput = null,
+        ?IDriverOutput $output = null,
         ?IInterval $initialInterval = null,
         ?IObserver $observer = null,
     ): IDriver {
         return new Driver(
-            output: $driverOutput ?? $this->getDriverOutputMock(),
+            output: $output ?? $this->getDriverOutputMock(),
             timer: $timer ?? $this->getTimerMock(),
             initialInterval: $initialInterval ?? $this->getIntervalMock(),
             observer: $observer,

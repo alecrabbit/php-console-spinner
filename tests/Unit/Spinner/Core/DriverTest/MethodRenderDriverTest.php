@@ -26,7 +26,7 @@ final class MethodRenderDriverTest extends TestCaseForDriver
 
         $driver =
             $this->getTesteeInstance(
-                driverOutput: $driverOutput
+                output: $driverOutput
             );
         $driver->initialize();
 
@@ -62,7 +62,7 @@ final class MethodRenderDriverTest extends TestCaseForDriver
         $driver =
             $this->getTesteeInstance(
                 timer: $timer,
-                driverOutput: $driverOutput
+                output: $driverOutput
             );
         $driver->initialize();
 

@@ -34,7 +34,7 @@ final class CommonDriverTest extends TestCaseForDriver
 
         $driver =
             $this->getTesteeInstance(
-                driverOutput: $driverOutput
+                output: $driverOutput
             );
 
         $driver->initialize();
