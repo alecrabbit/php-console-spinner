@@ -17,3 +17,8 @@ _env_reset:
 	@cp -v ${_ENV_DIST_FILE} ${_ENV_FILE};
 	@${_ECHO};
 	@${_ECHO_OK};
+
+_do_project_cleanup:
+	@${_ECHO} "\n${PROJECT_SEL} ${_C_INFO} Cleaning up project...${_C_STOP}\n";
+	@${_ECHO_DISABLED};
+	@${_ECHO} "${_C_DEBUG} Add project cleanup >>here<<${_C_STOP}\n";
