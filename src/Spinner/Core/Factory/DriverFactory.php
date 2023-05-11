@@ -8,6 +8,7 @@ namespace AlecRabbit\Spinner\Core\Factory;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\IDriverBuilder;
 use AlecRabbit\Spinner\Core\Contract\IDriverSetup;
+use AlecRabbit\Spinner\Core\Contract\ISettingsProvider;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDriverFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDriverOutputFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ISignalHandlersSetupFactory;
@@ -57,6 +58,7 @@ final class DriverFactory implements IDriverFactory
             $this->driverBuilder
                 ->withDriverOutput($output)
                 ->withTimer($timer)
+                ->withDriverSettings($this->driverSettings)
                 ->build()
         ;
     }

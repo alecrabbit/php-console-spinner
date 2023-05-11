@@ -67,6 +67,7 @@ final class DriverBuilder implements Contract\IDriverBuilder
                 output: $this->driverOutput,
                 timer: $this->timer,
                 initialInterval: $this->initialInterval ?? $this->createInitialInterval(),
+                driverSettings: $this->driverSettings,
                 observer: $this->observer,
             );
     }
