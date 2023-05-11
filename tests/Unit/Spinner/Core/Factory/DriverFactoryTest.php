@@ -36,10 +36,10 @@ final class DriverFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
         return new DriverFactory(
             driverBuilder: $driverBuilder ?? $this->getDriverBuilderMock(),
             driverOutputFactory: $driverOutputFactory ?? $this->getDriverOutputFactoryMock(),
+            loopSetupFactory: $loopSetupFactory ?? $this->getSignalHandlersSetupFactoryMock(),
             timerFactory: $timerFactory ?? $this->getTimerFactoryMock(),
             driverSetup: $driverSetup ?? $this->getDriverSetupMock(),
             driverSettings: $driverSettings ?? $this->getDriverSettingsMock(),
-            loopSetupFactory: $loopSetupFactory ?? $this->getSignalHandlersSetupFactoryMock(),
         );
     }
 

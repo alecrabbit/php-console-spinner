@@ -21,10 +21,10 @@ final class DriverFactory implements IDriverFactory
     public function __construct(
         protected IDriverBuilder $driverBuilder,
         protected IDriverOutputFactory $driverOutputFactory,
+        protected ISignalHandlersSetupFactory $loopSetupFactory,
         protected ITimerFactory $timerFactory,
         protected IDriverSetup $driverSetup,
         protected IDriverSettings $driverSettings,
-        protected ISignalHandlersSetupFactory $loopSetupFactory,
     ) {
     }
 
