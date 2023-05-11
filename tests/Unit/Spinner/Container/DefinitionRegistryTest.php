@@ -20,6 +20,11 @@ final class DefinitionRegistryTest extends TestCase
         self::assertInstanceOf(DefinitionRegistry::class, $registry);
     }
 
+    protected function getTesteeInstance(): IDefinitionRegistry
+    {
+        return DefinitionRegistry::getInstance();
+    }
+
     #[Test]
     public function isCreatedEmpty(): void
     {
@@ -51,11 +56,6 @@ final class DefinitionRegistryTest extends TestCase
 
         self::assertSame($registry, $this->getTesteeInstance());
         self::assertSame($registry, $this->getTesteeInstance());
-    }
-
-    protected function getTesteeInstance(): IDefinitionRegistry
-    {
-        return DefinitionRegistry::getInstance();
     }
 
     protected function setUp(): void

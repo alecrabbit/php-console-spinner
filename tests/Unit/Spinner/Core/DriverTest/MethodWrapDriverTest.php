@@ -11,10 +11,10 @@ use AlecRabbit\Spinner\Contract\ITimer;
 use AlecRabbit\Spinner\Core\A\ADriver;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
-use AlecRabbit\Spinner\Core\Driver;
 use AlecRabbit\Spinner\Core\Output\Contract\IDriverOutput;
 use AlecRabbit\Spinner\Core\SpinnerState;
 use PHPUnit\Framework\Attributes\Test;
+use RuntimeException;
 
 final class MethodWrapDriverTest extends TestCaseForDriver
 {
@@ -26,12 +26,14 @@ final class MethodWrapDriverTest extends TestCaseForDriver
         $output
             ->expects(self::once())
             ->method('erase')
-            ->with(self::isInstanceOf(SpinnerState::class));
+            ->with(self::isInstanceOf(SpinnerState::class))
+        ;
         // Make sure method render() is called. See ADriver::wrap()
         $output
             ->expects(self::once())
             ->method('write')
-            ->with(self::isInstanceOf(SpinnerState::class));
+            ->with(self::isInstanceOf(SpinnerState::class))
+        ;
 
         $driver =
             $this->getTesteeInstance(
@@ -39,7 +41,7 @@ final class MethodWrapDriverTest extends TestCaseForDriver
             );
 
         $counter = 0;
-        $callback = static function() use (&$counter) {
+        $callback = static function () use (&$counter) {
             $counter++;
         };
 
@@ -77,17 +79,17 @@ final class MethodWrapDriverTest extends TestCaseForDriver
 
             public function add(ISpinner $spinner): void
             {
-                throw new \RuntimeException('Not implemented. Should not be called.');
+                throw new RuntimeException('Not implemented. Should not be called.');
             }
 
             public function remove(ISpinner $spinner): void
             {
-                throw new \RuntimeException('Not implemented. Should not be called.');
+                throw new RuntimeException('Not implemented. Should not be called.');
             }
 
             public function update(ISubject $subject): void
             {
-                throw new \RuntimeException('Not implemented. Should not be called.');
+                throw new RuntimeException('Not implemented. Should not be called.');
             }
         };
     }
