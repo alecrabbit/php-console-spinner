@@ -64,10 +64,6 @@
 /app/src/Spinner/Core/Settings/TerminalSettings.php:26:50:error - ParamNameMismatch: Argument 1 of AlecRabbit\Spinner\Core\Settings\TerminalSettings::setOptionCursor has wrong name $optionCursor, expecting $cursorOption as defined by AlecRabbit\Spinner\Core\Settings\Contract\ITerminalSettings::setOptionCursor
 /app/src/Spinner/Core/Settings/TerminalSettings.php:44:21:error - MixedInferredReturnType: Could not verify return type 'resource' for AlecRabbit\Spinner\Core\Settings\TerminalSettings::getOutputStream
 /app/src/Spinner/Core/Settings/TerminalSettings.php:46:16:error - MixedReturnStatement: Could not infer a return type
-/app/src/Spinner/Core/SignalHandlersSetup.php:27:56:error - MixedAssignment: Unable to determine the type that $signal is being assigned to
-/app/src/Spinner/Core/SignalHandlersSetup.php:27:67:error - MixedAssignment: Unable to determine the type that $handler is being assigned to
-/app/src/Spinner/Core/SignalHandlersSetup.php:28:39:error - MixedArgument: Argument 1 of AlecRabbit\Spinner\Core\Contract\Loop\Contract\ILoop::onSignal cannot be mixed, expecting int
-/app/src/Spinner/Core/SignalHandlersSetup.php:28:48:error - MixedArgument: Argument 2 of AlecRabbit\Spinner\Core\Contract\Loop\Contract\ILoop::onSignal cannot be mixed, expecting Closure
 /app/src/Spinner/Core/Timer.php:40:17:error - TypeDoesNotContainNull: ReflectionType does not contain null
 /app/src/Spinner/Core/Timer.php:40:17:error - RedundantCondition: Type ReflectionType for $returnType is never null
 /app/src/Spinner/Core/Timer.php:40:31:error - UndefinedMethod: Method ReflectionType::getName does not exist
