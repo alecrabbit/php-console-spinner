@@ -5,26 +5,26 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core;
 
-use AlecRabbit\Spinner\Core\Builder\Contract\ILoopSetupBuilder;
-use AlecRabbit\Spinner\Core\Builder\LoopSetupBuilder;
-use AlecRabbit\Spinner\Core\LoopSetup;
+use AlecRabbit\Spinner\Core\Builder\Contract\ISignalHandlersSetupBuilder;
+use AlecRabbit\Spinner\Core\Builder\SignalHandlersSetupBuilder;
+use AlecRabbit\Spinner\Core\SignalHandlersSetup;
 use AlecRabbit\Spinner\Exception\LogicException;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;
 
-final class LoopSetupBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
+final class SignalHandlersSetupBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
 {
     #[Test]
     public function canBeCreated(): void
     {
         $loopSetupBuilder = $this->getTesteeInstance();
 
-        self::assertInstanceOf(LoopSetupBuilder::class, $loopSetupBuilder);
+        self::assertInstanceOf(SignalHandlersSetupBuilder::class, $loopSetupBuilder);
     }
 
-    public function getTesteeInstance(): ILoopSetupBuilder
+    public function getTesteeInstance(): ISignalHandlersSetupBuilder
     {
-        return new LoopSetupBuilder();
+        return new SignalHandlersSetupBuilder();
     }
 
     #[Test]
@@ -32,14 +32,14 @@ final class LoopSetupBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
     {
         $loopSetupBuilder = $this->getTesteeInstance();
 
-        self::assertInstanceOf(LoopSetupBuilder::class, $loopSetupBuilder);
+        self::assertInstanceOf(SignalHandlersSetupBuilder::class, $loopSetupBuilder);
 
         $loopSetupBuilder = $loopSetupBuilder
             ->withLoop($this->getLoopMock())
             ->withSettings($this->getLoopSettingsMock())
         ;
 
-        self::assertInstanceOf(LoopSetup::class, $loopSetupBuilder->build());
+        self::assertInstanceOf(SignalHandlersSetup::class, $loopSetupBuilder->build());
     }
 
     #[Test]
@@ -50,7 +50,7 @@ final class LoopSetupBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
 
         $test = function (): void {
             $loopSetupBuilder = $this->getTesteeInstance();
-            self::assertInstanceOf(LoopSetupBuilder::class, $loopSetupBuilder);
+            self::assertInstanceOf(SignalHandlersSetupBuilder::class, $loopSetupBuilder);
             $loopSetupBuilder
                 ->withSettings($this->getLoopSettingsMock())
                 ->build()
@@ -72,7 +72,7 @@ final class LoopSetupBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
 
         $test = function (): void {
             $loopSetupBuilder = $this->getTesteeInstance();
-            self::assertInstanceOf(LoopSetupBuilder::class, $loopSetupBuilder);
+            self::assertInstanceOf(SignalHandlersSetupBuilder::class, $loopSetupBuilder);
             $loopSetupBuilder
                 ->withLoop($this->getLoopMock())
                 ->build()

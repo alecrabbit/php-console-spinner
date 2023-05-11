@@ -10,7 +10,7 @@ use AlecRabbit\Spinner\Core\Contract\IDriverBuilder;
 use AlecRabbit\Spinner\Core\Contract\IDriverSetup;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDriverFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDriverOutputFactory;
-use AlecRabbit\Spinner\Core\Factory\Contract\ILoopSetupFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\ISignalHandlersSetupFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ITimerFactory;
 use AlecRabbit\Spinner\Core\Settings\Contract\IDriverSettings;
 
@@ -24,7 +24,7 @@ final class DriverFactory implements IDriverFactory
         protected ITimerFactory $timerFactory,
         protected IDriverSetup $driverSetup,
         protected IDriverSettings $driverSettings,
-        protected ILoopSetupFactory $loopSetupFactory,
+        protected ISignalHandlersSetupFactory $loopSetupFactory,
     ) {
     }
 
@@ -39,7 +39,9 @@ final class DriverFactory implements IDriverFactory
                 ->setup(self::$driver)
             ;
 
-            $this->loopSetupFactory->create()->setup(self::$driver);
+            $this->loopSetupFactory
+                ->create()
+                ->setup(self::$driver);
         }
 
         return self::$driver;
@@ -47,10 +49,15 @@ final class DriverFactory implements IDriverFactory
 
     private function buildDriver(): IDriver
     {
-        return $this->driverBuilder
-            ->withDriverOutput($this->driverOutputFactory->create())
-            ->withTimer($this->timerFactory->create())
-            ->build()
+        $output = $this->driverOutputFactory->create();
+
+        $timer = $this->timerFactory->create();
+
+        return
+            $this->driverBuilder
+                ->withDriverOutput($output)
+                ->withTimer($timer)
+                ->build()
         ;
     }
 }

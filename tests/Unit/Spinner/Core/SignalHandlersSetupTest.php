@@ -5,30 +5,30 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core;
 
-use AlecRabbit\Spinner\Core\Contract\ILoopSetup;
+use AlecRabbit\Spinner\Core\Contract\ISignalHandlersSetup;
 use AlecRabbit\Spinner\Core\Contract\Loop\Contract\ILoop;
-use AlecRabbit\Spinner\Core\LoopSetup;
+use AlecRabbit\Spinner\Core\SignalHandlersSetup;
 use AlecRabbit\Spinner\Core\Settings\Contract\ILoopSettings;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use Error;
 use PHPUnit\Framework\Attributes\Test;
 
-final class LoopSetupTest extends TestCaseWithPrebuiltMocksAndStubs
+final class SignalHandlersSetupTest extends TestCaseWithPrebuiltMocksAndStubs
 {
     #[Test]
     public function canBeCreated(): void
     {
         $loopSetup = $this->getTesteeInstance();
 
-        self::assertInstanceOf(LoopSetup::class, $loopSetup);
+        self::assertInstanceOf(SignalHandlersSetup::class, $loopSetup);
     }
 
     public function getTesteeInstance(
         ?ILoop $loop = null,
         ?ILoopSettings $settings = null,
-    ): ILoopSetup {
+    ): ISignalHandlersSetup {
         return
-            new LoopSetup(
+            new SignalHandlersSetup(
                 loop: $loop ?? $this->getLoopMock(),
                 settings: $settings ?? $this->getLoopSettingsMock(),
             );

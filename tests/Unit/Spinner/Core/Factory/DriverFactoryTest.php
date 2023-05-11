@@ -8,7 +8,7 @@ use AlecRabbit\Spinner\Core\Contract\IDriverBuilder;
 use AlecRabbit\Spinner\Core\Contract\IDriverSetup;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDriverFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDriverOutputFactory;
-use AlecRabbit\Spinner\Core\Factory\Contract\ILoopSetupFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\ISignalHandlersSetupFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ITimerFactory;
 use AlecRabbit\Spinner\Core\Factory\DriverFactory;
 use AlecRabbit\Spinner\Core\Settings\Contract\IDriverSettings;
@@ -31,7 +31,7 @@ final class DriverFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
         ?ITimerFactory $timerFactory = null,
         ?IDriverSetup $driverSetup = null,
         ?IDriverSettings $driverSettings = null,
-        ?ILoopSetupFactory $loopSetupFactory = null,
+        ?ISignalHandlersSetupFactory $loopSetupFactory = null,
     ): IDriverFactory {
         return new DriverFactory(
             driverBuilder: $driverBuilder ?? $this->getDriverBuilderMock(),
@@ -39,7 +39,7 @@ final class DriverFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
             timerFactory: $timerFactory ?? $this->getTimerFactoryMock(),
             driverSetup: $driverSetup ?? $this->getDriverSetupMock(),
             driverSettings: $driverSettings ?? $this->getDriverSettingsMock(),
-            loopSetupFactory: $loopSetupFactory ?? $this->getLoopSetupFactoryMock(),
+            loopSetupFactory: $loopSetupFactory ?? $this->getSignalHandlersSetupFactoryMock(),
         );
     }
 

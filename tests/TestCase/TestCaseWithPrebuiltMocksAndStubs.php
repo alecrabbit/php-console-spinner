@@ -20,7 +20,7 @@ use AlecRabbit\Spinner\Core\Builder\Contract\IConsoleCursorBuilder;
 use AlecRabbit\Spinner\Core\Builder\Contract\IDriverOutputBuilder;
 use AlecRabbit\Spinner\Core\Builder\Contract\IIntegerNormalizerBuilder;
 use AlecRabbit\Spinner\Core\Builder\Contract\ILoopAutoStarterBuilder;
-use AlecRabbit\Spinner\Core\Builder\Contract\ILoopSetupBuilder;
+use AlecRabbit\Spinner\Core\Builder\Contract\ISignalHandlersSetupBuilder;
 use AlecRabbit\Spinner\Core\Builder\Contract\ITimerBuilder;
 use AlecRabbit\Spinner\Core\Builder\Settings\Contract\IAuxSettingsBuilder;
 use AlecRabbit\Spinner\Core\Builder\Settings\Contract\IDriverSettingsBuilder;
@@ -34,7 +34,7 @@ use AlecRabbit\Spinner\Core\Contract\IDriverSetup;
 use AlecRabbit\Spinner\Core\Contract\IFrameCollection;
 use AlecRabbit\Spinner\Core\Contract\IIntervalNormalizer;
 use AlecRabbit\Spinner\Core\Contract\ILoopAutoStarter;
-use AlecRabbit\Spinner\Core\Contract\ILoopSetup;
+use AlecRabbit\Spinner\Core\Contract\ISignalHandlersSetup;
 use AlecRabbit\Spinner\Core\Contract\ISettingsProvider;
 use AlecRabbit\Spinner\Core\Contract\ISignalProcessingProbe;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
@@ -51,7 +51,7 @@ use AlecRabbit\Spinner\Core\Factory\Contract\ILoopAutoStarterFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopProbeFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopSettingsFactory;
-use AlecRabbit\Spinner\Core\Factory\Contract\ILoopSetupFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\ISignalHandlersSetupFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IStyleFrameRevolverFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ITerminalSettingsFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ITimerFactory;
@@ -188,18 +188,18 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
         return $this->createMock(ILoopAutoStarterBuilder::class);
     }
 
-    protected function getLoopSetupBuilderMock(): MockObject&ILoopSetupBuilder
+    protected function getSignalHandlersSetupBuilderMock(): MockObject&ISignalHandlersSetupBuilder
     {
-        return $this->createMock(ILoopSetupBuilder::class);
+        return $this->createMock(ISignalHandlersSetupBuilder::class);
     }
     protected function getLoopAutoStarterFactoryMock(): MockObject&ILoopAutoStarterFactory
     {
         return $this->createMock(ILoopAutoStarterFactory::class);
     }
 
-    protected function getLoopSetupStub(): Stub&ILoopSetup
+    protected function getSignalHandlersSetupStub(): Stub&ISignalHandlersSetup
     {
-        return $this->createStub(ILoopSetup::class);
+        return $this->createStub(ISignalHandlersSetup::class);
     }
     protected function getLoopAutoStarterStub(): Stub&ILoopAutoStarter
     {
@@ -331,9 +331,9 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
         return $this->createMock(IDriverSettings::class);
     }
 
-    protected function getLoopSetupFactoryMock(): MockObject&ILoopSetupFactory
+    protected function getSignalHandlersSetupFactoryMock(): MockObject&ISignalHandlersSetupFactory
     {
-        return $this->createMock(ILoopSetupFactory::class);
+        return $this->createMock(ISignalHandlersSetupFactory::class);
     }
 
     protected function getDriverSettingsBuilderMock(): MockObject&IDriverSettingsBuilder

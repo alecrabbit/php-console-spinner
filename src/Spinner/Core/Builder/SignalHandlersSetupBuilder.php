@@ -5,26 +5,27 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Builder;
 
-use AlecRabbit\Spinner\Core\Builder\Contract\ILoopSetupBuilder;
-use AlecRabbit\Spinner\Core\Contract\ILoopSetup;
+use AlecRabbit\Spinner\Core\Builder\Contract\ISignalHandlersSetupBuilder;
+use AlecRabbit\Spinner\Core\Contract\ISignalHandlersSetup;
 use AlecRabbit\Spinner\Core\Contract\Loop\Contract\ILoop;
-use AlecRabbit\Spinner\Core\LoopSetup;
 use AlecRabbit\Spinner\Core\Settings\Contract\ILoopSettings;
+use AlecRabbit\Spinner\Core\SignalHandlersSetup;
 use AlecRabbit\Spinner\Exception\LogicException;
 
-final class LoopSetupBuilder implements ILoopSetupBuilder
+final class SignalHandlersSetupBuilder implements ISignalHandlersSetupBuilder
 {
     private ?ILoop $loop = null;
     private ?ILoopSettings $settings = null;
 
-    public function build(): ILoopSetup
+    public function build(): ISignalHandlersSetup
     {
         $this->validate();
 
-        return new LoopSetup(
-            $this->loop,
-            $this->settings,
-        );
+        return
+            new SignalHandlersSetup(
+                $this->loop,
+                $this->settings,
+            );
     }
 
     private function validate(): void
@@ -36,14 +37,14 @@ final class LoopSetupBuilder implements ILoopSetupBuilder
         };
     }
 
-    public function withLoop(ILoop $loop): ILoopSetupBuilder
+    public function withLoop(ILoop $loop): ISignalHandlersSetupBuilder
     {
         $clone = clone $this;
         $clone->loop = $loop;
         return $clone;
     }
 
-    public function withSettings(ILoopSettings $settings): ILoopSetupBuilder
+    public function withSettings(ILoopSettings $settings): ISignalHandlersSetupBuilder
     {
         $clone = clone $this;
         $clone->settings = $settings;

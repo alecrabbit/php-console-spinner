@@ -6,12 +6,12 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core;
 
 use AlecRabbit\Spinner\Core\Contract\IDriver;
-use AlecRabbit\Spinner\Core\Contract\ILoopSetup;
+use AlecRabbit\Spinner\Core\Contract\ISignalHandlersSetup;
 use AlecRabbit\Spinner\Core\Contract\Loop\Contract\ILoop;
 use AlecRabbit\Spinner\Core\Settings\Contract\ILoopSettings;
 use Traversable;
 
-final class LoopSetup implements ILoopSetup
+final class SignalHandlersSetup implements ISignalHandlersSetup
 {
     public function __construct(
         protected ILoop $loop,
@@ -22,7 +22,9 @@ final class LoopSetup implements ILoopSetup
     public function setup(IDriver $driver): void
     {
         if ($this->isSetupEnabled()) {
-            $this->registerSignalHandlers($driver);
+            foreach ($this->signalHandlers($driver) as $signal => $handler) {
+                $this->loop->onSignal($signal, $handler);
+            }
         }
     }
 
@@ -32,13 +34,6 @@ final class LoopSetup implements ILoopSetup
             $this->settings->isLoopAvailable()
             && $this->settings->isSignalProcessingAvailable()
             && $this->settings->isAttachHandlersEnabled();
-    }
-
-    private function registerSignalHandlers(IDriver $driver): void
-    {
-        foreach ($this->signalHandlers($driver) as $signal => $handler) {
-            $this->loop->onSignal($signal, $handler);
-        }
     }
 
     private function signalHandlers(IDriver $driver): Traversable
