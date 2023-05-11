@@ -56,7 +56,7 @@ final class SignalHandlersSetupFactoryTest extends TestCaseWithPrebuiltMocksAndS
         ;
         $loopSetupBuilder
             ->expects(self::once())
-            ->method('withSettings')
+            ->method('withLoopSettings')
             ->with($loopSettings)
             ->willReturn($loopSetupBuilder)
         ;

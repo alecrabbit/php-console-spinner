@@ -21,7 +21,7 @@ final class DriverFactory implements IDriverFactory
     public function __construct(
         protected IDriverBuilder $driverBuilder,
         protected IDriverOutputFactory $driverOutputFactory,
-        protected ISignalHandlersSetupFactory $loopSetupFactory,
+        protected ISignalHandlersSetupFactory $signalHandlersSetupFactory,
         protected ITimerFactory $timerFactory,
         protected IDriverSetup $driverSetup,
         protected IDriverSettings $driverSettings,
@@ -39,7 +39,7 @@ final class DriverFactory implements IDriverFactory
                 ->setup(self::$driver)
             ;
 
-            $this->loopSetupFactory
+            $this->signalHandlersSetupFactory
                 ->create()
                 ->setup(self::$driver);
         }

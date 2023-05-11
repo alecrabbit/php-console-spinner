@@ -15,11 +15,12 @@ final class DriverSettingsBuilder implements IDriverSettingsBuilder
 {
     public function build(): IDriverSettings
     {
-        return new DriverSettings(
-            optionInitialization: OptionInitialization::ENABLED,
-            optionLinker: OptionLinker::ENABLED,
-            finalMessage: '',
-            interruptMessage: '',
-        );
+        return
+            new DriverSettings(
+                optionInitialization: OptionInitialization::ENABLED,
+                optionLinker: OptionLinker::ENABLED,
+                finalMessage: PHP_EOL,
+                interruptMessage: PHP_EOL,
+            );
     }
 }

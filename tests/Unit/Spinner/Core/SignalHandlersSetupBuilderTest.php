@@ -36,7 +36,8 @@ final class SignalHandlersSetupBuilderTest extends TestCaseWithPrebuiltMocksAndS
 
         $loopSetupBuilder = $loopSetupBuilder
             ->withLoop($this->getLoopMock())
-            ->withSettings($this->getLoopSettingsMock())
+            ->withLoopSettings($this->getLoopSettingsMock())
+            ->withDriverSettings($this->getDriverSettingsMock())
         ;
 
         self::assertInstanceOf(SignalHandlersSetup::class, $loopSetupBuilder->build());
@@ -52,7 +53,8 @@ final class SignalHandlersSetupBuilderTest extends TestCaseWithPrebuiltMocksAndS
             $loopSetupBuilder = $this->getTesteeInstance();
             self::assertInstanceOf(SignalHandlersSetupBuilder::class, $loopSetupBuilder);
             $loopSetupBuilder
-                ->withSettings($this->getLoopSettingsMock())
+                ->withLoopSettings($this->getLoopSettingsMock())
+                ->withDriverSettings($this->getDriverSettingsMock())
                 ->build()
             ;
         };
@@ -75,6 +77,30 @@ final class SignalHandlersSetupBuilderTest extends TestCaseWithPrebuiltMocksAndS
             self::assertInstanceOf(SignalHandlersSetupBuilder::class, $loopSetupBuilder);
             $loopSetupBuilder
                 ->withLoop($this->getLoopMock())
+                ->withDriverSettings($this->getDriverSettingsMock())
+                ->build()
+            ;
+        };
+
+        $this->wrapExceptionTest(
+            test: $test,
+            exception: $exceptionClass,
+            message: $exceptionMessage,
+        );
+    }
+
+    #[Test]
+    public function throwsIfDriverSettingsAreNotSet(): void
+    {
+        $exceptionClass = LogicException::class;
+        $exceptionMessage = 'Driver settings are not set.';
+
+        $test = function (): void {
+            $loopSetupBuilder = $this->getTesteeInstance();
+            self::assertInstanceOf(SignalHandlersSetupBuilder::class, $loopSetupBuilder);
+            $loopSetupBuilder
+                ->withLoop($this->getLoopMock())
+                ->withLoopSettings($this->getLoopSettingsMock())
                 ->build()
             ;
         };

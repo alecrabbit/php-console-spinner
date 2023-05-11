@@ -7,6 +7,7 @@ namespace AlecRabbit\Tests\Unit\Spinner\Core;
 
 use AlecRabbit\Spinner\Core\Contract\ISignalHandlersSetup;
 use AlecRabbit\Spinner\Core\Contract\Loop\Contract\ILoop;
+use AlecRabbit\Spinner\Core\Settings\Contract\IDriverSettings;
 use AlecRabbit\Spinner\Core\SignalHandlersSetup;
 use AlecRabbit\Spinner\Core\Settings\Contract\ILoopSettings;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
@@ -26,11 +27,13 @@ final class SignalHandlersSetupTest extends TestCaseWithPrebuiltMocksAndStubs
     public function getTesteeInstance(
         ?ILoop $loop = null,
         ?ILoopSettings $settings = null,
+        ?IDriverSettings $driverSettings = null
     ): ISignalHandlersSetup {
         return
             new SignalHandlersSetup(
                 loop: $loop ?? $this->getLoopMock(),
-                settings: $settings ?? $this->getLoopSettingsMock(),
+                loopSettings: $settings ?? $this->getLoopSettingsMock(),
+                driverSettings: $driverSettings ?? $this->getDriverSettingsMock(),
             );
     }
 

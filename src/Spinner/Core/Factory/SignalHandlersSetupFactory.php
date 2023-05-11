@@ -24,7 +24,8 @@ final class SignalHandlersSetupFactory implements ISignalHandlersSetupFactory
         return
             $this->loopSetupBuilder
                 ->withLoop($this->loopFactory->getLoop())
-                ->withSettings($this->settingsProvider->getLoopSettings())
+                ->withLoopSettings($this->settingsProvider->getLoopSettings())
+                ->withDriverSettings($this->settingsProvider->getDriverSettings())
                 ->build()
         ;
     }

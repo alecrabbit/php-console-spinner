@@ -14,6 +14,10 @@ $settingsProvider
         \AlecRabbit\Spinner\Contract\Option\OptionStyleMode::NONE
     )
 ;
+$settingsProvider
+    ->getDriverSettings()
+    ->setInterruptMessage(PHP_EOL . 'Interrupted!' . PHP_EOL)
+;
 //$settingsProvider
 //    ->getLoopSettings()
 //    ->setOptionAutoStart(

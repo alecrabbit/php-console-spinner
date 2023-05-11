@@ -8,6 +8,7 @@ namespace AlecRabbit\Spinner\Core;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\ISignalHandlersSetup;
 use AlecRabbit\Spinner\Core\Contract\Loop\Contract\ILoop;
+use AlecRabbit\Spinner\Core\Settings\Contract\IDriverSettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\ILoopSettings;
 use Traversable;
 
@@ -15,7 +16,8 @@ final class SignalHandlersSetup implements ISignalHandlersSetup
 {
     public function __construct(
         protected ILoop $loop,
-        protected ILoopSettings $settings,
+        protected ILoopSettings $loopSettings,
+        protected IDriverSettings $driverSettings,
     ) {
     }
 
@@ -31,9 +33,9 @@ final class SignalHandlersSetup implements ISignalHandlersSetup
     protected function isSetupEnabled(): bool
     {
         return
-            $this->settings->isLoopAvailable()
-            && $this->settings->isSignalProcessingAvailable()
-            && $this->settings->isAttachHandlersEnabled();
+            $this->loopSettings->isLoopAvailable()
+            && $this->loopSettings->isSignalProcessingAvailable()
+            && $this->loopSettings->isAttachHandlersEnabled();
     }
 
     private function signalHandlers(IDriver $driver): Traversable
@@ -41,7 +43,7 @@ final class SignalHandlersSetup implements ISignalHandlersSetup
         yield from [
             // @codeCoverageIgnoreStart
             SIGINT => function () use ($driver): void {
-                $driver->interrupt(PHP_EOL . 'SIGINT' . PHP_EOL); // todo: test
+                $driver->interrupt($this->driverSettings->getInterruptMessage()); // todo: test
                 $this->loop->stop();
             },
             // @codeCoverageIgnoreEnd
