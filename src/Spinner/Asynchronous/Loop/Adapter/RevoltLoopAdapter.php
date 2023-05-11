@@ -44,7 +44,7 @@ final class RevoltLoopAdapter extends ALoopAdapter
 
     public function autoStart(): void
     {
-        // Automatically run loop at end of program, unless already started or stopped explicitly.
+        // Automatically run loop at the end of script, unless already started or stopped explicitly.
         // @codeCoverageIgnoreStart
         $hasRun = false;
         EventLoop::defer(static function () use (&$hasRun): void {

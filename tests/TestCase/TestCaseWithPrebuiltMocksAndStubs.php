@@ -19,6 +19,7 @@ use AlecRabbit\Spinner\Core\Builder\Contract\IBufferedOutputBuilder;
 use AlecRabbit\Spinner\Core\Builder\Contract\IConsoleCursorBuilder;
 use AlecRabbit\Spinner\Core\Builder\Contract\IDriverOutputBuilder;
 use AlecRabbit\Spinner\Core\Builder\Contract\IIntegerNormalizerBuilder;
+use AlecRabbit\Spinner\Core\Builder\Contract\ILoopAutoStarterBuilder;
 use AlecRabbit\Spinner\Core\Builder\Contract\ILoopSetupBuilder;
 use AlecRabbit\Spinner\Core\Builder\Contract\ITimerBuilder;
 use AlecRabbit\Spinner\Core\Builder\Settings\Contract\IAuxSettingsBuilder;
@@ -32,6 +33,7 @@ use AlecRabbit\Spinner\Core\Contract\IDriverLinker;
 use AlecRabbit\Spinner\Core\Contract\IDriverSetup;
 use AlecRabbit\Spinner\Core\Contract\IFrameCollection;
 use AlecRabbit\Spinner\Core\Contract\IIntervalNormalizer;
+use AlecRabbit\Spinner\Core\Contract\ILoopAutoStarter;
 use AlecRabbit\Spinner\Core\Contract\ILoopSetup;
 use AlecRabbit\Spinner\Core\Contract\ISettingsProvider;
 use AlecRabbit\Spinner\Core\Contract\ISignalProcessingProbe;
@@ -180,6 +182,9 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
     protected function getLoopSingletonFactoryMock(): MockObject&ILoopFactory
     {
         return $this->createMock(ILoopFactory::class);
+    }    protected function getLoopAutoStarterBuilderMock(): MockObject&ILoopAutoStarterBuilder
+    {
+        return $this->createMock(ILoopAutoStarterBuilder::class);
     }
 
     protected function getLoopSetupBuilderMock(): MockObject&ILoopSetupBuilder
@@ -190,6 +195,10 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
     protected function getLoopSetupStub(): Stub&ILoopSetup
     {
         return $this->createStub(ILoopSetup::class);
+    }
+    protected function getLoopAutoStarterStub(): Stub&ILoopAutoStarter
+    {
+        return $this->createStub(ILoopAutoStarter::class);
     }
 
     protected function getSettingsProviderMock(): MockObject&ISettingsProvider

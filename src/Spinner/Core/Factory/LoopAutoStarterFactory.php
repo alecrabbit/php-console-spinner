@@ -4,25 +4,25 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Factory;
 
-use AlecRabbit\Spinner\Core\Builder\Contract\ILoopSetupBuilder;
-use AlecRabbit\Spinner\Core\Contract\ILoopSetup;
+use AlecRabbit\Spinner\Core\Builder\Contract\ILoopAutoStarterBuilder;
+use AlecRabbit\Spinner\Core\Contract\ILoopAutoStarter;
 use AlecRabbit\Spinner\Core\Contract\ISettingsProvider;
+use AlecRabbit\Spinner\Core\Factory\Contract\ILoopAutoStarterFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopFactory;
-use AlecRabbit\Spinner\Core\Factory\Contract\ILoopSetupFactory;
 
-final class LoopSetupFactory implements ILoopSetupFactory
+final class LoopAutoStarterFactory implements ILoopAutoStarterFactory
 {
     public function __construct(
         protected ISettingsProvider $settingsProvider,
         protected ILoopFactory $loopFactory,
-        protected ILoopSetupBuilder $loopSetupBuilder,
+        protected ILoopAutoStarterBuilder $autoStarterBuilder,
     ) {
     }
 
-    public function create(): ILoopSetup
+    public function create(): ILoopAutoStarter
     {
         return
-            $this->loopSetupBuilder
+            $this->autoStarterBuilder
                 ->withLoop($this->loopFactory->getLoop())
                 ->withSettings($this->settingsProvider->getLoopSettings())
                 ->build()
