@@ -16,7 +16,7 @@ $settingsProvider
 ;
 $settingsProvider
     ->getDriverSettings()
-    ->setInterruptMessage(PHP_EOL . 'Interrupted!' . PHP_EOL)
+    ->setInterruptMessage(' Interrupted!' . PHP_EOL)
 ;
 //$settingsProvider
 //    ->getLoopSettings()

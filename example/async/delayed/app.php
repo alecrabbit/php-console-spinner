@@ -10,7 +10,7 @@ $settingsProvider = Facade::getSettingsProvider();
 
 $settingsProvider
     ->getDriverSettings()
-    ->setFinalMessage(PHP_EOL . 'Finished!' . PHP_EOL)
+    ->setFinalMessage('Finished!' . PHP_EOL)
 ;
 
 $spinner = Facade::createSpinner(attach: false);

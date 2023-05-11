@@ -19,7 +19,7 @@ final class DriverSettingsBuilder implements IDriverSettingsBuilder
             new DriverSettings(
                 optionInitialization: OptionInitialization::ENABLED,
                 optionLinker: OptionLinker::ENABLED,
-                finalMessage: PHP_EOL,
+                finalMessage: '',
                 interruptMessage: PHP_EOL,
             );
     }
