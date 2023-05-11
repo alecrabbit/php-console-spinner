@@ -14,7 +14,6 @@ final class LoopAutoStarterFactory implements ILoopAutoStarterFactory
 {
     public function __construct(
         protected ISettingsProvider $settingsProvider,
-        protected ILoopFactory $loopFactory,
         protected ILoopAutoStarterBuilder $autoStarterBuilder,
     ) {
     }
@@ -23,7 +22,6 @@ final class LoopAutoStarterFactory implements ILoopAutoStarterFactory
     {
         return
             $this->autoStarterBuilder
-                ->withLoop($this->loopFactory->getLoop())
                 ->withSettings($this->settingsProvider->getLoopSettings())
                 ->build()
         ;

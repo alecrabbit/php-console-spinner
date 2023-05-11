@@ -24,12 +24,10 @@ final class LoopAutoStarterTest extends TestCaseWithPrebuiltMocksAndStubs
     }
 
     public function getTesteeInstance(
-        ?ILoop $loop = null,
         ?ILoopSettings $settings = null,
     ): ILoopAutoStarter {
         return
             new LoopAutoStarter(
-                loop: $loop ?? $this->getLoopMock(),
                 settings: $settings ?? $this->getLoopSettingsMock(),
             );
     }
@@ -43,9 +41,9 @@ final class LoopAutoStarterTest extends TestCaseWithPrebuiltMocksAndStubs
             ->method('autoStart')
         ;
 
-        $autoStarter = $this->getTesteeInstance($loop);
+        $autoStarter = $this->getTesteeInstance();
 
-        $autoStarter->setup();
+        $autoStarter->setup($loop);
     }
 
     #[Test]
@@ -70,10 +68,9 @@ final class LoopAutoStarterTest extends TestCaseWithPrebuiltMocksAndStubs
         ;
 
         $autoStarter = $this->getTesteeInstance(
-            loop: $loop,
             settings: $settings,
         );
 
-        $autoStarter->setup();
+        $autoStarter->setup($loop);
     }
 }

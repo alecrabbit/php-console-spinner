@@ -11,15 +11,14 @@ use AlecRabbit\Spinner\Core\Settings\Contract\ILoopSettings;
 final class LoopAutoStarter implements ILoopAutoStarter
 {
     public function __construct(
-        protected ILoop $loop,
         protected ILoopSettings $settings,
     ) {
     }
 
-    public function setup(): void
+    public function setup(ILoop $loop): void
     {
         if ($this->settings->isLoopAvailable() && $this->settings->isAutoStartEnabled()) {
-            $this->loop->autoStart();
+            $loop->autoStart();
         }
     }
 }

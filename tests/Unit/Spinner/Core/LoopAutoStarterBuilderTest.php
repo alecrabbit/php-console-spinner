@@ -36,33 +36,10 @@ final class LoopAutoStarterBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
         self::assertInstanceOf(LoopAutoStarterBuilder::class, $loopAutoStarterBuilder);
 
         $loopAutoStarterBuilder = $loopAutoStarterBuilder
-            ->withLoop($this->getLoopMock())
             ->withSettings($this->getLoopSettingsMock())
         ;
 
         self::assertInstanceOf(LoopAutoStarter::class, $loopAutoStarterBuilder->build());
-    }
-
-    #[Test]
-    public function throwsIfLoopIsNotSet(): void
-    {
-        $exceptionClass = LogicException::class;
-        $exceptionMessage = 'Loop is not set.';
-
-        $test = function (): void {
-            $loopAutoStarterBuilder = $this->getTesteeInstance();
-            self::assertInstanceOf(LoopAutoStarterBuilder::class, $loopAutoStarterBuilder);
-            $loopAutoStarterBuilder
-                ->withSettings($this->getLoopSettingsMock())
-                ->build()
-            ;
-        };
-
-        $this->wrapExceptionTest(
-            test: $test,
-            exception: $exceptionClass,
-            message: $exceptionMessage,
-        );
     }
 
     #[Test]
@@ -75,7 +52,6 @@ final class LoopAutoStarterBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
             $loopAutoStarterBuilder = $this->getTesteeInstance();
             self::assertInstanceOf(LoopAutoStarterBuilder::class, $loopAutoStarterBuilder);
             $loopAutoStarterBuilder
-                ->withLoop($this->getLoopMock())
                 ->build()
             ;
         };
