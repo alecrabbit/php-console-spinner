@@ -40,6 +40,7 @@ final class DriverBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
             ->withDriverOutput($this->getDriverOutputMock())
             ->withTimer($this->getTimerMock())
             ->withInitialInterval($interval)
+            ->withDriverSettings($this->getDriverSettingsMock())
             ->build()
         ;
 
@@ -62,6 +63,7 @@ final class DriverBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
         $driver = $driverBuilder
             ->withDriverOutput($this->getDriverOutputMock())
             ->withTimer($this->getTimerMock())
+            ->withDriverSettings($this->getDriverSettingsMock())
             ->build()
         ;
 
@@ -77,6 +79,7 @@ final class DriverBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
             ->withDriverOutput($this->getDriverOutputMock())
             ->withTimer($this->getTimerMock())
             ->withObserver($this->getObserverMock())
+            ->withDriverSettings($this->getDriverSettingsMock())
             ->build()
         ;
 
@@ -94,6 +97,7 @@ final class DriverBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
 
             $driverBuilder
                 ->withTimer($this->getTimerMock())
+                ->withDriverSettings($this->getDriverSettingsMock())
                 ->build()
             ;
         };
@@ -106,7 +110,7 @@ final class DriverBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
     }
 
     #[Test]
-    public function throwsIfTimerOutputIsNotSet(): void
+    public function throwsIfTimerIsNotSet(): void
     {
         $exceptionClass = LogicException::class;
         $exceptionMessage = 'Timer is not set.';
@@ -116,6 +120,29 @@ final class DriverBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
 
             $driverBuilder
                 ->withDriverOutput($this->getDriverOutputMock())
+                ->withDriverSettings($this->getDriverSettingsMock())
+                ->build()
+            ;
+        };
+
+        $this->wrapExceptionTest(
+            test: $test,
+            exception: $exceptionClass,
+            message: $exceptionMessage,
+        );
+    }
+    #[Test]
+    public function throwsIfDriverSettingsAreNotSet(): void
+    {
+        $exceptionClass = LogicException::class;
+        $exceptionMessage = 'DriverSettings are not set.';
+
+        $test = function (): void {
+            $driverBuilder = $this->getTesteeInstance();
+
+            $driverBuilder
+                ->withDriverOutput($this->getDriverOutputMock())
+                ->withTimer($this->getTimerMock())
                 ->build()
             ;
         };

@@ -14,11 +14,13 @@ use AlecRabbit\Spinner\Core\Contract\IDriverBuilder;
 use AlecRabbit\Spinner\Core\Driver;
 use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalFactory;
 use AlecRabbit\Spinner\Core\Output\Contract\IDriverOutput;
+use AlecRabbit\Spinner\Core\Settings\Contract\IDriverSettings;
 use AlecRabbit\Spinner\Exception\LogicException;
 
 final class DriverBuilder implements Contract\IDriverBuilder
 {
     private ?IDriverOutput $driverOutput = null;
+    private ?IDriverSettings $driverSettings = null;
     private ?ITimer $timer = null;
     private ?IInterval $initialInterval = null;
     private ?IObserver $observer = null;
@@ -32,6 +34,13 @@ final class DriverBuilder implements Contract\IDriverBuilder
     {
         $clone = clone $this;
         $clone->driverOutput = $driverOutput;
+        return $clone;
+    }
+
+    public function withDriverSettings(IDriverSettings $driverSettings): IDriverBuilder
+    {
+        $clone = clone $this;
+        $clone->driverSettings = $driverSettings;
         return $clone;
     }
 
@@ -53,18 +62,21 @@ final class DriverBuilder implements Contract\IDriverBuilder
     {
         $this->validate();
 
-        return new Driver(
-            output: $this->driverOutput,
-            timer: $this->timer,
-            initialInterval: $this->initialInterval ?? $this->createInitialInterval(),
-            observer: $this->observer,
-        );
+        return
+            new Driver(
+                output: $this->driverOutput,
+                timer: $this->timer,
+                initialInterval: $this->initialInterval ?? $this->createInitialInterval(),
+                driverSettings: $this->driverSettings,
+                observer: $this->observer,
+            );
     }
 
     private function validate(): void
     {
         match (true) {
             $this->driverOutput === null => throw new LogicException('DriverOutput is not set.'),
+            $this->driverSettings === null => throw new LogicException('DriverSettings are not set.'),
             $this->timer === null => throw new LogicException('Timer is not set.'),
             default => null,
         };

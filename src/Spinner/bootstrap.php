@@ -13,12 +13,14 @@ use AlecRabbit\Spinner\Core\Builder\Contract\IBufferedOutputBuilder;
 use AlecRabbit\Spinner\Core\Builder\Contract\IConsoleCursorBuilder;
 use AlecRabbit\Spinner\Core\Builder\Contract\IDriverOutputBuilder;
 use AlecRabbit\Spinner\Core\Builder\Contract\IIntegerNormalizerBuilder;
-use AlecRabbit\Spinner\Core\Builder\Contract\ILoopSetupBuilder;
+use AlecRabbit\Spinner\Core\Builder\Contract\ILoopAutoStarterBuilder;
+use AlecRabbit\Spinner\Core\Builder\Contract\ISignalHandlersSetupBuilder;
 use AlecRabbit\Spinner\Core\Builder\Contract\ITimerBuilder;
 use AlecRabbit\Spinner\Core\Builder\DriverBuilder;
 use AlecRabbit\Spinner\Core\Builder\DriverOutputBuilder;
 use AlecRabbit\Spinner\Core\Builder\IntegerNormalizerBuilder;
-use AlecRabbit\Spinner\Core\Builder\LoopSetupBuilder;
+use AlecRabbit\Spinner\Core\Builder\LoopAutoStarterBuilder;
+use AlecRabbit\Spinner\Core\Builder\SignalHandlersSetupBuilder;
 use AlecRabbit\Spinner\Core\Builder\Settings\AuxSettingsBuilder;
 use AlecRabbit\Spinner\Core\Builder\Settings\Contract\IAuxSettingsBuilder;
 use AlecRabbit\Spinner\Core\Builder\Settings\Contract\IDriverSettingsBuilder;
@@ -33,7 +35,7 @@ use AlecRabbit\Spinner\Core\Contract\IDriverBuilder;
 use AlecRabbit\Spinner\Core\Contract\IDriverLinker;
 use AlecRabbit\Spinner\Core\Contract\IDriverSetup;
 use AlecRabbit\Spinner\Core\Contract\IIntervalNormalizer;
-use AlecRabbit\Spinner\Core\Contract\ILoopSetup;
+use AlecRabbit\Spinner\Core\Contract\ISignalHandlersSetup;
 use AlecRabbit\Spinner\Core\Contract\ISettingsProvider;
 use AlecRabbit\Spinner\Core\Contract\ISignalProcessingProbe;
 use AlecRabbit\Spinner\Core\Contract\Loop\Contract\ILoop;
@@ -51,10 +53,11 @@ use AlecRabbit\Spinner\Core\Factory\Contract\IDriverOutputFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IFrameCollectionFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalNormalizerFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\ILoopAutoStarterFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopProbeFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopSettingsFactory;
-use AlecRabbit\Spinner\Core\Factory\Contract\ILoopSetupFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\ISignalHandlersSetupFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ISignalProcessingProbeFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ISpinnerFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IStyleFrameRevolverFactory;
@@ -68,9 +71,10 @@ use AlecRabbit\Spinner\Core\Factory\DriverOutputFactory;
 use AlecRabbit\Spinner\Core\Factory\FrameCollectionFactory;
 use AlecRabbit\Spinner\Core\Factory\IntervalFactory;
 use AlecRabbit\Spinner\Core\Factory\IntervalNormalizerFactory;
+use AlecRabbit\Spinner\Core\Factory\LoopAutoStarterFactory;
 use AlecRabbit\Spinner\Core\Factory\LoopFactory;
 use AlecRabbit\Spinner\Core\Factory\LoopSettingsFactory;
-use AlecRabbit\Spinner\Core\Factory\LoopSetupFactory;
+use AlecRabbit\Spinner\Core\Factory\SignalHandlersSetupFactory;
 use AlecRabbit\Spinner\Core\Factory\SignalProcessingProbeFactory;
 use AlecRabbit\Spinner\Core\Factory\SpinnerFactory;
 use AlecRabbit\Spinner\Core\Factory\StyleFrameRevolverFactory;
@@ -78,7 +82,7 @@ use AlecRabbit\Spinner\Core\Factory\TerminalProbeFactory;
 use AlecRabbit\Spinner\Core\Factory\TerminalSettingsFactory;
 use AlecRabbit\Spinner\Core\Factory\TimerFactory;
 use AlecRabbit\Spinner\Core\Factory\WidgetSettingsFactory;
-use AlecRabbit\Spinner\Core\LoopSetup;
+use AlecRabbit\Spinner\Core\SignalHandlersSetup;
 use AlecRabbit\Spinner\Core\Output\ResourceStream;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolverBuilder;
 use AlecRabbit\Spinner\Core\Revolver\FrameRevolverBuilder;
@@ -109,7 +113,6 @@ function definitions(): Traversable
         IAuxSettingsBuilder::class => AuxSettingsBuilder::class,
         IBufferedOutputBuilder::class => BufferedOutputBuilder::class,
         IBufferedOutputSingletonFactory::class => BufferedOutputSingletonFactory::class,
-//        ICharFrameFactory::class => CharFrameFactory::class,
         ICharFrameRevolverFactory::class => CharFrameRevolverFactory::class,
         IConsoleCursorBuilder::class => ConsoleCursorBuilder::class,
         IConsoleCursorFactory::class => ConsoleCursorFactory::class,
@@ -125,13 +128,14 @@ function definitions(): Traversable
         IIntegerNormalizerBuilder::class => IntegerNormalizerBuilder::class,
         IIntervalFactory::class => IntervalFactory::class,
         IIntervalNormalizerFactory::class => IntervalNormalizerFactory::class,
+        ILoopAutoStarterBuilder::class => LoopAutoStarterBuilder::class,
+        ILoopAutoStarterFactory::class => LoopAutoStarterFactory::class,
         ILoopFactory::class => LoopFactory::class,
-        ILoopSetup::class => LoopSetup::class,
-        ILoopSetupBuilder::class => LoopSetupBuilder::class,
-        ILoopSetupFactory::class => LoopSetupFactory::class,
         ISettingsProviderBuilder::class => SettingsProviderBuilder::class,
+        ISignalHandlersSetup::class => SignalHandlersSetup::class,
+        ISignalHandlersSetupBuilder::class => SignalHandlersSetupBuilder::class,
+        ISignalHandlersSetupFactory::class => SignalHandlersSetupFactory::class,
         ISpinnerFactory::class => SpinnerFactory::class,
-//        IStyleFrameFactory::class => StyleFrameFactory::class,
         IStyleFrameRevolverFactory::class => StyleFrameRevolverFactory::class,
         ITimerBuilder::class => TimerBuilder::class,
         ITimerFactory::class => TimerFactory::class,
@@ -141,7 +145,6 @@ function definitions(): Traversable
         IWidgetRevolverFactory::class => WidgetRevolverFactory::class,
         IWidgetSettingsBuilder::class => WidgetSettingsBuilder::class,
         IWidgetSettingsFactory::class => WidgetSettingsFactory::class,
-//        IWidthMeasurerFactory::class => WidthMeasurerFactory::class,
 
         IDriver::class => static function (ContainerInterface $container): IDriver {
             return $container->get(IDriverFactory::class)->getDriver();
@@ -210,10 +213,6 @@ function definitions(): Traversable
 
             return new TerminalSettingsFactory($terminalProbe);
         },
-
-//        IWidthMeasurer::class => static function (ContainerInterface $container): IWidthMeasurer {
-//            return $container->get(IWidthMeasurerFactory::class)->create();
-//        },
 
         OptionNormalizerMode::class => static function (ContainerInterface $container): OptionNormalizerMode {
             return $container->get(ISettingsProvider::class)->getAuxSettings()->getOptionNormalizerMode();

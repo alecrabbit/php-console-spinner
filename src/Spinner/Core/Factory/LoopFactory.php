@@ -6,6 +6,7 @@ namespace AlecRabbit\Spinner\Core\Factory;
 
 use AlecRabbit\Spinner\Core\Contract\Loop\Contract\ILoop;
 use AlecRabbit\Spinner\Core\Contract\Loop\Contract\ILoopProbe;
+use AlecRabbit\Spinner\Core\Factory\Contract\ILoopAutoStarterFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopProbeFactory;
 
@@ -15,6 +16,7 @@ final class LoopFactory implements ILoopFactory
 
     public function __construct(
         protected ILoopProbeFactory $loopProbeFactory,
+        protected ILoopAutoStarterFactory $loopAutoStarterFactory,
     ) {
     }
 
@@ -22,6 +24,10 @@ final class LoopFactory implements ILoopFactory
     {
         if (self::$loop === null) {
             self::$loop = $this->createLoop();
+
+            $this->loopAutoStarterFactory
+                ->create()
+                ->setup(self::$loop);
         }
         return self::$loop;
     }

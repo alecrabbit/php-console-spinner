@@ -24,9 +24,9 @@ __DAM_URL="https://github.com/alecrabbit/dev-app-makefile"
 
 install_dam_tool:
 	@echo -e "Installing DAM tool...\n";
-	@wget -qO- "${__DAM_URL}/archive/refs/heads/dev.tar.gz" | tar -xz \
-	 && shopt -s dotglob && cp -r dev-app-makefile-dev/* . && shopt -u dotglob \
-	 && rm -r dev-app-makefile-dev && ./install && make upgrade c=dev
+	@wget -qO- "${__DAM_URL}/archive/refs/heads/main.tar.gz" | tar -xz \
+	 && shopt -s dotglob && cp -r dev-app-makefile-main/* . && shopt -u dotglob \
+	 && rm -r dev-app-makefile-main && ./install && make upgrade c=main
 
 help_dam_tool:
 	@echo -e "DAM tool help:\n";

@@ -6,9 +6,10 @@ namespace AlecRabbit\Tests\Unit\Spinner\Core\Factory;
 
 use AlecRabbit\Spinner\Core\Contract\IDriverBuilder;
 use AlecRabbit\Spinner\Core\Contract\IDriverSetup;
+use AlecRabbit\Spinner\Core\Contract\ISettingsProvider;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDriverFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDriverOutputFactory;
-use AlecRabbit\Spinner\Core\Factory\Contract\ILoopSetupFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\ISignalHandlersSetupFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ITimerFactory;
 use AlecRabbit\Spinner\Core\Factory\DriverFactory;
 use AlecRabbit\Spinner\Core\Settings\Contract\IDriverSettings;
@@ -31,15 +32,15 @@ final class DriverFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
         ?ITimerFactory $timerFactory = null,
         ?IDriverSetup $driverSetup = null,
         ?IDriverSettings $driverSettings = null,
-        ?ILoopSetupFactory $loopSetupFactory = null,
+        ?ISignalHandlersSetupFactory $loopSetupFactory = null,
     ): IDriverFactory {
         return new DriverFactory(
             driverBuilder: $driverBuilder ?? $this->getDriverBuilderMock(),
             driverOutputFactory: $driverOutputFactory ?? $this->getDriverOutputFactoryMock(),
+            signalHandlersSetupFactory: $loopSetupFactory ?? $this->getSignalHandlersSetupFactoryMock(),
             timerFactory: $timerFactory ?? $this->getTimerFactoryMock(),
             driverSetup: $driverSetup ?? $this->getDriverSetupMock(),
             driverSettings: $driverSettings ?? $this->getDriverSettingsMock(),
-            loopSetupFactory: $loopSetupFactory ?? $this->getLoopSetupFactoryMock(),
         );
     }
 
@@ -52,6 +53,11 @@ final class DriverFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
         $driverBuilder
             ->expects(self::once())
             ->method('withDriverOutput')
+            ->willReturnSelf()
+        ;
+        $driverBuilder
+            ->expects(self::once())
+            ->method('withDriverSettings')
             ->willReturnSelf()
         ;
         $driverBuilder

@@ -6,6 +6,12 @@ use AlecRabbit\Spinner\Facade;
 
 require_once __DIR__ . '/../bootstrap.async.php';
 
+$settingsProvider = Facade::getSettingsProvider();
+$settingsProvider
+    ->getDriverSettings()
+    ->setFinalMessage('Finished!' . PHP_EOL)
+;
+
 $spinner = Facade::createSpinner(attach: false);
 $driver = Facade::getDriver();
 $loop = Facade::getLoop();
@@ -17,7 +23,7 @@ $loop->delay(5, static function () use ($driver, $loop, $spinner): void {
     });
 });
 
-$loop->delay(63, static function () use ($loop,$driver): void {
+$loop->delay(63, static function () use ($loop, $driver): void {
     $driver->finalize();
     $loop->stop();
 });
