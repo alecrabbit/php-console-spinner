@@ -47,6 +47,7 @@ use AlecRabbit\Spinner\Core\Factory\Contract\IConsoleCursorFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDriverOutputFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IFrameCollectionFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\ILoopAutoStarterFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopProbeFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopSettingsFactory;
@@ -190,6 +191,10 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
     protected function getLoopSetupBuilderMock(): MockObject&ILoopSetupBuilder
     {
         return $this->createMock(ILoopSetupBuilder::class);
+    }
+    protected function getLoopAutoStarterFactoryMock(): MockObject&ILoopAutoStarterFactory
+    {
+        return $this->createMock(ILoopAutoStarterFactory::class);
     }
 
     protected function getLoopSetupStub(): Stub&ILoopSetup

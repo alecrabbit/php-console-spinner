@@ -21,19 +21,17 @@ final class LoopSetup implements ILoopSetup
 
     public function setup(IDriver $driver): void
     {
-        if ($this->settings->isLoopAvailable()) {
-            if ($this->settings->isAutoStartEnabled()) {
-                $this->registerAutoStart();
-            }
-            if ($this->settings->isSignalProcessingAvailable() && $this->settings->isAttachHandlersEnabled()) {
-                $this->registerSignalHandlers($driver);
-            }
+        if ($this->isSetupEnabled()) {
+            $this->registerSignalHandlers($driver);
         }
     }
 
-    private function registerAutoStart(): void
+    protected function isSetupEnabled(): bool
     {
-        $this->loop->autoStart();
+        return
+            $this->settings->isLoopAvailable()
+            && $this->settings->isSignalProcessingAvailable()
+            && $this->settings->isAttachHandlersEnabled();
     }
 
     private function registerSignalHandlers(IDriver $driver): void
@@ -54,4 +52,5 @@ final class LoopSetup implements ILoopSetup
             // @codeCoverageIgnoreEnd
         ];
     }
+
 }

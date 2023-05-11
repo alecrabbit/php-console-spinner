@@ -56,20 +56,11 @@ final class LoopSetupTest extends TestCaseWithPrebuiltMocksAndStubs
     public function does(): void
     {
         $loop = $this->getLoopMock();
-        $loop
-            ->expects(self::once())
-            ->method('autoStart')
-        ;
 
         $settings = $this->getLoopSettingsMock();
         $settings
             ->expects(self::once())
             ->method('isLoopAvailable')
-            ->willReturn(true)
-        ;
-        $settings
-            ->expects(self::once())
-            ->method('isAutoStartEnabled')
             ->willReturn(true)
         ;
         $settings

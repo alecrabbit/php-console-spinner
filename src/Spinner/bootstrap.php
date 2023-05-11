@@ -13,11 +13,13 @@ use AlecRabbit\Spinner\Core\Builder\Contract\IBufferedOutputBuilder;
 use AlecRabbit\Spinner\Core\Builder\Contract\IConsoleCursorBuilder;
 use AlecRabbit\Spinner\Core\Builder\Contract\IDriverOutputBuilder;
 use AlecRabbit\Spinner\Core\Builder\Contract\IIntegerNormalizerBuilder;
+use AlecRabbit\Spinner\Core\Builder\Contract\ILoopAutoStarterBuilder;
 use AlecRabbit\Spinner\Core\Builder\Contract\ILoopSetupBuilder;
 use AlecRabbit\Spinner\Core\Builder\Contract\ITimerBuilder;
 use AlecRabbit\Spinner\Core\Builder\DriverBuilder;
 use AlecRabbit\Spinner\Core\Builder\DriverOutputBuilder;
 use AlecRabbit\Spinner\Core\Builder\IntegerNormalizerBuilder;
+use AlecRabbit\Spinner\Core\Builder\LoopAutoStarterBuilder;
 use AlecRabbit\Spinner\Core\Builder\LoopSetupBuilder;
 use AlecRabbit\Spinner\Core\Builder\Settings\AuxSettingsBuilder;
 use AlecRabbit\Spinner\Core\Builder\Settings\Contract\IAuxSettingsBuilder;
@@ -51,6 +53,7 @@ use AlecRabbit\Spinner\Core\Factory\Contract\IDriverOutputFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IFrameCollectionFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalNormalizerFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\ILoopAutoStarterFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopProbeFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopSettingsFactory;
@@ -68,6 +71,7 @@ use AlecRabbit\Spinner\Core\Factory\DriverOutputFactory;
 use AlecRabbit\Spinner\Core\Factory\FrameCollectionFactory;
 use AlecRabbit\Spinner\Core\Factory\IntervalFactory;
 use AlecRabbit\Spinner\Core\Factory\IntervalNormalizerFactory;
+use AlecRabbit\Spinner\Core\Factory\LoopAutoStarterFactory;
 use AlecRabbit\Spinner\Core\Factory\LoopFactory;
 use AlecRabbit\Spinner\Core\Factory\LoopSettingsFactory;
 use AlecRabbit\Spinner\Core\Factory\LoopSetupFactory;
@@ -109,7 +113,6 @@ function definitions(): Traversable
         IAuxSettingsBuilder::class => AuxSettingsBuilder::class,
         IBufferedOutputBuilder::class => BufferedOutputBuilder::class,
         IBufferedOutputSingletonFactory::class => BufferedOutputSingletonFactory::class,
-//        ICharFrameFactory::class => CharFrameFactory::class,
         ICharFrameRevolverFactory::class => CharFrameRevolverFactory::class,
         IConsoleCursorBuilder::class => ConsoleCursorBuilder::class,
         IConsoleCursorFactory::class => ConsoleCursorFactory::class,
@@ -128,10 +131,11 @@ function definitions(): Traversable
         ILoopFactory::class => LoopFactory::class,
         ILoopSetup::class => LoopSetup::class,
         ILoopSetupBuilder::class => LoopSetupBuilder::class,
+        ILoopAutoStarterBuilder::class => LoopAutoStarterBuilder::class,
         ILoopSetupFactory::class => LoopSetupFactory::class,
+        ILoopAutoStarterFactory::class => LoopAutoStarterFactory::class,
         ISettingsProviderBuilder::class => SettingsProviderBuilder::class,
         ISpinnerFactory::class => SpinnerFactory::class,
-//        IStyleFrameFactory::class => StyleFrameFactory::class,
         IStyleFrameRevolverFactory::class => StyleFrameRevolverFactory::class,
         ITimerBuilder::class => TimerBuilder::class,
         ITimerFactory::class => TimerFactory::class,
@@ -141,7 +145,6 @@ function definitions(): Traversable
         IWidgetRevolverFactory::class => WidgetRevolverFactory::class,
         IWidgetSettingsBuilder::class => WidgetSettingsBuilder::class,
         IWidgetSettingsFactory::class => WidgetSettingsFactory::class,
-//        IWidthMeasurerFactory::class => WidthMeasurerFactory::class,
 
         IDriver::class => static function (ContainerInterface $container): IDriver {
             return $container->get(IDriverFactory::class)->getDriver();
@@ -210,10 +213,6 @@ function definitions(): Traversable
 
             return new TerminalSettingsFactory($terminalProbe);
         },
-
-//        IWidthMeasurer::class => static function (ContainerInterface $container): IWidthMeasurer {
-//            return $container->get(IWidthMeasurerFactory::class)->create();
-//        },
 
         OptionNormalizerMode::class => static function (ContainerInterface $container): OptionNormalizerMode {
             return $container->get(ISettingsProvider::class)->getAuxSettings()->getOptionNormalizerMode();
