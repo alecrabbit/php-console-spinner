@@ -25,13 +25,13 @@ final class SignalHandlersSetupFactoryTest extends TestCaseWithPrebuiltMocksAndS
     public function getTesteeInstance(
         ?ISettingsProvider $settingsProvider = null,
         ?ILoopFactory $loopFactory = null,
-        ?ISignalHandlersSetupBuilder $loopSetupBuilder = null,
+        ?ISignalHandlersSetupBuilder $signalHandlersSetupBuilder = null,
     ): ISignalHandlersSetupFactory {
         return
             new SignalHandlersSetupFactory(
                 settingsProvider: $settingsProvider ?? $this->getSettingsProviderMock(),
                 loopFactory: $loopFactory ?? $this->getLoopSingletonFactoryMock(),
-                loopSetupBuilder: $loopSetupBuilder ?? $this->getSignalHandlersSetupBuilderMock(),
+                signalHandlersSetupBuilder: $signalHandlersSetupBuilder ?? $this->getSignalHandlersSetupBuilderMock(),
             );
     }
 
@@ -39,31 +39,38 @@ final class SignalHandlersSetupFactoryTest extends TestCaseWithPrebuiltMocksAndS
     public function canCreateSignalHandlersSetup(): void
     {
         $loopSettings = $this->getLoopSettingsMock();
+        $driverSettings = $this->getDriverSettingsMock();
         $loop = $this->getLoopMock();
-        $loopSetupStub = $this->getSignalHandlersSetupStub();
+        $signalHandlersSetupStub = $this->getSignalHandlersSetupStub();
         $loopFactory = $this->getLoopSingletonFactoryMock();
         $loopFactory
             ->expects(self::once())
             ->method('getLoop')
             ->willReturn($loop)
         ;
-        $loopSetupBuilder = $this->getSignalHandlersSetupBuilderMock();
-        $loopSetupBuilder
+        $signalHandlersSetupBuilder = $this->getSignalHandlersSetupBuilderMock();
+        $signalHandlersSetupBuilder
             ->expects(self::once())
             ->method('withLoop')
             ->with($loop)
-            ->willReturn($loopSetupBuilder)
+            ->willReturn($signalHandlersSetupBuilder)
         ;
-        $loopSetupBuilder
+        $signalHandlersSetupBuilder
             ->expects(self::once())
             ->method('withLoopSettings')
             ->with($loopSettings)
-            ->willReturn($loopSetupBuilder)
+            ->willReturn($signalHandlersSetupBuilder)
         ;
-        $loopSetupBuilder
+        $signalHandlersSetupBuilder
+            ->expects(self::once())
+            ->method('withDriverSettings')
+            ->with($driverSettings)
+            ->willReturn($signalHandlersSetupBuilder)
+        ;
+        $signalHandlersSetupBuilder
             ->expects(self::once())
             ->method('build')
-            ->willReturn($loopSetupStub)
+            ->willReturn($signalHandlersSetupStub)
         ;
 
         $settingsProvider = $this->getSettingsProviderMock();
@@ -72,13 +79,18 @@ final class SignalHandlersSetupFactoryTest extends TestCaseWithPrebuiltMocksAndS
             ->method('getLoopSettings')
             ->willReturn($loopSettings)
         ;
+        $settingsProvider
+            ->expects(self::once())
+            ->method('getDriverSettings')
+            ->willReturn($driverSettings)
+        ;
 
         $loopSetupFactory = $this->getTesteeInstance(
             settingsProvider: $settingsProvider,
             loopFactory: $loopFactory,
-            loopSetupBuilder: $loopSetupBuilder,
+            signalHandlersSetupBuilder: $signalHandlersSetupBuilder,
         );
-        $loopSetup = $loopSetupFactory->create();
-        self::assertSame($loopSetupStub, $loopSetup);
+        $signalHandlersSetup = $loopSetupFactory->create();
+        self::assertSame($signalHandlersSetupStub, $signalHandlersSetup);
     }
 }

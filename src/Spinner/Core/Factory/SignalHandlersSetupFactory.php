@@ -15,14 +15,14 @@ final class SignalHandlersSetupFactory implements ISignalHandlersSetupFactory
     public function __construct(
         protected ISettingsProvider $settingsProvider,
         protected ILoopFactory $loopFactory,
-        protected ISignalHandlersSetupBuilder $loopSetupBuilder,
+        protected ISignalHandlersSetupBuilder $signalHandlersSetupBuilder,
     ) {
     }
 
     public function create(): ISignalHandlersSetup
     {
         return
-            $this->loopSetupBuilder
+            $this->signalHandlersSetupBuilder
                 ->withLoop($this->loopFactory->getLoop())
                 ->withLoopSettings($this->settingsProvider->getLoopSettings())
                 ->withDriverSettings($this->settingsProvider->getDriverSettings())
