@@ -10,6 +10,7 @@ use AlecRabbit\Spinner\Core\Contract\ISignalHandlersSetup;
 use AlecRabbit\Spinner\Core\Contract\Loop\Contract\ILoop;
 use AlecRabbit\Spinner\Core\Settings\Contract\IDriverSettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\ILoopSettings;
+use Closure;
 use Traversable;
 
 final class SignalHandlersSetup implements ISignalHandlersSetup
@@ -38,12 +39,16 @@ final class SignalHandlersSetup implements ISignalHandlersSetup
             && $this->loopSettings->isAttachHandlersEnabled();
     }
 
+    /**
+     * @param IDriver $driver
+     * @return Traversable<int, Closure>
+     */
     private function signalHandlers(IDriver $driver): Traversable
     {
         yield from [
             // @codeCoverageIgnoreStart
             SIGINT => function () use ($driver): void {
-                $driver->interrupt($this->driverSettings->getInterruptMessage()); // todo: test
+                $driver->interrupt($this->driverSettings->getInterruptMessage());
                 $this->loop->stop();
             },
             // @codeCoverageIgnoreEnd
