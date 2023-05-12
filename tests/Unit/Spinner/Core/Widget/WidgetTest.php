@@ -200,13 +200,7 @@ final class WidgetTest extends TestCaseWithPrebuiltMocksAndStubs
 
         $children
             ->expects(self::once())
-            ->method('getIntervalContainer')
-            ->willReturn($intervalContainer)
-        ;
-
-        $intervalContainer
-            ->expects(self::once())
-            ->method('getSmallest')
+            ->method('getInterval')
             ->willReturn($this->getIntervalMock())
         ;
 
@@ -307,13 +301,7 @@ final class WidgetTest extends TestCaseWithPrebuiltMocksAndStubs
 
         $children
             ->expects(self::once())
-            ->method('getIntervalContainer')
-            ->willReturn($intervalContainer)
-        ;
-
-        $intervalContainer
-            ->expects(self::once())
-            ->method('getSmallest')
+            ->method('getInterval')
             ->willReturn($this->getIntervalMock())
         ;
 
@@ -357,7 +345,7 @@ final class WidgetTest extends TestCaseWithPrebuiltMocksAndStubs
         ;
         $children
             ->expects(self::never())
-            ->method('getIntervalContainer')
+            ->method('getInterval')
         ;
         $composite->remove($nonExistent);
     }

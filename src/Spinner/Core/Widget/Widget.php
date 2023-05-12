@@ -65,9 +65,7 @@ final class Widget extends ASubject implements IWidget
     {
         $widget->attach($this);
 
-        $context = $widget->getContext();
-
-        $this->children->add($context);
+        $context = $this->children->add($widget->getContext());
 
         $this->stateUpdate();
 
@@ -82,12 +80,13 @@ final class Widget extends ASubject implements IWidget
     private function stateUpdate(): void
     {
         $interval = $this->interval;
-        $this->interval = $this->children->getIntervalContainer()->getSmallest();
+        $this->interval = $this->interval->smallest($this->children->getInterval() ?? $this->revolver->getInterval());
         if ($interval !== $this->interval) {
             $this->notify();
         }
     }
 
+    /** @inheritdoc */
     public function update(ISubject $subject): void
     {
         $this->assertNotSelf($subject);

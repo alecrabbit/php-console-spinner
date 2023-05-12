@@ -64,7 +64,7 @@ final class WidgetContextContainerTest extends TestCaseWithPrebuiltMocksAndStubs
             ->willReturn($interval)
         ;
 
-        self::assertNull($container->getIntervalContainer()->getSmallest());
+        self::assertNull($container->getInterval());
 
         $container->add($context);
 
@@ -107,7 +107,7 @@ final class WidgetContextContainerTest extends TestCaseWithPrebuiltMocksAndStubs
         $container->remove($context);
 
         self::assertFalse($map->offsetExists($context));
-        self::assertNull($container->getIntervalContainer()->getSmallest());
+        self::assertNull($container->getInterval());
     }
 
     #[Test]

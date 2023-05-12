@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Widget;
 
+use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidget;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContext;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContextContainer;
@@ -72,13 +73,13 @@ final class WidgetContextContainer implements IWidgetContextContainer
         return $this->map->offsetExists($context);
     }
 
-    public function getIntervalContainer(): IWidgetIntervalContainer
-    {
-        return $this->intervalContainer;
-    }
-
     public function getIterator(): Traversable
     {
         return $this->map;
+    }
+
+    public function getInterval(): ?IInterval
+    {
+        return $this->intervalContainer->getSmallest();
     }
 }
