@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Spinner\Core\Widget;
+namespace AlecRabbit\Spinner\Core;
 
 use AlecRabbit\Spinner\Contract\IInterval;
-use AlecRabbit\Spinner\Core\Widget\Contract\IIntervalContainer;
+use AlecRabbit\Spinner\Core\Contract\IIntervalContainer;
 use WeakMap;
 
 final class IntervalContainer implements IIntervalContainer
@@ -30,11 +30,7 @@ final class IntervalContainer implements IIntervalContainer
 
     private function updateSmallestOnAdd(IInterval $interval): void
     {
-        if (null === $this->smallest) {
-            $this->smallest = $interval;
-            return;
-        }
-        $this->smallest = $this->smallest->smallest($interval);
+        $this->smallest = $interval->smallest($this->smallest);
     }
 
     public function remove(IInterval $interval): void

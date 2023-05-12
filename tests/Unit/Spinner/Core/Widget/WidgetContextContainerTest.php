@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Widget;
 
+use AlecRabbit\Spinner\Core\Contract\IIntervalContainer;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContextContainer;
-use AlecRabbit\Spinner\Core\Widget\Contract\IIntervalContainer;
 use AlecRabbit\Spinner\Core\Widget\WidgetContextContainer;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;

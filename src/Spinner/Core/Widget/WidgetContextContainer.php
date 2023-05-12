@@ -5,10 +5,11 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Widget;
 
 use AlecRabbit\Spinner\Contract\IInterval;
+use AlecRabbit\Spinner\Core\Contract\IIntervalContainer;
+use AlecRabbit\Spinner\Core\IntervalContainer;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContext;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContextContainer;
-use AlecRabbit\Spinner\Core\Widget\Contract\IIntervalContainer;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use Traversable;
 use WeakMap;
