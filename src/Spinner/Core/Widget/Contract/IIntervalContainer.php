@@ -6,7 +6,7 @@ namespace AlecRabbit\Spinner\Core\Widget\Contract;
 
 use AlecRabbit\Spinner\Contract\IInterval;
 
-interface IWidgetIntervalContainer
+interface IIntervalContainer
 {
     public function getSmallest(): ?IInterval;
 

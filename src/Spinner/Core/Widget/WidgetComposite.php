@@ -12,12 +12,12 @@ use AlecRabbit\Spinner\Contract\ISubject;
 use AlecRabbit\Spinner\Core\A\ASubject;
 use AlecRabbit\Spinner\Core\CharFrame;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
-use AlecRabbit\Spinner\Core\Widget\Contract\IWidget;
+use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContext;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContextContainer;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 
-final class Widget extends ASubject implements IWidget
+final class WidgetComposite extends ASubject implements IWidgetComposite
 {
     protected IInterval $interval;
     protected IWidgetContext $context;
@@ -61,7 +61,7 @@ final class Widget extends ASubject implements IWidget
         return $frame;
     }
 
-    public function add(IWidget $widget): IWidgetContext
+    public function add(IWidgetComposite $widget): IWidgetContext
     {
         $widget->attach($this);
 
@@ -96,7 +96,7 @@ final class Widget extends ASubject implements IWidget
         }
     }
 
-    public function remove(IWidget $widget): void
+    public function remove(IWidgetComposite $widget): void
     {
         $context = $widget->getContext();
         if ($this->children->has($context)) {

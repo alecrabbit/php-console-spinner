@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Widget;
 
 use AlecRabbit\Spinner\Contract\IInterval;
-use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetIntervalContainer;
+use AlecRabbit\Spinner\Core\Widget\Contract\IIntervalContainer;
 use WeakMap;
 
-final class WidgetIntervalContainer implements IWidgetIntervalContainer
+final class IntervalContainer implements IIntervalContainer
 {
     protected ?IInterval $smallest = null;
 

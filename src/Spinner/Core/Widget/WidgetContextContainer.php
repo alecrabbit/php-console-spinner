@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Widget;
 
 use AlecRabbit\Spinner\Contract\IInterval;
-use AlecRabbit\Spinner\Core\Widget\Contract\IWidget;
+use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContext;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContextContainer;
-use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetIntervalContainer;
+use AlecRabbit\Spinner\Core\Widget\Contract\IIntervalContainer;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use Traversable;
 use WeakMap;
@@ -19,7 +19,7 @@ final class WidgetContextContainer implements IWidgetContextContainer
 
     public function __construct(
         protected readonly WeakMap $map = new WeakMap(),
-        protected readonly IWidgetIntervalContainer $intervalContainer = new WidgetIntervalContainer(),
+        protected readonly IIntervalContainer $intervalContainer = new IntervalContainer(),
     ) {
         $this->updateCount();
     }
@@ -54,7 +54,7 @@ final class WidgetContextContainer implements IWidgetContextContainer
     /**
      * @deprecated Questionable method
      */
-    public function find(IWidget $widget): IWidgetContext
+    public function find(IWidgetComposite $widget): IWidgetContext
     {
         $context = $widget->getContext();
         return $this->get($context);

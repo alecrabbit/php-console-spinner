@@ -11,13 +11,13 @@ use AlecRabbit\Spinner\Contract\IObserver;
 use AlecRabbit\Spinner\Contract\ISubject;
 use AlecRabbit\Spinner\Core\A\ASubject;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
-use AlecRabbit\Spinner\Core\Widget\Contract\IWidget;
+use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContext;
 
 final class Spinner extends ASubject implements ISpinner
 {
     public function __construct(
-        protected IWidget $rootWidget,
+        protected IWidgetComposite $rootWidget,
         ?IObserver $observer = null,
     ) {
         parent::__construct($observer);
@@ -34,12 +34,12 @@ final class Spinner extends ASubject implements ISpinner
         return $this->rootWidget->getInterval();
     }
 
-    public function add(IWidget $element): IWidgetContext
+    public function add(IWidgetComposite $element): IWidgetContext
     {
         return $this->rootWidget->add($element);
     }
 
-    public function remove(IWidget $element): void
+    public function remove(IWidgetComposite $element): void
     {
         $this->rootWidget->remove($element);
     }

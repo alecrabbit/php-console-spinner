@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Functional\Spinner\Core\Widget;
 
 use AlecRabbit\Spinner\Core\Interval;
-use AlecRabbit\Spinner\Core\Widget\WidgetIntervalContainer;
+use AlecRabbit\Spinner\Core\Widget\IntervalContainer;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 
@@ -14,7 +14,7 @@ final class WidgetIntervalContainerTest extends TestCase
     #[Test]
     public function canOperateWithIntervals(): void
     {
-        $intervalContainer = new WidgetIntervalContainer();
+        $intervalContainer = new IntervalContainer();
 
         $interval0 = new Interval(100);
         $interval1 = new Interval(200);

@@ -19,7 +19,7 @@ interface IWidgetContextContainer extends Countable, IteratorAggregate
 
     public function get(IWidgetContext $context);
 
-    public function find(IWidget $widget): IWidgetContext;
+    public function find(IWidgetComposite $widget): IWidgetContext;
 
     public function has(IWidgetContext $context): bool;
 

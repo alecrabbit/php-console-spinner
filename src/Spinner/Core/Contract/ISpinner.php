@@ -9,7 +9,7 @@ use AlecRabbit\Spinner\Contract\IHasFrame;
 use AlecRabbit\Spinner\Contract\IHasInterval;
 use AlecRabbit\Spinner\Contract\IObserver;
 use AlecRabbit\Spinner\Contract\ISubject;
-use AlecRabbit\Spinner\Core\Widget\Contract\IWidget;
+use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContext;
 
 interface ISpinner extends IObserver,
@@ -17,7 +17,7 @@ interface ISpinner extends IObserver,
                            IHasInterval,
                            IHasFrame
 {
-    public function add(IWidget $element): IWidgetContext;
+    public function add(IWidgetComposite $element): IWidgetContext;
 
-    public function remove(IWidget $element): void;
+    public function remove(IWidgetComposite $element): void;
 }

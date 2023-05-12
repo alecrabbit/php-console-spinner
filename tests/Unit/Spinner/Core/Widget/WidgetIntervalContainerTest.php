@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Widget;
 
-use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetIntervalContainer;
-use AlecRabbit\Spinner\Core\Widget\WidgetIntervalContainer;
+use AlecRabbit\Spinner\Core\Widget\Contract\IIntervalContainer;
+use AlecRabbit\Spinner\Core\Widget\IntervalContainer;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;
 
@@ -16,12 +16,12 @@ final class WidgetIntervalContainerTest extends TestCaseWithPrebuiltMocksAndStub
     {
         $intervalContainer = $this->getTesteeInstance();
 
-        self::assertInstanceOf(WidgetIntervalContainer::class, $intervalContainer);
+        self::assertInstanceOf(IntervalContainer::class, $intervalContainer);
     }
 
-    public function getTesteeInstance(): IWidgetIntervalContainer
+    public function getTesteeInstance(): IIntervalContainer
     {
-        return new WidgetIntervalContainer();
+        return new IntervalContainer();
     }
 
     #[Test]
@@ -29,7 +29,7 @@ final class WidgetIntervalContainerTest extends TestCaseWithPrebuiltMocksAndStub
     {
         $intervalContainer = $this->getTesteeInstance();
 
-        self::assertInstanceOf(WidgetIntervalContainer::class, $intervalContainer);
+        self::assertInstanceOf(IntervalContainer::class, $intervalContainer);
         self::assertNull($intervalContainer->getSmallest());
     }
 

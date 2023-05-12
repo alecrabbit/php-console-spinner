@@ -6,7 +6,7 @@ namespace AlecRabbit\Spinner\Core\Widget;
 
 use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
-use AlecRabbit\Spinner\Core\Widget\Contract\IWidget;
+use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetBuilder;
 use LogicException;
 
@@ -16,11 +16,11 @@ final class WidgetBuilder implements IWidgetBuilder
     private ?IFrame $trailingSpacer = null;
     private ?IRevolver $revolver = null;
 
-    public function build(): IWidget
+    public function build(): IWidgetComposite
     {
         $this->validate();
 
-        return new Widget(
+        return new WidgetComposite(
             $this->revolver,
             $this->leadingSpacer,
             $this->trailingSpacer,
