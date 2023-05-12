@@ -15,11 +15,13 @@ abstract class ASubject implements ISubject
     ) {
     }
 
+    /** @inheritdoc */
     public function notify(): void
     {
         $this->observer?->update($this);
     }
 
+    /** @inheritdoc */
     public function attach(IObserver $observer): void
     {
         if ($this->observer !== null) {
@@ -37,7 +39,8 @@ abstract class ASubject implements ISubject
             throw new InvalidArgumentException('Object can not be self.');
         }
     }
-
+    
+    /** @inheritdoc */
     public function detach(IObserver $observer): void
     {
         if ($this->observer === $observer) {
