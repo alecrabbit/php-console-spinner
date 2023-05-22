@@ -42,6 +42,7 @@
 + [Usage](doc/usage.md)
 + [Features](#features)
 + [Known issues](doc/known_issues.md)
++ [Development](doc/development.md)
 + [Links](#links)
 
 ### <a name="installation"></a> Installation
