@@ -32,10 +32,11 @@ use AlecRabbit\Spinner\Core\Contract\IDriverBuilder;
 use AlecRabbit\Spinner\Core\Contract\IDriverLinker;
 use AlecRabbit\Spinner\Core\Contract\IDriverSetup;
 use AlecRabbit\Spinner\Core\Contract\IFrameCollection;
+use AlecRabbit\Spinner\Core\Contract\IIntervalContainer;
 use AlecRabbit\Spinner\Core\Contract\IIntervalNormalizer;
 use AlecRabbit\Spinner\Core\Contract\ILoopAutoStarter;
-use AlecRabbit\Spinner\Core\Contract\ISignalHandlersSetup;
 use AlecRabbit\Spinner\Core\Contract\ISettingsProvider;
+use AlecRabbit\Spinner\Core\Contract\ISignalHandlersSetup;
 use AlecRabbit\Spinner\Core\Contract\ISignalProcessingProbe;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use AlecRabbit\Spinner\Core\Contract\ISpinnerState;
@@ -71,15 +72,12 @@ use AlecRabbit\Spinner\Core\Settings\Contract\IWidgetSettings;
 use AlecRabbit\Spinner\Core\Terminal\Contract\ITerminalProbe;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidget;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetBuilder;
+use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContext;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContextContainer;
-use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetIntervalContainer;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolverBuilder;
 use AlecRabbit\Spinner\Core\Widget\Factory\Contract\IWidgetFactory;
 use AlecRabbit\Spinner\Core\Widget\Factory\Contract\IWidgetRevolverFactory;
-use AlecRabbit\Spinner\Extras\Contract\IWidthMeasurer;
-use AlecRabbit\Spinner\Extras\Factory\Contract\ICharFrameFactory;
-use AlecRabbit\Spinner\Extras\Factory\Contract\IStyleFrameFactory;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\MockObject\Stub;
 
@@ -95,9 +93,9 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
         return $this->createMock(IDefinitionRegistry::class);
     }
 
-    protected function getWidgetIntervalContainerMock(): MockObject&IWidgetIntervalContainer
+    protected function getWidgetIntervalContainerMock(): MockObject&IIntervalContainer
     {
-        return $this->createMock(IWidgetIntervalContainer::class);
+        return $this->createMock(IIntervalContainer::class);
     }
 
     protected function getFrameMock(): MockObject&IFrame
@@ -113,6 +111,11 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
     protected function getObserverMock(): MockObject&IObserver
     {
         return $this->createMock(IObserver::class);
+    }
+
+    protected function getWidgetCompositeMock(): MockObject&IWidgetComposite
+    {
+        return $this->createMock(IWidgetComposite::class);
     }
 
     protected function getWidgetMock(): MockObject&IWidget
@@ -246,26 +249,6 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
         return $this->createMock(IIntervalFactory::class);
     }
 
-    protected function getCharFrameFactoryMock(): MockObject&ICharFrameFactory
-    {
-        return $this->createMock(ICharFrameFactory::class);
-    }
-
-    protected function getStyleFrameFactoryMock(): MockObject&IStyleFrameFactory
-    {
-        return $this->createMock(IStyleFrameFactory::class);
-    }
-
-    protected function getStyleRendererFactoryMock(): MockObject&IStyleRendererFactory
-    {
-        return $this->createMock(IStyleRendererFactory::class);
-    }
-
-    protected function getStyleRendererMock(): MockObject&IStyleRenderer
-    {
-        return $this->createMock(IStyleRenderer::class);
-    }
-
     protected function getOutputBuilderMock(): MockObject&IBufferedOutputBuilder
     {
         return $this->createMock(IBufferedOutputBuilder::class);
@@ -369,11 +352,6 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
     protected function getDriverMock(): MockObject&IDriver
     {
         return $this->createMock(IDriver::class);
-    }
-
-    protected function getWidthMeasurerMock(): MockObject&IWidthMeasurer
-    {
-        return $this->createMock(IWidthMeasurer::class);
     }
 
     protected function getPatternStub(): Stub&IPattern

@@ -7,21 +7,21 @@ namespace AlecRabbit\Tests\Unit\Spinner\Core\Widget;
 use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Contract\IObserver;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
-use AlecRabbit\Spinner\Core\Widget\Contract\IWidget;
+use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContextContainer;
-use AlecRabbit\Spinner\Core\Widget\Widget;
+use AlecRabbit\Spinner\Core\Widget\WidgetComposite;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;
 
-final class WidgetTest extends TestCaseWithPrebuiltMocksAndStubs
+final class WidgetCompositeTest extends TestCaseWithPrebuiltMocksAndStubs
 {
     #[Test]
     public function canBeCreated(): void
     {
         $widget = $this->getTesteeInstance();
 
-        self::assertInstanceOf(Widget::class, $widget);
+        self::assertInstanceOf(WidgetComposite::class, $widget);
     }
 
     public function getTesteeInstance(
@@ -30,8 +30,8 @@ final class WidgetTest extends TestCaseWithPrebuiltMocksAndStubs
         ?IFrame $trailingSpacer = null,
         ?IWidgetContextContainer $children = null,
         ?IObserver $observer = null,
-    ): IWidget {
-        return new Widget(
+    ): IWidgetComposite {
+        return new WidgetComposite(
             revolver: $revolver ?? $this->getRevolverMock(),
             leadingSpacer: $leadingSpacer ?? $this->getFrameMock(),
             trailingSpacer: $trailingSpacer ?? $this->getFrameMock(),
@@ -58,7 +58,7 @@ final class WidgetTest extends TestCaseWithPrebuiltMocksAndStubs
         self::assertSame($interval, $widget->getInterval());
 
         $otherInterval = $this->getIntervalMock();
-        $otherWidget = $this->getWidgetMock();
+        $otherWidget = $this->getWidgetCompositeMock();
         $otherWidget
             ->expects(self::once())
             ->method('getInterval')
@@ -178,7 +178,7 @@ final class WidgetTest extends TestCaseWithPrebuiltMocksAndStubs
         );
 
         $otherWidgetContext = $this->getWidgetContextMock();
-        $otherWidget = $this->getWidgetMock();
+        $otherWidget = $this->getWidgetCompositeMock();
 
         $otherWidget
             ->expects(self::once())
@@ -200,13 +200,7 @@ final class WidgetTest extends TestCaseWithPrebuiltMocksAndStubs
 
         $children
             ->expects(self::once())
-            ->method('getIntervalContainer')
-            ->willReturn($intervalContainer)
-        ;
-
-        $intervalContainer
-            ->expects(self::once())
-            ->method('getSmallest')
+            ->method('getInterval')
             ->willReturn($this->getIntervalMock())
         ;
 
@@ -278,7 +272,7 @@ final class WidgetTest extends TestCaseWithPrebuiltMocksAndStubs
         );
 
         $otherWidgetContext = $this->getWidgetContextMock();
-        $otherWidget = $this->getWidgetMock();
+        $otherWidget = $this->getWidgetCompositeMock();
 
         $otherWidget
             ->expects(self::once())
@@ -307,13 +301,7 @@ final class WidgetTest extends TestCaseWithPrebuiltMocksAndStubs
 
         $children
             ->expects(self::once())
-            ->method('getIntervalContainer')
-            ->willReturn($intervalContainer)
-        ;
-
-        $intervalContainer
-            ->expects(self::once())
-            ->method('getSmallest')
+            ->method('getInterval')
             ->willReturn($this->getIntervalMock())
         ;
 
@@ -335,7 +323,7 @@ final class WidgetTest extends TestCaseWithPrebuiltMocksAndStubs
         );
 
         $nonExistentContext = $this->getWidgetContextMock();
-        $nonExistent = $this->getWidgetMock();
+        $nonExistent = $this->getWidgetCompositeMock();
         $nonExistent
             ->expects(self::once())
             ->method('getContext')
@@ -357,7 +345,7 @@ final class WidgetTest extends TestCaseWithPrebuiltMocksAndStubs
         ;
         $children
             ->expects(self::never())
-            ->method('getIntervalContainer')
+            ->method('getInterval')
         ;
         $composite->remove($nonExistent);
     }
@@ -431,7 +419,7 @@ final class WidgetTest extends TestCaseWithPrebuiltMocksAndStubs
             $context
                 ->expects(self::once())
                 ->method('getWidget')
-                ->willReturn($this->getWidgetMock())
+                ->willReturn($this->getWidgetCompositeMock())
             ;
 
             $widget->replaceContext($context);

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Widget;
 
+use AlecRabbit\Spinner\Core\Contract\IIntervalContainer;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContextContainer;
-use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetIntervalContainer;
 use AlecRabbit\Spinner\Core\Widget\WidgetContextContainer;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
@@ -24,7 +24,7 @@ final class WidgetContextContainerTest extends TestCaseWithPrebuiltMocksAndStubs
 
     public function getTesteeInstance(
         ?WeakMap $map = null,
-        ?IWidgetIntervalContainer $intervalContainer = null,
+        ?IIntervalContainer $intervalContainer = null,
     ): IWidgetContextContainer {
         return new WidgetContextContainer(
             map: $map ?? new WeakMap(),
@@ -51,7 +51,7 @@ final class WidgetContextContainerTest extends TestCaseWithPrebuiltMocksAndStubs
             intervalContainer: $intervalContainer,
         );
 
-        $widget = $this->getWidgetMock();
+        $widget = $this->getWidgetCompositeMock();
         $context = $this->getWidgetContextMock();
         $context
             ->expects(self::once())
@@ -64,7 +64,7 @@ final class WidgetContextContainerTest extends TestCaseWithPrebuiltMocksAndStubs
             ->willReturn($interval)
         ;
 
-        self::assertNull($container->getIntervalContainer()->getSmallest());
+        self::assertNull($container->getInterval());
 
         $container->add($context);
 
@@ -90,7 +90,7 @@ final class WidgetContextContainerTest extends TestCaseWithPrebuiltMocksAndStubs
             intervalContainer: $intervalContainer,
         );
 
-        $widget = $this->getWidgetMock();
+        $widget = $this->getWidgetCompositeMock();
         $context = $this->getWidgetContextMock();
         $context
             ->expects(self::once())
@@ -107,7 +107,7 @@ final class WidgetContextContainerTest extends TestCaseWithPrebuiltMocksAndStubs
         $container->remove($context);
 
         self::assertFalse($map->offsetExists($context));
-        self::assertNull($container->getIntervalContainer()->getSmallest());
+        self::assertNull($container->getInterval());
     }
 
     #[Test]
@@ -147,7 +147,7 @@ final class WidgetContextContainerTest extends TestCaseWithPrebuiltMocksAndStubs
         $container = $this->getTesteeInstance();
 
         $context = $this->getWidgetContextMock();
-        $widget = $this->getWidgetMock();
+        $widget = $this->getWidgetCompositeMock();
         $widget
             ->expects(self::once())
             ->method('getContext')

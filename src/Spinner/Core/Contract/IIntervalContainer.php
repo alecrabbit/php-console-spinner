@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Spinner\Core\Widget\Contract;
+namespace AlecRabbit\Spinner\Core\Contract;
 
 use AlecRabbit\Spinner\Contract\IInterval;
 
-interface IWidgetIntervalContainer
+interface IIntervalContainer
 {
     public function getSmallest(): ?IInterval;
 

@@ -88,7 +88,7 @@ final class SpinnerFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
             ->method('build')
         ;
 
-        $widget = $this->getWidgetMock();
+        $widget = $this->getWidgetCompositeMock();
 
         $widgetFactory = $this->getWidgetFactoryMock();
         $widgetFactory
@@ -141,7 +141,7 @@ final class SpinnerFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
             ->willReturn($widgetConfig)
         ;
 
-        $widget = $this->getWidgetMock();
+        $widget = $this->getWidgetCompositeMock();
         $widgetSettings = $this->getWidgetSettingsMock();
 
         $widgetFactory = $this->getWidgetFactoryMock();
@@ -191,7 +191,7 @@ final class SpinnerFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
             ->willReturnSelf()
         ;
 
-        $widget = $this->getWidgetMock();
+        $widget = $this->getWidgetCompositeMock();
         $widgetSettings = $this->getWidgetSettingsMock();
 
         $widgetFactory = $this->getWidgetFactoryMock();

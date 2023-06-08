@@ -2,26 +2,26 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Tests\Unit\Spinner\Core\Widget;
+namespace AlecRabbit\Tests\Unit\Spinner\Core;
 
-use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetIntervalContainer;
-use AlecRabbit\Spinner\Core\Widget\WidgetIntervalContainer;
+use AlecRabbit\Spinner\Core\Contract\IIntervalContainer;
+use AlecRabbit\Spinner\Core\IntervalContainer;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;
 
-final class WidgetIntervalContainerTest extends TestCaseWithPrebuiltMocksAndStubs
+final class IntervalContainerTest extends TestCaseWithPrebuiltMocksAndStubs
 {
     #[Test]
     public function canBeCreated(): void
     {
         $intervalContainer = $this->getTesteeInstance();
 
-        self::assertInstanceOf(WidgetIntervalContainer::class, $intervalContainer);
+        self::assertInstanceOf(IntervalContainer::class, $intervalContainer);
     }
 
-    public function getTesteeInstance(): IWidgetIntervalContainer
+    public function getTesteeInstance(): IIntervalContainer
     {
-        return new WidgetIntervalContainer();
+        return new IntervalContainer();
     }
 
     #[Test]
@@ -29,7 +29,7 @@ final class WidgetIntervalContainerTest extends TestCaseWithPrebuiltMocksAndStub
     {
         $intervalContainer = $this->getTesteeInstance();
 
-        self::assertInstanceOf(WidgetIntervalContainer::class, $intervalContainer);
+        self::assertInstanceOf(IntervalContainer::class, $intervalContainer);
         self::assertNull($intervalContainer->getSmallest());
     }
 
@@ -37,6 +37,11 @@ final class WidgetIntervalContainerTest extends TestCaseWithPrebuiltMocksAndStub
     public function canAddInterval(): void
     {
         $interval = $this->getIntervalMock();
+        $interval
+            ->expects(self::once())
+            ->method('smallest')
+            ->willReturnSelf();
+
         $intervalContainer = $this->getTesteeInstance();
 
         $intervalContainer->add($interval);
@@ -48,6 +53,11 @@ final class WidgetIntervalContainerTest extends TestCaseWithPrebuiltMocksAndStub
     public function canRemoveOneIntervalAddedBefore(): void
     {
         $interval = $this->getIntervalMock();
+        $interval
+            ->expects(self::once())
+            ->method('smallest')
+            ->willReturnSelf();
+
         $intervalContainer = $this->getTesteeInstance();
 
         $intervalContainer->add($interval);

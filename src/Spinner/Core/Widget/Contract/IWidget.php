@@ -15,7 +15,5 @@ interface IWidget extends IObserver,
                           IHasFrame,
                           IHasWidgetContext
 {
-    public function add(IWidget $widget): IWidgetContext;
-
-    public function remove(IWidget $widget): void;
+    public function isComposite(): bool;
 }

@@ -12,12 +12,12 @@ use AlecRabbit\Spinner\Contract\ISubject;
 use AlecRabbit\Spinner\Core\A\ASubject;
 use AlecRabbit\Spinner\Core\CharFrame;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
-use AlecRabbit\Spinner\Core\Widget\Contract\IWidget;
+use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContext;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContextContainer;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 
-final class Widget extends ASubject implements IWidget
+final class WidgetComposite extends ASubject implements IWidgetComposite
 {
     protected IInterval $interval;
     protected IWidgetContext $context;
@@ -48,7 +48,7 @@ final class Widget extends ASubject implements IWidget
             $this->leadingSpacer->width() + $revolverFrame->width() + $this->trailingSpacer->width()
         );
 
-        if ($this->children->count() > 0) {
+        if ($this->hasChildren()) {
             foreach ($this->children as $context) {
                 $f = $context->getWidget()->getFrame($dt);
                 $frame = new CharFrame(
@@ -61,13 +61,11 @@ final class Widget extends ASubject implements IWidget
         return $frame;
     }
 
-    public function add(IWidget $widget): IWidgetContext
+    public function add(IWidgetComposite $widget): IWidgetContext
     {
         $widget->attach($this);
 
-        $context = $widget->getContext();
-
-        $this->children->add($context);
+        $context = $this->children->add($widget->getContext());
 
         $this->stateUpdate();
 
@@ -82,12 +80,13 @@ final class Widget extends ASubject implements IWidget
     private function stateUpdate(): void
     {
         $interval = $this->interval;
-        $this->interval = $this->children->getIntervalContainer()->getSmallest();
+        $this->interval = $this->interval->smallest($this->children->getInterval() ?? $this->revolver->getInterval());
         if ($interval !== $this->interval) {
             $this->notify();
         }
     }
 
+    /** @inheritdoc */
     public function update(ISubject $subject): void
     {
         $this->assertNotSelf($subject);
@@ -97,7 +96,7 @@ final class Widget extends ASubject implements IWidget
         }
     }
 
-    public function remove(IWidget $widget): void
+    public function remove(IWidgetComposite $widget): void
     {
         $context = $widget->getContext();
         if ($this->children->has($context)) {
@@ -115,5 +114,15 @@ final class Widget extends ASubject implements IWidget
             throw new InvalidArgumentException('Context is not related to this widget.');
         }
         $this->context = $context;
+    }
+
+    public function isComposite(): bool
+    {
+        return true;
+    }
+
+    protected function hasChildren(): bool
+    {
+        return $this->children->count() > 0;
     }
 }

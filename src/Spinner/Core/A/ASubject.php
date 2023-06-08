@@ -8,6 +8,8 @@ use AlecRabbit\Spinner\Contract\IObserver;
 use AlecRabbit\Spinner\Contract\ISubject;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 
+use function sprintf;
+
 abstract class ASubject implements ISubject
 {
     public function __construct(
@@ -15,11 +17,13 @@ abstract class ASubject implements ISubject
     ) {
     }
 
+    /** @inheritdoc */
     public function notify(): void
     {
         $this->observer?->update($this);
     }
 
+    /** @inheritdoc */
     public function attach(IObserver $observer): void
     {
         if ($this->observer !== null) {
@@ -34,10 +38,17 @@ abstract class ASubject implements ISubject
     protected function assertNotSelf(object $obj): void
     {
         if ($obj === $this) {
-            throw new InvalidArgumentException('Object can not be self.');
+            throw new InvalidArgumentException(
+                sprintf(
+                    'Object can not be self. %s #%s.',
+                    get_debug_type($obj),
+                    spl_object_id($obj),
+                )
+            );
         }
     }
 
+    /** @inheritdoc */
     public function detach(IObserver $observer): void
     {
         if ($this->observer === $observer) {
