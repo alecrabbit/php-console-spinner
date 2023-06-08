@@ -7,8 +7,9 @@ namespace AlecRabbit\Tests\Unit\Spinner\Core;
 use AlecRabbit\Spinner\Contract\IObserver;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use AlecRabbit\Spinner\Core\Spinner;
-use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
+use AlecRabbit\Spinner\Core\Widget\Contract\IWidget;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
+use AlecRabbit\Spinner\Exception\WidgetNotAComposite;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;
 
@@ -23,11 +24,11 @@ final class SpinnerTest extends TestCaseWithPrebuiltMocksAndStubs
     }
 
     protected function getTesteeInstance(
-        ?IWidgetComposite $rootWidget = null,
+        ?IWidget $rootWidget = null,
         ?IObserver $observer = null,
     ): ISpinner {
         return new Spinner(
-            rootWidget: $rootWidget ?? $this->getWidgetCompositeMock(),
+            rootWidget: $rootWidget ?? $this->getWidgetMock(),
             observer: $observer,
         );
     }
@@ -141,6 +142,11 @@ final class SpinnerTest extends TestCaseWithPrebuiltMocksAndStubs
             ->method('add')
             ->willReturn($context)
         ;
+        $rootWidget
+            ->expects(self::once())
+            ->method('isComposite')
+            ->willReturn(true)
+        ;
         $spinner = $this->getTesteeInstance(rootWidget: $rootWidget);
 
         self::assertInstanceOf(Spinner::class, $spinner);
@@ -155,6 +161,11 @@ final class SpinnerTest extends TestCaseWithPrebuiltMocksAndStubs
         $rootWidget
             ->expects(self::once())
             ->method('remove')
+        ;
+        $rootWidget
+            ->expects(self::once())
+            ->method('isComposite')
+            ->willReturn(true)
         ;
         $spinner = $this->getTesteeInstance(rootWidget: $rootWidget);
 
@@ -192,6 +203,34 @@ final class SpinnerTest extends TestCaseWithPrebuiltMocksAndStubs
         $test = function (): void {
             $spinner = $this->getTesteeInstance();
             $spinner->attach($spinner);
+        };
+
+        $this->wrapExceptionTest(
+            test: $test,
+            exception: $exceptionClass,
+            message: $exceptionMessage,
+        );
+    }
+
+    #[Test]
+    public function throwsOnAddIfRootWidgetIsNotAComposite(): void
+    {
+        $exceptionClass = WidgetNotAComposite::class;
+        $exceptionMessage = 'Root widget is not a composite.';
+
+        $test = function (): void {
+            $context = $this->getWidgetContextMock();
+            $widget = $this->getWidgetCompositeMock();
+
+            $rootWidget = $this->getWidgetMock();
+            $rootWidget
+                ->expects(self::once())
+                ->method('isComposite')
+                ->willReturn(false)
+            ;
+            $spinner = $this->getTesteeInstance(rootWidget: $rootWidget);
+
+            self::assertSame($context, $spinner->add($widget));
         };
 
         $this->wrapExceptionTest(

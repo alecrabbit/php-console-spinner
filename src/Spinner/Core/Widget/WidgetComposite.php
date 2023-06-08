@@ -48,7 +48,7 @@ final class WidgetComposite extends ASubject implements IWidgetComposite
             $this->leadingSpacer->width() + $revolverFrame->width() + $this->trailingSpacer->width()
         );
 
-        if ($this->children->count() > 0) {
+        if ($this->hasChildren()) {
             foreach ($this->children as $context) {
                 $f = $context->getWidget()->getFrame($dt);
                 $frame = new CharFrame(
@@ -114,5 +114,15 @@ final class WidgetComposite extends ASubject implements IWidgetComposite
             throw new InvalidArgumentException('Context is not related to this widget.');
         }
         $this->context = $context;
+    }
+
+    public function isComposite(): bool
+    {
+        return true;
+    }
+
+    protected function hasChildren(): bool
+    {
+        return $this->children->count() > 0;
     }
 }

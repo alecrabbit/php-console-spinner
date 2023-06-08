@@ -15,4 +15,5 @@ interface IWidget extends IObserver,
                           IHasFrame,
                           IHasWidgetContext
 {
+    public function isComposite(): bool;
 }
