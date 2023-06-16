@@ -120,9 +120,4 @@ final class WidgetComposite extends ASubject implements IWidgetComposite
         }
         $this->context = $context;
     }
-
-    public function isComposite(): bool
-    {
-        return true;
-    }
 }

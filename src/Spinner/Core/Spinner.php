@@ -12,6 +12,7 @@ use AlecRabbit\Spinner\Contract\ISubject;
 use AlecRabbit\Spinner\Core\A\ASubject;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidget;
+use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContext;
 use AlecRabbit\Spinner\Exception\WidgetNotAComposite;
 
@@ -37,7 +38,7 @@ final class Spinner extends ASubject implements ISpinner
 
     public function add(IWidget $element): IWidgetContext
     {
-        if ($this->rootWidget->isComposite()) {
+        if ($this->rootWidget instanceof IWidgetComposite) {
             return $this->rootWidget->add($element);
         }
         throw new WidgetNotAComposite('Root widget is not a composite.');
@@ -45,7 +46,7 @@ final class Spinner extends ASubject implements ISpinner
 
     public function remove(IWidget $element): void
     {
-        if ($this->rootWidget->isComposite()) {
+        if ($this->rootWidget instanceof IWidgetComposite) {
             $this->rootWidget->remove($element);
         }
     }

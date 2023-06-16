@@ -142,11 +142,7 @@ final class SpinnerTest extends TestCaseWithPrebuiltMocksAndStubs
             ->method('add')
             ->willReturn($context)
         ;
-        $rootWidget
-            ->expects(self::once())
-            ->method('isComposite')
-            ->willReturn(true)
-        ;
+
         $spinner = $this->getTesteeInstance(rootWidget: $rootWidget);
 
         self::assertInstanceOf(Spinner::class, $spinner);
@@ -162,11 +158,7 @@ final class SpinnerTest extends TestCaseWithPrebuiltMocksAndStubs
             ->expects(self::once())
             ->method('remove')
         ;
-        $rootWidget
-            ->expects(self::once())
-            ->method('isComposite')
-            ->willReturn(true)
-        ;
+
         $spinner = $this->getTesteeInstance(rootWidget: $rootWidget);
 
         self::assertInstanceOf(Spinner::class, $spinner);
@@ -223,11 +215,7 @@ final class SpinnerTest extends TestCaseWithPrebuiltMocksAndStubs
             $widget = $this->getWidgetCompositeMock();
 
             $rootWidget = $this->getWidgetMock();
-            $rootWidget
-                ->expects(self::once())
-                ->method('isComposite')
-                ->willReturn(false)
-            ;
+
             $spinner = $this->getTesteeInstance(rootWidget: $rootWidget);
 
             self::assertSame($context, $spinner->add($widget));
