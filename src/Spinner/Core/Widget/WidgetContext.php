@@ -36,31 +36,13 @@ final class WidgetContext extends ASubject implements IWidgetContext
 
     public function update(ISubject $subject): void
     {
-        // TODO: Implement update() method.
-        throw new \RuntimeException('Not implemented.');
-    }
-
-    public function attach(IObserver $observer): void
-    {
-        // TODO: Implement attach() method.
-        throw new \RuntimeException('Not implemented.');
-    }
-
-    public function detach(IObserver $observer): void
-    {
-        // TODO: Implement detach() method.
-        throw new \RuntimeException('Not implemented.');
-    }
-
-    public function notify(): void
-    {
-        // TODO: Implement notify() method.
-        throw new \RuntimeException('Not implemented.');
+        if ($subject === $this->widget) {
+            $this->notify();
+        }
     }
 
     public function getInterval(): IInterval
     {
-        // TODO: Implement getInterval() method.
-        throw new \RuntimeException('Not implemented.');
+        return $this->widget->getInterval();
     }
 }

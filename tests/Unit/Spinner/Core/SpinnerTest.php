@@ -67,6 +67,25 @@ final class SpinnerTest extends TestCaseWithPrebuiltMocksAndStubs
 
         $spinner->update($rootWidget);
     }
+    #[Test]
+    public function willNotNotifyOnUpdateFromOtherWidget(): void
+    {
+        $otherWidget = $this->getWidgetMock();
+        $rootWidget = $this->getWidgetCompositeMock();
+        $observer = $this->getObserverMock();
+        $observer
+            ->expects(self::never())
+            ->method('update')
+        ;
+        $spinner = $this->getTesteeInstance(
+            rootWidget: $rootWidget,
+            observer: $observer
+        );
+
+        self::assertInstanceOf(Spinner::class, $spinner);
+
+        $spinner->update($otherWidget);
+    }
 
     #[Test]
     public function canBeAttachedAsObserverToRootWidget(): void

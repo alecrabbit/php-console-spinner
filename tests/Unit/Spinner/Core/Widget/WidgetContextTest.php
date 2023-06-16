@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Widget;
 
+use AlecRabbit\Spinner\Contract\IObserver;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidget;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContext;
 use AlecRabbit\Spinner\Core\Widget\WidgetContext;
@@ -22,9 +23,11 @@ final class WidgetContextTest extends TestCaseWithPrebuiltMocksAndStubs
 
     public function getTesteeInstance(
         ?IWidget $widget = null,
+        ?IObserver $observer = null,
     ): IWidgetContext {
         return new WidgetContext(
             widget: $widget ?? $this->getWidgetMock(),
+            observer: $observer,
         );
     }
 
@@ -50,6 +53,25 @@ final class WidgetContextTest extends TestCaseWithPrebuiltMocksAndStubs
 
         self::assertInstanceOf(WidgetContext::class, $widgetContext);
         self::assertSame($widget, $widgetContext->getWidget());
+    }
+
+    #[Test]
+    public function canGetInterval(): void
+    {
+        $interval = $this->getIntervalMock();
+        $widget = $this->getWidgetMock();
+        $widget
+            ->expects(self::once())
+            ->method('getInterval')
+            ->willReturn($interval)
+        ;
+
+        $widgetContext = $this->getTesteeInstance(
+            widget: $widget,
+        );
+
+        self::assertInstanceOf(WidgetContext::class, $widgetContext);
+        self::assertSame($interval, $widgetContext->getInterval());
     }
 
     #[Test]
@@ -94,5 +116,44 @@ final class WidgetContextTest extends TestCaseWithPrebuiltMocksAndStubs
 
         self::assertInstanceOf(WidgetContext::class, $widgetContext);
         self::assertSame($widget, $widgetContext->getWidget());
+    }
+
+    #[Test]
+    public function canNotifyOnUpdateFromRootWidget(): void
+    {
+        $widgetComposite = $this->getWidgetCompositeMock();
+
+        $observer = $this->getObserverMock();
+        $observer
+            ->expects(self::once())
+            ->method('update')
+        ;
+
+        $widgetContext = $this->getTesteeInstance(
+            widget: $widgetComposite,
+            observer: $observer,
+        );
+
+        $widgetContext->update($widgetComposite);
+    }
+
+    #[Test]
+    public function willNotNotifyOnUpdateFromOtherWidget(): void
+    {
+        $otherWidget = $this->getWidgetMock();
+        $widgetComposite = $this->getWidgetCompositeMock();
+
+        $observer = $this->getObserverMock();
+        $observer
+            ->expects(self::never())
+            ->method('update')
+        ;
+
+        $widgetContext = $this->getTesteeInstance(
+            widget: $widgetComposite,
+            observer: $observer,
+        );
+
+        $widgetContext->update($otherWidget);
     }
 }
