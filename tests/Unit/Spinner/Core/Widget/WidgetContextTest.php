@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Widget;
 
-use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
+use AlecRabbit\Spinner\Core\Widget\Contract\IWidget;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContext;
 use AlecRabbit\Spinner\Core\Widget\WidgetContext;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
@@ -21,17 +21,29 @@ final class WidgetContextTest extends TestCaseWithPrebuiltMocksAndStubs
     }
 
     public function getTesteeInstance(
-        ?IWidgetComposite $widget = null,
+        ?IWidget $widget = null,
     ): IWidgetContext {
         return new WidgetContext(
-            widget: $widget ?? $this->getWidgetCompositeMock(),
+            widget: $widget ?? $this->getWidgetMock(),
         );
+    }
+
+    #[Test]
+    public function canGetWidgetComposite(): void
+    {
+        $widgetComposite = $this->getWidgetCompositeMock();
+        $widgetContext = $this->getTesteeInstance(
+            widget: $widgetComposite,
+        );
+
+        self::assertInstanceOf(WidgetContext::class, $widgetContext);
+        self::assertSame($widgetComposite, $widgetContext->getWidget());
     }
 
     #[Test]
     public function canGetWidget(): void
     {
-        $widget = $this->getWidgetCompositeMock();
+        $widget = $this->getWidgetMock();
         $widgetContext = $this->getTesteeInstance(
             widget: $widget,
         );
@@ -43,22 +55,44 @@ final class WidgetContextTest extends TestCaseWithPrebuiltMocksAndStubs
     #[Test]
     public function canReplaceWidget(): void
     {
-        $widget = $this->getWidgetCompositeMock();
+        $widget = $this->getWidgetMock();
 
         $widgetContext = $this->getTesteeInstance(
             widget: $widget,
         );
 
-        $widget2 = $this->getWidgetCompositeMock();
-        $widget2
+        $widgetComposite = $this->getWidgetCompositeMock();
+        $widgetComposite
             ->expects(self::once())
             ->method('replaceContext')
             ->with($widgetContext)
         ;
 
-        $widgetContext->replaceWidget($widget2);
+        $widgetContext->replaceWidget($widgetComposite);
 
         self::assertInstanceOf(WidgetContext::class, $widgetContext);
-        self::assertSame($widget2, $widgetContext->getWidget());
+        self::assertSame($widgetComposite, $widgetContext->getWidget());
+    }
+
+    #[Test]
+    public function canReplaceWidgetComposite(): void
+    {
+        $widgetComposite = $this->getWidgetCompositeMock();
+
+        $widgetContext = $this->getTesteeInstance(
+            widget: $widgetComposite,
+        );
+
+        $widget = $this->getWidgetMock();
+        $widget
+            ->expects(self::once())
+            ->method('replaceContext')
+            ->with($widgetContext)
+        ;
+
+        $widgetContext->replaceWidget($widget);
+
+        self::assertInstanceOf(WidgetContext::class, $widgetContext);
+        self::assertSame($widget, $widgetContext->getWidget());
     }
 }
