@@ -74,6 +74,22 @@ final class ASubjectTest extends TestCaseWithPrebuiltMocksAndStubs
         self::assertNull(self::getPropertyValue('observer', $subject));
     }
 
+    #[Test]
+    public function detachesOnlyIfCorrectObserverGiven(): void
+    {
+        $otherObserver = $this->getObserverMock();
+        $observer = $this->getObserverMock();
+
+        $subject = $this->getTesteeInstance(
+            observer: $observer
+        );
+
+        self::assertSame($observer, self::getPropertyValue('observer', $subject));
+
+        $subject->detach($otherObserver);
+
+        self::assertSame($observer, self::getPropertyValue('observer', $subject));
+    }
 
     #[Test]
     public function throwsIfObserverAlreadyAttached(): void
