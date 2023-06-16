@@ -6,37 +6,31 @@ namespace AlecRabbit\Spinner\Core\Widget;
 
 use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Contract\IHasInterval;
-use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Contract\IObserver;
 use AlecRabbit\Spinner\Contract\ISubject;
-use AlecRabbit\Spinner\Core\A\ASubject;
 use AlecRabbit\Spinner\Core\CharFrame;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
+use AlecRabbit\Spinner\Core\Widget\A\AWidget;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContext;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContextContainer;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 
-final class WidgetComposite extends ASubject implements IWidgetComposite
+final class WidgetComposite extends AWidget implements IWidgetComposite
 {
-    protected IInterval $interval;
-    protected IWidgetContext $context;
-
     public function __construct(
-        protected readonly IRevolver $revolver,
-        protected readonly IFrame $leadingSpacer,
-        protected readonly IFrame $trailingSpacer,
+        IRevolver $revolver,
+        IFrame $leadingSpacer,
+        IFrame $trailingSpacer,
         protected readonly IWidgetContextContainer $children = new WidgetContextContainer(),
         ?IObserver $observer = null,
     ) {
-        parent::__construct($observer);
-        $this->interval = $this->revolver->getInterval();
-        $this->context = new WidgetContext($this);
-    }
-
-    public function getInterval(): IInterval
-    {
-        return $this->interval;
+        parent::__construct(
+            $revolver,
+            $leadingSpacer,
+            $trailingSpacer,
+            $observer,
+        );
     }
 
     public function getFrame(?float $dt = null): IFrame
@@ -77,10 +71,6 @@ final class WidgetComposite extends ASubject implements IWidgetComposite
         return $context;
     }
 
-    public function getContext(): IWidgetContext
-    {
-        return $this->context;
-    }
 
     private function stateUpdate(): void
     {
@@ -111,13 +101,5 @@ final class WidgetComposite extends ASubject implements IWidgetComposite
 
             $this->stateUpdate();
         }
-    }
-
-    public function replaceContext(IWidgetContext $context): void
-    {
-        if ($context->getWidget() !== $this) {
-            throw new InvalidArgumentException('Context is not related to this widget.');
-        }
-        $this->context = $context;
     }
 }
