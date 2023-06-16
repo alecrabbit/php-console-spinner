@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Factory;
 
 use AlecRabbit\Spinner\Core\Builder\Contract\ISignalHandlersSetupBuilder;
-use AlecRabbit\Spinner\Core\Contract\ISignalHandlersSetup;
 use AlecRabbit\Spinner\Core\Contract\ISettingsProvider;
+use AlecRabbit\Spinner\Core\Contract\ISignalHandlersSetup;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ISignalHandlersSetupFactory;
 

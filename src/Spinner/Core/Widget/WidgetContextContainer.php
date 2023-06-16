@@ -43,6 +43,11 @@ final class WidgetContextContainer implements IWidgetContextContainer
         return $context;
     }
 
+    public function getInterval(): ?IInterval
+    {
+        return $this->intervalContainer->getSmallest();
+    }
+
     public function remove(IWidgetContext $context): void
     {
         if ($this->map->offsetExists($context)) {
@@ -77,10 +82,5 @@ final class WidgetContextContainer implements IWidgetContextContainer
     public function getIterator(): Traversable
     {
         return $this->map;
-    }
-
-    public function getInterval(): ?IInterval
-    {
-        return $this->intervalContainer->getSmallest();
     }
 }

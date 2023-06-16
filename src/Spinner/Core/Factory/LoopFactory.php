@@ -27,7 +27,8 @@ final class LoopFactory implements ILoopFactory
 
             $this->loopAutoStarterFactory
                 ->create()
-                ->setup(self::$loop);
+                ->setup(self::$loop)
+            ;
         }
         return self::$loop;
     }

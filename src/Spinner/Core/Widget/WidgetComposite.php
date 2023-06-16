@@ -61,6 +61,11 @@ final class WidgetComposite extends ASubject implements IWidgetComposite
         return $frame;
     }
 
+    protected function hasChildren(): bool
+    {
+        return $this->children->count() > 0;
+    }
+
     public function add(IWidgetComposite $widget): IWidgetContext
     {
         $widget->attach($this);
@@ -119,10 +124,5 @@ final class WidgetComposite extends ASubject implements IWidgetComposite
     public function isComposite(): bool
     {
         return true;
-    }
-
-    protected function hasChildren(): bool
-    {
-        return $this->children->count() > 0;
     }
 }
