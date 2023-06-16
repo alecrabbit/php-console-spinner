@@ -262,7 +262,7 @@ final class WidgetCompositeTest extends TestCaseWithPrebuiltMocksAndStubs
     {
         $observer = $this->getObserverMock();
 
-        $intervalContainer = $this->getWidgetIntervalContainerMock();
+//        $intervalContainer = $this->getWidgetIntervalContainerMock();
 
         $children = $this->getWidgetContextContainerMock();
 

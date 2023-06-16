@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Functional\Spinner\Core\Widget;
+namespace AlecRabbit\Tests\Functional\Spinner\Core\Widget;
 
 use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Contract\IObserver;

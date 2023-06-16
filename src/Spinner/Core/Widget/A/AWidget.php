@@ -42,6 +42,7 @@ abstract class AWidget extends ASubject implements IWidget
         }
         $this->context = $context;
     }
+
     public function getContext(): IWidgetContext
     {
         return $this->context;
