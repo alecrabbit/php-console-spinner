@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Functional\Spinner\Core\Widget;
 
 use AlecRabbit\Spinner\Contract\IFrame;
-use AlecRabbit\Spinner\Contract\IObserver;
 use AlecRabbit\Spinner\Core\CharFrame;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;

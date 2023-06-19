@@ -6,7 +6,6 @@ namespace AlecRabbit\Spinner\Core\Widget\A;
 
 use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Contract\IInterval;
-use AlecRabbit\Spinner\Contract\IObserver;
 use AlecRabbit\Spinner\Core\A\ASubject;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidget;
@@ -28,11 +27,6 @@ abstract class AWidget extends ASubject implements IWidget
         parent::__construct($context);
     }
 
-    public function getInterval(): IInterval
-    {
-        return $this->revolver->getInterval();
-    }
-
     protected function refineContext(?IWidgetContext $context): IWidgetContext
     {
         if ($context === null) {
@@ -40,6 +34,11 @@ abstract class AWidget extends ASubject implements IWidget
         }
         $context->replaceWidget($this);
         return $context;
+    }
+
+    public function getInterval(): IInterval
+    {
+        return $this->revolver->getInterval();
     }
 
     public function replaceContext(IWidgetContext $context): void

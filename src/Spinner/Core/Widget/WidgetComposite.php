@@ -7,7 +7,6 @@ namespace AlecRabbit\Spinner\Core\Widget;
 use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Contract\IHasInterval;
 use AlecRabbit\Spinner\Contract\IInterval;
-use AlecRabbit\Spinner\Contract\IObserver;
 use AlecRabbit\Spinner\Contract\ISubject;
 use AlecRabbit\Spinner\Core\CharFrame;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
