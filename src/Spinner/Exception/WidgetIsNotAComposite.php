@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Exception;
 
-class WidgetNotAComposite extends DomainException
+class WidgetIsNotAComposite extends DomainException
 {
 
 }

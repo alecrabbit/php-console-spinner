@@ -9,7 +9,7 @@ use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use AlecRabbit\Spinner\Core\Spinner;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidget;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
-use AlecRabbit\Spinner\Exception\WidgetNotAComposite;
+use AlecRabbit\Spinner\Exception\WidgetIsNotAComposite;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;
 
@@ -28,7 +28,7 @@ final class SpinnerTest extends TestCaseWithPrebuiltMocksAndStubs
         ?IObserver $observer = null,
     ): ISpinner {
         return new Spinner(
-            rootWidget: $rootWidget ?? $this->getWidgetMock(),
+            widget: $rootWidget ?? $this->getWidgetMock(),
             observer: $observer,
         );
     }
@@ -227,8 +227,8 @@ final class SpinnerTest extends TestCaseWithPrebuiltMocksAndStubs
     #[Test]
     public function throwsOnAddIfRootWidgetIsNotAComposite(): void
     {
-        $exceptionClass = WidgetNotAComposite::class;
-        $exceptionMessage = 'Root widget is not a composite.';
+        $exceptionClass = WidgetIsNotAComposite::class;
+        $exceptionMessage = 'Widget is not a composite.';
 
         $test = function (): void {
             $context = $this->getWidgetContextMock();

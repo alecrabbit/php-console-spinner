@@ -13,20 +13,17 @@ use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContext;
 
 final class WidgetContext extends ASubject implements IWidgetContext
 {
-    protected IWidget $widget;
-
     public function __construct(
-        IWidget $widget,
+        protected ?IWidget $widget = null,
         ?IObserver $observer = null,
     ) {
         parent::__construct($observer);
-        $this->adoptWidget($widget);
     }
 
     public function adoptWidget(IWidget $widget): void
     {
         $this->widget = $widget;
-        $widget->envelopWithContext($this);
+//        $widget->envelopWithContext($this);
     }
 
     public function getWidget(): IWidget

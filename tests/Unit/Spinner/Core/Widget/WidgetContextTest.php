@@ -84,11 +84,11 @@ final class WidgetContextTest extends TestCaseWithPrebuiltMocksAndStubs
         );
 
         $widgetComposite = $this->getWidgetCompositeMock();
-        $widgetComposite
-            ->expects(self::once())
-            ->method('envelopWithContext')
-            ->with($widgetContext)
-        ;
+//        $widgetComposite
+//            ->expects(self::once())
+//            ->method('envelopWithContext')
+//            ->with($widgetContext)
+//        ;
 
         $widgetContext->adoptWidget($widgetComposite);
 
@@ -106,11 +106,11 @@ final class WidgetContextTest extends TestCaseWithPrebuiltMocksAndStubs
         );
 
         $widget = $this->getWidgetMock();
-        $widget
-            ->expects(self::once())
-            ->method('envelopWithContext')
-            ->with($widgetContext)
-        ;
+//        $widget
+//            ->expects(self::once())
+//            ->method('envelopWithContext')
+//            ->with($widgetContext)
+//        ;
 
         $widgetContext->adoptWidget($widget);
 

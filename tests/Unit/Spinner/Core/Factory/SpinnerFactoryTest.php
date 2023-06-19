@@ -112,7 +112,7 @@ final class SpinnerFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
         $spinner = $spinnerFactory->createSpinner();
         self::assertInstanceOf(SpinnerFactory::class, $spinnerFactory);
         self::assertInstanceOf(Spinner::class, $spinner);
-        self::assertSame($widget, self::getPropertyValue('rootWidget', $spinner));
+        self::assertSame($widget, self::getPropertyValue('widget', $spinner));
     }
 
     #[Test]
@@ -169,7 +169,7 @@ final class SpinnerFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
 
         self::assertInstanceOf(SpinnerFactory::class, $spinnerFactory);
         self::assertInstanceOf(Spinner::class, $spinner);
-        self::assertSame($widget, self::getPropertyValue('rootWidget', $spinner));
+        self::assertSame($widget, self::getPropertyValue('widget', $spinner));
     }
 
     #[Test]
@@ -219,6 +219,6 @@ final class SpinnerFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
 
         self::assertInstanceOf(SpinnerFactory::class, $spinnerFactory);
         self::assertInstanceOf(Spinner::class, $spinner);
-        self::assertSame($widget, self::getPropertyValue('rootWidget', $spinner));
+        self::assertSame($widget, self::getPropertyValue('widget', $spinner));
     }
 }

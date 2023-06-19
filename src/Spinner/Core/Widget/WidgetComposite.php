@@ -11,6 +11,7 @@ use AlecRabbit\Spinner\Contract\ISubject;
 use AlecRabbit\Spinner\Core\CharFrame;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
 use AlecRabbit\Spinner\Core\Widget\A\AWidget;
+use AlecRabbit\Spinner\Core\Widget\Contract\IWidget;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContext;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContextContainer;
@@ -63,7 +64,7 @@ final class WidgetComposite extends AWidget implements IWidgetComposite
         return $this->children->count() > 0;
     }
 
-    public function add(IWidgetComposite $widget): IWidgetContext
+    public function add(IWidget $widget): IWidgetContext
     {
         $widget->attach($this);
 
@@ -94,7 +95,7 @@ final class WidgetComposite extends AWidget implements IWidgetComposite
         }
     }
 
-    public function remove(IWidgetComposite $widget): void
+    public function remove(IWidget $widget): void
     {
         $context = $widget->getContext();
         if ($this->children->has($context)) {
