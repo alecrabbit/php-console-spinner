@@ -46,8 +46,8 @@ final class WidgetComposite extends AWidget implements IWidgetComposite
         $frame = parent::getFrame($dt);
 
         if ($this->hasChildren()) {
-            foreach ($this->children as $context) {
-                $f = $context->getWidget()->getFrame($dt);
+            foreach ($this->children as $childContext) {
+                $f = $childContext->getWidget()->getFrame($dt);
                 $frame = new CharFrame(
                     $frame->sequence() . $f->sequence(),
                     $frame->width() + $f->width()
