@@ -43,12 +43,7 @@ final class WidgetComposite extends AWidget implements IWidgetComposite
 
     public function getFrame(?float $dt = null): IFrame
     {
-        $revolverFrame = $this->revolver->getFrame($dt);
-
-        $frame = new CharFrame(
-            $this->leadingSpacer->sequence() . $revolverFrame->sequence() . $this->trailingSpacer->sequence(),
-            $this->leadingSpacer->width() + $revolverFrame->width() + $this->trailingSpacer->width()
-        );
+        $frame = parent::getFrame($dt);
 
         if ($this->hasChildren()) {
             foreach ($this->children as $context) {
