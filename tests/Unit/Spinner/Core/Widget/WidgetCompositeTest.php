@@ -19,9 +19,9 @@ final class WidgetCompositeTest extends TestCaseWithPrebuiltMocksAndStubs
     #[Test]
     public function canBeCreated(): void
     {
-        $widget = $this->getTesteeInstance();
+        $widgetComposite = $this->getTesteeInstance();
 
-        self::assertInstanceOf(WidgetComposite::class, $widget);
+        self::assertInstanceOf(WidgetComposite::class, $widgetComposite);
     }
 
     public function getTesteeInstance(
@@ -51,11 +51,11 @@ final class WidgetCompositeTest extends TestCaseWithPrebuiltMocksAndStubs
             ->willReturn($interval)
         ;
 
-        $widget = $this->getTesteeInstance(
+        $widgetComposite = $this->getTesteeInstance(
             revolver: $revolver
         );
 
-        self::assertSame($interval, $widget->getInterval());
+        self::assertSame($interval, $widgetComposite->getInterval());
 
         $otherInterval = $this->getIntervalMock();
         $otherWidget = $this->getWidgetCompositeMock();
@@ -71,23 +71,23 @@ final class WidgetCompositeTest extends TestCaseWithPrebuiltMocksAndStubs
             ->willReturn($otherInterval)
         ;
 
-        $widget->update($otherWidget);
+        $widgetComposite->update($otherWidget);
 
-        self::assertSame($otherInterval, $widget->getInterval());
+        self::assertSame($otherInterval, $widgetComposite->getInterval());
     }
 
     #[Test]
     public function canAttachObserver(): void
     {
-        $widget = $this->getTesteeInstance();
+        $widgetComposite = $this->getTesteeInstance();
 
         $observer = $this->getObserverMock();
 
-        self::assertNull(self::getPropertyValue('observer', $widget));
+        self::assertNull(self::getPropertyValue('observer', $widgetComposite));
 
-        $widget->attach($observer);
+        $widgetComposite->attach($observer);
 
-        self::assertSame($observer, self::getPropertyValue('observer', $widget));
+        self::assertSame($observer, self::getPropertyValue('observer', $widgetComposite));
     }
 
     #[Test]
@@ -103,7 +103,7 @@ final class WidgetCompositeTest extends TestCaseWithPrebuiltMocksAndStubs
 
         $leadingSpacer = $this->getFrameMock();
         $trailingSpacer = $this->getFrameMock();
-        $widget = $this->getTesteeInstance(
+        $widgetComposite = $this->getTesteeInstance(
             revolver: $revolver,
             leadingSpacer: $leadingSpacer,
             trailingSpacer: $trailingSpacer,
@@ -142,7 +142,7 @@ final class WidgetCompositeTest extends TestCaseWithPrebuiltMocksAndStubs
             ->willReturn(2)
         ;
 
-        $result = $widget->getFrame();
+        $result = $widgetComposite->getFrame();
 
         self::assertSame('lsrfsts', $result->sequence());
         self::assertSame(7, $result->width());
@@ -153,15 +153,15 @@ final class WidgetCompositeTest extends TestCaseWithPrebuiltMocksAndStubs
     {
         $context = $this->getWidgetContextMock();
 
-        $widget = $this->getTesteeInstance(
+        $widgetComposite = $this->getTesteeInstance(
             context: $context
         );
 
-        self::assertSame($context, self::getPropertyValue('observer', $widget));
+        self::assertSame($context, self::getPropertyValue('observer', $widgetComposite));
 
-        $widget->detach($context);
+        $widgetComposite->detach($context);
 
-        self::assertNull(self::getPropertyValue('observer', $widget));
+        self::assertNull(self::getPropertyValue('observer', $widgetComposite));
     }
 
     #[Test]
@@ -172,7 +172,7 @@ final class WidgetCompositeTest extends TestCaseWithPrebuiltMocksAndStubs
         $children = $this->getWidgetContextContainerMock();
 
 
-        $widget = $this->getTesteeInstance(
+        $widgetComposite = $this->getTesteeInstance(
             children: $children,
             context: $context,
         );
@@ -183,7 +183,7 @@ final class WidgetCompositeTest extends TestCaseWithPrebuiltMocksAndStubs
         $otherWidget
             ->expects(self::once())
             ->method('attach')
-            ->with($widget)
+            ->with($widgetComposite)
         ;
 
         $otherWidget
@@ -207,10 +207,10 @@ final class WidgetCompositeTest extends TestCaseWithPrebuiltMocksAndStubs
         $context
             ->expects(self::once())
             ->method('update')
-            ->with($widget)
+            ->with($widgetComposite)
         ;
 
-        $widget->add($otherWidget);
+        $widgetComposite->add($otherWidget);
     }
 
     #[Test]
@@ -223,37 +223,37 @@ final class WidgetCompositeTest extends TestCaseWithPrebuiltMocksAndStubs
             ->method('getInterval')
             ->willReturn($interval)
         ;
-        $widget = $this->getTesteeInstance(
+        $widgetComposite = $this->getTesteeInstance(
             revolver: $revolver,
         );
-        self::assertSame($interval, $widget->getInterval());
+        self::assertSame($interval, $widgetComposite->getInterval());
     }
 
     #[Test]
     public function canReplaceContext(): void
     {
-        $widget = $this->getTesteeInstance();
+        $widgetComposite = $this->getTesteeInstance();
 
         $context = $this->getWidgetContextMock();
         $context
             ->expects(self::once())
             ->method('getWidget')
-            ->willReturn($widget)
+            ->willReturn($widgetComposite)
         ;
 
-        $widget->replaceContext($context);
+        $widgetComposite->replaceContext($context);
 
-        self::assertSame($context, $widget->getContext());
+        self::assertSame($context, $widgetComposite->getContext());
     }
 
     #[Test]
     public function canGetContext(): void
     {
-        $widget = $this->getTesteeInstance();
+        $widgetComposite = $this->getTesteeInstance();
 
-        $context = self::getPropertyValue('context', $widget);
+        $context = self::getPropertyValue('context', $widgetComposite);
 
-        self::assertSame($context, $widget->getContext());
+        self::assertSame($context, $widgetComposite->getContext());
     }
 
 
@@ -266,7 +266,7 @@ final class WidgetCompositeTest extends TestCaseWithPrebuiltMocksAndStubs
 
         $children = $this->getWidgetContextContainerMock();
 
-        $widget = $this->getTesteeInstance(
+        $widgetComposite = $this->getTesteeInstance(
             children: $children,
             context: $context,
         );
@@ -296,7 +296,7 @@ final class WidgetCompositeTest extends TestCaseWithPrebuiltMocksAndStubs
         $otherWidget
             ->expects(self::once())
             ->method('detach')
-            ->with($widget)
+            ->with($widgetComposite)
         ;
 
         $children
@@ -308,10 +308,10 @@ final class WidgetCompositeTest extends TestCaseWithPrebuiltMocksAndStubs
         $context
             ->expects(self::once())
             ->method('update')
-            ->with($widget)
+            ->with($widgetComposite)
         ;
 
-        $widget->remove($otherWidget);
+        $widgetComposite->remove($otherWidget);
     }
 
     #[Test]
@@ -357,8 +357,8 @@ final class WidgetCompositeTest extends TestCaseWithPrebuiltMocksAndStubs
         $exceptionMessage = 'Object can not be self.';
 
         $test = function (): void {
-            $widget = $this->getTesteeInstance();
-            $widget->attach($widget);
+            $widgetComposite = $this->getTesteeInstance();
+            $widgetComposite->attach($widgetComposite);
         };
 
         $this->wrapExceptionTest(
@@ -375,10 +375,10 @@ final class WidgetCompositeTest extends TestCaseWithPrebuiltMocksAndStubs
         $exceptionMessage = 'Observer is already attached.';
 
         $test = function (): void {
-            $widget = $this->getTesteeInstance();
+            $widgetComposite = $this->getTesteeInstance();
             $observer = $this->getObserverMock();
-            $widget->attach($observer);
-            $widget->attach($observer);
+            $widgetComposite->attach($observer);
+            $widgetComposite->attach($observer);
         };
 
         $this->wrapExceptionTest(
@@ -395,8 +395,8 @@ final class WidgetCompositeTest extends TestCaseWithPrebuiltMocksAndStubs
         $exceptionMessage = 'Object can not be self.';
 
         $test = function (): void {
-            $widget = $this->getTesteeInstance();
-            $widget->add($widget);
+            $widgetComposite = $this->getTesteeInstance();
+            $widgetComposite->add($widgetComposite);
         };
 
         $this->wrapExceptionTest(
@@ -413,7 +413,7 @@ final class WidgetCompositeTest extends TestCaseWithPrebuiltMocksAndStubs
         $exceptionMessage = 'Context is not related to this widget.';
 
         $test = function (): void {
-            $widget = $this->getTesteeInstance();
+            $widgetComposite = $this->getTesteeInstance();
 
             $context = $this->getWidgetContextMock();
             $context
@@ -422,7 +422,7 @@ final class WidgetCompositeTest extends TestCaseWithPrebuiltMocksAndStubs
                 ->willReturn($this->getWidgetCompositeMock())
             ;
 
-            $widget->replaceContext($context);
+            $widgetComposite->replaceContext($context);
         };
 
         $this->wrapExceptionTest(
@@ -439,9 +439,9 @@ final class WidgetCompositeTest extends TestCaseWithPrebuiltMocksAndStubs
         $exceptionMessage = 'Object can not be self.';
 
         $test = function (): void {
-            $widget = $this->getTesteeInstance();
+            $widgetComposite = $this->getTesteeInstance();
 
-            $widget->update($widget);
+            $widgetComposite->update($widgetComposite);
         };
 
         $this->wrapExceptionTest(
