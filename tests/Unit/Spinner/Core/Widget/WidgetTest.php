@@ -67,7 +67,7 @@ final class WidgetTest extends TestCaseWithPrebuiltMocksAndStubs
     }
 
     #[Test]
-    public function canGetInterval():void
+    public function canGetInterval(): void
     {
         $interval = $this->getIntervalMock();
 
@@ -76,7 +76,8 @@ final class WidgetTest extends TestCaseWithPrebuiltMocksAndStubs
         $revolver
             ->expects(self::once())
             ->method('getInterval')
-            ->willReturn($interval);
+            ->willReturn($interval)
+        ;
 
         $widget = $this->getTesteeInstance(
             revolver: $revolver,
