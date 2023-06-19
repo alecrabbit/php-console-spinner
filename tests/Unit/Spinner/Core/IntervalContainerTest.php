@@ -40,7 +40,8 @@ final class IntervalContainerTest extends TestCaseWithPrebuiltMocksAndStubs
         $interval
             ->expects(self::once())
             ->method('smallest')
-            ->willReturnSelf();
+            ->willReturnSelf()
+        ;
 
         $intervalContainer = $this->getTesteeInstance();
 
@@ -56,7 +57,8 @@ final class IntervalContainerTest extends TestCaseWithPrebuiltMocksAndStubs
         $interval
             ->expects(self::once())
             ->method('smallest')
-            ->willReturnSelf();
+            ->willReturnSelf()
+        ;
 
         $intervalContainer = $this->getTesteeInstance();
 

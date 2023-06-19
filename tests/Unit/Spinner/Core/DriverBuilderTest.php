@@ -131,6 +131,7 @@ final class DriverBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
             message: $exceptionMessage,
         );
     }
+
     #[Test]
     public function throwsIfDriverSettingsAreNotSet(): void
     {

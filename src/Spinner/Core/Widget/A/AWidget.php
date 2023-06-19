@@ -16,7 +16,6 @@ use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 
 abstract class AWidget extends ASubject implements IWidget
 {
-    protected IInterval $interval;
     protected IWidgetContext $context;
 
     public function __construct(
@@ -24,21 +23,36 @@ abstract class AWidget extends ASubject implements IWidget
         protected readonly IFrame $leadingSpacer,
         protected readonly IFrame $trailingSpacer,
         ?IObserver $observer = null,
+        ?IWidgetContext $context = null,
     ) {
         parent::__construct($observer);
-        $this->interval = $this->revolver->getInterval();
-        $this->context = new WidgetContext($this);
+        $this->context = $this->refineContext($context);
     }
 
     public function getInterval(): IInterval
     {
-        return $this->interval;
+        return $this->revolver->getInterval();
+    }
+
+    protected function refineContext(?IWidgetContext $context): IWidgetContext
+    {
+        if ($context === null) {
+            return new WidgetContext($this);
+        }
+        $context->replaceWidget($this);
+        return $context;
     }
 
     public function replaceContext(IWidgetContext $context): void
     {
         if ($context->getWidget() !== $this) {
-            throw new InvalidArgumentException('Context is not related to this widget.');
+            throw new InvalidArgumentException(
+                sprintf(
+                    'Context is not related to this widget.'
+                    . ' Call `%s` first.',
+                    IWidgetContext::class . '::replaceWidget()'
+                )
+            );
         }
         $this->context = $context;
     }

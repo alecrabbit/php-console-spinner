@@ -9,7 +9,6 @@ use AlecRabbit\Spinner\Contract\ISubject;
 use AlecRabbit\Spinner\Core\A\ASubject;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
-use AlecRabbit\Tests\Unit\Spinner\Core\A\Override\ASubjectOverride;
 use AlecRabbit\Tests\Unit\Spinner\Core\A\Override\ObserverASubjectOverride;
 use PHPUnit\Framework\Attributes\Test;
 

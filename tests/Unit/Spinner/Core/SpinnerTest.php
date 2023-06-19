@@ -67,6 +67,7 @@ final class SpinnerTest extends TestCaseWithPrebuiltMocksAndStubs
 
         $spinner->update($rootWidget);
     }
+
     #[Test]
     public function willNotNotifyOnUpdateFromOtherWidget(): void
     {

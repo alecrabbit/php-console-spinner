@@ -6,8 +6,8 @@ namespace AlecRabbit\Tests\Unit\Spinner\Core;
 
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetBuilder;
 use AlecRabbit\Spinner\Core\Widget\LegacyWidgetComposite;
-use AlecRabbit\Spinner\Core\Widget\WidgetComposite;
 use AlecRabbit\Spinner\Core\Widget\WidgetBuilder;
+use AlecRabbit\Spinner\Core\Widget\WidgetComposite;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use LogicException;
 use PHPUnit\Framework\Attributes\Test;

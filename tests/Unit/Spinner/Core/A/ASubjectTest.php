@@ -36,7 +36,8 @@ final class ASubjectTest extends TestCaseWithPrebuiltMocksAndStubs
         $observer = $this->getObserverMock();
         $observer
             ->expects(self::once())
-            ->method('update');
+            ->method('update')
+        ;
 
         $subject = $this->getTesteeInstance(
             observer: $observer,

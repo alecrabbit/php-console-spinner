@@ -6,6 +6,7 @@ namespace AlecRabbit\Spinner\Core\Widget;
 
 use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Contract\IHasInterval;
+use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Contract\IObserver;
 use AlecRabbit\Spinner\Contract\ISubject;
 use AlecRabbit\Spinner\Core\CharFrame;
@@ -14,23 +15,33 @@ use AlecRabbit\Spinner\Core\Widget\A\AWidget;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContext;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContextContainer;
-use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 
 final class WidgetComposite extends AWidget implements IWidgetComposite
 {
+    protected IInterval $interval;
+
     public function __construct(
         IRevolver $revolver,
         IFrame $leadingSpacer,
         IFrame $trailingSpacer,
         protected readonly IWidgetContextContainer $children = new WidgetContextContainer(),
         ?IObserver $observer = null,
+        ?IWidgetContext $context = null,
     ) {
         parent::__construct(
             $revolver,
             $leadingSpacer,
             $trailingSpacer,
             $observer,
+            $context
         );
+
+        $this->interval = $this->revolver->getInterval();
+    }
+
+    public function getInterval(): IInterval
+    {
+        return $this->interval;
     }
 
     public function getFrame(?float $dt = null): IFrame
@@ -64,11 +75,11 @@ final class WidgetComposite extends AWidget implements IWidgetComposite
     {
         $widget->attach($this);
 
-        $context = $this->children->add($widget->getContext());
+        $childContext = $this->children->add($widget->getContext());
 
         $this->stateUpdate();
 
-        return $context;
+        return $childContext;
     }
 
 

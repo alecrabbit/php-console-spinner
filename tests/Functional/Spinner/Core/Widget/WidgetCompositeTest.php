@@ -126,11 +126,11 @@ final class WidgetCompositeTest extends TestCaseWithPrebuiltMocksAndStubs
     ): IWidgetComposite {
         return
             new WidgetComposite(
-            revolver: $revolver ?? $this->getRevolverMock(),
-            leadingSpacer: $leadingSpacer ?? $this->getFrameMock(),
-            trailingSpacer: $trailingSpacer ?? $this->getFrameMock(),
-            children: $children ?? $this->getWidgetContextContainerMock(),
-            observer: $observer,
-        );
+                revolver: $revolver ?? $this->getRevolverMock(),
+                leadingSpacer: $leadingSpacer ?? $this->getFrameMock(),
+                trailingSpacer: $trailingSpacer ?? $this->getFrameMock(),
+                children: $children ?? $this->getWidgetContextContainerMock(),
+                observer: $observer,
+            );
     }
 }

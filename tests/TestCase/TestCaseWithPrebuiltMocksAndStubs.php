@@ -186,7 +186,9 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
     protected function getLoopSingletonFactoryMock(): MockObject&ILoopFactory
     {
         return $this->createMock(ILoopFactory::class);
-    }    protected function getLoopAutoStarterBuilderMock(): MockObject&ILoopAutoStarterBuilder
+    }
+
+    protected function getLoopAutoStarterBuilderMock(): MockObject&ILoopAutoStarterBuilder
     {
         return $this->createMock(ILoopAutoStarterBuilder::class);
     }
@@ -195,6 +197,7 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
     {
         return $this->createMock(ISignalHandlersSetupBuilder::class);
     }
+
     protected function getLoopAutoStarterFactoryMock(): MockObject&ILoopAutoStarterFactory
     {
         return $this->createMock(ILoopAutoStarterFactory::class);
@@ -204,6 +207,7 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
     {
         return $this->createStub(ISignalHandlersSetup::class);
     }
+
     protected function getLoopAutoStarterStub(): Stub&ILoopAutoStarter
     {
         return $this->createStub(ILoopAutoStarter::class);
