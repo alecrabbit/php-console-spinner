@@ -211,7 +211,7 @@ final class WidgetCompositeTest extends TestCaseWithPrebuiltMocksAndStubs
             ->willReturn($widgetComposite)
         ;
 
-        $widgetComposite->replaceContext($context);
+        $widgetComposite->envelopWithContext($context);
 
         self::assertSame($context, $widgetComposite->getContext());
     }
@@ -219,9 +219,11 @@ final class WidgetCompositeTest extends TestCaseWithPrebuiltMocksAndStubs
     #[Test]
     public function canGetContext(): void
     {
-        $widgetComposite = $this->getTesteeInstance();
+        $context = $this->getWidgetContextMock();
 
-        $context = self::getPropertyValue('context', $widgetComposite);
+        $widgetComposite = $this->getTesteeInstance(
+            context: $context,
+        );
 
         self::assertSame($context, $widgetComposite->getContext());
     }
@@ -392,7 +394,7 @@ final class WidgetCompositeTest extends TestCaseWithPrebuiltMocksAndStubs
                 ->willReturn($this->getWidgetCompositeMock())
             ;
 
-            $widgetComposite->replaceContext($context);
+            $widgetComposite->envelopWithContext($context);
         };
 
         $this->wrapExceptionTest(

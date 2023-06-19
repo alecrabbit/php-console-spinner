@@ -86,11 +86,11 @@ final class WidgetContextTest extends TestCaseWithPrebuiltMocksAndStubs
         $widgetComposite = $this->getWidgetCompositeMock();
         $widgetComposite
             ->expects(self::once())
-            ->method('replaceContext')
+            ->method('envelopWithContext')
             ->with($widgetContext)
         ;
 
-        $widgetContext->replaceWidget($widgetComposite);
+        $widgetContext->adoptWidget($widgetComposite);
 
         self::assertInstanceOf(WidgetContext::class, $widgetContext);
         self::assertSame($widgetComposite, $widgetContext->getWidget());
@@ -108,11 +108,11 @@ final class WidgetContextTest extends TestCaseWithPrebuiltMocksAndStubs
         $widget = $this->getWidgetMock();
         $widget
             ->expects(self::once())
-            ->method('replaceContext')
+            ->method('envelopWithContext')
             ->with($widgetContext)
         ;
 
-        $widgetContext->replaceWidget($widget);
+        $widgetContext->adoptWidget($widget);
 
         self::assertInstanceOf(WidgetContext::class, $widgetContext);
         self::assertSame($widget, $widgetContext->getWidget());

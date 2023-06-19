@@ -13,7 +13,7 @@ interface IWidgetContext extends IObserver,
                                  ISubject,
                                  IHasInterval
 {
-    public function replaceWidget(IWidget $widget): void;
+    public function adoptWidget(IWidget $widget): void;
 
     public function getWidget(): IWidget;
 }

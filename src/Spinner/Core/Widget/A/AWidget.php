@@ -11,29 +11,25 @@ use AlecRabbit\Spinner\Core\CharFrame;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidget;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContext;
-use AlecRabbit\Spinner\Core\Widget\WidgetContext;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 
 abstract class AWidget extends ASubject implements IWidget
 {
-    protected IWidgetContext $context;
-
     public function __construct(
         protected readonly IRevolver $revolver,
         protected readonly IFrame $leadingSpacer,
         protected readonly IFrame $trailingSpacer,
-        ?IWidgetContext $context = null,
+        protected ?IWidgetContext $context = null,
     ) {
-        $this->context = $this->refineContext($context);
-        parent::__construct($context);
+        $this->context = $this->adoptContext($context);
+        parent::__construct($context); // Context is the observer
     }
 
-    protected function refineContext(?IWidgetContext $context): IWidgetContext
+    protected function adoptContext(?IWidgetContext $context): ?IWidgetContext
     {
-        if ($context === null) {
-            return new WidgetContext($this);
+        if ($context instanceof IWidgetContext) {
+            $context->adoptWidget($this);
         }
-        $context->replaceWidget($this);
         return $context;
     }
 
@@ -42,18 +38,18 @@ abstract class AWidget extends ASubject implements IWidget
         return $this->revolver->getInterval();
     }
 
-    public function replaceContext(IWidgetContext $context): void
+    public function envelopWithContext(IWidgetContext $context): void
     {
         if ($context->getWidget() !== $this) {
             throw new InvalidArgumentException(
-                sprintf(
-                    'Context is not related to this widget.'
-                    . ' Call `%s` first.',
-                    IWidgetContext::class . '::replaceWidget()'
-                )
+                'Context is not related to this widget.'
+
             );
         }
-        $this->context = $context;
+
+        if ($this->context !== $context) {
+            $this->context = $context;
+        }
     }
 
     public function getContext(): IWidgetContext

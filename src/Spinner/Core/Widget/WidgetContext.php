@@ -20,13 +20,13 @@ final class WidgetContext extends ASubject implements IWidgetContext
         ?IObserver $observer = null,
     ) {
         parent::__construct($observer);
-        $this->replaceWidget($widget);
+        $this->adoptWidget($widget);
     }
 
-    public function replaceWidget(IWidget $widget): void
+    public function adoptWidget(IWidget $widget): void
     {
         $this->widget = $widget;
-        $widget->replaceContext($this);
+        $widget->envelopWithContext($this);
     }
 
     public function getWidget(): IWidget

@@ -7,12 +7,8 @@ namespace AlecRabbit\Tests\Unit\Spinner\Core\Widget;
 use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidget;
-use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContext;
-use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContextContainer;
 use AlecRabbit\Spinner\Core\Widget\Widget;
-use AlecRabbit\Spinner\Core\Widget\WidgetComposite;
-use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;
 
@@ -34,10 +30,22 @@ final class WidgetTest extends TestCaseWithPrebuiltMocksAndStubs
     ): IWidget {
         return
             new Widget(
-            revolver: $revolver ?? $this->getRevolverMock(),
-            leadingSpacer: $leadingSpacer ?? $this->getFrameMock(),
-            trailingSpacer: $trailingSpacer ?? $this->getFrameMock(),
+                revolver: $revolver ?? $this->getRevolverMock(),
+                leadingSpacer: $leadingSpacer ?? $this->getFrameMock(),
+                trailingSpacer: $trailingSpacer ?? $this->getFrameMock(),
+                context: $context ?? $this->getWidgetContextMock(),
+            );
+    }
+
+    #[Test]
+    public function canGetContext(): void
+    {
+        $context = $this->getWidgetContextMock();
+
+        $widget = $this->getTesteeInstance(
             context: $context,
         );
+
+        self::assertSame($context, $widget->getContext());
     }
 }
