@@ -8,6 +8,7 @@ use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Contract\IObserver;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
+use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContext;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContextContainer;
 use AlecRabbit\Spinner\Core\Widget\WidgetComposite;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
@@ -29,14 +30,14 @@ final class WidgetCompositeTest extends TestCaseWithPrebuiltMocksAndStubs
         ?IFrame $leadingSpacer = null,
         ?IFrame $trailingSpacer = null,
         ?IWidgetContextContainer $children = null,
-        ?IObserver $observer = null,
+        ?IWidgetContext $context = null,
     ): IWidgetComposite {
         return new WidgetComposite(
             revolver: $revolver ?? $this->getRevolverMock(),
             leadingSpacer: $leadingSpacer ?? $this->getFrameMock(),
             trailingSpacer: $trailingSpacer ?? $this->getFrameMock(),
             children: $children ?? $this->getWidgetContextContainerMock(),
-            observer: $observer,
+            context: $context,
         );
     }
 
@@ -151,15 +152,15 @@ final class WidgetCompositeTest extends TestCaseWithPrebuiltMocksAndStubs
     #[Test]
     public function canDetachObserver(): void
     {
-        $observer = $this->getObserverMock();
+        $context = $this->getWidgetContextMock();
 
         $widget = $this->getTesteeInstance(
-            observer: $observer
+            context: $context
         );
 
-        self::assertSame($observer, self::getPropertyValue('observer', $widget));
+        self::assertSame($context, self::getPropertyValue('observer', $widget));
 
-        $widget->detach($observer);
+        $widget->detach($context);
 
         self::assertNull(self::getPropertyValue('observer', $widget));
     }
@@ -167,14 +168,14 @@ final class WidgetCompositeTest extends TestCaseWithPrebuiltMocksAndStubs
     #[Test]
     public function canNotifyObserverOnOtherWidgetAdd(): void
     {
-        $observer = $this->getObserverMock();
+        $context = $this->getWidgetContextMock();
 //        $intervalContainer = $this->getWidgetIntervalContainerMock();
         $children = $this->getWidgetContextContainerMock();
 
 
         $widget = $this->getTesteeInstance(
             children: $children,
-            observer: $observer,
+            context: $context,
         );
 
         $otherWidgetContext = $this->getWidgetContextMock();
@@ -204,7 +205,7 @@ final class WidgetCompositeTest extends TestCaseWithPrebuiltMocksAndStubs
             ->willReturn($this->getIntervalMock())
         ;
 
-        $observer
+        $context
             ->expects(self::once())
             ->method('update')
             ->with($widget)
@@ -260,7 +261,7 @@ final class WidgetCompositeTest extends TestCaseWithPrebuiltMocksAndStubs
     #[Test]
     public function canNotifyObserverOnOtherWidgetRemove(): void
     {
-        $observer = $this->getObserverMock();
+        $context = $this->getWidgetContextMock();
 
 //        $intervalContainer = $this->getWidgetIntervalContainerMock();
 
@@ -268,7 +269,7 @@ final class WidgetCompositeTest extends TestCaseWithPrebuiltMocksAndStubs
 
         $widget = $this->getTesteeInstance(
             children: $children,
-            observer: $observer,
+            context: $context,
         );
 
         $otherWidgetContext = $this->getWidgetContextMock();
@@ -305,7 +306,7 @@ final class WidgetCompositeTest extends TestCaseWithPrebuiltMocksAndStubs
             ->willReturn($this->getIntervalMock())
         ;
 
-        $observer
+        $context
             ->expects(self::once())
             ->method('update')
             ->with($widget)

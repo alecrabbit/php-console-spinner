@@ -25,14 +25,12 @@ final class WidgetComposite extends AWidget implements IWidgetComposite
         IFrame $leadingSpacer,
         IFrame $trailingSpacer,
         protected readonly IWidgetContextContainer $children = new WidgetContextContainer(),
-        ?IObserver $observer = null,
         ?IWidgetContext $context = null,
     ) {
         parent::__construct(
             $revolver,
             $leadingSpacer,
             $trailingSpacer,
-            $observer,
             $context
         );
 

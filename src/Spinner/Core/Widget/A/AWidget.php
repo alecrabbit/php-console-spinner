@@ -22,11 +22,10 @@ abstract class AWidget extends ASubject implements IWidget
         protected readonly IRevolver $revolver,
         protected readonly IFrame $leadingSpacer,
         protected readonly IFrame $trailingSpacer,
-        ?IObserver $observer = null,
         ?IWidgetContext $context = null,
     ) {
-        parent::__construct($observer);
         $this->context = $this->refineContext($context);
+        parent::__construct($context);
     }
 
     public function getInterval(): IInterval

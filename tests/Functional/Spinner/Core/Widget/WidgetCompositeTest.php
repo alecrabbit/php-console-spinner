@@ -9,6 +9,7 @@ use AlecRabbit\Spinner\Contract\IObserver;
 use AlecRabbit\Spinner\Core\CharFrame;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
+use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContext;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContextContainer;
 use AlecRabbit\Spinner\Core\Widget\WidgetComposite;
 use AlecRabbit\Spinner\Core\Widget\WidgetContextContainer;
@@ -122,7 +123,7 @@ final class WidgetCompositeTest extends TestCaseWithPrebuiltMocksAndStubs
         ?IFrame $leadingSpacer = null,
         ?IFrame $trailingSpacer = null,
         ?IWidgetContextContainer $children = null,
-        ?IObserver $observer = null,
+        ?IWidgetContext $context = null,
     ): IWidgetComposite {
         return
             new WidgetComposite(
@@ -130,7 +131,7 @@ final class WidgetCompositeTest extends TestCaseWithPrebuiltMocksAndStubs
                 leadingSpacer: $leadingSpacer ?? $this->getFrameMock(),
                 trailingSpacer: $trailingSpacer ?? $this->getFrameMock(),
                 children: $children ?? $this->getWidgetContextContainerMock(),
-                observer: $observer,
+                context: $context,
             );
     }
 }
