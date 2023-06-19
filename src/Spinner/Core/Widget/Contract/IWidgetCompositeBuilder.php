@@ -9,7 +9,7 @@ use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Exception\LogicException;
 
-interface IWidgetBuilder
+interface IWidgetCompositeBuilder
 {
     /**
      * @throws LogicException
@@ -17,9 +17,9 @@ interface IWidgetBuilder
      */
     public function build(): IWidgetComposite;
 
-    public function withWidgetRevolver(IRevolver $revolver): IWidgetBuilder;
+    public function withWidgetRevolver(IRevolver $revolver): IWidgetCompositeBuilder;
 
-    public function withLeadingSpacer(?IFrame $frame): IWidgetBuilder;
+    public function withLeadingSpacer(?IFrame $frame): IWidgetCompositeBuilder;
 
-    public function withTrailingSpacer(?IFrame $frame): IWidgetBuilder;
+    public function withTrailingSpacer(?IFrame $frame): IWidgetCompositeBuilder;
 }

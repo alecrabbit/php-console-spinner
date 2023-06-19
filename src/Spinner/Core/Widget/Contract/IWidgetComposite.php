@@ -4,7 +4,10 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Widget\Contract;
 
-interface IWidgetComposite extends IWidget
+use AlecRabbit\Spinner\Contract\IObserver;
+
+interface IWidgetComposite extends IWidget,
+                                   IObserver
 {
     public function add(IWidgetComposite $widget): IWidgetContext;
 

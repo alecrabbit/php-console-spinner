@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core;
 
-use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetBuilder;
+use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetCompositeBuilder;
 use AlecRabbit\Spinner\Core\Widget\LegacyWidgetComposite;
-use AlecRabbit\Spinner\Core\Widget\WidgetBuilder;
+use AlecRabbit\Spinner\Core\Widget\WidgetCompositeBuilder;
 use AlecRabbit\Spinner\Core\Widget\WidgetComposite;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use LogicException;
@@ -19,12 +19,12 @@ final class WidgetBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
     {
         $widgetBuilder = $this->getTesteeInstance();
 
-        self::assertInstanceOf(WidgetBuilder::class, $widgetBuilder);
+        self::assertInstanceOf(WidgetCompositeBuilder::class, $widgetBuilder);
     }
 
-    public function getTesteeInstance(): IWidgetBuilder
+    public function getTesteeInstance(): IWidgetCompositeBuilder
     {
-        return new WidgetBuilder();
+        return new WidgetCompositeBuilder();
     }
 
     #[Test]
@@ -32,7 +32,7 @@ final class WidgetBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
     {
         $widgetBuilder = $this->getTesteeInstance();
 
-        self::assertInstanceOf(WidgetBuilder::class, $widgetBuilder);
+        self::assertInstanceOf(WidgetCompositeBuilder::class, $widgetBuilder);
 
         $widgetComposite =
             $widgetBuilder

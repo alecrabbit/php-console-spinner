@@ -6,11 +6,11 @@ namespace AlecRabbit\Spinner\Core\Widget;
 
 use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
-use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetBuilder;
+use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetCompositeBuilder;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
 use LogicException;
 
-final class WidgetBuilder implements IWidgetBuilder
+final class WidgetCompositeBuilder implements IWidgetCompositeBuilder
 {
     private ?IFrame $leadingSpacer = null;
     private ?IFrame $trailingSpacer = null;
@@ -37,19 +37,19 @@ final class WidgetBuilder implements IWidgetBuilder
         };
     }
 
-    public function withWidgetRevolver(IRevolver $revolver): IWidgetBuilder
+    public function withWidgetRevolver(IRevolver $revolver): IWidgetCompositeBuilder
     {
         $this->revolver = $revolver;
         return $this;
     }
 
-    public function withLeadingSpacer(?IFrame $frame): IWidgetBuilder
+    public function withLeadingSpacer(?IFrame $frame): IWidgetCompositeBuilder
     {
         $this->leadingSpacer = $frame;
         return $this;
     }
 
-    public function withTrailingSpacer(?IFrame $frame): IWidgetBuilder
+    public function withTrailingSpacer(?IFrame $frame): IWidgetCompositeBuilder
     {
         $this->trailingSpacer = $frame;
         return $this;
