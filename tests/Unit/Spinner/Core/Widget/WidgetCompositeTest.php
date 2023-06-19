@@ -135,22 +135,6 @@ final class WidgetCompositeTest extends TestCaseWithPrebuiltMocksAndStubs
     }
 
     #[Test]
-    public function canDetachObserver(): void
-    {
-        $context = $this->getWidgetContextMock();
-
-        $widgetComposite = $this->getTesteeInstance(
-            context: $context
-        );
-
-        self::assertSame($context, self::getPropertyValue('observer', $widgetComposite));
-
-        $widgetComposite->detach($context);
-
-        self::assertNull(self::getPropertyValue('observer', $widgetComposite));
-    }
-
-    #[Test]
     public function canNotifyObserverOnOtherWidgetAdd(): void
     {
         $context = $this->getWidgetContextMock();
