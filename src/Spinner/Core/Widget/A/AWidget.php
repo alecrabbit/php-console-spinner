@@ -21,14 +21,15 @@ abstract class AWidget extends ASubject implements IWidget
         protected readonly IFrame $trailingSpacer,
         protected ?IWidgetContext $context = null,
     ) {
-        $this->context = $this->adoptContext($context);
         parent::__construct($context); // Context is the observer
+        $this->context = $this->adoptContext($context);
     }
 
     protected function adoptContext(?IWidgetContext $context): ?IWidgetContext
     {
         if ($context instanceof IWidgetContext) {
             $context->adoptWidget($this);
+            $this->notify();
         }
         return $context;
     }
@@ -49,6 +50,7 @@ abstract class AWidget extends ASubject implements IWidget
 
         if ($this->context !== $context) {
             $this->context = $context;
+            $this->notify();
         }
     }
 

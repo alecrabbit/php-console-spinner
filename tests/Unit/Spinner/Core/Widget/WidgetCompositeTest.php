@@ -138,7 +138,7 @@ final class WidgetCompositeTest extends TestCaseWithPrebuiltMocksAndStubs
     public function canNotifyObserverOnOtherWidgetAdd(): void
     {
         $context = $this->getWidgetContextMock();
-//        $intervalContainer = $this->getWidgetIntervalContainerMock();
+
         $children = $this->getWidgetContextContainerMock();
 
 
@@ -233,8 +233,6 @@ final class WidgetCompositeTest extends TestCaseWithPrebuiltMocksAndStubs
     public function canNotifyObserverOnOtherWidgetRemove(): void
     {
         $context = $this->getWidgetContextMock();
-
-//        $intervalContainer = $this->getWidgetIntervalContainerMock();
 
         $children = $this->getWidgetContextContainerMock();
 
