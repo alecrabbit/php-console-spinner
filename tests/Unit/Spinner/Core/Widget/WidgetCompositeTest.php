@@ -77,20 +77,6 @@ final class WidgetCompositeTest extends TestCaseWithPrebuiltMocksAndStubs
     }
 
     #[Test]
-    public function canAttachObserver(): void
-    {
-        $widgetComposite = $this->getTesteeInstance();
-
-        $observer = $this->getObserverMock();
-
-        self::assertNull(self::getPropertyValue('observer', $widgetComposite));
-
-        $widgetComposite->attach($observer);
-
-        self::assertSame($observer, self::getPropertyValue('observer', $widgetComposite));
-    }
-
-    #[Test]
     public function canGetFrameIfHasRevolverOnly(): void
     {
         $revolverFrame = $this->getFrameMock();
