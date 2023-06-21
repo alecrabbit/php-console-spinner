@@ -21,4 +21,6 @@ interface IWidgetCompositeChildrenContainer extends ISubject,
     public function remove(IWidgetContext $context): void;
 
     public function has(IWidgetContext $context): bool;
+
+    public function isEmpty(): bool;
 }

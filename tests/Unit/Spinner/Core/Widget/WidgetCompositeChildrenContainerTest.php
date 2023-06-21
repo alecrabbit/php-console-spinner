@@ -61,6 +61,47 @@ final class WidgetCompositeChildrenContainerTest extends TestCaseWithPrebuiltMoc
 
         self::assertSame($context, $context);
         self::assertTrue($container->has($context));
+        self::assertFalse($container->isEmpty());
+    }
+
+    #[Test]
+    public function containerIsAttachedAsObserverToAddedWidgetContext(): void
+    {
+        $context = $this->getWidgetContextMock();
+
+        $container = $this->getTesteeInstance();
+
+        $context
+            ->expects(self::once())
+            ->method('attach')
+            ->with($container);
+
+        $container->add($context);
+    }
+
+    #[Test]
+    public function containerIsDetachedAsObserverFromRemovedWidgetContext(): void
+    {
+        $context = $this->getWidgetContextMock();
+
+        $container = $this->getTesteeInstance();
+
+        $container->add($context);
+
+        $context
+            ->expects(self::once())
+            ->method('detach')
+            ->with($container);
+
+        $container->remove($context);
+    }
+
+    #[Test]
+    public function createdEmptyByDefault(): void
+    {
+        $container = $this->getTesteeInstance();
+
+        self::assertTrue($container->isEmpty());
     }
 
     #[Test]
@@ -75,7 +116,9 @@ final class WidgetCompositeChildrenContainerTest extends TestCaseWithPrebuiltMoc
         $container->remove($context);
 
         self::assertFalse($container->has($context));
+        self::assertTrue($container->isEmpty());
     }
+
     #[Test]
     public function canReturnIterator(): void
     {

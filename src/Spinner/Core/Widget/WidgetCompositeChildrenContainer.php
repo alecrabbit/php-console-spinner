@@ -42,6 +42,7 @@ final class WidgetCompositeChildrenContainer extends ASubject implements IWidget
     public function add(IWidgetContext $context): IWidgetContext
     {
         $this->map->offsetSet($context, $context);
+        $context->attach($this);
         return $context;
     }
 
@@ -58,15 +59,21 @@ final class WidgetCompositeChildrenContainer extends ASubject implements IWidget
         return $this->map;
     }
 
-    public function count(): int
-    {
-        return $this->map->count();
-    }
-
     public function remove(IWidgetContext $context): void
     {
         if ($this->map->offsetExists($context)) {
             $this->map->offsetUnset($context);
+            $context->detach($this);
         }
+    }
+
+    public function isEmpty(): bool
+    {
+        return $this->count() === 0;
+    }
+
+    public function count(): int
+    {
+        return $this->map->count();
     }
 }
