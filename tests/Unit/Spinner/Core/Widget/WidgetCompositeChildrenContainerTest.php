@@ -133,13 +133,41 @@ final class WidgetCompositeChildrenContainerTest extends TestCaseWithPrebuiltMoc
         self::assertSame($map, $iterator);
     }
 
-//    #[Test]
-//    public function updateCanBeInvokedByWidgetInContainer(): void
-//    {
-//        $container = $this->getTesteeInstance();
-//
-//        $container->update($this->getWidgetMock());
-//    }
+    #[Test]
+    public function observerUpdateInvokedOnIntervalChange(): void
+    {
+        $interval = $this->getIntervalMock();
+        $interval
+            ->expects(self::once())
+            ->method('smallest')
+            ->with(null)
+            ->willReturnSelf();
+
+        $widget = $this->getWidgetMock();
+        $widget
+            ->expects(self::once())
+            ->method('getInterval')
+            ->willReturn($interval);
+
+        $context = $this->getWidgetContextMock();
+        $context
+            ->expects(self::once())
+            ->method('getWidget')
+            ->willReturn($widget);
+
+        $observer = $this->getObserverMock();
+
+        $container = $this->getTesteeInstance(
+            observer: $observer,
+        );
+
+        $observer
+            ->expects(self::once())
+            ->method('update')
+            ->with($container);
+
+        $container->add($context);
+    }
 
     #[Test]
     public function throwsIfUpdateInvokedForSelf(): void
