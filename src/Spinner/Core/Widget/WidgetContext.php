@@ -24,7 +24,6 @@ final class WidgetContext extends ASubject implements IWidgetContext
     {
         $this->widget = $widget;
         $this->widget->attach($this);
-//        $widget->envelopWithContext($this);
     }
 
     public function getWidget(): IWidget

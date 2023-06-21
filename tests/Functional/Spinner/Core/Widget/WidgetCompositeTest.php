@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Functional\Spinner\Core\Widget;
 
 use AlecRabbit\Spinner\Contract\IFrame;
+use AlecRabbit\Spinner\Contract\IObserver;
 use AlecRabbit\Spinner\Core\CharFrame;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
@@ -122,7 +123,7 @@ final class WidgetCompositeTest extends TestCaseWithPrebuiltMocksAndStubs
         ?IFrame $leadingSpacer = null,
         ?IFrame $trailingSpacer = null,
         ?IWidgetContextContainer $children = null,
-        ?IWidgetContext $context = null,
+        ?IObserver $observer = null,
     ): IWidgetComposite {
         return
             new WidgetComposite(
@@ -130,7 +131,7 @@ final class WidgetCompositeTest extends TestCaseWithPrebuiltMocksAndStubs
                 leadingSpacer: $leadingSpacer ?? $this->getFrameMock(),
                 trailingSpacer: $trailingSpacer ?? $this->getFrameMock(),
                 children: $children ?? $this->getWidgetContextContainerMock(),
-                context: $context,
+                observer: $observer,
             );
     }
 }

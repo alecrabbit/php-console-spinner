@@ -6,6 +6,7 @@ namespace AlecRabbit\Spinner\Core\Widget\A;
 
 use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Contract\IInterval;
+use AlecRabbit\Spinner\Contract\IObserver;
 use AlecRabbit\Spinner\Core\A\ASubject;
 use AlecRabbit\Spinner\Core\CharFrame;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
@@ -19,10 +20,9 @@ abstract class AWidget extends ASubject implements IWidget
         protected readonly IRevolver $revolver,
         protected readonly IFrame $leadingSpacer,
         protected readonly IFrame $trailingSpacer,
-        protected ?IWidgetContext $context = null,
+        protected ?IObserver $observer = null,
     ) {
-        parent::__construct($context); // Context is the observer
-        $this->context = $this->adoptContext($context);
+        parent::__construct($observer); // Context is the observer
     }
 
     protected function adoptContext(?IWidgetContext $context): ?IWidgetContext
@@ -41,22 +41,14 @@ abstract class AWidget extends ASubject implements IWidget
 
     public function envelopWithContext(IWidgetContext $context): void
     {
-        if ($context->getWidget() !== $this) {
-            throw new InvalidArgumentException(
-                'Context is not related to this widget.'
-
-            );
-        }
-
-        if ($this->context !== $context) {
-            $this->context = $context;
-            $this->notify();
-        }
+        // FIXME (2023-06-21 13:52) [Alec Rabbit]: Implement this
+        throw new \RuntimeException('Not implemented ' . __METHOD__);
     }
 
     public function getContext(): IWidgetContext
     {
-        return $this->context;
+        // FIXME (2023-06-21 13:52) [Alec Rabbit]: Implement this
+        throw new \RuntimeException('Not implemented ' . __METHOD__);
     }
 
     public function getFrame(?float $dt = null): IFrame

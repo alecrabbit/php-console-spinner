@@ -36,7 +36,7 @@ final class WidgetCompositeTest extends TestCaseWithPrebuiltMocksAndStubs
             leadingSpacer: $leadingSpacer ?? $this->getFrameMock(),
             trailingSpacer: $trailingSpacer ?? $this->getFrameMock(),
             children: $children ?? $this->getWidgetContextContainerMock(),
-            context: $context,
+            observer: $context,
         );
     }
 
@@ -205,15 +205,19 @@ final class WidgetCompositeTest extends TestCaseWithPrebuiltMocksAndStubs
         $widgetComposite = $this->getTesteeInstance();
 
         $context = $this->getWidgetContextMock();
-        $context
-            ->expects(self::once())
-            ->method('getWidget')
-            ->willReturn($widgetComposite)
-        ;
+//        $context
+//            ->expects(self::once())
+//            ->method('getWidget')
+//            ->willReturn($widgetComposite)
+//        ;
+
+        $this->expectsException(\RuntimeException::class);
+        $this->expectExceptionMessage('Not implemented');
 
         $widgetComposite->envelopWithContext($context);
-
         self::assertSame($context, $widgetComposite->getContext());
+
+        self::fail('Exception was not thrown.');
     }
 
     #[Test]
@@ -225,7 +229,13 @@ final class WidgetCompositeTest extends TestCaseWithPrebuiltMocksAndStubs
             context: $context,
         );
 
+        $this->expectsException(\RuntimeException::class);
+        $this->expectExceptionMessage('Not implemented');
+
         self::assertSame($context, $widgetComposite->getContext());
+
+        self::fail('Exception was not thrown.');
+
     }
 
 
@@ -376,31 +386,31 @@ final class WidgetCompositeTest extends TestCaseWithPrebuiltMocksAndStubs
         );
     }
 
-    #[Test]
-    public function throwsIfContextIsNotRelatedToWidget(): void
-    {
-        $exceptionClass = InvalidArgumentException::class;
-        $exceptionMessage = 'Context is not related to this widget.';
-
-        $test = function (): void {
-            $widgetComposite = $this->getTesteeInstance();
-
-            $context = $this->getWidgetContextMock();
-            $context
-                ->expects(self::once())
-                ->method('getWidget')
-                ->willReturn($this->getWidgetCompositeMock())
-            ;
-
-            $widgetComposite->envelopWithContext($context);
-        };
-
-        $this->wrapExceptionTest(
-            test: $test,
-            exception: $exceptionClass,
-            message: $exceptionMessage,
-        );
-    }
+//    #[Test]
+//    public function throwsIfContextIsNotRelatedToWidget(): void
+//    {
+//        $exceptionClass = InvalidArgumentException::class;
+//        $exceptionMessage = 'Context is not related to this widget.';
+//
+//        $test = function (): void {
+//            $widgetComposite = $this->getTesteeInstance();
+//
+//            $context = $this->getWidgetContextMock();
+//            $context
+//                ->expects(self::once())
+//                ->method('getWidget')
+//                ->willReturn($this->getWidgetCompositeMock())
+//            ;
+//
+//            $widgetComposite->envelopWithContext($context);
+//        };
+//
+//        $this->wrapExceptionTest(
+//            test: $test,
+//            exception: $exceptionClass,
+//            message: $exceptionMessage,
+//        );
+//    }
 
     #[Test]
     public function throwsIfUpdateInvokedForSelf(): void
