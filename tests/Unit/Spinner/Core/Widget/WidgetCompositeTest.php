@@ -133,55 +133,55 @@ final class WidgetCompositeTest extends TestCaseWithPrebuiltMocksAndStubs
         self::assertSame('lsrfsts', $result->sequence());
         self::assertSame(7, $result->width());
     }
-
-    #[Test]
-    public function canNotifyObserverOnOtherWidgetAdd(): void
-    {
-        $context = $this->getWidgetContextMock();
-
-        $children = $this->getWidgetContextContainerMock();
-
-
-        $widgetComposite = $this->getTesteeInstance(
-            children: $children,
-            context: $context,
-        );
-
-        $otherWidgetContext = $this->getWidgetContextMock();
-        $otherWidget = $this->getWidgetCompositeMock();
-
-        $otherWidget
-            ->expects(self::once())
-            ->method('attach')
-            ->with($widgetComposite)
-        ;
-
-        $otherWidget
-            ->expects(self::once())
-            ->method('getContext')
-            ->willReturn($otherWidgetContext)
-        ;
-
-        $children
-            ->expects(self::once())
-            ->method('add')
-            ->with($otherWidgetContext)
-        ;
-
-        $children
-            ->expects(self::once())
-            ->method('getInterval')
-            ->willReturn($this->getIntervalMock())
-        ;
-
-        $context
-            ->expects(self::once())
-            ->method('update')
-            ->with($widgetComposite)
-        ;
-
-        $widgetComposite->add($otherWidget);
-    }
+//
+//    #[Test]
+//    public function canNotifyObserverOnOtherWidgetAdd(): void
+//    {
+//        $context = $this->getWidgetContextMock();
+//
+//        $children = $this->getWidgetContextContainerMock();
+//
+//
+//        $widgetComposite = $this->getTesteeInstance(
+//            children: $children,
+//            context: $context,
+//        );
+//
+//        $otherWidgetContext = $this->getWidgetContextMock();
+//        $otherWidget = $this->getWidgetCompositeMock();
+//
+//        $otherWidget
+//            ->expects(self::once())
+//            ->method('attach')
+//            ->with($widgetComposite)
+//        ;
+//
+//        $otherWidget
+//            ->expects(self::once())
+//            ->method('getContext')
+//            ->willReturn($otherWidgetContext)
+//        ;
+//
+//        $children
+//            ->expects(self::once())
+//            ->method('add')
+//            ->with($otherWidgetContext)
+//        ;
+//
+//        $children
+//            ->expects(self::once())
+//            ->method('getInterval')
+//            ->willReturn($this->getIntervalMock())
+//        ;
+//
+//        $context
+//            ->expects(self::once())
+//            ->method('update')
+//            ->with($widgetComposite)
+//        ;
+//
+//        $widgetComposite->add($otherWidget);
+//    }
 
     #[Test]
     public function canGetInterval(): void
@@ -198,137 +198,97 @@ final class WidgetCompositeTest extends TestCaseWithPrebuiltMocksAndStubs
         );
         self::assertSame($interval, $widgetComposite->getInterval());
     }
-
-    #[Test]
-    public function canReplaceContext(): void
-    {
-        $widgetComposite = $this->getTesteeInstance();
-
-        $context = $this->getWidgetContextMock();
+//
+//    #[Test]
+//    public function canNotifyObserverOnOtherWidgetRemove(): void
+//    {
+//        $context = $this->getWidgetContextMock();
+//
+//        $children = $this->getWidgetContextContainerMock();
+//
+//        $widgetComposite = $this->getTesteeInstance(
+//            children: $children,
+//            context: $context,
+//        );
+//
+//        $otherWidgetContext = $this->getWidgetContextMock();
+//        $otherWidget = $this->getWidgetCompositeMock();
+//
+////        $otherWidget
+////            ->expects(self::once())
+////            ->method('getContext')
+////            ->willReturn($otherWidgetContext)
+////        ;
+//
+//        $children
+//            ->expects(self::once())
+//            ->method('has')
+//            ->with($otherWidgetContext)
+//            ->willReturn(true)
+//        ;
+//
+//        $children
+//            ->expects(self::once())
+//            ->method('remove')
+//            ->with($otherWidgetContext)
+//        ;
+//
+//        $otherWidget
+//            ->expects(self::once())
+//            ->method('detach')
+//            ->with($widgetComposite)
+//        ;
+//
+//        $children
+//            ->expects(self::once())
+//            ->method('getInterval')
+//            ->willReturn($this->getIntervalMock())
+//        ;
+//
 //        $context
 //            ->expects(self::once())
-//            ->method('getWidget')
-//            ->willReturn($widgetComposite)
+//            ->method('update')
+//            ->with($widgetComposite)
 //        ;
-
-        $this->expectsException(\RuntimeException::class);
-        $this->expectExceptionMessage('Not implemented');
-
-        $widgetComposite->envelopWithContext($context);
-        self::assertSame($context, $widgetComposite->getContext());
-
-        self::fail('Exception was not thrown.');
-    }
-
-    #[Test]
-    public function canGetContext(): void
-    {
-        $context = $this->getWidgetContextMock();
-
-        $widgetComposite = $this->getTesteeInstance(
-            context: $context,
-        );
-
-        $this->expectsException(\RuntimeException::class);
-        $this->expectExceptionMessage('Not implemented');
-
-        self::assertSame($context, $widgetComposite->getContext());
-
-        self::fail('Exception was not thrown.');
-
-    }
-
-
-    #[Test]
-    public function canNotifyObserverOnOtherWidgetRemove(): void
-    {
-        $context = $this->getWidgetContextMock();
-
-        $children = $this->getWidgetContextContainerMock();
-
-        $widgetComposite = $this->getTesteeInstance(
-            children: $children,
-            context: $context,
-        );
-
-        $otherWidgetContext = $this->getWidgetContextMock();
-        $otherWidget = $this->getWidgetCompositeMock();
-
-        $otherWidget
-            ->expects(self::once())
-            ->method('getContext')
-            ->willReturn($otherWidgetContext)
-        ;
-
-        $children
-            ->expects(self::once())
-            ->method('has')
-            ->with($otherWidgetContext)
-            ->willReturn(true)
-        ;
-
-        $children
-            ->expects(self::once())
-            ->method('remove')
-            ->with($otherWidgetContext)
-        ;
-
-        $otherWidget
-            ->expects(self::once())
-            ->method('detach')
-            ->with($widgetComposite)
-        ;
-
-        $children
-            ->expects(self::once())
-            ->method('getInterval')
-            ->willReturn($this->getIntervalMock())
-        ;
-
-        $context
-            ->expects(self::once())
-            ->method('update')
-            ->with($widgetComposite)
-        ;
-
-        $widgetComposite->remove($otherWidget);
-    }
-
-    #[Test]
-    public function removingNonExistentWidgetDoesNothing(): void
-    {
-        $children = $this->getWidgetContextContainerMock();
-        $composite = $this->getTesteeInstance(
-            children: $children,
-        );
-
-        $nonExistentContext = $this->getWidgetContextMock();
-        $nonExistent = $this->getWidgetCompositeMock();
-        $nonExistent
-            ->expects(self::once())
-            ->method('getContext')
-            ->willReturn($nonExistentContext)
-        ;
-        $children
-            ->expects(self::once())
-            ->method('has')
-            ->with($nonExistentContext)
-            ->willReturn(false)
-        ;
-        $children
-            ->expects(self::never())
-            ->method('remove')
-        ;
-        $nonExistent
-            ->expects(self::never())
-            ->method('detach')
-        ;
-        $children
-            ->expects(self::never())
-            ->method('getInterval')
-        ;
-        $composite->remove($nonExistent);
-    }
+//
+//        $widgetComposite->remove($otherWidget);
+//    }
+//
+//    #[Test]
+//    public function removingNonExistentWidgetDoesNothing(): void
+//    {
+//        $children = $this->getWidgetContextContainerMock();
+//        $composite = $this->getTesteeInstance(
+//            children: $children,
+//        );
+//
+//        $nonExistentContext = $this->getWidgetContextMock();
+//        $nonExistent = $this->getWidgetCompositeMock();
+//        $nonExistent
+//            ->expects(self::once())
+//            ->method('getContext')
+//            ->willReturn($nonExistentContext)
+//        ;
+//        $children
+//            ->expects(self::once())
+//            ->method('has')
+//            ->with($nonExistentContext)
+//            ->willReturn(false)
+//        ;
+//        $children
+//            ->expects(self::never())
+//            ->method('remove')
+//        ;
+//        $nonExistent
+//            ->expects(self::never())
+//            ->method('detach')
+//        ;
+//        $children
+//            ->expects(self::never())
+//            ->method('getInterval')
+//        ;
+//        $composite->remove($nonExistent);
+//    }
 
     #[Test]
     public function throwsIfObserverIsSelf(): void

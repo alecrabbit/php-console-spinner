@@ -10,7 +10,6 @@ use AlecRabbit\Spinner\Contract\ISubject;
 
 interface IWidget extends ISubject,
                           IHasInterval,
-                          IHasFrame,
-                          IHasWidgetContext
+                          IHasFrame
 {
 }

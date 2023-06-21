@@ -39,18 +39,6 @@ abstract class AWidget extends ASubject implements IWidget
         return $this->revolver->getInterval();
     }
 
-    public function envelopWithContext(IWidgetContext $context): void
-    {
-        // FIXME (2023-06-21 13:52) [Alec Rabbit]: Implement this
-        throw new \RuntimeException('Not implemented ' . __METHOD__);
-    }
-
-    public function getContext(): IWidgetContext
-    {
-        // FIXME (2023-06-21 13:52) [Alec Rabbit]: Implement this
-        throw new \RuntimeException('Not implemented ' . __METHOD__);
-    }
-
     public function getFrame(?float $dt = null): IFrame
     {
         $revolverFrame = $this->revolver->getFrame($dt);

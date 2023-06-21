@@ -141,23 +141,23 @@ final class WidgetContextContainerTest extends TestCaseWithPrebuiltMocksAndStubs
         self::assertSame($context, $container->get($context));
     }
 
-    #[Test]
-    public function canFindContext(): void
-    {
-        $container = $this->getTesteeInstance();
-
-        $context = $this->getWidgetContextMock();
-        $widget = $this->getWidgetCompositeMock();
-        $widget
-            ->expects(self::once())
-            ->method('getContext')
-            ->willReturn($context)
-        ;
-
-        $container->add($context);
-
-        self::assertSame($context, $container->find($widget));
-    }
+//    #[Test]
+//    public function canFindContext(): void
+//    {
+//        $container = $this->getTesteeInstance();
+//
+//        $context = $this->getWidgetContextMock();
+//        $widget = $this->getWidgetCompositeMock();
+//        $widget
+//            ->expects(self::once())
+//            ->method('getContext')
+//            ->willReturn($context)
+//        ;
+//
+//        $container->add($context);
+//
+//        self::assertSame($context, $container->find($widget));
+//    }
 
     #[Test]
     public function canCheckContainerHasContext(): void

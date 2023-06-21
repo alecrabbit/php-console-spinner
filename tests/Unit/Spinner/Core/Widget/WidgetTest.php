@@ -39,40 +39,6 @@ final class WidgetTest extends TestCaseWithPrebuiltMocksAndStubs
     }
 
     #[Test]
-    public function canGetContext(): void
-    {
-        $context = $this->getWidgetContextMock();
-
-        $widget = $this->getTesteeInstance(
-            observer: $context,
-        );
-
-        $this->expectsException(\RuntimeException::class);
-        $this->expectExceptionMessage('Not implemented');
-
-        self::assertSame($context, $widget->getContext());
-
-        self::fail('Exception was not thrown.');
-    }
-
-//    #[Test]
-//    public function notifiesContextOnCreation(): void
-//    {
-//        $context = $this->getWidgetContextMock();
-//
-//        $context
-//            ->expects(self::once())
-//            ->method('update')
-//        ;
-//
-//        $widget = $this->getTesteeInstance(
-//            observer: $context,
-//        );
-//
-//        self::assertInstanceOf(Widget::class, $widget);
-//    }
-
-    #[Test]
     public function canGetInterval(): void
     {
         $interval = $this->getIntervalMock();
