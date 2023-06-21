@@ -4,15 +4,69 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Widget;
 
+use AlecRabbit\Spinner\Contract\IInterval;
+use AlecRabbit\Spinner\Contract\IObserver;
 use AlecRabbit\Spinner\Contract\ISubject;
 use AlecRabbit\Spinner\Core\A\ASubject;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetCompositeChildrenContainer;
+use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContext;
+use AlecRabbit\Spinner\Exception\LogicException;
+use Traversable;
+use WeakMap;
 
 final class WidgetCompositeChildrenContainer extends ASubject implements IWidgetCompositeChildrenContainer
 {
+    protected ?IInterval $interval = null;
+
+    public function __construct(
+        protected readonly WeakMap $map = new WeakMap(),
+        ?IObserver $observer = null,
+    ) {
+        parent::__construct($observer);
+    }
+
     public function update(ISubject $subject): void
     {
-        // TODO: Implement update() method.
-        throw new \RuntimeException('Not implemented.');
+        $this->assertNotSelf($subject);
+
+        if ($subject instanceof IWidgetContext && $this->has($subject)) {
+            // TODO (2023-06-21 15:22) [Alec Rabbit]: implement
+        }
+    }
+
+    public function has(IWidgetContext $context): bool
+    {
+        return $this->map->offsetExists($context);
+    }
+
+    public function add(IWidgetContext $context): IWidgetContext
+    {
+        $this->map->offsetSet($context, $context);
+        return $context;
+    }
+
+    public function getInterval(): IInterval
+    {
+        if ($this->interval === null) {
+            throw new LogicException('Interval is not set.');
+        }
+        return $this->interval;
+    }
+
+    public function getIterator(): Traversable
+    {
+        return $this->map;
+    }
+
+    public function count(): int
+    {
+        return $this->map->count();
+    }
+
+    public function remove(IWidgetContext $context): void
+    {
+        if ($this->map->offsetExists($context)) {
+            $this->map->offsetUnset($context);
+        }
     }
 }
