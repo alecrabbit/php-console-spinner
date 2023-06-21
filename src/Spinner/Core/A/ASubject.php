@@ -26,13 +26,18 @@ abstract class ASubject implements ISubject
     /** @inheritdoc */
     public function attach(IObserver $observer): void
     {
-        if ($this->observer !== null) {
-            throw new InvalidArgumentException('Observer is already attached.');
-        }
+        $this->assertObserverIsNotAttached();
 
         $this->assertNotSelf($observer);
 
         $this->observer = $observer;
+    }
+
+    protected function assertObserverIsNotAttached(): void
+    {
+        if ($this->observer !== null) {
+            throw new InvalidArgumentException('Observer is already attached.');
+        }
     }
 
     protected function assertNotSelf(object $obj): void
