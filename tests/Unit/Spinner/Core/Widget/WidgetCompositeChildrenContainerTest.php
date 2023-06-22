@@ -59,17 +59,12 @@ final class WidgetCompositeChildrenContainerTest extends TestCaseWithPrebuiltMoc
             ->method('smallest')
             ->willReturnSelf()
         ;
-        $widget = $this->getWidgetMock();
-        $widget
-            ->expects(self::once())
-            ->method('getInterval')
-            ->willReturn($interval)
-        ;
+
         $context = $this->getWidgetContextMock();
         $context
             ->expects(self::once())
-            ->method('getWidget')
-            ->willReturn($widget)
+            ->method('getInterval')
+            ->willReturn($interval)
         ;
 
         $container->add($context);
@@ -150,7 +145,14 @@ final class WidgetCompositeChildrenContainerTest extends TestCaseWithPrebuiltMoc
     {
         $map = new \WeakMap();
 
+        $interval = $this->getIntervalMock();
+
         $context = $this->getWidgetContextMock();
+        $context
+            ->expects(self::once())
+            ->method('getInterval')
+
+            ->willReturn($interval);
 
         $container = $this->getTesteeInstance(
             map: $map,
@@ -216,18 +218,11 @@ final class WidgetCompositeChildrenContainerTest extends TestCaseWithPrebuiltMoc
             ->willReturnSelf()
         ;
 
-        $widget = $this->getWidgetMock();
-        $widget
+         $context = $this->getWidgetContextMock();
+        $context
             ->expects(self::once())
             ->method('getInterval')
             ->willReturn($interval)
-        ;
-
-        $context = $this->getWidgetContextMock();
-        $context
-            ->expects(self::once())
-            ->method('getWidget')
-            ->willReturn($widget)
         ;
 
         $observer = $this->getObserverMock();
@@ -264,18 +259,11 @@ final class WidgetCompositeChildrenContainerTest extends TestCaseWithPrebuiltMoc
             ->willReturnSelf()
         ;
 
-        $widget = $this->getWidgetMock();
-        $widget
-            ->expects(self::once())
-            ->method('getInterval')
-            ->willReturn($interval)
-        ;
-
         $context = $this->getWidgetContextMock();
         $context
             ->expects(self::once())
-            ->method('getWidget')
-            ->willReturn($widget)
+            ->method('getInterval')
+            ->willReturn($interval)
         ;
 
         $observer = $this->getObserverMock();
