@@ -76,7 +76,7 @@ final class WidgetCompositeChildrenContainerTest extends TestCaseWithPrebuiltMoc
     ): IWidgetCompositeChildrenContainer {
         return new WidgetCompositeChildrenContainer(
             map: $map ?? new WeakMap(),
-            intervalContainer: $intervalContainer ?? $this->getNullableIntervalContainerMock(),
+//            intervalContainer: $intervalContainer ?? $this->getNullableIntervalContainerMock(),
             observer: $observer,
         );
     }

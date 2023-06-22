@@ -12,7 +12,6 @@ use AlecRabbit\Spinner\Core\Contract\INullableIntervalContainer;
 use AlecRabbit\Spinner\Core\NullableIntervalContainer;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetCompositeChildrenContainer;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContext;
-use AlecRabbit\Spinner\Exception\LogicException;
 use ArrayAccess;
 use Countable;
 use IteratorAggregate;
@@ -25,7 +24,7 @@ final class WidgetCompositeChildrenContainer extends ASubject implements IWidget
 
     public function __construct(
         protected readonly ArrayAccess&Countable&IteratorAggregate $map = new WeakMap(),
-        protected readonly INullableIntervalContainer $intervalContainer = new NullableIntervalContainer(),
+//        protected readonly INullableIntervalContainer $intervalContainer = new NullableIntervalContainer(),
         ?IObserver $observer = null,
     ) {
         parent::__construct($observer);
@@ -58,17 +57,14 @@ final class WidgetCompositeChildrenContainer extends ASubject implements IWidget
     protected function checkInterval(IWidgetContext $context): void
     {
         $interval = $context->getWidget()?->getInterval();
-        $this->intervalContainer->add($interval);
+//        $this->intervalContainer->add($interval);
         if ($interval instanceof IInterval && $interval->smallest($this->interval) === $interval) {
             $this->notify();
         }
     }
 
-    public function getInterval(): IInterval
+    public function getInterval(): ?IInterval
     {
-        if ($this->interval === null) {
-            throw new LogicException('Interval is not set.');
-        }
         return $this->interval;
     }
 

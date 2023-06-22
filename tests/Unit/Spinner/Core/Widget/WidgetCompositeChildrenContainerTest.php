@@ -33,7 +33,7 @@ final class WidgetCompositeChildrenContainerTest extends TestCaseWithPrebuiltMoc
     ): IWidgetCompositeChildrenContainer {
         return new WidgetCompositeChildrenContainer(
             map: $map ?? $this->getWeakMapMock(),
-            intervalContainer: $intervalContainer ?? $this->getNullableIntervalContainerMock(),
+//            intervalContainer: $intervalContainer ?? $this->getNullableIntervalContainerMock(),
             observer: $observer,
         );
     }
@@ -246,6 +246,14 @@ final class WidgetCompositeChildrenContainerTest extends TestCaseWithPrebuiltMoc
     }
 
     #[Test]
+    public function returnsNullOnGetIntervalWhenEmpty(): void
+    {
+        $container = $this->getTesteeInstance();
+
+        self::assertNull($container->getInterval());
+    }
+
+    #[Test]
     public function intervalContainerMethodAddInvokedOnContextAdd(): void
     {
         $interval = $this->getIntervalMock();
@@ -272,15 +280,15 @@ final class WidgetCompositeChildrenContainerTest extends TestCaseWithPrebuiltMoc
 
         $observer = $this->getObserverMock();
 
-        $intervalContainer = $this->getNullableIntervalContainerMock();
-        $intervalContainer
-            ->expects(self::once())
-            ->method('add')
-            ->with($interval)
-        ;
+//        $intervalContainer = $this->getNullableIntervalContainerMock();
+//        $intervalContainer
+//            ->expects(self::once())
+//            ->method('add')
+//            ->with($interval)
+//        ;
 
         $container = $this->getTesteeInstance(
-            intervalContainer: $intervalContainer,
+//            intervalContainer: $intervalContainer,
             observer: $observer,
         );
 
@@ -303,25 +311,6 @@ final class WidgetCompositeChildrenContainerTest extends TestCaseWithPrebuiltMoc
             $container = $this->getTesteeInstance();
 
             $container->update($container);
-        };
-
-        $this->wrapExceptionTest(
-            test: $test,
-            exception: $exceptionClass,
-            message: $exceptionMessage,
-        );
-    }
-
-    #[Test]
-    public function throwsOnGetIntervalWhenEmpty(): void
-    {
-        $exceptionClass = LogicException::class;
-        $exceptionMessage = 'Interval is not set.';
-
-        $test = function (): void {
-            $container = $this->getTesteeInstance();
-
-            $container->getInterval();
         };
 
         $this->wrapExceptionTest(
