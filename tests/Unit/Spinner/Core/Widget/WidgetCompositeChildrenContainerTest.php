@@ -25,6 +25,43 @@ final class WidgetCompositeChildrenContainerTest extends TestCaseWithPrebuiltMoc
         self::assertInstanceOf(WidgetCompositeChildrenContainer::class, $container);
     }
 
+    #[Test]
+    public function observerGetsNotifiedAndCanGetInterval(): void
+    {
+        $observer = $this->getObserverMock();
+
+        $container = $this->getTesteeInstance(
+            observer: $observer,
+        );
+
+        $observer
+            ->expects(self::once())
+            ->method('update')
+            ->with($container)
+        ;
+
+        $interval = $this->getIntervalMock();
+        $interval
+            ->expects(self::once())
+            ->method('smallest')
+            ->willReturnSelf()
+        ;
+        $widget = $this->getWidgetMock();
+        $widget
+            ->expects(self::once())
+            ->method('getInterval')
+            ->willReturn($interval)
+        ;
+        $context = $this->getWidgetContextMock();
+        $context
+            ->expects(self::once())
+            ->method('getWidget')
+            ->willReturn($widget)
+        ;
+
+        $container->add($context);
+    }
+
     public function getTesteeInstance(
         ?WeakMap $map = null,
         ?INullableIntervalContainer $intervalContainer = null,

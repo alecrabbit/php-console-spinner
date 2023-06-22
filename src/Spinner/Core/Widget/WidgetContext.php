@@ -10,6 +10,7 @@ use AlecRabbit\Spinner\Contract\ISubject;
 use AlecRabbit\Spinner\Core\A\ASubject;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidget;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContext;
+use AlecRabbit\Spinner\Exception\LogicException;
 
 final class WidgetContext extends ASubject implements IWidgetContext
 {
@@ -27,7 +28,7 @@ final class WidgetContext extends ASubject implements IWidgetContext
         $this->widget->attach($this);
     }
 
-    public function getWidget(): IWidget
+    public function getWidget(): ?IWidget
     {
         return $this->widget;
     }

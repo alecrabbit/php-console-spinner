@@ -134,7 +134,18 @@ final class WidgetContextContainerTest extends TestCaseWithPrebuiltMocksAndStubs
             map: $map,
         );
 
+        $widget = $this->getWidgetMock();
         $context = $this->getWidgetContextMock();
+        $context
+            ->expects(self::once())
+            ->method('getWidget')
+            ->willReturn($widget)
+        ;
+        $widget
+            ->expects(self::once())
+            ->method('getInterval')
+            ->willReturn($this->getIntervalMock())
+        ;
 
         $container->add($context);
 
@@ -165,7 +176,18 @@ final class WidgetContextContainerTest extends TestCaseWithPrebuiltMocksAndStubs
         $container = $this->getTesteeInstance();
 
         $context = $this->getWidgetContextMock();
+        $widget = $this->getWidgetMock();
+        $widget
+            ->expects(self::once())
+            ->method('getInterval')
+            ->willReturn($this->getIntervalMock())
+        ;
 
+        $context
+            ->expects(self::once())
+            ->method('getWidget')
+            ->willReturn($widget)
+        ;
         $container->add($context);
 
         self::assertTrue($container->has($context));

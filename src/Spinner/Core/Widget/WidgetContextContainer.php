@@ -38,7 +38,7 @@ final class WidgetContextContainer implements IWidgetContextContainer
     public function add(IWidgetContext $context): IWidgetContext
     {
         $this->map->offsetSet($context, $context);
-        $this->intervalContainer->add($context->getWidget()->getInterval());
+        $this->intervalContainer->add($context->getWidget()?->getInterval());
         $this->updateCount();
         return $context;
     }

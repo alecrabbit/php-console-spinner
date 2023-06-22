@@ -44,9 +44,11 @@ final class WidgetCompositeChildrenContainer extends ASubject implements IWidget
 
     public function add(IWidgetContext $context): IWidgetContext
     {
-        $this->map->offsetSet($context, $context);
-        $context->attach($this);
-        $this->checkInterval($context);
+        if (!$this->has($context)) {
+            $this->map->offsetSet($context, $context);
+            $context->attach($this);
+            $this->checkInterval($context);
+        }
         return $context;
     }
 

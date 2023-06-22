@@ -15,5 +15,5 @@ interface IWidgetContext extends IObserver,
 {
     public function adoptWidget(IWidget $widget): void;
 
-    public function getWidget(): IWidget;
+    public function getWidget(): ?IWidget;
 }
