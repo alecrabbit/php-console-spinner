@@ -10,7 +10,6 @@ use AlecRabbit\Spinner\Contract\ISubject;
 use AlecRabbit\Spinner\Core\A\ASubject;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidget;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContext;
-use AlecRabbit\Spinner\Exception\LogicException;
 
 final class WidgetContext extends ASubject implements IWidgetContext
 {
@@ -21,16 +20,18 @@ final class WidgetContext extends ASubject implements IWidgetContext
         parent::__construct($observer);
     }
 
-    public function adoptWidget(IWidget $widget): void
+    public function setWidget(?IWidget $widget): void
     {
         $this->widget?->detach($this);
         $this->widget = $widget;
-        $this->widget->attach($this);
-    }
 
-    public function getWidget(): ?IWidget
-    {
-        return $this->widget;
+        if ($widget === null) {
+            $this->notify();
+            return;
+        }
+
+        $widget->attach($this);
+        $this->update($widget);
     }
 
     public function update(ISubject $subject): void
@@ -40,8 +41,13 @@ final class WidgetContext extends ASubject implements IWidgetContext
         }
     }
 
-    public function getInterval(): IInterval
+    public function getWidget(): ?IWidget
     {
-        return $this->widget->getInterval();
+        return $this->widget;
+    }
+
+    public function getInterval(): ?IInterval
+    {
+        return $this->widget?->getInterval();
     }
 }

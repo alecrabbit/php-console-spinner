@@ -11,6 +11,7 @@ use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContext;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContextContainer;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
+use AlecRabbit\Spinner\Exception\RuntimeException;
 use Traversable;
 use WeakMap;
 
@@ -52,18 +53,9 @@ final class WidgetContextContainer implements IWidgetContextContainer
     {
         if ($this->map->offsetExists($context)) {
             $this->map->offsetUnset($context);
-            $this->intervalContainer->remove($context->getWidget()->getInterval());
+            $this->intervalContainer->remove($context->getWidget()?->getInterval());
             $this->updateCount();
         }
-    }
-
-    /**
-     * @deprecated Questionable method
-     */
-    public function find(IWidgetComposite $widget): IWidgetContext
-    {
-        $context = $widget->getContext();
-        return $this->get($context);
     }
 
     public function get(IWidgetContext $context): IWidgetContext

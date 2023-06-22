@@ -25,15 +25,6 @@ abstract class AWidget extends ASubject implements IWidget
         parent::__construct($observer); // Context is the observer
     }
 
-    protected function adoptContext(?IWidgetContext $context): ?IWidgetContext
-    {
-        if ($context instanceof IWidgetContext) {
-            $context->adoptWidget($this);
-            $this->notify();
-        }
-        return $context;
-    }
-
     public function getInterval(): IInterval
     {
         return $this->revolver->getInterval();

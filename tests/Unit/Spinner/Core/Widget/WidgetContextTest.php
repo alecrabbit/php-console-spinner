@@ -56,7 +56,7 @@ final class WidgetContextTest extends TestCaseWithPrebuiltMocksAndStubs
     }
 
     #[Test]
-    public function canGetInterval(): void
+    public function canGetIntervalFromUnderlyingWidget(): void
     {
         $interval = $this->getIntervalMock();
         $widget = $this->getWidgetMock();
@@ -75,9 +75,19 @@ final class WidgetContextTest extends TestCaseWithPrebuiltMocksAndStubs
     }
 
     #[Test]
-    public function canAdoptWidgetComposite(): void
+    public function returnNullOnGetIntervalIfWidgetIsNotSet(): void
     {
         $widgetContext = $this->getTesteeInstance();
+
+        self::assertNull($widgetContext->getInterval());
+    }
+
+    #[Test]
+    public function canSetWidgetComposite(): void
+    {
+        $widgetContext = $this->getTesteeInstance();
+
+        self::assertNull($widgetContext->getWidget());
 
         $widgetComposite = $this->getWidgetCompositeMock();
         $widgetComposite
@@ -86,7 +96,7 @@ final class WidgetContextTest extends TestCaseWithPrebuiltMocksAndStubs
             ->with($widgetContext)
         ;
 
-        $widgetContext->adoptWidget($widgetComposite);
+        $widgetContext->setWidget($widgetComposite);
 
         self::assertInstanceOf(WidgetContext::class, $widgetContext);
         self::assertSame($widgetComposite, $widgetContext->getWidget());
@@ -114,7 +124,7 @@ final class WidgetContextTest extends TestCaseWithPrebuiltMocksAndStubs
             ->with($widgetContext)
         ;
 
-        $widgetContext->adoptWidget($widgetComposite);
+        $widgetContext->setWidget($widgetComposite);
 
         self::assertInstanceOf(WidgetContext::class, $widgetContext);
         self::assertSame($widgetComposite, $widgetContext->getWidget());
@@ -140,14 +150,43 @@ final class WidgetContextTest extends TestCaseWithPrebuiltMocksAndStubs
             ->with($widgetContext)
         ;
 
-        $widgetContext->adoptWidget($widget);
+        $widgetContext->setWidget($widget);
 
         self::assertInstanceOf(WidgetContext::class, $widgetContext);
         self::assertSame($widget, $widgetContext->getWidget());
     }
 
     #[Test]
-    public function canAdoptWidget(): void
+    public function canSetWidgetToNull(): void
+    {
+        $widgetComposite = $this->getWidgetCompositeMock();
+
+        $observer = $this->getObserverMock();
+
+        $widgetContext = $this->getTesteeInstance(
+            widget: $widgetComposite,
+            observer: $observer,
+        );
+        $observer
+            ->expects(self::once())
+            ->method('update')
+            ->with($widgetContext)
+        ;
+
+        $widgetComposite
+            ->expects(self::once())
+            ->method('detach')
+            ->with($widgetContext)
+        ;
+        $widget = null;
+
+        $widgetContext->setWidget($widget);
+
+        self::assertNull($widgetContext->getWidget());
+    }
+
+    #[Test]
+    public function canSetWidget(): void
     {
         $widgetComposite = $this->getWidgetCompositeMock();
 
@@ -157,7 +196,7 @@ final class WidgetContextTest extends TestCaseWithPrebuiltMocksAndStubs
 
         $widget = $this->getWidgetMock();
 
-        $widgetContext->adoptWidget($widget);
+        $widgetContext->setWidget($widget);
 
         self::assertInstanceOf(WidgetContext::class, $widgetContext);
         self::assertSame($widget, $widgetContext->getWidget());
@@ -180,6 +219,25 @@ final class WidgetContextTest extends TestCaseWithPrebuiltMocksAndStubs
             ->with($widgetContext)
         ;
         $widgetContext->update($widgetComposite);
+    }
+
+    #[Test]
+    public function willNotifyOnSetWidget(): void
+    {
+        $widgetComposite = $this->getWidgetCompositeMock();
+
+        $observer = $this->getObserverMock();
+
+        $widgetContext = $this->getTesteeInstance(
+            widget: $widgetComposite,
+            observer: $observer,
+        );
+        $observer
+            ->expects(self::once())
+            ->method('update')
+            ->with($widgetContext)
+        ;
+        $widgetContext->setWidget($widgetComposite);
     }
 
     #[Test]
