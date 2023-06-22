@@ -48,6 +48,7 @@ final class WidgetCompositeChildrenContainer extends ASubject implements IWidget
     {
         if (!$this->has($context)) {
             $context->attach($this);
+            
             $interval = $context->getInterval();
             $this->map->offsetSet($context, $interval);
             $this->checkInterval($interval);
