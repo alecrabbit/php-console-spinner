@@ -75,7 +75,7 @@ final class WidgetContextTest extends TestCaseWithPrebuiltMocksAndStubs
     }
 
     #[Test]
-    public function returnNullOnGetIntervalIfWidgetIsNotSet(): void
+    public function returnsNullOnGetIntervalIfWidgetIsNotSet(): void
     {
         $widgetContext = $this->getTesteeInstance();
 
