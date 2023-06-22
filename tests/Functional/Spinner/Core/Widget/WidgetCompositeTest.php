@@ -6,19 +6,23 @@ namespace AlecRabbit\Tests\Functional\Spinner\Core\Widget;
 
 use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Contract\IObserver;
-use AlecRabbit\Spinner\Core\CharFrame;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
-use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContext;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContextContainer;
 use AlecRabbit\Spinner\Core\Widget\WidgetComposite;
-use AlecRabbit\Spinner\Core\Widget\WidgetContextContainer;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;
 
 final class WidgetCompositeTest extends TestCaseWithPrebuiltMocksAndStubs
 {
-//
+
+    #[Test]
+    public function dummy(): void
+    {
+        // FIXME (2023-06-22 13:32) [Alec Rabbit]: remove method
+        self::assertTrue(true); // dummy test
+    }
+
 //    #[Test]
 //    public function canGetFrame(): void
 //    {
