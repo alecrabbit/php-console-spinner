@@ -35,11 +35,13 @@ use AlecRabbit\Spinner\Core\Contract\IFrameCollection;
 use AlecRabbit\Spinner\Core\Contract\IIntervalContainer;
 use AlecRabbit\Spinner\Core\Contract\IIntervalNormalizer;
 use AlecRabbit\Spinner\Core\Contract\ILoopAutoStarter;
+use AlecRabbit\Spinner\Core\Contract\INullableIntervalContainer;
 use AlecRabbit\Spinner\Core\Contract\ISettingsProvider;
 use AlecRabbit\Spinner\Core\Contract\ISignalHandlersSetup;
 use AlecRabbit\Spinner\Core\Contract\ISignalProcessingProbe;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use AlecRabbit\Spinner\Core\Contract\ISpinnerState;
+use AlecRabbit\Spinner\Core\Contract\IWeakMap;
 use AlecRabbit\Spinner\Core\Contract\Loop\Contract\ILoop;
 use AlecRabbit\Spinner\Core\Contract\Loop\Contract\ILoopProbe;
 use AlecRabbit\Spinner\Core\Factory\Contract\IBufferedOutputSingletonFactory;
@@ -86,6 +88,11 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
     protected function getWidgetConfigStub(): Stub&IWidgetConfig
     {
         return $this->createStub(IWidgetConfig::class);
+    }
+
+    protected function getWeakMapMock(): MockObject&IWeakMap
+    {
+        return $this->createMock(IWeakMap::class);
     }
 
     protected function createDefinitionRegistryMock(): MockObject&IDefinitionRegistry
@@ -191,6 +198,11 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
     protected function getLoopAutoStarterBuilderMock(): MockObject&ILoopAutoStarterBuilder
     {
         return $this->createMock(ILoopAutoStarterBuilder::class);
+    }
+
+    protected function getNullableIntervalContainerMock(): MockObject&INullableIntervalContainer
+    {
+        return $this->createMock(INullableIntervalContainer::class);
     }
 
     protected function getSignalHandlersSetupBuilderMock(): MockObject&ISignalHandlersSetupBuilder

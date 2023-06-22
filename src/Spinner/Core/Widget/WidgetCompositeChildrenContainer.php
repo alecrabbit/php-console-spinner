@@ -8,6 +8,8 @@ use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Contract\IObserver;
 use AlecRabbit\Spinner\Contract\ISubject;
 use AlecRabbit\Spinner\Core\A\ASubject;
+use AlecRabbit\Spinner\Core\Contract\INullableIntervalContainer;
+use AlecRabbit\Spinner\Core\NullableIntervalContainer;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetCompositeChildrenContainer;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContext;
 use AlecRabbit\Spinner\Exception\LogicException;
@@ -20,6 +22,7 @@ final class WidgetCompositeChildrenContainer extends ASubject implements IWidget
 
     public function __construct(
         protected readonly WeakMap $map = new WeakMap(),
+        protected readonly INullableIntervalContainer $intervalContainer = new NullableIntervalContainer(),
         ?IObserver $observer = null,
     ) {
         parent::__construct($observer);
@@ -50,6 +53,7 @@ final class WidgetCompositeChildrenContainer extends ASubject implements IWidget
     protected function checkInterval(IWidgetContext $context): void
     {
         $interval = $context->getWidget()?->getInterval();
+        $this->intervalContainer->add($interval);
         if ($interval instanceof IInterval && $interval->smallest($this->interval) === $interval) {
             $this->notify();
         }

@@ -6,6 +6,7 @@ namespace AlecRabbit\Tests\Unit\Spinner\Core\Widget;
 
 use AlecRabbit\Spinner\Contract\IObserver;
 use AlecRabbit\Spinner\Contract\ISubject;
+use AlecRabbit\Spinner\Core\Contract\INullableIntervalContainer;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetCompositeChildrenContainer;
 use AlecRabbit\Spinner\Core\Widget\WidgetCompositeChildrenContainer;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
@@ -26,10 +27,12 @@ final class WidgetCompositeChildrenContainerTest extends TestCaseWithPrebuiltMoc
 
     public function getTesteeInstance(
         ?WeakMap $map = null,
+        ?INullableIntervalContainer $intervalContainer = null,
         ?IObserver $observer = null,
     ): IWidgetCompositeChildrenContainer {
         return new WidgetCompositeChildrenContainer(
             map: $map ?? new WeakMap(),
+            intervalContainer: $intervalContainer ?? $this->getNullableIntervalContainerMock(),
             observer: $observer,
         );
     }
@@ -128,6 +131,7 @@ final class WidgetCompositeChildrenContainerTest extends TestCaseWithPrebuiltMoc
             map: $map,
         );
 
+        /** @noinspection PhpUnhandledExceptionInspection */
         $iterator = $container->getIterator();
 
         self::assertSame($map, $iterator);
@@ -158,6 +162,48 @@ final class WidgetCompositeChildrenContainerTest extends TestCaseWithPrebuiltMoc
         $observer = $this->getObserverMock();
 
         $container = $this->getTesteeInstance(
+            observer: $observer,
+        );
+
+        $observer
+            ->expects(self::once())
+            ->method('update')
+            ->with($container);
+
+        $container->add($context);
+    }
+    #[Test]
+    public function intervalContainerMethodAddInvokedOnContextAdd(): void
+    {
+        $interval = $this->getIntervalMock();
+        $interval
+            ->expects(self::once())
+            ->method('smallest')
+            ->with(null)
+            ->willReturnSelf();
+
+        $widget = $this->getWidgetMock();
+        $widget
+            ->expects(self::once())
+            ->method('getInterval')
+            ->willReturn($interval);
+
+        $context = $this->getWidgetContextMock();
+        $context
+            ->expects(self::once())
+            ->method('getWidget')
+            ->willReturn($widget);
+
+        $observer = $this->getObserverMock();
+
+        $intervalContainer = $this->getNullableIntervalContainerMock();
+        $intervalContainer
+            ->expects(self::once())
+            ->method('add')
+            ->with($interval);
+
+        $container = $this->getTesteeInstance(
+            intervalContainer: $intervalContainer,
             observer: $observer,
         );
 

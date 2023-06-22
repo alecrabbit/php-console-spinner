@@ -8,6 +8,9 @@ use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Contract\IObserver;
 use AlecRabbit\Spinner\Core\A\ASubject;
 use AlecRabbit\Spinner\Core\Contract\INullableIntervalContainer;
+use ArrayAccess;
+use Countable;
+use IteratorAggregate;
 use WeakMap;
 
 final class NullableIntervalContainer extends ASubject implements INullableIntervalContainer
@@ -15,7 +18,7 @@ final class NullableIntervalContainer extends ASubject implements INullableInter
     protected ?IInterval $smallest = null;
 
     public function __construct(
-        protected readonly WeakMap $map = new WeakMap(),
+        protected readonly ArrayAccess&Countable&IteratorAggregate $map = new WeakMap(),
         ?IObserver $observer = null,
     ) {
         parent::__construct($observer);
