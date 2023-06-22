@@ -7,6 +7,7 @@ namespace AlecRabbit\Tests\Unit\Spinner\Core\Widget;
 use AlecRabbit\Spinner\Contract\IObserver;
 use AlecRabbit\Spinner\Contract\ISubject;
 use AlecRabbit\Spinner\Core\Contract\INullableIntervalContainer;
+use AlecRabbit\Spinner\Core\Contract\IWeakMap;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetCompositeChildrenContainer;
 use AlecRabbit\Spinner\Core\Widget\WidgetCompositeChildrenContainer;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
@@ -23,6 +24,18 @@ final class WidgetCompositeChildrenContainerTest extends TestCaseWithPrebuiltMoc
         $container = $this->getTesteeInstance();
 
         self::assertInstanceOf(WidgetCompositeChildrenContainer::class, $container);
+    }
+
+    public function getTesteeInstance(
+        null|IWeakMap|\WeakMap $map = null,
+        ?INullableIntervalContainer $intervalContainer = null,
+        ?IObserver $observer = null,
+    ): IWidgetCompositeChildrenContainer {
+        return new WidgetCompositeChildrenContainer(
+            map: $map ?? $this->getWeakMapMock(),
+            intervalContainer: $intervalContainer ?? $this->getNullableIntervalContainerMock(),
+            observer: $observer,
+        );
     }
 
     #[Test]
@@ -62,18 +75,6 @@ final class WidgetCompositeChildrenContainerTest extends TestCaseWithPrebuiltMoc
         $container->add($context);
     }
 
-    public function getTesteeInstance(
-        ?WeakMap $map = null,
-        ?INullableIntervalContainer $intervalContainer = null,
-        ?IObserver $observer = null,
-    ): IWidgetCompositeChildrenContainer {
-        return new WidgetCompositeChildrenContainer(
-            map: $map ?? new WeakMap(),
-            intervalContainer: $intervalContainer ?? $this->getNullableIntervalContainerMock(),
-            observer: $observer,
-        );
-    }
-
     #[Test]
     public function isInstanceOfObserver(): void
     {
@@ -93,14 +94,38 @@ final class WidgetCompositeChildrenContainerTest extends TestCaseWithPrebuiltMoc
     #[Test]
     public function canAddWidgetContextToContainer(): void
     {
+        $map = $this->getWeakMapMock();
+
         $context = $this->getWidgetContextMock();
 
-        $container = $this->getTesteeInstance();
+        $map
+            ->expects(self::once())
+            ->method('offsetSet')
+            ->with($context)
+        ;
 
+        $container = $this->getTesteeInstance(
+            map: $map,
+        );
+        $context
+            ->expects(self::once())
+            ->method('attach')
+            ->with($container)
+        ;
+        $map
+            ->expects(self::once())
+            ->method('offsetExists')
+            ->with($context)
+            ->willReturn(false)
+        ;
+        $map
+            ->expects(self::once())
+            ->method('count')
+            ->willReturn(1)
+        ;
         $context = $container->add($context);
 
         self::assertSame($context, $context);
-        self::assertTrue($container->has($context));
         self::assertFalse($container->isEmpty());
     }
 
@@ -114,7 +139,8 @@ final class WidgetCompositeChildrenContainerTest extends TestCaseWithPrebuiltMoc
         $context
             ->expects(self::once())
             ->method('attach')
-            ->with($container);
+            ->with($container)
+        ;
 
         $container->add($context);
     }
@@ -122,16 +148,21 @@ final class WidgetCompositeChildrenContainerTest extends TestCaseWithPrebuiltMoc
     #[Test]
     public function containerIsDetachedAsObserverFromRemovedWidgetContext(): void
     {
+        $map = new \WeakMap();
+
         $context = $this->getWidgetContextMock();
 
-        $container = $this->getTesteeInstance();
+        $container = $this->getTesteeInstance(
+            map: $map,
+        );
 
         $container->add($context);
 
         $context
             ->expects(self::once())
             ->method('detach')
-            ->with($container);
+            ->with($container)
+        ;
 
         $container->remove($context);
     }
@@ -182,19 +213,22 @@ final class WidgetCompositeChildrenContainerTest extends TestCaseWithPrebuiltMoc
             ->expects(self::once())
             ->method('smallest')
             ->with(null)
-            ->willReturnSelf();
+            ->willReturnSelf()
+        ;
 
         $widget = $this->getWidgetMock();
         $widget
             ->expects(self::once())
             ->method('getInterval')
-            ->willReturn($interval);
+            ->willReturn($interval)
+        ;
 
         $context = $this->getWidgetContextMock();
         $context
             ->expects(self::once())
             ->method('getWidget')
-            ->willReturn($widget);
+            ->willReturn($widget)
+        ;
 
         $observer = $this->getObserverMock();
 
@@ -205,10 +239,12 @@ final class WidgetCompositeChildrenContainerTest extends TestCaseWithPrebuiltMoc
         $observer
             ->expects(self::once())
             ->method('update')
-            ->with($container);
+            ->with($container)
+        ;
 
         $container->add($context);
     }
+
     #[Test]
     public function intervalContainerMethodAddInvokedOnContextAdd(): void
     {
@@ -217,19 +253,22 @@ final class WidgetCompositeChildrenContainerTest extends TestCaseWithPrebuiltMoc
             ->expects(self::once())
             ->method('smallest')
             ->with(null)
-            ->willReturnSelf();
+            ->willReturnSelf()
+        ;
 
         $widget = $this->getWidgetMock();
         $widget
             ->expects(self::once())
             ->method('getInterval')
-            ->willReturn($interval);
+            ->willReturn($interval)
+        ;
 
         $context = $this->getWidgetContextMock();
         $context
             ->expects(self::once())
             ->method('getWidget')
-            ->willReturn($widget);
+            ->willReturn($widget)
+        ;
 
         $observer = $this->getObserverMock();
 
@@ -237,7 +276,8 @@ final class WidgetCompositeChildrenContainerTest extends TestCaseWithPrebuiltMoc
         $intervalContainer
             ->expects(self::once())
             ->method('add')
-            ->with($interval);
+            ->with($interval)
+        ;
 
         $container = $this->getTesteeInstance(
             intervalContainer: $intervalContainer,
@@ -247,7 +287,8 @@ final class WidgetCompositeChildrenContainerTest extends TestCaseWithPrebuiltMoc
         $observer
             ->expects(self::once())
             ->method('update')
-            ->with($container);
+            ->with($container)
+        ;
 
         $container->add($context);
     }

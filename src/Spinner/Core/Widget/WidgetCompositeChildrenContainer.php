@@ -13,6 +13,9 @@ use AlecRabbit\Spinner\Core\NullableIntervalContainer;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetCompositeChildrenContainer;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContext;
 use AlecRabbit\Spinner\Exception\LogicException;
+use ArrayAccess;
+use Countable;
+use IteratorAggregate;
 use Traversable;
 use WeakMap;
 
@@ -21,7 +24,7 @@ final class WidgetCompositeChildrenContainer extends ASubject implements IWidget
     protected ?IInterval $interval = null;
 
     public function __construct(
-        protected readonly WeakMap $map = new WeakMap(),
+        protected readonly ArrayAccess&Countable&IteratorAggregate $map = new WeakMap(),
         protected readonly INullableIntervalContainer $intervalContainer = new NullableIntervalContainer(),
         ?IObserver $observer = null,
     ) {
