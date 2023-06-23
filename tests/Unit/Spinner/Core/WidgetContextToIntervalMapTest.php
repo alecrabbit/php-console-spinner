@@ -213,7 +213,7 @@ final class WidgetContextToIntervalMapTest extends TestCaseWithPrebuiltMocksAndS
 
         $container->offsetUnset($this->getWidgetContextMock());
         $container->offsetUnset($this->getWidgetContextMock());
-        
+
         // dummy assertion to prevent risky test
         self::assertCount(0, $container);
     }

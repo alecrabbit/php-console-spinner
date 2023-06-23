@@ -5,15 +5,17 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Functional\Spinner\Core\Widget;
 
 use AlecRabbit\Spinner\Contract\IObserver;
-use AlecRabbit\Spinner\Core\Contract\INullableIntervalContainer;
 use AlecRabbit\Spinner\Core\Interval;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetCompositeChildrenContainer;
 use AlecRabbit\Spinner\Core\Widget\Widget;
 use AlecRabbit\Spinner\Core\Widget\WidgetCompositeChildrenContainer;
 use AlecRabbit\Spinner\Core\Widget\WidgetContext;
+use AlecRabbit\Spinner\Core\WidgetContextToIntervalMap;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
+use ArrayAccess;
+use Countable;
+use IteratorAggregate;
 use PHPUnit\Framework\Attributes\Test;
-use WeakMap;
 
 final class WidgetCompositeChildrenContainerTest extends TestCaseWithPrebuiltMocksAndStubs
 {
@@ -47,20 +49,18 @@ final class WidgetCompositeChildrenContainerTest extends TestCaseWithPrebuiltMoc
             trailingSpacer: $this->getFrameMock(),
         );
 
-        $container = $this->getTesteeInstance(
-            map: new \WeakMap(),
-        );
+        $container = $this->getTesteeInstance();
         self::assertNull($container->getInterval());
 
         $context = new WidgetContext();
 
-//        $container->add($context);
+        $container->add($context);
 
         $context->setWidget($widget);
         self::assertSame($interval, $context->getInterval());
 
-        $container->add($context);
-
+        $container->add($context); // should have no effect
+        
         self::assertSame($interval, $container->getInterval());
 
         $context->setWidget($newWidget);
@@ -68,13 +68,11 @@ final class WidgetCompositeChildrenContainerTest extends TestCaseWithPrebuiltMoc
     }
 
     public function getTesteeInstance(
-        ?WeakMap $map = null,
-        ?INullableIntervalContainer $intervalContainer = null,
+        null|(ArrayAccess&Countable&IteratorAggregate) $map = null,
         ?IObserver $observer = null,
     ): IWidgetCompositeChildrenContainer {
         return new WidgetCompositeChildrenContainer(
-            map: $map ?? new WeakMap(),
-//            intervalContainer: $intervalContainer ?? $this->getNullableIntervalContainerMock(),
+            map: $map ?? new WidgetContextToIntervalMap(),
             observer: $observer,
         );
     }

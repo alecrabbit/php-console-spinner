@@ -10,6 +10,7 @@ use AlecRabbit\Spinner\Contract\ISubject;
 use AlecRabbit\Spinner\Core\A\ASubject;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetCompositeChildrenContainer;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContext;
+use AlecRabbit\Spinner\Core\WidgetContextToIntervalMap;
 use ArrayAccess;
 use Countable;
 use IteratorAggregate;
@@ -21,7 +22,7 @@ final class WidgetCompositeChildrenContainer extends ASubject implements IWidget
     protected ?IInterval $interval = null;
 
     public function __construct(
-        protected readonly ArrayAccess&Countable&IteratorAggregate $map = new WeakMap(),
+        protected readonly ArrayAccess&Countable&IteratorAggregate $map = new WidgetContextToIntervalMap(),
 //        protected readonly INullableIntervalContainer $intervalContainer = new NullableIntervalContainer(),
         ?IObserver $observer = null,
     ) {
