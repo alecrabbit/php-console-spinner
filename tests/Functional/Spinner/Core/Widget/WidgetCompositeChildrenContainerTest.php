@@ -6,8 +6,10 @@ namespace AlecRabbit\Tests\Functional\Spinner\Core\Widget;
 
 use AlecRabbit\Spinner\Contract\IObserver;
 use AlecRabbit\Spinner\Core\Contract\INullableIntervalContainer;
+use AlecRabbit\Spinner\Core\Interval;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetCompositeChildrenContainer;
 use AlecRabbit\Spinner\Core\Widget\WidgetCompositeChildrenContainer;
+use AlecRabbit\Spinner\Core\Widget\WidgetContext;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;
 use WeakMap;
@@ -67,6 +69,30 @@ final class WidgetCompositeChildrenContainerTest extends TestCaseWithPrebuiltMoc
 //        $context = $this->getWidgetContextMock();
 //
 //        $container->add($context);
+//    }
+
+//    #[Test]
+//    public function canBeUpdatedByAddedContext(): void
+//    {
+//        $map = new \WeakMap();
+//
+//        $interval = new Interval(100);
+//
+//        $context = new WidgetContext();
+//
+//        $container = $this->getTesteeInstance(
+//            map: $map,
+//        );
+//
+//        $container->add($context);
+//
+//        $context
+//            ->expects(self::once())
+//            ->method('detach')
+//            ->with($container)
+//        ;
+//
+//        $container->remove($context);
 //    }
 
     public function getTesteeInstance(

@@ -22,7 +22,7 @@ abstract class AWidget extends ASubject implements IWidget
         protected readonly IFrame $trailingSpacer,
         protected ?IObserver $observer = null,
     ) {
-        parent::__construct($observer); // Context is the observer
+        parent::__construct($observer);
     }
 
     public function getInterval(): IInterval

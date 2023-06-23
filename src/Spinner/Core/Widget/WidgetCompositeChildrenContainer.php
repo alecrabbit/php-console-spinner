@@ -8,8 +8,6 @@ use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Contract\IObserver;
 use AlecRabbit\Spinner\Contract\ISubject;
 use AlecRabbit\Spinner\Core\A\ASubject;
-use AlecRabbit\Spinner\Core\Contract\INullableIntervalContainer;
-use AlecRabbit\Spinner\Core\NullableIntervalContainer;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetCompositeChildrenContainer;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContext;
 use ArrayAccess;
@@ -48,7 +46,7 @@ final class WidgetCompositeChildrenContainer extends ASubject implements IWidget
     {
         if (!$this->has($context)) {
             $context->attach($this);
-            
+
             $interval = $context->getInterval();
             $this->map->offsetSet($context, $interval);
             $this->checkInterval($interval);
@@ -56,17 +54,19 @@ final class WidgetCompositeChildrenContainer extends ASubject implements IWidget
         return $context;
     }
 
-    protected function checkInterval(?IInterval $interval): void
-    {
-//        $this->intervalContainer->add($interval);
-        if ($interval instanceof IInterval && $interval->smallest($this->interval) === $interval) {
-            $this->notify();
-        }
-    }
-
     public function getInterval(): ?IInterval
     {
         return $this->interval;
+    }
+
+    protected function checkInterval(?IInterval $interval): void
+    {
+        if ($interval instanceof IInterval) {
+            $this->interval = $interval->smallest($this->interval);
+            if ($interval === $this->interval) {
+                $this->notify();
+            }
+        }
     }
 
     public function getIterator(): Traversable

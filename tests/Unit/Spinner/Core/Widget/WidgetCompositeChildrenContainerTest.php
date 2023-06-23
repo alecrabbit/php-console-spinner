@@ -44,6 +44,7 @@ final class WidgetCompositeChildrenContainerTest extends TestCaseWithPrebuiltMoc
         $observer = $this->getObserverMock();
 
         $container = $this->getTesteeInstance(
+            map: new \WeakMap(),
             observer: $observer,
         );
 
@@ -68,6 +69,7 @@ final class WidgetCompositeChildrenContainerTest extends TestCaseWithPrebuiltMoc
         ;
 
         $container->add($context);
+        self::assertSame($interval, $container->getInterval());
     }
 
     #[Test]
