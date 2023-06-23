@@ -2,11 +2,12 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Spinner\Core\Widget;
+namespace AlecRabbit\Spinner\Core\Widget\Builder;
 
 use AlecRabbit\Spinner\Core\Revolver\A\ARevolverBuilder;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolverBuilder;
+use AlecRabbit\Spinner\Core\Widget\WidgetRevolver;
 use AlecRabbit\Spinner\Exception\LogicException;
 
 final class WidgetRevolverBuilder extends ARevolverBuilder implements IWidgetRevolverBuilder

@@ -88,14 +88,14 @@ use AlecRabbit\Spinner\Core\Revolver\FrameRevolverBuilder;
 use AlecRabbit\Spinner\Core\Settings\Contract\IDriverSettings;
 use AlecRabbit\Spinner\Core\SignalHandlersSetup;
 use AlecRabbit\Spinner\Core\Terminal\NativeTerminalProbe;
+use AlecRabbit\Spinner\Core\Widget\Builder\WidgetCompositeBuilder;
+use AlecRabbit\Spinner\Core\Widget\Builder\WidgetRevolverBuilder;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetCompositeBuilder;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolverBuilder;
 use AlecRabbit\Spinner\Core\Widget\Factory\Contract\IWidgetCompositeFactory;
 use AlecRabbit\Spinner\Core\Widget\Factory\Contract\IWidgetRevolverFactory;
 use AlecRabbit\Spinner\Core\Widget\Factory\WidgetCompositeFactory;
 use AlecRabbit\Spinner\Core\Widget\Factory\WidgetRevolverFactory;
-use AlecRabbit\Spinner\Core\Widget\WidgetCompositeBuilder;
-use AlecRabbit\Spinner\Core\Widget\WidgetRevolverBuilder;
 use AlecRabbit\Spinner\Exception\DomainException;
 use Psr\Container\ContainerInterface;
 
