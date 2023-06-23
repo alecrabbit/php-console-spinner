@@ -6,92 +6,59 @@ namespace AlecRabbit\Tests\Functional\Spinner\Core\Widget;
 
 use AlecRabbit\Spinner\Contract\IObserver;
 use AlecRabbit\Spinner\Core\Contract\INullableIntervalContainer;
+use AlecRabbit\Spinner\Core\Interval;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetCompositeChildrenContainer;
+use AlecRabbit\Spinner\Core\Widget\Widget;
 use AlecRabbit\Spinner\Core\Widget\WidgetCompositeChildrenContainer;
+use AlecRabbit\Spinner\Core\Widget\WidgetContext;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;
 use WeakMap;
 
 final class WidgetCompositeChildrenContainerTest extends TestCaseWithPrebuiltMocksAndStubs
 {
-
-//    #[Test]
-//    public function canOperateWithIntervals(): void
-//    {
-//        $intervalContainer = new NullableIntervalContainer();
-//
-//        $interval0 = new Interval(100);
-//        $interval1 = new Interval(200);
-//        $interval2 = new Interval(300);
-//        $interval3 = new Interval(400);
-//        $interval4 = new Interval(800);
-//        $interval5 = new Interval(1000);
-//
-//        $intervalContainer->add($interval0);
-//        $intervalContainer->add($interval1);
-//        $intervalContainer->add($interval2);
-//        $intervalContainer->add($interval3);
-//        $intervalContainer->add($interval4);
-//        $intervalContainer->add($interval5);
-//
-//        self::assertSame($interval0, $intervalContainer->getSmallest());
-//        $intervalContainer->remove($interval1);
-//        self::assertSame($interval0, $intervalContainer->getSmallest());
-//        $intervalContainer->remove($interval0);
-//        self::assertSame($interval2, $intervalContainer->getSmallest());
-//        $intervalContainer->remove($interval2);
-//        self::assertSame($interval3, $intervalContainer->getSmallest());
-//        $intervalContainer->remove($interval5);
-//        self::assertSame($interval3, $intervalContainer->getSmallest());
-//        $intervalContainer->remove($interval3);
-//        self::assertSame($interval4, $intervalContainer->getSmallest());
-//        $intervalContainer->remove($interval4);
-//        self::assertNull($intervalContainer->getSmallest());
-//    }
-
-//    #[Test]
-//    public function observerGetsNotifiedAndCanGetInterval(): void
-//    {
-//        $observer = $this->getObserverMock();
-//
-//        $container = $this->getTesteeInstance(
-//            observer: $observer,
-//        );
-//
-//        $observer
-//            ->expects(self::once())
-//            ->method('update')
-//            ->with($container)
-//        ;
-//
-//        $context = $this->getWidgetContextMock();
-//
-//        $container->add($context);
-//    }
-
-//    #[Test]
-//    public function canBeUpdatedByAddedContext(): void
-//    {
-//        $map = new \WeakMap();
-//
-//        $interval = new Interval(100);
-//
-//        $context = new WidgetContext();
-//
-//        $container = $this->getTesteeInstance(
-//            map: $map,
-//        );
-//
-//        $container->add($context);
-//        $container->update($context);
-//    }
-
     #[Test]
-    public function canBeCreated(): void
+    public function canBeUpdatedByAddedContext(): void
     {
-        $container = $this->getTesteeInstance();
+        $interval = new Interval(100);
+        $newInterval = new Interval(80);
 
-        self::assertInstanceOf(WidgetCompositeChildrenContainer::class, $container);
+        $revolver = $this->getRevolverMock();
+        $revolver
+            ->method('getInterval')
+            ->willReturn($interval)
+        ;
+
+        $newRevolver = $this->getRevolverMock();
+        $newRevolver
+            ->method('getInterval')
+            ->willReturn($newInterval)
+        ;
+
+        $widget = new Widget(
+            revolver: $revolver,
+            leadingSpacer: $this->getFrameMock(),
+            trailingSpacer: $this->getFrameMock(),
+        );
+
+        $newWidget = new Widget(
+            revolver: $newRevolver,
+            leadingSpacer: $this->getFrameMock(),
+            trailingSpacer: $this->getFrameMock(),
+        );
+
+        $container = $this->getTesteeInstance(
+            map: new \WeakMap(),
+        );
+        self::assertNull($container->getInterval());
+
+        $context = new WidgetContext();
+        $context->setWidget($widget);
+
+        $container->add($context);
+        self::assertSame($interval, $container->getInterval());
+        $context->setWidget($newWidget);
+        self::assertSame($newInterval, $container->getInterval());
     }
 
     public function getTesteeInstance(
@@ -104,5 +71,13 @@ final class WidgetCompositeChildrenContainerTest extends TestCaseWithPrebuiltMoc
 //            intervalContainer: $intervalContainer ?? $this->getNullableIntervalContainerMock(),
             observer: $observer,
         );
+    }
+
+    #[Test]
+    public function canBeCreated(): void
+    {
+        $container = $this->getTesteeInstance();
+
+        self::assertInstanceOf(WidgetCompositeChildrenContainer::class, $container);
     }
 }
