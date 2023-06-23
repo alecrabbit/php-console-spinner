@@ -53,10 +53,12 @@ final class WidgetCompositeChildrenContainerTest extends TestCaseWithPrebuiltMoc
         self::assertNull($container->getInterval());
 
         $context = new WidgetContext();
+
         $context->setWidget($widget);
+        self::assertSame($interval, $context->getInterval());
+
         $container->add($context);
 
-        self::assertSame($interval, $context->getInterval());
         self::assertSame($interval, $container->getInterval());
 
         $context->setWidget($newWidget);
