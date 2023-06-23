@@ -88,14 +88,17 @@ use AlecRabbit\Spinner\Core\Revolver\FrameRevolverBuilder;
 use AlecRabbit\Spinner\Core\Settings\Contract\IDriverSettings;
 use AlecRabbit\Spinner\Core\SignalHandlersSetup;
 use AlecRabbit\Spinner\Core\Terminal\NativeTerminalProbe;
+use AlecRabbit\Spinner\Core\Widget\Builder\WidgetBuilder;
 use AlecRabbit\Spinner\Core\Widget\Builder\WidgetCompositeBuilder;
 use AlecRabbit\Spinner\Core\Widget\Builder\WidgetRevolverBuilder;
+use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetBuilder;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetCompositeBuilder;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolverBuilder;
 use AlecRabbit\Spinner\Core\Widget\Factory\Contract\IWidgetCompositeFactory;
 use AlecRabbit\Spinner\Core\Widget\Factory\Contract\IWidgetFactory;
 use AlecRabbit\Spinner\Core\Widget\Factory\Contract\IWidgetRevolverFactory;
 use AlecRabbit\Spinner\Core\Widget\Factory\WidgetCompositeFactory;
+use AlecRabbit\Spinner\Core\Widget\Factory\WidgetFactory;
 use AlecRabbit\Spinner\Core\Widget\Factory\WidgetRevolverFactory;
 use AlecRabbit\Spinner\Exception\DomainException;
 use Psr\Container\ContainerInterface;
@@ -140,8 +143,10 @@ function definitions(): Traversable
         IStyleFrameRevolverFactory::class => StyleFrameRevolverFactory::class,
         ITimerBuilder::class => TimerBuilder::class,
         ITimerFactory::class => TimerFactory::class,
+        IWidgetBuilder::class => WidgetBuilder::class,
         IWidgetCompositeBuilder::class => WidgetCompositeBuilder::class,
-        IWidgetFactory::class => WidgetCompositeFactory::class,
+        IWidgetFactory::class => WidgetFactory::class,
+        IWidgetCompositeFactory::class => WidgetCompositeFactory::class,
         IWidgetRevolverBuilder::class => WidgetRevolverBuilder::class,
         IWidgetRevolverFactory::class => WidgetRevolverFactory::class,
         IWidgetSettingsBuilder::class => WidgetSettingsBuilder::class,
