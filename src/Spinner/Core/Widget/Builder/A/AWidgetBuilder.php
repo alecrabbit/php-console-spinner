@@ -6,7 +6,6 @@ namespace AlecRabbit\Spinner\Core\Widget\Builder\A;
 
 use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
-use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetBuilder;
 use LogicException;
 
 abstract class AWidgetBuilder

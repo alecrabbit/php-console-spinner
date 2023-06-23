@@ -4,7 +4,11 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Contract;
 
-interface IWeakMap extends \ArrayAccess, \Countable, \IteratorAggregate
+use ArrayAccess;
+use Countable;
+use IteratorAggregate;
+
+interface IWeakMap extends ArrayAccess, Countable, IteratorAggregate
 {
 
 }

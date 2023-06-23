@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Widget\Contract;
 
-use AlecRabbit\Spinner\Contract\IHasNullableInterval;
 use AlecRabbit\Spinner\Contract\ICanBeEmpty;
+use AlecRabbit\Spinner\Contract\IHasNullableInterval;
 use AlecRabbit\Spinner\Contract\IObserver;
 use AlecRabbit\Spinner\Contract\ISubject;
 use Countable;
