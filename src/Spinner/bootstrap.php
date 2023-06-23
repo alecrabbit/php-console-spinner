@@ -90,9 +90,9 @@ use AlecRabbit\Spinner\Core\SignalHandlersSetup;
 use AlecRabbit\Spinner\Core\Terminal\NativeTerminalProbe;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetCompositeBuilder;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolverBuilder;
-use AlecRabbit\Spinner\Core\Widget\Factory\Contract\IWidgetFactory;
+use AlecRabbit\Spinner\Core\Widget\Factory\Contract\IWidgetCompositeFactory;
 use AlecRabbit\Spinner\Core\Widget\Factory\Contract\IWidgetRevolverFactory;
-use AlecRabbit\Spinner\Core\Widget\Factory\WidgetFactory;
+use AlecRabbit\Spinner\Core\Widget\Factory\WidgetCompositeFactory;
 use AlecRabbit\Spinner\Core\Widget\Factory\WidgetRevolverFactory;
 use AlecRabbit\Spinner\Core\Widget\WidgetCompositeBuilder;
 use AlecRabbit\Spinner\Core\Widget\WidgetRevolverBuilder;
@@ -140,7 +140,7 @@ function definitions(): Traversable
         ITimerBuilder::class => TimerBuilder::class,
         ITimerFactory::class => TimerFactory::class,
         IWidgetCompositeBuilder::class => WidgetCompositeBuilder::class,
-        IWidgetFactory::class => WidgetFactory::class,
+        IWidgetCompositeFactory::class => WidgetCompositeFactory::class,
         IWidgetRevolverBuilder::class => WidgetRevolverBuilder::class,
         IWidgetRevolverFactory::class => WidgetRevolverFactory::class,
         IWidgetSettingsBuilder::class => WidgetSettingsBuilder::class,

@@ -78,7 +78,7 @@ use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetCompositeBuilder;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContext;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContextContainer;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolverBuilder;
-use AlecRabbit\Spinner\Core\Widget\Factory\Contract\IWidgetFactory;
+use AlecRabbit\Spinner\Core\Widget\Factory\Contract\IWidgetCompositeFactory;
 use AlecRabbit\Spinner\Core\Widget\Factory\Contract\IWidgetRevolverFactory;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\MockObject\Stub;
@@ -240,9 +240,9 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
         return $this->createMock(IWidgetConfig::class);
     }
 
-    protected function getWidgetFactoryMock(): MockObject&IWidgetFactory
+    protected function getWidgetCompositeFactoryMock(): MockObject&IWidgetCompositeFactory
     {
-        return $this->createMock(IWidgetFactory::class);
+        return $this->createMock(IWidgetCompositeFactory::class);
     }
 
     protected function getWidgetSettingsFactoryMock(): MockObject&IWidgetSettingsFactory

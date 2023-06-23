@@ -5,27 +5,27 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Widget\Factory;
 
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetCompositeBuilder;
-use AlecRabbit\Spinner\Core\Widget\Factory\Contract\IWidgetFactory;
+use AlecRabbit\Spinner\Core\Widget\Factory\Contract\IWidgetCompositeFactory;
 use AlecRabbit\Spinner\Core\Widget\Factory\Contract\IWidgetRevolverFactory;
-use AlecRabbit\Spinner\Core\Widget\Factory\WidgetFactory;
+use AlecRabbit\Spinner\Core\Widget\Factory\WidgetCompositeFactory;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;
 
-final class WidgetFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
+final class WidgetCompositeFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
 {
     #[Test]
     public function canBeCreated(): void
     {
         $widgetFactory = $this->getTesteeInstance();
 
-        self::assertInstanceOf(WidgetFactory::class, $widgetFactory);
+        self::assertInstanceOf(WidgetCompositeFactory::class, $widgetFactory);
     }
 
     public function getTesteeInstance(
         ?IWidgetCompositeBuilder $widgetBuilder = null,
         ?IWidgetRevolverFactory $widgetRevolverFactory = null,
-    ): IWidgetFactory {
-        return new WidgetFactory(
+    ): IWidgetCompositeFactory {
+        return new WidgetCompositeFactory(
             widgetBuilder: $widgetBuilder ?? $this->getWidgetBuilderMock(),
             widgetRevolverFactory: $widgetRevolverFactory ?? $this->getWidgetRevolverFactoryMock(),
         );
@@ -92,7 +92,7 @@ final class WidgetFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
             widgetRevolverFactory: $widgetRevolverFactory,
         );
 
-        self::assertInstanceOf(WidgetFactory::class, $widgetFactory);
+        self::assertInstanceOf(WidgetCompositeFactory::class, $widgetFactory);
         self::assertSame($widgetComposite, $widgetFactory->createWidget($widgetSettings));
     }
 }

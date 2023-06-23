@@ -9,7 +9,7 @@ use AlecRabbit\Spinner\Core\Factory\Contract\ISpinnerFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IWidgetSettingsFactory;
 use AlecRabbit\Spinner\Core\Factory\SpinnerFactory;
 use AlecRabbit\Spinner\Core\Spinner;
-use AlecRabbit\Spinner\Core\Widget\Factory\Contract\IWidgetFactory;
+use AlecRabbit\Spinner\Core\Widget\Factory\Contract\IWidgetCompositeFactory;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;
 
@@ -25,12 +25,12 @@ final class SpinnerFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
 
     public function getTesteeInstance(
         ?ISettingsProvider $settingsProvider = null,
-        ?IWidgetFactory $widgetFactory = null,
+        ?IWidgetCompositeFactory $widgetFactory = null,
         ?IWidgetSettingsFactory $widgetSettingsFactory = null,
     ): ISpinnerFactory {
         return new SpinnerFactory(
             settingsProvider: $settingsProvider ?? $this->getSettingsProviderMock(),
-            widgetFactory: $widgetFactory ?? $this->getWidgetFactoryMock(),
+            widgetFactory: $widgetFactory ?? $this->getWidgetCompositeFactoryMock(),
             widgetSettingsFactory: $widgetSettingsFactory ?? $this->getWidgetSettingsFactoryMock(),
         );
     }
@@ -90,7 +90,7 @@ final class SpinnerFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
 
         $widget = $this->getWidgetCompositeMock();
 
-        $widgetFactory = $this->getWidgetFactoryMock();
+        $widgetFactory = $this->getWidgetCompositeFactoryMock();
         $widgetFactory
             ->expects(self::once())
             ->method('createWidget')
@@ -144,7 +144,7 @@ final class SpinnerFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
         $widget = $this->getWidgetCompositeMock();
         $widgetSettings = $this->getWidgetSettingsMock();
 
-        $widgetFactory = $this->getWidgetFactoryMock();
+        $widgetFactory = $this->getWidgetCompositeFactoryMock();
         $widgetFactory
             ->expects(self::once())
             ->method('createWidget')
@@ -194,7 +194,7 @@ final class SpinnerFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
         $widget = $this->getWidgetCompositeMock();
         $widgetSettings = $this->getWidgetSettingsMock();
 
-        $widgetFactory = $this->getWidgetFactoryMock();
+        $widgetFactory = $this->getWidgetCompositeFactoryMock();
         $widgetFactory
             ->expects(self::once())
             ->method('createWidget')

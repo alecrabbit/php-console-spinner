@@ -8,7 +8,7 @@ namespace AlecRabbit\Spinner\Core\Widget\Factory\Contract;
 use AlecRabbit\Spinner\Core\Settings\Contract\IWidgetSettings;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
 
-interface IWidgetFactory
+interface IWidgetCompositeFactory
 {
     public function createWidget(IWidgetSettings $widgetSettings): IWidgetComposite;
 }
