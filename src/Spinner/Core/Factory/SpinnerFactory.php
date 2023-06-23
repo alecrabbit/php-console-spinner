@@ -13,13 +13,13 @@ use AlecRabbit\Spinner\Core\Factory\Contract\ISpinnerFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IWidgetSettingsFactory;
 use AlecRabbit\Spinner\Core\Settings\Contract\IWidgetSettings;
 use AlecRabbit\Spinner\Core\Spinner;
-use AlecRabbit\Spinner\Core\Widget\Factory\Contract\IWidgetCompositeFactory;
+use AlecRabbit\Spinner\Core\Widget\Factory\Contract\IWidgetFactory;
 
 final class SpinnerFactory implements ISpinnerFactory
 {
     public function __construct(
         protected ISettingsProvider $settingsProvider,
-        protected IWidgetCompositeFactory $widgetFactory,
+        protected IWidgetFactory $widgetFactory,
         protected IWidgetSettingsFactory $widgetSettingsFactory,
     ) {
     }
