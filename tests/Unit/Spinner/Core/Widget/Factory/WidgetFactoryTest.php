@@ -4,28 +4,28 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Widget\Factory;
 
-use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetCompositeBuilder;
-use AlecRabbit\Spinner\Core\Widget\Factory\Contract\IWidgetCompositeFactory;
+use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetBuilder;
+use AlecRabbit\Spinner\Core\Widget\Factory\Contract\IWidgetFactory;
 use AlecRabbit\Spinner\Core\Widget\Factory\Contract\IWidgetRevolverFactory;
-use AlecRabbit\Spinner\Core\Widget\Factory\WidgetCompositeFactory;
+use AlecRabbit\Spinner\Core\Widget\Factory\WidgetFactory;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;
 
-final class WidgetCompositeFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
+final class WidgetFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
 {
     #[Test]
     public function canBeCreated(): void
     {
         $widgetFactory = $this->getTesteeInstance();
 
-        self::assertInstanceOf(WidgetCompositeFactory::class, $widgetFactory);
+        self::assertInstanceOf(WidgetFactory::class, $widgetFactory);
     }
 
     public function getTesteeInstance(
-        ?IWidgetCompositeBuilder $widgetBuilder = null,
+        ?IWidgetBuilder $widgetBuilder = null,
         ?IWidgetRevolverFactory $widgetRevolverFactory = null,
-    ): IWidgetCompositeFactory {
-        return new WidgetCompositeFactory(
+    ): IWidgetFactory {
+        return new WidgetFactory(
             widgetBuilder: $widgetBuilder ?? $this->getWidgetCompositeBuilderMock(),
             widgetRevolverFactory: $widgetRevolverFactory ?? $this->getWidgetRevolverFactoryMock(),
         );
@@ -36,7 +36,7 @@ final class WidgetCompositeFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
     {
         $leadingSpacer = $this->getFrameMock();
         $trailingSpacer = $this->getFrameMock();
-        $widgetComposite = $this->getWidgetCompositeMock();
+        $widget = $this->getWidgetMock();
 
         $widgetSettings = $this->getWidgetSettingsMock();
         $widgetSettings
@@ -59,7 +59,7 @@ final class WidgetCompositeFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
         ;
 
 
-        $widgetBuilder = $this->getWidgetCompositeBuilderMock();
+        $widgetBuilder = $this->getWidgetBuilderMock();
         $widgetBuilder
             ->expects(self::once())
             ->method('withLeadingSpacer')
@@ -83,7 +83,7 @@ final class WidgetCompositeFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
         $widgetBuilder
             ->expects(self::once())
             ->method('build')
-            ->willReturn($widgetComposite)
+            ->willReturn($widget)
         ;
 
 
@@ -92,7 +92,7 @@ final class WidgetCompositeFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
             widgetRevolverFactory: $widgetRevolverFactory,
         );
 
-        self::assertInstanceOf(WidgetCompositeFactory::class, $widgetFactory);
-        self::assertSame($widgetComposite, $widgetFactory->createWidget($widgetSettings));
+        self::assertInstanceOf(WidgetFactory::class, $widgetFactory);
+        self::assertSame($widget, $widgetFactory->createWidget($widgetSettings));
     }
 }
