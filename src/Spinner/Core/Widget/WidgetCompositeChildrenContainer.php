@@ -30,12 +30,11 @@ final class WidgetCompositeChildrenContainer extends ASubject implements IWidget
 
     public function update(ISubject $subject): void
     {
-        dump(__METHOD__);
         $this->assertNotSelf($subject);
-        dump($subject);
-        if ($subject instanceof IWidgetContext && dump($this->has($subject))) {
+
+        if ($subject instanceof IWidgetContext && $this->has($subject)) {
             $interval = $subject->getInterval();
-            if (dump($interval) !== dump($this->map->offsetGet($subject))) {
+            if ($interval !== $this->map->offsetGet($subject)) {
                 $this->checkInterval($interval);
             }
         }
@@ -48,7 +47,6 @@ final class WidgetCompositeChildrenContainer extends ASubject implements IWidget
 
     public function getInterval(): ?IInterval
     {
-        dump(__METHOD__);
         return $this->interval;
     }
 

@@ -37,7 +37,6 @@ final class WidgetContext extends ASubject implements IWidgetContext
     public function update(ISubject $subject): void
     {
         if ($subject === $this->widget) {
-            dump(__METHOD__);
             $this->notify();
         }
     }
@@ -49,7 +48,6 @@ final class WidgetContext extends ASubject implements IWidgetContext
 
     public function getInterval(): ?IInterval
     {
-        dump(__METHOD__);
         return $this->widget?->getInterval();
     }
 }
