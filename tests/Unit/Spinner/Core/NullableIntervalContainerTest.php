@@ -67,6 +67,7 @@ final class NullableIntervalContainerTest extends TestCaseWithPrebuiltMocksAndSt
 
         self::assertSame($interval, $intervalContainer->getSmallest());
     }
+
     #[Test]
     public function canAddNull(): void
     {
@@ -132,7 +133,8 @@ final class NullableIntervalContainerTest extends TestCaseWithPrebuiltMocksAndSt
 
         $map
             ->expects(self::never())
-            ->method('offsetUnset');
+            ->method('offsetUnset')
+        ;
 
         $intervalContainer = $this->getTesteeInstance(
             map: $map

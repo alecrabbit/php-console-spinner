@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Functional\Spinner\Core;
 
 use AlecRabbit\Spinner\Core\Interval;
-use AlecRabbit\Spinner\Core\IntervalContainer;
 use AlecRabbit\Spinner\Core\NullableIntervalContainer;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;

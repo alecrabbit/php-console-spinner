@@ -6,10 +6,8 @@ namespace AlecRabbit\Tests\Functional\Spinner\Core\Widget;
 
 use AlecRabbit\Spinner\Contract\IObserver;
 use AlecRabbit\Spinner\Core\Contract\INullableIntervalContainer;
-use AlecRabbit\Spinner\Core\Interval;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetCompositeChildrenContainer;
 use AlecRabbit\Spinner\Core\Widget\WidgetCompositeChildrenContainer;
-use AlecRabbit\Spinner\Core\Widget\WidgetContext;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;
 use WeakMap;
@@ -95,6 +93,14 @@ final class WidgetCompositeChildrenContainerTest extends TestCaseWithPrebuiltMoc
 //        $container->remove($context);
 //    }
 
+    #[Test]
+    public function canBeCreated(): void
+    {
+        $container = $this->getTesteeInstance();
+
+        self::assertInstanceOf(WidgetCompositeChildrenContainer::class, $container);
+    }
+
     public function getTesteeInstance(
         ?WeakMap $map = null,
         ?INullableIntervalContainer $intervalContainer = null,
@@ -105,13 +111,5 @@ final class WidgetCompositeChildrenContainerTest extends TestCaseWithPrebuiltMoc
 //            intervalContainer: $intervalContainer ?? $this->getNullableIntervalContainerMock(),
             observer: $observer,
         );
-    }
-
-    #[Test]
-    public function canBeCreated(): void
-    {
-        $container = $this->getTesteeInstance();
-
-        self::assertInstanceOf(WidgetCompositeChildrenContainer::class, $container);
     }
 }

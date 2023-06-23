@@ -11,7 +11,6 @@ use AlecRabbit\Spinner\Core\Contract\IWeakMap;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetCompositeChildrenContainer;
 use AlecRabbit\Spinner\Core\Widget\WidgetCompositeChildrenContainer;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
-use AlecRabbit\Spinner\Exception\LogicException;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;
 use WeakMap;
@@ -27,7 +26,7 @@ final class WidgetCompositeChildrenContainerTest extends TestCaseWithPrebuiltMoc
     }
 
     public function getTesteeInstance(
-        null|IWeakMap|\WeakMap $map = null,
+        null|IWeakMap|WeakMap $map = null,
         ?INullableIntervalContainer $intervalContainer = null,
         ?IObserver $observer = null,
     ): IWidgetCompositeChildrenContainer {
@@ -44,7 +43,7 @@ final class WidgetCompositeChildrenContainerTest extends TestCaseWithPrebuiltMoc
         $observer = $this->getObserverMock();
 
         $container = $this->getTesteeInstance(
-            map: new \WeakMap(),
+            map: new WeakMap(),
             observer: $observer,
         );
 
@@ -145,7 +144,7 @@ final class WidgetCompositeChildrenContainerTest extends TestCaseWithPrebuiltMoc
     #[Test]
     public function containerIsDetachedAsObserverFromRemovedWidgetContext(): void
     {
-        $map = new \WeakMap();
+        $map = new WeakMap();
 
         $interval = $this->getIntervalMock();
 
@@ -153,8 +152,8 @@ final class WidgetCompositeChildrenContainerTest extends TestCaseWithPrebuiltMoc
         $context
             ->expects(self::once())
             ->method('getInterval')
-
-            ->willReturn($interval);
+            ->willReturn($interval)
+        ;
 
         $container = $this->getTesteeInstance(
             map: $map,
@@ -220,7 +219,7 @@ final class WidgetCompositeChildrenContainerTest extends TestCaseWithPrebuiltMoc
             ->willReturnSelf()
         ;
 
-         $context = $this->getWidgetContextMock();
+        $context = $this->getWidgetContextMock();
         $context
             ->expects(self::once())
             ->method('getInterval')
