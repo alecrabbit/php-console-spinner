@@ -242,6 +242,55 @@ final class WidgetCompositeChildrenContainerTest extends TestCaseWithPrebuiltMoc
     }
 
     #[Test]
+    public function canBeUpdatedByAddedContext(): void
+    {
+        $map = $this->getWeakMapMock();
+        $observer = $this->getObserverMock();
+        $interval = null;
+        $newInterval = $this->getIntervalMock();
+        $context = $this->getWidgetContextMock();
+
+        $map
+            ->expects(self::once())
+            ->method('offsetExists')
+            ->with($context)
+            ->willReturn(true)
+        ;
+        $map
+            ->expects(self::once())
+            ->method('offsetGet')
+            ->with($context)
+            ->willReturn($interval)
+        ;
+
+        $context
+            ->expects(self::once())
+            ->method('getInterval')
+            ->willReturn($newInterval)
+        ;
+
+        $container = $this->getTesteeInstance(
+            map: $map,
+            observer: $observer,
+        );
+
+        $newInterval
+            ->expects(self::once())
+            ->method('smallest')
+            ->with(null)
+            ->willReturnSelf()
+        ;
+
+        $observer
+            ->expects(self::once())
+            ->method('update')
+            ->with($container)
+        ;
+
+        $container->update($context);
+    }
+
+    #[Test]
     public function returnsNullOnGetIntervalWhenEmpty(): void
     {
         $container = $this->getTesteeInstance();

@@ -83,14 +83,7 @@ final class WidgetCompositeChildrenContainerTest extends TestCaseWithPrebuiltMoc
 //        );
 //
 //        $container->add($context);
-//
-//        $context
-//            ->expects(self::once())
-//            ->method('detach')
-//            ->with($container)
-//        ;
-//
-//        $container->remove($context);
+//        $container->update($context);
 //    }
 
     #[Test]

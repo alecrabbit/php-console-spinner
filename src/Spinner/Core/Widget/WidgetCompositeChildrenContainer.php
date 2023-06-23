@@ -33,25 +33,16 @@ final class WidgetCompositeChildrenContainer extends ASubject implements IWidget
         $this->assertNotSelf($subject);
 
         if ($subject instanceof IWidgetContext && $this->has($subject)) {
-            // TODO (2023-06-21 15:22) [Alec Rabbit]: implement
+            $interval = $subject->getInterval();
+            if ($interval !== $this->map->offsetGet($subject)) {
+                $this->checkInterval($interval);
+            }
         }
     }
 
     public function has(IWidgetContext $context): bool
     {
         return $this->map->offsetExists($context);
-    }
-
-    public function add(IWidgetContext $context): IWidgetContext
-    {
-        if (!$this->has($context)) {
-            $context->attach($this);
-
-            $interval = $context->getInterval();
-            $this->map->offsetSet($context, $interval);
-            $this->checkInterval($interval);
-        }
-        return $context;
     }
 
     public function getInterval(): ?IInterval
@@ -67,6 +58,18 @@ final class WidgetCompositeChildrenContainer extends ASubject implements IWidget
                 $this->notify();
             }
         }
+    }
+
+    public function add(IWidgetContext $context): IWidgetContext
+    {
+        if (!$this->has($context)) {
+            $context->attach($this);
+
+            $interval = $context->getInterval();
+            $this->map->offsetSet($context, $interval);
+            $this->checkInterval($interval);
+        }
+        return $context;
     }
 
     public function getIterator(): Traversable
