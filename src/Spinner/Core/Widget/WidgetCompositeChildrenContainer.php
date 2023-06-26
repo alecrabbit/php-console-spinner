@@ -83,26 +83,23 @@ final class WidgetCompositeChildrenContainer extends ASubject implements IWidget
             $this->map->offsetUnset($context);
             $context->detach($this);
 
-            $this->checkIntervalOnRemove($context);
+            $interval = $context->getInterval();
+            if ($interval === $this->interval) {
+                $this->checkIntervalOnRemove();
+            }
         }
     }
 
-    protected function checkIntervalOnRemove(IWidgetContext $context): void
+    protected function checkIntervalOnRemove(): void
     {
-        $interval = $context->getInterval();
-        if ($interval === $this->interval) {
-            $this->interval = null;
-            /**
-             * @var IWidgetContext $ctx
-             * @var IInterval $interval
-             */
-            foreach ($this->map as $ctx => $interval) {
-                if ($this->interval === null) {
-                    $this->interval = $interval;
-                    continue;
-                }
-                $this->interval = $this->interval->smallest($ctx->getInterval());
+        $this->interval = null;
+        /** @var IInterval $interval */
+        foreach ($this->map as $interval) {
+            if ($this->interval === null) {
+                $this->interval = $interval;
+                continue;
             }
+            $this->interval = $this->interval->smallest($interval);
         }
     }
 
