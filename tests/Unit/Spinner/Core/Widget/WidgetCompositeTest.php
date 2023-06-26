@@ -209,61 +209,6 @@ final class WidgetCompositeTest extends TestCaseWithPrebuiltMocksAndStubs
 
         $widgetComposite->update($children);
     }
-//
-//    #[Test]
-//    public function canNotifyObserverOnOtherWidgetRemove(): void
-//    {
-//        $context = $this->getWidgetContextMock();
-//
-//        $children = $this->getWidgetContextContainerMock();
-//
-//        $widgetComposite = $this->getTesteeInstance(
-//            children: $children,
-//            context: $context,
-//        );
-//
-//        $otherWidgetContext = $this->getWidgetContextMock();
-//        $otherWidget = $this->getWidgetCompositeMock();
-//
-////        $otherWidget
-////            ->expects(self::once())
-////            ->method('getContext')
-////            ->willReturn($otherWidgetContext)
-////        ;
-//
-//        $children
-//            ->expects(self::once())
-//            ->method('has')
-//            ->with($otherWidgetContext)
-//            ->willReturn(true)
-//        ;
-//
-//        $children
-//            ->expects(self::once())
-//            ->method('remove')
-//            ->with($otherWidgetContext)
-//        ;
-//
-//        $otherWidget
-//            ->expects(self::once())
-//            ->method('detach')
-//            ->with($widgetComposite)
-//        ;
-//
-//        $children
-//            ->expects(self::once())
-//            ->method('getInterval')
-//            ->willReturn($this->getIntervalMock())
-//        ;
-//
-//        $context
-//            ->expects(self::once())
-//            ->method('update')
-//            ->with($widgetComposite)
-//        ;
-//
-//        $widgetComposite->remove($otherWidget);
-//    }
 
     #[Test]
     public function removingNonExistentWidgetDoesNothing(): void
