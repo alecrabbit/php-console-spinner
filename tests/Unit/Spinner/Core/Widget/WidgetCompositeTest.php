@@ -248,11 +248,6 @@ final class WidgetCompositeTest extends TestCaseWithPrebuiltMocksAndStubs
         $widgetComposite = $this->getTesteeInstance(
             children: $children,
         );
-        $context
-            ->expects(self::once())
-            ->method('attach')
-            ->with($widgetComposite)
-        ;
 
         self::assertSame($context, $widgetComposite->add($context));
     }
@@ -277,11 +272,6 @@ final class WidgetCompositeTest extends TestCaseWithPrebuiltMocksAndStubs
             ->expects(self::once())
             ->method('remove')
             ->with($context)
-        ;
-        $context
-            ->expects(self::once())
-            ->method('detach')
-            ->with($widgetComposite)
         ;
 
         $widgetComposite->remove($context);

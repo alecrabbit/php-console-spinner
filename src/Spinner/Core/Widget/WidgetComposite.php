@@ -66,7 +66,6 @@ final class WidgetComposite extends AWidget implements IWidgetComposite
 
     public function add(IWidgetContext $context): IWidgetContext
     {
-        $context->attach($this);
         return
             $this->children->add($context);
     }
@@ -85,8 +84,6 @@ final class WidgetComposite extends AWidget implements IWidgetComposite
     {
         if ($this->children->has($context)) {
             $this->children->remove($context);
-
-            $context->detach($this);
         }
     }
 //
