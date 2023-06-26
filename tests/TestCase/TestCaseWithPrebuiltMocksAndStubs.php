@@ -32,10 +32,8 @@ use AlecRabbit\Spinner\Core\Contract\IDriverBuilder;
 use AlecRabbit\Spinner\Core\Contract\IDriverLinker;
 use AlecRabbit\Spinner\Core\Contract\IDriverSetup;
 use AlecRabbit\Spinner\Core\Contract\IFrameCollection;
-use AlecRabbit\Spinner\Core\Contract\IIntervalContainer;
 use AlecRabbit\Spinner\Core\Contract\IIntervalNormalizer;
 use AlecRabbit\Spinner\Core\Contract\ILoopAutoStarter;
-use AlecRabbit\Spinner\Core\Contract\INullableIntervalContainer;
 use AlecRabbit\Spinner\Core\Contract\ISettingsProvider;
 use AlecRabbit\Spinner\Core\Contract\ISignalHandlersSetup;
 use AlecRabbit\Spinner\Core\Contract\ISignalProcessingProbe;
@@ -99,11 +97,6 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
     protected function createDefinitionRegistryMock(): MockObject&IDefinitionRegistry
     {
         return $this->createMock(IDefinitionRegistry::class);
-    }
-
-    protected function getWidgetIntervalContainerMock(): MockObject&IIntervalContainer
-    {
-        return $this->createMock(IIntervalContainer::class);
     }
 
     protected function getFrameMock(): MockObject&IFrame
@@ -204,11 +197,6 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
     protected function getLoopAutoStarterBuilderMock(): MockObject&ILoopAutoStarterBuilder
     {
         return $this->createMock(ILoopAutoStarterBuilder::class);
-    }
-
-    protected function getNullableIntervalContainerMock(): MockObject&INullableIntervalContainer
-    {
-        return $this->createMock(INullableIntervalContainer::class);
     }
 
     protected function getSignalHandlersSetupBuilderMock(): MockObject&ISignalHandlersSetupBuilder
