@@ -149,7 +149,7 @@ final class WidgetCompositeChildrenContainerTest extends TestCaseWithPrebuiltMoc
 
         $context = $this->getWidgetContextMock();
         $context
-            ->expects(self::once())
+            ->expects(self::exactly(2))
             ->method('getInterval')
             ->willReturn($interval)
         ;

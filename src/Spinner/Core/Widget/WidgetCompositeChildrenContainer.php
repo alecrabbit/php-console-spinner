@@ -15,7 +15,6 @@ use ArrayAccess;
 use Countable;
 use IteratorAggregate;
 use Traversable;
-use WeakMap;
 
 final class WidgetCompositeChildrenContainer extends ASubject implements IWidgetCompositeChildrenContainer
 {
@@ -35,6 +34,7 @@ final class WidgetCompositeChildrenContainer extends ASubject implements IWidget
         if ($subject instanceof IWidgetContext && $this->has($subject)) {
             $interval = $subject->getInterval();
             if ($interval !== $this->map->offsetGet($subject)) {
+                $this->map->offsetSet($subject, $interval);
                 $this->checkInterval($interval);
             }
         }
@@ -82,6 +82,27 @@ final class WidgetCompositeChildrenContainer extends ASubject implements IWidget
         if ($this->map->offsetExists($context)) {
             $this->map->offsetUnset($context);
             $context->detach($this);
+
+            $this->checkIntervalOnRemove($context);
+        }
+    }
+
+    protected function checkIntervalOnRemove(IWidgetContext $context): void
+    {
+        $interval = $context->getInterval();
+        if ($interval === $this->interval) {
+            $this->interval = null;
+            /**
+             * @var IWidgetContext $ctx
+             * @var IInterval $interval
+             */
+            foreach ($this->map as $ctx => $interval) {
+                if ($this->interval === null) {
+                    $this->interval = $interval;
+                    continue;
+                }
+                $this->interval = $this->interval->smallest($ctx->getInterval());
+            }
         }
     }
 
