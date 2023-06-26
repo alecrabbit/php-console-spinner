@@ -41,6 +41,22 @@ final class WidgetCompositeTest extends TestCaseWithPrebuiltMocksAndStubs
     }
 
     #[Test]
+    public function isAttachedAsObserverToChildrenContainer(): void
+    {
+        $children = $this->getWidgetCompositeChildrenContainerMock();
+        $children
+            ->expects(self::once())
+            ->method('attach')
+            ->with($this->isInstanceOf(IWidgetComposite::class));
+
+        $widgetComposite = $this->getTesteeInstance(
+            children: $children,
+        );
+
+        self::assertInstanceOf(WidgetComposite::class, $widgetComposite);
+    }
+
+    #[Test]
     public function canBeUpdated(): void
     {
         $interval = $this->getIntervalMock();
