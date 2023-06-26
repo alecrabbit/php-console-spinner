@@ -87,17 +87,15 @@ final class WidgetComposite extends AWidget implements IWidgetComposite
             $this->children->remove($context);
 
             $context->detach($this);
-
-            $this->stateUpdate();
         }
     }
-
-    private function stateUpdate(): void
-    {
-        $interval = $this->interval;
-        $this->interval = $this->interval->smallest($this->children->getInterval() ?? $this->revolver->getInterval());
-        if ($interval !== $this->interval) {
-            $this->notify();
-        }
-    }
+//
+//    private function stateUpdate(): void
+//    {
+//        $interval = $this->interval;
+//        $this->interval = $this->interval->smallest($this->children->getInterval() ?? $this->revolver->getInterval());
+//        if ($interval !== $this->interval) {
+//            $this->notify();
+//        }
+//    }
 }

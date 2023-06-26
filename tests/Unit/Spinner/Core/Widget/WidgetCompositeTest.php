@@ -258,6 +258,36 @@ final class WidgetCompositeTest extends TestCaseWithPrebuiltMocksAndStubs
     }
 
     #[Test]
+    public function contextCanBeRemoved(): void
+    {
+        $context = $this->getWidgetContextMock();
+        $children = $this->getWidgetCompositeChildrenContainerMock();
+
+        $widgetComposite = $this->getTesteeInstance(
+            children: $children,
+        );
+
+        $children
+            ->expects(self::once())
+            ->method('has')
+            ->with($context)
+            ->willReturn(true)
+        ;
+        $children
+            ->expects(self::once())
+            ->method('remove')
+            ->with($context)
+        ;
+        $context
+            ->expects(self::once())
+            ->method('detach')
+            ->with($widgetComposite)
+        ;
+
+        $widgetComposite->remove($context);
+    }
+
+    #[Test]
     public function throwsIfObserverIsSelf(): void
     {
         $exceptionClass = InvalidArgumentException::class;

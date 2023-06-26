@@ -17,14 +17,6 @@ use PHPUnit\Framework\Attributes\Test;
 
 final class WidgetCompositeTest extends TestCaseWithPrebuiltMocksAndStubs
 {
-
-//    #[Test]
-//    public function dummy(): void
-//    {
-//        // FIXME (2023-06-22 13:32) [Alec Rabbit]: remove method
-//        self::assertTrue(true); // dummy test
-//    }
-
     #[Test]
     public function canGetFrame(): void
     {

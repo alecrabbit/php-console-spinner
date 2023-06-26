@@ -85,12 +85,13 @@ final class WidgetCompositeChildrenContainer extends ASubject implements IWidget
 
             $interval = $context->getInterval();
             if ($interval === $this->interval) {
-                $this->checkIntervalOnRemove();
+                $this->recalculateInterval();
+                $this->notify();
             }
         }
     }
 
-    protected function checkIntervalOnRemove(): void
+    protected function recalculateInterval(): void
     {
         $this->interval = null;
         /** @var IInterval $interval */
