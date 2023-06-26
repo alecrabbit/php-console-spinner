@@ -60,12 +60,12 @@ final class WidgetCompositeTest extends TestCaseWithPrebuiltMocksAndStubs
     #[Test]
     public function canBeUpdated(): void
     {
-        $interval = $this->getIntervalMock();
+        $revolverInterval = $this->getIntervalMock();
         $revolver = $this->getRevolverMock();
         $revolver
             ->expects(self::once())
             ->method('getInterval')
-            ->willReturn($interval)
+            ->willReturn($revolverInterval)
         ;
         $children = $this->getWidgetCompositeChildrenContainerMock();
         $widgetComposite = $this->getTesteeInstance(
@@ -73,7 +73,7 @@ final class WidgetCompositeTest extends TestCaseWithPrebuiltMocksAndStubs
             children: $children,
         );
 
-        self::assertSame($interval, $widgetComposite->getInterval());
+        self::assertSame($revolverInterval, $widgetComposite->getInterval());
 
         $otherInterval = $this->getIntervalMock();
         $children
@@ -81,7 +81,7 @@ final class WidgetCompositeTest extends TestCaseWithPrebuiltMocksAndStubs
             ->method('getInterval')
             ->willReturn($otherInterval)
         ;
-        $interval
+        $revolverInterval
             ->expects(self::once())
             ->method('smallest')
             ->with($otherInterval)
