@@ -47,7 +47,8 @@ final class WidgetCompositeTest extends TestCaseWithPrebuiltMocksAndStubs
         $children
             ->expects(self::once())
             ->method('attach')
-            ->with($this->isInstanceOf(IWidgetComposite::class));
+            ->with($this->isInstanceOf(IWidgetComposite::class))
+        ;
 
         $widgetComposite = $this->getTesteeInstance(
             children: $children,
@@ -164,6 +165,49 @@ final class WidgetCompositeTest extends TestCaseWithPrebuiltMocksAndStubs
             revolver: $revolver,
         );
         self::assertSame($interval, $widgetComposite->getInterval());
+    }
+
+//
+    #[Test]
+    public function shouldNotifyObserverOnIntervalChange(): void
+    {
+        $interval = $this->getIntervalMock();
+        $revolver = $this->getRevolverMock();
+        $revolver
+            ->expects(self::once())
+            ->method('getInterval')
+            ->willReturn($interval)
+        ;
+
+        $children = $this->getWidgetCompositeChildrenContainerMock();
+        $widgetComposite = $this->getTesteeInstance(
+            revolver: $revolver,
+            children: $children,
+        );
+
+        $otherInterval = $this->getIntervalMock();
+        $children
+            ->expects(self::once())
+            ->method('getInterval')
+            ->willReturn($otherInterval)
+        ;
+        $interval
+            ->expects(self::once())
+            ->method('smallest')
+            ->with($otherInterval)
+            ->willReturn($otherInterval)
+        ;
+
+        $observer = $this->getObserverMock();
+        $widgetComposite->attach($observer);
+
+        $observer
+            ->expects(self::once())
+            ->method('update')
+            ->with($widgetComposite)
+        ;
+
+        $widgetComposite->update($children);
     }
 //
 //    #[Test]

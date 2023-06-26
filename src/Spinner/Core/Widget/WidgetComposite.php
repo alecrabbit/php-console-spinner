@@ -76,7 +76,11 @@ final class WidgetComposite extends AWidget implements IWidgetComposite
         $this->assertNotSelf($subject);
 
         if ($subject === $this->children) {
-            $this->interval = $this->interval->smallest($subject->getInterval());
+            $interval = $this->interval->smallest($subject->getInterval());
+            if ($interval !== $this->interval) {
+                $this->interval = $interval;
+                $this->notify();
+            }
         }
     }
 
