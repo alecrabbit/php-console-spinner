@@ -261,6 +261,11 @@ final class WidgetCompositeChildrenContainerTest extends TestCaseWithPrebuiltMoc
             ->with($context)
             ->willReturn($interval)
         ;
+        $map
+            ->expects(self::once())
+            ->method('offsetSet')
+            ->with($context, $newInterval)
+        ;
 
         $context
             ->expects(self::once())
