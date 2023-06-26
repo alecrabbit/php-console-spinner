@@ -8,8 +8,7 @@ use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Contract\IObserver;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
-use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContext;
-use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContextContainer;
+use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetCompositeChildrenContainer;
 use AlecRabbit\Spinner\Core\Widget\WidgetComposite;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
@@ -29,14 +28,14 @@ final class WidgetCompositeTest extends TestCaseWithPrebuiltMocksAndStubs
         ?IRevolver $revolver = null,
         ?IFrame $leadingSpacer = null,
         ?IFrame $trailingSpacer = null,
-        ?IWidgetContextContainer $children = null,
+        ?IWidgetCompositeChildrenContainer $children = null,
         ?IObserver $observer = null,
     ): IWidgetComposite {
         return new WidgetComposite(
             revolver: $revolver ?? $this->getRevolverMock(),
             leadingSpacer: $leadingSpacer ?? $this->getFrameMock(),
             trailingSpacer: $trailingSpacer ?? $this->getFrameMock(),
-            children: $children ?? $this->getWidgetContextContainerMock(),
+            children: $children ?? $this->getWidgetCompositeChildrenContainerMock(),
             observer: $observer,
         );
     }
@@ -51,16 +50,16 @@ final class WidgetCompositeTest extends TestCaseWithPrebuiltMocksAndStubs
             ->method('getInterval')
             ->willReturn($interval)
         ;
-
+        $children = $this->getWidgetCompositeChildrenContainerMock();
         $widgetComposite = $this->getTesteeInstance(
-            revolver: $revolver
+            revolver: $revolver,
+            children: $children,
         );
 
         self::assertSame($interval, $widgetComposite->getInterval());
 
         $otherInterval = $this->getIntervalMock();
-        $otherWidget = $this->getWidgetCompositeMock();
-        $otherWidget
+        $children
             ->expects(self::once())
             ->method('getInterval')
             ->willReturn($otherInterval)
@@ -72,7 +71,7 @@ final class WidgetCompositeTest extends TestCaseWithPrebuiltMocksAndStubs
             ->willReturn($otherInterval)
         ;
 
-        $widgetComposite->update($otherWidget);
+        $widgetComposite->update($children);
 
         self::assertSame($otherInterval, $widgetComposite->getInterval());
     }
@@ -134,55 +133,6 @@ final class WidgetCompositeTest extends TestCaseWithPrebuiltMocksAndStubs
         self::assertSame('lsrfsts', $result->sequence());
         self::assertSame(7, $result->width());
     }
-//
-//    #[Test]
-//    public function canNotifyObserverOnOtherWidgetAdd(): void
-//    {
-//        $context = $this->getWidgetContextMock();
-//
-//        $children = $this->getWidgetContextContainerMock();
-//
-//
-//        $widgetComposite = $this->getTesteeInstance(
-//            children: $children,
-//            context: $context,
-//        );
-//
-//        $otherWidgetContext = $this->getWidgetContextMock();
-//        $otherWidget = $this->getWidgetCompositeMock();
-//
-//        $otherWidget
-//            ->expects(self::once())
-//            ->method('attach')
-//            ->with($widgetComposite)
-//        ;
-//
-//        $otherWidget
-//            ->expects(self::once())
-//            ->method('getContext')
-//            ->willReturn($otherWidgetContext)
-//        ;
-//
-//        $children
-//            ->expects(self::once())
-//            ->method('add')
-//            ->with($otherWidgetContext)
-//        ;
-//
-//        $children
-//            ->expects(self::once())
-//            ->method('getInterval')
-//            ->willReturn($this->getIntervalMock())
-//        ;
-//
-//        $context
-//            ->expects(self::once())
-//            ->method('update')
-//            ->with($widgetComposite)
-//        ;
-//
-//        $widgetComposite->add($otherWidget);
-//    }
 
     #[Test]
     public function canGetInterval(): void
@@ -254,42 +204,58 @@ final class WidgetCompositeTest extends TestCaseWithPrebuiltMocksAndStubs
 //
 //        $widgetComposite->remove($otherWidget);
 //    }
-//
-//    #[Test]
-//    public function removingNonExistentWidgetDoesNothing(): void
-//    {
-//        $children = $this->getWidgetContextContainerMock();
-//        $composite = $this->getTesteeInstance(
-//            children: $children,
-//        );
-//
-//        $nonExistentContext = $this->getWidgetContextMock();
-//        $nonExistent = $this->getWidgetCompositeMock();
-//        $nonExistent
-//            ->expects(self::once())
-//            ->method('getContext')
-//            ->willReturn($nonExistentContext)
-//        ;
-//        $children
-//            ->expects(self::once())
-//            ->method('has')
-//            ->with($nonExistentContext)
-//            ->willReturn(false)
-//        ;
-//        $children
-//            ->expects(self::never())
-//            ->method('remove')
-//        ;
-//        $nonExistent
-//            ->expects(self::never())
-//            ->method('detach')
-//        ;
-//        $children
-//            ->expects(self::never())
-//            ->method('getInterval')
-//        ;
-//        $composite->remove($nonExistent);
-//    }
+
+    #[Test]
+    public function removingNonExistentWidgetDoesNothing(): void
+    {
+        $children = $this->getWidgetCompositeChildrenContainerMock();
+        $composite = $this->getTesteeInstance(
+            children: $children,
+        );
+
+        $nonExistentContext = $this->getWidgetContextMock();
+
+        $children
+            ->expects(self::once())
+            ->method('has')
+            ->with($nonExistentContext)
+            ->willReturn(false)
+        ;
+        $children
+            ->expects(self::never())
+            ->method('remove')
+        ;
+        $nonExistentContext
+            ->expects(self::never())
+            ->method('detach')
+        ;
+
+        $composite->remove($nonExistentContext);
+    }
+
+    #[Test]
+    public function contextCanBeAdded(): void
+    {
+        $context = $this->getWidgetContextMock();
+        $children = $this->getWidgetCompositeChildrenContainerMock();
+        $children
+            ->expects(self::once())
+            ->method('add')
+            ->with($context)
+            ->willReturn($context)
+        ;
+
+        $widgetComposite = $this->getTesteeInstance(
+            children: $children,
+        );
+        $context
+            ->expects(self::once())
+            ->method('attach')
+            ->with($widgetComposite)
+        ;
+
+        self::assertSame($context, $widgetComposite->add($context));
+    }
 
     #[Test]
     public function throwsIfObserverIsSelf(): void
@@ -328,50 +294,6 @@ final class WidgetCompositeTest extends TestCaseWithPrebuiltMocksAndStubs
             message: $exceptionMessage,
         );
     }
-
-    #[Test]
-    public function throwsIfAddedWidgetIsSelf(): void
-    {
-        $exceptionClass = InvalidArgumentException::class;
-        $exceptionMessage = 'Object can not be self.';
-
-        $test = function (): void {
-            $widgetComposite = $this->getTesteeInstance();
-            $widgetComposite->add($widgetComposite);
-        };
-
-        $this->wrapExceptionTest(
-            test: $test,
-            exception: $exceptionClass,
-            message: $exceptionMessage,
-        );
-    }
-
-//    #[Test]
-//    public function throwsIfContextIsNotRelatedToWidget(): void
-//    {
-//        $exceptionClass = InvalidArgumentException::class;
-//        $exceptionMessage = 'Context is not related to this widget.';
-//
-//        $test = function (): void {
-//            $widgetComposite = $this->getTesteeInstance();
-//
-//            $context = $this->getWidgetContextMock();
-//            $context
-//                ->expects(self::once())
-//                ->method('getWidget')
-//                ->willReturn($this->getWidgetCompositeMock())
-//            ;
-//
-//            $widgetComposite->envelopWithContext($context);
-//        };
-//
-//        $this->wrapExceptionTest(
-//            test: $test,
-//            exception: $exceptionClass,
-//            message: $exceptionMessage,
-//        );
-//    }
 
     #[Test]
     public function throwsIfUpdateInvokedForSelf(): void
