@@ -68,7 +68,7 @@ final class WidgetCompositeChildrenContainerTest extends TestCaseWithPrebuiltMoc
     }
 
     #[Test]
-    public function canBeUpdatedByRemovedContext(): void
+    public function canBeUpdatedWhenContextIsRemovedOne(): void
     {
         $interval1 = new Interval(100);
         $interval2 = new Interval(80);
@@ -127,6 +127,148 @@ final class WidgetCompositeChildrenContainerTest extends TestCaseWithPrebuiltMoc
         self::assertSame($interval1, $container->getInterval());
 
         $context2->setWidget($widget2);
+        self::assertSame($interval2, $container->getInterval());
+
+        $container->remove($context2);
+        self::assertSame($interval1, $container->getInterval());
+    }
+
+    #[Test]
+    public function canBeUpdatedWhenContextIsRemovedTwo(): void
+    {
+
+        $interval = new Interval(80);
+
+        $revolver = $this->getRevolverMock();
+        $revolver
+            ->method('getInterval')
+            ->willReturn($interval)
+        ;
+
+
+        $widget = new Widget(
+            revolver: $revolver,
+            leadingSpacer: $this->getFrameMock(),
+            trailingSpacer: $this->getFrameMock(),
+        );
+
+
+        $container = $this->getTesteeInstance();
+        self::assertNull($container->getInterval());
+
+        $context1 = new WidgetContext();
+        $context2 = new WidgetContext();
+        $context3 = new WidgetContext();
+
+        $container->add($context1);
+        $container->add($context2);
+        $container->add($context3);
+
+        self::assertNull($container->getInterval());
+
+        $context2->setWidget($widget);
+        self::assertSame($interval, $container->getInterval());
+
+        $container->remove($context2);
+        self::assertNull($container->getInterval());
+    }
+
+    #[Test]
+    public function canBeUpdatedWhenContextIsRemovedFour(): void
+    {
+
+        $interval = new Interval(80);
+
+        $revolver = $this->getRevolverMock();
+        $revolver
+            ->method('getInterval')
+            ->willReturn($interval)
+        ;
+
+
+        $widget = new Widget(
+            revolver: $revolver,
+            leadingSpacer: $this->getFrameMock(),
+            trailingSpacer: $this->getFrameMock(),
+        );
+
+
+        $container = $this->getTesteeInstance();
+        self::assertNull($container->getInterval());
+
+        $context1 = new WidgetContext();
+        $context2 = new WidgetContext();
+        $context3 = new WidgetContext();
+
+        $context2->setWidget($widget);
+
+        $container->add($context1);
+        $container->add($context2);
+        $container->add($context3);
+
+        self::assertSame($interval, $container->getInterval());
+
+        $container->remove($context2);
+        self::assertNull($container->getInterval());
+    }
+
+    #[Test]
+    public function canBeUpdatedWhenContextIsRemovedThree(): void
+    {
+        $interval1 = new Interval(100);
+        $interval2 = new Interval(80);
+        $interval3 = new Interval(120);
+
+        $revolver1 = $this->getRevolverMock();
+        $revolver1
+            ->method('getInterval')
+            ->willReturn($interval1)
+        ;
+
+        $revolver2 = $this->getRevolverMock();
+        $revolver2
+            ->method('getInterval')
+            ->willReturn($interval2)
+        ;
+        $revolver3 = $this->getRevolverMock();
+        $revolver3
+            ->method('getInterval')
+            ->willReturn($interval3)
+        ;
+
+        $widget1 = new Widget(
+            revolver: $revolver1,
+            leadingSpacer: $this->getFrameMock(),
+            trailingSpacer: $this->getFrameMock(),
+        );
+
+        $widget2 = new Widget(
+            revolver: $revolver2,
+            leadingSpacer: $this->getFrameMock(),
+            trailingSpacer: $this->getFrameMock(),
+        );
+
+        $widget3 = new Widget(
+            revolver: $revolver3,
+            leadingSpacer: $this->getFrameMock(),
+            trailingSpacer: $this->getFrameMock(),
+        );
+
+        $container = $this->getTesteeInstance();
+        self::assertNull($container->getInterval());
+
+        $context1 = new WidgetContext();
+        $context2 = new WidgetContext();
+        $context3 = new WidgetContext();
+
+        $context1->setWidget($widget1);
+        $context2->setWidget($widget2);
+        $context3->setWidget($widget3);
+
+        $container->add($context1);
+        $container->add($context2);
+        $container->add($context3);
+
         self::assertSame($interval2, $container->getInterval());
 
         $container->remove($context2);
