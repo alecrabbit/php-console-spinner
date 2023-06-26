@@ -23,7 +23,6 @@ final class WidgetCompositeChildrenContainer extends ASubject implements IWidget
 
     public function __construct(
         protected readonly ArrayAccess&Countable&IteratorAggregate $map = new WidgetContextToIntervalMap(),
-//        protected readonly INullableIntervalContainer $intervalContainer = new NullableIntervalContainer(),
         ?IObserver $observer = null,
     ) {
         parent::__construct($observer);
