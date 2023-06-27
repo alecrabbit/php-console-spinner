@@ -61,6 +61,7 @@ final class WidgetCompositeTest extends TestCaseWithPrebuiltMocksAndStubs
     public function canBeUpdated(): void
     {
         $revolverInterval = $this->getIntervalMock();
+
         $revolver = $this->getRevolverMock();
         $revolver
             ->expects(self::once())
@@ -68,29 +69,41 @@ final class WidgetCompositeTest extends TestCaseWithPrebuiltMocksAndStubs
             ->willReturn($revolverInterval)
         ;
         $children = $this->getWidgetCompositeChildrenContainerMock();
+        $initialInterval = $this->getIntervalMock();
+        $children
+            ->expects(self::exactly(2))
+            ->method('getInterval')
+            ->willReturn($initialInterval)
+        ;
+        $revolverInterval
+            ->expects(self::once())
+            ->method('smallest')
+            ->with($initialInterval)
+            ->willReturn($initialInterval)
+        ;
+        $initialInterval
+            ->expects(self::once())
+            ->method('smallest')
+            ->with($initialInterval)
+            ->willReturnSelf()
+        ;
+
         $widgetComposite = $this->getTesteeInstance(
             revolver: $revolver,
             children: $children,
         );
 
-        self::assertSame($revolverInterval, $widgetComposite->getInterval());
+        self::assertSame($initialInterval, $widgetComposite->getInterval());
 
-        $otherInterval = $this->getIntervalMock();
         $children
             ->expects(self::once())
             ->method('getInterval')
-            ->willReturn($otherInterval)
-        ;
-        $revolverInterval
-            ->expects(self::once())
-            ->method('smallest')
-            ->with($otherInterval)
-            ->willReturn($otherInterval)
+            ->willReturn($initialInterval)
         ;
 
         $widgetComposite->update($children);
 
-        self::assertSame($otherInterval, $widgetComposite->getInterval());
+        self::assertSame($initialInterval, $widgetComposite->getInterval());
     }
 
     #[Test]
@@ -155,6 +168,12 @@ final class WidgetCompositeTest extends TestCaseWithPrebuiltMocksAndStubs
     public function canGetInterval(): void
     {
         $interval = $this->getIntervalMock();
+        $interval
+            ->expects(self::once())
+            ->method('smallest')
+            ->with(null)
+            ->willReturn($interval)
+        ;
         $revolver = $this->getRevolverMock();
         $revolver
             ->expects(self::once())
@@ -180,14 +199,9 @@ final class WidgetCompositeTest extends TestCaseWithPrebuiltMocksAndStubs
         ;
 
         $children = $this->getWidgetCompositeChildrenContainerMock();
-        $widgetComposite = $this->getTesteeInstance(
-            revolver: $revolver,
-            children: $children,
-        );
-
         $otherInterval = $this->getIntervalMock();
         $children
-            ->expects(self::once())
+            ->expects(self::exactly(2))
             ->method('getInterval')
             ->willReturn($otherInterval)
         ;
@@ -197,6 +211,18 @@ final class WidgetCompositeTest extends TestCaseWithPrebuiltMocksAndStubs
             ->with($otherInterval)
             ->willReturn($otherInterval)
         ;
+
+        $widgetComposite = $this->getTesteeInstance(
+            revolver: $revolver,
+            children: $children,
+        );
+
+        $children
+            ->expects(self::once())
+            ->method('getInterval')
+            ->willReturn($otherInterval)
+        ;
+
 
         $observer = $this->getObserverMock();
         $widgetComposite->attach($observer);

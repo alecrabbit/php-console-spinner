@@ -248,7 +248,7 @@ final class WidgetContextTest extends TestCaseWithPrebuiltMocksAndStubs
 
         $observer = $this->getObserverMock();
         $observer
-            ->expects(self::never())
+            ->expects(self::once())
             ->method('update')
         ;
 
@@ -258,6 +258,40 @@ final class WidgetContextTest extends TestCaseWithPrebuiltMocksAndStubs
         );
 
         $widgetContext->update($otherWidget);
+    }
+
+    #[Test]
+    public function willNotifyOnConstructWithWidget(): void
+    {
+        $widgetComposite = $this->getWidgetCompositeMock();
+
+        $observer = $this->getObserverMock();
+        $observer
+            ->expects(self::once())
+            ->method('update')
+        ;
+
+        $widgetContext = $this->getTesteeInstance(
+            widget: $widgetComposite,
+            observer: $observer,
+        );
+
+        self::assertInstanceOf(WidgetContext::class, $widgetContext);
+    }
+    #[Test]
+    public function willNotNotifyOnConstructIfWidgetIsNull(): void
+    {
+        $observer = $this->getObserverMock();
+        $observer
+            ->expects(self::never())
+            ->method('update')
+        ;
+
+        $widgetContext = $this->getTesteeInstance(
+            observer: $observer,
+        );
+
+        self::assertInstanceOf(WidgetContext::class, $widgetContext);
     }
 
     #[Test]

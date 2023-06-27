@@ -36,6 +36,7 @@ final class WidgetComposite extends AWidget implements IWidgetComposite
 
         $this->interval = $this->revolver->getInterval();
         $this->children->attach($this);
+        $this->update($this->children);
     }
 
     public function getInterval(): IInterval

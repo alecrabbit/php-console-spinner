@@ -18,6 +18,17 @@ final class WidgetContext extends ASubject implements IWidgetContext
         ?IObserver $observer = null,
     ) {
         parent::__construct($observer);
+
+        if ($this->widget instanceof IWidget) {
+            $this->update($this->widget);
+        }
+    }
+
+    public function update(ISubject $subject): void
+    {
+        if ($subject === $this->widget) {
+            $this->notify();
+        }
     }
 
     public function setWidget(?IWidget $widget): void
@@ -32,13 +43,6 @@ final class WidgetContext extends ASubject implements IWidgetContext
 
         $this->widget->attach($this);
         $this->update($this->widget);
-    }
-
-    public function update(ISubject $subject): void
-    {
-        if ($subject === $this->widget) {
-            $this->notify();
-        }
     }
 
     public function getWidget(): ?IWidget
