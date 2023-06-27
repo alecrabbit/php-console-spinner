@@ -70,17 +70,18 @@ final class WidgetCompositeTest extends TestCaseWithPrebuiltMocksAndStubs
         ;
         $children = $this->getWidgetCompositeChildrenContainerMock();
         $initialInterval = $this->getIntervalMock();
-        $children
-            ->expects(self::exactly(2))
-            ->method('getInterval')
-            ->willReturn($initialInterval)
-        ;
         $revolverInterval
             ->expects(self::once())
             ->method('smallest')
             ->with($initialInterval)
             ->willReturn($initialInterval)
         ;
+        $children
+            ->expects(self::exactly(2))
+            ->method('getInterval')
+            ->willReturn($initialInterval)
+        ;
+
         $initialInterval
             ->expects(self::once())
             ->method('smallest')
