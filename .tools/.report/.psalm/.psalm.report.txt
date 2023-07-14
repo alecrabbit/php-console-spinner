@@ -38,6 +38,8 @@
 /app/src/Spinner/Core/Builder/WidgetSettingsBuilder.php:32:30:error - PossiblyNullArgument: Argument 4 of AlecRabbit\Spinner\Core\Settings\WidgetSettings::__construct cannot be null, possibly null value provided
 /app/src/Spinner/Core/Contract/IWeakMap.php:11:28:error - MissingTemplateParam: AlecRabbit\Spinner\Core\Contract\IWeakMap has missing template params when extending ArrayAccess, expecting 2
 /app/src/Spinner/Core/Contract/IWeakMap.php:11:52:error - MissingTemplateParam: AlecRabbit\Spinner\Core\Contract\IWeakMap has missing template params when extending IteratorAggregate, expecting 2
+/app/src/Spinner/Core/Contract/IWidgetContextToIntervalMap.php:12:47:error - MissingTemplateParam: AlecRabbit\Spinner\Core\Contract\IWidgetContextToIntervalMap has missing template params when extending ArrayAccess, expecting 2
+/app/src/Spinner/Core/Contract/IWidgetContextToIntervalMap.php:12:71:error - MissingTemplateParam: AlecRabbit\Spinner\Core\Contract\IWidgetContextToIntervalMap has missing template params when extending IteratorAggregate, expecting 2
 /app/src/Spinner/Core/Driver.php:17:29:error - PropertyNotSetInConstructor: Property AlecRabbit\Spinner\Core\Driver::$state is not defined in constructor of AlecRabbit\Spinner\Core\Driver or in any methods called in the constructor
 /app/src/Spinner/Core/Factory/CharFrameRevolverFactory.php:45:63:error - MixedArgument: Argument 1 of AlecRabbit\Spinner\Core\Factory\Contract\IFrameCollectionFactory::create cannot be mixed, expecting Traversable
 /app/src/Spinner/Core/Factory/CharFrameRevolverFactory.php:45:73:error - UndefinedInterfaceMethod: Method AlecRabbit\Spinner\Contract\Pattern\IPattern::getEntries does not exist
@@ -53,10 +55,6 @@
 /app/src/Spinner/Core/Factory/WidgetSettingsFactory.php:30:35:error - PossiblyNullArgument: Argument 1 of AlecRabbit\Spinner\Core\Builder\Settings\Contract\IWidgetSettingsBuilder::withCharPattern cannot be null, possibly null value provided
 /app/src/Spinner/Core/FrameCollection.php:71:34:error - InvalidNullableReturnType: The declared return type 'int' for AlecRabbit\Spinner\Core\FrameCollection::lastIndex is not nullable, but 'int|null' contains null
 /app/src/Spinner/Core/FrameCollection.php:73:16:error - NullableReturnStatement: The declared return type 'int' for AlecRabbit\Spinner\Core\FrameCollection::lastIndex is not nullable, but the function returns 'int|null'
-/app/src/Spinner/Core/IntervalContainer.php:48:36:error - MixedAssignment: Unable to determine the type that $i is being assigned to
-/app/src/Spinner/Core/IntervalContainer.php:49:44:error - MixedArgument: Argument 1 of AlecRabbit\Spinner\Core\IntervalContainer::updateSmallestOnAdd cannot be mixed, expecting AlecRabbit\Spinner\Contract\IInterval
-/app/src/Spinner/Core/NullableIntervalContainer.php:61:36:error - MixedAssignment: Unable to determine the type that $i is being assigned to
-/app/src/Spinner/Core/NullableIntervalContainer.php:62:44:error - MixedArgument: Argument 1 of AlecRabbit\Spinner\Core\NullableIntervalContainer::updateSmallestOnAdd cannot be mixed, expecting AlecRabbit\Spinner\Contract\IInterval
 /app/src/Spinner/Core/Output/StreamBufferedOutput.php:38:30:error - MixedArgumentTypeCoercion: Argument 1 of AlecRabbit\Spinner\Contract\Output\IResourceStream::write expects Traversable<mixed, string>, but parent type Traversable provided
 /app/src/Spinner/Core/Pattern/A/ACharPattern.php:14:35:error - MixedReturnTypeCoercion: The declared return type 'Traversable<int, AlecRabbit\Spinner\Core\Contract\ICharFrame>' for AlecRabbit\Spinner\Core\Pattern\A\ACharPattern::getEntries is more specific than the inferred return type 'Traversable|null'
 /app/src/Spinner/Core/Pattern/A/ACharPattern.php:16:16:error - MixedReturnTypeCoercion: The type 'Traversable|null' is more general than the declared return type 'Traversable<int, AlecRabbit\Spinner\Core\Contract\ICharFrame>' for AlecRabbit\Spinner\Core\Pattern\A\ACharPattern::getEntries
@@ -85,23 +83,19 @@
 /app/src/Spinner/Core/Widget/Builder/WidgetRevolverBuilder.php:26:17:error - PossiblyNullArgument: Argument 2 of AlecRabbit\Spinner\Core\Widget\WidgetRevolver::__construct cannot be null, possibly null value provided
 /app/src/Spinner/Core/Widget/Builder/WidgetRevolverBuilder.php:27:17:error - PossiblyNullArgument: Argument 3 of AlecRabbit\Spinner\Core\Widget\WidgetRevolver::__construct cannot be null, possibly null value provided
 /app/src/Spinner/Core/Widget/Contract/IWidgetCompositeChildrenContainer.php:19:53:error - MissingTemplateParam: AlecRabbit\Spinner\Core\Widget\Contract\IWidgetCompositeChildrenContainer has missing template params when extending IteratorAggregate, expecting 2
-/app/src/Spinner/Core/Widget/Contract/IWidgetContextContainer.php:12:54:error - MissingTemplateParam: AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContextContainer has missing template params when extending IteratorAggregate, expecting 2
-/app/src/Spinner/Core/Widget/Contract/IWidgetContextContainer.php:20:21:error - MissingReturnType: Method AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContextContainer::get does not have a return type
-/app/src/Spinner/Core/Widget/WidgetComposite.php:52:13:error - InvalidDocblock: Misplaced variable
-/app/src/Spinner/Core/Widget/WidgetComposite.php:52:41:error - MissingDocblockType: Misplaced variable
-/app/src/Spinner/Core/Widget/WidgetComposite.php:52:41:error - MixedAssignment: Unable to determine the type that $childContext is being assigned to
-/app/src/Spinner/Core/Widget/WidgetComposite.php:52:58:error - MissingDocblockType: Misplaced variable
-/app/src/Spinner/Core/Widget/WidgetComposite.php:53:17:error - MixedAssignment: Unable to determine the type that $widget is being assigned to
-/app/src/Spinner/Core/Widget/WidgetComposite.php:53:42:error - MixedMethodCall: Cannot determine the type of $childContext when calling method getWidget
-/app/src/Spinner/Core/Widget/WidgetComposite.php:76:46:error - MixedArgument: Argument 1 of AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContextContainer::add cannot be mixed, expecting AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContext
-/app/src/Spinner/Core/Widget/WidgetComposite.php:76:55:error - UndefinedInterfaceMethod: Method AlecRabbit\Spinner\Core\Widget\Contract\IWidget::getContext does not exist
-/app/src/Spinner/Core/Widget/WidgetComposite.php:105:9:error - MixedAssignment: Unable to determine the type that $context is being assigned to
-/app/src/Spinner/Core/Widget/WidgetComposite.php:105:29:error - UndefinedInterfaceMethod: Method AlecRabbit\Spinner\Core\Widget\Contract\IWidget::getContext does not exist
-/app/src/Spinner/Core/Widget/WidgetComposite.php:106:34:error - MixedArgument: Argument 1 of AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContextContainer::has cannot be mixed, expecting AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContext
-/app/src/Spinner/Core/Widget/WidgetContextContainer.php:40:39:error - PossiblyNullArgument: Argument 1 of AlecRabbit\Spinner\Core\Contract\IIntervalContainer::add cannot be null, possibly null value provided
-/app/src/Spinner/Core/Widget/WidgetContextContainer.php:54:46:error - PossiblyNullArgument: Argument 1 of AlecRabbit\Spinner\Core\Contract\IIntervalContainer::remove cannot be null, possibly null value provided
-/app/src/Spinner/Core/Widget/WidgetContextContainer.php:59:51:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContext' for AlecRabbit\Spinner\Core\Widget\WidgetContextContainer::get
-/app/src/Spinner/Core/Widget/WidgetContextContainer.php:62:20:error - MixedReturnStatement: Could not infer a return type
+/app/src/Spinner/Core/Widget/WidgetComposite.php:53:13:error - InvalidDocblock: Misplaced variable
+/app/src/Spinner/Core/Widget/WidgetComposite.php:53:41:error - MissingDocblockType: Misplaced variable
+/app/src/Spinner/Core/Widget/WidgetComposite.php:53:41:error - MixedAssignment: Unable to determine the type that $childContext is being assigned to
+/app/src/Spinner/Core/Widget/WidgetComposite.php:53:58:error - MissingDocblockType: Misplaced variable
+/app/src/Spinner/Core/Widget/WidgetComposite.php:54:17:error - MixedAssignment: Unable to determine the type that $widget is being assigned to
+/app/src/Spinner/Core/Widget/WidgetComposite.php:54:42:error - MixedMethodCall: Cannot determine the type of $childContext when calling method getWidget
+/app/src/Spinner/Core/Widget/WidgetCompositeChildrenContainer.php:103:13:error - MixedAssignment: Unable to determine the type that $this->interval is being assigned to
+/app/src/Spinner/Core/Widget/WidgetCompositeChildrenContainer.php:103:48:error - MixedMethodCall: Cannot determine the type of $this->interval when calling method smallest
+/app/src/Spinner/Core/WidgetContextToIntervalMap.php:27:32:error - MixedAssignment: Unable to determine the type that $key is being assigned to
+/app/src/Spinner/Core/WidgetContextToIntervalMap.php:27:40:error - MixedAssignment: Unable to determine the type that $value is being assigned to
+/app/src/Spinner/Core/WidgetContextToIntervalMap.php:43:47:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Contract\IInterval|null' for AlecRabbit\Spinner\Core\WidgetContextToIntervalMap::offsetGet
+/app/src/Spinner/Core/WidgetContextToIntervalMap.php:51:16:error - MixedReturnStatement: Could not infer a return type
+/app/src/Spinner/Core/WidgetContextToIntervalMap.php:66:9:error - MixedAssignment: Unable to determine the type that $value is being assigned to
 /app/src/Spinner/Facade.php:28:47:error - MoreSpecificReturnType: The declared return type 'AlecRabbit\Spinner\Core\Factory\Contract\ILoopFactory' for AlecRabbit\Spinner\Facade::getLoopFactory is more specific than the inferred return type 'object'
 /app/src/Spinner/Facade.php:30:16:error - LessSpecificReturnStatement: The type 'object' is more general than the declared return type 'AlecRabbit\Spinner\Core\Factory\Contract\ILoopFactory' for AlecRabbit\Spinner\Facade::getLoopFactory
 /app/src/Spinner/Facade.php:42:51:error - MoreSpecificReturnType: The declared return type 'AlecRabbit\Spinner\Core\Contract\ISettingsProvider' for AlecRabbit\Spinner\Facade::getSettingsProvider is more specific than the inferred return type 'object'

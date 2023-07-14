@@ -5,23 +5,24 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Settings;
 
-use AlecRabbit\Spinner\Contract\Option\OptionInitialization;
+use AlecRabbit\Spinner\Contract\Option\OptionDriverInitialization;
 use AlecRabbit\Spinner\Contract\Option\OptionLinker;
 use AlecRabbit\Spinner\Core\Settings\Contract\IDriverSettings;
 
 final class DriverSettings implements IDriverSettings
 {
     public function __construct(
-        protected OptionInitialization $optionInitialization,
+        protected OptionDriverInitialization $optionDriverInitialization,
         protected OptionLinker $optionLinker,
         protected string $finalMessage,
         protected string $interruptMessage,
     ) {
     }
 
-    public function setOptionInitialization(OptionInitialization $optionInitialization): IDriverSettings
-    {
-        $this->optionInitialization = $optionInitialization;
+    public function setOptionDriverInitialization(
+        OptionDriverInitialization $optionDriverInitialization,
+    ): IDriverSettings {
+        $this->optionDriverInitialization = $optionDriverInitialization;
         return $this;
     }
 
@@ -61,7 +62,7 @@ final class DriverSettings implements IDriverSettings
 
     public function isInitializationEnabled(): bool
     {
-        return $this->optionInitialization === OptionInitialization::ENABLED;
+        return $this->optionDriverInitialization === OptionDriverInitialization::ENABLED;
     }
 
     public function isLinkerEnabled(): bool

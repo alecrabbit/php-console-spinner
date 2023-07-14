@@ -9,9 +9,10 @@ flowchart TD
 
 ```mermaid
 flowchart TD
-    Start[Start]
-    Start[Start] --> IsIt{Is it?}
-    End[End]
+    A[Start] --> B[Settings] 
+    B --> C{Loop?}
+    B --> D{Output?}
+    B --> E{Color?}
 ```
 - SettingsProvider created 
   - probing for event loop --> Loop settings

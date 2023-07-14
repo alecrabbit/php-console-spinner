@@ -5,7 +5,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Contract\Option;
 
-enum OptionInitialization
+enum OptionDriverInitialization
 {
     case ENABLED;
     case DISABLED;

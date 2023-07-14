@@ -5,7 +5,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Settings\Contract;
 
-use AlecRabbit\Spinner\Contract\Option\OptionInitialization;
+use AlecRabbit\Spinner\Contract\Option\OptionDriverInitialization;
 use AlecRabbit\Spinner\Contract\Option\OptionLinker;
 
 interface IDriverSettings
@@ -22,7 +22,9 @@ interface IDriverSettings
 
     public function isLinkerEnabled(): bool;
 
-    public function setOptionInitialization(OptionInitialization $optionInitialization): IDriverSettings;
+    public function setOptionDriverInitialization(
+        OptionDriverInitialization $optionInitialization,
+    ): IDriverSettings;
 
     public function getOptionLinker(): OptionLinker;
 

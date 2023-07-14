@@ -5,7 +5,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Builder\Settings;
 
-use AlecRabbit\Spinner\Contract\Option\OptionInitialization;
+use AlecRabbit\Spinner\Contract\Option\OptionDriverInitialization;
 use AlecRabbit\Spinner\Contract\Option\OptionLinker;
 use AlecRabbit\Spinner\Core\Builder\Settings\Contract\IDriverSettingsBuilder;
 use AlecRabbit\Spinner\Core\Settings\Contract\IDriverSettings;
@@ -17,7 +17,7 @@ final class DriverSettingsBuilder implements IDriverSettingsBuilder
     {
         return
             new DriverSettings(
-                optionInitialization: OptionInitialization::ENABLED,
+                optionDriverInitialization: OptionDriverInitialization::ENABLED,
                 optionLinker: OptionLinker::ENABLED,
                 finalMessage: '',
                 interruptMessage: PHP_EOL,
