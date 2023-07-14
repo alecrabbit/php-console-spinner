@@ -61,3 +61,10 @@ Color:
 - autodetect color support (symfony/console, None), 🔧 **Default** ➜ ANSI8
 - option:
   - color mode (AUTO, NONE, ANSI4, ANSI8, ANSI24), 🔧 **Default** ➜ AUTO
+
+Driver:
+- option:
+  - linker - ENABLED/DISABLED (link driver to loop), 🔧 **Default** ➜ ENABLED
+
+Normalizer: (for minimal frames interval step)
+- SMOOTH/BALANCED/PERFORMANCE/SLOW/STILL, 🔧 **Default** ➜ BALANCED (50ms)
