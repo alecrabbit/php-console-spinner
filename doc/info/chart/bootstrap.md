@@ -31,3 +31,33 @@ flowchart TD
 - probing for terminal color support
   - symfony/console     --> ANSI(from symfony/console)
   - No color support    --> ANSI("native")
+
+```mermaid
+flowchart LR
+    A[Loop] --> AB[React] 
+    A[Loop] --> AC[Revolt] 
+    A[Loop] --> AD[None]
+    B[Output] --> BA[Symfony]
+    B[Output] --> BB[None]
+    B[Output] --> BC[Native]
+```
+
+Loop:
+- autodetect event loop (ReactPHP, Revolt, None)
+- option:
+  - attach handler(s) to loop - ENABLED/DISABLED (signal handler(s)), 🔧 **Default** ➜ ENABLED
+  - autostart loop - ENABLED/DISABLED, 🔧 **Default** ➜ ENABLED
+  - run mode (sync/async) - SYNCHRONOUS/ASYNC, 🔧 **Default** ➜ ASYNC
+
+Output:
+- autodetect stream (symfony/console, None), 🔧 **Default** ➜ stderr
+  - custom stream (new feature)
+- option:
+  - show/hide cursor - VISIBLE/HIDDEN, 🔧 **Default** ➜ HIDDEN
+  - clear screen - ENABLED/DISABLED (new feature), 🔧 **Default** ➜ DISABLED
+  - initialization - ENABLED/DISABLED (execute all options for output?), 🔧 **Default** ➜ ENABLED
+
+Color:
+- autodetect color support (symfony/console, None), 🔧 **Default** ➜ ANSI8
+- option:
+  - color mode (AUTO, NONE, ANSI4, ANSI8, ANSI24), 🔧 **Default** ➜ AUTO
