@@ -23,7 +23,7 @@ interface IDriverSettings
     public function isLinkerEnabled(): bool;
 
     public function setOptionDriverInitialization(
-        OptionDriverInitialization $optionInitialization,
+        OptionDriverInitialization $optionDriverInitialization,
     ): IDriverSettings;
 
     public function getOptionLinker(): OptionLinker;
