@@ -30,7 +30,7 @@ final class ConsoleCursorFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
         return new ConsoleCursorFactory(
             bufferedOutputFactory: $bufferedOutputFactory ?? $this->getBufferedOutputFactoryMock(),
             cursorBuilder: $cursorBuilder ?? $this->getCursorBuilderMock(),
-            optionCursor: $optionCursor ?? CursorVisibilityOption::VISIBLE,
+            cursorVisibilityOption: $optionCursor ?? CursorVisibilityOption::VISIBLE,
         );
     }
 
@@ -56,7 +56,7 @@ final class ConsoleCursorFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
 
         $cursorBuilder
             ->expects(self::once())
-            ->method('withOptionCursor')
+            ->method('withCursorVisibilityMode')
             ->willReturnSelf()
         ;
 

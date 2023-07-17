@@ -220,7 +220,7 @@ function definitions(): Traversable
 
             return new TerminalSettingsFactory($terminalProbe);
         },
-        
+
         NormalizerMethodMode::class => static function (ContainerInterface $container): NormalizerMethodMode {
             return $container->get(ISettingsProvider::class)->getAuxSettings()->getNormalizerMethodMode();
         },

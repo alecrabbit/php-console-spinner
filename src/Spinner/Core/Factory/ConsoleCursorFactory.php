@@ -5,6 +5,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Factory;
 
+use AlecRabbit\Spinner\Contract\Mode\CursorVisibilityMode;
 use AlecRabbit\Spinner\Contract\Option\CursorVisibilityOption;
 use AlecRabbit\Spinner\Core\Builder\Contract\IConsoleCursorBuilder;
 use AlecRabbit\Spinner\Core\Factory\Contract\IBufferedOutputSingletonFactory;
@@ -16,7 +17,7 @@ final class ConsoleCursorFactory implements IConsoleCursorFactory
     public function __construct(
         protected IBufferedOutputSingletonFactory $bufferedOutputFactory,
         protected IConsoleCursorBuilder $cursorBuilder,
-        protected CursorVisibilityOption $optionCursor,
+        protected CursorVisibilityOption $cursorVisibilityOption,
     ) {
     }
 
@@ -26,8 +27,21 @@ final class ConsoleCursorFactory implements IConsoleCursorFactory
             ->withOutput(
                 $this->bufferedOutputFactory->getOutput()
             )
-            ->withOptionCursor($this->optionCursor)
+            ->withCursorVisibilityMode(
+                $this->convertOptionToMode(
+                    $this->cursorVisibilityOption
+                )
+            )
             ->build()
         ;
+    }
+
+    private function convertOptionToMode(CursorVisibilityOption $cursorVisibilityOption): CursorVisibilityMode
+    {
+        return
+            match ($cursorVisibilityOption) {
+                CursorVisibilityOption::VISIBLE => CursorVisibilityMode::VISIBLE,
+                default => CursorVisibilityMode::HIDDEN,
+            };
     }
 }
