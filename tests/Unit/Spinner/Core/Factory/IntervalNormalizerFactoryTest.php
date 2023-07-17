@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Factory;
 
+use AlecRabbit\Spinner\Contract\Mode\NormalizerMethodMode;
 use AlecRabbit\Spinner\Contract\Option\NormalizerMethodOption;
 use AlecRabbit\Spinner\Core\Builder\Contract\IIntegerNormalizerBuilder;
 use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalNormalizerFactory;
@@ -24,11 +25,11 @@ final class IntervalNormalizerFactoryTest extends TestCaseWithPrebuiltMocksAndSt
 
     public function getTesteeInstance(
         ?IIntegerNormalizerBuilder $integerNormalizerBuilder = null,
-        ?NormalizerMethodOption $normalizerMode = null,
+        ?NormalizerMethodMode $normalizerMode = null,
     ): IIntervalNormalizerFactory {
         return new IntervalNormalizerFactory(
             integerNormalizerBuilder: $integerNormalizerBuilder ?? $this->getIntegerNormalizerBuilderMock(),
-            normalizerMode: $normalizerMode ?? NormalizerMethodOption::BALANCED,
+            normalizerMode: $normalizerMode ?? NormalizerMethodMode::BALANCED,
         );
     }
 

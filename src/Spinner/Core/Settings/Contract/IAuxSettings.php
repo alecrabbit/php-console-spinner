@@ -5,11 +5,11 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Settings\Contract;
 
-use AlecRabbit\Spinner\Contract\Option\NormalizerMethodOption;
+use AlecRabbit\Spinner\Contract\Mode\NormalizerMethodMode;
 
 interface IAuxSettings
 {
-    public function getOptionNormalizerMode(): NormalizerMethodOption;
+    public function getNormalizerMethodMode(): NormalizerMethodMode;
 
-    public function setOptionNormalizerMode(NormalizerMethodOption $normalizerMode): IAuxSettings;
+    public function setNormalizerMethodMode(NormalizerMethodMode $normalizerMethodMode): IAuxSettings;
 }

@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use AlecRabbit\Spinner\Container\DefinitionRegistry;
+use AlecRabbit\Spinner\Contract\Mode\NormalizerMethodMode;
 use AlecRabbit\Spinner\Contract\Option\CursorVisibilityOption;
 use AlecRabbit\Spinner\Contract\Option\NormalizerMethodOption;
 use AlecRabbit\Spinner\Contract\Option\StylingMethodOption;
@@ -222,6 +223,9 @@ function definitions(): Traversable
 
         NormalizerMethodOption::class => static function (ContainerInterface $container): NormalizerMethodOption {
             return $container->get(ISettingsProvider::class)->getAuxSettings()->getOptionNormalizerMode();
+        },
+        NormalizerMethodMode::class => static function (ContainerInterface $container): NormalizerMethodMode {
+            return $container->get(ISettingsProvider::class)->getAuxSettings()->getNormalizerMethodMode();
         },
         CursorVisibilityOption::class => static function (ContainerInterface $container): CursorVisibilityOption {
             return $container->get(ISettingsProvider::class)->getTerminalSettings()->getOptionCursor();

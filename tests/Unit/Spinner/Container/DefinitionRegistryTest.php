@@ -12,6 +12,8 @@ use PHPUnit\Framework\Attributes\Test;
 
 final class DefinitionRegistryTest extends TestCase
 {
+    private ?IDefinitionRegistry $registry = null;
+
     #[Test]
     public function canBeCreated(): void
     {
@@ -60,6 +62,12 @@ final class DefinitionRegistryTest extends TestCase
 
     protected function setUp(): void
     {
+        $this->registry = self::getPropertyValue('instance', DefinitionRegistry::class);
         self::setPropertyValue(DefinitionRegistry::class, 'instance', null);
+    }
+
+    protected function tearDown(): void
+    {
+        self::setPropertyValue(DefinitionRegistry::class, 'instance', $this->registry);
     }
 }

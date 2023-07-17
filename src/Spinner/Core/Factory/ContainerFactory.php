@@ -36,7 +36,8 @@ final class ContainerFactory implements IContainerFactory
         return
             new Container(
                 spawnerCreatorCb: static function (ContainerInterface $container): IServiceSpawner {
-                    return new ServiceSpawner($container);
+                    return
+                        new ServiceSpawner($container);
                 },
                 definitions: $this->registry->getDefinitions(),
             );
