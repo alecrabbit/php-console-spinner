@@ -26,7 +26,7 @@ final class WidgetContextTest extends TestCaseWithPrebuiltMocksAndStubs
         ?IObserver $observer = null,
     ): IWidgetContext {
         return new WidgetContext(
-            widget: $widget ?? $this->getWidgetMock(),
+            widget: $widget,
             observer: $observer,
         );
     }
@@ -56,7 +56,7 @@ final class WidgetContextTest extends TestCaseWithPrebuiltMocksAndStubs
     }
 
     #[Test]
-    public function canGetInterval(): void
+    public function canGetIntervalFromUnderlyingWidget(): void
     {
         $interval = $this->getIntervalMock();
         $widget = $this->getWidgetMock();
@@ -75,7 +75,35 @@ final class WidgetContextTest extends TestCaseWithPrebuiltMocksAndStubs
     }
 
     #[Test]
-    public function canReplaceWidget(): void
+    public function returnsNullOnGetIntervalIfWidgetIsNotSet(): void
+    {
+        $widgetContext = $this->getTesteeInstance();
+
+        self::assertNull($widgetContext->getInterval());
+    }
+
+    #[Test]
+    public function canSetWidgetComposite(): void
+    {
+        $widgetContext = $this->getTesteeInstance();
+
+        self::assertNull($widgetContext->getWidget());
+
+        $widgetComposite = $this->getWidgetCompositeMock();
+        $widgetComposite
+            ->expects(self::once())
+            ->method('attach')
+            ->with($widgetContext)
+        ;
+
+        $widgetContext->setWidget($widgetComposite);
+
+        self::assertInstanceOf(WidgetContext::class, $widgetContext);
+        self::assertSame($widgetComposite, $widgetContext->getWidget());
+    }
+
+    #[Test]
+    public function canReplaceWidgetWithWidgetComposite(): void
     {
         $widget = $this->getWidgetMock();
 
@@ -83,21 +111,82 @@ final class WidgetContextTest extends TestCaseWithPrebuiltMocksAndStubs
             widget: $widget,
         );
 
-        $widgetComposite = $this->getWidgetCompositeMock();
-//        $widgetComposite
-//            ->expects(self::once())
-//            ->method('envelopWithContext')
-//            ->with($widgetContext)
-//        ;
+        $widget
+            ->expects(self::once())
+            ->method('detach')
+            ->with($widgetContext)
+        ;
 
-        $widgetContext->adoptWidget($widgetComposite);
+        $widgetComposite = $this->getWidgetCompositeMock();
+        $widgetComposite
+            ->expects(self::once())
+            ->method('attach')
+            ->with($widgetContext)
+        ;
+
+        $widgetContext->setWidget($widgetComposite);
 
         self::assertInstanceOf(WidgetContext::class, $widgetContext);
         self::assertSame($widgetComposite, $widgetContext->getWidget());
     }
 
     #[Test]
-    public function canReplaceWidgetComposite(): void
+    public function canReplaceWidgetCompositeWithWidget(): void
+    {
+        $widgetComposite = $this->getWidgetCompositeMock();
+
+        $widgetContext = $this->getTesteeInstance(
+            widget: $widgetComposite,
+        );
+        $widgetComposite
+            ->expects(self::once())
+            ->method('detach')
+            ->with($widgetContext)
+        ;
+        $widget = $this->getWidgetMock();
+        $widget
+            ->expects(self::once())
+            ->method('attach')
+            ->with($widgetContext)
+        ;
+
+        $widgetContext->setWidget($widget);
+
+        self::assertInstanceOf(WidgetContext::class, $widgetContext);
+        self::assertSame($widget, $widgetContext->getWidget());
+    }
+
+    #[Test]
+    public function canSetWidgetToNull(): void
+    {
+        $widgetComposite = $this->getWidgetCompositeMock();
+
+        $observer = $this->getObserverMock();
+
+        $widgetContext = $this->getTesteeInstance(
+            widget: $widgetComposite,
+            observer: $observer,
+        );
+        $observer
+            ->expects(self::once())
+            ->method('update')
+            ->with($widgetContext)
+        ;
+
+        $widgetComposite
+            ->expects(self::once())
+            ->method('detach')
+            ->with($widgetContext)
+        ;
+        $widget = null;
+
+        $widgetContext->setWidget($widget);
+
+        self::assertNull($widgetContext->getWidget());
+    }
+
+    #[Test]
+    public function canSetWidget(): void
     {
         $widgetComposite = $this->getWidgetCompositeMock();
 
@@ -106,20 +195,73 @@ final class WidgetContextTest extends TestCaseWithPrebuiltMocksAndStubs
         );
 
         $widget = $this->getWidgetMock();
-//        $widget
-//            ->expects(self::once())
-//            ->method('envelopWithContext')
-//            ->with($widgetContext)
-//        ;
 
-        $widgetContext->adoptWidget($widget);
+        $widgetContext->setWidget($widget);
 
         self::assertInstanceOf(WidgetContext::class, $widgetContext);
         self::assertSame($widget, $widgetContext->getWidget());
     }
 
     #[Test]
-    public function canNotifyOnUpdateFromRootWidget(): void
+    public function canNotifyOnUpdateFromWidgetComposite(): void
+    {
+        $widgetComposite = $this->getWidgetCompositeMock();
+
+        $observer = $this->getObserverMock();
+
+        $widgetContext = $this->getTesteeInstance(
+            widget: $widgetComposite,
+            observer: $observer,
+        );
+        $observer
+            ->expects(self::once())
+            ->method('update')
+            ->with($widgetContext)
+        ;
+        $widgetContext->update($widgetComposite);
+    }
+
+    #[Test]
+    public function willNotifyOnSetWidget(): void
+    {
+        $widgetComposite = $this->getWidgetCompositeMock();
+
+        $observer = $this->getObserverMock();
+
+        $widgetContext = $this->getTesteeInstance(
+            widget: $widgetComposite,
+            observer: $observer,
+        );
+        $observer
+            ->expects(self::once())
+            ->method('update')
+            ->with($widgetContext)
+        ;
+        $widgetContext->setWidget($widgetComposite);
+    }
+
+    #[Test]
+    public function willNotNotifyOnUpdateFromOtherWidget(): void
+    {
+        $otherWidget = $this->getWidgetMock();
+        $widgetComposite = $this->getWidgetCompositeMock();
+
+        $observer = $this->getObserverMock();
+        $observer
+            ->expects(self::once())
+            ->method('update')
+        ;
+
+        $widgetContext = $this->getTesteeInstance(
+            widget: $widgetComposite,
+            observer: $observer,
+        );
+
+        $widgetContext->update($otherWidget);
+    }
+
+    #[Test]
+    public function willNotifyOnConstructWithWidget(): void
     {
         $widgetComposite = $this->getWidgetCompositeMock();
 
@@ -134,15 +276,11 @@ final class WidgetContextTest extends TestCaseWithPrebuiltMocksAndStubs
             observer: $observer,
         );
 
-        $widgetContext->update($widgetComposite);
+        self::assertInstanceOf(WidgetContext::class, $widgetContext);
     }
-
     #[Test]
-    public function willNotNotifyOnUpdateFromOtherWidget(): void
+    public function willNotNotifyOnConstructIfWidgetIsNull(): void
     {
-        $otherWidget = $this->getWidgetMock();
-        $widgetComposite = $this->getWidgetCompositeMock();
-
         $observer = $this->getObserverMock();
         $observer
             ->expects(self::never())
@@ -150,10 +288,16 @@ final class WidgetContextTest extends TestCaseWithPrebuiltMocksAndStubs
         ;
 
         $widgetContext = $this->getTesteeInstance(
-            widget: $widgetComposite,
             observer: $observer,
         );
 
-        $widgetContext->update($otherWidget);
+        self::assertInstanceOf(WidgetContext::class, $widgetContext);
+    }
+
+    #[Test]
+    public function returnsNullIfWidgetIsNotSet(): void
+    {
+        $widgetContext = $this->getTesteeInstance();
+        self::assertNull($widgetContext->getWidget());
     }
 }

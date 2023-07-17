@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Defaults;
 
-use AlecRabbit\Spinner\Contract\Option\OptionNormalizerMode;
+use AlecRabbit\Spinner\Contract\Option\NormalizerMethodOption;
 use AlecRabbit\Spinner\Core\Settings\AuxSettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\IAuxSettings;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
@@ -21,17 +21,17 @@ final class AuxSettingsTest extends TestCaseWithPrebuiltMocksAndStubs
     }
 
     public function getTesteeInstance(
-        ?OptionNormalizerMode $optionNormalizerMode = null,
+        ?NormalizerMethodOption $optionNormalizerMode = null,
     ): IAuxSettings {
         return new AuxSettings(
-            optionNormalizerMode: $optionNormalizerMode ?? OptionNormalizerMode::STILL,
+            optionNormalizerMode: $optionNormalizerMode ?? NormalizerMethodOption::STILL,
         );
     }
 
     #[Test]
     public function valuesCanBeOverriddenWithSetters(): void
     {
-        $optionNormalizerMode = OptionNormalizerMode::SMOOTH;
+        $optionNormalizerMode = NormalizerMethodOption::SMOOTH;
 
         $auxSettings = $this->getTesteeInstance(
             optionNormalizerMode: $optionNormalizerMode,
@@ -40,7 +40,7 @@ final class AuxSettingsTest extends TestCaseWithPrebuiltMocksAndStubs
         self::assertInstanceOf(AuxSettings::class, $auxSettings);
         self::assertSame($optionNormalizerMode, $auxSettings->getOptionNormalizerMode());
 
-        $optionNormalizerMode = OptionNormalizerMode::PERFORMANCE;
+        $optionNormalizerMode = NormalizerMethodOption::PERFORMANCE;
         $auxSettings->setOptionNormalizerMode($optionNormalizerMode);
         self::assertSame($optionNormalizerMode, $auxSettings->getOptionNormalizerMode());
     }

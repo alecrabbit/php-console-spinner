@@ -9,7 +9,7 @@ use AlecRabbit\Spinner\Contract\IObserver;
 interface IWidgetComposite extends IWidget,
                                    IObserver
 {
-    public function add(IWidget $widget): IWidgetContext;
+    public function add(IWidgetContext $context): IWidgetContext;
 
-    public function remove(IWidget $widget): void;
+    public function remove(IWidgetContext $context): void;
 }

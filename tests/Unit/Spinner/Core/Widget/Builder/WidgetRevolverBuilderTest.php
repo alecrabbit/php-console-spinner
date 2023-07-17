@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Tests\Unit\Spinner\Core;
+namespace AlecRabbit\Tests\Unit\Spinner\Core\Widget\Builder;
 
+use AlecRabbit\Spinner\Core\Widget\Builder\WidgetRevolverBuilder;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolverBuilder;
 use AlecRabbit\Spinner\Core\Widget\WidgetRevolver;
-use AlecRabbit\Spinner\Core\Widget\WidgetRevolverBuilder;
 use AlecRabbit\Spinner\Exception\LogicException;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Defaults;
 
-use AlecRabbit\Spinner\Contract\Option\OptionCursor;
-use AlecRabbit\Spinner\Contract\Option\OptionStyleMode;
+use AlecRabbit\Spinner\Contract\Option\CursorVisibilityOption;
+use AlecRabbit\Spinner\Contract\Option\StylingMethodOption;
 use AlecRabbit\Spinner\Core\Settings\Contract\ITerminalSettings;
 use AlecRabbit\Spinner\Core\Settings\TerminalSettings;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
@@ -22,13 +22,13 @@ final class TerminalSettingsTest extends TestCaseWithPrebuiltMocksAndStubs
     }
 
     public function getTesteeInstance(
-        ?OptionCursor $optionCursor = null,
-        ?OptionStyleMode $optionStyleMode = null,
+        ?CursorVisibilityOption $optionCursor = null,
+        ?StylingMethodOption $optionStyleMode = null,
         $outputStream = null,
     ): ITerminalSettings {
         return new TerminalSettings(
-            optionCursor: $optionCursor ?? OptionCursor::VISIBLE,
-            optionStyleMode: $optionStyleMode ?? OptionStyleMode::NONE,
+            optionCursor: $optionCursor ?? CursorVisibilityOption::VISIBLE,
+            optionStyleMode: $optionStyleMode ?? StylingMethodOption::NONE,
             outputStream: $outputStream ?? STDERR,
         );
     }
@@ -36,8 +36,8 @@ final class TerminalSettingsTest extends TestCaseWithPrebuiltMocksAndStubs
     #[Test]
     public function valuesCanBeOverriddenWithSetters(): void
     {
-        $optionCursor = OptionCursor::VISIBLE;
-        $optionStyleMode = OptionStyleMode::NONE;
+        $optionCursor = CursorVisibilityOption::VISIBLE;
+        $optionStyleMode = StylingMethodOption::NONE;
         $resource = fopen('php://memory', 'rb+');
 
         $terminalSettings = $this->getTesteeInstance(
@@ -50,8 +50,8 @@ final class TerminalSettingsTest extends TestCaseWithPrebuiltMocksAndStubs
         self::assertSame($optionStyleMode, $terminalSettings->getOptionStyleMode());
         self::assertSame($resource, $terminalSettings->getOutputStream());
 
-        $optionCursor = OptionCursor::HIDDEN;
-        $optionStyleMode = OptionStyleMode::ANSI8;
+        $optionCursor = CursorVisibilityOption::HIDDEN;
+        $optionStyleMode = StylingMethodOption::ANSI8;
         $resource = fopen('php://memory', 'rb+');
 
         $terminalSettings->setOptionCursor($optionCursor);

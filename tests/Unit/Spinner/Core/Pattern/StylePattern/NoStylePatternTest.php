@@ -2,7 +2,7 @@
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Pattern\StylePattern;
 
-use AlecRabbit\Spinner\Contract\Option\OptionStyleMode;
+use AlecRabbit\Spinner\Contract\Option\StylingMethodOption;
 use AlecRabbit\Spinner\Core\Pattern\Contract\IStylePattern;
 use AlecRabbit\Spinner\Core\Pattern\NoStylePattern;
 use AlecRabbit\Spinner\Core\StyleFrame;
@@ -30,7 +30,7 @@ final class NoStylePatternTest extends TestCaseWithPrebuiltMocksAndStubs
         $pattern = $this->getTesteeInstance();
 
         self::assertInstanceOf(NoStylePattern::class, $pattern);
-        self::assertEquals(OptionStyleMode::NONE, $pattern->getStyleMode());
+        self::assertEquals(StylingMethodOption::NONE, $pattern->getStyleMode());
     }
 
     #[Test]

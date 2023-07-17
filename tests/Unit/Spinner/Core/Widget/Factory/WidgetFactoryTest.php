@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Widget\Factory;
 
-use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetCompositeBuilder;
+use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetBuilder;
 use AlecRabbit\Spinner\Core\Widget\Factory\Contract\IWidgetFactory;
 use AlecRabbit\Spinner\Core\Widget\Factory\Contract\IWidgetRevolverFactory;
 use AlecRabbit\Spinner\Core\Widget\Factory\WidgetFactory;
@@ -22,11 +22,11 @@ final class WidgetFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
     }
 
     public function getTesteeInstance(
-        ?IWidgetCompositeBuilder $widgetBuilder = null,
+        ?IWidgetBuilder $widgetBuilder = null,
         ?IWidgetRevolverFactory $widgetRevolverFactory = null,
     ): IWidgetFactory {
         return new WidgetFactory(
-            widgetBuilder: $widgetBuilder ?? $this->getWidgetBuilderMock(),
+            widgetBuilder: $widgetBuilder ?? $this->getWidgetCompositeBuilderMock(),
             widgetRevolverFactory: $widgetRevolverFactory ?? $this->getWidgetRevolverFactoryMock(),
         );
     }
@@ -36,7 +36,7 @@ final class WidgetFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
     {
         $leadingSpacer = $this->getFrameMock();
         $trailingSpacer = $this->getFrameMock();
-        $widgetComposite = $this->getWidgetCompositeMock();
+        $widget = $this->getWidgetMock();
 
         $widgetSettings = $this->getWidgetSettingsMock();
         $widgetSettings
@@ -83,7 +83,7 @@ final class WidgetFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
         $widgetBuilder
             ->expects(self::once())
             ->method('build')
-            ->willReturn($widgetComposite)
+            ->willReturn($widget)
         ;
 
 
@@ -93,6 +93,6 @@ final class WidgetFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
         );
 
         self::assertInstanceOf(WidgetFactory::class, $widgetFactory);
-        self::assertSame($widgetComposite, $widgetFactory->createWidget($widgetSettings));
+        self::assertSame($widget, $widgetFactory->createWidget($widgetSettings));
     }
 }

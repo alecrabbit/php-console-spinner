@@ -5,7 +5,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Factory;
 
-use AlecRabbit\Spinner\Contract\Option\OptionNormalizerMode;
+use AlecRabbit\Spinner\Contract\Option\NormalizerMethodOption;
 use AlecRabbit\Spinner\Core\Builder\Contract\IIntegerNormalizerBuilder;
 use AlecRabbit\Spinner\Core\Contract\IIntegerNormalizer;
 use AlecRabbit\Spinner\Core\Contract\IIntervalNormalizer;
@@ -16,7 +16,7 @@ final class IntervalNormalizerFactory implements IIntervalNormalizerFactory
 {
     public function __construct(
         protected IIntegerNormalizerBuilder $integerNormalizerBuilder,
-        protected OptionNormalizerMode $normalizerMode,
+        protected NormalizerMethodOption $normalizerMode,
     ) {
     }
 
@@ -41,11 +41,11 @@ final class IntervalNormalizerFactory implements IIntervalNormalizerFactory
     private function getDivisor(): int
     {
         return match ($this->normalizerMode) {
-            OptionNormalizerMode::SMOOTH => 20,
-            OptionNormalizerMode::BALANCED => 50,
-            OptionNormalizerMode::PERFORMANCE => 100,
-            OptionNormalizerMode::SLOW => 1000,
-            OptionNormalizerMode::STILL => 900000,
+            NormalizerMethodOption::SMOOTH => 20,
+            NormalizerMethodOption::BALANCED => 50,
+            NormalizerMethodOption::PERFORMANCE => 100,
+            NormalizerMethodOption::SLOW => 1000,
+            NormalizerMethodOption::STILL => 900000,
         };
     }
 }

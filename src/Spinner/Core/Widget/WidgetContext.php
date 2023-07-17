@@ -18,18 +18,10 @@ final class WidgetContext extends ASubject implements IWidgetContext
         ?IObserver $observer = null,
     ) {
         parent::__construct($observer);
-    }
 
-    public function adoptWidget(IWidget $widget): void
-    {
-        $this->widget = $widget;
-        $this->widget->attach($this);
-//        $widget->envelopWithContext($this);
-    }
-
-    public function getWidget(): IWidget
-    {
-        return $this->widget;
+        if ($this->widget instanceof IWidget) {
+            $this->update($this->widget);
+        }
     }
 
     public function update(ISubject $subject): void
@@ -39,8 +31,27 @@ final class WidgetContext extends ASubject implements IWidgetContext
         }
     }
 
-    public function getInterval(): IInterval
+    public function setWidget(?IWidget $widget): void
     {
-        return $this->widget->getInterval();
+        $this->widget?->detach($this);
+        $this->widget = $widget;
+
+        if ($this->widget === null) {
+            $this->notify();
+            return;
+        }
+
+        $this->widget->attach($this);
+        $this->update($this->widget);
+    }
+
+    public function getWidget(): ?IWidget
+    {
+        return $this->widget;
+    }
+
+    public function getInterval(): ?IInterval
+    {
+        return $this->widget?->getInterval();
     }
 }

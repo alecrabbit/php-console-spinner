@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Widget;
 
 use AlecRabbit\Spinner\Contract\IFrame;
+use AlecRabbit\Spinner\Contract\IObserver;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidget;
-use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContext;
 use AlecRabbit\Spinner\Core\Widget\Widget;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;
@@ -26,44 +26,15 @@ final class WidgetTest extends TestCaseWithPrebuiltMocksAndStubs
         ?IRevolver $revolver = null,
         ?IFrame $leadingSpacer = null,
         ?IFrame $trailingSpacer = null,
-        ?IWidgetContext $context = null,
+        ?IObserver $observer = null,
     ): IWidget {
         return
             new Widget(
                 revolver: $revolver ?? $this->getRevolverMock(),
                 leadingSpacer: $leadingSpacer ?? $this->getFrameMock(),
                 trailingSpacer: $trailingSpacer ?? $this->getFrameMock(),
-                context: $context ?? $this->getWidgetContextMock(),
+                observer: $observer ?? $this->getObserverMock(),
             );
-    }
-
-    #[Test]
-    public function canGetContext(): void
-    {
-        $context = $this->getWidgetContextMock();
-
-        $widget = $this->getTesteeInstance(
-            context: $context,
-        );
-
-        self::assertSame($context, $widget->getContext());
-    }
-
-    #[Test]
-    public function notifiesContextOnCreation(): void
-    {
-        $context = $this->getWidgetContextMock();
-
-        $context
-            ->expects(self::once())
-            ->method('update')
-        ;
-
-        $widget = $this->getTesteeInstance(
-            context: $context,
-        );
-
-        self::assertInstanceOf(Widget::class, $widget);
     }
 
     #[Test]

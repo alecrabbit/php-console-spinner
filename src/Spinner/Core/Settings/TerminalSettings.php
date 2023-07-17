@@ -5,36 +5,36 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Settings;
 
-use AlecRabbit\Spinner\Contract\Option\OptionCursor;
-use AlecRabbit\Spinner\Contract\Option\OptionStyleMode;
+use AlecRabbit\Spinner\Contract\Option\CursorVisibilityOption;
+use AlecRabbit\Spinner\Contract\Option\StylingMethodOption;
 use AlecRabbit\Spinner\Core\Settings\Contract\ITerminalSettings;
 
 final class TerminalSettings implements ITerminalSettings
 {
     public function __construct(
-        protected OptionCursor $optionCursor,
-        protected OptionStyleMode $optionStyleMode,
+        protected CursorVisibilityOption $optionCursor,
+        protected StylingMethodOption $optionStyleMode,
         protected $outputStream,
     ) {
     }
 
-    public function getOptionCursor(): OptionCursor
+    public function getOptionCursor(): CursorVisibilityOption
     {
         return $this->optionCursor;
     }
 
-    public function setOptionCursor(OptionCursor $optionCursor): ITerminalSettings
+    public function setOptionCursor(CursorVisibilityOption $optionCursor): ITerminalSettings
     {
         $this->optionCursor = $optionCursor;
         return $this;
     }
 
-    public function getOptionStyleMode(): OptionStyleMode
+    public function getOptionStyleMode(): StylingMethodOption
     {
         return $this->optionStyleMode;
     }
 
-    public function setOptionStyleMode(OptionStyleMode $optionStyleMode): ITerminalSettings
+    public function setOptionStyleMode(StylingMethodOption $optionStyleMode): ITerminalSettings
     {
         $this->optionStyleMode = $optionStyleMode;
         return $this;

@@ -36,7 +36,7 @@ final class Spinner extends ASubject implements ISpinner
         return $this->widget->getInterval();
     }
 
-    public function add(IWidget $element): IWidgetContext
+    public function add(IWidgetContext $element): IWidgetContext
     {
         if ($this->widget instanceof IWidgetComposite) {
             return $this->widget->add($element);
@@ -44,7 +44,7 @@ final class Spinner extends ASubject implements ISpinner
         throw new WidgetIsNotAComposite('Widget is not a composite.');
     }
 
-    public function remove(IWidget $element): void
+    public function remove(IWidgetContext $element): void
     {
         if ($this->widget instanceof IWidgetComposite) {
             $this->widget->remove($element);

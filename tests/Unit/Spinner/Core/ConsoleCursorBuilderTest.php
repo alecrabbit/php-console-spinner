@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core;
 
-use AlecRabbit\Spinner\Contract\Option\OptionCursor;
+use AlecRabbit\Spinner\Contract\Option\CursorVisibilityOption;
 use AlecRabbit\Spinner\Core\Builder\ConsoleCursorBuilder;
 use AlecRabbit\Spinner\Core\Builder\Contract\IConsoleCursorBuilder;
 use AlecRabbit\Spinner\Core\Output\ConsoleCursor;
@@ -31,7 +31,7 @@ final class ConsoleCursorBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
     {
         $output = $this->getBufferedOutputMock();
         $consoleCursorBuilder = $this->getTesteeInstance();
-        $cursorOption = OptionCursor::VISIBLE;
+        $cursorOption = CursorVisibilityOption::VISIBLE;
         $consoleCursor =
             $consoleCursorBuilder
                 ->withOutput($output)

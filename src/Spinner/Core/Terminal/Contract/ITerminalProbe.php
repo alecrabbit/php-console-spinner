@@ -6,20 +6,20 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Terminal\Contract;
 
 use AlecRabbit\Spinner\Contract\IProbe;
-use AlecRabbit\Spinner\Contract\Option\OptionCursor;
-use AlecRabbit\Spinner\Contract\Option\OptionStyleMode;
+use AlecRabbit\Spinner\Contract\Option\CursorVisibilityOption;
+use AlecRabbit\Spinner\Contract\Option\StylingMethodOption;
 
 interface ITerminalProbe extends IProbe
 {
-    final public const DEFAULT_OPTION_CURSOR = OptionCursor::HIDDEN;
+    final public const DEFAULT_OPTION_CURSOR = CursorVisibilityOption::HIDDEN;
     final public const DEFAULT_TERMINAL_WIDTH = 100;
-    final public const DEFAULT_OPTION_STYLE_MODE = OptionStyleMode::ANSI8;
+    final public const DEFAULT_OPTION_STYLE_MODE = StylingMethodOption::ANSI8;
 
     public function getWidth(): int;
 
-    public function getOptionStyleMode(): OptionStyleMode;
+    public function getOptionStyleMode(): StylingMethodOption;
 
-    public function getOptionCursor(): OptionCursor;
+    public function getOptionCursor(): CursorVisibilityOption;
 
     /**
      * @return resource

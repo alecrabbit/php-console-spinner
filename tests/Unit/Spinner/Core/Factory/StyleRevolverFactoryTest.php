@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Factory;
 
-use AlecRabbit\Spinner\Contract\Option\OptionStyleMode;
+use AlecRabbit\Spinner\Contract\Option\StylingMethodOption;
 use AlecRabbit\Spinner\Core\Factory\Contract\IFrameCollectionFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IStyleFrameRevolverFactory;
@@ -29,20 +29,20 @@ final class StyleRevolverFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
         ?IFrameRevolverBuilder $frameRevolverBuilder = null,
         ?IFrameCollectionFactory $frameCollectionFactory = null,
         ?IIntervalFactory $intervalFactory = null,
-        ?OptionStyleMode $styleMode = null,
+        ?StylingMethodOption $styleMode = null,
     ): IStyleFrameRevolverFactory {
         return new StyleFrameRevolverFactory(
             frameRevolverBuilder: $frameRevolverBuilder ?? $this->getFrameRevolverBuilderMock(),
             frameCollectionFactory: $frameCollectionFactory ?? $this->getFrameCollectionFactoryMock(),
             intervalFactory: $intervalFactory ?? $this->getIntervalFactoryMock(),
-            styleMode: $styleMode ?? OptionStyleMode::NONE,
+            styleMode: $styleMode ?? StylingMethodOption::NONE,
         );
     }
 
     #[Test]
     public function canCreateRevolver(): void
     {
-        $styleMode = OptionStyleMode::ANSI8;
+        $styleMode = StylingMethodOption::ANSI8;
         $intInterval = 100;
 
         $pattern = $this->getStylePatternMock();
@@ -147,7 +147,7 @@ final class StyleRevolverFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
             ->willReturn($frameRevolver)
         ;
 
-        $styleMode = OptionStyleMode::NONE;
+        $styleMode = StylingMethodOption::NONE;
 
         $intervalFactory = $this->getIntervalFactoryMock();
         $intervalFactory

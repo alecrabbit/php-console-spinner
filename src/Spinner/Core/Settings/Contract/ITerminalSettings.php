@@ -5,18 +5,18 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Settings\Contract;
 
-use AlecRabbit\Spinner\Contract\Option\OptionCursor;
-use AlecRabbit\Spinner\Contract\Option\OptionStyleMode;
+use AlecRabbit\Spinner\Contract\Option\CursorVisibilityOption;
+use AlecRabbit\Spinner\Contract\Option\StylingMethodOption;
 
 interface ITerminalSettings
 {
-    public function getOptionCursor(): OptionCursor;
+    public function getOptionCursor(): CursorVisibilityOption;
 
-    public function setOptionCursor(OptionCursor $cursorOption): ITerminalSettings;
+    public function setOptionCursor(CursorVisibilityOption $cursorOption): ITerminalSettings;
 
-    public function getOptionStyleMode(): OptionStyleMode;
+    public function getOptionStyleMode(): StylingMethodOption;
 
-    public function setOptionStyleMode(OptionStyleMode $optionStyleMode): ITerminalSettings;
+    public function setOptionStyleMode(StylingMethodOption $optionStyleMode): ITerminalSettings;
 
     /**
      * @return resource

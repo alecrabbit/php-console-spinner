@@ -5,23 +5,93 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Functional\Spinner\Core\Widget;
 
 use AlecRabbit\Spinner\Contract\IFrame;
+use AlecRabbit\Spinner\Contract\IObserver;
 use AlecRabbit\Spinner\Core\CharFrame;
+use AlecRabbit\Spinner\Core\Interval;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
-use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContext;
-use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContextContainer;
+use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetCompositeChildrenContainer;
 use AlecRabbit\Spinner\Core\Widget\WidgetComposite;
-use AlecRabbit\Spinner\Core\Widget\WidgetContextContainer;
+use AlecRabbit\Spinner\Core\Widget\WidgetCompositeChildrenContainer;
+use AlecRabbit\Spinner\Core\Widget\WidgetContext;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;
 
 final class WidgetCompositeTest extends TestCaseWithPrebuiltMocksAndStubs
 {
+    #[Test]
+    public function intervalIsUpdatedOnContextAdd(): void
+    {
+        $children = new WidgetCompositeChildrenContainer();
+
+        $interval = new Interval(100);
+
+        $revolver = $this->getRevolverMock();
+        $revolver
+            ->expects(self::once())
+            ->method('getInterval')
+            ->willReturn($interval)
+        ;
+
+        $widgetComposite = $this->getTesteeInstance(
+            revolver: $revolver,
+            leadingSpacer: $this->getFrameMock(),
+            trailingSpacer: $this->getFrameMock(),
+            children: $children,
+        );
+
+        self::assertSame($interval, $widgetComposite->getInterval());
+
+        $interval1 = new Interval(120);
+        $widget1 = $this->getWidgetMock();
+        $widget1
+            ->expects(self::once())
+            ->method('getInterval')
+            ->willReturn($interval1)
+        ;
+
+        $context1 = new WidgetContext($widget1);
+
+        $widgetComposite->add($context1);
+
+        self::assertSame($interval, $widgetComposite->getInterval());
+
+        $interval2 = new Interval(85);
+        $widget2 = $this->getWidgetMock();
+        $widget2
+            ->expects(self::once())
+            ->method('getInterval')
+            ->willReturn($interval2)
+        ;
+
+        $context2 = new WidgetContext($widget2);
+
+        $widgetComposite->add($context2);
+
+        self::assertSame($interval2, $widgetComposite->getInterval());
+    }
+
+    public function getTesteeInstance(
+        ?IRevolver $revolver = null,
+        ?IFrame $leadingSpacer = null,
+        ?IFrame $trailingSpacer = null,
+        ?IWidgetCompositeChildrenContainer $children = null,
+        ?IObserver $observer = null,
+    ): IWidgetComposite {
+        return
+            new WidgetComposite(
+                revolver: $revolver ?? $this->getRevolverMock(),
+                leadingSpacer: $leadingSpacer ?? $this->getFrameMock(),
+                trailingSpacer: $trailingSpacer ?? $this->getFrameMock(),
+                children: $children ?? $this->getWidgetCompositeChildrenContainerMock(),
+                observer: $observer,
+            );
+    }
 
     #[Test]
     public function canGetFrame(): void
     {
-        $container = new WidgetContextContainer();
+        $children = new WidgetCompositeChildrenContainer();
 
         $revolverFrame = $this->getFrameMock();
         $revolver = $this->getRevolverMock();
@@ -34,24 +104,18 @@ final class WidgetCompositeTest extends TestCaseWithPrebuiltMocksAndStubs
         $leadingSpacer = $this->getFrameMock();
         $trailingSpacer = $this->getFrameMock();
 
-        $widget = $this->getTesteeInstance(
+        $widgetComposite = $this->getTesteeInstance(
             revolver: $revolver,
             leadingSpacer: $leadingSpacer,
             trailingSpacer: $trailingSpacer,
-            children: $container,
+            children: $children,
         );
 
         $otherWidgetContext1 = $this->getWidgetContextMock();
-        $otherWidget1 = $this->getWidgetCompositeMock();
+        $otherWidget1 = $this->getWidgetMock();
         $otherWidgetContext1
             ->method('getWidget')
             ->willReturn($otherWidget1)
-        ;
-
-        $otherWidget1
-            ->expects(self::once())
-            ->method('getContext')
-            ->willReturn($otherWidgetContext1)
         ;
 
         $otherWidget1
@@ -59,23 +123,19 @@ final class WidgetCompositeTest extends TestCaseWithPrebuiltMocksAndStubs
             ->willReturn(new CharFrame('o1', 2))
         ;
         $otherWidgetContext2 = $this->getWidgetContextMock();
-        $otherWidget2 = $this->getWidgetCompositeMock();
+        $otherWidget2 = $this->getWidgetMock();
         $otherWidgetContext2
             ->method('getWidget')
             ->willReturn($otherWidget2)
         ;
-        $otherWidget2
-            ->expects(self::once())
-            ->method('getContext')
-            ->willReturn($otherWidgetContext2)
-        ;
+
         $otherWidget2
             ->method('getFrame')
             ->willReturn(new CharFrame('o2', 2))
         ;
 
-        $widget->add($otherWidget1);
-        $widget->add($otherWidget2);
+        $widgetComposite->add($otherWidgetContext1);
+        $widgetComposite->add($otherWidgetContext2);
 
         $revolverFrame
             ->expects(self::once())
@@ -110,27 +170,9 @@ final class WidgetCompositeTest extends TestCaseWithPrebuiltMocksAndStubs
             ->willReturn(2)
         ;
 
-        $result = $widget->getFrame();
+        $result = $widgetComposite->getFrame();
 
         self::assertSame('lsrfstso1o2', $result->sequence());
         self::assertSame(11, $result->width());
-    }
-
-
-    public function getTesteeInstance(
-        ?IRevolver $revolver = null,
-        ?IFrame $leadingSpacer = null,
-        ?IFrame $trailingSpacer = null,
-        ?IWidgetContextContainer $children = null,
-        ?IWidgetContext $context = null,
-    ): IWidgetComposite {
-        return
-            new WidgetComposite(
-                revolver: $revolver ?? $this->getRevolverMock(),
-                leadingSpacer: $leadingSpacer ?? $this->getFrameMock(),
-                trailingSpacer: $trailingSpacer ?? $this->getFrameMock(),
-                children: $children ?? $this->getWidgetContextContainerMock(),
-                context: $context,
-            );
     }
 }

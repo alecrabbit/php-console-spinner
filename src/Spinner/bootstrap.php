@@ -3,9 +3,9 @@
 declare(strict_types=1);
 
 use AlecRabbit\Spinner\Container\DefinitionRegistry;
-use AlecRabbit\Spinner\Contract\Option\OptionCursor;
-use AlecRabbit\Spinner\Contract\Option\OptionNormalizerMode;
-use AlecRabbit\Spinner\Contract\Option\OptionStyleMode;
+use AlecRabbit\Spinner\Contract\Option\CursorVisibilityOption;
+use AlecRabbit\Spinner\Contract\Option\NormalizerMethodOption;
+use AlecRabbit\Spinner\Contract\Option\StylingMethodOption;
 use AlecRabbit\Spinner\Contract\Output\IResourceStream;
 use AlecRabbit\Spinner\Core\Builder\BufferedOutputBuilder;
 use AlecRabbit\Spinner\Core\Builder\ConsoleCursorBuilder;
@@ -88,14 +88,18 @@ use AlecRabbit\Spinner\Core\Revolver\FrameRevolverBuilder;
 use AlecRabbit\Spinner\Core\Settings\Contract\IDriverSettings;
 use AlecRabbit\Spinner\Core\SignalHandlersSetup;
 use AlecRabbit\Spinner\Core\Terminal\NativeTerminalProbe;
+use AlecRabbit\Spinner\Core\Widget\Builder\WidgetBuilder;
+use AlecRabbit\Spinner\Core\Widget\Builder\WidgetCompositeBuilder;
+use AlecRabbit\Spinner\Core\Widget\Builder\WidgetRevolverBuilder;
+use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetBuilder;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetCompositeBuilder;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolverBuilder;
+use AlecRabbit\Spinner\Core\Widget\Factory\Contract\IWidgetCompositeFactory;
 use AlecRabbit\Spinner\Core\Widget\Factory\Contract\IWidgetFactory;
 use AlecRabbit\Spinner\Core\Widget\Factory\Contract\IWidgetRevolverFactory;
+use AlecRabbit\Spinner\Core\Widget\Factory\WidgetCompositeFactory;
 use AlecRabbit\Spinner\Core\Widget\Factory\WidgetFactory;
 use AlecRabbit\Spinner\Core\Widget\Factory\WidgetRevolverFactory;
-use AlecRabbit\Spinner\Core\Widget\WidgetCompositeBuilder;
-use AlecRabbit\Spinner\Core\Widget\WidgetRevolverBuilder;
 use AlecRabbit\Spinner\Exception\DomainException;
 use Psr\Container\ContainerInterface;
 
@@ -139,8 +143,10 @@ function definitions(): Traversable
         IStyleFrameRevolverFactory::class => StyleFrameRevolverFactory::class,
         ITimerBuilder::class => TimerBuilder::class,
         ITimerFactory::class => TimerFactory::class,
+        IWidgetBuilder::class => WidgetBuilder::class,
         IWidgetCompositeBuilder::class => WidgetCompositeBuilder::class,
         IWidgetFactory::class => WidgetFactory::class,
+        IWidgetCompositeFactory::class => WidgetCompositeFactory::class,
         IWidgetRevolverBuilder::class => WidgetRevolverBuilder::class,
         IWidgetRevolverFactory::class => WidgetRevolverFactory::class,
         IWidgetSettingsBuilder::class => WidgetSettingsBuilder::class,
@@ -214,13 +220,13 @@ function definitions(): Traversable
             return new TerminalSettingsFactory($terminalProbe);
         },
 
-        OptionNormalizerMode::class => static function (ContainerInterface $container): OptionNormalizerMode {
+        NormalizerMethodOption::class => static function (ContainerInterface $container): NormalizerMethodOption {
             return $container->get(ISettingsProvider::class)->getAuxSettings()->getOptionNormalizerMode();
         },
-        OptionCursor::class => static function (ContainerInterface $container): OptionCursor {
+        CursorVisibilityOption::class => static function (ContainerInterface $container): CursorVisibilityOption {
             return $container->get(ISettingsProvider::class)->getTerminalSettings()->getOptionCursor();
         },
-        OptionStyleMode::class => static function (ContainerInterface $container): OptionStyleMode {
+        StylingMethodOption::class => static function (ContainerInterface $container): StylingMethodOption {
             return $container->get(ISettingsProvider::class)->getTerminalSettings()->getOptionStyleMode();
         },
     ];

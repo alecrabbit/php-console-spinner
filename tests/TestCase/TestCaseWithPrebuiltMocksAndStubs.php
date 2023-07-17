@@ -32,7 +32,6 @@ use AlecRabbit\Spinner\Core\Contract\IDriverBuilder;
 use AlecRabbit\Spinner\Core\Contract\IDriverLinker;
 use AlecRabbit\Spinner\Core\Contract\IDriverSetup;
 use AlecRabbit\Spinner\Core\Contract\IFrameCollection;
-use AlecRabbit\Spinner\Core\Contract\IIntervalContainer;
 use AlecRabbit\Spinner\Core\Contract\IIntervalNormalizer;
 use AlecRabbit\Spinner\Core\Contract\ILoopAutoStarter;
 use AlecRabbit\Spinner\Core\Contract\ISettingsProvider;
@@ -40,6 +39,7 @@ use AlecRabbit\Spinner\Core\Contract\ISignalHandlersSetup;
 use AlecRabbit\Spinner\Core\Contract\ISignalProcessingProbe;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use AlecRabbit\Spinner\Core\Contract\ISpinnerState;
+use AlecRabbit\Spinner\Core\Contract\IWeakMap;
 use AlecRabbit\Spinner\Core\Contract\Loop\Contract\ILoop;
 use AlecRabbit\Spinner\Core\Contract\Loop\Contract\ILoopProbe;
 use AlecRabbit\Spinner\Core\Factory\Contract\IBufferedOutputSingletonFactory;
@@ -71,12 +71,13 @@ use AlecRabbit\Spinner\Core\Settings\Contract\ITerminalSettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\IWidgetSettings;
 use AlecRabbit\Spinner\Core\Terminal\Contract\ITerminalProbe;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidget;
+use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetBuilder;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetCompositeBuilder;
+use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetCompositeChildrenContainer;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContext;
-use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContextContainer;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolverBuilder;
-use AlecRabbit\Spinner\Core\Widget\Factory\Contract\IWidgetFactory;
+use AlecRabbit\Spinner\Core\Widget\Factory\Contract\IWidgetCompositeFactory;
 use AlecRabbit\Spinner\Core\Widget\Factory\Contract\IWidgetRevolverFactory;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\MockObject\Stub;
@@ -88,14 +89,14 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
         return $this->createStub(IWidgetConfig::class);
     }
 
+    protected function getWeakMapMock(): MockObject&IWeakMap
+    {
+        return $this->createMock(IWeakMap::class);
+    }
+
     protected function createDefinitionRegistryMock(): MockObject&IDefinitionRegistry
     {
         return $this->createMock(IDefinitionRegistry::class);
-    }
-
-    protected function getWidgetIntervalContainerMock(): MockObject&IIntervalContainer
-    {
-        return $this->createMock(IIntervalContainer::class);
     }
 
     protected function getFrameMock(): MockObject&IFrame
@@ -103,9 +104,9 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
         return $this->createMock(IFrame::class);
     }
 
-    protected function getWidgetContextContainerMock(): MockObject&IWidgetContextContainer
+    protected function getWidgetCompositeChildrenContainerMock(): MockObject&IWidgetCompositeChildrenContainer
     {
-        return $this->createMock(IWidgetContextContainer::class);
+        return $this->createMock(IWidgetCompositeChildrenContainer::class);
     }
 
     protected function getObserverMock(): MockObject&IObserver
@@ -163,9 +164,14 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
         return $this->createMock(IRevolver::class);
     }
 
-    protected function getWidgetBuilderMock(): MockObject&IWidgetCompositeBuilder
+    protected function getWidgetCompositeBuilderMock(): MockObject&IWidgetCompositeBuilder
     {
         return $this->createMock(IWidgetCompositeBuilder::class);
+    }
+
+    protected function getWidgetBuilderMock(): MockObject&IWidgetBuilder
+    {
+        return $this->createMock(IWidgetBuilder::class);
     }
 
     protected function getWidgetRevolverFactoryMock(): MockObject&IWidgetRevolverFactory
@@ -228,9 +234,9 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
         return $this->createMock(IWidgetConfig::class);
     }
 
-    protected function getWidgetFactoryMock(): MockObject&IWidgetFactory
+    protected function getWidgetCompositeFactoryMock(): MockObject&IWidgetCompositeFactory
     {
-        return $this->createMock(IWidgetFactory::class);
+        return $this->createMock(IWidgetCompositeFactory::class);
     }
 
     protected function getWidgetSettingsFactoryMock(): MockObject&IWidgetSettingsFactory

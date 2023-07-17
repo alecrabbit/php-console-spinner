@@ -5,27 +5,28 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Settings;
 
-use AlecRabbit\Spinner\Contract\Option\OptionInitialization;
-use AlecRabbit\Spinner\Contract\Option\OptionLinker;
+use AlecRabbit\Spinner\Contract\Option\DriverInitializationOption;
+use AlecRabbit\Spinner\Contract\Option\DriverLinkerOption;
 use AlecRabbit\Spinner\Core\Settings\Contract\IDriverSettings;
 
 final class DriverSettings implements IDriverSettings
 {
     public function __construct(
-        protected OptionInitialization $optionInitialization,
-        protected OptionLinker $optionLinker,
+        protected DriverInitializationOption $optionDriverInitialization,
+        protected DriverLinkerOption $optionLinker,
         protected string $finalMessage,
         protected string $interruptMessage,
     ) {
     }
 
-    public function setOptionInitialization(OptionInitialization $optionInitialization): IDriverSettings
-    {
-        $this->optionInitialization = $optionInitialization;
+    public function setOptionDriverInitialization(
+        DriverInitializationOption $optionDriverInitialization,
+    ): IDriverSettings {
+        $this->optionDriverInitialization = $optionDriverInitialization;
         return $this;
     }
 
-    public function setOptionLinker(OptionLinker $optionLinker): IDriverSettings
+    public function setOptionLinker(DriverLinkerOption $optionLinker): IDriverSettings
     {
         $this->optionLinker = $optionLinker;
         return $this;
@@ -61,15 +62,15 @@ final class DriverSettings implements IDriverSettings
 
     public function isInitializationEnabled(): bool
     {
-        return $this->optionInitialization === OptionInitialization::ENABLED;
+        return $this->optionDriverInitialization === DriverInitializationOption::ENABLED;
     }
 
     public function isLinkerEnabled(): bool
     {
-        return $this->optionLinker === OptionLinker::ENABLED;
+        return $this->optionLinker === DriverLinkerOption::ENABLED;
     }
 
-    public function getOptionLinker(): OptionLinker
+    public function getOptionLinker(): DriverLinkerOption
     {
         return $this->optionLinker;
     }

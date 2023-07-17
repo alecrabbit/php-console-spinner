@@ -5,7 +5,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Contract;
 
-use AlecRabbit\Spinner\Contract\Option\OptionStyleMode;
+use AlecRabbit\Spinner\Contract\Option\StylingMethodOption;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
@@ -36,19 +36,19 @@ final class OptionStyleModeTest extends TestCase
         // #0..
         yield from [
             // result, modeOne, modeTwo // first element - #0..
-            [OptionStyleMode::ANSI8, OptionStyleMode::ANSI8, OptionStyleMode::ANSI8],
-            [OptionStyleMode::ANSI4, OptionStyleMode::ANSI4, OptionStyleMode::ANSI8],
-            [OptionStyleMode::ANSI8, OptionStyleMode::ANSI8, OptionStyleMode::ANSI24],
-            [OptionStyleMode::ANSI8, OptionStyleMode::ANSI24, OptionStyleMode::ANSI8],
-            [OptionStyleMode::ANSI24, OptionStyleMode::ANSI24, OptionStyleMode::ANSI24],
-            [OptionStyleMode::ANSI4, OptionStyleMode::ANSI24, OptionStyleMode::ANSI4],
-            [OptionStyleMode::NONE, OptionStyleMode::ANSI4, OptionStyleMode::NONE],
-            [OptionStyleMode::NONE, OptionStyleMode::ANSI8, OptionStyleMode::NONE],
-            [OptionStyleMode::NONE, OptionStyleMode::ANSI24, OptionStyleMode::NONE],
-            [OptionStyleMode::NONE, OptionStyleMode::NONE, OptionStyleMode::ANSI8],
-            [OptionStyleMode::NONE, OptionStyleMode::NONE, OptionStyleMode::ANSI4],
-            [OptionStyleMode::NONE, OptionStyleMode::NONE, OptionStyleMode::ANSI24],
-            [OptionStyleMode::NONE, OptionStyleMode::NONE, null],
+            [StylingMethodOption::ANSI8, StylingMethodOption::ANSI8, StylingMethodOption::ANSI8],
+            [StylingMethodOption::ANSI4, StylingMethodOption::ANSI4, StylingMethodOption::ANSI8],
+            [StylingMethodOption::ANSI8, StylingMethodOption::ANSI8, StylingMethodOption::ANSI24],
+            [StylingMethodOption::ANSI8, StylingMethodOption::ANSI24, StylingMethodOption::ANSI8],
+            [StylingMethodOption::ANSI24, StylingMethodOption::ANSI24, StylingMethodOption::ANSI24],
+            [StylingMethodOption::ANSI4, StylingMethodOption::ANSI24, StylingMethodOption::ANSI4],
+            [StylingMethodOption::NONE, StylingMethodOption::ANSI4, StylingMethodOption::NONE],
+            [StylingMethodOption::NONE, StylingMethodOption::ANSI8, StylingMethodOption::NONE],
+            [StylingMethodOption::NONE, StylingMethodOption::ANSI24, StylingMethodOption::NONE],
+            [StylingMethodOption::NONE, StylingMethodOption::NONE, StylingMethodOption::ANSI8],
+            [StylingMethodOption::NONE, StylingMethodOption::NONE, StylingMethodOption::ANSI4],
+            [StylingMethodOption::NONE, StylingMethodOption::NONE, StylingMethodOption::ANSI24],
+            [StylingMethodOption::NONE, StylingMethodOption::NONE, null],
         ];
     }
 

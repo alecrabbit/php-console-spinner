@@ -154,7 +154,6 @@ final class SpinnerTest extends TestCaseWithPrebuiltMocksAndStubs
     public function canAddWidget(): void
     {
         $context = $this->getWidgetContextMock();
-        $widget = $this->getWidgetCompositeMock();
 
         $rootWidget = $this->getWidgetCompositeMock();
         $rootWidget
@@ -166,13 +165,13 @@ final class SpinnerTest extends TestCaseWithPrebuiltMocksAndStubs
         $spinner = $this->getTesteeInstance(rootWidget: $rootWidget);
 
         self::assertInstanceOf(Spinner::class, $spinner);
-        self::assertSame($context, $spinner->add($widget));
+        self::assertSame($context, $spinner->add($context));
     }
 
     #[Test]
     public function canRemoveWidget(): void
     {
-        $widget = $this->getWidgetCompositeMock();
+        $context = $this->getWidgetContextMock();
         $rootWidget = $this->getWidgetCompositeMock();
         $rootWidget
             ->expects(self::once())
@@ -182,7 +181,7 @@ final class SpinnerTest extends TestCaseWithPrebuiltMocksAndStubs
         $spinner = $this->getTesteeInstance(rootWidget: $rootWidget);
 
         self::assertInstanceOf(Spinner::class, $spinner);
-        $spinner->remove($widget);
+        $spinner->remove($context);
     }
 
     #[Test]
@@ -232,13 +231,12 @@ final class SpinnerTest extends TestCaseWithPrebuiltMocksAndStubs
 
         $test = function (): void {
             $context = $this->getWidgetContextMock();
-            $widget = $this->getWidgetCompositeMock();
 
             $rootWidget = $this->getWidgetMock();
 
             $spinner = $this->getTesteeInstance(rootWidget: $rootWidget);
 
-            self::assertSame($context, $spinner->add($widget));
+            self::assertSame($context, $spinner->add($context));
         };
 
         $this->wrapExceptionTest(

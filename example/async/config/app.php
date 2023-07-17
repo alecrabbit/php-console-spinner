@@ -11,7 +11,7 @@ $settingsProvider = Facade::getSettingsProvider();
 $settingsProvider
     ->getTerminalSettings()
     ->setOptionStyleMode(
-        \AlecRabbit\Spinner\Contract\Option\OptionStyleMode::NONE
+        \AlecRabbit\Spinner\Contract\Option\StylingMethodOption::NONE
     )
 ;
 $settingsProvider
