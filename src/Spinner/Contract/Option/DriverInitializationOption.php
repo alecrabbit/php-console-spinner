@@ -5,8 +5,8 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Contract\Option;
 
-enum OptionCursor
+enum DriverInitializationOption
 {
-    case VISIBLE;
-    case HIDDEN;
+    case ENABLED;
+    case DISABLED;
 }

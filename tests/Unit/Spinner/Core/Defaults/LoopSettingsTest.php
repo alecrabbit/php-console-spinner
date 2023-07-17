@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Defaults;
 
-use AlecRabbit\Spinner\Contract\Option\OptionAttachHandlers;
-use AlecRabbit\Spinner\Contract\Option\OptionAutoStart;
+use AlecRabbit\Spinner\Contract\Option\SignalHandlersOption;
+use AlecRabbit\Spinner\Contract\Option\LoopAutoStartOption;
 use AlecRabbit\Spinner\Core\Settings\Contract\ILoopSettings;
 use AlecRabbit\Spinner\Core\Settings\LoopSettings;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
@@ -27,15 +27,15 @@ final class LoopSettingsTest extends TestCaseWithPrebuiltMocksAndStubs
 
     public function getTesteeInstance(
         ?bool $loopAvailable = null,
-        ?OptionAutoStart $autoStartOption = null,
-        ?OptionAttachHandlers $signalHandlersOption = null,
+        ?LoopAutoStartOption $autoStartOption = null,
+        ?SignalHandlersOption $signalHandlersOption = null,
         ?bool $pcntlExtensionAvailable = null,
     ): ILoopSettings {
         return new LoopSettings(
             loopAvailable: $loopAvailable ?? false,
-            optionAutoStart: $autoStartOption ?? OptionAutoStart::DISABLED,
+            optionAutoStart: $autoStartOption ?? LoopAutoStartOption::DISABLED,
             signalProcessingAvailable: $pcntlExtensionAvailable ?? false,
-            optionAttachHandlers: $signalHandlersOption ?? OptionAttachHandlers::DISABLED,
+            optionAttachHandlers: $signalHandlersOption ?? SignalHandlersOption::DISABLED,
         );
     }
 
@@ -45,8 +45,8 @@ final class LoopSettingsTest extends TestCaseWithPrebuiltMocksAndStubs
         $loopSettings =
             $this->getTesteeInstance(
                 true,
-                OptionAutoStart::ENABLED,
-                OptionAttachHandlers::ENABLED,
+                LoopAutoStartOption::ENABLED,
+                SignalHandlersOption::ENABLED,
                 true,
             );
 
@@ -66,8 +66,8 @@ final class LoopSettingsTest extends TestCaseWithPrebuiltMocksAndStubs
                 pcntlExtensionAvailable: true,
             );
 
-        $loopSettings->setOptionAutoStart(OptionAutoStart::ENABLED);
-        $loopSettings->setAttachHandlersOption(OptionAttachHandlers::ENABLED);
+        $loopSettings->setOptionAutoStart(LoopAutoStartOption::ENABLED);
+        $loopSettings->setAttachHandlersOption(SignalHandlersOption::ENABLED);
 
         self::assertInstanceOf(LoopSettings::class, $loopSettings);
         self::assertTrue($loopSettings->isLoopAvailable());

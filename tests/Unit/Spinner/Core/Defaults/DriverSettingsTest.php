@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Defaults;
 
-use AlecRabbit\Spinner\Contract\Option\OptionDriverInitialization;
-use AlecRabbit\Spinner\Contract\Option\OptionLinker;
+use AlecRabbit\Spinner\Contract\Option\DriverInitializationOption;
+use AlecRabbit\Spinner\Contract\Option\DriverLinkerOption;
 use AlecRabbit\Spinner\Core\Settings\Contract\IDriverSettings;
 use AlecRabbit\Spinner\Core\Settings\DriverSettings;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
@@ -22,8 +22,8 @@ final class DriverSettingsTest extends TestCaseWithPrebuiltMocksAndStubs
     }
 
     public function getTesteeInstance(
-        OptionDriverInitialization $optionInitialization = OptionDriverInitialization::ENABLED,
-        OptionLinker $optionLinker = OptionLinker::ENABLED,
+        DriverInitializationOption $optionInitialization = DriverInitializationOption::ENABLED,
+        DriverLinkerOption $optionLinker = DriverLinkerOption::ENABLED,
         string $finalMessage = 'Final message',
         string $interruptMessage = 'Interrupt message',
     ): IDriverSettings {
@@ -41,10 +41,10 @@ final class DriverSettingsTest extends TestCaseWithPrebuiltMocksAndStubs
         $finalMessage = 'Final';
         $interruptMessage = 'Interrupt';
 
-        $optionLinker = OptionLinker::DISABLED;
+        $optionLinker = DriverLinkerOption::DISABLED;
 
         $driverSettings = $this->getTesteeInstance(
-            optionInitialization: OptionDriverInitialization::DISABLED,
+            optionInitialization: DriverInitializationOption::DISABLED,
             optionLinker: $optionLinker,
             finalMessage: $finalMessage,
             interruptMessage: $interruptMessage,
@@ -58,9 +58,9 @@ final class DriverSettingsTest extends TestCaseWithPrebuiltMocksAndStubs
 
         $finalMessage = 'Final message';
         $interruptMessage = 'Interrupt message';
-        $optionLinker = OptionLinker::ENABLED;
+        $optionLinker = DriverLinkerOption::ENABLED;
 
-        $driverSettings->setOptionDriverInitialization(OptionDriverInitialization::ENABLED);
+        $driverSettings->setOptionDriverInitialization(DriverInitializationOption::ENABLED);
         $driverSettings->setOptionLinker($optionLinker);
         $driverSettings->setFinalMessage($finalMessage);
         $driverSettings->setInterruptMessage($interruptMessage);

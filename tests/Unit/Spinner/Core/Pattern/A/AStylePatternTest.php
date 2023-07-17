@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Pattern\A;
 
-use AlecRabbit\Spinner\Contract\Option\OptionStyleMode;
+use AlecRabbit\Spinner\Contract\Option\StylingMethodOption;
 use AlecRabbit\Spinner\Contract\Pattern\IPattern;
 use AlecRabbit\Spinner\Core\Pattern\A\AStylePattern;
 use AlecRabbit\Tests\TestCase\TestCase;
@@ -31,7 +31,7 @@ final class AStylePatternTest extends TestCase
                 interval: $interval,
                 reversed: $reversed ?? false,
             ) extends AStylePattern {
-                public function getEntries(OptionStyleMode $styleMode = OptionStyleMode::ANSI8): Traversable
+                public function getEntries(StylingMethodOption $styleMode = StylingMethodOption::ANSI8): Traversable
                 {
                     throw new RuntimeException('Not implemented');
                 }
@@ -54,7 +54,7 @@ final class AStylePatternTest extends TestCase
     {
         $pattern = $this->getTesteeInstance();
         self::assertInstanceOf(AStylePattern::class, $pattern);
-        self::assertSame(OptionStyleMode::ANSI8, $pattern->getStyleMode());
+        self::assertSame(StylingMethodOption::ANSI8, $pattern->getStyleMode());
     }
 
     #[Test]

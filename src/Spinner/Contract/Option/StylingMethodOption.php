@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Contract\Option;
 
-enum OptionStyleMode: int
+enum StylingMethodOption: int
 {
     case NONE = 0;
     case ANSI4 = 16;

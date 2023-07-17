@@ -5,8 +5,8 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Contract\Option;
 
-enum OptionLinker
+enum CursorVisibilityOption
 {
-    case ENABLED;
-    case DISABLED;
+    case VISIBLE;
+    case HIDDEN;
 }

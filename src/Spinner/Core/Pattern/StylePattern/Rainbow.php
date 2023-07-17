@@ -5,7 +5,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Pattern\StylePattern;
 
-use AlecRabbit\Spinner\Contract\Option\OptionStyleMode;
+use AlecRabbit\Spinner\Contract\Option\StylingMethodOption;
 use AlecRabbit\Spinner\Core\Pattern\A\AStylePattern;
 use AlecRabbit\Spinner\Core\StyleFrame;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
@@ -21,12 +21,12 @@ final class Rainbow extends AStylePattern
         );
     }
 
-    public function getEntries(OptionStyleMode $styleMode = OptionStyleMode::ANSI8): Traversable
+    public function getEntries(StylingMethodOption $styleMode = StylingMethodOption::ANSI8): Traversable
     {
         yield from match ($styleMode) {
-            OptionStyleMode::ANSI4 => $this->ansi4Frames(),
-            OptionStyleMode::ANSI8 => $this->ansi8Frames(),
-            OptionStyleMode::ANSI24 => $this->ansi24Frames(),
+            StylingMethodOption::ANSI4 => $this->ansi4Frames(),
+            StylingMethodOption::ANSI8 => $this->ansi8Frames(),
+            StylingMethodOption::ANSI24 => $this->ansi24Frames(),
             default => throw new InvalidArgumentException('Unsupported style mode.'),
         };
     }

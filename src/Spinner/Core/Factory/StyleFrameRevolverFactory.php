@@ -5,7 +5,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Factory;
 
-use AlecRabbit\Spinner\Contract\Option\OptionStyleMode;
+use AlecRabbit\Spinner\Contract\Option\StylingMethodOption;
 use AlecRabbit\Spinner\Contract\Pattern\IPattern;
 use AlecRabbit\Spinner\Core\Factory\Contract\IFrameCollectionFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalFactory;
@@ -24,7 +24,7 @@ final class StyleFrameRevolverFactory implements IStyleFrameRevolverFactory
         protected IFrameRevolverBuilder $frameRevolverBuilder,
         protected IFrameCollectionFactory $frameCollectionFactory,
         protected IIntervalFactory $intervalFactory,
-        protected OptionStyleMode $styleMode,
+        protected StylingMethodOption $styleMode,
     ) {
     }
 
@@ -44,7 +44,7 @@ final class StyleFrameRevolverFactory implements IStyleFrameRevolverFactory
 
     private function bakePattern(IPattern $pattern): IBakedPattern
     {
-        if (OptionStyleMode::NONE === $this->styleMode) {
+        if (StylingMethodOption::NONE === $this->styleMode) {
             $pattern = new NoStylePattern();
         }
         return

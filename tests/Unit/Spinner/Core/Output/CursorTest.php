@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Output;
 
-use AlecRabbit\Spinner\Contract\Option\OptionCursor;
+use AlecRabbit\Spinner\Contract\Option\CursorVisibilityOption;
 use AlecRabbit\Spinner\Contract\Output\IBufferedOutput;
 use AlecRabbit\Spinner\Core\Output\ConsoleCursor;
 use AlecRabbit\Spinner\Core\Output\Contract\IConsoleCursor;
@@ -17,7 +17,7 @@ final class CursorTest extends TestCase
     #[Test]
     public function isCreatedWithGivenOption(): void
     {
-        $cursorOption = OptionCursor::VISIBLE;
+        $cursorOption = CursorVisibilityOption::VISIBLE;
 
         $cursor = $this->getTesteeInstance(output: null, cursorOption: $cursorOption);
 
@@ -27,7 +27,7 @@ final class CursorTest extends TestCase
 
     public function getTesteeInstance(
         (MockObject & IBufferedOutput)|null $output,
-        OptionCursor $cursorOption = OptionCursor::HIDDEN,
+        CursorVisibilityOption $cursorOption = CursorVisibilityOption::HIDDEN,
     ): IConsoleCursor {
         return new ConsoleCursor(
             output: $output ?? $this->getOutputMock(),
@@ -43,7 +43,7 @@ final class CursorTest extends TestCase
     #[Test]
     public function writesToOutputWhenHideCalledIfHidden(): void
     {
-        $cursorOption = OptionCursor::HIDDEN;
+        $cursorOption = CursorVisibilityOption::HIDDEN;
 
         $output = $this->getOutputMock();
 
@@ -61,7 +61,7 @@ final class CursorTest extends TestCase
     #[Test]
     public function doesNotWriteToOutputWhenHideOrShowCalledIfEnabled(): void
     {
-        $cursorOption = OptionCursor::VISIBLE;
+        $cursorOption = CursorVisibilityOption::VISIBLE;
 
         $output = $this->getOutputMock();
 
@@ -78,7 +78,7 @@ final class CursorTest extends TestCase
     #[Test]
     public function writesToOutputWhenShowCalledIfHidden(): void
     {
-        $cursorOption = OptionCursor::HIDDEN;
+        $cursorOption = CursorVisibilityOption::HIDDEN;
 
         $output = $this->getOutputMock();
 

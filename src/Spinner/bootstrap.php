@@ -3,9 +3,9 @@
 declare(strict_types=1);
 
 use AlecRabbit\Spinner\Container\DefinitionRegistry;
-use AlecRabbit\Spinner\Contract\Option\OptionCursor;
-use AlecRabbit\Spinner\Contract\Option\OptionNormalizerMode;
-use AlecRabbit\Spinner\Contract\Option\OptionStyleMode;
+use AlecRabbit\Spinner\Contract\Option\CursorVisibilityOption;
+use AlecRabbit\Spinner\Contract\Option\NormalizerMethodOption;
+use AlecRabbit\Spinner\Contract\Option\StylingMethodOption;
 use AlecRabbit\Spinner\Contract\Output\IResourceStream;
 use AlecRabbit\Spinner\Core\Builder\BufferedOutputBuilder;
 use AlecRabbit\Spinner\Core\Builder\ConsoleCursorBuilder;
@@ -220,13 +220,13 @@ function definitions(): Traversable
             return new TerminalSettingsFactory($terminalProbe);
         },
 
-        OptionNormalizerMode::class => static function (ContainerInterface $container): OptionNormalizerMode {
+        NormalizerMethodOption::class => static function (ContainerInterface $container): NormalizerMethodOption {
             return $container->get(ISettingsProvider::class)->getAuxSettings()->getOptionNormalizerMode();
         },
-        OptionCursor::class => static function (ContainerInterface $container): OptionCursor {
+        CursorVisibilityOption::class => static function (ContainerInterface $container): CursorVisibilityOption {
             return $container->get(ISettingsProvider::class)->getTerminalSettings()->getOptionCursor();
         },
-        OptionStyleMode::class => static function (ContainerInterface $container): OptionStyleMode {
+        StylingMethodOption::class => static function (ContainerInterface $container): StylingMethodOption {
             return $container->get(ISettingsProvider::class)->getTerminalSettings()->getOptionStyleMode();
         },
     ];

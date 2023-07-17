@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Factory;
 
-use AlecRabbit\Spinner\Contract\Option\OptionCursor;
-use AlecRabbit\Spinner\Contract\Option\OptionStyleMode;
+use AlecRabbit\Spinner\Contract\Option\CursorVisibilityOption;
+use AlecRabbit\Spinner\Contract\Option\StylingMethodOption;
 use AlecRabbit\Spinner\Core\Factory\Contract\ITerminalSettingsFactory;
 use AlecRabbit\Spinner\Core\Factory\TerminalSettingsFactory;
 use AlecRabbit\Spinner\Core\Settings\TerminalSettings;
@@ -38,12 +38,12 @@ final class TerminalSettingsFactoryTest extends TestCaseWithPrebuiltMocksAndStub
         $terminalProbe
             ->expects(self::once())
             ->method('getOptionCursor')
-            ->willReturn(OptionCursor::HIDDEN)
+            ->willReturn(CursorVisibilityOption::HIDDEN)
         ;
         $terminalProbe
             ->expects(self::once())
             ->method('getOptionStyleMode')
-            ->willReturn(OptionStyleMode::ANSI4)
+            ->willReturn(StylingMethodOption::ANSI4)
         ;
         $terminalProbe
             ->expects(self::once())

@@ -2,7 +2,7 @@
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Pattern\StylePattern;
 
-use AlecRabbit\Spinner\Contract\Option\OptionStyleMode;
+use AlecRabbit\Spinner\Contract\Option\StylingMethodOption;
 use AlecRabbit\Spinner\Core\Pattern\Contract\IStylePattern;
 use AlecRabbit\Spinner\Core\Pattern\StylePattern\Rainbow;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
@@ -36,7 +36,7 @@ final class RainbowTest extends TestCaseWithPrebuiltMocksAndStubs
 
         $test = function () {
             $rainbow = $this->getTesteeInstance();
-            $generator = $rainbow->getEntries(OptionStyleMode::NONE);
+            $generator = $rainbow->getEntries(StylingMethodOption::NONE);
             iterator_to_array($generator); // unwrap generator
         };
 
