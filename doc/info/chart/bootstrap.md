@@ -69,6 +69,10 @@ Driver:
 Normalizer: (for minimal frames interval step)
 - SMOOTH/BALANCED/PERFORMANCE/SLOW/STILL, 🔧 **Default** ➜ BALANCED (50ms)
 
+
+### Usage
+
+You can override default settings by changing settings in SettingsProvider.
 ```php
 $settings = Facade::getSettings();
 
@@ -101,17 +105,17 @@ $driverSettings->setInitializationOption(InitializationOption::AUTO);
 // Widget settings
 $widgetSettings = $settings->getWidgetSettings();
 
-$widgetSettings->setCharPattern(/* TBA */);
-$widgetSettings->setStylePattern(/* TBA */);
-$widgetSettings->setLeadingSpacer(new CharFrame('', 0));
-$widgetSettings->setTrailingSpacer(new CharFrame(' ', 1));
+$widgetSettings->setCharPattern(/* TBA */); // default: none
+$widgetSettings->setStylePattern(/* TBA */); // default: none
+$widgetSettings->setLeadingSpacer(new CharFrame('', 0)); // <- default
+$widgetSettings->setTrailingSpacer(new CharFrame(' ', 1)); // <- default
 
 // Root Widget settings
 $rootWidgetSettings = $settings->getRootWidgetSettings();
 
-$rootWidgetSettings->setCharPattern(/* TBA */);
-$rootWidgetSettings->setStylePattern(/* TBA */);
-$rootWidgetSettings->setLeadingSpacer(new CharFrame('', 0));
-$rootWidgetSettings->setTrailingSpacer(new CharFrame(' ', 1));
+$rootWidgetSettings->setCharPattern(/* TBA */); // default: Snake
+$rootWidgetSettings->setStylePattern(/* TBA */); // default: Rainbow
+$rootWidgetSettings->setLeadingSpacer(new CharFrame('', 0)); // <- default
+$rootWidgetSettings->setTrailingSpacer(new CharFrame(' ', 1)); // <- default
 
 ```
