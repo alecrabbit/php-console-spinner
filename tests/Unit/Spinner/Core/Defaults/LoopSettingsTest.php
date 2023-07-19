@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Defaults;
 
 use AlecRabbit\Spinner\Contract\Option\SignalHandlersOption;
-use AlecRabbit\Spinner\Contract\Option\LoopAutoStartOption;
+use AlecRabbit\Spinner\Contract\Option\AutoStartOption;
 use AlecRabbit\Spinner\Core\Settings\Contract\ILoopSettings;
 use AlecRabbit\Spinner\Core\Settings\LoopSettings;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
@@ -27,13 +27,13 @@ final class LoopSettingsTest extends TestCaseWithPrebuiltMocksAndStubs
 
     public function getTesteeInstance(
         ?bool $loopAvailable = null,
-        ?LoopAutoStartOption $autoStartOption = null,
+        ?AutoStartOption $autoStartOption = null,
         ?SignalHandlersOption $signalHandlersOption = null,
         ?bool $pcntlExtensionAvailable = null,
     ): ILoopSettings {
         return new LoopSettings(
             loopAvailable: $loopAvailable ?? false,
-            optionAutoStart: $autoStartOption ?? LoopAutoStartOption::DISABLED,
+            optionAutoStart: $autoStartOption ?? AutoStartOption::DISABLED,
             signalProcessingAvailable: $pcntlExtensionAvailable ?? false,
             optionAttachHandlers: $signalHandlersOption ?? SignalHandlersOption::DISABLED,
         );
@@ -45,7 +45,7 @@ final class LoopSettingsTest extends TestCaseWithPrebuiltMocksAndStubs
         $loopSettings =
             $this->getTesteeInstance(
                 true,
-                LoopAutoStartOption::ENABLED,
+                AutoStartOption::ENABLED,
                 SignalHandlersOption::ENABLED,
                 true,
             );
@@ -66,7 +66,7 @@ final class LoopSettingsTest extends TestCaseWithPrebuiltMocksAndStubs
                 pcntlExtensionAvailable: true,
             );
 
-        $loopSettings->setOptionAutoStart(LoopAutoStartOption::ENABLED);
+        $loopSettings->setOptionAutoStart(AutoStartOption::ENABLED);
         $loopSettings->setAttachHandlersOption(SignalHandlersOption::ENABLED);
 
         self::assertInstanceOf(LoopSettings::class, $loopSettings);

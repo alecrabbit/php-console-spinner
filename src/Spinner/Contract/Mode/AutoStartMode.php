@@ -5,7 +5,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Contract\Mode;
 
-enum LoopAutoStartMode
+enum AutoStartMode
 {
     case ENABLED;
     case DISABLED;

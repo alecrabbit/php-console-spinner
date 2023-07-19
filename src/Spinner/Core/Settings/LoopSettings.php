@@ -6,14 +6,14 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Settings;
 
 use AlecRabbit\Spinner\Contract\Option\SignalHandlersOption;
-use AlecRabbit\Spinner\Contract\Option\LoopAutoStartOption;
+use AlecRabbit\Spinner\Contract\Option\AutoStartOption;
 use AlecRabbit\Spinner\Core\Settings\Contract\ILoopSettings;
 
 final class LoopSettings implements ILoopSettings
 {
     public function __construct(
         protected bool $loopAvailable,
-        protected LoopAutoStartOption $optionAutoStart,
+        protected AutoStartOption $optionAutoStart,
         protected bool $signalProcessingAvailable,
         protected SignalHandlersOption $optionAttachHandlers,
     ) {
@@ -26,10 +26,10 @@ final class LoopSettings implements ILoopSettings
 
     public function isAutoStartEnabled(): bool
     {
-        return $this->optionAutoStart === LoopAutoStartOption::ENABLED;
+        return $this->optionAutoStart === AutoStartOption::ENABLED;
     }
 
-    public function setOptionAutoStart(LoopAutoStartOption $optionAutoStart): ILoopSettings
+    public function setOptionAutoStart(AutoStartOption $optionAutoStart): ILoopSettings
     {
         $this->optionAutoStart = $optionAutoStart;
         return $this;

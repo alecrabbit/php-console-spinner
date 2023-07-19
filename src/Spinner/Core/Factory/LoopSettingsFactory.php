@@ -6,7 +6,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Factory;
 
 use AlecRabbit\Spinner\Contract\Option\SignalHandlersOption;
-use AlecRabbit\Spinner\Contract\Option\LoopAutoStartOption;
+use AlecRabbit\Spinner\Contract\Option\AutoStartOption;
 use AlecRabbit\Spinner\Core\Contract\ISignalProcessingProbe;
 use AlecRabbit\Spinner\Core\Contract\Loop\Contract\ILoopProbe;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopSettingsFactory;
@@ -27,8 +27,8 @@ final class LoopSettingsFactory implements ILoopSettingsFactory
 
         $optionAutoStart =
             $loopAvailable
-                ? LoopAutoStartOption::ENABLED
-                : LoopAutoStartOption::DISABLED;
+                ? AutoStartOption::ENABLED
+                : AutoStartOption::DISABLED;
 
         $signalProcessingAvailable = $this->isSignalProcessingAvailable();
 

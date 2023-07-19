@@ -68,3 +68,50 @@ Driver:
 
 Normalizer: (for minimal frames interval step)
 - SMOOTH/BALANCED/PERFORMANCE/SLOW/STILL, 🔧 **Default** ➜ BALANCED (50ms)
+
+```php
+$settings = Facade::getSettings();
+
+// Package Settings
+$settings->setRunMethod(RunMethodOption::AUTO);
+
+// Aux settings
+$auxSettings = $settings->getAuxSettings();
+
+$auxSettings->setNormalizerOption(NormalizerOption::AUTO);
+
+// Loop settings
+$loopSettings = $settings->getLoopSettings();
+
+$loopSettings->setAutoStartOption(AutoStartOption::AUTO);
+$loopSettings->setSignalHandlersOption(SignalHandlersOption::AUTO);
+
+// Output settings
+$outputSettings = $settings->getOutputSettings();
+
+$outputSettings->setStylingMethodOption(StylingMethodOption::AUTO);
+$outputSettings->setCursorVisibilityOption(CursorVisibilityOption::AUTO);
+
+// Driver settings
+$driverSettings = $settings->getDriverSettings();
+
+$driverSettings->setLinkerOption(LinkerOption::AUTO);
+$driverSettings->setInitializationOption(InitializationOption::AUTO);
+
+// Widget settings
+$widgetSettings = $settings->getWidgetSettings();
+
+$widgetSettings->setCharPattern(/* TBA */);
+$widgetSettings->setStylePattern(/* TBA */);
+$widgetSettings->setLeadingSpacer(new CharFrame('', 0));
+$widgetSettings->setTrailingSpacer(new CharFrame(' ', 1));
+
+// Root Widget settings
+$rootWidgetSettings = $settings->getRootWidgetSettings();
+
+$rootWidgetSettings->setCharPattern(/* TBA */);
+$rootWidgetSettings->setStylePattern(/* TBA */);
+$rootWidgetSettings->setLeadingSpacer(new CharFrame('', 0));
+$rootWidgetSettings->setTrailingSpacer(new CharFrame(' ', 1));
+
+```
