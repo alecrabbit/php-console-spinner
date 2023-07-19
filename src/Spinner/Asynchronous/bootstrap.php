@@ -16,7 +16,8 @@ $definitions = DefinitionRegistry::getInstance();
 $definitions->bind(
     ILoopProbeFactory::class,
     static function (): ILoopProbeFactory {
-        return new LoopProbeFactory(probes());
+        return
+            new LoopProbeFactory(probes());
     },
 );
 

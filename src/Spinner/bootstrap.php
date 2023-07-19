@@ -5,7 +5,6 @@ declare(strict_types=1);
 use AlecRabbit\Spinner\Container\DefinitionRegistry;
 use AlecRabbit\Spinner\Contract\Mode\NormalizerMethodMode;
 use AlecRabbit\Spinner\Contract\Option\CursorVisibilityOption;
-use AlecRabbit\Spinner\Contract\Option\NormalizerMethodOption;
 use AlecRabbit\Spinner\Contract\Option\StylingMethodOption;
 use AlecRabbit\Spinner\Contract\Output\IResourceStream;
 use AlecRabbit\Spinner\Core\Builder\BufferedOutputBuilder;
@@ -196,39 +195,47 @@ function definitions(): Traversable
         IResourceStream::class => static function (ContainerInterface $container): IResourceStream {
             /** @var ISettingsProvider $provider */
             $provider = $container->get(ISettingsProvider::class);
-            return new ResourceStream($provider->getTerminalSettings()->getOutputStream());
+            return
+                new ResourceStream($provider->getTerminalSettings()->getOutputStream());
         },
 
         ISettingsProvider::class => static function (ContainerInterface $container): ISettingsProvider {
-            return $container->get(ISettingsProviderBuilder::class)->build();
+            return
+                $container->get(ISettingsProviderBuilder::class)->build();
         },
         ISignalProcessingProbe::class => static function (ContainerInterface $container): ISignalProcessingProbe {
-            return $container->get(ISignalProcessingProbeFactory::class)->getProbe();
+            return
+                $container->get(ISignalProcessingProbeFactory::class)->getProbe();
         },
         ISignalProcessingProbeFactory::class => SignalProcessingProbeFactory::class,
 
         ITerminalProbeFactory::class => static function (): ITerminalProbeFactory {
-            return new TerminalProbeFactory(
-                new ArrayObject([
-                    NativeTerminalProbe::class,
-                ]),
-            );
+            return
+                new TerminalProbeFactory(
+                    new ArrayObject([
+                        NativeTerminalProbe::class,
+                    ]),
+                );
         },
         ITerminalSettingsFactory::class => static function (ContainerInterface $container
         ): ITerminalSettingsFactory {
             $terminalProbe = $container->get(ITerminalProbeFactory::class)->getProbe();
 
-            return new TerminalSettingsFactory($terminalProbe);
+            return
+                new TerminalSettingsFactory($terminalProbe);
         },
 
         NormalizerMethodMode::class => static function (ContainerInterface $container): NormalizerMethodMode {
-            return $container->get(ISettingsProvider::class)->getAuxSettings()->getNormalizerMethodMode();
+            return
+                $container->get(ISettingsProvider::class)->getAuxSettings()->getNormalizerMethodMode();
         },
         CursorVisibilityOption::class => static function (ContainerInterface $container): CursorVisibilityOption {
-            return $container->get(ISettingsProvider::class)->getTerminalSettings()->getOptionCursor();
+            return
+                $container->get(ISettingsProvider::class)->getTerminalSettings()->getOptionCursor();
         },
         StylingMethodOption::class => static function (ContainerInterface $container): StylingMethodOption {
-            return $container->get(ISettingsProvider::class)->getTerminalSettings()->getOptionStyleMode();
+            return
+                $container->get(ISettingsProvider::class)->getTerminalSettings()->getOptionStyleMode();
         },
     ];
 }
