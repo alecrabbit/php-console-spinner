@@ -7,8 +7,10 @@ namespace AlecRabbit\Tests\Functional\Spinner;
 use AlecRabbit\Spinner\Asynchronous\Loop\Probe\ReactLoopProbe;
 use AlecRabbit\Spinner\Asynchronous\Loop\Probe\RevoltLoopProbe;
 use AlecRabbit\Spinner\Contract\IStaticProbe;
+use AlecRabbit\Spinner\Core\Contract\Loop\Contract\ILoopProbe;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Probe;
+use AlecRabbit\Tests\Functional\Spinner\Override\StaticProbeOverride;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;
 
@@ -47,11 +49,56 @@ final class ProbeTest extends TestCaseWithPrebuiltMocksAndStubs
         self::assertContains($probe1, $probes);
         self::assertContains($probe2, $probes);
     }
+    #[Test]
+    public function canLoadSpecificSubClassProbes(): void
+    {
+        $probe1 = ReactLoopProbe::class;
+        $probe2 = RevoltLoopProbe::class;
+        $probe3 = StaticProbeOverride::class;
+
+        Probe::register($probe2);
+        Probe::register($probe1);
+        Probe::register($probe3);
+
+        $probes = iterator_to_array(Probe::load(ILoopProbe::class));
+        self::assertContains($probe1, $probes);
+        self::assertContains($probe2, $probes);
+        self::assertNotContains($probe3, $probes);
+    }
+    #[Test]
+    public function loadsAllProbesIfFilterClassIsNull(): void
+    {
+        $probe1 = ReactLoopProbe::class;
+        $probe3 = StaticProbeOverride::class;
+
+        Probe::register($probe3);
+        Probe::register($probe1);
+
+        $probes = iterator_to_array(Probe::load());
+        self::assertContains($probe1, $probes);
+        self::assertContains($probe3, $probes);
+    }
 
     #[Test]
     public function throwsIfProbeClassIsNotAStaticProbeSubClass(): void
     {
         $probe = \stdClass::class;
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage(
+            'Class "' .
+            $probe .
+            '" must implement "' .
+            IStaticProbe::class .
+            '" interface.'
+        );
+        Probe::register($probe);
+        self::fail('Exception was not thrown.');
+    }
+
+    #[Test]
+    public function throwsIfProbeClassIsNotAStaticProbeSubClass2(): void
+    {
+        $probe = '';
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage(
             'Class "' .
