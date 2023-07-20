@@ -1,6 +1,6 @@
-### Settings
+# Settings
 
-Settings are used to configure the package. Here are the list of available methods with default settings:
+Settings are used to configure the package. Here is the list of available methods with default settings:
 
 ```php
 $settings = Facade::getSettings();
@@ -50,4 +50,4 @@ $rootWidgetSettings->setLeadingSpacer(new CharFrame('', 0)); // <- default
 $rootWidgetSettings->setTrailingSpacer(new CharFrame(' ', 1)); // <- default
 
 ```
-You can override default settings by changing values in `Settings` object.
+You can override default settings by changing values in the `Settings` object.
