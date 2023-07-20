@@ -9,30 +9,30 @@ use AlecRabbit\Spinner\Asynchronous\Loop\Probe\RevoltLoopProbe;
 use AlecRabbit\Spinner\Contract\IStaticProbe;
 use AlecRabbit\Spinner\Core\Contract\Loop\Contract\ILoopProbe;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
-use AlecRabbit\Spinner\Probe;
+use AlecRabbit\Spinner\Probes;
 use AlecRabbit\Tests\Functional\Spinner\Override\StaticProbeOverride;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;
 
-final class ProbeTest extends TestCaseWithPrebuiltMocksAndStubs
+final class ProbesTest extends TestCaseWithPrebuiltMocksAndStubs
 {
+    private array $probes = [];
+
 //    #[Test]
 //    public function canNotBeInstantiated(): void
 //    {
 //        $this->expectException(\Error::class);
-//        $this->expectExceptionMessage('Call to private AlecRabbit\Spinner\Probe::__construct()');
-//        $probe = new Probe();
+//        $this->expectExceptionMessage('Call to private AlecRabbit\Spinner\Probes::__construct()');
+//        $probe = new Probes();
 //    }
-
-    private array $probes = [];
 
     #[Test]
     public function canRegisterProbe(): void
     {
         $probe = RevoltLoopProbe::class;
-        Probe::register($probe);
+        Probes::register($probe);
 
-        $probes = self::getPropertyValue('probes', Probe::class);
+        $probes = self::getPropertyValue('probes', Probes::class);
         self::assertContains($probe, $probes);
     }
 
@@ -42,10 +42,10 @@ final class ProbeTest extends TestCaseWithPrebuiltMocksAndStubs
         $probe1 = ReactLoopProbe::class;
         $probe2 = RevoltLoopProbe::class;
 
-        Probe::register($probe2);
-        Probe::register($probe1);
+        Probes::register($probe2);
+        Probes::register($probe1);
 
-        $probes = iterator_to_array(Probe::load());
+        $probes = iterator_to_array(Probes::load());
         self::assertContains($probe1, $probes);
         self::assertContains($probe2, $probes);
     }
@@ -57,15 +57,16 @@ final class ProbeTest extends TestCaseWithPrebuiltMocksAndStubs
         $probe2 = RevoltLoopProbe::class;
         $probe3 = StaticProbeOverride::class;
 
-        Probe::register($probe3);
-        Probe::register($probe2, $probe1);
+        Probes::register($probe3);
+        Probes::register($probe2, $probe1);
 
-        $probes = iterator_to_array(Probe::load());
+        $probes = iterator_to_array(Probes::load());
         self::assertCount(3, $probes);
         self::assertContains($probe1, $probes);
         self::assertContains($probe2, $probes);
         self::assertContains($probe3, $probes);
     }
+
     #[Test]
     public function reRegisteringProbeHasNoEffect(): void
     {
@@ -73,12 +74,12 @@ final class ProbeTest extends TestCaseWithPrebuiltMocksAndStubs
         $probe2 = RevoltLoopProbe::class;
         $probe3 = StaticProbeOverride::class;
 
-        Probe::register($probe3);
-        Probe::register($probe2, $probe1);
-        Probe::register($probe1);
-        Probe::register($probe3);
+        Probes::register($probe3);
+        Probes::register($probe2, $probe1);
+        Probes::register($probe1);
+        Probes::register($probe3);
 
-        $probes = iterator_to_array(Probe::load());
+        $probes = iterator_to_array(Probes::load());
         self::assertCount(3, $probes);
         self::assertContains($probe1, $probes);
         self::assertContains($probe2, $probes);
@@ -92,11 +93,11 @@ final class ProbeTest extends TestCaseWithPrebuiltMocksAndStubs
         $probe2 = RevoltLoopProbe::class;
         $probe3 = StaticProbeOverride::class;
 
-        Probe::register($probe2);
-        Probe::register($probe1);
-        Probe::register($probe3);
+        Probes::register($probe2);
+        Probes::register($probe1);
+        Probes::register($probe3);
 
-        $probes = iterator_to_array(Probe::load(ILoopProbe::class));
+        $probes = iterator_to_array(Probes::load(ILoopProbe::class));
         self::assertContains($probe1, $probes);
         self::assertContains($probe2, $probes);
         self::assertNotContains($probe3, $probes);
@@ -108,10 +109,10 @@ final class ProbeTest extends TestCaseWithPrebuiltMocksAndStubs
         $probe1 = ReactLoopProbe::class;
         $probe3 = StaticProbeOverride::class;
 
-        Probe::register($probe3);
-        Probe::register($probe1);
+        Probes::register($probe3);
+        Probes::register($probe1);
 
-        $probes = iterator_to_array(Probe::load());
+        $probes = iterator_to_array(Probes::load());
         self::assertContains($probe1, $probes);
         self::assertContains($probe3, $probes);
     }
@@ -128,7 +129,28 @@ final class ProbeTest extends TestCaseWithPrebuiltMocksAndStubs
             IStaticProbe::class .
             '" interface.'
         );
-        Probe::register($probe);
+        Probes::register($probe);
+        self::fail('Exception was not thrown.');
+    }
+
+    #[Test]
+    public function throwsIfFilterClassIsNotAStaticProbeSubClass(): void
+    {
+        $filterClass = \stdClass::class;
+
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage(
+            'Class "' .
+            $filterClass .
+            '" must implement "' .
+            IStaticProbe::class .
+            '" interface.'
+        );
+
+        Probes::register(RevoltLoopProbe::class);
+
+        iterator_to_array(Probes::load($filterClass));
+
         self::fail('Exception was not thrown.');
     }
 
@@ -144,18 +166,18 @@ final class ProbeTest extends TestCaseWithPrebuiltMocksAndStubs
             IStaticProbe::class .
             '" interface.'
         );
-        Probe::register($probe);
+        Probes::register($probe);
         self::fail('Exception was not thrown.');
     }
 
     protected function setUp(): void
     {
-        $this->probes = self::getPropertyValue('probes', Probe::class);
-        self::setPropertyValue(Probe::class, 'probes', []);
+        $this->probes = self::getPropertyValue('probes', Probes::class);
+        self::setPropertyValue(Probes::class, 'probes', []);
     }
 
     protected function tearDown(): void
     {
-        self::setPropertyValue(Probe::class, 'probes', $this->probes);
+        self::setPropertyValue(Probes::class, 'probes', $this->probes);
     }
 }

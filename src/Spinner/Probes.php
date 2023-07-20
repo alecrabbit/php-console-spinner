@@ -7,9 +7,11 @@ namespace AlecRabbit\Spinner;
 use AlecRabbit\Spinner\Contract\IStaticProbe;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 
+use Traversable;
+
 use function is_subclass_of;
 
-final class Probe
+final class Probes
 {
     /** @var Array<class-string<IStaticProbe>> */
     private static array $probes = [];
@@ -59,11 +61,12 @@ final class Probe
     }
 
     /**
-     * @param class-string<IStaticProbe>|null $filterClass
-     * @return iterable<class-string<IStaticProbe>>
+     * @template T as IStaticProbe
+     * @param class-string<T>|null $filterClass
+     * @return Traversable<class-string<T>>
      * @throws InvalidArgumentException
      */
-    public static function load(string $filterClass = null): iterable
+    public static function load(string $filterClass = null): Traversable
     {
         if ($filterClass === null) {
             yield from self::$probes;

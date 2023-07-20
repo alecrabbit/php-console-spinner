@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use AlecRabbit\Spinner\Asynchronous\Factory\LoopProbeFactory;
 use AlecRabbit\Spinner\Container\DefinitionRegistry;
 use AlecRabbit\Spinner\Contract\Mode\NormalizerMethodMode;
 use AlecRabbit\Spinner\Contract\Option\CursorVisibilityOption;
@@ -100,7 +101,7 @@ use AlecRabbit\Spinner\Core\Widget\Factory\Contract\IWidgetRevolverFactory;
 use AlecRabbit\Spinner\Core\Widget\Factory\WidgetCompositeFactory;
 use AlecRabbit\Spinner\Core\Widget\Factory\WidgetFactory;
 use AlecRabbit\Spinner\Core\Widget\Factory\WidgetRevolverFactory;
-use AlecRabbit\Spinner\Exception\DomainException;
+use AlecRabbit\Spinner\Probes;
 use Psr\Container\ContainerInterface;
 
 // @codeCoverageIgnoreStart
@@ -167,14 +168,7 @@ function definitions(): Traversable
         ILoop::class => static function (ContainerInterface $container): ILoop {
             return $container->get(ILoopFactory::class)->getLoop();
         },
-        ILoopProbeFactory::class => static function (): never {
-            throw new DomainException(
-                sprintf(
-                    'Service for id [%s] is not available in this context.',
-                    ILoopProbeFactory::class
-                )
-            );
-        },
+
         ILoopProbe::class => static function (ContainerInterface $container): ILoopProbe {
             return $container->get(ILoopProbeFactory::class)->getProbe();
         },
@@ -236,6 +230,13 @@ function definitions(): Traversable
         StylingMethodOption::class => static function (ContainerInterface $container): StylingMethodOption {
             return
                 $container->get(ISettingsProvider::class)->getTerminalSettings()->getOptionStyleMode();
+        },
+
+        ILoopProbeFactory::class => static function (): ILoopProbeFactory {
+            return
+                new LoopProbeFactory(
+                    Probes::load(ILoopProbe::class)
+                );
         },
     ];
 }
