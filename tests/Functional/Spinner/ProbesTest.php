@@ -104,6 +104,42 @@ final class ProbesTest extends TestCaseWithPrebuiltMocksAndStubs
     }
 
     #[Test]
+    public function canUnregisterSpecificProbe(): void
+    {
+        $probe1 = ReactLoopProbe::class;
+        $probe2 = RevoltLoopProbe::class;
+        $probe3 = StaticProbeOverride::class;
+
+        Probes::register($probe2);
+        Probes::register($probe1);
+        Probes::register($probe3);
+
+        Probes::unregister($probe2);
+
+        $probes = iterator_to_array(Probes::load());
+        self::assertContains($probe1, $probes);
+        self::assertContains($probe3, $probes);
+        self::assertNotContains($probe2, $probes);
+    }
+    #[Test]
+    public function unregisteringNonRegisteredProbeHasNoEffect(): void
+    {
+        $probe1 = ReactLoopProbe::class;
+        $probe2 = RevoltLoopProbe::class;
+        $probe3 = StaticProbeOverride::class;
+
+        Probes::register($probe1);
+        Probes::register($probe3);
+
+        Probes::unregister($probe2);
+
+        $probes = iterator_to_array(Probes::load());
+        self::assertContains($probe1, $probes);
+        self::assertContains($probe3, $probes);
+        self::assertNotContains($probe2, $probes);
+    }
+
+    #[Test]
     public function loadsAllProbesIfFilterClassIsNull(): void
     {
         $probe1 = ReactLoopProbe::class;
@@ -150,6 +186,24 @@ final class ProbesTest extends TestCaseWithPrebuiltMocksAndStubs
         Probes::register(RevoltLoopProbe::class);
 
         iterator_to_array(Probes::load($filterClass));
+
+        self::fail('Exception was not thrown.');
+    }
+    #[Test]
+    public function throwsIfProbeClassToUnregisterIsNotAStaticProbeSubClass(): void
+    {
+        $class = \stdClass::class;
+
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage(
+            'Class "' .
+            $class .
+            '" must implement "' .
+            IStaticProbe::class .
+            '" interface.'
+        );
+
+        Probes::unregister($class);
 
         self::fail('Exception was not thrown.');
     }

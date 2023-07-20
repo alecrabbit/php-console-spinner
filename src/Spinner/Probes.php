@@ -25,14 +25,14 @@ final class Probes
     }
 
     /**
-     * @param Array<class-string<IStaticProbe>> $probes
+     * @param Array<class-string<IStaticProbe>> $classes
      * @throws InvalidArgumentException
      */
-    public static function register(string ...$probes): void
+    public static function register(string ...$classes): void
     {
-        foreach ($probes as $probe) {
-            self::assertClass($probe);
-            self::$probes[$probe] = $probe;
+        foreach ($classes as $probeClass) {
+            self::assertClass($probeClass);
+            self::$probes[$probeClass] = $probeClass;
         }
     }
 
@@ -78,5 +78,15 @@ final class Probes
                 }
             }
         }
+    }
+
+    /**
+     * @param class-string<IStaticProbe> $probeClass
+     * @throws InvalidArgumentException
+     */
+    public static function unregister(string $probeClass): void
+    {
+        self::assertClass($probeClass);
+        unset(self::$probes[$probeClass]);
     }
 }
