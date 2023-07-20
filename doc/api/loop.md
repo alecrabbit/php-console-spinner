@@ -1,21 +1,20 @@
-### Event Loop
+# Event Loop
 
-To detect event loop availability loop probes are used. 
-Loops are probed in order probes were added(registered) to `Probes` class. First probe that
-returns `true` from `isSupported()` method is used as event loop.
+The event loop availability is detected using loop probes. Loops are probed in the order in which the probes were added (registered) to the `Probes` class. The first probe that returns `true` from the `isSupported()` method is used as the event loop.
 
-> See `Asynchronous/bootstrap.php` for details.
+> See [`Asynchronous/bootstrap.php`](../../src/Spinner/Asynchronous/bootstrap.php) for details.
 
-#### How to disable specific event loop probe
+## How to Disable a Specific Event Loop Probe
+
+To disable a specific event loop probe, you can use the following code:
 
 ```php  
 Probes::unregister(ReactLoopProbe::class);
 ``` 
 
-#### How to add custom event loop probe
+## How to Add a Custom Event Loop Probe
 
-To add custom event loop probe you need to create a loop adapter by extending `ALoopAdapter` class which implements 
-`ILoop` interface.
+To add a custom event loop probe, you need to create a loop adapter by extending the `ALoopAdapter` class, which implements the `ILoop` interface.
 
 ```php
 interface ILoop
@@ -40,7 +39,7 @@ abstract class ALoopAdapter implements ILoop
     // ...
 }
 ```
-Create ypur implementation
+Create your implementation:
 ```php
 class CustomLoopAdapter extends ALoopAdapter
 {
@@ -49,8 +48,7 @@ class CustomLoopAdapter extends ALoopAdapter
 ```
 > See implemented `RevoltLoopAdapter` and `ReactLoopAdapter` classes as examples.
 
-Then you need to create a loop probe by extending `ALoopProbe` class and register it in `Probes` class.
-
+Next, you need to create a loop probe by extending the `ALoopProbe` class and register it in the `Probes` class.
 ```php
 class CustomLoopProbe extends ALoopProbe
 {
@@ -68,7 +66,9 @@ class CustomLoopProbe extends ALoopProbe
 
 > See implemented `RevoltLoopProbe` and `ReactLoopProbe` classes as examples.
 
-##### Registering Loop Probe
+## Registering Loop Probe
+
+To register the custom loop probe, use the following code:
 
 ```php
 Probes::register(CustomLoopProbe::class);
