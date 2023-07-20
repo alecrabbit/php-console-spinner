@@ -49,6 +49,42 @@ final class ProbeTest extends TestCaseWithPrebuiltMocksAndStubs
         self::assertContains($probe1, $probes);
         self::assertContains($probe2, $probes);
     }
+
+    #[Test]
+    public function canRegisterMultipleProbes(): void
+    {
+        $probe1 = ReactLoopProbe::class;
+        $probe2 = RevoltLoopProbe::class;
+        $probe3 = StaticProbeOverride::class;
+
+        Probe::register($probe3);
+        Probe::register($probe2, $probe1);
+
+        $probes = iterator_to_array(Probe::load());
+        self::assertCount(3, $probes);
+        self::assertContains($probe1, $probes);
+        self::assertContains($probe2, $probes);
+        self::assertContains($probe3, $probes);
+    }
+    #[Test]
+    public function reRegisteringProbeHasNoEffect(): void
+    {
+        $probe1 = ReactLoopProbe::class;
+        $probe2 = RevoltLoopProbe::class;
+        $probe3 = StaticProbeOverride::class;
+
+        Probe::register($probe3);
+        Probe::register($probe2, $probe1);
+        Probe::register($probe1);
+        Probe::register($probe3);
+
+        $probes = iterator_to_array(Probe::load());
+        self::assertCount(3, $probes);
+        self::assertContains($probe1, $probes);
+        self::assertContains($probe2, $probes);
+        self::assertContains($probe3, $probes);
+    }
+
     #[Test]
     public function canLoadSpecificSubClassProbes(): void
     {
@@ -65,6 +101,7 @@ final class ProbeTest extends TestCaseWithPrebuiltMocksAndStubs
         self::assertContains($probe2, $probes);
         self::assertNotContains($probe3, $probes);
     }
+
     #[Test]
     public function loadsAllProbesIfFilterClassIsNull(): void
     {
@@ -121,27 +158,4 @@ final class ProbeTest extends TestCaseWithPrebuiltMocksAndStubs
     {
         self::setPropertyValue(Probe::class, 'probes', $this->probes);
     }
-
-
-//    #[Test]
-//    public function returnsLoopProbeFactory(): void
-//    {
-//        $container = $this->getTesteeInstance();
-//
-//        $result = $container->get(ILoopProbeFactory::class);
-//
-//        self::assertInstanceOf(LoopProbeFactory::class, $result);
-//    }
-
-//    public function getTesteeInstance(
-//        ?string $class = null,
-//        ?IDefinitionRegistry $registry = null,
-//    ): IContainer {
-//        $class ??= ContainerFactory::class;
-//
-//        $registry ??= DefinitionRegistry::getInstance();
-//
-//        $factory = new $class($registry);
-//        return self::callMethod($factory, 'createContainer');
-//    }
 }

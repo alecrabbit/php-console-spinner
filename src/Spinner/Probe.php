@@ -23,13 +23,15 @@ final class Probe
     }
 
     /**
-     * @param class-string<IStaticProbe> $probe
+     * @param Array<class-string<IStaticProbe>> $probes
      * @throws InvalidArgumentException
      */
-    public static function register(string $probe): void
+    public static function register(string ...$probes): void
     {
-        self::assertClass($probe);
-        self::$probes[$probe] = $probe;
+        foreach ($probes as $probe) {
+            self::assertClass($probe);
+            self::$probes[$probe] = $probe;
+        }
     }
 
     /**
