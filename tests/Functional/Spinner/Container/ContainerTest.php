@@ -25,26 +25,6 @@ final class ContainerTest extends TestCaseWithPrebuiltMocksAndStubs
         self::assertInstanceOf(Container::class, $container);
     }
 
-    #[Test]
-    public function returnsNormalizerMethodMode(): void
-    {
-        $container = $this->getTesteeInstance();
-
-        $result = $container->get(NormalizerMethodMode::class);
-
-        self::assertInstanceOf(NormalizerMethodMode::class, $result);
-        self::assertSame(NormalizerMethodMode::BALANCED, $result);
-    }
-    #[Test]
-    public function returnsLoopProbeFactory(): void
-    {
-        $container = $this->getTesteeInstance();
-
-        $result = $container->get(ILoopProbeFactory::class);
-
-        self::assertInstanceOf(LoopProbeFactory::class, $result);
-    }
-
     public function getTesteeInstance(
         ?string $class = null,
         ?IDefinitionRegistry $registry = null,
@@ -55,5 +35,26 @@ final class ContainerTest extends TestCaseWithPrebuiltMocksAndStubs
 
         $factory = new $class($registry);
         return self::callMethod($factory, 'createContainer');
+    }
+
+    #[Test]
+    public function returnsNormalizerMethodMode(): void
+    {
+        $container = $this->getTesteeInstance();
+
+        $result = $container->get(NormalizerMethodMode::class);
+
+        self::assertInstanceOf(NormalizerMethodMode::class, $result);
+        self::assertSame(NormalizerMethodMode::BALANCED, $result);
+    }
+
+    #[Test]
+    public function returnsLoopProbeFactory(): void
+    {
+        $container = $this->getTesteeInstance();
+
+        $result = $container->get(ILoopProbeFactory::class);
+
+        self::assertInstanceOf(LoopProbeFactory::class, $result);
     }
 }

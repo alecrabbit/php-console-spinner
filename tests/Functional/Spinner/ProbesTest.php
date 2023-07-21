@@ -13,6 +13,7 @@ use AlecRabbit\Spinner\Probes;
 use AlecRabbit\Tests\Functional\Spinner\Override\StaticProbeOverride;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
+use stdClass;
 
 final class ProbesTest extends TestCase
 {
@@ -121,6 +122,7 @@ final class ProbesTest extends TestCase
         self::assertContains($probe3, $probes);
         self::assertNotContains($probe2, $probes);
     }
+
     #[Test]
     public function unregisteringNonRegisteredProbeHasNoEffect(): void
     {
@@ -156,7 +158,7 @@ final class ProbesTest extends TestCase
     #[Test]
     public function throwsIfProbeClassIsNotAStaticProbeSubClass(): void
     {
-        $probe = \stdClass::class;
+        $probe = stdClass::class;
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage(
             'Class "' .
@@ -172,7 +174,7 @@ final class ProbesTest extends TestCase
     #[Test]
     public function throwsIfFilterClassIsNotAStaticProbeSubClass(): void
     {
-        $filterClass = \stdClass::class;
+        $filterClass = stdClass::class;
 
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage(
@@ -189,10 +191,11 @@ final class ProbesTest extends TestCase
 
         self::fail('Exception was not thrown.');
     }
+
     #[Test]
     public function throwsIfProbeClassToUnregisterIsNotAStaticProbeSubClass(): void
     {
-        $class = \stdClass::class;
+        $class = stdClass::class;
 
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage(

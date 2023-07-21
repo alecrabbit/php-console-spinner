@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Defaults;
 
-use AlecRabbit\Spinner\Core\Builder\Settings\LegacyAuxSettingsBuilder;
 use AlecRabbit\Spinner\Core\Builder\Settings\Contract\ILegacyAuxSettingsBuilder;
+use AlecRabbit\Spinner\Core\Builder\Settings\LegacyAuxSettingsBuilder;
 use AlecRabbit\Spinner\Core\Settings\LegacyAuxSettings;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;

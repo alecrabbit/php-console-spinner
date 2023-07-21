@@ -278,6 +278,7 @@ final class WidgetContextTest extends TestCaseWithPrebuiltMocksAndStubs
 
         self::assertInstanceOf(WidgetContext::class, $widgetContext);
     }
+
     #[Test]
     public function willNotNotifyOnConstructIfWidgetIsNull(): void
     {

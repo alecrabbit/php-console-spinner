@@ -13,6 +13,7 @@ use Countable;
 use IteratorAggregate;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
+use stdClass;
 use WeakMap;
 
 final class WidgetContextToIntervalMapTest extends TestCaseWithPrebuiltMocksAndStubs
@@ -24,7 +25,7 @@ final class WidgetContextToIntervalMapTest extends TestCaseWithPrebuiltMocksAndS
             [1],
             [1.1],
             ['string'],
-            [new \stdClass()],
+            [new stdClass()],
             [[]],
         ];
     }

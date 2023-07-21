@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Defaults;
 
-use AlecRabbit\Spinner\Contract\Option\SignalHandlersOption;
 use AlecRabbit\Spinner\Contract\Option\AutoStartOption;
+use AlecRabbit\Spinner\Contract\Option\SignalHandlersOption;
 use AlecRabbit\Spinner\Core\Settings\Contract\ILegacyLoopSettings;
 use AlecRabbit\Spinner\Core\Settings\LegacyLoopSettings;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;

@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Settings;
 
-use AlecRabbit\Spinner\Contract\Option\RunMethodOption;
 use AlecRabbit\Spinner\Core\Settings\AuxSettings;
-use AlecRabbit\Spinner\Core\Settings\Contract\IAuxSettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettings;
 use AlecRabbit\Spinner\Core\Settings\DriverSettings;
 use AlecRabbit\Spinner\Core\Settings\LoopSettings;
@@ -26,25 +24,10 @@ final class SettingsTest extends TestCaseWithPrebuiltMocksAndStubs
         self::assertInstanceOf(Settings::class, $settings);
     }
 
-    public function getTesteeInstance(
-        ?RunMethodOption $runMethodOption = null,
-    ): ISettings {
-        return
-            new Settings(
-                runMethodOption: $runMethodOption ?? RunMethodOption::AUTO,
-            );
-    }
-
-    #[Test]
-    public function canGetRunMethodOption(): void
+    public function getTesteeInstance(): ISettings
     {
-        $runMethodOption = RunMethodOption::ASYNC;
-
-        $settings = $this->getTesteeInstance(
-            runMethodOption: $runMethodOption,
-        );
-
-        self::assertEquals($runMethodOption, $settings->getRunMethodOption());
+        return
+            new Settings();
     }
 
     #[Test]
@@ -53,7 +36,6 @@ final class SettingsTest extends TestCaseWithPrebuiltMocksAndStubs
         $settings = $this->getTesteeInstance();
 
         self::assertInstanceOf(AuxSettings::class, $settings->getAuxSettings());
-
     }
 
     #[Test]
@@ -62,7 +44,6 @@ final class SettingsTest extends TestCaseWithPrebuiltMocksAndStubs
         $settings = $this->getTesteeInstance();
 
         self::assertInstanceOf(WidgetSettings::class, $settings->getWidgetSettings());
-
     }
 
     #[Test]
@@ -71,7 +52,6 @@ final class SettingsTest extends TestCaseWithPrebuiltMocksAndStubs
         $settings = $this->getTesteeInstance();
 
         self::assertInstanceOf(WidgetSettings::class, $settings->getRootWidgetSettings());
-
     }
 
     #[Test]
@@ -80,7 +60,6 @@ final class SettingsTest extends TestCaseWithPrebuiltMocksAndStubs
         $settings = $this->getTesteeInstance();
 
         self::assertInstanceOf(DriverSettings::class, $settings->getDriverSettings());
-
     }
 
     #[Test]
@@ -89,7 +68,6 @@ final class SettingsTest extends TestCaseWithPrebuiltMocksAndStubs
         $settings = $this->getTesteeInstance();
 
         self::assertInstanceOf(LoopSettings::class, $settings->getLoopSettings());
-
     }
 
     #[Test]
@@ -98,24 +76,5 @@ final class SettingsTest extends TestCaseWithPrebuiltMocksAndStubs
         $settings = $this->getTesteeInstance();
 
         self::assertInstanceOf(OutputSettings::class, $settings->getOutputSettings());
-
-    }
-
-    #[Test]
-    public function canSetRunMethodOption(): void
-    {
-        $runMethodOptionInitial = RunMethodOption::ASYNC;
-
-        $settings = $this->getTesteeInstance(
-            runMethodOption: $runMethodOptionInitial,
-        );
-
-        $runMethodOption = RunMethodOption::SYNCHRONOUS;
-
-        self::assertNotEquals($runMethodOption, $settings->getRunMethodOption());
-
-        $settings->setRunMethodOption($runMethodOption);
-
-        self::assertEquals($runMethodOption, $settings->getRunMethodOption());
     }
 }

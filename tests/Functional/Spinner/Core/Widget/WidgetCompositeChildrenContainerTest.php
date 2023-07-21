@@ -67,6 +67,16 @@ final class WidgetCompositeChildrenContainerTest extends TestCaseWithPrebuiltMoc
         self::assertSame($newInterval, $container->getInterval());
     }
 
+    public function getTesteeInstance(
+        null|(ArrayAccess&Countable&IteratorAggregate) $map = null,
+        ?IObserver $observer = null,
+    ): IWidgetCompositeChildrenContainer {
+        return new WidgetCompositeChildrenContainer(
+            map: $map ?? new WidgetContextToIntervalMap(),
+            observer: $observer,
+        );
+    }
+
     #[Test]
     public function canBeUpdatedWhenContextIsRemovedOne(): void
     {
@@ -136,7 +146,6 @@ final class WidgetCompositeChildrenContainerTest extends TestCaseWithPrebuiltMoc
     #[Test]
     public function canBeUpdatedWhenContextIsRemovedTwo(): void
     {
-
         $interval = new Interval(80);
 
         $revolver = $this->getRevolverMock();
@@ -176,7 +185,6 @@ final class WidgetCompositeChildrenContainerTest extends TestCaseWithPrebuiltMoc
     #[Test]
     public function canBeUpdatedWhenContextIsRemovedFour(): void
     {
-
         $interval = new Interval(80);
 
         $revolver = $this->getRevolverMock();
@@ -273,16 +281,6 @@ final class WidgetCompositeChildrenContainerTest extends TestCaseWithPrebuiltMoc
 
         $container->remove($context2);
         self::assertSame($interval1, $container->getInterval());
-    }
-
-    public function getTesteeInstance(
-        null|(ArrayAccess&Countable&IteratorAggregate) $map = null,
-        ?IObserver $observer = null,
-    ): IWidgetCompositeChildrenContainer {
-        return new WidgetCompositeChildrenContainer(
-            map: $map ?? new WidgetContextToIntervalMap(),
-            observer: $observer,
-        );
     }
 
     #[Test]

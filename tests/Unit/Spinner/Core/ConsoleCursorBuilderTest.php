@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Unit\Spinner\Core;
 
 use AlecRabbit\Spinner\Contract\Mode\CursorVisibilityMode;
-use AlecRabbit\Spinner\Contract\Option\CursorVisibilityOption;
 use AlecRabbit\Spinner\Core\Builder\ConsoleCursorBuilder;
 use AlecRabbit\Spinner\Core\Builder\Contract\IConsoleCursorBuilder;
 use AlecRabbit\Spinner\Core\Output\ConsoleCursor;
