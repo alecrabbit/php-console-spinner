@@ -7,10 +7,10 @@ namespace AlecRabbit\Spinner\Core\Config;
 
 use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Contract\Pattern\IPattern;
-use AlecRabbit\Spinner\Core\Config\Contract\IWidgetConfig;
+use AlecRabbit\Spinner\Core\Config\Contract\ILegacyWidgetConfig;
 use AlecRabbit\Spinner\Core\Pattern\Contract\IStylePattern;
 
-final class WidgetConfig implements IWidgetConfig
+final class LegacyWidgetConfig implements ILegacyWidgetConfig
 {
     public function __construct(
         protected ?IFrame $leadingSpacer = null,
@@ -20,35 +20,35 @@ final class WidgetConfig implements IWidgetConfig
     ) {
     }
 
-    public function setLeadingSpacer(?IFrame $leadingSpacer): IWidgetConfig
+    public function setLeadingSpacer(?IFrame $leadingSpacer): ILegacyWidgetConfig
     {
         $this->leadingSpacer = $leadingSpacer;
         return $this;
     }
 
-    public function setTrailingSpacer(?IFrame $trailingSpacer): IWidgetConfig
+    public function setTrailingSpacer(?IFrame $trailingSpacer): ILegacyWidgetConfig
     {
         $this->trailingSpacer = $trailingSpacer;
         return $this;
     }
 
-    public function setStylePattern(?IStylePattern $stylePattern): IWidgetConfig
+    public function setStylePattern(?IStylePattern $stylePattern): ILegacyWidgetConfig
     {
         $this->stylePattern = $stylePattern;
         return $this;
     }
 
-    public function setCharPattern(?IPattern $charPattern): IWidgetConfig
+    public function setCharPattern(?IPattern $charPattern): ILegacyWidgetConfig
     {
         $this->charPattern = $charPattern;
         return $this;
     }
 
     /** @inheritdoc */
-    public function merge(IWidgetConfig $other): IWidgetConfig
+    public function merge(ILegacyWidgetConfig $other): ILegacyWidgetConfig
     {
         return
-            new WidgetConfig(
+            new LegacyWidgetConfig(
                 $this->leadingSpacer ?? $other->getLeadingSpacer(),
                 $this->trailingSpacer ?? $other->getTrailingSpacer(),
                 $this->stylePattern ?? $other->getStylePattern(),

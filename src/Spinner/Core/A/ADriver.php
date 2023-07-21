@@ -9,7 +9,7 @@ use AlecRabbit\Spinner\Contract\IObserver;
 use AlecRabbit\Spinner\Contract\ITimer;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Output\Contract\IDriverOutput;
-use AlecRabbit\Spinner\Core\Settings\Contract\IDriverSettings;
+use AlecRabbit\Spinner\Core\Settings\Contract\ILegacyDriverSettings;
 use Closure;
 
 abstract class ADriver extends ASubject implements IDriver
@@ -20,7 +20,7 @@ abstract class ADriver extends ASubject implements IDriver
         protected readonly IDriverOutput $output,
         protected readonly ITimer $timer,
         protected readonly IInterval $initialInterval,
-        protected readonly IDriverSettings $driverSettings,
+        protected readonly ILegacyDriverSettings $driverSettings,
         ?IObserver $observer = null,
     ) {
         parent::__construct($observer);

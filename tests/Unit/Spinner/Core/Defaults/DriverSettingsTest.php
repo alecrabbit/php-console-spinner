@@ -6,8 +6,8 @@ namespace AlecRabbit\Tests\Unit\Spinner\Core\Defaults;
 
 use AlecRabbit\Spinner\Contract\Option\DriverInitializationOption;
 use AlecRabbit\Spinner\Contract\Option\DriverLinkerOption;
-use AlecRabbit\Spinner\Core\Settings\Contract\IDriverSettings;
-use AlecRabbit\Spinner\Core\Settings\DriverSettings;
+use AlecRabbit\Spinner\Core\Settings\Contract\ILegacyDriverSettings;
+use AlecRabbit\Spinner\Core\Settings\LegacyDriverSettings;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;
 
@@ -18,7 +18,7 @@ final class DriverSettingsTest extends TestCaseWithPrebuiltMocksAndStubs
     {
         $driverSettings = $this->getTesteeInstance();
 
-        self::assertInstanceOf(DriverSettings::class, $driverSettings);
+        self::assertInstanceOf(LegacyDriverSettings::class, $driverSettings);
     }
 
     public function getTesteeInstance(
@@ -26,8 +26,8 @@ final class DriverSettingsTest extends TestCaseWithPrebuiltMocksAndStubs
         DriverLinkerOption $optionLinker = DriverLinkerOption::ENABLED,
         string $finalMessage = 'Final message',
         string $interruptMessage = 'Interrupt message',
-    ): IDriverSettings {
-        return new DriverSettings(
+    ): ILegacyDriverSettings {
+        return new LegacyDriverSettings(
             optionDriverInitialization: $optionInitialization,
             optionLinker: $optionLinker,
             finalMessage: $finalMessage,
@@ -49,7 +49,7 @@ final class DriverSettingsTest extends TestCaseWithPrebuiltMocksAndStubs
             finalMessage: $finalMessage,
             interruptMessage: $interruptMessage,
         );
-        self::assertInstanceOf(DriverSettings::class, $driverSettings);
+        self::assertInstanceOf(LegacyDriverSettings::class, $driverSettings);
         self::assertFalse($driverSettings->isInitializationEnabled());
         self::assertFalse($driverSettings->isLinkerEnabled());
         self::assertSame($finalMessage, $driverSettings->getFinalMessage());

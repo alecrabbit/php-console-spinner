@@ -9,7 +9,7 @@ use AlecRabbit\Spinner\Core\Factory\Contract\ICharFrameRevolverFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IStyleFrameRevolverFactory;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolver;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
-use AlecRabbit\Spinner\Core\Settings\Contract\IWidgetSettings;
+use AlecRabbit\Spinner\Core\Settings\Contract\ILegacyWidgetSettings;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolverBuilder;
 use AlecRabbit\Spinner\Core\Widget\Factory\Contract\IWidgetRevolverFactory;
 
@@ -22,7 +22,7 @@ final class WidgetRevolverFactory implements IWidgetRevolverFactory
     ) {
     }
 
-    public function createWidgetRevolver(IWidgetSettings $widgetSettings): IRevolver
+    public function createWidgetRevolver(ILegacyWidgetSettings $widgetSettings): IRevolver
     {
         return
             $this->widgetRevolverBuilder
@@ -39,7 +39,7 @@ final class WidgetRevolverFactory implements IWidgetRevolverFactory
         ;
     }
 
-    private function getStyleRevolver(IWidgetSettings $widgetSettings): IFrameRevolver
+    private function getStyleRevolver(ILegacyWidgetSettings $widgetSettings): IFrameRevolver
     {
         return
             $this->styleRevolverFactory
@@ -49,7 +49,7 @@ final class WidgetRevolverFactory implements IWidgetRevolverFactory
         ;
     }
 
-    private function getCharRevolver(IWidgetSettings $widgetSettings): IFrameRevolver
+    private function getCharRevolver(ILegacyWidgetSettings $widgetSettings): IFrameRevolver
     {
         return
             $this->charRevolverFactory

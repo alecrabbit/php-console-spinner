@@ -26,7 +26,7 @@ use AlecRabbit\Spinner\Core\Builder\Settings\Contract\IAuxSettingsBuilder;
 use AlecRabbit\Spinner\Core\Builder\Settings\Contract\IDriverSettingsBuilder;
 use AlecRabbit\Spinner\Core\Builder\Settings\Contract\IWidgetSettingsBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\ISpinnerConfig;
-use AlecRabbit\Spinner\Core\Config\Contract\IWidgetConfig;
+use AlecRabbit\Spinner\Core\Config\Contract\ILegacyWidgetConfig;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\IDriverBuilder;
 use AlecRabbit\Spinner\Core\Contract\IDriverLinker;
@@ -34,7 +34,7 @@ use AlecRabbit\Spinner\Core\Contract\IDriverSetup;
 use AlecRabbit\Spinner\Core\Contract\IFrameCollection;
 use AlecRabbit\Spinner\Core\Contract\IIntervalNormalizer;
 use AlecRabbit\Spinner\Core\Contract\ILoopAutoStarter;
-use AlecRabbit\Spinner\Core\Contract\ISettingsProvider;
+use AlecRabbit\Spinner\Core\Contract\ILegacySettingsProvider;
 use AlecRabbit\Spinner\Core\Contract\ISignalHandlersSetup;
 use AlecRabbit\Spinner\Core\Contract\ISignalProcessingProbe;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
@@ -64,11 +64,11 @@ use AlecRabbit\Spinner\Core\Pattern\Contract\IStylePattern;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolver;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolverBuilder;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
-use AlecRabbit\Spinner\Core\Settings\Contract\IAuxSettings;
-use AlecRabbit\Spinner\Core\Settings\Contract\IDriverSettings;
-use AlecRabbit\Spinner\Core\Settings\Contract\ILoopSettings;
-use AlecRabbit\Spinner\Core\Settings\Contract\ITerminalSettings;
-use AlecRabbit\Spinner\Core\Settings\Contract\IWidgetSettings;
+use AlecRabbit\Spinner\Core\Settings\Contract\ILegacyAuxSettings;
+use AlecRabbit\Spinner\Core\Settings\Contract\ILegacyDriverSettings;
+use AlecRabbit\Spinner\Core\Settings\Contract\ILegacyLoopSettings;
+use AlecRabbit\Spinner\Core\Settings\Contract\ILegacyTerminalSettings;
+use AlecRabbit\Spinner\Core\Settings\Contract\ILegacyWidgetSettings;
 use AlecRabbit\Spinner\Core\Terminal\Contract\ITerminalProbe;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidget;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetBuilder;
@@ -84,9 +84,9 @@ use PHPUnit\Framework\MockObject\Stub;
 
 abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
 {
-    protected function getWidgetConfigStub(): Stub&IWidgetConfig
+    protected function getLegacyWidgetConfigStub(): Stub&ILegacyWidgetConfig
     {
-        return $this->createStub(IWidgetConfig::class);
+        return $this->createStub(ILegacyWidgetConfig::class);
     }
 
     protected function getWeakMapMock(): MockObject&IWeakMap
@@ -134,9 +134,9 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
         return $this->createMock(IStylePattern::class);
     }
 
-    protected function getWidgetSettingsMock(): MockObject&IWidgetSettings
+    protected function getLegacyWidgetSettingsMock(): MockObject&ILegacyWidgetSettings
     {
-        return $this->createMock(IWidgetSettings::class);
+        return $this->createMock(ILegacyWidgetSettings::class);
     }
 
     protected function getContainerMock(): MockObject&IContainer
@@ -219,9 +219,9 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
         return $this->createStub(ILoopAutoStarter::class);
     }
 
-    protected function getSettingsProviderMock(): MockObject&ISettingsProvider
+    protected function getLegacySettingsProviderMock(): MockObject&ILegacySettingsProvider
     {
-        return $this->createMock(ISettingsProvider::class);
+        return $this->createMock(ILegacySettingsProvider::class);
     }
 
     protected function getSpinnerConfigMock(): MockObject&ISpinnerConfig
@@ -229,9 +229,9 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
         return $this->createMock(ISpinnerConfig::class);
     }
 
-    protected function getWidgetConfigMock(): MockObject&IWidgetConfig
+    protected function getLegacyWidgetConfigMock(): MockObject&ILegacyWidgetConfig
     {
-        return $this->createMock(IWidgetConfig::class);
+        return $this->createMock(ILegacyWidgetConfig::class);
     }
 
     protected function getWidgetCompositeFactoryMock(): MockObject&IWidgetCompositeFactory
@@ -244,9 +244,9 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
         return $this->createMock(IWidgetSettingsFactory::class);
     }
 
-    protected function getAuxSettingsMock(): MockObject&IAuxSettings
+    protected function getLegacyAuxSettingsMock(): MockObject&ILegacyAuxSettings
     {
-        return $this->createMock(IAuxSettings::class);
+        return $this->createMock(ILegacyAuxSettings::class);
     }
 
     protected function getIntervalNormalizerMock(): MockObject&IIntervalNormalizer
@@ -319,9 +319,9 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
         return $this->createMock(IAuxSettingsBuilder::class);
     }
 
-    protected function getDriverSettingsMock(): MockObject&IDriverSettings
+    protected function getLegacyDriverSettingsMock(): MockObject&ILegacyDriverSettings
     {
-        return $this->createMock(IDriverSettings::class);
+        return $this->createMock(ILegacyDriverSettings::class);
     }
 
     protected function getSignalHandlersSetupFactoryMock(): MockObject&ISignalHandlersSetupFactory
@@ -339,14 +339,14 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
         return $this->createMock(IWidgetSettingsBuilder::class);
     }
 
-    protected function getLoopSettingsMock(): MockObject&ILoopSettings
+    protected function getLegacyLoopSettingsMock(): MockObject&ILegacyLoopSettings
     {
-        return $this->createMock(ILoopSettings::class);
+        return $this->createMock(ILegacyLoopSettings::class);
     }
 
-    protected function getTerminalSettingsMock(): MockObject&ITerminalSettings
+    protected function getLegacyTerminalSettingsMock(): MockObject&ILegacyTerminalSettings
     {
-        return $this->createMock(ITerminalSettings::class);
+        return $this->createMock(ILegacyTerminalSettings::class);
     }
 
     protected function getLoopMock(): MockObject&ILoop

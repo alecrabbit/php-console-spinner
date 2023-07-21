@@ -6,12 +6,12 @@ namespace AlecRabbit\Spinner\Core;
 
 use AlecRabbit\Spinner\Core\Contract\ILoopAutoStarter;
 use AlecRabbit\Spinner\Core\Contract\Loop\Contract\ILoop;
-use AlecRabbit\Spinner\Core\Settings\Contract\ILoopSettings;
+use AlecRabbit\Spinner\Core\Settings\Contract\ILegacyLoopSettings;
 
 final class LoopAutoStarter implements ILoopAutoStarter
 {
     public function __construct(
-        protected ILoopSettings $settings,
+        protected ILegacyLoopSettings $settings,
     ) {
     }
 

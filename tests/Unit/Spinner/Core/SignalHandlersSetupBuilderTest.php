@@ -36,8 +36,8 @@ final class SignalHandlersSetupBuilderTest extends TestCaseWithPrebuiltMocksAndS
 
         $loopSetupBuilder = $loopSetupBuilder
             ->withLoop($this->getLoopMock())
-            ->withLoopSettings($this->getLoopSettingsMock())
-            ->withDriverSettings($this->getDriverSettingsMock())
+            ->withLoopSettings($this->getLegacyLoopSettingsMock())
+            ->withDriverSettings($this->getLegacyDriverSettingsMock())
         ;
 
         self::assertInstanceOf(SignalHandlersSetup::class, $loopSetupBuilder->build());
@@ -53,8 +53,8 @@ final class SignalHandlersSetupBuilderTest extends TestCaseWithPrebuiltMocksAndS
             $loopSetupBuilder = $this->getTesteeInstance();
             self::assertInstanceOf(SignalHandlersSetupBuilder::class, $loopSetupBuilder);
             $loopSetupBuilder
-                ->withLoopSettings($this->getLoopSettingsMock())
-                ->withDriverSettings($this->getDriverSettingsMock())
+                ->withLoopSettings($this->getLegacyLoopSettingsMock())
+                ->withDriverSettings($this->getLegacyDriverSettingsMock())
                 ->build()
             ;
         };
@@ -77,7 +77,7 @@ final class SignalHandlersSetupBuilderTest extends TestCaseWithPrebuiltMocksAndS
             self::assertInstanceOf(SignalHandlersSetupBuilder::class, $loopSetupBuilder);
             $loopSetupBuilder
                 ->withLoop($this->getLoopMock())
-                ->withDriverSettings($this->getDriverSettingsMock())
+                ->withDriverSettings($this->getLegacyDriverSettingsMock())
                 ->build()
             ;
         };
@@ -100,7 +100,7 @@ final class SignalHandlersSetupBuilderTest extends TestCaseWithPrebuiltMocksAndS
             self::assertInstanceOf(SignalHandlersSetupBuilder::class, $loopSetupBuilder);
             $loopSetupBuilder
                 ->withLoop($this->getLoopMock())
-                ->withLoopSettings($this->getLoopSettingsMock())
+                ->withLoopSettings($this->getLegacyLoopSettingsMock())
                 ->build()
             ;
         };

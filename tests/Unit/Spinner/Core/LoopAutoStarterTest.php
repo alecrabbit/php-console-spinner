@@ -7,7 +7,7 @@ namespace AlecRabbit\Tests\Unit\Spinner\Core;
 
 use AlecRabbit\Spinner\Core\Contract\ILoopAutoStarter;
 use AlecRabbit\Spinner\Core\LoopAutoStarter;
-use AlecRabbit\Spinner\Core\Settings\Contract\ILoopSettings;
+use AlecRabbit\Spinner\Core\Settings\Contract\ILegacyLoopSettings;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;
 
@@ -22,11 +22,11 @@ final class LoopAutoStarterTest extends TestCaseWithPrebuiltMocksAndStubs
     }
 
     public function getTesteeInstance(
-        ?ILoopSettings $settings = null,
+        ?ILegacyLoopSettings $settings = null,
     ): ILoopAutoStarter {
         return
             new LoopAutoStarter(
-                settings: $settings ?? $this->getLoopSettingsMock(),
+                settings: $settings ?? $this->getLegacyLoopSettingsMock(),
             );
     }
 
@@ -53,7 +53,7 @@ final class LoopAutoStarterTest extends TestCaseWithPrebuiltMocksAndStubs
             ->method('autoStart')
         ;
 
-        $settings = $this->getLoopSettingsMock();
+        $settings = $this->getLegacyLoopSettingsMock();
         $settings
             ->expects(self::once())
             ->method('isLoopAvailable')

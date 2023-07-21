@@ -8,15 +8,15 @@ namespace AlecRabbit\Spinner\Core\Settings\Contract;
 use AlecRabbit\Spinner\Contract\Option\SignalHandlersOption;
 use AlecRabbit\Spinner\Contract\Option\AutoStartOption;
 
-interface ILoopSettings
+interface ILegacyLoopSettings
 {
     public function isAutoStartEnabled(): bool;
 
-    public function setOptionAutoStart(AutoStartOption $optionAutoStart): ILoopSettings;
+    public function setOptionAutoStart(AutoStartOption $optionAutoStart): ILegacyLoopSettings;
 
     public function isAttachHandlersEnabled(): bool;
 
-    public function setAttachHandlersOption(SignalHandlersOption $optionAttachHandlers): ILoopSettings;
+    public function setAttachHandlersOption(SignalHandlersOption $optionAttachHandlers): ILegacyLoopSettings;
 
     public function isLoopAvailable(): bool;
 

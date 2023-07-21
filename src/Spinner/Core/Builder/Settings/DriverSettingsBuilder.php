@@ -8,15 +8,15 @@ namespace AlecRabbit\Spinner\Core\Builder\Settings;
 use AlecRabbit\Spinner\Contract\Option\DriverInitializationOption;
 use AlecRabbit\Spinner\Contract\Option\DriverLinkerOption;
 use AlecRabbit\Spinner\Core\Builder\Settings\Contract\IDriverSettingsBuilder;
-use AlecRabbit\Spinner\Core\Settings\Contract\IDriverSettings;
-use AlecRabbit\Spinner\Core\Settings\DriverSettings;
+use AlecRabbit\Spinner\Core\Settings\Contract\ILegacyDriverSettings;
+use AlecRabbit\Spinner\Core\Settings\LegacyDriverSettings;
 
 final class DriverSettingsBuilder implements IDriverSettingsBuilder
 {
-    public function build(): IDriverSettings
+    public function build(): ILegacyDriverSettings
     {
         return
-            new DriverSettings(
+            new LegacyDriverSettings(
                 optionDriverInitialization: DriverInitializationOption::ENABLED,
                 optionLinker: DriverLinkerOption::ENABLED,
                 finalMessage: '',

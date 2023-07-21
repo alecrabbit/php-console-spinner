@@ -20,7 +20,7 @@ final class IntervalFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
         $container
             ->method('get')
             ->willReturn(
-                $this->getSettingsProviderMock(),
+                $this->getLegacySettingsProviderMock(),
                 $this->getIntervalNormalizerMock(),
             )
         ;

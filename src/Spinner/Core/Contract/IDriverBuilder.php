@@ -9,7 +9,7 @@ use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Contract\IObserver;
 use AlecRabbit\Spinner\Contract\ITimer;
 use AlecRabbit\Spinner\Core\Output\Contract\IDriverOutput;
-use AlecRabbit\Spinner\Core\Settings\Contract\IDriverSettings;
+use AlecRabbit\Spinner\Core\Settings\Contract\ILegacyDriverSettings;
 
 interface IDriverBuilder
 {
@@ -23,5 +23,5 @@ interface IDriverBuilder
 
     public function withObserver(IObserver $observer): IDriverBuilder;
 
-    public function withDriverSettings(IDriverSettings $driverSettings): IDriverBuilder;
+    public function withDriverSettings(ILegacyDriverSettings $driverSettings): IDriverBuilder;
 }

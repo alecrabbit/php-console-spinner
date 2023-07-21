@@ -8,9 +8,9 @@ namespace AlecRabbit\Spinner\Core\Settings;
 use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Contract\Pattern\IPattern;
 use AlecRabbit\Spinner\Core\Pattern\Contract\IStylePattern;
-use AlecRabbit\Spinner\Core\Settings\Contract\IWidgetSettings;
+use AlecRabbit\Spinner\Core\Settings\Contract\ILegacyWidgetSettings;
 
-final class WidgetSettings implements IWidgetSettings
+final class LegacyWidgetSettings implements ILegacyWidgetSettings
 {
     public function __construct(
         protected IFrame $leadingSpacer,
@@ -25,7 +25,7 @@ final class WidgetSettings implements IWidgetSettings
         return $this->leadingSpacer;
     }
 
-    public function setLeadingSpacer(IFrame $frame): IWidgetSettings
+    public function setLeadingSpacer(IFrame $frame): ILegacyWidgetSettings
     {
         $this->leadingSpacer = $frame;
         return $this;
@@ -36,7 +36,7 @@ final class WidgetSettings implements IWidgetSettings
         return $this->trailingSpacer;
     }
 
-    public function setTrailingSpacer(IFrame $frame): IWidgetSettings
+    public function setTrailingSpacer(IFrame $frame): ILegacyWidgetSettings
     {
         $this->trailingSpacer = $frame;
         return $this;
@@ -47,7 +47,7 @@ final class WidgetSettings implements IWidgetSettings
         return $this->stylePattern;
     }
 
-    public function setStylePattern(IStylePattern $pattern): IWidgetSettings
+    public function setStylePattern(IStylePattern $pattern): ILegacyWidgetSettings
     {
         $this->stylePattern = $pattern;
         return $this;
@@ -58,7 +58,7 @@ final class WidgetSettings implements IWidgetSettings
         return $this->charPattern;
     }
 
-    public function setCharPattern(IPattern $pattern): IWidgetSettings
+    public function setCharPattern(IPattern $pattern): ILegacyWidgetSettings
     {
         $this->charPattern = $pattern;
         return $this;

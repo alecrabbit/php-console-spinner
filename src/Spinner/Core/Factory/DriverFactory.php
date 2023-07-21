@@ -12,7 +12,7 @@ use AlecRabbit\Spinner\Core\Factory\Contract\IDriverFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDriverOutputFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ISignalHandlersSetupFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ITimerFactory;
-use AlecRabbit\Spinner\Core\Settings\Contract\IDriverSettings;
+use AlecRabbit\Spinner\Core\Settings\Contract\ILegacyDriverSettings;
 
 final class DriverFactory implements IDriverFactory
 {
@@ -24,7 +24,7 @@ final class DriverFactory implements IDriverFactory
         protected ISignalHandlersSetupFactory $signalHandlersSetupFactory,
         protected ITimerFactory $timerFactory,
         protected IDriverSetup $driverSetup,
-        protected IDriverSettings $driverSettings,
+        protected ILegacyDriverSettings $driverSettings,
     ) {
     }
 

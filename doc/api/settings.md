@@ -32,6 +32,9 @@ $driverSettings = $settings->getDriverSettings();
 
 $driverSettings->setLinkerOption(LinkerOption::AUTO);
 $driverSettings->setInitializationOption(InitializationOption::AUTO);
+$driverSettings->setTerminationOption(TerminationOption::AUTO);
+$driverSettings->setFinalMessage('');
+$driverSettings->setInterruptMessage('');
 
 // Widget settings
 $widgetSettings = $settings->getWidgetSettings();

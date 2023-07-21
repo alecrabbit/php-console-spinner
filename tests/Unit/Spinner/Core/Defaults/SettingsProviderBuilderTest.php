@@ -10,7 +10,7 @@ use AlecRabbit\Spinner\Core\Builder\Settings\Contract\ISettingsProviderBuilder;
 use AlecRabbit\Spinner\Core\Builder\Settings\SettingsProviderBuilder;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopSettingsFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ITerminalSettingsFactory;
-use AlecRabbit\Spinner\Core\Settings\SettingsProvider;
+use AlecRabbit\Spinner\Core\Settings\LegacySettingsProvider;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;
 
@@ -44,6 +44,6 @@ final class SettingsProviderBuilderTest extends TestCaseWithPrebuiltMocksAndStub
     {
         $settingsProvider = $this->getTesteeInstance()->build();
 
-        self::assertInstanceOf(SettingsProvider::class, $settingsProvider);
+        self::assertInstanceOf(LegacySettingsProvider::class, $settingsProvider);
     }
 }

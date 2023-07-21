@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Factory;
 
-use AlecRabbit\Spinner\Core\Settings\Contract\ITerminalSettings;
-use AlecRabbit\Spinner\Core\Settings\TerminalSettings;
+use AlecRabbit\Spinner\Core\Settings\Contract\ILegacyTerminalSettings;
+use AlecRabbit\Spinner\Core\Settings\LegacyTerminalSettings;
 use AlecRabbit\Spinner\Core\Terminal\Contract\ITerminalProbe;
 
 final class TerminalSettingsFactory implements Contract\ITerminalSettingsFactory
@@ -15,10 +15,10 @@ final class TerminalSettingsFactory implements Contract\ITerminalSettingsFactory
     ) {
     }
 
-    public function createTerminalSettings(): ITerminalSettings
+    public function createTerminalSettings(): ILegacyTerminalSettings
     {
         return
-            new TerminalSettings(
+            new LegacyTerminalSettings(
                 optionCursor: $this->terminalProbe->getOptionCursor(),
                 optionStyleMode: $this->terminalProbe->getOptionStyleMode(),
                 outputStream: $this->terminalProbe->getOutputStream(),

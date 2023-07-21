@@ -6,7 +6,7 @@ namespace AlecRabbit\Tests\Unit\Spinner\Core\Defaults;
 
 use AlecRabbit\Spinner\Core\Builder\Settings\AuxSettingsBuilder;
 use AlecRabbit\Spinner\Core\Builder\Settings\Contract\IAuxSettingsBuilder;
-use AlecRabbit\Spinner\Core\Settings\AuxSettings;
+use AlecRabbit\Spinner\Core\Settings\LegacyAuxSettings;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;
 
@@ -31,6 +31,6 @@ final class AuxSettingsBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
         $builder = $this->getTesteeInstance();
 
         self::assertInstanceOf(AuxSettingsBuilder::class, $builder);
-        self::assertInstanceOf(AuxSettings::class, $builder->build());
+        self::assertInstanceOf(LegacyAuxSettings::class, $builder->build());
     }
 }

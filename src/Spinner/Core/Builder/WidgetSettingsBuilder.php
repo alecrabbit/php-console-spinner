@@ -9,8 +9,8 @@ use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Contract\Pattern\IPattern;
 use AlecRabbit\Spinner\Core\Builder\Settings\Contract\IWidgetSettingsBuilder;
 use AlecRabbit\Spinner\Core\Pattern\Contract\IStylePattern;
-use AlecRabbit\Spinner\Core\Settings\Contract\IWidgetSettings;
-use AlecRabbit\Spinner\Core\Settings\WidgetSettings;
+use AlecRabbit\Spinner\Core\Settings\Contract\ILegacyWidgetSettings;
+use AlecRabbit\Spinner\Core\Settings\LegacyWidgetSettings;
 use AlecRabbit\Spinner\Exception\LogicException;
 
 final class WidgetSettingsBuilder implements IWidgetSettingsBuilder
@@ -20,12 +20,12 @@ final class WidgetSettingsBuilder implements IWidgetSettingsBuilder
     private ?IStylePattern $stylePattern = null;
     private ?IPattern $charPattern = null;
 
-    public function build(): IWidgetSettings
+    public function build(): ILegacyWidgetSettings
     {
         $this->validate();
 
         return
-            new WidgetSettings(
+            new LegacyWidgetSettings(
                 leadingSpacer: $this->leadingSpacer,
                 trailingSpacer: $this->trailingSpacer,
                 stylePattern: $this->stylePattern,

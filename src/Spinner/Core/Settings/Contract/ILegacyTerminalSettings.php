@@ -8,15 +8,15 @@ namespace AlecRabbit\Spinner\Core\Settings\Contract;
 use AlecRabbit\Spinner\Contract\Option\CursorVisibilityOption;
 use AlecRabbit\Spinner\Contract\Option\StylingMethodOption;
 
-interface ITerminalSettings
+interface ILegacyTerminalSettings
 {
     public function getOptionCursor(): CursorVisibilityOption;
 
-    public function setOptionCursor(CursorVisibilityOption $cursorOption): ITerminalSettings;
+    public function setOptionCursor(CursorVisibilityOption $cursorOption): ILegacyTerminalSettings;
 
     public function getOptionStyleMode(): StylingMethodOption;
 
-    public function setOptionStyleMode(StylingMethodOption $optionStyleMode): ITerminalSettings;
+    public function setOptionStyleMode(StylingMethodOption $optionStyleMode): ILegacyTerminalSettings;
 
     /**
      * @return resource
@@ -26,5 +26,5 @@ interface ITerminalSettings
     /**
      * @param resource $outputStream
      */
-    public function setOutputStream($outputStream): ITerminalSettings;
+    public function setOutputStream($outputStream): ILegacyTerminalSettings;
 }

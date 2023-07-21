@@ -36,7 +36,7 @@ use AlecRabbit\Spinner\Core\Contract\IDriverBuilder;
 use AlecRabbit\Spinner\Core\Contract\IDriverLinker;
 use AlecRabbit\Spinner\Core\Contract\IDriverSetup;
 use AlecRabbit\Spinner\Core\Contract\IIntervalNormalizer;
-use AlecRabbit\Spinner\Core\Contract\ISettingsProvider;
+use AlecRabbit\Spinner\Core\Contract\ILegacySettingsProvider;
 use AlecRabbit\Spinner\Core\Contract\ISignalHandlersSetup;
 use AlecRabbit\Spinner\Core\Contract\ISignalProcessingProbe;
 use AlecRabbit\Spinner\Core\Contract\Loop\Contract\ILoop;
@@ -86,7 +86,7 @@ use AlecRabbit\Spinner\Core\Factory\WidgetSettingsFactory;
 use AlecRabbit\Spinner\Core\Output\ResourceStream;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolverBuilder;
 use AlecRabbit\Spinner\Core\Revolver\FrameRevolverBuilder;
-use AlecRabbit\Spinner\Core\Settings\Contract\IDriverSettings;
+use AlecRabbit\Spinner\Core\Settings\Contract\ILegacyDriverSettings;
 use AlecRabbit\Spinner\Core\SignalHandlersSetup;
 use AlecRabbit\Spinner\Core\Terminal\NativeTerminalProbe;
 use AlecRabbit\Spinner\Core\Widget\Builder\WidgetBuilder;
@@ -159,8 +159,8 @@ function definitions(): Traversable
         IDriverLinker::class => static function (ContainerInterface $container): IDriverLinker {
             return $container->get(IDriverLinkerFactory::class)->getDriverLinker();
         },
-        IDriverSettings::class => static function (ContainerInterface $container): IDriverSettings {
-            return $container->get(ISettingsProvider::class)->getDriverSettings();
+        ILegacyDriverSettings::class => static function (ContainerInterface $container): ILegacyDriverSettings {
+            return $container->get(ILegacySettingsProvider::class)->getLegacyDriverSettings();
         },
         IIntervalNormalizer::class => static function (ContainerInterface $container): IIntervalNormalizer {
             return $container->get(IIntervalNormalizerFactory::class)->create();
@@ -187,13 +187,13 @@ function definitions(): Traversable
         },
 
         IResourceStream::class => static function (ContainerInterface $container): IResourceStream {
-            /** @var ISettingsProvider $provider */
-            $provider = $container->get(ISettingsProvider::class);
+            /** @var ILegacySettingsProvider $provider */
+            $provider = $container->get(ILegacySettingsProvider::class);
             return
-                new ResourceStream($provider->getTerminalSettings()->getOutputStream());
+                new ResourceStream($provider->getLegacyTerminalSettings()->getOutputStream());
         },
 
-        ISettingsProvider::class => static function (ContainerInterface $container): ISettingsProvider {
+        ILegacySettingsProvider::class => static function (ContainerInterface $container): ILegacySettingsProvider {
             return
                 $container->get(ISettingsProviderBuilder::class)->build();
         },
@@ -221,15 +221,15 @@ function definitions(): Traversable
 
         NormalizerMethodMode::class => static function (ContainerInterface $container): NormalizerMethodMode {
             return
-                $container->get(ISettingsProvider::class)->getAuxSettings()->getNormalizerMethodMode();
+                $container->get(ILegacySettingsProvider::class)->getLegacyAuxSettings()->getNormalizerMethodMode();
         },
         CursorVisibilityOption::class => static function (ContainerInterface $container): CursorVisibilityOption {
             return
-                $container->get(ISettingsProvider::class)->getTerminalSettings()->getOptionCursor();
+                $container->get(ILegacySettingsProvider::class)->getLegacyTerminalSettings()->getOptionCursor();
         },
         StylingMethodOption::class => static function (ContainerInterface $container): StylingMethodOption {
             return
-                $container->get(ISettingsProvider::class)->getTerminalSettings()->getOptionStyleMode();
+                $container->get(ILegacySettingsProvider::class)->getLegacyTerminalSettings()->getOptionStyleMode();
         },
 
         ILoopProbeFactory::class => static function (): ILoopProbeFactory {

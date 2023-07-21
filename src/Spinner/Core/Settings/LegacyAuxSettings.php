@@ -7,9 +7,9 @@ namespace AlecRabbit\Spinner\Core\Settings;
 
 use AlecRabbit\Spinner\Contract\Mode\NormalizerMethodMode;
 use AlecRabbit\Spinner\Contract\Option\NormalizerMethodOption;
-use AlecRabbit\Spinner\Core\Settings\Contract\IAuxSettings;
+use AlecRabbit\Spinner\Core\Settings\Contract\ILegacyAuxSettings;
 
-final class AuxSettings implements IAuxSettings
+final class LegacyAuxSettings implements ILegacyAuxSettings
 {
     public function __construct(
         protected NormalizerMethodMode $normalizerMethodMode,
@@ -21,7 +21,7 @@ final class AuxSettings implements IAuxSettings
         return $this->normalizerMethodMode;
     }
 
-    public function setNormalizerMethodMode(NormalizerMethodMode $normalizerMethodMode): IAuxSettings
+    public function setNormalizerMethodMode(NormalizerMethodMode $normalizerMethodMode): ILegacyAuxSettings
     {
         $this->normalizerMethodMode = $normalizerMethodMode;
         return $this;

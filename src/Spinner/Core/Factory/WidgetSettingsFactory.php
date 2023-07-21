@@ -5,22 +5,22 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Factory;
 
 use AlecRabbit\Spinner\Core\Builder\Settings\Contract\IWidgetSettingsBuilder;
-use AlecRabbit\Spinner\Core\Config\Contract\IWidgetConfig;
-use AlecRabbit\Spinner\Core\Contract\ISettingsProvider;
+use AlecRabbit\Spinner\Core\Config\Contract\ILegacyWidgetConfig;
+use AlecRabbit\Spinner\Core\Contract\ILegacySettingsProvider;
 use AlecRabbit\Spinner\Core\Factory\Contract\IWidgetSettingsFactory;
-use AlecRabbit\Spinner\Core\Settings\Contract\IWidgetSettings;
+use AlecRabbit\Spinner\Core\Settings\Contract\ILegacyWidgetSettings;
 
 final class WidgetSettingsFactory implements IWidgetSettingsFactory
 {
     public function __construct(
-        protected ISettingsProvider $settingsProvider,
+        protected ILegacySettingsProvider $settingsProvider,
         protected IWidgetSettingsBuilder $widgetSettingsBuilder,
     ) {
     }
 
-    public function createFromConfig(IWidgetConfig $config): IWidgetSettings
+    public function createFromConfig(ILegacyWidgetConfig $config): ILegacyWidgetSettings
     {
-        $config = $config->merge($this->settingsProvider->getWidgetConfig());
+        $config = $config->merge($this->settingsProvider->getLegacyWidgetConfig());
 
         return
             $this->widgetSettingsBuilder

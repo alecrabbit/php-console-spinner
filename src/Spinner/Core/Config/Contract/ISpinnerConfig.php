@@ -7,5 +7,5 @@ namespace AlecRabbit\Spinner\Core\Config\Contract;
 
 interface ISpinnerConfig
 {
-    public function getWidgetConfig(): IWidgetConfig;
+    public function getWidgetConfig(): ILegacyWidgetConfig;
 }

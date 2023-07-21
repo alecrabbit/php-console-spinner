@@ -35,7 +35,7 @@ final class LoopAutoStarterBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
         self::assertInstanceOf(LoopAutoStarterBuilder::class, $loopAutoStarterBuilder);
 
         $loopAutoStarterBuilder = $loopAutoStarterBuilder
-            ->withSettings($this->getLoopSettingsMock())
+            ->withSettings($this->getLegacyLoopSettingsMock())
         ;
 
         self::assertInstanceOf(LoopAutoStarter::class, $loopAutoStarterBuilder->build());

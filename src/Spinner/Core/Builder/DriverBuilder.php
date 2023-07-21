@@ -14,13 +14,13 @@ use AlecRabbit\Spinner\Core\Contract\IDriverBuilder;
 use AlecRabbit\Spinner\Core\Driver;
 use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalFactory;
 use AlecRabbit\Spinner\Core\Output\Contract\IDriverOutput;
-use AlecRabbit\Spinner\Core\Settings\Contract\IDriverSettings;
+use AlecRabbit\Spinner\Core\Settings\Contract\ILegacyDriverSettings;
 use AlecRabbit\Spinner\Exception\LogicException;
 
 final class DriverBuilder implements Contract\IDriverBuilder
 {
     private ?IDriverOutput $driverOutput = null;
-    private ?IDriverSettings $driverSettings = null;
+    private ?ILegacyDriverSettings $driverSettings = null;
     private ?ITimer $timer = null;
     private ?IInterval $initialInterval = null;
     private ?IObserver $observer = null;
@@ -37,7 +37,7 @@ final class DriverBuilder implements Contract\IDriverBuilder
         return $clone;
     }
 
-    public function withDriverSettings(IDriverSettings $driverSettings): IDriverBuilder
+    public function withDriverSettings(ILegacyDriverSettings $driverSettings): IDriverBuilder
     {
         $clone = clone $this;
         $clone->driverSettings = $driverSettings;

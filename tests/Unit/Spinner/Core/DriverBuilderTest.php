@@ -40,7 +40,7 @@ final class DriverBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
             ->withDriverOutput($this->getDriverOutputMock())
             ->withTimer($this->getTimerMock())
             ->withInitialInterval($interval)
-            ->withDriverSettings($this->getDriverSettingsMock())
+            ->withDriverSettings($this->getLegacyDriverSettingsMock())
             ->build()
         ;
 
@@ -63,7 +63,7 @@ final class DriverBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
         $driver = $driverBuilder
             ->withDriverOutput($this->getDriverOutputMock())
             ->withTimer($this->getTimerMock())
-            ->withDriverSettings($this->getDriverSettingsMock())
+            ->withDriverSettings($this->getLegacyDriverSettingsMock())
             ->build()
         ;
 
@@ -79,7 +79,7 @@ final class DriverBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
             ->withDriverOutput($this->getDriverOutputMock())
             ->withTimer($this->getTimerMock())
             ->withObserver($this->getObserverMock())
-            ->withDriverSettings($this->getDriverSettingsMock())
+            ->withDriverSettings($this->getLegacyDriverSettingsMock())
             ->build()
         ;
 
@@ -97,7 +97,7 @@ final class DriverBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
 
             $driverBuilder
                 ->withTimer($this->getTimerMock())
-                ->withDriverSettings($this->getDriverSettingsMock())
+                ->withDriverSettings($this->getLegacyDriverSettingsMock())
                 ->build()
             ;
         };
@@ -120,7 +120,7 @@ final class DriverBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
 
             $driverBuilder
                 ->withDriverOutput($this->getDriverOutputMock())
-                ->withDriverSettings($this->getDriverSettingsMock())
+                ->withDriverSettings($this->getLegacyDriverSettingsMock())
                 ->build()
             ;
         };

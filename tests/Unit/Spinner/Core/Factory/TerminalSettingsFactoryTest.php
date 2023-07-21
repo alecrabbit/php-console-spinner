@@ -8,7 +8,7 @@ use AlecRabbit\Spinner\Contract\Option\CursorVisibilityOption;
 use AlecRabbit\Spinner\Contract\Option\StylingMethodOption;
 use AlecRabbit\Spinner\Core\Factory\Contract\ITerminalSettingsFactory;
 use AlecRabbit\Spinner\Core\Factory\TerminalSettingsFactory;
-use AlecRabbit\Spinner\Core\Settings\TerminalSettings;
+use AlecRabbit\Spinner\Core\Settings\LegacyTerminalSettings;
 use AlecRabbit\Spinner\Core\Terminal\Contract\ITerminalProbe;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;
@@ -55,6 +55,6 @@ final class TerminalSettingsFactoryTest extends TestCaseWithPrebuiltMocksAndStub
                 ->createTerminalSettings()
         ;
 
-        self::assertInstanceOf(TerminalSettings::class, $terminalSettings);
+        self::assertInstanceOf(LegacyTerminalSettings::class, $terminalSettings);
     }
 }

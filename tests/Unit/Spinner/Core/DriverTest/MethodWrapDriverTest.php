@@ -12,7 +12,7 @@ use AlecRabbit\Spinner\Core\A\ADriver;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use AlecRabbit\Spinner\Core\Output\Contract\IDriverOutput;
-use AlecRabbit\Spinner\Core\Settings\Contract\IDriverSettings;
+use AlecRabbit\Spinner\Core\Settings\Contract\ILegacyDriverSettings;
 use AlecRabbit\Spinner\Core\SpinnerState;
 use PHPUnit\Framework\Attributes\Test;
 use RuntimeException;
@@ -60,14 +60,14 @@ final class MethodWrapDriverTest extends TestCaseForDriver
         ?ITimer $timer = null,
         ?IDriverOutput $output = null,
         ?IInterval $initialInterval = null,
-        ?IDriverSettings $driverSettings = null,
+        ?ILegacyDriverSettings $driverSettings = null,
         ?IObserver $observer = null,
     ): IDriver {
         return new class(
             output: $output ?? $this->getDriverOutputMock(),
             timer: $timer ?? $this->getTimerMock(),
             initialInterval: $initialInterval ?? $this->getIntervalMock(),
-            driverSettings: $driverSettings ?? $this->getDriverSettingsMock(),
+            driverSettings: $driverSettings ?? $this->getLegacyDriverSettingsMock(),
             observer: $observer,
         ) extends ADriver {
             protected function erase(): void

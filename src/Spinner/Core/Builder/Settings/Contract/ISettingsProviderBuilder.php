@@ -5,9 +5,9 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Builder\Settings\Contract;
 
-use AlecRabbit\Spinner\Core\Contract\ISettingsProvider;
+use AlecRabbit\Spinner\Core\Contract\ILegacySettingsProvider;
 
 interface ISettingsProviderBuilder
 {
-    public function build(): ISettingsProvider;
+    public function build(): ILegacySettingsProvider;
 }

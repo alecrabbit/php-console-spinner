@@ -6,7 +6,7 @@ namespace AlecRabbit\Tests\Unit\Spinner\Core\Defaults;
 
 use AlecRabbit\Spinner\Core\Builder\Settings\Contract\IDriverSettingsBuilder;
 use AlecRabbit\Spinner\Core\Builder\Settings\DriverSettingsBuilder;
-use AlecRabbit\Spinner\Core\Settings\DriverSettings;
+use AlecRabbit\Spinner\Core\Settings\LegacyDriverSettings;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;
 
@@ -31,6 +31,6 @@ final class DriverSettingsBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
         $builder = $this->getTesteeInstance();
 
         self::assertInstanceOf(DriverSettingsBuilder::class, $builder);
-        self::assertInstanceOf(DriverSettings::class, $builder->build());
+        self::assertInstanceOf(LegacyDriverSettings::class, $builder->build());
     }
 }

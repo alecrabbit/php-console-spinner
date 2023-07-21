@@ -6,8 +6,8 @@ namespace AlecRabbit\Tests\Unit\Spinner\Core\Defaults;
 
 use AlecRabbit\Spinner\Contract\Mode\NormalizerMethodMode;
 use AlecRabbit\Spinner\Contract\Option\NormalizerMethodOption;
-use AlecRabbit\Spinner\Core\Settings\AuxSettings;
-use AlecRabbit\Spinner\Core\Settings\Contract\IAuxSettings;
+use AlecRabbit\Spinner\Core\Settings\LegacyAuxSettings;
+use AlecRabbit\Spinner\Core\Settings\Contract\ILegacyAuxSettings;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;
 
@@ -18,14 +18,14 @@ final class AuxSettingsTest extends TestCaseWithPrebuiltMocksAndStubs
     {
         $auxSettings = $this->getTesteeInstance();
 
-        self::assertInstanceOf(AuxSettings::class, $auxSettings);
+        self::assertInstanceOf(LegacyAuxSettings::class, $auxSettings);
     }
 
     public function getTesteeInstance(
         ?NormalizerMethodMode $normalizerMode = null,
-    ): IAuxSettings {
+    ): ILegacyAuxSettings {
         return
-            new AuxSettings(
+            new LegacyAuxSettings(
                 normalizerMethodMode: $normalizerMode ?? NormalizerMethodMode::STILL,
             );
     }
@@ -39,7 +39,7 @@ final class AuxSettingsTest extends TestCaseWithPrebuiltMocksAndStubs
             normalizerMode: $normalizerMethodMode,
         );
 
-        self::assertInstanceOf(AuxSettings::class, $auxSettings);
+        self::assertInstanceOf(LegacyAuxSettings::class, $auxSettings);
         self::assertSame($normalizerMethodMode, $auxSettings->getNormalizerMethodMode());
 
         $normalizerMethodMode = NormalizerMethodMode::PERFORMANCE;

@@ -8,8 +8,8 @@ namespace AlecRabbit\Spinner\Core;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\ISignalHandlersSetup;
 use AlecRabbit\Spinner\Core\Contract\Loop\Contract\ILoop;
-use AlecRabbit\Spinner\Core\Settings\Contract\IDriverSettings;
-use AlecRabbit\Spinner\Core\Settings\Contract\ILoopSettings;
+use AlecRabbit\Spinner\Core\Settings\Contract\ILegacyDriverSettings;
+use AlecRabbit\Spinner\Core\Settings\Contract\ILegacyLoopSettings;
 use Closure;
 use Traversable;
 
@@ -17,8 +17,8 @@ final class SignalHandlersSetup implements ISignalHandlersSetup
 {
     public function __construct(
         protected ILoop $loop,
-        protected ILoopSettings $loopSettings,
-        protected IDriverSettings $driverSettings,
+        protected ILegacyLoopSettings $loopSettings,
+        protected ILegacyDriverSettings $driverSettings,
     ) {
     }
 

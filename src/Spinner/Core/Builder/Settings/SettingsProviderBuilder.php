@@ -9,16 +9,16 @@ use AlecRabbit\Spinner\Core\Builder\Settings\Contract\IAuxSettingsBuilder;
 use AlecRabbit\Spinner\Core\Builder\Settings\Contract\IDriverSettingsBuilder;
 use AlecRabbit\Spinner\Core\Builder\Settings\Contract\ISettingsProviderBuilder;
 use AlecRabbit\Spinner\Core\CharFrame;
-use AlecRabbit\Spinner\Core\Config\Contract\IWidgetConfig;
-use AlecRabbit\Spinner\Core\Config\WidgetConfig;
-use AlecRabbit\Spinner\Core\Contract\ISettingsProvider;
+use AlecRabbit\Spinner\Core\Config\Contract\ILegacyWidgetConfig;
+use AlecRabbit\Spinner\Core\Config\LegacyWidgetConfig;
+use AlecRabbit\Spinner\Core\Contract\ILegacySettingsProvider;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopSettingsFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ITerminalSettingsFactory;
 use AlecRabbit\Spinner\Core\Pattern\CharPattern\Snake;
 use AlecRabbit\Spinner\Core\Pattern\NoCharPattern;
 use AlecRabbit\Spinner\Core\Pattern\NoStylePattern;
 use AlecRabbit\Spinner\Core\Pattern\StylePattern\Rainbow;
-use AlecRabbit\Spinner\Core\Settings\SettingsProvider;
+use AlecRabbit\Spinner\Core\Settings\LegacySettingsProvider;
 
 final class SettingsProviderBuilder implements ISettingsProviderBuilder
 {
@@ -30,9 +30,9 @@ final class SettingsProviderBuilder implements ISettingsProviderBuilder
     ) {
     }
 
-    public function build(): ISettingsProvider
+    public function build(): ILegacySettingsProvider
     {
-        return new SettingsProvider(
+        return new LegacySettingsProvider(
             auxSettings: $this->auxSettingsBuilder->build(),
             terminalSettings: $this->terminalSettingsFactory->createTerminalSettings(),
             loopSettings: $this->loopSettingsFactory->createLoopSettings(),
@@ -42,10 +42,10 @@ final class SettingsProviderBuilder implements ISettingsProviderBuilder
         );
     }
 
-    protected function getWidgetConfig(): IWidgetConfig
+    protected function getWidgetConfig(): ILegacyWidgetConfig
     {
         return
-            new WidgetConfig(
+            new LegacyWidgetConfig(
                 leadingSpacer: CharFrame::createEmpty(),
                 trailingSpacer: CharFrame::createSpace(),
                 stylePattern: new NoStylePattern(),
@@ -53,10 +53,10 @@ final class SettingsProviderBuilder implements ISettingsProviderBuilder
             );
     }
 
-    protected function getRootWidgetConfig(): IWidgetConfig
+    protected function getRootWidgetConfig(): ILegacyWidgetConfig
     {
         return
-            new WidgetConfig(
+            new LegacyWidgetConfig(
                 stylePattern: new Rainbow(),
                 charPattern: new Snake(),
             );

@@ -41,7 +41,7 @@ final class WidgetRevolverFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
         $stylePattern = $this->getStylePatternMock();
         $charPattern = $this->getCharPatternMock();
 
-        $widgetSettings = $this->getWidgetSettingsMock();
+        $widgetSettings = $this->getLegacyWidgetSettingsMock();
         $widgetSettings
             ->expects(self::once())
             ->method('getStylePattern')

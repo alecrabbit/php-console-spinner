@@ -9,8 +9,8 @@ use AlecRabbit\Spinner\Contract\Pattern\IPattern;
 use AlecRabbit\Spinner\Core\CharFrame;
 use AlecRabbit\Spinner\Core\Pattern\NoCharPattern;
 use AlecRabbit\Spinner\Core\Pattern\NoStylePattern;
-use AlecRabbit\Spinner\Core\Settings\Contract\IWidgetSettings;
-use AlecRabbit\Spinner\Core\Settings\WidgetSettings;
+use AlecRabbit\Spinner\Core\Settings\Contract\ILegacyWidgetSettings;
+use AlecRabbit\Spinner\Core\Settings\LegacyWidgetSettings;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;
 
@@ -31,7 +31,7 @@ final class WidgetSettingsTest extends TestCaseWithPrebuiltMocksAndStubs
             $charPattern
         );
 
-        self::assertInstanceOf(WidgetSettings::class, $widgetSettings);
+        self::assertInstanceOf(LegacyWidgetSettings::class, $widgetSettings);
         self::assertSame($leadingSpacer, $widgetSettings->getLeadingSpacer());
         self::assertSame($trailingSpacer, $widgetSettings->getTrailingSpacer());
         self::assertSame($stylePattern, $widgetSettings->getStylePattern());
@@ -43,8 +43,8 @@ final class WidgetSettingsTest extends TestCaseWithPrebuiltMocksAndStubs
         IFrame $trailingSpacer,
         IPattern $stylePattern,
         IPattern $charPattern,
-    ): IWidgetSettings {
-        return new WidgetSettings(
+    ): ILegacyWidgetSettings {
+        return new LegacyWidgetSettings(
             leadingSpacer: $leadingSpacer,
             trailingSpacer: $trailingSpacer,
             stylePattern: $stylePattern,
@@ -72,7 +72,7 @@ final class WidgetSettingsTest extends TestCaseWithPrebuiltMocksAndStubs
         $widgetSettings->setStylePattern($stylePattern);
         $widgetSettings->setCharPattern($charPattern);
 
-        self::assertInstanceOf(WidgetSettings::class, $widgetSettings);
+        self::assertInstanceOf(LegacyWidgetSettings::class, $widgetSettings);
         self::assertSame($leadingSpacer, $widgetSettings->getLeadingSpacer());
         self::assertSame($trailingSpacer, $widgetSettings->getTrailingSpacer());
         self::assertSame($stylePattern, $widgetSettings->getStylePattern());

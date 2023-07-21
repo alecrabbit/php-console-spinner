@@ -7,9 +7,9 @@ namespace AlecRabbit\Spinner\Core\Settings;
 
 use AlecRabbit\Spinner\Contract\Option\SignalHandlersOption;
 use AlecRabbit\Spinner\Contract\Option\AutoStartOption;
-use AlecRabbit\Spinner\Core\Settings\Contract\ILoopSettings;
+use AlecRabbit\Spinner\Core\Settings\Contract\ILegacyLoopSettings;
 
-final class LoopSettings implements ILoopSettings
+final class LegacyLoopSettings implements ILegacyLoopSettings
 {
     public function __construct(
         protected bool $loopAvailable,
@@ -29,7 +29,7 @@ final class LoopSettings implements ILoopSettings
         return $this->optionAutoStart === AutoStartOption::ENABLED;
     }
 
-    public function setOptionAutoStart(AutoStartOption $optionAutoStart): ILoopSettings
+    public function setOptionAutoStart(AutoStartOption $optionAutoStart): ILegacyLoopSettings
     {
         $this->optionAutoStart = $optionAutoStart;
         return $this;
@@ -40,7 +40,7 @@ final class LoopSettings implements ILoopSettings
         return $this->optionAttachHandlers === SignalHandlersOption::ENABLED;
     }
 
-    public function setAttachHandlersOption(SignalHandlersOption $optionAttachHandlers): ILoopSettings
+    public function setAttachHandlersOption(SignalHandlersOption $optionAttachHandlers): ILegacyLoopSettings
     {
         $this->optionAttachHandlers = $optionAttachHandlers;
         return $this;

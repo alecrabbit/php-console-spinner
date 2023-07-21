@@ -38,7 +38,7 @@ final class WidgetCompositeFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
         $trailingSpacer = $this->getFrameMock();
         $widgetComposite = $this->getWidgetCompositeMock();
 
-        $widgetSettings = $this->getWidgetSettingsMock();
+        $widgetSettings = $this->getLegacyWidgetSettingsMock();
         $widgetSettings
             ->expects(self::once())
             ->method('getLeadingSpacer')

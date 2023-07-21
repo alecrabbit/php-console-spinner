@@ -11,7 +11,7 @@ use AlecRabbit\Spinner\Core\Factory\Contract\IDriverOutputFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ISignalHandlersSetupFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ITimerFactory;
 use AlecRabbit\Spinner\Core\Factory\DriverFactory;
-use AlecRabbit\Spinner\Core\Settings\Contract\IDriverSettings;
+use AlecRabbit\Spinner\Core\Settings\Contract\ILegacyDriverSettings;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;
 
@@ -30,7 +30,7 @@ final class DriverFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
         ?IDriverOutputFactory $driverOutputFactory = null,
         ?ITimerFactory $timerFactory = null,
         ?IDriverSetup $driverSetup = null,
-        ?IDriverSettings $driverSettings = null,
+        ?ILegacyDriverSettings $driverSettings = null,
         ?ISignalHandlersSetupFactory $loopSetupFactory = null,
     ): IDriverFactory {
         return new DriverFactory(
@@ -39,7 +39,7 @@ final class DriverFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
             signalHandlersSetupFactory: $loopSetupFactory ?? $this->getSignalHandlersSetupFactoryMock(),
             timerFactory: $timerFactory ?? $this->getTimerFactoryMock(),
             driverSetup: $driverSetup ?? $this->getDriverSetupMock(),
-            driverSettings: $driverSettings ?? $this->getDriverSettingsMock(),
+            driverSettings: $driverSettings ?? $this->getLegacyDriverSettingsMock(),
         );
     }
 
@@ -102,7 +102,7 @@ final class DriverFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
             ->method('setup')
         ;
 
-        $driverSettings = $this->getDriverSettingsMock();
+        $driverSettings = $this->getLegacyDriverSettingsMock();
         $driverSettings
             ->expects(self::once())
             ->method('isInitializationEnabled')

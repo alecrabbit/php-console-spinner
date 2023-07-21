@@ -10,8 +10,8 @@ use AlecRabbit\Spinner\Contract\Option\AutoStartOption;
 use AlecRabbit\Spinner\Core\Contract\ISignalProcessingProbe;
 use AlecRabbit\Spinner\Core\Contract\Loop\Contract\ILoopProbe;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopSettingsFactory;
-use AlecRabbit\Spinner\Core\Settings\Contract\ILoopSettings;
-use AlecRabbit\Spinner\Core\Settings\LoopSettings;
+use AlecRabbit\Spinner\Core\Settings\Contract\ILegacyLoopSettings;
+use AlecRabbit\Spinner\Core\Settings\LegacyLoopSettings;
 
 final class LoopSettingsFactory implements ILoopSettingsFactory
 {
@@ -21,7 +21,7 @@ final class LoopSettingsFactory implements ILoopSettingsFactory
     ) {
     }
 
-    public function createLoopSettings(): ILoopSettings
+    public function createLoopSettings(): ILegacyLoopSettings
     {
         $loopAvailable = $this->isLoopAvailable();
 
@@ -38,7 +38,7 @@ final class LoopSettingsFactory implements ILoopSettingsFactory
                 : SignalHandlersOption::DISABLED;
 
         return
-            new LoopSettings(
+            new LegacyLoopSettings(
                 loopAvailable: $loopAvailable,
                 optionAutoStart: $optionAutoStart,
                 signalProcessingAvailable: $signalProcessingAvailable,

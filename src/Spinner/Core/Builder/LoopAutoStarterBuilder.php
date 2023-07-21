@@ -8,12 +8,12 @@ namespace AlecRabbit\Spinner\Core\Builder;
 use AlecRabbit\Spinner\Core\Builder\Contract\ILoopAutoStarterBuilder;
 use AlecRabbit\Spinner\Core\Contract\ILoopAutoStarter;
 use AlecRabbit\Spinner\Core\LoopAutoStarter;
-use AlecRabbit\Spinner\Core\Settings\Contract\ILoopSettings;
+use AlecRabbit\Spinner\Core\Settings\Contract\ILegacyLoopSettings;
 use AlecRabbit\Spinner\Exception\LogicException;
 
 final class LoopAutoStarterBuilder implements ILoopAutoStarterBuilder
 {
-    private ?ILoopSettings $settings = null;
+    private ?ILegacyLoopSettings $settings = null;
 
     public function build(): ILoopAutoStarter
     {
@@ -33,7 +33,7 @@ final class LoopAutoStarterBuilder implements ILoopAutoStarterBuilder
         };
     }
 
-    public function withSettings(ILoopSettings $settings): ILoopAutoStarterBuilder
+    public function withSettings(ILegacyLoopSettings $settings): ILoopAutoStarterBuilder
     {
         $clone = clone $this;
         $clone->settings = $settings;

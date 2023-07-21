@@ -7,9 +7,9 @@ namespace AlecRabbit\Spinner\Core\Settings;
 
 use AlecRabbit\Spinner\Contract\Option\CursorVisibilityOption;
 use AlecRabbit\Spinner\Contract\Option\StylingMethodOption;
-use AlecRabbit\Spinner\Core\Settings\Contract\ITerminalSettings;
+use AlecRabbit\Spinner\Core\Settings\Contract\ILegacyTerminalSettings;
 
-final class TerminalSettings implements ITerminalSettings
+final class LegacyTerminalSettings implements ILegacyTerminalSettings
 {
     public function __construct(
         protected CursorVisibilityOption $optionCursor,
@@ -23,7 +23,7 @@ final class TerminalSettings implements ITerminalSettings
         return $this->optionCursor;
     }
 
-    public function setOptionCursor(CursorVisibilityOption $optionCursor): ITerminalSettings
+    public function setOptionCursor(CursorVisibilityOption $optionCursor): ILegacyTerminalSettings
     {
         $this->optionCursor = $optionCursor;
         return $this;
@@ -34,7 +34,7 @@ final class TerminalSettings implements ITerminalSettings
         return $this->optionStyleMode;
     }
 
-    public function setOptionStyleMode(StylingMethodOption $optionStyleMode): ITerminalSettings
+    public function setOptionStyleMode(StylingMethodOption $optionStyleMode): ILegacyTerminalSettings
     {
         $this->optionStyleMode = $optionStyleMode;
         return $this;
@@ -47,7 +47,7 @@ final class TerminalSettings implements ITerminalSettings
     }
 
     /** @inheritdoc */
-    public function setOutputStream($outputStream): ITerminalSettings
+    public function setOutputStream($outputStream): ILegacyTerminalSettings
     {
         $this->outputStream = $outputStream;
         return $this;

@@ -8,15 +8,15 @@ namespace AlecRabbit\Spinner\Core\Settings\Contract;
 use AlecRabbit\Spinner\Contract\Option\DriverInitializationOption;
 use AlecRabbit\Spinner\Contract\Option\DriverLinkerOption;
 
-interface IDriverSettings
+interface ILegacyDriverSettings
 {
     public function getFinalMessage(): string;
 
-    public function setFinalMessage(string $finalMessage): IDriverSettings;
+    public function setFinalMessage(string $finalMessage): ILegacyDriverSettings;
 
     public function getInterruptMessage(): string;
 
-    public function setInterruptMessage(string $interruptMessage): IDriverSettings;
+    public function setInterruptMessage(string $interruptMessage): ILegacyDriverSettings;
 
     public function isInitializationEnabled(): bool;
 
@@ -24,9 +24,9 @@ interface IDriverSettings
 
     public function setOptionDriverInitialization(
         DriverInitializationOption $optionDriverInitialization,
-    ): IDriverSettings;
+    ): ILegacyDriverSettings;
 
     public function getOptionLinker(): DriverLinkerOption;
 
-    public function setOptionLinker(DriverLinkerOption $optionLinker): IDriverSettings;
+    public function setOptionLinker(DriverLinkerOption $optionLinker): ILegacyDriverSettings;
 }

@@ -5,7 +5,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Config;
 
-use AlecRabbit\Spinner\Core\Config\WidgetConfig;
+use AlecRabbit\Spinner\Core\Config\LegacyWidgetConfig;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;
 
@@ -14,7 +14,7 @@ final class WidgetConfigTest extends TestCaseWithPrebuiltMocksAndStubs
     #[Test]
     public function canBeCreatedEmpty(): void
     {
-        $config = new WidgetConfig();
+        $config = new LegacyWidgetConfig();
         self::assertNull($config->getLeadingSpacer());
         self::assertNull($config->getTrailingSpacer());
         self::assertNull($config->getStylePattern());
@@ -24,7 +24,7 @@ final class WidgetConfigTest extends TestCaseWithPrebuiltMocksAndStubs
     #[Test]
     public function canOverrideEmptyValues(): void
     {
-        $config = new WidgetConfig();
+        $config = new LegacyWidgetConfig();
         self::assertNull($config->getLeadingSpacer());
         self::assertNull($config->getTrailingSpacer());
         self::assertNull($config->getStylePattern());
@@ -59,7 +59,7 @@ final class WidgetConfigTest extends TestCaseWithPrebuiltMocksAndStubs
         $stylePattern = $this->getStylePatternMock();
         $charPattern = $this->getCharPatternMock();
 
-        $config = new WidgetConfig(
+        $config = new LegacyWidgetConfig(
             leadingSpacer: $leadingSpacer,
             trailingSpacer: $trailingSpacer,
             stylePattern: $stylePattern,
@@ -84,7 +84,7 @@ final class WidgetConfigTest extends TestCaseWithPrebuiltMocksAndStubs
         $stylePattern = $this->getStylePatternMock();
         $charPattern = $this->getCharPatternMock();
 
-        $config = new WidgetConfig(
+        $config = new LegacyWidgetConfig(
             leadingSpacer: $leadingSpacer,
             trailingSpacer: $trailingSpacer,
             stylePattern: $stylePattern,
@@ -124,14 +124,14 @@ final class WidgetConfigTest extends TestCaseWithPrebuiltMocksAndStubs
     #[Test]
     public function canMergeIfEmpty(): void
     {
-        $config = new WidgetConfig();
+        $config = new LegacyWidgetConfig();
 
         $leadingSpacer = $this->getFrameMock();
         $trailingSpacer = $this->getFrameMock();
         $stylePattern = $this->getStylePatternMock();
         $charPattern = $this->getCharPatternMock();
 
-        $configToMerge = new WidgetConfig(
+        $configToMerge = new LegacyWidgetConfig(
             leadingSpacer: $leadingSpacer,
             trailingSpacer: $trailingSpacer,
             stylePattern: $stylePattern,
@@ -162,7 +162,7 @@ final class WidgetConfigTest extends TestCaseWithPrebuiltMocksAndStubs
         $trailingSpacer = $this->getFrameMock();
         $stylePattern = $this->getStylePatternMock();
 
-        $config = new WidgetConfig(
+        $config = new LegacyWidgetConfig(
             trailingSpacer: $trailingSpacer,
             stylePattern: $stylePattern,
         );
@@ -170,7 +170,7 @@ final class WidgetConfigTest extends TestCaseWithPrebuiltMocksAndStubs
         $leadingSpacer = $this->getFrameMock();
         $charPattern = $this->getCharPatternMock();
 
-        $configToMerge = new WidgetConfig(
+        $configToMerge = new LegacyWidgetConfig(
             leadingSpacer: $leadingSpacer,
             charPattern: $charPattern,
         );

@@ -5,7 +5,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Widget\Factory;
 
-use AlecRabbit\Spinner\Core\Settings\Contract\IWidgetSettings;
+use AlecRabbit\Spinner\Core\Settings\Contract\ILegacyWidgetSettings;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetCompositeBuilder;
 use AlecRabbit\Spinner\Core\Widget\Factory\Contract\IWidgetCompositeFactory;
@@ -19,7 +19,7 @@ final class WidgetCompositeFactory implements IWidgetCompositeFactory
     ) {
     }
 
-    public function createWidget(IWidgetSettings $widgetSettings): IWidgetComposite
+    public function createWidget(ILegacyWidgetSettings $widgetSettings): IWidgetComposite
     {
         return
             $this->widgetBuilder

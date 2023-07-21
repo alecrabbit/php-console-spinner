@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Factory;
 
-use AlecRabbit\Spinner\Core\Contract\ISettingsProvider;
+use AlecRabbit\Spinner\Core\Contract\ILegacySettingsProvider;
 use AlecRabbit\Spinner\Core\Factory\Contract\ISpinnerFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IWidgetSettingsFactory;
 use AlecRabbit\Spinner\Core\Factory\SpinnerFactory;
@@ -24,12 +24,12 @@ final class SpinnerFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
     }
 
     public function getTesteeInstance(
-        ?ISettingsProvider $settingsProvider = null,
+        ?ILegacySettingsProvider $settingsProvider = null,
         ?IWidgetCompositeFactory $widgetFactory = null,
         ?IWidgetSettingsFactory $widgetSettingsFactory = null,
     ): ISpinnerFactory {
         return new SpinnerFactory(
-            settingsProvider: $settingsProvider ?? $this->getSettingsProviderMock(),
+            settingsProvider: $settingsProvider ?? $this->getLegacySettingsProviderMock(),
             widgetFactory: $widgetFactory ?? $this->getWidgetCompositeFactoryMock(),
             widgetSettingsFactory: $widgetSettingsFactory ?? $this->getWidgetSettingsFactoryMock(),
         );
@@ -38,7 +38,7 @@ final class SpinnerFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
     #[Test]
     public function canCreateSpinnerWithoutConfig(): void
     {
-        $rootWidgetSettings = $this->getWidgetSettingsMock();
+        $rootWidgetSettings = $this->getLegacyWidgetSettingsMock();
         $rootWidgetSettings
             ->expects(self::never())
             ->method('getLeadingSpacer')
@@ -56,12 +56,12 @@ final class SpinnerFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
             ->method('getCharPattern')
         ;
 
-        $widgetConfig = $this->getWidgetConfigMock();
+        $widgetConfig = $this->getLegacyWidgetConfigMock();
 
-        $settingsProvider = $this->getSettingsProviderMock();
+        $settingsProvider = $this->getLegacySettingsProviderMock();
         $settingsProvider
             ->expects(self::once())
-            ->method('getRootWidgetConfig')
+            ->method('getLegacyRootWidgetConfig')
             ->willReturn($widgetConfig)
         ;
 
@@ -118,15 +118,15 @@ final class SpinnerFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
     #[Test]
     public function canCreateSpinnerWithConfig(): void
     {
-        $rootWidgetConfig = $this->getWidgetConfigMock();
-        $settingsProvider = $this->getSettingsProviderMock();
+        $rootWidgetConfig = $this->getLegacyWidgetConfigMock();
+        $settingsProvider = $this->getLegacySettingsProviderMock();
         $settingsProvider
             ->expects(self::once())
-            ->method('getRootWidgetConfig')
+            ->method('getLegacyRootWidgetConfig')
             ->willReturn($rootWidgetConfig)
         ;
 
-        $widgetConfig = $this->getWidgetConfigMock();
+        $widgetConfig = $this->getLegacyWidgetConfigMock();
         $widgetConfig
             ->expects(self::once())
             ->method('merge')
@@ -142,7 +142,7 @@ final class SpinnerFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
         ;
 
         $widget = $this->getWidgetCompositeMock();
-        $widgetSettings = $this->getWidgetSettingsMock();
+        $widgetSettings = $this->getLegacyWidgetSettingsMock();
 
         $widgetFactory = $this->getWidgetCompositeFactoryMock();
         $widgetFactory
@@ -175,15 +175,15 @@ final class SpinnerFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
     #[Test]
     public function canCreateSpinnerWithWidgetConfig(): void
     {
-        $rootWidgetConfig = $this->getWidgetConfigMock();
-        $settingsProvider = $this->getSettingsProviderMock();
+        $rootWidgetConfig = $this->getLegacyWidgetConfigMock();
+        $settingsProvider = $this->getLegacySettingsProviderMock();
         $settingsProvider
             ->expects(self::once())
-            ->method('getRootWidgetConfig')
+            ->method('getLegacyRootWidgetConfig')
             ->willReturn($rootWidgetConfig)
         ;
 
-        $widgetConfig = $this->getWidgetConfigMock();
+        $widgetConfig = $this->getLegacyWidgetConfigMock();
         $widgetConfig
             ->expects(self::once())
             ->method('merge')
@@ -192,7 +192,7 @@ final class SpinnerFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
         ;
 
         $widget = $this->getWidgetCompositeMock();
-        $widgetSettings = $this->getWidgetSettingsMock();
+        $widgetSettings = $this->getLegacyWidgetSettingsMock();
 
         $widgetFactory = $this->getWidgetCompositeFactoryMock();
         $widgetFactory

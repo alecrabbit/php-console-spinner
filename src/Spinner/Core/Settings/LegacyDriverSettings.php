@@ -7,9 +7,9 @@ namespace AlecRabbit\Spinner\Core\Settings;
 
 use AlecRabbit\Spinner\Contract\Option\DriverInitializationOption;
 use AlecRabbit\Spinner\Contract\Option\DriverLinkerOption;
-use AlecRabbit\Spinner\Core\Settings\Contract\IDriverSettings;
+use AlecRabbit\Spinner\Core\Settings\Contract\ILegacyDriverSettings;
 
-final class DriverSettings implements IDriverSettings
+final class LegacyDriverSettings implements ILegacyDriverSettings
 {
     public function __construct(
         protected DriverInitializationOption $optionDriverInitialization,
@@ -21,24 +21,24 @@ final class DriverSettings implements IDriverSettings
 
     public function setOptionDriverInitialization(
         DriverInitializationOption $optionDriverInitialization,
-    ): IDriverSettings {
+    ): ILegacyDriverSettings {
         $this->optionDriverInitialization = $optionDriverInitialization;
         return $this;
     }
 
-    public function setOptionLinker(DriverLinkerOption $optionLinker): IDriverSettings
+    public function setOptionLinker(DriverLinkerOption $optionLinker): ILegacyDriverSettings
     {
         $this->optionLinker = $optionLinker;
         return $this;
     }
 
-    public function setFinalMessage(string $finalMessage): IDriverSettings
+    public function setFinalMessage(string $finalMessage): ILegacyDriverSettings
     {
         $this->finalMessage = $finalMessage;
         return $this;
     }
 
-    public function setInterruptMessage(string $interruptMessage): IDriverSettings
+    public function setInterruptMessage(string $interruptMessage): ILegacyDriverSettings
     {
         $this->interruptMessage = $interruptMessage;
         return $this;
