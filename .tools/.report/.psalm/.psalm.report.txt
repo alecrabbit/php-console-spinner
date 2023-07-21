@@ -16,9 +16,9 @@
 /app/src/Spinner/Container/ServiceSpawner.php:128:59:error - MixedInferredReturnType: Could not verify return type 'object' for AlecRabbit\Spinner\Container\ServiceSpawner::getServiceFromContainer
 /app/src/Spinner/Container/ServiceSpawner.php:130:16:error - MixedReturnStatement: Could not infer a return type
 /app/src/Spinner/Core/Builder/BufferedOutputBuilder.php:22:41:error - PossiblyNullArgument: Argument 1 of AlecRabbit\Spinner\Core\Output\StreamBufferedOutput::__construct cannot be null, possibly null value provided
-/app/src/Spinner/Core/Builder/ConsoleCursorBuilder.php:27:17:error - ArgumentTypeCoercion: Argument 1 of AlecRabbit\Spinner\Core\Output\ConsoleCursor::__construct expects AlecRabbit\Spinner\Contract\Output\IBufferedOutput, but parent type AlecRabbit\Spinner\Contract\Output\IOutput|null provided
-/app/src/Spinner/Core/Builder/ConsoleCursorBuilder.php:27:17:error - PossiblyNullArgument: Argument 1 of AlecRabbit\Spinner\Core\Output\ConsoleCursor::__construct cannot be null, possibly null value provided
-/app/src/Spinner/Core/Builder/ConsoleCursorBuilder.php:28:17:error - PossiblyNullArgument: Argument 2 of AlecRabbit\Spinner\Core\Output\ConsoleCursor::__construct cannot be null, possibly null value provided
+/app/src/Spinner/Core/Builder/ConsoleCursorBuilder.php:26:17:error - ArgumentTypeCoercion: Argument 1 of AlecRabbit\Spinner\Core\Output\ConsoleCursor::__construct expects AlecRabbit\Spinner\Contract\Output\IBufferedOutput, but parent type AlecRabbit\Spinner\Contract\Output\IOutput|null provided
+/app/src/Spinner/Core/Builder/ConsoleCursorBuilder.php:26:17:error - PossiblyNullArgument: Argument 1 of AlecRabbit\Spinner\Core\Output\ConsoleCursor::__construct cannot be null, possibly null value provided
+/app/src/Spinner/Core/Builder/ConsoleCursorBuilder.php:27:17:error - PossiblyNullArgument: Argument 2 of AlecRabbit\Spinner\Core\Output\ConsoleCursor::__construct cannot be null, possibly null value provided
 /app/src/Spinner/Core/Builder/DriverBuilder.php:67:25:error - PossiblyNullArgument: Argument 1 of AlecRabbit\Spinner\Core\Driver::__construct cannot be null, possibly null value provided
 /app/src/Spinner/Core/Builder/DriverBuilder.php:68:24:error - PossiblyNullArgument: Argument 2 of AlecRabbit\Spinner\Core\Driver::__construct cannot be null, possibly null value provided
 /app/src/Spinner/Core/Builder/DriverBuilder.php:70:33:error - PossiblyNullArgument: Argument 4 of AlecRabbit\Spinner\Core\Driver::__construct cannot be null, possibly null value provided
@@ -27,10 +27,10 @@
 /app/src/Spinner/Core/Builder/IntegerNormalizerBuilder.php:23:13:error - PossiblyNullArgument: Argument 1 of AlecRabbit\Spinner\Core\IntegerNormalizer::__construct cannot be null, possibly null value provided
 /app/src/Spinner/Core/Builder/IntegerNormalizerBuilder.php:24:13:error - PossiblyNullArgument: Argument 2 of AlecRabbit\Spinner\Core\IntegerNormalizer::__construct cannot be null, possibly null value provided
 /app/src/Spinner/Core/Builder/LoopAutoStarterBuilder.php:24:17:error - PossiblyNullArgument: Argument 1 of AlecRabbit\Spinner\Core\LoopAutoStarter::__construct cannot be null, possibly null value provided
-/app/src/Spinner/Core/Builder/Settings/LegacyWidgetSettingsBuilder.php:29:32:error - PossiblyNullArgument: Argument 1 of AlecRabbit\Spinner\Core\Settings\LegacyWidgetSettings::__construct cannot be null, possibly null value provided
-/app/src/Spinner/Core/Builder/Settings/LegacyWidgetSettingsBuilder.php:30:33:error - PossiblyNullArgument: Argument 2 of AlecRabbit\Spinner\Core\Settings\LegacyWidgetSettings::__construct cannot be null, possibly null value provided
-/app/src/Spinner/Core/Builder/Settings/LegacyWidgetSettingsBuilder.php:31:31:error - PossiblyNullArgument: Argument 3 of AlecRabbit\Spinner\Core\Settings\LegacyWidgetSettings::__construct cannot be null, possibly null value provided
-/app/src/Spinner/Core/Builder/Settings/LegacyWidgetSettingsBuilder.php:32:30:error - PossiblyNullArgument: Argument 4 of AlecRabbit\Spinner\Core\Settings\LegacyWidgetSettings::__construct cannot be null, possibly null value provided
+/app/src/Spinner/Core/Builder/Settings/LegacyWidgetSettingsBuilder.php:29:32:error - PossiblyNullArgument: Argument 1 of AlecRabbit\Spinner\Core\Settings\Legacy\LegacyWidgetSettings::__construct cannot be null, possibly null value provided
+/app/src/Spinner/Core/Builder/Settings/LegacyWidgetSettingsBuilder.php:30:33:error - PossiblyNullArgument: Argument 2 of AlecRabbit\Spinner\Core\Settings\Legacy\LegacyWidgetSettings::__construct cannot be null, possibly null value provided
+/app/src/Spinner/Core/Builder/Settings/LegacyWidgetSettingsBuilder.php:31:31:error - PossiblyNullArgument: Argument 3 of AlecRabbit\Spinner\Core\Settings\Legacy\LegacyWidgetSettings::__construct cannot be null, possibly null value provided
+/app/src/Spinner/Core/Builder/Settings/LegacyWidgetSettingsBuilder.php:32:30:error - PossiblyNullArgument: Argument 4 of AlecRabbit\Spinner\Core\Settings\Legacy\LegacyWidgetSettings::__construct cannot be null, possibly null value provided
 /app/src/Spinner/Core/Builder/SignalHandlersSetupBuilder.php:28:17:error - PossiblyNullArgument: Argument 1 of AlecRabbit\Spinner\Core\SignalHandlersSetup::__construct cannot be null, possibly null value provided
 /app/src/Spinner/Core/Builder/SignalHandlersSetupBuilder.php:29:17:error - PossiblyNullArgument: Argument 2 of AlecRabbit\Spinner\Core\SignalHandlersSetup::__construct cannot be null, possibly null value provided
 /app/src/Spinner/Core/Builder/SignalHandlersSetupBuilder.php:30:17:error - PossiblyNullArgument: Argument 3 of AlecRabbit\Spinner\Core\SignalHandlersSetup::__construct cannot be null, possibly null value provided
@@ -64,10 +64,10 @@
 /app/src/Spinner/Core/Revolver/FrameRevolverBuilder.php:26:17:error - PossiblyNullArgument: Argument 1 of AlecRabbit\Spinner\Core\Revolver\FrameCollectionRevolver::__construct cannot be null, possibly null value provided
 /app/src/Spinner/Core/Revolver/FrameRevolverBuilder.php:27:17:error - PossiblyNullArgument: Argument 2 of AlecRabbit\Spinner\Core\Revolver\FrameCollectionRevolver::__construct cannot be null, possibly null value provided
 /app/src/Spinner/Core/Revolver/FrameRevolverBuilder.php:28:17:error - PossiblyNullArgument: Argument 3 of AlecRabbit\Spinner\Core\Revolver\FrameCollectionRevolver::__construct cannot be null, possibly null value provided
-/app/src/Spinner/Core/Settings/LegacyTerminalSettings.php:17:19:error - MissingParamType: Parameter $outputStream has no provided type
-/app/src/Spinner/Core/Settings/LegacyTerminalSettings.php:26:60:error - ParamNameMismatch: Argument 1 of AlecRabbit\Spinner\Core\Settings\LegacyTerminalSettings::setOptionCursor has wrong name $optionCursor, expecting $cursorOption as defined by AlecRabbit\Spinner\Core\Settings\Contract\ILegacyTerminalSettings::setOptionCursor
-/app/src/Spinner/Core/Settings/LegacyTerminalSettings.php:44:21:error - MixedInferredReturnType: Could not verify return type 'resource' for AlecRabbit\Spinner\Core\Settings\LegacyTerminalSettings::getOutputStream
-/app/src/Spinner/Core/Settings/LegacyTerminalSettings.php:46:16:error - MixedReturnStatement: Could not infer a return type
+/app/src/Spinner/Core/Settings/Legacy/LegacyTerminalSettings.php:17:19:error - MissingParamType: Parameter $outputStream has no provided type
+/app/src/Spinner/Core/Settings/Legacy/LegacyTerminalSettings.php:26:60:error - ParamNameMismatch: Argument 1 of AlecRabbit\Spinner\Core\Settings\Legacy\LegacyTerminalSettings::setOptionCursor has wrong name $optionCursor, expecting $cursorOption as defined by AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyTerminalSettings::setOptionCursor
+/app/src/Spinner/Core/Settings/Legacy/LegacyTerminalSettings.php:44:21:error - MixedInferredReturnType: Could not verify return type 'resource' for AlecRabbit\Spinner\Core\Settings\Legacy\LegacyTerminalSettings::getOutputStream
+/app/src/Spinner/Core/Settings/Legacy/LegacyTerminalSettings.php:46:16:error - MixedReturnStatement: Could not infer a return type
 /app/src/Spinner/Core/Timer.php:40:17:error - TypeDoesNotContainNull: ReflectionType does not contain null
 /app/src/Spinner/Core/Timer.php:40:17:error - RedundantCondition: Type ReflectionType for $returnType is never null
 /app/src/Spinner/Core/Timer.php:40:31:error - UndefinedMethod: Method ReflectionType::getName does not exist
@@ -82,12 +82,12 @@
 /app/src/Spinner/Core/Widget/Builder/WidgetRevolverBuilder.php:26:17:error - PossiblyNullArgument: Argument 2 of AlecRabbit\Spinner\Core\Widget\WidgetRevolver::__construct cannot be null, possibly null value provided
 /app/src/Spinner/Core/Widget/Builder/WidgetRevolverBuilder.php:27:17:error - PossiblyNullArgument: Argument 3 of AlecRabbit\Spinner\Core\Widget\WidgetRevolver::__construct cannot be null, possibly null value provided
 /app/src/Spinner/Core/Widget/Contract/IWidgetCompositeChildrenContainer.php:19:53:error - MissingTemplateParam: AlecRabbit\Spinner\Core\Widget\Contract\IWidgetCompositeChildrenContainer has missing template params when extending IteratorAggregate, expecting 2
-/app/src/Spinner/Core/Widget/WidgetComposite.php:53:13:error - InvalidDocblock: Misplaced variable
-/app/src/Spinner/Core/Widget/WidgetComposite.php:53:41:error - MissingDocblockType: Misplaced variable
-/app/src/Spinner/Core/Widget/WidgetComposite.php:53:41:error - MixedAssignment: Unable to determine the type that $childContext is being assigned to
-/app/src/Spinner/Core/Widget/WidgetComposite.php:53:58:error - MissingDocblockType: Misplaced variable
-/app/src/Spinner/Core/Widget/WidgetComposite.php:54:17:error - MixedAssignment: Unable to determine the type that $widget is being assigned to
-/app/src/Spinner/Core/Widget/WidgetComposite.php:54:42:error - MixedMethodCall: Cannot determine the type of $childContext when calling method getWidget
+/app/src/Spinner/Core/Widget/WidgetComposite.php:67:13:error - InvalidDocblock: Misplaced variable
+/app/src/Spinner/Core/Widget/WidgetComposite.php:67:41:error - MissingDocblockType: Misplaced variable
+/app/src/Spinner/Core/Widget/WidgetComposite.php:67:41:error - MixedAssignment: Unable to determine the type that $childContext is being assigned to
+/app/src/Spinner/Core/Widget/WidgetComposite.php:67:58:error - MissingDocblockType: Misplaced variable
+/app/src/Spinner/Core/Widget/WidgetComposite.php:68:17:error - MixedAssignment: Unable to determine the type that $widget is being assigned to
+/app/src/Spinner/Core/Widget/WidgetComposite.php:68:42:error - MixedMethodCall: Cannot determine the type of $childContext when calling method getWidget
 /app/src/Spinner/Core/Widget/WidgetCompositeChildrenContainer.php:103:13:error - MixedAssignment: Unable to determine the type that $this->interval is being assigned to
 /app/src/Spinner/Core/Widget/WidgetCompositeChildrenContainer.php:103:48:error - MixedMethodCall: Cannot determine the type of $this->interval when calling method smallest
 /app/src/Spinner/Core/WidgetContextToIntervalMap.php:27:32:error - MixedAssignment: Unable to determine the type that $key is being assigned to
@@ -108,22 +108,22 @@
 /app/src/Spinner/bootstrap.php:111:34:error - MixedAssignment: Unable to determine the type that $definition is being assigned to
 /app/src/Spinner/bootstrap.php:112:24:error - MixedArgument: Argument 1 of AlecRabbit\Spinner\Container\Contract\IDefinitionRegistry::bind cannot be mixed, expecting string
 /app/src/Spinner/bootstrap.php:112:29:error - MixedArgument: Argument 2 of AlecRabbit\Spinner\Container\Contract\IDefinitionRegistry::bind cannot be mixed, expecting callable|object|string
-/app/src/Spinner/bootstrap.php:156:76:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Core\Contract\IDriver' for /app/src/spinner/bootstrap.php:156:9202:-:closure
+/app/src/Spinner/bootstrap.php:156:76:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Core\Contract\IDriver' for /app/src/spinner/bootstrap.php:156:9209:-:closure
 /app/src/Spinner/bootstrap.php:157:20:error - MixedReturnStatement: Could not infer a return type
 /app/src/Spinner/bootstrap.php:157:60:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
-/app/src/Spinner/bootstrap.php:159:82:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Core\Contract\IDriverLinker' for /app/src/spinner/bootstrap.php:159:9376:-:closure
+/app/src/Spinner/bootstrap.php:159:82:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Core\Contract\IDriverLinker' for /app/src/spinner/bootstrap.php:159:9383:-:closure
 /app/src/Spinner/bootstrap.php:160:20:error - MixedReturnStatement: Could not infer a return type
 /app/src/Spinner/bootstrap.php:160:66:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
-/app/src/Spinner/bootstrap.php:162:90:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Core\Settings\Contract\ILegacyDriverSettings' for /app/src/spinner/bootstrap.php:162:9576:-:closure
+/app/src/Spinner/bootstrap.php:162:90:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyDriverSettings' for /app/src/spinner/bootstrap.php:162:9583:-:closure
 /app/src/Spinner/bootstrap.php:163:20:error - MixedReturnStatement: Could not infer a return type
 /app/src/Spinner/bootstrap.php:163:69:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
-/app/src/Spinner/bootstrap.php:165:88:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Core\Contract\IIntervalNormalizer' for /app/src/spinner/bootstrap.php:165:9793:-:closure
+/app/src/Spinner/bootstrap.php:165:88:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Core\Contract\IIntervalNormalizer' for /app/src/spinner/bootstrap.php:165:9800:-:closure
 /app/src/Spinner/bootstrap.php:166:20:error - MixedReturnStatement: Could not infer a return type
 /app/src/Spinner/bootstrap.php:166:72:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
-/app/src/Spinner/bootstrap.php:168:74:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Core\Contract\Loop\Contract\ILoop' for /app/src/spinner/bootstrap.php:168:9980:-:closure
+/app/src/Spinner/bootstrap.php:168:74:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Core\Contract\Loop\Contract\ILoop' for /app/src/spinner/bootstrap.php:168:9987:-:closure
 /app/src/Spinner/bootstrap.php:169:20:error - MixedReturnStatement: Could not infer a return type
 /app/src/Spinner/bootstrap.php:169:58:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
-/app/src/Spinner/bootstrap.php:172:79:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Core\Contract\Loop\Contract\ILoopProbe' for /app/src/spinner/bootstrap.php:172:10146:-:closure
+/app/src/Spinner/bootstrap.php:172:79:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Core\Contract\Loop\Contract\ILoopProbe' for /app/src/spinner/bootstrap.php:172:10153:-:closure
 /app/src/Spinner/bootstrap.php:173:20:error - MixedReturnStatement: Could not infer a return type
 /app/src/Spinner/bootstrap.php:173:63:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
 /app/src/Spinner/bootstrap.php:179:17:error - MixedAssignment: Unable to determine the type that $loopProbe is being assigned to
@@ -132,24 +132,24 @@
 /app/src/Spinner/bootstrap.php:180:97:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
 /app/src/Spinner/bootstrap.php:183:21:error - MixedArgument: Argument 1 of AlecRabbit\Spinner\Core\Factory\LoopSettingsFactory::__construct cannot be mixed|null, expecting AlecRabbit\Spinner\Core\Contract\Loop\Contract\ILoopProbe|null
 /app/src/Spinner/bootstrap.php:184:21:error - MixedArgument: Argument 2 of AlecRabbit\Spinner\Core\Factory\LoopSettingsFactory::__construct cannot be mixed|null, expecting AlecRabbit\Spinner\Core\Contract\ISignalProcessingProbe|null
-/app/src/Spinner/bootstrap.php:196:92:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Core\Contract\ILegacySettingsProvider' for /app/src/spinner/bootstrap.php:196:11280:-:closure
+/app/src/Spinner/bootstrap.php:196:92:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Core\Contract\ILegacySettingsProvider' for /app/src/spinner/bootstrap.php:196:11287:-:closure
 /app/src/Spinner/bootstrap.php:198:17:error - MixedReturnStatement: Could not infer a return type
 /app/src/Spinner/bootstrap.php:198:73:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
-/app/src/Spinner/bootstrap.php:200:91:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Core\Contract\ISignalProcessingProbe' for /app/src/spinner/bootstrap.php:200:11507:-:closure
+/app/src/Spinner/bootstrap.php:200:91:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Core\Contract\ISignalProcessingProbe' for /app/src/spinner/bootstrap.php:200:11514:-:closure
 /app/src/Spinner/bootstrap.php:202:17:error - MixedReturnStatement: Could not infer a return type
 /app/src/Spinner/bootstrap.php:202:72:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
 /app/src/Spinner/bootstrap.php:216:13:error - MixedAssignment: Unable to determine the type that $terminalProbe is being assigned to
 /app/src/Spinner/bootstrap.php:216:77:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
 /app/src/Spinner/bootstrap.php:219:45:error - MixedArgument: Argument 1 of AlecRabbit\Spinner\Core\Factory\TerminalSettingsFactory::__construct cannot be mixed, expecting AlecRabbit\Spinner\Core\Terminal\Contract\ITerminalProbe
-/app/src/Spinner/bootstrap.php:222:89:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Contract\Mode\NormalizerMethodMode' for /app/src/spinner/bootstrap.php:222:12417:-:closure
+/app/src/Spinner/bootstrap.php:222:89:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Contract\Mode\NormalizerMethodMode' for /app/src/spinner/bootstrap.php:222:12424:-:closure
 /app/src/Spinner/bootstrap.php:224:17:error - MixedReturnStatement: Could not infer a return type
 /app/src/Spinner/bootstrap.php:224:66:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
 /app/src/Spinner/bootstrap.php:224:90:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
-/app/src/Spinner/bootstrap.php:226:91:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Contract\Option\CursorVisibilityOption' for /app/src/spinner/bootstrap.php:226:12676:-:closure
+/app/src/Spinner/bootstrap.php:226:91:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Contract\Option\CursorVisibilityOption' for /app/src/spinner/bootstrap.php:226:12683:-:closure
 /app/src/Spinner/bootstrap.php:228:17:error - MixedReturnStatement: Could not infer a return type
 /app/src/Spinner/bootstrap.php:228:66:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
 /app/src/Spinner/bootstrap.php:228:95:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
-/app/src/Spinner/bootstrap.php:230:88:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Contract\Option\StylingMethodOption' for /app/src/spinner/bootstrap.php:230:12931:-:closure
+/app/src/Spinner/bootstrap.php:230:88:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Contract\Option\StylingMethodOption' for /app/src/spinner/bootstrap.php:230:12938:-:closure
 /app/src/Spinner/bootstrap.php:232:17:error - MixedReturnStatement: Could not infer a return type
 /app/src/Spinner/bootstrap.php:232:66:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
 /app/src/Spinner/bootstrap.php:232:95:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
