@@ -37,18 +37,18 @@ $driverSettings->setInterruptMessage('');
 // Widget settings
 $widgetSettings = $settings->getWidgetSettings();
 
-$widgetSettings->setCharPattern(/* TBD */); // default: none
-$widgetSettings->setStylePattern(/* TBD */); // default: none
-$widgetSettings->setLeadingSpacer(new CharFrame('', 0)); // <- default
-$widgetSettings->setTrailingSpacer(new CharFrame(' ', 1)); // <- default
+$widgetSettings->setCharPattern(null); // default: none
+$widgetSettings->setStylePattern(null); // default: none
+$widgetSettings->setLeadingSpacer(null); // default: CharFrame('', 0) 
+$widgetSettings->setTrailingSpacer(null); // default: CharFrame('', 0)
 
 // Root Widget settings
 $rootWidgetSettings = $settings->getRootWidgetSettings();
 
-$rootWidgetSettings->setCharPattern(/* TBD */); // default: Snake
-$rootWidgetSettings->setStylePattern(/* TBD */); // default: Rainbow
-$rootWidgetSettings->setLeadingSpacer(new CharFrame('', 0)); // <- default
-$rootWidgetSettings->setTrailingSpacer(new CharFrame(' ', 1)); // <- default
+$rootWidgetSettings->setCharPattern(null); // default: Snake
+$rootWidgetSettings->setStylePattern(null); // default: Rainbow
+$rootWidgetSettings->setLeadingSpacer(null); // default: CharFrame('', 0) 
+$rootWidgetSettings->setTrailingSpacer(null); // default: CharFrame(' ', 1)
 
 ```
 You can override default settings by changing values in the `Settings` object.
