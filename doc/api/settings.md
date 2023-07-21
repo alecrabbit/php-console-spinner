@@ -6,7 +6,7 @@ Settings are used to configure the package. Here is the list of available method
 $settings = Facade::getSettings();
 
 // Package Settings
-$settings->setRunMethod(RunMethodOption::AUTO);
+$settings->setRunMethodOption(RunMethodOption::AUTO);
 
 // Aux settings
 $auxSettings = $settings->getAuxSettings();
