@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Defaults;
 
-use AlecRabbit\Spinner\Core\Builder\Settings\Contract\IAuxSettingsBuilder;
-use AlecRabbit\Spinner\Core\Builder\Settings\Contract\IDriverSettingsBuilder;
-use AlecRabbit\Spinner\Core\Builder\Settings\Contract\ISettingsProviderBuilder;
-use AlecRabbit\Spinner\Core\Builder\Settings\SettingsProviderBuilder;
+use AlecRabbit\Spinner\Core\Builder\Settings\Contract\ILegacyAuxSettingsBuilder;
+use AlecRabbit\Spinner\Core\Builder\Settings\Contract\ILegacyDriverSettingsBuilder;
+use AlecRabbit\Spinner\Core\Builder\Settings\Contract\ILegacySettingsProviderBuilder;
+use AlecRabbit\Spinner\Core\Builder\Settings\LegacySettingsProviderBuilder;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopSettingsFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ITerminalSettingsFactory;
 use AlecRabbit\Spinner\Core\Settings\LegacySettingsProvider;
@@ -21,21 +21,21 @@ final class SettingsProviderBuilderTest extends TestCaseWithPrebuiltMocksAndStub
     {
         $settingsProviderBuilder = $this->getTesteeInstance();
 
-        self::assertInstanceOf(SettingsProviderBuilder::class, $settingsProviderBuilder);
+        self::assertInstanceOf(LegacySettingsProviderBuilder::class, $settingsProviderBuilder);
     }
 
     public function getTesteeInstance(
         ?ILoopSettingsFactory $loopSettingsBuilder = null,
         ?ITerminalSettingsFactory $terminalSettingsFactory = null,
-        ?IAuxSettingsBuilder $auxSettingsBuilder = null,
-        ?IDriverSettingsBuilder $driverSettingsBuilder = null,
-    ): ISettingsProviderBuilder {
+        ?ILegacyAuxSettingsBuilder $auxSettingsBuilder = null,
+        ?ILegacyDriverSettingsBuilder $driverSettingsBuilder = null,
+    ): ILegacySettingsProviderBuilder {
         return
-            new SettingsProviderBuilder(
+            new LegacySettingsProviderBuilder(
                 loopSettingsFactory: $loopSettingsBuilder ?? $this->getLoopSettingsFactoryMock(),
                 terminalSettingsFactory: $terminalSettingsFactory ?? $this->getTerminalSettingsFactoryMock(),
-                auxSettingsBuilder: $auxSettingsBuilder ?? $this->getAuxSettingsBuilderMock(),
-                driverSettingsBuilder: $driverSettingsBuilder ?? $this->getDriverSettingsBuilderMock(),
+                auxSettingsBuilder: $auxSettingsBuilder ?? $this->getLegacyAuxSettingsBuilderMock(),
+                driverSettingsBuilder: $driverSettingsBuilder ?? $this->getLegacyDriverSettingsBuilderMock(),
             );
     }
 

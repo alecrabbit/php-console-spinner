@@ -22,9 +22,9 @@ use AlecRabbit\Spinner\Core\Builder\Contract\IIntegerNormalizerBuilder;
 use AlecRabbit\Spinner\Core\Builder\Contract\ILoopAutoStarterBuilder;
 use AlecRabbit\Spinner\Core\Builder\Contract\ISignalHandlersSetupBuilder;
 use AlecRabbit\Spinner\Core\Builder\Contract\ITimerBuilder;
-use AlecRabbit\Spinner\Core\Builder\Settings\Contract\IAuxSettingsBuilder;
-use AlecRabbit\Spinner\Core\Builder\Settings\Contract\IDriverSettingsBuilder;
-use AlecRabbit\Spinner\Core\Builder\Settings\Contract\IWidgetSettingsBuilder;
+use AlecRabbit\Spinner\Core\Builder\Settings\Contract\ILegacyAuxSettingsBuilder;
+use AlecRabbit\Spinner\Core\Builder\Settings\Contract\ILegacyDriverSettingsBuilder;
+use AlecRabbit\Spinner\Core\Builder\Settings\Contract\ILegacyWidgetSettingsBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\ISpinnerConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\ILegacyWidgetConfig;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
@@ -314,9 +314,9 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
         return $this->createMock(ITerminalSettingsFactory::class);
     }
 
-    protected function getAuxSettingsBuilderMock(): MockObject&IAuxSettingsBuilder
+    protected function getLegacyAuxSettingsBuilderMock(): MockObject&ILegacyAuxSettingsBuilder
     {
-        return $this->createMock(IAuxSettingsBuilder::class);
+        return $this->createMock(ILegacyAuxSettingsBuilder::class);
     }
 
     protected function getLegacyDriverSettingsMock(): MockObject&ILegacyDriverSettings
@@ -329,14 +329,14 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
         return $this->createMock(ISignalHandlersSetupFactory::class);
     }
 
-    protected function getDriverSettingsBuilderMock(): MockObject&IDriverSettingsBuilder
+    protected function getLegacyDriverSettingsBuilderMock(): MockObject&ILegacyDriverSettingsBuilder
     {
-        return $this->createMock(IDriverSettingsBuilder::class);
+        return $this->createMock(ILegacyDriverSettingsBuilder::class);
     }
 
-    protected function getWidgetSettingsBuilderMock(): MockObject&IWidgetSettingsBuilder
+    protected function getLegacyWidgetSettingsBuilderMock(): MockObject&ILegacyWidgetSettingsBuilder
     {
-        return $this->createMock(IWidgetSettingsBuilder::class);
+        return $this->createMock(ILegacyWidgetSettingsBuilder::class);
     }
 
     protected function getLegacyLoopSettingsMock(): MockObject&ILegacyLoopSettings

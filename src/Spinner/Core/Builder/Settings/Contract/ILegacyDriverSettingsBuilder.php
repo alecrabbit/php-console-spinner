@@ -7,7 +7,7 @@ namespace AlecRabbit\Spinner\Core\Builder\Settings\Contract;
 
 use AlecRabbit\Spinner\Core\Settings\Contract\ILegacyDriverSettings;
 
-interface IDriverSettingsBuilder
+interface ILegacyDriverSettingsBuilder
 {
     public function build(): ILegacyDriverSettings;
 }

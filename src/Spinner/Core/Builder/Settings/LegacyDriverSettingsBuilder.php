@@ -7,11 +7,11 @@ namespace AlecRabbit\Spinner\Core\Builder\Settings;
 
 use AlecRabbit\Spinner\Contract\Option\DriverInitializationOption;
 use AlecRabbit\Spinner\Contract\Option\DriverLinkerOption;
-use AlecRabbit\Spinner\Core\Builder\Settings\Contract\IDriverSettingsBuilder;
+use AlecRabbit\Spinner\Core\Builder\Settings\Contract\ILegacyDriverSettingsBuilder;
 use AlecRabbit\Spinner\Core\Settings\Contract\ILegacyDriverSettings;
 use AlecRabbit\Spinner\Core\Settings\LegacyDriverSettings;
 
-final class DriverSettingsBuilder implements IDriverSettingsBuilder
+final class LegacyDriverSettingsBuilder implements ILegacyDriverSettingsBuilder
 {
     public function build(): ILegacyDriverSettings
     {

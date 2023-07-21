@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Defaults;
 
-use AlecRabbit\Spinner\Core\Builder\Settings\Contract\IWidgetSettingsBuilder;
-use AlecRabbit\Spinner\Core\Builder\WidgetSettingsBuilder;
+use AlecRabbit\Spinner\Core\Builder\Settings\Contract\ILegacyWidgetSettingsBuilder;
+use AlecRabbit\Spinner\Core\Builder\Settings\LegacyWidgetSettingsBuilder;
 use AlecRabbit\Spinner\Core\Settings\LegacyWidgetSettings;
 use AlecRabbit\Spinner\Exception\LogicException;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
@@ -18,12 +18,12 @@ final class WidgetSettingsBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
     {
         $builder = $this->getTesteeInstance();
 
-        self::assertInstanceOf(WidgetSettingsBuilder::class, $builder);
+        self::assertInstanceOf(LegacyWidgetSettingsBuilder::class, $builder);
     }
 
-    public function getTesteeInstance(): IWidgetSettingsBuilder
+    public function getTesteeInstance(): ILegacyWidgetSettingsBuilder
     {
-        return new WidgetSettingsBuilder();
+        return new LegacyWidgetSettingsBuilder();
     }
 
     #[Test]
@@ -40,7 +40,7 @@ final class WidgetSettingsBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
                 ->build()
         ;
 
-        self::assertInstanceOf(WidgetSettingsBuilder::class, $widgetSettingsBuilder);
+        self::assertInstanceOf(LegacyWidgetSettingsBuilder::class, $widgetSettingsBuilder);
         self::assertInstanceOf(LegacyWidgetSettings::class, $widgetSettings);
     }
 

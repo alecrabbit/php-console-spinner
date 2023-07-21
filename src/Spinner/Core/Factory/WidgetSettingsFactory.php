@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Factory;
 
-use AlecRabbit\Spinner\Core\Builder\Settings\Contract\IWidgetSettingsBuilder;
+use AlecRabbit\Spinner\Core\Builder\Settings\Contract\ILegacyWidgetSettingsBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\ILegacyWidgetConfig;
 use AlecRabbit\Spinner\Core\Contract\ILegacySettingsProvider;
 use AlecRabbit\Spinner\Core\Factory\Contract\IWidgetSettingsFactory;
@@ -14,7 +14,7 @@ final class WidgetSettingsFactory implements IWidgetSettingsFactory
 {
     public function __construct(
         protected ILegacySettingsProvider $settingsProvider,
-        protected IWidgetSettingsBuilder $widgetSettingsBuilder,
+        protected ILegacyWidgetSettingsBuilder $widgetSettingsBuilder,
     ) {
     }
 

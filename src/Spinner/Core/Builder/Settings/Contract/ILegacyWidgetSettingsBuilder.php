@@ -11,18 +11,18 @@ use AlecRabbit\Spinner\Core\Pattern\Contract\IStylePattern;
 use AlecRabbit\Spinner\Core\Settings\Contract\ILegacyWidgetSettings;
 use AlecRabbit\Spinner\Exception\LogicException;
 
-interface IWidgetSettingsBuilder
+interface ILegacyWidgetSettingsBuilder
 {
     /**
      * @throws LogicException
      */
     public function build(): ILegacyWidgetSettings;
 
-    public function withTrailingSpacer(IFrame $frame): IWidgetSettingsBuilder;
+    public function withTrailingSpacer(IFrame $frame): ILegacyWidgetSettingsBuilder;
 
-    public function withLeadingSpacer(IFrame $frame): IWidgetSettingsBuilder;
+    public function withLeadingSpacer(IFrame $frame): ILegacyWidgetSettingsBuilder;
 
-    public function withStylePattern(IStylePattern $pattern): IWidgetSettingsBuilder;
+    public function withStylePattern(IStylePattern $pattern): ILegacyWidgetSettingsBuilder;
 
-    public function withCharPattern(IPattern $pattern): IWidgetSettingsBuilder;
+    public function withCharPattern(IPattern $pattern): ILegacyWidgetSettingsBuilder;
 }

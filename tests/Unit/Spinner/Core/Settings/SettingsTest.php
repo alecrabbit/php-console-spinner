@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Settings;
 
 use AlecRabbit\Spinner\Contract\Option\RunMethodOption;
+use AlecRabbit\Spinner\Core\Settings\AuxSettings;
+use AlecRabbit\Spinner\Core\Settings\Contract\IAuxSettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettings;
 use AlecRabbit\Spinner\Core\Settings\Settings;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
@@ -39,6 +41,15 @@ final class SettingsTest extends TestCaseWithPrebuiltMocksAndStubs
         );
 
         self::assertEquals($runMethodOption, $settings->getRunMethodOption());
+    }
+
+    #[Test]
+    public function canGetAuxSettings(): void
+    {
+        $settings = $this->getTesteeInstance();
+
+        self::assertInstanceOf(AuxSettings::class, $settings->getAuxSettings());
+
     }
 
     #[Test]

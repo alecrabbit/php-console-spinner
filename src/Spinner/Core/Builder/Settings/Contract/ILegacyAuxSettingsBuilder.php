@@ -7,7 +7,7 @@ namespace AlecRabbit\Spinner\Core\Builder\Settings\Contract;
 
 use AlecRabbit\Spinner\Core\Settings\Contract\ILegacyAuxSettings;
 
-interface IAuxSettingsBuilder
+interface ILegacyAuxSettingsBuilder
 {
     public function build(): ILegacyAuxSettings;
 }

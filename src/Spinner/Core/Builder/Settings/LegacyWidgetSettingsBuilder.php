@@ -3,17 +3,17 @@
 declare(strict_types=1);
 
 
-namespace AlecRabbit\Spinner\Core\Builder;
+namespace AlecRabbit\Spinner\Core\Builder\Settings;
 
 use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Contract\Pattern\IPattern;
-use AlecRabbit\Spinner\Core\Builder\Settings\Contract\IWidgetSettingsBuilder;
+use AlecRabbit\Spinner\Core\Builder\Settings\Contract\ILegacyWidgetSettingsBuilder;
 use AlecRabbit\Spinner\Core\Pattern\Contract\IStylePattern;
 use AlecRabbit\Spinner\Core\Settings\Contract\ILegacyWidgetSettings;
 use AlecRabbit\Spinner\Core\Settings\LegacyWidgetSettings;
 use AlecRabbit\Spinner\Exception\LogicException;
 
-final class WidgetSettingsBuilder implements IWidgetSettingsBuilder
+final class LegacyWidgetSettingsBuilder implements ILegacyWidgetSettingsBuilder
 {
     private ?IFrame $leadingSpacer = null;
     private ?IFrame $trailingSpacer = null;
@@ -47,28 +47,28 @@ final class WidgetSettingsBuilder implements IWidgetSettingsBuilder
         };
     }
 
-    public function withLeadingSpacer(IFrame $frame): IWidgetSettingsBuilder
+    public function withLeadingSpacer(IFrame $frame): ILegacyWidgetSettingsBuilder
     {
         $clone = clone $this;
         $clone->leadingSpacer = $frame;
         return $clone;
     }
 
-    public function withTrailingSpacer(IFrame $frame): IWidgetSettingsBuilder
+    public function withTrailingSpacer(IFrame $frame): ILegacyWidgetSettingsBuilder
     {
         $clone = clone $this;
         $clone->trailingSpacer = $frame;
         return $clone;
     }
 
-    public function withStylePattern(IStylePattern $pattern): IWidgetSettingsBuilder
+    public function withStylePattern(IStylePattern $pattern): ILegacyWidgetSettingsBuilder
     {
         $clone = clone $this;
         $clone->stylePattern = $pattern;
         return $clone;
     }
 
-    public function withCharPattern(IPattern $pattern): IWidgetSettingsBuilder
+    public function withCharPattern(IPattern $pattern): ILegacyWidgetSettingsBuilder
     {
         $clone = clone $this;
         $clone->charPattern = $pattern;

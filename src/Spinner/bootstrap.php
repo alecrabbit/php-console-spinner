@@ -21,16 +21,16 @@ use AlecRabbit\Spinner\Core\Builder\DriverBuilder;
 use AlecRabbit\Spinner\Core\Builder\DriverOutputBuilder;
 use AlecRabbit\Spinner\Core\Builder\IntegerNormalizerBuilder;
 use AlecRabbit\Spinner\Core\Builder\LoopAutoStarterBuilder;
-use AlecRabbit\Spinner\Core\Builder\Settings\AuxSettingsBuilder;
-use AlecRabbit\Spinner\Core\Builder\Settings\Contract\IAuxSettingsBuilder;
-use AlecRabbit\Spinner\Core\Builder\Settings\Contract\IDriverSettingsBuilder;
-use AlecRabbit\Spinner\Core\Builder\Settings\Contract\ISettingsProviderBuilder;
-use AlecRabbit\Spinner\Core\Builder\Settings\Contract\IWidgetSettingsBuilder;
-use AlecRabbit\Spinner\Core\Builder\Settings\DriverSettingsBuilder;
-use AlecRabbit\Spinner\Core\Builder\Settings\SettingsProviderBuilder;
+use AlecRabbit\Spinner\Core\Builder\Settings\Contract\ILegacyAuxSettingsBuilder;
+use AlecRabbit\Spinner\Core\Builder\Settings\Contract\ILegacyDriverSettingsBuilder;
+use AlecRabbit\Spinner\Core\Builder\Settings\Contract\ILegacySettingsProviderBuilder;
+use AlecRabbit\Spinner\Core\Builder\Settings\Contract\ILegacyWidgetSettingsBuilder;
+use AlecRabbit\Spinner\Core\Builder\Settings\LegacyAuxSettingsBuilder;
+use AlecRabbit\Spinner\Core\Builder\Settings\LegacyDriverSettingsBuilder;
+use AlecRabbit\Spinner\Core\Builder\Settings\LegacySettingsProviderBuilder;
+use AlecRabbit\Spinner\Core\Builder\Settings\LegacyWidgetSettingsBuilder;
 use AlecRabbit\Spinner\Core\Builder\SignalHandlersSetupBuilder;
 use AlecRabbit\Spinner\Core\Builder\TimerBuilder;
-use AlecRabbit\Spinner\Core\Builder\WidgetSettingsBuilder;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\IDriverBuilder;
 use AlecRabbit\Spinner\Core\Contract\IDriverLinker;
@@ -115,7 +115,7 @@ foreach (definitions() as $id => $definition) {
 function definitions(): Traversable
 {
     yield from [
-        IAuxSettingsBuilder::class => AuxSettingsBuilder::class,
+        ILegacyAuxSettingsBuilder::class => LegacyAuxSettingsBuilder::class,
         IBufferedOutputBuilder::class => BufferedOutputBuilder::class,
         IBufferedOutputSingletonFactory::class => BufferedOutputSingletonFactory::class,
         ICharFrameRevolverFactory::class => CharFrameRevolverFactory::class,
@@ -126,7 +126,7 @@ function definitions(): Traversable
         IDriverLinkerFactory::class => DriverLinkerFactory::class,
         IDriverOutputBuilder::class => DriverOutputBuilder::class,
         IDriverOutputFactory::class => DriverOutputFactory::class,
-        IDriverSettingsBuilder::class => DriverSettingsBuilder::class,
+        ILegacyDriverSettingsBuilder::class => LegacyDriverSettingsBuilder::class,
         IDriverSetup::class => DriverSetup::class,
         IFrameCollectionFactory::class => FrameCollectionFactory::class,
         IFrameRevolverBuilder::class => FrameRevolverBuilder::class,
@@ -136,7 +136,7 @@ function definitions(): Traversable
         ILoopAutoStarterBuilder::class => LoopAutoStarterBuilder::class,
         ILoopAutoStarterFactory::class => LoopAutoStarterFactory::class,
         ILoopFactory::class => LoopFactory::class,
-        ISettingsProviderBuilder::class => SettingsProviderBuilder::class,
+        ILegacySettingsProviderBuilder::class => LegacySettingsProviderBuilder::class,
         ISignalHandlersSetup::class => SignalHandlersSetup::class,
         ISignalHandlersSetupBuilder::class => SignalHandlersSetupBuilder::class,
         ISignalHandlersSetupFactory::class => SignalHandlersSetupFactory::class,
@@ -150,7 +150,7 @@ function definitions(): Traversable
         IWidgetCompositeFactory::class => WidgetCompositeFactory::class,
         IWidgetRevolverBuilder::class => WidgetRevolverBuilder::class,
         IWidgetRevolverFactory::class => WidgetRevolverFactory::class,
-        IWidgetSettingsBuilder::class => WidgetSettingsBuilder::class,
+        ILegacyWidgetSettingsBuilder::class => LegacyWidgetSettingsBuilder::class,
         IWidgetSettingsFactory::class => WidgetSettingsFactory::class,
 
         IDriver::class => static function (ContainerInterface $container): IDriver {
@@ -195,7 +195,7 @@ function definitions(): Traversable
 
         ILegacySettingsProvider::class => static function (ContainerInterface $container): ILegacySettingsProvider {
             return
-                $container->get(ISettingsProviderBuilder::class)->build();
+                $container->get(ILegacySettingsProviderBuilder::class)->build();
         },
         ISignalProcessingProbe::class => static function (ContainerInterface $container): ISignalProcessingProbe {
             return

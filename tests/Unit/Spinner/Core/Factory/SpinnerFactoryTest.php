@@ -65,7 +65,7 @@ final class SpinnerFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
             ->willReturn($widgetConfig)
         ;
 
-        $widgetSettingsBuilder = $this->getWidgetSettingsBuilderMock();
+        $widgetSettingsBuilder = $this->getLegacyWidgetSettingsBuilderMock();
         $widgetSettingsBuilder
             ->expects(self::never())
             ->method('withLeadingSpacer')

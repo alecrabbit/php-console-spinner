@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Factory;
 
-use AlecRabbit\Spinner\Core\Builder\Settings\Contract\IWidgetSettingsBuilder;
+use AlecRabbit\Spinner\Core\Builder\Settings\Contract\ILegacyWidgetSettingsBuilder;
 use AlecRabbit\Spinner\Core\Contract\ILegacySettingsProvider;
 use AlecRabbit\Spinner\Core\Factory\Contract\IWidgetSettingsFactory;
 use AlecRabbit\Spinner\Core\Factory\WidgetSettingsFactory;
@@ -23,12 +23,12 @@ final class WidgetSettingsFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
 
     public function getTesteeInstance(
         ?ILegacySettingsProvider $settingsProvider = null,
-        ?IWidgetSettingsBuilder $widgetSettingsBuilder = null,
+        ?ILegacyWidgetSettingsBuilder $widgetSettingsBuilder = null,
     ): IWidgetSettingsFactory {
         return
             new WidgetSettingsFactory(
                 settingsProvider: $settingsProvider ?? $this->getLegacySettingsProviderMock(),
-                widgetSettingsBuilder: $widgetSettingsBuilder ?? $this->getWidgetSettingsBuilderMock()
+                widgetSettingsBuilder: $widgetSettingsBuilder ?? $this->getLegacyWidgetSettingsBuilderMock()
             );
     }
 
@@ -42,7 +42,7 @@ final class WidgetSettingsFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
 
         $widgetSettings = $this->getLegacyWidgetSettingsMock();
 
-        $builder = $this->getWidgetSettingsBuilderMock();
+        $builder = $this->getLegacyWidgetSettingsBuilderMock();
         $builder
             ->expects(self::once())
             ->method('withLeadingSpacer')
@@ -119,7 +119,7 @@ final class WidgetSettingsFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
 
         $widgetSettings = $this->getLegacyWidgetSettingsMock();
 
-        $builder = $this->getWidgetSettingsBuilderMock();
+        $builder = $this->getLegacyWidgetSettingsBuilderMock();
         $builder
             ->expects(self::once())
             ->method('withLeadingSpacer')
