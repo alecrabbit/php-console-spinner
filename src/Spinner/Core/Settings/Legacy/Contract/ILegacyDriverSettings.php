@@ -5,8 +5,8 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Settings\Legacy\Contract;
 
-use AlecRabbit\Spinner\Contract\Option\DriverInitializationOption;
-use AlecRabbit\Spinner\Contract\Option\DriverLinkerOption;
+use AlecRabbit\Spinner\Contract\Option\InitializationOption;
+use AlecRabbit\Spinner\Contract\Option\LinkerOption;
 
 interface ILegacyDriverSettings
 {
@@ -23,10 +23,10 @@ interface ILegacyDriverSettings
     public function isLinkerEnabled(): bool;
 
     public function setOptionDriverInitialization(
-        DriverInitializationOption $optionDriverInitialization,
+        InitializationOption $optionDriverInitialization,
     ): ILegacyDriverSettings;
 
-    public function getOptionLinker(): DriverLinkerOption;
+    public function getOptionLinker(): LinkerOption;
 
-    public function setOptionLinker(DriverLinkerOption $optionLinker): ILegacyDriverSettings;
+    public function setOptionLinker(LinkerOption $optionLinker): ILegacyDriverSettings;
 }

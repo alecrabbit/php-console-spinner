@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Factory;
 
-use AlecRabbit\Spinner\Contract\Option\DriverLinkerOption;
+use AlecRabbit\Spinner\Contract\Option\LinkerOption;
 use AlecRabbit\Spinner\Core\Contract\ILegacySettingsProvider;
 use AlecRabbit\Spinner\Core\Contract\Loop\Contract\ILoop;
 use AlecRabbit\Spinner\Core\DriverLinker;
@@ -40,7 +40,7 @@ final class DriverLinkerFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
         $driverSettings
             ->expects(self::once())
             ->method('getOptionLinker')
-            ->willReturn(DriverLinkerOption::ENABLED)
+            ->willReturn(LinkerOption::ENABLED)
         ;
         $settingsProvider = $this->getLegacySettingsProviderMock();
         $settingsProvider

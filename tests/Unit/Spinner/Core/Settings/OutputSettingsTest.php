@@ -35,7 +35,7 @@ final class OutputSettingsTest extends TestCaseWithPrebuiltMocksAndStubs
     #[Test]
     public function canGetStylingMethodOption(): void
     {
-        $stylingMethodOption = StylingMethodOption::AUTO;
+        $stylingMethodOption = StylingMethodOption::ANSI8;
 
         $settings = $this->getTesteeInstance(
             stylingMethodOption: $stylingMethodOption,
@@ -65,7 +65,7 @@ final class OutputSettingsTest extends TestCaseWithPrebuiltMocksAndStubs
     #[Test]
     public function canGetCursorVisibilityOption(): void
     {
-        $cursorVisibilityOption = CursorVisibilityOption::AUTO;
+        $cursorVisibilityOption = CursorVisibilityOption::VISIBLE;
 
         $settings = $this->getTesteeInstance(
             cursorVisibilityOption: $cursorVisibilityOption,

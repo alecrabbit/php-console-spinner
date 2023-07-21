@@ -5,28 +5,28 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Settings\Legacy;
 
-use AlecRabbit\Spinner\Contract\Option\DriverInitializationOption;
-use AlecRabbit\Spinner\Contract\Option\DriverLinkerOption;
+use AlecRabbit\Spinner\Contract\Option\InitializationOption;
+use AlecRabbit\Spinner\Contract\Option\LinkerOption;
 use AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyDriverSettings;
 
 final class LegacyDriverSettings implements ILegacyDriverSettings
 {
     public function __construct(
-        protected DriverInitializationOption $optionDriverInitialization,
-        protected DriverLinkerOption $optionLinker,
+        protected InitializationOption $optionDriverInitialization,
+        protected LinkerOption $optionLinker,
         protected string $finalMessage,
         protected string $interruptMessage,
     ) {
     }
 
     public function setOptionDriverInitialization(
-        DriverInitializationOption $optionDriverInitialization,
+        InitializationOption $optionDriverInitialization,
     ): ILegacyDriverSettings {
         $this->optionDriverInitialization = $optionDriverInitialization;
         return $this;
     }
 
-    public function setOptionLinker(DriverLinkerOption $optionLinker): ILegacyDriverSettings
+    public function setOptionLinker(LinkerOption $optionLinker): ILegacyDriverSettings
     {
         $this->optionLinker = $optionLinker;
         return $this;
@@ -62,15 +62,15 @@ final class LegacyDriverSettings implements ILegacyDriverSettings
 
     public function isInitializationEnabled(): bool
     {
-        return $this->optionDriverInitialization === DriverInitializationOption::ENABLED;
+        return $this->optionDriverInitialization === InitializationOption::ENABLED;
     }
 
     public function isLinkerEnabled(): bool
     {
-        return $this->optionLinker === DriverLinkerOption::ENABLED;
+        return $this->optionLinker === LinkerOption::ENABLED;
     }
 
-    public function getOptionLinker(): DriverLinkerOption
+    public function getOptionLinker(): LinkerOption
     {
         return $this->optionLinker;
     }
