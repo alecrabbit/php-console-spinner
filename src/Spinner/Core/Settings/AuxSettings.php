@@ -4,12 +4,14 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Settings;
 
+use AlecRabbit\Spinner\Contract\Option\NormalizerOption;
 use AlecRabbit\Spinner\Contract\Option\RunMethodOption;
 
 final class AuxSettings implements Contract\IAuxSettings
 {
     public function __construct(
         protected RunMethodOption $runMethodOption = RunMethodOption::AUTO,
+        protected NormalizerOption $normalizerOption = NormalizerOption::AUTO,
     ) {
     }
 
@@ -21,6 +23,16 @@ final class AuxSettings implements Contract\IAuxSettings
     public function setRunMethodOption(RunMethodOption $runMethodOption): void
     {
         $this->runMethodOption = $runMethodOption;
+    }
+
+    public function getNormalizerOption(): NormalizerOption
+    {
+        return $this->normalizerOption;
+    }
+
+    public function setNormalizerOption(NormalizerOption $normalizerOption): void
+    {
+        $this->normalizerOption = $normalizerOption;
     }
 
 }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Settings;
 
+use AlecRabbit\Spinner\Contract\Option\NormalizerOption;
 use AlecRabbit\Spinner\Contract\Option\RunMethodOption;
 use AlecRabbit\Spinner\Core\Settings\AuxSettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\IAuxSettings;
@@ -22,13 +23,14 @@ final class AuxSettingsTest extends TestCaseWithPrebuiltMocksAndStubs
 
     public function getTesteeInstance(
         ?RunMethodOption $runMethodOption = null,
+        ?NormalizerOption $normalizerOption = null,
     ): IAuxSettings {
         return
             new AuxSettings(
                 runMethodOption: $runMethodOption ?? RunMethodOption::AUTO,
+                normalizerOption: $normalizerOption ?? NormalizerOption::AUTO,
             );
     }
-
 
     #[Test]
     public function canGetRunMethodOption(): void
@@ -41,7 +43,6 @@ final class AuxSettingsTest extends TestCaseWithPrebuiltMocksAndStubs
 
         self::assertEquals($runMethodOption, $settings->getRunMethodOption());
     }
-
 
     #[Test]
     public function canSetRunMethodOption(): void
@@ -59,5 +60,34 @@ final class AuxSettingsTest extends TestCaseWithPrebuiltMocksAndStubs
         $settings->setRunMethodOption($runMethodOption);
 
         self::assertEquals($runMethodOption, $settings->getRunMethodOption());
+    }
+    #[Test]
+    public function canGetNormalizerOption(): void
+    {
+        $normalizerOption = NormalizerOption::BALANCED;
+
+        $settings = $this->getTesteeInstance(
+            normalizerOption: $normalizerOption,
+        );
+
+        self::assertEquals($normalizerOption, $settings->getNormalizerOption());
+    }
+
+    #[Test]
+    public function canSetNormalizerOption(): void
+    {
+        $normalizerOptionInitial = NormalizerOption::SMOOTH;
+
+        $settings = $this->getTesteeInstance(
+            normalizerOption: $normalizerOptionInitial,
+        );
+
+        $normalizerOption = NormalizerOption::PERFORMANCE;
+
+        self::assertNotEquals($normalizerOption, $settings->getNormalizerOption());
+
+        $settings->setNormalizerOption($normalizerOption);
+
+        self::assertEquals($normalizerOption, $settings->getNormalizerOption());
     }
 }

@@ -5,7 +5,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Contract\Option;
 
-enum NormalizerMethodOption
+enum NormalizerOption
 {
     case AUTO;
     case SMOOTH;

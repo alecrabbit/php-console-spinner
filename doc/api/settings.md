@@ -5,12 +5,10 @@ Settings are used to configure the package. Here is the list of available method
 ```php
 $settings = Facade::getSettings();
 
-// Package Settings
-$settings->setRunMethodOption(RunMethodOption::AUTO);
-
 // Aux settings
 $auxSettings = $settings->getAuxSettings();
 
+$auxSettings->setRunMethodOption(RunMethodOption::AUTO);
 $auxSettings->setNormalizerOption(NormalizerOption::AUTO);
 
 // Loop settings
