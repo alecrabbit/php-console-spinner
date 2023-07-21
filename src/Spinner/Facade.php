@@ -9,7 +9,6 @@ use AlecRabbit\Spinner\Container\DefinitionRegistry;
 use AlecRabbit\Spinner\Core\Config\Contract\ISpinnerConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IWidgetConfig;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
-use AlecRabbit\Spinner\Core\Contract\IFacade;
 use AlecRabbit\Spinner\Core\Contract\ISettingsProvider;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use AlecRabbit\Spinner\Core\Contract\Loop\Contract\ILoop;
@@ -17,9 +16,13 @@ use AlecRabbit\Spinner\Core\Factory\ContainerFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDriverFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ISpinnerFactory;
+use AlecRabbit\Spinner\Core\Settings\Contract\ISettings;
+use AlecRabbit\Spinner\Core\Settings\Settings;
 
-final class Facade implements IFacade
+final class Facade
 {
+    private static ?ISettings $settings = null;
+
     public static function getLoop(): ILoop
     {
         return self::getLoopFactory()->getLoop();
@@ -79,6 +82,12 @@ final class Facade implements IFacade
     {
         return self::getContainer()->get(IDriverFactory::class);
     }
-}
 
-//
+    public static function getSettings(): ISettings
+    {
+        if (self::$settings === null) {
+            self::$settings = new Settings();
+        }
+        return self::$settings;
+    }
+}
