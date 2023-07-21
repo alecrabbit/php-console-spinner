@@ -40,7 +40,7 @@ final class LoopFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
     protected function getLoopProbeFactoryMock(): MockObject&ILoopProbeFactory
     {
         $loopProbeFactory = parent::getLoopProbeFactoryMock();
-        $loopProbeFactory->method('getProbe')
+        $loopProbeFactory->method('createProbe')
             ->willReturn(
                 new class() extends ALoopProbe {
                     public static function isSupported(): bool

@@ -25,21 +25,28 @@ final class LoopFactory implements ILoopFactory
         if (self::$loop === null) {
             self::$loop = $this->createLoop();
 
-            $this->loopAutoStarterFactory
-                ->create()
-                ->setup(self::$loop)
-            ;
+            $this->setupLoop(self::$loop);
         }
         return self::$loop;
     }
 
     private function createLoop(): ILoop
     {
-        return $this->getLoopProbe()->createLoop();
+        return
+            $this->createProbe()->createLoop();
     }
 
-    private function getLoopProbe(): ILoopProbe
+    private function createProbe(): ILoopProbe
     {
-        return $this->loopProbeFactory->getProbe();
+        return
+            $this->loopProbeFactory->createProbe();
+    }
+
+    private function setupLoop(ILoop $loop): void
+    {
+        $this->loopAutoStarterFactory
+            ->create()
+            ->setup($loop)
+        ;
     }
 }

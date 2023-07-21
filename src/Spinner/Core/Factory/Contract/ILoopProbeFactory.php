@@ -9,5 +9,5 @@ use AlecRabbit\Spinner\Core\Contract\Loop\Contract\ILoopProbe;
 
 interface ILoopProbeFactory extends IStaticProbeFactory
 {
-    public function getProbe(): ILoopProbe;
+    public function createProbe(): ILoopProbe;
 }
