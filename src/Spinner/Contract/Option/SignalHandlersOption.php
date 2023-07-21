@@ -7,6 +7,7 @@ namespace AlecRabbit\Spinner\Contract\Option;
 
 enum SignalHandlersOption
 {
+    case AUTO;
     case ENABLED;
     case DISABLED;
 }
