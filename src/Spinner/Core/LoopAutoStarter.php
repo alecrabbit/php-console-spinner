@@ -6,7 +6,7 @@ namespace AlecRabbit\Spinner\Core;
 
 use AlecRabbit\Spinner\Core\Contract\ILoopAutoStarter;
 use AlecRabbit\Spinner\Core\Contract\Loop\Contract\ILoop;
-use AlecRabbit\Spinner\Core\Settings\Contract\ILegacyLoopSettings;
+use AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyLoopSettings;
 
 final class LoopAutoStarter implements ILoopAutoStarter
 {

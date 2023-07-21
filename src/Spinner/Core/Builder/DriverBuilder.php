@@ -14,7 +14,7 @@ use AlecRabbit\Spinner\Core\Contract\IDriverBuilder;
 use AlecRabbit\Spinner\Core\Driver;
 use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalFactory;
 use AlecRabbit\Spinner\Core\Output\Contract\IDriverOutput;
-use AlecRabbit\Spinner\Core\Settings\Contract\ILegacyDriverSettings;
+use AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyDriverSettings;
 use AlecRabbit\Spinner\Exception\LogicException;
 
 final class DriverBuilder implements Contract\IDriverBuilder

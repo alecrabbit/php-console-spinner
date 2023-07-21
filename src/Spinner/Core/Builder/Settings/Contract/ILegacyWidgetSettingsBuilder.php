@@ -8,7 +8,7 @@ namespace AlecRabbit\Spinner\Core\Builder\Settings\Contract;
 use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Contract\Pattern\IPattern;
 use AlecRabbit\Spinner\Core\Pattern\Contract\IStylePattern;
-use AlecRabbit\Spinner\Core\Settings\Contract\ILegacyWidgetSettings;
+use AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyWidgetSettings;
 use AlecRabbit\Spinner\Exception\LogicException;
 
 interface ILegacyWidgetSettingsBuilder

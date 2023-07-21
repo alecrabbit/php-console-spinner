@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 
-namespace AlecRabbit\Spinner\Core\Settings\Contract;
+namespace AlecRabbit\Spinner\Core\Settings\Legacy\Contract;
 
 use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Contract\Pattern\IPattern;

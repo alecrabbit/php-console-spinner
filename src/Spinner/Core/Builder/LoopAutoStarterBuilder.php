@@ -8,7 +8,7 @@ namespace AlecRabbit\Spinner\Core\Builder;
 use AlecRabbit\Spinner\Core\Builder\Contract\ILoopAutoStarterBuilder;
 use AlecRabbit\Spinner\Core\Contract\ILoopAutoStarter;
 use AlecRabbit\Spinner\Core\LoopAutoStarter;
-use AlecRabbit\Spinner\Core\Settings\Contract\ILegacyLoopSettings;
+use AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyLoopSettings;
 use AlecRabbit\Spinner\Exception\LogicException;
 
 final class LoopAutoStarterBuilder implements ILoopAutoStarterBuilder

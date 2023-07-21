@@ -8,7 +8,7 @@ use AlecRabbit\Spinner\Contract\Option\CursorVisibilityOption;
 use AlecRabbit\Spinner\Contract\Option\StylingMethodOption;
 use AlecRabbit\Spinner\Core\Factory\Contract\ITerminalSettingsFactory;
 use AlecRabbit\Spinner\Core\Factory\TerminalSettingsFactory;
-use AlecRabbit\Spinner\Core\Settings\LegacyTerminalSettings;
+use AlecRabbit\Spinner\Core\Settings\Legacy\LegacyTerminalSettings;
 use AlecRabbit\Spinner\Core\Terminal\Contract\ITerminalProbe;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;

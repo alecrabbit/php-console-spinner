@@ -3,14 +3,14 @@
 declare(strict_types=1);
 
 
-namespace AlecRabbit\Spinner\Core\Settings;
+namespace AlecRabbit\Spinner\Core\Settings\Legacy;
 
 use AlecRabbit\Spinner\Core\Config\Contract\ILegacyWidgetConfig;
 use AlecRabbit\Spinner\Core\Contract\ILegacySettingsProvider;
-use AlecRabbit\Spinner\Core\Settings\Contract\ILegacyAuxSettings;
-use AlecRabbit\Spinner\Core\Settings\Contract\ILegacyDriverSettings;
-use AlecRabbit\Spinner\Core\Settings\Contract\ILegacyLoopSettings;
-use AlecRabbit\Spinner\Core\Settings\Contract\ILegacyTerminalSettings;
+use AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyAuxSettings;
+use AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyDriverSettings;
+use AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyLoopSettings;
+use AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyTerminalSettings;
 
 final class LegacySettingsProvider implements ILegacySettingsProvider
 {

@@ -6,7 +6,7 @@ namespace AlecRabbit\Tests\Unit\Spinner\Core\Defaults;
 
 use AlecRabbit\Spinner\Core\Builder\Settings\Contract\ILegacyWidgetSettingsBuilder;
 use AlecRabbit\Spinner\Core\Builder\Settings\LegacyWidgetSettingsBuilder;
-use AlecRabbit\Spinner\Core\Settings\LegacyWidgetSettings;
+use AlecRabbit\Spinner\Core\Settings\Legacy\LegacyWidgetSettings;
 use AlecRabbit\Spinner\Exception\LogicException;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;

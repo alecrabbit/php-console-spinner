@@ -10,7 +10,7 @@ use AlecRabbit\Spinner\Core\Builder\Settings\Contract\ILegacySettingsProviderBui
 use AlecRabbit\Spinner\Core\Builder\Settings\LegacySettingsProviderBuilder;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopSettingsFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ITerminalSettingsFactory;
-use AlecRabbit\Spinner\Core\Settings\LegacySettingsProvider;
+use AlecRabbit\Spinner\Core\Settings\Legacy\LegacySettingsProvider;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;
 

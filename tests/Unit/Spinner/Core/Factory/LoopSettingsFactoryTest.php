@@ -8,7 +8,7 @@ use AlecRabbit\Spinner\Core\Contract\ISignalProcessingProbe;
 use AlecRabbit\Spinner\Core\Contract\Loop\Contract\ILoopProbe;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopSettingsFactory;
 use AlecRabbit\Spinner\Core\Factory\LoopSettingsFactory;
-use AlecRabbit\Spinner\Core\Settings\LegacyLoopSettings;
+use AlecRabbit\Spinner\Core\Settings\Legacy\LegacyLoopSettings;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use AlecRabbit\Tests\Unit\Spinner\Core\Defaults\Override\LoopProbeStub;
 use PHPUnit\Framework\Attributes\Test;

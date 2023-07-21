@@ -18,7 +18,7 @@ use AlecRabbit\Spinner\Core\Pattern\CharPattern\Snake;
 use AlecRabbit\Spinner\Core\Pattern\NoCharPattern;
 use AlecRabbit\Spinner\Core\Pattern\NoStylePattern;
 use AlecRabbit\Spinner\Core\Pattern\StylePattern\Rainbow;
-use AlecRabbit\Spinner\Core\Settings\LegacySettingsProvider;
+use AlecRabbit\Spinner\Core\Settings\Legacy\LegacySettingsProvider;
 
 final class LegacySettingsProviderBuilder implements ILegacySettingsProviderBuilder
 {

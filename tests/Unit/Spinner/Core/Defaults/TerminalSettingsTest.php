@@ -6,8 +6,8 @@ namespace AlecRabbit\Tests\Unit\Spinner\Core\Defaults;
 
 use AlecRabbit\Spinner\Contract\Option\CursorVisibilityOption;
 use AlecRabbit\Spinner\Contract\Option\StylingMethodOption;
-use AlecRabbit\Spinner\Core\Settings\Contract\ILegacyTerminalSettings;
-use AlecRabbit\Spinner\Core\Settings\LegacyTerminalSettings;
+use AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyTerminalSettings;
+use AlecRabbit\Spinner\Core\Settings\Legacy\LegacyTerminalSettings;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;
 

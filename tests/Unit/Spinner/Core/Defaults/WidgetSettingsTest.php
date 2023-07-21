@@ -9,8 +9,8 @@ use AlecRabbit\Spinner\Contract\Pattern\IPattern;
 use AlecRabbit\Spinner\Core\CharFrame;
 use AlecRabbit\Spinner\Core\Pattern\NoCharPattern;
 use AlecRabbit\Spinner\Core\Pattern\NoStylePattern;
-use AlecRabbit\Spinner\Core\Settings\Contract\ILegacyWidgetSettings;
-use AlecRabbit\Spinner\Core\Settings\LegacyWidgetSettings;
+use AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyWidgetSettings;
+use AlecRabbit\Spinner\Core\Settings\Legacy\LegacyWidgetSettings;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;
 

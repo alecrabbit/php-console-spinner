@@ -12,7 +12,7 @@ use AlecRabbit\Spinner\Core\A\ADriver;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use AlecRabbit\Spinner\Core\Output\Contract\IDriverOutput;
-use AlecRabbit\Spinner\Core\Settings\Contract\ILegacyDriverSettings;
+use AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyDriverSettings;
 use AlecRabbit\Spinner\Core\SpinnerState;
 use PHPUnit\Framework\Attributes\Test;
 use RuntimeException;

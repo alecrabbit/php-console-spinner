@@ -3,11 +3,10 @@
 declare(strict_types=1);
 
 
-namespace AlecRabbit\Spinner\Core\Settings;
+namespace AlecRabbit\Spinner\Core\Settings\Legacy;
 
 use AlecRabbit\Spinner\Contract\Mode\NormalizerMethodMode;
-use AlecRabbit\Spinner\Contract\Option\NormalizerOption;
-use AlecRabbit\Spinner\Core\Settings\Contract\ILegacyAuxSettings;
+use AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyAuxSettings;
 
 final class LegacyAuxSettings implements ILegacyAuxSettings
 {

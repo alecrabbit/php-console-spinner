@@ -5,13 +5,13 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Factory;
 
-use AlecRabbit\Spinner\Core\Config\Contract\ISpinnerConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\ILegacyWidgetConfig;
+use AlecRabbit\Spinner\Core\Config\Contract\ISpinnerConfig;
 use AlecRabbit\Spinner\Core\Contract\ILegacySettingsProvider;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use AlecRabbit\Spinner\Core\Factory\Contract\ISpinnerFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IWidgetSettingsFactory;
-use AlecRabbit\Spinner\Core\Settings\Contract\ILegacyWidgetSettings;
+use AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyWidgetSettings;
 use AlecRabbit\Spinner\Core\Spinner;
 use AlecRabbit\Spinner\Core\Widget\Factory\Contract\IWidgetFactory;
 

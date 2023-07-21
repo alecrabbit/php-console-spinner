@@ -3,11 +3,11 @@
 declare(strict_types=1);
 
 
-namespace AlecRabbit\Spinner\Core\Settings;
+namespace AlecRabbit\Spinner\Core\Settings\Legacy;
 
 use AlecRabbit\Spinner\Contract\Option\DriverInitializationOption;
 use AlecRabbit\Spinner\Contract\Option\DriverLinkerOption;
-use AlecRabbit\Spinner\Core\Settings\Contract\ILegacyDriverSettings;
+use AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyDriverSettings;
 
 final class LegacyDriverSettings implements ILegacyDriverSettings
 {

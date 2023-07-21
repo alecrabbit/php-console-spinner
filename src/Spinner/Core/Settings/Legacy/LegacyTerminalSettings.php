@@ -3,11 +3,11 @@
 declare(strict_types=1);
 
 
-namespace AlecRabbit\Spinner\Core\Settings;
+namespace AlecRabbit\Spinner\Core\Settings\Legacy;
 
 use AlecRabbit\Spinner\Contract\Option\CursorVisibilityOption;
 use AlecRabbit\Spinner\Contract\Option\StylingMethodOption;
-use AlecRabbit\Spinner\Core\Settings\Contract\ILegacyTerminalSettings;
+use AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyTerminalSettings;
 
 final class LegacyTerminalSettings implements ILegacyTerminalSettings
 {

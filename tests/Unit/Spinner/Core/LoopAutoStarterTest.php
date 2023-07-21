@@ -7,7 +7,7 @@ namespace AlecRabbit\Tests\Unit\Spinner\Core;
 
 use AlecRabbit\Spinner\Core\Contract\ILoopAutoStarter;
 use AlecRabbit\Spinner\Core\LoopAutoStarter;
-use AlecRabbit\Spinner\Core\Settings\Contract\ILegacyLoopSettings;
+use AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyLoopSettings;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;
 

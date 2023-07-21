@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 
-namespace AlecRabbit\Spinner\Core\Settings\Contract;
+namespace AlecRabbit\Spinner\Core\Settings\Legacy\Contract;
 
 use AlecRabbit\Spinner\Contract\Option\DriverInitializationOption;
 use AlecRabbit\Spinner\Contract\Option\DriverLinkerOption;

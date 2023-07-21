@@ -6,8 +6,8 @@ namespace AlecRabbit\Tests\Unit\Spinner\Core\Defaults;
 
 use AlecRabbit\Spinner\Contract\Option\AutoStartOption;
 use AlecRabbit\Spinner\Contract\Option\SignalHandlersOption;
-use AlecRabbit\Spinner\Core\Settings\Contract\ILegacyLoopSettings;
-use AlecRabbit\Spinner\Core\Settings\LegacyLoopSettings;
+use AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyLoopSettings;
+use AlecRabbit\Spinner\Core\Settings\Legacy\LegacyLoopSettings;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;
 

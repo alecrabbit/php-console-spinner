@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Factory;
 
-use AlecRabbit\Spinner\Core\Settings\Contract\ILegacyTerminalSettings;
-use AlecRabbit\Spinner\Core\Settings\LegacyTerminalSettings;
+use AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyTerminalSettings;
+use AlecRabbit\Spinner\Core\Settings\Legacy\LegacyTerminalSettings;
 use AlecRabbit\Spinner\Core\Terminal\Contract\ITerminalProbe;
 
 final class TerminalSettingsFactory implements Contract\ITerminalSettingsFactory

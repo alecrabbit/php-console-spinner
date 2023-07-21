@@ -3,12 +3,12 @@
 declare(strict_types=1);
 
 
-namespace AlecRabbit\Spinner\Core\Settings;
+namespace AlecRabbit\Spinner\Core\Settings\Legacy;
 
 use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Contract\Pattern\IPattern;
 use AlecRabbit\Spinner\Core\Pattern\Contract\IStylePattern;
-use AlecRabbit\Spinner\Core\Settings\Contract\ILegacyWidgetSettings;
+use AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyWidgetSettings;
 
 final class LegacyWidgetSettings implements ILegacyWidgetSettings
 {

@@ -5,13 +5,13 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Factory;
 
-use AlecRabbit\Spinner\Contract\Option\SignalHandlersOption;
 use AlecRabbit\Spinner\Contract\Option\AutoStartOption;
+use AlecRabbit\Spinner\Contract\Option\SignalHandlersOption;
 use AlecRabbit\Spinner\Core\Contract\ISignalProcessingProbe;
 use AlecRabbit\Spinner\Core\Contract\Loop\Contract\ILoopProbe;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopSettingsFactory;
-use AlecRabbit\Spinner\Core\Settings\Contract\ILegacyLoopSettings;
-use AlecRabbit\Spinner\Core\Settings\LegacyLoopSettings;
+use AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyLoopSettings;
+use AlecRabbit\Spinner\Core\Settings\Legacy\LegacyLoopSettings;
 
 final class LoopSettingsFactory implements ILoopSettingsFactory
 {

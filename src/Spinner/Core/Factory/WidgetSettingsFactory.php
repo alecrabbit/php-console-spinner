@@ -8,7 +8,7 @@ use AlecRabbit\Spinner\Core\Builder\Settings\Contract\ILegacyWidgetSettingsBuild
 use AlecRabbit\Spinner\Core\Config\Contract\ILegacyWidgetConfig;
 use AlecRabbit\Spinner\Core\Contract\ILegacySettingsProvider;
 use AlecRabbit\Spinner\Core\Factory\Contract\IWidgetSettingsFactory;
-use AlecRabbit\Spinner\Core\Settings\Contract\ILegacyWidgetSettings;
+use AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyWidgetSettings;
 
 final class WidgetSettingsFactory implements IWidgetSettingsFactory
 {

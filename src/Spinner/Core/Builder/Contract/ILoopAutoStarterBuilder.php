@@ -6,7 +6,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Builder\Contract;
 
 use AlecRabbit\Spinner\Core\Contract\ILoopAutoStarter;
-use AlecRabbit\Spinner\Core\Settings\Contract\ILegacyLoopSettings;
+use AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyLoopSettings;
 
 interface ILoopAutoStarterBuilder
 {
