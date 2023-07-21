@@ -6,7 +6,6 @@ namespace AlecRabbit\Spinner;
 
 use AlecRabbit\Spinner\Contract\IStaticProbe;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
-
 use Traversable;
 
 use function is_subclass_of;

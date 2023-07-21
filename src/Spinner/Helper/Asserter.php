@@ -160,8 +160,11 @@ final class Asserter
     /**
      * @throws InvalidArgumentException
      */
-    public static function assertIntColor(int $color, StylingMethodOption $styleMode, ?string $callerMethod = null): void
-    {
+    public static function assertIntColor(
+        int $color,
+        StylingMethodOption $styleMode,
+        ?string $callerMethod = null
+    ): void {
         match (true) {
             0 > $color => throw new InvalidArgumentException(
                 sprintf(

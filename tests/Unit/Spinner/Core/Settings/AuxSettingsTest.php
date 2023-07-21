@@ -61,6 +61,7 @@ final class AuxSettingsTest extends TestCaseWithPrebuiltMocksAndStubs
 
         self::assertEquals($runMethodOption, $settings->getRunMethodOption());
     }
+
     #[Test]
     public function canGetNormalizerOption(): void
     {

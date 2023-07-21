@@ -12,8 +12,7 @@ class OutputSettings implements Contract\IOutputSettings
     public function __construct(
         protected StylingMethodOption $stylingMethodOption = StylingMethodOption::AUTO,
         protected CursorVisibilityOption $cursorVisibilityOption = CursorVisibilityOption::AUTO,
-    )
-    {
+    ) {
     }
 
     public function getStylingMethodOption(): StylingMethodOption
