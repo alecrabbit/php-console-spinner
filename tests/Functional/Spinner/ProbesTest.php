@@ -11,10 +11,10 @@ use AlecRabbit\Spinner\Core\Contract\Loop\Contract\ILoopProbe;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Probes;
 use AlecRabbit\Tests\Functional\Spinner\Override\StaticProbeOverride;
-use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
+use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 
-final class ProbesTest extends TestCaseWithPrebuiltMocksAndStubs
+final class ProbesTest extends TestCase
 {
     private array $probes = [];
 

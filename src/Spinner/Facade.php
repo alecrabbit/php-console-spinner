@@ -23,6 +23,14 @@ final class Facade
 {
     private static ?ISettings $settings = null;
 
+    /**
+     * @codeCoverageIgnore
+     */
+    private function __construct()
+    {
+        // No instances of this class are allowed.
+    }
+
     public static function getLoop(): ILoop
     {
         return self::getLoopFactory()->getLoop();

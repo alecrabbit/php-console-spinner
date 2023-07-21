@@ -4,20 +4,24 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Functional\Spinner;
 
-use AlecRabbit\Spinner\Asynchronous\Loop\Probe\ReactLoopProbe;
-use AlecRabbit\Spinner\Asynchronous\Loop\Probe\RevoltLoopProbe;
-use AlecRabbit\Spinner\Contract\IStaticProbe;
-use AlecRabbit\Spinner\Core\Contract\Loop\Contract\ILoopProbe;
+use AlecRabbit\Spinner\Core\Settings\Contract\ISettings;
 use AlecRabbit\Spinner\Core\Settings\Settings;
-use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Facade;
-use AlecRabbit\Spinner\Probes;
-use AlecRabbit\Tests\Functional\Spinner\Override\StaticProbeOverride;
-use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
+use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 
-final class FacadeTest extends TestCaseWithPrebuiltMocksAndStubs
+final class FacadeTest extends TestCase
 {
+    private ?ISettings $settings = null;
+
+//    #[Test]
+//    public function canNotBeInstantiated(): void
+//    {
+//        $this->expectException(\Error::class);
+//        $this->expectExceptionMessage('Call to private AlecRabbit\Spinner\Facade::__construct()');
+//        $facade = new Facade();
+//    }
+
     #[Test]
     public function canGetSettings(): void
     {
@@ -36,5 +40,16 @@ final class FacadeTest extends TestCaseWithPrebuiltMocksAndStubs
         self::assertSame($settings, Facade::getSettings());
         self::assertSame($settings, Facade::getSettings());
         self::assertSame($settings, Facade::getSettings());
+    }
+
+    protected function setUp(): void
+    {
+        $this->settings = self::getPropertyValue('settings', Facade::class);
+        self::setPropertyValue(Facade::class, 'settings', null);
+    }
+
+    protected function tearDown(): void
+    {
+        self::setPropertyValue(Facade::class, 'settings', $this->settings);
     }
 }
