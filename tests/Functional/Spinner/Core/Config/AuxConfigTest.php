@@ -10,10 +10,10 @@ use AlecRabbit\Spinner\Contract\Mode\NormalizerMethodMode;
 use AlecRabbit\Spinner\Contract\Mode\RunMethodMode;
 use AlecRabbit\Spinner\Core\Config\AuxConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IAuxConfig;
-use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
+use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 
-final class AuxConfigTest extends TestCaseWithPrebuiltMocksAndStubs
+final class AuxConfigTest extends TestCase
 {
     #[Test]
     public function canBeCreated(): void
