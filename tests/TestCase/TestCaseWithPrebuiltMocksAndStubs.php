@@ -80,7 +80,6 @@ use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContext;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolverBuilder;
 use AlecRabbit\Spinner\Core\Widget\Factory\Contract\IWidgetCompositeFactory;
 use AlecRabbit\Spinner\Core\Widget\Factory\Contract\IWidgetRevolverFactory;
-use AlecRabbit\Tests\Unit\Spinner\Core\Config\ConfigTest;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\MockObject\Stub;
 
@@ -511,10 +510,5 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
     protected function getSignalProcessingProbeMock(): MockObject&ISignalProcessingProbe
     {
         return $this->createMock(ISignalProcessingProbe::class);
-    }
-
-    protected function getAuxConfigMock(): IAuxConfig
-    {
-        return $this->createMock(IAuxConfig::class);
     }
 }
