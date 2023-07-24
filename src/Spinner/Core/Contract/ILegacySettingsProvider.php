@@ -5,7 +5,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Contract;
 
-use AlecRabbit\Spinner\Core\Config\Contract\ILegacyWidgetConfig;
+use AlecRabbit\Spinner\Core\Config\Legacy\Contract\ILegacyWidgetConfig;
 use AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyAuxSettings;
 use AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyDriverSettings;
 use AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyLoopSettings;

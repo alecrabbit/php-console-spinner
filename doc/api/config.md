@@ -35,17 +35,17 @@ $driverConfig->getInitializationMode(); // InitializationMode::ENABLED
 // Widget config
 $widgetConfig = $config->getWidgetConfig();
 
-$widgetConfig->getCharPattern(); /* TBD */ // default: none
-$widgetConfig->getStylePattern(); /* TBD */ // default: none
-$widgetConfig->getLeadingSpacer(); // new CharFrame('', 0) 
-$widgetConfig->getTrailingSpacer(); // new CharFrame(' ', 1)
+$widgetConfig->getCharPattern(); // IBakedPattern  // default: NoStylePattern
+$widgetConfig->getStylePattern(); // IBakedPattern // default: NoCharPattern
+$widgetConfig->getLeadingSpacer(); // IFrame // default: new CharFrame('', 0) 
+$widgetConfig->getTrailingSpacer(); // IFrame // default: new CharFrame(' ', 1)
 
 // Root Widget config
 $rootWidgetConfig = $config->getRootWidgetConfig();
 
-$rootWidgetConfig->getCharPattern(); /* TBD */ // default: Snake
-$rootWidgetConfig->getStylePattern(); /* TBD */ // default: Rainbow
-$rootWidgetConfig->getLeadingSpacer(); // new CharFrame('', 0) 
-$rootWidgetConfig->getTrailingSpacer(); // new CharFrame(' ', 1)
+$rootWidgetConfig->getCharPattern(); // IBakedPattern // default: baked Snake
+$rootWidgetConfig->getStylePattern(); // IBakedPattern // default: baked Rainbow
+$rootWidgetConfig->getLeadingSpacer(); // IFrame // default: new CharFrame('', 0) 
+$rootWidgetConfig->getTrailingSpacer(); // IFrame // default: new CharFrame(' ', 1)
 
 ```

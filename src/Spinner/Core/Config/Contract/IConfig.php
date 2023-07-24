@@ -2,10 +2,9 @@
 
 declare(strict_types=1);
 
-
 namespace AlecRabbit\Spinner\Core\Config\Contract;
 
-interface ISpinnerConfig
+interface IConfig
 {
-    public function getWidgetConfig(): ILegacyWidgetConfig;
+
 }

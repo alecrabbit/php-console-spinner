@@ -25,8 +25,8 @@ use AlecRabbit\Spinner\Core\Builder\Contract\ITimerBuilder;
 use AlecRabbit\Spinner\Core\Builder\Settings\Contract\ILegacyAuxSettingsBuilder;
 use AlecRabbit\Spinner\Core\Builder\Settings\Contract\ILegacyDriverSettingsBuilder;
 use AlecRabbit\Spinner\Core\Builder\Settings\Contract\ILegacyWidgetSettingsBuilder;
-use AlecRabbit\Spinner\Core\Config\Contract\ILegacyWidgetConfig;
-use AlecRabbit\Spinner\Core\Config\Contract\ISpinnerConfig;
+use AlecRabbit\Spinner\Core\Config\Legacy\Contract\ILegacySpinnerConfig;
+use AlecRabbit\Spinner\Core\Config\Legacy\Contract\ILegacyWidgetConfig;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\IDriverBuilder;
 use AlecRabbit\Spinner\Core\Contract\IDriverLinker;
@@ -224,9 +224,9 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
         return $this->createMock(ILegacySettingsProvider::class);
     }
 
-    protected function getSpinnerConfigMock(): MockObject&ISpinnerConfig
+    protected function getSpinnerConfigMock(): MockObject&ILegacySpinnerConfig
     {
-        return $this->createMock(ISpinnerConfig::class);
+        return $this->createMock(ILegacySpinnerConfig::class);
     }
 
     protected function getLegacyWidgetConfigMock(): MockObject&ILegacyWidgetConfig
