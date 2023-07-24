@@ -3,14 +3,12 @@
 Config object is created using `Settings` object values combined with values retrieved from autodetection.
 
  ```php
-// Package config
-$config->getRunMethod(); // RunMethodMode::ASYNC
-$config->getLoopAvailability(); // LoopAvailabilityMode::PRESENT
-
 // Aux config
 $auxConfig = $config->getAuxConfig();
 
 $auxConfig->getNormalizerMode(); // NormalizerMode::BALANCED
+$auxConfig->getRunMethod(); // RunMethodMode::ASYNC
+$auxConfig->getLoopAvailability(); // LoopAvailabilityMode::PRESENT
 
 // Loop config
 $loopConfig = $config->getLoopConfig();
