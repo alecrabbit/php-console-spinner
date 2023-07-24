@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Config\Contract;
 
-use AlecRabbit\Spinner\Core\Config\Config;
-
 interface IConfig
 {
     public function getAuxConfig(): IAuxConfig;
