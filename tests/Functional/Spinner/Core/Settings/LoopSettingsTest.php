@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Tests\Unit\Spinner\Core\Settings;
+namespace AlecRabbit\Tests\Functional\Spinner\Core\Settings;
 
 use AlecRabbit\Spinner\Contract\Option\AutoStartOption;
 use AlecRabbit\Spinner\Contract\Option\SignalHandlersOption;
 use AlecRabbit\Spinner\Core\Settings\Contract\ILoopSettings;
 use AlecRabbit\Spinner\Core\Settings\LoopSettings;
-use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
+use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 
-final class LoopSettingsTest extends TestCaseWithPrebuiltMocksAndStubs
+final class LoopSettingsTest extends TestCase
 {
     #[Test]
     public function canBeInstantiated(): void

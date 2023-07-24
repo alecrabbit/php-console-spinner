@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Tests\Unit\Spinner\Core\Settings;
+namespace AlecRabbit\Tests\Functional\Spinner\Core\Settings;
 
 use AlecRabbit\Spinner\Contract\Option\CursorVisibilityOption;
 use AlecRabbit\Spinner\Contract\Option\StylingMethodOption;
 use AlecRabbit\Spinner\Core\Settings\Contract\IOutputSettings;
 use AlecRabbit\Spinner\Core\Settings\OutputSettings;
-use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
+use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 
-final class OutputSettingsTest extends TestCaseWithPrebuiltMocksAndStubs
+final class OutputSettingsTest extends TestCase
 {
     #[Test]
     public function canBeInstantiated(): void

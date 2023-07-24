@@ -7,8 +7,8 @@ Config object is created using `Settings` object values combined with values ret
 $auxConfig = $config->getAuxConfig();
 
 $auxConfig->getNormalizerMode(); // NormalizerMode::BALANCED
-$auxConfig->getRunMethod(); // RunMethodMode::ASYNC
-$auxConfig->getLoopAvailability(); // LoopAvailabilityMode::PRESENT
+$auxConfig->getRunMethodMode(); // RunMethodMode::ASYNC
+$auxConfig->getLoopAvailabilityMode(); // LoopAvailabilityMode::PRESENT
 
 // Loop config
 $loopConfig = $config->getLoopConfig();

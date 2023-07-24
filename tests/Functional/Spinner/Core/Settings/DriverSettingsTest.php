@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Tests\Unit\Spinner\Core\Settings;
+namespace AlecRabbit\Tests\Functional\Spinner\Core\Settings;
 
 use AlecRabbit\Spinner\Contract\Option\InitializationOption;
 use AlecRabbit\Spinner\Contract\Option\LinkerOption;
 use AlecRabbit\Spinner\Core\Settings\Contract\IDriverSettings;
 use AlecRabbit\Spinner\Core\Settings\DriverSettings;
-use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
+use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 
-final class DriverSettingsTest extends TestCaseWithPrebuiltMocksAndStubs
+final class DriverSettingsTest extends TestCase
 {
     #[Test]
     public function canBeInstantiated(): void

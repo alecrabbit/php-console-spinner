@@ -11,10 +11,10 @@ use AlecRabbit\Spinner\Core\Settings\LoopSettings;
 use AlecRabbit\Spinner\Core\Settings\OutputSettings;
 use AlecRabbit\Spinner\Core\Settings\Settings;
 use AlecRabbit\Spinner\Core\Settings\WidgetSettings;
-use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
+use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 
-final class SettingsTest extends TestCaseWithPrebuiltMocksAndStubs
+final class SettingsTest extends TestCase
 {
     #[Test]
     public function canBeInstantiated(): void
