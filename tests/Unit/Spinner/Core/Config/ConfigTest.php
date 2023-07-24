@@ -117,6 +117,7 @@ final class ConfigTest extends TestCaseWithPrebuiltMocksAndStubs
         self::assertSame($driverConfig, $config->getDriverConfig());
     }
 
+    #[Test]
     public function canGetWidgetConfig(): void
     {
         $widgetConfig = $this->getWidgetConfigMock();
@@ -126,9 +127,10 @@ final class ConfigTest extends TestCaseWithPrebuiltMocksAndStubs
         );
 
         self::assertSame($widgetConfig, $config->getWidgetConfig());
-//        self::assertNotSame($widgetConfig, $config->getRootWidgetConfig());
+        self::assertNotSame($widgetConfig, $config->getRootWidgetConfig());
     }
 
+    #[Test]
     public function canGetRootWidgetConfig(): void
     {
         $rootWidgetConfig = $this->getWidgetConfigMock();
@@ -138,6 +140,6 @@ final class ConfigTest extends TestCaseWithPrebuiltMocksAndStubs
         );
 
         self::assertSame($rootWidgetConfig, $config->getRootWidgetConfig());
-//        self::assertNotSame($rootWidgetConfig, $config->getWidgetConfig());
+        self::assertNotSame($rootWidgetConfig, $config->getWidgetConfig());
     }
 }

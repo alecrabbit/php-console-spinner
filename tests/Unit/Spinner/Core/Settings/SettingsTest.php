@@ -4,18 +4,13 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Settings;
 
-use AlecRabbit\Spinner\Core\Settings\AuxSettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\IAuxSettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\IDriverSettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\ILoopSettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\IOutputSettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\IWidgetSettings;
-use AlecRabbit\Spinner\Core\Settings\DriverSettings;
-use AlecRabbit\Spinner\Core\Settings\LoopSettings;
-use AlecRabbit\Spinner\Core\Settings\OutputSettings;
 use AlecRabbit\Spinner\Core\Settings\Settings;
-use AlecRabbit\Spinner\Core\Settings\WidgetSettings;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;
 
@@ -46,6 +41,31 @@ final class SettingsTest extends TestCaseWithPrebuiltMocksAndStubs
                 widgetSettings: $widgetSettings ?? $this->getWidgetSettingsMock(),
                 rootWidgetSettings: $rootWidgetSettings ?? $this->getWidgetSettingsMock(),
             );
+    }
+
+    protected function getAuxSettingsMock(): IAuxSettings
+    {
+        return $this->createMock(IAuxSettings::class);
+    }
+
+    protected function getLoopSettingsMock(): ILoopSettings
+    {
+        return $this->createMock(ILoopSettings::class);
+    }
+
+    protected function getOutputSettingsMock(): IOutputSettings
+    {
+        return $this->createMock(IOutputSettings::class);
+    }
+
+    protected function getDriverSettingsMock(): IDriverSettings
+    {
+        return $this->createMock(IDriverSettings::class);
+    }
+
+    protected function getWidgetSettingsMock(): IWidgetSettings
+    {
+        return $this->createMock(IWidgetSettings::class);
     }
 
     #[Test]
@@ -120,30 +140,5 @@ final class SettingsTest extends TestCaseWithPrebuiltMocksAndStubs
         );
 
         self::assertSame($outputSettings, $settings->getOutputSettings());
-    }
-
-    protected function getAuxSettingsMock(): IAuxSettings
-    {
-        return $this->createMock(IAuxSettings::class);
-    }
-
-    protected function getLoopSettingsMock(): ILoopSettings
-    {
-        return $this->createMock(ILoopSettings::class);
-    }
-
-    protected function getOutputSettingsMock(): IOutputSettings
-    {
-        return $this->createMock(IOutputSettings::class);
-    }
-
-    protected function getDriverSettingsMock(): IDriverSettings
-    {
-        return $this->createMock(IDriverSettings::class);
-    }
-
-    protected function getWidgetSettingsMock(): IWidgetSettings
-    {
-        return $this->createMock(IWidgetSettings::class);
     }
 }
