@@ -59,6 +59,7 @@ use AlecRabbit\Spinner\Core\Factory\Contract\ITimerFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IWidgetSettingsFactory;
 use AlecRabbit\Spinner\Core\Output\Contract\IConsoleCursor;
 use AlecRabbit\Spinner\Core\Output\Contract\IDriverOutput;
+use AlecRabbit\Spinner\Core\Pattern\Contract\IBakedPattern;
 use AlecRabbit\Spinner\Core\Pattern\Contract\ICharPattern;
 use AlecRabbit\Spinner\Core\Pattern\Contract\IStylePattern;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolver;
@@ -102,6 +103,11 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
     protected function getFrameMock(): MockObject&IFrame
     {
         return $this->createMock(IFrame::class);
+    }
+
+    protected function getBakedPatternMock(): MockObject&IBakedPattern
+    {
+        return $this->createMock(IBakedPattern::class);
     }
 
     protected function getWidgetCompositeChildrenContainerMock(): MockObject&IWidgetCompositeChildrenContainer

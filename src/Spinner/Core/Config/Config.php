@@ -10,7 +10,7 @@ use AlecRabbit\Spinner\Core\Config\Contract\ILoopConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IOutputConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IWidgetConfig;
 
-final class Config implements Contract\IConfig
+final readonly class Config implements Contract\IConfig
 {
     public function __construct(
         protected IAuxConfig $auxConfig,
