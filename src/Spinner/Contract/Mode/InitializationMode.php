@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Contract\Mode;
 
-enum DriverInitializationMode
+enum InitializationMode
 {
     case ENABLED;
     case DISABLED;

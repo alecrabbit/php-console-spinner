@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Contract\Mode;
 
-enum DriverLinkerMode
+enum LinkerMode
 {
     case ENABLED;
     case DISABLED;
