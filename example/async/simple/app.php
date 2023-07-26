@@ -6,4 +6,5 @@ use AlecRabbit\Spinner\Facade;
 
 require_once __DIR__ . '/../bootstrap.async.php';
 
+
 $spinner = Facade::createSpinner();

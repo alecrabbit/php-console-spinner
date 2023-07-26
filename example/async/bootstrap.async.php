@@ -7,6 +7,9 @@ use AlecRabbit\Spinner\Helper\MemoryUsage;
 
 require_once __DIR__ . '/../bootstrap.php';
 
+// FIXME (2023-07-26 12:4) [Alec Rabbit]: Temporary workaround for Revolt loop not working
+\AlecRabbit\Spinner\Probes::unregister(\AlecRabbit\Spinner\Asynchronous\Loop\Probe\RevoltLoopProbe::class);
+
 $driver = Facade::getDriver();
 $echo =
     $driver->wrap(
