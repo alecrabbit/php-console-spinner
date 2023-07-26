@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-
 namespace AlecRabbit\Spinner\Helper;
 
 use AlecRabbit\Spinner\Helper\Contract\IBytesFormatter;

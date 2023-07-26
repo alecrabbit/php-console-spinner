@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-
 namespace AlecRabbit\Spinner\Core\Settings\Legacy\Contract;
 
 use AlecRabbit\Spinner\Contract\IFrame;

@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-
 namespace AlecRabbit\Tests\Unit\Spinner\Contract;
 
 use AlecRabbit\Spinner\Contract\Option\StylingMethodOption;

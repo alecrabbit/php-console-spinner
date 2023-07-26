@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-
 namespace AlecRabbit\Spinner\Core\Pattern\A;
 
 use AlecRabbit\Spinner\Contract\Pattern\IPattern;

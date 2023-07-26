@@ -22,6 +22,7 @@ final readonly class WidgetConfig implements IWidgetConfig
     {
         return $this->leadingSpacer;
     }
+
     public function getTrailingSpacer(): IFrame
     {
         return $this->trailingSpacer;

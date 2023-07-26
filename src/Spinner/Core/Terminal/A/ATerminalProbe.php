@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-
 namespace AlecRabbit\Spinner\Core\Terminal\A;
 
 use AlecRabbit\Spinner\Contract\Option\CursorVisibilityOption;
