@@ -7,8 +7,9 @@ namespace AlecRabbit\Spinner\Core\Config;
 use AlecRabbit\Spinner\Contract\Mode\LoopAvailabilityMode;
 use AlecRabbit\Spinner\Contract\Mode\NormalizerMethodMode;
 use AlecRabbit\Spinner\Contract\Mode\RunMethodMode;
+use AlecRabbit\Spinner\Core\Config\Contract\IAuxConfig;
 
-final class AuxConfig implements Contract\IAuxConfig
+final readonly class AuxConfig implements IAuxConfig
 {
     public function __construct(
         protected RunMethodMode $runMethodMode,

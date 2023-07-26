@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Config;
 
-final class DriverConfig implements Contract\IDriverConfig
+use AlecRabbit\Spinner\Core\Config\Contract\IDriverConfig;
+
+final class DriverConfig implements IDriverConfig
 {
 
 }

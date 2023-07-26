@@ -5,12 +5,13 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Config;
 
 use AlecRabbit\Spinner\Core\Config\Contract\IAuxConfig;
+use AlecRabbit\Spinner\Core\Config\Contract\IConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IDriverConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\ILoopConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IOutputConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IWidgetConfig;
 
-final readonly class Config implements Contract\IConfig
+final readonly class Config implements IConfig
 {
     public function __construct(
         protected IAuxConfig $auxConfig,

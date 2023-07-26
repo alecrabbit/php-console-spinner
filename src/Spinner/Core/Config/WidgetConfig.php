@@ -5,9 +5,10 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Config;
 
 use AlecRabbit\Spinner\Contract\IFrame;
+use AlecRabbit\Spinner\Core\Config\Contract\IWidgetConfig;
 use AlecRabbit\Spinner\Core\Pattern\Contract\IBakedPattern;
 
-final readonly class WidgetConfig implements Contract\IWidgetConfig
+final readonly class WidgetConfig implements IWidgetConfig
 {
     public function __construct(
         protected IFrame $leadingSpacer,

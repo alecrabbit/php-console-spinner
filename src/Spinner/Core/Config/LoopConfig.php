@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Config;
 
-final class LoopConfig implements Contract\ILoopConfig
+use AlecRabbit\Spinner\Core\Config\Contract\ILoopConfig;
+
+final class LoopConfig implements ILoopConfig
 {
 
 }
