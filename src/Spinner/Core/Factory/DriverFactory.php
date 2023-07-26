@@ -9,6 +9,7 @@ use AlecRabbit\Spinner\Core\Contract\IDriverBuilder;
 use AlecRabbit\Spinner\Core\Contract\IDriverSetup;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDriverFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDriverOutputFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ISignalHandlersSetupFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ITimerFactory;
 use AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyDriverSettings;
@@ -18,6 +19,7 @@ final class DriverFactory implements IDriverFactory
     private static ?IDriver $driver = null;
 
     public function __construct(
+        protected IIntervalFactory $intervalFactory,
         protected IDriverBuilder $driverBuilder,
         protected IDriverOutputFactory $driverOutputFactory,
         protected ISignalHandlersSetupFactory $signalHandlersSetupFactory,
@@ -58,6 +60,7 @@ final class DriverFactory implements IDriverFactory
                 ->withDriverOutput($output)
                 ->withTimer($timer)
                 ->withDriverSettings($this->driverSettings)
+                ->withInitialInterval($this->intervalFactory->createStill())
                 ->build()
         ;
     }

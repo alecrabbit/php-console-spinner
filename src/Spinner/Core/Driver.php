@@ -19,11 +19,12 @@ final class Driver extends ADriver
     public function add(ISpinner $spinner): void
     {
         $this->erase();
-        $spinner->attach($this);
-        $this->spinner = $spinner;
+
         $this->state = new SpinnerState();
-        $this->interval = $this->interval->smallest($spinner->getInterval());
-        $this->notify();
+
+        $this->spinner = $spinner;
+        $spinner->attach($this);
+        $this->update($spinner);
     }
 
     protected function erase(): void
