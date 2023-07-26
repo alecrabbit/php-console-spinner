@@ -7,7 +7,6 @@ namespace AlecRabbit\Tests\Unit\Spinner\Core;
 use AlecRabbit\Spinner\Core\Builder\DriverBuilder;
 use AlecRabbit\Spinner\Core\Contract\IDriverBuilder;
 use AlecRabbit\Spinner\Core\Driver;
-use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalFactory;
 use AlecRabbit\Spinner\Exception\LogicException;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;
@@ -22,9 +21,10 @@ final class DriverBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
         self::assertInstanceOf(DriverBuilder::class, $driverBuilder);
     }
 
-    public function getTesteeInstance(    ): IDriverBuilder {
+    public function getTesteeInstance(): IDriverBuilder
+    {
         return
-            new DriverBuilder(             );
+            new DriverBuilder();
     }
 
     #[Test]
@@ -75,6 +75,7 @@ final class DriverBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
             $driverBuilder
                 ->withTimer($this->getTimerMock())
                 ->withDriverSettings($this->getLegacyDriverSettingsMock())
+                ->withInitialInterval($this->getIntervalMock())
                 ->build()
             ;
         };
@@ -98,6 +99,7 @@ final class DriverBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
             $driverBuilder
                 ->withDriverOutput($this->getDriverOutputMock())
                 ->withDriverSettings($this->getLegacyDriverSettingsMock())
+                ->withInitialInterval($this->getIntervalMock())
                 ->build()
             ;
         };
@@ -121,6 +123,7 @@ final class DriverBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
             $driverBuilder
                 ->withDriverOutput($this->getDriverOutputMock())
                 ->withTimer($this->getTimerMock())
+                ->withInitialInterval($this->getIntervalMock())
                 ->build()
             ;
         };

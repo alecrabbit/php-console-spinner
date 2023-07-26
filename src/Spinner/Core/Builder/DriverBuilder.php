@@ -51,6 +51,14 @@ final class DriverBuilder implements Contract\IDriverBuilder
         return $clone;
     }
 
+    public function withObserver(IObserver $observer): IDriverBuilder
+    {
+        $clone = clone $this;
+        $clone->observer = $observer;
+        return $clone;
+    }
+
+    /** @inheritDoc */
     public function build(): IDriver
     {
         $this->validate();
@@ -65,6 +73,9 @@ final class DriverBuilder implements Contract\IDriverBuilder
             );
     }
 
+    /**
+     * @throws LogicException
+     */
     private function validate(): void
     {
         match (true) {
@@ -74,12 +85,5 @@ final class DriverBuilder implements Contract\IDriverBuilder
             $this->initialInterval === null => throw new LogicException('InitialInterval is not set.'),
             default => null,
         };
-    }
-
-    public function withObserver(IObserver $observer): IDriverBuilder
-    {
-        $clone = clone $this;
-        $clone->observer = $observer;
-        return $clone;
     }
 }

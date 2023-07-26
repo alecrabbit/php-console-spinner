@@ -9,9 +9,13 @@ use AlecRabbit\Spinner\Contract\IObserver;
 use AlecRabbit\Spinner\Contract\ITimer;
 use AlecRabbit\Spinner\Core\Output\Contract\IDriverOutput;
 use AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyDriverSettings;
+use AlecRabbit\Spinner\Exception\LogicException;
 
 interface IDriverBuilder
 {
+    /**
+     * @throws LogicException
+     */
     public function build(): IDriver;
 
     public function withInitialInterval(IInterval $interval): IDriverBuilder;
