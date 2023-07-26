@@ -19,9 +19,10 @@
 /app/src/Spinner/Core/Builder/ConsoleCursorBuilder.php:25:17:error - ArgumentTypeCoercion: Argument 1 of AlecRabbit\Spinner\Core\Output\ConsoleCursor::__construct expects AlecRabbit\Spinner\Contract\Output\IBufferedOutput, but parent type AlecRabbit\Spinner\Contract\Output\IOutput|null provided
 /app/src/Spinner/Core/Builder/ConsoleCursorBuilder.php:25:17:error - PossiblyNullArgument: Argument 1 of AlecRabbit\Spinner\Core\Output\ConsoleCursor::__construct cannot be null, possibly null value provided
 /app/src/Spinner/Core/Builder/ConsoleCursorBuilder.php:26:17:error - PossiblyNullArgument: Argument 2 of AlecRabbit\Spinner\Core\Output\ConsoleCursor::__construct cannot be null, possibly null value provided
-/app/src/Spinner/Core/Builder/DriverBuilder.php:71:24:error - PossiblyNullArgument: Argument 2 of AlecRabbit\Spinner\Core\Driver::__construct cannot be null, possibly null value provided
-/app/src/Spinner/Core/Builder/DriverBuilder.php:72:34:error - PossiblyNullArgument: Argument 3 of AlecRabbit\Spinner\Core\Driver::__construct cannot be null, possibly null value provided
-/app/src/Spinner/Core/Builder/DriverBuilder.php:73:33:error - PossiblyNullArgument: Argument 4 of AlecRabbit\Spinner\Core\Driver::__construct cannot be null, possibly null value provided
+/app/src/Spinner/Core/Builder/DriverBuilder.php:68:25:error - PossiblyNullArgument: Argument 1 of AlecRabbit\Spinner\Core\Driver::__construct cannot be null, possibly null value provided
+/app/src/Spinner/Core/Builder/DriverBuilder.php:69:24:error - PossiblyNullArgument: Argument 2 of AlecRabbit\Spinner\Core\Driver::__construct cannot be null, possibly null value provided
+/app/src/Spinner/Core/Builder/DriverBuilder.php:70:34:error - PossiblyNullArgument: Argument 3 of AlecRabbit\Spinner\Core\Driver::__construct cannot be null, possibly null value provided
+/app/src/Spinner/Core/Builder/DriverBuilder.php:71:33:error - PossiblyNullArgument: Argument 4 of AlecRabbit\Spinner\Core\Driver::__construct cannot be null, possibly null value provided
 /app/src/Spinner/Core/Builder/DriverOutputBuilder.php:24:21:error - PossiblyNullArgument: Argument 1 of AlecRabbit\Spinner\Core\Output\DriverOutput::__construct cannot be null, possibly null value provided
 /app/src/Spinner/Core/Builder/DriverOutputBuilder.php:25:21:error - PossiblyNullArgument: Argument 2 of AlecRabbit\Spinner\Core\Output\DriverOutput::__construct cannot be null, possibly null value provided
 /app/src/Spinner/Core/Builder/IntegerNormalizerBuilder.php:22:13:error - PossiblyNullArgument: Argument 1 of AlecRabbit\Spinner\Core\IntegerNormalizer::__construct cannot be null, possibly null value provided
