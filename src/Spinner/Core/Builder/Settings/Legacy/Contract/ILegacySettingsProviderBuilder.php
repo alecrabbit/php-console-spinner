@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Spinner\Core\Builder\Settings\Contract;
+namespace AlecRabbit\Spinner\Core\Builder\Settings\Legacy\Contract;
 
 use AlecRabbit\Spinner\Core\Contract\ILegacySettingsProvider;
 
