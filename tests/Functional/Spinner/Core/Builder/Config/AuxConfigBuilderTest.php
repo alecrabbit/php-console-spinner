@@ -1,0 +1,47 @@
+<?php
+
+declare(strict_types=1);
+
+namespace AlecRabbit\Tests\Functional\Spinner\Core\Builder\Config;
+
+use AlecRabbit\Spinner\Contract\Mode\LoopAvailabilityMode;
+use AlecRabbit\Spinner\Contract\Mode\NormalizerMethodMode;
+use AlecRabbit\Spinner\Contract\Mode\RunMethodMode;
+use AlecRabbit\Spinner\Core\Builder\Config\AuxConfigBuilder;
+use AlecRabbit\Spinner\Core\Builder\Config\Contract\IAuxConfigBuilder;
+use AlecRabbit\Spinner\Core\Config\AuxConfig;
+use AlecRabbit\Spinner\Exception\LogicException;
+use AlecRabbit\Tests\TestCase\TestCase;
+use PHPUnit\Framework\Attributes\Test;
+
+final class AuxConfigBuilderTest extends TestCase
+{
+    protected function getTesteeInstance(): IAuxConfigBuilder
+    {
+        return
+            new AuxConfigBuilder();
+    }
+
+    #[Test]
+    public function canBuild(): void
+    {
+        $configBuilder = $this->getTesteeInstance();
+
+        $runMethodMode = RunMethodMode::SYNCHRONOUS;
+        $loopAvailabilityMode = LoopAvailabilityMode::NONE;
+        $normalizerMethodMode = NormalizerMethodMode::STILL;
+
+        $config = $configBuilder
+            ->withRunMethodMode($runMethodMode)
+            ->withLoopAvailabilityMode($loopAvailabilityMode)
+            ->withNormalizerMethodMode($normalizerMethodMode)
+            ->build()
+        ;
+
+        self::assertInstanceOf(AuxConfig::class, $config);
+        self::assertSame($runMethodMode, $config->getRunMethodMode());
+        self::assertSame($loopAvailabilityMode, $config->getLoopAvailabilityMode());
+        self::assertSame($normalizerMethodMode, $config->getNormalizerMethodMode());
+    }
+
+}
