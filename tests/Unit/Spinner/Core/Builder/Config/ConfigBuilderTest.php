@@ -77,6 +77,84 @@ final class ConfigBuilderTest extends TestCase
     }
 
     #[Test]
+    public function withAuxConfigReturnsOtherInstanceOfBuilder(): void
+    {
+        $configBuilder = $this->getTesteeInstance();
+
+        $builder =
+            $configBuilder
+                ->withAuxConfig($this->getAuxConfigMock())
+        ;
+
+        self::assertNotSame($builder, $configBuilder);
+    }
+
+    #[Test]
+    public function withLoopConfigReturnsOtherInstanceOfBuilder(): void
+    {
+        $configBuilder = $this->getTesteeInstance();
+
+        $builder =
+            $configBuilder
+                ->withLoopConfig($this->getLoopConfigMock())
+        ;
+
+        self::assertNotSame($builder, $configBuilder);
+    }
+
+    #[Test]
+    public function withOutputConfigReturnsOtherInstanceOfBuilder(): void
+    {
+        $configBuilder = $this->getTesteeInstance();
+
+        $builder =
+            $configBuilder
+                ->withOutputConfig($this->getOutputConfigMock())
+        ;
+
+        self::assertNotSame($builder, $configBuilder);
+    }
+
+    #[Test]
+    public function withDriverConfigReturnsOtherInstanceOfBuilder(): void
+    {
+        $configBuilder = $this->getTesteeInstance();
+
+        $builder =
+            $configBuilder
+                ->withDriverConfig($this->getDriverConfigMock())
+        ;
+
+        self::assertNotSame($builder, $configBuilder);
+    }
+
+    #[Test]
+    public function withWidgetConfigReturnsOtherInstanceOfBuilder(): void
+    {
+        $configBuilder = $this->getTesteeInstance();
+
+        $builder =
+            $configBuilder
+                ->withWidgetConfig($this->getWidgetConfigMock())
+        ;
+
+        self::assertNotSame($builder, $configBuilder);
+    }
+
+    #[Test]
+    public function withRootWidgetConfigReturnsOtherInstanceOfBuilder(): void
+    {
+        $configBuilder = $this->getTesteeInstance();
+
+        $builder =
+            $configBuilder
+                ->withRootWidgetConfig($this->getWidgetConfigMock())
+        ;
+
+        self::assertNotSame($builder, $configBuilder);
+    }
+
+    #[Test]
     public function throwsIfAuxConfigIsNotSet(): void
     {
         $exceptionClass = LogicException::class;
