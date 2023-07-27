@@ -56,7 +56,7 @@ final class DriverFactory implements IDriverFactory
         $timer = $this->timerFactory->create();
 
         $interval = $this->intervalFactory->createStill();
-        
+
         return
             $this->driverBuilder
                 ->withDriverOutput($output)

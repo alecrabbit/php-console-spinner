@@ -15,7 +15,7 @@ use PHPUnit\Framework\MockObject\MockObject;
 final class StreamBufferedOutputTest extends TestCase
 {
     #[Test]
-    public function canBeCreated(): void
+    public function canBeInstantiated(): void
     {
         $streamBufferedOutput = $this->getTesteeInstance(stream: null);
 

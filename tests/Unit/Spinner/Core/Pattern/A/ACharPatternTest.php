@@ -14,7 +14,7 @@ use Traversable;
 final class ACharPatternTest extends TestCase
 {
     #[Test]
-    public function canBeCreated(): void
+    public function canBeInstantiated(): void
     {
         $pattern = $this->getTesteeInstance();
         self::assertInstanceOf(ACharPattern::class, $pattern);

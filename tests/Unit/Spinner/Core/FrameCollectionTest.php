@@ -15,7 +15,7 @@ use Traversable;
 final class FrameCollectionTest extends TestCaseWithPrebuiltMocksAndStubs
 {
     #[Test]
-    public function canBeCreated(): void
+    public function canBeInstantiated(): void
     {
         $frameCollection = $this->getTesteeInstance(
             new ArrayObject(

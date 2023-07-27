@@ -14,7 +14,7 @@ final class DefinitionRegistryTest extends TestCase
     private ?IDefinitionRegistry $registry = null;
 
     #[Test]
-    public function canBeCreated(): void
+    public function canBeInstantiated(): void
     {
         $registry = $this->getTesteeInstance();
 

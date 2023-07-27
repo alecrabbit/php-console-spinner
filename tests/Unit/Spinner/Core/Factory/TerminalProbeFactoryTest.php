@@ -18,7 +18,7 @@ use Traversable;
 final class TerminalProbeFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
 {
     #[Test]
-    public function canBeCreated(): void
+    public function canBeInstantiated(): void
     {
         $terminalProbeFactory = $this->getTesteeInstance();
 

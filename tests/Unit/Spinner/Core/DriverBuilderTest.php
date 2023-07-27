@@ -14,7 +14,7 @@ use PHPUnit\Framework\Attributes\Test;
 final class DriverBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
 {
     #[Test]
-    public function canBeCreated(): void
+    public function canBeInstantiated(): void
     {
         $driverBuilder = $this->getTesteeInstance();
 

@@ -17,7 +17,7 @@ use PHPUnit\Framework\Attributes\Test;
 final class ConfigTest extends TestCaseWithPrebuiltMocksAndStubs
 {
     #[Test]
-    public function canBeCreated(): void
+    public function canBeInstantiated(): void
     {
         $config = $this->getTesteeInstance();
 

@@ -12,7 +12,7 @@ use PHPUnit\Framework\Attributes\Test;
 final class RainbowTest extends TestCaseWithPrebuiltMocksAndStubs
 {
     #[Test]
-    public function canBeCreated(): void
+    public function canBeInstantiated(): void
     {
         $factory = $this->getTesteeInstance();
 

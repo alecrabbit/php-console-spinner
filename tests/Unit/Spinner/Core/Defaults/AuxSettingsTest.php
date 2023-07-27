@@ -13,7 +13,7 @@ use PHPUnit\Framework\Attributes\Test;
 final class AuxSettingsTest extends TestCaseWithPrebuiltMocksAndStubs
 {
     #[Test]
-    public function canBeCreated(): void
+    public function canBeInstantiated(): void
     {
         $auxSettings = $this->getTesteeInstance();
 

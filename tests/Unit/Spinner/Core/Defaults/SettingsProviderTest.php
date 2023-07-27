@@ -17,7 +17,7 @@ use PHPUnit\Framework\Attributes\Test;
 final class SettingsProviderTest extends TestCaseWithPrebuiltMocksAndStubs
 {
     #[Test]
-    public function canBeCreated(): void
+    public function canBeInstantiated(): void
     {
         $settingsProvider = $this->getTesteeInstance();
 

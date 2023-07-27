@@ -14,7 +14,7 @@ use function function_exists;
 final class SignalProcessingProbeTest extends TestCase
 {
     #[Test]
-    public function canBeCreated(): void
+    public function canBeInstantiated(): void
     {
         $driverBuilder = $this->getTesteeInstance();
 

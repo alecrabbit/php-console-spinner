@@ -15,7 +15,7 @@ use PHPUnit\Framework\Attributes\Test;
 final class FrameCollectionRevolverTest extends TestCaseWithPrebuiltMocksAndStubs
 {
     #[Test]
-    public function canBeCreated(): void
+    public function canBeInstantiated(): void
     {
         $frameCollectionRevolver = $this->getTesteeInstance();
 

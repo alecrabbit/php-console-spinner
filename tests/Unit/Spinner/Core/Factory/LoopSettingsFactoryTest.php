@@ -16,7 +16,7 @@ use PHPUnit\Framework\Attributes\Test;
 final class LoopSettingsFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
 {
     #[Test]
-    public function canBeCreated(): void
+    public function canBeInstantiated(): void
     {
         $loopSettingsFactory = $this->getTesteeInstance();
 

@@ -14,7 +14,7 @@ use PHPUnit\Framework\Attributes\Test;
 final class LoopSettingsTest extends TestCaseWithPrebuiltMocksAndStubs
 {
     #[Test]
-    public function canBeCreated(): void
+    public function canBeInstantiated(): void
     {
         $loopSettings = $this->getTesteeInstance();
 
@@ -40,7 +40,7 @@ final class LoopSettingsTest extends TestCaseWithPrebuiltMocksAndStubs
     }
 
     #[Test]
-    public function canBeCreatedWithArguments(): void
+    public function canBeInstantiatedWithArguments(): void
     {
         $loopSettings =
             $this->getTesteeInstance(

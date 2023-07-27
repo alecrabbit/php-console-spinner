@@ -14,7 +14,7 @@ use PHPUnit\Framework\Attributes\Test;
 final class TimerTest extends TestCase
 {
     #[Test]
-    public function canBeCreated(): void
+    public function canBeInstantiated(): void
     {
         $timer = $this->getTesteeInstance();
 

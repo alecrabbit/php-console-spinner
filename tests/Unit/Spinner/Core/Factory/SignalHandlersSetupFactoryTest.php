@@ -15,7 +15,7 @@ use PHPUnit\Framework\Attributes\Test;
 final class SignalHandlersSetupFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
 {
     #[Test]
-    public function canBeCreated(): void
+    public function canBeInstantiated(): void
     {
         $loopSetupFactory = $this->getTesteeInstance();
 

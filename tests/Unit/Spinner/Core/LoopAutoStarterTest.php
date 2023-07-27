@@ -13,7 +13,7 @@ use PHPUnit\Framework\Attributes\Test;
 final class LoopAutoStarterTest extends TestCaseWithPrebuiltMocksAndStubs
 {
     #[Test]
-    public function canBeCreated(): void
+    public function canBeInstantiated(): void
     {
         $autoStarter = $this->getTesteeInstance();
 

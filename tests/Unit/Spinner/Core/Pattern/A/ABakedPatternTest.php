@@ -15,7 +15,7 @@ use PHPUnit\Framework\Attributes\Test;
 final class ABakedPatternTest extends TestCaseWithPrebuiltMocksAndStubs
 {
     #[Test]
-    public function canBeCreated(): void
+    public function canBeInstantiated(): void
     {
         $pattern = $this->getTesteeInstance();
         self::assertInstanceOf(ABakedPattern::class, $pattern);

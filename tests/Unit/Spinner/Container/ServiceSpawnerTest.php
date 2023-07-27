@@ -18,7 +18,7 @@ use Psr\Container\ContainerInterface;
 final class ServiceSpawnerTest extends TestCaseWithPrebuiltMocksAndStubs
 {
     #[Test]
-    public function canBeCreated(): void
+    public function canBeInstantiated(): void
     {
         $spawner = $this->getTesteeInstance();
 

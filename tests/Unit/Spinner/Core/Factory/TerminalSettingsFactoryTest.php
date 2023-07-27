@@ -16,7 +16,7 @@ use PHPUnit\Framework\Attributes\Test;
 final class TerminalSettingsFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
 {
     #[Test]
-    public function canBeCreated(): void
+    public function canBeInstantiated(): void
     {
         $terminalSettingsFactory = $this->getTesteeInstance();
 

@@ -284,7 +284,7 @@ final class WidgetCompositeChildrenContainerTest extends TestCaseWithPrebuiltMoc
     }
 
     #[Test]
-    public function canBeCreated(): void
+    public function canBeInstantiated(): void
     {
         $container = $this->getTesteeInstance();
 

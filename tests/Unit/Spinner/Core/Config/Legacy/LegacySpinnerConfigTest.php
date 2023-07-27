@@ -12,7 +12,7 @@ use PHPUnit\Framework\Attributes\Test;
 final class LegacySpinnerConfigTest extends TestCaseWithPrebuiltMocksAndStubs
 {
     #[Test]
-    public function canBeCreated(): void
+    public function canBeInstantiated(): void
     {
         $widgetConfig = new LegacyWidgetConfig();
         $config = new LegacySpinnerConfig($widgetConfig);

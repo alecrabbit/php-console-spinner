@@ -18,7 +18,7 @@ use PHPUnit\Framework\Attributes\Test;
 final class ContainerTest extends TestCaseWithPrebuiltMocksAndStubs
 {
     #[Test]
-    public function canBeCreated(): void
+    public function canBeInstantiated(): void
     {
         $container = $this->getTesteeInstance();
 

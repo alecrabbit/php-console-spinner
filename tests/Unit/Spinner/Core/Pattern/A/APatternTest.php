@@ -13,7 +13,7 @@ use Traversable;
 final class APatternTest extends TestCase
 {
     #[Test]
-    public function canBeCreated(): void
+    public function canBeInstantiated(): void
     {
         $pattern = $this->getTesteeInstance();
         self::assertInstanceOf(APattern::class, $pattern);

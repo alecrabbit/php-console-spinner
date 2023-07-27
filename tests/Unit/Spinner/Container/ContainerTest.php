@@ -24,7 +24,7 @@ use TypeError;
 final class ContainerTest extends TestCase
 {
     #[Test]
-    public function canBeCreatedWithNullDefinitions(): void
+    public function canBeInstantiatedWithNullDefinitions(): void
     {
         $container = $this->getTesteeInstance();
 
@@ -50,7 +50,7 @@ final class ContainerTest extends TestCase
     }
 
     #[Test]
-    public function canBeCreatedWithEmptyDefinitions(): void
+    public function canBeInstantiatedWithEmptyDefinitions(): void
     {
         $container = $this->getTesteeInstance(new ArrayObject([]));
 
@@ -59,7 +59,7 @@ final class ContainerTest extends TestCase
     }
 
     #[Test]
-    public function canBeCreatedWithDefinitions(): void
+    public function canBeInstantiatedWithDefinitions(): void
     {
         $container = $this->getTesteeInstance(
             new ArrayObject([

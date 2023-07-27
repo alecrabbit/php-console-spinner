@@ -11,7 +11,7 @@ use PHPUnit\Framework\Attributes\Test;
 final class LegacyWidgetConfigTest extends TestCaseWithPrebuiltMocksAndStubs
 {
     #[Test]
-    public function canBeCreatedEmpty(): void
+    public function canBeInstantiatedEmpty(): void
     {
         $config = new LegacyWidgetConfig();
         self::assertNull($config->getLeadingSpacer());
@@ -51,7 +51,7 @@ final class LegacyWidgetConfigTest extends TestCaseWithPrebuiltMocksAndStubs
     }
 
     #[Test]
-    public function canBeCreatedWithValues(): void
+    public function canBeInstantiatedWithValues(): void
     {
         $leadingSpacer = $this->getFrameMock();
         $trailingSpacer = $this->getFrameMock();

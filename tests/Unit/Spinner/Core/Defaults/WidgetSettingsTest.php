@@ -17,7 +17,7 @@ use PHPUnit\Framework\Attributes\Test;
 final class WidgetSettingsTest extends TestCaseWithPrebuiltMocksAndStubs
 {
     #[Test]
-    public function canBeCreated(): void
+    public function canBeInstantiated(): void
     {
         $leadingSpacer = new CharFrame('', 0);
         $trailingSpacer = new CharFrame('', 0);

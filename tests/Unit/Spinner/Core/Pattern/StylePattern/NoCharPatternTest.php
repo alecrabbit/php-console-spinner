@@ -11,7 +11,7 @@ use PHPUnit\Framework\Attributes\Test;
 final class NoCharPatternTest extends TestCaseWithPrebuiltMocksAndStubs
 {
     #[Test]
-    public function canBeCreated(): void
+    public function canBeInstantiated(): void
     {
         $pattern = $this->getTesteeInstance();
 

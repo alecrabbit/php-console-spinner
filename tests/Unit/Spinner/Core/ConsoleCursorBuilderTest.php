@@ -14,7 +14,7 @@ use PHPUnit\Framework\Attributes\Test;
 final class ConsoleCursorBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
 {
     #[Test]
-    public function canBeCreated(): void
+    public function canBeInstantiated(): void
     {
         $consoleCursorBuilder = $this->getTesteeInstance();
 

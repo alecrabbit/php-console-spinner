@@ -12,7 +12,7 @@ use PHPUnit\Framework\Attributes\Test;
 final class NoStylePatternTest extends TestCaseWithPrebuiltMocksAndStubs
 {
     #[Test]
-    public function canBeCreated(): void
+    public function canBeInstantiated(): void
     {
         $pattern = $this->getTesteeInstance();
 

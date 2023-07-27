@@ -16,7 +16,7 @@ use PHPUnit\Framework\Attributes\Test;
 final class WidgetRevolverFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
 {
     #[Test]
-    public function canBeCreated(): void
+    public function canBeInstantiated(): void
     {
         $widgetRevolverFactory = $this->getTesteeInstance();
 
