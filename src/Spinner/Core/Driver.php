@@ -34,6 +34,19 @@ final class Driver extends ADriver
         }
     }
 
+    public function update(ISubject $subject): void
+    {
+        if ($this->spinner === $subject) {
+            $this->interval = $this->recalculateInterval();
+            $this->notify();
+        }
+    }
+
+    protected function recalculateInterval(): IInterval
+    {
+        return $this->initialInterval->smallest($this->spinner?->getInterval());
+    }
+
     /** @inheritdoc */
     public function remove(ISpinner $spinner): void
     {
@@ -45,20 +58,6 @@ final class Driver extends ADriver
             $this->notify();
         }
     }
-
-    protected function recalculateInterval(): IInterval
-    {
-        return $this->initialInterval->smallest($this->spinner?->getInterval());
-    }
-
-    public function update(ISubject $subject): void
-    {
-        if ($this->spinner === $subject) {
-            $this->interval = $this->recalculateInterval();
-            $this->notify();
-        }
-    }
-
 
     /** @inheritdoc */
     public function render(?float $dt = null): void

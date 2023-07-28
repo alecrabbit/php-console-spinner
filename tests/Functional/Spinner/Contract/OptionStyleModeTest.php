@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Tests\Unit\Spinner\Contract;
+namespace AlecRabbit\Tests\Functional\Spinner\Contract;
 
 use AlecRabbit\Spinner\Contract\Option\StylingMethodOption;
 use AlecRabbit\Tests\TestCase\TestCase;
