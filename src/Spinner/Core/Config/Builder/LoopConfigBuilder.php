@@ -39,8 +39,8 @@ final class LoopConfigBuilder implements ILoopConfigBuilder
     private function validate(): void
     {
         match (true) {
-            $this->autoStartMode === null => throw new LogicException('AutoStartMode is not set'),
-            $this->signalHandlersMode === null => throw new LogicException('SignalHandlersMode is not set'),
+            $this->autoStartMode === null => throw new LogicException('AutoStartMode is not set.'),
+            $this->signalHandlersMode === null => throw new LogicException('SignalHandlersMode is not set.'),
             default => null,
         };
     }

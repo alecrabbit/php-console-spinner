@@ -4,29 +4,31 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Config\Builder;
 
-use AlecRabbit\Spinner\Contract\Mode\AutoStartMode;
-use AlecRabbit\Spinner\Contract\Mode\SignalHandlersMode;
-use AlecRabbit\Spinner\Core\Config\Builder\LoopConfigBuilder;
-use AlecRabbit\Spinner\Core\Config\Contract\Builder\ILoopConfigBuilder;
-use AlecRabbit\Spinner\Core\Config\LoopConfig;
+use AlecRabbit\Spinner\Contract\Mode\CursorVisibilityMode;
+use AlecRabbit\Spinner\Contract\Mode\InitializationMode;
+use AlecRabbit\Spinner\Contract\Mode\LinkerMode;
+use AlecRabbit\Spinner\Contract\Mode\StylingMethodMode;
+use AlecRabbit\Spinner\Core\Config\Builder\OutputConfigBuilder;
+use AlecRabbit\Spinner\Core\Config\Contract\Builder\IOutputConfigBuilder;
+use AlecRabbit\Spinner\Core\Config\OutputConfig;
 use AlecRabbit\Spinner\Exception\LogicException;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 
-final class LoopConfigBuilderTest extends TestCase
+final class OutputConfigBuilderTest extends TestCase
 {
     #[Test]
     public function canBeInstantiated(): void
     {
         $configBuilder = $this->getTesteeInstance();
 
-        self::assertInstanceOf(LoopConfigBuilder::class, $configBuilder);
+        self::assertInstanceOf(OutputConfigBuilder::class, $configBuilder);
     }
 
-    protected function getTesteeInstance(): ILoopConfigBuilder
+    protected function getTesteeInstance(): IOutputConfigBuilder
     {
         return
-            new LoopConfigBuilder();
+            new OutputConfigBuilder();
     }
 
     #[Test]
@@ -35,53 +37,53 @@ final class LoopConfigBuilderTest extends TestCase
         $configBuilder = $this->getTesteeInstance();
 
         $config = $configBuilder
-            ->withAutoStartMode(AutoStartMode::DISABLED)
-            ->withSignalHandlersMode(SignalHandlersMode::DISABLED)
+            ->withCursorVisibilityMode(CursorVisibilityMode::VISIBLE)
+            ->withStylingMethodMode(StylingMethodMode::ANSI4)
             ->build()
         ;
 
-        self::assertInstanceOf(LoopConfig::class, $config);
+        self::assertInstanceOf(OutputConfig::class, $config);
     }
 
     #[Test]
-    public function withAutoStartModeReturnsOtherInstanceOfBuilder(): void
+    public function withCursorVisibilityModeReturnsOtherInstanceOfBuilder(): void
     {
         $configBuilder = $this->getTesteeInstance();
 
         $builder =
             $configBuilder
-                ->withAutoStartMode(AutoStartMode::DISABLED)
+                ->withCursorVisibilityMode(CursorVisibilityMode::VISIBLE)
         ;
 
-        self::assertInstanceOf(LoopConfigBuilder::class, $builder);
+        self::assertInstanceOf(OutputConfigBuilder::class, $builder);
         self::assertNotSame($builder, $configBuilder);
     }
 
     #[Test]
-    public function withSignalHandlersModeReturnsOtherInstanceOfBuilder(): void
+    public function withStylingMethodModeReturnsOtherInstanceOfBuilder(): void
     {
         $configBuilder = $this->getTesteeInstance();
 
         $builder =
             $configBuilder
-                ->withSignalHandlersMode(SignalHandlersMode::DISABLED)
+                ->withStylingMethodMode(StylingMethodMode::ANSI4)
         ;
 
-        self::assertInstanceOf(LoopConfigBuilder::class, $builder);
+        self::assertInstanceOf(OutputConfigBuilder::class, $builder);
         self::assertNotSame($builder, $configBuilder);
     }
 
     #[Test]
-    public function throwsIfAutoStartModeIsNotSet(): void
+    public function throwsIfCursorVisibilityModeIsNotSet(): void
     {
         $exceptionClass = LogicException::class;
-        $exceptionMessage = 'AutoStartMode is not set.';
+        $exceptionMessage = 'CursorVisibilityMode is not set.';
 
         $test = function (): void {
             $configBuilder = $this->getTesteeInstance();
 
             $configBuilder
-                ->withSignalHandlersMode(SignalHandlersMode::DISABLED)
+                ->withStylingMethodMode(StylingMethodMode::ANSI4)
                 ->build()
             ;
         };
@@ -94,16 +96,16 @@ final class LoopConfigBuilderTest extends TestCase
     }
 
     #[Test]
-    public function throwsIfSignalHandlersModeIsNotSet(): void
+    public function throwsIfStylingMethodModeIsNotSet(): void
     {
         $exceptionClass = LogicException::class;
-        $exceptionMessage = 'SignalHandlersMode is not set.';
+        $exceptionMessage = 'StylingMethodMode is not set.';
 
         $test = function (): void {
             $configBuilder = $this->getTesteeInstance();
 
             $configBuilder
-                ->withAutoStartMode(AutoStartMode::DISABLED)
+                ->withCursorVisibilityMode(CursorVisibilityMode::VISIBLE)
                 ->build()
             ;
         };

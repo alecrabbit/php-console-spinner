@@ -75,7 +75,7 @@ final class DriverConfigBuilderTest extends TestCase
     public function throwsIfLinkerModeModeIsNotSet(): void
     {
         $exceptionClass = LogicException::class;
-        $exceptionMessage = 'LinkerMode is not set';
+        $exceptionMessage = 'LinkerMode is not set.';
 
         $test = function (): void {
             $configBuilder = $this->getTesteeInstance();
@@ -97,7 +97,7 @@ final class DriverConfigBuilderTest extends TestCase
     public function throwsIfInitializationModeIsNotSet(): void
     {
         $exceptionClass = LogicException::class;
-        $exceptionMessage = 'InitializationMode is not set';
+        $exceptionMessage = 'InitializationMode is not set.';
 
         $test = function (): void {
             $configBuilder = $this->getTesteeInstance();

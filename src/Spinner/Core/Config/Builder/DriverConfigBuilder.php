@@ -11,6 +11,9 @@ use AlecRabbit\Spinner\Core\Config\Contract\IDriverConfig;
 use AlecRabbit\Spinner\Core\Config\DriverConfig;
 use AlecRabbit\Spinner\Exception\LogicException;
 
+/**
+ * @psalm-suppress PossiblyNullArgument
+ */
 final class DriverConfigBuilder implements IDriverConfigBuilder
 {
     private ?LinkerMode $linkerMode = null;
@@ -36,8 +39,8 @@ final class DriverConfigBuilder implements IDriverConfigBuilder
     private function validate(): void
     {
         match (true) {
-            $this->linkerMode === null => throw new LogicException('LinkerMode is not set'),
-            $this->initializationMode === null => throw new LogicException('InitializationMode is not set'),
+            $this->linkerMode === null => throw new LogicException('LinkerMode is not set.'),
+            $this->initializationMode === null => throw new LogicException('InitializationMode is not set.'),
             default => null,
         };
     }
