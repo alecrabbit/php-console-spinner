@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Spinner\Core\Factory\Config\Contract;
+namespace AlecRabbit\Spinner\Core\Config\Contract\Factory;
 
 use AlecRabbit\Spinner\Core\Contract\IConfigProvider;
 

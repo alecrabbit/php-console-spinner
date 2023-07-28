@@ -2,15 +2,14 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Tests\Functional\Spinner\Core\Builder\Config;
+namespace AlecRabbit\Tests\Functional\Spinner\Core\Config\Builder;
 
 use AlecRabbit\Spinner\Contract\Mode\LoopAvailabilityMode;
 use AlecRabbit\Spinner\Contract\Mode\NormalizerMethodMode;
 use AlecRabbit\Spinner\Contract\Mode\RunMethodMode;
-use AlecRabbit\Spinner\Core\Builder\Config\AuxConfigBuilder;
-use AlecRabbit\Spinner\Core\Builder\Config\Contract\IAuxConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\AuxConfig;
-use AlecRabbit\Spinner\Exception\LogicException;
+use AlecRabbit\Spinner\Core\Config\Builder\AuxConfigBuilder;
+use AlecRabbit\Spinner\Core\Config\Contract\Builder\IAuxConfigBuilder;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 

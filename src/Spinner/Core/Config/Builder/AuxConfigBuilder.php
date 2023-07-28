@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Spinner\Core\Builder\Config;
+namespace AlecRabbit\Spinner\Core\Config\Builder;
 
 use AlecRabbit\Spinner\Contract\Mode\LoopAvailabilityMode;
 use AlecRabbit\Spinner\Contract\Mode\NormalizerMethodMode;
 use AlecRabbit\Spinner\Contract\Mode\RunMethodMode;
-use AlecRabbit\Spinner\Core\Builder\Config\Contract\IAuxConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\AuxConfig;
+use AlecRabbit\Spinner\Core\Config\Contract\Builder\IAuxConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\IAuxConfig;
 use AlecRabbit\Spinner\Exception\LogicException;
 

@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Spinner\Core\Builder\Config;
+namespace AlecRabbit\Spinner\Core\Config\Builder;
 
-use AlecRabbit\Spinner\Core\Builder\Config\Contract\IConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Config;
+use AlecRabbit\Spinner\Core\Config\Contract\Builder\IConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\IAuxConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IDriverConfig;

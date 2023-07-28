@@ -2,12 +2,13 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Tests\Unit\Spinner\Core\Factory\Config;
+namespace AlecRabbit\Tests\Unit\Spinner\Core\Config\Factory;
 
+use AlecRabbit\Spinner\Core\Config\Contract\Factory\IConfigFactory;
+use AlecRabbit\Spinner\Core\Config\Contract\Factory\IConfigProviderFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\IConfig;
+use AlecRabbit\Spinner\Core\Config\Factory\ConfigProviderFactory;
 use AlecRabbit\Spinner\Core\ConfigProvider;
-use AlecRabbit\Spinner\Core\Factory\Config\ConfigProviderFactory;
-use AlecRabbit\Spinner\Core\Factory\Config\Contract\IConfigProviderFactory;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;

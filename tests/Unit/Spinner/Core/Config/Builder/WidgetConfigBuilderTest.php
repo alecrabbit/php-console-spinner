@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Tests\Unit\Spinner\Core\Builder\Config;
+namespace AlecRabbit\Tests\Unit\Spinner\Core\Config\Builder;
 
 use AlecRabbit\Spinner\Contract\IFrame;
-use AlecRabbit\Spinner\Core\Builder\Config\Contract\IWidgetConfigBuilder;
-use AlecRabbit\Spinner\Core\Builder\Config\WidgetConfigBuilder;
+use AlecRabbit\Spinner\Core\Config\Builder\WidgetConfigBuilder;
+use AlecRabbit\Spinner\Core\Config\Contract\Builder\IWidgetConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\WidgetConfig;
 use AlecRabbit\Spinner\Core\Pattern\Contract\IBakedPattern;
 use AlecRabbit\Spinner\Exception\LogicException;

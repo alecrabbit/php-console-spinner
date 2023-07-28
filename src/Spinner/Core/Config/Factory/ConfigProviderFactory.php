@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Spinner\Core\Factory\Config;
+namespace AlecRabbit\Spinner\Core\Config\Factory;
 
+use AlecRabbit\Spinner\Core\Config\Contract\Factory\IConfigFactory;
+use AlecRabbit\Spinner\Core\Config\Contract\Factory\IConfigProviderFactory;
 use AlecRabbit\Spinner\Core\ConfigProvider;
 use AlecRabbit\Spinner\Core\Contract\IConfigProvider;
-use AlecRabbit\Spinner\Core\Factory\Config\Contract\IConfigProviderFactory;
-use AlecRabbit\Tests\Unit\Spinner\Core\Factory\Config\IConfigFactory;
 
 final readonly class ConfigProviderFactory implements IConfigProviderFactory
 {
