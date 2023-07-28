@@ -9,7 +9,6 @@ use AlecRabbit\Spinner\Contract\Mode\SignalHandlersMode;
 
 interface ILoopConfig
 {
-
     public function getSignalHandlersMode(): SignalHandlersMode;
 
     public function getAutoStartMode(): AutoStartMode;
