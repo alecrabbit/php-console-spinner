@@ -5,18 +5,18 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Config\Factory;
 
 use AlecRabbit\Spinner\Core\Config\AuxConfig;
-use AlecRabbit\Spinner\Core\Config\Contract\Detector\ILoopAvailabilityModeDetector;
-use AlecRabbit\Spinner\Core\Config\Contract\Detector\INormalizerMethodModeDetector;
-use AlecRabbit\Spinner\Core\Config\Contract\Detector\IRunMethodModeDetector;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\IAuxConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\IAuxConfig;
+use AlecRabbit\Spinner\Core\Config\Contract\Solver\ILoopAvailabilityModeSolver;
+use AlecRabbit\Spinner\Core\Config\Contract\Solver\INormalizerMethodModeSolver;
+use AlecRabbit\Spinner\Core\Config\Contract\Solver\IRunMethodModeSolver;
 
 class AuxConfigFactory implements IAuxConfigFactory
 {
     public function __construct(
-        protected IRunMethodModeDetector $runMethodModeDetector,
-        protected ILoopAvailabilityModeDetector $loopAvailabilityModeDetector,
-        protected INormalizerMethodModeDetector $normalizerMethodModeDetector,
+        protected IRunMethodModeSolver $runMethodModeSolver,
+        protected ILoopAvailabilityModeSolver $loopAvailabilityModeSolver,
+        protected INormalizerMethodModeSolver $normalizerMethodModeSolver,
     ) {
     }
 
@@ -24,9 +24,9 @@ class AuxConfigFactory implements IAuxConfigFactory
     {
         return
             new AuxConfig(
-                runMethodMode: $this->runMethodModeDetector->detect(),
-                loopAvailabilityMode: $this->loopAvailabilityModeDetector->detect(),
-                normalizerMethodMode: $this->normalizerMethodModeDetector->detect(),
+                runMethodMode: $this->runMethodModeSolver->solve(),
+                loopAvailabilityMode: $this->loopAvailabilityModeSolver->solve(),
+                normalizerMethodMode: $this->normalizerMethodModeSolver->solve(),
             );
     }
 }

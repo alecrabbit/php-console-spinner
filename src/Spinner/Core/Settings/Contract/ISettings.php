@@ -6,7 +6,6 @@ namespace AlecRabbit\Spinner\Core\Settings\Contract;
 
 interface ISettings
 {
-
     public function getAuxSettings(): IAuxSettings;
 
     public function getWidgetSettings(): IWidgetSettings;

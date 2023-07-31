@@ -6,7 +6,7 @@ namespace AlecRabbit\Spinner\Core\Settings;
 
 use AlecRabbit\Spinner\Contract\IFrame;
 
-class WidgetSettings implements Contract\IWidgetSettings
+final class WidgetSettings implements Contract\IWidgetSettings
 {
 
     public function __construct(

@@ -8,9 +8,9 @@ use AlecRabbit\Spinner\Contract\Mode\LoopAvailabilityMode;
 use AlecRabbit\Spinner\Contract\Mode\NormalizerMethodMode;
 use AlecRabbit\Spinner\Contract\Mode\RunMethodMode;
 use AlecRabbit\Spinner\Core\Config\AuxConfig;
-use AlecRabbit\Spinner\Core\Config\Contract\Detector\ILoopAvailabilityModeDetector;
-use AlecRabbit\Spinner\Core\Config\Contract\Detector\INormalizerMethodModeDetector;
-use AlecRabbit\Spinner\Core\Config\Contract\Detector\IRunMethodModeDetector;
+use AlecRabbit\Spinner\Core\Config\Contract\Solver\ILoopAvailabilityModeSolver;
+use AlecRabbit\Spinner\Core\Config\Contract\Solver\INormalizerMethodModeSolver;
+use AlecRabbit\Spinner\Core\Config\Contract\Solver\IRunMethodModeSolver;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\IAuxConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Factory\AuxConfigFactory;
 use AlecRabbit\Tests\TestCase\TestCase;
@@ -28,47 +28,47 @@ final class AuxConfigFactoryTest extends TestCase
     }
 
     public function getTesteeInstance(
-        ?IRunMethodModeDetector $runMethodDetector = null,
-        ?ILoopAvailabilityModeDetector $loopAvailabilityDetector = null,
-        ?INormalizerMethodModeDetector $normalizerMethodDetector = null,
+        ?IRunMethodModeSolver $runMethodModeSolver = null,
+        ?ILoopAvailabilityModeSolver $loopAvailabilityModeSolver = null,
+        ?INormalizerMethodModeSolver $normalizerMethodModeSolver = null,
     ): IAuxConfigFactory {
         return
             new AuxConfigFactory(
-                runMethodModeDetector: $runMethodDetector ?? $this->getRunMethodModeDetectorMock(),
-                loopAvailabilityModeDetector: $loopAvailabilityDetector ?? $this->getLoopAvailabilityModeDetectorMock(),
-                normalizerMethodModeDetector: $normalizerMethodDetector ?? $this->getNormalizerMethodModeDetectorMock(),
+                runMethodModeSolver: $runMethodModeSolver ?? $this->getRunMethodModeSolverMock(),
+                loopAvailabilityModeSolver: $loopAvailabilityModeSolver ?? $this->getLoopAvailabilityModeSolverMock(),
+                normalizerMethodModeSolver: $normalizerMethodModeSolver ?? $this->getNormalizerMethodModeSolverMock(),
             );
     }
 
-    protected function getRunMethodModeDetectorMock(?RunMethodMode $runMethodMode = null
-    ): MockObject&IRunMethodModeDetector {
+    protected function getRunMethodModeSolverMock(?RunMethodMode $runMethodMode = null
+    ): MockObject&IRunMethodModeSolver {
         return
             $this->createConfiguredMock(
-                IRunMethodModeDetector::class,
+                IRunMethodModeSolver::class,
                 [
-                    'detect' => $runMethodMode ?? RunMethodMode::SYNCHRONOUS,
+                    'solve' => $runMethodMode ?? RunMethodMode::SYNCHRONOUS,
                 ]
             );
     }
 
-    protected function getLoopAvailabilityModeDetectorMock(?LoopAvailabilityMode $loopAvailabilityMode = null
-    ): MockObject&ILoopAvailabilityModeDetector {
+    protected function getLoopAvailabilityModeSolverMock(?LoopAvailabilityMode $loopAvailabilityMode = null
+    ): MockObject&ILoopAvailabilityModeSolver {
         return
             $this->createConfiguredMock(
-                ILoopAvailabilityModeDetector::class,
+                ILoopAvailabilityModeSolver::class,
                 [
-                    'detect' => $loopAvailabilityMode ?? LoopAvailabilityMode::NONE,
+                    'solve' => $loopAvailabilityMode ?? LoopAvailabilityMode::NONE,
                 ]
             );
     }
 
-    protected function getNormalizerMethodModeDetectorMock(?NormalizerMethodMode $normalizerMethodMode = null
-    ): MockObject&INormalizerMethodModeDetector {
+    protected function getNormalizerMethodModeSolverMock(?NormalizerMethodMode $normalizerMethodMode = null
+    ): MockObject&INormalizerMethodModeSolver {
         return
             $this->createConfiguredMock(
-                INormalizerMethodModeDetector::class,
+                INormalizerMethodModeSolver::class,
                 [
-                    'detect' => $normalizerMethodMode ?? NormalizerMethodMode::STILL,
+                    'solve' => $normalizerMethodMode ?? NormalizerMethodMode::STILL,
                 ]
             );
     }
@@ -82,9 +82,9 @@ final class AuxConfigFactoryTest extends TestCase
 
         $factory =
             $this->getTesteeInstance(
-                runMethodDetector: $this->getRunMethodModeDetectorMock($runMethodMode),
-                loopAvailabilityDetector: $this->getLoopAvailabilityModeDetectorMock($loopAvailabilityMode),
-                normalizerMethodDetector: $this->getNormalizerMethodModeDetectorMock($normalizerMethodMode),
+                runMethodModeSolver: $this->getRunMethodModeSolverMock($runMethodMode),
+                loopAvailabilityModeSolver: $this->getLoopAvailabilityModeSolverMock($loopAvailabilityMode),
+                normalizerMethodModeSolver: $this->getNormalizerMethodModeSolverMock($normalizerMethodMode),
             );
 
         $config = $factory->create();
