@@ -86,11 +86,8 @@ final class Facade
 
     public static function getSettings(): ISettings
     {
-        return self::getSettingsProvider()->getUserSettings();
-//        if (self::$settings === null) {
-//            self::$settings = new Settings();
-//        }
-//        return self::$settings;
+        return
+            self::getSettingsProvider()->getUserSettings();
     }
 
     protected static function getSettingsProvider(): ISettingsProvider
