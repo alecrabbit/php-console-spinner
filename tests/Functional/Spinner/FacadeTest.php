@@ -41,15 +41,4 @@ final class FacadeTest extends TestCase
         self::assertSame($settings, Facade::getSettings());
         self::assertSame($settings, Facade::getSettings());
     }
-
-    protected function setUp(): void
-    {
-        $this->settings = self::getPropertyValue('settings', Facade::class);
-        self::setPropertyValue(Facade::class, 'settings', null);
-    }
-
-    protected function tearDown(): void
-    {
-        self::setPropertyValue(Facade::class, 'settings', $this->settings);
-    }
 }

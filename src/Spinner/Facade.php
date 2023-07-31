@@ -17,12 +17,10 @@ use AlecRabbit\Spinner\Core\Factory\Contract\IDriverFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ISpinnerFactory;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettings;
-use AlecRabbit\Spinner\Core\Settings\Settings;
+use AlecRabbit\Spinner\Core\Settings\Contract\ISettingsProvider;
 
 final class Facade
 {
-    private static ?ISettings $settings = null;
-
     /**
      * @codeCoverageIgnore
      */
@@ -48,11 +46,6 @@ final class Facade
         $registry = DefinitionRegistry::getInstance();
 
         return (new $class($registry))->getContainer();
-    }
-
-    public static function getSettingsProvider(): ILegacySettingsProvider
-    {
-        return self::getContainer()->get(ILegacySettingsProvider::class);
     }
 
     public static function createSpinner(
@@ -93,9 +86,20 @@ final class Facade
 
     public static function getSettings(): ISettings
     {
-        if (self::$settings === null) {
-            self::$settings = new Settings();
-        }
-        return self::$settings;
+        return self::getSettingsProvider()->getUserSettings();
+//        if (self::$settings === null) {
+//            self::$settings = new Settings();
+//        }
+//        return self::$settings;
+    }
+
+    protected static function getSettingsProvider(): ISettingsProvider
+    {
+        return self::getContainer()->get(ISettingsProvider::class);
+    }
+
+    protected static function getLegacySettingsProvider(): ILegacySettingsProvider
+    {
+        return self::getContainer()->get(ILegacySettingsProvider::class);
     }
 }

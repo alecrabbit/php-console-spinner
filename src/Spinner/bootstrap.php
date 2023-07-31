@@ -86,6 +86,7 @@ use AlecRabbit\Spinner\Core\Factory\WidgetSettingsFactory;
 use AlecRabbit\Spinner\Core\Output\ResourceStream;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolverBuilder;
 use AlecRabbit\Spinner\Core\Revolver\FrameRevolverBuilder;
+use AlecRabbit\Spinner\Core\Settings\Contract\ISettingsProvider;
 use AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyDriverSettings;
 use AlecRabbit\Spinner\Core\SignalHandlersSetup;
 use AlecRabbit\Spinner\Core\Terminal\NativeTerminalProbe;
@@ -193,6 +194,14 @@ function definitions(): Traversable
                 new ResourceStream($provider->getLegacyTerminalSettings()->getOutputStream());
         },
 
+        ISettingsProvider::class => static function (ContainerInterface $container): ISettingsProvider {
+            return
+                new \AlecRabbit\Spinner\Core\Settings\SettingsProvider(
+                    new \AlecRabbit\Spinner\Core\Settings\Settings(),
+                    new \AlecRabbit\Spinner\Core\Settings\Settings(),
+                    new \AlecRabbit\Spinner\Core\Settings\Settings(),
+                );
+        },
         ILegacySettingsProvider::class => static function (ContainerInterface $container): ILegacySettingsProvider {
             return
                 $container->get(ILegacySettingsProviderBuilder::class)->build();

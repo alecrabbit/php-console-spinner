@@ -7,7 +7,7 @@ use AlecRabbit\Spinner\Facade;
 
 require_once __DIR__ . '/../bootstrap.async.php';
 
-$settingsProvider = Facade::getSettingsProvider();
+$settingsProvider = Facade::getLegacySettingsProvider();
 $settingsProvider
     ->getLegacyTerminalSettings()
     ->setOptionStyleMode(
