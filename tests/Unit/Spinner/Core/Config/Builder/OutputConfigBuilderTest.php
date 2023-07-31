@@ -5,8 +5,6 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Config\Builder;
 
 use AlecRabbit\Spinner\Contract\Mode\CursorVisibilityMode;
-use AlecRabbit\Spinner\Contract\Mode\InitializationMode;
-use AlecRabbit\Spinner\Contract\Mode\LinkerMode;
 use AlecRabbit\Spinner\Contract\Mode\StylingMethodMode;
 use AlecRabbit\Spinner\Core\Config\Builder\OutputConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\Builder\IOutputConfigBuilder;

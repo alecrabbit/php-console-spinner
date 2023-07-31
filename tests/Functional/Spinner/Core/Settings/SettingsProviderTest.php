@@ -4,15 +4,10 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Functional\Spinner\Core\Settings;
 
-use AlecRabbit\Spinner\Core\Settings\AuxSettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettingsProvider;
-use AlecRabbit\Spinner\Core\Settings\DriverSettings;
-use AlecRabbit\Spinner\Core\Settings\LoopSettings;
-use AlecRabbit\Spinner\Core\Settings\OutputSettings;
 use AlecRabbit\Spinner\Core\Settings\Settings;
 use AlecRabbit\Spinner\Core\Settings\SettingsProvider;
-use AlecRabbit\Spinner\Core\Settings\WidgetSettings;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 
@@ -30,8 +25,7 @@ final class SettingsProviderTest extends TestCase
         ?ISettings $userSettings = null,
         ?ISettings $defaultSettings = null,
         ?ISettings $detectedSettings = null,
-    ): ISettingsProvider
-    {
+    ): ISettingsProvider {
         return
             new SettingsProvider(
                 userSettings: $userSettings ?? new Settings(),

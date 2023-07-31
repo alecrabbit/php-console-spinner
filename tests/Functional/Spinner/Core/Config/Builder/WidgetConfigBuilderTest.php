@@ -15,12 +15,6 @@ use PHPUnit\Framework\MockObject\MockObject;
 
 final class WidgetConfigBuilderTest extends TestCase
 {
-    protected function getTesteeInstance(): IWidgetConfigBuilder
-    {
-        return
-            new WidgetConfigBuilder();
-    }
-
     #[Test]
     public function canBuild(): void
     {
@@ -45,6 +39,12 @@ final class WidgetConfigBuilderTest extends TestCase
         self::assertSame($trailingSpacer, $config->getTrailingSpacer());
         self::assertSame($stylePattern, $config->getStylePattern());
         self::assertSame($charPattern, $config->getCharPattern());
+    }
+
+    protected function getTesteeInstance(): IWidgetConfigBuilder
+    {
+        return
+            new WidgetConfigBuilder();
     }
 
     private function getFrameMock(): MockObject&IFrame

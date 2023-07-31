@@ -18,12 +18,6 @@ use PHPUnit\Framework\MockObject\MockObject;
 
 final class ConfigBuilderTest extends TestCase
 {
-    protected function getTesteeInstance(): IConfigBuilder
-    {
-        return
-            new ConfigBuilder();
-    }
-
     #[Test]
     public function canBuild(): void
     {
@@ -56,6 +50,11 @@ final class ConfigBuilderTest extends TestCase
         self::assertSame($rootWidgetConfig, $config->getRootWidgetConfig());
     }
 
+    protected function getTesteeInstance(): IConfigBuilder
+    {
+        return
+            new ConfigBuilder();
+    }
 
     protected function getAuxConfigMock(): MockObject&IAuxConfig
     {

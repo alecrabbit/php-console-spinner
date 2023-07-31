@@ -12,8 +12,7 @@ final readonly class SettingsProvider implements Contract\ISettingsProvider
         protected ISettings $userSettings,
         protected ISettings $defaultSettings,
         protected ISettings $detectedSettings,
-    )
-    {
+    ) {
     }
 
     public function getUserSettings(): ISettings

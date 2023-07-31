@@ -34,6 +34,7 @@ final class ConfigProviderTest extends TestCaseWithPrebuiltMocksAndStubs
     {
         return $this->createMock(IConfig::class);
     }
+
     #[Test]
     public function canGetConfig(): void
     {

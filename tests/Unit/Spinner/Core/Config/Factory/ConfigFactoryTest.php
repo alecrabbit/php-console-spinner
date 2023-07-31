@@ -19,11 +19,9 @@ final class ConfigFactoryTest extends TestCase
         self::assertInstanceOf(ConfigFactory::class, $factory);
     }
 
-    public function getTesteeInstance(
-    ): IConfigFactory
+    public function getTesteeInstance(): IConfigFactory
     {
         return
-            new ConfigFactory(
-            );
+            new ConfigFactory();
     }
 }

@@ -4,10 +4,8 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Functional\Spinner\Core\Config;
 
-use AlecRabbit\Spinner\Contract\Mode\AutoStartMode;
 use AlecRabbit\Spinner\Contract\Mode\InitializationMode;
 use AlecRabbit\Spinner\Contract\Mode\LinkerMode;
-use AlecRabbit\Spinner\Contract\Mode\SignalHandlersMode;
 use AlecRabbit\Spinner\Core\Config\Contract\IDriverConfig;
 use AlecRabbit\Spinner\Core\Config\DriverConfig;
 use AlecRabbit\Tests\TestCase\TestCase;

@@ -15,12 +15,6 @@ use PHPUnit\Framework\Attributes\Test;
 
 final class AuxConfigBuilderTest extends TestCase
 {
-    protected function getTesteeInstance(): IAuxConfigBuilder
-    {
-        return
-            new AuxConfigBuilder();
-    }
-
     #[Test]
     public function canBuild(): void
     {
@@ -41,6 +35,12 @@ final class AuxConfigBuilderTest extends TestCase
         self::assertSame($runMethodMode, $config->getRunMethodMode());
         self::assertSame($loopAvailabilityMode, $config->getLoopAvailabilityMode());
         self::assertSame($normalizerMethodMode, $config->getNormalizerMethodMode());
+    }
+
+    protected function getTesteeInstance(): IAuxConfigBuilder
+    {
+        return
+            new AuxConfigBuilder();
     }
 
 }

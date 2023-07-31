@@ -25,12 +25,16 @@ final class ConfigProviderFactoryTest extends TestCase
 
     public function getTesteeInstance(
         ?IConfigFactory $configFactory = null,
-    ): IConfigProviderFactory
-    {
+    ): IConfigProviderFactory {
         return
             new ConfigProviderFactory(
                 configFactory: $configFactory ?? $this->getConfigFactoryMock(),
             );
+    }
+
+    protected function getConfigFactoryMock(): MockObject&IConfigFactory
+    {
+        return $this->createMock(IConfigFactory::class);
     }
 
     #[Test]
@@ -42,7 +46,8 @@ final class ConfigProviderFactoryTest extends TestCase
         $configFactory
             ->expects($this->once())
             ->method('create')
-            ->willReturn($config);
+            ->willReturn($config)
+        ;
 
         $factory = $this->getTesteeInstance(
             configFactory: $configFactory,
@@ -52,11 +57,6 @@ final class ConfigProviderFactoryTest extends TestCase
 
         self::assertInstanceOf(ConfigProvider::class, $configProvider);
         self::assertSame($config, $configProvider->getConfig());
-    }
-
-    protected function getConfigFactoryMock(): MockObject&IConfigFactory
-    {
-        return $this->createMock(IConfigFactory::class);
     }
 
     protected function getConfigMock(): MockObject&IConfig
