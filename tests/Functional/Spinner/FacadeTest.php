@@ -13,6 +13,7 @@ use PHPUnit\Framework\Attributes\Test;
 final class FacadeTest extends TestCase
 {
     private ?IDefinitionRegistry $registry = null;
+    
 //    #[Test]
 //    public function canNotBeInstantiated(): void
 //    {
@@ -40,16 +41,4 @@ final class FacadeTest extends TestCase
         self::assertSame($settings, Facade::getSettings());
         self::assertSame($settings, Facade::getSettings());
     }
-
-//    protected function setUp(): void
-//    {
-//        $this->registry = self::getPropertyValue('instance', DefinitionRegistry::class);
-//        $registry = DefinitionRegistry::getInstance(); // initialize
-////        dump($registry);
-//    }
-//
-//    protected function tearDown(): void
-//    {
-//        self::setPropertyValue(DefinitionRegistry::class, 'instance', $this->registry);
-//    }
 }
