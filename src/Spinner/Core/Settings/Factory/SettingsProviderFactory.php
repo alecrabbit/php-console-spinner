@@ -4,9 +4,26 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Settings\Factory;
 
+use AlecRabbit\Spinner\Core\Settings\Contract\Builder\ISettingsProviderBuilder;
 use AlecRabbit\Spinner\Core\Settings\Contract\Factory\ISettingsProviderFactory;
+use AlecRabbit\Spinner\Core\Settings\Contract\ISettingsProvider;
+use AlecRabbit\Spinner\Core\Settings\Settings;
 
 final readonly class SettingsProviderFactory implements ISettingsProviderFactory
 {
+    public function __construct(
+        protected ISettingsProviderBuilder $builder,
+    ) {
+    }
 
+    public function create(): ISettingsProvider
+    {
+        return
+            $this->builder
+                ->withUserSettings(new Settings())
+                ->withDefaultSettings(new Settings())
+                ->withDetectedSettings(new Settings())
+                ->build()
+        ;
+    }
 }
