@@ -4,31 +4,21 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner;
 
-use AlecRabbit\Spinner\Container\Contract\IContainer;
-use AlecRabbit\Spinner\Container\DefinitionRegistry;
+use AlecRabbit\Spinner\Core\A\AFacade;
 use AlecRabbit\Spinner\Core\Config\Legacy\Contract\ILegacySpinnerConfig;
 use AlecRabbit\Spinner\Core\Config\Legacy\Contract\ILegacyWidgetConfig;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\ILegacySettingsProvider;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use AlecRabbit\Spinner\Core\Contract\Loop\Contract\ILoop;
-use AlecRabbit\Spinner\Core\Factory\ContainerFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDriverFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ISpinnerFactory;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettingsProvider;
 
-final class Facade
+final class Facade extends AFacade
 {
-    /**
-     * @codeCoverageIgnore
-     */
-    private function __construct()
-    {
-        // No instances of this class are allowed.
-    }
-
     public static function getLoop(): ILoop
     {
         return self::getLoopFactory()->getLoop();
@@ -39,14 +29,6 @@ final class Facade
         return self::getContainer()->get(ILoopFactory::class);
     }
 
-    private static function getContainer(): IContainer
-    {
-        $class = ContainerFactory::class;
-
-        $registry = DefinitionRegistry::getInstance();
-
-        return (new $class($registry))->getContainer();
-    }
 
     public static function createSpinner(
         ILegacySpinnerConfig|ILegacyWidgetConfig|null $config = null,

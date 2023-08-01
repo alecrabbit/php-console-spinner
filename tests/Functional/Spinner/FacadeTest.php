@@ -42,14 +42,15 @@ final class FacadeTest extends TestCase
         self::assertSame($settings, Facade::getSettings());
     }
 
-    protected function setUp(): void
-    {
-        $this->registry = self::getPropertyValue('instance', DefinitionRegistry::class);
-        $registry = DefinitionRegistry::getInstance(); // initialize
-    }
-
-    protected function tearDown(): void
-    {
-        self::setPropertyValue(DefinitionRegistry::class, 'instance', $this->registry);
-    }
+//    protected function setUp(): void
+//    {
+//        $this->registry = self::getPropertyValue('instance', DefinitionRegistry::class);
+//        $registry = DefinitionRegistry::getInstance(); // initialize
+////        dump($registry);
+//    }
+//
+//    protected function tearDown(): void
+//    {
+//        self::setPropertyValue(DefinitionRegistry::class, 'instance', $this->registry);
+//    }
 }
