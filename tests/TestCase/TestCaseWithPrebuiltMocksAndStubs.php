@@ -94,11 +94,6 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
         return $this->createMock(IWeakMap::class);
     }
 
-    protected function createDefinitionRegistryMock(): MockObject&IDefinitionRegistry
-    {
-        return $this->createMock(IDefinitionRegistry::class);
-    }
-
     protected function getFrameMock(): MockObject&IFrame
     {
         return $this->createMock(IFrame::class);

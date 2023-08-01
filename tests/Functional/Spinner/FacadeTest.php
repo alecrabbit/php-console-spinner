@@ -13,7 +13,7 @@ use PHPUnit\Framework\Attributes\Test;
 final class FacadeTest extends TestCase
 {
     private ?IDefinitionRegistry $registry = null;
-    
+
 //    #[Test]
 //    public function canNotBeInstantiated(): void
 //    {

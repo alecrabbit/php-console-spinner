@@ -9,10 +9,11 @@ use AlecRabbit\Spinner\Container\Contract\IContainer;
 use AlecRabbit\Spinner\Container\Contract\IDefinitionRegistry;
 use AlecRabbit\Spinner\Core\Factory\ContainerFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IContainerFactory;
-use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
+use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
+use PHPUnit\Framework\MockObject\MockObject;
 
-final class ContainerFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
+final class ContainerFactoryTest extends TestCase
 {
     protected static ?IContainer $container = null;
 
@@ -28,9 +29,15 @@ final class ContainerFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
     public function getTesteeInstance(
         ?IDefinitionRegistry $registry = null
     ): IContainerFactory {
-        return new ContainerFactory(
-            registry: $registry ?? $this->createDefinitionRegistryMock()
-        );
+        return
+            new ContainerFactory(
+                registry: $registry ?? $this->createDefinitionRegistryMock()
+            );
+    }
+
+    protected function createDefinitionRegistryMock(): MockObject&IDefinitionRegistry
+    {
+        return $this->createMock(IDefinitionRegistry::class);
     }
 
     #[Test]
