@@ -5,14 +5,20 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Settings\Factory;
 
 use AlecRabbit\Spinner\Core\Settings\Contract\Builder\ISettingsProviderBuilder;
+use AlecRabbit\Spinner\Core\Settings\Contract\Factory\IDefaultSettingsFactory;
+use AlecRabbit\Spinner\Core\Settings\Contract\Factory\IDetectedSettingsFactory;
 use AlecRabbit\Spinner\Core\Settings\Contract\Factory\ISettingsProviderFactory;
+use AlecRabbit\Spinner\Core\Settings\Contract\Factory\IUserSettingsFactory;
+use AlecRabbit\Spinner\Core\Settings\Contract\ISettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettingsProvider;
-use AlecRabbit\Spinner\Core\Settings\Settings;
 
 final readonly class SettingsProviderFactory implements ISettingsProviderFactory
 {
     public function __construct(
         protected ISettingsProviderBuilder $builder,
+        protected IUserSettingsFactory $userSettingsFactory,
+        protected IDefaultSettingsFactory $defaultSettingsFactory,
+        protected IDetectedSettingsFactory $detectedSettingsFactory,
     ) {
     }
 
@@ -20,9 +26,9 @@ final readonly class SettingsProviderFactory implements ISettingsProviderFactory
     {
         return
             $this->builder
-                ->withUserSettings(new Settings())
-                ->withDefaultSettings(new Settings())
-                ->withDetectedSettings(new Settings())
+                ->withUserSettings($this->userSettingsFactory->create())
+                ->withDefaultSettings($this->defaultSettingsFactory->create())
+                ->withDetectedSettings($this->detectedSettingsFactory->create())
                 ->build()
         ;
     }

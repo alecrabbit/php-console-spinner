@@ -44,7 +44,7 @@ final class ConfigProviderFactoryTest extends TestCase
 
         $configFactory = $this->getConfigFactoryMock();
         $configFactory
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('create')
             ->willReturn($config)
         ;
