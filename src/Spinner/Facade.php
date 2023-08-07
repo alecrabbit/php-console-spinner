@@ -36,7 +36,7 @@ final class Facade extends AFacade
     ): ISpinner {
         $spinner =
             self::getSpinnerFactory()
-                ->createSpinner($config)
+                ->legacyCreateSpinner($config)
         ;
 
         if ($attach) {

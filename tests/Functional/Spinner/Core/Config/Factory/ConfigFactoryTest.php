@@ -10,6 +10,7 @@ use AlecRabbit\Spinner\Core\Config\Contract\Factory\IConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\IDriverConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\ILoopConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\IOutputConfigFactory;
+use AlecRabbit\Spinner\Core\Config\Contract\Factory\IRootWidgetConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\IWidgetConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\IAuxConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IDriverConfig;
@@ -37,7 +38,7 @@ final class ConfigFactoryTest extends TestCase
         ?IOutputConfigFactory $outputConfigFactory = null,
         ?IDriverConfigFactory $driverConfigFactory = null,
         ?IWidgetConfigFactory $widgetConfigFactory = null,
-        ?IWidgetConfigFactory $rootWidgetConfigFactory = null,
+        ?IRootWidgetConfigFactory $rootWidgetConfigFactory = null,
     ): IConfigFactory {
         return
             new ConfigFactory(
@@ -46,7 +47,7 @@ final class ConfigFactoryTest extends TestCase
                 outputConfigFactory: $outputConfigFactory ?? $this->getOutputConfigFactoryMock(),
                 driverConfigFactory: $driverConfigFactory ?? $this->getDriverConfigFactoryMock(),
                 widgetConfigFactory: $widgetConfigFactory ?? $this->getWidgetConfigFactoryMock(),
-                rootWidgetConfigFactory: $rootWidgetConfigFactory ?? $this->getWidgetConfigFactoryMock(),
+                rootWidgetConfigFactory: $rootWidgetConfigFactory ?? $this->getRootWidgetConfigFactoryMock(),
             );
     }
 
@@ -75,6 +76,11 @@ final class ConfigFactoryTest extends TestCase
         return $this->createMock(IWidgetConfigFactory::class);
     }
 
+    protected function getRootWidgetConfigFactoryMock(): MockObject&IRootWidgetConfigFactory
+    {
+        return $this->createMock(IRootWidgetConfigFactory::class);
+    }
+
     #[Test]
     public function canCreate(): void
     {
@@ -90,7 +96,7 @@ final class ConfigFactoryTest extends TestCase
         $outputConfigFactory = $this->getOutputConfigFactoryMock();
         $driverConfigFactory = $this->getDriverConfigFactoryMock();
         $widgetConfigFactory = $this->getWidgetConfigFactoryMock();
-        $rootWidgetConfigFactory = $this->getWidgetConfigFactoryMock();
+        $rootWidgetConfigFactory = $this->getRootWidgetConfigFactoryMock();
 
         $auxConfigFactory
             ->expects(self::once())

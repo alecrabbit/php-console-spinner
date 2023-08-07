@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Widget\Factory;
 
+use AlecRabbit\Spinner\Core\Settings\Contract\IWidgetSettings;
 use AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyWidgetSettings;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetCompositeBuilder;
@@ -18,7 +19,7 @@ final class WidgetCompositeFactory implements IWidgetCompositeFactory
     ) {
     }
 
-    public function createWidget(ILegacyWidgetSettings $widgetSettings): IWidgetComposite
+    public function legacyCreateWidget(ILegacyWidgetSettings $widgetSettings): IWidgetComposite
     {
         return
             $this->widgetBuilder
@@ -30,5 +31,11 @@ final class WidgetCompositeFactory implements IWidgetCompositeFactory
                 )
                 ->build()
         ;
+    }
+
+    public function createWidget(?IWidgetSettings $widgetSettings = null): IWidgetComposite
+    {
+        // TODO: Implement createWidget() method.
+        throw new \RuntimeException('Not implemented.');
     }
 }

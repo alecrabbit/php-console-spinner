@@ -54,7 +54,7 @@ use AlecRabbit\Spinner\Core\Factory\Contract\ISignalHandlersSetupFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IStyleFrameRevolverFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ITerminalSettingsFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ITimerFactory;
-use AlecRabbit\Spinner\Core\Factory\Contract\IWidgetSettingsFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\ILegacyWidgetSettingsFactory;
 use AlecRabbit\Spinner\Core\Output\Contract\IConsoleCursor;
 use AlecRabbit\Spinner\Core\Output\Contract\IDriverOutput;
 use AlecRabbit\Spinner\Core\Pattern\Contract\IBakedPattern;
@@ -238,9 +238,9 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
         return $this->createMock(IWidgetCompositeFactory::class);
     }
 
-    protected function getWidgetSettingsFactoryMock(): MockObject&IWidgetSettingsFactory
+    protected function getWidgetSettingsFactoryMock(): MockObject&ILegacyWidgetSettingsFactory
     {
-        return $this->createMock(IWidgetSettingsFactory::class);
+        return $this->createMock(ILegacyWidgetSettingsFactory::class);
     }
 
     protected function getLegacyAuxSettingsMock(): MockObject&ILegacyAuxSettings

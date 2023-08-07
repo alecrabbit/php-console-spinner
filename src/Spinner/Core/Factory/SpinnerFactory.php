@@ -6,12 +6,16 @@ namespace AlecRabbit\Spinner\Core\Factory;
 
 use AlecRabbit\Spinner\Core\Config\Legacy\Contract\ILegacySpinnerConfig;
 use AlecRabbit\Spinner\Core\Config\Legacy\Contract\ILegacyWidgetConfig;
+use AlecRabbit\Spinner\Core\Contract\IConfigProvider;
 use AlecRabbit\Spinner\Core\Contract\ILegacySettingsProvider;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use AlecRabbit\Spinner\Core\Factory\Contract\ISpinnerFactory;
-use AlecRabbit\Spinner\Core\Factory\Contract\IWidgetSettingsFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\ILegacyWidgetSettingsFactory;
+use AlecRabbit\Spinner\Core\Settings\Contract\ISpinnerSettings;
+use AlecRabbit\Spinner\Core\Settings\Contract\IWidgetSettings;
 use AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyWidgetSettings;
 use AlecRabbit\Spinner\Core\Spinner;
+use AlecRabbit\Spinner\Core\Widget\Contract\IWidget;
 use AlecRabbit\Spinner\Core\Widget\Factory\Contract\IWidgetFactory;
 
 final class SpinnerFactory implements ISpinnerFactory
@@ -19,18 +23,19 @@ final class SpinnerFactory implements ISpinnerFactory
     public function __construct(
         protected ILegacySettingsProvider $settingsProvider,
         protected IWidgetFactory $widgetFactory,
-        protected IWidgetSettingsFactory $widgetSettingsFactory,
+        protected ILegacyWidgetSettingsFactory $widgetSettingsFactory,
+        protected IConfigProvider $configProvider,
     ) {
     }
 
-    public function createSpinner(ILegacySpinnerConfig|ILegacyWidgetConfig|null $config = null): ISpinner
+    public function legacyCreateSpinner(ILegacySpinnerConfig|ILegacyWidgetConfig|null $config = null): ISpinner
     {
         $config = $this->extractConfig($config);
 
         return
             new Spinner(
                 $this->widgetFactory
-                    ->createWidget(
+                    ->legacyCreateWidget(
                         $this->createWidgetSettings($config)
                     ),
             );
@@ -63,5 +68,18 @@ final class SpinnerFactory implements ISpinnerFactory
         }
 
         return $config->merge($rootWidgetConfig);
+    }
+
+    public function createSpinner(?ISpinnerSettings $spinnerSettings = null): ISpinner
+    {
+        return
+            new Spinner(
+                $this->createWidget($spinnerSettings?->getWidgetSettings())
+            );
+    }
+
+    private function createWidget(?IWidgetSettings $widgetSettings): IWidget
+    {
+        return $this->widgetFactory->createWidget($widgetSettings);
     }
 }

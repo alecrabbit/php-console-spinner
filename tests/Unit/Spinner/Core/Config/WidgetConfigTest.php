@@ -7,11 +7,12 @@ namespace AlecRabbit\Tests\Unit\Spinner\Core\Config;
 use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Core\Config\Contract\IWidgetConfig;
 use AlecRabbit\Spinner\Core\Config\WidgetConfig;
-use AlecRabbit\Spinner\Core\Pattern\Contract\IBakedPattern;
-use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
+use AlecRabbit\Spinner\Core\Pattern\Contract\IPatternMarker;
+use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
+use PHPUnit\Framework\MockObject\MockObject;
 
-final class WidgetConfigTest extends TestCaseWithPrebuiltMocksAndStubs
+final class WidgetConfigTest extends TestCase
 {
     #[Test]
     public function canBeInstantiated(): void
@@ -24,8 +25,8 @@ final class WidgetConfigTest extends TestCaseWithPrebuiltMocksAndStubs
     protected function getTesteeInstance(
         ?IFrame $leadingSpacer = null,
         ?IFrame $trailingSpacer = null,
-        ?IBakedPattern $stylePattern = null,
-        ?IBakedPattern $charPattern = null,
+        ?IPatternMarker $stylePattern = null,
+        ?IPatternMarker $charPattern = null,
     ): IWidgetConfig {
         return
             new WidgetConfig(
@@ -34,6 +35,16 @@ final class WidgetConfigTest extends TestCaseWithPrebuiltMocksAndStubs
                 stylePattern: $stylePattern ?? $this->getBakedPatternMock(),
                 charPattern: $charPattern ?? $this->getBakedPatternMock(),
             );
+    }
+
+    protected function getFrameMock(): MockObject&IFrame
+    {
+        return $this->createMock(IFrame::class);
+    }
+
+    protected function getBakedPatternMock(): MockObject&IPatternMarker
+    {
+        return $this->createMock(IPatternMarker::class);
     }
 
     #[Test]

@@ -8,7 +8,7 @@ use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Core\Config\Builder\WidgetConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\Builder\IWidgetConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\WidgetConfig;
-use AlecRabbit\Spinner\Core\Pattern\Contract\IBakedPattern;
+use AlecRabbit\Spinner\Core\Pattern\Contract\IPatternMarker;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -22,8 +22,8 @@ final class WidgetConfigBuilderTest extends TestCase
 
         $leadingSpacer = $this->getFrameMock();
         $trailingSpacer = $this->getFrameMock();
-        $stylePattern = $this->getBakedPatternMock();
-        $charPattern = $this->getBakedPatternMock();
+        $stylePattern = $this->getPatternMarkerMock();
+        $charPattern = $this->getPatternMarkerMock();
 
         $config = $configBuilder
             ->withLeadingSpacer($leadingSpacer)
@@ -52,8 +52,8 @@ final class WidgetConfigBuilderTest extends TestCase
         return $this->createMock(IFrame::class);
     }
 
-    private function getBakedPatternMock(): MockObject&IBakedPattern
+    private function getPatternMarkerMock(): MockObject&IPatternMarker
     {
-        return $this->createMock(IBakedPattern::class);
+        return $this->createMock(IPatternMarker::class);
     }
 }

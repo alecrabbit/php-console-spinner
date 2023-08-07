@@ -14,7 +14,6 @@ final readonly class ConfigProvider implements IConfigProvider
     ) {
     }
 
-
     public function getConfig(): IConfig
     {
         return $this->config;

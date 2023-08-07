@@ -65,7 +65,7 @@ use AlecRabbit\Spinner\Core\Factory\Contract\IStyleFrameRevolverFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ITerminalProbeFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ITerminalSettingsFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ITimerFactory;
-use AlecRabbit\Spinner\Core\Factory\Contract\IWidgetSettingsFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\ILegacyWidgetSettingsFactory;
 use AlecRabbit\Spinner\Core\Factory\DriverFactory;
 use AlecRabbit\Spinner\Core\Factory\DriverLinkerFactory;
 use AlecRabbit\Spinner\Core\Factory\DriverOutputFactory;
@@ -82,7 +82,7 @@ use AlecRabbit\Spinner\Core\Factory\StyleFrameRevolverFactory;
 use AlecRabbit\Spinner\Core\Factory\TerminalProbeFactory;
 use AlecRabbit\Spinner\Core\Factory\TerminalSettingsFactory;
 use AlecRabbit\Spinner\Core\Factory\TimerFactory;
-use AlecRabbit\Spinner\Core\Factory\WidgetSettingsFactory;
+use AlecRabbit\Spinner\Core\Factory\LegacyWidgetSettingsFactory;
 use AlecRabbit\Spinner\Core\Output\ResourceStream;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolverBuilder;
 use AlecRabbit\Spinner\Core\Revolver\FrameRevolverBuilder;
@@ -154,7 +154,7 @@ function definitions(): Traversable
         IWidgetRevolverBuilder::class => WidgetRevolverBuilder::class,
         IWidgetRevolverFactory::class => WidgetRevolverFactory::class,
         ILegacyWidgetSettingsBuilder::class => LegacyWidgetSettingsBuilder::class,
-        IWidgetSettingsFactory::class => WidgetSettingsFactory::class,
+        ILegacyWidgetSettingsFactory::class => LegacyWidgetSettingsFactory::class,
 
         IDriver::class => static function (ContainerInterface $container): IDriver {
             return $container->get(IDriverFactory::class)->getDriver();

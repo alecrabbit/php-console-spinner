@@ -8,7 +8,7 @@ use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Core\Config\Builder\WidgetConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\Builder\IWidgetConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\WidgetConfig;
-use AlecRabbit\Spinner\Core\Pattern\Contract\IBakedPattern;
+use AlecRabbit\Spinner\Core\Pattern\Contract\IPatternMarker;
 use AlecRabbit\Spinner\Exception\LogicException;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
@@ -38,8 +38,8 @@ final class WidgetConfigBuilderTest extends TestCase
         $config = $configBuilder
             ->withLeadingSpacer($this->getFrameMock())
             ->withTrailingSpacer($this->getFrameMock())
-            ->withStylePattern($this->getBakedPatternMock())
-            ->withCharPattern($this->getBakedPatternMock())
+            ->withStylePattern($this->getPatternMarkerMock())
+            ->withCharPattern($this->getPatternMarkerMock())
             ->build()
         ;
 
@@ -51,9 +51,9 @@ final class WidgetConfigBuilderTest extends TestCase
         return $this->createMock(IFrame::class);
     }
 
-    private function getBakedPatternMock(): MockObject&IBakedPattern
+    private function getPatternMarkerMock(): MockObject&IPatternMarker
     {
-        return $this->createMock(IBakedPattern::class);
+        return $this->createMock(IPatternMarker::class);
     }
 
     #[Test]
@@ -89,7 +89,7 @@ final class WidgetConfigBuilderTest extends TestCase
 
         $builder =
             $configBuilder
-                ->withStylePattern($this->getBakedPatternMock())
+                ->withStylePattern($this->getPatternMarkerMock())
         ;
 
         self::assertNotSame($builder, $configBuilder);
@@ -102,7 +102,7 @@ final class WidgetConfigBuilderTest extends TestCase
 
         $builder =
             $configBuilder
-                ->withCharPattern($this->getBakedPatternMock())
+                ->withCharPattern($this->getPatternMarkerMock())
         ;
 
         self::assertNotSame($builder, $configBuilder);
@@ -119,8 +119,8 @@ final class WidgetConfigBuilderTest extends TestCase
 
             $configBuilder
                 ->withTrailingSpacer($this->getFrameMock())
-                ->withStylePattern($this->getBakedPatternMock())
-                ->withCharPattern($this->getBakedPatternMock())
+                ->withStylePattern($this->getPatternMarkerMock())
+                ->withCharPattern($this->getPatternMarkerMock())
                 ->build()
             ;
         };
@@ -143,8 +143,8 @@ final class WidgetConfigBuilderTest extends TestCase
 
             $configBuilder
                 ->withLeadingSpacer($this->getFrameMock())
-                ->withStylePattern($this->getBakedPatternMock())
-                ->withCharPattern($this->getBakedPatternMock())
+                ->withStylePattern($this->getPatternMarkerMock())
+                ->withCharPattern($this->getPatternMarkerMock())
                 ->build()
             ;
         };
@@ -168,7 +168,7 @@ final class WidgetConfigBuilderTest extends TestCase
             $configBuilder
                 ->withLeadingSpacer($this->getFrameMock())
                 ->withTrailingSpacer($this->getFrameMock())
-                ->withCharPattern($this->getBakedPatternMock())
+                ->withCharPattern($this->getPatternMarkerMock())
                 ->build()
             ;
         };
@@ -192,7 +192,7 @@ final class WidgetConfigBuilderTest extends TestCase
             $configBuilder
                 ->withLeadingSpacer($this->getFrameMock())
                 ->withTrailingSpacer($this->getFrameMock())
-                ->withStylePattern($this->getBakedPatternMock())
+                ->withStylePattern($this->getPatternMarkerMock())
                 ->build()
             ;
         };

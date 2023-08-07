@@ -4,14 +4,17 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Factory;
 
+use AlecRabbit\Spinner\Core\Contract\IConfigProvider;
 use AlecRabbit\Spinner\Core\Contract\ILegacySettingsProvider;
+use AlecRabbit\Spinner\Core\Factory\Contract\ILegacyWidgetSettingsFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ISpinnerFactory;
-use AlecRabbit\Spinner\Core\Factory\Contract\IWidgetSettingsFactory;
 use AlecRabbit\Spinner\Core\Factory\SpinnerFactory;
+use AlecRabbit\Spinner\Core\Settings\Contract\ISpinnerSettings;
 use AlecRabbit\Spinner\Core\Spinner;
 use AlecRabbit\Spinner\Core\Widget\Factory\Contract\IWidgetCompositeFactory;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;
+use PHPUnit\Framework\MockObject\MockObject;
 
 final class SpinnerFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
 {
@@ -26,13 +29,21 @@ final class SpinnerFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
     public function getTesteeInstance(
         ?ILegacySettingsProvider $settingsProvider = null,
         ?IWidgetCompositeFactory $widgetFactory = null,
-        ?IWidgetSettingsFactory $widgetSettingsFactory = null,
+        ?ILegacyWidgetSettingsFactory $widgetSettingsFactory = null,
+        ?IConfigProvider $configProvider = null,
     ): ISpinnerFactory {
-        return new SpinnerFactory(
-            settingsProvider: $settingsProvider ?? $this->getLegacySettingsProviderMock(),
-            widgetFactory: $widgetFactory ?? $this->getWidgetCompositeFactoryMock(),
-            widgetSettingsFactory: $widgetSettingsFactory ?? $this->getWidgetSettingsFactoryMock(),
-        );
+        return
+            new SpinnerFactory(
+                settingsProvider: $settingsProvider ?? $this->getLegacySettingsProviderMock(),
+                widgetFactory: $widgetFactory ?? $this->getWidgetCompositeFactoryMock(),
+                widgetSettingsFactory: $widgetSettingsFactory ?? $this->getWidgetSettingsFactoryMock(),
+                configProvider: $configProvider ?? $this->getConfigProviderMock(),
+            );
+    }
+
+    protected function getConfigProviderMock(): MockObject&IConfigProvider
+    {
+        return $this->createMock(IConfigProvider::class);
     }
 
     #[Test]
@@ -93,7 +104,7 @@ final class SpinnerFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
         $widgetFactory = $this->getWidgetCompositeFactoryMock();
         $widgetFactory
             ->expects(self::once())
-            ->method('createWidget')
+            ->method('legacyCreateWidget')
             ->with($rootWidgetSettings)
             ->willReturn($widget)
         ;
@@ -109,7 +120,7 @@ final class SpinnerFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
             widgetSettingsFactory: $widgetSettingsFactory,
         );
 
-        $spinner = $spinnerFactory->createSpinner();
+        $spinner = $spinnerFactory->legacyCreateSpinner();
         self::assertInstanceOf(SpinnerFactory::class, $spinnerFactory);
         self::assertInstanceOf(Spinner::class, $spinner);
         self::assertSame($widget, self::getPropertyValue('widget', $spinner));
@@ -147,7 +158,7 @@ final class SpinnerFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
         $widgetFactory = $this->getWidgetCompositeFactoryMock();
         $widgetFactory
             ->expects(self::once())
-            ->method('createWidget')
+            ->method('legacyCreateWidget')
             ->with($widgetSettings)
             ->willReturn($widget)
         ;
@@ -165,7 +176,7 @@ final class SpinnerFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
             widgetSettingsFactory: $widgetSettingsFactory,
         );
 
-        $spinner = $spinnerFactory->createSpinner($spinnerConfig);
+        $spinner = $spinnerFactory->legacyCreateSpinner($spinnerConfig);
 
         self::assertInstanceOf(SpinnerFactory::class, $spinnerFactory);
         self::assertInstanceOf(Spinner::class, $spinner);
@@ -197,7 +208,7 @@ final class SpinnerFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
         $widgetFactory = $this->getWidgetCompositeFactoryMock();
         $widgetFactory
             ->expects(self::once())
-            ->method('createWidget')
+            ->method('legacyCreateWidget')
             ->with($widgetSettings)
             ->willReturn($widget)
         ;
@@ -215,10 +226,28 @@ final class SpinnerFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
             widgetSettingsFactory: $widgetSettingsFactory,
         );
 
-        $spinner = $spinnerFactory->createSpinner($widgetConfig);
+        $spinner = $spinnerFactory->legacyCreateSpinner($widgetConfig);
 
         self::assertInstanceOf(SpinnerFactory::class, $spinnerFactory);
         self::assertInstanceOf(Spinner::class, $spinner);
         self::assertSame($widget, self::getPropertyValue('widget', $spinner));
+    }
+
+    #[Test]
+    public function canCreateSpinnerUsingSpinnerSettings(): void
+    {
+        $spinnerFactory = $this->getTesteeInstance(
+        );
+        
+        $spinnerSettings = $this->getSpinnerSettingsMock();
+
+        $spinner = $spinnerFactory->createSpinner($spinnerSettings);
+
+        self::assertInstanceOf(Spinner::class, $spinner);
+    }
+
+    protected function getSpinnerSettingsMock(): MockObject&ISpinnerSettings
+    {
+        return $this->createMock(ISpinnerSettings::class);
     }
 }

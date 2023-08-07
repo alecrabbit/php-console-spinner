@@ -8,15 +8,15 @@ use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Core\Config\Contract\Builder\IWidgetConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\IWidgetConfig;
 use AlecRabbit\Spinner\Core\Config\WidgetConfig;
-use AlecRabbit\Spinner\Core\Pattern\Contract\IBakedPattern;
+use AlecRabbit\Spinner\Core\Pattern\Contract\IPatternMarker;
 use AlecRabbit\Spinner\Exception\LogicException;
 
 final class WidgetConfigBuilder implements IWidgetConfigBuilder
 {
     private ?IFrame $leadingSpacer = null;
     private ?IFrame $trailingSpacer = null;
-    private ?IBakedPattern $stylePattern = null;
-    private ?IBakedPattern $charPattern = null;
+    private ?IPatternMarker $stylePattern = null;
+    private ?IPatternMarker $charPattern = null;
 
     /**
      * @inheritDoc
@@ -59,14 +59,14 @@ final class WidgetConfigBuilder implements IWidgetConfigBuilder
         return $clone;
     }
 
-    public function withStylePattern(IBakedPattern $pattern): IWidgetConfigBuilder
+    public function withStylePattern(IPatternMarker $pattern): IWidgetConfigBuilder
     {
         $clone = clone $this;
         $clone->stylePattern = $pattern;
         return $clone;
     }
 
-    public function withCharPattern(IBakedPattern $pattern): IWidgetConfigBuilder
+    public function withCharPattern(IPatternMarker $pattern): IWidgetConfigBuilder
     {
         $clone = clone $this;
         $clone->charPattern = $pattern;

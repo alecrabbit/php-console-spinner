@@ -11,7 +11,7 @@ use AlecRabbit\Spinner\Core\Config\Contract\Solver\ILoopAvailabilityModeSolver;
 use AlecRabbit\Spinner\Core\Config\Contract\Solver\INormalizerMethodModeSolver;
 use AlecRabbit\Spinner\Core\Config\Contract\Solver\IRunMethodModeSolver;
 
-class AuxConfigFactory implements IAuxConfigFactory
+final class AuxConfigFactory implements IAuxConfigFactory
 {
     public function __construct(
         protected IRunMethodModeSolver $runMethodModeSolver,

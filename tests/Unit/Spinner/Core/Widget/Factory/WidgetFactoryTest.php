@@ -93,6 +93,6 @@ final class WidgetFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
         );
 
         self::assertInstanceOf(WidgetFactory::class, $widgetFactory);
-        self::assertSame($widget, $widgetFactory->createWidget($widgetSettings));
+        self::assertSame($widget, $widgetFactory->legacyCreateWidget($widgetSettings));
     }
 }
