@@ -238,7 +238,7 @@ final class SpinnerFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
     {
         $spinnerFactory = $this->getTesteeInstance(
         );
-        
+
         $spinnerSettings = $this->getSpinnerSettingsMock();
 
         $spinner = $spinnerFactory->createSpinner($spinnerSettings);
