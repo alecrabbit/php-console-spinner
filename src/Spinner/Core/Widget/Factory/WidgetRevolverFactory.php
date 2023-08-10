@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Widget\Factory;
 
+use AlecRabbit\Spinner\Core\Config\Contract\IWidgetConfig;
 use AlecRabbit\Spinner\Core\Factory\Contract\ICharFrameRevolverFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IStyleFrameRevolverFactory;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolver;
@@ -62,5 +63,11 @@ final class WidgetRevolverFactory implements IWidgetRevolverFactory
     {
         // TODO (2023-04-26 14:21) [Alec Rabbit]: make it configurable [fd86d318-9069-47e2-b60d-a68f537be4a3]
         return IRevolver::TOLERANCE;
+    }
+
+    public function create(IWidgetConfig $widgetConfig): IRevolver
+    {
+        // TODO: Implement create() method.
+        throw new \RuntimeException('Not implemented.');
     }
 }

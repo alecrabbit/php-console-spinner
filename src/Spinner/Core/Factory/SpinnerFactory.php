@@ -9,13 +9,11 @@ use AlecRabbit\Spinner\Core\Config\Legacy\Contract\ILegacyWidgetConfig;
 use AlecRabbit\Spinner\Core\Contract\IConfigProvider;
 use AlecRabbit\Spinner\Core\Contract\ILegacySettingsProvider;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
-use AlecRabbit\Spinner\Core\Factory\Contract\ISpinnerFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILegacyWidgetSettingsFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\ISpinnerFactory;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISpinnerSettings;
-use AlecRabbit\Spinner\Core\Settings\Contract\IWidgetSettings;
 use AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyWidgetSettings;
 use AlecRabbit\Spinner\Core\Spinner;
-use AlecRabbit\Spinner\Core\Widget\Contract\IWidget;
 use AlecRabbit\Spinner\Core\Widget\Factory\Contract\IWidgetFactory;
 
 final class SpinnerFactory implements ISpinnerFactory
@@ -24,10 +22,13 @@ final class SpinnerFactory implements ISpinnerFactory
         protected ILegacySettingsProvider $settingsProvider,
         protected IWidgetFactory $widgetFactory,
         protected ILegacyWidgetSettingsFactory $widgetSettingsFactory,
-        protected IConfigProvider $configProvider,
+//        protected IConfigProvider $configProvider,
     ) {
     }
 
+    /**
+     * @deprecated use {@see createSpinner()} instead
+     */
     public function legacyCreateSpinner(ILegacySpinnerConfig|ILegacyWidgetConfig|null $config = null): ISpinner
     {
         $config = $this->extractConfig($config);
@@ -74,12 +75,10 @@ final class SpinnerFactory implements ISpinnerFactory
     {
         return
             new Spinner(
-                $this->createWidget($spinnerSettings?->getWidgetSettings())
+                $this->widgetFactory
+                    ->createWidget(
+                        $spinnerSettings?->getWidgetSettings()
+                    )
             );
-    }
-
-    private function createWidget(?IWidgetSettings $widgetSettings): IWidget
-    {
-        return $this->widgetFactory->createWidget($widgetSettings);
     }
 }

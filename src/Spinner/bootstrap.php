@@ -31,6 +31,8 @@ use AlecRabbit\Spinner\Core\Builder\Settings\Legacy\LegacySettingsProviderBuilde
 use AlecRabbit\Spinner\Core\Builder\Settings\Legacy\LegacyWidgetSettingsBuilder;
 use AlecRabbit\Spinner\Core\Builder\SignalHandlersSetupBuilder;
 use AlecRabbit\Spinner\Core\Builder\TimerBuilder;
+use AlecRabbit\Spinner\Core\Config\Contract\Factory\IWidgetConfigFactory;
+use AlecRabbit\Spinner\Core\Config\Factory\WidgetConfigFactory;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\IDriverBuilder;
 use AlecRabbit\Spinner\Core\Contract\IDriverLinker;
@@ -249,6 +251,10 @@ function definitions(): Traversable
                     Probes::load(ILoopProbe::class)
                 );
         },
+
+        // Added after 08.08.2023
+        IWidgetConfigFactory::class => WidgetConfigFactory::class,
+
     ];
 }
 // @codeCoverageIgnoreEnd

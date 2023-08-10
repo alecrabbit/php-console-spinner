@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Widget\Factory;
 
+use AlecRabbit\Spinner\Core\Config\Contract\Factory\IWidgetConfigFactory;
 use AlecRabbit\Spinner\Core\Settings\Contract\IWidgetSettings;
 use AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyWidgetSettings;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidget;
@@ -16,6 +17,7 @@ final class WidgetFactory implements IWidgetFactory
     public function __construct(
         protected IWidgetBuilder $widgetBuilder,
         protected IWidgetRevolverFactory $widgetRevolverFactory,
+        protected IWidgetConfigFactory $widgetConfigFactory,
     ) {
     }
 
@@ -35,7 +37,17 @@ final class WidgetFactory implements IWidgetFactory
 
     public function createWidget(?IWidgetSettings $widgetSettings = null): IWidget
     {
-        // TODO: Implement createWidget() method.
-        throw new \RuntimeException('Not implemented.');
+        $widgetConfig = $this->widgetConfigFactory->create($widgetSettings);
+
+        return
+            $this->widgetBuilder
+                ->withLeadingSpacer($widgetConfig->getLeadingSpacer())
+                ->withTrailingSpacer($widgetConfig->getTrailingSpacer())
+                ->withWidgetRevolver(
+                    $this->widgetRevolverFactory
+                        ->create($widgetConfig)
+                )
+                ->build()
+        ;
     }
 }
