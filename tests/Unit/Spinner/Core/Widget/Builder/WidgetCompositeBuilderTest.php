@@ -35,7 +35,7 @@ final class WidgetCompositeBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
 
         $widgetComposite =
             $widgetBuilder
-                ->withWidgetRevolver($this->getRevolverMock())
+                ->withWidgetRevolver($this->getWidgetRevolverMock())
                 ->withLeadingSpacer($this->getFrameMock())
                 ->withTrailingSpacer($this->getFrameMock())
                 ->build()

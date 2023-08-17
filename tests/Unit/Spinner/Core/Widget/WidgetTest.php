@@ -8,6 +8,7 @@ use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Contract\IObserver;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidget;
+use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolver;
 use AlecRabbit\Spinner\Core\Widget\Widget;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;
@@ -23,14 +24,14 @@ final class WidgetTest extends TestCaseWithPrebuiltMocksAndStubs
     }
 
     public function getTesteeInstance(
-        ?IRevolver $revolver = null,
+        ?IWidgetRevolver $revolver = null,
         ?IFrame $leadingSpacer = null,
         ?IFrame $trailingSpacer = null,
         ?IObserver $observer = null,
     ): IWidget {
         return
             new Widget(
-                revolver: $revolver ?? $this->getRevolverMock(),
+                revolver: $revolver ?? $this->getWidgetRevolverMock(),
                 leadingSpacer: $leadingSpacer ?? $this->getFrameMock(),
                 trailingSpacer: $trailingSpacer ?? $this->getFrameMock(),
                 observer: $observer ?? $this->getObserverMock(),
@@ -42,7 +43,7 @@ final class WidgetTest extends TestCaseWithPrebuiltMocksAndStubs
     {
         $interval = $this->getIntervalMock();
 
-        $revolver = $this->getRevolverMock();
+        $revolver = $this->getWidgetRevolverMock();
 
         $revolver
             ->expects(self::once())
@@ -76,7 +77,7 @@ final class WidgetTest extends TestCaseWithPrebuiltMocksAndStubs
     public function canGetFrameIfHasRevolverOnly(): void
     {
         $revolverFrame = $this->getFrameMock();
-        $revolver = $this->getRevolverMock();
+        $revolver = $this->getWidgetRevolverMock();
         $revolver
             ->expects(self::once())
             ->method('getFrame')

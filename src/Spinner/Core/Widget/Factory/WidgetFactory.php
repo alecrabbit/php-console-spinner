@@ -40,7 +40,7 @@ final class WidgetFactory implements IWidgetFactory
         $widgetConfig = $this->widgetConfigFactory->create($widgetSettings);
 
         $revolver = $this->widgetRevolverFactory->create($widgetConfig);
-        
+
         return
             $this->widgetBuilder
                 ->withLeadingSpacer($widgetConfig->getLeadingSpacer())

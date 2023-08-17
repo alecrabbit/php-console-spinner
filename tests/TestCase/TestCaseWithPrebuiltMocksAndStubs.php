@@ -75,6 +75,7 @@ use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetCompositeBuilder;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetCompositeChildrenContainer;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContext;
+use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolver;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolverBuilder;
 use AlecRabbit\Spinner\Core\Widget\Factory\Contract\IWidgetCompositeFactory;
 use AlecRabbit\Spinner\Core\Widget\Factory\Contract\IWidgetRevolverFactory;
@@ -178,9 +179,9 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
         return $this->createMock(IWidgetRevolverFactory::class);
     }
 
-    protected function getWidgetRevolverMock(): MockObject&IRevolver
+    protected function getWidgetRevolverMock(): MockObject&IWidgetRevolver
     {
-        return $this->createMock(IRevolver::class);
+        return $this->createMock(IWidgetRevolver::class);
     }
 
     protected function getLoopProbeFactoryMock(): MockObject&ILoopProbeFactory

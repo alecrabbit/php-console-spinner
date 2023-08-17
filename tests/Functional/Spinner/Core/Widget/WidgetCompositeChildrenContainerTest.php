@@ -25,13 +25,13 @@ final class WidgetCompositeChildrenContainerTest extends TestCaseWithPrebuiltMoc
         $interval = new Interval(100);
         $newInterval = new Interval(80);
 
-        $revolver = $this->getRevolverMock();
+        $revolver = $this->getWidgetRevolverMock();
         $revolver
             ->method('getInterval')
             ->willReturn($interval)
         ;
 
-        $newRevolver = $this->getRevolverMock();
+        $newRevolver = $this->getWidgetRevolverMock();
         $newRevolver
             ->method('getInterval')
             ->willReturn($newInterval)
@@ -84,18 +84,18 @@ final class WidgetCompositeChildrenContainerTest extends TestCaseWithPrebuiltMoc
         $interval2 = new Interval(80);
         $interval3 = new Interval(120);
 
-        $revolver1 = $this->getRevolverMock();
+        $revolver1 = $this->getWidgetRevolverMock();
         $revolver1
             ->method('getInterval')
             ->willReturn($interval1)
         ;
 
-        $revolver2 = $this->getRevolverMock();
+        $revolver2 = $this->getWidgetRevolverMock();
         $revolver2
             ->method('getInterval')
             ->willReturn($interval2)
         ;
-        $revolver3 = $this->getRevolverMock();
+        $revolver3 = $this->getWidgetRevolverMock();
         $revolver3
             ->method('getInterval')
             ->willReturn($interval3)
@@ -148,7 +148,7 @@ final class WidgetCompositeChildrenContainerTest extends TestCaseWithPrebuiltMoc
     {
         $interval = new Interval(80);
 
-        $revolver = $this->getRevolverMock();
+        $revolver = $this->getWidgetRevolverMock();
         $revolver
             ->method('getInterval')
             ->willReturn($interval)
@@ -187,7 +187,7 @@ final class WidgetCompositeChildrenContainerTest extends TestCaseWithPrebuiltMoc
     {
         $interval = new Interval(80);
 
-        $revolver = $this->getRevolverMock();
+        $revolver = $this->getWidgetRevolverMock();
         $revolver
             ->method('getInterval')
             ->willReturn($interval)
@@ -227,18 +227,18 @@ final class WidgetCompositeChildrenContainerTest extends TestCaseWithPrebuiltMoc
         $interval2 = new Interval(80);
         $interval3 = new Interval(120);
 
-        $revolver1 = $this->getRevolverMock();
+        $revolver1 = $this->getWidgetRevolverMock();
         $revolver1
             ->method('getInterval')
             ->willReturn($interval1)
         ;
 
-        $revolver2 = $this->getRevolverMock();
+        $revolver2 = $this->getWidgetRevolverMock();
         $revolver2
             ->method('getInterval')
             ->willReturn($interval2)
         ;
-        $revolver3 = $this->getRevolverMock();
+        $revolver3 = $this->getWidgetRevolverMock();
         $revolver3
             ->method('getInterval')
             ->willReturn($interval3)
