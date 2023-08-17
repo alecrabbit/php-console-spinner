@@ -15,9 +15,9 @@ use AlecRabbit\Spinner\Core\Widget\Factory\Contract\IWidgetRevolverFactory;
 final class WidgetFactory implements IWidgetFactory
 {
     public function __construct(
-        protected IWidgetBuilder $widgetBuilder,
-        protected IWidgetRevolverFactory $widgetRevolverFactory,
         protected IWidgetConfigFactory $widgetConfigFactory,
+        protected IWidgetRevolverFactory $widgetRevolverFactory,
+        protected IWidgetBuilder $widgetBuilder,
     ) {
     }
 
@@ -39,14 +39,13 @@ final class WidgetFactory implements IWidgetFactory
     {
         $widgetConfig = $this->widgetConfigFactory->create($widgetSettings);
 
+        $revolver = $this->widgetRevolverFactory->create($widgetConfig);
+        
         return
             $this->widgetBuilder
                 ->withLeadingSpacer($widgetConfig->getLeadingSpacer())
                 ->withTrailingSpacer($widgetConfig->getTrailingSpacer())
-                ->withWidgetRevolver(
-                    $this->widgetRevolverFactory
-                        ->create($widgetConfig)
-                )
+                ->withWidgetRevolver($revolver)
                 ->build()
         ;
     }

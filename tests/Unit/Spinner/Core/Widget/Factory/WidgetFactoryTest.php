@@ -31,9 +31,9 @@ final class WidgetFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
     ): IWidgetFactory {
         return
             new WidgetFactory(
-                widgetBuilder: $widgetBuilder ?? $this->getWidgetCompositeBuilderMock(),
-                widgetRevolverFactory: $widgetRevolverFactory ?? $this->getWidgetRevolverFactoryMock(),
                 widgetConfigFactory: $widgetConfigFactory ?? $this->getWidgetConfigFactoryMock(),
+                widgetRevolverFactory: $widgetRevolverFactory ?? $this->getWidgetRevolverFactoryMock(),
+                widgetBuilder: $widgetBuilder ?? $this->getWidgetCompositeBuilderMock(),
             );
     }
 
