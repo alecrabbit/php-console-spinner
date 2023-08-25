@@ -89,16 +89,18 @@
 /app/src/Spinner/Core/Timer.php:40:17:error - RedundantCondition: Type ReflectionType for $returnType is never null
 /app/src/Spinner/Core/Timer.php:40:31:error - UndefinedMethod: Method ReflectionType::getName does not exist
 /app/src/Spinner/Core/Timer.php:46:21:error - MixedArgument: Argument 3 of sprintf cannot be mixed, expecting float|int|string
+/app/src/Spinner/Core/Widget/Builder/WidgetBuilder.php:23:17:error - ArgumentTypeCoercion: Argument 1 of AlecRabbit\Spinner\Core\Widget\Widget::__construct expects AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolver, but parent type AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver|null provided
 /app/src/Spinner/Core/Widget/Builder/WidgetBuilder.php:23:17:error - PossiblyNullArgument: Argument 1 of AlecRabbit\Spinner\Core\Widget\Widget::__construct cannot be null, possibly null value provided
 /app/src/Spinner/Core/Widget/Builder/WidgetBuilder.php:24:17:error - PossiblyNullArgument: Argument 2 of AlecRabbit\Spinner\Core\Widget\Widget::__construct cannot be null, possibly null value provided
 /app/src/Spinner/Core/Widget/Builder/WidgetBuilder.php:25:17:error - PossiblyNullArgument: Argument 3 of AlecRabbit\Spinner\Core\Widget\Widget::__construct cannot be null, possibly null value provided
 /app/src/Spinner/Core/Widget/Builder/WidgetCompositeBuilder.php:22:17:error - PossiblyNullArgument: Argument 1 of AlecRabbit\Spinner\Core\Widget\WidgetComposite::__construct cannot be null, possibly null value provided
 /app/src/Spinner/Core/Widget/Builder/WidgetCompositeBuilder.php:23:17:error - PossiblyNullArgument: Argument 2 of AlecRabbit\Spinner\Core\Widget\WidgetComposite::__construct cannot be null, possibly null value provided
 /app/src/Spinner/Core/Widget/Builder/WidgetCompositeBuilder.php:24:17:error - PossiblyNullArgument: Argument 3 of AlecRabbit\Spinner\Core\Widget\WidgetComposite::__construct cannot be null, possibly null value provided
-/app/src/Spinner/Core/Widget/Builder/WidgetRevolverBuilder.php:25:17:error - PossiblyNullArgument: Argument 1 of AlecRabbit\Spinner\Core\Widget\WidgetRevolver::__construct cannot be null, possibly null value provided
-/app/src/Spinner/Core/Widget/Builder/WidgetRevolverBuilder.php:26:17:error - PossiblyNullArgument: Argument 2 of AlecRabbit\Spinner\Core\Widget\WidgetRevolver::__construct cannot be null, possibly null value provided
-/app/src/Spinner/Core/Widget/Builder/WidgetRevolverBuilder.php:27:17:error - PossiblyNullArgument: Argument 3 of AlecRabbit\Spinner\Core\Widget\WidgetRevolver::__construct cannot be null, possibly null value provided
+/app/src/Spinner/Core/Widget/Builder/WidgetRevolverBuilder.php:26:17:error - PossiblyNullArgument: Argument 1 of AlecRabbit\Spinner\Core\Widget\WidgetRevolver::__construct cannot be null, possibly null value provided
+/app/src/Spinner/Core/Widget/Builder/WidgetRevolverBuilder.php:27:17:error - PossiblyNullArgument: Argument 2 of AlecRabbit\Spinner\Core\Widget\WidgetRevolver::__construct cannot be null, possibly null value provided
+/app/src/Spinner/Core/Widget/Builder/WidgetRevolverBuilder.php:28:17:error - PossiblyNullArgument: Argument 3 of AlecRabbit\Spinner\Core\Widget\WidgetRevolver::__construct cannot be null, possibly null value provided
 /app/src/Spinner/Core/Widget/Contract/IWidgetCompositeChildrenContainer.php:19:53:error - MissingTemplateParam: AlecRabbit\Spinner\Core\Widget\Contract\IWidgetCompositeChildrenContainer has missing template params when extending IteratorAggregate, expecting 2
+/app/src/Spinner/Core/Widget/WidgetComposite.php:31:13:error - ArgumentTypeCoercion: Argument 1 of AlecRabbit\Spinner\Core\Widget\A\AWidget::__construct expects AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolver, but parent type AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver provided
 /app/src/Spinner/Core/Widget/WidgetComposite.php:67:13:error - InvalidDocblock: Misplaced variable
 /app/src/Spinner/Core/Widget/WidgetComposite.php:67:41:error - MissingDocblockType: Misplaced variable
 /app/src/Spinner/Core/Widget/WidgetComposite.php:67:41:error - MixedAssignment: Unable to determine the type that $childContext is being assigned to
