@@ -47,7 +47,7 @@ final class ProbesTest extends TestCase
         Probes::register($probe1);
 
         $probes = iterator_to_array(Probes::load());
-        
+
         self::assertCount(2, $probes);
         self::assertContains($probe1, $probes);
         self::assertContains($probe2, $probes);
