@@ -37,6 +37,7 @@ final class Probes
 
     /**
      * @param class-string<IStaticProbe> $class
+     * @throws InvalidArgumentException
      */
     private static function assertClass(string $class): void
     {
