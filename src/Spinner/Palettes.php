@@ -72,9 +72,9 @@ final class Palettes
             yield from self::$palettes;
         } else {
             self::assertClass($filterClass);
-            foreach (self::$palettes as $probe) {
-                if (is_subclass_of($probe, $filterClass)) {
-                    yield $probe;
+            foreach (self::$palettes as $palette) {
+                if (is_subclass_of($palette, $filterClass)) {
+                    yield $palette;
                 }
             }
         }
