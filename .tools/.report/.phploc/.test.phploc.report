@@ -1,14 +1,14 @@
 phploc 7.0.2 by Sebastian Bergmann.
 
 Directories                                         44
-Files                                              161
+Files                                              163
 
 Size
-  Lines of Code (LOC)                            16483
-  Comment Lines of Code (CLOC)                     204 (1.24%)
-  Non-Comment Lines of Code (NCLOC)              16279 (98.76%)
-  Logical Lines of Code (LLOC)                    3798 (23.04%)
-    Classes                                       3791 (99.82%)
+  Lines of Code (LOC)                            16541
+  Comment Lines of Code (CLOC)                     211 (1.28%)
+  Non-Comment Lines of Code (NCLOC)              16330 (98.72%)
+  Logical Lines of Code (LLOC)                    3807 (23.02%)
+    Classes                                       3800 (99.82%)
       Average Class Length                          23
         Minimum Class Length                         0
         Maximum Class Length                       134
@@ -24,7 +24,7 @@ Size
 
 Cyclomatic Complexity
   Average Complexity per LLOC                     0.07
-  Average Complexity per Class                    2.61
+  Average Complexity per Class                    2.59
     Minimum Class Complexity                      1.00
     Maximum Class Complexity                     14.00
   Average Complexity per Method                   1.29
@@ -36,29 +36,29 @@ Dependencies
     Global Constants                                 0 (0.00%)
     Global Variables                                 0 (0.00%)
     Super-Global Variables                           0 (0.00%)
-  Attribute Accesses                                15
-    Non-Static                                      13 (86.67%)
-    Static                                           2 (13.33%)
-  Method Calls                                    5256
-    Non-Static                                    3760 (71.54%)
-    Static                                        1496 (28.46%)
+  Attribute Accesses                                17
+    Non-Static                                      15 (88.24%)
+    Static                                           2 (11.76%)
+  Method Calls                                    5263
+    Non-Static                                    3760 (71.44%)
+    Static                                        1503 (28.56%)
 
 Structure
   Namespaces                                        44
   Interfaces                                         0
   Traits                                             1
-  Classes                                          159
-    Abstract Classes                                 2 (1.26%)
-    Concrete Classes                               157 (98.74%)
-      Final Classes                                152 (96.82%)
-      Non-Final Classes                              5 (3.18%)
-  Methods                                          915
+  Classes                                          161
+    Abstract Classes                                 2 (1.24%)
+    Concrete Classes                               159 (98.76%)
+      Final Classes                                153 (96.23%)
+      Non-Final Classes                              6 (3.77%)
+  Methods                                          918
     Scope
-      Non-Static Methods                           878 (95.96%)
-      Static Methods                                37 (4.04%)
+      Non-Static Methods                           881 (95.97%)
+      Static Methods                                37 (4.03%)
     Visibility
-      Public Methods                               710 (77.60%)
-      Protected Methods                            197 (21.53%)
+      Public Methods                               711 (77.45%)
+      Protected Methods                            199 (21.68%)
       Private Methods                                8 (0.87%)
   Functions                                         81
     Named Functions                                  3 (3.70%)

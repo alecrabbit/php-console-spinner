@@ -10,7 +10,7 @@ Palettes::register(Rainbow::class);
 ```
 Signature:
 ```php
-Palettes::register(string $paletteClass, ?string $label = null): void
+Palettes::register(string $paletteClass): void
 ```
 
 > To render a palette to pattern:

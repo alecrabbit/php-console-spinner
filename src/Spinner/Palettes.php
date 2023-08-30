@@ -44,7 +44,7 @@ final class Palettes
         if (!self::isSubclass($class)) {
             throw new InvalidArgumentException(
                 sprintf(
-                    'Class "%s" must implement "%s" interface.',
+                    'Class "%s" must be a subclass of "%s" interface.',
                     $class,
                     IPalette::class
                 )

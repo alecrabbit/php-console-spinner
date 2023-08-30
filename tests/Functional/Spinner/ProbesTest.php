@@ -165,7 +165,7 @@ final class ProbesTest extends TestCase
         $this->expectExceptionMessage(
             'Class "' .
             $probe .
-            '" must implement "' .
+            '" must be a subclass of "' .
             IStaticProbe::class .
             '" interface.'
         );
@@ -182,7 +182,7 @@ final class ProbesTest extends TestCase
         $this->expectExceptionMessage(
             'Class "' .
             $filterClass .
-            '" must implement "' .
+            '" must be a subclass of "' .
             IStaticProbe::class .
             '" interface.'
         );
@@ -203,7 +203,7 @@ final class ProbesTest extends TestCase
         $this->expectExceptionMessage(
             'Class "' .
             $class .
-            '" must implement "' .
+            '" must be a subclass of "' .
             IStaticProbe::class .
             '" interface.'
         );
@@ -221,7 +221,7 @@ final class ProbesTest extends TestCase
         $this->expectExceptionMessage(
             'Class "' .
             $probe .
-            '" must implement "' .
+            '" must be a subclass of "' .
             IStaticProbe::class .
             '" interface.'
         );
