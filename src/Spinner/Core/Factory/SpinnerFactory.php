@@ -6,7 +6,6 @@ namespace AlecRabbit\Spinner\Core\Factory;
 
 use AlecRabbit\Spinner\Core\Config\Legacy\Contract\ILegacySpinnerConfig;
 use AlecRabbit\Spinner\Core\Config\Legacy\Contract\ILegacyWidgetConfig;
-use AlecRabbit\Spinner\Core\Contract\IConfigProvider;
 use AlecRabbit\Spinner\Core\Contract\ILegacySettingsProvider;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILegacyWidgetSettingsFactory;
@@ -23,7 +22,8 @@ final class SpinnerFactory implements ISpinnerFactory
         protected IWidgetFactory $widgetFactory,
         protected ILegacyWidgetSettingsFactory $widgetSettingsFactory,
 //        protected IConfigProvider $configProvider,
-    ) {
+    )
+    {
     }
 
     /**

@@ -6,5 +6,4 @@ namespace AlecRabbit\Spinner\Core\Palette\Contract;
 
 interface IPalette
 {
-
 }

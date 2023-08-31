@@ -32,7 +32,8 @@ final class SpinnerFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
         ?IWidgetFactory $widgetFactory = null,
         ?ILegacyWidgetSettingsFactory $widgetSettingsFactory = null,
 //        ?IConfigProvider $configProvider = null,
-    ): ISpinnerFactory {
+    ): ISpinnerFactory
+    {
         return
             new SpinnerFactory(
                 settingsProvider: $settingsProvider ?? $this->getLegacySettingsProviderMock(),
@@ -40,11 +41,6 @@ final class SpinnerFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
                 widgetSettingsFactory: $widgetSettingsFactory ?? $this->getWidgetSettingsFactoryMock(),
 //                configProvider: $configProvider ?? $this->getConfigProviderMock(),
             );
-    }
-
-    protected function getConfigProviderMock(): MockObject&IConfigProvider
-    {
-        return $this->createMock(IConfigProvider::class);
     }
 
     #[Test]
@@ -252,11 +248,17 @@ final class SpinnerFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
         $spinnerSettings
             ->expects(self::once())
             ->method('getWidgetSettings')
-            ->willReturn($widgetSettings);
+            ->willReturn($widgetSettings)
+        ;
 
         $spinner = $spinnerFactory->createSpinner($spinnerSettings);
 
         self::assertInstanceOf(Spinner::class, $spinner);
+    }
+
+    protected function getWidgetSettingsMock(): MockObject&IWidgetSettings
+    {
+        return $this->createMock(IWidgetSettings::class);
     }
 
     protected function getWidgetFactoryMock(): MockObject&IWidgetFactory
@@ -269,8 +271,8 @@ final class SpinnerFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
         return $this->createMock(ISpinnerSettings::class);
     }
 
-    protected function getWidgetSettingsMock(): MockObject&IWidgetSettings
+    protected function getConfigProviderMock(): MockObject&IConfigProvider
     {
-        return $this->createMock(IWidgetSettings::class);
+        return $this->createMock(IConfigProvider::class);
     }
 }

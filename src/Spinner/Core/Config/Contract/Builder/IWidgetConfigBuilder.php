@@ -6,7 +6,7 @@ namespace AlecRabbit\Spinner\Core\Config\Contract\Builder;
 
 use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Core\Config\Contract\IWidgetConfig;
-use AlecRabbit\Spinner\Core\Pattern\Contract\IPatternMarker;
+use AlecRabbit\Spinner\Core\Palette\Contract\IPalette;
 use AlecRabbit\Spinner\Exception\LogicException;
 
 interface IWidgetConfigBuilder
@@ -20,7 +20,7 @@ interface IWidgetConfigBuilder
 
     public function withTrailingSpacer(IFrame $frame): IWidgetConfigBuilder;
 
-    public function withStylePattern(IPatternMarker $pattern): IWidgetConfigBuilder;
+    public function withStylePalette(IPalette $pattern): IWidgetConfigBuilder;
 
-    public function withCharPattern(IPatternMarker $pattern): IWidgetConfigBuilder;
+    public function withCharPalette(IPalette $pattern): IWidgetConfigBuilder;
 }

@@ -8,7 +8,7 @@ use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Core\Config\Builder\WidgetConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\Builder\IWidgetConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\WidgetConfig;
-use AlecRabbit\Spinner\Core\Pattern\Contract\IPatternMarker;
+use AlecRabbit\Spinner\Core\Palette\Contract\IPalette;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -22,14 +22,14 @@ final class WidgetConfigBuilderTest extends TestCase
 
         $leadingSpacer = $this->getFrameMock();
         $trailingSpacer = $this->getFrameMock();
-        $stylePattern = $this->getPatternMarkerMock();
-        $charPattern = $this->getPatternMarkerMock();
+        $stylePalette = $this->getPaletteMarkerMock();
+        $charPalette = $this->getPaletteMarkerMock();
 
         $config = $configBuilder
             ->withLeadingSpacer($leadingSpacer)
             ->withTrailingSpacer($trailingSpacer)
-            ->withStylePattern($stylePattern)
-            ->withCharPattern($charPattern)
+            ->withStylePalette($stylePalette)
+            ->withCharPalette($charPalette)
             ->build()
         ;
 
@@ -37,8 +37,8 @@ final class WidgetConfigBuilderTest extends TestCase
 
         self::assertSame($leadingSpacer, $config->getLeadingSpacer());
         self::assertSame($trailingSpacer, $config->getTrailingSpacer());
-        self::assertSame($stylePattern, $config->getStylePattern());
-        self::assertSame($charPattern, $config->getCharPattern());
+        self::assertSame($stylePalette, $config->getStylePalette());
+        self::assertSame($charPalette, $config->getCharPalette());
     }
 
     protected function getTesteeInstance(): IWidgetConfigBuilder
@@ -52,8 +52,8 @@ final class WidgetConfigBuilderTest extends TestCase
         return $this->createMock(IFrame::class);
     }
 
-    private function getPatternMarkerMock(): MockObject&IPatternMarker
+    private function getPaletteMarkerMock(): MockObject&IPalette
     {
-        return $this->createMock(IPatternMarker::class);
+        return $this->createMock(IPalette::class);
     }
 }

@@ -6,15 +6,15 @@ namespace AlecRabbit\Spinner\Core\Config;
 
 use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Core\Config\Contract\IWidgetConfig;
-use AlecRabbit\Spinner\Core\Pattern\Contract\IPatternMarker;
+use AlecRabbit\Spinner\Core\Palette\Contract\IPalette;
 
 final readonly class WidgetConfig implements IWidgetConfig
 {
     public function __construct(
         protected IFrame $leadingSpacer,
         protected IFrame $trailingSpacer,
-        protected IPatternMarker $stylePattern,
-        protected IPatternMarker $charPattern,
+        protected IPalette $stylePalette,
+        protected IPalette $charPalette,
     ) {
     }
 
@@ -28,13 +28,13 @@ final readonly class WidgetConfig implements IWidgetConfig
         return $this->trailingSpacer;
     }
 
-    public function getStylePattern(): IPatternMarker
+    public function getStylePalette(): IPalette
     {
-        return $this->stylePattern;
+        return $this->stylePalette;
     }
 
-    public function getCharPattern(): IPatternMarker
+    public function getCharPalette(): IPalette
     {
-        return $this->charPattern;
+        return $this->charPalette;
     }
 }

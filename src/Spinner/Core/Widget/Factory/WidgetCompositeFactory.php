@@ -10,6 +10,7 @@ use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetCompositeBuilder;
 use AlecRabbit\Spinner\Core\Widget\Factory\Contract\IWidgetCompositeFactory;
 use AlecRabbit\Spinner\Core\Widget\Factory\Contract\IWidgetRevolverFactory;
+use RuntimeException;
 
 final class WidgetCompositeFactory implements IWidgetCompositeFactory
 {
@@ -36,6 +37,6 @@ final class WidgetCompositeFactory implements IWidgetCompositeFactory
     public function createWidget(?IWidgetSettings $widgetSettings = null): IWidgetComposite
     {
         // TODO: Implement createWidget() method.
-        throw new \RuntimeException('Not implemented.');
+        throw new RuntimeException('Not implemented.');
     }
 }

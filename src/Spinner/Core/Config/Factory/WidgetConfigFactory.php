@@ -17,8 +17,8 @@ final class WidgetConfigFactory implements IWidgetConfigFactory
             new WidgetConfig(
                 leadingSpacer: $leadingSpacer,
                 trailingSpacer: $trailingSpacer,
-                stylePattern: $stylePattern,
-                charPattern: $charPattern,
+                stylePalette: $stylePalette,
+                charPalette: $charPalette,
             );
     }
 }

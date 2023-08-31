@@ -13,6 +13,7 @@ use AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyWidgetSettings;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolver;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolverBuilder;
 use AlecRabbit\Spinner\Core\Widget\Factory\Contract\IWidgetRevolverFactory;
+use RuntimeException;
 
 final class WidgetRevolverFactory implements IWidgetRevolverFactory
 {
@@ -69,6 +70,26 @@ final class WidgetRevolverFactory implements IWidgetRevolverFactory
     public function create(IWidgetConfig $widgetConfig): IRevolver
     {
         // TODO: Implement create() method.
-        throw new \RuntimeException('Not implemented.');
+        throw new RuntimeException('Not implemented.');
+
+//        return
+//            $this->widgetRevolverBuilder
+//                ->withStyleRevolver(
+//                    $this->styleRevolverFactory
+//                        ->createStyleRevolver(
+//                            $widgetConfig->getStylePattern()
+//                        )
+//                )
+//                ->withCharRevolver(
+//                    $this->charRevolverFactory
+//                        ->createCharRevolver(
+//                             $widgetConfig->getCharPattern()
+//                        )
+//                )
+//                ->withTolerance(
+//                    $this->getTolerance()
+//                )
+//                ->build()
+//        ;
     }
 }

@@ -5,15 +5,15 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Settings;
 
 use AlecRabbit\Spinner\Contract\IFrame;
+use AlecRabbit\Spinner\Core\Palette\Contract\IPalette;
 
 final class WidgetSettings implements Contract\IWidgetSettings
 {
-
     public function __construct(
         protected ?IFrame $leadingSpacer = null,
         protected ?IFrame $trailingSpacer = null,
-        protected mixed $stylePattern = null,
-        protected mixed $charPattern = null,
+        protected ?IPalette $stylePalette = null,
+        protected ?IPalette $charPalette = null,
     ) {
     }
 

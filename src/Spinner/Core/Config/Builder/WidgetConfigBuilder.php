@@ -8,15 +8,15 @@ use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Core\Config\Contract\Builder\IWidgetConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\IWidgetConfig;
 use AlecRabbit\Spinner\Core\Config\WidgetConfig;
-use AlecRabbit\Spinner\Core\Pattern\Contract\IPatternMarker;
+use AlecRabbit\Spinner\Core\Palette\Contract\IPalette;
 use AlecRabbit\Spinner\Exception\LogicException;
 
 final class WidgetConfigBuilder implements IWidgetConfigBuilder
 {
     private ?IFrame $leadingSpacer = null;
     private ?IFrame $trailingSpacer = null;
-    private ?IPatternMarker $stylePattern = null;
-    private ?IPatternMarker $charPattern = null;
+    private ?IPalette $stylePattern = null;
+    private ?IPalette $charPattern = null;
 
     /**
      * @inheritDoc
@@ -29,8 +29,8 @@ final class WidgetConfigBuilder implements IWidgetConfigBuilder
             new WidgetConfig(
                 leadingSpacer: $this->leadingSpacer,
                 trailingSpacer: $this->trailingSpacer,
-                stylePattern: $this->stylePattern,
-                charPattern: $this->charPattern,
+                stylePalette: $this->stylePattern,
+                charPalette: $this->charPattern,
             );
     }
 
@@ -59,14 +59,14 @@ final class WidgetConfigBuilder implements IWidgetConfigBuilder
         return $clone;
     }
 
-    public function withStylePattern(IPatternMarker $pattern): IWidgetConfigBuilder
+    public function withStylePalette(IPalette $pattern): IWidgetConfigBuilder
     {
         $clone = clone $this;
         $clone->stylePattern = $pattern;
         return $clone;
     }
 
-    public function withCharPattern(IPatternMarker $pattern): IWidgetConfigBuilder
+    public function withCharPalette(IPalette $pattern): IWidgetConfigBuilder
     {
         $clone = clone $this;
         $clone->charPattern = $pattern;

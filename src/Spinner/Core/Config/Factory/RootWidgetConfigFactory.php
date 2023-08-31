@@ -16,8 +16,8 @@ final class RootWidgetConfigFactory implements IRootWidgetConfigFactory
             new WidgetConfig(
                 leadingSpacer: '',
                 trailingSpacer: '',
-                stylePattern: '',
-                charPattern: '',
+                stylePalette: '',
+                charPalette: '',
             );
     }
 }

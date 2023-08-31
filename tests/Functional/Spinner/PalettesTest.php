@@ -14,6 +14,7 @@ use AlecRabbit\Tests\Functional\Spinner\Override\PaletteOverride;
 use AlecRabbit\Tests\Functional\Spinner\Override\StylePaletteOverride;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
+use stdClass;
 
 final class PalettesTest extends TestCase
 {
@@ -168,7 +169,7 @@ final class PalettesTest extends TestCase
     #[Test]
     public function throwsIfPaletteClassIsNotAPaletteSubClass(): void
     {
-        $palette = \stdClass::class;
+        $palette = stdClass::class;
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage(
             'Class "' .
@@ -185,7 +186,7 @@ final class PalettesTest extends TestCase
     #[Test]
     public function throwsIfFilterClassIsNotAStaticPaletteSubClass(): void
     {
-        $filterClass = \stdClass::class;
+        $filterClass = stdClass::class;
 
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage(
@@ -206,7 +207,7 @@ final class PalettesTest extends TestCase
     #[Test]
     public function throwsIfPaletteClassToUnregisterIsNotAPaletteSubClass(): void
     {
-        $class = \stdClass::class;
+        $class = stdClass::class;
 
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage(

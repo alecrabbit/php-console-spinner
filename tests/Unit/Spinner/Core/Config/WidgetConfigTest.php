@@ -7,7 +7,7 @@ namespace AlecRabbit\Tests\Unit\Spinner\Core\Config;
 use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Core\Config\Contract\IWidgetConfig;
 use AlecRabbit\Spinner\Core\Config\WidgetConfig;
-use AlecRabbit\Spinner\Core\Pattern\Contract\IPatternMarker;
+use AlecRabbit\Spinner\Core\Palette\Contract\IPalette;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -25,15 +25,15 @@ final class WidgetConfigTest extends TestCase
     protected function getTesteeInstance(
         ?IFrame $leadingSpacer = null,
         ?IFrame $trailingSpacer = null,
-        ?IPatternMarker $stylePattern = null,
-        ?IPatternMarker $charPattern = null,
+        ?IPalette $stylePattern = null,
+        ?IPalette $charPattern = null,
     ): IWidgetConfig {
         return
             new WidgetConfig(
                 leadingSpacer: $leadingSpacer ?? $this->getFrameMock(),
                 trailingSpacer: $trailingSpacer ?? $this->getFrameMock(),
-                stylePattern: $stylePattern ?? $this->getBakedPatternMock(),
-                charPattern: $charPattern ?? $this->getBakedPatternMock(),
+                stylePalette: $stylePattern ?? $this->getBakedPatternMock(),
+                charPalette: $charPattern ?? $this->getBakedPatternMock(),
             );
     }
 
@@ -42,9 +42,9 @@ final class WidgetConfigTest extends TestCase
         return $this->createMock(IFrame::class);
     }
 
-    protected function getBakedPatternMock(): MockObject&IPatternMarker
+    protected function getBakedPatternMock(): MockObject&IPalette
     {
-        return $this->createMock(IPatternMarker::class);
+        return $this->createMock(IPalette::class);
     }
 
     #[Test]
@@ -80,7 +80,7 @@ final class WidgetConfigTest extends TestCase
             stylePattern: $stylePattern,
         );
 
-        self::assertSame($stylePattern, $config->getStylePattern());
+        self::assertSame($stylePattern, $config->getStylePalette());
     }
 
     #[Test]
@@ -92,6 +92,6 @@ final class WidgetConfigTest extends TestCase
             charPattern: $charPattern,
         );
 
-        self::assertSame($charPattern, $config->getCharPattern());
+        self::assertSame($charPattern, $config->getCharPalette());
     }
 }
