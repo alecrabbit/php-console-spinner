@@ -49,9 +49,9 @@
 /app/src/Spinner/Core/Config/Factory/WidgetConfigFactory.php:18:32:error - MixedArgument: Argument 1 of AlecRabbit\Spinner\Core\Config\WidgetConfig::__construct cannot be mixed, expecting AlecRabbit\Spinner\Contract\IFrame
 /app/src/Spinner/Core/Config/Factory/WidgetConfigFactory.php:19:33:error - UndefinedVariable: Cannot find referenced variable $trailingSpacer
 /app/src/Spinner/Core/Config/Factory/WidgetConfigFactory.php:19:33:error - MixedArgument: Argument 2 of AlecRabbit\Spinner\Core\Config\WidgetConfig::__construct cannot be mixed, expecting AlecRabbit\Spinner\Contract\IFrame
-/app/src/Spinner/Core/Config/Factory/WidgetConfigFactory.php:20:31:error - UndefinedVariable: Cannot find referenced variable $stylePattern
+/app/src/Spinner/Core/Config/Factory/WidgetConfigFactory.php:20:31:error - UndefinedVariable: Cannot find referenced variable $stylePalette
 /app/src/Spinner/Core/Config/Factory/WidgetConfigFactory.php:20:31:error - MixedArgument: Argument 3 of AlecRabbit\Spinner\Core\Config\WidgetConfig::__construct cannot be mixed, expecting AlecRabbit\Spinner\Core\Palette\Contract\IPalette
-/app/src/Spinner/Core/Config/Factory/WidgetConfigFactory.php:21:30:error - UndefinedVariable: Cannot find referenced variable $charPattern
+/app/src/Spinner/Core/Config/Factory/WidgetConfigFactory.php:21:30:error - UndefinedVariable: Cannot find referenced variable $charPalette
 /app/src/Spinner/Core/Config/Factory/WidgetConfigFactory.php:21:30:error - MixedArgument: Argument 4 of AlecRabbit\Spinner\Core\Config\WidgetConfig::__construct cannot be mixed, expecting AlecRabbit\Spinner\Core\Palette\Contract\IPalette
 /app/src/Spinner/Core/Contract/IWeakMap.php:11:28:error - MissingTemplateParam: AlecRabbit\Spinner\Core\Contract\IWeakMap has missing template params when extending ArrayAccess, expecting 2
 /app/src/Spinner/Core/Contract/IWeakMap.php:11:52:error - MissingTemplateParam: AlecRabbit\Spinner\Core\Contract\IWeakMap has missing template params when extending IteratorAggregate, expecting 2

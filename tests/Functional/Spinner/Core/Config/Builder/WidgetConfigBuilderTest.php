@@ -22,8 +22,8 @@ final class WidgetConfigBuilderTest extends TestCase
 
         $leadingSpacer = $this->getFrameMock();
         $trailingSpacer = $this->getFrameMock();
-        $stylePalette = $this->getPaletteMarkerMock();
-        $charPalette = $this->getPaletteMarkerMock();
+        $stylePalette = $this->getPaletteMock();
+        $charPalette = $this->getPaletteMock();
 
         $config = $configBuilder
             ->withLeadingSpacer($leadingSpacer)
@@ -52,7 +52,7 @@ final class WidgetConfigBuilderTest extends TestCase
         return $this->createMock(IFrame::class);
     }
 
-    private function getPaletteMarkerMock(): MockObject&IPalette
+    private function getPaletteMock(): MockObject&IPalette
     {
         return $this->createMock(IPalette::class);
     }
