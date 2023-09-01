@@ -7,7 +7,6 @@ namespace AlecRabbit\Spinner\Core\Config\Contract\Factory;
 use AlecRabbit\Spinner\Core\Config\Contract\IWidgetConfig;
 use AlecRabbit\Spinner\Core\Settings\Contract\IWidgetSettings;
 
-interface IRootWidgetConfigFactory
+interface IRootWidgetConfigFactory extends IWidgetConfigFactory
 {
-    public function create(?IWidgetSettings $widgetSettings = null): IWidgetConfig;
 }
