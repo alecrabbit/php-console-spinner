@@ -8,6 +8,5 @@ use AlecRabbit\Spinner\Core\Config\Contract\IConfig;
 
 interface IConfigProvider
 {
-
     public function getConfig(): IConfig;
 }

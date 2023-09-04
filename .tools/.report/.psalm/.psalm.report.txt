@@ -41,18 +41,18 @@
 /app/src/Spinner/Core/Config/Builder/WidgetConfigBuilder.php:31:33:error - PossiblyNullArgument: Argument 2 of AlecRabbit\Spinner\Core\Config\WidgetConfig::__construct cannot be null, possibly null value provided
 /app/src/Spinner/Core/Config/Builder/WidgetConfigBuilder.php:32:31:error - PossiblyNullArgument: Argument 3 of AlecRabbit\Spinner\Core\Config\WidgetConfig::__construct cannot be null, possibly null value provided
 /app/src/Spinner/Core/Config/Builder/WidgetConfigBuilder.php:33:30:error - PossiblyNullArgument: Argument 4 of AlecRabbit\Spinner\Core\Config\WidgetConfig::__construct cannot be null, possibly null value provided
-/app/src/Spinner/Core/Config/Factory/RootWidgetConfigFactory.php:17:32:error - InvalidArgument: Argument 1 of AlecRabbit\Spinner\Core\Config\WidgetConfig::__construct expects AlecRabbit\Spinner\Contract\IFrame, but '' provided
-/app/src/Spinner/Core/Config/Factory/RootWidgetConfigFactory.php:18:33:error - InvalidArgument: Argument 2 of AlecRabbit\Spinner\Core\Config\WidgetConfig::__construct expects AlecRabbit\Spinner\Contract\IFrame, but '' provided
-/app/src/Spinner/Core/Config/Factory/RootWidgetConfigFactory.php:19:31:error - InvalidArgument: Argument 3 of AlecRabbit\Spinner\Core\Config\WidgetConfig::__construct expects AlecRabbit\Spinner\Core\Palette\Contract\IPalette, but '' provided
-/app/src/Spinner/Core/Config/Factory/RootWidgetConfigFactory.php:20:30:error - InvalidArgument: Argument 4 of AlecRabbit\Spinner\Core\Config\WidgetConfig::__construct expects AlecRabbit\Spinner\Core\Palette\Contract\IPalette, but '' provided
-/app/src/Spinner/Core/Config/Factory/WidgetConfigFactory.php:18:32:error - UndefinedVariable: Cannot find referenced variable $leadingSpacer
-/app/src/Spinner/Core/Config/Factory/WidgetConfigFactory.php:18:32:error - MixedArgument: Argument 1 of AlecRabbit\Spinner\Core\Config\WidgetConfig::__construct cannot be mixed, expecting AlecRabbit\Spinner\Contract\IFrame
-/app/src/Spinner/Core/Config/Factory/WidgetConfigFactory.php:19:33:error - UndefinedVariable: Cannot find referenced variable $trailingSpacer
-/app/src/Spinner/Core/Config/Factory/WidgetConfigFactory.php:19:33:error - MixedArgument: Argument 2 of AlecRabbit\Spinner\Core\Config\WidgetConfig::__construct cannot be mixed, expecting AlecRabbit\Spinner\Contract\IFrame
-/app/src/Spinner/Core/Config/Factory/WidgetConfigFactory.php:20:31:error - UndefinedVariable: Cannot find referenced variable $stylePalette
-/app/src/Spinner/Core/Config/Factory/WidgetConfigFactory.php:20:31:error - MixedArgument: Argument 3 of AlecRabbit\Spinner\Core\Config\WidgetConfig::__construct cannot be mixed, expecting AlecRabbit\Spinner\Core\Palette\Contract\IPalette
-/app/src/Spinner/Core/Config/Factory/WidgetConfigFactory.php:21:30:error - UndefinedVariable: Cannot find referenced variable $charPalette
-/app/src/Spinner/Core/Config/Factory/WidgetConfigFactory.php:21:30:error - MixedArgument: Argument 4 of AlecRabbit\Spinner\Core\Config\WidgetConfig::__construct cannot be mixed, expecting AlecRabbit\Spinner\Core\Palette\Contract\IPalette
+/app/src/Spinner/Core/Config/Factory/RootWidgetConfigFactory.php:23:32:error - InvalidArgument: Argument 1 of AlecRabbit\Spinner\Core\Config\WidgetConfig::__construct expects AlecRabbit\Spinner\Contract\IFrame, but '' provided
+/app/src/Spinner/Core/Config/Factory/RootWidgetConfigFactory.php:24:33:error - InvalidArgument: Argument 2 of AlecRabbit\Spinner\Core\Config\WidgetConfig::__construct expects AlecRabbit\Spinner\Contract\IFrame, but '' provided
+/app/src/Spinner/Core/Config/Factory/RootWidgetConfigFactory.php:25:31:error - InvalidArgument: Argument 3 of AlecRabbit\Spinner\Core\Config\WidgetConfig::__construct expects AlecRabbit\Spinner\Core\Palette\Contract\IPalette, but '' provided
+/app/src/Spinner/Core/Config/Factory/RootWidgetConfigFactory.php:26:30:error - InvalidArgument: Argument 4 of AlecRabbit\Spinner\Core\Config\WidgetConfig::__construct expects AlecRabbit\Spinner\Core\Palette\Contract\IPalette, but '' provided
+/app/src/Spinner/Core/Config/Factory/WidgetConfigFactory.php:17:32:error - UndefinedVariable: Cannot find referenced variable $leadingSpacer
+/app/src/Spinner/Core/Config/Factory/WidgetConfigFactory.php:17:32:error - MixedArgument: Argument 1 of AlecRabbit\Spinner\Core\Config\WidgetConfig::__construct cannot be mixed, expecting AlecRabbit\Spinner\Contract\IFrame
+/app/src/Spinner/Core/Config/Factory/WidgetConfigFactory.php:18:33:error - UndefinedVariable: Cannot find referenced variable $trailingSpacer
+/app/src/Spinner/Core/Config/Factory/WidgetConfigFactory.php:18:33:error - MixedArgument: Argument 2 of AlecRabbit\Spinner\Core\Config\WidgetConfig::__construct cannot be mixed, expecting AlecRabbit\Spinner\Contract\IFrame
+/app/src/Spinner/Core/Config/Factory/WidgetConfigFactory.php:19:31:error - UndefinedVariable: Cannot find referenced variable $stylePalette
+/app/src/Spinner/Core/Config/Factory/WidgetConfigFactory.php:19:31:error - MixedArgument: Argument 3 of AlecRabbit\Spinner\Core\Config\WidgetConfig::__construct cannot be mixed, expecting AlecRabbit\Spinner\Core\Palette\Contract\IPalette
+/app/src/Spinner/Core/Config/Factory/WidgetConfigFactory.php:20:30:error - UndefinedVariable: Cannot find referenced variable $charPalette
+/app/src/Spinner/Core/Config/Factory/WidgetConfigFactory.php:20:30:error - MixedArgument: Argument 4 of AlecRabbit\Spinner\Core\Config\WidgetConfig::__construct cannot be mixed, expecting AlecRabbit\Spinner\Core\Palette\Contract\IPalette
 /app/src/Spinner/Core/Contract/IWeakMap.php:11:28:error - MissingTemplateParam: AlecRabbit\Spinner\Core\Contract\IWeakMap has missing template params when extending ArrayAccess, expecting 2
 /app/src/Spinner/Core/Contract/IWeakMap.php:11:52:error - MissingTemplateParam: AlecRabbit\Spinner\Core\Contract\IWeakMap has missing template params when extending IteratorAggregate, expecting 2
 /app/src/Spinner/Core/Contract/IWidgetContextToIntervalMap.php:12:47:error - MissingTemplateParam: AlecRabbit\Spinner\Core\Contract\IWidgetContextToIntervalMap has missing template params when extending ArrayAccess, expecting 2
@@ -100,6 +100,7 @@
 /app/src/Spinner/Core/Widget/Builder/WidgetRevolverBuilder.php:27:17:error - PossiblyNullArgument: Argument 2 of AlecRabbit\Spinner\Core\Widget\WidgetRevolver::__construct cannot be null, possibly null value provided
 /app/src/Spinner/Core/Widget/Builder/WidgetRevolverBuilder.php:28:17:error - PossiblyNullArgument: Argument 3 of AlecRabbit\Spinner\Core\Widget\WidgetRevolver::__construct cannot be null, possibly null value provided
 /app/src/Spinner/Core/Widget/Contract/IWidgetCompositeChildrenContainer.php:19:53:error - MissingTemplateParam: AlecRabbit\Spinner\Core\Widget\Contract\IWidgetCompositeChildrenContainer has missing template params when extending IteratorAggregate, expecting 2
+/app/src/Spinner/Core/Widget/Factory/WidgetFactory.php:40:53:error - TooManyArguments: Too many arguments for method AlecRabbit\Spinner\Core\Config\Contract\Factory\IWidgetConfigFactory::create - saw 1
 /app/src/Spinner/Core/Widget/WidgetComposite.php:31:13:error - ArgumentTypeCoercion: Argument 1 of AlecRabbit\Spinner\Core\Widget\A\AWidget::__construct expects AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolver, but parent type AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver provided
 /app/src/Spinner/Core/Widget/WidgetComposite.php:67:13:error - InvalidDocblock: Misplaced variable
 /app/src/Spinner/Core/Widget/WidgetComposite.php:67:41:error - MissingDocblockType: Misplaced variable
