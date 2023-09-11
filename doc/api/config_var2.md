@@ -11,7 +11,7 @@ $auxConfig->getRunMethodMode(); // RunMethodMode::ASYNC
 $auxConfig->getLoopAvailabilityMode(); // LoopAvailabilityMode::PRESENT
 
 // Loop config
-$loopConfig = $config->get(ILoopConfig::class); /
+$loopConfig = $config->get(ILoopConfig::class);
 
 $loopConfig->getAutoStartMode(); // AutoStartMode::ENABLED
 $loopConfig->getSignalHandlersMode(); // SignalHandlersMode::ENABLED
