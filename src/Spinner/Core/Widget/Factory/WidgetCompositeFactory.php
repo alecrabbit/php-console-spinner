@@ -11,7 +11,6 @@ use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetCompositeBuilder;
 use AlecRabbit\Spinner\Core\Widget\Factory\Contract\IWidgetCompositeFactory;
 use AlecRabbit\Spinner\Core\Widget\Factory\Contract\IWidgetRevolverFactory;
-use RuntimeException;
 
 final class WidgetCompositeFactory implements IWidgetCompositeFactory
 {
@@ -40,7 +39,7 @@ final class WidgetCompositeFactory implements IWidgetCompositeFactory
     {
         $widgetConfig = $this->widgetConfigFactory->create($widgetSettings);
 
-        $revolver = $this->widgetRevolverFactory->create($widgetConfig);
+        $revolver = $this->widgetRevolverFactory->create($widgetConfig->getRevolverConfig());
 
         return
             $this->widgetBuilder

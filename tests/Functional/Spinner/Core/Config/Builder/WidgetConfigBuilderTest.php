@@ -7,8 +7,8 @@ namespace AlecRabbit\Tests\Functional\Spinner\Core\Config\Builder;
 use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Core\Config\Builder\WidgetConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\Builder\IWidgetConfigBuilder;
+use AlecRabbit\Spinner\Core\Config\Contract\IRevolverConfig;
 use AlecRabbit\Spinner\Core\Config\WidgetConfig;
-use AlecRabbit\Spinner\Core\Palette\Contract\IPalette;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -22,14 +22,12 @@ final class WidgetConfigBuilderTest extends TestCase
 
         $leadingSpacer = $this->getFrameMock();
         $trailingSpacer = $this->getFrameMock();
-        $stylePalette = $this->getPaletteMock();
-        $charPalette = $this->getPaletteMock();
+        $revolverConfig = $this->getRevolverConfigMock();
 
         $config = $configBuilder
             ->withLeadingSpacer($leadingSpacer)
             ->withTrailingSpacer($trailingSpacer)
-            ->withStylePalette($stylePalette)
-            ->withCharPalette($charPalette)
+            ->withRevolverConfig($revolverConfig)
             ->build()
         ;
 
@@ -37,8 +35,7 @@ final class WidgetConfigBuilderTest extends TestCase
 
         self::assertSame($leadingSpacer, $config->getLeadingSpacer());
         self::assertSame($trailingSpacer, $config->getTrailingSpacer());
-        self::assertSame($stylePalette, $config->getStylePalette());
-        self::assertSame($charPalette, $config->getCharPalette());
+        self::assertSame($revolverConfig, $config->getRevolverConfig());
     }
 
     protected function getTesteeInstance(): IWidgetConfigBuilder
@@ -52,8 +49,8 @@ final class WidgetConfigBuilderTest extends TestCase
         return $this->createMock(IFrame::class);
     }
 
-    private function getPaletteMock(): MockObject&IPalette
+    protected function getRevolverConfigMock(): MockObject&IRevolverConfig
     {
-        return $this->createMock(IPalette::class);
+        return $this->createMock(IRevolverConfig::class);
     }
 }

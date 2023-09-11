@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Widget\Factory;
 
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\IWidgetConfigFactory;
+use AlecRabbit\Spinner\Core\Config\Contract\IRevolverConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IWidgetConfig;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetBuilder;
 use AlecRabbit\Spinner\Core\Widget\Factory\Contract\IWidgetFactory;
@@ -121,6 +122,7 @@ final class WidgetFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
     {
         $leadingSpacer = $this->getFrameMock();
         $trailingSpacer = $this->getFrameMock();
+        $revolverConfig = $this->getRevolverConfigMock();
         $widgetConfig = $this->getWidgetConfigMock();
         $widgetConfig
             ->expects(self::once())
@@ -131,6 +133,11 @@ final class WidgetFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
             ->expects(self::once())
             ->method('getTrailingSpacer')
             ->willReturn($trailingSpacer)
+        ;
+        $widgetConfig
+            ->expects(self::once())
+            ->method('getRevolverConfig')
+            ->willReturn($revolverConfig)
         ;
 
         $widgetConfigFactory = $this->getWidgetConfigFactoryMock();
@@ -149,7 +156,7 @@ final class WidgetFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
         $widgetRevolverFactory
             ->expects(self::once())
             ->method('create')
-            ->with(self::identicalTo($widgetConfig))
+            ->with(self::identicalTo($revolverConfig))
             ->willReturn($widgetRevolver)
         ;
 
@@ -186,6 +193,11 @@ final class WidgetFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
 
         self::assertInstanceOf(WidgetFactory::class, $widgetFactory);
         self::assertSame($widget, $widgetFactory->createWidget());
+    }
+
+    protected function getRevolverConfigMock(): MockObject&IRevolverConfig
+    {
+        return $this->createMock(IRevolverConfig::class);
     }
 
     protected function getWidgetConfigMock(): MockObject&IWidgetConfig

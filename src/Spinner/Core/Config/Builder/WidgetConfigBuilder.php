@@ -6,6 +6,7 @@ namespace AlecRabbit\Spinner\Core\Config\Builder;
 
 use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Core\Config\Contract\Builder\IWidgetConfigBuilder;
+use AlecRabbit\Spinner\Core\Config\Contract\IRevolverConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IWidgetConfig;
 use AlecRabbit\Spinner\Core\Config\WidgetConfig;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPalette;
@@ -17,6 +18,7 @@ final class WidgetConfigBuilder implements IWidgetConfigBuilder
     private ?IFrame $trailingSpacer = null;
     private ?IPalette $stylePattern = null;
     private ?IPalette $charPattern = null;
+    private ?IRevolverConfig $revolverConfig = null;
 
     /**
      * @inheritDoc
@@ -29,8 +31,7 @@ final class WidgetConfigBuilder implements IWidgetConfigBuilder
             new WidgetConfig(
                 leadingSpacer: $this->leadingSpacer,
                 trailingSpacer: $this->trailingSpacer,
-                stylePalette: $this->stylePattern,
-                charPalette: $this->charPattern,
+                revolverConfig: $this->revolverConfig,
             );
     }
 
@@ -39,8 +40,7 @@ final class WidgetConfigBuilder implements IWidgetConfigBuilder
         match (true) {
             $this->leadingSpacer === null => throw new LogicException('Leading spacer is not set.'),
             $this->trailingSpacer === null => throw new LogicException('Trailing spacer is not set.'),
-            $this->stylePattern === null => throw new LogicException('Style pattern is not set.'),
-            $this->charPattern === null => throw new LogicException('Char pattern is not set.'),
+            $this->revolverConfig === null => throw new LogicException('Revolver config is not set.'),
             default => null,
         };
     }
@@ -70,6 +70,13 @@ final class WidgetConfigBuilder implements IWidgetConfigBuilder
     {
         $clone = clone $this;
         $clone->charPattern = $pattern;
+        return $clone;
+    }
+
+    public function withRevolverConfig(IRevolverConfig $revolverConfig): IWidgetConfigBuilder
+    {
+        $clone = clone $this;
+        $clone->revolverConfig = $revolverConfig;
         return $clone;
     }
 }

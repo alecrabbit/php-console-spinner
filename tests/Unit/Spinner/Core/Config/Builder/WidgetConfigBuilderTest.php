@@ -7,6 +7,7 @@ namespace AlecRabbit\Tests\Unit\Spinner\Core\Config\Builder;
 use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Core\Config\Builder\WidgetConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\Builder\IWidgetConfigBuilder;
+use AlecRabbit\Spinner\Core\Config\Contract\IRevolverConfig;
 use AlecRabbit\Spinner\Core\Config\WidgetConfig;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPalette;
 use AlecRabbit\Spinner\Exception\LogicException;
@@ -38,6 +39,7 @@ final class WidgetConfigBuilderTest extends TestCase
         $config = $configBuilder
             ->withLeadingSpacer($this->getFrameMock())
             ->withTrailingSpacer($this->getFrameMock())
+            ->withRevolverConfig($this->getRevolverConfigMock())
             ->withStylePalette($this->getPatternMarkerMock())
             ->withCharPalette($this->getPatternMarkerMock())
             ->build()
@@ -49,6 +51,11 @@ final class WidgetConfigBuilderTest extends TestCase
     private function getFrameMock(): MockObject&IFrame
     {
         return $this->createMock(IFrame::class);
+    }
+
+    protected function getRevolverConfigMock(): MockObject&IRevolverConfig
+    {
+        return $this->createMock(IRevolverConfig::class);
     }
 
     private function getPatternMarkerMock(): MockObject&IPalette
@@ -157,10 +164,10 @@ final class WidgetConfigBuilderTest extends TestCase
     }
 
     #[Test]
-    public function throwsIfStylePatternIsNotSet(): void
+    public function throwsIfRevolverConfigIsNotSet(): void
     {
         $exceptionClass = LogicException::class;
-        $exceptionMessage = 'Style pattern is not set.';
+        $exceptionMessage = 'Revolver config is not set.';
 
         $test = function (): void {
             $configBuilder = $this->getTesteeInstance();
@@ -168,31 +175,6 @@ final class WidgetConfigBuilderTest extends TestCase
             $configBuilder
                 ->withLeadingSpacer($this->getFrameMock())
                 ->withTrailingSpacer($this->getFrameMock())
-                ->withCharPalette($this->getPatternMarkerMock())
-                ->build()
-            ;
-        };
-
-        $this->wrapExceptionTest(
-            test: $test,
-            exception: $exceptionClass,
-            message: $exceptionMessage,
-        );
-    }
-
-    #[Test]
-    public function throwsIfCharPatternIsNotSet(): void
-    {
-        $exceptionClass = LogicException::class;
-        $exceptionMessage = 'Char pattern is not set.';
-
-        $test = function (): void {
-            $configBuilder = $this->getTesteeInstance();
-
-            $configBuilder
-                ->withLeadingSpacer($this->getFrameMock())
-                ->withTrailingSpacer($this->getFrameMock())
-                ->withStylePalette($this->getPatternMarkerMock())
                 ->build()
             ;
         };

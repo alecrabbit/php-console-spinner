@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Config;
 
 use AlecRabbit\Spinner\Contract\IFrame;
+use AlecRabbit\Spinner\Core\Config\Contract\IRevolverConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IWidgetConfig;
 use AlecRabbit\Spinner\Core\Config\WidgetConfig;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPalette;
@@ -27,13 +28,13 @@ final class WidgetConfigTest extends TestCase
         ?IFrame $trailingSpacer = null,
         ?IPalette $stylePattern = null,
         ?IPalette $charPattern = null,
+        ?IRevolverConfig $revolverConfig = null,
     ): IWidgetConfig {
         return
             new WidgetConfig(
                 leadingSpacer: $leadingSpacer ?? $this->getFrameMock(),
                 trailingSpacer: $trailingSpacer ?? $this->getFrameMock(),
-                stylePalette: $stylePattern ?? $this->getBakedPatternMock(),
-                charPalette: $charPattern ?? $this->getBakedPatternMock(),
+                revolverConfig: $revolverConfig ?? $this->getRevolverConfigMock(),
             );
     }
 
@@ -42,9 +43,9 @@ final class WidgetConfigTest extends TestCase
         return $this->createMock(IFrame::class);
     }
 
-    protected function getBakedPatternMock(): MockObject&IPalette
+    protected function getRevolverConfigMock(): MockObject&IRevolverConfig
     {
-        return $this->createMock(IPalette::class);
+        return $this->createMock(IRevolverConfig::class);
     }
 
     #[Test]
@@ -72,26 +73,19 @@ final class WidgetConfigTest extends TestCase
     }
 
     #[Test]
-    public function canGetStylePattern(): void
+    public function canGetRevolverConfig(): void
     {
-        $stylePattern = $this->getBakedPatternMock();
+        $revolverConfig = $this->getRevolverConfigMock();
 
         $config = $this->getTesteeInstance(
-            stylePattern: $stylePattern,
+            revolverConfig: $revolverConfig,
         );
 
-        self::assertSame($stylePattern, $config->getStylePalette());
+        self::assertSame($revolverConfig, $config->getRevolverConfig());
     }
 
-    #[Test]
-    public function canGetCharPattern(): void
+    protected function getBakedPatternMock(): MockObject&IPalette
     {
-        $charPattern = $this->getBakedPatternMock();
-
-        $config = $this->getTesteeInstance(
-            charPattern: $charPattern,
-        );
-
-        self::assertSame($charPattern, $config->getCharPalette());
+        return $this->createMock(IPalette::class);
     }
 }

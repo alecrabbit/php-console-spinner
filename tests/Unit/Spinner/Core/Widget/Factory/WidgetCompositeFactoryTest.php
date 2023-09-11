@@ -6,6 +6,7 @@ namespace AlecRabbit\Tests\Unit\Spinner\Core\Widget\Factory;
 
 use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\IWidgetConfigFactory;
+use AlecRabbit\Spinner\Core\Config\Contract\IRevolverConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IWidgetConfig;
 use AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyWidgetSettings;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidget;
@@ -146,6 +147,7 @@ final class WidgetCompositeFactoryTest extends TestCase
     {
         $leadingSpacer = $this->getFrameMock();
         $trailingSpacer = $this->getFrameMock();
+        $revolverConfig = $this->getRevolverConfigMock();
         $widgetConfig = $this->getWidgetConfigMock();
         $widgetConfig
             ->expects(self::once())
@@ -156,6 +158,11 @@ final class WidgetCompositeFactoryTest extends TestCase
             ->expects(self::once())
             ->method('getTrailingSpacer')
             ->willReturn($trailingSpacer)
+        ;
+        $widgetConfig
+            ->expects(self::once())
+            ->method('getRevolverConfig')
+            ->willReturn($revolverConfig)
         ;
 
         $widgetConfigFactory = $this->getWidgetConfigFactoryMock();
@@ -174,7 +181,7 @@ final class WidgetCompositeFactoryTest extends TestCase
         $widgetRevolverFactory
             ->expects(self::once())
             ->method('create')
-            ->with(self::identicalTo($widgetConfig))
+            ->with(self::identicalTo($revolverConfig))
             ->willReturn($widgetRevolver)
         ;
 
@@ -213,6 +220,11 @@ final class WidgetCompositeFactoryTest extends TestCase
         self::assertSame($widget, $widgetFactory->createWidget());
     }
 
+    protected function getRevolverConfigMock(): MockObject&IRevolverConfig
+    {
+        return $this->createMock(IRevolverConfig::class);
+    }
+
     protected function getWidgetConfigMock(): MockObject&IWidgetConfig
     {
         return $this->createMock(IWidgetConfig::class);
@@ -222,5 +234,4 @@ final class WidgetCompositeFactoryTest extends TestCase
     {
         return $this->createMock(IWidget::class);
     }
-
 }
