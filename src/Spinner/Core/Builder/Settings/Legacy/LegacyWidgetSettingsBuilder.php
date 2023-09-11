@@ -40,8 +40,8 @@ final class LegacyWidgetSettingsBuilder implements ILegacyWidgetSettingsBuilder
         match (true) {
             $this->leadingSpacer === null => throw new LogicException('Leading spacer is not set.'),
             $this->trailingSpacer === null => throw new LogicException('Trailing spacer is not set.'),
-            $this->stylePattern === null => throw new LogicException('Style pattern is not set.'),
-            $this->charPattern === null => throw new LogicException('Char pattern is not set.'),
+            $this->stylePattern === null => throw new LogicException('Style palette is not set.'),
+            $this->charPattern === null => throw new LogicException('Char palette is not set.'),
             default => null,
         };
     }

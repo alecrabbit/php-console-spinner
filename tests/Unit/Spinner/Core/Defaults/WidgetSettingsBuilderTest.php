@@ -102,7 +102,7 @@ final class WidgetSettingsBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
     public function throwsIfStylePatternIsNotSet(): void
     {
         $exceptionClass = LogicException::class;
-        $exceptionMessage = 'Style pattern is not set.';
+        $exceptionMessage = 'Style palette is not set.';
 
         $test = function (): void {
             $widgetSettingsBuilder = $this->getTesteeInstance();
@@ -129,7 +129,7 @@ final class WidgetSettingsBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
     public function throwsIfCharPatternIsNotSet(): void
     {
         $exceptionClass = LogicException::class;
-        $exceptionMessage = 'Char pattern is not set.';
+        $exceptionMessage = 'Char palette is not set.';
 
         $test = function (): void {
             $widgetSettingsBuilder = $this->getTesteeInstance();

@@ -15,7 +15,7 @@ interface IRevolverConfigBuilder
      */
     public function build(): IRevolverConfig;
 
-    public function withStylePalette(IPalette $pattern): IRevolverConfigBuilder;
+    public function withStylePalette(IPalette $palette): IRevolverConfigBuilder;
 
-    public function withCharPalette(IPalette $pattern): IRevolverConfigBuilder;
+    public function withCharPalette(IPalette $palette): IRevolverConfigBuilder;
 }

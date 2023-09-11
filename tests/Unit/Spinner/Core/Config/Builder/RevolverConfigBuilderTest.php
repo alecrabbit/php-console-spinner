@@ -5,9 +5,12 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Config\Builder;
 
 use AlecRabbit\Spinner\Contract\IFrame;
+use AlecRabbit\Spinner\Core\Config\Builder\RevolverConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Builder\WidgetConfigBuilder;
+use AlecRabbit\Spinner\Core\Config\Contract\Builder\IRevolverConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\Builder\IWidgetConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\IRevolverConfig;
+use AlecRabbit\Spinner\Core\Config\RevolverConfig;
 use AlecRabbit\Spinner\Core\Config\WidgetConfig;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPalette;
 use AlecRabbit\Spinner\Exception\LogicException;
@@ -15,20 +18,20 @@ use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 
-final class WidgetConfigBuilderTest extends TestCase
+final class RevolverConfigBuilderTest extends TestCase
 {
     #[Test]
     public function canBeInstantiated(): void
     {
         $configBuilder = $this->getTesteeInstance();
 
-        self::assertInstanceOf(WidgetConfigBuilder::class, $configBuilder);
+        self::assertInstanceOf(RevolverConfigBuilder::class, $configBuilder);
     }
 
-    protected function getTesteeInstance(): IWidgetConfigBuilder
+    protected function getTesteeInstance(): IRevolverConfigBuilder
     {
         return
-            new WidgetConfigBuilder();
+            new RevolverConfigBuilder();
     }
 
     #[Test]
@@ -37,15 +40,12 @@ final class WidgetConfigBuilderTest extends TestCase
         $configBuilder = $this->getTesteeInstance();
 
         $config = $configBuilder
-            ->withLeadingSpacer($this->getFrameMock())
-            ->withTrailingSpacer($this->getFrameMock())
-            ->withRevolverConfig($this->getRevolverConfigMock())
             ->withStylePalette($this->getPaletteMock())
             ->withCharPalette($this->getPaletteMock())
             ->build()
         ;
 
-        self::assertInstanceOf(WidgetConfig::class, $config);
+        self::assertInstanceOf(RevolverConfig::class, $config);
     }
 
     private function getFrameMock(): MockObject&IFrame
@@ -61,32 +61,6 @@ final class WidgetConfigBuilderTest extends TestCase
     private function getPaletteMock(): MockObject&IPalette
     {
         return $this->createMock(IPalette::class);
-    }
-
-    #[Test]
-    public function withLeadingSpacerReturnsOtherInstanceOfBuilder(): void
-    {
-        $configBuilder = $this->getTesteeInstance();
-
-        $builder =
-            $configBuilder
-                ->withLeadingSpacer($this->getFrameMock())
-        ;
-
-        self::assertNotSame($builder, $configBuilder);
-    }
-
-    #[Test]
-    public function withTrailingSpacerReturnsOtherInstanceOfBuilder(): void
-    {
-        $configBuilder = $this->getTesteeInstance();
-
-        $builder =
-            $configBuilder
-                ->withTrailingSpacer($this->getFrameMock())
-        ;
-
-        self::assertNotSame($builder, $configBuilder);
     }
 
     #[Test]
@@ -116,17 +90,15 @@ final class WidgetConfigBuilderTest extends TestCase
     }
 
     #[Test]
-    public function throwsIfLeadingSpacerIsNotSet(): void
+    public function throwsIfStylePatternIsNotSet(): void
     {
         $exceptionClass = LogicException::class;
-        $exceptionMessage = 'Leading spacer is not set.';
+        $exceptionMessage = 'Style palette is not set.';
 
         $test = function (): void {
             $configBuilder = $this->getTesteeInstance();
 
             $configBuilder
-                ->withTrailingSpacer($this->getFrameMock())
-                ->withStylePalette($this->getPaletteMock())
                 ->withCharPalette($this->getPaletteMock())
                 ->build()
             ;
@@ -140,41 +112,16 @@ final class WidgetConfigBuilderTest extends TestCase
     }
 
     #[Test]
-    public function throwsIfTrailingSpacerIsNotSet(): void
+    public function throwsIfCharPatternIsNotSet(): void
     {
         $exceptionClass = LogicException::class;
-        $exceptionMessage = 'Trailing spacer is not set.';
+        $exceptionMessage = 'Char palette is not set.';
 
         $test = function (): void {
             $configBuilder = $this->getTesteeInstance();
 
             $configBuilder
-                ->withLeadingSpacer($this->getFrameMock())
                 ->withStylePalette($this->getPaletteMock())
-                ->withCharPalette($this->getPaletteMock())
-                ->build()
-            ;
-        };
-
-        $this->wrapExceptionTest(
-            test: $test,
-            exception: $exceptionClass,
-            message: $exceptionMessage,
-        );
-    }
-
-    #[Test]
-    public function throwsIfRevolverConfigIsNotSet(): void
-    {
-        $exceptionClass = LogicException::class;
-        $exceptionMessage = 'Revolver config is not set.';
-
-        $test = function (): void {
-            $configBuilder = $this->getTesteeInstance();
-
-            $configBuilder
-                ->withLeadingSpacer($this->getFrameMock())
-                ->withTrailingSpacer($this->getFrameMock())
                 ->build()
             ;
         };
