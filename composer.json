@@ -56,5 +56,10 @@
         "psr-4": {
             "AlecRabbit\\Tests\\": "tests\\"
         }
+    },
+    "config": {
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        }
     }
 }
