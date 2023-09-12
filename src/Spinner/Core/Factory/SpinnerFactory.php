@@ -10,7 +10,9 @@ use AlecRabbit\Spinner\Core\Contract\ILegacySettingsProvider;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILegacyWidgetSettingsFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ISpinnerFactory;
+use AlecRabbit\Spinner\Core\Settings\Contract\ISettingsProvider;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISpinnerSettings;
+use AlecRabbit\Spinner\Core\Settings\Contract\IWidgetSettings;
 use AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyWidgetSettings;
 use AlecRabbit\Spinner\Core\Spinner;
 use AlecRabbit\Spinner\Core\Widget\Factory\Contract\IWidgetFactory;
@@ -18,11 +20,11 @@ use AlecRabbit\Spinner\Core\Widget\Factory\Contract\IWidgetFactory;
 final class SpinnerFactory implements ISpinnerFactory
 {
     public function __construct(
-        protected ILegacySettingsProvider $settingsProvider,
+        protected ILegacySettingsProvider $legacySettingsProvider,
         protected IWidgetFactory $widgetFactory,
         protected ILegacyWidgetSettingsFactory $widgetSettingsFactory,
-    )
-    {
+        protected ISettingsProvider $settingsProvider,
+    ) {
     }
 
     /**
@@ -61,7 +63,7 @@ final class SpinnerFactory implements ISpinnerFactory
 
     private function refineConfig(?ILegacyWidgetConfig $config): ILegacyWidgetConfig
     {
-        $rootWidgetConfig = $this->settingsProvider->getLegacyRootWidgetConfig();
+        $rootWidgetConfig = $this->legacySettingsProvider->getLegacyRootWidgetConfig();
 
         if ($config === null) {
             return $rootWidgetConfig;
@@ -72,11 +74,18 @@ final class SpinnerFactory implements ISpinnerFactory
 
     public function createSpinner(?ISpinnerSettings $spinnerSettings = null): ISpinner
     {
-        $widgetSettings = $spinnerSettings?->getWidgetSettings();
+        $widgetSettings =
+            $spinnerSettings?->getWidgetSettings() ?? $this->getRootWidgetSettings();
 
         return
             new Spinner(
                 $this->widgetFactory->createWidget($widgetSettings)
             );
+    }
+
+    protected function getRootWidgetSettings(): IWidgetSettings
+    {
+        return
+            $this->settingsProvider->getUserSettings()->getRootWidgetSettings();
     }
 }
