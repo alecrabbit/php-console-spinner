@@ -21,7 +21,6 @@ final class SpinnerFactory implements ISpinnerFactory
         protected ILegacySettingsProvider $settingsProvider,
         protected IWidgetFactory $widgetFactory,
         protected ILegacyWidgetSettingsFactory $widgetSettingsFactory,
-//        protected IConfigProvider $configProvider,
     )
     {
     }
@@ -73,12 +72,11 @@ final class SpinnerFactory implements ISpinnerFactory
 
     public function createSpinner(?ISpinnerSettings $spinnerSettings = null): ISpinner
     {
+        $widgetSettings = $spinnerSettings?->getWidgetSettings();
+
         return
             new Spinner(
-                $this->widgetFactory
-                    ->createWidget(
-                        $spinnerSettings?->getWidgetSettings()
-                    )
+                $this->widgetFactory->createWidget($widgetSettings)
             );
     }
 }
