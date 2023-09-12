@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Functional\Spinner\Core\Config\Builder;
 
 use AlecRabbit\Spinner\Contract\IFrame;
-use AlecRabbit\Spinner\Core\Config\Builder\RevolverConfigBuilder;
-use AlecRabbit\Spinner\Core\Config\Contract\Builder\IRevolverConfigBuilder;
-use AlecRabbit\Spinner\Core\Config\Contract\IRevolverConfig;
-use AlecRabbit\Spinner\Core\Config\RevolverConfig;
+use AlecRabbit\Spinner\Core\Config\Builder\WidgetRevolverConfigBuilder;
+use AlecRabbit\Spinner\Core\Config\Contract\Builder\IWidgetRevolverConfigBuilder;
+use AlecRabbit\Spinner\Core\Config\Contract\IWidgetRevolverConfig;
+use AlecRabbit\Spinner\Core\Config\WidgetRevolverConfig;
 use AlecRabbit\Spinner\Core\Config\WidgetConfig;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPalette;
 use AlecRabbit\Spinner\Exception\LogicException;
@@ -16,7 +16,7 @@ use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 
-final class RevolverConfigBuilderTest extends TestCase
+final class WidgetRevolverConfigBuilderTest extends TestCase
 {
     #[Test]
     public function canBuild(): void
@@ -32,16 +32,16 @@ final class RevolverConfigBuilderTest extends TestCase
             ->build()
         ;
 
-        self::assertInstanceOf(RevolverConfig::class, $config);
+        self::assertInstanceOf(WidgetRevolverConfig::class, $config);
 
         self::assertSame($stylePalette, $config->getStylePalette());
         self::assertSame($charPalette, $config->getCharPalette());
     }
 
-    protected function getTesteeInstance(): IRevolverConfigBuilder
+    protected function getTesteeInstance(): IWidgetRevolverConfigBuilder
     {
         return
-            new RevolverConfigBuilder();
+            new WidgetRevolverConfigBuilder();
     }
 
     #[Test]
@@ -93,8 +93,8 @@ final class RevolverConfigBuilderTest extends TestCase
         );
     }
 
-    protected function getRevolverConfigMock(): MockObject&IRevolverConfig
+    protected function getRevolverConfigMock(): MockObject&IWidgetRevolverConfig
     {
-        return $this->createMock(IRevolverConfig::class);
+        return $this->createMock(IWidgetRevolverConfig::class);
     }
 }

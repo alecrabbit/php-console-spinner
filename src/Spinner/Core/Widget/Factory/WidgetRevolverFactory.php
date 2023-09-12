@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Widget\Factory;
 
-use AlecRabbit\Spinner\Core\Config\Contract\IRevolverConfig;
+use AlecRabbit\Spinner\Core\Config\Contract\IWidgetRevolverConfig;
 use AlecRabbit\Spinner\Core\Factory\Contract\ICharFrameRevolverFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IStyleFrameRevolverFactory;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolver;
@@ -67,7 +67,7 @@ final class WidgetRevolverFactory implements IWidgetRevolverFactory
         return IRevolver::TOLERANCE;
     }
 
-    public function create(IRevolverConfig $revolverConfig): IRevolver
+    public function create(IWidgetRevolverConfig $revolverConfig): IRevolver
     {
         // TODO: Implement create() method.
         throw new RuntimeException('Not implemented.');

@@ -7,7 +7,7 @@ namespace AlecRabbit\Tests\Unit\Spinner\Core\Config\Builder;
 use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Core\Config\Builder\WidgetConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\Builder\IWidgetConfigBuilder;
-use AlecRabbit\Spinner\Core\Config\Contract\IRevolverConfig;
+use AlecRabbit\Spinner\Core\Config\Contract\IWidgetRevolverConfig;
 use AlecRabbit\Spinner\Core\Config\WidgetConfig;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPalette;
 use AlecRabbit\Spinner\Exception\LogicException;
@@ -53,9 +53,9 @@ final class WidgetConfigBuilderTest extends TestCase
         return $this->createMock(IFrame::class);
     }
 
-    protected function getRevolverConfigMock(): MockObject&IRevolverConfig
+    protected function getRevolverConfigMock(): MockObject&IWidgetRevolverConfig
     {
-        return $this->createMock(IRevolverConfig::class);
+        return $this->createMock(IWidgetRevolverConfig::class);
     }
 
     private function getPaletteMock(): MockObject&IPalette

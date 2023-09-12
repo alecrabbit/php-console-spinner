@@ -6,7 +6,7 @@ namespace AlecRabbit\Spinner\Core\Config\Contract;
 
 use AlecRabbit\Spinner\Core\Palette\Contract\IPalette;
 
-interface IRevolverConfig
+interface IWidgetRevolverConfig
 {
     public function getStylePalette(): IPalette;
 

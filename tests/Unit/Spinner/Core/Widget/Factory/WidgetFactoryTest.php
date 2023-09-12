@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Widget\Factory;
 
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\IWidgetConfigFactory;
-use AlecRabbit\Spinner\Core\Config\Contract\IRevolverConfig;
+use AlecRabbit\Spinner\Core\Config\Contract\IWidgetRevolverConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IWidgetConfig;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetBuilder;
 use AlecRabbit\Spinner\Core\Widget\Factory\Contract\IWidgetFactory;
@@ -195,9 +195,9 @@ final class WidgetFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
         self::assertSame($widget, $widgetFactory->createWidget());
     }
 
-    protected function getRevolverConfigMock(): MockObject&IRevolverConfig
+    protected function getRevolverConfigMock(): MockObject&IWidgetRevolverConfig
     {
-        return $this->createMock(IRevolverConfig::class);
+        return $this->createMock(IWidgetRevolverConfig::class);
     }
 
     protected function getWidgetConfigMock(): MockObject&IWidgetConfig

@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Config\Builder;
 
-use AlecRabbit\Spinner\Core\Config\Contract\Builder\IRevolverConfigBuilder;
-use AlecRabbit\Spinner\Core\Config\Contract\IRevolverConfig;
-use AlecRabbit\Spinner\Core\Config\RevolverConfig;
+use AlecRabbit\Spinner\Core\Config\Contract\Builder\IWidgetRevolverConfigBuilder;
+use AlecRabbit\Spinner\Core\Config\Contract\IWidgetRevolverConfig;
+use AlecRabbit\Spinner\Core\Config\WidgetRevolverConfig;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPalette;
 use AlecRabbit\Spinner\Exception\LogicException;
 
-class RevolverConfigBuilder implements IRevolverConfigBuilder
+class WidgetRevolverConfigBuilder implements IWidgetRevolverConfigBuilder
 {
     private ?IPalette $stylePalette = null;
     private ?IPalette $charPalette = null;
@@ -18,26 +18,26 @@ class RevolverConfigBuilder implements IRevolverConfigBuilder
     /**
      * @inheritDoc
      */
-    public function build(): IRevolverConfig
+    public function build(): IWidgetRevolverConfig
     {
         $this->validate();
 
         return
-            new RevolverConfig(
+            new WidgetRevolverConfig(
                 stylePalette: $this->stylePalette,
                 charPalette: $this->charPalette,
             );
     }
 
 
-    public function withStylePalette(IPalette $palette): IRevolverConfigBuilder
+    public function withStylePalette(IPalette $palette): IWidgetRevolverConfigBuilder
     {
         $clone = clone $this;
         $clone->stylePalette = $palette;
         return $clone;
     }
 
-    public function withCharPalette(IPalette $palette): IRevolverConfigBuilder
+    public function withCharPalette(IPalette $palette): IWidgetRevolverConfigBuilder
     {
         $clone = clone $this;
         $clone->charPalette = $palette;

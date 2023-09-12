@@ -6,7 +6,7 @@ namespace AlecRabbit\Spinner\Core\Config\Builder;
 
 use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Core\Config\Contract\Builder\IWidgetConfigBuilder;
-use AlecRabbit\Spinner\Core\Config\Contract\IRevolverConfig;
+use AlecRabbit\Spinner\Core\Config\Contract\IWidgetRevolverConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IWidgetConfig;
 use AlecRabbit\Spinner\Core\Config\WidgetConfig;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPalette;
@@ -18,7 +18,7 @@ final class WidgetConfigBuilder implements IWidgetConfigBuilder
     private ?IFrame $trailingSpacer = null;
     private ?IPalette $stylePattern = null;
     private ?IPalette $charPattern = null;
-    private ?IRevolverConfig $revolverConfig = null;
+    private ?IWidgetRevolverConfig $revolverConfig = null;
 
     /**
      * @inheritDoc
@@ -73,7 +73,7 @@ final class WidgetConfigBuilder implements IWidgetConfigBuilder
         return $clone;
     }
 
-    public function withRevolverConfig(IRevolverConfig $revolverConfig): IWidgetConfigBuilder
+    public function withRevolverConfig(IWidgetRevolverConfig $revolverConfig): IWidgetConfigBuilder
     {
         $clone = clone $this;
         $clone->revolverConfig = $revolverConfig;

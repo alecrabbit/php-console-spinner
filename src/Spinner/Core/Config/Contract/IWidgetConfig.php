@@ -12,5 +12,5 @@ interface IWidgetConfig
 
     public function getTrailingSpacer(): IFrame;
 
-    public function getRevolverConfig(): IRevolverConfig;
+    public function getRevolverConfig(): IWidgetRevolverConfig;
 }
