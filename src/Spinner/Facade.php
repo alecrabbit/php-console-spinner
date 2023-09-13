@@ -16,6 +16,7 @@ use AlecRabbit\Spinner\Core\Factory\Contract\ILoopFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ISpinnerFactory;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettingsProvider;
+use AlecRabbit\Spinner\Core\Settings\Contract\ISpinnerSettings;
 
 final class Facade extends AFacade
 {
@@ -29,17 +30,13 @@ final class Facade extends AFacade
         return self::getContainer()->get(ILoopFactory::class);
     }
 
+    public static function createSpinner(?ISpinnerSettings $spinnerSettings = null): ISpinner
+    {
+        $spinnerFactory = self::getSpinnerFactory();
 
-    public static function createSpinner(
-        ILegacySpinnerConfig|ILegacyWidgetConfig|null $config = null,
-        bool $attach = true
-    ): ISpinner {
-        $spinner =
-            self::getSpinnerFactory()
-                ->legacyCreateSpinner($config)
-        ;
+        $spinner = $spinnerFactory->createSpinner($spinnerSettings);
 
-        if ($attach) {
+        if ($spinnerSettings?->isAutoAttach() ?? false) {
             self::attach($spinner);
         }
 
@@ -64,6 +61,22 @@ final class Facade extends AFacade
     private static function getDriverFactory(): IDriverFactory
     {
         return self::getContainer()->get(IDriverFactory::class);
+    }
+
+    public static function legacyCreateSpinner(
+        ILegacySpinnerConfig|ILegacyWidgetConfig|null $config = null,
+        bool $attach = true
+    ): ISpinner {
+        $spinner =
+            self::getSpinnerFactory()
+                ->legacyCreateSpinner($config)
+        ;
+
+        if ($attach) {
+            self::attach($spinner);
+        }
+
+        return $spinner;
     }
 
     public static function getSettings(): ISettings

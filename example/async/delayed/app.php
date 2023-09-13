@@ -12,7 +12,7 @@ $settingsProvider
     ->setFinalMessage('Finished!' . PHP_EOL)
 ;
 
-$spinner = Facade::createSpinner(attach: false);
+$spinner = Facade::legacyCreateSpinner(attach: false);
 $driver = Facade::getDriver();
 $loop = Facade::getLoop();
 

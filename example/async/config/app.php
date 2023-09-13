@@ -28,4 +28,4 @@ $settingsProvider
 $config =
     new LegacyWidgetConfig();
 
-$spinner = Facade::createSpinner($config);
+$spinner = Facade::legacyCreateSpinner($config);

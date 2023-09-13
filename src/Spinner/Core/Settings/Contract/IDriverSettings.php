@@ -7,7 +7,7 @@ namespace AlecRabbit\Spinner\Core\Settings\Contract;
 use AlecRabbit\Spinner\Contract\Option\InitializationOption;
 use AlecRabbit\Spinner\Contract\Option\LinkerOption;
 
-interface IDriverSettings
+interface IDriverSettings extends ISettingsElement
 {
     public function getInitializationOption(): InitializationOption;
 

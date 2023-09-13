@@ -7,7 +7,7 @@ namespace AlecRabbit\Spinner\Core\Settings\Contract;
 use AlecRabbit\Spinner\Contract\Option\NormalizerOption;
 use AlecRabbit\Spinner\Contract\Option\RunMethodOption;
 
-interface IAuxSettings
+interface IAuxSettings extends ISettingsElement
 {
     public function setRunMethodOption(RunMethodOption $runMethodOption): void;
 

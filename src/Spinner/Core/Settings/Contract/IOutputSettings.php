@@ -7,7 +7,7 @@ namespace AlecRabbit\Spinner\Core\Settings\Contract;
 use AlecRabbit\Spinner\Contract\Option\CursorVisibilityOption;
 use AlecRabbit\Spinner\Contract\Option\StylingMethodOption;
 
-interface IOutputSettings
+interface IOutputSettings extends ISettingsElement
 {
     public function getCursorVisibilityOption(): CursorVisibilityOption;
 

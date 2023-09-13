@@ -7,7 +7,7 @@ namespace AlecRabbit\Spinner\Core\Settings\Contract;
 use AlecRabbit\Spinner\Contract\Option\AutoStartOption;
 use AlecRabbit\Spinner\Contract\Option\SignalHandlersOption;
 
-interface ILoopSettings
+interface ILoopSettings extends ISettingsElement
 {
     public function getAutoStartOption(): AutoStartOption;
 

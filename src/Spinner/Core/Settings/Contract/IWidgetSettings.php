@@ -7,7 +7,7 @@ namespace AlecRabbit\Spinner\Core\Settings\Contract;
 use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPalette;
 
-interface IWidgetSettings
+interface IWidgetSettings extends ISettingsElement
 {
     public function setTrailingSpacer(?IFrame $trailingSpacer): void;
 
