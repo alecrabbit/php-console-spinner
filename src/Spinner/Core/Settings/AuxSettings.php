@@ -6,8 +6,9 @@ namespace AlecRabbit\Spinner\Core\Settings;
 
 use AlecRabbit\Spinner\Contract\Option\NormalizerOption;
 use AlecRabbit\Spinner\Contract\Option\RunMethodOption;
+use AlecRabbit\Spinner\Core\Settings\Contract\IAuxSettings;
 
-final class AuxSettings implements Contract\IAuxSettings
+final class AuxSettings implements IAuxSettings
 {
     public function __construct(
         protected RunMethodOption $runMethodOption = RunMethodOption::AUTO,
@@ -35,4 +36,8 @@ final class AuxSettings implements Contract\IAuxSettings
         $this->normalizerOption = $normalizerOption;
     }
 
+    public function getIdentifier(): string
+    {
+        return IAuxSettings::class;
+    }
 }

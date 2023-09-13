@@ -9,6 +9,7 @@ use AlecRabbit\Spinner\Core\Contract\ILegacySettingsProvider;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILegacyWidgetSettingsFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ISpinnerFactory;
 use AlecRabbit\Spinner\Core\Factory\SpinnerFactory;
+use AlecRabbit\Spinner\Core\Settings\Contract\IRootWidgetSettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettingsProvider;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISpinnerSettings;
@@ -284,7 +285,8 @@ final class SpinnerFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
         $settings = $this->getSettingsMock();
         $settings
             ->expects(self::once())
-            ->method('getRootWidgetSettings')
+            ->method('get')
+            ->with(IRootWidgetSettings::class)
             ->willReturn($widgetSettings)
         ;
         $settingsProvider = $this->getSettingsProviderMock();

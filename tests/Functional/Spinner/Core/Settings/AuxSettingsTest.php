@@ -33,6 +33,14 @@ final class AuxSettingsTest extends TestCase
     }
 
     #[Test]
+    public function canGetInterface(): void
+    {
+        $settings = $this->getTesteeInstance();
+
+        self::assertEquals(IAuxSettings::class, $settings->getIdentifier());
+    }
+
+    #[Test]
     public function canGetRunMethodOption(): void
     {
         $runMethodOption = RunMethodOption::ASYNC;

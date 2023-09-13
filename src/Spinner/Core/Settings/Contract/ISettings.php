@@ -6,21 +6,11 @@ namespace AlecRabbit\Spinner\Core\Settings\Contract;
 
 interface ISettings
 {
-    /** @deprecated */
-    public function getAuxSettings(): IAuxSettings;
+    public function set(ISettingsElement ...$settingsElements): void;
 
-    /** @deprecated */
-    public function getWidgetSettings(): IWidgetSettings;
-
-    /** @deprecated */
-    public function getRootWidgetSettings(): IWidgetSettings;
-
-    /** @deprecated */
-    public function getDriverSettings(): IDriverSettings;
-
-    /** @deprecated */
-    public function getLoopSettings(): ILoopSettings;
-
-    /** @deprecated */
-    public function getOutputSettings(): IOutputSettings;
+    /**
+     * @param class-string<ISettingsElement> $id
+     * @return ISettingsElement|null
+     */
+    public function get(string $id): ?ISettingsElement;
 }

@@ -6,8 +6,9 @@ namespace AlecRabbit\Spinner\Core\Settings;
 
 use AlecRabbit\Spinner\Contract\Option\InitializationOption;
 use AlecRabbit\Spinner\Contract\Option\LinkerOption;
+use AlecRabbit\Spinner\Core\Settings\Contract\IDriverSettings;
 
-class DriverSettings implements Contract\IDriverSettings
+final class DriverSettings implements IDriverSettings
 {
     public function __construct(
         protected LinkerOption $linkerOption = LinkerOption::AUTO,
@@ -35,5 +36,9 @@ class DriverSettings implements Contract\IDriverSettings
         $this->initializationOption = $initializationOption;
     }
 
+    public function getIdentifier(): string
+    {
+        return IDriverSettings::class;
+    }
 
 }

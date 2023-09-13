@@ -10,6 +10,7 @@ use AlecRabbit\Spinner\Core\Contract\ILegacySettingsProvider;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILegacyWidgetSettingsFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ISpinnerFactory;
+use AlecRabbit\Spinner\Core\Settings\Contract\IRootWidgetSettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettingsProvider;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISpinnerSettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\IWidgetSettings;
@@ -83,9 +84,9 @@ final class SpinnerFactory implements ISpinnerFactory
             );
     }
 
-    protected function getRootWidgetSettings(): IWidgetSettings
+    protected function getRootWidgetSettings(): ?IWidgetSettings
     {
         return
-            $this->settingsProvider->getUserSettings()->getRootWidgetSettings();
+            $this->settingsProvider->getUserSettings()->get(IRootWidgetSettings::class);
     }
 }

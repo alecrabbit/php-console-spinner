@@ -6,8 +6,9 @@ namespace AlecRabbit\Spinner\Core\Settings;
 
 use AlecRabbit\Spinner\Contract\Option\AutoStartOption;
 use AlecRabbit\Spinner\Contract\Option\SignalHandlersOption;
+use AlecRabbit\Spinner\Core\Settings\Contract\ILoopSettings;
 
-class LoopSettings implements Contract\ILoopSettings
+final class LoopSettings implements ILoopSettings
 {
     public function __construct(
         protected AutoStartOption $autoStartOption = AutoStartOption::AUTO,
@@ -35,4 +36,8 @@ class LoopSettings implements Contract\ILoopSettings
         $this->signalHandlersOption = $signalHandlersOption;
     }
 
+    public function getIdentifier(): string
+    {
+        return ILoopSettings::class;
+    }
 }

@@ -4,15 +4,20 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Settings;
 
+use AlecRabbit\Spinner\Core\Config\Contract\IConfig;
+use AlecRabbit\Spinner\Core\Settings\AuxSettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\IAuxSettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\IDriverSettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\ILoopSettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\IOutputSettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettings;
+use AlecRabbit\Spinner\Core\Settings\Contract\ISettingsElement;
 use AlecRabbit\Spinner\Core\Settings\Contract\IWidgetSettings;
 use AlecRabbit\Spinner\Core\Settings\Settings;
+use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;
+use PHPUnit\Framework\MockObject\MockObject;
 
 final class SettingsTest extends TestCaseWithPrebuiltMocksAndStubs
 {
@@ -24,121 +29,137 @@ final class SettingsTest extends TestCaseWithPrebuiltMocksAndStubs
         self::assertInstanceOf(Settings::class, $settings);
     }
 
-    public function getTesteeInstance(
-        ?IAuxSettings $auxSettings = null,
-        ?ILoopSettings $loopSettings = null,
-        ?IOutputSettings $outputSettings = null,
-        ?IDriverSettings $driverSettings = null,
-        ?IWidgetSettings $widgetSettings = null,
-        ?IWidgetSettings $rootWidgetSettings = null,
-    ): ISettings {
+    public function getTesteeInstance(): ISettings {
         return
-            new Settings(
-                auxSettings: $auxSettings ?? $this->getAuxSettingsMock(),
-                loopSettings: $loopSettings ?? $this->getLoopSettingsMock(),
-                outputSettings: $outputSettings ?? $this->getOutputSettingsMock(),
-                driverSettings: $driverSettings ?? $this->getDriverSettingsMock(),
-                widgetSettings: $widgetSettings ?? $this->getWidgetSettingsMock(),
-                rootWidgetSettings: $rootWidgetSettings ?? $this->getWidgetSettingsMock(),
-            );
-    }
-
-    protected function getAuxSettingsMock(): IAuxSettings
-    {
-        return $this->createMock(IAuxSettings::class);
-    }
-
-    protected function getLoopSettingsMock(): ILoopSettings
-    {
-        return $this->createMock(ILoopSettings::class);
-    }
-
-    protected function getOutputSettingsMock(): IOutputSettings
-    {
-        return $this->createMock(IOutputSettings::class);
-    }
-
-    protected function getDriverSettingsMock(): IDriverSettings
-    {
-        return $this->createMock(IDriverSettings::class);
-    }
-
-    protected function getWidgetSettingsMock(): IWidgetSettings
-    {
-        return $this->createMock(IWidgetSettings::class);
+            new Settings(            );
     }
 
     #[Test]
-    public function canGetAuxSettings(): void
+    public function canSetAndGetAuxSettings(): void
     {
+        $settings = $this->getTesteeInstance();
+
         $auxSettings = $this->getAuxSettingsMock();
+        $auxSettings
+            ->expects($this->once())
+            ->method('getIdentifier')
+            ->willReturn(IAuxSettings::class);
 
-        $settings = $this->getTesteeInstance(
-            auxSettings: $auxSettings,
-        );
+        $settings->set($auxSettings);
 
-        self::assertSame($auxSettings, $settings->getAuxSettings());
-    }
-
-    #[Test]
-    public function canGetWidgetSettings(): void
-    {
-        $widgetSettings = $this->getWidgetSettingsMock();
-
-        $settings = $this->getTesteeInstance(
-            widgetSettings: $widgetSettings,
-        );
-
-        self::assertSame($widgetSettings, $settings->getWidgetSettings());
-        self::assertNotSame($widgetSettings, $settings->getRootWidgetSettings());
-    }
-
-    #[Test]
-    public function canGetRootWidgetSettings(): void
-    {
-        $rootWidgetSettings = $this->getWidgetSettingsMock();
-
-        $settings = $this->getTesteeInstance(
-            rootWidgetSettings: $rootWidgetSettings,
-        );
-
-        self::assertSame($rootWidgetSettings, $settings->getRootWidgetSettings());
-        self::assertNotSame($rootWidgetSettings, $settings->getWidgetSettings());
-    }
-
-    #[Test]
-    public function canGetDriverSettings(): void
-    {
-        $driverSettings = $this->getDriverSettingsMock();
-
-        $settings = $this->getTesteeInstance(
-            driverSettings: $driverSettings,
-        );
-
-        self::assertSame($driverSettings, $settings->getDriverSettings());
+        self::assertSame($auxSettings, $settings->get(IAuxSettings::class));
     }
 
     #[Test]
     public function canGetLoopSettings(): void
     {
+        $settings = $this->getTesteeInstance();
+
         $loopSettings = $this->getLoopSettingsMock();
+        $loopSettings
+            ->expects($this->once())
+            ->method('getIdentifier')
+            ->willReturn(ILoopSettings::class);
 
-        $settings = $this->getTesteeInstance(
-            loopSettings: $loopSettings,
-        );
+        $settings->set($loopSettings);
 
-        self::assertSame($loopSettings, $settings->getLoopSettings());
+        self::assertSame($loopSettings, $settings->get(ILoopSettings::class));
+    }
+
+    protected function getAuxSettingsMock(): MockObject&IAuxSettings
+    {
+        return $this->createMock(IAuxSettings::class);
+    }
+
+    protected function getLoopSettingsMock(): MockObject&ILoopSettings
+    {
+        return $this->createMock(ILoopSettings::class);
+    }
+
+    protected function getOutputSettingsMock(): MockObject&IOutputSettings
+    {
+        return $this->createMock(IOutputSettings::class);
+    }
+
+    protected function getDriverSettingsMock(): MockObject&IDriverSettings
+    {
+        return $this->createMock(IDriverSettings::class);
+    }
+
+    protected function getWidgetSettingsMock(): MockObject&IWidgetSettings
+    {
+        return $this->createMock(IWidgetSettings::class);
     }
 
     #[Test]
-    public function canGetOutputSettings(): void
+    public function throwIfIdentifierIsInvalidOnSet(): void
     {
-        $outputSettings = $this->getOutputSettingsMock();
+        $settings = $this->getTesteeInstance();
 
-        $settings = $this->getTesteeInstance(
-            outputSettings: $outputSettings,
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Identifier "invalid" is not an interface.');
+
+        $object = new class implements ISettingsElement {
+            public function getIdentifier(): string
+            {
+                return 'invalid';
+            }
+        };
+
+        $settings->set($object);
+
+        self::fail('Exception was not thrown.');
+    }
+
+    #[Test]
+    public function throwIfIdentifierIsNotSettingsElementOnSet(): void
+    {
+        $settings = $this->getTesteeInstance();
+
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage(
+            'Identifier "AlecRabbit\Spinner\Core\Config\Contract\IConfig" is not an instance of '
+            . '"AlecRabbit\Spinner\Core\Settings\Contract\ISettingsElement".'
         );
 
-        self::assertSame($outputSettings, $settings->getOutputSettings());
+        $object = new class implements ISettingsElement {
+            public function getIdentifier(): string
+            {
+                return IConfig::class;
+            }
+        };
+
+        $settings->set($object);
+
+        self::fail('Exception was not thrown.');
+    }
+
+    #[Test]
+    public function throwIfIdentifierIsInvalidOnGet(): void
+    {
+        $settings = $this->getTesteeInstance();
+
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Identifier "invalid" is not an interface.');
+
+        $settings->get('invalid');
+
+        self::fail('Exception was not thrown.');
+    }
+
+    #[Test]
+    public function throwIfIdentifierIsNotSettingsElementOnGet(): void
+    {
+        $settings = $this->getTesteeInstance();
+
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage(
+            'Identifier "AlecRabbit\Spinner\Core\Config\Contract\IConfig" is not an instance of '
+            . '"AlecRabbit\Spinner\Core\Settings\Contract\ISettingsElement".'
+        );
+
+        $settings->get(IConfig::class);
+
+        self::fail('Exception was not thrown.');
     }
 }

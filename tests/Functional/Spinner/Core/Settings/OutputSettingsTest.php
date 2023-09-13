@@ -21,6 +21,14 @@ final class OutputSettingsTest extends TestCase
         self::assertInstanceOf(OutputSettings::class, $settings);
     }
 
+    #[Test]
+    public function canGetInterface(): void
+    {
+        $settings = $this->getTesteeInstance();
+
+        self::assertEquals(IOutputSettings::class, $settings->getIdentifier());
+    }
+
     public function getTesteeInstance(
         ?StylingMethodOption $stylingMethodOption = null,
         ?CursorVisibilityOption $cursorVisibilityOption = null,

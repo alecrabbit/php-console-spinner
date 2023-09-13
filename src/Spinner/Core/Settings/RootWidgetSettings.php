@@ -6,9 +6,10 @@ namespace AlecRabbit\Spinner\Core\Settings;
 
 use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPalette;
-use AlecRabbit\Spinner\Core\Settings\Contract\IWidgetSettings;
+use AlecRabbit\Spinner\Core\Settings\Contract\IRootWidgetSettings;
 
-final class WidgetSettings implements IWidgetSettings
+
+final class RootWidgetSettings implements IRootWidgetSettings
 {
     public function __construct(
         protected ?IFrame $leadingSpacer = null,
@@ -60,6 +61,6 @@ final class WidgetSettings implements IWidgetSettings
 
     public function getIdentifier(): string
     {
-        return IWidgetSettings::class;
+        return IRootWidgetSettings::class;
     }
 }

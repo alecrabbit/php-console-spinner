@@ -6,8 +6,9 @@ namespace AlecRabbit\Spinner\Core\Settings;
 
 use AlecRabbit\Spinner\Contract\Option\CursorVisibilityOption;
 use AlecRabbit\Spinner\Contract\Option\StylingMethodOption;
+use AlecRabbit\Spinner\Core\Settings\Contract\IOutputSettings;
 
-class OutputSettings implements Contract\IOutputSettings
+final class OutputSettings implements IOutputSettings
 {
     public function __construct(
         protected StylingMethodOption $stylingMethodOption = StylingMethodOption::AUTO,
@@ -35,4 +36,8 @@ class OutputSettings implements Contract\IOutputSettings
         $this->cursorVisibilityOption = $cursorVisibilityOption;
     }
 
+    public function getIdentifier(): string
+    {
+        return IOutputSettings::class;
+    }
 }

@@ -21,6 +21,14 @@ final class DriverSettingsTest extends TestCase
         self::assertInstanceOf(DriverSettings::class, $settings);
     }
 
+    #[Test]
+    public function canGetInterface(): void
+    {
+        $settings = $this->getTesteeInstance();
+
+        self::assertEquals(IDriverSettings::class, $settings->getIdentifier());
+    }
+
     public function getTesteeInstance(
         ?LinkerOption $linkerOption = null,
         ?InitializationOption $initializationOption = null,
