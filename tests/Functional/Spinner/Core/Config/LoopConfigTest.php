@@ -55,4 +55,13 @@ final class LoopConfigTest extends TestCase
 
         self::assertSame($signalHandlersMode, $config->getSignalHandlersMode());
     }
+
+
+    #[Test]
+    public function canGetIdentifier(): void
+    {
+        $config = $this->getTesteeInstance();
+
+        self::assertEquals(ILoopConfig::class, $config->getIdentifier());
+    }
 }

@@ -56,4 +56,13 @@ final class DriverConfigTest extends TestCase
         self::assertSame($initializationMode, $config->getInitializationMode());
     }
 
+
+    #[Test]
+    public function canGetIdentifier(): void
+    {
+        $config = $this->getTesteeInstance();
+
+        self::assertEquals(IDriverConfig::class, $config->getIdentifier());
+    }
+
 }

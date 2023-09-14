@@ -55,4 +55,13 @@ final class OutputConfigTest extends TestCase
 
         self::assertSame($cursorVisibilityMode, $config->getCursorVisibilityMode());
     }
+
+
+    #[Test]
+    public function canGetIdentifier(): void
+    {
+        $config = $this->getTesteeInstance();
+
+        self::assertEquals(IOutputConfig::class, $config->getIdentifier());
+    }
 }

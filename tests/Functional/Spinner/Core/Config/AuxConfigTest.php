@@ -70,4 +70,12 @@ final class AuxConfigTest extends TestCase
 
         self::assertSame($normalizerMethodMode, $config->getNormalizerMethodMode());
     }
+
+    #[Test]
+    public function canGetIdentifier(): void
+    {
+        $config = $this->getTesteeInstance();
+
+        self::assertEquals(IAuxConfig::class, $config->getIdentifier());
+    }
 }
