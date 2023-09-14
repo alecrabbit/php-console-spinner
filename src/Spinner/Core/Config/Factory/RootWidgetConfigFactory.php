@@ -7,6 +7,7 @@ namespace AlecRabbit\Spinner\Core\Config\Factory;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\IRootWidgetConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\IWidgetConfig;
 use AlecRabbit\Spinner\Core\Config\WidgetConfig;
+use AlecRabbit\Spinner\Core\Settings\Contract\IWidgetSettings;
 
 final class RootWidgetConfigFactory implements IRootWidgetConfigFactory
 {
@@ -16,14 +17,13 @@ final class RootWidgetConfigFactory implements IRootWidgetConfigFactory
     {
     }
 
-    public function create(): IWidgetConfig
+    public function create(?IWidgetSettings $widgetSettings = null): IWidgetConfig
     {
         return
             new WidgetConfig(
-                leadingSpacer: '',
-                trailingSpacer: '',
-                stylePalette: '',
-                charPalette: '',
+                leadingSpacer: $leadingSpacer,
+                trailingSpacer: $trailingSpacer,
+                revolverConfig: $revolverConfig,
             );
     }
 }

@@ -31,4 +31,12 @@ final readonly class WidgetConfig implements IWidgetConfig
     {
         return $this->revolverConfig;
     }
+
+    /**
+     * @return class-string<IWidgetConfig>
+     */
+    public function getIdentifier(): string
+    {
+        return IWidgetConfig::class;
+    }
 }

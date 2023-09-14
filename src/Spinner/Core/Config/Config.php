@@ -6,6 +6,7 @@ namespace AlecRabbit\Spinner\Core\Config;
 
 use AlecRabbit\Spinner\Core\Config\Contract\IAuxConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IConfig;
+use AlecRabbit\Spinner\Core\Config\Contract\IConfigElement;
 use AlecRabbit\Spinner\Core\Config\Contract\IDriverConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\ILoopConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IOutputConfig;
@@ -51,5 +52,17 @@ final readonly class Config implements IConfig
     public function getRootWidgetConfig(): IWidgetConfig
     {
         return $this->rootWidgetConfig;
+    }
+
+    public function set(IConfigElement ...$settingsElements): void
+    {
+        // TODO: Implement set() method.
+        throw new \RuntimeException('Not implemented.');
+    }
+
+    public function get(string $id): ?IConfigElement
+    {
+        // TODO: Implement get() method.
+        throw new \RuntimeException('Not implemented.');
     }
 }

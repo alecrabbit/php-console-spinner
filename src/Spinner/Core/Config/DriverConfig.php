@@ -25,4 +25,12 @@ final readonly class DriverConfig implements IDriverConfig
     {
         return $this->initializationMode;
     }
+
+    /**
+     * @return class-string<IDriverConfig>
+     */
+    public function getIdentifier(): string
+    {
+        return IDriverConfig::class;
+    }
 }

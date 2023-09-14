@@ -8,7 +8,7 @@ use AlecRabbit\Spinner\Contract\Mode\LoopAvailabilityMode;
 use AlecRabbit\Spinner\Contract\Mode\NormalizerMethodMode;
 use AlecRabbit\Spinner\Contract\Mode\RunMethodMode;
 
-interface IAuxConfig
+interface IAuxConfig extends IConfigElement
 {
     public function getRunMethodMode(): RunMethodMode;
 

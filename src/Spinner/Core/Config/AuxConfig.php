@@ -33,4 +33,11 @@ final readonly class AuxConfig implements IAuxConfig
         return $this->normalizerMethodMode;
     }
 
+    /**
+     * @return class-string<IAuxConfig>
+     */
+    public function getIdentifier(): string
+    {
+        return IAuxConfig::class;
+    }
 }

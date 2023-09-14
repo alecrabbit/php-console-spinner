@@ -26,4 +26,11 @@ final readonly class OutputConfig implements IOutputConfig
         return $this->cursorVisibilityMode;
     }
 
+    /**
+     * @return class-string<IOutputConfig>
+     */
+    public function getIdentifier(): string
+    {
+        return IOutputConfig::class;
+    }
 }

@@ -7,7 +7,7 @@ namespace AlecRabbit\Spinner\Core\Config\Contract;
 use AlecRabbit\Spinner\Contract\Mode\AutoStartMode;
 use AlecRabbit\Spinner\Contract\Mode\SignalHandlersMode;
 
-interface ILoopConfig
+interface ILoopConfig extends IConfigElement
 {
     public function getSignalHandlersMode(): SignalHandlersMode;
 

@@ -26,4 +26,11 @@ final readonly class LoopConfig implements ILoopConfig
         return $this->signalHandlersMode;
     }
 
+    /**
+     * @return class-string<ILoopConfig>
+     */
+    public function getIdentifier(): string
+    {
+        return ILoopConfig::class;
+    }
 }
