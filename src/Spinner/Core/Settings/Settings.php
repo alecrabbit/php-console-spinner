@@ -12,23 +12,22 @@ use ArrayObject;
 final readonly class Settings implements ISettings
 {
     /** @var ArrayObject<class-string<ISettingsElement>, ISettingsElement> */
-    protected ArrayObject $settingElements;
+    protected ArrayObject $settingsElements;
 
     /**
      * @param ArrayObject<class-string<ISettingsElement>, ISettingsElement> $settingElements
      */
     public function __construct(ArrayObject $settingElements = new ArrayObject())
     {
-        $this->settingElements = $settingElements;
+        $this->settingsElements = $settingElements;
     }
 
     public function set(ISettingsElement ...$settingsElements): void
     {
         foreach ($settingsElements as $settingsElement) {
             $identifier = $settingsElement->getIdentifier();
-
             self::assertIdentifier($identifier);
-            $this->settingElements->offsetSet($identifier, $settingsElement);
+            $this->settingsElements->offsetSet($identifier, $settingsElement);
         }
     }
 
@@ -53,6 +52,6 @@ final readonly class Settings implements ISettings
     public function get(string $id): ?ISettingsElement
     {
         self::assertIdentifier($id);
-        return $this->settingElements->offsetGet($id);
+        return $this->settingsElements->offsetGet($id);
     }
 }

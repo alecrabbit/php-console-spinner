@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Settings;
 
 use AlecRabbit\Spinner\Core\Config\Contract\IConfig;
-use AlecRabbit\Spinner\Core\Settings\AuxSettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\IAuxSettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\IDriverSettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\ILoopSettings;
@@ -29,9 +28,10 @@ final class SettingsTest extends TestCaseWithPrebuiltMocksAndStubs
         self::assertInstanceOf(Settings::class, $settings);
     }
 
-    public function getTesteeInstance(): ISettings {
+    public function getTesteeInstance(): ISettings
+    {
         return
-            new Settings(            );
+            new Settings();
     }
 
     #[Test]
@@ -43,11 +43,17 @@ final class SettingsTest extends TestCaseWithPrebuiltMocksAndStubs
         $auxSettings
             ->expects($this->once())
             ->method('getIdentifier')
-            ->willReturn(IAuxSettings::class);
+            ->willReturn(IAuxSettings::class)
+        ;
 
         $settings->set($auxSettings);
 
         self::assertSame($auxSettings, $settings->get(IAuxSettings::class));
+    }
+
+    protected function getAuxSettingsMock(): MockObject&IAuxSettings
+    {
+        return $this->createMock(IAuxSettings::class);
     }
 
     #[Test]
@@ -59,36 +65,17 @@ final class SettingsTest extends TestCaseWithPrebuiltMocksAndStubs
         $loopSettings
             ->expects($this->once())
             ->method('getIdentifier')
-            ->willReturn(ILoopSettings::class);
+            ->willReturn(ILoopSettings::class)
+        ;
 
         $settings->set($loopSettings);
 
         self::assertSame($loopSettings, $settings->get(ILoopSettings::class));
     }
 
-    protected function getAuxSettingsMock(): MockObject&IAuxSettings
-    {
-        return $this->createMock(IAuxSettings::class);
-    }
-
     protected function getLoopSettingsMock(): MockObject&ILoopSettings
     {
         return $this->createMock(ILoopSettings::class);
-    }
-
-    protected function getOutputSettingsMock(): MockObject&IOutputSettings
-    {
-        return $this->createMock(IOutputSettings::class);
-    }
-
-    protected function getDriverSettingsMock(): MockObject&IDriverSettings
-    {
-        return $this->createMock(IDriverSettings::class);
-    }
-
-    protected function getWidgetSettingsMock(): MockObject&IWidgetSettings
-    {
-        return $this->createMock(IWidgetSettings::class);
     }
 
     #[Test]
@@ -103,6 +90,26 @@ final class SettingsTest extends TestCaseWithPrebuiltMocksAndStubs
             public function getIdentifier(): string
             {
                 return 'invalid';
+            }
+        };
+
+        $settings->set($object);
+
+        self::fail('Exception was not thrown.');
+    }
+
+    #[Test]
+    public function throwIfIdentifierIsNotAnInterfaceOnSet(): void
+    {
+        $settings = $this->getTesteeInstance();
+
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Identifier "stdClass" is not an interface.');
+
+        $object = new class implements ISettingsElement {
+            public function getIdentifier(): string
+            {
+                return \stdClass::class;
             }
         };
 
@@ -148,6 +155,19 @@ final class SettingsTest extends TestCaseWithPrebuiltMocksAndStubs
     }
 
     #[Test]
+    public function throwIfIdentifierIsNoAnInterfaceOnGet(): void
+    {
+        $settings = $this->getTesteeInstance();
+
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Identifier "stdClass" is not an interface.');
+
+        $settings->get(\stdClass::class);
+
+        self::fail('Exception was not thrown.');
+    }
+
+    #[Test]
     public function throwIfIdentifierIsNotSettingsElementOnGet(): void
     {
         $settings = $this->getTesteeInstance();
@@ -161,5 +181,20 @@ final class SettingsTest extends TestCaseWithPrebuiltMocksAndStubs
         $settings->get(IConfig::class);
 
         self::fail('Exception was not thrown.');
+    }
+
+    protected function getOutputSettingsMock(): MockObject&IOutputSettings
+    {
+        return $this->createMock(IOutputSettings::class);
+    }
+
+    protected function getDriverSettingsMock(): MockObject&IDriverSettings
+    {
+        return $this->createMock(IDriverSettings::class);
+    }
+
+    protected function getWidgetSettingsMock(): MockObject&IWidgetSettings
+    {
+        return $this->createMock(IWidgetSettings::class);
     }
 }
