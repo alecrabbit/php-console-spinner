@@ -18,6 +18,7 @@ use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
+use stdClass;
 
 final class ConfigTest extends TestCaseWithPrebuiltMocksAndStubs
 {
@@ -204,7 +205,7 @@ final class ConfigTest extends TestCaseWithPrebuiltMocksAndStubs
         $object = new class implements IConfigElement {
             public function getIdentifier(): string
             {
-                return \stdClass::class;
+                return stdClass::class;
             }
         };
 
@@ -257,7 +258,7 @@ final class ConfigTest extends TestCaseWithPrebuiltMocksAndStubs
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('Identifier "stdClass" is not an interface.');
 
-        $config->get(\stdClass::class);
+        $config->get(stdClass::class);
 
         self::fail('Exception was not thrown.');
     }

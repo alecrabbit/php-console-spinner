@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Functional\Spinner\Core\Settings;
 
-use AlecRabbit\Spinner\Contract\Option\CursorVisibilityOption;
-use AlecRabbit\Spinner\Contract\Option\StylingMethodOption;
 use AlecRabbit\Spinner\Core\Settings\Contract\IWidgetSettings;
 use AlecRabbit\Spinner\Core\Settings\WidgetSettings;
 use AlecRabbit\Tests\TestCase\TestCase;
@@ -21,8 +19,8 @@ final class WidgetSettingsTest extends TestCase
         self::assertInstanceOf(WidgetSettings::class, $settings);
     }
 
-    public function getTesteeInstance(
-    ): IWidgetSettings {
+    public function getTesteeInstance(): IWidgetSettings
+    {
         return
             new WidgetSettings();
     }

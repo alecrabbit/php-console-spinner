@@ -17,6 +17,7 @@ use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
+use stdClass;
 
 final class SettingsTest extends TestCaseWithPrebuiltMocksAndStubs
 {
@@ -73,17 +74,17 @@ final class SettingsTest extends TestCaseWithPrebuiltMocksAndStubs
         self::assertSame($loopSettings, $settings->get(ILoopSettings::class));
     }
 
+    protected function getLoopSettingsMock(): MockObject&ILoopSettings
+    {
+        return $this->createMock(ILoopSettings::class);
+    }
+
     #[Test]
     public function returnsNullIfIdentifierIsNotSet(): void
     {
         $settings = $this->getTesteeInstance();
 
         self::assertNull($settings->get(ILoopSettings::class));
-    }
-
-    protected function getLoopSettingsMock(): MockObject&ILoopSettings
-    {
-        return $this->createMock(ILoopSettings::class);
     }
 
     #[Test]
@@ -117,7 +118,7 @@ final class SettingsTest extends TestCaseWithPrebuiltMocksAndStubs
         $object = new class implements ISettingsElement {
             public function getIdentifier(): string
             {
-                return \stdClass::class;
+                return stdClass::class;
             }
         };
 
@@ -170,7 +171,7 @@ final class SettingsTest extends TestCaseWithPrebuiltMocksAndStubs
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('Identifier "stdClass" is not an interface.');
 
-        $settings->get(\stdClass::class);
+        $settings->get(stdClass::class);
 
         self::fail('Exception was not thrown.');
     }

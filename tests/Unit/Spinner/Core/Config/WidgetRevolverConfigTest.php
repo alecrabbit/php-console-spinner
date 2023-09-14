@@ -4,10 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Config;
 
-use AlecRabbit\Spinner\Contract\IFrame;
-use AlecRabbit\Spinner\Core\Config\Contract\IWidgetConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IWidgetRevolverConfig;
-use AlecRabbit\Spinner\Core\Config\WidgetConfig;
 use AlecRabbit\Spinner\Core\Config\WidgetRevolverConfig;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPalette;
 use AlecRabbit\Tests\TestCase\TestCase;
@@ -35,9 +32,9 @@ final class WidgetRevolverConfigTest extends TestCase
             );
     }
 
-    protected function getRevolverConfigMock(): MockObject&IWidgetRevolverConfig
+    protected function getPaletteMock(): MockObject&IPalette
     {
-        return $this->createMock(IWidgetRevolverConfig::class);
+        return $this->createMock(IPalette::class);
     }
 
     #[Test]
@@ -64,8 +61,8 @@ final class WidgetRevolverConfigTest extends TestCase
         self::assertSame($charPalette, $config->getCharPalette());
     }
 
-    protected function getPaletteMock(): MockObject&IPalette
+    protected function getRevolverConfigMock(): MockObject&IWidgetRevolverConfig
     {
-        return $this->createMock(IPalette::class);
+        return $this->createMock(IWidgetRevolverConfig::class);
     }
 }

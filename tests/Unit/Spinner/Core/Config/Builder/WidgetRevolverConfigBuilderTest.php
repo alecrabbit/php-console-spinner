@@ -6,12 +6,9 @@ namespace AlecRabbit\Tests\Unit\Spinner\Core\Config\Builder;
 
 use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Core\Config\Builder\WidgetRevolverConfigBuilder;
-use AlecRabbit\Spinner\Core\Config\Builder\WidgetConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\Builder\IWidgetRevolverConfigBuilder;
-use AlecRabbit\Spinner\Core\Config\Contract\Builder\IWidgetConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\IWidgetRevolverConfig;
 use AlecRabbit\Spinner\Core\Config\WidgetRevolverConfig;
-use AlecRabbit\Spinner\Core\Config\WidgetConfig;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPalette;
 use AlecRabbit\Spinner\Exception\LogicException;
 use AlecRabbit\Tests\TestCase\TestCase;
@@ -46,16 +43,6 @@ final class WidgetRevolverConfigBuilderTest extends TestCase
         ;
 
         self::assertInstanceOf(WidgetRevolverConfig::class, $config);
-    }
-
-    private function getFrameMock(): MockObject&IFrame
-    {
-        return $this->createMock(IFrame::class);
-    }
-
-    protected function getRevolverConfigMock(): MockObject&IWidgetRevolverConfig
-    {
-        return $this->createMock(IWidgetRevolverConfig::class);
     }
 
     private function getPaletteMock(): MockObject&IPalette
@@ -131,5 +118,15 @@ final class WidgetRevolverConfigBuilderTest extends TestCase
             exception: $exceptionClass,
             message: $exceptionMessage,
         );
+    }
+
+    protected function getRevolverConfigMock(): MockObject&IWidgetRevolverConfig
+    {
+        return $this->createMock(IWidgetRevolverConfig::class);
+    }
+
+    private function getFrameMock(): MockObject&IFrame
+    {
+        return $this->createMock(IFrame::class);
     }
 }

@@ -41,7 +41,6 @@ final class ConfigBuilderTest extends TestCase
         ;
 
         self::assertInstanceOf(Config::class, $config);
-
     }
 
     protected function getTesteeInstance(): IConfigBuilder

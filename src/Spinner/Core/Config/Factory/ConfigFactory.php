@@ -29,6 +29,6 @@ final readonly class ConfigFactory implements IConfigFactory
     public function create(): IConfig
     {
         return
-            new Config(         );
+            new Config();
     }
 }

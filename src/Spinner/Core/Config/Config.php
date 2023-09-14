@@ -4,13 +4,8 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Config;
 
-use AlecRabbit\Spinner\Core\Config\Contract\IAuxConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IConfigElement;
-use AlecRabbit\Spinner\Core\Config\Contract\IDriverConfig;
-use AlecRabbit\Spinner\Core\Config\Contract\ILoopConfig;
-use AlecRabbit\Spinner\Core\Config\Contract\IOutputConfig;
-use AlecRabbit\Spinner\Core\Config\Contract\IWidgetConfig;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use ArrayObject;
 
@@ -22,7 +17,7 @@ final readonly class Config implements IConfig
     protected ArrayObject $configElements;
 
     public function __construct(
-        ArrayObject $configElements =  new ArrayObject(),
+        ArrayObject $configElements = new ArrayObject(),
     ) {
         $this->configElements = $configElements;
     }

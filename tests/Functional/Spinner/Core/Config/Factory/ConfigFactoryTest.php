@@ -84,15 +84,13 @@ final class ConfigFactoryTest extends TestCase
     #[Test]
     public function canCreate(): void
     {
-
-        $factory = $this->getTesteeInstance(        );
+        $factory = $this->getTesteeInstance();
 
         self::assertInstanceOf(ConfigFactory::class, $factory);
 
         $config = $factory->create();
 
         self::assertInstanceOf(Config::class, $config);
-
     }
 
     protected function getAuxConfigMock(): MockObject&IAuxConfig

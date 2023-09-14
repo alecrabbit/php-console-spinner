@@ -21,14 +21,6 @@ final class LoopSettingsTest extends TestCase
         self::assertInstanceOf(LoopSettings::class, $settings);
     }
 
-    #[Test]
-    public function canGetInterface(): void
-    {
-        $settings = $this->getTesteeInstance();
-
-        self::assertEquals(ILoopSettings::class, $settings->getIdentifier());
-    }
-
     public function getTesteeInstance(
         ?AutoStartOption $autoStartOption = null,
         ?SignalHandlersOption $signalHandlersOption = null,
@@ -38,6 +30,14 @@ final class LoopSettingsTest extends TestCase
                 autoStartOption: $autoStartOption ?? AutoStartOption::AUTO,
                 signalHandlersOption: $signalHandlersOption ?? SignalHandlersOption::AUTO,
             );
+    }
+
+    #[Test]
+    public function canGetInterface(): void
+    {
+        $settings = $this->getTesteeInstance();
+
+        self::assertEquals(ILoopSettings::class, $settings->getIdentifier());
     }
 
     #[Test]

@@ -4,12 +4,10 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Functional\Spinner\Core\Config\Builder;
 
-use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Core\Config\Builder\WidgetRevolverConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\Builder\IWidgetRevolverConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\IWidgetRevolverConfig;
 use AlecRabbit\Spinner\Core\Config\WidgetRevolverConfig;
-use AlecRabbit\Spinner\Core\Config\WidgetConfig;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPalette;
 use AlecRabbit\Spinner\Exception\LogicException;
 use AlecRabbit\Tests\TestCase\TestCase;
@@ -44,6 +42,11 @@ final class WidgetRevolverConfigBuilderTest extends TestCase
             new WidgetRevolverConfigBuilder();
     }
 
+    private function getPaletteMock(): MockObject&IPalette
+    {
+        return $this->createMock(IPalette::class);
+    }
+
     #[Test]
     public function throwsIfStylePatternIsNotSet(): void
     {
@@ -64,11 +67,6 @@ final class WidgetRevolverConfigBuilderTest extends TestCase
             exception: $exceptionClass,
             message: $exceptionMessage,
         );
-    }
-
-    private function getPaletteMock(): MockObject&IPalette
-    {
-        return $this->createMock(IPalette::class);
     }
 
     #[Test]

@@ -32,6 +32,14 @@ final class WidgetRevolverConfigBuilder implements IWidgetRevolverConfigBuilder
             );
     }
 
+    private function validate(): void
+    {
+        match (true) {
+            $this->stylePalette === null => throw new LogicException('Style palette is not set.'),
+            $this->charPalette === null => throw new LogicException('Char palette is not set.'),
+            default => null,
+        };
+    }
 
     public function withStylePalette(IPalette $palette): IWidgetRevolverConfigBuilder
     {
@@ -45,14 +53,5 @@ final class WidgetRevolverConfigBuilder implements IWidgetRevolverConfigBuilder
         $clone = clone $this;
         $clone->charPalette = $palette;
         return $clone;
-    }
-
-    private function validate(): void
-    {
-        match (true) {
-            $this->stylePalette === null => throw new LogicException('Style palette is not set.'),
-            $this->charPalette === null => throw new LogicException('Char palette is not set.'),
-            default => null,
-        };
     }
 }
