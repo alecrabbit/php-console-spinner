@@ -3,30 +3,35 @@
 Settings are used to configure the package. Here is the list of available methods with default settings:
 
 ```php
-$settings = Facade::getSettings();
+use \AlecRabbit\Spinner\Core\Settings\AuxSettings;
+use \AlecRabbit\Spinner\Core\Settings\LoopSettings;
+use \AlecRabbit\Spinner\Core\Settings\OutputSettings;
+use \AlecRabbit\Spinner\Core\Settings\DriverSettings;
+use \AlecRabbit\Spinner\Core\Settings\WidgetSettings;
+use \AlecRabbit\Spinner\Core\Settings\RootWidgetSettings;
 
 // Aux settings
-$auxSettings = $settings->getAuxSettings();
+$auxSettings = new AuxSettings();
 
 $auxSettings->setRunMethodOption(RunMethodOption::AUTO);
 $auxSettings->setNormalizerOption(NormalizerOption::AUTO);
 
 // Loop settings
-$loopSettings = $settings->getLoopSettings();
+$loopSettings = new LoopSettings();
 
 $loopSettings->setAutoStartOption(AutoStartOption::AUTO);
 $loopSettings->setSignalHandlersOption(SignalHandlersOption::AUTO);
 # NEW FEATURE // $outputSettings->setSignalHandler(/* TBD */);
 
 // Output settings
-$outputSettings = $settings->getOutputSettings();
+$outputSettings = new OutputSettings();
 
 $outputSettings->setStylingMethodOption(StylingMethodOption::AUTO);
 $outputSettings->setCursorVisibilityOption(CursorVisibilityOption::AUTO); 
 # NEW FEATURE // $outputSettings->setClearScreenOption(ClearScreenOption::AUTO);
 
 // Driver settings
-$driverSettings = $settings->getDriverSettings();
+$driverSettings = new DriverSettings();
 
 $driverSettings->setLinkerOption(LinkerOption::AUTO);
 $driverSettings->setInitializationOption(InitializationOption::AUTO);
@@ -35,7 +40,7 @@ $driverSettings->setInitializationOption(InitializationOption::AUTO);
 # NEW FEATURE // $driverSettings->setInterruptMessage('');
 
 // Widget settings
-$widgetSettings = $settings->getWidgetSettings();
+$widgetSettings = new WidgetSettings();
 
 $widgetSettings->setCharPattern(null); // default: none
 $widgetSettings->setStylePattern(null); // default: none
@@ -43,12 +48,25 @@ $widgetSettings->setLeadingSpacer(null); // default: CharFrame('', 0)
 $widgetSettings->setTrailingSpacer(null); // default: CharFrame('', 0)
 
 // Root Widget settings
-$rootWidgetSettings = $settings->getRootWidgetSettings();
+$rootWidgetSettings = new RootWidgetSettings();
 
 $rootWidgetSettings->setCharPattern(null); // default: Snake
 $rootWidgetSettings->setStylePattern(null); // default: Rainbow
 $rootWidgetSettings->setLeadingSpacer(null); // default: CharFrame('', 0) 
 $rootWidgetSettings->setTrailingSpacer(null); // default: CharFrame(' ', 1)
 
+// Settings object
+$settings = Facade::getSettings();
+
+$settings->set(
+    $auxSettings,
+    $loopSettings,
+    $outputSettings,
+    $driverSettings,
+    $widgetSettings,
+    $rootWidgetSettings,
+);
+
+// to get settings
+$settings->get(IAuxSettings::class); // returns AuxSettings object or null
 ```
-You can override default settings by changing values in the `Settings` object.
