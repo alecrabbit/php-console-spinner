@@ -73,6 +73,14 @@ final class SettingsTest extends TestCaseWithPrebuiltMocksAndStubs
         self::assertSame($loopSettings, $settings->get(ILoopSettings::class));
     }
 
+    #[Test]
+    public function returnsNullIfIdentifierIsNotSet(): void
+    {
+        $settings = $this->getTesteeInstance();
+
+        self::assertNull($settings->get(ILoopSettings::class));
+    }
+
     protected function getLoopSettingsMock(): MockObject&ILoopSettings
     {
         return $this->createMock(ILoopSettings::class);

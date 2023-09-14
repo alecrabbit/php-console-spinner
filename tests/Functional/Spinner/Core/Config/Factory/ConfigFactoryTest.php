@@ -84,71 +84,15 @@ final class ConfigFactoryTest extends TestCase
     #[Test]
     public function canCreate(): void
     {
-        $auxConfig = $this->getAuxConfigMock();
-        $loopConfig = $this->getLoopConfigMock();
-        $outputConfig = $this->getOutputConfigMock();
-        $driverConfig = $this->getDriverConfigMock();
-        $widgetConfig = $this->getWidgetConfigMock();
-        $rootWidgetConfig = $this->getWidgetConfigMock();
 
-        $auxConfigFactory = $this->getAuxConfigFactoryMock();
-        $loopConfigFactory = $this->getLoopConfigFactoryMock();
-        $outputConfigFactory = $this->getOutputConfigFactoryMock();
-        $driverConfigFactory = $this->getDriverConfigFactoryMock();
-        $widgetConfigFactory = $this->getWidgetConfigFactoryMock();
-        $rootWidgetConfigFactory = $this->getRootWidgetConfigFactoryMock();
-
-        $auxConfigFactory
-            ->expects(self::once())
-            ->method('create')
-            ->willReturn($auxConfig)
-        ;
-        $loopConfigFactory
-            ->expects(self::once())
-            ->method('create')
-            ->willReturn($loopConfig)
-        ;
-        $outputConfigFactory
-            ->expects(self::once())
-            ->method('create')
-            ->willReturn($outputConfig)
-        ;
-        $driverConfigFactory
-            ->expects(self::once())
-            ->method('create')
-            ->willReturn($driverConfig)
-        ;
-        $widgetConfigFactory
-            ->expects(self::once())
-            ->method('create')
-            ->willReturn($widgetConfig)
-        ;
-        $rootWidgetConfigFactory
-            ->expects(self::once())
-            ->method('create')
-            ->willReturn($rootWidgetConfig)
-        ;
-
-        $factory = $this->getTesteeInstance(
-            auxConfigFactory: $auxConfigFactory,
-            loopConfigFactory: $loopConfigFactory,
-            outputConfigFactory: $outputConfigFactory,
-            driverConfigFactory: $driverConfigFactory,
-            widgetConfigFactory: $widgetConfigFactory,
-            rootWidgetConfigFactory: $rootWidgetConfigFactory,
-        );
+        $factory = $this->getTesteeInstance(        );
 
         self::assertInstanceOf(ConfigFactory::class, $factory);
 
         $config = $factory->create();
 
         self::assertInstanceOf(Config::class, $config);
-        self::assertSame($auxConfig, $config->getAuxConfig());
-        self::assertSame($loopConfig, $config->getLoopConfig());
-        self::assertSame($outputConfig, $config->getOutputConfig());
-        self::assertSame($driverConfig, $config->getDriverConfig());
-        self::assertSame($widgetConfig, $config->getWidgetConfig());
-        self::assertSame($rootWidgetConfig, $config->getRootWidgetConfig());
+
     }
 
     protected function getAuxConfigMock(): MockObject&IAuxConfig

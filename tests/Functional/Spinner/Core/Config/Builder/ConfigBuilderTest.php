@@ -42,12 +42,6 @@ final class ConfigBuilderTest extends TestCase
 
         self::assertInstanceOf(Config::class, $config);
 
-        self::assertSame($auxConfig, $config->getAuxConfig());
-        self::assertSame($loopConfig, $config->getLoopConfig());
-        self::assertSame($outputConfig, $config->getOutputConfig());
-        self::assertSame($driverConfig, $config->getDriverConfig());
-        self::assertSame($widgetConfig, $config->getWidgetConfig());
-        self::assertSame($rootWidgetConfig, $config->getRootWidgetConfig());
     }
 
     protected function getTesteeInstance(): IConfigBuilder

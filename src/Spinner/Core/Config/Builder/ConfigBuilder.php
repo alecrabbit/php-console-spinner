@@ -33,14 +33,7 @@ final class ConfigBuilder implements IConfigBuilder
         $this->validate();
 
         return
-            new Config(
-                auxConfig: $this->auxConfig,
-                loopConfig: $this->loopConfig,
-                outputConfig: $this->outputConfig,
-                driverConfig: $this->driverConfig,
-                widgetConfig: $this->widgetConfig,
-                rootWidgetConfig: $this->rootWidgetConfig,
-            );
+            new Config();
     }
 
     /**

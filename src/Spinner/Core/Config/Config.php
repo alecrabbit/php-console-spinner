@@ -11,58 +11,58 @@ use AlecRabbit\Spinner\Core\Config\Contract\IDriverConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\ILoopConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IOutputConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IWidgetConfig;
+use AlecRabbit\Spinner\Exception\InvalidArgumentException;
+use ArrayObject;
 
 final readonly class Config implements IConfig
 {
+    /**
+     * @var ArrayObject<class-string<IConfigElement>, IConfigElement>
+     */
+    protected ArrayObject $configElements;
+
     public function __construct(
-        protected IAuxConfig $auxConfig,
-        protected ILoopConfig $loopConfig,
-        protected IOutputConfig $outputConfig,
-        protected IDriverConfig $driverConfig,
-        protected IWidgetConfig $widgetConfig,
-        protected IWidgetConfig $rootWidgetConfig,
+        ArrayObject $configElements =  new ArrayObject(),
     ) {
+        $this->configElements = $configElements;
     }
 
-    public function getAuxConfig(): IAuxConfig
+    /** @inheritDoc */
+    public function set(IConfigElement ...$configElements): void
     {
-        return $this->auxConfig;
+        foreach ($configElements as $configElement) {
+            $identifier = $configElement->getIdentifier();
+            self::assertIdentifier($identifier);
+            $this->configElements->offsetSet($identifier, $configElement);
+        }
     }
 
-    public function getLoopConfig(): ILoopConfig
+    /**
+     * @param class-string<IConfigElement> $id
+     * @throws InvalidArgumentException
+     */
+    private static function assertIdentifier(string $id): void
     {
-        return $this->loopConfig;
+        if (!interface_exists($id)) {
+            throw new InvalidArgumentException(
+                sprintf('Identifier "%s" is not an interface.', $id)
+            );
+        }
+        if (!is_a($id, IConfigElement::class, true)) {
+            throw new InvalidArgumentException(
+                sprintf('Identifier "%s" is not an instance of "%s".', $id, IConfigElement::class)
+            );
+        }
     }
 
-    public function getOutputConfig(): IOutputConfig
-    {
-        return $this->outputConfig;
-    }
-
-    public function getDriverConfig(): IDriverConfig
-    {
-        return $this->driverConfig;
-    }
-
-    public function getWidgetConfig(): IWidgetConfig
-    {
-        return $this->widgetConfig;
-    }
-
-    public function getRootWidgetConfig(): IWidgetConfig
-    {
-        return $this->rootWidgetConfig;
-    }
-
-    public function set(IConfigElement ...$settingsElements): void
-    {
-        // TODO: Implement set() method.
-        throw new \RuntimeException('Not implemented.');
-    }
-
+    /** @inheritDoc */
     public function get(string $id): ?IConfigElement
     {
-        // TODO: Implement get() method.
-        throw new \RuntimeException('Not implemented.');
+        self::assertIdentifier($id);
+        if (!$this->configElements->offsetExists($id)) {
+            return null;
+        }
+        return $this->configElements->offsetGet($id);
     }
+
 }

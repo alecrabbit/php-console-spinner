@@ -79,46 +79,7 @@ final class ConfigFactoryTest extends TestCase
     #[Test]
     public function canCreate(): void
     {
-        $auxConfigFactory = $this->getAuxConfigFactoryMock();
-        $loopConfigFactory = $this->getLoopConfigFactoryMock();
-        $outputConfigFactory = $this->getOutputConfigFactoryMock();
-        $driverConfigFactory = $this->getDriverConfigFactoryMock();
-        $widgetConfigFactory = $this->getWidgetConfigFactoryMock();
-        $rootWidgetConfigFactory = $this->getRootWidgetConfigFactoryMock();
-
-        $auxConfigFactory
-            ->expects(self::once())
-            ->method('create')
-        ;
-        $loopConfigFactory
-            ->expects(self::once())
-            ->method('create')
-        ;
-        $outputConfigFactory
-            ->expects(self::once())
-            ->method('create')
-        ;
-        $driverConfigFactory
-            ->expects(self::once())
-            ->method('create')
-        ;
-        $widgetConfigFactory
-            ->expects(self::once())
-            ->method('create')
-        ;
-        $rootWidgetConfigFactory
-            ->expects(self::once())
-            ->method('create')
-        ;
-
-        $factory = $this->getTesteeInstance(
-            auxConfigFactory: $auxConfigFactory,
-            loopConfigFactory: $loopConfigFactory,
-            outputConfigFactory: $outputConfigFactory,
-            driverConfigFactory: $driverConfigFactory,
-            widgetConfigFactory: $widgetConfigFactory,
-            rootWidgetConfigFactory: $rootWidgetConfigFactory,
-        );
+        $factory = $this->getTesteeInstance();
 
         self::assertInstanceOf(ConfigFactory::class, $factory);
         self::assertInstanceOf(Config::class, $factory->create());
