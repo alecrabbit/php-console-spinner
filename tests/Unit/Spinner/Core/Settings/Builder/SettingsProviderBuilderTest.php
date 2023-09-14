@@ -26,7 +26,7 @@ final class SettingsProviderBuilderTest extends TestCaseWithPrebuiltMocksAndStub
     public function getTesteeInstance(): ISettingsProviderBuilder
     {
         return
-            new  SettingsProviderBuilder();
+            new SettingsProviderBuilder();
     }
 
     #[Test]
@@ -36,7 +36,7 @@ final class SettingsProviderBuilderTest extends TestCaseWithPrebuiltMocksAndStub
 
         $builder =
             $providerBuilder
-                ->withUserSettings($this->getSettingsMock())
+                ->withSettings($this->getSettingsMock())
         ;
 
         self::assertNotSame($builder, $providerBuilder);
@@ -48,41 +48,13 @@ final class SettingsProviderBuilderTest extends TestCaseWithPrebuiltMocksAndStub
     }
 
     #[Test]
-    public function withDefaultSettingsReturnsOtherInstanceOfBuilder(): void
-    {
-        $providerBuilder = $this->getTesteeInstance();
-
-        $builder =
-            $providerBuilder
-                ->withDefaultSettings($this->getSettingsMock())
-        ;
-
-        self::assertNotSame($builder, $providerBuilder);
-    }
-
-    #[Test]
-    public function withDetectedSettingsReturnsOtherInstanceOfBuilder(): void
-    {
-        $providerBuilder = $this->getTesteeInstance();
-
-        $builder =
-            $providerBuilder
-                ->withDetectedSettings($this->getSettingsMock())
-        ;
-
-        self::assertNotSame($builder, $providerBuilder);
-    }
-
-    #[Test]
     public function canBuild(): void
     {
         $builder = $this->getTesteeInstance();
 
         $settings =
             $builder
-                ->withUserSettings($this->getSettingsMock())
-                ->withDefaultSettings($this->getSettingsMock())
-                ->withDetectedSettings($this->getSettingsMock())
+                ->withSettings($this->getSettingsMock())
                 ->build()
         ;
 
@@ -99,8 +71,6 @@ final class SettingsProviderBuilderTest extends TestCaseWithPrebuiltMocksAndStub
             $builder = $this->getTesteeInstance();
 
             $builder
-                ->withDefaultSettings($this->getSettingsMock())
-                ->withDetectedSettings($this->getSettingsMock())
                 ->build()
             ;
         };
@@ -111,51 +81,4 @@ final class SettingsProviderBuilderTest extends TestCaseWithPrebuiltMocksAndStub
             message: $exceptionMessage,
         );
     }
-
-    #[Test]
-    public function throwsIfDefaultSettingsAreNotSet(): void
-    {
-        $exceptionClass = LogicException::class;
-        $exceptionMessage = 'Default settings are not set.';
-
-        $test = function (): void {
-            $builder = $this->getTesteeInstance();
-
-            $builder
-                ->withUserSettings($this->getSettingsMock())
-                ->withDetectedSettings($this->getSettingsMock())
-                ->build()
-            ;
-        };
-
-        $this->wrapExceptionTest(
-            test: $test,
-            exception: $exceptionClass,
-            message: $exceptionMessage,
-        );
-    }
-
-    #[Test]
-    public function throwsIfDetectedSettingsAreNotSet(): void
-    {
-        $exceptionClass = LogicException::class;
-        $exceptionMessage = 'Detected settings are not set.';
-
-        $test = function (): void {
-            $builder = $this->getTesteeInstance();
-
-            $builder
-                ->withUserSettings($this->getSettingsMock())
-                ->withDefaultSettings($this->getSettingsMock())
-                ->build()
-            ;
-        };
-
-        $this->wrapExceptionTest(
-            test: $test,
-            exception: $exceptionClass,
-            message: $exceptionMessage,
-        );
-    }
-
 }

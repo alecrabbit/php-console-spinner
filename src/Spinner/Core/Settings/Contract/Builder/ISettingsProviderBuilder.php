@@ -15,9 +15,5 @@ interface ISettingsProviderBuilder
      */
     public function build(): ISettingsProvider;
 
-    public function withUserSettings(ISettings $settings): ISettingsProviderBuilder;
-
-    public function withDetectedSettings(ISettings $settings): ISettingsProviderBuilder;
-
-    public function withDefaultSettings(ISettings $settings): ISettingsProviderBuilder;
+    public function withSettings(ISettings $settings): ISettingsProviderBuilder;
 }

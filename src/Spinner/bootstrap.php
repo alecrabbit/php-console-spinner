@@ -202,8 +202,6 @@ function definitions(): Traversable
             return
                 new SettingsProvider(
                     new Settings(),
-                    new Settings(),
-                    new Settings(),
                 );
         },
         ILegacySettingsProvider::class => static function (ContainerInterface $container): ILegacySettingsProvider {

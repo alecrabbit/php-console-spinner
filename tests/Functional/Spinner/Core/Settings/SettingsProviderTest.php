@@ -22,51 +22,23 @@ final class SettingsProviderTest extends TestCase
     }
 
     public function getTesteeInstance(
-        ?ISettings $userSettings = null,
-        ?ISettings $defaultSettings = null,
-        ?ISettings $detectedSettings = null,
+        ?ISettings $settings = null,
     ): ISettingsProvider {
         return
             new SettingsProvider(
-                userSettings: $userSettings ?? new Settings(),
-                defaultSettings: $defaultSettings ?? new Settings(),
-                detectedSettings: $detectedSettings ?? new Settings(),
+                settings: $settings ?? new Settings(),
             );
     }
 
     #[Test]
-    public function canGetUserSettings(): void
+    public function canGetSettings(): void
     {
         $settings = new Settings();
 
         $provider = $this->getTesteeInstance(
-            userSettings: $settings,
+            settings: $settings,
         );
 
-        self::assertSame($settings, $provider->getUserSettings());
-    }
-
-    #[Test]
-    public function canGetDefaultSettings(): void
-    {
-        $settings = new Settings();
-
-        $provider = $this->getTesteeInstance(
-            defaultSettings: $settings,
-        );
-
-        self::assertSame($settings, $provider->getDefaultSettings());
-    }
-
-    #[Test]
-    public function canGetDetectedSettings(): void
-    {
-        $settings = new Settings();
-
-        $provider = $this->getTesteeInstance(
-            detectedSettings: $settings,
-        );
-
-        self::assertSame($settings, $provider->getDetectedSettings());
+        self::assertSame($settings, $provider->getSettings());
     }
 }

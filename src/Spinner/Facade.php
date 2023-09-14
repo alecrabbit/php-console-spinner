@@ -82,7 +82,7 @@ final class Facade extends AFacade
     public static function getSettings(): ISettings
     {
         return
-            self::getSettingsProvider()->getUserSettings();
+            self::getSettingsProvider()->getSettings();
     }
 
     protected static function getSettingsProvider(): ISettingsProvider

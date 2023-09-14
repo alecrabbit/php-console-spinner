@@ -12,6 +12,9 @@ use AlecRabbit\Spinner\Core\Config\WidgetConfig;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPalette;
 use AlecRabbit\Spinner\Exception\LogicException;
 
+/**
+ * @psalm-suppress PossiblyNullArgument
+ */
 final class WidgetConfigBuilder implements IWidgetConfigBuilder
 {
     private ?IFrame $leadingSpacer = null;

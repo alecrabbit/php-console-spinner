@@ -15,9 +15,7 @@ use AlecRabbit\Spinner\Exception\LogicException;
  */
 final class SettingsProviderBuilder implements ISettingsProviderBuilder
 {
-    private ?ISettings $userSettings = null;
-    private ?ISettings $defaultSettings = null;
-    private ?ISettings $detectedSettings = null;
+    private ?ISettings $settings = null;
 
     public function build(): ISettingsProvider
     {
@@ -25,40 +23,22 @@ final class SettingsProviderBuilder implements ISettingsProviderBuilder
 
         return
             new SettingsProvider(
-                userSettings: $this->userSettings,
-                defaultSettings: $this->defaultSettings,
-                detectedSettings: $this->detectedSettings,
+                settings: $this->settings,
             );
     }
 
     private function validate(): void
     {
         match (true) {
-            $this->userSettings === null => throw new LogicException('User settings are not set.'),
-            $this->defaultSettings === null => throw new LogicException('Default settings are not set.'),
-            $this->detectedSettings === null => throw new LogicException('Detected settings are not set.'),
+            $this->settings === null => throw new LogicException('User settings are not set.'),
             default => null,
         };
     }
 
-    public function withUserSettings(ISettings $settings): ISettingsProviderBuilder
+    public function withSettings(ISettings $settings): ISettingsProviderBuilder
     {
         $clone = clone $this;
-        $clone->userSettings = $settings;
-        return $clone;
-    }
-
-    public function withDefaultSettings(ISettings $settings): ISettingsProviderBuilder
-    {
-        $clone = clone $this;
-        $clone->defaultSettings = $settings;
-        return $clone;
-    }
-
-    public function withDetectedSettings(ISettings $settings): ISettingsProviderBuilder
-    {
-        $clone = clone $this;
-        $clone->detectedSettings = $settings;
+        $clone->settings = $settings;
         return $clone;
     }
 }

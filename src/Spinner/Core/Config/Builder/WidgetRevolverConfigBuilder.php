@@ -10,7 +10,10 @@ use AlecRabbit\Spinner\Core\Config\WidgetRevolverConfig;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPalette;
 use AlecRabbit\Spinner\Exception\LogicException;
 
-class WidgetRevolverConfigBuilder implements IWidgetRevolverConfigBuilder
+/**
+ * @psalm-suppress PossiblyNullArgument
+ */
+final class WidgetRevolverConfigBuilder implements IWidgetRevolverConfigBuilder
 {
     private ?IPalette $stylePalette = null;
     private ?IPalette $charPalette = null;

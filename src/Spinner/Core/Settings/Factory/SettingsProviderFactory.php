@@ -16,8 +16,6 @@ final readonly class SettingsProviderFactory implements ISettingsProviderFactory
     public function __construct(
         protected ISettingsProviderBuilder $builder,
         protected IUserSettingsFactory $userSettingsFactory,
-        protected IDefaultSettingsFactory $defaultSettingsFactory,
-        protected IDetectedSettingsFactory $detectedSettingsFactory,
     ) {
     }
 
@@ -25,9 +23,7 @@ final readonly class SettingsProviderFactory implements ISettingsProviderFactory
     {
         return
             $this->builder
-                ->withUserSettings($this->userSettingsFactory->create())
-                ->withDefaultSettings($this->defaultSettingsFactory->create())
-                ->withDetectedSettings($this->detectedSettingsFactory->create())
+                ->withSettings($this->userSettingsFactory->create())
                 ->build()
         ;
     }
