@@ -24,7 +24,7 @@ Size
 
 Cyclomatic Complexity
   Average Complexity per LLOC                     0.28
-  Average Complexity per Class                    2.11
+  Average Complexity per Class                    2.10
     Minimum Class Complexity                      1.00
     Maximum Class Complexity                     21.00
   Average Complexity per Method                   1.42
@@ -39,9 +39,9 @@ Dependencies
   Attribute Accesses                               650
     Non-Static                                     610 (93.85%)
     Static                                          40 (6.15%)
-  Method Calls                                     602
-    Non-Static                                     516 (85.71%)
-    Static                                          86 (14.29%)
+  Method Calls                                     605
+    Non-Static                                     519 (85.79%)
+    Static                                          86 (14.21%)
 
 Structure
   Namespaces                                        66
