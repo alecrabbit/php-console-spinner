@@ -66,7 +66,7 @@ final class DefaultSettingsFactory implements IDefaultSettingsFactory
                 trailingSpacer: null,
                 stylePalette: new Rainbow(),
                 charPalette: new Snake(),
-            )
+            ),
         );
     }
 }

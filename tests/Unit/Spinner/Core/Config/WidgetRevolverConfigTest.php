@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Config;
 
+use AlecRabbit\Spinner\Core\Config\Contract\IRevolverConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IWidgetRevolverConfig;
+use AlecRabbit\Spinner\Core\Config\RevolverConfig;
 use AlecRabbit\Spinner\Core\Config\WidgetRevolverConfig;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPalette;
 use AlecRabbit\Tests\TestCase\TestCase;
@@ -24,11 +26,21 @@ final class WidgetRevolverConfigTest extends TestCase
     protected function getTesteeInstance(
         ?IPalette $stylePalette = null,
         ?IPalette $charPalette = null,
+        ?IRevolverConfig $revolverConfig = null,
     ): IWidgetRevolverConfig {
+        if ($revolverConfig === null) {
+            return
+                new WidgetRevolverConfig(
+                    stylePalette: $stylePalette ?? $this->getPaletteMock(),
+                    charPalette: $charPalette ?? $this->getPaletteMock(),
+                );
+        }
+
         return
             new WidgetRevolverConfig(
                 stylePalette: $stylePalette ?? $this->getPaletteMock(),
                 charPalette: $charPalette ?? $this->getPaletteMock(),
+                revolverConfig: $revolverConfig,
             );
     }
 
@@ -38,7 +50,7 @@ final class WidgetRevolverConfigTest extends TestCase
     }
 
     #[Test]
-    public function canStylePalette(): void
+    public function canGetStylePalette(): void
     {
         $stylePalette = $this->getPaletteMock();
 
@@ -50,7 +62,7 @@ final class WidgetRevolverConfigTest extends TestCase
     }
 
     #[Test]
-    public function canCharPalette(): void
+    public function canGetCharPalette(): void
     {
         $charPalette = $this->getPaletteMock();
 
@@ -61,8 +73,29 @@ final class WidgetRevolverConfigTest extends TestCase
         self::assertSame($charPalette, $config->getCharPalette());
     }
 
-    protected function getRevolverConfigMock(): MockObject&IWidgetRevolverConfig
+    #[Test]
+    public function canGetRevolverConfig(): void
     {
-        return $this->createMock(IWidgetRevolverConfig::class);
+        $config = $this->getTesteeInstance();
+
+        self::assertInstanceOf(RevolverConfig::class, $config->getRevolverConfig());
+    }
+
+    #[Test]
+    public function canGetRevolverConfigFromConstructor(): void
+    {
+        $revolverConfig = $this->getRevolverConfigMock();
+
+        $config = $this->getTesteeInstance(
+            revolverConfig: $revolverConfig,
+        );
+
+        self::assertSame($revolverConfig, $config->getRevolverConfig());
+    }
+
+
+    protected function getRevolverConfigMock(): MockObject&IRevolverConfig
+    {
+        return $this->createMock(IRevolverConfig::class);
     }
 }

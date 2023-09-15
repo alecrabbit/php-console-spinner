@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Widget\Factory;
 
 use AlecRabbit\Spinner\Core\Config\Contract\IWidgetRevolverConfig;
+use AlecRabbit\Spinner\Core\Contract\ITolerance;
 use AlecRabbit\Spinner\Core\Factory\Contract\ICharFrameRevolverFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IStyleFrameRevolverFactory;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolver;
@@ -64,7 +65,7 @@ final class WidgetRevolverFactory implements IWidgetRevolverFactory
     private function getTolerance(): int
     {
         // TODO (2023-04-26 14:21) [Alec Rabbit]: make it configurable [fd86d318-9069-47e2-b60d-a68f537be4a3]
-        return IRevolver::TOLERANCE;
+        return ITolerance::DEFAULT_VALUE;
     }
 
     public function create(IWidgetRevolverConfig $revolverConfig): IRevolver
@@ -77,13 +78,13 @@ final class WidgetRevolverFactory implements IWidgetRevolverFactory
 //                ->withStyleRevolver(
 //                    $this->styleRevolverFactory
 //                        ->createStyleRevolver(
-//                            $widgetConfig->getStylePattern()
+//                            $revolverConfig->getStylePalette()
 //                        )
 //                )
 //                ->withCharRevolver(
 //                    $this->charRevolverFactory
 //                        ->createCharRevolver(
-//                             $widgetConfig->getCharPattern()
+//                             $revolverConfig->getCharPalette()
 //                        )
 //                )
 //                ->withTolerance(

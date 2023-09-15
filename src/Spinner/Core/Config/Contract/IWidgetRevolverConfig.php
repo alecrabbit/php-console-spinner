@@ -11,4 +11,6 @@ interface IWidgetRevolverConfig
     public function getStylePalette(): IPalette;
 
     public function getCharPalette(): IPalette;
+
+    public function getRevolverConfig(): IRevolverConfig;
 }
