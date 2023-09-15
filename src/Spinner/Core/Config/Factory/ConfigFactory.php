@@ -28,7 +28,25 @@ final readonly class ConfigFactory implements IConfigFactory
 
     public function create(): IConfig
     {
+        $config = new Config();
+
+        $this->fill($config);
+
         return
-            new Config();
+            $config;
     }
+
+    private function fill(IConfig $config): void
+    {
+        $config->set(
+            $this->auxConfigFactory->create(),
+            $this->loopConfigFactory->create(),
+            $this->outputConfigFactory->create(),
+            $this->driverConfigFactory->create(),
+            $this->widgetConfigFactory->create(),
+            $this->rootWidgetConfigFactory->create(),
+        );
+    }
+
+
 }

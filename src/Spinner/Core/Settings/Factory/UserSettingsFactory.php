@@ -25,7 +25,7 @@ final class UserSettingsFactory implements IUserSettingsFactory
         return $settings;
     }
 
-    private function fill(Settings $settings): void
+    private function fill(ISettings $settings): void
     {
         $settings->set(
             new AuxSettings(),

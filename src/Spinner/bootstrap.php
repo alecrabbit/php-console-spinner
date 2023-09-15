@@ -31,8 +31,17 @@ use AlecRabbit\Spinner\Core\Builder\Settings\Legacy\LegacySettingsProviderBuilde
 use AlecRabbit\Spinner\Core\Builder\Settings\Legacy\LegacyWidgetSettingsBuilder;
 use AlecRabbit\Spinner\Core\Builder\SignalHandlersSetupBuilder;
 use AlecRabbit\Spinner\Core\Builder\TimerBuilder;
+use AlecRabbit\Spinner\Core\Config\Contract\Factory\IAuxConfigFactory;
+use AlecRabbit\Spinner\Core\Config\Contract\Factory\IConfigFactory;
+use AlecRabbit\Spinner\Core\Config\Contract\Factory\IConfigProviderFactory;
+use AlecRabbit\Spinner\Core\Config\Contract\Factory\IDriverConfigFactory;
+use AlecRabbit\Spinner\Core\Config\Contract\Factory\ILoopConfigFactory;
+use AlecRabbit\Spinner\Core\Config\Contract\Factory\IOutputConfigFactory;
+use AlecRabbit\Spinner\Core\Config\Contract\Factory\IRootWidgetConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\IWidgetConfigFactory;
-use AlecRabbit\Spinner\Core\Config\Factory\WidgetConfigFactory;
+use AlecRabbit\Spinner\Core\Config\Factory\ConfigFactory;
+use AlecRabbit\Spinner\Core\Config\Factory\ConfigProviderFactory;
+use AlecRabbit\Spinner\Core\Contract\IConfigProvider;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\IDriverBuilder;
 use AlecRabbit\Spinner\Core\Contract\IDriverLinker;
@@ -126,6 +135,13 @@ function definitions(): Traversable
         ICharFrameRevolverFactory::class => CharFrameRevolverFactory::class,
         IConsoleCursorBuilder::class => ConsoleCursorBuilder::class,
         IConsoleCursorFactory::class => ConsoleCursorFactory::class,
+
+        IConfigFactory::class => ConfigFactory::class,
+        IConfigProviderFactory::class => ConfigProviderFactory::class,
+        IConfigProvider::class => static function (ContainerInterface $container): IConfigProvider {
+            return $container->get(IConfigProviderFactory::class)->create();
+        },
+
         IDriverBuilder::class => DriverBuilder::class,
         IDriverFactory::class => DriverFactory::class,
         IDriverLinkerFactory::class => DriverLinkerFactory::class,
@@ -250,9 +266,103 @@ function definitions(): Traversable
                 );
         },
 
-        // Added after 08.08.2023
-        IWidgetConfigFactory::class => WidgetConfigFactory::class,
+    ];
+    yield from substitutes();
+}
 
+function substitutes(): Traversable
+{
+    yield from [
+
+        IAuxConfigFactory::class => static function (): IAuxConfigFactory {
+            return
+                new class implements IAuxConfigFactory {
+                    public function create(): \AlecRabbit\Spinner\Core\Config\Contract\IAuxConfig
+                    {
+                        return
+                            new \AlecRabbit\Spinner\Core\Config\AuxConfig(
+                                runMethodMode: \AlecRabbit\Spinner\Contract\Mode\RunMethodMode::ASYNC,
+                                loopAvailabilityMode: \AlecRabbit\Spinner\Contract\Mode\LoopAvailabilityMode::AVAILABLE,
+                                normalizerMethodMode: \AlecRabbit\Spinner\Contract\Mode\NormalizerMethodMode::BALANCED,
+                            );
+                    }
+                };
+        },
+        ILoopConfigFactory::class => static function (): ILoopConfigFactory {
+            return
+                new class implements ILoopConfigFactory {
+                    public function create(): \AlecRabbit\Spinner\Core\Config\Contract\ILoopConfig
+                    {
+                        return
+                            new \AlecRabbit\Spinner\Core\Config\LoopConfig(
+                                autoStartMode: \AlecRabbit\Spinner\Contract\Mode\AutoStartMode::ENABLED,
+                                signalHandlersMode: \AlecRabbit\Spinner\Contract\Mode\SignalHandlersMode::ENABLED,
+                            );
+                    }
+                };
+        },
+        IDriverConfigFactory::class => static function (): IDriverConfigFactory {
+            return
+                new class implements IDriverConfigFactory {
+                    public function create(): \AlecRabbit\Spinner\Core\Config\Contract\IDriverConfig
+                    {
+                        return
+                            new \AlecRabbit\Spinner\Core\Config\DriverConfig(
+                                linkerMode: \AlecRabbit\Spinner\Contract\Mode\LinkerMode::ENABLED,
+                                initializationMode: \AlecRabbit\Spinner\Contract\Mode\InitializationMode::ENABLED,
+                            );
+                    }
+                };
+        },
+        IOutputConfigFactory::class => static function (): IOutputConfigFactory {
+            return
+                new class implements IOutputConfigFactory {
+                    public function create(): \AlecRabbit\Spinner\Core\Config\Contract\IOutputConfig
+                    {
+                        return
+                            new \AlecRabbit\Spinner\Core\Config\OutputConfig(
+                                stylingMethodMode: \AlecRabbit\Spinner\Contract\Mode\StylingMethodMode::ANSI8,
+                                cursorVisibilityMode: \AlecRabbit\Spinner\Contract\Mode\CursorVisibilityMode::HIDDEN,
+                            );
+                    }
+                };
+        },
+        IWidgetConfigFactory::class => static function (): IWidgetConfigFactory {
+            return
+                new class implements IWidgetConfigFactory {
+                    public function create(
+                        ?\AlecRabbit\Spinner\Core\Settings\Contract\IWidgetSettings $widgetSettings = null
+                    ): \AlecRabbit\Spinner\Core\Config\Contract\IWidgetConfig {
+                        return
+                            new \AlecRabbit\Spinner\Core\Config\WidgetConfig(
+                                leadingSpacer: new \AlecRabbit\Spinner\Core\CharFrame('', 0),
+                                trailingSpacer: new \AlecRabbit\Spinner\Core\CharFrame(' ', 1),
+                                revolverConfig: new \AlecRabbit\Spinner\Core\Config\WidgetRevolverConfig(
+                                    stylePalette: new \AlecRabbit\Spinner\Core\Palette\NoStylePalette(),
+                                    charPalette: new \AlecRabbit\Spinner\Core\Palette\NoCharPalette(),
+                                )
+                            );
+                    }
+                };
+        },
+        IRootWidgetConfigFactory::class => static function (): IRootWidgetConfigFactory {
+            return
+                new class implements IRootWidgetConfigFactory {
+                    public function create(
+                        ?\AlecRabbit\Spinner\Core\Settings\Contract\IWidgetSettings $widgetSettings = null
+                    ): \AlecRabbit\Spinner\Core\Config\Contract\IRootWidgetConfig {
+                        return
+                            new \AlecRabbit\Spinner\Core\Config\RootWidgetConfig(
+                                leadingSpacer: new \AlecRabbit\Spinner\Core\CharFrame('', 0),
+                                trailingSpacer: new \AlecRabbit\Spinner\Core\CharFrame(' ', 1),
+                                revolverConfig: new \AlecRabbit\Spinner\Core\Config\WidgetRevolverConfig(
+                                    stylePalette: new \AlecRabbit\Spinner\Core\Palette\Rainbow(),
+                                    charPalette: new \AlecRabbit\Spinner\Core\Palette\Snake(),
+                                )
+                            );
+                    }
+                };
+        },
     ];
 }
 // @codeCoverageIgnoreEnd

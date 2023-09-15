@@ -16,8 +16,8 @@ interface IConfig
 
     /**
      * @param class-string<IConfigElement> $id
-     * @return IConfigElement|null
+     * @return IConfigElement
      * @throws InvalidArgumentException
      */
-    public function get(string $id): ?IConfigElement;
+    public function get(string $id): IConfigElement;
 }

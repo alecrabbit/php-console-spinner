@@ -51,11 +51,13 @@ final readonly class Config implements IConfig
     }
 
     /** @inheritDoc */
-    public function get(string $id): ?IConfigElement
+    public function get(string $id): IConfigElement
     {
         self::assertIdentifier($id);
         if (!$this->configElements->offsetExists($id)) {
-            return null;
+            throw new InvalidArgumentException(
+                sprintf('Identifier "%s" is not set.', $id)
+            );
         }
         return $this->configElements->offsetGet($id);
     }

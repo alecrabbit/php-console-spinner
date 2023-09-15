@@ -167,11 +167,16 @@ final class ConfigTest extends TestCaseWithPrebuiltMocksAndStubs
 
 
     #[Test]
-    public function returnsNullIfIdentifierIsNotSet(): void
+    public function throwsIfIdentifierIsNotSet(): void
     {
         $config = $this->getTesteeInstance();
 
-        self::assertNull($config->get(ILoopConfig::class));
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Identifier "AlecRabbit\Spinner\Core\Config\Contract\ILoopConfig" is not set.');
+
+        $element = $config->get(ILoopConfig::class);
+
+        self::fail('Exception was not thrown.');
     }
 
     #[Test]

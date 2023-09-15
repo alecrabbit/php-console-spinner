@@ -16,6 +16,7 @@ use AlecRabbit\Spinner\Core\Config\Contract\IAuxConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IDriverConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\ILoopConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IOutputConfig;
+use AlecRabbit\Spinner\Core\Config\Contract\IRootWidgetConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IWidgetConfig;
 use AlecRabbit\Spinner\Core\Config\Factory\ConfigFactory;
 use AlecRabbit\Tests\TestCase\TestCase;
@@ -84,14 +85,111 @@ final class ConfigFactoryTest extends TestCase
     #[Test]
     public function canCreate(): void
     {
-        $factory = $this->getTesteeInstance();
+        $auxConfig = $this->getAuxConfigMock();
+        $auxConfig
+            ->expects($this->once())
+            ->method('getIdentifier')
+            ->willReturn(IAuxConfig::class)
+        ;
+
+        $loopConfig = $this->getLoopConfigMock();
+        $loopConfig
+            ->expects($this->once())
+            ->method('getIdentifier')
+            ->willReturn(ILoopConfig::class)
+        ;
+
+        $outputConfig = $this->getOutputConfigMock();
+        $outputConfig
+            ->expects($this->once())
+            ->method('getIdentifier')
+            ->willReturn(IOutputConfig::class)
+        ;
+
+        $driverConfig = $this->getDriverConfigMock();
+        $driverConfig
+            ->expects($this->once())
+            ->method('getIdentifier')
+            ->willReturn(IDriverConfig::class)
+        ;
+
+        $widgetConfig = $this->getWidgetConfigMock();
+        $widgetConfig
+            ->expects($this->once())
+            ->method('getIdentifier')
+            ->willReturn(IWidgetConfig::class)
+        ;
+
+        $rootWidgetConfig = $this->getRootWidgetConfigMock();
+        $rootWidgetConfig
+            ->expects($this->once())
+            ->method('getIdentifier')
+            ->willReturn(IRootWidgetConfig::class)
+        ;
+
+        $auxConfigFactory = $this->getAuxConfigFactoryMock();
+        $loopConfigFactory = $this->getLoopConfigFactoryMock();
+        $outputConfigFactory = $this->getOutputConfigFactoryMock();
+        $driverConfigFactory = $this->getDriverConfigFactoryMock();
+        $widgetConfigFactory = $this->getWidgetConfigFactoryMock();
+        $rootWidgetConfigFactory = $this->getRootWidgetConfigFactoryMock();
+
+        $auxConfigFactory
+            ->expects($this->once())
+            ->method('create')
+            ->willReturn($auxConfig)
+        ;
+
+        $loopConfigFactory
+            ->expects($this->once())
+            ->method('create')
+            ->willReturn($loopConfig)
+        ;
+
+        $outputConfigFactory
+            ->expects($this->once())
+            ->method('create')
+            ->willReturn($outputConfig)
+        ;
+
+        $driverConfigFactory
+            ->expects($this->once())
+            ->method('create')
+            ->willReturn($driverConfig)
+        ;
+
+        $widgetConfigFactory
+            ->expects($this->once())
+            ->method('create')
+            ->willReturn($widgetConfig)
+        ;
+
+        $rootWidgetConfigFactory
+            ->expects($this->once())
+            ->method('create')
+            ->willReturn($rootWidgetConfig)
+        ;
+
+        $auxConfigFactory
+            ->expects($this->once())
+            ->method('create')
+            ->willReturn($auxConfig)
+        ;
+
+        $factory = $this->getTesteeInstance(
+            auxConfigFactory: $auxConfigFactory,
+            loopConfigFactory: $loopConfigFactory,
+            outputConfigFactory: $outputConfigFactory,
+            driverConfigFactory: $driverConfigFactory,
+            widgetConfigFactory: $widgetConfigFactory,
+            rootWidgetConfigFactory: $rootWidgetConfigFactory,
+
+        );
 
         self::assertInstanceOf(ConfigFactory::class, $factory);
-
-        $config = $factory->create();
-
-        self::assertInstanceOf(Config::class, $config);
+        self::assertInstanceOf(Config::class, $factory->create());
     }
+
 
     protected function getAuxConfigMock(): MockObject&IAuxConfig
     {
@@ -117,6 +215,10 @@ final class ConfigFactoryTest extends TestCase
     protected function getWidgetConfigMock(): MockObject&IWidgetConfig
     {
         return $this->createMock(IWidgetConfig::class);
+    }
+    protected function getRootWidgetConfigMock(): MockObject&IRootWidgetConfig
+    {
+        return $this->createMock(IRootWidgetConfig::class);
     }
 
 }
