@@ -87,42 +87,42 @@ final class ConfigFactoryTest extends TestCase
     {
         $auxConfig = $this->getAuxConfigMock();
         $auxConfig
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('getIdentifier')
             ->willReturn(IAuxConfig::class)
         ;
 
         $loopConfig = $this->getLoopConfigMock();
         $loopConfig
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('getIdentifier')
             ->willReturn(ILoopConfig::class)
         ;
 
         $outputConfig = $this->getOutputConfigMock();
         $outputConfig
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('getIdentifier')
             ->willReturn(IOutputConfig::class)
         ;
 
         $driverConfig = $this->getDriverConfigMock();
         $driverConfig
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('getIdentifier')
             ->willReturn(IDriverConfig::class)
         ;
 
         $widgetConfig = $this->getWidgetConfigMock();
         $widgetConfig
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('getIdentifier')
             ->willReturn(IWidgetConfig::class)
         ;
 
         $rootWidgetConfig = $this->getRootWidgetConfigMock();
         $rootWidgetConfig
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('getIdentifier')
             ->willReturn(IRootWidgetConfig::class)
         ;
@@ -135,43 +135,43 @@ final class ConfigFactoryTest extends TestCase
         $rootWidgetConfigFactory = $this->getRootWidgetConfigFactoryMock();
 
         $auxConfigFactory
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('create')
             ->willReturn($auxConfig)
         ;
 
         $loopConfigFactory
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('create')
             ->willReturn($loopConfig)
         ;
 
         $outputConfigFactory
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('create')
             ->willReturn($outputConfig)
         ;
 
         $driverConfigFactory
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('create')
             ->willReturn($driverConfig)
         ;
 
         $widgetConfigFactory
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('create')
             ->willReturn($widgetConfig)
         ;
 
         $rootWidgetConfigFactory
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('create')
             ->willReturn($rootWidgetConfig)
         ;
 
         $auxConfigFactory
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('create')
             ->willReturn($auxConfig)
         ;

@@ -42,7 +42,7 @@ final class SettingsTest extends TestCaseWithPrebuiltMocksAndStubs
 
         $auxSettings = $this->getAuxSettingsMock();
         $auxSettings
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('getIdentifier')
             ->willReturn(IAuxSettings::class)
         ;
@@ -64,7 +64,7 @@ final class SettingsTest extends TestCaseWithPrebuiltMocksAndStubs
 
         $loopSettings = $this->getLoopSettingsMock();
         $loopSettings
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('getIdentifier')
             ->willReturn(ILoopSettings::class)
         ;

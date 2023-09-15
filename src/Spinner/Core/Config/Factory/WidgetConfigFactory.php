@@ -26,6 +26,10 @@ final class WidgetConfigFactory implements IWidgetConfigFactory
 
     public function create(?IWidgetSettings $widgetSettings = null): IWidgetConfig
     {
+        if ($widgetSettings === null) {
+            return $this->getWidgetConfig();
+        }
+
         $leadingSpacer = $this->getLeadingSpacer($widgetSettings);
         $trailingSpacer = $this->getTrailingSpacer($widgetSettings);
         $revolverConfig = $this->getRevolverConfig($widgetSettings);
@@ -38,10 +42,10 @@ final class WidgetConfigFactory implements IWidgetConfigFactory
             );
     }
 
-    protected function getLeadingSpacer(?IWidgetSettings $widgetSettings): IFrame
+    protected function getLeadingSpacer(IWidgetSettings $widgetSettings): IFrame
     {
         return
-            $widgetSettings?->getLeadingSpacer()
+            $widgetSettings->getLeadingSpacer()
             ??
             $this->getWidgetConfig()->getLeadingSpacer();
     }
@@ -51,21 +55,17 @@ final class WidgetConfigFactory implements IWidgetConfigFactory
         return $this->config->get(IWidgetConfig::class);
     }
 
-    protected function getTrailingSpacer(?IWidgetSettings $widgetSettings): IFrame
+    protected function getTrailingSpacer(IWidgetSettings $widgetSettings): IFrame
     {
         return
-            $widgetSettings?->getTrailingSpacer()
+            $widgetSettings->getTrailingSpacer()
             ??
             $this->getWidgetConfig()->getTrailingSpacer();
     }
 
-    private function getRevolverConfig(?IWidgetSettings $widgetSettings): IWidgetRevolverConfig
+    private function getRevolverConfig(IWidgetSettings $widgetSettings): IWidgetRevolverConfig
     {
         $config = $this->getWidgetConfig()->getRevolverConfig();
-
-        if ($widgetSettings === null) {
-            return $config;
-        }
 
         return
             new WidgetRevolverConfig(

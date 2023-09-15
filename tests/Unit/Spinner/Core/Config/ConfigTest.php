@@ -43,7 +43,7 @@ final class ConfigTest extends TestCaseWithPrebuiltMocksAndStubs
 
         $auxConfig = $this->getAuxConfigMock();
         $auxConfig
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('getIdentifier')
             ->willReturn(IAuxConfig::class)
         ;
@@ -65,7 +65,7 @@ final class ConfigTest extends TestCaseWithPrebuiltMocksAndStubs
 
         $driverConfig = $this->getDriverConfigMock();
         $driverConfig
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('getIdentifier')
             ->willReturn(IDriverConfig::class)
         ;
@@ -88,7 +88,7 @@ final class ConfigTest extends TestCaseWithPrebuiltMocksAndStubs
 
         $loopConfig = $this->getLoopConfigMock();
         $loopConfig
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('getIdentifier')
             ->willReturn(ILoopConfig::class)
         ;
@@ -111,7 +111,7 @@ final class ConfigTest extends TestCaseWithPrebuiltMocksAndStubs
 
         $outputConfig = $this->getOutputConfigMock();
         $outputConfig
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('getIdentifier')
             ->willReturn(IOutputConfig::class)
         ;
@@ -133,7 +133,7 @@ final class ConfigTest extends TestCaseWithPrebuiltMocksAndStubs
 
         $widgetConfig = $this->getWidgetConfigMock();
         $widgetConfig
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('getIdentifier')
             ->willReturn(IWidgetConfig::class)
         ;
@@ -155,7 +155,7 @@ final class ConfigTest extends TestCaseWithPrebuiltMocksAndStubs
 
         $rootWidgetConfig = $this->getWidgetConfigMock();
         $rootWidgetConfig
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('getIdentifier')
             ->willReturn(IRootWidgetConfig::class)
         ;
