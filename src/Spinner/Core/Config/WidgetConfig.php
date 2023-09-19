@@ -27,7 +27,7 @@ final readonly class WidgetConfig implements IWidgetConfig
         return $this->trailingSpacer;
     }
 
-    public function getRevolverConfig(): IWidgetRevolverConfig
+    public function getWidgetRevolverConfig(): IWidgetRevolverConfig
     {
         return $this->revolverConfig;
     }

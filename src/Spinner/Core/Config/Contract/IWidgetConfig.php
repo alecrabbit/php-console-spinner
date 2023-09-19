@@ -12,5 +12,5 @@ interface IWidgetConfig extends IConfigElement
 
     public function getTrailingSpacer(): IFrame;
 
-    public function getRevolverConfig(): IWidgetRevolverConfig;
+    public function getWidgetRevolverConfig(): IWidgetRevolverConfig;
 }

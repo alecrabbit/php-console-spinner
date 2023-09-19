@@ -161,7 +161,7 @@ final class WidgetCompositeFactoryTest extends TestCase
         ;
         $widgetConfig
             ->expects(self::once())
-            ->method('getRevolverConfig')
+            ->method('getWidgetRevolverConfig')
             ->willReturn($revolverConfig)
         ;
 

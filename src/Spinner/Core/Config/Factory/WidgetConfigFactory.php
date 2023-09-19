@@ -32,7 +32,7 @@ final class WidgetConfigFactory implements IWidgetConfigFactory
 
         $leadingSpacer = $this->getLeadingSpacer($widgetSettings);
         $trailingSpacer = $this->getTrailingSpacer($widgetSettings);
-        $revolverConfig = $this->getRevolverConfig($widgetSettings);
+        $revolverConfig = $this->getWidgetRevolverConfig($widgetSettings);
 
         return
             new WidgetConfig(
@@ -63,9 +63,9 @@ final class WidgetConfigFactory implements IWidgetConfigFactory
             $this->getWidgetConfig()->getTrailingSpacer();
     }
 
-    private function getRevolverConfig(IWidgetSettings $widgetSettings): IWidgetRevolverConfig
+    private function getWidgetRevolverConfig(IWidgetSettings $widgetSettings): IWidgetRevolverConfig
     {
-        $config = $this->getWidgetConfig()->getRevolverConfig();
+        $config = $this->getWidgetConfig()->getWidgetRevolverConfig();
 
         return
             new WidgetRevolverConfig(

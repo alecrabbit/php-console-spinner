@@ -39,7 +39,7 @@ final class WidgetCompositeFactory implements IWidgetCompositeFactory
     {
         $widgetConfig = $this->widgetConfigFactory->create($widgetSettings);
 
-        $revolver = $this->widgetRevolverFactory->create($widgetConfig->getRevolverConfig());
+        $revolver = $this->widgetRevolverFactory->create($widgetConfig->getWidgetRevolverConfig());
 
         return
             $this->widgetBuilder

@@ -136,7 +136,7 @@ final class WidgetFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
         ;
         $widgetConfig
             ->expects(self::once())
-            ->method('getRevolverConfig')
+            ->method('getWidgetRevolverConfig')
             ->willReturn($revolverConfig)
         ;
 

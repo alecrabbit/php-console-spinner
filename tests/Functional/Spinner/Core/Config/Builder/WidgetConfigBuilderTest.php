@@ -35,7 +35,7 @@ final class WidgetConfigBuilderTest extends TestCase
 
         self::assertSame($leadingSpacer, $config->getLeadingSpacer());
         self::assertSame($trailingSpacer, $config->getTrailingSpacer());
-        self::assertSame($revolverConfig, $config->getRevolverConfig());
+        self::assertSame($revolverConfig, $config->getWidgetRevolverConfig());
     }
 
     protected function getTesteeInstance(): IWidgetConfigBuilder

@@ -79,7 +79,7 @@ final class RootWidgetConfigTest extends TestCase
             revolverConfig: $revolverConfig,
         );
 
-        self::assertSame($revolverConfig, $config->getRevolverConfig());
+        self::assertSame($revolverConfig, $config->getWidgetRevolverConfig());
     }
 
     #[Test]
