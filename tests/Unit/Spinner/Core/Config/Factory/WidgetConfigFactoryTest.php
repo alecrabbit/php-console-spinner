@@ -25,7 +25,21 @@ final class WidgetConfigFactoryTest extends TestCase
     #[Test]
     public function canBeInstantiated(): void
     {
-        $factory = $this->getTesteeInstance();
+        $config = $this->getConfigMock();
+        $config
+            ->expects(self::once())
+            ->method('get')
+            ->with(IWidgetConfig::class)
+            ->willReturn($this->getWidgetConfigMock());
+        $configProvider = $this->getConfigProviderMock();
+        $configProvider
+            ->expects(self::once())
+            ->method('getConfig')
+            ->willReturn($config)
+        ;
+        $factory = $this->getTesteeInstance(
+            configProvider: $configProvider,
+        );
 
         self::assertInstanceOf(WidgetConfigFactory::class, $factory);
     }
@@ -150,7 +164,7 @@ final class WidgetConfigFactoryTest extends TestCase
         ;
 
         $config
-            ->expects(self::exactly(3))
+            ->expects(self::once())
             ->method('get')
             ->with(IWidgetConfig::class)
             ->willReturn($widgetConfig)

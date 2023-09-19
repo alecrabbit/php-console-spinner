@@ -16,18 +16,18 @@ use AlecRabbit\Spinner\Core\Settings\Contract\IWidgetSettings;
 
 final class WidgetConfigFactory implements IWidgetConfigFactory
 {
-    private IConfig $config;
+    private IWidgetConfig $widgetConfig;
 
     public function __construct(
         IConfigProvider $configProvider,
     ) {
-        $this->config = $configProvider->getConfig();
+        $this->widgetConfig = $this->extractWidgetConfig($configProvider->getConfig());
     }
 
     public function create(?IWidgetSettings $widgetSettings = null): IWidgetConfig
     {
         if ($widgetSettings === null) {
-            return $this->getWidgetConfig();
+            return $this->widgetConfig;
         }
 
         $leadingSpacer = $this->getLeadingSpacer($widgetSettings);
@@ -47,12 +47,7 @@ final class WidgetConfigFactory implements IWidgetConfigFactory
         return
             $widgetSettings->getLeadingSpacer()
             ??
-            $this->getWidgetConfig()->getLeadingSpacer();
-    }
-
-    protected function getWidgetConfig(): IWidgetConfig
-    {
-        return $this->config->get(IWidgetConfig::class);
+            $this->widgetConfig->getLeadingSpacer();
     }
 
     protected function getTrailingSpacer(IWidgetSettings $widgetSettings): IFrame
@@ -60,12 +55,12 @@ final class WidgetConfigFactory implements IWidgetConfigFactory
         return
             $widgetSettings->getTrailingSpacer()
             ??
-            $this->getWidgetConfig()->getTrailingSpacer();
+            $this->widgetConfig->getTrailingSpacer();
     }
 
     private function getWidgetRevolverConfig(IWidgetSettings $widgetSettings): IWidgetRevolverConfig
     {
-        $config = $this->getWidgetConfig()->getWidgetRevolverConfig();
+        $config = $this->widgetConfig->getWidgetRevolverConfig();
 
         return
             new WidgetRevolverConfig(
@@ -73,5 +68,10 @@ final class WidgetConfigFactory implements IWidgetConfigFactory
                 charPalette: $widgetSettings->getCharPalette() ?? $config->getCharPalette(),
                 revolverConfig: $config->getRevolverConfig(),
             );
+    }
+
+    private function extractWidgetConfig(IConfig $config): IWidgetConfig
+    {
+        return $config->get(IWidgetConfig::class);
     }
 }
