@@ -29,7 +29,7 @@ final class WidgetCompositeFactory implements IWidgetCompositeFactory
                 ->withTrailingSpacer($widgetSettings->getTrailingSpacer())
                 ->withWidgetRevolver(
                     $this->widgetRevolverFactory
-                        ->createWidgetRevolver($widgetSettings)
+                        ->legacyCreateWidgetRevolver($widgetSettings)
                 )
                 ->build()
         ;

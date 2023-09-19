@@ -10,7 +10,7 @@ use AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyWidgetSettings;
 
 interface IWidgetRevolverFactory
 {
-    public function createWidgetRevolver(ILegacyWidgetSettings $widgetSettings): IRevolver;
+    public function legacyCreateWidgetRevolver(ILegacyWidgetSettings $widgetSettings): IRevolver;
 
     public function create(IWidgetRevolverConfig $revolverConfig): IRevolver;
 }

@@ -36,12 +36,12 @@ Dependencies
     Global Constants                                 0 (0.00%)
     Global Variables                                 0 (0.00%)
     Super-Global Variables                           0 (0.00%)
-  Attribute Accesses                               650
-    Non-Static                                     610 (93.85%)
-    Static                                          40 (6.15%)
-  Method Calls                                     605
-    Non-Static                                     519 (85.79%)
-    Static                                          86 (14.21%)
+  Attribute Accesses                               653
+    Non-Static                                     613 (93.87%)
+    Static                                          40 (6.13%)
+  Method Calls                                     602
+    Non-Static                                     516 (85.71%)
+    Static                                          86 (14.29%)
 
 Structure
   Namespaces                                        66
@@ -58,8 +58,8 @@ Structure
       Static Methods                                62 (6.40%)
     Visibility
       Public Methods                               836 (86.27%)
-      Protected Methods                             36 (3.72%)
-      Private Methods                               97 (10.01%)
+      Protected Methods                             35 (3.61%)
+      Private Methods                               98 (10.11%)
   Functions                                         39
     Named Functions                                  9 (23.08%)
     Anonymous Functions                             30 (76.92%)

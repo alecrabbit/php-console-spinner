@@ -102,6 +102,6 @@ final class WidgetRevolverFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
         );
 
         self::assertInstanceOf(WidgetRevolverFactory::class, $widgetRevolverFactory);
-        $widgetRevolverFactory->createWidgetRevolver($widgetSettings);
+        $widgetRevolverFactory->legacyCreateWidgetRevolver($widgetSettings);
     }
 }

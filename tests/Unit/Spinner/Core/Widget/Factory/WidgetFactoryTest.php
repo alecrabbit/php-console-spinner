@@ -74,7 +74,7 @@ final class WidgetFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
         $widgetRevolverFactory = $this->getWidgetRevolverFactoryMock();
         $widgetRevolverFactory
             ->expects(self::once())
-            ->method('createWidgetRevolver')
+            ->method('legacyCreateWidgetRevolver')
             ->with(self::identicalTo($widgetSettings))
             ->willReturn($widgetRevolver)
         ;

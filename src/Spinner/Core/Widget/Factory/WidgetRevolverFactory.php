@@ -25,7 +25,7 @@ final class WidgetRevolverFactory implements IWidgetRevolverFactory
     ) {
     }
 
-    public function createWidgetRevolver(ILegacyWidgetSettings $widgetSettings): IWidgetRevolver
+    public function legacyCreateWidgetRevolver(ILegacyWidgetSettings $widgetSettings): IWidgetRevolver
     {
         return
             $this->widgetRevolverBuilder
