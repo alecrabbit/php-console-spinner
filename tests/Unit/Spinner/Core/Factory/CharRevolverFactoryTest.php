@@ -4,15 +4,18 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Factory;
 
+use AlecRabbit\Spinner\Contract\Pattern\ITemplate;
 use AlecRabbit\Spinner\Core\Contract\ITolerance;
 use AlecRabbit\Spinner\Core\Factory\CharFrameRevolverFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ICharFrameRevolverFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IFrameCollectionFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalFactory;
+use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolver;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolverBuilder;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use ArrayObject;
 use PHPUnit\Framework\Attributes\Test;
+use PHPUnit\Framework\MockObject\MockObject;
 
 final class CharRevolverFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
 {
@@ -29,19 +32,19 @@ final class CharRevolverFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
         ?IFrameCollectionFactory $frameCollectionFactory = null,
         ?IIntervalFactory $intervalFactory = null,
     ): ICharFrameRevolverFactory {
-        return new CharFrameRevolverFactory(
-            frameRevolverBuilder: $frameRevolverBuilder ?? $this->getFrameRevolverBuilderMock(),
-            frameCollectionFactory: $frameCollectionFactory ?? $this->getFrameCollectionFactoryMock(),
-            intervalFactory: $intervalFactory ?? $this->getIntervalFactoryMock(),
-        );
+        return
+            new CharFrameRevolverFactory(
+                frameRevolverBuilder: $frameRevolverBuilder ?? $this->getFrameRevolverBuilderMock(),
+                frameCollectionFactory: $frameCollectionFactory ?? $this->getFrameCollectionFactoryMock(),
+                intervalFactory: $intervalFactory ?? $this->getIntervalFactoryMock(),
+            );
     }
 
     #[Test]
-    public function canCreateRevolver(): void
+    public function canCreateCharRevolver(): void
     {
         $intInterval = 100;
         $interval = $this->getIntervalMock();
-
 
         $pattern = $this->getCharPatternMock();
         $pattern
@@ -107,5 +110,24 @@ final class CharRevolverFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
         $styleRevolver = $charRevolverFactory->createCharRevolver($pattern);
         self::assertInstanceOf(CharFrameRevolverFactory::class, $charRevolverFactory);
         self::assertSame($frameRevolver, $styleRevolver);
+    }
+
+    #[Test]
+    public function canCreate(): void
+    {
+        $charRevolverFactory = $this->getTesteeInstance();
+
+        self::assertInstanceOf(CharFrameRevolverFactory::class, $charRevolverFactory);
+
+        // TODO (2023-09-20 16:15) [Alec Rabbit]: implement [accbe9d3-b658-4935-8417-aec059487689]
+        $this->expectException(\RuntimeException::class);
+        $this->expectExceptionMessage('Not implemented.');
+
+        $charRevolverFactory->create($this->getTemplateMock());
+    }
+
+    private function getTemplateMock(): MockObject&ITemplate
+    {
+        return $this->createMock(ITemplate::class);
     }
 }
