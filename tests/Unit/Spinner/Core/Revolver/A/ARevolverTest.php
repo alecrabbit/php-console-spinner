@@ -6,10 +6,12 @@ namespace AlecRabbit\Tests\Unit\Spinner\Core\Revolver\A;
 
 use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Contract\IInterval;
+use AlecRabbit\Spinner\Core\Contract\ITolerance;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use AlecRabbit\Tests\Unit\Spinner\Core\Revolver\Override\ARevolverOverride;
 use PHPUnit\Framework\Attributes\Test;
+use PHPUnit\Framework\MockObject\MockObject;
 
 final class ARevolverTest extends TestCaseWithPrebuiltMocksAndStubs
 {
@@ -24,37 +26,50 @@ final class ARevolverTest extends TestCaseWithPrebuiltMocksAndStubs
     public function getTesteeInstance(
         ?IFrame $frame = null,
         ?IInterval $interval = null,
-        ?int $deltaTolerance = null,
+        ?ITolerance $tolerance = null,
     ): IRevolver {
         return
             new ARevolverOverride(
                 frame: $frame ?? $this->getFrameMock(),
                 interval: $interval ?? $this->getIntervalMock(),
-                deltaTolerance: $deltaTolerance ?? 0,
+                tolerance: $tolerance ?? $this->getToleranceMock(),
             );
+    }
+
+    private function getToleranceMock(): MockObject&ITolerance
+    {
+        return $this->createMock(ITolerance::class);
     }
 
     #[Test]
     public function initializedDuringCreate(): void
     {
+        $intervalValue = 10.0;
+        $deltaTolerance = 5;
+
         $interval = $this->getIntervalMock();
-        $value = 10.0;
         $interval
             ->expects(self::once())
             ->method('toMilliseconds')
-            ->willReturn($value)
+            ->willReturn($intervalValue)
         ;
-        $tolerance = 5;
+        $tolerance = $this->getToleranceMock();
+        $tolerance
+            ->expects(self::once())
+            ->method('getValue')
+            ->willReturn($deltaTolerance)
+        ;
+
         $revolver = $this->getTesteeInstance(
             interval: $interval,
-            deltaTolerance: $tolerance,
+            tolerance: $tolerance,
         );
 
-        $intervalValue = self::getPropertyValue('intervalValue', $revolver);
-        $deltaTolerance = self::getPropertyValue('deltaTolerance', $revolver);
+        $extractedIntervalValue = self::getPropertyValue('intervalValue', $revolver);
+        $extractedDeltaTolerance = self::getPropertyValue('delta', $revolver);
 
-        self::assertSame($value, $intervalValue);
-        self::assertSame($tolerance, $deltaTolerance);
+        self::assertSame($intervalValue, $extractedIntervalValue);
+        self::assertSame($deltaTolerance, $extractedDeltaTolerance);
     }
 
     #[Test]
@@ -110,11 +125,17 @@ final class ARevolverTest extends TestCaseWithPrebuiltMocksAndStubs
             ->method('toMilliseconds')
             ->willReturn(100.0)
         ;
+        $tolerance = $this->getToleranceMock();
+        $tolerance
+            ->expects(self::once())
+            ->method('getValue')
+            ->willReturn(10)
+        ;
 
         $revolver = $this->getTesteeInstance(
             frame: $frame,
             interval: $interval,
-            deltaTolerance: 10,
+            tolerance: $tolerance,
         );
 
         self::assertSame($frame, $revolver->getFrame(90.0)); // this calls next()
@@ -139,11 +160,17 @@ final class ARevolverTest extends TestCaseWithPrebuiltMocksAndStubs
             ->method('toMilliseconds')
             ->willReturn(100.0)
         ;
+        $tolerance = $this->getToleranceMock();
+        $tolerance
+            ->expects(self::once())
+            ->method('getValue')
+            ->willReturn(0)
+        ;
 
         $revolver = $this->getTesteeInstance(
             frame: $frame,
             interval: $interval,
-            deltaTolerance: 0,
+            tolerance: $tolerance,
         );
 
         self::assertSame($frame, $revolver->getFrame(99.0)); // this does not call next()

@@ -6,6 +6,7 @@ namespace AlecRabbit\Spinner\Core\Revolver\Contract;
 
 use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Core\Contract\IFrameCollection;
+use AlecRabbit\Spinner\Core\Contract\ITolerance;
 
 interface IFrameRevolverBuilder
 {
@@ -15,5 +16,5 @@ interface IFrameRevolverBuilder
 
     public function withInterval(IInterval $interval): IFrameRevolverBuilder;
 
-    public function withTolerance(int $tolerance): IFrameRevolverBuilder;
+    public function withTolerance(ITolerance $tolerance): IFrameRevolverBuilder;
 }

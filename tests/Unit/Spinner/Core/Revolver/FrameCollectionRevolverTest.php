@@ -6,11 +6,13 @@ namespace AlecRabbit\Tests\Unit\Spinner\Core\Revolver;
 
 use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Core\Contract\IFrameCollection;
+use AlecRabbit\Spinner\Core\Contract\ITolerance;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameCollectionRevolver;
 use AlecRabbit\Spinner\Core\Revolver\FrameCollectionRevolver;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;
+use PHPUnit\Framework\MockObject\MockObject;
 
 final class FrameCollectionRevolverTest extends TestCaseWithPrebuiltMocksAndStubs
 {
@@ -25,13 +27,19 @@ final class FrameCollectionRevolverTest extends TestCaseWithPrebuiltMocksAndStub
     public function getTesteeInstance(
         ?IFrameCollection $frameCollection = null,
         ?IInterval $interval = null,
+        ?ITolerance $tolerance = null,
     ): IFrameCollectionRevolver {
         return
             new FrameCollectionRevolver(
                 frameCollection: $frameCollection ?? $this->getOneElementFrameCollectionMock(),
                 interval: $interval ?? $this->getIntervalMock(),
-                tolerance: 5,
+                tolerance: $tolerance ?? $this->getToleranceMock(),
             );
+    }
+
+    private function getToleranceMock(): MockObject&ITolerance
+    {
+        return $this->createMock(ITolerance::class);
     }
 
     #[Test]

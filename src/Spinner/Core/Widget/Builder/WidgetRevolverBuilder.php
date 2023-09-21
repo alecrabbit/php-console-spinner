@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Widget\Builder;
 
+use AlecRabbit\Spinner\Core\Contract\ITolerance;
 use AlecRabbit\Spinner\Core\Revolver\A\ARevolverBuilder;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolver;
@@ -15,7 +16,7 @@ final class WidgetRevolverBuilder extends ARevolverBuilder implements IWidgetRev
 {
     protected ?IRevolver $styleRevolver = null;
     protected ?IRevolver $charRevolver = null;
-    private ?int $tolerance = null;
+    private ?ITolerance $tolerance = null;
 
     public function build(): IWidgetRevolver
     {
@@ -53,7 +54,7 @@ final class WidgetRevolverBuilder extends ARevolverBuilder implements IWidgetRev
         return $clone;
     }
 
-    public function withTolerance(int $tolerance): IWidgetRevolverBuilder
+    public function withTolerance(ITolerance $tolerance): IWidgetRevolverBuilder
     {
         $clone = clone $this;
         $clone->tolerance = $tolerance;

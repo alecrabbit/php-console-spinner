@@ -12,6 +12,7 @@ use AlecRabbit\Spinner\Core\Factory\Contract\IFrameCollectionFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalFactory;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolver;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolverBuilder;
+use AlecRabbit\Spinner\Core\Revolver\Tolerance;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use ArrayObject;
 use PHPUnit\Framework\Attributes\Test;
@@ -85,7 +86,7 @@ final class CharRevolverFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
         $frameRevolverBuilder
             ->expects(self::once())
             ->method('withTolerance')
-            ->with(self::identicalTo(ITolerance::DEFAULT_VALUE)) // [fd86d318-9069-47e2-b60d-a68f537be4a3]
+            ->with(self::equalTo(new Tolerance())) // [fd86d318-9069-47e2-b60d-a68f537be4a3]
             ->willReturnSelf()
         ;
         $frameRevolver = $this->getFrameRevolverMock();

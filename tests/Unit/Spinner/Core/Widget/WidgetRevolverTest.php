@@ -4,11 +4,13 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Widget;
 
+use AlecRabbit\Spinner\Core\Contract\ITolerance;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolver;
 use AlecRabbit\Spinner\Core\Widget\WidgetRevolver;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;
+use PHPUnit\Framework\MockObject\MockObject;
 
 final class WidgetRevolverTest extends TestCaseWithPrebuiltMocksAndStubs
 {
@@ -23,14 +25,19 @@ final class WidgetRevolverTest extends TestCaseWithPrebuiltMocksAndStubs
     public function getTesteeInstance(
         ?IRevolver $style = null,
         ?IRevolver $character = null,
-        ?int $deltaTolerance = null,
+        ?ITolerance $tolerance = null,
     ): IWidgetRevolver {
         return
             new WidgetRevolver(
                 style: $style ?? $this->getRevolverMock(),
                 character: $character ?? $this->getRevolverMock(),
-                deltaTolerance: $deltaTolerance ?? 0,
+                tolerance: $tolerance ?? $this->getToleranceMock(),
             );
+    }
+
+    private function getToleranceMock(): MockObject&ITolerance
+    {
+        return $this->createMock(ITolerance::class);
     }
 
     #[Test]
