@@ -10,6 +10,9 @@ use \AlecRabbit\Spinner\Core\Settings\DriverSettings;
 use \AlecRabbit\Spinner\Core\Settings\WidgetSettings;
 use \AlecRabbit\Spinner\Core\Settings\RootWidgetSettings;
 
+use \AlecRabbit\Spinner\Core\Palette\Snake;
+use \AlecRabbit\Spinner\Core\Palette\Rainbow;
+
 // Aux settings
 $auxSettings = new AuxSettings();
 
@@ -50,11 +53,13 @@ $widgetSettings->setTrailingSpacer(null); // default: CharFrame('', 0)
 // Root Widget settings
 $rootWidgetSettings = new RootWidgetSettings();
 
-$rootWidgetSettings->setCharPattern(null); // default: Snake
-$rootWidgetSettings->setStylePattern(null); // default: Rainbow
+$rootWidgetSettings->setCharPattern(new Snake()); // default: Snake::class
+$rootWidgetSettings->setStylePattern(new Rainbow()); // default: Rainbow::class
 $rootWidgetSettings->setLeadingSpacer(null); // default: CharFrame('', 0) 
 $rootWidgetSettings->setTrailingSpacer(null); // default: CharFrame(' ', 1)
+```
 
+```php
 // Settings object
 $settings = Facade::getSettings();
 
