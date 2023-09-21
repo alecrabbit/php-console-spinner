@@ -12,3 +12,6 @@ class Template implements ITemplate
     }
 }
 ```
+
+If pattern argument for revolver creation is an instance of `ITemplate` then `IFrameCollection` will be created from it.
+If pattern argument for revolver creation is an instance of `IProceduralPattern` then `IFrameProcedure` will be created from it.

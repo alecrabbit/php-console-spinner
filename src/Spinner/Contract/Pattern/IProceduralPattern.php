@@ -6,7 +6,7 @@ namespace AlecRabbit\Spinner\Contract\Pattern;
 
 use AlecRabbit\Spinner\Contract\IProcedure;
 
-interface IProceduralPattern
+interface IProceduralPattern extends ITemplate
 {
-    public function getProcedure(): IProcedure;
+    
 }
