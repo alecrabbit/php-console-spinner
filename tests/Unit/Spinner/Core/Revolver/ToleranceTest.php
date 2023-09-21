@@ -38,6 +38,6 @@ final class ToleranceTest extends TestCase
     {
         $config = $this->getTesteeInstance();
 
-        self::assertSame(5, $config->getValue());
+        self::assertSame(5, $config->toMilliseconds());
     }
 }

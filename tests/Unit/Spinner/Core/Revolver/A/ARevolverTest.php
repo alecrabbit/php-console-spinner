@@ -56,7 +56,7 @@ final class ARevolverTest extends TestCaseWithPrebuiltMocksAndStubs
         $tolerance = $this->getToleranceMock();
         $tolerance
             ->expects(self::once())
-            ->method('getValue')
+            ->method('toMilliseconds')
             ->willReturn($deltaTolerance)
         ;
 
@@ -66,7 +66,7 @@ final class ARevolverTest extends TestCaseWithPrebuiltMocksAndStubs
         );
 
         $extractedIntervalValue = self::getPropertyValue('intervalValue', $revolver);
-        $extractedDeltaTolerance = self::getPropertyValue('delta', $revolver);
+        $extractedDeltaTolerance = self::getPropertyValue('deltaTolerance', $revolver);
 
         self::assertSame($intervalValue, $extractedIntervalValue);
         self::assertSame($deltaTolerance, $extractedDeltaTolerance);
@@ -104,7 +104,7 @@ final class ARevolverTest extends TestCaseWithPrebuiltMocksAndStubs
             interval: $interval,
         );
 
-        self::assertSame($frame, $revolver->getFrame(null)); // this calls next()
+        self::assertSame($frame, $revolver->getFrame()); // no arg is for calling next()
     }
 
     #[Test]
@@ -128,7 +128,7 @@ final class ARevolverTest extends TestCaseWithPrebuiltMocksAndStubs
         $tolerance = $this->getToleranceMock();
         $tolerance
             ->expects(self::once())
-            ->method('getValue')
+            ->method('toMilliseconds')
             ->willReturn(10)
         ;
 
@@ -138,8 +138,8 @@ final class ARevolverTest extends TestCaseWithPrebuiltMocksAndStubs
             tolerance: $tolerance,
         );
 
-        self::assertSame($frame, $revolver->getFrame(90.0)); // this calls next()
-        self::assertSame($frame, $revolver->getFrame(80.0)); // this does not call next()
+        self::assertSame($frame, $revolver->getFrame(90.0)); // calls `next()`
+        self::assertSame($frame, $revolver->getFrame(80.0)); // does not call `next()`
     }
 
     #[Test]
@@ -163,7 +163,7 @@ final class ARevolverTest extends TestCaseWithPrebuiltMocksAndStubs
         $tolerance = $this->getToleranceMock();
         $tolerance
             ->expects(self::once())
-            ->method('getValue')
+            ->method('toMilliseconds')
             ->willReturn(0)
         ;
 
@@ -173,8 +173,8 @@ final class ARevolverTest extends TestCaseWithPrebuiltMocksAndStubs
             tolerance: $tolerance,
         );
 
-        self::assertSame($frame, $revolver->getFrame(99.0)); // this does not call next()
-        self::assertSame($frame, $revolver->getFrame(1.0)); // this calls next()
-        self::assertSame($frame, $revolver->getFrame(99.0)); // this does not call next()
+        self::assertSame($frame, $revolver->getFrame(99.0)); // does not call `next()`
+        self::assertSame($frame, $revolver->getFrame(1.0)); // calls `next()`
+        self::assertSame($frame, $revolver->getFrame(99.0)); // does not call `next()`
     }
 }

@@ -8,5 +8,5 @@ interface ITolerance
 {
     final const DEFAULT_VALUE = 5; // milliseconds
 
-    public function getValue(): int;
+    public function toMilliseconds(): int;
 }

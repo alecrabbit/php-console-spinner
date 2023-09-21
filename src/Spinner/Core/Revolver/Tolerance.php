@@ -13,7 +13,7 @@ final class Tolerance implements ITolerance
     ) {
     }
 
-    public function getValue(): int
+    public function toMilliseconds(): int
     {
         return $this->value;
     }
