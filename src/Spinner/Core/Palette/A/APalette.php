@@ -11,6 +11,8 @@ abstract class APalette implements IPalette
 {
     public function getEntries(IPaletteOptions $options): \Traversable
     {
-        throw new \RuntimeException('Not implemented.');
+        $stylingMode = $options->getStylingMode();
+
+        return new \ArrayObject();
     }
 }
