@@ -5,15 +5,16 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Widget\Builder;
 
 use AlecRabbit\Spinner\Core\Contract\ITolerance;
+use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolver;
 use AlecRabbit\Spinner\Core\Widget\Builder\WidgetRevolverBuilder;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolverBuilder;
 use AlecRabbit\Spinner\Core\Widget\WidgetRevolver;
 use AlecRabbit\Spinner\Exception\LogicException;
-use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
+use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 
-final class WidgetRevolverBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
+final class WidgetRevolverBuilderTest extends TestCase
 {
     #[Test]
     public function canBeInstantiated(): void
@@ -37,13 +38,18 @@ final class WidgetRevolverBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
 
         $widgetRevolver =
             $widgetRevolverBuilder
-                ->withStyleRevolver($this->getRevolverMock())
-                ->withCharRevolver($this->getRevolverMock())
+                ->withStyleRevolver($this->getFrameRevolverMock())
+                ->withCharRevolver($this->getFrameRevolverMock())
                 ->withTolerance($this->getToleranceMock())
                 ->build()
         ;
 
         self::assertInstanceOf(WidgetRevolver::class, $widgetRevolver);
+    }
+
+    private function getFrameRevolverMock(): MockObject&IFrameRevolver
+    {
+        return $this->createMock(IFrameRevolver::class);
     }
 
     private function getToleranceMock(): MockObject&ITolerance
@@ -58,9 +64,9 @@ final class WidgetRevolverBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
         $exceptionMessage = 'Style revolver is not set.';
 
         $test = function (): void {
-            $widgetRevolver =
+            $widgetRevolver = // intentional assignment
                 $this->getTesteeInstance()
-                    ->withCharRevolver($this->getRevolverMock())
+                    ->withCharRevolver($this->getFrameRevolverMock())
                     ->build()
             ;
         };
@@ -79,9 +85,9 @@ final class WidgetRevolverBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
         $exceptionMessage = 'Character revolver is not set.';
 
         $test = function (): void {
-            $widgetRevolver =
+            $widgetRevolver = // intentional assignment
                 $this->getTesteeInstance()
-                    ->withStyleRevolver($this->getRevolverMock())
+                    ->withStyleRevolver($this->getFrameRevolverMock())
                     ->build()
             ;
         };

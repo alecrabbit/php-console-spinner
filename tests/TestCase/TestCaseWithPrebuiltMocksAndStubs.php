@@ -82,6 +82,9 @@ use AlecRabbit\Spinner\Core\Widget\Factory\Contract\IWidgetRevolverFactory;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\MockObject\Stub;
 
+/**
+ * @deprecated Use `TestCase` instead and implement required mock methods by your tests.
+ */
 abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
 {
     protected function getLegacyWidgetConfigStub(): Stub&ILegacyWidgetConfig

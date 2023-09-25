@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Factory;
 
 use AlecRabbit\Spinner\Contract\Option\StylingMethodOption;
-use AlecRabbit\Spinner\Core\Contract\ITolerance;
 use AlecRabbit\Spinner\Core\Factory\Contract\IFrameCollectionFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IStyleFrameRevolverFactory;
@@ -32,12 +31,13 @@ final class StyleRevolverFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
         ?IIntervalFactory $intervalFactory = null,
         ?StylingMethodOption $styleMode = null,
     ): IStyleFrameRevolverFactory {
-        return new StyleFrameRevolverFactory(
-            frameRevolverBuilder: $frameRevolverBuilder ?? $this->getFrameRevolverBuilderMock(),
-            frameCollectionFactory: $frameCollectionFactory ?? $this->getFrameCollectionFactoryMock(),
-            intervalFactory: $intervalFactory ?? $this->getIntervalFactoryMock(),
-            styleMode: $styleMode ?? StylingMethodOption::NONE,
-        );
+        return
+            new StyleFrameRevolverFactory(
+                frameRevolverBuilder: $frameRevolverBuilder ?? $this->getFrameRevolverBuilderMock(),
+                frameCollectionFactory: $frameCollectionFactory ?? $this->getFrameCollectionFactoryMock(),
+                intervalFactory: $intervalFactory ?? $this->getIntervalFactoryMock(),
+                styleMode: $styleMode ?? StylingMethodOption::NONE,
+            );
     }
 
     #[Test]

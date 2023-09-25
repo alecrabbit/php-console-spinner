@@ -10,6 +10,11 @@ class Template implements ITemplate
     {
         // ...
     }
+
+    public function getFrames(): Traversable;
+    {
+        // ...
+    }
 }
 ```
 
