@@ -13,9 +13,9 @@ use Traversable;
 
 final class Rainbow extends APalette implements IStylePalette
 {
-    public function getEntries(IPaletteOptions $options): Traversable
+    public function getEntries(?IPaletteOptions $options = null): Traversable
     {
-        $stylingMode = $options->getStylingMode();
+        $stylingMode = $this->extractStylingMode($options);
 
         yield from match ($stylingMode) {
             StylingMethodMode::NONE => $this->noneFrames(),
@@ -25,7 +25,7 @@ final class Rainbow extends APalette implements IStylePalette
         };
     }
 
-    private function noneFrames(): Traversable
+    protected function noneFrames(): Traversable
     {
         yield from [
             new StyleFrame('%s', 0),
@@ -471,5 +471,11 @@ final class Rainbow extends APalette implements IStylePalette
             '255;0;8',
             '255;0;4',
         ];
+    }
+
+    protected function extractStylingMode(?IPaletteOptions $options): StylingMethodMode
+    {
+        return
+            $options?->getStylingMode() ?? StylingMethodMode::NONE;
     }
 }

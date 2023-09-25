@@ -30,7 +30,7 @@ final class RainbowTest extends TestCase
     }
 
     #[Test]
-    public function canGetEntries(): void
+    public function canGetEntriesWithOptions(): void
     {
         $palette = $this->getTesteeInstance();
 
@@ -44,6 +44,31 @@ final class RainbowTest extends TestCase
     private function getPaletteOptionsMock(): MockObject&IPaletteOptions
     {
         return $this->createMock(IPaletteOptions::class);
+    }
+
+    #[Test]
+    public function canGetEntriesWithoutOptions(): void
+    {
+        $palette = $this->getTesteeInstance();
+
+        $entries = $palette->getEntries();
+
+        self::assertInstanceOf(\Generator::class, $entries);
+    }
+
+    #[Test]
+    public function returnsOneFrameIteratorWithoutOptions(): void
+    {
+        $palette = $this->getTesteeInstance();
+
+        $traversable = $palette->getEntries();
+
+        self::assertInstanceOf(\Generator::class, $traversable);
+
+        $entries = iterator_to_array($traversable); // unwrap generator
+
+        self::assertCount(1, $entries);
+        self::assertEquals(new StyleFrame('%s', 0), $entries[0]);
     }
 
     #[Test]

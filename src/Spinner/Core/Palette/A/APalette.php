@@ -9,10 +9,5 @@ use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteOptions;
 
 abstract class APalette implements IPalette
 {
-    public function getEntries(IPaletteOptions $options): \Traversable
-    {
-        $stylingMode = $options->getStylingMode();
-
-        return new \ArrayObject();
-    }
+    abstract public function getEntries(?IPaletteOptions $options = null): \Traversable;
 }
