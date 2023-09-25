@@ -7,12 +7,15 @@ namespace AlecRabbit\Spinner\Core\Pattern\Factory;
 use AlecRabbit\Spinner\Contract\Pattern\ITemplate;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPalette;
 use AlecRabbit\Spinner\Core\Pattern\Factory\Contract\IPatternFactory;
+use AlecRabbit\Spinner\Core\Pattern\Template;
 
 final class PatternFactory implements IPatternFactory
 {
     public function create(IPalette $palette): ITemplate
     {
-        // TODO: Implement create() method. [d807bad2-f76a-465d-9f3b-2dfa1e255885]
-        throw new \RuntimeException('Not implemented.');
+        $entries = $palette->getEntries();
+
+        return
+            new Template();
     }
 }
