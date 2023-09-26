@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Palette\Contract;
 
-use AlecRabbit\Spinner\Contract\Mode\StylingMethodMode;
-
 interface IPaletteOptions
 {
-    public function getStylingMode(): StylingMethodMode;
+    public function getReversed(): ?bool;
+
+    public function getInterval(): ?int;
 }

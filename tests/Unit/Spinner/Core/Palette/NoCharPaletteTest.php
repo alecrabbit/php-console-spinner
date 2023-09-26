@@ -6,7 +6,7 @@ namespace AlecRabbit\Tests\Unit\Spinner\Core\Palette;
 
 use AlecRabbit\Spinner\Core\CharFrame;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPalette;
-use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteOptions;
+use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteMode;
 use AlecRabbit\Spinner\Core\Palette\NoCharPalette;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
@@ -33,9 +33,9 @@ final class NoCharPaletteTest extends TestCase
     {
         $palette = $this->getTesteeInstance();
 
-        $options = $this->getPaletteOptionsMock();
+        $mode = $this->getPaletteModeMock();
 
-        $entries = $palette->getEntries($options);
+        $entries = $palette->getEntries($mode);
 
         self::assertInstanceOf(\Generator::class, $entries);
     }
@@ -50,9 +50,9 @@ final class NoCharPaletteTest extends TestCase
         self::assertInstanceOf(\Generator::class, $entries);
     }
 
-    private function getPaletteOptionsMock(): MockObject&IPaletteOptions
+    private function getPaletteModeMock(): MockObject&IPaletteMode
     {
-        return $this->createMock(IPaletteOptions::class);
+        return $this->createMock(IPaletteMode::class);
     }
 
     #[Test]

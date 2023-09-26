@@ -6,16 +6,16 @@ namespace AlecRabbit\Spinner\Core\Palette;
 
 use AlecRabbit\Spinner\Contract\Mode\StylingMethodMode;
 use AlecRabbit\Spinner\Core\Palette\A\APalette;
-use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteOptions;
+use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteMode;
 use AlecRabbit\Spinner\Core\Palette\Contract\IStylePalette;
 use AlecRabbit\Spinner\Core\StyleFrame;
 use Traversable;
 
 final class Rainbow extends APalette implements IStylePalette
 {
-    public function getEntries(?IPaletteOptions $options = null): Traversable
+    public function getEntries(?IPaletteMode $entriesMode = null): Traversable
     {
-        $stylingMode = $this->extractStylingMode($options);
+        $stylingMode = $this->extractStylingMode($entriesMode);
 
         yield from match ($stylingMode) {
             StylingMethodMode::NONE => $this->noneFrames(),
@@ -23,6 +23,12 @@ final class Rainbow extends APalette implements IStylePalette
             StylingMethodMode::ANSI8 => $this->ansi8Frames(),
             StylingMethodMode::ANSI24 => $this->ansi24Frames(),
         };
+    }
+
+    protected function extractStylingMode(?IPaletteMode $options): StylingMethodMode
+    {
+        return
+            $options?->getStylingMode() ?? StylingMethodMode::NONE;
     }
 
     protected function noneFrames(): Traversable
@@ -41,8 +47,20 @@ final class Rainbow extends APalette implements IStylePalette
 
     private function ansi8Frames(): Traversable
     {
-        foreach ($this->ansi8Sequence() as $item) {
-            yield new StyleFrame(sprintf("\e[38;5;%sm%%s\e[39m", $item), 0);
+        $this->options =
+            new PaletteOptions(
+                interval: 1000,
+                reversed: $this->options->getReversed(),
+            );
+
+        $sequence = $this->ansi8Sequence();
+
+        if ($this->options->getReversed()) {
+            $sequence = \array_reverse(\iterator_to_array($sequence));
+        }
+
+        foreach ($sequence as $item) {
+            yield new StyleFrame(\sprintf("\e[38;5;%sm%%s\e[39m", $item), 0);
         }
     }
 
@@ -83,6 +101,12 @@ final class Rainbow extends APalette implements IStylePalette
 
     private function ansi24Frames(): Traversable
     {
+        $this->options =
+            new PaletteOptions(
+                interval: 100,
+                reversed: $this->options->getReversed(),
+            );
+
         foreach ($this->ansi24Sequence() as $item) {
             yield new StyleFrame(sprintf("\e[38;2;%sm%%s\e[39m", $item), 0);
         }
@@ -471,11 +495,5 @@ final class Rainbow extends APalette implements IStylePalette
             '255;0;8',
             '255;0;4',
         ];
-    }
-
-    protected function extractStylingMode(?IPaletteOptions $options): StylingMethodMode
-    {
-        return
-            $options?->getStylingMode() ?? StylingMethodMode::NONE;
     }
 }
