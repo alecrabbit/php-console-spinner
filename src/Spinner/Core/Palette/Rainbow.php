@@ -49,7 +49,7 @@ final class Rainbow extends APalette implements IStylePalette
     {
         $this->options =
             new PaletteOptions(
-                interval: 1000,
+                interval: $this->options->getInterval() ?? 1000,
                 reversed: $this->options->getReversed(),
             );
 
@@ -103,11 +103,22 @@ final class Rainbow extends APalette implements IStylePalette
     {
         $this->options =
             new PaletteOptions(
-                interval: 100,
+                interval: $this->options->getInterval() ?? 100,
                 reversed: $this->options->getReversed(),
             );
 
-        foreach ($this->ansi24Sequence() as $item) {
+
+        $sequence = $this->ansi24Sequence();
+
+        if ($this->options->getReversed()) {
+            $s = [];
+            foreach ($sequence as $item) {
+                $s[] = $item;
+            }
+            $sequence = \array_reverse($s);
+        }
+
+        foreach ($sequence as $item) {
             yield new StyleFrame(sprintf("\e[38;2;%sm%%s\e[39m", $item), 0);
         }
     }
