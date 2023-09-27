@@ -8,7 +8,6 @@ use AlecRabbit\Spinner\Core\CharFrame;
 use AlecRabbit\Spinner\Core\Palette\A\APalette;
 use AlecRabbit\Spinner\Core\Palette\Contract\ICharPalette;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteMode;
-
 use Traversable;
 
 use function array_reverse;
@@ -31,16 +30,7 @@ final class Snake extends APalette implements ICharPalette
 
     private function sequence(): Traversable
     {
-        $a = [
-            '⠏',
-            '⠛',
-            '⠹',
-            '⢸',
-            '⣰',
-            '⣤',
-            '⣆',
-            '⡇',
-        ];
+        $a = ['⠏', '⠛', '⠹', '⢸', '⣰', '⣤', '⣆', '⡇'];
 
         if ($this->options->getReversed()) {
             $a = array_reverse($a);
