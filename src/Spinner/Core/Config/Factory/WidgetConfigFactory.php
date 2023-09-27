@@ -24,6 +24,11 @@ final class WidgetConfigFactory implements IWidgetConfigFactory
         $this->widgetConfig = $this->extractWidgetConfig($configProvider->getConfig());
     }
 
+    private function extractWidgetConfig(IConfig $config): IWidgetConfig
+    {
+        return $config->get(IWidgetConfig::class);
+    }
+
     public function create(?IWidgetSettings $widgetSettings = null): IWidgetConfig
     {
         if ($widgetSettings === null) {
@@ -68,10 +73,5 @@ final class WidgetConfigFactory implements IWidgetConfigFactory
                 charPalette: $widgetSettings->getCharPalette() ?? $config->getCharPalette(),
                 revolverConfig: $config->getRevolverConfig(),
             );
-    }
-
-    private function extractWidgetConfig(IConfig $config): IWidgetConfig
-    {
-        return $config->get(IWidgetConfig::class);
     }
 }

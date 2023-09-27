@@ -22,8 +22,7 @@ final class PaletteOptionsTest extends TestCase
     private function getTesteeInstance(
         ?int $interval = null,
         ?bool $reversed = null,
-    ): IPaletteOptions
-    {
+    ): IPaletteOptions {
         return
             new PaletteOptions(
                 interval: $interval,

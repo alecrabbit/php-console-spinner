@@ -216,6 +216,7 @@ final class ConfigFactoryTest extends TestCase
     {
         return $this->createMock(IWidgetConfig::class);
     }
+
     protected function getRootWidgetConfigMock(): MockObject&IRootWidgetConfig
     {
         return $this->createMock(IRootWidgetConfig::class);

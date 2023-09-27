@@ -9,9 +9,13 @@ use AlecRabbit\Spinner\Core\Palette\A\APalette;
 use AlecRabbit\Spinner\Core\Palette\Contract\ICharPalette;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteMode;
 
+use Traversable;
+
+use function array_reverse;
+
 final class Snake extends APalette implements ICharPalette
 {
-    public function getEntries(?IPaletteMode $entriesMode = null): \Traversable
+    public function getEntries(?IPaletteMode $entriesMode = null): Traversable
     {
         $this->options =
             new PaletteOptions(
@@ -25,7 +29,7 @@ final class Snake extends APalette implements ICharPalette
         }
     }
 
-    private function sequence(): \Traversable
+    private function sequence(): Traversable
     {
         $a = [
             '⠏',
@@ -39,7 +43,7 @@ final class Snake extends APalette implements ICharPalette
         ];
 
         if ($this->options->getReversed()) {
-            $a = \array_reverse($a);
+            $a = array_reverse($a);
         }
 
         yield from $a;

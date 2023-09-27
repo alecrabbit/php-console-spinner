@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Palette;
 
+use AlecRabbit\Spinner\Core\CharFrame;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPalette;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteMode;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteOptions;
-use AlecRabbit\Spinner\Core\Palette\PaletteOptions;
 use AlecRabbit\Spinner\Core\Palette\Snake;
-use AlecRabbit\Spinner\Core\CharFrame;
 use AlecRabbit\Tests\TestCase\TestCase;
+use Generator;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 
@@ -33,6 +33,11 @@ final class SnakeTest extends TestCase
             );
     }
 
+    private function getPaletteOptionsMock(): MockObject&IPaletteOptions
+    {
+        return $this->createMock(IPaletteOptions::class);
+    }
+
     #[Test]
     public function canGetEntriesWithMode(): void
     {
@@ -42,7 +47,7 @@ final class SnakeTest extends TestCase
 
         $entries = $palette->getEntries($mode);
 
-        self::assertInstanceOf(\Generator::class, $entries);
+        self::assertInstanceOf(Generator::class, $entries);
     }
 
     private function getPaletteModeMock(): MockObject&IPaletteMode
@@ -57,7 +62,7 @@ final class SnakeTest extends TestCase
 
         $entries = $palette->getEntries();
 
-        self::assertInstanceOf(\Generator::class, $entries);
+        self::assertInstanceOf(Generator::class, $entries);
     }
 
     #[Test]
@@ -67,7 +72,7 @@ final class SnakeTest extends TestCase
 
         $traversable = $palette->getEntries();
 
-        self::assertInstanceOf(\Generator::class, $traversable);
+        self::assertInstanceOf(Generator::class, $traversable);
 
         $entries = iterator_to_array($traversable); // unwrap generator
 
@@ -109,7 +114,7 @@ final class SnakeTest extends TestCase
 
         $traversable = $palette->getEntries();
 
-        self::assertInstanceOf(\Generator::class, $traversable);
+        self::assertInstanceOf(Generator::class, $traversable);
 
         $entries = iterator_to_array($traversable); // unwrap generator
 
@@ -126,10 +131,5 @@ final class SnakeTest extends TestCase
         self::assertEquals(new CharFrame('⠹', 1), $entries[5]);
         self::assertEquals(new CharFrame('⠛', 1), $entries[6]);
         self::assertEquals(new CharFrame('⠏', 1), $entries[7]);
-    }
-
-    private function getPaletteOptionsMock(): MockObject&IPaletteOptions
-    {
-        return $this->createMock(IPaletteOptions::class);
     }
 }

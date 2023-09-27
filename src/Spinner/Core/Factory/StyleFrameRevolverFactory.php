@@ -17,8 +17,8 @@ use AlecRabbit\Spinner\Core\Pattern\Contract\IStylePattern;
 use AlecRabbit\Spinner\Core\Pattern\NoStylePattern;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolver;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolverBuilder;
-use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
 use AlecRabbit\Spinner\Core\Revolver\Tolerance;
+use RuntimeException;
 
 final class StyleFrameRevolverFactory implements IStyleFrameRevolverFactory
 {
@@ -56,15 +56,15 @@ final class StyleFrameRevolverFactory implements IStyleFrameRevolverFactory
             );
     }
 
+    public function create(ITemplate $pattern): IFrameRevolver
+    {
+        // TODO: Implement create() method.
+        throw new RuntimeException('Not implemented.');
+    }
+
     private function getTolerance(): ITolerance
     {
         // TODO (2023-04-26 14:21) [Alec Rabbit]: make it configurable [fd86d318-9069-47e2-b60d-a68f537be4a3]
         return new Tolerance();
-    }
-
-    public function create(ITemplate $pattern): IFrameRevolver
-    {
-        // TODO: Implement create() method.
-        throw new \RuntimeException('Not implemented.');
     }
 }

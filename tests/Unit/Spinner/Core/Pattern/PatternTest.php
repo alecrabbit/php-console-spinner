@@ -8,6 +8,7 @@ use AlecRabbit\Spinner\Core\Pattern\Template;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
+use Traversable;
 
 final class PatternTest extends TestCase
 {
@@ -21,12 +22,22 @@ final class PatternTest extends TestCase
 
     public function getTesteeInstance(
         ?IInterval $interval = null,
-        ?\Traversable $frames = null
+        ?Traversable $frames = null
     ): ITemplate {
         return new Template(
             interval: $interval ?? $this->getIntervalMock(),
             frames: $frames ?? $this->getTraversableMock(),
         );
+    }
+
+    private function getIntervalMock(): MockObject&IInterval
+    {
+        return $this->createMock(IInterval::class);
+    }
+
+    private function getTraversableMock(): MockObject&Traversable
+    {
+        return $this->createMock(Traversable::class);
     }
 
     #[Test]
@@ -39,16 +50,6 @@ final class PatternTest extends TestCase
         );
 
         self::assertSame($interval, $factory->getInterval());
-    }
-
-    private function getIntervalMock(): MockObject&IInterval
-    {
-        return $this->createMock(IInterval::class);
-    }
-
-    private function getTraversableMock(): MockObject&\Traversable
-    {
-        return $this->createMock(\Traversable::class);
     }
 
     #[Test]

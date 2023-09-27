@@ -11,6 +11,10 @@ use AlecRabbit\Spinner\Core\Palette\Contract\IStylePalette;
 use AlecRabbit\Spinner\Core\StyleFrame;
 use Traversable;
 
+use function array_reverse;
+use function iterator_to_array;
+use function sprintf;
+
 final class Rainbow extends APalette implements IStylePalette
 {
     public function getEntries(?IPaletteMode $entriesMode = null): Traversable
@@ -56,11 +60,11 @@ final class Rainbow extends APalette implements IStylePalette
         $sequence = $this->ansi8Sequence();
 
         if ($this->options->getReversed()) {
-            $sequence = \array_reverse(\iterator_to_array($sequence));
+            $sequence = array_reverse(iterator_to_array($sequence));
         }
 
         foreach ($sequence as $item) {
-            yield new StyleFrame(\sprintf("\e[38;5;%sm%%s\e[39m", $item), 0);
+            yield new StyleFrame(sprintf("\e[38;5;%sm%%s\e[39m", $item), 0);
         }
     }
 
@@ -115,7 +119,7 @@ final class Rainbow extends APalette implements IStylePalette
             foreach ($sequence as $item) {
                 $s[] = $item;
             }
-            $sequence = \array_reverse($s);
+            $sequence = array_reverse($s);
         }
 
         foreach ($sequence as $item) {

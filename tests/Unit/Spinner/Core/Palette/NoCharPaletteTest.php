@@ -9,6 +9,7 @@ use AlecRabbit\Spinner\Core\Palette\Contract\IPalette;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteMode;
 use AlecRabbit\Spinner\Core\Palette\NoCharPalette;
 use AlecRabbit\Tests\TestCase\TestCase;
+use Generator;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 
@@ -37,7 +38,12 @@ final class NoCharPaletteTest extends TestCase
 
         $entries = $palette->getEntries($mode);
 
-        self::assertInstanceOf(\Generator::class, $entries);
+        self::assertInstanceOf(Generator::class, $entries);
+    }
+
+    private function getPaletteModeMock(): MockObject&IPaletteMode
+    {
+        return $this->createMock(IPaletteMode::class);
     }
 
     #[Test]
@@ -47,12 +53,7 @@ final class NoCharPaletteTest extends TestCase
 
         $entries = $palette->getEntries();
 
-        self::assertInstanceOf(\Generator::class, $entries);
-    }
-
-    private function getPaletteModeMock(): MockObject&IPaletteMode
-    {
-        return $this->createMock(IPaletteMode::class);
+        self::assertInstanceOf(Generator::class, $entries);
     }
 
     #[Test]
@@ -62,7 +63,7 @@ final class NoCharPaletteTest extends TestCase
 
         $traversable = $palette->getEntries();
 
-        self::assertInstanceOf(\Generator::class, $traversable);
+        self::assertInstanceOf(Generator::class, $traversable);
 
         $entries = iterator_to_array($traversable); // unwrap generator
 

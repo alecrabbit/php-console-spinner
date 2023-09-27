@@ -15,6 +15,7 @@ use AlecRabbit\Spinner\Core\Pattern\Contract\IBakedPattern;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolver;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolverBuilder;
 use AlecRabbit\Spinner\Core\Revolver\Tolerance;
+use RuntimeException;
 
 final class CharFrameRevolverFactory implements ICharFrameRevolverFactory
 {
@@ -51,7 +52,7 @@ final class CharFrameRevolverFactory implements ICharFrameRevolverFactory
     public function create(ITemplate $template): IFrameRevolver
     {
         // TODO: Implement create() method.  [accbe9d3-b658-4935-8417-aec059487689]
-        throw new \RuntimeException('Not implemented.');
+        throw new RuntimeException('Not implemented.');
     }
 
     private function getTolerance(): ITolerance

@@ -23,7 +23,8 @@ final class WidgetConfigFactoryTest extends TestCase
             ->expects(self::once())
             ->method('get')
             ->with(IWidgetConfig::class)
-            ->willReturn($this->getWidgetConfigMock());
+            ->willReturn($this->getWidgetConfigMock())
+        ;
         $configProvider = $this->getConfigProviderMock();
         $configProvider
             ->expects(self::once())
@@ -37,11 +38,6 @@ final class WidgetConfigFactoryTest extends TestCase
         self::assertInstanceOf(WidgetConfigFactory::class, $factory);
     }
 
-    private function getConfigProviderMock(): MockObject&IConfigProvider
-    {
-        return $this->createMock(IConfigProvider::class);
-    }
-
     private function getConfigMock(): MockObject&IConfig
     {
         return $this->createMock(IConfig::class);
@@ -50,6 +46,11 @@ final class WidgetConfigFactoryTest extends TestCase
     private function getWidgetConfigMock(): MockObject&IWidgetConfig
     {
         return $this->createMock(IWidgetConfig::class);
+    }
+
+    private function getConfigProviderMock(): MockObject&IConfigProvider
+    {
+        return $this->createMock(IConfigProvider::class);
     }
 
     public function getTesteeInstance(

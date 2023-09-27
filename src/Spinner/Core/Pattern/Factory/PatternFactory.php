@@ -6,13 +6,10 @@ namespace AlecRabbit\Spinner\Core\Pattern\Factory;
 
 use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Contract\Pattern\ITemplate;
-use AlecRabbit\Spinner\Core\Config\Contract\IOutputConfig;
-use AlecRabbit\Spinner\Core\Contract\IConfigProvider;
 use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalFactory;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPalette;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteMode;
 use AlecRabbit\Spinner\Core\Palette\Factory\Contract\IPaletteModeFactory;
-use AlecRabbit\Spinner\Core\Palette\PaletteMode;
 use AlecRabbit\Spinner\Core\Pattern\Factory\Contract\IPatternFactory;
 use AlecRabbit\Spinner\Core\Pattern\Template;
 
@@ -23,6 +20,7 @@ final class PatternFactory implements IPatternFactory
         protected IPaletteModeFactory $paletteModeFactory,
     ) {
     }
+
     public function create(IPalette $palette): ITemplate
     {
         $entries = $palette->getEntries($this->createPaletteMode());

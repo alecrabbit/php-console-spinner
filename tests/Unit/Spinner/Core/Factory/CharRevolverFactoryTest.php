@@ -5,18 +5,17 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Factory;
 
 use AlecRabbit\Spinner\Contract\Pattern\ITemplate;
-use AlecRabbit\Spinner\Core\Contract\ITolerance;
 use AlecRabbit\Spinner\Core\Factory\CharFrameRevolverFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ICharFrameRevolverFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IFrameCollectionFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalFactory;
-use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolver;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolverBuilder;
 use AlecRabbit\Spinner\Core\Revolver\Tolerance;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use ArrayObject;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
+use RuntimeException;
 
 final class CharRevolverFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
 {
@@ -121,7 +120,7 @@ final class CharRevolverFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
         self::assertInstanceOf(CharFrameRevolverFactory::class, $charRevolverFactory);
 
         // TODO (2023-09-20 16:15) [Alec Rabbit]: implement [accbe9d3-b658-4935-8417-aec059487689]
-        $this->expectException(\RuntimeException::class);
+        $this->expectException(RuntimeException::class);
         $this->expectExceptionMessage('Not implemented.');
 
         $charRevolverFactory->create($this->getTemplateMock());
