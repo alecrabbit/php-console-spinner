@@ -69,10 +69,14 @@
 /app/src/Spinner/Core/FrameCollection.php:69:34:error - InvalidNullableReturnType: The declared return type 'int' for AlecRabbit\Spinner\Core\FrameCollection::lastIndex is not nullable, but 'int|null' contains null
 /app/src/Spinner/Core/FrameCollection.php:71:16:error - NullableReturnStatement: The declared return type 'int' for AlecRabbit\Spinner\Core\FrameCollection::lastIndex is not nullable, but the function returns 'int|null'
 /app/src/Spinner/Core/Output/StreamBufferedOutput.php:38:30:error - MixedArgumentTypeCoercion: Argument 1 of AlecRabbit\Spinner\Contract\Output\IResourceStream::write expects Traversable<mixed, string>, but parent type Traversable provided
-/app/src/Spinner/Core/Palette/Rainbow.php:44:44:error - MixedAssignment: Unable to determine the type that $item is being assigned to
-/app/src/Spinner/Core/Palette/Rainbow.php:45:66:error - MixedArgument: Argument 2 of sprintf cannot be mixed, expecting float|int|string
-/app/src/Spinner/Core/Palette/Rainbow.php:86:45:error - MixedAssignment: Unable to determine the type that $item is being assigned to
-/app/src/Spinner/Core/Palette/Rainbow.php:87:66:error - MixedArgument: Argument 2 of sprintf cannot be mixed, expecting float|int|string
+/app/src/Spinner/Core/Palette/Factory/PaletteModeFactory.php:32:41:error - MoreSpecificReturnType: The declared return type 'AlecRabbit\Spinner\Core\Config\Contract\IOutputConfig' for AlecRabbit\Spinner\Core\Palette\Factory\PaletteModeFactory::getOutputConfig is more specific than the inferred return type 'AlecRabbit\Spinner\Core\Config\Contract\IConfigElement'
+/app/src/Spinner/Core/Palette/Factory/PaletteModeFactory.php:34:16:error - LessSpecificReturnStatement: The type 'AlecRabbit\Spinner\Core\Config\Contract\IConfigElement' is more general than the declared return type 'AlecRabbit\Spinner\Core\Config\Contract\IOutputConfig' for AlecRabbit\Spinner\Core\Palette\Factory\PaletteModeFactory::getOutputConfig
+/app/src/Spinner/Core/Palette/Rainbow.php:62:31:error - MixedAssignment: Unable to determine the type that $item is being assigned to
+/app/src/Spinner/Core/Palette/Rainbow.php:63:67:error - MixedArgument: Argument 2 of sprintf cannot be mixed, expecting float|int|string
+/app/src/Spinner/Core/Palette/Rainbow.php:115:35:error - MixedAssignment: Unable to determine the type that $item is being assigned to
+/app/src/Spinner/Core/Palette/Rainbow.php:116:17:error - MixedAssignment: Unable to determine the type of this assignment
+/app/src/Spinner/Core/Palette/Rainbow.php:121:31:error - MixedAssignment: Unable to determine the type that $item is being assigned to
+/app/src/Spinner/Core/Palette/Rainbow.php:122:66:error - MixedArgument: Argument 2 of sprintf cannot be mixed, expecting float|int|string
 /app/src/Spinner/Core/Pattern/A/ACharPattern.php:13:35:error - MixedReturnTypeCoercion: The declared return type 'Traversable<int, AlecRabbit\Spinner\Core\Contract\ICharFrame>' for AlecRabbit\Spinner\Core\Pattern\A\ACharPattern::getEntries is more specific than the inferred return type 'Traversable|null'
 /app/src/Spinner/Core/Pattern/A/ACharPattern.php:15:16:error - MixedReturnTypeCoercion: The type 'Traversable|null' is more general than the declared return type 'Traversable<int, AlecRabbit\Spinner\Core\Contract\ICharFrame>' for AlecRabbit\Spinner\Core\Pattern\A\ACharPattern::getEntries
 /app/src/Spinner/Core/Pattern/A/ACharPattern.php:15:16:error - NullableReturnStatement: The declared return type 'Traversable<int, AlecRabbit\Spinner\Core\Contract\ICharFrame>' for AlecRabbit\Spinner\Core\Pattern\A\ACharPattern::getEntries is not nullable, but the function returns 'Traversable|null'

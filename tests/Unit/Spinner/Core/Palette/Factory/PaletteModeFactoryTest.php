@@ -4,14 +4,12 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Palette\Factory;
 
-use AlecRabbit\Spinner\Contract\IInterval;
-use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalFactory;
-use AlecRabbit\Spinner\Core\Palette\Contract\IPalette;
-use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteMode;
-use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteOptions;
+use AlecRabbit\Spinner\Contract\Mode\StylingMethodMode;
+use AlecRabbit\Spinner\Core\Config\Contract\IConfig;
+use AlecRabbit\Spinner\Core\Config\Contract\IOutputConfig;
+use AlecRabbit\Spinner\Core\Contract\IConfigProvider;
 use AlecRabbit\Spinner\Core\Palette\Factory\Contract\IPaletteModeFactory;
 use AlecRabbit\Spinner\Core\Palette\Factory\PaletteModeFactory;
-use AlecRabbit\Spinner\Core\Pattern\Template;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -26,34 +24,63 @@ final class PaletteModeFactoryTest extends TestCase
         self::assertInstanceOf(PaletteModeFactory::class, $pattern);
     }
 
-    public function getTesteeInstance(): IPaletteModeFactory
-    {
+    public function getTesteeInstance(
+        ?IConfigProvider $configProvider = null,
+    ): IPaletteModeFactory {
         return
-            new PaletteModeFactory();
+            new PaletteModeFactory(
+                configProvider: $configProvider ?? $this->getConfigProviderMock(),
+            );
     }
 
-    private function getIntervalFactoryMock(): MockObject&IIntervalFactory
+    private function getConfigProviderMock(): MockObject&IConfigProvider
     {
-        return $this->createMock(IIntervalFactory::class);
+        return $this->createMock(IConfigProvider::class);
     }
 
-    private function getIntervalMock(): MockObject&IInterval
+    #[Test]
+    public function canCreate(): void
     {
-        return $this->createMock(IInterval::class);
+        $stylingMode = StylingMethodMode::ANSI4;
+
+        $outputConfig = $this->getOutputConfigMock();
+        $outputConfig
+            ->expects(self::once())
+            ->method('getStylingMethodMode')
+            ->willReturn($stylingMode)
+        ;
+
+        $config = $this->getConfigMock();
+        $config
+            ->expects(self::once())
+            ->method('get')
+            ->with(self::identicalTo(IOutputConfig::class))
+            ->willReturn($outputConfig)
+        ;
+
+        $configProvider = $this->getConfigProviderMock();
+        $configProvider
+            ->expects(self::once())
+            ->method('getConfig')
+            ->willReturn($config)
+        ;
+
+        $paletteModeFactory = $this->getTesteeInstance(
+            configProvider: $configProvider,
+        );
+
+        $paletteMode = $paletteModeFactory->create();
+
+        self::assertSame($stylingMode, $paletteMode->getStylingMode());
     }
 
-    private function getPaletteOptionsMock(): MockObject&IPaletteOptions
+    private function getOutputConfigMock(): MockObject&IOutputConfig
     {
-        return $this->createMock(IPaletteOptions::class);
+        return $this->createMock(IOutputConfig::class);
     }
 
-    private function getTraversableMock(): MockObject&\Traversable
+    private function getConfigMock(): MockObject&IConfig
     {
-        return $this->createMock(\Traversable::class);
-    }
-
-    private function getPaletteMock(): MockObject&IPalette
-    {
-        return $this->createMock(IPalette::class);
+        return $this->createMock(IConfig::class);
     }
 }
