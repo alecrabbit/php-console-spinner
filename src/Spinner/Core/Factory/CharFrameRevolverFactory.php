@@ -51,8 +51,20 @@ final class CharFrameRevolverFactory implements ICharFrameRevolverFactory
 
     public function create(ITemplate $template): IFrameRevolver
     {
-        // TODO: Implement create() method.  [accbe9d3-b658-4935-8417-aec059487689]
-        throw new RuntimeException('Not implemented.');
+        return
+            $this->frameRevolverBuilder
+                ->withFrameCollection(
+                    $this->frameCollectionFactory->create(
+                        $template->getFrames()
+                    )
+                )
+                ->withInterval(
+                    $template->getInterval())
+                ->withTolerance(
+                    $this->getTolerance()
+                )
+                ->build()
+        ;
     }
 
     private function getTolerance(): ITolerance

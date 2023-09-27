@@ -12,5 +12,5 @@ interface IStyleFrameRevolverFactory
 {
     public function createStyleRevolver(IStylePattern $stylePattern): IFrameRevolver;
 
-    public function create(ITemplate $pattern): IFrameRevolver;
+    public function create(ITemplate $template): IFrameRevolver;
 }

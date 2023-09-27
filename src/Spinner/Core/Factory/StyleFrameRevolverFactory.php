@@ -56,10 +56,22 @@ final class StyleFrameRevolverFactory implements IStyleFrameRevolverFactory
             );
     }
 
-    public function create(ITemplate $pattern): IFrameRevolver
+    public function create(ITemplate $template): IFrameRevolver
     {
-        // TODO: Implement create() method.
-        throw new RuntimeException('Not implemented.');
+        return
+            $this->frameRevolverBuilder
+                ->withFrameCollection(
+                    $this->frameCollectionFactory->create(
+                        $template->getFrames()
+                    )
+                )
+                ->withInterval(
+                    $template->getInterval())
+                ->withTolerance(
+                    $this->getTolerance()
+                )
+                ->build()
+        ;
     }
 
     private function getTolerance(): ITolerance

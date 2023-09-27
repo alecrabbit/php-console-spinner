@@ -95,6 +95,8 @@ use AlecRabbit\Spinner\Core\Factory\TerminalProbeFactory;
 use AlecRabbit\Spinner\Core\Factory\TerminalSettingsFactory;
 use AlecRabbit\Spinner\Core\Factory\TimerFactory;
 use AlecRabbit\Spinner\Core\Output\ResourceStream;
+use AlecRabbit\Spinner\Core\Palette\Factory\Contract\IPaletteModeFactory;
+use AlecRabbit\Spinner\Core\Pattern\Factory\Contract\IPatternFactory;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolverBuilder;
 use AlecRabbit\Spinner\Core\Revolver\FrameRevolverBuilder;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettingsProvider;
@@ -265,6 +267,9 @@ function definitions(): Traversable
                     Probes::load(ILoopProbe::class)
                 );
         },
+
+        IPatternFactory::class => \AlecRabbit\Spinner\Core\Pattern\Factory\PatternFactory::class,
+        IPaletteModeFactory::class => \AlecRabbit\Spinner\Core\Palette\Factory\PaletteModeFactory::class,
 
     ];
     yield from substitutes();
