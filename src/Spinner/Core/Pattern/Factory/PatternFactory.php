@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Pattern\Factory;
 
-use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Contract\Pattern\IPattern;
 use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalFactory;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPalette;
@@ -23,26 +22,16 @@ final class PatternFactory implements IPatternFactory
 
     public function create(IPalette $palette): IPattern
     {
-        $entries = $palette->getEntries($this->createPaletteMode());
+        $mode = $this->paletteModeFactory->create();
+
+        $template = $palette->getTemplate($mode);
+
+        $interval = $this->intervalFactory->createNormalized($template->getInterval());
 
         return
             new Pattern(
-                interval: $this->createInterval($palette),
-                frames: $entries,
-            );
-    }
-
-    private function createPaletteMode(): IPaletteMode
-    {
-        return
-            $this->paletteModeFactory->create();
-    }
-
-    private function createInterval(IPalette $palette): IInterval
-    {
-        return
-            $this->intervalFactory->createNormalized(
-                dump($palette->getOptions()->getInterval())
+                interval: $interval,
+                frames: $template->getEntries(),
             );
     }
 }

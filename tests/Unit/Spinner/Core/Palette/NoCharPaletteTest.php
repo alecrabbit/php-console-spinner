@@ -8,6 +8,7 @@ use AlecRabbit\Spinner\Core\CharFrame;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPalette;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteMode;
 use AlecRabbit\Spinner\Core\Palette\NoCharPalette;
+use AlecRabbit\Spinner\Core\Palette\PaletteTemplate;
 use AlecRabbit\Tests\TestCase\TestCase;
 use Generator;
 use PHPUnit\Framework\Attributes\Test;
@@ -30,15 +31,17 @@ final class NoCharPaletteTest extends TestCase
     }
 
     #[Test]
-    public function canGetEntriesWithOptions(): void
+    public function canGetTemplateWithMode(): void
     {
         $palette = $this->getTesteeInstance();
 
         $mode = $this->getPaletteModeMock();
 
-        $entries = $palette->getEntries($mode);
+        $template = $palette->getTemplate($mode);
 
-        self::assertInstanceOf(Generator::class, $entries);
+        self::assertInstanceOf(PaletteTemplate::class, $template);
+        self::assertInstanceOf(Generator::class, $template->getEntries());
+        self::assertNull($template->getInterval());
     }
 
     private function getPaletteModeMock(): MockObject&IPaletteMode
@@ -47,13 +50,15 @@ final class NoCharPaletteTest extends TestCase
     }
 
     #[Test]
-    public function canGetEntriesWithoutOptions(): void
+    public function canGetEntriesWithoutMode(): void
     {
         $palette = $this->getTesteeInstance();
 
-        $entries = $palette->getEntries();
+        $template = $palette->getTemplate();
 
-        self::assertInstanceOf(Generator::class, $entries);
+        self::assertInstanceOf(PaletteTemplate::class, $template);
+        self::assertInstanceOf(Generator::class, $template->getEntries());
+        self::assertNull($template->getInterval());
     }
 
     #[Test]
@@ -61,7 +66,9 @@ final class NoCharPaletteTest extends TestCase
     {
         $palette = $this->getTesteeInstance();
 
-        $traversable = $palette->getEntries();
+        $template = $palette->getTemplate();
+
+        $traversable = $template->getEntries();
 
         self::assertInstanceOf(Generator::class, $traversable);
 

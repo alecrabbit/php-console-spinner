@@ -12,7 +12,7 @@ use Traversable;
 
 class CharPaletteOverride extends APalette implements ICharPalette
 {
-    public function getEntries(?IPaletteMode $entriesMode = null): Traversable
+    protected function getEntries(?IPaletteMode $mode = null): Traversable
     {
         throw new RuntimeException('Not implemented.'); // Intentionally.
     }

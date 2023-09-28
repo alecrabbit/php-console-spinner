@@ -12,7 +12,7 @@ use Traversable;
 
 final class NoCharPalette extends APalette implements ICharPalette
 {
-    public function getEntries(?IPaletteMode $entriesMode = null): Traversable
+    protected function getEntries(?IPaletteMode $mode = null): Traversable
     {
         yield from [
             new CharFrame('', 0),

@@ -7,6 +7,7 @@ namespace AlecRabbit\Spinner\Core\Palette;
 use AlecRabbit\Spinner\Contract\Mode\StylingMethodMode;
 use AlecRabbit\Spinner\Core\Palette\A\APalette;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteMode;
+use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteOptions;
 use AlecRabbit\Spinner\Core\Palette\Contract\IStylePalette;
 use AlecRabbit\Spinner\Core\StyleFrame;
 use Traversable;
@@ -17,9 +18,9 @@ use function sprintf;
 
 final class Rainbow extends APalette implements IStylePalette
 {
-    public function getEntries(?IPaletteMode $entriesMode = null): Traversable
+    protected function getOptions(?IPaletteMode $mode = null): IPaletteOptions
     {
-        $stylingMode = $this->extractStylingMode($entriesMode);
+        $stylingMode = $this->extractStylingMode($mode);
 
         $this->options =
             match ($stylingMode) {
@@ -36,18 +37,25 @@ final class Rainbow extends APalette implements IStylePalette
                 default => $this->options,
             };
 
-        yield from match ($stylingMode) {
-            StylingMethodMode::NONE => $this->noneFrames(),
-            StylingMethodMode::ANSI4 => $this->ansi4Frames(),
-            StylingMethodMode::ANSI8 => $this->ansi8Frames(),
-            StylingMethodMode::ANSI24 => $this->ansi24Frames(),
-        };
+        return parent::getOptions($mode);
     }
 
     protected function extractStylingMode(?IPaletteMode $options): StylingMethodMode
     {
         return
             $options?->getStylingMode() ?? StylingMethodMode::NONE;
+    }
+
+    protected function getEntries(?IPaletteMode $mode = null): Traversable
+    {
+        $stylingMode = $this->extractStylingMode($mode);
+
+        yield from match ($stylingMode) {
+            StylingMethodMode::NONE => $this->noneFrames(),
+            StylingMethodMode::ANSI4 => $this->ansi4Frames(),
+            StylingMethodMode::ANSI8 => $this->ansi8Frames(),
+            StylingMethodMode::ANSI24 => $this->ansi24Frames(),
+        };
     }
 
     protected function noneFrames(): Traversable

@@ -8,7 +8,5 @@ use Traversable;
 
 interface IPalette
 {
-    public function getEntries(?IPaletteMode $entriesMode = null): Traversable;
-
-    public function getOptions(): IPaletteOptions;
+    public function getTemplate(?IPaletteMode $mode = null): ITemplate;
 }
