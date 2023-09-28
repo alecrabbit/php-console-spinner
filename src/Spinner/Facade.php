@@ -34,9 +34,9 @@ final class Facade extends AFacade
     {
         $spinnerFactory = self::getSpinnerFactory();
 
-        $spinner = $spinnerFactory->createSpinner($spinnerSettings);
+        $spinner = $spinnerFactory->create($spinnerSettings);
 
-        if ($spinnerSettings?->isAutoAttach() ?? false) {
+        if ($spinnerSettings?->isAutoAttach() ?? true) {
             self::attach($spinner);
         }
 

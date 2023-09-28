@@ -258,7 +258,7 @@ final class SpinnerFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
             ->willReturn($widgetSettings)
         ;
 
-        $spinner = $spinnerFactory->createSpinner($spinnerSettings);
+        $spinner = $spinnerFactory->create($spinnerSettings);
 
         self::assertInstanceOf(Spinner::class, $spinner);
     }
@@ -312,7 +312,7 @@ final class SpinnerFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
             settingsProvider: $settingsProvider,
         );
 
-        $spinner = $spinnerFactory->createSpinner();
+        $spinner = $spinnerFactory->create();
 
         self::assertInstanceOf(Spinner::class, $spinner);
     }

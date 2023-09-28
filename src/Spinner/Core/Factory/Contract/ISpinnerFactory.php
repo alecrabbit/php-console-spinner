@@ -13,5 +13,5 @@ interface ISpinnerFactory
 {
     public function legacyCreateSpinner(ILegacySpinnerConfig|ILegacyWidgetConfig|null $config = null): ISpinner;
 
-    public function createSpinner(?ISpinnerSettings $spinnerSettings = null): ISpinner;
+    public function create(?ISpinnerSettings $spinnerSettings = null): ISpinner;
 }

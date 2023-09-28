@@ -332,19 +332,37 @@ function substitutes(): Traversable
                     }
                 };
         },
-        IWidgetConfigFactory::class => static function (): IWidgetConfigFactory {
+//        IWidgetConfigFactory::class => static function (): IWidgetConfigFactory {
+//            return
+//                new class implements IWidgetConfigFactory {
+//                    public function create(
+//                        ?\AlecRabbit\Spinner\Core\Settings\Contract\IWidgetSettings $widgetSettings = null
+//                    ): \AlecRabbit\Spinner\Core\Config\Contract\IWidgetConfig {
+//                        return
+//                            new \AlecRabbit\Spinner\Core\Config\WidgetConfig(
+//                                leadingSpacer: new \AlecRabbit\Spinner\Core\CharFrame('', 0),
+//                                trailingSpacer: new \AlecRabbit\Spinner\Core\CharFrame(' ', 1),
+//                                revolverConfig: new \AlecRabbit\Spinner\Core\Config\WidgetRevolverConfig(
+//                                    stylePalette: new \AlecRabbit\Spinner\Core\Palette\NoStylePalette(),
+//                                    charPalette: new \AlecRabbit\Spinner\Core\Palette\NoCharPalette(),
+//                                )
+//                            );
+//                    }
+//                };
+//        },
+        IWidgetConfigFactory::class => static function (): IRootWidgetConfigFactory {
             return
-                new class implements IWidgetConfigFactory {
+                new class implements IRootWidgetConfigFactory {
                     public function create(
                         ?\AlecRabbit\Spinner\Core\Settings\Contract\IWidgetSettings $widgetSettings = null
-                    ): \AlecRabbit\Spinner\Core\Config\Contract\IWidgetConfig {
+                    ): \AlecRabbit\Spinner\Core\Config\Contract\IRootWidgetConfig {
                         return
-                            new \AlecRabbit\Spinner\Core\Config\WidgetConfig(
+                            new \AlecRabbit\Spinner\Core\Config\RootWidgetConfig(
                                 leadingSpacer: new \AlecRabbit\Spinner\Core\CharFrame('', 0),
                                 trailingSpacer: new \AlecRabbit\Spinner\Core\CharFrame(' ', 1),
                                 revolverConfig: new \AlecRabbit\Spinner\Core\Config\WidgetRevolverConfig(
-                                    stylePalette: new \AlecRabbit\Spinner\Core\Palette\NoStylePalette(),
-                                    charPalette: new \AlecRabbit\Spinner\Core\Palette\NoCharPalette(),
+                                    stylePalette: new \AlecRabbit\Spinner\Core\Palette\Rainbow(),
+                                    charPalette: new \AlecRabbit\Spinner\Core\Palette\Snake(),
                                 )
                             );
                     }

@@ -29,7 +29,7 @@ final class SpinnerFactory implements ISpinnerFactory
     }
 
     /**
-     * @deprecated use {@see createSpinner()} instead
+     * @deprecated use {@see create()} instead
      */
     public function legacyCreateSpinner(ILegacySpinnerConfig|ILegacyWidgetConfig|null $config = null): ISpinner
     {
@@ -73,7 +73,7 @@ final class SpinnerFactory implements ISpinnerFactory
         return $config->merge($rootWidgetConfig);
     }
 
-    public function createSpinner(?ISpinnerSettings $spinnerSettings = null): ISpinner
+    public function create(?ISpinnerSettings $spinnerSettings = null): ISpinner
     {
         $widgetSettings =
             $spinnerSettings?->getWidgetSettings() ?? $this->getRootWidgetSettings();
