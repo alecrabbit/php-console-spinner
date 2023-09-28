@@ -64,11 +64,6 @@ final class RootWidgetConfigFactoryTest extends TestCase
             );
     }
 
-    private function getWidgetConfigMock(): MockObject&IWidgetConfig
-    {
-        return $this->createMock(IWidgetConfig::class);
-    }
-
     #[Test]
     public function canCreateWithoutWidgetSettings(): void
     {
@@ -95,6 +90,11 @@ final class RootWidgetConfigFactoryTest extends TestCase
         $result = $factory->create();
 
         self::assertSame($widgetConfig, $result);
+    }
+
+    private function getWidgetConfigMock(): MockObject&IWidgetConfig
+    {
+        return $this->createMock(IWidgetConfig::class);
     }
 
 }

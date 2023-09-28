@@ -63,21 +63,21 @@ final class Facade extends AFacade
         return self::getContainer()->get(IDriverFactory::class);
     }
 
-    public static function legacyCreateSpinner(
-        ILegacySpinnerConfig|ILegacyWidgetConfig|null $config = null,
-        bool $attach = true
-    ): ISpinner {
-        $spinner =
-            self::getSpinnerFactory()
-                ->legacyCreateSpinner($config)
-        ;
-
-        if ($attach) {
-            self::attach($spinner);
-        }
-
-        return $spinner;
-    }
+//    public static function legacyCreateSpinner(
+//        ILegacySpinnerConfig|ILegacyWidgetConfig|null $config = null,
+//        bool $attach = true
+//    ): ISpinner {
+//        $spinner =
+//            self::getSpinnerFactory()
+//                ->legacyCreateSpinner($config)
+//        ;
+//
+//        if ($attach) {
+//            self::attach($spinner);
+//        }
+//
+//        return $spinner;
+//    }
 
     public static function getSettings(): ISettings
     {

@@ -15,7 +15,6 @@ use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use ArrayObject;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
-use RuntimeException;
 
 final class CharRevolverFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
 {
