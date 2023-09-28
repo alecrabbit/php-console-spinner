@@ -702,7 +702,7 @@ final class RainbowTest extends TestCase
         self::assertInstanceOf(Generator::class, $traversable);
         self::assertSame($interval, $template->getInterval());
 
-//        self::assertSame($interval, $template->getOptions()->getInterval());
+        self::assertSame($interval, $template->getOptions()->getInterval());
 //        self::assertTrue($template->getOptions()->getReversed());
 
         $entries = iterator_to_array($traversable); // unwrap generator

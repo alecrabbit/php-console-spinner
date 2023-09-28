@@ -21,10 +21,13 @@ abstract class APalette implements IPalette
 
     public function getTemplate(?IPaletteMode $mode = null): ITemplate
     {
+        $options = $this->getOptions($mode);
+
         return
             new PaletteTemplate(
                 $this->getEntries($mode),
-                $this->getOptions($mode)->getInterval(),
+                $options->getInterval(),
+                $options,
             );
     }
 

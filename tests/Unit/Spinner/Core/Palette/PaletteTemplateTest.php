@@ -28,17 +28,24 @@ final class PaletteTemplateTest extends TestCase
     private function getTesteeInstance(
         ?\Traversable $entries = null,
         ?int $interval = null,
+        ?IPaletteOptions $options = null,
     ): ITemplate {
         return
             new PaletteTemplate(
                 entries: $entries ?? $this->getTraversableMock(),
                 interval: $interval ?? self::DEFAULT_INTERVAL,
+                options: $options ?? $this->getPaletteOptionsMock(),
             );
     }
 
     private function getTraversableMock(): MockObject&\Traversable
     {
         return $this->createMock(\Traversable::class);
+    }
+
+    private function getPaletteOptionsMock(): MockObject&IPaletteOptions
+    {
+        return $this->createMock(IPaletteOptions::class);
     }
 
     #[Test]
@@ -63,5 +70,16 @@ final class PaletteTemplateTest extends TestCase
         );
 
         self::assertSame($interval, $template->getInterval());
+    }
+    #[Test]
+    public function canGetPaletteOptions(): void
+    {
+        $options = $this->getPaletteOptionsMock();
+
+        $template = $this->getTesteeInstance(
+            options: $options,
+        );
+
+        self::assertSame($options, $template->getOptions());
     }
 }
