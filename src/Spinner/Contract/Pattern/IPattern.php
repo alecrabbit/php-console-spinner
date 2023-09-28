@@ -7,7 +7,7 @@ namespace AlecRabbit\Spinner\Contract\Pattern;
 use AlecRabbit\Spinner\Contract\IInterval;
 use Traversable;
 
-interface ITemplate
+interface IPattern
 {
     public function getInterval(): IInterval;
 

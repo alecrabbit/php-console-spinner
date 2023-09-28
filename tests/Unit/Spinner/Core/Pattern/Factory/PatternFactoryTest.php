@@ -12,7 +12,7 @@ use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteOptions;
 use AlecRabbit\Spinner\Core\Palette\Factory\Contract\IPaletteModeFactory;
 use AlecRabbit\Spinner\Core\Pattern\Factory\Contract\IPatternFactory;
 use AlecRabbit\Spinner\Core\Pattern\Factory\PatternFactory;
-use AlecRabbit\Spinner\Core\Pattern\Template;
+use AlecRabbit\Spinner\Core\Pattern\Pattern;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -98,7 +98,7 @@ final class PatternFactoryTest extends TestCase
 
         $template = $factory->create($palette);
 
-        self::assertInstanceOf(Template::class, $template);
+        self::assertInstanceOf(Pattern::class, $template);
 
         self::assertSame($entries, $template->getFrames());
         self::assertSame($factoryInterval, $template->getInterval());

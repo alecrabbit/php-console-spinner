@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Pattern;
 
 use AlecRabbit\Spinner\Contract\IInterval;
-use AlecRabbit\Spinner\Contract\Pattern\ITemplate;
+use AlecRabbit\Spinner\Contract\Pattern\IPattern;
 use Traversable;
 
-final class Template implements ITemplate
+final class Pattern implements IPattern
 {
     public function __construct(
         protected IInterval $interval,

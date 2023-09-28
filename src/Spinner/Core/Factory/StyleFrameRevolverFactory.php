@@ -6,7 +6,7 @@ namespace AlecRabbit\Spinner\Core\Factory;
 
 use AlecRabbit\Spinner\Contract\Legacy\ILegacyPattern;
 use AlecRabbit\Spinner\Contract\Option\StylingMethodOption;
-use AlecRabbit\Spinner\Contract\Pattern\ITemplate;
+use AlecRabbit\Spinner\Contract\Pattern\IPattern;
 use AlecRabbit\Spinner\Core\Contract\ITolerance;
 use AlecRabbit\Spinner\Core\Factory\Contract\IFrameCollectionFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalFactory;
@@ -55,18 +55,18 @@ final class StyleFrameRevolverFactory implements IStyleFrameRevolverFactory
             );
     }
 
-    public function create(ITemplate $template): IFrameRevolver
+    public function create(IPattern $pattern): IFrameRevolver
     {
-        dump($template);
+        dump($pattern);
         return
             $this->frameRevolverBuilder
                 ->withFrameCollection(
                     $this->frameCollectionFactory->create(
-                        $template->getFrames()
+                        $pattern->getFrames()
                     )
                 )
                 ->withInterval(
-                    $template->getInterval()
+                    $pattern->getInterval()
                 )
                 ->withTolerance(
                     $this->getTolerance()

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Factory;
 
 use AlecRabbit\Spinner\Contract\Option\StylingMethodOption;
-use AlecRabbit\Spinner\Contract\Pattern\ITemplate;
+use AlecRabbit\Spinner\Contract\Pattern\IPattern;
 use AlecRabbit\Spinner\Core\Factory\Contract\IFrameCollectionFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IStyleFrameRevolverFactory;
@@ -187,8 +187,8 @@ final class StyleRevolverFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
         $styleRevolverFactory->create($this->getTemplateMock());
     }
 
-    private function getTemplateMock(): MockObject&ITemplate
+    private function getTemplateMock(): MockObject&IPattern
     {
-        return $this->createMock(ITemplate::class);
+        return $this->createMock(IPattern::class);
     }
 }
