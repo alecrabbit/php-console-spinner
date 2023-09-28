@@ -18,7 +18,6 @@ use AlecRabbit\Spinner\Core\Pattern\NoStylePattern;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolver;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolverBuilder;
 use AlecRabbit\Spinner\Core\Revolver\Tolerance;
-use RuntimeException;
 
 final class StyleFrameRevolverFactory implements IStyleFrameRevolverFactory
 {
@@ -66,7 +65,8 @@ final class StyleFrameRevolverFactory implements IStyleFrameRevolverFactory
                     )
                 )
                 ->withInterval(
-                    $template->getInterval())
+                    $template->getInterval()
+                )
                 ->withTolerance(
                     $this->getTolerance()
                 )

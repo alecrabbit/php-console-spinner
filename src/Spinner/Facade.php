@@ -5,8 +5,6 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner;
 
 use AlecRabbit\Spinner\Core\A\AFacade;
-use AlecRabbit\Spinner\Core\Config\Legacy\Contract\ILegacySpinnerConfig;
-use AlecRabbit\Spinner\Core\Config\Legacy\Contract\ILegacyWidgetConfig;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\ILegacySettingsProvider;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;

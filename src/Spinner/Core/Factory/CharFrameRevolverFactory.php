@@ -15,7 +15,6 @@ use AlecRabbit\Spinner\Core\Pattern\Contract\IBakedPattern;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolver;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolverBuilder;
 use AlecRabbit\Spinner\Core\Revolver\Tolerance;
-use RuntimeException;
 
 final class CharFrameRevolverFactory implements ICharFrameRevolverFactory
 {
@@ -59,7 +58,8 @@ final class CharFrameRevolverFactory implements ICharFrameRevolverFactory
                     )
                 )
                 ->withInterval(
-                    $template->getInterval())
+                    $template->getInterval()
+                )
                 ->withTolerance(
                     $this->getTolerance()
                 )
