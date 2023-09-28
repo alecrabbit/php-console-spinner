@@ -42,7 +42,7 @@ final class PatternFactory implements IPatternFactory
     {
         return
             $this->intervalFactory->createNormalized(
-                $palette->getOptions()->getInterval()
+                dump($palette->getOptions()->getInterval())
             );
     }
 }

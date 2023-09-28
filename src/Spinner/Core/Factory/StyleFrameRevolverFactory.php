@@ -57,6 +57,7 @@ final class StyleFrameRevolverFactory implements IStyleFrameRevolverFactory
 
     public function create(ITemplate $template): IFrameRevolver
     {
+        dump($template);
         return
             $this->frameRevolverBuilder
                 ->withFrameCollection(

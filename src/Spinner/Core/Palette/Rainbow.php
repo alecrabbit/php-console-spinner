@@ -21,6 +21,21 @@ final class Rainbow extends APalette implements IStylePalette
     {
         $stylingMode = $this->extractStylingMode($entriesMode);
 
+        $this->options =
+            match ($stylingMode) {
+                StylingMethodMode::ANSI8 =>
+                new PaletteOptions(
+                    interval: $this->options->getInterval() ?? 1000,
+                    reversed: $this->options->getReversed(),
+                ),
+                StylingMethodMode::ANSI24 =>
+                new PaletteOptions(
+                    interval: $this->options->getInterval() ?? 100,
+                    reversed: $this->options->getReversed(),
+                ),
+                default => $this->options,
+            };
+
         yield from match ($stylingMode) {
             StylingMethodMode::NONE => $this->noneFrames(),
             StylingMethodMode::ANSI4 => $this->ansi4Frames(),
@@ -51,12 +66,6 @@ final class Rainbow extends APalette implements IStylePalette
 
     private function ansi8Frames(): Traversable
     {
-        $this->options =
-            new PaletteOptions(
-                interval: $this->options->getInterval() ?? 1000,
-                reversed: $this->options->getReversed(),
-            );
-
         $sequence = $this->ansi8Sequence();
 
         if ($this->options->getReversed()) {
@@ -105,13 +114,6 @@ final class Rainbow extends APalette implements IStylePalette
 
     private function ansi24Frames(): Traversable
     {
-        $this->options =
-            new PaletteOptions(
-                interval: $this->options->getInterval() ?? 100,
-                reversed: $this->options->getReversed(),
-            );
-
-
         $sequence = $this->ansi24Sequence();
 
         if ($this->options->getReversed()) {
