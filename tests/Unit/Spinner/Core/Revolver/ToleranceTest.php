@@ -19,9 +19,8 @@ final class ToleranceTest extends TestCase
         self::assertInstanceOf(Tolerance::class, $config);
     }
 
-    protected function getTesteeInstance(
-        ?int $value = null,
-    ): ITolerance {
+    protected function getTesteeInstance(?int $value = null): ITolerance
+    {
         if ($value === null) {
             return
                 new Tolerance();

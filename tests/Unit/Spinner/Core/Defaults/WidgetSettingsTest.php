@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Defaults;
 
 use AlecRabbit\Spinner\Contract\IFrame;
-use AlecRabbit\Spinner\Contract\Pattern\IPattern;
+use AlecRabbit\Spinner\Contract\Legacy\ILegacyPattern;
 use AlecRabbit\Spinner\Core\CharFrame;
-use AlecRabbit\Spinner\Core\Pattern\NoCharPattern;
-use AlecRabbit\Spinner\Core\Pattern\NoStylePattern;
+use AlecRabbit\Spinner\Core\Pattern\Legacy\NoCharPattern;
+use AlecRabbit\Spinner\Core\Pattern\Legacy\NoStylePattern;
 use AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyWidgetSettings;
 use AlecRabbit\Spinner\Core\Settings\Legacy\LegacyWidgetSettings;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
@@ -41,8 +41,8 @@ final class WidgetSettingsTest extends TestCaseWithPrebuiltMocksAndStubs
     public function getTesteeInstance(
         IFrame $leadingSpacer,
         IFrame $trailingSpacer,
-        IPattern $stylePattern,
-        IPattern $charPattern,
+        ILegacyPattern $stylePattern,
+        ILegacyPattern $charPattern,
     ): ILegacyWidgetSettings {
         return new LegacyWidgetSettings(
             leadingSpacer: $leadingSpacer,

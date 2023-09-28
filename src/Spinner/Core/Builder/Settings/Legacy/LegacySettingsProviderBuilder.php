@@ -13,10 +13,10 @@ use AlecRabbit\Spinner\Core\Config\Legacy\LegacyWidgetConfig;
 use AlecRabbit\Spinner\Core\Contract\ILegacySettingsProvider;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopSettingsFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ITerminalSettingsFactory;
-use AlecRabbit\Spinner\Core\Pattern\CharPattern\Snake;
-use AlecRabbit\Spinner\Core\Pattern\NoCharPattern;
-use AlecRabbit\Spinner\Core\Pattern\NoStylePattern;
-use AlecRabbit\Spinner\Core\Pattern\StylePattern\Rainbow;
+use AlecRabbit\Spinner\Core\Pattern\Legacy\CharPattern\Snake;
+use AlecRabbit\Spinner\Core\Pattern\Legacy\NoCharPattern;
+use AlecRabbit\Spinner\Core\Pattern\Legacy\NoStylePattern;
+use AlecRabbit\Spinner\Core\Pattern\Legacy\StylePattern\Rainbow;
 use AlecRabbit\Spinner\Core\Settings\Legacy\LegacySettingsProvider;
 
 final class LegacySettingsProviderBuilder implements ILegacySettingsProviderBuilder

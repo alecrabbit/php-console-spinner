@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Settings\Legacy;
 
 use AlecRabbit\Spinner\Contract\IFrame;
-use AlecRabbit\Spinner\Contract\Pattern\IPattern;
-use AlecRabbit\Spinner\Core\Pattern\Contract\IStylePattern;
+use AlecRabbit\Spinner\Contract\Legacy\ILegacyPattern;
+use AlecRabbit\Spinner\Core\Pattern\Legacy\Contract\IStyleLegacyPattern;
 use AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyWidgetSettings;
 
 final class LegacyWidgetSettings implements ILegacyWidgetSettings
@@ -14,8 +14,8 @@ final class LegacyWidgetSettings implements ILegacyWidgetSettings
     public function __construct(
         protected IFrame $leadingSpacer,
         protected IFrame $trailingSpacer,
-        protected IStylePattern $stylePattern,
-        protected IPattern $charPattern,
+        protected IStyleLegacyPattern $stylePattern,
+        protected ILegacyPattern $charPattern,
     ) {
     }
 
@@ -41,23 +41,23 @@ final class LegacyWidgetSettings implements ILegacyWidgetSettings
         return $this;
     }
 
-    public function getStylePattern(): IStylePattern
+    public function getStylePattern(): IStyleLegacyPattern
     {
         return $this->stylePattern;
     }
 
-    public function setStylePattern(IStylePattern $pattern): ILegacyWidgetSettings
+    public function setStylePattern(IStyleLegacyPattern $pattern): ILegacyWidgetSettings
     {
         $this->stylePattern = $pattern;
         return $this;
     }
 
-    public function getCharPattern(): IPattern
+    public function getCharPattern(): ILegacyPattern
     {
         return $this->charPattern;
     }
 
-    public function setCharPattern(IPattern $pattern): ILegacyWidgetSettings
+    public function setCharPattern(ILegacyPattern $pattern): ILegacyWidgetSettings
     {
         $this->charPattern = $pattern;
         return $this;

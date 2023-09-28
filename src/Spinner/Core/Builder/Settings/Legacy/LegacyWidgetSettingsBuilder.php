@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Builder\Settings\Legacy;
 
 use AlecRabbit\Spinner\Contract\IFrame;
-use AlecRabbit\Spinner\Contract\Pattern\IPattern;
+use AlecRabbit\Spinner\Contract\Legacy\ILegacyPattern;
 use AlecRabbit\Spinner\Core\Builder\Settings\Legacy\Contract\ILegacyWidgetSettingsBuilder;
-use AlecRabbit\Spinner\Core\Pattern\Contract\IStylePattern;
+use AlecRabbit\Spinner\Core\Pattern\Legacy\Contract\IStyleLegacyPattern;
 use AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyWidgetSettings;
 use AlecRabbit\Spinner\Core\Settings\Legacy\LegacyWidgetSettings;
 use AlecRabbit\Spinner\Exception\LogicException;
@@ -16,8 +16,8 @@ final class LegacyWidgetSettingsBuilder implements ILegacyWidgetSettingsBuilder
 {
     private ?IFrame $leadingSpacer = null;
     private ?IFrame $trailingSpacer = null;
-    private ?IStylePattern $stylePattern = null;
-    private ?IPattern $charPattern = null;
+    private ?IStyleLegacyPattern $stylePattern = null;
+    private ?ILegacyPattern $charPattern = null;
 
     public function build(): ILegacyWidgetSettings
     {
@@ -60,14 +60,14 @@ final class LegacyWidgetSettingsBuilder implements ILegacyWidgetSettingsBuilder
         return $clone;
     }
 
-    public function withStylePattern(IStylePattern $pattern): ILegacyWidgetSettingsBuilder
+    public function withStylePattern(IStyleLegacyPattern $pattern): ILegacyWidgetSettingsBuilder
     {
         $clone = clone $this;
         $clone->stylePattern = $pattern;
         return $clone;
     }
 
-    public function withCharPattern(IPattern $pattern): ILegacyWidgetSettingsBuilder
+    public function withCharPattern(ILegacyPattern $pattern): ILegacyWidgetSettingsBuilder
     {
         $clone = clone $this;
         $clone->charPattern = $pattern;
