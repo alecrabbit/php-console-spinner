@@ -2,12 +2,11 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Spinner\Core\Factory;
+namespace AlecRabbit\Spinner\Core\Factory\Legacy;
 
 use AlecRabbit\Spinner\Core\Builder\Settings\Legacy\Contract\ILegacyWidgetSettingsBuilder;
 use AlecRabbit\Spinner\Core\Config\Legacy\Contract\ILegacyWidgetConfig;
 use AlecRabbit\Spinner\Core\Contract\ILegacySettingsProvider;
-use AlecRabbit\Spinner\Core\Factory\Contract\ILegacyWidgetSettingsFactory;
 use AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyWidgetSettings;
 
 final class LegacyWidgetSettingsFactory implements ILegacyWidgetSettingsFactory

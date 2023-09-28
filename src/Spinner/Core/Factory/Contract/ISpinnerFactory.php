@@ -11,6 +11,9 @@ use AlecRabbit\Spinner\Core\Settings\Contract\ISpinnerSettings;
 
 interface ISpinnerFactory
 {
+    /**
+     * @deprecated
+     */
     public function legacyCreateSpinner(ILegacySpinnerConfig|ILegacyWidgetConfig|null $config = null): ISpinner;
 
     public function create(?ISpinnerSettings $spinnerSettings = null): ISpinner;
