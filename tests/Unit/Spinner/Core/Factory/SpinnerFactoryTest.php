@@ -244,7 +244,7 @@ final class SpinnerFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
         $widgetFactory = $this->getWidgetFactoryMock();
         $widgetFactory
             ->expects(self::once())
-            ->method('createWidget')
+            ->method('create')
             ->with($widgetSettings)
         ;
         $spinnerFactory = $this->getTesteeInstance(
@@ -268,6 +268,11 @@ final class SpinnerFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
         return $this->createMock(IWidgetSettings::class);
     }
 
+    protected function getRootWidgetSettingsMock(): MockObject&IRootWidgetSettings
+    {
+        return $this->createMock(IRootWidgetSettings::class);
+    }
+
     protected function getWidgetFactoryMock(): MockObject&IWidgetFactory
     {
         return $this->createMock(IWidgetFactory::class);
@@ -281,7 +286,7 @@ final class SpinnerFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
     #[Test]
     public function canCreateSpinnerWithoutSpinnerSettings(): void
     {
-        $widgetSettings = $this->getWidgetSettingsMock();
+        $widgetSettings = $this->getRootWidgetSettingsMock();
         $settings = $this->getSettingsMock();
         $settings
             ->expects(self::once())
@@ -299,7 +304,7 @@ final class SpinnerFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
         $widgetFactory = $this->getWidgetFactoryMock();
         $widgetFactory
             ->expects(self::once())
-            ->method('createWidget')
+            ->method('create')
             ->with($widgetSettings)
         ;
         $spinnerFactory = $this->getTesteeInstance(

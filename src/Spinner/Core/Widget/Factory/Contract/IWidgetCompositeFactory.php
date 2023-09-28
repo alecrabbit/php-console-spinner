@@ -12,5 +12,5 @@ interface IWidgetCompositeFactory extends IWidgetFactory
 {
     public function legacyCreateWidget(ILegacyWidgetSettings $widgetSettings): IWidgetComposite;
 
-    public function createWidget(?IWidgetSettings $widgetSettings = null): IWidgetComposite;
+    public function create(?IWidgetSettings $widgetSettings = null): IWidgetComposite;
 }

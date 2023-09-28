@@ -12,5 +12,5 @@ interface IWidgetFactory
 {
     public function legacyCreateWidget(ILegacyWidgetSettings $widgetSettings): IWidget;
 
-    public function createWidget(?IWidgetSettings $widgetSettings = null): IWidget;
+    public function create(?IWidgetSettings $widgetSettings = null): IWidget;
 }

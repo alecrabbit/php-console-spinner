@@ -78,13 +78,13 @@ final class SpinnerFactory implements ISpinnerFactory
         $widgetSettings =
             $spinnerSettings?->getWidgetSettings() ?? $this->getRootWidgetSettings();
 
+        $widget = $this->widgetFactory->create($widgetSettings);
+
         return
-            new Spinner(
-                $this->widgetFactory->createWidget($widgetSettings)
-            );
+            new Spinner($widget);
     }
 
-    protected function getRootWidgetSettings(): ?IWidgetSettings
+    protected function getRootWidgetSettings(): ?IRootWidgetSettings
     {
         return
             $this->settingsProvider->getSettings()->get(IRootWidgetSettings::class);

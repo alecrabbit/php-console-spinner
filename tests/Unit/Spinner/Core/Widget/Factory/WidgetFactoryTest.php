@@ -192,7 +192,7 @@ final class WidgetFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
         );
 
         self::assertInstanceOf(WidgetFactory::class, $widgetFactory);
-        self::assertSame($widget, $widgetFactory->createWidget());
+        self::assertSame($widget, $widgetFactory->create());
     }
 
     protected function getRevolverConfigMock(): MockObject&IWidgetRevolverConfig

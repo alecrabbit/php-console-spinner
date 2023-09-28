@@ -35,7 +35,7 @@ final class WidgetFactory implements IWidgetFactory
         ;
     }
 
-    public function createWidget(?IWidgetSettings $widgetSettings = null): IWidget
+    public function create(?IWidgetSettings $widgetSettings = null): IWidget
     {
         $widgetConfig = $this->widgetConfigFactory->create($widgetSettings);
 

@@ -217,7 +217,7 @@ final class WidgetCompositeFactoryTest extends TestCase
         );
 
         self::assertInstanceOf(WidgetCompositeFactory::class, $widgetFactory);
-        self::assertSame($widget, $widgetFactory->createWidget());
+        self::assertSame($widget, $widgetFactory->create());
     }
 
     protected function getRevolverConfigMock(): MockObject&IWidgetRevolverConfig
