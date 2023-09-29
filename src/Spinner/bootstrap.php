@@ -99,10 +99,18 @@ use AlecRabbit\Spinner\Core\Palette\Factory\Contract\IPaletteModeFactory;
 use AlecRabbit\Spinner\Core\Pattern\Factory\Contract\IPatternFactory;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolverBuilder;
 use AlecRabbit\Spinner\Core\Revolver\FrameRevolverBuilder;
+use AlecRabbit\Spinner\Core\Settings\Builder\SettingsProviderBuilder;
+use AlecRabbit\Spinner\Core\Settings\Contract\Builder\ISettingsProviderBuilder;
+use AlecRabbit\Spinner\Core\Settings\Contract\Factory\IDefaultSettingsFactory;
+use AlecRabbit\Spinner\Core\Settings\Contract\Factory\IDetectedSettingsFactory;
+use AlecRabbit\Spinner\Core\Settings\Contract\Factory\ISettingsProviderFactory;
+use AlecRabbit\Spinner\Core\Settings\Contract\Factory\IUserSettingsFactory;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettingsProvider;
+use AlecRabbit\Spinner\Core\Settings\Factory\DefaultSettingsFactory;
+use AlecRabbit\Spinner\Core\Settings\Factory\DetectedSettingsFactory;
+use AlecRabbit\Spinner\Core\Settings\Factory\SettingsProviderFactory;
+use AlecRabbit\Spinner\Core\Settings\Factory\UserSettingsFactory;
 use AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyDriverSettings;
-use AlecRabbit\Spinner\Core\Settings\Settings;
-use AlecRabbit\Spinner\Core\Settings\SettingsProvider;
 use AlecRabbit\Spinner\Core\SignalHandlersSetup;
 use AlecRabbit\Spinner\Core\Terminal\NativeTerminalProbe;
 use AlecRabbit\Spinner\Core\Widget\Builder\WidgetBuilder;
@@ -217,13 +225,14 @@ function definitions(): Traversable
         },
 
         ISettingsProvider::class => static function (ContainerInterface $container): ISettingsProvider {
-            return
-                new SettingsProvider(
-                    new Settings(),
-                    new Settings(),
-                    new Settings(),
-                );
+            return $container->get(ISettingsProviderFactory::class)->create();
         },
+        ISettingsProviderFactory::class => SettingsProviderFactory::class,
+        ISettingsProviderBuilder::class => SettingsProviderBuilder::class,
+        IUserSettingsFactory::class => UserSettingsFactory::class,
+        IDetectedSettingsFactory::class => DetectedSettingsFactory::class,
+        IDefaultSettingsFactory::class => DefaultSettingsFactory::class,
+
         ILegacySettingsProvider::class => static function (ContainerInterface $container): ILegacySettingsProvider {
             return
                 $container->get(ILegacySettingsProviderBuilder::class)->build();
@@ -252,7 +261,7 @@ function definitions(): Traversable
 
         NormalizerMethodMode::class => static function (ContainerInterface $container): NormalizerMethodMode {
             return
-                $container->get(ILegacySettingsProvider::class)->getLegacyAuxSettings()->getNormalizerMethodMode();
+                NormalizerMethodMode::BALANCED; // FIXME (2023-09-29 13:57) [Alec Rabbit]: stub!
         },
         CursorVisibilityOption::class => static function (ContainerInterface $container): CursorVisibilityOption {
             return
