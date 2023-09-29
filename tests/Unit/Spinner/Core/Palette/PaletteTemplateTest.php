@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Palette;
 
-use AlecRabbit\Spinner\Core\Palette\Contract\IPalette;
-use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteMode;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteOptions;
 use AlecRabbit\Spinner\Core\Palette\Contract\ITemplate;
 use AlecRabbit\Spinner\Core\Palette\PaletteTemplate;
 use AlecRabbit\Tests\TestCase\TestCase;
+use ArrayObject;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
+use Traversable;
 
 final class PaletteTemplateTest extends TestCase
 {
@@ -26,7 +26,7 @@ final class PaletteTemplateTest extends TestCase
     }
 
     private function getTesteeInstance(
-        ?\Traversable $entries = null,
+        ?Traversable $entries = null,
         ?int $interval = null,
         ?IPaletteOptions $options = null,
     ): ITemplate {
@@ -38,9 +38,9 @@ final class PaletteTemplateTest extends TestCase
             );
     }
 
-    private function getTraversableMock(): MockObject&\Traversable
+    private function getTraversableMock(): MockObject&Traversable
     {
-        return $this->createMock(\Traversable::class);
+        return $this->createMock(Traversable::class);
     }
 
     private function getPaletteOptionsMock(): MockObject&IPaletteOptions
@@ -51,7 +51,7 @@ final class PaletteTemplateTest extends TestCase
     #[Test]
     public function canGetEntries(): void
     {
-        $entries = new \ArrayObject();
+        $entries = new ArrayObject();
 
         $template = $this->getTesteeInstance(
             entries: $entries,
@@ -71,6 +71,7 @@ final class PaletteTemplateTest extends TestCase
 
         self::assertSame($interval, $template->getInterval());
     }
+
     #[Test]
     public function canGetPaletteOptions(): void
     {

@@ -17,6 +17,8 @@ use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 
+use function sprintf;
+
 final class RunMethodModeSolverTest extends TestCase
 {
     public static function canSolveDataProvider(): iterable
@@ -34,7 +36,7 @@ final class RunMethodModeSolverTest extends TestCase
                 [
                     self::EXCEPTION => [
                         self::CLASS_ => InvalidArgumentException::class,
-                        self::MESSAGE => \sprintf('Failed to solve "%s".', RunMethodMode::class),
+                        self::MESSAGE => sprintf('Failed to solve "%s".', RunMethodMode::class),
                     ],
                 ],
                 [null, null, null],
@@ -43,7 +45,7 @@ final class RunMethodModeSolverTest extends TestCase
                 [
                     self::EXCEPTION => [
                         self::CLASS_ => InvalidArgumentException::class,
-                        self::MESSAGE => \sprintf('Failed to solve "%s".', RunMethodMode::class),
+                        self::MESSAGE => sprintf('Failed to solve "%s".', RunMethodMode::class),
                     ],
                 ],
                 [$oAu, null, null],
@@ -52,7 +54,7 @@ final class RunMethodModeSolverTest extends TestCase
                 [
                     self::EXCEPTION => [
                         self::CLASS_ => InvalidArgumentException::class,
-                        self::MESSAGE => \sprintf('Failed to solve "%s".', RunMethodMode::class),
+                        self::MESSAGE => sprintf('Failed to solve "%s".', RunMethodMode::class),
                     ],
                 ],
                 [null, $oAu, null],
@@ -61,7 +63,7 @@ final class RunMethodModeSolverTest extends TestCase
                 [
                     self::EXCEPTION => [
                         self::CLASS_ => InvalidArgumentException::class,
-                        self::MESSAGE => \sprintf('Failed to solve "%s".', RunMethodMode::class),
+                        self::MESSAGE => sprintf('Failed to solve "%s".', RunMethodMode::class),
                     ],
                 ],
                 [null, null, $oAu],

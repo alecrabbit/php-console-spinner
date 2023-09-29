@@ -6,12 +6,12 @@ namespace AlecRabbit\Tests\Unit\Spinner\Core\Palette\A;
 
 use AlecRabbit\Spinner\Core\Palette\Contract\IPalette;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteOptions;
-use AlecRabbit\Spinner\Core\Palette\NoCharPalette;
 use AlecRabbit\Spinner\Core\Palette\PaletteTemplate;
 use AlecRabbit\Tests\TestCase\TestCase;
 use AlecRabbit\Tests\Unit\Spinner\Core\Palette\A\Override\APaletteOverride;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
+use Traversable;
 
 final class APaletteTest extends TestCase
 {
@@ -25,9 +25,8 @@ final class APaletteTest extends TestCase
 
     private function getTesteeInstance(
         ?IPaletteOptions $options = null,
-        ?\Traversable $entries = null,
-    ): IPalette
-    {
+        ?Traversable $entries = null,
+    ): IPalette {
         return
             new APaletteOverride(
                 options: $options ?? $this->getPaletteOptionsMock(),
@@ -40,10 +39,11 @@ final class APaletteTest extends TestCase
         return $this->createMock(IPaletteOptions::class);
     }
 
-    private function getTraversableMock(): MockObject&\Traversable
+    private function getTraversableMock(): MockObject&Traversable
     {
-        return $this->createMock(\Traversable::class);
+        return $this->createMock(Traversable::class);
     }
+
     #[Test]
     public function canGetTemplate(): void
     {
@@ -53,7 +53,8 @@ final class APaletteTest extends TestCase
         $options
             ->expects(self::once())
             ->method('getInterval')
-            ->willReturn($interval);
+            ->willReturn($interval)
+        ;
 
         $palette = $this->getTesteeInstance(
             options: $options,

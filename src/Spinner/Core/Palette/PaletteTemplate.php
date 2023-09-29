@@ -6,17 +6,18 @@ namespace AlecRabbit\Spinner\Core\Palette;
 
 use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteOptions;
 use AlecRabbit\Spinner\Core\Palette\Contract\ITemplate;
+use Traversable;
 
 final class PaletteTemplate implements ITemplate
 {
     public function __construct(
-        protected \Traversable $entries,
+        protected Traversable $entries,
         protected ?int $interval = null,
         protected IPaletteOptions $options = new PaletteOptions(),
     ) {
     }
 
-    public function getEntries(): \Traversable
+    public function getEntries(): Traversable
     {
         return $this->entries;
     }

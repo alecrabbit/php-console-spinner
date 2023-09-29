@@ -710,7 +710,6 @@ final class RainbowTest extends TestCase
         self::assertCount(360, $entries);
 
 
-
         self::assertEquals(new StyleFrame("\e[38;2;255;0;0m%s\e[39m", 0), $entries[359]);
         self::assertEquals(new StyleFrame("\e[38;2;255;4;0m%s\e[39m", 0), $entries[358]);
         self::assertEquals(new StyleFrame("\e[38;2;255;8;0m%s\e[39m", 0), $entries[357]);

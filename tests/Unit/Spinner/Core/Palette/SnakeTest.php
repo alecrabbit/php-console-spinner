@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Palette;
 
-use AlecRabbit\Spinner\Contract\Mode\StylingMethodMode;
 use AlecRabbit\Spinner\Core\CharFrame;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPalette;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteMode;
@@ -62,6 +61,7 @@ final class SnakeTest extends TestCase
     {
         return $this->createMock(IPaletteMode::class);
     }
+
     #[Test]
     public function canGetEntriesWithoutMode(): void
     {

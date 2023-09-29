@@ -12,6 +12,8 @@ use AlecRabbit\Spinner\Core\Settings\Contract\IAuxSettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettings;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 
+use function sprintf;
+
 final class RunMethodModeSolver extends ASolver implements IRunMethodModeSolver
 {
     /** @inheritDoc */
@@ -121,7 +123,7 @@ final class RunMethodModeSolver extends ASolver implements IRunMethodModeSolver
                 => RunMethodMode::SYNCHRONOUS,
                 default // DEFAULT BRANCH
                 => throw new InvalidArgumentException(
-                    \sprintf(
+                    sprintf(
                         'Failed to solve "%s". From values %s.',
                         RunMethodMode::class,
                         sprintf(

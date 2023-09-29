@@ -31,10 +31,10 @@ abstract class APalette implements IPalette
             );
     }
 
-    abstract protected function getEntries(?IPaletteMode $mode = null): Traversable;
-
     protected function getOptions(?IPaletteMode $mode = null): IPaletteOptions
     {
         return $this->options;
     }
+
+    abstract protected function getEntries(?IPaletteMode $mode = null): Traversable;
 }

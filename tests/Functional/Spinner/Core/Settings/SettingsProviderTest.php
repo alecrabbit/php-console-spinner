@@ -6,7 +6,6 @@ namespace AlecRabbit\Tests\Functional\Spinner\Core\Settings;
 
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettingsProvider;
-use AlecRabbit\Spinner\Core\Settings\Settings;
 use AlecRabbit\Spinner\Core\Settings\SettingsProvider;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
@@ -35,6 +34,11 @@ final class SettingsProviderTest extends TestCase
             );
     }
 
+    private function getSettingsMock(): MockObject&ISettings
+    {
+        return $this->createMock(ISettings::class);
+    }
+
     #[Test]
     public function canGetSettings(): void
     {
@@ -46,6 +50,7 @@ final class SettingsProviderTest extends TestCase
 
         self::assertSame($settings, $provider->getSettings());
     }
+
     #[Test]
     public function canGetDefaultSettings(): void
     {
@@ -57,6 +62,7 @@ final class SettingsProviderTest extends TestCase
 
         self::assertSame($settings, $provider->getDefaultSettings());
     }
+
     #[Test]
     public function canGetDetectedSettings(): void
     {
@@ -67,10 +73,5 @@ final class SettingsProviderTest extends TestCase
         );
 
         self::assertSame($settings, $provider->getDetectedSettings());
-    }
-
-    private function getSettingsMock(): MockObject&ISettings
-    {
-        return $this->createMock(ISettings::class);
     }
 }

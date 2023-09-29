@@ -42,10 +42,6 @@ final class NoStylePaletteTest extends TestCase
         self::assertNull($template->getInterval());
     }
 
-    private function getPaletteModeMock(): MockObject&IPaletteMode
-    {
-        return $this->createMock(IPaletteMode::class);
-    }
     #[Test]
     public function canGetTemplateWithMode(): void
     {
@@ -58,6 +54,11 @@ final class NoStylePaletteTest extends TestCase
         self::assertInstanceOf(PaletteTemplate::class, $template);
         self::assertInstanceOf(Generator::class, $template->getEntries());
         self::assertNull($template->getInterval());
+    }
+
+    private function getPaletteModeMock(): MockObject&IPaletteMode
+    {
+        return $this->createMock(IPaletteMode::class);
     }
 
     #[Test]
