@@ -55,6 +55,8 @@ final class SettingsProviderBuilderTest extends TestCaseWithPrebuiltMocksAndStub
         $settings =
             $builder
                 ->withSettings($this->getSettingsMock())
+                ->withDefaultSettings($this->getSettingsMock())
+                ->withDetectedSettings($this->getSettingsMock())
                 ->build()
         ;
 
@@ -71,6 +73,52 @@ final class SettingsProviderBuilderTest extends TestCaseWithPrebuiltMocksAndStub
             $builder = $this->getTesteeInstance();
 
             $builder
+                ->build()
+            ;
+        };
+
+        $this->wrapExceptionTest(
+            test: $test,
+            exception: $exceptionClass,
+            message: $exceptionMessage,
+        );
+    }
+
+    #[Test]
+    public function throwsIfDefaultSettingsAreNotSet(): void
+    {
+        $exceptionClass = LogicException::class;
+        $exceptionMessage = 'Default settings are not set.';
+
+        $test = function (): void {
+            $builder = $this->getTesteeInstance();
+
+            $builder
+                ->withSettings($this->getSettingsMock())
+                ->withDetectedSettings($this->getSettingsMock())
+                ->build()
+            ;
+        };
+
+        $this->wrapExceptionTest(
+            test: $test,
+            exception: $exceptionClass,
+            message: $exceptionMessage,
+        );
+    }
+
+    #[Test]
+    public function throwsIfDetectedSettingsAreNotSet(): void
+    {
+        $exceptionClass = LogicException::class;
+        $exceptionMessage = 'Detected settings are not set.';
+
+        $test = function (): void {
+            $builder = $this->getTesteeInstance();
+
+            $builder
+                ->withSettings($this->getSettingsMock())
+                ->withDefaultSettings($this->getSettingsMock())
                 ->build()
             ;
         };

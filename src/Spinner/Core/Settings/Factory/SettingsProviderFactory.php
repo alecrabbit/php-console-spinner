@@ -26,6 +26,8 @@ final readonly class SettingsProviderFactory implements ISettingsProviderFactory
         return
             $this->builder
                 ->withSettings($this->userSettingsFactory->create())
+                ->withDefaultSettings($this->defaultSettingsFactory->create())
+                ->withDetectedSettings($this->detectedSettingsFactory->create())
                 ->build()
         ;
     }

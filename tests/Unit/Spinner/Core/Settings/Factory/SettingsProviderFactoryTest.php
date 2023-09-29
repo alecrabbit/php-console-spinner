@@ -51,6 +51,16 @@ final class SettingsProviderFactoryTest extends TestCase
         return $this->createMock(IUserSettingsFactory::class);
     }
 
+    protected function getDetectedSettingsFactoryMock(): MockObject&IDetectedSettingsFactory
+    {
+        return $this->createMock(IDetectedSettingsFactory::class);
+    }
+
+    protected function getDefaultSettingsFactoryMock(): MockObject&IDefaultSettingsFactory
+    {
+        return $this->createMock(IDefaultSettingsFactory::class);
+    }
+
     #[Test]
     public function canCreate(): void
     {
@@ -64,11 +74,39 @@ final class SettingsProviderFactoryTest extends TestCase
             ->willReturn($userSettings)
         ;
 
+        $defaultSettings = $this->getSettingsMock();
+        $defaultSettingsFactory = $this->getDefaultSettingsFactoryMock();
+        $defaultSettingsFactory
+            ->expects(self::once())
+            ->method('create')
+            ->willReturn($defaultSettings)
+        ;
+
+        $detectedSettings = $this->getSettingsMock();
+        $detectedSettingsFactory = $this->getDetectedSettingsFactoryMock();
+        $detectedSettingsFactory
+            ->expects(self::once())
+            ->method('create')
+            ->willReturn($detectedSettings)
+        ;
+
         $builder = $this->getSettingsProviderBuilderMock();
         $builder
             ->expects(self::once())
             ->method('withSettings')
             ->with($userSettings)
+            ->willReturnSelf()
+        ;
+        $builder
+            ->expects(self::once())
+            ->method('withDefaultSettings')
+            ->with($defaultSettings)
+            ->willReturnSelf()
+        ;
+        $builder
+            ->expects(self::once())
+            ->method('withDetectedSettings')
+            ->with($detectedSettings)
             ->willReturnSelf()
         ;
         $builder
@@ -80,6 +118,8 @@ final class SettingsProviderFactoryTest extends TestCase
         $factory = $this->getTesteeInstance(
             builder: $builder,
             userSettingsFactory: $userSettingsFactory,
+            detectedSettingsFactory: $detectedSettingsFactory,
+            defaultSettingsFactory: $defaultSettingsFactory,
         );
 
         self::assertSame($provider, $factory->create());
@@ -93,16 +133,6 @@ final class SettingsProviderFactoryTest extends TestCase
     protected function getSettingsMock(): MockObject&ISettings
     {
         return $this->createMock(ISettings::class);
-    }
-
-    protected function getDefaultSettingsFactoryMock(): MockObject&IDefaultSettingsFactory
-    {
-        return $this->createMock(IDefaultSettingsFactory::class);
-    }
-
-    protected function getDetectedSettingsFactoryMock(): MockObject&IDetectedSettingsFactory
-    {
-        return $this->createMock(IDetectedSettingsFactory::class);
     }
 
 }

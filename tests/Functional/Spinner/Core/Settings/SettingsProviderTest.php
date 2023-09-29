@@ -10,6 +10,7 @@ use AlecRabbit\Spinner\Core\Settings\Settings;
 use AlecRabbit\Spinner\Core\Settings\SettingsProvider;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
+use PHPUnit\Framework\MockObject\MockObject;
 
 final class SettingsProviderTest extends TestCase
 {
@@ -23,22 +24,31 @@ final class SettingsProviderTest extends TestCase
 
     public function getTesteeInstance(
         ?ISettings $settings = null,
+        ?ISettings $defaultSettings = null,
+        ?ISettings $detectedSettings = null,
     ): ISettingsProvider {
         return
             new SettingsProvider(
-                settings: $settings ?? new Settings(),
+                settings: $settings ?? $this->getSettingsMock(),
+                defaultSettings: $defaultSettings ?? $this->getSettingsMock(),
+                detectedSettings: $detectedSettings ?? $this->getSettingsMock(),
             );
     }
 
     #[Test]
     public function canGetSettings(): void
     {
-        $settings = new Settings();
+        $settings = $this->getSettingsMock();
 
         $provider = $this->getTesteeInstance(
             settings: $settings,
         );
 
         self::assertSame($settings, $provider->getSettings());
+    }
+
+    private function getSettingsMock(): MockObject&ISettings
+    {
+        return $this->createMock(ISettings::class);
     }
 }

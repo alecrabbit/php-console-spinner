@@ -11,6 +11,8 @@ final readonly class SettingsProvider implements ISettingsProvider
 {
     public function __construct(
         protected ISettings $settings,
+        protected ISettings $defaultSettings,
+        protected ISettings $detectedSettings,
     ) {
     }
 
