@@ -34,18 +34,38 @@ final class RunMethodModeSolverTest extends TestCase
                 [
                     self::EXCEPTION => [
                         self::CLASS_ => InvalidArgumentException::class,
-                        self::MESSAGE => 'Failed to solve RunMethodMode.',
+                        self::MESSAGE => \sprintf('Failed to solve "%s".', RunMethodMode::class),
                     ],
                 ],
                 [null, null, null],
             ],
+            [
+                [
+                    self::EXCEPTION => [
+                        self::CLASS_ => InvalidArgumentException::class,
+                        self::MESSAGE => \sprintf('Failed to solve "%s".', RunMethodMode::class),
+                    ],
+                ],
+                [$oAut, null, null],
+            ],
             // [result], [$user, $detected, $default]
             [[$mS], [$oAut, $oSyn, $oAsy],],
             [[$mA], [$oAut, $oAsy, $oAsy],],
+
             [[$mS], [$oSyn, $oAsy, $oAsy],],
             [[$mA], [$oAsy, $oAsy, $oAsy],],
+
             [[$mA], [$oAsy, null, null],],
             [[$mS], [$oSyn, null, null],],
+
+            [[$mS], [$oAut, $oSyn, null],],
+            [[$mA], [$oAut, $oAsy, null],],
+
+            [[$mS], [$oAut, null, $oSyn],],
+            [[$mA], [$oAut, null, $oAsy],],
+
+//            [[$mS], [null, $oAut, $oSyn],],
+//            [[$mA], [null, $oAut, $oAsy],],
         ];
     }
 

@@ -43,6 +43,16 @@ final class RunMethodModeSolver extends ASolver implements IRunMethodModeSolver
                     RunMethodOption::ASYNC, // default
                 ],
                 [
+                    RunMethodOption::AUTO, // user
+                    RunMethodOption::ASYNC, // detected
+                    null, // default
+                ],
+                [
+                    RunMethodOption::AUTO, // user
+                    null, // detected
+                    RunMethodOption::ASYNC, // default
+                ],
+                [
                     RunMethodOption::ASYNC, // user
                     null, // detected
                     null, // default
@@ -59,12 +69,34 @@ final class RunMethodModeSolver extends ASolver implements IRunMethodModeSolver
                     RunMethodOption::ASYNC, // default
                 ],
                 [
+                    RunMethodOption::AUTO, // user
+                    RunMethodOption::SYNCHRONOUS, // detected
+                    null, // default
+                ],
+                [
+                    RunMethodOption::AUTO, // user
+                    null, // detected
+                    RunMethodOption::SYNCHRONOUS, // default
+                ],
+                [
                     RunMethodOption::SYNCHRONOUS, // user
                     null, // detected
                     null, // default
                 ]
                 => RunMethodMode::SYNCHRONOUS,
-                default => throw new InvalidArgumentException('Failed to solve RunMethodMode.'),
+                default // DEFAULT BRANCH
+                => throw new InvalidArgumentException(
+                    \sprintf(
+                        'Failed to solve "%s". From values %s.',
+                        RunMethodMode::class,
+                        sprintf(
+                            '[%s, %s, %s]',
+                            $userOption?->name ?? 'null',
+                            $detectedOption?->name ?? 'null',
+                            $defaultOption?->name ?? 'null',
+                        ),
+                    )
+                ),
             };
     }
 
