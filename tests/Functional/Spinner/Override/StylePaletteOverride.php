@@ -12,7 +12,7 @@ use Traversable;
 
 class StylePaletteOverride extends APalette implements IStylePalette
 {
-    public function getEntries(?IPaletteMode $entriesMode = null): Traversable
+    protected function getEntries(?IPaletteMode $mode = null): Traversable
     {
         throw new RuntimeException('Not implemented.'); // Intentionally.
     }

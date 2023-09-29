@@ -8,6 +8,7 @@ use AlecRabbit\Spinner\Contract\Mode\StylingMethodMode;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPalette;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteMode;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteOptions;
+use AlecRabbit\Spinner\Core\Palette\PaletteTemplate;
 use AlecRabbit\Spinner\Core\Palette\Rainbow;
 use AlecRabbit\Spinner\Core\StyleFrame;
 use AlecRabbit\Tests\TestCase\TestCase;
@@ -40,15 +41,22 @@ final class RainbowTest extends TestCase
     }
 
     #[Test]
-    public function canGetEntriesWithMode(): void
+    public function canGetTemplateWithMode(): void
     {
         $palette = $this->getTesteeInstance();
 
         $mode = $this->getPaletteModeMock();
+        $mode
+            ->expects(self::once())
+            ->method('getStylingMode')
+            ->willReturn(StylingMethodMode::NONE)
+        ;
 
-        $entries = $palette->getEntries($mode);
+        $template = $palette->getTemplate($mode);
 
-        self::assertInstanceOf(Generator::class, $entries);
+        self::assertInstanceOf(PaletteTemplate::class, $template);
+        self::assertInstanceOf(Generator::class, $template->getEntries());
+        self::assertNull($template->getInterval());
     }
 
     private function getPaletteModeMock(): MockObject&IPaletteMode
@@ -61,9 +69,11 @@ final class RainbowTest extends TestCase
     {
         $palette = $this->getTesteeInstance();
 
-        $entries = $palette->getEntries();
+        $template = $palette->getTemplate();
 
-        self::assertInstanceOf(Generator::class, $entries);
+        self::assertInstanceOf(PaletteTemplate::class, $template);
+        self::assertInstanceOf(Generator::class, $template->getEntries());
+        self::assertNull($template->getInterval());
     }
 
     #[Test]
@@ -71,7 +81,9 @@ final class RainbowTest extends TestCase
     {
         $palette = $this->getTesteeInstance();
 
-        $traversable = $palette->getEntries();
+        $template = $palette->getTemplate();
+
+        $traversable = $template->getEntries();
 
         self::assertInstanceOf(Generator::class, $traversable);
 
@@ -79,6 +91,8 @@ final class RainbowTest extends TestCase
 
         self::assertCount(1, $entries);
         self::assertEquals(new StyleFrame('%s', 0), $entries[0]);
+
+        self::assertNull($template->getInterval());
     }
 
     #[Test]
@@ -88,12 +102,14 @@ final class RainbowTest extends TestCase
 
         $mode = $this->getPaletteModeMock();
         $mode
-            ->expects(self::once())
+            ->expects(self::exactly(2))
             ->method('getStylingMode')
             ->willReturn(StylingMethodMode::NONE)
         ;
 
-        $traversable = $palette->getEntries($mode);
+        $template = $palette->getTemplate($mode);
+
+        $traversable = $template->getEntries();
 
         self::assertInstanceOf(Generator::class, $traversable);
 
@@ -101,6 +117,8 @@ final class RainbowTest extends TestCase
 
         self::assertCount(1, $entries);
         self::assertEquals(new StyleFrame('%s', 0), $entries[0]);
+
+        self::assertNull($template->getInterval());
     }
 
     #[Test]
@@ -114,12 +132,14 @@ final class RainbowTest extends TestCase
 
         $mode = $this->getPaletteModeMock();
         $mode
-            ->expects(self::once())
+            ->expects(self::exactly(2))
             ->method('getStylingMode')
             ->willReturn(StylingMethodMode::ANSI4)
         ;
 
-        $traversable = $palette->getEntries($mode);
+        $template = $palette->getTemplate($mode);
+
+        $traversable = $template->getEntries();
 
         self::assertInstanceOf(Generator::class, $traversable);
 
@@ -128,8 +148,7 @@ final class RainbowTest extends TestCase
         self::assertCount(1, $entries);
         self::assertEquals(new StyleFrame("\e[96m%s\e[39m", 0), $entries[0]);
 
-        self::assertNull($palette->getOptions()->getInterval());
-        self::assertNull($palette->getOptions()->getReversed());
+        self::assertNull($template->getInterval());
     }
 
     #[Test]
@@ -143,21 +162,21 @@ final class RainbowTest extends TestCase
 
         $mode = $this->getPaletteModeMock();
         $mode
-            ->expects(self::once())
+            ->expects(self::exactly(2))
             ->method('getStylingMode')
             ->willReturn(StylingMethodMode::ANSI8)
         ;
 
-        $traversable = $palette->getEntries($mode);
+        $template = $palette->getTemplate($mode);
+
+        $traversable = $template->getEntries();
 
         self::assertInstanceOf(Generator::class, $traversable);
+        self::assertSame(1000, $template->getInterval());
 
         $entries = iterator_to_array($traversable); // unwrap generator
 
         self::assertCount(29, $entries);
-
-        self::assertSame(1000, $palette->getOptions()->getInterval());
-        self::assertNull($palette->getOptions()->getReversed());
 
         self::assertEquals(new StyleFrame("\e[38;5;196m%s\e[39m", 0), $entries[0]);
         self::assertEquals(new StyleFrame("\e[38;5;208m%s\e[39m", 0), $entries[1]);
@@ -212,21 +231,22 @@ final class RainbowTest extends TestCase
 
         $mode = $this->getPaletteModeMock();
         $mode
-            ->expects(self::once())
+            ->expects(self::exactly(2))
             ->method('getStylingMode')
             ->willReturn(StylingMethodMode::ANSI8)
         ;
 
-        $traversable = $palette->getEntries($mode);
+        $template = $palette->getTemplate($mode);
+
+        $traversable = $template->getEntries();
 
         self::assertInstanceOf(Generator::class, $traversable);
+        self::assertSame($interval, $template->getInterval());
 
         $entries = iterator_to_array($traversable); // unwrap generator
 
         self::assertCount(29, $entries);
 
-        self::assertSame($interval, $palette->getOptions()->getInterval());
-        self::assertTrue($palette->getOptions()->getReversed());
 
         self::assertEquals(new StyleFrame("\e[38;5;196m%s\e[39m", 0), $entries[28]);
         self::assertEquals(new StyleFrame("\e[38;5;208m%s\e[39m", 0), $entries[27]);
@@ -270,21 +290,21 @@ final class RainbowTest extends TestCase
 
         $mode = $this->getPaletteModeMock();
         $mode
-            ->expects(self::once())
+            ->expects(self::exactly(2))
             ->method('getStylingMode')
             ->willReturn(StylingMethodMode::ANSI24)
         ;
 
-        $traversable = $palette->getEntries($mode);
+        $template = $palette->getTemplate($mode);
+
+        $traversable = $template->getEntries();
 
         self::assertInstanceOf(Generator::class, $traversable);
+        self::assertSame(100, $template->getInterval());
 
         $entries = iterator_to_array($traversable); // unwrap generator
 
         self::assertCount(360, $entries);
-
-        self::assertSame(100, $palette->getOptions()->getInterval());
-        self::assertNull($palette->getOptions()->getReversed());
 
         self::assertEquals(new StyleFrame("\e[38;2;255;0;0m%s\e[39m", 0), $entries[0]);
         self::assertEquals(new StyleFrame("\e[38;2;255;4;0m%s\e[39m", 0), $entries[1]);
@@ -670,21 +690,26 @@ final class RainbowTest extends TestCase
 
         $mode = $this->getPaletteModeMock();
         $mode
-            ->expects(self::once())
+            ->expects(self::exactly(2))
             ->method('getStylingMode')
             ->willReturn(StylingMethodMode::ANSI24)
         ;
 
-        $traversable = $palette->getEntries($mode);
+        $template = $palette->getTemplate($mode);
+
+        $traversable = $template->getEntries();
 
         self::assertInstanceOf(Generator::class, $traversable);
+        self::assertSame($interval, $template->getInterval());
+
+        self::assertSame($interval, $template->getOptions()->getInterval());
+//        self::assertTrue($template->getOptions()->getReversed());
 
         $entries = iterator_to_array($traversable); // unwrap generator
 
         self::assertCount(360, $entries);
 
-        self::assertSame($interval, $palette->getOptions()->getInterval());
-        self::assertTrue($palette->getOptions()->getReversed());
+
 
         self::assertEquals(new StyleFrame("\e[38;2;255;0;0m%s\e[39m", 0), $entries[359]);
         self::assertEquals(new StyleFrame("\e[38;2;255;4;0m%s\e[39m", 0), $entries[358]);

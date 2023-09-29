@@ -3,8 +3,8 @@
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Pattern;
 
 use AlecRabbit\Spinner\Contract\IInterval;
-use AlecRabbit\Spinner\Contract\Pattern\ITemplate;
-use AlecRabbit\Spinner\Core\Pattern\Template;
+use AlecRabbit\Spinner\Contract\Pattern\IPattern;
+use AlecRabbit\Spinner\Core\Pattern\Pattern;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -17,14 +17,14 @@ final class PatternTest extends TestCase
     {
         $factory = $this->getTesteeInstance();
 
-        self::assertInstanceOf(Template::class, $factory);
+        self::assertInstanceOf(Pattern::class, $factory);
     }
 
     public function getTesteeInstance(
         ?IInterval $interval = null,
         ?Traversable $frames = null
-    ): ITemplate {
-        return new Template(
+    ): IPattern {
+        return new Pattern(
             interval: $interval ?? $this->getIntervalMock(),
             frames: $frames ?? $this->getTraversableMock(),
         );

@@ -9,10 +9,10 @@ use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Contract\IObserver;
 use AlecRabbit\Spinner\Contract\ITimer;
+use AlecRabbit\Spinner\Contract\Legacy\ILegacyPattern;
 use AlecRabbit\Spinner\Contract\Output\IBufferedOutput;
 use AlecRabbit\Spinner\Contract\Output\IOutput;
 use AlecRabbit\Spinner\Contract\Output\IResourceStream;
-use AlecRabbit\Spinner\Contract\Pattern\IPattern;
 use AlecRabbit\Spinner\Core\Builder\Contract\IBufferedOutputBuilder;
 use AlecRabbit\Spinner\Core\Builder\Contract\IConsoleCursorBuilder;
 use AlecRabbit\Spinner\Core\Builder\Contract\IDriverOutputBuilder;
@@ -46,7 +46,6 @@ use AlecRabbit\Spinner\Core\Factory\Contract\IConsoleCursorFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDriverOutputFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IFrameCollectionFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalFactory;
-use AlecRabbit\Spinner\Core\Factory\Contract\ILegacyWidgetSettingsFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopAutoStarterFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopProbeFactory;
@@ -55,11 +54,12 @@ use AlecRabbit\Spinner\Core\Factory\Contract\ISignalHandlersSetupFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IStyleFrameRevolverFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ITerminalSettingsFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ITimerFactory;
+use AlecRabbit\Spinner\Core\Factory\Legacy\ILegacyWidgetSettingsFactory;
 use AlecRabbit\Spinner\Core\Output\Contract\IConsoleCursor;
 use AlecRabbit\Spinner\Core\Output\Contract\IDriverOutput;
-use AlecRabbit\Spinner\Core\Pattern\Contract\IBakedPattern;
-use AlecRabbit\Spinner\Core\Pattern\Contract\ICharPattern;
-use AlecRabbit\Spinner\Core\Pattern\Contract\IStylePattern;
+use AlecRabbit\Spinner\Core\Pattern\Legacy\Contract\ICharLegacyPattern;
+use AlecRabbit\Spinner\Core\Pattern\Legacy\Contract\ILegacyBakedPattern;
+use AlecRabbit\Spinner\Core\Pattern\Legacy\Contract\IStyleLegacyPattern;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolver;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolverBuilder;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
@@ -102,9 +102,9 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
         return $this->createMock(IFrame::class);
     }
 
-    protected function getBakedPatternMock(): MockObject&IBakedPattern
+    protected function getBakedPatternMock(): MockObject&ILegacyBakedPattern
     {
-        return $this->createMock(IBakedPattern::class);
+        return $this->createMock(ILegacyBakedPattern::class);
     }
 
     protected function getWidgetCompositeChildrenContainerMock(): MockObject&IWidgetCompositeChildrenContainer
@@ -127,14 +127,14 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
         return $this->createMock(IWidget::class);
     }
 
-    protected function getCharPatternMock(): MockObject&ICharPattern
+    protected function getCharPatternMock(): MockObject&ICharLegacyPattern
     {
-        return $this->createMock(ICharPattern::class);
+        return $this->createMock(ICharLegacyPattern::class);
     }
 
-    protected function getStylePatternMock(): MockObject&IStylePattern
+    protected function getStylePatternMock(): MockObject&IStyleLegacyPattern
     {
-        return $this->createMock(IStylePattern::class);
+        return $this->createMock(IStyleLegacyPattern::class);
     }
 
     protected function getLegacyWidgetSettingsMock(): MockObject&ILegacyWidgetSettings
@@ -367,9 +367,9 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
         return $this->createMock(IDriver::class);
     }
 
-    protected function getPatternStub(): Stub&IPattern
+    protected function getPatternStub(): Stub&ILegacyPattern
     {
-        return $this->createStub(IPattern::class);
+        return $this->createStub(ILegacyPattern::class);
     }
 
     protected function getFrameStub(): Stub&IFrame

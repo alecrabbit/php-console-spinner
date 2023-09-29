@@ -6,8 +6,8 @@ namespace AlecRabbit\Tests\Unit\Spinner\Core\Factory;
 
 use AlecRabbit\Spinner\Core\Contract\IConfigProvider;
 use AlecRabbit\Spinner\Core\Contract\ILegacySettingsProvider;
-use AlecRabbit\Spinner\Core\Factory\Contract\ILegacyWidgetSettingsFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ISpinnerFactory;
+use AlecRabbit\Spinner\Core\Factory\Legacy\ILegacyWidgetSettingsFactory;
 use AlecRabbit\Spinner\Core\Factory\SpinnerFactory;
 use AlecRabbit\Spinner\Core\Settings\Contract\IRootWidgetSettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettings;

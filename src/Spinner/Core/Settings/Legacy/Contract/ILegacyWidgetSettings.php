@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Settings\Legacy\Contract;
 
 use AlecRabbit\Spinner\Contract\IFrame;
-use AlecRabbit\Spinner\Contract\Pattern\IPattern;
-use AlecRabbit\Spinner\Core\Pattern\Contract\IStylePattern;
+use AlecRabbit\Spinner\Contract\Legacy\ILegacyPattern;
+use AlecRabbit\Spinner\Core\Pattern\Legacy\Contract\IStyleLegacyPattern;
 
 interface ILegacyWidgetSettings
 {
@@ -18,11 +18,11 @@ interface ILegacyWidgetSettings
 
     public function setTrailingSpacer(IFrame $frame): ILegacyWidgetSettings;
 
-    public function getStylePattern(): IStylePattern;
+    public function getStylePattern(): IStyleLegacyPattern;
 
-    public function setStylePattern(IStylePattern $pattern): ILegacyWidgetSettings;
+    public function setStylePattern(IStyleLegacyPattern $pattern): ILegacyWidgetSettings;
 
-    public function getCharPattern(): IPattern;
+    public function getCharPattern(): ILegacyPattern;
 
-    public function setCharPattern(IPattern $pattern): ILegacyWidgetSettings;
+    public function setCharPattern(ILegacyPattern $pattern): ILegacyWidgetSettings;
 }

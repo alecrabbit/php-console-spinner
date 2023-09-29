@@ -7,6 +7,7 @@ namespace AlecRabbit\Tests\Unit\Spinner\Core\Palette;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPalette;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteMode;
 use AlecRabbit\Spinner\Core\Palette\NoStylePalette;
+use AlecRabbit\Spinner\Core\Palette\PaletteTemplate;
 use AlecRabbit\Spinner\Core\StyleFrame;
 use AlecRabbit\Tests\TestCase\TestCase;
 use Generator;
@@ -30,30 +31,33 @@ final class NoStylePaletteTest extends TestCase
     }
 
     #[Test]
-    public function canGetEntriesWithOptions(): void
+    public function canGetEntriesWithoutMode(): void
     {
         $palette = $this->getTesteeInstance();
 
-        $mode = $this->getPaletteModeMock();
+        $template = $palette->getTemplate();
 
-        $entries = $palette->getEntries($mode);
-
-        self::assertInstanceOf(Generator::class, $entries);
+        self::assertInstanceOf(PaletteTemplate::class, $template);
+        self::assertInstanceOf(Generator::class, $template->getEntries());
+        self::assertNull($template->getInterval());
     }
 
     private function getPaletteModeMock(): MockObject&IPaletteMode
     {
         return $this->createMock(IPaletteMode::class);
     }
-
     #[Test]
-    public function canGetEntriesWithoutOptions(): void
+    public function canGetTemplateWithMode(): void
     {
         $palette = $this->getTesteeInstance();
 
-        $entries = $palette->getEntries();
+        $mode = $this->getPaletteModeMock();
 
-        self::assertInstanceOf(Generator::class, $entries);
+        $template = $palette->getTemplate($mode);
+
+        self::assertInstanceOf(PaletteTemplate::class, $template);
+        self::assertInstanceOf(Generator::class, $template->getEntries());
+        self::assertNull($template->getInterval());
     }
 
     #[Test]
@@ -61,7 +65,9 @@ final class NoStylePaletteTest extends TestCase
     {
         $palette = $this->getTesteeInstance();
 
-        $traversable = $palette->getEntries();
+        $template = $palette->getTemplate();
+
+        $traversable = $template->getEntries();
 
         self::assertInstanceOf(Generator::class, $traversable);
 

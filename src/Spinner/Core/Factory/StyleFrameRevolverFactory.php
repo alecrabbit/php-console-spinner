@@ -4,17 +4,17 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Factory;
 
+use AlecRabbit\Spinner\Contract\Legacy\ILegacyPattern;
 use AlecRabbit\Spinner\Contract\Option\StylingMethodOption;
 use AlecRabbit\Spinner\Contract\Pattern\IPattern;
-use AlecRabbit\Spinner\Contract\Pattern\ITemplate;
 use AlecRabbit\Spinner\Core\Contract\ITolerance;
 use AlecRabbit\Spinner\Core\Factory\Contract\IFrameCollectionFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IStyleFrameRevolverFactory;
-use AlecRabbit\Spinner\Core\Pattern\BakedPattern;
-use AlecRabbit\Spinner\Core\Pattern\Contract\IBakedPattern;
-use AlecRabbit\Spinner\Core\Pattern\Contract\IStylePattern;
-use AlecRabbit\Spinner\Core\Pattern\NoStylePattern;
+use AlecRabbit\Spinner\Core\Pattern\Legacy\BakedPattern;
+use AlecRabbit\Spinner\Core\Pattern\Legacy\Contract\ILegacyBakedPattern;
+use AlecRabbit\Spinner\Core\Pattern\Legacy\Contract\IStyleLegacyPattern;
+use AlecRabbit\Spinner\Core\Pattern\Legacy\NoStylePattern;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolver;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolverBuilder;
 use AlecRabbit\Spinner\Core\Revolver\Tolerance;
@@ -29,7 +29,7 @@ final class StyleFrameRevolverFactory implements IStyleFrameRevolverFactory
     ) {
     }
 
-    public function createStyleRevolver(IStylePattern $stylePattern): IFrameRevolver
+    public function createStyleRevolver(IStyleLegacyPattern $stylePattern): IFrameRevolver
     {
         $bakedPattern = $this->bakePattern($stylePattern);
         return
@@ -43,7 +43,7 @@ final class StyleFrameRevolverFactory implements IStyleFrameRevolverFactory
         ;
     }
 
-    private function bakePattern(IPattern $pattern): IBakedPattern
+    private function bakePattern(ILegacyPattern $pattern): ILegacyBakedPattern
     {
         if (StylingMethodOption::NONE === $this->styleMode) {
             $pattern = new NoStylePattern();
@@ -55,18 +55,17 @@ final class StyleFrameRevolverFactory implements IStyleFrameRevolverFactory
             );
     }
 
-    public function create(ITemplate $template): IFrameRevolver
+    public function create(IPattern $pattern): IFrameRevolver
     {
-        dump($template);
         return
             $this->frameRevolverBuilder
                 ->withFrameCollection(
                     $this->frameCollectionFactory->create(
-                        $template->getFrames()
+                        $pattern->getFrames()
                     )
                 )
                 ->withInterval(
-                    $template->getInterval()
+                    $pattern->getInterval()
                 )
                 ->withTolerance(
                     $this->getTolerance()

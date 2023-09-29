@@ -4,14 +4,12 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Pattern\Factory;
 
-use AlecRabbit\Spinner\Contract\IInterval;
-use AlecRabbit\Spinner\Contract\Pattern\ITemplate;
+use AlecRabbit\Spinner\Contract\Pattern\IPattern;
 use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalFactory;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPalette;
-use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteMode;
 use AlecRabbit\Spinner\Core\Palette\Factory\Contract\IPaletteModeFactory;
 use AlecRabbit\Spinner\Core\Pattern\Factory\Contract\IPatternFactory;
-use AlecRabbit\Spinner\Core\Pattern\Template;
+use AlecRabbit\Spinner\Core\Pattern\Pattern;
 
 final class PatternFactory implements IPatternFactory
 {
@@ -21,28 +19,21 @@ final class PatternFactory implements IPatternFactory
     ) {
     }
 
-    public function create(IPalette $palette): ITemplate
+    public function create(IPalette $palette): IPattern
     {
-        $entries = $palette->getEntries($this->createPaletteMode());
+        $mode = $this->paletteModeFactory->create();
 
-        return
-            new Template(
-                interval: $this->createInterval($palette),
-                frames: $entries,
-            );
-    }
+        $template = $palette->getTemplate($mode);
 
-    private function createPaletteMode(): IPaletteMode
-    {
-        return
-            $this->paletteModeFactory->create();
-    }
-
-    private function createInterval(IPalette $palette): IInterval
-    {
-        return
+        $interval =
             $this->intervalFactory->createNormalized(
-                dump($palette->getOptions()->getInterval())
+                $template->getOptions()->getInterval()
+            );
+
+        return
+            new Pattern(
+                interval: $interval,
+                frames: $template->getEntries(),
             );
     }
 }

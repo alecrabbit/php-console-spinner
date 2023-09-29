@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Builder\Settings\Legacy\Contract;
 
 use AlecRabbit\Spinner\Contract\IFrame;
-use AlecRabbit\Spinner\Contract\Pattern\IPattern;
-use AlecRabbit\Spinner\Core\Pattern\Contract\IStylePattern;
+use AlecRabbit\Spinner\Contract\Legacy\ILegacyPattern;
+use AlecRabbit\Spinner\Core\Pattern\Legacy\Contract\IStyleLegacyPattern;
 use AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyWidgetSettings;
 use AlecRabbit\Spinner\Exception\LogicException;
 
@@ -21,7 +21,7 @@ interface ILegacyWidgetSettingsBuilder
 
     public function withLeadingSpacer(IFrame $frame): ILegacyWidgetSettingsBuilder;
 
-    public function withStylePattern(IStylePattern $pattern): ILegacyWidgetSettingsBuilder;
+    public function withStylePattern(IStyleLegacyPattern $pattern): ILegacyWidgetSettingsBuilder;
 
-    public function withCharPattern(IPattern $pattern): ILegacyWidgetSettingsBuilder;
+    public function withCharPattern(ILegacyPattern $pattern): ILegacyWidgetSettingsBuilder;
 }
