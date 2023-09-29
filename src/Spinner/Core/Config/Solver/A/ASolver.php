@@ -19,6 +19,8 @@ abstract class ASolver implements ISolver
     /** @inheritDoc */
     abstract public function solve(): mixed;
 
+    abstract protected function extractOption(ISettings $settings): mixed;
+
     /**
      * @param ISettings $settings
      * @param class-string<ISettingsElement> $id

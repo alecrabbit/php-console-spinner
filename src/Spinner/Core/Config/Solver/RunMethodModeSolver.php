@@ -17,11 +17,12 @@ final class RunMethodModeSolver extends ASolver implements IRunMethodModeSolver
     /** @inheritDoc */
     public function solve(): RunMethodMode
     {
-        return $this->doSolve(
-            $this->extractOption($this->settingsProvider->getSettings()),
-            $this->extractOption($this->settingsProvider->getDetectedSettings()),
-            $this->extractOption($this->settingsProvider->getDefaultSettings()),
-        );
+        return
+            $this->doSolve(
+                $this->extractOption($this->settingsProvider->getSettings()),
+                $this->extractOption($this->settingsProvider->getDetectedSettings()),
+                $this->extractOption($this->settingsProvider->getDefaultSettings()),
+            );
     }
 
     /**
