@@ -38,6 +38,7 @@ final class DefaultSettingsFactory implements IDefaultSettingsFactory
 
     private function fill(ISettings $settings): void
     {
+        // ATTENTION! MUST be filled with all required values
         $settings->set(
             new AuxSettings(
                 runMethodOption: RunMethodOption::ASYNC,

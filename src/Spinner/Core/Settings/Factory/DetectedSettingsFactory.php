@@ -12,6 +12,15 @@ final class DetectedSettingsFactory implements IDetectedSettingsFactory
 {
     public function create(): ISettings
     {
-        return new Settings();
+        $settings = new Settings();
+
+        $this->fill($settings);
+
+        return $settings;
+    }
+
+    private function fill(ISettings $settings): void
+    {
+
     }
 }

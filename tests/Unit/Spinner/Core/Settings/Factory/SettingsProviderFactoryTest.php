@@ -12,11 +12,11 @@ use AlecRabbit\Spinner\Core\Settings\Contract\Factory\IUserSettingsFactory;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettingsProvider;
 use AlecRabbit\Spinner\Core\Settings\Factory\SettingsProviderFactory;
-use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
+use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 
-final class SettingsProviderFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
+final class SettingsProviderFactoryTest extends TestCase
 {
     #[Test]
     public function canBeInstantiated(): void
@@ -29,11 +29,15 @@ final class SettingsProviderFactoryTest extends TestCaseWithPrebuiltMocksAndStub
     public function getTesteeInstance(
         ?ISettingsProviderBuilder $builder = null,
         ?IUserSettingsFactory $userSettingsFactory = null,
+        ?IDetectedSettingsFactory $detectedSettingsFactory = null,
+        ?IDefaultSettingsFactory $defaultSettingsFactory = null,
     ): ISettingsProviderFactory {
         return
             new SettingsProviderFactory(
                 builder: $builder ?? $this->getSettingsProviderBuilderMock(),
                 userSettingsFactory: $userSettingsFactory ?? $this->getUserSettingsFactoryMock(),
+                detectedSettingsFactory: $detectedSettingsFactory ?? $this->getDetectedSettingsFactoryMock(),
+                defaultSettingsFactory: $defaultSettingsFactory ?? $this->getDefaultSettingsFactoryMock(),
             );
     }
 

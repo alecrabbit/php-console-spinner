@@ -7,10 +7,10 @@ namespace AlecRabbit\Tests\Unit\Spinner\Core\Settings\Factory;
 use AlecRabbit\Spinner\Core\Settings\Contract\Factory\IDefaultSettingsFactory;
 use AlecRabbit\Spinner\Core\Settings\Factory\DefaultSettingsFactory;
 use AlecRabbit\Spinner\Core\Settings\Settings;
-use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
+use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 
-final class DefaultSettingsFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
+final class DefaultSettingsFactoryTest extends TestCase
 {
     #[Test]
     public function canBeInstantiated(): void

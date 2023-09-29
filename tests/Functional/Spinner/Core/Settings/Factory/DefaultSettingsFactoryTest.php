@@ -30,10 +30,10 @@ use AlecRabbit\Spinner\Core\Settings\OutputSettings;
 use AlecRabbit\Spinner\Core\Settings\RootWidgetSettings;
 use AlecRabbit\Spinner\Core\Settings\Settings;
 use AlecRabbit\Spinner\Core\Settings\WidgetSettings;
-use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
+use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 
-final class DefaultSettingsFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
+final class DefaultSettingsFactoryTest extends TestCase
 {
     #[Test]
     public function canBeInstantiated(): void
