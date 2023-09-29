@@ -16,6 +16,7 @@ abstract class ASolver implements ISolver
     ) {
     }
 
+    /** @inheritDoc */
     abstract public function solve(): mixed;
 
     /**

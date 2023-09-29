@@ -14,6 +14,7 @@ use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 
 final class RunMethodModeSolver extends ASolver implements IRunMethodModeSolver
 {
+    /** @inheritDoc */
     public function solve(): RunMethodMode
     {
         return $this->doSolve(
@@ -23,6 +24,9 @@ final class RunMethodModeSolver extends ASolver implements IRunMethodModeSolver
         );
     }
 
+    /**
+     * @throws InvalidArgumentException
+     */
     private function doSolve(
         ?RunMethodOption $userOption,
         ?RunMethodOption $detectedOption,
@@ -53,6 +57,21 @@ final class RunMethodModeSolver extends ASolver implements IRunMethodModeSolver
                     RunMethodOption::ASYNC, // default
                 ],
                 [
+                    null, // user
+                    null, // detected
+                    RunMethodOption::ASYNC, // default
+                ],
+                [
+                    null, // user
+                    RunMethodOption::AUTO, // detected
+                    RunMethodOption::ASYNC, // default
+                ],
+                [
+                    null, // user
+                    RunMethodOption::ASYNC, // detected
+                    null, // default
+                ],
+                [
                     RunMethodOption::ASYNC, // user
                     null, // detected
                     null, // default
@@ -77,6 +96,21 @@ final class RunMethodModeSolver extends ASolver implements IRunMethodModeSolver
                     RunMethodOption::AUTO, // user
                     null, // detected
                     RunMethodOption::SYNCHRONOUS, // default
+                ],
+                [
+                    null, // user
+                    null, // detected
+                    RunMethodOption::SYNCHRONOUS, // default
+                ],
+                [
+                    null, // user
+                    RunMethodOption::AUTO, // detected
+                    RunMethodOption::SYNCHRONOUS, // default
+                ],
+                [
+                    null, // user
+                    RunMethodOption::SYNCHRONOUS, // detected
+                    null, // default
                 ],
                 [
                     RunMethodOption::SYNCHRONOUS, // user

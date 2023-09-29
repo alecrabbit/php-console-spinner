@@ -24,9 +24,9 @@ final class RunMethodModeSolverTest extends TestCase
         $mS = RunMethodMode::SYNCHRONOUS;
         $mA = RunMethodMode::ASYNC;
 
-        $oAut = RunMethodOption::AUTO;
-        $oSyn = RunMethodOption::SYNCHRONOUS;
-        $oAsy = RunMethodOption::ASYNC;
+        $oAu = RunMethodOption::AUTO;
+        $oSy = RunMethodOption::SYNCHRONOUS;
+        $oAs = RunMethodOption::ASYNC;
 
         yield from [
             // [Exception], [$user, $detected, $default]
@@ -46,26 +46,50 @@ final class RunMethodModeSolverTest extends TestCase
                         self::MESSAGE => \sprintf('Failed to solve "%s".', RunMethodMode::class),
                     ],
                 ],
-                [$oAut, null, null],
+                [$oAu, null, null],
+            ],
+            [
+                [
+                    self::EXCEPTION => [
+                        self::CLASS_ => InvalidArgumentException::class,
+                        self::MESSAGE => \sprintf('Failed to solve "%s".', RunMethodMode::class),
+                    ],
+                ],
+                [null, $oAu, null],
+            ],
+            [
+                [
+                    self::EXCEPTION => [
+                        self::CLASS_ => InvalidArgumentException::class,
+                        self::MESSAGE => \sprintf('Failed to solve "%s".', RunMethodMode::class),
+                    ],
+                ],
+                [null, null, $oAu],
             ],
             // [result], [$user, $detected, $default]
-            [[$mS], [$oAut, $oSyn, $oAsy],],
-            [[$mA], [$oAut, $oAsy, $oAsy],],
+            [[$mS], [$oAu, $oSy, $oAs],],
+            [[$mA], [$oAu, $oAs, $oAs],],
 
-            [[$mS], [$oSyn, $oAsy, $oAsy],],
-            [[$mA], [$oAsy, $oAsy, $oAsy],],
+            [[$mS], [$oSy, $oAs, $oAs],],
+            [[$mA], [$oAs, $oAs, $oAs],],
 
-            [[$mA], [$oAsy, null, null],],
-            [[$mS], [$oSyn, null, null],],
+            [[$mA], [$oAs, null, null],],
+            [[$mS], [$oSy, null, null],],
 
-            [[$mS], [$oAut, $oSyn, null],],
-            [[$mA], [$oAut, $oAsy, null],],
+            [[$mS], [$oAu, $oSy, null],],
+            [[$mA], [$oAu, $oAs, null],],
 
-            [[$mS], [$oAut, null, $oSyn],],
-            [[$mA], [$oAut, null, $oAsy],],
+            [[$mS], [null, $oSy, null],],
+            [[$mA], [null, $oAs, null],],
 
-//            [[$mS], [null, $oAut, $oSyn],],
-//            [[$mA], [null, $oAut, $oAsy],],
+            [[$mS], [$oAu, null, $oSy],],
+            [[$mA], [$oAu, null, $oAs],],
+
+            [[$mS], [null, $oAu, $oSy],],
+            [[$mA], [null, $oAu, $oAs],],
+
+            [[$mS], [null, null, $oSy],],
+            [[$mA], [null, null, $oAs],],
         ];
     }
 
