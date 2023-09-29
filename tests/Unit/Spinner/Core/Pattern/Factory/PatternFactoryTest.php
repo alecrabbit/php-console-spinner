@@ -9,6 +9,7 @@ use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalFactory;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPalette;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteMode;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteOptions;
+use AlecRabbit\Spinner\Core\Palette\Contract\ITemplate;
 use AlecRabbit\Spinner\Core\Palette\Factory\Contract\IPaletteModeFactory;
 use AlecRabbit\Spinner\Core\Pattern\Factory\Contract\IPatternFactory;
 use AlecRabbit\Spinner\Core\Pattern\Factory\PatternFactory;
@@ -48,61 +49,71 @@ final class PatternFactoryTest extends TestCase
     {
         return $this->createMock(IPaletteModeFactory::class);
     }
-//
-//    #[Test]
-//    public function canCreate(): void
-//    {
-//        $intervalFactory = $this->getIntervalFactoryMock();
-//        $paletteInterval = 100;
-//        $factoryInterval = $this->getIntervalMock();
-//        $intervalFactory
-//            ->expects(self::once())
-//            ->method('createNormalized')
-//            ->with(self::identicalTo($paletteInterval))
-//            ->willReturn($factoryInterval)
-//        ;
-//
-//        $options = $this->getPaletteOptionsMock();
-//        $options
-//            ->expects(self::once())
-//            ->method('getInterval')
-//            ->willReturn($paletteInterval)
-//        ;
-//
-//        $entries = $this->getTraversableMock();
-//        $paletteMode = $this->getPaletteModeMock();
-//        $paletteModeFactory = $this->getPaletteModeFactoryMock();
-//        $paletteModeFactory
-//            ->expects(self::once())
-//            ->method('create')
-//            ->willReturn($paletteMode)
-//        ;
-//
-//        $factory = $this->getTesteeInstance(
-//            intervalFactory: $intervalFactory,
-//            paletteModeFactory: $paletteModeFactory,
-//        );
-//
-//        $palette = $this->getPaletteMock();
-//        $palette
-//            ->expects(self::once())
-//            ->method('getEntries')
-//            ->with($paletteMode)
-//            ->willReturn($entries)
-//        ;
-//        $palette
-//            ->expects(self::once())
-//            ->method('getOptions')
-//            ->willReturn($options)
-//        ;
-//
-//        $pattern = $factory->create($palette);
-//
-//        self::assertInstanceOf(Pattern::class, $pattern);
-//
-//        self::assertSame($entries, $pattern->getFrames());
-//        self::assertSame($factoryInterval, $pattern->getInterval());
-//    }
+
+    #[Test]
+    public function canCreate(): void
+    {
+        $paletteInterval = 100;
+        $factoryInterval = $this->getIntervalMock();
+
+        $intervalFactory = $this->getIntervalFactoryMock();
+        $intervalFactory
+            ->expects(self::once())
+            ->method('createNormalized')
+            ->with(self::identicalTo($paletteInterval))
+            ->willReturn($factoryInterval)
+        ;
+
+        $options = $this->getPaletteOptionsMock();
+        $options
+            ->expects(self::once())
+            ->method('getInterval')
+            ->willReturn($paletteInterval)
+        ;
+
+        $paletteMode = $this->getPaletteModeMock();
+        $paletteModeFactory = $this->getPaletteModeFactoryMock();
+        $paletteModeFactory
+            ->expects(self::once())
+            ->method('create')
+            ->willReturn($paletteMode)
+        ;
+
+
+        $entries = $this->getTraversableMock();
+
+        $template = $this->getTemplateMock();
+        $template
+            ->expects(self::once())
+            ->method('getEntries')
+            ->willReturn($entries)
+        ;
+
+        $palette = $this->getPaletteMock();
+        $palette
+            ->expects(self::once())
+            ->method('getTemplate')
+            ->with($paletteMode)
+            ->willReturn($template)
+        ;
+        $template
+            ->expects(self::once())
+            ->method('getOptions')
+            ->willReturn($options)
+        ;
+
+        $patternFactory = $this->getTesteeInstance(
+            intervalFactory: $intervalFactory,
+            paletteModeFactory: $paletteModeFactory,
+        );
+
+        $pattern = $patternFactory->create($palette);
+
+        self::assertInstanceOf(Pattern::class, $pattern);
+
+        self::assertSame($entries, $pattern->getFrames());
+        self::assertSame($factoryInterval, $pattern->getInterval());
+    }
 
     private function getIntervalMock(): MockObject&IInterval
     {
@@ -114,14 +125,19 @@ final class PatternFactoryTest extends TestCase
         return $this->createMock(IPaletteOptions::class);
     }
 
+    private function getPaletteModeMock(): MockObject&IPaletteMode
+    {
+        return $this->createMock(IPaletteMode::class);
+    }
+
     private function getTraversableMock(): MockObject&Traversable
     {
         return $this->createMock(Traversable::class);
     }
 
-    private function getPaletteModeMock(): MockObject&IPaletteMode
+    private function getTemplateMock(): MockObject&ITemplate
     {
-        return $this->createMock(IPaletteMode::class);
+        return $this->createMock(ITemplate::class);
     }
 
     private function getPaletteMock(): MockObject&IPalette
