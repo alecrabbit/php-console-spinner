@@ -1,0 +1,76 @@
+<?php
+
+declare(strict_types=1);
+
+namespace AlecRabbit\Spinner\Core\Config\Solver;
+
+use AlecRabbit\Spinner\Contract\Mode\RunMethodMode;
+use AlecRabbit\Spinner\Contract\Option\RunMethodOption;
+use AlecRabbit\Spinner\Core\Config\Contract\Solver\IRunMethodModeSolver;
+use AlecRabbit\Spinner\Core\Config\Solver\A\ASolver;
+use AlecRabbit\Spinner\Core\Settings\Contract\IAuxSettings;
+use AlecRabbit\Spinner\Core\Settings\Contract\ISettings;
+use AlecRabbit\Spinner\Exception\InvalidArgumentException;
+
+final class RunMethodModeSolver extends ASolver implements IRunMethodModeSolver
+{
+    public function solve(): RunMethodMode
+    {
+        return $this->doSolve(
+            $this->extractOption($this->settingsProvider->getSettings()),
+            $this->extractOption($this->settingsProvider->getDetectedSettings()),
+            $this->extractOption($this->settingsProvider->getDefaultSettings()),
+        );
+    }
+
+    private function doSolve(
+        ?RunMethodOption $userOption,
+        ?RunMethodOption $detectedOption,
+        ?RunMethodOption $defaultOption,
+    ): RunMethodMode {
+        $options = [$userOption, $detectedOption, $defaultOption];
+
+        return
+            match ($options) {
+                [
+                    RunMethodOption::ASYNC, // user
+                    RunMethodOption::ASYNC, // detected
+                    RunMethodOption::ASYNC, // default
+                ],
+                [
+                    RunMethodOption::AUTO, // user
+                    RunMethodOption::ASYNC, // detected
+                    RunMethodOption::ASYNC, // default
+                ],
+                [
+                    RunMethodOption::ASYNC, // user
+                    null, // detected
+                    null, // default
+                ]
+                => RunMethodMode::ASYNC,
+                [
+                    RunMethodOption::AUTO, // user
+                    RunMethodOption::SYNCHRONOUS, // detected
+                    RunMethodOption::ASYNC, // default
+                ],
+                [
+                    RunMethodOption::SYNCHRONOUS, // user
+                    RunMethodOption::ASYNC, // detected
+                    RunMethodOption::ASYNC, // default
+                ],
+                [
+                    RunMethodOption::SYNCHRONOUS, // user
+                    null, // detected
+                    null, // default
+                ]
+                => RunMethodMode::SYNCHRONOUS,
+                default => throw new InvalidArgumentException('Failed to solve RunMethodMode.'),
+            };
+    }
+
+    protected function extractOption(ISettings $settings): ?RunMethodOption
+    {
+        return $this->extractElement($settings, IAuxSettings::class)?->getRunMethodOption();
+    }
+
+}

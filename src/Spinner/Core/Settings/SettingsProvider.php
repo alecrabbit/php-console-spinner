@@ -20,4 +20,14 @@ final readonly class SettingsProvider implements ISettingsProvider
     {
         return $this->settings;
     }
+
+    public function getDefaultSettings(): ISettings
+    {
+        return $this->defaultSettings;
+    }
+
+    public function getDetectedSettings(): ISettings
+    {
+        return $this->detectedSettings;
+    }
 }

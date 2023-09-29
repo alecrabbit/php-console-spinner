@@ -46,6 +46,28 @@ final class SettingsProviderTest extends TestCase
 
         self::assertSame($settings, $provider->getSettings());
     }
+    #[Test]
+    public function canGetDefaultSettings(): void
+    {
+        $settings = $this->getSettingsMock();
+
+        $provider = $this->getTesteeInstance(
+            defaultSettings: $settings,
+        );
+
+        self::assertSame($settings, $provider->getDefaultSettings());
+    }
+    #[Test]
+    public function canGetDetectedSettings(): void
+    {
+        $settings = $this->getSettingsMock();
+
+        $provider = $this->getTesteeInstance(
+            detectedSettings: $settings,
+        );
+
+        self::assertSame($settings, $provider->getDetectedSettings());
+    }
 
     private function getSettingsMock(): MockObject&ISettings
     {
