@@ -5,9 +5,10 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Config\Solver;
 
 use AlecRabbit\Spinner\Contract\Mode\LoopAvailabilityMode;
-use AlecRabbit\Spinner\Core\Config\Contract\Solver\ILoopAvailabilityModeSolver;
+use AlecRabbit\Spinner\Core\Config\Solver\Contract\ILoopAvailabilityModeSolver;
 use AlecRabbit\Spinner\Core\Contract\Loop\Contract\ILoopProbe;
 use AlecRabbit\Spinner\Probes;
+use Traversable;
 
 final class LoopAvailabilityModeSolver implements ILoopAvailabilityModeSolver
 {
@@ -31,7 +32,7 @@ final class LoopAvailabilityModeSolver implements ILoopAvailabilityModeSolver
         return false;
     }
 
-    private function loadProbes(): \Traversable
+    private function loadProbes(): Traversable
     {
         return Probes::load(ILoopProbe::class);
     }

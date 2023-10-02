@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Spinner\Core\Config\Contract\Solver;
+namespace AlecRabbit\Spinner\Core\Config\Solver\Contract;
 
 use AlecRabbit\Spinner\Contract\Mode\NormalizerMethodMode;
 

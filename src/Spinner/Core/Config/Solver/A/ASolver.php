@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Config\Solver\A;
 
-use AlecRabbit\Spinner\Core\Config\Contract\Solver\ISolver;
+use AlecRabbit\Spinner\Core\Config\Solver\Contract\ISolver;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettingsElement;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettingsProvider;

@@ -6,8 +6,8 @@ namespace AlecRabbit\Spinner\Core\Config\Solver;
 
 use AlecRabbit\Spinner\Contract\Mode\NormalizerMethodMode;
 use AlecRabbit\Spinner\Contract\Option\NormalizerOption;
-use AlecRabbit\Spinner\Core\Config\Contract\Solver\INormalizerMethodModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\A\ASolver;
+use AlecRabbit\Spinner\Core\Config\Solver\Contract\INormalizerMethodModeSolver;
 use AlecRabbit\Spinner\Core\Settings\Contract\IAuxSettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettings;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Config\Solver;
 
 use AlecRabbit\Spinner\Contract\Mode\LoopAvailabilityMode;
-use AlecRabbit\Spinner\Core\Config\Contract\Solver\ILoopAvailabilityModeSolver;
+use AlecRabbit\Spinner\Core\Config\Solver\Contract\ILoopAvailabilityModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\LoopAvailabilityModeSolver;
 use AlecRabbit\Spinner\Probes;
 use AlecRabbit\Tests\TestCase\TestCase;

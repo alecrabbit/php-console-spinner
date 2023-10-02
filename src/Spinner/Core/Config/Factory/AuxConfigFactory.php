@@ -7,9 +7,9 @@ namespace AlecRabbit\Spinner\Core\Config\Factory;
 use AlecRabbit\Spinner\Core\Config\AuxConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\IAuxConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\IAuxConfig;
-use AlecRabbit\Spinner\Core\Config\Contract\Solver\ILoopAvailabilityModeSolver;
-use AlecRabbit\Spinner\Core\Config\Contract\Solver\INormalizerMethodModeSolver;
-use AlecRabbit\Spinner\Core\Config\Contract\Solver\IRunMethodModeSolver;
+use AlecRabbit\Spinner\Core\Config\Solver\Contract\ILoopAvailabilityModeSolver;
+use AlecRabbit\Spinner\Core\Config\Solver\Contract\INormalizerMethodModeSolver;
+use AlecRabbit\Spinner\Core\Config\Solver\Contract\IRunMethodModeSolver;
 
 final class AuxConfigFactory implements IAuxConfigFactory
 {
