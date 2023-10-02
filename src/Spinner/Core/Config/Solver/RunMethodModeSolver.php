@@ -124,7 +124,7 @@ final class RunMethodModeSolver extends ASolver implements IRunMethodModeSolver
                 default // DEFAULT BRANCH
                 => throw new InvalidArgumentException(
                     sprintf(
-                        'Failed to solve "%s". From values %s.',
+                        'Unable to solve "%s". From values %s.',
                         RunMethodMode::class,
                         sprintf(
                             '[%s, %s, %s]',

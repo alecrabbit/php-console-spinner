@@ -36,7 +36,7 @@ final class RunMethodModeSolverTest extends TestCase
                 [
                     self::EXCEPTION => [
                         self::CLASS_ => InvalidArgumentException::class,
-                        self::MESSAGE => sprintf('Failed to solve "%s".', RunMethodMode::class),
+                        self::MESSAGE => sprintf('Unable to solve "%s".', RunMethodMode::class),
                     ],
                 ],
                 [null, null, null],
@@ -45,7 +45,7 @@ final class RunMethodModeSolverTest extends TestCase
                 [
                     self::EXCEPTION => [
                         self::CLASS_ => InvalidArgumentException::class,
-                        self::MESSAGE => sprintf('Failed to solve "%s".', RunMethodMode::class),
+                        self::MESSAGE => sprintf('Unable to solve "%s".', RunMethodMode::class),
                     ],
                 ],
                 [$oAu, null, null],
@@ -54,7 +54,7 @@ final class RunMethodModeSolverTest extends TestCase
                 [
                     self::EXCEPTION => [
                         self::CLASS_ => InvalidArgumentException::class,
-                        self::MESSAGE => sprintf('Failed to solve "%s".', RunMethodMode::class),
+                        self::MESSAGE => sprintf('Unable to solve "%s".', RunMethodMode::class),
                     ],
                 ],
                 [null, $oAu, null],
@@ -63,7 +63,7 @@ final class RunMethodModeSolverTest extends TestCase
                 [
                     self::EXCEPTION => [
                         self::CLASS_ => InvalidArgumentException::class,
-                        self::MESSAGE => sprintf('Failed to solve "%s".', RunMethodMode::class),
+                        self::MESSAGE => sprintf('Unable to solve "%s".', RunMethodMode::class),
                     ],
                 ],
                 [null, null, $oAu],
