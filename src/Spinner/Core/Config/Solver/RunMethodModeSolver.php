@@ -139,7 +139,7 @@ final class RunMethodModeSolver extends ASolver implements IRunMethodModeSolver
 
     protected function extractOption(ISettings $settings): ?RunMethodOption
     {
-        return $this->extractElement($settings, IAuxSettings::class)?->getRunMethodOption();
+        return $this->extractSettingsElement($settings, IAuxSettings::class)?->getRunMethodOption();
     }
 
 }
