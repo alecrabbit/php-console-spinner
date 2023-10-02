@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Config\Factory;
 
-use AlecRabbit\Spinner\Core\Config\AuxConfig;
+use AlecRabbit\Spinner\Core\Config\Contract\Builder\IAuxConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\IAuxConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\IAuxConfig;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\ILoopAvailabilityModeSolver;
@@ -17,16 +17,18 @@ final class AuxConfigFactory implements IAuxConfigFactory
         protected IRunMethodModeSolver $runMethodModeSolver,
         protected ILoopAvailabilityModeSolver $loopAvailabilityModeSolver,
         protected INormalizerMethodModeSolver $normalizerMethodModeSolver,
+        protected IAuxConfigBuilder $auxConfigBuilder,
     ) {
     }
 
     public function create(): IAuxConfig
     {
         return
-            new AuxConfig(
-                runMethodMode: $this->runMethodModeSolver->solve(),
-                loopAvailabilityMode: $this->loopAvailabilityModeSolver->solve(),
-                normalizerMethodMode: $this->normalizerMethodModeSolver->solve(),
-            );
+            $this->auxConfigBuilder
+                ->withRunMethodMode($this->runMethodModeSolver->solve())
+                ->withLoopAvailabilityMode($this->loopAvailabilityModeSolver->solve())
+                ->withNormalizerMethodMode($this->normalizerMethodModeSolver->solve())
+                ->build()
+        ;
     }
 }
