@@ -40,85 +40,85 @@ final class RunMethodModeSolver extends ASolver implements IRunMethodModeSolver
         return
             match ($options) {
                 [
-                    RunMethodOption::ASYNC, // user
-                    RunMethodOption::ASYNC, // detected
-                    RunMethodOption::ASYNC, // default
+                    RunMethodOption::ASYNC,
+                    RunMethodOption::ASYNC,
+                    RunMethodOption::ASYNC,
                 ],
                 [
-                    RunMethodOption::AUTO, // user
-                    RunMethodOption::ASYNC, // detected
-                    RunMethodOption::ASYNC, // default
+                    RunMethodOption::AUTO,
+                    RunMethodOption::ASYNC,
+                    RunMethodOption::ASYNC,
                 ],
                 [
-                    RunMethodOption::AUTO, // user
-                    RunMethodOption::ASYNC, // detected
-                    null, // default
+                    RunMethodOption::AUTO,
+                    RunMethodOption::ASYNC,
+                    null,
                 ],
                 [
-                    RunMethodOption::AUTO, // user
-                    null, // detected
-                    RunMethodOption::ASYNC, // default
+                    RunMethodOption::AUTO,
+                    null,
+                    RunMethodOption::ASYNC,
                 ],
                 [
-                    null, // user
-                    null, // detected
-                    RunMethodOption::ASYNC, // default
+                    null,
+                    null,
+                    RunMethodOption::ASYNC,
                 ],
                 [
-                    null, // user
-                    RunMethodOption::AUTO, // detected
-                    RunMethodOption::ASYNC, // default
+                    null,
+                    RunMethodOption::AUTO,
+                    RunMethodOption::ASYNC,
                 ],
                 [
-                    null, // user
-                    RunMethodOption::ASYNC, // detected
-                    null, // default
+                    null,
+                    RunMethodOption::ASYNC,
+                    null,
                 ],
                 [
-                    RunMethodOption::ASYNC, // user
-                    null, // detected
-                    null, // default
+                    RunMethodOption::ASYNC,
+                    null,
+                    null,
                 ]
                 => RunMethodMode::ASYNC,
                 [
-                    RunMethodOption::AUTO, // user
-                    RunMethodOption::SYNCHRONOUS, // detected
-                    RunMethodOption::ASYNC, // default
+                    RunMethodOption::AUTO,
+                    RunMethodOption::SYNCHRONOUS,
+                    RunMethodOption::ASYNC,
                 ],
                 [
-                    RunMethodOption::SYNCHRONOUS, // user
-                    RunMethodOption::ASYNC, // detected
-                    RunMethodOption::ASYNC, // default
+                    RunMethodOption::SYNCHRONOUS,
+                    RunMethodOption::ASYNC,
+                    RunMethodOption::ASYNC,
                 ],
                 [
-                    RunMethodOption::AUTO, // user
-                    RunMethodOption::SYNCHRONOUS, // detected
-                    null, // default
+                    RunMethodOption::AUTO,
+                    RunMethodOption::SYNCHRONOUS,
+                    null,
                 ],
                 [
-                    RunMethodOption::AUTO, // user
-                    null, // detected
-                    RunMethodOption::SYNCHRONOUS, // default
+                    RunMethodOption::AUTO,
+                    null,
+                    RunMethodOption::SYNCHRONOUS,
                 ],
                 [
-                    null, // user
-                    null, // detected
-                    RunMethodOption::SYNCHRONOUS, // default
+                    null,
+                    null,
+                    RunMethodOption::SYNCHRONOUS,
                 ],
                 [
-                    null, // user
-                    RunMethodOption::AUTO, // detected
-                    RunMethodOption::SYNCHRONOUS, // default
+                    null,
+                    RunMethodOption::AUTO,
+                    RunMethodOption::SYNCHRONOUS,
                 ],
                 [
-                    null, // user
-                    RunMethodOption::SYNCHRONOUS, // detected
-                    null, // default
+                    null,
+                    RunMethodOption::SYNCHRONOUS,
+                    null,
                 ],
                 [
-                    RunMethodOption::SYNCHRONOUS, // user
-                    null, // detected
-                    null, // default
+                    RunMethodOption::SYNCHRONOUS,
+                    null,
+                    null,
                 ]
                 => RunMethodMode::SYNCHRONOUS,
                 default // DEFAULT BRANCH
