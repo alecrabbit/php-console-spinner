@@ -5,12 +5,13 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Config\Solver;
 
 use AlecRabbit\Spinner\Contract\Mode\LoopAvailabilityMode;
+use AlecRabbit\Spinner\Core\Config\Solver\A\ASolver;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\ILoopAvailabilityModeSolver;
 use AlecRabbit\Spinner\Core\Contract\Loop\Contract\ILoopProbe;
 use AlecRabbit\Spinner\Probes;
 use Traversable;
 
-final class LoopAvailabilityModeSolver implements ILoopAvailabilityModeSolver
+final class LoopAvailabilityModeSolver extends ASolver implements ILoopAvailabilityModeSolver
 {
     /** @inheritDoc */
     public function solve(): LoopAvailabilityMode

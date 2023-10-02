@@ -7,11 +7,13 @@ namespace AlecRabbit\Tests\Unit\Spinner\Core\Config\Solver;
 use AlecRabbit\Spinner\Contract\Mode\LoopAvailabilityMode;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\ILoopAvailabilityModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\LoopAvailabilityModeSolver;
+use AlecRabbit\Spinner\Core\Settings\Contract\ISettingsProvider;
 use AlecRabbit\Spinner\Probes;
 use AlecRabbit\Tests\TestCase\TestCase;
 use AlecRabbit\Tests\Unit\Spinner\Core\Config\Solver\Override\NegativeLoopProbeOverride;
 use AlecRabbit\Tests\Unit\Spinner\Core\Config\Solver\Override\PositiveLoopProbeOverride;
 use PHPUnit\Framework\Attributes\Test;
+use PHPUnit\Framework\MockObject\MockObject;
 
 final class LoopAvailabilityModeSolverTest extends TestCase
 {
@@ -26,10 +28,18 @@ final class LoopAvailabilityModeSolverTest extends TestCase
         self::assertInstanceOf(LoopAvailabilityModeSolver::class, $solver);
     }
 
-    protected function getTesteeInstance(): ILoopAvailabilityModeSolver
-    {
+    protected function getTesteeInstance(
+        ?ISettingsProvider $settingsProvider = null,
+    ): ILoopAvailabilityModeSolver {
         return
-            new LoopAvailabilityModeSolver();
+            new LoopAvailabilityModeSolver(
+                settingsProvider: $settingsProvider ?? $this->getSettingsProviderMock(),
+            );
+    }
+
+    protected function getSettingsProviderMock(): MockObject&ISettingsProvider
+    {
+        return $this->createMock(ISettingsProvider::class);
     }
 
     #[Test]
@@ -43,6 +53,11 @@ final class LoopAvailabilityModeSolverTest extends TestCase
         $solver = $this->getTesteeInstance();
 
         self::assertEquals(LoopAvailabilityMode::NONE, $solver->solve());
+    }
+
+    protected function setProbes(array $probes): void
+    {
+        self::setPropertyValue(Probes::class, self::PROBES, $probes);
     }
 
     #[Test]
@@ -70,11 +85,6 @@ final class LoopAvailabilityModeSolverTest extends TestCase
     {
         $this->setProbes(self::$probes);
         parent::tearDown();
-    }
-
-    protected function setProbes(array $probes): void
-    {
-        self::setPropertyValue(Probes::class, self::PROBES, $probes);
     }
 
 

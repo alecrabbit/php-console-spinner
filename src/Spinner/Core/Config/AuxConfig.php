@@ -23,6 +23,7 @@ final readonly class AuxConfig implements IAuxConfig
         return $this->runMethodMode;
     }
 
+    /** @inheritDoc */
     public function getLoopAvailabilityMode(): LoopAvailabilityMode
     {
         return $this->loopAvailabilityMode;

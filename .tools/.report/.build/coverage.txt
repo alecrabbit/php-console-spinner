@@ -1,7 +1,7 @@
 
 
 Code Coverage Report Summary:
-  Classes: 98.68% (149/151)  
-  Methods: 98.11% (624/636)  
-  Lines:   98.61% (2553/2589)
+  Classes: 97.39% (149/153)  
+  Methods: 97.81% (624/638)  
+  Lines:   98.53% (2553/2591)
 

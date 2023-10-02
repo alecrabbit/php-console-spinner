@@ -99,7 +99,8 @@ final class NormalizerMethodModeSolverTest extends TestCase
                     ],
                 ],
                 [null, $oSm, null],
-            ],            [
+            ],
+            [
                 [
                     self::EXCEPTION => [
                         self::CLASS_ => InvalidArgumentException::class,
@@ -107,7 +108,8 @@ final class NormalizerMethodModeSolverTest extends TestCase
                     ],
                 ],
                 [null, $oBa, null],
-            ],            [
+            ],
+            [
                 [
                     self::EXCEPTION => [
                         self::CLASS_ => InvalidArgumentException::class,
@@ -115,7 +117,8 @@ final class NormalizerMethodModeSolverTest extends TestCase
                     ],
                 ],
                 [null, $oPe, null],
-            ],            [
+            ],
+            [
                 [
                     self::EXCEPTION => [
                         self::CLASS_ => InvalidArgumentException::class,
@@ -123,7 +126,8 @@ final class NormalizerMethodModeSolverTest extends TestCase
                     ],
                 ],
                 [null, $oSl, null],
-            ],            [
+            ],
+            [
                 [
                     self::EXCEPTION => [
                         self::CLASS_ => InvalidArgumentException::class,
@@ -151,7 +155,6 @@ final class NormalizerMethodModeSolverTest extends TestCase
                 settingsProvider: $settingsProvider ?? $this->getSettingsProviderMock(),
             );
     }
-
 
     protected function getSettingsProviderMock(): MockObject&ISettingsProvider
     {

@@ -51,6 +51,9 @@ final class DetectedSettingsFactory implements IDetectedSettingsFactory
 
     private function getRunMethodOption(): RunMethodOption
     {
+        // returns
+        // RunMethodOption::ASYNC       - if Loop is available,
+        // RunMethodOption::SYNCHRONOUS - otherwise
         return
             RunMethodOption::ASYNC; // FIXME (2023-09-29 14:32) [Alec Rabbit]: stub!
     }

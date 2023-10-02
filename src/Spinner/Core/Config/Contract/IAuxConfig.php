@@ -12,6 +12,9 @@ interface IAuxConfig extends IConfigElement
 {
     public function getRunMethodMode(): RunMethodMode;
 
+    /**
+     * @deprecated Rely on RunMethodMode
+     */
     public function getLoopAvailabilityMode(): LoopAvailabilityMode;
 
     public function getNormalizerMethodMode(): NormalizerMethodMode;
