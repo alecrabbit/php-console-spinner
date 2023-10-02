@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Config\Contract\Builder;
 
-use AlecRabbit\Spinner\Contract\Mode\LoopAvailabilityMode;
 use AlecRabbit\Spinner\Contract\Mode\NormalizerMethodMode;
 use AlecRabbit\Spinner\Contract\Mode\RunMethodMode;
 use AlecRabbit\Spinner\Core\Config\Contract\IAuxConfig;
@@ -18,8 +17,6 @@ interface IAuxConfigBuilder
     public function build(): IAuxConfig;
 
     public function withRunMethodMode(RunMethodMode $runMethodMode): IAuxConfigBuilder;
-
-    public function withLoopAvailabilityMode(LoopAvailabilityMode $loopAvailabilityMode): IAuxConfigBuilder;
 
     public function withNormalizerMethodMode(NormalizerMethodMode $normalizerMethodMode): IAuxConfigBuilder;
 }

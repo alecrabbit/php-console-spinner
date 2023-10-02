@@ -4,7 +4,14 @@ declare(strict_types=1);
 
 use AlecRabbit\Spinner\Asynchronous\Factory\LoopProbeFactory;
 use AlecRabbit\Spinner\Container\DefinitionRegistry;
+use AlecRabbit\Spinner\Contract\Mode\AutoStartMode;
+use AlecRabbit\Spinner\Contract\Mode\CursorVisibilityMode;
+use AlecRabbit\Spinner\Contract\Mode\InitializationMode;
+use AlecRabbit\Spinner\Contract\Mode\LinkerMode;
 use AlecRabbit\Spinner\Contract\Mode\NormalizerMethodMode;
+use AlecRabbit\Spinner\Contract\Mode\RunMethodMode;
+use AlecRabbit\Spinner\Contract\Mode\SignalHandlersMode;
+use AlecRabbit\Spinner\Contract\Mode\StylingMethodMode;
 use AlecRabbit\Spinner\Contract\Option\CursorVisibilityOption;
 use AlecRabbit\Spinner\Contract\Option\StylingMethodOption;
 use AlecRabbit\Spinner\Contract\Output\IResourceStream;
@@ -31,6 +38,8 @@ use AlecRabbit\Spinner\Core\Builder\Settings\Legacy\LegacySettingsProviderBuilde
 use AlecRabbit\Spinner\Core\Builder\Settings\Legacy\LegacyWidgetSettingsBuilder;
 use AlecRabbit\Spinner\Core\Builder\SignalHandlersSetupBuilder;
 use AlecRabbit\Spinner\Core\Builder\TimerBuilder;
+use AlecRabbit\Spinner\Core\CharFrame;
+use AlecRabbit\Spinner\Core\Config\AuxConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\IAuxConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\IConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\IConfigProviderFactory;
@@ -39,8 +48,18 @@ use AlecRabbit\Spinner\Core\Config\Contract\Factory\ILoopConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\IOutputConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\IRootWidgetConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\IWidgetConfigFactory;
+use AlecRabbit\Spinner\Core\Config\Contract\IAuxConfig;
+use AlecRabbit\Spinner\Core\Config\Contract\IDriverConfig;
+use AlecRabbit\Spinner\Core\Config\Contract\ILoopConfig;
+use AlecRabbit\Spinner\Core\Config\Contract\IOutputConfig;
+use AlecRabbit\Spinner\Core\Config\Contract\IRootWidgetConfig;
+use AlecRabbit\Spinner\Core\Config\DriverConfig;
 use AlecRabbit\Spinner\Core\Config\Factory\ConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Factory\ConfigProviderFactory;
+use AlecRabbit\Spinner\Core\Config\LoopConfig;
+use AlecRabbit\Spinner\Core\Config\OutputConfig;
+use AlecRabbit\Spinner\Core\Config\RootWidgetConfig;
+use AlecRabbit\Spinner\Core\Config\WidgetRevolverConfig;
 use AlecRabbit\Spinner\Core\Contract\IConfigProvider;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\IDriverBuilder;
@@ -96,7 +115,11 @@ use AlecRabbit\Spinner\Core\Factory\TerminalSettingsFactory;
 use AlecRabbit\Spinner\Core\Factory\TimerFactory;
 use AlecRabbit\Spinner\Core\Output\ResourceStream;
 use AlecRabbit\Spinner\Core\Palette\Factory\Contract\IPaletteModeFactory;
+use AlecRabbit\Spinner\Core\Palette\Factory\PaletteModeFactory;
+use AlecRabbit\Spinner\Core\Palette\Rainbow;
+use AlecRabbit\Spinner\Core\Palette\Snake;
 use AlecRabbit\Spinner\Core\Pattern\Factory\Contract\IPatternFactory;
+use AlecRabbit\Spinner\Core\Pattern\Factory\PatternFactory;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolverBuilder;
 use AlecRabbit\Spinner\Core\Revolver\FrameRevolverBuilder;
 use AlecRabbit\Spinner\Core\Settings\Builder\SettingsProviderBuilder;
@@ -106,6 +129,7 @@ use AlecRabbit\Spinner\Core\Settings\Contract\Factory\IDetectedSettingsFactory;
 use AlecRabbit\Spinner\Core\Settings\Contract\Factory\ISettingsProviderFactory;
 use AlecRabbit\Spinner\Core\Settings\Contract\Factory\IUserSettingsFactory;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettingsProvider;
+use AlecRabbit\Spinner\Core\Settings\Contract\IWidgetSettings;
 use AlecRabbit\Spinner\Core\Settings\Factory\DefaultSettingsFactory;
 use AlecRabbit\Spinner\Core\Settings\Factory\DetectedSettingsFactory;
 use AlecRabbit\Spinner\Core\Settings\Factory\SettingsProviderFactory;
@@ -279,8 +303,8 @@ function definitions(): Traversable
                 );
         },
 
-        IPatternFactory::class => \AlecRabbit\Spinner\Core\Pattern\Factory\PatternFactory::class,
-        IPaletteModeFactory::class => \AlecRabbit\Spinner\Core\Palette\Factory\PaletteModeFactory::class,
+        IPatternFactory::class => PatternFactory::class,
+        IPaletteModeFactory::class => PaletteModeFactory::class,
 
     ];
     yield from substitutes();
@@ -293,13 +317,12 @@ function substitutes(): Traversable
         IAuxConfigFactory::class => static function (): IAuxConfigFactory {
             return
                 new class implements IAuxConfigFactory {
-                    public function create(): \AlecRabbit\Spinner\Core\Config\Contract\IAuxConfig
+                    public function create(): IAuxConfig
                     {
                         return
-                            new \AlecRabbit\Spinner\Core\Config\AuxConfig(
-                                runMethodMode: \AlecRabbit\Spinner\Contract\Mode\RunMethodMode::ASYNC,
-                                loopAvailabilityMode: \AlecRabbit\Spinner\Contract\Mode\LoopAvailabilityMode::AVAILABLE,
-                                normalizerMethodMode: \AlecRabbit\Spinner\Contract\Mode\NormalizerMethodMode::BALANCED,
+                            new AuxConfig(
+                                runMethodMode: RunMethodMode::ASYNC,
+                                normalizerMethodMode: NormalizerMethodMode::BALANCED,
                             );
                     }
                 };
@@ -307,12 +330,12 @@ function substitutes(): Traversable
         ILoopConfigFactory::class => static function (): ILoopConfigFactory {
             return
                 new class implements ILoopConfigFactory {
-                    public function create(): \AlecRabbit\Spinner\Core\Config\Contract\ILoopConfig
+                    public function create(): ILoopConfig
                     {
                         return
-                            new \AlecRabbit\Spinner\Core\Config\LoopConfig(
-                                autoStartMode: \AlecRabbit\Spinner\Contract\Mode\AutoStartMode::ENABLED,
-                                signalHandlersMode: \AlecRabbit\Spinner\Contract\Mode\SignalHandlersMode::ENABLED,
+                            new LoopConfig(
+                                autoStartMode: AutoStartMode::ENABLED,
+                                signalHandlersMode: SignalHandlersMode::ENABLED,
                             );
                     }
                 };
@@ -320,12 +343,12 @@ function substitutes(): Traversable
         IDriverConfigFactory::class => static function (): IDriverConfigFactory {
             return
                 new class implements IDriverConfigFactory {
-                    public function create(): \AlecRabbit\Spinner\Core\Config\Contract\IDriverConfig
+                    public function create(): IDriverConfig
                     {
                         return
-                            new \AlecRabbit\Spinner\Core\Config\DriverConfig(
-                                linkerMode: \AlecRabbit\Spinner\Contract\Mode\LinkerMode::ENABLED,
-                                initializationMode: \AlecRabbit\Spinner\Contract\Mode\InitializationMode::ENABLED,
+                            new DriverConfig(
+                                linkerMode: LinkerMode::ENABLED,
+                                initializationMode: InitializationMode::ENABLED,
                             );
                     }
                 };
@@ -333,12 +356,12 @@ function substitutes(): Traversable
         IOutputConfigFactory::class => static function (): IOutputConfigFactory {
             return
                 new class implements IOutputConfigFactory {
-                    public function create(): \AlecRabbit\Spinner\Core\Config\Contract\IOutputConfig
+                    public function create(): IOutputConfig
                     {
                         return
-                            new \AlecRabbit\Spinner\Core\Config\OutputConfig(
-                                stylingMethodMode: \AlecRabbit\Spinner\Contract\Mode\StylingMethodMode::ANSI8,
-                                cursorVisibilityMode: \AlecRabbit\Spinner\Contract\Mode\CursorVisibilityMode::HIDDEN,
+                            new OutputConfig(
+                                stylingMethodMode: StylingMethodMode::ANSI8,
+                                cursorVisibilityMode: CursorVisibilityMode::HIDDEN,
                             );
                     }
                 };
@@ -365,15 +388,15 @@ function substitutes(): Traversable
             return
                 new class implements IRootWidgetConfigFactory {
                     public function create(
-                        ?\AlecRabbit\Spinner\Core\Settings\Contract\IWidgetSettings $widgetSettings = null
-                    ): \AlecRabbit\Spinner\Core\Config\Contract\IRootWidgetConfig {
+                        ?IWidgetSettings $widgetSettings = null
+                    ): IRootWidgetConfig {
                         return
-                            new \AlecRabbit\Spinner\Core\Config\RootWidgetConfig(
-                                leadingSpacer: new \AlecRabbit\Spinner\Core\CharFrame('', 0),
-                                trailingSpacer: new \AlecRabbit\Spinner\Core\CharFrame(' ', 1),
-                                revolverConfig: new \AlecRabbit\Spinner\Core\Config\WidgetRevolverConfig(
-                                    stylePalette: new \AlecRabbit\Spinner\Core\Palette\Rainbow(),
-                                    charPalette: new \AlecRabbit\Spinner\Core\Palette\Snake(),
+                            new RootWidgetConfig(
+                                leadingSpacer: new CharFrame('', 0),
+                                trailingSpacer: new CharFrame(' ', 1),
+                                revolverConfig: new WidgetRevolverConfig(
+                                    stylePalette: new Rainbow(),
+                                    charPalette: new Snake(),
                                 )
                             );
                     }
@@ -383,15 +406,15 @@ function substitutes(): Traversable
             return
                 new class implements IRootWidgetConfigFactory {
                     public function create(
-                        ?\AlecRabbit\Spinner\Core\Settings\Contract\IWidgetSettings $widgetSettings = null
-                    ): \AlecRabbit\Spinner\Core\Config\Contract\IRootWidgetConfig {
+                        ?IWidgetSettings $widgetSettings = null
+                    ): IRootWidgetConfig {
                         return
-                            new \AlecRabbit\Spinner\Core\Config\RootWidgetConfig(
-                                leadingSpacer: new \AlecRabbit\Spinner\Core\CharFrame('', 0),
-                                trailingSpacer: new \AlecRabbit\Spinner\Core\CharFrame(' ', 1),
-                                revolverConfig: new \AlecRabbit\Spinner\Core\Config\WidgetRevolverConfig(
-                                    stylePalette: new \AlecRabbit\Spinner\Core\Palette\Rainbow(),
-                                    charPalette: new \AlecRabbit\Spinner\Core\Palette\Snake(),
+                            new RootWidgetConfig(
+                                leadingSpacer: new CharFrame('', 0),
+                                trailingSpacer: new CharFrame(' ', 1),
+                                revolverConfig: new WidgetRevolverConfig(
+                                    stylePalette: new Rainbow(),
+                                    charPalette: new Snake(),
                                 )
                             );
                     }

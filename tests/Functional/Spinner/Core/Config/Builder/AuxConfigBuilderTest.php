@@ -21,19 +21,16 @@ final class AuxConfigBuilderTest extends TestCase
         $configBuilder = $this->getTesteeInstance();
 
         $runMethodMode = RunMethodMode::SYNCHRONOUS;
-        $loopAvailabilityMode = LoopAvailabilityMode::NONE;
         $normalizerMethodMode = NormalizerMethodMode::STILL;
 
         $config = $configBuilder
             ->withRunMethodMode($runMethodMode)
-            ->withLoopAvailabilityMode($loopAvailabilityMode)
             ->withNormalizerMethodMode($normalizerMethodMode)
             ->build()
         ;
 
         self::assertInstanceOf(AuxConfig::class, $config);
         self::assertSame($runMethodMode, $config->getRunMethodMode());
-        self::assertSame($loopAvailabilityMode, $config->getLoopAvailabilityMode());
         self::assertSame($normalizerMethodMode, $config->getNormalizerMethodMode());
     }
 

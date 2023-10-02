@@ -11,7 +11,6 @@ use AlecRabbit\Spinner\Core\Config\Contract\Builder\IAuxConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\IAuxConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\IAuxConfig;
 use AlecRabbit\Spinner\Core\Config\Factory\AuxConfigFactory;
-use AlecRabbit\Spinner\Core\Config\Solver\Contract\ILoopAvailabilityModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\INormalizerMethodModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\IRunMethodModeSolver;
 use AlecRabbit\Tests\TestCase\TestCase;
@@ -30,14 +29,12 @@ final class AuxConfigFactoryTest extends TestCase
 
     public function getTesteeInstance(
         ?IRunMethodModeSolver $runMethodModeSolver = null,
-        ?ILoopAvailabilityModeSolver $loopAvailabilityModeSolver = null,
         ?INormalizerMethodModeSolver $normalizerMethodModeSolver = null,
         ?IAuxConfigBuilder $auxConfigBuilder = null,
     ): IAuxConfigFactory {
         return
             new AuxConfigFactory(
                 runMethodModeSolver: $runMethodModeSolver ?? $this->getRunMethodModeSolverMock(),
-                loopAvailabilityModeSolver: $loopAvailabilityModeSolver ?? $this->getLoopAvailabilityModeSolverMock(),
                 normalizerMethodModeSolver: $normalizerMethodModeSolver ?? $this->getNormalizerMethodModeSolverMock(),
                 auxConfigBuilder: $auxConfigBuilder ?? $this->getAuxConfigBuilderMock(),
             );
@@ -50,17 +47,6 @@ final class AuxConfigFactoryTest extends TestCase
                 IRunMethodModeSolver::class,
                 [
                     'solve' => $runMethodMode ?? RunMethodMode::SYNCHRONOUS,
-                ]
-            );
-    }
-
-    protected function getLoopAvailabilityModeSolverMock(?LoopAvailabilityMode $loopAvailabilityMode = null
-    ): MockObject&ILoopAvailabilityModeSolver {
-        return
-            $this->createConfiguredMock(
-                ILoopAvailabilityModeSolver::class,
-                [
-                    'solve' => $loopAvailabilityMode ?? LoopAvailabilityMode::NONE,
                 ]
             );
     }
@@ -91,7 +77,6 @@ final class AuxConfigFactoryTest extends TestCase
         $auxConfig =
             $this->getAuxConfigMock(
                 $runMethodMode,
-                $loopAvailabilityMode,
                 $normalizerMethodMode
             );
 
@@ -100,12 +85,6 @@ final class AuxConfigFactoryTest extends TestCase
             ->expects(self::once())
             ->method('withRunMethodMode')
             ->with($runMethodMode)
-            ->willReturnSelf()
-        ;
-        $auxConfigBuilder
-            ->expects(self::once())
-            ->method('withLoopAvailabilityMode')
-            ->with($loopAvailabilityMode)
             ->willReturnSelf()
         ;
         $auxConfigBuilder
@@ -123,7 +102,6 @@ final class AuxConfigFactoryTest extends TestCase
         $factory =
             $this->getTesteeInstance(
                 runMethodModeSolver: $this->getRunMethodModeSolverMock($runMethodMode),
-                loopAvailabilityModeSolver: $this->getLoopAvailabilityModeSolverMock($loopAvailabilityMode),
                 normalizerMethodModeSolver: $this->getNormalizerMethodModeSolverMock($normalizerMethodMode),
                 auxConfigBuilder: $auxConfigBuilder,
             );
@@ -133,13 +111,11 @@ final class AuxConfigFactoryTest extends TestCase
         self::assertSame($auxConfig, $config);
 
         self::assertSame($runMethodMode, $config->getRunMethodMode());
-        self::assertSame($loopAvailabilityMode, $config->getLoopAvailabilityMode());
         self::assertSame($normalizerMethodMode, $config->getNormalizerMethodMode());
     }
 
     private function getAuxConfigMock(
         RunMethodMode $runMethodMode,
-        LoopAvailabilityMode $loopAvailabilityMode,
         NormalizerMethodMode $normalizerMethodMode,
     ): MockObject&IAuxConfig {
         return
@@ -147,7 +123,6 @@ final class AuxConfigFactoryTest extends TestCase
                 IAuxConfig::class,
                 [
                     'getRunMethodMode' => $runMethodMode,
-                    'getLoopAvailabilityMode' => $loopAvailabilityMode,
                     'getNormalizerMethodMode' => $normalizerMethodMode,
                 ]
             );

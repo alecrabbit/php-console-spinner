@@ -6,6 +6,7 @@ namespace AlecRabbit\Spinner\Core\Config\Solver;
 
 use AlecRabbit\Spinner\Contract\Mode\AutoStartMode;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\IAutoStartModeSolver;
+use RuntimeException;
 
 class AutoStartModeSolver implements IAutoStartModeSolver
 {
@@ -13,6 +14,6 @@ class AutoStartModeSolver implements IAutoStartModeSolver
     public function solve(): AutoStartMode
     {
         // TODO: Implement solve() method.
-        throw new \RuntimeException('Not implemented.');
+        throw new RuntimeException('Not implemented.');
     }
 }

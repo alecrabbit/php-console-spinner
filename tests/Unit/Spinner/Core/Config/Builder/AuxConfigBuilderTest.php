@@ -37,7 +37,6 @@ final class AuxConfigBuilderTest extends TestCase
 
         $config = $configBuilder
             ->withRunMethodMode(RunMethodMode::SYNCHRONOUS)
-            ->withLoopAvailabilityMode(LoopAvailabilityMode::NONE)
             ->withNormalizerMethodMode(NormalizerMethodMode::STILL)
             ->build()
         ;
@@ -58,18 +57,6 @@ final class AuxConfigBuilderTest extends TestCase
         self::assertNotSame($builder, $configBuilder);
     }
 
-    #[Test]
-    public function withLoopAvailabilityModeReturnsOtherInstanceOfBuilder(): void
-    {
-        $configBuilder = $this->getTesteeInstance();
-
-        $builder =
-            $configBuilder
-                ->withLoopAvailabilityMode(LoopAvailabilityMode::NONE)
-        ;
-
-        self::assertNotSame($builder, $configBuilder);
-    }
 
     #[Test]
     public function withNormalizerMethodModeReturnsOtherInstanceOfBuilder(): void
@@ -94,30 +81,6 @@ final class AuxConfigBuilderTest extends TestCase
             $configBuilder = $this->getTesteeInstance();
 
             $configBuilder
-                ->withLoopAvailabilityMode(LoopAvailabilityMode::NONE)
-                ->withNormalizerMethodMode(NormalizerMethodMode::STILL)
-                ->build()
-            ;
-        };
-
-        $this->wrapExceptionTest(
-            test: $test,
-            exception: $exceptionClass,
-            message: $exceptionMessage,
-        );
-    }
-
-    #[Test]
-    public function throwsIfLoopAvailabilityModeIsNotSet(): void
-    {
-        $exceptionClass = LogicException::class;
-        $exceptionMessage = 'LoopAvailabilityMode is not set.';
-
-        $test = function (): void {
-            $configBuilder = $this->getTesteeInstance();
-
-            $configBuilder
-                ->withRunMethodMode(RunMethodMode::SYNCHRONOUS)
                 ->withNormalizerMethodMode(NormalizerMethodMode::STILL)
                 ->build()
             ;
@@ -141,7 +104,6 @@ final class AuxConfigBuilderTest extends TestCase
 
             $configBuilder
                 ->withRunMethodMode(RunMethodMode::SYNCHRONOUS)
-                ->withLoopAvailabilityMode(LoopAvailabilityMode::NONE)
                 ->build()
             ;
         };

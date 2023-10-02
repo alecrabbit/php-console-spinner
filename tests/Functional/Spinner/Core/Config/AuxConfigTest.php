@@ -24,13 +24,11 @@ final class AuxConfigTest extends TestCase
 
     protected function getTesteeInstance(
         ?RunMethodMode $runMethodMode = null,
-        ?LoopAvailabilityMode $loopAvailabilityMode = null,
         ?NormalizerMethodMode $normalizerMethodMode = null,
     ): IAuxConfig {
         return
             new AuxConfig(
                 runMethodMode: $runMethodMode ?? RunMethodMode::ASYNC,
-                loopAvailabilityMode: $loopAvailabilityMode ?? LoopAvailabilityMode::NONE,
                 normalizerMethodMode: $normalizerMethodMode ?? NormalizerMethodMode::STILL,
             );
     }
@@ -45,18 +43,6 @@ final class AuxConfigTest extends TestCase
         );
 
         self::assertSame($runMethodMode, $config->getRunMethodMode());
-    }
-
-    #[Test]
-    public function canGetLoopAvailabilityMode(): void
-    {
-        $loopAvailabilityMode = LoopAvailabilityMode::NONE;
-
-        $config = $this->getTesteeInstance(
-            loopAvailabilityMode: $loopAvailabilityMode,
-        );
-
-        self::assertSame($loopAvailabilityMode, $config->getLoopAvailabilityMode());
     }
 
     #[Test]
