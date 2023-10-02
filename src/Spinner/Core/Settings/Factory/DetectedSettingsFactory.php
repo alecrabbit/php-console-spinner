@@ -30,66 +30,62 @@ final class DetectedSettingsFactory implements IDetectedSettingsFactory
 
     private function fill(ISettings $settings): void
     {
-        $runMethodOption = $this->getRunMethodOption();
-
         $settings->set(
             new AuxSettings(
-                runMethodOption: $runMethodOption,
+                runMethodOption: $this->getRunMethodOption(),
             ),
             new DriverSettings(
-                linkerOption: $this->getLinkerOption($runMethodOption),
+                linkerOption: $this->getLinkerOption(),
             ),
             new LoopSettings(
-                autoStartOption: $this->getAutoStartOption($runMethodOption),
-                signalHandlersOption: $this->getSignalHandlersOption($runMethodOption),
+                autoStartOption: $this->getAutoStartOption(),
+                signalHandlersOption: $this->detectSignalMethodOption(),
             ),
             new OutputSettings(
-                stylingMethodOption: $this->getStylingMethodOption(),
+                stylingMethodOption: $this->detectStylingMethodOption(),
             ),
         );
     }
 
     private function getRunMethodOption(): RunMethodOption
     {
-        // returns
-        // RunMethodOption::ASYNC       - if Loop is available,
-        // RunMethodOption::SYNCHRONOUS - otherwise
         return
-            RunMethodOption::ASYNC; // FIXME (2023-09-29 14:32) [Alec Rabbit]: stub!
+            $this->loopIsAvailable()
+                ? RunMethodOption::ASYNC
+                : RunMethodOption::SYNCHRONOUS;
     }
 
-    private function getLinkerOption(RunMethodOption $runMethodOption): LinkerOption
+    private function loopIsAvailable(): bool
+    {
+        return true; // FIXME (2023-09-29 14:32) [Alec Rabbit]: stub!
+    }
+
+    private function getLinkerOption(): LinkerOption
     {
         return
-            $runMethodOption === RunMethodOption::ASYNC
+            $this->loopIsAvailable()
                 ? LinkerOption::ENABLED
                 : LinkerOption::DISABLED;
     }
 
-    private function getAutoStartOption(RunMethodOption $runMethodOption): AutoStartOption
+    private function getAutoStartOption(): AutoStartOption
     {
         return
-            $runMethodOption === RunMethodOption::ASYNC
+            $this->loopIsAvailable()
                 ? AutoStartOption::ENABLED
                 : AutoStartOption::DISABLED;
     }
 
-    private function getSignalHandlersOption(RunMethodOption $runMethodOption): SignalHandlersOption
-    {
-        return
-            $runMethodOption === RunMethodOption::ASYNC
-                ? $this->detectSignalMethodOption()
-                : SignalHandlersOption::DISABLED;
-    }
-
     protected function detectSignalMethodOption(): SignalHandlersOption
     {
+        // returns detected signal handlers option (using pcntl probe?)
         return
             SignalHandlersOption::ENABLED; // FIXME (2023-09-29 14:32) [Alec Rabbit]: stub!
     }
 
-    private function getStylingMethodOption(): StylingMethodOption
+    private function detectStylingMethodOption(): StylingMethodOption
     {
+        // returns detected color support option (using terminal probe?)
         return
             StylingMethodOption::ANSI24; // FIXME (2023-09-29 14:32) [Alec Rabbit]: stub!
     }
