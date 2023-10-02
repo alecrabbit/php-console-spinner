@@ -10,6 +10,7 @@ use AlecRabbit\Spinner\Contract\Option\RunMethodOption;
 use AlecRabbit\Spinner\Contract\Option\SignalHandlersOption;
 use AlecRabbit\Spinner\Contract\Option\StylingMethodOption;
 use AlecRabbit\Spinner\Core\Settings\AuxSettings;
+use AlecRabbit\Spinner\Core\Settings\Contract\Detector\ILoopAvailabilityDetector;
 use AlecRabbit\Spinner\Core\Settings\Contract\Factory\IDetectedSettingsFactory;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettings;
 use AlecRabbit\Spinner\Core\Settings\DriverSettings;
@@ -19,6 +20,11 @@ use AlecRabbit\Spinner\Core\Settings\Settings;
 
 final class DetectedSettingsFactory implements IDetectedSettingsFactory
 {
+    public function __construct(
+        protected ILoopAvailabilityDetector $loopAvailabilityDetector,
+    ) {
+    }
+
     public function create(): ISettings
     {
         $settings = new Settings();
@@ -57,7 +63,7 @@ final class DetectedSettingsFactory implements IDetectedSettingsFactory
 
     private function loopIsAvailable(): bool
     {
-        return true; // FIXME (2023-09-29 14:32) [Alec Rabbit]: stub!
+        return $this->loopAvailabilityDetector->loopIsAvailable();
     }
 
     private function getLinkerOption(): LinkerOption

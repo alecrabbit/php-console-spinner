@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Functional\Spinner\Core\Settings\Factory;
 
 use AlecRabbit\Spinner\Core\Settings\AuxSettings;
+use AlecRabbit\Spinner\Core\Settings\Contract\Detector\ILoopAvailabilityDetector;
 use AlecRabbit\Spinner\Core\Settings\Contract\Factory\IDetectedSettingsFactory;
 use AlecRabbit\Spinner\Core\Settings\Contract\IAuxSettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\IDriverSettings;
@@ -19,6 +20,7 @@ use AlecRabbit\Spinner\Core\Settings\OutputSettings;
 use AlecRabbit\Spinner\Core\Settings\Settings;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
+use PHPUnit\Framework\MockObject\MockObject;
 
 final class DetectedSettingsFactoryTest extends TestCase
 {
@@ -30,10 +32,14 @@ final class DetectedSettingsFactoryTest extends TestCase
         self::assertInstanceOf(DetectedSettingsFactory::class, $factory);
     }
 
-    public function getTesteeInstance(): IDetectedSettingsFactory
+    protected function getTesteeInstance(
+        ?ILoopAvailabilityDetector $loopAvailabilityDetector = null,
+    ): IDetectedSettingsFactory
     {
         return
-            new DetectedSettingsFactory();
+            new DetectedSettingsFactory(
+                loopAvailabilityDetector: $loopAvailabilityDetector ?? $this->getLoopAvailabilityDetectorMock(),
+            );
     }
 
     #[Test]
@@ -57,5 +63,10 @@ final class DetectedSettingsFactoryTest extends TestCase
         self::assertInstanceOf(DriverSettings::class, $driverSettings);
         self::assertInstanceOf(LoopSettings::class, $loopSettings);
         self::assertInstanceOf(OutputSettings::class, $outputSettings);
+    }
+
+    private function getLoopAvailabilityDetectorMock(): MockObject&ILoopAvailabilityDetector
+    {
+        return $this->createMock(ILoopAvailabilityDetector::class);
     }
 }
