@@ -124,7 +124,9 @@ use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolverBuilder;
 use AlecRabbit\Spinner\Core\Revolver\FrameRevolverBuilder;
 use AlecRabbit\Spinner\Core\Settings\Builder\SettingsProviderBuilder;
 use AlecRabbit\Spinner\Core\Settings\Contract\Builder\ISettingsProviderBuilder;
+use AlecRabbit\Spinner\Core\Settings\Contract\Detector\IColorSupportDetector;
 use AlecRabbit\Spinner\Core\Settings\Contract\Detector\ILoopAvailabilityDetector;
+use AlecRabbit\Spinner\Core\Settings\Contract\Detector\ISignalHandlingDetector;
 use AlecRabbit\Spinner\Core\Settings\Contract\Factory\IDefaultSettingsFactory;
 use AlecRabbit\Spinner\Core\Settings\Contract\Factory\IDetectedSettingsFactory;
 use AlecRabbit\Spinner\Core\Settings\Contract\Factory\ISettingsProviderFactory;
@@ -307,6 +309,7 @@ function definitions(): Traversable
 
         IPatternFactory::class => PatternFactory::class,
         IPaletteModeFactory::class => PaletteModeFactory::class,
+        ILoopAvailabilityDetector::class => LoopAvailabilityDetector::class,
 
     ];
     yield from substitutes();
@@ -422,7 +425,24 @@ function substitutes(): Traversable
                     }
                 };
         },
-        ILoopAvailabilityDetector::class => LoopAvailabilityDetector::class,
+        IColorSupportDetector::class => static function (): IColorSupportDetector {
+            return
+                new class implements IColorSupportDetector {
+                    public function getStylingMethodOption(): StylingMethodOption
+                    {
+                        return StylingMethodOption::ANSI24;
+                    }
+                };
+        },
+        ISignalHandlingDetector::class => static function (): ISignalHandlingDetector {
+            return
+                new class implements ISignalHandlingDetector {
+                    public function isSupported(): true
+                    {
+                        return true;
+                    }
+                };
+        },
     ];
 }
 // @codeCoverageIgnoreEnd

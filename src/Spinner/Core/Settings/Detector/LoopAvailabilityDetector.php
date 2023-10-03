@@ -6,10 +6,13 @@ namespace AlecRabbit\Spinner\Core\Settings\Detector;
 
 use AlecRabbit\Spinner\Core\Contract\Loop\Contract\ILoopProbe;
 use AlecRabbit\Spinner\Core\Settings\Contract\Detector\ILoopAvailabilityDetector;
+use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Probes;
+use Traversable;
 
 final class LoopAvailabilityDetector implements ILoopAvailabilityDetector
 {
+    /** @inheritDoc */
     public function loopIsAvailable(): bool
     {
         foreach ($this->loadProbes() as $probe) {
@@ -21,7 +24,11 @@ final class LoopAvailabilityDetector implements ILoopAvailabilityDetector
         return false;
     }
 
-    private function loadProbes(): \Traversable
+    /**
+     * @return Traversable<ILoopProbe>
+     * @throws InvalidArgumentException
+     */
+    private function loadProbes(): Traversable
     {
         return Probes::load(ILoopProbe::class);
     }

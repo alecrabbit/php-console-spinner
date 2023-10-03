@@ -44,7 +44,7 @@ final class WidgetComposite extends AWidget implements IWidgetComposite
         return $this->interval;
     }
 
-    /** @inheritdoc */
+    /** @inheritDoc */
     public function update(ISubject $subject): void
     {
         $this->assertNotSelf($subject);

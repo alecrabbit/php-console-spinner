@@ -10,7 +10,9 @@ use AlecRabbit\Spinner\Contract\Option\RunMethodOption;
 use AlecRabbit\Spinner\Contract\Option\SignalHandlersOption;
 use AlecRabbit\Spinner\Contract\Option\StylingMethodOption;
 use AlecRabbit\Spinner\Core\Settings\AuxSettings;
+use AlecRabbit\Spinner\Core\Settings\Contract\Detector\IColorSupportDetector;
 use AlecRabbit\Spinner\Core\Settings\Contract\Detector\ILoopAvailabilityDetector;
+use AlecRabbit\Spinner\Core\Settings\Contract\Detector\ISignalHandlingDetector;
 use AlecRabbit\Spinner\Core\Settings\Contract\Factory\IDetectedSettingsFactory;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettings;
 use AlecRabbit\Spinner\Core\Settings\DriverSettings;
@@ -22,6 +24,8 @@ final class DetectedSettingsFactory implements IDetectedSettingsFactory
 {
     public function __construct(
         protected ILoopAvailabilityDetector $loopAvailabilityDetector,
+        protected IColorSupportDetector $colorSupportDetector,
+        protected ISignalHandlingDetector $signalHandlingDetector,
     ) {
     }
 
@@ -45,7 +49,7 @@ final class DetectedSettingsFactory implements IDetectedSettingsFactory
             ),
             new LoopSettings(
                 autoStartOption: $this->getAutoStartOption(),
-                signalHandlersOption: $this->detectSignalMethodOption(),
+                signalHandlersOption: $this->getSignalMethodOption(),
             ),
             new OutputSettings(
                 stylingMethodOption: $this->detectStylingMethodOption(),
@@ -82,17 +86,17 @@ final class DetectedSettingsFactory implements IDetectedSettingsFactory
                 : AutoStartOption::DISABLED;
     }
 
-    protected function detectSignalMethodOption(): SignalHandlersOption
+    protected function getSignalMethodOption(): SignalHandlersOption
     {
-        // returns detected signal handlers option (using pcntl probe?)
         return
-            SignalHandlersOption::ENABLED; // FIXME (2023-09-29 14:32) [Alec Rabbit]: stub!
+            $this->signalHandlingDetector->isSupported()
+                ? SignalHandlersOption::ENABLED
+                : SignalHandlersOption::DISABLED;
     }
 
     private function detectStylingMethodOption(): StylingMethodOption
     {
-        // returns detected color support option (using terminal probe?)
         return
-            StylingMethodOption::ANSI24; // FIXME (2023-09-29 14:32) [Alec Rabbit]: stub!
+            $this->colorSupportDetector->getStylingMethodOption();
     }
 }

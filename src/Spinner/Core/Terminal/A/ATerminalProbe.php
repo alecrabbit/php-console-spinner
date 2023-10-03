@@ -21,6 +21,6 @@ abstract class ATerminalProbe implements ITerminalProbe
         return ITerminalProbe::DEFAULT_OPTION_CURSOR;
     }
 
-    /** @inheritdoc */
+    /** @inheritDoc */
     abstract public function getOutputStream();
 }

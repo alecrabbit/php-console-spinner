@@ -26,7 +26,7 @@ final class Snake extends ACharPattern
         );
     }
 
-    /** @inheritdoc */
+    /** @inheritDoc */
     public function getEntries(): Traversable
     {
         yield from [

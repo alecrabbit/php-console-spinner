@@ -4,7 +4,10 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Settings\Factory;
 
+use AlecRabbit\Spinner\Contract\Option\StylingMethodOption;
+use AlecRabbit\Spinner\Core\Settings\Contract\Detector\IColorSupportDetector;
 use AlecRabbit\Spinner\Core\Settings\Contract\Detector\ILoopAvailabilityDetector;
+use AlecRabbit\Spinner\Core\Settings\Contract\Detector\ISignalHandlingDetector;
 use AlecRabbit\Spinner\Core\Settings\Contract\Factory\IDetectedSettingsFactory;
 use AlecRabbit\Spinner\Core\Settings\Factory\DetectedSettingsFactory;
 use AlecRabbit\Spinner\Core\Settings\Settings;
@@ -24,17 +27,38 @@ final class DetectedSettingsFactoryTest extends TestCase
 
     protected function getTesteeInstance(
         ?ILoopAvailabilityDetector $loopAvailabilityDetector = null,
-    ): IDetectedSettingsFactory
-    {
+        ?IColorSupportDetector $colorSupportDetector = null,
+        ?ISignalHandlingDetector $signalHandlingDetector = null,
+    ): IDetectedSettingsFactory {
         return
             new DetectedSettingsFactory(
                 loopAvailabilityDetector: $loopAvailabilityDetector ?? $this->getLoopAvailabilityDetectorMock(),
+                colorSupportDetector: $colorSupportDetector ?? $this->getColorSupportDetectorMock(),
+                signalHandlingDetector: $signalHandlingDetector ?? $this->getSignalHandlingDetectorMock(),
             );
     }
+
     private function getLoopAvailabilityDetectorMock(): MockObject&ILoopAvailabilityDetector
     {
         return $this->createMock(ILoopAvailabilityDetector::class);
     }
+
+    private function getColorSupportDetectorMock(
+        ?StylingMethodOption $stylingMethodOption = null,
+    ): MockObject&IColorSupportDetector {
+        return $this->createConfiguredMock(
+            IColorSupportDetector::class,
+            [
+                'getStylingMethodOption' => $stylingMethodOption ?? StylingMethodOption::ANSI8,
+            ]
+        );
+    }
+
+    private function getSignalHandlingDetectorMock(): MockObject&ISignalHandlingDetector
+    {
+        return $this->createMock(ISignalHandlingDetector::class);
+    }
+
     #[Test]
     public function canCreate(): void
     {

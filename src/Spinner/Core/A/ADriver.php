@@ -27,13 +27,13 @@ abstract class ADriver extends ASubject implements IDriver
         $this->interval = $this->initialInterval;
     }
 
-    /** @inheritdoc */
+    /** @inheritDoc */
     public function interrupt(?string $interruptMessage = null): void
     {
         $this->finalize($interruptMessage ?? $this->driverSettings->getInterruptMessage());
     }
 
-    /** @inheritdoc */
+    /** @inheritDoc */
     public function finalize(?string $finalMessage = null): void
     {
         $this->erase();
@@ -42,13 +42,13 @@ abstract class ADriver extends ASubject implements IDriver
 
     abstract protected function erase(): void;
 
-    /** @inheritdoc */
+    /** @inheritDoc */
     public function getInterval(): IInterval
     {
         return $this->interval;
     }
 
-    /** @inheritdoc */
+    /** @inheritDoc */
     public function wrap(Closure $callback): Closure
     {
         return
@@ -61,7 +61,7 @@ abstract class ADriver extends ASubject implements IDriver
 
     abstract public function render(?float $dt = null): void;
 
-    /** @inheritdoc */
+    /** @inheritDoc */
     public function initialize(): void
     {
         $this->output->initialize();

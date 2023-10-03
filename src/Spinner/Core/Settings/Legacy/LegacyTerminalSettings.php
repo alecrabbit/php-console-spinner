@@ -39,13 +39,13 @@ final class LegacyTerminalSettings implements ILegacyTerminalSettings
         return $this;
     }
 
-    /** @inheritdoc */
+    /** @inheritDoc */
     public function getOutputStream()
     {
         return $this->outputStream;
     }
 
-    /** @inheritdoc */
+    /** @inheritDoc */
     public function setOutputStream($outputStream): ILegacyTerminalSettings
     {
         $this->outputStream = $outputStream;

@@ -8,7 +8,7 @@ use AlecRabbit\Spinner\Core\Config\Contract\IRevolverConfig;
 use AlecRabbit\Spinner\Core\Contract\ITolerance;
 use AlecRabbit\Spinner\Core\Revolver\Tolerance;
 
-final class RevolverConfig implements IRevolverConfig
+final readonly class RevolverConfig implements IRevolverConfig
 {
     public function __construct(
         protected ITolerance $tolerance = new Tolerance(),

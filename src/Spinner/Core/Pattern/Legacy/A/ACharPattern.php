@@ -9,7 +9,7 @@ use Traversable;
 
 abstract class ACharPattern extends AReversiblePattern implements ICharLegacyPattern
 {
-    /** @inheritdoc */
+    /** @inheritDoc */
     public function getEntries(): Traversable
     {
         return $this->entries;

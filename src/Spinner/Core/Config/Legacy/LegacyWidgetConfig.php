@@ -43,7 +43,7 @@ final class LegacyWidgetConfig implements ILegacyWidgetConfig
         return $this;
     }
 
-    /** @inheritdoc */
+    /** @inheritDoc */
     public function merge(ILegacyWidgetConfig $other): ILegacyWidgetConfig
     {
         return

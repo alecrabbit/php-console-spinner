@@ -15,7 +15,7 @@ final class Driver extends ADriver
     protected ?ISpinner $spinner = null;
     protected ISpinnerState $state;
 
-    /** @inheritdoc */
+    /** @inheritDoc */
     public function add(ISpinner $spinner): void
     {
         $this->erase();
@@ -47,7 +47,7 @@ final class Driver extends ADriver
         return $this->initialInterval->smallest($this->spinner?->getInterval());
     }
 
-    /** @inheritdoc */
+    /** @inheritDoc */
     public function remove(ISpinner $spinner): void
     {
         if ($this->spinner === $spinner) {
@@ -59,7 +59,7 @@ final class Driver extends ADriver
         }
     }
 
-    /** @inheritdoc */
+    /** @inheritDoc */
     public function render(?float $dt = null): void
     {
         if ($this->spinner) {
