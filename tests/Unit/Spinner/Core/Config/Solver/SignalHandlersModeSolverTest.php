@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Config\Solver;
 
-use AlecRabbit\Spinner\Contract\Mode\AutoStartMode;
-use AlecRabbit\Spinner\Contract\Option\AutoStartOption;
-use AlecRabbit\Spinner\Core\Config\Solver\Contract\IAutoStartModeSolver;
-use AlecRabbit\Spinner\Core\Config\Solver\AutoStartModeSolver;
+use AlecRabbit\Spinner\Contract\Mode\SignalHandlersMode;
+use AlecRabbit\Spinner\Contract\Option\SignalHandlersOption;
+use AlecRabbit\Spinner\Core\Config\Solver\SignalHandlersModeSolver;
+use AlecRabbit\Spinner\Core\Config\Solver\Contract\ISignalHandlersModeSolver;
 use AlecRabbit\Spinner\Core\Settings\Contract\ILoopSettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettingsProvider;
@@ -19,23 +19,23 @@ use PHPUnit\Framework\MockObject\MockObject;
 
 use function sprintf;
 
-final class AutoStartModeSolverSolverTest extends TestCase
+final class SignalHandlersModeSolverTest extends TestCase
 {
     public static function canSolveDataProvider(): iterable
     {
-        $mE = AutoStartMode::ENABLED;
-        $mD = AutoStartMode::DISABLED;
+        $mE = SignalHandlersMode::ENABLED;
+        $mD = SignalHandlersMode::DISABLED;
 
-        $oAu = AutoStartOption::AUTO;
-        $oEn = AutoStartOption::ENABLED;
-        $oDi = AutoStartOption::DISABLED;
+        $oAu = SignalHandlersOption::AUTO;
+        $oEn = SignalHandlersOption::ENABLED;
+        $oDi = SignalHandlersOption::DISABLED;
         yield from [
             // [Exception], [$user, $detected, $default]
             [
                 [
                     self::EXCEPTION => [
                         self::CLASS_ => InvalidArgumentException::class,
-                        self::MESSAGE => sprintf('Unable to solve "%s".', AutoStartMode::class),
+                        self::MESSAGE => sprintf('Unable to solve "%s".', SignalHandlersMode::class),
                     ],
                 ],
                 [null, null, null],
@@ -44,7 +44,7 @@ final class AutoStartModeSolverSolverTest extends TestCase
                 [
                     self::EXCEPTION => [
                         self::CLASS_ => InvalidArgumentException::class,
-                        self::MESSAGE => sprintf('Unable to solve "%s".', AutoStartMode::class),
+                        self::MESSAGE => sprintf('Unable to solve "%s".', SignalHandlersMode::class),
                     ],
                 ],
                 [$oAu, null, null],
@@ -53,7 +53,7 @@ final class AutoStartModeSolverSolverTest extends TestCase
                 [
                     self::EXCEPTION => [
                         self::CLASS_ => InvalidArgumentException::class,
-                        self::MESSAGE => sprintf('Unable to solve "%s".', AutoStartMode::class),
+                        self::MESSAGE => sprintf('Unable to solve "%s".', SignalHandlersMode::class),
                     ],
                 ],
                 [null, $oAu, null],
@@ -62,7 +62,7 @@ final class AutoStartModeSolverSolverTest extends TestCase
                 [
                     self::EXCEPTION => [
                         self::CLASS_ => InvalidArgumentException::class,
-                        self::MESSAGE => sprintf('Unable to solve "%s".', AutoStartMode::class),
+                        self::MESSAGE => sprintf('Unable to solve "%s".', SignalHandlersMode::class),
                     ],
                 ],
                 [null, null, $oAu],
@@ -99,14 +99,14 @@ final class AutoStartModeSolverSolverTest extends TestCase
     {
         $solver = $this->getTesteeInstance();
 
-        self::assertInstanceOf(AutoStartModeSolver::class, $solver);
+        self::assertInstanceOf(SignalHandlersModeSolver::class, $solver);
     }
 
     protected function getTesteeInstance(
         ?ISettingsProvider $settingsProvider = null,
-    ): IAutoStartModeSolver {
+    ): ISignalHandlersModeSolver {
         return
-            new AutoStartModeSolver(
+            new SignalHandlersModeSolver(
                 settingsProvider: $settingsProvider ?? $this->getSettingsProviderMock(),
             );
     }
@@ -126,14 +126,14 @@ final class AutoStartModeSolverSolverTest extends TestCase
         $result = $expected[0] ?? null;
 
         [
-            $userAutoStartOption,
-            $detectedAutoStartOption,
-            $defaultAutoStartOption
+            $userSignalHandlersOption,
+            $detectedSignalHandlersOption,
+            $defaultSignalHandlersOption
         ] = $args;
 
-        $userAuxSettings = $this->getLoopSettingsMock($userAutoStartOption);
-        $detectedAuxSettings = $this->getLoopSettingsMock($detectedAutoStartOption);
-        $defaultAuxSettings = $this->getLoopSettingsMock($defaultAutoStartOption);
+        $userAuxSettings = $this->getLoopSettingsMock($userSignalHandlersOption);
+        $detectedAuxSettings = $this->getLoopSettingsMock($detectedSignalHandlersOption);
+        $defaultAuxSettings = $this->getLoopSettingsMock($defaultSignalHandlersOption);
 
         $userSettings = $this->getSettingsMock();
         $userSettings
@@ -188,7 +188,7 @@ final class AutoStartModeSolverSolverTest extends TestCase
         }
     }
 
-    protected function getLoopSettingsMock(?AutoStartOption $autoStartOption = null): (MockObject&ILoopSettings)|null
+    protected function getLoopSettingsMock(?SignalHandlersOption $autoStartOption = null): (MockObject&ILoopSettings)|null
     {
         return
             $autoStartOption === null
@@ -196,7 +196,7 @@ final class AutoStartModeSolverSolverTest extends TestCase
                 $this->createConfiguredMock(
                     ILoopSettings::class,
                     [
-                        'getAutoStartOption' => $autoStartOption,
+                        'getSignalHandlersOption' => $autoStartOption,
                     ]
                 );
     }
