@@ -46,7 +46,7 @@ final class DetectedSettingsFactoryTest extends TestCase
     ): IDetectedSettingsFactory {
         return
             new DetectedSettingsFactory(
-                loopAvailabilityDetector: $loopAvailabilityDetector ?? $this->getLoopAvailabilityDetectorMock(),
+                loopSupportDetector: $loopAvailabilityDetector ?? $this->getLoopAvailabilityDetectorMock(),
                 colorSupportDetector: $colorSupportDetector ?? $this->getColorSupportDetectorMock(),
                 signalHandlingDetector: $signalHandlingDetector ?? $this->getSignalHandlingDetectorMock(),
             );

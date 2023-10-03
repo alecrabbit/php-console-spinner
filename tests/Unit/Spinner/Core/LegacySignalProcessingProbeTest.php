@@ -11,7 +11,7 @@ use PHPUnit\Framework\Attributes\Test;
 
 use function function_exists;
 
-final class SignalProcessingProbeTest extends TestCase
+final class LegacySignalProcessingProbeTest extends TestCase
 {
     #[Test]
     public function canBeInstantiated(): void

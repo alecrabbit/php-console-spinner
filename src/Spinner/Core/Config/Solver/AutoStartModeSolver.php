@@ -70,6 +70,11 @@ class AutoStartModeSolver extends ASolver implements IAutoStartModeSolver
                 ],
                 [
                     null,
+                    AutoStartOption::ENABLED,
+                    AutoStartOption::ENABLED,
+                ],
+                [
+                    null,
                     null,
                     AutoStartOption::ENABLED,
                 ] => AutoStartMode::ENABLED,
@@ -102,6 +107,21 @@ class AutoStartModeSolver extends ASolver implements IAutoStartModeSolver
                     null,
                     AutoStartOption::DISABLED,
                     null,
+                ],
+                [
+                    null,
+                    AutoStartOption::DISABLED,
+                    AutoStartOption::DISABLED,
+                ],
+                [
+                    null,
+                    AutoStartOption::DISABLED,
+                    AutoStartOption::ENABLED,
+                ],
+                [
+                    null,
+                    AutoStartOption::ENABLED,
+                    AutoStartOption::DISABLED,
                 ],
                 [
                     AutoStartOption::DISABLED,

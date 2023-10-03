@@ -69,6 +69,11 @@ class SignalHandlersModeSolver extends ASolver implements Contract\ISignalHandle
                 ],
                 [
                     null,
+                    SignalHandlersOption::ENABLED,
+                    SignalHandlersOption::ENABLED,
+                ],
+                [
+                    null,
                     null,
                     SignalHandlersOption::ENABLED,
                 ] => SignalHandlersMode::ENABLED,
@@ -101,6 +106,21 @@ class SignalHandlersModeSolver extends ASolver implements Contract\ISignalHandle
                     null,
                     SignalHandlersOption::DISABLED,
                     null,
+                ],
+                [
+                    null,
+                    SignalHandlersOption::DISABLED,
+                    SignalHandlersOption::DISABLED,
+                ],
+                [
+                    null,
+                    SignalHandlersOption::ENABLED,
+                    SignalHandlersOption::DISABLED,
+                ],
+                [
+                    null,
+                    SignalHandlersOption::DISABLED,
+                    SignalHandlersOption::ENABLED,
                 ],
                 [
                     SignalHandlersOption::DISABLED,

@@ -23,7 +23,7 @@ use AlecRabbit\Spinner\Core\Settings\Settings;
 final class DetectedSettingsFactory implements IDetectedSettingsFactory
 {
     public function __construct(
-        protected ILoopSupportDetector $loopAvailabilityDetector,
+        protected ILoopSupportDetector $loopSupportDetector,
         protected IColorSupportDetector $colorSupportDetector,
         protected ISignalProcessingDetector $signalHandlingDetector,
     ) {
@@ -67,7 +67,7 @@ final class DetectedSettingsFactory implements IDetectedSettingsFactory
 
     private function loopIsAvailable(): bool
     {
-        return $this->loopAvailabilityDetector->isSupported();
+        return $this->loopSupportDetector->isSupported();
     }
 
     private function getLinkerOption(): LinkerOption

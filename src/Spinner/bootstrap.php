@@ -4,12 +4,10 @@ declare(strict_types=1);
 
 use AlecRabbit\Spinner\Asynchronous\Factory\LoopProbeFactory;
 use AlecRabbit\Spinner\Container\DefinitionRegistry;
-use AlecRabbit\Spinner\Contract\Mode\AutoStartMode;
 use AlecRabbit\Spinner\Contract\Mode\CursorVisibilityMode;
 use AlecRabbit\Spinner\Contract\Mode\InitializationMode;
 use AlecRabbit\Spinner\Contract\Mode\LinkerMode;
 use AlecRabbit\Spinner\Contract\Mode\NormalizerMethodMode;
-use AlecRabbit\Spinner\Contract\Mode\SignalHandlersMode;
 use AlecRabbit\Spinner\Contract\Mode\StylingMethodMode;
 use AlecRabbit\Spinner\Contract\Option\CursorVisibilityOption;
 use AlecRabbit\Spinner\Contract\Option\StylingMethodOption;
@@ -40,7 +38,9 @@ use AlecRabbit\Spinner\Core\Builder\SignalHandlersSetupBuilder;
 use AlecRabbit\Spinner\Core\Builder\TimerBuilder;
 use AlecRabbit\Spinner\Core\CharFrame;
 use AlecRabbit\Spinner\Core\Config\Builder\AuxConfigBuilder;
+use AlecRabbit\Spinner\Core\Config\Builder\LoopConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\Builder\IAuxConfigBuilder;
+use AlecRabbit\Spinner\Core\Config\Contract\Builder\ILoopConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\IAuxConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\IConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\IConfigProviderFactory;
@@ -50,22 +50,23 @@ use AlecRabbit\Spinner\Core\Config\Contract\Factory\IOutputConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\IRootWidgetConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\IWidgetConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\IDriverConfig;
-use AlecRabbit\Spinner\Core\Config\Contract\ILoopConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IOutputConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IRootWidgetConfig;
 use AlecRabbit\Spinner\Core\Config\DriverConfig;
 use AlecRabbit\Spinner\Core\Config\Factory\AuxConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Factory\ConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Factory\ConfigProviderFactory;
-use AlecRabbit\Spinner\Core\Config\LoopConfig;
+use AlecRabbit\Spinner\Core\Config\Factory\LoopConfigFactory;
 use AlecRabbit\Spinner\Core\Config\OutputConfig;
 use AlecRabbit\Spinner\Core\Config\RootWidgetConfig;
 use AlecRabbit\Spinner\Core\Config\Solver\AutoStartModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\IAutoStartModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\INormalizerMethodModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\IRunMethodModeSolver;
+use AlecRabbit\Spinner\Core\Config\Solver\Contract\ISignalHandlersModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\NormalizerMethodModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\RunMethodModeSolver;
+use AlecRabbit\Spinner\Core\Config\Solver\SignalHandlersModeSolver;
 use AlecRabbit\Spinner\Core\Config\WidgetRevolverConfig;
 use AlecRabbit\Spinner\Core\Contract\IConfigProvider;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
@@ -127,6 +128,7 @@ use AlecRabbit\Spinner\Core\Palette\Rainbow;
 use AlecRabbit\Spinner\Core\Palette\Snake;
 use AlecRabbit\Spinner\Core\Pattern\Factory\Contract\IPatternFactory;
 use AlecRabbit\Spinner\Core\Pattern\Factory\PatternFactory;
+use AlecRabbit\Spinner\Core\Probe\SignalProcessingProbe;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolverBuilder;
 use AlecRabbit\Spinner\Core\Revolver\FrameRevolverBuilder;
 use AlecRabbit\Spinner\Core\Settings\Builder\SettingsProviderBuilder;
@@ -165,6 +167,9 @@ use AlecRabbit\Spinner\Probes;
 use Psr\Container\ContainerInterface;
 
 // @codeCoverageIgnoreStart
+Probes::register(
+    SignalProcessingProbe::class,
+);
 
 $definitions = DefinitionRegistry::getInstance();
 
@@ -332,11 +337,15 @@ function definitions(): Traversable
         },
 
         IAuxConfigFactory::class => AuxConfigFactory::class,
+        ILoopConfigFactory::class => LoopConfigFactory::class,
 
         IAuxConfigBuilder::class => AuxConfigBuilder::class,
+        ILoopConfigBuilder::class => LoopConfigBuilder::class,
+
         IRunMethodModeSolver::class => RunMethodModeSolver::class,
         INormalizerMethodModeSolver::class => NormalizerMethodModeSolver::class,
         IAutoStartModeSolver::class => AutoStartModeSolver::class,
+        ISignalHandlersModeSolver::class => SignalHandlersModeSolver::class,
     ];
     yield from substitutes();
 }
@@ -344,33 +353,6 @@ function definitions(): Traversable
 function substitutes(): Traversable
 {
     yield from [
-
-//        IAuxConfigFactory::class => static function (): IAuxConfigFactory {
-//            return
-//                new class implements IAuxConfigFactory {
-//                    public function create(): IAuxConfig
-//                    {
-//                        return
-//                            new AuxConfig(
-//                                runMethodMode: RunMethodMode::ASYNC,
-//                                normalizerMethodMode: NormalizerMethodMode::BALANCED,
-//                            );
-//                    }
-//                };
-//        },
-        ILoopConfigFactory::class => static function (): ILoopConfigFactory {
-            return
-                new class implements ILoopConfigFactory {
-                    public function create(): ILoopConfig
-                    {
-                        return
-                            new LoopConfig(
-                                autoStartMode: AutoStartMode::ENABLED,
-                                signalHandlersMode: SignalHandlersMode::ENABLED,
-                            );
-                    }
-                };
-        },
         IDriverConfigFactory::class => static function (): IDriverConfigFactory {
             return
                 new class implements IDriverConfigFactory {
