@@ -4,9 +4,10 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Settings\Detector;
 
+use AlecRabbit\Spinner\Contract\Probe\ISignalProcessingProbe;
 use AlecRabbit\Spinner\Core\Settings\Contract\Detector\ISignalProcessingDetector;
 use AlecRabbit\Spinner\Core\Settings\Detector\SignalProcessingDetector;
-use AlecRabbit\Spinner\Probes;
+use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Tests\TestCase\TestCase;
 use AlecRabbit\Tests\Unit\Spinner\Core\Settings\Detector\Override\NegativeSignalProcessingProbeOverride;
 use AlecRabbit\Tests\Unit\Spinner\Core\Settings\Detector\Override\PositiveSignalProcessingProbeOverride;
@@ -15,9 +16,6 @@ use PHPUnit\Framework\Attributes\Test;
 
 final class SignalProcessingDetectorTest extends TestCase
 {
-//    private const PROBES = 'probes';
-//    private static array $probes;
-
     public static function canSolveDataProvider(): iterable
     {
         yield from [
@@ -54,8 +52,8 @@ final class SignalProcessingDetectorTest extends TestCase
     }
 
     protected function getTesteeInstance(
-        ?\Traversable $probes = null): ISignalProcessingDetector
-    {
+        ?\Traversable $probes = null
+    ): ISignalProcessingDetector {
         return
             new SignalProcessingDetector(
                 probes: $probes ?? new \ArrayObject(),
@@ -72,21 +70,22 @@ final class SignalProcessingDetectorTest extends TestCase
 
         self::assertEquals($result, $detector->isSupported());
     }
-//
-//    protected function setProbes(array $probes): void
-//    {
-//        self::setPropertyValue(Probes::class, self::PROBES, $probes);
-//    }
-//
-//    protected function setUp(): void
-//    {
-//        parent::setUp();
-//        self::$probes = self::getPropertyValue(self::PROBES, Probes::class);
-//    }
-//
-//    protected function tearDown(): void
-//    {
-//        $this->setProbes(self::$probes);
-//        parent::tearDown();
-//    }
+
+    #[Test]
+    public function throwsIfProbeIsInvalid(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage(
+            sprintf(
+                'Probe must be an instance of "%s" interface.',
+                ISignalProcessingProbe::class
+            )
+        );
+        $detector =  $this->getTesteeInstance(
+            probes: new \ArrayObject([\stdClass::class]),
+        );
+        self::assertTrue($detector->isSupported());
+
+        self::fail('Exception was not thrown.');
+    }
 }
