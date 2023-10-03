@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core;
 
-use AlecRabbit\Spinner\Core\Contract\ISignalProcessingProbe;
+use AlecRabbit\Spinner\Core\Contract\ILegacySignalProcessingLegacyProbe;
 
 use function extension_loaded;
 
-final class SignalProcessingProbe implements ISignalProcessingProbe
+final class LegacySignalProcessingProbe implements ILegacySignalProcessingLegacyProbe
 {
     private const SIGNAL_PROCESSING_EXTENSION = 'pcntl';
 

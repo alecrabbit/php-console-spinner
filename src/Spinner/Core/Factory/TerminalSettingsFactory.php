@@ -6,12 +6,12 @@ namespace AlecRabbit\Spinner\Core\Factory;
 
 use AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyTerminalSettings;
 use AlecRabbit\Spinner\Core\Settings\Legacy\LegacyTerminalSettings;
-use AlecRabbit\Spinner\Core\Terminal\Contract\ITerminalProbe;
+use AlecRabbit\Spinner\Core\Terminal\Contract\ITerminalLegacyProbe;
 
 final class TerminalSettingsFactory implements Contract\ITerminalSettingsFactory
 {
     public function __construct(
-        protected ITerminalProbe $terminalProbe,
+        protected ITerminalLegacyProbe $terminalProbe,
     ) {
     }
 

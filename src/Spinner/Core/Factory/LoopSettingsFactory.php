@@ -7,7 +7,7 @@ namespace AlecRabbit\Spinner\Core\Factory;
 use AlecRabbit\Spinner\Contract\Option\AutoStartOption;
 use AlecRabbit\Spinner\Contract\Option\SignalHandlersOption;
 use AlecRabbit\Spinner\Contract\Probe\ILoopProbe;
-use AlecRabbit\Spinner\Core\Contract\ISignalProcessingProbe;
+use AlecRabbit\Spinner\Core\Contract\ILegacySignalProcessingLegacyProbe;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopSettingsFactory;
 use AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyLoopSettings;
 use AlecRabbit\Spinner\Core\Settings\Legacy\LegacyLoopSettings;
@@ -16,7 +16,7 @@ final class LoopSettingsFactory implements ILoopSettingsFactory
 {
     public function __construct(
         protected ?ILoopProbe $loopProbe = null,
-        protected ?ISignalProcessingProbe $signalProcessingProbe = null,
+        protected ?ILegacySignalProcessingLegacyProbe $signalProcessingProbe = null,
     ) {
     }
 
@@ -56,7 +56,7 @@ final class LoopSettingsFactory implements ILoopSettingsFactory
     private function isSignalProcessingAvailable(): bool
     {
         return match (true) {
-            $this->signalProcessingProbe instanceof ISignalProcessingProbe => $this->signalProcessingProbe->isAvailable(
+            $this->signalProcessingProbe instanceof ILegacySignalProcessingLegacyProbe => $this->signalProcessingProbe->isAvailable(
             ),
             default => false,
         };

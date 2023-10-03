@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Contract;
 
-interface IProbe
+interface ILegacyProbe
 {
     public function isAvailable(): bool;
 }

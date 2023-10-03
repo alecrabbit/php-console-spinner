@@ -15,8 +15,8 @@ use PHPUnit\Framework\Attributes\Test;
 
 final class SignalProcessingDetectorTest extends TestCase
 {
-    private const PROBES = 'probes';
-    private static array $probes;
+//    private const PROBES = 'probes';
+//    private static array $probes;
 
     public static function canSolveDataProvider(): iterable
     {
@@ -53,37 +53,40 @@ final class SignalProcessingDetectorTest extends TestCase
         self::assertInstanceOf(SignalProcessingDetector::class, $detector);
     }
 
-    protected function getTesteeInstance(): ISignalProcessingDetector
+    protected function getTesteeInstance(
+        ?\Traversable $probes = null): ISignalProcessingDetector
     {
         return
-            new SignalProcessingDetector();
+            new SignalProcessingDetector(
+                probes: $probes ?? new \ArrayObject(),
+            );
     }
 
     #[Test]
     #[DataProvider('canSolveDataProvider')]
     public function canSolve(bool $result, array $probes): void
     {
-        $this->setProbes($probes);
-
-        $detector = $this->getTesteeInstance();
+        $detector = $this->getTesteeInstance(
+            probes: new \ArrayObject($probes),
+        );
 
         self::assertEquals($result, $detector->isSupported());
     }
-
-    protected function setProbes(array $probes): void
-    {
-        self::setPropertyValue(Probes::class, self::PROBES, $probes);
-    }
-
-    protected function setUp(): void
-    {
-        parent::setUp();
-        self::$probes = self::getPropertyValue(self::PROBES, Probes::class);
-    }
-
-    protected function tearDown(): void
-    {
-        $this->setProbes(self::$probes);
-        parent::tearDown();
-    }
+//
+//    protected function setProbes(array $probes): void
+//    {
+//        self::setPropertyValue(Probes::class, self::PROBES, $probes);
+//    }
+//
+//    protected function setUp(): void
+//    {
+//        parent::setUp();
+//        self::$probes = self::getPropertyValue(self::PROBES, Probes::class);
+//    }
+//
+//    protected function tearDown(): void
+//    {
+//        $this->setProbes(self::$probes);
+//        parent::tearDown();
+//    }
 }

@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Factory;
 
-use AlecRabbit\Spinner\Contract\IProbe;
+use AlecRabbit\Spinner\Contract\ILegacyProbe;
 use AlecRabbit\Spinner\Core\Factory\Contract\ITerminalProbeFactory;
-use AlecRabbit\Spinner\Core\Terminal\Contract\ITerminalProbe;
+use AlecRabbit\Spinner\Core\Terminal\Contract\ITerminalLegacyProbe;
 use AlecRabbit\Spinner\Exception\DomainException;
 use ArrayObject;
 use Traversable;
 
 final class TerminalProbeFactory implements ITerminalProbeFactory
 {
-    /** @var Traversable<ITerminalProbe> */
+    /** @var Traversable<ITerminalLegacyProbe> */
     protected Traversable $registeredProbes;
 
     public function __construct(
@@ -43,12 +43,12 @@ final class TerminalProbeFactory implements ITerminalProbeFactory
      */
     protected function getProbeClass(): string
     {
-        return ITerminalProbe::class;
+        return ITerminalLegacyProbe::class;
     }
 
-    public function getProbe(): ITerminalProbe
+    public function getProbe(): ITerminalLegacyProbe
     {
-        /** @var IProbe $probe */
+        /** @var ILegacyProbe $probe */
         foreach ($this->registeredProbes as $probe) {
             if ($probe->isAvailable()) {
                 return $probe;

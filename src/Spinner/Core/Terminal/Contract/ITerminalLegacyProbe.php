@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Terminal\Contract;
 
-use AlecRabbit\Spinner\Contract\IProbe;
+use AlecRabbit\Spinner\Contract\ILegacyProbe;
 use AlecRabbit\Spinner\Contract\Option\CursorVisibilityOption;
 use AlecRabbit\Spinner\Contract\Option\StylingMethodOption;
 
-interface ITerminalProbe extends IProbe
+interface ITerminalLegacyProbe extends ILegacyProbe
 {
     final public const DEFAULT_OPTION_CURSOR = CursorVisibilityOption::HIDDEN;
     final public const DEFAULT_TERMINAL_WIDTH = 100;

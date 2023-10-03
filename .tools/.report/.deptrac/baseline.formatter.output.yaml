@@ -1,2 +1,6 @@
 deptrac:
-  skip_violations: {  }
+  skip_violations:
+    AlecRabbit\Spinner\Contract\Probe\ILoopProbe:
+      - AlecRabbit\Spinner\Core\Contract\Loop\Contract\ILoop
+    AlecRabbit\Spinner\Core\Settings\Detector\LoopAvailabilityDetector:
+      - AlecRabbit\Spinner\Probes

@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Factory\Stub;
 
 use AlecRabbit\Spinner\Contract\Option\StylingMethodOption;
-use AlecRabbit\Spinner\Core\Terminal\A\ATerminalProbe;
+use AlecRabbit\Spinner\Core\Terminal\A\ATerminalLegacyProbe;
 use RuntimeException;
 
-final class TerminalProbeStub extends ATerminalProbe
+final class TerminalLegacyProbeStub extends ATerminalLegacyProbe
 {
     public function isAvailable(): bool
     {

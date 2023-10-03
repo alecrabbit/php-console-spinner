@@ -6,9 +6,9 @@ namespace AlecRabbit\Spinner\Core\Terminal\A;
 
 use AlecRabbit\Spinner\Contract\Option\CursorVisibilityOption;
 use AlecRabbit\Spinner\Contract\Option\StylingMethodOption;
-use AlecRabbit\Spinner\Core\Terminal\Contract\ITerminalProbe;
+use AlecRabbit\Spinner\Core\Terminal\Contract\ITerminalLegacyProbe;
 
-abstract class ATerminalProbe implements ITerminalProbe
+abstract class ATerminalLegacyProbe implements ITerminalLegacyProbe
 {
     abstract public function isAvailable(): bool;
 
@@ -18,7 +18,7 @@ abstract class ATerminalProbe implements ITerminalProbe
 
     public function getOptionCursor(): CursorVisibilityOption
     {
-        return ITerminalProbe::DEFAULT_OPTION_CURSOR;
+        return ITerminalLegacyProbe::DEFAULT_OPTION_CURSOR;
     }
 
     /** @inheritDoc */

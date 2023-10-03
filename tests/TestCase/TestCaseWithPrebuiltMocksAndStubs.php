@@ -35,7 +35,7 @@ use AlecRabbit\Spinner\Core\Contract\IIntervalNormalizer;
 use AlecRabbit\Spinner\Core\Contract\ILegacySettingsProvider;
 use AlecRabbit\Spinner\Core\Contract\ILoopAutoStarter;
 use AlecRabbit\Spinner\Core\Contract\ISignalHandlersSetup;
-use AlecRabbit\Spinner\Core\Contract\ISignalProcessingProbe;
+use AlecRabbit\Spinner\Core\Contract\ILegacySignalProcessingLegacyProbe;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use AlecRabbit\Spinner\Core\Contract\ISpinnerState;
 use AlecRabbit\Spinner\Core\Contract\IWeakMap;
@@ -68,7 +68,7 @@ use AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyDriverSettings;
 use AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyLoopSettings;
 use AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyTerminalSettings;
 use AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyWidgetSettings;
-use AlecRabbit\Spinner\Core\Terminal\Contract\ITerminalProbe;
+use AlecRabbit\Spinner\Core\Terminal\Contract\ITerminalLegacyProbe;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidget;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetBuilder;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
@@ -504,13 +504,13 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
         return $mockObject;
     }
 
-    protected function getTerminalProbeMock(): MockObject&ITerminalProbe
+    protected function getTerminalProbeMock(): MockObject&ITerminalLegacyProbe
     {
-        return $this->createMock(ITerminalProbe::class);
+        return $this->createMock(ITerminalLegacyProbe::class);
     }
 
-    protected function getSignalProcessingProbeMock(): MockObject&ISignalProcessingProbe
+    protected function getSignalProcessingProbeMock(): MockObject&ILegacySignalProcessingLegacyProbe
     {
-        return $this->createMock(ISignalProcessingProbe::class);
+        return $this->createMock(ILegacySignalProcessingLegacyProbe::class);
     }
 }

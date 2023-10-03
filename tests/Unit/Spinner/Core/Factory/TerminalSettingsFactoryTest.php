@@ -9,7 +9,7 @@ use AlecRabbit\Spinner\Contract\Option\StylingMethodOption;
 use AlecRabbit\Spinner\Core\Factory\Contract\ITerminalSettingsFactory;
 use AlecRabbit\Spinner\Core\Factory\TerminalSettingsFactory;
 use AlecRabbit\Spinner\Core\Settings\Legacy\LegacyTerminalSettings;
-use AlecRabbit\Spinner\Core\Terminal\Contract\ITerminalProbe;
+use AlecRabbit\Spinner\Core\Terminal\Contract\ITerminalLegacyProbe;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;
 
@@ -24,7 +24,7 @@ final class TerminalSettingsFactoryTest extends TestCaseWithPrebuiltMocksAndStub
     }
 
     public function getTesteeInstance(
-        ?ITerminalProbe $terminalProbe = null,
+        ?ITerminalLegacyProbe $terminalProbe = null,
     ): ITerminalSettingsFactory {
         return new TerminalSettingsFactory(
             terminalProbe: $terminalProbe ?? $this->getTerminalProbeMock(),

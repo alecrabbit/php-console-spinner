@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Terminal;
 
 use AlecRabbit\Spinner\Contract\Option\StylingMethodOption;
-use AlecRabbit\Spinner\Core\Terminal\A\ATerminalProbe;
+use AlecRabbit\Spinner\Core\Terminal\A\ATerminalLegacyProbe;
 
-final class NativeTerminalProbe extends ATerminalProbe
+final class NativeTerminalLegacyProbe extends ATerminalLegacyProbe
 {
     public function isAvailable(): bool
     {

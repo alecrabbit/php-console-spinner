@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core;
 
-use AlecRabbit\Spinner\Core\Contract\ISignalProcessingProbe;
-use AlecRabbit\Spinner\Core\SignalProcessingProbe;
+use AlecRabbit\Spinner\Core\Contract\ILegacySignalProcessingLegacyProbe;
+use AlecRabbit\Spinner\Core\LegacySignalProcessingProbe;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 
@@ -18,12 +18,12 @@ final class SignalProcessingProbeTest extends TestCase
     {
         $driverBuilder = $this->getTesteeInstance();
 
-        self::assertInstanceOf(SignalProcessingProbe::class, $driverBuilder);
+        self::assertInstanceOf(LegacySignalProcessingProbe::class, $driverBuilder);
     }
 
-    public function getTesteeInstance(): ISignalProcessingProbe
+    public function getTesteeInstance(): ILegacySignalProcessingLegacyProbe
     {
-        return new SignalProcessingProbe();
+        return new LegacySignalProcessingProbe();
     }
 
     #[Test]

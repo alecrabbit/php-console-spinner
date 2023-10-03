@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Factory;
 
 use AlecRabbit\Spinner\Contract\Probe\ILoopProbe;
-use AlecRabbit\Spinner\Core\Contract\ISignalProcessingProbe;
+use AlecRabbit\Spinner\Core\Contract\ILegacySignalProcessingLegacyProbe;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopSettingsFactory;
 use AlecRabbit\Spinner\Core\Factory\LoopSettingsFactory;
 use AlecRabbit\Spinner\Core\Settings\Legacy\LegacyLoopSettings;
@@ -25,7 +25,7 @@ final class LoopSettingsFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
 
     public function getTesteeInstance(
         ?ILoopProbe $loopProbe = null,
-        ?ISignalProcessingProbe $signalProcessingProbe = null,
+        ?ILegacySignalProcessingLegacyProbe $signalProcessingProbe = null,
     ): ILoopSettingsFactory {
         return new LoopSettingsFactory(
             loopProbe: $loopProbe,

@@ -16,6 +16,7 @@ use AlecRabbit\Spinner\Contract\Option\CursorVisibilityOption;
 use AlecRabbit\Spinner\Contract\Option\StylingMethodOption;
 use AlecRabbit\Spinner\Contract\Output\IResourceStream;
 use AlecRabbit\Spinner\Contract\Probe\ILoopProbe;
+use AlecRabbit\Spinner\Contract\Probe\ISignalProcessingProbe;
 use AlecRabbit\Spinner\Core\Builder\BufferedOutputBuilder;
 use AlecRabbit\Spinner\Core\Builder\ConsoleCursorBuilder;
 use AlecRabbit\Spinner\Core\Builder\Contract\IBufferedOutputBuilder;
@@ -69,7 +70,7 @@ use AlecRabbit\Spinner\Core\Contract\IDriverSetup;
 use AlecRabbit\Spinner\Core\Contract\IIntervalNormalizer;
 use AlecRabbit\Spinner\Core\Contract\ILegacySettingsProvider;
 use AlecRabbit\Spinner\Core\Contract\ISignalHandlersSetup;
-use AlecRabbit\Spinner\Core\Contract\ISignalProcessingProbe;
+use AlecRabbit\Spinner\Core\Contract\ILegacySignalProcessingLegacyProbe;
 use AlecRabbit\Spinner\Core\Contract\Loop\Contract\ILoop;
 use AlecRabbit\Spinner\Core\DriverSetup;
 use AlecRabbit\Spinner\Core\Factory\BufferedOutputSingletonFactory;
@@ -134,13 +135,14 @@ use AlecRabbit\Spinner\Core\Settings\Contract\Factory\IUserSettingsFactory;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettingsProvider;
 use AlecRabbit\Spinner\Core\Settings\Contract\IWidgetSettings;
 use AlecRabbit\Spinner\Core\Settings\Detector\LoopAvailabilityDetector;
+use AlecRabbit\Spinner\Core\Settings\Detector\SignalProcessingDetector;
 use AlecRabbit\Spinner\Core\Settings\Factory\DefaultSettingsFactory;
 use AlecRabbit\Spinner\Core\Settings\Factory\DetectedSettingsFactory;
 use AlecRabbit\Spinner\Core\Settings\Factory\SettingsProviderFactory;
 use AlecRabbit\Spinner\Core\Settings\Factory\UserSettingsFactory;
 use AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyDriverSettings;
 use AlecRabbit\Spinner\Core\SignalHandlersSetup;
-use AlecRabbit\Spinner\Core\Terminal\NativeTerminalProbe;
+use AlecRabbit\Spinner\Core\Terminal\NativeTerminalLegacyProbe;
 use AlecRabbit\Spinner\Core\Widget\Builder\WidgetBuilder;
 use AlecRabbit\Spinner\Core\Widget\Builder\WidgetCompositeBuilder;
 use AlecRabbit\Spinner\Core\Widget\Builder\WidgetRevolverBuilder;
@@ -265,7 +267,7 @@ function definitions(): Traversable
             return
                 $container->get(ILegacySettingsProviderBuilder::class)->build();
         },
-        ISignalProcessingProbe::class => static function (ContainerInterface $container): ISignalProcessingProbe {
+        ILegacySignalProcessingLegacyProbe::class => static function (ContainerInterface $container): ILegacySignalProcessingLegacyProbe {
             return
                 $container->get(ISignalProcessingProbeFactory::class)->getProbe();
         },
@@ -275,7 +277,7 @@ function definitions(): Traversable
             return
                 new TerminalProbeFactory(
                     new ArrayObject([
-                        NativeTerminalProbe::class,
+                        NativeTerminalLegacyProbe::class,
                     ]),
                 );
         },
@@ -310,7 +312,12 @@ function definitions(): Traversable
         IPatternFactory::class => PatternFactory::class,
         IPaletteModeFactory::class => PaletteModeFactory::class,
         ILoopAvailabilityDetector::class => LoopAvailabilityDetector::class,
-
+        ISignalProcessingDetector::class => static function (): SignalProcessingDetector {
+            return
+                new SignalProcessingDetector(
+                    Probes::load(ISignalProcessingProbe::class)
+                );
+        },
     ];
     yield from substitutes();
 }
@@ -434,15 +441,7 @@ function substitutes(): Traversable
                     }
                 };
         },
-        ISignalProcessingDetector::class => static function (): ISignalProcessingDetector {
-            return
-                new class implements ISignalProcessingDetector {
-                    public function isSupported(): true
-                    {
-                        return true;
-                    }
-                };
-        },
+
     ];
 }
 // @codeCoverageIgnoreEnd

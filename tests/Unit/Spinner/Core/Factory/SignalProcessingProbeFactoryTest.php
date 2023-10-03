@@ -6,7 +6,7 @@ namespace AlecRabbit\Tests\Unit\Spinner\Core\Factory;
 
 use AlecRabbit\Spinner\Core\Factory\Contract\ISignalProcessingProbeFactory;
 use AlecRabbit\Spinner\Core\Factory\SignalProcessingProbeFactory;
-use AlecRabbit\Spinner\Core\SignalProcessingProbe;
+use AlecRabbit\Spinner\Core\LegacySignalProcessingProbe;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;
 
@@ -31,6 +31,6 @@ final class SignalProcessingProbeFactoryTest extends TestCaseWithPrebuiltMocksAn
         $signalProcessingProbeFactory = $this->getTesteeInstance();
 
         self::assertInstanceOf(SignalProcessingProbeFactory::class, $signalProcessingProbeFactory);
-        self::assertInstanceOf(SignalProcessingProbe::class, $signalProcessingProbeFactory->getProbe());
+        self::assertInstanceOf(LegacySignalProcessingProbe::class, $signalProcessingProbeFactory->getProbe());
     }
 }
