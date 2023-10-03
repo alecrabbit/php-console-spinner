@@ -7,7 +7,7 @@ namespace AlecRabbit\Tests\Unit\Spinner\Core\Settings\Factory;
 use AlecRabbit\Spinner\Contract\Option\StylingMethodOption;
 use AlecRabbit\Spinner\Core\Settings\Contract\Detector\IColorSupportDetector;
 use AlecRabbit\Spinner\Core\Settings\Contract\Detector\ILoopAvailabilityDetector;
-use AlecRabbit\Spinner\Core\Settings\Contract\Detector\ISignalHandlingDetector;
+use AlecRabbit\Spinner\Core\Settings\Contract\Detector\ISignalProcessingDetector;
 use AlecRabbit\Spinner\Core\Settings\Contract\Factory\IDetectedSettingsFactory;
 use AlecRabbit\Spinner\Core\Settings\Factory\DetectedSettingsFactory;
 use AlecRabbit\Spinner\Core\Settings\Settings;
@@ -28,7 +28,7 @@ final class DetectedSettingsFactoryTest extends TestCase
     protected function getTesteeInstance(
         ?ILoopAvailabilityDetector $loopAvailabilityDetector = null,
         ?IColorSupportDetector $colorSupportDetector = null,
-        ?ISignalHandlingDetector $signalHandlingDetector = null,
+        ?ISignalProcessingDetector $signalHandlingDetector = null,
     ): IDetectedSettingsFactory {
         return
             new DetectedSettingsFactory(
@@ -54,9 +54,9 @@ final class DetectedSettingsFactoryTest extends TestCase
         );
     }
 
-    private function getSignalHandlingDetectorMock(): MockObject&ISignalHandlingDetector
+    private function getSignalHandlingDetectorMock(): MockObject&ISignalProcessingDetector
     {
-        return $this->createMock(ISignalHandlingDetector::class);
+        return $this->createMock(ISignalProcessingDetector::class);
     }
 
     #[Test]

@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Settings\Detector\Override;
 
+use AlecRabbit\Spinner\Contract\Probe\ILoopProbe;
 use AlecRabbit\Spinner\Core\Contract\Loop\Contract\ILoop;
-use AlecRabbit\Spinner\Core\Contract\Loop\Contract\ILoopProbe;
+use RuntimeException;
 
 class NegativeLoopProbeOverride implements ILoopProbe
 {
@@ -16,6 +17,6 @@ class NegativeLoopProbeOverride implements ILoopProbe
 
     public function createLoop(): ILoop
     {
-        throw new \RuntimeException('INTENTIONALLY Not implemented.');
+        throw new RuntimeException('INTENTIONALLY Not implemented.');
     }
 }

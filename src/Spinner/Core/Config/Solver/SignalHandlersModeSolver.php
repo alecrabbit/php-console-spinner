@@ -10,7 +10,6 @@ use AlecRabbit\Spinner\Core\Config\Solver\A\ASolver;
 use AlecRabbit\Spinner\Core\Settings\Contract\ILoopSettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettings;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
-use RuntimeException;
 
 class SignalHandlersModeSolver extends ASolver implements Contract\ISignalHandlersModeSolver
 {

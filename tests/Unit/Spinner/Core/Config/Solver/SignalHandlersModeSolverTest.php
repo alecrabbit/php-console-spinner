@@ -6,8 +6,8 @@ namespace AlecRabbit\Tests\Unit\Spinner\Core\Config\Solver;
 
 use AlecRabbit\Spinner\Contract\Mode\SignalHandlersMode;
 use AlecRabbit\Spinner\Contract\Option\SignalHandlersOption;
-use AlecRabbit\Spinner\Core\Config\Solver\SignalHandlersModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\ISignalHandlersModeSolver;
+use AlecRabbit\Spinner\Core\Config\Solver\SignalHandlersModeSolver;
 use AlecRabbit\Spinner\Core\Settings\Contract\ILoopSettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettingsProvider;
@@ -188,8 +188,8 @@ final class SignalHandlersModeSolverTest extends TestCase
         }
     }
 
-    protected function getLoopSettingsMock(?SignalHandlersOption $autoStartOption = null): (MockObject&ILoopSettings)|null
-    {
+    protected function getLoopSettingsMock(?SignalHandlersOption $autoStartOption = null
+    ): (MockObject&ILoopSettings)|null {
         return
             $autoStartOption === null
                 ? null :

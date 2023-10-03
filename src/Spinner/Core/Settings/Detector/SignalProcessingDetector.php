@@ -4,16 +4,17 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Settings\Detector;
 
-use AlecRabbit\Spinner\Contract\Probe\ILoopProbe;
-use AlecRabbit\Spinner\Core\Settings\Contract\Detector\ILoopAvailabilityDetector;
+use AlecRabbit\Spinner\Contract\Probe\ISignalProcessingProbe;
+use AlecRabbit\Spinner\Core\Settings\Contract\Detector\ISignalProcessingDetector;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Probes;
 use Traversable;
 
-final class LoopAvailabilityDetector implements ILoopAvailabilityDetector
+final class SignalProcessingDetector implements ISignalProcessingDetector
 {
+
     /** @inheritDoc */
-    public function loopIsAvailable(): bool
+    public function isSupported(): bool
     {
         foreach ($this->loadProbes() as $probe) {
             if ($probe::isSupported()) {
@@ -25,11 +26,11 @@ final class LoopAvailabilityDetector implements ILoopAvailabilityDetector
     }
 
     /**
-     * @return Traversable<ILoopProbe>
+     * @return Traversable<ISignalProcessingProbe>
      * @throws InvalidArgumentException
      */
     private function loadProbes(): Traversable
     {
-        return Probes::load(ILoopProbe::class);
+        return Probes::load(ISignalProcessingProbe::class);
     }
 }

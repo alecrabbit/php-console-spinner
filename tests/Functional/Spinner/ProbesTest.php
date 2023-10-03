@@ -6,8 +6,8 @@ namespace AlecRabbit\Tests\Functional\Spinner;
 
 use AlecRabbit\Spinner\Asynchronous\Loop\Probe\ReactLoopProbe;
 use AlecRabbit\Spinner\Asynchronous\Loop\Probe\RevoltLoopProbe;
-use AlecRabbit\Spinner\Contract\IStaticProbe;
-use AlecRabbit\Spinner\Core\Contract\Loop\Contract\ILoopProbe;
+use AlecRabbit\Spinner\Contract\Probe\ILoopProbe;
+use AlecRabbit\Spinner\Contract\Probe\IStaticProbe;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Probes;
 use AlecRabbit\Tests\Functional\Spinner\Override\StaticProbeOverride;
@@ -236,13 +236,13 @@ final class ProbesTest extends TestCase
         $this->setProbes([]);
     }
 
-    protected function tearDown(): void
-    {
-        $this->setProbes($this->probes);
-    }
-
     protected function setProbes(array $probes): void
     {
         self::setPropertyValue(Probes::class, self::PROBES, $probes);
+    }
+
+    protected function tearDown(): void
+    {
+        $this->setProbes($this->probes);
     }
 }

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Functional\Spinner\Override;
 
-use AlecRabbit\Spinner\Contract\IStaticProbe;
+use AlecRabbit\Spinner\Contract\Probe\IStaticProbe;
 use RuntimeException;
 
 class StaticProbeOverride implements IStaticProbe
