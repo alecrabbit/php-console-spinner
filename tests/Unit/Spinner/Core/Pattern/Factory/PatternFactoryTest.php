@@ -9,7 +9,7 @@ use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalFactory;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPalette;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteMode;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteOptions;
-use AlecRabbit\Spinner\Core\Palette\Contract\ITemplate;
+use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteTemplate;
 use AlecRabbit\Spinner\Core\Palette\Factory\Contract\IPaletteModeFactory;
 use AlecRabbit\Spinner\Core\Pattern\Factory\Contract\IPatternFactory;
 use AlecRabbit\Spinner\Core\Pattern\Factory\PatternFactory;
@@ -135,9 +135,9 @@ final class PatternFactoryTest extends TestCase
         return $this->createMock(Traversable::class);
     }
 
-    private function getTemplateMock(): MockObject&ITemplate
+    private function getTemplateMock(): MockObject&IPaletteTemplate
     {
-        return $this->createMock(ITemplate::class);
+        return $this->createMock(IPaletteTemplate::class);
     }
 
     private function getPaletteMock(): MockObject&IPalette

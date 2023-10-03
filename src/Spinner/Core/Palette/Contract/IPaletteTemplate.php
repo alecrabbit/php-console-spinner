@@ -6,7 +6,7 @@ namespace AlecRabbit\Spinner\Core\Palette\Contract;
 
 use Traversable;
 
-interface  ITemplate
+interface  IPaletteTemplate
 {
     public function getEntries(): Traversable;
 

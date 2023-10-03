@@ -7,7 +7,7 @@ namespace AlecRabbit\Spinner\Core\Palette\A;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPalette;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteMode;
 use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteOptions;
-use AlecRabbit\Spinner\Core\Palette\Contract\ITemplate;
+use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteTemplate;
 use AlecRabbit\Spinner\Core\Palette\PaletteOptions;
 use AlecRabbit\Spinner\Core\Palette\PaletteTemplate;
 use Traversable;
@@ -19,7 +19,7 @@ abstract class APalette implements IPalette
     ) {
     }
 
-    public function getTemplate(?IPaletteMode $mode = null): ITemplate
+    public function getTemplate(?IPaletteMode $mode = null): IPaletteTemplate
     {
         $options = $this->getOptions($mode);
 

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Palette;
 
 use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteOptions;
-use AlecRabbit\Spinner\Core\Palette\Contract\ITemplate;
+use AlecRabbit\Spinner\Core\Palette\Contract\IPaletteTemplate;
 use AlecRabbit\Spinner\Core\Palette\PaletteTemplate;
 use AlecRabbit\Tests\TestCase\TestCase;
 use ArrayObject;
@@ -28,7 +28,7 @@ final class PaletteTemplateTest extends TestCase
     private function getTesteeInstance(
         ?Traversable $entries = null,
         ?IPaletteOptions $options = null,
-    ): ITemplate {
+    ): IPaletteTemplate {
         return
             new PaletteTemplate(
                 entries: $entries ?? $this->getTraversableMock(),

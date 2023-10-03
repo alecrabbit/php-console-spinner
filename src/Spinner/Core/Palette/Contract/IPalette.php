@@ -6,5 +6,5 @@ namespace AlecRabbit\Spinner\Core\Palette\Contract;
 
 interface IPalette
 {
-    public function getTemplate(?IPaletteMode $mode = null): ITemplate;
+    public function getTemplate(?IPaletteMode $mode = null): IPaletteTemplate;
 }
