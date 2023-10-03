@@ -41,7 +41,7 @@ final class NoCharPaletteTest extends TestCase
 
         self::assertInstanceOf(PaletteTemplate::class, $template);
         self::assertInstanceOf(Generator::class, $template->getEntries());
-        self::assertNull($template->getInterval());
+        self::assertNull($template->getOptions()->getInterval());
     }
 
     private function getPaletteModeMock(): MockObject&IPaletteMode
@@ -58,7 +58,7 @@ final class NoCharPaletteTest extends TestCase
 
         self::assertInstanceOf(PaletteTemplate::class, $template);
         self::assertInstanceOf(Generator::class, $template->getEntries());
-        self::assertNull($template->getInterval());
+        self::assertNull($template->getOptions()->getInterval());
     }
 
     #[Test]

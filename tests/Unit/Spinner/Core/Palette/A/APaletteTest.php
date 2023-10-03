@@ -66,6 +66,6 @@ final class APaletteTest extends TestCase
         self::assertInstanceOf(PaletteTemplate::class, $template);
 
         self::assertSame($entries, $template->getEntries());
-        self::assertSame($interval, $template->getInterval());
+        self::assertSame($interval, $template->getOptions()->getInterval());
     }
 }

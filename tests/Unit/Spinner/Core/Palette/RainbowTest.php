@@ -56,7 +56,7 @@ final class RainbowTest extends TestCase
 
         self::assertInstanceOf(PaletteTemplate::class, $template);
         self::assertInstanceOf(Generator::class, $template->getEntries());
-        self::assertNull($template->getInterval());
+        self::assertNull($template->getOptions()->getInterval());
     }
 
     private function getPaletteModeMock(): MockObject&IPaletteMode
@@ -73,7 +73,7 @@ final class RainbowTest extends TestCase
 
         self::assertInstanceOf(PaletteTemplate::class, $template);
         self::assertInstanceOf(Generator::class, $template->getEntries());
-        self::assertNull($template->getInterval());
+        self::assertNull($template->getOptions()->getInterval());
     }
 
     #[Test]
@@ -92,7 +92,7 @@ final class RainbowTest extends TestCase
         self::assertCount(1, $entries);
         self::assertEquals(new StyleFrame('%s', 0), $entries[0]);
 
-        self::assertNull($template->getInterval());
+        self::assertNull($template->getOptions()->getInterval());
     }
 
     #[Test]
@@ -118,7 +118,7 @@ final class RainbowTest extends TestCase
         self::assertCount(1, $entries);
         self::assertEquals(new StyleFrame('%s', 0), $entries[0]);
 
-        self::assertNull($template->getInterval());
+        self::assertNull($template->getOptions()->getInterval());
     }
 
     #[Test]
@@ -148,7 +148,7 @@ final class RainbowTest extends TestCase
         self::assertCount(1, $entries);
         self::assertEquals(new StyleFrame("\e[96m%s\e[39m", 0), $entries[0]);
 
-        self::assertNull($template->getInterval());
+        self::assertNull($template->getOptions()->getInterval());
     }
 
     #[Test]
@@ -172,7 +172,7 @@ final class RainbowTest extends TestCase
         $traversable = $template->getEntries();
 
         self::assertInstanceOf(Generator::class, $traversable);
-        self::assertSame(1000, $template->getInterval());
+        self::assertSame(1000, $template->getOptions()->getInterval());
 
         $entries = iterator_to_array($traversable); // unwrap generator
 
@@ -241,7 +241,7 @@ final class RainbowTest extends TestCase
         $traversable = $template->getEntries();
 
         self::assertInstanceOf(Generator::class, $traversable);
-        self::assertSame($interval, $template->getInterval());
+        self::assertSame($interval, $template->getOptions()->getInterval());
 
         $entries = iterator_to_array($traversable); // unwrap generator
 
@@ -300,7 +300,7 @@ final class RainbowTest extends TestCase
         $traversable = $template->getEntries();
 
         self::assertInstanceOf(Generator::class, $traversable);
-        self::assertSame(100, $template->getInterval());
+        self::assertSame(100, $template->getOptions()->getInterval());
 
         $entries = iterator_to_array($traversable); // unwrap generator
 
@@ -700,7 +700,7 @@ final class RainbowTest extends TestCase
         $traversable = $template->getEntries();
 
         self::assertInstanceOf(Generator::class, $traversable);
-        self::assertSame($interval, $template->getInterval());
+        self::assertSame($interval, $template->getOptions()->getInterval());
 
         self::assertSame($interval, $template->getOptions()->getInterval());
 //        self::assertTrue($template->getOptions()->getReversed());

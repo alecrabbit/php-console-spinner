@@ -10,8 +10,5 @@ interface  ITemplate
 {
     public function getEntries(): Traversable;
 
-    /** @deprecated */
-    public function getInterval(): ?int;
-
     public function getOptions(): IPaletteOptions;
 }

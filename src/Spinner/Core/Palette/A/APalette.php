@@ -26,7 +26,6 @@ abstract class APalette implements IPalette
         return
             new PaletteTemplate(
                 $this->getEntries($mode),
-                $options->getInterval(),
                 $options,
             );
     }

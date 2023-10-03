@@ -54,7 +54,7 @@ final class SnakeTest extends TestCase
 
         self::assertInstanceOf(PaletteTemplate::class, $template);
         self::assertInstanceOf(Generator::class, $template->getEntries());
-        self::assertSame(80, $template->getInterval());
+        self::assertSame(80, $template->getOptions()->getInterval());
     }
 
     private function getPaletteModeMock(): MockObject&IPaletteMode
@@ -71,7 +71,7 @@ final class SnakeTest extends TestCase
 
         self::assertInstanceOf(PaletteTemplate::class, $template);
         self::assertInstanceOf(Generator::class, $template->getEntries());
-        self::assertSame(80, $template->getInterval());
+        self::assertSame(80, $template->getOptions()->getInterval());
     }
 
 
@@ -85,7 +85,7 @@ final class SnakeTest extends TestCase
         $traversable = $template->getEntries();
 
         self::assertInstanceOf(Generator::class, $traversable);
-        self::assertSame(80, $template->getInterval()); // should pass before unwrapping
+        self::assertSame(80, $template->getOptions()->getInterval()); // should pass before unwrapping
 
         $entries = iterator_to_array($traversable); // unwrap generator
 
@@ -129,7 +129,7 @@ final class SnakeTest extends TestCase
         self::assertInstanceOf(Generator::class, $traversable);
 
         $entries = iterator_to_array($traversable); // unwrap generator
-        self::assertSame($interval, $template->getInterval());
+        self::assertSame($interval, $template->getOptions()->getInterval());
 
         self::assertCount(8, $entries);
 

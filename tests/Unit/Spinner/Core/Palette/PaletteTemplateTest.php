@@ -27,13 +27,11 @@ final class PaletteTemplateTest extends TestCase
 
     private function getTesteeInstance(
         ?Traversable $entries = null,
-        ?int $interval = null,
         ?IPaletteOptions $options = null,
     ): ITemplate {
         return
             new PaletteTemplate(
                 entries: $entries ?? $this->getTraversableMock(),
-                interval: $interval ?? self::DEFAULT_INTERVAL,
                 options: $options ?? $this->getPaletteOptionsMock(),
             );
     }
@@ -64,12 +62,18 @@ final class PaletteTemplateTest extends TestCase
     public function canGetInterval(): void
     {
         $interval = 111;
+        $options = $this->getPaletteOptionsMock();
+        $options
+            ->expects(self::once())
+            ->method('getInterval')
+            ->willReturn($interval)
+        ;
 
         $template = $this->getTesteeInstance(
-            interval: $interval,
+            options: $options,
         );
 
-        self::assertSame($interval, $template->getInterval());
+        self::assertSame($interval, $template->getOptions()->getInterval());
     }
 
     #[Test]
