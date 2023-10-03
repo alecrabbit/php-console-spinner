@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Settings\Detector;
 
 use AlecRabbit\Spinner\Core\Contract\Loop\Contract\Probe\ILoopProbe;
-use AlecRabbit\Spinner\Core\Settings\Contract\Detector\ILoopAvailabilityDetector;
+use AlecRabbit\Spinner\Core\Settings\Contract\Detector\ILoopSupportDetector;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use Traversable;
 
-final class LoopAvailabilityDetector implements ILoopAvailabilityDetector
+final class LoopSupportDetector implements ILoopSupportDetector
 {
     public function __construct(
         protected Traversable $probes = new \ArrayObject(),
@@ -17,7 +17,7 @@ final class LoopAvailabilityDetector implements ILoopAvailabilityDetector
     }
 
     /** @inheritDoc */
-    public function loopIsAvailable(): bool
+    public function isSupported(): bool
     {
         foreach ($this->probes as $probe) {
             self::assertProbe($probe);

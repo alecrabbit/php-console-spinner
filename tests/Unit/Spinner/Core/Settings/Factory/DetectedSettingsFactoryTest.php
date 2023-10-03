@@ -6,7 +6,7 @@ namespace AlecRabbit\Tests\Unit\Spinner\Core\Settings\Factory;
 
 use AlecRabbit\Spinner\Contract\Option\StylingMethodOption;
 use AlecRabbit\Spinner\Core\Settings\Contract\Detector\IColorSupportDetector;
-use AlecRabbit\Spinner\Core\Settings\Contract\Detector\ILoopAvailabilityDetector;
+use AlecRabbit\Spinner\Core\Settings\Contract\Detector\ILoopSupportDetector;
 use AlecRabbit\Spinner\Core\Settings\Contract\Detector\ISignalProcessingDetector;
 use AlecRabbit\Spinner\Core\Settings\Contract\Factory\IDetectedSettingsFactory;
 use AlecRabbit\Spinner\Core\Settings\Factory\DetectedSettingsFactory;
@@ -26,7 +26,7 @@ final class DetectedSettingsFactoryTest extends TestCase
     }
 
     protected function getTesteeInstance(
-        ?ILoopAvailabilityDetector $loopAvailabilityDetector = null,
+        ?ILoopSupportDetector $loopAvailabilityDetector = null,
         ?IColorSupportDetector $colorSupportDetector = null,
         ?ISignalProcessingDetector $signalHandlingDetector = null,
     ): IDetectedSettingsFactory {
@@ -38,9 +38,9 @@ final class DetectedSettingsFactoryTest extends TestCase
             );
     }
 
-    private function getLoopAvailabilityDetectorMock(): MockObject&ILoopAvailabilityDetector
+    private function getLoopAvailabilityDetectorMock(): MockObject&ILoopSupportDetector
     {
-        return $this->createMock(ILoopAvailabilityDetector::class);
+        return $this->createMock(ILoopSupportDetector::class);
     }
 
     private function getColorSupportDetectorMock(

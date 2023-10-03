@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Settings\Detector;
 
 use AlecRabbit\Spinner\Core\Contract\Loop\Contract\Probe\ILoopProbe;
-use AlecRabbit\Spinner\Core\Settings\Contract\Detector\ILoopAvailabilityDetector;
-use AlecRabbit\Spinner\Core\Settings\Detector\LoopAvailabilityDetector;
+use AlecRabbit\Spinner\Core\Settings\Contract\Detector\ILoopSupportDetector;
+use AlecRabbit\Spinner\Core\Settings\Detector\LoopSupportDetector;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Tests\TestCase\TestCase;
 use AlecRabbit\Tests\Unit\Spinner\Core\Settings\Detector\Override\NegativeLoopProbeOverride;
@@ -48,14 +48,14 @@ final class LoopAvailabilityDetectorTest extends TestCase
     {
         $detector = $this->getTesteeInstance();
 
-        self::assertInstanceOf(LoopAvailabilityDetector::class, $detector);
+        self::assertInstanceOf(LoopSupportDetector::class, $detector);
     }
 
     protected function getTesteeInstance(
         ?\Traversable $probes = null
-    ): ILoopAvailabilityDetector {
+    ): ILoopSupportDetector {
         return
-            new LoopAvailabilityDetector(
+            new LoopSupportDetector(
                 probes: $probes ?? new \ArrayObject(),
             );
     }
@@ -68,7 +68,7 @@ final class LoopAvailabilityDetectorTest extends TestCase
             probes: new \ArrayObject($probes),
         );
 
-        self::assertEquals($result, $detector->loopIsAvailable());
+        self::assertEquals($result, $detector->isSupported());
     }
 
     #[Test]
@@ -84,7 +84,7 @@ final class LoopAvailabilityDetectorTest extends TestCase
         $detector = $this->getTesteeInstance(
             probes: new \ArrayObject([\stdClass::class]),
         );
-        self::assertTrue($detector->loopIsAvailable());
+        self::assertTrue($detector->isSupported());
 
         self::fail('Exception was not thrown.');
     }

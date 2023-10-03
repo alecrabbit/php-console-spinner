@@ -11,7 +11,7 @@ use AlecRabbit\Spinner\Contract\Option\SignalHandlersOption;
 use AlecRabbit\Spinner\Contract\Option\StylingMethodOption;
 use AlecRabbit\Spinner\Core\Settings\AuxSettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\Detector\IColorSupportDetector;
-use AlecRabbit\Spinner\Core\Settings\Contract\Detector\ILoopAvailabilityDetector;
+use AlecRabbit\Spinner\Core\Settings\Contract\Detector\ILoopSupportDetector;
 use AlecRabbit\Spinner\Core\Settings\Contract\Detector\ISignalProcessingDetector;
 use AlecRabbit\Spinner\Core\Settings\Contract\Factory\IDetectedSettingsFactory;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettings;
@@ -23,7 +23,7 @@ use AlecRabbit\Spinner\Core\Settings\Settings;
 final class DetectedSettingsFactory implements IDetectedSettingsFactory
 {
     public function __construct(
-        protected ILoopAvailabilityDetector $loopAvailabilityDetector,
+        protected ILoopSupportDetector $loopAvailabilityDetector,
         protected IColorSupportDetector $colorSupportDetector,
         protected ISignalProcessingDetector $signalHandlingDetector,
     ) {
@@ -67,7 +67,7 @@ final class DetectedSettingsFactory implements IDetectedSettingsFactory
 
     private function loopIsAvailable(): bool
     {
-        return $this->loopAvailabilityDetector->loopIsAvailable();
+        return $this->loopAvailabilityDetector->isSupported();
     }
 
     private function getLinkerOption(): LinkerOption
