@@ -9,7 +9,6 @@ use AlecRabbit\Spinner\Contract\Mode\CursorVisibilityMode;
 use AlecRabbit\Spinner\Contract\Mode\InitializationMode;
 use AlecRabbit\Spinner\Contract\Mode\LinkerMode;
 use AlecRabbit\Spinner\Contract\Mode\NormalizerMethodMode;
-use AlecRabbit\Spinner\Contract\Mode\RunMethodMode;
 use AlecRabbit\Spinner\Contract\Mode\SignalHandlersMode;
 use AlecRabbit\Spinner\Contract\Mode\StylingMethodMode;
 use AlecRabbit\Spinner\Contract\Option\CursorVisibilityOption;
@@ -40,7 +39,8 @@ use AlecRabbit\Spinner\Core\Builder\Settings\Legacy\LegacyWidgetSettingsBuilder;
 use AlecRabbit\Spinner\Core\Builder\SignalHandlersSetupBuilder;
 use AlecRabbit\Spinner\Core\Builder\TimerBuilder;
 use AlecRabbit\Spinner\Core\CharFrame;
-use AlecRabbit\Spinner\Core\Config\AuxConfig;
+use AlecRabbit\Spinner\Core\Config\Builder\AuxConfigBuilder;
+use AlecRabbit\Spinner\Core\Config\Contract\Builder\IAuxConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\IAuxConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\IConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\IConfigProviderFactory;
@@ -49,17 +49,23 @@ use AlecRabbit\Spinner\Core\Config\Contract\Factory\ILoopConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\IOutputConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\IRootWidgetConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\IWidgetConfigFactory;
-use AlecRabbit\Spinner\Core\Config\Contract\IAuxConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IDriverConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\ILoopConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IOutputConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IRootWidgetConfig;
 use AlecRabbit\Spinner\Core\Config\DriverConfig;
+use AlecRabbit\Spinner\Core\Config\Factory\AuxConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Factory\ConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Factory\ConfigProviderFactory;
 use AlecRabbit\Spinner\Core\Config\LoopConfig;
 use AlecRabbit\Spinner\Core\Config\OutputConfig;
 use AlecRabbit\Spinner\Core\Config\RootWidgetConfig;
+use AlecRabbit\Spinner\Core\Config\Solver\AutoStartModeSolver;
+use AlecRabbit\Spinner\Core\Config\Solver\Contract\IAutoStartModeSolver;
+use AlecRabbit\Spinner\Core\Config\Solver\Contract\INormalizerMethodModeSolver;
+use AlecRabbit\Spinner\Core\Config\Solver\Contract\IRunMethodModeSolver;
+use AlecRabbit\Spinner\Core\Config\Solver\NormalizerMethodModeSolver;
+use AlecRabbit\Spinner\Core\Config\Solver\RunMethodModeSolver;
 use AlecRabbit\Spinner\Core\Config\WidgetRevolverConfig;
 use AlecRabbit\Spinner\Core\Contract\IConfigProvider;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
@@ -324,6 +330,13 @@ function definitions(): Traversable
                     Probes::load(ISignalProcessingProbe::class)
                 );
         },
+
+        IAuxConfigFactory::class => AuxConfigFactory::class,
+
+        IAuxConfigBuilder::class => AuxConfigBuilder::class,
+        IRunMethodModeSolver::class => RunMethodModeSolver::class,
+        INormalizerMethodModeSolver::class => NormalizerMethodModeSolver::class,
+        IAutoStartModeSolver::class => AutoStartModeSolver::class,
     ];
     yield from substitutes();
 }
@@ -332,19 +345,19 @@ function substitutes(): Traversable
 {
     yield from [
 
-        IAuxConfigFactory::class => static function (): IAuxConfigFactory {
-            return
-                new class implements IAuxConfigFactory {
-                    public function create(): IAuxConfig
-                    {
-                        return
-                            new AuxConfig(
-                                runMethodMode: RunMethodMode::ASYNC,
-                                normalizerMethodMode: NormalizerMethodMode::BALANCED,
-                            );
-                    }
-                };
-        },
+//        IAuxConfigFactory::class => static function (): IAuxConfigFactory {
+//            return
+//                new class implements IAuxConfigFactory {
+//                    public function create(): IAuxConfig
+//                    {
+//                        return
+//                            new AuxConfig(
+//                                runMethodMode: RunMethodMode::ASYNC,
+//                                normalizerMethodMode: NormalizerMethodMode::BALANCED,
+//                            );
+//                    }
+//                };
+//        },
         ILoopConfigFactory::class => static function (): ILoopConfigFactory {
             return
                 new class implements ILoopConfigFactory {

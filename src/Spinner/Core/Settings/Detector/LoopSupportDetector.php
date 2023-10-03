@@ -7,12 +7,13 @@ namespace AlecRabbit\Spinner\Core\Settings\Detector;
 use AlecRabbit\Spinner\Core\Contract\Loop\Contract\Probe\ILoopProbe;
 use AlecRabbit\Spinner\Core\Settings\Contract\Detector\ILoopSupportDetector;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
+use ArrayObject;
 use Traversable;
 
 final class LoopSupportDetector implements ILoopSupportDetector
 {
     public function __construct(
-        protected Traversable $probes = new \ArrayObject(),
+        protected Traversable $probes = new ArrayObject(),
     ) {
     }
 

@@ -23,8 +23,12 @@ final class AuxConfigFactory implements IAuxConfigFactory
     {
         return
             $this->auxConfigBuilder
-                ->withRunMethodMode($this->runMethodModeSolver->solve())
-                ->withNormalizerMethodMode($this->normalizerMethodModeSolver->solve())
+                ->withRunMethodMode(
+                    $this->runMethodModeSolver->solve()
+                )
+                ->withNormalizerMethodMode(
+                    $this->normalizerMethodModeSolver->solve()
+                )
                 ->build()
         ;
     }

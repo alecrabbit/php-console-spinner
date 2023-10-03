@@ -14,7 +14,7 @@ use AlecRabbit\Tests\Unit\Spinner\Core\Settings\Detector\Override\PositiveLoopPr
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 
-final class LoopAvailabilityDetectorTest extends TestCase
+final class LoopSupportDetectorTest extends TestCase
 {
     public static function canSolveDataProvider(): iterable
     {

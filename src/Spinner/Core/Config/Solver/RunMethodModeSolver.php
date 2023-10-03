@@ -75,6 +75,11 @@ final class RunMethodModeSolver extends ASolver implements IRunMethodModeSolver
                     null,
                 ],
                 [
+                    null,
+                    RunMethodOption::ASYNC,
+                    RunMethodOption::ASYNC,
+                ],
+                [
                     RunMethodOption::ASYNC,
                     null,
                     null,
@@ -114,6 +119,11 @@ final class RunMethodModeSolver extends ASolver implements IRunMethodModeSolver
                     null,
                     RunMethodOption::SYNCHRONOUS,
                     null,
+                ],
+                [
+                    null,
+                    RunMethodOption::SYNCHRONOUS,
+                    RunMethodOption::SYNCHRONOUS,
                 ],
                 [
                     RunMethodOption::SYNCHRONOUS,

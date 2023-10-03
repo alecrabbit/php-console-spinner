@@ -17,18 +17,6 @@ final class SignalProcessingDetector implements ISignalProcessingDetector
     ) {
     }
 
-    protected static function assertProbe($probe): void
-    {
-        if (!is_a($probe, ISignalProcessingProbe::class, true)) {
-            throw new InvalidArgumentException(
-                sprintf(
-                    'Probe must be an instance of "%s" interface.',
-                    ISignalProcessingProbe::class
-                )
-            );
-        }
-    }
-
     /** @inheritDoc */
     public function isSupported(): bool
     {
@@ -40,5 +28,17 @@ final class SignalProcessingDetector implements ISignalProcessingDetector
         }
 
         return false;
+    }
+
+    protected static function assertProbe($probe): void
+    {
+        if (!is_a($probe, ISignalProcessingProbe::class, true)) {
+            throw new InvalidArgumentException(
+                sprintf(
+                    'Probe must be an instance of "%s" interface.',
+                    ISignalProcessingProbe::class
+                )
+            );
+        }
     }
 }
