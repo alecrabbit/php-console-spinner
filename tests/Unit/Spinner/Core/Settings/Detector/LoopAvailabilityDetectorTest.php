@@ -4,18 +4,44 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Settings\Detector;
 
+use AlecRabbit\Spinner\Core\Contract\Loop\Contract\Probe\ILoopProbe;
 use AlecRabbit\Spinner\Core\Settings\Contract\Detector\ILoopAvailabilityDetector;
 use AlecRabbit\Spinner\Core\Settings\Detector\LoopAvailabilityDetector;
-use AlecRabbit\Spinner\Probes;
+use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Tests\TestCase\TestCase;
 use AlecRabbit\Tests\Unit\Spinner\Core\Settings\Detector\Override\NegativeLoopProbeOverride;
 use AlecRabbit\Tests\Unit\Spinner\Core\Settings\Detector\Override\PositiveLoopProbeOverride;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 
 final class LoopAvailabilityDetectorTest extends TestCase
 {
-    private const PROBES = 'probes';
-    private static array $probes;
+    public static function canSolveDataProvider(): iterable
+    {
+        yield from [
+            // $result, $probes
+            [false, []],
+            [
+                true,
+                [
+                    PositiveLoopProbeOverride::class,
+                ]
+            ],
+            [
+                true,
+                [
+                    NegativeLoopProbeOverride::class,
+                    PositiveLoopProbeOverride::class,
+                ]
+            ],
+            [
+                false,
+                [
+                    NegativeLoopProbeOverride::class,
+                ]
+            ],
+        ];
+    }
 
     #[Test]
     public function canBeInstantiated(): void
@@ -25,54 +51,41 @@ final class LoopAvailabilityDetectorTest extends TestCase
         self::assertInstanceOf(LoopAvailabilityDetector::class, $detector);
     }
 
-    protected function getTesteeInstance(): ILoopAvailabilityDetector
-    {
+    protected function getTesteeInstance(
+        ?\Traversable $probes = null
+    ): ILoopAvailabilityDetector {
         return
-            new LoopAvailabilityDetector();
+            new LoopAvailabilityDetector(
+                probes: $probes ?? new \ArrayObject(),
+            );
     }
 
     #[Test]
-    public function canSolveWhenLoopIsUnavailable(): void
+    #[DataProvider('canSolveDataProvider')]
+    public function canSolve(bool $result, array $probes): void
     {
-        $probes = [
-            NegativeLoopProbeOverride::class,
-        ];
-        $this->setProbes($probes);
+        $detector = $this->getTesteeInstance(
+            probes: new \ArrayObject($probes),
+        );
 
-        $detector = $this->getTesteeInstance();
-
-        self::assertFalse($detector->loopIsAvailable());
-    }
-
-    protected function setProbes(array $probes): void
-    {
-        self::setPropertyValue(Probes::class, self::PROBES, $probes);
+        self::assertEquals($result, $detector->loopIsAvailable());
     }
 
     #[Test]
-    public function canSolveWhenLoopIsAvailable(): void
+    public function throwsIfProbeIsInvalid(): void
     {
-        $probes = [
-            NegativeLoopProbeOverride::class,
-            PositiveLoopProbeOverride::class,
-        ];
-
-        $this->setProbes($probes);
-
-        $detector = $this->getTesteeInstance();
-
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage(
+            sprintf(
+                'Probe must be an instance of "%s" interface.',
+                ILoopProbe::class
+            )
+        );
+        $detector = $this->getTesteeInstance(
+            probes: new \ArrayObject([\stdClass::class]),
+        );
         self::assertTrue($detector->loopIsAvailable());
-    }
 
-    protected function setUp(): void
-    {
-        parent::setUp();
-        self::$probes = self::getPropertyValue(self::PROBES, Probes::class);
-    }
-
-    protected function tearDown(): void
-    {
-        $this->setProbes(self::$probes);
-        parent::tearDown();
+        self::fail('Exception was not thrown.');
     }
 }

@@ -4,18 +4,23 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Settings\Detector;
 
-use AlecRabbit\Spinner\Contract\Probe\ILoopProbe;
+use AlecRabbit\Spinner\Core\Contract\Loop\Contract\Probe\ILoopProbe;
 use AlecRabbit\Spinner\Core\Settings\Contract\Detector\ILoopAvailabilityDetector;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
-use AlecRabbit\Spinner\Probes;
 use Traversable;
 
 final class LoopAvailabilityDetector implements ILoopAvailabilityDetector
 {
+    public function __construct(
+        protected Traversable $probes = new \ArrayObject(),
+    ) {
+    }
+
     /** @inheritDoc */
     public function loopIsAvailable(): bool
     {
-        foreach ($this->loadProbes() as $probe) {
+        foreach ($this->probes as $probe) {
+            self::assertProbe($probe);
             if ($probe::isSupported()) {
                 return true;
             }
@@ -24,12 +29,15 @@ final class LoopAvailabilityDetector implements ILoopAvailabilityDetector
         return false;
     }
 
-    /**
-     * @return Traversable<ILoopProbe>
-     * @throws InvalidArgumentException
-     */
-    private function loadProbes(): Traversable
+    protected static function assertProbe($probe): void
     {
-        return Probes::load(ILoopProbe::class);
+        if (!is_a($probe, ILoopProbe::class, true)) {
+            throw new InvalidArgumentException(
+                sprintf(
+                    'Probe must be an instance of "%s" interface.',
+                    ILoopProbe::class
+                )
+            );
+        }
     }
 }

@@ -15,7 +15,6 @@ use AlecRabbit\Spinner\Contract\Mode\StylingMethodMode;
 use AlecRabbit\Spinner\Contract\Option\CursorVisibilityOption;
 use AlecRabbit\Spinner\Contract\Option\StylingMethodOption;
 use AlecRabbit\Spinner\Contract\Output\IResourceStream;
-use AlecRabbit\Spinner\Contract\Probe\ILoopProbe;
 use AlecRabbit\Spinner\Contract\Probe\ISignalProcessingProbe;
 use AlecRabbit\Spinner\Core\Builder\BufferedOutputBuilder;
 use AlecRabbit\Spinner\Core\Builder\ConsoleCursorBuilder;
@@ -69,9 +68,10 @@ use AlecRabbit\Spinner\Core\Contract\IDriverLinker;
 use AlecRabbit\Spinner\Core\Contract\IDriverSetup;
 use AlecRabbit\Spinner\Core\Contract\IIntervalNormalizer;
 use AlecRabbit\Spinner\Core\Contract\ILegacySettingsProvider;
-use AlecRabbit\Spinner\Core\Contract\ISignalHandlersSetup;
 use AlecRabbit\Spinner\Core\Contract\ILegacySignalProcessingLegacyProbe;
+use AlecRabbit\Spinner\Core\Contract\ISignalHandlersSetup;
 use AlecRabbit\Spinner\Core\Contract\Loop\Contract\ILoop;
+use AlecRabbit\Spinner\Core\Contract\Loop\Contract\Probe\ILoopProbe;
 use AlecRabbit\Spinner\Core\DriverSetup;
 use AlecRabbit\Spinner\Core\Factory\BufferedOutputSingletonFactory;
 use AlecRabbit\Spinner\Core\Factory\CharFrameRevolverFactory;
@@ -267,7 +267,8 @@ function definitions(): Traversable
             return
                 $container->get(ILegacySettingsProviderBuilder::class)->build();
         },
-        ILegacySignalProcessingLegacyProbe::class => static function (ContainerInterface $container): ILegacySignalProcessingLegacyProbe {
+        ILegacySignalProcessingLegacyProbe::class => static function (ContainerInterface $container
+        ): ILegacySignalProcessingLegacyProbe {
             return
                 $container->get(ISignalProcessingProbeFactory::class)->getProbe();
         },
@@ -311,7 +312,12 @@ function definitions(): Traversable
 
         IPatternFactory::class => PatternFactory::class,
         IPaletteModeFactory::class => PaletteModeFactory::class,
-        ILoopAvailabilityDetector::class => LoopAvailabilityDetector::class,
+        ILoopAvailabilityDetector::class => static function (): LoopAvailabilityDetector {
+            return
+                new LoopAvailabilityDetector(
+                    Probes::load(ILoopProbe::class)
+                );
+        },
         ISignalProcessingDetector::class => static function (): SignalProcessingDetector {
             return
                 new SignalProcessingDetector(

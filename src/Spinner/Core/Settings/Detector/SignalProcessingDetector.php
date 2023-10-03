@@ -29,7 +29,6 @@ final class SignalProcessingDetector implements ISignalProcessingDetector
         }
     }
 
-
     /** @inheritDoc */
     public function isSupported(): bool
     {

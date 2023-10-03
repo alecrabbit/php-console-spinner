@@ -63,7 +63,7 @@ final class WidgetComposite extends AWidget implements IWidgetComposite
         $frame = parent::getFrame($dt);
 
         if (!$this->children->isEmpty()) {
-            /** @var  $childContext IWidgetContext */
+            /** @var IWidgetContext $childContext */
             foreach ($this->children as $childContext => $_) {
                 $widget = $childContext->getWidget();
                 if ($widget instanceof IWidget) {

@@ -1,29 +1,11 @@
- ----------- ----------------------------------------------------------------------------------------------------------------------------- 
-  Reason      Contract                                                                                                                     
- ----------- ----------------------------------------------------------------------------------------------------------------------------- 
-  Violation   AlecRabbit\Spinner\Contract\Probe\ILoopProbe must not depend on AlecRabbit\Spinner\Core\Contract\Loop\Contract\ILoop (Core)  
-              /app/src/Spinner/Contract/Probe/ILoopProbe.php:11                                                                            
-  Violation   AlecRabbit\Spinner\Contract\Probe\ILoopProbe must not depend on AlecRabbit\Spinner\Core\Contract\Loop\Contract\ILoop (Core)  
-              /app/src/Spinner/Contract/Probe/ILoopProbe.php:7                                                                             
- ----------- ----------------------------------------------------------------------------------------------------------------------------- 
-
- ----------- ------------------------------------------------------------------------------------------------------------------------ 
-  Reason      Core                                                                                                                    
- ----------- ------------------------------------------------------------------------------------------------------------------------ 
-  Violation   AlecRabbit\Spinner\Core\Settings\Detector\LoopAvailabilityDetector must not depend on AlecRabbit\Spinner\Probes (Root)  
-              /app/src/Spinner/Core/Settings/Detector/LoopAvailabilityDetector.php:33                                                 
-  Violation   AlecRabbit\Spinner\Core\Settings\Detector\LoopAvailabilityDetector must not depend on AlecRabbit\Spinner\Probes (Root)  
-              /app/src/Spinner/Core/Settings/Detector/LoopAvailabilityDetector.php:10                                                 
- ----------- ------------------------------------------------------------------------------------------------------------------------ 
-
 
  -------------------- ------ 
   Report                     
  -------------------- ------ 
-  Violations           4     
+  Violations           0     
   Skipped violations   0     
   Uncovered            176   
-  Allowed              2319  
+  Allowed              2315  
   Warnings             0     
   Errors               0     
  -------------------- ------ 
