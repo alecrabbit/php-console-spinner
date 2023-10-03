@@ -132,25 +132,25 @@
 /app/src/Spinner/bootstrap.php:176:34:error - MixedAssignment: Unable to determine the type that $definition is being assigned to
 /app/src/Spinner/bootstrap.php:177:24:error - MixedArgument: Argument 1 of AlecRabbit\Spinner\Container\Contract\IDefinitionRegistry::bind cannot be mixed, expecting string
 /app/src/Spinner/bootstrap.php:177:29:error - MixedArgument: Argument 2 of AlecRabbit\Spinner\Container\Contract\IDefinitionRegistry::bind cannot be mixed, expecting callable|object|string
-/app/src/Spinner/bootstrap.php:192:84:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Core\Contract\IConfigProvider' for /app/src/spinner/bootstrap.php:192:11577:-:closure
+/app/src/Spinner/bootstrap.php:192:84:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Core\Contract\IConfigProvider' for /app/src/spinner/bootstrap.php:192:11476:-:closure
 /app/src/Spinner/bootstrap.php:193:20:error - MixedReturnStatement: Could not infer a return type
 /app/src/Spinner/bootstrap.php:193:68:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
-/app/src/Spinner/bootstrap.php:228:76:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Core\Contract\IDriver' for /app/src/spinner/bootstrap.php:228:13881:-:closure
+/app/src/Spinner/bootstrap.php:228:76:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Core\Contract\IDriver' for /app/src/spinner/bootstrap.php:228:13780:-:closure
 /app/src/Spinner/bootstrap.php:229:20:error - MixedReturnStatement: Could not infer a return type
 /app/src/Spinner/bootstrap.php:229:60:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
-/app/src/Spinner/bootstrap.php:231:82:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Core\Contract\IDriverLinker' for /app/src/spinner/bootstrap.php:231:14055:-:closure
+/app/src/Spinner/bootstrap.php:231:82:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Core\Contract\IDriverLinker' for /app/src/spinner/bootstrap.php:231:13954:-:closure
 /app/src/Spinner/bootstrap.php:232:20:error - MixedReturnStatement: Could not infer a return type
 /app/src/Spinner/bootstrap.php:232:66:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
-/app/src/Spinner/bootstrap.php:234:90:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyDriverSettings' for /app/src/spinner/bootstrap.php:234:14255:-:closure
+/app/src/Spinner/bootstrap.php:234:90:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyDriverSettings' for /app/src/spinner/bootstrap.php:234:14154:-:closure
 /app/src/Spinner/bootstrap.php:235:20:error - MixedReturnStatement: Could not infer a return type
 /app/src/Spinner/bootstrap.php:235:69:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
-/app/src/Spinner/bootstrap.php:237:88:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Core\Contract\IIntervalNormalizer' for /app/src/spinner/bootstrap.php:237:14472:-:closure
+/app/src/Spinner/bootstrap.php:237:88:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Core\Contract\IIntervalNormalizer' for /app/src/spinner/bootstrap.php:237:14371:-:closure
 /app/src/Spinner/bootstrap.php:238:20:error - MixedReturnStatement: Could not infer a return type
 /app/src/Spinner/bootstrap.php:238:72:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
-/app/src/Spinner/bootstrap.php:240:74:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Core\Contract\Loop\Contract\ILoop' for /app/src/spinner/bootstrap.php:240:14659:-:closure
+/app/src/Spinner/bootstrap.php:240:74:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Core\Contract\Loop\Contract\ILoop' for /app/src/spinner/bootstrap.php:240:14558:-:closure
 /app/src/Spinner/bootstrap.php:241:20:error - MixedReturnStatement: Could not infer a return type
 /app/src/Spinner/bootstrap.php:241:58:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
-/app/src/Spinner/bootstrap.php:244:79:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Core\Contract\Loop\Contract\Probe\ILoopProbe' for /app/src/spinner/bootstrap.php:244:14825:-:closure
+/app/src/Spinner/bootstrap.php:244:79:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Core\Contract\Loop\Contract\Probe\ILoopProbe' for /app/src/spinner/bootstrap.php:244:14724:-:closure
 /app/src/Spinner/bootstrap.php:245:20:error - MixedReturnStatement: Could not infer a return type
 /app/src/Spinner/bootstrap.php:245:63:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
 /app/src/Spinner/bootstrap.php:251:17:error - MixedAssignment: Unable to determine the type that $loopProbe is being assigned to
@@ -159,23 +159,23 @@
 /app/src/Spinner/bootstrap.php:252:97:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
 /app/src/Spinner/bootstrap.php:255:21:error - MixedArgument: Argument 1 of AlecRabbit\Spinner\Core\Factory\LoopSettingsFactory::__construct cannot be mixed|null, expecting AlecRabbit\Spinner\Core\Contract\Loop\Contract\Probe\ILoopProbe|null
 /app/src/Spinner/bootstrap.php:256:21:error - MixedArgument: Argument 2 of AlecRabbit\Spinner\Core\Factory\LoopSettingsFactory::__construct cannot be mixed|null, expecting AlecRabbit\Spinner\Core\Contract\ILegacySignalProcessingLegacyProbe|null
-/app/src/Spinner/bootstrap.php:268:86:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Core\Settings\Contract\ISettingsProvider' for /app/src/spinner/bootstrap.php:268:15953:-:closure
+/app/src/Spinner/bootstrap.php:268:86:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Core\Settings\Contract\ISettingsProvider' for /app/src/spinner/bootstrap.php:268:15852:-:closure
 /app/src/Spinner/bootstrap.php:269:20:error - MixedReturnStatement: Could not infer a return type
 /app/src/Spinner/bootstrap.php:269:70:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
-/app/src/Spinner/bootstrap.php:277:92:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Core\Contract\ILegacySettingsProvider' for /app/src/spinner/bootstrap.php:277:16520:-:closure
+/app/src/Spinner/bootstrap.php:277:92:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Core\Contract\ILegacySettingsProvider' for /app/src/spinner/bootstrap.php:277:16419:-:closure
 /app/src/Spinner/bootstrap.php:279:17:error - MixedReturnStatement: Could not infer a return type
 /app/src/Spinner/bootstrap.php:279:73:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
-/app/src/Spinner/bootstrap.php:282:12:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Core\Contract\ILegacySignalProcessingLegacyProbe' for /app/src/spinner/bootstrap.php:281:16759:-:closure
+/app/src/Spinner/bootstrap.php:282:12:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Core\Contract\ILegacySignalProcessingLegacyProbe' for /app/src/spinner/bootstrap.php:281:16658:-:closure
 /app/src/Spinner/bootstrap.php:284:17:error - MixedReturnStatement: Could not infer a return type
 /app/src/Spinner/bootstrap.php:284:72:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
 /app/src/Spinner/bootstrap.php:298:13:error - MixedAssignment: Unable to determine the type that $terminalProbe is being assigned to
 /app/src/Spinner/bootstrap.php:298:77:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
 /app/src/Spinner/bootstrap.php:301:45:error - MixedArgument: Argument 1 of AlecRabbit\Spinner\Core\Factory\TerminalSettingsFactory::__construct cannot be mixed, expecting AlecRabbit\Spinner\Core\Terminal\Contract\ITerminalLegacyProbe
-/app/src/Spinner/bootstrap.php:308:91:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Contract\Option\CursorVisibilityOption' for /app/src/spinner/bootstrap.php:308:17936:-:closure
+/app/src/Spinner/bootstrap.php:308:91:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Contract\Option\CursorVisibilityOption' for /app/src/spinner/bootstrap.php:308:17835:-:closure
 /app/src/Spinner/bootstrap.php:310:17:error - MixedReturnStatement: Could not infer a return type
 /app/src/Spinner/bootstrap.php:310:66:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
 /app/src/Spinner/bootstrap.php:310:95:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
-/app/src/Spinner/bootstrap.php:312:88:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Contract\Option\StylingMethodOption' for /app/src/spinner/bootstrap.php:312:18191:-:closure
+/app/src/Spinner/bootstrap.php:312:88:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Contract\Option\StylingMethodOption' for /app/src/spinner/bootstrap.php:312:18090:-:closure
 /app/src/Spinner/bootstrap.php:314:17:error - MixedReturnStatement: Could not infer a return type
 /app/src/Spinner/bootstrap.php:314:66:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
 /app/src/Spinner/bootstrap.php:314:95:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
