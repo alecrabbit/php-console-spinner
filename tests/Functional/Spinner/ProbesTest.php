@@ -17,6 +17,7 @@ use stdClass;
 
 final class ProbesTest extends TestCase
 {
+    private const PROBES = 'probes';
     private array $probes = [];
 
 //    #[Test]
@@ -33,7 +34,7 @@ final class ProbesTest extends TestCase
         $probe = RevoltLoopProbe::class;
         Probes::register($probe);
 
-        $probes = self::getPropertyValue('probes', Probes::class);
+        $probes = self::getPropertyValue(self::PROBES, Probes::class);
         self::assertContains($probe, $probes);
     }
 
@@ -231,12 +232,17 @@ final class ProbesTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->probes = self::getPropertyValue('probes', Probes::class);
-        self::setPropertyValue(Probes::class, 'probes', []);
+        $this->probes = self::getPropertyValue(self::PROBES, Probes::class);
+        $this->setProbes([]);
     }
 
     protected function tearDown(): void
     {
-        self::setPropertyValue(Probes::class, 'probes', $this->probes);
+        $this->setProbes($this->probes);
+    }
+
+    protected function setProbes(array $probes): void
+    {
+        self::setPropertyValue(Probes::class, self::PROBES, $probes);
     }
 }
