@@ -54,9 +54,24 @@ class AutoStartModeSolver extends ASolver implements IAutoStartModeSolver
                     null,
                 ],
                 [
+                    AutoStartOption::AUTO,
+                    null,
+                    AutoStartOption::ENABLED,
+                ],
+                [
+                    null,
+                    AutoStartOption::AUTO,
+                    AutoStartOption::ENABLED,
+                ],
+                [
                     null,
                     AutoStartOption::ENABLED,
                     null,
+                ],
+                [
+                    null,
+                    null,
+                    AutoStartOption::ENABLED,
                 ] => AutoStartMode::ENABLED,
                 [
                     AutoStartOption::AUTO,
@@ -74,6 +89,16 @@ class AutoStartModeSolver extends ASolver implements IAutoStartModeSolver
                     null,
                 ],
                 [
+                    AutoStartOption::AUTO,
+                    null,
+                    AutoStartOption::DISABLED,
+                ],
+                [
+                    null,
+                    AutoStartOption::AUTO,
+                    AutoStartOption::DISABLED,
+                ],
+                [
                     null,
                     AutoStartOption::DISABLED,
                     null,
@@ -82,6 +107,11 @@ class AutoStartModeSolver extends ASolver implements IAutoStartModeSolver
                     AutoStartOption::DISABLED,
                     null,
                     null,
+                ],
+                [
+                    null,
+                    null,
+                    AutoStartOption::DISABLED,
                 ] => AutoStartMode::DISABLED,
                 default => throw new InvalidArgumentException(
                     sprintf(

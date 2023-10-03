@@ -83,15 +83,14 @@ final class AutoStartModeSolverSolverTest extends TestCase
             [[$mE], [null, $oEn, null],],
             [[$mD], [null, $oDi, null],],
 
-//            [[$mE], [$oAu, null, $oEn],],
-//            [[$mD], [$oAu, null, $oDi],],
-//
-//            [[$mE], [null, $oAu, $oEn],],
-//            [[$mD], [null, $oAu, $oDi],],
-//
-//            [[$mE], [null, null, $oEn],],
-//            [[$mD], [null, null, $oDi],],
+            [[$mE], [$oAu, null, $oEn],],
+            [[$mD], [$oAu, null, $oDi],],
 
+            [[$mE], [null, $oAu, $oEn],],
+            [[$mD], [null, $oAu, $oDi],],
+
+            [[$mE], [null, null, $oEn],],
+            [[$mD], [null, null, $oDi],],
         ];
     }
 
