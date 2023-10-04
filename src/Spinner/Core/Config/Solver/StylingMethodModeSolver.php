@@ -14,7 +14,6 @@ use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 
 final readonly class StylingMethodModeSolver extends ASolver implements IStylingMethodModeSolver
 {
-
     public function solve(): StylingMethodMode
     {
         return

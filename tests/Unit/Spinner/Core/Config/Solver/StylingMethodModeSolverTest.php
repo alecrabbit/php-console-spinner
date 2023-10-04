@@ -34,7 +34,6 @@ final class StylingMethodModeSolverTest extends TestCase
         $o8b = StylingMethodOption::ANSI8;
         $o24 = StylingMethodOption::ANSI24;
 
-
         yield from [
             // [Exception], [$user, $detected, $default]
             [
