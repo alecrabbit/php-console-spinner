@@ -29,6 +29,7 @@ final class StylingMethodModeSolverTest extends TestCase
         $m24 = StylingMethodMode::ANSI24;
 
         $oAu = StylingMethodOption::AUTO;
+        $oNo = StylingMethodOption::NONE;
         $o4b = StylingMethodOption::ANSI4;
         $o8b = StylingMethodOption::ANSI8;
         $o24 = StylingMethodOption::ANSI24;
@@ -73,7 +74,26 @@ final class StylingMethodModeSolverTest extends TestCase
                 [null, null, $oAu],
             ],
             // [result], [$user, $detected, $default]
-//            [[$mNo], [$oAu, null, $o4b],], // #4
+            [[$mNo], [$oAu, null, $oNo],], // #4
+            [[$mNo], [$oAu, $oNo, $o4b],], // #5
+            [[$mNo], [$oAu, $oNo, $o8b],], // #6
+            [[$mNo], [$oAu, $oNo, $o24],], // #7
+            [[$mNo], [$oAu, $oNo, $oNo],], // #8
+            [[$mNo], [null, $oNo, $oNo],], // #9
+            [[$mNo], [null, $oNo, $o4b],], // #10
+            [[$mNo], [null, $oNo, $o8b],], // #11
+            [[$mNo], [null, $oNo, $o24],], // #12
+            [[$mNo], [null, $oNo, $oNo],], // #13
+            [[$mNo], [$oNo, $oNo, $oNo],], // #14
+            [[$mNo], [$oNo, $oNo, $o4b],], // #15
+            [[$mNo], [$oNo, $oNo, $o8b],], // #16
+            [[$mNo], [$oNo, $oNo, $o24],], // #17
+            [[$mNo], [$oNo, $oNo, null],], // #18
+            [[$mNo], [$oAu, $oNo, null],], // #19
+            [[$mNo], [$oNo, $oNo, null],], // #20
+            [[$mNo], [$o4b, $oNo, null],], // #21
+            [[$mNo], [$o8b, $oNo, null],], // #22
+            [[$mNo], [$o24, $oNo, null],], // #23
         ];
     }
 
@@ -170,8 +190,8 @@ final class StylingMethodModeSolverTest extends TestCase
         }
     }
 
-    protected function getOutputSettingsMock(?StylingMethodOption $normalizerOption = null): (MockObject&IOutputSettings)|null
-    {
+    protected function getOutputSettingsMock(?StylingMethodOption $normalizerOption = null
+    ): (MockObject&IOutputSettings)|null {
         return
             $normalizerOption === null
                 ? null :
