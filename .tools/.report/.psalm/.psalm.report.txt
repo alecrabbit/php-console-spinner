@@ -240,8 +240,6 @@
 /app/src/Spinner/Facade.php:61:16:error - MixedReturnStatement: Could not infer a return type
 /app/src/Spinner/Facade.php:70:54:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Core\Settings\Contract\ISettingsProvider' for AlecRabbit\Spinner\Facade::getSettingsProvider
 /app/src/Spinner/Facade.php:72:16:error - MixedReturnStatement: Could not infer a return type
-/app/src/Spinner/Facade.php:75:60:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Core\Contract\ILegacySettingsProvider' for AlecRabbit\Spinner\Facade::getLegacySettingsProvider
-/app/src/Spinner/Facade.php:77:16:error - MixedReturnStatement: Could not infer a return type
 /app/src/Spinner/Helper/Stringify.php:37:45:error - MixedArgument: Argument 3 of sprintf cannot be 'false'|'true'|mixed, expecting float|int|string
 /app/src/Spinner/bootstrap.php:18:27:error - MixedAssignment: Unable to determine the type that $id is being assigned to
 /app/src/Spinner/bootstrap.php:18:34:error - MixedAssignment: Unable to determine the type that $definition is being assigned to

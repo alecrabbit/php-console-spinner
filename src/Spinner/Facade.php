@@ -71,9 +71,4 @@ final class Facade extends AFacade
     {
         return self::getContainer()->get(ISettingsProvider::class);
     }
-
-    protected static function getLegacySettingsProvider(): ILegacySettingsProvider
-    {
-        return self::getContainer()->get(ILegacySettingsProvider::class);
-    }
 }
