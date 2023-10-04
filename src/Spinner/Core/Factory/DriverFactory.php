@@ -16,6 +16,9 @@ use AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyDriverSettings;
 
 final class DriverFactory implements IDriverFactory
 {
+    /**
+     * @deprecated Do not use this property.
+     */
     private static ?IDriver $driver = null;
 
     public function __construct(
