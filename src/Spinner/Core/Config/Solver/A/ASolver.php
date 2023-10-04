@@ -9,7 +9,7 @@ use AlecRabbit\Spinner\Core\Settings\Contract\ISettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettingsElement;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettingsProvider;
 
-abstract class ASolver implements ISolver
+abstract readonly class ASolver implements ISolver
 {
     public function __construct(
         protected ISettingsProvider $settingsProvider,

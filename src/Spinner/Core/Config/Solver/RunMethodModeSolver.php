@@ -14,7 +14,7 @@ use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 
 use function sprintf;
 
-final class RunMethodModeSolver extends ASolver implements IRunMethodModeSolver
+final readonly class RunMethodModeSolver extends ASolver implements IRunMethodModeSolver
 {
     /** @inheritDoc */
     public function solve(): RunMethodMode

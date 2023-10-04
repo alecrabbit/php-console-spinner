@@ -11,7 +11,7 @@ use AlecRabbit\Spinner\Core\Settings\Contract\ILoopSettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettings;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 
-class SignalHandlersModeSolver extends ASolver implements Contract\ISignalHandlersModeSolver
+final readonly class SignalHandlersModeSolver extends ASolver implements Contract\ISignalHandlersModeSolver
 {
 
     public function solve(): SignalHandlersMode

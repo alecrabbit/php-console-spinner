@@ -12,7 +12,7 @@ use AlecRabbit\Spinner\Core\Settings\Contract\IAuxSettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettings;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 
-final class NormalizerMethodModeSolver extends ASolver implements INormalizerMethodModeSolver
+final readonly class NormalizerMethodModeSolver extends ASolver implements INormalizerMethodModeSolver
 {
     public function solve(): NormalizerMethodMode
     {

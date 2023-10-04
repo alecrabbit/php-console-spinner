@@ -12,7 +12,7 @@ use AlecRabbit\Spinner\Core\Settings\Contract\ILoopSettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettings;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 
-class AutoStartModeSolver extends ASolver implements IAutoStartModeSolver
+final readonly class AutoStartModeSolver extends ASolver implements IAutoStartModeSolver
 {
 
     public function solve(): AutoStartMode
