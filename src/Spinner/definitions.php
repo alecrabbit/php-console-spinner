@@ -3,11 +3,9 @@
 declare(strict_types=1);
 
 use AlecRabbit\Spinner\Asynchronous\Factory\LoopProbeFactory;
-use AlecRabbit\Spinner\Contract\Mode\CursorVisibilityMode;
 use AlecRabbit\Spinner\Contract\Mode\InitializationMode;
 use AlecRabbit\Spinner\Contract\Mode\LinkerMode;
 use AlecRabbit\Spinner\Contract\Mode\NormalizerMethodMode;
-use AlecRabbit\Spinner\Contract\Mode\StylingMethodMode;
 use AlecRabbit\Spinner\Contract\Option\CursorVisibilityOption;
 use AlecRabbit\Spinner\Contract\Option\StylingMethodOption;
 use AlecRabbit\Spinner\Contract\Output\IResourceStream;
@@ -40,6 +38,7 @@ use AlecRabbit\Spinner\Core\Config\Builder\AuxConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Builder\LoopConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\Builder\IAuxConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\Builder\ILoopConfigBuilder;
+use AlecRabbit\Spinner\Core\Config\Contract\Builder\IOutputConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\IAuxConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\IConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\IConfigProviderFactory;
@@ -49,23 +48,26 @@ use AlecRabbit\Spinner\Core\Config\Contract\Factory\IOutputConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\IRootWidgetConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\IWidgetConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\IDriverConfig;
-use AlecRabbit\Spinner\Core\Config\Contract\IOutputConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IRootWidgetConfig;
 use AlecRabbit\Spinner\Core\Config\DriverConfig;
 use AlecRabbit\Spinner\Core\Config\Factory\AuxConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Factory\ConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Factory\ConfigProviderFactory;
 use AlecRabbit\Spinner\Core\Config\Factory\LoopConfigFactory;
-use AlecRabbit\Spinner\Core\Config\OutputConfig;
+use AlecRabbit\Spinner\Core\Config\Factory\OutputConfigFactory;
 use AlecRabbit\Spinner\Core\Config\RootWidgetConfig;
 use AlecRabbit\Spinner\Core\Config\Solver\AutoStartModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\IAutoStartModeSolver;
+use AlecRabbit\Spinner\Core\Config\Solver\Contract\ICursorVisibilityModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\INormalizerMethodModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\IRunMethodModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\ISignalHandlersModeSolver;
+use AlecRabbit\Spinner\Core\Config\Solver\Contract\IStylingMethodModeSolver;
+use AlecRabbit\Spinner\Core\Config\Solver\CursorVisibilityModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\NormalizerMethodModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\RunMethodModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\SignalHandlersModeSolver;
+use AlecRabbit\Spinner\Core\Config\Solver\StylingMethodModeSolver;
 use AlecRabbit\Spinner\Core\Config\WidgetRevolverConfig;
 use AlecRabbit\Spinner\Core\Contract\IConfigProvider;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
@@ -199,6 +201,8 @@ function definitions(): Traversable
         INormalizerMethodModeSolver::class => NormalizerMethodModeSolver::class,
         IAutoStartModeSolver::class => AutoStartModeSolver::class,
         ISignalHandlersModeSolver::class => SignalHandlersModeSolver::class,
+        IStylingMethodModeSolver::class => StylingMethodModeSolver::class,
+        ICursorVisibilityModeSolver::class => CursorVisibilityModeSolver::class,
     ];
 
     yield from builders();
@@ -214,6 +218,7 @@ function definitions(): Traversable
 function builders(): Traversable
 {
     yield from [
+        IOutputConfigBuilder::class => \AlecRabbit\Spinner\Core\Config\Builder\OutputConfigBuilder::class,
         IDriverBuilder::class => DriverBuilder::class,
         IDriverOutputBuilder::class => DriverOutputBuilder::class,
         IFrameRevolverBuilder::class => FrameRevolverBuilder::class,
@@ -273,7 +278,7 @@ function factories(): Traversable
                     Probes::load(ILoopProbe::class)
                 );
         },
-
+        IOutputConfigFactory::class => OutputConfigFactory::class,
     ];
 }
 
@@ -315,19 +320,19 @@ function substitutes(): Traversable
                     }
                 };
         },
-        IOutputConfigFactory::class => static function (): IOutputConfigFactory {
-            return
-                new class implements IOutputConfigFactory {
-                    public function create(): IOutputConfig
-                    {
-                        return
-                            new OutputConfig(
-                                stylingMethodMode: StylingMethodMode::ANSI8,
-                                cursorVisibilityMode: CursorVisibilityMode::HIDDEN,
-                            );
-                    }
-                };
-        },
+//        IOutputConfigFactory::class => static function (): IOutputConfigFactory {
+//            return
+//                new class implements IOutputConfigFactory {
+//                    public function create(): IOutputConfig
+//                    {
+//                        return
+//                            new OutputConfig(
+//                                stylingMethodMode: StylingMethodMode::ANSI8,
+//                                cursorVisibilityMode: CursorVisibilityMode::HIDDEN,
+//                            );
+//                    }
+//                };
+//        },
 //        IWidgetConfigFactory::class => static function (): IWidgetConfigFactory {
 //            return
 //                new class implements IWidgetConfigFactory {
