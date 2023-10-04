@@ -62,18 +62,10 @@ final class LoopConfigFactoryTest extends TestCase
                 ]
             );
     }
-    protected function getLoopConfigMock(
-        AutoStartMode $autoStartMode,
-        SignalHandlersMode $signalHandlersMode,
-    ): MockObject&ILoopConfig {
-        return
-            $this->createConfiguredMock(
-                ILoopConfig::class,
-                [
-                    'getAutoStartMode' => $autoStartMode ?? AutoStartMode::DISABLED,
-                    'getSignalHandlersMode' => $signalHandlersMode ?? SignalHandlersMode::DISABLED,
-                ]
-            );
+
+    protected function getLoopConfigBuilderMock(): MockObject&ILoopConfigBuilder
+    {
+        return $this->createMock(ILoopConfigBuilder::class);
     }
 
     #[Test]
@@ -122,8 +114,17 @@ final class LoopConfigFactoryTest extends TestCase
         self::assertSame($signalHandlersMode, $config->getSignalHandlersMode());
     }
 
-    protected function getLoopConfigBuilderMock(): MockObject&ILoopConfigBuilder
-    {
-        return $this->createMock(ILoopConfigBuilder::class);
+    protected function getLoopConfigMock(
+        AutoStartMode $autoStartMode,
+        SignalHandlersMode $signalHandlersMode,
+    ): MockObject&ILoopConfig {
+        return
+            $this->createConfiguredMock(
+                ILoopConfig::class,
+                [
+                    'getAutoStartMode' => $autoStartMode ?? AutoStartMode::DISABLED,
+                    'getSignalHandlersMode' => $signalHandlersMode ?? SignalHandlersMode::DISABLED,
+                ]
+            );
     }
 }

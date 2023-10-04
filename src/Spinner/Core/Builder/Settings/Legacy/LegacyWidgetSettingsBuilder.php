@@ -15,9 +15,6 @@ use AlecRabbit\Spinner\Exception\LogicException;
 /**
  * @deprecated Will be removed
  */
-/**
- * @deprecated Will be removed
- */
 final class LegacyWidgetSettingsBuilder implements ILegacyWidgetSettingsBuilder
 {
     private ?IFrame $leadingSpacer = null;

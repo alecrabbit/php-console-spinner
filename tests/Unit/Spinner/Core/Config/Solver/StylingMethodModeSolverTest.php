@@ -94,6 +94,35 @@ final class StylingMethodModeSolverTest extends TestCase
             [[$mNo], [$o4b, $oNo, null],], // #21
             [[$mNo], [$o8b, $oNo, null],], // #22
             [[$mNo], [$o24, $oNo, null],], // #23
+
+            [[$m4b], [$oAu, $o4b, null],], // #24
+            [[$m4b], [$o4b, $o4b, $o4b],], // #25
+            [[$m4b], [$o8b, $o4b, $o8b],], // #26
+            [[$m4b], [$o24, $o4b, $o24],], // #27
+
+            [[$m8b], [$oAu, $o8b, null],], // #28
+            [[$m4b], [$o4b, $o8b, $o4b],], // #29
+            [[$m8b], [$o8b, $o8b, $o8b],], // #30
+            [[$m8b], [$o24, $o8b, $o24],], // #31
+
+            [[$m24], [$oAu, $o24, null],], // #32
+            [[$m4b], [$o4b, $o24, $o4b],], // #33
+            [[$m8b], [$o8b, $o24, $o8b],], // #34
+            [[$m24], [$o24, $o24, $o24],], // #35
+
+            [[$m24], [$o24, null, null],], // #36
+            [[$m24], [null, null, $o24],], // #37
+            [[$m24], [$oAu, null, $o24],], // #38
+
+            [[$m4b], [$o4b, null, null],], // #39
+            [[$m4b], [null, null, $o4b],], // #40
+
+            [[$m8b], [$o8b, null, null],], // #41
+            [[$m8b], [null, null, $o8b],], // #42
+            [[$m8b], [null, $oAu, $o8b],], // #43
+            [[$m4b], [null, $oAu, $o4b],], // #44
+            [[$mNo], [null, $oAu, $oNo],], // #45
+            [[$mNo], [$oNo, $oAu, $o24],], // #46
         ];
     }
 
@@ -183,7 +212,7 @@ final class StylingMethodModeSolverTest extends TestCase
             settingsProvider: $settingsProvider,
         );
 
-        self::assertSame($result, $solver->solve());
+        self::assertEquals($result, $solver->solve());
 
         if ($expectedException) {
             self::failTest($expectedException);

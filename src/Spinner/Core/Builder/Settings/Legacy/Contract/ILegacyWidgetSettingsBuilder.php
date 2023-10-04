@@ -13,9 +13,6 @@ use AlecRabbit\Spinner\Exception\LogicException;
 /**
  * @deprecated Will be removed
  */
-/**
- * @deprecated Will be removed
- */
 interface ILegacyWidgetSettingsBuilder
 {
     /**

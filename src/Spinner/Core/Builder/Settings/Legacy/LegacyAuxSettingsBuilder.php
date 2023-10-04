@@ -12,9 +12,6 @@ use AlecRabbit\Spinner\Core\Settings\Legacy\LegacyAuxSettings;
 /**
  * @deprecated Will be removed
  */
-/**
- * @deprecated Will be removed
- */
 final class LegacyAuxSettingsBuilder implements ILegacyAuxSettingsBuilder
 {
     public function build(): ILegacyAuxSettings

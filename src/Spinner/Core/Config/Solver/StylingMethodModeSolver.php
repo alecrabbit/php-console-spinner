@@ -30,20 +30,27 @@ final readonly class StylingMethodModeSolver extends ASolver implements IStyling
         ?StylingMethodOption $detectedOption,
         ?StylingMethodOption $defaultOption
     ): StylingMethodMode {
-        if($detectedOption === StylingMethodOption::NONE) {
+        if ($detectedOption === StylingMethodOption::NONE) {
             return StylingMethodMode::NONE;
         }
 
         $mode = $this->createModeFromOption($userOption);
 
+        $detectedMode = $this->createModeFromOption($detectedOption);
+        $defaultMode = $this->createModeFromOption($defaultOption);
+
         if ($userOption === StylingMethodOption::AUTO || $userOption === null) {
-            $mode = $this->createModeFromOption($defaultOption);
+            $mode = $detectedMode ?? $defaultMode;
+        }
+
+        if ($detectedMode !== null && ($mode?->value > $detectedMode?->value)) {
+            $mode = $detectedMode;
         }
 
         if ($mode instanceof StylingMethodMode) {
             return $mode;
         }
-        
+
         throw new InvalidArgumentException(
             sprintf(
                 'Unable to solve "%s". From values %s.',
@@ -57,6 +64,7 @@ final readonly class StylingMethodModeSolver extends ASolver implements IStyling
             )
         );
     }
+
     private function createModeFromOption(?StylingMethodOption $option): ?StylingMethodMode
     {
         return

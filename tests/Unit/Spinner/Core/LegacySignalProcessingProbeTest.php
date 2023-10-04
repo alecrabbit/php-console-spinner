@@ -14,9 +14,6 @@ use function function_exists;
 /**
  * @deprecated Will be removed
  */
-/**
- * @deprecated Will be removed
- */
 final class LegacySignalProcessingProbeTest extends TestCase
 {
     #[Test]

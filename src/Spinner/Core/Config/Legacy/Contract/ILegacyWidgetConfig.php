@@ -11,9 +11,6 @@ use AlecRabbit\Spinner\Core\Pattern\Legacy\Contract\IStyleLegacyPattern;
 /**
  * @deprecated Will be removed
  */
-/**
- * @deprecated Will be removed
- */
 interface ILegacyWidgetConfig
 {
     public function getLeadingSpacer(): ?IFrame;

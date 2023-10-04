@@ -7,9 +7,6 @@ namespace AlecRabbit\Spinner\Contract;
 /**
  * @deprecated Will be removed
  */
-/**
- * @deprecated Will be removed
- */
 interface ILegacyProbe
 {
     public function isAvailable(): bool;

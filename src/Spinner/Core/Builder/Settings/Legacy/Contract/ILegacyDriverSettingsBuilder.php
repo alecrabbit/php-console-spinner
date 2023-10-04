@@ -9,9 +9,6 @@ use AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyDriverSettings;
 /**
  * @deprecated Will be removed
  */
-/**
- * @deprecated Will be removed
- */
 interface ILegacyDriverSettingsBuilder
 {
     public function build(): ILegacyDriverSettings;

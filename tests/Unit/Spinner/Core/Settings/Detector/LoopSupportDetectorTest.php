@@ -11,8 +11,11 @@ use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Tests\TestCase\TestCase;
 use AlecRabbit\Tests\Unit\Spinner\Core\Settings\Detector\Override\NegativeLoopProbeOverride;
 use AlecRabbit\Tests\Unit\Spinner\Core\Settings\Detector\Override\PositiveLoopProbeOverride;
+use ArrayObject;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
+use stdClass;
+use Traversable;
 
 final class LoopSupportDetectorTest extends TestCase
 {
@@ -52,11 +55,11 @@ final class LoopSupportDetectorTest extends TestCase
     }
 
     protected function getTesteeInstance(
-        ?\Traversable $probes = null
+        ?Traversable $probes = null
     ): ILoopSupportDetector {
         return
             new LoopSupportDetector(
-                probes: $probes ?? new \ArrayObject(),
+                probes: $probes ?? new ArrayObject(),
             );
     }
 
@@ -65,7 +68,7 @@ final class LoopSupportDetectorTest extends TestCase
     public function canSolve(bool $result, array $probes): void
     {
         $detector = $this->getTesteeInstance(
-            probes: new \ArrayObject($probes),
+            probes: new ArrayObject($probes),
         );
 
         self::assertEquals($result, $detector->isSupported());
@@ -82,7 +85,7 @@ final class LoopSupportDetectorTest extends TestCase
             )
         );
         $detector = $this->getTesteeInstance(
-            probes: new \ArrayObject([\stdClass::class]),
+            probes: new ArrayObject([stdClass::class]),
         );
         self::assertTrue($detector->isSupported());
 

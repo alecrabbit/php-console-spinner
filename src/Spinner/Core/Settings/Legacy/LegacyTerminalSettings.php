@@ -11,9 +11,6 @@ use AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyTerminalSettings;
 /**
  * @deprecated Will be removed
  */
-/**
- * @deprecated Will be removed
- */
 final class LegacyTerminalSettings implements ILegacyTerminalSettings
 {
     public function __construct(

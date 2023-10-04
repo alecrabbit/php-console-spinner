@@ -11,8 +11,11 @@ use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Tests\TestCase\TestCase;
 use AlecRabbit\Tests\Unit\Spinner\Core\Settings\Detector\Override\NegativeSignalProcessingProbeOverride;
 use AlecRabbit\Tests\Unit\Spinner\Core\Settings\Detector\Override\PositiveSignalProcessingProbeOverride;
+use ArrayObject;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
+use stdClass;
+use Traversable;
 
 final class SignalProcessingDetectorTest extends TestCase
 {
@@ -52,11 +55,11 @@ final class SignalProcessingDetectorTest extends TestCase
     }
 
     protected function getTesteeInstance(
-        ?\Traversable $probes = null
+        ?Traversable $probes = null
     ): ISignalProcessingDetector {
         return
             new SignalProcessingDetector(
-                probes: $probes ?? new \ArrayObject(),
+                probes: $probes ?? new ArrayObject(),
             );
     }
 
@@ -65,7 +68,7 @@ final class SignalProcessingDetectorTest extends TestCase
     public function canSolve(bool $result, array $probes): void
     {
         $detector = $this->getTesteeInstance(
-            probes: new \ArrayObject($probes),
+            probes: new ArrayObject($probes),
         );
 
         self::assertEquals($result, $detector->isSupported());
@@ -81,8 +84,8 @@ final class SignalProcessingDetectorTest extends TestCase
                 ISignalProcessingProbe::class
             )
         );
-        $detector =  $this->getTesteeInstance(
-            probes: new \ArrayObject([\stdClass::class]),
+        $detector = $this->getTesteeInstance(
+            probes: new ArrayObject([stdClass::class]),
         );
         self::assertTrue($detector->isSupported());
 

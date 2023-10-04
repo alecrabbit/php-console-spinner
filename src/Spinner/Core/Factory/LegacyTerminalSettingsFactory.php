@@ -8,12 +8,7 @@ use AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyTerminalSettings;
 use AlecRabbit\Spinner\Core\Settings\Legacy\LegacyTerminalSettings;
 use AlecRabbit\Spinner\Core\Terminal\Contract\ITerminalLegacyProbe;
 
-/**
- * @deprecated Will be removed
- */
-/**
- * @deprecated Will be removed
- */
+
 /**
  * @deprecated Will be removed
  */

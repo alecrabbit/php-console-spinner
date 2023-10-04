@@ -8,12 +8,7 @@ use AlecRabbit\Spinner\Contract\Option\InitializationOption;
 use AlecRabbit\Spinner\Contract\Option\LinkerOption;
 use AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyDriverSettings;
 
-/**
- * @deprecated Will be removed
- */
-/**
- * @deprecated Will be removed
- */
+
 /**
  * @deprecated Will be removed
  */

@@ -6,7 +6,6 @@ namespace AlecRabbit\Spinner;
 
 use AlecRabbit\Spinner\Core\A\AFacade;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
-use AlecRabbit\Spinner\Core\Contract\ILegacySettingsProvider;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use AlecRabbit\Spinner\Core\Contract\Loop\Contract\ILoop;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDriverFactory;

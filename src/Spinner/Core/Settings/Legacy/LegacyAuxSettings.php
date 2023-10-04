@@ -7,12 +7,7 @@ namespace AlecRabbit\Spinner\Core\Settings\Legacy;
 use AlecRabbit\Spinner\Contract\Mode\NormalizerMethodMode;
 use AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyAuxSettings;
 
-/**
- * @deprecated Will be removed
- */
-/**
- * @deprecated Will be removed
- */
+
 /**
  * @deprecated Will be removed
  */

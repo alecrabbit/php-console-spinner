@@ -9,9 +9,6 @@ use AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyAuxSettings;
 /**
  * @deprecated Will be removed
  */
-/**
- * @deprecated Will be removed
- */
 interface ILegacyAuxSettingsBuilder
 {
     public function build(): ILegacyAuxSettings;

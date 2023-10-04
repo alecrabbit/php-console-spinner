@@ -7,12 +7,7 @@ namespace AlecRabbit\Spinner\Core\Settings\Legacy\Contract;
 use AlecRabbit\Spinner\Contract\Option\InitializationOption;
 use AlecRabbit\Spinner\Contract\Option\LinkerOption;
 
-/**
- * @deprecated Will be removed
- */
-/**
- * @deprecated Will be removed
- */
+
 /**
  * @deprecated Will be removed
  */

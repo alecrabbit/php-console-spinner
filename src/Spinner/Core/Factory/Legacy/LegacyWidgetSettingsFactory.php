@@ -12,9 +12,6 @@ use AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyWidgetSettings;
 /**
  * @deprecated Will be removed
  */
-/**
- * @deprecated Will be removed
- */
 final class LegacyWidgetSettingsFactory implements ILegacyWidgetSettingsFactory
 {
     public function __construct(

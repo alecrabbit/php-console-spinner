@@ -8,12 +8,7 @@ use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Contract\Legacy\ILegacyPattern;
 use AlecRabbit\Spinner\Core\Pattern\Legacy\Contract\IStyleLegacyPattern;
 
-/**
- * @deprecated Will be removed
- */
-/**
- * @deprecated Will be removed
- */
+
 /**
  * @deprecated Will be removed
  */

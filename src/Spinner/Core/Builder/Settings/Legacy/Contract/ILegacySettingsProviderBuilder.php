@@ -9,9 +9,6 @@ use AlecRabbit\Spinner\Core\Contract\ILegacySettingsProvider;
 /**
  * @deprecated Will be removed
  */
-/**
- * @deprecated Will be removed
- */
 interface ILegacySettingsProviderBuilder
 {
     public function build(): ILegacySettingsProvider;

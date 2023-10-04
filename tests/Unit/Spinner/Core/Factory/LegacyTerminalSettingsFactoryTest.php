@@ -16,9 +16,6 @@ use PHPUnit\Framework\Attributes\Test;
 /**
  * @deprecated Will be removed
  */
-/**
- * @deprecated Will be removed
- */
 final class LegacyTerminalSettingsFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
 {
     #[Test]
