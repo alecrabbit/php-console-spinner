@@ -9,6 +9,12 @@ use AlecRabbit\Spinner\Core\Config\Legacy\LegacyWidgetConfig;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;
 
+/**
+ * @deprecated Will be removed
+ */
+/**
+ * @deprecated Will be removed
+ */
 final class LegacySpinnerConfigTest extends TestCaseWithPrebuiltMocksAndStubs
 {
     #[Test]

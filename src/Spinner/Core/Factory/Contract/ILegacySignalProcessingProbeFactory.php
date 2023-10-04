@@ -7,7 +7,10 @@ namespace AlecRabbit\Spinner\Core\Factory\Contract;
 use AlecRabbit\Spinner\Contract\IProbeFactory;
 use AlecRabbit\Spinner\Core\Contract\ILegacySignalProcessingLegacyProbe;
 
-interface ISignalProcessingProbeFactory extends IProbeFactory
+/**
+ * @deprecated Will be removed
+ */
+interface ILegacySignalProcessingProbeFactory extends IProbeFactory
 {
     public function getProbe(): ILegacySignalProcessingLegacyProbe;
 }

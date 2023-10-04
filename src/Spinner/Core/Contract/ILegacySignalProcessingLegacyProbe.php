@@ -6,6 +6,12 @@ namespace AlecRabbit\Spinner\Core\Contract;
 
 use AlecRabbit\Spinner\Contract\ILegacyProbe;
 
+/**
+ * @deprecated Will be removed
+ */
+/**
+ * @deprecated Will be removed
+ */
 interface ILegacySignalProcessingLegacyProbe extends ILegacyProbe
 {
 }

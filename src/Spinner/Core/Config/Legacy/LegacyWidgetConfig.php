@@ -9,6 +9,12 @@ use AlecRabbit\Spinner\Contract\Legacy\ILegacyPattern;
 use AlecRabbit\Spinner\Core\Config\Legacy\Contract\ILegacyWidgetConfig;
 use AlecRabbit\Spinner\Core\Pattern\Legacy\Contract\IStyleLegacyPattern;
 
+/**
+ * @deprecated Will be removed
+ */
+/**
+ * @deprecated Will be removed
+ */
 final class LegacyWidgetConfig implements ILegacyWidgetConfig
 {
     public function __construct(

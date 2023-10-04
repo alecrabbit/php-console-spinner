@@ -52,7 +52,7 @@ use AlecRabbit\Spinner\Core\Factory\Contract\ILoopProbeFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopSettingsFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ISignalHandlersSetupFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IStyleFrameRevolverFactory;
-use AlecRabbit\Spinner\Core\Factory\Contract\ITerminalSettingsFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\ILegacyTerminalSettingsFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ITimerFactory;
 use AlecRabbit\Spinner\Core\Factory\Legacy\ILegacyWidgetSettingsFactory;
 use AlecRabbit\Spinner\Core\Output\Contract\IConsoleCursor;
@@ -312,9 +312,9 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
         return $this->createMock(ILoopSettingsFactory::class);
     }
 
-    protected function getTerminalSettingsFactoryMock(): MockObject&ITerminalSettingsFactory
+    protected function getTerminalSettingsFactoryMock(): MockObject&ILegacyTerminalSettingsFactory
     {
-        return $this->createMock(ITerminalSettingsFactory::class);
+        return $this->createMock(ILegacyTerminalSettingsFactory::class);
     }
 
     protected function getLegacyAuxSettingsBuilderMock(): MockObject&ILegacyAuxSettingsBuilder

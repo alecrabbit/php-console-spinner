@@ -14,6 +14,9 @@ use AlecRabbit\Spinner\Core\Settings\Legacy\LegacySettingsProvider;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;
 
+/**
+ * @deprecated Will be removed
+ */
 final class SettingsProviderTest extends TestCaseWithPrebuiltMocksAndStubs
 {
     #[Test]

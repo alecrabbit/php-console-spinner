@@ -7,6 +7,12 @@ namespace AlecRabbit\Spinner\Core\Config\Legacy;
 use AlecRabbit\Spinner\Core\Config\Legacy\Contract\ILegacySpinnerConfig;
 use AlecRabbit\Spinner\Core\Config\Legacy\Contract\ILegacyWidgetConfig;
 
+/**
+ * @deprecated Will be removed
+ */
+/**
+ * @deprecated Will be removed
+ */
 final class LegacySpinnerConfig implements ILegacySpinnerConfig
 {
     public function __construct(

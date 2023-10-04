@@ -7,6 +7,12 @@ namespace AlecRabbit\Spinner\Core\Settings\Legacy\Contract;
 use AlecRabbit\Spinner\Contract\Option\AutoStartOption;
 use AlecRabbit\Spinner\Contract\Option\SignalHandlersOption;
 
+/**
+ * @deprecated Will be removed
+ */
+/**
+ * @deprecated Will be removed
+ */
 interface ILegacyLoopSettings
 {
     public function isAutoStartEnabled(): bool;

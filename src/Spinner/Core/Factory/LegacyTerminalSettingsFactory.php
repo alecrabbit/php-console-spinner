@@ -8,7 +8,16 @@ use AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyTerminalSettings;
 use AlecRabbit\Spinner\Core\Settings\Legacy\LegacyTerminalSettings;
 use AlecRabbit\Spinner\Core\Terminal\Contract\ITerminalLegacyProbe;
 
-final class TerminalSettingsFactory implements Contract\ITerminalSettingsFactory
+/**
+ * @deprecated Will be removed
+ */
+/**
+ * @deprecated Will be removed
+ */
+/**
+ * @deprecated Will be removed
+ */
+final class LegacyTerminalSettingsFactory implements Contract\ILegacyTerminalSettingsFactory
 {
     public function __construct(
         protected ITerminalLegacyProbe $terminalProbe,

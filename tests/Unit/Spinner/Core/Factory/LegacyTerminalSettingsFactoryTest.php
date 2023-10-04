@@ -6,27 +6,33 @@ namespace AlecRabbit\Tests\Unit\Spinner\Core\Factory;
 
 use AlecRabbit\Spinner\Contract\Option\CursorVisibilityOption;
 use AlecRabbit\Spinner\Contract\Option\StylingMethodOption;
-use AlecRabbit\Spinner\Core\Factory\Contract\ITerminalSettingsFactory;
-use AlecRabbit\Spinner\Core\Factory\TerminalSettingsFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\ILegacyTerminalSettingsFactory;
+use AlecRabbit\Spinner\Core\Factory\LegacyTerminalSettingsFactory;
 use AlecRabbit\Spinner\Core\Settings\Legacy\LegacyTerminalSettings;
 use AlecRabbit\Spinner\Core\Terminal\Contract\ITerminalLegacyProbe;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;
 
-final class TerminalSettingsFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
+/**
+ * @deprecated Will be removed
+ */
+/**
+ * @deprecated Will be removed
+ */
+final class LegacyTerminalSettingsFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
 {
     #[Test]
     public function canBeInstantiated(): void
     {
         $terminalSettingsFactory = $this->getTesteeInstance();
 
-        self::assertInstanceOf(TerminalSettingsFactory::class, $terminalSettingsFactory);
+        self::assertInstanceOf(LegacyTerminalSettingsFactory::class, $terminalSettingsFactory);
     }
 
     public function getTesteeInstance(
         ?ITerminalLegacyProbe $terminalProbe = null,
-    ): ITerminalSettingsFactory {
-        return new TerminalSettingsFactory(
+    ): ILegacyTerminalSettingsFactory {
+        return new LegacyTerminalSettingsFactory(
             terminalProbe: $terminalProbe ?? $this->getTerminalProbeMock(),
         );
     }

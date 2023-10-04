@@ -8,6 +8,12 @@ use AlecRabbit\Spinner\Core\Contract\ILegacySignalProcessingLegacyProbe;
 
 use function extension_loaded;
 
+/**
+ * @deprecated Will be removed
+ */
+/**
+ * @deprecated Will be removed
+ */
 final class LegacySignalProcessingProbe implements ILegacySignalProcessingLegacyProbe
 {
     private const SIGNAL_PROCESSING_EXTENSION = 'pcntl';

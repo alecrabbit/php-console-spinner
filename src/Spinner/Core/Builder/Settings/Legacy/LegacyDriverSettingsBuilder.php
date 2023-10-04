@@ -10,6 +10,12 @@ use AlecRabbit\Spinner\Core\Builder\Settings\Legacy\Contract\ILegacyDriverSettin
 use AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyDriverSettings;
 use AlecRabbit\Spinner\Core\Settings\Legacy\LegacyDriverSettings;
 
+/**
+ * @deprecated Will be removed
+ */
+/**
+ * @deprecated Will be removed
+ */
 final class LegacyDriverSettingsBuilder implements ILegacyDriverSettingsBuilder
 {
     public function build(): ILegacyDriverSettings

@@ -6,7 +6,16 @@ namespace AlecRabbit\Spinner\Core\Factory\Contract;
 
 use AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyTerminalSettings;
 
-interface ITerminalSettingsFactory
+/**
+ * @deprecated Will be removed
+ */
+/**
+ * @deprecated Will be removed
+ */
+/**
+ * @deprecated Will be removed
+ */
+interface ILegacyTerminalSettingsFactory
 {
     public function createTerminalSettings(): ILegacyTerminalSettings;
 }

@@ -7,6 +7,15 @@ namespace AlecRabbit\Spinner\Core\Settings\Legacy\Contract;
 use AlecRabbit\Spinner\Contract\Option\CursorVisibilityOption;
 use AlecRabbit\Spinner\Contract\Option\StylingMethodOption;
 
+/**
+ * @deprecated Will be removed
+ */
+/**
+ * @deprecated Will be removed
+ */
+/**
+ * @deprecated Will be removed
+ */
 interface ILegacyTerminalSettings
 {
     public function getOptionCursor(): CursorVisibilityOption;
