@@ -7,7 +7,7 @@ namespace AlecRabbit\Spinner\Core\Probe;
 use AlecRabbit\Spinner\Contract\Option\StylingMethodOption;
 use AlecRabbit\Spinner\Contract\Probe\IColorSupportProbe;
 
-class ColorSupportProbe implements IColorSupportProbe
+final class ColorSupportProbe implements IColorSupportProbe
 {
     public static function getStylingMethodOption(): StylingMethodOption
     {
