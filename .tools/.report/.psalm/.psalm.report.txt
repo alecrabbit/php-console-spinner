@@ -105,9 +105,9 @@
 /app/src/Spinner/Core/Config/Solver/AutoStartModeSolver.php:151:60:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Contract\Option\AutoStartOption|null' for AlecRabbit\Spinner\Core\Config\Solver\AutoStartModeSolver::extractOption
 /app/src/Spinner/Core/Config/Solver/AutoStartModeSolver.php:153:16:error - MixedReturnStatement: Could not infer a return type
 /app/src/Spinner/Core/Config/Solver/AutoStartModeSolver.php:153:81:error - UndefinedInterfaceMethod: Method AlecRabbit\Spinner\Core\Settings\Contract\ISettingsElement::getAutoStartOption does not exist
-/app/src/Spinner/Core/Config/Solver/CursorVisibilityModeSolver.php:33:60:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Contract\Option\CursorVisibilityOption|null' for AlecRabbit\Spinner\Core\Config\Solver\CursorVisibilityModeSolver::extractOption
-/app/src/Spinner/Core/Config/Solver/CursorVisibilityModeSolver.php:35:16:error - MixedReturnStatement: Could not infer a return type
-/app/src/Spinner/Core/Config/Solver/CursorVisibilityModeSolver.php:35:83:error - UndefinedInterfaceMethod: Method AlecRabbit\Spinner\Core\Settings\Contract\ISettingsElement::getCursorVisibilityOption does not exist
+/app/src/Spinner/Core/Config/Solver/CursorVisibilityModeSolver.php:143:60:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Contract\Option\CursorVisibilityOption|null' for AlecRabbit\Spinner\Core\Config\Solver\CursorVisibilityModeSolver::extractOption
+/app/src/Spinner/Core/Config/Solver/CursorVisibilityModeSolver.php:145:16:error - MixedReturnStatement: Could not infer a return type
+/app/src/Spinner/Core/Config/Solver/CursorVisibilityModeSolver.php:145:83:error - UndefinedInterfaceMethod: Method AlecRabbit\Spinner\Core\Settings\Contract\ISettingsElement::getCursorVisibilityOption does not exist
 /app/src/Spinner/Core/Config/Solver/NormalizerMethodModeSolver.php:69:60:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Contract\Option\NormalizerOption|null' for AlecRabbit\Spinner\Core\Config\Solver\NormalizerMethodModeSolver::extractOption
 /app/src/Spinner/Core/Config/Solver/NormalizerMethodModeSolver.php:71:16:error - MixedReturnStatement: Could not infer a return type
 /app/src/Spinner/Core/Config/Solver/NormalizerMethodModeSolver.php:71:80:error - UndefinedInterfaceMethod: Method AlecRabbit\Spinner\Core\Settings\Contract\ISettingsElement::getNormalizerOption does not exist
