@@ -44,6 +44,16 @@ abstract class ADriver extends ASubject implements IDriver
 
     abstract protected function erase(): void;
 
+    protected function getFinalMessage(): ?string
+    {
+        return null;
+    }
+
+    protected function getInterruptMessage(): ?string
+    {
+        return null;
+    }
+
     /** @inheritDoc */
     public function getInterval(): IInterval
     {
@@ -67,15 +77,5 @@ abstract class ADriver extends ASubject implements IDriver
     public function initialize(): void
     {
         $this->output->initialize();
-    }
-
-    protected function getInterruptMessage(): ?string
-    {
-        return null;
-    }
-
-    protected function getFinalMessage(): ?string
-    {
-        return null;
     }
 }

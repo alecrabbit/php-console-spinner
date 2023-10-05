@@ -19,4 +19,9 @@ class PositiveColorSupportProbeOverride implements IColorSupportProbe
     {
         return StylingMethodOption::ANSI24;
     }
+    public static function getCreatorClass(): string
+    {
+        // TODO: Implement getCreatorClass() method.
+        throw new \RuntimeException('Not implemented.');
+    }
 }

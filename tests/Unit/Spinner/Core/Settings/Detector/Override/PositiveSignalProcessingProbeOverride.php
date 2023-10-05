@@ -12,4 +12,9 @@ class PositiveSignalProcessingProbeOverride implements ISignalProcessingProbe
     {
         return true;
     }
+    public static function getCreatorClass(): string
+    {
+        // TODO: Implement getCreatorClass() method.
+        throw new \RuntimeException('Not implemented.');
+    }
 }

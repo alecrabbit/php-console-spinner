@@ -15,6 +15,9 @@ final class LoopProbeStub extends ALoopProbe
         return true;
     }
 
+    /**
+     * @deprecated
+     */
     public function createLoop(): ILoop
     {
         return new ALoopAdapterOverride();

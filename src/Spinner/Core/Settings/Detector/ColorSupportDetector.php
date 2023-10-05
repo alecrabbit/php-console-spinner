@@ -8,11 +8,13 @@ use AlecRabbit\Spinner\Contract\Option\StylingMethodOption;
 use AlecRabbit\Spinner\Contract\Probe\IColorSupportProbe;
 use AlecRabbit\Spinner\Core\Settings\Contract\Detector\IColorSupportDetector;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
+use ArrayObject;
+use Traversable;
 
 final readonly class ColorSupportDetector implements IColorSupportDetector
 {
     public function __construct(
-        protected \Traversable $probes = new \ArrayObject(),
+        protected Traversable $probes = new ArrayObject(),
     ) {
     }
 

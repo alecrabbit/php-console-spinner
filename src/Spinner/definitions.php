@@ -223,10 +223,10 @@ function configs(): Traversable
         IConfigProvider::class => static function (ContainerInterface $container): IConfigProvider {
             return $container->get(IConfigProviderFactory::class)->create();
         },
-        IConfig::class => static function(ContainerInterface $container): IConfig {
+        IConfig::class => static function (ContainerInterface $container): IConfig {
             return $container->get(IConfigProvider::class)->getConfig();
         },
-        IDriverConfig::class => static function(ContainerInterface $container): IDriverConfig {
+        IDriverConfig::class => static function (ContainerInterface $container): IDriverConfig {
             return $container->get(IConfig::class)->get(IDriverConfig::class);
         },
     ];

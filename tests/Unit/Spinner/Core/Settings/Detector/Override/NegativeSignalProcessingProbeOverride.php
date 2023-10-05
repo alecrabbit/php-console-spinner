@@ -12,4 +12,10 @@ class NegativeSignalProcessingProbeOverride implements ISignalProcessingProbe
     {
         return false;
     }
+
+    public static function getCreatorClass(): string
+    {
+        // TODO: Implement getCreatorClass() method.
+        throw new \RuntimeException('Not implemented.');
+    }
 }

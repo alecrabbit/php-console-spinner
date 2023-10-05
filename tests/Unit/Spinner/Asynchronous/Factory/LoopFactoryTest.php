@@ -48,6 +48,9 @@ final class LoopFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
                         return true;
                     }
 
+                    /**
+                     * @deprecated
+                     */
                     public function createLoop(): ILoop
                     {
                         return new ALoopAdapterOverride();

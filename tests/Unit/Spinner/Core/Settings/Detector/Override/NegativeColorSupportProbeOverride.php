@@ -19,4 +19,9 @@ class NegativeColorSupportProbeOverride implements IColorSupportProbe
     {
         throw new RuntimeException('INTENTIONALLY Not implemented.');
     }
+    public static function getCreatorClass(): string
+    {
+        // TODO: Implement getCreatorClass() method.
+        throw new \RuntimeException('Not implemented.');
+    }
 }
