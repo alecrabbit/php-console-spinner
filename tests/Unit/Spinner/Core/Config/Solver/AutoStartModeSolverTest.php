@@ -19,7 +19,7 @@ use PHPUnit\Framework\MockObject\MockObject;
 
 use function sprintf;
 
-final class AutoStartModeSolverSolverTest extends TestCase
+final class AutoStartModeSolverTest extends TestCase
 {
     public static function canSolveDataProvider(): iterable
     {

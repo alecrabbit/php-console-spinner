@@ -7,6 +7,9 @@ namespace AlecRabbit\Spinner\Core\Terminal;
 use AlecRabbit\Spinner\Contract\Option\StylingMethodOption;
 use AlecRabbit\Spinner\Core\Terminal\A\ATerminalLegacyProbe;
 
+/**
+ * @deprecated
+ */
 final class NativeTerminalLegacyProbe extends ATerminalLegacyProbe
 {
     public function isAvailable(): bool

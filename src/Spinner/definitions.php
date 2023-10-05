@@ -3,8 +3,6 @@
 declare(strict_types=1);
 
 use AlecRabbit\Spinner\Asynchronous\Factory\LoopProbeFactory;
-use AlecRabbit\Spinner\Contract\Mode\InitializationMode;
-use AlecRabbit\Spinner\Contract\Mode\LinkerMode;
 use AlecRabbit\Spinner\Contract\Mode\NormalizerMethodMode;
 use AlecRabbit\Spinner\Contract\Option\CursorVisibilityOption;
 use AlecRabbit\Spinner\Contract\Option\StylingMethodOption;
@@ -35,8 +33,11 @@ use AlecRabbit\Spinner\Core\Builder\SignalHandlersSetupBuilder;
 use AlecRabbit\Spinner\Core\Builder\TimerBuilder;
 use AlecRabbit\Spinner\Core\CharFrame;
 use AlecRabbit\Spinner\Core\Config\Builder\AuxConfigBuilder;
+use AlecRabbit\Spinner\Core\Config\Builder\DriverConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Builder\LoopConfigBuilder;
+use AlecRabbit\Spinner\Core\Config\Builder\OutputConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\Builder\IAuxConfigBuilder;
+use AlecRabbit\Spinner\Core\Config\Contract\Builder\IDriverConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\Builder\ILoopConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\Builder\IOutputConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\IAuxConfigFactory;
@@ -47,23 +48,26 @@ use AlecRabbit\Spinner\Core\Config\Contract\Factory\ILoopConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\IOutputConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\IRootWidgetConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\IWidgetConfigFactory;
-use AlecRabbit\Spinner\Core\Config\Contract\IDriverConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IRootWidgetConfig;
-use AlecRabbit\Spinner\Core\Config\DriverConfig;
 use AlecRabbit\Spinner\Core\Config\Factory\AuxConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Factory\ConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Factory\ConfigProviderFactory;
+use AlecRabbit\Spinner\Core\Config\Factory\DriverConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Factory\LoopConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Factory\OutputConfigFactory;
 use AlecRabbit\Spinner\Core\Config\RootWidgetConfig;
 use AlecRabbit\Spinner\Core\Config\Solver\AutoStartModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\IAutoStartModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\ICursorVisibilityModeSolver;
+use AlecRabbit\Spinner\Core\Config\Solver\Contract\IInitializationModeSolver;
+use AlecRabbit\Spinner\Core\Config\Solver\Contract\ILinkerModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\INormalizerMethodModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\IRunMethodModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\ISignalHandlersModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\IStylingMethodModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\CursorVisibilityModeSolver;
+use AlecRabbit\Spinner\Core\Config\Solver\InitializationModeSolver;
+use AlecRabbit\Spinner\Core\Config\Solver\LinkerModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\NormalizerMethodModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\RunMethodModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\SignalHandlersModeSolver;
@@ -203,6 +207,8 @@ function definitions(): Traversable
         ISignalHandlersModeSolver::class => SignalHandlersModeSolver::class,
         IStylingMethodModeSolver::class => StylingMethodModeSolver::class,
         ICursorVisibilityModeSolver::class => CursorVisibilityModeSolver::class,
+        ILinkerModeSolver::class => LinkerModeSolver::class,
+        IInitializationModeSolver::class => InitializationModeSolver::class,
     ];
 
     yield from builders();
@@ -218,7 +224,6 @@ function definitions(): Traversable
 function builders(): Traversable
 {
     yield from [
-        IOutputConfigBuilder::class => \AlecRabbit\Spinner\Core\Config\Builder\OutputConfigBuilder::class,
         IDriverBuilder::class => DriverBuilder::class,
         IDriverOutputBuilder::class => DriverOutputBuilder::class,
         IFrameRevolverBuilder::class => FrameRevolverBuilder::class,
@@ -235,6 +240,8 @@ function builders(): Traversable
 
         IAuxConfigBuilder::class => AuxConfigBuilder::class,
         ILoopConfigBuilder::class => LoopConfigBuilder::class,
+        IOutputConfigBuilder::class => OutputConfigBuilder::class,
+        IDriverConfigBuilder::class => DriverConfigBuilder::class,
     ];
 }
 
@@ -279,6 +286,7 @@ function factories(): Traversable
                 );
         },
         IOutputConfigFactory::class => OutputConfigFactory::class,
+        IDriverConfigFactory::class => DriverConfigFactory::class,
     ];
 }
 
@@ -307,19 +315,19 @@ function detectors(): Traversable
 function substitutes(): Traversable
 {
     yield from [
-        IDriverConfigFactory::class => static function (): IDriverConfigFactory {
-            return
-                new class implements IDriverConfigFactory {
-                    public function create(): IDriverConfig
-                    {
-                        return
-                            new DriverConfig(
-                                linkerMode: LinkerMode::ENABLED,
-                                initializationMode: InitializationMode::ENABLED,
-                            );
-                    }
-                };
-        },
+//        IDriverConfigFactory::class => static function (): IDriverConfigFactory {
+//            return
+//                new class implements IDriverConfigFactory {
+//                    public function create(): IDriverConfig
+//                    {
+//                        return
+//                            new DriverConfig(
+//                                linkerMode: LinkerMode::ENABLED,
+//                                initializationMode: InitializationMode::ENABLED,
+//                            );
+//                    }
+//                };
+//        },
 //        IOutputConfigFactory::class => static function (): IOutputConfigFactory {
 //            return
 //                new class implements IOutputConfigFactory {
@@ -392,7 +400,7 @@ function substitutes(): Traversable
                 new class implements IColorSupportDetector {
                     public function getStylingMethodOption(): StylingMethodOption
                     {
-                        return StylingMethodOption::ANSI24;
+                        return StylingMethodOption::AUTO;
                     }
                 };
         },

@@ -8,6 +8,9 @@ use AlecRabbit\Spinner\Contract\Option\CursorVisibilityOption;
 use AlecRabbit\Spinner\Contract\Option\StylingMethodOption;
 use AlecRabbit\Spinner\Core\Terminal\Contract\ITerminalLegacyProbe;
 
+/**
+ * @deprecated
+ */
 abstract class ATerminalLegacyProbe implements ITerminalLegacyProbe
 {
     abstract public function isAvailable(): bool;

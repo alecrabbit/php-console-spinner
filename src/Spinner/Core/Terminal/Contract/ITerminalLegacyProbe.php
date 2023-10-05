@@ -8,6 +8,9 @@ use AlecRabbit\Spinner\Contract\ILegacyProbe;
 use AlecRabbit\Spinner\Contract\Option\CursorVisibilityOption;
 use AlecRabbit\Spinner\Contract\Option\StylingMethodOption;
 
+/**
+ * @deprecated
+ */
 interface ITerminalLegacyProbe extends ILegacyProbe
 {
     final public const DEFAULT_OPTION_CURSOR = CursorVisibilityOption::HIDDEN;

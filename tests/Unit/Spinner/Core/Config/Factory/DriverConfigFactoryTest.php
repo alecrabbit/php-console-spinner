@@ -4,20 +4,14 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Config\Factory;
 
-use AlecRabbit\Spinner\Contract\Mode\CursorVisibilityMode;
 use AlecRabbit\Spinner\Contract\Mode\InitializationMode;
 use AlecRabbit\Spinner\Contract\Mode\LinkerMode;
-use AlecRabbit\Spinner\Contract\Mode\StylingMethodMode;
-use AlecRabbit\Spinner\Contract\Option\InitializationOption;
-use AlecRabbit\Spinner\Contract\Option\LinkerOption;
 use AlecRabbit\Spinner\Core\Config\Contract\Builder\IDriverConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\IDriverConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\IDriverConfig;
 use AlecRabbit\Spinner\Core\Config\Factory\DriverConfigFactory;
-use AlecRabbit\Spinner\Core\Config\Solver\Contract\ICursorVisibilityModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\IInitializationModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\ILinkerModeSolver;
-use AlecRabbit\Spinner\Core\Config\Solver\Contract\IStylingMethodModeSolver;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -33,8 +27,8 @@ final class DriverConfigFactoryTest extends TestCase
     }
 
     public function getTesteeInstance(
-        ?ILinkerModeSolver $linkerModeSolver= null,
-        ?IInitializationModeSolver $initializationModeSolver= null,
+        ?ILinkerModeSolver $linkerModeSolver = null,
+        ?IInitializationModeSolver $initializationModeSolver = null,
         ?IDriverConfigBuilder $driverConfigBuilder = null,
     ): IDriverConfigFactory {
         return
@@ -44,8 +38,6 @@ final class DriverConfigFactoryTest extends TestCase
                 driverConfigBuilder: $driverConfigBuilder ?? $this->getDriverConfigBuilderMock(),
             );
     }
-
-//
 
     protected function getLinkerModeSolverMock(
         ?LinkerMode $linkerMode = null,
