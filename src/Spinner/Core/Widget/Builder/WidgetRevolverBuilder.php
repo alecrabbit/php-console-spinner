@@ -4,19 +4,21 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Widget\Builder;
 
+use AlecRabbit\Spinner\Core\Contract\ITolerance;
 use AlecRabbit\Spinner\Core\Revolver\A\ARevolverBuilder;
-use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
+use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolver;
+use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolver;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolverBuilder;
 use AlecRabbit\Spinner\Core\Widget\WidgetRevolver;
 use AlecRabbit\Spinner\Exception\LogicException;
 
 final class WidgetRevolverBuilder extends ARevolverBuilder implements IWidgetRevolverBuilder
 {
-    protected ?IRevolver $styleRevolver = null;
-    protected ?IRevolver $charRevolver = null;
-    private ?int $tolerance = null;
+    protected ?IFrameRevolver $styleRevolver = null;
+    protected ?IFrameRevolver $charRevolver = null;
+    private ?ITolerance $tolerance = null;
 
-    public function build(): IRevolver
+    public function build(): IWidgetRevolver
     {
         $this->validate();
 
@@ -38,21 +40,21 @@ final class WidgetRevolverBuilder extends ARevolverBuilder implements IWidgetRev
         };
     }
 
-    public function withStyleRevolver(IRevolver $styleRevolver): IWidgetRevolverBuilder
+    public function withStyleRevolver(IFrameRevolver $styleRevolver): IWidgetRevolverBuilder
     {
         $clone = clone $this;
         $clone->styleRevolver = $styleRevolver;
         return $clone;
     }
 
-    public function withCharRevolver(IRevolver $charRevolver): IWidgetRevolverBuilder
+    public function withCharRevolver(IFrameRevolver $charRevolver): IWidgetRevolverBuilder
     {
         $clone = clone $this;
         $clone->charRevolver = $charRevolver;
         return $clone;
     }
 
-    public function withTolerance(int $tolerance): IWidgetRevolverBuilder
+    public function withTolerance(ITolerance $tolerance): IWidgetRevolverBuilder
     {
         $clone = clone $this;
         $clone->tolerance = $tolerance;

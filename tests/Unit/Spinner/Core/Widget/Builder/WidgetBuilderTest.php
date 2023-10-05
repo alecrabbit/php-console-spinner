@@ -14,7 +14,7 @@ use PHPUnit\Framework\Attributes\Test;
 final class WidgetBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
 {
     #[Test]
-    public function canBeCreated(): void
+    public function canBeInstantiated(): void
     {
         $widgetBuilder = $this->getTesteeInstance();
 
@@ -35,7 +35,7 @@ final class WidgetBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
 
         $widgetComposite =
             $widgetBuilder
-                ->withWidgetRevolver($this->getRevolverMock())
+                ->withWidgetRevolver($this->getWidgetRevolverMock())
                 ->withLeadingSpacer($this->getFrameMock())
                 ->withTrailingSpacer($this->getFrameMock())
                 ->build()

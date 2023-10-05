@@ -4,31 +4,31 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Factory;
 
-use AlecRabbit\Spinner\Core\Builder\Settings\Contract\IWidgetSettingsBuilder;
-use AlecRabbit\Spinner\Core\Contract\ISettingsProvider;
-use AlecRabbit\Spinner\Core\Factory\Contract\IWidgetSettingsFactory;
-use AlecRabbit\Spinner\Core\Factory\WidgetSettingsFactory;
+use AlecRabbit\Spinner\Core\Builder\Settings\Legacy\Contract\ILegacyWidgetSettingsBuilder;
+use AlecRabbit\Spinner\Core\Contract\ILegacySettingsProvider;
+use AlecRabbit\Spinner\Core\Factory\Legacy\ILegacyWidgetSettingsFactory;
+use AlecRabbit\Spinner\Core\Factory\Legacy\LegacyWidgetSettingsFactory;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;
 
 final class WidgetSettingsFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
 {
     #[Test]
-    public function canBeCreated(): void
+    public function canBeInstantiated(): void
     {
         $widgetSettingsFactory = $this->getTesteeInstance();
 
-        self::assertInstanceOf(WidgetSettingsFactory::class, $widgetSettingsFactory);
+        self::assertInstanceOf(LegacyWidgetSettingsFactory::class, $widgetSettingsFactory);
     }
 
     public function getTesteeInstance(
-        ?ISettingsProvider $settingsProvider = null,
-        ?IWidgetSettingsBuilder $widgetSettingsBuilder = null,
-    ): IWidgetSettingsFactory {
+        ?ILegacySettingsProvider $settingsProvider = null,
+        ?ILegacyWidgetSettingsBuilder $widgetSettingsBuilder = null,
+    ): ILegacyWidgetSettingsFactory {
         return
-            new WidgetSettingsFactory(
-                settingsProvider: $settingsProvider ?? $this->getSettingsProviderMock(),
-                widgetSettingsBuilder: $widgetSettingsBuilder ?? $this->getWidgetSettingsBuilderMock()
+            new LegacyWidgetSettingsFactory(
+                settingsProvider: $settingsProvider ?? $this->getLegacySettingsProviderMock(),
+                widgetSettingsBuilder: $widgetSettingsBuilder ?? $this->getLegacyWidgetSettingsBuilderMock()
             );
     }
 
@@ -40,9 +40,9 @@ final class WidgetSettingsFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
         $stylePattern = $this->getStylePatternMock();
         $charPattern = $this->getCharPatternMock();
 
-        $widgetSettings = $this->getWidgetSettingsMock();
+        $widgetSettings = $this->getLegacyWidgetSettingsMock();
 
-        $builder = $this->getWidgetSettingsBuilderMock();
+        $builder = $this->getLegacyWidgetSettingsBuilderMock();
         $builder
             ->expects(self::once())
             ->method('withLeadingSpacer')
@@ -77,9 +77,9 @@ final class WidgetSettingsFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
             widgetSettingsBuilder: $builder,
         );
 
-        self::assertInstanceOf(WidgetSettingsFactory::class, $widgetSettingsFactory);
+        self::assertInstanceOf(LegacyWidgetSettingsFactory::class, $widgetSettingsFactory);
 
-        $config = $this->getWidgetConfigMock();
+        $config = $this->getLegacyWidgetConfigMock();
         $config
             ->expects(self::once())
             ->method('merge')
@@ -117,9 +117,9 @@ final class WidgetSettingsFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
         $stylePattern = $this->getStylePatternMock();
         $charPattern = $this->getCharPatternMock();
 
-        $widgetSettings = $this->getWidgetSettingsMock();
+        $widgetSettings = $this->getLegacyWidgetSettingsMock();
 
-        $builder = $this->getWidgetSettingsBuilderMock();
+        $builder = $this->getLegacyWidgetSettingsBuilderMock();
         $builder
             ->expects(self::once())
             ->method('withLeadingSpacer')
@@ -150,12 +150,12 @@ final class WidgetSettingsFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
             ->willReturn($widgetSettings)
         ;
 
-        $widgetConfig = $this->getWidgetConfigMock();
+        $widgetConfig = $this->getLegacyWidgetConfigMock();
 
-        $settingsProvider = $this->getSettingsProviderMock();
+        $settingsProvider = $this->getLegacySettingsProviderMock();
         $settingsProvider
             ->expects(self::once())
-            ->method('getWidgetConfig')
+            ->method('getLegacyWidgetConfig')
             ->willReturn($widgetConfig)
         ;
         $widgetConfig
@@ -181,7 +181,7 @@ final class WidgetSettingsFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
 
         $settingsProvider
             ->expects(self::never())
-            ->method('getRootWidgetConfig')
+            ->method('getLegacyRootWidgetConfig')
         ;
 
         $widgetSettingsFactory = $this->getTesteeInstance(
@@ -189,9 +189,9 @@ final class WidgetSettingsFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
             widgetSettingsBuilder: $builder,
         );
 
-        self::assertInstanceOf(WidgetSettingsFactory::class, $widgetSettingsFactory);
+        self::assertInstanceOf(LegacyWidgetSettingsFactory::class, $widgetSettingsFactory);
 
-        $config = $this->getWidgetConfigMock();
+        $config = $this->getLegacyWidgetConfigMock();
         $config
             ->expects(self::once())
             ->method('merge')

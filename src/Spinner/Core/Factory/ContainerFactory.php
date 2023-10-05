@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-
 namespace AlecRabbit\Spinner\Core\Factory;
 
 use AlecRabbit\Spinner\Container\Container;
@@ -36,7 +35,8 @@ final class ContainerFactory implements IContainerFactory
         return
             new Container(
                 spawnerCreatorCb: static function (ContainerInterface $container): IServiceSpawner {
-                    return new ServiceSpawner($container);
+                    return
+                        new ServiceSpawner($container);
                 },
                 definitions: $this->registry->getDefinitions(),
             );

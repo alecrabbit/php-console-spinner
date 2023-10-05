@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-
 namespace AlecRabbit\Spinner\Helper;
 
 use AlecRabbit\Spinner\Contract\Option\StylingMethodOption;
@@ -160,8 +159,11 @@ final class Asserter
     /**
      * @throws InvalidArgumentException
      */
-    public static function assertIntColor(int $color, StylingMethodOption $styleMode, ?string $callerMethod = null): void
-    {
+    public static function assertIntColor(
+        int $color,
+        StylingMethodOption $styleMode,
+        ?string $callerMethod = null
+    ): void {
         match (true) {
             0 > $color => throw new InvalidArgumentException(
                 sprintf(

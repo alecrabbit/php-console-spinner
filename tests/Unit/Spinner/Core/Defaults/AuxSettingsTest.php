@@ -4,44 +4,45 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Defaults;
 
-use AlecRabbit\Spinner\Contract\Option\NormalizerMethodOption;
-use AlecRabbit\Spinner\Core\Settings\AuxSettings;
-use AlecRabbit\Spinner\Core\Settings\Contract\IAuxSettings;
+use AlecRabbit\Spinner\Contract\Mode\NormalizerMethodMode;
+use AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyAuxSettings;
+use AlecRabbit\Spinner\Core\Settings\Legacy\LegacyAuxSettings;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;
 
 final class AuxSettingsTest extends TestCaseWithPrebuiltMocksAndStubs
 {
     #[Test]
-    public function canBeCreated(): void
+    public function canBeInstantiated(): void
     {
         $auxSettings = $this->getTesteeInstance();
 
-        self::assertInstanceOf(AuxSettings::class, $auxSettings);
+        self::assertInstanceOf(LegacyAuxSettings::class, $auxSettings);
     }
 
     public function getTesteeInstance(
-        ?NormalizerMethodOption $optionNormalizerMode = null,
-    ): IAuxSettings {
-        return new AuxSettings(
-            optionNormalizerMode: $optionNormalizerMode ?? NormalizerMethodOption::STILL,
-        );
+        ?NormalizerMethodMode $normalizerMode = null,
+    ): ILegacyAuxSettings {
+        return
+            new LegacyAuxSettings(
+                normalizerMethodMode: $normalizerMode ?? NormalizerMethodMode::STILL,
+            );
     }
 
     #[Test]
     public function valuesCanBeOverriddenWithSetters(): void
     {
-        $optionNormalizerMode = NormalizerMethodOption::SMOOTH;
+        $normalizerMethodMode = NormalizerMethodMode::SMOOTH;
 
         $auxSettings = $this->getTesteeInstance(
-            optionNormalizerMode: $optionNormalizerMode,
+            normalizerMode: $normalizerMethodMode,
         );
 
-        self::assertInstanceOf(AuxSettings::class, $auxSettings);
-        self::assertSame($optionNormalizerMode, $auxSettings->getOptionNormalizerMode());
+        self::assertInstanceOf(LegacyAuxSettings::class, $auxSettings);
+        self::assertSame($normalizerMethodMode, $auxSettings->getNormalizerMethodMode());
 
-        $optionNormalizerMode = NormalizerMethodOption::PERFORMANCE;
-        $auxSettings->setOptionNormalizerMode($optionNormalizerMode);
-        self::assertSame($optionNormalizerMode, $auxSettings->getOptionNormalizerMode());
+        $normalizerMethodMode = NormalizerMethodMode::PERFORMANCE;
+        $auxSettings->setNormalizerMethodMode($normalizerMethodMode);
+        self::assertSame($normalizerMethodMode, $auxSettings->getNormalizerMethodMode());
     }
 }

@@ -17,13 +17,13 @@ abstract class ASubject implements ISubject
     ) {
     }
 
-    /** @inheritdoc */
+    /** @inheritDoc */
     public function notify(): void
     {
         $this->observer?->update($this);
     }
 
-    /** @inheritdoc */
+    /** @inheritDoc */
     public function attach(IObserver $observer): void
     {
         $this->assertObserverIsNotAttached();
@@ -53,7 +53,7 @@ abstract class ASubject implements ISubject
         }
     }
 
-    /** @inheritdoc */
+    /** @inheritDoc */
     public function detach(IObserver $observer): void
     {
         if ($this->observer === $observer) {

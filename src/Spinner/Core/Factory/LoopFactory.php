@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Factory;
 
 use AlecRabbit\Spinner\Core\Contract\Loop\Contract\ILoop;
-use AlecRabbit\Spinner\Core\Contract\Loop\Contract\ILoopProbe;
+use AlecRabbit\Spinner\Core\Contract\Loop\Contract\Probe\ILoopProbe;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopAutoStarterFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopProbeFactory;
@@ -25,21 +25,28 @@ final class LoopFactory implements ILoopFactory
         if (self::$loop === null) {
             self::$loop = $this->createLoop();
 
-            $this->loopAutoStarterFactory
-                ->create()
-                ->setup(self::$loop)
-            ;
+            $this->setupLoop(self::$loop);
         }
         return self::$loop;
     }
 
     private function createLoop(): ILoop
     {
-        return $this->getLoopProbe()->createLoop();
+        return
+            $this->createProbe()->createLoop();
     }
 
-    private function getLoopProbe(): ILoopProbe
+    private function createProbe(): ILoopProbe
     {
-        return $this->loopProbeFactory->getProbe();
+        return
+            $this->loopProbeFactory->createProbe();
+    }
+
+    private function setupLoop(ILoop $loop): void
+    {
+        $this->loopAutoStarterFactory
+            ->create()
+            ->setup($loop)
+        ;
     }
 }

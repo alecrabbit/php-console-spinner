@@ -39,7 +39,7 @@ $defaultsProvider->getLoopSettings()->setAttachHandlersOption(
 //    \AlecRabbit\Spinner\Contract\OptionAutoStart::DISABLED
 //);
 
-$spinner = Facade::createSpinner();
+$spinner = Facade::legacyCreateSpinner();
 
 // # that's it :)
 

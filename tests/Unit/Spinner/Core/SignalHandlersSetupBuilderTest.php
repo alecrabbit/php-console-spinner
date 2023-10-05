@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-
 namespace AlecRabbit\Tests\Unit\Spinner\Core;
 
 use AlecRabbit\Spinner\Core\Builder\Contract\ISignalHandlersSetupBuilder;
@@ -15,7 +14,7 @@ use PHPUnit\Framework\Attributes\Test;
 final class SignalHandlersSetupBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
 {
     #[Test]
-    public function canBeCreated(): void
+    public function canBeInstantiated(): void
     {
         $loopSetupBuilder = $this->getTesteeInstance();
 
@@ -36,8 +35,8 @@ final class SignalHandlersSetupBuilderTest extends TestCaseWithPrebuiltMocksAndS
 
         $loopSetupBuilder = $loopSetupBuilder
             ->withLoop($this->getLoopMock())
-            ->withLoopSettings($this->getLoopSettingsMock())
-            ->withDriverSettings($this->getDriverSettingsMock())
+            ->withLoopSettings($this->getLegacyLoopSettingsMock())
+            ->withDriverSettings($this->getLegacyDriverSettingsMock())
         ;
 
         self::assertInstanceOf(SignalHandlersSetup::class, $loopSetupBuilder->build());
@@ -53,8 +52,8 @@ final class SignalHandlersSetupBuilderTest extends TestCaseWithPrebuiltMocksAndS
             $loopSetupBuilder = $this->getTesteeInstance();
             self::assertInstanceOf(SignalHandlersSetupBuilder::class, $loopSetupBuilder);
             $loopSetupBuilder
-                ->withLoopSettings($this->getLoopSettingsMock())
-                ->withDriverSettings($this->getDriverSettingsMock())
+                ->withLoopSettings($this->getLegacyLoopSettingsMock())
+                ->withDriverSettings($this->getLegacyDriverSettingsMock())
                 ->build()
             ;
         };
@@ -77,7 +76,7 @@ final class SignalHandlersSetupBuilderTest extends TestCaseWithPrebuiltMocksAndS
             self::assertInstanceOf(SignalHandlersSetupBuilder::class, $loopSetupBuilder);
             $loopSetupBuilder
                 ->withLoop($this->getLoopMock())
-                ->withDriverSettings($this->getDriverSettingsMock())
+                ->withDriverSettings($this->getLegacyDriverSettingsMock())
                 ->build()
             ;
         };
@@ -100,7 +99,7 @@ final class SignalHandlersSetupBuilderTest extends TestCaseWithPrebuiltMocksAndS
             self::assertInstanceOf(SignalHandlersSetupBuilder::class, $loopSetupBuilder);
             $loopSetupBuilder
                 ->withLoop($this->getLoopMock())
-                ->withLoopSettings($this->getLoopSettingsMock())
+                ->withLoopSettings($this->getLegacyLoopSettingsMock())
                 ->build()
             ;
         };

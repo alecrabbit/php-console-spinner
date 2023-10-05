@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Factory;
 
-use AlecRabbit\Spinner\Core\Contract\ISignalProcessingProbe;
-use AlecRabbit\Spinner\Core\Contract\Loop\Contract\ILoopProbe;
+use AlecRabbit\Spinner\Core\Contract\ILegacySignalProcessingLegacyProbe;
+use AlecRabbit\Spinner\Core\Contract\Loop\Contract\Probe\ILoopProbe;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopSettingsFactory;
-use AlecRabbit\Spinner\Core\Factory\LoopSettingsFactory;
-use AlecRabbit\Spinner\Core\Settings\LoopSettings;
+use AlecRabbit\Spinner\Core\Factory\Legacy\LoopSettingsFactory;
+use AlecRabbit\Spinner\Core\Settings\Legacy\LegacyLoopSettings;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use AlecRabbit\Tests\Unit\Spinner\Core\Defaults\Override\LoopProbeStub;
 use PHPUnit\Framework\Attributes\Test;
@@ -16,7 +16,7 @@ use PHPUnit\Framework\Attributes\Test;
 final class LoopSettingsFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
 {
     #[Test]
-    public function canBeCreated(): void
+    public function canBeInstantiated(): void
     {
         $loopSettingsFactory = $this->getTesteeInstance();
 
@@ -25,7 +25,7 @@ final class LoopSettingsFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
 
     public function getTesteeInstance(
         ?ILoopProbe $loopProbe = null,
-        ?ISignalProcessingProbe $signalProcessingProbe = null,
+        ?ILegacySignalProcessingLegacyProbe $signalProcessingProbe = null,
     ): ILoopSettingsFactory {
         return new LoopSettingsFactory(
             loopProbe: $loopProbe,
@@ -38,7 +38,7 @@ final class LoopSettingsFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
     {
         $loopSettings = $this->getTesteeInstance()->createLoopSettings();
 
-        self::assertInstanceOf(LoopSettings::class, $loopSettings);
+        self::assertInstanceOf(LegacyLoopSettings::class, $loopSettings);
 
         self::assertFalse($loopSettings->isLoopAvailable());
         self::assertFalse($loopSettings->isAutoStartEnabled());
@@ -64,7 +64,7 @@ final class LoopSettingsFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
                 ->createLoopSettings()
         ;
 
-        self::assertInstanceOf(LoopSettings::class, $loopSettings);
+        self::assertInstanceOf(LegacyLoopSettings::class, $loopSettings);
 
         self::assertTrue($loopSettings->isLoopAvailable());
         self::assertTrue($loopSettings->isAutoStartEnabled());

@@ -26,7 +26,7 @@ final class WidgetCompositeTest extends TestCaseWithPrebuiltMocksAndStubs
 
         $interval = new Interval(100);
 
-        $revolver = $this->getRevolverMock();
+        $revolver = $this->getWidgetRevolverMock();
         $revolver
             ->expects(self::once())
             ->method('getInterval')
@@ -94,7 +94,7 @@ final class WidgetCompositeTest extends TestCaseWithPrebuiltMocksAndStubs
         $children = new WidgetCompositeChildrenContainer();
 
         $revolverFrame = $this->getFrameMock();
-        $revolver = $this->getRevolverMock();
+        $revolver = $this->getWidgetRevolverMock();
         $revolver
             ->expects(self::once())
             ->method('getFrame')

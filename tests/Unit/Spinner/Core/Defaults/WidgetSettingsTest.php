@@ -5,19 +5,19 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Defaults;
 
 use AlecRabbit\Spinner\Contract\IFrame;
-use AlecRabbit\Spinner\Contract\Pattern\IPattern;
+use AlecRabbit\Spinner\Contract\Legacy\ILegacyPattern;
 use AlecRabbit\Spinner\Core\CharFrame;
-use AlecRabbit\Spinner\Core\Pattern\NoCharPattern;
-use AlecRabbit\Spinner\Core\Pattern\NoStylePattern;
-use AlecRabbit\Spinner\Core\Settings\Contract\IWidgetSettings;
-use AlecRabbit\Spinner\Core\Settings\WidgetSettings;
+use AlecRabbit\Spinner\Core\Pattern\Legacy\NoCharPattern;
+use AlecRabbit\Spinner\Core\Pattern\Legacy\NoStylePattern;
+use AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyWidgetSettings;
+use AlecRabbit\Spinner\Core\Settings\Legacy\LegacyWidgetSettings;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;
 
 final class WidgetSettingsTest extends TestCaseWithPrebuiltMocksAndStubs
 {
     #[Test]
-    public function canBeCreated(): void
+    public function canBeInstantiated(): void
     {
         $leadingSpacer = new CharFrame('', 0);
         $trailingSpacer = new CharFrame('', 0);
@@ -31,7 +31,7 @@ final class WidgetSettingsTest extends TestCaseWithPrebuiltMocksAndStubs
             $charPattern
         );
 
-        self::assertInstanceOf(WidgetSettings::class, $widgetSettings);
+        self::assertInstanceOf(LegacyWidgetSettings::class, $widgetSettings);
         self::assertSame($leadingSpacer, $widgetSettings->getLeadingSpacer());
         self::assertSame($trailingSpacer, $widgetSettings->getTrailingSpacer());
         self::assertSame($stylePattern, $widgetSettings->getStylePattern());
@@ -41,10 +41,10 @@ final class WidgetSettingsTest extends TestCaseWithPrebuiltMocksAndStubs
     public function getTesteeInstance(
         IFrame $leadingSpacer,
         IFrame $trailingSpacer,
-        IPattern $stylePattern,
-        IPattern $charPattern,
-    ): IWidgetSettings {
-        return new WidgetSettings(
+        ILegacyPattern $stylePattern,
+        ILegacyPattern $charPattern,
+    ): ILegacyWidgetSettings {
+        return new LegacyWidgetSettings(
             leadingSpacer: $leadingSpacer,
             trailingSpacer: $trailingSpacer,
             stylePattern: $stylePattern,
@@ -72,7 +72,7 @@ final class WidgetSettingsTest extends TestCaseWithPrebuiltMocksAndStubs
         $widgetSettings->setStylePattern($stylePattern);
         $widgetSettings->setCharPattern($charPattern);
 
-        self::assertInstanceOf(WidgetSettings::class, $widgetSettings);
+        self::assertInstanceOf(LegacyWidgetSettings::class, $widgetSettings);
         self::assertSame($leadingSpacer, $widgetSettings->getLeadingSpacer());
         self::assertSame($trailingSpacer, $widgetSettings->getTrailingSpacer());
         self::assertSame($stylePattern, $widgetSettings->getStylePattern());

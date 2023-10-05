@@ -11,7 +11,7 @@ use PHPUnit\Framework\Attributes\Test;
 final class CommonDriverTest extends TestCaseForDriver
 {
     #[Test]
-    public function canBeCreated(): void
+    public function canBeInstantiated(): void
     {
         $driver = $this->getTesteeInstance();
 

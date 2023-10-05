@@ -6,27 +6,27 @@ namespace AlecRabbit\Tests\Unit\Spinner\Core\Defaults;
 
 use AlecRabbit\Spinner\Contract\Option\CursorVisibilityOption;
 use AlecRabbit\Spinner\Contract\Option\StylingMethodOption;
-use AlecRabbit\Spinner\Core\Settings\Contract\ITerminalSettings;
-use AlecRabbit\Spinner\Core\Settings\TerminalSettings;
+use AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyTerminalSettings;
+use AlecRabbit\Spinner\Core\Settings\Legacy\LegacyTerminalSettings;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;
 
 final class TerminalSettingsTest extends TestCaseWithPrebuiltMocksAndStubs
 {
     #[Test]
-    public function canBeCreated(): void
+    public function canBeInstantiated(): void
     {
         $terminalSettings = $this->getTesteeInstance();
 
-        self::assertInstanceOf(TerminalSettings::class, $terminalSettings);
+        self::assertInstanceOf(LegacyTerminalSettings::class, $terminalSettings);
     }
 
     public function getTesteeInstance(
         ?CursorVisibilityOption $optionCursor = null,
         ?StylingMethodOption $optionStyleMode = null,
         $outputStream = null,
-    ): ITerminalSettings {
-        return new TerminalSettings(
+    ): ILegacyTerminalSettings {
+        return new LegacyTerminalSettings(
             optionCursor: $optionCursor ?? CursorVisibilityOption::VISIBLE,
             optionStyleMode: $optionStyleMode ?? StylingMethodOption::NONE,
             outputStream: $outputStream ?? STDERR,
@@ -45,7 +45,7 @@ final class TerminalSettingsTest extends TestCaseWithPrebuiltMocksAndStubs
             optionStyleMode: $optionStyleMode,
             outputStream: $resource,
         );
-        self::assertInstanceOf(TerminalSettings::class, $terminalSettings);
+        self::assertInstanceOf(LegacyTerminalSettings::class, $terminalSettings);
         self::assertSame($optionCursor, $terminalSettings->getOptionCursor());
         self::assertSame($optionStyleMode, $terminalSettings->getOptionStyleMode());
         self::assertSame($resource, $terminalSettings->getOutputStream());

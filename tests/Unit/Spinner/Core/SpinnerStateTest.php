@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-
 namespace AlecRabbit\Tests\Unit\Spinner\Core;
 
 use AlecRabbit\Spinner\Core\Contract\ISpinnerState;
@@ -13,7 +12,7 @@ use PHPUnit\Framework\Attributes\Test;
 final class SpinnerStateTest extends TestCaseWithPrebuiltMocksAndStubs
 {
     #[Test]
-    public function canBeCreated(): void
+    public function canBeInstantiated(): void
     {
         $spinnerState = $this->getTesteeInstance();
 
@@ -33,7 +32,7 @@ final class SpinnerStateTest extends TestCaseWithPrebuiltMocksAndStubs
     }
 
     #[Test]
-    public function canBeCreatedWithValues(): void
+    public function canBeInstantiatedWithValues(): void
     {
         $sequence = 'aa';
         $width = 2;

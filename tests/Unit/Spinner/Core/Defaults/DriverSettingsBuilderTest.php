@@ -4,25 +4,25 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Defaults;
 
-use AlecRabbit\Spinner\Core\Builder\Settings\Contract\IDriverSettingsBuilder;
-use AlecRabbit\Spinner\Core\Builder\Settings\DriverSettingsBuilder;
-use AlecRabbit\Spinner\Core\Settings\DriverSettings;
+use AlecRabbit\Spinner\Core\Builder\Settings\Legacy\Contract\ILegacyDriverSettingsBuilder;
+use AlecRabbit\Spinner\Core\Builder\Settings\Legacy\LegacyDriverSettingsBuilder;
+use AlecRabbit\Spinner\Core\Settings\Legacy\LegacyDriverSettings;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;
 
 final class DriverSettingsBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
 {
     #[Test]
-    public function canBeCreated(): void
+    public function canBeInstantiated(): void
     {
         $builder = $this->getTesteeInstance();
 
-        self::assertInstanceOf(DriverSettingsBuilder::class, $builder);
+        self::assertInstanceOf(LegacyDriverSettingsBuilder::class, $builder);
     }
 
-    public function getTesteeInstance(): IDriverSettingsBuilder
+    public function getTesteeInstance(): ILegacyDriverSettingsBuilder
     {
-        return new DriverSettingsBuilder();
+        return new LegacyDriverSettingsBuilder();
     }
 
     #[Test]
@@ -30,7 +30,7 @@ final class DriverSettingsBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
     {
         $builder = $this->getTesteeInstance();
 
-        self::assertInstanceOf(DriverSettingsBuilder::class, $builder);
-        self::assertInstanceOf(DriverSettings::class, $builder->build());
+        self::assertInstanceOf(LegacyDriverSettingsBuilder::class, $builder);
+        self::assertInstanceOf(LegacyDriverSettings::class, $builder->build());
     }
 }

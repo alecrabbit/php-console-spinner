@@ -2,65 +2,64 @@
 
 declare(strict_types=1);
 
-
 namespace AlecRabbit\Spinner\Core\Settings;
 
 use AlecRabbit\Spinner\Contract\IFrame;
-use AlecRabbit\Spinner\Contract\Pattern\IPattern;
-use AlecRabbit\Spinner\Core\Pattern\Contract\IStylePattern;
+use AlecRabbit\Spinner\Core\Palette\Contract\IPalette;
 use AlecRabbit\Spinner\Core\Settings\Contract\IWidgetSettings;
 
 final class WidgetSettings implements IWidgetSettings
 {
     public function __construct(
-        protected IFrame $leadingSpacer,
-        protected IFrame $trailingSpacer,
-        protected IStylePattern $stylePattern,
-        protected IPattern $charPattern,
+        protected ?IFrame $leadingSpacer = null,
+        protected ?IFrame $trailingSpacer = null,
+        protected ?IPalette $stylePalette = null,
+        protected ?IPalette $charPalette = null,
     ) {
     }
 
-    public function getLeadingSpacer(): IFrame
+    public function getLeadingSpacer(): ?IFrame
     {
         return $this->leadingSpacer;
     }
 
-    public function setLeadingSpacer(IFrame $frame): IWidgetSettings
+    public function setLeadingSpacer(?IFrame $leadingSpacer): void
     {
-        $this->leadingSpacer = $frame;
-        return $this;
+        $this->leadingSpacer = $leadingSpacer;
     }
 
-    public function getTrailingSpacer(): IFrame
+    public function getTrailingSpacer(): ?IFrame
     {
         return $this->trailingSpacer;
     }
 
-    public function setTrailingSpacer(IFrame $frame): IWidgetSettings
+    public function setTrailingSpacer(?IFrame $trailingSpacer): void
     {
-        $this->trailingSpacer = $frame;
-        return $this;
+        $this->trailingSpacer = $trailingSpacer;
     }
 
-    public function getStylePattern(): IStylePattern
+    public function getStylePalette(): ?IPalette
     {
-        return $this->stylePattern;
+        return $this->stylePalette;
     }
 
-    public function setStylePattern(IStylePattern $pattern): IWidgetSettings
+    public function setStylePalette(?IPalette $stylePalette): void
     {
-        $this->stylePattern = $pattern;
-        return $this;
+        $this->stylePalette = $stylePalette;
     }
 
-    public function getCharPattern(): IPattern
+    public function getCharPalette(): ?IPalette
     {
-        return $this->charPattern;
+        return $this->charPalette;
     }
 
-    public function setCharPattern(IPattern $pattern): IWidgetSettings
+    public function setCharPalette(?IPalette $charPalette): void
     {
-        $this->charPattern = $pattern;
-        return $this;
+        $this->charPalette = $charPalette;
+    }
+
+    public function getIdentifier(): string
+    {
+        return IWidgetSettings::class;
     }
 }

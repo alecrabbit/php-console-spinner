@@ -44,12 +44,26 @@ final class WidgetComposite extends AWidget implements IWidgetComposite
         return $this->interval;
     }
 
+    /** @inheritDoc */
+    public function update(ISubject $subject): void
+    {
+        $this->assertNotSelf($subject);
+
+        if ($subject === $this->children) {
+            $interval = $this->interval->smallest($subject->getInterval());
+            if ($interval !== $this->interval) {
+                $this->interval = $interval;
+                $this->notify();
+            }
+        }
+    }
+
     public function getFrame(?float $dt = null): IFrame
     {
         $frame = parent::getFrame($dt);
 
         if (!$this->children->isEmpty()) {
-            /** @var  $childContext IWidgetContext */
+            /** @var IWidgetContext $childContext */
             foreach ($this->children as $childContext => $_) {
                 $widget = $childContext->getWidget();
                 if ($widget instanceof IWidget) {
@@ -69,20 +83,6 @@ final class WidgetComposite extends AWidget implements IWidgetComposite
     {
         return
             $this->children->add($context);
-    }
-
-    /** @inheritdoc */
-    public function update(ISubject $subject): void
-    {
-        $this->assertNotSelf($subject);
-
-        if ($subject === $this->children) {
-            $interval = $this->interval->smallest($subject->getInterval());
-            if ($interval !== $this->interval) {
-                $this->interval = $interval;
-                $this->notify();
-            }
-        }
     }
 
     public function remove(IWidgetContext $context): void

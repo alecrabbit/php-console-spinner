@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-
 namespace AlecRabbit\Spinner\Core;
 
 use AlecRabbit\Spinner\Contract\IFrame;
@@ -36,7 +35,6 @@ final class FrameCollection extends ArrayObject implements IFrameCollection
     private function initialize(Traversable $frames): void
     {
         /**
-         * @noinspection PhpRedundantVariableDocTypeInspection
          * @var T $frame
          */
         foreach ($frames as $frame) {

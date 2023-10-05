@@ -4,21 +4,21 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Defaults;
 
+use AlecRabbit\Spinner\Contract\Option\AutoStartOption;
 use AlecRabbit\Spinner\Contract\Option\SignalHandlersOption;
-use AlecRabbit\Spinner\Contract\Option\LoopAutoStartOption;
-use AlecRabbit\Spinner\Core\Settings\Contract\ILoopSettings;
-use AlecRabbit\Spinner\Core\Settings\LoopSettings;
+use AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyLoopSettings;
+use AlecRabbit\Spinner\Core\Settings\Legacy\LegacyLoopSettings;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;
 
 final class LoopSettingsTest extends TestCaseWithPrebuiltMocksAndStubs
 {
     #[Test]
-    public function canBeCreated(): void
+    public function canBeInstantiated(): void
     {
         $loopSettings = $this->getTesteeInstance();
 
-        self::assertInstanceOf(LoopSettings::class, $loopSettings);
+        self::assertInstanceOf(LegacyLoopSettings::class, $loopSettings);
         self::assertFalse($loopSettings->isLoopAvailable());
         self::assertFalse($loopSettings->isAutoStartEnabled());
         self::assertFalse($loopSettings->isAttachHandlersEnabled());
@@ -27,30 +27,30 @@ final class LoopSettingsTest extends TestCaseWithPrebuiltMocksAndStubs
 
     public function getTesteeInstance(
         ?bool $loopAvailable = null,
-        ?LoopAutoStartOption $autoStartOption = null,
+        ?AutoStartOption $autoStartOption = null,
         ?SignalHandlersOption $signalHandlersOption = null,
         ?bool $pcntlExtensionAvailable = null,
-    ): ILoopSettings {
-        return new LoopSettings(
+    ): ILegacyLoopSettings {
+        return new LegacyLoopSettings(
             loopAvailable: $loopAvailable ?? false,
-            optionAutoStart: $autoStartOption ?? LoopAutoStartOption::DISABLED,
+            optionAutoStart: $autoStartOption ?? AutoStartOption::DISABLED,
             signalProcessingAvailable: $pcntlExtensionAvailable ?? false,
             optionAttachHandlers: $signalHandlersOption ?? SignalHandlersOption::DISABLED,
         );
     }
 
     #[Test]
-    public function canBeCreatedWithArguments(): void
+    public function canBeInstantiatedWithArguments(): void
     {
         $loopSettings =
             $this->getTesteeInstance(
                 true,
-                LoopAutoStartOption::ENABLED,
+                AutoStartOption::ENABLED,
                 SignalHandlersOption::ENABLED,
                 true,
             );
 
-        self::assertInstanceOf(LoopSettings::class, $loopSettings);
+        self::assertInstanceOf(LegacyLoopSettings::class, $loopSettings);
         self::assertTrue($loopSettings->isLoopAvailable());
         self::assertTrue($loopSettings->isAutoStartEnabled());
         self::assertTrue($loopSettings->isAttachHandlersEnabled());
@@ -66,10 +66,10 @@ final class LoopSettingsTest extends TestCaseWithPrebuiltMocksAndStubs
                 pcntlExtensionAvailable: true,
             );
 
-        $loopSettings->setOptionAutoStart(LoopAutoStartOption::ENABLED);
+        $loopSettings->setOptionAutoStart(AutoStartOption::ENABLED);
         $loopSettings->setAttachHandlersOption(SignalHandlersOption::ENABLED);
 
-        self::assertInstanceOf(LoopSettings::class, $loopSettings);
+        self::assertInstanceOf(LegacyLoopSettings::class, $loopSettings);
         self::assertTrue($loopSettings->isLoopAvailable());
         self::assertTrue($loopSettings->isAutoStartEnabled());
         self::assertTrue($loopSettings->isAttachHandlersEnabled());

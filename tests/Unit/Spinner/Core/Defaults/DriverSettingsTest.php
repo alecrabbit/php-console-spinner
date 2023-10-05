@@ -4,30 +4,30 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Defaults;
 
-use AlecRabbit\Spinner\Contract\Option\DriverInitializationOption;
-use AlecRabbit\Spinner\Contract\Option\DriverLinkerOption;
-use AlecRabbit\Spinner\Core\Settings\Contract\IDriverSettings;
-use AlecRabbit\Spinner\Core\Settings\DriverSettings;
+use AlecRabbit\Spinner\Contract\Option\InitializationOption;
+use AlecRabbit\Spinner\Contract\Option\LinkerOption;
+use AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyDriverSettings;
+use AlecRabbit\Spinner\Core\Settings\Legacy\LegacyDriverSettings;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;
 
 final class DriverSettingsTest extends TestCaseWithPrebuiltMocksAndStubs
 {
     #[Test]
-    public function canBeCreated(): void
+    public function canBeInstantiated(): void
     {
         $driverSettings = $this->getTesteeInstance();
 
-        self::assertInstanceOf(DriverSettings::class, $driverSettings);
+        self::assertInstanceOf(LegacyDriverSettings::class, $driverSettings);
     }
 
     public function getTesteeInstance(
-        DriverInitializationOption $optionInitialization = DriverInitializationOption::ENABLED,
-        DriverLinkerOption $optionLinker = DriverLinkerOption::ENABLED,
+        InitializationOption $optionInitialization = InitializationOption::ENABLED,
+        LinkerOption $optionLinker = LinkerOption::ENABLED,
         string $finalMessage = 'Final message',
         string $interruptMessage = 'Interrupt message',
-    ): IDriverSettings {
-        return new DriverSettings(
+    ): ILegacyDriverSettings {
+        return new LegacyDriverSettings(
             optionDriverInitialization: $optionInitialization,
             optionLinker: $optionLinker,
             finalMessage: $finalMessage,
@@ -41,15 +41,15 @@ final class DriverSettingsTest extends TestCaseWithPrebuiltMocksAndStubs
         $finalMessage = 'Final';
         $interruptMessage = 'Interrupt';
 
-        $optionLinker = DriverLinkerOption::DISABLED;
+        $optionLinker = LinkerOption::DISABLED;
 
         $driverSettings = $this->getTesteeInstance(
-            optionInitialization: DriverInitializationOption::DISABLED,
+            optionInitialization: InitializationOption::DISABLED,
             optionLinker: $optionLinker,
             finalMessage: $finalMessage,
             interruptMessage: $interruptMessage,
         );
-        self::assertInstanceOf(DriverSettings::class, $driverSettings);
+        self::assertInstanceOf(LegacyDriverSettings::class, $driverSettings);
         self::assertFalse($driverSettings->isInitializationEnabled());
         self::assertFalse($driverSettings->isLinkerEnabled());
         self::assertSame($finalMessage, $driverSettings->getFinalMessage());
@@ -58,9 +58,9 @@ final class DriverSettingsTest extends TestCaseWithPrebuiltMocksAndStubs
 
         $finalMessage = 'Final message';
         $interruptMessage = 'Interrupt message';
-        $optionLinker = DriverLinkerOption::ENABLED;
+        $optionLinker = LinkerOption::ENABLED;
 
-        $driverSettings->setOptionDriverInitialization(DriverInitializationOption::ENABLED);
+        $driverSettings->setOptionDriverInitialization(InitializationOption::ENABLED);
         $driverSettings->setOptionLinker($optionLinker);
         $driverSettings->setFinalMessage($finalMessage);
         $driverSettings->setInterruptMessage($interruptMessage);

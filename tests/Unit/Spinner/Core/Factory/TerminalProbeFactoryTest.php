@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Factory;
 
-use AlecRabbit\Spinner\Core\Factory\Contract\ITerminalProbeFactory;
-use AlecRabbit\Spinner\Core\Factory\TerminalProbeFactory;
-use AlecRabbit\Spinner\Core\Terminal\A\ATerminalProbe;
+use AlecRabbit\Spinner\Core\Factory\Contract\ILegacyTerminalProbeFactory;
+use AlecRabbit\Spinner\Core\Factory\Legacy\LegacyTerminalProbeFactory;
+use AlecRabbit\Spinner\Core\Terminal\A\ATerminalLegacyProbe;
 use AlecRabbit\Spinner\Exception\DomainException;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
-use AlecRabbit\Tests\Unit\Spinner\Core\Factory\Stub\TerminalProbeStub;
+use AlecRabbit\Tests\Unit\Spinner\Core\Factory\Stub\TerminalLegacyProbeStub;
 use ArrayObject;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -18,17 +18,17 @@ use Traversable;
 final class TerminalProbeFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
 {
     #[Test]
-    public function canBeCreated(): void
+    public function canBeInstantiated(): void
     {
         $terminalProbeFactory = $this->getTesteeInstance();
 
-        self::assertInstanceOf(TerminalProbeFactory::class, $terminalProbeFactory);
+        self::assertInstanceOf(LegacyTerminalProbeFactory::class, $terminalProbeFactory);
     }
 
     public function getTesteeInstance(
         ?Traversable $terminalProbes = null,
-    ): ITerminalProbeFactory {
-        return new TerminalProbeFactory(
+    ): ILegacyTerminalProbeFactory {
+        return new LegacyTerminalProbeFactory(
             probeClasses: $terminalProbes ?? $this->getTerminalProbesMock(),
         );
     }
@@ -51,7 +51,7 @@ final class TerminalProbeFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
 
         $terminalProbe = $terminalProbeFactory->getProbe();
 
-        self::assertInstanceOf(ATerminalProbe::class, $terminalProbe);
+        self::assertInstanceOf(ATerminalLegacyProbe::class, $terminalProbe);
 
         self::failTest(self::exceptionNotThrownString($exception, $exceptionMessage));
     }
@@ -60,13 +60,13 @@ final class TerminalProbeFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
     public function canReturnTerminalProbe(): void
     {
         $terminalProbes = new ArrayObject([
-            TerminalProbeStub::class,
+            TerminalLegacyProbeStub::class,
         ]);
 
         $terminalProbeFactory = $this->getTesteeInstance(terminalProbes: $terminalProbes);
 
         $terminalProbe = $terminalProbeFactory->getProbe();
 
-        self::assertInstanceOf(ATerminalProbe::class, $terminalProbe);
+        self::assertInstanceOf(ATerminalLegacyProbe::class, $terminalProbe);
     }
 }

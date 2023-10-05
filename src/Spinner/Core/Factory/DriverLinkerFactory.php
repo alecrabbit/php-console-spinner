@@ -2,11 +2,10 @@
 
 declare(strict_types=1);
 
-
 namespace AlecRabbit\Spinner\Core\Factory;
 
 use AlecRabbit\Spinner\Core\Contract\IDriverLinker;
-use AlecRabbit\Spinner\Core\Contract\ISettingsProvider;
+use AlecRabbit\Spinner\Core\Contract\ILegacySettingsProvider;
 use AlecRabbit\Spinner\Core\Contract\Loop\Contract\ILoop;
 use AlecRabbit\Spinner\Core\DriverLinker;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDriverLinkerFactory;
@@ -17,7 +16,7 @@ final class DriverLinkerFactory implements IDriverLinkerFactory
 
     public function __construct(
         protected ILoop $loop,
-        protected ISettingsProvider $settingsProvider,
+        protected ILegacySettingsProvider $settingsProvider,
     ) {
     }
 
@@ -34,7 +33,7 @@ final class DriverLinkerFactory implements IDriverLinkerFactory
         return
             new DriverLinker(
                 $this->loop,
-                $this->settingsProvider->getDriverSettings()->getOptionLinker(),
+                $this->settingsProvider->getLegacyDriverSettings()->getOptionLinker(),
             );
     }
 }

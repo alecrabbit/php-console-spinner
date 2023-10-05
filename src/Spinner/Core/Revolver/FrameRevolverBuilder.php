@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-
 namespace AlecRabbit\Spinner\Core\Revolver;
 
 use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Core\Contract\IFrameCollection;
+use AlecRabbit\Spinner\Core\Contract\ITolerance;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolver;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolverBuilder;
 use AlecRabbit\Spinner\Exception\LogicException;
@@ -15,7 +15,7 @@ final class FrameRevolverBuilder implements IFrameRevolverBuilder
 {
     private ?IFrameCollection $frames = null;
     private ?IInterval $interval = null;
-    private ?int $tolerance = null;
+    private ?ITolerance $tolerance = null;
 
     public function build(): IFrameRevolver
     {
@@ -53,7 +53,7 @@ final class FrameRevolverBuilder implements IFrameRevolverBuilder
         return $clone;
     }
 
-    public function withTolerance(int $tolerance): IFrameRevolverBuilder
+    public function withTolerance(ITolerance $tolerance): IFrameRevolverBuilder
     {
         $clone = clone $this;
         $clone->tolerance = $tolerance;

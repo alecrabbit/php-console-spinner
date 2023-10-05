@@ -2,14 +2,18 @@
 
 declare(strict_types=1);
 
-
 namespace AlecRabbit\Spinner\Core\Settings\Contract;
 
-use AlecRabbit\Spinner\Contract\Option\NormalizerMethodOption;
+use AlecRabbit\Spinner\Contract\Option\NormalizerOption;
+use AlecRabbit\Spinner\Contract\Option\RunMethodOption;
 
-interface IAuxSettings
+interface IAuxSettings extends ISettingsElement
 {
-    public function getOptionNormalizerMode(): NormalizerMethodOption;
+    public function setRunMethodOption(RunMethodOption $runMethodOption): void;
 
-    public function setOptionNormalizerMode(NormalizerMethodOption $normalizerMode): IAuxSettings;
+    public function setNormalizerOption(NormalizerOption $normalizerOption): void;
+
+    public function getNormalizerOption(): NormalizerOption;
+
+    public function getRunMethodOption(): RunMethodOption;
 }

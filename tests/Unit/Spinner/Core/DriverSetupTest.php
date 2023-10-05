@@ -13,7 +13,7 @@ use PHPUnit\Framework\Attributes\Test;
 final class DriverSetupTest extends TestCaseWithPrebuiltMocksAndStubs
 {
     #[Test]
-    public function canBeCreated(): void
+    public function canBeInstantiated(): void
     {
         $driverSetup = $this->getTesteeInstance();
 

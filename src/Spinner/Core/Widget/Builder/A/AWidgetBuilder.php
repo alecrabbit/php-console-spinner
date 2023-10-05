@@ -18,7 +18,7 @@ abstract class AWidgetBuilder
     protected function validate(): void
     {
         match (true) {
-            null === $this->revolver => throw new LogicException('Revolver is not set.'),
+            $this->revolver === null => throw new LogicException('Revolver is not set.'),
             $this->leadingSpacer === null => throw new LogicException('Leading spacer is not set.'),
             $this->trailingSpacer === null => throw new LogicException('Trailing spacer is not set.'),
             default => null,

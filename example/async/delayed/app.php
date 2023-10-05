@@ -6,13 +6,13 @@ use AlecRabbit\Spinner\Facade;
 
 require_once __DIR__ . '/../bootstrap.async.php';
 
-$settingsProvider = Facade::getSettingsProvider();
+$settingsProvider = Facade::getLegacySettingsProvider();
 $settingsProvider
-    ->getDriverSettings()
+    ->getLegacyDriverSettings()
     ->setFinalMessage('Finished!' . PHP_EOL)
 ;
 
-$spinner = Facade::createSpinner(attach: false);
+$spinner = Facade::legacyCreateSpinner(attach: false);
 $driver = Facade::getDriver();
 $loop = Facade::getLoop();
 

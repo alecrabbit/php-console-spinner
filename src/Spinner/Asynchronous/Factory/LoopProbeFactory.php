@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Asynchronous\Factory;
 
-use AlecRabbit\Spinner\Core\Contract\Loop\Contract\ILoopProbe;
+use AlecRabbit\Spinner\Core\Contract\Loop\Contract\Probe\ILoopProbe;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopProbeFactory;
 use AlecRabbit\Spinner\Exception\DomainException;
 use ArrayObject;
@@ -32,7 +32,7 @@ final class LoopProbeFactory implements ILoopProbeFactory
     {
         /** @var class-string<ILoopProbe> $loopProbe */
         foreach ($loopProbes as $loopProbe) {
-            if (self::isALoopProbeClass($loopProbe) && $loopProbe::isSupported()) {
+            if (self::isALoopProbeClass($loopProbe)) {
                 $this->loopProbes->append($loopProbe);
             }
         }
@@ -43,12 +43,13 @@ final class LoopProbeFactory implements ILoopProbeFactory
         return is_subclass_of($loopProbe, ILoopProbe::class);
     }
 
-    public function getProbe(): ILoopProbe
+    public function createProbe(): ILoopProbe
     {
         /** @var class-string<ILoopProbe> $loopProbe */
         foreach ($this->loopProbes as $loopProbe) {
             if ($loopProbe::isSupported()) {
-                return new $loopProbe();
+                return
+                    new $loopProbe();
             }
         }
         throw new DomainException(
