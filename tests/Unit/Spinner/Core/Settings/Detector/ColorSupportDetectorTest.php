@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Settings\Detector;
 
+use AlecRabbit\Spinner\Contract\Option\StylingMethodOption;
 use AlecRabbit\Spinner\Contract\Probe\IColorSupportProbe;
 use AlecRabbit\Spinner\Core\Settings\Contract\Detector\IColorSupportDetector;
 use AlecRabbit\Spinner\Core\Settings\Detector\ColorSupportDetector;
@@ -19,26 +20,26 @@ use Traversable;
 
 final class ColorSupportDetectorTest extends TestCase
 {
-    public static function canSolveDataProvider(): iterable
+    public static function canDetectDataProvider(): iterable
     {
         yield from [
             // $result, $probes
-            [false, []],
+            [StylingMethodOption::NONE, []],
             [
-                true,
+                StylingMethodOption::ANSI24,
                 [
                     PositiveColorSupportProbeOverride::class,
                 ]
             ],
             [
-                true,
+                StylingMethodOption::ANSI24,
                 [
                     NegativeColorSupportProbeOverride::class,
                     PositiveColorSupportProbeOverride::class,
                 ]
             ],
             [
-                false,
+                StylingMethodOption::NONE,
                 [
                     NegativeColorSupportProbeOverride::class,
                 ]
@@ -64,14 +65,14 @@ final class ColorSupportDetectorTest extends TestCase
     }
 
     #[Test]
-    #[DataProvider('canSolveDataProvider')]
-    public function canSolve(bool $result, array $probes): void
+    #[DataProvider('canDetectDataProvider')]
+    public function canDetect(StylingMethodOption $result, array $probes): void
     {
         $detector = $this->getTesteeInstance(
             probes: new ArrayObject($probes),
         );
 
-        self::assertEquals($result, $detector->isSupported());
+        self::assertEquals($result, $detector->getStylingMethodOption());
     }
 
     #[Test]
@@ -87,7 +88,7 @@ final class ColorSupportDetectorTest extends TestCase
         $detector = $this->getTesteeInstance(
             probes: new ArrayObject([stdClass::class]),
         );
-        self::assertTrue($detector->isSupported());
+        self::assertEquals(StylingMethodOption::AUTO, $detector->getStylingMethodOption());
 
         self::fail('Exception was not thrown.');
     }

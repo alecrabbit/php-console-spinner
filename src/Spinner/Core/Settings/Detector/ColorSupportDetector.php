@@ -6,10 +6,8 @@ namespace AlecRabbit\Spinner\Core\Settings\Detector;
 
 use AlecRabbit\Spinner\Contract\Option\StylingMethodOption;
 use AlecRabbit\Spinner\Contract\Probe\IColorSupportProbe;
-use AlecRabbit\Spinner\Core\Contract\Loop\Contract\Probe\ILoopProbe;
 use AlecRabbit\Spinner\Core\Settings\Contract\Detector\IColorSupportDetector;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
-use RuntimeException;
 
 final readonly class ColorSupportDetector implements IColorSupportDetector
 {
@@ -18,17 +16,16 @@ final readonly class ColorSupportDetector implements IColorSupportDetector
     ) {
     }
 
-    /** @inheritDoc */
-    public function isSupported(): bool
+    public function getStylingMethodOption(): StylingMethodOption
     {
         foreach ($this->probes as $probe) {
             self::assertProbe($probe);
             if ($probe::isSupported()) {
-                return true;
+                return $probe::getStylingMethodOption();
             }
         }
 
-        return false;
+        return StylingMethodOption::NONE;
     }
 
     protected static function assertProbe($probe): void
@@ -41,11 +38,5 @@ final readonly class ColorSupportDetector implements IColorSupportDetector
                 )
             );
         }
-    }
-
-    public function getStylingMethodOption(): StylingMethodOption
-    {
-        // TODO: Implement getStylingMethodOption() method.
-        throw new \RuntimeException('Not implemented.');
     }
 }
