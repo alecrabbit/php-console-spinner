@@ -24,25 +24,28 @@ final class ColorSupportDetectorTest extends TestCase
     {
         yield from [
             // $result, $probes
-            [StylingMethodOption::NONE, []],
+            [
+                StylingMethodOption::NONE,
+                [],
+            ],
             [
                 StylingMethodOption::ANSI24,
                 [
                     PositiveColorSupportProbeOverride::class,
-                ]
+                ],
             ],
             [
                 StylingMethodOption::ANSI24,
                 [
                     NegativeColorSupportProbeOverride::class,
                     PositiveColorSupportProbeOverride::class,
-                ]
+                ],
             ],
             [
                 StylingMethodOption::NONE,
                 [
                     NegativeColorSupportProbeOverride::class,
-                ]
+                ],
             ],
         ];
     }
