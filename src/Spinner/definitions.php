@@ -7,6 +7,7 @@ use AlecRabbit\Spinner\Contract\Mode\NormalizerMethodMode;
 use AlecRabbit\Spinner\Contract\Option\CursorVisibilityOption;
 use AlecRabbit\Spinner\Contract\Option\StylingMethodOption;
 use AlecRabbit\Spinner\Contract\Output\IResourceStream;
+use AlecRabbit\Spinner\Contract\Probe\IColorSupportProbe;
 use AlecRabbit\Spinner\Contract\Probe\ISignalProcessingProbe;
 use AlecRabbit\Spinner\Core\Builder\BufferedOutputBuilder;
 use AlecRabbit\Spinner\Core\Builder\ConsoleCursorBuilder;
@@ -146,6 +147,7 @@ use AlecRabbit\Spinner\Core\Settings\Contract\Factory\ISettingsProviderFactory;
 use AlecRabbit\Spinner\Core\Settings\Contract\Factory\IUserSettingsFactory;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettingsProvider;
 use AlecRabbit\Spinner\Core\Settings\Contract\IWidgetSettings;
+use AlecRabbit\Spinner\Core\Settings\Detector\ColorSupportDetector;
 use AlecRabbit\Spinner\Core\Settings\Detector\LoopSupportDetector;
 use AlecRabbit\Spinner\Core\Settings\Detector\SignalProcessingDetector;
 use AlecRabbit\Spinner\Core\Settings\Factory\DefaultSettingsFactory;
@@ -305,7 +307,12 @@ function detectors(): Traversable
                     Probes::load(ISignalProcessingProbe::class)
                 );
         },
-
+        IColorSupportDetector::class => static function (): IColorSupportDetector {
+            return
+                new ColorSupportDetector(
+                    Probes::load(IColorSupportProbe::class)
+                );
+        },
     ];
 }
 
@@ -315,50 +322,6 @@ function detectors(): Traversable
 function substitutes(): Traversable
 {
     yield from [
-//        IDriverConfigFactory::class => static function (): IDriverConfigFactory {
-//            return
-//                new class implements IDriverConfigFactory {
-//                    public function create(): IDriverConfig
-//                    {
-//                        return
-//                            new DriverConfig(
-//                                linkerMode: LinkerMode::ENABLED,
-//                                initializationMode: InitializationMode::ENABLED,
-//                            );
-//                    }
-//                };
-//        },
-//        IOutputConfigFactory::class => static function (): IOutputConfigFactory {
-//            return
-//                new class implements IOutputConfigFactory {
-//                    public function create(): IOutputConfig
-//                    {
-//                        return
-//                            new OutputConfig(
-//                                stylingMethodMode: StylingMethodMode::ANSI8,
-//                                cursorVisibilityMode: CursorVisibilityMode::HIDDEN,
-//                            );
-//                    }
-//                };
-//        },
-//        IWidgetConfigFactory::class => static function (): IWidgetConfigFactory {
-//            return
-//                new class implements IWidgetConfigFactory {
-//                    public function create(
-//                        ?\AlecRabbit\Spinner\Core\Settings\Contract\IWidgetSettings $widgetSettings = null
-//                    ): \AlecRabbit\Spinner\Core\Config\Contract\IWidgetConfig {
-//                        return
-//                            new \AlecRabbit\Spinner\Core\Config\WidgetConfig(
-//                                leadingSpacer: new \AlecRabbit\Spinner\Core\CharFrame('', 0),
-//                                trailingSpacer: new \AlecRabbit\Spinner\Core\CharFrame(' ', 1),
-//                                revolverConfig: new \AlecRabbit\Spinner\Core\Config\WidgetRevolverConfig(
-//                                    stylePalette: new \AlecRabbit\Spinner\Core\Palette\NoStylePalette(),
-//                                    charPalette: new \AlecRabbit\Spinner\Core\Palette\NoCharPalette(),
-//                                )
-//                            );
-//                    }
-//                };
-//        },
         IWidgetConfigFactory::class => static function (): IRootWidgetConfigFactory {
             return
                 new class implements IRootWidgetConfigFactory {
@@ -395,16 +358,6 @@ function substitutes(): Traversable
                     }
                 };
         },
-        IColorSupportDetector::class => static function (): IColorSupportDetector {
-            return
-                new class implements IColorSupportDetector {
-                    public function getStylingMethodOption(): StylingMethodOption
-                    {
-                        return StylingMethodOption::AUTO;
-                    }
-                };
-        },
-
     ];
 }
 

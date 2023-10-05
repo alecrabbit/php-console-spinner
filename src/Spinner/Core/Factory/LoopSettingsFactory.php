@@ -12,6 +12,9 @@ use AlecRabbit\Spinner\Core\Factory\Contract\ILoopSettingsFactory;
 use AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyLoopSettings;
 use AlecRabbit\Spinner\Core\Settings\Legacy\LegacyLoopSettings;
 
+/**
+ * @deprecated
+ */
 final class LoopSettingsFactory implements ILoopSettingsFactory
 {
     public function __construct(
