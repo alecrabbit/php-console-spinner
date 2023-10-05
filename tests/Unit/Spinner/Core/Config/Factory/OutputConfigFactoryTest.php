@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Unit\Spinner\Core\Config\Factory;
+namespace AlecRabbit\Tests\Unit\Spinner\Core\Config\Factory;
 
 use AlecRabbit\Spinner\Contract\Mode\CursorVisibilityMode;
 use AlecRabbit\Spinner\Contract\Mode\StylingMethodMode;

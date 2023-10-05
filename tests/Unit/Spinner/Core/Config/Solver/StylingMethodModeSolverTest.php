@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Unit\Spinner\Core\Config\Solver;
+namespace AlecRabbit\Tests\Unit\Spinner\Core\Config\Solver;
 
 use AlecRabbit\Spinner\Contract\Mode\StylingMethodMode;
 use AlecRabbit\Spinner\Contract\Option\StylingMethodOption;
