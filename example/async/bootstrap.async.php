@@ -9,6 +9,12 @@ require_once __DIR__ . '/../bootstrap.php';
 
 // FIXME (2023-07-26 12:4) [Alec Rabbit]: Temporary workaround for Revolt loop not working
 \AlecRabbit\Spinner\Probes::unregister(\AlecRabbit\Spinner\Asynchronous\Loop\Probe\RevoltLoopProbe::class);
+//\AlecRabbit\Spinner\Probes::unregister(\AlecRabbit\Spinner\Asynchronous\Loop\Probe\ReactLoopProbe::class);
+//
+//$settings = Facade::getSettings();
+//$settings->set(new \AlecRabbit\Spinner\Core\Settings\AuxSettings(
+//    runMethodOption: \AlecRabbit\Spinner\Contract\Option\RunMethodOption::SYNCHRONOUS,
+//));
 
 $driver = Facade::getDriver();
 $echo =
