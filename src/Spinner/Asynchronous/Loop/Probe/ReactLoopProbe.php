@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Asynchronous\Loop\Probe;
 
+use AlecRabbit\Spinner\Asynchronous\Factory\ReactLoopCreator;
 use AlecRabbit\Spinner\Asynchronous\Loop\Adapter\ReactLoopAdapter;
-use AlecRabbit\Spinner\Asynchronous\Loop\Creator\ReactLoopCreator;
 use AlecRabbit\Spinner\Core\Contract\Loop\A\ALoopProbe;
 use AlecRabbit\Spinner\Core\Contract\Loop\ILoop;
 use React\EventLoop\Loop;
@@ -19,6 +19,11 @@ final class ReactLoopProbe extends ALoopProbe
         return class_exists(Loop::class);
     }
 
+    public static function getCreatorClass(): string
+    {
+        return ReactLoopCreator::class;
+    }
+
     /**
      * @deprecated
      * @codeCoverageIgnore Deprecated
@@ -26,10 +31,5 @@ final class ReactLoopProbe extends ALoopProbe
     public function createLoop(): ILoop
     {
         return new ReactLoopAdapter(Loop::get());
-    }
-
-    public static function getCreatorClass(): string
-    {
-        return ReactLoopCreator::class;
     }
 }

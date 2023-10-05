@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Asynchronous\Probe;
 
-use AlecRabbit\Spinner\Asynchronous\Loop\Creator\RevoltLoopCreator;
+use AlecRabbit\Spinner\Asynchronous\Factory\RevoltLoopCreator;
 use AlecRabbit\Spinner\Asynchronous\Loop\Probe\RevoltLoopProbe;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;

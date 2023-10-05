@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Tests\Functional\Spinner\Asynchronous\Creator;
+namespace AlecRabbit\Tests\Functional\Spinner\Asynchronous\Factory;
 
+use AlecRabbit\Spinner\Asynchronous\Factory\ReactLoopCreator;
 use AlecRabbit\Spinner\Asynchronous\Loop\Adapter\ReactLoopAdapter;
-use AlecRabbit\Spinner\Asynchronous\Loop\Creator\ReactLoopCreator;
 use AlecRabbit\Spinner\Asynchronous\Loop\Probe\ReactLoopProbe;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;

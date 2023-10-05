@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Asynchronous\Loop\Probe;
 
+use AlecRabbit\Spinner\Asynchronous\Factory\RevoltLoopCreator;
 use AlecRabbit\Spinner\Asynchronous\Loop\Adapter\RevoltLoopAdapter;
-use AlecRabbit\Spinner\Asynchronous\Loop\Creator\RevoltLoopCreator;
 use AlecRabbit\Spinner\Core\Contract\Loop\A\ALoopProbe;
 use AlecRabbit\Spinner\Core\Contract\Loop\ILoop;
 use Revolt\EventLoop;
@@ -30,6 +30,6 @@ final class RevoltLoopProbe extends ALoopProbe
      */
     public function createLoop(): ILoop
     {
-        return new RevoltLoopAdapter();
+        return new RevoltLoopAdapter(EventLoop::getDriver());
     }
 }

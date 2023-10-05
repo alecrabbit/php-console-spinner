@@ -15,11 +15,10 @@ use Revolt\EventLoop;
 final class RevoltLoopAdapter extends ALoopAdapter
 {
     private static bool $stopped = false;
-    protected readonly EventLoop\Driver $revoltLoop;
 
-    public function __construct()
-    {
-        $this->revoltLoop = EventLoop::getDriver();
+    public function __construct(
+        private readonly EventLoop\Driver $revoltLoop
+    ) {
     }
 
     public function cancel(mixed $timer): void
