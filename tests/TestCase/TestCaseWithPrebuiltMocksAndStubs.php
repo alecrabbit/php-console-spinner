@@ -87,11 +87,6 @@ use PHPUnit\Framework\MockObject\Stub;
  */
 abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
 {
-    protected function getLegacyWidgetConfigStub(): Stub&ILegacyWidgetConfig
-    {
-        return $this->createStub(ILegacyWidgetConfig::class);
-    }
-
     protected function getWeakMapMock(): MockObject&IWeakMap
     {
         return $this->createMock(IWeakMap::class);
@@ -100,11 +95,6 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
     protected function getFrameMock(): MockObject&IFrame
     {
         return $this->createMock(IFrame::class);
-    }
-
-    protected function getBakedPatternMock(): MockObject&ILegacyBakedPattern
-    {
-        return $this->createMock(ILegacyBakedPattern::class);
     }
 
     protected function getWidgetCompositeChildrenContainerMock(): MockObject&IWidgetCompositeChildrenContainer
@@ -165,21 +155,6 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
     protected function getRevolverMock(): MockObject&IRevolver
     {
         return $this->createMock(IRevolver::class);
-    }
-
-    protected function getWidgetCompositeBuilderMock(): MockObject&IWidgetCompositeBuilder
-    {
-        return $this->createMock(IWidgetCompositeBuilder::class);
-    }
-
-    protected function getWidgetBuilderMock(): MockObject&IWidgetBuilder
-    {
-        return $this->createMock(IWidgetBuilder::class);
-    }
-
-    protected function getWidgetRevolverFactoryMock(): MockObject&IWidgetRevolverFactory
-    {
-        return $this->createMock(IWidgetRevolverFactory::class);
     }
 
     protected function getWidgetRevolverMock(): MockObject&IWidgetRevolver
@@ -327,16 +302,6 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
         return $this->createMock(ILegacyDriverSettings::class);
     }
 
-    protected function getSignalHandlersSetupFactoryMock(): MockObject&ISignalHandlersSetupFactory
-    {
-        return $this->createMock(ISignalHandlersSetupFactory::class);
-    }
-
-    protected function getLegacyDriverSettingsBuilderMock(): MockObject&ILegacyDriverSettingsBuilder
-    {
-        return $this->createMock(ILegacyDriverSettingsBuilder::class);
-    }
-
     protected function getLegacyWidgetSettingsBuilderMock(): MockObject&ILegacyWidgetSettingsBuilder
     {
         return $this->createMock(ILegacyWidgetSettingsBuilder::class);
@@ -347,10 +312,6 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
         return $this->createMock(ILegacyLoopSettings::class);
     }
 
-    protected function getLegacyTerminalSettingsMock(): MockObject&ILegacyTerminalSettings
-    {
-        return $this->createMock(ILegacyTerminalSettings::class);
-    }
 
     protected function getLoopMock(): MockObject&ILoop
     {
@@ -367,21 +328,6 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
         return $this->createMock(IDriver::class);
     }
 
-    protected function getPatternStub(): Stub&ILegacyPattern
-    {
-        return $this->createStub(ILegacyPattern::class);
-    }
-
-    protected function getFrameStub(): Stub&IFrame
-    {
-        return $this->createStub(IFrame::class);
-    }
-
-    protected function getOutputMock(): MockObject&IOutput
-    {
-        return $this->createMock(IOutput::class);
-    }
-
     protected function getCursorMock(): MockObject&IConsoleCursor
     {
         return $this->createMock(IConsoleCursor::class);
@@ -390,16 +336,6 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
     protected function getTimerMock(): MockObject&ITimer
     {
         return $this->createMock(ITimer::class);
-    }
-
-    protected function getSpinnerMock(): MockObject&ISpinner
-    {
-        return $this->createMock(ISpinner::class);
-    }
-
-    protected function getSpinnerStub(): Stub&ISpinner
-    {
-        return $this->createStub(ISpinner::class);
     }
 
     protected function getDriverOutputMock(): MockObject&IDriverOutput
@@ -452,10 +388,6 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
         return $this->createStub(ITimer::class);
     }
 
-    protected function getDriverStub(): Stub&IDriver
-    {
-        return $this->createStub(IDriver::class);
-    }
 
     protected function getDriverSetupMock(): MockObject&IDriverSetup
     {

@@ -4,18 +4,23 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Widget\Factory;
 
+use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\IWidgetConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\IWidgetConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IWidgetRevolverConfig;
+use AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyWidgetSettings;
+use AlecRabbit\Spinner\Core\Widget\Contract\IWidget;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetBuilder;
+use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetCompositeBuilder;
+use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolver;
 use AlecRabbit\Spinner\Core\Widget\Factory\Contract\IWidgetFactory;
 use AlecRabbit\Spinner\Core\Widget\Factory\Contract\IWidgetRevolverFactory;
 use AlecRabbit\Spinner\Core\Widget\Factory\WidgetFactory;
-use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
+use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 
-final class WidgetFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
+final class WidgetFactoryTest extends TestCase
 {
     #[Test]
     public function canBeInstantiated(): void
@@ -43,6 +48,10 @@ final class WidgetFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
         return $this->createMock(IWidgetConfigFactory::class);
     }
 
+    protected function getWidgetRevolverFactoryMock(): MockObject&IWidgetRevolverFactory
+    {
+        return $this->createMock(IWidgetRevolverFactory::class);
+    }
 //    #[Test]
 //    public function canCreateWidgetWithWidgetSettings(): void
 //    {
@@ -51,6 +60,11 @@ final class WidgetFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
 //        self::assertInstanceOf(WidgetFactory::class, $widgetFactory);
 //        self::assertSame($widget, $widgetFactory->createWidget($widgetSettings));
 //    }
+
+    protected function getWidgetCompositeBuilderMock(): MockObject&IWidgetCompositeBuilder
+    {
+        return $this->createMock(IWidgetCompositeBuilder::class);
+    }
 
     #[Test]
     public function canLegacyCreateWidget(): void
@@ -115,6 +129,26 @@ final class WidgetFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
 
         self::assertInstanceOf(WidgetFactory::class, $widgetFactory);
         self::assertSame($widget, $widgetFactory->legacyCreateWidget($widgetSettings));
+    }
+
+    protected function getFrameMock(): MockObject&IFrame
+    {
+        return $this->createMock(IFrame::class);
+    }
+
+    protected function getWidgetMock(): MockObject&IWidget
+    {
+        return $this->createMock(IWidget::class);
+    }
+
+    protected function getLegacyWidgetSettingsMock(): MockObject&ILegacyWidgetSettings
+    {
+        return $this->createMock(ILegacyWidgetSettings::class);
+    }
+
+    protected function getWidgetRevolverMock(): MockObject&IWidgetRevolver
+    {
+        return $this->createMock(IWidgetRevolver::class);
     }
 
     #[Test]
@@ -204,4 +238,8 @@ final class WidgetFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
     {
         return $this->createMock(IWidgetConfig::class);
     }
+    protected function getWidgetBuilderMock(): MockObject&IWidgetBuilder
+{
+    return $this->createMock(IWidgetBuilder::class);
+}
 }

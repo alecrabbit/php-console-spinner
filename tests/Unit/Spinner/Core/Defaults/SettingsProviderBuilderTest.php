@@ -13,6 +13,7 @@ use AlecRabbit\Spinner\Core\Factory\Contract\ILoopSettingsFactory;
 use AlecRabbit\Spinner\Core\Settings\Legacy\LegacySettingsProvider;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;
+use PHPUnit\Framework\MockObject\MockObject;
 
 final class SettingsProviderBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
 {
@@ -45,5 +46,10 @@ final class SettingsProviderBuilderTest extends TestCaseWithPrebuiltMocksAndStub
         $settingsProvider = $this->getTesteeInstance()->build();
 
         self::assertInstanceOf(LegacySettingsProvider::class, $settingsProvider);
+    }
+
+    protected function getLegacyDriverSettingsBuilderMock(): MockObject&ILegacyDriverSettingsBuilder
+    {
+        return $this->createMock(ILegacyDriverSettingsBuilder::class);
     }
 }

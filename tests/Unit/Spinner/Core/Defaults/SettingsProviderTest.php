@@ -13,6 +13,7 @@ use AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyTerminalSettings;
 use AlecRabbit\Spinner\Core\Settings\Legacy\LegacySettingsProvider;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;
+use PHPUnit\Framework\MockObject\MockObject;
 
 /**
  * @deprecated Will be removed
@@ -51,5 +52,10 @@ final class SettingsProviderTest extends TestCaseWithPrebuiltMocksAndStubs
                 widgetConfig: $widgetConfig ?? $this->getLegacyWidgetConfigMock(),
                 rootWidgetConfig: $rootWidgetConfig ?? $this->getLegacyWidgetConfigMock(),
             );
+    }
+
+    protected function getLegacyTerminalSettingsMock(): MockObject&ILegacyTerminalSettings
+    {
+        return $this->createMock(ILegacyTerminalSettings::class);
     }
 }

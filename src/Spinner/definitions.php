@@ -37,10 +37,12 @@ use AlecRabbit\Spinner\Core\Config\Builder\AuxConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Builder\DriverConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Builder\LoopConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Builder\OutputConfigBuilder;
+use AlecRabbit\Spinner\Core\Config\Builder\WidgetConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\Builder\IAuxConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\Builder\IDriverConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\Builder\ILoopConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\Builder\IOutputConfigBuilder;
+use AlecRabbit\Spinner\Core\Config\Contract\Builder\IWidgetConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\IAuxConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\IConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\IConfigProviderFactory;
@@ -202,18 +204,10 @@ function definitions(): Traversable
         ILoopProbe::class => static function (ContainerInterface $container): ILoopProbe {
             return $container->get(ILoopProbeFactory::class)->getProbe();
         },
-
-        IRunMethodModeSolver::class => RunMethodModeSolver::class,
-        INormalizerMethodModeSolver::class => NormalizerMethodModeSolver::class,
-        IAutoStartModeSolver::class => AutoStartModeSolver::class,
-        ISignalHandlersModeSolver::class => SignalHandlersModeSolver::class,
-        IStylingMethodModeSolver::class => StylingMethodModeSolver::class,
-        ICursorVisibilityModeSolver::class => CursorVisibilityModeSolver::class,
-        ILinkerModeSolver::class => LinkerModeSolver::class,
-        IInitializationModeSolver::class => InitializationModeSolver::class,
     ];
 
     yield from builders();
+    yield from solvers();
     yield from factories();
     yield from detectors();
 
@@ -244,6 +238,21 @@ function builders(): Traversable
         ILoopConfigBuilder::class => LoopConfigBuilder::class,
         IOutputConfigBuilder::class => OutputConfigBuilder::class,
         IDriverConfigBuilder::class => DriverConfigBuilder::class,
+        IWidgetConfigBuilder::class => WidgetConfigBuilder::class,
+    ];
+}
+
+function solvers(): Traversable
+{
+    yield from [
+        IRunMethodModeSolver::class => RunMethodModeSolver::class,
+        INormalizerMethodModeSolver::class => NormalizerMethodModeSolver::class,
+        IAutoStartModeSolver::class => AutoStartModeSolver::class,
+        ISignalHandlersModeSolver::class => SignalHandlersModeSolver::class,
+        IStylingMethodModeSolver::class => StylingMethodModeSolver::class,
+        ICursorVisibilityModeSolver::class => CursorVisibilityModeSolver::class,
+        ILinkerModeSolver::class => LinkerModeSolver::class,
+        IInitializationModeSolver::class => InitializationModeSolver::class,
     ];
 }
 

@@ -4,11 +4,11 @@ Directories                                         80
 Files                                              387
 
 Size
-  Lines of Code (LOC)                            13962
-  Comment Lines of Code (CLOC)                     759 (5.44%)
-  Non-Comment Lines of Code (NCLOC)              13203 (94.56%)
-  Logical Lines of Code (LLOC)                    1610 (11.53%)
-    Classes                                       1507 (93.60%)
+  Lines of Code (LOC)                            13970
+  Comment Lines of Code (CLOC)                     759 (5.43%)
+  Non-Comment Lines of Code (NCLOC)              13211 (94.57%)
+  Logical Lines of Code (LLOC)                    1612 (11.54%)
+    Classes                                       1507 (93.49%)
       Average Class Length                           4
         Minimum Class Length                         0
         Maximum Class Length                        36
@@ -18,9 +18,9 @@ Size
       Average Methods Per Class                      2
         Minimum Methods Per Class                    0
         Maximum Methods Per Class                   14
-    Functions                                       42 (2.61%)
+    Functions                                       44 (2.73%)
       Average Function Length                        1
-    Not in classes or functions                     61 (3.79%)
+    Not in classes or functions                     61 (3.78%)
 
 Cyclomatic Complexity
   Average Complexity per LLOC                     0.31
@@ -60,9 +60,9 @@ Structure
       Public Methods                               885 (83.10%)
       Protected Methods                             59 (5.54%)
       Private Methods                              121 (11.36%)
-  Functions                                         38
-    Named Functions                                  9 (23.68%)
-    Anonymous Functions                             29 (76.32%)
+  Functions                                         39
+    Named Functions                                 10 (25.64%)
+    Anonymous Functions                             29 (74.36%)
   Constants                                         20
     Global Constants                                 0 (0.00%)
     Class Constants                                 20 (100.00%)
