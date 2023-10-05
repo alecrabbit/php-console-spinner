@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core;
 
-use AlecRabbit\Spinner\Core\Contract\ILoopAutoStarter;
-use AlecRabbit\Spinner\Core\LoopAutoStarter;
+use AlecRabbit\Spinner\Core\Contract\ILegacyLoopAutoStarter;
+use AlecRabbit\Spinner\Core\LegacyLoopAutoStarter;
 use AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyLoopSettings;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;
@@ -17,14 +17,14 @@ final class LoopAutoStarterTest extends TestCaseWithPrebuiltMocksAndStubs
     {
         $autoStarter = $this->getTesteeInstance();
 
-        self::assertInstanceOf(LoopAutoStarter::class, $autoStarter);
+        self::assertInstanceOf(LegacyLoopAutoStarter::class, $autoStarter);
     }
 
     public function getTesteeInstance(
         ?ILegacyLoopSettings $settings = null,
-    ): ILoopAutoStarter {
+    ): ILegacyLoopAutoStarter {
         return
-            new LoopAutoStarter(
+            new LegacyLoopAutoStarter(
                 settings: $settings ?? $this->getLegacyLoopSettingsMock(),
             );
     }

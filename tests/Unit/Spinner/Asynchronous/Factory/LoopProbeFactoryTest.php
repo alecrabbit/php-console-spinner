@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Asynchronous\Factory;
 
-use AlecRabbit\Spinner\Asynchronous\Factory\LoopProbeFactory;
+use AlecRabbit\Spinner\Asynchronous\Factory\LegacyLoopProbeFactory;
 use AlecRabbit\Spinner\Core\Contract\Loop\A\ALoopProbe;
-use AlecRabbit\Spinner\Core\Factory\Contract\ILoopProbeFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\ILegacyLoopProbeFactory;
 use AlecRabbit\Spinner\Exception\DomainException;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use AlecRabbit\Tests\Unit\Spinner\Asynchronous\Factory\Stub\LoopProbeStub;
@@ -22,13 +22,13 @@ final class LoopProbeFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
     {
         $loopProbesFactory = $this->getTesteeInstance();
 
-        self::assertInstanceOf(LoopProbeFactory::class, $loopProbesFactory);
+        self::assertInstanceOf(LegacyLoopProbeFactory::class, $loopProbesFactory);
     }
 
     public function getTesteeInstance(
         ?Traversable $loopProbes = null,
-    ): ILoopProbeFactory {
-        return new LoopProbeFactory(
+    ): ILegacyLoopProbeFactory {
+        return new LegacyLoopProbeFactory(
             loopProbes: $loopProbes ?? $this->getLoopProbesMock(),
         );
     }

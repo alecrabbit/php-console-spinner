@@ -6,7 +6,7 @@ namespace AlecRabbit\Tests\Unit\Spinner\Core;
 
 use AlecRabbit\Spinner\Core\Builder\Contract\ISignalHandlersSetupBuilder;
 use AlecRabbit\Spinner\Core\Builder\SignalHandlersSetupBuilder;
-use AlecRabbit\Spinner\Core\SignalHandlersSetup;
+use AlecRabbit\Spinner\Core\LegacySignalHandlersSetup;
 use AlecRabbit\Spinner\Exception\LogicException;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;
@@ -39,7 +39,7 @@ final class SignalHandlersSetupBuilderTest extends TestCaseWithPrebuiltMocksAndS
             ->withDriverSettings($this->getLegacyDriverSettingsMock())
         ;
 
-        self::assertInstanceOf(SignalHandlersSetup::class, $loopSetupBuilder->build());
+        self::assertInstanceOf(LegacySignalHandlersSetup::class, $loopSetupBuilder->build());
     }
 
     #[Test]

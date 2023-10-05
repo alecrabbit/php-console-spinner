@@ -4,9 +4,12 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Factory\Contract;
 
-use AlecRabbit\Spinner\Core\Contract\Loop\Contract\ILoop;
+use AlecRabbit\Spinner\Core\Contract\Loop\ILoop;
 
-interface ILoopFactory
+/**
+ * @deprecated
+ */
+interface ILegacyLoopFactory
 {
     public function getLoop(): ILoop;
 }

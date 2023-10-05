@@ -4,11 +4,14 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core;
 
-use AlecRabbit\Spinner\Core\Contract\ILoopAutoStarter;
-use AlecRabbit\Spinner\Core\Contract\Loop\Contract\ILoop;
+use AlecRabbit\Spinner\Core\Contract\ILegacyLoopAutoStarter;
+use AlecRabbit\Spinner\Core\Contract\Loop\ILoop;
 use AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyLoopSettings;
 
-final class LoopAutoStarter implements ILoopAutoStarter
+/**
+ * @deprecated
+ */
+final class LegacyLoopAutoStarter implements ILegacyLoopAutoStarter
 {
     public function __construct(
         protected ILegacyLoopSettings $settings,

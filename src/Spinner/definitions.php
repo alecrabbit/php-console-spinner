@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use AlecRabbit\Spinner\Asynchronous\Factory\LoopProbeFactory;
+use AlecRabbit\Spinner\Asynchronous\Factory\LegacyLoopProbeFactory;
 use AlecRabbit\Spinner\Contract\Mode\NormalizerMethodMode;
 use AlecRabbit\Spinner\Contract\Option\CursorVisibilityOption;
 use AlecRabbit\Spinner\Contract\Option\StylingMethodOption;
@@ -15,13 +15,13 @@ use AlecRabbit\Spinner\Core\Builder\Contract\IBufferedOutputBuilder;
 use AlecRabbit\Spinner\Core\Builder\Contract\IConsoleCursorBuilder;
 use AlecRabbit\Spinner\Core\Builder\Contract\IDriverOutputBuilder;
 use AlecRabbit\Spinner\Core\Builder\Contract\IIntegerNormalizerBuilder;
-use AlecRabbit\Spinner\Core\Builder\Contract\ILoopAutoStarterBuilder;
+use AlecRabbit\Spinner\Core\Builder\Contract\ILegacyLoopAutoStarterBuilder;
 use AlecRabbit\Spinner\Core\Builder\Contract\ISignalHandlersSetupBuilder;
 use AlecRabbit\Spinner\Core\Builder\Contract\ITimerBuilder;
 use AlecRabbit\Spinner\Core\Builder\DriverBuilder;
 use AlecRabbit\Spinner\Core\Builder\DriverOutputBuilder;
 use AlecRabbit\Spinner\Core\Builder\IntegerNormalizerBuilder;
-use AlecRabbit\Spinner\Core\Builder\LoopAutoStarterBuilder;
+use AlecRabbit\Spinner\Core\Builder\LegacyLoopAutoStarterBuilder;
 use AlecRabbit\Spinner\Core\Builder\Settings\Legacy\Contract\ILegacyAuxSettingsBuilder;
 use AlecRabbit\Spinner\Core\Builder\Settings\Legacy\Contract\ILegacyDriverSettingsBuilder;
 use AlecRabbit\Spinner\Core\Builder\Settings\Legacy\Contract\ILegacySettingsProviderBuilder;
@@ -85,10 +85,10 @@ use AlecRabbit\Spinner\Core\Contract\IDriverLinker;
 use AlecRabbit\Spinner\Core\Contract\IDriverSetup;
 use AlecRabbit\Spinner\Core\Contract\IIntervalNormalizer;
 use AlecRabbit\Spinner\Core\Contract\ILegacySettingsProvider;
+use AlecRabbit\Spinner\Core\Contract\ILegacySignalHandlersSetup;
 use AlecRabbit\Spinner\Core\Contract\ILegacySignalProcessingLegacyProbe;
-use AlecRabbit\Spinner\Core\Contract\ISignalHandlersSetup;
-use AlecRabbit\Spinner\Core\Contract\Loop\Contract\ILoop;
-use AlecRabbit\Spinner\Core\Contract\Loop\Contract\Probe\ILoopProbe;
+use AlecRabbit\Spinner\Core\Contract\Loop\ILoop;
+use AlecRabbit\Spinner\Core\Contract\Loop\Probe\ILoopProbe;
 use AlecRabbit\Spinner\Core\DriverSetup;
 use AlecRabbit\Spinner\Core\Factory\BufferedOutputSingletonFactory;
 use AlecRabbit\Spinner\Core\Factory\CharFrameRevolverFactory;
@@ -102,12 +102,12 @@ use AlecRabbit\Spinner\Core\Factory\Contract\IDriverOutputFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IFrameCollectionFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalNormalizerFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\ILegacyLoopAutoStarterFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\ILegacyLoopFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\ILegacyLoopProbeFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILegacySignalProcessingProbeFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILegacyTerminalProbeFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILegacyTerminalSettingsFactory;
-use AlecRabbit\Spinner\Core\Factory\Contract\ILoopAutoStarterFactory;
-use AlecRabbit\Spinner\Core\Factory\Contract\ILoopFactory;
-use AlecRabbit\Spinner\Core\Factory\Contract\ILoopProbeFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopSettingsFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ISignalHandlersSetupFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ISpinnerFactory;
@@ -125,12 +125,13 @@ use AlecRabbit\Spinner\Core\Factory\Legacy\LegacyTerminalProbeFactory;
 use AlecRabbit\Spinner\Core\Factory\Legacy\LegacyTerminalSettingsFactory;
 use AlecRabbit\Spinner\Core\Factory\Legacy\LegacyWidgetSettingsFactory;
 use AlecRabbit\Spinner\Core\Factory\Legacy\LoopSettingsFactory;
-use AlecRabbit\Spinner\Core\Factory\LoopAutoStarterFactory;
-use AlecRabbit\Spinner\Core\Factory\LoopFactory;
+use AlecRabbit\Spinner\Core\Factory\LegacyLoopAutoStarterFactory;
+use AlecRabbit\Spinner\Core\Factory\LegacyLoopFactory;
 use AlecRabbit\Spinner\Core\Factory\SignalHandlersSetupFactory;
 use AlecRabbit\Spinner\Core\Factory\SpinnerFactory;
 use AlecRabbit\Spinner\Core\Factory\StyleFrameRevolverFactory;
 use AlecRabbit\Spinner\Core\Factory\TimerFactory;
+use AlecRabbit\Spinner\Core\LegacySignalHandlersSetup;
 use AlecRabbit\Spinner\Core\Output\ResourceStream;
 use AlecRabbit\Spinner\Core\Palette\Factory\Contract\IPaletteModeFactory;
 use AlecRabbit\Spinner\Core\Palette\Factory\PaletteModeFactory;
@@ -159,7 +160,6 @@ use AlecRabbit\Spinner\Core\Settings\Factory\DetectedSettingsFactory;
 use AlecRabbit\Spinner\Core\Settings\Factory\SettingsProviderFactory;
 use AlecRabbit\Spinner\Core\Settings\Factory\UserSettingsFactory;
 use AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyDriverSettings;
-use AlecRabbit\Spinner\Core\SignalHandlersSetup;
 use AlecRabbit\Spinner\Core\Terminal\NativeTerminalLegacyProbe;
 use AlecRabbit\Spinner\Core\Widget\Builder\WidgetBuilder;
 use AlecRabbit\Spinner\Core\Widget\Builder\WidgetCompositeBuilder;
@@ -185,7 +185,6 @@ function definitions(): Traversable
         },
 
         IDriverSetup::class => DriverSetup::class,
-        ISignalHandlersSetup::class => SignalHandlersSetup::class,
 
         IDriver::class => static function (ContainerInterface $container): IDriver {
             return $container->get(IDriverFactory::class)->getDriver();
@@ -197,11 +196,7 @@ function definitions(): Traversable
             return $container->get(IIntervalNormalizerFactory::class)->create();
         },
         ILoop::class => static function (ContainerInterface $container): ILoop {
-            return $container->get(ILoopFactory::class)->getLoop();
-        },
-
-        ILoopProbe::class => static function (ContainerInterface $container): ILoopProbe {
-            return $container->get(ILoopProbeFactory::class)->getProbe();
+            return $container->get(ILegacyLoopFactory::class)->getLoop();
         },
     ];
 
@@ -239,7 +234,6 @@ function builders(): Traversable
         IDriverOutputBuilder::class => DriverOutputBuilder::class,
         IFrameRevolverBuilder::class => FrameRevolverBuilder::class,
         IIntegerNormalizerBuilder::class => IntegerNormalizerBuilder::class,
-        ILoopAutoStarterBuilder::class => LoopAutoStarterBuilder::class,
         ISignalHandlersSetupBuilder::class => SignalHandlersSetupBuilder::class,
         ITimerBuilder::class => TimerBuilder::class,
         IWidgetBuilder::class => WidgetBuilder::class,
@@ -287,8 +281,6 @@ function factories(): Traversable
         IFrameCollectionFactory::class => FrameCollectionFactory::class,
         IIntervalFactory::class => IntervalFactory::class,
         IIntervalNormalizerFactory::class => IntervalNormalizerFactory::class,
-        ILoopAutoStarterFactory::class => LoopAutoStarterFactory::class,
-        ILoopFactory::class => LoopFactory::class,
         ISettingsProviderFactory::class => SettingsProviderFactory::class,
         ISignalHandlersSetupFactory::class => SignalHandlersSetupFactory::class,
         ISpinnerFactory::class => SpinnerFactory::class,
@@ -305,12 +297,7 @@ function factories(): Traversable
         IAuxConfigFactory::class => AuxConfigFactory::class,
         ILoopConfigFactory::class => LoopConfigFactory::class,
 
-        ILoopProbeFactory::class => static function (): ILoopProbeFactory {
-            return
-                new LoopProbeFactory(
-                    Probes::load(ILoopProbe::class)
-                );
-        },
+
         IOutputConfigFactory::class => OutputConfigFactory::class,
         IDriverConfigFactory::class => DriverConfigFactory::class,
     ];
@@ -410,7 +397,7 @@ function legacy(): Traversable
             $loopProbe = null;
             $signalProcessingProbe = null;
             try {
-                $loopProbe = $container->get(ILoopProbeFactory::class)->getProbe();
+                $loopProbe = $container->get(ILegacyLoopProbeFactory::class)->getProbe();
                 $signalProcessingProbe = $container->get(ILegacySignalProcessingProbeFactory::class)->getProbe();
             } finally {
                 return new LoopSettingsFactory(
@@ -458,6 +445,19 @@ function legacy(): Traversable
             return
                 $container->get(ILegacySettingsProvider::class)->getLegacyTerminalSettings()->getOptionCursor();
         },
+        ILegacyLoopFactory::class => LegacyLoopFactory::class,
+        ILoopProbe::class => static function (ContainerInterface $container): ILoopProbe {
+            return $container->get(ILegacyLoopProbeFactory::class)->getProbe();
+        },
+        ILegacyLoopProbeFactory::class => static function (): ILegacyLoopProbeFactory {
+            return
+                new LegacyLoopProbeFactory(
+                    Probes::load(ILoopProbe::class)
+                );
+        },
+        ILegacySignalHandlersSetup::class => LegacySignalHandlersSetup::class,
+        ILegacyLoopAutoStarterBuilder::class => LegacyLoopAutoStarterBuilder::class,
+        ILegacyLoopAutoStarterFactory::class => LegacyLoopAutoStarterFactory::class,
     ];
 }
 // @codeCoverageIgnoreEnd

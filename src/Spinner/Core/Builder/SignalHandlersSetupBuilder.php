@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Builder;
 
 use AlecRabbit\Spinner\Core\Builder\Contract\ISignalHandlersSetupBuilder;
-use AlecRabbit\Spinner\Core\Contract\ISignalHandlersSetup;
-use AlecRabbit\Spinner\Core\Contract\Loop\Contract\ILoop;
+use AlecRabbit\Spinner\Core\Contract\ILegacySignalHandlersSetup;
+use AlecRabbit\Spinner\Core\Contract\Loop\ILoop;
+use AlecRabbit\Spinner\Core\LegacySignalHandlersSetup;
 use AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyDriverSettings;
 use AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyLoopSettings;
-use AlecRabbit\Spinner\Core\SignalHandlersSetup;
 use AlecRabbit\Spinner\Exception\LogicException;
 
 final class SignalHandlersSetupBuilder implements ISignalHandlersSetupBuilder
@@ -18,12 +18,12 @@ final class SignalHandlersSetupBuilder implements ISignalHandlersSetupBuilder
     private ?ILegacyLoopSettings $loopSettings = null;
     private ?ILegacyDriverSettings $driverSettings = null;
 
-    public function build(): ISignalHandlersSetup
+    public function build(): ILegacySignalHandlersSetup
     {
         $this->validate();
 
         return
-            new SignalHandlersSetup(
+            new LegacySignalHandlersSetup(
                 $this->loop,
                 $this->loopSettings,
                 $this->driverSettings,

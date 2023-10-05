@@ -6,17 +6,17 @@ namespace AlecRabbit\Tests\Unit\Spinner\Asynchronous\Factory;
 
 use AlecRabbit\Spinner\Core\Contract\Loop\A\ALoopAdapter;
 use AlecRabbit\Spinner\Core\Contract\Loop\A\ALoopProbe;
-use AlecRabbit\Spinner\Core\Contract\Loop\Contract\ILoop;
-use AlecRabbit\Spinner\Core\Factory\Contract\ILoopAutoStarterFactory;
-use AlecRabbit\Spinner\Core\Factory\Contract\ILoopFactory;
-use AlecRabbit\Spinner\Core\Factory\Contract\ILoopProbeFactory;
-use AlecRabbit\Spinner\Core\Factory\LoopFactory;
+use AlecRabbit\Spinner\Core\Contract\Loop\ILoop;
+use AlecRabbit\Spinner\Core\Factory\Contract\ILegacyLoopAutoStarterFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\ILegacyLoopFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\ILegacyLoopProbeFactory;
+use AlecRabbit\Spinner\Core\Factory\LegacyLoopFactory;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use AlecRabbit\Tests\Unit\Spinner\Asynchronous\Override\ALoopAdapterOverride;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 
-final class LoopFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
+final class LegacyLoopFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
 {
 
     #[Test]
@@ -24,20 +24,20 @@ final class LoopFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
     {
         $loopFactory = $this->getTesteeInstance();
 
-        self::assertInstanceOf(LoopFactory::class, $loopFactory);
+        self::assertInstanceOf(LegacyLoopFactory::class, $loopFactory);
     }
 
     public function getTesteeInstance(
-        ?ILoopProbeFactory $loopProbeFactory = null,
-        ?ILoopAutoStarterFactory $loopAutoStarterFactory = null,
-    ): ILoopFactory {
-        return new LoopFactory(
+        ?ILegacyLoopProbeFactory $loopProbeFactory = null,
+        ?ILegacyLoopAutoStarterFactory $loopAutoStarterFactory = null,
+    ): ILegacyLoopFactory {
+        return new LegacyLoopFactory(
             loopProbeFactory: $loopProbeFactory ?? $this->getLoopProbeFactoryMock(),
             loopAutoStarterFactory: $loopAutoStarterFactory ?? $this->getLoopAutoStarterFactoryMock(),
         );
     }
 
-    protected function getLoopProbeFactoryMock(): MockObject&ILoopProbeFactory
+    protected function getLoopProbeFactoryMock(): MockObject&ILegacyLoopProbeFactory
     {
         $loopProbeFactory = parent::getLoopProbeFactoryMock();
         $loopProbeFactory->method('createProbe')
@@ -71,6 +71,6 @@ final class LoopFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
 
     protected function setUp(): void
     {
-        self::setPropertyValue(LoopFactory::class, 'loop', null);
+        self::setPropertyValue(LegacyLoopFactory::class, 'loop', null);
     }
 }

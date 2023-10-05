@@ -5,14 +5,17 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core;
 
 use AlecRabbit\Spinner\Core\Contract\IDriver;
-use AlecRabbit\Spinner\Core\Contract\ISignalHandlersSetup;
-use AlecRabbit\Spinner\Core\Contract\Loop\Contract\ILoop;
+use AlecRabbit\Spinner\Core\Contract\ILegacySignalHandlersSetup;
+use AlecRabbit\Spinner\Core\Contract\Loop\ILoop;
 use AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyDriverSettings;
 use AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyLoopSettings;
 use Closure;
 use Traversable;
 
-final class SignalHandlersSetup implements ISignalHandlersSetup
+/**
+ * @deprecated
+ */
+final class LegacySignalHandlersSetup implements ILegacySignalHandlersSetup
 {
     public function __construct(
         protected ILoop $loop,

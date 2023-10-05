@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Spinner\Core\Contract\Loop\Contract\Probe;
+namespace AlecRabbit\Spinner\Core\Contract\Loop\Probe;
 
 use AlecRabbit\Spinner\Contract\Probe\IStaticProbe;
-use AlecRabbit\Spinner\Core\Contract\Loop\Contract\ILoop;
+use AlecRabbit\Spinner\Core\Contract\Loop\ILoop;
 use AlecRabbit\Spinner\Core\Contract\Loop\ILoopCreator;
 
 interface ILoopProbe extends IStaticProbe

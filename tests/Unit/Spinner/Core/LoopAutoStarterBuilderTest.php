@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core;
 
-use AlecRabbit\Spinner\Core\Builder\Contract\ILoopAutoStarterBuilder;
-use AlecRabbit\Spinner\Core\Builder\LoopAutoStarterBuilder;
-use AlecRabbit\Spinner\Core\LoopAutoStarter;
+use AlecRabbit\Spinner\Core\Builder\Contract\ILegacyLoopAutoStarterBuilder;
+use AlecRabbit\Spinner\Core\Builder\LegacyLoopAutoStarterBuilder;
+use AlecRabbit\Spinner\Core\LegacyLoopAutoStarter;
 use AlecRabbit\Spinner\Exception\LogicException;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;
@@ -18,12 +18,12 @@ final class LoopAutoStarterBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
     {
         $loopAutoStarterBuilder = $this->getTesteeInstance();
 
-        self::assertInstanceOf(LoopAutoStarterBuilder::class, $loopAutoStarterBuilder);
+        self::assertInstanceOf(LegacyLoopAutoStarterBuilder::class, $loopAutoStarterBuilder);
     }
 
-    public function getTesteeInstance(): ILoopAutoStarterBuilder
+    public function getTesteeInstance(): ILegacyLoopAutoStarterBuilder
     {
-        return new LoopAutoStarterBuilder();
+        return new LegacyLoopAutoStarterBuilder();
     }
 
     #[Test]
@@ -31,13 +31,13 @@ final class LoopAutoStarterBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
     {
         $loopAutoStarterBuilder = $this->getTesteeInstance();
 
-        self::assertInstanceOf(LoopAutoStarterBuilder::class, $loopAutoStarterBuilder);
+        self::assertInstanceOf(LegacyLoopAutoStarterBuilder::class, $loopAutoStarterBuilder);
 
         $loopAutoStarterBuilder = $loopAutoStarterBuilder
             ->withSettings($this->getLegacyLoopSettingsMock())
         ;
 
-        self::assertInstanceOf(LoopAutoStarter::class, $loopAutoStarterBuilder->build());
+        self::assertInstanceOf(LegacyLoopAutoStarter::class, $loopAutoStarterBuilder->build());
     }
 
     #[Test]
@@ -48,7 +48,7 @@ final class LoopAutoStarterBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
 
         $test = function (): void {
             $loopAutoStarterBuilder = $this->getTesteeInstance();
-            self::assertInstanceOf(LoopAutoStarterBuilder::class, $loopAutoStarterBuilder);
+            self::assertInstanceOf(LegacyLoopAutoStarterBuilder::class, $loopAutoStarterBuilder);
             $loopAutoStarterBuilder
                 ->build()
             ;

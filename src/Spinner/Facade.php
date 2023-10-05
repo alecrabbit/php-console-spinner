@@ -7,9 +7,9 @@ namespace AlecRabbit\Spinner;
 use AlecRabbit\Spinner\Core\A\AFacade;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
-use AlecRabbit\Spinner\Core\Contract\Loop\Contract\ILoop;
+use AlecRabbit\Spinner\Core\Contract\Loop\ILoop;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDriverFactory;
-use AlecRabbit\Spinner\Core\Factory\Contract\ILoopFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\ILegacyLoopFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ISpinnerFactory;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettingsProvider;
@@ -22,9 +22,9 @@ final class Facade extends AFacade
         return self::getLoopFactory()->getLoop();
     }
 
-    private static function getLoopFactory(): ILoopFactory
+    private static function getLoopFactory(): ILegacyLoopFactory
     {
-        return self::getContainer()->get(ILoopFactory::class);
+        return self::getContainer()->get(ILegacyLoopFactory::class);
     }
 
     public static function createSpinner(?ISpinnerSettings $spinnerSettings = null): ISpinner

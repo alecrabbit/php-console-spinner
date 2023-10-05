@@ -1,13 +1,13 @@
 phploc 7.0.2 by Sebastian Bergmann.
 
-Directories                                         82
+Directories                                         81
 Files                                              391
 
 Size
-  Lines of Code (LOC)                            14134
-  Comment Lines of Code (CLOC)                     779 (5.51%)
-  Non-Comment Lines of Code (NCLOC)              13355 (94.49%)
-  Logical Lines of Code (LLOC)                    1634 (11.56%)
+  Lines of Code (LOC)                            14174
+  Comment Lines of Code (CLOC)                     820 (5.79%)
+  Non-Comment Lines of Code (NCLOC)              13354 (94.21%)
+  Logical Lines of Code (LLOC)                    1634 (11.53%)
     Classes                                       1525 (93.33%)
       Average Class Length                           4
         Minimum Class Length                         0
@@ -44,7 +44,7 @@ Dependencies
     Static                                          93 (11.79%)
 
 Structure
-  Namespaces                                        82
+  Namespaces                                        81
   Interfaces                                       179
   Traits                                             0
   Classes                                          191
@@ -54,8 +54,8 @@ Structure
       Non-Final Classes                             43 (24.57%)
   Methods                                         1080
     Scope
-      Non-Static Methods                          1011 (93.61%)
-      Static Methods                                69 (6.39%)
+      Non-Static Methods                          1007 (93.24%)
+      Static Methods                                73 (6.76%)
     Visibility
       Public Methods                               898 (83.15%)
       Protected Methods                             61 (5.65%)

@@ -4,19 +4,22 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Factory;
 
-use AlecRabbit\Spinner\Core\Contract\Loop\Contract\ILoop;
-use AlecRabbit\Spinner\Core\Contract\Loop\Contract\Probe\ILoopProbe;
-use AlecRabbit\Spinner\Core\Factory\Contract\ILoopAutoStarterFactory;
-use AlecRabbit\Spinner\Core\Factory\Contract\ILoopFactory;
-use AlecRabbit\Spinner\Core\Factory\Contract\ILoopProbeFactory;
+use AlecRabbit\Spinner\Core\Contract\Loop\ILoop;
+use AlecRabbit\Spinner\Core\Contract\Loop\Probe\ILoopProbe;
+use AlecRabbit\Spinner\Core\Factory\Contract\ILegacyLoopAutoStarterFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\ILegacyLoopFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\ILegacyLoopProbeFactory;
 
-final class LoopFactory implements ILoopFactory
+/**
+ * @deprecated
+ */
+final class LegacyLoopFactory implements ILegacyLoopFactory
 {
     private static ?ILoop $loop = null;
 
     public function __construct(
-        protected ILoopProbeFactory $loopProbeFactory,
-        protected ILoopAutoStarterFactory $loopAutoStarterFactory,
+        protected ILegacyLoopProbeFactory $loopProbeFactory,
+        protected ILegacyLoopAutoStarterFactory $loopAutoStarterFactory,
     ) {
     }
 

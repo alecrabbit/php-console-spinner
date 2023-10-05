@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Factory;
 
-use AlecRabbit\Spinner\Core\Builder\Contract\ILoopAutoStarterBuilder;
+use AlecRabbit\Spinner\Core\Builder\Contract\ILegacyLoopAutoStarterBuilder;
 use AlecRabbit\Spinner\Core\Contract\ILegacySettingsProvider;
-use AlecRabbit\Spinner\Core\Factory\Contract\ILoopAutoStarterFactory;
-use AlecRabbit\Spinner\Core\Factory\LoopAutoStarterFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\ILegacyLoopAutoStarterFactory;
+use AlecRabbit\Spinner\Core\Factory\LegacyLoopAutoStarterFactory;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;
 
@@ -18,15 +18,15 @@ final class LoopAutoStarterFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
     {
         $loopAutoStarterFactory = $this->getTesteeInstance();
 
-        self::assertInstanceOf(LoopAutoStarterFactory::class, $loopAutoStarterFactory);
+        self::assertInstanceOf(LegacyLoopAutoStarterFactory::class, $loopAutoStarterFactory);
     }
 
     public function getTesteeInstance(
         ?ILegacySettingsProvider $settingsProvider = null,
-        ?ILoopAutoStarterBuilder $autoStarterBuilder = null,
-    ): ILoopAutoStarterFactory {
+        ?ILegacyLoopAutoStarterBuilder $autoStarterBuilder = null,
+    ): ILegacyLoopAutoStarterFactory {
         return
-            new LoopAutoStarterFactory(
+            new LegacyLoopAutoStarterFactory(
                 settingsProvider: $settingsProvider ?? $this->getLegacySettingsProviderMock(),
                 autoStarterBuilder: $autoStarterBuilder ?? $this->getLoopAutoStarterBuilderMock(),
             );

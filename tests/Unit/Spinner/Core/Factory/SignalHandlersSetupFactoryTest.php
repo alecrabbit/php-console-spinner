@@ -6,7 +6,7 @@ namespace AlecRabbit\Tests\Unit\Spinner\Core\Factory;
 
 use AlecRabbit\Spinner\Core\Builder\Contract\ISignalHandlersSetupBuilder;
 use AlecRabbit\Spinner\Core\Contract\ILegacySettingsProvider;
-use AlecRabbit\Spinner\Core\Factory\Contract\ILoopFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\ILegacyLoopFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ISignalHandlersSetupFactory;
 use AlecRabbit\Spinner\Core\Factory\SignalHandlersSetupFactory;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
@@ -24,7 +24,7 @@ final class SignalHandlersSetupFactoryTest extends TestCaseWithPrebuiltMocksAndS
 
     public function getTesteeInstance(
         ?ILegacySettingsProvider $settingsProvider = null,
-        ?ILoopFactory $loopFactory = null,
+        ?ILegacyLoopFactory $loopFactory = null,
         ?ISignalHandlersSetupBuilder $signalHandlersSetupBuilder = null,
     ): ISignalHandlersSetupFactory {
         return
