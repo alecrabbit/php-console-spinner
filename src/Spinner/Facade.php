@@ -4,25 +4,19 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner;
 
-use AlecRabbit\Spinner\Container\Contract\IContainer;
-use AlecRabbit\Spinner\Container\DefinitionRegistry;
-use AlecRabbit\Spinner\Core\Config\Contract\ISpinnerConfig;
-use AlecRabbit\Spinner\Core\Config\Contract\IWidgetConfig;
+use AlecRabbit\Spinner\Core\A\AFacade;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
-use AlecRabbit\Spinner\Core\Contract\ISettingsProvider;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use AlecRabbit\Spinner\Core\Contract\Loop\Contract\ILoop;
-use AlecRabbit\Spinner\Core\Factory\ContainerFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDriverFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ISpinnerFactory;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettings;
-use AlecRabbit\Spinner\Core\Settings\Settings;
+use AlecRabbit\Spinner\Core\Settings\Contract\ISettingsProvider;
+use AlecRabbit\Spinner\Core\Settings\Contract\ISpinnerSettings;
 
-final class Facade
+final class Facade extends AFacade
 {
-    private static ?ISettings $settings = null;
-
     public static function getLoop(): ILoop
     {
         return self::getLoopFactory()->getLoop();
@@ -33,30 +27,13 @@ final class Facade
         return self::getContainer()->get(ILoopFactory::class);
     }
 
-    private static function getContainer(): IContainer
+    public static function createSpinner(?ISpinnerSettings $spinnerSettings = null): ISpinner
     {
-        $class = ContainerFactory::class;
+        $spinnerFactory = self::getSpinnerFactory();
 
-        $registry = DefinitionRegistry::getInstance();
+        $spinner = $spinnerFactory->create($spinnerSettings);
 
-        return (new $class($registry))->getContainer();
-    }
-
-    public static function getSettingsProvider(): ISettingsProvider
-    {
-        return self::getContainer()->get(ISettingsProvider::class);
-    }
-
-    public static function createSpinner(
-        ISpinnerConfig|IWidgetConfig|null $config = null,
-        bool $attach = true
-    ): ISpinner {
-        $spinner =
-            self::getSpinnerFactory()
-                ->createSpinner($config)
-        ;
-
-        if ($attach) {
+        if ($spinnerSettings?->isAutoAttach() ?? true) {
             self::attach($spinner);
         }
 
@@ -85,9 +62,12 @@ final class Facade
 
     public static function getSettings(): ISettings
     {
-        if (self::$settings === null) {
-            self::$settings = new Settings();
-        }
-        return self::$settings;
+        return
+            self::getSettingsProvider()->getSettings();
+    }
+
+    protected static function getSettingsProvider(): ISettingsProvider
+    {
+        return self::getContainer()->get(ISettingsProvider::class);
     }
 }

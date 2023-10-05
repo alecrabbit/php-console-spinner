@@ -4,25 +4,25 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Defaults;
 
-use AlecRabbit\Spinner\Core\Builder\Settings\AuxSettingsBuilder;
-use AlecRabbit\Spinner\Core\Builder\Settings\Contract\IAuxSettingsBuilder;
-use AlecRabbit\Spinner\Core\Settings\AuxSettings;
+use AlecRabbit\Spinner\Core\Builder\Settings\Legacy\Contract\ILegacyAuxSettingsBuilder;
+use AlecRabbit\Spinner\Core\Builder\Settings\Legacy\LegacyAuxSettingsBuilder;
+use AlecRabbit\Spinner\Core\Settings\Legacy\LegacyAuxSettings;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;
 
 final class AuxSettingsBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
 {
     #[Test]
-    public function canBeCreated(): void
+    public function canBeInstantiated(): void
     {
         $builder = $this->getTesteeInstance();
 
-        self::assertInstanceOf(AuxSettingsBuilder::class, $builder);
+        self::assertInstanceOf(LegacyAuxSettingsBuilder::class, $builder);
     }
 
-    public function getTesteeInstance(): IAuxSettingsBuilder
+    public function getTesteeInstance(): ILegacyAuxSettingsBuilder
     {
-        return new AuxSettingsBuilder();
+        return new LegacyAuxSettingsBuilder();
     }
 
     #[Test]
@@ -30,7 +30,7 @@ final class AuxSettingsBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
     {
         $builder = $this->getTesteeInstance();
 
-        self::assertInstanceOf(AuxSettingsBuilder::class, $builder);
-        self::assertInstanceOf(AuxSettings::class, $builder->build());
+        self::assertInstanceOf(LegacyAuxSettingsBuilder::class, $builder);
+        self::assertInstanceOf(LegacyAuxSettings::class, $builder->build());
     }
 }

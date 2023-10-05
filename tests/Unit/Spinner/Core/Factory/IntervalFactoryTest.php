@@ -14,13 +14,13 @@ use PHPUnit\Framework\Attributes\Test;
 final class IntervalFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
 {
     #[Test]
-    public function canBeCreated(): void
+    public function canBeInstantiated(): void
     {
         $container = $this->getContainerMock();
         $container
             ->method('get')
             ->willReturn(
-                $this->getSettingsProviderMock(),
+                $this->getLegacySettingsProviderMock(),
                 $this->getIntervalNormalizerMock(),
             )
         ;

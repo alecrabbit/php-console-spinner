@@ -9,13 +9,13 @@ use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Contract\IObserver;
 use AlecRabbit\Spinner\Core\A\ASubject;
 use AlecRabbit\Spinner\Core\CharFrame;
-use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidget;
+use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolver;
 
 abstract class AWidget extends ASubject implements IWidget
 {
     public function __construct(
-        protected readonly IRevolver $revolver,
+        protected readonly IWidgetRevolver $revolver,
         protected readonly IFrame $leadingSpacer,
         protected readonly IFrame $trailingSpacer,
         protected ?IObserver $observer = null,

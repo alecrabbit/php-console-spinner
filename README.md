@@ -57,7 +57,7 @@ composer require alecrabbit/php-console-spinner
 ```php
 use AlecRabbit\Spinner\Facade;
 // ...
-$spinner = Facade::createSpinner();
+$spinner = Facade::legacyCreateSpinner();
 
 // that's basically it :)
 ```

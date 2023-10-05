@@ -4,24 +4,24 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Terminal;
 
-use AlecRabbit\Spinner\Core\Terminal\Contract\ITerminalProbe;
-use AlecRabbit\Spinner\Core\Terminal\NativeTerminalProbe;
+use AlecRabbit\Spinner\Core\Terminal\Contract\ITerminalLegacyProbe;
+use AlecRabbit\Spinner\Core\Terminal\NativeTerminalLegacyProbe;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;
 
 final class NativeTerminalProbeTest extends TestCaseWithPrebuiltMocksAndStubs
 {
     #[Test]
-    public function canBeCreated(): void
+    public function canBeInstantiated(): void
     {
         $probe = $this->getTesteeInstance();
 
-        self::assertInstanceOf(NativeTerminalProbe::class, $probe);
+        self::assertInstanceOf(NativeTerminalLegacyProbe::class, $probe);
     }
 
-    public function getTesteeInstance(): ITerminalProbe
+    public function getTesteeInstance(): ITerminalLegacyProbe
     {
-        return new NativeTerminalProbe();
+        return new NativeTerminalLegacyProbe();
     }
 
     #[Test]
@@ -30,9 +30,9 @@ final class NativeTerminalProbeTest extends TestCaseWithPrebuiltMocksAndStubs
         $probe = $this->getTesteeInstance();
 
         self::assertTrue($probe->isAvailable());
-        self::assertSame(ITerminalProbe::DEFAULT_TERMINAL_WIDTH, $probe->getWidth());
-        self::assertSame(ITerminalProbe::DEFAULT_OPTION_STYLE_MODE, $probe->getOptionStyleMode());
-        self::assertSame(ITerminalProbe::DEFAULT_OPTION_CURSOR, $probe->getOptionCursor());
+        self::assertSame(ITerminalLegacyProbe::DEFAULT_TERMINAL_WIDTH, $probe->getWidth());
+        self::assertSame(ITerminalLegacyProbe::DEFAULT_OPTION_STYLE_MODE, $probe->getOptionStyleMode());
+        self::assertSame(ITerminalLegacyProbe::DEFAULT_OPTION_CURSOR, $probe->getOptionCursor());
         self::assertSame(STDERR, $probe->getOutputStream());
     }
 }

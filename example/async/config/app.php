@@ -2,20 +2,20 @@
 
 declare(strict_types=1);
 
-use AlecRabbit\Spinner\Core\Config\WidgetConfig;
+use AlecRabbit\Spinner\Core\Config\Legacy\LegacyWidgetConfig;
 use AlecRabbit\Spinner\Facade;
 
 require_once __DIR__ . '/../bootstrap.async.php';
 
-$settingsProvider = Facade::getSettingsProvider();
+$settingsProvider = Facade::getLegacySettingsProvider();
 $settingsProvider
-    ->getTerminalSettings()
+    ->getLegacyTerminalSettings()
     ->setOptionStyleMode(
         \AlecRabbit\Spinner\Contract\Option\StylingMethodOption::NONE
     )
 ;
 $settingsProvider
-    ->getDriverSettings()
+    ->getLegacyDriverSettings()
     ->setInterruptMessage(' Interrupted!' . PHP_EOL)
 ;
 //$settingsProvider
@@ -26,6 +26,6 @@ $settingsProvider
 //;
 
 $config =
-    new WidgetConfig();
+    new LegacyWidgetConfig();
 
-$spinner = Facade::createSpinner($config);
+$spinner = Facade::legacyCreateSpinner($config);

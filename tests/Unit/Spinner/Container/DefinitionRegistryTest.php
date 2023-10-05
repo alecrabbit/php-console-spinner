@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-
 namespace AlecRabbit\Tests\Unit\Spinner\Container;
 
 use AlecRabbit\Spinner\Container\Contract\IDefinitionRegistry;
@@ -15,7 +14,7 @@ final class DefinitionRegistryTest extends TestCase
     private ?IDefinitionRegistry $registry = null;
 
     #[Test]
-    public function canBeCreated(): void
+    public function canBeInstantiated(): void
     {
         $registry = $this->getTesteeInstance();
 

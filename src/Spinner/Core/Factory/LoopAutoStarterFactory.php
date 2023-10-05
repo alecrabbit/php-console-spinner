@@ -5,14 +5,14 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Factory;
 
 use AlecRabbit\Spinner\Core\Builder\Contract\ILoopAutoStarterBuilder;
+use AlecRabbit\Spinner\Core\Contract\ILegacySettingsProvider;
 use AlecRabbit\Spinner\Core\Contract\ILoopAutoStarter;
-use AlecRabbit\Spinner\Core\Contract\ISettingsProvider;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopAutoStarterFactory;
 
 final class LoopAutoStarterFactory implements ILoopAutoStarterFactory
 {
     public function __construct(
-        protected ISettingsProvider $settingsProvider,
+        protected ILegacySettingsProvider $settingsProvider,
         protected ILoopAutoStarterBuilder $autoStarterBuilder,
     ) {
     }
@@ -21,7 +21,7 @@ final class LoopAutoStarterFactory implements ILoopAutoStarterFactory
     {
         return
             $this->autoStarterBuilder
-                ->withSettings($this->settingsProvider->getLoopSettings())
+                ->withSettings($this->settingsProvider->getLegacyLoopSettings())
                 ->build()
         ;
     }

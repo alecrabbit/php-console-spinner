@@ -1,6 +1,6 @@
 # Event Loop
 
-The event loop availability is detected using loop probes. Loops are probed in the order in which the probes were added (registered) to the `Probes` class. The first probe that returns `true` from the `isSupported()` method is used as the event loop.
+The event loop availability is detected using loop probes. Loops are probed in the order in which the probes were added (registered) to the `Probes` class. The first probe that returns `true` from the `isSupported()` method is used to create an event loop.
 
 > See [`Asynchronous/bootstrap.php`](../../src/Spinner/Asynchronous/bootstrap.php) for details.
 

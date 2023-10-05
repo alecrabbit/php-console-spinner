@@ -6,16 +6,18 @@ namespace AlecRabbit\Tests\Functional\Spinner;
 
 use AlecRabbit\Spinner\Asynchronous\Loop\Probe\ReactLoopProbe;
 use AlecRabbit\Spinner\Asynchronous\Loop\Probe\RevoltLoopProbe;
-use AlecRabbit\Spinner\Contract\IStaticProbe;
-use AlecRabbit\Spinner\Core\Contract\Loop\Contract\ILoopProbe;
+use AlecRabbit\Spinner\Contract\Probe\IStaticProbe;
+use AlecRabbit\Spinner\Core\Contract\Loop\Contract\Probe\ILoopProbe;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Probes;
 use AlecRabbit\Tests\Functional\Spinner\Override\StaticProbeOverride;
-use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
+use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
+use stdClass;
 
-final class ProbesTest extends TestCaseWithPrebuiltMocksAndStubs
+final class ProbesTest extends TestCase
 {
+    private const PROBES = 'probes';
     private array $probes = [];
 
 //    #[Test]
@@ -32,7 +34,7 @@ final class ProbesTest extends TestCaseWithPrebuiltMocksAndStubs
         $probe = RevoltLoopProbe::class;
         Probes::register($probe);
 
-        $probes = self::getPropertyValue('probes', Probes::class);
+        $probes = self::getPropertyValue(self::PROBES, Probes::class);
         self::assertContains($probe, $probes);
     }
 
@@ -40,12 +42,14 @@ final class ProbesTest extends TestCaseWithPrebuiltMocksAndStubs
     public function canLoadAllProbes(): void
     {
         $probe1 = ReactLoopProbe::class;
-        $probe2 = RevoltLoopProbe::class;
+        $probe2 = StaticProbeOverride::class;
 
         Probes::register($probe2);
         Probes::register($probe1);
 
         $probes = iterator_to_array(Probes::load());
+
+        self::assertCount(2, $probes);
         self::assertContains($probe1, $probes);
         self::assertContains($probe2, $probes);
     }
@@ -121,6 +125,7 @@ final class ProbesTest extends TestCaseWithPrebuiltMocksAndStubs
         self::assertContains($probe3, $probes);
         self::assertNotContains($probe2, $probes);
     }
+
     #[Test]
     public function unregisteringNonRegisteredProbeHasNoEffect(): void
     {
@@ -156,12 +161,12 @@ final class ProbesTest extends TestCaseWithPrebuiltMocksAndStubs
     #[Test]
     public function throwsIfProbeClassIsNotAStaticProbeSubClass(): void
     {
-        $probe = \stdClass::class;
+        $probe = stdClass::class;
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage(
             'Class "' .
             $probe .
-            '" must implement "' .
+            '" must be a subclass of "' .
             IStaticProbe::class .
             '" interface.'
         );
@@ -172,13 +177,13 @@ final class ProbesTest extends TestCaseWithPrebuiltMocksAndStubs
     #[Test]
     public function throwsIfFilterClassIsNotAStaticProbeSubClass(): void
     {
-        $filterClass = \stdClass::class;
+        $filterClass = stdClass::class;
 
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage(
             'Class "' .
             $filterClass .
-            '" must implement "' .
+            '" must be a subclass of "' .
             IStaticProbe::class .
             '" interface.'
         );
@@ -189,16 +194,17 @@ final class ProbesTest extends TestCaseWithPrebuiltMocksAndStubs
 
         self::fail('Exception was not thrown.');
     }
+
     #[Test]
     public function throwsIfProbeClassToUnregisterIsNotAStaticProbeSubClass(): void
     {
-        $class = \stdClass::class;
+        $class = stdClass::class;
 
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage(
             'Class "' .
             $class .
-            '" must implement "' .
+            '" must be a subclass of "' .
             IStaticProbe::class .
             '" interface.'
         );
@@ -216,7 +222,7 @@ final class ProbesTest extends TestCaseWithPrebuiltMocksAndStubs
         $this->expectExceptionMessage(
             'Class "' .
             $probe .
-            '" must implement "' .
+            '" must be a subclass of "' .
             IStaticProbe::class .
             '" interface.'
         );
@@ -226,12 +232,17 @@ final class ProbesTest extends TestCaseWithPrebuiltMocksAndStubs
 
     protected function setUp(): void
     {
-        $this->probes = self::getPropertyValue('probes', Probes::class);
-        self::setPropertyValue(Probes::class, 'probes', []);
+        $this->probes = self::getPropertyValue(self::PROBES, Probes::class);
+        $this->setProbes([]);
+    }
+
+    protected function setProbes(array $probes): void
+    {
+        self::setPropertyValue(Probes::class, self::PROBES, $probes);
     }
 
     protected function tearDown(): void
     {
-        self::setPropertyValue(Probes::class, 'probes', $this->probes);
+        $this->setProbes($this->probes);
     }
 }

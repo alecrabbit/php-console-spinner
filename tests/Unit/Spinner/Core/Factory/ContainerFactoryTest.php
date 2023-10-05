@@ -5,16 +5,20 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Factory;
 
 use AlecRabbit\Spinner\Container\Container;
+use AlecRabbit\Spinner\Container\Contract\IContainer;
 use AlecRabbit\Spinner\Container\Contract\IDefinitionRegistry;
 use AlecRabbit\Spinner\Core\Factory\ContainerFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IContainerFactory;
-use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
+use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
+use PHPUnit\Framework\MockObject\MockObject;
 
-final class ContainerFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
+final class ContainerFactoryTest extends TestCase
 {
+    protected static ?IContainer $container = null;
+
     #[Test]
-    public function canBeCreated(): void
+    public function canBeInstantiated(): void
     {
         $containerFactory = $this->getTesteeInstance();
 
@@ -25,9 +29,15 @@ final class ContainerFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
     public function getTesteeInstance(
         ?IDefinitionRegistry $registry = null
     ): IContainerFactory {
-        return new ContainerFactory(
-            registry: $registry ?? $this->createDefinitionRegistryMock()
-        );
+        return
+            new ContainerFactory(
+                registry: $registry ?? $this->createDefinitionRegistryMock()
+            );
+    }
+
+    protected function createDefinitionRegistryMock(): MockObject&IDefinitionRegistry
+    {
+        return $this->createMock(IDefinitionRegistry::class);
     }
 
     #[Test]
@@ -57,10 +67,21 @@ final class ContainerFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
 
     protected function setUp(): void
     {
+        self::$container = self::getPropertyValue('container', ContainerFactory::class);
+
         self::setPropertyValue(
             ContainerFactory::class,
             'container',
             null
+        );
+    }
+
+    protected function tearDown(): void
+    {
+        self::setPropertyValue(
+            ContainerFactory::class,
+            'container',
+            self::$container
         );
     }
 }

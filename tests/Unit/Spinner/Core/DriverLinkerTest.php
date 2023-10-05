@@ -2,10 +2,9 @@
 
 declare(strict_types=1);
 
-
 namespace AlecRabbit\Tests\Unit\Spinner\Core;
 
-use AlecRabbit\Spinner\Contract\Option\DriverLinkerOption;
+use AlecRabbit\Spinner\Contract\Option\LinkerOption;
 use AlecRabbit\Spinner\Core\Contract\IDriverLinker;
 use AlecRabbit\Spinner\Core\Contract\Loop\Contract\ILoop;
 use AlecRabbit\Spinner\Core\DriverLinker;
@@ -16,7 +15,7 @@ use PHPUnit\Framework\Attributes\Test;
 final class DriverLinkerTest extends TestCaseWithPrebuiltMocksAndStubs
 {
     #[Test]
-    public function canBeCreated(): void
+    public function canBeInstantiated(): void
     {
         $driverLinker = $this->getTesteeInstance();
 
@@ -25,11 +24,11 @@ final class DriverLinkerTest extends TestCaseWithPrebuiltMocksAndStubs
 
     public function getTesteeInstance(
         ?ILoop $loop = null,
-        ?DriverLinkerOption $optionLinker = null,
+        ?LinkerOption $optionLinker = null,
     ): IDriverLinker {
         return new DriverLinker(
             loop: $loop ?? $this->getLoopMock(),
-            optionLinker: $optionLinker ?? DriverLinkerOption::DISABLED,
+            optionLinker: $optionLinker ?? LinkerOption::DISABLED,
         );
     }
 
@@ -64,7 +63,7 @@ final class DriverLinkerTest extends TestCaseWithPrebuiltMocksAndStubs
 
         $driverLinker = $this->getTesteeInstance(
             loop: $loop,
-            optionLinker: DriverLinkerOption::ENABLED,
+            optionLinker: LinkerOption::ENABLED,
         );
 
         $driverLinker->link($driver);
@@ -90,7 +89,7 @@ final class DriverLinkerTest extends TestCaseWithPrebuiltMocksAndStubs
         ;
         $driverLinker = $this->getTesteeInstance(
             loop: $loop,
-            optionLinker: DriverLinkerOption::ENABLED,
+            optionLinker: LinkerOption::ENABLED,
         );
 
         $driverLinker->link($driver);
@@ -129,7 +128,7 @@ final class DriverLinkerTest extends TestCaseWithPrebuiltMocksAndStubs
 
         $driverLinker = $this->getTesteeInstance(
             loop: $loop,
-            optionLinker: DriverLinkerOption::ENABLED,
+            optionLinker: LinkerOption::ENABLED,
         );
 
         $driverLinker->link($driver);
@@ -146,7 +145,7 @@ final class DriverLinkerTest extends TestCaseWithPrebuiltMocksAndStubs
 
         $test = function (): void {
             $driverLinker = $this->getTesteeInstance(
-                optionLinker: DriverLinkerOption::ENABLED,
+                optionLinker: LinkerOption::ENABLED,
             );
             $driver = $this->getDriverMock();
             $driverLinker->link($driver);

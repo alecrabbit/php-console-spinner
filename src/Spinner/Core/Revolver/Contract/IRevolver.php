@@ -9,5 +9,5 @@ use AlecRabbit\Spinner\Contract\IHasInterval;
 
 interface IRevolver extends IHasFrame, IHasInterval
 {
-    final const TOLERANCE = 5; // milliseconds
+
 }

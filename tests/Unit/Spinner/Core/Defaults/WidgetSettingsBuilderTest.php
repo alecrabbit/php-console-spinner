@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Defaults;
 
-use AlecRabbit\Spinner\Core\Builder\Settings\Contract\IWidgetSettingsBuilder;
-use AlecRabbit\Spinner\Core\Builder\WidgetSettingsBuilder;
-use AlecRabbit\Spinner\Core\Settings\WidgetSettings;
+use AlecRabbit\Spinner\Core\Builder\Settings\Legacy\Contract\ILegacyWidgetSettingsBuilder;
+use AlecRabbit\Spinner\Core\Builder\Settings\Legacy\LegacyWidgetSettingsBuilder;
+use AlecRabbit\Spinner\Core\Settings\Legacy\LegacyWidgetSettings;
 use AlecRabbit\Spinner\Exception\LogicException;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;
@@ -14,16 +14,16 @@ use PHPUnit\Framework\Attributes\Test;
 final class WidgetSettingsBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
 {
     #[Test]
-    public function canBeCreated(): void
+    public function canBeInstantiated(): void
     {
         $builder = $this->getTesteeInstance();
 
-        self::assertInstanceOf(WidgetSettingsBuilder::class, $builder);
+        self::assertInstanceOf(LegacyWidgetSettingsBuilder::class, $builder);
     }
 
-    public function getTesteeInstance(): IWidgetSettingsBuilder
+    public function getTesteeInstance(): ILegacyWidgetSettingsBuilder
     {
-        return new WidgetSettingsBuilder();
+        return new LegacyWidgetSettingsBuilder();
     }
 
     #[Test]
@@ -40,8 +40,8 @@ final class WidgetSettingsBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
                 ->build()
         ;
 
-        self::assertInstanceOf(WidgetSettingsBuilder::class, $widgetSettingsBuilder);
-        self::assertInstanceOf(WidgetSettings::class, $widgetSettings);
+        self::assertInstanceOf(LegacyWidgetSettingsBuilder::class, $widgetSettingsBuilder);
+        self::assertInstanceOf(LegacyWidgetSettings::class, $widgetSettings);
     }
 
     #[Test]
@@ -61,7 +61,7 @@ final class WidgetSettingsBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
                     ->build()
             ;
 
-            self::assertInstanceOf(WidgetSettings::class, $widgetSettings);
+            self::assertInstanceOf(LegacyWidgetSettings::class, $widgetSettings);
         };
 
         $this->wrapExceptionTest(
@@ -88,7 +88,7 @@ final class WidgetSettingsBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
                     ->build()
             ;
 
-            self::assertInstanceOf(WidgetSettings::class, $widgetSettings);
+            self::assertInstanceOf(LegacyWidgetSettings::class, $widgetSettings);
         };
 
         $this->wrapExceptionTest(
@@ -102,7 +102,7 @@ final class WidgetSettingsBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
     public function throwsIfStylePatternIsNotSet(): void
     {
         $exceptionClass = LogicException::class;
-        $exceptionMessage = 'Style pattern is not set.';
+        $exceptionMessage = 'Style palette is not set.';
 
         $test = function (): void {
             $widgetSettingsBuilder = $this->getTesteeInstance();
@@ -115,7 +115,7 @@ final class WidgetSettingsBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
                     ->build()
             ;
 
-            self::assertInstanceOf(WidgetSettings::class, $widgetSettings);
+            self::assertInstanceOf(LegacyWidgetSettings::class, $widgetSettings);
         };
 
         $this->wrapExceptionTest(
@@ -129,7 +129,7 @@ final class WidgetSettingsBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
     public function throwsIfCharPatternIsNotSet(): void
     {
         $exceptionClass = LogicException::class;
-        $exceptionMessage = 'Char pattern is not set.';
+        $exceptionMessage = 'Char palette is not set.';
 
         $test = function (): void {
             $widgetSettingsBuilder = $this->getTesteeInstance();
@@ -142,7 +142,7 @@ final class WidgetSettingsBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
                     ->build()
             ;
 
-            self::assertInstanceOf(WidgetSettings::class, $widgetSettings);
+            self::assertInstanceOf(LegacyWidgetSettings::class, $widgetSettings);
         };
 
         $this->wrapExceptionTest(

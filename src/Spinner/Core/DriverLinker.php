@@ -2,11 +2,10 @@
 
 declare(strict_types=1);
 
-
 namespace AlecRabbit\Spinner\Core;
 
 use AlecRabbit\Spinner\Contract\ISubject;
-use AlecRabbit\Spinner\Contract\Option\DriverLinkerOption;
+use AlecRabbit\Spinner\Contract\Option\LinkerOption;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\IDriverLinker;
 use AlecRabbit\Spinner\Core\Contract\Loop\Contract\ILoop;
@@ -19,7 +18,7 @@ final class DriverLinker implements IDriverLinker
 
     public function __construct(
         private readonly ILoop $loop,
-        private readonly DriverLinkerOption $optionLinker,
+        private readonly LinkerOption $optionLinker,
     ) {
     }
 
@@ -27,7 +26,7 @@ final class DriverLinker implements IDriverLinker
     {
         $this->assertDriver($driver);
 
-        if ($this->optionLinker === DriverLinkerOption::ENABLED) {
+        if ($this->optionLinker === LinkerOption::ENABLED) {
             $this->linkTimer($driver);
 
             if ($this->driver === null) {

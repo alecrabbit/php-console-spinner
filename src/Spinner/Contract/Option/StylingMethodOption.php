@@ -6,6 +6,7 @@ namespace AlecRabbit\Spinner\Contract\Option;
 
 enum StylingMethodOption: int
 {
+    case AUTO = -1;
     case NONE = 0;
     case ANSI4 = 16;
     case ANSI8 = 256;

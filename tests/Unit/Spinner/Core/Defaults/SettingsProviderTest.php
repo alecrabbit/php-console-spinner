@@ -4,49 +4,58 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Defaults;
 
-use AlecRabbit\Spinner\Core\Config\Contract\IWidgetConfig;
-use AlecRabbit\Spinner\Core\Contract\ISettingsProvider;
-use AlecRabbit\Spinner\Core\Settings\Contract\IAuxSettings;
-use AlecRabbit\Spinner\Core\Settings\Contract\IDriverSettings;
-use AlecRabbit\Spinner\Core\Settings\Contract\ILoopSettings;
-use AlecRabbit\Spinner\Core\Settings\Contract\ITerminalSettings;
-use AlecRabbit\Spinner\Core\Settings\SettingsProvider;
+use AlecRabbit\Spinner\Core\Config\Legacy\Contract\ILegacyWidgetConfig;
+use AlecRabbit\Spinner\Core\Contract\ILegacySettingsProvider;
+use AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyAuxSettings;
+use AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyDriverSettings;
+use AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyLoopSettings;
+use AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyTerminalSettings;
+use AlecRabbit\Spinner\Core\Settings\Legacy\LegacySettingsProvider;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;
+use PHPUnit\Framework\MockObject\MockObject;
 
+/**
+ * @deprecated Will be removed
+ */
 final class SettingsProviderTest extends TestCaseWithPrebuiltMocksAndStubs
 {
     #[Test]
-    public function canBeCreated(): void
+    public function canBeInstantiated(): void
     {
         $settingsProvider = $this->getTesteeInstance();
 
-        self::assertInstanceOf(SettingsProvider::class, $settingsProvider);
+        self::assertInstanceOf(LegacySettingsProvider::class, $settingsProvider);
 
-        self::assertInstanceOf(ILoopSettings::class, $settingsProvider->getLoopSettings());
-        self::assertInstanceOf(IAuxSettings::class, $settingsProvider->getAuxSettings());
-        self::assertInstanceOf(ITerminalSettings::class, $settingsProvider->getTerminalSettings());
-        self::assertInstanceOf(IDriverSettings::class, $settingsProvider->getDriverSettings());
-        self::assertInstanceOf(IWidgetConfig::class, $settingsProvider->getWidgetConfig());
-        self::assertInstanceOf(IWidgetConfig::class, $settingsProvider->getRootWidgetConfig());
+        self::assertInstanceOf(ILegacyLoopSettings::class, $settingsProvider->getLegacyLoopSettings());
+        self::assertInstanceOf(ILegacyAuxSettings::class, $settingsProvider->getLegacyAuxSettings());
+        self::assertInstanceOf(ILegacyTerminalSettings::class, $settingsProvider->getLegacyTerminalSettings());
+        self::assertInstanceOf(ILegacyDriverSettings::class, $settingsProvider->getLegacyDriverSettings());
+        self::assertInstanceOf(ILegacyWidgetConfig::class, $settingsProvider->getLegacyWidgetConfig());
+        self::assertInstanceOf(ILegacyWidgetConfig::class, $settingsProvider->getLegacyRootWidgetConfig());
     }
 
     public function getTesteeInstance(
-        ?ILoopSettings $loopSettings = null,
-        ?ITerminalSettings $terminalSettings = null,
-        ?IAuxSettings $auxSettings = null,
-        ?IDriverSettings $driverSettings = null,
-        ?IWidgetConfig $widgetConfig = null,
-        ?IWidgetConfig $rootWidgetConfig = null,
-    ): ISettingsProvider {
+        ?ILegacyLoopSettings $loopSettings = null,
+        ?ILegacyTerminalSettings $terminalSettings = null,
+        ?ILegacyAuxSettings $auxSettings = null,
+        ?ILegacyDriverSettings $driverSettings = null,
+        ?ILegacyWidgetConfig $widgetConfig = null,
+        ?ILegacyWidgetConfig $rootWidgetConfig = null,
+    ): ILegacySettingsProvider {
         return
-            new SettingsProvider(
-                auxSettings: $auxSettings ?? $this->getAuxSettingsMock(),
-                terminalSettings: $terminalSettings ?? $this->getTerminalSettingsMock(),
-                loopSettings: $loopSettings ?? $this->getLoopSettingsMock(),
-                driverSettings: $driverSettings ?? $this->getDriverSettingsMock(),
-                widgetConfig: $widgetConfig ?? $this->getWidgetConfigMock(),
-                rootWidgetConfig: $rootWidgetConfig ?? $this->getWidgetConfigMock(),
+            new LegacySettingsProvider(
+                auxSettings: $auxSettings ?? $this->getLegacyAuxSettingsMock(),
+                terminalSettings: $terminalSettings ?? $this->getLegacyTerminalSettingsMock(),
+                loopSettings: $loopSettings ?? $this->getLegacyLoopSettingsMock(),
+                driverSettings: $driverSettings ?? $this->getLegacyDriverSettingsMock(),
+                widgetConfig: $widgetConfig ?? $this->getLegacyWidgetConfigMock(),
+                rootWidgetConfig: $rootWidgetConfig ?? $this->getLegacyWidgetConfigMock(),
             );
+    }
+
+    protected function getLegacyTerminalSettingsMock(): MockObject&ILegacyTerminalSettings
+    {
+        return $this->createMock(ILegacyTerminalSettings::class);
     }
 }

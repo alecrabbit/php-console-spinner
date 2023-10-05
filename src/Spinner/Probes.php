@@ -4,9 +4,8 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner;
 
-use AlecRabbit\Spinner\Contract\IStaticProbe;
+use AlecRabbit\Spinner\Contract\Probe\IStaticProbe;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
-
 use Traversable;
 
 use function is_subclass_of;
@@ -38,13 +37,14 @@ final class Probes
 
     /**
      * @param class-string<IStaticProbe> $class
+     * @throws InvalidArgumentException
      */
     private static function assertClass(string $class): void
     {
         if (!self::isSubclass($class)) {
             throw new InvalidArgumentException(
                 sprintf(
-                    'Class "%s" must implement "%s" interface.',
+                    'Class "%s" must be a subclass of "%s" interface.',
                     $class,
                     IStaticProbe::class
                 )

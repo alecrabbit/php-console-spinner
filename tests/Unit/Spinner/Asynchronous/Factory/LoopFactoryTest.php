@@ -20,7 +20,7 @@ final class LoopFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
 {
 
     #[Test]
-    public function canBeCreated(): void
+    public function canBeInstantiated(): void
     {
         $loopFactory = $this->getTesteeInstance();
 

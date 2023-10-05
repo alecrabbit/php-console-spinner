@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Factory\Contract;
 
-use AlecRabbit\Spinner\Contract\Pattern\IPattern;
-use AlecRabbit\Spinner\Core\Pattern\Contract\IBakedPattern;
+use AlecRabbit\Spinner\Contract\Legacy\ILegacyPattern;
+use AlecRabbit\Spinner\Core\Pattern\Legacy\Contract\ILegacyBakedPattern;
 
 interface IBakedPatternFactory
 {
-    public function createFromPattern(IPattern $name): IBakedPattern;
+    public function createFromPattern(ILegacyPattern $name): ILegacyBakedPattern;
 }

@@ -6,6 +6,7 @@ namespace AlecRabbit\Spinner\Core\Widget;
 
 use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Core\CharFrame;
+use AlecRabbit\Spinner\Core\Contract\ITolerance;
 use AlecRabbit\Spinner\Core\Revolver\A\ARevolver;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolver;
@@ -16,14 +17,14 @@ final class WidgetRevolver extends ARevolver implements IWidgetRevolver
     public function __construct(
         protected IRevolver $style,
         protected IRevolver $character,
-        int $deltaTolerance,
+        ITolerance $tolerance,
     ) {
         parent::__construct(
             $style->getInterval()
                 ->smallest(
                     $character->getInterval()
                 ),
-            $deltaTolerance
+            $tolerance
         );
     }
 

@@ -25,13 +25,13 @@ final class WidgetCompositeChildrenContainerTest extends TestCaseWithPrebuiltMoc
         $interval = new Interval(100);
         $newInterval = new Interval(80);
 
-        $revolver = $this->getRevolverMock();
+        $revolver = $this->getWidgetRevolverMock();
         $revolver
             ->method('getInterval')
             ->willReturn($interval)
         ;
 
-        $newRevolver = $this->getRevolverMock();
+        $newRevolver = $this->getWidgetRevolverMock();
         $newRevolver
             ->method('getInterval')
             ->willReturn($newInterval)
@@ -67,6 +67,16 @@ final class WidgetCompositeChildrenContainerTest extends TestCaseWithPrebuiltMoc
         self::assertSame($newInterval, $container->getInterval());
     }
 
+    public function getTesteeInstance(
+        null|(ArrayAccess&Countable&IteratorAggregate) $map = null,
+        ?IObserver $observer = null,
+    ): IWidgetCompositeChildrenContainer {
+        return new WidgetCompositeChildrenContainer(
+            map: $map ?? new WidgetContextToIntervalMap(),
+            observer: $observer,
+        );
+    }
+
     #[Test]
     public function canBeUpdatedWhenContextIsRemovedOne(): void
     {
@@ -74,18 +84,18 @@ final class WidgetCompositeChildrenContainerTest extends TestCaseWithPrebuiltMoc
         $interval2 = new Interval(80);
         $interval3 = new Interval(120);
 
-        $revolver1 = $this->getRevolverMock();
+        $revolver1 = $this->getWidgetRevolverMock();
         $revolver1
             ->method('getInterval')
             ->willReturn($interval1)
         ;
 
-        $revolver2 = $this->getRevolverMock();
+        $revolver2 = $this->getWidgetRevolverMock();
         $revolver2
             ->method('getInterval')
             ->willReturn($interval2)
         ;
-        $revolver3 = $this->getRevolverMock();
+        $revolver3 = $this->getWidgetRevolverMock();
         $revolver3
             ->method('getInterval')
             ->willReturn($interval3)
@@ -136,10 +146,9 @@ final class WidgetCompositeChildrenContainerTest extends TestCaseWithPrebuiltMoc
     #[Test]
     public function canBeUpdatedWhenContextIsRemovedTwo(): void
     {
-
         $interval = new Interval(80);
 
-        $revolver = $this->getRevolverMock();
+        $revolver = $this->getWidgetRevolverMock();
         $revolver
             ->method('getInterval')
             ->willReturn($interval)
@@ -176,10 +185,9 @@ final class WidgetCompositeChildrenContainerTest extends TestCaseWithPrebuiltMoc
     #[Test]
     public function canBeUpdatedWhenContextIsRemovedFour(): void
     {
-
         $interval = new Interval(80);
 
-        $revolver = $this->getRevolverMock();
+        $revolver = $this->getWidgetRevolverMock();
         $revolver
             ->method('getInterval')
             ->willReturn($interval)
@@ -219,18 +227,18 @@ final class WidgetCompositeChildrenContainerTest extends TestCaseWithPrebuiltMoc
         $interval2 = new Interval(80);
         $interval3 = new Interval(120);
 
-        $revolver1 = $this->getRevolverMock();
+        $revolver1 = $this->getWidgetRevolverMock();
         $revolver1
             ->method('getInterval')
             ->willReturn($interval1)
         ;
 
-        $revolver2 = $this->getRevolverMock();
+        $revolver2 = $this->getWidgetRevolverMock();
         $revolver2
             ->method('getInterval')
             ->willReturn($interval2)
         ;
-        $revolver3 = $this->getRevolverMock();
+        $revolver3 = $this->getWidgetRevolverMock();
         $revolver3
             ->method('getInterval')
             ->willReturn($interval3)
@@ -275,18 +283,8 @@ final class WidgetCompositeChildrenContainerTest extends TestCaseWithPrebuiltMoc
         self::assertSame($interval1, $container->getInterval());
     }
 
-    public function getTesteeInstance(
-        null|(ArrayAccess&Countable&IteratorAggregate) $map = null,
-        ?IObserver $observer = null,
-    ): IWidgetCompositeChildrenContainer {
-        return new WidgetCompositeChildrenContainer(
-            map: $map ?? new WidgetContextToIntervalMap(),
-            observer: $observer,
-        );
-    }
-
     #[Test]
-    public function canBeCreated(): void
+    public function canBeInstantiated(): void
     {
         $container = $this->getTesteeInstance();
 

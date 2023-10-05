@@ -14,6 +14,12 @@ test_coverage: ## Run tests with coverage
 	${_DC_EXEC} -e XDEBUG_MODE=coverage ${APP_CONTAINER} vendor/bin/phpunit --configuration phpunit.coverage.xml --coverage-text
 	@${_ECHO_BG_GREEN};
 
+test_path_coverage: ## Run tests including path coverage
+	@${_ECHO} "\n${_C_SELECT} ${PROJECT_NAME} ${_C_STOP} ${_C_INFO}Coverage tests...${_C_STOP}\n";
+	@${_ECHO} "${_C_COMMENT} ...testing ${_C_STOP}\n";
+	${_DC_EXEC} -e XDEBUG_MODE=coverage ${APP_CONTAINER} vendor/bin/phpunit --configuration phpunit.coverage.xml --coverage-text --path-coverage
+	@${_ECHO_BG_GREEN};
+
 test_dox: ## Run tests with testdox
 	@$(eval c ?=)
 	@${_ECHO} "\n${_C_SELECT} ${PROJECT_NAME} ${_C_STOP} ${_C_INFO}Testdox tests...${_C_STOP}\n";

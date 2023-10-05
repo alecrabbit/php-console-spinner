@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-
 namespace AlecRabbit\Tests\Unit\Spinner\Core;
 
 use AlecRabbit\Spinner\Core\Builder\Contract\ILoopAutoStarterBuilder;
@@ -15,7 +14,7 @@ use PHPUnit\Framework\Attributes\Test;
 final class LoopAutoStarterBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
 {
     #[Test]
-    public function canBeCreated(): void
+    public function canBeInstantiated(): void
     {
         $loopAutoStarterBuilder = $this->getTesteeInstance();
 
@@ -35,7 +34,7 @@ final class LoopAutoStarterBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
         self::assertInstanceOf(LoopAutoStarterBuilder::class, $loopAutoStarterBuilder);
 
         $loopAutoStarterBuilder = $loopAutoStarterBuilder
-            ->withSettings($this->getLoopSettingsMock())
+            ->withSettings($this->getLegacyLoopSettingsMock())
         ;
 
         self::assertInstanceOf(LoopAutoStarter::class, $loopAutoStarterBuilder->build());

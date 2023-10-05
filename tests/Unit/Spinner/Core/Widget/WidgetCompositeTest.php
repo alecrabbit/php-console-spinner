@@ -6,9 +6,9 @@ namespace AlecRabbit\Tests\Unit\Spinner\Core\Widget;
 
 use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Contract\IObserver;
-use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetCompositeChildrenContainer;
+use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolver;
 use AlecRabbit\Spinner\Core\Widget\WidgetComposite;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
@@ -17,7 +17,7 @@ use PHPUnit\Framework\Attributes\Test;
 final class WidgetCompositeTest extends TestCaseWithPrebuiltMocksAndStubs
 {
     #[Test]
-    public function canBeCreated(): void
+    public function canBeInstantiated(): void
     {
         $widgetComposite = $this->getTesteeInstance();
 
@@ -25,14 +25,14 @@ final class WidgetCompositeTest extends TestCaseWithPrebuiltMocksAndStubs
     }
 
     public function getTesteeInstance(
-        ?IRevolver $revolver = null,
+        ?IWidgetRevolver $revolver = null,
         ?IFrame $leadingSpacer = null,
         ?IFrame $trailingSpacer = null,
         ?IWidgetCompositeChildrenContainer $children = null,
         ?IObserver $observer = null,
     ): IWidgetComposite {
         return new WidgetComposite(
-            revolver: $revolver ?? $this->getRevolverMock(),
+            revolver: $revolver ?? $this->getWidgetRevolverMock(),
             leadingSpacer: $leadingSpacer ?? $this->getFrameMock(),
             trailingSpacer: $trailingSpacer ?? $this->getFrameMock(),
             children: $children ?? $this->getWidgetCompositeChildrenContainerMock(),
@@ -62,7 +62,7 @@ final class WidgetCompositeTest extends TestCaseWithPrebuiltMocksAndStubs
     {
         $revolverInterval = $this->getIntervalMock();
 
-        $revolver = $this->getRevolverMock();
+        $revolver = $this->getWidgetRevolverMock();
         $revolver
             ->expects(self::once())
             ->method('getInterval')
@@ -111,7 +111,7 @@ final class WidgetCompositeTest extends TestCaseWithPrebuiltMocksAndStubs
     public function canGetFrameIfHasRevolverOnly(): void
     {
         $revolverFrame = $this->getFrameMock();
-        $revolver = $this->getRevolverMock();
+        $revolver = $this->getWidgetRevolverMock();
         $revolver
             ->expects(self::once())
             ->method('getFrame')
@@ -175,7 +175,7 @@ final class WidgetCompositeTest extends TestCaseWithPrebuiltMocksAndStubs
             ->with(null)
             ->willReturn($interval)
         ;
-        $revolver = $this->getRevolverMock();
+        $revolver = $this->getWidgetRevolverMock();
         $revolver
             ->expects(self::once())
             ->method('getInterval')
@@ -192,7 +192,7 @@ final class WidgetCompositeTest extends TestCaseWithPrebuiltMocksAndStubs
     public function shouldNotifyObserverOnIntervalChange(): void
     {
         $interval = $this->getIntervalMock();
-        $revolver = $this->getRevolverMock();
+        $revolver = $this->getWidgetRevolverMock();
         $revolver
             ->expects(self::once())
             ->method('getInterval')

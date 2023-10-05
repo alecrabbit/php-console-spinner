@@ -19,7 +19,7 @@ use WeakMap;
 final class WidgetCompositeChildrenContainerTest extends TestCaseWithPrebuiltMocksAndStubs
 {
     #[Test]
-    public function canBeCreated(): void
+    public function canBeInstantiated(): void
     {
         $container = $this->getTesteeInstance();
 

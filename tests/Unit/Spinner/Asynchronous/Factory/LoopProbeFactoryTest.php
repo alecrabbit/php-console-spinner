@@ -18,7 +18,7 @@ use Traversable;
 final class LoopProbeFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
 {
     #[Test]
-    public function canBeCreated(): void
+    public function canBeInstantiated(): void
     {
         $loopProbesFactory = $this->getTesteeInstance();
 

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Factory;
 
 use AlecRabbit\Spinner\Core\Builder\Contract\ISignalHandlersSetupBuilder;
-use AlecRabbit\Spinner\Core\Contract\ISettingsProvider;
+use AlecRabbit\Spinner\Core\Contract\ILegacySettingsProvider;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ISignalHandlersSetupFactory;
 use AlecRabbit\Spinner\Core\Factory\SignalHandlersSetupFactory;
@@ -15,7 +15,7 @@ use PHPUnit\Framework\Attributes\Test;
 final class SignalHandlersSetupFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
 {
     #[Test]
-    public function canBeCreated(): void
+    public function canBeInstantiated(): void
     {
         $loopSetupFactory = $this->getTesteeInstance();
 
@@ -23,13 +23,13 @@ final class SignalHandlersSetupFactoryTest extends TestCaseWithPrebuiltMocksAndS
     }
 
     public function getTesteeInstance(
-        ?ISettingsProvider $settingsProvider = null,
+        ?ILegacySettingsProvider $settingsProvider = null,
         ?ILoopFactory $loopFactory = null,
         ?ISignalHandlersSetupBuilder $signalHandlersSetupBuilder = null,
     ): ISignalHandlersSetupFactory {
         return
             new SignalHandlersSetupFactory(
-                settingsProvider: $settingsProvider ?? $this->getSettingsProviderMock(),
+                settingsProvider: $settingsProvider ?? $this->getLegacySettingsProviderMock(),
                 loopFactory: $loopFactory ?? $this->getLoopSingletonFactoryMock(),
                 signalHandlersSetupBuilder: $signalHandlersSetupBuilder ?? $this->getSignalHandlersSetupBuilderMock(),
             );
@@ -38,8 +38,8 @@ final class SignalHandlersSetupFactoryTest extends TestCaseWithPrebuiltMocksAndS
     #[Test]
     public function canCreateSignalHandlersSetup(): void
     {
-        $loopSettings = $this->getLoopSettingsMock();
-        $driverSettings = $this->getDriverSettingsMock();
+        $loopSettings = $this->getLegacyLoopSettingsMock();
+        $driverSettings = $this->getLegacyDriverSettingsMock();
         $loop = $this->getLoopMock();
         $signalHandlersSetupStub = $this->getSignalHandlersSetupStub();
         $loopFactory = $this->getLoopSingletonFactoryMock();
@@ -73,15 +73,15 @@ final class SignalHandlersSetupFactoryTest extends TestCaseWithPrebuiltMocksAndS
             ->willReturn($signalHandlersSetupStub)
         ;
 
-        $settingsProvider = $this->getSettingsProviderMock();
+        $settingsProvider = $this->getLegacySettingsProviderMock();
         $settingsProvider
             ->expects(self::once())
-            ->method('getLoopSettings')
+            ->method('getLegacyLoopSettings')
             ->willReturn($loopSettings)
         ;
         $settingsProvider
             ->expects(self::once())
-            ->method('getDriverSettings')
+            ->method('getLegacyDriverSettings')
             ->willReturn($driverSettings)
         ;
 

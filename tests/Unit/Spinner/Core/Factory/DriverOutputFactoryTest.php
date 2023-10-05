@@ -15,7 +15,7 @@ use PHPUnit\Framework\Attributes\Test;
 final class DriverOutputFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
 {
     #[Test]
-    public function canBeCreated(): void
+    public function canBeInstantiated(): void
     {
         $driverOutputFactory = $this->getTesteeInstance();
 

@@ -4,38 +4,39 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Defaults;
 
-use AlecRabbit\Spinner\Core\Builder\Settings\Contract\IAuxSettingsBuilder;
-use AlecRabbit\Spinner\Core\Builder\Settings\Contract\IDriverSettingsBuilder;
-use AlecRabbit\Spinner\Core\Builder\Settings\Contract\ISettingsProviderBuilder;
-use AlecRabbit\Spinner\Core\Builder\Settings\SettingsProviderBuilder;
+use AlecRabbit\Spinner\Core\Builder\Settings\Legacy\Contract\ILegacyAuxSettingsBuilder;
+use AlecRabbit\Spinner\Core\Builder\Settings\Legacy\Contract\ILegacyDriverSettingsBuilder;
+use AlecRabbit\Spinner\Core\Builder\Settings\Legacy\Contract\ILegacySettingsProviderBuilder;
+use AlecRabbit\Spinner\Core\Builder\Settings\Legacy\LegacySettingsProviderBuilder;
+use AlecRabbit\Spinner\Core\Factory\Contract\ILegacyTerminalSettingsFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopSettingsFactory;
-use AlecRabbit\Spinner\Core\Factory\Contract\ITerminalSettingsFactory;
-use AlecRabbit\Spinner\Core\Settings\SettingsProvider;
+use AlecRabbit\Spinner\Core\Settings\Legacy\LegacySettingsProvider;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;
+use PHPUnit\Framework\MockObject\MockObject;
 
 final class SettingsProviderBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
 {
     #[Test]
-    public function canBeCreated(): void
+    public function canBeInstantiated(): void
     {
         $settingsProviderBuilder = $this->getTesteeInstance();
 
-        self::assertInstanceOf(SettingsProviderBuilder::class, $settingsProviderBuilder);
+        self::assertInstanceOf(LegacySettingsProviderBuilder::class, $settingsProviderBuilder);
     }
 
     public function getTesteeInstance(
         ?ILoopSettingsFactory $loopSettingsBuilder = null,
-        ?ITerminalSettingsFactory $terminalSettingsFactory = null,
-        ?IAuxSettingsBuilder $auxSettingsBuilder = null,
-        ?IDriverSettingsBuilder $driverSettingsBuilder = null,
-    ): ISettingsProviderBuilder {
+        ?ILegacyTerminalSettingsFactory $terminalSettingsFactory = null,
+        ?ILegacyAuxSettingsBuilder $auxSettingsBuilder = null,
+        ?ILegacyDriverSettingsBuilder $driverSettingsBuilder = null,
+    ): ILegacySettingsProviderBuilder {
         return
-            new SettingsProviderBuilder(
+            new LegacySettingsProviderBuilder(
                 loopSettingsFactory: $loopSettingsBuilder ?? $this->getLoopSettingsFactoryMock(),
                 terminalSettingsFactory: $terminalSettingsFactory ?? $this->getTerminalSettingsFactoryMock(),
-                auxSettingsBuilder: $auxSettingsBuilder ?? $this->getAuxSettingsBuilderMock(),
-                driverSettingsBuilder: $driverSettingsBuilder ?? $this->getDriverSettingsBuilderMock(),
+                auxSettingsBuilder: $auxSettingsBuilder ?? $this->getLegacyAuxSettingsBuilderMock(),
+                driverSettingsBuilder: $driverSettingsBuilder ?? $this->getLegacyDriverSettingsBuilderMock(),
             );
     }
 
@@ -44,6 +45,11 @@ final class SettingsProviderBuilderTest extends TestCaseWithPrebuiltMocksAndStub
     {
         $settingsProvider = $this->getTesteeInstance()->build();
 
-        self::assertInstanceOf(SettingsProvider::class, $settingsProvider);
+        self::assertInstanceOf(LegacySettingsProvider::class, $settingsProvider);
+    }
+
+    protected function getLegacyDriverSettingsBuilderMock(): MockObject&ILegacyDriverSettingsBuilder
+    {
+        return $this->createMock(ILegacyDriverSettingsBuilder::class);
     }
 }

@@ -25,9 +25,8 @@ final class ResourceStream implements IResourceStream
      *
      * @throws InvalidArgumentException
      */
-    public function __construct(
-        $stream
-    ) {
+    public function __construct(mixed $stream)
+    {
         Asserter::assertStream($stream);
         $this->stream = $stream;
     }

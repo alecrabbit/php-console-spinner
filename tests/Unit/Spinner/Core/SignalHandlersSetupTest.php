@@ -2,13 +2,12 @@
 
 declare(strict_types=1);
 
-
 namespace AlecRabbit\Tests\Unit\Spinner\Core;
 
 use AlecRabbit\Spinner\Core\Contract\ISignalHandlersSetup;
 use AlecRabbit\Spinner\Core\Contract\Loop\Contract\ILoop;
-use AlecRabbit\Spinner\Core\Settings\Contract\IDriverSettings;
-use AlecRabbit\Spinner\Core\Settings\Contract\ILoopSettings;
+use AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyDriverSettings;
+use AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyLoopSettings;
 use AlecRabbit\Spinner\Core\SignalHandlersSetup;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use Error;
@@ -17,7 +16,7 @@ use PHPUnit\Framework\Attributes\Test;
 final class SignalHandlersSetupTest extends TestCaseWithPrebuiltMocksAndStubs
 {
     #[Test]
-    public function canBeCreated(): void
+    public function canBeInstantiated(): void
     {
         $loopSetup = $this->getTesteeInstance();
 
@@ -26,14 +25,14 @@ final class SignalHandlersSetupTest extends TestCaseWithPrebuiltMocksAndStubs
 
     public function getTesteeInstance(
         ?ILoop $loop = null,
-        ?ILoopSettings $settings = null,
-        ?IDriverSettings $driverSettings = null
+        ?ILegacyLoopSettings $settings = null,
+        ?ILegacyDriverSettings $driverSettings = null
     ): ISignalHandlersSetup {
         return
             new SignalHandlersSetup(
                 loop: $loop ?? $this->getLoopMock(),
-                loopSettings: $settings ?? $this->getLoopSettingsMock(),
-                driverSettings: $driverSettings ?? $this->getDriverSettingsMock(),
+                loopSettings: $settings ?? $this->getLegacyLoopSettingsMock(),
+                driverSettings: $driverSettings ?? $this->getLegacyDriverSettingsMock(),
             );
     }
 
@@ -60,7 +59,7 @@ final class SignalHandlersSetupTest extends TestCaseWithPrebuiltMocksAndStubs
     {
         $loop = $this->getLoopMock();
 
-        $settings = $this->getLoopSettingsMock();
+        $settings = $this->getLegacyLoopSettingsMock();
         $settings
             ->expects(self::once())
             ->method('isLoopAvailable')

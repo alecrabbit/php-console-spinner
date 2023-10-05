@@ -2,76 +2,43 @@
 
 declare(strict_types=1);
 
-
 namespace AlecRabbit\Spinner\Core\Settings;
 
-use AlecRabbit\Spinner\Contract\Option\DriverInitializationOption;
-use AlecRabbit\Spinner\Contract\Option\DriverLinkerOption;
+use AlecRabbit\Spinner\Contract\Option\InitializationOption;
+use AlecRabbit\Spinner\Contract\Option\LinkerOption;
 use AlecRabbit\Spinner\Core\Settings\Contract\IDriverSettings;
 
 final class DriverSettings implements IDriverSettings
 {
     public function __construct(
-        protected DriverInitializationOption $optionDriverInitialization,
-        protected DriverLinkerOption $optionLinker,
-        protected string $finalMessage,
-        protected string $interruptMessage,
+        protected LinkerOption $linkerOption = LinkerOption::AUTO,
+        protected InitializationOption $initializationOption = InitializationOption::AUTO,
     ) {
     }
 
-    public function setOptionDriverInitialization(
-        DriverInitializationOption $optionDriverInitialization,
-    ): IDriverSettings {
-        $this->optionDriverInitialization = $optionDriverInitialization;
-        return $this;
+    public function getLinkerOption(): LinkerOption
+    {
+        return $this->linkerOption;
     }
 
-    public function setOptionLinker(DriverLinkerOption $optionLinker): IDriverSettings
+    public function setLinkerOption(LinkerOption $linkerOption): void
     {
-        $this->optionLinker = $optionLinker;
-        return $this;
+        $this->linkerOption = $linkerOption;
     }
 
-    public function setFinalMessage(string $finalMessage): IDriverSettings
+    public function getInitializationOption(): InitializationOption
     {
-        $this->finalMessage = $finalMessage;
-        return $this;
+        return $this->initializationOption;
     }
 
-    public function setInterruptMessage(string $interruptMessage): IDriverSettings
+    public function setInitializationOption(InitializationOption $initializationOption): void
     {
-        $this->interruptMessage = $interruptMessage;
-        return $this;
+        $this->initializationOption = $initializationOption;
     }
 
-    /**
-     * @deprecated
-     */
-    public function getFinalMessage(): string
+    public function getIdentifier(): string
     {
-        return $this->finalMessage;
+        return IDriverSettings::class;
     }
 
-    /**
-     * @deprecated
-     */
-    public function getInterruptMessage(): string
-    {
-        return $this->interruptMessage;
-    }
-
-    public function isInitializationEnabled(): bool
-    {
-        return $this->optionDriverInitialization === DriverInitializationOption::ENABLED;
-    }
-
-    public function isLinkerEnabled(): bool
-    {
-        return $this->optionLinker === DriverLinkerOption::ENABLED;
-    }
-
-    public function getOptionLinker(): DriverLinkerOption
-    {
-        return $this->optionLinker;
-    }
 }
