@@ -99,6 +99,7 @@ use AlecRabbit\Spinner\Core\Factory\Contract\IFrameCollectionFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalNormalizerFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILegacySignalProcessingProbeFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\ILegacyTerminalProbeFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILegacyTerminalSettingsFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopAutoStarterFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopFactory;
@@ -107,7 +108,6 @@ use AlecRabbit\Spinner\Core\Factory\Contract\ILoopSettingsFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ISignalHandlersSetupFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ISpinnerFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IStyleFrameRevolverFactory;
-use AlecRabbit\Spinner\Core\Factory\Contract\ITerminalProbeFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ITimerFactory;
 use AlecRabbit\Spinner\Core\Factory\DriverFactory;
 use AlecRabbit\Spinner\Core\Factory\DriverLinkerFactory;
@@ -116,16 +116,16 @@ use AlecRabbit\Spinner\Core\Factory\FrameCollectionFactory;
 use AlecRabbit\Spinner\Core\Factory\IntervalFactory;
 use AlecRabbit\Spinner\Core\Factory\IntervalNormalizerFactory;
 use AlecRabbit\Spinner\Core\Factory\Legacy\ILegacyWidgetSettingsFactory;
+use AlecRabbit\Spinner\Core\Factory\Legacy\LegacySignalProcessingProbeFactory;
+use AlecRabbit\Spinner\Core\Factory\Legacy\LegacyTerminalProbeFactory;
+use AlecRabbit\Spinner\Core\Factory\Legacy\LegacyTerminalSettingsFactory;
 use AlecRabbit\Spinner\Core\Factory\Legacy\LegacyWidgetSettingsFactory;
-use AlecRabbit\Spinner\Core\Factory\LegacySignalProcessingProbeFactory;
-use AlecRabbit\Spinner\Core\Factory\LegacyTerminalSettingsFactory;
+use AlecRabbit\Spinner\Core\Factory\Legacy\LoopSettingsFactory;
 use AlecRabbit\Spinner\Core\Factory\LoopAutoStarterFactory;
 use AlecRabbit\Spinner\Core\Factory\LoopFactory;
-use AlecRabbit\Spinner\Core\Factory\LoopSettingsFactory;
 use AlecRabbit\Spinner\Core\Factory\SignalHandlersSetupFactory;
 use AlecRabbit\Spinner\Core\Factory\SpinnerFactory;
 use AlecRabbit\Spinner\Core\Factory\StyleFrameRevolverFactory;
-use AlecRabbit\Spinner\Core\Factory\TerminalProbeFactory;
 use AlecRabbit\Spinner\Core\Factory\TimerFactory;
 use AlecRabbit\Spinner\Core\Output\ResourceStream;
 use AlecRabbit\Spinner\Core\Palette\Factory\Contract\IPaletteModeFactory;
@@ -374,9 +374,9 @@ function legacy(): Traversable
         },
         ILegacySignalProcessingProbeFactory::class => LegacySignalProcessingProbeFactory::class,
 
-        ITerminalProbeFactory::class => static function (): ITerminalProbeFactory {
+        ILegacyTerminalProbeFactory::class => static function (): ILegacyTerminalProbeFactory {
             return
-                new TerminalProbeFactory(
+                new LegacyTerminalProbeFactory(
                     new ArrayObject([
                         NativeTerminalLegacyProbe::class,
                     ]),
@@ -425,7 +425,7 @@ function legacy(): Traversable
 
         ILegacyTerminalSettingsFactory::class => static function (ContainerInterface $container
         ): ILegacyTerminalSettingsFactory {
-            $terminalProbe = $container->get(ITerminalProbeFactory::class)->getProbe();
+            $terminalProbe = $container->get(ILegacyTerminalProbeFactory::class)->getProbe();
 
             return
                 new LegacyTerminalSettingsFactory($terminalProbe);

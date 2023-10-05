@@ -2,16 +2,19 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Spinner\Core\Factory;
+namespace AlecRabbit\Spinner\Core\Factory\Legacy;
 
 use AlecRabbit\Spinner\Contract\ILegacyProbe;
-use AlecRabbit\Spinner\Core\Factory\Contract\ITerminalProbeFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\ILegacyTerminalProbeFactory;
 use AlecRabbit\Spinner\Core\Terminal\Contract\ITerminalLegacyProbe;
 use AlecRabbit\Spinner\Exception\DomainException;
 use ArrayObject;
 use Traversable;
 
-final class TerminalProbeFactory implements ITerminalProbeFactory
+/**
+ * @deprecated
+ */
+final class LegacyTerminalProbeFactory implements ILegacyTerminalProbeFactory
 {
     /** @var Traversable<ITerminalLegacyProbe> */
     protected Traversable $registeredProbes;

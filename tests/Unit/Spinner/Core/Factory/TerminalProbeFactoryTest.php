@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Factory;
 
-use AlecRabbit\Spinner\Core\Factory\Contract\ITerminalProbeFactory;
-use AlecRabbit\Spinner\Core\Factory\TerminalProbeFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\ILegacyTerminalProbeFactory;
+use AlecRabbit\Spinner\Core\Factory\Legacy\LegacyTerminalProbeFactory;
 use AlecRabbit\Spinner\Core\Terminal\A\ATerminalLegacyProbe;
 use AlecRabbit\Spinner\Exception\DomainException;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
@@ -22,13 +22,13 @@ final class TerminalProbeFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
     {
         $terminalProbeFactory = $this->getTesteeInstance();
 
-        self::assertInstanceOf(TerminalProbeFactory::class, $terminalProbeFactory);
+        self::assertInstanceOf(LegacyTerminalProbeFactory::class, $terminalProbeFactory);
     }
 
     public function getTesteeInstance(
         ?Traversable $terminalProbes = null,
-    ): ITerminalProbeFactory {
-        return new TerminalProbeFactory(
+    ): ILegacyTerminalProbeFactory {
+        return new LegacyTerminalProbeFactory(
             probeClasses: $terminalProbes ?? $this->getTerminalProbesMock(),
         );
     }

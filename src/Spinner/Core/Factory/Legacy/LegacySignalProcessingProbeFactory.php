@@ -2,9 +2,10 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Spinner\Core\Factory;
+namespace AlecRabbit\Spinner\Core\Factory\Legacy;
 
 use AlecRabbit\Spinner\Core\Contract\ILegacySignalProcessingLegacyProbe;
+use AlecRabbit\Spinner\Core\Factory\Contract;
 use AlecRabbit\Spinner\Core\LegacySignalProcessingProbe;
 
 /**
