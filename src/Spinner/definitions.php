@@ -183,9 +183,6 @@ function definitions(): Traversable
         ISettingsProvider::class => static function (ContainerInterface $container): ISettingsProvider {
             return $container->get(ISettingsProviderFactory::class)->create();
         },
-        IConfigProvider::class => static function (ContainerInterface $container): IConfigProvider {
-            return $container->get(IConfigProviderFactory::class)->create();
-        },
 
         IDriverSetup::class => DriverSetup::class,
         ISignalHandlersSetup::class => SignalHandlersSetup::class,
@@ -223,6 +220,9 @@ function definitions(): Traversable
 function configs(): Traversable
 {
     yield from [
+        IConfigProvider::class => static function (ContainerInterface $container): IConfigProvider {
+            return $container->get(IConfigProviderFactory::class)->create();
+        },
         IConfig::class => static function(ContainerInterface $container): IConfig {
             return $container->get(IConfigProvider::class)->getConfig();
         },
@@ -274,30 +274,30 @@ function solvers(): Traversable
 function factories(): Traversable
 {
     yield from [
-        IConsoleCursorFactory::class => ConsoleCursorFactory::class,
         IBufferedOutputSingletonFactory::class => BufferedOutputSingletonFactory::class,
+        ICharFrameRevolverFactory::class => CharFrameRevolverFactory::class,
         IConfigFactory::class => ConfigFactory::class,
-        IDriverOutputFactory::class => DriverOutputFactory::class,
+        IConfigProviderFactory::class => ConfigProviderFactory::class,
+        IConsoleCursorFactory::class => ConsoleCursorFactory::class,
+        IDefaultSettingsFactory::class => DefaultSettingsFactory::class,
+        IDetectedSettingsFactory::class => DetectedSettingsFactory::class,
         IDriverFactory::class => DriverFactory::class,
+        IDriverLinkerFactory::class => DriverLinkerFactory::class,
+        IDriverOutputFactory::class => DriverOutputFactory::class,
         IFrameCollectionFactory::class => FrameCollectionFactory::class,
-        IIntervalNormalizerFactory::class => IntervalNormalizerFactory::class,
-        IWidgetFactory::class => WidgetFactory::class,
-        IWidgetCompositeFactory::class => WidgetCompositeFactory::class,
-        IWidgetRevolverFactory::class => WidgetRevolverFactory::class,
-        ISignalHandlersSetupFactory::class => SignalHandlersSetupFactory::class,
-        ISpinnerFactory::class => SpinnerFactory::class,
         IIntervalFactory::class => IntervalFactory::class,
+        IIntervalNormalizerFactory::class => IntervalNormalizerFactory::class,
         ILoopAutoStarterFactory::class => LoopAutoStarterFactory::class,
         ILoopFactory::class => LoopFactory::class,
-        IDriverLinkerFactory::class => DriverLinkerFactory::class,
-        IConfigProviderFactory::class => ConfigProviderFactory::class,
-        ICharFrameRevolverFactory::class => CharFrameRevolverFactory::class,
+        ISettingsProviderFactory::class => SettingsProviderFactory::class,
+        ISignalHandlersSetupFactory::class => SignalHandlersSetupFactory::class,
+        ISpinnerFactory::class => SpinnerFactory::class,
         IStyleFrameRevolverFactory::class => StyleFrameRevolverFactory::class,
         ITimerFactory::class => TimerFactory::class,
-        ISettingsProviderFactory::class => SettingsProviderFactory::class,
         IUserSettingsFactory::class => UserSettingsFactory::class,
-        IDetectedSettingsFactory::class => DetectedSettingsFactory::class,
-        IDefaultSettingsFactory::class => DefaultSettingsFactory::class,
+        IWidgetCompositeFactory::class => WidgetCompositeFactory::class,
+        IWidgetFactory::class => WidgetFactory::class,
+        IWidgetRevolverFactory::class => WidgetRevolverFactory::class,
 
         IPatternFactory::class => PatternFactory::class,
         IPaletteModeFactory::class => PaletteModeFactory::class,
