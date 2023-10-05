@@ -7,6 +7,7 @@ namespace AlecRabbit\Tests\Unit\Spinner\Core\DriverTest;
 use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Contract\IObserver;
 use AlecRabbit\Spinner\Contract\ITimer;
+use AlecRabbit\Spinner\Core\Config\Contract\IDriverConfig;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use AlecRabbit\Spinner\Core\Driver;
@@ -23,6 +24,7 @@ class TestCaseForDriver extends TestCase
         ?IDriverOutput $output = null,
         ?IInterval $initialInterval = null,
         ?ILegacyDriverSettings $driverSettings = null,
+        ?IDriverConfig $driverConfig = null,
         ?IObserver $observer = null,
     ): IDriver {
         return new Driver(
@@ -30,8 +32,14 @@ class TestCaseForDriver extends TestCase
             timer: $timer ?? $this->getTimerMock(),
             initialInterval: $initialInterval ?? $this->getIntervalMock(),
             driverSettings: $driverSettings ?? $this->getLegacyDriverSettingsMock(),
+            driverConfig: $driverConfig ?? $this->getDriverConfigMock(),
             observer: $observer,
         );
+    }
+
+    protected function getDriverConfigMock(): MockObject&IDriverConfig
+    {
+        return $this->createMock(IDriverConfig::class);
     }
 
     protected function getDriverOutputMock(): MockObject&IDriverOutput

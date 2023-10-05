@@ -6,6 +6,7 @@ namespace AlecRabbit\Tests\Unit\Spinner\Core\Factory;
 
 use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Contract\ITimer;
+use AlecRabbit\Spinner\Core\Config\Contract\IDriverConfig;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\IDriverBuilder;
 use AlecRabbit\Spinner\Core\Contract\IDriverSetup;
@@ -39,6 +40,7 @@ final class DriverFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
         ?IDriverSetup $driverSetup = null,
         ?ILegacyDriverSettings $driverSettings = null,
         ?ISignalHandlersSetupFactory $loopSetupFactory = null,
+        ?IDriverConfig $driverConfig = null,
     ): IDriverFactory {
         return new DriverFactory(
             intervalFactory: $intervalFactory ?? $this->getIntervalFactoryMock(),
@@ -48,12 +50,18 @@ final class DriverFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
             timerFactory: $timerFactory ?? $this->getTimerFactoryMock(),
             driverSetup: $driverSetup ?? $this->getDriverSetupMock(),
             driverSettings: $driverSettings ?? $this->getLegacyDriverSettingsMock(),
+            driverConfig: $driverConfig ?? $this->getDriverConfigMock(),
         );
     }
 
     protected function getSignalHandlersSetupFactoryMock(): MockObject&ISignalHandlersSetupFactory
     {
         return $this->createMock(ISignalHandlersSetupFactory::class);
+    }
+
+    protected function getDriverConfigMock(): MockObject&IDriverConfig
+    {
+        return $this->createMock(IDriverConfig::class);
     }
 
     #[Test]
@@ -82,6 +90,12 @@ final class DriverFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
             ->expects(self::once())
             ->method('withInitialInterval')
             ->with(self::isInstanceOf(IInterval::class))
+            ->willReturnSelf()
+        ;
+        $driverBuilder
+            ->expects(self::once())
+            ->method('withDriverConfig')
+            ->with(self::isInstanceOf(IDriverConfig::class))
             ->willReturnSelf()
         ;
         $driverBuilder

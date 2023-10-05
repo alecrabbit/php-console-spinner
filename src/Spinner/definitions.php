@@ -51,6 +51,8 @@ use AlecRabbit\Spinner\Core\Config\Contract\Factory\ILoopConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\IOutputConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\IRootWidgetConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\IWidgetConfigFactory;
+use AlecRabbit\Spinner\Core\Config\Contract\IConfig;
+use AlecRabbit\Spinner\Core\Config\Contract\IDriverConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IRootWidgetConfig;
 use AlecRabbit\Spinner\Core\Config\Factory\AuxConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Factory\ConfigFactory;
@@ -206,6 +208,7 @@ function definitions(): Traversable
         },
     ];
 
+    yield from configs();
     yield from builders();
     yield from solvers();
     yield from factories();
@@ -217,6 +220,18 @@ function definitions(): Traversable
 }
 
 // parts of definitions:
+function configs(): Traversable
+{
+    yield from [
+        IConfig::class => static function(ContainerInterface $container): IConfig {
+            return $container->get(IConfigProvider::class)->getConfig();
+        },
+        IDriverConfig::class => static function(ContainerInterface $container): IDriverConfig {
+            return $container->get(IConfig::class)->get(IDriverConfig::class);
+        },
+    ];
+}
+
 function builders(): Traversable
 {
     yield from [

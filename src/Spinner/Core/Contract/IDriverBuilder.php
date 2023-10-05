@@ -7,6 +7,7 @@ namespace AlecRabbit\Spinner\Core\Contract;
 use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Contract\IObserver;
 use AlecRabbit\Spinner\Contract\ITimer;
+use AlecRabbit\Spinner\Core\Config\Contract\IDriverConfig;
 use AlecRabbit\Spinner\Core\Output\Contract\IDriverOutput;
 use AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyDriverSettings;
 use AlecRabbit\Spinner\Exception\LogicException;
@@ -27,4 +28,6 @@ interface IDriverBuilder
     public function withObserver(IObserver $observer): IDriverBuilder;
 
     public function withDriverSettings(ILegacyDriverSettings $driverSettings): IDriverBuilder;
+
+    public function withDriverConfig(IDriverConfig $driverConfig): IDriverBuilder;
 }
