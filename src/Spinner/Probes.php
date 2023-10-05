@@ -81,12 +81,14 @@ final class Probes
     }
 
     /**
-     * @param class-string<IStaticProbe> $probeClass
+     * @param Array<class-string<IStaticProbe>> $classes
      * @throws InvalidArgumentException
      */
-    public static function unregister(string $probeClass): void
+    public static function unregister(string ...$classes): void
     {
-        self::assertClass($probeClass);
-        unset(self::$probes[$probeClass]);
+        foreach ($classes as $probeClass) {
+            self::assertClass($probeClass);
+            unset(self::$probes[$probeClass]);
+        }
     }
 }
