@@ -21,7 +21,6 @@ final class ContainerFactory implements IContainerFactory
     ) {
     }
 
-
     public function getContainer(): IContainer
     {
         if (self::$container === null) {

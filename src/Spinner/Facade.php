@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner;
 
-use AlecRabbit\Spinner\Core\A\AFacade;
+use AlecRabbit\Spinner\Core\A\AContainerEnclosure;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use AlecRabbit\Spinner\Core\Contract\Loop\ILoop;
@@ -15,7 +15,7 @@ use AlecRabbit\Spinner\Core\Settings\Contract\ISettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettingsProvider;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISpinnerSettings;
 
-final class Facade extends AFacade
+final class Facade extends AContainerEnclosure
 {
     public static function getLoop(): ILoop
     {
@@ -70,4 +70,5 @@ final class Facade extends AFacade
     {
         return self::getContainer()->get(ISettingsProvider::class);
     }
+
 }

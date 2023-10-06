@@ -5,10 +5,11 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\A;
 
 use AlecRabbit\Spinner\Container\DefinitionRegistry;
+use AlecRabbit\Spinner\Container\Exception\ContainerException;
 use AlecRabbit\Spinner\Core\Factory\ContainerFactory;
 use Psr\Container\ContainerInterface;
 
-abstract class AFacade
+abstract class AContainerEnclosure
 {
     protected static ?ContainerInterface $container = null;
 
@@ -20,20 +21,14 @@ abstract class AFacade
         // No instances of this class are allowed.
     }
 
-    protected static function getContainer(): ContainerInterface
+    final protected static function getContainer(): ContainerInterface
     {
-        if (self::$container === null) {
-            self::$container = self::createContainer();
-        }
-        return self::$container;
+        return
+            self::$container ?? throw new ContainerException('Container is not set.');
     }
 
-    private static function createContainer(): ContainerInterface
+    public static function setContainer(ContainerInterface $container): void
     {
-        $registry = DefinitionRegistry::getInstance();
-
-        $class = ContainerFactory::class;
-
-        return (new $class($registry))->getContainer();
+        self::$container = $container;
     }
 }
