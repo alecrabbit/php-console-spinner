@@ -23,7 +23,6 @@ final class ContainerFactoryTest extends TestCase
         $containerFactory = $this->getTesteeInstance();
 
         self::assertInstanceOf(ContainerFactory::class, $containerFactory);
-        self::assertNull(self::getPropertyValue('container', ContainerFactory::class));
     }
 
     public function getTesteeInstance(
@@ -45,43 +44,8 @@ final class ContainerFactoryTest extends TestCase
     {
         $containerFactory = $this->getTesteeInstance();
 
-        self::assertNull(self::getPropertyValue('container', ContainerFactory::class));
-
         $container = $containerFactory->getContainer();
 
-        self::assertNotNull(self::getPropertyValue('container', ContainerFactory::class));
         self::assertInstanceOf(Container::class, $container);
-    }
-
-    #[Test]
-    public function createsSingleton(): void
-    {
-        $containerFactory = $this->getTesteeInstance();
-
-        $container = $containerFactory->getContainer();
-
-        self::assertSame($container, $containerFactory->getContainer());
-        self::assertSame($container, $containerFactory->getContainer());
-        self::assertSame($container, $containerFactory->getContainer());
-    }
-
-    protected function setUp(): void
-    {
-        self::$container = self::getPropertyValue('container', ContainerFactory::class);
-
-        self::setPropertyValue(
-            ContainerFactory::class,
-            'container',
-            null
-        );
-    }
-
-    protected function tearDown(): void
-    {
-        self::setPropertyValue(
-            ContainerFactory::class,
-            'container',
-            self::$container
-        );
     }
 }
