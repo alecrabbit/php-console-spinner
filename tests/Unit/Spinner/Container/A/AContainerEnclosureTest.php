@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Tests\Unit\Spinner\Core\A;
+namespace AlecRabbit\Tests\Unit\Spinner\Container\A;
 
 use AlecRabbit\Spinner\Container\Exception\ContainerException;
 use AlecRabbit\Tests\TestCase\TestCase;
-use AlecRabbit\Tests\Unit\Spinner\Core\A\Override\AContainerEnclosureOverride;
+use AlecRabbit\Tests\Unit\Spinner\Container\A\Override\AContainerEnclosureOverride;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 use Psr\Container\ContainerInterface;

@@ -9,6 +9,7 @@ use AlecRabbit\Spinner\Contract\IObserver;
 use AlecRabbit\Spinner\Contract\ISubject;
 use AlecRabbit\Spinner\Contract\ITimer;
 use AlecRabbit\Spinner\Core\A\ADriver;
+use AlecRabbit\Spinner\Core\Config\Contract\IDriverConfig;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use AlecRabbit\Spinner\Core\Output\Contract\IDriverOutput;
@@ -16,7 +17,6 @@ use AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyDriverSettings;
 use AlecRabbit\Spinner\Core\SpinnerState;
 use PHPUnit\Framework\Attributes\Test;
 use RuntimeException;
-use AlecRabbit\Spinner\Core\Config\Contract\IDriverConfig;
 
 final class MethodWrapDriverTest extends TestCaseForDriver
 {

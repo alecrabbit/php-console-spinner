@@ -40,16 +40,16 @@ final class SettingsProviderBuilderTest extends TestCaseWithPrebuiltMocksAndStub
             );
     }
 
+    protected function getLegacyDriverSettingsBuilderMock(): MockObject&ILegacyDriverSettingsBuilder
+    {
+        return $this->createMock(ILegacyDriverSettingsBuilder::class);
+    }
+
     #[Test]
     public function canBuildSettingsProvider(): void
     {
         $settingsProvider = $this->getTesteeInstance()->build();
 
         self::assertInstanceOf(LegacySettingsProvider::class, $settingsProvider);
-    }
-
-    protected function getLegacyDriverSettingsBuilderMock(): MockObject&ILegacyDriverSettingsBuilder
-    {
-        return $this->createMock(ILegacyDriverSettingsBuilder::class);
     }
 }

@@ -8,7 +8,7 @@ use AlecRabbit\Spinner\Core\Contract\Loop\A\ALoopProbe;
 use AlecRabbit\Spinner\Core\Contract\Loop\ILoop;
 use RuntimeException;
 
-class NegativeLoopProbeOverride  extends ALoopProbe
+class NegativeLoopProbeOverride extends ALoopProbe
 {
     public static function isSupported(): bool
     {

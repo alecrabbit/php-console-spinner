@@ -195,8 +195,8 @@ final class InitializationModeSolverTest extends TestCase
         }
     }
 
-    protected function getDriverSettingsMock(?InitializationOption $initializationOption = null): (MockObject&IDriverSettings)|null
-    {
+    protected function getDriverSettingsMock(?InitializationOption $initializationOption = null
+    ): (MockObject&IDriverSettings)|null {
         return
             $initializationOption === null
                 ? null :

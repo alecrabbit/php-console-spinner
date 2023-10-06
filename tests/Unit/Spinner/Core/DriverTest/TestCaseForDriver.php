@@ -37,11 +37,6 @@ class TestCaseForDriver extends TestCase
         );
     }
 
-    protected function getDriverConfigMock(): MockObject&IDriverConfig
-    {
-        return $this->createMock(IDriverConfig::class);
-    }
-
     protected function getDriverOutputMock(): MockObject&IDriverOutput
     {
         return $this->createMock(IDriverOutput::class);
@@ -60,6 +55,11 @@ class TestCaseForDriver extends TestCase
     protected function getLegacyDriverSettingsMock(): MockObject&ILegacyDriverSettings
     {
         return $this->createMock(ILegacyDriverSettings::class);
+    }
+
+    protected function getDriverConfigMock(): MockObject&IDriverConfig
+    {
+        return $this->createMock(IDriverConfig::class);
     }
 
     protected function getObserverMock(): MockObject&IObserver

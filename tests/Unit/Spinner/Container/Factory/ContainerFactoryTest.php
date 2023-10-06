@@ -2,21 +2,18 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Tests\Unit\Spinner\Core\Factory;
+namespace AlecRabbit\Tests\Unit\Spinner\Container\Factory;
 
 use AlecRabbit\Spinner\Container\Container;
-use AlecRabbit\Spinner\Container\Contract\IContainer;
+use AlecRabbit\Spinner\Container\Contract\IContainerFactory;
 use AlecRabbit\Spinner\Container\Contract\IDefinitionRegistry;
-use AlecRabbit\Spinner\Core\Factory\ContainerFactory;
-use AlecRabbit\Spinner\Core\Factory\Contract\IContainerFactory;
+use AlecRabbit\Spinner\Container\Factory\ContainerFactory;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 
 final class ContainerFactoryTest extends TestCase
 {
-    protected static ?IContainer $container = null;
-
     #[Test]
     public function canBeInstantiated(): void
     {
@@ -26,7 +23,7 @@ final class ContainerFactoryTest extends TestCase
     }
 
     public function getTesteeInstance(
-        ?IDefinitionRegistry $registry = null
+        ?IDefinitionRegistry $registry = null,
     ): IContainerFactory {
         return
             new ContainerFactory(

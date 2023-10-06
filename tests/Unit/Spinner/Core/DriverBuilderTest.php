@@ -49,6 +49,11 @@ final class DriverBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
         self::assertSame($interval, $driver->getInterval());
     }
 
+    protected function getDriverConfigMock(): MockObject&IDriverConfig
+    {
+        return $this->createMock(IDriverConfig::class);
+    }
+
     #[Test]
     public function canBuildWithObserver(): void
     {
@@ -165,11 +170,6 @@ final class DriverBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
             exception: $exceptionClass,
             message: $exceptionMessage,
         );
-    }
-
-    protected function getDriverConfigMock(): MockObject&IDriverConfig
-    {
-        return $this->createMock(IDriverConfig::class);
     }
 
     #[Test]

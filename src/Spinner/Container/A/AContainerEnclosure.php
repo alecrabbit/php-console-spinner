@@ -2,11 +2,9 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Spinner\Core\A;
+namespace AlecRabbit\Spinner\Container\A;
 
-use AlecRabbit\Spinner\Container\DefinitionRegistry;
 use AlecRabbit\Spinner\Container\Exception\ContainerException;
-use AlecRabbit\Spinner\Core\Factory\ContainerFactory;
 use Psr\Container\ContainerInterface;
 
 abstract class AContainerEnclosure
