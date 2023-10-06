@@ -7,13 +7,13 @@ namespace AlecRabbit\Spinner\Core\Factory;
 use AlecRabbit\Spinner\Core\Contract\Loop\ILoop;
 use AlecRabbit\Spinner\Core\Contract\Loop\ILoopProbe;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILegacyLoopAutoStarterFactory;
-use AlecRabbit\Spinner\Core\Factory\Contract\ILegacyLoopFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\ILoopFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILegacyLoopProbeFactory;
 
 /**
  * @deprecated
  */
-final class LegacyLoopFactory implements ILegacyLoopFactory
+final class LegacyLoopFactory implements ILoopFactory
 {
     private static ?ILoop $loop = null;
 
@@ -23,7 +23,7 @@ final class LegacyLoopFactory implements ILegacyLoopFactory
     ) {
     }
 
-    public function getLoop(): ILoop
+    public function create(): ILoop
     {
         if (self::$loop === null) {
             self::$loop = $this->createLoop();

@@ -6,10 +6,7 @@ namespace AlecRabbit\Spinner\Core\Factory\Contract;
 
 use AlecRabbit\Spinner\Core\Contract\Loop\ILoop;
 
-/**
- * @deprecated
- */
-interface ILegacyLoopFactory
+interface ILoopFactory
 {
-    public function getLoop(): ILoop;
+    public function create(): ILoop;
 }

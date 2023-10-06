@@ -103,7 +103,7 @@ use AlecRabbit\Spinner\Core\Factory\Contract\IFrameCollectionFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalNormalizerFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILegacyLoopAutoStarterFactory;
-use AlecRabbit\Spinner\Core\Factory\Contract\ILegacyLoopFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\ILoopFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILegacyLoopProbeFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILegacySignalProcessingProbeFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILegacyTerminalProbeFactory;
@@ -196,7 +196,7 @@ function definitions(): Traversable
             return $container->get(IIntervalNormalizerFactory::class)->create();
         },
         ILoop::class => static function (ContainerInterface $container): ILoop {
-            return $container->get(ILegacyLoopFactory::class)->getLoop();
+            return $container->get(ILoopFactory::class)->getLoop();
         },
     ];
 
@@ -445,7 +445,7 @@ function legacy(): Traversable
             return
                 $container->get(ILegacySettingsProvider::class)->getLegacyTerminalSettings()->getOptionCursor();
         },
-        ILegacyLoopFactory::class => LegacyLoopFactory::class,
+        ILoopFactory::class => LegacyLoopFactory::class,
         ILoopProbe::class => static function (ContainerInterface $container): ILoopProbe {
             return $container->get(ILegacyLoopProbeFactory::class)->getProbe();
         },

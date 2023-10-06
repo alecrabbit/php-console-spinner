@@ -8,7 +8,7 @@ use AlecRabbit\Spinner\Core\Contract\Loop\A\ALoopAdapter;
 use AlecRabbit\Spinner\Core\Contract\Loop\A\ALoopProbe;
 use AlecRabbit\Spinner\Core\Contract\Loop\ILoop;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILegacyLoopAutoStarterFactory;
-use AlecRabbit\Spinner\Core\Factory\Contract\ILegacyLoopFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\ILoopFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILegacyLoopProbeFactory;
 use AlecRabbit\Spinner\Core\Factory\LegacyLoopFactory;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
@@ -30,7 +30,7 @@ final class LegacyLoopFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
     public function getTesteeInstance(
         ?ILegacyLoopProbeFactory $loopProbeFactory = null,
         ?ILegacyLoopAutoStarterFactory $loopAutoStarterFactory = null,
-    ): ILegacyLoopFactory {
+    ): ILoopFactory {
         return new LegacyLoopFactory(
             loopProbeFactory: $loopProbeFactory ?? $this->getLoopProbeFactoryMock(),
             loopAutoStarterFactory: $loopAutoStarterFactory ?? $this->getLoopAutoStarterFactoryMock(),
@@ -71,7 +71,7 @@ final class LegacyLoopFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
     {
         $loopFactory = $this->getTesteeInstance();
 
-        self::assertInstanceOf(ALoopAdapter::class, $loopFactory->getLoop());
+        self::assertInstanceOf(ALoopAdapter::class, $loopFactory->create());
     }
 
     protected function setUp(): void

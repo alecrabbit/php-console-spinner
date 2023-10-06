@@ -43,7 +43,7 @@ use AlecRabbit\Spinner\Core\Factory\Contract\IDriverOutputFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IFrameCollectionFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILegacyLoopAutoStarterFactory;
-use AlecRabbit\Spinner\Core\Factory\Contract\ILegacyLoopFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\ILoopFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILegacyLoopProbeFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILegacyTerminalSettingsFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopSettingsFactory;
@@ -157,9 +157,9 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
         return $this->createMock(ILegacyLoopProbeFactory::class);
     }
 
-    protected function getLoopSingletonFactoryMock(): MockObject&ILegacyLoopFactory
+    protected function getLoopSingletonFactoryMock(): MockObject&ILoopFactory
     {
-        return $this->createMock(ILegacyLoopFactory::class);
+        return $this->createMock(ILoopFactory::class);
     }
 
     protected function getLoopAutoStarterBuilderMock(): MockObject&ILegacyLoopAutoStarterBuilder
