@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Settings\Detector;
 
-use AlecRabbit\Spinner\Core\Contract\Loop\Probe\ILoopProbe;
+use AlecRabbit\Spinner\Core\Contract\Loop\ILoopProbe;
 use AlecRabbit\Spinner\Core\Settings\Contract\Detector\ILoopSupportDetector;
 use AlecRabbit\Spinner\Core\Settings\Detector\LoopSupportDetector;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;

@@ -35,7 +35,7 @@ use AlecRabbit\Spinner\Core\Contract\ILegacySignalProcessingLegacyProbe;
 use AlecRabbit\Spinner\Core\Contract\ISpinnerState;
 use AlecRabbit\Spinner\Core\Contract\IWeakMap;
 use AlecRabbit\Spinner\Core\Contract\Loop\ILoop;
-use AlecRabbit\Spinner\Core\Contract\Loop\Probe\ILoopProbe;
+use AlecRabbit\Spinner\Core\Contract\Loop\ILoopProbe;
 use AlecRabbit\Spinner\Core\Factory\Contract\IBufferedOutputSingletonFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ICharFrameRevolverFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IConsoleCursorFactory;

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Asynchronous\Factory;
 
-use AlecRabbit\Spinner\Core\Contract\Loop\Probe\ILoopProbe;
+use AlecRabbit\Spinner\Core\Contract\Loop\ILoopProbe;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILegacyLoopProbeFactory;
 use AlecRabbit\Spinner\Exception\DomainException;
 use ArrayObject;

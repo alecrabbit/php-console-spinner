@@ -55,6 +55,11 @@ final class LegacyLoopFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
                     {
                         return new ALoopAdapterOverride();
                     }
+
+                    public static function getCreatorClass(): string
+                    {
+                        throw new \RuntimeException('INTENTIONALLY Not implemented.');
+                    }
                 }
             )
         ;

@@ -88,7 +88,7 @@ use AlecRabbit\Spinner\Core\Contract\ILegacySettingsProvider;
 use AlecRabbit\Spinner\Core\Contract\ILegacySignalHandlersSetup;
 use AlecRabbit\Spinner\Core\Contract\ILegacySignalProcessingLegacyProbe;
 use AlecRabbit\Spinner\Core\Contract\Loop\ILoop;
-use AlecRabbit\Spinner\Core\Contract\Loop\Probe\ILoopProbe;
+use AlecRabbit\Spinner\Core\Contract\Loop\ILoopProbe;
 use AlecRabbit\Spinner\Core\DriverSetup;
 use AlecRabbit\Spinner\Core\Factory\BufferedOutputSingletonFactory;
 use AlecRabbit\Spinner\Core\Factory\CharFrameRevolverFactory;

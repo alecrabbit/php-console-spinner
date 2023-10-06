@@ -20,6 +20,11 @@ class NegativeLoopProbeOverride extends ALoopProbe
      */
     public function createLoop(): ILoop
     {
-        throw new RuntimeException('INTENTIONALLY Not implemented.');
+        throw new \RuntimeException('INTENTIONALLY Not implemented.');
+    }
+
+    public static function getCreatorClass(): string
+    {
+        throw new \RuntimeException('INTENTIONALLY Not implemented.');
     }
 }

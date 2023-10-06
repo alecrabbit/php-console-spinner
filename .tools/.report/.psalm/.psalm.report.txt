@@ -162,6 +162,10 @@
 /app/src/Spinner/Core/Factory/Legacy/LegacyWidgetSettingsFactory.php:30:38:error - PossiblyNullArgument: Argument 1 of AlecRabbit\Spinner\Core\Builder\Settings\Legacy\Contract\ILegacyWidgetSettingsBuilder::withTrailingSpacer cannot be null, possibly null value provided
 /app/src/Spinner/Core/Factory/Legacy/LegacyWidgetSettingsFactory.php:31:36:error - PossiblyNullArgument: Argument 1 of AlecRabbit\Spinner\Core\Builder\Settings\Legacy\Contract\ILegacyWidgetSettingsBuilder::withStylePattern cannot be null, possibly null value provided
 /app/src/Spinner/Core/Factory/Legacy/LegacyWidgetSettingsFactory.php:32:35:error - PossiblyNullArgument: Argument 1 of AlecRabbit\Spinner\Core\Builder\Settings\Legacy\Contract\ILegacyWidgetSettingsBuilder::withCharPattern cannot be null, possibly null value provided
+/app/src/Spinner/Core/Factory/LegacyLoopAutoStarterFactory.php:15:13:error - DeprecatedInterface: AlecRabbit\Spinner\Core\Factory\Contract\ILegacyLoopAutoStarterFactory is marked deprecated
+/app/src/Spinner/Core/Factory/LegacyLoopAutoStarterFactory.php:18:9:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Contract\ILegacySettingsProvider is marked as deprecated
+/app/src/Spinner/Core/Factory/LegacyLoopAutoStarterFactory.php:19:9:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Builder\Contract\ILegacyLoopAutoStarterBuilder is marked as deprecated
+/app/src/Spinner/Core/Factory/LegacyLoopAutoStarterFactory.php:23:31:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Contract\ILegacyLoopAutoStarter is marked as deprecated
 /app/src/Spinner/Core/Factory/SignalHandlersSetupFactory.php:16:9:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Contract\ILegacySettingsProvider is marked as deprecated
 /app/src/Spinner/Core/Factory/SignalHandlersSetupFactory.php:17:9:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Factory\Contract\ILegacyLoopFactory is marked as deprecated
 /app/src/Spinner/Core/Factory/SignalHandlersSetupFactory.php:22:31:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Contract\ILegacySignalHandlersSetup is marked as deprecated

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Factory;
 
 use AlecRabbit\Spinner\Core\Contract\Loop\ILoop;
-use AlecRabbit\Spinner\Core\Contract\Loop\Probe\ILoopProbe;
+use AlecRabbit\Spinner\Core\Contract\Loop\ILoopProbe;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILegacyLoopAutoStarterFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILegacyLoopFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILegacyLoopProbeFactory;

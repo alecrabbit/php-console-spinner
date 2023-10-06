@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Factory;
 
 use AlecRabbit\Spinner\Core\Contract\ILegacySignalProcessingLegacyProbe;
-use AlecRabbit\Spinner\Core\Contract\Loop\Probe\ILoopProbe;
+use AlecRabbit\Spinner\Core\Contract\Loop\ILoopProbe;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopSettingsFactory;
 use AlecRabbit\Spinner\Core\Factory\Legacy\LoopSettingsFactory;
 use AlecRabbit\Spinner\Core\Settings\Legacy\LegacyLoopSettings;

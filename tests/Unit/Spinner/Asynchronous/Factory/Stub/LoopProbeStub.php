@@ -22,4 +22,10 @@ final class LoopProbeStub extends ALoopProbe
     {
         return new ALoopAdapterOverride();
     }
+
+
+    public static function getCreatorClass(): string
+    {
+        throw new \RuntimeException('INTENTIONALLY Not implemented.');
+    }
 }

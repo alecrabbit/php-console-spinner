@@ -7,7 +7,7 @@ namespace AlecRabbit\Spinner\Core\Factory\Legacy;
 use AlecRabbit\Spinner\Contract\Option\AutoStartOption;
 use AlecRabbit\Spinner\Contract\Option\SignalHandlersOption;
 use AlecRabbit\Spinner\Core\Contract\ILegacySignalProcessingLegacyProbe;
-use AlecRabbit\Spinner\Core\Contract\Loop\Probe\ILoopProbe;
+use AlecRabbit\Spinner\Core\Contract\Loop\ILoopProbe;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopSettingsFactory;
 use AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyLoopSettings;
 use AlecRabbit\Spinner\Core\Settings\Legacy\LegacyLoopSettings;
