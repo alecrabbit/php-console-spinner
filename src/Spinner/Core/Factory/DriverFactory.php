@@ -18,7 +18,7 @@ use AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyDriverSettings;
 final class DriverFactory implements IDriverFactory
 {
     /**
-     * @deprecated Do not use this property.
+     * @deprecated Do not use this property. Refactor. This factory should return new instance every time.
      */
     private static ?IDriver $driver = null;
 
@@ -34,8 +34,9 @@ final class DriverFactory implements IDriverFactory
     ) {
     }
 
-    public function getDriver(): IDriver
+    public function create(): IDriver
     {
+        // TODO (2023-10-06 20:04) [Alec Rabbit]: refactor this factory to return new instance every time
         if (self::$driver === null) {
             self::$driver = $this->buildDriver();
 

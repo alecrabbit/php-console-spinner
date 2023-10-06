@@ -47,12 +47,12 @@ final class Facade extends AContainerEnclosure
 
     protected static function attach(ISpinner $spinner): void
     {
-        self::getDriverFactory()->getDriver()->add($spinner);
+        self::getDriverFactory()->create()->add($spinner);
     }
 
     public static function getDriver(): IDriver
     {
-        return self::getDriverFactory()->getDriver();
+        return self::getDriverFactory()->create();
     }
 
     private static function getDriverFactory(): IDriverFactory

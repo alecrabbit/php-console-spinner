@@ -157,7 +157,7 @@ final class DriverFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
                 driverSettings: $driverSettings,
             );
 
-        self::assertSame($driverStub, $driverFactory->getDriver());
+        self::assertSame($driverStub, $driverFactory->create());
     }
 
     protected function getDriverStub(): Stub&IDriver
