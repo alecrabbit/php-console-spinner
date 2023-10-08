@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Factory;
 
-use AlecRabbit\Spinner\Core\Config\Contract\IDriverConfig;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\IDriverBuilder;
 use AlecRabbit\Spinner\Core\Contract\IDriverSetup;
@@ -13,9 +12,11 @@ use AlecRabbit\Spinner\Core\Factory\Contract\IDriverOutputFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ISignalHandlersSetupFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ITimerFactory;
-use AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyDriverSettings;
 
-final class DriverFactory implements IDriverFactory
+/**
+ * @deprecated
+ */
+final class LegacyDriverFactory implements IDriverFactory
 {
     /**
      * @deprecated Do not use this property. Refactor. This factory should return new instance every time.
@@ -29,8 +30,6 @@ final class DriverFactory implements IDriverFactory
         protected ISignalHandlersSetupFactory $signalHandlersSetupFactory,
         protected ITimerFactory $timerFactory,
         protected IDriverSetup $driverSetup,
-        protected ILegacyDriverSettings $driverSettings,
-        protected IDriverConfig $driverConfig,
     ) {
     }
 
@@ -41,8 +40,8 @@ final class DriverFactory implements IDriverFactory
             self::$driver = $this->buildDriver();
 
             $this->driverSetup
-                ->enableInitialization($this->driverSettings->isInitializationEnabled())
-                ->enableLinker($this->driverSettings->isLinkerEnabled())
+                ->enableInitialization(true)
+                ->enableLinker(true)
                 ->setup(self::$driver)
             ;
 
