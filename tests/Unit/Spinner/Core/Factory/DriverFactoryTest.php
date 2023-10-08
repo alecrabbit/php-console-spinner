@@ -77,11 +77,6 @@ final class DriverFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
         ;
         $driverBuilder
             ->expects(self::once())
-            ->method('withDriverSettings')
-            ->willReturnSelf()
-        ;
-        $driverBuilder
-            ->expects(self::once())
             ->method('withTimer')
             ->with(self::isInstanceOf(ITimer::class))
             ->willReturnSelf()
@@ -90,12 +85,6 @@ final class DriverFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
             ->expects(self::once())
             ->method('withInitialInterval')
             ->with(self::isInstanceOf(IInterval::class))
-            ->willReturnSelf()
-        ;
-        $driverBuilder
-            ->expects(self::once())
-            ->method('withDriverConfig')
-            ->with(self::isInstanceOf(IDriverConfig::class))
             ->willReturnSelf()
         ;
         $driverBuilder

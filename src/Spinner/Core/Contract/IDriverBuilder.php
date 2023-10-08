@@ -26,8 +26,4 @@ interface IDriverBuilder
     public function withDriverOutput(IDriverOutput $driverOutput): IDriverBuilder;
 
     public function withObserver(IObserver $observer): IDriverBuilder;
-
-    public function withDriverSettings(ILegacyDriverSettings $driverSettings): IDriverBuilder;
-
-    public function withDriverConfig(IDriverConfig $driverConfig): IDriverBuilder;
 }

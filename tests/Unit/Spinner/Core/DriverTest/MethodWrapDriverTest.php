@@ -61,16 +61,12 @@ final class MethodWrapDriverTest extends TestCaseForDriver
         ?ITimer $timer = null,
         ?IDriverOutput $output = null,
         ?IInterval $initialInterval = null,
-        ?ILegacyDriverSettings $driverSettings = null,
-        ?IDriverConfig $driverConfig = null,
         ?IObserver $observer = null,
     ): IDriver {
         return new class(
             output: $output ?? $this->getDriverOutputMock(),
             timer: $timer ?? $this->getTimerMock(),
             initialInterval: $initialInterval ?? $this->getIntervalMock(),
-            driverSettings: $driverSettings ?? $this->getLegacyDriverSettingsMock(),
-            driverConfig: $driverConfig ?? $this->getDriverConfigMock(),
             observer: $observer,
         ) extends ADriver {
             protected function erase(): void

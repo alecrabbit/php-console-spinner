@@ -67,9 +67,7 @@ final class DriverFactory implements IDriverFactory
             $this->driverBuilder
                 ->withDriverOutput($output)
                 ->withTimer($timer)
-                ->withDriverSettings($this->driverSettings)
                 ->withInitialInterval($interval)
-                ->withDriverConfig($this->driverConfig)
                 ->build()
         ;
     }

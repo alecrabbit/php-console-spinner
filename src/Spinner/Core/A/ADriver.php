@@ -21,8 +21,6 @@ abstract class ADriver extends ASubject implements IDriver
         protected readonly IDriverOutput $output,
         protected readonly ITimer $timer,
         protected readonly IInterval $initialInterval,
-        protected readonly ILegacyDriverSettings $driverSettings,
-        protected readonly IDriverConfig $driverConfig,
         ?IObserver $observer = null,
     ) {
         parent::__construct($observer);
@@ -32,27 +30,17 @@ abstract class ADriver extends ASubject implements IDriver
     /** @inheritDoc */
     public function interrupt(?string $interruptMessage = null): void
     {
-        $this->finalize($interruptMessage ?? $this->getInterruptMessage());
+        $this->finalize($interruptMessage);
     }
 
     /** @inheritDoc */
     public function finalize(?string $finalMessage = null): void
     {
         $this->erase();
-        $this->output->finalize($finalMessage ?? $this->getFinalMessage());
+        $this->output->finalize($finalMessage);
     }
 
     abstract protected function erase(): void;
-
-    protected function getFinalMessage(): ?string
-    {
-        return null;
-    }
-
-    protected function getInterruptMessage(): ?string
-    {
-        return null;
-    }
 
     /** @inheritDoc */
     public function getInterval(): IInterval
