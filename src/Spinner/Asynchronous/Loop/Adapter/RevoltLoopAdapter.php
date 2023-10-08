@@ -17,7 +17,7 @@ final class RevoltLoopAdapter extends ALoopAdapter
     private static bool $stopped = false;
 
     public function __construct(
-        private readonly EventLoop\Driver $revoltLoop
+        private readonly EventLoop\Driver $loop,
     ) {
     }
 
@@ -65,7 +65,7 @@ final class RevoltLoopAdapter extends ALoopAdapter
 
     public function run(): void
     {
-        $this->revoltLoop->run();
+        $this->loop->run();
     }
 
     public function delay(float $delay, Closure $closure): void
@@ -77,7 +77,7 @@ final class RevoltLoopAdapter extends ALoopAdapter
     public function stop(): void
     {
         self::$stopped = true;
-        $this->revoltLoop->stop();
+        $this->loop->stop();
     }
 
     public function onSignal(int $signal, Closure $closure): void

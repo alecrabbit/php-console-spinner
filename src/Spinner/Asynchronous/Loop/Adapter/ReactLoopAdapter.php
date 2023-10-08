@@ -16,7 +16,7 @@ use React\EventLoop\TimerInterface;
 final class ReactLoopAdapter extends ALoopAdapter
 {
     public function __construct(
-        private readonly LoopInterface $reactLoop,
+        private readonly LoopInterface $loop,
     ) {
     }
 
@@ -27,22 +27,22 @@ final class ReactLoopAdapter extends ALoopAdapter
 
     public function repeat(float $interval, Closure $closure): TimerInterface
     {
-        return $this->reactLoop->addPeriodicTimer($interval, $closure);
+        return $this->loop->addPeriodicTimer($interval, $closure);
     }
 
     public function delay(float $delay, Closure $closure): void
     {
-        $this->reactLoop->addTimer($delay, $closure);
+        $this->loop->addTimer($delay, $closure);
     }
 
     public function run(): void
     {
-        $this->reactLoop->run();
+        $this->loop->run();
     }
 
     public function stop(): void
     {
-        $this->reactLoop->stop();
+        $this->loop->stop();
     }
 
     public function cancel(mixed $timer): void
@@ -56,11 +56,11 @@ final class ReactLoopAdapter extends ALoopAdapter
                 )
             );
         }
-        $this->reactLoop->cancelTimer($timer);
+        $this->loop->cancelTimer($timer);
     }
 
     public function onSignal(int $signal, Closure $closure): void
     {
-        $this->reactLoop->addSignal($signal, $closure);
+        $this->loop->addSignal($signal, $closure);
     }
 }

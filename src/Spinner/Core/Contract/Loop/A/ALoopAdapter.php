@@ -21,14 +21,4 @@ abstract class ALoopAdapter implements ILoop
             &
             (E_ERROR | E_CORE_ERROR | E_COMPILE_ERROR | E_USER_ERROR | E_RECOVERABLE_ERROR));
     }
-
-    abstract public function onSignal(int $signal, Closure $closure): void;
-
-    abstract public function stop(): void;
-
-    abstract public function repeat(float $interval, Closure $closure): mixed;
-
-    abstract public function run(): void;
-
-    abstract public function cancel(mixed $timer): void;
 }

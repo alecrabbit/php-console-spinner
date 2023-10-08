@@ -196,7 +196,7 @@ function definitions(): Traversable
             return $container->get(IIntervalNormalizerFactory::class)->create();
         },
         ILoop::class => static function (ContainerInterface $container): ILoop {
-            return $container->get(ILoopFactory::class)->getLoop();
+            return $container->get(ILoopFactory::class)->create();
         },
     ];
 
