@@ -92,6 +92,7 @@ use AlecRabbit\Spinner\Core\Contract\ILegacySignalHandlersSetup;
 use AlecRabbit\Spinner\Core\Contract\ILegacySignalProcessingLegacyProbe;
 use AlecRabbit\Spinner\Core\Contract\Loop\ILoop;
 use AlecRabbit\Spinner\Core\Contract\Loop\ILoopProbe;
+use AlecRabbit\Spinner\Core\Contract\Loop\ILoopProvider;
 use AlecRabbit\Spinner\Core\DriverSetup;
 use AlecRabbit\Spinner\Core\Factory\BufferedOutputSingletonFactory;
 use AlecRabbit\Spinner\Core\Factory\CharFrameRevolverFactory;
@@ -111,6 +112,7 @@ use AlecRabbit\Spinner\Core\Factory\Contract\ILegacySignalProcessingProbeFactory
 use AlecRabbit\Spinner\Core\Factory\Contract\ILegacyTerminalProbeFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILegacyTerminalSettingsFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\ILoopProviderFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopSettingsFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ISignalHandlersSetupFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ISpinnerFactory;
@@ -130,6 +132,7 @@ use AlecRabbit\Spinner\Core\Factory\Legacy\LegacyWidgetSettingsFactory;
 use AlecRabbit\Spinner\Core\Factory\Legacy\LoopSettingsFactory;
 use AlecRabbit\Spinner\Core\Factory\LegacyLoopAutoStarterFactory;
 use AlecRabbit\Spinner\Core\Factory\LegacyLoopFactory;
+use AlecRabbit\Spinner\Core\Factory\LoopProviderFactory;
 use AlecRabbit\Spinner\Core\Factory\SignalHandlersSetupFactory;
 use AlecRabbit\Spinner\Core\Factory\SpinnerFactory;
 use AlecRabbit\Spinner\Core\Factory\StyleFrameRevolverFactory;
@@ -187,7 +190,12 @@ function getDefinitions(): Traversable
         ISettingsProvider::class => static function (ContainerInterface $container): ISettingsProvider {
             return $container->get(ISettingsProviderFactory::class)->create();
         },
-
+        IConfigProvider::class => static function (ContainerInterface $container): IConfigProvider {
+            return $container->get(IConfigProviderFactory::class)->create();
+        },
+        ILoopProvider::class => static function (ContainerInterface $container): ILoopProvider {
+            return $container->get(ILoopProviderFactory::class)->create();
+        },
         IDriverSetup::class => DriverSetup::class,
 
         IDriver::class => static function (ContainerInterface $container): IDriver {
@@ -199,9 +207,9 @@ function getDefinitions(): Traversable
         IIntervalNormalizer::class => static function (ContainerInterface $container): IIntervalNormalizer {
             return $container->get(IIntervalNormalizerFactory::class)->create();
         },
-        ILoop::class => static function (ContainerInterface $container): ILoop {
-            return $container->get(ILoopFactory::class)->create();
-        },
+//        ILoop::class => static function (ContainerInterface $container): ILoop {
+//            return $container->get(ILoopFactory::class)->create();
+//        },
     ];
 
     yield from configs();
@@ -219,9 +227,7 @@ function getDefinitions(): Traversable
 function configs(): Traversable
 {
     yield from [
-        IConfigProvider::class => static function (ContainerInterface $container): IConfigProvider {
-            return $container->get(IConfigProviderFactory::class)->create();
-        },
+
         IConfig::class => static function (ContainerInterface $container): IConfig {
             return $container->get(IConfigProvider::class)->getConfig();
         },
@@ -276,6 +282,7 @@ function factories(): Traversable
 {
     yield from [
         IDriverFactory::class => DriverFactory::class,
+        ILoopProviderFactory::class => LoopProviderFactory::class,
 
         IBufferedOutputSingletonFactory::class => BufferedOutputSingletonFactory::class,
         ICharFrameRevolverFactory::class => CharFrameRevolverFactory::class,

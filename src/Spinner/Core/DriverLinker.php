@@ -9,6 +9,7 @@ use AlecRabbit\Spinner\Contract\Mode\LinkerMode;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\IDriverLinker;
 use AlecRabbit\Spinner\Core\Contract\Loop\ILoop;
+use AlecRabbit\Spinner\Core\Contract\Loop\ILoopProvider;
 use AlecRabbit\Spinner\Exception\LogicException;
 
 final class DriverLinker implements IDriverLinker

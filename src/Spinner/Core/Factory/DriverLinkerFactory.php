@@ -7,13 +7,14 @@ namespace AlecRabbit\Spinner\Core\Factory;
 use AlecRabbit\Spinner\Core\Config\Contract\IDriverConfig;
 use AlecRabbit\Spinner\Core\Contract\IDriverLinker;
 use AlecRabbit\Spinner\Core\Contract\Loop\ILoop;
+use AlecRabbit\Spinner\Core\Contract\Loop\ILoopProvider;
 use AlecRabbit\Spinner\Core\DriverLinker;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDriverLinkerFactory;
 
 final class DriverLinkerFactory implements IDriverLinkerFactory
 {
     public function __construct(
-        protected ILoop $loop,
+        protected ILoopProvider $loopProvider,
         protected IDriverConfig $driverConfig,
     ) {
     }
@@ -22,7 +23,7 @@ final class DriverLinkerFactory implements IDriverLinkerFactory
     {
         return
             new DriverLinker(
-                $this->loop,
+                $this->loopProvider->getLoop(),
                 $this->driverConfig->getLinkerMode(),
             );
     }
