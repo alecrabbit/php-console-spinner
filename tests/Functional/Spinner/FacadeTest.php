@@ -37,6 +37,10 @@ final class FacadeTest extends TestCase
         $loop = Facade::getLoop();
 
         self::assertInstanceOf(ALoopAdapter::class, $loop);
+
+        self::assertSame($loop, Facade::getLoop());
+        self::assertSame($loop, Facade::getLoop());
+        self::assertSame($loop, Facade::getLoop());
     }
 
     #[Test]
