@@ -8,8 +8,5 @@ use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 
 interface ILoopSupportDetector
 {
-    /**
-     * @throws InvalidArgumentException
-     */
     public function isSupported(): bool;
 }

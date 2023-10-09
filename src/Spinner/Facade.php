@@ -16,8 +16,7 @@ final class Facade extends AFacade
 
     public static function getLoop(): ILoop
     {
-//        return self::getLoopProvider()->getLoop(); // TODO: Implement this.
-        return self::getLoopFactory()->create();
+        return self::getLoopProvider()->getLoop();
     }
 
     public static function createSpinner(?ISpinnerSettings $spinnerSettings = null): ISpinner

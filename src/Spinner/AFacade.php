@@ -6,6 +6,7 @@ namespace AlecRabbit\Spinner;
 
 use AlecRabbit\Spinner\Container\A\AContainerEnclosure;
 use AlecRabbit\Spinner\Core\Contract\IDriverSetup;
+use AlecRabbit\Spinner\Core\Contract\Loop\ILoopProvider;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDriverFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ISpinnerFactory;
@@ -19,9 +20,9 @@ abstract class AFacade extends AContainerEnclosure
         return self::getContainer()->get(ISpinnerFactory::class);
     }
 
-    protected static function getLoopFactory(): ILoopFactory
+    protected static function getLoopProvider(): ILoopProvider
     {
-        return self::getContainer()->get(ILoopFactory::class);
+        return self::getContainer()->get(ILoopProvider::class);
     }
 
     protected static function getSettingsProvider(): ISettingsProvider
