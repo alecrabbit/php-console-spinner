@@ -32,10 +32,11 @@ final class LegacyLoopFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
         ?ILegacyLoopProbeFactory $loopProbeFactory = null,
         ?ILegacyLoopAutoStarterFactory $loopAutoStarterFactory = null,
     ): ILoopFactory {
-        return new LegacyLoopFactory(
-            loopProbeFactory: $loopProbeFactory ?? $this->getLoopProbeFactoryMock(),
-            loopAutoStarterFactory: $loopAutoStarterFactory ?? $this->getLoopAutoStarterFactoryMock(),
-        );
+        return
+            new LegacyLoopFactory(
+                loopProbeFactory: $loopProbeFactory ?? $this->getLoopProbeFactoryMock(),
+                loopAutoStarterFactory: $loopAutoStarterFactory ?? $this->getLoopAutoStarterFactoryMock(),
+            );
     }
 
     protected function getLoopProbeFactoryMock(): MockObject&ILegacyLoopProbeFactory

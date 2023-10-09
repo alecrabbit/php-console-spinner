@@ -5,14 +5,41 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Factory;
 
 use AlecRabbit\Spinner\Core\Contract\Loop\ILoop;
+use AlecRabbit\Spinner\Core\Contract\Loop\ILoopCreator;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopFactory;
-use RuntimeException;
+use AlecRabbit\Spinner\Exception\LoopException;
 
-final class LoopFactory implements ILoopFactory
+final readonly class LoopFactory implements ILoopFactory
 {
+    /**
+     * @param class-string<ILoopCreator> $loopCreator
+     */
+    public function __construct(
+        protected string $loopCreator,
+    ) {
+    }
+
     public function create(): ILoop
     {
-        // TODO: Implement create() method.
-        throw new RuntimeException('Not implemented.');
+        self::assertClass($this->loopCreator);
+
+        return ($this->loopCreator)::create();
+    }
+
+    /**
+     * @param class-string<ILoopCreator> $loopCreator
+     * @throws LoopException
+     */
+    private static function assertClass(string $loopCreator): void
+    {
+        if (is_subclass_of($loopCreator, ILoopCreator::class) === false) {
+            throw new LoopException(
+                sprintf(
+                    'Class "%s" must implement "%s" interface.',
+                    $loopCreator,
+                    ILoopCreator::class
+                ),
+            );
+        }
     }
 }
