@@ -169,7 +169,7 @@ final class AutoStartModeSolverTest extends TestCase
 
         $settingsProvider
             ->expects(self::once())
-            ->method('getSettings')
+            ->method('getUserSettings')
             ->willReturn($userSettings)
         ;
         $settingsProvider

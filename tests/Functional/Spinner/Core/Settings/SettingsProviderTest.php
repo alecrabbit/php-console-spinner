@@ -48,7 +48,7 @@ final class SettingsProviderTest extends TestCase
             settings: $settings,
         );
 
-        self::assertSame($settings, $provider->getSettings());
+        self::assertSame($settings, $provider->getUserSettings());
     }
 
     #[Test]

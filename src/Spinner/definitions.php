@@ -53,6 +53,7 @@ use AlecRabbit\Spinner\Core\Config\Contract\Factory\IRootWidgetConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\IWidgetConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\IConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IDriverConfig;
+use AlecRabbit\Spinner\Core\Config\Contract\IOutputConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IRootWidgetConfig;
 use AlecRabbit\Spinner\Core\Config\Factory\AuxConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Factory\ConfigFactory;
@@ -190,7 +191,7 @@ function definitions(): Traversable
             return $container->get(IDriverFactory::class)->getDriver();
         },
         IDriverLinker::class => static function (ContainerInterface $container): IDriverLinker {
-            return $container->get(IDriverLinkerFactory::class)->getDriverLinker();
+            return $container->get(IDriverLinkerFactory::class)->create();
         },
         IIntervalNormalizer::class => static function (ContainerInterface $container): IIntervalNormalizer {
             return $container->get(IIntervalNormalizerFactory::class)->create();
@@ -223,6 +224,9 @@ function configs(): Traversable
         },
         IDriverConfig::class => static function (ContainerInterface $container): IDriverConfig {
             return $container->get(IConfig::class)->get(IDriverConfig::class);
+        },
+        IOutputConfig::class => static function (ContainerInterface $container): IOutputConfig {
+            return $container->get(IConfig::class)->get(IOutputConfig::class);
         },
     ];
 }

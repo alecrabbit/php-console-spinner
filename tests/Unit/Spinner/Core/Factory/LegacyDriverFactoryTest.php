@@ -101,18 +101,6 @@ final class LegacyDriverFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
         $driverSetup = $this->getDriverSetupMock();
         $driverSetup
             ->expects(self::once())
-            ->method('enableInitialization')
-            ->with(true)
-            ->willReturnSelf()
-        ;
-        $driverSetup
-            ->expects(self::once())
-            ->method('enableLinker')
-            ->with(true)
-            ->willReturnSelf()
-        ;
-        $driverSetup
-            ->expects(self::once())
             ->method('setup')
         ;
 

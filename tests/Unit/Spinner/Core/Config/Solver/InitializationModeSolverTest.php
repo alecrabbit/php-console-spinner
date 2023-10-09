@@ -170,7 +170,7 @@ final class InitializationModeSolverTest extends TestCase
 
         $settingsProvider
             ->expects(self::once())
-            ->method('getSettings')
+            ->method('getUserSettings')
             ->willReturn($userSettings)
         ;
         $settingsProvider

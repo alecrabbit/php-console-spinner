@@ -16,7 +16,7 @@ final readonly class SettingsProvider implements ISettingsProvider
     ) {
     }
 
-    public function getSettings(): ISettings
+    public function getUserSettings(): ISettings
     {
         return $this->settings;
     }

@@ -6,7 +6,7 @@ namespace AlecRabbit\Spinner\Core\Settings\Contract;
 
 interface ISettingsProvider
 {
-    public function getSettings(): ISettings;
+    public function getUserSettings(): ISettings;
 
     public function getDefaultSettings(): ISettings;
 

@@ -18,7 +18,7 @@ final readonly class StylingMethodModeSolver extends ASolver implements IStyling
     {
         return
             $this->doSolve(
-                $this->extractOption($this->settingsProvider->getSettings()),
+                $this->extractOption($this->settingsProvider->getUserSettings()),
                 $this->extractOption($this->settingsProvider->getDetectedSettings()),
                 $this->extractOption($this->settingsProvider->getDefaultSettings()),
             );

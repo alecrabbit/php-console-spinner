@@ -17,8 +17,11 @@ use AlecRabbit\Spinner\Core\Settings\Contract\ISpinnerSettings;
 
 final class Facade extends AContainerEnclosure
 {
+    private static ?IDriver $driver = null;
+
     public static function getLoop(): ILoop
     {
+//        return self::getLoopProvider()->getLoop(); // TODO: Implement this.
         return self::getLoopFactory()->create();
     }
 
@@ -34,7 +37,7 @@ final class Facade extends AContainerEnclosure
         $spinner = $spinnerFactory->create($spinnerSettings);
 
         if ($spinnerSettings?->isAutoAttach() ?? true) {
-            self::attach($spinner);
+            self::getDriver()->add($spinner);
         }
 
         return $spinner;
@@ -45,14 +48,12 @@ final class Facade extends AContainerEnclosure
         return self::getContainer()->get(ISpinnerFactory::class);
     }
 
-    protected static function attach(ISpinner $spinner): void
-    {
-        self::getDriverFactory()->create()->add($spinner);
-    }
-
     public static function getDriver(): IDriver
     {
-        return self::getDriverFactory()->create();
+        if (self::$driver === null) {
+            self::$driver = self::getDriverFactory()->create();
+        }
+        return self::$driver;
     }
 
     private static function getDriverFactory(): IDriverFactory
@@ -63,7 +64,7 @@ final class Facade extends AContainerEnclosure
     public static function getSettings(): ISettings
     {
         return
-            self::getSettingsProvider()->getSettings();
+            self::getSettingsProvider()->getUserSettings();
     }
 
     protected static function getSettingsProvider(): ISettingsProvider

@@ -10,9 +10,6 @@ use AlecRabbit\Spinner\Core\Contract\IDriverSetup;
 
 final class DriverSetup implements IDriverSetup
 {
-    private bool $initializationEnabled = false;
-    private bool $linkerEnabled = false;
-
     public function __construct(
         protected IDriverLinker $linker,
     ) {
@@ -20,24 +17,8 @@ final class DriverSetup implements IDriverSetup
 
     public function setup(IDriver $driver): void
     {
-        if ($this->initializationEnabled) {
-            $driver->initialize();
-        }
+        $driver->initialize();
 
-        if ($this->linkerEnabled) {
-            $this->linker->link($driver);
-        }
-    }
-
-    public function enableInitialization(bool $enable): IDriverSetup
-    {
-        $this->initializationEnabled = $enable;
-        return $this;
-    }
-
-    public function enableLinker(bool $enable): IDriverSetup
-    {
-        $this->linkerEnabled = $enable;
-        return $this;
+        $this->linker->link($driver);
     }
 }

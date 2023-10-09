@@ -17,7 +17,7 @@ final readonly class LinkerModeSolver extends ASolver implements Contract\ILinke
     {
         return
             $this->doSolve(
-                $this->extractOption($this->settingsProvider->getSettings()),
+                $this->extractOption($this->settingsProvider->getUserSettings()),
                 $this->extractOption($this->settingsProvider->getDetectedSettings()),
                 $this->extractOption($this->settingsProvider->getDefaultSettings()),
             );

@@ -18,11 +18,6 @@ use AlecRabbit\Spinner\Core\Factory\Contract\ITimerFactory;
  */
 final class LegacyDriverFactory implements IDriverFactory
 {
-    /**
-     * @deprecated Do not use this property. Refactor. This factory should return new instance every time.
-     */
-    private static ?IDriver $driver = null;
-
     public function __construct(
         protected IIntervalFactory $intervalFactory,
         protected IDriverBuilder $driverBuilder,
@@ -35,23 +30,18 @@ final class LegacyDriverFactory implements IDriverFactory
 
     public function create(): IDriver
     {
-        // TODO (2023-10-06 20:04) [Alec Rabbit]: refactor this factory to return new instance every time
-        if (self::$driver === null) {
-            self::$driver = $this->buildDriver();
+        $driver = $this->buildDriver();
 
-            $this->driverSetup
-                ->enableInitialization(true)
-                ->enableLinker(true)
-                ->setup(self::$driver)
-            ;
+        $this->driverSetup
+            ->setup($driver)
+        ;
 
-            $this->signalHandlersSetupFactory
-                ->create()
-                ->setup(self::$driver)
-            ;
-        }
+        $this->signalHandlersSetupFactory
+            ->create()
+            ->setup($driver)
+        ;
 
-        return self::$driver;
+        return $driver;
     }
 
     private function buildDriver(): IDriver
