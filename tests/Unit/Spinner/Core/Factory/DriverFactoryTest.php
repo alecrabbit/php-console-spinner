@@ -15,50 +15,41 @@ use AlecRabbit\Spinner\Core\Factory\Contract\IDriverOutputFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ISignalHandlersSetupFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ITimerFactory;
-use AlecRabbit\Spinner\Core\Factory\LegacyDriverFactory;
+use AlecRabbit\Spinner\Core\Factory\DriverFactory;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\MockObject\Stub;
 
-final class LegacyDriverFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
+final class DriverFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
 {
     #[Test]
     public function canBeInstantiated(): void
     {
         $driverFactory = $this->getTesteeInstance();
 
-        self::assertInstanceOf(LegacyDriverFactory::class, $driverFactory);
+        self::assertInstanceOf(DriverFactory::class, $driverFactory);
     }
 
     public function getTesteeInstance(
-        ?IIntervalFactory $intervalFactory = null,
         ?IDriverBuilder $driverBuilder = null,
+        ?IIntervalFactory $intervalFactory = null,
         ?IDriverOutputFactory $driverOutputFactory = null,
         ?ITimerFactory $timerFactory = null,
-        ?IDriverSetup $driverSetup = null,
-        ?ISignalHandlersSetupFactory $loopSetupFactory = null,
     ): IDriverFactory {
         return
-            new LegacyDriverFactory(
-                intervalFactory: $intervalFactory ?? $this->getIntervalFactoryMock(),
+            new DriverFactory(
                 driverBuilder: $driverBuilder ?? $this->getDriverBuilderMock(),
+                intervalFactory: $intervalFactory ?? $this->getIntervalFactoryMock(),
                 driverOutputFactory: $driverOutputFactory ?? $this->getDriverOutputFactoryMock(),
-                signalHandlersSetupFactory: $loopSetupFactory ?? $this->getSignalHandlersSetupFactoryMock(),
                 timerFactory: $timerFactory ?? $this->getTimerFactoryMock(),
-                driverSetup: $driverSetup ?? $this->getDriverSetupMock(),
             );
-    }
-
-    protected function getSignalHandlersSetupFactoryMock(): MockObject&ISignalHandlersSetupFactory
-    {
-        return $this->createMock(ISignalHandlersSetupFactory::class);
     }
 
     #[Test]
     public function canCreate(): void
     {
-        $driverStub = $this->getDriverStub();
+        $driver = $this->getDriverMock();
 
         $driverBuilder = $this->getDriverBuilderMock();
         $driverBuilder
@@ -81,38 +72,44 @@ final class LegacyDriverFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
         $driverBuilder
             ->expects(self::once())
             ->method('build')
-            ->willReturn($driverStub)
+            ->willReturn($driver)
         ;
 
         $timerFactory = $this->getTimerFactoryMock();
         $timerFactory
             ->expects(self::once())
             ->method('create')
-            ->willReturn($this->getTimerStub())
+            ->willReturn($this->getTimerMock())
         ;
 
         $driverOutputFactory = $this->getDriverOutputFactoryMock();
         $driverOutputFactory
             ->expects(self::once())
             ->method('create')
-            ->willReturn($this->getDriverOutputStub())
+            ->willReturn($this->getDriverOutputMock())
         ;
 
-        $driverSetup = $this->getDriverSetupMock();
-        $driverSetup
+        $intervalFactory = $this->getIntervalFactoryMock();
+        $intervalFactory
             ->expects(self::once())
-            ->method('setup')
+            ->method('createStill')
+            ->willReturn($this->getIntervalMock())
         ;
 
         $driverFactory =
             $this->getTesteeInstance(
                 driverBuilder: $driverBuilder,
+                intervalFactory: $intervalFactory,
                 driverOutputFactory: $driverOutputFactory,
                 timerFactory: $timerFactory,
-                driverSetup: $driverSetup,
             );
 
-        self::assertSame($driverStub, $driverFactory->create());
+        self::assertSame($driver, $driverFactory->create());
+    }
+
+    protected function getSignalHandlersSetupFactoryMock(): MockObject&ISignalHandlersSetupFactory
+    {
+        return $this->createMock(ISignalHandlersSetupFactory::class);
     }
 
     protected function getDriverStub(): Stub&IDriver

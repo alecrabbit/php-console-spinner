@@ -26,13 +26,11 @@ final class SignalHandlersSetupTest extends TestCaseWithPrebuiltMocksAndStubs
     public function getTesteeInstance(
         ?ILoop $loop = null,
         ?ILegacyLoopSettings $settings = null,
-        ?ILegacyDriverSettings $driverSettings = null
     ): ILegacySignalHandlersSetup {
         return
             new LegacySignalHandlersSetup(
                 loop: $loop ?? $this->getLoopMock(),
                 loopSettings: $settings ?? $this->getLegacyLoopSettingsMock(),
-                driverSettings: $driverSettings ?? $this->getLegacyDriverSettingsMock(),
             );
     }
 

@@ -20,7 +20,6 @@ final class LegacySignalHandlersSetup implements ILegacySignalHandlersSetup
     public function __construct(
         protected ILoop $loop,
         protected ILegacyLoopSettings $loopSettings,
-        protected ILegacyDriverSettings $driverSettings,
     ) {
     }
 
@@ -50,7 +49,7 @@ final class LegacySignalHandlersSetup implements ILegacySignalHandlersSetup
         yield from [
             // @codeCoverageIgnoreStart
             SIGINT => function () use ($driver): void {
-                $driver->interrupt($this->driverSettings->getInterruptMessage());
+                $driver->interrupt();
                 $this->loop->stop();
             },
             // @codeCoverageIgnoreEnd

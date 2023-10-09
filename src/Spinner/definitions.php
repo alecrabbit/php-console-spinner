@@ -114,7 +114,7 @@ use AlecRabbit\Spinner\Core\Factory\Contract\ISignalHandlersSetupFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ISpinnerFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IStyleFrameRevolverFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ITimerFactory;
-use AlecRabbit\Spinner\Core\Factory\LegacyDriverFactory;
+use AlecRabbit\Spinner\Core\Factory\DriverFactory;
 use AlecRabbit\Spinner\Core\Factory\DriverLinkerFactory;
 use AlecRabbit\Spinner\Core\Factory\DriverOutputFactory;
 use AlecRabbit\Spinner\Core\Factory\FrameCollectionFactory;
@@ -272,6 +272,8 @@ function solvers(): Traversable
 function factories(): Traversable
 {
     yield from [
+        IDriverFactory::class => DriverFactory::class,
+
         IBufferedOutputSingletonFactory::class => BufferedOutputSingletonFactory::class,
         ICharFrameRevolverFactory::class => CharFrameRevolverFactory::class,
         IConfigFactory::class => ConfigFactory::class,
@@ -378,7 +380,6 @@ function substitutes(): Traversable
 function legacy(): Traversable
 {
     yield from [
-        IDriverFactory::class => LegacyDriverFactory::class,
         ILegacyAuxSettingsBuilder::class => LegacyAuxSettingsBuilder::class,
         ILegacyDriverSettingsBuilder::class => LegacyDriverSettingsBuilder::class,
         ILegacySettingsProviderBuilder::class => LegacySettingsProviderBuilder::class,

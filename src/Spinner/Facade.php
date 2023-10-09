@@ -6,6 +6,7 @@ namespace AlecRabbit\Spinner;
 
 use AlecRabbit\Spinner\Container\A\AContainerEnclosure;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
+use AlecRabbit\Spinner\Core\Contract\IDriverSetup;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use AlecRabbit\Spinner\Core\Contract\Loop\ILoop;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDriverFactory;
@@ -25,7 +26,7 @@ final class Facade extends AContainerEnclosure
         return self::getLoopFactory()->create();
     }
 
-    private static function getLoopFactory(): ILoopFactory
+    protected static function getLoopFactory(): ILoopFactory
     {
         return self::getContainer()->get(ILoopFactory::class);
     }
@@ -43,7 +44,7 @@ final class Facade extends AContainerEnclosure
         return $spinner;
     }
 
-    private static function getSpinnerFactory(): ISpinnerFactory
+    protected static function getSpinnerFactory(): ISpinnerFactory
     {
         return self::getContainer()->get(ISpinnerFactory::class);
     }
@@ -52,13 +53,24 @@ final class Facade extends AContainerEnclosure
     {
         if (self::$driver === null) {
             self::$driver = self::getDriverFactory()->create();
+            self::setupDriver(self::$driver);
         }
         return self::$driver;
     }
 
-    private static function getDriverFactory(): IDriverFactory
+    protected static function getDriverFactory(): IDriverFactory
     {
         return self::getContainer()->get(IDriverFactory::class);
+    }
+
+    protected static function setupDriver(IDriver $driver): void
+    {
+        self::getDriverSetup()->setup($driver);
+    }
+
+    protected static function getDriverSetup(): IDriverSetup
+    {
+        return self::getContainer()->get(IDriverSetup::class);
     }
 
     public static function getSettings(): ISettings
