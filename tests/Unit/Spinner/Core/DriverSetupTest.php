@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core;
 
-use AlecRabbit\Spinner\Contract\Mode\InitializationMode;
-use AlecRabbit\Spinner\Core\Config\Contract\IDriverConfig;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\IDriverLinker;
 use AlecRabbit\Spinner\Core\Contract\IDriverSetup;
@@ -37,12 +35,6 @@ final class DriverSetupTest extends TestCase
         return $this->createMock(IDriverLinker::class);
     }
 
-
-    protected function getDriverMock(): MockObject&IDriver
-    {
-        return $this->createMock(IDriver::class);
-    }
-
     #[Test]
     public function doesSetup(): void
     {
@@ -61,5 +53,10 @@ final class DriverSetupTest extends TestCase
         $driverSetup = $this->getTesteeInstance($driverLinker);
 
         $driverSetup->setup($driver);
+    }
+
+    protected function getDriverMock(): MockObject&IDriver
+    {
+        return $this->createMock(IDriver::class);
     }
 }

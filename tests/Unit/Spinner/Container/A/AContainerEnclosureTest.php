@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Container\A;
 
+use AlecRabbit\Spinner\Container\A\AContainerEnclosure;
 use AlecRabbit\Spinner\Container\Exception\ContainerException;
 use AlecRabbit\Tests\TestCase\TestCase;
 use AlecRabbit\Tests\Unit\Spinner\Container\A\Override\AContainerEnclosureOverride;
@@ -13,14 +14,14 @@ use Psr\Container\ContainerInterface;
 
 final class AContainerEnclosureTest extends TestCase
 {
-    private const CONTAINER = 'container';
+    private const GET_CONTAINER = 'getContainer';
     private static ?ContainerInterface $container;
 
     #[Test]
     public function canSetContainer(): void
     {
         $container = $this->getContainerMock();
-        AContainerEnclosureOverride::setContainer($container);
+        AContainerEnclosure::setContainer($container);
 
         $this->assertSame($container, self::extractContainer());
     }
@@ -32,12 +33,12 @@ final class AContainerEnclosureTest extends TestCase
 
     protected static function setContainer(?ContainerInterface $container): void
     {
-        self::setPropertyValue(AContainerEnclosureOverride::class, self::CONTAINER, $container);
+        AContainerEnclosure::setContainer($container);
     }
 
     protected static function extractContainer(): mixed
     {
-        return self::getPropertyValue(self::CONTAINER, AContainerEnclosureOverride::class);
+        return self::callMethod(AContainerEnclosureOverride::class, self::GET_CONTAINER);
     }
 
     #[Test]
@@ -46,7 +47,7 @@ final class AContainerEnclosureTest extends TestCase
         $this->expectException(ContainerException::class);
         $this->expectExceptionMessage('Container is not set.');
 
-        self::callMethod(AContainerEnclosureOverride::class, 'getContainer');
+        self::extractContainer();
     }
 
     protected function setUp(): void

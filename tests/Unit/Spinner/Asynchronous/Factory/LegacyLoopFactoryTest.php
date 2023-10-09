@@ -8,13 +8,14 @@ use AlecRabbit\Spinner\Core\Contract\Loop\A\ALoopAdapter;
 use AlecRabbit\Spinner\Core\Contract\Loop\A\ALoopProbe;
 use AlecRabbit\Spinner\Core\Contract\Loop\ILoop;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILegacyLoopAutoStarterFactory;
-use AlecRabbit\Spinner\Core\Factory\Contract\ILoopFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILegacyLoopProbeFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\ILoopFactory;
 use AlecRabbit\Spinner\Core\Factory\LegacyLoopFactory;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use AlecRabbit\Tests\Unit\Spinner\Asynchronous\Override\ALoopAdapterOverride;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
+use RuntimeException;
 
 final class LegacyLoopFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
 {
@@ -58,7 +59,7 @@ final class LegacyLoopFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
 
                     public static function getCreatorClass(): string
                     {
-                        throw new \RuntimeException('INTENTIONALLY Not implemented.');
+                        throw new RuntimeException('INTENTIONALLY Not implemented.');
                     }
                 }
             )

@@ -9,7 +9,7 @@ use Psr\Container\ContainerInterface;
 
 abstract class AContainerEnclosure
 {
-    protected static ?ContainerInterface $container = null;
+    private static ?ContainerInterface $container = null;
 
     /**
      * @codeCoverageIgnore
@@ -25,7 +25,7 @@ abstract class AContainerEnclosure
             self::$container ?? throw new ContainerException('Container is not set.');
     }
 
-    public static function setContainer(ContainerInterface $container): void
+    public static function setContainer(?ContainerInterface $container): void
     {
         self::$container = $container;
     }

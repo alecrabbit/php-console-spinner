@@ -6,7 +6,6 @@ namespace AlecRabbit\Tests\Functional\Spinner;
 
 use AlecRabbit\Spinner\Container\Contract\IDefinitionRegistry;
 use AlecRabbit\Spinner\Core\Contract\Loop\A\ALoopAdapter;
-use AlecRabbit\Spinner\Core\Driver;
 use AlecRabbit\Spinner\Core\Settings\Settings;
 use AlecRabbit\Spinner\Facade;
 use AlecRabbit\Tests\TestCase\TestCase;

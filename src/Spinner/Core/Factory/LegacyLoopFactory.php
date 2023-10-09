@@ -7,8 +7,8 @@ namespace AlecRabbit\Spinner\Core\Factory;
 use AlecRabbit\Spinner\Core\Contract\Loop\ILoop;
 use AlecRabbit\Spinner\Core\Contract\Loop\ILoopProbe;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILegacyLoopAutoStarterFactory;
-use AlecRabbit\Spinner\Core\Factory\Contract\ILoopFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILegacyLoopProbeFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\ILoopFactory;
 
 /**
  * @deprecated

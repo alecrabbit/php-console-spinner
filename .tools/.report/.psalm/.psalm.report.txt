@@ -1,7 +1,16 @@
+/app/src/Spinner/AFacade.php:17:52:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Core\Factory\Contract\ISpinnerFactory' for AlecRabbit\Spinner\AFacade::getSpinnerFactory
+/app/src/Spinner/AFacade.php:19:16:error - MixedReturnStatement: Could not infer a return type
+/app/src/Spinner/AFacade.php:22:49:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Core\Factory\Contract\ILoopFactory' for AlecRabbit\Spinner\AFacade::getLoopFactory
+/app/src/Spinner/AFacade.php:24:16:error - MixedReturnStatement: Could not infer a return type
+/app/src/Spinner/AFacade.php:27:54:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Core\Settings\Contract\ISettingsProvider' for AlecRabbit\Spinner\AFacade::getSettingsProvider
+/app/src/Spinner/AFacade.php:29:16:error - MixedReturnStatement: Could not infer a return type
+/app/src/Spinner/AFacade.php:32:51:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Core\Factory\Contract\IDriverFactory' for AlecRabbit\Spinner\AFacade::getDriverFactory
+/app/src/Spinner/AFacade.php:34:16:error - MixedReturnStatement: Could not infer a return type
+/app/src/Spinner/AFacade.php:37:49:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Core\Contract\IDriverSetup' for AlecRabbit\Spinner\AFacade::getDriverSetup
+/app/src/Spinner/AFacade.php:39:16:error - MixedReturnStatement: Could not infer a return type
 /app/src/Spinner/Asynchronous/Factory/LegacyLoopProbeFactory.php:16:13:error - DeprecatedInterface: AlecRabbit\Spinner\Core\Factory\Contract\ILegacyLoopProbeFactory is marked deprecated
 /app/src/Spinner/Asynchronous/Factory/LegacyLoopProbeFactory.php:16:13:error - DeprecatedInterface: AlecRabbit\Spinner\Contract\Probe\ILegacyStaticProbeFactory is marked deprecated
-/app/src/Spinner/Asynchronous/Loop/Adapter/RevoltLoopAdapter.php:53:9:error - UnsupportedPropertyReferenceUsage: This reference cannot be analyzed by Psalm.
-/app/src/Spinner/Asynchronous/bootstrap.php:11:1:error - UndefinedClass: Class, interface or enum named AlecRabbit\Spinner\Probes does not exist
+/app/src/Spinner/Asynchronous/Loop/Adapter/RevoltLoopAdapter.php:52:9:error - UnsupportedPropertyReferenceUsage: This reference cannot be analyzed by Psalm.
 /app/src/Spinner/Container/Container.php:34:9:error - MixedAssignment: Unable to determine the type that $this->serviceSpawner is being assigned to
 /app/src/Spinner/Container/Container.php:35:30:error - MixedPropertyTypeCoercion: $this->definitions expects 'ArrayObject<string, callable|object|string>',  parent type `ArrayObject<mixed, mixed>` provided
 /app/src/Spinner/Container/Container.php:36:27:error - MixedPropertyTypeCoercion: $this->services expects 'ArrayObject<string, object>',  parent type `ArrayObject<mixed, mixed>` provided
@@ -18,25 +27,29 @@
 /app/src/Spinner/Container/ServiceSpawner.php:101:20:error - MixedMethodCall: Cannot call constructor on an unknown class
 /app/src/Spinner/Container/ServiceSpawner.php:128:59:error - MixedInferredReturnType: Could not verify return type 'object' for AlecRabbit\Spinner\Container\ServiceSpawner::getServiceFromContainer
 /app/src/Spinner/Container/ServiceSpawner.php:130:16:error - MixedReturnStatement: Could not infer a return type
-/app/src/Spinner/Contract/IProbeFactory.php:9:33:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Contract\ILegacyProbe is marked as deprecated
-/app/src/Spinner/Core/A/ADriver.php:23:9:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyDriverSettings is marked as deprecated
+/app/src/Spinner/Contract/IProbeFactory.php:12:33:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Contract\ILegacyProbe is marked as deprecated
 /app/src/Spinner/Core/Builder/BufferedOutputBuilder.php:21:41:error - PossiblyNullArgument: Argument 1 of AlecRabbit\Spinner\Core\Output\StreamBufferedOutput::__construct cannot be null, possibly null value provided
 /app/src/Spinner/Core/Builder/ConsoleCursorBuilder.php:25:17:error - ArgumentTypeCoercion: Argument 1 of AlecRabbit\Spinner\Core\Output\ConsoleCursor::__construct expects AlecRabbit\Spinner\Contract\Output\IBufferedOutput, but parent type AlecRabbit\Spinner\Contract\Output\IOutput|null provided
 /app/src/Spinner/Core/Builder/ConsoleCursorBuilder.php:25:17:error - PossiblyNullArgument: Argument 1 of AlecRabbit\Spinner\Core\Output\ConsoleCursor::__construct cannot be null, possibly null value provided
 /app/src/Spinner/Core/Builder/ConsoleCursorBuilder.php:26:17:error - PossiblyNullArgument: Argument 2 of AlecRabbit\Spinner\Core\Output\ConsoleCursor::__construct cannot be null, possibly null value provided
+/app/src/Spinner/Core/Builder/Contract/ILegacyLoopAutoStarterBuilder.php:15:30:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Contract\ILegacyLoopAutoStarter is marked as deprecated
+/app/src/Spinner/Core/Builder/Contract/ILegacyLoopAutoStarterBuilder.php:17:34:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyLoopSettings is marked as deprecated
 /app/src/Spinner/Core/Builder/Contract/ISignalHandlersSetupBuilder.php:14:30:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Contract\ILegacySignalHandlersSetup is marked as deprecated
 /app/src/Spinner/Core/Builder/Contract/ISignalHandlersSetupBuilder.php:16:38:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyLoopSettings is marked as deprecated
 /app/src/Spinner/Core/Builder/Contract/ISignalHandlersSetupBuilder.php:20:40:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyDriverSettings is marked as deprecated
-/app/src/Spinner/Core/Builder/DriverBuilder.php:20:13:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyDriverSettings is marked as deprecated
-/app/src/Spinner/Core/Builder/DriverBuilder.php:32:40:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyDriverSettings is marked as deprecated
-/app/src/Spinner/Core/Builder/DriverBuilder.php:67:25:error - PossiblyNullArgument: Argument 1 of AlecRabbit\Spinner\Core\Driver::__construct cannot be null, possibly null value provided
-/app/src/Spinner/Core/Builder/DriverBuilder.php:68:24:error - PossiblyNullArgument: Argument 2 of AlecRabbit\Spinner\Core\Driver::__construct cannot be null, possibly null value provided
-/app/src/Spinner/Core/Builder/DriverBuilder.php:69:34:error - PossiblyNullArgument: Argument 3 of AlecRabbit\Spinner\Core\Driver::__construct cannot be null, possibly null value provided
-/app/src/Spinner/Core/Builder/DriverBuilder.php:70:33:error - PossiblyNullArgument: Argument 4 of AlecRabbit\Spinner\Core\Driver::__construct cannot be null, possibly null value provided
+/app/src/Spinner/Core/Builder/DriverBuilder.php:60:25:error - PossiblyNullArgument: Argument 1 of AlecRabbit\Spinner\Core\Driver::__construct cannot be null, possibly null value provided
+/app/src/Spinner/Core/Builder/DriverBuilder.php:62:34:error - PossiblyNullArgument: Argument 3 of AlecRabbit\Spinner\Core\Driver::__construct cannot be null, possibly null value provided
 /app/src/Spinner/Core/Builder/DriverOutputBuilder.php:24:21:error - PossiblyNullArgument: Argument 1 of AlecRabbit\Spinner\Core\Output\DriverOutput::__construct cannot be null, possibly null value provided
 /app/src/Spinner/Core/Builder/DriverOutputBuilder.php:25:21:error - PossiblyNullArgument: Argument 2 of AlecRabbit\Spinner\Core\Output\DriverOutput::__construct cannot be null, possibly null value provided
 /app/src/Spinner/Core/Builder/IntegerNormalizerBuilder.php:22:13:error - PossiblyNullArgument: Argument 1 of AlecRabbit\Spinner\Core\IntegerNormalizer::__construct cannot be null, possibly null value provided
 /app/src/Spinner/Core/Builder/IntegerNormalizerBuilder.php:23:13:error - PossiblyNullArgument: Argument 2 of AlecRabbit\Spinner\Core\IntegerNormalizer::__construct cannot be null, possibly null value provided
+/app/src/Spinner/Core/Builder/LegacyLoopAutoStarterBuilder.php:16:13:error - DeprecatedInterface: AlecRabbit\Spinner\Core\Builder\Contract\ILegacyLoopAutoStarterBuilder is marked deprecated
+/app/src/Spinner/Core/Builder/LegacyLoopAutoStarterBuilder.php:18:13:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyLoopSettings is marked as deprecated
+/app/src/Spinner/Core/Builder/LegacyLoopAutoStarterBuilder.php:20:30:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Contract\ILegacyLoopAutoStarter is marked as deprecated
+/app/src/Spinner/Core/Builder/LegacyLoopAutoStarterBuilder.php:25:13:error - DeprecatedClass: AlecRabbit\Spinner\Core\LegacyLoopAutoStarter is marked deprecated
+/app/src/Spinner/Core/Builder/LegacyLoopAutoStarterBuilder.php:26:17:error - PossiblyNullArgument: Argument 1 of AlecRabbit\Spinner\Core\LegacyLoopAutoStarter::__construct cannot be null, possibly null value provided
+/app/src/Spinner/Core/Builder/LegacyLoopAutoStarterBuilder.php:38:34:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyLoopSettings is marked as deprecated
+/app/src/Spinner/Core/Builder/LegacyLoopAutoStarterBuilder.php:38:66:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Builder\Contract\ILegacyLoopAutoStarterBuilder is marked as deprecated
 /app/src/Spinner/Core/Builder/Settings/Legacy/Contract/ILegacyAuxSettingsBuilder.php:14:30:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyAuxSettings is marked as deprecated
 /app/src/Spinner/Core/Builder/Settings/Legacy/Contract/ILegacyDriverSettingsBuilder.php:14:30:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyDriverSettings is marked as deprecated
 /app/src/Spinner/Core/Builder/Settings/Legacy/Contract/ILegacySettingsProviderBuilder.php:14:30:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Contract\ILegacySettingsProvider is marked as deprecated
@@ -49,6 +62,7 @@
 /app/src/Spinner/Core/Builder/Settings/Legacy/LegacyDriverSettingsBuilder.php:18:30:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyDriverSettings is marked as deprecated
 /app/src/Spinner/Core/Builder/Settings/Legacy/LegacyDriverSettingsBuilder.php:21:13:error - DeprecatedClass: AlecRabbit\Spinner\Core\Settings\Legacy\LegacyDriverSettings is marked deprecated
 /app/src/Spinner/Core/Builder/Settings/Legacy/LegacySettingsProviderBuilder.php:25:13:error - DeprecatedInterface: AlecRabbit\Spinner\Core\Builder\Settings\Legacy\Contract\ILegacySettingsProviderBuilder is marked deprecated
+/app/src/Spinner/Core/Builder/Settings/Legacy/LegacySettingsProviderBuilder.php:28:9:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Factory\Contract\ILoopSettingsFactory is marked as deprecated
 /app/src/Spinner/Core/Builder/Settings/Legacy/LegacySettingsProviderBuilder.php:29:9:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Factory\Contract\ILegacyTerminalSettingsFactory is marked as deprecated
 /app/src/Spinner/Core/Builder/Settings/Legacy/LegacySettingsProviderBuilder.php:30:9:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Builder\Settings\Legacy\Contract\ILegacyAuxSettingsBuilder is marked as deprecated
 /app/src/Spinner/Core/Builder/Settings/Legacy/LegacySettingsProviderBuilder.php:31:9:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Builder\Settings\Legacy\Contract\ILegacyDriverSettingsBuilder is marked as deprecated
@@ -75,9 +89,9 @@
 /app/src/Spinner/Core/Builder/SignalHandlersSetupBuilder.php:19:13:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyDriverSettings is marked as deprecated
 /app/src/Spinner/Core/Builder/SignalHandlersSetupBuilder.php:21:30:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Contract\ILegacySignalHandlersSetup is marked as deprecated
 /app/src/Spinner/Core/Builder/SignalHandlersSetupBuilder.php:26:13:error - DeprecatedClass: AlecRabbit\Spinner\Core\LegacySignalHandlersSetup is marked deprecated
+/app/src/Spinner/Core/Builder/SignalHandlersSetupBuilder.php:26:13:error - TooManyArguments: Too many arguments for AlecRabbit\Spinner\Core\LegacySignalHandlersSetup::__construct - expecting 2 but saw 3
 /app/src/Spinner/Core/Builder/SignalHandlersSetupBuilder.php:27:17:error - PossiblyNullArgument: Argument 1 of AlecRabbit\Spinner\Core\LegacySignalHandlersSetup::__construct cannot be null, possibly null value provided
 /app/src/Spinner/Core/Builder/SignalHandlersSetupBuilder.php:28:17:error - PossiblyNullArgument: Argument 2 of AlecRabbit\Spinner\Core\LegacySignalHandlersSetup::__construct cannot be null, possibly null value provided
-/app/src/Spinner/Core/Builder/SignalHandlersSetupBuilder.php:29:17:error - PossiblyNullArgument: Argument 3 of AlecRabbit\Spinner\Core\LegacySignalHandlersSetup::__construct cannot be null, possibly null value provided
 /app/src/Spinner/Core/Builder/SignalHandlersSetupBuilder.php:50:38:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyLoopSettings is marked as deprecated
 /app/src/Spinner/Core/Builder/SignalHandlersSetupBuilder.php:57:40:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyDriverSettings is marked as deprecated
 /app/src/Spinner/Core/Builder/TimerBuilder.php:23:27:error - PossiblyNullArgument: Argument 1 of AlecRabbit\Spinner\Core\Timer::__construct cannot be null, possibly null value provided
@@ -110,6 +124,12 @@
 /app/src/Spinner/Core/Config/Solver/CursorVisibilityModeSolver.php:143:60:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Contract\Option\CursorVisibilityOption|null' for AlecRabbit\Spinner\Core\Config\Solver\CursorVisibilityModeSolver::extractOption
 /app/src/Spinner/Core/Config/Solver/CursorVisibilityModeSolver.php:145:16:error - MixedReturnStatement: Could not infer a return type
 /app/src/Spinner/Core/Config/Solver/CursorVisibilityModeSolver.php:145:83:error - UndefinedInterfaceMethod: Method AlecRabbit\Spinner\Core\Settings\Contract\ISettingsElement::getCursorVisibilityOption does not exist
+/app/src/Spinner/Core/Config/Solver/InitializationModeSolver.php:149:60:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Contract\Option\InitializationOption|null' for AlecRabbit\Spinner\Core\Config\Solver\InitializationModeSolver::extractOption
+/app/src/Spinner/Core/Config/Solver/InitializationModeSolver.php:151:16:error - MixedReturnStatement: Could not infer a return type
+/app/src/Spinner/Core/Config/Solver/InitializationModeSolver.php:151:83:error - UndefinedInterfaceMethod: Method AlecRabbit\Spinner\Core\Settings\Contract\ISettingsElement::getInitializationOption does not exist
+/app/src/Spinner/Core/Config/Solver/LinkerModeSolver.php:149:60:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Contract\Option\LinkerOption|null' for AlecRabbit\Spinner\Core\Config\Solver\LinkerModeSolver::extractOption
+/app/src/Spinner/Core/Config/Solver/LinkerModeSolver.php:151:16:error - MixedReturnStatement: Could not infer a return type
+/app/src/Spinner/Core/Config/Solver/LinkerModeSolver.php:151:83:error - UndefinedInterfaceMethod: Method AlecRabbit\Spinner\Core\Settings\Contract\ISettingsElement::getLinkerOption does not exist
 /app/src/Spinner/Core/Config/Solver/NormalizerMethodModeSolver.php:69:60:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Contract\Option\NormalizerOption|null' for AlecRabbit\Spinner\Core\Config\Solver\NormalizerMethodModeSolver::extractOption
 /app/src/Spinner/Core/Config/Solver/NormalizerMethodModeSolver.php:71:16:error - MixedReturnStatement: Could not infer a return type
 /app/src/Spinner/Core/Config/Solver/NormalizerMethodModeSolver.php:71:80:error - UndefinedInterfaceMethod: Method AlecRabbit\Spinner\Core\Settings\Contract\ISettingsElement::getNormalizerOption does not exist
@@ -124,7 +144,6 @@
 /app/src/Spinner/Core/Config/Solver/StylingMethodModeSolver.php:79:60:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Contract\Option\StylingMethodOption|null' for AlecRabbit\Spinner\Core\Config\Solver\StylingMethodModeSolver::extractOption
 /app/src/Spinner/Core/Config/Solver/StylingMethodModeSolver.php:81:16:error - MixedReturnStatement: Could not infer a return type
 /app/src/Spinner/Core/Config/Solver/StylingMethodModeSolver.php:81:83:error - UndefinedInterfaceMethod: Method AlecRabbit\Spinner\Core\Settings\Contract\ISettingsElement::getStylingMethodOption does not exist
-/app/src/Spinner/Core/Contract/IDriverBuilder.php:29:40:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyDriverSettings is marked as deprecated
 /app/src/Spinner/Core/Contract/ILegacySettingsProvider.php:19:45:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyAuxSettings is marked as deprecated
 /app/src/Spinner/Core/Contract/ILegacySettingsProvider.php:21:48:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyDriverSettings is marked as deprecated
 /app/src/Spinner/Core/Contract/ILegacySettingsProvider.php:23:46:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyLoopSettings is marked as deprecated
@@ -144,17 +163,34 @@
 /app/src/Spinner/Core/Factory/Contract/IBakedPatternFactory.php:12:39:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Contract\Legacy\ILegacyPattern is marked as deprecated
 /app/src/Spinner/Core/Factory/Contract/IBakedPatternFactory.php:12:62:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Pattern\Legacy\Contract\ILegacyBakedPattern is marked as deprecated
 /app/src/Spinner/Core/Factory/Contract/ICharFrameRevolverFactory.php:13:40:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Contract\Legacy\ILegacyPattern is marked as deprecated
+/app/src/Spinner/Core/Factory/Contract/ILegacyLoopAutoStarterFactory.php:14:31:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Contract\ILegacyLoopAutoStarter is marked as deprecated
 /app/src/Spinner/Core/Factory/Contract/ILegacySignalProcessingProbeFactory.php:15:33:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Contract\ILegacySignalProcessingLegacyProbe is marked as deprecated
+/app/src/Spinner/Core/Factory/Contract/ILegacyTerminalProbeFactory.php:15:33:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Terminal\Contract\ITerminalLegacyProbe is marked as deprecated
 /app/src/Spinner/Core/Factory/Contract/ILegacyTerminalSettingsFactory.php:15:47:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyTerminalSettings is marked as deprecated
-/app/src/Spinner/Core/Factory/Contract/ILoopSettingsFactory.php:11:43:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyLoopSettings is marked as deprecated
+/app/src/Spinner/Core/Factory/Contract/ILoopSettingsFactory.php:14:43:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyLoopSettings is marked as deprecated
 /app/src/Spinner/Core/Factory/Contract/IRevolverFactory.php:12:28:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Contract\Legacy\ILegacyPattern is marked as deprecated
 /app/src/Spinner/Core/Factory/Contract/ISignalHandlersSetupFactory.php:11:31:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Contract\ILegacySignalHandlersSetup is marked as deprecated
 /app/src/Spinner/Core/Factory/Contract/ISpinnerFactory.php:17:41:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Config\Legacy\Contract\ILegacyWidgetConfig is marked as deprecated
 /app/src/Spinner/Core/Factory/Contract/ISpinnerFactory.php:17:41:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Config\Legacy\Contract\ILegacySpinnerConfig is marked as deprecated
-/app/src/Spinner/Core/Factory/DriverFactory.php:32:9:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyDriverSettings is marked as deprecated
-/app/src/Spinner/Core/Factory/DriverLinkerFactory.php:19:9:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Contract\ILegacySettingsProvider is marked as deprecated
 /app/src/Spinner/Core/Factory/Legacy/ILegacyWidgetSettingsFactory.php:15:38:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Config\Legacy\Contract\ILegacyWidgetConfig is marked as deprecated
 /app/src/Spinner/Core/Factory/Legacy/ILegacyWidgetSettingsFactory.php:15:68:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyWidgetSettings is marked as deprecated
+/app/src/Spinner/Core/Factory/Legacy/LegacySignalProcessingProbeFactory.php:14:13:error - DeprecatedInterface: AlecRabbit\Spinner\Core\Factory\Contract\ILegacySignalProcessingProbeFactory is marked deprecated
+/app/src/Spinner/Core/Factory/Legacy/LegacySignalProcessingProbeFactory.php:14:13:error - DeprecatedInterface: AlecRabbit\Spinner\Contract\IProbeFactory is marked deprecated
+/app/src/Spinner/Core/Factory/Legacy/LegacySignalProcessingProbeFactory.php:16:33:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Contract\ILegacySignalProcessingLegacyProbe is marked as deprecated
+/app/src/Spinner/Core/Factory/Legacy/LegacySignalProcessingProbeFactory.php:18:16:error - DeprecatedClass: AlecRabbit\Spinner\Core\LegacySignalProcessingProbe is marked deprecated
+/app/src/Spinner/Core/Factory/Legacy/LegacyTerminalProbeFactory.php:17:13:error - DeprecatedInterface: AlecRabbit\Spinner\Core\Factory\Contract\ILegacyTerminalProbeFactory is marked deprecated
+/app/src/Spinner/Core/Factory/Legacy/LegacyTerminalProbeFactory.php:17:13:error - DeprecatedInterface: AlecRabbit\Spinner\Contract\IProbeFactory is marked deprecated
+/app/src/Spinner/Core/Factory/Legacy/LegacyTerminalProbeFactory.php:20:15:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Terminal\Contract\ITerminalLegacyProbe is marked as deprecated
+/app/src/Spinner/Core/Factory/Legacy/LegacyTerminalProbeFactory.php:34:42:error - UndefinedInterfaceMethod: Method Traversable::append does not exist
+/app/src/Spinner/Core/Factory/Legacy/LegacyTerminalProbeFactory.php:34:49:error - MixedMethodCall: Cannot call constructor on an unknown class
+/app/src/Spinner/Core/Factory/Legacy/LegacyTerminalProbeFactory.php:52:33:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Terminal\Contract\ITerminalLegacyProbe is marked as deprecated
+/app/src/Spinner/Core/Factory/Legacy/LegacyTerminalProbeFactory.php:52:33:error - MoreSpecificReturnType: The declared return type 'AlecRabbit\Spinner\Core\Terminal\Contract\ITerminalLegacyProbe' for AlecRabbit\Spinner\Core\Factory\Legacy\LegacyTerminalProbeFactory::getProbe is more specific than the inferred return type 'AlecRabbit\Spinner\Contract\ILegacyProbe'
+/app/src/Spinner/Core/Factory/Legacy/LegacyTerminalProbeFactory.php:55:45:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Contract\ILegacyProbe is marked as deprecated
+/app/src/Spinner/Core/Factory/Legacy/LegacyTerminalProbeFactory.php:57:24:error - LessSpecificReturnStatement: The type 'AlecRabbit\Spinner\Contract\ILegacyProbe' is more general than the declared return type 'AlecRabbit\Spinner\Core\Terminal\Contract\ITerminalLegacyProbe' for AlecRabbit\Spinner\Core\Factory\Legacy\LegacyTerminalProbeFactory::getProbe
+/app/src/Spinner/Core/Factory/Legacy/LegacyTerminalSettingsFactory.php:16:13:error - DeprecatedInterface: AlecRabbit\Spinner\Core\Factory\Contract\ILegacyTerminalSettingsFactory is marked deprecated
+/app/src/Spinner/Core/Factory/Legacy/LegacyTerminalSettingsFactory.php:19:9:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Terminal\Contract\ITerminalLegacyProbe is marked as deprecated
+/app/src/Spinner/Core/Factory/Legacy/LegacyTerminalSettingsFactory.php:23:47:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyTerminalSettings is marked as deprecated
+/app/src/Spinner/Core/Factory/Legacy/LegacyTerminalSettingsFactory.php:26:13:error - DeprecatedClass: AlecRabbit\Spinner\Core\Settings\Legacy\LegacyTerminalSettings is marked deprecated
 /app/src/Spinner/Core/Factory/Legacy/LegacyWidgetSettingsFactory.php:15:13:error - DeprecatedInterface: AlecRabbit\Spinner\Core\Factory\Legacy\ILegacyWidgetSettingsFactory is marked deprecated
 /app/src/Spinner/Core/Factory/Legacy/LegacyWidgetSettingsFactory.php:18:9:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Contract\ILegacySettingsProvider is marked as deprecated
 /app/src/Spinner/Core/Factory/Legacy/LegacyWidgetSettingsFactory.php:19:9:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Builder\Settings\Legacy\Contract\ILegacyWidgetSettingsBuilder is marked as deprecated
@@ -196,6 +232,12 @@
 /app/src/Spinner/Core/Factory/StyleFrameRevolverFactory.php:53:73:error - UndefinedInterfaceMethod: Method AlecRabbit\Spinner\Contract\Legacy\ILegacyPattern::getEntries does not exist
 /app/src/Spinner/Core/FrameCollection.php:69:34:error - InvalidNullableReturnType: The declared return type 'int' for AlecRabbit\Spinner\Core\FrameCollection::lastIndex is not nullable, but 'int|null' contains null
 /app/src/Spinner/Core/FrameCollection.php:71:16:error - NullableReturnStatement: The declared return type 'int' for AlecRabbit\Spinner\Core\FrameCollection::lastIndex is not nullable, but the function returns 'int|null'
+/app/src/Spinner/Core/LegacyLoopAutoStarter.php:14:13:error - DeprecatedInterface: AlecRabbit\Spinner\Core\Contract\ILegacyLoopAutoStarter is marked deprecated
+/app/src/Spinner/Core/LegacyLoopAutoStarter.php:17:9:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyLoopSettings is marked as deprecated
+/app/src/Spinner/Core/LegacySignalHandlersSetup.php:17:13:error - DeprecatedInterface: AlecRabbit\Spinner\Core\Contract\ILegacySignalHandlersSetup is marked deprecated
+/app/src/Spinner/Core/LegacySignalHandlersSetup.php:18:13:error - DeprecatedInterface: AlecRabbit\Spinner\Core\Contract\ILegacySignalHandlersSetup is marked deprecated
+/app/src/Spinner/Core/LegacySignalHandlersSetup.php:21:9:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyLoopSettings is marked as deprecated
+/app/src/Spinner/Core/LegacySignalHandlersSetup.php:22:9:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyLoopSettings is marked as deprecated
 /app/src/Spinner/Core/LegacySignalProcessingProbe.php:14:13:error - DeprecatedInterface: AlecRabbit\Spinner\Core\Contract\ILegacySignalProcessingLegacyProbe is marked deprecated
 /app/src/Spinner/Core/LegacySignalProcessingProbe.php:14:13:error - DeprecatedInterface: AlecRabbit\Spinner\Contract\ILegacyProbe is marked deprecated
 /app/src/Spinner/Core/Output/StreamBufferedOutput.php:38:30:error - MixedArgumentTypeCoercion: Argument 1 of AlecRabbit\Spinner\Contract\Output\IResourceStream::write expects Traversable<mixed, string>, but parent type Traversable provided
@@ -225,6 +267,12 @@
 /app/src/Spinner/Core/Revolver/FrameRevolverBuilder.php:26:17:error - PossiblyNullArgument: Argument 1 of AlecRabbit\Spinner\Core\Revolver\FrameCollectionRevolver::__construct cannot be null, possibly null value provided
 /app/src/Spinner/Core/Revolver/FrameRevolverBuilder.php:27:17:error - PossiblyNullArgument: Argument 2 of AlecRabbit\Spinner\Core\Revolver\FrameCollectionRevolver::__construct cannot be null, possibly null value provided
 /app/src/Spinner/Core/Revolver/FrameRevolverBuilder.php:28:17:error - PossiblyNullArgument: Argument 3 of AlecRabbit\Spinner\Core\Revolver\FrameCollectionRevolver::__construct cannot be null, possibly null value provided
+/app/src/Spinner/Core/Settings/Detector/ColorSupportDetector.php:21:47:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Contract\Option\StylingMethodOption' for AlecRabbit\Spinner\Core\Settings\Detector\ColorSupportDetector::getStylingMethodOption
+/app/src/Spinner/Core/Settings/Detector/ColorSupportDetector.php:23:35:error - MixedAssignment: Unable to determine the type that $probe is being assigned to
+/app/src/Spinner/Core/Settings/Detector/ColorSupportDetector.php:25:17:error - MixedMethodCall: Cannot call method on an unknown class
+/app/src/Spinner/Core/Settings/Detector/ColorSupportDetector.php:26:24:error - MixedMethodCall: Cannot call method on an unknown class
+/app/src/Spinner/Core/Settings/Detector/ColorSupportDetector.php:26:24:error - MixedReturnStatement: Could not infer a return type
+/app/src/Spinner/Core/Settings/Detector/ColorSupportDetector.php:33:43:error - MissingParamType: Parameter $probe has no provided type
 /app/src/Spinner/Core/Settings/Detector/LoopSupportDetector.php:23:35:error - MixedAssignment: Unable to determine the type that $probe is being assigned to
 /app/src/Spinner/Core/Settings/Detector/LoopSupportDetector.php:25:17:error - MixedMethodCall: Cannot call method on an unknown class
 /app/src/Spinner/Core/Settings/Detector/LoopSupportDetector.php:33:43:error - MissingParamType: Parameter $probe has no provided type
@@ -273,8 +321,12 @@
 /app/src/Spinner/Core/Settings/Legacy/LegacyWidgetSettings.php:63:36:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Contract\Legacy\ILegacyPattern is marked as deprecated
 /app/src/Spinner/Core/Settings/Legacy/LegacyWidgetSettings.php:63:62:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyWidgetSettings is marked as deprecated
 /app/src/Spinner/Core/Settings/Settings.php:18:15:error - InvalidParamDefault: Default value type ArrayObject<mixed, mixed> for argument 1 of method AlecRabbit\Spinner\Core\Settings\Settings::__construct does not match the given type ArrayObject<class-string<AlecRabbit\Spinner\Core\Settings\Contract\ISettingsElement>, AlecRabbit\Spinner\Core\Settings\Contract\ISettingsElement>
-/app/src/Spinner/Core/Terminal/A/ATerminalLegacyProbe.php:11:16:error - DeprecatedInterface: AlecRabbit\Spinner\Contract\ILegacyProbe is marked deprecated
-/app/src/Spinner/Core/Terminal/NativeTerminalLegacyProbe.php:10:13:error - DeprecatedInterface: AlecRabbit\Spinner\Contract\ILegacyProbe is marked deprecated
+/app/src/Spinner/Core/Terminal/A/ATerminalLegacyProbe.php:14:16:error - DeprecatedInterface: AlecRabbit\Spinner\Core\Terminal\Contract\ITerminalLegacyProbe is marked deprecated
+/app/src/Spinner/Core/Terminal/A/ATerminalLegacyProbe.php:14:16:error - DeprecatedInterface: AlecRabbit\Spinner\Contract\ILegacyProbe is marked deprecated
+/app/src/Spinner/Core/Terminal/A/ATerminalLegacyProbe.php:24:16:error - DeprecatedClass: Class AlecRabbit\Spinner\Core\Terminal\Contract\ITerminalLegacyProbe is deprecated
+/app/src/Spinner/Core/Terminal/NativeTerminalLegacyProbe.php:13:13:error - DeprecatedInterface: AlecRabbit\Spinner\Core\Terminal\Contract\ITerminalLegacyProbe is marked deprecated
+/app/src/Spinner/Core/Terminal/NativeTerminalLegacyProbe.php:13:13:error - DeprecatedInterface: AlecRabbit\Spinner\Contract\ILegacyProbe is marked deprecated
+/app/src/Spinner/Core/Terminal/NativeTerminalLegacyProbe.php:13:47:error - DeprecatedClass: AlecRabbit\Spinner\Core\Terminal\A\ATerminalLegacyProbe is marked deprecated
 /app/src/Spinner/Core/Timer.php:40:17:error - TypeDoesNotContainNull: ReflectionType does not contain null
 /app/src/Spinner/Core/Timer.php:40:17:error - RedundantCondition: Type ReflectionType for $returnType is never null
 /app/src/Spinner/Core/Timer.php:40:31:error - UndefinedMethod: Method ReflectionType::getName does not exist
@@ -306,96 +358,87 @@
 /app/src/Spinner/Core/WidgetContextToIntervalMap.php:43:47:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Contract\IInterval|null' for AlecRabbit\Spinner\Core\WidgetContextToIntervalMap::offsetGet
 /app/src/Spinner/Core/WidgetContextToIntervalMap.php:51:16:error - MixedReturnStatement: Could not infer a return type
 /app/src/Spinner/Core/WidgetContextToIntervalMap.php:66:9:error - MixedAssignment: Unable to determine the type that $value is being assigned to
-/app/src/Spinner/Facade.php:25:47:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Core\Factory\Contract\ILoopFactory' for AlecRabbit\Spinner\Facade::getLoopFactory
-/app/src/Spinner/Facade.php:27:16:error - MixedReturnStatement: Could not infer a return type
-/app/src/Spinner/Facade.php:43:50:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Core\Factory\Contract\ISpinnerFactory' for AlecRabbit\Spinner\Facade::getSpinnerFactory
-/app/src/Spinner/Facade.php:45:16:error - MixedReturnStatement: Could not infer a return type
-/app/src/Spinner/Facade.php:58:49:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Core\Factory\Contract\IDriverFactory' for AlecRabbit\Spinner\Facade::getDriverFactory
-/app/src/Spinner/Facade.php:60:16:error - MixedReturnStatement: Could not infer a return type
-/app/src/Spinner/Facade.php:69:54:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Core\Settings\Contract\ISettingsProvider' for AlecRabbit\Spinner\Facade::getSettingsProvider
-/app/src/Spinner/Facade.php:71:16:error - MixedReturnStatement: Could not infer a return type
 /app/src/Spinner/Helper/Stringify.php:37:45:error - MixedArgument: Argument 3 of sprintf cannot be 'false'|'true'|mixed, expecting float|int|string
-/app/src/Spinner/bootstrap.php:15:27:error - MixedAssignment: Unable to determine the type that $id is being assigned to
-/app/src/Spinner/bootstrap.php:15:34:error - MixedAssignment: Unable to determine the type that $definition is being assigned to
-/app/src/Spinner/bootstrap.php:16:24:error - MixedArgument: Argument 1 of AlecRabbit\Spinner\Container\Contract\IDefinitionRegistry::bind cannot be mixed, expecting string
-/app/src/Spinner/bootstrap.php:16:29:error - MixedArgument: Argument 2 of AlecRabbit\Spinner\Container\Contract\IDefinitionRegistry::bind cannot be mixed, expecting callable|object|string
-/app/src/Spinner/definitions.php:183:86:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Core\Settings\Contract\ISettingsProvider' for /app/src/spinner/definitions.php:183:11596:-:closure
-/app/src/Spinner/definitions.php:184:20:error - MixedReturnStatement: Could not infer a return type
-/app/src/Spinner/definitions.php:184:70:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
-/app/src/Spinner/definitions.php:189:76:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Core\Contract\IDriver' for /app/src/spinner/definitions.php:189:11834:-:closure
-/app/src/Spinner/definitions.php:190:20:error - MixedReturnStatement: Could not infer a return type
-/app/src/Spinner/definitions.php:190:60:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
-/app/src/Spinner/definitions.php:192:82:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Core\Contract\IDriverLinker' for /app/src/spinner/definitions.php:192:12008:-:closure
-/app/src/Spinner/definitions.php:193:20:error - MixedReturnStatement: Could not infer a return type
-/app/src/Spinner/definitions.php:193:66:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
-/app/src/Spinner/definitions.php:195:88:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Core\Contract\IIntervalNormalizer' for /app/src/spinner/definitions.php:195:12206:-:closure
-/app/src/Spinner/definitions.php:196:20:error - MixedReturnStatement: Could not infer a return type
-/app/src/Spinner/definitions.php:196:72:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
-/app/src/Spinner/definitions.php:198:74:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Core\Contract\Loop\ILoop' for /app/src/spinner/definitions.php:198:12393:-:closure
-/app/src/Spinner/definitions.php:199:20:error - MixedReturnStatement: Could not infer a return type
-/app/src/Spinner/definitions.php:199:58:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
-/app/src/Spinner/definitions.php:218:84:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Core\Contract\IConfigProvider' for /app/src/spinner/definitions.php:218:12863:-:closure
-/app/src/Spinner/definitions.php:219:20:error - MixedReturnStatement: Could not infer a return type
-/app/src/Spinner/definitions.php:219:68:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
-/app/src/Spinner/definitions.php:221:76:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Core\Config\Contract\IConfig' for /app/src/spinner/definitions.php:221:13044:-:closure
-/app/src/Spinner/definitions.php:222:20:error - MixedReturnStatement: Could not infer a return type
-/app/src/Spinner/definitions.php:222:61:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
-/app/src/Spinner/definitions.php:224:82:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Core\Config\Contract\IDriverConfig' for /app/src/spinner/definitions.php:224:13219:-:closure
-/app/src/Spinner/definitions.php:225:20:error - MixedReturnStatement: Could not infer a return type
-/app/src/Spinner/definitions.php:225:53:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
-/app/src/Spinner/definitions.php:312:21:error - UndefinedClass: Class, interface or enum named AlecRabbit\Spinner\Probes does not exist
-/app/src/Spinner/definitions.php:318:21:error - UndefinedClass: Class, interface or enum named AlecRabbit\Spinner\Probes does not exist
-/app/src/Spinner/definitions.php:324:21:error - UndefinedClass: Class, interface or enum named AlecRabbit\Spinner\Probes does not exist
-/app/src/Spinner/definitions.php:378:45:error - DeprecatedClass: Class AlecRabbit\Spinner\Core\Builder\Settings\Legacy\LegacyAuxSettingsBuilder is deprecated
-/app/src/Spinner/definitions.php:379:48:error - DeprecatedClass: Class AlecRabbit\Spinner\Core\Builder\Settings\Legacy\LegacyDriverSettingsBuilder is deprecated
-/app/src/Spinner/definitions.php:380:50:error - DeprecatedClass: Class AlecRabbit\Spinner\Core\Builder\Settings\Legacy\LegacySettingsProviderBuilder is deprecated
-/app/src/Spinner/definitions.php:381:48:error - DeprecatedClass: Class AlecRabbit\Spinner\Core\Builder\Settings\Legacy\LegacyWidgetSettingsBuilder is deprecated
-/app/src/Spinner/definitions.php:382:48:error - DeprecatedClass: Class AlecRabbit\Spinner\Core\Factory\Legacy\LegacyWidgetSettingsFactory is deprecated
-/app/src/Spinner/definitions.php:383:90:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyDriverSettings is marked as deprecated
-/app/src/Spinner/definitions.php:383:90:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyDriverSettings' for /app/src/spinner/definitions.php:383:20298:-:closure
-/app/src/Spinner/definitions.php:384:20:error - MixedReturnStatement: Could not infer a return type
-/app/src/Spinner/definitions.php:384:69:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
-/app/src/Spinner/definitions.php:386:55:error - DeprecatedClass: Class AlecRabbit\Spinner\Core\Factory\Legacy\LegacySignalProcessingProbeFactory is deprecated
-/app/src/Spinner/definitions.php:388:67:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Factory\Contract\ILegacyTerminalProbeFactory is marked as deprecated
-/app/src/Spinner/definitions.php:390:17:error - DeprecatedClass: AlecRabbit\Spinner\Core\Factory\Legacy\LegacyTerminalProbeFactory is marked deprecated
-/app/src/Spinner/definitions.php:392:25:error - DeprecatedClass: Class AlecRabbit\Spinner\Core\Terminal\NativeTerminalLegacyProbe is deprecated
-/app/src/Spinner/definitions.php:396:89:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Factory\Contract\ILoopSettingsFactory is marked as deprecated
-/app/src/Spinner/definitions.php:400:17:error - MixedAssignment: Unable to determine the type that $loopProbe is being assigned to
-/app/src/Spinner/definitions.php:400:79:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
-/app/src/Spinner/definitions.php:401:17:error - MixedAssignment: Unable to determine the type that $signalProcessingProbe is being assigned to
-/app/src/Spinner/definitions.php:401:103:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
-/app/src/Spinner/definitions.php:403:24:error - DeprecatedClass: AlecRabbit\Spinner\Core\Factory\Legacy\LoopSettingsFactory is marked deprecated
-/app/src/Spinner/definitions.php:404:21:error - MixedArgument: Argument 1 of AlecRabbit\Spinner\Core\Factory\Legacy\LoopSettingsFactory::__construct cannot be mixed|null, expecting AlecRabbit\Spinner\Core\Contract\Loop\ILoopProbe|null
-/app/src/Spinner/definitions.php:405:21:error - MixedArgument: Argument 2 of AlecRabbit\Spinner\Core\Factory\Legacy\LoopSettingsFactory::__construct cannot be mixed|null, expecting AlecRabbit\Spinner\Core\Contract\ILegacySignalProcessingLegacyProbe|null
-/app/src/Spinner/definitions.php:410:88:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Contract\Option\StylingMethodOption' for /app/src/spinner/definitions.php:410:21525:-:closure
-/app/src/Spinner/definitions.php:412:17:error - MixedReturnStatement: Could not infer a return type
-/app/src/Spinner/definitions.php:412:66:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
-/app/src/Spinner/definitions.php:412:95:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
-/app/src/Spinner/definitions.php:422:13:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Contract\ILegacySettingsProvider is marked as deprecated
-/app/src/Spinner/definitions.php:426:92:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Contract\ILegacySettingsProvider is marked as deprecated
-/app/src/Spinner/definitions.php:426:92:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Core\Contract\ILegacySettingsProvider' for /app/src/spinner/definitions.php:426:22381:-:closure
-/app/src/Spinner/definitions.php:428:17:error - MixedReturnStatement: Could not infer a return type
-/app/src/Spinner/definitions.php:428:73:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
-/app/src/Spinner/definitions.php:431:12:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Contract\ILegacySignalProcessingLegacyProbe is marked as deprecated
-/app/src/Spinner/definitions.php:431:12:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Core\Contract\ILegacySignalProcessingLegacyProbe' for /app/src/spinner/definitions.php:430:22620:-:closure
-/app/src/Spinner/definitions.php:433:17:error - MixedReturnStatement: Could not infer a return type
-/app/src/Spinner/definitions.php:433:78:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
-/app/src/Spinner/definitions.php:438:12:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Factory\Contract\ILegacyTerminalSettingsFactory is marked as deprecated
-/app/src/Spinner/definitions.php:439:13:error - MixedAssignment: Unable to determine the type that $terminalProbe is being assigned to
-/app/src/Spinner/definitions.php:439:83:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
-/app/src/Spinner/definitions.php:442:17:error - DeprecatedClass: AlecRabbit\Spinner\Core\Factory\Legacy\LegacyTerminalSettingsFactory is marked deprecated
-/app/src/Spinner/definitions.php:442:51:error - MixedArgument: Argument 1 of AlecRabbit\Spinner\Core\Factory\Legacy\LegacyTerminalSettingsFactory::__construct cannot be mixed, expecting AlecRabbit\Spinner\Core\Terminal\Contract\ITerminalLegacyProbe
-/app/src/Spinner/definitions.php:444:91:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Contract\Option\CursorVisibilityOption' for /app/src/spinner/definitions.php:444:23209:-:closure
-/app/src/Spinner/definitions.php:446:17:error - MixedReturnStatement: Could not infer a return type
-/app/src/Spinner/definitions.php:446:66:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
-/app/src/Spinner/definitions.php:446:95:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
-/app/src/Spinner/definitions.php:448:32:error - DeprecatedClass: Class AlecRabbit\Spinner\Core\Factory\LegacyLoopFactory is deprecated
-/app/src/Spinner/definitions.php:449:79:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Core\Contract\Loop\ILoopProbe' for /app/src/spinner/definitions.php:449:23512:-:closure
-/app/src/Spinner/definitions.php:450:20:error - MixedReturnStatement: Could not infer a return type
-/app/src/Spinner/definitions.php:450:69:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
-/app/src/Spinner/definitions.php:452:63:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Factory\Contract\ILegacyLoopProbeFactory is marked as deprecated
-/app/src/Spinner/definitions.php:454:17:error - DeprecatedClass: AlecRabbit\Spinner\Asynchronous\Factory\LegacyLoopProbeFactory is marked deprecated
-/app/src/Spinner/definitions.php:455:21:error - UndefinedClass: Class, interface or enum named AlecRabbit\Spinner\Probes does not exist
-/app/src/Spinner/definitions.php:458:46:error - DeprecatedClass: Class AlecRabbit\Spinner\Core\LegacySignalHandlersSetup is deprecated
-/app/src/Spinner/definitions.php:459:49:error - DeprecatedClass: Class AlecRabbit\Spinner\Core\Builder\LegacyLoopAutoStarterBuilder is deprecated
-/app/src/Spinner/definitions.php:460:49:error - DeprecatedClass: Class AlecRabbit\Spinner\Core\Factory\LegacyLoopAutoStarterFactory is deprecated
+/app/src/Spinner/bootstrap.php:22:30:error - MixedAssignment: Unable to determine the type that $id is being assigned to
+/app/src/Spinner/bootstrap.php:22:37:error - MixedAssignment: Unable to determine the type that $definition is being assigned to
+/app/src/Spinner/bootstrap.php:23:21:error - MixedArgument: Argument 1 of AlecRabbit\Spinner\Container\Contract\IDefinitionRegistry::bind cannot be mixed, expecting string
+/app/src/Spinner/bootstrap.php:23:26:error - MixedArgument: Argument 2 of AlecRabbit\Spinner\Container\Contract\IDefinitionRegistry::bind cannot be mixed, expecting callable|object|string
+/app/src/Spinner/definitions.php:187:86:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Core\Settings\Contract\ISettingsProvider' for /app/src/spinner/definitions.php:187:11692:-:closure
+/app/src/Spinner/definitions.php:188:20:error - MixedReturnStatement: Could not infer a return type
+/app/src/Spinner/definitions.php:188:70:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
+/app/src/Spinner/definitions.php:193:76:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Core\Contract\IDriver' for /app/src/spinner/definitions.php:193:11930:-:closure
+/app/src/Spinner/definitions.php:194:20:error - MixedReturnStatement: Could not infer a return type
+/app/src/Spinner/definitions.php:194:60:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
+/app/src/Spinner/definitions.php:196:82:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Core\Contract\IDriverLinker' for /app/src/spinner/definitions.php:196:12104:-:closure
+/app/src/Spinner/definitions.php:197:20:error - MixedReturnStatement: Could not infer a return type
+/app/src/Spinner/definitions.php:197:66:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
+/app/src/Spinner/definitions.php:199:88:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Core\Contract\IIntervalNormalizer' for /app/src/spinner/definitions.php:199:12293:-:closure
+/app/src/Spinner/definitions.php:200:20:error - MixedReturnStatement: Could not infer a return type
+/app/src/Spinner/definitions.php:200:72:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
+/app/src/Spinner/definitions.php:202:74:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Core\Contract\Loop\ILoop' for /app/src/spinner/definitions.php:202:12480:-:closure
+/app/src/Spinner/definitions.php:203:20:error - MixedReturnStatement: Could not infer a return type
+/app/src/Spinner/definitions.php:203:58:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
+/app/src/Spinner/definitions.php:222:84:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Core\Contract\IConfigProvider' for /app/src/spinner/definitions.php:222:12949:-:closure
+/app/src/Spinner/definitions.php:223:20:error - MixedReturnStatement: Could not infer a return type
+/app/src/Spinner/definitions.php:223:68:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
+/app/src/Spinner/definitions.php:225:76:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Core\Config\Contract\IConfig' for /app/src/spinner/definitions.php:225:13130:-:closure
+/app/src/Spinner/definitions.php:226:20:error - MixedReturnStatement: Could not infer a return type
+/app/src/Spinner/definitions.php:226:61:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
+/app/src/Spinner/definitions.php:228:82:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Core\Config\Contract\IDriverConfig' for /app/src/spinner/definitions.php:228:13305:-:closure
+/app/src/Spinner/definitions.php:229:20:error - MixedReturnStatement: Could not infer a return type
+/app/src/Spinner/definitions.php:229:53:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
+/app/src/Spinner/definitions.php:231:82:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Core\Config\Contract\IOutputConfig' for /app/src/spinner/definitions.php:231:13492:-:closure
+/app/src/Spinner/definitions.php:232:20:error - MixedReturnStatement: Could not infer a return type
+/app/src/Spinner/definitions.php:232:53:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
+/app/src/Spinner/definitions.php:386:45:error - DeprecatedClass: Class AlecRabbit\Spinner\Core\Builder\Settings\Legacy\LegacyAuxSettingsBuilder is deprecated
+/app/src/Spinner/definitions.php:387:48:error - DeprecatedClass: Class AlecRabbit\Spinner\Core\Builder\Settings\Legacy\LegacyDriverSettingsBuilder is deprecated
+/app/src/Spinner/definitions.php:388:50:error - DeprecatedClass: Class AlecRabbit\Spinner\Core\Builder\Settings\Legacy\LegacySettingsProviderBuilder is deprecated
+/app/src/Spinner/definitions.php:389:48:error - DeprecatedClass: Class AlecRabbit\Spinner\Core\Builder\Settings\Legacy\LegacyWidgetSettingsBuilder is deprecated
+/app/src/Spinner/definitions.php:390:48:error - DeprecatedClass: Class AlecRabbit\Spinner\Core\Factory\Legacy\LegacyWidgetSettingsFactory is deprecated
+/app/src/Spinner/definitions.php:391:90:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyDriverSettings is marked as deprecated
+/app/src/Spinner/definitions.php:391:90:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyDriverSettings' for /app/src/spinner/definitions.php:391:20572:-:closure
+/app/src/Spinner/definitions.php:392:20:error - MixedReturnStatement: Could not infer a return type
+/app/src/Spinner/definitions.php:392:69:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
+/app/src/Spinner/definitions.php:394:55:error - DeprecatedClass: Class AlecRabbit\Spinner\Core\Factory\Legacy\LegacySignalProcessingProbeFactory is deprecated
+/app/src/Spinner/definitions.php:396:67:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Factory\Contract\ILegacyTerminalProbeFactory is marked as deprecated
+/app/src/Spinner/definitions.php:398:17:error - DeprecatedClass: AlecRabbit\Spinner\Core\Factory\Legacy\LegacyTerminalProbeFactory is marked deprecated
+/app/src/Spinner/definitions.php:400:25:error - DeprecatedClass: Class AlecRabbit\Spinner\Core\Terminal\NativeTerminalLegacyProbe is deprecated
+/app/src/Spinner/definitions.php:404:89:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Factory\Contract\ILoopSettingsFactory is marked as deprecated
+/app/src/Spinner/definitions.php:408:17:error - MixedAssignment: Unable to determine the type that $loopProbe is being assigned to
+/app/src/Spinner/definitions.php:408:79:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
+/app/src/Spinner/definitions.php:409:17:error - MixedAssignment: Unable to determine the type that $signalProcessingProbe is being assigned to
+/app/src/Spinner/definitions.php:409:103:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
+/app/src/Spinner/definitions.php:411:24:error - DeprecatedClass: AlecRabbit\Spinner\Core\Factory\Legacy\LoopSettingsFactory is marked deprecated
+/app/src/Spinner/definitions.php:412:21:error - MixedArgument: Argument 1 of AlecRabbit\Spinner\Core\Factory\Legacy\LoopSettingsFactory::__construct cannot be mixed|null, expecting AlecRabbit\Spinner\Core\Contract\Loop\ILoopProbe|null
+/app/src/Spinner/definitions.php:413:21:error - MixedArgument: Argument 2 of AlecRabbit\Spinner\Core\Factory\Legacy\LoopSettingsFactory::__construct cannot be mixed|null, expecting AlecRabbit\Spinner\Core\Contract\ILegacySignalProcessingLegacyProbe|null
+/app/src/Spinner/definitions.php:418:88:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Contract\Option\StylingMethodOption' for /app/src/spinner/definitions.php:418:21799:-:closure
+/app/src/Spinner/definitions.php:420:17:error - MixedReturnStatement: Could not infer a return type
+/app/src/Spinner/definitions.php:420:66:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
+/app/src/Spinner/definitions.php:420:95:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
+/app/src/Spinner/definitions.php:430:13:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Contract\ILegacySettingsProvider is marked as deprecated
+/app/src/Spinner/definitions.php:434:92:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Contract\ILegacySettingsProvider is marked as deprecated
+/app/src/Spinner/definitions.php:434:92:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Core\Contract\ILegacySettingsProvider' for /app/src/spinner/definitions.php:434:22655:-:closure
+/app/src/Spinner/definitions.php:436:17:error - MixedReturnStatement: Could not infer a return type
+/app/src/Spinner/definitions.php:436:73:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
+/app/src/Spinner/definitions.php:439:12:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Contract\ILegacySignalProcessingLegacyProbe is marked as deprecated
+/app/src/Spinner/definitions.php:439:12:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Core\Contract\ILegacySignalProcessingLegacyProbe' for /app/src/spinner/definitions.php:438:22894:-:closure
+/app/src/Spinner/definitions.php:441:17:error - MixedReturnStatement: Could not infer a return type
+/app/src/Spinner/definitions.php:441:78:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
+/app/src/Spinner/definitions.php:446:12:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Factory\Contract\ILegacyTerminalSettingsFactory is marked as deprecated
+/app/src/Spinner/definitions.php:447:13:error - MixedAssignment: Unable to determine the type that $terminalProbe is being assigned to
+/app/src/Spinner/definitions.php:447:83:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
+/app/src/Spinner/definitions.php:450:17:error - DeprecatedClass: AlecRabbit\Spinner\Core\Factory\Legacy\LegacyTerminalSettingsFactory is marked deprecated
+/app/src/Spinner/definitions.php:450:51:error - MixedArgument: Argument 1 of AlecRabbit\Spinner\Core\Factory\Legacy\LegacyTerminalSettingsFactory::__construct cannot be mixed, expecting AlecRabbit\Spinner\Core\Terminal\Contract\ITerminalLegacyProbe
+/app/src/Spinner/definitions.php:452:91:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Contract\Option\CursorVisibilityOption' for /app/src/spinner/definitions.php:452:23483:-:closure
+/app/src/Spinner/definitions.php:454:17:error - MixedReturnStatement: Could not infer a return type
+/app/src/Spinner/definitions.php:454:66:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
+/app/src/Spinner/definitions.php:454:95:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
+/app/src/Spinner/definitions.php:456:32:error - DeprecatedClass: Class AlecRabbit\Spinner\Core\Factory\LegacyLoopFactory is deprecated
+/app/src/Spinner/definitions.php:457:79:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Core\Contract\Loop\ILoopProbe' for /app/src/spinner/definitions.php:457:23786:-:closure
+/app/src/Spinner/definitions.php:458:20:error - MixedReturnStatement: Could not infer a return type
+/app/src/Spinner/definitions.php:458:69:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
+/app/src/Spinner/definitions.php:460:63:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Factory\Contract\ILegacyLoopProbeFactory is marked as deprecated
+/app/src/Spinner/definitions.php:462:17:error - DeprecatedClass: AlecRabbit\Spinner\Asynchronous\Factory\LegacyLoopProbeFactory is marked deprecated
+/app/src/Spinner/definitions.php:466:46:error - DeprecatedClass: Class AlecRabbit\Spinner\Core\LegacySignalHandlersSetup is deprecated
+/app/src/Spinner/definitions.php:467:49:error - DeprecatedClass: Class AlecRabbit\Spinner\Core\Builder\LegacyLoopAutoStarterBuilder is deprecated
+/app/src/Spinner/definitions.php:468:49:error - DeprecatedClass: Class AlecRabbit\Spinner\Core\Factory\LegacyLoopAutoStarterFactory is deprecated

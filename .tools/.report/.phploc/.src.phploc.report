@@ -4,12 +4,12 @@ Directories                                         81
 Files                                              391
 
 Size
-  Lines of Code (LOC)                            14073
-  Comment Lines of Code (CLOC)                     819 (5.82%)
-  Non-Comment Lines of Code (NCLOC)              13254 (94.18%)
-  Logical Lines of Code (LLOC)                    1597 (11.35%)
-    Classes                                       1487 (93.11%)
-      Average Class Length                           4
+  Lines of Code (LOC)                            14070
+  Comment Lines of Code (CLOC)                     816 (5.80%)
+  Non-Comment Lines of Code (NCLOC)              13254 (94.20%)
+  Logical Lines of Code (LLOC)                    1596 (11.34%)
+    Classes                                       1487 (93.17%)
+      Average Class Length                           3
         Minimum Class Length                         0
         Maximum Class Length                        36
       Average Method Length                          1
@@ -20,7 +20,7 @@ Size
         Maximum Methods Per Class                   14
     Functions                                       49 (3.07%)
       Average Function Length                        1
-    Not in classes or functions                     61 (3.82%)
+    Not in classes or functions                     60 (3.76%)
 
 Cyclomatic Complexity
   Average Complexity per LLOC                     0.30
@@ -47,9 +47,9 @@ Structure
   Namespaces                                        81
   Interfaces                                       179
   Traits                                             0
-  Classes                                          192
-    Abstract Classes                                16 (8.33%)
-    Concrete Classes                               176 (91.67%)
+  Classes                                          193
+    Abstract Classes                                17 (8.81%)
+    Concrete Classes                               176 (91.19%)
       Final Classes                                132 (75.00%)
       Non-Final Classes                             44 (25.00%)
   Methods                                         1065

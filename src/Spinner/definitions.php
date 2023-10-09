@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+namespace AlecRabbit\Spinner;
+
 use AlecRabbit\Spinner\Asynchronous\Factory\LegacyLoopProbeFactory;
 use AlecRabbit\Spinner\Contract\Mode\NormalizerMethodMode;
 use AlecRabbit\Spinner\Contract\Option\CursorVisibilityOption;
@@ -104,11 +106,11 @@ use AlecRabbit\Spinner\Core\Factory\Contract\IFrameCollectionFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalNormalizerFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILegacyLoopAutoStarterFactory;
-use AlecRabbit\Spinner\Core\Factory\Contract\ILoopFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILegacyLoopProbeFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILegacySignalProcessingProbeFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILegacyTerminalProbeFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILegacyTerminalSettingsFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\ILoopFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopSettingsFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ISignalHandlersSetupFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ISpinnerFactory;
@@ -174,11 +176,12 @@ use AlecRabbit\Spinner\Core\Widget\Factory\Contract\IWidgetRevolverFactory;
 use AlecRabbit\Spinner\Core\Widget\Factory\WidgetCompositeFactory;
 use AlecRabbit\Spinner\Core\Widget\Factory\WidgetFactory;
 use AlecRabbit\Spinner\Core\Widget\Factory\WidgetRevolverFactory;
-use AlecRabbit\Spinner\Probes;
+use ArrayObject;
 use Psr\Container\ContainerInterface;
+use Traversable;
 
 // @codeCoverageIgnoreStart
-function definitions(): Traversable
+function getDefinitions(): Traversable
 {
     yield from [
         ISettingsProvider::class => static function (ContainerInterface $container): ISettingsProvider {

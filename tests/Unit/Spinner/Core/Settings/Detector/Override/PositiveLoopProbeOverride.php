@@ -15,16 +15,16 @@ class PositiveLoopProbeOverride extends ALoopProbe
         return true;
     }
 
+    public static function getCreatorClass(): string
+    {
+        throw new RuntimeException('INTENTIONALLY Not implemented.');
+    }
+
     /**
      * @deprecated
      */
     public function createLoop(): ILoop
     {
         throw new RuntimeException('INTENTIONALLY Not implemented.');
-    }
-
-    public static function getCreatorClass(): string
-    {
-        throw new \RuntimeException('INTENTIONALLY Not implemented.');
     }
 }

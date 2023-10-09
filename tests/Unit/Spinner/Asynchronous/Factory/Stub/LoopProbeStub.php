@@ -7,6 +7,7 @@ namespace AlecRabbit\Tests\Unit\Spinner\Asynchronous\Factory\Stub;
 use AlecRabbit\Spinner\Core\Contract\Loop\A\ALoopProbe;
 use AlecRabbit\Spinner\Core\Contract\Loop\ILoop;
 use AlecRabbit\Tests\Unit\Spinner\Asynchronous\Override\ALoopAdapterOverride;
+use RuntimeException;
 
 final class LoopProbeStub extends ALoopProbe
 {
@@ -15,17 +16,16 @@ final class LoopProbeStub extends ALoopProbe
         return true;
     }
 
+    public static function getCreatorClass(): string
+    {
+        throw new RuntimeException('INTENTIONALLY Not implemented.');
+    }
+
     /**
      * @deprecated
      */
     public function createLoop(): ILoop
     {
         return new ALoopAdapterOverride();
-    }
-
-
-    public static function getCreatorClass(): string
-    {
-        throw new \RuntimeException('INTENTIONALLY Not implemented.');
     }
 }
