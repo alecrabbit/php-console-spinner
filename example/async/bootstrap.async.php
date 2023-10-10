@@ -38,13 +38,16 @@ $memoryReport = static function () use ($echo): void {
     );
 };
 
-Facade::getLoop()
+$loop = Facade::getLoop();
+
+$loop
     ->repeat(
         $reportInterval,
         $memoryReport
     )
 ;
 
+dump(get_debug_type($loop));
 $echo(PHP_EOL . 'Note: Loop should start automatically!' . PHP_EOL);
 
 $memoryReport();
