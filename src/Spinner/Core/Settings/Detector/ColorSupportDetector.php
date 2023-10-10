@@ -18,12 +18,12 @@ final readonly class ColorSupportDetector implements IColorSupportDetector
     ) {
     }
 
-    public function getStylingMethodOption(): StylingMethodOption
+    public function getSupportValue(): StylingMethodOption
     {
         foreach ($this->probes as $probe) {
             self::assertProbe($probe);
             if ($probe::isSupported()) {
-                return $probe::getStylingMethodOption();
+                return $probe::getCreatorClass()::create();
             }
         }
 

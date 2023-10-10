@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Probe;
 
 use AlecRabbit\Spinner\Contract\Probe\ISignalProcessingProbe;
-use RuntimeException;
 
 final class SignalProcessingProbe implements ISignalProcessingProbe
 {
@@ -21,7 +20,6 @@ final class SignalProcessingProbe implements ISignalProcessingProbe
 
     public static function getCreatorClass(): string
     {
-        // TODO: Implement getCreatorClass() method.
-        throw new RuntimeException('Not implemented.');
+        return StylingMethodOptionCreator::class;
     }
 }

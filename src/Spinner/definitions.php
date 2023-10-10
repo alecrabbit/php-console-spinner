@@ -157,7 +157,7 @@ use AlecRabbit\Spinner\Core\Settings\Builder\SettingsProviderBuilder;
 use AlecRabbit\Spinner\Core\Settings\Contract\Builder\ISettingsProviderBuilder;
 use AlecRabbit\Spinner\Core\Settings\Contract\Detector\IColorSupportDetector;
 use AlecRabbit\Spinner\Core\Settings\Contract\Detector\ILoopSupportDetector;
-use AlecRabbit\Spinner\Core\Settings\Contract\Detector\ISignalProcessingDetector;
+use AlecRabbit\Spinner\Core\Settings\Contract\Detector\ISignalProcessingSupportDetector;
 use AlecRabbit\Spinner\Core\Settings\Contract\Factory\IDefaultSettingsFactory;
 use AlecRabbit\Spinner\Core\Settings\Contract\Factory\IDetectedSettingsFactory;
 use AlecRabbit\Spinner\Core\Settings\Contract\Factory\ISettingsProviderFactory;
@@ -166,7 +166,7 @@ use AlecRabbit\Spinner\Core\Settings\Contract\ISettingsProvider;
 use AlecRabbit\Spinner\Core\Settings\Contract\IWidgetSettings;
 use AlecRabbit\Spinner\Core\Settings\Detector\ColorSupportDetector;
 use AlecRabbit\Spinner\Core\Settings\Detector\LoopSupportDetector;
-use AlecRabbit\Spinner\Core\Settings\Detector\SignalProcessingDetector;
+use AlecRabbit\Spinner\Core\Settings\Detector\SignalProcessingSupportDetector;
 use AlecRabbit\Spinner\Core\Settings\Factory\DefaultSettingsFactory;
 use AlecRabbit\Spinner\Core\Settings\Factory\DetectedSettingsFactory;
 use AlecRabbit\Spinner\Core\Settings\Factory\SettingsProviderFactory;
@@ -352,9 +352,9 @@ function detectors(): Traversable
                     $container->get(ILoopCreatorClassProvider::class)->getCreatorClass(),
                 );
         },
-        ISignalProcessingDetector::class => static function (): SignalProcessingDetector {
+        ISignalProcessingSupportDetector::class => static function (): SignalProcessingSupportDetector {
             return
-                new SignalProcessingDetector(
+                new SignalProcessingSupportDetector(
                     Probes::load(ISignalProcessingProbe::class)
                 );
         },

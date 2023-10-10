@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Settings\Detector;
 
 use AlecRabbit\Spinner\Contract\Probe\ISignalProcessingProbe;
-use AlecRabbit\Spinner\Core\Settings\Contract\Detector\ISignalProcessingDetector;
-use AlecRabbit\Spinner\Core\Settings\Detector\SignalProcessingDetector;
+use AlecRabbit\Spinner\Core\Settings\Contract\Detector\ISignalProcessingSupportDetector;
+use AlecRabbit\Spinner\Core\Settings\Detector\SignalProcessingSupportDetector;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Tests\TestCase\TestCase;
 use AlecRabbit\Tests\Unit\Spinner\Core\Settings\Detector\Override\NegativeSignalProcessingProbeOverride;
@@ -17,7 +17,7 @@ use PHPUnit\Framework\Attributes\Test;
 use stdClass;
 use Traversable;
 
-final class SignalProcessingDetectorTest extends TestCase
+final class SignalProcessingSupportDetectorTest extends TestCase
 {
     public static function canSolveDataProvider(): iterable
     {
@@ -51,14 +51,14 @@ final class SignalProcessingDetectorTest extends TestCase
     {
         $detector = $this->getTesteeInstance();
 
-        self::assertInstanceOf(SignalProcessingDetector::class, $detector);
+        self::assertInstanceOf(SignalProcessingSupportDetector::class, $detector);
     }
 
     protected function getTesteeInstance(
         ?Traversable $probes = null
-    ): ISignalProcessingDetector {
+    ): ISignalProcessingSupportDetector {
         return
-            new SignalProcessingDetector(
+            new SignalProcessingSupportDetector(
                 probes: $probes ?? new ArrayObject(),
             );
     }

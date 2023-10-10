@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Settings\Detector;
 
 use AlecRabbit\Spinner\Contract\Probe\ISignalProcessingProbe;
-use AlecRabbit\Spinner\Core\Settings\Contract\Detector\ISignalProcessingDetector;
+use AlecRabbit\Spinner\Core\Settings\Contract\Detector\ISignalProcessingSupportDetector;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use ArrayObject;
 use Traversable;
 
-final class SignalProcessingDetector implements ISignalProcessingDetector
+final class SignalProcessingSupportDetector implements ISignalProcessingSupportDetector
 {
     public function __construct(
         protected Traversable $probes = new ArrayObject(),

@@ -14,7 +14,7 @@ use stdClass;
 
 final class LoopSupportDetectorTest extends TestCase
 {
-    public static function canSolveDataProvider(): iterable
+    public static function canDetectDataProvider(): iterable
     {
         yield from [
             // $result, $probes
@@ -42,13 +42,13 @@ final class LoopSupportDetectorTest extends TestCase
     }
 
     #[Test]
-    #[DataProvider('canSolveDataProvider')]
-    public function canSolve(bool $result, ?string $creatorClass): void
+    #[DataProvider('canDetectDataProvider')]
+    public function canDetect(bool $result, ?string $creatorClass): void
     {
         $detector = $this->getTesteeInstance(
             creatorClass: $creatorClass,
         );
 
-        self::assertEquals($result, $detector->isSupported());
+        self::assertEquals($result, $detector->getSupportValue());
     }
 }
