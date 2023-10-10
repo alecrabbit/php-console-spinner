@@ -5,16 +5,15 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner;
 
 use AlecRabbit\Spinner\Container\A\AContainerEnclosure;
+use AlecRabbit\Spinner\Core\Contract\IDriverProvider;
 use AlecRabbit\Spinner\Core\Contract\IDriverSetup;
 use AlecRabbit\Spinner\Core\Contract\Loop\ILoopProvider;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDriverFactory;
-use AlecRabbit\Spinner\Core\Factory\Contract\ILoopFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ISpinnerFactory;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettingsProvider;
 
 abstract class AFacade extends AContainerEnclosure
 {
-
     protected static function getSpinnerFactory(): ISpinnerFactory
     {
         return self::getContainer()->get(ISpinnerFactory::class);
@@ -23,6 +22,11 @@ abstract class AFacade extends AContainerEnclosure
     protected static function getLoopProvider(): ILoopProvider
     {
         return self::getContainer()->get(ILoopProvider::class);
+    }
+
+    protected static function getDriverProvider(): IDriverProvider
+    {
+        return self::getContainer()->get(IDriverProvider::class);
     }
 
     protected static function getSettingsProvider(): ISettingsProvider

@@ -22,13 +22,13 @@ final class SettingsProviderTest extends TestCase
     }
 
     public function getTesteeInstance(
-        ?ISettings $settings = null,
+        ?ISettings $userSettings = null,
         ?ISettings $defaultSettings = null,
         ?ISettings $detectedSettings = null,
     ): ISettingsProvider {
         return
             new SettingsProvider(
-                settings: $settings ?? $this->getSettingsMock(),
+                userSettings: $userSettings ?? $this->getSettingsMock(),
                 defaultSettings: $defaultSettings ?? $this->getSettingsMock(),
                 detectedSettings: $detectedSettings ?? $this->getSettingsMock(),
             );
@@ -45,7 +45,7 @@ final class SettingsProviderTest extends TestCase
         $settings = $this->getSettingsMock();
 
         $provider = $this->getTesteeInstance(
-            settings: $settings,
+            userSettings: $settings,
         );
 
         self::assertSame($settings, $provider->getUserSettings());
