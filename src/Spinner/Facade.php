@@ -35,11 +35,6 @@ final class Facade extends AFacade
         return self::getDriverProvider()->getDriver();
     }
 
-    protected static function setupDriver(IDriver $driver): void
-    {
-        self::getDriverSetup()->setup($driver);
-    }
-
     public static function getSettings(): ISettings
     {
         return

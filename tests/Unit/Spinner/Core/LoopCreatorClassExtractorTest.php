@@ -11,8 +11,10 @@ use AlecRabbit\Spinner\Core\LoopCreatorClassExtractor;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Tests\TestCase\TestCase;
 use AlecRabbit\Tests\Unit\Spinner\Asynchronous\Stub\LoopProbeStub;
+use ArrayObject;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
+use stdClass;
 
 final class LoopCreatorClassExtractorTest extends TestCase
 {
@@ -29,7 +31,7 @@ final class LoopCreatorClassExtractorTest extends TestCase
                         ),
                     ],
                 ],
-                [\stdClass::class]
+                [stdClass::class]
             ],
             [[null], []],
             [[RevoltLoopCreator::class], [LoopProbeStub::class]],
@@ -61,7 +63,7 @@ final class LoopCreatorClassExtractorTest extends TestCase
 
         $extractor = $this->getTesteeInstance();
 
-        self::assertSame($result, $extractor->extract(new \ArrayObject($probes)));
+        self::assertSame($result, $extractor->extract(new ArrayObject($probes)));
 
         if ($expectedException) {
             self::failTest($expectedException);

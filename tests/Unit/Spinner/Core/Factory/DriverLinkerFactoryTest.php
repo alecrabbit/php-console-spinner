@@ -6,7 +6,6 @@ namespace AlecRabbit\Tests\Unit\Spinner\Core\Factory;
 
 use AlecRabbit\Spinner\Contract\Mode\LinkerMode;
 use AlecRabbit\Spinner\Core\Config\Contract\IDriverConfig;
-use AlecRabbit\Spinner\Core\Contract\Loop\ILoop;
 use AlecRabbit\Spinner\Core\Contract\Loop\ILoopProvider;
 use AlecRabbit\Spinner\Core\DriverLinker;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDriverLinkerFactory;
@@ -36,6 +35,11 @@ final class DriverLinkerFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
             );
     }
 
+    private function getLoopProviderMock(): MockObject&ILoopProvider
+    {
+        return $this->createMock(ILoopProvider::class);
+    }
+
     private function getDriverConfigMock(?LinkerMode $linkerMode = null): MockObject&IDriverConfig
     {
         return $this->createConfiguredMock(
@@ -45,10 +49,6 @@ final class DriverLinkerFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
 //                'getInitializationMode' => new \LogicException('Should not be called during this test.'),
             ]
         );
-    }
-    private function getLoopProviderMock(): MockObject&ILoopProvider
-    {
-        return $this->createMock(ILoopProvider::class);
     }
 
     #[Test]

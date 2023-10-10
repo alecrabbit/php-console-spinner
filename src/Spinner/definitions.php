@@ -217,7 +217,9 @@ function getDefinitions(): Traversable
             return $container->get(IIntervalNormalizerFactory::class)->create();
         },
         ILoopCreatorClassProvider::class => static function (ContainerInterface $container): ILoopCreatorClassProvider {
-            $creatorClass = $container->get(ILoopCreatorClassExtractor::class)->extract(Probes::load(ILoopProbe::class));
+            $creatorClass = $container->get(ILoopCreatorClassExtractor::class)->extract(
+                Probes::load(ILoopProbe::class)
+            );
             return
                 new LoopCreatorClassProvider(
                     $creatorClass,

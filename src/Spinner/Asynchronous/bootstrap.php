@@ -9,8 +9,8 @@ use AlecRabbit\Spinner\Probes;
 // @codeCoverageIgnoreStart
 
 Probes::register(
+    ReactLoopProbe::class,
     RevoltLoopProbe::class,
-    ReactLoopProbe::class
 );
 
 // @codeCoverageIgnoreEnd

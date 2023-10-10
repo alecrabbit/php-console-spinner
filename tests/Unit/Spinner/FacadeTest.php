@@ -5,10 +5,15 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Unit\Spinner;
 
 use AlecRabbit\Spinner\Container\Contract\IContainer;
+use AlecRabbit\Spinner\Contract\IDriver;
+use AlecRabbit\Spinner\Core\Contract\IDriverProvider;
+use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use AlecRabbit\Spinner\Core\Contract\Loop\ILoop;
 use AlecRabbit\Spinner\Core\Contract\Loop\ILoopProvider;
+use AlecRabbit\Spinner\Core\Factory\Contract\ISpinnerFactory;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettingsProvider;
+use AlecRabbit\Spinner\Core\Settings\Contract\ISpinnerSettings;
 use AlecRabbit\Spinner\Facade;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
@@ -106,6 +111,102 @@ final class FacadeTest extends TestCase
     private function getLoopProviderMock(): MockObject&ILoopProvider
     {
         return $this->createMock(ILoopProvider::class);
+    }
+
+    #[Test]
+    public function canCreateSpinner(): void
+    {
+        $container = $this->getContainerMock();
+        self::setContainer($container);
+
+        $spinner = $this->getSpinnerMock();
+
+        $driver = $this->getDriverMock();
+        $driver
+            ->expects(self::once())
+            ->method('add')
+            ->with(self::identicalTo($spinner))
+        ;
+
+        $driverProvider = $this->getDriverProviderMock();
+        $driverProvider
+            ->expects(self::once())
+            ->method('getDriver')
+            ->willReturn($driver)
+        ;
+
+        $spinnerSettings = $this->getSpinnerSettingsMock();
+        $spinnerSettings
+            ->expects(self::once())
+            ->method('isAutoAttach')
+            ->willReturn(true)
+        ;
+
+        $spinnerFactory = $this->getSpinnerFactoryMock();
+        $spinnerFactory
+            ->expects(self::once())
+            ->method('create')
+            ->with(self::identicalTo($spinnerSettings))
+            ->willReturn($spinner)
+        ;
+
+        $container
+            ->method('get')
+            ->willReturnOnConsecutiveCalls($spinnerFactory, $driverProvider)
+        ;
+
+
+        self::assertSame($spinner, Facade::createSpinner($spinnerSettings));
+    }
+
+    private function getSpinnerMock(): MockObject&ISpinner
+    {
+        return $this->createMock(ISpinner::class);
+    }
+
+    private function getDriverMock(): MockObject&IDriver
+    {
+        return $this->createMock(IDriver::class);
+    }
+
+    private function getDriverProviderMock(): MockObject&IDriverProvider
+    {
+        return $this->createMock(IDriverProvider::class);
+    }
+
+    private function getSpinnerSettingsMock(): MockObject&ISpinnerSettings
+    {
+        return $this->createMock(ISpinnerSettings::class);
+    }
+
+    private function getSpinnerFactoryMock(): MockObject&ISpinnerFactory
+    {
+        return $this->createMock(ISpinnerFactory::class);
+    }
+
+    #[Test]
+    public function canGetDriver(): void
+    {
+        $container = $this->getContainerMock();
+        self::setContainer($container);
+
+        $driver = $this->getDriverMock();
+
+        $driverProvider = $this->getDriverProviderMock();
+        $driverProvider
+            ->expects(self::once())
+            ->method('getDriver')
+            ->willReturn($driver)
+        ;
+
+        $container
+            ->expects(self::once())
+            ->method('get')
+            ->with(self::identicalTo(IDriverProvider::class))
+            ->willReturn($driverProvider)
+        ;
+
+        self::assertSame($driver, Facade::getDriver());
     }
 
     protected function setUp(): void

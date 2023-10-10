@@ -5,8 +5,6 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Asynchronous\React;
 
 use AlecRabbit\Spinner\Core\Contract\Loop\A\ALoopProbe;
-use AlecRabbit\Spinner\Core\Contract\Loop\ILoop;
-use AlecRabbit\Spinner\Exception\RuntimeException;
 use React\EventLoop\Loop;
 
 use function class_exists;

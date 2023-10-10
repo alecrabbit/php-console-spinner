@@ -68,11 +68,12 @@ final class Probes
      */
     public static function load(string $filterClass = null): Traversable
     {
+        $probes = array_reverse(self::$probes, true);
         if ($filterClass === null) {
-            yield from self::$probes;
+            yield from $probes;
         } else {
             self::assertClass($filterClass);
-            foreach (self::$probes as $probe) {
+            foreach ($probes as $probe) {
                 if (is_subclass_of($probe, $filterClass)) {
                     yield $probe;
                 }

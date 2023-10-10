@@ -6,7 +6,6 @@ namespace AlecRabbit\Spinner\Core;
 
 use AlecRabbit\Spinner\Core\Contract\Loop\ILoopCreator;
 use AlecRabbit\Spinner\Core\Contract\Loop\ILoopCreatorClassProvider;
-use AlecRabbit\Spinner\Core\Contract\Loop\ILoopProbe;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 
 final class LoopCreatorClassProvider implements ILoopCreatorClassProvider

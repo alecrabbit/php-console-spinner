@@ -11,6 +11,7 @@ use AlecRabbit\Spinner\Core\Factory\LoopProviderFactory;
 use AlecRabbit\Spinner\Core\LoopProvider;
 use AlecRabbit\Spinner\Exception\DomainException;
 use AlecRabbit\Tests\TestCase\TestCase;
+use Exception;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 
@@ -60,6 +61,11 @@ final class LoopProviderFactoryTest extends TestCase
         self::assertSame($loop, $loopProvider->getLoop());
     }
 
+    protected function getLoopMock(): MockObject&ILoop
+    {
+        return $this->createMock(ILoop::class);
+    }
+
     #[Test]
     public function canCreateWithNullLoop(): void
     {
@@ -67,7 +73,7 @@ final class LoopProviderFactoryTest extends TestCase
         $loopFactory
             ->expects(self::once())
             ->method('create')
-            ->willThrowException(new \Exception())
+            ->willThrowException(new Exception())
         ;
 
         $factory = $this->getTesteeInstance(
@@ -83,10 +89,5 @@ final class LoopProviderFactoryTest extends TestCase
         $this->expectExceptionMessage('Loop is not set.');
 
         $loopProvider->getLoop();
-    }
-
-    protected function getLoopMock(): MockObject&ILoop
-    {
-        return $this->createMock(ILoop::class);
     }
 }

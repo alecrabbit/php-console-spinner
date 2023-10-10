@@ -55,6 +55,22 @@ final class ProbesTest extends TestCase
     }
 
     #[Test]
+    public function loadsProbesInAReverseOrder(): void
+    {
+        $probe1 = ReactLoopProbe::class;
+        $probe2 = StaticProbeOverride::class;
+
+        Probes::register($probe1);
+        Probes::register($probe2);
+
+        $probes = iterator_to_array(Probes::load());
+
+        self::assertCount(2, $probes);
+        self::assertSame($probe2, array_shift($probes));
+        self::assertSame($probe1, array_shift($probes));
+    }
+
+    #[Test]
     public function canRegisterMultipleProbes(): void
     {
         $probe1 = ReactLoopProbe::class;

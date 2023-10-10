@@ -11,6 +11,7 @@ use AlecRabbit\Spinner\Core\LoopCreatorClassProvider;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
+use stdClass;
 
 final class LoopCreatorClassProviderTest extends TestCase
 {
@@ -62,7 +63,7 @@ final class LoopCreatorClassProviderTest extends TestCase
             )
         );
 
-        $creatorClass = \stdClass::class;
+        $creatorClass = stdClass::class;
 
         $provider = $this->getTesteeInstance(
             creatorClass: $creatorClass

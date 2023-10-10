@@ -12,6 +12,7 @@ use AlecRabbit\Spinner\Exception\LoopException;
 use AlecRabbit\Tests\TestCase\TestCase;
 use AlecRabbit\Tests\Unit\Spinner\Asynchronous\Stub\LoopCreatorStub;
 use PHPUnit\Framework\Attributes\Test;
+use stdClass;
 
 final class LoopFactoryTest extends TestCase
 {
@@ -46,7 +47,7 @@ final class LoopFactoryTest extends TestCase
     #[Test]
     public function throwsIfArgumentIsInvalid(): void
     {
-        $loopCreator = \stdClass::class;
+        $loopCreator = stdClass::class;
 
         $this->expectException(LoopException::class);
         $this->expectExceptionMessage(

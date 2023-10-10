@@ -9,6 +9,7 @@ use AlecRabbit\Spinner\Core\Contract\Loop\ILoopProvider;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopProviderFactory;
 use AlecRabbit\Spinner\Core\LoopProvider;
+use Throwable;
 
 final readonly class LoopProviderFactory implements ILoopProviderFactory
 {
@@ -35,7 +36,7 @@ final readonly class LoopProviderFactory implements ILoopProviderFactory
     {
         try {
             return $this->loopFactory->create();
-        } catch (\Throwable $_) {
+        } catch (Throwable $_) {
             return null;
         }
     }
