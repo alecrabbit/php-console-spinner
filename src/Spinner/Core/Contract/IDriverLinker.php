@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Contract;
 
+use AlecRabbit\Spinner\Contract\IDriver;
 use AlecRabbit\Spinner\Contract\IObserver;
 
 interface IDriverLinker extends IObserver
