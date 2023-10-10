@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Asynchronous\Factory\Stub;
 
+use AlecRabbit\Spinner\Asynchronous\Factory\RevoltLoopCreator;
 use AlecRabbit\Spinner\Core\Contract\Loop\A\ALoopProbe;
 use AlecRabbit\Spinner\Core\Contract\Loop\ILoop;
 use AlecRabbit\Tests\Unit\Spinner\Asynchronous\Override\ALoopAdapterOverride;
@@ -18,7 +19,7 @@ final class LoopProbeStub extends ALoopProbe
 
     public static function getCreatorClass(): string
     {
-        throw new RuntimeException('INTENTIONALLY Not implemented.');
+        return RevoltLoopCreator::class;
     }
 
     /**

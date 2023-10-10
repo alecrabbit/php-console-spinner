@@ -90,6 +90,7 @@ use AlecRabbit\Spinner\Core\Contract\IIntervalNormalizer;
 use AlecRabbit\Spinner\Core\Contract\ILegacySettingsProvider;
 use AlecRabbit\Spinner\Core\Contract\ILegacySignalHandlersSetup;
 use AlecRabbit\Spinner\Core\Contract\ILegacySignalProcessingLegacyProbe;
+use AlecRabbit\Spinner\Core\Contract\Loop\ILoopCreatorClassExtractor;
 use AlecRabbit\Spinner\Core\Contract\Loop\ILoopCreatorClassProvider;
 use AlecRabbit\Spinner\Core\Contract\Loop\ILoopProbe;
 use AlecRabbit\Spinner\Core\Contract\Loop\ILoopProvider;
@@ -138,6 +139,7 @@ use AlecRabbit\Spinner\Core\Factory\SpinnerFactory;
 use AlecRabbit\Spinner\Core\Factory\StyleFrameRevolverFactory;
 use AlecRabbit\Spinner\Core\Factory\TimerFactory;
 use AlecRabbit\Spinner\Core\LegacySignalHandlersSetup;
+use AlecRabbit\Spinner\Core\LoopCreatorClassExtractor;
 use AlecRabbit\Spinner\Core\LoopCreatorClassProvider;
 use AlecRabbit\Spinner\Core\Output\ResourceStream;
 use AlecRabbit\Spinner\Core\Palette\Factory\Contract\IPaletteModeFactory;
@@ -214,6 +216,7 @@ function getDefinitions(): Traversable
                     Probes::load(ILoopProbe::class)
                 );
         },
+        ILoopCreatorClassExtractor::class => LoopCreatorClassExtractor::class,
     ];
 
     yield from configs();
