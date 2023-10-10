@@ -1,26 +1,11 @@
- ----------- --------------------------------------------------------------------------------------------------------- 
-  Reason      Contract                                                                                                 
- ----------- --------------------------------------------------------------------------------------------------------- 
-  Violation   AlecRabbit\Spinner\Contract\IDriver must not depend on AlecRabbit\Spinner\Core\Contract\ISpinner (Core)  
-              /app/src/Spinner/Contract/IDriver.php:15                                                                 
-  Violation   AlecRabbit\Spinner\Contract\IDriver must not depend on AlecRabbit\Spinner\Core\Contract\ISpinner (Core)  
-              /app/src/Spinner/Contract/IDriver.php:21                                                                 
-  Violation   AlecRabbit\Spinner\Contract\IDriver must not depend on AlecRabbit\Spinner\Core\Contract\ISpinner (Core)  
-              /app/src/Spinner/Contract/IDriver.php:23                                                                 
-  Violation   AlecRabbit\Spinner\Contract\IDriver must not depend on AlecRabbit\Spinner\Core\Contract\ISpinner (Core)  
-              /app/src/Spinner/Contract/IDriver.php:29                                                                 
-  Violation   AlecRabbit\Spinner\Contract\IDriver must not depend on AlecRabbit\Spinner\Core\Contract\ISpinner (Core)  
-              /app/src/Spinner/Contract/IDriver.php:7                                                                  
- ----------- --------------------------------------------------------------------------------------------------------- 
-
 
  -------------------- ------ 
   Report                     
  -------------------- ------ 
-  Violations           5     
+  Violations           0     
   Skipped violations   0     
   Uncovered            177   
-  Allowed              2607  
+  Allowed              2584  
   Warnings             0     
   Errors               0     
  -------------------- ------ 
