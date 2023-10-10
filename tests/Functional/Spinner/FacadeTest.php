@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Functional\Spinner;
 
-use AlecRabbit\Spinner\Container\Contract\IDefinitionRegistry;
 use AlecRabbit\Spinner\Core\Contract\Loop\A\ALoopAdapter;
 use AlecRabbit\Spinner\Core\Settings\Settings;
 use AlecRabbit\Spinner\Facade;
@@ -13,8 +12,6 @@ use PHPUnit\Framework\Attributes\Test;
 
 final class FacadeTest extends TestCase
 {
-    private ?IDefinitionRegistry $registry = null;
-
 //    #[Test]
 //    public function canNotBeInstantiated(): void
 //    {
