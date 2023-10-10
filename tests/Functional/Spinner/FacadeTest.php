@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Functional\Spinner;
 
+use AlecRabbit\Spinner\Core\A\ADriver;
 use AlecRabbit\Spinner\Core\Contract\Loop\A\ALoopAdapter;
 use AlecRabbit\Spinner\Core\Settings\Settings;
 use AlecRabbit\Spinner\Facade;
@@ -34,6 +35,30 @@ final class FacadeTest extends TestCase
         $loop = Facade::getLoop();
 
         self::assertInstanceOf(ALoopAdapter::class, $loop);
+    }
+
+    #[Test]
+    public function canGetDriver(): void
+    {
+        $driver = Facade::getDriver();
+
+        self::assertInstanceOf(ADriver::class, $driver);
+    }
+
+    #[Test]
+    public function driverObjectIsAlwaysSame(): void
+    {
+        $driver = Facade::getDriver();
+
+        self::assertSame($driver, Facade::getDriver());
+        self::assertSame($driver, Facade::getDriver());
+        self::assertSame($driver, Facade::getDriver());
+    }
+
+    #[Test]
+    public function loopObjectIsAlwaysSame(): void
+    {
+        $loop = Facade::getLoop();
 
         self::assertSame($loop, Facade::getLoop());
         self::assertSame($loop, Facade::getLoop());
@@ -44,8 +69,6 @@ final class FacadeTest extends TestCase
     public function settingsObjectIsAlwaysSame(): void
     {
         $settings = Facade::getSettings();
-
-        self::assertInstanceOf(Settings::class, $settings);
 
         self::assertSame($settings, Facade::getSettings());
         self::assertSame($settings, Facade::getSettings());

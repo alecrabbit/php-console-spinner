@@ -85,6 +85,7 @@ use AlecRabbit\Spinner\Core\Config\WidgetRevolverConfig;
 use AlecRabbit\Spinner\Core\Contract\IConfigProvider;
 use AlecRabbit\Spinner\Core\Contract\IDriverBuilder;
 use AlecRabbit\Spinner\Core\Contract\IDriverLinker;
+use AlecRabbit\Spinner\Core\Contract\IDriverProvider;
 use AlecRabbit\Spinner\Core\Contract\IDriverSetup;
 use AlecRabbit\Spinner\Core\Contract\IIntervalNormalizer;
 use AlecRabbit\Spinner\Core\Contract\ILegacySettingsProvider;
@@ -104,6 +105,7 @@ use AlecRabbit\Spinner\Core\Factory\Contract\IConsoleCursorFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDriverFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDriverLinkerFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDriverOutputFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\IDriverProviderFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IFrameCollectionFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalNormalizerFactory;
@@ -122,6 +124,7 @@ use AlecRabbit\Spinner\Core\Factory\Contract\ITimerFactory;
 use AlecRabbit\Spinner\Core\Factory\DriverFactory;
 use AlecRabbit\Spinner\Core\Factory\DriverLinkerFactory;
 use AlecRabbit\Spinner\Core\Factory\DriverOutputFactory;
+use AlecRabbit\Spinner\Core\Factory\DriverProviderFactory;
 use AlecRabbit\Spinner\Core\Factory\FrameCollectionFactory;
 use AlecRabbit\Spinner\Core\Factory\IntervalFactory;
 use AlecRabbit\Spinner\Core\Factory\IntervalNormalizerFactory;
@@ -198,6 +201,9 @@ function getDefinitions(): Traversable
         },
         ILoopProvider::class => static function (ContainerInterface $container): ILoopProvider {
             return $container->get(ILoopProviderFactory::class)->create();
+        },
+        IDriverProvider::class => static function (ContainerInterface $container): IDriverProvider {
+            return $container->get(IDriverProviderFactory::class)->create();
         },
         IDriverSetup::class => DriverSetup::class,
 
@@ -290,6 +296,7 @@ function factories(): Traversable
     yield from [
         IDriverFactory::class => DriverFactory::class,
         ILoopProviderFactory::class => LoopProviderFactory::class,
+        IDriverProviderFactory::class => DriverProviderFactory::class,
 
         IBufferedOutputSingletonFactory::class => BufferedOutputSingletonFactory::class,
         ICharFrameRevolverFactory::class => CharFrameRevolverFactory::class,

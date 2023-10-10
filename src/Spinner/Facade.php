@@ -12,8 +12,6 @@ use AlecRabbit\Spinner\Core\Settings\Contract\ISpinnerSettings;
 
 final class Facade extends AFacade
 {
-    private static ?IDriver $driver = null;
-
     public static function getLoop(): ILoop
     {
         return self::getLoopProvider()->getLoop();
@@ -34,11 +32,7 @@ final class Facade extends AFacade
 
     public static function getDriver(): IDriver
     {
-        if (self::$driver === null) {
-            self::$driver = self::getDriverFactory()->create();
-            self::setupDriver(self::$driver);
-        }
-        return self::$driver;
+        return self::getDriverProvider()->getDriver();
     }
 
     protected static function setupDriver(IDriver $driver): void
