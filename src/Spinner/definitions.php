@@ -53,8 +53,10 @@ use AlecRabbit\Spinner\Core\Config\Contract\Factory\ILoopConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\IOutputConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\IRootWidgetConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\IWidgetConfigFactory;
+use AlecRabbit\Spinner\Core\Config\Contract\IAuxConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IDriverConfig;
+use AlecRabbit\Spinner\Core\Config\Contract\ILoopConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IOutputConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IRootWidgetConfig;
 use AlecRabbit\Spinner\Core\Config\Factory\AuxConfigFactory;
@@ -251,6 +253,12 @@ function configs(): Traversable
         },
         IOutputConfig::class => static function (ContainerInterface $container): IOutputConfig {
             return $container->get(IConfig::class)->get(IOutputConfig::class);
+        },
+        ILoopConfig::class => static function (ContainerInterface $container): ILoopConfig {
+            return $container->get(IConfig::class)->get(ILoopConfig::class);
+        },
+        IAuxConfig::class => static function (ContainerInterface $container): IAuxConfig {
+            return $container->get(IConfig::class)->get(IAuxConfig::class);
         },
     ];
 }
@@ -485,9 +493,9 @@ function legacy(): Traversable
             return
                 $container->get(ILegacySettingsProvider::class)->getLegacyTerminalSettings()->getOptionCursor();
         },
-        ILoopProbe::class => static function (ContainerInterface $container): ILoopProbe {
-            return $container->get(ILegacyLoopProbeFactory::class)->getProbe();
-        },
+//        ILoopProbe::class => static function (ContainerInterface $container): ILoopProbe {
+//            return $container->get(ILegacyLoopProbeFactory::class)->getProbe();
+//        },
         ILegacyLoopProbeFactory::class => static function (): ILegacyLoopProbeFactory {
             return
                 new LegacyLoopProbeFactory(
