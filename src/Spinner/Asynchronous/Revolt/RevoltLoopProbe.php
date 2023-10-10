@@ -2,12 +2,11 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Spinner\Asynchronous\Loop\Probe;
+namespace AlecRabbit\Spinner\Asynchronous\Revolt;
 
-use AlecRabbit\Spinner\Asynchronous\Factory\RevoltLoopCreator;
-use AlecRabbit\Spinner\Asynchronous\Loop\Adapter\RevoltLoopAdapter;
 use AlecRabbit\Spinner\Core\Contract\Loop\A\ALoopProbe;
 use AlecRabbit\Spinner\Core\Contract\Loop\ILoop;
+use AlecRabbit\Spinner\Exception\RuntimeException;
 use Revolt\EventLoop;
 
 use function class_exists;
@@ -22,14 +21,5 @@ final class RevoltLoopProbe extends ALoopProbe
     public static function getCreatorClass(): string
     {
         return RevoltLoopCreator::class;
-    }
-
-    /**
-     * @deprecated
-     * @codeCoverageIgnore Deprecated
-     */
-    public function createLoop(): ILoop
-    {
-        return new RevoltLoopAdapter(EventLoop::getDriver());
     }
 }

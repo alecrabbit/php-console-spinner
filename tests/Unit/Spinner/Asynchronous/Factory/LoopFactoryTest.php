@@ -10,7 +10,7 @@ use AlecRabbit\Spinner\Core\Factory\Contract\ILoopFactory;
 use AlecRabbit\Spinner\Core\Factory\LoopFactory;
 use AlecRabbit\Spinner\Exception\LoopException;
 use AlecRabbit\Tests\TestCase\TestCase;
-use AlecRabbit\Tests\Unit\Spinner\Asynchronous\Factory\Stub\LoopCreatorStub;
+use AlecRabbit\Tests\Unit\Spinner\Asynchronous\Stub\LoopCreatorStub;
 use PHPUnit\Framework\Attributes\Test;
 
 final class LoopFactoryTest extends TestCase

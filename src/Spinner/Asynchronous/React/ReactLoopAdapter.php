@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Spinner\Asynchronous\Loop\Adapter;
+namespace AlecRabbit\Spinner\Asynchronous\React;
 
 use AlecRabbit\Spinner\Core\Contract\Loop\A\ALoopAdapter;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;

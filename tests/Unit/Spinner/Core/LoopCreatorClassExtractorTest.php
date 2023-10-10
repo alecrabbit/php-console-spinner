@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core;
 
-use AlecRabbit\Spinner\Asynchronous\Factory\RevoltLoopCreator;
+use AlecRabbit\Spinner\Asynchronous\Revolt\RevoltLoopCreator;
 use AlecRabbit\Spinner\Core\Contract\Loop\ILoopCreatorClassExtractor;
 use AlecRabbit\Spinner\Core\Contract\Loop\ILoopProbe;
 use AlecRabbit\Spinner\Core\LoopCreatorClassExtractor;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Tests\TestCase\TestCase;
-use AlecRabbit\Tests\Unit\Spinner\Asynchronous\Factory\Stub\LoopProbeStub;
+use AlecRabbit\Tests\Unit\Spinner\Asynchronous\Stub\LoopProbeStub;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 

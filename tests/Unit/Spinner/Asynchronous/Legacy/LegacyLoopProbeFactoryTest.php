@@ -2,20 +2,20 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Tests\Unit\Spinner\Asynchronous\Factory;
+namespace AlecRabbit\Tests\Unit\Spinner\Asynchronous\Legacy;
 
 use AlecRabbit\Spinner\Asynchronous\Factory\LegacyLoopProbeFactory;
 use AlecRabbit\Spinner\Core\Contract\Loop\A\ALoopProbe;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILegacyLoopProbeFactory;
 use AlecRabbit\Spinner\Exception\DomainException;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
-use AlecRabbit\Tests\Unit\Spinner\Asynchronous\Factory\Stub\LoopProbeStub;
+use AlecRabbit\Tests\Unit\Spinner\Asynchronous\Stub\LoopProbeStub;
 use ArrayObject;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 use Traversable;
 
-final class LoopProbeFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
+final class LegacyLoopProbeFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
 {
     #[Test]
     public function canBeInstantiated(): void

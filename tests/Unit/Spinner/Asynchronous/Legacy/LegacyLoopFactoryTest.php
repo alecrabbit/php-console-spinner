@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Tests\Unit\Spinner\Asynchronous\Factory;
+namespace AlecRabbit\Tests\Unit\Spinner\Asynchronous\Legacy;
 
 use AlecRabbit\Spinner\Core\Contract\Loop\A\ALoopAdapter;
 use AlecRabbit\Spinner\Core\Contract\Loop\A\ALoopProbe;

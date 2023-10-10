@@ -2,9 +2,8 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Spinner\Asynchronous\Factory;
+namespace AlecRabbit\Spinner\Asynchronous\Revolt;
 
-use AlecRabbit\Spinner\Asynchronous\Loop\Adapter\RevoltLoopAdapter;
 use AlecRabbit\Spinner\Core\Contract\Loop\ILoop;
 use AlecRabbit\Spinner\Core\Contract\Loop\ILoopCreator;
 use Revolt\EventLoop;

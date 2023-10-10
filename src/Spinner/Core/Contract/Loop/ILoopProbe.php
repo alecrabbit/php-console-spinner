@@ -12,9 +12,4 @@ interface ILoopProbe extends IStaticProbe
      * @return class-string<ILoopCreator>
      */
     public static function getCreatorClass(): string;
-
-    /**
-     * @deprecated
-     */
-    public function createLoop(): ILoop;
 }

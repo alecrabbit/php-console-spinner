@@ -14,29 +14,26 @@ final class LoopCreatorClassProvider implements ILoopCreatorClassProvider
     /** @var class-string<ILoopCreator>|null */
     protected ?string $creatorClass = null;
 
-    public function __construct(\Traversable $probes)
+    /**
+     * @param class-string<ILoopCreator>|null $creatorClass
+     * @throws InvalidArgumentException
+     */
+    public function __construct(?string $creatorClass)
     {
-        $this->creatorClass = $this->extractClass($probes);
+        self::assertClass($creatorClass);
+        $this->creatorClass = $creatorClass;
     }
 
-    private function extractClass(\Traversable $probes): ?string
+    private static function assertClass(?string $creatorClass): void
     {
-        foreach ($probes as $probe) {
-            self::assertProbe($probe);
-            if ($probe::isSupported()) {
-                return $probe::getCreatorClass();
-            }
+        if ($creatorClass === null) {
+            return;
         }
-        return null;
-    }
-
-    protected static function assertProbe($probe): void
-    {
-        if (!is_a($probe, ILoopProbe::class, true)) {
+        if (!is_a($creatorClass, ILoopCreator::class, true)) {
             throw new InvalidArgumentException(
                 sprintf(
-                    'Probe must be an instance of "%s" interface.',
-                    ILoopProbe::class
+                    'Creator class must be an instance of "%s" interface.',
+                    ILoopCreator::class
                 )
             );
         }

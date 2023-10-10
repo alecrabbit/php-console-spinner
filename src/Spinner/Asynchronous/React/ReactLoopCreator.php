@@ -2,9 +2,8 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Spinner\Asynchronous\Factory;
+namespace AlecRabbit\Spinner\Asynchronous\React;
 
-use AlecRabbit\Spinner\Asynchronous\Loop\Adapter\ReactLoopAdapter;
 use AlecRabbit\Spinner\Core\Contract\Loop\ILoop;
 use AlecRabbit\Spinner\Core\Contract\Loop\ILoopCreator;
 use React\EventLoop\Loop;

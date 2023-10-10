@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Asynchronous\Probe;
 
-use AlecRabbit\Spinner\Asynchronous\Factory\ReactLoopCreator;
-use AlecRabbit\Spinner\Asynchronous\Loop\Probe\ReactLoopProbe;
+use AlecRabbit\Spinner\Asynchronous\React\ReactLoopCreator;
+use AlecRabbit\Spinner\Asynchronous\React\ReactLoopProbe;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use AlecRabbit\Spinner\Asynchronous\Loop\Probe\ReactLoopProbe;
+use AlecRabbit\Spinner\Asynchronous\React\ReactLoopProbe;
 use AlecRabbit\Spinner\Core\Factory\StaticDefaultsFactory;
 use AlecRabbit\Spinner\StaticFacade;
 use React\EventLoop\Loop;

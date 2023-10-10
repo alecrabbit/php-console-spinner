@@ -16,9 +16,4 @@ abstract class ALoopProbe implements ILoopProbe
      * @return class-string<ILoopCreator>
      */
     abstract public static function getCreatorClass(): string;
-
-    /**
-     * @deprecated
-     */
-    abstract public function createLoop(): ILoop;
 }

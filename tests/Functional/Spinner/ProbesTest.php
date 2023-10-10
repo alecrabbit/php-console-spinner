@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Functional\Spinner;
 
-use AlecRabbit\Spinner\Asynchronous\Loop\Probe\ReactLoopProbe;
-use AlecRabbit\Spinner\Asynchronous\Loop\Probe\RevoltLoopProbe;
+use AlecRabbit\Spinner\Asynchronous\React\ReactLoopProbe;
+use AlecRabbit\Spinner\Asynchronous\Revolt\RevoltLoopProbe;
 use AlecRabbit\Spinner\Contract\Probe\IStaticProbe;
 use AlecRabbit\Spinner\Core\Contract\Loop\ILoopProbe;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;

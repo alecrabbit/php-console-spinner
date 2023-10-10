@@ -210,10 +210,11 @@ function getDefinitions(): Traversable
         IIntervalNormalizer::class => static function (ContainerInterface $container): IIntervalNormalizer {
             return $container->get(IIntervalNormalizerFactory::class)->create();
         },
-        ILoopCreatorClassProvider::class => static function (): ILoopCreatorClassProvider {
+        ILoopCreatorClassProvider::class => static function (ContainerInterface $container): ILoopCreatorClassProvider {
+            $creatorClass = $container->get(ILoopCreatorClassExtractor::class)->extract(Probes::load(ILoopProbe::class));
             return
                 new LoopCreatorClassProvider(
-                    Probes::load(ILoopProbe::class)
+                    $creatorClass,
                 );
         },
         ILoopCreatorClassExtractor::class => LoopCreatorClassExtractor::class,
@@ -234,7 +235,6 @@ function getDefinitions(): Traversable
 function configs(): Traversable
 {
     yield from [
-
         IConfig::class => static function (ContainerInterface $container): IConfig {
             return $container->get(IConfigProvider::class)->getConfig();
         },

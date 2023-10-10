@@ -10,7 +10,7 @@ use AlecRabbit\Spinner\Core\Factory\Contract\ILoopSettingsFactory;
 use AlecRabbit\Spinner\Core\Factory\Legacy\LoopSettingsFactory;
 use AlecRabbit\Spinner\Core\Settings\Legacy\LegacyLoopSettings;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
-use AlecRabbit\Tests\Unit\Spinner\Asynchronous\Factory\Stub\LoopProbeStub;
+use AlecRabbit\Tests\Unit\Spinner\Asynchronous\Stub\LoopProbeStub;
 use PHPUnit\Framework\Attributes\Test;
 
 final class LoopSettingsFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
