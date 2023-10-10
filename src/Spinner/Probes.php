@@ -89,7 +89,9 @@ final class Probes
     {
         foreach ($classes as $probeClass) {
             self::assertClass($probeClass);
-            unset(self::$probes[$probeClass]);
+            if (isset(self::$probes[$probeClass])) {
+                unset(self::$probes[$probeClass]);
+            }
         }
     }
 }

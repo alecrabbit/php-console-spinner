@@ -2,9 +2,12 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Spinner\Contract;
+namespace AlecRabbit\Spinner\Core\Contract;
 
-use AlecRabbit\Spinner\Core\Contract\ISpinner;
+use AlecRabbit\Spinner\Contract\IHasInterval;
+use AlecRabbit\Spinner\Contract\IObserver;
+use AlecRabbit\Spinner\Contract\IRenderable;
+use AlecRabbit\Spinner\Contract\ISubject;
 use Closure;
 
 interface IDriver extends IObserver,
