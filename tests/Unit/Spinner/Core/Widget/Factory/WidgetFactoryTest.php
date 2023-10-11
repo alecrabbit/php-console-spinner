@@ -66,31 +66,6 @@ final class WidgetFactoryTest extends TestCase
         return $this->createMock(IWidgetCompositeBuilder::class);
     }
 
-    protected function getFrameMock(): MockObject&IFrame
-    {
-        return $this->createMock(IFrame::class);
-    }
-
-    protected function getWidgetMock(): MockObject&IWidget
-    {
-        return $this->createMock(IWidget::class);
-    }
-
-    protected function getLegacyWidgetSettingsMock(): MockObject&ILegacyWidgetSettings
-    {
-        return $this->createMock(ILegacyWidgetSettings::class);
-    }
-
-    protected function getWidgetRevolverMock(): MockObject&IWidgetRevolver
-    {
-        return $this->createMock(IWidgetRevolver::class);
-    }
-
-    protected function getWidgetBuilderMock(): MockObject&IWidgetBuilder
-    {
-        return $this->createMock(IWidgetBuilder::class);
-    }
-
     #[Test]
     public function canCreateWidgetWithoutWidgetSettings(): void
     {
@@ -169,6 +144,11 @@ final class WidgetFactoryTest extends TestCase
         self::assertSame($widget, $widgetFactory->create());
     }
 
+    protected function getFrameMock(): MockObject&IFrame
+    {
+        return $this->createMock(IFrame::class);
+    }
+
     protected function getRevolverConfigMock(): MockObject&IWidgetRevolverConfig
     {
         return $this->createMock(IWidgetRevolverConfig::class);
@@ -177,5 +157,25 @@ final class WidgetFactoryTest extends TestCase
     protected function getWidgetConfigMock(): MockObject&IWidgetConfig
     {
         return $this->createMock(IWidgetConfig::class);
+    }
+
+    protected function getWidgetMock(): MockObject&IWidget
+    {
+        return $this->createMock(IWidget::class);
+    }
+
+    protected function getWidgetRevolverMock(): MockObject&IWidgetRevolver
+    {
+        return $this->createMock(IWidgetRevolver::class);
+    }
+
+    protected function getWidgetBuilderMock(): MockObject&IWidgetBuilder
+    {
+        return $this->createMock(IWidgetBuilder::class);
+    }
+
+    protected function getLegacyWidgetSettingsMock(): MockObject&ILegacyWidgetSettings
+    {
+        return $this->createMock(ILegacyWidgetSettings::class);
     }
 }

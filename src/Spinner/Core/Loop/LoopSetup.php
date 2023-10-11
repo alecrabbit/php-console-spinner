@@ -18,7 +18,7 @@ final class LoopSetup implements ILoopSetup
 
     public function setup(ILoop $loop): void
     {
-        if($this->loopConfig->getAutoStartMode() === AutoStartMode::ENABLED) {
+        if ($this->loopConfig->getAutoStartMode() === AutoStartMode::ENABLED) {
             $loop->autoStart();
         }
     }

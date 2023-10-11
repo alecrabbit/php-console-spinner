@@ -57,26 +57,6 @@ final class WidgetCompositeFactoryTest extends TestCase
         return $this->createMock(IWidgetRevolverFactory::class);
     }
 
-    protected function getFrameMock(): MockObject&IFrame
-    {
-        return $this->createMock(IFrame::class);
-    }
-
-    protected function getWidgetCompositeMock(): MockObject&IWidgetComposite
-    {
-        return $this->createMock(IWidgetComposite::class);
-    }
-
-    protected function getLegacyWidgetSettingsMock(): MockObject&ILegacyWidgetSettings
-    {
-        return $this->createMock(ILegacyWidgetSettings::class);
-    }
-
-    protected function getWidgetRevolverMock(): MockObject&IWidgetRevolver
-    {
-        return $this->createMock(IWidgetRevolver::class);
-    }
-
     #[Test]
     public function canCreateWidgetWithoutWidgetSettings(): void
     {
@@ -155,6 +135,11 @@ final class WidgetCompositeFactoryTest extends TestCase
         self::assertSame($widget, $widgetFactory->create());
     }
 
+    protected function getFrameMock(): MockObject&IFrame
+    {
+        return $this->createMock(IFrame::class);
+    }
+
     protected function getRevolverConfigMock(): MockObject&IWidgetRevolverConfig
     {
         return $this->createMock(IWidgetRevolverConfig::class);
@@ -163,6 +148,21 @@ final class WidgetCompositeFactoryTest extends TestCase
     protected function getWidgetConfigMock(): MockObject&IWidgetConfig
     {
         return $this->createMock(IWidgetConfig::class);
+    }
+
+    protected function getWidgetCompositeMock(): MockObject&IWidgetComposite
+    {
+        return $this->createMock(IWidgetComposite::class);
+    }
+
+    protected function getWidgetRevolverMock(): MockObject&IWidgetRevolver
+    {
+        return $this->createMock(IWidgetRevolver::class);
+    }
+
+    protected function getLegacyWidgetSettingsMock(): MockObject&ILegacyWidgetSettings
+    {
+        return $this->createMock(ILegacyWidgetSettings::class);
     }
 
     protected function getWidgetMock(): MockObject&IWidget

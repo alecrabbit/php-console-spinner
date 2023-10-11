@@ -104,10 +104,18 @@ final class DriverLinkerFactoryTest extends TestCase
         $driver = $this->getDriverMock();
         $driver
             ->expects(self::never())
-            ->method('getInterval');
+            ->method('getInterval')
+        ;
 
         $linker->link($driver);
-    }    #[Test]
+    }
+
+    protected function getDriverMock(): MockObject&IDriver
+    {
+        return $this->createMock(IDriver::class);
+    }
+
+    #[Test]
     public function canCreateDummyLinkerCaseTwo(): void
     {
         $loopProvider = $this->getLoopProviderMock();
@@ -137,13 +145,9 @@ final class DriverLinkerFactoryTest extends TestCase
         $driver = $this->getDriverMock();
         $driver
             ->expects(self::never())
-            ->method('getInterval');
+            ->method('getInterval')
+        ;
 
         $linker->link($driver);
-    }
-
-    protected function getDriverMock(): MockObject&IDriver
-    {
-        return $this->createMock(IDriver::class);
     }
 }

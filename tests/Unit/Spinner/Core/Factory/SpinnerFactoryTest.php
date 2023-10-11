@@ -5,9 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Factory;
 
 use AlecRabbit\Spinner\Core\Contract\IConfigProvider;
-use AlecRabbit\Spinner\Core\Contract\ILegacySettingsProvider;
 use AlecRabbit\Spinner\Core\Factory\Contract\ISpinnerFactory;
-use AlecRabbit\Spinner\Core\Factory\Legacy\ILegacyWidgetSettingsFactory;
 use AlecRabbit\Spinner\Core\Factory\SpinnerFactory;
 use AlecRabbit\Spinner\Core\Settings\Contract\IRootWidgetSettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettings;
@@ -42,13 +40,14 @@ final class SpinnerFactoryTest extends TestCase
             );
     }
 
-    protected function getSettingsProviderMock(): MockObject&ISettingsProvider
-    {
-        return $this->createMock(ISettingsProvider::class);
-    }
     protected function getWidgetCompositeFactoryMock(): MockObject&IWidgetCompositeFactory
     {
         return $this->createMock(IWidgetCompositeFactory::class);
+    }
+
+    protected function getSettingsProviderMock(): MockObject&ISettingsProvider
+    {
+        return $this->createMock(ISettingsProvider::class);
     }
 
     #[Test]

@@ -9,7 +9,6 @@ use AlecRabbit\Spinner\Core\Config\Contract\ILoopConfig;
 use AlecRabbit\Spinner\Core\Contract\Loop\ILoop;
 use AlecRabbit\Spinner\Core\Contract\Loop\ILoopSetup;
 use AlecRabbit\Spinner\Core\Loop\LoopSetup;
-use AlecRabbit\Spinner\Exception\DomainException;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -31,6 +30,11 @@ final class LoopSetupTest extends TestCase
             new LoopSetup(
                 loopConfig: $loopConfig ?? $this->getLoopConfigMock(),
             );
+    }
+
+    private function getLoopConfigMock(): MockObject&ILoopConfig
+    {
+        return $this->createMock(ILoopConfig::class);
     }
 
     #[Test]
@@ -59,11 +63,6 @@ final class LoopSetupTest extends TestCase
     protected function getLoopMock(): MockObject&ILoop
     {
         return $this->createMock(ILoop::class);
-    }
-
-    private function getLoopConfigMock(): MockObject&ILoopConfig
-    {
-        return $this->createMock(ILoopConfig::class);
     }
 
 }
