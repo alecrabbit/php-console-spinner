@@ -292,7 +292,7 @@ final class SpinnerFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
         $settingsProvider = $this->getSettingsProviderMock();
         $settingsProvider
             ->expects(self::once())
-            ->method('getSettings')
+            ->method('getUserSettings')
             ->willReturn($settings)
         ;
 

@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-use AlecRabbit\Spinner\Asynchronous\Loop\Probe\ReactLoopProbe;
-use AlecRabbit\Spinner\Asynchronous\Loop\Probe\RevoltLoopProbe;
+use AlecRabbit\Spinner\Asynchronous\React\ReactLoopProbe;
+use AlecRabbit\Spinner\Asynchronous\Revolt\RevoltLoopProbe;
 use AlecRabbit\Spinner\Probes;
 
 // @codeCoverageIgnoreStart
 
 Probes::register(
+    ReactLoopProbe::class,
     RevoltLoopProbe::class,
-    ReactLoopProbe::class
 );
 
 // @codeCoverageIgnoreEnd

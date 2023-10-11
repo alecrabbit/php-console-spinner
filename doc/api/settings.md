@@ -24,23 +24,24 @@ $loopSettings = new LoopSettings();
 
 $loopSettings->setAutoStartOption(AutoStartOption::AUTO);
 $loopSettings->setSignalHandlersOption(SignalHandlersOption::AUTO);
-# NEW FEATURE // $outputSettings->setSignalHandler(/* TBD */);
+# NEW FEATURE? // $loopSettings->setLoopCreatorClass(RevoltLoopCreator::class);
+# NEW FEATURE? // $loopSettings->setSignalHandler(/* TBD */);
 
 // Output settings
 $outputSettings = new OutputSettings();
 
 $outputSettings->setStylingMethodOption(StylingMethodOption::AUTO);
 $outputSettings->setCursorVisibilityOption(CursorVisibilityOption::AUTO); 
-# NEW FEATURE // $outputSettings->setClearScreenOption(ClearScreenOption::AUTO);
+# NEW FEATURE? // $outputSettings->setClearScreenOption(ClearScreenOption::AUTO);
 
 // Driver settings
 $driverSettings = new DriverSettings();
 
 $driverSettings->setLinkerOption(LinkerOption::AUTO);
 $driverSettings->setInitializationOption(InitializationOption::AUTO);
-# NEW FEATURE // $driverSettings->setTerminationOption(TerminationOption::AUTO);
-# NEW FEATURE // $driverSettings->setFinalMessage('');
-# NEW FEATURE // $driverSettings->setInterruptMessage('');
+# NEW FEATURE? // $driverSettings->setTerminationOption(TerminationOption::AUTO);
+# NEW FEATURE? // $driverSettings->setFinalMessage('');
+# NEW FEATURE? // $driverSettings->setInterruptMessage('');
 
 // Widget settings
 $widgetSettings = new WidgetSettings();

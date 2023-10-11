@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Functional\Spinner;
 
-use AlecRabbit\Spinner\Asynchronous\Loop\Probe\ReactLoopProbe;
-use AlecRabbit\Spinner\Asynchronous\Loop\Probe\RevoltLoopProbe;
+use AlecRabbit\Spinner\Asynchronous\React\ReactLoopProbe;
+use AlecRabbit\Spinner\Asynchronous\Revolt\RevoltLoopProbe;
 use AlecRabbit\Spinner\Contract\Probe\IStaticProbe;
-use AlecRabbit\Spinner\Core\Contract\Loop\Contract\Probe\ILoopProbe;
+use AlecRabbit\Spinner\Core\Contract\Loop\ILoopProbe;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Probes;
 use AlecRabbit\Tests\Functional\Spinner\Override\StaticProbeOverride;
@@ -52,6 +52,22 @@ final class ProbesTest extends TestCase
         self::assertCount(2, $probes);
         self::assertContains($probe1, $probes);
         self::assertContains($probe2, $probes);
+    }
+
+    #[Test]
+    public function loadsProbesInAReverseOrder(): void
+    {
+        $probe1 = ReactLoopProbe::class;
+        $probe2 = StaticProbeOverride::class;
+
+        Probes::register($probe1);
+        Probes::register($probe2);
+
+        $probes = iterator_to_array(Probes::load());
+
+        self::assertCount(2, $probes);
+        self::assertSame($probe2, array_shift($probes));
+        self::assertSame($probe1, array_shift($probes));
     }
 
     #[Test]
@@ -108,7 +124,7 @@ final class ProbesTest extends TestCase
     }
 
     #[Test]
-    public function canUnregisterSpecificProbe(): void
+    public function canUnregisterASpecificClassProbe(): void
     {
         $probe1 = ReactLoopProbe::class;
         $probe2 = RevoltLoopProbe::class;
@@ -121,9 +137,30 @@ final class ProbesTest extends TestCase
         Probes::unregister($probe2);
 
         $probes = iterator_to_array(Probes::load());
+
         self::assertContains($probe1, $probes);
         self::assertContains($probe3, $probes);
         self::assertNotContains($probe2, $probes);
+    }
+
+    #[Test]
+    public function canNotUnregisterProbeOfInterfaceSubclass(): void
+    {
+        $probe1 = ReactLoopProbe::class;
+        $probe2 = RevoltLoopProbe::class;
+        $probe3 = StaticProbeOverride::class;
+
+        Probes::register($probe2);
+        Probes::register($probe1);
+        Probes::register($probe3);
+
+        Probes::unregister(ILoopProbe::class);
+
+        $probes = iterator_to_array(Probes::load());
+
+        self::assertContains($probe1, $probes);
+        self::assertContains($probe2, $probes);
+        self::assertContains($probe3, $probes);
     }
 
     #[Test]
@@ -139,6 +176,7 @@ final class ProbesTest extends TestCase
         Probes::unregister($probe2);
 
         $probes = iterator_to_array(Probes::load());
+
         self::assertContains($probe1, $probes);
         self::assertContains($probe3, $probes);
         self::assertNotContains($probe2, $probes);
@@ -154,6 +192,7 @@ final class ProbesTest extends TestCase
         Probes::register($probe1);
 
         $probes = iterator_to_array(Probes::load());
+
         self::assertContains($probe1, $probes);
         self::assertContains($probe3, $probes);
     }

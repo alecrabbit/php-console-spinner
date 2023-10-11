@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Config\Factory;
 
-use AlecRabbit\Spinner\Contract\Mode\LoopAvailabilityMode;
 use AlecRabbit\Spinner\Contract\Mode\NormalizerMethodMode;
 use AlecRabbit\Spinner\Contract\Mode\RunMethodMode;
 use AlecRabbit\Spinner\Core\Config\Contract\Builder\IAuxConfigBuilder;
@@ -71,7 +70,6 @@ final class AuxConfigFactoryTest extends TestCase
     public function canCreate(): void
     {
         $runMethodMode = RunMethodMode::ASYNC;
-        $loopAvailabilityMode = LoopAvailabilityMode::AVAILABLE;
         $normalizerMethodMode = NormalizerMethodMode::BALANCED;
 
         $auxConfig =

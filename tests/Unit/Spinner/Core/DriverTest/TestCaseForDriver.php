@@ -23,23 +23,14 @@ class TestCaseForDriver extends TestCase
         ?ITimer $timer = null,
         ?IDriverOutput $output = null,
         ?IInterval $initialInterval = null,
-        ?ILegacyDriverSettings $driverSettings = null,
-        ?IDriverConfig $driverConfig = null,
         ?IObserver $observer = null,
     ): IDriver {
         return new Driver(
             output: $output ?? $this->getDriverOutputMock(),
             timer: $timer ?? $this->getTimerMock(),
             initialInterval: $initialInterval ?? $this->getIntervalMock(),
-            driverSettings: $driverSettings ?? $this->getLegacyDriverSettingsMock(),
-            driverConfig: $driverConfig ?? $this->getDriverConfigMock(),
             observer: $observer,
         );
-    }
-
-    protected function getDriverConfigMock(): MockObject&IDriverConfig
-    {
-        return $this->createMock(IDriverConfig::class);
     }
 
     protected function getDriverOutputMock(): MockObject&IDriverOutput
@@ -60,6 +51,11 @@ class TestCaseForDriver extends TestCase
     protected function getLegacyDriverSettingsMock(): MockObject&ILegacyDriverSettings
     {
         return $this->createMock(ILegacyDriverSettings::class);
+    }
+
+    protected function getDriverConfigMock(): MockObject&IDriverConfig
+    {
+        return $this->createMock(IDriverConfig::class);
     }
 
     protected function getObserverMock(): MockObject&IObserver

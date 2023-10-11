@@ -4,13 +4,15 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core;
 
+use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\IDriverLinker;
 use AlecRabbit\Spinner\Core\Contract\IDriverSetup;
 use AlecRabbit\Spinner\Core\DriverSetup;
-use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
+use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
+use PHPUnit\Framework\MockObject\MockObject;
 
-final class DriverSetupTest extends TestCaseWithPrebuiltMocksAndStubs
+final class DriverSetupTest extends TestCase
 {
     #[Test]
     public function canBeInstantiated(): void
@@ -28,32 +30,17 @@ final class DriverSetupTest extends TestCaseWithPrebuiltMocksAndStubs
         );
     }
 
-    #[Test]
-    public function doesNothingWithDefaults(): void
+    protected function getDriverLinkerMock(): MockObject&IDriverLinker
     {
-        $driverLinker = $this->getDriverLinkerMock();
-        $driverLinker
-            ->expects(self::never())
-            ->method('link')
-        ;
-
-        $driver = $this->getDriverMock();
-        $driver
-            ->expects(self::never())
-            ->method('initialize')
-        ;
-
-        $this->getTesteeInstance($driverLinker)
-            ->setup($driver)
-        ;
+        return $this->createMock(IDriverLinker::class);
     }
 
     #[Test]
-    public function callsInitializeOnDriverIfInitializationEnabled(): void
+    public function doesSetup(): void
     {
         $driverLinker = $this->getDriverLinkerMock();
         $driverLinker
-            ->expects(self::never())
+            ->expects(self::once())
             ->method('link')
         ;
 
@@ -63,52 +50,13 @@ final class DriverSetupTest extends TestCaseWithPrebuiltMocksAndStubs
             ->method('initialize')
         ;
 
-        $this->getTesteeInstance($driverLinker)
-            ->enableInitialization(true)
-            ->setup($driver)
-        ;
+        $driverSetup = $this->getTesteeInstance($driverLinker);
+
+        $driverSetup->setup($driver);
     }
 
-    #[Test]
-    public function callsLinkOnLinkerIfLinkerEnabled(): void
+    protected function getDriverMock(): MockObject&IDriver
     {
-        $driverLinker = $this->getDriverLinkerMock();
-        $driverLinker
-            ->expects(self::once())
-            ->method('link')
-        ;
-
-        $driver = $this->getDriverMock();
-        $driver
-            ->expects(self::never())
-            ->method('initialize')
-        ;
-
-        $this->getTesteeInstance($driverLinker)
-            ->enableLinker(true)
-            ->setup($driver)
-        ;
-    }
-
-    #[Test]
-    public function doesFullSetup(): void
-    {
-        $driverLinker = $this->getDriverLinkerMock();
-        $driverLinker
-            ->expects(self::once())
-            ->method('link')
-        ;
-
-        $driver = $this->getDriverMock();
-        $driver
-            ->expects(self::once())
-            ->method('initialize')
-        ;
-
-        $this->getTesteeInstance($driverLinker)
-            ->enableInitialization(true)
-            ->enableLinker(true)
-            ->setup($driver)
-        ;
+        return $this->createMock(IDriver::class);
     }
 }

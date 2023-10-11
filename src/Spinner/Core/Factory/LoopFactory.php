@@ -4,49 +4,42 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Factory;
 
-use AlecRabbit\Spinner\Core\Contract\Loop\Contract\ILoop;
-use AlecRabbit\Spinner\Core\Contract\Loop\Contract\Probe\ILoopProbe;
-use AlecRabbit\Spinner\Core\Factory\Contract\ILoopAutoStarterFactory;
+use AlecRabbit\Spinner\Core\Contract\Loop\ILoop;
+use AlecRabbit\Spinner\Core\Contract\Loop\ILoopCreator;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopFactory;
-use AlecRabbit\Spinner\Core\Factory\Contract\ILoopProbeFactory;
+use AlecRabbit\Spinner\Exception\LoopException;
 
-final class LoopFactory implements ILoopFactory
+final readonly class LoopFactory implements ILoopFactory
 {
-    private static ?ILoop $loop = null;
-
+    /**
+     * @param class-string<ILoopCreator> $loopCreator
+     */
     public function __construct(
-        protected ILoopProbeFactory $loopProbeFactory,
-        protected ILoopAutoStarterFactory $loopAutoStarterFactory,
+        protected string $loopCreator,
     ) {
     }
 
-    public function getLoop(): ILoop
+    public function create(): ILoop
     {
-        if (self::$loop === null) {
-            self::$loop = $this->createLoop();
+        self::assertClass($this->loopCreator);
 
-            $this->setupLoop(self::$loop);
+        return ($this->loopCreator)::create();
+    }
+
+    /**
+     * @param class-string<ILoopCreator> $loopCreator
+     * @throws LoopException
+     */
+    private static function assertClass(string $loopCreator): void
+    {
+        if (is_subclass_of($loopCreator, ILoopCreator::class) === false) {
+            throw new LoopException(
+                sprintf(
+                    'Class "%s" must implement "%s" interface.',
+                    $loopCreator,
+                    ILoopCreator::class
+                ),
+            );
         }
-        return self::$loop;
-    }
-
-    private function createLoop(): ILoop
-    {
-        return
-            $this->createProbe()->createLoop();
-    }
-
-    private function createProbe(): ILoopProbe
-    {
-        return
-            $this->loopProbeFactory->createProbe();
-    }
-
-    private function setupLoop(ILoop $loop): void
-    {
-        $this->loopAutoStarterFactory
-            ->create()
-            ->setup($loop)
-        ;
     }
 }

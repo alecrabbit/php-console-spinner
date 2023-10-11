@@ -26,7 +26,7 @@ final class SettingsProviderBuilder implements ISettingsProviderBuilder
 
         return
             new SettingsProvider(
-                settings: $this->settings,
+                userSettings: $this->settings,
                 defaultSettings: $this->defaultSettings,
                 detectedSettings: $this->detectedSettings,
             );

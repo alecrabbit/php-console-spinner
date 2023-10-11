@@ -45,7 +45,7 @@ final class SignalHandlersSetupFactoryTest extends TestCaseWithPrebuiltMocksAndS
         $loopFactory = $this->getLoopSingletonFactoryMock();
         $loopFactory
             ->expects(self::once())
-            ->method('getLoop')
+            ->method('create')
             ->willReturn($loop)
         ;
         $signalHandlersSetupBuilder = $this->getSignalHandlersSetupBuilderMock();

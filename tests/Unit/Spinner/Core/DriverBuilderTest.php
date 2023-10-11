@@ -40,8 +40,6 @@ final class DriverBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
             ->withDriverOutput($this->getDriverOutputMock())
             ->withTimer($this->getTimerMock())
             ->withInitialInterval($interval)
-            ->withDriverSettings($this->getLegacyDriverSettingsMock())
-            ->withDriverConfig($this->getDriverConfigMock())
             ->build()
         ;
 
@@ -58,9 +56,7 @@ final class DriverBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
             ->withDriverOutput($this->getDriverOutputMock())
             ->withTimer($this->getTimerMock())
             ->withObserver($this->getObserverMock())
-            ->withDriverSettings($this->getLegacyDriverSettingsMock())
             ->withInitialInterval($this->getIntervalMock())
-            ->withDriverConfig($this->getDriverConfigMock())
             ->build()
         ;
 
@@ -78,9 +74,7 @@ final class DriverBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
 
             $driverBuilder
                 ->withTimer($this->getTimerMock())
-                ->withDriverSettings($this->getLegacyDriverSettingsMock())
                 ->withInitialInterval($this->getIntervalMock())
-                ->withDriverConfig($this->getDriverConfigMock())
                 ->build()
             ;
         };
@@ -103,9 +97,7 @@ final class DriverBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
 
             $driverBuilder
                 ->withDriverOutput($this->getDriverOutputMock())
-                ->withDriverSettings($this->getLegacyDriverSettingsMock())
                 ->withInitialInterval($this->getIntervalMock())
-                ->withDriverConfig($this->getDriverConfigMock())
                 ->build()
             ;
         };
@@ -115,61 +107,6 @@ final class DriverBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
             exception: $exceptionClass,
             message: $exceptionMessage,
         );
-    }
-
-    #[Test]
-    public function throwsIfDriverSettingsAreNotSet(): void
-    {
-        $exceptionClass = LogicException::class;
-        $exceptionMessage = 'DriverSettings are not set.';
-
-        $test = function (): void {
-            $driverBuilder = $this->getTesteeInstance();
-
-            $driverBuilder
-                ->withDriverOutput($this->getDriverOutputMock())
-                ->withTimer($this->getTimerMock())
-                ->withInitialInterval($this->getIntervalMock())
-                ->withDriverConfig($this->getDriverConfigMock())
-                ->build()
-            ;
-        };
-
-        $this->wrapExceptionTest(
-            test: $test,
-            exception: $exceptionClass,
-            message: $exceptionMessage,
-        );
-    }
-
-    #[Test]
-    public function throwsIfDriverConfigIsNotSet(): void
-    {
-        $exceptionClass = LogicException::class;
-        $exceptionMessage = 'DriverConfig is not set.';
-
-        $test = function (): void {
-            $driverBuilder = $this->getTesteeInstance();
-
-            $driverBuilder
-                ->withDriverOutput($this->getDriverOutputMock())
-                ->withTimer($this->getTimerMock())
-                ->withInitialInterval($this->getIntervalMock())
-                ->withDriverSettings($this->getLegacyDriverSettingsMock())
-                ->build()
-            ;
-        };
-
-        $this->wrapExceptionTest(
-            test: $test,
-            exception: $exceptionClass,
-            message: $exceptionMessage,
-        );
-    }
-
-    protected function getDriverConfigMock(): MockObject&IDriverConfig
-    {
-        return $this->createMock(IDriverConfig::class);
     }
 
     #[Test]
@@ -184,8 +121,6 @@ final class DriverBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
             $driverBuilder
                 ->withDriverOutput($this->getDriverOutputMock())
                 ->withTimer($this->getTimerMock())
-                ->withDriverSettings($this->getLegacyDriverSettingsMock())
-                ->withDriverConfig($this->getDriverConfigMock())
                 ->build()
             ;
         };
@@ -195,5 +130,10 @@ final class DriverBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
             exception: $exceptionClass,
             message: $exceptionMessage,
         );
+    }
+
+    protected function getDriverConfigMock(): MockObject&IDriverConfig
+    {
+        return $this->createMock(IDriverConfig::class);
     }
 }

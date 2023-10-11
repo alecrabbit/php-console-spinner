@@ -8,7 +8,6 @@ $auxConfig = $config->get(IAuxConfig::class); // returns AuxConfig object
 
 $auxConfig->getNormalizerMode(); // NormalizerMode::BALANCED
 $auxConfig->getRunMethodMode(); // RunMethodMode::ASYNC
-$auxConfig->getLoopAvailabilityMode(); // LoopAvailabilityMode::PRESENT
 
 // Loop config
 $loopConfig = $config->get(ILoopConfig::class);

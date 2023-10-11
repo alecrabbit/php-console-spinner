@@ -4,12 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Settings\Contract\Detector;
 
-use AlecRabbit\Spinner\Exception\InvalidArgumentException;
-
-interface ILoopSupportDetector
+interface ILoopSupportDetector extends IDetector
 {
-    /**
-     * @throws InvalidArgumentException
-     */
-    public function isSupported(): bool;
+    public function getSupportValue(): bool;
 }

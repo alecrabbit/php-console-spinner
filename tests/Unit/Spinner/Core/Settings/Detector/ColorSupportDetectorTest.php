@@ -75,7 +75,7 @@ final class ColorSupportDetectorTest extends TestCase
             probes: new ArrayObject($probes),
         );
 
-        self::assertEquals($result, $detector->getStylingMethodOption());
+        self::assertEquals($result, $detector->getSupportValue());
     }
 
     #[Test]
@@ -91,7 +91,7 @@ final class ColorSupportDetectorTest extends TestCase
         $detector = $this->getTesteeInstance(
             probes: new ArrayObject([stdClass::class]),
         );
-        self::assertEquals(StylingMethodOption::AUTO, $detector->getStylingMethodOption());
+        self::assertEquals(StylingMethodOption::AUTO, $detector->getSupportValue());
 
         self::fail('Exception was not thrown.');
     }

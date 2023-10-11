@@ -12,7 +12,7 @@ use AlecRabbit\Spinner\Contract\Option\StylingMethodOption;
 use AlecRabbit\Spinner\Core\Settings\AuxSettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\Detector\IColorSupportDetector;
 use AlecRabbit\Spinner\Core\Settings\Contract\Detector\ILoopSupportDetector;
-use AlecRabbit\Spinner\Core\Settings\Contract\Detector\ISignalProcessingDetector;
+use AlecRabbit\Spinner\Core\Settings\Contract\Detector\ISignalProcessingSupportDetector;
 use AlecRabbit\Spinner\Core\Settings\Contract\Factory\IDetectedSettingsFactory;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettings;
 use AlecRabbit\Spinner\Core\Settings\DriverSettings;
@@ -25,7 +25,7 @@ final class DetectedSettingsFactory implements IDetectedSettingsFactory
     public function __construct(
         protected ILoopSupportDetector $loopSupportDetector,
         protected IColorSupportDetector $colorSupportDetector,
-        protected ISignalProcessingDetector $signalHandlingDetector,
+        protected ISignalProcessingSupportDetector $signalProcessingSupportDetector,
     ) {
     }
 
@@ -67,7 +67,7 @@ final class DetectedSettingsFactory implements IDetectedSettingsFactory
 
     private function loopIsAvailable(): bool
     {
-        return $this->loopSupportDetector->isSupported();
+        return $this->loopSupportDetector->getSupportValue();
     }
 
     private function getLinkerOption(): LinkerOption
@@ -89,7 +89,7 @@ final class DetectedSettingsFactory implements IDetectedSettingsFactory
     protected function getSignalMethodOption(): SignalHandlersOption
     {
         return
-            $this->signalHandlingDetector->isSupported()
+            $this->signalProcessingSupportDetector->isSupported()
                 ? SignalHandlersOption::ENABLED
                 : SignalHandlersOption::DISABLED;
     }
@@ -97,6 +97,6 @@ final class DetectedSettingsFactory implements IDetectedSettingsFactory
     private function detectStylingMethodOption(): StylingMethodOption
     {
         return
-            $this->colorSupportDetector->getStylingMethodOption();
+            $this->colorSupportDetector->getSupportValue();
     }
 }

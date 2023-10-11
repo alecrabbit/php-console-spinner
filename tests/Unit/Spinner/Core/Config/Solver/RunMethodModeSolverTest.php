@@ -167,7 +167,7 @@ final class RunMethodModeSolverTest extends TestCase
 
         $settingsProvider
             ->expects(self::once())
-            ->method('getSettings')
+            ->method('getUserSettings')
             ->willReturn($userSettings)
         ;
         $settingsProvider

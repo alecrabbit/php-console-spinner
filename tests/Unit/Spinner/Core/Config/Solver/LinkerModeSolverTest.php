@@ -6,8 +6,8 @@ namespace AlecRabbit\Tests\Unit\Spinner\Core\Config\Solver;
 
 use AlecRabbit\Spinner\Contract\Mode\LinkerMode;
 use AlecRabbit\Spinner\Contract\Option\LinkerOption;
-use AlecRabbit\Spinner\Core\Config\Solver\LinkerModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\ILinkerModeSolver;
+use AlecRabbit\Spinner\Core\Config\Solver\LinkerModeSolver;
 use AlecRabbit\Spinner\Core\Settings\Contract\IDriverSettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettingsProvider;
@@ -170,7 +170,7 @@ final class LinkerModeSolverTest extends TestCase
 
         $settingsProvider
             ->expects(self::once())
-            ->method('getSettings')
+            ->method('getUserSettings')
             ->willReturn($userSettings)
         ;
         $settingsProvider

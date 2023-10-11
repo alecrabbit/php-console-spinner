@@ -8,5 +8,5 @@ use AlecRabbit\Spinner\Core\Contract\IDriver;
 
 interface IDriverFactory
 {
-    public function getDriver(): IDriver;
+    public function create(): IDriver;
 }

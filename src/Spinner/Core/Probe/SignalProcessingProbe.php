@@ -17,4 +17,9 @@ final class SignalProcessingProbe implements ISignalProcessingProbe
     {
         return extension_loaded(self::SIGNAL_PROCESSING_EXTENSION);
     }
+
+    public static function getCreatorClass(): string
+    {
+        return StylingMethodOptionCreator::class;
+    }
 }

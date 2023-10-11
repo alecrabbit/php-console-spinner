@@ -7,19 +7,15 @@ namespace AlecRabbit\Spinner\Core\Builder;
 use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Contract\IObserver;
 use AlecRabbit\Spinner\Contract\ITimer;
-use AlecRabbit\Spinner\Core\Config\Contract\IDriverConfig;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\IDriverBuilder;
 use AlecRabbit\Spinner\Core\Driver;
 use AlecRabbit\Spinner\Core\Output\Contract\IDriverOutput;
-use AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyDriverSettings;
 use AlecRabbit\Spinner\Exception\LogicException;
 
 final class DriverBuilder implements IDriverBuilder
 {
     private ?IDriverOutput $driverOutput = null;
-    private ?IDriverConfig $driverConfig = null;
-    private ?ILegacyDriverSettings $driverSettings = null;
     private ?ITimer $timer = null;
     private ?IInterval $initialInterval = null;
     private ?IObserver $observer = null;
@@ -28,20 +24,6 @@ final class DriverBuilder implements IDriverBuilder
     {
         $clone = clone $this;
         $clone->driverOutput = $driverOutput;
-        return $clone;
-    }
-
-    public function withDriverSettings(ILegacyDriverSettings $driverSettings): IDriverBuilder
-    {
-        $clone = clone $this;
-        $clone->driverSettings = $driverSettings;
-        return $clone;
-    }
-
-    public function withDriverConfig(IDriverConfig $driverConfig): IDriverBuilder
-    {
-        $clone = clone $this;
-        $clone->driverConfig = $driverConfig;
         return $clone;
     }
 
@@ -76,8 +58,6 @@ final class DriverBuilder implements IDriverBuilder
                 output: $this->driverOutput,
                 timer: $this->timer,
                 initialInterval: $this->initialInterval,
-                driverSettings: $this->driverSettings,
-                driverConfig: $this->driverConfig,
                 observer: $this->observer,
             );
     }
@@ -89,8 +69,6 @@ final class DriverBuilder implements IDriverBuilder
     {
         match (true) {
             $this->driverOutput === null => throw new LogicException('DriverOutput is not set.'),
-            $this->driverSettings === null => throw new LogicException('DriverSettings are not set.'),
-            $this->driverConfig === null => throw new LogicException('DriverConfig is not set.'),
             $this->timer === null => throw new LogicException('Timer is not set.'),
             $this->initialInterval === null => throw new LogicException('InitialInterval is not set.'),
             default => null,

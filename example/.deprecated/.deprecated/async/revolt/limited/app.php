@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use AlecRabbit\Spinner\Asynchronous\Loop\Probe\RevoltLoopProbe;
+use AlecRabbit\Spinner\Asynchronous\Revolt\RevoltLoopProbe;
 use AlecRabbit\Spinner\Core\Factory\StaticDefaultsFactory;
 use AlecRabbit\Spinner\StaticFacade;
 use Revolt\EventLoop;

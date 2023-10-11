@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Builder\Contract;
 
-use AlecRabbit\Spinner\Core\Contract\ISignalHandlersSetup;
-use AlecRabbit\Spinner\Core\Contract\Loop\Contract\ILoop;
+use AlecRabbit\Spinner\Core\Contract\ILegacySignalHandlersSetup;
+use AlecRabbit\Spinner\Core\Contract\Loop\ILoop;
 use AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyDriverSettings;
 use AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyLoopSettings;
 
 interface ISignalHandlersSetupBuilder
 {
-    public function build(): ISignalHandlersSetup;
+    public function build(): ILegacySignalHandlersSetup;
 
     public function withLoopSettings(ILegacyLoopSettings $settings): ISignalHandlersSetupBuilder;
 

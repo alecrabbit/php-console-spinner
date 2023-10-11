@@ -9,19 +9,16 @@ use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Contract\IObserver;
 use AlecRabbit\Spinner\Contract\ITimer;
-use AlecRabbit\Spinner\Contract\Legacy\ILegacyPattern;
 use AlecRabbit\Spinner\Contract\Output\IBufferedOutput;
-use AlecRabbit\Spinner\Contract\Output\IOutput;
 use AlecRabbit\Spinner\Contract\Output\IResourceStream;
 use AlecRabbit\Spinner\Core\Builder\Contract\IBufferedOutputBuilder;
 use AlecRabbit\Spinner\Core\Builder\Contract\IConsoleCursorBuilder;
 use AlecRabbit\Spinner\Core\Builder\Contract\IDriverOutputBuilder;
 use AlecRabbit\Spinner\Core\Builder\Contract\IIntegerNormalizerBuilder;
-use AlecRabbit\Spinner\Core\Builder\Contract\ILoopAutoStarterBuilder;
+use AlecRabbit\Spinner\Core\Builder\Contract\ILegacyLoopAutoStarterBuilder;
 use AlecRabbit\Spinner\Core\Builder\Contract\ISignalHandlersSetupBuilder;
 use AlecRabbit\Spinner\Core\Builder\Contract\ITimerBuilder;
 use AlecRabbit\Spinner\Core\Builder\Settings\Legacy\Contract\ILegacyAuxSettingsBuilder;
-use AlecRabbit\Spinner\Core\Builder\Settings\Legacy\Contract\ILegacyDriverSettingsBuilder;
 use AlecRabbit\Spinner\Core\Builder\Settings\Legacy\Contract\ILegacyWidgetSettingsBuilder;
 use AlecRabbit\Spinner\Core\Config\Legacy\Contract\ILegacySpinnerConfig;
 use AlecRabbit\Spinner\Core\Config\Legacy\Contract\ILegacyWidgetConfig;
@@ -31,34 +28,31 @@ use AlecRabbit\Spinner\Core\Contract\IDriverLinker;
 use AlecRabbit\Spinner\Core\Contract\IDriverSetup;
 use AlecRabbit\Spinner\Core\Contract\IFrameCollection;
 use AlecRabbit\Spinner\Core\Contract\IIntervalNormalizer;
+use AlecRabbit\Spinner\Core\Contract\ILegacyLoopAutoStarter;
 use AlecRabbit\Spinner\Core\Contract\ILegacySettingsProvider;
+use AlecRabbit\Spinner\Core\Contract\ILegacySignalHandlersSetup;
 use AlecRabbit\Spinner\Core\Contract\ILegacySignalProcessingLegacyProbe;
-use AlecRabbit\Spinner\Core\Contract\ILoopAutoStarter;
-use AlecRabbit\Spinner\Core\Contract\ISignalHandlersSetup;
-use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use AlecRabbit\Spinner\Core\Contract\ISpinnerState;
 use AlecRabbit\Spinner\Core\Contract\IWeakMap;
-use AlecRabbit\Spinner\Core\Contract\Loop\Contract\ILoop;
-use AlecRabbit\Spinner\Core\Contract\Loop\Contract\Probe\ILoopProbe;
+use AlecRabbit\Spinner\Core\Contract\Loop\ILoop;
+use AlecRabbit\Spinner\Core\Contract\Loop\ILoopProbe;
 use AlecRabbit\Spinner\Core\Factory\Contract\IBufferedOutputSingletonFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ICharFrameRevolverFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IConsoleCursorFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDriverOutputFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IFrameCollectionFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\ILegacyLoopAutoStarterFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\ILegacyLoopProbeFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILegacyTerminalSettingsFactory;
-use AlecRabbit\Spinner\Core\Factory\Contract\ILoopAutoStarterFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopFactory;
-use AlecRabbit\Spinner\Core\Factory\Contract\ILoopProbeFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopSettingsFactory;
-use AlecRabbit\Spinner\Core\Factory\Contract\ISignalHandlersSetupFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IStyleFrameRevolverFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ITimerFactory;
 use AlecRabbit\Spinner\Core\Factory\Legacy\ILegacyWidgetSettingsFactory;
 use AlecRabbit\Spinner\Core\Output\Contract\IConsoleCursor;
 use AlecRabbit\Spinner\Core\Output\Contract\IDriverOutput;
 use AlecRabbit\Spinner\Core\Pattern\Legacy\Contract\ICharLegacyPattern;
-use AlecRabbit\Spinner\Core\Pattern\Legacy\Contract\ILegacyBakedPattern;
 use AlecRabbit\Spinner\Core\Pattern\Legacy\Contract\IStyleLegacyPattern;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolver;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolverBuilder;
@@ -66,19 +60,15 @@ use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
 use AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyAuxSettings;
 use AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyDriverSettings;
 use AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyLoopSettings;
-use AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyTerminalSettings;
 use AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyWidgetSettings;
 use AlecRabbit\Spinner\Core\Terminal\Contract\ITerminalLegacyProbe;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidget;
-use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetBuilder;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
-use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetCompositeBuilder;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetCompositeChildrenContainer;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContext;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolver;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolverBuilder;
 use AlecRabbit\Spinner\Core\Widget\Factory\Contract\IWidgetCompositeFactory;
-use AlecRabbit\Spinner\Core\Widget\Factory\Contract\IWidgetRevolverFactory;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\MockObject\Stub;
 
@@ -162,9 +152,9 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
         return $this->createMock(IWidgetRevolver::class);
     }
 
-    protected function getLoopProbeFactoryMock(): MockObject&ILoopProbeFactory
+    protected function getLoopProbeFactoryMock(): MockObject&ILegacyLoopProbeFactory
     {
-        return $this->createMock(ILoopProbeFactory::class);
+        return $this->createMock(ILegacyLoopProbeFactory::class);
     }
 
     protected function getLoopSingletonFactoryMock(): MockObject&ILoopFactory
@@ -172,9 +162,9 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
         return $this->createMock(ILoopFactory::class);
     }
 
-    protected function getLoopAutoStarterBuilderMock(): MockObject&ILoopAutoStarterBuilder
+    protected function getLoopAutoStarterBuilderMock(): MockObject&ILegacyLoopAutoStarterBuilder
     {
-        return $this->createMock(ILoopAutoStarterBuilder::class);
+        return $this->createMock(ILegacyLoopAutoStarterBuilder::class);
     }
 
     protected function getSignalHandlersSetupBuilderMock(): MockObject&ISignalHandlersSetupBuilder
@@ -182,19 +172,19 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
         return $this->createMock(ISignalHandlersSetupBuilder::class);
     }
 
-    protected function getLoopAutoStarterFactoryMock(): MockObject&ILoopAutoStarterFactory
+    protected function getLoopAutoStarterFactoryMock(): MockObject&ILegacyLoopAutoStarterFactory
     {
-        return $this->createMock(ILoopAutoStarterFactory::class);
+        return $this->createMock(ILegacyLoopAutoStarterFactory::class);
     }
 
-    protected function getSignalHandlersSetupStub(): Stub&ISignalHandlersSetup
+    protected function getSignalHandlersSetupStub(): Stub&ILegacySignalHandlersSetup
     {
-        return $this->createStub(ISignalHandlersSetup::class);
+        return $this->createStub(ILegacySignalHandlersSetup::class);
     }
 
-    protected function getLoopAutoStarterStub(): Stub&ILoopAutoStarter
+    protected function getLoopAutoStarterStub(): Stub&ILegacyLoopAutoStarter
     {
-        return $this->createStub(ILoopAutoStarter::class);
+        return $this->createStub(ILegacyLoopAutoStarter::class);
     }
 
     protected function getLegacySettingsProviderMock(): MockObject&ILegacySettingsProvider

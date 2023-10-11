@@ -86,6 +86,6 @@ final class SpinnerFactory implements ISpinnerFactory
     protected function getRootWidgetSettings(): ?IRootWidgetSettings
     {
         return
-            $this->settingsProvider->getSettings()->get(IRootWidgetSettings::class);
+            $this->settingsProvider->getUserSettings()->get(IRootWidgetSettings::class);
     }
 }

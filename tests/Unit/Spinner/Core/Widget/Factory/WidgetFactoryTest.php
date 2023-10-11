@@ -151,6 +151,11 @@ final class WidgetFactoryTest extends TestCase
         return $this->createMock(IWidgetRevolver::class);
     }
 
+    protected function getWidgetBuilderMock(): MockObject&IWidgetBuilder
+    {
+        return $this->createMock(IWidgetBuilder::class);
+    }
+
     #[Test]
     public function canCreateWidgetWithoutWidgetSettings(): void
     {
@@ -238,8 +243,4 @@ final class WidgetFactoryTest extends TestCase
     {
         return $this->createMock(IWidgetConfig::class);
     }
-    protected function getWidgetBuilderMock(): MockObject&IWidgetBuilder
-{
-    return $this->createMock(IWidgetBuilder::class);
-}
 }

@@ -4,11 +4,10 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core;
 
-use AlecRabbit\Spinner\Core\Contract\ISignalHandlersSetup;
-use AlecRabbit\Spinner\Core\Contract\Loop\Contract\ILoop;
-use AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyDriverSettings;
+use AlecRabbit\Spinner\Core\Contract\ILegacySignalHandlersSetup;
+use AlecRabbit\Spinner\Core\Contract\Loop\ILoop;
+use AlecRabbit\Spinner\Core\LegacySignalHandlersSetup;
 use AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyLoopSettings;
-use AlecRabbit\Spinner\Core\SignalHandlersSetup;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use Error;
 use PHPUnit\Framework\Attributes\Test;
@@ -20,19 +19,17 @@ final class SignalHandlersSetupTest extends TestCaseWithPrebuiltMocksAndStubs
     {
         $loopSetup = $this->getTesteeInstance();
 
-        self::assertInstanceOf(SignalHandlersSetup::class, $loopSetup);
+        self::assertInstanceOf(LegacySignalHandlersSetup::class, $loopSetup);
     }
 
     public function getTesteeInstance(
         ?ILoop $loop = null,
         ?ILegacyLoopSettings $settings = null,
-        ?ILegacyDriverSettings $driverSettings = null
-    ): ISignalHandlersSetup {
+    ): ILegacySignalHandlersSetup {
         return
-            new SignalHandlersSetup(
+            new LegacySignalHandlersSetup(
                 loop: $loop ?? $this->getLoopMock(),
                 loopSettings: $settings ?? $this->getLegacyLoopSettingsMock(),
-                driverSettings: $driverSettings ?? $this->getLegacyDriverSettingsMock(),
             );
     }
 

@@ -5,20 +5,17 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Unit\Spinner\Asynchronous\Factory;
 
 use AlecRabbit\Spinner\Core\Contract\Loop\A\ALoopAdapter;
-use AlecRabbit\Spinner\Core\Contract\Loop\A\ALoopProbe;
-use AlecRabbit\Spinner\Core\Contract\Loop\Contract\ILoop;
-use AlecRabbit\Spinner\Core\Factory\Contract\ILoopAutoStarterFactory;
+use AlecRabbit\Spinner\Core\Contract\Loop\ILoopCreator;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopFactory;
-use AlecRabbit\Spinner\Core\Factory\Contract\ILoopProbeFactory;
 use AlecRabbit\Spinner\Core\Factory\LoopFactory;
-use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
-use AlecRabbit\Tests\Unit\Spinner\Asynchronous\Override\ALoopAdapterOverride;
+use AlecRabbit\Spinner\Exception\LoopException;
+use AlecRabbit\Tests\TestCase\TestCase;
+use AlecRabbit\Tests\Unit\Spinner\Asynchronous\Stub\LoopCreatorStub;
 use PHPUnit\Framework\Attributes\Test;
-use PHPUnit\Framework\MockObject\MockObject;
+use stdClass;
 
-final class LoopFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
+final class LoopFactoryTest extends TestCase
 {
-
     #[Test]
     public function canBeInstantiated(): void
     {
@@ -28,46 +25,44 @@ final class LoopFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
     }
 
     public function getTesteeInstance(
-        ?ILoopProbeFactory $loopProbeFactory = null,
-        ?ILoopAutoStarterFactory $loopAutoStarterFactory = null,
+        ?string $loopCreator = 'invalid',
     ): ILoopFactory {
         return new LoopFactory(
-            loopProbeFactory: $loopProbeFactory ?? $this->getLoopProbeFactoryMock(),
-            loopAutoStarterFactory: $loopAutoStarterFactory ?? $this->getLoopAutoStarterFactoryMock(),
+            loopCreator: $loopCreator,
         );
     }
 
-    protected function getLoopProbeFactoryMock(): MockObject&ILoopProbeFactory
+    #[Test]
+    public function canCreate(): void
     {
-        $loopProbeFactory = parent::getLoopProbeFactoryMock();
-        $loopProbeFactory->method('createProbe')
-            ->willReturn(
-                new class() extends ALoopProbe {
-                    public static function isSupported(): bool
-                    {
-                        return true;
-                    }
+        $loopCreator = LoopCreatorStub::class;
 
-                    public function createLoop(): ILoop
-                    {
-                        return new ALoopAdapterOverride();
-                    }
-                }
-            )
-        ;
-        return $loopProbeFactory;
+        $loopFactory = $this->getTesteeInstance(
+            loopCreator: $loopCreator,
+        );
+
+        self::assertInstanceOf(ALoopAdapter::class, $loopFactory->create());
     }
 
     #[Test]
-    public function canGetLoopAdapter(): void
+    public function throwsIfArgumentIsInvalid(): void
     {
-        $loopFactory = $this->getTesteeInstance();
+        $loopCreator = stdClass::class;
 
-        self::assertInstanceOf(ALoopAdapter::class, $loopFactory->getLoop());
-    }
+        $this->expectException(LoopException::class);
+        $this->expectExceptionMessage(
+            sprintf(
+                'Class "%s" must implement "%s" interface.',
+                $loopCreator,
+                ILoopCreator::class
+            )
+        );
 
-    protected function setUp(): void
-    {
-        self::setPropertyValue(LoopFactory::class, 'loop', null);
+        $loopFactory = $this->getTesteeInstance(
+            loopCreator: $loopCreator,
+        );
+
+        self::assertInstanceOf(ALoopAdapter::class, $loopFactory->create());
+        self::fail('Exception was not thrown.');
     }
 }

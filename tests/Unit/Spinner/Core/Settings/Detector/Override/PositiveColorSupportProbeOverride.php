@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Settings\Detector\Override;
 
-use AlecRabbit\Spinner\Contract\Option\StylingMethodOption;
 use AlecRabbit\Spinner\Contract\Probe\IColorSupportProbe;
-use RuntimeException;
 
 class PositiveColorSupportProbeOverride implements IColorSupportProbe
 {
@@ -15,8 +13,8 @@ class PositiveColorSupportProbeOverride implements IColorSupportProbe
         return true;
     }
 
-    public static function getStylingMethodOption(): StylingMethodOption
+    public static function getCreatorClass(): string
     {
-        return StylingMethodOption::ANSI24;
+        return StylingMethodOptionCreatorOverride::class;
     }
 }
