@@ -47,7 +47,7 @@ $loop
     )
 ;
 
-dump(get_debug_type($loop));
+$echo(PHP_EOL . sprintf('Using loop class: %s', get_debug_type($loop)));
 $echo(PHP_EOL . 'Note: Loop should start automatically!' . PHP_EOL);
 
 $memoryReport();

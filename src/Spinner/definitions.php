@@ -496,12 +496,12 @@ function legacy(): Traversable
 //        ILoopProbe::class => static function (ContainerInterface $container): ILoopProbe {
 //            return $container->get(ILegacyLoopProbeFactory::class)->getProbe();
 //        },
-        ILegacyLoopProbeFactory::class => static function (): ILegacyLoopProbeFactory {
-            return
-                new LegacyLoopProbeFactory(
-                    Probes::load(ILoopProbe::class)
-                );
-        },
+//        ILegacyLoopProbeFactory::class => static function (): ILegacyLoopProbeFactory {
+//            return
+//                new LegacyLoopProbeFactory(
+//                    Probes::load(ILoopProbe::class)
+//                );
+//        },
         ILegacySignalHandlersSetup::class => LegacySignalHandlersSetup::class,
         ILegacyLoopAutoStarterBuilder::class => LegacyLoopAutoStarterBuilder::class,
         ILegacyLoopAutoStarterFactory::class => LegacyLoopAutoStarterFactory::class,

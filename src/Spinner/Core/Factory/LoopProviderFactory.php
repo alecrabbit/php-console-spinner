@@ -20,28 +20,26 @@ final readonly class LoopProviderFactory implements ILoopProviderFactory
 
     public function create(): ILoopProvider
     {
-        $loop = $this->createLoop();
-
-        if ($loop instanceof ILoop) {
-            $this->setup($loop);
-        }
-
         return
             new LoopProvider(
-                loop: $loop,
+                loop: $this->createLoop(),
             );
     }
 
     private function createLoop(): ?ILoop
     {
         try {
-            return $this->loopFactory->create();
+            $loop = $this->loopFactory->create();
+
+            $this->setupLoop($loop);
+
+            return $loop;
         } catch (Throwable $_) {
             return null;
         }
     }
 
-    private function setup(ILoop $loop): void
+    private function setupLoop(ILoop $loop): void
     {
         // FIXME (2023-10-09 15:29) [Alec Rabbit]: Setup loop
     }
