@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Factory;
 
 use AlecRabbit\Spinner\Core\Contract\Loop\ILoop;
+use AlecRabbit\Spinner\Core\Contract\Loop\ILoopSetup;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopProviderFactory;
 use AlecRabbit\Spinner\Core\Factory\LoopProviderFactory;
@@ -27,16 +28,23 @@ final class LoopProviderFactoryTest extends TestCase
 
     public function getTesteeInstance(
         ?ILoopFactory $loopFactory = null,
+        ?ILoopSetup $loopSetup = null,
     ): ILoopProviderFactory {
         return
             new LoopProviderFactory(
                 loopFactory: $loopFactory ?? $this->getLoopFactoryMock(),
+                loopSetup: $loopSetup ?? $this->getLoopSetupMock(),
             );
     }
 
     protected function getLoopFactoryMock(): MockObject&ILoopFactory
     {
         return $this->createMock(ILoopFactory::class);
+    }
+
+    private function getLoopSetupMock(): MockObject&ILoopSetup
+    {
+        return $this->createMock(ILoopSetup::class);
     }
 
     #[Test]
@@ -51,8 +59,16 @@ final class LoopProviderFactoryTest extends TestCase
             ->willReturn($loop)
         ;
 
+        $loopSetup = $this->getLoopSetupMock();
+        $loopSetup
+            ->expects(self::once())
+            ->method('setup')
+            ->with(self::identicalTo($loop))
+        ;
+
         $factory = $this->getTesteeInstance(
             loopFactory: $loopFactory,
+            loopSetup: $loopSetup,
         );
 
         $loopProvider = $factory->create();

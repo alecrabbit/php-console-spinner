@@ -48,6 +48,26 @@ final class LoopProviderTest extends TestCase
     }
 
     #[Test]
+    public function hasLoopIfLoopIsSet(): void
+    {
+        $loop = $this->getLoopMock();
+
+        $loopProvider = $this->getTesteeInstance(
+            loop: $loop,
+        );
+
+        self::assertTrue($loopProvider->hasLoop());
+    }
+
+    #[Test]
+    public function doesNotHaveLoopIfLoopIsNotSet(): void
+    {
+        $loopProvider = $this->getTesteeInstance();
+
+        self::assertFalse($loopProvider->hasLoop());
+    }
+
+    #[Test]
     public function throwsOnGetLoopIfLoopIsNotSet(): void
     {
         $loopProvider = $this->getTesteeInstance();

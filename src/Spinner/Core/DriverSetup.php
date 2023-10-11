@@ -8,6 +8,9 @@ use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\IDriverLinker;
 use AlecRabbit\Spinner\Core\Contract\IDriverSetup;
 
+/**
+ * @deprecated
+ */
 final class DriverSetup implements IDriverSetup
 {
     public function __construct(

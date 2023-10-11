@@ -15,6 +15,11 @@ final readonly class LoopProvider implements ILoopProvider
     ) {
     }
 
+    public function hasLoop(): bool
+    {
+        return $this->loop instanceof ILoop;
+    }
+
     public function getLoop(): ILoop
     {
         return

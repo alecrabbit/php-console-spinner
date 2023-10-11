@@ -19,6 +19,10 @@ Probes::register(
 
 $registry = DefinitionRegistry::getInstance();
 
+/**
+ * @var string $id
+ * @var callable|object|string $definition
+ */
 foreach (getDefinitions() as $id => $definition) {
     $registry->bind($id, $definition);
 }

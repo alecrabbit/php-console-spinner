@@ -24,11 +24,9 @@ final class DriverLinkerTest extends TestCaseWithPrebuiltMocksAndStubs
 
     public function getTesteeInstance(
         ?ILoop $loop = null,
-        ?LinkerMode $linkerMode = null,
     ): IDriverLinker {
         return new DriverLinker(
             loop: $loop ?? $this->getLoopMock(),
-            linkerMode: $linkerMode ?? LinkerMode::DISABLED,
         );
     }
 
@@ -63,7 +61,6 @@ final class DriverLinkerTest extends TestCaseWithPrebuiltMocksAndStubs
 
         $driverLinker = $this->getTesteeInstance(
             loop: $loop,
-            linkerMode: LinkerMode::ENABLED,
         );
 
         $driverLinker->link($driver);
@@ -89,7 +86,6 @@ final class DriverLinkerTest extends TestCaseWithPrebuiltMocksAndStubs
         ;
         $driverLinker = $this->getTesteeInstance(
             loop: $loop,
-            linkerMode: LinkerMode::ENABLED,
         );
 
         $driverLinker->link($driver);
@@ -128,7 +124,6 @@ final class DriverLinkerTest extends TestCaseWithPrebuiltMocksAndStubs
 
         $driverLinker = $this->getTesteeInstance(
             loop: $loop,
-            linkerMode: LinkerMode::ENABLED,
         );
 
         $driverLinker->link($driver);
@@ -144,12 +139,11 @@ final class DriverLinkerTest extends TestCaseWithPrebuiltMocksAndStubs
         );
 
         $test = function (): void {
-            $driverLinker = $this->getTesteeInstance(
-                linkerMode: LinkerMode::ENABLED,
-            );
-            $driver = $this->getDriverMock();
-            $driverLinker->link($driver);
+            $driverLinker = $this->getTesteeInstance();
 
+            $driver = $this->getDriverMock();
+
+            $driverLinker->link($driver);
             $driverLinker->link($this->getDriverMock());
         };
 

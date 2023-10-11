@@ -12,6 +12,9 @@ use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 
+/**
+ * @deprecated
+ */
 final class DriverSetupTest extends TestCase
 {
     #[Test]

@@ -6,6 +6,7 @@ namespace AlecRabbit\Spinner\Core\Factory;
 
 use AlecRabbit\Spinner\Core\Contract\Loop\ILoop;
 use AlecRabbit\Spinner\Core\Contract\Loop\ILoopProvider;
+use AlecRabbit\Spinner\Core\Contract\Loop\ILoopSetup;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopProviderFactory;
 use AlecRabbit\Spinner\Core\LoopProvider;
@@ -15,6 +16,7 @@ final readonly class LoopProviderFactory implements ILoopProviderFactory
 {
     public function __construct(
         protected ILoopFactory $loopFactory,
+        protected ILoopSetup $loopSetup,
     ) {
     }
 
@@ -31,7 +33,7 @@ final readonly class LoopProviderFactory implements ILoopProviderFactory
         try {
             $loop = $this->loopFactory->create();
 
-            $this->setupLoop($loop);
+            $this->loopSetup->setup($loop);
 
             return $loop;
         } catch (Throwable $_) {
@@ -39,8 +41,4 @@ final readonly class LoopProviderFactory implements ILoopProviderFactory
         }
     }
 
-    private function setupLoop(ILoop $loop): void
-    {
-        // FIXME (2023-10-09 15:29) [Alec Rabbit]: Setup loop
-    }
 }

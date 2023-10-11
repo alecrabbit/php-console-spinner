@@ -7,19 +7,10 @@ use AlecRabbit\Spinner\Helper\MemoryUsage;
 
 require_once __DIR__ . '/../bootstrap.php';
 
-// FIXME (2023-07-26 12:4) [Alec Rabbit]: Temporary workaround for Revolt loop not working
-//\AlecRabbit\Spinner\Probes::unregister(\AlecRabbit\Spinner\Asynchronous\Revolt\RevoltLoopProbe::class);
-//\AlecRabbit\Spinner\Probes::unregister(\AlecRabbit\Spinner\Asynchronous\Loop\Probe\ReactLoopProbe::class);
-//
-//$settings = Facade::getSettings();
-//$settings->set(new \AlecRabbit\Spinner\Core\Settings\AuxSettings(
-//    runMethodOption: \AlecRabbit\Spinner\Contract\Option\RunMethodOption::SYNCHRONOUS,
-//));
-
 $driver = Facade::getDriver();
 $echo =
     $driver->wrap(
-        static function (string $message) {
+        static function (?string $message = null) {
             echo $message . PHP_EOL;
         }
     );
@@ -47,7 +38,7 @@ $loop
     )
 ;
 
-$echo(PHP_EOL . sprintf('Using loop class: %s', get_debug_type($loop)));
-$echo(PHP_EOL . 'Note: Loop should start automatically!' . PHP_EOL);
+$echo(PHP_EOL . sprintf('Using loop: "%s"', get_debug_type($loop)));
+$echo();
 
 $memoryReport();

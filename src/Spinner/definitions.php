@@ -97,6 +97,7 @@ use AlecRabbit\Spinner\Core\Contract\Loop\ILoopCreatorClassExtractor;
 use AlecRabbit\Spinner\Core\Contract\Loop\ILoopCreatorClassProvider;
 use AlecRabbit\Spinner\Core\Contract\Loop\ILoopProbe;
 use AlecRabbit\Spinner\Core\Contract\Loop\ILoopProvider;
+use AlecRabbit\Spinner\Core\Contract\Loop\ILoopSetup;
 use AlecRabbit\Spinner\Core\DriverSetup;
 use AlecRabbit\Spinner\Core\Factory\BufferedOutputSingletonFactory;
 use AlecRabbit\Spinner\Core\Factory\CharFrameRevolverFactory;
@@ -144,6 +145,7 @@ use AlecRabbit\Spinner\Core\Factory\SpinnerFactory;
 use AlecRabbit\Spinner\Core\Factory\StyleFrameRevolverFactory;
 use AlecRabbit\Spinner\Core\Factory\TimerFactory;
 use AlecRabbit\Spinner\Core\LegacySignalHandlersSetup;
+use AlecRabbit\Spinner\Core\Loop\LoopSetup;
 use AlecRabbit\Spinner\Core\LoopCreatorClassExtractor;
 use AlecRabbit\Spinner\Core\LoopCreatorClassProvider;
 use AlecRabbit\Spinner\Core\Output\ResourceStream;
@@ -207,7 +209,7 @@ function getDefinitions(): Traversable
         IDriverProvider::class => static function (ContainerInterface $container): IDriverProvider {
             return $container->get(IDriverProviderFactory::class)->create();
         },
-        IDriverSetup::class => DriverSetup::class,
+//        IDriverSetup::class => DriverSetup::class,
 
         IDriver::class => static function (ContainerInterface $container): IDriver {
             return $container->get(IDriverFactory::class)->getDriver();
@@ -228,6 +230,7 @@ function getDefinitions(): Traversable
                 );
         },
         ILoopCreatorClassExtractor::class => LoopCreatorClassExtractor::class,
+        ILoopSetup::class => LoopSetup::class,
     ];
 
     yield from configs();
