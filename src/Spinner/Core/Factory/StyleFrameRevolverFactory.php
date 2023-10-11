@@ -25,34 +25,7 @@ final class StyleFrameRevolverFactory implements IStyleFrameRevolverFactory
         protected IFrameRevolverBuilder $frameRevolverBuilder,
         protected IFrameCollectionFactory $frameCollectionFactory,
         protected IIntervalFactory $intervalFactory,
-        protected StylingMethodOption $styleMode,
     ) {
-    }
-
-    public function createStyleRevolver(IStyleLegacyPattern $stylePattern): IFrameRevolver
-    {
-        $bakedPattern = $this->bakePattern($stylePattern);
-        return
-            $this->frameRevolverBuilder
-                ->withFrameCollection($bakedPattern->getFrameCollection())
-                ->withInterval($bakedPattern->getInterval())
-                ->withTolerance(
-                    $this->getTolerance()
-                )
-                ->build()
-        ;
-    }
-
-    private function bakePattern(ILegacyPattern $pattern): ILegacyBakedPattern
-    {
-        if (StylingMethodOption::NONE === $this->styleMode) {
-            $pattern = new NoStylePattern();
-        }
-        return
-            new BakedPattern(
-                frames: $this->frameCollectionFactory->create($pattern->getEntries($this->styleMode)),
-                interval: $this->intervalFactory->createNormalized($pattern->getInterval()),
-            );
     }
 
     public function create(IPattern $pattern): IFrameRevolver

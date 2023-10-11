@@ -10,7 +10,5 @@ use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolver;
 
 interface IStyleFrameRevolverFactory
 {
-    public function createStyleRevolver(IStyleLegacyPattern $stylePattern): IFrameRevolver;
-
     public function create(IPattern $pattern): IFrameRevolver;
 }

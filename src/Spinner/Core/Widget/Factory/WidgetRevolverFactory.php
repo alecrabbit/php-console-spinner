@@ -27,43 +27,6 @@ final class WidgetRevolverFactory implements IWidgetRevolverFactory
     ) {
     }
 
-    public function legacyCreateWidgetRevolver(ILegacyWidgetSettings $widgetSettings): IWidgetRevolver
-    {
-        return
-            $this->widgetRevolverBuilder
-                ->withStyleRevolver(
-                    $this->getStyleRevolver($widgetSettings)
-                )
-                ->withCharRevolver(
-                    $this->getCharRevolver($widgetSettings)
-                )
-                ->withTolerance(
-                    $this->getTolerance()
-                )
-                ->build()
-        ;
-    }
-
-    private function getStyleRevolver(ILegacyWidgetSettings $widgetSettings): IFrameRevolver
-    {
-        return
-            $this->styleRevolverFactory
-                ->createStyleRevolver(
-                    $widgetSettings->getStylePattern()
-                )
-        ;
-    }
-
-    private function getCharRevolver(ILegacyWidgetSettings $widgetSettings): IFrameRevolver
-    {
-        return
-            $this->charRevolverFactory
-                ->createCharRevolver(
-                    $widgetSettings->getCharPattern()
-                )
-        ;
-    }
-
     private function getTolerance(): ITolerance
     {
         // TODO (2023-04-26 14:21) [Alec Rabbit]: make it configurable [fd86d318-9069-47e2-b60d-a68f537be4a3]
