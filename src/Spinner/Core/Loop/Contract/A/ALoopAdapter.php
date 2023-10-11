@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Spinner\Core\Contract\Loop\A;
+namespace AlecRabbit\Spinner\Core\Loop\Contract\A;
 
-use AlecRabbit\Spinner\Core\Contract\Loop\ILoop;
+use AlecRabbit\Spinner\Core\Loop\Contract\ILoop;
 
 /**
  * @codeCoverageIgnore

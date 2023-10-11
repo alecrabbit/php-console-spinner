@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Loop;
 
-use AlecRabbit\Spinner\Core\Contract\Loop\ILoopCreator;
-use AlecRabbit\Spinner\Core\Contract\Loop\ILoopCreatorClassProvider;
+use AlecRabbit\Spinner\Core\Loop\Contract\ILoopCreator;
+use AlecRabbit\Spinner\Core\Loop\Contract\ILoopCreatorClassProvider;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 
 final class LoopCreatorClassProvider implements ILoopCreatorClassProvider

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Spinner\Core\Contract\Loop;
+namespace AlecRabbit\Spinner\Core\Loop\Contract;
 
 interface ILoopProvider
 {

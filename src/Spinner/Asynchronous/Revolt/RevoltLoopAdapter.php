@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Asynchronous\Revolt;
 
-use AlecRabbit\Spinner\Core\Contract\Loop\A\ALoopAdapter;
+use AlecRabbit\Spinner\Core\Loop\Contract\A\ALoopAdapter;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use Closure;
 use Revolt\EventLoop;

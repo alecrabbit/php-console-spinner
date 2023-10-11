@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Asynchronous\Override;
 
-use AlecRabbit\Spinner\Core\Contract\Loop\A\ALoopAdapter;
+use AlecRabbit\Spinner\Core\Loop\Contract\A\ALoopAdapter;
 use Closure;
 use RuntimeException;
 

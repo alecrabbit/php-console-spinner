@@ -7,7 +7,7 @@ namespace AlecRabbit\Tests\Functional\Spinner;
 use AlecRabbit\Spinner\Asynchronous\React\ReactLoopProbe;
 use AlecRabbit\Spinner\Asynchronous\Revolt\RevoltLoopProbe;
 use AlecRabbit\Spinner\Contract\Probe\IStaticProbe;
-use AlecRabbit\Spinner\Core\Contract\Loop\ILoopProbe;
+use AlecRabbit\Spinner\Core\Loop\Contract\ILoopProbe;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Spinner\Probes;
 use AlecRabbit\Tests\Functional\Spinner\Override\StaticProbeOverride;

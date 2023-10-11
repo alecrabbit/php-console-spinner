@@ -6,8 +6,8 @@ namespace AlecRabbit\Spinner;
 
 use AlecRabbit\Spinner\Container\A\AContainerEnclosure;
 use AlecRabbit\Spinner\Core\Contract\IDriverProvider;
-use AlecRabbit\Spinner\Core\Contract\Loop\ILoopProvider;
 use AlecRabbit\Spinner\Core\Factory\Contract\ISpinnerFactory;
+use AlecRabbit\Spinner\Core\Loop\Contract\ILoopProvider;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettingsProvider;
 
 abstract class AFacade extends AContainerEnclosure

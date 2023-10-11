@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Settings\Detector;
 
-use AlecRabbit\Spinner\Core\Contract\Loop\ILoopCreator;
+use AlecRabbit\Spinner\Core\Loop\Contract\ILoopCreator;
 use AlecRabbit\Spinner\Core\Settings\Contract\Detector\ILoopSupportDetector;
 
 final readonly class LoopSupportDetector implements ILoopSupportDetector

@@ -7,10 +7,10 @@ namespace AlecRabbit\Spinner\Core\Factory;
 use AlecRabbit\Spinner\Contract\Mode\LinkerMode;
 use AlecRabbit\Spinner\Core\Config\Contract\IDriverConfig;
 use AlecRabbit\Spinner\Core\Contract\IDriverLinker;
-use AlecRabbit\Spinner\Core\Contract\Loop\ILoopProvider;
 use AlecRabbit\Spinner\Core\DriverLinker;
 use AlecRabbit\Spinner\Core\DummyDriverLinker;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDriverLinkerFactory;
+use AlecRabbit\Spinner\Core\Loop\Contract\ILoopProvider;
 
 final class DriverLinkerFactory implements IDriverLinkerFactory
 {
