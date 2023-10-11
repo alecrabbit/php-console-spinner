@@ -27,7 +27,7 @@ final readonly class ContainerFactory implements IContainerFactory
                     return
                         new ServiceSpawner($container);
                 },
-                definitions: $this->registry->getDefinitions(),
+                definitions: $this->registry->load(),
             );
     }
 }
