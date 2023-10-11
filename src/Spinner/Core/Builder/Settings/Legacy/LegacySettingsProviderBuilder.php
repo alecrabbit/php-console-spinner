@@ -11,8 +11,8 @@ use AlecRabbit\Spinner\Core\CharFrame;
 use AlecRabbit\Spinner\Core\Config\Legacy\Contract\ILegacyWidgetConfig;
 use AlecRabbit\Spinner\Core\Config\Legacy\LegacyWidgetConfig;
 use AlecRabbit\Spinner\Core\Contract\ILegacySettingsProvider;
-use AlecRabbit\Spinner\Core\Factory\Contract\ILegacyTerminalSettingsFactory;
-use AlecRabbit\Spinner\Core\Factory\Contract\ILoopSettingsFactory;
+use AlecRabbit\Spinner\Core\Legacy\ILegacyTerminalSettingsFactory;
+use AlecRabbit\Spinner\Core\Legacy\ILegacyLoopSettingsFactory;
 use AlecRabbit\Spinner\Core\Pattern\Legacy\CharPattern\Snake;
 use AlecRabbit\Spinner\Core\Pattern\Legacy\NoCharPattern;
 use AlecRabbit\Spinner\Core\Pattern\Legacy\NoStylePattern;
@@ -25,7 +25,7 @@ use AlecRabbit\Spinner\Core\Settings\Legacy\LegacySettingsProvider;
 final class LegacySettingsProviderBuilder implements ILegacySettingsProviderBuilder
 {
     public function __construct(
-        protected ILoopSettingsFactory $loopSettingsFactory,
+        protected ILegacyLoopSettingsFactory $loopSettingsFactory,
         protected ILegacyTerminalSettingsFactory $terminalSettingsFactory,
         protected ILegacyAuxSettingsBuilder $auxSettingsBuilder,
         protected ILegacyDriverSettingsBuilder $driverSettingsBuilder,

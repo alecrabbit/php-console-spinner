@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Unit\Spinner\Core;
 
 use AlecRabbit\Spinner\Core\Contract\ILegacySignalProcessingLegacyProbe;
-use AlecRabbit\Spinner\Core\LegacySignalProcessingProbe;
+use AlecRabbit\Spinner\Core\Legacy\LegacySignalProcessingProbe;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 

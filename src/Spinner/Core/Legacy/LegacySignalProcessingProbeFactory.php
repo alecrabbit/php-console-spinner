@@ -2,16 +2,14 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Spinner\Core\Factory\Legacy;
+namespace AlecRabbit\Spinner\Core\Legacy;
 
 use AlecRabbit\Spinner\Core\Contract\ILegacySignalProcessingLegacyProbe;
-use AlecRabbit\Spinner\Core\Factory\Contract;
-use AlecRabbit\Spinner\Core\LegacySignalProcessingProbe;
 
 /**
  * @deprecated Will be removed
  */
-final class LegacySignalProcessingProbeFactory implements Contract\ILegacySignalProcessingProbeFactory
+final class LegacySignalProcessingProbeFactory implements \AlecRabbit\Spinner\Core\Legacy\ILegacySignalProcessingProbeFactory
 {
     public function getProbe(): ILegacySignalProcessingLegacyProbe
     {

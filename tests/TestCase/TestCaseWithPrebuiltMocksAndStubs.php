@@ -15,8 +15,6 @@ use AlecRabbit\Spinner\Core\Builder\Contract\IBufferedOutputBuilder;
 use AlecRabbit\Spinner\Core\Builder\Contract\IConsoleCursorBuilder;
 use AlecRabbit\Spinner\Core\Builder\Contract\IDriverOutputBuilder;
 use AlecRabbit\Spinner\Core\Builder\Contract\IIntegerNormalizerBuilder;
-use AlecRabbit\Spinner\Core\Builder\Contract\ILegacyLoopAutoStarterBuilder;
-use AlecRabbit\Spinner\Core\Builder\Contract\ISignalHandlersSetupBuilder;
 use AlecRabbit\Spinner\Core\Builder\Contract\ITimerBuilder;
 use AlecRabbit\Spinner\Core\Builder\Settings\Legacy\Contract\ILegacyAuxSettingsBuilder;
 use AlecRabbit\Spinner\Core\Builder\Settings\Legacy\Contract\ILegacyWidgetSettingsBuilder;
@@ -42,14 +40,17 @@ use AlecRabbit\Spinner\Core\Factory\Contract\IConsoleCursorFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDriverOutputFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IFrameCollectionFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalFactory;
-use AlecRabbit\Spinner\Core\Factory\Contract\ILegacyLoopAutoStarterFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILegacyLoopProbeFactory;
-use AlecRabbit\Spinner\Core\Factory\Contract\ILegacyTerminalSettingsFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopFactory;
-use AlecRabbit\Spinner\Core\Factory\Contract\ILoopSettingsFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IStyleFrameRevolverFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ITimerFactory;
-use AlecRabbit\Spinner\Core\Factory\Legacy\ILegacyWidgetSettingsFactory;
+use AlecRabbit\Spinner\Core\Legacy\ILegacyLoopAutoStarterBuilder;
+use AlecRabbit\Spinner\Core\Legacy\ILegacyLoopAutoStarterFactory;
+use AlecRabbit\Spinner\Core\Legacy\ILegacySignalHandlersSetupBuilder;
+use AlecRabbit\Spinner\Core\Legacy\ILegacyTerminalSettingsFactory;
+use AlecRabbit\Spinner\Core\Legacy\ILegacyWidgetSettingsFactory;
+use AlecRabbit\Spinner\Core\Legacy\ILegacyLoopSettingsFactory;
+use AlecRabbit\Spinner\Core\Legacy\Terminal\Contract\ITerminalLegacyProbe;
 use AlecRabbit\Spinner\Core\Output\Contract\IConsoleCursor;
 use AlecRabbit\Spinner\Core\Output\Contract\IDriverOutput;
 use AlecRabbit\Spinner\Core\Pattern\Legacy\Contract\ICharLegacyPattern;
@@ -61,7 +62,6 @@ use AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyAuxSettings;
 use AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyDriverSettings;
 use AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyLoopSettings;
 use AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyWidgetSettings;
-use AlecRabbit\Spinner\Core\Terminal\Contract\ITerminalLegacyProbe;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidget;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetCompositeChildrenContainer;
@@ -167,9 +167,9 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
         return $this->createMock(ILegacyLoopAutoStarterBuilder::class);
     }
 
-    protected function getSignalHandlersSetupBuilderMock(): MockObject&ISignalHandlersSetupBuilder
+    protected function getSignalHandlersSetupBuilderMock(): MockObject&ILegacySignalHandlersSetupBuilder
     {
-        return $this->createMock(ISignalHandlersSetupBuilder::class);
+        return $this->createMock(ILegacySignalHandlersSetupBuilder::class);
     }
 
     protected function getLoopAutoStarterFactoryMock(): MockObject&ILegacyLoopAutoStarterFactory
@@ -272,9 +272,9 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
         return $this->createMock(ILoopProbe::class);
     }
 
-    protected function getLoopSettingsFactoryMock(): MockObject&ILoopSettingsFactory
+    protected function getLoopSettingsFactoryMock(): MockObject&ILegacyLoopSettingsFactory
     {
-        return $this->createMock(ILoopSettingsFactory::class);
+        return $this->createMock(ILegacyLoopSettingsFactory::class);
     }
 
     protected function getTerminalSettingsFactoryMock(): MockObject&ILegacyTerminalSettingsFactory

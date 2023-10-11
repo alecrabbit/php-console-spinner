@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Spinner\Core\Factory\Legacy;
+namespace AlecRabbit\Spinner\Core\Legacy;
 
 use AlecRabbit\Spinner\Core\Builder\Settings\Legacy\Contract\ILegacyWidgetSettingsBuilder;
 use AlecRabbit\Spinner\Core\Config\Legacy\Contract\ILegacyWidgetConfig;

@@ -2,20 +2,21 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Spinner\Core\Factory;
+namespace AlecRabbit\Spinner\Core\Legacy;
 
-use AlecRabbit\Spinner\Core\Builder\Contract\ISignalHandlersSetupBuilder;
 use AlecRabbit\Spinner\Core\Contract\ILegacySettingsProvider;
 use AlecRabbit\Spinner\Core\Contract\ILegacySignalHandlersSetup;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopFactory;
-use AlecRabbit\Spinner\Core\Factory\Contract\ISignalHandlersSetupFactory;
 
-final class SignalHandlersSetupFactory implements ISignalHandlersSetupFactory
+/**
+ * @deprecated Will be removed
+ */
+final class LegacySignalHandlersSetupFactory implements ILegacySignalHandlersSetupFactory
 {
     public function __construct(
         protected ILegacySettingsProvider $settingsProvider,
         protected ILoopFactory $loopFactory,
-        protected ISignalHandlersSetupBuilder $signalHandlersSetupBuilder,
+        protected ILegacySignalHandlersSetupBuilder $signalHandlersSetupBuilder,
     ) {
     }
 

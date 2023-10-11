@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Spinner\Core\Factory\Contract;
+namespace AlecRabbit\Spinner\Core\Legacy;
 
 use AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyLoopSettings;
 
 /**
  * @deprecated
  */
-interface ILoopSettingsFactory
+interface ILegacyLoopSettingsFactory
 {
     public function createLoopSettings(): ILegacyLoopSettings;
 }

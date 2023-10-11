@@ -6,10 +6,10 @@ namespace AlecRabbit\Tests\Unit\Spinner\Core\Factory;
 
 use AlecRabbit\Spinner\Contract\Option\CursorVisibilityOption;
 use AlecRabbit\Spinner\Contract\Option\StylingMethodOption;
-use AlecRabbit\Spinner\Core\Factory\Contract\ILegacyTerminalSettingsFactory;
-use AlecRabbit\Spinner\Core\Factory\Legacy\LegacyTerminalSettingsFactory;
+use AlecRabbit\Spinner\Core\Legacy\ILegacyTerminalSettingsFactory;
+use AlecRabbit\Spinner\Core\Legacy\LegacyTerminalSettingsFactory;
+use AlecRabbit\Spinner\Core\Legacy\Terminal\Contract\ITerminalLegacyProbe;
 use AlecRabbit\Spinner\Core\Settings\Legacy\LegacyTerminalSettings;
-use AlecRabbit\Spinner\Core\Terminal\Contract\ITerminalLegacyProbe;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;
 

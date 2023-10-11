@@ -6,7 +6,7 @@ namespace AlecRabbit\Tests\Unit\Spinner\Core;
 
 use AlecRabbit\Spinner\Core\Contract\ILegacySignalHandlersSetup;
 use AlecRabbit\Spinner\Core\Contract\Loop\ILoop;
-use AlecRabbit\Spinner\Core\LegacySignalHandlersSetup;
+use AlecRabbit\Spinner\Core\Legacy\LegacySignalHandlersSetup;
 use AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyLoopSettings;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use Error;

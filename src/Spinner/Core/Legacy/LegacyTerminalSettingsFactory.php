@@ -2,18 +2,17 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Spinner\Core\Factory\Legacy;
+namespace AlecRabbit\Spinner\Core\Legacy;
 
-use AlecRabbit\Spinner\Core\Factory\Contract;
+use AlecRabbit\Spinner\Core\Legacy\Terminal\Contract\ITerminalLegacyProbe;
 use AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyTerminalSettings;
 use AlecRabbit\Spinner\Core\Settings\Legacy\LegacyTerminalSettings;
-use AlecRabbit\Spinner\Core\Terminal\Contract\ITerminalLegacyProbe;
 
 
 /**
  * @deprecated Will be removed
  */
-final class LegacyTerminalSettingsFactory implements Contract\ILegacyTerminalSettingsFactory
+final class LegacyTerminalSettingsFactory implements \AlecRabbit\Spinner\Core\Legacy\ILegacyTerminalSettingsFactory
 {
     public function __construct(
         protected ITerminalLegacyProbe $terminalProbe,

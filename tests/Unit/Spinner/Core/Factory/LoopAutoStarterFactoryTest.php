@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Factory;
 
-use AlecRabbit\Spinner\Core\Builder\Contract\ILegacyLoopAutoStarterBuilder;
 use AlecRabbit\Spinner\Core\Contract\ILegacySettingsProvider;
-use AlecRabbit\Spinner\Core\Factory\Contract\ILegacyLoopAutoStarterFactory;
-use AlecRabbit\Spinner\Core\Factory\LegacyLoopAutoStarterFactory;
+use AlecRabbit\Spinner\Core\Legacy\ILegacyLoopAutoStarterBuilder;
+use AlecRabbit\Spinner\Core\Legacy\ILegacyLoopAutoStarterFactory;
+use AlecRabbit\Spinner\Core\Legacy\LegacyLoopAutoStarterFactory;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;
 

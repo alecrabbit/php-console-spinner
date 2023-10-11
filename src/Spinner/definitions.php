@@ -14,12 +14,10 @@ use AlecRabbit\Spinner\Core\Builder\Contract\IBufferedOutputBuilder;
 use AlecRabbit\Spinner\Core\Builder\Contract\IConsoleCursorBuilder;
 use AlecRabbit\Spinner\Core\Builder\Contract\IDriverOutputBuilder;
 use AlecRabbit\Spinner\Core\Builder\Contract\IIntegerNormalizerBuilder;
-use AlecRabbit\Spinner\Core\Builder\Contract\ISignalHandlersSetupBuilder;
 use AlecRabbit\Spinner\Core\Builder\Contract\ITimerBuilder;
 use AlecRabbit\Spinner\Core\Builder\DriverBuilder;
 use AlecRabbit\Spinner\Core\Builder\DriverOutputBuilder;
 use AlecRabbit\Spinner\Core\Builder\IntegerNormalizerBuilder;
-use AlecRabbit\Spinner\Core\Builder\SignalHandlersSetupBuilder;
 use AlecRabbit\Spinner\Core\Builder\TimerBuilder;
 use AlecRabbit\Spinner\Core\CharFrame;
 use AlecRabbit\Spinner\Core\Config\Builder\AuxConfigBuilder;
@@ -96,7 +94,6 @@ use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalNormalizerFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopProviderFactory;
-use AlecRabbit\Spinner\Core\Factory\Contract\ISignalHandlersSetupFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ISpinnerFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IStyleFrameRevolverFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ITimerFactory;
@@ -109,10 +106,13 @@ use AlecRabbit\Spinner\Core\Factory\IntervalFactory;
 use AlecRabbit\Spinner\Core\Factory\IntervalNormalizerFactory;
 use AlecRabbit\Spinner\Core\Factory\LoopFactory;
 use AlecRabbit\Spinner\Core\Factory\LoopProviderFactory;
-use AlecRabbit\Spinner\Core\Factory\SignalHandlersSetupFactory;
 use AlecRabbit\Spinner\Core\Factory\SpinnerFactory;
 use AlecRabbit\Spinner\Core\Factory\StyleFrameRevolverFactory;
 use AlecRabbit\Spinner\Core\Factory\TimerFactory;
+use AlecRabbit\Spinner\Core\Legacy\ILegacySignalHandlersSetupBuilder;
+use AlecRabbit\Spinner\Core\Legacy\ILegacySignalHandlersSetupFactory;
+use AlecRabbit\Spinner\Core\Legacy\LegacySignalHandlersSetupBuilder;
+use AlecRabbit\Spinner\Core\Legacy\LegacySignalHandlersSetupFactory;
 use AlecRabbit\Spinner\Core\Loop\LoopSetup;
 use AlecRabbit\Spinner\Core\LoopCreatorClassExtractor;
 use AlecRabbit\Spinner\Core\LoopCreatorClassProvider;
@@ -241,7 +241,7 @@ function builders(): Traversable
         IDriverOutputBuilder::class => DriverOutputBuilder::class,
         IFrameRevolverBuilder::class => FrameRevolverBuilder::class,
         IIntegerNormalizerBuilder::class => IntegerNormalizerBuilder::class,
-        ISignalHandlersSetupBuilder::class => SignalHandlersSetupBuilder::class,
+        ILegacySignalHandlersSetupBuilder::class => LegacySignalHandlersSetupBuilder::class,
         ITimerBuilder::class => TimerBuilder::class,
         IWidgetBuilder::class => WidgetBuilder::class,
         IWidgetRevolverBuilder::class => WidgetRevolverBuilder::class,
@@ -292,7 +292,7 @@ function factories(): Traversable
         IIntervalFactory::class => IntervalFactory::class,
         IIntervalNormalizerFactory::class => IntervalNormalizerFactory::class,
         ISettingsProviderFactory::class => SettingsProviderFactory::class,
-        ISignalHandlersSetupFactory::class => SignalHandlersSetupFactory::class,
+        ILegacySignalHandlersSetupFactory::class => LegacySignalHandlersSetupFactory::class,
         ISpinnerFactory::class => SpinnerFactory::class,
         IStyleFrameRevolverFactory::class => StyleFrameRevolverFactory::class,
         ITimerFactory::class => TimerFactory::class,

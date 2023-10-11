@@ -8,8 +8,8 @@ use AlecRabbit\Spinner\Core\Builder\Settings\Legacy\Contract\ILegacyAuxSettingsB
 use AlecRabbit\Spinner\Core\Builder\Settings\Legacy\Contract\ILegacyDriverSettingsBuilder;
 use AlecRabbit\Spinner\Core\Builder\Settings\Legacy\Contract\ILegacySettingsProviderBuilder;
 use AlecRabbit\Spinner\Core\Builder\Settings\Legacy\LegacySettingsProviderBuilder;
-use AlecRabbit\Spinner\Core\Factory\Contract\ILegacyTerminalSettingsFactory;
-use AlecRabbit\Spinner\Core\Factory\Contract\ILoopSettingsFactory;
+use AlecRabbit\Spinner\Core\Legacy\ILegacyTerminalSettingsFactory;
+use AlecRabbit\Spinner\Core\Legacy\ILegacyLoopSettingsFactory;
 use AlecRabbit\Spinner\Core\Settings\Legacy\LegacySettingsProvider;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;
@@ -26,7 +26,7 @@ final class SettingsProviderBuilderTest extends TestCaseWithPrebuiltMocksAndStub
     }
 
     public function getTesteeInstance(
-        ?ILoopSettingsFactory $loopSettingsBuilder = null,
+        ?ILegacyLoopSettingsFactory $loopSettingsBuilder = null,
         ?ILegacyTerminalSettingsFactory $terminalSettingsFactory = null,
         ?ILegacyAuxSettingsBuilder $auxSettingsBuilder = null,
         ?ILegacyDriverSettingsBuilder $driverSettingsBuilder = null,

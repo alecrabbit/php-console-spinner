@@ -2,12 +2,10 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Spinner\Core\Factory;
+namespace AlecRabbit\Spinner\Core\Legacy;
 
-use AlecRabbit\Spinner\Core\Builder\Contract\ILegacyLoopAutoStarterBuilder;
 use AlecRabbit\Spinner\Core\Contract\ILegacyLoopAutoStarter;
 use AlecRabbit\Spinner\Core\Contract\ILegacySettingsProvider;
-use AlecRabbit\Spinner\Core\Factory\Contract\ILegacyLoopAutoStarterFactory;
 
 /**
  * @deprecated

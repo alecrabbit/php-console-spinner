@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Factory\Stub;
 
 use AlecRabbit\Spinner\Contract\Option\StylingMethodOption;
-use AlecRabbit\Spinner\Core\Terminal\A\ATerminalLegacyProbe;
+use AlecRabbit\Spinner\Core\Legacy\Terminal\A\ATerminalLegacyProbe;
 use RuntimeException;
 
 /**

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Terminal;
 
-use AlecRabbit\Spinner\Core\Terminal\Contract\ITerminalLegacyProbe;
-use AlecRabbit\Spinner\Core\Terminal\NativeTerminalLegacyProbe;
+use AlecRabbit\Spinner\Core\Legacy\Terminal\Contract\ITerminalLegacyProbe;
+use AlecRabbit\Spinner\Core\Legacy\Terminal\NativeTerminalLegacyProbe;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;
 

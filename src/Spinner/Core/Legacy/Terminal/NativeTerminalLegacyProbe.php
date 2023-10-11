@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Spinner\Core\Terminal;
+namespace AlecRabbit\Spinner\Core\Legacy\Terminal;
 
 use AlecRabbit\Spinner\Contract\Option\StylingMethodOption;
-use AlecRabbit\Spinner\Core\Terminal\A\ATerminalLegacyProbe;
+use AlecRabbit\Spinner\Core\Legacy\Terminal\A\ATerminalLegacyProbe;
 
 /**
  * @deprecated

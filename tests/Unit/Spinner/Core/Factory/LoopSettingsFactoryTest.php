@@ -6,8 +6,8 @@ namespace AlecRabbit\Tests\Unit\Spinner\Core\Factory;
 
 use AlecRabbit\Spinner\Core\Contract\ILegacySignalProcessingLegacyProbe;
 use AlecRabbit\Spinner\Core\Contract\Loop\ILoopProbe;
-use AlecRabbit\Spinner\Core\Factory\Contract\ILoopSettingsFactory;
-use AlecRabbit\Spinner\Core\Factory\Legacy\LoopSettingsFactory;
+use AlecRabbit\Spinner\Core\Legacy\ILegacyLoopSettingsFactory;
+use AlecRabbit\Spinner\Core\Legacy\LegacyLoopSettingsFactory;
 use AlecRabbit\Spinner\Core\Settings\Legacy\LegacyLoopSettings;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use AlecRabbit\Tests\Unit\Spinner\Asynchronous\Stub\LoopProbeStub;
@@ -20,14 +20,14 @@ final class LoopSettingsFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
     {
         $loopSettingsFactory = $this->getTesteeInstance();
 
-        self::assertInstanceOf(LoopSettingsFactory::class, $loopSettingsFactory);
+        self::assertInstanceOf(LegacyLoopSettingsFactory::class, $loopSettingsFactory);
     }
 
     public function getTesteeInstance(
         ?ILoopProbe $loopProbe = null,
         ?ILegacySignalProcessingLegacyProbe $signalProcessingProbe = null,
-    ): ILoopSettingsFactory {
-        return new LoopSettingsFactory(
+    ): ILegacyLoopSettingsFactory {
+        return new LegacyLoopSettingsFactory(
             loopProbe: $loopProbe,
             signalProcessingProbe: $signalProcessingProbe,
         );

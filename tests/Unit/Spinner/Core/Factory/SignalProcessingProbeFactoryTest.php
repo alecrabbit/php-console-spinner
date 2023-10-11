@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Factory;
 
-use AlecRabbit\Spinner\Core\Factory\Contract\ILegacySignalProcessingProbeFactory;
-use AlecRabbit\Spinner\Core\Factory\Legacy\LegacySignalProcessingProbeFactory;
-use AlecRabbit\Spinner\Core\LegacySignalProcessingProbe;
+use AlecRabbit\Spinner\Core\Legacy\ILegacySignalProcessingProbeFactory;
+use AlecRabbit\Spinner\Core\Legacy\LegacySignalProcessingProbe;
+use AlecRabbit\Spinner\Core\Legacy\LegacySignalProcessingProbeFactory;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;
 

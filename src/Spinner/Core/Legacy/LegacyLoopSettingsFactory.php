@@ -2,20 +2,19 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Spinner\Core\Factory\Legacy;
+namespace AlecRabbit\Spinner\Core\Legacy;
 
 use AlecRabbit\Spinner\Contract\Option\AutoStartOption;
 use AlecRabbit\Spinner\Contract\Option\SignalHandlersOption;
 use AlecRabbit\Spinner\Core\Contract\ILegacySignalProcessingLegacyProbe;
 use AlecRabbit\Spinner\Core\Contract\Loop\ILoopProbe;
-use AlecRabbit\Spinner\Core\Factory\Contract\ILoopSettingsFactory;
 use AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyLoopSettings;
 use AlecRabbit\Spinner\Core\Settings\Legacy\LegacyLoopSettings;
 
 /**
  * @deprecated
  */
-final class LoopSettingsFactory implements ILoopSettingsFactory
+final class LegacyLoopSettingsFactory implements ILegacyLoopSettingsFactory
 {
     public function __construct(
         protected ?ILoopProbe $loopProbe = null,

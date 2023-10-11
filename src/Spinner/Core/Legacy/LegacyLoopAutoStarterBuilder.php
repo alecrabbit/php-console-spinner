@@ -2,11 +2,9 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Spinner\Core\Builder;
+namespace AlecRabbit\Spinner\Core\Legacy;
 
-use AlecRabbit\Spinner\Core\Builder\Contract\ILegacyLoopAutoStarterBuilder;
 use AlecRabbit\Spinner\Core\Contract\ILegacyLoopAutoStarter;
-use AlecRabbit\Spinner\Core\LegacyLoopAutoStarter;
 use AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyLoopSettings;
 use AlecRabbit\Spinner\Exception\LogicException;
 

@@ -2,11 +2,14 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Spinner\Core\Factory\Contract;
+namespace AlecRabbit\Spinner\Core\Legacy;
 
 use AlecRabbit\Spinner\Core\Contract\ILegacySignalHandlersSetup;
 
-interface ISignalHandlersSetupFactory
+/**
+ * @deprecated Will be removed
+ */
+interface ILegacySignalHandlersSetupFactory
 {
     public function create(): ILegacySignalHandlersSetup;
 }

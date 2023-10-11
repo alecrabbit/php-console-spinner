@@ -2,11 +2,10 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Spinner\Core\Factory\Legacy;
+namespace AlecRabbit\Spinner\Core\Legacy;
 
 use AlecRabbit\Spinner\Contract\ILegacyProbe;
-use AlecRabbit\Spinner\Core\Factory\Contract\ILegacyTerminalProbeFactory;
-use AlecRabbit\Spinner\Core\Terminal\Contract\ITerminalLegacyProbe;
+use AlecRabbit\Spinner\Core\Legacy\Terminal\Contract\ITerminalLegacyProbe;
 use AlecRabbit\Spinner\Exception\DomainException;
 use ArrayObject;
 use Traversable;

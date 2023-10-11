@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Spinner\Core\Terminal\Contract;
+namespace AlecRabbit\Spinner\Core\Legacy\Terminal\Contract;
 
 use AlecRabbit\Spinner\Contract\ILegacyProbe;
 use AlecRabbit\Spinner\Contract\Option\CursorVisibilityOption;

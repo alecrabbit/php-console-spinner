@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Unit\Spinner\Core;
 
 use AlecRabbit\Spinner\Core\Contract\ILegacyLoopAutoStarter;
-use AlecRabbit\Spinner\Core\LegacyLoopAutoStarter;
+use AlecRabbit\Spinner\Core\Legacy\LegacyLoopAutoStarter;
 use AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyLoopSettings;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;

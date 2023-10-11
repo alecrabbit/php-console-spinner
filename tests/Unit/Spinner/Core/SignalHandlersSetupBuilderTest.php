@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core;
 
-use AlecRabbit\Spinner\Core\Builder\Contract\ISignalHandlersSetupBuilder;
-use AlecRabbit\Spinner\Core\Builder\SignalHandlersSetupBuilder;
-use AlecRabbit\Spinner\Core\LegacySignalHandlersSetup;
+use AlecRabbit\Spinner\Core\Legacy\ILegacySignalHandlersSetupBuilder;
+use AlecRabbit\Spinner\Core\Legacy\LegacySignalHandlersSetup;
+use AlecRabbit\Spinner\Core\Legacy\LegacySignalHandlersSetupBuilder;
 use AlecRabbit\Spinner\Exception\LogicException;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;
@@ -18,12 +18,12 @@ final class SignalHandlersSetupBuilderTest extends TestCaseWithPrebuiltMocksAndS
     {
         $loopSetupBuilder = $this->getTesteeInstance();
 
-        self::assertInstanceOf(SignalHandlersSetupBuilder::class, $loopSetupBuilder);
+        self::assertInstanceOf(LegacySignalHandlersSetupBuilder::class, $loopSetupBuilder);
     }
 
-    public function getTesteeInstance(): ISignalHandlersSetupBuilder
+    public function getTesteeInstance(): ILegacySignalHandlersSetupBuilder
     {
-        return new SignalHandlersSetupBuilder();
+        return new LegacySignalHandlersSetupBuilder();
     }
 
     #[Test]
@@ -31,7 +31,7 @@ final class SignalHandlersSetupBuilderTest extends TestCaseWithPrebuiltMocksAndS
     {
         $loopSetupBuilder = $this->getTesteeInstance();
 
-        self::assertInstanceOf(SignalHandlersSetupBuilder::class, $loopSetupBuilder);
+        self::assertInstanceOf(LegacySignalHandlersSetupBuilder::class, $loopSetupBuilder);
 
         $loopSetupBuilder = $loopSetupBuilder
             ->withLoop($this->getLoopMock())
@@ -50,7 +50,7 @@ final class SignalHandlersSetupBuilderTest extends TestCaseWithPrebuiltMocksAndS
 
         $test = function (): void {
             $loopSetupBuilder = $this->getTesteeInstance();
-            self::assertInstanceOf(SignalHandlersSetupBuilder::class, $loopSetupBuilder);
+            self::assertInstanceOf(LegacySignalHandlersSetupBuilder::class, $loopSetupBuilder);
             $loopSetupBuilder
                 ->withLoopSettings($this->getLegacyLoopSettingsMock())
                 ->withDriverSettings($this->getLegacyDriverSettingsMock())
@@ -73,7 +73,7 @@ final class SignalHandlersSetupBuilderTest extends TestCaseWithPrebuiltMocksAndS
 
         $test = function (): void {
             $loopSetupBuilder = $this->getTesteeInstance();
-            self::assertInstanceOf(SignalHandlersSetupBuilder::class, $loopSetupBuilder);
+            self::assertInstanceOf(LegacySignalHandlersSetupBuilder::class, $loopSetupBuilder);
             $loopSetupBuilder
                 ->withLoop($this->getLoopMock())
                 ->withDriverSettings($this->getLegacyDriverSettingsMock())
@@ -96,7 +96,7 @@ final class SignalHandlersSetupBuilderTest extends TestCaseWithPrebuiltMocksAndS
 
         $test = function (): void {
             $loopSetupBuilder = $this->getTesteeInstance();
-            self::assertInstanceOf(SignalHandlersSetupBuilder::class, $loopSetupBuilder);
+            self::assertInstanceOf(LegacySignalHandlersSetupBuilder::class, $loopSetupBuilder);
             $loopSetupBuilder
                 ->withLoop($this->getLoopMock())
                 ->withLoopSettings($this->getLegacyLoopSettingsMock())

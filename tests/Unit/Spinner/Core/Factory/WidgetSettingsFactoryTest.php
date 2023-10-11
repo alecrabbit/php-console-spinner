@@ -6,8 +6,8 @@ namespace AlecRabbit\Tests\Unit\Spinner\Core\Factory;
 
 use AlecRabbit\Spinner\Core\Builder\Settings\Legacy\Contract\ILegacyWidgetSettingsBuilder;
 use AlecRabbit\Spinner\Core\Contract\ILegacySettingsProvider;
-use AlecRabbit\Spinner\Core\Factory\Legacy\ILegacyWidgetSettingsFactory;
-use AlecRabbit\Spinner\Core\Factory\Legacy\LegacyWidgetSettingsFactory;
+use AlecRabbit\Spinner\Core\Legacy\ILegacyWidgetSettingsFactory;
+use AlecRabbit\Spinner\Core\Legacy\LegacyWidgetSettingsFactory;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;
 

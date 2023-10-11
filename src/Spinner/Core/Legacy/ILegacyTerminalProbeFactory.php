@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Spinner\Core\Factory\Contract;
+namespace AlecRabbit\Spinner\Core\Legacy;
 
 use AlecRabbit\Spinner\Contract\IProbeFactory;
-use AlecRabbit\Spinner\Core\Terminal\Contract\ITerminalLegacyProbe;
+use AlecRabbit\Spinner\Core\Legacy\Terminal\Contract\ITerminalLegacyProbe;
 
 /**
  * @deprecated

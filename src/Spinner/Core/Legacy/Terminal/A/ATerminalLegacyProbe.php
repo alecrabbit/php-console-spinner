@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Spinner\Core\Terminal\A;
+namespace AlecRabbit\Spinner\Core\Legacy\Terminal\A;
 
 use AlecRabbit\Spinner\Contract\Option\CursorVisibilityOption;
 use AlecRabbit\Spinner\Contract\Option\StylingMethodOption;
-use AlecRabbit\Spinner\Core\Terminal\Contract\ITerminalLegacyProbe;
+use AlecRabbit\Spinner\Core\Legacy\Terminal\Contract\ITerminalLegacyProbe;
 
 /**
  * @deprecated

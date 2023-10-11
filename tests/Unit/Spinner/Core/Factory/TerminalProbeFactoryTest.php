@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Factory;
 
-use AlecRabbit\Spinner\Core\Factory\Contract\ILegacyTerminalProbeFactory;
-use AlecRabbit\Spinner\Core\Factory\Legacy\LegacyTerminalProbeFactory;
-use AlecRabbit\Spinner\Core\Terminal\A\ATerminalLegacyProbe;
+use AlecRabbit\Spinner\Core\Legacy\ILegacyTerminalProbeFactory;
+use AlecRabbit\Spinner\Core\Legacy\LegacyTerminalProbeFactory;
+use AlecRabbit\Spinner\Core\Legacy\Terminal\A\ATerminalLegacyProbe;
 use AlecRabbit\Spinner\Exception\DomainException;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use AlecRabbit\Tests\Unit\Spinner\Core\Factory\Stub\TerminalLegacyProbeStub;
