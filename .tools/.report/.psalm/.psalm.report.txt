@@ -35,41 +35,6 @@
 /app/src/Spinner/Core/Builder/DriverOutputBuilder.php:25:21:error - PossiblyNullArgument: Argument 2 of AlecRabbit\Spinner\Core\Output\DriverOutput::__construct cannot be null, possibly null value provided
 /app/src/Spinner/Core/Builder/IntegerNormalizerBuilder.php:22:13:error - PossiblyNullArgument: Argument 1 of AlecRabbit\Spinner\Core\IntegerNormalizer::__construct cannot be null, possibly null value provided
 /app/src/Spinner/Core/Builder/IntegerNormalizerBuilder.php:23:13:error - PossiblyNullArgument: Argument 2 of AlecRabbit\Spinner\Core\IntegerNormalizer::__construct cannot be null, possibly null value provided
-/app/src/Spinner/Core/Builder/Settings/Legacy/Contract/ILegacyAuxSettingsBuilder.php:14:30:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyAuxSettings is marked as deprecated
-/app/src/Spinner/Core/Builder/Settings/Legacy/Contract/ILegacyDriverSettingsBuilder.php:14:30:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyDriverSettings is marked as deprecated
-/app/src/Spinner/Core/Builder/Settings/Legacy/Contract/ILegacySettingsProviderBuilder.php:14:30:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Contract\ILegacySettingsProvider is marked as deprecated
-/app/src/Spinner/Core/Builder/Settings/Legacy/Contract/ILegacyWidgetSettingsBuilder.php:21:30:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyWidgetSettings is marked as deprecated
-/app/src/Spinner/Core/Builder/Settings/Legacy/Contract/ILegacyWidgetSettingsBuilder.php:29:37:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Contract\Legacy\ILegacyPattern is marked as deprecated
-/app/src/Spinner/Core/Builder/Settings/Legacy/LegacyAuxSettingsBuilder.php:15:13:error - DeprecatedInterface: AlecRabbit\Spinner\Core\Builder\Settings\Legacy\Contract\ILegacyAuxSettingsBuilder is marked deprecated
-/app/src/Spinner/Core/Builder/Settings/Legacy/LegacyAuxSettingsBuilder.php:17:30:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyAuxSettings is marked as deprecated
-/app/src/Spinner/Core/Builder/Settings/Legacy/LegacyAuxSettingsBuilder.php:20:13:error - DeprecatedClass: AlecRabbit\Spinner\Core\Settings\Legacy\LegacyAuxSettings is marked deprecated
-/app/src/Spinner/Core/Builder/Settings/Legacy/LegacyDriverSettingsBuilder.php:16:13:error - DeprecatedInterface: AlecRabbit\Spinner\Core\Builder\Settings\Legacy\Contract\ILegacyDriverSettingsBuilder is marked deprecated
-/app/src/Spinner/Core/Builder/Settings/Legacy/LegacyDriverSettingsBuilder.php:18:30:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyDriverSettings is marked as deprecated
-/app/src/Spinner/Core/Builder/Settings/Legacy/LegacyDriverSettingsBuilder.php:21:13:error - DeprecatedClass: AlecRabbit\Spinner\Core\Settings\Legacy\LegacyDriverSettings is marked deprecated
-/app/src/Spinner/Core/Builder/Settings/Legacy/LegacySettingsProviderBuilder.php:25:13:error - DeprecatedInterface: AlecRabbit\Spinner\Core\Builder\Settings\Legacy\Contract\ILegacySettingsProviderBuilder is marked deprecated
-/app/src/Spinner/Core/Builder/Settings/Legacy/LegacySettingsProviderBuilder.php:28:9:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Legacy\ILegacyLoopSettingsFactory is marked as deprecated
-/app/src/Spinner/Core/Builder/Settings/Legacy/LegacySettingsProviderBuilder.php:29:9:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Legacy\ILegacyTerminalSettingsFactory is marked as deprecated
-/app/src/Spinner/Core/Builder/Settings/Legacy/LegacySettingsProviderBuilder.php:30:9:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Builder\Settings\Legacy\Contract\ILegacyAuxSettingsBuilder is marked as deprecated
-/app/src/Spinner/Core/Builder/Settings/Legacy/LegacySettingsProviderBuilder.php:31:9:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Builder\Settings\Legacy\Contract\ILegacyDriverSettingsBuilder is marked as deprecated
-/app/src/Spinner/Core/Builder/Settings/Legacy/LegacySettingsProviderBuilder.php:35:30:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Contract\ILegacySettingsProvider is marked as deprecated
-/app/src/Spinner/Core/Builder/Settings/Legacy/LegacySettingsProviderBuilder.php:37:16:error - DeprecatedClass: AlecRabbit\Spinner\Core\Settings\Legacy\LegacySettingsProvider is marked deprecated
-/app/src/Spinner/Core/Builder/Settings/Legacy/LegacySettingsProviderBuilder.php:47:43:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Config\Legacy\Contract\ILegacyWidgetConfig is marked as deprecated
-/app/src/Spinner/Core/Builder/Settings/Legacy/LegacySettingsProviderBuilder.php:50:13:error - DeprecatedClass: AlecRabbit\Spinner\Core\Config\Legacy\LegacyWidgetConfig is marked deprecated
-/app/src/Spinner/Core/Builder/Settings/Legacy/LegacySettingsProviderBuilder.php:58:47:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Config\Legacy\Contract\ILegacyWidgetConfig is marked as deprecated
-/app/src/Spinner/Core/Builder/Settings/Legacy/LegacySettingsProviderBuilder.php:61:13:error - DeprecatedClass: AlecRabbit\Spinner\Core\Config\Legacy\LegacyWidgetConfig is marked deprecated
-/app/src/Spinner/Core/Builder/Settings/Legacy/LegacyWidgetSettingsBuilder.php:18:13:error - DeprecatedInterface: AlecRabbit\Spinner\Core\Builder\Settings\Legacy\Contract\ILegacyWidgetSettingsBuilder is marked deprecated
-/app/src/Spinner/Core/Builder/Settings/Legacy/LegacyWidgetSettingsBuilder.php:23:13:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Contract\Legacy\ILegacyPattern is marked as deprecated
-/app/src/Spinner/Core/Builder/Settings/Legacy/LegacyWidgetSettingsBuilder.php:25:30:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyWidgetSettings is marked as deprecated
-/app/src/Spinner/Core/Builder/Settings/Legacy/LegacyWidgetSettingsBuilder.php:30:13:error - DeprecatedClass: AlecRabbit\Spinner\Core\Settings\Legacy\LegacyWidgetSettings is marked deprecated
-/app/src/Spinner/Core/Builder/Settings/Legacy/LegacyWidgetSettingsBuilder.php:31:32:error - PossiblyNullArgument: Argument 1 of AlecRabbit\Spinner\Core\Settings\Legacy\LegacyWidgetSettings::__construct cannot be null, possibly null value provided
-/app/src/Spinner/Core/Builder/Settings/Legacy/LegacyWidgetSettingsBuilder.php:32:33:error - PossiblyNullArgument: Argument 2 of AlecRabbit\Spinner\Core\Settings\Legacy\LegacyWidgetSettings::__construct cannot be null, possibly null value provided
-/app/src/Spinner/Core/Builder/Settings/Legacy/LegacyWidgetSettingsBuilder.php:33:31:error - PossiblyNullArgument: Argument 3 of AlecRabbit\Spinner\Core\Settings\Legacy\LegacyWidgetSettings::__construct cannot be null, possibly null value provided
-/app/src/Spinner/Core/Builder/Settings/Legacy/LegacyWidgetSettingsBuilder.php:34:30:error - PossiblyNullArgument: Argument 4 of AlecRabbit\Spinner\Core\Settings\Legacy\LegacyWidgetSettings::__construct cannot be null, possibly null value provided
-/app/src/Spinner/Core/Builder/Settings/Legacy/LegacyWidgetSettingsBuilder.php:52:55:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Builder\Settings\Legacy\Contract\ILegacyWidgetSettingsBuilder is marked as deprecated
-/app/src/Spinner/Core/Builder/Settings/Legacy/LegacyWidgetSettingsBuilder.php:59:56:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Builder\Settings\Legacy\Contract\ILegacyWidgetSettingsBuilder is marked as deprecated
-/app/src/Spinner/Core/Builder/Settings/Legacy/LegacyWidgetSettingsBuilder.php:66:69:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Builder\Settings\Legacy\Contract\ILegacyWidgetSettingsBuilder is marked as deprecated
-/app/src/Spinner/Core/Builder/Settings/Legacy/LegacyWidgetSettingsBuilder.php:73:37:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Contract\Legacy\ILegacyPattern is marked as deprecated
-/app/src/Spinner/Core/Builder/Settings/Legacy/LegacyWidgetSettingsBuilder.php:73:63:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Builder\Settings\Legacy\Contract\ILegacyWidgetSettingsBuilder is marked as deprecated
 /app/src/Spinner/Core/Builder/TimerBuilder.php:23:27:error - PossiblyNullArgument: Argument 1 of AlecRabbit\Spinner\Core\Timer::__construct cannot be null, possibly null value provided
 /app/src/Spinner/Core/Builder/TimerBuilder.php:24:19:error - PossiblyNullArgument: Argument 2 of AlecRabbit\Spinner\Core\Timer::__construct cannot be null, possibly null value provided
 /app/src/Spinner/Core/Config/Config.php:22:33:error - MixedPropertyTypeCoercion: $this->configElements expects 'ArrayObject<class-string<AlecRabbit\Spinner\Core\Config\Contract\IConfigElement>, AlecRabbit\Spinner\Core\Config\Contract\IConfigElement>',  parent type `ArrayObject` provided
@@ -120,12 +85,6 @@
 /app/src/Spinner/Core/Config/Solver/StylingMethodModeSolver.php:79:60:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Contract\Option\StylingMethodOption|null' for AlecRabbit\Spinner\Core\Config\Solver\StylingMethodModeSolver::extractOption
 /app/src/Spinner/Core/Config/Solver/StylingMethodModeSolver.php:81:16:error - MixedReturnStatement: Could not infer a return type
 /app/src/Spinner/Core/Config/Solver/StylingMethodModeSolver.php:81:83:error - UndefinedInterfaceMethod: Method AlecRabbit\Spinner\Core\Settings\Contract\ISettingsElement::getStylingMethodOption does not exist
-/app/src/Spinner/Core/Contract/ILegacySettingsProvider.php:19:45:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyAuxSettings is marked as deprecated
-/app/src/Spinner/Core/Contract/ILegacySettingsProvider.php:21:48:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyDriverSettings is marked as deprecated
-/app/src/Spinner/Core/Contract/ILegacySettingsProvider.php:23:46:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyLoopSettings is marked as deprecated
-/app/src/Spinner/Core/Contract/ILegacySettingsProvider.php:25:46:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Config\Legacy\Contract\ILegacyWidgetConfig is marked as deprecated
-/app/src/Spinner/Core/Contract/ILegacySettingsProvider.php:27:50:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Config\Legacy\Contract\ILegacyWidgetConfig is marked as deprecated
-/app/src/Spinner/Core/Contract/ILegacySettingsProvider.php:29:50:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyTerminalSettings is marked as deprecated
 /app/src/Spinner/Core/Contract/IWeakMap.php:11:28:error - MissingTemplateParam: AlecRabbit\Spinner\Core\Contract\IWeakMap has missing template params when extending ArrayAccess, expecting 2
 /app/src/Spinner/Core/Contract/IWeakMap.php:11:52:error - MissingTemplateParam: AlecRabbit\Spinner\Core\Contract\IWeakMap has missing template params when extending IteratorAggregate, expecting 2
 /app/src/Spinner/Core/Contract/IWidgetContextToIntervalMap.php:12:47:error - MissingTemplateParam: AlecRabbit\Spinner\Core\Contract\IWidgetContextToIntervalMap has missing template params when extending ArrayAccess, expecting 2
@@ -142,89 +101,53 @@
 /app/src/Spinner/Core/Factory/Contract/IRevolverFactory.php:12:28:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Contract\Legacy\ILegacyPattern is marked as deprecated
 /app/src/Spinner/Core/FrameCollection.php:69:34:error - InvalidNullableReturnType: The declared return type 'int' for AlecRabbit\Spinner\Core\FrameCollection::lastIndex is not nullable, but 'int|null' contains null
 /app/src/Spinner/Core/FrameCollection.php:71:16:error - NullableReturnStatement: The declared return type 'int' for AlecRabbit\Spinner\Core\FrameCollection::lastIndex is not nullable, but the function returns 'int|null'
-/app/src/Spinner/Core/Legacy/ILegacyLoopAutoStarterBuilder.php:15:30:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Contract\ILegacyLoopAutoStarter is marked as deprecated
-/app/src/Spinner/Core/Legacy/ILegacyLoopAutoStarterBuilder.php:17:34:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyLoopSettings is marked as deprecated
-/app/src/Spinner/Core/Legacy/ILegacyLoopAutoStarterFactory.php:14:31:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Contract\ILegacyLoopAutoStarter is marked as deprecated
-/app/src/Spinner/Core/Legacy/ILegacyLoopSettingsFactory.php:14:43:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyLoopSettings is marked as deprecated
-/app/src/Spinner/Core/Legacy/ILegacySignalHandlersSetupBuilder.php:17:30:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Contract\ILegacySignalHandlersSetup is marked as deprecated
-/app/src/Spinner/Core/Legacy/ILegacySignalHandlersSetupBuilder.php:19:38:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyLoopSettings is marked as deprecated
-/app/src/Spinner/Core/Legacy/ILegacySignalHandlersSetupBuilder.php:23:40:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyDriverSettings is marked as deprecated
-/app/src/Spinner/Core/Legacy/ILegacySignalHandlersSetupFactory.php:14:31:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Contract\ILegacySignalHandlersSetup is marked as deprecated
-/app/src/Spinner/Core/Legacy/ILegacySignalProcessingProbeFactory.php:15:33:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Contract\ILegacySignalProcessingLegacyProbe is marked as deprecated
-/app/src/Spinner/Core/Legacy/ILegacyTerminalProbeFactory.php:15:33:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Legacy\Terminal\Contract\ITerminalLegacyProbe is marked as deprecated
-/app/src/Spinner/Core/Legacy/ILegacyTerminalSettingsFactory.php:15:47:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyTerminalSettings is marked as deprecated
-/app/src/Spinner/Core/Legacy/ILegacyWidgetSettingsFactory.php:15:38:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Config\Legacy\Contract\ILegacyWidgetConfig is marked as deprecated
-/app/src/Spinner/Core/Legacy/ILegacyWidgetSettingsFactory.php:15:68:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyWidgetSettings is marked as deprecated
-/app/src/Spinner/Core/Legacy/LegacyLoopAutoStarter.php:14:13:error - DeprecatedInterface: AlecRabbit\Spinner\Core\Contract\ILegacyLoopAutoStarter is marked deprecated
-/app/src/Spinner/Core/Legacy/LegacyLoopAutoStarter.php:17:9:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyLoopSettings is marked as deprecated
-/app/src/Spinner/Core/Legacy/LegacyLoopAutoStarterBuilder.php:14:13:error - DeprecatedInterface: AlecRabbit\Spinner\Core\Legacy\ILegacyLoopAutoStarterBuilder is marked deprecated
-/app/src/Spinner/Core/Legacy/LegacyLoopAutoStarterBuilder.php:16:13:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyLoopSettings is marked as deprecated
-/app/src/Spinner/Core/Legacy/LegacyLoopAutoStarterBuilder.php:18:30:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Contract\ILegacyLoopAutoStarter is marked as deprecated
-/app/src/Spinner/Core/Legacy/LegacyLoopAutoStarterBuilder.php:23:13:error - DeprecatedClass: AlecRabbit\Spinner\Core\Legacy\LegacyLoopAutoStarter is marked deprecated
-/app/src/Spinner/Core/Legacy/LegacyLoopAutoStarterBuilder.php:24:17:error - PossiblyNullArgument: Argument 1 of AlecRabbit\Spinner\Core\Legacy\LegacyLoopAutoStarter::__construct cannot be null, possibly null value provided
-/app/src/Spinner/Core/Legacy/LegacyLoopAutoStarterBuilder.php:36:34:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyLoopSettings is marked as deprecated
-/app/src/Spinner/Core/Legacy/LegacyLoopAutoStarterBuilder.php:36:66:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Legacy\ILegacyLoopAutoStarterBuilder is marked as deprecated
-/app/src/Spinner/Core/Legacy/LegacyLoopAutoStarterFactory.php:13:13:error - DeprecatedInterface: AlecRabbit\Spinner\Core\Legacy\ILegacyLoopAutoStarterFactory is marked deprecated
-/app/src/Spinner/Core/Legacy/LegacyLoopAutoStarterFactory.php:16:9:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Contract\ILegacySettingsProvider is marked as deprecated
-/app/src/Spinner/Core/Legacy/LegacyLoopAutoStarterFactory.php:17:9:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Legacy\ILegacyLoopAutoStarterBuilder is marked as deprecated
-/app/src/Spinner/Core/Legacy/LegacyLoopAutoStarterFactory.php:21:31:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Contract\ILegacyLoopAutoStarter is marked as deprecated
-/app/src/Spinner/Core/Legacy/LegacyLoopSettingsFactory.php:17:13:error - DeprecatedInterface: AlecRabbit\Spinner\Core\Legacy\ILegacyLoopSettingsFactory is marked deprecated
-/app/src/Spinner/Core/Legacy/LegacyLoopSettingsFactory.php:21:9:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Contract\ILegacySignalProcessingLegacyProbe is marked as deprecated
-/app/src/Spinner/Core/Legacy/LegacyLoopSettingsFactory.php:25:43:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyLoopSettings is marked as deprecated
-/app/src/Spinner/Core/Legacy/LegacyLoopSettingsFactory.php:42:13:error - DeprecatedClass: AlecRabbit\Spinner\Core\Settings\Legacy\LegacyLoopSettings is marked deprecated
-/app/src/Spinner/Core/Legacy/LegacySignalHandlersSetup.php:17:13:error - DeprecatedInterface: AlecRabbit\Spinner\Core\Contract\ILegacySignalHandlersSetup is marked deprecated
-/app/src/Spinner/Core/Legacy/LegacySignalHandlersSetup.php:21:9:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyLoopSettings is marked as deprecated
-/app/src/Spinner/Core/Legacy/LegacySignalHandlersSetupBuilder.php:16:13:error - DeprecatedInterface: AlecRabbit\Spinner\Core\Legacy\ILegacySignalHandlersSetupBuilder is marked deprecated
-/app/src/Spinner/Core/Legacy/LegacySignalHandlersSetupBuilder.php:19:13:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyLoopSettings is marked as deprecated
-/app/src/Spinner/Core/Legacy/LegacySignalHandlersSetupBuilder.php:20:13:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyDriverSettings is marked as deprecated
-/app/src/Spinner/Core/Legacy/LegacySignalHandlersSetupBuilder.php:22:30:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Contract\ILegacySignalHandlersSetup is marked as deprecated
-/app/src/Spinner/Core/Legacy/LegacySignalHandlersSetupBuilder.php:27:13:error - DeprecatedClass: AlecRabbit\Spinner\Core\Legacy\LegacySignalHandlersSetup is marked deprecated
-/app/src/Spinner/Core/Legacy/LegacySignalHandlersSetupBuilder.php:27:13:error - TooManyArguments: Too many arguments for AlecRabbit\Spinner\Core\Legacy\LegacySignalHandlersSetup::__construct - expecting 2 but saw 3
-/app/src/Spinner/Core/Legacy/LegacySignalHandlersSetupBuilder.php:28:17:error - PossiblyNullArgument: Argument 1 of AlecRabbit\Spinner\Core\Legacy\LegacySignalHandlersSetup::__construct cannot be null, possibly null value provided
-/app/src/Spinner/Core/Legacy/LegacySignalHandlersSetupBuilder.php:29:17:error - PossiblyNullArgument: Argument 2 of AlecRabbit\Spinner\Core\Legacy\LegacySignalHandlersSetup::__construct cannot be null, possibly null value provided
-/app/src/Spinner/Core/Legacy/LegacySignalHandlersSetupBuilder.php:44:44:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Legacy\ILegacySignalHandlersSetupBuilder is marked as deprecated
-/app/src/Spinner/Core/Legacy/LegacySignalHandlersSetupBuilder.php:51:38:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyLoopSettings is marked as deprecated
-/app/src/Spinner/Core/Legacy/LegacySignalHandlersSetupBuilder.php:51:70:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Legacy\ILegacySignalHandlersSetupBuilder is marked as deprecated
-/app/src/Spinner/Core/Legacy/LegacySignalHandlersSetupBuilder.php:58:40:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyDriverSettings is marked as deprecated
-/app/src/Spinner/Core/Legacy/LegacySignalHandlersSetupBuilder.php:58:74:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Legacy\ILegacySignalHandlersSetupBuilder is marked as deprecated
-/app/src/Spinner/Core/Legacy/LegacySignalHandlersSetupFactory.php:14:13:error - DeprecatedInterface: AlecRabbit\Spinner\Core\Legacy\ILegacySignalHandlersSetupFactory is marked deprecated
-/app/src/Spinner/Core/Legacy/LegacySignalHandlersSetupFactory.php:17:9:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Contract\ILegacySettingsProvider is marked as deprecated
-/app/src/Spinner/Core/Legacy/LegacySignalHandlersSetupFactory.php:19:9:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Legacy\ILegacySignalHandlersSetupBuilder is marked as deprecated
-/app/src/Spinner/Core/Legacy/LegacySignalHandlersSetupFactory.php:23:31:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Contract\ILegacySignalHandlersSetup is marked as deprecated
-/app/src/Spinner/Core/Legacy/LegacySignalProcessingProbe.php:14:13:error - DeprecatedInterface: AlecRabbit\Spinner\Core\Contract\ILegacySignalProcessingLegacyProbe is marked deprecated
-/app/src/Spinner/Core/Legacy/LegacySignalProcessingProbe.php:14:13:error - DeprecatedInterface: AlecRabbit\Spinner\Contract\ILegacyProbe is marked deprecated
-/app/src/Spinner/Core/Legacy/LegacySignalProcessingProbeFactory.php:12:13:error - DeprecatedInterface: AlecRabbit\Spinner\Core\Legacy\ILegacySignalProcessingProbeFactory is marked deprecated
-/app/src/Spinner/Core/Legacy/LegacySignalProcessingProbeFactory.php:12:13:error - DeprecatedInterface: AlecRabbit\Spinner\Contract\IProbeFactory is marked deprecated
-/app/src/Spinner/Core/Legacy/LegacySignalProcessingProbeFactory.php:14:33:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Contract\ILegacySignalProcessingLegacyProbe is marked as deprecated
-/app/src/Spinner/Core/Legacy/LegacySignalProcessingProbeFactory.php:16:16:error - DeprecatedClass: AlecRabbit\Spinner\Core\Legacy\LegacySignalProcessingProbe is marked deprecated
-/app/src/Spinner/Core/Legacy/LegacyTerminalProbeFactory.php:16:13:error - DeprecatedInterface: AlecRabbit\Spinner\Core\Legacy\ILegacyTerminalProbeFactory is marked deprecated
-/app/src/Spinner/Core/Legacy/LegacyTerminalProbeFactory.php:16:13:error - DeprecatedInterface: AlecRabbit\Spinner\Contract\IProbeFactory is marked deprecated
-/app/src/Spinner/Core/Legacy/LegacyTerminalProbeFactory.php:19:15:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Legacy\Terminal\Contract\ITerminalLegacyProbe is marked as deprecated
-/app/src/Spinner/Core/Legacy/LegacyTerminalProbeFactory.php:33:42:error - UndefinedInterfaceMethod: Method Traversable::append does not exist
-/app/src/Spinner/Core/Legacy/LegacyTerminalProbeFactory.php:33:49:error - MixedMethodCall: Cannot call constructor on an unknown class
-/app/src/Spinner/Core/Legacy/LegacyTerminalProbeFactory.php:51:33:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Legacy\Terminal\Contract\ITerminalLegacyProbe is marked as deprecated
-/app/src/Spinner/Core/Legacy/LegacyTerminalProbeFactory.php:51:33:error - MoreSpecificReturnType: The declared return type 'AlecRabbit\Spinner\Core\Legacy\Terminal\Contract\ITerminalLegacyProbe' for AlecRabbit\Spinner\Core\Legacy\LegacyTerminalProbeFactory::getProbe is more specific than the inferred return type 'AlecRabbit\Spinner\Contract\ILegacyProbe'
-/app/src/Spinner/Core/Legacy/LegacyTerminalProbeFactory.php:54:45:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Contract\ILegacyProbe is marked as deprecated
-/app/src/Spinner/Core/Legacy/LegacyTerminalProbeFactory.php:56:24:error - LessSpecificReturnStatement: The type 'AlecRabbit\Spinner\Contract\ILegacyProbe' is more general than the declared return type 'AlecRabbit\Spinner\Core\Legacy\Terminal\Contract\ITerminalLegacyProbe' for AlecRabbit\Spinner\Core\Legacy\LegacyTerminalProbeFactory::getProbe
-/app/src/Spinner/Core/Legacy/LegacyTerminalSettingsFactory.php:15:13:error - DeprecatedInterface: AlecRabbit\Spinner\Core\Legacy\ILegacyTerminalSettingsFactory is marked deprecated
-/app/src/Spinner/Core/Legacy/LegacyTerminalSettingsFactory.php:18:9:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Legacy\Terminal\Contract\ITerminalLegacyProbe is marked as deprecated
-/app/src/Spinner/Core/Legacy/LegacyTerminalSettingsFactory.php:22:47:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyTerminalSettings is marked as deprecated
-/app/src/Spinner/Core/Legacy/LegacyTerminalSettingsFactory.php:25:13:error - DeprecatedClass: AlecRabbit\Spinner\Core\Settings\Legacy\LegacyTerminalSettings is marked deprecated
-/app/src/Spinner/Core/Legacy/LegacyWidgetSettingsFactory.php:15:13:error - DeprecatedInterface: AlecRabbit\Spinner\Core\Legacy\ILegacyWidgetSettingsFactory is marked deprecated
-/app/src/Spinner/Core/Legacy/LegacyWidgetSettingsFactory.php:18:9:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Contract\ILegacySettingsProvider is marked as deprecated
-/app/src/Spinner/Core/Legacy/LegacyWidgetSettingsFactory.php:19:9:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Builder\Settings\Legacy\Contract\ILegacyWidgetSettingsBuilder is marked as deprecated
-/app/src/Spinner/Core/Legacy/LegacyWidgetSettingsFactory.php:23:38:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Config\Legacy\Contract\ILegacyWidgetConfig is marked as deprecated
-/app/src/Spinner/Core/Legacy/LegacyWidgetSettingsFactory.php:23:68:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyWidgetSettings is marked as deprecated
-/app/src/Spinner/Core/Legacy/LegacyWidgetSettingsFactory.php:29:37:error - PossiblyNullArgument: Argument 1 of AlecRabbit\Spinner\Core\Builder\Settings\Legacy\Contract\ILegacyWidgetSettingsBuilder::withLeadingSpacer cannot be null, possibly null value provided
-/app/src/Spinner/Core/Legacy/LegacyWidgetSettingsFactory.php:30:38:error - PossiblyNullArgument: Argument 1 of AlecRabbit\Spinner\Core\Builder\Settings\Legacy\Contract\ILegacyWidgetSettingsBuilder::withTrailingSpacer cannot be null, possibly null value provided
-/app/src/Spinner/Core/Legacy/LegacyWidgetSettingsFactory.php:31:36:error - PossiblyNullArgument: Argument 1 of AlecRabbit\Spinner\Core\Builder\Settings\Legacy\Contract\ILegacyWidgetSettingsBuilder::withStylePattern cannot be null, possibly null value provided
-/app/src/Spinner/Core/Legacy/LegacyWidgetSettingsFactory.php:32:35:error - PossiblyNullArgument: Argument 1 of AlecRabbit\Spinner\Core\Builder\Settings\Legacy\Contract\ILegacyWidgetSettingsBuilder::withCharPattern cannot be null, possibly null value provided
-/app/src/Spinner/Core/Legacy/Terminal/A/ATerminalLegacyProbe.php:14:16:error - DeprecatedInterface: AlecRabbit\Spinner\Core\Legacy\Terminal\Contract\ITerminalLegacyProbe is marked deprecated
-/app/src/Spinner/Core/Legacy/Terminal/A/ATerminalLegacyProbe.php:14:16:error - DeprecatedInterface: AlecRabbit\Spinner\Contract\ILegacyProbe is marked deprecated
-/app/src/Spinner/Core/Legacy/Terminal/A/ATerminalLegacyProbe.php:24:16:error - DeprecatedClass: Class AlecRabbit\Spinner\Core\Legacy\Terminal\Contract\ITerminalLegacyProbe is deprecated
-/app/src/Spinner/Core/Legacy/Terminal/NativeTerminalLegacyProbe.php:13:13:error - DeprecatedInterface: AlecRabbit\Spinner\Core\Legacy\Terminal\Contract\ITerminalLegacyProbe is marked deprecated
-/app/src/Spinner/Core/Legacy/Terminal/NativeTerminalLegacyProbe.php:13:13:error - DeprecatedInterface: AlecRabbit\Spinner\Contract\ILegacyProbe is marked deprecated
-/app/src/Spinner/Core/Legacy/Terminal/NativeTerminalLegacyProbe.php:13:47:error - DeprecatedClass: AlecRabbit\Spinner\Core\Legacy\Terminal\A\ATerminalLegacyProbe is marked deprecated
+/app/src/Spinner/Core/Legacy/Contract/ILegacyAuxSettingsBuilder.php:14:30:error - UndefinedClass: Class, interface or enum named AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyAuxSettings does not exist
+/app/src/Spinner/Core/Legacy/Contract/ILegacyDriverSettingsBuilder.php:14:30:error - UndefinedClass: Class, interface or enum named AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyDriverSettings does not exist
+/app/src/Spinner/Core/Legacy/Contract/ILegacySettingsProviderBuilder.php:14:30:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Legacy\ILegacySettingsProvider is marked as deprecated
+/app/src/Spinner/Core/Legacy/Contract/ILegacyWidgetSettingsBuilder.php:21:30:error - UndefinedClass: Class, interface or enum named AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyWidgetSettings does not exist
+/app/src/Spinner/Core/Legacy/Contract/ILegacyWidgetSettingsBuilder.php:29:37:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Contract\Legacy\ILegacyPattern is marked as deprecated
+/app/src/Spinner/Core/Legacy/ILegacySettingsProvider.php:19:45:error - UndefinedClass: Class, interface or enum named AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyAuxSettings does not exist
+/app/src/Spinner/Core/Legacy/ILegacySettingsProvider.php:21:48:error - UndefinedClass: Class, interface or enum named AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyDriverSettings does not exist
+/app/src/Spinner/Core/Legacy/ILegacySettingsProvider.php:23:46:error - UndefinedClass: Class, interface or enum named AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyLoopSettings does not exist
+/app/src/Spinner/Core/Legacy/ILegacySettingsProvider.php:25:46:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Config\Legacy\Contract\ILegacyWidgetConfig is marked as deprecated
+/app/src/Spinner/Core/Legacy/ILegacySettingsProvider.php:27:50:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Config\Legacy\Contract\ILegacyWidgetConfig is marked as deprecated
+/app/src/Spinner/Core/Legacy/ILegacySettingsProvider.php:29:50:error - UndefinedClass: Class, interface or enum named AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyTerminalSettings does not exist
+/app/src/Spinner/Core/Legacy/LegacyAuxSettingsBuilder.php:15:13:error - DeprecatedInterface: AlecRabbit\Spinner\Core\Legacy\Contract\ILegacyAuxSettingsBuilder is marked deprecated
+/app/src/Spinner/Core/Legacy/LegacyAuxSettingsBuilder.php:17:30:error - UndefinedClass: Class, interface or enum named AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyAuxSettings does not exist
+/app/src/Spinner/Core/Legacy/LegacyAuxSettingsBuilder.php:17:30:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyAuxSettings' for AlecRabbit\Spinner\Core\Legacy\LegacyAuxSettingsBuilder::build
+/app/src/Spinner/Core/Legacy/LegacyAuxSettingsBuilder.php:20:13:error - MixedReturnStatement: Could not infer a return type
+/app/src/Spinner/Core/Legacy/LegacyAuxSettingsBuilder.php:20:17:error - UndefinedClass: Class, interface or enum named AlecRabbit\Spinner\Core\Settings\Legacy\LegacyAuxSettings does not exist
+/app/src/Spinner/Core/Legacy/LegacyDriverSettingsBuilder.php:16:13:error - DeprecatedInterface: AlecRabbit\Spinner\Core\Legacy\Contract\ILegacyDriverSettingsBuilder is marked deprecated
+/app/src/Spinner/Core/Legacy/LegacyDriverSettingsBuilder.php:18:30:error - UndefinedClass: Class, interface or enum named AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyDriverSettings does not exist
+/app/src/Spinner/Core/Legacy/LegacyDriverSettingsBuilder.php:18:30:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyDriverSettings' for AlecRabbit\Spinner\Core\Legacy\LegacyDriverSettingsBuilder::build
+/app/src/Spinner/Core/Legacy/LegacyDriverSettingsBuilder.php:21:13:error - MixedReturnStatement: Could not infer a return type
+/app/src/Spinner/Core/Legacy/LegacyDriverSettingsBuilder.php:21:17:error - UndefinedClass: Class, interface or enum named AlecRabbit\Spinner\Core\Settings\Legacy\LegacyDriverSettings does not exist
+/app/src/Spinner/Core/Legacy/LegacySettingsProviderBuilder.php:22:13:error - DeprecatedInterface: AlecRabbit\Spinner\Core\Legacy\Contract\ILegacySettingsProviderBuilder is marked deprecated
+/app/src/Spinner/Core/Legacy/LegacySettingsProviderBuilder.php:25:9:error - UndefinedClass: Class, interface or enum named AlecRabbit\Spinner\Core\Legacy\ILegacyLoopSettingsFactory does not exist
+/app/src/Spinner/Core/Legacy/LegacySettingsProviderBuilder.php:26:9:error - UndefinedClass: Class, interface or enum named AlecRabbit\Spinner\Core\Legacy\ILegacyTerminalSettingsFactory does not exist
+/app/src/Spinner/Core/Legacy/LegacySettingsProviderBuilder.php:27:9:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Legacy\Contract\ILegacyAuxSettingsBuilder is marked as deprecated
+/app/src/Spinner/Core/Legacy/LegacySettingsProviderBuilder.php:28:9:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Legacy\Contract\ILegacyDriverSettingsBuilder is marked as deprecated
+/app/src/Spinner/Core/Legacy/LegacySettingsProviderBuilder.php:32:30:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Legacy\ILegacySettingsProvider is marked as deprecated
+/app/src/Spinner/Core/Legacy/LegacySettingsProviderBuilder.php:32:30:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Core\Legacy\ILegacySettingsProvider' for AlecRabbit\Spinner\Core\Legacy\LegacySettingsProviderBuilder::build
+/app/src/Spinner/Core/Legacy/LegacySettingsProviderBuilder.php:34:16:error - MixedReturnStatement: Could not infer a return type
+/app/src/Spinner/Core/Legacy/LegacySettingsProviderBuilder.php:34:20:error - UndefinedClass: Class, interface or enum named AlecRabbit\Spinner\Core\Settings\Legacy\LegacySettingsProvider does not exist
+/app/src/Spinner/Core/Legacy/LegacySettingsProviderBuilder.php:36:31:error - UndefinedClass: Class, interface or enum named AlecRabbit\Spinner\Core\Legacy\ILegacyTerminalSettingsFactory does not exist
+/app/src/Spinner/Core/Legacy/LegacySettingsProviderBuilder.php:37:27:error - UndefinedClass: Class, interface or enum named AlecRabbit\Spinner\Core\Legacy\ILegacyLoopSettingsFactory does not exist
+/app/src/Spinner/Core/Legacy/LegacySettingsProviderBuilder.php:44:43:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Config\Legacy\Contract\ILegacyWidgetConfig is marked as deprecated
+/app/src/Spinner/Core/Legacy/LegacySettingsProviderBuilder.php:47:13:error - DeprecatedClass: AlecRabbit\Spinner\Core\Config\Legacy\LegacyWidgetConfig is marked deprecated
+/app/src/Spinner/Core/Legacy/LegacySettingsProviderBuilder.php:55:47:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Config\Legacy\Contract\ILegacyWidgetConfig is marked as deprecated
+/app/src/Spinner/Core/Legacy/LegacySettingsProviderBuilder.php:58:13:error - DeprecatedClass: AlecRabbit\Spinner\Core\Config\Legacy\LegacyWidgetConfig is marked deprecated
+/app/src/Spinner/Core/Legacy/LegacyWidgetSettingsBuilder.php:18:13:error - DeprecatedInterface: AlecRabbit\Spinner\Core\Legacy\Contract\ILegacyWidgetSettingsBuilder is marked deprecated
+/app/src/Spinner/Core/Legacy/LegacyWidgetSettingsBuilder.php:23:13:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Contract\Legacy\ILegacyPattern is marked as deprecated
+/app/src/Spinner/Core/Legacy/LegacyWidgetSettingsBuilder.php:25:30:error - UndefinedClass: Class, interface or enum named AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyWidgetSettings does not exist
+/app/src/Spinner/Core/Legacy/LegacyWidgetSettingsBuilder.php:25:30:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyWidgetSettings' for AlecRabbit\Spinner\Core\Legacy\LegacyWidgetSettingsBuilder::build
+/app/src/Spinner/Core/Legacy/LegacyWidgetSettingsBuilder.php:30:13:error - MixedReturnStatement: Could not infer a return type
+/app/src/Spinner/Core/Legacy/LegacyWidgetSettingsBuilder.php:30:17:error - UndefinedClass: Class, interface or enum named AlecRabbit\Spinner\Core\Settings\Legacy\LegacyWidgetSettings does not exist
+/app/src/Spinner/Core/Legacy/LegacyWidgetSettingsBuilder.php:52:55:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Legacy\Contract\ILegacyWidgetSettingsBuilder is marked as deprecated
+/app/src/Spinner/Core/Legacy/LegacyWidgetSettingsBuilder.php:59:56:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Legacy\Contract\ILegacyWidgetSettingsBuilder is marked as deprecated
+/app/src/Spinner/Core/Legacy/LegacyWidgetSettingsBuilder.php:66:69:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Legacy\Contract\ILegacyWidgetSettingsBuilder is marked as deprecated
+/app/src/Spinner/Core/Legacy/LegacyWidgetSettingsBuilder.php:73:37:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Contract\Legacy\ILegacyPattern is marked as deprecated
+/app/src/Spinner/Core/Legacy/LegacyWidgetSettingsBuilder.php:73:63:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Legacy\Contract\ILegacyWidgetSettingsBuilder is marked as deprecated
 /app/src/Spinner/Core/Output/StreamBufferedOutput.php:38:30:error - MixedArgumentTypeCoercion: Argument 1 of AlecRabbit\Spinner\Contract\Output\IResourceStream::write expects Traversable<mixed, string>, but parent type Traversable provided
 /app/src/Spinner/Core/Palette/Factory/PaletteModeFactory.php:32:41:error - MoreSpecificReturnType: The declared return type 'AlecRabbit\Spinner\Core\Config\Contract\IOutputConfig' for AlecRabbit\Spinner\Core\Palette\Factory\PaletteModeFactory::getOutputConfig is more specific than the inferred return type 'AlecRabbit\Spinner\Core\Config\Contract\IConfigElement'
 /app/src/Spinner/Core/Palette/Factory/PaletteModeFactory.php:34:16:error - LessSpecificReturnStatement: The type 'AlecRabbit\Spinner\Core\Config\Contract\IConfigElement' is more general than the declared return type 'AlecRabbit\Spinner\Core\Config\Contract\IOutputConfig' for AlecRabbit\Spinner\Core\Palette\Factory\PaletteModeFactory::getOutputConfig
@@ -262,47 +185,6 @@
 /app/src/Spinner/Core/Settings/Detector/SignalProcessingSupportDetector.php:23:35:error - MixedAssignment: Unable to determine the type that $probe is being assigned to
 /app/src/Spinner/Core/Settings/Detector/SignalProcessingSupportDetector.php:25:17:error - MixedMethodCall: Cannot call method on an unknown class
 /app/src/Spinner/Core/Settings/Detector/SignalProcessingSupportDetector.php:33:43:error - MissingParamType: Parameter $probe has no provided type
-/app/src/Spinner/Core/Settings/Legacy/Contract/ILegacyWidgetSettings.php:29:39:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Contract\Legacy\ILegacyPattern is marked as deprecated
-/app/src/Spinner/Core/Settings/Legacy/Contract/ILegacyWidgetSettings.php:31:36:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Contract\Legacy\ILegacyPattern is marked as deprecated
-/app/src/Spinner/Core/Settings/Legacy/LegacyAuxSettings.php:14:13:error - DeprecatedInterface: AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyAuxSettings is marked deprecated
-/app/src/Spinner/Core/Settings/Legacy/LegacyAuxSettings.php:26:90:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyAuxSettings is marked as deprecated
-/app/src/Spinner/Core/Settings/Legacy/LegacyDriverSettings.php:15:13:error - DeprecatedInterface: AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyDriverSettings is marked deprecated
-/app/src/Spinner/Core/Settings/Legacy/LegacyDriverSettings.php:27:8:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyDriverSettings is marked as deprecated
-/app/src/Spinner/Core/Settings/Legacy/LegacyDriverSettings.php:32:66:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyDriverSettings is marked as deprecated
-/app/src/Spinner/Core/Settings/Legacy/LegacyDriverSettings.php:38:60:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyDriverSettings is marked as deprecated
-/app/src/Spinner/Core/Settings/Legacy/LegacyDriverSettings.php:44:68:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyDriverSettings is marked as deprecated
-/app/src/Spinner/Core/Settings/Legacy/LegacyLoopSettings.php:14:13:error - DeprecatedInterface: AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyLoopSettings is marked deprecated
-/app/src/Spinner/Core/Settings/Legacy/LegacyLoopSettings.php:34:75:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyLoopSettings is marked as deprecated
-/app/src/Spinner/Core/Settings/Legacy/LegacyLoopSettings.php:45:90:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyLoopSettings is marked as deprecated
-/app/src/Spinner/Core/Settings/Legacy/LegacySettingsProvider.php:18:13:error - DeprecatedInterface: AlecRabbit\Spinner\Core\Contract\ILegacySettingsProvider is marked deprecated
-/app/src/Spinner/Core/Settings/Legacy/LegacySettingsProvider.php:21:9:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyAuxSettings is marked as deprecated
-/app/src/Spinner/Core/Settings/Legacy/LegacySettingsProvider.php:22:9:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyTerminalSettings is marked as deprecated
-/app/src/Spinner/Core/Settings/Legacy/LegacySettingsProvider.php:23:9:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyLoopSettings is marked as deprecated
-/app/src/Spinner/Core/Settings/Legacy/LegacySettingsProvider.php:24:9:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyDriverSettings is marked as deprecated
-/app/src/Spinner/Core/Settings/Legacy/LegacySettingsProvider.php:25:9:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Config\Legacy\Contract\ILegacyWidgetConfig is marked as deprecated
-/app/src/Spinner/Core/Settings/Legacy/LegacySettingsProvider.php:26:9:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Config\Legacy\Contract\ILegacyWidgetConfig is marked as deprecated
-/app/src/Spinner/Core/Settings/Legacy/LegacySettingsProvider.php:30:50:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Config\Legacy\Contract\ILegacyWidgetConfig is marked as deprecated
-/app/src/Spinner/Core/Settings/Legacy/LegacySettingsProvider.php:35:46:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Config\Legacy\Contract\ILegacyWidgetConfig is marked as deprecated
-/app/src/Spinner/Core/Settings/Legacy/LegacySettingsProvider.php:40:48:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyDriverSettings is marked as deprecated
-/app/src/Spinner/Core/Settings/Legacy/LegacySettingsProvider.php:45:46:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyLoopSettings is marked as deprecated
-/app/src/Spinner/Core/Settings/Legacy/LegacySettingsProvider.php:50:50:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyTerminalSettings is marked as deprecated
-/app/src/Spinner/Core/Settings/Legacy/LegacySettingsProvider.php:55:45:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyAuxSettings is marked as deprecated
-/app/src/Spinner/Core/Settings/Legacy/LegacyTerminalSettings.php:14:13:error - DeprecatedInterface: AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyTerminalSettings is marked deprecated
-/app/src/Spinner/Core/Settings/Legacy/LegacyTerminalSettings.php:19:19:error - MissingParamType: Parameter $outputStream has no provided type
-/app/src/Spinner/Core/Settings/Legacy/LegacyTerminalSettings.php:28:60:error - ParamNameMismatch: Argument 1 of AlecRabbit\Spinner\Core\Settings\Legacy\LegacyTerminalSettings::setOptionCursor has wrong name $optionCursor, expecting $cursorOption as defined by AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyTerminalSettings::setOptionCursor
-/app/src/Spinner/Core/Settings/Legacy/LegacyTerminalSettings.php:28:76:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyTerminalSettings is marked as deprecated
-/app/src/Spinner/Core/Settings/Legacy/LegacyTerminalSettings.php:39:79:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyTerminalSettings is marked as deprecated
-/app/src/Spinner/Core/Settings/Legacy/LegacyTerminalSettings.php:46:21:error - MixedInferredReturnType: Could not verify return type 'resource' for AlecRabbit\Spinner\Core\Settings\Legacy\LegacyTerminalSettings::getOutputStream
-/app/src/Spinner/Core/Settings/Legacy/LegacyTerminalSettings.php:48:16:error - MixedReturnStatement: Could not infer a return type
-/app/src/Spinner/Core/Settings/Legacy/LegacyTerminalSettings.php:52:53:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyTerminalSettings is marked as deprecated
-/app/src/Spinner/Core/Settings/Legacy/LegacyWidgetSettings.php:15:13:error - DeprecatedInterface: AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyWidgetSettings is marked deprecated
-/app/src/Spinner/Core/Settings/Legacy/LegacyWidgetSettings.php:21:9:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Contract\Legacy\ILegacyPattern is marked as deprecated
-/app/src/Spinner/Core/Settings/Legacy/LegacyWidgetSettings.php:30:54:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyWidgetSettings is marked as deprecated
-/app/src/Spinner/Core/Settings/Legacy/LegacyWidgetSettings.php:41:55:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyWidgetSettings is marked as deprecated
-/app/src/Spinner/Core/Settings/Legacy/LegacyWidgetSettings.php:52:68:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyWidgetSettings is marked as deprecated
-/app/src/Spinner/Core/Settings/Legacy/LegacyWidgetSettings.php:58:39:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Contract\Legacy\ILegacyPattern is marked as deprecated
-/app/src/Spinner/Core/Settings/Legacy/LegacyWidgetSettings.php:63:36:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Contract\Legacy\ILegacyPattern is marked as deprecated
-/app/src/Spinner/Core/Settings/Legacy/LegacyWidgetSettings.php:63:62:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyWidgetSettings is marked as deprecated
 /app/src/Spinner/Core/Settings/Settings.php:18:15:error - InvalidParamDefault: Default value type ArrayObject<mixed, mixed> for argument 1 of method AlecRabbit\Spinner\Core\Settings\Settings::__construct does not match the given type ArrayObject<class-string<AlecRabbit\Spinner\Core\Settings\Contract\ISettingsElement>, AlecRabbit\Spinner\Core\Settings\Contract\ISettingsElement>
 /app/src/Spinner/Core/Timer.php:40:17:error - TypeDoesNotContainNull: ReflectionType does not contain null
 /app/src/Spinner/Core/Timer.php:40:17:error - RedundantCondition: Type ReflectionType for $returnType is never null
@@ -319,14 +201,12 @@
 /app/src/Spinner/Core/Widget/Builder/WidgetRevolverBuilder.php:28:17:error - PossiblyNullArgument: Argument 2 of AlecRabbit\Spinner\Core\Widget\WidgetRevolver::__construct cannot be null, possibly null value provided
 /app/src/Spinner/Core/Widget/Builder/WidgetRevolverBuilder.php:29:17:error - PossiblyNullArgument: Argument 3 of AlecRabbit\Spinner\Core\Widget\WidgetRevolver::__construct cannot be null, possibly null value provided
 /app/src/Spinner/Core/Widget/Contract/IWidgetCompositeChildrenContainer.php:19:53:error - MissingTemplateParam: AlecRabbit\Spinner\Core\Widget\Contract\IWidgetCompositeChildrenContainer has missing template params when extending IteratorAggregate, expecting 2
-/app/src/Spinner/Core/Widget/Factory/Contract/IWidgetCompositeFactory.php:13:40:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyWidgetSettings is marked as deprecated
-/app/src/Spinner/Core/Widget/Factory/Contract/IWidgetFactory.php:13:40:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyWidgetSettings is marked as deprecated
-/app/src/Spinner/Core/Widget/Factory/WidgetCompositeFactory.php:24:40:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyWidgetSettings is marked as deprecated
-/app/src/Spinner/Core/Widget/Factory/WidgetCompositeFactory.php:31:21:error - MixedArgument: Argument 1 of AlecRabbit\Spinner\Core\Widget\Contract\IWidgetCompositeBuilder::withWidgetRevolver cannot be mixed, expecting AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver
-/app/src/Spinner/Core/Widget/Factory/WidgetCompositeFactory.php:32:27:error - UndefinedInterfaceMethod: Method AlecRabbit\Spinner\Core\Widget\Factory\Contract\IWidgetRevolverFactory::legacyCreateWidgetRevolver does not exist
-/app/src/Spinner/Core/Widget/Factory/WidgetFactory.php:24:40:error - DeprecatedInterface: Interface AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyWidgetSettings is marked as deprecated
-/app/src/Spinner/Core/Widget/Factory/WidgetFactory.php:31:21:error - MixedArgument: Argument 1 of AlecRabbit\Spinner\Core\Widget\Contract\IWidgetBuilder::withWidgetRevolver cannot be mixed, expecting AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver
-/app/src/Spinner/Core/Widget/Factory/WidgetFactory.php:32:27:error - UndefinedInterfaceMethod: Method AlecRabbit\Spinner\Core\Widget\Factory\Contract\IWidgetRevolverFactory::legacyCreateWidgetRevolver does not exist
+/app/src/Spinner/Core/Widget/Factory/Contract/IWidgetCompositeFactory.php:13:40:error - UndefinedClass: Class, interface or enum named AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyWidgetSettings does not exist
+/app/src/Spinner/Core/Widget/Factory/Contract/IWidgetFactory.php:13:40:error - UndefinedClass: Class, interface or enum named AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyWidgetSettings does not exist
+/app/src/Spinner/Core/Widget/Factory/WidgetCompositeFactory.php:24:40:error - UndefinedClass: Class, interface or enum named AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyWidgetSettings does not exist
+/app/src/Spinner/Core/Widget/Factory/WidgetCompositeFactory.php:24:80:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite' for AlecRabbit\Spinner\Core\Widget\Factory\WidgetCompositeFactory::legacyCreateWidget
+/app/src/Spinner/Core/Widget/Factory/WidgetFactory.php:24:40:error - UndefinedClass: Class, interface or enum named AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyWidgetSettings does not exist
+/app/src/Spinner/Core/Widget/Factory/WidgetFactory.php:24:80:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Core\Widget\Contract\IWidget' for AlecRabbit\Spinner\Core\Widget\Factory\WidgetFactory::legacyCreateWidget
 /app/src/Spinner/Core/Widget/WidgetComposite.php:31:13:error - ArgumentTypeCoercion: Argument 1 of AlecRabbit\Spinner\Core\Widget\A\AWidget::__construct expects AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolver, but parent type AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver provided
 /app/src/Spinner/Core/Widget/WidgetCompositeChildrenContainer.php:103:13:error - MixedAssignment: Unable to determine the type that $this->interval is being assigned to
 /app/src/Spinner/Core/Widget/WidgetCompositeChildrenContainer.php:103:48:error - MixedMethodCall: Cannot determine the type of $this->interval when calling method smallest
@@ -375,8 +255,10 @@
 /app/src/Spinner/definitions.php:231:79:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Core\Config\Contract\IAuxConfig' for /app/src/spinner/definitions.php:231:13086:-:closure
 /app/src/Spinner/definitions.php:232:20:error - MixedReturnStatement: Could not infer a return type
 /app/src/Spinner/definitions.php:232:53:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
-/app/src/Spinner/definitions.php:244:53:error - DeprecatedClass: Class AlecRabbit\Spinner\Core\Legacy\LegacySignalHandlersSetupBuilder is deprecated
-/app/src/Spinner/definitions.php:295:53:error - DeprecatedClass: Class AlecRabbit\Spinner\Core\Legacy\LegacySignalHandlersSetupFactory is deprecated
+/app/src/Spinner/definitions.php:244:9:error - UndefinedClass: Class, interface or enum named AlecRabbit\Spinner\Core\Legacy\ILegacySignalHandlersSetupBuilder does not exist
+/app/src/Spinner/definitions.php:244:53:error - UndefinedClass: Class, interface or enum named AlecRabbit\Spinner\Core\Legacy\LegacySignalHandlersSetupBuilder does not exist
+/app/src/Spinner/definitions.php:295:9:error - UndefinedClass: Class, interface or enum named AlecRabbit\Spinner\Core\Legacy\ILegacySignalHandlersSetupFactory does not exist
+/app/src/Spinner/definitions.php:295:53:error - UndefinedClass: Class, interface or enum named AlecRabbit\Spinner\Core\Legacy\LegacySignalHandlersSetupFactory does not exist
 /app/src/Spinner/definitions.php:317:34:error - ArgumentTypeCoercion: Argument 1 of AlecRabbit\Spinner\Core\Factory\LoopFactory::__construct expects class-string<AlecRabbit\Spinner\Core\Contract\Loop\ILoopCreator>, but parent type string provided
 /app/src/Spinner/definitions.php:317:93:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
 /app/src/Spinner/definitions.php:329:21:error - MixedArgument: Argument 1 of AlecRabbit\Spinner\Core\Settings\Detector\LoopSupportDetector::__construct cannot be mixed, expecting null|string

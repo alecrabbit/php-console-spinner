@@ -9,7 +9,7 @@ use AlecRabbit\Spinner\Core\Contract\Loop\ILoopSetup;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopProviderFactory;
 use AlecRabbit\Spinner\Core\Factory\LoopProviderFactory;
-use AlecRabbit\Spinner\Core\LoopProvider;
+use AlecRabbit\Spinner\Core\Loop\LoopProvider;
 use AlecRabbit\Spinner\Exception\DomainException;
 use AlecRabbit\Tests\TestCase\TestCase;
 use Exception;

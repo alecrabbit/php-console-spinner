@@ -7,7 +7,7 @@ namespace AlecRabbit\Tests\Unit\Spinner\Core;
 use AlecRabbit\Spinner\Asynchronous\Revolt\RevoltLoopCreator;
 use AlecRabbit\Spinner\Core\Contract\Loop\ILoopCreatorClassExtractor;
 use AlecRabbit\Spinner\Core\Contract\Loop\ILoopProbe;
-use AlecRabbit\Spinner\Core\LoopCreatorClassExtractor;
+use AlecRabbit\Spinner\Core\Loop\LoopCreatorClassExtractor;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Tests\TestCase\TestCase;
 use AlecRabbit\Tests\Unit\Spinner\Asynchronous\Stub\LoopProbeStub;

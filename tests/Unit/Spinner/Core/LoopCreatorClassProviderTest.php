@@ -7,7 +7,7 @@ namespace AlecRabbit\Tests\Unit\Spinner\Core;
 use AlecRabbit\Spinner\Asynchronous\Revolt\RevoltLoopCreator;
 use AlecRabbit\Spinner\Core\Contract\Loop\ILoopCreator;
 use AlecRabbit\Spinner\Core\Contract\Loop\ILoopCreatorClassProvider;
-use AlecRabbit\Spinner\Core\LoopCreatorClassProvider;
+use AlecRabbit\Spinner\Core\Loop\LoopCreatorClassProvider;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;

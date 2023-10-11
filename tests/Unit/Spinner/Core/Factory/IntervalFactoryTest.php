@@ -16,14 +16,6 @@ final class IntervalFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
     #[Test]
     public function canBeInstantiated(): void
     {
-        $container = $this->getContainerMock();
-        $container
-            ->method('get')
-            ->willReturn(
-                $this->getLegacySettingsProviderMock(),
-                $this->getIntervalNormalizerMock(),
-            )
-        ;
         $intervalFactory = $this->getTesteeInstance();
 
         self::assertInstanceOf(IntervalFactory::class, $intervalFactory);

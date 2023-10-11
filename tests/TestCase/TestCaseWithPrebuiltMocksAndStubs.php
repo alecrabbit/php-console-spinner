@@ -16,20 +16,14 @@ use AlecRabbit\Spinner\Core\Builder\Contract\IConsoleCursorBuilder;
 use AlecRabbit\Spinner\Core\Builder\Contract\IDriverOutputBuilder;
 use AlecRabbit\Spinner\Core\Builder\Contract\IIntegerNormalizerBuilder;
 use AlecRabbit\Spinner\Core\Builder\Contract\ITimerBuilder;
-use AlecRabbit\Spinner\Core\Builder\Settings\Legacy\Contract\ILegacyAuxSettingsBuilder;
-use AlecRabbit\Spinner\Core\Builder\Settings\Legacy\Contract\ILegacyWidgetSettingsBuilder;
 use AlecRabbit\Spinner\Core\Config\Legacy\Contract\ILegacySpinnerConfig;
 use AlecRabbit\Spinner\Core\Config\Legacy\Contract\ILegacyWidgetConfig;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\IDriverBuilder;
 use AlecRabbit\Spinner\Core\Contract\IDriverLinker;
-use AlecRabbit\Spinner\Core\Contract\IDriverSetup;
+
 use AlecRabbit\Spinner\Core\Contract\IFrameCollection;
 use AlecRabbit\Spinner\Core\Contract\IIntervalNormalizer;
-use AlecRabbit\Spinner\Core\Contract\ILegacyLoopAutoStarter;
-use AlecRabbit\Spinner\Core\Contract\ILegacySettingsProvider;
-use AlecRabbit\Spinner\Core\Contract\ILegacySignalHandlersSetup;
-use AlecRabbit\Spinner\Core\Contract\ILegacySignalProcessingLegacyProbe;
 use AlecRabbit\Spinner\Core\Contract\ISpinnerState;
 use AlecRabbit\Spinner\Core\Contract\IWeakMap;
 use AlecRabbit\Spinner\Core\Contract\Loop\ILoop;
@@ -40,17 +34,19 @@ use AlecRabbit\Spinner\Core\Factory\Contract\IConsoleCursorFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDriverOutputFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IFrameCollectionFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalFactory;
-use AlecRabbit\Spinner\Core\Factory\Contract\ILegacyLoopProbeFactory;
+
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IStyleFrameRevolverFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ITimerFactory;
-use AlecRabbit\Spinner\Core\Legacy\ILegacyLoopAutoStarterBuilder;
-use AlecRabbit\Spinner\Core\Legacy\ILegacyLoopAutoStarterFactory;
-use AlecRabbit\Spinner\Core\Legacy\ILegacySignalHandlersSetupBuilder;
-use AlecRabbit\Spinner\Core\Legacy\ILegacyTerminalSettingsFactory;
-use AlecRabbit\Spinner\Core\Legacy\ILegacyWidgetSettingsFactory;
-use AlecRabbit\Spinner\Core\Legacy\ILegacyLoopSettingsFactory;
-use AlecRabbit\Spinner\Core\Legacy\Terminal\Contract\ITerminalLegacyProbe;
+use AlecRabbit\Spinner\Core\Legacy\Contract\ILegacyAuxSettingsBuilder;
+use AlecRabbit\Spinner\Core\Legacy\Contract\ILegacyWidgetSettingsBuilder;
+use AlecRabbit\Spinner\Core\Legacy\ILegacyLoopAutoStarter;
+
+use AlecRabbit\Spinner\Core\Legacy\ILegacySettingsProvider;
+use AlecRabbit\Spinner\Core\Legacy\ILegacySignalHandlersSetup;
+
+use AlecRabbit\Spinner\Core\Legacy\ILegacySignalProcessingLegacyProbe;
+
 use AlecRabbit\Spinner\Core\Output\Contract\IConsoleCursor;
 use AlecRabbit\Spinner\Core\Output\Contract\IDriverOutput;
 use AlecRabbit\Spinner\Core\Pattern\Legacy\Contract\ICharLegacyPattern;
@@ -58,10 +54,7 @@ use AlecRabbit\Spinner\Core\Pattern\Legacy\Contract\IStyleLegacyPattern;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolver;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolverBuilder;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
-use AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyAuxSettings;
-use AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyDriverSettings;
-use AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyLoopSettings;
-use AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyWidgetSettings;
+
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidget;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetCompositeChildrenContainer;
@@ -117,10 +110,6 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
         return $this->createMock(IStyleLegacyPattern::class);
     }
 
-    protected function getLegacyWidgetSettingsMock(): MockObject&ILegacyWidgetSettings
-    {
-        return $this->createMock(ILegacyWidgetSettings::class);
-    }
 
     protected function getContainerMock(): MockObject&IContainer
     {
@@ -152,29 +141,10 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
         return $this->createMock(IWidgetRevolver::class);
     }
 
-    protected function getLoopProbeFactoryMock(): MockObject&ILegacyLoopProbeFactory
-    {
-        return $this->createMock(ILegacyLoopProbeFactory::class);
-    }
 
     protected function getLoopSingletonFactoryMock(): MockObject&ILoopFactory
     {
         return $this->createMock(ILoopFactory::class);
-    }
-
-    protected function getLoopAutoStarterBuilderMock(): MockObject&ILegacyLoopAutoStarterBuilder
-    {
-        return $this->createMock(ILegacyLoopAutoStarterBuilder::class);
-    }
-
-    protected function getSignalHandlersSetupBuilderMock(): MockObject&ILegacySignalHandlersSetupBuilder
-    {
-        return $this->createMock(ILegacySignalHandlersSetupBuilder::class);
-    }
-
-    protected function getLoopAutoStarterFactoryMock(): MockObject&ILegacyLoopAutoStarterFactory
-    {
-        return $this->createMock(ILegacyLoopAutoStarterFactory::class);
     }
 
     protected function getSignalHandlersSetupStub(): Stub&ILegacySignalHandlersSetup
@@ -205,16 +175,6 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
     protected function getWidgetCompositeFactoryMock(): MockObject&IWidgetCompositeFactory
     {
         return $this->createMock(IWidgetCompositeFactory::class);
-    }
-
-    protected function getWidgetSettingsFactoryMock(): MockObject&ILegacyWidgetSettingsFactory
-    {
-        return $this->createMock(ILegacyWidgetSettingsFactory::class);
-    }
-
-    protected function getLegacyAuxSettingsMock(): MockObject&ILegacyAuxSettings
-    {
-        return $this->createMock(ILegacyAuxSettings::class);
     }
 
     protected function getIntervalNormalizerMock(): MockObject&IIntervalNormalizer
@@ -272,36 +232,16 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
         return $this->createMock(ILoopProbe::class);
     }
 
-    protected function getLoopSettingsFactoryMock(): MockObject&ILegacyLoopSettingsFactory
-    {
-        return $this->createMock(ILegacyLoopSettingsFactory::class);
-    }
-
-    protected function getTerminalSettingsFactoryMock(): MockObject&ILegacyTerminalSettingsFactory
-    {
-        return $this->createMock(ILegacyTerminalSettingsFactory::class);
-    }
-
     protected function getLegacyAuxSettingsBuilderMock(): MockObject&ILegacyAuxSettingsBuilder
     {
         return $this->createMock(ILegacyAuxSettingsBuilder::class);
     }
 
-    protected function getLegacyDriverSettingsMock(): MockObject&ILegacyDriverSettings
-    {
-        return $this->createMock(ILegacyDriverSettings::class);
-    }
 
     protected function getLegacyWidgetSettingsBuilderMock(): MockObject&ILegacyWidgetSettingsBuilder
     {
         return $this->createMock(ILegacyWidgetSettingsBuilder::class);
     }
-
-    protected function getLegacyLoopSettingsMock(): MockObject&ILegacyLoopSettings
-    {
-        return $this->createMock(ILegacyLoopSettings::class);
-    }
-
 
     protected function getLoopMock(): MockObject&ILoop
     {
@@ -378,12 +318,6 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
         return $this->createStub(ITimer::class);
     }
 
-
-    protected function getDriverSetupMock(): MockObject&IDriverSetup
-    {
-        return $this->createMock(IDriverSetup::class);
-    }
-
     protected function getIntegerNormalizerBuilderMock(): MockObject&IIntegerNormalizerBuilder
     {
         return $this->createMock(IIntegerNormalizerBuilder::class);
@@ -424,11 +358,6 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
         $mockObject = $this->createMock(IFrameCollection::class);
         $mockObject->method('count')->willReturn(1);
         return $mockObject;
-    }
-
-    protected function getTerminalProbeMock(): MockObject&ITerminalLegacyProbe
-    {
-        return $this->createMock(ITerminalLegacyProbe::class);
     }
 
     protected function getSignalProcessingProbeMock(): MockObject&ILegacySignalProcessingLegacyProbe
