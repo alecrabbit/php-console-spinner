@@ -142,4 +142,150 @@ final class WidgetConfigFactoryTest extends TestCase
     {
         return $this->createMock(IWidgetConfig::class);
     }
+
+    #[Test]
+    public function throwsIfSolvedWidgetSettingsMissesLeadingSpacer(): void
+    {
+        $this->expectException(DomainException::class);
+        $this->expectExceptionMessage('Leading spacer expected to be set.');
+
+        $widgetSettings = $this->getWidgetSettingsMock();
+        $widgetSettings
+            ->expects(self::once())
+            ->method('getLeadingSpacer')
+            ->willReturn(null)
+        ;
+
+        $widgetSettingsSolver = $this->getWidgetSettingsSolverMock();
+        $widgetSettingsSolver
+            ->expects(self::once())
+            ->method('solve')
+            ->willReturn($widgetSettings)
+        ;
+
+        $factory = $this->getTesteeInstance(
+            widgetSettingsSolver: $widgetSettingsSolver,
+        );
+
+        $result = $factory->create();
+
+        self::assertInstanceOf(WidgetConfig::class, $result);
+    }
+
+    #[Test]
+    public function throwsIfSolvedWidgetSettingsMissesTrailingSpacer(): void
+    {
+        $this->expectException(DomainException::class);
+        $this->expectExceptionMessage('Trailing spacer expected to be set.');
+
+        $widgetSettings = $this->getWidgetSettingsMock();
+        $widgetSettings
+            ->expects(self::once())
+            ->method('getLeadingSpacer')
+            ->willReturn($this->getFrameMock())
+        ;
+        $widgetSettings
+            ->expects(self::once())
+            ->method('getTrailingSpacer')
+            ->willReturn(null)
+        ;
+
+        $widgetSettingsSolver = $this->getWidgetSettingsSolverMock();
+        $widgetSettingsSolver
+            ->expects(self::once())
+            ->method('solve')
+            ->willReturn($widgetSettings)
+        ;
+
+        $factory = $this->getTesteeInstance(
+            widgetSettingsSolver: $widgetSettingsSolver,
+        );
+
+        $result = $factory->create();
+
+        self::assertInstanceOf(WidgetConfig::class, $result);
+    }
+
+    #[Test]
+    public function throwsIfSolvedWidgetSettingsMissesStylePaletteSpacer(): void
+    {
+        $this->expectException(DomainException::class);
+        $this->expectExceptionMessage('Style palette expected to be set.');
+
+        $widgetSettings = $this->getWidgetSettingsMock();
+        $widgetSettings
+            ->expects(self::once())
+            ->method('getLeadingSpacer')
+            ->willReturn($this->getFrameMock())
+        ;
+        $widgetSettings
+            ->expects(self::once())
+            ->method('getTrailingSpacer')
+            ->willReturn($this->getFrameMock())
+        ;
+        $widgetSettings
+            ->expects(self::once())
+            ->method('getStylePalette')
+            ->willReturn(null)
+        ;
+
+        $widgetSettingsSolver = $this->getWidgetSettingsSolverMock();
+        $widgetSettingsSolver
+            ->expects(self::once())
+            ->method('solve')
+            ->willReturn($widgetSettings)
+        ;
+
+        $factory = $this->getTesteeInstance(
+            widgetSettingsSolver: $widgetSettingsSolver,
+        );
+
+        $result = $factory->create();
+
+        self::assertInstanceOf(WidgetConfig::class, $result);
+    }
+
+    #[Test]
+    public function throwsIfSolvedWidgetSettingsMissesCharPaletteSpacer(): void
+    {
+        $this->expectException(DomainException::class);
+        $this->expectExceptionMessage('Char palette expected to be set.');
+
+        $widgetSettings = $this->getWidgetSettingsMock();
+        $widgetSettings
+            ->expects(self::once())
+            ->method('getLeadingSpacer')
+            ->willReturn($this->getFrameMock())
+        ;
+        $widgetSettings
+            ->expects(self::once())
+            ->method('getTrailingSpacer')
+            ->willReturn($this->getFrameMock())
+        ;
+        $widgetSettings
+            ->expects(self::once())
+            ->method('getStylePalette')
+            ->willReturn($this->getStylePaletteMock())
+        ;
+        $widgetSettings
+            ->expects(self::once())
+            ->method('getCharPalette')
+            ->willReturn(null)
+        ;
+
+        $widgetSettingsSolver = $this->getWidgetSettingsSolverMock();
+        $widgetSettingsSolver
+            ->expects(self::once())
+            ->method('solve')
+            ->willReturn($widgetSettings)
+        ;
+
+        $factory = $this->getTesteeInstance(
+            widgetSettingsSolver: $widgetSettingsSolver,
+        );
+
+        $result = $factory->create();
+
+        self::assertInstanceOf(WidgetConfig::class, $result);
+    }
 }

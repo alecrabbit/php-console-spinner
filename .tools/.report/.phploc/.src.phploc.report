@@ -4,11 +4,11 @@ Directories                                         74
 Files                                              364
 
 Size
-  Lines of Code (LOC)                            12628
-  Comment Lines of Code (CLOC)                     707 (5.60%)
-  Non-Comment Lines of Code (NCLOC)              11921 (94.40%)
-  Logical Lines of Code (LLOC)                    1374 (10.88%)
-    Classes                                       1273 (92.65%)
+  Lines of Code (LOC)                            12641
+  Comment Lines of Code (CLOC)                     707 (5.59%)
+  Non-Comment Lines of Code (NCLOC)              11934 (94.41%)
+  Logical Lines of Code (LLOC)                    1375 (10.88%)
+    Classes                                       1274 (92.65%)
       Average Class Length                           3
         Minimum Class Length                         0
         Maximum Class Length                        36
@@ -18,7 +18,7 @@ Size
       Average Methods Per Class                      2
         Minimum Methods Per Class                    0
         Maximum Methods Per Class                   14
-    Functions                                       42 (3.06%)
+    Functions                                       42 (3.05%)
       Average Function Length                        1
     Not in classes or functions                     59 (4.29%)
 
@@ -36,9 +36,9 @@ Dependencies
     Global Constants                                 0 (0.00%)
     Global Variables                                 0 (0.00%)
     Super-Global Variables                           0 (0.00%)
-  Attribute Accesses                               593
-    Non-Static                                     573 (96.63%)
-    Static                                          20 (3.37%)
+  Attribute Accesses                               589
+    Non-Static                                     569 (96.60%)
+    Static                                          20 (3.40%)
   Method Calls                                     672
     Non-Static                                     582 (86.61%)
     Static                                          90 (13.39%)

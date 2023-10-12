@@ -81,7 +81,6 @@ final class SpinnerFactoryTest extends TestCase
 
         self::assertInstanceOf(Spinner::class, $spinner);
     }
-
     protected function getWidgetSettingsMock(): MockObject&IWidgetSettings
     {
         return $this->createMock(IWidgetSettings::class);

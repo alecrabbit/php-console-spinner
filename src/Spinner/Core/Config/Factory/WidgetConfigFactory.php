@@ -17,23 +17,22 @@ use AlecRabbit\Spinner\Exception\DomainException;
 
 final class WidgetConfigFactory implements IWidgetConfigFactory
 {
-    private IWidgetSettings $widgetSettings;
-
     public function __construct(
-        IWidgetSettingsSolver $widgetSettingsSolver,
+        protected IWidgetSettingsSolver $widgetSettingsSolver,
     ) {
-        $this->widgetSettings = $widgetSettingsSolver->solve();
     }
 
     public function create(IWidgetConfig|IWidgetSettings|null $widgetSettings = null): IWidgetConfig
     {
         self::assertWidgetSettings($widgetSettings);
 
+        $widgetSettings = $this->widgetSettingsSolver->solve();
+
         return
             new WidgetConfig(
-                leadingSpacer: $this->getLeadingSpacer(),
-                trailingSpacer: $this->getTrailingSpacer(),
-                revolverConfig: $this->getWidgetRevolverConfig(),
+                leadingSpacer: $this->getLeadingSpacer($widgetSettings),
+                trailingSpacer: $this->getTrailingSpacer($widgetSettings),
+                revolverConfig: $this->getWidgetRevolverConfig($widgetSettings),
             );
     }
 
@@ -46,24 +45,38 @@ final class WidgetConfigFactory implements IWidgetConfigFactory
         };
     }
 
-    protected function getLeadingSpacer(): IFrame
+    protected function getLeadingSpacer(IWidgetSettings $widgetSettings): IFrame
     {
         return
-            $this->widgetSettings->getLeadingSpacer();
+            $widgetSettings->getLeadingSpacer()
+            ??
+            throw new DomainException('Leading spacer expected to be set.');
     }
 
-    protected function getTrailingSpacer(): IFrame
+    protected function getTrailingSpacer(IWidgetSettings $widgetSettings): IFrame
     {
         return
-            $this->widgetSettings->getTrailingSpacer();
+            $widgetSettings->getTrailingSpacer()
+            ??
+            throw new DomainException('Trailing spacer expected to be set.');
     }
 
-    private function getWidgetRevolverConfig(): IWidgetRevolverConfig
+    private function getWidgetRevolverConfig(IWidgetSettings $widgetSettings): IWidgetRevolverConfig
     {
+        $stylePalette =
+            $widgetSettings->getStylePalette()
+            ??
+            throw new DomainException('Style palette expected to be set.');
+
+        $charPalette =
+            $widgetSettings->getCharPalette()
+            ??
+            throw new DomainException('Char palette expected to be set.');
+
         return
             new WidgetRevolverConfig(
-                stylePalette: $this->widgetSettings->getStylePalette(),
-                charPalette: $this->widgetSettings->getCharPalette(),
+                stylePalette: $stylePalette,
+                charPalette: $charPalette,
                 revolverConfig: new RevolverConfig(),
             );
     }
