@@ -36,7 +36,7 @@ final class SpinnerFactoryTest extends TestCase
     ): ISpinnerFactory {
         return
             new SpinnerFactory(
-                widgetFactory: $widgetFactory ?? $this->getWidgetCompositeFactoryMock(),
+                widgetFactory: $widgetFactory ?? $this->getWidgetFactoryMock(),
                 rootWidgetConfig: $rootWidgetConfig ?? $this->getRootWidgetConfigMock(),
             );
     }
@@ -103,6 +103,26 @@ final class SpinnerFactoryTest extends TestCase
         $widgetConfig = $this->getRootWidgetConfigMock();
 
         $widgetFactory = $this->getWidgetFactoryMock();
+        $widgetFactory
+            ->expects(self::once())
+            ->method('create')
+            ->with(self::identicalTo($widgetConfig))
+        ;
+        $spinnerFactory = $this->getTesteeInstance(
+            widgetFactory: $widgetFactory,
+            rootWidgetConfig: $widgetConfig,
+        );
+
+        $spinner = $spinnerFactory->create();
+
+        self::assertInstanceOf(Spinner::class, $spinner);
+    }
+    #[Test]
+    public function canCreateUsingWidgetCompositeFactory(): void
+    {
+        $widgetConfig = $this->getRootWidgetConfigMock();
+
+        $widgetFactory = $this->getWidgetCompositeFactoryMock();
         $widgetFactory
             ->expects(self::once())
             ->method('create')
