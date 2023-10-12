@@ -26,15 +26,20 @@ final class RuntimeRootWidgetConfigFactory implements IRuntimeRootWidgetConfigFa
             return $this->widgetConfig;
         }
 
-        $leadingSpacer = $this->getLeadingSpacer($widgetSettings);
-        $trailingSpacer = $this->getTrailingSpacer($widgetSettings);
-        $revolverConfig = $this->getWidgetRevolverConfig($widgetSettings);
+        if ($widgetSettings instanceof IWidgetConfig) {
+            return
+                new RootWidgetConfig(
+                    leadingSpacer: $widgetSettings->getLeadingSpacer(),
+                    trailingSpacer: $widgetSettings->getTrailingSpacer(),
+                    revolverConfig: $widgetSettings->getWidgetRevolverConfig(),
+                );
+        }
 
         return
             new RootWidgetConfig(
-                leadingSpacer: $leadingSpacer,
-                trailingSpacer: $trailingSpacer,
-                revolverConfig: $revolverConfig,
+                leadingSpacer: $this->getLeadingSpacer($widgetSettings),
+                trailingSpacer: $this->getTrailingSpacer($widgetSettings),
+                revolverConfig: $this->getWidgetRevolverConfig($widgetSettings),
             );
     }
 

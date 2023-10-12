@@ -37,10 +37,11 @@ final class WidgetConfigFactory implements IWidgetConfigFactory
             );
     }
 
-    private static function assertWidgetSettings(?IWidgetSettings $widgetSettings): void
+    private static function assertWidgetSettings(IWidgetConfig|IWidgetSettings|null $widgetSettings): void
     {
         match (true) {
             $widgetSettings instanceof IWidgetSettings => throw new DomainException('Widget settings is not expected.'),
+            $widgetSettings instanceof IWidgetConfig => throw new DomainException('Widget config is not expected.'),
             default => null,
         };
     }

@@ -8,6 +8,7 @@ use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\IRuntimeRootWidgetConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\IRevolverConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IRootWidgetConfig;
+use AlecRabbit\Spinner\Core\Config\Contract\IWidgetConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IWidgetRevolverConfig;
 use AlecRabbit\Spinner\Core\Config\Factory\RuntimeRootWidgetConfigFactory;
 use AlecRabbit\Spinner\Core\Config\RootWidgetConfig;
@@ -40,6 +41,54 @@ final class RuntimeRootWidgetConfigFactoryTest extends TestCase
     private function getRootWidgetConfigMock(): MockObject&IRootWidgetConfig
     {
         return $this->createMock(IRootWidgetConfig::class);
+    }
+
+    #[Test]
+    public function canCreateWithWidgetConfig(): void
+    {
+        $leadingSpacer = $this->getFrameMock();
+        $trailingSpacer = $this->getFrameMock();
+        $revolverConfig = $this->getWidgetRevolverConfigMock();
+
+        $widgetConfig = $this->getWidgetConfigMock();
+        $widgetConfig
+            ->expects(self::once())
+            ->method('getLeadingSpacer')
+            ->willReturn($leadingSpacer)
+        ;
+        $widgetConfig
+            ->expects(self::once())
+            ->method('getTrailingSpacer')
+            ->willReturn($trailingSpacer)
+        ;
+        $widgetConfig
+            ->expects(self::once())
+            ->method('getWidgetRevolverConfig')
+            ->willReturn($revolverConfig)
+        ;
+
+        $factory = $this->getTesteeInstance();
+
+        $resultWidgetConfig = $factory->create($widgetConfig);
+
+        self::assertSame($leadingSpacer, $resultWidgetConfig->getLeadingSpacer());
+        self::assertSame($trailingSpacer, $resultWidgetConfig->getTrailingSpacer());
+        self::assertSame($revolverConfig, $resultWidgetConfig->getWidgetRevolverConfig());
+    }
+
+    private function getFrameMock(): MockObject&IFrame
+    {
+        return $this->createMock(IFrame::class);
+    }
+
+    private function getWidgetRevolverConfigMock(): MockObject&IWidgetRevolverConfig
+    {
+        return $this->createMock(IWidgetRevolverConfig::class);
+    }
+
+    private function getWidgetConfigMock(): MockObject&IWidgetConfig
+    {
+        return $this->createMock(IWidgetConfig::class);
     }
 
     #[Test]
@@ -137,11 +186,6 @@ final class RuntimeRootWidgetConfigFactoryTest extends TestCase
         self::assertSame($revolverConfig, $resultWidgetRevolverConfig->getRevolverConfig());
     }
 
-    private function getFrameMock(): MockObject&IFrame
-    {
-        return $this->createMock(IFrame::class);
-    }
-
     private function getStylePaletteMock(): MockObject&IStylePalette
     {
         return $this->createMock(IStylePalette::class);
@@ -160,10 +204,5 @@ final class RuntimeRootWidgetConfigFactoryTest extends TestCase
     private function getRevolverConfigMock(): MockObject&IRevolverConfig
     {
         return $this->createMock(IRevolverConfig::class);
-    }
-
-    private function getWidgetRevolverConfigMock(): MockObject&IWidgetRevolverConfig
-    {
-        return $this->createMock(IWidgetRevolverConfig::class);
     }
 }

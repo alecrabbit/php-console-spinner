@@ -166,4 +166,16 @@ final class RuntimeWidgetConfigFactoryTest extends TestCase
     {
         return $this->createMock(IWidgetRevolverConfig::class);
     }
+
+    #[Test]
+    public function canCreateWithWidgetConfig(): void
+    {
+        $widgetConfig = $this->getWidgetConfigMock();
+
+        $factory = $this->getTesteeInstance();
+
+        $resultWidgetConfig = $factory->create($widgetConfig);
+
+        self::assertSame($widgetConfig, $resultWidgetConfig);
+    }
 }

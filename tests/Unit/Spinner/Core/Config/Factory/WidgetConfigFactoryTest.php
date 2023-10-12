@@ -6,9 +6,7 @@ namespace AlecRabbit\Tests\Unit\Spinner\Core\Config\Factory;
 
 use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\IWidgetConfigFactory;
-use AlecRabbit\Spinner\Core\Config\Contract\IRevolverConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IWidgetConfig;
-use AlecRabbit\Spinner\Core\Config\Contract\IWidgetRevolverConfig;
 use AlecRabbit\Spinner\Core\Config\Factory\WidgetConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\IWidgetSettingsSolver;
 use AlecRabbit\Spinner\Core\Config\WidgetConfig;
@@ -82,7 +80,7 @@ final class WidgetConfigFactoryTest extends TestCase
         ;
 
         $factory = $this->getTesteeInstance(
-            widgetSettingsSolver:  $widgetSettingsSolver,
+            widgetSettingsSolver: $widgetSettingsSolver,
         );
 
         $result = $factory->create();
@@ -92,7 +90,7 @@ final class WidgetConfigFactoryTest extends TestCase
         self::assertSame($trailingSpacer, $result->getTrailingSpacer());
         self::assertSame($stylePalette, $result->getWidgetRevolverConfig()->getStylePalette());
         self::assertSame($charPalette, $result->getWidgetRevolverConfig()->getCharPalette());
-            }
+    }
 
     private function getFrameMock(): MockObject&IFrame
     {
@@ -115,7 +113,7 @@ final class WidgetConfigFactoryTest extends TestCase
     }
 
     #[Test]
-    public function throwsIfCreateArgumentIsNotNull(): void
+    public function throwsIfCreateArgumentIsWidgetSettings(): void
     {
         $this->expectException(DomainException::class);
         $this->expectExceptionMessage('Widget settings is not expected.');
@@ -127,18 +125,21 @@ final class WidgetConfigFactoryTest extends TestCase
         self::assertInstanceOf(WidgetConfig::class, $result);
     }
 
+    #[Test]
+    public function throwsIfCreateArgumentIsWidgetConfig(): void
+    {
+        $this->expectException(DomainException::class);
+        $this->expectExceptionMessage('Widget config is not expected.');
+
+        $factory = $this->getTesteeInstance();
+
+        $result = $factory->create($this->getWidgetConfigMock());
+
+        self::assertInstanceOf(WidgetConfig::class, $result);
+    }
+
     private function getWidgetConfigMock(): MockObject&IWidgetConfig
     {
         return $this->createMock(IWidgetConfig::class);
-    }
-
-    private function getRevolverConfigMock(): MockObject&IRevolverConfig
-    {
-        return $this->createMock(IRevolverConfig::class);
-    }
-
-    private function getWidgetRevolverConfigMock(): MockObject&IWidgetRevolverConfig
-    {
-        return $this->createMock(IWidgetRevolverConfig::class);
     }
 }

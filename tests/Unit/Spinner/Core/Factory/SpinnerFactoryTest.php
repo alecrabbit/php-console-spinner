@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Factory;
 
+use AlecRabbit\Spinner\Core\Config\Contract\IRootWidgetConfig;
 use AlecRabbit\Spinner\Core\Contract\IConfigProvider;
 use AlecRabbit\Spinner\Core\Factory\Contract\ISpinnerFactory;
 use AlecRabbit\Spinner\Core\Factory\SpinnerFactory;
@@ -31,12 +32,12 @@ final class SpinnerFactoryTest extends TestCase
 
     public function getTesteeInstance(
         ?IWidgetFactory $widgetFactory = null,
-        ?ISettingsProvider $settingsProvider = null,
+        ?IRootWidgetConfig $rootWidgetConfig = null,
     ): ISpinnerFactory {
         return
             new SpinnerFactory(
                 widgetFactory: $widgetFactory ?? $this->getWidgetCompositeFactoryMock(),
-                settingsProvider: $settingsProvider ?? $this->getSettingsProviderMock(),
+                rootWidgetConfig: $rootWidgetConfig ?? $this->getRootWidgetConfigMock(),
             );
     }
 
@@ -48,6 +49,11 @@ final class SpinnerFactoryTest extends TestCase
     protected function getSettingsProviderMock(): MockObject&ISettingsProvider
     {
         return $this->createMock(ISettingsProvider::class);
+    }
+
+    protected function getRootWidgetConfigMock(): MockObject&IRootWidgetConfig
+    {
+        return $this->createMock(IRootWidgetConfig::class);
     }
 
     #[Test]
@@ -94,30 +100,17 @@ final class SpinnerFactoryTest extends TestCase
     #[Test]
     public function canCreateSpinnerWithoutSpinnerSettings(): void
     {
-        $widgetSettings = $this->getRootWidgetSettingsMock();
-        $settings = $this->getSettingsMock();
-        $settings
-            ->expects(self::once())
-            ->method('get')
-            ->with(IRootWidgetSettings::class)
-            ->willReturn($widgetSettings)
-        ;
-        $settingsProvider = $this->getSettingsProviderMock();
-        $settingsProvider
-            ->expects(self::once())
-            ->method('getUserSettings')
-            ->willReturn($settings)
-        ;
+        $widgetConfig = $this->getRootWidgetConfigMock();
 
         $widgetFactory = $this->getWidgetFactoryMock();
         $widgetFactory
             ->expects(self::once())
             ->method('create')
-            ->with($widgetSettings)
+            ->with(self::identicalTo($widgetConfig))
         ;
         $spinnerFactory = $this->getTesteeInstance(
             widgetFactory: $widgetFactory,
-            settingsProvider: $settingsProvider,
+            rootWidgetConfig: $widgetConfig,
         );
 
         $spinner = $spinnerFactory->create();

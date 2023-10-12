@@ -21,6 +21,10 @@ final class RuntimeWidgetConfigFactory implements IRuntimeWidgetConfigFactory
 
     public function create(IWidgetConfig|IWidgetSettings|null $widgetSettings = null): IWidgetConfig
     {
+        if ($widgetSettings instanceof IWidgetConfig) {
+            return $widgetSettings;
+        }
+
         if ($widgetSettings === null) {
             return $this->widgetConfig;
         }
