@@ -6,13 +6,11 @@ namespace AlecRabbit\Tests\Unit\Spinner\Core\Config\Factory;
 
 use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\IWidgetConfigFactory;
-use AlecRabbit\Spinner\Core\Config\Contract\IConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IRevolverConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IWidgetConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IWidgetRevolverConfig;
-use AlecRabbit\Spinner\Core\Config\Factory\WidgetConfigFactory;
+use AlecRabbit\Spinner\Core\Config\Factory\RuntimeWidgetConfigFactory;
 use AlecRabbit\Spinner\Core\Config\WidgetConfig;
-use AlecRabbit\Spinner\Core\Contract\IConfigProvider;
 use AlecRabbit\Spinner\Core\Palette\Contract\ICharPalette;
 use AlecRabbit\Spinner\Core\Palette\Contract\IStylePalette;
 use AlecRabbit\Spinner\Core\Settings\Contract\IWidgetSettings;
@@ -20,34 +18,23 @@ use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 
-final class WidgetConfigFactoryTest extends TestCase
+final class RuntimeWidgetConfigFactoryTest extends TestCase
 {
     #[Test]
     public function canBeInstantiated(): void
     {
-        $config = $this->getConfigMock();
-        $config
-            ->expects(self::once())
-            ->method('get')
-            ->with(IWidgetConfig::class)
-            ->willReturn($this->getWidgetConfigMock())
-        ;
-        $configProvider = $this->getConfigProviderMock();
-        $configProvider
-            ->expects(self::once())
-            ->method('getConfig')
-            ->willReturn($config)
-        ;
-        $factory = $this->getTesteeInstance(
-            configProvider: $configProvider,
-        );
+        $factory = $this->getTesteeInstance();
 
-        self::assertInstanceOf(WidgetConfigFactory::class, $factory);
+        self::assertInstanceOf(RuntimeWidgetConfigFactory::class, $factory);
     }
 
-    private function getConfigMock(): MockObject&IConfig
-    {
-        return $this->createMock(IConfig::class);
+    public function getTesteeInstance(
+        ?IWidgetConfig $widgetConfig = null,
+    ): IWidgetConfigFactory {
+        return
+            new RuntimeWidgetConfigFactory(
+                widgetConfig: $widgetConfig ?? $this->getWidgetConfigMock(),
+            );
     }
 
     private function getWidgetConfigMock(): MockObject&IWidgetConfig
@@ -55,42 +42,12 @@ final class WidgetConfigFactoryTest extends TestCase
         return $this->createMock(IWidgetConfig::class);
     }
 
-    private function getConfigProviderMock(): MockObject&IConfigProvider
-    {
-        return $this->createMock(IConfigProvider::class);
-    }
-
-    public function getTesteeInstance(
-        ?IConfigProvider $configProvider = null,
-    ): IWidgetConfigFactory {
-        return
-            new WidgetConfigFactory(
-                configProvider: $configProvider ?? $this->getConfigProviderMock(),
-            );
-    }
-
     #[Test]
     public function canCreateWithoutWidgetSettings(): void
     {
-        $config = $this->getConfigMock();
         $widgetConfig = $this->getWidgetConfigMock();
 
-        $config
-            ->expects(self::once())
-            ->method('get')
-            ->with(IWidgetConfig::class)
-            ->willReturn($widgetConfig)
-        ;
-
-        $configProvider = $this->getConfigProviderMock();
-        $configProvider
-            ->expects(self::once())
-            ->method('getConfig')
-            ->willReturn($config)
-        ;
-
-
-        $factory = $this->getTesteeInstance($configProvider);
+        $factory = $this->getTesteeInstance($widgetConfig);
 
         $result = $factory->create();
 
@@ -128,7 +85,6 @@ final class WidgetConfigFactoryTest extends TestCase
             ->willReturn(null)
         ;
 
-        $config = $this->getConfigMock();
         $widgetConfig = $this->getWidgetConfigMock();
         $revolverConfig = $this->getRevolverConfigMock();
         $widgetRevolverConfig = $this->getWidgetRevolverConfigMock();
@@ -164,23 +120,9 @@ final class WidgetConfigFactoryTest extends TestCase
             ->willReturn($widgetRevolverConfig)
         ;
 
-        $config
-            ->expects(self::once())
-            ->method('get')
-            ->with(IWidgetConfig::class)
-            ->willReturn($widgetConfig)
-        ;
-
-        $configProvider = $this->getConfigProviderMock();
-        $configProvider
-            ->expects(self::once())
-            ->method('getConfig')
-            ->willReturn($config)
-        ;
-
 
         $factory = $this->getTesteeInstance(
-            configProvider: $configProvider,
+            widgetConfig: $widgetConfig,
         );
 
         $resultWidgetConfig = $factory->create($widgetSettings);

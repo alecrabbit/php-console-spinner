@@ -5,28 +5,18 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Config\Factory;
 
 use AlecRabbit\Spinner\Contract\IFrame;
-use AlecRabbit\Spinner\Core\Config\Contract\Factory\IWidgetConfigFactory;
-use AlecRabbit\Spinner\Core\Config\Contract\IConfig;
+use AlecRabbit\Spinner\Core\Config\Contract\Factory\IRuntimeWidgetConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\IWidgetConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IWidgetRevolverConfig;
 use AlecRabbit\Spinner\Core\Config\WidgetConfig;
 use AlecRabbit\Spinner\Core\Config\WidgetRevolverConfig;
-use AlecRabbit\Spinner\Core\Contract\IConfigProvider;
 use AlecRabbit\Spinner\Core\Settings\Contract\IWidgetSettings;
 
-final class WidgetConfigFactory implements IWidgetConfigFactory
+final class RuntimeWidgetConfigFactory implements IRuntimeWidgetConfigFactory
 {
-    private IWidgetConfig $widgetConfig;
-
     public function __construct(
-        IConfigProvider $configProvider,
+        protected IWidgetConfig $widgetConfig,
     ) {
-        $this->widgetConfig = $this->extractWidgetConfig($configProvider->getConfig());
-    }
-
-    private function extractWidgetConfig(IConfig $config): IWidgetConfig
-    {
-        return $config->get(IWidgetConfig::class);
     }
 
     public function create(?IWidgetSettings $widgetSettings = null): IWidgetConfig
