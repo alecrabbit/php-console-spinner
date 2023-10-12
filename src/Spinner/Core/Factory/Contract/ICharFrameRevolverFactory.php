@@ -10,7 +10,5 @@ use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolver;
 
 interface ICharFrameRevolverFactory
 {
-    public function createCharRevolver(ILegacyPattern $charPattern): IFrameRevolver;
-
     public function create(IPattern $pattern): IFrameRevolver;
 }

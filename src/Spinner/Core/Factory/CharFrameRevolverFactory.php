@@ -25,29 +25,6 @@ final class CharFrameRevolverFactory implements ICharFrameRevolverFactory
     ) {
     }
 
-    public function createCharRevolver(ILegacyPattern $charPattern): IFrameRevolver
-    {
-        $bakedPattern = $this->bakePattern($charPattern);
-        return
-            $this->frameRevolverBuilder
-                ->withFrameCollection($bakedPattern->getFrameCollection())
-                ->withInterval($bakedPattern->getInterval())
-                ->withTolerance(
-                    $this->getTolerance()
-                )
-                ->build()
-        ;
-    }
-
-    private function bakePattern(ILegacyPattern $pattern): ILegacyBakedPattern
-    {
-        return
-            new BakedPattern(
-                frames: $this->frameCollectionFactory->create($pattern->getEntries()),
-                interval: $this->intervalFactory->createNormalized($pattern->getInterval()),
-            );
-    }
-
     public function create(IPattern $pattern): IFrameRevolver
     {
         return
