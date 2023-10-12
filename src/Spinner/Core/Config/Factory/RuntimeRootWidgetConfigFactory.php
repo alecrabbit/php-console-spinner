@@ -7,6 +7,7 @@ namespace AlecRabbit\Spinner\Core\Config\Factory;
 use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\IRuntimeRootWidgetConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\IRootWidgetConfig;
+use AlecRabbit\Spinner\Core\Config\Contract\IWidgetConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IWidgetRevolverConfig;
 use AlecRabbit\Spinner\Core\Config\RootWidgetConfig;
 use AlecRabbit\Spinner\Core\Config\WidgetRevolverConfig;
@@ -19,7 +20,7 @@ final class RuntimeRootWidgetConfigFactory implements IRuntimeRootWidgetConfigFa
     ) {
     }
 
-    public function create(?IWidgetSettings $widgetSettings = null): IRootWidgetConfig
+    public function create(IWidgetConfig|IWidgetSettings|null $widgetSettings = null): IRootWidgetConfig
     {
         if ($widgetSettings === null) {
             return $this->widgetConfig;

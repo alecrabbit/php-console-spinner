@@ -400,7 +400,7 @@ function substitutes(): Traversable
             return
                 new class implements IRootWidgetConfigFactory {
                     public function create(
-                        ?IWidgetSettings $widgetSettings = null
+                        IWidgetConfig|IWidgetSettings|null $widgetSettings = null
                     ): IRootWidgetConfig {
                         return
                             new RootWidgetConfig(
