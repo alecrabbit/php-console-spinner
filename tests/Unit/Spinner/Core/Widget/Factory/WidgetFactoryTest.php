@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Widget\Factory;
 
 use AlecRabbit\Spinner\Contract\IFrame;
+use AlecRabbit\Spinner\Core\Config\Contract\Factory\IRuntimeWidgetConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\IWidgetConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\IWidgetConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IWidgetRevolverConfig;
@@ -43,15 +44,16 @@ final class WidgetFactoryTest extends TestCase
             );
     }
 
-    protected function getWidgetConfigFactoryMock(): MockObject&IWidgetConfigFactory
+    protected function getWidgetConfigFactoryMock(): MockObject&IRuntimeWidgetConfigFactory
     {
-        return $this->createMock(IWidgetConfigFactory::class);
+        return $this->createMock(IRuntimeWidgetConfigFactory::class);
     }
 
     protected function getWidgetRevolverFactoryMock(): MockObject&IWidgetRevolverFactory
     {
         return $this->createMock(IWidgetRevolverFactory::class);
     }
+
 //    #[Test]
 //    public function canCreateWidgetWithWidgetSettings(): void
 //    {

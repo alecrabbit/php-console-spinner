@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Unit\Spinner\Asynchronous\Factory;
 
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopFactory;
-use AlecRabbit\Spinner\Core\Factory\LoopFactory;
 use AlecRabbit\Spinner\Core\Loop\Contract\A\ALoopAdapter;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoopCreator;
+use AlecRabbit\Spinner\Core\Loop\Factory\LoopFactory;
 use AlecRabbit\Spinner\Exception\LoopException;
 use AlecRabbit\Tests\TestCase\TestCase;
 use AlecRabbit\Tests\Unit\Spinner\Asynchronous\Stub\LoopCreatorStub;

@@ -6,14 +6,14 @@ namespace AlecRabbit\Spinner\Core\Factory;
 
 use AlecRabbit\Spinner\Core\Builder\Contract\IConsoleCursorBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\IOutputConfig;
-use AlecRabbit\Spinner\Core\Factory\Contract\IBufferedOutputSingletonFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\IBufferedOutputFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IConsoleCursorFactory;
 use AlecRabbit\Spinner\Core\Output\Contract\IConsoleCursor;
 
 final class ConsoleCursorFactory implements IConsoleCursorFactory
 {
     public function __construct(
-        protected IBufferedOutputSingletonFactory $bufferedOutputFactory,
+        protected IBufferedOutputFactory $bufferedOutputFactory,
         protected IConsoleCursorBuilder $cursorBuilder,
         protected IOutputConfig $outputConfig,
     ) {
@@ -23,7 +23,7 @@ final class ConsoleCursorFactory implements IConsoleCursorFactory
     {
         return $this->cursorBuilder
             ->withOutput(
-                $this->bufferedOutputFactory->getOutput()
+                $this->bufferedOutputFactory->create()
             )
             ->withCursorVisibilityMode(
                 $this->outputConfig->getCursorVisibilityMode()

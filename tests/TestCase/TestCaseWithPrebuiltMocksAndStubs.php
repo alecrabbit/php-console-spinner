@@ -25,7 +25,7 @@ use AlecRabbit\Spinner\Core\Contract\IFrameCollection;
 use AlecRabbit\Spinner\Core\Contract\IIntervalNormalizer;
 use AlecRabbit\Spinner\Core\Contract\ISpinnerState;
 use AlecRabbit\Spinner\Core\Contract\IWeakMap;
-use AlecRabbit\Spinner\Core\Factory\Contract\IBufferedOutputSingletonFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\IBufferedOutputFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ICharFrameRevolverFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IConsoleCursorFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDriverOutputFactory;
@@ -206,9 +206,9 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
         return $this->createMock(IConsoleCursorBuilder::class);
     }
 
-    protected function getBufferedOutputFactoryMock(): MockObject&IBufferedOutputSingletonFactory
+    protected function getBufferedOutputFactoryMock(): MockObject&IBufferedOutputFactory
     {
-        return $this->createMock(IBufferedOutputSingletonFactory::class);
+        return $this->createMock(IBufferedOutputFactory::class);
     }
 
     protected function getCursorFactoryMock(): MockObject&IConsoleCursorFactory

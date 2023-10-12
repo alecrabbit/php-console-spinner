@@ -46,6 +46,7 @@ use AlecRabbit\Spinner\Core\Config\Contract\IDriverConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\ILoopConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IOutputConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IRootWidgetConfig;
+use AlecRabbit\Spinner\Core\Config\Contract\IWidgetConfig;
 use AlecRabbit\Spinner\Core\Config\Factory\AuxConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Factory\ConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Factory\ConfigProviderFactory;
@@ -71,6 +72,7 @@ use AlecRabbit\Spinner\Core\Config\Solver\NormalizerMethodModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\RunMethodModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\SignalHandlersModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\StylingMethodModeSolver;
+use AlecRabbit\Spinner\Core\Config\WidgetConfig;
 use AlecRabbit\Spinner\Core\Config\WidgetRevolverConfig;
 use AlecRabbit\Spinner\Core\Contract\IConfigProvider;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
@@ -78,10 +80,10 @@ use AlecRabbit\Spinner\Core\Contract\IDriverBuilder;
 use AlecRabbit\Spinner\Core\Contract\IDriverLinker;
 use AlecRabbit\Spinner\Core\Contract\IDriverProvider;
 use AlecRabbit\Spinner\Core\Contract\IIntervalNormalizer;
-use AlecRabbit\Spinner\Core\Factory\BufferedOutputSingletonFactory;
+use AlecRabbit\Spinner\Core\Factory\BufferedOutputFactory;
 use AlecRabbit\Spinner\Core\Factory\CharFrameRevolverFactory;
 use AlecRabbit\Spinner\Core\Factory\ConsoleCursorFactory;
-use AlecRabbit\Spinner\Core\Factory\Contract\IBufferedOutputSingletonFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\IBufferedOutputFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ICharFrameRevolverFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IConsoleCursorFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDriverFactory;
@@ -103,26 +105,24 @@ use AlecRabbit\Spinner\Core\Factory\DriverProviderFactory;
 use AlecRabbit\Spinner\Core\Factory\FrameCollectionFactory;
 use AlecRabbit\Spinner\Core\Factory\IntervalFactory;
 use AlecRabbit\Spinner\Core\Factory\IntervalNormalizerFactory;
-use AlecRabbit\Spinner\Core\Factory\LoopFactory;
-use AlecRabbit\Spinner\Core\Factory\LoopProviderFactory;
 use AlecRabbit\Spinner\Core\Factory\SpinnerFactory;
 use AlecRabbit\Spinner\Core\Factory\StyleFrameRevolverFactory;
 use AlecRabbit\Spinner\Core\Factory\TimerFactory;
-use AlecRabbit\Spinner\Core\Legacy\ILegacySignalHandlersSetupBuilder;
-use AlecRabbit\Spinner\Core\Legacy\ILegacySignalHandlersSetupFactory;
-use AlecRabbit\Spinner\Core\Legacy\LegacySignalHandlersSetupBuilder;
-use AlecRabbit\Spinner\Core\Legacy\LegacySignalHandlersSetupFactory;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoopCreatorClassExtractor;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoopCreatorClassProvider;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoopProbe;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoopProvider;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoopSetup;
+use AlecRabbit\Spinner\Core\Loop\Factory\LoopFactory;
+use AlecRabbit\Spinner\Core\Loop\Factory\LoopProviderFactory;
 use AlecRabbit\Spinner\Core\Loop\LoopCreatorClassExtractor;
 use AlecRabbit\Spinner\Core\Loop\LoopCreatorClassProvider;
 use AlecRabbit\Spinner\Core\Loop\LoopSetup;
 use AlecRabbit\Spinner\Core\Output\ResourceStream;
 use AlecRabbit\Spinner\Core\Palette\Factory\Contract\IPaletteModeFactory;
 use AlecRabbit\Spinner\Core\Palette\Factory\PaletteModeFactory;
+use AlecRabbit\Spinner\Core\Palette\NoCharPalette;
+use AlecRabbit\Spinner\Core\Palette\NoStylePalette;
 use AlecRabbit\Spinner\Core\Palette\Rainbow;
 use AlecRabbit\Spinner\Core\Palette\Snake;
 use AlecRabbit\Spinner\Core\Pattern\Factory\Contract\IPatternFactory;
@@ -235,6 +235,12 @@ function configs(): Traversable
         IAuxConfig::class => static function (ContainerInterface $container): IAuxConfig {
             return $container->get(IConfig::class)->get(IAuxConfig::class);
         },
+        IWidgetConfig::class => static function (ContainerInterface $container): IWidgetConfig {
+            return $container->get(IConfig::class)->get(IWidgetConfig::class);
+        },
+        IRootWidgetConfig::class => static function (ContainerInterface $container): IRootWidgetConfig {
+            return $container->get(IConfig::class)->get(IRootWidgetConfig::class);
+        },
     ];
 }
 
@@ -245,7 +251,6 @@ function builders(): Traversable
         IDriverOutputBuilder::class => DriverOutputBuilder::class,
         IFrameRevolverBuilder::class => FrameRevolverBuilder::class,
         IIntegerNormalizerBuilder::class => IntegerNormalizerBuilder::class,
-        ILegacySignalHandlersSetupBuilder::class => LegacySignalHandlersSetupBuilder::class,
         ITimerBuilder::class => TimerBuilder::class,
         IWidgetBuilder::class => WidgetBuilder::class,
         IWidgetRevolverBuilder::class => WidgetRevolverBuilder::class,
@@ -283,7 +288,7 @@ function factories(): Traversable
         ILoopProviderFactory::class => LoopProviderFactory::class,
         IDriverProviderFactory::class => DriverProviderFactory::class,
 
-        IBufferedOutputSingletonFactory::class => BufferedOutputSingletonFactory::class,
+        IBufferedOutputFactory::class => BufferedOutputFactory::class,
         ICharFrameRevolverFactory::class => CharFrameRevolverFactory::class,
         IConfigFactory::class => ConfigFactory::class,
         IConfigProviderFactory::class => ConfigProviderFactory::class,
@@ -361,14 +366,14 @@ function substitutes(): Traversable
                 new class implements IWidgetConfigFactory {
                     public function create(
                         ?IWidgetSettings $widgetSettings = null
-                    ): IRootWidgetConfig {
+                    ): IWidgetConfig {
                         return
-                            new RootWidgetConfig(
+                            new WidgetConfig(
                                 leadingSpacer: new CharFrame('', 0),
                                 trailingSpacer: new CharFrame(' ', 1),
                                 revolverConfig: new WidgetRevolverConfig(
-                                    stylePalette: new Rainbow(),
-                                    charPalette: new Snake(),
+                                    stylePalette: new NoStylePalette(),
+                                    charPalette: new NoCharPalette(),
                                 )
                             );
                     }

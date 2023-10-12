@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Spinner\Core\Factory;
+namespace AlecRabbit\Spinner\Core\Loop\Factory;
 
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopFactory;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoop;

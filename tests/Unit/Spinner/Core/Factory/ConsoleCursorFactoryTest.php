@@ -8,7 +8,7 @@ use AlecRabbit\Spinner\Contract\Mode\CursorVisibilityMode;
 use AlecRabbit\Spinner\Core\Builder\Contract\IConsoleCursorBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\IOutputConfig;
 use AlecRabbit\Spinner\Core\Factory\ConsoleCursorFactory;
-use AlecRabbit\Spinner\Core\Factory\Contract\IBufferedOutputSingletonFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\IBufferedOutputFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IConsoleCursorFactory;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;
@@ -25,7 +25,7 @@ final class ConsoleCursorFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
     }
 
     public function getTesteeInstance(
-        ?IBufferedOutputSingletonFactory $bufferedOutputFactory = null,
+        ?IBufferedOutputFactory $bufferedOutputFactory = null,
         ?IConsoleCursorBuilder $cursorBuilder = null,
         ?IOutputConfig $outputConfig = null,
     ): IConsoleCursorFactory {
@@ -56,7 +56,7 @@ final class ConsoleCursorFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
 
         $bufferedOutputFactory
             ->expects(self::once())
-            ->method('getOutput')
+            ->method('create')
         ;
 
         $cursorStub = $this->getCursorStub();

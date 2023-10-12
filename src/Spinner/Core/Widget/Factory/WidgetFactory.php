@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Widget\Factory;
 
+use AlecRabbit\Spinner\Core\Config\Contract\Factory\IRuntimeWidgetConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\IWidgetConfigFactory;
 use AlecRabbit\Spinner\Core\Settings\Contract\IWidgetSettings;
 use AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyWidgetSettings;
@@ -15,24 +16,10 @@ use AlecRabbit\Spinner\Core\Widget\Factory\Contract\IWidgetRevolverFactory;
 final class WidgetFactory implements IWidgetFactory
 {
     public function __construct(
-        protected IWidgetConfigFactory $widgetConfigFactory,
+        protected IRuntimeWidgetConfigFactory $widgetConfigFactory,
         protected IWidgetRevolverFactory $widgetRevolverFactory,
         protected IWidgetBuilder $widgetBuilder,
     ) {
-    }
-
-    public function legacyCreateWidget(ILegacyWidgetSettings $widgetSettings): IWidget
-    {
-        return
-            $this->widgetBuilder
-                ->withLeadingSpacer($widgetSettings->getLeadingSpacer())
-                ->withTrailingSpacer($widgetSettings->getTrailingSpacer())
-                ->withWidgetRevolver(
-                    $this->widgetRevolverFactory
-                        ->legacyCreateWidgetRevolver($widgetSettings)
-                )
-                ->build()
-        ;
     }
 
     public function create(?IWidgetSettings $widgetSettings = null): IWidget

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Widget\Factory;
 
 use AlecRabbit\Spinner\Contract\IFrame;
-use AlecRabbit\Spinner\Core\Config\Contract\Factory\IWidgetConfigFactory;
+use AlecRabbit\Spinner\Core\Config\Contract\Factory\IRuntimeWidgetConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\IWidgetConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IWidgetRevolverConfig;
 use AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyWidgetSettings;
@@ -31,20 +31,21 @@ final class WidgetCompositeFactoryTest extends TestCase
     }
 
     public function getTesteeInstance(
-        ?IWidgetConfigFactory $widgetConfigFactory = null,
+        ?IRuntimeWidgetConfigFactory $widgetConfigFactory = null,
         ?IWidgetCompositeBuilder $widgetBuilder = null,
         ?IWidgetRevolverFactory $widgetRevolverFactory = null,
     ): IWidgetCompositeFactory {
-        return new WidgetCompositeFactory(
-            widgetConfigFactory: $widgetConfigFactory ?? $this->getWidgetConfigFactoryMock(),
-            widgetBuilder: $widgetBuilder ?? $this->getWidgetCompositeBuilderMock(),
-            widgetRevolverFactory: $widgetRevolverFactory ?? $this->getWidgetRevolverFactoryMock(),
-        );
+        return
+            new WidgetCompositeFactory(
+                widgetConfigFactory: $widgetConfigFactory ?? $this->getWidgetConfigFactoryMock(),
+                widgetBuilder: $widgetBuilder ?? $this->getWidgetCompositeBuilderMock(),
+                widgetRevolverFactory: $widgetRevolverFactory ?? $this->getWidgetRevolverFactoryMock(),
+            );
     }
 
-    protected function getWidgetConfigFactoryMock(): MockObject&IWidgetConfigFactory
+    protected function getWidgetConfigFactoryMock(): MockObject&IRuntimeWidgetConfigFactory
     {
-        return $this->createMock(IWidgetConfigFactory::class);
+        return $this->createMock(IRuntimeWidgetConfigFactory::class);
     }
 
     protected function getWidgetCompositeBuilderMock(): MockObject&IWidgetCompositeBuilder

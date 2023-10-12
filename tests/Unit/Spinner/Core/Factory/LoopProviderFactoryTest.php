@@ -6,9 +6,9 @@ namespace AlecRabbit\Tests\Unit\Spinner\Core\Factory;
 
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopProviderFactory;
-use AlecRabbit\Spinner\Core\Factory\LoopProviderFactory;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoop;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoopSetup;
+use AlecRabbit\Spinner\Core\Loop\Factory\LoopProviderFactory;
 use AlecRabbit\Spinner\Core\Loop\LoopProvider;
 use AlecRabbit\Spinner\Exception\DomainException;
 use AlecRabbit\Tests\TestCase\TestCase;

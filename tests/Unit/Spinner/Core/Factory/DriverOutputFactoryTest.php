@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Factory;
 
 use AlecRabbit\Spinner\Core\Builder\Contract\IDriverOutputBuilder;
-use AlecRabbit\Spinner\Core\Factory\Contract\IBufferedOutputSingletonFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\IBufferedOutputFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IConsoleCursorFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDriverOutputFactory;
 use AlecRabbit\Spinner\Core\Factory\DriverOutputFactory;
@@ -24,7 +24,7 @@ final class DriverOutputFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
 
     public function getTesteeInstance(
         ?IDriverOutputBuilder $driverOutputBuilder = null,
-        ?IBufferedOutputSingletonFactory $bufferedOutputFactory = null,
+        ?IBufferedOutputFactory $bufferedOutputFactory = null,
         ?IConsoleCursorFactory $cursorFactory = null,
     ): IDriverOutputFactory {
         return new DriverOutputFactory(
@@ -58,7 +58,7 @@ final class DriverOutputFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
         $bufferedOutputFactory = $this->getBufferedOutputFactoryMock();
         $bufferedOutputFactory
             ->expects(self::once())
-            ->method('getOutput')
+            ->method('create')
         ;
         $cursorFactory = $this->getCursorFactoryMock();
 
