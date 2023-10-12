@@ -19,15 +19,13 @@ abstract class ContainerModifyingTestCase extends TestCase
     protected const GET_CONTAINER = 'getContainer';
     protected static ?ContainerInterface $container;
 
-    protected static function setContainer(?ContainerInterface $container): void
-    {
-        Facade::setContainer($container);
-    }
-
     protected function setUp(): void
     {
         self::$container = self::extractContainer();
-        self::setContainer(self::modifyContainer(self::$container));
+
+        $modifiedContainer = self::modifyContainer(clone self::$container);
+        self::setContainer($modifiedContainer);
+
         parent::setUp();
     }
 
@@ -36,52 +34,14 @@ abstract class ContainerModifyingTestCase extends TestCase
         return self::callMethod(Facade::class, self::GET_CONTAINER);
     }
 
-    protected function tearDown(): void
+    protected static function modifyContainer(Container $container, array $substitutes = []): ContainerInterface
     {
-        parent::tearDown();
-        self::setContainer(self::$container);
-    }
-    protected static function modifyContainer(Container $container): ContainerInterface
-    {
-        $definitions = self::getPropertyValue('definitions', clone $container);
+        $definitions = self::getPropertyValue('definitions', $container);
 
         return
             self::createContainer(
-                self::modifyDefinitions(
-                    $definitions
-                )
+                self::modifyDefinitions($definitions, $substitutes)
             );
-    }
-
-    protected static function modifyDefinitions(\ArrayObject $definitions): \ArrayObject
-    {
-        // disable output
-        $definitions
-            ->offsetSet(
-                IResourceStream::class,
-                new class implements IResourceStream {
-                    public function write(\Traversable $data): void
-                    {
-                        // do nothing
-                    }
-                }
-            )
-        ;
-
-        // disable auto start
-        $definitions
-            ->offsetSet(
-                ILoopSetup::class,
-                new class implements ILoopSetup {
-                    public function setup(ILoop $loop): void
-                    {
-                        // do nothing
-                    }
-                }
-            )
-        ;
-
-        return $definitions;
     }
 
     protected static function createContainer(\ArrayObject $definitions): ContainerInterface
@@ -104,5 +64,48 @@ abstract class ContainerModifyingTestCase extends TestCase
             };
 
         return (new ContainerFactory($registry))->getContainer();
+    }
+
+    protected static function modifyDefinitions(\ArrayObject $definitions, array $substitutes = []): \ArrayObject
+    {
+        $substitutes =
+            array_merge(
+                [
+                    // disable output
+                    IResourceStream::class =>
+                        new class implements IResourceStream {
+                            public function write(\Traversable $data): void
+                            {
+                                // do nothing
+                            }
+                        },
+                    // disable auto start
+                    ILoopSetup::class =>
+                        new class implements ILoopSetup {
+                            public function setup(ILoop $loop): void
+                            {
+                                // do nothing
+                            }
+                        },
+                ],
+                $substitutes
+            );
+
+        foreach ($substitutes as $id => $substitute) {
+            $definitions->offsetSet($id, $substitute);
+        }
+
+        return $definitions;
+    }
+
+    protected static function setContainer(?ContainerInterface $container): void
+    {
+        Facade::setContainer($container);
+    }
+
+    protected function tearDown(): void
+    {
+        parent::tearDown();
+        self::setContainer(self::$container);
     }
 }
