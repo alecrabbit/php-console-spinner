@@ -6,16 +6,14 @@ namespace AlecRabbit\Tests\Unit\Spinner\Core\Config\Factory;
 
 use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\IWidgetConfigFactory;
-use AlecRabbit\Spinner\Core\Config\Contract\IConfig;
-use AlecRabbit\Spinner\Core\Config\Contract\IRevolverConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IWidgetConfig;
-use AlecRabbit\Spinner\Core\Config\Contract\IWidgetRevolverConfig;
 use AlecRabbit\Spinner\Core\Config\Factory\WidgetConfigFactory;
+use AlecRabbit\Spinner\Core\Config\Solver\Contract\IWidgetSettingsSolver;
 use AlecRabbit\Spinner\Core\Config\WidgetConfig;
-use AlecRabbit\Spinner\Core\Contract\IConfigProvider;
 use AlecRabbit\Spinner\Core\Palette\Contract\ICharPalette;
 use AlecRabbit\Spinner\Core\Palette\Contract\IStylePalette;
 use AlecRabbit\Spinner\Core\Settings\Contract\IWidgetSettings;
+use AlecRabbit\Spinner\Exception\DomainException;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -25,80 +23,27 @@ final class WidgetConfigFactoryTest extends TestCase
     #[Test]
     public function canBeInstantiated(): void
     {
-        $config = $this->getConfigMock();
-        $config
-            ->expects(self::once())
-            ->method('get')
-            ->with(IWidgetConfig::class)
-            ->willReturn($this->getWidgetConfigMock())
-        ;
-        $configProvider = $this->getConfigProviderMock();
-        $configProvider
-            ->expects(self::once())
-            ->method('getConfig')
-            ->willReturn($config)
-        ;
-        $factory = $this->getTesteeInstance(
-            configProvider: $configProvider,
-        );
+        $factory = $this->getTesteeInstance();
 
         self::assertInstanceOf(WidgetConfigFactory::class, $factory);
     }
 
-    private function getConfigMock(): MockObject&IConfig
-    {
-        return $this->createMock(IConfig::class);
-    }
-
-    private function getWidgetConfigMock(): MockObject&IWidgetConfig
-    {
-        return $this->createMock(IWidgetConfig::class);
-    }
-
-    private function getConfigProviderMock(): MockObject&IConfigProvider
-    {
-        return $this->createMock(IConfigProvider::class);
-    }
-
     public function getTesteeInstance(
-        ?IConfigProvider $configProvider = null,
+        ?IWidgetSettingsSolver $widgetSettingsSolver = null,
     ): IWidgetConfigFactory {
         return
             new WidgetConfigFactory(
-                configProvider: $configProvider ?? $this->getConfigProviderMock(),
+                widgetSettingsSolver: $widgetSettingsSolver ?? $this->getWidgetSettingsSolverMock(),
             );
     }
 
-    #[Test]
-    public function canCreateWithoutWidgetSettings(): void
+    private function getWidgetSettingsSolverMock(): MockObject&IWidgetSettingsSolver
     {
-        $config = $this->getConfigMock();
-        $widgetConfig = $this->getWidgetConfigMock();
-
-        $config
-            ->expects(self::once())
-            ->method('get')
-            ->with(IWidgetConfig::class)
-            ->willReturn($widgetConfig)
-        ;
-
-        $configProvider = $this->getConfigProviderMock();
-        $configProvider
-            ->expects(self::once())
-            ->method('getConfig')
-            ->willReturn($config)
-        ;
-
-
-        $factory = $this->getTesteeInstance($configProvider);
-
-        $result = $factory->create();
-
-        self::assertSame($widgetConfig, $result);
+        return $this->createMock(IWidgetSettingsSolver::class);
     }
 
     #[Test]
-    public function canCreateWithWidgetSettingsNullValues(): void
+    public function canCreate(): void
     {
         $leadingSpacer = $this->getFrameMock();
         $trailingSpacer = $this->getFrameMock();
@@ -106,93 +51,45 @@ final class WidgetConfigFactoryTest extends TestCase
         $charPalette = $this->getCharPaletteMock();
 
         $widgetSettings = $this->getWidgetSettingsMock();
-
         $widgetSettings
-            ->expects(self::once())
-            ->method('getLeadingSpacer')
-            ->willReturn(null)
-        ;
-        $widgetSettings
-            ->expects(self::once())
-            ->method('getTrailingSpacer')
-            ->willReturn(null)
-        ;
-        $widgetSettings
-            ->expects(self::once())
-            ->method('getStylePalette')
-            ->willReturn(null)
-        ;
-        $widgetSettings
-            ->expects(self::once())
-            ->method('getCharPalette')
-            ->willReturn(null)
-        ;
-
-        $config = $this->getConfigMock();
-        $widgetConfig = $this->getWidgetConfigMock();
-        $revolverConfig = $this->getRevolverConfigMock();
-        $widgetRevolverConfig = $this->getWidgetRevolverConfigMock();
-        $widgetRevolverConfig
-            ->expects(self::once())
-            ->method('getStylePalette')
-            ->willReturn($stylePalette)
-        ;
-        $widgetRevolverConfig
-            ->expects(self::once())
-            ->method('getCharPalette')
-            ->willReturn($charPalette)
-        ;
-        $widgetRevolverConfig
-            ->expects(self::once())
-            ->method('getRevolverConfig')
-            ->willReturn($revolverConfig)
-        ;
-
-        $widgetConfig
             ->expects(self::once())
             ->method('getLeadingSpacer')
             ->willReturn($leadingSpacer)
         ;
-        $widgetConfig
+        $widgetSettings
             ->expects(self::once())
             ->method('getTrailingSpacer')
             ->willReturn($trailingSpacer)
         ;
-        $widgetConfig
+        $widgetSettings
             ->expects(self::once())
-            ->method('getWidgetRevolverConfig')
-            ->willReturn($widgetRevolverConfig)
+            ->method('getStylePalette')
+            ->willReturn($stylePalette)
+        ;
+        $widgetSettings
+            ->expects(self::once())
+            ->method('getCharPalette')
+            ->willReturn($charPalette)
         ;
 
-        $config
+        $widgetSettingsSolver = $this->getWidgetSettingsSolverMock();
+        $widgetSettingsSolver
             ->expects(self::once())
-            ->method('get')
-            ->with(IWidgetConfig::class)
-            ->willReturn($widgetConfig)
+            ->method('solve')
+            ->willReturn($widgetSettings)
         ;
-
-        $configProvider = $this->getConfigProviderMock();
-        $configProvider
-            ->expects(self::once())
-            ->method('getConfig')
-            ->willReturn($config)
-        ;
-
 
         $factory = $this->getTesteeInstance(
-            configProvider: $configProvider,
+            widgetSettingsSolver: $widgetSettingsSolver,
         );
 
-        $resultWidgetConfig = $factory->create($widgetSettings);
-        $resultWidgetRevolverConfig = $resultWidgetConfig->getWidgetRevolverConfig();
+        $result = $factory->create();
 
-        self::assertInstanceOf(WidgetConfig::class, $resultWidgetConfig);
-        self::assertSame($leadingSpacer, $resultWidgetConfig->getLeadingSpacer());
-        self::assertSame($trailingSpacer, $resultWidgetConfig->getTrailingSpacer());
-
-        self::assertSame($stylePalette, $resultWidgetRevolverConfig->getStylePalette());
-        self::assertSame($charPalette, $resultWidgetRevolverConfig->getCharPalette());
-        self::assertSame($revolverConfig, $resultWidgetRevolverConfig->getRevolverConfig());
+        self::assertInstanceOf(WidgetConfig::class, $result);
+        self::assertSame($leadingSpacer, $result->getLeadingSpacer());
+        self::assertSame($trailingSpacer, $result->getTrailingSpacer());
+        self::assertSame($stylePalette, $result->getWidgetRevolverConfig()->getStylePalette());
+        self::assertSame($charPalette, $result->getWidgetRevolverConfig()->getCharPalette());
     }
 
     private function getFrameMock(): MockObject&IFrame
@@ -215,13 +112,180 @@ final class WidgetConfigFactoryTest extends TestCase
         return $this->createMock(IWidgetSettings::class);
     }
 
-    private function getRevolverConfigMock(): MockObject&IRevolverConfig
+    #[Test]
+    public function throwsIfCreateArgumentIsWidgetSettings(): void
     {
-        return $this->createMock(IRevolverConfig::class);
+        $this->expectException(DomainException::class);
+        $this->expectExceptionMessage('Widget settings is not expected.');
+
+        $factory = $this->getTesteeInstance();
+
+        $result = $factory->create($this->getWidgetSettingsMock());
+
+        self::assertInstanceOf(WidgetConfig::class, $result);
     }
 
-    private function getWidgetRevolverConfigMock(): MockObject&IWidgetRevolverConfig
+    #[Test]
+    public function throwsIfCreateArgumentIsWidgetConfig(): void
     {
-        return $this->createMock(IWidgetRevolverConfig::class);
+        $this->expectException(DomainException::class);
+        $this->expectExceptionMessage('Widget config is not expected.');
+
+        $factory = $this->getTesteeInstance();
+
+        $result = $factory->create($this->getWidgetConfigMock());
+
+        self::assertInstanceOf(WidgetConfig::class, $result);
+    }
+
+    private function getWidgetConfigMock(): MockObject&IWidgetConfig
+    {
+        return $this->createMock(IWidgetConfig::class);
+    }
+
+    #[Test]
+    public function throwsIfSolvedWidgetSettingsMissesLeadingSpacer(): void
+    {
+        $this->expectException(DomainException::class);
+        $this->expectExceptionMessage('Leading spacer expected to be set.');
+
+        $widgetSettings = $this->getWidgetSettingsMock();
+        $widgetSettings
+            ->expects(self::once())
+            ->method('getLeadingSpacer')
+            ->willReturn(null)
+        ;
+
+        $widgetSettingsSolver = $this->getWidgetSettingsSolverMock();
+        $widgetSettingsSolver
+            ->expects(self::once())
+            ->method('solve')
+            ->willReturn($widgetSettings)
+        ;
+
+        $factory = $this->getTesteeInstance(
+            widgetSettingsSolver: $widgetSettingsSolver,
+        );
+
+        $result = $factory->create();
+
+        self::assertInstanceOf(WidgetConfig::class, $result);
+    }
+
+    #[Test]
+    public function throwsIfSolvedWidgetSettingsMissesTrailingSpacer(): void
+    {
+        $this->expectException(DomainException::class);
+        $this->expectExceptionMessage('Trailing spacer expected to be set.');
+
+        $widgetSettings = $this->getWidgetSettingsMock();
+        $widgetSettings
+            ->expects(self::once())
+            ->method('getLeadingSpacer')
+            ->willReturn($this->getFrameMock())
+        ;
+        $widgetSettings
+            ->expects(self::once())
+            ->method('getTrailingSpacer')
+            ->willReturn(null)
+        ;
+
+        $widgetSettingsSolver = $this->getWidgetSettingsSolverMock();
+        $widgetSettingsSolver
+            ->expects(self::once())
+            ->method('solve')
+            ->willReturn($widgetSettings)
+        ;
+
+        $factory = $this->getTesteeInstance(
+            widgetSettingsSolver: $widgetSettingsSolver,
+        );
+
+        $result = $factory->create();
+
+        self::assertInstanceOf(WidgetConfig::class, $result);
+    }
+
+    #[Test]
+    public function throwsIfSolvedWidgetSettingsMissesStylePaletteSpacer(): void
+    {
+        $this->expectException(DomainException::class);
+        $this->expectExceptionMessage('Style palette expected to be set.');
+
+        $widgetSettings = $this->getWidgetSettingsMock();
+        $widgetSettings
+            ->expects(self::once())
+            ->method('getLeadingSpacer')
+            ->willReturn($this->getFrameMock())
+        ;
+        $widgetSettings
+            ->expects(self::once())
+            ->method('getTrailingSpacer')
+            ->willReturn($this->getFrameMock())
+        ;
+        $widgetSettings
+            ->expects(self::once())
+            ->method('getStylePalette')
+            ->willReturn(null)
+        ;
+
+        $widgetSettingsSolver = $this->getWidgetSettingsSolverMock();
+        $widgetSettingsSolver
+            ->expects(self::once())
+            ->method('solve')
+            ->willReturn($widgetSettings)
+        ;
+
+        $factory = $this->getTesteeInstance(
+            widgetSettingsSolver: $widgetSettingsSolver,
+        );
+
+        $result = $factory->create();
+
+        self::assertInstanceOf(WidgetConfig::class, $result);
+    }
+
+    #[Test]
+    public function throwsIfSolvedWidgetSettingsMissesCharPaletteSpacer(): void
+    {
+        $this->expectException(DomainException::class);
+        $this->expectExceptionMessage('Char palette expected to be set.');
+
+        $widgetSettings = $this->getWidgetSettingsMock();
+        $widgetSettings
+            ->expects(self::once())
+            ->method('getLeadingSpacer')
+            ->willReturn($this->getFrameMock())
+        ;
+        $widgetSettings
+            ->expects(self::once())
+            ->method('getTrailingSpacer')
+            ->willReturn($this->getFrameMock())
+        ;
+        $widgetSettings
+            ->expects(self::once())
+            ->method('getStylePalette')
+            ->willReturn($this->getStylePaletteMock())
+        ;
+        $widgetSettings
+            ->expects(self::once())
+            ->method('getCharPalette')
+            ->willReturn(null)
+        ;
+
+        $widgetSettingsSolver = $this->getWidgetSettingsSolverMock();
+        $widgetSettingsSolver
+            ->expects(self::once())
+            ->method('solve')
+            ->willReturn($widgetSettings)
+        ;
+
+        $factory = $this->getTesteeInstance(
+            widgetSettingsSolver: $widgetSettingsSolver,
+        );
+
+        $result = $factory->create();
+
+        self::assertInstanceOf(WidgetConfig::class, $result);
     }
 }

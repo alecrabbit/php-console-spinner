@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Unit\Spinner\Asynchronous\Stub;
 
 use AlecRabbit\Spinner\Asynchronous\Revolt\RevoltLoopCreator;
-use AlecRabbit\Spinner\Core\Contract\Loop\A\ALoopProbe;
+use AlecRabbit\Spinner\Core\Loop\Contract\A\ALoopProbe;
 
 final class LoopProbeStub extends ALoopProbe
 {

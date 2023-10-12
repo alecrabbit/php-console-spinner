@@ -4,10 +4,9 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core;
 
-use AlecRabbit\Spinner\Contract\Mode\LinkerMode;
 use AlecRabbit\Spinner\Core\Contract\IDriverLinker;
-use AlecRabbit\Spinner\Core\Contract\Loop\ILoop;
 use AlecRabbit\Spinner\Core\DriverLinker;
+use AlecRabbit\Spinner\Core\Loop\Contract\ILoop;
 use AlecRabbit\Spinner\Exception\LogicException;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;
@@ -24,11 +23,9 @@ final class DriverLinkerTest extends TestCaseWithPrebuiltMocksAndStubs
 
     public function getTesteeInstance(
         ?ILoop $loop = null,
-        ?LinkerMode $linkerMode = null,
     ): IDriverLinker {
         return new DriverLinker(
             loop: $loop ?? $this->getLoopMock(),
-            linkerMode: $linkerMode ?? LinkerMode::DISABLED,
         );
     }
 
@@ -63,7 +60,6 @@ final class DriverLinkerTest extends TestCaseWithPrebuiltMocksAndStubs
 
         $driverLinker = $this->getTesteeInstance(
             loop: $loop,
-            linkerMode: LinkerMode::ENABLED,
         );
 
         $driverLinker->link($driver);
@@ -89,7 +85,6 @@ final class DriverLinkerTest extends TestCaseWithPrebuiltMocksAndStubs
         ;
         $driverLinker = $this->getTesteeInstance(
             loop: $loop,
-            linkerMode: LinkerMode::ENABLED,
         );
 
         $driverLinker->link($driver);
@@ -128,7 +123,6 @@ final class DriverLinkerTest extends TestCaseWithPrebuiltMocksAndStubs
 
         $driverLinker = $this->getTesteeInstance(
             loop: $loop,
-            linkerMode: LinkerMode::ENABLED,
         );
 
         $driverLinker->link($driver);
@@ -144,12 +138,11 @@ final class DriverLinkerTest extends TestCaseWithPrebuiltMocksAndStubs
         );
 
         $test = function (): void {
-            $driverLinker = $this->getTesteeInstance(
-                linkerMode: LinkerMode::ENABLED,
-            );
-            $driver = $this->getDriverMock();
-            $driverLinker->link($driver);
+            $driverLinker = $this->getTesteeInstance();
 
+            $driver = $this->getDriverMock();
+
+            $driverLinker->link($driver);
             $driverLinker->link($this->getDriverMock());
         };
 

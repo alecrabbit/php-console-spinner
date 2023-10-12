@@ -16,7 +16,7 @@ abstract class AContainerEnclosure
      */
     final protected function __construct()
     {
-        // No instances of this class are allowed.
+        // No instances allowed.
     }
 
     final protected static function getContainer(): ContainerInterface

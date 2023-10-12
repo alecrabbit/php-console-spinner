@@ -12,7 +12,6 @@ use AlecRabbit\Spinner\Core\Contract\IDriverBuilder;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDriverFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDriverOutputFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalFactory;
-use AlecRabbit\Spinner\Core\Factory\Contract\ISignalHandlersSetupFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ITimerFactory;
 use AlecRabbit\Spinner\Core\Factory\DriverFactory;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
@@ -104,11 +103,6 @@ final class DriverFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
             );
 
         self::assertSame($driver, $driverFactory->create());
-    }
-
-    protected function getSignalHandlersSetupFactoryMock(): MockObject&ISignalHandlersSetupFactory
-    {
-        return $this->createMock(ISignalHandlersSetupFactory::class);
     }
 
     protected function getDriverStub(): Stub&IDriver

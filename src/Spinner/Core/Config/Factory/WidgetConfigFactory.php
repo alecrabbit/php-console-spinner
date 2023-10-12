@@ -6,45 +6,43 @@ namespace AlecRabbit\Spinner\Core\Config\Factory;
 
 use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\IWidgetConfigFactory;
-use AlecRabbit\Spinner\Core\Config\Contract\IConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IWidgetConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IWidgetRevolverConfig;
+use AlecRabbit\Spinner\Core\Config\RevolverConfig;
+use AlecRabbit\Spinner\Core\Config\Solver\Contract\IWidgetSettingsSolver;
 use AlecRabbit\Spinner\Core\Config\WidgetConfig;
 use AlecRabbit\Spinner\Core\Config\WidgetRevolverConfig;
-use AlecRabbit\Spinner\Core\Contract\IConfigProvider;
 use AlecRabbit\Spinner\Core\Settings\Contract\IWidgetSettings;
+use AlecRabbit\Spinner\Exception\DomainException;
 
 final class WidgetConfigFactory implements IWidgetConfigFactory
 {
-    private IWidgetConfig $widgetConfig;
-
     public function __construct(
-        IConfigProvider $configProvider,
+        protected IWidgetSettingsSolver $widgetSettingsSolver,
     ) {
-        $this->widgetConfig = $this->extractWidgetConfig($configProvider->getConfig());
     }
 
-    private function extractWidgetConfig(IConfig $config): IWidgetConfig
+    public function create(IWidgetConfig|IWidgetSettings|null $widgetSettings = null): IWidgetConfig
     {
-        return $config->get(IWidgetConfig::class);
-    }
+        self::assertWidgetSettings($widgetSettings);
 
-    public function create(?IWidgetSettings $widgetSettings = null): IWidgetConfig
-    {
-        if ($widgetSettings === null) {
-            return $this->widgetConfig;
-        }
-
-        $leadingSpacer = $this->getLeadingSpacer($widgetSettings);
-        $trailingSpacer = $this->getTrailingSpacer($widgetSettings);
-        $revolverConfig = $this->getWidgetRevolverConfig($widgetSettings);
+        $widgetSettings = $this->widgetSettingsSolver->solve();
 
         return
             new WidgetConfig(
-                leadingSpacer: $leadingSpacer,
-                trailingSpacer: $trailingSpacer,
-                revolverConfig: $revolverConfig,
+                leadingSpacer: $this->getLeadingSpacer($widgetSettings),
+                trailingSpacer: $this->getTrailingSpacer($widgetSettings),
+                revolverConfig: $this->getWidgetRevolverConfig($widgetSettings),
             );
+    }
+
+    private static function assertWidgetSettings(IWidgetConfig|IWidgetSettings|null $widgetSettings): void
+    {
+        match (true) {
+            $widgetSettings instanceof IWidgetSettings => throw new DomainException('Widget settings is not expected.'),
+            $widgetSettings instanceof IWidgetConfig => throw new DomainException('Widget config is not expected.'),
+            default => null,
+        };
     }
 
     protected function getLeadingSpacer(IWidgetSettings $widgetSettings): IFrame
@@ -52,7 +50,7 @@ final class WidgetConfigFactory implements IWidgetConfigFactory
         return
             $widgetSettings->getLeadingSpacer()
             ??
-            $this->widgetConfig->getLeadingSpacer();
+            throw new DomainException('Leading spacer expected to be set.');
     }
 
     protected function getTrailingSpacer(IWidgetSettings $widgetSettings): IFrame
@@ -60,18 +58,26 @@ final class WidgetConfigFactory implements IWidgetConfigFactory
         return
             $widgetSettings->getTrailingSpacer()
             ??
-            $this->widgetConfig->getTrailingSpacer();
+            throw new DomainException('Trailing spacer expected to be set.');
     }
 
     private function getWidgetRevolverConfig(IWidgetSettings $widgetSettings): IWidgetRevolverConfig
     {
-        $config = $this->widgetConfig->getWidgetRevolverConfig();
+        $stylePalette =
+            $widgetSettings->getStylePalette()
+            ??
+            throw new DomainException('Style palette expected to be set.');
+
+        $charPalette =
+            $widgetSettings->getCharPalette()
+            ??
+            throw new DomainException('Char palette expected to be set.');
 
         return
             new WidgetRevolverConfig(
-                stylePalette: $widgetSettings->getStylePalette() ?? $config->getStylePalette(),
-                charPalette: $widgetSettings->getCharPalette() ?? $config->getCharPalette(),
-                revolverConfig: $config->getRevolverConfig(),
+                stylePalette: $stylePalette,
+                charPalette: $charPalette,
+                revolverConfig: new RevolverConfig(),
             );
     }
 }

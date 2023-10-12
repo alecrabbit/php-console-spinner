@@ -12,7 +12,6 @@ use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use AlecRabbit\Spinner\Core\Driver;
 use AlecRabbit\Spinner\Core\Output\Contract\IDriverOutput;
-use AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyDriverSettings;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\MockObject\Stub;
@@ -46,11 +45,6 @@ class TestCaseForDriver extends TestCase
     protected function getIntervalMock(): MockObject&IInterval
     {
         return $this->createMock(IInterval::class);
-    }
-
-    protected function getLegacyDriverSettingsMock(): MockObject&ILegacyDriverSettings
-    {
-        return $this->createMock(ILegacyDriverSettings::class);
     }
 
     protected function getDriverConfigMock(): MockObject&IDriverConfig

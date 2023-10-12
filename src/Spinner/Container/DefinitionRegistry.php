@@ -25,7 +25,7 @@ final class DefinitionRegistry implements IDefinitionRegistry
         return self::$instance;
     }
 
-    public function getDefinitions(): Traversable
+    public function load(): Traversable
     {
         yield from $this->definitions;
     }

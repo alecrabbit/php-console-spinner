@@ -6,15 +6,16 @@ namespace AlecRabbit\Tests\Unit\Spinner\Core\Factory;
 
 use AlecRabbit\Spinner\Contract\Mode\LinkerMode;
 use AlecRabbit\Spinner\Core\Config\Contract\IDriverConfig;
-use AlecRabbit\Spinner\Core\Contract\Loop\ILoopProvider;
+use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\DriverLinker;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDriverLinkerFactory;
 use AlecRabbit\Spinner\Core\Factory\DriverLinkerFactory;
-use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
+use AlecRabbit\Spinner\Core\Loop\Contract\ILoopProvider;
+use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 
-final class DriverLinkerFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
+final class DriverLinkerFactoryTest extends TestCase
 {
     #[Test]
     public function canBeInstantiated(): void
@@ -46,34 +47,107 @@ final class DriverLinkerFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
             IDriverConfig::class,
             [
                 'getLinkerMode' => $linkerMode ?? LinkerMode::DISABLED,
-//                'getInitializationMode' => new \LogicException('Should not be called during this test.'),
             ]
         );
     }
 
     #[Test]
-    public function canGetLinker(): void
+    public function canCreateLinker(): void
     {
-        $driverConfig = $this->getDriverConfigMock();
+        $loopProvider = $this->getLoopProviderMock();
+        $loopProvider
+            ->expects(self::once())
+            ->method('hasLoop')
+            ->willReturn(true)
+        ;
 
-//        $driverSettings = $this->getLegacyDriverSettingsMock();
-//        $driverSettings
-//            ->expects(self::once())
-//            ->method('getOptionLinker')
-//            ->willReturn(LinkerOption::ENABLED)
-//        ;
-//        $settingsProvider = $this->getLegacySettingsProviderMock();
-//        $settingsProvider
-//            ->expects(self::once())
-//            ->method('getLegacyDriverSettings')
-//            ->willReturn($driverSettings)
-//        ;
+        $driverConfig = $this->getDriverConfigMock(LinkerMode::ENABLED);
+
+
         $factory =
             $this->getTesteeInstance(
+                loopProvider: $loopProvider,
                 driverConfig: $driverConfig
             );
 
         self::assertInstanceOf(DriverLinkerFactory::class, $factory);
         self::assertInstanceOf(DriverLinker::class, $factory->create());
+    }
+
+    #[Test]
+    public function canCreateDummyLinkerCaseOne(): void
+    {
+        $loopProvider = $this->getLoopProviderMock();
+        $loopProvider
+            ->expects(self::once())
+            ->method('hasLoop')
+            ->willReturn(false)
+        ;
+
+        $driverConfig = $this->getDriverConfigMock();
+        $driverConfig
+            ->expects(self::never())
+            ->method('getLinkerMode')
+            ->willReturn(LinkerMode::ENABLED)
+        ;
+
+        $factory =
+            $this->getTesteeInstance(
+                loopProvider: $loopProvider,
+                driverConfig: $driverConfig
+            );
+
+        self::assertInstanceOf(DriverLinkerFactory::class, $factory);
+
+        $linker = $factory->create();
+
+        $driver = $this->getDriverMock();
+        $driver
+            ->expects(self::never())
+            ->method('getInterval')
+        ;
+
+        $linker->link($driver);
+    }
+
+    protected function getDriverMock(): MockObject&IDriver
+    {
+        return $this->createMock(IDriver::class);
+    }
+
+    #[Test]
+    public function canCreateDummyLinkerCaseTwo(): void
+    {
+        $loopProvider = $this->getLoopProviderMock();
+        $loopProvider
+            ->expects(self::once())
+            ->method('hasLoop')
+            ->willReturn(true)
+        ;
+
+        $driverConfig = $this->getDriverConfigMock();
+        $driverConfig
+            ->expects(self::once())
+            ->method('getLinkerMode')
+            ->willReturn(LinkerMode::ENABLED)
+        ;
+
+        $factory =
+            $this->getTesteeInstance(
+                loopProvider: $loopProvider,
+                driverConfig: $driverConfig
+            );
+
+        self::assertInstanceOf(DriverLinkerFactory::class, $factory);
+
+        $linker = $factory->create();
+
+        $driver = $this->getDriverMock();
+        $driver
+            ->expects(self::never())
+            ->method('getInterval')
+        ;
+
+        $linker->link($driver);
     }
 }

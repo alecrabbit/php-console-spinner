@@ -5,10 +5,9 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Widget\Factory;
 
 use AlecRabbit\Spinner\Contract\IFrame;
-use AlecRabbit\Spinner\Core\Config\Contract\Factory\IWidgetConfigFactory;
+use AlecRabbit\Spinner\Core\Config\Contract\Factory\IRuntimeWidgetConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\IWidgetConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IWidgetRevolverConfig;
-use AlecRabbit\Spinner\Core\Settings\Legacy\Contract\ILegacyWidgetSettings;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidget;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetCompositeBuilder;
@@ -31,20 +30,21 @@ final class WidgetCompositeFactoryTest extends TestCase
     }
 
     public function getTesteeInstance(
-        ?IWidgetConfigFactory $widgetConfigFactory = null,
+        ?IRuntimeWidgetConfigFactory $widgetConfigFactory = null,
         ?IWidgetCompositeBuilder $widgetBuilder = null,
         ?IWidgetRevolverFactory $widgetRevolverFactory = null,
     ): IWidgetCompositeFactory {
-        return new WidgetCompositeFactory(
-            widgetConfigFactory: $widgetConfigFactory ?? $this->getWidgetConfigFactoryMock(),
-            widgetBuilder: $widgetBuilder ?? $this->getWidgetCompositeBuilderMock(),
-            widgetRevolverFactory: $widgetRevolverFactory ?? $this->getWidgetRevolverFactoryMock(),
-        );
+        return
+            new WidgetCompositeFactory(
+                widgetConfigFactory: $widgetConfigFactory ?? $this->getWidgetConfigFactoryMock(),
+                widgetBuilder: $widgetBuilder ?? $this->getWidgetCompositeBuilderMock(),
+                widgetRevolverFactory: $widgetRevolverFactory ?? $this->getWidgetRevolverFactoryMock(),
+            );
     }
 
-    protected function getWidgetConfigFactoryMock(): MockObject&IWidgetConfigFactory
+    protected function getWidgetConfigFactoryMock(): MockObject&IRuntimeWidgetConfigFactory
     {
-        return $this->createMock(IWidgetConfigFactory::class);
+        return $this->createMock(IRuntimeWidgetConfigFactory::class);
     }
 
     protected function getWidgetCompositeBuilderMock(): MockObject&IWidgetCompositeBuilder
@@ -55,91 +55,6 @@ final class WidgetCompositeFactoryTest extends TestCase
     protected function getWidgetRevolverFactoryMock(): MockObject&IWidgetRevolverFactory
     {
         return $this->createMock(IWidgetRevolverFactory::class);
-    }
-
-    #[Test]
-    public function canLegacyCreateWidget(): void
-    {
-        $leadingSpacer = $this->getFrameMock();
-        $trailingSpacer = $this->getFrameMock();
-        $widgetComposite = $this->getWidgetCompositeMock();
-
-        $widgetSettings = $this->getLegacyWidgetSettingsMock();
-        $widgetSettings
-            ->expects(self::once())
-            ->method('getLeadingSpacer')
-            ->willReturn($leadingSpacer)
-        ;
-        $widgetSettings
-            ->expects(self::once())
-            ->method('getTrailingSpacer')
-            ->willReturn($trailingSpacer)
-        ;
-        $widgetRevolver = $this->getWidgetRevolverMock();
-        $widgetRevolverFactory = $this->getWidgetRevolverFactoryMock();
-        $widgetRevolverFactory
-            ->expects(self::once())
-            ->method('legacyCreateWidgetRevolver')
-            ->with(self::identicalTo($widgetSettings))
-            ->willReturn($widgetRevolver)
-        ;
-
-
-        $widgetBuilder = $this->getWidgetCompositeBuilderMock();
-        $widgetBuilder
-            ->expects(self::once())
-            ->method('withLeadingSpacer')
-            ->with(self::identicalTo($leadingSpacer))
-            ->willReturnSelf()
-        ;
-        $widgetBuilder
-            ->expects(self::once())
-            ->method('withTrailingSpacer')
-            ->with(self::identicalTo($trailingSpacer))
-            ->willReturnSelf()
-        ;
-        $widgetBuilder
-            ->expects(self::once())
-            ->method('withWidgetRevolver')
-            ->with(self::identicalTo($widgetRevolver))
-            ->willReturnSelf()
-        ;
-
-
-        $widgetBuilder
-            ->expects(self::once())
-            ->method('build')
-            ->willReturn($widgetComposite)
-        ;
-
-
-        $widgetFactory = $this->getTesteeInstance(
-            widgetBuilder: $widgetBuilder,
-            widgetRevolverFactory: $widgetRevolverFactory,
-        );
-
-        self::assertInstanceOf(WidgetCompositeFactory::class, $widgetFactory);
-        self::assertSame($widgetComposite, $widgetFactory->legacyCreateWidget($widgetSettings));
-    }
-
-    protected function getFrameMock(): MockObject&IFrame
-    {
-        return $this->createMock(IFrame::class);
-    }
-
-    protected function getWidgetCompositeMock(): MockObject&IWidgetComposite
-    {
-        return $this->createMock(IWidgetComposite::class);
-    }
-
-    protected function getLegacyWidgetSettingsMock(): MockObject&ILegacyWidgetSettings
-    {
-        return $this->createMock(ILegacyWidgetSettings::class);
-    }
-
-    protected function getWidgetRevolverMock(): MockObject&IWidgetRevolver
-    {
-        return $this->createMock(IWidgetRevolver::class);
     }
 
     #[Test]
@@ -220,6 +135,11 @@ final class WidgetCompositeFactoryTest extends TestCase
         self::assertSame($widget, $widgetFactory->create());
     }
 
+    protected function getFrameMock(): MockObject&IFrame
+    {
+        return $this->createMock(IFrame::class);
+    }
+
     protected function getRevolverConfigMock(): MockObject&IWidgetRevolverConfig
     {
         return $this->createMock(IWidgetRevolverConfig::class);
@@ -228,6 +148,16 @@ final class WidgetCompositeFactoryTest extends TestCase
     protected function getWidgetConfigMock(): MockObject&IWidgetConfig
     {
         return $this->createMock(IWidgetConfig::class);
+    }
+
+    protected function getWidgetCompositeMock(): MockObject&IWidgetComposite
+    {
+        return $this->createMock(IWidgetComposite::class);
+    }
+
+    protected function getWidgetRevolverMock(): MockObject&IWidgetRevolver
+    {
+        return $this->createMock(IWidgetRevolver::class);
     }
 
     protected function getWidgetMock(): MockObject&IWidget

@@ -9,5 +9,5 @@ use AlecRabbit\Spinner\Core\Settings\Contract\IWidgetSettings;
 
 interface IWidgetConfigFactory
 {
-    public function create(?IWidgetSettings $widgetSettings = null): IWidgetConfig;
+    public function create(IWidgetConfig|IWidgetSettings|null $widgetSettings = null): IWidgetConfig;
 }
