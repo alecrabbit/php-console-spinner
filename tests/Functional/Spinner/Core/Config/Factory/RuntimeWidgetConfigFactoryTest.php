@@ -13,7 +13,7 @@ use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 
-final class WorkingWidgetConfigFactoryTest extends TestCase
+final class RuntimeWidgetConfigFactoryTest extends TestCase
 {
     #[Test]
     public function canBeInstantiated(): void

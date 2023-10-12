@@ -37,6 +37,8 @@ use AlecRabbit\Spinner\Core\Config\Contract\Factory\IDriverConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\ILoopConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\IOutputConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\IRootWidgetConfigFactory;
+use AlecRabbit\Spinner\Core\Config\Contract\Factory\IRuntimeRootWidgetConfigFactory;
+use AlecRabbit\Spinner\Core\Config\Contract\Factory\IRuntimeWidgetConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\IWidgetConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\IAuxConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IConfig;
@@ -50,6 +52,8 @@ use AlecRabbit\Spinner\Core\Config\Factory\ConfigProviderFactory;
 use AlecRabbit\Spinner\Core\Config\Factory\DriverConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Factory\LoopConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Factory\OutputConfigFactory;
+use AlecRabbit\Spinner\Core\Config\Factory\RuntimeRootWidgetConfigFactory;
+use AlecRabbit\Spinner\Core\Config\Factory\RuntimeWidgetConfigFactory;
 use AlecRabbit\Spinner\Core\Config\RootWidgetConfig;
 use AlecRabbit\Spinner\Core\Config\Solver\AutoStartModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\IAutoStartModeSolver;
@@ -292,7 +296,6 @@ function factories(): Traversable
         IIntervalFactory::class => IntervalFactory::class,
         IIntervalNormalizerFactory::class => IntervalNormalizerFactory::class,
         ISettingsProviderFactory::class => SettingsProviderFactory::class,
-        ILegacySignalHandlersSetupFactory::class => LegacySignalHandlersSetupFactory::class,
         ISpinnerFactory::class => SpinnerFactory::class,
         IStyleFrameRevolverFactory::class => StyleFrameRevolverFactory::class,
         ITimerFactory::class => TimerFactory::class,
@@ -317,6 +320,9 @@ function factories(): Traversable
                     loopCreator: (string)$container->get(ILoopCreatorClassProvider::class)->getCreatorClass(),
                 );
         },
+
+        IRuntimeWidgetConfigFactory::class => RuntimeWidgetConfigFactory::class,
+        IRuntimeRootWidgetConfigFactory::class => RuntimeRootWidgetConfigFactory::class,
     ];
 }
 
@@ -350,9 +356,9 @@ function detectors(): Traversable
 function substitutes(): Traversable
 {
     yield from [
-        IWidgetConfigFactory::class => static function (): IRootWidgetConfigFactory {
+        IWidgetConfigFactory::class => static function (): IWidgetConfigFactory {
             return
-                new class implements IRootWidgetConfigFactory {
+                new class implements IWidgetConfigFactory {
                     public function create(
                         ?IWidgetSettings $widgetSettings = null
                     ): IRootWidgetConfig {
@@ -386,18 +392,10 @@ function substitutes(): Traversable
                     }
                 };
         },
-//        CursorVisibilityOption::class => static function (ContainerInterface $container): CursorVisibilityOption {
-//            return
-//                CursorVisibilityOption::HIDDEN; // FIXME (2023-09-29 13:57) [Alec Rabbit]: stub!
-//        },
         NormalizerMethodMode::class => static function (ContainerInterface $container): NormalizerMethodMode {
             return
                 NormalizerMethodMode::BALANCED; // FIXME (2023-09-29 13:57) [Alec Rabbit]: stub!
         },
-//        StylingMethodOption::class => static function (ContainerInterface $container): StylingMethodOption {
-//            return
-//                StylingMethodOption::ANSI4; // FIXME (2023-10-11 14:58) [Alec Rabbit]: stub!
-//        },
     ];
 }
 

@@ -10,7 +10,7 @@ use AlecRabbit\Spinner\Core\Config\Contract\Factory\IConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\IDriverConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\ILoopConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\IOutputConfigFactory;
-use AlecRabbit\Spinner\Core\Config\Contract\Factory\IRootWidgetConfigFactory;
+use AlecRabbit\Spinner\Core\Config\Contract\Factory\IRuntimeRootWidgetConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\IWidgetConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\IAuxConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IDriverConfig;
@@ -39,7 +39,7 @@ final class ConfigFactoryTest extends TestCase
         ?IOutputConfigFactory $outputConfigFactory = null,
         ?IDriverConfigFactory $driverConfigFactory = null,
         ?IWidgetConfigFactory $widgetConfigFactory = null,
-        ?IRootWidgetConfigFactory $rootWidgetConfigFactory = null,
+        ?IRuntimeRootWidgetConfigFactory $rootWidgetConfigFactory = null,
     ): IConfigFactory {
         return
             new ConfigFactory(
@@ -77,9 +77,9 @@ final class ConfigFactoryTest extends TestCase
         return $this->createMock(IWidgetConfigFactory::class);
     }
 
-    protected function getRootWidgetConfigFactoryMock(): MockObject&IRootWidgetConfigFactory
+    protected function getRootWidgetConfigFactoryMock(): MockObject&IRuntimeRootWidgetConfigFactory
     {
-        return $this->createMock(IRootWidgetConfigFactory::class);
+        return $this->createMock(IRuntimeRootWidgetConfigFactory::class);
     }
 
     #[Test]
