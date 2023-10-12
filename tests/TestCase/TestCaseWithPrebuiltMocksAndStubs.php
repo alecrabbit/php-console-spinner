@@ -16,8 +16,6 @@ use AlecRabbit\Spinner\Core\Builder\Contract\IConsoleCursorBuilder;
 use AlecRabbit\Spinner\Core\Builder\Contract\IDriverOutputBuilder;
 use AlecRabbit\Spinner\Core\Builder\Contract\IIntegerNormalizerBuilder;
 use AlecRabbit\Spinner\Core\Builder\Contract\ITimerBuilder;
-use AlecRabbit\Spinner\Core\Config\Legacy\Contract\ILegacySpinnerConfig;
-use AlecRabbit\Spinner\Core\Config\Legacy\Contract\ILegacyWidgetConfig;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\IDriverBuilder;
 use AlecRabbit\Spinner\Core\Contract\IDriverLinker;
@@ -34,18 +32,10 @@ use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IStyleFrameRevolverFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ITimerFactory;
-use AlecRabbit\Spinner\Core\Legacy\Contract\ILegacyAuxSettingsBuilder;
-use AlecRabbit\Spinner\Core\Legacy\Contract\ILegacyWidgetSettingsBuilder;
-use AlecRabbit\Spinner\Core\Legacy\ILegacyLoopAutoStarter;
-use AlecRabbit\Spinner\Core\Legacy\ILegacySettingsProvider;
-use AlecRabbit\Spinner\Core\Legacy\ILegacySignalHandlersSetup;
-use AlecRabbit\Spinner\Core\Legacy\ILegacySignalProcessingLegacyProbe;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoop;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoopProbe;
 use AlecRabbit\Spinner\Core\Output\Contract\IConsoleCursor;
 use AlecRabbit\Spinner\Core\Output\Contract\IDriverOutput;
-use AlecRabbit\Spinner\Core\Pattern\Legacy\Contract\ICharLegacyPattern;
-use AlecRabbit\Spinner\Core\Pattern\Legacy\Contract\IStyleLegacyPattern;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolver;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolverBuilder;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
@@ -94,17 +84,6 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
         return $this->createMock(IWidget::class);
     }
 
-    protected function getCharPatternMock(): MockObject&ICharLegacyPattern
-    {
-        return $this->createMock(ICharLegacyPattern::class);
-    }
-
-    protected function getStylePatternMock(): MockObject&IStyleLegacyPattern
-    {
-        return $this->createMock(IStyleLegacyPattern::class);
-    }
-
-
     protected function getContainerMock(): MockObject&IContainer
     {
         return $this->createMock(IContainer::class);
@@ -139,31 +118,6 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
     protected function getLoopSingletonFactoryMock(): MockObject&ILoopFactory
     {
         return $this->createMock(ILoopFactory::class);
-    }
-
-    protected function getSignalHandlersSetupStub(): Stub&ILegacySignalHandlersSetup
-    {
-        return $this->createStub(ILegacySignalHandlersSetup::class);
-    }
-
-    protected function getLoopAutoStarterStub(): Stub&ILegacyLoopAutoStarter
-    {
-        return $this->createStub(ILegacyLoopAutoStarter::class);
-    }
-
-    protected function getLegacySettingsProviderMock(): MockObject&ILegacySettingsProvider
-    {
-        return $this->createMock(ILegacySettingsProvider::class);
-    }
-
-    protected function getSpinnerConfigMock(): MockObject&ILegacySpinnerConfig
-    {
-        return $this->createMock(ILegacySpinnerConfig::class);
-    }
-
-    protected function getLegacyWidgetConfigMock(): MockObject&ILegacyWidgetConfig
-    {
-        return $this->createMock(ILegacyWidgetConfig::class);
     }
 
     protected function getWidgetCompositeFactoryMock(): MockObject&IWidgetCompositeFactory
@@ -224,17 +178,6 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
     protected function getLoopProbeMock(): MockObject&ILoopProbe
     {
         return $this->createMock(ILoopProbe::class);
-    }
-
-    protected function getLegacyAuxSettingsBuilderMock(): MockObject&ILegacyAuxSettingsBuilder
-    {
-        return $this->createMock(ILegacyAuxSettingsBuilder::class);
-    }
-
-
-    protected function getLegacyWidgetSettingsBuilderMock(): MockObject&ILegacyWidgetSettingsBuilder
-    {
-        return $this->createMock(ILegacyWidgetSettingsBuilder::class);
     }
 
     protected function getLoopMock(): MockObject&ILoop
@@ -352,10 +295,5 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
         $mockObject = $this->createMock(IFrameCollection::class);
         $mockObject->method('count')->willReturn(1);
         return $mockObject;
-    }
-
-    protected function getSignalProcessingProbeMock(): MockObject&ILegacySignalProcessingLegacyProbe
-    {
-        return $this->createMock(ILegacySignalProcessingLegacyProbe::class);
     }
 }

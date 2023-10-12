@@ -215,7 +215,6 @@ function getDefinitions(): Traversable
 
     // to be removed:
     yield from substitutes();
-    yield from legacy();
 }
 
 // parts of definitions:
@@ -418,62 +417,6 @@ function substitutes(): Traversable
             return
                 NormalizerMethodMode::BALANCED; // FIXME (2023-09-29 13:57) [Alec Rabbit]: stub!
         },
-    ];
-}
-
-function legacy(): Traversable
-{
-    yield from [
-//        ILegacyAuxSettingsBuilder::class => LegacyAuxSettingsBuilder::class,
-//        ILegacyDriverSettingsBuilder::class => LegacyDriverSettingsBuilder::class,
-//        ILegacySettingsProviderBuilder::class => LegacySettingsProviderBuilder::class,
-//        ILegacyWidgetSettingsBuilder::class => LegacyWidgetSettingsBuilder::class,
-//        ILegacyWidgetSettingsFactory::class => LegacyWidgetSettingsFactory::class,
-//        ILegacyDriverSettings::class => static function (ContainerInterface $container): ILegacyDriverSettings {
-//            return $container->get(ILegacySettingsProvider::class)->getLegacyDriverSettings();
-//        },
-//        ILegacySignalProcessingProbeFactory::class => LegacySignalProcessingProbeFactory::class,
-//
-//        ILegacyTerminalProbeFactory::class => static function (): ILegacyTerminalProbeFactory {
-//            return
-//                new LegacyTerminalProbeFactory(
-//                    new ArrayObject([
-//                        NativeTerminalLegacyProbe::class,
-//                    ]),
-//                );
-//        },
-//        ILoopSettingsFactory::class => static function (ContainerInterface $container): ILoopSettingsFactory {
-//            $loopProbe = null;
-//            $signalProcessingProbe = null;
-//            try {
-//                $loopProbe = $container->get(ILegacyLoopProbeFactory::class)->getProbe();
-//                $signalProcessingProbe = $container->get(ILegacySignalProcessingProbeFactory::class)->getProbe();
-//            } finally {
-//                return new LoopSettingsFactory(
-//                    $loopProbe,
-//                    $signalProcessingProbe
-//                );
-//            }
-//        },
-//        ILegacySettingsProvider::class => static function (ContainerInterface $container): ILegacySettingsProvider {
-//            return
-//                $container->get(ILegacySettingsProviderBuilder::class)->build();
-//        },
-//        ILegacySignalProcessingLegacyProbe::class => static function (ContainerInterface $container
-//        ): ILegacySignalProcessingLegacyProbe {
-//            return
-//                $container->get(ILegacySignalProcessingProbeFactory::class)->getProbe();
-//        },
-//        ILegacyTerminalSettingsFactory::class => static function (ContainerInterface $container
-//        ): ILegacyTerminalSettingsFactory {
-//            $terminalProbe = $container->get(ILegacyTerminalProbeFactory::class)->getProbe();
-//
-//            return
-//                new LegacyTerminalSettingsFactory($terminalProbe);
-//        },
-//        ILegacySignalHandlersSetup::class => LegacySignalHandlersSetup::class,
-//        ILegacyLoopAutoStarterBuilder::class => LegacyLoopAutoStarterBuilder::class,
-//        ILegacyLoopAutoStarterFactory::class => LegacyLoopAutoStarterFactory::class,
     ];
 }
 // @codeCoverageIgnoreEnd

@@ -160,11 +160,6 @@ final class WidgetCompositeFactoryTest extends TestCase
         return $this->createMock(IWidgetRevolver::class);
     }
 
-    protected function getLegacyWidgetSettingsMock(): MockObject&ILegacyWidgetSettings
-    {
-        return $this->createMock(ILegacyWidgetSettings::class);
-    }
-
     protected function getWidgetMock(): MockObject&IWidget
     {
         return $this->createMock(IWidget::class);

@@ -327,8 +327,4 @@ final class WidgetFactoryTest extends TestCase
         self::assertSame($widget, $widgetFactory->create());
     }
 
-    protected function getLegacyWidgetSettingsMock(): MockObject&ILegacyWidgetSettings
-    {
-        return $this->createMock(ILegacyWidgetSettings::class);
-    }
 }
