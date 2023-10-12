@@ -55,6 +55,7 @@ use AlecRabbit\Spinner\Core\Config\Factory\LoopConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Factory\OutputConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Factory\RuntimeRootWidgetConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Factory\RuntimeWidgetConfigFactory;
+use AlecRabbit\Spinner\Core\Config\Factory\WidgetConfigFactory;
 use AlecRabbit\Spinner\Core\Config\RootWidgetConfig;
 use AlecRabbit\Spinner\Core\Config\Solver\AutoStartModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\IAutoStartModeSolver;
@@ -65,6 +66,7 @@ use AlecRabbit\Spinner\Core\Config\Solver\Contract\INormalizerMethodModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\IRunMethodModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\ISignalHandlersModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\IStylingMethodModeSolver;
+use AlecRabbit\Spinner\Core\Config\Solver\Contract\IWidgetSettingsSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\CursorVisibilityModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\InitializationModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\LinkerModeSolver;
@@ -72,7 +74,6 @@ use AlecRabbit\Spinner\Core\Config\Solver\NormalizerMethodModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\RunMethodModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\SignalHandlersModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\StylingMethodModeSolver;
-use AlecRabbit\Spinner\Core\Config\WidgetConfig;
 use AlecRabbit\Spinner\Core\Config\WidgetRevolverConfig;
 use AlecRabbit\Spinner\Core\Contract\IConfigProvider;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
@@ -147,6 +148,7 @@ use AlecRabbit\Spinner\Core\Settings\Factory\DefaultSettingsFactory;
 use AlecRabbit\Spinner\Core\Settings\Factory\DetectedSettingsFactory;
 use AlecRabbit\Spinner\Core\Settings\Factory\SettingsProviderFactory;
 use AlecRabbit\Spinner\Core\Settings\Factory\UserSettingsFactory;
+use AlecRabbit\Spinner\Core\Settings\WidgetSettings;
 use AlecRabbit\Spinner\Core\Widget\Builder\WidgetBuilder;
 use AlecRabbit\Spinner\Core\Widget\Builder\WidgetCompositeBuilder;
 use AlecRabbit\Spinner\Core\Widget\Builder\WidgetRevolverBuilder;
@@ -361,24 +363,39 @@ function detectors(): Traversable
 function substitutes(): Traversable
 {
     yield from [
-        IWidgetConfigFactory::class => static function (): IWidgetConfigFactory {
-            return
-                new class implements IWidgetConfigFactory {
-                    public function create(
-                        ?IWidgetSettings $widgetSettings = null
-                    ): IWidgetConfig {
-                        return
-                            new WidgetConfig(
-                                leadingSpacer: new CharFrame('', 0),
-                                trailingSpacer: new CharFrame(' ', 1),
-                                revolverConfig: new WidgetRevolverConfig(
-                                    stylePalette: new NoStylePalette(),
-                                    charPalette: new NoCharPalette(),
-                                )
-                            );
-                    }
-                };
+        IWidgetSettingsSolver::class => static function (): IWidgetSettingsSolver {
+            return new class implements IWidgetSettingsSolver {
+                public function solve(): IWidgetSettings
+                {
+                    return
+                        new WidgetSettings(
+                            leadingSpacer: new CharFrame('', 0),
+                            trailingSpacer: new CharFrame(' ', 1),
+                            stylePalette: new NoStylePalette(),
+                            charPalette: new NoCharPalette(),
+                        );
+                }
+            };
         },
+        IWidgetConfigFactory::class => WidgetConfigFactory::class,
+//        IWidgetConfigFactory::class => static function (): IWidgetConfigFactory {
+//            return
+//                new class implements IWidgetConfigFactory {
+//                    public function create(
+//                        ?IWidgetSettings $widgetSettings = null
+//                    ): IWidgetConfig {
+//                        return
+//                            new WidgetConfig(
+//                                leadingSpacer: new CharFrame('', 0),
+//                                trailingSpacer: new CharFrame(' ', 1),
+//                                revolverConfig: new WidgetRevolverConfig(
+//                                    stylePalette: new NoStylePalette(),
+//                                    charPalette: new NoCharPalette(),
+//                                )
+//                            );
+//                    }
+//                };
+//        },
         IRootWidgetConfigFactory::class => static function (): IRootWidgetConfigFactory {
             return
                 new class implements IRootWidgetConfigFactory {
