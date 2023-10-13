@@ -23,9 +23,13 @@ final class WidgetFactory implements IWidgetFactory
 
     public function create(IWidgetConfig|IWidgetSettings|null $widgetSettings = null): IWidget
     {
-        $widgetConfig = $this->widgetConfigFactory->create($widgetSettings);
+        $widgetConfig =
+            $this->widgetConfigFactory->create($widgetSettings);
 
-        $revolver = $this->widgetRevolverFactory->create($widgetConfig->getWidgetRevolverConfig());
+        $revolver =
+            $this->widgetRevolverFactory->create(
+                $widgetConfig->getWidgetRevolverConfig()
+            );
 
         return
             $this->widgetBuilder
