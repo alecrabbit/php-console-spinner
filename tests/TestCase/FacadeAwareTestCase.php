@@ -9,9 +9,15 @@ use Psr\Container\ContainerInterface;
 
 abstract class FacadeAwareTestCase extends TestCase
 {
-    protected const GET_CONTAINER = 'getContainer';
-    protected static ?ContainerInterface $container;
-    protected static ?bool $configurationCreated;
+    private const GET_CONTAINER = 'getContainer';
+    private const CONFIGURATION_CREATED = 'configurationCreated';
+    private static ?ContainerInterface $container;
+    private static ?bool $configurationCreated;
+
+    protected static function getStoredContainer(): ?ContainerInterface
+    {
+        return self::$container;
+    }
 
     protected function setUp(): void
     {
@@ -34,12 +40,12 @@ abstract class FacadeAwareTestCase extends TestCase
 
     protected static function extractConfigurationCreated(): mixed
     {
-        return self::getPropertyValue('configurationCreated', Facade::class);
+        return self::getPropertyValue(self::CONFIGURATION_CREATED, Facade::class);
     }
 
     protected static function setConfigurationCreated(bool $configurationCreated): void
     {
-        self::setPropertyValue(Facade::class, 'configurationCreated', $configurationCreated);
+        self::setPropertyValue(Facade::class, self::CONFIGURATION_CREATED, $configurationCreated);
     }
 
     protected function tearDown(): void

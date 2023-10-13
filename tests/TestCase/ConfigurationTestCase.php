@@ -4,24 +4,19 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\TestCase;
 
-use AlecRabbit\Spinner\Container\Container;
-use AlecRabbit\Spinner\Container\Contract\IDefinitionRegistry;
-use AlecRabbit\Spinner\Container\Factory\ContainerFactory;
-use AlecRabbit\Spinner\Contract\Output\IResourceStream;
 use AlecRabbit\Spinner\Core\Config\Contract\IConfigElement;
 use AlecRabbit\Spinner\Core\Contract\IConfigProvider;
-use AlecRabbit\Spinner\Core\Loop\Contract\ILoop;
-use AlecRabbit\Spinner\Core\Loop\Contract\ILoopSetup;
 use AlecRabbit\Spinner\Facade;
-use Psr\Container\ContainerInterface;
-use Traversable;
 
 abstract class ConfigurationTestCase extends ContainerModifyingTestCase
 {
     protected static function getRequiredConfig(string $class): IConfigElement
     {
+        static::performContainerModifications();
         return self::getConfigProvider()->getConfig()->get($class);
     }
+
+    abstract protected static function performContainerModifications(): void;
 
     protected static function getConfigProvider(): IConfigProvider
     {

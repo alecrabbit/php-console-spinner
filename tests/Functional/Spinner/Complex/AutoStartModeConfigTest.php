@@ -12,8 +12,13 @@ use AlecRabbit\Spinner\Facade;
 use AlecRabbit\Tests\TestCase\ConfigurationTestCase;
 use PHPUnit\Framework\Attributes\Test;
 
-final class LoopAutoStartModeConfigTest extends ConfigurationTestCase
+final class AutoStartModeConfigTest extends ConfigurationTestCase
 {
+    protected static function performContainerModifications(): void
+    {
+        // do nothing
+    }
+
     #[Test]
     public function canSetLoopAutoStartOptionEnabled(): void
     {

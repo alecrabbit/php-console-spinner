@@ -46,4 +46,9 @@ final class CursorVisibilityModeConfigTest extends ConfigurationTestCase
 
         self::assertSame(CursorVisibilityMode::HIDDEN, $outputConfig->getCursorVisibilityMode());
     }
+
+    protected static function performContainerModifications(): void
+    {
+        // do nothing
+    }
 }

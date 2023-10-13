@@ -4,28 +4,30 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\TestCase;
 
-use AlecRabbit\Spinner\Container\Container;
 use AlecRabbit\Spinner\Container\Contract\IDefinitionRegistry;
 use AlecRabbit\Spinner\Container\Factory\ContainerFactory;
 use AlecRabbit\Spinner\Contract\Output\IResourceStream;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoop;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoopSetup;
-use AlecRabbit\Spinner\Facade;
 use Psr\Container\ContainerInterface;
 use Traversable;
 
 abstract class ContainerModifyingTestCase extends FacadeAwareTestCase
 {
+    private const DEFINITIONS = 'definitions';
+
     protected function setUp(): void
     {
         parent::setUp();
-        $modifiedContainer = self::modifyContainer(clone self::$container);
+        $modifiedContainer = self::modifyContainer(clone self::getStoredContainer());
         self::setContainer($modifiedContainer);
     }
 
-    protected static function modifyContainer(Container $container, array $substitutes = []): ContainerInterface
-    {
-        $definitions = self::getPropertyValue('definitions', $container);
+    protected static function modifyContainer(
+        ContainerInterface $container,
+        array $substitutes = []
+    ): ContainerInterface {
+        $definitions = self::getPropertyValue(self::DEFINITIONS, $container);
 
         return
             self::createContainer(

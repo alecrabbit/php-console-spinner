@@ -7,13 +7,35 @@ namespace AlecRabbit\Tests\Functional\Spinner\Complex;
 use AlecRabbit\Spinner\Contract\Mode\StylingMethodMode;
 use AlecRabbit\Spinner\Contract\Option\StylingMethodOption;
 use AlecRabbit\Spinner\Core\Config\Contract\IOutputConfig;
+use AlecRabbit\Spinner\Core\Settings\Contract\Factory\IDetectedSettingsFactory;
+use AlecRabbit\Spinner\Core\Settings\Contract\ISettings;
 use AlecRabbit\Spinner\Core\Settings\OutputSettings;
+use AlecRabbit\Spinner\Core\Settings\Settings;
 use AlecRabbit\Spinner\Facade;
 use AlecRabbit\Tests\TestCase\ConfigurationTestCase;
 use PHPUnit\Framework\Attributes\Test;
 
 final class StylingMethodModeConfigTest extends ConfigurationTestCase
 {
+    protected static function performContainerModifications(): void
+    {
+        self::modifyContainer(
+            self::extractContainer(),
+            [
+                // All settings detected will be considered as AUTO
+                IDetectedSettingsFactory::class => static function () {
+                    return
+                        new class implements IDetectedSettingsFactory {
+                            public function create(): ISettings
+                            {
+                                return new Settings();
+                            }
+                        };
+                },
+            ]
+        );
+    }
+
     #[Test]
     public function canSetStylingMethodOptionNone(): void
     {
