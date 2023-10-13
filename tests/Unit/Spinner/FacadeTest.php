@@ -15,16 +15,13 @@ use AlecRabbit\Spinner\Core\Settings\Contract\ISettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettingsProvider;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISpinnerSettings;
 use AlecRabbit\Spinner\Facade;
-use AlecRabbit\Tests\TestCase\TestCase;
+use AlecRabbit\Tests\TestCase\FacadeAwareTestCase;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 use Psr\Container\ContainerInterface;
 
-final class FacadeTest extends TestCase
+final class FacadeTest extends FacadeAwareTestCase
 {
-    private const GET_CONTAINER = 'getContainer';
-    private static ?ContainerInterface $container;
-
 //    #[Test]
 //    public function canNotBeInstantiated(): void
 //    {
@@ -61,11 +58,6 @@ final class FacadeTest extends TestCase
     private function getContainerMock(): MockObject&IContainer
     {
         return $this->createMock(IContainer::class);
-    }
-
-    protected static function setContainer(?ContainerInterface $container): void
-    {
-        Facade::setContainer($container);
     }
 
     private function getSettingsMock(): MockObject&ISettings
@@ -207,23 +199,5 @@ final class FacadeTest extends TestCase
         ;
 
         self::assertSame($driver, Facade::getDriver());
-    }
-
-    protected function setUp(): void
-    {
-        self::$container = self::extractContainer();
-        self::setContainer(null);
-        parent::setUp();
-    }
-
-    protected static function extractContainer(): mixed
-    {
-        return self::callMethod(Facade::class, self::GET_CONTAINER);
-    }
-
-    protected function tearDown(): void
-    {
-        parent::tearDown();
-        self::setContainer(self::$container);
     }
 }

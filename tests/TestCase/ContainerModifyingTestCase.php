@@ -14,24 +14,13 @@ use AlecRabbit\Spinner\Facade;
 use Psr\Container\ContainerInterface;
 use Traversable;
 
-abstract class ContainerModifyingTestCase extends TestCase
+abstract class ContainerModifyingTestCase extends FacadeAwareTestCase
 {
-    protected const GET_CONTAINER = 'getContainer';
-    protected static ?ContainerInterface $container;
-
     protected function setUp(): void
     {
-        self::$container = self::extractContainer();
-
+        parent::setUp();
         $modifiedContainer = self::modifyContainer(clone self::$container);
         self::setContainer($modifiedContainer);
-
-        parent::setUp();
-    }
-
-    protected static function extractContainer(): mixed
-    {
-        return self::callMethod(Facade::class, self::GET_CONTAINER);
     }
 
     protected static function modifyContainer(Container $container, array $substitutes = []): ContainerInterface
@@ -96,16 +85,5 @@ abstract class ContainerModifyingTestCase extends TestCase
         }
 
         return $definitions;
-    }
-
-    protected static function setContainer(?ContainerInterface $container): void
-    {
-        Facade::setContainer($container);
-    }
-
-    protected function tearDown(): void
-    {
-        parent::tearDown();
-        self::setContainer(self::$container);
     }
 }
