@@ -5,69 +5,46 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Unit\Spinner\Core;
 
 use AlecRabbit\Spinner\Core\Builder\DriverBuilder;
+use AlecRabbit\Spinner\Core\Config\Contract\IDriverConfig;
 use AlecRabbit\Spinner\Core\Contract\IDriverBuilder;
 use AlecRabbit\Spinner\Core\Driver;
-use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalFactory;
 use AlecRabbit\Spinner\Exception\LogicException;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;
+use PHPUnit\Framework\MockObject\MockObject;
 
 final class DriverBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
 {
     #[Test]
-    public function canBeCreated(): void
+    public function canBeInstantiated(): void
     {
         $driverBuilder = $this->getTesteeInstance();
 
         self::assertInstanceOf(DriverBuilder::class, $driverBuilder);
     }
 
-    public function getTesteeInstance(
-        ?IIntervalFactory $intervalFactory = null,
-    ): IDriverBuilder {
-        return new DriverBuilder(
-            intervalFactory: $intervalFactory ?? $this->getIntervalFactoryMock()
-        );
+    public function getTesteeInstance(): IDriverBuilder
+    {
+        return
+            new DriverBuilder();
     }
 
     #[Test]
-    public function canBuildDriverWithCustomIntervalCallback(): void
+    public function canBuildDriverWithCustomInterval(): void
     {
         $driverBuilder = $this->getTesteeInstance();
 
         $interval = $this->getIntervalMock();
+
         $driver = $driverBuilder
             ->withDriverOutput($this->getDriverOutputMock())
             ->withTimer($this->getTimerMock())
             ->withInitialInterval($interval)
-            ->withDriverSettings($this->getDriverSettingsMock())
             ->build()
         ;
 
         self::assertInstanceOf(Driver::class, $driver);
         self::assertSame($interval, $driver->getInterval());
-    }
-
-    #[Test]
-    public function canBuildDriverWithoutIntervalCallback(): void
-    {
-        $intervalFactory = $this->getIntervalFactoryMock();
-        $intervalFactory
-            ->expects(self::once())
-            ->method('createStill')
-            ->willReturn($this->getIntervalMock())
-        ;
-
-        $driverBuilder = $this->getTesteeInstance(intervalFactory: $intervalFactory);
-
-        $driver = $driverBuilder
-            ->withDriverOutput($this->getDriverOutputMock())
-            ->withTimer($this->getTimerMock())
-            ->withDriverSettings($this->getDriverSettingsMock())
-            ->build()
-        ;
-
-        self::assertInstanceOf(Driver::class, $driver);
     }
 
     #[Test]
@@ -79,7 +56,7 @@ final class DriverBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
             ->withDriverOutput($this->getDriverOutputMock())
             ->withTimer($this->getTimerMock())
             ->withObserver($this->getObserverMock())
-            ->withDriverSettings($this->getDriverSettingsMock())
+            ->withInitialInterval($this->getIntervalMock())
             ->build()
         ;
 
@@ -97,7 +74,7 @@ final class DriverBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
 
             $driverBuilder
                 ->withTimer($this->getTimerMock())
-                ->withDriverSettings($this->getDriverSettingsMock())
+                ->withInitialInterval($this->getIntervalMock())
                 ->build()
             ;
         };
@@ -120,7 +97,7 @@ final class DriverBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
 
             $driverBuilder
                 ->withDriverOutput($this->getDriverOutputMock())
-                ->withDriverSettings($this->getDriverSettingsMock())
+                ->withInitialInterval($this->getIntervalMock())
                 ->build()
             ;
         };
@@ -131,11 +108,12 @@ final class DriverBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
             message: $exceptionMessage,
         );
     }
+
     #[Test]
-    public function throwsIfDriverSettingsAreNotSet(): void
+    public function throwsIfInitialIntervalIsNotSet(): void
     {
         $exceptionClass = LogicException::class;
-        $exceptionMessage = 'DriverSettings are not set.';
+        $exceptionMessage = 'InitialInterval is not set.';
 
         $test = function (): void {
             $driverBuilder = $this->getTesteeInstance();
@@ -152,5 +130,10 @@ final class DriverBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
             exception: $exceptionClass,
             message: $exceptionMessage,
         );
+    }
+
+    protected function getDriverConfigMock(): MockObject&IDriverConfig
+    {
+        return $this->createMock(IDriverConfig::class);
     }
 }

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core;
 
-use AlecRabbit\Spinner\Contract\Option\OptionCursor;
+use AlecRabbit\Spinner\Contract\Mode\CursorVisibilityMode;
 use AlecRabbit\Spinner\Core\Builder\ConsoleCursorBuilder;
 use AlecRabbit\Spinner\Core\Builder\Contract\IConsoleCursorBuilder;
 use AlecRabbit\Spinner\Core\Output\ConsoleCursor;
@@ -14,7 +14,7 @@ use PHPUnit\Framework\Attributes\Test;
 final class ConsoleCursorBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
 {
     #[Test]
-    public function canBeCreated(): void
+    public function canBeInstantiated(): void
     {
         $consoleCursorBuilder = $this->getTesteeInstance();
 
@@ -31,15 +31,15 @@ final class ConsoleCursorBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
     {
         $output = $this->getBufferedOutputMock();
         $consoleCursorBuilder = $this->getTesteeInstance();
-        $cursorOption = OptionCursor::VISIBLE;
+        $cursorMode = CursorVisibilityMode::VISIBLE;
         $consoleCursor =
             $consoleCursorBuilder
                 ->withOutput($output)
-                ->withOptionCursor($cursorOption)
+                ->withCursorVisibilityMode($cursorMode)
                 ->build()
         ;
         self::assertInstanceOf(ConsoleCursor::class, $consoleCursor);
         self::assertSame($output, self::getPropertyValue('output', $consoleCursor));
-        self::assertSame($cursorOption, self::getPropertyValue('optionCursor', $consoleCursor));
+        self::assertSame($cursorMode, self::getPropertyValue('cursorVisibilityMode', $consoleCursor));
     }
 }

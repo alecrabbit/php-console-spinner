@@ -2,27 +2,42 @@
 
 declare(strict_types=1);
 
-
 namespace AlecRabbit\Spinner\Core\Settings;
 
-use AlecRabbit\Spinner\Contract\Option\OptionNormalizerMode;
+use AlecRabbit\Spinner\Contract\Option\NormalizerOption;
+use AlecRabbit\Spinner\Contract\Option\RunMethodOption;
 use AlecRabbit\Spinner\Core\Settings\Contract\IAuxSettings;
 
 final class AuxSettings implements IAuxSettings
 {
     public function __construct(
-        protected OptionNormalizerMode $optionNormalizerMode = OptionNormalizerMode::BALANCED,
+        protected RunMethodOption $runMethodOption = RunMethodOption::AUTO,
+        protected NormalizerOption $normalizerOption = NormalizerOption::AUTO,
     ) {
     }
 
-    public function getOptionNormalizerMode(): OptionNormalizerMode
+    public function getRunMethodOption(): RunMethodOption
     {
-        return $this->optionNormalizerMode;
+        return $this->runMethodOption;
     }
 
-    public function setOptionNormalizerMode(OptionNormalizerMode $optionNormalizerMode): IAuxSettings
+    public function setRunMethodOption(RunMethodOption $runMethodOption): void
     {
-        $this->optionNormalizerMode = $optionNormalizerMode;
-        return $this;
+        $this->runMethodOption = $runMethodOption;
+    }
+
+    public function getNormalizerOption(): NormalizerOption
+    {
+        return $this->normalizerOption;
+    }
+
+    public function setNormalizerOption(NormalizerOption $normalizerOption): void
+    {
+        $this->normalizerOption = $normalizerOption;
+    }
+
+    public function getIdentifier(): string
+    {
+        return IAuxSettings::class;
     }
 }

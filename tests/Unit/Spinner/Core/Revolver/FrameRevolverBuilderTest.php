@@ -4,17 +4,19 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Revolver;
 
+use AlecRabbit\Spinner\Core\Contract\ITolerance;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolverBuilder;
 use AlecRabbit\Spinner\Core\Revolver\FrameCollectionRevolver;
 use AlecRabbit\Spinner\Core\Revolver\FrameRevolverBuilder;
 use AlecRabbit\Spinner\Exception\LogicException;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;
+use PHPUnit\Framework\MockObject\MockObject;
 
 final class FrameRevolverBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
 {
     #[Test]
-    public function canBeCreated(): void
+    public function canBeInstantiated(): void
     {
         $frameRevolverBuilder = $this->getTesteeInstance();
 
@@ -41,12 +43,17 @@ final class FrameRevolverBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
             $frameRevolverBuilder
                 ->withFrameCollection($frameCollection)
                 ->withInterval($this->getIntervalMock())
-                ->withTolerance(10)
+                ->withTolerance($this->getToleranceMock())
                 ->build()
         ;
 
         self::assertInstanceOf(FrameRevolverBuilder::class, $frameRevolverBuilder);
         self::assertInstanceOf(FrameCollectionRevolver::class, $revolver);
+    }
+
+    private function getToleranceMock(): MockObject&ITolerance
+    {
+        return $this->createMock(ITolerance::class);
     }
 
     #[Test]
@@ -98,4 +105,5 @@ final class FrameRevolverBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
             message: $exceptionMessage,
         );
     }
+
 }

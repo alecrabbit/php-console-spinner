@@ -4,14 +4,17 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Widget\Contract;
 
-use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
+use AlecRabbit\Spinner\Core\Contract\ITolerance;
+use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolver;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolverBuilder;
 
 interface IWidgetRevolverBuilder extends IRevolverBuilder
 {
-    public function withCharRevolver(IRevolver $charRevolver): IWidgetRevolverBuilder;
+    public function build(): IWidgetRevolver;
 
-    public function withStyleRevolver(IRevolver $styleRevolver): IWidgetRevolverBuilder;
+    public function withCharRevolver(IFrameRevolver $charRevolver): IWidgetRevolverBuilder;
 
-    public function withTolerance(int $tolerance): IWidgetRevolverBuilder;
+    public function withStyleRevolver(IFrameRevolver $styleRevolver): IWidgetRevolverBuilder;
+
+    public function withTolerance(ITolerance $tolerance): IWidgetRevolverBuilder;
 }

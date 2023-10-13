@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-
 namespace AlecRabbit\Tests\Unit\Spinner\Container;
 
 use AlecRabbit\Spinner\Container\Contract\IServiceSpawner;
@@ -19,7 +18,7 @@ use Psr\Container\ContainerInterface;
 final class ServiceSpawnerTest extends TestCaseWithPrebuiltMocksAndStubs
 {
     #[Test]
-    public function canBeCreated(): void
+    public function canBeInstantiated(): void
     {
         $spawner = $this->getTesteeInstance();
 

@@ -7,6 +7,7 @@ namespace AlecRabbit\Spinner\Core\Revolver;
 use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Core\Contract\IFrameCollection;
+use AlecRabbit\Spinner\Core\Contract\ITolerance;
 use AlecRabbit\Spinner\Core\Revolver\A\ARevolver;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameCollectionRevolver;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
@@ -22,7 +23,7 @@ final class FrameCollectionRevolver extends ARevolver implements IFrameCollectio
     public function __construct(
         protected IFrameCollection $frameCollection,
         IInterval $interval,
-        int $tolerance,
+        ITolerance $tolerance,
     ) {
         parent::__construct($interval, $tolerance);
         $this->count = $this->frameCollection->count();

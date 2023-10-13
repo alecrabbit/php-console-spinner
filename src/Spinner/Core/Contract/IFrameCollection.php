@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-
 namespace AlecRabbit\Spinner\Core\Contract;
 
 use AlecRabbit\Spinner\Contract\IFrame;
@@ -17,7 +16,7 @@ use Countable;
 interface IFrameCollection extends Countable, ArrayAccess
 {
     /**
-     * @return T
+     * @psalm-return T
      */
     public function get(int $index): IFrame;
 

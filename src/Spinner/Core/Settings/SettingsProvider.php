@@ -2,55 +2,32 @@
 
 declare(strict_types=1);
 
-
 namespace AlecRabbit\Spinner\Core\Settings;
 
-use AlecRabbit\Spinner\Core\Config\Contract\IWidgetConfig;
-use AlecRabbit\Spinner\Core\Contract\ISettingsProvider;
-use AlecRabbit\Spinner\Core\Settings\Contract\IAuxSettings;
-use AlecRabbit\Spinner\Core\Settings\Contract\IDriverSettings;
-use AlecRabbit\Spinner\Core\Settings\Contract\ILoopSettings;
-use AlecRabbit\Spinner\Core\Settings\Contract\ITerminalSettings;
+use AlecRabbit\Spinner\Core\Settings\Contract\ISettings;
+use AlecRabbit\Spinner\Core\Settings\Contract\ISettingsProvider;
 
-final class SettingsProvider implements ISettingsProvider
+final readonly class SettingsProvider implements ISettingsProvider
 {
     public function __construct(
-        protected IAuxSettings $auxSettings,
-        protected ITerminalSettings $terminalSettings,
-        protected ILoopSettings $loopSettings,
-        protected IDriverSettings $driverSettings,
-        protected IWidgetConfig $widgetConfig,
-        protected IWidgetConfig $rootWidgetConfig,
+        protected ISettings $userSettings,
+        protected ISettings $defaultSettings,
+        protected ISettings $detectedSettings,
     ) {
     }
 
-    public function getRootWidgetConfig(): IWidgetConfig
+    public function getUserSettings(): ISettings
     {
-        return $this->rootWidgetConfig;
+        return $this->userSettings;
     }
 
-    public function getWidgetConfig(): IWidgetConfig
+    public function getDefaultSettings(): ISettings
     {
-        return $this->widgetConfig;
+        return $this->defaultSettings;
     }
 
-    public function getDriverSettings(): IDriverSettings
+    public function getDetectedSettings(): ISettings
     {
-        return $this->driverSettings;
-    }
-
-    public function getLoopSettings(): ILoopSettings
-    {
-        return $this->loopSettings;
-    }
-
-    public function getTerminalSettings(): ITerminalSettings
-    {
-        return $this->terminalSettings;
-    }
-
-    public function getAuxSettings(): IAuxSettings
-    {
-        return $this->auxSettings;
+        return $this->detectedSettings;
     }
 }

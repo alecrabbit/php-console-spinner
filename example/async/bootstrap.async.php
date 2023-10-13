@@ -10,7 +10,7 @@ require_once __DIR__ . '/../bootstrap.php';
 $driver = Facade::getDriver();
 $echo =
     $driver->wrap(
-        static function (string $message) {
+        static function (?string $message = null) {
             echo $message . PHP_EOL;
         }
     );
@@ -29,11 +29,16 @@ $memoryReport = static function () use ($echo): void {
     );
 };
 
-$memoryReport();
+$loop = Facade::getLoop();
 
-Facade::getLoop()
+$loop
     ->repeat(
         $reportInterval,
         $memoryReport
     )
 ;
+
+$echo(PHP_EOL . sprintf('Using loop: "%s"', get_debug_type($loop)));
+$echo();
+
+$memoryReport();

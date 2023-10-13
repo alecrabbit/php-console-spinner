@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-
 namespace AlecRabbit\Tests\Unit\Spinner\Container;
 
 use AlecRabbit\Spinner\Container\Contract\IDefinitionRegistry;
@@ -12,8 +11,10 @@ use PHPUnit\Framework\Attributes\Test;
 
 final class DefinitionRegistryTest extends TestCase
 {
+    private ?IDefinitionRegistry $registry = null;
+
     #[Test]
-    public function canBeCreated(): void
+    public function canBeInstantiated(): void
     {
         $registry = $this->getTesteeInstance();
 
@@ -31,7 +32,7 @@ final class DefinitionRegistryTest extends TestCase
         $registry = $this->getTesteeInstance();
 
         self::assertInstanceOf(DefinitionRegistry::class, $registry);
-        self::assertCount(0, iterator_to_array($registry->getDefinitions()));
+        self::assertCount(0, iterator_to_array($registry->load()));
     }
 
     #[Test]
@@ -42,7 +43,7 @@ final class DefinitionRegistryTest extends TestCase
         $typeId = 'test';
         $definition = 'test';
         $registry->bind($typeId, $definition);
-        self::assertCount(1, iterator_to_array($registry->getDefinitions()));
+        self::assertCount(1, iterator_to_array($registry->load()));
         $definitions = self::getPropertyValue('definitions', $registry);
         self::assertSame($definition, $definitions[$typeId]);
     }
@@ -60,6 +61,12 @@ final class DefinitionRegistryTest extends TestCase
 
     protected function setUp(): void
     {
+        $this->registry = self::getPropertyValue('instance', DefinitionRegistry::class);
         self::setPropertyValue(DefinitionRegistry::class, 'instance', null);
+    }
+
+    protected function tearDown(): void
+    {
+        self::setPropertyValue(DefinitionRegistry::class, 'instance', $this->registry);
     }
 }

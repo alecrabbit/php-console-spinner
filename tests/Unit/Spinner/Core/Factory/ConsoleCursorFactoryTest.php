@@ -4,18 +4,20 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Factory;
 
-use AlecRabbit\Spinner\Contract\Option\OptionCursor;
+use AlecRabbit\Spinner\Contract\Mode\CursorVisibilityMode;
 use AlecRabbit\Spinner\Core\Builder\Contract\IConsoleCursorBuilder;
+use AlecRabbit\Spinner\Core\Config\Contract\IOutputConfig;
 use AlecRabbit\Spinner\Core\Factory\ConsoleCursorFactory;
-use AlecRabbit\Spinner\Core\Factory\Contract\IBufferedOutputSingletonFactory;
+use AlecRabbit\Spinner\Core\Factory\Contract\IBufferedOutputFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IConsoleCursorFactory;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;
+use PHPUnit\Framework\MockObject\MockObject;
 
 final class ConsoleCursorFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
 {
     #[Test]
-    public function canBeCreated(): void
+    public function canBeInstantiated(): void
     {
         $cursorFactory = $this->getTesteeInstance();
 
@@ -23,25 +25,38 @@ final class ConsoleCursorFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
     }
 
     public function getTesteeInstance(
-        ?IBufferedOutputSingletonFactory $bufferedOutputFactory = null,
+        ?IBufferedOutputFactory $bufferedOutputFactory = null,
         ?IConsoleCursorBuilder $cursorBuilder = null,
-        ?OptionCursor $optionCursor = null,
+        ?IOutputConfig $outputConfig = null,
     ): IConsoleCursorFactory {
         return new ConsoleCursorFactory(
             bufferedOutputFactory: $bufferedOutputFactory ?? $this->getBufferedOutputFactoryMock(),
             cursorBuilder: $cursorBuilder ?? $this->getCursorBuilderMock(),
-            optionCursor: $optionCursor ?? OptionCursor::VISIBLE,
+            outputConfig: $outputConfig ?? $this->getOutputConfigMock(),
+        );
+    }
+
+    private function getOutputConfigMock(?CursorVisibilityMode $cursorVisibilityMode = null): MockObject&IOutputConfig
+    {
+        return $this->createConfiguredMock(
+            IOutputConfig::class,
+            [
+                'getCursorVisibilityMode' => $cursorVisibilityMode ?? CursorVisibilityMode::VISIBLE,
+            ]
         );
     }
 
     #[Test]
     public function canCreateOrRetrieve(): void
     {
+        $cursorVisibilityMode = CursorVisibilityMode::HIDDEN;
+        $outputConfig = $this->getOutputConfigMock($cursorVisibilityMode);
+
         $bufferedOutputFactory = $this->getBufferedOutputFactoryMock();
 
         $bufferedOutputFactory
             ->expects(self::once())
-            ->method('getOutput')
+            ->method('create')
         ;
 
         $cursorStub = $this->getCursorStub();
@@ -56,7 +71,8 @@ final class ConsoleCursorFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
 
         $cursorBuilder
             ->expects(self::once())
-            ->method('withOptionCursor')
+            ->method('withCursorVisibilityMode')
+            ->with(self::identicalTo($cursorVisibilityMode))
             ->willReturnSelf()
         ;
 
@@ -68,7 +84,8 @@ final class ConsoleCursorFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
 
         $cursorFactory = $this->getTesteeInstance(
             bufferedOutputFactory: $bufferedOutputFactory,
-            cursorBuilder: $cursorBuilder
+            cursorBuilder: $cursorBuilder,
+            outputConfig: $outputConfig,
         );
 
         self::assertInstanceOf(ConsoleCursorFactory::class, $cursorFactory);

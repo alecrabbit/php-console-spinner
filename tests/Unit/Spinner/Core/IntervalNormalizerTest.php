@@ -80,7 +80,7 @@ final class IntervalNormalizerTest extends TestCaseWithPrebuiltMocksAndStubs
     }
 
     #[Test]
-    public function canBeCreated(): void
+    public function canBeInstantiated(): void
     {
         $intervalNormalizer = $this->getTesteeInstance();
 

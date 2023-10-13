@@ -6,19 +6,22 @@ namespace AlecRabbit\Spinner\Core\Revolver\A;
 
 use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Contract\IInterval;
+use AlecRabbit\Spinner\Core\Contract\ITolerance;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
+use AlecRabbit\Spinner\Core\Revolver\Tolerance;
 
 abstract class ARevolver implements IRevolver
 {
-    protected float $intervalValue;
+    protected int $deltaTolerance;
     protected float $diff;
+    protected float $intervalValue;
 
     public function __construct(
         protected IInterval $interval,
-        protected int $deltaTolerance = 0,
+        protected ITolerance $tolerance = new Tolerance(),
     ) {
-        $this->intervalValue = $interval->toMilliseconds();
-        $this->diff = $this->intervalValue;
+        $this->deltaTolerance = $this->tolerance->toMilliseconds();
+        $this->diff = $this->intervalValue = $interval->toMilliseconds();
     }
 
     public function getInterval(): IInterval

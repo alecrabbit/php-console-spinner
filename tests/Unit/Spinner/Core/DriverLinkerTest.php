@@ -2,13 +2,11 @@
 
 declare(strict_types=1);
 
-
 namespace AlecRabbit\Tests\Unit\Spinner\Core;
 
-use AlecRabbit\Spinner\Contract\Option\OptionLinker;
 use AlecRabbit\Spinner\Core\Contract\IDriverLinker;
-use AlecRabbit\Spinner\Core\Contract\Loop\Contract\ILoop;
 use AlecRabbit\Spinner\Core\DriverLinker;
+use AlecRabbit\Spinner\Core\Loop\Contract\ILoop;
 use AlecRabbit\Spinner\Exception\LogicException;
 use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
 use PHPUnit\Framework\Attributes\Test;
@@ -16,7 +14,7 @@ use PHPUnit\Framework\Attributes\Test;
 final class DriverLinkerTest extends TestCaseWithPrebuiltMocksAndStubs
 {
     #[Test]
-    public function canBeCreated(): void
+    public function canBeInstantiated(): void
     {
         $driverLinker = $this->getTesteeInstance();
 
@@ -25,11 +23,9 @@ final class DriverLinkerTest extends TestCaseWithPrebuiltMocksAndStubs
 
     public function getTesteeInstance(
         ?ILoop $loop = null,
-        ?OptionLinker $optionLinker = null,
     ): IDriverLinker {
         return new DriverLinker(
             loop: $loop ?? $this->getLoopMock(),
-            optionLinker: $optionLinker ?? OptionLinker::DISABLED,
         );
     }
 
@@ -64,7 +60,6 @@ final class DriverLinkerTest extends TestCaseWithPrebuiltMocksAndStubs
 
         $driverLinker = $this->getTesteeInstance(
             loop: $loop,
-            optionLinker: OptionLinker::ENABLED,
         );
 
         $driverLinker->link($driver);
@@ -90,7 +85,6 @@ final class DriverLinkerTest extends TestCaseWithPrebuiltMocksAndStubs
         ;
         $driverLinker = $this->getTesteeInstance(
             loop: $loop,
-            optionLinker: OptionLinker::ENABLED,
         );
 
         $driverLinker->link($driver);
@@ -129,7 +123,6 @@ final class DriverLinkerTest extends TestCaseWithPrebuiltMocksAndStubs
 
         $driverLinker = $this->getTesteeInstance(
             loop: $loop,
-            optionLinker: OptionLinker::ENABLED,
         );
 
         $driverLinker->link($driver);
@@ -141,16 +134,15 @@ final class DriverLinkerTest extends TestCaseWithPrebuiltMocksAndStubs
     public function throwsIfLinkOfOtherInstanceOfDriverAttempted(): void
     {
         $e = new LogicException(
-            'Other instance of Driver is already linked.'
+            'Other instance of driver is already linked.'
         );
 
         $test = function (): void {
-            $driverLinker = $this->getTesteeInstance(
-                optionLinker: OptionLinker::ENABLED,
-            );
-            $driver = $this->getDriverMock();
-            $driverLinker->link($driver);
+            $driverLinker = $this->getTesteeInstance();
 
+            $driver = $this->getDriverMock();
+
+            $driverLinker->link($driver);
             $driverLinker->link($this->getDriverMock());
         };
 

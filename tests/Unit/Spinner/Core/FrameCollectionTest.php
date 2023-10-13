@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-
 namespace AlecRabbit\Tests\Unit\Spinner\Core;
 
 use AlecRabbit\Spinner\Core\Contract\IFrameCollection;
@@ -16,7 +15,7 @@ use Traversable;
 final class FrameCollectionTest extends TestCaseWithPrebuiltMocksAndStubs
 {
     #[Test]
-    public function canBeCreated(): void
+    public function canBeInstantiated(): void
     {
         $frameCollection = $this->getTesteeInstance(
             new ArrayObject(

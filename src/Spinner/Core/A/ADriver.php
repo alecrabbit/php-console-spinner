@@ -8,8 +8,8 @@ use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Contract\IObserver;
 use AlecRabbit\Spinner\Contract\ITimer;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
+use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use AlecRabbit\Spinner\Core\Output\Contract\IDriverOutput;
-use AlecRabbit\Spinner\Core\Settings\Contract\IDriverSettings;
 use Closure;
 
 abstract class ADriver extends ASubject implements IDriver
@@ -20,35 +20,34 @@ abstract class ADriver extends ASubject implements IDriver
         protected readonly IDriverOutput $output,
         protected readonly ITimer $timer,
         protected readonly IInterval $initialInterval,
-        protected readonly IDriverSettings $driverSettings,
         ?IObserver $observer = null,
     ) {
         parent::__construct($observer);
         $this->interval = $this->initialInterval;
     }
 
-    /** @inheritdoc */
+    /** @inheritDoc */
     public function interrupt(?string $interruptMessage = null): void
     {
-        $this->finalize($interruptMessage ?? $this->driverSettings->getInterruptMessage());
+        $this->finalize($interruptMessage);
     }
 
-    /** @inheritdoc */
+    /** @inheritDoc */
     public function finalize(?string $finalMessage = null): void
     {
         $this->erase();
-        $this->output->finalize($finalMessage ?? $this->driverSettings->getFinalMessage());
+        $this->output->finalize($finalMessage);
     }
 
     abstract protected function erase(): void;
 
-    /** @inheritdoc */
+    /** @inheritDoc */
     public function getInterval(): IInterval
     {
         return $this->interval;
     }
 
-    /** @inheritdoc */
+    /** @inheritDoc */
     public function wrap(Closure $callback): Closure
     {
         return
@@ -61,9 +60,12 @@ abstract class ADriver extends ASubject implements IDriver
 
     abstract public function render(?float $dt = null): void;
 
-    /** @inheritdoc */
+    /** @inheritDoc */
     public function initialize(): void
     {
         $this->output->initialize();
     }
+
+    /** @inheritDoc */
+    abstract public function has(ISpinner $spinner): bool;
 }

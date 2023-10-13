@@ -1,5 +1,6 @@
 include ${_APP_DIR}/app.init.Makefile
 include ${_APP_DIR}/phpinsights.Makefile
+include ${_APP_DIR}/tests.Makefile
 
 ##
 ## —— Application 📦 ———————————————————————————————————————————————————————————
@@ -112,25 +113,3 @@ app_deptrac_debug_unassigned:
 
 app_deptrac_run_uncovered:
 	-${_DC_EXEC} ${APP_CONTAINER} deptrac analyse --fail-on-uncovered --report-uncovered --config-file=${DPTR_CONFIG} --cache-file=${DPTR_CACHE}
-
-test:
-	@$(eval c ?=)
-	@${_ECHO} "\n${_C_SELECT} ${PROJECT_NAME} ${_C_STOP} ${_C_INFO}Default tests...${_C_STOP}\n";
-	${_DC_EXEC} -e XDEBUG_MODE=off ${APP_CONTAINER} vendor/bin/phpunit $(c) --display-warnings --display-deprecations
-	@${_ECHO_BG_GREEN};
-
-test_coverage:
-	@${_ECHO} "\n${_C_SELECT} ${PROJECT_NAME} ${_C_STOP} ${_C_INFO}Coverage tests...${_C_STOP}\n";
-	@${_ECHO} "${_C_COMMENT} ...testing ${_C_STOP}\n";
-	@-${_DC_EXEC} -e XDEBUG_MODE=coverage ${APP_CONTAINER} vendor/bin/phpunit --configuration phpunit.coverage.xml --colors="never" --no-output
-	${_DC_EXEC} -e XDEBUG_MODE=coverage ${APP_CONTAINER} vendor/bin/phpunit --configuration phpunit.coverage.xml --coverage-text
-	@${_ECHO_BG_GREEN};
-
-test_dox:
-	@$(eval c ?=)
-	@${_ECHO} "\n${_C_SELECT} ${PROJECT_NAME} ${_C_STOP} ${_C_INFO}Testdox tests...${_C_STOP}\n";
-	${_DC_EXEC} -e XDEBUG_MODE=off ${APP_CONTAINER} vendor/bin/phpunit --configuration phpunit.testdox.xml $(c) --display-warnings --display-deprecations
-	@${_ECHO_BG_GREEN};
-
-test_full: test_coverage test test_dox
-	@${_NO_OP};

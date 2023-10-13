@@ -4,43 +4,44 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Asynchronous\Override;
 
-use AlecRabbit\Spinner\Core\Contract\Loop\A\ALoopAdapter;
+use AlecRabbit\Spinner\Core\Loop\Contract\A\ALoopAdapter;
 use Closure;
+use RuntimeException;
 
 final class ALoopAdapterOverride extends ALoopAdapter
 {
     public function stop(): void
     {
-        // TODO: Implement stop() method.
+        throw new RuntimeException('Method SHOULD NOT be called.');
     }
 
     public function repeat(float $interval, Closure $closure): mixed
     {
-        // TODO: Implement repeat() method.
+        throw new RuntimeException('Method SHOULD NOT be called.');
     }
 
     public function run(): void
     {
-        // TODO: Implement run() method.
+        throw new RuntimeException('Method SHOULD NOT be called.');
     }
 
     public function delay(float $delay, Closure $closure): void
     {
-        // TODO: Implement delay() method.
+        throw new RuntimeException('Method SHOULD NOT be called.');
     }
 
     public function autoStart(): void
     {
-        // TODO: Implement autoStart() method.
+        throw new RuntimeException('Method SHOULD NOT be called.');
     }
 
     public function onSignal(int $signal, Closure $closure): void
     {
-        // TODO: Implement onSignal() method.
+        throw new RuntimeException('Method SHOULD NOT be called.');
     }
 
     public function cancel(mixed $timer): void
     {
-        // TODO: Implement cancel() method.
+        throw new RuntimeException('Method SHOULD NOT be called.');
     }
 }

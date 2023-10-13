@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-
 namespace AlecRabbit\Tests\Unit\Spinner\Core;
 
 use AlecRabbit\Spinner\Core\Builder\Contract\ITimerBuilder;
@@ -14,7 +13,7 @@ use PHPUnit\Framework\Attributes\Test;
 final class TimerBuilderTest extends TestCaseWithPrebuiltMocksAndStubs
 {
     #[Test]
-    public function canBeCreated(): void
+    public function canBeInstantiated(): void
     {
         $timerFactory = $this->getTesteeInstance();
 

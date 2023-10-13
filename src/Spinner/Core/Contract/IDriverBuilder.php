@@ -2,18 +2,19 @@
 
 declare(strict_types=1);
 
-
 namespace AlecRabbit\Spinner\Core\Contract;
 
 use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Contract\IObserver;
 use AlecRabbit\Spinner\Contract\ITimer;
-use AlecRabbit\Spinner\Core\Builder\DriverBuilder;
 use AlecRabbit\Spinner\Core\Output\Contract\IDriverOutput;
-use AlecRabbit\Spinner\Core\Settings\Contract\IDriverSettings;
+use AlecRabbit\Spinner\Exception\LogicException;
 
 interface IDriverBuilder
 {
+    /**
+     * @throws LogicException
+     */
     public function build(): IDriver;
 
     public function withInitialInterval(IInterval $interval): IDriverBuilder;
@@ -23,6 +24,4 @@ interface IDriverBuilder
     public function withDriverOutput(IDriverOutput $driverOutput): IDriverBuilder;
 
     public function withObserver(IObserver $observer): IDriverBuilder;
-
-    public function withDriverSettings(IDriverSettings $driverSettings): IDriverBuilder;
 }

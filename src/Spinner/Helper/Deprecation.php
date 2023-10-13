@@ -2,10 +2,7 @@
 
 declare(strict_types=1);
 
-
 namespace AlecRabbit\Spinner\Helper;
-
-use AlecRabbit\Spinner\Mixin\NonInstantiable;
 
 use function trigger_error;
 
@@ -14,7 +11,11 @@ use const E_USER_DEPRECATED;
 /** @codeCoverageIgnore */
 final class Deprecation
 {
-    use NonInstantiable;
+    /** @psalm-suppress UnusedConstructor */
+    final private function __construct()
+    {
+        // no instances, can NOT be overridden
+    }
 
     public static function method(string $method, ?string $message = null): void
     {
