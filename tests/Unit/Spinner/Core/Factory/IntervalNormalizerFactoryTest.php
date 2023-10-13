@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Factory;
 
-use AlecRabbit\Spinner\Contract\Option\OptionNormalizerMode;
+use AlecRabbit\Spinner\Contract\Mode\NormalizerMethodMode;
 use AlecRabbit\Spinner\Core\Builder\Contract\IIntegerNormalizerBuilder;
 use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalNormalizerFactory;
 use AlecRabbit\Spinner\Core\Factory\IntervalNormalizerFactory;
@@ -15,7 +15,7 @@ use PHPUnit\Framework\Attributes\Test;
 final class IntervalNormalizerFactoryTest extends TestCaseWithPrebuiltMocksAndStubs
 {
     #[Test]
-    public function canBeCreated(): void
+    public function canBeInstantiated(): void
     {
         $intervalNormalizerFactory = $this->getTesteeInstance();
 
@@ -24,11 +24,11 @@ final class IntervalNormalizerFactoryTest extends TestCaseWithPrebuiltMocksAndSt
 
     public function getTesteeInstance(
         ?IIntegerNormalizerBuilder $integerNormalizerBuilder = null,
-        ?OptionNormalizerMode $normalizerMode = null,
+        ?NormalizerMethodMode $normalizerMode = null,
     ): IIntervalNormalizerFactory {
         return new IntervalNormalizerFactory(
             integerNormalizerBuilder: $integerNormalizerBuilder ?? $this->getIntegerNormalizerBuilderMock(),
-            normalizerMode: $normalizerMode ?? OptionNormalizerMode::BALANCED,
+            normalizerMode: $normalizerMode ?? NormalizerMethodMode::BALANCED,
         );
     }
 

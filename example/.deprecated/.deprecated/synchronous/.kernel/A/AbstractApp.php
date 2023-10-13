@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Example\Kernel\A;
 
-use AlecRabbit\Spinner\Contract\Option\OptionRunMode;
+use AlecRabbit\Spinner\Contract\Option\RunMethodOption;
 use AlecRabbit\Spinner\Core\Config\Contract\IConfig;
 use AlecRabbit\Spinner\Core\Contract\ILegacySpinner;
 use AlecRabbit\Spinner\Core\Factory\StaticDefaultsFactory;
@@ -72,7 +72,7 @@ abstract class AbstractApp
     {
         $defaults = StaticDefaultsFactory::get();
         if (!$defaults->isModeSynchronous()) {
-            $defaults->overrideRunMode(OptionRunMode::SYNCHRONOUS);
+            $defaults->overrideRunMode(RunMethodOption::SYNCHRONOUS);
         }
     }
 
@@ -120,7 +120,7 @@ abstract class AbstractApp
     public static function prepareDefaults(): void
     {
         StaticDefaultsFactory::get()
-            ->overrideRunMode(OptionRunMode::SYNCHRONOUS);
+            ->overrideRunMode(RunMethodOption::SYNCHRONOUS);
     }
 
     public function run(): void

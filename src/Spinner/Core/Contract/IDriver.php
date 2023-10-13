@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-
 namespace AlecRabbit\Spinner\Core\Contract;
 
 use AlecRabbit\Spinner\Contract\IHasInterval;
@@ -23,6 +22,14 @@ interface IDriver extends IObserver,
      * @return void
      */
     public function add(ISpinner $spinner): void;
+
+    /**
+     * Checks if spinner is in the driver.
+     *
+     * @param ISpinner $spinner
+     * @return bool
+     */
+    public function has(ISpinner $spinner): bool;
 
     /**
      * Removes spinner from the driver. Fails silently if spinner is not in the driver.

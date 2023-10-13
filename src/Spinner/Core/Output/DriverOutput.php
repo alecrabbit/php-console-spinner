@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-
 namespace AlecRabbit\Spinner\Core\Output;
 
 use AlecRabbit\Spinner\Contract\Output\IBufferedOutput;
@@ -25,6 +24,7 @@ final class DriverOutput implements IDriverOutput
         if ($this->initialized) {
             $this->cursor->show();
             $finalMessage && $this->output->write($finalMessage);
+            $this->initialized = false;
         }
     }
 

@@ -22,7 +22,7 @@ final class MethodInterruptDriverTest extends TestCaseForDriver
 
         $driver =
             $this->getTesteeInstance(
-                driverOutput: $driverOutput
+                output: $driverOutput
             );
 
         $driver->initialize();
@@ -41,7 +41,7 @@ final class MethodInterruptDriverTest extends TestCaseForDriver
 
         $driver =
             $this->getTesteeInstance(
-                driverOutput: $driverOutput
+                output: $driverOutput
             );
 
         $driver->initialize();
@@ -61,7 +61,7 @@ final class MethodInterruptDriverTest extends TestCaseForDriver
 
         $driver =
             $this->getTesteeInstance(
-                driverOutput: $driverOutput
+                output: $driverOutput
             );
 
         $driver->interrupt($interruptMessage);

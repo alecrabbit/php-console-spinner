@@ -2,99 +2,61 @@
 
 declare(strict_types=1);
 
-
 namespace AlecRabbit\Tests\TestCase;
 
 use AlecRabbit\Spinner\Container\Contract\IContainer;
-use AlecRabbit\Spinner\Container\Contract\IDefinitionRegistry;
 use AlecRabbit\Spinner\Contract\IFrame;
 use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Contract\IObserver;
 use AlecRabbit\Spinner\Contract\ITimer;
 use AlecRabbit\Spinner\Contract\Output\IBufferedOutput;
-use AlecRabbit\Spinner\Contract\Output\IOutput;
 use AlecRabbit\Spinner\Contract\Output\IResourceStream;
-use AlecRabbit\Spinner\Contract\Pattern\IPattern;
 use AlecRabbit\Spinner\Core\Builder\Contract\IBufferedOutputBuilder;
 use AlecRabbit\Spinner\Core\Builder\Contract\IConsoleCursorBuilder;
 use AlecRabbit\Spinner\Core\Builder\Contract\IDriverOutputBuilder;
 use AlecRabbit\Spinner\Core\Builder\Contract\IIntegerNormalizerBuilder;
-use AlecRabbit\Spinner\Core\Builder\Contract\ILoopSetupBuilder;
 use AlecRabbit\Spinner\Core\Builder\Contract\ITimerBuilder;
-use AlecRabbit\Spinner\Core\Builder\Settings\Contract\IAuxSettingsBuilder;
-use AlecRabbit\Spinner\Core\Builder\Settings\Contract\IDriverSettingsBuilder;
-use AlecRabbit\Spinner\Core\Builder\Settings\Contract\IWidgetSettingsBuilder;
-use AlecRabbit\Spinner\Core\Config\Contract\ISpinnerConfig;
-use AlecRabbit\Spinner\Core\Config\Contract\IWidgetConfig;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\IDriverBuilder;
 use AlecRabbit\Spinner\Core\Contract\IDriverLinker;
-use AlecRabbit\Spinner\Core\Contract\IDriverSetup;
 use AlecRabbit\Spinner\Core\Contract\IFrameCollection;
 use AlecRabbit\Spinner\Core\Contract\IIntervalNormalizer;
-use AlecRabbit\Spinner\Core\Contract\ILoopSetup;
-use AlecRabbit\Spinner\Core\Contract\ISettingsProvider;
-use AlecRabbit\Spinner\Core\Contract\ISignalProcessingProbe;
-use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use AlecRabbit\Spinner\Core\Contract\ISpinnerState;
-use AlecRabbit\Spinner\Core\Contract\Loop\Contract\ILoop;
-use AlecRabbit\Spinner\Core\Contract\Loop\Contract\ILoopProbe;
-use AlecRabbit\Spinner\Core\Factory\Contract\IBufferedOutputSingletonFactory;
+use AlecRabbit\Spinner\Core\Contract\IWeakMap;
+use AlecRabbit\Spinner\Core\Factory\Contract\IBufferedOutputFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ICharFrameRevolverFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IConsoleCursorFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDriverOutputFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IFrameCollectionFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IIntervalFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopFactory;
-use AlecRabbit\Spinner\Core\Factory\Contract\ILoopProbeFactory;
-use AlecRabbit\Spinner\Core\Factory\Contract\ILoopSettingsFactory;
-use AlecRabbit\Spinner\Core\Factory\Contract\ILoopSetupFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IStyleFrameRevolverFactory;
-use AlecRabbit\Spinner\Core\Factory\Contract\ITerminalSettingsFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ITimerFactory;
-use AlecRabbit\Spinner\Core\Factory\Contract\IWidgetSettingsFactory;
+use AlecRabbit\Spinner\Core\Loop\Contract\ILoop;
+use AlecRabbit\Spinner\Core\Loop\Contract\ILoopProbe;
 use AlecRabbit\Spinner\Core\Output\Contract\IConsoleCursor;
 use AlecRabbit\Spinner\Core\Output\Contract\IDriverOutput;
-use AlecRabbit\Spinner\Core\Pattern\Contract\ICharPattern;
-use AlecRabbit\Spinner\Core\Pattern\Contract\IStylePattern;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolver;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IFrameRevolverBuilder;
 use AlecRabbit\Spinner\Core\Revolver\Contract\IRevolver;
-use AlecRabbit\Spinner\Core\Settings\Contract\IAuxSettings;
-use AlecRabbit\Spinner\Core\Settings\Contract\IDriverSettings;
-use AlecRabbit\Spinner\Core\Settings\Contract\ILoopSettings;
-use AlecRabbit\Spinner\Core\Settings\Contract\ITerminalSettings;
-use AlecRabbit\Spinner\Core\Settings\Contract\IWidgetSettings;
-use AlecRabbit\Spinner\Core\Terminal\Contract\ITerminalProbe;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidget;
-use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetBuilder;
+use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;
+use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetCompositeChildrenContainer;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContext;
-use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetContextContainer;
-use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetIntervalContainer;
+use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolver;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetRevolverBuilder;
-use AlecRabbit\Spinner\Core\Widget\Factory\Contract\IWidgetFactory;
-use AlecRabbit\Spinner\Core\Widget\Factory\Contract\IWidgetRevolverFactory;
-use AlecRabbit\Spinner\Extras\Contract\IWidthMeasurer;
-use AlecRabbit\Spinner\Extras\Factory\Contract\ICharFrameFactory;
-use AlecRabbit\Spinner\Extras\Factory\Contract\IStyleFrameFactory;
+use AlecRabbit\Spinner\Core\Widget\Factory\Contract\IWidgetCompositeFactory;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\MockObject\Stub;
 
+/**
+ * @deprecated Use `TestCase` instead and implement required mock methods by your tests.
+ */
 abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
 {
-    protected function getWidgetConfigStub(): Stub&IWidgetConfig
+    protected function getWeakMapMock(): MockObject&IWeakMap
     {
-        return $this->createStub(IWidgetConfig::class);
-    }
-
-    protected function createDefinitionRegistryMock(): MockObject&IDefinitionRegistry
-    {
-        return $this->createMock(IDefinitionRegistry::class);
-    }
-
-    protected function getWidgetIntervalContainerMock(): MockObject&IWidgetIntervalContainer
-    {
-        return $this->createMock(IWidgetIntervalContainer::class);
+        return $this->createMock(IWeakMap::class);
     }
 
     protected function getFrameMock(): MockObject&IFrame
@@ -102,9 +64,9 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
         return $this->createMock(IFrame::class);
     }
 
-    protected function getWidgetContextContainerMock(): MockObject&IWidgetContextContainer
+    protected function getWidgetCompositeChildrenContainerMock(): MockObject&IWidgetCompositeChildrenContainer
     {
-        return $this->createMock(IWidgetContextContainer::class);
+        return $this->createMock(IWidgetCompositeChildrenContainer::class);
     }
 
     protected function getObserverMock(): MockObject&IObserver
@@ -112,24 +74,14 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
         return $this->createMock(IObserver::class);
     }
 
+    protected function getWidgetCompositeMock(): MockObject&IWidgetComposite
+    {
+        return $this->createMock(IWidgetComposite::class);
+    }
+
     protected function getWidgetMock(): MockObject&IWidget
     {
         return $this->createMock(IWidget::class);
-    }
-
-    protected function getCharPatternMock(): MockObject&ICharPattern
-    {
-        return $this->createMock(ICharPattern::class);
-    }
-
-    protected function getStylePatternMock(): MockObject&IStylePattern
-    {
-        return $this->createMock(IStylePattern::class);
-    }
-
-    protected function getWidgetSettingsMock(): MockObject&IWidgetSettings
-    {
-        return $this->createMock(IWidgetSettings::class);
     }
 
     protected function getContainerMock(): MockObject&IContainer
@@ -157,69 +109,20 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
         return $this->createMock(IRevolver::class);
     }
 
-    protected function getWidgetBuilderMock(): MockObject&IWidgetBuilder
+    protected function getWidgetRevolverMock(): MockObject&IWidgetRevolver
     {
-        return $this->createMock(IWidgetBuilder::class);
+        return $this->createMock(IWidgetRevolver::class);
     }
 
-    protected function getWidgetRevolverFactoryMock(): MockObject&IWidgetRevolverFactory
-    {
-        return $this->createMock(IWidgetRevolverFactory::class);
-    }
-
-    protected function getWidgetRevolverMock(): MockObject&IRevolver
-    {
-        return $this->createMock(IRevolver::class);
-    }
-
-    protected function getLoopProbeFactoryMock(): MockObject&ILoopProbeFactory
-    {
-        return $this->createMock(ILoopProbeFactory::class);
-    }
 
     protected function getLoopSingletonFactoryMock(): MockObject&ILoopFactory
     {
         return $this->createMock(ILoopFactory::class);
     }
 
-    protected function getLoopSetupBuilderMock(): MockObject&ILoopSetupBuilder
+    protected function getWidgetCompositeFactoryMock(): MockObject&IWidgetCompositeFactory
     {
-        return $this->createMock(ILoopSetupBuilder::class);
-    }
-
-    protected function getLoopSetupStub(): Stub&ILoopSetup
-    {
-        return $this->createStub(ILoopSetup::class);
-    }
-
-    protected function getSettingsProviderMock(): MockObject&ISettingsProvider
-    {
-        return $this->createMock(ISettingsProvider::class);
-    }
-
-    protected function getSpinnerConfigMock(): MockObject&ISpinnerConfig
-    {
-        return $this->createMock(ISpinnerConfig::class);
-    }
-
-    protected function getWidgetConfigMock(): MockObject&IWidgetConfig
-    {
-        return $this->createMock(IWidgetConfig::class);
-    }
-
-    protected function getWidgetFactoryMock(): MockObject&IWidgetFactory
-    {
-        return $this->createMock(IWidgetFactory::class);
-    }
-
-    protected function getWidgetSettingsFactoryMock(): MockObject&IWidgetSettingsFactory
-    {
-        return $this->createMock(IWidgetSettingsFactory::class);
-    }
-
-    protected function getAuxSettingsMock(): MockObject&IAuxSettings
-    {
-        return $this->createMock(IAuxSettings::class);
+        return $this->createMock(IWidgetCompositeFactory::class);
     }
 
     protected function getIntervalNormalizerMock(): MockObject&IIntervalNormalizer
@@ -230,26 +133,6 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
     protected function getIntervalFactoryMock(): MockObject&IIntervalFactory
     {
         return $this->createMock(IIntervalFactory::class);
-    }
-
-    protected function getCharFrameFactoryMock(): MockObject&ICharFrameFactory
-    {
-        return $this->createMock(ICharFrameFactory::class);
-    }
-
-    protected function getStyleFrameFactoryMock(): MockObject&IStyleFrameFactory
-    {
-        return $this->createMock(IStyleFrameFactory::class);
-    }
-
-    protected function getStyleRendererFactoryMock(): MockObject&IStyleRendererFactory
-    {
-        return $this->createMock(IStyleRendererFactory::class);
-    }
-
-    protected function getStyleRendererMock(): MockObject&IStyleRenderer
-    {
-        return $this->createMock(IStyleRenderer::class);
     }
 
     protected function getOutputBuilderMock(): MockObject&IBufferedOutputBuilder
@@ -277,9 +160,9 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
         return $this->createMock(IConsoleCursorBuilder::class);
     }
 
-    protected function getBufferedOutputFactoryMock(): MockObject&IBufferedOutputSingletonFactory
+    protected function getBufferedOutputFactoryMock(): MockObject&IBufferedOutputFactory
     {
-        return $this->createMock(IBufferedOutputSingletonFactory::class);
+        return $this->createMock(IBufferedOutputFactory::class);
     }
 
     protected function getCursorFactoryMock(): MockObject&IConsoleCursorFactory
@@ -297,51 +180,6 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
         return $this->createMock(ILoopProbe::class);
     }
 
-    protected function getLoopSettingsFactoryMock(): MockObject&ILoopSettingsFactory
-    {
-        return $this->createMock(ILoopSettingsFactory::class);
-    }
-
-    protected function getTerminalSettingsFactoryMock(): MockObject&ITerminalSettingsFactory
-    {
-        return $this->createMock(ITerminalSettingsFactory::class);
-    }
-
-    protected function getAuxSettingsBuilderMock(): MockObject&IAuxSettingsBuilder
-    {
-        return $this->createMock(IAuxSettingsBuilder::class);
-    }
-
-    protected function getDriverSettingsMock(): MockObject&IDriverSettings
-    {
-        return $this->createMock(IDriverSettings::class);
-    }
-
-    protected function getLoopSetupFactoryMock(): MockObject&ILoopSetupFactory
-    {
-        return $this->createMock(ILoopSetupFactory::class);
-    }
-
-    protected function getDriverSettingsBuilderMock(): MockObject&IDriverSettingsBuilder
-    {
-        return $this->createMock(IDriverSettingsBuilder::class);
-    }
-
-    protected function getWidgetSettingsBuilderMock(): MockObject&IWidgetSettingsBuilder
-    {
-        return $this->createMock(IWidgetSettingsBuilder::class);
-    }
-
-    protected function getLoopSettingsMock(): MockObject&ILoopSettings
-    {
-        return $this->createMock(ILoopSettings::class);
-    }
-
-    protected function getTerminalSettingsMock(): MockObject&ITerminalSettings
-    {
-        return $this->createMock(ITerminalSettings::class);
-    }
-
     protected function getLoopMock(): MockObject&ILoop
     {
         return $this->createMock(ILoop::class);
@@ -357,26 +195,6 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
         return $this->createMock(IDriver::class);
     }
 
-    protected function getWidthMeasurerMock(): MockObject&IWidthMeasurer
-    {
-        return $this->createMock(IWidthMeasurer::class);
-    }
-
-    protected function getPatternStub(): Stub&IPattern
-    {
-        return $this->createStub(IPattern::class);
-    }
-
-    protected function getFrameStub(): Stub&IFrame
-    {
-        return $this->createStub(IFrame::class);
-    }
-
-    protected function getOutputMock(): MockObject&IOutput
-    {
-        return $this->createMock(IOutput::class);
-    }
-
     protected function getCursorMock(): MockObject&IConsoleCursor
     {
         return $this->createMock(IConsoleCursor::class);
@@ -385,16 +203,6 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
     protected function getTimerMock(): MockObject&ITimer
     {
         return $this->createMock(ITimer::class);
-    }
-
-    protected function getSpinnerMock(): MockObject&ISpinner
-    {
-        return $this->createMock(ISpinner::class);
-    }
-
-    protected function getSpinnerStub(): Stub&ISpinner
-    {
-        return $this->createStub(ISpinner::class);
     }
 
     protected function getDriverOutputMock(): MockObject&IDriverOutput
@@ -447,16 +255,6 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
         return $this->createStub(ITimer::class);
     }
 
-    protected function getDriverStub(): Stub&IDriver
-    {
-        return $this->createStub(IDriver::class);
-    }
-
-    protected function getDriverSetupMock(): MockObject&IDriverSetup
-    {
-        return $this->createMock(IDriverSetup::class);
-    }
-
     protected function getIntegerNormalizerBuilderMock(): MockObject&IIntegerNormalizerBuilder
     {
         return $this->createMock(IIntegerNormalizerBuilder::class);
@@ -497,15 +295,5 @@ abstract class TestCaseWithPrebuiltMocksAndStubs extends TestCase
         $mockObject = $this->createMock(IFrameCollection::class);
         $mockObject->method('count')->willReturn(1);
         return $mockObject;
-    }
-
-    protected function getTerminalProbeMock(): MockObject&ITerminalProbe
-    {
-        return $this->createMock(ITerminalProbe::class);
-    }
-
-    protected function getSignalProcessingProbeMock(): MockObject&ISignalProcessingProbe
-    {
-        return $this->createMock(ISignalProcessingProbe::class);
     }
 }

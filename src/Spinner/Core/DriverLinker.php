@@ -2,14 +2,12 @@
 
 declare(strict_types=1);
 
-
 namespace AlecRabbit\Spinner\Core;
 
 use AlecRabbit\Spinner\Contract\ISubject;
-use AlecRabbit\Spinner\Contract\Option\OptionLinker;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\IDriverLinker;
-use AlecRabbit\Spinner\Core\Contract\Loop\Contract\ILoop;
+use AlecRabbit\Spinner\Core\Loop\Contract\ILoop;
 use AlecRabbit\Spinner\Exception\LogicException;
 
 final class DriverLinker implements IDriverLinker
@@ -19,7 +17,6 @@ final class DriverLinker implements IDriverLinker
 
     public function __construct(
         private readonly ILoop $loop,
-        private readonly OptionLinker $optionLinker,
     ) {
     }
 
@@ -27,13 +24,7 @@ final class DriverLinker implements IDriverLinker
     {
         $this->assertDriver($driver);
 
-        if ($this->optionLinker === OptionLinker::ENABLED) {
-            $this->linkTimer($driver);
-
-            if ($this->driver === null) {
-                $this->observe($driver);
-            }
-        }
+        $this->doLink($driver);
     }
 
     private function assertDriver(IDriver $driver): void
@@ -42,8 +33,17 @@ final class DriverLinker implements IDriverLinker
             return;
         }
         throw new LogicException(
-            'Other instance of Driver is already linked.'
+            'Other instance of driver is already linked.'
         );
+    }
+
+    protected function doLink(IDriver $driver): void
+    {
+        $this->linkTimer($driver);
+
+        if ($this->driver === null) {
+            $this->observe($driver);
+        }
     }
 
     private function linkTimer(IDriver $driver): void

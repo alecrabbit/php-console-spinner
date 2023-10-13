@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-
 namespace AlecRabbit\Spinner\Core\Builder;
 
 use AlecRabbit\Spinner\Contract\Output\IBufferedOutput;
@@ -11,6 +10,9 @@ use AlecRabbit\Spinner\Core\Builder\Contract\IBufferedOutputBuilder;
 use AlecRabbit\Spinner\Core\Output\StreamBufferedOutput;
 use AlecRabbit\Spinner\Exception\LogicException;
 
+/**
+ * @deprecated Use new StreamBufferedOutput($stream) instead
+ */
 final class BufferedOutputBuilder implements IBufferedOutputBuilder
 {
     private ?IResourceStream $stream = null;

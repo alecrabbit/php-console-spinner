@@ -2,39 +2,40 @@
 
 declare(strict_types=1);
 
-
 namespace AlecRabbit\Spinner\Core\Factory;
 
+use AlecRabbit\Spinner\Contract\Mode\LinkerMode;
+use AlecRabbit\Spinner\Core\Config\Contract\IDriverConfig;
 use AlecRabbit\Spinner\Core\Contract\IDriverLinker;
-use AlecRabbit\Spinner\Core\Contract\ISettingsProvider;
-use AlecRabbit\Spinner\Core\Contract\Loop\Contract\ILoop;
 use AlecRabbit\Spinner\Core\DriverLinker;
+use AlecRabbit\Spinner\Core\DummyDriverLinker;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDriverLinkerFactory;
+use AlecRabbit\Spinner\Core\Loop\Contract\ILoopProvider;
 
 final class DriverLinkerFactory implements IDriverLinkerFactory
 {
-    private static ?IDriverLinker $driverLinker = null;
-
     public function __construct(
-        protected ILoop $loop,
-        protected ISettingsProvider $settingsProvider,
+        protected ILoopProvider $loopProvider,
+        protected IDriverConfig $driverConfig,
     ) {
     }
 
-    public function getDriverLinker(): IDriverLinker
+    public function create(): IDriverLinker
     {
-        if (self::$driverLinker === null) {
-            self::$driverLinker = $this->createLinker();
+        if ($this->loopProvider->hasLoop() && $this->isLinkerEnabled()) {
+            return
+                new DriverLinker(
+                    $this->loopProvider->getLoop(),
+                );
         }
-        return self::$driverLinker;
+
+        return
+            new DummyDriverLinker();
     }
 
-    private function createLinker(): IDriverLinker
+    protected function isLinkerEnabled(): bool
     {
         return
-            new DriverLinker(
-                $this->loop,
-                $this->settingsProvider->getDriverSettings()->getOptionLinker(),
-            );
+            $this->driverConfig->getLinkerMode() === LinkerMode::ENABLED;
     }
 }

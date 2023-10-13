@@ -2,29 +2,18 @@
 
 declare(strict_types=1);
 
-
 namespace AlecRabbit\Spinner\Core\Settings\Contract;
 
-use AlecRabbit\Spinner\Contract\Option\OptionInitialization;
-use AlecRabbit\Spinner\Contract\Option\OptionLinker;
+use AlecRabbit\Spinner\Contract\Option\InitializationOption;
+use AlecRabbit\Spinner\Contract\Option\LinkerOption;
 
-interface IDriverSettings
+interface IDriverSettings extends ISettingsElement
 {
-    public function getFinalMessage(): string;
+    public function getInitializationOption(): InitializationOption;
 
-    public function setFinalMessage(string $finalMessage): IDriverSettings;
+    public function setLinkerOption(LinkerOption $linkerOption): void;
 
-    public function getInterruptMessage(): string;
+    public function setInitializationOption(InitializationOption $initializationOption): void;
 
-    public function setInterruptMessage(string $interruptMessage): IDriverSettings;
-
-    public function isInitializationEnabled(): bool;
-
-    public function isLinkerEnabled(): bool;
-
-    public function setOptionInitialization(OptionInitialization $optionInitialization): IDriverSettings;
-
-    public function getOptionLinker(): OptionLinker;
-
-    public function setOptionLinker(OptionLinker $optionLinker): IDriverSettings;
+    public function getLinkerOption(): LinkerOption;
 }

@@ -28,7 +28,8 @@
 
 ### New version 1.0.0
 
-> - ‼️ documentation is a bit clumsy at the moment
+> - ‼️ ATTENTION ‼️ Documentation is a bit clumsy at the moment and CAN BE MISLEADING
+
 > - WIP
 > - ‼️ API is subject to change until `1.0.0-BETA.0`
 > - is intended to be used with event loop (see [limitations](doc/limitations.md))
@@ -42,6 +43,7 @@
 + [Usage](doc/usage.md)
 + [Features](#features)
 + [Known issues](doc/known_issues.md)
++ [Development](doc/development.md)
 + [Links](#links)
 
 ### <a name="installation"></a> Installation
@@ -55,7 +57,7 @@ composer require alecrabbit/php-console-spinner
 ```php
 use AlecRabbit\Spinner\Facade;
 // ...
-$spinner = Facade::createSpinner();
+$spinner = Facade::legacyCreateSpinner();
 
 // that's basically it :)
 ```

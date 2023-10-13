@@ -49,6 +49,8 @@ final class DriverOutputTest extends TestCaseWithPrebuiltMocksAndStubs
 
         $driverOutput->initialize();
         $driverOutput->finalize($message);
+
+        self::assertFalse(self::getPropertyValue('initialized', $driverOutput));
     }
 
     #[Test]

@@ -5,10 +5,10 @@ COPY --from=composer /usr/bin/composer /usr/bin/composer
 
 ARG EXT_APCU_VERSION=5.1.22
 ARG EXT_EVENT_VERSION=3.0.8
-ARG EXT_MONGODB_VERSION=1.15.1
+ARG EXT_MONGODB_VERSION=1.16.2
 ARG EXT_REDIS_VERSION=5.3.7
 ARG EXT_UUID_VERSION=1.2.0
-ARG EXT_XDEBUG_VERSION=3.2.0
+ARG EXT_XDEBUG_VERSION=3.2.2
 
 ARG WORKING_DIR=/app
 
@@ -25,6 +25,7 @@ ARG PHPLOC_VERSION_KEY=0x4AA394086372C20A
 ARG PSALM_VERSION_KEY=0x2DE50EB60C013FFFA831040D12CE0F1D262429A5
 
 ARG COMPOSER_PACKAGES="\
+    nunomaduro/phpinsights \
     "
 
 ARG TOOLS="\
@@ -153,6 +154,7 @@ RUN set -eux \
         /home/user \
         ${COMPOSER_HOME} \
     && chmod 777 /home/user ${COMPOSER_HOME} \
+    && composer global config allow-plugins.dealerdirect/phpcodesniffer-composer-installer true \
     && composer --no-interaction global --prefer-stable \
         --optimize-autoloader require \
         ${COMPOSER_PACKAGES} \

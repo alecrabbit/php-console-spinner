@@ -6,16 +6,10 @@ namespace AlecRabbit\Spinner\Core\Widget\Contract;
 
 use AlecRabbit\Spinner\Contract\IHasFrame;
 use AlecRabbit\Spinner\Contract\IHasInterval;
-use AlecRabbit\Spinner\Contract\IObserver;
 use AlecRabbit\Spinner\Contract\ISubject;
 
-interface IWidget extends IObserver,
-                          ISubject,
+interface IWidget extends ISubject,
                           IHasInterval,
-                          IHasFrame,
-                          IHasWidgetContext
+                          IHasFrame
 {
-    public function add(IWidget $widget): IWidgetContext;
-
-    public function remove(IWidget $widget): void;
 }

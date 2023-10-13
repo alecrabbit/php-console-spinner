@@ -8,6 +8,7 @@ use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Contract\IObserver;
 use AlecRabbit\Spinner\Contract\ITimer;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
+use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use AlecRabbit\Spinner\Core\Output\Contract\IDriverOutput;
 use Closure;
 
@@ -25,13 +26,13 @@ abstract class ADriver extends ASubject implements IDriver
         $this->interval = $this->initialInterval;
     }
 
-    /** @inheritdoc */
+    /** @inheritDoc */
     public function interrupt(?string $interruptMessage = null): void
     {
         $this->finalize($interruptMessage);
     }
 
-    /** @inheritdoc */
+    /** @inheritDoc */
     public function finalize(?string $finalMessage = null): void
     {
         $this->erase();
@@ -40,13 +41,13 @@ abstract class ADriver extends ASubject implements IDriver
 
     abstract protected function erase(): void;
 
-    /** @inheritdoc */
+    /** @inheritDoc */
     public function getInterval(): IInterval
     {
         return $this->interval;
     }
 
-    /** @inheritdoc */
+    /** @inheritDoc */
     public function wrap(Closure $callback): Closure
     {
         return
@@ -58,4 +59,13 @@ abstract class ADriver extends ASubject implements IDriver
     }
 
     abstract public function render(?float $dt = null): void;
+
+    /** @inheritDoc */
+    public function initialize(): void
+    {
+        $this->output->initialize();
+    }
+
+    /** @inheritDoc */
+    abstract public function has(ISpinner $spinner): bool;
 }

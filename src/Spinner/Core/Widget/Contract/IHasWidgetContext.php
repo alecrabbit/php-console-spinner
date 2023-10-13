@@ -8,5 +8,5 @@ interface IHasWidgetContext
 {
     public function getContext(): IWidgetContext;
 
-    public function replaceContext(IWidgetContext $context): void;
+    public function envelopWithContext(IWidgetContext $context): void;
 }

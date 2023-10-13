@@ -2,28 +2,26 @@
 
 declare(strict_types=1);
 
-
 namespace AlecRabbit\Spinner\Core\Settings\Contract;
 
 use AlecRabbit\Spinner\Contract\IFrame;
-use AlecRabbit\Spinner\Contract\Pattern\IPattern;
-use AlecRabbit\Spinner\Core\Pattern\Contract\IStylePattern;
+use AlecRabbit\Spinner\Core\Palette\Contract\IPalette;
 
-interface IWidgetSettings
+interface IWidgetSettings extends ISettingsElement
 {
-    public function getLeadingSpacer(): IFrame;
+    public function setTrailingSpacer(?IFrame $trailingSpacer): void;
 
-    public function setLeadingSpacer(IFrame $frame): IWidgetSettings;
+    public function getLeadingSpacer(): ?IFrame;
 
-    public function getTrailingSpacer(): IFrame;
+    public function getTrailingSpacer(): ?IFrame;
 
-    public function setTrailingSpacer(IFrame $frame): IWidgetSettings;
+    public function setLeadingSpacer(?IFrame $leadingSpacer): void;
 
-    public function getStylePattern(): IStylePattern;
+    public function getStylePalette(): ?IPalette;
 
-    public function setStylePattern(IStylePattern $pattern): IWidgetSettings;
+    public function setStylePalette(?IPalette $stylePalette): void;
 
-    public function getCharPattern(): IPattern;
+    public function getCharPalette(): ?IPalette;
 
-    public function setCharPattern(IPattern $pattern): IWidgetSettings;
+    public function setCharPalette(?IPalette $charPalette): void;
 }

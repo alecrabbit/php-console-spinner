@@ -2,194 +2,96 @@
 
 declare(strict_types=1);
 
-
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Config;
 
+use AlecRabbit\Spinner\Contract\IFrame;
+use AlecRabbit\Spinner\Core\Config\Contract\IWidgetConfig;
+use AlecRabbit\Spinner\Core\Config\Contract\IWidgetRevolverConfig;
 use AlecRabbit\Spinner\Core\Config\WidgetConfig;
-use AlecRabbit\Tests\TestCase\TestCaseWithPrebuiltMocksAndStubs;
+use AlecRabbit\Spinner\Core\Palette\Contract\IPalette;
+use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
+use PHPUnit\Framework\MockObject\MockObject;
 
-final class WidgetConfigTest extends TestCaseWithPrebuiltMocksAndStubs
+final class WidgetConfigTest extends TestCase
 {
     #[Test]
-    public function canBeCreatedEmpty(): void
+    public function canBeInstantiated(): void
     {
-        $config = new WidgetConfig();
-        self::assertNull($config->getLeadingSpacer());
-        self::assertNull($config->getTrailingSpacer());
-        self::assertNull($config->getStylePattern());
-        self::assertNull($config->getCharPattern());
+        $config = $this->getTesteeInstance();
+
+        self::assertInstanceOf(WidgetConfig::class, $config);
+    }
+
+    protected function getTesteeInstance(
+        ?IFrame $leadingSpacer = null,
+        ?IFrame $trailingSpacer = null,
+        ?IWidgetRevolverConfig $revolverConfig = null,
+    ): IWidgetConfig {
+        return
+            new WidgetConfig(
+                leadingSpacer: $leadingSpacer ?? $this->getFrameMock(),
+                trailingSpacer: $trailingSpacer ?? $this->getFrameMock(),
+                revolverConfig: $revolverConfig ?? $this->getRevolverConfigMock(),
+            );
+    }
+
+    protected function getFrameMock(): MockObject&IFrame
+    {
+        return $this->createMock(IFrame::class);
+    }
+
+    protected function getRevolverConfigMock(): MockObject&IWidgetRevolverConfig
+    {
+        return $this->createMock(IWidgetRevolverConfig::class);
     }
 
     #[Test]
-    public function canOverrideEmptyValues(): void
-    {
-        $config = new WidgetConfig();
-        self::assertNull($config->getLeadingSpacer());
-        self::assertNull($config->getTrailingSpacer());
-        self::assertNull($config->getStylePattern());
-        self::assertNull($config->getCharPattern());
-
-        $leadingSpacer = $this->getFrameMock();
-        $trailingSpacer = $this->getFrameMock();
-        $stylePattern = $this->getStylePatternMock();
-        $charPattern = $this->getCharPatternMock();
-
-        $config->setLeadingSpacer($leadingSpacer);
-        $config->setTrailingSpacer($trailingSpacer);
-        $config->setStylePattern($stylePattern);
-        $config->setCharPattern($charPattern);
-
-        self::assertNotNull($config->getLeadingSpacer());
-        self::assertNotNull($config->getTrailingSpacer());
-        self::assertNotNull($config->getStylePattern());
-        self::assertNotNull($config->getCharPattern());
-
-        self::assertSame($leadingSpacer, $config->getLeadingSpacer());
-        self::assertSame($trailingSpacer, $config->getTrailingSpacer());
-        self::assertSame($stylePattern, $config->getStylePattern());
-        self::assertSame($charPattern, $config->getCharPattern());
-    }
-
-    #[Test]
-    public function canBeCreatedWithValues(): void
+    public function canGetLeadingSpacer(): void
     {
         $leadingSpacer = $this->getFrameMock();
-        $trailingSpacer = $this->getFrameMock();
-        $stylePattern = $this->getStylePatternMock();
-        $charPattern = $this->getCharPatternMock();
 
-        $config = new WidgetConfig(
+        $config = $this->getTesteeInstance(
             leadingSpacer: $leadingSpacer,
-            trailingSpacer: $trailingSpacer,
-            stylePattern: $stylePattern,
-            charPattern: $charPattern,
         );
-        self::assertNotNull($config->getLeadingSpacer());
-        self::assertNotNull($config->getTrailingSpacer());
-        self::assertNotNull($config->getStylePattern());
-        self::assertNotNull($config->getCharPattern());
 
         self::assertSame($leadingSpacer, $config->getLeadingSpacer());
-        self::assertSame($trailingSpacer, $config->getTrailingSpacer());
-        self::assertSame($stylePattern, $config->getStylePattern());
-        self::assertSame($charPattern, $config->getCharPattern());
     }
 
     #[Test]
-    public function canOverrideCreatedWithValues(): void
+    public function canGetTrailingSpacer(): void
     {
-        $leadingSpacer = $this->getFrameMock();
         $trailingSpacer = $this->getFrameMock();
-        $stylePattern = $this->getStylePatternMock();
-        $charPattern = $this->getCharPatternMock();
 
-        $config = new WidgetConfig(
-            leadingSpacer: $leadingSpacer,
+        $config = $this->getTesteeInstance(
             trailingSpacer: $trailingSpacer,
-            stylePattern: $stylePattern,
-            charPattern: $charPattern,
         );
-        self::assertNotNull($config->getLeadingSpacer());
-        self::assertNotNull($config->getTrailingSpacer());
-        self::assertNotNull($config->getStylePattern());
-        self::assertNotNull($config->getCharPattern());
 
-        self::assertSame($leadingSpacer, $config->getLeadingSpacer());
         self::assertSame($trailingSpacer, $config->getTrailingSpacer());
-        self::assertSame($stylePattern, $config->getStylePattern());
-        self::assertSame($charPattern, $config->getCharPattern());
-
-        $leadingSpacer = $this->getFrameMock();
-        $trailingSpacer = $this->getFrameMock();
-        $stylePattern = $this->getStylePatternMock();
-        $charPattern = $this->getCharPatternMock();
-
-        $config->setLeadingSpacer($leadingSpacer);
-        $config->setTrailingSpacer($trailingSpacer);
-        $config->setStylePattern($stylePattern);
-        $config->setCharPattern($charPattern);
-
-        self::assertNotNull($config->getLeadingSpacer());
-        self::assertNotNull($config->getTrailingSpacer());
-        self::assertNotNull($config->getStylePattern());
-        self::assertNotNull($config->getCharPattern());
-
-        self::assertSame($leadingSpacer, $config->getLeadingSpacer());
-        self::assertSame($trailingSpacer, $config->getTrailingSpacer());
-        self::assertSame($stylePattern, $config->getStylePattern());
-        self::assertSame($charPattern, $config->getCharPattern());
     }
 
     #[Test]
-    public function canMergeIfEmpty(): void
+    public function canGetRevolverConfig(): void
     {
-        $config = new WidgetConfig();
+        $revolverConfig = $this->getRevolverConfigMock();
 
-        $leadingSpacer = $this->getFrameMock();
-        $trailingSpacer = $this->getFrameMock();
-        $stylePattern = $this->getStylePatternMock();
-        $charPattern = $this->getCharPatternMock();
-
-        $configToMerge = new WidgetConfig(
-            leadingSpacer: $leadingSpacer,
-            trailingSpacer: $trailingSpacer,
-            stylePattern: $stylePattern,
-            charPattern: $charPattern,
+        $config = $this->getTesteeInstance(
+            revolverConfig: $revolverConfig,
         );
 
-        self::assertNull($config->getLeadingSpacer());
-        self::assertNull($config->getTrailingSpacer());
-        self::assertNull($config->getStylePattern());
-        self::assertNull($config->getCharPattern());
-
-        $config = $config->merge($configToMerge);
-
-        self::assertNotNull($config->getLeadingSpacer());
-        self::assertNotNull($config->getTrailingSpacer());
-        self::assertNotNull($config->getStylePattern());
-        self::assertNotNull($config->getCharPattern());
-
-        self::assertSame($leadingSpacer, $config->getLeadingSpacer());
-        self::assertSame($trailingSpacer, $config->getTrailingSpacer());
-        self::assertSame($stylePattern, $config->getStylePattern());
-        self::assertSame($charPattern, $config->getCharPattern());
+        self::assertSame($revolverConfig, $config->getWidgetRevolverConfig());
     }
 
     #[Test]
-    public function canMergeIfNotEmpty(): void
+    public function canGetIdentifier(): void
     {
-        $trailingSpacer = $this->getFrameMock();
-        $stylePattern = $this->getStylePatternMock();
+        $config = $this->getTesteeInstance();
 
-        $config = new WidgetConfig(
-            trailingSpacer: $trailingSpacer,
-            stylePattern: $stylePattern,
-        );
+        self::assertEquals(IWidgetConfig::class, $config->getIdentifier());
+    }
 
-        $leadingSpacer = $this->getFrameMock();
-        $charPattern = $this->getCharPatternMock();
-
-        $configToMerge = new WidgetConfig(
-            leadingSpacer: $leadingSpacer,
-            charPattern: $charPattern,
-        );
-
-        self::assertNull($config->getLeadingSpacer());
-        self::assertNotNull($config->getTrailingSpacer());
-        self::assertNotNull($config->getStylePattern());
-        self::assertNull($config->getCharPattern());
-
-        $config = $config->merge($configToMerge);
-
-        self::assertNotNull($config->getLeadingSpacer());
-        self::assertNotNull($config->getTrailingSpacer());
-        self::assertNotNull($config->getStylePattern());
-        self::assertNotNull($config->getCharPattern());
-
-        self::assertSame($leadingSpacer, $config->getLeadingSpacer());
-        self::assertSame($trailingSpacer, $config->getTrailingSpacer());
-        self::assertSame($stylePattern, $config->getStylePattern());
-        self::assertSame($charPattern, $config->getCharPattern());
+    protected function getBakedPatternMock(): MockObject&IPalette
+    {
+        return $this->createMock(IPalette::class);
     }
 }

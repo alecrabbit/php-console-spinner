@@ -14,7 +14,7 @@ final class DefinitionRegistry implements IDefinitionRegistry
 
     private function __construct()
     {
-        // Enforcing singleton
+        // Can be instantiated only by getInstance()
     }
 
     public static function getInstance(): IDefinitionRegistry
@@ -25,7 +25,7 @@ final class DefinitionRegistry implements IDefinitionRegistry
         return self::$instance;
     }
 
-    public function getDefinitions(): Traversable
+    public function load(): Traversable
     {
         yield from $this->definitions;
     }

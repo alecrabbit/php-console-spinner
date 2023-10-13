@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-
 namespace AlecRabbit\Spinner\Core;
 
 use AlecRabbit\Spinner\Contract\IInterval;
@@ -16,21 +15,22 @@ final class Driver extends ADriver
     protected ?ISpinner $spinner = null;
     protected ISpinnerState $state;
 
-    /** @inheritdoc */
-    public function initialize(): void
-    {
-        $this->output->initialize();
-    }
-
-    /** @inheritdoc */
+    /** @inheritDoc */
     public function add(ISpinner $spinner): void
     {
         $this->erase();
-        $spinner->attach($this);
-        $this->spinner = $spinner;
+
         $this->state = new SpinnerState();
-        $this->interval = $this->interval->smallest($spinner->getInterval());
-        $this->notify();
+
+        $this->spinner = $spinner;
+        $spinner->attach($this);
+        $this->update($spinner);
+    }
+
+    /** @inheritDoc */
+    public function has(ISpinner $spinner): bool
+    {
+        return $this->spinner === $spinner;
     }
 
     protected function erase(): void
@@ -40,7 +40,20 @@ final class Driver extends ADriver
         }
     }
 
-    /** @inheritdoc */
+    public function update(ISubject $subject): void
+    {
+        if ($this->spinner === $subject) {
+            $this->interval = $this->recalculateInterval();
+            $this->notify();
+        }
+    }
+
+    protected function recalculateInterval(): IInterval
+    {
+        return $this->initialInterval->smallest($this->spinner?->getInterval());
+    }
+
+    /** @inheritDoc */
     public function remove(ISpinner $spinner): void
     {
         if ($this->spinner === $spinner) {
@@ -52,21 +65,7 @@ final class Driver extends ADriver
         }
     }
 
-    protected function recalculateInterval(): IInterval
-    {
-        return $this->initialInterval->smallest($this->spinner?->getInterval());
-    }
-
-    public function update(ISubject $subject): void
-    {
-        if ($this->spinner === $subject) {
-            $this->interval = $this->recalculateInterval();
-            $this->notify();
-        }
-    }
-
-
-    /** @inheritdoc */
+    /** @inheritDoc */
     public function render(?float $dt = null): void
     {
         if ($this->spinner) {

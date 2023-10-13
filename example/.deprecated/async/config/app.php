@@ -15,11 +15,11 @@ $defaultsProvider = Facade::getDefaultsProvider();
 $defaultsProvider->getDriverSettings()->setFinalMessage(PHP_EOL . '>>> Finished!' . PHP_EOL);
 
 $defaultsProvider->getAuxSettings()->setOptionCursor(
-    \AlecRabbit\Spinner\Contract\Option\OptionCursor::VISIBLE
+    \AlecRabbit\Spinner\Contract\Option\CursorVisibilityOption::VISIBLE
 );
 
 $defaultsProvider->getLoopSettings()->setAttachHandlersOption(
-    \AlecRabbit\Spinner\Contract\Option\OptionAttachHandlers::DISABLED
+    \AlecRabbit\Spinner\Contract\Option\SignalHandlersOption::DISABLED
 );
 
 // # !!! ATTENTION !!! (no spinner output)
@@ -39,7 +39,7 @@ $defaultsProvider->getLoopSettings()->setAttachHandlersOption(
 //    \AlecRabbit\Spinner\Contract\OptionAutoStart::DISABLED
 //);
 
-$spinner = Facade::createSpinner();
+$spinner = Facade::legacyCreateSpinner();
 
 // # that's it :)
 

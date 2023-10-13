@@ -2,10 +2,9 @@
 
 declare(strict_types=1);
 
-
 namespace AlecRabbit\Spinner\Contract;
 
-interface IHasInterval
+interface IHasInterval extends IHasNullableInterval
 {
     /**
      * @return IInterval
