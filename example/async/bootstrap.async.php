@@ -5,9 +5,16 @@ declare(strict_types=1);
 use AlecRabbit\Spinner\Facade;
 use AlecRabbit\Spinner\Helper\MemoryUsage;
 
-require_once __DIR__ . '/../bootstrap.php';
+// Code in this file is NOT REQUIRED
+// and is used only for demonstration convenience.
+
+require_once __DIR__ . '/../bootstrap.php'; // <-- except this line - it is required 🙂
+
+$reportInterval = 60; // seconds
 
 $driver = Facade::getDriver();
+
+// Create echo function
 $echo =
     $driver->wrap(
         static function (?string $message = null) {
@@ -15,8 +22,7 @@ $echo =
         }
     );
 
-$reportInterval = 60;
-
+// Create memory report function
 $memoryReport = static function () use ($echo): void {
     static $m = new MemoryUsage();
 
@@ -31,6 +37,7 @@ $memoryReport = static function () use ($echo): void {
 
 $loop = Facade::getLoop();
 
+// Execute memory report function every $reportInterval seconds
 $loop
     ->repeat(
         $reportInterval,
@@ -41,4 +48,4 @@ $loop
 $echo(PHP_EOL . sprintf('Using loop: "%s"', get_debug_type($loop)));
 $echo();
 
-$memoryReport();
+$memoryReport(); // initial report
