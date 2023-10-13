@@ -89,9 +89,7 @@ final class DetectedSettingsFactory implements IDetectedSettingsFactory
     protected function getSignalMethodOption(): SignalHandlersOption
     {
         return
-            $this->signalProcessingSupportDetector->isSupported()
-                ? SignalHandlersOption::ENABLED
-                : SignalHandlersOption::DISABLED;
+            $this->signalProcessingSupportDetector->getSupportValue();
     }
 
     private function detectStylingMethodOption(): StylingMethodOption
