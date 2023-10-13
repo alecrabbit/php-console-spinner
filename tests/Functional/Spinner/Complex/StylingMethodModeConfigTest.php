@@ -22,7 +22,7 @@ final class StylingMethodModeConfigTest extends ConfigurationTestCase
         self::modifyContainer(
             self::extractContainer(),
             [
-                // All settings detected will be considered as AUTO
+                // Detected settings considered as AUTO
                 IDetectedSettingsFactory::class => static function () {
                     return
                         new class implements IDetectedSettingsFactory {
