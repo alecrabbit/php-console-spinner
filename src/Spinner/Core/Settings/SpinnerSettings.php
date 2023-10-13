@@ -10,12 +10,12 @@ use AlecRabbit\Spinner\Core\Settings\Contract\IWidgetSettings;
 final readonly class SpinnerSettings implements ISpinnerSettings
 {
     public function __construct(
-        protected IWidgetSettings $widgetSettings,
+        protected ?IWidgetSettings $widgetSettings = null,
         protected bool $autoAttach = true,
     ) {
     }
 
-    public function getWidgetSettings(): IWidgetSettings
+    public function getWidgetSettings(): ?IWidgetSettings
     {
         return $this->widgetSettings;
     }
