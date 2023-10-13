@@ -44,6 +44,11 @@ final readonly class SignalHandlersModeSolver extends ASolver implements Contrac
                 ],
                 [
                     SignalHandlersOption::ENABLED,
+                    SignalHandlersOption::ENABLED,
+                    SignalHandlersOption::ENABLED,
+                ],
+                [
+                    SignalHandlersOption::ENABLED,
                     SignalHandlersOption::DISABLED,
                     SignalHandlersOption::DISABLED,
                 ],
@@ -90,6 +95,16 @@ final readonly class SignalHandlersModeSolver extends ASolver implements Contrac
                 [
                     SignalHandlersOption::DISABLED,
                     SignalHandlersOption::DISABLED,
+                    SignalHandlersOption::DISABLED,
+                ],
+                [
+                    SignalHandlersOption::DISABLED,
+                    SignalHandlersOption::ENABLED,
+                    SignalHandlersOption::ENABLED,
+                ],
+                [
+                    SignalHandlersOption::DISABLED,
+                    SignalHandlersOption::ENABLED,
                     SignalHandlersOption::DISABLED,
                 ],
                 [
