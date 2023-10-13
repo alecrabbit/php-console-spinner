@@ -13,7 +13,7 @@ use AlecRabbit\Spinner\Facade;
 use AlecRabbit\Tests\TestCase\ContainerModifyingTestCase;
 use PHPUnit\Framework\Attributes\Test;
 
-final class SpinnerTest extends ContainerModifyingTestCase
+final class AttachingSpinnerTest extends ContainerModifyingTestCase
 {
     #[Test]
     public function spinnerCanBeCreatedUnattachedToDriver(): void

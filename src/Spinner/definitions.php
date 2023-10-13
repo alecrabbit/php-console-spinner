@@ -173,6 +173,7 @@ function getDefinitions(): Traversable
                 new ResourceStream(STDERR); // FIXME (2023-10-11 14:49) [Alec Rabbit]: stub!
         },
         ISettingsProvider::class => static function (ContainerInterface $container): ISettingsProvider {
+            // FIXME (2023-10-13 13:20) [Alec Rabbit]: new settings provider should be instantiated on each call
             return $container->get(ISettingsProviderFactory::class)->create();
         },
         IConfigProvider::class => static function (ContainerInterface $container): IConfigProvider {

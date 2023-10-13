@@ -135,6 +135,8 @@ final class StylingMethodModeSolverTest extends TestCase
             [[$m8b], [null, $o8b, null],], // #57
             [[$m24], [null, $o24, null],], // #58
             [[$mNo], [null, $oNo, null],], // #59
+
+            [[$mNo], [$oNo, $oAu, $oAu],], // #60
         ];
     }
 

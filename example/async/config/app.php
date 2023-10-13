@@ -2,30 +2,31 @@
 
 declare(strict_types=1);
 
-use AlecRabbit\Spinner\Core\Config\Legacy\LegacyWidgetConfig;
+use AlecRabbit\Spinner\Contract\Option\StylingMethodOption;
+use AlecRabbit\Spinner\Core\Settings\DriverSettings;
+use AlecRabbit\Spinner\Core\Settings\OutputSettings;
 use AlecRabbit\Spinner\Facade;
 
 require_once __DIR__ . '/../bootstrap.async.php';
 
-$settingsProvider = Facade::getLegacySettingsProvider();
-$settingsProvider
-    ->getLegacyTerminalSettings()
-    ->setOptionStyleMode(
-        \AlecRabbit\Spinner\Contract\Option\StylingMethodOption::NONE
-    )
-;
-$settingsProvider
-    ->getLegacyDriverSettings()
-    ->setInterruptMessage(' Interrupted!' . PHP_EOL)
-;
-//$settingsProvider
-//    ->getLoopSettings()
-//    ->setOptionAutoStart(
-//        \AlecRabbit\Spinner\Contract\Option\OptionAutoStart::DISABLED
-//    )
-//;
 
-$config =
-    new LegacyWidgetConfig();
+$settings = Facade::getSettings();
 
-$spinner = Facade::legacyCreateSpinner($config);
+dump($settings);
+
+$settings
+    ->set(
+        new OutputSettings(
+            stylingMethodOption: StylingMethodOption::NONE,
+        ),
+        new DriverSettings()
+    );
+
+dump($settings);
+
+dump(Facade::getSettings());
+
+$spinner = Facade::createSpinner();
+
+dump(Facade::getSettings());
+//dump($spinner);

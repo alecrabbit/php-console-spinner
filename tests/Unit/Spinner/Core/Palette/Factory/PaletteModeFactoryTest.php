@@ -25,17 +25,12 @@ final class PaletteModeFactoryTest extends TestCase
     }
 
     public function getTesteeInstance(
-        ?IConfigProvider $configProvider = null,
+        ?IOutputConfig $outputConfig = null,
     ): IPaletteModeFactory {
         return
             new PaletteModeFactory(
-                configProvider: $configProvider ?? $this->getConfigProviderMock(),
+                outputConfig: $outputConfig ?? $this->getOutputConfigMock(),
             );
-    }
-
-    private function getConfigProviderMock(): MockObject&IConfigProvider
-    {
-        return $this->createMock(IConfigProvider::class);
     }
 
     #[Test]
@@ -50,23 +45,8 @@ final class PaletteModeFactoryTest extends TestCase
             ->willReturn($stylingMode)
         ;
 
-        $config = $this->getConfigMock();
-        $config
-            ->expects(self::once())
-            ->method('get')
-            ->with(self::identicalTo(IOutputConfig::class))
-            ->willReturn($outputConfig)
-        ;
-
-        $configProvider = $this->getConfigProviderMock();
-        $configProvider
-            ->expects(self::once())
-            ->method('getConfig')
-            ->willReturn($config)
-        ;
-
         $paletteModeFactory = $this->getTesteeInstance(
-            configProvider: $configProvider,
+            outputConfig: $outputConfig,
         );
 
         $paletteMode = $paletteModeFactory->create();
