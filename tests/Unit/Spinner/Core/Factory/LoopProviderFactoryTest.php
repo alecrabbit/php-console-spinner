@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Factory;
 
+use AlecRabbit\Spinner\Contract\Mode\RunMethodMode;
+use AlecRabbit\Spinner\Core\Config\Contract\IAuxConfig;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopProviderFactory;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoop;
@@ -29,11 +31,13 @@ final class LoopProviderFactoryTest extends TestCase
     public function getTesteeInstance(
         ?ILoopFactory $loopFactory = null,
         ?ILoopSetup $loopSetup = null,
+        ?RunMethodMode $runMethodMode = null,
     ): ILoopProviderFactory {
         return
             new LoopProviderFactory(
                 loopFactory: $loopFactory ?? $this->getLoopFactoryMock(),
                 loopSetup: $loopSetup ?? $this->getLoopSetupMock(),
+                runMethodMode: $runMethodMode ?? RunMethodMode::ASYNC,
             );
     }
 
@@ -66,6 +70,7 @@ final class LoopProviderFactoryTest extends TestCase
             ->with(self::identicalTo($loop))
         ;
 
+
         $factory = $this->getTesteeInstance(
             loopFactory: $loopFactory,
             loopSetup: $loopSetup,
@@ -94,6 +99,23 @@ final class LoopProviderFactoryTest extends TestCase
 
         $factory = $this->getTesteeInstance(
             loopFactory: $loopFactory,
+        );
+
+        $loopProvider = $factory->create();
+
+        self::assertInstanceOf(LoopProvider::class, $loopProvider);
+        self::assertNull(self::getPropertyValue('loop', $loopProvider));
+
+        $this->expectException(DomainException::class);
+        $this->expectExceptionMessage('Loop is not set.');
+
+        $loopProvider->getLoop();
+    }
+    #[Test]
+    public function canCreateWithRunMethodModeSynchronous(): void
+    {
+        $factory = $this->getTesteeInstance(
+            runMethodMode: RunMethodMode::SYNCHRONOUS,
         );
 
         $loopProvider = $factory->create();

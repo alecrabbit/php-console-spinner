@@ -8,15 +8,6 @@ use AlecRabbit\Spinner\Facade;
 
 require_once __DIR__ . '/../../bootstrap.php';
 
-// !!! ATTENTION !!!
-// You can change settings ONLY BEFORE creating a configuration.
-// Configuration is created only once at first call
-// of:
-// - Facade::getDriver()
-// - Facade::getLoop()
-// - Facade::createSpinner()
-
-// so lets disable styling:
 Facade::getSettings()
     ->set(
         new OutputSettings(

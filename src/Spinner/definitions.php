@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner;
 
 use AlecRabbit\Spinner\Contract\Mode\NormalizerMethodMode;
+use AlecRabbit\Spinner\Contract\Mode\RunMethodMode;
 use AlecRabbit\Spinner\Contract\Output\IResourceStream;
 use AlecRabbit\Spinner\Contract\Probe\IColorSupportProbe;
 use AlecRabbit\Spinner\Contract\Probe\ISignalProcessingProbe;
@@ -241,6 +242,9 @@ function configs(): Traversable
         },
         IRootWidgetConfig::class => static function (ContainerInterface $container): IRootWidgetConfig {
             return $container->get(IConfig::class)->get(IRootWidgetConfig::class);
+        },
+        RunMethodMode::class => static function (ContainerInterface $container): RunMethodMode {
+            return $container->get(IAuxConfig::class)->getRunMethodMode();
         },
     ];
 }

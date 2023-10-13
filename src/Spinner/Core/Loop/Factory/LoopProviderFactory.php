@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Loop\Factory;
 
+use AlecRabbit\Spinner\Contract\Mode\RunMethodMode;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopProviderFactory;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoop;
@@ -17,6 +18,7 @@ final readonly class LoopProviderFactory implements ILoopProviderFactory
     public function __construct(
         protected ILoopFactory $loopFactory,
         protected ILoopSetup $loopSetup,
+        protected RunMethodMode $runMethodMode,
     ) {
     }
 
@@ -30,6 +32,9 @@ final readonly class LoopProviderFactory implements ILoopProviderFactory
 
     private function createLoop(): ?ILoop
     {
+        if ($this->runMethodMode === RunMethodMode::SYNCHRONOUS) {
+            return null;
+        }
         try {
             $loop = $this->loopFactory->create();
 

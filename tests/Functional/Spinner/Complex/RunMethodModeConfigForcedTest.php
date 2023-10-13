@@ -15,7 +15,7 @@ use AlecRabbit\Spinner\Facade;
 use AlecRabbit\Tests\TestCase\ConfigurationTestCase;
 use PHPUnit\Framework\Attributes\Test;
 
-final class RunMethodModeConfigTest extends ConfigurationTestCase
+final class RunMethodModeConfigForcedTest extends ConfigurationTestCase
 {
     protected static function performContainerModifications(): void
     {
@@ -28,7 +28,13 @@ final class RunMethodModeConfigTest extends ConfigurationTestCase
                         new class implements IDetectedSettingsFactory {
                             public function create(): ISettings
                             {
-                                return new Settings();
+                                return new Settings(
+                                    new \ArrayObject([
+                                        new AuxSettings(
+                                            runMethodOption: RunMethodOption::ASYNC,
+                                        )
+                                    ])
+                                );
                             }
                         };
                 },
