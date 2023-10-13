@@ -8,6 +8,7 @@ use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Contract\IObserver;
 use AlecRabbit\Spinner\Contract\ITimer;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
+use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use AlecRabbit\Spinner\Core\Output\Contract\IDriverOutput;
 use Closure;
 
@@ -64,4 +65,7 @@ abstract class ADriver extends ASubject implements IDriver
     {
         $this->output->initialize();
     }
+
+    /** @inheritDoc */
+    abstract public function has(ISpinner $spinner): bool;
 }

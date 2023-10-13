@@ -7,6 +7,7 @@ namespace AlecRabbit\Tests\Functional\Spinner;
 use AlecRabbit\Spinner\Core\A\ADriver;
 use AlecRabbit\Spinner\Core\Loop\Contract\A\ALoopAdapter;
 use AlecRabbit\Spinner\Core\Settings\Settings;
+use AlecRabbit\Spinner\Core\Spinner;
 use AlecRabbit\Spinner\Facade;
 use AlecRabbit\Tests\TestCase\ContainerModifyingTestCase;
 use PHPUnit\Framework\Attributes\Test;
@@ -64,6 +65,14 @@ final class FacadeTest extends ContainerModifyingTestCase
         $driver = Facade::getDriver();
 
         self::assertInstanceOf(ADriver::class, $driver);
+    }
+
+    #[Test]
+    public function canCreateSpinner(): void
+    {
+        $spinner = Facade::createSpinner();
+
+        self::assertInstanceOf(Spinner::class, $spinner);
     }
 
     #[Test]

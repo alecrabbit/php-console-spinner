@@ -91,6 +91,11 @@ final class MethodWrapDriverTest extends TestCaseForDriver
             {
                 throw new RuntimeException('Not implemented. Should not be called.');
             }
+
+            public function has(ISpinner $spinner): bool
+            {
+                throw new RuntimeException('Not implemented. Should not be called.');
+            }
         };
     }
 }

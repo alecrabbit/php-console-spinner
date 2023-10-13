@@ -31,7 +31,8 @@ final class MethodAddDriverTest extends TestCaseForDriver
             ->with($driver)
         ;
 
-
         $driver->add($spinner);
+
+        self::assertTrue($driver->has($spinner));
     }
 }

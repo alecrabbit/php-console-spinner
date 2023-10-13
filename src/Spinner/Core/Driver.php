@@ -27,6 +27,12 @@ final class Driver extends ADriver
         $this->update($spinner);
     }
 
+    /** @inheritDoc */
+    public function has(ISpinner $spinner): bool
+    {
+        return $this->spinner === $spinner;
+    }
+
     protected function erase(): void
     {
         if ($this->spinner) {
