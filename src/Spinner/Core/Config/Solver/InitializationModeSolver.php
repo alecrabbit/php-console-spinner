@@ -37,6 +37,11 @@ final readonly class InitializationModeSolver extends ASolver implements Contrac
                     InitializationOption::DISABLED,
                 ],
                 [
+                    InitializationOption::AUTO,
+                    InitializationOption::AUTO,
+                    InitializationOption::ENABLED,
+                ],
+                [
                     InitializationOption::ENABLED,
                     InitializationOption::DISABLED,
                     InitializationOption::DISABLED,

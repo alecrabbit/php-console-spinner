@@ -35,6 +35,10 @@ final readonly class LinkerModeSolver extends ASolver implements Contract\ILinke
                     LinkerOption::AUTO,
                     LinkerOption::ENABLED,
                     LinkerOption::DISABLED,
+                ], [
+                    LinkerOption::AUTO,
+                    LinkerOption::ENABLED,
+                    LinkerOption::ENABLED,
                 ],
                 [
                     LinkerOption::ENABLED,

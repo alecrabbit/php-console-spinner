@@ -98,6 +98,9 @@ final class InitializationModeSolverTest extends TestCase
 
             [[$mE], [null, null, $oEn],],
             [[$mD], [null, null, $oDi],],
+
+            [[$mE], [$oAu, $oAu, $oEn],],
+
         ];
     }
 

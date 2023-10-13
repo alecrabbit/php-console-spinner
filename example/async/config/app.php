@@ -7,14 +7,9 @@ use AlecRabbit\Spinner\Core\Settings\DriverSettings;
 use AlecRabbit\Spinner\Core\Settings\OutputSettings;
 use AlecRabbit\Spinner\Facade;
 
-require_once __DIR__ . '/../bootstrap.async.php';
+require_once __DIR__ . '/../../bootstrap.php';
 
-
-$settings = Facade::getSettings();
-
-dump($settings);
-
-$settings
+Facade::getSettings()
     ->set(
         new OutputSettings(
             stylingMethodOption: StylingMethodOption::NONE,
@@ -22,11 +17,8 @@ $settings
         new DriverSettings()
     );
 
-dump($settings);
-
-dump(Facade::getSettings());
-
 $spinner = Facade::createSpinner();
 
-dump(Facade::getSettings());
+require_once __DIR__ . '/../bootstrap.async.php';
+
 //dump($spinner);
