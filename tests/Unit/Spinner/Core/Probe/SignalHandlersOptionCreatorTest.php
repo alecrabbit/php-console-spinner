@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Unit\Spinner\Core\Probe;
+namespace AlecRabbit\Tests\Unit\Spinner\Core\Probe;
 
 use AlecRabbit\Spinner\Contract\Option\SignalHandlersOption;
 use AlecRabbit\Spinner\Core\Probe\SignalHandlersOptionCreator;
