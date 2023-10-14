@@ -4,12 +4,9 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Settings\Contract\Detector;
 
-use AlecRabbit\Spinner\Exception\InvalidArgumentException;
+use AlecRabbit\Spinner\Contract\Option\SignalHandlersOption;
 
-interface ISignalProcessingSupportDetector
+interface ISignalProcessingSupportDetector extends IDetector
 {
-    /**
-     * @throws InvalidArgumentException
-     */
-    public function isSupported(): bool;
+    public function getSupportValue(): SignalHandlersOption;
 }

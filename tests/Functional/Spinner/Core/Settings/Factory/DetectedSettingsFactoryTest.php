@@ -48,7 +48,8 @@ final class DetectedSettingsFactoryTest extends TestCase
             new DetectedSettingsFactory(
                 loopSupportDetector: $loopAvailabilityDetector ?? $this->getLoopAvailabilityDetectorMock(),
                 colorSupportDetector: $colorSupportDetector ?? $this->getColorSupportDetectorMock(),
-                signalProcessingSupportDetector: $signalHandlingDetector ?? $this->getSignalHandlingDetectorMock(),
+                signalProcessingSupportDetector: $signalHandlingDetector ?? $this->getSignalProcessingSupportDetectorMock(
+            ),
             );
     }
 
@@ -62,14 +63,20 @@ final class DetectedSettingsFactoryTest extends TestCase
         return $this->createConfiguredMock(
             IColorSupportDetector::class,
             [
-                'getSupportValue' => $stylingMethodOption ?? StylingMethodOption::ANSI8,
+                'getSupportValue' => $stylingMethodOption ?? StylingMethodOption::NONE,
             ]
         );
     }
 
-    private function getSignalHandlingDetectorMock(): MockObject&ISignalProcessingSupportDetector
-    {
-        return $this->createMock(ISignalProcessingSupportDetector::class);
+    private function getSignalProcessingSupportDetectorMock(
+        ?SignalHandlersOption $signalHandlersOption = null,
+    ): MockObject&ISignalProcessingSupportDetector {
+        return $this->createConfiguredMock(
+            ISignalProcessingSupportDetector::class,
+            [
+                'getSupportValue' => $signalHandlersOption ?? SignalHandlersOption::DISABLED,
+            ]
+        );
     }
 
     #[Test]
@@ -82,15 +89,14 @@ final class DetectedSettingsFactoryTest extends TestCase
             ->willReturn(true)
         ;
 
+        $signalHandlersOption = SignalHandlersOption::ENABLED;
         $stylingMethodOption = StylingMethodOption::ANSI24;
-        $colorSupportDetector = $this->getColorSupportDetectorMock($stylingMethodOption);
 
-        $signalHandlingDetector = $this->getSignalHandlingDetectorMock();
-        $signalHandlingDetector
-            ->expects(self::once())
-            ->method('isSupported')
-            ->willReturn(true)
-        ;
+        $colorSupportDetector =
+            $this->getColorSupportDetectorMock($stylingMethodOption);
+
+        $signalHandlingDetector =
+            $this->getSignalProcessingSupportDetectorMock($signalHandlersOption);
 
         $factory = $this->getTesteeInstance(
             loopAvailabilityDetector: $loopAvailabilityDetector,
@@ -118,7 +124,8 @@ final class DetectedSettingsFactoryTest extends TestCase
         self::assertSame(RunMethodOption::ASYNC, $auxSettings->getRunMethodOption());
         self::assertSame(LinkerOption::ENABLED, $driverSettings->getLinkerOption());
         self::assertSame(AutoStartOption::ENABLED, $loopSettings->getAutoStartOption());
-        self::assertSame(SignalHandlersOption::ENABLED, $loopSettings->getSignalHandlersOption());
+
+        self::assertSame($signalHandlersOption, $loopSettings->getSignalHandlersOption());
         self::assertSame($stylingMethodOption, $outputSettings->getStylingMethodOption());
     }
 }

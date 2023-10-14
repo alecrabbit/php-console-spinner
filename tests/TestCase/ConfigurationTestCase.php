@@ -6,32 +6,35 @@ namespace AlecRabbit\Tests\TestCase;
 
 use AlecRabbit\Spinner\Core\Config\Contract\IConfigElement;
 use AlecRabbit\Spinner\Core\Contract\IConfigProvider;
+use AlecRabbit\Spinner\Core\Settings\Contract\ISettingsProvider;
 use AlecRabbit\Spinner\Facade;
+use Psr\Container\ContainerInterface;
 
 abstract class ConfigurationTestCase extends ContainerModifyingTestCase
 {
     protected static function getRequiredConfig(string $class): IConfigElement
     {
-        static::performContainerModifications();
-        return self::getConfigProvider()->getConfig()->get($class);
+        return
+            self::extractConfigProvider(
+                self::getFacadeContainer()
+            )
+                ->getConfig()
+                ->get($class)
+        ;
+    }
+
+    protected static function extractConfigProvider(ContainerInterface $container): IConfigProvider
+    {
+        return $container->get(IConfigProvider::class);
     }
 
     abstract protected static function performContainerModifications(): void;
 
-    protected static function getConfigProvider(): IConfigProvider
+    protected function setUp(): void
     {
-        self::createConfiguration();
-
-        $container = self::extractContainer();
-
-        /** @var IConfigProvider $configProvider */
-        $configProvider = $container->get(IConfigProvider::class);
-
-        return $configProvider;
+        parent::setUp();
+        static::performContainerModifications();
     }
 
-    protected static function createConfiguration(): void
-    {
-        Facade::createSpinner();
-    }
+
 }

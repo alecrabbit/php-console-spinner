@@ -27,12 +27,6 @@ final class Driver extends ADriver
         $this->update($spinner);
     }
 
-    /** @inheritDoc */
-    public function has(ISpinner $spinner): bool
-    {
-        return $this->spinner === $spinner;
-    }
-
     protected function erase(): void
     {
         if ($this->spinner) {
@@ -51,6 +45,12 @@ final class Driver extends ADriver
     protected function recalculateInterval(): IInterval
     {
         return $this->initialInterval->smallest($this->spinner?->getInterval());
+    }
+
+    /** @inheritDoc */
+    public function has(ISpinner $spinner): bool
+    {
+        return $this->spinner === $spinner;
     }
 
     /** @inheritDoc */

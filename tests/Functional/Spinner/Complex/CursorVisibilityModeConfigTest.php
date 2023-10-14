@@ -14,6 +14,11 @@ use PHPUnit\Framework\Attributes\Test;
 
 final class CursorVisibilityModeConfigTest extends ConfigurationTestCase
 {
+    protected static function performContainerModifications(): void
+    {
+        // do nothing
+    }
+
     #[Test]
     public function canSetCursorVisibilityOptionVisible(): void
     {
@@ -45,10 +50,5 @@ final class CursorVisibilityModeConfigTest extends ConfigurationTestCase
         $outputConfig = self::getRequiredConfig(IOutputConfig::class);
 
         self::assertSame(CursorVisibilityMode::HIDDEN, $outputConfig->getCursorVisibilityMode());
-    }
-
-    protected static function performContainerModifications(): void
-    {
-        // do nothing
     }
 }

@@ -6,7 +6,6 @@ namespace AlecRabbit\Tests\Functional\Spinner\Complex;
 
 use AlecRabbit\Spinner\Contract\Mode\SignalHandlersMode;
 use AlecRabbit\Spinner\Contract\Option\SignalHandlersOption;
-use AlecRabbit\Spinner\Core\Config\Contract\IConfigElement;
 use AlecRabbit\Spinner\Core\Config\Contract\ILoopConfig;
 use AlecRabbit\Spinner\Core\Settings\Contract\Factory\IDetectedSettingsFactory;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettings;
@@ -15,9 +14,30 @@ use AlecRabbit\Spinner\Core\Settings\Settings;
 use AlecRabbit\Spinner\Facade;
 use AlecRabbit\Tests\TestCase\ConfigurationTestCase;
 use PHPUnit\Framework\Attributes\Test;
+use Psr\Container\ContainerInterface;
 
 final class SignalHandlersModeConfigTest extends ConfigurationTestCase
 {
+    protected static function performContainerModifications(): void
+    {
+        self::modifyContainer(
+            self::getFacadeContainer(),
+            [
+                // Detected settings considered as AUTO
+                IDetectedSettingsFactory::class => static function () {
+                    return
+                        new class implements IDetectedSettingsFactory {
+                            public function create(): ISettings
+                            {
+                                return
+                                    new Settings();
+                            }
+                        };
+                },
+            ],
+        );
+    }
+
     #[Test]
     public function canSetLoopSignalHandlersOptionEnabled(): void
     {
@@ -50,24 +70,5 @@ final class SignalHandlersModeConfigTest extends ConfigurationTestCase
         $loopConfig = self::getRequiredConfig(ILoopConfig::class);
 
         self::assertSame(SignalHandlersMode::DISABLED, $loopConfig->getSignalHandlersMode());
-    }
-
-    protected static function performContainerModifications(): void
-    {
-        self::modifyContainer(
-            self::extractContainer(),
-            [
-                // Detected settings considered as AUTO
-                IDetectedSettingsFactory::class => static function () {
-                    return
-                        new class implements IDetectedSettingsFactory {
-                            public function create(): ISettings
-                            {
-                                return new Settings();
-                            }
-                        };
-                },
-            ]
-        );
     }
 }

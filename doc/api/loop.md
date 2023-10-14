@@ -1,8 +1,21 @@
 # Event Loop
 
-The event loop availability is detected using loop probes. Loops are probed in the order in which the probes were added (registered) to the `Probes` class. The first probe that returns `true` from the `isSupported()` method is used to create an event loop.
+The event loop availability is detected using loop probes. Loops are probed in the reverse order in which the probes were added (registered) to the `Probes` class. The first probe that returns `true` from the `isSupported()` method is used to get event loop creator class.
 
 > See [`Asynchronous/bootstrap.php`](../../src/Spinner/Asynchronous/bootstrap.php) for details.
+
+## Synchronous Mode
+
+If no loop is detected, the synchronous mode is used. In this mode, the spinner is displayed only when the `render()` method is called.
+
+```php
+$spinner = Facade::createSpinner();
+$driver = Facade::getDriver();
+
+//...
+
+$driver->render();
+```
 
 ## How to Disable a Specific Event Loop Probe
 
@@ -57,14 +70,30 @@ class CustomLoopProbe extends ALoopProbe
         // ...
     }
 
-    public function createLoop(): ILoop
+    public static function getCreatorClass(): string
     {
-        return new CustomLoopAdapter();
+        return CustomLoopCreator::class;
     }
 }
 ```
 
+```php
+Probes::register(CustomLoopProbe::class);
+```
 > See implemented `RevoltLoopProbe` and `ReactLoopProbe` classes as examples.
+
+At last, you need to create a loop creator by implementing the `ILoopCreator` interface
+```php
+class CustomLoopCreator implements ILoopCreator
+{
+    public static function create(): ILoop
+    {
+        return
+            new CustomLoopAdapter();
+    }
+}
+```
+> See implemented `RevoltLoopCreator` and `ReactLoopCreator` classes as examples.
 
 ## Registering Loop Probe
 

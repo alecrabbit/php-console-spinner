@@ -13,6 +13,7 @@ use AlecRabbit\Spinner\Core\Settings\Contract\ISettings;
 use AlecRabbit\Spinner\Core\Settings\Settings;
 use AlecRabbit\Spinner\Facade;
 use AlecRabbit\Tests\TestCase\ConfigurationTestCase;
+use ArrayObject;
 use PHPUnit\Framework\Attributes\Test;
 
 final class RunMethodModeConfigForcedTest extends ConfigurationTestCase
@@ -20,7 +21,7 @@ final class RunMethodModeConfigForcedTest extends ConfigurationTestCase
     protected static function performContainerModifications(): void
     {
         self::modifyContainer(
-            self::extractContainer(),
+            self::getFacadeContainer(),
             [
                 // Detected settings considered as AUTO
                 IDetectedSettingsFactory::class => static function () {
@@ -29,7 +30,7 @@ final class RunMethodModeConfigForcedTest extends ConfigurationTestCase
                             public function create(): ISettings
                             {
                                 return new Settings(
-                                    new \ArrayObject([
+                                    new ArrayObject([
                                         new AuxSettings(
                                             runMethodOption: RunMethodOption::ASYNC,
                                         )

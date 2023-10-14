@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Settings\Factory;
 
+use AlecRabbit\Spinner\Contract\Option\SignalHandlersOption;
 use AlecRabbit\Spinner\Contract\Option\StylingMethodOption;
 use AlecRabbit\Spinner\Core\Settings\Contract\Detector\IColorSupportDetector;
 use AlecRabbit\Spinner\Core\Settings\Contract\Detector\ILoopSupportDetector;
@@ -34,7 +35,8 @@ final class DetectedSettingsFactoryTest extends TestCase
             new DetectedSettingsFactory(
                 loopSupportDetector: $loopAvailabilityDetector ?? $this->getLoopAvailabilityDetectorMock(),
                 colorSupportDetector: $colorSupportDetector ?? $this->getColorSupportDetectorMock(),
-                signalProcessingSupportDetector: $signalHandlingDetector ?? $this->getSignalHandlingDetectorMock(),
+                signalProcessingSupportDetector: $signalHandlingDetector ?? $this->getSignalProcessingSupportDetectorMock(
+            ),
             );
     }
 
@@ -54,9 +56,15 @@ final class DetectedSettingsFactoryTest extends TestCase
         );
     }
 
-    private function getSignalHandlingDetectorMock(): MockObject&ISignalProcessingSupportDetector
-    {
-        return $this->createMock(ISignalProcessingSupportDetector::class);
+    private function getSignalProcessingSupportDetectorMock(
+        ?SignalHandlersOption $signalHandlersOption = null,
+    ): MockObject&ISignalProcessingSupportDetector {
+        return $this->createConfiguredMock(
+            ISignalProcessingSupportDetector::class,
+            [
+                'getSupportValue' => $signalHandlersOption ?? SignalHandlersOption::DISABLED,
+            ]
+        );
     }
 
     #[Test]

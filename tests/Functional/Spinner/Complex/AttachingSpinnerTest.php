@@ -4,9 +4,6 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Functional\Spinner\Complex;
 
-use AlecRabbit\Spinner\Core\A\ADriver;
-use AlecRabbit\Spinner\Core\Loop\Contract\A\ALoopAdapter;
-use AlecRabbit\Spinner\Core\Settings\Settings;
 use AlecRabbit\Spinner\Core\Settings\SpinnerSettings;
 use AlecRabbit\Spinner\Core\Spinner;
 use AlecRabbit\Spinner\Facade;

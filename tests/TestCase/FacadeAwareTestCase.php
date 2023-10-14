@@ -21,14 +21,14 @@ abstract class FacadeAwareTestCase extends TestCase
 
     protected function setUp(): void
     {
-        self::$container = self::extractContainer();
+        self::$container = self::getFacadeContainer();
         self::setContainer(null);
         self::$configurationCreated = self::extractConfigurationCreated();
         self::setConfigurationCreated(false);
         parent::setUp();
     }
 
-    protected static function extractContainer(): mixed
+    protected static function getFacadeContainer(): mixed
     {
         return self::callMethod(Facade::class, self::GET_CONTAINER);
     }
