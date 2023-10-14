@@ -107,6 +107,7 @@ final class SignalHandlersModeSolverTest extends TestCase
             [[$mD], [$oDi, $oDi, $oEn],], // #28
             [[$mD], [$oAu, $oDi, $oEn],], // #29
             [[$mD], [$oEn, $oDi, $oEn],], // #30
+            [[$mE], [$oAu, $oAu, $oEn],], // #31
         ];
     }
 
