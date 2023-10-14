@@ -60,7 +60,7 @@ final class SignalHandlersModeConfigTest extends ConfigurationTestCase
         /** @var ILoopConfig $loopConfig */
         $loopConfig = self::getRequiredConfig(ILoopConfig::class);
 
-        self::assertSame(SignalHandlersMode::ENABLED, $loopConfig->getSignalHandlersMode());
+        self::assertSame(SignalHandlersMode::ENABLED, dump($loopConfig->getSignalHandlersMode()));
     }
 
     #[Test]
