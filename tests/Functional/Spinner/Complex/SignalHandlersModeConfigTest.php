@@ -6,6 +6,7 @@ namespace AlecRabbit\Tests\Functional\Spinner\Complex;
 
 use AlecRabbit\Spinner\Contract\Mode\SignalHandlersMode;
 use AlecRabbit\Spinner\Contract\Option\SignalHandlersOption;
+use AlecRabbit\Spinner\Contract\Probe\ISignalHandlersOptionCreator;
 use AlecRabbit\Spinner\Core\Config\Contract\ILoopConfig;
 use AlecRabbit\Spinner\Core\Settings\Contract\Factory\IDetectedSettingsFactory;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettings;
@@ -29,6 +30,15 @@ final class SignalHandlersModeConfigTest extends ConfigurationTestCase
                             public function create(): ISettings
                             {
                                 return new Settings();
+                            }
+                        };
+                },
+                ISignalHandlersOptionCreator::class => static function () {
+                    return
+                        new class implements ISignalHandlersOptionCreator {
+                            public static function create(): SignalHandlersOption
+                            {
+                                return SignalHandlersOption::AUTO;
                             }
                         };
                 },
