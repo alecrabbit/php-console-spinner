@@ -5,10 +5,10 @@ Files                                              340
 
 Size
   Lines of Code (LOC)                            11658
-  Comment Lines of Code (CLOC)                     616 (5.28%)
-  Non-Comment Lines of Code (NCLOC)              11042 (94.72%)
-  Logical Lines of Code (LLOC)                    1315 (11.28%)
-    Classes                                       1215 (92.40%)
+  Comment Lines of Code (CLOC)                     611 (5.24%)
+  Non-Comment Lines of Code (NCLOC)              11047 (94.76%)
+  Logical Lines of Code (LLOC)                    1316 (11.29%)
+    Classes                                       1216 (92.40%)
       Average Class Length                           3
         Minimum Class Length                         0
         Maximum Class Length                        36
@@ -20,7 +20,7 @@ Size
         Maximum Methods Per Class                   14
     Functions                                       41 (3.12%)
       Average Function Length                        1
-    Not in classes or functions                     59 (4.49%)
+    Not in classes or functions                     59 (4.48%)
 
 Cyclomatic Complexity
   Average Complexity per LLOC                     0.33
@@ -39,9 +39,9 @@ Dependencies
   Attribute Accesses                               566
     Non-Static                                     544 (96.11%)
     Static                                          22 (3.89%)
-  Method Calls                                     649
-    Non-Static                                     562 (86.59%)
-    Static                                          87 (13.41%)
+  Method Calls                                     651
+    Non-Static                                     562 (86.33%)
+    Static                                          89 (13.67%)
 
 Structure
   Namespaces                                        66
@@ -63,8 +63,8 @@ Structure
   Functions                                         39
     Named Functions                                 10 (25.64%)
     Anonymous Functions                             29 (74.36%)
-  Constants                                         14
+  Constants                                         15
     Global Constants                                 0 (0.00%)
-    Class Constants                                 14 (100.00%)
-      Public Constants                               5 (35.71%)
-      Non-Public Constants                           9 (64.29%)
+    Class Constants                                 15 (100.00%)
+      Public Constants                               5 (33.33%)
+      Non-Public Constants                          10 (66.67%)

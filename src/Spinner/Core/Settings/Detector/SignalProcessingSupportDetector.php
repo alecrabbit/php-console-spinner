@@ -41,17 +41,4 @@ final class SignalProcessingSupportDetector implements ISignalProcessingSupportD
             );
         }
     }
-
-    /** @inheritDoc */
-    public function isSupported(): bool
-    {
-        foreach ($this->probes as $probe) {
-            self::assertProbe($probe);
-            if ($probe::isSupported()) {
-                return true;
-            }
-        }
-
-        return false;
-    }
 }
