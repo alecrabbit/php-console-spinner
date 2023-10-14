@@ -7,7 +7,6 @@ namespace AlecRabbit\Tests\Unit\Spinner\Core\Palette\Factory;
 use AlecRabbit\Spinner\Contract\Mode\StylingMethodMode;
 use AlecRabbit\Spinner\Core\Config\Contract\IConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IOutputConfig;
-use AlecRabbit\Spinner\Core\Contract\IConfigProvider;
 use AlecRabbit\Spinner\Core\Palette\Factory\Contract\IPaletteModeFactory;
 use AlecRabbit\Spinner\Core\Palette\Factory\PaletteModeFactory;
 use AlecRabbit\Tests\TestCase\TestCase;
@@ -33,6 +32,11 @@ final class PaletteModeFactoryTest extends TestCase
             );
     }
 
+    private function getOutputConfigMock(): MockObject&IOutputConfig
+    {
+        return $this->createMock(IOutputConfig::class);
+    }
+
     #[Test]
     public function canCreate(): void
     {
@@ -52,11 +56,6 @@ final class PaletteModeFactoryTest extends TestCase
         $paletteMode = $paletteModeFactory->create();
 
         self::assertSame($stylingMode, $paletteMode->getStylingMode());
-    }
-
-    private function getOutputConfigMock(): MockObject&IOutputConfig
-    {
-        return $this->createMock(IOutputConfig::class);
     }
 
     private function getConfigMock(): MockObject&IConfig

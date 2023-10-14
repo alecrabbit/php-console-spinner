@@ -19,20 +19,22 @@ final class StylingMethodModeConfigTest extends ConfigurationTestCase
 {
     protected static function performContainerModifications(): void
     {
-        self::modifyContainer(
-            self::extractContainer(),
-            [
-                // Detected settings considered as AUTO
-                IDetectedSettingsFactory::class => static function () {
-                    return
-                        new class implements IDetectedSettingsFactory {
-                            public function create(): ISettings
-                            {
-                                return new Settings();
-                            }
-                        };
-                },
-            ]
+        self::setContainer(
+            self::modifyContainer(
+                self::getFacadeContainer(),
+                [
+                    // Detected settings considered as AUTO
+                    IDetectedSettingsFactory::class => static function () {
+                        return
+                            new class implements IDetectedSettingsFactory {
+                                public function create(): ISettings
+                                {
+                                    return new Settings();
+                                }
+                            };
+                    },
+                ]
+            )
         );
     }
 

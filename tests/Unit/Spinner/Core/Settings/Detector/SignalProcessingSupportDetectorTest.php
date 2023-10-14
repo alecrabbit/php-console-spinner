@@ -75,21 +75,21 @@ final class SignalProcessingSupportDetectorTest extends TestCase
         self::assertEquals($result, $detector->getSupportValue());
     }
 
-//    #[Test]
-//    public function throwsIfProbeIsInvalid(): void
-//    {
-//        $this->expectException(InvalidArgumentException::class);
-//        $this->expectExceptionMessage(
-//            sprintf(
-//                'Probe must be an instance of "%s" interface.',
-//                ISignalProcessingProbe::class
-//            )
-//        );
-//        $detector = $this->getTesteeInstance(
-//            probes: new ArrayObject([stdClass::class]),
-//        );
-//        self::assertTrue($detector->isSupported());
-//
-//        self::fail('Exception was not thrown.');
-//    }
+    #[Test]
+    public function throwsIfProbeIsInvalid(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage(
+            sprintf(
+                'Probe must be an instance of "%s" interface.',
+                ISignalProcessingProbe::class
+            )
+        );
+        $detector = $this->getTesteeInstance(
+            probes: new ArrayObject([stdClass::class]),
+        );
+        self::assertSame(SignalHandlersOption::ENABLED, $detector->getSupportValue());
+
+        self::fail('Exception was not thrown.');
+    }
 }
