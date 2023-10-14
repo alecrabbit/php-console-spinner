@@ -14,6 +14,7 @@ use AlecRabbit\Spinner\Core\Spinner;
 use AlecRabbit\Spinner\Exception\DomainException;
 use AlecRabbit\Spinner\Facade;
 use AlecRabbit\Tests\TestCase\ConfigurationTestCase;
+use ArrayObject;
 use PHPUnit\Framework\Attributes\Test;
 
 final class ForcedSynchronousModeTest extends ConfigurationTestCase
@@ -30,7 +31,7 @@ final class ForcedSynchronousModeTest extends ConfigurationTestCase
                             public function create(): ISettings
                             {
                                 return new Settings(
-                                    new \ArrayObject([
+                                    new ArrayObject([
                                         new AuxSettings(
                                             runMethodOption: RunMethodOption::ASYNC,
                                         )

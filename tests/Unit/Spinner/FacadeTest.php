@@ -18,7 +18,6 @@ use AlecRabbit\Spinner\Facade;
 use AlecRabbit\Tests\TestCase\FacadeAwareTestCase;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
-use Psr\Container\ContainerInterface;
 
 final class FacadeTest extends FacadeAwareTestCase
 {

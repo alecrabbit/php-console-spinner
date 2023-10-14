@@ -9,6 +9,7 @@ use AlecRabbit\Spinner\Container\Factory\ContainerFactory;
 use AlecRabbit\Spinner\Contract\Output\IResourceStream;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoop;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoopSetup;
+use ArrayObject;
 use Psr\Container\ContainerInterface;
 use Traversable;
 
@@ -35,11 +36,11 @@ abstract class ContainerModifyingTestCase extends FacadeAwareTestCase
             );
     }
 
-    protected static function createContainer(\ArrayObject $definitions): ContainerInterface
+    protected static function createContainer(ArrayObject $definitions): ContainerInterface
     {
         $registry =
             new class($definitions) implements IDefinitionRegistry {
-                public function __construct(protected \Traversable $definitions)
+                public function __construct(protected Traversable $definitions)
                 {
                 }
 
@@ -57,7 +58,7 @@ abstract class ContainerModifyingTestCase extends FacadeAwareTestCase
         return (new ContainerFactory($registry))->getContainer();
     }
 
-    protected static function modifyDefinitions(\ArrayObject $definitions, array $substitutes = []): \ArrayObject
+    protected static function modifyDefinitions(ArrayObject $definitions, array $substitutes = []): ArrayObject
     {
         $substitutes =
             array_merge(
@@ -65,7 +66,7 @@ abstract class ContainerModifyingTestCase extends FacadeAwareTestCase
                     // disable output
                     IResourceStream::class =>
                         new class implements IResourceStream {
-                            public function write(\Traversable $data): void
+                            public function write(Traversable $data): void
                             {
                                 // do nothing
                             }

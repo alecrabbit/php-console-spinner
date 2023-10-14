@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Factory;
 
 use AlecRabbit\Spinner\Contract\Mode\RunMethodMode;
-use AlecRabbit\Spinner\Core\Config\Contract\IAuxConfig;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\ILoopProviderFactory;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoop;
@@ -111,6 +110,7 @@ final class LoopProviderFactoryTest extends TestCase
 
         $loopProvider->getLoop();
     }
+
     #[Test]
     public function canCreateWithRunMethodModeSynchronous(): void
     {

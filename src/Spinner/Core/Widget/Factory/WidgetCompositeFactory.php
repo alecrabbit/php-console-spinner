@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Widget\Factory;
 
 use AlecRabbit\Spinner\Core\Config\Contract\Factory\IRuntimeWidgetConfigFactory;
-use AlecRabbit\Spinner\Core\Config\Contract\Factory\IWidgetConfigFactory;
 use AlecRabbit\Spinner\Core\Config\Contract\IWidgetConfig;
 use AlecRabbit\Spinner\Core\Settings\Contract\IWidgetSettings;
 use AlecRabbit\Spinner\Core\Widget\Contract\IWidgetComposite;

@@ -5,17 +5,14 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Settings\Detector;
 
 use AlecRabbit\Spinner\Contract\Option\SignalHandlersOption;
-use AlecRabbit\Spinner\Contract\Probe\ISignalProcessingProbe;
 use AlecRabbit\Spinner\Core\Settings\Contract\Detector\ISignalProcessingSupportDetector;
 use AlecRabbit\Spinner\Core\Settings\Detector\SignalProcessingSupportDetector;
-use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Tests\TestCase\TestCase;
 use AlecRabbit\Tests\Unit\Spinner\Core\Settings\Detector\Override\NegativeSignalProcessingProbeOverride;
 use AlecRabbit\Tests\Unit\Spinner\Core\Settings\Detector\Override\PositiveSignalProcessingProbeOverride;
 use ArrayObject;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
-use stdClass;
 use Traversable;
 
 final class SignalProcessingSupportDetectorTest extends TestCase
