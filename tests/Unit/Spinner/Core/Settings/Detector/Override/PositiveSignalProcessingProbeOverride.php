@@ -6,6 +6,7 @@ namespace AlecRabbit\Tests\Unit\Spinner\Core\Settings\Detector\Override;
 
 use AlecRabbit\Spinner\Contract\Probe\ISignalProcessingProbe;
 use RuntimeException;
+use AlecRabbit\Tests\Unit\Spinner\Core\Settings\Detector\Override\SignalProcessingOptionCreatorOverride;
 
 class PositiveSignalProcessingProbeOverride implements ISignalProcessingProbe
 {
@@ -16,7 +17,6 @@ class PositiveSignalProcessingProbeOverride implements ISignalProcessingProbe
 
     public static function getCreatorClass(): string
     {
-        // TODO: Implement getCreatorClass() method.
-        throw new RuntimeException('Not implemented.');
+        return SignalProcessingOptionCreatorOverride::class;
     }
 }

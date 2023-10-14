@@ -20,6 +20,6 @@ final class SignalProcessingProbe implements ISignalProcessingProbe
 
     public static function getCreatorClass(): string
     {
-        return StylingMethodOptionCreator::class;
+        return SignalHandlersOptionCreator::class;
     }
 }
