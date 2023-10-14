@@ -55,12 +55,12 @@
 /app/src/Spinner/Core/Config/Solver/NormalizerMethodModeSolver.php:69:60:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Contract\Option\NormalizerOption|null' for AlecRabbit\Spinner\Core\Config\Solver\NormalizerMethodModeSolver::extractOption
 /app/src/Spinner/Core/Config/Solver/NormalizerMethodModeSolver.php:71:16:error - MixedReturnStatement: Could not infer a return type
 /app/src/Spinner/Core/Config/Solver/NormalizerMethodModeSolver.php:71:80:error - UndefinedInterfaceMethod: Method AlecRabbit\Spinner\Core\Settings\Contract\ISettingsElement::getNormalizerOption does not exist
-/app/src/Spinner/Core/Config/Solver/RunMethodModeSolver.php:150:60:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Contract\Option\RunMethodOption|null' for AlecRabbit\Spinner\Core\Config\Solver\RunMethodModeSolver::extractOption
-/app/src/Spinner/Core/Config/Solver/RunMethodModeSolver.php:152:16:error - MixedReturnStatement: Could not infer a return type
-/app/src/Spinner/Core/Config/Solver/RunMethodModeSolver.php:152:80:error - UndefinedInterfaceMethod: Method AlecRabbit\Spinner\Core\Settings\Contract\ISettingsElement::getRunMethodOption does not exist
-/app/src/Spinner/Core/Config/Solver/SignalHandlersModeSolver.php:170:60:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Contract\Option\SignalHandlersOption|null' for AlecRabbit\Spinner\Core\Config\Solver\SignalHandlersModeSolver::extractOption
-/app/src/Spinner/Core/Config/Solver/SignalHandlersModeSolver.php:172:16:error - MixedReturnStatement: Could not infer a return type
-/app/src/Spinner/Core/Config/Solver/SignalHandlersModeSolver.php:172:81:error - UndefinedInterfaceMethod: Method AlecRabbit\Spinner\Core\Settings\Contract\ISettingsElement::getSignalHandlersOption does not exist
+/app/src/Spinner/Core/Config/Solver/RunMethodModeSolver.php:160:60:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Contract\Option\RunMethodOption|null' for AlecRabbit\Spinner\Core\Config\Solver\RunMethodModeSolver::extractOption
+/app/src/Spinner/Core/Config/Solver/RunMethodModeSolver.php:162:16:error - MixedReturnStatement: Could not infer a return type
+/app/src/Spinner/Core/Config/Solver/RunMethodModeSolver.php:162:80:error - UndefinedInterfaceMethod: Method AlecRabbit\Spinner\Core\Settings\Contract\ISettingsElement::getRunMethodOption does not exist
+/app/src/Spinner/Core/Config/Solver/SignalHandlersModeSolver.php:200:60:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Contract\Option\SignalHandlersOption|null' for AlecRabbit\Spinner\Core\Config\Solver\SignalHandlersModeSolver::extractOption
+/app/src/Spinner/Core/Config/Solver/SignalHandlersModeSolver.php:202:16:error - MixedReturnStatement: Could not infer a return type
+/app/src/Spinner/Core/Config/Solver/SignalHandlersModeSolver.php:202:81:error - UndefinedInterfaceMethod: Method AlecRabbit\Spinner\Core\Settings\Contract\ISettingsElement::getSignalHandlersOption does not exist
 /app/src/Spinner/Core/Config/Solver/StylingMethodModeSolver.php:45:56:error - TypeDoesNotContainNull: AlecRabbit\Spinner\Contract\Mode\StylingMethodMode does not contain null
 /app/src/Spinner/Core/Config/Solver/StylingMethodModeSolver.php:45:56:error - RedundantCondition: Type AlecRabbit\Spinner\Contract\Mode\StylingMethodMode for $detectedMode is never null
 /app/src/Spinner/Core/Config/Solver/StylingMethodModeSolver.php:79:60:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Contract\Option\StylingMethodOption|null' for AlecRabbit\Spinner\Core\Config\Solver\StylingMethodModeSolver::extractOption
