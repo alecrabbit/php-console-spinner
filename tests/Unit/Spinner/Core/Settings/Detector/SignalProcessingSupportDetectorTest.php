@@ -5,14 +5,17 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Settings\Detector;
 
 use AlecRabbit\Spinner\Contract\Option\SignalHandlersOption;
+use AlecRabbit\Spinner\Contract\Probe\ISignalProcessingProbe;
 use AlecRabbit\Spinner\Core\Settings\Contract\Detector\ISignalProcessingSupportDetector;
 use AlecRabbit\Spinner\Core\Settings\Detector\SignalProcessingSupportDetector;
+use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Tests\TestCase\TestCase;
 use AlecRabbit\Tests\Unit\Spinner\Core\Settings\Detector\Override\NegativeSignalProcessingProbeOverride;
 use AlecRabbit\Tests\Unit\Spinner\Core\Settings\Detector\Override\PositiveSignalProcessingProbeOverride;
 use ArrayObject;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
+use stdClass;
 use Traversable;
 
 final class SignalProcessingSupportDetectorTest extends TestCase
@@ -72,21 +75,21 @@ final class SignalProcessingSupportDetectorTest extends TestCase
         self::assertEquals($result, $detector->getSupportValue());
     }
 
-//    #[Test]
-//    public function throwsIfProbeIsInvalid(): void
-//    {
-//        $this->expectException(InvalidArgumentException::class);
-//        $this->expectExceptionMessage(
-//            sprintf(
-//                'Probe must be an instance of "%s" interface.',
-//                ISignalProcessingProbe::class
-//            )
-//        );
-//        $detector = $this->getTesteeInstance(
-//            probes: new ArrayObject([stdClass::class]),
-//        );
-//        self::assertTrue($detector->isSupported());
-//
-//        self::fail('Exception was not thrown.');
-//    }
+    #[Test]
+    public function throwsIfProbeIsInvalid(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage(
+            sprintf(
+                'Probe must be an instance of "%s" interface.',
+                ISignalProcessingProbe::class
+            )
+        );
+        $detector = $this->getTesteeInstance(
+            probes: new ArrayObject([stdClass::class]),
+        );
+        self::assertSame(SignalHandlersOption::ENABLED, $detector->getSupportValue());
+
+        self::fail('Exception was not thrown.');
+    }
 }
