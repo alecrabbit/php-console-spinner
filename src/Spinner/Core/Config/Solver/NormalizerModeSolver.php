@@ -4,17 +4,17 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Config\Solver;
 
-use AlecRabbit\Spinner\Contract\Mode\NormalizerMethodMode;
+use AlecRabbit\Spinner\Contract\Mode\NormalizerMode;
 use AlecRabbit\Spinner\Contract\Option\NormalizerOption;
 use AlecRabbit\Spinner\Core\Config\Solver\A\ASolver;
-use AlecRabbit\Spinner\Core\Config\Solver\Contract\INormalizerMethodModeSolver;
+use AlecRabbit\Spinner\Core\Config\Solver\Contract\INormalizerModeSolver;
 use AlecRabbit\Spinner\Core\Settings\Contract\IAuxSettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettings;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 
-final readonly class NormalizerMethodModeSolver extends ASolver implements INormalizerMethodModeSolver
+final readonly class NormalizerModeSolver extends ASolver implements INormalizerModeSolver
 {
-    public function solve(): NormalizerMethodMode
+    public function solve(): NormalizerMode
     {
         return
             $this->doSolve(
@@ -28,21 +28,21 @@ final readonly class NormalizerMethodModeSolver extends ASolver implements INorm
         ?NormalizerOption $userOption,
         ?NormalizerOption $detectedOption,
         ?NormalizerOption $defaultOption
-    ): NormalizerMethodMode {
+    ): NormalizerMode {
         $mode = $this->createModeFromOption($userOption);
 
         if ($userOption === NormalizerOption::AUTO || $userOption === null) {
             $mode = $this->createModeFromOption($defaultOption);
         }
 
-        if ($mode instanceof NormalizerMethodMode) {
+        if ($mode instanceof NormalizerMode) {
             return $mode;
         }
 
         throw new InvalidArgumentException(
             sprintf(
                 'Unable to solve "%s". From values %s.',
-                NormalizerMethodMode::class,
+                NormalizerMode::class,
                 sprintf(
                     '[%s, %s, %s]',
                     $userOption?->name ?? 'null',
@@ -53,15 +53,15 @@ final readonly class NormalizerMethodModeSolver extends ASolver implements INorm
         );
     }
 
-    private function createModeFromOption(?NormalizerOption $option): ?NormalizerMethodMode
+    private function createModeFromOption(?NormalizerOption $option): ?NormalizerMode
     {
         return
             match ($option) {
-                NormalizerOption::SMOOTH => NormalizerMethodMode::SMOOTH,
-                NormalizerOption::BALANCED => NormalizerMethodMode::BALANCED,
-                NormalizerOption::PERFORMANCE => NormalizerMethodMode::PERFORMANCE,
-                NormalizerOption::SLOW => NormalizerMethodMode::SLOW,
-                NormalizerOption::STILL => NormalizerMethodMode::STILL,
+                NormalizerOption::SMOOTH => NormalizerMode::SMOOTH,
+                NormalizerOption::BALANCED => NormalizerMode::BALANCED,
+                NormalizerOption::PERFORMANCE => NormalizerMode::PERFORMANCE,
+                NormalizerOption::SLOW => NormalizerMode::SLOW,
+                NormalizerOption::STILL => NormalizerMode::STILL,
                 default => null,
             };
     }

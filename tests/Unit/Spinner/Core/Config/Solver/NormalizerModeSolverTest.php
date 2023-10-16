@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Config\Solver;
 
-use AlecRabbit\Spinner\Contract\Mode\NormalizerMethodMode;
+use AlecRabbit\Spinner\Contract\Mode\NormalizerMode;
 use AlecRabbit\Spinner\Contract\Option\NormalizerOption;
-use AlecRabbit\Spinner\Core\Config\Solver\Contract\INormalizerMethodModeSolver;
-use AlecRabbit\Spinner\Core\Config\Solver\NormalizerMethodModeSolver;
+use AlecRabbit\Spinner\Core\Config\Solver\Contract\INormalizerModeSolver;
+use AlecRabbit\Spinner\Core\Config\Solver\NormalizerModeSolver;
 use AlecRabbit\Spinner\Core\Settings\Contract\IAuxSettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettingsProvider;
@@ -19,15 +19,15 @@ use PHPUnit\Framework\MockObject\MockObject;
 
 use function sprintf;
 
-final class NormalizerMethodModeSolverTest extends TestCase
+final class NormalizerModeSolverTest extends TestCase
 {
     public static function canSolveDataProvider(): iterable
     {
-        $mSm = NormalizerMethodMode::SMOOTH;
-        $mBa = NormalizerMethodMode::BALANCED;
-        $mPe = NormalizerMethodMode::PERFORMANCE;
-        $mSl = NormalizerMethodMode::SLOW;
-        $mSt = NormalizerMethodMode::STILL;
+        $mSm = NormalizerMode::SMOOTH;
+        $mBa = NormalizerMode::BALANCED;
+        $mPe = NormalizerMode::PERFORMANCE;
+        $mSl = NormalizerMode::SLOW;
+        $mSt = NormalizerMode::STILL;
 
         $oAu = NormalizerOption::AUTO;
         $oSm = NormalizerOption::SMOOTH;
@@ -43,7 +43,7 @@ final class NormalizerMethodModeSolverTest extends TestCase
                 [
                     self::EXCEPTION => [
                         self::CLASS_ => InvalidArgumentException::class,
-                        self::MESSAGE => sprintf('Unable to solve "%s".', NormalizerMethodMode::class),
+                        self::MESSAGE => sprintf('Unable to solve "%s".', NormalizerMode::class),
                     ],
                 ],
                 [null, null, null],
@@ -52,7 +52,7 @@ final class NormalizerMethodModeSolverTest extends TestCase
                 [
                     self::EXCEPTION => [
                         self::CLASS_ => InvalidArgumentException::class,
-                        self::MESSAGE => sprintf('Unable to solve "%s".', NormalizerMethodMode::class),
+                        self::MESSAGE => sprintf('Unable to solve "%s".', NormalizerMode::class),
                     ],
                 ],
                 [$oAu, null, null],
@@ -61,7 +61,7 @@ final class NormalizerMethodModeSolverTest extends TestCase
                 [
                     self::EXCEPTION => [
                         self::CLASS_ => InvalidArgumentException::class,
-                        self::MESSAGE => sprintf('Unable to solve "%s".', NormalizerMethodMode::class),
+                        self::MESSAGE => sprintf('Unable to solve "%s".', NormalizerMode::class),
                     ],
                 ],
                 [null, $oAu, null],
@@ -70,7 +70,7 @@ final class NormalizerMethodModeSolverTest extends TestCase
                 [
                     self::EXCEPTION => [
                         self::CLASS_ => InvalidArgumentException::class,
-                        self::MESSAGE => sprintf('Unable to solve "%s".', NormalizerMethodMode::class),
+                        self::MESSAGE => sprintf('Unable to solve "%s".', NormalizerMode::class),
                     ],
                 ],
                 [null, null, $oAu],
@@ -95,7 +95,7 @@ final class NormalizerMethodModeSolverTest extends TestCase
                 [
                     self::EXCEPTION => [
                         self::CLASS_ => InvalidArgumentException::class,
-                        self::MESSAGE => sprintf('Unable to solve "%s".', NormalizerMethodMode::class),
+                        self::MESSAGE => sprintf('Unable to solve "%s".', NormalizerMode::class),
                     ],
                 ],
                 [null, $oSm, null],
@@ -104,7 +104,7 @@ final class NormalizerMethodModeSolverTest extends TestCase
                 [
                     self::EXCEPTION => [
                         self::CLASS_ => InvalidArgumentException::class,
-                        self::MESSAGE => sprintf('Unable to solve "%s".', NormalizerMethodMode::class),
+                        self::MESSAGE => sprintf('Unable to solve "%s".', NormalizerMode::class),
                     ],
                 ],
                 [null, $oBa, null],
@@ -113,7 +113,7 @@ final class NormalizerMethodModeSolverTest extends TestCase
                 [
                     self::EXCEPTION => [
                         self::CLASS_ => InvalidArgumentException::class,
-                        self::MESSAGE => sprintf('Unable to solve "%s".', NormalizerMethodMode::class),
+                        self::MESSAGE => sprintf('Unable to solve "%s".', NormalizerMode::class),
                     ],
                 ],
                 [null, $oPe, null],
@@ -122,7 +122,7 @@ final class NormalizerMethodModeSolverTest extends TestCase
                 [
                     self::EXCEPTION => [
                         self::CLASS_ => InvalidArgumentException::class,
-                        self::MESSAGE => sprintf('Unable to solve "%s".', NormalizerMethodMode::class),
+                        self::MESSAGE => sprintf('Unable to solve "%s".', NormalizerMode::class),
                     ],
                 ],
                 [null, $oSl, null],
@@ -131,7 +131,7 @@ final class NormalizerMethodModeSolverTest extends TestCase
                 [
                     self::EXCEPTION => [
                         self::CLASS_ => InvalidArgumentException::class,
-                        self::MESSAGE => sprintf('Unable to solve "%s".', NormalizerMethodMode::class),
+                        self::MESSAGE => sprintf('Unable to solve "%s".', NormalizerMode::class),
                     ],
                 ],
                 [null, $oSt, null],
@@ -144,14 +144,14 @@ final class NormalizerMethodModeSolverTest extends TestCase
     {
         $solver = $this->getTesteeInstance();
 
-        self::assertInstanceOf(NormalizerMethodModeSolver::class, $solver);
+        self::assertInstanceOf(NormalizerModeSolver::class, $solver);
     }
 
     protected function getTesteeInstance(
         ?ISettingsProvider $settingsProvider = null,
-    ): INormalizerMethodModeSolver {
+    ): INormalizerModeSolver {
         return
-            new NormalizerMethodModeSolver(
+            new NormalizerModeSolver(
                 settingsProvider: $settingsProvider ?? $this->getSettingsProviderMock(),
             );
     }

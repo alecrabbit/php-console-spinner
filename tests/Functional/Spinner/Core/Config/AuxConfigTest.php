@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Functional\Spinner\Core\Config;
 
-use AlecRabbit\Spinner\Contract\Mode\NormalizerMethodMode;
+use AlecRabbit\Spinner\Contract\Mode\NormalizerMode;
 use AlecRabbit\Spinner\Contract\Mode\RunMethodMode;
 use AlecRabbit\Spinner\Core\Config\AuxConfig;
 use AlecRabbit\Spinner\Core\Config\Contract\IAuxConfig;
@@ -23,12 +23,12 @@ final class AuxConfigTest extends TestCase
 
     protected function getTesteeInstance(
         ?RunMethodMode $runMethodMode = null,
-        ?NormalizerMethodMode $normalizerMethodMode = null,
+        ?NormalizerMode $normalizerMode = null,
     ): IAuxConfig {
         return
             new AuxConfig(
                 runMethodMode: $runMethodMode ?? RunMethodMode::ASYNC,
-                normalizerMethodMode: $normalizerMethodMode ?? NormalizerMethodMode::STILL,
+                normalizerMode: $normalizerMode ?? NormalizerMode::STILL,
             );
     }
 
@@ -45,15 +45,15 @@ final class AuxConfigTest extends TestCase
     }
 
     #[Test]
-    public function canGetNormalizerMethodMode(): void
+    public function canGetNormalizerMode(): void
     {
-        $normalizerMethodMode = NormalizerMethodMode::STILL;
+        $normalizerMode = NormalizerMode::STILL;
 
         $config = $this->getTesteeInstance(
-            normalizerMethodMode: $normalizerMethodMode,
+            normalizerMode: $normalizerMode,
         );
 
-        self::assertSame($normalizerMethodMode, $config->getNormalizerMethodMode());
+        self::assertSame($normalizerMode, $config->getNormalizerMode());
     }
 
     #[Test]

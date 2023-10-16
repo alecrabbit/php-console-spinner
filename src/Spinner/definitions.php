@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner;
 
-use AlecRabbit\Spinner\Contract\Mode\NormalizerMethodMode;
+use AlecRabbit\Spinner\Contract\Mode\NormalizerMode;
 use AlecRabbit\Spinner\Contract\Mode\RunMethodMode;
 use AlecRabbit\Spinner\Contract\Output\IResourceStream;
 use AlecRabbit\Spinner\Contract\Probe\IColorSupportProbe;
@@ -63,7 +63,7 @@ use AlecRabbit\Spinner\Core\Config\Solver\Contract\IAutoStartModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\ICursorVisibilityModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\IInitializationModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\ILinkerModeSolver;
-use AlecRabbit\Spinner\Core\Config\Solver\Contract\INormalizerMethodModeSolver;
+use AlecRabbit\Spinner\Core\Config\Solver\Contract\INormalizerModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\IRunMethodModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\ISignalHandlingModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\IStylingMethodModeSolver;
@@ -71,7 +71,7 @@ use AlecRabbit\Spinner\Core\Config\Solver\Contract\IWidgetSettingsSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\CursorVisibilityModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\InitializationModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\LinkerModeSolver;
-use AlecRabbit\Spinner\Core\Config\Solver\NormalizerMethodModeSolver;
+use AlecRabbit\Spinner\Core\Config\Solver\NormalizerModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\RunMethodModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\SignalHandlingModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\StylingMethodModeSolver;
@@ -276,7 +276,7 @@ function solvers(): Traversable
 {
     yield from [
         IRunMethodModeSolver::class => RunMethodModeSolver::class,
-        INormalizerMethodModeSolver::class => NormalizerMethodModeSolver::class,
+        INormalizerModeSolver::class => NormalizerModeSolver::class,
         IAutoStartModeSolver::class => AutoStartModeSolver::class,
         ISignalHandlingModeSolver::class => SignalHandlingModeSolver::class,
         IStylingMethodModeSolver::class => StylingMethodModeSolver::class,
@@ -417,9 +417,9 @@ function substitutes(): Traversable
                     }
                 };
         },
-        NormalizerMethodMode::class => static function (ContainerInterface $container): NormalizerMethodMode {
+        NormalizerMode::class => static function (ContainerInterface $container): NormalizerMode {
             return
-                NormalizerMethodMode::BALANCED; // FIXME (2023-09-29 13:57) [Alec Rabbit]: stub!
+                NormalizerMode::BALANCED; // FIXME (2023-09-29 13:57) [Alec Rabbit]: stub!
         },
     ];
 }

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Config;
 
-use AlecRabbit\Spinner\Contract\Mode\NormalizerMethodMode;
+use AlecRabbit\Spinner\Contract\Mode\NormalizerMode;
 use AlecRabbit\Spinner\Contract\Mode\RunMethodMode;
 use AlecRabbit\Spinner\Core\Config\Contract\IAuxConfig;
 
@@ -12,7 +12,7 @@ final readonly class AuxConfig implements IAuxConfig
 {
     public function __construct(
         protected RunMethodMode $runMethodMode,
-        protected NormalizerMethodMode $normalizerMethodMode,
+        protected NormalizerMode $normalizerMode,
     ) {
     }
 
@@ -21,9 +21,9 @@ final readonly class AuxConfig implements IAuxConfig
         return $this->runMethodMode;
     }
 
-    public function getNormalizerMethodMode(): NormalizerMethodMode
+    public function getNormalizerMode(): NormalizerMode
     {
-        return $this->normalizerMethodMode;
+        return $this->normalizerMode;
     }
 
     /**

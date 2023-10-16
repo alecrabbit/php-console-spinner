@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Factory;
 
-use AlecRabbit\Spinner\Contract\Mode\NormalizerMethodMode;
+use AlecRabbit\Spinner\Contract\Mode\NormalizerMode;
 use AlecRabbit\Spinner\Core\Builder\Contract\IIntegerNormalizerBuilder;
 use AlecRabbit\Spinner\Core\Contract\IIntegerNormalizer;
 use AlecRabbit\Spinner\Core\Contract\IIntervalNormalizer;
@@ -15,7 +15,7 @@ final class IntervalNormalizerFactory implements IIntervalNormalizerFactory
 {
     public function __construct(
         protected IIntegerNormalizerBuilder $integerNormalizerBuilder,
-        protected NormalizerMethodMode $normalizerMode,
+        protected NormalizerMode $normalizerMode,
     ) {
     }
 
@@ -41,11 +41,11 @@ final class IntervalNormalizerFactory implements IIntervalNormalizerFactory
     {
         return
             match ($this->normalizerMode) {
-                NormalizerMethodMode::SMOOTH => 20,
-                NormalizerMethodMode::BALANCED => 50,
-                NormalizerMethodMode::PERFORMANCE => 100,
-                NormalizerMethodMode::SLOW => 1000,
-                NormalizerMethodMode::STILL => 900000,
+                NormalizerMode::SMOOTH => 20,
+                NormalizerMode::BALANCED => 50,
+                NormalizerMode::PERFORMANCE => 100,
+                NormalizerMode::SLOW => 1000,
+                NormalizerMode::STILL => 900000,
             };
     }
 }
