@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Config\Solver;
 
 use AlecRabbit\Spinner\Contract\Mode\SignalHandlersMode;
-use AlecRabbit\Spinner\Contract\Option\SignalHandlersOption;
+use AlecRabbit\Spinner\Contract\Option\SignalHandlingOption;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\ISignalHandlersModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\SignalHandlersModeSolver;
 use AlecRabbit\Spinner\Core\Settings\Contract\ILoopSettings;
@@ -26,9 +26,9 @@ final class SignalHandlersModeSolverTest extends TestCase
         $mE = SignalHandlersMode::ENABLED;
         $mD = SignalHandlersMode::DISABLED;
 
-        $oAu = SignalHandlersOption::AUTO;
-        $oEn = SignalHandlersOption::ENABLED;
-        $oDi = SignalHandlersOption::DISABLED;
+        $oAu = SignalHandlingOption::AUTO;
+        $oEn = SignalHandlingOption::ENABLED;
+        $oDi = SignalHandlingOption::DISABLED;
         yield from [
             // [Exception], [$user, $detected, $default]
             [
@@ -208,7 +208,7 @@ final class SignalHandlersModeSolverTest extends TestCase
         }
     }
 
-    protected function getLoopSettingsMock(?SignalHandlersOption $autoStartOption = null
+    protected function getLoopSettingsMock(?SignalHandlingOption $autoStartOption = null
     ): (MockObject&ILoopSettings)|null {
         return
             $autoStartOption === null

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Settings\Factory;
 
-use AlecRabbit\Spinner\Contract\Option\SignalHandlersOption;
+use AlecRabbit\Spinner\Contract\Option\SignalHandlingOption;
 use AlecRabbit\Spinner\Contract\Option\StylingMethodOption;
 use AlecRabbit\Spinner\Core\Settings\Contract\Detector\IColorSupportDetector;
 use AlecRabbit\Spinner\Core\Settings\Contract\Detector\ILoopSupportDetector;
@@ -57,12 +57,12 @@ final class DetectedSettingsFactoryTest extends TestCase
     }
 
     private function getSignalProcessingSupportDetectorMock(
-        ?SignalHandlersOption $signalHandlersOption = null,
+        ?SignalHandlingOption $signalHandlersOption = null,
     ): MockObject&ISignalProcessingSupportDetector {
         return $this->createConfiguredMock(
             ISignalProcessingSupportDetector::class,
             [
-                'getSupportValue' => $signalHandlersOption ?? SignalHandlersOption::DISABLED,
+                'getSupportValue' => $signalHandlersOption ?? SignalHandlingOption::DISABLED,
             ]
         );
     }

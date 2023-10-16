@@ -23,7 +23,8 @@ final readonly class ColorSupportDetector implements IColorSupportDetector
         foreach ($this->probes as $probe) {
             self::assertProbe($probe);
             if ($probe::isSupported()) {
-                return $probe::getCreatorClass()::create();
+                $class = $probe::getCreatorClass();
+                return (new $class)->create();
             }
         }
 

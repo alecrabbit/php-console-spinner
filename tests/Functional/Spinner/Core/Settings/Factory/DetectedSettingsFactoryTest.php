@@ -7,7 +7,7 @@ namespace AlecRabbit\Tests\Functional\Spinner\Core\Settings\Factory;
 use AlecRabbit\Spinner\Contract\Option\AutoStartOption;
 use AlecRabbit\Spinner\Contract\Option\LinkerOption;
 use AlecRabbit\Spinner\Contract\Option\RunMethodOption;
-use AlecRabbit\Spinner\Contract\Option\SignalHandlersOption;
+use AlecRabbit\Spinner\Contract\Option\SignalHandlingOption;
 use AlecRabbit\Spinner\Contract\Option\StylingMethodOption;
 use AlecRabbit\Spinner\Core\Settings\AuxSettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\Detector\IColorSupportDetector;
@@ -69,12 +69,12 @@ final class DetectedSettingsFactoryTest extends TestCase
     }
 
     private function getSignalProcessingSupportDetectorMock(
-        ?SignalHandlersOption $signalHandlersOption = null,
+        ?SignalHandlingOption $signalHandlersOption = null,
     ): MockObject&ISignalProcessingSupportDetector {
         return $this->createConfiguredMock(
             ISignalProcessingSupportDetector::class,
             [
-                'getSupportValue' => $signalHandlersOption ?? SignalHandlersOption::DISABLED,
+                'getSupportValue' => $signalHandlersOption ?? SignalHandlingOption::DISABLED,
             ]
         );
     }
@@ -89,7 +89,7 @@ final class DetectedSettingsFactoryTest extends TestCase
             ->willReturn(true)
         ;
 
-        $signalHandlersOption = SignalHandlersOption::ENABLED;
+        $signalHandlersOption = SignalHandlingOption::ENABLED;
         $stylingMethodOption = StylingMethodOption::ANSI24;
 
         $colorSupportDetector =

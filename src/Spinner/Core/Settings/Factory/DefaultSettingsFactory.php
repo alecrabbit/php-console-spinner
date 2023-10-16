@@ -10,7 +10,7 @@ use AlecRabbit\Spinner\Contract\Option\InitializationOption;
 use AlecRabbit\Spinner\Contract\Option\LinkerOption;
 use AlecRabbit\Spinner\Contract\Option\NormalizerOption;
 use AlecRabbit\Spinner\Contract\Option\RunMethodOption;
-use AlecRabbit\Spinner\Contract\Option\SignalHandlersOption;
+use AlecRabbit\Spinner\Contract\Option\SignalHandlingOption;
 use AlecRabbit\Spinner\Contract\Option\StylingMethodOption;
 use AlecRabbit\Spinner\Core\CharFrame;
 use AlecRabbit\Spinner\Core\Palette\Rainbow;
@@ -50,7 +50,7 @@ final class DefaultSettingsFactory implements IDefaultSettingsFactory
             ),
             new LoopSettings(
                 autoStartOption: AutoStartOption::ENABLED,
-                signalHandlersOption: SignalHandlersOption::ENABLED,
+                signalHandlersOption: SignalHandlingOption::ENABLED,
             ),
             new OutputSettings(
                 stylingMethodOption: StylingMethodOption::ANSI8,

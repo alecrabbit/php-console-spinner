@@ -23,7 +23,7 @@ final readonly class LoopFactory implements ILoopFactory
     {
         self::assertClass($this->loopCreator);
 
-        return ($this->loopCreator)::create();
+        return (new $this->loopCreator)->create();
     }
 
     /**

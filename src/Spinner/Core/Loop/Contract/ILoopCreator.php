@@ -8,5 +8,5 @@ use AlecRabbit\Spinner\Contract\ICreator;
 
 interface ILoopCreator extends ICreator
 {
-    public static function create(): ILoop;
+    public function create(): ILoop;
 }

@@ -9,5 +9,5 @@ use AlecRabbit\Spinner\Contract\Option\StylingMethodOption;
 
 interface IStylingMethodOptionCreator extends ICreator
 {
-    public static function create(): StylingMethodOption;
+    public function create(): StylingMethodOption;
 }

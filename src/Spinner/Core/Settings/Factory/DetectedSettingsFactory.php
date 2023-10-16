@@ -7,7 +7,7 @@ namespace AlecRabbit\Spinner\Core\Settings\Factory;
 use AlecRabbit\Spinner\Contract\Option\AutoStartOption;
 use AlecRabbit\Spinner\Contract\Option\LinkerOption;
 use AlecRabbit\Spinner\Contract\Option\RunMethodOption;
-use AlecRabbit\Spinner\Contract\Option\SignalHandlersOption;
+use AlecRabbit\Spinner\Contract\Option\SignalHandlingOption;
 use AlecRabbit\Spinner\Contract\Option\StylingMethodOption;
 use AlecRabbit\Spinner\Core\Settings\AuxSettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\Detector\IColorSupportDetector;
@@ -86,7 +86,7 @@ final class DetectedSettingsFactory implements IDetectedSettingsFactory
                 : AutoStartOption::DISABLED;
     }
 
-    protected function getSignalMethodOption(): SignalHandlersOption
+    protected function getSignalMethodOption(): SignalHandlingOption
     {
         return
             $this->signalProcessingSupportDetector->getSupportValue();

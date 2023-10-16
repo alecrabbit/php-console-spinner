@@ -87,16 +87,22 @@
 /app/src/Spinner/Core/Settings/Detector/ColorSupportDetector.php:21:40:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Contract\Option\StylingMethodOption' for AlecRabbit\Spinner\Core\Settings\Detector\ColorSupportDetector::getSupportValue
 /app/src/Spinner/Core/Settings/Detector/ColorSupportDetector.php:23:35:error - MixedAssignment: Unable to determine the type that $probe is being assigned to
 /app/src/Spinner/Core/Settings/Detector/ColorSupportDetector.php:25:17:error - MixedMethodCall: Cannot call method on an unknown class
-/app/src/Spinner/Core/Settings/Detector/ColorSupportDetector.php:26:24:error - MixedMethodCall: Cannot call method on an unknown class
-/app/src/Spinner/Core/Settings/Detector/ColorSupportDetector.php:26:24:error - MixedReturnStatement: Could not infer a return type
-/app/src/Spinner/Core/Settings/Detector/ColorSupportDetector.php:33:43:error - MissingParamType: Parameter $probe has no provided type
+/app/src/Spinner/Core/Settings/Detector/ColorSupportDetector.php:26:17:error - MixedAssignment: Unable to determine the type that $class is being assigned to
+/app/src/Spinner/Core/Settings/Detector/ColorSupportDetector.php:26:26:error - MixedMethodCall: Cannot call method on an unknown class
+/app/src/Spinner/Core/Settings/Detector/ColorSupportDetector.php:27:24:error - MixedReturnStatement: Could not infer a return type
+/app/src/Spinner/Core/Settings/Detector/ColorSupportDetector.php:27:25:error - MixedMethodCall: Cannot call constructor on an unknown class
+/app/src/Spinner/Core/Settings/Detector/ColorSupportDetector.php:27:38:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
+/app/src/Spinner/Core/Settings/Detector/ColorSupportDetector.php:34:43:error - MissingParamType: Parameter $probe has no provided type
 /app/src/Spinner/Core/Settings/Detector/LoopSupportDetector.php:19:31:error - PossiblyNullArgument: Argument 1 of is_subclass_of cannot be null, possibly null value provided
 /app/src/Spinner/Core/Settings/Detector/SignalProcessingSupportDetector.php:21:40:error - MixedInferredReturnType: Could not verify return type 'AlecRabbit\Spinner\Contract\Option\SignalHandlersOption' for AlecRabbit\Spinner\Core\Settings\Detector\SignalProcessingSupportDetector::getSupportValue
 /app/src/Spinner/Core/Settings/Detector/SignalProcessingSupportDetector.php:23:35:error - MixedAssignment: Unable to determine the type that $probe is being assigned to
 /app/src/Spinner/Core/Settings/Detector/SignalProcessingSupportDetector.php:25:17:error - MixedMethodCall: Cannot call method on an unknown class
-/app/src/Spinner/Core/Settings/Detector/SignalProcessingSupportDetector.php:26:24:error - MixedMethodCall: Cannot call method on an unknown class
-/app/src/Spinner/Core/Settings/Detector/SignalProcessingSupportDetector.php:26:24:error - MixedReturnStatement: Could not infer a return type
-/app/src/Spinner/Core/Settings/Detector/SignalProcessingSupportDetector.php:33:43:error - MissingParamType: Parameter $probe has no provided type
+/app/src/Spinner/Core/Settings/Detector/SignalProcessingSupportDetector.php:26:17:error - MixedAssignment: Unable to determine the type that $class is being assigned to
+/app/src/Spinner/Core/Settings/Detector/SignalProcessingSupportDetector.php:26:26:error - MixedMethodCall: Cannot call method on an unknown class
+/app/src/Spinner/Core/Settings/Detector/SignalProcessingSupportDetector.php:27:24:error - MixedReturnStatement: Could not infer a return type
+/app/src/Spinner/Core/Settings/Detector/SignalProcessingSupportDetector.php:27:25:error - MixedMethodCall: Cannot call constructor on an unknown class
+/app/src/Spinner/Core/Settings/Detector/SignalProcessingSupportDetector.php:27:38:error - MixedMethodCall: Cannot determine the type of the object on the left hand side of this expression
+/app/src/Spinner/Core/Settings/Detector/SignalProcessingSupportDetector.php:34:43:error - MissingParamType: Parameter $probe has no provided type
 /app/src/Spinner/Core/Settings/Settings.php:18:15:error - InvalidParamDefault: Default value type ArrayObject<mixed, mixed> for argument 1 of method AlecRabbit\Spinner\Core\Settings\Settings::__construct does not match the given type ArrayObject<class-string<AlecRabbit\Spinner\Core\Settings\Contract\ISettingsElement>, AlecRabbit\Spinner\Core\Settings\Contract\ISettingsElement>
 /app/src/Spinner/Core/Timer.php:40:17:error - TypeDoesNotContainNull: ReflectionType does not contain null
 /app/src/Spinner/Core/Timer.php:40:17:error - RedundantCondition: Type ReflectionType for $returnType is never null

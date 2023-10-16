@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Settings\Detector;
 
-use AlecRabbit\Spinner\Contract\Option\SignalHandlersOption;
+use AlecRabbit\Spinner\Contract\Option\SignalHandlingOption;
 use AlecRabbit\Spinner\Contract\Probe\ISignalProcessingProbe;
 use AlecRabbit\Spinner\Core\Settings\Contract\Detector\ISignalProcessingSupportDetector;
 use AlecRabbit\Spinner\Core\Settings\Detector\SignalProcessingSupportDetector;
@@ -24,22 +24,22 @@ final class SignalProcessingSupportDetectorTest extends TestCase
     {
         yield from [
             // $result, $probes
-            [SignalHandlersOption::DISABLED, []],
+            [SignalHandlingOption::DISABLED, []],
             [
-                SignalHandlersOption::ENABLED,
+                SignalHandlingOption::ENABLED,
                 [
                     PositiveSignalProcessingProbeOverride::class,
                 ]
             ],
             [
-                SignalHandlersOption::ENABLED,
+                SignalHandlingOption::ENABLED,
                 [
                     NegativeSignalProcessingProbeOverride::class,
                     PositiveSignalProcessingProbeOverride::class,
                 ]
             ],
             [
-                SignalHandlersOption::DISABLED,
+                SignalHandlingOption::DISABLED,
                 [
                     NegativeSignalProcessingProbeOverride::class,
                 ]
@@ -66,7 +66,7 @@ final class SignalProcessingSupportDetectorTest extends TestCase
 
     #[Test]
     #[DataProvider('canDetectDataProvider')]
-    public function canDetect(SignalHandlersOption $result, array $probes): void
+    public function canDetect(SignalHandlingOption $result, array $probes): void
     {
         $detector = $this->getTesteeInstance(
             probes: new ArrayObject($probes),
@@ -88,7 +88,7 @@ final class SignalProcessingSupportDetectorTest extends TestCase
         $detector = $this->getTesteeInstance(
             probes: new ArrayObject([stdClass::class]),
         );
-        self::assertSame(SignalHandlersOption::ENABLED, $detector->getSupportValue());
+        self::assertSame(SignalHandlingOption::ENABLED, $detector->getSupportValue());
 
         self::fail('Exception was not thrown.');
     }

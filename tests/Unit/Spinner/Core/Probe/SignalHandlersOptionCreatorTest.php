@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Probe;
 
-use AlecRabbit\Spinner\Contract\Option\SignalHandlersOption;
+use AlecRabbit\Spinner\Contract\Option\SignalHandlingOption;
 use AlecRabbit\Spinner\Core\Probe\SignalHandlersOptionCreator;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
@@ -14,12 +14,12 @@ final class SignalHandlersOptionCreatorTest extends TestCase
     #[Test]
     public function canCreateOption(): void
     {
-        $signalHandlersOption = SignalHandlersOptionCreator::create();
+        $signalHandlersOption = (new SignalHandlersOptionCreator)->create();
 
         if (function_exists('pcntl_signal')) {
-            self::assertSame(SignalHandlersOption::ENABLED, $signalHandlersOption);
+            self::assertSame(SignalHandlingOption::ENABLED, $signalHandlersOption);
         } else {
-            self::assertSame(SignalHandlersOption::DISABLED, $signalHandlersOption);
+            self::assertSame(SignalHandlingOption::DISABLED, $signalHandlersOption);
         }
     }
 }

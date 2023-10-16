@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Config\Solver;
 
 use AlecRabbit\Spinner\Contract\Mode\SignalHandlersMode;
-use AlecRabbit\Spinner\Contract\Option\SignalHandlersOption;
+use AlecRabbit\Spinner\Contract\Option\SignalHandlingOption;
 use AlecRabbit\Spinner\Core\Config\Solver\A\ASolver;
 use AlecRabbit\Spinner\Core\Settings\Contract\ILoopSettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettings;
@@ -25,162 +25,162 @@ final readonly class SignalHandlersModeSolver extends ASolver implements Contrac
     }
 
     private function doSolve(
-        ?SignalHandlersOption $userOption,
-        ?SignalHandlersOption $detectedOption,
-        ?SignalHandlersOption $defaultOption
+        ?SignalHandlingOption $userOption,
+        ?SignalHandlingOption $detectedOption,
+        ?SignalHandlingOption $defaultOption
     ): SignalHandlersMode {
         $options = [$userOption, $detectedOption, $defaultOption];
         return
             match ($options) {
                 [
-                    SignalHandlersOption::AUTO,
-                    SignalHandlersOption::ENABLED,
-                    SignalHandlersOption::DISABLED,
+                    SignalHandlingOption::AUTO,
+                    SignalHandlingOption::ENABLED,
+                    SignalHandlingOption::DISABLED,
                 ],
                 [
-                    SignalHandlersOption::AUTO,
-                    SignalHandlersOption::ENABLED,
-                    SignalHandlersOption::ENABLED,
+                    SignalHandlingOption::AUTO,
+                    SignalHandlingOption::ENABLED,
+                    SignalHandlingOption::ENABLED,
                 ],
                 [
-                    SignalHandlersOption::ENABLED,
+                    SignalHandlingOption::ENABLED,
                     null,
-                    SignalHandlersOption::ENABLED,
+                    SignalHandlingOption::ENABLED,
                 ],
                 [
-                    SignalHandlersOption::AUTO,
-                    SignalHandlersOption::AUTO,
-                    SignalHandlersOption::ENABLED,
+                    SignalHandlingOption::AUTO,
+                    SignalHandlingOption::AUTO,
+                    SignalHandlingOption::ENABLED,
                 ],
                 [
-                    SignalHandlersOption::ENABLED,
-                    SignalHandlersOption::ENABLED,
-                    SignalHandlersOption::ENABLED,
+                    SignalHandlingOption::ENABLED,
+                    SignalHandlingOption::ENABLED,
+                    SignalHandlingOption::ENABLED,
                 ],
                 [
-                    SignalHandlersOption::ENABLED,
-                    SignalHandlersOption::DISABLED,
-                    SignalHandlersOption::DISABLED,
+                    SignalHandlingOption::ENABLED,
+                    SignalHandlingOption::DISABLED,
+                    SignalHandlingOption::DISABLED,
                 ],
                 [
-                    SignalHandlersOption::ENABLED,
+                    SignalHandlingOption::ENABLED,
                     null,
-                    null,
-                ],
-                [
-                    SignalHandlersOption::AUTO,
-                    SignalHandlersOption::ENABLED,
                     null,
                 ],
                 [
-                    SignalHandlersOption::AUTO,
-                    null,
-                    SignalHandlersOption::ENABLED,
-                ],
-                [
-                    null,
-                    SignalHandlersOption::AUTO,
-                    SignalHandlersOption::ENABLED,
-                ],
-                [
-                    null,
-                    SignalHandlersOption::ENABLED,
+                    SignalHandlingOption::AUTO,
+                    SignalHandlingOption::ENABLED,
                     null,
                 ],
                 [
+                    SignalHandlingOption::AUTO,
                     null,
-                    SignalHandlersOption::ENABLED,
-                    SignalHandlersOption::ENABLED,
+                    SignalHandlingOption::ENABLED,
+                ],
+                [
+                    null,
+                    SignalHandlingOption::AUTO,
+                    SignalHandlingOption::ENABLED,
+                ],
+                [
+                    null,
+                    SignalHandlingOption::ENABLED,
+                    null,
+                ],
+                [
+                    null,
+                    SignalHandlingOption::ENABLED,
+                    SignalHandlingOption::ENABLED,
                 ],
                 [
                     null,
                     null,
-                    SignalHandlersOption::ENABLED,
+                    SignalHandlingOption::ENABLED,
                 ] => SignalHandlersMode::ENABLED,
                 [
-                    SignalHandlersOption::AUTO,
-                    SignalHandlersOption::DISABLED,
-                    SignalHandlersOption::DISABLED,
+                    SignalHandlingOption::AUTO,
+                    SignalHandlingOption::DISABLED,
+                    SignalHandlingOption::DISABLED,
                 ],
                 [
-                    SignalHandlersOption::DISABLED,
-                    SignalHandlersOption::DISABLED,
-                    SignalHandlersOption::DISABLED,
+                    SignalHandlingOption::DISABLED,
+                    SignalHandlingOption::DISABLED,
+                    SignalHandlingOption::DISABLED,
                 ],
                 [
-                    SignalHandlersOption::DISABLED,
-                    SignalHandlersOption::ENABLED,
-                    SignalHandlersOption::ENABLED,
+                    SignalHandlingOption::DISABLED,
+                    SignalHandlingOption::ENABLED,
+                    SignalHandlingOption::ENABLED,
                 ],
                 [
-                    SignalHandlersOption::DISABLED,
-                    SignalHandlersOption::ENABLED,
-                    SignalHandlersOption::DISABLED,
+                    SignalHandlingOption::DISABLED,
+                    SignalHandlingOption::ENABLED,
+                    SignalHandlingOption::DISABLED,
                 ],
                 [
-                    SignalHandlersOption::AUTO,
-                    SignalHandlersOption::DISABLED,
+                    SignalHandlingOption::AUTO,
+                    SignalHandlingOption::DISABLED,
                     null,
                 ],
                 [
-                    SignalHandlersOption::AUTO,
+                    SignalHandlingOption::AUTO,
                     null,
-                    SignalHandlersOption::DISABLED,
+                    SignalHandlingOption::DISABLED,
                 ],
                 [
                     null,
-                    SignalHandlersOption::AUTO,
-                    SignalHandlersOption::DISABLED,
+                    SignalHandlingOption::AUTO,
+                    SignalHandlingOption::DISABLED,
                 ],
                 [
                     null,
-                    SignalHandlersOption::DISABLED,
+                    SignalHandlingOption::DISABLED,
                     null,
                 ],
                 [
                     null,
-                    SignalHandlersOption::DISABLED,
-                    SignalHandlersOption::DISABLED,
+                    SignalHandlingOption::DISABLED,
+                    SignalHandlingOption::DISABLED,
                 ],
                 [
                     null,
-                    SignalHandlersOption::ENABLED,
-                    SignalHandlersOption::DISABLED,
+                    SignalHandlingOption::ENABLED,
+                    SignalHandlingOption::DISABLED,
                 ],
                 [
                     null,
-                    SignalHandlersOption::DISABLED,
-                    SignalHandlersOption::ENABLED,
+                    SignalHandlingOption::DISABLED,
+                    SignalHandlingOption::ENABLED,
                 ],
                 [
-                    SignalHandlersOption::DISABLED,
-                    SignalHandlersOption::DISABLED,
-                    SignalHandlersOption::ENABLED,
+                    SignalHandlingOption::DISABLED,
+                    SignalHandlingOption::DISABLED,
+                    SignalHandlingOption::ENABLED,
                 ],
                 [
-                    SignalHandlersOption::AUTO,
-                    SignalHandlersOption::DISABLED,
-                    SignalHandlersOption::ENABLED,
+                    SignalHandlingOption::AUTO,
+                    SignalHandlingOption::DISABLED,
+                    SignalHandlingOption::ENABLED,
                 ],
                 [
-                    SignalHandlersOption::ENABLED,
-                    SignalHandlersOption::DISABLED,
-                    SignalHandlersOption::ENABLED,
+                    SignalHandlingOption::ENABLED,
+                    SignalHandlingOption::DISABLED,
+                    SignalHandlingOption::ENABLED,
                 ],
                 [
-                    SignalHandlersOption::DISABLED,
+                    SignalHandlingOption::DISABLED,
                     null,
                     null,
                 ],
                 [
-                    SignalHandlersOption::DISABLED,
+                    SignalHandlingOption::DISABLED,
                     null,
-                    SignalHandlersOption::ENABLED,
+                    SignalHandlingOption::ENABLED,
                 ],
                 [
                     null,
                     null,
-                    SignalHandlersOption::DISABLED,
+                    SignalHandlingOption::DISABLED,
                 ] => SignalHandlersMode::DISABLED,
                 default => throw new InvalidArgumentException(
                     sprintf(
@@ -197,7 +197,7 @@ final readonly class SignalHandlersModeSolver extends ASolver implements Contrac
             };
     }
 
-    protected function extractOption(ISettings $settings): ?SignalHandlersOption
+    protected function extractOption(ISettings $settings): ?SignalHandlingOption
     {
         return $this->extractSettingsElement($settings, ILoopSettings::class)?->getSignalHandlersOption();
     }

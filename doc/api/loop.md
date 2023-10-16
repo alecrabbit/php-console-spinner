@@ -86,7 +86,7 @@ At last, you need to create a loop creator by implementing the `ILoopCreator` in
 ```php
 class CustomLoopCreator implements ILoopCreator
 {
-    public static function create(): ILoop
+    public function create(): ILoop
     {
         return
             new CustomLoopAdapter();

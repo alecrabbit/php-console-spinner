@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Functional\Spinner\Complex;
 
 use AlecRabbit\Spinner\Contract\Mode\SignalHandlersMode;
-use AlecRabbit\Spinner\Contract\Option\SignalHandlersOption;
+use AlecRabbit\Spinner\Contract\Option\SignalHandlingOption;
 use AlecRabbit\Spinner\Core\Config\Contract\ILoopConfig;
 use AlecRabbit\Spinner\Core\Settings\Contract\Factory\IDetectedSettingsFactory;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettings;
@@ -44,7 +44,7 @@ final class SignalHandlersModeConfigTest extends ConfigurationTestCase
         Facade::getSettings()
             ->set(
                 new LoopSettings(
-                    signalHandlersOption: SignalHandlersOption::ENABLED,
+                    signalHandlersOption: SignalHandlingOption::ENABLED,
                 ),
             )
         ;
@@ -61,7 +61,7 @@ final class SignalHandlersModeConfigTest extends ConfigurationTestCase
         Facade::getSettings()
             ->set(
                 new LoopSettings(
-                    signalHandlersOption: SignalHandlersOption::DISABLED,
+                    signalHandlersOption: SignalHandlingOption::DISABLED,
                 ),
             )
         ;

@@ -9,7 +9,7 @@ use AlecRabbit\Spinner\Contract\Probe\IStylingMethodOptionCreator;
 
 final class StylingMethodOptionCreator implements IStylingMethodOptionCreator
 {
-    public static function create(): StylingMethodOption
+    public function create(): StylingMethodOption
     {
         return StylingMethodOption::AUTO;
     }

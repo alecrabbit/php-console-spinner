@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Functional\Spinner\Core\Settings;
 
 use AlecRabbit\Spinner\Contract\Option\AutoStartOption;
-use AlecRabbit\Spinner\Contract\Option\SignalHandlersOption;
+use AlecRabbit\Spinner\Contract\Option\SignalHandlingOption;
 use AlecRabbit\Spinner\Core\Settings\Contract\ILoopSettings;
 use AlecRabbit\Spinner\Core\Settings\LoopSettings;
 use AlecRabbit\Tests\TestCase\TestCase;
@@ -23,12 +23,12 @@ final class LoopSettingsTest extends TestCase
 
     public function getTesteeInstance(
         ?AutoStartOption $autoStartOption = null,
-        ?SignalHandlersOption $signalHandlersOption = null,
+        ?SignalHandlingOption $signalHandlersOption = null,
     ): ILoopSettings {
         return
             new LoopSettings(
                 autoStartOption: $autoStartOption ?? AutoStartOption::AUTO,
-                signalHandlersOption: $signalHandlersOption ?? SignalHandlersOption::AUTO,
+                signalHandlersOption: $signalHandlersOption ?? SignalHandlingOption::AUTO,
             );
     }
 
@@ -73,7 +73,7 @@ final class LoopSettingsTest extends TestCase
     #[Test]
     public function canGetSignalHandlersOption(): void
     {
-        $signalHandlersOption = SignalHandlersOption::ENABLED;
+        $signalHandlersOption = SignalHandlingOption::ENABLED;
 
         $settings = $this->getTesteeInstance(
             signalHandlersOption: $signalHandlersOption,
@@ -85,13 +85,13 @@ final class LoopSettingsTest extends TestCase
     #[Test]
     public function canSetSignalHandlersOption(): void
     {
-        $signalHandlersOptionInitial = SignalHandlersOption::ENABLED;
+        $signalHandlersOptionInitial = SignalHandlingOption::ENABLED;
 
         $settings = $this->getTesteeInstance(
             signalHandlersOption: $signalHandlersOptionInitial,
         );
 
-        $signalHandlersOption = SignalHandlersOption::DISABLED;
+        $signalHandlersOption = SignalHandlingOption::DISABLED;
 
         self::assertNotEquals($signalHandlersOption, $settings->getSignalHandlersOption());
 
