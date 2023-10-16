@@ -6,8 +6,6 @@ namespace AlecRabbit\Tests\TestCase;
 
 use AlecRabbit\Spinner\Core\Config\Contract\IConfigElement;
 use AlecRabbit\Spinner\Core\Contract\IConfigProvider;
-use AlecRabbit\Spinner\Core\Settings\Contract\ISettingsProvider;
-use AlecRabbit\Spinner\Facade;
 use Psr\Container\ContainerInterface;
 
 abstract class ConfigurationTestCase extends ContainerModifyingTestCase
@@ -28,13 +26,13 @@ abstract class ConfigurationTestCase extends ContainerModifyingTestCase
         return $container->get(IConfigProvider::class);
     }
 
-    abstract protected static function performContainerModifications(): void;
-
     protected function setUp(): void
     {
         parent::setUp();
         static::performContainerModifications();
     }
+
+    abstract protected static function performContainerModifications(): void;
 
 
 }

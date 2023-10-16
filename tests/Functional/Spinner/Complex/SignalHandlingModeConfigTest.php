@@ -14,7 +14,6 @@ use AlecRabbit\Spinner\Core\Settings\Settings;
 use AlecRabbit\Spinner\Facade;
 use AlecRabbit\Tests\TestCase\ConfigurationTestCase;
 use PHPUnit\Framework\Attributes\Test;
-use Psr\Container\ContainerInterface;
 
 final class SignalHandlingModeConfigTest extends ConfigurationTestCase
 {

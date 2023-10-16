@@ -18,7 +18,11 @@ final class Facade extends AFacade
     public static function getLoop(): ILoop
     {
         self::initialize();
-        return self::getLoopProvider()->getLoop();
+
+        return
+            self::getLoopProvider()
+                ->getLoop()
+        ;
     }
 
     private static function initialize(): void
@@ -28,31 +32,53 @@ final class Facade extends AFacade
 
     public static function createSpinner(?ISpinnerSettings $spinnerSettings = null): ISpinner
     {
-        $spinnerFactory = self::getSpinnerFactory();
+        self::initialize();
 
-        $spinner = $spinnerFactory->create($spinnerSettings);
+        $spinner =
+            self::getSpinnerFactory()
+                ->create($spinnerSettings)
+        ;
 
         if ($spinnerSettings?->isAutoAttach() ?? true) {
-            self::getDriver()->add($spinner);
+            self::getDriver()
+                ->add($spinner)
+            ;
         }
 
-        self::initialize();
         return $spinner;
     }
 
     public static function getDriver(): IDriver
     {
         self::initialize();
-        return self::getDriverProvider()->getDriver();
+
+        return
+            self::getDriverProvider()
+                ->getDriver()
+        ;
     }
 
+    /** @inheritDoc */
     public static function getSettings(): ISettings
     {
-        if (self::$configurationCreated) {
-            throw new DomainException('Settings can not be changed. Configuration is already created.');
-        }
+        self::assertNotInitialized();
+
         return
-            self::getSettingsProvider()->getUserSettings();
+            self::getSettingsProvider()
+                ->getUserSettings()
+        ;
+    }
+
+    /**
+     * @throws DomainException
+     */
+    protected static function assertNotInitialized(): void
+    {
+        if (self::$configurationCreated) {
+            throw new DomainException(
+                'Settings can not be changed. Configuration is already created.'
+            );
+        }
     }
 
 }

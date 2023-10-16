@@ -24,7 +24,6 @@ $loopSettings = new LoopSettings();
 
 $loopSettings->setAutoStartOption(AutoStartOption::AUTO);
 $loopSettings->setSignalHandlingOption(SignalHandlingOption::AUTO);
-# NEW FEATURE? // $loopSettings->setLoopCreatorClass(RevoltLoopCreator::class);
 # NEW FEATURE? // $loopSettings->setSignalHandler(/* TBD */);
 
 // Output settings
@@ -32,14 +31,16 @@ $outputSettings = new OutputSettings();
 
 $outputSettings->setStylingMethodOption(StylingMethodOption::AUTO);
 $outputSettings->setCursorVisibilityOption(CursorVisibilityOption::AUTO); 
+// TODO (2023-10-16 13:56) [Alec Rabbit]: do move [36e6c435-2f98-4a19-9709-49848fd0a605]
+$outputSettings->setInitializationOption(InitializationOption::AUTO); // moved from DriverSettings
 # NEW FEATURE? // $outputSettings->setClearScreenOption(ClearScreenOption::AUTO);
 
 // Driver settings
 $driverSettings = new DriverSettings();
 
-$driverSettings->setLinkerOption(LinkerOption::AUTO);
-$driverSettings->setInitializationOption(InitializationOption::AUTO);
-# NEW FEATURE? // $driverSettings->setTerminationOption(TerminationOption::AUTO);
+$driverSettings->setLinkerOption(LinkerOption::AUTO); // todo: check semantics
+// TODO (2023-10-16 13:56) [Alec Rabbit]: do move [36e6c435-2f98-4a19-9709-49848fd0a605]
+// $driverSettings->setInitializationOption(InitializationOption::AUTO); // moved to OutputSettings
 # NEW FEATURE? // $driverSettings->setFinalMessage('');
 # NEW FEATURE? // $driverSettings->setInterruptMessage('');
 
@@ -72,7 +73,9 @@ $settings->set(
     $widgetSettings,
     $rootWidgetSettings,
 );
+``` 
 
+```php
 // to get settings
 $settings->get(IAuxSettings::class); // returns AuxSettings object or null
 ```

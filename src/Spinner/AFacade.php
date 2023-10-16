@@ -10,7 +10,7 @@ use AlecRabbit\Spinner\Core\Factory\Contract\ISpinnerFactory;
 use AlecRabbit\Spinner\Core\Loop\Contract\ILoopProvider;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettingsProvider;
 
-abstract class AFacade extends AContainerEnclosure
+abstract class AFacade extends AContainerEnclosure implements IFacade
 {
     protected static function getSpinnerFactory(): ISpinnerFactory
     {

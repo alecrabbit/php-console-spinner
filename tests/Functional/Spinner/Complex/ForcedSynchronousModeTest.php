@@ -45,7 +45,7 @@ final class ForcedSynchronousModeTest extends ConfigurationTestCase
     }
 
     #[Test]
-    public function synchronousModeCanBeForced(): void
+    public function synchronousModeCanBeForcedOne(): void
     {
         Facade::getSettings()
             ->set(
@@ -66,6 +66,52 @@ final class ForcedSynchronousModeTest extends ConfigurationTestCase
         $driver = Facade::getDriver();
 
         self::assertFalse($driver->has($spinner));
+
+        $this->expectException(DomainException::class);
+        $this->expectExceptionMessage('Loop is not set.');
+
+        Facade::getLoop();
+
+        self::fail('Exception was not thrown.');
+    }
+
+    #[Test]
+    public function synchronousModeCanBeForcedTwo(): void
+    {
+        Facade::getSettings()
+            ->set(
+                new AuxSettings(
+                    runMethodOption: RunMethodOption::SYNCHRONOUS,
+                ),
+            )
+        ;
+
+        $spinner = Facade::createSpinner();
+
+        self::assertInstanceOf(Spinner::class, $spinner);
+
+        $driver = Facade::getDriver();
+
+        self::assertTrue($driver->has($spinner));
+
+        $this->expectException(DomainException::class);
+        $this->expectExceptionMessage('Loop is not set.');
+
+        Facade::getLoop();
+
+        self::fail('Exception was not thrown.');
+    }
+
+    #[Test]
+    public function synchronousModeCanBeForcedThree(): void
+    {
+        Facade::getSettings()
+            ->set(
+                new AuxSettings(
+                    runMethodOption: RunMethodOption::SYNCHRONOUS,
+                ),
+            )
+        ;
 
         $this->expectException(DomainException::class);
         $this->expectExceptionMessage('Loop is not set.');

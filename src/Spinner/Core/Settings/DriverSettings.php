@@ -12,6 +12,7 @@ final class DriverSettings implements IDriverSettings
 {
     public function __construct(
         protected LinkerOption $linkerOption = LinkerOption::AUTO,
+        // TODO (2023-10-16 13:56) [Alec Rabbit]: do move [36e6c435-2f98-4a19-9709-49848fd0a605]
         protected InitializationOption $initializationOption = InitializationOption::AUTO,
     ) {
     }
