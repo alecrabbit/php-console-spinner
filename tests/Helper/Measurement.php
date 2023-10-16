@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Helper;
 
+use LogicException;
+
 class Measurement
 {
-    private const COUNT = 100;
+    protected const COUNT = 100;
     protected array $data = [];
     protected int|float $average;
     protected int $count = 0;
@@ -35,10 +37,10 @@ class Measurement
 
     public function getAverage(): int|float
     {
-        return $this->average ?? throw new \LogicException('Not enough data.');
+        return $this->average ?? throw new LogicException('Not enough data.');
     }
 
-    public function getCount(): int
+    public function getActualCount(): int
     {
         return $this->count;
     }

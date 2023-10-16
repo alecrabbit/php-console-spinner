@@ -6,5 +6,5 @@ namespace AlecRabbit\Tests\Helper\Contract;
 
 interface IStopwatchReporter
 {
-    public function report(IStopwatch $stopwatch): void;
+    public function report(): void;
 }

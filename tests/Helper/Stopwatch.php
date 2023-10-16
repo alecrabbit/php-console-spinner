@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Helper;
 
 use AlecRabbit\Tests\Helper\Contract\IStopwatch;
+use RuntimeException;
 
 class Stopwatch implements IStopwatch
 {
@@ -16,7 +17,7 @@ class Stopwatch implements IStopwatch
     {
         $key = $this->getKey($label, $labels);
         if (isset($this->current[$key])) {
-            throw new \RuntimeException('Already started');
+            throw new RuntimeException('Already started');
         }
         $this->current[$key] = $this->getNow();
     }

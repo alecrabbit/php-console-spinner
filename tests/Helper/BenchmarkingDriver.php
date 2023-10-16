@@ -13,10 +13,10 @@ use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use AlecRabbit\Spinner\Core\Contract\ISpinnerState;
 use AlecRabbit\Spinner\Core\Output\Contract\IDriverOutput;
 use AlecRabbit\Spinner\Core\SpinnerState;
-use AlecRabbit\Tests\Helper\Contract\IStopwatchReporter;
 use AlecRabbit\Tests\Helper\Contract\IStopwatch;
+use AlecRabbit\Tests\Helper\Contract\IStopwatchReporter;
 
-final class BenchmarkingDriver extends ADriver
+final class BenchmarkingDriver extends ADriver implements IBenchmarkingDriver
 {
     protected ?ISpinner $spinner = null;
     protected ISpinnerState $state;
@@ -27,7 +27,6 @@ final class BenchmarkingDriver extends ADriver
         IInterval $initialInterval,
         ?IObserver $observer = null,
         private readonly IStopwatch $stopwatch = new Stopwatch(),
-        private readonly IStopwatchReporter $reporter = new StopwatchReporter(),
     ) {
         parent::__construct($output, $timer, $initialInterval, $observer);
     }
@@ -47,7 +46,9 @@ final class BenchmarkingDriver extends ADriver
     protected function erase(): void
     {
         if ($this->spinner) {
+            $this->stopwatch->start('eraseState');
             $this->output->erase($this->state);
+            $this->stopwatch->stop('eraseState');
         }
     }
 
@@ -86,7 +87,6 @@ final class BenchmarkingDriver extends ADriver
     public function render(?float $dt = null): void
     {
         if ($this->spinner) {
-
             $this->stopwatch->start('createState');
 
             $dt ??= $this->timer->getDelta();
@@ -106,8 +106,8 @@ final class BenchmarkingDriver extends ADriver
         }
     }
 
-    public function report(): void
+    public function getStopwatch(): IStopwatch
     {
-        $this->reporter->report($this->stopwatch);
+        return $this->stopwatch;
     }
 }
