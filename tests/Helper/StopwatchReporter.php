@@ -11,7 +11,7 @@ use function sprintf;
 use function trim;
 use function ucfirst;
 
-readonly class StopwatchReporter implements Contract\IStopwatchReporter
+readonly class StopwatchReporter implements Contract\IReporter
 {
     public function __construct(
         private IStopwatch $stopwatch,

@@ -14,7 +14,6 @@ use AlecRabbit\Spinner\Core\Contract\ISpinnerState;
 use AlecRabbit\Spinner\Core\Output\Contract\IDriverOutput;
 use AlecRabbit\Spinner\Core\SpinnerState;
 use AlecRabbit\Tests\Helper\Contract\IStopwatch;
-use AlecRabbit\Tests\Helper\Contract\IStopwatchReporter;
 
 final class BenchmarkingDriver extends ADriver implements IBenchmarkingDriver
 {
