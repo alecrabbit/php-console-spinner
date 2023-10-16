@@ -21,6 +21,9 @@ interface IFacade
      */
     public static function getSettings(): ISettings;
 
+    /**
+     * @throws DomainException
+     */
     public static function getLoop(): ILoop;
 
     public static function createSpinner(?ISpinnerSettings $spinnerSettings = null): ISpinner;

@@ -15,6 +15,7 @@ final class Facade extends AFacade
 {
     private static bool $configurationCreated = false;
 
+    /** @inheritDoc */
     public static function getLoop(): ILoop
     {
         self::initialize();
