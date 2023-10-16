@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Config\Builder;
 
 use AlecRabbit\Spinner\Contract\Mode\AutoStartMode;
-use AlecRabbit\Spinner\Contract\Mode\SignalHandlersMode;
+use AlecRabbit\Spinner\Contract\Mode\SignalHandlingMode;
 use AlecRabbit\Spinner\Core\Config\Builder\LoopConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\Contract\Builder\ILoopConfigBuilder;
 use AlecRabbit\Spinner\Core\Config\LoopConfig;
@@ -36,7 +36,7 @@ final class LoopConfigBuilderTest extends TestCase
 
         $config = $configBuilder
             ->withAutoStartMode(AutoStartMode::DISABLED)
-            ->withSignalHandlersMode(SignalHandlersMode::DISABLED)
+            ->withSignalHandlingMode(SignalHandlingMode::DISABLED)
             ->build()
         ;
 
@@ -58,13 +58,13 @@ final class LoopConfigBuilderTest extends TestCase
     }
 
     #[Test]
-    public function withSignalHandlersModeReturnsOtherInstanceOfBuilder(): void
+    public function withSignalHandlingModeReturnsOtherInstanceOfBuilder(): void
     {
         $configBuilder = $this->getTesteeInstance();
 
         $builder =
             $configBuilder
-                ->withSignalHandlersMode(SignalHandlersMode::DISABLED)
+                ->withSignalHandlingMode(SignalHandlingMode::DISABLED)
         ;
 
         self::assertInstanceOf(LoopConfigBuilder::class, $builder);
@@ -81,7 +81,7 @@ final class LoopConfigBuilderTest extends TestCase
             $configBuilder = $this->getTesteeInstance();
 
             $configBuilder
-                ->withSignalHandlersMode(SignalHandlersMode::DISABLED)
+                ->withSignalHandlingMode(SignalHandlingMode::DISABLED)
                 ->build()
             ;
         };
@@ -94,10 +94,10 @@ final class LoopConfigBuilderTest extends TestCase
     }
 
     #[Test]
-    public function throwsIfSignalHandlersModeIsNotSet(): void
+    public function throwsIfSignalHandlingModeIsNotSet(): void
     {
         $exceptionClass = LogicException::class;
-        $exceptionMessage = 'SignalHandlersMode is not set.';
+        $exceptionMessage = 'SignalHandlingMode is not set.';
 
         $test = function (): void {
             $configBuilder = $this->getTesteeInstance();

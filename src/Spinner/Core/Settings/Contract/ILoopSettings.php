@@ -11,9 +11,9 @@ interface ILoopSettings extends ISettingsElement
 {
     public function getAutoStartOption(): AutoStartOption;
 
-    public function setSignalHandlersOption(SignalHandlingOption $signalHandlersOption): void;
+    public function setSignalHandlingOption(SignalHandlingOption $signalHandlersOption): void;
 
-    public function getSignalHandlersOption(): SignalHandlingOption;
+    public function getSignalHandlingOption(): SignalHandlingOption;
 
     public function setAutoStartOption(AutoStartOption $autoStartOption): void;
 }

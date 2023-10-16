@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Probe;
 
-use AlecRabbit\Spinner\Contract\Probe\ISignalProcessingProbe;
+use AlecRabbit\Spinner\Contract\Probe\ISignalHandlingProbe;
 
-final class SignalProcessingProbe implements ISignalProcessingProbe
+final class SignalHandlingProbe implements ISignalHandlingProbe
 {
     public static function isSupported(): bool
     {
@@ -15,6 +15,6 @@ final class SignalProcessingProbe implements ISignalProcessingProbe
 
     public static function getCreatorClass(): string
     {
-        return SignalHandlersOptionCreator::class;
+        return SignalHandlingOptionCreator::class;
     }
 }

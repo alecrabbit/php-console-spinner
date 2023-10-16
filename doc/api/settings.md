@@ -23,7 +23,7 @@ $auxSettings->setNormalizerOption(NormalizerOption::AUTO);
 $loopSettings = new LoopSettings();
 
 $loopSettings->setAutoStartOption(AutoStartOption::AUTO);
-$loopSettings->setSignalHandlersOption(SignalHandlersOption::AUTO);
+$loopSettings->setSignalHandlingOption(SignalHandlingOption::AUTO);
 # NEW FEATURE? // $loopSettings->setLoopCreatorClass(RevoltLoopCreator::class);
 # NEW FEATURE? // $loopSettings->setSignalHandler(/* TBD */);
 

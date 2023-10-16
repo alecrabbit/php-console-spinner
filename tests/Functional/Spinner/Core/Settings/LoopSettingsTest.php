@@ -71,7 +71,7 @@ final class LoopSettingsTest extends TestCase
     }
 
     #[Test]
-    public function canGetSignalHandlersOption(): void
+    public function canGetSignalHandlingOption(): void
     {
         $signalHandlersOption = SignalHandlingOption::ENABLED;
 
@@ -79,11 +79,11 @@ final class LoopSettingsTest extends TestCase
             signalHandlersOption: $signalHandlersOption,
         );
 
-        self::assertEquals($signalHandlersOption, $settings->getSignalHandlersOption());
+        self::assertEquals($signalHandlersOption, $settings->getSignalHandlingOption());
     }
 
     #[Test]
-    public function canSetSignalHandlersOption(): void
+    public function canSetSignalHandlingOption(): void
     {
         $signalHandlersOptionInitial = SignalHandlingOption::ENABLED;
 
@@ -93,10 +93,10 @@ final class LoopSettingsTest extends TestCase
 
         $signalHandlersOption = SignalHandlingOption::DISABLED;
 
-        self::assertNotEquals($signalHandlersOption, $settings->getSignalHandlersOption());
+        self::assertNotEquals($signalHandlersOption, $settings->getSignalHandlingOption());
 
-        $settings->setSignalHandlersOption($signalHandlersOption);
+        $settings->setSignalHandlingOption($signalHandlersOption);
 
-        self::assertEquals($signalHandlersOption, $settings->getSignalHandlersOption());
+        self::assertEquals($signalHandlersOption, $settings->getSignalHandlingOption());
     }
 }

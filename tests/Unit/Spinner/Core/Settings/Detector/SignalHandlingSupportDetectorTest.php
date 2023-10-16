@@ -5,20 +5,20 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Settings\Detector;
 
 use AlecRabbit\Spinner\Contract\Option\SignalHandlingOption;
-use AlecRabbit\Spinner\Contract\Probe\ISignalProcessingProbe;
-use AlecRabbit\Spinner\Core\Settings\Contract\Detector\ISignalProcessingSupportDetector;
-use AlecRabbit\Spinner\Core\Settings\Detector\SignalProcessingSupportDetector;
+use AlecRabbit\Spinner\Contract\Probe\ISignalHandlingProbe;
+use AlecRabbit\Spinner\Core\Settings\Contract\Detector\ISignalHandlingSupportDetector;
+use AlecRabbit\Spinner\Core\Settings\Detector\SignalHandlingSupportDetector;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Tests\TestCase\TestCase;
-use AlecRabbit\Tests\Unit\Spinner\Core\Settings\Detector\Override\NegativeSignalProcessingProbeOverride;
-use AlecRabbit\Tests\Unit\Spinner\Core\Settings\Detector\Override\PositiveSignalProcessingProbeOverride;
+use AlecRabbit\Tests\Unit\Spinner\Core\Settings\Detector\Override\NegativeSignalHandlingProbeOverride;
+use AlecRabbit\Tests\Unit\Spinner\Core\Settings\Detector\Override\PositiveSignalHandlingProbeOverride;
 use ArrayObject;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 use stdClass;
 use Traversable;
 
-final class SignalProcessingSupportDetectorTest extends TestCase
+final class SignalHandlingSupportDetectorTest extends TestCase
 {
     public static function canDetectDataProvider(): iterable
     {
@@ -28,20 +28,20 @@ final class SignalProcessingSupportDetectorTest extends TestCase
             [
                 SignalHandlingOption::ENABLED,
                 [
-                    PositiveSignalProcessingProbeOverride::class,
+                    PositiveSignalHandlingProbeOverride::class,
                 ]
             ],
             [
                 SignalHandlingOption::ENABLED,
                 [
-                    NegativeSignalProcessingProbeOverride::class,
-                    PositiveSignalProcessingProbeOverride::class,
+                    NegativeSignalHandlingProbeOverride::class,
+                    PositiveSignalHandlingProbeOverride::class,
                 ]
             ],
             [
                 SignalHandlingOption::DISABLED,
                 [
-                    NegativeSignalProcessingProbeOverride::class,
+                    NegativeSignalHandlingProbeOverride::class,
                 ]
             ],
         ];
@@ -52,14 +52,14 @@ final class SignalProcessingSupportDetectorTest extends TestCase
     {
         $detector = $this->getTesteeInstance();
 
-        self::assertInstanceOf(SignalProcessingSupportDetector::class, $detector);
+        self::assertInstanceOf(SignalHandlingSupportDetector::class, $detector);
     }
 
     protected function getTesteeInstance(
         ?Traversable $probes = null
-    ): ISignalProcessingSupportDetector {
+    ): ISignalHandlingSupportDetector {
         return
-            new SignalProcessingSupportDetector(
+            new SignalHandlingSupportDetector(
                 probes: $probes ?? new ArrayObject(),
             );
     }
@@ -82,7 +82,7 @@ final class SignalProcessingSupportDetectorTest extends TestCase
         $this->expectExceptionMessage(
             sprintf(
                 'Probe must be an instance of "%s" interface.',
-                ISignalProcessingProbe::class
+                ISignalHandlingProbe::class
             )
         );
         $detector = $this->getTesteeInstance(

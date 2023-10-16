@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace AlecRabbit\Spinner\Core\Probe;
 
 use AlecRabbit\Spinner\Contract\Option\SignalHandlingOption;
-use AlecRabbit\Spinner\Contract\Probe\ISignalHandlersOptionCreator;
+use AlecRabbit\Spinner\Contract\Probe\ISignalHandlingOptionCreator;
 
-final class SignalHandlersOptionCreator implements ISignalHandlersOptionCreator
+final class SignalHandlingOptionCreator implements ISignalHandlingOptionCreator
 {
     private const SIGNAL_PROCESSING_EXTENSION = 'pcntl';
 

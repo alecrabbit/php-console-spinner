@@ -8,7 +8,7 @@ use AlecRabbit\Spinner\Contract\Mode\NormalizerMethodMode;
 use AlecRabbit\Spinner\Contract\Mode\RunMethodMode;
 use AlecRabbit\Spinner\Contract\Output\IResourceStream;
 use AlecRabbit\Spinner\Contract\Probe\IColorSupportProbe;
-use AlecRabbit\Spinner\Contract\Probe\ISignalProcessingProbe;
+use AlecRabbit\Spinner\Contract\Probe\ISignalHandlingProbe;
 use AlecRabbit\Spinner\Core\Builder\BufferedOutputBuilder;
 use AlecRabbit\Spinner\Core\Builder\ConsoleCursorBuilder;
 use AlecRabbit\Spinner\Core\Builder\Contract\IBufferedOutputBuilder;
@@ -65,7 +65,7 @@ use AlecRabbit\Spinner\Core\Config\Solver\Contract\IInitializationModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\ILinkerModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\INormalizerMethodModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\IRunMethodModeSolver;
-use AlecRabbit\Spinner\Core\Config\Solver\Contract\ISignalHandlersModeSolver;
+use AlecRabbit\Spinner\Core\Config\Solver\Contract\ISignalHandlingModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\IStylingMethodModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\Contract\IWidgetSettingsSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\CursorVisibilityModeSolver;
@@ -73,7 +73,7 @@ use AlecRabbit\Spinner\Core\Config\Solver\InitializationModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\LinkerModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\NormalizerMethodModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\RunMethodModeSolver;
-use AlecRabbit\Spinner\Core\Config\Solver\SignalHandlersModeSolver;
+use AlecRabbit\Spinner\Core\Config\Solver\SignalHandlingModeSolver;
 use AlecRabbit\Spinner\Core\Config\Solver\StylingMethodModeSolver;
 use AlecRabbit\Spinner\Core\Config\WidgetRevolverConfig;
 use AlecRabbit\Spinner\Core\Contract\IConfigProvider;
@@ -135,7 +135,7 @@ use AlecRabbit\Spinner\Core\Settings\Builder\SettingsProviderBuilder;
 use AlecRabbit\Spinner\Core\Settings\Contract\Builder\ISettingsProviderBuilder;
 use AlecRabbit\Spinner\Core\Settings\Contract\Detector\IColorSupportDetector;
 use AlecRabbit\Spinner\Core\Settings\Contract\Detector\ILoopSupportDetector;
-use AlecRabbit\Spinner\Core\Settings\Contract\Detector\ISignalProcessingSupportDetector;
+use AlecRabbit\Spinner\Core\Settings\Contract\Detector\ISignalHandlingSupportDetector;
 use AlecRabbit\Spinner\Core\Settings\Contract\Factory\IDefaultSettingsFactory;
 use AlecRabbit\Spinner\Core\Settings\Contract\Factory\IDetectedSettingsFactory;
 use AlecRabbit\Spinner\Core\Settings\Contract\Factory\ISettingsProviderFactory;
@@ -144,7 +144,7 @@ use AlecRabbit\Spinner\Core\Settings\Contract\ISettingsProvider;
 use AlecRabbit\Spinner\Core\Settings\Contract\IWidgetSettings;
 use AlecRabbit\Spinner\Core\Settings\Detector\ColorSupportDetector;
 use AlecRabbit\Spinner\Core\Settings\Detector\LoopSupportDetector;
-use AlecRabbit\Spinner\Core\Settings\Detector\SignalProcessingSupportDetector;
+use AlecRabbit\Spinner\Core\Settings\Detector\SignalHandlingSupportDetector;
 use AlecRabbit\Spinner\Core\Settings\Factory\DefaultSettingsFactory;
 use AlecRabbit\Spinner\Core\Settings\Factory\DetectedSettingsFactory;
 use AlecRabbit\Spinner\Core\Settings\Factory\SettingsProviderFactory;
@@ -278,7 +278,7 @@ function solvers(): Traversable
         IRunMethodModeSolver::class => RunMethodModeSolver::class,
         INormalizerMethodModeSolver::class => NormalizerMethodModeSolver::class,
         IAutoStartModeSolver::class => AutoStartModeSolver::class,
-        ISignalHandlersModeSolver::class => SignalHandlersModeSolver::class,
+        ISignalHandlingModeSolver::class => SignalHandlingModeSolver::class,
         IStylingMethodModeSolver::class => StylingMethodModeSolver::class,
         ICursorVisibilityModeSolver::class => CursorVisibilityModeSolver::class,
         ILinkerModeSolver::class => LinkerModeSolver::class,
@@ -345,10 +345,10 @@ function detectors(): Traversable
                     $container->get(ILoopCreatorClassProvider::class)->getCreatorClass(),
                 );
         },
-        ISignalProcessingSupportDetector::class => static function (): SignalProcessingSupportDetector {
+        ISignalHandlingSupportDetector::class => static function (): SignalHandlingSupportDetector {
             return
-                new SignalProcessingSupportDetector(
-                    Probes::load(ISignalProcessingProbe::class)
+                new SignalHandlingSupportDetector(
+                    Probes::load(ISignalHandlingProbe::class)
                 );
         },
         IColorSupportDetector::class => static function (): IColorSupportDetector {

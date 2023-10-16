@@ -7,7 +7,7 @@ namespace AlecRabbit\Spinner\Contract\Probe;
 use AlecRabbit\Spinner\Contract\ICreator;
 use AlecRabbit\Spinner\Contract\Option\SignalHandlingOption;
 
-interface ISignalHandlersOptionCreator extends ICreator
+interface ISignalHandlingOptionCreator extends ICreator
 {
     public function create(): SignalHandlingOption;
 }

@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Settings\Detector\Override;
 
-use AlecRabbit\Spinner\Contract\Probe\ISignalProcessingProbe;
+use AlecRabbit\Spinner\Contract\Probe\ISignalHandlingProbe;
 use RuntimeException;
 
-class NegativeSignalProcessingProbeOverride implements ISignalProcessingProbe
+class NegativeSignalHandlingProbeOverride implements ISignalHandlingProbe
 {
     public static function isSupported(): bool
     {

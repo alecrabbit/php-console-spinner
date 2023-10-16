@@ -13,8 +13,8 @@ $auxConfig->getRunMethodMode(); // RunMethodMode::ASYNC
 $loopConfig = $config->get(ILoopConfig::class);
 
 $loopConfig->getAutoStartMode(); // AutoStartMode::ENABLED
-$loopConfig->getSignalHandlersMode(); // SignalHandlersMode::ENABLED
-# NEW FEATURE // $outputConfig->getSignalHandlers(); // iterable <- signal handler(s)
+$loopConfig->getSignalHandlingMode(); // SignalHandlingMode::ENABLED
+# NEW FEATURE // $outputConfig->getSignalHandling(); // iterable <- signal handler(s)
 
 // Output config
 $outputConfig = $config->get(IOutputConfig::class); 

@@ -12,7 +12,7 @@ use AlecRabbit\Spinner\Contract\Option\StylingMethodOption;
 use AlecRabbit\Spinner\Core\Settings\AuxSettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\Detector\IColorSupportDetector;
 use AlecRabbit\Spinner\Core\Settings\Contract\Detector\ILoopSupportDetector;
-use AlecRabbit\Spinner\Core\Settings\Contract\Detector\ISignalProcessingSupportDetector;
+use AlecRabbit\Spinner\Core\Settings\Contract\Detector\ISignalHandlingSupportDetector;
 use AlecRabbit\Spinner\Core\Settings\Contract\Factory\IDetectedSettingsFactory;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettings;
 use AlecRabbit\Spinner\Core\Settings\DriverSettings;
@@ -25,7 +25,7 @@ final class DetectedSettingsFactory implements IDetectedSettingsFactory
     public function __construct(
         protected ILoopSupportDetector $loopSupportDetector,
         protected IColorSupportDetector $colorSupportDetector,
-        protected ISignalProcessingSupportDetector $signalProcessingSupportDetector,
+        protected ISignalHandlingSupportDetector $signalProcessingSupportDetector,
     ) {
     }
 

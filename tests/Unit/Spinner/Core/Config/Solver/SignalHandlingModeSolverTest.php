@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Core\Config\Solver;
 
-use AlecRabbit\Spinner\Contract\Mode\SignalHandlersMode;
+use AlecRabbit\Spinner\Contract\Mode\SignalHandlingMode;
 use AlecRabbit\Spinner\Contract\Option\SignalHandlingOption;
-use AlecRabbit\Spinner\Core\Config\Solver\Contract\ISignalHandlersModeSolver;
-use AlecRabbit\Spinner\Core\Config\Solver\SignalHandlersModeSolver;
+use AlecRabbit\Spinner\Core\Config\Solver\Contract\ISignalHandlingModeSolver;
+use AlecRabbit\Spinner\Core\Config\Solver\SignalHandlingModeSolver;
 use AlecRabbit\Spinner\Core\Settings\Contract\ILoopSettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettingsProvider;
@@ -19,12 +19,12 @@ use PHPUnit\Framework\MockObject\MockObject;
 
 use function sprintf;
 
-final class SignalHandlersModeSolverTest extends TestCase
+final class SignalHandlingModeSolverTest extends TestCase
 {
     public static function canSolveDataProvider(): iterable
     {
-        $mE = SignalHandlersMode::ENABLED;
-        $mD = SignalHandlersMode::DISABLED;
+        $mE = SignalHandlingMode::ENABLED;
+        $mD = SignalHandlingMode::DISABLED;
 
         $oAu = SignalHandlingOption::AUTO;
         $oEn = SignalHandlingOption::ENABLED;
@@ -35,7 +35,7 @@ final class SignalHandlersModeSolverTest extends TestCase
                 [
                     self::EXCEPTION => [
                         self::CLASS_ => InvalidArgumentException::class,
-                        self::MESSAGE => sprintf('Unable to solve "%s".', SignalHandlersMode::class),
+                        self::MESSAGE => sprintf('Unable to solve "%s".', SignalHandlingMode::class),
                     ],
                 ],
                 [null, null, null],
@@ -44,7 +44,7 @@ final class SignalHandlersModeSolverTest extends TestCase
                 [
                     self::EXCEPTION => [
                         self::CLASS_ => InvalidArgumentException::class,
-                        self::MESSAGE => sprintf('Unable to solve "%s".', SignalHandlersMode::class),
+                        self::MESSAGE => sprintf('Unable to solve "%s".', SignalHandlingMode::class),
                     ],
                 ],
                 [$oAu, null, null],
@@ -53,7 +53,7 @@ final class SignalHandlersModeSolverTest extends TestCase
                 [
                     self::EXCEPTION => [
                         self::CLASS_ => InvalidArgumentException::class,
-                        self::MESSAGE => sprintf('Unable to solve "%s".', SignalHandlersMode::class),
+                        self::MESSAGE => sprintf('Unable to solve "%s".', SignalHandlingMode::class),
                     ],
                 ],
                 [null, $oAu, null],
@@ -62,7 +62,7 @@ final class SignalHandlersModeSolverTest extends TestCase
                 [
                     self::EXCEPTION => [
                         self::CLASS_ => InvalidArgumentException::class,
-                        self::MESSAGE => sprintf('Unable to solve "%s".', SignalHandlersMode::class),
+                        self::MESSAGE => sprintf('Unable to solve "%s".', SignalHandlingMode::class),
                     ],
                 ],
                 [null, null, $oAu],
@@ -119,14 +119,14 @@ final class SignalHandlersModeSolverTest extends TestCase
     {
         $solver = $this->getTesteeInstance();
 
-        self::assertInstanceOf(SignalHandlersModeSolver::class, $solver);
+        self::assertInstanceOf(SignalHandlingModeSolver::class, $solver);
     }
 
     protected function getTesteeInstance(
         ?ISettingsProvider $settingsProvider = null,
-    ): ISignalHandlersModeSolver {
+    ): ISignalHandlingModeSolver {
         return
-            new SignalHandlersModeSolver(
+            new SignalHandlingModeSolver(
                 settingsProvider: $settingsProvider ?? $this->getSettingsProviderMock(),
             );
     }
@@ -146,14 +146,14 @@ final class SignalHandlersModeSolverTest extends TestCase
         $result = $expected[0] ?? null;
 
         [
-            $userSignalHandlersOption,
-            $detectedSignalHandlersOption,
-            $defaultSignalHandlersOption
+            $userSignalHandlingOption,
+            $detectedSignalHandlingOption,
+            $defaultSignalHandlingOption
         ] = $args;
 
-        $userAuxSettings = $this->getLoopSettingsMock($userSignalHandlersOption);
-        $detectedAuxSettings = $this->getLoopSettingsMock($detectedSignalHandlersOption);
-        $defaultAuxSettings = $this->getLoopSettingsMock($defaultSignalHandlersOption);
+        $userAuxSettings = $this->getLoopSettingsMock($userSignalHandlingOption);
+        $detectedAuxSettings = $this->getLoopSettingsMock($detectedSignalHandlingOption);
+        $defaultAuxSettings = $this->getLoopSettingsMock($defaultSignalHandlingOption);
 
         $userSettings = $this->getSettingsMock();
         $userSettings
@@ -216,7 +216,7 @@ final class SignalHandlersModeSolverTest extends TestCase
                 $this->createConfiguredMock(
                     ILoopSettings::class,
                     [
-                        'getSignalHandlersOption' => $autoStartOption,
+                        'getSignalHandlingOption' => $autoStartOption,
                     ]
                 );
     }

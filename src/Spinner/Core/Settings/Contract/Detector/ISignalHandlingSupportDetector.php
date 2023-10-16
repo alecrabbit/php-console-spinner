@@ -6,7 +6,7 @@ namespace AlecRabbit\Spinner\Core\Settings\Contract\Detector;
 
 use AlecRabbit\Spinner\Contract\Option\SignalHandlingOption;
 
-interface ISignalProcessingSupportDetector extends IDetector
+interface ISignalHandlingSupportDetector extends IDetector
 {
     public function getSupportValue(): SignalHandlingOption;
 }

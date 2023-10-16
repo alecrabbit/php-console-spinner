@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AlecRabbit\Tests\Functional\Spinner\Core\Config;
 
 use AlecRabbit\Spinner\Contract\Mode\AutoStartMode;
-use AlecRabbit\Spinner\Contract\Mode\SignalHandlersMode;
+use AlecRabbit\Spinner\Contract\Mode\SignalHandlingMode;
 use AlecRabbit\Spinner\Core\Config\Contract\ILoopConfig;
 use AlecRabbit\Spinner\Core\Config\LoopConfig;
 use AlecRabbit\Tests\TestCase\TestCase;
@@ -23,12 +23,12 @@ final class LoopConfigTest extends TestCase
 
     protected function getTesteeInstance(
         ?AutoStartMode $autoStartMode = null,
-        ?SignalHandlersMode $signalHandlersMode = null,
+        ?SignalHandlingMode $signalHandlersMode = null,
     ): ILoopConfig {
         return
             new LoopConfig(
                 autoStartMode: $autoStartMode ?? AutoStartMode::DISABLED,
-                signalHandlersMode: $signalHandlersMode ?? SignalHandlersMode::DISABLED,
+                signalHandlersMode: $signalHandlersMode ?? SignalHandlingMode::DISABLED,
             );
     }
 
@@ -45,15 +45,15 @@ final class LoopConfigTest extends TestCase
     }
 
     #[Test]
-    public function canGetSignalHandlersMode(): void
+    public function canGetSignalHandlingMode(): void
     {
-        $signalHandlersMode = SignalHandlersMode::ENABLED;
+        $signalHandlersMode = SignalHandlingMode::ENABLED;
 
         $config = $this->getTesteeInstance(
             signalHandlersMode: $signalHandlersMode,
         );
 
-        self::assertSame($signalHandlersMode, $config->getSignalHandlersMode());
+        self::assertSame($signalHandlersMode, $config->getSignalHandlingMode());
     }
 
 

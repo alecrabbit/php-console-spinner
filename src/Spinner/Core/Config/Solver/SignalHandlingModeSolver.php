@@ -4,17 +4,17 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Core\Config\Solver;
 
-use AlecRabbit\Spinner\Contract\Mode\SignalHandlersMode;
+use AlecRabbit\Spinner\Contract\Mode\SignalHandlingMode;
 use AlecRabbit\Spinner\Contract\Option\SignalHandlingOption;
 use AlecRabbit\Spinner\Core\Config\Solver\A\ASolver;
 use AlecRabbit\Spinner\Core\Settings\Contract\ILoopSettings;
 use AlecRabbit\Spinner\Core\Settings\Contract\ISettings;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 
-final readonly class SignalHandlersModeSolver extends ASolver implements Contract\ISignalHandlersModeSolver
+final readonly class SignalHandlingModeSolver extends ASolver implements Contract\ISignalHandlingModeSolver
 {
 
-    public function solve(): SignalHandlersMode
+    public function solve(): SignalHandlingMode
     {
         return
             $this->doSolve(
@@ -28,7 +28,7 @@ final readonly class SignalHandlersModeSolver extends ASolver implements Contrac
         ?SignalHandlingOption $userOption,
         ?SignalHandlingOption $detectedOption,
         ?SignalHandlingOption $defaultOption
-    ): SignalHandlersMode {
+    ): SignalHandlingMode {
         $options = [$userOption, $detectedOption, $defaultOption];
         return
             match ($options) {
@@ -96,7 +96,7 @@ final readonly class SignalHandlersModeSolver extends ASolver implements Contrac
                     null,
                     null,
                     SignalHandlingOption::ENABLED,
-                ] => SignalHandlersMode::ENABLED,
+                ] => SignalHandlingMode::ENABLED,
                 [
                     SignalHandlingOption::AUTO,
                     SignalHandlingOption::DISABLED,
@@ -181,11 +181,11 @@ final readonly class SignalHandlersModeSolver extends ASolver implements Contrac
                     null,
                     null,
                     SignalHandlingOption::DISABLED,
-                ] => SignalHandlersMode::DISABLED,
+                ] => SignalHandlingMode::DISABLED,
                 default => throw new InvalidArgumentException(
                     sprintf(
                         'Unable to solve "%s". From values %s.',
-                        SignalHandlersMode::class,
+                        SignalHandlingMode::class,
                         sprintf(
                             '[%s, %s, %s]',
                             $userOption?->name ?? 'null',
@@ -199,6 +199,6 @@ final readonly class SignalHandlersModeSolver extends ASolver implements Contrac
 
     protected function extractOption(ISettings $settings): ?SignalHandlingOption
     {
-        return $this->extractSettingsElement($settings, ILoopSettings::class)?->getSignalHandlersOption();
+        return $this->extractSettingsElement($settings, ILoopSettings::class)?->getSignalHandlingOption();
     }
 }

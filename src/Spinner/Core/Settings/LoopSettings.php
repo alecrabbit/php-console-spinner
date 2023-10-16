@@ -26,12 +26,12 @@ final class LoopSettings implements ILoopSettings
         $this->autoStartOption = $autoStartOption;
     }
 
-    public function getSignalHandlersOption(): SignalHandlingOption
+    public function getSignalHandlingOption(): SignalHandlingOption
     {
         return $this->signalHandlersOption;
     }
 
-    public function setSignalHandlersOption(SignalHandlingOption $signalHandlersOption): void
+    public function setSignalHandlingOption(SignalHandlingOption $signalHandlersOption): void
     {
         $this->signalHandlersOption = $signalHandlersOption;
     }

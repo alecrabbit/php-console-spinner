@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Functional\Spinner\Complex;
 
-use AlecRabbit\Spinner\Contract\Mode\SignalHandlersMode;
+use AlecRabbit\Spinner\Contract\Mode\SignalHandlingMode;
 use AlecRabbit\Spinner\Contract\Option\SignalHandlingOption;
 use AlecRabbit\Spinner\Core\Config\Contract\ILoopConfig;
 use AlecRabbit\Spinner\Core\Settings\Contract\Factory\IDetectedSettingsFactory;
@@ -16,7 +16,7 @@ use AlecRabbit\Tests\TestCase\ConfigurationTestCase;
 use PHPUnit\Framework\Attributes\Test;
 use Psr\Container\ContainerInterface;
 
-final class SignalHandlersModeConfigTest extends ConfigurationTestCase
+final class SignalHandlingModeConfigTest extends ConfigurationTestCase
 {
     protected static function performContainerModifications(): void
     {
@@ -39,7 +39,7 @@ final class SignalHandlersModeConfigTest extends ConfigurationTestCase
     }
 
     #[Test]
-    public function canSetLoopSignalHandlersOptionEnabled(): void
+    public function canSetLoopSignalHandlingOptionEnabled(): void
     {
         Facade::getSettings()
             ->set(
@@ -52,11 +52,11 @@ final class SignalHandlersModeConfigTest extends ConfigurationTestCase
         /** @var ILoopConfig $loopConfig */
         $loopConfig = self::getRequiredConfig(ILoopConfig::class);
 
-        self::assertSame(SignalHandlersMode::ENABLED, $loopConfig->getSignalHandlersMode());
+        self::assertSame(SignalHandlingMode::ENABLED, $loopConfig->getSignalHandlingMode());
     }
 
     #[Test]
-    public function canSetLoopSignalHandlersOptionDisabled(): void
+    public function canSetLoopSignalHandlingOptionDisabled(): void
     {
         Facade::getSettings()
             ->set(
@@ -69,6 +69,6 @@ final class SignalHandlersModeConfigTest extends ConfigurationTestCase
         /** @var ILoopConfig $loopConfig */
         $loopConfig = self::getRequiredConfig(ILoopConfig::class);
 
-        self::assertSame(SignalHandlersMode::DISABLED, $loopConfig->getSignalHandlersMode());
+        self::assertSame(SignalHandlingMode::DISABLED, $loopConfig->getSignalHandlingMode());
     }
 }
