@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use AlecRabbit\Spinner\Container\DefinitionRegistry;
 use AlecRabbit\Spinner\Container\Factory\ContainerFactory;
+use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\IDriverBuilder;
 use AlecRabbit\Spinner\Facade;
 use AlecRabbit\Tests\Helper\BenchmarkingDriverBuilder;
@@ -25,10 +26,11 @@ require_once __DIR__ . '/../../bootstrap.php';
     Facade::setContainer($container);
 }
 
+$driver = Facade::getDriver();
+
 // Create report function:
 $report =
-    (static function (): callable {
-        $driver = Facade::getDriver();
+    (static function (IDriver $driver): callable {
         if (!$driver instanceof IBenchmarkingDriver) {
             throw new \LogicException(
                 sprintf(
@@ -41,14 +43,16 @@ $report =
             static function () use ($driver): void {
                 (new StopwatchReporter($driver->getStopwatch()))->report();
             };
-    })();
+    })($driver);
 
-Facade::getLoop()
+$loop = Facade::getLoop();
+
+$loop
     ->delay(
         RUNTIME,
-        static function () use ($report): void {
-            Facade::getDriver()->finalize();
-            Facade::getLoop()->stop();
+        static function () use ($driver, $loop, $report): void {
+            $driver->finalize();
+            $loop->stop();
             $report();
         }
     )
