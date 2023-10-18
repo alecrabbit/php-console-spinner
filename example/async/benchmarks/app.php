@@ -11,7 +11,7 @@ use AlecRabbit\Tests\Helper\Benchmark\Contract\IBenchmarkingDriver;
 use AlecRabbit\Tests\Helper\Benchmark\StopwatchReportFactory;
 use AlecRabbit\Tests\Helper\Benchmark\StopwatchShortReportFactory;
 
-const RUNTIME = 30; // set runtime in seconds
+const RUNTIME = 600; // set runtime in seconds
 const INTERVAL = 5; // Timing report interval in seconds
 
 require_once __DIR__ . '/../../bootstrap.php';
