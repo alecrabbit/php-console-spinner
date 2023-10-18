@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Tests\Helper\Benchmark;
+namespace AlecRabbit\Spinner\Helper\Benchmark;
 
 use LogicException;
 
@@ -24,30 +24,23 @@ class Measurement implements Contract\IMeasurement
     {
         $this->count++;
         $this->data[] = $value;
-        $this->calculate($value);
-    }
 
-    private function calculate(int $value): void
-    {
+        // update min
         if(!isset($this->min) || $value < $this->min) {
             $this->min = $value;
         }
 
+        // update max
         if(!isset($this->max) || $value > $this->max) {
             $this->max = $value;
         }
 
-        if (count($this->data) < $this->requiredCount) {
-            return;
+        // update average
+        if (count($this->data) >= $this->requiredCount) {
+            $average = array_sum($this->data) / count($this->data);
+            $this->average = ($average + ($this->average ?? $average)) / 2;
+            $this->data = [];
         }
-        $this->updateAverage();
-    }
-
-    protected function updateAverage(): void
-    {
-        $average = array_sum($this->data) / count($this->data);
-        $this->average = ($average + ($this->average ?? $average)) / 2;
-        $this->data = [];
     }
 
     public function getAverage(): int|float

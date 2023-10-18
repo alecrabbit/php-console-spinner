@@ -2,10 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Tests\Helper\Benchmark\Contract;
-
-use AlecRabbit\Tests\Helper\Benchmark\Measurement;
-use LogicException;
+namespace AlecRabbit\Spinner\Helper\Benchmark\Contract;
 
 interface IMeasurement
 {

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Tests\Helper\Benchmark\Contract;
+namespace AlecRabbit\Spinner\Helper\Benchmark\Contract;
 
 interface IStopwatch
 {

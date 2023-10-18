@@ -6,10 +6,10 @@ use AlecRabbit\Spinner\Container\DefinitionRegistry;
 use AlecRabbit\Spinner\Container\Factory\ContainerFactory;
 use AlecRabbit\Spinner\Core\Contract\IDriverBuilder;
 use AlecRabbit\Spinner\Facade;
-use AlecRabbit\Tests\Helper\Benchmark\BenchmarkingDriverBuilder;
-use AlecRabbit\Tests\Helper\Benchmark\Contract\IBenchmarkingDriver;
-use AlecRabbit\Tests\Helper\Benchmark\StopwatchReportFactory;
-use AlecRabbit\Tests\Helper\Benchmark\StopwatchShortReportFactory;
+use AlecRabbit\Spinner\Helper\Benchmark\BenchmarkingDriverBuilder;
+use AlecRabbit\Spinner\Helper\Benchmark\Contract\IBenchmarkingDriver;
+use AlecRabbit\Spinner\Helper\Benchmark\StopwatchReportFactory;
+use AlecRabbit\Spinner\Helper\Benchmark\StopwatchShortReportFactory;
 
 const RUNTIME = 600; // set runtime in seconds
 const INTERVAL = 5; // Timing report interval in seconds

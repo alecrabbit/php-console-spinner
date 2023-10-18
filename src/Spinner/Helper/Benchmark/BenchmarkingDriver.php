@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Tests\Helper\Benchmark;
+namespace AlecRabbit\Spinner\Helper\Benchmark;
 
 use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Contract\IObserver;
@@ -13,8 +13,8 @@ use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use AlecRabbit\Spinner\Core\Contract\ISpinnerState;
 use AlecRabbit\Spinner\Core\Output\Contract\IDriverOutput;
 use AlecRabbit\Spinner\Core\SpinnerState;
-use AlecRabbit\Tests\Helper\Benchmark\Contract\IBenchmarkingDriver;
-use AlecRabbit\Tests\Helper\Benchmark\Contract\IStopwatch;
+use AlecRabbit\Spinner\Helper\Benchmark\Contract\IBenchmarkingDriver;
+use AlecRabbit\Spinner\Helper\Benchmark\Contract\IStopwatch;
 
 final class BenchmarkingDriver extends ADriver implements IBenchmarkingDriver
 {
