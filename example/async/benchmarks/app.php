@@ -28,6 +28,14 @@ require_once __DIR__ . '/../../bootstrap.php';
 
 $driver = Facade::getDriver();
 
+// Create echo function
+$echo =
+    $driver->wrap(
+        static function (?string $message = null) {
+            echo $message . PHP_EOL;
+        }
+    );
+
 // Create report function:
 $report =
     (static function (IDriver $driver): callable {
@@ -58,6 +66,14 @@ $loop
     )
 ;
 
+$loop
+    ->repeat(
+        20,
+        static function () use ($driver, $echo): void {
+            (new StopwatchReporter($driver->getStopwatch()))->report();
+        }
+    )
+;
 $spinner = Facade::createSpinner();
 
 // perform example unrelated actions:
