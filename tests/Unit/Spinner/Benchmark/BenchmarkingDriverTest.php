@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Tests\Unit\Spinner\Helper\Benchmark;
+namespace AlecRabbit\Tests\Unit\Spinner\Benchmark;
 
 use AlecRabbit\Spinner\Benchmark\BenchmarkingDriver;
 use AlecRabbit\Spinner\Benchmark\Contract\IBenchmarkingDriver;
@@ -69,5 +69,47 @@ final class BenchmarkingDriverTest extends TestCase
             self::callMethod($driver, 'createLabel', $function),
             $shortName . '::' . $function . '()',
         );
+    }
+
+    #[Test]
+    public function canGetStopwatch(): void
+    {
+        $stopwatch = $this->getStopwatchMock();
+
+        $driver =
+            $this->getTesteeInstance(
+                stopwatch: $stopwatch
+            );
+
+        self::assertSame($stopwatch, $driver->getStopwatch(),);
+    }
+
+    #[Test]
+    public function canRender(): void
+    {
+        $dt = 100.0;
+        $driver = $this->getDriverMock();
+        $driver
+            ->expects(self::once())
+            ->method('render')
+            ->with(self::identicalTo($dt))
+        ;
+
+        $stopwatch = $this->getStopwatchMock();
+        $stopwatch
+            ->expects(self::once())
+            ->method('start')
+        ;
+        $stopwatch
+            ->expects(self::once())
+            ->method('stop')
+        ;
+
+        $benchmarkingDriver = $this->getTesteeInstance(
+            driver: $driver,
+            stopwatch: $stopwatch,
+        );
+
+        $benchmarkingDriver->render($dt);
     }
 }

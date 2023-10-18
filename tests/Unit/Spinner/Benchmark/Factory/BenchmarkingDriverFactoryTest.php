@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Tests\Unit\Spinner\Helper\Benchmark\Factory;
+namespace AlecRabbit\Tests\Unit\Spinner\Benchmark\Factory;
 
 use AlecRabbit\Spinner\Benchmark\BenchmarkingDriver;
 use AlecRabbit\Spinner\Benchmark\Factory\BenchmarkingDriverFactory;

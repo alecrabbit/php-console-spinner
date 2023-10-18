@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Tests\Unit\Spinner\Helper\Benchmark;
+namespace AlecRabbit\Tests\Unit\Spinner\Benchmark;
 
 use AlecRabbit\Spinner\Benchmark\Contract\IMeasurement;
 use AlecRabbit\Spinner\Benchmark\Measurement;

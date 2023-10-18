@@ -10,21 +10,21 @@
 /app/src/Spinner/Benchmark/Builder/BenchmarkingDriverBuilder.php:26:25:error - PossiblyNullArgument: Argument 1 of AlecRabbit\Spinner\Benchmark\BenchmarkingDriver::__construct cannot be null, possibly null value provided
 /app/src/Spinner/Benchmark/Builder/BenchmarkingDriverBuilder.php:27:28:error - PossiblyNullArgument: Argument 2 of AlecRabbit\Spinner\Benchmark\BenchmarkingDriver::__construct cannot be null, possibly null value provided
 /app/src/Spinner/Benchmark/Factory/StopwatchReportFactory.php:36:57:error - MixedAssignment: Unable to determine the type that $key is being assigned to
-/app/src/Spinner/Benchmark/Factory/StopwatchReportFactory.php:39:30:error - MixedArgument: Argument 1 of trim cannot be mixed, expecting string
+/app/src/Spinner/Benchmark/Factory/StopwatchReportFactory.php:39:34:error - MixedArgument: Argument 1 of AlecRabbit\Spinner\Benchmark\Factory\StopwatchReportFactory::formatKey cannot be mixed, expecting string
 /app/src/Spinner/Benchmark/Factory/StopwatchShortReportFactory.php:32:57:error - MixedAssignment: Unable to determine the type that $key is being assigned to
-/app/src/Spinner/Benchmark/Measurement.php:14:25:error - PropertyNotSetInConstructor: Property AlecRabbit\Spinner\Benchmark\Measurement::$average is not defined in constructor of AlecRabbit\Spinner\Benchmark\Measurement or in any methods called in the constructor
-/app/src/Spinner/Benchmark/Measurement.php:15:25:error - PropertyNotSetInConstructor: Property AlecRabbit\Spinner\Benchmark\Measurement::$min is not defined in constructor of AlecRabbit\Spinner\Benchmark\Measurement or in any methods called in the constructor
-/app/src/Spinner/Benchmark/Measurement.php:16:25:error - PropertyNotSetInConstructor: Property AlecRabbit\Spinner\Benchmark\Measurement::$max is not defined in constructor of AlecRabbit\Spinner\Benchmark\Measurement or in any methods called in the constructor
-/app/src/Spinner/Benchmark/Measurement.php:31:13:error - TypeDoesNotContainType: Type float|int for $this->min is always isset
-/app/src/Spinner/Benchmark/Measurement.php:36:13:error - TypeDoesNotContainType: Type float|int for $this->max is always isset
-/app/src/Spinner/Benchmark/Measurement.php:43:43:error - RedundantPropertyInitializationCheck: Property $this->average with type float|int should already be set in the constructor
-/app/src/Spinner/Benchmark/Measurement.php:43:61:error - RedundantPropertyInitializationCheck: Property $this->average with type float|int should already be set in the constructor
-/app/src/Spinner/Benchmark/Measurement.php:50:16:error - RedundantPropertyInitializationCheck: Property $this->average with type float|int should already be set in the constructor
-/app/src/Spinner/Benchmark/Measurement.php:50:34:error - RedundantPropertyInitializationCheck: Property $this->average with type float|int should already be set in the constructor
-/app/src/Spinner/Benchmark/Measurement.php:71:16:error - RedundantPropertyInitializationCheck: Property $this->min with type float|int should already be set in the constructor
-/app/src/Spinner/Benchmark/Measurement.php:71:30:error - RedundantPropertyInitializationCheck: Property $this->min with type float|int should already be set in the constructor
-/app/src/Spinner/Benchmark/Measurement.php:76:16:error - RedundantPropertyInitializationCheck: Property $this->max with type float|int should already be set in the constructor
-/app/src/Spinner/Benchmark/Measurement.php:76:30:error - RedundantPropertyInitializationCheck: Property $this->max with type float|int should already be set in the constructor
+/app/src/Spinner/Benchmark/Measurement.php:15:25:error - PropertyNotSetInConstructor: Property AlecRabbit\Spinner\Benchmark\Measurement::$average is not defined in constructor of AlecRabbit\Spinner\Benchmark\Measurement or in any methods called in the constructor
+/app/src/Spinner/Benchmark/Measurement.php:16:25:error - PropertyNotSetInConstructor: Property AlecRabbit\Spinner\Benchmark\Measurement::$min is not defined in constructor of AlecRabbit\Spinner\Benchmark\Measurement or in any methods called in the constructor
+/app/src/Spinner/Benchmark/Measurement.php:17:25:error - PropertyNotSetInConstructor: Property AlecRabbit\Spinner\Benchmark\Measurement::$max is not defined in constructor of AlecRabbit\Spinner\Benchmark\Measurement or in any methods called in the constructor
+/app/src/Spinner/Benchmark/Measurement.php:32:13:error - TypeDoesNotContainType: Type float|int for $this->min is always isset
+/app/src/Spinner/Benchmark/Measurement.php:37:13:error - TypeDoesNotContainType: Type float|int for $this->max is always isset
+/app/src/Spinner/Benchmark/Measurement.php:44:43:error - RedundantPropertyInitializationCheck: Property $this->average with type float|int should already be set in the constructor
+/app/src/Spinner/Benchmark/Measurement.php:44:61:error - RedundantPropertyInitializationCheck: Property $this->average with type float|int should already be set in the constructor
+/app/src/Spinner/Benchmark/Measurement.php:51:16:error - RedundantPropertyInitializationCheck: Property $this->average with type float|int should already be set in the constructor
+/app/src/Spinner/Benchmark/Measurement.php:51:34:error - RedundantPropertyInitializationCheck: Property $this->average with type float|int should already be set in the constructor
+/app/src/Spinner/Benchmark/Measurement.php:72:16:error - RedundantPropertyInitializationCheck: Property $this->min with type float|int should already be set in the constructor
+/app/src/Spinner/Benchmark/Measurement.php:72:30:error - RedundantPropertyInitializationCheck: Property $this->min with type float|int should already be set in the constructor
+/app/src/Spinner/Benchmark/Measurement.php:77:16:error - RedundantPropertyInitializationCheck: Property $this->max with type float|int should already be set in the constructor
+/app/src/Spinner/Benchmark/Measurement.php:77:30:error - RedundantPropertyInitializationCheck: Property $this->max with type float|int should already be set in the constructor
 /app/src/Spinner/Benchmark/Stopwatch.php:30:66:error - MixedArgumentTypeCoercion: Argument 2 of implode expects array<array-key, null|object{__tostring()}|scalar>, but parent type array<array-key, mixed> provided
 /app/src/Spinner/Benchmark/Stopwatch.php:45:48:error - MixedOperand: Right operand cannot be mixed
 /app/src/Spinner/Benchmark/Stopwatch.php:55:36:error - MixedMethodCall: Cannot determine the type of $this->measurements[$key] when calling method add
