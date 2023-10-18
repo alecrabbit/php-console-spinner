@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Helper\Benchmark;
 
+use AlecRabbit\Tests\Helper\Benchmark\Contract\IMeasurement;
 use AlecRabbit\Tests\Helper\Benchmark\Contract\IStopwatch;
 use Throwable;
 
@@ -20,37 +21,43 @@ readonly class StopwatchReportFactory implements Contract\IReportFactory
 
     public function report(): string
     {
-        $output = PHP_EOL . 'Measurements report:' . PHP_EOL;
+        $output = PHP_EOL
+            . sprintf(
+                '%s (%s: %s):',
+                'Measurements report',
+                'Required data points',
+                $this->stopwatch->getRequiredMeasurements(),
+            )
+            . PHP_EOL;
 
         /** @var string $key */
-        /** @var Measurement $measurement */
+        /** @var IMeasurement $measurement */
         foreach ($this->stopwatch->getMeasurements() as $key => $measurement) {
             $output .= sprintf(
                 '%s: %s (Data points: %s)' . PHP_EOL,
                 ucfirst(trim($key, ':'),),
                 $this->extractValue($measurement),
-                $measurement->getActualCount(),
+                $measurement->getCount(),
             );
         }
 
         return $output . PHP_EOL;
     }
 
-    protected function extractValue($measurement): string
+    protected function extractValue(IMeasurement $measurement): string
     {
         try {
             return
                 sprintf(
                     '%01.2f%s',
                     $measurement->getAverage(),
-                    $measurement->getUnits(),
+                    $this->stopwatch->getUnits(),
                 );
         } catch (Throwable $e) {
             return
                 sprintf(
-                    '%s (Required data points: %s)',
+                    '%s',
                     $e->getMessage(),
-                    $measurement->getRequiredCount(),
                 );
         }
     }

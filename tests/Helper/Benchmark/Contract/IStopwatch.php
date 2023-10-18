@@ -10,5 +10,12 @@ interface IStopwatch
 
     public function stop(string $label, string ...$labels): void;
 
+    /**
+     * @return iterable<IMeasurement>
+     */
     public function getMeasurements(): iterable;
+
+    public function getUnits(): string;
+
+    public function getRequiredMeasurements(): int;
 }

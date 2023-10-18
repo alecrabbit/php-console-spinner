@@ -4,12 +4,15 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Helper\Benchmark;
 
+use AlecRabbit\Tests\Helper\Benchmark\Contract\IMeasurement;
 use AlecRabbit\Tests\Helper\Benchmark\Contract\IStopwatch;
 use RuntimeException;
 
 class Stopwatch implements IStopwatch
 {
     protected const KEY_GLUE = ':';
+    protected const COUNT = 100;
+
     protected array $current = [];
     protected array $measurements = [];
 
@@ -47,15 +50,28 @@ class Stopwatch implements IStopwatch
     protected function addMeasurement(string $key, mixed $value): void
     {
         if (!isset($this->measurements[$key])) {
-            $this->measurements[$key] = new Measurement();
+            $this->measurements[$key] = $this->createMeasurement();
         }
-        /** @var Measurement $m */
-        $m = $this->measurements[$key];
-        $m->add($value);
+        $this->measurements[$key]->add($value);
+    }
+
+    protected function createMeasurement(): IMeasurement
+    {
+        return new Measurement(self::COUNT);
     }
 
     public function getMeasurements(): iterable
     {
         return $this->measurements;
+    }
+
+    public function getUnits(): string
+    {
+        return 'μs';
+    }
+
+    public function getRequiredMeasurements(): int
+    {
+        return self::COUNT;
     }
 }

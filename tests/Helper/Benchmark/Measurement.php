@@ -6,12 +6,18 @@ namespace AlecRabbit\Tests\Helper\Benchmark;
 
 use LogicException;
 
-class Measurement
+class Measurement implements Contract\IMeasurement
 {
-    protected const COUNT = 100;
+    protected const COUNT = 2;
     protected array $data = [];
     protected int|float $average;
     protected int $count = 0;
+
+    public function __construct(
+        protected readonly int $requiredCount = self::COUNT,
+    ) {
+    }
+
 
     public function add(int $value): void
     {
@@ -22,7 +28,7 @@ class Measurement
 
     private function calculate(): void
     {
-        if (count($this->data) < self::COUNT) {
+        if (count($this->data) < $this->requiredCount) {
             return;
         }
         $this->updateAverage();
@@ -40,18 +46,20 @@ class Measurement
         return $this->average ?? throw new LogicException('Not enough data.');
     }
 
-    public function getActualCount(): int
+    public function getCount(): int
     {
         return $this->count;
     }
 
-    public function getRequiredCount(): int
+    public function getMin(): int|float
     {
-        return self::COUNT;
+        // TODO: Implement getMin() method.
+        throw new \RuntimeException('Not implemented.');
     }
 
-    public function getUnits(): string
+    public function getMax(): int|float
     {
-        return 'μs';
+        // TODO: Implement getMax() method.
+        throw new \RuntimeException('Not implemented.');
     }
 }
