@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 use AlecRabbit\Spinner\Container\DefinitionRegistry;
 use AlecRabbit\Spinner\Container\Factory\ContainerFactory;
-use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\IDriverBuilder;
 use AlecRabbit\Spinner\Facade;
 use AlecRabbit\Tests\Helper\Benchmark\BenchmarkingDriverBuilder;
@@ -30,6 +29,15 @@ require_once __DIR__ . '/../../bootstrap.php';
 
 $driver = Facade::getDriver();
 
+if (!$driver instanceof IBenchmarkingDriver) {
+    throw new \LogicException(
+        sprintf(
+            'Driver must implement "%s".',
+            IBenchmarkingDriver::class
+        )
+    );
+}
+
 // Create echo function
 $echo =
     $driver->wrap(
@@ -38,27 +46,24 @@ $echo =
         }
     );
 
-// Create report function:
+$stopwatch = $driver->getStopwatch();
+
+// Create report functions:
+$shortReport =
+    static function () use ($stopwatch, $echo): void {
+        $factory = new StopwatchShortReportFactory($stopwatch);
+        $echo(
+            (new DateTimeImmutable())->format(DATE_RFC3339_EXTENDED)
+            . ' '
+            . $factory->report()
+        );
+    };
 $finalReport =
-    (static function (IDriver $driver): callable {
-        if (!$driver instanceof IBenchmarkingDriver) {
-            throw new \LogicException(
-                sprintf(
-                    'Driver must implement "%s".',
-                    IBenchmarkingDriver::class
-                )
-            );
-        }
-        
-        $factory = new StopwatchReportFactory($driver->getStopwatch());
-        
-        return
-            static function () use ($factory): void {
-                echo $factory->report();
-            };
-    })(
-        $driver
-    );
+    static function () use ($stopwatch): void {
+        $factory = new StopwatchReportFactory($stopwatch);
+        echo $factory->report();
+    };
+
 
 $loop = Facade::getLoop();
 
@@ -73,18 +78,10 @@ $loop
     )
 ;
 
-$factory = new StopwatchShortReportFactory($driver->getStopwatch());
-
 $loop
     ->repeat(
         INTERVAL,
-        static function () use ($factory, $echo): void {
-            $echo(
-                (new DateTimeImmutable())->format(DATE_RFC3339_EXTENDED)
-                . ' '
-                . $factory->report()
-            );
-        }
+        $shortReport,
     )
 ;
 

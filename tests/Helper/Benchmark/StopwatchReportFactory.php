@@ -47,13 +47,16 @@ readonly class StopwatchReportFactory implements Contract\IReportFactory
     protected function extractValue(IMeasurement $measurement): string
     {
         try {
+            $units = $this->stopwatch->getUnits();
             return
                 sprintf(
-                    '%01.2f%s [%01.2f/%01.2f]',
+                    '%01.2f%s [%01.2f%s/%01.2f%s]',
                     $measurement->getAverage(),
-                    $this->stopwatch->getUnits(),
+                    $units,
                     $measurement->getMax(),
+                    $units,
                     $measurement->getMin(),
+                    $units,
                 );
         } catch (Throwable $e) {
             return

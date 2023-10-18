@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Helper\Benchmark;
 
+use AlecRabbit\Tests\Helper\Benchmark\Contract\IMeasurement;
 use AlecRabbit\Tests\Helper\Benchmark\Contract\IStopwatch;
 use DateTimeImmutable;
 use Throwable;
@@ -38,14 +39,14 @@ readonly class StopwatchShortReportFactory implements Contract\IReportFactory
         return $output;
     }
 
-    protected function extractValue($measurement): string
+    protected function extractValue(IMeasurement $measurement): string
     {
         try {
             return
                 sprintf(
                     '%01.2f%s',
                     $measurement->getAverage(),
-                    $measurement->getUnits(),
+                    $this->stopwatch->getUnits(),
                 );
         } catch (Throwable $_) {
             return
