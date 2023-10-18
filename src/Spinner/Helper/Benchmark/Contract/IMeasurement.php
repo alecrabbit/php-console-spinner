@@ -17,4 +17,6 @@ interface IMeasurement
     public function getCount(): int;
 
     public function getLabel(): string;
+
+    public function getAny(): int|float;
 }
