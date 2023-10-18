@@ -15,4 +15,6 @@ interface IMeasurement
     public function add(int|float $value): void;
 
     public function getCount(): int;
+
+    public function getLabel(): string;
 }

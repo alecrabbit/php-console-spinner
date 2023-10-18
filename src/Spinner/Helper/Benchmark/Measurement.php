@@ -8,7 +8,8 @@ use LogicException;
 
 class Measurement implements Contract\IMeasurement
 {
-    protected const REQUIRED_COUNT = 2;
+    protected const DEFAULT_THRESHOLD = 2;
+    protected const DEFAULT_LABEL = '--undefined--';
     protected array $data = [];
     protected int|float $average;
     protected int|float $min;
@@ -16,7 +17,8 @@ class Measurement implements Contract\IMeasurement
     protected int $count = 0;
 
     public function __construct(
-        protected readonly int $requiredCount = self::REQUIRED_COUNT,
+        protected readonly int $threshold = self::DEFAULT_THRESHOLD,
+        protected readonly string $label = self::DEFAULT_LABEL,
     ) {
     }
 
@@ -26,17 +28,17 @@ class Measurement implements Contract\IMeasurement
         $this->data[] = $value;
 
         // update min
-        if(!isset($this->min) || $value < $this->min) {
+        if (!isset($this->min) || $value < $this->min) {
             $this->min = $value;
         }
 
         // update max
-        if(!isset($this->max) || $value > $this->max) {
+        if (!isset($this->max) || $value > $this->max) {
             $this->max = $value;
         }
 
         // update average
-        if (count($this->data) >= $this->requiredCount) {
+        if (count($this->data) >= $this->threshold) {
             $average = array_sum($this->data) / count($this->data);
             $this->average = ($average + ($this->average ?? $average)) / 2;
             $this->data = [];
@@ -61,5 +63,10 @@ class Measurement implements Contract\IMeasurement
     public function getMax(): int|float
     {
         return $this->max ?? throw new LogicException('Max is not set.');
+    }
+
+    public function getLabel(): string
+    {
+        return $this->label;
     }
 }
