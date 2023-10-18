@@ -4,15 +4,23 @@ declare(strict_types=1);
 
 use AlecRabbit\Spinner\Container\DefinitionRegistry;
 use AlecRabbit\Spinner\Container\Factory\ContainerFactory;
-use AlecRabbit\Spinner\Core\Contract\IDriverBuilder;
+use AlecRabbit\Spinner\Core\Factory\Contract\IDriverProviderFactory;
 use AlecRabbit\Spinner\Facade;
-use AlecRabbit\Spinner\Helper\Benchmark\BenchmarkingDriverBuilder;
+use AlecRabbit\Spinner\Helper\Benchmark\Builder\BenchmarkingDriverBuilder;
+use AlecRabbit\Spinner\Helper\Benchmark\Contract\Builder\IBenchmarkingDriverBuilder;
+use AlecRabbit\Spinner\Helper\Benchmark\Contract\Factory\IStopwatchFactory;
 use AlecRabbit\Spinner\Helper\Benchmark\Contract\IBenchmarkingDriver;
-use AlecRabbit\Spinner\Helper\Benchmark\StopwatchReportFactory;
-use AlecRabbit\Spinner\Helper\Benchmark\StopwatchShortReportFactory;
+use AlecRabbit\Spinner\Helper\Benchmark\Contract\IStopwatch;
+use AlecRabbit\Spinner\Helper\Benchmark\Factory\BenchmarkingDriverProviderFactory;
+use AlecRabbit\Spinner\Helper\Benchmark\Factory\StopwatchReportFactory;
+use AlecRabbit\Spinner\Helper\Benchmark\Factory\StopwatchShortReportFactory;
+use AlecRabbit\Spinner\Helper\Benchmark\Stopwatch;
+use AlecRabbit\Spinner\Helper\MemoryUsage;
 
-const RUNTIME = 600; // set runtime in seconds
-const INTERVAL = 5; // Timing report interval in seconds
+// values are in seconds
+const RUNTIME = 6;
+const TIMING_REPORT_INTERVAL = 5;
+const MEMORY_REPORT_INTERVAL = 60;
 
 require_once __DIR__ . '/../../bootstrap.php';
 
@@ -20,7 +28,17 @@ require_once __DIR__ . '/../../bootstrap.php';
 {
     $registry = DefinitionRegistry::getInstance();
 
-    $registry->bind(IDriverBuilder::class, BenchmarkingDriverBuilder::class);
+    $registry->bind(IDriverProviderFactory::class, BenchmarkingDriverProviderFactory::class);
+    $registry->bind(IBenchmarkingDriverBuilder::class, BenchmarkingDriverBuilder::class);
+    $registry->bind(
+        IStopwatchFactory::class,
+        new class implements IStopwatchFactory {
+            public function create(): IStopwatch
+            {
+                return new Stopwatch();
+            }
+        }
+    );
 
     $container = (new ContainerFactory($registry))->getContainer();
 
@@ -80,12 +98,39 @@ $loop
 
 $loop
     ->repeat(
-        INTERVAL,
+        TIMING_REPORT_INTERVAL,
         $shortReport,
     )
 ;
 
+
+// Create memory report function
+$memoryReport =
+    static function () use ($echo): void {
+        static $memoryUsage = new MemoryUsage();
+
+        $echo(
+            sprintf(
+                '%s %s',
+                (new DateTimeImmutable())->format(DATE_RFC3339_EXTENDED),
+                $memoryUsage->report(),
+            )
+        );
+    };
+
+// Execute memory report function every $reportInterval seconds
+$loop
+    ->repeat(
+        MEMORY_REPORT_INTERVAL,
+        $memoryReport
+    )
+;
+
+$echo(PHP_EOL . sprintf('Using loop: "%s"', get_debug_type($loop)));
+$echo();
+
+$memoryReport(); // initial report
+
 $spinner = Facade::createSpinner();
 
-// perform example unrelated actions:
-require_once __DIR__ . '/../bootstrap.async.php';
+//dump($container);

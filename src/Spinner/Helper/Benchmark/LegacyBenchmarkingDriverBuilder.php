@@ -12,7 +12,7 @@ use AlecRabbit\Spinner\Core\Contract\IDriverBuilder;
 use AlecRabbit\Spinner\Core\Output\Contract\IDriverOutput;
 use AlecRabbit\Spinner\Exception\LogicException;
 
-final class BenchmarkingDriverBuilder implements IDriverBuilder
+final class LegacyBenchmarkingDriverBuilder implements IDriverBuilder
 {
     private ?IDriverOutput $driverOutput = null;
     private ?ITimer $timer = null;
@@ -53,7 +53,7 @@ final class BenchmarkingDriverBuilder implements IDriverBuilder
         $this->validate();
 
         return
-            new BenchmarkingDriver(
+            new LegacyBenchmarkingDriver(
                 output: $this->driverOutput,
                 timer: $this->timer,
                 initialInterval: $this->initialInterval,

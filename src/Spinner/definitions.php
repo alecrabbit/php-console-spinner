@@ -186,9 +186,6 @@ function getDefinitions(): Traversable
             return $container->get(IDriverProviderFactory::class)->create();
         },
 
-        IDriver::class => static function (ContainerInterface $container): IDriver {
-            return $container->get(IDriverFactory::class)->getDriver();
-        },
         IDriverLinker::class => static function (ContainerInterface $container): IDriverLinker {
             return $container->get(IDriverLinkerFactory::class)->create();
         },
