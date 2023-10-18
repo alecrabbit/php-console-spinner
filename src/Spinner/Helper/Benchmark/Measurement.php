@@ -10,7 +10,9 @@ class Measurement implements Contract\IMeasurement
 {
     protected const DEFAULT_THRESHOLD = 2;
     protected const DEFAULT_LABEL = '--undefined--';
-    protected array $data = [];
+    protected const DEFAULT_REJECT_FIRST = 10;
+
+    protected array $dataPoints = [];
     protected int|float $average;
     protected int|float $min;
     protected int|float $max;
@@ -19,13 +21,19 @@ class Measurement implements Contract\IMeasurement
     public function __construct(
         protected readonly int $threshold = self::DEFAULT_THRESHOLD,
         protected readonly string $label = self::DEFAULT_LABEL,
+        protected readonly int $rejectFirst = self::DEFAULT_REJECT_FIRST,
     ) {
     }
 
     public function add(int|float $value): void
     {
         $this->count++;
-        $this->data[] = $value;
+
+        if($this->count <= $this->rejectFirst) {
+            return;
+        }
+
+        $this->dataPoints[] = $value;
 
         // update min
         if (!isset($this->min) || $value < $this->min) {
@@ -38,10 +46,10 @@ class Measurement implements Contract\IMeasurement
         }
 
         // update average
-        if (count($this->data) >= $this->threshold) {
-            $average = array_sum($this->data) / count($this->data);
+        if (count($this->dataPoints) >= $this->threshold) {
+            $average = array_sum($this->dataPoints) / count($this->dataPoints);
             $this->average = ($average + ($this->average ?? $average)) / 2;
-            $this->data = [];
+            $this->dataPoints = [];
         }
     }
 
@@ -52,7 +60,7 @@ class Measurement implements Contract\IMeasurement
 
     public function getCount(): int
     {
-        return $this->count;
+        return $this->count - $this->rejectFirst;
     }
 
     public function getMin(): int|float

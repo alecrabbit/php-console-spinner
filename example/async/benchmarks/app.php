@@ -18,7 +18,7 @@ use AlecRabbit\Spinner\Helper\Benchmark\Stopwatch;
 use AlecRabbit\Spinner\Helper\MemoryUsage;
 
 // values are in seconds
-const RUNTIME = 6;
+const RUNTIME = 60;
 const TIMING_REPORT_INTERVAL = 5;
 const MEMORY_REPORT_INTERVAL = 60;
 
@@ -118,7 +118,7 @@ $memoryReport =
         );
     };
 
-// Execute memory report function every $reportInterval seconds
+// Execute memory report function every MEMORY_REPORT_INTERVAL seconds
 $loop
     ->repeat(
         MEMORY_REPORT_INTERVAL,
@@ -132,5 +132,3 @@ $echo();
 $memoryReport(); // initial report
 
 $spinner = Facade::createSpinner();
-
-//dump($container);

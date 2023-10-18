@@ -35,7 +35,20 @@ final class BenchmarkingDriver extends ASubject implements IBenchmarkingDriver
 
     public function add(ISpinner $spinner): void
     {
-        $this->driver->add($spinner);
+        $this->benchmark(
+            __FUNCTION__,
+            $this->driver->add(...),
+            $spinner
+        );
+    }
+
+    protected function benchmark(string $func, Closure $callback, mixed ...$args): void
+    {
+        $label = $this->createLabel($func);
+
+        $this->stopwatch->start($label);
+        $callback(...$args);
+        $this->stopwatch->stop($label);
     }
 
     private function createLabel(string $func): string
@@ -55,7 +68,10 @@ final class BenchmarkingDriver extends ASubject implements IBenchmarkingDriver
 
     public function initialize(): void
     {
-        $this->driver->initialize();
+        $this->benchmark(
+            __FUNCTION__,
+            $this->driver->initialize(...),
+        );
     }
 
     public function interrupt(?string $interruptMessage = null): void
@@ -80,31 +96,23 @@ final class BenchmarkingDriver extends ASubject implements IBenchmarkingDriver
 
     public function update(ISubject $subject): void
     {
-        $this->driver->update($subject);
+        $this->benchmark(
+            __FUNCTION__,
+            $this->driver->update(...),
+            $subject
+        );
+        $this->benchmark(
+            __FUNCTION__,
+            $this->notify(...),
+        );
     }
 
     public function render(?float $dt = null): void
     {
-        dump(__METHOD__);
-        $label = $this->createLabel(__FUNCTION__);
-
-        $this->stopwatch->start($label);
-        $this->driver->render($dt);
-        $this->stopwatch->stop($label);
+        $this->benchmark(
+            __FUNCTION__,
+            $this->driver->render(...),
+            $dt
+        );
     }
-
-//    public function attach(IObserver $observer): void
-//    {
-//        parent::attach($observer);
-//    }
-
-//    public function detach(IObserver $observer): void
-//    {
-//        parent::detach($observer);
-//    }
-
-//    public function notify(): void
-//    {
-//        $this->driver->notify();
-//    }
 }
