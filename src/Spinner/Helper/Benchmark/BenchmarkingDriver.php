@@ -63,7 +63,11 @@ final class BenchmarkingDriver extends ASubject implements IBenchmarkingDriver
 
     public function remove(ISpinner $spinner): void
     {
-        $this->driver->remove($spinner);
+        $this->benchmark(
+            __FUNCTION__,
+            $this->driver->remove(...),
+            $spinner
+        );
     }
 
     public function initialize(): void
@@ -76,12 +80,20 @@ final class BenchmarkingDriver extends ASubject implements IBenchmarkingDriver
 
     public function interrupt(?string $interruptMessage = null): void
     {
-        $this->driver->interrupt($interruptMessage);
+        $this->benchmark(
+            __FUNCTION__,
+            $this->driver->interrupt(...),
+            $interruptMessage
+        );
     }
 
     public function finalize(?string $finalMessage = null): void
     {
-        $this->driver->finalize($finalMessage);
+        $this->benchmark(
+            __FUNCTION__,
+            $this->driver->finalize(...),
+            $finalMessage
+        );
     }
 
     public function wrap(Closure $callback): Closure
