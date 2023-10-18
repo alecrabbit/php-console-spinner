@@ -7,9 +7,9 @@ use AlecRabbit\Spinner\Container\Factory\ContainerFactory;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\IDriverBuilder;
 use AlecRabbit\Spinner\Facade;
-use AlecRabbit\Tests\Helper\BenchmarkingDriverBuilder;
-use AlecRabbit\Tests\Helper\IBenchmarkingDriver;
-use AlecRabbit\Tests\Helper\StopwatchReporter;
+use AlecRabbit\Tests\Helper\Benchmark\BenchmarkingDriverBuilder;
+use AlecRabbit\Tests\Helper\Benchmark\Contract\IBenchmarkingDriver;
+use AlecRabbit\Tests\Helper\Benchmark\StopwatchReporter;
 
 const RUNTIME = 600; // set runtime in seconds
 

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Tests\Helper;
+namespace AlecRabbit\Tests\Helper\Benchmark;
 
 use LogicException;
 

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Tests\Helper;
+namespace AlecRabbit\Tests\Helper\Benchmark;
 
-use AlecRabbit\Tests\Helper\Contract\IStopwatch;
+use AlecRabbit\Tests\Helper\Benchmark\Contract\IStopwatch;
 use Throwable;
 
 use function sprintf;
