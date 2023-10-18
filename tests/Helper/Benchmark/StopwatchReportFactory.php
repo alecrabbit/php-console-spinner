@@ -11,21 +11,21 @@ use function sprintf;
 use function trim;
 use function ucfirst;
 
-readonly class StopwatchReporter implements Contract\IReporter
+readonly class StopwatchReportFactory implements Contract\IReportFactory
 {
     public function __construct(
         private IStopwatch $stopwatch,
     ) {
     }
 
-    public function report(): void
+    public function report(): string
     {
-        echo PHP_EOL . 'Measurements report:' . PHP_EOL;
+        $output = PHP_EOL . 'Measurements report:' . PHP_EOL;
 
         /** @var string $key */
         /** @var Measurement $measurement */
         foreach ($this->stopwatch->getMeasurements() as $key => $measurement) {
-            echo sprintf(
+            $output .= sprintf(
                 '%s: %s (Data points: %s)' . PHP_EOL,
                 ucfirst(trim($key, ':'),),
                 $this->extractValue($measurement),
@@ -33,7 +33,7 @@ readonly class StopwatchReporter implements Contract\IReporter
             );
         }
 
-        echo PHP_EOL;
+        return $output . PHP_EOL;
     }
 
     protected function extractValue($measurement): string
@@ -41,8 +41,9 @@ readonly class StopwatchReporter implements Contract\IReporter
         try {
             return
                 sprintf(
-                    '%01.2fμs',
+                    '%01.2f%s',
                     $measurement->getAverage(),
+                    $measurement->getUnits(),
                 );
         } catch (Throwable $e) {
             return

@@ -49,4 +49,9 @@ class Measurement
     {
         return self::COUNT;
     }
+
+    public function getUnits(): string
+    {
+        return 'μs';
+    }
 }

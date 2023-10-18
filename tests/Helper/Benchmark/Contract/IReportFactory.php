@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Helper\Benchmark\Contract;
 
-interface IReporter
+interface IReportFactory
 {
-    public function report(): void;
+    public function report(): string;
 }

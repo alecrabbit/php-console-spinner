@@ -9,9 +9,11 @@ use AlecRabbit\Spinner\Core\Contract\IDriverBuilder;
 use AlecRabbit\Spinner\Facade;
 use AlecRabbit\Tests\Helper\Benchmark\BenchmarkingDriverBuilder;
 use AlecRabbit\Tests\Helper\Benchmark\Contract\IBenchmarkingDriver;
-use AlecRabbit\Tests\Helper\Benchmark\StopwatchReporter;
+use AlecRabbit\Tests\Helper\Benchmark\StopwatchReportFactory;
+use AlecRabbit\Tests\Helper\Benchmark\StopwatchShortReportFactory;
 
-const RUNTIME = 600; // set runtime in seconds
+const RUNTIME = 30; // set runtime in seconds
+const INTERVAL = 5; // Timing report interval in seconds
 
 require_once __DIR__ . '/../../bootstrap.php';
 
@@ -37,7 +39,7 @@ $echo =
     );
 
 // Create report function:
-$report =
+$finalReport =
     (static function (IDriver $driver): callable {
         if (!$driver instanceof IBenchmarkingDriver) {
             throw new \LogicException(
@@ -47,30 +49,41 @@ $report =
                 )
             );
         }
+        
+        $factory = new StopwatchReportFactory($driver->getStopwatch());
+        
         return
-            static function () use ($driver): void {
-                (new StopwatchReporter($driver->getStopwatch()))->report();
+            static function () use ($factory): void {
+                echo $factory->report();
             };
-    })($driver);
+    })(
+        $driver
+    );
 
 $loop = Facade::getLoop();
 
 $loop
     ->delay(
         RUNTIME,
-        static function () use ($driver, $loop, $report): void {
+        static function () use ($driver, $loop, $finalReport): void {
             $driver->finalize();
             $loop->stop();
-            $report();
+            $finalReport();
         }
     )
 ;
 
+$factory = new StopwatchShortReportFactory($driver->getStopwatch());
+
 $loop
     ->repeat(
-        20,
-        static function () use ($driver, $echo): void {
-            (new StopwatchReporter($driver->getStopwatch()))->report();
+        INTERVAL,
+        static function () use ($factory, $echo): void {
+            $echo(
+                (new DateTimeImmutable())->format(DATE_RFC3339_EXTENDED)
+                . ' '
+                . $factory->report()
+            );
         }
     )
 ;

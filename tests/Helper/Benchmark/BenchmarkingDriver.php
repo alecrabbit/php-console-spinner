@@ -20,6 +20,7 @@ final class BenchmarkingDriver extends ADriver implements IBenchmarkingDriver
 {
     protected ?ISpinner $spinner = null;
     protected ISpinnerState $state;
+    private string $shortName;
 
     public function __construct(
         IDriverOutput $output,
@@ -29,6 +30,7 @@ final class BenchmarkingDriver extends ADriver implements IBenchmarkingDriver
         private readonly IStopwatch $stopwatch = new Stopwatch(),
     ) {
         parent::__construct($output, $timer, $initialInterval, $observer);
+        $this->shortName = (new \ReflectionClass($this))->getShortName();
     }
 
     /** @inheritDoc */
@@ -46,10 +48,17 @@ final class BenchmarkingDriver extends ADriver implements IBenchmarkingDriver
     protected function erase(): void
     {
         if ($this->spinner) {
-            $this->stopwatch->start('eraseState');
+            $label = $this->createLabel(__FUNCTION__);
+
+            $this->stopwatch->start($label, 'eraseState');
             $this->output->erase($this->state);
-            $this->stopwatch->stop('eraseState');
+            $this->stopwatch->stop($label, 'eraseState');
         }
+    }
+
+    protected function createLabel(string $func): string
+    {
+        return $this->shortName . '::' . $func . '()';
     }
 
     public function update(ISubject $subject): void
@@ -87,7 +96,9 @@ final class BenchmarkingDriver extends ADriver implements IBenchmarkingDriver
     public function render(?float $dt = null): void
     {
         if ($this->spinner) {
-            $this->stopwatch->start('createState');
+            $label = $this->createLabel(__FUNCTION__);
+
+            $this->stopwatch->start($label, 'createState');
 
             $dt ??= $this->timer->getDelta();
             $frame = $this->spinner->getFrame($dt);
@@ -98,11 +109,11 @@ final class BenchmarkingDriver extends ADriver implements IBenchmarkingDriver
                     previousWidth: $this->state->getWidth()
                 );
 
-            $this->stopwatch->stop('createState');
+            $this->stopwatch->stop($label, 'createState');
 
-            $this->stopwatch->start('writeState');
+            $this->stopwatch->start($label, 'writeState');
             $this->output->write($this->state);
-            $this->stopwatch->stop('writeState');
+            $this->stopwatch->stop($label, 'writeState');
         }
     }
 
