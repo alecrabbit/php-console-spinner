@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
+use AlecRabbit\Spinner\Benchmark\Builder\BenchmarkingDriverBuilder;
+use AlecRabbit\Spinner\Benchmark\Contract\Builder\IBenchmarkingDriverBuilder;
+use AlecRabbit\Spinner\Benchmark\Contract\Factory\IStopwatchFactory;
+use AlecRabbit\Spinner\Benchmark\Contract\IBenchmarkingDriver;
+use AlecRabbit\Spinner\Benchmark\Contract\IStopwatch;
+use AlecRabbit\Spinner\Benchmark\Factory\BenchmarkingDriverProviderFactory;
+use AlecRabbit\Spinner\Benchmark\Factory\StopwatchReportFactory;
+use AlecRabbit\Spinner\Benchmark\Factory\StopwatchShortReportFactory;
+use AlecRabbit\Spinner\Benchmark\Stopwatch;
 use AlecRabbit\Spinner\Container\DefinitionRegistry;
 use AlecRabbit\Spinner\Container\Factory\ContainerFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDriverProviderFactory;
 use AlecRabbit\Spinner\Facade;
-use AlecRabbit\Spinner\Helper\Benchmark\Builder\BenchmarkingDriverBuilder;
-use AlecRabbit\Spinner\Helper\Benchmark\Contract\Builder\IBenchmarkingDriverBuilder;
-use AlecRabbit\Spinner\Helper\Benchmark\Contract\Factory\IStopwatchFactory;
-use AlecRabbit\Spinner\Helper\Benchmark\Contract\IBenchmarkingDriver;
-use AlecRabbit\Spinner\Helper\Benchmark\Contract\IStopwatch;
-use AlecRabbit\Spinner\Helper\Benchmark\Factory\BenchmarkingDriverProviderFactory;
-use AlecRabbit\Spinner\Helper\Benchmark\Factory\StopwatchReportFactory;
-use AlecRabbit\Spinner\Helper\Benchmark\Factory\StopwatchShortReportFactory;
-use AlecRabbit\Spinner\Helper\Benchmark\Stopwatch;
 use AlecRabbit\Spinner\Helper\MemoryUsage;
 
 // values are in seconds

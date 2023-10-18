@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Spinner\Helper\Benchmark\Factory;
+namespace AlecRabbit\Spinner\Benchmark\Factory;
 
+use AlecRabbit\Spinner\Benchmark\Contract\Builder\IBenchmarkingDriverBuilder;
+use AlecRabbit\Spinner\Benchmark\Contract\Factory\IStopwatchFactory;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\IDriverLinker;
 use AlecRabbit\Spinner\Core\Contract\IDriverProvider;
 use AlecRabbit\Spinner\Core\DriverProvider;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDriverFactory;
 use AlecRabbit\Spinner\Core\Factory\Contract\IDriverProviderFactory;
-use AlecRabbit\Spinner\Helper\Benchmark\Contract\Builder\IBenchmarkingDriverBuilder;
-use AlecRabbit\Spinner\Helper\Benchmark\Contract\Factory\IStopwatchFactory;
 
 final class BenchmarkingDriverProviderFactory implements IDriverProviderFactory
 {

@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Spinner\Helper\Benchmark;
+namespace AlecRabbit\Spinner\Benchmark;
 
-use AlecRabbit\Spinner\Helper\Benchmark\Contract\IMeasurement;
-use AlecRabbit\Spinner\Helper\Benchmark\Contract\IStopwatch;
+use AlecRabbit\Spinner\Benchmark\Contract\IMeasurement;
+use AlecRabbit\Spinner\Benchmark\Contract\IStopwatch;
 use RuntimeException;
 
 class Stopwatch implements IStopwatch

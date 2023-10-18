@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Spinner\Helper\Benchmark;
+namespace AlecRabbit\Spinner\Benchmark;
 
+use AlecRabbit\Spinner\Benchmark\Contract\IBenchmarkingDriver;
+use AlecRabbit\Spinner\Benchmark\Contract\IStopwatch;
 use AlecRabbit\Spinner\Contract\IInterval;
 use AlecRabbit\Spinner\Contract\IObserver;
 use AlecRabbit\Spinner\Contract\ISubject;
 use AlecRabbit\Spinner\Core\A\ASubject;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
-use AlecRabbit\Spinner\Helper\Benchmark\Contract\IBenchmarkingDriver;
-use AlecRabbit\Spinner\Helper\Benchmark\Contract\IStopwatch;
 use Closure;
 
 final class BenchmarkingDriver extends ASubject implements IBenchmarkingDriver

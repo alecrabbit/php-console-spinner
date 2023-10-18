@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Spinner\Helper\Benchmark\Contract\Builder;
+namespace AlecRabbit\Spinner\Benchmark\Contract\Builder;
 
+use AlecRabbit\Spinner\Benchmark\Contract\IBenchmarkingDriver;
+use AlecRabbit\Spinner\Benchmark\Contract\IStopwatch;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Exception\LogicException;
-use AlecRabbit\Spinner\Helper\Benchmark\Contract\IBenchmarkingDriver;
-use AlecRabbit\Spinner\Helper\Benchmark\Contract\IStopwatch;
 
 interface IBenchmarkingDriverBuilder
 {

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Helper\Benchmark;
 
-use AlecRabbit\Spinner\Helper\Benchmark\Contract\IMeasurement;
-use AlecRabbit\Spinner\Helper\Benchmark\Measurement;
+use AlecRabbit\Spinner\Benchmark\Contract\IMeasurement;
+use AlecRabbit\Spinner\Benchmark\Measurement;
 use AlecRabbit\Tests\TestCase\TestCase;
 use LogicException;
 use PHPUnit\Framework\Attributes\Test;
@@ -99,6 +99,25 @@ final class MeasurementTest extends TestCase
         self::assertEquals(4, $measurement->getCount());
         self::assertEquals(1, $measurement->getMin());
         self::assertEquals(4, $measurement->getMax());
+
+        $this->expectException(LogicException::class);
+        $this->expectExceptionMessage('Can not return any.');
+        self::assertEquals(-1, $measurement->getAny());
+    }
+
+    #[Test]
+    public function canGetAny(): void
+    {
+        $measurement = $this->getTesteeInstance(
+            threshold: 10,
+        );
+
+        $measurement->add(1);
+        $measurement->add(2);
+        $measurement->add(3);
+        $measurement->add(4);
+
+        self::assertEquals(2.5, $measurement->getAny());
     }
 
     #[Test]

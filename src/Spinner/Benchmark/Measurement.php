@@ -2,11 +2,12 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Spinner\Helper\Benchmark;
+namespace AlecRabbit\Spinner\Benchmark;
 
+use AlecRabbit\Spinner\Benchmark\Contract\IMeasurement;
 use LogicException;
 
-class Measurement implements Contract\IMeasurement
+class Measurement implements IMeasurement
 {
     protected const DEFAULT_THRESHOLD = 2;
     protected const DEFAULT_LABEL = '--undefined--';

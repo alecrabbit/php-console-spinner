@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace AlecRabbit\Spinner\Helper\Benchmark\Factory;
+namespace AlecRabbit\Spinner\Benchmark\Factory;
 
+use AlecRabbit\Spinner\Benchmark\Contract\IMeasurement;
+use AlecRabbit\Spinner\Benchmark\Contract\IStopwatch;
 use AlecRabbit\Spinner\Helper\Benchmark\Contract;
-use AlecRabbit\Spinner\Helper\Benchmark\Contract\IMeasurement;
-use AlecRabbit\Spinner\Helper\Benchmark\Contract\IStopwatch;
 use Throwable;
 
 use function sprintf;
 use function trim;
 use function ucfirst;
 
-readonly class StopwatchReportFactory implements Contract\Factory\IReportFactory
+readonly class StopwatchReportFactory implements \AlecRabbit\Spinner\Benchmark\Contract\Factory\IReportFactory
 {
     public function __construct(
         private IStopwatch $stopwatch,

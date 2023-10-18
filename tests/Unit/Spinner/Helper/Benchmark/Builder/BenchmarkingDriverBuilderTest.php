@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Tests\Unit\Spinner\Helper\Benchmark\Builder;
 
+use AlecRabbit\Spinner\Benchmark\BenchmarkingDriver;
+use AlecRabbit\Spinner\Benchmark\Builder\BenchmarkingDriverBuilder;
+use AlecRabbit\Spinner\Benchmark\Contract\Builder\IBenchmarkingDriverBuilder;
+use AlecRabbit\Spinner\Benchmark\Contract\IStopwatch;
 use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Exception\LogicException;
-use AlecRabbit\Spinner\Helper\Benchmark\BenchmarkingDriver;
-use AlecRabbit\Spinner\Helper\Benchmark\Builder\BenchmarkingDriverBuilder;
-use AlecRabbit\Spinner\Helper\Benchmark\Contract\Builder\IBenchmarkingDriverBuilder;
-use AlecRabbit\Spinner\Helper\Benchmark\Contract\IStopwatch;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
