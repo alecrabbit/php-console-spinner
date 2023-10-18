@@ -8,26 +8,35 @@ use LogicException;
 
 class Measurement implements Contract\IMeasurement
 {
-    protected const COUNT = 2;
+    protected const REQUIRED_COUNT = 2;
     protected array $data = [];
     protected int|float $average;
+    protected int|float $min;
+    protected int|float $max;
     protected int $count = 0;
 
     public function __construct(
-        protected readonly int $requiredCount = self::COUNT,
+        protected readonly int $requiredCount = self::REQUIRED_COUNT,
     ) {
     }
 
-
-    public function add(int $value): void
+    public function add(int|float $value): void
     {
         $this->count++;
         $this->data[] = $value;
-        $this->calculate();
+        $this->calculate($value);
     }
 
-    private function calculate(): void
+    private function calculate(int $value): void
     {
+        if(!isset($this->min) || $value < $this->min) {
+            $this->min = $value;
+        }
+
+        if(!isset($this->max) || $value > $this->max) {
+            $this->max = $value;
+        }
+
         if (count($this->data) < $this->requiredCount) {
             return;
         }
@@ -53,13 +62,11 @@ class Measurement implements Contract\IMeasurement
 
     public function getMin(): int|float
     {
-        // TODO: Implement getMin() method.
-        throw new \RuntimeException('Not implemented.');
+        return $this->min ?? throw new LogicException('Min is not set.');
     }
 
     public function getMax(): int|float
     {
-        // TODO: Implement getMax() method.
-        throw new \RuntimeException('Not implemented.');
+        return $this->max ?? throw new LogicException('Max is not set.');
     }
 }

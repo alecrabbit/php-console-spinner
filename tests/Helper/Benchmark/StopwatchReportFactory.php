@@ -49,9 +49,11 @@ readonly class StopwatchReportFactory implements Contract\IReportFactory
         try {
             return
                 sprintf(
-                    '%01.2f%s',
+                    '%01.2f%s [%01.2f/%01.2f]',
                     $measurement->getAverage(),
                     $this->stopwatch->getUnits(),
+                    $measurement->getMax(),
+                    $measurement->getMin(),
                 );
         } catch (Throwable $e) {
             return

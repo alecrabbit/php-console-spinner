@@ -87,6 +87,7 @@ $loop
         }
     )
 ;
+
 $spinner = Facade::createSpinner();
 
 // perform example unrelated actions:
