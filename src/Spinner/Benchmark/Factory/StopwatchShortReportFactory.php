@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Benchmark\Factory;
 
+use AlecRabbit\Spinner\Benchmark\Contract\Factory\IReportFactory;
 use AlecRabbit\Spinner\Benchmark\Contract\IMeasurement;
 use AlecRabbit\Spinner\Benchmark\Contract\IStopwatch;
 use AlecRabbit\Spinner\Benchmark\Measurement;
-use AlecRabbit\Spinner\Helper\Benchmark\Contract;
 use Throwable;
 
 use function sprintf;
 
-readonly class StopwatchShortReportFactory implements \AlecRabbit\Spinner\Benchmark\Contract\Factory\IReportFactory
+readonly class StopwatchShortReportFactory implements IReportFactory
 {
     public function __construct(
         private IStopwatch $stopwatch,
@@ -33,14 +33,14 @@ readonly class StopwatchShortReportFactory implements \AlecRabbit\Spinner\Benchm
             $output .=
                 sprintf(
                     '%s ',
-                    $this->extractValue($measurement),
+                    $this->formatMeasurement($measurement),
                 );
         }
 
         return $output;
     }
 
-    protected function extractValue(IMeasurement $measurement): string
+    protected function formatMeasurement(IMeasurement $measurement): string
     {
         try {
             return

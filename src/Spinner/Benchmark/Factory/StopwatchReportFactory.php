@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 namespace AlecRabbit\Spinner\Benchmark\Factory;
 
+use AlecRabbit\Spinner\Benchmark\Contract\Factory\IReportFactory;
 use AlecRabbit\Spinner\Benchmark\Contract\IMeasurement;
 use AlecRabbit\Spinner\Benchmark\Contract\IStopwatch;
-use AlecRabbit\Spinner\Helper\Benchmark\Contract;
 use Throwable;
 
 use function sprintf;
 use function trim;
 use function ucfirst;
 
-readonly class StopwatchReportFactory implements \AlecRabbit\Spinner\Benchmark\Contract\Factory\IReportFactory
+readonly class StopwatchReportFactory implements IReportFactory
 {
     public function __construct(
         private IStopwatch $stopwatch,
@@ -36,8 +36,8 @@ readonly class StopwatchReportFactory implements \AlecRabbit\Spinner\Benchmark\C
         foreach ($this->stopwatch->getMeasurements() as $key => $measurement) {
             $output .= sprintf(
                 '%s: %s (Data points: %s)' . PHP_EOL,
-                ucfirst(trim($key, ':'),),
-                $this->extractValue($measurement),
+                $this->formatKey($key),
+                $this->formatMeasurement($measurement),
                 $measurement->getCount(),
             );
         }
@@ -45,7 +45,7 @@ readonly class StopwatchReportFactory implements \AlecRabbit\Spinner\Benchmark\C
         return $output . PHP_EOL;
     }
 
-    protected function extractValue(IMeasurement $measurement): string
+    protected function formatMeasurement(IMeasurement $measurement): string
     {
         $units = $this->stopwatch->getUnits();
 
@@ -62,6 +62,18 @@ readonly class StopwatchReportFactory implements \AlecRabbit\Spinner\Benchmark\C
                 );
         } catch (Throwable $e) {
             try {
+                if ($measurement->getCount() >= 2) {
+                    return
+                        sprintf(
+                            '%01.2f%s [%01.2f%s/%01.2f%s]',
+                            $measurement->getAny(),
+                            $units,
+                            $measurement->getMax(),
+                            $units,
+                            $measurement->getMin(),
+                            $units,
+                        );
+                }
                 return
                     sprintf(
                         '%01.2f%s',
@@ -76,5 +88,10 @@ readonly class StopwatchReportFactory implements \AlecRabbit\Spinner\Benchmark\C
                     );
             }
         }
+    }
+
+    protected function formatKey(string $key): string
+    {
+        return ucfirst(trim($key, ':'),);
     }
 }
