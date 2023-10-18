@@ -10,9 +10,7 @@ class Measurement implements Contract\IMeasurement
 {
     protected const DEFAULT_THRESHOLD = 2;
     protected const DEFAULT_LABEL = '--undefined--';
-    protected const DEFAULT_REJECT_FIRST = 10;
-
-    protected array $dataPoints = [];
+    protected array $data = [];
     protected int|float $average;
     protected int|float $min;
     protected int|float $max;
@@ -21,19 +19,13 @@ class Measurement implements Contract\IMeasurement
     public function __construct(
         protected readonly int $threshold = self::DEFAULT_THRESHOLD,
         protected readonly string $label = self::DEFAULT_LABEL,
-        protected readonly int $rejectFirst = self::DEFAULT_REJECT_FIRST,
     ) {
     }
 
     public function add(int|float $value): void
     {
         $this->count++;
-
-        if($this->count <= $this->rejectFirst) {
-            return;
-        }
-
-        $this->dataPoints[] = $value;
+        $this->data[] = $value;
 
         // update min
         if (!isset($this->min) || $value < $this->min) {
@@ -46,10 +38,10 @@ class Measurement implements Contract\IMeasurement
         }
 
         // update average
-        if (count($this->dataPoints) >= $this->threshold) {
-            $average = array_sum($this->dataPoints) / count($this->dataPoints);
+        if (count($this->data) >= $this->threshold) {
+            $average = array_sum($this->data) / count($this->data);
             $this->average = ($average + ($this->average ?? $average)) / 2;
-            $this->dataPoints = [];
+            $this->data = [];
         }
     }
 
@@ -58,9 +50,20 @@ class Measurement implements Contract\IMeasurement
         return $this->average ?? throw new LogicException('Not enough data.');
     }
 
+    public function getAny(): int|float
+    {
+        $count = count($this->data);
+
+        if ($count > 0) {
+            return array_sum($this->data) / $count;
+        }
+
+        throw new LogicException('Can not return any.');
+    }
+
     public function getCount(): int
     {
-        return $this->count - $this->rejectFirst;
+        return $this->count;
     }
 
     public function getMin(): int|float

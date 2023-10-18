@@ -47,8 +47,9 @@ readonly class StopwatchReportFactory implements Contract\Factory\IReportFactory
 
     protected function extractValue(IMeasurement $measurement): string
     {
+        $units = $this->stopwatch->getUnits();
+
         try {
-            $units = $this->stopwatch->getUnits();
             return
                 sprintf(
                     '%01.2f%s [%01.2f%s/%01.2f%s]',
@@ -60,11 +61,20 @@ readonly class StopwatchReportFactory implements Contract\Factory\IReportFactory
                     $units,
                 );
         } catch (Throwable $e) {
-            return
-                sprintf(
-                    '%s',
-                    $e->getMessage(),
-                );
+            try {
+                return
+                    sprintf(
+                        '%01.2f%s',
+                        $measurement->getAny(),
+                        $units,
+                    );
+            } catch (Throwable $e) {
+                return
+                    sprintf(
+                        '%s',
+                        $e->getMessage(),
+                    );
+            }
         }
     }
 }

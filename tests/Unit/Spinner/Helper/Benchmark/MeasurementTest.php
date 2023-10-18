@@ -16,7 +16,6 @@ final class MeasurementTest extends TestCase
     private const LABEL_VALUE = 'test';
     private const THRESHOLD = 'threshold';
     private const LABEL = 'label';
-    const REJECT_FIRST_VALUE = 10;
 
     #[Test]
     public function canBeInstantiated(): void
@@ -29,13 +28,11 @@ final class MeasurementTest extends TestCase
     private function getTesteeInstance(
         ?int $threshold = null,
         ?string $label = null,
-        ?int $rejectFirst = null,
     ): IMeasurement {
         return
             new Measurement(
                 threshold: $threshold ?? self::THRESHOLD_VALUE,
                 label: $label ?? self::LABEL_VALUE,
-                rejectFirst: $rejectFirst ?? self::REJECT_FIRST_VALUE,
             );
     }
 
@@ -91,9 +88,7 @@ final class MeasurementTest extends TestCase
     #[Test]
     public function canAdd(): void
     {
-        $measurement = $this->getTesteeInstance(
-            rejectFirst: 0,
-        );
+        $measurement = $this->getTesteeInstance();
 
         $measurement->add(1);
         $measurement->add(2);
@@ -111,10 +106,7 @@ final class MeasurementTest extends TestCase
     {
         $threshold = 3;
 
-        $measurement = $this->getTesteeInstance(
-            threshold: $threshold,
-            rejectFirst: 0,
-        );
+        $measurement = $this->getTesteeInstance(threshold: $threshold);
 
         $measurement->add(1);
         $measurement->add(1);
