@@ -10,7 +10,9 @@ use AlecRabbit\Stopwatch\Contract\ITimer;
 use AlecRabbit\Stopwatch\Contract\TimeUnit;
 use AlecRabbit\Stopwatch\MicrosecondTimer;
 use AlecRabbit\Tests\TestCase\TestCase;
+use Closure;
 use PHPUnit\Framework\Attributes\Test;
+use RuntimeException;
 
 final class MicrosecondTimerTest extends TestCase
 {
@@ -24,7 +26,7 @@ final class MicrosecondTimerTest extends TestCase
 
     private function getTesteeInstance(
         ?TimeUnit $unit = null,
-        ?\Closure $timeFunction = null,
+        ?Closure $timeFunction = null,
     ): ITimer {
         return
             new MicrosecondTimer(
@@ -128,7 +130,6 @@ final class MicrosecondTimerTest extends TestCase
         $exceptionMessage = 'Unexpected intersection type.';
 
         $test = function (): void {
-
             $intersectionStub = $this->getIntersectionStub();
 
             $timer = $this->getTesteeInstance(
@@ -157,31 +158,31 @@ final class MicrosecondTimerTest extends TestCase
                 public function toMicroseconds(): float
                 {
                     // TODO: Implement toMicroseconds() method.
-                    throw new \RuntimeException('Not implemented.');
+                    throw new RuntimeException('Not implemented.');
                 }
 
                 public function toMilliseconds(): float
                 {
                     // TODO: Implement toMilliseconds() method.
-                    throw new \RuntimeException('Not implemented.');
+                    throw new RuntimeException('Not implemented.');
                 }
 
                 public function toSeconds(): float
                 {
                     // TODO: Implement toSeconds() method.
-                    throw new \RuntimeException('Not implemented.');
+                    throw new RuntimeException('Not implemented.');
                 }
 
                 public function smallest(mixed $other): IInterval
                 {
                     // TODO: Implement smallest() method.
-                    throw new \RuntimeException('Not implemented.');
+                    throw new RuntimeException('Not implemented.');
                 }
 
                 public function now(): int|float
                 {
                     // TODO: Implement now() method.
-                    throw new \RuntimeException('Not implemented.');
+                    throw new RuntimeException('Not implemented.');
                 }
             };
     }

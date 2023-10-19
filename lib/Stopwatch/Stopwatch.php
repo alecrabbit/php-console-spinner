@@ -67,11 +67,6 @@ class Stopwatch implements IStopwatch
             );
     }
 
-    public function getMeasurements(): iterable
-    {
-        return $this->measurements;
-    }
-
     public function getUnit(): TimeUnit
     {
         return $this->timer->getUnit();
@@ -80,5 +75,10 @@ class Stopwatch implements IStopwatch
     public function getRequiredMeasurements(): int
     {
         return $this->requiredMeasurements;
+    }
+
+    public function getMeasurements(): iterable
+    {
+        return $this->measurements;
     }
 }

@@ -46,7 +46,19 @@ final class MeasurementShortFormatterTest extends TestCase
         ;
 
         self::assertEquals('1.00μs', $formatter->format($measurement));
-    }    #[Test]
+    }
+
+    private function getMeasurementMock(?TimeUnit $unit = null): MockObject&IMeasurement
+    {
+        return $this->createConfiguredMock(
+            IMeasurement::class,
+            [
+                'getUnit' => $unit ?? TimeUnit::HOUR,
+            ]
+        );
+    }
+
+    #[Test]
     public function canFormatWithoutAverage(): void
     {
         $formatter = $this->getTesteeInstance();
@@ -63,15 +75,5 @@ final class MeasurementShortFormatterTest extends TestCase
         ;
 
         self::assertEquals('--', $formatter->format($measurement));
-    }
-
-    private function getMeasurementMock(?TimeUnit $unit = null): MockObject&IMeasurement
-    {
-        return $this->createConfiguredMock(
-            IMeasurement::class,
-            [
-                'getUnit' => $unit ?? TimeUnit::HOUR,
-            ]
-        );
     }
 }

@@ -6,6 +6,7 @@ namespace AlecRabbit\Stopwatch;
 
 use AlecRabbit\Stopwatch\Contract\IMeasurement;
 use AlecRabbit\Stopwatch\Contract\IMeasurementFormatter;
+use Throwable;
 
 final class MeasurementShortFormatter implements IMeasurementFormatter
 {
@@ -18,7 +19,7 @@ final class MeasurementShortFormatter implements IMeasurementFormatter
                     $measurement->getAverage(),
                     $measurement->getUnit()->value,
                 );
-        } catch (\Throwable $_) {
+        } catch (Throwable $_) {
             return
                 '--';
         }

@@ -13,6 +13,7 @@ use AlecRabbit\Spinner\Core\Contract\IDriver;
 use AlecRabbit\Spinner\Core\Contract\ISpinner;
 use AlecRabbit\Stopwatch\Contract\IStopwatch;
 use Closure;
+use ReflectionClass;
 
 final class BenchmarkingDriver extends ASubject implements IBenchmarkingDriver
 {
@@ -24,7 +25,7 @@ final class BenchmarkingDriver extends ASubject implements IBenchmarkingDriver
         ?IObserver $observer = null,
     ) {
         parent::__construct($observer);
-        $this->shortName = (new \ReflectionClass($this))->getShortName();
+        $this->shortName = (new ReflectionClass($this))->getShortName();
         $this->driver->attach($this);
     }
 

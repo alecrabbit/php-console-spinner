@@ -10,6 +10,7 @@ use AlecRabbit\Stopwatch\Contract\IMeasurementFormatter;
 use AlecRabbit\Stopwatch\Contract\IStopwatch;
 
 use function sprintf;
+use function trim;
 
 readonly class StopwatchShortReportFactory implements IReportFactory
 {
@@ -38,6 +39,6 @@ readonly class StopwatchShortReportFactory implements IReportFactory
                 );
         }
 
-        return \trim($output);
+        return trim($output);
     }
 }

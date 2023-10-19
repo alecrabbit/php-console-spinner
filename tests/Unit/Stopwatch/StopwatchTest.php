@@ -11,6 +11,7 @@ use AlecRabbit\Stopwatch\Stopwatch;
 use AlecRabbit\Tests\TestCase\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
+use RuntimeException;
 
 final class StopwatchTest extends TestCase
 {
@@ -150,7 +151,7 @@ final class StopwatchTest extends TestCase
 
         $stopwatch->start($label);
 
-        $this->expectException(\RuntimeException::class);
+        $this->expectException(RuntimeException::class);
         $this->expectExceptionMessage('Already started.');
 
         $stopwatch->start($label);

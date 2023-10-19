@@ -129,6 +129,11 @@ final class BenchmarkingDriverProviderFactoryTest extends TestCase
         self::assertSame($benchmarkingDriver, $driverProvider->getDriver());
     }
 
+    private function getStopwatchMock(): MockObject&IStopwatch
+    {
+        return $this->createMock(IStopwatch::class);
+    }
+
     protected function getBenchmarkingDriverMock(): MockObject&IBenchmarkingDriver
     {
         return $this->createMock(IBenchmarkingDriver::class);
@@ -137,10 +142,5 @@ final class BenchmarkingDriverProviderFactoryTest extends TestCase
     protected function getDriverMock(): MockObject&IDriver
     {
         return $this->createMock(IDriver::class);
-    }
-
-    private function getStopwatchMock(): MockObject&IStopwatch
-    {
-        return $this->createMock(IStopwatch::class);
     }
 }

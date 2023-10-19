@@ -7,19 +7,23 @@ namespace AlecRabbit\Stopwatch\A;
 use AlecRabbit\Spinner\Exception\InvalidArgumentException;
 use AlecRabbit\Stopwatch\Contract\ITimer;
 use AlecRabbit\Stopwatch\Contract\TimeUnit;
+use Closure;
 use ReflectionFunction;
+use ReflectionIntersectionType;
+use ReflectionNamedType;
+use ReflectionUnionType;
 use Throwable;
 
 abstract class ATimer implements ITimer
 {
     public function __construct(
         protected TimeUnit $unit,
-        protected \Closure $timeFunction,
+        protected Closure $timeFunction,
     ) {
         self::assertTimeFunction($timeFunction);
     }
 
-    protected static function assertTimeFunction(\Closure $timeFunction): void
+    protected static function assertTimeFunction(Closure $timeFunction): void
     {
         try {
             $timeFunction();
@@ -41,30 +45,30 @@ abstract class ATimer implements ITimer
     }
 
     protected static function assertReturnType(
-        \ReflectionIntersectionType|\ReflectionNamedType|\ReflectionUnionType $returnType
+        ReflectionIntersectionType|ReflectionNamedType|ReflectionUnionType $returnType
     ): void {
         match (true) {
-            $returnType instanceof \ReflectionIntersectionType => self::assertIntersectionType($returnType),
-            $returnType instanceof \ReflectionUnionType => self::assertUnionType($returnType),
-            $returnType instanceof \ReflectionNamedType => self::assertNamedType($returnType),
+            $returnType instanceof ReflectionIntersectionType => self::assertIntersectionType($returnType),
+            $returnType instanceof ReflectionUnionType => self::assertUnionType($returnType),
+            $returnType instanceof ReflectionNamedType => self::assertNamedType($returnType),
         };
     }
 
-    private static function assertIntersectionType(\ReflectionIntersectionType $intersectionType)
+    private static function assertIntersectionType(ReflectionIntersectionType $intersectionType)
     {
         throw new InvalidArgumentException(
             'Unexpected intersection type.',
         );
     }
 
-    private static function assertUnionType(\ReflectionUnionType $unionType)
+    private static function assertUnionType(ReflectionUnionType $unionType)
     {
         foreach ($unionType->getTypes() as $type) {
             self::assertReturnType($type);
         }
     }
 
-    private static function assertNamedType(\ReflectionNamedType $namedType)
+    private static function assertNamedType(ReflectionNamedType $namedType)
     {
         $type = $namedType->getName();
         if ($type === 'null' || $namedType->allowsNull()) {

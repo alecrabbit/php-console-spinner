@@ -44,6 +44,16 @@ final class BenchmarkingDriverBuilderTest extends TestCase
         self::assertInstanceOf(BenchmarkingDriver::class, $driver);
     }
 
+    private function getDriverMock(): MockObject&IDriver
+    {
+        return $this->createMock(IDriver::class);
+    }
+
+    private function getStopwatchMock(): MockObject&IStopwatch
+    {
+        return $this->createMock(IStopwatch::class);
+    }
+
     #[Test]
     public function throwsIfDriverIsNotSet(): void
     {
@@ -86,15 +96,5 @@ final class BenchmarkingDriverBuilderTest extends TestCase
             exception: $exceptionClass,
             message: $exceptionMessage,
         );
-    }
-
-    private function getStopwatchMock(): MockObject&IStopwatch
-    {
-        return $this->createMock(IStopwatch::class);
-    }
-
-    private function getDriverMock(): MockObject&IDriver
-    {
-        return $this->createMock(IDriver::class);
     }
 }
