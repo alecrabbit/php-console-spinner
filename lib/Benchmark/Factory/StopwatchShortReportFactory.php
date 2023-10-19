@@ -6,6 +6,7 @@ namespace AlecRabbit\Benchmark\Factory;
 
 use AlecRabbit\Benchmark\Contract\Factory\IReportFactory;
 use AlecRabbit\Benchmark\Contract\IMeasurement;
+use AlecRabbit\Benchmark\Contract\IMeasurementFormatter;
 use AlecRabbit\Benchmark\Contract\IStopwatch;
 use AlecRabbit\Benchmark\Measurement;
 use Throwable;
@@ -16,6 +17,8 @@ readonly class StopwatchShortReportFactory implements IReportFactory
 {
     public function __construct(
         private IStopwatch $stopwatch,
+        private IMeasurementFormatter $measurementFormatter,
+        private string $title = 'Timings',
     ) {
     }
 
@@ -24,20 +27,20 @@ readonly class StopwatchShortReportFactory implements IReportFactory
         $output =
             sprintf(
                 '%s: ',
-                'Timings',
+                $this->title,
             );
 
         /** @var string $key */
-        /** @var Measurement $measurement */
+        /** @var IMeasurement $measurement */
         foreach ($this->stopwatch->getMeasurements() as $key => $measurement) {
             $output .=
                 sprintf(
                     '%s ',
-                    $this->formatMeasurement($measurement),
+                    $this->measurementFormatter->format($measurement),
                 );
         }
 
-        return $output;
+        return \trim($output);
     }
 
     protected function formatMeasurement(IMeasurement $measurement): string
